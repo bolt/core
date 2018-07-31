@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.20.1",
+    "jquery": "^3.3.1"
+  }
+}

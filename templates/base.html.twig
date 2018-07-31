@@ -7,6 +7,10 @@
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+
+        {% block javascripts %}
+            <script src="{{ asset('assets/bolt.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
