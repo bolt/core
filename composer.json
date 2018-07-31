@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "sensio/framework-extra-bundle": "^5.1",
+        "symfony/asset": "^4.1@beta",
         "symfony/console": "^4.1@beta",
         "symfony/debug-pack": "^1.0",
         "symfony/flex": "^1.0",
