@@ -9,6 +9,7 @@ Encore
     .addEntry('bolt', './assets/js/bolt.js')
 
     .autoProvidejQuery()
+    .enableVueLoader()
 
 ;
 // export the final configuration
