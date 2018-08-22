@@ -52,7 +52,7 @@
         </div>
     </nav>
     <!-- END NAV -->
-    <div class="container">
+    <div class="container" id="app">
         <div class="columns">
             <div class="column is-3">
                 <aside class="menu">
@@ -147,8 +147,21 @@
                     {% block body %}{% endblock %}
 
 <hr>
-<div id="hello"></div>
+<div id="hello">(dit is waar hallo komt)
+</div>
 <hr>
+
+    <el-row>
+        <el-button>Default</el-button>
+        <el-button type="primary">Primary</el-button>
+        <el-button type="success">Success</el-button>
+        <el-button type="info">Info</el-button>
+        <el-button type="warning">Warning</el-button>
+        <el-button type="danger">Danger</el-button>
+    </el-row>
+
+    <hr>
+
 
 
                 </section>
