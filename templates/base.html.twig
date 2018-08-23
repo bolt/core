@@ -16,19 +16,22 @@
 
 <div class="container" id="app">
 
-    <topbar></topbar>
+    <Topbar></Topbar>
 
     <el-container>
-        <sidebar></sidebar>
+        <Sidebar></Sidebar>
 
         <el-main>
+
+                <DashboardNews>pom</DashboardNews>
 
                 {% block body %}{% endblock %}
 
                 <hr>
-                <div id="hello">(dit is waar hallo komt)
-                </div>
+                <Hello></Hello>
                 <hr>
+
+
 
                     <el-row>
                         <el-button>Default</el-button>
