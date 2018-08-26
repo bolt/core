@@ -1,0 +1,29 @@
+database:
+    driver: mysql
+    databasename: bolt
+    username: root
+    password: 'hunter42'
+
+sitename: A sample site in CONFIG LOCAL
+
+debug: true
+debug_show_loggedoff: false
+debug_error_level: -1               # equivalent to E_ALL
+debug_error_use_symfony: true      # When set to true, Symfony Profiler will be used for exception display when possible
+debug_trace_argument_limit: 4       # Determine how many steps in the backtrace will show (dump) arguments.
+
+strict_variables: false
+
+# Options that will be forced in next major version
+compatibility:
+    # Whether to return TemplateView instead of TemplateResponse from Controller\Base::render()
+    # Response methods cannot be used on TemplateView objects.
+    # Setting this value to false is deprecated.
+    template_view: true
+    # Set to 'false' to enable using a newer version of the setcontent parser.
+    setcontent_legacy: true
+
+session:
+    cookie_lifetime: 0
+
+cookies_lifetime: 1209600

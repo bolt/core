@@ -1,6 +1,12 @@
 {
+    "bolt/collection": {
+        "version": "v1.1.2"
+    },
     "bolt/common": {
         "version": "v1.1.0"
+    },
+    "cocur/slugify": {
+        "version": "v3.1"
     },
     "doctrine/annotations": {
         "version": "1.0",

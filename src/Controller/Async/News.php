@@ -2,6 +2,8 @@
 
 namespace App\Controller\Async;
 
+use App\Configuration\Config;
+use App\Version;
 use Bolt\Common\Exception\ParseException;
 use Bolt\Common\Json;
 use GuzzleHttp\Client;
@@ -17,6 +19,14 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class News
 {
+    /** @var Config */
+    private $config;
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
+
     /**
      * News. Film at 11.
      *
@@ -50,6 +60,7 @@ class News
      * @param string $hostname
      *
      * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function getNews($hostname)
     {
@@ -155,7 +166,7 @@ class News
 
         $options = [
             'query' => [
-                'v' => '3.99.99', // Bolt\Version::VERSION,
+                'v' => Version::VERSION,
                 'p' => PHP_VERSION,
                 'db' => 'none', // $driver,
                 'name' => $hostname,
