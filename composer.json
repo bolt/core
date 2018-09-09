@@ -1,6 +1,8 @@
 {
+    "name": "bolt/bolt",
+    "license": "MIT",
     "type": "project",
-    "license": "proprietary",
+    "description": "Bolt 4 skeleton / prototype",
     "require": {
         "php": "^7.1.3",
         "ext-ctype": "*",
@@ -8,23 +10,27 @@
         "bolt/collection": "^1.1",
         "bolt/common": "^1.1",
         "cocur/slugify": "^3.1",
+        "erusev/parsedown": "^1.7",
+        "ezyang/htmlpurifier": "^4.10",
         "guzzlehttp/guzzle": "^6.3",
         "sensio/framework-extra-bundle": "^5.1",
-        "symfony/asset": "^4.1@beta",
-        "symfony/console": "^4.1@beta",
+        "symfony/asset": "^4.1",
+        "symfony/console": "^4.1",
         "symfony/debug-pack": "^1.0",
-        "symfony/flex": "^1.0",
-        "symfony/framework-bundle": "^4.1@beta",
+        "symfony/flex": "^1.1",
+        "symfony/form": "^4.1",
+        "symfony/framework-bundle": "^4.1",
         "symfony/lts": "^4@dev",
         "symfony/orm-pack": "^1.0",
-        "symfony/profiler-pack": "^1.0",
-        "symfony/twig-bundle": "^4.1@beta",
-        "symfony/var-dumper": "^4.1@beta",
-        "symfony/yaml": "^4.1@beta"
+        "symfony/security-bundle": "^4.1",
+        "symfony/validator": "^4.1",
+        "symfony/yaml": "^4.1",
+        "twig/extensions": "^1.5",
+        "white-october/pagerfanta-bundle": "^1.2"
     },
     "require-dev": {
-        "symfony/dotenv": "^4.1@beta",
-        "symfony/web-server-bundle": "^4.1@beta"
+        "symfony/dotenv": "^4.1",
+        "symfony/web-server-bundle": "^4.1"
     },
     "minimum-stability": "beta",
     "prefer-stable": true,

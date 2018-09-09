@@ -8,12 +8,25 @@ parameters:
 doctrine:
     dbal:
         # configure these for your database server
-        driver: 'pdo_mysql'
-        server_version: '5.7'
+
+
+        # Note: THIS IS STUPID!
+        driver: 'pdo_sqlite'
+        server_version: '3.15'
         charset: utf8mb4
-        default_table_options:
-            charset: utf8mb4
-            collate: utf8mb4_unicode_ci
+
+        # Even though we're using MySQL, it needs to be set as above, otherwise we'll get:
+        # CREATE TABLE symfony_demo_user (id INT AUT … , roles JSON NOT NULL,  …
+        # Instead of:
+        # CREATE TABLE symfony_demo_user (id INT AUT … , roles LONGTEXT NOT NULL COMMENT '(DC2Type:json)', …
+        # https://github.com/dunglas/doctrine-json-odm/issues/39
+
+        #driver: 'pdo_mysql'
+        #server_version: '5.7'
+        #charset: utf8mb4
+        #default_table_options:
+        #    charset: utf8mb4
+        #    collate: utf8mb4_unicode_ci
 
         url: '%env(resolve:DATABASE_URL)%'
     orm:
