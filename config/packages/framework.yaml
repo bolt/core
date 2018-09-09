@@ -7,10 +7,13 @@ framework:
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     session:
+        # With this config, PHP's native session handling is used
         handler_id: ~
-
-    #esi: true
-    #fragments: true
+    # When using the HTTP Cache, ESI allows to render page fragments separately
+    # and with different cache configurations for each fragment
+    # https://symfony.com/doc/current/book/http_cache.html#edge-side-includes
+    esi: { enabled: true }
+    fragments: { enabled: true }
     php_errors:
         log: true
 
