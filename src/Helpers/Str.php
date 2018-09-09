@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers;
+namespace Bolt\Helpers;
 
 use Cocur\Slugify\Slugify;
 

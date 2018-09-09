@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Configuration;
+namespace Bolt\Configuration;
 
 use Bolt\Exception\PathResolutionException;
 use Webmozart\PathUtil\Path;

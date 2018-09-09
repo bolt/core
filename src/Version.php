@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Bolt;
 
 /**
  * Bolt's current version.

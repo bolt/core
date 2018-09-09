@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller\Async;
+namespace Bolt\Controller\Async;
 
-use App\Configuration\Config;
-use App\Version;
+use Bolt\Configuration\Config;
+use Bolt\Version;
 use Bolt\Common\Exception\ParseException;
 use Bolt\Common\Json;
 use GuzzleHttp\Client;
