@@ -1,4 +1,13 @@
 {
+    "bolt/collection": {
+        "version": "v1.1.2"
+    },
+    "bolt/common": {
+        "version": "v1.1.0"
+    },
+    "cocur/slugify": {
+        "version": "v3.1"
+    },
     "composer/ca-bundle": {
         "version": "1.0.8"
     },
@@ -83,6 +92,15 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "easycorp/easy-log-handler": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "70062abc2cd58794d2a90274502f81b55cd9951b"
+        }
+    },
     "egulias/email-validator": {
         "version": "2.1.2"
     },
@@ -103,6 +121,15 @@
     },
     "gecko-packages/gecko-php-unit": {
         "version": "v2.2"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.3.3"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.4.2"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -131,11 +158,17 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "1.0.2"
     },
     "psr/simple-cache": {
         "version": "1.0.0"
+    },
+    "seld/jsonlint": {
+        "version": "1.7.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "4.0",
@@ -194,6 +227,9 @@
             "ref": "de31e687f3964939abd1f66817bd96ed34bc2eee"
         }
     },
+    "symfony/debug-pack": {
+        "version": "v1.0.6"
+    },
     "symfony/dependency-injection": {
         "version": "v3.4.0-beta2"
     },
@@ -251,6 +287,9 @@
     "symfony/intl": {
         "version": "v3.4.0-beta2"
     },
+    "symfony/lts": {
+        "version": "4-dev"
+    },
     "symfony/monolog-bridge": {
         "version": "v3.4.0-beta2"
     },
@@ -265,6 +304,9 @@
     },
     "symfony/options-resolver": {
         "version": "v3.4.0-beta2"
+    },
+    "symfony/orm-pack": {
+        "version": "v1.0.5"
     },
     "symfony/phpunit-bridge": {
         "version": "3.3",
@@ -287,11 +329,17 @@
     "symfony/polyfill-php70": {
         "version": "v1.6.0"
     },
+    "symfony/polyfill-php71": {
+        "version": "v1.9.0"
+    },
     "symfony/polyfill-php72": {
         "version": "v1.6.0"
     },
     "symfony/process": {
         "version": "v3.4.0-beta2"
+    },
+    "symfony/profiler-pack": {
+        "version": "v1.0.3"
     },
     "symfony/property-access": {
         "version": "v3.4.0-beta2"
@@ -388,6 +436,9 @@
     },
     "twig/twig": {
         "version": "v2.4.4"
+    },
+    "webmozart/assert": {
+        "version": "1.3.0"
     },
     "white-october/pagerfanta-bundle": {
         "version": "v1.0.8"

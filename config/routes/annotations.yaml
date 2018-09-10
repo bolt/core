@@ -1,4 +1,8 @@
-controllers:
+#controllers:
+#    resource: '../src/Controller/'
+#    type: annotation
+
+controllers_with_locale:
     resource: '../src/Controller/'
     type: annotation
     prefix: /{_locale}

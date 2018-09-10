@@ -1,48 +1,35 @@
-Symfony Demo Application
-========================
+Bolt 4.0.0 prototype
+====================
 
-The "Symfony Demo Application" is a reference application created to show how
-to develop applications following the [Symfony Best Practices][1].
+Install
+-------
 
-Requirements
+  - Check out the git repo
+  - Run `composer install`
+
+Set up Database
+---------------
+
+  - Configure the connection in `.env`
+  - Then: 
+  
+```  
+bin/console doctrine:database:create
+bin/console doctrine:schema:create
+bin/console doctrine:fixtures:load
+```
+
+Run
+---
+
+  - Run `bin/console server:start`
+
+Build assets
 ------------
 
-  * PHP 7.1.3 or higher;
-  * PDO-SQLite PHP extension enabled;
-  * and the [usual Symfony application requirements][2].
+To set up initially, run `yarn install` to get the required dependencies /
+`node_modules`. Then:
 
-Installation
-------------
+  - Run `node_modules/.bin/encore dev --watch`
 
-```bash
-$ composer create-project symfony/symfony-demo
-```
-
-Usage
------
-
-There's no need to configure anything to run the application. Just execute this
-command to run the built-in web server and access the application in your
-browser at <http://localhost:8000>:
-
-```bash
-$ cd symfony-demo/
-$ php bin/console server:run
-```
-
-Alternatively, you can [configure a web server][3] like Nginx or Apache to run
-the application.
-
-Tests
------
-
-Execute this command to run tests:
-
-```bash
-$ cd symfony-demo/
-$ ./bin/phpunit
-```
-
-[1]: https://symfony.com/doc/current/best_practices/index.html
-[2]: https://symfony.com/doc/current/reference/requirements.html
-[3]: https://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html
+See the other options by running `node_modules/.bin/encore`.
