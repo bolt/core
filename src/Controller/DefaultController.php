@@ -9,10 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/admin/{name}")
+     * @Route("/bolt")
      */
      public function index($name = "Gekke Henkie") {
-        return $this->render('index.html.twig', [
+        return $this->render('bolt/index.html.twig', [
             'name' => $name,
         ]);
      }

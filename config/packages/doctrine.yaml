@@ -1,32 +1,14 @@
 parameters:
-    # Adds a fallback DATABASE_URL if the env var is not set.
-    # This allows you to run cache:warmup even if your
-    # environment variables are not available yet.
-    # You should not need to change this value.
+    # Adds a fallback DATABASE_URL if the env var is not set. This allows you
+    # to run cache:warmup even if your environment variables are not available
+    # yet. You should not need to change this value.
     env(DATABASE_URL): ''
 
 doctrine:
     dbal:
-        # configure these for your database server
-
-
-        # Note: THIS IS STUPID!
         driver: 'pdo_sqlite'
         server_version: '3.15'
         charset: utf8mb4
-
-        # Even though we're using MySQL, it needs to be set as above, otherwise we'll get:
-        # CREATE TABLE symfony_demo_user (id INT AUT … , roles JSON NOT NULL,  …
-        # Instead of:
-        # CREATE TABLE symfony_demo_user (id INT AUT … , roles LONGTEXT NOT NULL COMMENT '(DC2Type:json)', …
-        # https://github.com/dunglas/doctrine-json-odm/issues/39
-
-        #driver: 'pdo_mysql'
-        #server_version: '5.7'
-        #charset: utf8mb4
-        #default_table_options:
-        #    charset: utf8mb4
-        #    collate: utf8mb4_unicode_ci
 
         url: '%env(resolve:DATABASE_URL)%'
     orm:
@@ -39,4 +21,4 @@ doctrine:
                 type: annotation
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'Bolt\Entity'
-                alias: Bolt
+                alias: App

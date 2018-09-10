@@ -1,17 +1,23 @@
 var Encore = require('@symfony/webpack-encore');
 
 Encore
-    // the project directory where all compiled assets will be stored
-    .setOutputPath('public/assets/')
-    // the public path used by the web server to access the previous directory
-    .setPublicPath('/assets')
-
-    .addEntry('bolt', './assets/js/bolt.js')
-
+    .setOutputPath('public/build/')
+    .setPublicPath('/build')
+    .cleanupOutputBeforeBuild()
     .autoProvidejQuery()
-    .enableVueLoader()
-
+    .autoProvideVariables({
+        "window.Bloodhound": require.resolve('bloodhound-js'),
+        "jQuery.tagsinput": "bootstrap-tagsinput"
+    })
+    .enableSassLoader()
+    .enableVersioning(false)
+    .createSharedEntry('js/common', ['jquery'])
+    .addEntry('js/app', './assets/js/app.js')
+    .addEntry('js/login', './assets/js/login.js')
+    .addEntry('js/admin', './assets/js/admin.js')
+    .addEntry('js/search', './assets/js/search.js')
+    .addStyleEntry('css/app', ['./assets/scss/app.scss'])
+    .addStyleEntry('css/admin', ['./assets/scss/admin.scss'])
 ;
-// export the final configuration
 
 module.exports = Encore.getWebpackConfig();

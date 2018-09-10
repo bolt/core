@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Bolt\DataFixtures;
 
 use Bolt\Entity\Comment;
@@ -230,7 +221,7 @@ MARKDOWN;
     {
         $tagNames = $this->getTagData();
         shuffle($tagNames);
-        $selectedTags = array_slice($tagNames, 0, random_int(2, 4));
+        $selectedTags = \array_slice($tagNames, 0, random_int(2, 4));
 
         return array_map(function ($tagName) { return $this->getReference('tag-'.$tagName); }, $selectedTags);
     }

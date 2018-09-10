@@ -28,7 +28,7 @@ class Tag implements \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true, length=190)
+     * @ORM\Column(type="string", unique=true)
      */
     private $name;
 

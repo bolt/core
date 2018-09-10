@@ -1,5 +1,23 @@
+.idea
+composer.phar
+
 /node_modules/
-.idea/
+npm-debug.log
+yarn-error.log
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/data
+!/var/log
+/var/log/*
+!var/log/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/public/build/fonts/glyphicons-*
+/public/build/images/glyphicons-*
 
 ###> symfony/framework-bundle ###
 /.env
@@ -8,6 +26,16 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php_cs
+/.php_cs.cache
+###< friendsofphp/php-cs-fixer ###
