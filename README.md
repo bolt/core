@@ -11,9 +11,13 @@ Set up Database
 ---------------
 
   - Configure the connection in `.env`
-  - Run `php bin/console doctrine:database:create`
-  - Run `php bin/console doctrine:schema:create`
-  - Run `php bin/console doctrine:fixtures:load`
+  - Then: 
+  
+```  
+php bin/console doctrine:database:create
+php bin/console doctrine:schema:create
+php bin/console doctrine:fixtures:load
+```
 
 Run
 ---
