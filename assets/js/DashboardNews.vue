@@ -24,14 +24,17 @@ export default {
     }
   },
   created() {
-    DashboardNewsAPI.getNews()
+    this.news = DashboardNewsAPI.getNews();
+
+    // Asynchronously fetch (might take a while)
+    DashboardNewsAPI.fetchNews()
       .then( news => {
         this.news = news
       })
       .catch(error => console.log(error))
       .finally(() => {
         this.loading = false
-      })
+      });
   }
 }
 </script>
