@@ -6,6 +6,7 @@
     "vue-template-compiler": "^2.5.17"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "element-ui": "^2.4.6",
     "vue": "^2.5.17"
   },
