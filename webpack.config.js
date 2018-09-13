@@ -15,16 +15,17 @@ Encore
 
     // TODO: To keep or be removed if not needed
     // filenames include a hash that changes whenever the file contents change
-    .enableVersioning()
+    // .enableVersioning()
 
-    // .addPlugin(
-    //     new WorkboxPlugin.GenerateSW({
-    //         // these options encourage the ServiceWorkers to get in there fast
-    //         // and not allow any straggling "old" SWs to hang around
-    //         clientsClaim: true,
-    //         skipWaiting: true,
-    //         importsDirectory: 'sw/'
-    // }))
+    // Workbox should always be the last plugin to add @see: https://developers.google.com/web/tools/workbox/guides/codelabs/webpack#optional-config
+    .addPlugin(
+        new WorkboxPlugin.GenerateSW({
+            // these options encourage the ServiceWorkers to get in there fast
+            // and not allow any straggling "old" SWs to hang around
+            clientsClaim: true,
+            skipWaiting: false,
+            importsDirectory: 'sw/',
+    }))
 ;
 // export the final configuration
 
