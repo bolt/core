@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\PostRepository")
- * @ORM\Table(name="symfony_demo_post")
+ * @ORM\Table(name="bolt_post")
  *
  * Defines the properties of the Post entity to represent the blog posts.
  *
@@ -107,7 +107,7 @@ class Post
      * @var Tag[]|ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Tag", cascade={"persist"})
-     * @ORM\JoinTable(name="symfony_demo_post_tag")
+     * @ORM\JoinTable(name="bolt_post_tag")
      * @ORM\OrderBy({"name": "ASC"})
      * @Assert\Count(max="4", maxMessage="post.too_many_tags")
      */
