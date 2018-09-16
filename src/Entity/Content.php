@@ -97,7 +97,13 @@ class Content
         return (string) 'Content # ' . $this->getId();
     }
 
-    public function __call($name, $arguments)
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return Field|mixed|null
+     */
+    public function __call(string $name, array $arguments)
     {
         foreach ($this->fields as $field) {
             if ($field->getName() === $name) {

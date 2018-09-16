@@ -8,7 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\User;
-use Bolt\Utils\Slugger;
+use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -119,7 +119,7 @@ class ContentFixtures extends Fixture
                 $data = ['filename' => 'kitten.jpg', 'alt' => 'A cute kitten'];
                 break;
             case 'slug':
-                $data = ['value' => Slugger::slugify($this->faker->sentence(3, true))];
+                $data = ['value' => Slugify::create()->slugify($this->faker->sentence(3, true))];
                 break;
             default:
                 $data = ['value' => $this->faker->sentence(6, true)];

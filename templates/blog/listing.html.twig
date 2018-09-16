@@ -5,41 +5,39 @@
 {% block main %}
 
     {% for record in records %}
-        <hr>
-        <h2>{{ record.id }}. {{ record.title }}</h2>
-        <p><code>{{ record.slug }}</code></p>
-        {#{{ dump(record.definition) }}#}
-        {#{{ dump(record.contenttype) }}#}
-        {% for field in record.fields %}
-            <b>Field name:</b>
-            {{ field.sortorder }}. {{ field.name }} / {{ field.type }}
-        <p>{{ field }}</p>
-            {#{{ dump(field.definition) }}#}
-        {% endfor %}
-        <hr>
-    {% endfor %}
-    {#
+
         <article class="post">
             <h2>
-                <a href="{{ path('blog_post', {slug: post.slug}) }}">
-                    {{ post.title }}
+                <a href="{{ path('blog_post', {slug: record.slug}) }}">
+                    {{ record.title }}
                 </a>
             </h2>
 
             <p class="post-metadata">
-                <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
-                <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
+                <span class="metadata"><i class="fa fa-calendar"></i> {{ record.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
+                <span class="metadata"><i class="fa fa-user"></i> {{ record.author.fullName }}</span>
+                <span class="metadata"><i class="fa fa-cog"></i> {{ record.contenttype }}</span>
             </p>
 
-            {{ post.summary|md2html }}
+            <p><code>{{ record.slug }}</code></p>
+            {#{{ dump(record.definition) }}#}
+            {#{{ dump(record.contenttype) }}#}
+            {% for field in record.fields %}
+                <small>
+                   <b>Field name:</b>
+                    {{ field.sortorder }}. {{ field.name }} / {{ field.type }}
+                </small>
+                <p>{{ field }}</p>
+                {#{{ dump(field.definition) }}#}
+            {% endfor %}
 
-            {{ include('blog/_post_tags.html.twig') }}
+            {#{{ record.summary }}#}
+
+            {#{{ include('blog/_post_tags.html.twig') }}#}
         </article>
     {% else %}
         <div class="well">{{ 'post.no_posts_found'|trans }}</div>
     {% endfor %}
-
-    #}
 
     {% if records.haveToPaginate %}
         <div class="navigation text-center">
