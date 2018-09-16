@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Bolt\Collection\Bag;
 use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
 use Bolt\Content\ContentTypeFactory;
@@ -78,11 +79,6 @@ class Content
     private $fields;
 
     /**
-     * @var Config
-     */
-    private $config;
-
-    /**
      * @var ContentType
      */
     private $contentTypeDefinition;
@@ -106,21 +102,20 @@ class Content
         return $this->id;
     }
 
+    /**
+     * @param Config $config
+     */
     public function setConfig(Config $config)
     {
-        $this->config = $config->get('contenttypes');
+        /** @var Bag $contentTypes */
+        $contentTypes = $config->get('contenttypes');
 
-        $this->contentTypeDefinition = ContentTypeFactory::get($this->contentType, $this->config);
-    }
-
-    public function getConfig(): Config
-    {
-        return $this->config;
+        $this->contentTypeDefinition = ContentTypeFactory::get($this->contentType, $contentTypes);
     }
 
     public function getDefinition()
     {
-        return $this->contentType;
+        return $this->contentTypeDefinition;
     }
 
     public function getContenttype(): ?string

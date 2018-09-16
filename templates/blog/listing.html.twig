@@ -13,6 +13,7 @@
             <b>Field name:</b>
             {{ field.sortorder }}. {{ field.name }} / {{ field.type }}
         <p>{{ field }}</p>
+            {{ dump(field.definition) }}
         {% endfor %}
         <hr>
     {% endfor %}

@@ -28,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class BlogController extends AbstractController
+final class BlogController extends AbstractController
 {
     /**
      * @Route("/", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="blog_index")
@@ -64,10 +64,10 @@ class BlogController extends AbstractController
         if ($request->query->has('tag')) {
             $tag = $tags->findOneBy(['name' => $request->query->get('tag')]);
         }
-        /** @var Content $latestContent */
-        $latestContent = $content->findLatest($page, $tag);
+        /** @var Content $records */
+        $records = $content->findLatest($page, $tag);
 
-        return $this->render('blog/listing.html.twig', ['records' => $latestContent]);
+        return $this->render('blog/listing.html.twig', ['records' => $records]);
     }
 
     /**

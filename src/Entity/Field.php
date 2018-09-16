@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Bolt\Collection\Bag;
+use Bolt\Content\FieldType;
+use Bolt\Content\FieldTypeFactory;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,6 +68,9 @@ class Field
      */
     private $content;
 
+    /** @var FieldType */
+    private $fieldTypeDefinition;
+
     public function __toString(): string
     {
         return implode(', ', $this->getValue());
@@ -73,6 +79,18 @@ class Field
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setConfig()
+    {
+        $contentTypeDefinition = $this->getContent()->getDefinition();
+
+        $this->fieldTypeDefinition = FieldTypeFactory::get($this->getType(), $contentTypeDefinition);
+    }
+
+    public function getDefinition(): FieldType
+    {
+        return $this->fieldTypeDefinition;
     }
 
     public function getContentId(): ?int

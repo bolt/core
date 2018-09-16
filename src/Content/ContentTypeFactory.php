@@ -4,13 +4,20 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
-class ContentTypeFactory
+use Bolt\Collection\Bag;
+
+final class ContentTypeFactory
 {
     public function __construct()
     {
     }
 
-    public static function get($name, $config)
+    /**
+     * @param string $name
+     * @param Bag $config
+     * @return ContentType
+     */
+    public static function get(string $name, Bag $config)
     {
         $ct = ContentType::from($config[$name]);
 

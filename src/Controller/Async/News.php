@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Fetching the news.
  */
-class News
+final class News
 {
     /** @var Config */
     private $config;
@@ -30,9 +30,9 @@ class News
     /**
      * News. Film at 11.
      *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     *
+     * @param Request $request
      * @return JsonResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      * @Route("/async/news")
      */
     public function dashboardNews(Request $request)

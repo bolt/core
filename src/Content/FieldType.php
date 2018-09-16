@@ -6,6 +6,6 @@ namespace Bolt\Content;
 
 use Bolt\Collection\Bag;
 
-final class ContentType extends Bag
+final class FieldType extends Bag
 {
 }
