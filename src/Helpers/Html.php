@@ -29,7 +29,7 @@ class Html
         if (mb_strlen($str) > $desiredLength) {
             $nextChar = mb_substr($str, $newLength, 1);
             $str = mb_substr($str, 0, $newLength);
-            if ($nextChar != ' ') {
+            if ($nextChar !== ' ') {
                 if (($lastSpace = mb_strrpos($str, ' ')) !== false) {
                     // Check for to long cutoff
                     if (mb_strlen($str) - $lastSpace >= $cutOffCap) {

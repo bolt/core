@@ -4,9 +4,8 @@ namespace Bolt\Controller\Bolt;
 
 use Bolt\Configuration\Config;
 use Bolt\Version;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 class BackendController extends AbstractController
 {
@@ -24,13 +23,13 @@ class BackendController extends AbstractController
     /**
      * @Route("/bolt")
      */
-    public function index($name = "Gekke Henkie")
+    public function index($name = 'Gekke Henkie')
     {
         $version = Version::VERSION;
 
         return $this->render('bolt/index.html.twig', [
              'name' => $name,
-             'version' => $version
+             'version' => $version,
          ]);
     }
 }

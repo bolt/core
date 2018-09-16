@@ -49,14 +49,11 @@ class BlogController extends AbstractController
         // Every template name also has two extensions that specify the format and
         // engine for that template.
         // See https://symfony.com/doc/current/templating.html#template-suffix
-        return $this->render('blog/index.'.$_format.'.twig', ['posts' => $latestPosts]);
+        return $this->render('blog/index.' . $_format . '.twig', ['posts' => $latestPosts]);
     }
 
     /**
      * @Route("/content", methods={"GET"}, name="content_listing")
-     * @param ContentRepository $content
-     * @param Request $request
-     * @return Response
      */
     public function contentListing(ContentRepository $content, Request $request): Response
     {

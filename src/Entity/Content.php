@@ -84,7 +84,7 @@ class Content
 
     public function __toString(): string
     {
-        return (string) "Content # " . $this->getId();
+        return (string) 'Content # ' . $this->getId();
     }
 
     public function __construct(Config $config)
@@ -96,7 +96,6 @@ class Content
         $this->fields = new ArrayCollection();
         $this->config = $config;
     }
-
 
     public function getId(): ?int
     {

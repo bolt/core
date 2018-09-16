@@ -2,18 +2,18 @@
 
 namespace Bolt\Controller\Async;
 
-use Bolt\Configuration\Config;
-use Bolt\Version;
 use Bolt\Common\Exception\ParseException;
 use Bolt\Common\Json;
+use Bolt\Configuration\Config;
+use Bolt\Version;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Fetching the news
+ * Fetching the news.
  *
  * @author Bob den Otter <bobdenotter@gmail.com>
  */
@@ -30,9 +30,9 @@ class News
     /**
      * News. Film at 11.
      *
-     * @param Request $request
-     * @return JsonResponse
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return JsonResponse
      * @Route("/async/news")
      */
     public function dashboardNews(Request $request)
@@ -54,14 +54,14 @@ class News
         return $response;
     }
 
-
     /**
      * Get the news from Bolt HQ (with caching).
      *
      * @param string $hostname
      *
-     * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return array
      */
     private function getNews($hostname)
     {
@@ -86,8 +86,9 @@ class News
      *
      * @param string $hostname
      *
-     * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return array
      */
     private function fetchNews($hostname)
     {

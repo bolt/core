@@ -54,7 +54,6 @@ class ContentFixtures extends Fixture
         ];
     }
 
-
     private function loadContent(ObjectManager $manager)
     {
         foreach (range(1, 15) as $i) {
@@ -69,7 +68,7 @@ class ContentFixtures extends Fixture
             $content->setPublishedAt(new \DateTime('now - ' . rand(1, 9000) . 'hours'));
             $content->setDepublishedAt(new \DateTime('now - ' . rand(1, 9000) . 'hours'));
 
-            /**
+            /*
              * * id
              * contenttype `['pages', 'entries', 'homepage', 'blocks', 'showcases']`
              * author_id
@@ -91,7 +90,7 @@ class ContentFixtures extends Fixture
 
                 $content->addField($field);
 
-                /**
+                /*
                  * * id
                  * content_id
                  * name
@@ -122,7 +121,6 @@ class ContentFixtures extends Fixture
         return $fieldTypes[array_rand($fieldTypes)];
     }
 
-
     private function getRandomStatus()
     {
         $statuses = ['published', 'held', 'draft', 'timed'];
@@ -136,16 +134,16 @@ class ContentFixtures extends Fixture
             case 'html':
             case 'textarea':
             case 'markdown':
-                $data = ['value' => $this->getRandomText() ];
+                $data = ['value' => $this->getRandomText()];
                 break;
             case 'image':
                 $data = ['filename' => 'kitten.jpg', 'alt' => 'A cute kitten'];
                 break;
             case 'slug':
-                $data = ['value' => Slugger::slugify($this->getRandomPhrase()) ];
+                $data = ['value' => Slugger::slugify($this->getRandomPhrase())];
                 break;
             default:
-                $data = ['value' => $this->getRandomPhrase() ];
+                $data = ['value' => $this->getRandomPhrase()];
         }
 
         return $data;
@@ -199,7 +197,7 @@ class ContentFixtures extends Fixture
         $phrases = $this->getPhrases();
         shuffle($phrases);
 
-        while (mb_strlen($text = implode('. ', $phrases).'.') > $maxLength) {
+        while (mb_strlen($text = implode('. ', $phrases) . '.') > $maxLength) {
             array_pop($phrases);
         }
 

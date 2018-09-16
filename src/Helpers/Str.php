@@ -21,12 +21,12 @@ class Str extends \Bolt\Common\Str
         $str = str_replace('&amp;', '', $str);
 
         $delim = '/';
-        if ($extrachars != '') {
+        if ($extrachars !== '') {
             $extrachars = preg_quote($extrachars, $delim);
         }
         if ($strict) {
             $slugify = Slugify::create([
-                'regexp' => '/[^a-z0-9_' . $extrachars . ' -]+/'
+                'regexp' => '/[^a-z0-9_' . $extrachars . ' -]+/',
             ]);
             $str = $slugify->slugify($str, '');
             $str = str_replace(' ', '-', $str);
@@ -34,7 +34,7 @@ class Str extends \Bolt\Common\Str
             // Allow Uppercase and don't convert spaces to dashes
             $slugify = Slugify::create([
                 'regexp' => '/[^a-zA-Z0-9_.,' . $extrachars . ' -]+/',
-                'lowercase' => false
+                'lowercase' => false,
             ]);
             $str = $slugify->slugify($str, '');
         }

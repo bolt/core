@@ -23,7 +23,6 @@ class ContentRepository extends ServiceEntityRepository
         parent::__construct($registry, Content::class);
     }
 
-
     public function findLatest(int $page = 1, Tag $tag = null): Pagerfanta
     {
         $qb = $this->createQueryBuilder('p')

@@ -56,15 +56,15 @@ final class Version
      * @see http://semver.org/ For an explanation on semantic versioning.
      * @see http://php.net/manual/en/function.version-compare.php#refsect1-function.version-compare-notes Notes on version_compare
      *
-     * @param string $version  The version to compare.
+     * @param string $version  the version to compare
      * @param string $operator The comparison operator: <, <=, >, >=, ==, !=
      *
-     * @return bool Whether the comparison succeeded.
+     * @return bool whether the comparison succeeded
      */
     public static function compare($version, $operator)
     {
-        $currentVersion = str_replace(' ', '', strtolower(static::VERSION));
-        $version = str_replace(' ', '', strtolower($version));
+        $currentVersion = str_replace(' ', '', mb_strtolower(static::VERSION));
+        $version = str_replace(' ', '', mb_strtolower($version));
 
         return version_compare($version, $currentVersion, $operator);
     }
@@ -76,7 +76,7 @@ final class Version
      */
     public static function forComposer()
     {
-        if (strpos(static::VERSION, ' ') === false) {
+        if (mb_strpos(static::VERSION, ' ') === false) {
             return static::VERSION;
         }
 
@@ -92,7 +92,7 @@ final class Version
      */
     public static function name()
     {
-        if (strpos(static::VERSION, ' ') === false) {
+        if (mb_strpos(static::VERSION, ' ') === false) {
             return null;
         }
 

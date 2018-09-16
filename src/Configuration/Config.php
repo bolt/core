@@ -1,16 +1,14 @@
 <?php
 /**
- *
- *
  * @author Bob den Otter <bobdenotter@gmail.com>
  */
 
 namespace Bolt\Configuration;
 
-use Bolt\Helpers\Html;
-use Bolt\Helpers\Str;
 use Bolt\Collection\Arr;
 use Bolt\Collection\Bag;
+use Bolt\Helpers\Html;
+use Bolt\Helpers\Str;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
 use Webmozart\PathUtil\Path;
@@ -30,7 +28,7 @@ class Config
 
     private function initialize()
     {
-        $configDirectories = array(dirname(dirname(__DIR__)).'/config/bolt');
+        $configDirectories = [dirname(dirname(__DIR__)) . '/config/bolt'];
         $this->fileLocator = new FileLocator($configDirectories);
 
 //        $this->cacheFile = $this->app['filesystem']->getFile('cache://config-cache.json');
@@ -112,12 +110,10 @@ class Config
 //        die();
     }
 
-
     /**
      * Read and parse a YAML configuration file.
      *
-     * @param string             $filename  The name of the YAML file to read
-     * @param DirectoryInterface $directory The (optional) directory to the YAML file
+     * @param string $filename The name of the YAML file to read
      *
      * @return array
      */
@@ -137,7 +133,6 @@ class Config
 //            $file = $directory->get($filename);
         }
 
-
 //        if (!$file instanceof ParsableInterface) {
 //            throw new \LogicException('File is not parsable.');
 //        }
@@ -150,116 +145,114 @@ class Config
         return Bag::from($yaml);
     }
 
-
-
     /**
      * Assume sensible defaults for a number of options.
      */
     protected function getDefaultConfig()
     {
         return [
-            'database'    => [
-                'driver'         => 'sqlite',
-                'host'           => 'localhost',
-                'slaves'         => [],
-                'dbname'         => 'bolt',
-                'prefix'         => 'bolt_',
-                'charset'        => 'utf8',
-                'collate'        => 'utf8_unicode_ci',
+            'database' => [
+                'driver' => 'sqlite',
+                'host' => 'localhost',
+                'slaves' => [],
+                'dbname' => 'bolt',
+                'prefix' => 'bolt_',
+                'charset' => 'utf8',
+                'collate' => 'utf8_unicode_ci',
                 'randomfunction' => '',
             ],
-            'sitename'                    => 'Default Bolt site',
-            'locale'                      => null,
-            'recordsperpage'              => 10,
-            'recordsperdashboardwidget'   => 5,
-            'systemlog'                   => [
+            'sitename' => 'Default Bolt site',
+            'locale' => null,
+            'recordsperpage' => 10,
+            'recordsperdashboardwidget' => 5,
+            'systemlog' => [
                 'enabled' => true,
             ],
-            'changelog'                   => [
+            'changelog' => [
                 'enabled' => false,
             ],
-            'debuglog'                    => [
-                'enabled'  => false,
-                'level'    => 'DEBUG',
+            'debuglog' => [
+                'enabled' => false,
+                'level' => 'DEBUG',
                 'filename' => 'bolt-debug.log',
             ],
-            'debug'                       => null,
-            'debug_show_loggedoff'        => false,
-            'debug_error_level'           => null,
-            'production_error_level'      => null,
-            'debug_enable_whoops'         => false, /** @deprecated. Deprecated since 3.2, to be removed in 4.0 */
-            'debug_error_use_symfony'     => false,
+            'debug' => null,
+            'debug_show_loggedoff' => false,
+            'debug_error_level' => null,
+            'production_error_level' => null,
+            'debug_enable_whoops' => false, /* @deprecated. Deprecated since 3.2, to be removed in 4.0 */
+            'debug_error_use_symfony' => false,
             'debug_permission_audit_mode' => false,
-            'debug_trace_argument_limit'  => 4,
-            'strict_variables'            => null,
-            'theme'                       => 'base-2016',
-            'listing_template'            => 'listing.twig',
-            'listing_records'             => '5',
-            'listing_sort'                => 'datepublish DESC',
-            'caching'                     => [
-                'config'    => true,
+            'debug_trace_argument_limit' => 4,
+            'strict_variables' => null,
+            'theme' => 'base-2016',
+            'listing_template' => 'listing.twig',
+            'listing_records' => '5',
+            'listing_sort' => 'datepublish DESC',
+            'caching' => [
+                'config' => true,
                 'templates' => true,
-                'request'   => false,
-                'duration'  => 10,
+                'request' => false,
+                'duration' => 10,
             ],
-            'wysiwyg'                     => [
-                'images'      => false,
-                'tables'      => false,
-                'fontcolor'   => false,
-                'align'       => false,
-                'subsuper'    => false,
-                'embed'       => false,
-                'anchor'      => false,
-                'underline'   => false,
-                'strike'      => false,
-                'blockquote'  => false,
+            'wysiwyg' => [
+                'images' => false,
+                'tables' => false,
+                'fontcolor' => false,
+                'align' => false,
+                'subsuper' => false,
+                'embed' => false,
+                'anchor' => false,
+                'underline' => false,
+                'strike' => false,
+                'blockquote' => false,
                 'codesnippet' => false,
                 'specialchar' => false,
-                'styles'      => false,
-                'ck'          => [
-                    'autoParagraph'           => true,
-                    'contentsCss'             => [
+                'styles' => false,
+                'ck' => [
+                    'autoParagraph' => true,
+                    'contentsCss' => [
                         ['css/ckeditor-contents.css', 'bolt'],
                         ['css/ckeditor.css', 'bolt'],
                     ],
-                    'filebrowserWindowWidth'  => 640,
+                    'filebrowserWindowWidth' => 640,
                     'filebrowserWindowHeight' => 480,
                 ],
             ],
-            'liveeditor'                  => true,
-            'canonical'                   => null,
-            'developer_notices'           => false,
-            'cookies_use_remoteaddr'      => true,
-            'cookies_use_browseragent'    => false,
-            'cookies_use_httphost'        => true,
-            'cookies_lifetime'            => 14 * 24 * 3600,
-            'enforce_ssl'                 => false,
-            'thumbnails'                  => [
+            'liveeditor' => true,
+            'canonical' => null,
+            'developer_notices' => false,
+            'cookies_use_remoteaddr' => true,
+            'cookies_use_browseragent' => false,
+            'cookies_use_httphost' => true,
+            'cookies_lifetime' => 14 * 24 * 3600,
+            'enforce_ssl' => false,
+            'thumbnails' => [
                 'default_thumbnail' => [160, 120],
-                'default_image'     => [1000, 750],
-                'quality'           => 75,
-                'cropping'          => 'crop',
-                'notfound_image'    => 'bolt_assets://img/default_notfound.png',
-                'error_image'       => 'bolt_assets://img/default_error.png',
-                'only_aliases'      => false,
+                'default_image' => [1000, 750],
+                'quality' => 75,
+                'cropping' => 'crop',
+                'notfound_image' => 'bolt_assets://img/default_notfound.png',
+                'error_image' => 'bolt_assets://img/default_error.png',
+                'only_aliases' => false,
             ],
-            'accept_file_types'           => explode(',', 'twig,html,js,css,scss,gif,jpg,jpeg,png,ico,zip,tgz,txt,md,doc,docx,pdf,epub,xls,xlsx,csv,ppt,pptx,mp3,ogg,wav,m4a,mp4,m4v,ogv,wmv,avi,webm,svg'),
-            'hash_strength'               => 10,
-            'branding'                    => [
-                'name'        => 'Bolt',
-                'path'        => '/bolt',
+            'accept_file_types' => explode(',', 'twig,html,js,css,scss,gif,jpg,jpeg,png,ico,zip,tgz,txt,md,doc,docx,pdf,epub,xls,xlsx,csv,ppt,pptx,mp3,ogg,wav,m4a,mp4,m4v,ogv,wmv,avi,webm,svg'),
+            'hash_strength' => 10,
+            'branding' => [
+                'name' => 'Bolt',
+                'path' => '/bolt',
                 'provided_by' => [],
             ],
-            'maintenance_mode'            => false,
-            'headers'                     => [
+            'maintenance_mode' => false,
+            'headers' => [
                 'x_frame_options' => true,
             ],
-            'htmlcleaner'                 => [
-                'allowed_tags'       => explode(',', 'div,span,p,br,hr,s,u,strong,em,i,b,li,ul,ol,mark,blockquote,pre,code,tt,h1,h2,h3,h4,h5,h6,dd,dl,dh,table,tbody,thead,tfoot,th,td,tr,a,img,address,abbr,iframe'),
+            'htmlcleaner' => [
+                'allowed_tags' => explode(',', 'div,span,p,br,hr,s,u,strong,em,i,b,li,ul,ol,mark,blockquote,pre,code,tt,h1,h2,h3,h4,h5,h6,dd,dl,dh,table,tbody,thead,tfoot,th,td,tr,a,img,address,abbr,iframe'),
                 'allowed_attributes' => explode(',', 'id,class,style,name,value,href,Bolt,alt,title,width,height,frameborder,allowfullscreen,scrolling'),
             ],
-            'performance'                 => [
-                'http_cache'    => [
+            'performance' => [
+                'http_cache' => [
                     'options' => [],
                 ],
                 'timed_records' => [
@@ -273,14 +266,13 @@ class Config
     /**
      * Parse and fine-tune the database configuration.
      *
-     * @param Bag $options
      *
      * @return array
      */
     protected function parseDatabase(Bag $options)
     {
         // Make sure prefix ends with underscore
-        if (substr($options['prefix'], strlen($options['prefix']) - 1) !== '_') {
+        if (mb_substr($options['prefix'], mb_strlen($options['prefix']) - 1) !== '_') {
             $options['prefix'] .= '_';
         }
 
@@ -294,10 +286,10 @@ class Config
         if ($driver === 'sqlite') {
             $options['driver'] = 'pdo_sqlite';
             $options['randomfunction'] = 'RANDOM()';
-        } elseif (in_array($driver, ['mysql', 'mysqli'])) {
+        } elseif (in_array($driver, ['mysql', 'mysqli'], true)) {
             $options['driver'] = 'pdo_mysql';
             $options['randomfunction'] = 'RAND()';
-        } elseif (in_array($driver, ['pgsql', 'postgres', 'postgresql'])) {
+        } elseif (in_array($driver, ['pgsql', 'postgres', 'postgresql'], true)) {
             $options['driver'] = 'pdo_pgsql';
             $options['randomfunction'] = 'RANDOM()';
         }
@@ -332,7 +324,6 @@ class Config
     /**
      * Fine-tune Sqlite configuration parameters.
      *
-     * @param Bag $config
      *
      * @return array
      */
@@ -382,8 +373,7 @@ class Config
      * - Bolt keys are converted to Doctrine keys
      * - Invalid keys are filtered out
      *
-     * @param Bag $params
-     * @param array        $defaults
+     * @param array $defaults
      *
      * @return array
      */
@@ -397,7 +387,7 @@ class Config
         // Convert keys from Bolt
         $replacements = [
             'databasename' => 'dbname',
-            'username'     => 'user',
+            'username' => 'user',
         ];
         foreach ($replacements as $old => $new) {
             if (isset($params[$old])) {

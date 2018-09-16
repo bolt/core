@@ -51,7 +51,7 @@ class X_AppFixtures extends Fixture
             $tag->setName($name);
 
             $manager->persist($tag);
-            $this->addReference('tag-'.$name, $tag);
+            $this->addReference('tag-' . $name, $tag);
         }
 
         $manager->flush();
@@ -73,7 +73,7 @@ class X_AppFixtures extends Fixture
                 $comment = new Comment();
                 $comment->setAuthor($this->getReference('john_user'));
                 $comment->setContent($this->getRandomText(random_int(255, 512)));
-                $comment->setPublishedAt(new \DateTime('now + '.$i.'seconds'));
+                $comment->setPublishedAt(new \DateTime('now + ' . $i . 'seconds'));
 
                 $post->addComment($comment);
             }
@@ -119,7 +119,7 @@ class X_AppFixtures extends Fixture
                 Slugger::slugify($title),
                 $this->getRandomText(),
                 $this->getPostContent(),
-                new \DateTime('now - '.$i.'days'),
+                new \DateTime('now - ' . $i . 'days'),
                 // Ensure that the first post is written by Jane Doe to simplify tests
                 $this->getReference(['jane_admin', 'tom_admin'][0 === $i ? 0 : random_int(0, 1)]),
                 $this->getRandomTags(),
@@ -170,7 +170,7 @@ class X_AppFixtures extends Fixture
         $phrases = $this->getPhrases();
         shuffle($phrases);
 
-        while (mb_strlen($text = implode('. ', $phrases).'.') > $maxLength) {
+        while (mb_strlen($text = implode('. ', $phrases) . '.') > $maxLength) {
             array_pop($phrases);
         }
 
@@ -224,7 +224,7 @@ MARKDOWN;
         $selectedTags = \array_slice($tagNames, 0, random_int(2, 4));
 
         return array_map(function ($tagName) {
-            return $this->getReference('tag-'.$tagName);
+            return $this->getReference('tag-' . $tagName);
         }, $selectedTags);
     }
 }

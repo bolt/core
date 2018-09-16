@@ -54,7 +54,7 @@ class SourceCodeExtension extends AbstractExtension
 
         $classCode = file($method->getFileName());
         $methodCode = \array_slice($classCode, $method->getStartLine() - 1, $method->getEndLine() - $method->getStartLine() + 1);
-        $controllerCode = '    '.$method->getDocComment()."\n".implode('', $methodCode);
+        $controllerCode = '    ' . $method->getDocComment() . "\n" . implode('', $methodCode);
 
         return [
             'file_path' => $method->getFileName(),

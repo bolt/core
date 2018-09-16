@@ -30,18 +30,18 @@ class PathResolver
     public static function defaultPaths()
     {
         return [
-            'site'              => '.',
-            'app'               => '%site%/var',
-            'cache'             => '%app%/cache',
-            'config'            => '%app%/config',
-            'database'          => '%app%/database',
-            'extensions'        => '%site%/extensions',
+            'site' => '.',
+            'app' => '%site%/var',
+            'cache' => '%app%/cache',
+            'config' => '%app%/config',
+            'database' => '%app%/database',
+            'extensions' => '%site%/extensions',
             'extensions_config' => '%config%/extensions',
-            'var'               => '%site%/var',
-            'web'               => '%site%/public',
-            'files'             => '%web%/files',
-            'themes'            => '%web%/theme',
-            'bolt_assets'       => '%web%/bolt-public',
+            'var' => '%site%/var',
+            'web' => '%site%/public',
+            'files' => '%web%/files',
+            'themes' => '%web%/theme',
+            'bolt_assets' => '%web%/bolt-public',
         ];
     }
 
@@ -79,7 +79,7 @@ class PathResolver
     {
         $name = $this->normalizeName($name);
 
-        if (strpos($path, "%$name%") !== false) {
+        if (mb_strpos($path, "%$name%") !== false) {
             throw new \InvalidArgumentException('Paths cannot reference themselves.');
         }
 
@@ -115,7 +115,7 @@ class PathResolver
             }
 
             // absolute if alias is at start of path
-            $absolute = strpos($path, "%$alias%") === 0;
+            $absolute = mb_strpos($path, "%$alias%") === 0;
 
             if (isset($this->resolving[$alias])) {
                 throw new PathResolutionException('Failed to resolve path. Infinite recursion detected.');

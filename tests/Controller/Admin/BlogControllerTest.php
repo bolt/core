@@ -70,7 +70,7 @@ class BlogControllerTest extends WebTestCase
      */
     public function testAdminNewPost()
     {
-        $postTitle = 'Blog Post Title '.mt_rand();
+        $postTitle = 'Blog Post Title ' . mt_rand();
         $postSummary = $this->generateRandomString(255);
         $postContent = $this->generateRandomString(1024);
 
@@ -115,7 +115,7 @@ class BlogControllerTest extends WebTestCase
      */
     public function testAdminEditPost()
     {
-        $newBlogPostTitle = 'Blog Post Title '.mt_rand();
+        $newBlogPostTitle = 'Blog Post Title ' . mt_rand();
 
         $client = static::createClient([], [
             'PHP_AUTH_USER' => 'jane_admin',

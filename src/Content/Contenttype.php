@@ -1,7 +1,5 @@
 <?php
 /**
- *
- *
  * @author Bob den Otter <bobdenotter@gmail.com>
  */
 
