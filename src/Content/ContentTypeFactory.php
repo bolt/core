@@ -14,14 +14,14 @@ final class ContentTypeFactory
 
     /**
      * @param string $name
-     * @param Bag    $config
+     * @param Bag    $contenttypesconfig
      *
      * @return ContentType
      */
-    public static function get(string $name, Bag $config)
+    public static function get(string $name, Bag $contenttypesconfig)
     {
-        $ct = ContentType::from($config[$name]);
+        $contentType = ContentType::from($contenttypesconfig[$name]);
 
-        return $ct;
+        return $contentType;
     }
 }

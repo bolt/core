@@ -84,7 +84,7 @@ class Field
     {
         $contentTypeDefinition = $this->getContent()->getDefinition();
 
-        $this->fieldTypeDefinition = FieldTypeFactory::get($this->getType(), $contentTypeDefinition);
+        $this->fieldTypeDefinition = FieldTypeFactory::get($this->getName(), $contentTypeDefinition);
     }
 
     public function getDefinition(): FieldType

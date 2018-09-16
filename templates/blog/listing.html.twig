@@ -6,14 +6,15 @@
 
     {% for record in records %}
         <hr>
-        <b>Record:</b><br>
+        <h2>{{ record.id }}. {{ record.title }}</h2>
+        <p><code>{{ record.slug }}</code></p>
         {#{{ dump(record.definition) }}#}
         {#{{ dump(record.contenttype) }}#}
         {% for field in record.fields %}
             <b>Field name:</b>
             {{ field.sortorder }}. {{ field.name }} / {{ field.type }}
         <p>{{ field }}</p>
-            {{ dump(field.definition) }}
+            {#{{ dump(field.definition) }}#}
         {% endfor %}
         <hr>
     {% endfor %}
@@ -40,13 +41,12 @@
 
     #}
 
-    {#
     {% if records.haveToPaginate %}
         <div class="navigation text-center">
             {{ pagerfanta(records, 'twitter_bootstrap3_translated', {routeName: 'content_listing', routeParams: app.request.query.all}) }}
         </div>
     {% endif %}
-#}
+
 {% endblock %}
 
 {% block sidebar %}

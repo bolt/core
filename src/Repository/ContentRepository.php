@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Repository;
 
 use Bolt\Entity\Content;
-use Bolt\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
@@ -25,20 +24,14 @@ class ContentRepository extends ServiceEntityRepository
         parent::__construct($registry, Content::class);
     }
 
-    public function findLatest(int $page = 1, Tag $tag = null): Pagerfanta
+    public function findLatest(int $page = 1): Pagerfanta
     {
         $qb = $this->createQueryBuilder('p')
-            ->addSelect('a') //, 't'
+            ->addSelect('a')
             ->innerJoin('p.author', 'a')
-//            ->leftJoin('p.tags', 't')
             ->where('p.publishedAt <= :now')
             ->orderBy('p.publishedAt', 'DESC')
             ->setParameter('now', new \DateTime());
-
-//        if (null !== $tag) {
-//            $qb->andWhere(':tag MEMBER OF p.tags')
-//                ->setParameter('tag', $tag);
-//        }
 
         return $this->createPaginator($qb->getQuery(), $page);
     }

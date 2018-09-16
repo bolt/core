@@ -59,13 +59,10 @@ final class BlogController extends AbstractController
      */
     public function contentListing(ContentRepository $content, Request $request): Response
     {
-        $tag = null;
-        $page = 1;
-        if ($request->query->has('tag')) {
-            $tag = $tags->findOneBy(['name' => $request->query->get('tag')]);
-        }
+        $page = (int) $request->query->get('page', 1);
+
         /** @var Content $records */
-        $records = $content->findLatest($page, $tag);
+        $records = $content->findLatest($page);
 
         return $this->render('blog/listing.html.twig', ['records' => $records]);
     }

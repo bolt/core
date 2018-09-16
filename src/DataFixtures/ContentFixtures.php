@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\User;
@@ -21,10 +22,14 @@ class ContentFixtures extends Fixture
     /** @var \Faker\Generator */
     private $faker;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    /** @var Config */
+    private $config;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, Config $config)
     {
         $this->passwordEncoder = $passwordEncoder;
         $this->faker = Factory::create();
+        $this->config = $config->get('contenttypes');
     }
 
     public function load(ObjectManager $manager)
@@ -64,81 +69,47 @@ class ContentFixtures extends Fixture
 
     private function loadContent(ObjectManager $manager)
     {
-        foreach (range(1, 15) as $i) {
-            $author = $this->getReference(['jane_admin', 'tom_admin'][0 === $i ? 0 : random_int(0, 1)]);
+        foreach ($this->config as $contentType) {
+            $amount = $contentType['singleton'] ? 1 : 15;
 
-            $content = new Content();
-            $content->setContenttype($this->getRandomContentType());
-            $content->setAuthor($author);
-            $content->setStatus($this->getRandomStatus());
-            $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
-            $content->setModifiedAt($this->faker->dateTimeBetween('-1 year'));
-            $content->setPublishedAt($this->faker->dateTimeBetween('-1 year'));
-            $content->setDepublishedAt($this->faker->dateTimeBetween('-1 year'));
+            foreach (range(1, $amount) as $i) {
+                $author = $this->getReference(['jane_admin', 'tom_admin'][0 === $i ? 0 : random_int(0, 1)]);
 
-            /*
-             * * id
-             * contenttype `['pages', 'entries', 'homepage', 'blocks', 'showcases']`
-             * author_id
-             * status `['published', 'held', 'draft', 'timed']`
-             * created_at
-             * modified_at
-             * published_at
-             * depublished_at
-             */
+                $content = new Content();
+                $content->setContenttype($contentType['slug']);
+                $content->setAuthor($author);
+                $content->setStatus($this->getRandomStatus());
+                $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
+                $content->setModifiedAt($this->faker->dateTimeBetween('-1 year'));
+                $content->setPublishedAt($this->faker->dateTimeBetween('-1 year'));
+                $content->setDepublishedAt($this->faker->dateTimeBetween('-1 year'));
 
-            foreach (range(1, 5) as $i) {
-                $fieldtype = $this->getRandomFieldType();
+                $sortorder = 1;
+                foreach ($contentType->fields as $name => $fieldType) {
+                    $field = new Field();
+                    $field->setName($name);
+                    $field->setType($fieldType['type']);
+                    $field->setValue($this->getValuesforFieldType($fieldType));
+                    $field->setSortorder($sortorder++ * 5);
 
-                $field = new Field();
-                $field->setName($this->faker->word());
-                $field->setType($fieldtype);
-                $field->setValue($this->getValuesforFieldType($fieldtype));
-                $field->setSortorder($i * 5);
+                    $content->addField($field);
+                }
 
-                $content->addField($field);
-
-                /*
-                 * * id
-                 * content_id
-                 * name
-                 * type `['text', 'textarea', 'html', 'markdown', 'image']`
-                 * value (JSON)
-                 * parent_id
-                 * sortorder
-                 * (later) locale
-                 * (later) version
-                 */
+                $manager->persist($content);
             }
-
-            $manager->persist($content);
         }
-    }
-
-    private function getRandomContentType()
-    {
-        $contentTypes = ['pages', 'entries', 'homepage', 'blocks', 'showcases'];
-
-        return $contentTypes[array_rand($contentTypes)];
-    }
-
-    private function getRandomFieldType()
-    {
-        $fieldTypes = ['slug', 'text', 'textarea', 'html', 'markdown', 'image'];
-
-        return $fieldTypes[array_rand($fieldTypes)];
     }
 
     private function getRandomStatus()
     {
-        $statuses = ['published', 'held', 'draft', 'timed'];
+        $statuses = ['published', 'published', 'published', 'held', 'draft', 'timed'];
 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType($type)
+    private function getValuesforFieldType($field)
     {
-        switch ($type) {
+        switch ($field['type']) {
             case 'html':
             case 'textarea':
             case 'markdown':

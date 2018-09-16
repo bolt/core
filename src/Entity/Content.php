@@ -83,11 +83,6 @@ class Content
      */
     private $contentTypeDefinition;
 
-    public function __toString(): string
-    {
-        return (string) 'Content # ' . $this->getId();
-    }
-
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -95,6 +90,22 @@ class Content
         $this->publishedAt = new \DateTime();
         $this->depublishedAt = new \DateTime();
         $this->fields = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return (string) 'Content # ' . $this->getId();
+    }
+
+    public function __call($name, $arguments)
+    {
+        foreach ($this->fields as $field) {
+            if ($field->getName() === $name) {
+                return $field;
+            }
+        }
+
+        return $this->fields->get($name);
     }
 
     public function getId(): ?int
@@ -125,7 +136,7 @@ class Content
 
     public function setContenttype(string $contenttype): self
     {
-        $this->contentType = $contenttype . 'foo';
+        $this->contentType = $contenttype;
 
         return $this;
     }
