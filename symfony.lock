@@ -128,6 +128,9 @@
             "ref": "9d60c231a92e69c68b89897813ec4931d0697b1f"
         }
     },
+    "fzaninotto/faker": {
+        "version": "v1.8.0"
+    },
     "gecko-packages/gecko-php-unit": {
         "version": "v2.2"
     },

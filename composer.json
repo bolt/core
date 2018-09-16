@@ -12,6 +12,7 @@
         "easycorp/easyadmin-bundle": "^1.17",
         "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4.10",
+        "fzaninotto/faker": "^1.8",
         "guzzlehttp/guzzle": "^6.3",
         "sensio/framework-extra-bundle": "^5.1",
         "sensiolabs/security-checker": "^4.1",
