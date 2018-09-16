@@ -44,6 +44,7 @@ return PhpCsFixer\Config::create()
         'yoda_style' => false,
         'concat_space' => ['spacing' => 'one' ],
         'native_function_invocation' => false,
+        'declare_strict_types' => true,
     ])
     ->setFinder($finder)
     ->setCacheFile(__DIR__.'/var/.php_cs.cache')

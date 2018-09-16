@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Form\Type;
 
 use Bolt\Form\DataTransformer\TagArrayToStringTransformer;

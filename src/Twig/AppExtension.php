@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Twig;
 
 use Bolt\Utils\Markdown;

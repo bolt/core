@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Tests\Form\DataTransformer;
 
 use Bolt\Entity\Tag;

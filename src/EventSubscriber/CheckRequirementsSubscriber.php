@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\EventSubscriber;
 
 use Doctrine\DBAL\Exception\DriverException;
