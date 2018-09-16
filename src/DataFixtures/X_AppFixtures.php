@@ -11,7 +11,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class AppFixtures extends Fixture
+class X_AppFixtures extends Fixture
 {
     private $passwordEncoder;
 
@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $this->loadUsers($manager);
+//        $this->loadUsers($manager);
         $this->loadTags($manager);
         $this->loadPosts($manager);
     }

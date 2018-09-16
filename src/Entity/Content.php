@@ -2,6 +2,8 @@
 
 namespace Bolt\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Content
 {
+    public const NUM_ITEMS = 10;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -23,9 +27,12 @@ class Content
     private $contenttype;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $author_id;
+    private $author;
 
     /**
      * @ORM\Column(type="string", length=191)
@@ -35,22 +42,42 @@ class Content
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $modified_at;
+    private $modifiedAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $published_at;
+    private $publishedAt;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $depublished_at;
+    private $depublishedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Bolt\Entity\Field", mappedBy="content", orphanRemoval=true, cascade={"persist"})
+     */
+    private $fields;
+
+    public function __toString(): string
+    {
+        return (string) "Content # " . $this->getId();
+    }
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->modifiedAt = new \DateTime();
+        $this->publishedAt = new \DateTime();
+        $this->depublishedAt = new \DateTime();
+        $this->fields = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -69,16 +96,14 @@ class Content
         return $this;
     }
 
-    public function getAuthorId(): ?int
+    public function getAuthor(): User
     {
-        return $this->author_id;
+        return $this->author;
     }
 
-    public function setAuthorId(int $author_id): self
+    public function setAuthor(?User $author): void
     {
-        $this->author_id = $author_id;
-
-        return $this;
+        $this->author = $author;
     }
 
     public function getStatus(): ?string
@@ -95,48 +120,79 @@ class Content
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getModifiedAt(): ?\DateTimeInterface
     {
-        return $this->modified_at;
+        return $this->modifiedAt;
     }
 
-    public function setModifiedAt(\DateTimeInterface $modified_at): self
+    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
     {
-        $this->modified_at = $modified_at;
+        $this->modifiedAt = $modifiedAt;
 
         return $this;
     }
 
     public function getPublishedAt(): ?\DateTimeInterface
     {
-        return $this->published_at;
+        return $this->publishedAt;
     }
 
-    public function setPublishedAt(?\DateTimeInterface $published_at): self
+    public function setPublishedAt(?\DateTimeInterface $publishedAt): self
     {
-        $this->published_at = $published_at;
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }
 
     public function getDepublishedAt(): ?\DateTimeInterface
     {
-        return $this->depublished_at;
+        return $this->depublishedAt;
     }
 
-    public function setDepublishedAt(\DateTimeInterface $depublished_at): self
+    public function setDepublishedAt(\DateTimeInterface $depublishedAt): self
     {
-        $this->depublished_at = $depublished_at;
+        $this->depublishedAt = $depublishedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Field[]
+     */
+    public function getFields(): Collection
+    {
+        return $this->fields;
+    }
+
+    public function addField(Field $field): self
+    {
+        if (!$this->fields->contains($field)) {
+            $this->fields[] = $field;
+            $field->setContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeField(Field $field): self
+    {
+        if ($this->fields->contains($field)) {
+            $this->fields->removeElement($field);
+            // set the owning side to null (unless already changed)
+            if ($field->getContent() === $this) {
+                $field->setContent(null);
+            }
+        }
 
         return $this;
     }

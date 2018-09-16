@@ -38,7 +38,7 @@ class Field
     private $value = [];
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $parent_id;
 
@@ -56,6 +56,17 @@ class Field
      * @ORM\Column(type="integer", nullable=true)
      */
     private $version;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $content;
+
+    public function __toString(): string
+    {
+        return implode(", " , $this->getValue());
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +165,18 @@ class Field
     public function setVersion(?int $version): self
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    public function getContent(): ?Content
+    {
+        return $this->content;
+    }
+
+    public function setContent(?Content $content): self
+    {
+        $this->content = $content;
 
         return $this;
     }
