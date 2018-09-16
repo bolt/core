@@ -3,9 +3,16 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
-    {{ dump(records) }}
     {% for record in records %}
-        {{ dump(record) }}
+        <hr>
+        <b>Record:</b>
+        {{ dump(record.config) }}
+        {% for field in record.fields %}
+            <b>Field name:</b>
+            {{ field.name }} / {{ field.type }}
+            {{ dump(field.value) }}
+        {% endfor %}
+        <hr>
     {% endfor %}
     {#
         <article class="post">
@@ -32,7 +39,7 @@
 
     {% if records.haveToPaginate %}
         <div class="navigation text-center">
-            {{ pagerfanta(records, 'twitter_bootstrap3_translated', {routeName: 'blog_index_paginated', routeParams: app.request.query.all}) }}
+            {{ pagerfanta(records, 'twitter_bootstrap3_translated', {routeName: 'content_listing', routeParams: app.request.query.all}) }}
         </div>
     {% endif %}
 

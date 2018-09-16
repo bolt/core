@@ -23,8 +23,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Controller used to manage blog contents in the public part of the site.
  *
- * @Route("/blog")
- *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
@@ -60,7 +58,7 @@ class BlogController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function contentShow(ContentRepository $content, Request $request): Response
+    public function contentListing(ContentRepository $content, Request $request): Response
     {
         $tag = null;
         $page = 1;

@@ -2,6 +2,7 @@
 
 namespace Bolt\Entity;
 
+use Bolt\Configuration\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Content
 {
-    public const NUM_ITEMS = 10;
+    public const NUM_ITEMS = 5;
 
     /**
      * @ORM\Id()
@@ -60,22 +61,40 @@ class Content
     private $depublishedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="Bolt\Entity\Field", mappedBy="content", orphanRemoval=true, cascade={"persist"})
+     * @var Field[]|ArrayCollection
+     * @ORM\OneToMany(
+     *     targetEntity="Bolt\Entity\Field",
+     *     mappedBy="content",
+     *     orphanRemoval=true,
+     *     cascade={"persist"}
+     * )
+     * @ORM\OrderBy({"sortorder": "ASC"})
      */
     private $fields;
+
+    /**
+     * @var Config
+     */
+    private $config;
+
+    /**
+     * @var
+     */
+    private $contentType;
 
     public function __toString(): string
     {
         return (string) "Content # " . $this->getId();
     }
 
-    public function __construct()
+    public function __construct(Config $config)
     {
         $this->createdAt = new \DateTime();
         $this->modifiedAt = new \DateTime();
         $this->publishedAt = new \DateTime();
         $this->depublishedAt = new \DateTime();
         $this->fields = new ArrayCollection();
+        $this->config = $config;
     }
 
 
