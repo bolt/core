@@ -31,8 +31,10 @@ final class News
      * News. Film at 11.
      *
      * @param Request $request
-     * @return JsonResponse
+     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return JsonResponse
      * @Route("/async/news")
      */
     public function dashboardNews(Request $request)

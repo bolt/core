@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use Bolt\Collection\Bag;
 use Bolt\Content\FieldType;
 use Bolt\Content\FieldTypeFactory;
 use Doctrine\ORM\Mapping as ORM;

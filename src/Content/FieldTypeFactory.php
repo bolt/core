@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
-use Bolt\Collection\Bag;
-
 final class FieldTypeFactory
 {
     public function __construct()
@@ -13,8 +11,9 @@ final class FieldTypeFactory
     }
 
     /**
-     * @param string $name
+     * @param string      $name
      * @param ContentType $contentType
+     *
      * @return FieldType
      */
     public static function get(string $name, ContentType $contentType)

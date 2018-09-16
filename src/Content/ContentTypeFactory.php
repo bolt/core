@@ -14,7 +14,8 @@ final class ContentTypeFactory
 
     /**
      * @param string $name
-     * @param Bag $config
+     * @param Bag    $config
+     *
      * @return ContentType
      */
     public static function get(string $name, Bag $config)
