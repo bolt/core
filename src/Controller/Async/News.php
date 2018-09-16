@@ -187,6 +187,4 @@ class News
 
         return $options;
     }
-
-
 }

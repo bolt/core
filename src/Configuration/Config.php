@@ -358,7 +358,6 @@ class Config
 
         // If path has filename with extension, use that
         if (Path::hasExtension($path)) {
-
             $config['path'] = $path;
 
             return $config;
@@ -423,5 +422,4 @@ class Config
 
         return $params;
     }
-
 }

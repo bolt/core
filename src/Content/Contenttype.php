@@ -7,8 +7,6 @@
 
 namespace Bolt\Content;
 
-
 class Contenttype
 {
-    
 }

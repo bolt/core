@@ -105,7 +105,6 @@ class PathResolver
         $path = $this->normalizeName($path);
 
         if (isset($this->paths[$path])) {
-
             $path = $this->paths[$path];
         }
         $path = preg_replace_callback('#%(.+)%#', function ($match) use ($path) {

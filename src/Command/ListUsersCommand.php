@@ -50,7 +50,8 @@ class ListUsersCommand extends Command
     {
         $this
             ->setDescription('Lists all the existing users')
-            ->setHelp(<<<'HELP'
+            ->setHelp(
+                <<<'HELP'
 The <info>%command.name%</info> command lists all the users registered in the application:
 
   <info>php %command.full_name%</info>

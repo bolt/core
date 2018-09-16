@@ -24,13 +24,13 @@ class BackendController extends AbstractController
     /**
      * @Route("/bolt")
      */
-     public function index($name = "Gekke Henkie") {
+    public function index($name = "Gekke Henkie")
+    {
+        $version = Version::VERSION;
 
-         $version = Version::VERSION;
-
-         return $this->render('bolt/index.html.twig', [
+        return $this->render('bolt/index.html.twig', [
              'name' => $name,
              'version' => $version
          ]);
-     }
+    }
 }

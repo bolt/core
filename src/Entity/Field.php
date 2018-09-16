@@ -65,7 +65,7 @@ class Field
 
     public function __toString(): string
     {
-        return implode(", " , $this->getValue());
+        return implode(", ", $this->getValue());
     }
 
     public function getId(): ?int

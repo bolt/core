@@ -105,7 +105,6 @@ class ContentFixtures extends Fixture
             }
 
             $manager->persist($content);
-
         }
     }
 
@@ -145,7 +144,7 @@ class ContentFixtures extends Fixture
             case 'slug':
                 $data = ['value' => Slugger::slugify($this->getRandomPhrase()) ];
                 break;
-            default :
+            default:
                 $data = ['value' => $this->getRandomPhrase() ];
         }
 
@@ -206,5 +205,4 @@ class ContentFixtures extends Fixture
 
         return $text;
     }
-
 }
