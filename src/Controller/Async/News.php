@@ -14,8 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Fetching the news.
- *
- * @author Bob den Otter <bobdenotter@gmail.com>
  */
 class News
 {

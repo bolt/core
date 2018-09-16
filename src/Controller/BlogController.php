@@ -62,6 +62,7 @@ class BlogController extends AbstractController
         if ($request->query->has('tag')) {
             $tag = $tags->findOneBy(['name' => $request->query->get('tag')]);
         }
+        /** @var Content $latestContent */
         $latestContent = $content->findLatest($page, $tag);
 
         return $this->render('blog/listing.html.twig', ['records' => $latestContent]);

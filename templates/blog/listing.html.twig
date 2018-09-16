@@ -3,14 +3,16 @@
 {% block body_id 'blog_index' %}
 
 {% block main %}
+
     {% for record in records %}
         <hr>
-        <b>Record:</b>
-        {{ dump(record.config) }}
+        <b>Record:</b><br>
+        {#{{ dump(record.definition) }}#}
+        {#{{ dump(record.contenttype) }}#}
         {% for field in record.fields %}
             <b>Field name:</b>
-            {{ field.name }} / {{ field.type }}
-            {{ dump(field.value) }}
+            {{ field.sortorder }}. {{ field.name }} / {{ field.type }}
+        <p>{{ field }}</p>
         {% endfor %}
         <hr>
     {% endfor %}
@@ -37,12 +39,13 @@
 
     #}
 
+    {#
     {% if records.haveToPaginate %}
         <div class="navigation text-center">
             {{ pagerfanta(records, 'twitter_bootstrap3_translated', {routeName: 'content_listing', routeParams: app.request.query.all}) }}
         </div>
     {% endif %}
-
+#}
 {% endblock %}
 
 {% block sidebar %}

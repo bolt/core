@@ -3,6 +3,8 @@
 namespace Bolt\Entity;
 
 use Bolt\Configuration\Config;
+use Bolt\Content\ContentType;
+use Bolt\Content\ContentTypeFactory;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
  * @ORM\Table(name="bolt_content")
+ * @ORM\HasLifecycleCallbacks
  */
 class Content
 {
@@ -23,9 +26,9 @@ class Content
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=191)
+     * @ORM\Column(type="string", length=191, name="contenttype")
      */
-    private $contenttype;
+    private $contentType;
 
     /**
      * @var User
@@ -78,23 +81,22 @@ class Content
     private $config;
 
     /**
-     * @var
+     * @var ContentType
      */
-    private $contentType;
+    private $contentTypeDefinition;
 
     public function __toString(): string
     {
         return (string) 'Content # ' . $this->getId();
     }
 
-    public function __construct(Config $config)
+    public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->modifiedAt = new \DateTime();
         $this->publishedAt = new \DateTime();
         $this->depublishedAt = new \DateTime();
         $this->fields = new ArrayCollection();
-        $this->config = $config;
     }
 
     public function getId(): ?int
@@ -102,14 +104,31 @@ class Content
         return $this->id;
     }
 
+    public function setConfig(Config $config)
+    {
+        $this->config = $config->get('contenttypes');
+
+        $this->contentTypeDefinition = ContentTypeFactory::get($this->contentType, $this->config);
+    }
+
+    public function getConfig(): Config
+    {
+        return $this->config;
+    }
+
+    public function getDefinition()
+    {
+        return $this->contentType;
+    }
+
     public function getContenttype(): ?string
     {
-        return $this->contenttype;
+        return $this->contentType;
     }
 
     public function setContenttype(string $contenttype): self
     {
-        $this->contenttype = $contenttype;
+        $this->contentType = $contenttype . 'foo';
 
         return $this;
     }

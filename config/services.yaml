@@ -35,3 +35,9 @@ services:
     # 'arguments' key and define the arguments just below the service class
     Bolt\EventSubscriber\CommentNotificationSubscriber:
         $sender: '%app.notifications.email_sender%'
+
+    doctrine.content_listener:
+        class: Bolt\EventListener\ContentListener
+        arguments: []
+        tags:
+        - { name: doctrine.event_listener, event: postLoad }
