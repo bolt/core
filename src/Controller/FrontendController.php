@@ -36,7 +36,7 @@ class FrontendController extends AbstractController
         /** @var Content $records */
         $records = $content->findLatest($page);
 
-        return $this->render('blog/listing.html.twig', ['records' => $records]);
+        return $this->render('listing.twig', ['records' => $records]);
     }
 
     /**
@@ -46,10 +46,21 @@ class FrontendController extends AbstractController
      */
     protected function render(string $view, array $parameters = array(), Response $response = null): Response
     {
-        $twig = $this->container->get('twig');
-        $content = $twig->render($view, $parameters);
+        $themepath = sprintf('%s/%s',
+            $this->config->path('themes'),
+            $this->config->get('general/theme')
+        );
 
-        dump($this->config);
+        $twig = $this->container->get('twig');
+
+        $loader = $twig->getLoader();
+        $loader->addPath($themepath);
+        $twig->setLoader($loader);
+
+
+        $parameters['config'] = $this->config;
+
+        $content = $twig->render($view, $parameters);
 
         if ($response === null) {
             $response = new Response();

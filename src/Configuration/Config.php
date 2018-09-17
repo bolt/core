@@ -21,6 +21,10 @@ class Config
     /** @var Symfony\Component\Config\FileLocator */
     private $fileLocator;
 
+    /** @var PathResolver */
+    private $pathResolver;
+
+
     public function __construct()
     {
         $this->initialize();
@@ -28,8 +32,11 @@ class Config
 
     private function initialize()
     {
+        $this->pathResolver = new PathResolver(dirname(dirname(__DIR__)), []);
+
         $configDirectories = [dirname(dirname(__DIR__)) . '/config/bolt'];
         $this->fileLocator = new FileLocator($configDirectories);
+
 
 //        $this->cacheFile = $this->app['filesystem']->getFile('cache://config-cache.json');
 
@@ -79,10 +86,40 @@ class Config
         return $config;
     }
 
-    public function get(string $name)
+    /**
+     * Get a config value, using a path.
+     *
+     * For example:
+     * $var = $config->get('general/wysiwyg/ck/contentsCss');
+     *
+     * @param string            $path
+     * @param string|array|bool $default
+     *
+     * @return mixed
+     */
+    public function get(string $path, $default = null)
     {
-        return $this->data[$name];
+        return Arr::get($this->data, $path, $default);
     }
+
+    /**
+     * @param string $path
+     * @param bool $absolute
+     * @return string
+     */
+    public function path(string $path, bool $absolute = true): string
+    {
+        return $this->pathResolver->resolve($path, $absolute);
+    }
+
+    /**
+     * @return array
+     */
+    public function paths(): array
+    {
+        return $this->pathResolver->resolveAll();
+    }
+
 
     /**
      * Read and parse the config.yaml and config_local.yaml configuration files.
@@ -571,7 +608,6 @@ class Config
         // Prevent SQLite driver from trying to use in-memory connection
         unset($config['memory']);
 
-        $pathResolver = new PathResolver(dirname(dirname(__DIR__)), []);
 
         // Get path from config or use database path
         $path = isset($config['path']) ? $config['path'] : $pathResolver->resolve('database');
