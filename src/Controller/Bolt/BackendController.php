@@ -25,7 +25,7 @@ class BackendController extends AbstractController
     /**
      * @Route("/bolt")
      */
-    public function index($name = 'Gekke Henkie')
+    /* public function index($name = 'Gekke Henkie')
     {
         $version = Version::VERSION;
 
@@ -33,5 +33,21 @@ class BackendController extends AbstractController
              'name' => $name,
              'version' => $version,
          ]);
+    } */
+
+    /**
+     * @Route("/{vueRouting}", requirements={"vueRouting"="^(?!api|_(profiler|wdt)).+"}, name="index")
+     * @param null|string $vueRouting
+     * @return Response
+     */
+    public function index(?string $vueRouting = null, $name = 'Gekke Henkie')
+    {
+        $version = Version::VERSION;
+
+        return $this->render('bolt/index.html.twig', [
+            'vueRouting' => \is_null($vueRouting) ? '/' : '/' . $vueRouting,
+            'name' => $name,
+            'version' => $version,
+        ]);
     }
 }

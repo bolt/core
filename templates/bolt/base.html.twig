@@ -14,7 +14,7 @@
 
 <body>
 
-<div class="container" id="app">
+<div class="container" id="app" data-vue-routing="{{ vueRouting }}">
 
     <Topbar></Topbar>
 
@@ -24,6 +24,8 @@
         <el-main>
 
                 <DashboardNews>pom</DashboardNews>
+
+                <router-view></router-view>
 
                 {% block body %}{% endblock %}
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Collection\Bag;
 use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
@@ -11,8 +12,10 @@ use Bolt\Content\ContentTypeFactory;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
  * @ORM\Table(name="bolt_content")
  * @ORM\HasLifecycleCallbacks
