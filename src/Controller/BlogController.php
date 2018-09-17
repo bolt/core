@@ -9,7 +9,6 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Post;
 use Bolt\Events;
 use Bolt\Form\CommentType;
-use Bolt\Repository\ContentRepository;
 use Bolt\Repository\PostRepository;
 use Bolt\Repository\TagRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -53,8 +52,6 @@ final class BlogController extends AbstractController
         // See https://symfony.com/doc/current/templating.html#template-suffix
         return $this->render('blog/index.' . $_format . '.twig', ['posts' => $latestPosts]);
     }
-
-
 
     /**
      * @Route("/posts/{slug}", methods={"GET"}, name="blog_post")

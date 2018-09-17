@@ -24,7 +24,6 @@ class Config
     /** @var PathResolver */
     private $pathResolver;
 
-
     public function __construct()
     {
         $this->initialize();
@@ -36,7 +35,6 @@ class Config
 
         $configDirectories = [dirname(dirname(__DIR__)) . '/config/bolt'];
         $this->fileLocator = new FileLocator($configDirectories);
-
 
 //        $this->cacheFile = $this->app['filesystem']->getFile('cache://config-cache.json');
 
@@ -104,7 +102,8 @@ class Config
 
     /**
      * @param string $path
-     * @param bool $absolute
+     * @param bool   $absolute
+     *
      * @return string
      */
     public function path(string $path, bool $absolute = true): string
@@ -119,7 +118,6 @@ class Config
     {
         return $this->pathResolver->resolveAll();
     }
-
 
     /**
      * Read and parse the config.yaml and config_local.yaml configuration files.
@@ -607,7 +605,6 @@ class Config
         }
         // Prevent SQLite driver from trying to use in-memory connection
         unset($config['memory']);
-
 
         // Get path from config or use database path
         $path = isset($config['path']) ? $config['path'] : $pathResolver->resolve('database');

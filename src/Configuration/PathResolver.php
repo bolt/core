@@ -10,7 +10,7 @@ use Webmozart\PathUtil\Path;
  * A class to resolve and manage paths. Paths defined here are allowed to have variables within them.
  * For example: "files" folder is within the web directory so it is defined as "%web%/files". This allows
  * the web directory to be changed and the files path does not have to be redefined.
- **
+ *
  * @author Carson Full <carsonfull@gmail.com>
  */
 class PathResolver
@@ -146,6 +146,7 @@ class PathResolver
 
         return $paths;
     }
+
     /**
      * Returns the raw path definition for the name given.
      *

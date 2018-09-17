@@ -1,12 +1,11 @@
 <?php
+
+declare(strict_types=1);
 /**
- *
- *
  * @author Bob den Otter <bobdenotter@gmail.com>
  */
 
 namespace Bolt\Controller;
-
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
@@ -44,9 +43,10 @@ class FrontendController extends AbstractController
      *
      * @final
      */
-    protected function render(string $view, array $parameters = array(), Response $response = null): Response
+    protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
-        $themepath = sprintf('%s/%s',
+        $themepath = sprintf(
+            '%s/%s',
             $this->config->path('themes'),
             $this->config->get('general/theme')
         );
@@ -56,7 +56,6 @@ class FrontendController extends AbstractController
         $loader = $twig->getLoader();
         $loader->addPath($themepath);
         $twig->setLoader($loader);
-
 
         $parameters['config'] = $this->config;
 

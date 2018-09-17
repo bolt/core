@@ -72,7 +72,6 @@ class AppExtension extends AbstractExtension
         return $this->parser->toHtml($content);
     }
 
-
     /**
      * Takes the list of codes of the locales (languages) enabled in the
      * application and returns an array with the name of each locale written
