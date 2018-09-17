@@ -39,7 +39,7 @@
 
     {% if records.haveToPaginate %}
         <div class="navigation text-center">
-            {{ pagerfanta(records, 'twitter_bootstrap3_translated', {routeName: 'content_listing', routeParams: app.request.query.all}) }}
+            {{ pagerfanta(records, 'twitter_bootstrap3_translated', {routeName: 'listing', routeParams: app.request.query.all}) }}
         </div>
     {% endif %}
 

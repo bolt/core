@@ -54,18 +54,7 @@ final class BlogController extends AbstractController
         return $this->render('blog/index.' . $_format . '.twig', ['posts' => $latestPosts]);
     }
 
-    /**
-     * @Route("/content", methods={"GET"}, name="content_listing")
-     */
-    public function contentListing(ContentRepository $content, Request $request): Response
-    {
-        $page = (int) $request->query->get('page', 1);
 
-        /** @var Content $records */
-        $records = $content->findLatest($page);
-
-        return $this->render('blog/listing.html.twig', ['records' => $records]);
-    }
 
     /**
      * @Route("/posts/{slug}", methods={"GET"}, name="blog_post")
