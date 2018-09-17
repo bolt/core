@@ -1,41 +1,68 @@
 <template>
-    <el-table
-      :data="tableData"
-      style="width: 100%">
-      <el-table-column
-        prop="date">
-      </el-table-column>
-      <el-table-column
-        prop="name">
-      </el-table-column>
-      <el-table-column
-        prop="address">
-      </el-table-column>
-    </el-table>
-  </template>
+    <div>
+        <div class="row col">
+            <h1>Dashboard</h1>
+        </div>
 
-  <script>
+        <div v-if="isLoading" class="row col">
+            <p>Loading...</p>
+        </div>
+
+        <div v-else-if="hasError" class="row col">
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        </div>
+
+        <div v-else-if="!hasContent" class="row col">
+            No content!
+        </div>
+
+        <div v-else v-for="item in content" class="row col">
+            {{ item.fields }}
+            <content :message="item.id"></content>
+        </div>
+    </div>
+</template>
+
+<script>
+    import Content from './Content';
+
     export default {
-      data() {
-        return {
-          tableData: [{
-            date: '2016-05-03',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles'
-          }, {
-            date: '2016-05-02',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles'
-          }, {
-            date: '2016-05-04',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles'
-          }, {
-            date: '2016-05-01',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles'
-          }]
-        }
-      }
+        name: 'content',
+        components: {
+            Content
+        },
+        data () {
+            return {
+                message: '',
+            };
+        },
+        created () {
+            this.$store.dispatch('content/fetchContent');
+        },
+        computed: {
+            isLoading () {
+                return this.$store.getters['content/isLoading'];
+            },
+            hasError () {
+                return this.$store.getters['content/hasError'];
+            },
+            error () {
+                return this.$store.getters['content/error'];
+            },
+            hasContent () {
+                return this.$store.getters['content/hasContent'];
+            },
+            content () {
+                return this.$store.getters['content/content'];
+            },
+        },
+        methods: {
+            createContent () {
+                this.$store.dispatch('content/createContent', this.$data.message)
+                    .then(() => this.$data.message = '')
+            },
+        },
     }
-  </script>
+</script>
