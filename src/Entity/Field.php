@@ -11,6 +11,33 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(name="bolt_field")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "text" = "Bolt\Entity\Field\TextField",
+ *     "block" = "Bolt\Entity\Field\BlockField",
+ *     "checkbox" = "Bolt\Entity\Field\CheckboxField",
+ *     "date" = "Bolt\Entity\Field\DateField",
+ *     "datetime" = "Bolt\Entity\Field\DatetimeField",
+ *     "embed" = "Bolt\Entity\Field\EmbedField",
+ *     "file" = "Bolt\Entity\Field\FileField",
+ *     "filelist" = "Bolt\Entity\Field\FilelistField",
+ *     "float" = "Bolt\Entity\Field\FloatField",
+ *     "geolocation" = "Bolt\Entity\Field\GeolocationField",
+ *     "html" = "Bolt\Entity\Field\HtmlField",
+ *     "image" = "Bolt\Entity\Field\ImageField",
+ *     "imagelist" = "Bolt\Entity\Field\ImagelistField",
+ *     "integer" = "Bolt\Entity\Field\IntegerField",
+ *     "markdown" = "Bolt\Entity\Field\MarkdownField",
+ *     "repeater" = "Bolt\Entity\Field\RepeaterField",
+ *     "select" = "Bolt\Entity\Field\SelectField",
+ *     "slug" = "Bolt\Entity\Field\SlugField",
+ *     "templateselect" = "Bolt\Entity\Field\TemplateselectField",
+ *     "textarea" = "Bolt\Entity\Field\TextareaField",
+ *     "video" = "Bolt\Entity\Field\VideoField",
+ *     "hidden" = "Bolt\Entity\Field\HiddenField",
+ *     "generic" = "field"
+ * })
  */
 class Field
 {
@@ -30,11 +57,6 @@ class Field
      * @ORM\Column(type="string", length=191)
      */
     private $name;
-
-    /**
-     * @ORM\Column(type="string", length=191)
-     */
-    private $type;
 
     /**
      * @ORM\Column(type="json")
@@ -118,14 +140,7 @@ class Field
 
     public function getType(): ?string
     {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
+        return $this->getDefinition()->type;
     }
 
     public function getValue(): ?array
