@@ -113,16 +113,19 @@ class ContentFixtures extends Fixture
             case 'html':
             case 'textarea':
             case 'markdown':
-                $data = ['value' => $this->faker->paragraphs(3, true)];
+                $data = [$this->faker->paragraphs(3, true)];
                 break;
             case 'image':
                 $data = ['filename' => 'kitten.jpg', 'alt' => 'A cute kitten'];
                 break;
             case 'slug':
-                $data = ['value' => Slugify::create()->slugify($this->faker->sentence(3, true))];
+                $data = [Slugify::create()->slugify($this->faker->sentence(3, true))];
+                break;
+            case 'text':
+                $data = [$this->faker->sentence(6, true)];
                 break;
             default:
-                $data = ['value' => $this->faker->sentence(6, true)];
+                $data = [$this->faker->sentence(6, true)];
         }
 
         return $data;
