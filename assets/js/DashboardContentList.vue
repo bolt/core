@@ -18,24 +18,35 @@
             No content!
         </div>
 
-        <div v-else v-for="item in content" :key="item.id" class="row col">
-            {{ item }}
-            <Content :message="item.id"></Content>
+        <div v-else>
+            <h3>Latest {{ type }}</h3>
+            <table>
+                <tbody>
+                    <template v-for="item in content.slice(0, limit)" class="row col">
+                        <tr :key="item.id">
+                            <td>{{ item.id }}</td>    
+                            <td>{{ item.fields[0].value.value }}</td>
+                        </tr>
+                        <!-- Maybe is better to have a component to print each row? -->
+                        <!-- <Context :id="item.id" :key="item.id" :contenttype="content.contenttype" :title="item.fields[0]"></Context> -->
+                    </template>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>
 
 <script>
-    import Content from './Content';
+    import Context from './Content';
 
     export default {
-        name: 'content',
+        name: 'context',
         props: [
             'type',
             'limit',
         ],
         components: {
-            Content
+            Context
         },
         data () {
             return {
@@ -60,12 +71,6 @@
             },
             content () {
                 return this.$store.getters['content/content'];
-            },
-        },
-        methods: {
-            createContent () {
-                this.$store.dispatch('content/createContent', this.$data.message)
-                    .then(() => this.$data.message = '')
             },
         },
     }
