@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Collection\Bag;
 use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
@@ -16,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource
+ * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
  * @ORM\Table(name="bolt_content")
  * @ORM\HasLifecycleCallbacks

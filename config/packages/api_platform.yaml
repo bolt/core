@@ -2,5 +2,6 @@ api_platform:
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     formats:
+        html:     ['text/html']
         json:     ['application/json']
         jsonapi:  ['application/vnd.api+json']
