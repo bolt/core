@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 export default new VueRouter({
     mode: 'history',
     routes: [
-        { path: '/bolt', component: DashboardContentList },
+        // { path: '/bolt', component: DashboardContentList },
         // { path: '*', redirect: '/home' }
     ],
 });

@@ -4,7 +4,7 @@
         <span>Card name</span>
         <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>
     </div>
-    <div v-for="newsItem in news" v-if="newsItem" :key="newsItem" class="text item">
+    <div v-for="newsItem in news" v-if="newsItem" :key="newsItem.id" class="text item">
         {{ newsItem.title }}
         <div v-html="newsItem.teaser"></div>
     </div>

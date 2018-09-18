@@ -18,9 +18,9 @@
             No content!
         </div>
 
-        <div v-else v-for="item in content" class="row col">
-            {{ item.fields }}
-            <content :message="item.id"></content>
+        <div v-else v-for="item in content" :key="item.id" class="row col">
+            {{ item }}
+            <Content :message="item.id"></Content>
         </div>
     </div>
 </template>
@@ -30,6 +30,10 @@
 
     export default {
         name: 'content',
+        props: [
+            'type',
+            'limit',
+        ],
         components: {
             Content
         },
@@ -39,7 +43,7 @@
             };
         },
         created () {
-            this.$store.dispatch('content/fetchContent');
+            this.$store.dispatch('content/fetchContent', this.type);
         },
         computed: {
             isLoading () {

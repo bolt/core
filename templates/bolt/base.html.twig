@@ -25,7 +25,20 @@
 
                 <DashboardNews>pom</DashboardNews>
 
-                <router-view></router-view>
+{% set contentTypes = [
+    {
+        slug: 'pages'
+    },
+    {
+        slug: 'homepages'
+    }
+] %}
+
+                {% for contentType in contentTypes if true or contentType.showOnDashboard %}
+                    <DashboardContentList type="{{ contentType.slug }}" limit="5" />
+                {% endfor %}
+
+                {# <router-view></router-view> #}
 
                 {% block body %}{% endblock %}
 

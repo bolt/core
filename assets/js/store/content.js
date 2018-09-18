@@ -42,9 +42,9 @@ export default {
         },
     },
     actions: {
-        fetchContent ({commit}) {
+        fetchContent ({commit}, type) {
             commit('FETCHING_CONTENT');
-            return ContentAPI.getAll()
+            return ContentAPI.getAll(type)
                 .then(res => commit('FETCHING_CONTENT_SUCCESS', res.data))
                 .catch(err => commit('FETCHING_CONTENT_ERROR', err));
         },
