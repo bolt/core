@@ -1,15 +1,16 @@
 <template>
-    <div class="card w-100 mt-2">
-        <div class="card-body">
-            {{ message }}
-            Print
-        </div>
-    </div>
+    <tr>
+        <td>{{ id }}</td>    
+        <td>{{ title.value.value }}</td>
+    </tr>
 </template>
 
 <script>
     export default {
-        name: 'content',
-        props: ['message'],
+        name: 'context',
+        props: [
+            'id',
+            'title'
+        ],
     }
 </script>
