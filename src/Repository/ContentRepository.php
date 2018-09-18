@@ -41,14 +41,14 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page);
     }
 
-    public function findOneBySlug(string $slug): ?Content
+    public function findOneBySlug(string $slug)
     {
         return $this->getQueryBuilder()
-            ->join('Bolt\Entity\Field\SlugField', 'field')
+            ->innerJoin('Bolt\Entity\Field\SlugField', 'field')
             ->andWhere('field.value = :slug')
             ->setParameter('slug', json_encode(array($slug)))
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
             ;
 
 //        ->join('m.PropertyEntity', 'p')

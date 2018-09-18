@@ -39,8 +39,10 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('md2html', [$this, 'markdownToHtml'], ['is_safe' => ['html']]),
+            new TwigFilter('markdown', [$this, 'markdownToHtml'], ['is_safe' => ['html']]),
             new TwigFilter('order', [$this, 'dummy']),
             new TwigFilter('localedatetime', [$this, 'dummy']),
+            new TwigFilter('showimage', [$this, 'dummy']),
         ];
     }
 
@@ -56,6 +58,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('thumbnail', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('widgets', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('htmllang', [$this, 'dummy'], ['is_safe' => ['html']]),
+            new TwigFunction('popup', [$this, 'dummy'], ['is_safe' => ['html']]),
         ];
     }
 

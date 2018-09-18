@@ -57,7 +57,7 @@
 
         <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.name}) }}</h5>
         <ul>
-            {% for record in records %}
+            {% for record in records|default([]) %}
                 <li><a href="{{ record.link }}">{{ record.title }}</a></li>
             {% else %}
                 <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>

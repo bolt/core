@@ -40,8 +40,8 @@ class FrontendController extends AbstractController
     }
 
     /**
-     * @Route("/{id<[1-9]\d*>}", methods={"GET"}, name="record_by_id")
-     * @Route("/{slug<[a-z0-9_-]+>}", methods={"GET"}, name="record_by_slug")
+     * @Route("/record/{id<[1-9]\d*>}", methods={"GET"}, name="record_by_id")
+     * @Route("/record/{slug<[a-z0-9_-]+>}", methods={"GET"}, name="record")
      */
     public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $id = null, $slug = null): Response
     {
@@ -50,6 +50,7 @@ class FrontendController extends AbstractController
         } elseif ($slug) {
             $field = $fieldRepository->findOneBySlug($slug);
             $record = $field->getContent();
+//            $record = $contentRepository->findOneBySlug($slug);
         }
 
         $recordSlug = $record->getDefinition()->singular_slug;

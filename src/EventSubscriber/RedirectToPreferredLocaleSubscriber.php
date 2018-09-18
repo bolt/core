@@ -55,6 +55,8 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event): void
     {
+        return;
+
         $request = $event->getRequest();
 
         // Ignore sub-requests and all URLs but the homepage

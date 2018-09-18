@@ -31,6 +31,8 @@
 
                 <h2><a href="{{ record.link }}">{{ record.title }}</a></h2>
 
+                {{ dump(record) }}
+
                 {% if record.image!="" %}
                     <a href="{{ image(record.image) }}">
                         <img src="{{ thumbnail(record.image, 400, 260) }}">
@@ -46,7 +48,7 @@
                     <p>{{ record.excerpt(300, false, search|default('')) }}</p>
                 {% endif %}
 
-                {% include 'partials/_recordfooter.twig' with { 'record': record } %}
+                {#{% include 'partials/_recordfooter.twig' with { 'record': record } %}#}
 
             </article>
 
