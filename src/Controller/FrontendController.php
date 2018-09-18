@@ -10,6 +10,7 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
+use Bolt\Repository\FieldRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +37,29 @@ class FrontendController extends AbstractController
         $records = $content->findLatest($page);
 
         return $this->render('listing.twig', ['records' => $records]);
+    }
+
+    /**
+     * @Route("/{id<[1-9]\d*>}", methods={"GET"}, name="record_by_id")
+     * @Route("/{slug<[a-z0-9_-]+>}", methods={"GET"}, name="record_by_slug")
+     */
+    public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $id = null, $slug = null): Response
+    {
+        if ($id) {
+            $record = $contentRepository->findOneBy(['id' => $id]);
+        } elseif ($slug) {
+            $field = $fieldRepository->findOneBySlug($slug);
+            $record = $field->getContent();
+        }
+
+        $recordSlug = $record->getDefinition()->singular_slug;
+
+        $context = [
+            'record' => $record,
+            $recordSlug => $record,
+        ];
+
+        return $this->render('record.twig', $context);
     }
 
     /**
