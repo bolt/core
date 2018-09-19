@@ -106,9 +106,9 @@ class Config
      *
      * @return string
      */
-    public function path(string $path, bool $absolute = true): string
+    public function path(string $path, bool $absolute = true, string $additional = ''): string
     {
-        return $this->pathResolver->resolve($path, $absolute);
+        return $this->pathResolver->resolve($path, $absolute, $additional);
     }
 
     /**
@@ -611,7 +611,6 @@ class Config
         if (Path::isRelative($path)) {
             $path = $pathResolver->resolve($path);
         }
-        dump($path);
 
         // If path has filename with extension, use that
         if (Path::hasExtension($path)) {

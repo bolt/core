@@ -1,15 +1,8 @@
 <?php
-/**
- *
- *
- * @author Bob den Otter <bobdenotter@gmail.com>
- */
+
+declare(strict_types=1);
 
 namespace Bolt\Entity;
-
-
-use Symfony\Component\Routing\Generator\UrlGenerator;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 trait ContentMagicTraits
 {
@@ -47,12 +40,13 @@ trait ContentMagicTraits
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return mixed
      */
     public function magic(string $name, array $arguments = [])
     {
-        $magicName = 'magic'.$name;
+        $magicName = 'magic' . $name;
 
         if (method_exists($this, $magicName)) {
             return $this->$magicName($arguments);
@@ -61,7 +55,8 @@ trait ContentMagicTraits
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return mixed
      */
     public function get(string $name, array $arguments = [])
@@ -75,38 +70,40 @@ trait ContentMagicTraits
 
     public function magicLink()
     {
-        $path = $this->urlGenerator->generate('record', ['slug' => $this->getSlug() ]);
+        $path = $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
 
         return $path;
     }
 
     public function magicEditLink()
     {
-        $path = $this->urlGenerator->generate('record', ['slug' => $this->getSlug() ]);
+        $path = $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
 
         return $path;
     }
 
     public function magicTitle()
     {
-        return "magic title";
+        return 'magic title';
     }
 
     public function magicImage()
     {
-        return "magic image";
+        return 'magic image';
     }
 
     public function magicExcerpt()
     {
-        return "magic excerpt";
+        return 'magic excerpt';
     }
 
-    public function magicPrevious() {
-        return "magic previous";
+    public function magicPrevious()
+    {
+        return 'magic previous';
     }
 
-    public function magicNext() {
-        return "magic next";
+    public function magicNext()
+    {
+        return 'magic next';
     }
 }

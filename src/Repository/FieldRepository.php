@@ -62,5 +62,4 @@ class FieldRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-
 }

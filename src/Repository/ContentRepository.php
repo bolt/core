@@ -46,7 +46,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->getQueryBuilder()
             ->innerJoin('Bolt\Entity\Field\SlugField', 'field')
             ->andWhere('field.value = :slug')
-            ->setParameter('slug', json_encode(array($slug)))
+            ->setParameter('slug', json_encode([$slug]))
             ->getQuery()
             ->getResult()
             ;
@@ -55,7 +55,6 @@ class ContentRepository extends ServiceEntityRepository
 //        ->where('p.value IN (:values)')
 //        ->setParameter('values',['red','yellow']);
     }
-
 
     private function createPaginator(Query $query, int $page): Pagerfanta
     {

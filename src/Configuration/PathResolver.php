@@ -96,7 +96,7 @@ class PathResolver
      *
      * @return string
      */
-    public function resolve(string $path, bool $absolute = true): string
+    public function resolve(string $path, bool $absolute = true, string $additional = ''): string
     {
         if (isset($this->paths[$path])) {
             $path = $this->paths[$path];
@@ -128,8 +128,12 @@ class PathResolver
             $path = Path::makeAbsolute($path, $this->paths['root']);
         }
 
-        // Not necessary, could remove.
-        $path = Path::canonicalize($path);
+        if ($additional !== '') {
+            $path .= '/' . $additional;
+        }
+
+        // Make sure we don't have lingering unneeded dir-seperators
+        $path = Path::canonicalize($path . $additional);
 
         return $path;
     }
