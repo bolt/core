@@ -29,6 +29,9 @@ class ImageController
             'cache' => $this->config->path('cache', true, 'thumbnails'),
         ]);
 
-        $server->outputImage($filename, $_GET);
+        /** @var StreamedResponse $response */
+        $response = $server->getImageResponse($filename, $_GET);
+
+        return $response;
     }
 }
