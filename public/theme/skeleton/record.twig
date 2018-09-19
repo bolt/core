@@ -11,6 +11,15 @@
         {{ block('sub_fields', 'partials/_sub_fields.twig') }}
     {% endwith %}
 
+    <p>Record:</p>
+    <code>{% verbatim %}{{ dump(record.definition) }}{% endverbatim %}</code>
+
+    {{ dump(record.definition) }}
+
+    <p>Field:</p>
+    <code>{% verbatim %}{{ dump(record.image.definition) }}{% endverbatim %}</code>
+    {{ dump(record.image.definition) }}
+
     {# Uncomment this if you wish to dump the entire record to the client, for debugging purposes.
     {{ dump(record) }}
     #}
