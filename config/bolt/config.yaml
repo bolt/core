@@ -13,6 +13,9 @@ database:
 sitename: A sample site in CONFIG
 payoff: The amazing payoff goes here
 
+# note: ENV vars do not get parsed, yet!
+secret: '%env(APP_SECRET)%'
+
 # The theme to use.
 #
 # Don't edit the provided templates directly, because they _will_ get updated

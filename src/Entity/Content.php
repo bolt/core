@@ -89,6 +89,9 @@ class Content
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
+    /** @var Config */
+    private $config;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -108,10 +111,14 @@ class Content
      */
     public function setConfig(Config $config)
     {
-        /** @var Bag $contentTypes */
-        $contentTypes = $config->get('contenttypes');
+        $this->config = $config;
 
-        $this->contentTypeDefinition = ContentTypeFactory::get($this->contentType, $contentTypes);
+        $this->contentTypeDefinition = ContentTypeFactory::get($this->contentType, $config->get('contenttypes'));
+    }
+
+    public function getConfig(): Config
+    {
+        return $this->config;
     }
 
     /**

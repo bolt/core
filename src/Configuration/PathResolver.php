@@ -133,7 +133,7 @@ class PathResolver
         }
 
         // Make sure we don't have lingering unneeded dir-seperators
-        $path = Path::canonicalize($path . $additional);
+        $path = Path::canonicalize($path);
 
         return $path;
     }

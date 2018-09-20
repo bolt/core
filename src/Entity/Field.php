@@ -143,6 +143,11 @@ class Field
         return $this->getDefinition()->type;
     }
 
+    public function get($key)
+    {
+        return $this->value[$key];
+    }
+
     public function getValue(): ?array
     {
         return $this->value;

@@ -12,4 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ImageField extends Field
 {
+    public function __toString(): string
+    {
+        $config = $this->getContent()->getConfig();
+
+        $path = $config->path('files', false, $this->get('filename'));
+
+        return $path;
+    }
 }
