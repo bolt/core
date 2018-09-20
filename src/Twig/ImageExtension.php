@@ -59,7 +59,7 @@ class ImageExtension extends AbstractExtension
         $secret = $this->config->get('general/secret');
 
         // Create an instance of the URL builder
-        $urlBuilder = UrlBuilderFactory::create('/files/', $secret);
+        $urlBuilder = UrlBuilderFactory::create('/thumbs/', $secret);
 
         // Generate a URL
         $url = $urlBuilder->getUrl($filename, ['w' => 500]);
