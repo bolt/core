@@ -143,6 +143,13 @@ class Field
         return $this->getDefinition()->type;
     }
 
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     public function get($key)
     {
         return $this->value[$key];
