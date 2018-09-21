@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Configuration\Config;
+use Bolt\Content\FieldFactory;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\User;
@@ -86,9 +87,8 @@ class ContentFixtures extends Fixture
 
                 $sortorder = 1;
                 foreach ($contentType->fields as $name => $fieldType) {
-                    $field = new Field();
+                    $field = FieldFactory::get($fieldType['type']);
                     $field->setName($name);
-                    $field->setType($fieldType['type']);
                     $field->setValue($this->getValuesforFieldType($fieldType));
                     $field->setSortorder($sortorder++ * 5);
 

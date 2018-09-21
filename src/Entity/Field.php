@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
- *     "text" = "Bolt\Entity\Field\TextField",
+ *     "generic" = "field",
  *     "block" = "Bolt\Entity\Field\BlockField",
  *     "checkbox" = "Bolt\Entity\Field\CheckboxField",
  *     "date" = "Bolt\Entity\Field\DateField",
@@ -24,6 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "filelist" = "Bolt\Entity\Field\FilelistField",
  *     "float" = "Bolt\Entity\Field\FloatField",
  *     "geolocation" = "Bolt\Entity\Field\GeolocationField",
+ *     "hidden" = "Bolt\Entity\Field\HiddenField",
  *     "html" = "Bolt\Entity\Field\HtmlField",
  *     "image" = "Bolt\Entity\Field\ImageField",
  *     "imagelist" = "Bolt\Entity\Field\ImagelistField",
@@ -33,10 +34,9 @@ use Doctrine\ORM\Mapping as ORM;
  *     "select" = "Bolt\Entity\Field\SelectField",
  *     "slug" = "Bolt\Entity\Field\SlugField",
  *     "templateselect" = "Bolt\Entity\Field\TemplateselectField",
+ *     "text" = "Bolt\Entity\Field\TextField",
  *     "textarea" = "Bolt\Entity\Field\TextareaField",
- *     "video" = "Bolt\Entity\Field\VideoField",
- *     "hidden" = "Bolt\Entity\Field\HiddenField",
- *     "generic" = "field"
+ *     "video" = "Bolt\Entity\Field\VideoField"
  * })
  */
 class Field
@@ -141,13 +141,6 @@ class Field
     public function getType(): ?string
     {
         return $this->getDefinition()->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
     }
 
     public function get($key)
