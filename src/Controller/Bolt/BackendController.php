@@ -6,9 +6,15 @@ namespace Bolt\Controller\Bolt;
 
 use Bolt\Configuration\Config;
 use Bolt\Version;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class BackendController.
+ *
+ * @Security("has_role('ROLE_ADMIN')")
+ */
 class BackendController extends AbstractController
 {
     /** @var Config */
