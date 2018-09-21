@@ -92,6 +92,9 @@ class Field
     /** @var FieldType */
     private $fieldTypeDefinition;
 
+    /** @var bool */
+    protected $excerptable = false;
+
     public function __toString(): string
     {
         return implode(', ', $this->getValue());
@@ -218,5 +221,10 @@ class Field
         $this->content = $content;
 
         return $this;
+    }
+
+    public function isExcerptable(): bool
+    {
+        return $this->excerptable;
     }
 }

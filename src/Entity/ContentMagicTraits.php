@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Bolt\Helpers\Excerpt;
+
 trait ContentMagicTraits
 {
     public function __toString(): string
@@ -49,7 +51,7 @@ trait ContentMagicTraits
         $magicName = 'magic' . $name;
 
         if (method_exists($this, $magicName)) {
-            return $this->$magicName($arguments);
+            return $this->$magicName(...$arguments);
         }
     }
 
@@ -92,9 +94,12 @@ trait ContentMagicTraits
         return 'magic image';
     }
 
-    public function magicExcerpt()
+    public function magicExcerpt($length = 200, $includeTitle = false, $focus = null)
     {
-        return 'magic excerpt';
+        $excerpter = new Excerpt($this);
+        $excerpt = $excerpter->getExcerpt($length, $includeTitle, $focus);
+
+        return new \Twig_Markup($excerpt, 'utf-8');
     }
 
     public function magicPrevious()

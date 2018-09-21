@@ -14,13 +14,14 @@ final class FieldFactory
 
     /**
      * @param string $name
+     *
      * @return Field
      */
     public static function get(string $name)
     {
-        $classname = '\\Bolt\\Entity\\Field\\'. $name .'Field';
+        $classname = '\\Bolt\\Entity\\Field\\' . $name . 'Field';
         if (class_exists($classname)) {
-            $field = new $classname;
+            $field = new $classname();
         } else {
             $field = new Field();
         }

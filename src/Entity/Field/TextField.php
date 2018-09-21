@@ -12,4 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TextField extends Field
 {
+    /** @var bool */
+    protected $excerptable = true;
 }

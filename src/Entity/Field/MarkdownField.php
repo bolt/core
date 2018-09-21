@@ -12,4 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MarkdownField extends Field
 {
+    /** @var bool */
+    protected $excerptable = true;
 }

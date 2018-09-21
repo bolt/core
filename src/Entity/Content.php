@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use Bolt\Collection\Bag;
 use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
 use Bolt\Content\ContentTypeFactory;

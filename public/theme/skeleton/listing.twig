@@ -39,14 +39,7 @@
                     </a>
                 {% endif %}
 
-                {# display something introduction-like.. #}
-                {% if record.introduction %}
-                    {{ record.introduction }}
-                {% elseif record.teaser %}
-                    {{ record.teaser }}
-                {% else %}
-                    <p>{{ record.excerpt(300, false, search|default('')) }}</p>
-                {% endif %}
+                <p>{{ record.excerpt(300, false, search|default('')) }}</p>
 
                 {#{% include 'partials/_recordfooter.twig' with { 'record': record } %}#}
 

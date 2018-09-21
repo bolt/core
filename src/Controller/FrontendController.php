@@ -39,10 +39,12 @@ class FrontendController extends AbstractController
     /**
      * @Route("/record/{id<[1-9]\d*>}", methods={"GET"}, name="record_by_id")
      * @Route("/record/{slug<[a-z0-9_-]+>}", methods={"GET"}, name="record")
+     *
      * @param ContentRepository $contentRepository
-     * @param FieldRepository $fieldRepository
-     * @param null $id
-     * @param null $slug
+     * @param FieldRepository   $fieldRepository
+     * @param null              $id
+     * @param null              $slug
+     *
      * @return Response
      */
     public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $id = null, $slug = null): Response
@@ -69,9 +71,11 @@ class FrontendController extends AbstractController
      * Renders a view.
      *
      * @final
-     * @param string $view
-     * @param array $parameters
+     *
+     * @param string        $view
+     * @param array         $parameters
      * @param Response|null $response
+     *
      * @return Response
      */
     protected function render(string $view, array $parameters = [], Response $response = null): Response

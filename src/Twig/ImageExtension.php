@@ -6,9 +6,7 @@ namespace Bolt\Twig;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field;
-use Bolt\Utils\Markdown;
 use League\Glide\Urls\UrlBuilderFactory;
-use Symfony\Component\Intl\Intl;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -52,7 +50,7 @@ class ImageExtension extends AbstractExtension
     {
         if ($image instanceof Field) {
             $filename = $image->get('filename');
-        } else if (is_string($image)) {
+        } elseif (is_string($image)) {
             $filename = $image;
         }
 
@@ -71,5 +69,4 @@ class ImageExtension extends AbstractExtension
     {
         return $input;
     }
-
 }

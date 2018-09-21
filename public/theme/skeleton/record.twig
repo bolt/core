@@ -4,15 +4,16 @@
 
     <h1>{{ record.title }}</h1>
 
-<hr>
+    {% for field in record.fields %}
+        {{ dump(field) }}
+        {{ field }}
+    {% endfor %}
+
+    <hr>
+
     {% if record.image %}
-        {{ dump(record.image) }}
-        <p>{{ record.image }}</p>
-        {{ thumbnail(record.image, 400, 260) }}
-<hr>
         <a href="{{ record.image }}">
             <img src="{{ thumbnail(record.image, 400, 260) }}">
-            <img src="{{ record.image|thumbnail(400, 260) }}">
         </a>
     {% endif %}
 

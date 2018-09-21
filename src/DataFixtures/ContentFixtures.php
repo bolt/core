@@ -7,7 +7,6 @@ namespace Bolt\DataFixtures;
 use Bolt\Configuration\Config;
 use Bolt\Content\FieldFactory;
 use Bolt\Entity\Content;
-use Bolt\Entity\Field;
 use Bolt\Entity\User;
 use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
