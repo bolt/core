@@ -24,7 +24,7 @@ Vue.component('topbar', Topbar)
 Vue.component('dashboardnews', DashboardNews)
 Vue.component('app', App)
 Vue.component('dashboardcontentlist', DashboardContentList)
-Vue.component('content', Content)
+// Vue.component('content2', Content)
 
 
 // this loads jquery, but does *not* set a global $ or jQuery variable

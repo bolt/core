@@ -44,9 +44,14 @@ export default {
     actions: {
         fetchContent ({commit}, type) {
             commit('FETCHING_CONTENT');
+            // if exists in localStorage, serve that
+            // state.content['fefef'] -> res.data
+            // ?refresh=1 do real call
+
             return ContentAPI.getAll(type)
                 .then(res => commit('FETCHING_CONTENT_SUCCESS', res.data))
-                .catch(err => commit('FETCHING_CONTENT_ERROR', err));
+                .catch(err => commit('FETCHING_CONTENT_ERROR', err))
+            ;
         },
     },
 }

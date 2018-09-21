@@ -30,12 +30,12 @@
         slug: 'pages'
     },
     {
-        slug: 'homepages'
+        slug: 'homepage'
     }
 ] %}
 
                 {% for contentType in contentTypes if true or contentType.showOnDashboard %}
-                    <DashboardContentList type="{{ contentType.slug }}" limit="5" />
+                    <DashboardContentList type="{{ contentType.slug }}" limit="5"></DashboardContentList>
                 {% endfor %}
 
                 {# <router-view></router-view> #}

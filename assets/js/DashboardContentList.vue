@@ -24,7 +24,7 @@
                 <tbody>
                     <template v-for="item in content.slice(0, limit)" class="row col">
                         <tr :key="item.id">
-                            <td>{{ item.id }}</td>    
+                            <td>{{ item.id }}</td>
                             <td>{{ item.fields[0].value.value }}</td>
                         </tr>
                         <!-- Maybe is better to have a component to print each row? -->
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-    import Context from './Content';
+    // import Context from './Content';
 
     export default {
         name: 'context',
@@ -46,7 +46,7 @@
             'limit',
         ],
         components: {
-            Context
+            // Context
         },
         data () {
             return {
@@ -58,6 +58,7 @@
         },
         computed: {
             isLoading () {
+                // return this.state == 'loading'; // ComponentState.LOADING;
                 return this.$store.getters['content/isLoading'];
             },
             hasError () {

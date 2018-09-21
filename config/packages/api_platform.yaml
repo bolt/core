@@ -5,3 +5,7 @@ api_platform:
         html:     ['text/html']
         json:     ['application/json']
         jsonapi:  ['application/vnd.api+json']
+    collection:
+            pagination:
+                client_items_per_page: true
+                items_per_page_parameter_name: 'pageSize'
