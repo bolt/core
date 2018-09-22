@@ -1,13 +1,13 @@
 <template>
     <el-card class="box-card">
-    <div slot="header" class="clearfix">
-        <span>Card name</span>
-        <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>
-    </div>
-    <div v-for="newsItem in news" v-if="newsItem" :key="newsItem.id" class="text item">
-        {{ newsItem.title }}
-        <div v-html="newsItem.teaser"></div>
-    </div>
+        <div slot="header" class="clearfix">
+            <span>Card name</span>
+            <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>
+        </div>
+        <div v-for="newsItem in news" v-if="newsItem" :key="newsItem.id" class="text item">
+            {{ newsItem.title }}
+            <div v-html="newsItem.teaser"></div>
+        </div>
     </el-card>
 </template>
 
@@ -58,6 +58,5 @@ export default {
   }
 
   .box-card {
-    width: 480px;
   }
 </style>

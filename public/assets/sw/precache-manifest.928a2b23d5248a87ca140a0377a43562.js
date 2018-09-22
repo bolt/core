@@ -8,11 +8,11 @@ self.__precacheManifest = [
     "url": "/assets/fonts/element-icons.2fad952a.woff"
   },
   {
-    "revision": "58fea420398529679abd",
+    "revision": "337ef2b6cf347f6f33ef",
     "url": "/assets/bolt.js"
   },
   {
-    "revision": "58fea420398529679abd",
+    "revision": "337ef2b6cf347f6f33ef",
     "url": "/assets/bolt.css"
   }
 ];

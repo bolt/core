@@ -26,14 +26,11 @@ Vue.component('app', App)
 Vue.component('dashboardcontentlist', DashboardContentList)
 // Vue.component('content2', Content)
 
-
 // this loads jquery, but does *not* set a global $ or jQuery variable
 // const $ = require('jquery');
 
-new Vue({
-  el: '#app',
-  router,
-  store,
-});
+new Vue({ el: '#topbar', router, store });
+new Vue({ el: '#sidebar', router, store });
+new Vue({ el: '#vuecontent', router, store });
 
-
+new Vue({ el: 'dashboardnews' });

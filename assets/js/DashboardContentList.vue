@@ -1,9 +1,5 @@
 <template>
     <div>
-        <div class="row col">
-            <h1>Dashboard</h1>
-        </div>
-
         <div v-if="isLoading" class="row col">
             <p>Loading...</p>
         </div>

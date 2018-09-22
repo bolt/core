@@ -33,9 +33,12 @@ class EditRecordController extends AbstractController
     /**
      * @Route("/edit/{id}", name="bolt_edit_record")
      */
-    public function edit(Content $record)
+    public function edit(Content $record = null)
     {
         dump($record);
+
+
+
         return $this->render('bolt/edit/edit.twig', [
             'record' => $record
          ]);

@@ -1,8 +1,18 @@
 {% extends 'bolt/base.html.twig' %}
 
-{% block body %}
+{% block container "vuecontent" %}
 
-<DashboardNews></DashboardNews>
+{% block title "Dashboard" %}
+
+{% block aside %}
+    <div class="vue">
+        <DashboardNews></DashboardNews>
+    </div>
+{% endblock %}
+
+
+
+{% block body %}
 
 {% set contentTypes = [
     {
@@ -12,11 +22,9 @@
         slug: 'homepage'
     }
 ] %}
-
-                {% for contentType in contentTypes if true or contentType.showOnDashboard %}
-                    <DashboardContentList type="{{ contentType.slug }}" limit="5"></DashboardContentList>
-                {% endfor %}
-
-
+{% for contentType in contentTypes if true or contentType.showOnDashboard %}
+    <DashboardContentList type="{{ contentType.slug }}" limit="5"></DashboardContentList>
+{% endfor %}
 
 {% endblock %}
+

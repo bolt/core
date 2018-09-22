@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Title{% endblock %}</title>
     {% block stylesheets %}
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bolt.css') }}">
@@ -13,28 +13,35 @@
 </head>
 
 <body>
+<div class="wrapper">
 
-<div class="container" id="app" data-vue-routing="{{ vueRouting|default() }}">
+    <div id="topbar" data-vue-routing="{{ vueRouting|default() }}">
+        <Topbar title="{{ block('title') }}"></Topbar>
+    </div>
 
-    <Topbar></Topbar>
+    <div id="sidebar">
+            <Sidebar>side</Sidebar>
+    </div>
 
-    <el-container>
-        <Sidebar></Sidebar>
+    <div id="{% block container %}content{% endblock %}">
 
-        <el-main>
+        <h1>Hoi</h1>
 
-            {% block body %}
+        {% block body %}
+        {% endblock %}
 
-[base]
+    </div>
 
-            {% endblock %}
+    <div id="aside">
+        {% block aside %}
+        {% endblock %}
+    </div>
 
-        </el-main>
-
-    </el-container>
+    <div id="footer">
+        Bolt {{ version|default('unknown') }}
+    </div>
 
 </div>
-
 {% block javascripts %}
     <script src="{{ asset('assets/bolt.js') }}"></script>
 {% endblock %}

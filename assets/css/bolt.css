@@ -7,3 +7,52 @@ html, body {
     margin: 0;
   }
 
+.wrapper {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-areas:
+        "topbar"
+        "sidebar"
+        "content"
+        "sidebar2"
+        "footer"
+}
+
+@media only screen and (min-width: 600px)   {
+    .wrapper {
+        grid-template-columns: 201px auto 340px;
+        grid-template-rows: 61px auto 30px;
+        grid-template-areas:
+            "sidebar  topbar  topbar"
+            "sidebar content aside"
+            "sidebar  footer  footer";
+    }
+}
+
+#sidebar {
+    grid-area: sidebar;
+    background-color: #EEE;
+    border-right: 2px solid #BBB;
+
+}
+
+#topbar {
+    grid-area: topbar;
+    background-color: #FFF;
+    border-bottom: 1px solid #BBB;
+}
+
+#content, #vuecontent {
+    grid-area: content;
+    padding: 1em;
+}
+
+#footer {
+    grid-area: footer;
+}
+
+#aside {
+    grid-area: aside;
+    padding: 1em;
+}
