@@ -21,16 +21,31 @@ class FieldRepository extends ServiceEntityRepository
         parent::__construct($registry, Field::class);
     }
 
+    private function getQueryBuilder(QueryBuilder $qb = null)
+    {
+        return $qb ?: $this->createQueryBuilder('field');
+    }
+
+    public function findOneBySlug($slug): ?Field
+    {
+        return $this->getQueryBuilder()
+            ->andWhere('field.value = :slug')
+            ->setParameter('slug', \GuzzleHttp\json_encode([$slug]))
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
 //    /**
 //     * @return Field[] Returns an array of Field objects
 //     */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
+        return $this->createQueryBuilder('field')
+            ->andWhere('field.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
+            ->orderBy('field.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -38,15 +53,13 @@ class FieldRepository extends ServiceEntityRepository
     }
     */
 
-    /*
     public function findOneBySomeField($value): ?Field
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
+        return $this->createQueryBuilder('field')
+            ->andWhere('field.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

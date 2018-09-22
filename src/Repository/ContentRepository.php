@@ -24,16 +24,36 @@ class ContentRepository extends ServiceEntityRepository
         parent::__construct($registry, Content::class);
     }
 
+    private function getQueryBuilder(QueryBuilder $qb = null)
+    {
+        return $qb ?: $this->createQueryBuilder('content');
+    }
+
     public function findLatest(int $page = 1): Pagerfanta
     {
-        $qb = $this->createQueryBuilder('p')
+        $qb = $this->getQueryBuilder()
             ->addSelect('a')
-            ->innerJoin('p.author', 'a')
-            ->where('p.publishedAt <= :now')
-            ->orderBy('p.publishedAt', 'DESC')
+            ->innerJoin('content.author', 'a')
+            ->where('content.publishedAt <= :now')
+            ->orderBy('content.publishedAt', 'DESC')
             ->setParameter('now', new \DateTime());
 
         return $this->createPaginator($qb->getQuery(), $page);
+    }
+
+    public function findOneBySlug(string $slug)
+    {
+        return $this->getQueryBuilder()
+            ->innerJoin('Bolt\Entity\Field\SlugField', 'field')
+            ->andWhere('field.value = :slug')
+            ->setParameter('slug', json_encode([$slug]))
+            ->getQuery()
+            ->getResult()
+            ;
+
+//        ->join('m.PropertyEntity', 'p')
+//        ->where('p.value IN (:values)')
+//        ->setParameter('values',['red','yellow']);
     }
 
     private function createPaginator(Query $query, int $page): Pagerfanta

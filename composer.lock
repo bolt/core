@@ -4,165 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "499013982685f5d1ad53d1659f47218e",
+    "content-hash": "e3df1700e49d71249b64e63364bbeb39",
     "packages": [
         {
-            "name": "api-platform/api-pack",
-            "version": "1.1.0",
+            "name": "behat/transliterator",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/api-platform/api-pack.git",
-                "reference": "33ade8a1dc23868828788fe1bf3e54291ce54843"
+                "url": "https://github.com/Behat/Transliterator.git",
+                "reference": "826ce7e9c2a6664c0d1f381cbb38b1fb80a7ee2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/api-pack/zipball/33ade8a1dc23868828788fe1bf3e54291ce54843",
-                "reference": "33ade8a1dc23868828788fe1bf3e54291ce54843",
+                "url": "https://api.github.com/repos/Behat/Transliterator/zipball/826ce7e9c2a6664c0d1f381cbb38b1fb80a7ee2c",
+                "reference": "826ce7e9c2a6664c0d1f381cbb38b1fb80a7ee2c",
                 "shasum": ""
             },
             "require": {
-                "api-platform/core": "^2.1",
-                "doctrine/annotations": "^1.0",
-                "doctrine/doctrine-bundle": "^1.6",
-                "doctrine/orm": "^2.4.5",
-                "nelmio/cors-bundle": "^1.5",
-                "php": "^7.0",
-                "phpdocumentor/reflection-docblock": "^3.0 || ^4.0",
-                "symfony/asset": "^3.0 || ^4.0",
-                "symfony/expression-language": "^3.0 || ^4.0",
-                "symfony/security-bundle": "^3.0 || ^4.0",
-                "symfony/twig-bundle": "^3.0 || ^4.0",
-                "symfony/validator": "^3.0 || ^4.0"
-            },
-            "type": "symfony-pack",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A pack for API Platform",
-            "time": "2018-02-09T13:21:13+00:00"
-        },
-        {
-            "name": "api-platform/core",
-            "version": "v2.3.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/api-platform/core.git",
-                "reference": "8313fb295562e53254d7bb73cd0efce5750ab6e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/8313fb295562e53254d7bb73cd0efce5750ab6e0",
-                "reference": "8313fb295562e53254d7bb73cd0efce5750ab6e0",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/inflector": "^1.0",
-                "php": ">=7.1",
-                "psr/cache": "^1.0",
-                "psr/container": "^1.0",
-                "symfony/http-foundation": "^3.1 || ^4.0",
-                "symfony/http-kernel": "^2.7 || ^3.0 || ^4.0",
-                "symfony/property-access": "^2.7 || ^3.0 || ^4.0",
-                "symfony/property-info": "^3.3.11 || ^4.0",
-                "symfony/serializer": "^4.1",
-                "willdurand/negotiation": "^2.0.3"
-            },
-            "conflict": {
-                "symfony/dependency-injection": "<3.4"
+                "php": ">=5.3.3"
             },
             "require-dev": {
-                "behat/behat": "^3.1",
-                "behat/mink": "^1.7",
-                "behat/mink-browserkit-driver": "^1.3.1",
-                "behat/mink-extension": "^2.2",
-                "behat/symfony2-extension": "^2.1.1",
-                "behatch/contexts": "3.1.0",
-                "doctrine/annotations": "^1.2",
-                "doctrine/doctrine-bundle": "^1.8",
-                "doctrine/orm": "^2.5.2",
-                "friendsofsymfony/user-bundle": "^2.1",
-                "guzzlehttp/guzzle": "^6.0",
-                "justinrainbow/json-schema": "^5.0",
-                "nelmio/api-doc-bundle": "^2.13.3",
-                "php-mock/php-mock-phpunit": "^2.0",
-                "phpdocumentor/reflection-docblock": "^3.0 || ^4.0",
-                "phpdocumentor/type-resolver": "^0.2.1 || ^0.3 || 0.4",
-                "phpunit/phpunit": "^6.1",
-                "psr/log": "^1.0",
-                "ramsey/uuid": "^3.7",
-                "ramsey/uuid-doctrine": "^1.4",
-                "symfony/asset": "^3.3 || ^4.0",
-                "symfony/cache": "^3.3 || ^4.0",
-                "symfony/config": "^3.4 || ^4.0",
-                "symfony/console": "^3.4 || ^4.0",
-                "symfony/debug": "^2.8 || ^3.0 || ^4.0",
-                "symfony/dependency-injection": "^3.4 || ^4.0",
-                "symfony/doctrine-bridge": "^2.8.12 || ^3.0 || ^4.0",
-                "symfony/event-dispatcher": "^3.4 || ^4.0",
-                "symfony/expression-language": "^2.8 || ^3.0 || ^4.0",
-                "symfony/finder": "^3.3 || ^4.0",
-                "symfony/form": "^3.3 || ^4.0",
-                "symfony/framework-bundle": "^3.3 || ^4.0",
-                "symfony/http-foundation": "^3.1@dev || ^4.0@dev",
-                "symfony/phpunit-bridge": "^3.3 || ^4.0",
-                "symfony/routing": "^3.3 || ^4.0",
-                "symfony/security": "^3.0 || ^4.0",
-                "symfony/security-bundle": "^3.4 || ^4.0",
-                "symfony/twig-bundle": "^3.4 || ^4.0",
-                "symfony/validator": "^3.3 || ^4.0",
-                "symfony/web-profiler-bundle": "^3.3 || ^4.0",
-                "symfony/yaml": "^3.3 || ^4.0",
-                "webonyx/graphql-php": ">=0.12 <1.0"
-            },
-            "suggest": {
-                "friendsofsymfony/user-bundle": "To use the FOSUserBundle bridge.",
-                "guzzlehttp/guzzle": "To use the HTTP cache invalidation system.",
-                "phpdocumentor/reflection-docblock": "To support extracting metadata from PHPDoc.",
-                "psr/cache-implementation": "To use metadata caching.",
-                "ramsey/uuid": "To support Ramsey's UUID identifiers.",
-                "symfony/cache": "To have metadata caching when using Symfony integration.",
-                "symfony/config": "To load XML configuration files.",
-                "symfony/expression-language": "To use authorization features.",
-                "symfony/security": "To use authorization features.",
-                "symfony/twig-bundle": "To use the Swagger UI integration.",
-                "symfony/web-profiler-bundle": "To use the data collector.",
-                "webonyx/graphql-php": "To support GraphQL."
+                "chuyskywalker/rolling-curl": "^3.1",
+                "php-yaoi/php-yaoi": "^1.0"
+
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "ApiPlatform\\Core\\": "src/"
+                "psr-0": {
+                    "Behat\\Transliterator": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "Artistic-1.0"
             ],
-            "authors": [
-                {
-                    "name": "Kévin Dunglas",
-                    "email": "dunglas@gmail.com",
-                    "homepage": "https://dunglas.fr"
-                }
-            ],
-            "description": "The ultimate solution to create web APIs.",
-            "homepage": "https://api-platform.com",
+            "description": "String transliterator",
             "keywords": [
-                "Hydra",
-                "JSON-LD",
-                "api",
-                "hal",
-                "json",
-                "rest",
-                "swagger"
+                "i18n",
+                "slug",
+                "transliterator"
             ],
-            "time": "2018-09-11T18:33:31+00:00"
+            "time": "2017-04-04T11:38:05+00:00"
         },
         {
             "name": "bolt/collection",
@@ -1886,6 +1773,87 @@
             "time": "2018-07-12T10:23:15+00:00"
         },
         {
+            "name": "gedmo/doctrine-extensions",
+            "version": "v2.4.36",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
+                "reference": "87c78ff9fd4b90460386f753d95622f6fbbfcb27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/87c78ff9fd4b90460386f753d95622f6fbbfcb27",
+                "reference": "87c78ff9fd4b90460386f753d95622f6fbbfcb27",
+                "shasum": ""
+            },
+            "require": {
+                "behat/transliterator": "~1.2",
+                "doctrine/common": "~2.4",
+                "php": ">=5.3.2"
+            },
+            "conflict": {
+                "doctrine/annotations": "<1.2"
+            },
+            "require-dev": {
+                "doctrine/common": ">=2.5.0",
+                "doctrine/mongodb-odm": ">=1.0.2",
+                "doctrine/orm": ">=2.5.0",
+                "phpunit/phpunit": "^4.8.35|^5.7|^6.5",
+                "symfony/yaml": "~2.6|~3.0|~4.0"
+            },
+            "suggest": {
+                "doctrine/mongodb-odm": "to use the extensions with the MongoDB ODM",
+                "doctrine/orm": "to use the extensions with the ORM"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gedmo\\": "lib/Gedmo"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Buchmann",
+                    "email": "david@liip.ch"
+                },
+                {
+                    "name": "Gediminas Morkevicius",
+                    "email": "gediminas.morkevicius@gmail.com"
+                },
+                {
+                    "name": "Gustavo Falco",
+                    "email": "comfortablynumb84@gmail.com"
+                }
+            ],
+            "description": "Doctrine2 behavioral extensions",
+            "homepage": "http://gediminasm.org/",
+            "keywords": [
+                "Blameable",
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "loggable",
+                "nestedset",
+                "sluggable",
+                "sortable",
+                "timestampable",
+                "translatable",
+                "tree",
+                "uploadable"
+            ],
+            "time": "2018-07-26T12:16:35+00:00"
+        },
+        {
             "name": "guzzlehttp/guzzle",
             "version": "6.3.3",
             "source": {
@@ -2067,6 +2035,76 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
+            "name": "intervention/image",
+            "version": "2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/image.git",
+                "reference": "e82d274f786e3d4b866a59b173f42e716f0783eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/e82d274f786e3d4b866a59b173f42e716f0783eb",
+                "reference": "e82d274f786e3d4b866a59b173f42e716f0783eb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "guzzlehttp/psr7": "~1.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.2",
+                "phpunit/phpunit": "^4.8 || ^5.7"
+            },
+            "suggest": {
+                "ext-gd": "to use GD library based image processing.",
+                "ext-imagick": "to use Imagick based image processing.",
+                "intervention/imagecache": "Caching extension for the Intervention Image library"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Intervention\\Image\\ImageServiceProvider"
+                    ],
+                    "aliases": {
+                        "Image": "Intervention\\Image\\Facades\\Image"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Intervention\\Image\\": "src/Intervention/Image"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@olivervogel.com",
+                    "homepage": "http://olivervogel.com/"
+                }
+            ],
+            "description": "Image handling and manipulation library with support for Laravel integration",
+            "homepage": "http://image.intervention.io/",
+            "keywords": [
+                "gd",
+                "image",
+                "imagick",
+                "laravel",
+                "thumbnail",
+                "watermark"
+            ],
+            "time": "2018-05-29T14:19:03+00:00"
+        },
+        {
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
             "source": {
@@ -2115,6 +2153,194 @@
                 "sql"
             ],
             "time": "2014-01-12T16:20:24+00:00"
+        },
+        {
+            "name": "league/flysystem",
+            "version": "1.0.47",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem.git",
+                "reference": "a11e4a75f256bdacf99d20780ce42d3b8272975c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a11e4a75f256bdacf99d20780ce42d3b8272975c",
+                "reference": "a11e4a75f256bdacf99d20780ce42d3b8272975c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "php": ">=5.5.9"
+            },
+            "conflict": {
+                "league/flysystem-sftp": "<1.0.6"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^3.4",
+                "phpunit/phpunit": "^5.7.10"
+            },
+            "suggest": {
+                "ext-fileinfo": "Required for MimeType",
+                "ext-ftp": "Allows you to use FTP server storage",
+                "ext-openssl": "Allows you to use FTPS server storage",
+                "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+                "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+                "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+                "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+                "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+                "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+                "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+                "league/flysystem-webdav": "Allows you to use WebDAV storage",
+                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
+                "spatie/flysystem-dropbox": "Allows you to use Dropbox storage",
+                "srmklive/flysystem-dropbox-v2": "Allows you to use Dropbox storage for PHP 5 applications"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "Filesystem abstraction: Many filesystems, one API.",
+            "keywords": [
+                "Cloud Files",
+                "WebDAV",
+                "abstraction",
+                "aws",
+                "cloud",
+                "copy.com",
+                "dropbox",
+                "file systems",
+                "files",
+                "filesystem",
+                "filesystems",
+                "ftp",
+                "rackspace",
+                "remote",
+                "s3",
+                "sftp",
+                "storage"
+            ],
+            "time": "2018-09-14T15:30:29+00:00"
+        },
+        {
+            "name": "league/glide",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/glide.git",
+                "reference": "bd29f65c9666abd72e66916e0573801e435ca878"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/glide/zipball/bd29f65c9666abd72e66916e0573801e435ca878",
+                "reference": "bd29f65c9666abd72e66916e0573801e435ca878",
+                "shasum": ""
+            },
+            "require": {
+                "intervention/image": "^2.1",
+                "league/flysystem": "^1.0",
+                "php": "^5.4 | ^7.0",
+                "psr/http-message": "^1.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/php-token-stream": "^1.4",
+                "phpunit/phpunit": "~4.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Glide\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Reinink",
+                    "email": "jonathan@reinink.ca",
+                    "homepage": "http://reinink.ca"
+                }
+            ],
+            "description": "Wonderfully easy on-demand image manipulation library with an HTTP based API.",
+            "homepage": "http://glide.thephpleague.com",
+            "keywords": [
+                "ImageMagick",
+                "editing",
+                "gd",
+                "image",
+                "imagick",
+                "league",
+                "manipulation",
+                "processing"
+            ],
+            "time": "2018-02-12T23:28:25+00:00"
+        },
+        {
+            "name": "league/glide-symfony",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/glide-symfony.git",
+                "reference": "94b43e1d34e6be11f2996254d33748f4da123ec5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/glide-symfony/zipball/94b43e1d34e6be11f2996254d33748f4da123ec5",
+                "reference": "94b43e1d34e6be11f2996254d33748f4da123ec5",
+                "shasum": ""
+            },
+            "require": {
+                "league/glide": "^1.0",
+                "symfony/http-foundation": "^2.3|^3.0|^4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9",
+                "phpunit/phpunit": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\Glide\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Reinink",
+                    "email": "jonathan@reinink.ca",
+                    "homepage": "http://reinink.ca"
+                }
+            ],
+            "description": "Glide adapter for Symfony",
+            "homepage": "http://glide.thephpleague.com",
+            "time": "2018-02-10T14:10:07+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3040,6 +3266,71 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2018-02-28T22:10:01+00:00"
+        },
+        {
+            "name": "stof/doctrine-extensions-bundle",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
+                "reference": "46db71ec7ffee9122eca3cdddd4ef8d84bae269c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/46db71ec7ffee9122eca3cdddd4ef8d84bae269c",
+                "reference": "46db71ec7ffee9122eca3cdddd4ef8d84bae269c",
+                "shasum": ""
+            },
+            "require": {
+                "gedmo/doctrine-extensions": "^2.3.4",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.7|~3.2|~4.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^4.0",
+                "symfony/security-bundle": "^2.7 || ^3.2 || ^4.0"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "to use the ORM extensions",
+                "doctrine/mongodb-odm-bundle": "to use the MongoDB ODM extensions"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stof\\DoctrineExtensionsBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                }
+            ],
+            "description": "Integration of the gedmo/doctrine-extensions with Symfony2",
+            "homepage": "https://github.com/stof/StofDoctrineExtensionsBundle",
+            "keywords": [
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "loggable",
+                "nestedset",
+                "sluggable",
+                "sortable",
+                "timestampable",
+                "translatable",
+                "tree"
+            ],
+            "time": "2017-12-24T16:06:50+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4387,89 +4678,6 @@
                 "localization"
             ],
             "time": "2018-08-01T08:24:03+00:00"
-        },
-        {
-            "name": "symfony/lts",
-            "version": "dev-master",
-            "conflict": {
-                "symfony/asset": ">=5",
-                "symfony/browser-kit": ">=5",
-                "symfony/cache": ">=5",
-                "symfony/class-loader": ">=5",
-                "symfony/config": ">=5",
-                "symfony/console": ">=5",
-                "symfony/css-selector": ">=5",
-                "symfony/debug": ">=5",
-                "symfony/debug-bundle": ">=5",
-                "symfony/dependency-injection": ">=5",
-                "symfony/doctrine-bridge": ">=5",
-                "symfony/dom-crawler": ">=5",
-                "symfony/dotenv": ">=5",
-                "symfony/event-dispatcher": ">=5",
-                "symfony/expression-language": ">=5",
-                "symfony/filesystem": ">=5",
-                "symfony/finder": ">=5",
-                "symfony/form": ">=5",
-                "symfony/framework-bundle": ">=5",
-                "symfony/http-foundation": ">=5",
-                "symfony/http-kernel": ">=5",
-                "symfony/inflector": ">=5",
-                "symfony/intl": ">=5",
-                "symfony/ldap": ">=5",
-                "symfony/lock": ">=5",
-                "symfony/messenger": ">=5",
-                "symfony/monolog-bridge": ">=5",
-                "symfony/options-resolver": ">=5",
-                "symfony/process": ">=5",
-                "symfony/property-access": ">=5",
-                "symfony/property-info": ">=5",
-                "symfony/proxy-manager-bridge": ">=5",
-                "symfony/routing": ">=5",
-                "symfony/security": ">=5",
-                "symfony/security-bundle": ">=5",
-                "symfony/security-core": ">=5",
-                "symfony/security-csrf": ">=5",
-                "symfony/security-guard": ">=5",
-                "symfony/security-http": ">=5",
-                "symfony/serializer": ">=5",
-                "symfony/stopwatch": ">=5",
-                "symfony/symfony": ">=5",
-                "symfony/templating": ">=5",
-                "symfony/translation": ">=5",
-                "symfony/twig-bridge": ">=5",
-                "symfony/twig-bundle": ">=5",
-                "symfony/validator": ">=5",
-                "symfony/var-dumper": ">=5",
-                "symfony/web-link": ">=5",
-                "symfony/web-profiler-bundle": ">=5",
-                "symfony/web-server-bundle": ">=5",
-                "symfony/workflow": ">=5",
-                "symfony/yaml": ">=5"
-            },
-            "type": "metapackage",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4-dev"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Enforces Long Term Supported versions of Symfony components",
-            "homepage": "https://symfony.com",
-            "abandoned": "symfony/flex",
-            "time": "2018-09-13T17:13:03+00:00"
         },
         {
             "name": "symfony/monolog-bridge",
@@ -6314,6 +6522,52 @@
             "time": "2018-01-29T19:49:41+00:00"
         },
         {
+            "name": "webmozart/path-util",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webmozart/path-util.git",
+                "reference": "d939f7edc24c9a1bb9c0dee5cb05d8e859490725"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webmozart/path-util/zipball/d939f7edc24c9a1bb9c0dee5cb05d8e859490725",
+                "reference": "d939f7edc24c9a1bb9c0dee5cb05d8e859490725",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "webmozart/assert": "~1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.6",
+                "sebastian/version": "^1.0.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webmozart\\PathUtil\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                }
+            ],
+            "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths.",
+            "time": "2015-12-17T08:42:14+00:00"
+        },
+        {
             "name": "white-october/pagerfanta-bundle",
             "version": "v1.2.1",
             "source": {
@@ -6915,16 +7169,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.0.3",
+            "version": "v4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d"
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/bd088dc940a418f09cda079a9b5c7c478890fb8d",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/fa6ee28600d21d49b2b4e1006b48426cec8e579c",
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c",
                 "shasum": ""
             },
             "require": {
@@ -6962,7 +7216,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2018-07-15T17:25:16+00:00"
+            "time": "2018-09-18T07:03:24+00:00"
         },
         {
             "name": "php-cs-fixer/diff",
@@ -7482,9 +7736,7 @@
     ],
     "aliases": [],
     "minimum-stability": "beta",
-    "stability-flags": {
-        "symfony/lts": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -1,0 +1,44 @@
+{% extends 'partials/_master.twig' %}
+
+{% block main %}
+
+    <h1>{{ record.title }}</h1>
+
+    {% for field in record.fields %}
+        {{ dump(field) }}
+        {{ field }}
+    {% endfor %}
+
+    <hr>
+
+    {% if record.image %}
+        <a href="{{ record.image }}">
+            <img src="{{ thumbnail(record.image, 400, 260) }}">
+        </a>
+    {% endif %}
+
+    <hr>
+
+    {# Output all fields, in the order as defined in the contenttype.
+       To change the generated html and configure the options, see:
+       https://docs.bolt.cm/templating #}
+    {% with { 'record': record, 'common': true, 'extended': true, 'repeaters': true, 'blocks': true } %}
+        {{ block('sub_fields', 'partials/_sub_fields.twig') }}
+    {% endwith %}
+
+    <p>Record:</p>
+    <code>{% verbatim %}{{ dump(record.definition) }}{% endverbatim %}</code>
+
+    {#{{ dump(record.definition) }}#}
+
+    <p>Field:</p>
+    <code>{% verbatim %}{{ dump(record.image.definition) }}{% endverbatim %}</code>
+    {#{{ dump(record.image.definition) }}#}
+
+    {# Uncomment this if you wish to dump the entire record to the client, for debugging purposes.
+    {{ dump(record) }}
+    #}
+
+    {% include 'partials/_recordfooter.twig' with { 'record': record, 'extended': true } %}
+
+{% endblock main %}

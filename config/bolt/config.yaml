@@ -13,12 +13,15 @@ database:
 sitename: A sample site in CONFIG
 payoff: The amazing payoff goes here
 
+# note: ENV vars do not get parsed, yet!
+secret: '%env(APP_SECRET)%'
+
 # The theme to use.
 #
 # Don't edit the provided templates directly, because they _will_ get updated
 # in next releases. If you wish to modify a default theme, copy its folder, and
 # change the name here accordingly.
-theme: base-2018
+theme: skeleton
 
 # The locale that'll be used by the application. If no locale is set the
 # fallback locale is 'en_GB'. For available options, see:

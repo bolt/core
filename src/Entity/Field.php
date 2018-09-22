@@ -11,6 +11,33 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(name="bolt_field")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "generic" = "field",
+ *     "block" = "Bolt\Entity\Field\BlockField",
+ *     "checkbox" = "Bolt\Entity\Field\CheckboxField",
+ *     "date" = "Bolt\Entity\Field\DateField",
+ *     "datetime" = "Bolt\Entity\Field\DatetimeField",
+ *     "embed" = "Bolt\Entity\Field\EmbedField",
+ *     "file" = "Bolt\Entity\Field\FileField",
+ *     "filelist" = "Bolt\Entity\Field\FilelistField",
+ *     "float" = "Bolt\Entity\Field\FloatField",
+ *     "geolocation" = "Bolt\Entity\Field\GeolocationField",
+ *     "hidden" = "Bolt\Entity\Field\HiddenField",
+ *     "html" = "Bolt\Entity\Field\HtmlField",
+ *     "image" = "Bolt\Entity\Field\ImageField",
+ *     "imagelist" = "Bolt\Entity\Field\ImagelistField",
+ *     "integer" = "Bolt\Entity\Field\IntegerField",
+ *     "markdown" = "Bolt\Entity\Field\MarkdownField",
+ *     "repeater" = "Bolt\Entity\Field\RepeaterField",
+ *     "select" = "Bolt\Entity\Field\SelectField",
+ *     "slug" = "Bolt\Entity\Field\SlugField",
+ *     "templateselect" = "Bolt\Entity\Field\TemplateselectField",
+ *     "text" = "Bolt\Entity\Field\TextField",
+ *     "textarea" = "Bolt\Entity\Field\TextareaField",
+ *     "video" = "Bolt\Entity\Field\VideoField"
+ * })
  */
 class Field
 {
@@ -32,14 +59,9 @@ class Field
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=191)
-     */
-    private $type;
-
-    /**
      * @ORM\Column(type="json")
      */
-    private $value = [];
+    protected $value = [];
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -69,6 +91,9 @@ class Field
 
     /** @var FieldType */
     private $fieldTypeDefinition;
+
+    /** @var bool */
+    protected $excerptable = false;
 
     public function __toString(): string
     {
@@ -118,14 +143,12 @@ class Field
 
     public function getType(): ?string
     {
-        return $this->type;
+        return $this->getDefinition()->type;
     }
 
-    public function setType(string $type): self
+    public function get($key)
     {
-        $this->type = $type;
-
-        return $this;
+        return $this->value[$key];
     }
 
     public function getValue(): ?array
@@ -198,5 +221,10 @@ class Field
         $this->content = $content;
 
         return $this;
+    }
+
+    public function isExcerptable(): bool
+    {
+        return $this->excerptable;
     }
 }

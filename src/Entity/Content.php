@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @ApiResource
@@ -25,6 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Content
 {
+    use ContentMagicTraits;
+
     public const NUM_ITEMS = 5;
 
     /**
@@ -89,6 +92,12 @@ class Content
      */
     private $contentTypeDefinition;
 
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
+
+    /** @var Config */
+    private $config;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -96,28 +105,6 @@ class Content
         $this->publishedAt = new \DateTime();
         $this->depublishedAt = new \DateTime();
         $this->fields = new ArrayCollection();
-    }
-
-    public function __toString(): string
-    {
-        return (string) 'Content # ' . $this->getId();
-    }
-
-    /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return Field|mixed|null
-     */
-    public function __call(string $name, array $arguments)
-    {
-        foreach ($this->fields as $field) {
-            if ($field->getName() === $name) {
-                return $field;
-            }
-        }
-
-        return $this->fields->get($name);
     }
 
     public function getId(): ?int
@@ -130,15 +117,35 @@ class Content
      */
     public function setConfig(Config $config)
     {
-        /** @var Bag $contentTypes */
-        $contentTypes = $config->get('contenttypes');
+        $this->config = $config;
 
-        $this->contentTypeDefinition = ContentTypeFactory::get($this->contentType, $contentTypes);
+        $this->contentTypeDefinition = ContentTypeFactory::get($this->contentType, $config->get('contenttypes'));
+    }
+
+    public function getConfig(): Config
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param UrlGeneratorInterface $urlGenerator
+     */
+    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator)
+    {
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function getDefinition()
     {
         return $this->contentTypeDefinition;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return  (string) $this->get('slug');
     }
 
     public function getContenttype(): ?string

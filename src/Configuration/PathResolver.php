@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration;
 
-use Bolt\Exception\PathResolutionException;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -12,15 +11,13 @@ use Webmozart\PathUtil\Path;
  * For example: "files" folder is within the web directory so it is defined as "%web%/files". This allows
  * the web directory to be changed and the files path does not have to be redefined.
  *
- * This functionality could be added within ResourceManager, but given that 90% of that code is deprecated I figured
- * it would be better to create this separately.
- *
  * @author Carson Full <carsonfull@gmail.com>
  */
 class PathResolver
 {
     /** @var array */
     protected $paths = [];
+
     /** @var array */
     private $resolving = [];
 
@@ -33,13 +30,12 @@ class PathResolver
     {
         return [
             'site' => '.',
-            'app' => '%site%/var',
-            'cache' => '%app%/cache',
-            'config' => '%app%/config',
-            'database' => '%app%/database',
+            'var' => '%site%/var',
+            'cache' => '%var%/cache',
+            'config' => '%site%/config',
+            'database' => '%var%/database',
             'extensions' => '%site%/extensions',
             'extensions_config' => '%config%/extensions',
-            'var' => '%site%/var',
             'web' => '%site%/public',
             'files' => '%web%/files',
             'themes' => '%web%/theme',
@@ -53,7 +49,7 @@ class PathResolver
      * @param string $root  the root path which must be absolute
      * @param array  $paths initial path definitions
      */
-    public function __construct($root, $paths = [])
+    public function __construct(string $root, array $paths = [])
     {
         if (empty($paths)) {
             $paths = $this->defaultPaths();
@@ -77,10 +73,8 @@ class PathResolver
      * @param string $name
      * @param string $path
      */
-    public function define($name, $path)
+    public function define(string $name, string $path)
     {
-        $name = $this->normalizeName($name);
-
         if (mb_strpos($path, "%$name%") !== false) {
             throw new \InvalidArgumentException('Paths cannot reference themselves.');
         }
@@ -102,25 +96,24 @@ class PathResolver
      *
      * @return string
      */
-    public function resolve($path, $absolute = true)
+    public function resolve(string $path, bool $absolute = true, string $additional = ''): string
     {
-        $path = $this->normalizeName($path);
-
         if (isset($this->paths[$path])) {
             $path = $this->paths[$path];
         }
+
         $path = preg_replace_callback('#%(.+)%#', function ($match) use ($path) {
             $alias = $match[1];
 
-            if (!isset($this->paths[$this->normalizeName($alias)])) {
-                throw new PathResolutionException("Failed to resolve path. Alias %$alias% is not defined.");
+            if (!isset($this->paths[$alias])) {
+                throw new Exception("Failed to resolve path. Alias %$alias% is not defined.");
             }
 
             // absolute if alias is at start of path
             $absolute = mb_strpos($path, "%$alias%") === 0;
 
             if (isset($this->resolving[$alias])) {
-                throw new PathResolutionException('Failed to resolve path. Infinite recursion detected.');
+                throw new Exception('Failed to resolve path. Infinite recursion detected.');
             }
 
             $this->resolving[$alias] = true;
@@ -135,10 +128,27 @@ class PathResolver
             $path = Path::makeAbsolute($path, $this->paths['root']);
         }
 
-        // Not necessary, could remove.
+        if ($additional !== '') {
+            $path .= '/' . $additional;
+        }
+
+        // Make sure we don't have lingering unneeded dir-seperators
         $path = Path::canonicalize($path);
 
         return $path;
+    }
+
+    /**
+     * @return string
+     */
+    public function resolveAll(): array
+    {
+        $paths = [];
+        foreach ($this->paths as $name => $path) {
+            $paths[$name] = $this->resolve($path);
+        }
+
+        return $paths;
     }
 
     /**
@@ -148,21 +158,9 @@ class PathResolver
      *
      * @return string|null
      */
-    public function raw($name)
+    public function raw(string $name): ?string
     {
-        $name = $this->normalizeName($name);
-
         return isset($this->paths[$name]) ? $this->paths[$name] : null;
-    }
-
-    /**
-     * Returns the names of all paths.
-     *
-     * @return array
-     */
-    public function names()
-    {
-        return array_keys($this->rawAll());
     }
 
     /**
@@ -170,7 +168,7 @@ class PathResolver
      *
      * @return array
      */
-    protected function rawAll()
+    public function rawAll(): array
     {
         $paths = $this->paths;
         unset($paths['root']);
@@ -179,26 +177,12 @@ class PathResolver
     }
 
     /**
-     * For BC.
+     * Returns the names of all paths.
      *
-     * @deprecated since 3.3, will be removed in 4.0.
-     *
-     * @param string $name
-     *
-     * @return string
+     * @return array
      */
-    private function normalizeName($name)
+    public function names(): array
     {
-        if ($name === 'themebase') {
-            return 'themes';
-        }
-        if ($name === 'extensionsconfig') {
-            return 'extensions_config';
-        }
-        if ($name === 'view') {
-            return 'bolt_assets';
-        }
-
-        return $name;
+        return array_keys($this->rawAll());
     }
 }
