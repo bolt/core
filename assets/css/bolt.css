@@ -33,14 +33,14 @@ html, body {
 #sidebar {
     grid-area: sidebar;
     background-color: #EEE;
-    border-right: 2px solid #BBB;
+    border-right: 2px solid #DDD;
 
 }
 
 #topbar {
     grid-area: topbar;
     background-color: #FFF;
-    border-bottom: 1px solid #BBB;
+    border-bottom: 1px solid #DDD;
 }
 
 #content, #vuecontent {

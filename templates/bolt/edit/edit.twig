@@ -1,6 +1,8 @@
 {% extends 'bolt/base.html.twig' %}
 
-{% block title "Dashboard" %}
+{% block title %}
+    Edit » <strong>{{ record.title|default('New') }}</strong>
+{% endblock %}
 
 {% block body %}
 

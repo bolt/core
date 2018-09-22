@@ -1,7 +1,9 @@
 <template>
     <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
              :collapse="isCollapse" background-color="transparent">
-        <el-menu-item index="0"><b>Bolt</b></el-menu-item>
+        <el-menu-item index="0">
+            <a href="/bolt/"><b>Bolt</b></a>
+        </el-menu-item>
     <el-submenu index="1">
         <template slot="title">
         <i class="el-icon-location"></i>
