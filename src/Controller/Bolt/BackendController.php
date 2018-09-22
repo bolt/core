@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class BackendController.
  *
+ * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class BackendController extends AbstractController
@@ -29,20 +30,8 @@ class BackendController extends AbstractController
     }
 
     /**
-     * @Route("/bolt")
-     */
-    /* public function index($name = 'Gekke Henkie')
-    {
-        $version = Version::VERSION;
-
-        return $this->render('bolt/index.html.twig', [
-             'name' => $name,
-             'version' => $version,
-         ]);
-    } */
-
-    /**
-     * @Route("/{vueRouting}", requirements={"vueRouting"="^(?!api|_(profiler|wdt)).+"}, name="index")
+     * @Route("/", name="bolt_dashboard")
+     * was: ("/{vueRouting}", requirements={"vueRouting"="^(?!api|_(profiler|wdt)).+"}, name="index")
      * @param null|string $vueRouting
      * @return Response
      */
@@ -50,7 +39,7 @@ class BackendController extends AbstractController
     {
         $version = Version::VERSION;
 
-        return $this->render('bolt/index.html.twig', [
+        return $this->render('bolt/dashboard/dashboard.twig', [
             'vueRouting' => \is_null($vueRouting) ? '/' : '/' . $vueRouting,
             'name' => $name,
             'version' => $version,

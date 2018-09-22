@@ -4,8 +4,166 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e3df1700e49d71249b64e63364bbeb39",
+    "content-hash": "e0ba7acfe69c09b74ab3bb7c5c5af547",
     "packages": [
+        {
+            "name": "api-platform/api-pack",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/api-platform/api-pack.git",
+                "reference": "33ade8a1dc23868828788fe1bf3e54291ce54843"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/api-platform/api-pack/zipball/33ade8a1dc23868828788fe1bf3e54291ce54843",
+                "reference": "33ade8a1dc23868828788fe1bf3e54291ce54843",
+                "shasum": ""
+            },
+            "require": {
+                "api-platform/core": "^2.1",
+                "doctrine/annotations": "^1.0",
+                "doctrine/doctrine-bundle": "^1.6",
+                "doctrine/orm": "^2.4.5",
+                "nelmio/cors-bundle": "^1.5",
+                "php": "^7.0",
+                "phpdocumentor/reflection-docblock": "^3.0 || ^4.0",
+                "symfony/asset": "^3.0 || ^4.0",
+                "symfony/expression-language": "^3.0 || ^4.0",
+                "symfony/security-bundle": "^3.0 || ^4.0",
+                "symfony/twig-bundle": "^3.0 || ^4.0",
+                "symfony/validator": "^3.0 || ^4.0"
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for API Platform",
+            "time": "2018-02-09T13:21:13+00:00"
+        },
+        {
+            "name": "api-platform/core",
+            "version": "v2.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/api-platform/core.git",
+                "reference": "c2329e456b680b73501b65c5298fae8f3c75bc0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/c2329e456b680b73501b65c5298fae8f3c75bc0e",
+                "reference": "c2329e456b680b73501b65c5298fae8f3c75bc0e",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/inflector": "^1.0",
+                "php": ">=7.1",
+                "psr/cache": "^1.0",
+                "psr/container": "^1.0",
+                "symfony/http-foundation": "^3.1 || ^4.0",
+                "symfony/http-kernel": "^2.7 || ^3.0 || ^4.0",
+                "symfony/property-access": "^2.7 || ^3.0 || ^4.0",
+                "symfony/property-info": "^3.3.11 || ^4.0",
+                "symfony/serializer": "^4.1",
+                "willdurand/negotiation": "^2.0.3"
+            },
+            "conflict": {
+                "symfony/dependency-injection": "<3.4"
+            },
+            "require-dev": {
+                "behat/behat": "^3.1",
+                "behat/mink": "^1.7",
+                "behat/mink-browserkit-driver": "^1.3.1",
+                "behat/mink-extension": "^2.2",
+                "behat/symfony2-extension": "^2.1.1",
+                "behatch/contexts": "3.1.0",
+                "doctrine/annotations": "^1.2",
+                "doctrine/doctrine-bundle": "^1.8",
+                "doctrine/orm": "^2.5.2",
+                "friendsofsymfony/user-bundle": "^2.1",
+                "guzzlehttp/guzzle": "^6.0",
+                "justinrainbow/json-schema": "^5.0",
+                "nelmio/api-doc-bundle": "^2.13.3",
+                "php-mock/php-mock-phpunit": "^2.0",
+                "phpdocumentor/reflection-docblock": "^3.0 || ^4.0",
+                "phpdocumentor/type-resolver": "^0.2.1 || ^0.3 || 0.4",
+                "phpunit/phpunit": "^6.1",
+                "psr/log": "^1.0",
+                "ramsey/uuid": "^3.7",
+                "ramsey/uuid-doctrine": "^1.4",
+                "symfony/asset": "^3.3 || ^4.0",
+                "symfony/cache": "^3.3 || ^4.0",
+                "symfony/config": "^3.4 || ^4.0",
+                "symfony/console": "^3.4 || ^4.0",
+                "symfony/debug": "^2.8 || ^3.0 || ^4.0",
+                "symfony/dependency-injection": "^3.4 || ^4.0",
+                "symfony/doctrine-bridge": "^2.8.12 || ^3.0 || ^4.0",
+                "symfony/event-dispatcher": "^3.4 || ^4.0",
+                "symfony/expression-language": "^2.8 || ^3.0 || ^4.0",
+                "symfony/finder": "^3.3 || ^4.0",
+                "symfony/form": "^3.3 || ^4.0",
+                "symfony/framework-bundle": "^3.3 || ^4.0",
+                "symfony/http-foundation": "^3.1@dev || ^4.0@dev",
+                "symfony/phpunit-bridge": "^3.3 || ^4.0",
+                "symfony/routing": "^3.3 || ^4.0",
+                "symfony/security": "^3.0 || ^4.0",
+                "symfony/security-bundle": "^3.4 || ^4.0",
+                "symfony/twig-bundle": "^3.4 || ^4.0",
+                "symfony/validator": "^3.3 || ^4.0",
+                "symfony/web-profiler-bundle": "^3.3 || ^4.0",
+                "symfony/yaml": "^3.3 || ^4.0",
+                "webonyx/graphql-php": ">=0.12 <1.0"
+            },
+            "suggest": {
+                "friendsofsymfony/user-bundle": "To use the FOSUserBundle bridge.",
+                "guzzlehttp/guzzle": "To use the HTTP cache invalidation system.",
+                "phpdocumentor/reflection-docblock": "To support extracting metadata from PHPDoc.",
+                "psr/cache-implementation": "To use metadata caching.",
+                "ramsey/uuid": "To support Ramsey's UUID identifiers.",
+                "symfony/cache": "To have metadata caching when using Symfony integration.",
+                "symfony/config": "To load XML configuration files.",
+                "symfony/expression-language": "To use authorization features.",
+                "symfony/security": "To use authorization features.",
+                "symfony/twig-bundle": "To use the Swagger UI integration.",
+                "symfony/web-profiler-bundle": "To use the data collector.",
+                "webonyx/graphql-php": "To support GraphQL."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ApiPlatform\\Core\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kévin Dunglas",
+                    "email": "dunglas@gmail.com",
+                    "homepage": "https://dunglas.fr"
+                }
+            ],
+            "description": "The ultimate solution to create web APIs.",
+            "homepage": "https://api-platform.com",
+            "keywords": [
+                "Hydra",
+                "JSON-LD",
+                "api",
+                "hal",
+                "json",
+                "rest",
+                "swagger"
+            ],
+            "time": "2018-09-19T07:50:25+00:00"
+        },
         {
             "name": "behat/transliterator",
             "version": "v1.2.0",
@@ -26,7 +184,6 @@
             "require-dev": {
                 "chuyskywalker/rolling-curl": "^3.1",
                 "php-yaoi/php-yaoi": "^1.0"
-
             },
             "type": "library",
             "extra": {

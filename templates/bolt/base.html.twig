@@ -14,7 +14,7 @@
 
 <body>
 
-<div class="container" id="app" data-vue-routing="{{ vueRouting }}">
+<div class="container" id="app" data-vue-routing="{{ vueRouting|default() }}">
 
     <Topbar></Topbar>
 
@@ -23,28 +23,11 @@
 
         <el-main>
 
-                <DashboardNews>pom</DashboardNews>
+            {% block body %}
 
-{% set contentTypes = [
-    {
-        slug: 'pages'
-    },
-    {
-        slug: 'homepage'
-    }
-] %}
+[base]
 
-                {% for contentType in contentTypes if true or contentType.showOnDashboard %}
-                    <DashboardContentList type="{{ contentType.slug }}" limit="5"></DashboardContentList>
-                {% endfor %}
-
-                {# <router-view></router-view> #}
-
-                {% block body %}{% endblock %}
-
-                <hr>
-                <Hello></Hello>
-                <hr>
+            {% endblock %}
 
         </el-main>
 

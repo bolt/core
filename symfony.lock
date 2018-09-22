@@ -10,6 +10,7 @@
             "version": "2.1",
             "ref": "18727d8f229306860b46955f438e1897421da689"
         }
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },

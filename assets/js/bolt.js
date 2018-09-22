@@ -36,9 +36,4 @@ new Vue({
   store,
 });
 
-// new Vue({
-//   el: '#hello',
-//   template: '<Hello/>',
-//   components: { Hello }
-// });
 
