@@ -33,7 +33,9 @@ class BackendController extends AbstractController
     /**
      * @Route("/", name="bolt_dashboard")
      * was: ("/{vueRouting}", requirements={"vueRouting"="^(?!api|_(profiler|wdt)).+"}, name="index")
+     *
      * @param null|string $vueRouting
+     *
      * @return Response
      */
     public function index(?string $vueRouting = null, $name = 'Gekke Henkie')
@@ -41,7 +43,7 @@ class BackendController extends AbstractController
         $version = Version::VERSION;
 
         return $this->render('bolt/dashboard/dashboard.twig', [
-            'vueRouting' => \is_null($vueRouting) ? '/' : '/' . $vueRouting,
+            'vueRouting' => null === $vueRouting ? '/' : '/' . $vueRouting,
             'name' => $name,
             'version' => $version,
         ]);
