@@ -1,4 +1,15 @@
 {
+    "api-platform/api-pack": {
+        "version": "1.1.0"
+    },
+    "api-platform/core": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.1",
+            "ref": "18727d8f229306860b46955f438e1897421da689"
+        }
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -167,6 +178,15 @@
     "monolog/monolog": {
         "version": "1.23.0"
     },
+    "nelmio/cors-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "1fee84e00c71edee81aa54b470260779a890c9c6"
+        }
+    },
     "nikic/php-parser": {
         "version": "v4.0.3"
     },
@@ -184,6 +204,15 @@
     },
     "php-cs-fixer/diff": {
         "version": "v1.2.0"
+    },
+    "phpdocumentor/reflection-common": {
+        "version": "1.0.1"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "4.3.0"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "0.4.0"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -401,6 +430,9 @@
     "symfony/property-access": {
         "version": "v3.4.0-beta2"
     },
+    "symfony/property-info": {
+        "version": "v4.1.4"
+    },
     "symfony/routing": {
         "version": "3.3",
         "recipe": {
@@ -421,6 +453,9 @@
             "version": "3.3",
             "ref": "85834af1496735f28d831489d12ab1921a875e0d"
         }
+    },
+    "symfony/serializer": {
+        "version": "v4.1.4"
     },
     "symfony/stopwatch": {
         "version": "v3.4.0-beta2"
@@ -502,6 +537,9 @@
     },
     "white-october/pagerfanta-bundle": {
         "version": "v1.0.8"
+    },
+    "willdurand/negotiation": {
+        "version": "v2.3.1"
     },
     "zendframework/zend-code": {
         "version": "3.3.0"

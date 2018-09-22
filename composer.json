@@ -6,6 +6,7 @@
     "require": {
         "php": "^7.1.3",
         "ext-pdo_sqlite": "*",
+        "api-platform/api-pack": "^1.1",
         "bolt/collection": "^1.1",
         "bolt/common": "^1.1",
         "cocur/slugify": "^3.1",
