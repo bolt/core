@@ -8,7 +8,6 @@ use Bolt\Configuration\Config;
 use Bolt\Content\FieldFactory;
 use Bolt\Entity\Content;
 use Bolt\Entity\User;
-use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -24,6 +23,8 @@ class ContentFixtures extends Fixture
 
     /** @var Config */
     private $config;
+
+    private $lastTitle = null;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder, Config $config)
     {
@@ -88,7 +89,7 @@ class ContentFixtures extends Fixture
                 foreach ($contentType->fields as $name => $fieldType) {
                     $field = FieldFactory::get($fieldType['type']);
                     $field->setName($name);
-                    $field->setValue($this->getValuesforFieldType($fieldType));
+                    $field->setValue($this->getValuesforFieldType($name, $fieldType));
                     $field->setSortorder($sortorder++ * 5);
 
                     $content->addField($field);
@@ -106,7 +107,7 @@ class ContentFixtures extends Fixture
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType($field)
+    private function getValuesforFieldType($name, $field)
     {
         switch ($field['type']) {
             case 'html':
@@ -118,13 +119,17 @@ class ContentFixtures extends Fixture
                 $data = ['filename' => 'kitten.jpg', 'alt' => 'A cute kitten'];
                 break;
             case 'slug':
-                $data = [Slugify::create()->slugify($this->faker->sentence(3, true))];
+                $data = $this->lastTitle ?? $this->faker->sentence(3, true);
                 break;
             case 'text':
                 $data = [$this->faker->sentence(6, true)];
                 break;
             default:
                 $data = [$this->faker->sentence(6, true)];
+        }
+
+        if ($name === 'title') {
+            $this->lastTitle = $data;
         }
 
         return $data;

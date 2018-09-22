@@ -1,4 +1,7 @@
 {
+    "behat/transliterator": {
+        "version": "v1.2.0"
+    },
     "bolt/collection": {
         "version": "v1.1.2"
     },
@@ -134,6 +137,9 @@
     "gecko-packages/gecko-php-unit": {
         "version": "v2.2"
     },
+    "gedmo/doctrine-extensions": {
+        "version": "v2.4.36"
+    },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
     },
@@ -213,6 +219,15 @@
             "branch": "master",
             "version": "4.0",
             "ref": "576d653444dade07f272c889d52fe4594caa4fc3"
+        }
+    },
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.2",
+            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
         }
     },
     "swiftmailer/swiftmailer": {

@@ -61,7 +61,7 @@ class Field
     /**
      * @ORM\Column(type="json")
      */
-    private $value = [];
+    protected $value = [];
 
     /**
      * @ORM\Column(type="integer", nullable=true)
