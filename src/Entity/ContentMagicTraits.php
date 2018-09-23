@@ -84,9 +84,47 @@ trait ContentMagicTraits
         return $path;
     }
 
-    public function magicTitle()
+    public function magicTitleFields(): array
     {
-        return 'magic title';
+        // First, see if we have a "title format" in the contenttype.
+        if ($title_format = $this->getDefinition()->get('title_format')) {
+            return (array) $title_format;
+        }
+
+        // Alternatively, see if we have a field named 'title' or somesuch.
+        $names = ['title', 'name', 'caption', 'subject']; // English
+        $names = array_merge($names, ['titel', 'naam', 'kop', 'onderwerp']); // Dutch
+        $names = array_merge($names, ['nom', 'sujet']); // French
+        $names = array_merge($names, ['nombre', 'sujeto']); // Spanish
+
+        foreach ($names as $name) {
+            if ($field = $this->get($name)) {
+                return (array) $name;
+            }
+        }
+
+        // Otherwise, grab the first field of type 'text', and assume that's the title.
+        if (!empty($this->contenttype['fields'])) {
+            foreach ($this->getFields() as $key => $field) {
+                if ($field->getDefinition()->get('type') === 'text') {
+                    return [ $field->getDefinition()->get('name') ];
+                }
+            }
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function magicTitle(): string
+    {
+        $title = [];
+
+        foreach ($this->magicTitleFields() as $field) {
+            $title[] = $this->get($field);
+        }
+
+        return implode(" ", $title);
     }
 
     public function magicImage()

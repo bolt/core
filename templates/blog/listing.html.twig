@@ -14,7 +14,7 @@
             </h2>
 
             <p class="post-metadata">
-                <span class="metadata"><i class="fa fa-calendar"></i> {{ record.publishedAt|localizeddate('long', 'medium', null, 'UTC') }}</span>
+                <span class="metadata"><i class="fa fa-calendar"></i> {{ record.publishedAt|localizeddate('medium', 'none', null, 'UTC') }}</span>
                 <span class="metadata"><i class="fa fa-user"></i> {{ record.author.fullName }}</span>
                 <span class="metadata"><i class="fa fa-cog"></i> {{ record.contenttype }}</span>
                 <span class="metadata"><i class="fa fa-link"></i> {{ record.slug }}</span>

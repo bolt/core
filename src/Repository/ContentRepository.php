@@ -29,6 +29,15 @@ class ContentRepository extends ServiceEntityRepository
         return $qb ?: $this->createQueryBuilder('content');
     }
 
+    public function findAll(int $page = 1): Pagerfanta
+    {
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a');
+
+        return $this->createPaginator($qb->getQuery(), $page);
+    }
+
     public function findLatest(int $page = 1): Pagerfanta
     {
         $qb = $this->getQueryBuilder()

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Configuration;
 
 use Bolt\Collection\Arr;
-use Bolt\Collection\Bag;
+use Bolt\Collection\MutableBag;
 use Bolt\Helpers\Html;
 use Bolt\Helpers\Str;
 use Cocur\Slugify\Slugify;
@@ -64,7 +64,7 @@ class Config
      */
     public function parseConfig()
     {
-        $config = Bag::from([
+        $config = MutableBag::from([
             'general' => $this->parseGeneral(),
         ]);
 
@@ -122,7 +122,7 @@ class Config
     /**
      * Read and parse the config.yaml and config_local.yaml configuration files.
      *
-     * @return Bag
+     * @return MutableBag
      */
     protected function parseGeneral()
     {
@@ -130,7 +130,7 @@ class Config
         $tempconfig = $this->parseConfigYaml('config.yaml');
         $tempconfiglocal = $this->parseConfigYaml('config_local.yaml');
         $mergedarray = Arr::replaceRecursive($defaultconfig, Arr::replaceRecursive($tempconfig, $tempconfiglocal));
-        $general = Bag::fromRecursive($mergedarray);
+        $general = MutableBag::fromRecursive($mergedarray);
 
         // Make sure Bolt's mount point is OK:
         $general['branding']['path'] = '/' . Str::makeSafe($general['branding']['path']);
@@ -153,7 +153,7 @@ class Config
      */
     protected function parseContentTypes()
     {
-        $contentTypes = new Bag();
+        $contentTypes = new MutableBag();
         $tempContentTypes = $this->parseConfigYaml('contenttypes.yml');
         foreach ($tempContentTypes as $key => $contentType) {
             try {
@@ -164,7 +164,7 @@ class Config
             }
         }
 
-        return Bag::fromRecursive($contentTypes);
+        return MutableBag::fromRecursive($contentTypes);
     }
 
     /**
@@ -199,7 +199,7 @@ class Config
         // Unset the repeated nodes key after parse
         unset($yaml['__nodes']);
 
-        return Bag::from($yaml);
+        return MutableBag::from($yaml);
     }
 
     /**
@@ -424,7 +424,7 @@ class Config
      *
      * @return array
      */
-    protected function parseDatabase(Bag $options)
+    protected function parseDatabase(MutableBag $options)
     {
         // Make sure prefix ends with underscore
         if (mb_substr($options['prefix'], mb_strlen($options['prefix']) - 1) !== '_') {
@@ -434,7 +434,7 @@ class Config
         // Parse master connection parameters
         $master = $this->parseConnectionParams($options);
         // Merge master connection into options
-        $options = Bag::fromRecursive($options, $master);
+        $options = MutableBag::fromRecursive($options, $master);
 
         // Add platform specific random functions
         $driver = \Bolt\Common\Str::replaceFirst($options['driver'], 'pdo_', '');
@@ -511,7 +511,7 @@ class Config
             // If field is an "image" type, make sure the 'extensions' are set, and it's an array.
             if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
                 if (empty($field['extensions'])) {
-                    $field['extensions'] = Bag::from(['gif', 'jpg', 'jpeg', 'png', 'svg'])
+                    $field['extensions'] = MutableBag::from(['gif', 'jpg', 'jpeg', 'png', 'svg'])
                         ->intersect($acceptableFileTypes);
                 }
 
@@ -595,7 +595,7 @@ class Config
      *
      * @return array
      */
-    protected function parseSqliteOptions(Bag $config)
+    protected function parseSqliteOptions(MutableBag $config)
     {
         if (isset($config['memory']) && $config['memory']) {
             // If in-memory, no need to parse paths
@@ -642,7 +642,7 @@ class Config
      *
      * @return array
      */
-    protected function parseConnectionParams(Bag $params, $defaults = [])
+    protected function parseConnectionParams(MutableBag $params, $defaults = [])
     {
         // Handle host shortcut
         if (is_string($params)) {
@@ -662,7 +662,7 @@ class Config
         }
 
         // Merge in defaults
-        $params = Bag::fromRecursive($defaults, $params);
+        $params = MutableBag::fromRecursive($defaults, $params);
 
         // Filter out invalid keys
         $validKeys = [

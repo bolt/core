@@ -40,14 +40,17 @@ class Excerpt
         $title = null;
         $excerpt = '';
 
-        if ($includeTitle && $this->title !== null) {
-            $title = Html::trimText(strip_tags($this->title), $length);
+        if ($includeTitle && $this->content->magicTitle() !== null) {
+            $title = Html::trimText((string) $this->content->magicTitle(), $length);
             $length -= mb_strlen($title);
         }
 
         if ($this->content instanceof Content) {
+
+            $skip_fields = $includeTitle ? $this->content->magicTitleFields() : [];
+
             foreach ($this->content->getFields() as $key => $field) {
-                if ($field->isExcerptable()) {
+                if (!in_array($field->getName(), $skip_fields) && $field->isExcerptable()) {
                     $excerpt .= (string) $field;
                 }
             }
@@ -56,9 +59,9 @@ class Excerpt
         $excerpt = str_replace('>', '> ', $excerpt);
 
         if (!$focus) {
-            $excerpt = Html::trimText(strip_tags($excerpt), $length);
+            $excerpt = Html::trimText($excerpt, $length);
         } else {
-            $excerpt = $this->extractRelevant($focus, strip_tags($excerpt), $length);
+            $excerpt = $this->extractRelevant($focus, $excerpt, $length);
         }
 
         if (!empty($title)) {
@@ -150,6 +153,8 @@ class Excerpt
      */
     private function extractRelevant($words, $fulltext, $relLength = 300)
     {
+        $fulltext = strip_tags($fulltext);
+
         if (!is_array($words)) {
             $words = explode(' ', $words);
         }

@@ -8,7 +8,7 @@
                     <i class="search link icon"></i>
                 </div>
             </div>
-            <a class="item">
+            <a href="/" class="item">
                 <i class="fas fa-external-link-square-alt"></i> &nbsp; View site
             </a>
             <div class="ui pointing dropdown link item">
@@ -16,9 +16,9 @@
                 <i class="dropdown icon"></i>
 
                 <div class="menu">
-                    <div class="item">Edit profile</div>
+                    <a href="/bolt/profile-edit" class="item">Edit profile</a>
                     <div class="divider"></div>
-                    <div class="item">Logout</div>
+                    <a href="/logout" class="item">Logout</a>
                 </div>
 
             </div>

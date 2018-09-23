@@ -43,7 +43,13 @@ class EditRecordController extends AbstractController
             $record->setAuthor($this->getUser());
         }
 
+        $title = (string) $record->get('title');
+        $excerpt = $record->magicExcerpt(200, true);
+
+        dump($title);
+        dump((string) $excerpt);
         dump($record);
+        die();
 
         // See https://symfony.com/doc/current/book/forms.html#submitting-forms-with-multiple-buttons
         $form = $this->createForm(ContentType::class, $record)

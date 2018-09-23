@@ -3,7 +3,7 @@
     <div class="header item logo">
       <h2>Bolt</h2>
     </div>
-    <a class="active item">
+    <a href="/bolt/" class="active item">
       <span class="fa-stack">
         <i class="fas fa-square fa-stack-2x"></i>
         <i class="fas fa-tachometer-alt fa-stack-1x"></i>
@@ -47,6 +47,14 @@
   text-align: center;
   font-size: 36px;
   margin: 0;
+}
+
+.ui.inverted.blue.menu {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.ui.inverted.blue.menu .active.item {
+    background-color: rgba(255, 255, 255, 0.1) !important;
 }
 </style>
 

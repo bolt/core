@@ -1,6 +1,8 @@
 {% extends 'bolt/base.html.twig' %}
 
-{% block title 'title.edit_user'|trans ~ " » <strong>Pompidom</strong>" %}
+{% block title %}
+ {{ 'title.edit_user'|trans }} » <strong>{{ user.fullName|default('Unknown') }}</strong>
+{% endblock %}
 
 {% block body_id 'user_edit' %}
 
