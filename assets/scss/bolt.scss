@@ -44,7 +44,7 @@ header {
 
 #content, #vuecontent {
     grid-area: content;
-    padding: 1em;
+    padding: 2em 3em;
 }
 
 footer {
@@ -53,7 +53,7 @@ footer {
 
 aside {
     grid-area: aside;
-    padding: 1em;
+    padding: 2em 2em 2em 0;
 }
 
 

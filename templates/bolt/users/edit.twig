@@ -1,0 +1,25 @@
+{% extends 'bolt/base.html.twig' %}
+
+{% block title 'title.edit_user'|trans ~ " » <strong>Pompidom</strong>" %}
+
+{% block body_id 'user_edit' %}
+
+{% block body %}
+
+    {% form_theme form 'form/semantic-ui-theme.twig' %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="ui button primary">
+        <i class="fa fa-save" aria-hidden="true"></i> {{ 'action.save'|trans }}
+    </button>
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block aside %}
+ <div class="section">
+     <a href="{{ path('bolt_change_password') }}" class="ui button negative">
+         <i class="fa fa-lock" aria-hidden="true"></i> {{ 'action.change_password'|trans }}
+     </a>
+ </div>
+{% endblock %}

@@ -8,12 +8,20 @@
                     <i class="search link icon"></i>
                 </div>
             </div>
-        <a class="item">
-            <i class="fas fa-external-link-square-alt"></i> &nbsp; View site
-        </a>
-        <a class="item">
-            <i class="fas fa-user-circle"></i> &nbsp; Admin
-        </a>
+            <a class="item">
+                <i class="fas fa-external-link-square-alt"></i> &nbsp; View site
+            </a>
+            <div class="ui pointing dropdown link item">
+                <span class="text"><i class="fas fa-user-circle"></i> &nbsp; Admin</span>
+                <i class="dropdown icon"></i>
+
+                <div class="menu">
+                    <div class="item">Edit profile</div>
+                    <div class="divider"></div>
+                    <div class="item">Logout</div>
+                </div>
+
+            </div>
         </div>
     </div>
 </template>
@@ -37,6 +45,6 @@
     }
     .ui.attached.menu:not(.tabular) {
         border: 0;
-        padding: 0 1rem;
+        padding: 0 1rem 0 3rem;
     }
 </style>

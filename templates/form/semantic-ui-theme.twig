@@ -1,0 +1,157 @@
+{% use 'form_div_layout.html.twig' %}
+
+{% block form_start -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' ui form')|trim}) %}
+    {{- parent() -}}
+{%- endblock form_start %}
+
+{# Widgets #}
+
+{% block form_widget_simple -%}
+    {{- parent() -}}
+{%- endblock form_widget_simple %}
+
+{% block textarea_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+    {{- parent() -}}
+{%- endblock textarea_widget %}
+
+{% block button_widget -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' ui button')|trim}) %}
+    {{- parent() -}}
+{%- endblock %}
+
+{% block money_widget -%}
+    {{- block('form_widget_simple') -}}
+{%- endblock money_widget %}
+
+{% block percent_widget -%}
+    {{- block('form_widget_simple') -}}
+{%- endblock percent_widget %}
+
+{% block datetime_widget -%}
+    {{- block('form_widget_simple') -}}
+{%- endblock datetime_widget %}
+
+{% block date_widget -%}
+    {{- block('form_widget_simple') -}}
+{%- endblock date_widget %}
+
+{% block time_widget -%}
+    {{- block('form_widget_simple') -}}
+{%- endblock time_widget %}
+
+{% block dateinterval_widget %}
+    {{- block('form_widget_simple') -}}
+{% endblock dateinterval_widget %}
+
+{% block checkbox_widget -%}
+    <div class="ui toggle checkbox">
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' hidden')|trim}) %}
+        {{- form_label(form, null, { widget: parent() }) -}}
+    </div>
+{%- endblock checkbox_widget %}
+
+{% block radio_widget -%}
+    <div class="ui radio checkbox">
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' hidden')|trim}) %}
+        {{- form_label(form, null, { widget: parent() }) -}}
+    </div>
+{%- endblock radio_widget %}
+
+{# Labels #}
+
+{% block form_label -%}
+    {{- parent() -}}
+{%- endblock form_label %}
+
+{% block choice_label -%}
+    {{- block('form_label') -}}
+{% endblock %}
+
+{% block checkbox_label -%}
+    {{- block('checkbox_radio_label') -}}
+{%- endblock checkbox_label %}
+
+{% block radio_label -%}
+    {{- block('checkbox_radio_label') -}}
+{%- endblock radio_label %}
+
+{% block checkbox_radio_label %}
+    {# Do not display the label if widget is not defined in order to prevent double label rendering #}
+    {% if widget is defined %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if label is not same as(false) and label is empty %}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {% endif %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+        {{- widget|raw }} {{ label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans({}, translation_domain)) -}}
+        </label>
+    {% endif %}
+{% endblock checkbox_radio_label %}
+
+{# Rows #}
+
+{% block form_row -%}
+    <div class="field{% if not valid %} error{% endif %}">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row %}
+
+{% block button_row -%}
+    {{- form_widget(form) -}}
+{%- endblock button_row %}
+
+{% block choice_row -%}
+    {{- block('form_row') }}
+{%- endblock choice_row %}
+
+{% block date_row -%}
+    {{- block('form_row') }}
+{%- endblock date_row %}
+
+{% block time_row -%}
+    {{- block('form_row') }}
+{%- endblock time_row %}
+
+{% block datetime_row -%}
+    {{- block('form_row') }}
+{%- endblock datetime_row %}
+
+{% block checkbox_row -%}
+    <div class="field{% if not valid %} error{% endif %}">
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock checkbox_row %}
+
+{% block radio_row -%}
+    <div class="field{% if not valid %} error{% endif %}">
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock radio_row %}
+
+{# Errors #}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+        <div class="ui pointing red label">
+            <i class="warning sign icon"></i>
+            {%- for error in errors -%}
+                {{ error.message }}
+            {%- endfor -%}
+        </div>
+    {%- endif %}
+{%- endblock form_errors %}

@@ -93,6 +93,14 @@
         <source>title.comment_error</source>
         <target>There was an error publishing your comment</target>
       </trans-unit>
+      <trans-unit id="1sstKF9" resname="title.edit_user">
+        <source>title.edit_user</source>
+        <target>Edit user</target>
+      </trans-unit>
+      <trans-unit id="rrU0GR8" resname="title.change_password">
+        <source>title.change_password</source>
+        <target>Change password</target>
+      </trans-unit>
       <trans-unit id="Ffi98jp" resname="action.show">
         <source>action.show</source>
         <target>Show</target>
@@ -169,6 +177,14 @@
         <source>action.browse_admin</source>
         <target>Browse backend</target>
       </trans-unit>
+      <trans-unit id="etGJjTo" resname="action.edit_user">
+        <source>action.edit_user</source>
+        <target>Edit user</target>
+      </trans-unit>
+      <trans-unit id="CX_oSFd" resname="action.change_password">
+        <source>action.change_password</source>
+        <target>Change password</target>
+      </trans-unit>
       <trans-unit id="UrRn8xj" resname="label.title">
         <source>label.title</source>
         <target>Title</target>
@@ -185,9 +201,29 @@
         <source>label.username</source>
         <target>Username</target>
       </trans-unit>
+      <trans-unit id="aYnbvsn" resname="label.fullname">
+        <source>label.fullname</source>
+        <target>Fullname</target>
+      </trans-unit>
+      <trans-unit id="D2N6_cP" resname="label.email">
+        <source>label.email</source>
+        <target>Email</target>
+      </trans-unit>
       <trans-unit id="9pvowqn" resname="label.password">
         <source>label.password</source>
         <target>Password</target>
+      </trans-unit>
+      <trans-unit id="pGkejkU" resname="label.current_password">
+        <source>label.current_password</source>
+        <target>Current password</target>
+      </trans-unit>
+      <trans-unit id="iiWFLaI" resname="label.new_password">
+        <source>label.new_password</source>
+        <target>New password</target>
+      </trans-unit>
+      <trans-unit id="Ucl9Jfc" resname="label.new_password_confirm">
+        <source>label.new_password_confirm</source>
+        <target>Confirm password</target>
       </trans-unit>
       <trans-unit id="O59lP5d" resname="label.role">
         <source>label.role</source>
@@ -245,6 +281,10 @@
         <source>menu.admin</source>
         <target>Backend</target>
       </trans-unit>
+      <trans-unit id="rjDqmQR" resname="menu.user">
+        <source>menu.user</source>
+        <target>Account</target>
+      </trans-unit>
       <trans-unit id="wBTFKFR" resname="menu.logout">
         <source>menu.logout</source>
         <target>Logout</target>
@@ -297,6 +337,10 @@
         <source>post.search_no_results</source>
         <target>No results found</target>
       </trans-unit>
+      <trans-unit id="OBmPOoB" resname="user.updated_successfully">
+        <source>user.updated_successfully</source>
+        <target>User updated successfully!</target>
+      </trans-unit>
       <trans-unit id="KheXs2k" resname="notification.comment_created">
         <source>notification.comment_created</source>
         <target>Your post received a comment!</target>
@@ -344,6 +388,10 @@
       <trans-unit id="Km5w.Hs" resname="help.more_information">
         <source>help.more_information</source>
         <target><![CDATA[For more information, check out the <a href="https://symfony.com/doc">Symfony doc</a>.]]></target>
+      </trans-unit>
+      <trans-unit id="wtG.cxy" resname="info.change_password">
+        <source>info.change_password</source>
+        <target>After changing your password, you will be logged out of the application.</target>
       </trans-unit>
       <trans-unit id="DkZtOOL" resname="rss.title">
         <source>rss.title</source>
