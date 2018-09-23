@@ -1,21 +1,21 @@
 <template>
-    <el-menu mode="horizontal" background-color="transparent">
-        <el-menu-item index="1" class="topbar-title"><span v-html="title">{{ title }}</span></el-menu-item>
-            <el-submenu index="2" class="right">
-                <template slot="title">Workspace</template>
-                <el-menu-item index="2-1">item one</el-menu-item>
-                <el-menu-item index="2-2">item two</el-menu-item>
-                <el-menu-item index="2-3">item three</el-menu-item>
-                <el-submenu index="2-4">
-                    <template slot="title">item four</template>
-                    <el-menu-item index="2-4-1">item one</el-menu-item>
-                    <el-menu-item index="2-4-2">item two</el-menu-item>
-                    <el-menu-item index="2-4-3">item three</el-menu-item>
-                </el-submenu>
-            </el-submenu>
-            <el-menu-item index="3" disabled class="right">Info</el-menu-item>
-            <el-menu-item index="4" class="right"><a href="https://www.ele.me" target="_blank">Orders</a></el-menu-item>
-    </el-menu>
+    <div class="ui top attached menu">
+        <span class="topbar-title" v-html="title">{{ title }}</span>
+        <div class="right menu">
+            <div class="item">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        <a class="item">
+            <i class="fas fa-external-link-square-alt"></i> &nbsp; View site
+        </a>
+        <a class="item">
+            <i class="fas fa-user-circle"></i> &nbsp; Admin
+        </a>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -29,23 +29,14 @@
 </script>
 
 <style>
-    .el-menu--horizontal>.topbar-title {
+    span.topbar-title {
         font-family: 'Source Sans Pro', serif;
         font-size: 22px;
         color: #222;
-        line-height: 57px;
-
+        line-height: 52px;
     }
-
-    .el-menu--horizontal>.topbar-title * {
-        vertical-align: Baseline;
-    }
-
-    .el-menu.el-menu--horizontal {
-        border-bottom: none;
-    }
-
-    .el-menu--horizontal>.right {
-        float: right;
+    .ui.attached.menu:not(.tabular) {
+        border: 0;
+        padding: 0 1rem;
     }
 </style>

@@ -1,10 +1,8 @@
 'use strict';
 
-import Vue from 'vue'
-import ElementUI from 'element-ui';
+import Vue from 'vue';
 import router from './router';
 import store from './store';
-import 'element-ui/lib/theme-chalk/index.css';
 // import './registerServiceWorker'
 
 // Bolt Components
@@ -15,22 +13,26 @@ import DashboardNews from './DashboardNews'
 import DashboardContentList from './DashboardContentList'
 import Content from './Content';
 import App from './App'
-import '../css/bolt.css'
+import '../scss/bolt.scss'
 
-Vue.use(ElementUI);
+// Vue.use(SuiVue);
 Vue.component('sidebar', Sidebar)
 Vue.component('hello', Hello)
 Vue.component('topbar', Topbar)
 Vue.component('dashboardnews', DashboardNews)
 Vue.component('app', App)
 Vue.component('dashboardcontentlist', DashboardContentList)
-// Vue.component('content2', Content)
 
-// this loads jquery, but does *not* set a global $ or jQuery variable
-// const $ = require('jquery');
+// This loads jquery, And sets a global $ and jQuery variable
+const $ = require('jquery');
+global.$ = global.jQuery = $;
 
-new Vue({ el: '#topbar', router, store });
+new Vue({ el: 'header', router, store });
 new Vue({ el: '#sidebar', router, store });
 new Vue({ el: '#vuecontent', router, store });
 
 new Vue({ el: 'dashboardnews' });
+
+$(document).ready(function() {
+    $('.ui.dropdown').dropdown();
+});

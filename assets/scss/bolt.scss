@@ -22,7 +22,7 @@ html, body {
 @media only screen and (min-width: 600px)   {
     .wrapper {
         grid-template-columns: 201px auto 340px;
-        grid-template-rows: 61px auto 30px;
+        grid-template-rows: 54px auto 30px;
         grid-template-areas:
             "sidebar  topbar  topbar"
             "sidebar content aside"
@@ -32,12 +32,11 @@ html, body {
 
 #sidebar {
     grid-area: sidebar;
-    background-color: #EEE;
-    border-right: 2px solid #DDD;
-
+    background-color: #24455E;
+    border-right: 1px solid #233;
 }
 
-#topbar {
+header {
     grid-area: topbar;
     background-color: #FFF;
     border-bottom: 1px solid #DDD;
@@ -48,11 +47,20 @@ html, body {
     padding: 1em;
 }
 
-#footer {
+footer {
     grid-area: footer;
 }
 
-#aside {
+aside {
     grid-area: aside;
     padding: 1em;
+}
+
+
+.fa-stack {
+    margin-right: 0.5em;
+
+    i:last-child {
+        color: #444;
+    }
 }

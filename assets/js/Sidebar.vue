@@ -1,68 +1,55 @@
 <template>
-    <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
-             :collapse="isCollapse" background-color="transparent">
-        <el-menu-item index="0">
-            <a href="/bolt/"><b>Bolt</b></a>
-        </el-menu-item>
-    <el-submenu index="1">
-        <template slot="title">
-        <i class="el-icon-location"></i>
-        <span slot="title">Navigator One</span>
-        </template>
-        <el-menu-item-group>
-        <span slot="title">Group One</span>
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-        <span slot="title">item four</span>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-        </el-submenu>
-    </el-submenu>
-    <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">Navigator Two</span>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">Navigator Three</span>
-    </el-menu-item>
-    <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">Navigator Four</span>
-    </el-menu-item>
+  <div class="ui vertical inverted borderless small blue menu">
+    <div class="header item logo">
+      <h2>Bolt</h2>
+    </div>
+    <a class="active item">
+      <span class="fa-stack">
+        <i class="fas fa-square fa-stack-2x"></i>
+        <i class="fas fa-tachometer-alt fa-stack-1x"></i>
+      </span>
+     Dashboard
+    </a>
 
-    <!--<el-switch v-model="isCollapse"></el-switch>-->
-
-    </el-menu>
+    <div class="ui dropdown item">
+      <i class="dropdown icon"></i>
+      <span class="fa-stack">
+        <i class="fas fa-square fa-stack-2x"></i>
+        <i class="fas fa-flag fa-stack-1x"></i>
+      </span>
+      Settings
+      <div class="menu">
+        <div class="header">Text Size</div>
+        <a class="item">Small</a>
+        <a class="item">Medium</a>
+        <a class="item">Large</a>
+      </div>
+    </div>
+    <a class="item" href="/bolt/users">
+      <span class="fa-stack">
+        <i class="fas fa-square fa-stack-2x"></i>
+        <i class="fas fa-users fa-stack-1x"></i>
+      </span>
+     Users
+    </a>
+  </div>
 </template>
 
 <style>
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-  }
-  .el-menu {
-      border-right: none;
-  }
+.ui.small.vertical.menu {
+  border-radius: 0;
+  width: auto;
+}
+
+.ui.small.vertical.menu .logo {
+  color: #FFF;
+  background: #24455E;
+  text-align: center;
+  font-size: 36px;
+  margin: 0;
+}
 </style>
 
 <script>
-  export default {
-    data() {
-      return {
-        isCollapse: false
-      };
-    },
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
-    }
-  }
+
 </script>

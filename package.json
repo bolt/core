@@ -2,7 +2,9 @@
   "devDependencies": {
     "@symfony/webpack-encore": "^0.20.1",
     "jquery": "^3.3.1",
+    "node-sass": "^4.9.3",
     "register-service-worker": "^1.5.2",
+    "sass-loader": "^7.1.0",
     "vue-loader": "^14",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.17",
@@ -11,7 +13,6 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "element-ui": "^2.4.7",
     "vue": "^2.5.17"
   },
   "scripts": {

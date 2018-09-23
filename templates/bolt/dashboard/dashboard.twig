@@ -5,14 +5,22 @@
 {% block title "<b>Dashboard</b>" %}
 
 {% block aside %}
-    <div class="vue">
         <DashboardNews></DashboardNews>
-    </div>
 {% endblock %}
 
 
 
 {% block body %}
+
+<button class="ui primary button">
+  Save
+</button>
+<button class="ui button">
+  Discard
+</button>
+
+
+
 
 {% set contentTypes = [
     {

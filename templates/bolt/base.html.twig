@@ -8,6 +8,8 @@
     <title>{{ block('title')|striptags }}</title>
     {% block stylesheets %}
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bolt.css') }}">
     {% endblock %}
 </head>
@@ -15,9 +17,9 @@
 <body>
 <div class="wrapper">
 
-    <div id="topbar" data-vue-routing="{{ vueRouting|default() }}">
+    <header data-vue-routing="{{ vueRouting|default() }}">
         <Topbar title="{{ block('title') }}"></Topbar>
-    </div>
+    </header>
 
     <div id="sidebar">
             <Sidebar>side</Sidebar>
@@ -25,25 +27,25 @@
 
     <div id="{% block container %}content{% endblock %}">
 
-        <h1>Hoi</h1>
-
         {% block body %}
         {% endblock %}
 
     </div>
 
-    <div id="aside">
+    <aside>
         {% block aside %}
         {% endblock %}
-    </div>
+    </aside>
 
-    <div id="footer">
+    <footer>
         Bolt {{ version|default('unknown') }}
-    </div>
+    </footer>
 
 </div>
 {% block javascripts %}
     <script src="{{ asset('assets/bolt.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.js"></script>
+
 {% endblock %}
 </body>
 

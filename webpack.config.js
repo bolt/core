@@ -12,6 +12,7 @@ Encore
 
     .autoProvidejQuery()
     .enableVueLoader()
+    .enableSassLoader()
 
     // TODO: To keep or be removed if not needed
     // filenames include a hash that changes whenever the file contents change
