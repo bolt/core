@@ -76,8 +76,15 @@ aside {
     max-height: 72px;
 }
 
-.ui.table td {
-    padding: 0.7em 0.4em;
+.ui.basic.table {
+    background-color: #FFF !important;
+
+    th {
+        background-color: #F8F8F8;
+    }
+    td {
+        padding: 0.7em 0.4em;
+    }
 }
 
 td img {

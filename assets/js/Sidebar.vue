@@ -54,7 +54,7 @@
 }
 
 .ui.inverted.blue.menu .active.item {
-    background-color: rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
 }
 </style>
 
