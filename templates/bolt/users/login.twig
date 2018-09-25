@@ -1,0 +1,66 @@
+{% extends 'bolt/base_blank.twig' %}
+
+{% block title %}
+    {{ 'title.login'|trans }}
+{% endblock %}
+
+{% block body_id 'login' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+        body > .grid {
+            height: 100%;
+        }
+        .image {
+            margin-top: -100px;
+        }
+        .column {
+            max-width: 450px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('build/js/login.js') }}"></script>#}
+{% endblock %}
+
+{% block main %}
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+
+    <div class="ui middle aligned center aligned grid">
+        <div class="column" style="max-width: 450px;">
+            <form action="{{ path('security_login') }}" method="post" class="ui large form">
+                <fieldset>
+                    <legend><i class="fa fa-lock" aria-hidden="true"></i> {{ 'title.login'|trans }}</legend>
+
+                    <label for="username">{{ 'label.username'|trans }}</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
+
+                    <label for="password">{{ 'label.password'|trans }}</label>
+                    <input type="password" id="password" name="_password" class="form-control" />
+
+                    <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+
+
+
+                    <button type="submit" class="ui button primary">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i> {{ 'action.sign_in'|trans }}
+                    </button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+
