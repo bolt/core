@@ -2,7 +2,6 @@
 
 import Vue from 'vue';
 import router from './router';
-import store from './store';
 // import './registerServiceWorker'
 
 // Bolt Components
@@ -11,7 +10,6 @@ import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import DashboardNews from './DashboardNews'
 import DashboardContentList from './DashboardContentList'
-import Content from './Content';
 import App from './App'
 import '../scss/bolt.scss'
 
