@@ -25,9 +25,9 @@ Vue.component('dashboardcontentlist', DashboardContentList)
 const $ = require('jquery');
 global.$ = global.jQuery = $;
 
-new Vue({ el: 'header', router, store });
-new Vue({ el: '#sidebar', router, store });
-new Vue({ el: '#vuecontent', router, store });
+new Vue({ el: 'header', router });
+new Vue({ el: '#sidebar', router });
+new Vue({ el: '#vuecontent', router });
 
 new Vue({ el: 'dashboardnews' });
 
