@@ -2,7 +2,6 @@
 
 import Vue from 'vue';
 import router from './router';
-import store from './store';
 // import './registerServiceWorker'
 
 // Bolt Components
@@ -11,7 +10,6 @@ import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import DashboardNews from './DashboardNews'
 import DashboardContentList from './DashboardContentList'
-import Content from './Content';
 import App from './App'
 import '../scss/bolt.scss'
 
@@ -27,9 +25,9 @@ Vue.component('dashboardcontentlist', DashboardContentList)
 const $ = require('jquery');
 global.$ = global.jQuery = $;
 
-new Vue({ el: 'header', router, store });
-new Vue({ el: '#sidebar', router, store });
-new Vue({ el: '#vuecontent', router, store });
+new Vue({ el: 'header', router });
+new Vue({ el: '#sidebar', router });
+new Vue({ el: '#vuecontent', router });
 
 new Vue({ el: 'dashboardnews' });
 
