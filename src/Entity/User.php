@@ -12,14 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
  * @ORM\Table(name="bolt_user")
  *
- * Defines the properties of the User entity to represent the application users.
- * See https://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
- *
- * Tip: if you have an existing database, you can generate these entity class automatically.
- * See https://symfony.com/doc/current/cookbook/doctrine/reverse_engineering.html
- *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
 class User implements UserInterface, \Serializable
 {
@@ -70,6 +62,16 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $lastseenAt;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $lastIp;
 
     public function getId(): int
     {
@@ -177,5 +179,29 @@ class User implements UserInterface, \Serializable
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getLastseenAt(): ?\DateTimeInterface
+    {
+        return $this->lastseenAt;
+    }
+
+    public function setLastseenAt(\DateTimeInterface $lastseenAt): self
+    {
+        $this->lastseenAt = $lastseenAt;
+
+        return $this;
+    }
+
+    public function getLastIp(): ?string
+    {
+        return $this->lastIp;
+    }
+
+    public function setLastIp(?string $lastIp): self
+    {
+        $this->lastIp = $lastIp;
+
+        return $this;
     }
 }
