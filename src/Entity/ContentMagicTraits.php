@@ -107,7 +107,7 @@ trait ContentMagicTraits
         if (!empty($this->contenttype['fields'])) {
             foreach ($this->getFields() as $key => $field) {
                 if ($field->getDefinition()->get('type') === 'text') {
-                    return [ $field->getDefinition()->get('name') ];
+                    return [$field->getDefinition()->get('name')];
                 }
             }
         }
@@ -124,7 +124,7 @@ trait ContentMagicTraits
             $title[] = $this->get($field);
         }
 
-        return implode(" ", $title);
+        return implode(' ', $title);
     }
 
     public function magicImage()

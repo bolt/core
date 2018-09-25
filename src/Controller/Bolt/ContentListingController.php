@@ -43,6 +43,5 @@ class ContentListingController extends AbstractController
         $records = $content->findAll($page);
 
         return $this->render('bolt/content/listing.twig', ['records' => $records]);
-
     }
 }

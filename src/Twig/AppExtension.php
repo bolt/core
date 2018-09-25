@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Content\MenuBuilder;
 use Bolt\Utils\Markdown;
 use Symfony\Component\Intl\Intl;
 use Twig\Extension\AbstractExtension;
@@ -25,11 +26,13 @@ class AppExtension extends AbstractExtension
     private $parser;
     private $localeCodes;
     private $locales;
+    private $menuBuilder;
 
-    public function __construct(Markdown $parser, string $locales)
+    public function __construct(Markdown $parser, string $locales, MenuBuilder $menuBuilder)
     {
         $this->parser = $parser;
         $this->localeCodes = explode('|', $locales);
+        $this->menuBuilder = $menuBuilder;
     }
 
     /**
@@ -59,6 +62,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('widgets', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('htmllang', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('popup', [$this, 'dummy'], ['is_safe' => ['html']]),
+            new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
         ];
     }
 
@@ -92,5 +96,14 @@ class AppExtension extends AbstractExtension
         }
 
         return $this->locales;
+    }
+
+    public function sidebarmenu()
+    {
+        $menu = $this->menuBuilder->get();
+
+        dump($menu);
+
+        return $menu;
     }
 }
