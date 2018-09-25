@@ -22,7 +22,7 @@
     </header>
 
     <div id="sidebar">
-            <Sidebar>side</Sidebar>
+            <Sidebar sidebarmenudata="{{ sidebarmenu()|json_encode() }}">side</Sidebar>
     </div>
 
     <div id="{% block container %}content{% endblock %}">
