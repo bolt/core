@@ -11,7 +11,7 @@
                     <template v-for="record in records" class="row col">
                         <tr :key="record.id">
                             <td>{{ record.id }}</td>
-                            <td>{{ record.fields[0].value.value }}</td>
+                            <td><a :href="'edit/'+record.id">{{ record.fields[0].value.value }}</a></td>
                         </tr>
                         <!-- Maybe is better to have a component to print each row? -->
                         <!-- <Context :id="item.id" :key="item.id" :contenttype="content.contenttype" :title="item.fields[0]"></Context> -->
