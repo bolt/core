@@ -8,6 +8,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+
     <style type="text/css">
         html {
             background: linear-gradient( rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.4) ), url(https://source.unsplash.com/daily);
@@ -22,63 +23,74 @@
         body > .grid {
             height: 100%;
         }
+
         .image {
             margin-top: -100px;
         }
+
         .column {
-            max-width: 322px;
+            max-width: 382px;
         }
-        .field {
+
+        .field, .message {
             text-align: left;
         }
+
+        .ui.raised.card {
+            width: 360px;
+        }
+
         fieldset {
             border: 0;
             margin: 0;
             padding: 0;
         }
+
     </style>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     {#<script src="{{ asset('build/js/login.js') }}"></script>#}
+
+
+
 {% endblock %}
 
 {% block main %}
 
-    {% if error %}
-        <div class="alert alert-danger">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-    {% endif %}
-
 <div class="ui middle aligned center aligned grid">
     <div class="column">
         <form action="{{ path('bolt_login') }}" method="post" class="ui form">
+            <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+
             <fieldset>
                 <div class="ui card raised">
                     <div class="content">
                         <div class="header"><i class="fa fa-lock" aria-hidden="true"></i> Bolt &raquo; Login </div>
                     </div>
                     <div class="content">
+                        {% if error %}
+                            <div class="ui negative message">
+                                <i class="fas fa-exclamation-circle"></i>
+                                {{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        {% endif %}
                         <div class="field">
                             <label for="username">{{ 'label.username'|trans }}</label>
-                            <input type="text" placeholder="{{ 'label.username'|trans }}" id="username" name="_username"
+                            <input type="text" placeholder="{{ 'label.username'|trans }}" id="username" name="username"
                                 value="{{ last_username }}" class="form-control" />
                         </div>
                         <div class="field">
                             <label for="password">{{ 'label.password'|trans }}</label>
-                            <input type="password" placeholder="{{ 'label.password'|trans }}" id="password" name="_password"
+                            <input type="password" placeholder="{{ 'label.password'|trans }}" id="password" name="password"
                                 class="form-control" />
                         </div>
                         <div class="field">
-                            <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}" />
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
-                        </div>
-                        <div class="field">
                             <div class="ui checkbox">
-                                <input tabindex="0" class="hidden" type="checkbox">
-                                <label>Remember me</label>
+                                <input type="checkbox" name="_remember_me" id="_remember_me">
+                                <label for="_remember_me">Remember me</label>
                             </div>
                         </div>
                     </div>

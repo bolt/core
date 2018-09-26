@@ -21,13 +21,17 @@ class SecurityController extends AbstractController
     /**
      * @Route("/bolt/login", name="bolt_login")
      */
-    public function login(AuthenticationUtils $helper): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        // last username entered by the user (if any)
+        $last_username = $authenticationUtils->getLastUsername();
+
+        // last authentication error (if any)
+        $error = $authenticationUtils->getLastAuthenticationError();
+
         return $this->render('bolt/security/login.twig', [
-            // last username entered by the user (if any)
-            'last_username' => $helper->getLastUsername(),
-            // last authentication error (if any)
-            'error' => $helper->getLastAuthenticationError(),
+            'last_username' => $last_username,
+            'error' => $error,
         ]);
     }
 
@@ -37,7 +41,7 @@ class SecurityController extends AbstractController
      * But, this will never be executed. Symfony will intercept this first
      * and handle the logout automatically. See logout in config/packages/security.yaml
      *
-     * @Route("/bolt/logout", name="security_logout")
+     * @Route("/bolt/logout", name="bolt_logout")
      */
     public function logout(): void
     {

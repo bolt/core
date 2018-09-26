@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
  * @ORM\Table(name="bolt_user")
- *
  */
 class User implements UserInterface, \Serializable
 {

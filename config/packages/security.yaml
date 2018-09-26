@@ -1,7 +1,5 @@
 security:
     encoders:
-        # Our user class and the algorithm we'll use to encode passwords
-        # https://symfony.com/doc/current/security.html#c-encoding-the-user-s-password
         Bolt\Entity\User: bcrypt
 
     providers:
@@ -10,7 +8,6 @@ security:
                 class: Bolt\Entity\User
                 property: username
 
-    # https://symfony.com/doc/current/security.html#initial-security-yml-setup-authentication
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -20,26 +17,17 @@ security:
             pattern: ^/
             anonymous: true
 
-            # This allows the user to login by submitting a username and password
-            # Reference: https://symfony.com/doc/current/security/form_login_setup.html
-            form_login:
-                # The route name that the login form submits to
-                check_path: bolt_login
-                # The name of the route where the login form lives
-                # When the user tries to access a protected page, they are redirected here
-                login_path: bolt_login
-                # Secure the login form against CSRF
-                # Reference: https://symfony.com/doc/current/security/csrf_in_login_form.html
-                csrf_token_generator: security.csrf.token_manager
-                # The page users are redirect to when there is no previous page stored in the
-                # session (for example when the users access directly to the login page).
-                default_target_path: blog_index
+            guard:
+                authenticators:
+                    - Bolt\Security\LoginFormAuthenticator
 
             logout:
-                # The route name the user can go to in order to logout
-                path: security_logout
-                # The name of the route to redirect to after logging out
+                path: bolt_logout
                 target: homepage
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 2592000
 
     access_control:
         # this is a catch-all for the admin area
