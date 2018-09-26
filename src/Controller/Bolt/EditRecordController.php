@@ -46,16 +46,16 @@ class EditRecordController extends AbstractController
         $title = (string) $record->get('title');
         $excerpt = $record->magicExcerpt(200, true);
 
-        dump($title);
-        dump((string) $excerpt);
-        dump($record);
-        die();
+//        dump($title);
+//        dump((string) $excerpt);
+//        dump($record);
+//        die();
 
-        // See https://symfony.com/doc/current/book/forms.html#submitting-forms-with-multiple-buttons
-        $form = $this->createForm(ContentType::class, $record)
-            ->add('saveAndCreateNew', SubmitType::class);
-
-        $form->handleRequest($request);
+//        // See https://symfony.com/doc/current/book/forms.html#submitting-forms-with-multiple-buttons
+//        $form = $this->createForm(ContentType::class, $record)
+//            ->add('saveAndCreateNew', SubmitType::class);
+//
+//        $form->handleRequest($request);
 
         return $this->render('bolt/edit/edit.twig', [
             'record' => $record,

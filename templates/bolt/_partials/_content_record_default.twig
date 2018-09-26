@@ -1,11 +1,18 @@
 <tr class="top aligned">
     <td>
-        <div class="clip-overflow">{{ record.excerpt(300, true) }}</div>
+        <div class="clip-overflow">{{ record.excerpt(400, true) }}</div>
     </td>
     <td>
         {% set icon = record.definition.icon_one|default('fa-adjust') %}
         <i class="fas {{ icon|replace({':': '-' }) }} fa-fw"></i>
-        {{ record.definition.name }}
+
+        {% if not app.request.get('contenttype')|default() %}
+        <a href="{{ path('bolt_contentlisting', {'contenttype': record.definition.slug }) }}">
+            {{ record.definition.name }}
+        </a>
+        {% else %}
+            {{ record.definition.name }}
+        {% endif %}
         {% if not record.definition.singleton %}№ {{ record.id }}{% endif %}
         <br>
         <i class="fas fa-user fa-fw"></i>

@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
+use Bolt\TemplateChooser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +19,29 @@ class FrontendController extends AbstractController
     /** @var Config */
     private $config;
 
-    public function __construct(Config $config)
+    /** @var TemplateChooser */
+    private $templateChooser;
+
+    public function __construct(Config $config, TemplateChooser $templateChooser)
     {
         $this->config = $config;
+        $this->templateChooser = $templateChooser;
+    }
+
+    /**
+     * @Route("/", methods={"GET"}, name="homepage")
+     */
+    public function homepage()
+    {
+        $homepage = $this->getOption('theme/homepage') ?: $this->getOption('general/homepage');
+
+        $template = $this->templateChooser->homepage('');
+
+//        dump($homepage);
+//        dump($template);
+//        die();
+
+        return $this->render($template, []);
     }
 
     /**
@@ -68,17 +89,30 @@ class FrontendController extends AbstractController
     }
 
     /**
+     * Shortcut for {@see \Bolt\Config::get}.
+     *
+     * @param string $path
+     * @param mixed  $default
+     *
+     * @return string|int|array|null
+     */
+    protected function getOption($path, $default = null)
+    {
+        return $this->config->get($path, $default);
+    }
+
+    /**
      * Renders a view.
      *
      * @final
      *
-     * @param string        $view
+     * @param string|array  $view
      * @param array         $parameters
      * @param Response|null $response
      *
      * @return Response
      */
-    protected function render(string $view, array $parameters = [], Response $response = null): Response
+    protected function render($view, array $parameters = [], Response $response = null): Response
     {
         $themepath = sprintf(
             '%s/%s',
@@ -86,6 +120,7 @@ class FrontendController extends AbstractController
             $this->config->get('general/theme')
         );
 
+        /** @var \Twig_Environment $twig */
         $twig = $this->container->get('twig');
 
         $loader = $twig->getLoader();
@@ -94,7 +129,10 @@ class FrontendController extends AbstractController
 
         $parameters['config'] = $this->config;
 
-        $content = $twig->render($view, $parameters);
+        // Resolve string|array of templates into the first one that is found.
+        $template = $twig->resolveTemplate($view);
+
+        $content = $twig->render($template, $parameters);
 
         if ($response === null) {
             $response = new Response();
