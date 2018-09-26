@@ -12,8 +12,6 @@
 
 {% block body %}
 
-    {{ dump(contenttype) }}
-
     {% include 'bolt/_partials/_content_listing.twig' with {'records': records } %}
 
 {% endblock %}
