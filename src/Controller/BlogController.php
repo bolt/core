@@ -32,7 +32,8 @@ final class BlogController extends AbstractController
     /**
      * xRoute("/", defaults={"page": "1", "_format"="html"}, methods={"GET"}, name="blog_index")
      * xRoute("/rss.xml", defaults={"page": "1", "_format"="xml"}, methods={"GET"}, name="blog_rss")
-     * xRoute("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="blog_index_paginated")
+     * xRoute("/page/{page<[1-9]\d*>}", defaults={"_format"="html"}, methods={"GET"}, name="blog_index_paginated").
+     *
      * @Cache(smaxage="10")
      *
      * NOTE: For standard formats, Symfony will also automatically choose the best

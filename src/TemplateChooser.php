@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt;
 
 use Bolt\Configuration\Config;
@@ -78,7 +80,7 @@ class TemplateChooser
         // First candidate: A legacy Content record has a templateselect field, and it's set.
         if (isset($record->contenttype['fields'])) {
             foreach ($record->contenttype['fields'] as $name => $field) {
-                if ($field['type'] == 'templateselect' && !empty($record->values[$name])) {
+                if ($field['type'] === 'templateselect' && !empty($record->values[$name])) {
                     $templates[] = $record->values[$name];
                 }
             }
@@ -87,11 +89,11 @@ class TemplateChooser
         // Second candidate: An entity has a templateselect field, and it's set.
         if (isset($record->contenttype['fields'])) {
             foreach ($record->contenttype['fields'] as $name => $field) {
-                if ($field['type'] == 'templateselect' && !empty($record[$name])) {
+                if ($field['type'] === 'templateselect' && !empty($record[$name])) {
                     $templates[] = $record[$name];
                 }
 
-                if ($field['type'] == 'templateselect' && $data !== null && !empty($data[$name])) {
+                if ($field['type'] === 'templateselect' && $data !== null && !empty($data[$name])) {
                     $templates[] = $data[$name];
                 }
             }

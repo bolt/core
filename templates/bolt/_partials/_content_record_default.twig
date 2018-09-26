@@ -1,8 +1,8 @@
 <tr class="top aligned">
-    <td>
+    <td class="listing-excerpt">
         <div class="clip-overflow">{{ record.excerpt(400, true) }}</div>
     </td>
-    <td>
+    <td class="listing-meta">
         {% set icon = record.definition.icon_one|default('fa-adjust') %}
         <i class="fas {{ icon|replace({':': '-' }) }} fa-fw"></i>
 
@@ -24,6 +24,10 @@
         {#Volgorde: 81#}
         {#</a>#}
     </td>
-    <td><img src="{{ record.image|thumbnail(100, 75) }}" width="100" height="72"></td>
-    <td><a href="{{ path('bolt_edit_record', {'id': record.id}) }}" class="ui button">Edit</a></td>
+    <td class="listing-thumb">
+        <img src="{{ record.image|thumbnail(100, 75) }}" width="100" height="72">
+        </td>
+    <td class="listing-actions">
+        <a href="{{ path('bolt_edit_record', {'id': record.id}) }}" class="ui button">Edit</a>
+    </td>
 </tr>

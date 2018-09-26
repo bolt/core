@@ -91,7 +91,13 @@ aside {
     }
 }
 
-td img {
+td.listing-thumb img {
     // Get rid of extra space because of the baseline
     display: block;
+}
+
+td.listing-meta {
+    font-size: 14px;
+    line-height: 25px;
+    color: #555;
 }
