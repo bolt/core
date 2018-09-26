@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Bolt;
 
 use Bolt\Configuration\Config;
+use Bolt\Content\ContentTypeFactory;
 use Bolt\Repository\ContentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,19 +30,26 @@ class ContentListingController extends AbstractController
     }
 
     /**
-     * @Route("/content", name="bolt_contentlisting")
+     * @Route("/content/{contenttype}", name="bolt_contentlisting")
      *
-     * @param null|string $vueRouting
+     * @param ContentRepository $content
+     * @param Request           $request
+     * @param string            $contenttype
      *
      * @return Response
      */
-    public function listing(ContentRepository $content, Request $request): Response
+    public function listing(ContentRepository $content, Request $request, string $contenttype = ''): Response
     {
+        $contenttype = ContentTypeFactory::get($contenttype, $this->config->get('contenttypes'));
+
         $page = (int) $request->query->get('page', 1);
 
         /** @var Content $records */
-        $records = $content->findAll($page);
+        $records = $content->findAll($page, $contenttype);
 
-        return $this->render('bolt/content/listing.twig', ['records' => $records]);
+        return $this->render('bolt/content/listing.twig', [
+            'records' => $records,
+            'contenttype' => $contenttype,
+        ]);
     }
 }

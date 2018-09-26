@@ -1,0 +1,29 @@
+
+{% if records %}
+    <table class="ui very basic striped table">
+        <thead>
+        <tr>
+            <th>Title / Excerpt</th>
+            <th style="min-width: 9.5em;">Meta</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for record in records %}
+
+            {% include 'bolt/_partials/_content_record_default.twig' with { 'record': record } %}
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    {% include 'bolt/_partials/_pager.twig' with { 'records': records } %}
+
+{% else %}
+
+    (no content)
+
+{% endif %}

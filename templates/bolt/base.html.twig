@@ -29,10 +29,6 @@
 
         {{ include('default/_flash_messages.html.twig') }}
 
-        <div class="ui form">
-        <textarea>{{ sidebarmenu()|json_encode() }}</textarea>
-        </div>
-
         {% block body %}
         {% endblock %}
 

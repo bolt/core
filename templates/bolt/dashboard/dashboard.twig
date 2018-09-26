@@ -10,27 +10,8 @@
 
 {% block body %}
 
-<button class="ui primary button">
-  Save
-</button>
-<button class="ui button">
-  Discard
-</button>
+    {% include 'bolt/_partials/_content_listing.twig' with {'records': records } %}
 
-
-
-
-{% set contentTypes = [
-    {
-        slug: 'pages'
-    },
-    {
-        slug: 'homepage'
-    }
-] %}
-{% for contentType in contentTypes if true or contentType.showOnDashboard %}
-    <DashboardContentList type="{{ contentType.slug }}" limit="5"></DashboardContentList>
-{% endfor %}
 
 {% endblock %}
 

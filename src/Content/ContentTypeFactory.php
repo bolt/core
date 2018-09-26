@@ -18,10 +18,18 @@ final class ContentTypeFactory
      *
      * @return ContentType
      */
-    public static function get(string $name, Bag $contenttypesconfig)
+    public static function get(string $name, Bag $contenttypesconfig): ?ContentType
     {
-        $contentType = ContentType::from($contenttypesconfig[$name]);
+        if ($contenttypesconfig[$name]) {
+            return ContentType::from($contenttypesconfig[$name]);
+        }
 
-        return $contentType;
+        foreach ($contenttypesconfig as $item => $value) {
+            if ($value['singular_slug'] === $name) {
+                return ContentType::from($contenttypesconfig[$item]);
+            }
+        }
+
+        return null;
     }
 }

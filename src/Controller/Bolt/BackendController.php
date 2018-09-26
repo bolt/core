@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Controller\Bolt;
 
 use Bolt\Configuration\Config;
+use Bolt\Entity\Content;
+use Bolt\Repository\ContentRepository;
 use Bolt\Version;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,9 +24,7 @@ class BackendController extends AbstractController
     /** @var Config */
     private $config;
 
-    /** @var Version */
-    private $version;
-
+    /** @param Config $config */
     public function __construct(Config $config)
     {
         $this->config = $config;
@@ -34,17 +34,19 @@ class BackendController extends AbstractController
      * @Route("/", name="bolt_dashboard")
      * was: ("/{vueRouting}", requirements={"vueRouting"="^(?!api|_(profiler|wdt)).+"}, name="index")
      *
-     * @param null|string $vueRouting
+     * @param ContentRepository $content
      *
      * @return Response
      */
-    public function index(?string $vueRouting = null, $name = 'Gekke Henkie')
+    public function index(ContentRepository $content)
     {
         $version = Version::VERSION;
 
+        /** @var Content $records */
+        $records = $content->findLatest();
+
         return $this->render('bolt/dashboard/dashboard.twig', [
-            'vueRouting' => null === $vueRouting ? '/' : '/' . $vueRouting,
-            'name' => $name,
+            'records' => $records,
             'version' => $version,
         ]);
     }

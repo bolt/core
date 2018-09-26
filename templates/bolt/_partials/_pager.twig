@@ -1,0 +1,9 @@
+{% if records.haveToPaginate|default() %}
+    <div class="navigation text-center">
+        {{ pagerfanta(records, 'semantic_ui_translated', {
+            routeName: 'bolt_contentlisting',
+            routeParams: { 'contenttype': contenttype.slug|default() }
+        }) }}
+    </div>
+{% endif %}
+

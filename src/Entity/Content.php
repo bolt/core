@@ -26,7 +26,7 @@ class Content
 {
     use ContentMagicTraits;
 
-    public const NUM_ITEMS = 5;
+    public const NUM_ITEMS = 8;
 
     /**
      * @ORM\Id()

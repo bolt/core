@@ -102,8 +102,6 @@ class AppExtension extends AbstractExtension
     {
         $menu = $this->menuBuilder->get();
 
-        dump($menu);
-
         return $menu;
     }
 }

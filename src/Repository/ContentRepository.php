@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
+use Bolt\Content\ContentType;
 use Bolt\Entity\Content;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
@@ -29,16 +30,21 @@ class ContentRepository extends ServiceEntityRepository
         return $qb ?: $this->createQueryBuilder('content');
     }
 
-    public function findAll(int $page = 1): Pagerfanta
+    public function findAll(int $page = 1, ContentType $contenttype = null): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
             ->innerJoin('content.author', 'a');
 
+        if ($contenttype) {
+            $qb->where('content.contentType = :ct')
+                ->setParameter('ct', $contenttype['slug']);
+        }
+
         return $this->createPaginator($qb->getQuery(), $page);
     }
 
-    public function findLatest(int $page = 1): Pagerfanta
+    public function findLatest(): ?array
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -47,7 +53,9 @@ class ContentRepository extends ServiceEntityRepository
             ->orderBy('content.publishedAt', 'DESC')
             ->setParameter('now', new \DateTime());
 
-        return $this->createPaginator($qb->getQuery(), $page);
+        $result = $qb->getQuery()->getResult();
+
+        return array_slice($result, 0, 6);
     }
 
     public function findOneBySlug(string $slug)
