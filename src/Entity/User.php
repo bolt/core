@@ -64,7 +64,7 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastseenAt;
 

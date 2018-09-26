@@ -19,11 +19,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/bolt/login", name="security_login")
+     * @Route("/bolt/login", name="bolt_login")
      */
     public function login(AuthenticationUtils $helper): Response
     {
-        return $this->render('bolt/users/login.twig', [
+        return $this->render('bolt/security/login.twig', [
             // last username entered by the user (if any)
             'last_username' => $helper->getLastUsername(),
             // last authentication error (if any)

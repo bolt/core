@@ -62,6 +62,8 @@ class ContentFixtures extends Fixture
     {
         return [
             // $userData = [$fullname, $username, $password, $email, $roles];
+            ['Admin', 'admin', 'admin%1', 'admin@example.org', ['ROLE_ADMIN']],
+            ['Gekke Henkie', 'henkie', 'henkie%1', 'henkie@example.org', ['ROLE_EDITOR']],
             ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', ['ROLE_ADMIN']],
             ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', ['ROLE_ADMIN']],
             ['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', ['ROLE_USER']],

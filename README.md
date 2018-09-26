@@ -11,12 +11,20 @@ Set up Database
 ---------------
 
   - Configure the connection in `.env`
-  - Then: 
-  
-```  
+  - Then:
+
+```
 bin/console doctrine:database:create
 bin/console doctrine:schema:create
-bin/console doctrine:fixtures:load
+bin/console doctrine:fixtures:load -n
+```
+
+Re-set a database to the latest, with fresh dummy-content like this:
+
+```
+bin/console doctrine:schema:drop --force
+bin/console doctrine:schema:create
+bin/console doctrine:fixtures:load -n
 ```
 
 Run
