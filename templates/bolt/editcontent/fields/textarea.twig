@@ -1,0 +1,6 @@
+<div class="field">
+    <label>{{ field.definition.label|default(field.name) }}</label>
+    <textarea name="field[{{ field.name }}]" {% if field.definition.class %}class="{{ field.definition.class }}"{% endif %}>
+{{ field }}
+    </textarea>
+</div>

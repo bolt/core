@@ -254,6 +254,7 @@ blocks:
             type: text
             class: large
             group: "Block"
+            label: De Titel
         slug:
             type: slug
             uses: [ title ]

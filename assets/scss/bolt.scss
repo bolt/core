@@ -91,6 +91,11 @@ aside {
     }
 }
 
+.ui.form input.large {
+    font-size: 140%;
+    padding: 11px 16px;
+}
+
 td.listing-thumb img {
     // Get rid of extra space because of the baseline
     display: block;

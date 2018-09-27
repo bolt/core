@@ -1,0 +1,36 @@
+{% extends 'bolt/base.html.twig' %}
+
+{% block title %}
+    Edit » <strong>{{ record.title|default('New') }}</strong>
+{% endblock %}
+
+{% block body %}
+
+    {{ dump(record) }}
+
+    <form method="post" class="ui form">
+
+        <!-- fixed stuff -->
+        <input type="text" name="id" value="{{ record.id }}">
+        {#<input type="text" name="author" value="{{ record.author }}">#}
+        <input type="text" name="status" value="{{ record.status }}">
+
+        <input type="text" name="createdAt" value="{{ record.createdAt|date(format='r', timezone='GMT') }}">
+        <input type="text" name="modifiedAt" value="{{ record.modifiedAt|date(format='r', timezone='GMT') }}">
+        <input type="text" name="publishedAt" value="{{ record.publishedAt|date(format='r', timezone='GMT') }}">
+        <input type="text" name="depublishedAt" value="{{ record.depublishedAt|date(format='r', timezone='GMT') }}">
+
+
+       <!-- fields -->
+    {% for field in record.fields %}
+
+        {% set type = field.definition.type %}
+
+        {% include ['bolt/editcontent/fields/' ~ type ~ '.twig', 'bolt/editcontent/fields/generic.twig' ] with { 'field': field}  %}
+
+    {% endfor %}
+
+        <input type="submit" class="ui button primary" value="Save">
+
+    </form>
+{% endblock %}

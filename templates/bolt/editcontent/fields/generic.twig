@@ -1,0 +1,6 @@
+<div class="field">
+    <label>{{ field.definition.label|default(field.name) }}</label>
+    <input name="field[{{ field.name }}]" placeholder="First Name" type="text" value="{{ field }}"
+           {% if field.definition.class %}class="{{ field.definition.class }}"{% endif %}>
+</div>
+{#{{ dump(field) }}#}

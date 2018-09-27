@@ -57,7 +57,7 @@ class EditRecordController extends AbstractController
 //
 //        $form->handleRequest($request);
 
-        return $this->render('bolt/edit/edit.twig', [
+        return $this->render('bolt/editcontent/edit.twig', [
             'record' => $record,
          ]);
     }
