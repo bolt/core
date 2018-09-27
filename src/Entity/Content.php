@@ -96,6 +96,16 @@ class Content
     /** @var Config */
     private $config;
 
+    /**
+     * Set the "Magic properties for automagic population in the API
+     */
+    public $magictitle;
+    public $magicexcerpt;
+    public $magicimage;
+    public $magiclink;
+    public $magiceditlink;
+
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();

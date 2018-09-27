@@ -5,14 +5,14 @@
     </div>
     <!-- TODO: Maybe we need to parse the data somewhere else -->
     <template v-for="menuitem in JSON.parse(sidebarmenudata)">
-      <a :href="menuitem.link" class="item" v-if="!menuitem.contenttype" :key="menuitem.id">
+      <a v-if="!menuitem.contenttype" :href="menuitem.link" class="item" :key="menuitem.id">
         <span class="fa-stack">
           <i class="fas fa-square fa-stack-2x"></i>
           <i class="fas fa-stack-1x" :class="menuitem.icon"></i>
         </span>
         {{ menuitem.name }}
       </a>
-      <div class="ui dropdown item" :key="menuitem.id" v-else="">
+      <div v-else="" class="ui dropdown item" :key="menuitem.id">
         <!-- {{menuitem.contenttype}} -->
         <i class="dropdown icon"></i>
         <span class="fa-stack">
@@ -21,11 +21,19 @@
         </span>
         {{ menuitem.name }}
         <div class="menu">
-          <!-- TODO: Print Links to latest edited record per contenttype -->
-          <div class="header">Text Size</div>
-          <a class="item">Small</a>
-          <a class="item">Medium</a>
-          <a class="item">Large</a>
+          <a class="item" :href="'/bolt/content/' + menuitem.contenttype">
+            <i class="fas icon" :class="menuitem.icon"></i>
+            View {{ menuitem.name }}
+          </a>
+          <a class="item" :href="'/bolt/edit/' + menuitem.contenttype">
+             <i class="fas fa-plus icon"></i>
+            New {{ menuitem.name }}
+          </a>
+          <div class="divider"></div>
+          <a v-for="record in getRecordsPerContenttype(menuitem.contenttype)" :key="record.id" class="item" :href="'/bolt/edit/' + record.id">
+            <i class="fas icon" :class="menuitem.icon"></i>
+            {{ record.magictitle }}
+          </a>
         </div>
       </div>
     </template>
@@ -44,22 +52,32 @@
             return {
                 message: '',
                 loading: true,
-                records: []
+                records: [],
             };
         },
-        created () {
-          // TODO: This data is already initialized somewhere else, Use it!!
-            this.records = ContentAPI.getRecords('pages')
+        methods: {
+          getRecordsPerContenttype(contenttypeslug) {
+            if(localStorage.getItem('records-' + contenttypeslug) === null) {
+              return this.records[contenttypeslug];
+            } else {
+              return ContentAPI.getRecords(contenttypeslug);
+            }
+          },
+        },
+        created() {
 
-            ContentAPI.fetchRecords('pages')
+          let sidebarmenudata = JSON.parse(this.sidebarmenudata)
+
+          for(let i = 0; i < sidebarmenudata.length; i++) {
+            if(sidebarmenudata[i].contenttype) {
+              ContentAPI.fetchRecords(sidebarmenudata[i].contenttype)
                 .then( records => {
-                    this.records = records
+                  this.$set(this.records, sidebarmenudata[i].contenttype, records)
                 })
                 .catch(error => console.log(error))
-                .finally(() => {
-                    this.loading = false
-                });
-        },
+            }
+          }
+        }
     }
 </script>
 

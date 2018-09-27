@@ -32,5 +32,8 @@ new Vue({ el: '#vuecontent', router });
 new Vue({ el: 'dashboardnews' });
 
 $(document).ready(function() {
-    $('.ui.dropdown').dropdown();
+    $('.ui.dropdown').dropdown({
+        on: 'hover',
+        transition: 'slide right'
+    });
 });
