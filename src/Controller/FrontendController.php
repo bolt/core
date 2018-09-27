@@ -112,7 +112,7 @@ class FrontendController extends AbstractController
      *
      * @return Response
      */
-    protected function render($view, array $parameters = [], Response $response = null): Response
+    protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
         $themepath = sprintf(
             '%s/%s',
