@@ -21,11 +21,19 @@
         </span>
         {{ menuitem.name }}
         <div class="menu">
-          <!-- TODO: Print Links to latest edited record per contenttype -->
-          <div class="header">{{ menuitem.name }}</div>
-            <a v-for="record in getRecordsPerContenttype(menuitem.contenttype)" :key="record.id" class="item" :href="'/bolt/edit/' + record.id">
-              {{ record.magictitle }}
-            </a>
+          <a class="item" :href="'/bolt/content/' + menuitem.contenttype">
+            <i class="fas icon" :class="menuitem.icon"></i>
+            View {{ menuitem.name }}
+          </a>
+          <a class="item" :href="'/bolt/edit/' + menuitem.contenttype">
+             <i class="fas fa-plus icon"></i>
+            New {{ menuitem.name }}
+          </a>
+          <div class="divider"></div>
+          <a v-for="record in getRecordsPerContenttype(menuitem.contenttype)" :key="record.id" class="item" :href="'/bolt/edit/' + record.id">
+            <i class="fas icon" :class="menuitem.icon"></i>
+            {{ record.magictitle }}
+          </a>
         </div>
       </div>
     </template>
