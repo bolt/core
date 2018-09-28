@@ -97,14 +97,13 @@ class Content
     private $config;
 
     /**
-     * Set the "Magic properties for automagic population in the API
+     * Set the "Magic properties for automagic population in the API.
      */
     public $magictitle;
     public $magicexcerpt;
     public $magicimage;
     public $magiclink;
     public $magiceditlink;
-
 
     public function __construct()
     {
@@ -244,6 +243,11 @@ class Content
     public function getFields(): Collection
     {
         return $this->fields;
+    }
+
+    public function getField(string $name): ?Field
+    {
+        return collect($this->fields)->where('name', $name)->first();
     }
 
     public function addField(Field $field): self

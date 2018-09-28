@@ -56,7 +56,7 @@ class Field
     /**
      * @ORM\Column(type="string", length=191)
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="json")

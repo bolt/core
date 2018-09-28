@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Bolt\Configuration;
 
 use Bolt\Collection\Arr;
-use Bolt\Collection\MutableBag;
 use Bolt\Helpers\Html;
 use Bolt\Helpers\Str;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
+use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
 class Config
@@ -18,7 +18,7 @@ class Config
     /** @var array */
     protected $data;
 
-    /** @var Symfony\Component\Config\FileLocator */
+    /** @var FileLocator */
     private $fileLocator;
 
     /** @var PathResolver */
@@ -64,7 +64,7 @@ class Config
      */
     public function parseConfig()
     {
-        $config = MutableBag::from([
+        $config = collect([
             'general' => $this->parseGeneral(),
         ]);
 
@@ -77,9 +77,6 @@ class Config
         //'routing' => $this->parseConfigYaml('routing.yml'),
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
-
-//        dump($config);
-//        die();
 
         return $config;
     }
@@ -97,6 +94,8 @@ class Config
      */
     public function get(string $path, $default = null)
     {
+//        dump($path);
+//        dump(Arr::get($this->data, $path, $default));
         return Arr::get($this->data, $path, $default);
     }
 
@@ -122,15 +121,14 @@ class Config
     /**
      * Read and parse the config.yaml and config_local.yaml configuration files.
      *
-     * @return MutableBag
+     * @return Collection
      */
-    protected function parseGeneral()
+    protected function parseGeneral(): Collection
     {
         $defaultconfig = $this->getDefaultConfig();
         $tempconfig = $this->parseConfigYaml('config.yaml');
         $tempconfiglocal = $this->parseConfigYaml('config_local.yaml');
-        $mergedarray = Arr::replaceRecursive($defaultconfig, Arr::replaceRecursive($tempconfig, $tempconfiglocal));
-        $general = MutableBag::fromRecursive($mergedarray);
+        $general = Arr::replaceRecursive($defaultconfig, Arr::replaceRecursive($tempconfig, $tempconfiglocal));
 
         // Make sure Bolt's mount point is OK:
         $general['branding']['path'] = '/' . Str::makeSafe($general['branding']['path']);
@@ -142,18 +140,18 @@ class Config
 
         $general['database'] = $this->parseDatabase($general['database']);
 
-        return $general;
+        return collect($general);
     }
 
     /**
      * Read and parse the contenttypes.yml configuration file.
      *
      *
-     * @return array
+     * @return Collection
      */
-    protected function parseContentTypes()
+    protected function parseContentTypes(): Collection
     {
-        $contentTypes = new MutableBag();
+        $contentTypes = new Collection();
         $tempContentTypes = $this->parseConfigYaml('contenttypes.yml');
         foreach ($tempContentTypes as $key => $contentType) {
             try {
@@ -164,7 +162,7 @@ class Config
             }
         }
 
-        return MutableBag::fromRecursive($contentTypes);
+        return $contentTypes;
     }
 
     /**
@@ -172,9 +170,9 @@ class Config
      *
      * @param string $filename The name of the YAML file to read
      *
-     * @return array
+     * @return Collection
      */
-    protected function parseConfigYaml($filename)
+    protected function parseConfigYaml($filename): Collection
     {
         try {
             $filename = $this->fileLocator->locate($filename, null, true);
@@ -199,7 +197,7 @@ class Config
         // Unset the repeated nodes key after parse
         unset($yaml['__nodes']);
 
-        return MutableBag::from($yaml);
+        return collect($yaml);
     }
 
     /**
@@ -424,7 +422,7 @@ class Config
      *
      * @return array
      */
-    protected function parseDatabase(MutableBag $options)
+    protected function parseDatabase(array $options)
     {
         // Make sure prefix ends with underscore
         if (mb_substr($options['prefix'], mb_strlen($options['prefix']) - 1) !== '_') {
@@ -434,7 +432,7 @@ class Config
         // Parse master connection parameters
         $master = $this->parseConnectionParams($options);
         // Merge master connection into options
-        $options = MutableBag::fromRecursive($options, $master);
+        $options = collect($options)->merge($master);
 
         // Add platform specific random functions
         $driver = \Bolt\Common\Str::replaceFirst($options['driver'], 'pdo_', '');
@@ -511,7 +509,7 @@ class Config
             // If field is an "image" type, make sure the 'extensions' are set, and it's an array.
             if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
                 if (empty($field['extensions'])) {
-                    $field['extensions'] = MutableBag::from(['gif', 'jpg', 'jpeg', 'png', 'svg'])
+                    $field['extensions'] = collect(['gif', 'jpg', 'jpeg', 'png', 'svg'])
                         ->intersect($acceptableFileTypes);
                 }
 
@@ -592,10 +590,9 @@ class Config
     /**
      * Fine-tune Sqlite configuration parameters.
      *
-     *
      * @return array
      */
-    protected function parseSqliteOptions(MutableBag $config)
+    protected function parseSqliteOptions(array $config): array
     {
         if (isset($config['memory']) && $config['memory']) {
             // If in-memory, no need to parse paths
@@ -642,7 +639,7 @@ class Config
      *
      * @return array
      */
-    protected function parseConnectionParams(MutableBag $params, $defaults = [])
+    protected function parseConnectionParams(array $params, $defaults = [])
     {
         // Handle host shortcut
         if (is_string($params)) {
@@ -662,7 +659,7 @@ class Config
         }
 
         // Merge in defaults
-        $params = MutableBag::fromRecursive($defaults, $params);
+        $params = collect($defaults)->merge($params);
 
         // Filter out invalid keys
         $validKeys = [
@@ -673,7 +670,7 @@ class Config
             'servicename', 'service', 'pooled', 'instancename', 'server', // Oracle
             'persistent',                                                 // SQL Anywhere
         ];
-        $params = $params->intersectKeys($validKeys);
+        $params = $params->intersectByKeys($validKeys);
 
         return $params;
     }

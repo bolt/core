@@ -18,7 +18,7 @@ final class FieldTypeFactory
      */
     public static function get(string $name, ContentType $contentType)
     {
-        $field = FieldType::from($contentType['fields'][$name]);
+        $field = new FieldType($contentType['fields'][$name]);
 
         return $field;
     }

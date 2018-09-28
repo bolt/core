@@ -4,8 +4,9 @@
 
     <h1>{{ record.title }}</h1>
 
+    {{ dump(record.definition) }}
+
     {% for field in record.fields %}
-        {{ dump(field) }}
         {{ field }}
     {% endfor %}
 

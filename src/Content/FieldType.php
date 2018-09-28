@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
-use Bolt\Collection\Bag;
+use Tightenco\Collect\Support\Collection;
 
-final class FieldType extends Bag
+final class FieldType extends Collection
 {
 }

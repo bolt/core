@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
-use Bolt\Collection\Bag;
+use Tightenco\Collect\Support\Collection;
 
 final class ContentTypeFactory
 {
@@ -13,20 +13,20 @@ final class ContentTypeFactory
     }
 
     /**
-     * @param string $name
-     * @param Bag    $contenttypesconfig
+     * @param string     $name
+     * @param Collection $contenttypesconfig
      *
      * @return ContentType
      */
-    public static function get(string $name, Bag $contenttypesconfig): ?ContentType
+    public static function get(string $name, $contenttypesconfig): ?ContentType
     {
         if ($contenttypesconfig[$name]) {
-            return ContentType::from($contenttypesconfig[$name]);
+            return new ContentType($contenttypesconfig[$name]);
         }
 
         foreach ($contenttypesconfig as $item => $value) {
             if ($value['singular_slug'] === $name) {
-                return ContentType::from($contenttypesconfig[$item]);
+                return new ContentType($contenttypesconfig[$item]);
             }
         }
 

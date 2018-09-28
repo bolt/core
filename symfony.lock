@@ -521,6 +521,9 @@
     "symfony/yaml": {
         "version": "v3.4.0-beta2"
     },
+    "tightenco/collect": {
+        "version": "v5.7.6"
+    },
     "twig/extensions": {
         "version": "1.0",
         "recipe": {

@@ -7,7 +7,6 @@ namespace Bolt\Controller\Bolt;
 use Bolt\Configuration\Config;
 use Bolt\Content\FieldFactory;
 use Bolt\Entity\Content;
-use Bolt\Form\ContentType;
 use Bolt\Version;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -74,46 +73,29 @@ class EditRecordController extends AbstractController
     {
         $post = $request->request->all();
 
-//        dump($content->getFields());
-
         if (!$content) {
             $content = new Content();
             $content->setAuthor($this->getUser());
         }
-
-        /** @var ArrayCollection $fields */
-        $fields = $content->getFields();
 
         $content->setStatus($post['status']);
         $content->setPublishedAt(new Carbon($post['publishedAt']));
         $content->setDepublishedAt(new Carbon($post['depublishedAt']));
 
         foreach ($post['fields'] as $key => $postfield) {
-            $this->updateFieldFromPost($key, $postfield, $fields);
+            $this->updateFieldFromPost($key, $postfield, $content);
         }
 
-//        dump($content->getFields());
-//        dd($post);
         return $content;
     }
 
-    private function updateFieldFromPost($key, $postfield, $fields)
+    private function updateFieldFromPost(string $key, $postfield, Content $content)
     {
-        $field = null;
-
-        foreach ($fields as $tempfield) {
-            if ($tempfield->getName() == $key) {
-                $field = $tempfield;
-                break;
-            }
-        }
-
-        if (!$field) {
+        if (!$field = $content->getField($key)) {
             $field = FieldFactory::get('text');
             $fields[] = $field;
         }
 
         $field->setValue((array) $postfield);
     }
-
 }

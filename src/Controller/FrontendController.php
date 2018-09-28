@@ -33,7 +33,10 @@ class FrontendController extends AbstractController
      */
     public function homepage()
     {
+        dump($this->config);
         $homepage = $this->getOption('theme/homepage') ?: $this->getOption('general/homepage');
+
+        dd($homepage);
 
         $template = $this->templateChooser->homepage('');
 
@@ -78,7 +81,7 @@ class FrontendController extends AbstractController
 //            $record = $contentRepository->findOneBySlug($slug);
         }
 
-        $recordSlug = $record->getDefinition()->singular_slug;
+        $recordSlug = $record->getDefinition()['singular_slug'];
 
         $context = [
             'record' => $record,
@@ -98,6 +101,8 @@ class FrontendController extends AbstractController
      */
     protected function getOption($path, $default = null)
     {
+        dump($this->config->get($path, $default));
+
         return $this->config->get($path, $default);
     }
 
