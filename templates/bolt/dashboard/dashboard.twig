@@ -4,17 +4,16 @@
 
 {% block title "<b>Dashboard</b>" %}
 
+{% block main %}
+
+    {% include 'bolt/_partials/_content_listing.twig' with {'records': records } %}
+
+{% endblock %}
+
 {% block aside %}
 
         {% include 'bolt/_partials/_widget_weather.twig' %}
 
         <DashboardNews></DashboardNews>
-{% endblock %}
-
-{% block body %}
-
-    {% include 'bolt/_partials/_content_listing.twig' with {'records': records } %}
-
-
 {% endblock %}
 

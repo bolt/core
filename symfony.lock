@@ -188,6 +188,9 @@
             "ref": "1fee84e00c71edee81aa54b470260779a890c9c6"
         }
     },
+    "nesbot/carbon": {
+        "version": "1.34.0"
+    },
     "nikic/php-parser": {
         "version": "v4.0.3"
     },

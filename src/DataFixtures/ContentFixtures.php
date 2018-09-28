@@ -121,7 +121,7 @@ class ContentFixtures extends Fixture
                 $data = ['filename' => 'kitten.jpg', 'alt' => 'A cute kitten'];
                 break;
             case 'slug':
-                $data = $this->lastTitle ?? $this->faker->sentence(3, true);
+                $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
                 break;
             case 'text':
                 $data = [$this->faker->sentence(6, true)];

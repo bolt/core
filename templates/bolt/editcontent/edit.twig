@@ -4,21 +4,12 @@
     Edit » <strong>{{ record.title|default('New') }}</strong>
 {% endblock %}
 
-{% block body %}
+{% block main %}
 
     {{ dump(record) }}
 
-    <form method="post" class="ui form">
 
-        <!-- fixed stuff -->
-        <input type="text" name="id" value="{{ record.id }}">
-        {#<input type="text" name="author" value="{{ record.author }}">#}
-        <input type="text" name="status" value="{{ record.status }}">
-
-        <input type="text" name="createdAt" value="{{ record.createdAt|date(format='r', timezone='GMT') }}">
-        <input type="text" name="modifiedAt" value="{{ record.modifiedAt|date(format='r', timezone='GMT') }}">
-        <input type="text" name="publishedAt" value="{{ record.publishedAt|date(format='r', timezone='GMT') }}">
-        <input type="text" name="depublishedAt" value="{{ record.depublishedAt|date(format='r', timezone='GMT') }}">
+<form method="post" class="ui form" id="editcontent">
 
 
        <!-- fields -->
@@ -32,5 +23,76 @@
 
         <input type="submit" class="ui button primary" value="Save">
 
-    </form>
+</form>
+
+
 {% endblock %}
+
+{% block aside %}
+
+<div class="ui card">
+    <div class="content">
+        <div class="header">Meta information</div>
+    </div>
+    <div class="content">
+
+        <form class="ui form">
+
+            <input type="submit" class="ui button primary" value="Save" form="editcontent">
+
+
+            {% include 'bolt/editcontent/fields/text.twig' with {
+        'label': 'field.id'|trans,
+        'name': 'id',
+        'value': record.id,
+        'attributes': 'readonly form="editcontent"',
+    }  %}
+
+
+    {% include 'bolt/editcontent/fields/text.twig' with {
+        'label': 'field.status'|trans,
+        'name': 'status',
+        'value': record.status,
+        'attributes': 'form="editcontent"',
+    }  %}
+
+
+    {#<input type="text" name="author" value="{{ record.author }}">#}
+
+
+
+    {% include 'bolt/editcontent/fields/datetime.twig' with {
+        'label': 'field.createdAt'|trans,
+        'name': 'createdAt',
+        'value': record.createdAt,
+        'attributes': 'readonly form="editcontent"',
+    } %}
+
+    {% include 'bolt/editcontent/fields/datetime.twig' with {
+        'label': 'field.modifiedAt'|trans,
+        'name': 'modifiedAt',
+        'value': record.modifiedAt,
+        'attributes': 'readonly form="editcontent"',
+    } %}
+
+    {% include 'bolt/editcontent/fields/datetime.twig' with {
+        'label': 'field.publishedAt'|trans,
+        'name': 'publishedAt',
+        'value': record.publishedAt,
+        'attributes': 'form="editcontent"',
+    } %}
+
+    {% include 'bolt/editcontent/fields/datetime.twig' with {
+        'label': 'field.depublishedAt'|trans,
+        'name': 'depublishedAt',
+        'value': record.depublishedAt,
+        'attributes': 'form="editcontent"',
+    } %}
+
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock aside %}

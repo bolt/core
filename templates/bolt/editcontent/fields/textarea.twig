@@ -1,6 +1,8 @@
-<div class="field">
+{% extends 'bolt/editcontent/fields/_base.twig' %}
+
+{% block field %}
     <label>{{ field.definition.label|default(field.name) }}</label>
-    <textarea name="field[{{ field.name }}]" {% if field.definition.class %}class="{{ field.definition.class }}"{% endif %}>
+    <textarea name="{{ name }}" class="{{ class }}">
 {{ field }}
     </textarea>
-</div>
+{% endblock %}

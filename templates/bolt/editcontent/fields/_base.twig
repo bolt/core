@@ -1,0 +1,21 @@
+{% if not label|default() %}
+    {% set label = field.definition.label|default(field.name) %}
+{% endif %}
+
+{% if not name|default() %}
+    {%  set name = 'fields[' ~ field.name ~ ']' %}
+{% endif %}
+
+{% if not value|default() %}
+    {% set value = field %}
+{% endif %}
+
+{% if not class|default() %}
+    {% set class = field.definition.class|default() %}
+{% endif %}
+
+<div class="field">
+{% block field %}
+
+{% endblock %}
+</div>
