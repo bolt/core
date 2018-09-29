@@ -47,7 +47,7 @@ class ContentListingController extends AbstractController
         /** @var Content $records */
         $records = $content->findAll($page, $contenttype);
 
-        return $this->render('bolt/content/listing.twig', [
+        return $this->render('content/listing.twig', [
             'records' => $records,
             'contenttype' => $contenttype,
         ]);

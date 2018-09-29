@@ -45,7 +45,7 @@ class BackendController extends AbstractController
         /** @var Content $records */
         $records = $content->findLatest();
 
-        return $this->render('bolt/dashboard/dashboard.twig', [
+        return $this->render('dashboard/dashboard.twig', [
             'records' => $records,
             'version' => $version,
         ]);

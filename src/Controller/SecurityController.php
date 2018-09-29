@@ -23,7 +23,7 @@ class SecurityController extends AbstractController
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        return $this->render('bolt/security/login.twig', [
+        return $this->render('security/login.twig', [
             'last_username' => $last_username,
             'error' => $error,
         ]);

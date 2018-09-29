@@ -47,7 +47,7 @@ class EditRecordController extends AbstractController
             $content->setAuthor($this->getUser());
         }
 
-        return $this->render('bolt/editcontent/edit.twig', [
+        return $this->render('editcontent/edit.twig', [
             'record' => $content,
          ]);
     }

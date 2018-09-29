@@ -1,4 +1,4 @@
-{% extends 'bolt/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}
     Edit » <strong>{{ record.title|default('New') }}</strong>
@@ -17,7 +17,7 @@
 
         {% set type = field.definition.type %}
 
-        {% include ['bolt/editcontent/fields/' ~ type ~ '.twig', 'bolt/editcontent/fields/generic.twig' ] with { 'field': field}  %}
+        {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field}  %}
 
     {% endfor %}
 
@@ -41,7 +41,7 @@
             <input type="submit" class="ui button primary" value="Save" form="editcontent">
 
 
-            {% include 'bolt/editcontent/fields/text.twig' with {
+            {% include 'editcontent/fields/text.twig' with {
         'label': 'field.id'|trans,
         'name': 'id',
         'value': record.id,
@@ -49,7 +49,7 @@
     }  %}
 
 
-    {% include 'bolt/editcontent/fields/text.twig' with {
+    {% include 'editcontent/fields/text.twig' with {
         'label': 'field.status'|trans,
         'name': 'status',
         'value': record.status,
@@ -61,28 +61,28 @@
 
 
 
-    {% include 'bolt/editcontent/fields/datetime.twig' with {
+    {% include 'editcontent/fields/datetime.twig' with {
         'label': 'field.createdAt'|trans,
         'name': 'createdAt',
         'value': record.createdAt,
         'attributes': 'readonly form="editcontent"',
     } %}
 
-    {% include 'bolt/editcontent/fields/datetime.twig' with {
+    {% include 'editcontent/fields/datetime.twig' with {
         'label': 'field.modifiedAt'|trans,
         'name': 'modifiedAt',
         'value': record.modifiedAt,
         'attributes': 'readonly form="editcontent"',
     } %}
 
-    {% include 'bolt/editcontent/fields/datetime.twig' with {
+    {% include 'editcontent/fields/datetime.twig' with {
         'label': 'field.publishedAt'|trans,
         'name': 'publishedAt',
         'value': record.publishedAt,
         'attributes': 'form="editcontent"',
     } %}
 
-    {% include 'bolt/editcontent/fields/datetime.twig' with {
+    {% include 'editcontent/fields/datetime.twig' with {
         'label': 'field.depublishedAt'|trans,
         'name': 'depublishedAt',
         'value': record.depublishedAt,

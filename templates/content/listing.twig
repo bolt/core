@@ -1,4 +1,4 @@
-{% extends 'bolt/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}
     {% if contenttype %}
@@ -12,7 +12,7 @@
 
 {% block main %}
 
-    {% include 'bolt/_partials/_content_listing.twig' with {'records': records } %}
+    {% include '_partials/_content_listing.twig' with {'records': records } %}
 
 {% endblock %}
 

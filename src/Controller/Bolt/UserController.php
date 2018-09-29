@@ -36,7 +36,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('bolt_profile_edit');
         }
 
-        return $this->render('bolt/users/edit.twig', [
+        return $this->render('users/edit.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
@@ -62,7 +62,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('security_logout');
         }
 
-        return $this->render('bolt/users/change_password.twig', [
+        return $this->render('users/change_password.twig', [
             'form' => $form->createView(),
         ]);
     }

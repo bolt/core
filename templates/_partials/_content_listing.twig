@@ -13,14 +13,14 @@
 
         {% for record in records %}
 
-            {% include 'bolt/_partials/_content_record_default.twig' with { 'record': record } %}
+            {% include '_partials/_content_record_default.twig' with { 'record': record } %}
 
         {% endfor %}
 
         </tbody>
     </table>
 
-    {% include 'bolt/_partials/_pager.twig' with { 'records': records } %}
+    {% include '_partials/_pager.twig' with { 'records': records } %}
 
 {% else %}
 
