@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration;
 
-use Bolt\Collection\Arr;
+use Bolt\Common\Arr;
 use Bolt\Helpers\Html;
 use Bolt\Helpers\Str;
 use Cocur\Slugify\Slugify;
@@ -94,8 +94,6 @@ class Config
      */
     public function get(string $path, $default = null)
     {
-//        dump($path);
-//        dump(Arr::get($this->data, $path, $default));
         return Arr::get($this->data, $path, $default);
     }
 

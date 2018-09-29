@@ -1,5 +1,0 @@
-easy_admin:
-  entities:
-  - Bolt\Entity\Content
-  - Bolt\Entity\Field
-  - Bolt\Entity\User

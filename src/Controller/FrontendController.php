@@ -33,16 +33,9 @@ class FrontendController extends AbstractController
      */
     public function homepage()
     {
-        dump($this->config);
         $homepage = $this->getOption('theme/homepage') ?: $this->getOption('general/homepage');
 
-        dd($homepage);
-
         $template = $this->templateChooser->homepage('');
-
-//        dump($homepage);
-//        dump($template);
-//        die();
 
         return $this->render($template, []);
     }
