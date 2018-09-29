@@ -1,7 +1,10 @@
-Contributing
-============
+Contributing to Bolt
+====================
 
-The Symfony Demo application is an open source project. Contributions made by
-the community are welcome. Send us your ideas, code reviews, pull requests and
-feature requests to help us improve this project. All contributions must follow
-the [usual Symfony contribution requirements](https://symfony.com/doc/current/contributing/index.html).
+Bolt is an open source, community-driven project. Whether you're a user of
+Bolt, a developer or both, contributing to Bolt is easy!
+
+If you'd like to contribute, please read "[Contributing to Bolt][contributing]"
+on the documentation site.
+
+[contributing]: https://docs.bolt.cm/other/contributing

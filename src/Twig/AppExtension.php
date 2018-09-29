@@ -11,16 +11,6 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
-/**
- * This Twig extension adds a new 'md2html' filter to easily transform Markdown
- * contents into HTML contents inside Twig templates.
- *
- * See https://symfony.com/doc/current/cookbook/templating/twig_extension.html
- *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
- * @author Julien ITARD <julienitard@gmail.com>
- */
 class AppExtension extends AbstractExtension
 {
     private $parser;

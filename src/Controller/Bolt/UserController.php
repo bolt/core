@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Bolt;
 
-use Bolt\Form\Type\ChangePasswordType;
+use Bolt\Form\ChangePasswordType;
 use Bolt\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

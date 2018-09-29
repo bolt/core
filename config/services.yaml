@@ -31,11 +31,6 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # when the service definition only contains arguments, you can omit the
-    # 'arguments' key and define the arguments just below the service class
-    Bolt\EventSubscriber\CommentNotificationSubscriber:
-        $sender: '%app.notifications.email_sender%'
-
     doctrine.content_listener:
         class: Bolt\EventListener\ContentListener
         arguments: []

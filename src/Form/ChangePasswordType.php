@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Form\Type;
+namespace Bolt\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
