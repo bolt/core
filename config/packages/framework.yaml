@@ -14,7 +14,7 @@ framework:
     php_errors:
         log: true
     assets:
-        json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
+        json_manifest_path: '%kernel.project_dir%/public/assets/manifest.json'
     cache:
         # this value is used as part of the "namespace" generated for the cache item keys
         # to avoid collisions when multiple apps share the same cache backend (e.g. a Redis server)
