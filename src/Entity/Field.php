@@ -143,7 +143,7 @@ class Field
 
     public function getType(): ?string
     {
-        return $this->getDefinition()->type;
+        return $this->getDefinition()['type'];
     }
 
     public function get($key)

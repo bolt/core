@@ -6,6 +6,10 @@
 
     {{ dump(record.definition) }}
 
+    <hr><hr>
+    {{ show_source_code(_self) }}
+    <hr><hr>
+
     {% for field in record.fields %}
         {{ field }}
     {% endfor %}
