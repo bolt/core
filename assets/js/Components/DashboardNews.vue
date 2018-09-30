@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import DashboardNewsAPI from './service/api/DashboardNews'
+import DashboardNewsAPI from '../service/api/DashboardNews'
 
 export default {
   name: 'DashBoardNews',

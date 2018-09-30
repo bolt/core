@@ -23,8 +23,7 @@
 </template>
 
 <script>
-    // import Context from './Content';
-    import ContentAPI from './service/api/content';
+    import ContentAPI from '../service/api/content';
 
     export default {
         name: 'context',
