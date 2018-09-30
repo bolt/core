@@ -45,13 +45,14 @@ class EditFileController extends AbstractController
     }
 
     /**
-     * @Route("/editfile/{area}/{file}", name="bolt_edit_file", methods={"GET"}, defaults={"file"=""}, requirements={"file"=".+"})
+     * @Route("/editfile/{area}", name="bolt_edit_file", methods={"GET"})
      * @param string $area
      * @param string $file
      * @return Response
      */
-    public function editFile(string $area = '', string $file = ''): Response
+    public function editFile(string $area = '', Request $request): Response
     {
+        $file = $request->query->get('file');
         $basepath = $this->config->path($area);
         $filename = Path::canonicalize($basepath . '/' . $file);
         $contents = file_get_contents($filename);
@@ -66,7 +67,7 @@ class EditFileController extends AbstractController
     }
 
     /**
-     * @Route("/editfile/{area}/{file}", name="bolt_edit_file_post", methods={"POST"}, requirements={"file"=".+"})
+     * @Route("/editfile/{area}", name="bolt_edit_file_post", methods={"POST"}, requirements={"file"=".+"})
      * @param Request $request
      * @param UrlGeneratorInterface $urlGenerator
      * @return RedirectResponse

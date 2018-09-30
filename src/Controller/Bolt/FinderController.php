@@ -2,9 +2,11 @@
 
 namespace Bolt\Controller\Bolt;
 
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -28,10 +30,15 @@ class FinderController extends AbstractController
     }
 
     /**
-     * @Route("/finder/{area}/{path}", name="bolt_finder", methods={"GET"}, defaults={"path"=""}, requirements={"path"=".+"})
+     * @Route("/finder/{area}", name="bolt_finder", methods={"GET"}, defaults={"path"=""}, requirements={"path"=".+"})
      */
-    public function finder($area = '', $path = '')
+    public function finder($area = '', Request $request)
     {
+        $path = $request->query->get('path');
+        if (!str::endsWith($path, '/')) {
+            $path .= '/';
+        }
+
         $areas = [
             'config' => [
                 'name' => "Configuration files",
@@ -54,7 +61,7 @@ class FinderController extends AbstractController
 
         $finder = $this->findFiles($basepath, $path);
 
-        $parent = $path ? Path::canonicalize($path . '/..') : '';
+        $parent = $path != '/' ? Path::canonicalize($path . '/..') : '';
 
         return $this->render('finder/finder.twig', [
             'path' => $path,
@@ -82,17 +89,15 @@ class FinderController extends AbstractController
         $fullpath = Path::canonicalize($base);
 
         $finder = new Finder();
-        $finder->in($fullpath)->depth('== 0')->sortByName(true)->files();
+        $finder->in($fullpath)->depth('< 5')->sortByName(true)->files();
 
         $index = [];
 
         foreach ($finder as $file) {
-            $contents = explode("\n", $file->getContents());
-            collect($contents)->each(function ($item, $key) use ($file, &$index) {
-                $key = $file->getRelativePathname() . '#' . $key;
-                $index[ $key ] = trim($item);
-
-            });
+            $index[] = [
+                'filename' => $file->getRelativePathname(),
+                'description' => ''
+            ];
         }
 
         return $index;

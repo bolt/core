@@ -1,0 +1,54 @@
+
+<table class="ui celled table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Filename</th>
+        <th>Thumbnail</th>
+        <th>Size</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    {% set imageformats = ['gif', 'jpg', 'jpeg', 'png', 'svg'] %}
+
+    {% for file in finder.files() %}
+        {% set filename = path ~ file.getRelativePathname() %}
+        {% set extension = file.extension() %}
+        {% set icon = 'fa-file' %}
+        {% set link = path('bolt_edit_file', {'area': area, 'file': filename }) %}
+        {% set thumbnail = '' %}
+        {% if extension in imageformats %}
+            {% set link = filename|thumbnail(1000, 1000) %}
+            {% set thumbnail = filename|thumbnail(100, 72) %}
+            {% set icon = 'fa-image' %}
+        {% endif %}
+        <tr>
+            <td><i class="fas {{ icon }}"></i></td>
+            <td>
+                <b>
+                    <a href="{{ link }}">
+                        {{ file.getRelativePathname }}
+                    </a>
+                </b>
+            </td>
+            <td class="listing-thumb" style="padding: 0.2em;">
+                {%- if thumbnail -%}
+                    <img src="{{ thumbnail }}" width="100" height="72">
+                {%- else -%}
+                    &nbsp;
+                {%- endif -%}
+            </td>
+            <td>
+                {{ file.getSize() }} bytes
+            </td>
+            <td>
+                {{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    {% endfor %}
+</table>
