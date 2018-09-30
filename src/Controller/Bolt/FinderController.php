@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Controller\Bolt;
 
 use Bolt\Common\Str;
 use Bolt\Configuration\Config;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Webmozart\PathUtil\Path;
-
 
 /**
  * Class EditRecordController.
@@ -32,7 +32,7 @@ class FinderController extends AbstractController
     /**
      * @Route("/finder/{area}", name="bolt_finder", methods={"GET"}, defaults={"path"=""}, requirements={"path"=".+"})
      */
-    public function finder($area = '', Request $request)
+    public function finder($area, Request $request)
     {
         $path = $request->query->get('path');
         if (!str::endsWith($path, '/')) {
@@ -41,27 +41,27 @@ class FinderController extends AbstractController
 
         $areas = [
             'config' => [
-                'name' => "Configuration files",
+                'name' => 'Configuration files',
                 'basepath' => $this->config->path('config'),
-                'show_all' => true
+                'show_all' => true,
             ],
             'files' => [
-                'name' => "Content files",
+                'name' => 'Content files',
                 'basepath' => $this->config->path('files'),
-                'show_all' => false
+                'show_all' => false,
             ],
             'themes' => [
-                'name' => "Theme files",
+                'name' => 'Theme files',
                 'basepath' => $this->config->path('themes'),
-                'show_all' => false
-            ]
+                'show_all' => false,
+            ],
         ];
 
         $basepath = $areas[$area]['basepath'];
 
         $finder = $this->findFiles($basepath, $path);
 
-        $parent = $path != '/' ? Path::canonicalize($path . '/..') : '';
+        $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';
 
         return $this->render('finder/finder.twig', [
             'path' => $path,
@@ -83,7 +83,6 @@ class FinderController extends AbstractController
         return $finder;
     }
 
-
     private function buildIndex($base)
     {
         $fullpath = Path::canonicalize($base);
@@ -96,11 +95,10 @@ class FinderController extends AbstractController
         foreach ($finder as $file) {
             $index[] = [
                 'filename' => $file->getRelativePathname(),
-                'description' => ''
+                'description' => '',
             ];
         }
 
         return $index;
     }
-
 }
