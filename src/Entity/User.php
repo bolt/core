@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -71,6 +73,16 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $lastIp;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Bolt\Entity\Media", mappedBy="author")
+     */
+    private $media;
+
+    public function __construct()
+    {
+        $this->media = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -200,6 +212,34 @@ class User implements UserInterface, \Serializable
     public function setLastIp(?string $lastIp): self
     {
         $this->lastIp = $lastIp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedia(Media $media): self
+    {
+        if (!$this->media->contains($media)) {
+            $this->media[] = $media;
+            $media->addAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedia(Media $media): self
+    {
+        if ($this->media->contains($media)) {
+            $this->media->removeElement($media);
+            $media->removeAuthor($this);
+        }
 
         return $this;
     }

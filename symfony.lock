@@ -164,6 +164,9 @@
     "league/glide-symfony": {
         "version": "1.0.3"
     },
+    "miljar/php-exif": {
+        "version": "v0.6.4"
+    },
     "monolog/monolog": {
         "version": "1.23.0"
     },

@@ -88,7 +88,7 @@ class ContentFixtures extends Fixture
                 $content->setDepublishedAt($this->faker->dateTimeBetween('-1 year'));
 
                 $sortorder = 1;
-                foreach ($contentType->fields as $name => $fieldType) {
+                foreach ($contentType['fields'] as $name => $fieldType) {
                     $field = FieldFactory::get($fieldType['type']);
                     $field->setName($name);
                     $field->setValue($this->getValuesforFieldType($name, $fieldType));

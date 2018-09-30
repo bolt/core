@@ -30,7 +30,7 @@ class FinderController extends AbstractController
     }
 
     /**
-     * @Route("/finder/{area}", name="bolt_finder", methods={"GET"}, defaults={"path"=""}, requirements={"path"=".+"})
+     * @Route("/finder/{area}", name="bolt_finder", methods={"GET"})
      */
     public function finder($area, Request $request)
     {

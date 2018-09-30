@@ -14,6 +14,7 @@
         "fzaninotto/faker": "^1.8",
         "guzzlehttp/guzzle": "^6.3",
         "league/glide-symfony": "^1.0",
+        "miljar/php-exif": "^0.6.4",
         "nesbot/carbon": "^1.34",
         "sensio/framework-extra-bundle": "^5.1",
         "sensiolabs/security-checker": "^4.1",
