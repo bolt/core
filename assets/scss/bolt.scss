@@ -28,9 +28,18 @@ body {
         grid-template-columns: 201px auto 340px;
         grid-template-rows: 54px auto 30px;
         grid-template-areas:
-            "sidebar  topbar  topbar"
-            "sidebar content aside"
-            "sidebar  footer  footer";
+            "sidebar  topbar      topbar"
+            "sidebar  content     aside"
+            "sidebar  footer      footer";
+    }
+
+    .wrapper.has-widecontent {
+        grid-template-columns: 201px auto 340px;
+        grid-template-rows: 54px auto 30px;
+        grid-template-areas:
+                "sidebar  topbar      topbar"
+                "sidebar  content     content"
+                "sidebar  footer      footer";
     }
 }
 
@@ -49,6 +58,14 @@ header {
 #content, #vuecontent {
     grid-area: content;
     padding: 2em 3em;
+}
+
+#widecontent {
+    grid-area: content;
+    padding: 2em 3em;
+    + aside {
+        display: none;
+    }
 }
 
 footer {
@@ -99,6 +116,10 @@ aside {
 .ui.form input[readonly] {
     background-color: #EEE;
     color: #999;
+}
+
+.ui.fileselector {
+    min-width: 500px !important;
 }
 
 td.listing-thumb img {

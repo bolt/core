@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "codemirror": "^5.40.2",
     "semantic-ui-calendar": "^0.0.8",
     "vue": "^2.5.17"
   },

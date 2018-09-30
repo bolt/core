@@ -1,20 +1,108 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Finder » <strong>{{ path }}</strong>
+    Finder » <strong>{{ name }}</strong>
 {% endblock %}
 
 {% block main %}
 
-    <h2>Path: {{ path }}</h2>
-    <ol>
-    {% for file in files %}
+    <h2>Path: {{ area }}{% if path %}{{ path }}/{% endif %}</h2>
 
-        <li>{{ file.getRelativePathname }}</li>
 
+
+    <div class="ui form">
+        <div class="inline fields">
+            <label>Quick select:</label>
+            <div class="field">
+                <select class="ui search dropdown fileselector">
+                    {% for file in allfiles %}
+                        <option value="{{ file.getRelativePathname() }}">{{ file.getRelativePathname() }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <button class="ui button primary">Go</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="ui celled table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Directoryname</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    {% if path %}
+    <tr>
+        <td><i class="fas fa-folder-open"></i></td>
+        <td>
+            <b>
+                <a href="{{ path('bolt_finder', {'area': area, 'path': parent }) }}">
+                    ../
+                </a>
+            </b>
+        </td>
+        <td>
+        </td>
+    </tr>
+    {% endif %}
+
+    {% for directory in finder.directories() %}
+<tr>
+    <td><i class="fas fa-folder"></i></td>
+    <td>
+        <b>
+            {% set dirname = path ~ directory.getRelativePathname() %}
+            <a href="{{ path('bolt_finder', {'area': area, 'path': dirname }) }}">
+                {{ directory.getRelativePathname }}/
+            </a>
+        </b>
+    </td>
+    <td>
+    </td>
+</tr>
+        {% endfor %}
+</table>
+
+
+<table class="ui celled table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Filename</th>
+        <th>Size</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    {% for file in finder.files() %}
+        <tr>
+            <td><i class="fas fa-file"></i></td>
+            <td>
+                <b>
+                    {% set filename = path ~ file.getRelativePathname() %}
+                    <a href="{{ path('bolt_edit_file', {'area': area, 'file': filename }) }}">
+                        {{ file.getRelativePathname }}
+                    </a>
+                </b>
+            </td>
+            <td>
+                {{ file.getSize() }} bytes
+            </td>
+            <td>
+                {{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
     {% endfor %}
+</table>
 
-    </ol>
 {% endblock %}
 
 {% block aside %}

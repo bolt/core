@@ -1,0 +1,128 @@
+<?php
+
+namespace Bolt\Controller\Bolt;
+
+use Bolt\Configuration\Config;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Parser;
+use Webmozart\PathUtil\Path;
+
+
+/**
+ * Class EditFileController.
+ *
+ * @Route("/bolt")
+ * @Security("has_role('ROLE_ADMIN')")
+ */
+class EditFileController extends AbstractController
+{
+    /** @var Config */
+    private $config;
+
+    /** @var CsrfTokenManagerInterface */
+    private $csrfTokenManager;
+
+    /**
+     * EditFileController constructor.
+     * @param Config $config
+     * @param CsrfTokenManagerInterface $csrfTokenManager
+     */
+    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $this->config = $config;
+        $this->csrfTokenManager = $csrfTokenManager;
+    }
+
+    /**
+     * @Route("/editfile/{area}/{file}", name="bolt_edit_file", methods={"GET"}, defaults={"file"=""}, requirements={"file"=".+"})
+     * @param string $area
+     * @param string $file
+     * @return Response
+     */
+    public function editFile(string $area = '', string $file = ''): Response
+    {
+        $basepath = $this->config->path($area);
+        $filename = Path::canonicalize($basepath . '/' . $file);
+        $contents = file_get_contents($filename);
+
+        $context = [
+            'area' => $area,
+            'file' => $file,
+            'contents' => $contents,
+        ];
+
+        return $this->render('finder/editfile.twig', $context);
+    }
+
+    /**
+     * @Route("/editfile/{area}/{file}", name="bolt_edit_file_post", methods={"POST"}, requirements={"file"=".+"})
+     * @param Request $request
+     * @param UrlGeneratorInterface $urlGenerator
+     * @return RedirectResponse
+     */
+    public function editFilePost(Request $request, UrlGeneratorInterface $urlGenerator): Response
+    {
+        $token = new CsrfToken('editfile', $request->request->get('_csrf_token'));
+
+        if (!$this->csrfTokenManager->isTokenValid($token)) {
+            throw new InvalidCsrfTokenException();
+        }
+
+        $file = $request->request->get('file');
+        $area = $request->request->get('area');
+        $contents = $request->request->get('editfile');
+        $extension = Path::getExtension($file);
+
+        $url = $urlGenerator->generate('bolt_edit_file', ['area' => $area, 'file' => $file]);
+
+        if (in_array($extension, ['yml', 'yaml']) && !$this->verifyYaml($contents)) {
+            $context = [
+                'area' => $area,
+                'file' => $file,
+                'contents' => $contents,
+            ];
+
+            return $this->render('finder/editfile.twig', $context);
+        }
+
+        $basepath = $this->config->path($area);
+        $filename = Path::canonicalize($basepath . '/' . $file);
+
+        if (file_put_contents($filename, $contents)) {
+            $this->addFlash('success', 'editfile.updated_successfully');
+        } else {
+            $this->addFlash('warn', 'editfile.could_not_write');
+        }
+
+        return new RedirectResponse($url);
+    }
+
+    /**
+     * @param string $yaml
+     * @return bool
+     */
+    private function verifyYaml(string $yaml): bool
+    {
+        $yamlparser = new Parser();
+        try {
+            $yamlparser->parse($yaml);
+        } catch (ParseException $e) {
+            $this->addFlash('error', $e->getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+}

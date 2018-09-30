@@ -8,6 +8,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Webmozart\PathUtil\Path;
 
 
 /**
@@ -27,29 +28,63 @@ class FinderController extends AbstractController
     }
 
     /**
-     * @Route("/finder/{path}", name="bolt_finder", methods={"GET"})
+     * @Route("/finder/{area}/{path}", name="bolt_finder", methods={"GET"}, defaults={"path"=""}, requirements={"path"=".+"})
      */
-    public function finder($area = '')
+    public function finder($area = '', $path = '')
     {
-        dump($area);
+        $areas = [
+            'config' => [
+                'name' => "Configuration files",
+                'basepath' => $this->config->path('config'),
+                'show_all' => true
+            ],
+            'files' => [
+                'name' => "Content files",
+                'basepath' => $this->config->path('files'),
+                'show_all' => false
+            ],
+            'themes' => [
+                'name' => "Theme files",
+                'basepath' => $this->config->path('themes'),
+                'show_all' => false
+            ]
+        ];
 
-        $path = $this->config->path('config');
+        $basepath = $areas[$area]['basepath'];
 
-        $files = $this->findFiles($path);
+        $finder = $this->findFiles($basepath, $path);
+
+        $parent = $path ? Path::canonicalize($path . '/..') : '';
 
         return $this->render('finder/finder.twig', [
             'path' => $path,
+            'name' => $areas[$area]['name'],
             'area' => $area,
-            'files' => $files,
+            'finder' => $finder,
+            'parent' => $parent,
+            'allfiles' => $areas[$area]['show_all'] ? $this->findAllFiles($basepath) : false,
         ]);
     }
 
-    private function findFiles($path)
+    private function findFiles($base, $path)
     {
+        $fullpath = Path::canonicalize($base . '/' . $path);
+
         $finder = new Finder();
-        $finder->files()->in($path);
+        $finder->in($fullpath)->depth('== 0')->sortByName(true);
 
         return $finder;
     }
-    
+
+
+    private function findAllFiles($base)
+    {
+        $fullpath = Path::canonicalize($base);
+
+        $finder = new Finder();
+        $finder->in($fullpath)->depth('< 5')->sortByName(true)->files();
+
+        return $finder;
+    }
+
 }
