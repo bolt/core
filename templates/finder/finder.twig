@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Finder » <strong>{{ path }}</strong>
+{% endblock %}
+
+{% block main %}
+
+    <h2>Path: {{ path }}</h2>
+    <ol>
+    {% for file in files %}
+
+        <li>{{ file.getRelativePathname }}</li>
+
+    {% endfor %}
+
+    </ol>
+{% endblock %}
+
+{% block aside %}
+
+<div class="ui card">
+    <div class="content">
+        <div class="header">Meta information</div>
+    </div>
+    <div class="content">
+
+    </div>
+</div>
+
+
+{% endblock aside %}
