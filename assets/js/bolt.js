@@ -43,7 +43,8 @@ $(document).ready(function() {
 
     $('.ui.dropdown.fileselector').dropdown({
         transition: 'slide down',
-        fullTextSearch: true
+        fullTextSearch: 'exact',
+        preserveHTML: true,
     });
 
     $('.ui.calendar').calendar({

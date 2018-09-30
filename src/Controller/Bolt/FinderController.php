@@ -62,7 +62,7 @@ class FinderController extends AbstractController
             'area' => $area,
             'finder' => $finder,
             'parent' => $parent,
-            'allfiles' => $areas[$area]['show_all'] ? $this->findAllFiles($basepath) : false,
+            'allfiles' => $areas[$area]['show_all'] ? $this->buildIndex($basepath) : false,
         ]);
     }
 
@@ -77,14 +77,25 @@ class FinderController extends AbstractController
     }
 
 
-    private function findAllFiles($base)
+    private function buildIndex($base)
     {
         $fullpath = Path::canonicalize($base);
 
         $finder = new Finder();
-        $finder->in($fullpath)->depth('< 5')->sortByName(true)->files();
+        $finder->in($fullpath)->depth('== 0')->sortByName(true)->files();
 
-        return $finder;
+        $index = [];
+
+        foreach ($finder as $file) {
+            $contents = explode("\n", $file->getContents());
+            collect($contents)->each(function ($item, $key) use ($file, &$index) {
+                $key = $file->getRelativePathname() . '#' . $key;
+                $index[ $key ] = trim($item);
+
+            });
+        }
+
+        return $index;
     }
 
 }

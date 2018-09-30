@@ -40,9 +40,19 @@ class MenuBuilder
         }
 
         $menu[] = [
-                'name' => 'Settings',
-                'icon' => 'fa-flag',
-                'link' => '/bolt/settings',
+            'name' => 'Configuration',
+            'icon' => 'fa-flag',
+            'link' => '/bolt/finder/config',
+        ];
+        $menu[] = [
+            'name' => 'Content Files',
+            'icon' => 'fa-flag',
+            'link' => '/bolt/finder/files',
+        ];
+        $menu[] = [
+            'name' => 'Theme Files',
+            'icon' => 'fa-flag',
+            'link' => '/bolt/finder/themes',
         ];
         $menu[] = [
                 'name' => 'Users',

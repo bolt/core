@@ -8,15 +8,26 @@
 
     <h2>Path: {{ area }}{% if path %}{{ path }}/{% endif %}</h2>
 
+{% if allfiles %}
 
+<div class="ui fluid search selection dropdown fileselector">
+    <input name="country" type="hidden">
+    <i class="dropdown icon"></i>
+    <div class="default text">Select Country</div>
+    <div class="menu">
+        {% for file, line in allfiles %}
+            <div class="item" data-value="{{ file }}"><i class="ar flag"></i><b>{{ file }}: </b>{{ line }}</div>
+        {% endfor %}
+    </div>
+</div>
 
     <div class="ui form">
         <div class="inline fields">
             <label>Quick select:</label>
             <div class="field">
                 <select class="ui search dropdown fileselector">
-                    {% for file in allfiles %}
-                        <option value="{{ file.getRelativePathname() }}">{{ file.getRelativePathname() }}</option>
+                    {% for file, line in allfiles %}
+                        <option value="{{ file }}"><i class="dz flag"></i><b>{{ file }}: </b>{{ line }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -25,6 +36,7 @@
             </div>
         </div>
     </div>
+{% endif %}
 
     <table class="ui celled table">
     <thead>
