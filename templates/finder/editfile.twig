@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '_base/layout.twig' %}
 
 {% block container "widecontent" %}
 
@@ -44,6 +44,9 @@
 {{ parent() }}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/yaml/yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/html/html.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/htmlmixed/htmlmixed.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/php/php.min.js"></script>
 <script>
 var myCodeMirror = CodeMirror.fromTextArea(editfile_textarea,{
     lineNumbers: true,
