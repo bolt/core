@@ -17,6 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * Class EditRecordController.
@@ -32,9 +36,13 @@ class EditRecordController extends AbstractController
     /** @var Version */
     private $version;
 
-    public function __construct(Config $config)
+    /** @var CsrfTokenManagerInterface */
+    private $csrfTokenManager;
+
+    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->config = $config;
+        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     /**
@@ -57,6 +65,12 @@ class EditRecordController extends AbstractController
      */
     public function edit_post(Content $content = null, Request $request, ObjectManager $manager, UrlGeneratorInterface $urlGenerator): Response
     {
+        $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
+
+        if (!$this->csrfTokenManager->isTokenValid($token)) {
+            throw new InvalidCsrfTokenException();
+        }
+
         $content = $this->contentFromPost($content, $request);
 
         $manager->persist($content);

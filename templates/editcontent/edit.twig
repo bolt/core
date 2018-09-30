@@ -10,7 +10,7 @@
 
 
 <form method="post" class="ui form" id="editcontent">
-
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
 
        <!-- fields -->
     {% for field in record.fields %}
