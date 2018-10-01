@@ -36,8 +36,8 @@ class ImageController
     {
         $server = ServerFactory::create([
             'response' => new SymfonyResponseFactory(),
-            'source' => $this->config->path('files'),
-            'cache' => $this->config->path('cache', true, 'thumbnails'),
+            'source' => $this->config->getPath('files'),
+            'cache' => $this->config->getPath('cache', true, 'thumbnails'),
         ]);
 
         /** @var StreamedResponse $response */

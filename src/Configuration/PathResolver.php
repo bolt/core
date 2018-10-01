@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration;
 
+use Symfony\Component\Validator\Constraints\Collection;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -139,16 +140,16 @@ class PathResolver
     }
 
     /**
-     * @return string
+     * @return Collection
      */
-    public function resolveAll(): array
+    public function resolveAll(): Collection
     {
         $paths = [];
         foreach ($this->paths as $name => $path) {
             $paths[$name] = $this->resolve($path);
         }
 
-        return $paths;
+        return collect($paths);
     }
 
     /**

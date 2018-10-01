@@ -103,17 +103,25 @@ class Config
      *
      * @return string
      */
-    public function path(string $path, bool $absolute = true, string $additional = ''): string
+    public function getPath(string $path, bool $absolute = true, string $additional = ''): string
     {
         return $this->pathResolver->resolve($path, $absolute, $additional);
     }
 
     /**
-     * @return array
+     * @return Collection
      */
-    public function paths(): array
+    public function getPaths(): Collection
     {
         return $this->pathResolver->resolveAll();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMediaTypes(): Collection
+    {
+        return collect(['png', 'jpg', 'jpeg', 'gif', 'svg', 'pdf', 'mp3', 'tiff']);
     }
 
     /**

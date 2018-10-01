@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Bolt;
 
+use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
@@ -17,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -30,7 +32,8 @@ class MediaController extends AbstractController
     /** @var Config */
     private $config;
 
-    private $mediatypes = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'pdf', 'mp3', 'tiff'];
+    /** @var Collection */
+    private $mediatypes;
 
     /** @var MediaRepository */
     private $mediaRepository;
@@ -44,14 +47,27 @@ class MediaController extends AbstractController
     /** @var \Faker\Generator */
     private $faker;
 
-    public function __construct(Config $config, MediaRepository $mediaRepository, ObjectManager $manager)
+    /** @var Collection */
+    private $areas;
+
+    /**
+     * MediaController constructor.
+     *
+     * @param Config          $config
+     * @param MediaRepository $mediaRepository
+     * @param ObjectManager   $manager
+     * @param Areas           $areas
+     */
+    public function __construct(Config $config, MediaRepository $mediaRepository, ObjectManager $manager, Areas $areas)
     {
         $this->config = $config;
         $this->mediaRepository = $mediaRepository;
         $this->manager = $manager;
+        $this->areas = $areas;
 
         $this->exif = Reader::factory(Reader::TYPE_NATIVE);
         $this->faker = Factory::create();
+        $this->mediatypes = $config->getMediaTypes();
     }
 
     /**
@@ -59,27 +75,9 @@ class MediaController extends AbstractController
      */
     public function finder($area, Request $request)
     {
-        $areas = [
-            'config' => [
-                'name' => 'Configuration files',
-                'basepath' => $this->config->path('config'),
-                'show_all' => true,
-            ],
-            'files' => [
-                'name' => 'Content files',
-                'basepath' => $this->config->path('files'),
-                'show_all' => false,
-            ],
-            'themes' => [
-                'name' => 'Theme files',
-                'basepath' => $this->config->path('themes'),
-                'show_all' => false,
-            ],
-        ];
-
         $user = $this->getUser();
 
-        $basepath = $areas[$area]['basepath'];
+        $basepath = $this->areas->get($area, 'basepath');
 
         $finder = $this->findFiles($basepath);
 
@@ -106,7 +104,7 @@ class MediaController extends AbstractController
     {
         $fullpath = Path::canonicalize($base);
 
-        $glob = sprintf('*.{%s}', implode(',', $this->mediatypes));
+        $glob = sprintf('*.{%s}', $this->mediatypes->implode(','));
 
         $finder = new Finder();
         $finder->in($fullpath)->depth('< 2')->sortByName(true)->name($glob)->files();

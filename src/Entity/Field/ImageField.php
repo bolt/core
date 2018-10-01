@@ -16,7 +16,7 @@ class ImageField extends Field
     {
         $config = $this->getContent()->getConfig();
 
-        $path = $config->path('files', false, $this->get('filename'));
+        $path = $config->getPath('files', false, $this->get('filename'));
 
         return $path;
     }

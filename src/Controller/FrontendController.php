@@ -114,7 +114,7 @@ class FrontendController extends AbstractController
     {
         $themepath = sprintf(
             '%s/%s',
-            $this->config->path('themes'),
+            $this->config->getPath('themes'),
             $this->config->get('general/theme')
         );
 

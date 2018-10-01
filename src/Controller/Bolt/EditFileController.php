@@ -56,7 +56,7 @@ class EditFileController extends AbstractController
     public function editFile(string $area, Request $request): Response
     {
         $file = $request->query->get('file');
-        $basepath = $this->config->path($area);
+        $basepath = $this->config->getPath($area);
         $filename = Path::canonicalize($basepath . '/' . $file);
         $contents = file_get_contents($filename);
 
@@ -102,7 +102,7 @@ class EditFileController extends AbstractController
             return $this->render('finder/editfile.twig', $context);
         }
 
-        $basepath = $this->config->path($area);
+        $basepath = $this->config->getPath($area);
         $filename = Path::canonicalize($basepath . '/' . $file);
 
         if (file_put_contents($filename, $contents)) {

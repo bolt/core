@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Bolt;
 
 use Bolt\Common\Str;
+use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Repository\MediaRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -25,16 +26,22 @@ class FinderController extends AbstractController
     /** @var Config */
     private $config;
 
-    public function __construct(Config $config)
+    /** @var Areas */
+    private $areas;
+
+    public function __construct(Config $config, Areas $areas)
     {
         $this->config = $config;
+        $this->areas = $areas;
     }
 
     /**
      * @Route("/finder/{area}", name="bolt_finder", methods={"GET"})
+     *
      * @param $area
-     * @param Request $request
+     * @param Request         $request
      * @param MediaRepository $mediaRepository
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function finder($area, Request $request, MediaRepository $mediaRepository)
@@ -44,27 +51,9 @@ class FinderController extends AbstractController
             $path .= '/';
         }
 
-        $areas = [
-            'config' => [
-                'name' => 'Configuration files',
-                'basepath' => $this->config->path('config'),
-                'show_all' => true,
-            ],
-            'files' => [
-                'name' => 'Content files',
-                'basepath' => $this->config->path('files'),
-                'show_all' => false,
-            ],
-            'themes' => [
-                'name' => 'Theme files',
-                'basepath' => $this->config->path('themes'),
-                'show_all' => false,
-            ],
-        ];
+        $area = $this->areas->get($area);
 
-        $basepath = $areas[$area]['basepath'];
-
-        $finder = $this->findFiles($basepath, $path);
+        $finder = $this->findFiles($area->get('basepath'), $path);
 
         $media = $mediaRepository->findAll();
 
@@ -72,12 +61,12 @@ class FinderController extends AbstractController
 
         return $this->render('finder/finder.twig', [
             'path' => $path,
-            'name' => $areas[$area]['name'],
-            'area' => $area,
+            'name' => $area->get('name'),
+            'area' => $area->get('key'),
             'finder' => $finder,
             'parent' => $parent,
             'media' => $media,
-            'allfiles' => $areas[$area]['show_all'] ? $this->buildIndex($basepath) : false,
+            'allfiles' => $area->get('show_all') ? $this->buildIndex($area->get('basepath')) : false,
         ]);
     }
 
