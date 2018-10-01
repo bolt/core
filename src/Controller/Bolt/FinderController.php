@@ -6,6 +6,7 @@ namespace Bolt\Controller\Bolt;
 
 use Bolt\Common\Str;
 use Bolt\Configuration\Config;
+use Bolt\Repository\MediaRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
@@ -31,8 +32,12 @@ class FinderController extends AbstractController
 
     /**
      * @Route("/finder/{area}", name="bolt_finder", methods={"GET"})
+     * @param $area
+     * @param Request $request
+     * @param MediaRepository $mediaRepository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function finder($area, Request $request)
+    public function finder($area, Request $request, MediaRepository $mediaRepository)
     {
         $path = $request->query->get('path');
         if (!str::endsWith($path, '/')) {
@@ -61,6 +66,8 @@ class FinderController extends AbstractController
 
         $finder = $this->findFiles($basepath, $path);
 
+        $media = $mediaRepository->findAll();
+
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';
 
         return $this->render('finder/finder.twig', [
@@ -69,6 +76,7 @@ class FinderController extends AbstractController
             'area' => $area,
             'finder' => $finder,
             'parent' => $parent,
+            'media' => $media,
             'allfiles' => $areas[$area]['show_all'] ? $this->buildIndex($basepath) : false,
         ]);
     }

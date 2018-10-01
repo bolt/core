@@ -9,6 +9,7 @@ use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use PHPExif\Exif;
 use PHPExif\Reader\Reader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -40,6 +41,9 @@ class MediaController extends AbstractController
     /** @var Reader */
     private $exif;
 
+    /** @var \Faker\Generator */
+    private $faker;
+
     public function __construct(Config $config, MediaRepository $mediaRepository, ObjectManager $manager)
     {
         $this->config = $config;
@@ -47,6 +51,7 @@ class MediaController extends AbstractController
         $this->manager = $manager;
 
         $this->exif = Reader::factory(Reader::TYPE_NATIVE);
+        $this->faker = Factory::create();
     }
 
     /**
@@ -127,6 +132,7 @@ class MediaController extends AbstractController
             ->setModifiedAt(Carbon::createFromTimestamp($file->getMTime()))
             ->setCreatedAt(Carbon::createFromTimestamp($file->getCTime()))
             ->setFilesize($file->getSize())
+            ->setTitle($this->faker->sentence(6, true))
             ->addAuthor($user);
 
         if ($this->isImage($media)) {

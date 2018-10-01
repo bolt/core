@@ -19,10 +19,19 @@
         {% set icon = 'fa-file' %}
         {% set link = path('bolt_edit_file', {'area': area, 'file': filename }) %}
         {% set thumbnail = '' %}
+        {% set title = '' %}
+        {% set dimensions = '' %}
+
         {% if extension in imageformats %}
             {% set link = filename|thumbnail(1000, 1000) %}
             {% set thumbnail = filename|thumbnail(100, 72) %}
             {% set icon = 'fa-image' %}
+
+            {% for image in media if image.filename in filename %}
+                {% set title = image.title %}
+                {% set dimensions = image.width ~ ' × ' ~ image.height ~ 'px' %}
+            {% endfor %}
+
         {% endif %}
         <tr>
             <td><i class="fas {{ icon }}"></i></td>
@@ -32,6 +41,7 @@
                         {{ file.getRelativePathname }}
                     </a>
                 </b>
+                {% if title %}<br><small style="color: #888;">{{ title }}</small>{% endif %}
             </td>
             <td class="listing-thumb" style="padding: 0.2em;">
                 {%- if thumbnail -%}
@@ -41,7 +51,8 @@
                 {%- endif -%}
             </td>
             <td>
-                {{ file.getSize() }} bytes
+                {{ file.getSize() }}&nbsp;bytes
+                {% if dimensions %}<br><small style="color: #888;">{{ dimensions }}</small>{% endif %}
             </td>
             <td>
                 {{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}
