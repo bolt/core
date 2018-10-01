@@ -33,9 +33,9 @@ class Excerpt
      * @param bool        $includeTitle
      * @param string|null $focus
      *
-     * @return string|null
+     * @return string
      */
-    public function getExcerpt(int $length = 200, bool $includeTitle = false, ?string $focus = null)
+    public function getExcerpt(int $length = 200, bool $includeTitle = false, ?string $focus = null): string
     {
         $title = null;
         $excerpt = '';
@@ -53,6 +53,8 @@ class Excerpt
                     $excerpt .= (string) $field;
                 }
             }
+        } else {
+            $excerpt = (string) $this->content;
         }
 
         $excerpt = str_replace('>', '> ', $excerpt);

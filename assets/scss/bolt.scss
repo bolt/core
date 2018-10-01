@@ -11,6 +11,9 @@ body {
     background: #F8F8F8;
 }
 
+h2 {
+    font-weight: normal;
+}
 .wrapper {
     display: grid;
     width: 100vw;
@@ -86,6 +89,19 @@ aside {
     }
 }
 
+.imageholder {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #DDD;
+    background-color: #FFF;
+
+    img {
+        max-width: 100%;
+        display: block;
+        margin: auto;
+        border-radius: 4px;
+    }
+}
 
 .clip-overflow {
     display: block;

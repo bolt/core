@@ -7,7 +7,7 @@
 {% endif %}
 
 {% if not value|default() %}
-    {% set value = field %}
+    {% set value = field|default() %}
 {% endif %}
 
 {% if not class|default() %}

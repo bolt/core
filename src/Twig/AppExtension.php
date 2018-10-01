@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Content\MenuBuilder;
+use Bolt\Helpers\Excerpt;
 use Bolt\Utils\Markdown;
 use Symfony\Component\Intl\Intl;
 use Twig\Extension\AbstractExtension;
@@ -36,6 +37,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('order', [$this, 'dummy']),
             new TwigFilter('localedatetime', [$this, 'dummy']),
             new TwigFilter('showimage', [$this, 'dummy']),
+            new TwigFilter('excerpt', [$this, 'excerpt']),
         ];
     }
 
@@ -93,5 +95,12 @@ class AppExtension extends AbstractExtension
         $menu = $this->menuBuilder->get();
 
         return $menu;
+    }
+
+    public function excerpt($text, $length = 100)
+    {
+        $excerpter = new Excerpt($text);
+
+        return $excerpter->getExcerpt((int) $length);
     }
 }

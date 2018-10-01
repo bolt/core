@@ -46,7 +46,7 @@ class ImageExtension extends AbstractExtension
         ];
     }
 
-    public function thumbnail($image, $width, $height)
+    public function thumbnail($image, $width = 320, $height = 240, $area = null, $path = null)
     {
         if ($image instanceof Field) {
             $filename = $image->get('filename');
@@ -56,11 +56,22 @@ class ImageExtension extends AbstractExtension
 
         $secret = $this->config->get('general/secret');
 
+        $params = [
+            'w' => $width, 'h' => $height,
+        ];
+
+        if ($area) {
+            $params['area'] = $area;
+        }
+        if ($path) {
+            $params['path'] = $path;
+        }
+
         // Create an instance of the URL builder
         $urlBuilder = UrlBuilderFactory::create('/thumbs/', $secret);
 
         // Generate a URL
-        $url = $urlBuilder->getUrl($filename, ['w' => 500]);
+        $url = $urlBuilder->getUrl($filename, $params);
 
         return $url;
     }
