@@ -26,7 +26,7 @@
         {% if extension in imageformats %}
             {% set thumbnail = filename|thumbnail(100, 72) %}
             {% set icon = 'fa-image' %}
-            {% set link = path('bolt_media_edit', {'id': 0, 'area': area, 'file': filename}) %}
+            {% set link = path('bolt_media_new', {'area': area, 'file': filename}) %}
 
             {% for image in media if image.filename in filename %}
                 {% set title = image.title %}

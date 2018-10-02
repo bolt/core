@@ -33,7 +33,7 @@ class MenuBuilder
         $menu[] = [
             'name' => 'Content',
             'type' => 'separator',
-            'icon' => 'fa-file'
+            'icon' => 'fa-file',
         ];
 
         foreach ($this->config->get('contenttypes') as $contenttype) {
@@ -42,14 +42,14 @@ class MenuBuilder
                 'icon' => 'fa-leaf',
                 'link' => '/bolt/content/' . $contenttype['slug'],
                 'contenttype' => $contenttype['slug'],
-                'singleton' => $contenttype['singleton']
+                'singleton' => $contenttype['singleton'],
             ];
         }
 
         $menu[] = [
             'name' => 'Settings',
             'type' => 'separator',
-            'icon' => 'fa-wrench'
+            'icon' => 'fa-wrench',
         ];
 
         $menu[] = [

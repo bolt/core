@@ -132,6 +132,10 @@ class Media
 
     public function setPath(string $path): self
     {
+        if (mb_strpos($path, '/') === 0) {
+            $path = mb_substr($path, 1);
+        }
+
         $this->path = $path;
 
         return $this;

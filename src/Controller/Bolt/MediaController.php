@@ -16,6 +16,7 @@ use PHPExif\Reader\Reader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Tightenco\Collect\Support\Collection;
@@ -75,14 +76,12 @@ class MediaController extends AbstractController
      */
     public function finder($area, Request $request)
     {
-        $user = $this->getUser();
-
         $basepath = $this->areas->get($area, 'basepath');
 
         $finder = $this->findFiles($basepath);
 
         foreach ($finder as $file) {
-            $media = $this->createOrUpdateMedia($file, $area, $user);
+            $media = $this->createOrUpdateMedia($file, $area);
 
             $this->manager->persist($media);
             $this->manager->flush();
@@ -112,7 +111,13 @@ class MediaController extends AbstractController
         return $finder;
     }
 
-    private function createOrUpdateMedia($file, $area, $user)
+    /**
+     * @param SplFileInfo $file
+     * @param string      $area
+     *
+     * @return Media
+     */
+    private function createOrUpdateMedia(SplFileInfo $file, string $area): Media
     {
         $media = $this->mediaRepository->findOneBy([
             'area' => $area,
@@ -131,7 +136,7 @@ class MediaController extends AbstractController
             ->setCreatedAt(Carbon::createFromTimestamp($file->getCTime()))
             ->setFilesize($file->getSize())
             ->setTitle($this->faker->sentence(6, true))
-            ->addAuthor($user);
+            ->addAuthor($this->getUser());
 
         if ($this->isImage($media)) {
             $this->updateImageData($media, $file);
