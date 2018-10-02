@@ -41,7 +41,7 @@ $(document).ready(function() {
         transition: 'slide right',
     });
 
-    $('.field .ui.dropdown').dropdown({
+    $('.ui.dropdown').dropdown({
     });
 
     $('.ui.dropdown.fileselector').dropdown({

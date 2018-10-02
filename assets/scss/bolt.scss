@@ -138,6 +138,15 @@ aside {
     min-width: 500px !important;
 }
 
+.ui.button {
+    font-weight: normal;
+
+    &.small {
+        padding: 0.6em 1em;
+    }
+
+}
+
 td.listing-thumb img {
     // Get rid of extra space because of the baseline
     display: block;
