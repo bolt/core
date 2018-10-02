@@ -30,14 +30,27 @@ class MenuBuilder
             ],
         ];
 
+        $menu[] = [
+            'name' => 'Content',
+            'type' => 'separator',
+            'icon' => 'fa-file'
+        ];
+
         foreach ($this->config->get('contenttypes') as $contenttype) {
             $menu[] = [
                 'name' => $contenttype['name'],
                 'icon' => 'fa-leaf',
                 'link' => '/bolt/content/' . $contenttype['slug'],
                 'contenttype' => $contenttype['slug'],
+                'singleton' => $contenttype['singleton']
             ];
         }
+
+        $menu[] = [
+            'name' => 'Settings',
+            'type' => 'separator',
+            'icon' => 'fa-wrench'
+        ];
 
         $menu[] = [
             'name' => 'Configuration',

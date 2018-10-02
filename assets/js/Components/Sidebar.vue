@@ -5,22 +5,30 @@
     </div>
     <!-- TODO: Maybe we need to parse the data somewhere else -->
     <template v-for="menuitem in JSON.parse(sidebarmenudata)">
-      <a v-if="!menuitem.contenttype" :href="menuitem.link" class="item" :key="menuitem.id">
+      <hr v-if="menuitem.type"/>
+      <div v-if="menuitem.type" class="item">
         <span class="fa-stack">
+          <i class="fas" :class="menuitem.icon"></i>
+        </span>
+        {{ menuitem.name }}
+      </div>
+      <a v-else-if="!menuitem.contenttype" :href="menuitem.link" class="item" :key="menuitem.id">
+        <span v-if="!menuitem.type" class="fa-stack">
           <i class="fas fa-square fa-stack-2x"></i>
           <i class="fas fa-stack-1x" :class="menuitem.icon"></i>
         </span>
         {{ menuitem.name }}
       </a>
       <div v-else="" class="ui dropdown item" :key="menuitem.id">
-        <!-- {{menuitem.contenttype}} -->
-        <i class="dropdown icon"></i>
+        <i v-if="!menuitem.singleton" class="dropdown icon"></i>
+        <a :href="menuitem.link">
         <span class="fa-stack">
           <i class="fas fa-square fa-stack-2x"></i>
           <i class="fas fa-stack-1x" :class="menuitem.icon"></i>
         </span>
-        {{ menuitem.name }}
-        <div class="menu">
+          {{ menuitem.name }}
+        </a>
+        <div v-if="!menuitem.singleton" class="menu">
           <a class="item" :href="'/bolt/content/' + menuitem.contenttype">
             <i class="fas icon" :class="menuitem.icon"></i>
             View {{ menuitem.name }}
