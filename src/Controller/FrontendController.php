@@ -104,14 +104,15 @@ class FrontendController extends AbstractController
      *
      * @final
      *
-     * @param string|array $view
-     * @param array $parameters
+     * @param string|array  $view
+     * @param array         $parameters
      * @param Response|null $response
      *
-     * @return Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     *
+     * @return Response
      */
     protected function render(string $view, array $parameters = [], Response $response = null): Response
     {

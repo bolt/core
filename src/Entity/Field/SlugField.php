@@ -20,4 +20,14 @@ class SlugField extends Field
 
         return $this;
     }
+
+    public function getSlugPrefix()
+    {
+        return sprintf("/%s/", $this->getContent()->getDefinition()->get('singular_slug'));
+    }
+
+    public function getSlugUseFields()
+    {
+        return (array) $this->getDefinition()->get('uses');
+    }
 }

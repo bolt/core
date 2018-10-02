@@ -1,0 +1,20 @@
+{% extends 'editcontent/fields/_base.twig' %}
+
+{% block field %}
+    <label>{{ label }}</label>
+    <div class="ui labeled input">
+        <div class="ui label">{{ field.slugPrefix }}</div>
+        <input name="{{ name }}" placeholder="…" type="text" value="{{ value }}" class="{{ class }}" }} readonly>
+        &nbsp;
+        <div class="ui dropdown label">
+            <div class="text"><i class="fas fa-unlock"></i> Locked</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div class="item"><i class="fas fa-unlock"></i> Locked</div>
+                <div class="item"><i class="fas fa-link"></i> Generate from: {{ field.slugUseFields|join(', ') }}</div>
+                <div class="item"><i class="fas fa-edit"></i> Edit</div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
