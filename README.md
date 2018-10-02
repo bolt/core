@@ -52,6 +52,6 @@ Build assets
 To set up initially, run `yarn install` to get the required dependencies /
 `node_modules`. Then:
 
-  - Run `node_modules/.bin/encore dev --watch`
+  - Run `yarn run watch`
 
-See the other options by running `node_modules/.bin/encore`.
+See the other options by running `yarn run`.
