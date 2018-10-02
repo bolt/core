@@ -37,7 +37,7 @@ class FrontendController extends AbstractController
 
         $template = $this->templateChooser->homepage('');
 
-        return $this->render($template, []);
+        return $this->render(current($template), []);
     }
 
     /**
@@ -104,13 +104,16 @@ class FrontendController extends AbstractController
      *
      * @final
      *
-     * @param string|array  $view
-     * @param array         $parameters
+     * @param string|array $view
+     * @param array $parameters
      * @param Response|null $response
      *
      * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    protected function render($view, array $parameters = [], Response $response = null): Response
+    protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
         $themepath = sprintf(
             '%s/%s',
