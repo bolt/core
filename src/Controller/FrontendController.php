@@ -37,7 +37,7 @@ class FrontendController extends AbstractController
 
         $template = $this->templateChooser->homepage('');
 
-        return $this->render('@theme/index.twig', []);
+        return $this->render('index.twig', []);
     }
 
     /**
@@ -50,7 +50,7 @@ class FrontendController extends AbstractController
         /** @var Content $records */
         $records = $content->findLatest($page);
 
-        return $this->render('@theme/listing.twig', ['records' => $records ]);
+        return $this->render('listing.twig', ['records' => $records ]);
     }
 
     /**
@@ -81,7 +81,7 @@ class FrontendController extends AbstractController
             $recordSlug => $record,
         ];
 
-        return $this->render('@theme/record.twig', $context);
+        return $this->render('record.twig', $context);
     }
 
     /**
@@ -116,11 +116,21 @@ class FrontendController extends AbstractController
      */
     protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
-        $themepath = sprintf(
-            '%s/%s',
-            $this->config->getPath('themes'),
-            $this->config->get('general/theme')
-        );
-
         /** @var \Twig_Environment $twig */
-        $twig = $this->contain
+        $twig = $this->container->get('twig');
+
+        $parameters['config'] = $this->config;
+
+        // Resolve string|array of templates into the first one that is found.
+        $template = $twig->resolveTemplate($view);
+
+        $content = $twig->render($template, $parameters);
+
+        if ($response === null) {
+            $response = new Response();
+        }
+
+        $response->setContent($content);
+
+        return $response;
+    }
