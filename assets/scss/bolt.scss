@@ -1,11 +1,19 @@
 html, body {
     font-family: 'Source Sans Pro', serif;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1.5;
     height: 100%;
     margin: 0;
     padding: 0;
-  }
+
+    @media only screen and (min-width: 1025px) {
+        font-size: 14px;
+    }
+
+    @media only screen and (min-width: 1281px) {
+        font-size: 16px;
+    }
+}
 
 body {
     background: #F8F8F8;
@@ -28,8 +36,8 @@ h2 {
 
 @media only screen and (min-width: 600px)   {
     .wrapper {
-        grid-template-columns: 201px auto 340px;
-        grid-template-rows: 54px auto 30px;
+        grid-template-columns: 12.6rem auto 21rem;
+        grid-template-rows: 3.4rem auto 2rem;
         grid-template-areas:
             "sidebar  topbar      topbar"
             "sidebar  content     aside"
@@ -37,8 +45,8 @@ h2 {
     }
 
     .wrapper.has-widecontent {
-        grid-template-columns: 201px auto 340px;
-        grid-template-rows: 54px auto 30px;
+        grid-template-columns: 12.6rem auto 21rem;
+        grid-template-rows: 3.4rem auto 2rem;
         grid-template-areas:
                 "sidebar  topbar      topbar"
                 "sidebar  content     content"
@@ -60,12 +68,12 @@ header {
 
 #content, #vuecontent {
     grid-area: content;
-    padding: 2em 3em;
+    padding: 2rem 3rem;
 }
 
 #widecontent {
     grid-area: content;
-    padding: 2em 3em;
+    padding: 2rem 3rem;
     + aside {
         display: none;
     }
@@ -77,12 +85,12 @@ footer {
 
 aside {
     grid-area: aside;
-    padding: 2em 2em 2em 0;
+    padding: 2rem 2rem 2rem 0;
 }
 
 
 .fa-stack {
-    margin-right: 0.5em;
+    margin-right: 0.5rem;
 
     i:last-child {
         color: #444;
@@ -109,8 +117,8 @@ aside {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: 3ellipsis;
-    max-height: 72px;
+    text-overflow: ellipsis;
+    max-height: 4.5rem;
 }
 
 .ui.basic.table {
@@ -142,18 +150,19 @@ aside {
     font-weight: normal;
 
     &.small {
-        padding: 0.6em 1em;
+        padding: 0.6rem 1rem;
     }
-
 }
 
 td.listing-thumb img {
     // Get rid of extra space because of the baseline
     display: block;
+    width: 6.25rem;
+    height: 4.5rem;
 }
 
 td.listing-meta {
-    font-size: 14px;
-    line-height: 25px;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
     color: #555;
 }
