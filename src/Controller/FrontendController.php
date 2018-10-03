@@ -37,7 +37,7 @@ class FrontendController extends AbstractController
 
         $template = $this->templateChooser->homepage('');
 
-        return $this->render('index.twig', []);
+        return $this->render(current($template), []);
     }
 
     /**
