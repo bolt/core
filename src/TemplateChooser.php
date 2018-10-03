@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Bolt;
 
 use Bolt\Configuration\Config;
+use Bolt\Entity\Content;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * A class for choosing whichever template should be used.
@@ -27,37 +29,37 @@ class TemplateChooser
     /**
      * Choose a template for the homepage.
      *
-     * @param \Bolt\Legacy\Content|\Bolt\Legacy\Content[] $content
+     * @param Content $content
      *
-     * @return string[]
+     * @return Collection
      */
-    public function homepage($content)
+    public function homepage(Content $content = null): Collection
     {
-        $templates = [];
+        $templates = collect([]);
 
         // First candidate: Theme-specific config.yml file.
         if ($template = $this->config->get('theme/homepage_template')) {
-            $templates[] = $template;
+            $templates->push($template);
         }
 
         // Second candidate: Global config.yml file.
         if ($template = $this->config->get('general/homepage_template')) {
-            $templates[] = $template;
+            $templates->push($template);
         }
 
         if (empty($content)) {
             // Fallback if no content: index.twig
-            $templates[] = 'index.twig';
+            $templates->push('index.twig');
         } elseif (is_array($content)) {
             // Fallback with multiple content: use listing() to choose template
             $first = reset($content);
-            $templates = array_merge($templates, $this->listing($first->contenttype));
+            $templates->merge($this->listing($first->contenttype));
         } else {
             // Fallback with single content: use record() to choose template
-            $templates = array_merge($templates, $this->record($content));
+            $templates->merge($templates, $this->record($content));
         }
 
-        return $templates;
+        return $templates->unique();
     }
 
     /**
@@ -65,23 +67,20 @@ class TemplateChooser
      * - '/page/about'
      * - '/entry/lorum-ipsum'.
      *
-     * Refactor note: Using a FQCN for the hint here as a `use` statement causes
-     * a fatal in the unit tests… 'cause PHP and class_alias() versus namespaces.
+     * @param Content $record
+     * @param array   $data
      *
-     * @param object $record
-     * @param array  $data
-     *
-     * @return string[]
+     * @return Collection
      */
-    public function record($record, $data = null)
+    public function record(Content $record, array $data = null): Collection
     {
-        $templates = [];
+        $templates = collect([]);
 
         // First candidate: A legacy Content record has a templateselect field, and it's set.
         if (isset($record->contenttype['fields'])) {
             foreach ($record->contenttype['fields'] as $name => $field) {
                 if ($field['type'] === 'templateselect' && !empty($record->values[$name])) {
-                    $templates[] = $record->values[$name];
+                    $templates->push($record->values[$name]);
                 }
             }
         }
@@ -90,72 +89,74 @@ class TemplateChooser
         if (isset($record->contenttype['fields'])) {
             foreach ($record->contenttype['fields'] as $name => $field) {
                 if ($field['type'] === 'templateselect' && !empty($record[$name])) {
-                    $templates[] = $record[$name];
+                    $templates->push($record[$name]);
                 }
 
                 if ($field['type'] === 'templateselect' && $data !== null && !empty($data[$name])) {
-                    $templates[] = $data[$name];
+                    $templates->push($data[$name]);
                 }
             }
         }
 
         // Third candidate: defined specifically in the contenttype.
         if (isset($record->contenttype['record_template'])) {
-            $templates[] = $record->contenttype['record_template'];
+            $templates->push($record->contenttype['record_template']);
         }
 
         // Fourth candidate: a template with the same filename as the name of
         // the contenttype.
         if (isset($record->contenttype['singular_slug'])) {
-            $templates[] = $record->contenttype['singular_slug'] . '.twig';
+            $templates->push($record->contenttype['singular_slug'] . '.twig');
         }
 
         // Fifth candidate: Theme-specific config.yml file.
         if ($template = $this->config->get('theme/record_template')) {
-            $templates[] = $template;
+            $templates->push($template);
         }
 
         // Sixth candidate: global config.yml
-        $templates[] = $this->config->get('general/record_template');
+        $templates->push($this->config->get('general/record_template'));
 
         // Seventh candidate: fallback to 'record.twig'
-        $templates[] = 'record.twig';
+        $templates->push('record.twig');
 
-        return $templates;
+        return $templates->unique();
     }
 
     /**
      * Select a template for listing pages.
      *
-     * @param array $contenttype
+     * @param Collection $contenttype
      *
-     * @return string[]
+     * @return Collection
      */
-    public function listing($contenttype)
+    public function listing(Collection $contenttype = null): Collection
     {
-        $templates = [];
+        $templates = collect([]);
 
         // First candidate: defined specifically in the contenttype.
         if (!empty($contenttype['listing_template'])) {
-            $templates[] = $contenttype['listing_template'];
+            $templates->push($contenttype['listing_template']);
         }
 
         // Second candidate: a template with the same filename as the name of
         // the contenttype.
-        $templates[] = $contenttype['slug'] . '.twig';
+        if (!empty($contenttype['listing_template'])) {
+            $templates->push($contenttype['slug'] . '.twig');
+        }
 
         // Third candidate: Theme-specific config.yml file.
         if ($template = $this->config->get('theme/listing_template')) {
-            $templates[] = $template;
+            $templates->push($template);
         }
 
         // Fourth candidate: Global config.yml
-        $templates[] = $this->config->get('general/listing_template');
+        $templates->push($this->config->get('general/listing_template'));
 
         // Fifth candidate: fallback to 'listing.twig'
-        $templates[] = 'listing.twig';
+        $templates->push('listing.twig');
 
-        return $templates;
+        return $templates->unique();
     }
 
     /**
@@ -163,70 +164,70 @@ class TemplateChooser
      *
      * @param string $taxonomyslug
      *
-     * @return string[]
+     * @return Collection
      */
-    public function taxonomy($taxonomyslug)
+    public function taxonomy(string $taxonomyslug): Collection
     {
-        $templates = [];
+        $templates = collect([]);
 
         // First candidate: defined specifically in the taxonomy
         if ($template = $this->config->get('taxonomy/' . $taxonomyslug . '/listing_template')) {
-            $templates[] = $template;
+            $templates->push($template);
         }
 
         // Second candidate: Theme-specific config.yml file.
         if ($template = $this->config->get('theme/listing_template')) {
-            $templates[] = $template;
+            $templates->push($template);
         }
 
         // Third candidate: Global config.yml
-        $templates[] = $this->config->get('general/listing_template');
+        $templates->push($this->config->get('general/listing_template'));
 
-        return $templates;
+        return $templates->unique();
     }
 
     /**
      * Select a search template.
      *
-     * @return string[]
+     * @return Collection
      */
-    public function search()
+    public function search(): Collection
     {
-        $templates = [];
+        $templates = collect([]);
 
         // First candidate: specific search setting in global config.
         if ($template = $this->config->get('theme/search_results_template')) {
-            $templates[] = $template;
+            $templates->push($template);
         }
 
         // Second candidate: specific search setting in global config.
         if ($template = $this->config->get('general/search_results_template')) {
-            $templates[] = $template;
+            $templates->push($template);
         }
 
         // Third candidate: listing config setting.
-        $templates[] = $this->config->get('general/listing_template');
+        $templates->push($this->config->get('general/listing_template'));
 
-        return $templates;
+        return $templates->unique();
     }
 
     /**
      * Select a template to use for the "maintenance" page.
      *
-     * @return string[]
+     * @return Collection
      */
-    public function maintenance()
+    public function maintenance(): Collection
     {
-        $templates = [];
+        $templates = collect([]);
 
         // First candidate: Theme-specific config.
         if ($template = $this->config->get('theme/maintenance_template')) {
-            $templates[] = $template;
+            $templates->push($template);
         }
 
         // Second candidate: global config.
-        $templates[] = $this->config->get('general/maintenance_template');
+        $templates->push($this->config->get('general/maintenance_template'));
 
-        return $templates;
+        return $templates->unique();
     }
 }

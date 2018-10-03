@@ -84,31 +84,32 @@ class Config
     /**
      * @return array
      */
-    public function getParameters() : array
+    public function getParameters(): array
     {
         $array = $this->data->get('general')->toArray();
+
         return $this->flatten($array);
     }
 
     /**
-     * @param array $array
+     * @param array  $array
      * @param string $prefix
+     *
      * @return array
      */
-    private function flatten(array $array, string $prefix = '') : array
+    private function flatten(array $array, string $prefix = ''): array
     {
         $result = [];
-        foreach($array as $key => $value) {
-            if (is_integer($key)) {
+        foreach ($array as $key => $value) {
+            if (is_int($key)) {
                 $result[trim($prefix, '.')][] = $value;
-            }
-            elseif(is_array($value)) {
+            } elseif (is_array($value)) {
                 $result = $result + $this->flatten($value, $prefix . $key . '.');
-            }
-            else {
+            } else {
                 $result[$prefix . $key] = $value;
             }
         }
+
         return $result;
     }
 
