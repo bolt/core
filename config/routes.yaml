@@ -9,6 +9,6 @@
 #    requirements:
 #        _locale: '%app_locales%'
 #    defaults:
-#        template: default/homepage.html.twig
+#        template: default/homepage.twig
 #        _locale: '%locale%'
 #

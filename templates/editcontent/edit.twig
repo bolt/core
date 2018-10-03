@@ -1,4 +1,4 @@
-{% extends '_base/layout.twig' %}
+{% extends '@bolt/_base/layout.twig' %}
 
 {% block title %}
     Edit » <strong>{{ record.title|default('New') }}</strong>
@@ -41,7 +41,7 @@
             <input type="submit" class="ui button primary" value="Save" form="editcontent">
 
 
-            {% include 'editcontent/fields/text.twig' with {
+            {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.id'|trans,
         'name': 'id',
         'value': record.id,
@@ -49,7 +49,7 @@
     }  %}
 
 
-    {% include 'editcontent/fields/text.twig' with {
+    {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.status'|trans,
         'name': 'status',
         'value': record.status,
@@ -61,28 +61,28 @@
 
 
 
-    {% include 'editcontent/fields/datetime.twig' with {
+    {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.createdAt'|trans,
         'name': 'createdAt',
         'value': record.createdAt,
         'attributes': 'readonly form="editcontent"',
     } %}
 
-    {% include 'editcontent/fields/datetime.twig' with {
+    {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.modifiedAt'|trans,
         'name': 'modifiedAt',
         'value': record.modifiedAt,
         'attributes': 'readonly form="editcontent"',
     } %}
 
-    {% include 'editcontent/fields/datetime.twig' with {
+    {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.publishedAt'|trans,
         'name': 'publishedAt',
         'value': record.publishedAt,
         'attributes': 'form="editcontent"',
     } %}
 
-    {% include 'editcontent/fields/datetime.twig' with {
+    {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.depublishedAt'|trans,
         'name': 'depublishedAt',
         'value': record.depublishedAt,

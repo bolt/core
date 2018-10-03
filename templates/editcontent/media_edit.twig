@@ -1,4 +1,4 @@
-{% extends '_base/layout.twig' %}
+{% extends '@bolt/_base/layout.twig' %}
 
 {% block title %}
     Edit » <strong>{{ media.title|default('New')|excerpt(30) }}</strong>
@@ -72,25 +72,25 @@
 <form method="post" class="ui form" id="media_edit">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('media_edit') }}">
 
-    {% include 'editcontent/fields/text.twig' with {
+    {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.title'|trans,
         'name': 'title',
         'value': media.title
     }  %}
 
-    {% include 'editcontent/fields/textarea.twig' with {
+    {% include '@bolt/editcontent/fields/textarea.twig' with {
         'label': 'field.description'|trans,
         'name': 'description',
         'value': media.description
     }  %}
 
-    {% include 'editcontent/fields/text.twig' with {
+    {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.copyright'|trans,
         'name': 'copyright',
         'value': media.copyright
     }  %}
 
-    {% include 'editcontent/fields/text.twig' with {
+    {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.originalFilename'|trans,
         'name': 'originalFilename',
         'value': media.originalFilename
@@ -119,28 +119,28 @@
 
             <input type="submit" class="ui button primary" value="Save" form="editcontent">
 
-            {% include 'editcontent/fields/text.twig' with {
+            {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.id'|trans,
                 'name': 'id',
                 'value': media.id,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-            {% include 'editcontent/fields/text.twig' with {
+            {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.width'|trans,
                 'name': 'width',
                 'value': media.width,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-            {% include 'editcontent/fields/text.twig' with {
+            {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.height'|trans,
                 'name': 'height',
                 'value': media.height,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-            {% include 'editcontent/fields/text.twig' with {
+            {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.filesize'|trans,
                 'name': 'filesize',
                 'value': media.filesize,
@@ -152,14 +152,14 @@
 
 
 
-    {% include 'editcontent/fields/datetime.twig' with {
+    {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.createdAt'|trans,
         'name': 'createdAt',
         'value': media.createdAt,
         'attributes': 'readonly form="editcontent"',
     } %}
 
-    {% include 'editcontent/fields/datetime.twig' with {
+    {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.modifiedAt'|trans,
         'name': 'modifiedAt',
         'value': media.modifiedAt,
