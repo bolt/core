@@ -154,6 +154,20 @@ aside {
     }
 }
 
+#sidebar {
+    .ui.menu .item {
+        padding: 0.6rem 1rem;
+    }
+
+    .dropdown > .icon {
+        margin-top: 0.4rem;
+    }
+    // Outdent the menu's in the sidebar a bit
+    .ui.vertical.menu .dropdown.item:not(.upward) .menu {
+        margin-left: -34px;
+    }
+}
+
 td.listing-thumb img {
     // Get rid of extra space because of the baseline
     display: block;
