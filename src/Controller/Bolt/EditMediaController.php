@@ -9,11 +9,10 @@ namespace Bolt\Controller\Bolt;
 
 use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
+use Bolt\Content\MediaFactory;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
-use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
-use PHPExif\Reader\Reader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\SplFileInfo;
@@ -35,8 +34,7 @@ use Webmozart\PathUtil\Path;
  */
 class EditMediaController extends AbstractController
 {
-    /** @var Config
-     */
+    /** @var Config */
     private $config;
 
     /** @var CsrfTokenManagerInterface */
@@ -47,20 +45,15 @@ class EditMediaController extends AbstractController
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
-    /**
-     * @var MediaRepository
-     */
+
+    /** @var MediaRepository */
     private $mediaRepository;
-    /**
-     * @var Areas
-     */
+
+    /** @var Areas */
     private $areas;
 
-    /** @var Collection */
-    private $mediatypes;
-
-    /** @var Reader */
-    private $exif;
+    /** @var MediaFactory */
+    private $mediaFactory;
 
     /**
      * EditMediaController constructor.
@@ -78,7 +71,8 @@ class EditMediaController extends AbstractController
         ObjectManager $manager,
         UrlGeneratorInterface $urlGenerator,
         MediaRepository $mediaRepository,
-        Areas $areas
+        Areas $areas,
+        MediaFactory $mediaFactory
     ) {
         $this->config = $config;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -86,9 +80,7 @@ class EditMediaController extends AbstractController
         $this->urlGenerator = $urlGenerator;
         $this->mediaRepository = $mediaRepository;
         $this->areas = $areas;
-
-        $this->exif = Reader::factory(Reader::TYPE_NATIVE);
-        $this->mediatypes = $config->getMediaTypes();
+        $this->mediaFactory = $mediaFactory;
     }
 
     /**
@@ -159,7 +151,7 @@ class EditMediaController extends AbstractController
 
         $file = new SplFileInfo($filename, $relPath, $relName);
 
-        $media = $this->createOrUpdateMedia($file, $area);
+        $media = $this->mediaFactory->createOrUpdateMedia($file, $area);
 
         $this->manager->persist($media);
         $this->manager->flush();
@@ -169,66 +161,5 @@ class EditMediaController extends AbstractController
         $url = $this->urlGenerator->generate('bolt_media_edit', ['id' => $media->getId()]);
 
         return new RedirectResponse($url);
-    }
-
-    /**
-     * @param string $file
-     * @param string $area
-     *
-     * @return Media
-     */
-    private function createOrUpdateMedia(SplFileInfo $file, string $area): Media
-    {
-        $media = $this->mediaRepository->findOneBy([
-            'area' => $area,
-            'path' => $file->getRelativePath(),
-            'filename' => $file->getFilename(), ]);
-
-        if (!$media) {
-            $media = new Media();
-            $media->setFilename($file->getFilename())
-                ->setPath($file->getRelativePath())
-                ->setArea($area);
-        }
-
-        $media->setType($file->getExtension())
-            ->setModifiedAt(Carbon::createFromTimestamp($file->getMTime()))
-            ->setCreatedAt(Carbon::createFromTimestamp($file->getCTime()))
-            ->setFilesize($file->getSize())
-            ->setTitle(ucwords(str_replace('-', ' ', $file->getFilename())))
-            ->addAuthor($this->getUser());
-
-        if ($this->isImage($media)) {
-            $this->updateImageData($media, $file);
-        }
-
-        return $media;
-    }
-
-    private function updateImageData(Media $media, $file)
-    {
-        /** @var Exif $exif */
-        $exif = $this->exif->read($file->getRealPath());
-
-        if ($exif) {
-            $media->setWidth($exif->getWidth())
-                ->setHeight($exif->getHeight());
-
-            return;
-        }
-
-        $imagesize = getimagesize($file->getRealpath());
-
-        if ($imagesize) {
-            $media->setWidth($imagesize[0])
-                ->setHeight($imagesize[1]);
-
-            return;
-        }
-    }
-
-    private function isImage($media)
-    {
-        return in_array($media->getType(), ['gif', 'png', 'jpg', 'svg'], true);
     }
 }

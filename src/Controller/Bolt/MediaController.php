@@ -6,17 +6,13 @@ namespace Bolt\Controller\Bolt;
 
 use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
+use Bolt\Content\MediaFactory;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
-use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Factory;
-use PHPExif\Exif;
-use PHPExif\Reader\Reader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Tightenco\Collect\Support\Collection;
@@ -33,23 +29,14 @@ class MediaController extends AbstractController
     /** @var Config */
     private $config;
 
-    /** @var Collection */
-    private $mediatypes;
-
-    /** @var MediaRepository */
-    private $mediaRepository;
-
     /** @var ObjectManager */
     private $manager;
 
-    /** @var Reader */
-    private $exif;
-
-    /** @var \Faker\Generator */
-    private $faker;
-
     /** @var Collection */
     private $areas;
+
+    /** @var MediaFactory */
+    private $mediaFactory;
 
     /**
      * MediaController constructor.
@@ -59,16 +46,13 @@ class MediaController extends AbstractController
      * @param ObjectManager   $manager
      * @param Areas           $areas
      */
-    public function __construct(Config $config, MediaRepository $mediaRepository, ObjectManager $manager, Areas $areas)
+    public function __construct(Config $config, ObjectManager $manager, Areas $areas, MediaFactory $mediaFactory)
     {
         $this->config = $config;
-        $this->mediaRepository = $mediaRepository;
         $this->manager = $manager;
         $this->areas = $areas;
 
-        $this->exif = Reader::factory(Reader::TYPE_NATIVE);
-        $this->faker = Factory::create();
-        $this->mediatypes = $config->getMediaTypes();
+        $this->mediaFactory = $mediaFactory;
     }
 
     /**
@@ -81,7 +65,7 @@ class MediaController extends AbstractController
         $finder = $this->findFiles($basepath);
 
         foreach ($finder as $file) {
-            $media = $this->createOrUpdateMedia($file, $area);
+            $media = $this->mediaFactory->createOrUpdateMedia($file, $area);
 
             $this->manager->persist($media);
             $this->manager->flush();
@@ -103,72 +87,11 @@ class MediaController extends AbstractController
     {
         $fullpath = Path::canonicalize($base);
 
-        $glob = sprintf('*.{%s}', $this->mediatypes->implode(','));
+        $glob = sprintf('*.{%s}', $this->config->getMediaTypes()->implode(','));
 
         $finder = new Finder();
         $finder->in($fullpath)->depth('< 2')->sortByName(true)->name($glob)->files();
 
         return $finder;
-    }
-
-    /**
-     * @param SplFileInfo $file
-     * @param string      $area
-     *
-     * @return Media
-     */
-    private function createOrUpdateMedia(SplFileInfo $file, string $area): Media
-    {
-        $media = $this->mediaRepository->findOneBy([
-            'area' => $area,
-            'path' => $file->getRelativePath(),
-            'filename' => $file->getFilename(), ]);
-
-        if (!$media) {
-            $media = new Media();
-            $media->setFilename($file->getFilename())
-                ->setPath($file->getRelativePath())
-                ->setArea($area);
-        }
-
-        $media->setType($file->getExtension())
-            ->setModifiedAt(Carbon::createFromTimestamp($file->getMTime()))
-            ->setCreatedAt(Carbon::createFromTimestamp($file->getCTime()))
-            ->setFilesize($file->getSize())
-            ->setTitle($this->faker->sentence(6, true))
-            ->addAuthor($this->getUser());
-
-        if ($this->isImage($media)) {
-            $this->updateImageData($media, $file);
-        }
-
-        return $media;
-    }
-
-    private function updateImageData(Media $media, $file)
-    {
-        /** @var Exif $exif */
-        $exif = $this->exif->read($file->getRealPath());
-
-        if ($exif) {
-            $media->setWidth($exif->getWidth())
-                ->setHeight($exif->getHeight());
-
-            return;
-        }
-
-        $imagesize = getimagesize($file->getRealpath());
-
-        if ($imagesize) {
-            $media->setWidth($imagesize[0])
-                ->setHeight($imagesize[1]);
-
-            return;
-        }
-    }
-
-    private function isImage($media)
-    {
-        return in_array($media->getType(), ['gif', 'png', 'jpg', 'svg'], true);
     }
 }
