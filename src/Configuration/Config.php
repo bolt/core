@@ -82,6 +82,37 @@ class Config
     }
 
     /**
+     * @return array
+     */
+    public function getParameters() : array
+    {
+        $array = $this->data->get('general')->toArray();
+        return $this->flatten($array);
+    }
+
+    /**
+     * @param array $array
+     * @param string $prefix
+     * @return array
+     */
+    private function flatten(array $array, string $prefix = '') : array
+    {
+        $result = [];
+        foreach($array as $key => $value) {
+            if (is_integer($key)) {
+                $result[trim($prefix, '.')][] = $value;
+            }
+            elseif(is_array($value)) {
+                $result = $result + $this->flatten($value, $prefix . $key . '.');
+            }
+            else {
+                $result[$prefix . $key] = $value;
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Get a config value, using a path.
      *
      * For example:

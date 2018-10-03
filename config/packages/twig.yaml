@@ -4,3 +4,5 @@ twig:
     form_themes:
         - 'form/layout.html.twig'
         - 'form/fields.html.twig'
+    paths:
+        '%kernel.project_dir%/public/theme/%bolt.theme%': ''
