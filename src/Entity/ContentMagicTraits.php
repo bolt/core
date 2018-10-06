@@ -111,6 +111,8 @@ trait ContentMagicTraits
                 }
             }
         }
+
+        return [];
     }
 
     /**

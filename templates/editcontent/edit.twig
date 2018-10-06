@@ -17,11 +17,7 @@
         {% set type = fielddefinition.type %}
         {% set field = record.field(key) %}
         {% if not field %}
-            {% set field = {
-                'name': key,
-                'definition': fielddefinition,
-                'value': fielddefinition.default
-            } %}
+            {% set field = fieldfactory(fielddefinition, key)  %}
         {% endif %}
 
         {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field}  %}

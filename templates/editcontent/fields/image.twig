@@ -5,11 +5,11 @@
 
     <div class="inline field">
         <label>Filename</label>
-        <input name="{{ name }}[filename]" placeholder="First Name" type="text" value="{{ value.get('filename') }}" class="{{ class }}" {{ attributes|default()|raw }}>
+        <input name="{{ name }}[filename]" placeholder="First Name" type="text" value="{{ field.get('filename') }}" class="{{ class }}" {{ attributes|default()|raw }}>
     </div>
     <div class="inline field">
         <label>Alt</label>
-        <input name="{{ name }}[alt]" placeholder="First Name" type="text" value="{{ value.get('alt') }}" class="{{ class }}" {{ attributes|default()|raw }}>
+        <input name="{{ name }}[alt]" placeholder="First Name" type="text" value="{{ field.get('alt') }}" class="{{ class }}" {{ attributes|default()|raw }}>
     </div>
     <hr>
 {% endblock %}

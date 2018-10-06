@@ -19,7 +19,7 @@ final class FieldFactory
      */
     public static function get(string $name = 'generic'): Field
     {
-        $classname = '\\Bolt\\Entity\\Field\\' . $name . 'Field';
+        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($name) . 'Field';
         if (class_exists($classname)) {
             $field = new $classname();
         } else {

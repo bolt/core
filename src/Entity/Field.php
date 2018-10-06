@@ -117,6 +117,11 @@ class Field
         return $this->fieldTypeDefinition;
     }
 
+    public function setDefinition(array $definition, $name = null)
+    {
+        $this->fieldTypeDefinition = FieldTypeFactory::mock($definition, $name);
+    }
+
     public function getContentId(): ?int
     {
         return $this->content_id;
@@ -148,7 +153,7 @@ class Field
 
     public function get($key)
     {
-        return $this->value[$key];
+        return isset($this->value[$key]) ? $this->value[$key] : null;
     }
 
     public function getValue(): ?array

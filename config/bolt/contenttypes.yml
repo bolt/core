@@ -65,10 +65,13 @@ pages:
             uses: title
         image:
             type: image
+            label: "Eén plaatje"
             placeholder: https://source.unsplash.com/1280x768/?business,workplace/__random__
         teaser:
             type: html
             height: 150px
+        marky:
+            type: markdown
         body:
             type: html
             height: 300px

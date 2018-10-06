@@ -26,4 +26,15 @@ final class FieldTypeFactory
 
         return $field;
     }
+
+    public static function mock(array $definition, string $name = null): ?FieldType
+    {
+        if ($name) {
+            $definition['name'] = $name;
+        }
+
+        $field = new FieldType($definition);
+
+        return $field;
+    }
 }

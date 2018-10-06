@@ -23,7 +23,13 @@ class SlugField extends Field
 
     public function getSlugPrefix()
     {
-        return sprintf('/%s/', $this->getContent()->getDefinition()->get('singular_slug'));
+        $content = $this->getContent();
+
+        if (!$content) {
+            return '/foobar/';
+        }
+
+        return sprintf('/%s/', $content->getDefinition()->get('singular_slug'));
     }
 
     public function getSlugUseFields()

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
 use Bolt\Helpers\Excerpt;
 use Bolt\Utils\Markdown;
@@ -38,6 +39,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('localedatetime', [$this, 'dummy']),
             new TwigFilter('showimage', [$this, 'dummy']),
             new TwigFilter('excerpt', [$this, 'excerpt']),
+            new TwigFilter('ucwords', [$this, 'ucwords']),
         ];
     }
 
@@ -55,12 +57,22 @@ class AppExtension extends AbstractExtension
             new TwigFunction('htmllang', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('popup', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
+            new TwigFunction('fieldfactory', [$this, 'fieldfactory']),
         ];
     }
 
     public function dummy($input = null)
     {
         return $input;
+    }
+
+    public function ucwords($content, string $delimiters = ''): string
+    {
+        if (!$content) {
+            return '';
+        }
+
+        return ucwords($content, $delimiters);
     }
 
     /**
@@ -102,5 +114,14 @@ class AppExtension extends AbstractExtension
         $excerpter = new Excerpt($text);
 
         return $excerpter->getExcerpt((int) $length);
+    }
+
+    public function fieldfactory($definition, $name = null)
+    {
+        $field = FieldFactory::get($definition['type']);
+        $field->setName($name);
+        $field->setDefinition($definition, $name);
+
+        return $field;
     }
 }

@@ -1,5 +1,5 @@
 {% if not label|default() %}
-    {% set label = field.definition.label %}
+    {% set label = field.definition.label|default(field.name|ucwords) %}
 {% endif %}
 
 {% if not name|default() %}
@@ -7,7 +7,11 @@
 {% endif %}
 
 {% if not value|default() %}
-    {% set value = field.value|join|default() %}
+    {% if field.value is defined %}
+        {% set value = field.value|join|default() %}
+    {% else %}
+        {% set value = '' %}
+    {% endif %}
 {% endif %}
 
 {% if not class|default() %}
