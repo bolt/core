@@ -13,56 +13,27 @@
         <img id="main_image" src="{{ thumbnail }}">
     </div>
 
-    <div class="field" style="margin: 0.5rem 0;">
-        <button class="ui button tiny color-Vibrant" style="text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); color: #FFF;">
-            Vibrant <small>(<span></span>)</small>
-        </button>
-        &nbsp;
-        <button class="ui button tiny color-Muted" style="text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.5);">
-            Muted <small>(<span></span>)</small>
-        </button>
-        &nbsp;
-        <button class="ui button tiny color-DarkVibrant" style="text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); color: #FFF;">
-            DarkVibrant <small>(<span></span>)</small>
-        </button>
-        &nbsp;
-        <button class="ui button tiny color-DarkMuted" style="text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); color: #FFF;">
-            DarkMuted <small>(<span></span>)</small>
-        </button>
-        &nbsp;
-        <button class="ui button tiny color-LightVibrant" style="text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.5);">
-            LightVibrant <small>(<span></span>)</small>
-        </button>
-    </div>
-
     <script>
-        console.log('joe');
         var img = document.createElement('img');
         img.setAttribute('src', '{{ thumbnail|raw }}');
 
         img.addEventListener('load', function() {
             var vibrant = new Vibrant(img);
             var swatches = vibrant.swatches();
-            console.log(swatches);
             for (var swatch in swatches) {
                 if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
-                    console.log(swatch, swatches[swatch].getHex());
-                    $('.button.color-' + swatch).css('background', swatches[swatch].getHex());
-                    $('.button.color-' + swatch).find('span').text(swatches[swatch].getHex());
+                    var elem = document.createElement('li');
+                    var label = document.createElement('div');
+                    var labelNode = document.createTextNode(swatches[swatch].getHex());
+                    var referenceNode = document.getElementById('swatcheslist');
+                    label.className = "ui horizontal label";
+                    label.setAttribute('style', 'background-color: ' + swatches[swatch].getHex());
+                    elem.appendChild(label).appendChild(labelNode);
+                    elem.appendChild(document.createTextNode(swatch));
+                    referenceNode.append(elem);
                 }
             }
         });
-        console.log('joe2');
-
-            /*
-             * Results into:
-             * Vibrant #7a4426
-             * Muted #7b9eae
-             * DarkVibrant #348945
-             * DarkMuted #141414
-             * LightVibrant #f3ccb4
-             */
-
 
     </script>
 
@@ -118,6 +89,10 @@
         <form class="ui form">
 
             <input type="submit" class="ui button primary" value="Save" form="editcontent">
+
+            <ul class="ui divided selection list" id="swatcheslist">
+            </ul>
+
 
             {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.id'|trans,
