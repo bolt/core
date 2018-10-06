@@ -6,16 +6,23 @@
 
 {% block main %}
 
-    {{ dump(record) }}
-
+    {#{{ dump(record.definition.fields) }}#}
 
 <form method="post" class="ui form" id="editcontent">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
 
        <!-- fields -->
-    {% for field in record.fields %}
+    {% for key, fielddefinition in record.definition.fields %}
 
-        {% set type = field.definition.type %}
+        {% set type = fielddefinition.type %}
+        {% set field = record.field(key) %}
+        {% if not field %}
+            {% set field = {
+                'name': key,
+                'definition': fielddefinition,
+                'value': fielddefinition.default
+            } %}
+        {% endif %}
 
         {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field}  %}
 

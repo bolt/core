@@ -3,6 +3,6 @@
 {% block field %}
     <label>{{ field.definition.label|default(field.name) }}</label>
     <textarea name="{{ name }}" class="{{ class }}">
-{{ field }}
+{{ value }}
     </textarea>
 {% endblock %}
