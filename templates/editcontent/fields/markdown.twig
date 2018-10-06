@@ -1,0 +1,25 @@
+{% extends '@bolt/editcontent/fields/_base.twig' %}
+
+{% block field %}
+    <label>{{ field.definition.label|default(field.name) }}</label>
+    <textarea name="{{ name }}" class="{{ class }}" id="edit-{{ name }}">{{ value }}</textarea>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/markdown.css') }}">
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/markdown.js') }}"></script>
+    <script>
+        var simplemde = new SimpleMDE({
+            element: document.getElementById("edit-{{ name }}"),
+            spellChecker: false,
+            status: false
+        });
+    </script>
+{% endblock %}

@@ -9,6 +9,7 @@ Encore
     .setPublicPath('/assets')
 
     .addEntry('bolt', './assets/js/bolt.js')
+    .addEntry('markdown', './assets/js/markdown.js')
 
     .autoProvidejQuery()
     .enableVueLoader()

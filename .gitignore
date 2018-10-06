@@ -1,5 +1,6 @@
 .idea
 composer.phar
+assets/vendor/
 
 /node_modules/
 npm-debug.log

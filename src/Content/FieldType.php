@@ -25,7 +25,7 @@ final class FieldType extends Collection
             'prefix' => '',
             'placeholder' => '',
             'sort' => '',
-            'default' => ''
+            'default' => '',
         ];
 
         return $values;

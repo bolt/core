@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
-use Bolt\Entity\Field;
-
 final class FieldTypeFactory
 {
     public function __construct()
@@ -13,7 +11,7 @@ final class FieldTypeFactory
     }
 
     /**
-     * @param string $name
+     * @param string      $name
      * @param ContentType $contentType
      *
      * @return FieldType|null

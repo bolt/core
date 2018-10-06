@@ -71,7 +71,7 @@ class Field
     /**
      * @ORM\Column(type="integer")
      */
-    private $sortorder;
+    private $sortorder = 0;
 
     /**
      * @ORM\Column(type="string", length=191, nullable=true)

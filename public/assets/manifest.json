@@ -1,4 +1,6 @@
 {
   "assets/bolt.js": "/assets/bolt.js",
-  "assets/bolt.css": "/assets/bolt.css"
+  "assets/bolt.css": "/assets/bolt.css",
+  "assets/markdown.js": "/assets/markdown.js",
+  "assets/markdown.css": "/assets/markdown.css"
 }

@@ -17,7 +17,7 @@ final class FieldFactory
      *
      * @return Field
      */
-    public static function get(string $name)
+    public static function get(string $name = 'generic'): Field
     {
         $classname = '\\Bolt\\Entity\\Field\\' . $name . 'Field';
         if (class_exists($classname)) {

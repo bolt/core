@@ -105,8 +105,10 @@ class EditRecordController extends AbstractController
     private function updateFieldFromPost(string $key, $postfield, Content $content)
     {
         if (!$field = $content->getField($key)) {
-            $field = FieldFactory::get('text');
-            $fields[] = $field;
+            $fields = collect($content->getDefinition()->get('fields'));
+            $field = FieldFactory::get($fields->get($key)['type']);
+            $field->setName($key);
+            $content->addField($field);
         }
 
         $field->setValue((array) $postfield);
