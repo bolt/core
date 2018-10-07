@@ -1,0 +1,33 @@
+
+.ui.basic.table {
+    background-color: #FFF !important;
+
+    th {
+        background-color: #F8F8F8;
+    }
+    td {
+        padding: 0.7em 0.4em;
+    }
+}
+
+.ui.form input.large {
+    font-size: 140%;
+    padding: 11px 16px;
+}
+
+.ui.form input[readonly] {
+    background-color: #F5F5F5;
+    color: #999;
+}
+
+.ui.fileselector {
+    min-width: 500px !important;
+}
+
+.ui.button {
+    font-weight: normal;
+
+    &.small {
+        padding: 0.6rem 1rem;
+    }
+}
