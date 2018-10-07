@@ -6898,6 +6898,11 @@ workbox-cacheable-response@^3.6.2:
   dependencies:
     workbox-core "^3.6.2"
 
+workbox-core@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/workbox-core/-/workbox-core-3.6.1.tgz#925605589d0d64c4aa6417e3a9ef3211a09c8839"
+  integrity sha512-xrrPQ335Cdekihe1jhscXYm4mmhh7ZXqSlZqJhyVmp9lNp5xzz1t0R22AfoaVNsg0zdu6Ouqnn0RsQ53QkZ8tw==
+
 workbox-core@^3.6.2:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/workbox-core/-/workbox-core-3.6.2.tgz#4c79a15685970efc2e86dc31bf25900dd405a3e5"

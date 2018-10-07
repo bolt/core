@@ -1,0 +1,22 @@
+.clip-overflow {
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.5rem;
+}
+
+td.listing-thumb img {
+    // Get rid of extra space because of the baseline
+    display: block;
+    width: 6.25rem;
+    height: 4.5rem;
+}
+
+td.listing-meta {
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    color: #555;
+}

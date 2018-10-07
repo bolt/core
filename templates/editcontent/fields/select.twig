@@ -3,13 +3,18 @@
 {% block field %}
 
     {% set options = selectoptionsfromarray(field) %}
+    <div class="ui grid">
+        <div class="four wide column"><label>{{ label }}</label></div>
+        <div class="twelve wide column">
+            <select name="{{ name }}[]" class="{{ class }}" id="{{ id }}" {{ field.definition.get('multiple') ? 'multiple' : '' }}>
+                {% for option in options %}
+                    <option value="{{ option.key }}" {{ option.selected ? 'selected' : '' }}>{{ option.value }}</option>
+                {% endfor %}
+            </select>
 
-    <label>{{ label }}</label>
-    <select name="{{ name }}[]" class="{{ class }}" id="{{ id }}" {{ field.definition.get('multiple') ? 'multiple' : '' }}>
-        {% for option in options %}
-        <option value="{{ option.key }}" {{ option.selected ? 'selected' : '' }}>{{ option.value }}</option>
-        {% endfor %}
-    </select>
+        </div>
+
+</div>
 
 {% endblock %}
 
@@ -20,7 +25,8 @@
             $('#{{ id }}').selectize({
                 create: true,
                 sortField: 'text',
-                maxItems: {{ field.definition.get('multiple') ? 'null' : '1' }}
+                maxItems: {{ field.definition.get('multiple') ? 'null' : '1' }},
+                closeAfterSelect: false
             });
         });
     </script>

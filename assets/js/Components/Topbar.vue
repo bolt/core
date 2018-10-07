@@ -42,9 +42,18 @@
         font-size: 22px;
         color: #222;
         line-height: 52px;
+        max-height: 52px;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        margin-right: 1rem;
     }
     .ui.attached.menu:not(.tabular) {
         border: 0;
         padding: 0 1rem 0 3rem;
+        max-width: calc(100% - 4rem);
     }
 </style>
