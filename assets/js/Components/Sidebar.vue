@@ -46,7 +46,7 @@
           <div class="divider"></div>
           <a v-for="record in getRecordsPerContenttype(menuitem.contenttype)" :key="record.id" class="item" :href="'/bolt/edit/' + record.id">
             <i class="fas icon" :class="menuitem.icon_one"></i>
-            [b]{{ record.magictitle }}
+            {{ record.magictitle }}
           </a>
         </div>
 
