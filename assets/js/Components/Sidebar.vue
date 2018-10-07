@@ -132,9 +132,9 @@
 }
 
 .ui.inverted.menu .item {
-    color: #BBB !important;
+    color: #DDD !important;
     a {
-      color: #BBB !important;
+      color: #DDD !important;
     }
 }
 
