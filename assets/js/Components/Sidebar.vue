@@ -99,17 +99,17 @@
 
 .ui.small.vertical.menu .logo {
   color: #FFF;
-  background: #24455E;
+  background: $boltblue;
   text-align: center;
   font-size: 36px;
   margin: 0;
 }
 
 .ui.inverted.blue.menu {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .ui.inverted.blue.menu .active.item {
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: $primaryboltblue !important;
 }
 </style>
