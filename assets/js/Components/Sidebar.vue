@@ -1,37 +1,42 @@
 <template>
-  <div class="ui vertical inverted borderless small blue menu">
+  <div class="ui vertical inverted borderless small menu">
     <div class="header item logo">
       <h2>Bolt</h2>
     </div>
     <!-- TODO: Maybe we need to parse the data somewhere else -->
     <template v-for="menuitem in JSON.parse(sidebarmenudata)">
+
+      <!-- separators -->
       <hr v-if="menuitem.type"/>
-      <div v-if="menuitem.type" class="item">
-        <span class="fa-stack">
-          <i class="fas" :class="menuitem.icon"></i>
-        </span>
+      <div v-if="menuitem.type" class="item separator">
+          <i class="fas" :class="menuitem.icon_one"></i>
         {{ menuitem.name }}
       </div>
+
+      <!-- Non-contenttype links -->
       <a v-else-if="!menuitem.contenttype" :href="menuitem.link" class="item" :key="menuitem.id">
         <span v-if="!menuitem.type" class="fa-stack">
           <i class="fas fa-square fa-stack-2x"></i>
-          <i class="fas fa-stack-1x" :class="menuitem.icon"></i>
+          <i class="fas fa-stack-1x" :class="menuitem.icon_one"></i>
         </span>
         {{ menuitem.name }}
       </a>
-      <div v-else="" class="ui dropdown item left pointing floating" :key="menuitem.id">
+
+      <!-- Contenttypes -->
+      <div v-else="" class="ui dropdown item left pointing floating" :key="menuitem.id" :class="[ menuitem.active ? 'current' : '' ]">
         <i v-if="!menuitem.singleton" class="dropdown icon"></i>
         <a :href="menuitem.link">
         <span class="fa-stack">
           <i class="fas fa-square fa-stack-2x"></i>
-          <i class="fas fa-stack-1x" :class="menuitem.icon"></i>
+          <i class="fas fa-stack-1x" :class="menuitem.icon_many"></i>
         </span>
           {{ menuitem.name }}
         </a>
 
+        <!-- that are not Singleton -->
         <div v-if="!menuitem.singleton" class="menu">
           <a class="item" :href="'/bolt/content/' + menuitem.contenttype">
-            <i class="fas icon" :class="menuitem.icon"></i>
+            <i class="fas icon" :class="menuitem.icon_one"></i>
             View {{ menuitem.name }}
           </a>
           <a class="item" :href="'/bolt/edit/' + menuitem.contenttype">
@@ -40,8 +45,8 @@
           </a>
           <div class="divider"></div>
           <a v-for="record in getRecordsPerContenttype(menuitem.contenttype)" :key="record.id" class="item" :href="'/bolt/edit/' + record.id">
-            <i class="fas icon" :class="menuitem.icon"></i>
-            {{ record.magictitle }}
+            <i class="fas icon" :class="menuitem.icon_one"></i>
+            [b]{{ record.magictitle }}
           </a>
         </div>
 
@@ -91,25 +96,75 @@
     }
 </script>
 
-<style>
+<style lang="scss">
+@import '../../scss/settings';
+
 .ui.small.vertical.menu {
   border-radius: 0;
   width: auto;
+  font-size: 0.85rem;
+
+  hr {
+    border-top-width: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 0;
+  }
+
+  .item.separator {
+    padding: 1rem 1rem 0.5rem;
+    color: rgba(200, 200, 200, 0.5) !important;
+    .fas {
+      padding: 0 1.1rem 0 0.65rem;
+    }
+  }
 }
 
 .ui.small.vertical.menu .logo {
   color: #FFF;
-  background: $boltblue;
+  background: $sidebar-background;
   text-align: center;
   font-size: 36px;
   margin: 0;
 }
 
-.ui.inverted.blue.menu {
-    background-color: rgba(0, 0, 0, 0.1);
+.ui.inverted.menu {
+    background-color: $sidebar-background;
 }
 
-.ui.inverted.blue.menu .active.item {
-    background-color: $primaryboltblue !important;
+.ui.inverted.menu .item {
+    color: #BBB !important;
+    a {
+      color: #BBB !important;
+    }
 }
+
+.ui.inverted.menu .item.active,
+.ui.inverted.menu .item.current {
+    background-color: $sidebar-active !important;
+    color: #FFF !important;
+
+    > a {
+      color:#FFF !important;
+    }
+}
+
+.ui.inverted.menu .item {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+
+}
+
+#sidebar .menu.transition {
+  margin-left: -28px;
+}
+
+.fa-stack {
+    margin-right: 0.5rem;
+
+    i:last-child {
+        color: #444;
+    }
+}
+
+
 </style>

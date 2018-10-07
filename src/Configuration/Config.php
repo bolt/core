@@ -417,6 +417,16 @@ class Config
         if (!isset($contentType['viewless'])) {
             $contentType['viewless'] = false;
         }
+        if (!isset($contentType['icon_one'])) {
+            $contentType['icon_one'] = 'fa-file';
+        } else {
+            $contentType['icon_one'] = str_replace('fa:', 'fa-', $contentType['icon_one']);
+        }
+        if (!isset($contentType['icon_many'])) {
+            $contentType['icon_many'] = 'fa-copy';
+        } else {
+            $contentType['icon_many'] = str_replace('fa:', 'fa-', $contentType['icon_many']);
+        }
 
         // Allow explicit setting of a Contenttype's table name suffix. We default
         // to slug if not present as it has been this way since Bolt v1.2.1

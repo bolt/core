@@ -25,7 +25,7 @@ class MenuBuilder
         $menu = [
             [
                 'name' => 'Dashboard',
-                'icon' => 'fa-tachometer-alt',
+                'icon_one' => 'fa-tachometer-alt',
                 'link' => '/bolt/',
             ],
         ];
@@ -33,43 +33,45 @@ class MenuBuilder
         $menu[] = [
             'name' => 'Content',
             'type' => 'separator',
-            'icon' => 'fa-file',
+            'icon_one' => 'fa-file',
         ];
 
         foreach ($this->config->get('contenttypes') as $contenttype) {
             $menu[] = [
                 'name' => $contenttype['name'],
-                'icon' => 'fa-leaf',
+                'icon_one' => $contenttype['icon_one'],
+                'icon_many' => $contenttype['icon_many'],
                 'link' => '/bolt/content/' . $contenttype['slug'],
                 'contenttype' => $contenttype['slug'],
                 'singleton' => $contenttype['singleton'],
+                'active' => $contenttype['slug'] == 'pages' ? true : false,
             ];
         }
 
         $menu[] = [
             'name' => 'Settings',
             'type' => 'separator',
-            'icon' => 'fa-wrench',
+            'icon_one' => 'fa-wrench',
         ];
 
         $menu[] = [
             'name' => 'Configuration',
-            'icon' => 'fa-flag',
+            'icon_one' => 'fa-flag',
             'link' => '/bolt/finder/config',
         ];
         $menu[] = [
             'name' => 'Content Files',
-            'icon' => 'fa-flag',
+            'icon_one' => 'fa-flag',
             'link' => '/bolt/finder/files',
         ];
         $menu[] = [
             'name' => 'Theme Files',
-            'icon' => 'fa-flag',
+            'icon_one' => 'fa-flag',
             'link' => '/bolt/finder/themes',
         ];
         $menu[] = [
                 'name' => 'Users',
-                'icon' => 'fa-users',
+                'icon_one' => 'fa-users',
                 'link' => '/bolt/users',
         ];
 
