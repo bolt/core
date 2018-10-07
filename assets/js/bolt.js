@@ -36,12 +36,12 @@ import 'semantic-ui-calendar/dist/calendar.css';
 import 'semantic-ui-calendar/dist/calendar';
 
 $(document).ready(function() {
+    $('.ui.dropdown').dropdown({
+    });
+
     $('#sidebar .ui.dropdown').dropdown({
         on: 'hover',
         transition: 'slide right',
-    });
-
-    $('.ui.dropdown').dropdown({
     });
 
     $('.ui.dropdown.fileselector').dropdown({

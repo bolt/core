@@ -1,4 +1,4 @@
-{% extends '_base/layout.twig' %}
+{% extends '@bolt/_base/layout.twig' %}
 
 {% block title %}
     Finder » <strong>{{ name }}</strong>
@@ -8,11 +8,11 @@
 
     <h2>Path: {{ area }}{{ path }}</h2>
 
-    {% include 'finder/_quickselect.twig' %}
+    {% include '@bolt/finder/_quickselect.twig' %}
 
-    {% include 'finder/_folders.twig' %}
+    {% include '@bolt/finder/_folders.twig' %}
 
-    {% include 'finder/_files.twig' %}
+    {% include '@bolt/finder/_files.twig' %}
 
 {% endblock %}
 

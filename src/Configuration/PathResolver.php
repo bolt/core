@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration;
 
-use Symfony\Component\Validator\Constraints\Collection;
+use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
 /**

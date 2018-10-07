@@ -1,8 +1,6 @@
-{% extends 'editcontent/fields/_base.twig' %}
+{% extends '@bolt/editcontent/fields/_base.twig' %}
 
 {% block field %}
-    <label>{{ field.definition.label|default(field.name) }}</label>
-    <textarea name="{{ name }}" class="{{ class }}">
-{{ field }}
-    </textarea>
+    <label>{{ label }}</label>
+    <textarea name="{{ name }}" class="{{ class }}">{{ value }}</textarea>
 {% endblock %}

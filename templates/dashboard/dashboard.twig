@@ -1,4 +1,4 @@
-{% extends '_base/layout.twig' %}
+{% extends '@bolt/_base/layout.twig' %}
 
 {% block container "vuecontent" %}
 
@@ -6,13 +6,13 @@
 
 {% block main %}
 
-    {% include '_partials/_content_listing.twig' with {'records': records } %}
+    {% include '@bolt/_partials/_content_listing.twig' with {'records': records } %}
 
 {% endblock %}
 
 {% block aside %}
 
-        {% include '_partials/_widget_weather.twig' %}
+        {% include '@bolt/_partials/_widget_weather.twig' %}
 
         <DashboardNews></DashboardNews>
 {% endblock %}

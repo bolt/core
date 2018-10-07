@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.min.css" integrity="sha256-EhmqrzYSImS7269rfDxk4H+AHDyu/KwV1d8FDgIXScI=" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bolt.css') }}">
     {% endblock %}
 </head>
@@ -27,7 +28,7 @@
 
     <div id="{% block container %}content{% endblock %}">
 
-        {{ include('_partials/_flash_messages.html.twig') }}
+        {{ include('_partials/_flash_messages.twig') }}
 
         {% block main %}
         {% endblock %}
@@ -47,6 +48,7 @@
 {% block javascripts %}
     <script src="{{ asset('assets/bolt.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/selectize.min.js" integrity="sha256-zwkv+PhVN/CSaFNLrcQ/1vQd3vviSPiOEDvu2GxYxQc=" crossorigin="anonymous"></script>
 
 {% endblock %}
 </body>

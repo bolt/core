@@ -1,4 +1,4 @@
-{% extends '_base/layout.twig' %}
+{% extends '@bolt/_base/layout.twig' %}
 
 {% block title %}
     Edit » <strong>{{ media.title|default('New')|excerpt(30) }}</strong>
@@ -10,8 +10,32 @@
 
     <div class="imageholder">
         {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, area = media.area, path = media.path) %}
-        <img src="{{ thumbnail }}">
+        <img id="main_image" src="{{ thumbnail }}">
     </div>
+
+    <script>
+        var img = document.createElement('img');
+        img.setAttribute('src', '{{ thumbnail|raw }}');
+
+        img.addEventListener('load', function() {
+            var vibrant = new Vibrant(img);
+            var swatches = vibrant.swatches();
+            for (var swatch in swatches) {
+                if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+                    var elem = document.createElement('li');
+                    var label = document.createElement('div');
+                    var labelNode = document.createTextNode(swatches[swatch].getHex());
+                    var referenceNode = document.getElementById('swatcheslist');
+                    label.className = "ui horizontal label";
+                    label.setAttribute('style', 'background-color: ' + swatches[swatch].getHex());
+                    elem.appendChild(label).appendChild(labelNode);
+                    elem.appendChild(document.createTextNode(swatch));
+                    referenceNode.append(elem);
+                }
+            }
+        });
+
+    </script>
 
     <br>
 
@@ -19,25 +43,25 @@
 <form method="post" class="ui form" id="media_edit">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('media_edit') }}">
 
-    {% include 'editcontent/fields/text.twig' with {
+    {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.title'|trans,
         'name': 'title',
         'value': media.title
     }  %}
 
-    {% include 'editcontent/fields/textarea.twig' with {
+    {% include '@bolt/editcontent/fields/textarea.twig' with {
         'label': 'field.description'|trans,
         'name': 'description',
         'value': media.description
     }  %}
 
-    {% include 'editcontent/fields/text.twig' with {
+    {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.copyright'|trans,
         'name': 'copyright',
         'value': media.copyright
     }  %}
 
-    {% include 'editcontent/fields/text.twig' with {
+    {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.originalFilename'|trans,
         'name': 'originalFilename',
         'value': media.originalFilename
@@ -66,28 +90,32 @@
 
             <input type="submit" class="ui button primary" value="Save" form="editcontent">
 
-            {% include 'editcontent/fields/text.twig' with {
+            <ul class="ui divided selection list" id="swatcheslist">
+            </ul>
+
+
+            {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.id'|trans,
                 'name': 'id',
                 'value': media.id,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-            {% include 'editcontent/fields/text.twig' with {
+            {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.width'|trans,
                 'name': 'width',
                 'value': media.width,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-            {% include 'editcontent/fields/text.twig' with {
+            {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.height'|trans,
                 'name': 'height',
                 'value': media.height,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-            {% include 'editcontent/fields/text.twig' with {
+            {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.filesize'|trans,
                 'name': 'filesize',
                 'value': media.filesize,
@@ -99,14 +127,14 @@
 
 
 
-    {% include 'editcontent/fields/datetime.twig' with {
+    {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.createdAt'|trans,
         'name': 'createdAt',
         'value': media.createdAt,
         'attributes': 'readonly form="editcontent"',
     } %}
 
-    {% include 'editcontent/fields/datetime.twig' with {
+    {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.modifiedAt'|trans,
         'name': 'modifiedAt',
         'value': media.modifiedAt,
@@ -120,3 +148,9 @@
 
 
 {% endblock aside %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js"></script>
+
+{% endblock javascripts %}

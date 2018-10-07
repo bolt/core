@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
+use Bolt\Content\ContentTypeFactory;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
@@ -13,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Tightenco\Collect\Support\Collection;
 
 class FrontendController extends AbstractController
 {
@@ -31,17 +33,28 @@ class FrontendController extends AbstractController
     /**
      * @Route("/", methods={"GET"}, name="homepage")
      */
-    public function homepage()
+    public function homepage(): Response
     {
         $homepage = $this->getOption('theme/homepage') ?: $this->getOption('general/homepage');
 
-        $template = $this->templateChooser->homepage('');
+        // todo get $homepage content.
 
-        return $this->render(current($template), []);
+        $templates = $this->templateChooser->homepage();
+
+        return $this->renderTemplate($templates, []);
     }
 
     /**
      * @Route("/content", methods={"GET"}, name="listing")
+     *
+     * @param ContentRepository $content
+     * @param Request           $request
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     *
+     * @return Response
      */
     public function contentListing(ContentRepository $content, Request $request): Response
     {
@@ -50,7 +63,11 @@ class FrontendController extends AbstractController
         /** @var Content $records */
         $records = $content->findLatest($page);
 
-        return $this->render('listing.twig', ['records' => $records]);
+        $contenttype = ContentTypeFactory::get('pages', $this->config->get('contenttypes'));
+
+        $templates = $this->templateChooser->listing($contenttype);
+
+        return $this->renderTemplate($templates, ['records' => $records]);
     }
 
     /**
@@ -62,6 +79,10 @@ class FrontendController extends AbstractController
      * @param null              $id
      * @param null              $slug
      *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     *
      * @return Response
      */
     public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $id = null, $slug = null): Response
@@ -71,7 +92,6 @@ class FrontendController extends AbstractController
         } elseif ($slug) {
             $field = $fieldRepository->findOneBySlug($slug);
             $record = $field->getContent();
-//            $record = $contentRepository->findOneBySlug($slug);
         }
 
         $recordSlug = $record->getDefinition()['singular_slug'];
@@ -81,7 +101,9 @@ class FrontendController extends AbstractController
             $recordSlug => $record,
         ];
 
-        return $this->render('record.twig', $context);
+        $templates = $this->templateChooser->record($record);
+
+        return $this->renderTemplate($templates, $context);
     }
 
     /**
@@ -94,8 +116,6 @@ class FrontendController extends AbstractController
      */
     protected function getOption($path, $default = null)
     {
-        dump($this->config->get($path, $default));
-
         return $this->config->get($path, $default);
     }
 
@@ -104,7 +124,7 @@ class FrontendController extends AbstractController
      *
      * @final
      *
-     * @param string|array  $view
+     * @param Collection    $templates
      * @param array         $parameters
      * @param Response|null $response
      *
@@ -114,25 +134,15 @@ class FrontendController extends AbstractController
      *
      * @return Response
      */
-    protected function render(string $view, array $parameters = [], Response $response = null): Response
+    protected function renderTemplate(Collection $templates, array $parameters = [], Response $response = null): Response
     {
-        $themepath = sprintf(
-            '%s/%s',
-            $this->config->getPath('themes'),
-            $this->config->get('general/theme')
-        );
-
         /** @var \Twig_Environment $twig */
         $twig = $this->container->get('twig');
-
-        $loader = $twig->getLoader();
-        $loader->addPath($themepath);
-        $twig->setLoader($loader);
 
         $parameters['config'] = $this->config;
 
         // Resolve string|array of templates into the first one that is found.
-        $template = $twig->resolveTemplate($view);
+        $template = $twig->resolveTemplate($templates->toArray());
 
         $content = $twig->render($template, $parameters);
 

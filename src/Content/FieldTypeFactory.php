@@ -14,11 +14,26 @@ final class FieldTypeFactory
      * @param string      $name
      * @param ContentType $contentType
      *
-     * @return FieldType
+     * @return FieldType|null
      */
-    public static function get(string $name, ContentType $contentType)
+    public static function get(string $name, ContentType $contentType): ?FieldType
     {
-        $field = new FieldType($contentType['fields'][$name]);
+        if (isset($contentType['fields'][$name])) {
+            $field = new FieldType($contentType['fields'][$name]);
+        } else {
+            $field = new FieldType([]);
+        }
+
+        return $field;
+    }
+
+    public static function mock(array $definition, string $name = null): ?FieldType
+    {
+        if ($name) {
+            $definition['name'] = $name;
+        }
+
+        $field = new FieldType($definition);
 
         return $field;
     }

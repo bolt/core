@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt;
 
+use Bolt\Configuration\Config;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -42,6 +43,12 @@ class Kernel extends BaseKernel
         $container->addResource(new FileResource($this->getProjectDir() . '/config/bundles.php'));
         $container->setParameter('container.dumper.inline_class_loader', true);
         $confDir = $this->getProjectDir() . '/config';
+
+        $config = new Config();
+        foreach ($config->getParameters() as $key => $value) {
+            $container->setParameter('bolt.' . $key, $value);
+        }
+        $container->set('config', $config);
 
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{packages}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, 'glob');

@@ -1,0 +1,29 @@
+{% extends '@bolt/editcontent/fields/_base.twig' %}
+
+{% block field %}
+
+    {% set options = selectoptionsfromarray(field) %}
+
+    <label>{{ label }}</label>
+    <select name="{{ name }}" class="{{ class }}" id="{{ name }}">
+        {% for option in options %}
+        <option value="{{ option.key }}" {{ option.selected ? 'selected' : '' }}>{{ option.value }}</option>
+        {% endfor %}
+    </select>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        $('#{{ name }}').selectize({
+            create: true,
+            sortField: 'text'
+        });
+    });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}

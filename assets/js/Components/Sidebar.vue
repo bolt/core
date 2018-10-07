@@ -19,7 +19,7 @@
         </span>
         {{ menuitem.name }}
       </a>
-      <div v-else="" class="ui dropdown item" :key="menuitem.id">
+      <div v-else="" class="ui dropdown item left pointing floating" :key="menuitem.id">
         <i v-if="!menuitem.singleton" class="dropdown icon"></i>
         <a :href="menuitem.link">
         <span class="fa-stack">
@@ -28,6 +28,7 @@
         </span>
           {{ menuitem.name }}
         </a>
+
         <div v-if="!menuitem.singleton" class="menu">
           <a class="item" :href="'/bolt/content/' + menuitem.contenttype">
             <i class="fas icon" :class="menuitem.icon"></i>
@@ -43,6 +44,7 @@
             {{ record.magictitle }}
           </a>
         </div>
+
       </div>
     </template>
   </div>

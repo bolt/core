@@ -47,11 +47,13 @@ class EditRecordController extends AbstractController
     /**
      * @Route("/edit/{id}", name="bolt_edit_record", methods={"GET"})
      */
-    public function edit(Content $content = null, Request $request): Response
+    public function edit(string $id = '', Content $content = null, Request $request): Response
     {
         if (!$content) {
             $content = new Content();
             $content->setAuthor($this->getUser());
+            $content->setContentType($id);
+            $content->setConfig($this->config);
         }
 
         return $this->render('editcontent/edit.twig', [
@@ -89,6 +91,8 @@ class EditRecordController extends AbstractController
         if (!$content) {
             $content = new Content();
             $content->setAuthor($this->getUser());
+            $content->setContentType($request->attributes->get('id'));
+            $content->setConfig($this->config);
         }
 
         $content->setStatus($post['status']);
@@ -105,8 +109,10 @@ class EditRecordController extends AbstractController
     private function updateFieldFromPost(string $key, $postfield, Content $content)
     {
         if (!$field = $content->getField($key)) {
-            $field = FieldFactory::get('text');
-            $fields[] = $field;
+            $fields = collect($content->getDefinition()->get('fields'));
+            $field = FieldFactory::get($fields->get($key)['type']);
+            $field->setName($key);
+            $content->addField($field);
         }
 
         $field->setValue((array) $postfield);

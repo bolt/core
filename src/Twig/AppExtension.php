@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
 use Bolt\Helpers\Excerpt;
 use Bolt\Utils\Markdown;
@@ -19,11 +20,10 @@ class AppExtension extends AbstractExtension
     private $locales;
     private $menuBuilder;
 
-    public function __construct(Markdown $parser, string $locales, MenuBuilder $menuBuilder)
+    public function __construct(Markdown $parser, string $locales)
     {
         $this->parser = $parser;
         $this->localeCodes = explode('|', $locales);
-        $this->menuBuilder = $menuBuilder;
     }
 
     /**
@@ -38,6 +38,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('localedatetime', [$this, 'dummy']),
             new TwigFilter('showimage', [$this, 'dummy']),
             new TwigFilter('excerpt', [$this, 'excerpt']),
+            new TwigFilter('ucwords', [$this, 'ucwords']),
         ];
     }
 
@@ -54,13 +55,21 @@ class AppExtension extends AbstractExtension
             new TwigFunction('widgets', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('htmllang', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('popup', [$this, 'dummy'], ['is_safe' => ['html']]),
-            new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
         ];
     }
 
     public function dummy($input = null)
     {
         return $input;
+    }
+
+    public function ucwords($content, string $delimiters = ''): string
+    {
+        if (!$content) {
+            return '';
+        }
+
+        return ucwords($content, $delimiters);
     }
 
     /**
@@ -88,13 +97,6 @@ class AppExtension extends AbstractExtension
         }
 
         return $this->locales;
-    }
-
-    public function sidebarmenu()
-    {
-        $menu = $this->menuBuilder->get();
-
-        return $menu;
     }
 
     public function excerpt($text, $length = 100)
