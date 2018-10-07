@@ -44,3 +44,13 @@ label {
 .ui.form .field .ui.grid {
     margin-top: 0;
 }
+
+.ui.grid > [class*="twelve wide"].column {
+    min-width: 250px;
+}
+
+aside {
+    .column {
+        padding: 0 1rem 0.5rem !important;
+    }
+}

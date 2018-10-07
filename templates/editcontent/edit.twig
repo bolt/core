@@ -51,11 +51,11 @@
         'attributes': 'readonly form="editcontent"',
     }  %}
 
-
-    {% include '@bolt/editcontent/fields/text.twig' with {
+    {% include '@bolt/editcontent/fields/select.twig' with {
         'label': 'field.status'|trans,
         'name': 'status',
         'value': record.status,
+        'options': record.statusoptions,
         'attributes': 'form="editcontent"',
     }  %}
 

@@ -1,21 +1,26 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
-{% block field %}
-
+{% if options is not defined %}
     {% set options = selectoptionsfromarray(field) %}
+{% endif %}
+
+{% if field.definition is defined %}
+    {% set multiple = field.definition.get('multiple')  %}
+{% else %}
+    {% set multiple = false %}
+{% endif %}
+
+{% block field %}
     <div class="ui grid">
         <div class="four wide column"><label>{{ label }}</label></div>
         <div class="twelve wide column">
-            <select name="{{ name }}[]" class="{{ class }}" id="{{ id }}" {{ field.definition.get('multiple') ? 'multiple' : '' }}>
+            <select name="{{ name }}[]" class="{{ class }}" id="{{ id }}" {{ multiple ? 'multiple' : '' }}>
                 {% for option in options %}
                     <option value="{{ option.key }}" {{ option.selected ? 'selected' : '' }}>{{ option.value }}</option>
                 {% endfor %}
             </select>
-
         </div>
-
 </div>
-
 {% endblock %}
 
 {% block javascripts %}
@@ -25,7 +30,7 @@
             $('#{{ id }}').selectize({
                 create: true,
                 sortField: 'text',
-                maxItems: {{ field.definition.get('multiple') ? 'null' : '1' }},
+                maxItems: {{ multiple ? 'null' : '1' }},
                 closeAfterSelect: false
             });
         });

@@ -28,6 +28,8 @@ class Content
 
     public const NUM_ITEMS = 8;
 
+    public const STATUSES = ['published', 'depublished', 'timed', 'draft'];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -272,4 +274,28 @@ class Content
 
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function getStatuses(): array
+    {
+        return self::STATUSES;
+    }
+
+    public function getStatusOptions()
+    {
+        $options = [];
+
+        foreach(self::STATUSES as $option) {
+            $options[] = [
+                'key' => $option,
+                'value' => ucwords($option),
+                'selected' => $option === $this->getStatus(),
+            ];
+        }
+
+        return $options;
+    }
+
 }
