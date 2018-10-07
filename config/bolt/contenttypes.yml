@@ -273,7 +273,7 @@ blocks:
         multiselect:
             type: select
             values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
-            multiple: true
+            multiple: false
             postfix: "Select your favourite turtle(s)."
 
         multiselect2:

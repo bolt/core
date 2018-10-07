@@ -5,7 +5,7 @@
     {% set options = selectoptionsfromarray(field) %}
 
     <label>{{ label }}</label>
-    <select name="{{ name }}" class="{{ class }}" id="{{ name }}">
+    <select name="{{ name }}[]" class="{{ class }}" id="{{ id }}" {{ field.definition.get('multiple') ? 'multiple' : '' }}>
         {% for option in options %}
         <option value="{{ option.key }}" {{ option.selected ? 'selected' : '' }}>{{ option.value }}</option>
         {% endfor %}
@@ -16,12 +16,13 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        $('#{{ name }}').selectize({
-            create: true,
-            sortField: 'text'
+        document.addEventListener("DOMContentLoaded", function() {
+            $('#{{ id }}').selectize({
+                create: true,
+                sortField: 'text',
+                maxItems: {{ field.definition.get('multiple') ? 'null' : '1' }}
+            });
         });
-    });
     </script>
 {% endblock %}
 

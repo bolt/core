@@ -13,7 +13,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "codemirror": "^5.40.2",
-    "selectize": "^0.12.6",
     "semantic-ui-calendar": "^0.0.8",
     "simplemde": "^1.11.2",
     "vue": "^2.5.17"

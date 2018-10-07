@@ -18,6 +18,11 @@
     {% set class = field.definition.class|default() %}
 {% endif %}
 
+{% if not id|default() %}
+    {% set id = 'field-' ~ field.name|default('name') %}
+{% endif %}
+
+
 <div class="field">
 {% block field %}
 
