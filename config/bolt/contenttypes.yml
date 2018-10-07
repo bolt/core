@@ -261,18 +261,41 @@ blocks:
         slug:
             type: slug
             uses: [ title ]
-        content:
-            type: html
-            height: 150px
-        contentlink:
-            type: text
-            label: Link
-            placeholder: 'contenttype/slug or http://example.org/'
-            postfix: "Use this to add a link for this Block. This could either be an 'internal' link like <tt>page/about</tt>, if you use a contenttype/slug combination. Otherwise use a proper URL, like `http://example.org`."
-        image:
-            type: image
-            attrib: title
-            extensions: [ gif, jpg, png ]
+        selectfield:
+            type: select
+            values: [ foo, bar, baz ]
+        selectfieldd:
+            type: select
+            values:
+                foo: "Fooo"
+                bar: Bario
+                baz: Bazz
+        multiselect:
+            type: select
+            values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
+            multiple: true
+            postfix: "Select your favourite turtle(s)."
+
+        multiselect2:
+            type: select
+            values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
+            multiple: true
+            required: true
+            postfix: "Select your favourite turtle(s)."
+
+
+#        content:
+#            type: html
+#            height: 150px
+#        contentlink:
+#            type: text
+#            label: Link
+#            placeholder: 'contenttype/slug or http://example.org/'
+#            postfix: "Use this to add a link for this Block. This could either be an 'internal' link like <tt>page/about</tt>, if you use a contenttype/slug combination. Otherwise use a proper URL, like `http://example.org`."
+#        image:
+#            type: image
+#            attrib: title
+#            extensions: [ gif, jpg, png ]
     show_on_dashboard: true
     viewless: true
     default_status: published

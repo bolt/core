@@ -20,11 +20,10 @@ class AppExtension extends AbstractExtension
     private $locales;
     private $menuBuilder;
 
-    public function __construct(Markdown $parser, string $locales, MenuBuilder $menuBuilder)
+    public function __construct(Markdown $parser, string $locales)
     {
         $this->parser = $parser;
         $this->localeCodes = explode('|', $locales);
-        $this->menuBuilder = $menuBuilder;
     }
 
     /**
@@ -56,8 +55,6 @@ class AppExtension extends AbstractExtension
             new TwigFunction('widgets', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('htmllang', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('popup', [$this, 'dummy'], ['is_safe' => ['html']]),
-            new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
-            new TwigFunction('fieldfactory', [$this, 'fieldfactory']),
         ];
     }
 
@@ -102,26 +99,10 @@ class AppExtension extends AbstractExtension
         return $this->locales;
     }
 
-    public function sidebarmenu()
-    {
-        $menu = $this->menuBuilder->get();
-
-        return $menu;
-    }
-
     public function excerpt($text, $length = 100)
     {
         $excerpter = new Excerpt($text);
 
         return $excerpter->getExcerpt((int) $length);
-    }
-
-    public function fieldfactory($definition, $name = null)
-    {
-        $field = FieldFactory::get($definition['type']);
-        $field->setName($name);
-        $field->setDefinition($definition, $name);
-
-        return $field;
     }
 }
