@@ -6,8 +6,7 @@
 #
 # If you're trying out Bolt, just keep it set to SQLite for now.
 database:
-    driver: sqlite
-    databasename: bolt
+    url: '%env(DATABASE_URL)%'
 
 # The name of the website
 sitename: A sample site in CONFIG
