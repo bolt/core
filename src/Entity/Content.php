@@ -287,7 +287,7 @@ class Content
     {
         $options = [];
 
-        foreach(self::STATUSES as $option) {
+        foreach (self::STATUSES as $option) {
             $options[] = [
                 'key' => $option,
                 'value' => ucwords($option),
@@ -297,5 +297,4 @@ class Content
 
         return $options;
     }
-
 }

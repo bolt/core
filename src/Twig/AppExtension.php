@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Content\FieldFactory;
-use Bolt\Content\MenuBuilder;
 use Bolt\Helpers\Excerpt;
 use Bolt\Utils\Markdown;
 use Symfony\Component\Intl\Intl;

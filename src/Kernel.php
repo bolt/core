@@ -45,7 +45,7 @@ class Kernel extends BaseKernel
         $container->setParameter('container.dumper.inline_class_loader', true);
         $confDir = $this->getProjectDir() . '/config';
 
-        $fileLocator = new FileLocator([ $confDir . '/bolt' ]);
+        $fileLocator = new FileLocator([$confDir . '/bolt']);
         $fileName = $fileLocator->locate('config.yaml', null, true);
 
         $yaml = Yaml::parseFile($fileName);
@@ -84,7 +84,7 @@ class Kernel extends BaseKernel
         foreach ($array as $key => $value) {
             if (is_int($key)) {
                 $result[trim($prefix, '.')][] = $value;
-            } elseif(is_array($value)) {
+            } elseif (is_array($value)) {
                 $result = $result + $this->flattenKeys($value, $prefix . $key . '.');
             } else {
                 $result[$prefix . $key] = $value;

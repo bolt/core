@@ -44,7 +44,7 @@ class MenuBuilder
                 'link' => '/bolt/content/' . $contenttype['slug'],
                 'contenttype' => $contenttype['slug'],
                 'singleton' => $contenttype['singleton'],
-                'active' => $contenttype['slug'] == 'pages' ? true : false,
+                'active' => $contenttype['slug'] === 'pages' ? true : false,
             ];
         }
 

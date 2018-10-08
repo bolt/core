@@ -6465,12 +6465,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-profiler-bundle.git",
-                "reference": "d86066c8bda6f7f81acc56f4fdf8d4c74ba78133"
+                "reference": "927cf92a5c6b04a49a3c7d5d4d839b470c5b3565"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/d86066c8bda6f7f81acc56f4fdf8d4c74ba78133",
-                "reference": "d86066c8bda6f7f81acc56f4fdf8d4c74ba78133",
+                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/927cf92a5c6b04a49a3c7d5d4d839b470c5b3565",
+                "reference": "927cf92a5c6b04a49a3c7d5d4d839b470c5b3565",
                 "shasum": ""
             },
             "require": {
@@ -6522,7 +6522,7 @@
             ],
             "description": "Symfony WebProfilerBundle",
             "homepage": "https://symfony.com",
-            "time": "2018-09-24T08:00:32+00:00"
+            "time": "2018-10-08T08:32:04+00:00"
         },
         {
             "name": "symfony/yaml",

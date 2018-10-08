@@ -47,7 +47,7 @@ class EditRecordController extends AbstractController
     /**
      * @Route("/edit/{id}", name="bolt_edit_record", methods={"GET"})
      */
-    public function edit(string $id = '', Content $content = null, Request $request): Response
+    public function edit(string $id, Content $content = null, Request $request): Response
     {
         if (!$content) {
             $content = new Content();

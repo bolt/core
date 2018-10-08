@@ -1,18 +1,13 @@
 <?php
-/**
- *
- *
- * @author Bob den Otter <bobdenotter@gmail.com>
- */
+
+declare(strict_types=1);
 
 namespace Bolt\Twig;
-
 
 use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Field;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class ContentHelperExtension extends AbstractExtension
@@ -42,10 +37,9 @@ class ContentHelperExtension extends AbstractExtension
         return [
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
             new TwigFunction('fieldfactory', [$this, 'fieldfactory']),
-            new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray'])
+            new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
         ];
     }
-
 
     public function sidebarmenu()
     {
@@ -82,11 +76,10 @@ class ContentHelperExtension extends AbstractExtension
             $options[] = [
                 'key' => $key,
                 'value' => $value,
-                'selected' => in_array($key, $currentValues),
+                'selected' => in_array($key, $currentValues, true),
             ];
         }
 
         return $options;
-
     }
 }
