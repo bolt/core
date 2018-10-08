@@ -28,7 +28,7 @@ class Content
 
     public const NUM_ITEMS = 8;
 
-    public const STATUSES = ['published', 'depublished', 'timed', 'draft'];
+    public const STATUSES = ['published', 'held', 'timed', 'draft'];
 
     /**
      * @ORM\Id()

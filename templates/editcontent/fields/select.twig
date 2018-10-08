@@ -14,7 +14,7 @@
     <div class="ui grid">
         <div class="four wide column"><label>{{ label }}</label></div>
         <div class="twelve wide column">
-            <select name="{{ name }}[]" class="{{ class }}" id="{{ id }}" {{ multiple ? 'multiple' : '' }}>
+            <select name="{{ name }}[]" class="{{ class }}" id="{{ id }}" {{ multiple ? 'multiple' : '' }} {{ attributes|default()|raw }}>
                 {% for option in options %}
                     <option value="{{ option.key }}" {{ option.selected ? 'selected' : '' }}>{{ option.value }}</option>
                 {% endfor %}

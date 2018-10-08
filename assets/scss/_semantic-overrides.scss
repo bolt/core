@@ -26,18 +26,40 @@
 
 .ui.button {
     font-weight: normal;
+    font-size: 0.9rem;
+    color: #555;
+
+    a {
+        color: #555;
+    }
 
     &.small {
-        padding: 0.6rem 1rem;
+        padding: 0.6rem 0.8rem;
+    }
+
+    &.has-dropdown {
+        padding-right: 0.4rem;
+    }
+
+    &.small + &.dropdown {
+        padding-left: 0.4rem;
     }
 }
 
+.ui.dropdown .menu > .item {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem !important;
+
+}
+
 .ui.form .field > label {
-    font-weight: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #444;
 }
 
 label {
-    font-weight: normal;
+    font-weight: 500;
     line-height: 2rem;
 }
 

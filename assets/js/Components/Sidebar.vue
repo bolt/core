@@ -102,7 +102,8 @@
 .ui.small.vertical.menu {
   border-radius: 0;
   width: auto;
-  font-size: 0.85rem;
+  font-size: 1rem;
+
 
   hr {
     border-top-width: 0;
@@ -156,6 +157,11 @@
 
 #sidebar .menu.transition {
   margin-left: -28px;
+  font-size: 0.9rem;
+
+  a {
+    padding: 0.5rem 1rem !important;
+  }
 }
 
 .fa-stack {

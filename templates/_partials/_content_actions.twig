@@ -1,0 +1,115 @@
+{% import '@bolt/_macro/_macro.twig' as macro %}
+
+{% set modifiable = true %}
+{% set permissions = { 'publish': true, 'depublish': true, 'create': true, 'delete': true } %}
+
+
+<div class="ui buttons small">
+    <div class="ui button small has-dropdown">
+        <a href="{{ path('bolt_edit_record', {'id': record.id}) }}">
+            <i class="fas fa-edit"></i> {{ __('edit') }}
+        </a>
+    </div>
+    <div class="ui floating pointing dropdown icon button small">
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            {% if record.status == "published" and record.link is not empty %}
+                <div class="item">
+                    <a href="{{ record.link }}" target="_blank">
+                        <i class="fas fa-external-link-square-alt"></i> {{ __('general.view-on-site') }}
+                    </a>
+                </div>
+            {% endif %}
+
+            {% if modifiable %}
+                {% if record.status != 'published' %}
+                    {% if permissions.publish %}
+                        <div class="item">{{ macro.actionform(record, 'publish', 'fa-circle status-published', __('contenttypes.generic.publish',{'%contenttype%':record.definition.singular_name})) }}</div>
+                    {% endif %}
+                {% else %}
+                    {% if permissions.depublish %}
+                        <div class="item">{{ macro.actionform(record, 'held', 'fa-circle status-held', __('general.status-change-held')) }}</div>
+                        <div class="item">{{ macro.actionform(record, 'draft', 'fa-circle status-draft', __('general.status-change-draft')) }}</div>
+
+                    {% endif %}
+                {% endif %}
+                {% if permissions.create %}
+                    <div class="item">
+                        <a href="{{ path('bolt_edit_record', {'id': record.id, 'duplicate': 1}) }}">
+                            <i class="fas fa-copy"></i> {{ __('contenttypes.generic.duplicate', {'%contenttype%': record.definition.singular_name}) }}
+                        </a>
+                    </div>
+                {% endif %}
+                {% if permissions.delete %}
+                    <div class="item">
+                        {{ macro.actionform(record, 'delete',
+                        'fa-trash',
+                        __('contenttypes.generic.delete', {'%contenttype%': record.definition.singular_name}),
+                        "Are you sure you want to delete '" ~ record.title ~ "'?" ) }}
+                    </div>
+                {% endif %}
+                <div class="divider"></div>
+            {% endif %}
+            <div class="item">
+                <a class="nolink">
+                    {{ __('general.author') }}:  <strong><i class="fas fa-user"></i>
+                        {% set owner = record.author %}
+                        {% if owner %}
+                        {{ owner[:15] }}
+                        {% else %}
+                        <s>user {{ record.ownerid }}</s>
+                         {% endif %}
+                    </strong>
+                </a>
+            </div>
+            <div class="item">
+                <a class="nolink">{{ __('general.status-current') }}:
+                    <strong> {{ record.status }}</strong></a>
+            </div>
+            <div class="item">
+                <a class="nolink">{{ __('general.slug') }}:
+                    <code title="{{ record.slug }}">{{ record.slug|excerpt(24) }}</code>
+                </a>
+            </div>
+            <div class="item">
+                <a class="nolink">{{ __('general.created-on') }}:
+                    <i class="fas fa-asterisk"></i> {{ record.datecreated|date("Y-m-d H:i") }}
+                </a>
+            </div>
+            <div class="item">
+                <a class="nolink">{{ __('general.published-on') }}:
+                    <i class="fas fa-calendar"></i> {{ record.datepublish|date("Y-m-d H:i") }}
+                </a>
+            </div>
+            <div class="item">
+                <a class="nolink">{{ __('general.last-edited-on') }}:
+                    <i class="fas fa-sync-alt"></i> {{ record.datechanged|date("Y-m-d H:i") }}
+                </a>
+            </div>
+
+            {% set taxonomytypes = record.taxonomy.grouped|default %}
+            {% for type, taxonomies in taxonomytypes %}
+                {% if taxonomies|length > 1 %}
+                    {% set taxlist = [] %}
+                    {% for taxonomy in taxonomies %}
+                        {% set taxlist = taxlist|merge([taxonomy.name]) %}
+                    {% endfor %}
+                    <div class="item">
+                        <a class="nolink">{{ app.config.get('taxonomy')[type].name }}:
+                            <i class="fas fa-tag"></i> {{ taxlist|join(", ")[:24] }}
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="item">
+                        {% set taxonomy = taxonomies|first %}
+                        <a class="nolink">{{ app.config.get('taxonomy')[type].singular_name }}:
+                            <i class="fas fa-tag"></i> {{ taxonomy.name[:24] }}
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+

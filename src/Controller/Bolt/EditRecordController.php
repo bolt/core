@@ -95,7 +95,7 @@ class EditRecordController extends AbstractController
             $content->setConfig($this->config);
         }
 
-        $content->setStatus($post['status']);
+        $content->setStatus(current($post['status']));
         $content->setPublishedAt(new Carbon($post['publishedAt']));
         $content->setDepublishedAt(new Carbon($post['depublishedAt']));
 

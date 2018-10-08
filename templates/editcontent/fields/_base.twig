@@ -1,5 +1,5 @@
 {% if not label|default() %}
-    {% set label = field.definition.label|default(field.name|ucwords) %}
+    {% set label = field.definition.label|default(field.name|ucwords) ~ ':' %}
 {% endif %}
 
 {% if not name|default() %}

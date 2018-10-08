@@ -99,6 +99,11 @@ class User implements UserInterface, \Serializable
         return $this->fullName;
     }
 
+    public function __toString()
+    {
+        return $this->getFullName();
+    }
+
     public function getUsername(): string
     {
         return $this->username;
