@@ -287,6 +287,9 @@
             "ref": "5ec5bb098bc693cd92f03390dd488ea0847cfcc7"
         }
     },
+    "symfony/contracts": {
+        "version": "1.0-dev"
+    },
     "symfony/css-selector": {
         "version": "v3.4.0-beta2"
     },
@@ -434,9 +437,6 @@
             "ref": "5b2f0ee78c90d671860ac6450e37dec10fbc0719"
         }
     },
-    "symfony/security": {
-        "version": "v3.4.0-beta2"
-    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -445,6 +445,18 @@
             "version": "3.3",
             "ref": "85834af1496735f28d831489d12ab1921a875e0d"
         }
+    },
+    "symfony/security-core": {
+        "version": "4.2-dev"
+    },
+    "symfony/security-csrf": {
+        "version": "4.2-dev"
+    },
+    "symfony/security-guard": {
+        "version": "4.2-dev"
+    },
+    "symfony/security-http": {
+        "version": "4.2-dev"
     },
     "symfony/serializer": {
         "version": "v4.1.4"
