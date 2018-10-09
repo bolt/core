@@ -31,6 +31,7 @@
         "symfony/serializer": "4.2.x-dev",
         "symfony/swiftmailer-bundle": "^3.1",
         "symfony/translation": "4.2.x-dev",
+        "symfony/twig-bridge": "4.2.x-dev",
         "symfony/yaml": "4.2.x-dev",
         "tightenco/collect": "^5.7",
         "twig/extensions": "^1.5",

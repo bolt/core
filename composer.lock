@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4b1bf44667a1f259a22ae4f7ed56b80",
+    "content-hash": "c9ac7ccd91ed0988c1bdb51f372ed1f6",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -6135,16 +6135,16 @@
         },
         {
             "name": "symfony/twig-bridge",
-            "version": "v4.1.6",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/twig-bridge.git",
-                "reference": "7af4d9e7c38c1eb8c0d4e2528c33e6d23728ff7e"
+                "reference": "036c679bac1ee3316873c65a0307b1b421205a0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/7af4d9e7c38c1eb8c0d4e2528c33e6d23728ff7e",
-                "reference": "7af4d9e7c38c1eb8c0d4e2528c33e6d23728ff7e",
+                "url": "https://api.github.com/repos/symfony/twig-bridge/zipball/036c679bac1ee3316873c65a0307b1b421205a0a",
+                "reference": "036c679bac1ee3316873c65a0307b1b421205a0a",
                 "shasum": ""
             },
             "require": {
@@ -6153,7 +6153,8 @@
             },
             "conflict": {
                 "symfony/console": "<3.4",
-                "symfony/form": "<4.1.2"
+                "symfony/form": "<4.1.2",
+                "symfony/translation": "<4.2"
             },
             "require-dev": {
                 "symfony/asset": "~3.4|~4.0",
@@ -6170,7 +6171,7 @@
                 "symfony/security-acl": "~2.8|~3.0",
                 "symfony/stopwatch": "~3.4|~4.0",
                 "symfony/templating": "~3.4|~4.0",
-                "symfony/translation": "~3.4|~4.0",
+                "symfony/translation": "~4.2",
                 "symfony/var-dumper": "~3.4|~4.0",
                 "symfony/web-link": "~3.4|~4.0",
                 "symfony/workflow": "~3.4|~4.0",
@@ -6194,7 +6195,7 @@
             "type": "symfony-bridge",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -6221,7 +6222,7 @@
             ],
             "description": "Symfony Twig Bridge",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T12:40:59+00:00"
+            "time": "2018-10-06T16:22:22+00:00"
         },
         {
             "name": "symfony/twig-bundle",
@@ -8132,6 +8133,7 @@
         "symfony/security-bundle": 20,
         "symfony/serializer": 20,
         "symfony/translation": 20,
+        "symfony/twig-bridge": 20,
         "symfony/yaml": 20,
         "symfony/browser-kit": 20,
         "symfony/css-selector": 20,
