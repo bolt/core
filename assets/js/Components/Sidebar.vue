@@ -103,7 +103,7 @@
   border-radius: 0;
   width: auto;
   font-size: 1rem;
-
+  background-color: $sidebar-background;
 
   hr {
     border-top-width: 0;
@@ -111,66 +111,61 @@
     margin: 0;
   }
 
-  .item.separator {
-    padding: 1rem 1rem 0.5rem;
-    color: rgba(200, 200, 200, 0.5) !important;
-    .fas {
-      padding: 0 1.1rem 0 0.65rem;
-    }
+  .logo {
+    color: #FFF;
+    background: $sidebar-background;
+    text-align: center;
+    font-size: 36px;
+    margin: 0;
   }
-}
 
-.ui.small.vertical.menu .logo {
-  color: #FFF;
-  background: $sidebar-background;
-  text-align: center;
-  font-size: 36px;
-  margin: 0;
-}
-
-.ui.inverted.menu {
-    background-color: $sidebar-background;
-}
-
-.ui.inverted.menu .item {
-    color: #DDD !important;
-    a {
+  .item {
       color: #DDD !important;
+      padding-top: 0.6rem;
+      padding-bottom: 0.6rem;
+
+      a {
+        color: #DDD !important;
+      }
+
+      .fa-stack {
+        height: 2.3em;
+        margin-right: 0.5rem;
+
+        i:last-child {
+            color: #444;
+        }
+      }
+
+      & > i.dropdown.icon {
+        margin-top: 10px;
+      }
+
+      &.separator {
+          padding: 1rem 1rem 0.5rem;
+          color: rgba(200, 200, 200, 0.5) !important;
+          .fas {
+            padding: 0 1.1rem 0 0.65rem;
+          }
+        }
+
+      &.active, &.current {
+          background-color: $sidebar-active !important;
+          color: #FFF !important;
+
+          > a {
+            color:#FFF !important;
+          }
+      }
+  }
+
+  .menu.transition {
+    margin-left: -28px;
+    font-size: 0.9rem;
+
+    a {
+      padding: 0.5rem 1rem !important;
     }
-}
-
-.ui.inverted.menu .item.active,
-.ui.inverted.menu .item.current {
-    background-color: $sidebar-active !important;
-    color: #FFF !important;
-
-    > a {
-      color:#FFF !important;
-    }
-}
-
-.ui.inverted.menu .item {
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
-
-}
-
-#sidebar .menu.transition {
-  margin-left: -28px;
-  font-size: 0.9rem;
-
-  a {
-    padding: 0.5rem 1rem !important;
   }
 }
-
-.fa-stack {
-    margin-right: 0.5rem;
-
-    i:last-child {
-        color: #444;
-    }
-}
-
-
 </style>

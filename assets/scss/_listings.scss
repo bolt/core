@@ -8,6 +8,22 @@
     max-height: 4.5rem;
 }
 
+
+td.listing-excerpt {
+    color: #333;
+}
+
+td.listing-meta {
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+
+    span {
+        color: #666;
+        display: inline-block;
+        white-space: nowrap;
+    }
+}
+
 td.listing-thumb img {
     // Get rid of extra space because of the baseline
     display: block;
@@ -15,8 +31,6 @@ td.listing-thumb img {
     height: 4.5rem;
 }
 
-td.listing-meta {
-    font-size: 0.9rem;
-    line-height: 1.5rem;
-    color: #555;
+td.listing-actions {
+    white-space: nowrap;
 }
