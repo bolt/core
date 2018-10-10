@@ -85,11 +85,13 @@
 
           for(let i = 0; i < sidebarmenudata.length; i++) {
             if(sidebarmenudata[i].contenttype) {
-              ContentAPI.fetchRecords(sidebarmenudata[i].contenttype)
-                .then( records => {
-                  this.$set(this.records, sidebarmenudata[i].contenttype, records)
-                })
-                .catch(error => console.log(error))
+              setTimeout(() => {
+                ContentAPI.fetchRecords(sidebarmenudata[i].contenttype)
+                  .then( records => {
+                    this.$set(this.records, sidebarmenudata[i].contenttype, records)
+                  })
+                  .catch(error => console.log(error))
+              }, 200)
             }
           }
         }
