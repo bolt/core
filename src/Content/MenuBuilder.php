@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Bolt\Content;
 
 use Bolt\Configuration\Config;
+use Knp\Menu\FactoryInterface;
 
 class MenuBuilder
 {
+    private $factory;
+
     private $config;
 
     /**
@@ -15,29 +18,30 @@ class MenuBuilder
      *
      * @param Config $config
      */
-    public function __construct(Config $config)
+    public function __construct(FactoryInterface $factory, Config $config)
     {
         $this->config = $config;
+        $this->factory = $factory;
     }
 
-    public function get()
+    public function createSidebarMenu()
     {
-        $menu = [
-            [
-                'name' => 'Dashboard',
-                'icon_one' => 'fa-tachometer-alt',
-                'link' => '/bolt/',
-            ],
-        ];
+        $menu = $this->factory->createItem('root');
 
-        $menu[] = [
+        $menu->addChild('Dashboard', ['uri' => 'homepage', 'extras' => [
+            'name' => 'Dashboard',
+            'icon_one' => 'fa-tachometer-alt',
+            'link' => '/bolt/',
+        ]]);
+
+        $menu->addChild('Content', ['uri' => 'content', 'extras' => [
             'name' => 'Content',
             'type' => 'separator',
             'icon_one' => 'fa-file',
-        ];
+        ]]);
 
         foreach ($this->config->get('contenttypes') as $contenttype) {
-            $menu[] = [
+            $menu->addChild($contenttype['name'], ['uri' => 'homepage', 'extras' => [
                 'name' => $contenttype['name'],
                 'icon_one' => $contenttype['icon_one'],
                 'icon_many' => $contenttype['icon_many'],
@@ -45,36 +49,62 @@ class MenuBuilder
                 'contenttype' => $contenttype['slug'],
                 'singleton' => $contenttype['singleton'],
                 'active' => $contenttype['slug'] === 'pages' ? true : false,
-            ];
+            ]]);
         }
 
-        $menu[] = [
+        $menu->addChild('Settings', ['uri' => 'settings', 'extras' => [
             'name' => 'Settings',
             'type' => 'separator',
             'icon_one' => 'fa-wrench',
-        ];
+        ]]);
 
-        $menu[] = [
+        $menu->addChild('Configuration', ['uri' => 'configuration', 'extras' => [
             'name' => 'Configuration',
             'icon_one' => 'fa-flag',
             'link' => '/bolt/finder/config',
-        ];
-        $menu[] = [
+        ]]);
+
+        $menu->addChild('Content Files', ['uri' => 'content-files', 'extras' => [
             'name' => 'Content Files',
             'icon_one' => 'fa-flag',
             'link' => '/bolt/finder/files',
-        ];
-        $menu[] = [
+        ]]);
+
+        $menu->addChild('Theme Files', ['uri' => 'theme-files', 'extras' => [
             'name' => 'Theme Files',
             'icon_one' => 'fa-flag',
             'link' => '/bolt/finder/themes',
-        ];
-        $menu[] = [
-                'name' => 'Users',
-                'icon_one' => 'fa-users',
-                'link' => '/bolt/users',
-        ];
+        ]]);
+
+        $menu->addChild('Users', ['uri' => 'users', 'extras' => [
+            'name' => 'Users',
+            'icon_one' => 'fa-users',
+            'link' => '/bolt/users',
+        ]]);
 
         return $menu;
+    }
+
+
+    public function getMenu()
+    {
+        $menu = $this->createSidebarMenu()->getChildren();
+
+        $menuData = [];
+
+        foreach ($menu as $child) {
+            $menuData[] = [
+                'name'          => $child->getLabel(),
+                'icon_one'      => $child->getExtra('icon_one') ? $child->getExtra('icon_one') : null,
+                'icon_many'     => $child->getExtra('icon_many') ? $child->getExtra('icon_many') : null,
+                'link'          => $child->getExtra('link') ? $child->getExtra('link') : null,
+                'contenttype'   => $child->getExtra('contenttype') ? $child->getExtra('contenttype') : null,
+                'singleton'     => $child->getExtra('singleton') ? $child->getExtra('singleton') : null,
+                'type'          => $child->getExtra('type') ? $child->getExtra('type') : null,
+                'active'        => $child->getExtra('active') ? $child->getExtra('active') : null
+            ];
+        }
+
+        return $menuData;
     }
 }
