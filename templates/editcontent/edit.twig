@@ -9,25 +9,25 @@
     {#{{ dump(record.definition.fields) }}#}
 
 <form method="post" class="ui form" id="editcontent">
+
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
 
-       <!-- fields -->
-    {% for key, fielddefinition in record.definition.fields %}
+<!-- fields -->
+{% for key, fielddefinition in record.definition.fields %}
 
-        {% set type = fielddefinition.type %}
-        {% set field = record.field(key) %}
-        {% if not field %}
-            {% set field = fieldfactory(fielddefinition, key)  %}
-        {% endif %}
+    {% set type = fielddefinition.type %}
+    {% set field = record.field(key) %}
+    {% if not field %}
+        {% set field = fieldfactory(fielddefinition, key)  %}
+    {% endif %}
 
-        {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field}  %}
+    {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field}  %}
 
-    {% endfor %}
+{% endfor %}
 
-        <input type="submit" class="ui button primary" value="Save">
+    <input type="submit" class="ui button primary" value="Save">
 
 </form>
-
 
 {% endblock %}
 
@@ -43,8 +43,7 @@
 
             <input type="submit" class="ui button primary" value="Save" form="editcontent">
 
-
-            {% include '@bolt/editcontent/fields/text.twig' with {
+    {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.id'|trans,
         'name': 'id',
         'value': record.id,
@@ -59,10 +58,7 @@
         'attributes': 'form="editcontent"',
     }  %}
 
-
     {#<input type="text" name="author" value="{{ record.author }}">#}
-
-
 
     {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.createdAt'|trans,
@@ -91,11 +87,46 @@
         'value': record.depublishedAt,
         'attributes': 'form="editcontent"',
     } %}
-
         </form>
 
     </div>
 </div>
 
-
 {% endblock aside %}
+
+{% block javascripts %}
+{{ parent( )}}
+    <!-- Javascript for fields -->
+{% for key, fielddefinition in record.definition.fields %}
+{% spaceless %}
+    {% set type = fielddefinition.type %}
+    {% set field = record.field(key) %}
+    {% if not field %}
+        {% set field = fieldfactory(fielddefinition, key)  %}
+    {% endif %}
+{% endspaceless %}
+{% include 'editcontent/javascripts/' ~ type ~ '.twig' ignore missing with { 'field': field}  %}
+{% endfor %}
+
+{# For the status selection #}
+    {% include '@bolt/editcontent/javascripts/select.twig' with {
+        'name': 'status',
+    }  %}
+{% endblock javascripts %}
+
+
+{% block stylesheets %}
+{{ parent( )}}
+    <!-- Stylesheets for fields -->
+{% for key, fielddefinition in record.definition.fields %}
+{% spaceless %}
+    {% set type = fielddefinition.type %}
+    {% set field = record.field(key) %}
+    {% if not field %}
+        {% set field = fieldfactory(fielddefinition, key)  %}
+    {% endif %}
+{% endspaceless %}
+{% include 'editcontent/stylesheets/' ~ type ~ '.twig' ignore missing with { 'field': field}  %}
+{% endfor %}
+
+{% endblock stylesheets %}

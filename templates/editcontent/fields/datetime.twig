@@ -1,8 +1,6 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
-
 {% block field %}
-
     {# for timestamps, make sure it's formatted correctly #}
     {% if value.timestamp is defined %}
         {% set value = value|date(format='c') %}
