@@ -1,5 +1,10 @@
 {% extends '@bolt/_base/layout.twig' %}
 
+{% set alltypes = [] %}
+{% for key, fielddefinition in record.definition.fields %}
+    {% set alltypes = alltypes|merge([fielddefinition.type]) %}
+{% endfor %}
+
 {% block title %}
     Edit » <strong>{{ record.title|default('New') }}</strong>
 {% endblock %}
@@ -18,12 +23,14 @@
     {% set type = fielddefinition.type %}
     {% set field = record.field(key) %}
     {% if not field %}
-        {% set field = fieldfactory(fielddefinition, key)  %}
+        {% set field = fieldfactory(fielddefinition, key) %}
     {% endif %}
 
-    {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field}  %}
+    {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field} %}
 
 {% endfor %}
+
+    {{ dump(alltypes|unique) }}
 
     <input type="submit" class="ui button primary" value="Save">
 
@@ -48,7 +55,7 @@
         'name': 'id',
         'value': record.id,
         'attributes': 'readonly form="editcontent"',
-    }  %}
+    } %}
 
     {% include '@bolt/editcontent/fields/select.twig' with {
         'label': 'field.status'|trans,
@@ -56,7 +63,7 @@
         'value': record.status,
         'options': record.statusoptions,
         'attributes': 'form="editcontent"',
-    }  %}
+    } %}
 
     {#<input type="text" name="author" value="{{ record.author }}">#}
 
@@ -97,36 +104,42 @@
 {% block javascripts %}
 {{ parent( )}}
     <!-- Javascript for fields -->
+{% for type in alltypes|unique %}
+{% include 'editcontent/javascripts/' ~ type ~ '_include.twig' ignore missing %}
+{% endfor %}
 {% for key, fielddefinition in record.definition.fields %}
 {% spaceless %}
     {% set type = fielddefinition.type %}
     {% set field = record.field(key) %}
     {% if not field %}
-        {% set field = fieldfactory(fielddefinition, key)  %}
+        {% set field = fieldfactory(fielddefinition, key) %}
     {% endif %}
 {% endspaceless %}
-{% include 'editcontent/javascripts/' ~ type ~ '.twig' ignore missing with { 'field': field}  %}
+{% include 'editcontent/javascripts/' ~ type ~ '.twig' ignore missing with { 'field': field} %}
 {% endfor %}
 
 {# For the status selection #}
     {% include '@bolt/editcontent/javascripts/select.twig' with {
         'name': 'status',
-    }  %}
+    } %}
 {% endblock javascripts %}
 
 
 {% block stylesheets %}
 {{ parent( )}}
     <!-- Stylesheets for fields -->
+{% for type in alltypes|unique %}
+{% include 'editcontent/stylesheets/' ~ type ~ '_include.twig' ignore missing %}
+{% endfor %}
 {% for key, fielddefinition in record.definition.fields %}
 {% spaceless %}
     {% set type = fielddefinition.type %}
     {% set field = record.field(key) %}
     {% if not field %}
-        {% set field = fieldfactory(fielddefinition, key)  %}
+        {% set field = fieldfactory(fielddefinition, key) %}
     {% endif %}
 {% endspaceless %}
-{% include 'editcontent/stylesheets/' ~ type ~ '.twig' ignore missing with { 'field': field}  %}
+{% include 'editcontent/stylesheets/' ~ type ~ '.twig' ignore missing with { 'field': field} %}
 {% endfor %}
 
 {% endblock stylesheets %}
