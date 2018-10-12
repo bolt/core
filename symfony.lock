@@ -293,9 +293,6 @@
             "ref": "5ec5bb098bc693cd92f03390dd488ea0847cfcc7"
         }
     },
-    "symfony/contracts": {
-        "version": "1.0-dev"
-    },
     "symfony/css-selector": {
         "version": "v3.4.0-beta2"
     },
@@ -453,15 +450,6 @@
         }
     },
     "symfony/security-core": {
-        "version": "4.2-dev"
-    },
-    "symfony/security-csrf": {
-        "version": "4.2-dev"
-    },
-    "symfony/security-guard": {
-        "version": "4.2-dev"
-    },
-    "symfony/security-http": {
         "version": "4.2-dev"
     },
     "symfony/serializer": {
