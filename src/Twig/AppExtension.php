@@ -76,7 +76,6 @@ class AppExtension extends AbstractExtension
         return array_unique($array);
     }
 
-
     /**
      * Transforms the given Markdown content into HTML content.
      */

@@ -85,7 +85,6 @@ class MenuBuilder
         return $menu;
     }
 
-
     public function getMenu()
     {
         $menu = $this->createSidebarMenu()->getChildren();
@@ -94,14 +93,14 @@ class MenuBuilder
 
         foreach ($menu as $child) {
             $menuData[] = [
-                'name'          => $child->getLabel(),
-                'icon_one'      => $child->getExtra('icon_one') ? $child->getExtra('icon_one') : null,
-                'icon_many'     => $child->getExtra('icon_many') ? $child->getExtra('icon_many') : null,
-                'link'          => $child->getExtra('link') ? $child->getExtra('link') : null,
-                'contenttype'   => $child->getExtra('contenttype') ? $child->getExtra('contenttype') : null,
-                'singleton'     => $child->getExtra('singleton') ? $child->getExtra('singleton') : null,
-                'type'          => $child->getExtra('type') ? $child->getExtra('type') : null,
-                'active'        => $child->getExtra('active') ? $child->getExtra('active') : null
+                'name' => $child->getLabel(),
+                'icon_one' => $child->getExtra('icon_one') ? $child->getExtra('icon_one') : null,
+                'icon_many' => $child->getExtra('icon_many') ? $child->getExtra('icon_many') : null,
+                'link' => $child->getExtra('link') ? $child->getExtra('link') : null,
+                'contenttype' => $child->getExtra('contenttype') ? $child->getExtra('contenttype') : null,
+                'singleton' => $child->getExtra('singleton') ? $child->getExtra('singleton') : null,
+                'type' => $child->getExtra('type') ? $child->getExtra('type') : null,
+                'active' => $child->getExtra('active') ? $child->getExtra('active') : null,
             ];
         }
 
