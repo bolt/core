@@ -5,13 +5,13 @@
 </template>
 
 <script>
-    import router from '../router';
+import router from "../router";
 
-    export default {
-        name: 'app',
-        beforeMount () {
-            let vueRouting = this.$parent.$el.attributes['data-vue-routing'].value;
-            router.push({path: vueRouting});
-        },
-    }
+export default {
+  name: "app",
+  beforeMount() {
+    let vueRouting = this.$parent.$el.attributes["data-vue-routing"].value;
+    router.push({ path: vueRouting });
+  }
+};
 </script>

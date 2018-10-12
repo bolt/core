@@ -23,35 +23,32 @@
 </template>
 
 <script>
-    import ContentAPI from '../service/api/content';
+import ContentAPI from "../service/api/content";
 
-    export default {
-        name: 'context',
-        props: [
-            'type',
-            'limit',
-        ],
-        components: {
-            // Context
-        },
-        data () {
-            return {
-                message: '',
-                loading: true,
-                records: []
-            };
-        },
-        created () {
-            this.records = ContentAPI.getRecords(this.type)
+export default {
+  name: "context",
+  props: ["type", "limit"],
+  components: {
+    // Context
+  },
+  data() {
+    return {
+      message: "",
+      loading: true,
+      records: []
+    };
+  },
+  created() {
+    this.records = ContentAPI.getRecords(this.type);
 
-            ContentAPI.fetchRecords(this.type)
-                .then( records => {
-                    this.records = records
-                })
-                .catch(error => console.log(error))
-                .finally(() => {
-                    this.loading = false
-                });
-        },
-    }
+    ContentAPI.fetchRecords(this.type)
+      .then(records => {
+        this.records = records;
+      })
+      .catch(error => console.log(error))
+      .finally(() => {
+        this.loading = false;
+      });
+  }
+};
 </script>

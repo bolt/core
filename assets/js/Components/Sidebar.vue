@@ -56,50 +56,47 @@
 </template>
 
 <script>
-    import ContentAPI from '../service/api/content';
+import ContentAPI from "../service/api/content";
 
-    export default {
-        name: 'sidebar',
-        props: [
-            'sidebarmenudata',
-        ],
-        data () {
-            return {
-                message: '',
-                loading: true,
-                records: [],
-            };
-        },
-        methods: {
-          getRecordsPerContenttype(contenttypeslug) {
-            if(localStorage.getItem('records-' + contenttypeslug) === null) {
-              return this.records[contenttypeslug];
-            } else {
-              return ContentAPI.getRecords(contenttypeslug);
-            }
-          },
-        },
-        created() {
-
-          let sidebarmenudata = JSON.parse(this.sidebarmenudata)
-
-          for(let i = 0; i < sidebarmenudata.length; i++) {
-            if(sidebarmenudata[i].contenttype) {
-              setTimeout(() => {
-                ContentAPI.fetchRecords(sidebarmenudata[i].contenttype)
-                  .then( records => {
-                    this.$set(this.records, sidebarmenudata[i].contenttype, records)
-                  })
-                  .catch(error => console.log(error))
-              }, 200)
-            }
-          }
-        }
+export default {
+  name: "sidebar",
+  props: ["sidebarmenudata"],
+  data() {
+    return {
+      message: "",
+      loading: true,
+      records: []
+    };
+  },
+  methods: {
+    getRecordsPerContenttype(contenttypeslug) {
+      if (localStorage.getItem("records-" + contenttypeslug) === null) {
+        return this.records[contenttypeslug];
+      } else {
+        return ContentAPI.getRecords(contenttypeslug);
+      }
     }
+  },
+  created() {
+    let sidebarmenudata = JSON.parse(this.sidebarmenudata);
+
+    for (let i = 0; i < sidebarmenudata.length; i++) {
+      if (sidebarmenudata[i].contenttype) {
+        setTimeout(() => {
+          ContentAPI.fetchRecords(sidebarmenudata[i].contenttype)
+            .then(records => {
+              this.$set(this.records, sidebarmenudata[i].contenttype, records);
+            })
+            .catch(error => console.log(error));
+        }, 200);
+      }
+    }
+  }
+};
 </script>
 
 <style lang="scss">
-@import '../../scss/settings';
+@import "../../scss/settings";
 
 .ui.small.vertical.menu {
   border-radius: 0;
@@ -114,7 +111,7 @@
   }
 
   .logo {
-    color: #FFF;
+    color: #fff;
     background: $sidebar-background;
     text-align: center;
     font-size: 36px;
@@ -122,43 +119,44 @@
   }
 
   .item {
-      color: #DDD !important;
-      padding-top: 0.6rem;
-      padding-bottom: 0.6rem;
+    color: #ddd !important;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
 
-      a {
-        color: #DDD !important;
+    a {
+      color: #ddd !important;
+    }
+
+    .fa-stack {
+      height: 2.3em;
+      margin-right: 0.5rem;
+
+      i:last-child {
+        color: #444;
       }
+    }
 
-      .fa-stack {
-        height: 2.3em;
-        margin-right: 0.5rem;
+    & > i.dropdown.icon {
+      margin-top: 10px;
+    }
 
-        i:last-child {
-            color: #444;
-        }
+    &.separator {
+      padding: 1rem 1rem 0.5rem;
+      color: rgba(200, 200, 200, 0.5) !important;
+      .fas {
+        padding: 0 1.1rem 0 0.65rem;
       }
+    }
 
-      & > i.dropdown.icon {
-        margin-top: 10px;
+    &.active,
+    &.current {
+      background-color: $sidebar-active !important;
+      color: #fff !important;
+
+      > a {
+        color: #fff !important;
       }
-
-      &.separator {
-          padding: 1rem 1rem 0.5rem;
-          color: rgba(200, 200, 200, 0.5) !important;
-          .fas {
-            padding: 0 1.1rem 0 0.65rem;
-          }
-        }
-
-      &.active, &.current {
-          background-color: $sidebar-active !important;
-          color: #FFF !important;
-
-          > a {
-            color:#FFF !important;
-          }
-      }
+    }
   }
 
   .menu.transition {

@@ -12,16 +12,16 @@
 </template>
 
 <script>
-import DashboardNewsAPI from '../service/api/DashboardNews'
+import DashboardNewsAPI from "../service/api/DashboardNews";
 
 export default {
-  name: 'DashBoardNews',
+  name: "DashBoardNews",
 
-  data () {
+  data() {
     return {
       loading: true,
       news: []
-    }
+    };
   },
   created() {
     this.news = DashboardNewsAPI.getNews();
@@ -29,18 +29,17 @@ export default {
     // Asynchronously fetch (might take a while)
     setTimeout(() => {
       DashboardNewsAPI.fetchNews()
-        .then( news => {
-          this.news = news
+        .then(news => {
+          this.news = news;
         })
         .catch(error => console.log(error))
         .finally(() => {
-          this.loading = false
+          this.loading = false;
         });
-    }, 200)
+    }, 200);
   }
-}
+};
 </script>
 
 <style>
-
 </style>
