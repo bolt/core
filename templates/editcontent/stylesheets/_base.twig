@@ -1,7 +1,4 @@
 {%- spaceless -%}
-{% if not label|default() %}
-    {% set label = field.definition.label|default(field.name|ucwords) ~ ':' %}
-{% endif %}
 
 {% if not name|default() %}
     {%  set name = 'fields[' ~ field.name ~ ']' %}
@@ -15,18 +12,11 @@
     {% endif %}
 {% endif %}
 
-{% if not class|default() %}
-    {% set class = field.definition.class|default() %}
-{% endif %}
-
 {% if not id|default() %}
     {% set id = 'field-' ~ field.name|default(name) %}
 {% endif %}
 {%- endspaceless -%}
 
-<!-- field "{{ label }} {{ name }}" -->
-<div class="field">
-{% block field %}
+{% block stylesheets %}
 
 {% endblock %}
-</div>

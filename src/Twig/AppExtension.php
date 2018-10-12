@@ -33,6 +33,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('md2html', [$this, 'markdownToHtml'], ['is_safe' => ['html']]),
             new TwigFilter('markdown', [$this, 'markdownToHtml'], ['is_safe' => ['html']]),
             new TwigFilter('order', [$this, 'dummy']),
+            new TwigFilter('unique', [$this, 'unique']),
             new TwigFilter('localedatetime', [$this, 'dummy']),
             new TwigFilter('showimage', [$this, 'dummy']),
             new TwigFilter('excerpt', [$this, 'excerpt']),
@@ -69,6 +70,12 @@ class AppExtension extends AbstractExtension
 
         return ucwords($content, $delimiters);
     }
+
+    public function unique($array): array
+    {
+        return array_unique($array);
+    }
+
 
     /**
      * Transforms the given Markdown content into HTML content.

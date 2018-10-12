@@ -22,20 +22,3 @@
         </div>
 </div>
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            $('#{{ id }}').selectize({
-                create: true,
-                sortField: 'text',
-                maxItems: {{ multiple ? 'null' : '1' }},
-                closeAfterSelect: true
-            });
-        });
-    </script>
-{% endblock %}
-
-{% block stylesheets %}
-{% endblock stylesheets %}
