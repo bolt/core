@@ -43,9 +43,9 @@ class ContentHelperExtension extends AbstractExtension
 
     public function sidebarmenu()
     {
-        $menu = $this->menuBuilder->get();
+        $menu = $this->menuBuilder->getMenu();
 
-        return $menu;
+        return json_encode($menu);
     }
 
     public function fieldfactory($definition, $name = null)

@@ -155,6 +155,12 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "knplabs/knp-menu": {
+        "version": "2.3.0"
+    },
+    "knplabs/knp-menu-bundle": {
+        "version": "v2.2.1"
+    },
     "league/flysystem": {
         "version": "1.0.47"
     },
