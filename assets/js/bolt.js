@@ -36,20 +36,20 @@ import "semantic-ui-calendar/dist/calendar.css";
 import "semantic-ui-calendar/dist/calendar";
 
 $(document).ready(function() {
-  $(".ui.dropdown").dropdown({});
+  // $(".ui.dropdown").dropdown({});
 
-  $("#sidebar .ui.dropdown").dropdown({
-    on: "hover",
-    transition: "slide right"
-  });
+  // $("#sidebar .ui.dropdown").dropdown({
+  //   on: "hover",
+  //   transition: "slide right"
+  // });
 
-  $(".ui.dropdown.fileselector").dropdown({
-    transition: "slide down",
-    fullTextSearch: "exact",
-    preserveHTML: true
-  });
+  // $(".ui.dropdown.fileselector").dropdown({
+  //   transition: "slide down",
+  //   fullTextSearch: "exact",
+  //   preserveHTML: true
+  // });
 
-  $(".ui.calendar").calendar({
-    ampm: false
-  });
+  // $(".ui.calendar").calendar({
+  //   ampm: false
+  // });
 });

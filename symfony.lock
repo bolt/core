@@ -449,9 +449,6 @@
             "ref": "85834af1496735f28d831489d12ab1921a875e0d"
         }
     },
-    "symfony/security-core": {
-        "version": "4.2-dev"
-    },
     "symfony/serializer": {
         "version": "v4.1.4"
     },

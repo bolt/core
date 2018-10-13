@@ -1,11 +1,8 @@
 <template>
 <div>
-  <div class="ui card" v-for="newsItem in news" v-if="newsItem" :key="newsItem.id">
-    <div class="content">
-      <div class="header">{{ newsItem.title }}</div>
-    </div>
-    <div class="content" v-html="newsItem.teaser">
-    </div>
+  <div class="card" v-for="newsItem in news" v-if="newsItem" :key="newsItem.id">
+    <div class="card-header">{{ newsItem.title }}</div>
+    <div class="card-body" v-html="newsItem.teaser"></div>
   </div>
 </div>
 
