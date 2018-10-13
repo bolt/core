@@ -41,6 +41,10 @@ module.exports = {
     margin: 0 1rem 0 3rem;
 }
 
+.nav-fill .nav-item {
+    flex-grow: 0;
+}
+
 .nav-fill .nav-item.topbar-title {
   font-family: "Source Sans Pro", serif;
   font-size: 22px;
@@ -53,6 +57,6 @@ module.exports = {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  flex: 100 1 auto;
+  flex-grow: 1;
 }
 </style>
