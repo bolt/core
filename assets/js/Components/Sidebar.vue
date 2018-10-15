@@ -113,8 +113,12 @@ nav.flex-column {
     color: #fff;
     background: $sidebar-background;
     text-align: center;
-    font-size: 36px;
-    margin: 0;
+    margin: 1rem;
+
+    h2 {
+      font-size: 36px;
+  }
+
   }
 
   .nav-item {

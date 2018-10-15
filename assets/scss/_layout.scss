@@ -1,5 +1,8 @@
-html, body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+html,
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
     font-size: 13px;
     line-height: 1.5;
     height: 100%;
@@ -19,9 +22,13 @@ body {
     background: $main-background;
 }
 
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Source Sans Pro', serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Source Sans Pro", serif;
     font-weight: normal;
 }
 
@@ -32,6 +39,7 @@ h1 {
 
 h2 {
     font-size: 2rem;
+    line-height: 4rem;
 }
 
 h3 {
@@ -50,7 +58,6 @@ h6 {
     font-size: 1rem;
 }
 
-
 .wrapper {
     display: grid;
     width: 100vw;
@@ -60,10 +67,10 @@ h6 {
         "sidebar"
         "content"
         "sidebar2"
-        "footer"
+        "footer";
 }
 
-@media only screen and (min-width: 600px)   {
+@media only screen and (min-width: 600px) {
     .wrapper {
         grid-template-columns: 12.6rem auto 21rem;
         grid-template-rows: 3.6rem auto 2rem;
@@ -77,9 +84,9 @@ h6 {
         grid-template-columns: 12.6rem auto 21rem;
         grid-template-rows: 3.6rem auto 2rem;
         grid-template-areas:
-                "sidebar  topbar      topbar"
-                "sidebar  content     content"
-                "sidebar  footer      footer";
+            "sidebar  topbar      topbar"
+            "sidebar  content     content"
+            "sidebar  footer      footer";
     }
 }
 
@@ -91,11 +98,12 @@ h6 {
 
 header {
     grid-area: topbar;
-    background-color: #FFF;
-    border-bottom: 1px solid #DDD;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
 }
 
-#content, #vuecontent {
+#content,
+#vuecontent {
     grid-area: content;
     padding: 2rem 3rem;
 }
@@ -116,4 +124,3 @@ aside {
     grid-area: aside;
     padding: 2rem 2rem 2rem 0;
 }
-

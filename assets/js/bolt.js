@@ -30,20 +30,17 @@ new Vue({ el: "#vuecontent", router });
 new Vue({ el: "dashboardnews" });
 
 $(document).ready(function() {
-  // $(".ui.dropdown").dropdown({});
-
-  // $("#sidebar .ui.dropdown").dropdown({
-  //   on: "hover",
-  //   transition: "slide right"
-  // });
-
-  // $(".ui.dropdown.fileselector").dropdown({
-  //   transition: "slide down",
-  //   fullTextSearch: "exact",
-  //   preserveHTML: true
-  // });
-
-  // $(".ui.calendar").calendar({
-  //   ampm: false
-  // });
+    // $(".ui.dropdown").dropdown({});
+    // $("#sidebar .ui.dropdown").dropdown({
+    //   on: "hover",
+    //   transition: "slide right"
+    // });
+    // $(".ui.dropdown.fileselector").dropdown({
+    //   transition: "slide down",
+    //   fullTextSearch: "exact",
+    //   preserveHTML: true
+    // });
+    // $(".ui.calendar").calendar({
+    //   ampm: false
+    // });
 });

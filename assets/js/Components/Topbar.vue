@@ -42,7 +42,7 @@ module.exports = {
 
     .nav-item {
         flex-grow: 0;
-        margin-right: 1rem;
+        margin-right: 0.6rem;
     }
 
     .nav-item.topbar-title {
@@ -56,6 +56,11 @@ module.exports = {
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         flex-grow: 1;
+    }
+
+    .btn-light {
+        background-color: #EEE;
+        border: 1px solid #D8D8D8;
     }
 }
 </style>

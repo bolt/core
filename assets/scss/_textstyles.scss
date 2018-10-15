@@ -1,15 +1,19 @@
 .status-published {
-  color: $status-published;
+    color: $status-published;
 }
 
 .status-held {
-  color: $status-held;
+    color: $status-held;
 }
 
 .status-timed {
-  color: $status-timed;
+    color: $status-timed;
 }
 
 .status-draft {
-  color: $status-draft;
+    color: $status-draft;
+}
+
+.card ul {
+    padding-left: 1.2rem;
 }

@@ -5,9 +5,9 @@ import DashboardContentList from "./Components/DashboardContentList";
 Vue.use(VueRouter);
 
 export default new VueRouter({
-  mode: "history",
-  routes: [
-    // { path: '/bolt', component: DashboardContentList },
-    // { path: '*', redirect: '/home' }
-  ]
+    mode: "history",
+    routes: [
+        // { path: '/bolt', component: DashboardContentList },
+        // { path: '*', redirect: '/home' }
+    ]
 });
