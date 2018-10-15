@@ -2,6 +2,7 @@
 
 namespace Bolt\Twig\Extension;
 
+use Bolt\Twig\Runtime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -21,7 +22,7 @@ class RecordExtension extends AbstractExtension
 
         return [
             // @codingStandardsIgnoreStart
-            new TwigFunction('excerpt',       [Runtime\RecordRuntime::class, 'dummy'], $safe),
+            new TwigFunction('excerpt',       [Runtime\RecordRuntime::class, 'excerpt'], $safe),
             new TwigFunction('listtemplates', [Runtime\RecordRuntime::class, 'dummy']),
             new TwigFunction('pager',         [Runtime\RecordRuntime::class, 'dummy'], $env + $safe),
             // @codingStandardsIgnoreEnd
@@ -38,7 +39,7 @@ class RecordExtension extends AbstractExtension
 
         return [
             // @codingStandardsIgnoreStart
-            new TwigFilter('excerpt',     [Runtime\RecordRuntime::class, 'dummy'], $safe),
+            new TwigFilter('excerpt',     [Runtime\RecordRuntime::class, 'excerpt'], $safe),
             // @codingStandardsIgnoreEnd
         ];
     }

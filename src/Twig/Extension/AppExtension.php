@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
-use Bolt\Helpers\Excerpt;
 use Bolt\Utils\Markdown;
 use Symfony\Component\Intl\Intl;
 use Twig\Extension\AbstractExtension;
@@ -101,12 +100,5 @@ class AppExtension extends AbstractExtension
         }
 
         return $this->locales;
-    }
-
-    public function excerpt($text, $length = 100)
-    {
-        $excerpter = new Excerpt($text);
-
-        return $excerpter->getExcerpt((int) $length);
     }
 }
