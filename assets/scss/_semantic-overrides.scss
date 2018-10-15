@@ -15,64 +15,13 @@
     padding: 11px 16px;
 }
 
-.ui.form input[readonly] {
-    background-color: #F5F5F5;
-    color: #999;
+input[readonly] {
+    background-color: #F2F2F2;
+    color: #888;
 }
 
-.ui.fileselector {
-    min-width: 500px !important;
-}
-
-.ui.button {
+.input-group-append .btn {
     font-weight: normal;
     font-size: 0.9rem;
-    color: #555;
-
-    a {
-        color: #555;
-    }
-
-    &.small {
-        padding: 0.6rem 0.8rem;
-    }
-
-    &.has-dropdown {
-        padding-right: 0.4rem;
-    }
-
-    &.small + &.dropdown {
-        padding-left: 0.4rem;
-    }
 }
 
-.ui.dropdown .menu > .item {
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem !important;
-
-}
-
-.ui.form .field > label {
-    font-weight: 500;
-    font-size: 1rem;
-    color: #444;
-}
-
-label {
-    font-weight: 500;
-    line-height: 2rem;
-}
-
-.ui.form .field .ui.grid {
-    margin-top: 0;
-}
-
-.ui.grid > [class*="twelve wide"].column {
-    min-width: 250px;
-}
-
-aside {
-    .column {
-        padding: 0 1rem 0.5rem !important;
-    }
-}

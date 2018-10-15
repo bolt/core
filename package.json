@@ -1,20 +1,21 @@
 {
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "plugin:vue/essential",
-      "plugin:prettier/recommended",
-      "eslint:recommended"
-    ]
+  "name": "bolt",
+  "version": "4.0.0-alpha.0",
+  "homepage": "https://bolt.cm",
+  "author": "Bob den Otter <bob@twokings.nl> (https://bolt.cm)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bobdenotter/symfony-skeleton.git"
   },
   "devDependencies": {
     "@symfony/webpack-encore": "^0.20.1",
-    "eslint": "5.6.1",
+    "eslint": "5.7.0",
     "eslint-config-prettier": "3.1.0",
     "eslint-plugin-prettier": "3.0.0",
     "eslint-plugin-vue": "4.7.1",
     "jquery": "^3.3.1",
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.9.4",
     "register-service-worker": "^1.5.2",
     "sass-loader": "^7.1.0",
     "vue-loader": "^14",
@@ -25,15 +26,40 @@
   "dependencies": {
     "axios": "^0.18.0",
     "codemirror": "^5.40.2",
-    "semantic-ui-calendar": "^0.0.8",
     "simplemde": "^1.11.2",
     "vue": "^2.5.17"
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue assets",
-    "dev-server": "./node_modules/.bin/encore dev-server",
-    "dev": "./node_modules/.bin/encore dev",
-    "watch": "./node_modules/.bin/encore dev --watch",
-    "build": "./node_modules/.bin/encore production"
-  }
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "plugin:vue/essential",
+      "plugin:prettier/recommended",
+      "eslint:recommended"
+    ]
+  },
+  "description": "Bolt 4.0.0 prototype",
+  "bugs": {
+    "url": "https://github.com/bobdenotter/symfony-skeleton/issues"
+  },
+  "main": "webpack.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [
+    "bolt",
+    "cms",
+    "php",
+    "symfony",
+    "vue",
+    "content",
+    "management",
+    "system"
+  ]
 }

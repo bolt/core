@@ -5,7 +5,6 @@ import router from "./router";
 // import './registerServiceWorker'
 
 // Bolt Components
-import Hello from "./Components/Hello";
 import Sidebar from "./Components/Sidebar";
 import Topbar from "./Components/Topbar";
 import DashboardNews from "./Components/DashboardNews";
@@ -15,7 +14,6 @@ import "../scss/bolt.scss";
 
 // Vue.use(SuiVue);
 Vue.component("sidebar", Sidebar);
-Vue.component("hello", Hello);
 Vue.component("topbar", Topbar);
 Vue.component("dashboardnews", DashboardNews);
 Vue.component("app", App);
@@ -30,10 +28,6 @@ new Vue({ el: "#sidebar", router });
 new Vue({ el: "#vuecontent", router });
 
 new Vue({ el: "dashboardnews" });
-
-// Semantic UI Calendar
-import "semantic-ui-calendar/dist/calendar.css";
-import "semantic-ui-calendar/dist/calendar";
 
 $(document).ready(function() {
   // $(".ui.dropdown").dropdown({});

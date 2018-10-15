@@ -18,7 +18,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
                 <a href="/bolt/profile-edit" class="dropdown-item">Edit profile</a>
-                <a href="/logout" class="dropdown-item">Logout</a>
+                <a href="/bolt/logout" class="dropdown-item">Logout</a>
                 </div>
             </div>
 
