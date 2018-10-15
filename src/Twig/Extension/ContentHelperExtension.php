@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig;
+namespace Bolt\Twig\Extension;
 
 use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;

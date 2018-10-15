@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig;
+namespace Bolt\Twig\Extension;
 
 use Bolt\Helpers\Excerpt;
 use Bolt\Utils\Markdown;

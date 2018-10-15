@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig;
+namespace Bolt\Twig\Extension;
 
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;

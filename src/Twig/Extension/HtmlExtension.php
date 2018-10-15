@@ -32,6 +32,7 @@ class HtmlExtension extends AbstractExtension
     public function getFilters()
     {
         $safe = ['is_safe' => ['html']];
+        $env = ['needs_environment' => true];
 
         return [
             // @codingStandardsIgnoreStart
