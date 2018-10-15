@@ -40,7 +40,7 @@
     <br>
 
 
-<form method="post" class="ui form" id="media_edit">
+<form method="post" id="media_edit">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('media_edit') }}">
 
     {% include '@bolt/editcontent/fields/text.twig' with {
@@ -58,7 +58,8 @@
     {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.copyright'|trans,
         'name': 'copyright',
-        'value': media.copyright
+        'value': media.copyright,
+        'postfix': "If the image is copyrighted or licensed, mention the rightsholder here."
     }  %}
 
     {% include '@bolt/editcontent/fields/text.twig' with {
@@ -68,10 +69,9 @@
     }  %}
 
 
-    <input type="submit" class="ui button primary" value="Save">
+    <input type="submit" class="btn btn-primary" value="Save">
 
     {{ dump(media) }}
-
 
 </form>
 
@@ -80,19 +80,19 @@
 
 {% block aside %}
 
-<div class="ui card">
-    <div class="content">
-        <div class="header">Meta information</div>
-    </div>
-    <div class="content">
+<div class="card">
+    <div class="card-header">Meta information</div>
+    <div class="card-body">
 
-        <form class="ui form">
+        <form>
+            <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Save" form="editcontent">
 
-            <input type="submit" class="ui button primary" value="Save" form="editcontent">
 
             <ul class="ui divided selection list" id="swatcheslist">
             </ul>
 
+            </div>
 
             {% include '@bolt/editcontent/fields/text.twig' with {
                 'label': 'field.id'|trans,
@@ -122,10 +122,7 @@
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-
             {#<input type="text" name="author" value="{{ media.author }}">#}
-
-
 
     {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.createdAt'|trans,
