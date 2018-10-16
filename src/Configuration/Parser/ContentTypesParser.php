@@ -15,10 +15,11 @@ class ContentTypesParser extends BaseParser
     private $exceptions;
 
     /**
-     * Read and parse the contenttypes.yml confi”guration file.
+     * Read and parse the contenttypes.yml configuration file.
+     *
+     * @throws Exception
      *
      * @return Collection
-     * @throws Exception
      */
     public function parse(): Collection
     {
@@ -144,8 +145,10 @@ class ContentTypesParser extends BaseParser
      * Parse a Contenttype's field and determine the grouping.
      *
      * @param array $fields
-     * @return array
+     *
      * @throws Exception
+     *
+     * @return array
      */
     protected function parseFieldsAndGroups(array $fields)
     {
@@ -230,7 +233,7 @@ class ContentTypesParser extends BaseParser
     /**
      * Basic validation of repeater fields.
      *
-     * @param array $fields
+     * @param array  $fields
      * @param string $key
      *
      * @return array
