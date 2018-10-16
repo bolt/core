@@ -6,7 +6,7 @@ namespace Bolt\Twig\Extension;
 
 use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
-use Bolt\Entity\Field;
+use Bolt\Twig\Runtime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -37,7 +37,7 @@ class ContentHelperExtension extends AbstractExtension
         return [
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
             new TwigFunction('fieldfactory', [$this, 'fieldfactory']),
-            new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
+            new TwigFunction('selectoptionsfromarray', [Runtime\ContentHelperRuntime::class, 'selectoptionsfromarray']),
         ];
     }
 
@@ -55,31 +55,5 @@ class ContentHelperExtension extends AbstractExtension
         $field->setDefinition($definition, $name);
 
         return $field;
-    }
-
-    public function selectoptionsfromarray(Field $field)
-    {
-        $values = $field->getDefinition()->get('values');
-        $currentValues = $field->getValue();
-
-        $options = [];
-
-        if ($field->getDefinition()->get('required', false)) {
-            $options[] = [
-                'key' => '',
-                'value' => '',
-                'selected' => false,
-            ];
-        }
-
-        foreach ($values as $key => $value) {
-            $options[] = [
-                'key' => $key,
-                'value' => $value,
-                'selected' => in_array($key, $currentValues, true),
-            ];
-        }
-
-        return $options;
     }
 }
