@@ -31,6 +31,11 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    Bolt\Twig\Runtime\:
+        resource: '../src/Twig/Runtime/*'
+        public: false
+        tags: ['twig.runtime']
+
     doctrine.content_listener:
         class: Bolt\EventListener\ContentListener
         arguments: []
