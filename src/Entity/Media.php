@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,7 +55,10 @@ class Media
     private $filesize;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Bolt\Entity\User", inversedBy="media")
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
@@ -93,7 +94,6 @@ class Media
 
     public function __construct()
     {
-        $this->author = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -265,29 +265,13 @@ class Media
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getAuthor(): Collection
+    public function getAuthor(): User
     {
         return $this->author;
     }
 
-    public function addAuthor(User $author): self
+    public function setAuthor(?User $author): void
     {
-        if (!$this->author->contains($author)) {
-            $this->author[] = $author;
-        }
-
-        return $this;
-    }
-
-    public function removeAuthor(User $author): self
-    {
-        if ($this->author->contains($author)) {
-            $this->author->removeElement($author);
-        }
-
-        return $this;
+        $this->author = $author;
     }
 }

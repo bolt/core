@@ -7,17 +7,13 @@ namespace Bolt\DataFixtures;
 use Bolt\Configuration\Config;
 use Bolt\Content\FieldFactory;
 use Bolt\Entity\Content;
-use Bolt\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class ContentFixtures extends Fixture
+class ContentFixtures extends Fixture implements DependentFixtureInterface
 {
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
-
     /** @var \Faker\Generator */
     private $faker;
 
@@ -26,48 +22,25 @@ class ContentFixtures extends Fixture
 
     private $lastTitle = null;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, Config $config)
+    public function __construct(Config $config)
     {
-        $this->passwordEncoder = $passwordEncoder;
         $this->faker = Factory::create();
         $this->config = $config->get('contenttypes');
     }
 
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+            TaxonomyFixtures::class,
+        ];
+    }
+
     public function load(ObjectManager $manager)
     {
-        $this->loadUsers($manager);
         $this->loadContent($manager);
 
         $manager->flush();
-    }
-
-    private function loadUsers(ObjectManager $manager)
-    {
-        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
-            $user = new User();
-            $user->setFullName($fullname);
-            $user->setUsername($username);
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
-            $user->setEmail($email);
-            $user->setRoles($roles);
-
-            $manager->persist($user);
-            $this->addReference($username, $user);
-        }
-
-        $manager->flush();
-    }
-
-    private function getUserData(): array
-    {
-        return [
-            // $userData = [$fullname, $username, $password, $email, $roles];
-            ['Admin', 'admin', 'admin%1', 'admin@example.org', ['ROLE_ADMIN']],
-            ['Gekke Henkie', 'henkie', 'henkie%1', 'henkie@example.org', ['ROLE_EDITOR']],
-            ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', ['ROLE_ADMIN']],
-            ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', ['ROLE_ADMIN']],
-            ['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', ['ROLE_USER']],
-        ];
     }
 
     private function loadContent(ObjectManager $manager)

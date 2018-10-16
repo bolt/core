@@ -110,6 +110,12 @@ class Content
     public $magiclink;
     public $magiceditlink;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content")
+     * @ORM\JoinTable(name="bolt_taxonomy_content")
+     */
+    private $taxonomies;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -117,6 +123,7 @@ class Content
         $this->publishedAt = new \DateTime();
         $this->depublishedAt = new \DateTime();
         $this->fields = new ArrayCollection();
+        $this->taxonomies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -299,5 +306,33 @@ class Content
         }
 
         return $options;
+    }
+
+    /**
+     * @return Collection|Taxonomy[]
+     */
+    public function getTaxonomies(): Collection
+    {
+        return $this->taxonomies;
+    }
+
+    public function addTaxonomy(Taxonomy $taxonomy): self
+    {
+        if (!$this->taxonomies->contains($taxonomy)) {
+            $this->taxonomies[] = $taxonomy;
+            $taxonomy->addContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTaxonomy(Taxonomy $taxonomy): self
+    {
+        if ($this->taxonomies->contains($taxonomy)) {
+            $this->taxonomies->removeElement($taxonomy);
+            $taxonomy->removeContent($this);
+        }
+
+        return $this;
     }
 }
