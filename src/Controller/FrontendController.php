@@ -4,32 +4,16 @@ declare(strict_types=1);
 
 namespace Bolt\Controller;
 
-use Bolt\Configuration\Config;
 use Bolt\Content\ContentTypeFactory;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
-use Bolt\TemplateChooser;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Tightenco\Collect\Support\Collection;
 
-class FrontendController extends AbstractController
+class FrontendController extends BaseController
 {
-    /** @var Config */
-    private $config;
-
-    /** @var TemplateChooser */
-    private $templateChooser;
-
-    public function __construct(Config $config, TemplateChooser $templateChooser)
-    {
-        $this->config = $config;
-        $this->templateChooser = $templateChooser;
-    }
-
     /**
      * @Route("/", methods={"GET"}, name="homepage")
      */
@@ -104,54 +88,5 @@ class FrontendController extends AbstractController
         $templates = $this->templateChooser->record($record);
 
         return $this->renderTemplate($templates, $context);
-    }
-
-    /**
-     * Shortcut for {@see \Bolt\Config::get}.
-     *
-     * @param string $path
-     * @param mixed  $default
-     *
-     * @return string|int|array|null
-     */
-    protected function getOption($path, $default = null)
-    {
-        return $this->config->get($path, $default);
-    }
-
-    /**
-     * Renders a view.
-     *
-     * @final
-     *
-     * @param Collection    $templates
-     * @param array         $parameters
-     * @param Response|null $response
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     *
-     * @return Response
-     */
-    protected function renderTemplate(Collection $templates, array $parameters = [], Response $response = null): Response
-    {
-        /** @var \Twig_Environment $twig */
-        $twig = $this->container->get('twig');
-
-        $parameters['config'] = $this->config;
-
-        // Resolve string|array of templates into the first one that is found.
-        $template = $twig->resolveTemplate($templates->toArray());
-
-        $content = $twig->render($template, $parameters);
-
-        if ($response === null) {
-            $response = new Response();
-        }
-
-        $response->setContent($content);
-
-        return $response;
     }
 }

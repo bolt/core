@@ -2,6 +2,10 @@
 
 {% block main %}
 
+    <hr>
+    {{ dump() }}
+    <hr>
+
     {% if record is defined %}
 
         <h1>{{ record.title }}</h1>

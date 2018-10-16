@@ -62,11 +62,9 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
                     ;
 
                 $manager->persist($taxonomy);
-                $reference = "taxonomy_" . $taxonomyDefinition['slug'] . "_" . $slugify->slugify($key);
+                $reference = 'taxonomy_' . $taxonomyDefinition['slug'] . '_' . $slugify->slugify($key);
                 $this->addReference($reference, $taxonomy);
             }
-
-
         }
     }
 
@@ -88,5 +86,4 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
             'videogames', 'war', 'web', 'women', 'world', 'writing', 'wtf', 'zombies',
         ];
     }
-
 }

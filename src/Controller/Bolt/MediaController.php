@@ -7,11 +7,10 @@ namespace Bolt\Controller\Bolt;
 use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
+use Bolt\Controller\BaseController;
 use Bolt\Entity\Media;
-use Bolt\Repository\MediaRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,11 +23,8 @@ use Webmozart\PathUtil\Path;
  * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
-class MediaController extends AbstractController
+class MediaController extends BaseController
 {
-    /** @var Config */
-    private $config;
-
     /** @var ObjectManager */
     private $manager;
 
@@ -41,10 +37,10 @@ class MediaController extends AbstractController
     /**
      * MediaController constructor.
      *
-     * @param Config          $config
-     * @param MediaRepository $mediaRepository
-     * @param ObjectManager   $manager
-     * @param Areas           $areas
+     * @param Config        $config
+     * @param ObjectManager $manager
+     * @param Areas         $areas
+     * @param MediaFactory  $mediaFactory
      */
     public function __construct(Config $config, ObjectManager $manager, Areas $areas, MediaFactory $mediaFactory)
     {
@@ -71,9 +67,7 @@ class MediaController extends AbstractController
             $this->manager->flush();
         }
 
-        dd($file);
-
-        return $this->render('finder/finder.twig', [
+        return $this->renderTemplate('finder/finder.twig', [
             'path' => $path,
             'name' => $areas[$area]['name'],
             'area' => $area,

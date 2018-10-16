@@ -10,11 +10,11 @@ namespace Bolt\Controller\Bolt;
 use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
+use Bolt\Controller\BaseController;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,14 +32,8 @@ use Webmozart\PathUtil\Path;
  * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EditMediaController extends AbstractController
+class EditMediaController extends BaseController
 {
-    /** @var Config */
-    private $config;
-
-    /** @var CsrfTokenManagerInterface */
-    private $csrfTokenManager;
-
     /** @var ObjectManager */
     private $manager;
 
@@ -96,7 +90,7 @@ class EditMediaController extends AbstractController
             'media' => $media,
         ];
 
-        return $this->render('editcontent/media_edit.twig', $context);
+        return $this->renderTemplate('editcontent/media_edit.twig', $context);
     }
 
     /**
