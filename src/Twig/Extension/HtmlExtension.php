@@ -38,7 +38,7 @@ class HtmlExtension extends AbstractExtension
         return [
             // @codingStandardsIgnoreStart
             new TwigFilter('markdown', [Runtime\HtmlRuntime::class, 'dummy'], $safe),
-            new TwigFilter('twig',     [Runtime\HtmlRuntime::class, 'dummy'], $env + $safe),
+            new TwigFilter('twig',     [Runtime\HtmlRuntime::class, 'twig'], $env + $safe),
             // @codingStandardsIgnoreEnd
         ];
     }
