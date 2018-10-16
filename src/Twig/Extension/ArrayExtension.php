@@ -23,7 +23,7 @@ class ArrayExtension extends AbstractExtension
 
         return [
             // @codingStandardsIgnoreStart
-            new TwigFunction('unique', [Runtime\ArrayRuntime::class, 'dummy'], $safe),
+            new TwigFunction('unique', [Runtime\ArrayRuntime::class, 'unique'], $safe),
             // @codingStandardsIgnoreEnd
         ];
     }
@@ -35,8 +35,8 @@ class ArrayExtension extends AbstractExtension
     {
         return [
             // @codingStandardsIgnoreStart
-            new TwigFilter('order',   [Runtime\ArrayRuntime::class, 'dummy']),
-            new TwigFilter('shuffle', [Runtime\ArrayRuntime::class, 'dummy']),
+            new TwigFilter('order',   [Runtime\ArrayRuntime::class, 'order']),
+            new TwigFilter('shuffle', [Runtime\ArrayRuntime::class, 'shuffle']),
             // @codingStandardsIgnoreEnd
         ];
     }
