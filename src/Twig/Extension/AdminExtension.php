@@ -33,7 +33,7 @@ class AdminExtension extends AbstractExtension
         return [
             // @codingStandardsIgnoreStart
             new TwigFilter('__',       [Runtime\AdminRuntime::class, 'dummy']),
-            new TwigFilter('ymllink',  [Runtime\AdminRuntime::class, 'dummy'], $safe),
+            new TwigFilter('ymllink',  [Runtime\AdminRuntime::class, 'ymllink'], $safe),
             // @codingStandardsIgnoreEnd
         ];
     }
