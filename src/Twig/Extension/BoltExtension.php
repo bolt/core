@@ -2,6 +2,7 @@
 
 namespace Bolt\Twig\Extension;
 
+use Bolt\Twig\Runtime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -20,8 +21,8 @@ class BoltExtension extends AbstractExtension
 
         return [
             // @codingStandardsIgnoreStart
-            new TwigFunction('first', 'dummy', $env),
-            new TwigFunction('last',  'dummy', $env),
+            new TwigFunction('first', [Runtime\BoltRuntime::class, 'dummy'], $env),
+            new TwigFunction('last',  [Runtime\BoltRuntime::class, 'dummy'], $env),
             // @codingStandardsIgnoreEnd
         ];
     }
@@ -32,10 +33,9 @@ class BoltExtension extends AbstractExtension
     public function getFilters()
     {
         $env = ['needs_environment' => true];
-        $deprecated = ['deprecated' => true];
 
         return [
-            new TwigFilter('ucfirst', 'dummy', $env + ['alternative' => 'capitalize']),
+            new TwigFilter('ucfirst', [Runtime\BoltRuntime::class, 'dummy'], $env + ['alternative' => 'capitalize']),
         ];
     }
 }

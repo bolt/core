@@ -2,6 +2,7 @@
 
 namespace Bolt\Twig\Extension;
 
+use Bolt\Twig\Runtime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;

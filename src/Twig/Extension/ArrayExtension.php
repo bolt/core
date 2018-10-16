@@ -2,6 +2,7 @@
 
 namespace Bolt\Twig\Extension;
 
+use Bolt\Twig\Runtime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -22,7 +23,7 @@ class ArrayExtension extends AbstractExtension
 
         return [
             // @codingStandardsIgnoreStart
-            new TwigFunction('unique', [$this, 'dummy'], $safe),
+            new TwigFunction('unique', [Runtime\ArrayRuntime::class, 'dummy'], $safe),
             // @codingStandardsIgnoreEnd
         ];
     }
@@ -34,8 +35,8 @@ class ArrayExtension extends AbstractExtension
     {
         return [
             // @codingStandardsIgnoreStart
-            new TwigFilter('order',   [$this, 'dummy']),
-            new TwigFilter('shuffle', [$this, 'dummy']),
+            new TwigFilter('order',   [Runtime\ArrayRuntime::class, 'dummy']),
+            new TwigFilter('shuffle', [Runtime\ArrayRuntime::class, 'dummy']),
             // @codingStandardsIgnoreEnd
         ];
     }

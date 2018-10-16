@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
+use Bolt\Twig\Runtime;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Template;
