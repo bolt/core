@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
@@ -17,9 +19,7 @@ class AdminExtension extends AbstractExtension
         $safe = ['is_safe' => ['html']];
 
         return [
-            // @codingStandardsIgnoreStart
-            new TwigFunction('__',                 [Runtime\AdminRuntime::class, 'dummy'], $safe),
-            // @codingStandardsIgnoreEnd
+            new TwigFunction('__', [Runtime\AdminRuntime::class, 'dummy'], $safe),
         ];
     }
 
@@ -31,10 +31,8 @@ class AdminExtension extends AbstractExtension
         $safe = ['is_safe' => ['html']];
 
         return [
-            // @codingStandardsIgnoreStart
-            new TwigFilter('__',       [Runtime\AdminRuntime::class, 'dummy']),
-            new TwigFilter('ymllink',  [Runtime\AdminRuntime::class, 'ymllink'], $safe),
-            // @codingStandardsIgnoreEnd
+            new TwigFilter('__', [Runtime\AdminRuntime::class, 'dummy']),
+            new TwigFilter('ymllink', [Runtime\AdminRuntime::class, 'ymllink'], $safe),
         ];
     }
 }

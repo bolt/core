@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
@@ -17,10 +19,8 @@ class UserExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            // @codingStandardsIgnoreStart
-            new TwigFunction('getuser',   [Runtime\UserRuntime::class, 'dummy']),
+            new TwigFunction('getuser', [Runtime\UserRuntime::class, 'dummy']),
             new TwigFunction('getuserid', [Runtime\UserRuntime::class, 'dummy']),
-            // @codingStandardsIgnoreEnd
         ];
     }
 }

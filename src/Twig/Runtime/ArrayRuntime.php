@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Twig\Runtime;
 
@@ -108,11 +110,11 @@ class ArrayRuntime
         }
 
         if ($fieldName[0] === '-') {
-            $fieldName = substr($fieldName, 1);
+            $fieldName = mb_substr($fieldName, 1);
             $sort = 'DESC';
         }
 
-        return [$fieldName, (strtoupper($sort) === 'ASC')];
+        return [$fieldName, (mb_strtoupper($sort) === 'ASC')];
     }
 
     /**

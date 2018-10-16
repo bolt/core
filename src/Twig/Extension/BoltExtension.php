@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
@@ -17,13 +19,11 @@ class BoltExtension extends AbstractExtension
      */
     public function getFunctions()
     {
-        $env = ['needs_environment' => true];
+        $env = ['needs_environment' => false];
 
         return [
-            // @codingStandardsIgnoreStart
             new TwigFunction('first', [Runtime\BoltRuntime::class, 'dummy'], $env),
-            new TwigFunction('last',  [Runtime\BoltRuntime::class, 'dummy'], $env),
-            // @codingStandardsIgnoreEnd
+            new TwigFunction('last', [Runtime\BoltRuntime::class, 'dummy'], $env),
         ];
     }
 

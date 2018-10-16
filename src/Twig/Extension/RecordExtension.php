@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
@@ -21,11 +23,9 @@ class RecordExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            // @codingStandardsIgnoreStart
-            new TwigFunction('excerpt',       [Runtime\RecordRuntime::class, 'excerpt'], $safe),
+            new TwigFunction('excerpt', [Runtime\RecordRuntime::class, 'excerpt'], $safe),
             new TwigFunction('listtemplates', [Runtime\RecordRuntime::class, 'dummy']),
-            new TwigFunction('pager',         [Runtime\RecordRuntime::class, 'dummy'], $env + $safe),
-            // @codingStandardsIgnoreEnd
+            new TwigFunction('pager', [Runtime\RecordRuntime::class, 'dummy_with_env'], $env + $safe),
         ];
     }
 
@@ -38,9 +38,7 @@ class RecordExtension extends AbstractExtension
         $deprecated = ['deprecated' => true];
 
         return [
-            // @codingStandardsIgnoreStart
-            new TwigFilter('excerpt',     [Runtime\RecordRuntime::class, 'excerpt'], $safe),
-            // @codingStandardsIgnoreEnd
+            new TwigFilter('excerpt', [Runtime\RecordRuntime::class, 'excerpt'], $safe),
         ];
     }
 }

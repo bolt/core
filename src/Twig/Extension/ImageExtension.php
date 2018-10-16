@@ -6,7 +6,6 @@ namespace Bolt\Twig\Extension;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field;
-use Bolt\Twig\Runtime;
 use League\Glide\Urls\UrlBuilderFactory;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;

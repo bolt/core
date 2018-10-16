@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Twig\Extension;
 
 use Bolt\Twig\Runtime;
@@ -20,12 +22,10 @@ class WidgetExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            // @codingStandardsIgnoreStart
             new TwigFunction('countwidgets', [Runtime\WidgetRuntime::class, 'dummy'], $safe + $env),
-            new TwigFunction('getwidgets',   [Runtime\WidgetRuntime::class, 'dummy'], $safe),
-            new TwigFunction('haswidgets',   [Runtime\WidgetRuntime::class, 'dummy'], $safe + $env),
-            new TwigFunction('widgets',      [Runtime\WidgetRuntime::class, 'dummy'], $safe + $env),
-            // @codingStandardsIgnoreEnd
+            new TwigFunction('getwidgets', [Runtime\WidgetRuntime::class, 'dummy'], $safe),
+            new TwigFunction('haswidgets', [Runtime\WidgetRuntime::class, 'dummy'], $safe + $env),
+            new TwigFunction('widgets', [Runtime\WidgetRuntime::class, 'dummy'], $safe + $env),
         ];
     }
 }

@@ -1,6 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Twig\Runtime;
+
+use Twig\Environment;
 
 /**
  * Bolt specific Twig functions and filters for HTML.
@@ -9,7 +13,7 @@ namespace Bolt\Twig\Runtime;
  */
 class WidgetRuntime
 {
-    public function dummy($input = null)
+    public function dummy(Environment $env, $input = null)
     {
         return $input;
     }

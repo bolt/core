@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
@@ -17,10 +19,8 @@ class RoutingExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            // @codingStandardsIgnoreStart
-            new TwigFunction('canonical',      [Runtime\RoutingRuntime::class, 'dummy']),
-            new TwigFunction('htmllang',       [Runtime\RoutingRuntime::class, 'dummy']),
-            // @codingStandardsIgnoreEnd
+            new TwigFunction('canonical', [Runtime\RoutingRuntime::class, 'dummy']),
+            new TwigFunction('htmllang', [Runtime\RoutingRuntime::class, 'dummy']),
         ];
     }
 }

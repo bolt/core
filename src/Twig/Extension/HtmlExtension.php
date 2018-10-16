@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
@@ -21,9 +23,7 @@ class HtmlExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            // @codingStandardsIgnoreStart
             new TwigFunction('markdown', [Runtime\HtmlRuntime::class, 'dummy'], $safe),
-            // @codingStandardsIgnoreEnd
         ];
     }
 
@@ -36,10 +36,8 @@ class HtmlExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            // @codingStandardsIgnoreStart
             new TwigFilter('markdown', [Runtime\HtmlRuntime::class, 'dummy'], $safe),
-            new TwigFilter('twig',     [Runtime\HtmlRuntime::class, 'twig'], $env + $safe),
-            // @codingStandardsIgnoreEnd
+            new TwigFilter('twig', [Runtime\HtmlRuntime::class, 'twig'], $env + $safe),
         ];
     }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
@@ -22,9 +24,7 @@ class ArrayExtension extends AbstractExtension
         $safe = ['is_safe' => ['html']];
 
         return [
-            // @codingStandardsIgnoreStart
             new TwigFunction('unique', [Runtime\ArrayRuntime::class, 'unique'], $safe),
-            // @codingStandardsIgnoreEnd
         ];
     }
 
@@ -34,10 +34,8 @@ class ArrayExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            // @codingStandardsIgnoreStart
-            new TwigFilter('order',   [Runtime\ArrayRuntime::class, 'order']),
+            new TwigFilter('order', [Runtime\ArrayRuntime::class, 'order']),
             new TwigFilter('shuffle', [Runtime\ArrayRuntime::class, 'shuffle']),
-            // @codingStandardsIgnoreEnd
         ];
     }
 }
