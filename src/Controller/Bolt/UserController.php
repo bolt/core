@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Bolt;
 
+use Bolt\Controller\BaseController;
 use Bolt\Form\ChangePasswordType;
 use Bolt\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
-class UserController extends AbstractController
+class UserController extends BaseController
 {
     /**
      * @Route("/profile-edit", methods={"GET", "POST"}, name="bolt_profile_edit")
@@ -36,7 +36,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('bolt_profile_edit');
         }
 
-        return $this->render('users/edit.twig', [
+        return $this->renderTemplate('users/edit.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
@@ -47,6 +47,10 @@ class UserController extends AbstractController
      *
      * @param Request                      $request
      * @param UserPasswordEncoderInterface $encoder
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      *
      * @return Response
      */
@@ -62,7 +66,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('security_logout');
         }
 
-        return $this->render('users/change_password.twig', [
+        return $this->renderTemplate('users/change_password.twig', [
             'form' => $form->createView(),
         ]);
     }

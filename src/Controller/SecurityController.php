@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
+class SecurityController extends BaseController
 {
     /**
      * @Route("/bolt/login", name="bolt_login")
@@ -22,7 +21,7 @@ class SecurityController extends AbstractController
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        return $this->render('security/login.twig', [
+        return $this->renderTemplate('security/login.twig', [
             'last_username' => $last_username,
             'error' => $error,
         ]);

@@ -149,8 +149,6 @@ class Config
         return collect($general);
     }
 
-
-
     /**
      * Read and parse the taxonomy.yml configuration file.
      *

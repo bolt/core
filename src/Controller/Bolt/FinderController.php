@@ -7,9 +7,9 @@ namespace Bolt\Controller\Bolt;
 use Bolt\Common\Str;
 use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
+use Bolt\Controller\BaseController;
 use Bolt\Repository\MediaRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,11 +21,8 @@ use Webmozart\PathUtil\Path;
  * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
-class FinderController extends AbstractController
+class FinderController extends BaseController
 {
-    /** @var Config */
-    private $config;
-
     /** @var Areas */
     private $areas;
 
@@ -59,7 +56,7 @@ class FinderController extends AbstractController
 
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';
 
-        return $this->render('finder/finder.twig', [
+        return $this->renderTemplate('finder/finder.twig', [
             'path' => $path,
             'name' => $area->get('name'),
             'area' => $area->get('key'),

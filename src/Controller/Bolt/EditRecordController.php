@@ -6,12 +6,11 @@ namespace Bolt\Controller\Bolt;
 
 use Bolt\Configuration\Config;
 use Bolt\Content\FieldFactory;
+use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
-use Bolt\Version;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,17 +26,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EditRecordController extends AbstractController
+class EditRecordController extends BaseController
 {
-    /** @var Config */
-    private $config;
-
-    /** @var Version */
-    private $version;
-
-    /** @var CsrfTokenManagerInterface */
-    private $csrfTokenManager;
-
     public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->config = $config;
@@ -46,8 +36,14 @@ class EditRecordController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="bolt_edit_record", methods={"GET"})
+     *
+     * @param string       $id
+     * @param Request      $request
+     * @param Content|null $content
+     *
+     * @return Response
      */
-    public function edit(string $id, Content $content = null, Request $request): Response
+    public function edit(string $id, Request $request, Content $content = null): Response
     {
         if (!$content) {
             $content = new Content();
@@ -56,15 +52,22 @@ class EditRecordController extends AbstractController
             $content->setConfig($this->config);
         }
 
-        return $this->render('editcontent/edit.twig', [
+        return $this->renderTemplate('editcontent/edit.twig', [
             'record' => $content,
          ]);
     }
 
     /**
      * @Route("/edit/{id}", name="bolt_edit_record_post", methods={"POST"})
+     *
+     * @param Request               $request
+     * @param ObjectManager         $manager
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Content|null          $content
+     *
+     * @return Response
      */
-    public function edit_post(Content $content = null, Request $request, ObjectManager $manager, UrlGeneratorInterface $urlGenerator): Response
+    public function edit_post(Request $request, ObjectManager $manager, UrlGeneratorInterface $urlGenerator, Content $content = null): Response
     {
         $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
 

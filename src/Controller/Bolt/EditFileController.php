@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Bolt;
 
-use Bolt\Configuration\Config;
+use Bolt\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
 use Webmozart\PathUtil\Path;
@@ -25,31 +23,17 @@ use Webmozart\PathUtil\Path;
  * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EditFileController extends AbstractController
+class EditFileController extends BaseController
 {
-    /** @var Config */
-    private $config;
-
-    /** @var CsrfTokenManagerInterface */
-    private $csrfTokenManager;
-
-    /**
-     * EditFileController constructor.
-     *
-     * @param Config                    $config
-     * @param CsrfTokenManagerInterface $csrfTokenManager
-     */
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager)
-    {
-        $this->config = $config;
-        $this->csrfTokenManager = $csrfTokenManager;
-    }
-
     /**
      * @Route("/editfile/{area}", name="bolt_edit_file", methods={"GET"})
      *
-     * @param string $area
-     * @param string $file
+     * @param string  $area
+     * @param Request $request
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      *
      * @return Response
      */
@@ -66,7 +50,7 @@ class EditFileController extends AbstractController
             'contents' => $contents,
         ];
 
-        return $this->render('finder/editfile.twig', $context);
+        return $this->renderTemplate('finder/editfile.twig', $context);
     }
 
     /**
@@ -99,7 +83,7 @@ class EditFileController extends AbstractController
                 'contents' => $contents,
             ];
 
-            return $this->render('finder/editfile.twig', $context);
+            return $this->renderTemplate('finder/editfile.twig', $context);
         }
 
         $basepath = $this->config->getPath($area);
