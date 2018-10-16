@@ -1,29 +1,29 @@
 <template>
-    <div class="ui top attached menu">
-        <span class="topbar-title" v-html="title">{{ title }}</span>
-        <div class="right menu">
-            <div class="item">
-                <div class="ui icon input">
-                    <input type="text" placeholder="Search...">
-                    <i class="search link icon"></i>
+        <div class="nav btn-toolbar nav-fill" role="toolbar" aria-label="Toolbar with button groups">
+            <span class="topbar-title nav-item" v-html="title">{{ title }}</span>
+            <div class="input-group nav-item">
+                <div class="input-group-prepend">
+                    <div class="input-group-text" id="btnGroupAddon">@</div>
                 </div>
+                <input type="text" class="form-control" placeholder="Search …" aria-label="Search …" aria-describedby="btnGroupAddon">
             </div>
-            <a href="/" class="item">
+
+            <a href="/" class="btn btn-light nav-item">
                 <i class="fas fa-external-link-square-alt"></i> &nbsp; View site
             </a>
-            <div class="ui pointing dropdown link item">
+
+            <div class="btn-group nav-item" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="text"><i class="fas fa-user-circle"></i> &nbsp; Admin</span>
-                <i class="dropdown icon"></i>
-
-                <div class="menu">
-                    <a href="/bolt/profile-edit" class="item">Edit profile</a>
-                    <div class="divider"></div>
-                    <a href="/logout" class="item">Logout</a>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+                <a href="/bolt/profile-edit" class="dropdown-item">Edit profile</a>
+                <a href="/bolt/logout" class="dropdown-item">Logout</a>
                 </div>
-
             </div>
+
         </div>
-    </div>
+
 </template>
 
 <script>
@@ -36,24 +36,31 @@ module.exports = {
 };
 </script>
 
-<style>
-span.topbar-title {
-  font-family: "Source Sans Pro", serif;
-  font-size: 22px;
-  color: #222;
-  line-height: 52px;
-  max-height: 52px;
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  margin-right: 1rem;
-}
-.ui.attached.menu:not(.tabular) {
-  border: 0;
-  padding: 0 1rem 0 3rem;
-  max-width: calc(100% - 4rem);
+<style lang="scss">
+.nav.btn-toolbar {
+  margin: 0.5rem 1rem 0 3rem;
+
+  .nav-item {
+    flex-grow: 0;
+    margin-right: 0.6rem;
+  }
+
+  .nav-item.topbar-title {
+    font-family: "Source Sans Pro", serif;
+    font-size: 22px;
+    color: #222;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    flex-grow: 1;
+  }
+
+  .btn-light {
+    background-color: #eee;
+    border: 1px solid #d8d8d8;
+  }
 }
 </style>

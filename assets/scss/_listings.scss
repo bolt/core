@@ -8,7 +8,6 @@
     max-height: 4.5rem;
 }
 
-
 td.listing-excerpt {
     color: #333;
 }
@@ -33,4 +32,16 @@ td.listing-thumb img {
 
 td.listing-actions {
     white-space: nowrap;
+
+    .btn-light {
+        background-color: #e0e0e0;
+        border: 1px solid #d8d8d8;
+        color: #444;
+    }
+
+    .show > .btn-light.dropdown-toggle {
+        background-color: #ccc;
+        border: 1px solid #b8b8b8;
+        color: #444;
+    }
 }

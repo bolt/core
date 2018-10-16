@@ -1,6 +1,6 @@
 {% extends '@bolt/_base/layout.twig' %}
 
-{% set alltypes = [] %}
+{% set alltypes = ['select'] %}
 {% for key, fielddefinition in record.definition.fields %}
     {% set alltypes = alltypes|merge([fielddefinition.type]) %}
 {% endfor %}
@@ -13,7 +13,7 @@
 
     {#{{ dump(record.definition.fields) }}#}
 
-<form method="post" class="ui form" id="editcontent">
+<form method="post" id="editcontent">
 
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
 
@@ -30,9 +30,7 @@
 
 {% endfor %}
 
-    {{ dump(alltypes|unique) }}
-
-    <input type="submit" class="ui button primary" value="Save">
+    <input type="submit" class="btn btn-primary" value="Save">
 
 </form>
 
@@ -40,15 +38,15 @@
 
 {% block aside %}
 
-<div class="ui card">
-    <div class="content">
-        <div class="header">Meta information</div>
+<div class="card">
+    <div class="card-header">
+        Meta information
     </div>
-    <div class="content">
+    <div class="card-body">
 
         <form class="ui form">
 
-            <input type="submit" class="ui button primary" value="Save" form="editcontent">
+            <input type="submit" class="btn btn-primary" value="Save" form="editcontent">
 
     {% include '@bolt/editcontent/fields/text.twig' with {
         'label': 'field.id'|trans,

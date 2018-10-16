@@ -1,25 +1,23 @@
 {% if allfiles %}
-    <div class="ui form">
-        <div class="inline fields">
-            <label>Quick select:</label>
-            <div class="field">
-                <div class="ui fluid search selection dropdown fileselector">
-                    <input name="quickselect" type="hidden">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Quick select a file</div>
-                    <div class="menu">
-                        {% for file in allfiles %}
-                            <div class="item" data-value="{{ file.filename }}">
-                                <span class="description">{{ file.description }}</span>
-                                <span class="text">{{ file.filename }}</span>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="field">
-                <button class="ui button primary">Go</button>
-            </div>
-        </div>
+
+<div class="row">
+    <div class="col-2">
+        <label>Quick select:</label>
     </div>
+    <div class="col-8">
+        <select name="quickselect" id="quickselect">
+            <option>Quick select a file</option>
+
+            {% for file in allfiles %}
+            <option value="{{ file.filename }}">
+                {{ file.filename }} - {{ file.description }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-secondary">Go</button>
+    </div>
+</div>
+
 {% endif %}

@@ -14,12 +14,11 @@
         <input type="hidden" name="file" value="{{ file }}">
         <input type="hidden" name="area" value="{{ area }}">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editfile') }}">
-    <div class="ui form">
-        <div class="field">
+        <div class="form-group">
             <textarea name="editfile" id="editfile_textarea">{{ contents }}</textarea>
         </div>
-        <div class="field">
-            <button type="submit" class="ui button primary" name="save">Save</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" name="save">Save</button>
         </div>
     </div>
     </form>

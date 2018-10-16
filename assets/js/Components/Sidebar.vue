@@ -1,6 +1,6 @@
 <template>
-  <div class="ui vertical inverted borderless small menu">
-    <div class="header item logo">
+  <nav class="nav flex-column nav-fill">
+    <div class="logo">
       <h2>Bolt</h2>
     </div>
     <!-- TODO: Maybe we need to parse the data somewhere else -->
@@ -8,13 +8,13 @@
 
       <!-- separators -->
       <hr v-if="menuitem.type"/>
-      <div v-if="menuitem.type" class="item separator">
+      <div v-if="menuitem.type" class="nav-item separator">
           <i class="fas" :class="menuitem.icon_one"></i>
         {{ menuitem.name }}
       </div>
 
       <!-- Non-contenttype links -->
-      <a v-else-if="!menuitem.contenttype" :href="menuitem.link" class="item" :key="menuitem.id">
+      <a v-else-if="!menuitem.contenttype" :href="menuitem.link" class="nav-item nav-link" :key="menuitem.id">
         <span v-if="!menuitem.type" class="fa-stack">
           <i class="fas fa-square fa-stack-2x"></i>
           <i class="fas fa-stack-1x" :class="menuitem.icon_one"></i>
@@ -23,36 +23,38 @@
       </a>
 
       <!-- Contenttypes -->
-      <div v-else="" class="ui dropdown item left pointing floating" :key="menuitem.id" :class="[ menuitem.active ? 'current' : '' ]">
-        <i v-if="!menuitem.singleton" class="dropdown icon"></i>
-        <a :href="menuitem.link">
-        <span class="fa-stack">
-          <i class="fas fa-square fa-stack-2x"></i>
-          <i class="fas fa-stack-1x" :class="menuitem.icon_many"></i>
-        </span>
+
+
+      <div v-else="" class="dropdown" :key="menuitem.id" :class="[ menuitem.active ? 'current' : '' ]">
+        <a :href="menuitem.link" button class="nav-item nav-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-trigger="hover">
+          <span class="fa-stack">
+            <i class="fas fa-square fa-stack-2x"></i>
+            <i class="fas fa-stack-1x" :class="menuitem.icon_many"></i>
+          </span>
           {{ menuitem.name }}
         </a>
 
         <!-- that are not Singleton -->
-        <div v-if="!menuitem.singleton" class="menu">
-          <a class="item" :href="'/bolt/content/' + menuitem.contenttype">
-            <i class="fas icon" :class="menuitem.icon_one"></i>
-            View {{ menuitem.name }}
-          </a>
-          <a class="item" :href="'/bolt/edit/' + menuitem.contenttype">
-             <i class="fas fa-plus icon"></i>
-            New {{ menuitem.name }}
-          </a>
-          <div class="divider"></div>
-          <a v-for="record in getRecordsPerContenttype(menuitem.contenttype)" :key="record.id" class="item" :href="'/bolt/edit/' + record.id">
+        <div v-if="!menuitem.singleton" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a v-for="record in getRecordsPerContenttype(menuitem.contenttype)" :key="record.id" class="dropdown-item" :href="'/bolt/edit/' + record.id">
             <i class="fas icon" :class="menuitem.icon_one"></i>
             {{ record.magictitle }}
           </a>
+          <div class="btn-group" role="group">
+          <a class="btn btn-light btn-sm" :href="'/bolt/content/' + menuitem.contenttype">
+            <i class="fas icon" :class="menuitem.icon_one"></i>
+            View {{ menuitem.name }}
+          </a>
+          <a class="btn btn-light btn-sm" :href="'/bolt/edit/' + menuitem.contenttype">
+             <i class="fas fa-plus icon"></i>
+            New {{ menuitem.name }}
+          </a>
+          </div>
         </div>
 
       </div>
     </template>
-  </div>
+  </nav>
 </template>
 
 <script>
@@ -98,10 +100,7 @@ export default {
 <style lang="scss">
 @import "../../scss/settings";
 
-.ui.small.vertical.menu {
-  border-radius: 0;
-  width: auto;
-  font-size: 1rem;
+nav.flex-column {
   background-color: $sidebar-background;
 
   hr {
@@ -114,14 +113,18 @@ export default {
     color: #fff;
     background: $sidebar-background;
     text-align: center;
-    font-size: 36px;
-    margin: 0;
+    margin: 1rem;
+
+    h2 {
+      font-size: 36px;
+    }
   }
 
-  .item {
+  .nav-item {
     color: #ddd !important;
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
+    text-align: left;
 
     a {
       color: #ddd !important;
@@ -159,12 +162,31 @@ export default {
     }
   }
 
-  .menu.transition {
-    margin-left: -28px;
-    font-size: 0.9rem;
+  .dropdown-menu {
+    transform: translateX(140px) !important;
+    padding-bottom: 0;
 
     a {
-      padding: 0.5rem 1rem !important;
+      padding: 0.25rem 0.75rem;
+    }
+
+    .btn-group {
+      width: 100%;
+      background-color: #eee;
+      border-top: 1px solid #ddd;
+      margin-top: 0.5rem;
+      display: flex;
+    }
+
+    .btn {
+      background-color: #eee;
+      border: 0;
+      flex: 1;
+      padding: 0.5rem 0;
+    }
+    .btn:hover {
+      background-color: #ccc;
+      border: 0;
     }
   }
 }

@@ -1,9 +1,8 @@
-
 .imageholder {
     width: 100%;
     border-radius: 5px;
-    border: 1px solid #DDD;
-    background-color: #FFF;
+    border: 1px solid #ddd;
+    background-color: #fff;
 
     img {
         max-width: 100%;
@@ -13,4 +12,7 @@
     }
 }
 
-
+.selectize-input > * {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}

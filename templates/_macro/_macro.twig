@@ -3,5 +3,5 @@
     {% if action == 'held' %}
         {% set action = 'depublish' %}
     {% endif %}
-    <div href="#" data-listing-cmd="record:{{ action }}"><i class="fa {{ icon }}"></i> {{ __(text) }}</div>
+    <a class="dropdown-item" data-listing-cmd="record:{{ action }}"><i class="fa {{ icon }}"></i> {{ __(text) }}</a>
 {% endmacro %}
