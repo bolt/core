@@ -52,7 +52,6 @@ class BaseController extends AbstractController
 
         // Set config and version.
         $parameters['config'] = $this->config;
-        $parameters['foo'] = 'bar';
         $parameters['version'] = Version::VERSION;
 
         // Resolve string|array of templates into the first one that is found.
