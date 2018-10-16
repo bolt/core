@@ -38,29 +38,29 @@ module.exports = {
 
 <style lang="scss">
 .nav.btn-toolbar {
-    margin: 0.5rem 1rem 0 3rem;
+  margin: 0.5rem 1rem 0 3rem;
 
-    .nav-item {
-        flex-grow: 0;
-        margin-right: 0.6rem;
-    }
+  .nav-item {
+    flex-grow: 0;
+    margin-right: 0.6rem;
+  }
 
-    .nav-item.topbar-title {
-        font-family: "Source Sans Pro", serif;
-        font-size: 22px;
-        color: #222;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: left;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        flex-grow: 1;
-    }
+  .nav-item.topbar-title {
+    font-family: "Source Sans Pro", serif;
+    font-size: 22px;
+    color: #222;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    flex-grow: 1;
+  }
 
-    .btn-light {
-        background-color: #EEE;
-        border: 1px solid #D8D8D8;
-    }
+  .btn-light {
+    background-color: #eee;
+    border: 1px solid #d8d8d8;
+  }
 }
 </style>

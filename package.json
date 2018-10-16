@@ -30,7 +30,8 @@
     "vue": "^2.5.17"
   },
   "scripts": {
-    "lint": "eslint --ext .js,.vue assets",
+    "lint": "eslint --ext .js,.vue, assets",
+    "lint-fix": "eslint --ext .js,.vue, assets --fix",
     "dev-server": "encore dev-server",
     "dev": "encore dev",
     "watch": "encore dev --watch",

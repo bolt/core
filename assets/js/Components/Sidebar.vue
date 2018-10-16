@@ -117,8 +117,7 @@ nav.flex-column {
 
     h2 {
       font-size: 36px;
-  }
-
+    }
   }
 
   .nav-item {
@@ -173,25 +172,22 @@ nav.flex-column {
 
     .btn-group {
       width: 100%;
-      background-color: #EEE;
-      border-top: 1px solid #DDD;
+      background-color: #eee;
+      border-top: 1px solid #ddd;
       margin-top: 0.5rem;
-      display: flex
+      display: flex;
     }
 
     .btn {
-      background-color: #EEE;
+      background-color: #eee;
       border: 0;
       flex: 1;
       padding: 0.5rem 0;
     }
     .btn:hover {
-      background-color: #CCC;
+      background-color: #ccc;
       border: 0;
     }
-
-
   }
-
 }
 </style>
