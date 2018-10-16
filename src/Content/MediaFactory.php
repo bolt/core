@@ -63,7 +63,7 @@ class MediaFactory
             ->setCreatedAt(Carbon::createFromTimestamp($file->getCTime()))
             ->setFilesize($file->getSize())
             ->setTitle($this->faker->sentence(6, true))
-            ->addAuthor($this->getUser());
+            ->setAuthor($this->getUser());
 
         if ($this->isImage($media)) {
             $this->updateImageData($media, $file);
