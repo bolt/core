@@ -1,0 +1,35 @@
+{% extends '@bolt/editcontent/javascripts/_base.twig' %}
+
+
+{% block javascripts %}
+    <script>
+        FilePond.registerPlugin(
+            FilePondPluginFileMetadata,
+            FilePondPluginImagePreview
+        );
+        FilePond.setOptions({
+            fileMetadataObject: {
+                'area': 'files',
+                'path': ''
+            }
+        });
+
+        new Vue({
+            el: '#{{ id}}-uploader',
+            components: {
+                FilePond: vueFilePond.default()
+            }
+        });
+
+        const pond = document.querySelector('.filepond--root');
+        pond.addEventListener('FilePond:processfile', e => {
+            document.querySelector("#{{ id }}-filename").value = e.detail.file.serverId;
+        });
+        pond.addEventListener('FilePond:addfile', e => {
+            document.querySelector('.filepond--wrapper').style.opacity = "0.5 !important";
+            console.log('foooo');
+            document.querySelector("#{{ id }}-uploader").style.background = 'none';
+        });
+
+    </script>
+{% endblock %}

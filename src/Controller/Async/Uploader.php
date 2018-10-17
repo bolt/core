@@ -48,18 +48,10 @@ class Uploader
 
         foreach($items as $item) {
             $media = $this->mediaFactory->createFromUpload($item, current($params));
-            dump($media);
-
             $this->manager->persist($media);
             $this->manager->flush();
         }
 
-        // Returns plain text content
-        header('Content-Type: text/plain');
-
-        // Remove item from array Response contains uploaded file server id
-        echo array_shift($items)->getId();
-
-        return new Response("Finis!");
+        return new Response($media->getPath() . $media->getFilename());
     }
 }

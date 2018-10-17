@@ -43,4 +43,6 @@ $(document).ready(function() {
   // $(".ui.calendar").calendar({
   //   ampm: false
   // });
+
+    var lightbox = $('a.lightbox').simpleLightbox();
 });
