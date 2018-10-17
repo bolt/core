@@ -1,0 +1,64 @@
+{% extends '@bolt/editcontent/javascripts/_base.twig' %}
+
+{% block javascripts %}
+<script>
+    var input = document.querySelector("input[name=\"{{ name }}\"]");
+    var slugTick;
+    var element = document.querySelector('#{{ id }}-dropdown');
+
+    element.addEventListener('click', function (event) {
+        if (action = event.target.getAttribute('data-action')) {
+            var target = event.target;
+        } else if (action = event.target.parentElement.getAttribute('data-action')) {
+            var target = event.target.parentElement;
+        } else {
+            return;
+        }
+
+        document.querySelector('#{{ id }}-dropdown button').innerHTML = target.innerHTML;
+
+        clearTimeout(slugTick);
+
+        if (action == 'lock') {
+            input.readOnly = true;
+        }
+        if (action == 'generate') {
+            input.readOnly = true;
+
+            var fromfields = ["{{ field.slugUseFields|join("', '") }}"];
+            updateSlug(fromfields, input);
+        }
+        if (action == 'edit') {
+            input.readOnly = false;
+            input.select();
+        }
+
+    }, false);
+
+    function updateSlug(fromfields, input) {
+        var newSlug = '';
+        fromfields.forEach(function (field) {
+            newSlug = newSlug + document.querySelector("input[name=\"fields[" + field + "]\"]").value;
+        });
+        input.value = slugify(newSlug);
+        slugTick = setTimeout(function() {
+            updateSlug(fromfields, input);
+        }, 400);
+    }
+
+    function slugify(text)
+    {
+        return text.toString().toLowerCase()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
+    }
+
+    // If slug is empty, "click" the 'generate from' option.
+    if (input.value == '') {
+        document.querySelector("a[data-action=\"generate\"]").click();
+    }
+</script>
+{% endblock %}
