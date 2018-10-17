@@ -47,7 +47,9 @@
             </td>
             <td class="listing-thumb" style="padding: 0.2em;">
                 {%- if thumbnail -%}
+                    <a href="{{ filename|thumbnail(width = 1000, height = 1000, area=area) }}" class="lightbox">
                     <img src="{{ thumbnail }}" width="100" height="72">
+                    </a>
                 {%- else -%}
                     &nbsp;
                 {%- endif -%}
