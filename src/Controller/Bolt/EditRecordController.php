@@ -37,11 +37,14 @@ class EditRecordController extends BaseController
     /**
      * @Route("/edit/{id}", name="bolt_edit_record", methods={"GET"})
      *
-     * @param string       $id
-     * @param Request      $request
+     * @param string $id
+     * @param Request $request
      * @param Content|null $content
      *
      * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function edit(string $id, Request $request, Content $content = null): Response
     {

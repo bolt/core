@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="https://unpkg.com/filepond/dist/filepond.min.css">
+<link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css">
+
+<script src="https://unpkg.com/filepond-plugin-image-preview"></script>
+<script src="https://unpkg.com/filepond-plugin-file-metadata/dist/filepond-plugin-file-metadata.js"></script>
+<script src="https://unpkg.com/filepond"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-filepond"></script>
+
+<div class="card mb-4">
+    <div class="card-header">File uploader</div>
+    <div id="uploader">
+        <file-pond name="filepond[]"
+           ref="pond"
+           allow-multiple="true"
+           accepted-file-types="image/jpeg, image/png"
+           server="/async/upload"></file-pond>
+    </div>
+</div>
+
+
+<script>
+    FilePond.registerPlugin(
+        FilePondPluginFileMetadata,
+        FilePondPluginImagePreview
+    );
+    FilePond.setOptions({
+        fileMetadataObject: {
+            'area': '{{ area }}',
+            'path': '{{ path }}'
+        }
+    });
+
+    new Vue({
+        el: '#uploader',
+        components: {
+            FilePond: vueFilePond.default()
+        }
+    });
+</script>
