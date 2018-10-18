@@ -7,14 +7,19 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
+use Bolt\Common\Json;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Media;
+use Bolt\Media\Item;
 use Bolt\Repository\MediaRepository;
 use Carbon\Carbon;
+use Cocur\Slugify\Slugify;
 use Faker\Factory;
 use PHPExif\Reader\Reader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\SplFileInfo;
+use Webmozart\PathUtil\Path;
 
 class MediaFactory
 {
@@ -115,5 +120,57 @@ class MediaFactory
         }
 
         return $user;
+    }
+
+    /**
+     * @param Item $item
+     * @param $params
+     *
+     * @return Media
+     */
+    public function createFromUpload(Item $item, $params): Media
+    {
+        if (Json::test($params)) {
+            $params = Json::parse($params);
+            $addedPath = $params['path'];
+            $area = $params['area'];
+        } else {
+            $addedPath = '';
+            $area = 'files';
+        }
+
+        $targetFilename = $addedPath . \DIRECTORY_SEPARATOR . $this->sanitiseFilename($item->getName());
+
+        $source = $this->config->getPath('cache', true, ['uploads', $item->getId(), $item->getName()]);
+        $target = $this->config->getPath($area, true, $targetFilename);
+
+        $relPath = Path::getDirectory($targetFilename);
+        $relName = Path::getFilename($targetFilename);
+
+        // Move the file over
+        $fileSystem = new Filesystem();
+        $fileSystem->rename($source, $target, true);
+
+        $file = new SplFileInfo($target, $relPath, $relName);
+
+        $media = $this->createOrUpdateMedia($file, $area);
+
+        return $media;
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return string
+     */
+    private function sanitiseFilename(string $filename): string
+    {
+        $extensionSlug = new Slugify(['regexp' => '/([^a-z0-9]|-)+/']);
+        $filenameSlug = new Slugify(['lowercase' => false]);
+
+        $extension = $extensionSlug->slugify(Path::getExtension($filename));
+        $filename = $filenameSlug->slugify(Path::getFilenameWithoutExtension($filename));
+
+        return $filename . '.' . $extension;
     }
 }

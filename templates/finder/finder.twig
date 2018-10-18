@@ -18,12 +18,15 @@
 
 {% block aside %}
 
-<div class="card">
+<div class="card mb-4">
     <div class="card-header">Meta information</div>
     <div class="card-body">
 
     </div>
 </div>
+
+    {% include '@bolt/finder/_uploader.twig' %}
+
 
 
 {% endblock aside %}
@@ -32,6 +35,11 @@
     {{ parent() }}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.min.css" integrity="sha256-EhmqrzYSImS7269rfDxk4H+AHDyu/KwV1d8FDgIXScI=" crossorigin="anonymous" />
+    <style>
+        .filepond--root {
+            margin-bottom: 0 !important;
+        }
+    </style>
 {% endblock %}
 
 

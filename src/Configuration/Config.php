@@ -94,10 +94,11 @@ class Config
     /**
      * @param string $path
      * @param bool   $absolute
+     * @param mixed  $additional
      *
      * @return string
      */
-    public function getPath(string $path, bool $absolute = true, string $additional = ''): string
+    public function getPath(string $path, bool $absolute = true, $additional = null): string
     {
         return $this->pathResolver->resolve($path, $absolute, $additional);
     }

@@ -3,13 +3,59 @@
 {% block field %}
     <label>{{ label }}</label>
 
-    <div class="inline field">
-        <label>Filename</label>
-        <input name="{{ name }}[filename]" placeholder="First Name" type="text" value="{{ field.get('filename') }}" class="{{ class }}" {{ attributes|default()|raw }}>
+    <div class="row" style="margin-right: 0;">
+        <div class="col-8">
+
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Filename</label>
+                </div>
+                <div class="col-9">
+                    <input name="{{ name }}[filename]" id="{{ id }}-filename" placeholder="filename.jpg" type="text" value="{{ field.get('filename') }}" class="{{ class }}" {{ attributes|default()|raw }}>
+                </div>
+
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Alt</label>
+                </div>
+                <div class="col-9">
+                    <input name="{{ name }}[alt]" placeholder="An image depicting a kitten" type="text" value="{{ field.get('alt') }}" class="{{ class }}" {{ attributes|default()|raw }}>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-3">
+                    <label>Title</label>
+                </div>
+                <div class="col-9">
+                    <input name="{{ name }}[alt]" placeholder="A description of this image" type="text" value="{{ field.get('title') }}" class="{{ class }}" {{ attributes|default()|raw }}>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12" style="text-align: right;">
+                    <a href="{{ field.get('filename')|thumbnail(width=1000, height=1000, area='files') }}" class="btn btn-secondary btn-small lightbox" style="color: #FFF;">view image</a>
+                    <a href="" onclick="document.querySelector('.filepond--drop-label label').click(); return false;" class="btn btn-secondary btn-small" style="color: #FFF;">Upload an image</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-4" id="{{ id }}-uploader" style="padding: 0; min-height: 180px;">
+            <file-pond name="filepond[]" ref="pond" accepted-file-types="image/jpeg, image/png" server="/async/upload"></file-pond>
+        </div>
+
     </div>
-    <div class="inline field">
-        <label>Alt</label>
-        <input name="{{ name }}[alt]" placeholder="First Name" type="text" value="{{ field.get('alt') }}" class="{{ class }}" {{ attributes|default()|raw }}>
-    </div>
-    <hr>
+
+    <style>
+        #{{ id }}-uploader {
+            background-image: url({{ field.get('filename')|thumbnail(width=400, height=300, area='files') }});
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .filepond--root {
+            margin: 0;
+        }
+    </style>
 {% endblock %}

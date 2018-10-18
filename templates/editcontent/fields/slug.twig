@@ -7,18 +7,19 @@
             <span class="input-group-text">{{ field.slugPrefix }}</span>
         </div>
         <input name="{{ name }}" placeholder="…" type="text" value="{{ value }}" class="{{ class }}" readonly="readonly">
-        <div class="input-group-append">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-unlock"></i> Locked
+        <div class="input-group-append" id="{{ id }}-dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                <i class="fas fa-unlock fa-fw"></i> Locked
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item">
+                <a class="dropdown-item" data-action="lock">
                     <i class="fas fa-unlock fa-fw"></i> Locked
                 </a>
-                <a class="dropdown-item">
+                <a class="dropdown-item" data-action="generate">
                     <i class="fas fa-link fa-fw"></i> Generate from: {{ field.slugUseFields|join(', ') }}
                 </a>
-                <a class="dropdown-item">
+                <a class="dropdown-item" data-action="edit">
                     <i class="fas fa-pencil-alt fa-fw"></i> Edit
                 </a>
             </div>

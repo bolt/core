@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration;
 
+use Exception;
 use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
@@ -92,12 +93,13 @@ class PathResolver
      *  - `foo/bar` - A relative path that will be resolved against the root path.
      *  - `/tmp` - An absolute path will be returned as is.
      *
-     * @param string $path     the path
-     * @param bool   $absolute if the path is relative, resolve it against the root path
+     * @param string $path       the path
+     * @param bool   $absolute   if the path is relative, resolve it against the root path
+     * @param mixed  $additional
      *
      * @return string
      */
-    public function resolve(string $path, bool $absolute = true, string $additional = ''): string
+    public function resolve(string $path, bool $absolute = true, $additional = null): string
     {
         if (isset($this->paths[$path])) {
             $path = $this->paths[$path];
@@ -129,8 +131,8 @@ class PathResolver
             $path = Path::makeAbsolute($path, $this->paths['root']);
         }
 
-        if ($additional !== '') {
-            $path .= '/' . $additional;
+        if (!empty($additional)) {
+            $path .= \DIRECTORY_SEPARATOR . implode(\DIRECTORY_SEPARATOR, (array) $additional);
         }
 
         // Make sure we don't have lingering unneeded dir-seperators

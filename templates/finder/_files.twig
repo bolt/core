@@ -24,7 +24,7 @@
         {% set dimensions = '' %}
 
         {% if extension in imageformats %}
-            {% set thumbnail = filename|thumbnail(100, 72) %}
+            {% set thumbnail = filename|thumbnail(width = 100, height = 72, area = area) %}
             {% set icon = 'fa-image' %}
             {% set link = path('bolt_media_new', {'area': area, 'file': filename}) %}
 
@@ -47,7 +47,9 @@
             </td>
             <td class="listing-thumb" style="padding: 0.2em;">
                 {%- if thumbnail -%}
+                    <a href="{{ filename|thumbnail(width = 1000, height = 1000, area=area) }}" class="lightbox">
                     <img src="{{ thumbnail }}" width="100" height="72">
+                    </a>
                 {%- else -%}
                     &nbsp;
                 {%- endif -%}
