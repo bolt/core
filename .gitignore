@@ -39,3 +39,10 @@ yarn-error.log
 /.php_cs
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
