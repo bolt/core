@@ -93,9 +93,9 @@ class PathResolver
      *  - `foo/bar` - A relative path that will be resolved against the root path.
      *  - `/tmp` - An absolute path will be returned as is.
      *
-     * @param string $path the path
-     * @param bool $absolute if the path is relative, resolve it against the root path
-     * @param mixed $additional
+     * @param string $path       the path
+     * @param bool   $absolute   if the path is relative, resolve it against the root path
+     * @param mixed  $additional
      *
      * @return string
      */
@@ -132,7 +132,7 @@ class PathResolver
         }
 
         if (!empty($additional)) {
-            $path .= DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, (array) $additional);
+            $path .= \DIRECTORY_SEPARATOR . implode(\DIRECTORY_SEPARATOR, (array) $additional);
         }
 
         // Make sure we don't have lingering unneeded dir-seperators

@@ -93,8 +93,8 @@ class Config
 
     /**
      * @param string $path
-     * @param bool $absolute
-     * @param mixed $additional
+     * @param bool   $absolute
+     * @param mixed  $additional
      *
      * @return string
      */

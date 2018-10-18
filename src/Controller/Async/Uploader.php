@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Controller\Async;
 
 use Bolt\Content\MediaFactory;
@@ -11,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class Uploader
 {
-    /** @var MediaFactory*/
+    /** @var MediaFactory */
     private $mediaFactory;
 
     /** @var RequestHandler */
@@ -28,9 +30,7 @@ class Uploader
     }
 
     /**
-     *
      * @Route("/async/upload", name="bolt_upload_post", methods={"POST"})
-     *
      */
     public function upload(Request $request)
     {
@@ -41,12 +41,13 @@ class Uploader
         if (count($items) === 0) {
             // Something went wrong, most likely a field name mismatch
             http_response_code(400);
+
             return;
         }
 
         $params = $request->request->get('filepond', []);
 
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $media = $this->mediaFactory->createFromUpload($item, current($params));
             $this->manager->persist($media);
             $this->manager->flush();

@@ -125,6 +125,7 @@ class MediaFactory
     /**
      * @param Item $item
      * @param $params
+     *
      * @return Media
      */
     public function createFromUpload(Item $item, $params): Media
@@ -138,7 +139,7 @@ class MediaFactory
             $area = 'files';
         }
 
-        $targetFilename = $addedPath . DIRECTORY_SEPARATOR . $this->sanitiseFilename($item->getName());
+        $targetFilename = $addedPath . \DIRECTORY_SEPARATOR . $this->sanitiseFilename($item->getName());
 
         $source = $this->config->getPath('cache', true, ['uploads', $item->getId(), $item->getName()]);
         $target = $this->config->getPath($area, true, $targetFilename);
@@ -159,6 +160,7 @@ class MediaFactory
 
     /**
      * @param string $filename
+     *
      * @return string
      */
     private function sanitiseFilename(string $filename): string
@@ -171,5 +173,4 @@ class MediaFactory
 
         return $filename . '.' . $extension;
     }
-    
 }
