@@ -2,7 +2,7 @@ import Vue from "vue";
 
 //** Components */
 
-import Slug from '../Components/Editor/Slug.vue';
+import Slug from "../Components/Editor/Slug.vue";
 
 Vue.component("editor-slug", Slug);
 
