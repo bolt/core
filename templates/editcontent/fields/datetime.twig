@@ -1,14 +1,18 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
 {% block field %}
+    {# Check Attributes #}
+    {% if readonly is not defined %}
+        {% set readonly = false %}
+    {% endif %}
+    {% if form is not defined %}
+        {% set form = '' %}
+    {% endif %}
     {# for timestamps, make sure it's formatted correctly #}
     {% if value.timestamp is defined %}
         {% set value = value|date(format='c') %}
     {% endif %}
-    {# <div class="ui input left icon calendar">
-        <i class="calendar icon"></i>
-        <input type="text" name="{{ name }}" value="{{ value }}" class="{{ class }}" {{ attributes|default()|raw }}>
-    </div> #}
+
     <editor-datetime 
         :value="'{{ value }}'"
         :label="'{{ label }}'"

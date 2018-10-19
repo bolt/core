@@ -1,7 +1,7 @@
 <template>
   <div class="form-group">
       <label>{{ label }}</label>
-      <select class="custom-select" :id="id" v-model="val">
+      <select class="custom-select" :id="id" :name="selectName" :form="form" v-model="val">
         <option 
           v-for="(option, index) in selectOptions" 
           :key="index" 
@@ -16,11 +16,14 @@ import field from '../../helpers/mixins/fieldValue';
 
 export default {
   name: "editor-select",
-  props: ['value', 'label', 'name', 'id', 'options'],
+  props: ['value', 'label', 'name', 'id', 'form', 'options'],
   mixins: [field],
   computed:{
     selectOptions(){
       return JSON.parse(this.options);
+    },
+    selectName(){
+      return this.name + '[]'
     }
   }
 };
