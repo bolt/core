@@ -9,7 +9,7 @@ Encore
     .setPublicPath('/assets')
 
     .addEntry('bolt', './assets/js/bolt.js')
-    .addEntry('markdown', './assets/js/markdown.js')
+    // .addEntry('markdown', './assets/js/markdown.js')
 
     .autoProvidejQuery()
     .enableVueLoader()
@@ -29,6 +29,6 @@ Encore
     //        importsDirectory: 'sw/',
     // })) 
 ;
-// export the final configuration
 
+// export the final configuration
 module.exports = Encore.getWebpackConfig();
