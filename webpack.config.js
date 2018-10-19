@@ -9,7 +9,7 @@ Encore
     .setPublicPath('/assets')
 
     .addEntry('bolt', './assets/js/bolt.js')
-    .addEntry('markdown', './assets/js/markdown.js')
+    // .addEntry('markdown', './assets/js/markdown.js')
 
     .autoProvidejQuery()
     .enableVueLoader()
@@ -29,6 +29,29 @@ Encore
     //        importsDirectory: 'sw/',
     // })) 
 ;
-// export the final configuration
 
+
+const config = {
+    module: {
+      loaders: [
+        {
+          test: require.resolve('tinymce/tinymce'),
+          loaders: [
+            'imports?this=>window',
+            'exports?window.tinymce'
+          ]
+        },
+        {
+          test: /tinymce\/(themes|plugins)\//,
+          loaders: [
+            'imports?this=>window'
+          ]
+        }    
+      ]
+    }
+  }
+
+
+// export the final configuration
+module.exports = config;
 module.exports = Encore.getWebpackConfig();
