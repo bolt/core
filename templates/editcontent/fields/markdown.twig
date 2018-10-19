@@ -1,7 +1,10 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
 {% block field %}
-    <label>{{ label }}</label>
-    <textarea name="{{ name }}" class="{{ class }}" id="{{ name }}">{{ value }}</textarea>
+    <editor-markdown 
+        :value="'{{value|json_encode()}}'"
+        :label="'{{ label }}'"
+        :name="'{{ name }}'"
+    ></editor-markdown>
 {% endblock %}
 

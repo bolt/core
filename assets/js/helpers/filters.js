@@ -10,3 +10,11 @@ Vue.filter('slugify', string => {
     .replace(/-+$/, '');
   }
 })
+
+
+
+Vue.filter('strip', string => {
+  if (string) {
+   return string.replace (/(^")|("$)/g, '')
+  }
+})
