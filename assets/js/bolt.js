@@ -2,6 +2,8 @@
 
 import Vue from "vue";
 import router from "./router";
+import "./helpers/filters";
+import "./Views/editor";
 // import './registerServiceWorker'
 
 // Bolt Components
