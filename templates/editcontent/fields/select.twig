@@ -1,5 +1,10 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
+{# Check Attributes #}
+{% if form is not defined %}
+    {% set form = '' %}
+{% endif %}
+
 {% if options is not defined %}
     {% set options = selectoptionsfromarray(field) %}
 {% endif %}
@@ -20,17 +25,7 @@
             :name="'{{ name }}'"
             :id="'{{ id }}'"
             :options="'{{ options|json_encode() }}'"
+            :form="'{{ form }}'"
         ></editor-select>
     {% endif %}
-
-    {# <div class="ui grid">
-        <div class="four wide column"><label>{{ label }}</label></div>
-        <div class="twelve wide column">
-            <select name="{{ name }}[]" id="{{ id }}" {{ multiple ? 'multiple' : '' }} {{ attributes|default()|raw }}>
-                {% for option in options %}
-                    <option value="{{ option.key }}" {{ option.selected ? 'selected' : '' }}>{{ option.value }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div> #}
 {% endblock %}
