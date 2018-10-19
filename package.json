@@ -27,7 +27,6 @@
     "axios": "^0.18.0",
     "codemirror": "^5.40.2",
     "simplemde": "^1.11.2",
-    "tinymce": "^4.8.3",
     "vue": "^2.5.17",
     "vue-simplemde": "^0.4.8",
     "vue-trumbowyg": "^3.4.0"
