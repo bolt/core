@@ -104,11 +104,9 @@ trait ContentMagicTraits
         }
 
         // Otherwise, grab the first field of type 'text', and assume that's the title.
-        if (!empty($this->contenttype['fields'])) {
-            foreach ($this->getFields() as $key => $field) {
-                if ($field->getDefinition()->get('type') === 'text') {
-                    return [$field->getDefinition()->get('name')];
-                }
+        foreach ($this->getFields() as $key => $field) {
+            if ($field->getDefinition()->get('type') === 'text') {
+                return [$field->getDefinition()->get('name')];
             }
         }
 
