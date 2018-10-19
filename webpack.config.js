@@ -31,27 +31,6 @@ Encore
 ;
 
 
-const config = {
-    module: {
-      loaders: [
-        {
-          test: require.resolve('tinymce/tinymce'),
-          loaders: [
-            'imports?this=>window',
-            'exports?window.tinymce'
-          ]
-        },
-        {
-          test: /tinymce\/(themes|plugins)\//,
-          loaders: [
-            'imports?this=>window'
-          ]
-        }    
-      ]
-    }
-  }
-
-
 // export the final configuration
 module.exports = config;
 module.exports = Encore.getWebpackConfig();
