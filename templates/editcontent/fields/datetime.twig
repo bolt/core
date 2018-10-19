@@ -5,11 +5,16 @@
     {% if value.timestamp is defined %}
         {% set value = value|date(format='c') %}
     {% endif %}
-
-    <label>{{ label }}</label>
-    <div class="ui input left icon calendar">
+    {# <div class="ui input left icon calendar">
         <i class="calendar icon"></i>
         <input type="text" name="{{ name }}" value="{{ value }}" class="{{ class }}" {{ attributes|default()|raw }}>
-    </div>
+    </div> #}
+    <editor-datetime 
+        :value="'{{ value }}'"
+        :label="'{{ label }}'"
+        :name="'{{ name }}'"
+        :readonly="'{{ readonly }}'"
+        :form="'{{ form }}'"
+    ></editor-datetime>
 {% endblock %}
 
