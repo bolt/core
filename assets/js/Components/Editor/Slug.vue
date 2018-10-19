@@ -36,17 +36,14 @@
 </template>
 
 <script>
-
+import field from '../../helpers/mixins/fieldValue';
 
 export default {
   name: "editor-slug",
   props: ['value', 'label', 'name', 'prefix', 'fieldClass', 'generate'],
-  mounted(){
-    this.val = this.value;
-  },
+  mixins: [field],
   data: () => {
     return {
-      val: null,
       edit: false,
       buttonText: 'Locked',
       icon: 'unlock'

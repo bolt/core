@@ -3,7 +3,6 @@
       <label>{{ label }}</label>
       <textarea 
         :name="name" 
-        :fieldClass="class" 
         v-bind="val"
         cols="25"
       ></textarea>
@@ -11,19 +10,12 @@
 </template>
 
 <script>
-
+import field from '../../helpers/mixins/fieldValue';
 
 export default {
   name: "editor-textarea",
-  props: ['value', 'label', 'name', 'fieldClass'],
-  mounted(){
-    this.val = this.value;
-  },
-  data: () => {
-    return {
-      val: null,
-    };
-  },
+  props: ['value', 'label', 'name'],
+  mixins: [field],
 };
 </script>
 

@@ -38,7 +38,7 @@
 
 {% block aside %}
 
-<div class="card">
+<div id="metadata" class="card">
     <div class="card-header">
         Meta information
     </div>
@@ -69,28 +69,31 @@
         'label': 'field.createdAt'|trans,
         'name': 'createdAt',
         'value': record.createdAt,
-        'attributes': 'readonly form="editcontent"',
+        'readonly': true,
+        'form': 'editcontent'
     } %}
 
     {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.modifiedAt'|trans,
         'name': 'modifiedAt',
         'value': record.modifiedAt,
-        'attributes': 'readonly form="editcontent"',
+        'readonly': true,
+        'form': 'editcontent'
     } %}
 
     {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.publishedAt'|trans,
         'name': 'publishedAt',
         'value': record.publishedAt,
-        'attributes': 'form="editcontent"',
+        'readonly': false,
+        'form': 'editcontent'
     } %}
 
     {% include '@bolt/editcontent/fields/datetime.twig' with {
         'label': 'field.depublishedAt'|trans,
         'name': 'depublishedAt',
-        'value': record.depublishedAt,
-        'attributes': 'form="editcontent"',
+        'readonly': false,
+        'form': 'editcontent'
     } %}
         </form>
 
