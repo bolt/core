@@ -15,7 +15,7 @@
         </flat-pickr>
         <div class="input-group-append">
           <button 
-            class="btn btn-outline-primary"
+            class="btn btn-secondary"
             :class="{'btn-outline-secondary': readonly == 1}" 
             type="button"
             :disabled="readonly == 1" 
