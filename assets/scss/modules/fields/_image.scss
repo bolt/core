@@ -2,6 +2,12 @@
 
 .field__image{
   position: relative;
+<<<<<<< HEAD
+=======
+  &.is-dragging{
+    background: red;
+  }
+>>>>>>> added Base Of Image Vue Component
   &--dragging{
     position: absolute;
     left: 0;
