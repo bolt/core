@@ -1,0 +1,44 @@
+//** Image  Field
+
+.field__image{
+  position: relative;
+  &.is-dragging{
+    background: red;
+  }
+  &--dragging{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: $white;
+    width: 100%;
+    height: 100%;
+    background: transparentize($secondary, 0.15);
+    z-index: 1000;
+    font-size: 3.5rem;
+    border-radius: $border-radius;
+  }
+  &--upload{
+    @include sr-only;
+    @include sr-only-focusable;
+  }
+  &--preview{
+    width: 100%;
+    height: 200px;
+    border-radius: $border-radius;
+    background-color: gray("200");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
