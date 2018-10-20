@@ -3,7 +3,7 @@ import Vue from "vue";
  * Editor Components
  */
 import Slug from "../Components/Editor/Slug.vue";
-import TextArea from "../Components/Editor/TextArea.vue";
+import TextArea from "../Components/Editor/Textarea.vue";
 import Markdown from "../Components/Editor/Markdown.vue";
 import Html from "../Components/Editor/Html.vue";
 import DateTime from "../Components/Editor/DateTime.vue";
