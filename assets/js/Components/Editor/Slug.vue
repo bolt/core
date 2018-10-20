@@ -30,7 +30,7 @@
                       <i class="fas fa-pencil-alt fa-fw"></i> Edit
                     </template>
                     <template v-else>
-                      <i class="fas fa-unlock fa-fw"></i> Lock
+                      <i class="fas fa-lock fa-fw"></i> Lock
                     </template>
                 </a>
                 <a class="dropdown-item" @click="generateSlug()">
@@ -53,7 +53,7 @@ export default {
     return {
       edit: false,
       buttonText: 'Locked',
-      icon: 'unlock'
+      icon: 'lock'
     };
   },
   methods: {
@@ -67,7 +67,7 @@ export default {
         this.val = slug;
         this.edit = false;
         this.buttonText = "Locked"
-        this.icon = 'unlock'
+        this.icon = 'lock'
       }
     },
     generateSlug(){
