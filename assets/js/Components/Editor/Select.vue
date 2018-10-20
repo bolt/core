@@ -1,7 +1,7 @@
 <template>
   <div class="form-group">
       <label>{{ label }}</label>
-      <select class="custom-select" :id="id" :name="selectName" :form="form" v-model="val">
+      <select class="custom-select" :id="id" :name="fieldName" :form="form" v-model="val">
         <option 
           v-for="(option, index) in selectOptions" 
           :key="index" 
@@ -22,7 +22,7 @@ export default {
     selectOptions(){
       return JSON.parse(this.options);
     },
-    selectName(){
+    fieldName(){
       return this.name + '[]'
     }
   }

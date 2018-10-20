@@ -1,4 +1,5 @@
 "use strict";
+import Vue from "vue";
 /**
  * Vue Core | Config
  */
@@ -12,6 +13,11 @@ import "bootstrap";
  * Styling
  */
 import "../scss/bolt.scss";
+/**
+ * Set Axios
+ */
+import Axios from 'axios'
+Vue.prototype.$axios = Axios;
 /**
  * Vue Components
  */

@@ -2,9 +2,10 @@
   <div class="form-group">
       <label>{{ label }}</label>
       <textarea 
+        class="form-control"
         :name="name" 
-        v-bind="val"
-        cols="25"
+        v-model="val"
+        rows="10"
       ></textarea>
   </div>
 </template>

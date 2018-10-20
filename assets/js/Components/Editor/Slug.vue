@@ -14,8 +14,15 @@
           v-model="val"
         >
         <div class="input-group-append" >
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw" :class="`fa-${icon}`"></i>  {{buttonText}}
+            <button 
+              type="button" 
+              data-toggle="dropdown" 
+              aria-haspopup="true" 
+              aria-expanded="false"
+              class="btn dropdown-toggle"
+              :class="[{'btn-primary': edit}, {'btn-secondary': !edit}]" 
+            >
+              <i class="fas fa-fw" :class="`fa-${icon}`"></i>  {{buttonText}}
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" @click="editSlug">
