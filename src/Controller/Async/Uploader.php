@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Async;
 
+use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
 use Bolt\Media\RequestHandler;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sirius\Upload\Handler;
+use Sirius\Upload\Result\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Webmozart\PathUtil\Path;
 
 class Uploader
 {
@@ -22,11 +27,15 @@ class Uploader
     /** @var ObjectManager */
     private $manager;
 
-    public function __construct(MediaFactory $mediaFactory, RequestHandler $requestHandler, ObjectManager $manager)
+    /** @var Config */
+    private $config;
+
+    public function __construct(MediaFactory $mediaFactory, RequestHandler $requestHandler, ObjectManager $manager, Config $config)
     {
         $this->mediaFactory = $mediaFactory;
         $this->requestHandler = $requestHandler;
         $this->manager = $manager;
+        $this->config = $config;
     }
 
     /**
@@ -34,25 +43,60 @@ class Uploader
      */
     public function upload(Request $request)
     {
-        // Get submitted field data item, will always be one item in case of async upload
-        $items = $this->requestHandler->loadFilesByField('filepond');
+//        $uploadHandler = new Handler('/path/to/local_folder');
 
-        // If no items, exit
-        if (count($items) === 0) {
-            // Something went wrong, most likely a field name mismatch
-            http_response_code(400);
+        $area = $request->query->get('area', '');
+        $path = $request->query->get('path', '');
 
-            return;
+        $target = $this->config->getPath($area, true, $path);
+
+        $uploadHandler = new Handler($target, [
+            Handler::OPTION_AUTOCONFIRM => true,
+            Handler::OPTION_OVERWRITE => true,
+        ]);
+
+        $uploadHandler->addRule('extension', ['allowed' => 'jpg', 'jpeg', 'png'], '{label} should be a valid image (jpg, jpeg, png)', 'Profile picture');
+        $uploadHandler->addRule('size', ['max' => '20M'], '{label} should have less than {max}', 'Profile picture');
+        $uploadHandler->setSanitizerCallback(function ($name) {
+            return $this->sanitiseFilename($name);
+        });
+
+        /** @var File $result */
+        $result = $uploadHandler->process($_FILES);
+
+        if ($result->isValid()) {
+            try {
+                $media = $this->mediaFactory->createFromFilename($area, $path, $result->name);
+                $this->manager->persist($media);
+                $this->manager->flush();
+
+                return new Response($result->name);
+            } catch (\Exception $e) {
+                // something wrong happened, we don't need the uploaded files anymore
+                $result->clear();
+                throw $e;
+            }
+        } else {
+            // image was not moved to the container, where are error messages
+            $messages = $result->getMessages();
         }
 
-        $params = $request->request->get('filepond', []);
+        return new Response('Not OK');
+    }
 
-        foreach ($items as $item) {
-            $media = $this->mediaFactory->createFromUpload($item, current($params));
-            $this->manager->persist($media);
-            $this->manager->flush();
-        }
+    /**
+     * @param string $filename
+     *
+     * @return string
+     */
+    private function sanitiseFilename(string $filename): string
+    {
+        $extensionSlug = new Slugify(['regexp' => '/([^a-z0-9]|-)+/']);
+        $filenameSlug = new Slugify(['lowercase' => false]);
 
-        return new Response($media->getPath() . $media->getFilename());
+        $extension = $extensionSlug->slugify(Path::getExtension($filename));
+        $filename = $filenameSlug->slugify(Path::getFilenameWithoutExtension($filename));
+
+        return $filename . '.' . $extension;
     }
 }

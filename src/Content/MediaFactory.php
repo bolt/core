@@ -7,17 +7,13 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
-use Bolt\Common\Json;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Media;
-use Bolt\Media\Item;
 use Bolt\Repository\MediaRepository;
 use Carbon\Carbon;
-use Cocur\Slugify\Slugify;
 use Faker\Factory;
 use PHPExif\Reader\Reader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\SplFileInfo;
 use Webmozart\PathUtil\Path;
 
@@ -32,6 +28,13 @@ class MediaFactory
     /** @var ContainerInterface */
     private $container;
 
+    /**
+     * MediaFactory constructor.
+     *
+     * @param Config             $config
+     * @param MediaRepository    $mediaRepository
+     * @param ContainerInterface $container
+     */
     public function __construct(Config $config, MediaRepository $mediaRepository, ContainerInterface $container)
     {
         $this->config = $config;
@@ -77,6 +80,10 @@ class MediaFactory
         return $media;
     }
 
+    /**
+     * @param Media $media
+     * @param $file
+     */
     private function updateImageData(Media $media, $file)
     {
         /** @var Exif $exif */
@@ -99,11 +106,19 @@ class MediaFactory
         }
     }
 
+    /**
+     * @param $media
+     *
+     * @return bool
+     */
     private function isImage($media)
     {
         return in_array($media->getType(), ['gif', 'png', 'jpg', 'svg'], true);
     }
 
+    /**
+     * @return object|string|void
+     */
     protected function getUser()
     {
         if (!$this->container->has('security.token_storage')) {
@@ -123,54 +138,19 @@ class MediaFactory
     }
 
     /**
-     * @param Item $item
-     * @param $params
+     * @param $area
+     * @param $path
+     * @param $filename
      *
      * @return Media
      */
-    public function createFromUpload(Item $item, $params): Media
+    public function createFromFilename($area, $path, $filename): Media
     {
-        if (Json::test($params)) {
-            $params = Json::parse($params);
-            $addedPath = $params['path'];
-            $area = $params['area'];
-        } else {
-            $addedPath = '';
-            $area = 'files';
-        }
-
-        $targetFilename = $addedPath . \DIRECTORY_SEPARATOR . $this->sanitiseFilename($item->getName());
-
-        $source = $this->config->getPath('cache', true, ['uploads', $item->getId(), $item->getName()]);
-        $target = $this->config->getPath($area, true, $targetFilename);
-
-        $relPath = Path::getDirectory($targetFilename);
-        $relName = Path::getFilename($targetFilename);
-
-        // Move the file over
-        $fileSystem = new Filesystem();
-        $fileSystem->rename($source, $target, true);
-
-        $file = new SplFileInfo($target, $relPath, $relName);
+        $target = $this->config->getPath($area, true, [$path, $filename]);
+        $file = new SplFileInfo($target, $path, $filename);
 
         $media = $this->createOrUpdateMedia($file, $area);
 
         return $media;
-    }
-
-    /**
-     * @param string $filename
-     *
-     * @return string
-     */
-    private function sanitiseFilename(string $filename): string
-    {
-        $extensionSlug = new Slugify(['regexp' => '/([^a-z0-9]|-)+/']);
-        $filenameSlug = new Slugify(['lowercase' => false]);
-
-        $extension = $extensionSlug->slugify(Path::getExtension($filename));
-        $filename = $filenameSlug->slugify(Path::getFilenameWithoutExtension($filename));
-
-        return $filename . '.' . $extension;
     }
 }

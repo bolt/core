@@ -281,6 +281,12 @@
             "ref": "576d653444dade07f272c889d52fe4594caa4fc3"
         }
     },
+    "siriusphp/upload": {
+        "version": "2.1.1"
+    },
+    "siriusphp/validation": {
+        "version": "2.2.2"
+    },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
         "recipe": {
