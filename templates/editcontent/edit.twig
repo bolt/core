@@ -48,13 +48,6 @@
 
             <input type="submit" class="btn btn-primary" value="Save" form="editcontent">
 
-    {% include '@bolt/editcontent/fields/text.twig' with {
-        'label': 'field.id'|trans,
-        'name': 'id',
-        'value': record.id,
-        'attributes': 'readonly form="editcontent"',
-    } %}
-
     {% include '@bolt/editcontent/fields/select.twig' with {
         'label': 'field.status'|trans,
         'name': 'status',
@@ -95,6 +88,15 @@
         'readonly': false,
         'form': 'editcontent'
     } %}
+
+
+    {% include '@bolt/editcontent/fields/text.twig' with {
+        'label': 'field.id'|trans,
+        'name': 'id',
+        'value': record.id,
+        'attributes': 'readonly form="editcontent"',
+    } %}
+    
         </form>
 
     </div>
