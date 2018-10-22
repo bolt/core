@@ -28,6 +28,10 @@ class ContentHelperRuntime
             ];
         }
 
+        if (!is_iterable($values)) {
+            return $options;
+        }
+
         foreach ($values as $key => $value) {
             $options[] = [
                 'key' => $key,
