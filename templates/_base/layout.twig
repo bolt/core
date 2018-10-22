@@ -7,18 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ block('title')|striptags }}</title>
     {% block stylesheets %}
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bolt.css') }}">
     {% endblock %}
 </head>
 
 <body>
-<div class="wrapper has-{{ block('container') }}">
+<div class="admin wrapper has-{{ block('container') }}">
 
     <header data-vue-routing="{{ vueRouting|default() }}">
         <Topbar title="{{ block('title') }}"></Topbar>
     </header>
+
 
     <div id="sidebar">
         <Sidebar sidebarmenudata="{{ sidebarmenu() }}">side</Sidebar>
