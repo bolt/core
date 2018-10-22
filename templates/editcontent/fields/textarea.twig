@@ -2,7 +2,7 @@
 
 {% block field %}
     <editor-textarea 
-        :value="'{{ value }}'"
+        :value="'{{ value|json_encode() }}'"
         :label="'{{ label }}'"
         :name="'{{ name }}'"
     ></editor-textarea>

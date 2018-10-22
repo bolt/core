@@ -1,0 +1,24 @@
+{% extends '@bolt/editcontent/fields/_base.twig' %}
+
+{% block field %}
+    {# Check Attributes #}
+    {% if readonly is not defined %}
+        {% set readonly = false %}
+    {% endif %}
+    {% if form is not defined %}
+        {% set form = '' %}
+    {% endif %}
+    {# for timestamps, make sure it's formatted correctly #}
+    {% if value.timestamp is defined %}
+        {% set value = value|date(format='c') %}
+    {% endif %}
+
+    <editor-date
+        :value="'{{ value }}'"
+        :label="'{{ label }}'"
+        :name="'{{ name }}'"
+        :readonly="'{{ readonly }}'"
+        :form="'{{ form }}'"
+    ></editor-date>
+{% endblock %}
+

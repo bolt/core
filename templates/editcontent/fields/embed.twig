@@ -1,0 +1,9 @@
+{% extends '@bolt/editcontent/fields/_base.twig' %}
+
+{% block field %}
+    <label>{{ label }}</label>
+    <input name="{{ name }}" placeholder="First Name" type="text" value="{{ value }}" class="{{ class }}" {{ attributes|default()|raw }}>
+
+    (Embed preview, and some meta fields go here)
+
+{% endblock %}
