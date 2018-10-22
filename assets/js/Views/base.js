@@ -2,10 +2,10 @@ import Vue from "vue";
 /**
  * Editor Components
  */
-import Sidebar from "../Components/Sidebar";
-import Topbar from "../Components/Topbar";
-import DashboardNews from "../Components/DashboardNews";
-import DashboardContentList from "../Components/DashboardContentList";
+import Sidebar from "../Components/Base/Sidebar";
+import Topbar from "../Components/Base/Topbar";
+import DashboardNews from "../Components/Base/DashboardNews";
+import DashboardContentList from "../Components/Base/DashboardContentList";
 /**
  * Register Components
  */

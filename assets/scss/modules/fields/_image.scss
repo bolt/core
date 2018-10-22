@@ -2,9 +2,6 @@
 
 .field__image{
   position: relative;
-  &.is-dragging{
-    background: red;
-  }
   &--dragging{
     position: absolute;
     left: 0;
