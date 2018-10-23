@@ -6,18 +6,20 @@
 </template>
 
 <script>
-import field from '../../helpers/mixins/fieldValue';
 import markdownEditor from 'vue-simplemde/src/markdown-editor'
 
 export default {
   name: "editor-markdown",
   props: ['value', 'label', 'name'],
-  mixins: [field],
   components: {
     markdownEditor
   },
+  mounted(){
+    this.val = this.$options.filters.strip(this.value);
+  },
   data: () => {
     return {
+      val: null,
       config:{
         spellChecker: false,
         status: false,
