@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ContentAPI from "../service/api/content";
+import ContentAPI from "../../service/api/content";
 
 export default {
   name: "context",

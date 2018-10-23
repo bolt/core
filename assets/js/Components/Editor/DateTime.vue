@@ -15,7 +15,7 @@
         </flat-pickr>
         <div class="input-group-append">
           <button 
-            class="btn btn-outline-primary"
+            class="btn btn-secondary"
             :class="{'btn-outline-secondary': readonly == 1}" 
             type="button"
             :disabled="readonly == 1" 
@@ -32,7 +32,7 @@
 <script>
 import field from '../../helpers/mixins/fieldValue';
 import flatPickr from 'vue-flatpickr-component';
-import 'flatpickr/dist/flatpickr.css';
+// import 'flatpickr/dist/flatpickr.css';
 
 export default {
   name: "editor-datetime",

@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import ContentAPI from "../service/api/content";
+import ContentAPI from "../../service/api/content";
 
 export default {
   name: "sidebar",
@@ -98,7 +98,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../scss/settings";
+@import "../../../scss/settings";
 
 nav.flex-column {
   background-color: $sidebar-background;

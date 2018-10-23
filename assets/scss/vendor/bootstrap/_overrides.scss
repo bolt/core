@@ -1,8 +1,30 @@
 //** Bootstrap Overrides
 
+$colors: (
+  "gray":                     #f3f5f7
+);
+
+$theme-colors: (
+  "primary":                  #2e2ec2,
+  "secondary":                #4c5377,
+  "status-published":         #7fa800,
+  "status-draft":             #0569e2,
+  "status-held":              #ca2300,
+  "status-timed":             #a80,
+  
+);
+
 // typography
 $font-family-base:              'Source Sans Pro', sans-serif;
 $font-weight-light:             300;
 $font-weight-normal:            400;
 $font-weight-bold:              600; 
 $headings-font-weight:          600;
+
+:root{
+  font-size:                    0.9rem;
+}
+
+label{
+  font-weight:                  $font-weight-bold;
+}

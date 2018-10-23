@@ -14,8 +14,15 @@
           v-model="val"
         >
         <div class="input-group-append" >
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw" :class="`fa-${icon}`"></i>  {{buttonText}}
+            <button 
+              type="button" 
+              data-toggle="dropdown" 
+              aria-haspopup="true" 
+              aria-expanded="false"
+              class="btn dropdown-toggle"
+              :class="[{'btn-primary': edit}, {'btn-secondary': !edit}]" 
+            >
+              <i class="fas fa-fw" :class="`fa-${icon}`"></i>  {{buttonText}}
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" @click="editSlug">
@@ -23,7 +30,7 @@
                       <i class="fas fa-pencil-alt fa-fw"></i> Edit
                     </template>
                     <template v-else>
-                      <i class="fas fa-unlock fa-fw"></i> Lock
+                      <i class="fas fa-lock fa-fw"></i> Lock
                     </template>
                 </a>
                 <a class="dropdown-item" @click="generateSlug()">
@@ -46,7 +53,7 @@ export default {
     return {
       edit: false,
       buttonText: 'Locked',
-      icon: 'unlock'
+      icon: 'lock'
     };
   },
   methods: {
@@ -60,7 +67,7 @@ export default {
         this.val = slug;
         this.edit = false;
         this.buttonText = "Locked"
-        this.icon = 'unlock'
+        this.icon = 'lock'
       }
     },
     generateSlug(){

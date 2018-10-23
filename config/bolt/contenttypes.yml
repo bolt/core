@@ -75,6 +75,12 @@ pages:
         body:
             type: html
             height: 300px
+        textarea:
+            type: textarea
+            postfix: "<p><em>This is a plain text area. the contents will not be processed.</em></p>"
+        checkbox:
+            type: checkbox
+            label: "This is a checkbox"
         template:
             type: templateselect
             filter: '*.twig'

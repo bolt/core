@@ -3,6 +3,7 @@
 /**
  * Vue Core | Config
  */
+import Vue from "vue";
 import "./helpers/filters";
 // import './registerServiceWorker'
 
@@ -17,12 +18,18 @@ import "bootstrap";
 import "../scss/bolt.scss";
 
 /**
+ * Set Axios
+ */
+import Axios from 'axios'
+Vue.prototype.$axios = Axios;
+
+/**
+* Load jQuery
+*/
+import $ from 'jquery';
+
+/**
  * Vue Components
  */
 import "./Views/editor";
 import "./Views/base";
-
-// This loads jquery, And sets a global $ and jQuery variable. We should keep it,
-// for extensions / modules that require a global `$`.
-const $ = require("jquery");
-global.$ = global.jQuery = $;
