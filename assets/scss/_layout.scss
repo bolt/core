@@ -1,5 +1,61 @@
+html,
 body {
-    background: color('gray');
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    font-size: 13px;
+    line-height: 1.5;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    @media only screen and (min-width: 1025px) {
+        font-size: 14px;
+    }
+
+    @media only screen and (min-width: 1281px) {
+        font-size: 15px;
+    }
+}
+
+body {
+    background: $main-background;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Source Sans Pro", serif;
+    font-weight: normal;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+    line-height: 4rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
 }
 
 .wrapper {
