@@ -1,4 +1,3 @@
-"use strict";
 import Vue from "vue";
 /**
  * Vue Core | Config
@@ -27,7 +26,3 @@ import $ from 'jquery';
  */
 import "./Views/editor";
 import "./Views/base";
-
-$( document ).ready(function() {
-  console.log( "ready!" );
-});

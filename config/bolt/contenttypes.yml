@@ -119,7 +119,7 @@ entries:
         image:
             type: image
             group: media
-            placeholder: https://source.unsplash.com/1280x768/?business,workspace,interior/__random__
+            upload: entries
         video:
             type: video
     relations:

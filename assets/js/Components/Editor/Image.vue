@@ -4,6 +4,7 @@
     @dragenter="onDragEnter"
     @dragleave="onDragLeave"
     @dragover.prevent
+    @drop="onDrop"
   >
     <transition name="fade">
       <div class="field__image--dragging" v-show="isDragging">
@@ -40,7 +41,7 @@
         ></div>
       </div>
     </div>
-    <input :name="fieldName" type="file" @change="getFile" ref="selectFile" class="field__image--upload">
+    <input :name="fieldName" type="file" @change="getFile($event.target.files[0])" ref="selectFile" class="field__image--upload">
     <input :name="name + '[filename]'" type="hidden" :value="val">
   </div>
 </template>
@@ -81,24 +82,31 @@ export default {
         if (this.dragCount <= 0)
           this.isDragging = false;
     },
-    getFile(e){
+    onDrop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.isDragging = false;
+        const image = e.dataTransfer.files[0];
+        return this.getFile(image);
+    },
+    getFile(image){
       const reader = new FileReader();
-      const image = e.target.files[0];
       reader.readAsDataURL(image);
-      reader.onload = (event) => {
-        this.newPreviewImage = event.target.result;
+      reader.onload = (e) => {
+        this.newPreviewImage = e.target.result;
       };
-      return this.uploadFile(e.target.files[0])
+      return this.uploadFile(image);
     },
     uploadFile(file){
       const fd = new FormData();
-      fd.append('filepond[]', file);
-      this.$axios.post('/async/upload', fd, {
+      fd.append('image', file);
+      this.$axios.post('/async/upload?area=files&path=', fd, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(res => {
-        console.log(res);
+        this.val = res.data;
+        this.previewImage = this.newPreviewImage;
       })
       .catch(err => {
         console.log(err);
