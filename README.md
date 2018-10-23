@@ -1,6 +1,13 @@
 Bolt 4.0.0 prototype
 ====================
 
+> Cleanse this world with flame  
+> End this, cleanse this  
+> Rebuild and start again  
+> Obliterate what makes us weak  
+
+-- Hatebreed - [Destroy Everything](https://www.youtube.com/watch?v=DBwgX8yBqsw)
+
 Install
 -------
 
