@@ -8,6 +8,11 @@ Bolt 4.0.0 prototype
 
 -- Hatebreed - [Destroy Everything](https://www.youtube.com/watch?v=DBwgX8yBqsw)
 
+Progress towards alpha / beta
+-----------------------------
+
+Is tracked on the project board: https://github.com/bolt/four/projects/1
+
 Install
 -------
 
