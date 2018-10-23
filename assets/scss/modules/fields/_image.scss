@@ -22,7 +22,8 @@
     @include sr-only;
     @include sr-only-focusable;
   }
-  &--preview{
+  &--preview-image{
+    display: block;
     width: 100%;
     height: 200px;
     border-radius: $border-radius;
@@ -30,6 +31,9 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    img{
+      width: 100%;
+    }
   }
 }
 
