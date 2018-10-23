@@ -51,7 +51,7 @@ import field from '../../helpers/mixins/fieldValue';
 
 export default {
   name: "editor-image",
-  props: ['label', 'name', 'value', 'thumbnail', 'alt', 'title'],
+  props: ['label', 'name', 'value', 'thumbnail', 'directory', 'alt', 'title'],
   mixins: [field],
   mounted(){
     this.previewImage = this.thumbnail
@@ -80,7 +80,7 @@ export default {
         e.preventDefault();
         this.dragCount--;
         if (this.dragCount <= 0)
-          this.isDragging = false;
+        this.isDragging = false;
     },
     onDrop(e) {
         e.preventDefault();
@@ -100,7 +100,7 @@ export default {
     uploadFile(file){
       const fd = new FormData();
       fd.append('image', file);
-      this.$axios.post('/async/upload?area=files&path=', fd, {
+      this.$axios.post(this.directory, fd, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
