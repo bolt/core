@@ -2,7 +2,7 @@
 
 {% block field %}
     {% if field.definition['upload'] is defined %}
-        {% set setPath = 'entries' %}
+        {% set setPath = field.definition.upload %}
     {% else %}
         {% set setPath = '' %}
     {% endif %}

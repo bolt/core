@@ -1,23 +1,29 @@
 <template>
   <div class="form-group">
       <label>{{ label }}</label>
-      <select class="custom-select" :id="id" :name="fieldName" :form="form" v-model="val">
+      <select class="selectize form-control" :id="id" :name="fieldName" :form="form">
         <option 
           v-for="(option, index) in selectOptions" 
           :key="index" 
           :value="option.key"
+          :selected="option.key == value"
         >{{option.value}}</option>  
       </select>
   </div>
 </template>
 
 <script>
-import field from '../../helpers/mixins/fieldValue';
+import selectize from 'selectize';
 
 export default {
   name: "editor-select",
   props: ['value', 'label', 'name', 'id', 'form', 'options'],
-  mixins: [field],
+  mounted(){
+    $('.selectize').selectize({
+      create: true,
+      sortField: 'text'
+    });
+  },
   computed:{
     selectOptions(){
       return JSON.parse(this.options);
