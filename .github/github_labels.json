@@ -1,0 +1,154 @@
+[
+  {
+    "name": "priority: critical",
+    "color": "#e11d21"
+  },
+  {
+    "name": "priority: high",
+    "color": "#eb6420"
+  },
+  {
+    "name": "priority: low",
+    "color": "#68cbf2"
+  },
+  {
+    "name": "priority: medium",
+    "color": "#fbca04"
+  },
+  {
+    "name": "status: accepted",
+    "color": "#4eb8c4"
+  },
+  {
+    "name": "status: blocked",
+    "color": "#ebff54"
+  },
+  {
+    "name": "status: completed",
+    "color": "#006b75"
+  },
+  {
+    "name": "status: in progress",
+    "color": "#cccccc"
+  },
+  {
+    "name": "status: pending",
+    "color": "#fef2c0"
+  },
+  {
+    "name": "status: review needed",
+    "color": "#fbca04"
+  },
+  {
+    "name": "status: wontfix",
+    "color": "#d5f26d"
+  },
+  {
+    "name": "tag: breaking change",
+    "color": "#a838d1"
+  },
+  {
+    "name": "tag: bug fix",
+    "color": "#fbca04"
+  },
+  {
+    "name": "tag: documentation",
+    "color": "#cc317c"
+  },
+  {
+    "name": "tag: duplicate",
+    "color": "#bfe5bf"
+  },
+  {
+    "name": "tag: enhancement",
+    "color": "#84b6eb"
+  },
+  {
+    "name": "tag: feature request",
+    "color": "#cccccc"
+  },
+  {
+    "name": "tag: internal",
+    "color": "#cccccc"
+  },
+  {
+    "name": "tag: needs splitting",
+    "color": "#b88eed"
+  },
+  {
+    "name": "tag: new feature",
+    "color": "#35b848"
+  },
+  {
+    "name": "tag: question",
+    "color": "#cccccc"
+  },
+  {
+    "name": "tag: refactor",
+    "color": "#5890d8"
+  },
+  {
+    "name": "topic: API",
+    "color": "#b28133"
+  },
+  {
+    "name": "topic: Base-2019 headless",
+    "color": "#fca1b2"
+  },
+  {
+    "name": "topic: Base-2019 traditional",
+    "color": "#37d37d"
+  },
+  {
+    "name": "topic: Blocks/Repeaters",
+    "color": "#ffdcc4"
+  },
+  {
+    "name": "topic: Content",
+    "color": "#f99e43"
+  },
+  {
+    "name": "topic: Controllers",
+    "color": "#e99695"
+  },
+  {
+    "name": "topic: Extensions",
+    "color": "#fbca04"
+  },
+  {
+    "name": "topic: Frontend",
+    "color": "#eb6420"
+  },
+  {
+    "name": "topic: Javascript",
+    "color": "#e5c870"
+  },
+  {
+    "name": "topic: Media",
+    "color": "#84b6eb"
+  },
+  {
+    "name": "topic: Multilingual",
+    "color": "#cdfc23"
+  },
+  {
+    "name": "topic: Twig",
+    "color": "#BBCD3B"
+  },
+  {
+    "name": "topic: Vue",
+    "color": "#52B988"
+  },
+  {
+    "name": "topic: Widgets",
+    "color": "#1d88c6"
+  },
+  {
+    "name": "topic: i18n",
+    "color": "#fbca04"
+  },
+  {
+    "name": "topic: search",
+    "color": "#74e0c3"
+  }
+]
