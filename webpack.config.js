@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+require('babel-polyfill');
 
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
@@ -8,7 +9,9 @@ Encore
     // the public path used by the web server to access the previous directory
     .setPublicPath('/assets')
 
+    
     .addEntry('bolt', './assets/js/bolt.js')
+    .createSharedEntry('vendor', ['babel-polyfill'])
     // .addEntry('markdown', './assets/js/markdown.js')
 
     .autoProvidejQuery()
