@@ -32,6 +32,16 @@
             </button>
           </div>
         </div>
+        <div class="progress mt-3" v-if="progress > 0">
+          <div 
+            class="progress-bar progress-bar-striped progress-bar-animated" 
+            role="progressbar" 
+            :aria-valuenow="progress" 
+            aria-valuemin="0" 
+            aria-valuemax="100" 
+            :style="`width: ${progress}%`">
+          </div>
+        </div>
       </div>
       <div class="col-4">
         <label>Preview:</label>
@@ -77,6 +87,7 @@ export default {
       previewImage: null,
       isDragging: false,
       dragCount: 0,
+      progress: 0
     };
   },
   methods: {
@@ -105,17 +116,25 @@ export default {
     uploadFile(file){
       const thumbnailParams = this.thumbnail.split('?').pop();
       const fd = new FormData();
-      fd.append('image', file);
-      this.$axios.post(this.directory, fd, {
+      const config = {
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total )
+          this.progress = percentCompleted;
+        },
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      }).then(res => {
+      };
+      fd.append('image', file);
+      this.$axios.post(this.directory, fd, config)
+      .then(res => {
         this.val = res.data;
         this.previewImage = `/thumbs/${res.data}?${thumbnailParams}`;
+        this.progress = 0;
       })
       .catch(err => {
         console.log(err);
+        this.progress = 0;
       })
     },
   },
