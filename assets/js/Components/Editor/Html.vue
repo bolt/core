@@ -16,7 +16,6 @@ export default {
     trumbowyg
   },
   mounted(){
-    const id = document.getElementById(this.name);
     this.val = this.$options.filters.strip(this.value);
   },
   data: () => {

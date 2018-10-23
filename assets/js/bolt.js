@@ -19,8 +19,15 @@ import "../scss/bolt.scss";
 import Axios from 'axios'
 Vue.prototype.$axios = Axios;
 /**
+* Load jQuery
+*/
+import $ from 'jquery';
+/**
  * Vue Components
  */
 import "./Views/editor";
 import "./Views/base";
 
+$( document ).ready(function() {
+  console.log( "ready!" );
+});

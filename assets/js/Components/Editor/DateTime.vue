@@ -32,7 +32,7 @@
 <script>
 import field from '../../helpers/mixins/fieldValue';
 import flatPickr from 'vue-flatpickr-component';
-import 'flatpickr/dist/flatpickr.css';
+// import 'flatpickr/dist/flatpickr.css';
 
 export default {
   name: "editor-datetime",
