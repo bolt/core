@@ -1,12 +1,7 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
 {% block field %}
-    {% if field.definition['upload'] is defined %}
-        {% set setPath = field.definition.upload %}
-    {% else %}
-        {% set setPath = '' %}
-    {% endif %}
-
+    {% set setPath = field.definition.get('upload')|default('')) %}
     {% set directory = path('bolt_upload_post', {'area': area|default('files'), 'path': setPath}) %}
     <editor-image 
         :label="'{{ label }}'"
