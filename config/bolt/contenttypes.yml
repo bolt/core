@@ -85,7 +85,7 @@ pages:
             type: templateselect
             filter: '*.twig'
     taxonomy: [ groups ]
-    recordsperpage: 20
+    recordsperpage: 5
 
 
 # Entries can be used for things like 'news' or 'blogpostings'. They have a

@@ -1,9 +1,9 @@
 {% if records.haveToPaginate|default() %}
-    <div class="navigation text-center">
-        {{ pagerfanta(records, 'twitter_bootstrap4_translated', {
-            routeName: 'bolt_contentlisting',
-            routeParams: { 'contenttype': contenttype.slug|default() }
-        }) }}
+    <div class="pagination">
+      {{ pagerfanta(records, {
+        routeName: 'bolt_contentlisting',
+        routeParams: { 'contenttype': contenttype.slug|default() }
+      }) }}
     </div>
 {% endif %}
 
