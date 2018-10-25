@@ -1,87 +1,102 @@
 //** Admin | Sidebar 
 
-.admin__sidebar {
+.admin__sidebar{
   position: relative;
   z-index: 1000;
   background: $white;
   height: 100%;
   box-shadow: 0 0 40px 0 transparentize(theme-color('secondary'), 0.9);
-
-  &--brand {
+  &.is-slim{
+    .admin__sidebar--brand{
+      padding: $spacer $spacer / 2;
+      img{
+        width: 100%;
+        height: auto;
+      }
+    }
+    .admin__sidebar--create, .admin__sidebar--separator, .admin__sidebar--footer{
+      display: none;
+    }
+    .admin__sidebar--link{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: $spacer $spacer / 2;
+      .link--icon{
+        font-size: 110%;
+        margin: 0;
+        width: auto;
+      }
+      .link--text{
+        display: none;
+      }
+    }
+    .admin__sidebar--slim{
+      width: $admin-sidebar-width / 3;
+    }
+  }
+  &--brand{
     padding: $spacer;
     text-align: center;
     display: block;
-
-    img {
+    img{
       height: 64px;
     }
   }
-
-  &--create {
+  &--create{
     padding: $spacer;
     display: flex;
     justify-content: center;
   }
-
-  &--separator {
+  &--separator{
     padding: 0 $spacer;
     margin: $spacer / 2 0;
     color: $gray-600;
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     font-size: $small-font-size;
-    letter-spacing: $letter-spacing;
+    letter-spacing: 1.2px;
   }
-
-  &--menu {
+  &--menu{
     margin: 0;
     padding: 0;
     width: 100%;
     list-style: none;
   }
-
-  &--link {
+  &--link{
     position: relative;
     width: 100%;
     padding: $spacer / 1.5 $spacer;
     display: block;
     color: $gray-600;
     font-weight: $font-weight-bold;
-    letter-spacing: $letter-spacing;
+    letter-spacing: 1.2px;
     font-size: 95%;
-
-    &:hover {
+    &:hover{
       background: darken($white, 2%);
       text-decoration: none;
-
-      .link--icon {
+      .link--icon{
         transform: scale(1.2);
       }
     }
-
-    &.has-menu {
-
-      &:hover,
-      &:focus {
-        .link--caret {
+    &.has-menu{
+      &:hover, &:focus{
+        .link--caret{
           color: theme-color('primary');
           transform: translateX(2px);
         }
-
-        .link--menu {
+        .link--menu{
           visibility: visible;
         }
       }
     }
-
-    .link--icon {
+    .link--icon{
       transition: $transition-base;
       transform-origin: center;
       color: theme-color('primary');
       width: 20px;
     }
-
-    .link--caret {
+    .link--caret{
       transition: $transition-base;
       color: $gray-400;
       width: 15px;
@@ -92,8 +107,7 @@
       display: flex;
       align-items: center;
     }
-
-    .link--menu {
+    .link--menu{
       background: theme-color('secondary');
       border-radius: 0 $border-radius $border-radius 0;
       position: absolute;
@@ -104,44 +118,38 @@
       padding: 0;
       list-style: none;
       visibility: hidden;
-
-      li {
-        &.link--create {
+      li{
+        &.link--create{
           border-bottom: dashed 1px darken(theme-color('secondary'), 10%);
-
-          a {
+          a{
             font-weight: $font-weight-bold;
-            letter-spacing: $letter-spacing;
+            letter-spacing: 1.2px;
             padding: $spacer;
           }
         }
-
-        a {
+        a{
           padding: $spacer / 2 $spacer;
           color: $white;
           display: flex;
           align-items: center;
           font-weight: $font-weight-normal;
           letter-spacing: initial;
-
-          &:hover {
+          &:hover{
             background: darken(theme-color('secondary'), 10%);
             text-decoration: none;
           }
-
-          span {
+          span{
             display: inline-block;
-            white-space: nowrap;
-            width: 100%;
+            white-space: nowrap; 
+            width: 100%; 
             overflow: hidden;
-            text-overflow: ellipsis;
+            text-overflow: ellipsis; 
           }
         }
       }
     }
   }
-
-  &--slim {
+  &--slim{
     width: $admin-sidebar-width;
     background: transparent;
     border: 0;
@@ -151,15 +159,12 @@
     position: fixed;
     left: 0;
     bottom: 40px;
-
-    &:hover,
-    &:focus {
+    &:hover, &:focus{
       outline: none;
       cursor: pointer;
     }
   }
-
-  &--footer {
+  &--footer{
     -webkit-backface-visibility: hidden;
     position: fixed;
     bottom: 0;
@@ -175,48 +180,6 @@
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     font-size: $small-font-size;
-    letter-spacing: $letter-spacing;
-  }
-}
-
-.admin {
-  &.is-slim {
-    .admin__sidebar {
-      .admin__sidebar--brand {
-        padding: $spacer $spacer / 2;
-
-        img {
-          width: 100%;
-          height: auto;
-        }
-      }
-
-      .admin__sidebar--create,
-      .admin__sidebar--separator,
-      .admin__sidebar--footer {
-        display: none;
-      }
-
-      .admin__sidebar--link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: $spacer $spacer / 2;
-
-        .link--icon {
-          font-size: 110%;
-          margin: 0;
-          width: auto;
-        }
-
-        .link--text {
-          display: none;
-        }
-      }
-
-      .admin__sidebar--slim {
-        width: $admin-sidebar-width / 3;
-      }
-    }
+    letter-spacing: 1.2px;
   }
 }

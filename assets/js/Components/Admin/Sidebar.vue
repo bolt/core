@@ -71,39 +71,19 @@
 
 <script>
 import ContentAPI from "../../service/api/content";
-const admin = document.querySelector('.admin');
 
 export default {
   name: "admin-sidebar",
   props: ["brand", "menu", "version"],
-  created() {
-    const size = localStorage.getItem('admin-sidebar-size');
-    if (size !== null && size === 'slim'){
-      this.size = 'slim'
-    }
-  },
-  data: () => {
-    return {
-      size: "normal",
-    };
-  },
-  watch: {
-    size(){
-      if(this.size === 'normal'){
-        admin.classList.remove('is-slim');
-      } else {
-        admin.classList.add('is-slim');
-      }
-      localStorage.setItem('admin-sidebar-size', this.size);
-    }
+  mounted(){
+    console.log(this.menu);
   },
   methods: {
     slimMenu(){
-      if(this.size === "normal"){
-        this.size = "slim"
-      } else {
-        this.size = "normal"
-      }
+      const admin = document.querySelector('.admin');
+      const sidebar = document.querySelector('.admin__sidebar');
+      admin.classList.toggle('is-slim')
+      sidebar.classList.toggle('is-slim')
     },
     menuLinks(type){
       if(type === 'Content'){
