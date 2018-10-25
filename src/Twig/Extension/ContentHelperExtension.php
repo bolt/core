@@ -41,11 +41,13 @@ class ContentHelperExtension extends AbstractExtension
         ];
     }
 
-    public function sidebarmenu()
+    public function sidebarmenu($pretty = false)
     {
         $menu = $this->menuBuilder->getMenu();
 
-        return json_encode($menu);
+        $options = $pretty ? JSON_PRETTY_PRINT : 0;
+
+        return json_encode($menu, $options);
     }
 
     public function fieldfactory($definition, $name = null)

@@ -79,7 +79,7 @@ trait ContentMagicTraits
 
     public function magicEditLink()
     {
-        $path = $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
+        $path = $this->urlGenerator->generate('bolt_edit_record', ['id' => $this->getId()]);
 
         return $path;
     }
