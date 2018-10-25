@@ -27,6 +27,8 @@ Vue.prototype.$axios = Axios;
 * Load jQuery
 */
 import $ from 'jquery';
+window.$ = $;
+window.jQuery = $;
 
 /**
  * Vue Components

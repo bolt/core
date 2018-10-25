@@ -32,38 +32,62 @@
             </button>
           </div>
         </div>
+        <div class="progress mt-3" v-if="progress > 0">
+          <div 
+            class="progress-bar progress-bar-striped progress-bar-animated" 
+            role="progressbar" 
+            :aria-valuenow="progress" 
+            aria-valuemin="0" 
+            aria-valuemax="100" 
+            :style="`width: ${progress}%`">
+          </div>
+        </div>
       </div>
       <div class="col-4">
         <label>Preview:</label>
-        <div 
-          class="field__image--preview"
-          :style="`background-image: url('${previewImage}')`"
-        ></div>
+        <div class="field__image--preview">
+          <a 
+            :href="previewImage" 
+            class="field__image--preview-image"
+            :style="`background-image: url('${previewImage}')`"
+          >
+          </a>
+        </div>
       </div>
     </div>
-    <input :name="fieldName" type="file" @change="getFile($event.target.files[0])" ref="selectFile" class="field__image--upload">
+    <input :name="fieldName" type="file" @change="uploadFile($event.target.files[0])" ref="selectFile" class="field__image--upload">
     <input :name="name + '[filename]'" type="hidden" :value="val">
   </div>
 </template>
 
 <script>
+import noScroll from 'no-scroll';
+import baguetteBox from 'baguettebox.js';
 import field from '../../helpers/mixins/fieldValue';
 
 export default {
   name: "editor-image",
-  props: ['label', 'name', 'value', 'thumbnail', 'directory', 'alt', 'title'],
+  props: ['label', 'name', 'value', 'thumbnail', 'alt', 'title', 'directory'],
   mixins: [field],
   mounted(){
-    this.previewImage = this.thumbnail
-    this.currentPreviewImage = this.thumbnail
+    this.previewImage = this.thumbnail;
+  },
+  updated() {
+    baguetteBox.run('.field__image--preview', {
+      afterShow: () =>{
+        noScroll.on()
+      },
+      afterHide: () =>{
+        noScroll.off()
+      }
+    });
   },
   data: () => {
     return {
-      currentPreviewImage: null,
       previewImage: null,
-      newPreviewImage: null,
       isDragging: false,
       dragCount: 0,
+      progress: 0
     };
   },
   methods: {
@@ -87,31 +111,32 @@ export default {
         e.stopPropagation();
         this.isDragging = false;
         const image = e.dataTransfer.files[0];
-        return this.getFile(image);
-    },
-    getFile(image){
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onload = (e) => {
-        this.newPreviewImage = e.target.result;
-      };
-      return this.uploadFile(image);
+        return this.uploadFile(image);
     },
     uploadFile(file){
+      const thumbnailParams = this.thumbnail.split('?').pop();
       const fd = new FormData();
-      fd.append('image', file);
-      this.$axios.post(this.directory, fd, {
+      const config = {
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total )
+          this.progress = percentCompleted;
+        },
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      }).then(res => {
+      };
+      fd.append('image', file);
+      this.$axios.post(this.directory, fd, config)
+      .then(res => {
         this.val = res.data;
-        this.previewImage = this.newPreviewImage;
+        this.previewImage = `/thumbs/${res.data}?${thumbnailParams}`;
+        this.progress = 0;
       })
       .catch(err => {
         console.log(err);
+        this.progress = 0;
       })
-    }
+    },
   },
   computed:{
     fieldName(){
