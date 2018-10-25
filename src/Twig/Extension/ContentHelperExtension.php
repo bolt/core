@@ -6,6 +6,7 @@ namespace Bolt\Twig\Extension;
 
 use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
+use Bolt\Entity\Content;
 use Bolt\Twig\Runtime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -34,10 +35,13 @@ class ContentHelperExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
+        $safe = ['is_safe' => ['html']];
+
         return [
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
             new TwigFunction('fieldfactory', [$this, 'fieldfactory']),
             new TwigFunction('selectoptionsfromarray', [Runtime\ContentHelperRuntime::class, 'selectoptionsfromarray']),
+            new TwigFunction('icon', [$this, 'icon'], $safe),
         ];
     }
 
@@ -57,5 +61,16 @@ class ContentHelperExtension extends AbstractExtension
         $field->setDefinition($definition, $name);
 
         return $field;
+    }
+
+    public function icon($record, $icon = "question-circle")
+    {
+        if ($record instanceof Content) {
+            $icon = $record->getDefinition()->get('icon_one') ?: $record->getDefinition()->get('icon_many');
+        }
+
+        $icon = str_replace('fa-', '', $icon);
+
+        return "<i class='fas fa-fw fa-$icon'></i>";
     }
 }
