@@ -66,7 +66,7 @@ class Excerpt
         }
 
         if (!empty($title)) {
-            $excerpt = '<b>' . $title . '</b> ' . $excerpt;
+            $excerpt = '<strong>' . $title . '</strong> ' . '<span>' . $excerpt . '</span>';
         }
 
         return trim($excerpt);

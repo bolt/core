@@ -11,9 +11,9 @@
 {% block body_id 'user_edit' %}
 
 {% block main %}
-
-    {% include '@bolt/_partials/_content_listing.twig' with {'records': records } %}
-
+    <div id="listing">
+        {% include '@bolt/_partials/_content_listing.twig' with {'records': records } %}
+    </div>
 {% endblock %}
 
 {% block aside %}
