@@ -14,41 +14,50 @@
 </head>
 
 <body>
-<div class="admin wrapper has-{{ block('container') }}">
+<div class="admin has-{{ block('container') }}">
 
-    <header data-vue-routing="{{ vueRouting|default() }}">
-        <Topbar title="{{ block('title') }}"></Topbar>
+    <!-- Admin Header -->
+    <header class="admin__header">
+        <div class="container">
+          <admin-topbar title="{{ block('title') }}"></admin-topbar>
+        </div>
     </header>
+    <!-- End Admin Header -->
 
-
-    <div id="sidebar">
-        <Sidebar sidebarmenudata="{{ sidebarmenu() }}">side</Sidebar>
+    <!-- Admin Sidebar -->
+    <div id="sidebar" class="admin__sidebar">
+        <admin-sidebar 
+            :brand="'{{ asset('assets/brand.svg') }}'"
+            :menu="{{ sidebarmenu() }}" 
+            :version="'{{ version|default('unknown') }}'"
+        ></admin-sidebar >
     </div>
+    <!-- End Admin Sidebar -->
 
-    <div id="{% block container %}content{% endblock %}">
-
-        {{ include('_partials/_flash_messages.twig') }}
-
-        {% block main %}
-        {% endblock %}
-
+    <!-- Admin Main -->
+    <div class="admin__body" id="{% block container %}content{% endblock %}">
+        <div class="container">
+          {{ include('_partials/_flash_messages.twig') }}
+          <main class="admin__body--main">
+            {% block main %}
+            {% endblock %}
+          </main>
+          <aside class="admin__body--aside">
+            {% block aside %}
+            {% endblock %}
+          </aside>
+        </div>
     </div>
-
-    <aside>
-        {% block aside %}
-        {% endblock %}
-    </aside>
-
-    <footer>
-        Bolt {{ version|default('unknown') }}
-    </footer>
+    <!-- End Admin Main -->
 
 </div>
+
 {% block javascripts %}
     <script src="{{ asset('assets/manifest.js') }}"></script>
     <script src="{{ asset('assets/vendor.js') }}"></script>
     <script src="{{ asset('assets/bolt.js') }}"></script>
 {% endblock %}
+
 </body>
 
 </html>

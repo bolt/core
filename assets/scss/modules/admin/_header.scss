@@ -1,0 +1,45 @@
+//** Admin | Header
+
+.admin__header{
+  &--title{
+    font-weight: $font-weight-light;
+    font-size: $h3-font-size;
+  }
+  &--topbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  &--toolbar{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li{
+      display: inline-flex;
+      margin-right: $spacer;
+      &:last-child{
+        margin-right: 0;
+      }
+      .toolbar--link{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 0;
+        width: 40px;
+        height: 40px;
+        background: $white;
+        box-shadow: $custom-range-thumb-box-shadow;
+        border-radius: 100%;
+        &:hover{
+          text-decoration: none;
+          cursor: pointer;
+        }
+        i{
+          color: theme-color('primary')
+        }
+      }
+    }
+  }
+}
