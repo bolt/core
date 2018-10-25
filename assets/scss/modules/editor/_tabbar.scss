@@ -22,7 +22,7 @@
       transition: $transition-base;
       display: block;
       pointer-events: none;
-      letter-spacing: 1.2px;
+      letter-spacing: $letter-spacing;
       font-weight: $font-weight-bold;
     }
     &.active, &.show{

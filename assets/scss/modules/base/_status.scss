@@ -1,0 +1,21 @@
+//** Base | Status
+
+.status{
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  background: $gray-600;
+  display: inline-block;
+  &.is-published{
+    background: theme-color('status-published')
+  }
+  &.is-held{
+    background: theme-color('status-held')
+  }
+  &.is-draft{
+    background: theme-color('status-draft')
+  }
+  &.is-timed{
+    background: theme-color('status-timed')
+  }
+}

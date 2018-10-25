@@ -16,5 +16,5 @@ Vue.component("dashboardcontentlist", DashboardContentList);
 
 new Vue({ el: "header", name: "admin-header" });
 new Vue({ el: "#sidebar", name: "admin-sidebar" });
-new Vue({ el: "#vuecontent", name: "admin-content" });
-new Vue({ el: "dashboardnews", name: "admin-news" });
+// new Vue({ el: "#vuecontent", name: "admin-content" });
+// new Vue({ el: "dashboardnews", name: "admin-news" });

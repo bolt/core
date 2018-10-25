@@ -1,0 +1,12 @@
+//** Lisitng | Filter
+
+.listing__filter{
+  display: flex;
+  justify-content: space-between;
+  &:first-of-type{
+    margin-bottom: $spacer * 1.5;
+  }
+  &:last-of-type{
+    margin-top: $spacer * 1.5;
+  }
+}
