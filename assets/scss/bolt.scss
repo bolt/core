@@ -1,10 +1,11 @@
 //** Styling
 @import './vendor/vendor';
+@import './layout/layout';
 @import './modules/modules';
+
 
 @import "settings";
 @import "textstyles";
-@import "layout";
 @import "bootstrap-overrides";
 @import "forms";
 @import "listings";

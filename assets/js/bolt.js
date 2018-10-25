@@ -34,4 +34,4 @@ window.jQuery = $;
  * Vue Components
  */
 import "./Views/editor";
-import "./Views/base";
+import "./Views/admin";
