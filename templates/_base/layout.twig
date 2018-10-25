@@ -25,12 +25,14 @@
     <!-- End Admin Header -->
 
     <!-- Admin Sidebar -->
-    <div id="sidebar" class="admin__sidebar">
-        <admin-sidebar 
-            :brand="'{{ asset('assets/brand.svg') }}'"
-            :menu="{{ sidebarmenu() }}" 
-            :version="'{{ version|default('unknown') }}'"
-        ></admin-sidebar >
+    <div class="admin__sidebar">
+        <div id="sidebar">
+            <admin-sidebar 
+                :brand="'{{ asset('assets/brand.svg') }}'"
+                :menu="{{ sidebarmenu() }}" 
+                :version="'{{ version|default('unknown') }}'"
+            ></admin-sidebar >
+        </div>
     </div>
     <!-- End Admin Sidebar -->
 
@@ -44,6 +46,7 @@
           </main>
           <aside class="admin__body--aside">
             {% block aside %}
+            
             {% endblock %}
           </aside>
         </div>
@@ -53,6 +56,15 @@
 </div>
 
 {% block javascripts %}
+    <script>
+        var admin = document.querySelector('.admin');
+        var size = localStorage.getItem('admin-sidebar-size');
+
+        if (size !== null && size === 'slim'){
+            admin.classList.add('is-slim');
+        }
+
+    </script>
     <script src="{{ asset('assets/manifest.js') }}"></script>
     <script src="{{ asset('assets/vendor.js') }}"></script>
     <script src="{{ asset('assets/bolt.js') }}"></script>
