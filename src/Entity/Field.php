@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
 use Bolt\Content\FieldTypeFactory;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(name="bolt_field")
  * @ORM\InheritanceType("SINGLE_TABLE")
