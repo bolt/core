@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0304e9ca1d26ae01e3e1b529c08840aa",
+    "content-hash": "c054bf298338c6789b187816befcae4d",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -3366,16 +3366,16 @@
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "v5.2.1",
+            "version": "v5.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "535b56b7b0325e87b15b9c57bd3631ae2a0b9f16"
+                "reference": "9ef408febe2f12e70118ef61c6515035a06c5830"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/535b56b7b0325e87b15b9c57bd3631ae2a0b9f16",
-                "reference": "535b56b7b0325e87b15b9c57bd3631ae2a0b9f16",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/9ef408febe2f12e70118ef61c6515035a06c5830",
+                "reference": "9ef408febe2f12e70118ef61c6515035a06c5830",
                 "shasum": ""
             },
             "require": {
@@ -3433,7 +3433,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2018-09-30T05:16:57+00:00"
+            "time": "2018-10-26T14:09:02+00:00"
         },
         {
             "name": "sensiolabs/security-checker",
@@ -6548,16 +6548,16 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v5.7.9",
+            "version": "v5.7.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tightenco/collect.git",
-                "reference": "67b8d4a20ce42b32b5f50a141bb0b1ec45aedb53"
+                "reference": "75f5144a2624d113d06e141369560468ac4360a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/collect/zipball/67b8d4a20ce42b32b5f50a141bb0b1ec45aedb53",
-                "reference": "67b8d4a20ce42b32b5f50a141bb0b1ec45aedb53",
+                "url": "https://api.github.com/repos/tightenco/collect/zipball/75f5144a2624d113d06e141369560468ac4360a6",
+                "reference": "75f5144a2624d113d06e141369560468ac4360a6",
                 "shasum": ""
             },
             "require": {
@@ -6594,7 +6594,7 @@
                 "collection",
                 "laravel"
             ],
-            "time": "2018-10-09T17:51:58+00:00"
+            "time": "2018-10-24T14:04:44+00:00"
         },
         {
             "name": "twig/extensions",
