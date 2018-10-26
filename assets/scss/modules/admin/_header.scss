@@ -3,6 +3,10 @@
 .admin__header{
   &--title{
     font-weight: $font-weight-light;
+    font-size: $h3-font-size;
+    i{
+      color: theme-color('primary')
+    }
   }
   &--topbar{
     display: flex;

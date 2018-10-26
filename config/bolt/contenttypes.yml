@@ -134,6 +134,9 @@ entries:
     default_status: published
     sort: -datepublish
     recordsperpage: 20
+    icon_many: "fa:file-alt"
+    icon_one: "fa:file-alt"
+
     # class: Bundle\Site\BobEntity
 
 

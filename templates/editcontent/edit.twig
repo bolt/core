@@ -6,7 +6,7 @@
 {% endfor %}
 
 {% block title %}
-    {{ icon(record) }} Edit {{ record.definition.singular_name }} » <strong>{{ record.title|default('New') }}</strong>
+    {{ icon(record) }} Edit {{ record.definition.singular_name }} » <strong>{{ record.title|excerpt(50)|default('New') }}</strong>
 {% endblock %}
 
 {% block main %}

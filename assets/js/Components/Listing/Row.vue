@@ -22,8 +22,10 @@
      </ul>
    </div>
    <div class="listing__row--item is-actions">
-     actions
+     <button type="button" class="btn btn-primary btn-sm">Small button</button>
+     <button type="button" class="btn btn-light btn-sm">Light</button>
    </div>
+   <button v-if="sorting" class="listing__row--move"><i class="fas px-2 fa-equals"></i></button>
   </div>
 </template>
 
@@ -31,13 +33,17 @@
 module.exports = {
   name: "listing-row",
   props: ["id", "definition", "excerpt", "date", "status", "thumbnail", "author"],
+  created(){
+    this.$root.$on('listing-row-size', data => this.size = data);
+  },
+  mounted() {
+    this.$root.$on('listing-row-sorting', data => this.sorting = data);
+  },
   data: () => {
     return {
       size: "normal",
+      sorting: false
     };
   },
-  created(){
-    this.$root.$on('listing-row-size', data => this.size = data);
-  }
 };
 </script>

@@ -1,20 +1,29 @@
 //** Lisitng | Row
 
 .listing__row{
+  transition: all 0.2s ease-in-out;
+  transform-origin: center;
   box-shadow: $card-box-shadow;
   background: $white;
   border-radius: $border-radius;
   margin-bottom: $spacer / 1.25;
   min-height: 50px;
   display: flex;
+  justify-content: space-between;
+  &.sortable-ghost{
+    opacity: 0.1;
+  }
   &.is-small{
     .listing__row--item{
       display: flex;
       align-items: center;
       &.is-details{
-        flex: 0 0 65%;
+        flex: 0 0 55%;
+        max-width: 55%;
         strong{
-          
+          white-space: nowrap; 
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         span{
           display: none;
@@ -66,6 +75,17 @@
     }
     i{
       color: theme-color('secondary');
+    }
+  }
+  &--move{
+    flex: 0 0 15px;
+    padding: 0;
+    background: darken($white, 2%);
+    color: $gray-500;
+    border: 0;
+    &:focus, &:hover{
+      outline: none;
+      cursor: move;
     }
   }
 }
