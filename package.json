@@ -38,7 +38,8 @@
     "vue": "^2.5.17",
     "vue-flatpickr-component": "^8.0.0",
     "vue-simplemde": "^0.4.8",
-    "vue-trumbowyg": "^3.4.0"
+    "vue-trumbowyg": "^3.4.0",
+    "vuedraggable": "^2.16.0"
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue, assets",
