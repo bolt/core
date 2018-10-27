@@ -3,22 +3,28 @@
 $admin-header-height: 80px;
 $admin-sidebar-width: 190px;
 
-body {
+html, body {
+  margin: 0;
   height: 100%;
-  background: color('gray')
+}
+
+body {
+  background: color('gray');
+  min-height: 100%;
 }
 
 // Main Layout Grid
 
 .admin {
   
+  min-height: inherit;
+
   // Flexbox Fallback
   display: flex;
   flex-wrap: wrap;
 
   // Grid
   display: grid;
-  height: 100vh;
 
   grid-template-rows:     auto 1fr auto;
   grid-template-columns:  $admin-sidebar-width 1fr;
@@ -44,13 +50,13 @@ body {
   &__sidebar {
     flex: 0 0 $admin-sidebar-width;
     grid-area: sidebar;
-    min-height: 100vh;
   }
 
   &__body {
     flex: 1;
     grid-area: body;
     padding: $spacer * 2;
+    min-height: 100vh;
     >.container{
       display: flex;
     }
