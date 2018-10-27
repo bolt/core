@@ -39,7 +39,7 @@ class Uploader
     }
 
     /**
-     * @Route("/async/upload", name="bolt_upload_post", methods={"POST"})
+     * @Route("/upload", name="bolt_upload_post", methods={"POST"})
      */
     public function upload(Request $request)
     {

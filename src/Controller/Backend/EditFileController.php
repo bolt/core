@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Bolt;
+namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -20,7 +20,6 @@ use Webmozart\PathUtil\Path;
 /**
  * Class EditFileController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class EditFileController extends BaseController

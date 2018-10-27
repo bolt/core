@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Bolt;
+namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Config;
 use Bolt\Content\FieldFactory;
@@ -23,7 +23,6 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 /**
  * Class EditRecordController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class EditRecordController extends BaseController

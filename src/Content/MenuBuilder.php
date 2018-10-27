@@ -232,12 +232,10 @@ class MenuBuilder
         $menuData = [];
 
         foreach ($menu as $child) {
-
             $submenu = [];
 
-            if( $child->hasChildren() ) {
+            if ($child->hasChildren()) {
                 foreach ($child->getChildren() as $submenuChild) {
-
                     $submenu[] = [
                         'name' => $submenuChild->getExtra('name') ?: $submenuChild->getLabel(),
                         'singular_name' => $submenuChild->getExtra('singular_name'),
@@ -252,7 +250,6 @@ class MenuBuilder
                         'type' => $submenuChild->getExtra('type'),
                         'active' => $submenuChild->getExtra('active'),
                     ];
-
                 }
             }
 

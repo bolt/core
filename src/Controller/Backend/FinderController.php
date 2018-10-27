@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Bolt;
+namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Str;
 use Bolt\Configuration\Areas;
@@ -18,7 +18,6 @@ use Webmozart\PathUtil\Path;
 /**
  * Class EditRecordController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class FinderController extends BaseController

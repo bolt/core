@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Bolt;
+namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\BaseController;
 use Bolt\Form\ChangePasswordType;
@@ -16,7 +16,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * Class UserController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class UserController extends BaseController

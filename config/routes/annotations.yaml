@@ -1,12 +1,7 @@
+
+# All routes, used by Bolt: Control Panel, Async and Thumbs, unless overridden
+# in `../routing.yml` or another location
 controllers:
     resource: '../src/Controller/'
     type: annotation
-#
-#controllers_with_locale:
-#    resource: '../src/Controller/'
-#    type: annotation
-#    prefix: /{_locale}
-#    requirements:
-#        _locale: '%app_locales%'
-#    defaults:
-#        _locale: '%locale%'
+

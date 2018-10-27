@@ -63,7 +63,7 @@ class ContentHelperExtension extends AbstractExtension
         return $field;
     }
 
-    public function icon($record, $icon = "question-circle")
+    public function icon($record, $icon = 'question-circle')
     {
         if ($record instanceof Content) {
             $icon = $record->getDefinition()->get('icon_one') ?: $record->getDefinition()->get('icon_many');

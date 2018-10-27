@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Bolt;
+namespace Bolt\Controller\Backend;
 
 use Bolt\Content\ContentTypeFactory;
 use Bolt\Controller\BaseController;
@@ -15,10 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ContentListingController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ContentListingController extends BaseController
+class ListingController extends BaseController
 {
     /**
      * @Route("/content/{contenttype}", name="bolt_contentlisting")
