@@ -7,7 +7,7 @@
         :label="'{{ label }}'"
         :name="'{{ name }}'"
         :value="'{{ field.get('filename') }}'"
-        :thumbnail="'{{ field.get('filename')|thumbnail(width=1200, height=1200, area='files', path=setPath) }}'"
+        :thumbnail="'{{ field|thumbnail(width=1200, height=1200, area='files', path=setPath) }}'"
         :title="'{{ field.get('title') }}'"
         :alt="'{{ field.get('alt') }}'"
         :directory="'{{directory}}'"

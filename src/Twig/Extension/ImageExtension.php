@@ -54,6 +54,10 @@ class ImageExtension extends AbstractExtension
             $filename = $image;
         }
 
+        if (empty($filename)) {
+            return '';
+        }
+
         $secret = $this->config->get('general/secret');
 
         $params = [
