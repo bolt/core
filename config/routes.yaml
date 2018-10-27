@@ -1,14 +1,29 @@
-# These lines define a route using YAML configuration. The controller used by
-# the route (FrameworkBundle:Template:template) is a convenient shortcut when
-# the template can be rendered without executing any logic in your own controller.
-# See https://symfony.com/doc/current/cookbook/templating/render_without_controller.html
+# This file defines routes for the frontend and control panel of your Bolt
+# website. Check below for examples, or read the documentation at
+# https://docs.bolt.cm/configuration/routing
 
-#homepage:
-#    path: /{_locale}
-#    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
-#    requirements:
-#        _locale: '%app_locales%'
-#    defaults:
-#        template: default/homepage.twig
-#        _locale: '%locale%'
-#
+# ------------------------------------------------------------------------------
+# Place your own routes here, that have a HIGHER priority than the default routes.
+
+
+
+# ------------------------------------------------------------------------------
+# These are the routes defining the default behaviour of Bolt's frontend.
+# Changing these might give unexpected results or even break your website. If
+# possible, only add NEW routes above or below these.
+frontend:
+  resource: '../src/Controller/Frontend/'
+  prefix: /
+
+# ------------------------------------------------------------------------------
+# Place your own routes here, that have a LOWER priority than the default routes.
+
+
+
+# ------------------------------------------------------------------------------
+# These are the routes defining the Bolt Control Panel ("backend"). It's common
+# to modify the `prefix` so the Control Panel can be accessed at a custom URL.
+control_panel:
+  resource: '../src/Controller/Bolt/'
+  prefix: /bolt
+

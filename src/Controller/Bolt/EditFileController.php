@@ -20,7 +20,6 @@ use Webmozart\PathUtil\Path;
 /**
  * Class EditFileController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class EditFileController extends BaseController

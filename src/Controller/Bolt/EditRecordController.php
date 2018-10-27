@@ -23,7 +23,6 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 /**
  * Class EditRecordController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class EditRecordController extends BaseController

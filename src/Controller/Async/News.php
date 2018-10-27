@@ -35,7 +35,7 @@ final class News
      * @throws \GuzzleHttp\Exception\GuzzleException
      *
      * @return JsonResponse
-     * @Route("/async/news", name="bolt_news")
+     * @Route("/news", name="bolt_news")
      */
     public function dashboardNews(Request $request)
     {

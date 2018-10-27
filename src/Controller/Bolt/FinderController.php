@@ -18,7 +18,6 @@ use Webmozart\PathUtil\Path;
 /**
  * Class EditRecordController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class FinderController extends BaseController

@@ -14,10 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class BackendController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
-class BackendController extends BaseController
+class DashboardController extends BaseController
 {
     /**
      * @Route("/", name="bolt_dashboard")

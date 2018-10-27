@@ -20,7 +20,6 @@ use Webmozart\PathUtil\Path;
 /**
  * Class MediaController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class MediaController extends BaseController

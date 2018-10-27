@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ContentListingController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class ContentListingController extends BaseController

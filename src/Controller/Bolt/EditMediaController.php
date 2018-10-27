@@ -1,9 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/**
- * @author Bob den Otter <bobdenotter@gmail.com>
- */
 
 namespace Bolt\Controller\Bolt;
 
@@ -29,7 +26,6 @@ use Webmozart\PathUtil\Path;
 /**
  * Class EditMediaController.
  *
- * @Route("/bolt")
  * @Security("has_role('ROLE_ADMIN')")
  */
 class EditMediaController extends BaseController
