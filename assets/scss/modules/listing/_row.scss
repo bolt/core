@@ -49,6 +49,7 @@
       background-repeat: no-repeat;
     }
     &.is-details{
+      flex-grow: 2;
       span{
         color: $gray-600;
         font-style: italic;
