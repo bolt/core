@@ -13,42 +13,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class Controller extends BaseController
+class TaxonomyController extends BaseController
 {
     /**
-     * @Route("/", methods={"GET"}, name="homepage")
+     * @Route("/{taxonomyslug}/{slug}", methods={"GET"}, name="taxonomy", requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"})
      */
-    public function homepage(): Response
-    {
-        $homepage = $this->getOption('theme/homepage') ?: $this->getOption('general/homepage');
-
-        // todo get $homepage content.
-
-        $templates = $this->templateChooser->homepage();
-
-        return $this->renderTemplate($templates, []);
-    }
-
-    /**
-     * @Route("/content", methods={"GET"}, name="listing")
-     *
-     * @param ContentRepository $content
-     * @param Request           $request
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     *
-     * @return Response
-     */
-    public function contentListing(ContentRepository $content, Request $request): Response
+    public function listing(ContentRepository $content, Request $request, string $taxonomyslug, string $slug): Response
     {
         $page = (int) $request->query->get('page', 1);
 
         /** @var Content $records */
-        $records = $content->findLatest($page);
+        $records = $content->findAll($page);
 
-        $contenttype = ContentTypeFactory::get('pages', $this->config->get('contenttypes'));
+        $contenttype = ContentTypeFactory::get($contenttypeslug, $this->config->get('contenttypes'));
 
         $templates = $this->templateChooser->listing($contenttype);
 
@@ -56,12 +33,10 @@ class Controller extends BaseController
     }
 
     /**
-     * @Route("/record/{id<[1-9]\d*>}", methods={"GET"}, name="record_by_id")
-     * @Route("/record/{slug<[a-z0-9_-]+>}", methods={"GET"}, name="record")
+     * @Route("/record/{slug}", methods={"GET"}, name="record")
      *
      * @param ContentRepository $contentRepository
      * @param FieldRepository   $fieldRepository
-     * @param null              $id
      * @param null              $slug
      *
      * @throws \Twig_Error_Loader
@@ -70,13 +45,13 @@ class Controller extends BaseController
      *
      * @return Response
      */
-    public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $id = null, $slug = null): Response
+    public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $slug = null): Response
     {
-        if ($id) {
-            $record = $contentRepository->findOneBy(['id' => $id]);
-        } elseif ($slug) {
+        if (!is_numeric($slug)) {
             $field = $fieldRepository->findOneBySlug($slug);
             $record = $field->getContent();
+        } else {
+            $record = $contentRepository->findOneBy(['id' => $slug]);
         }
 
         $recordSlug = $record->getDefinition()['singular_slug'];

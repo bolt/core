@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt;
 
+use Bolt\Configuration\Parser\ContentTypesParser;
+use Bolt\Configuration\Parser\TaxonomyParser;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -45,17 +47,9 @@ class Kernel extends BaseKernel
         $container->setParameter('container.dumper.inline_class_loader', true);
         $confDir = $this->getProjectDir() . '/config';
 
-        $fileLocator = new FileLocator([$confDir . '/bolt']);
-        $fileName = $fileLocator->locate('config.yaml', null, true);
-
-        $yaml = Yaml::parseFile($fileName);
-        unset($yaml['__nodes']);
-
-        $container->set('bolt.config.general', $yaml);
-
-        foreach ($this->flattenKeys($yaml) as $key => $value) {
-            $container->setParameter('bolt.' . $key, $value);
-        }
+        $this->setBoltParameters($container, $confDir);
+        $this->setContentTypeRequirements($container);
+        $this->setTaxonomyRequirements($container);
 
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{packages}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, 'glob');
@@ -70,6 +64,25 @@ class Kernel extends BaseKernel
         $routes->import($confDir . '/{routes}/*' . self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir . '/{routes}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir . '/{routes}' . self::CONFIG_EXTS, '/', 'glob');
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param $confDir
+     */
+    private function setBoltParameters(ContainerBuilder $container, string $confDir)
+    {
+        $fileLocator = new FileLocator([$confDir . '/bolt']);
+        $fileName = $fileLocator->locate('config.yaml', null, true);
+
+        $yaml = Yaml::parseFile($fileName);
+        unset($yaml['__nodes']);
+
+        $container->set('bolt.config.general', $yaml);
+
+        foreach ($this->flattenKeys($yaml) as $key => $value) {
+            $container->setParameter('bolt.' . $key, $value);
+        }
     }
 
     /**
@@ -92,5 +105,41 @@ class Kernel extends BaseKernel
         }
 
         return $result;
+    }
+
+    /**
+     * Set the ContentType requirements that are used in Routing.
+     * Note: this functionality is partially duplicated in \Bolt\Configuration\Config.
+     *
+     * @throws \Exception
+     */
+    private function setContentTypeRequirements(ContainerBuilder $container)
+    {
+        $ContentTypesParser = new ContentTypesParser([]);
+        $contenttypes = $ContentTypesParser->parse();
+
+        $pluralslugs = $contenttypes->pluck('slug')->implode('|');
+        $slugs = $contenttypes->pluck('slug')->concat($contenttypes->pluck('singular_slug'))->unique()->implode('|');
+
+        $container->setParameter('bolt.requirement.pluralcontenttypes', $pluralslugs);
+        $container->setParameter('bolt.requirement.contenttypes', $slugs);
+    }
+
+    /**
+     * Set the Taxonomy requirements that are used in Routing.
+     * Note: this functionality is partially duplicated in \Bolt\Configuration\Config.
+     *
+     * @throws \Exception
+     */
+    private function setTaxonomyRequirements(ContainerBuilder $container)
+    {
+        $taxonomyParser = new TaxonomyParser();
+        $taxonomies = $taxonomyParser->parse();
+
+        $pluralslugs = $taxonomies->pluck('slug')->implode('|');
+        $slugs = $taxonomies->pluck('slug')->concat($taxonomies->pluck('singular_slug'))->unique()->implode('|');
+
+        $container->setParameter('bolt.requirement.pluraltaxonomies', $pluralslugs);
+        $container->setParameter('bolt.requirement.taxonomies', $slugs);
     }
 }
