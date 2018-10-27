@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Bolt;
+namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class BackendController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
 class DashboardController extends BaseController

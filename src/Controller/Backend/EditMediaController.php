@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Bolt;
+namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
