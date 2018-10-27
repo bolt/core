@@ -4,7 +4,7 @@
         {% include '@bolt/_partials/_pager.twig' with { 'records': records } %}
         <listing-filter></listing-filter>
     </nav>
-    <draggable :options="{handle:'.listing__row--move'}">
+    <draggable :options="{handle:'.listing__row--move', forceFallback: true, animation: 0}">
         {% for record in records %}
 
         <listing-row 
