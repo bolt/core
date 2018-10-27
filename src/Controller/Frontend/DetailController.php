@@ -13,7 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class DetailController extends BaseController
 {
     /**
-     * @Route("/{contenttypeslug}/{slug}", methods={"GET"}, name="detail", requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"})
+     * @Route(
+     *     "/{contenttypeslug}/{slug}",
+     *     name="detail",
+     *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
+     *     methods={"GET"})
      *
      * @param ContentRepository $contentRepository
      * @param FieldRepository   $fieldRepository

@@ -16,7 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class TaxonomyController extends BaseController
 {
     /**
-     * @Route("/{taxonomyslug}/{slug}", methods={"GET"}, name="taxonomy", requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"})
+     * @Route("
+     *     /{taxonomyslug}/{slug}",
+     *     name="taxonomy",
+     *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"},
+     *     methods={"GET"}
+     * )
      */
     public function listing(ContentRepository $content, Request $request, string $taxonomyslug, string $slug): Response
     {

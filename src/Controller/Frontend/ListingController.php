@@ -17,9 +17,9 @@ class ListingController extends BaseController
     /**
      * @Route(
      *     "/{contenttypeslug}",
-     *     methods={"GET"},
-     *     name="listing"
-     * )
+     *     name="listing",
+     *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
+     *     methods={"GET"})
      *
      * @param ContentRepository $content
      * @param Request           $request
