@@ -22,8 +22,7 @@
      </ul>
    </div>
    <div class="listing__row--item is-actions">
-     <button type="button" class="btn btn-primary btn-sm">Small button</button>
-     <button type="button" class="btn btn-light btn-sm">Light</button>
+     <a :href="`/bolt/edit/${id}`" class="btn btn-light btn-sm">Edit</a>
    </div>
    <button v-if="sorting" class="listing__row--move"><i class="fas px-2 fa-equals"></i></button>
   </div>

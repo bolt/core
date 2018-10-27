@@ -1,32 +1,12 @@
 
 {% if records %}
-    {# <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Title / Excerpt</th>
-                <th>Meta</th>
-                <th>Image</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        
-  
-        
-
-        {% for record in records %}
-            {% include '@bolt/_partials/_content_record_default.twig' with { 'record': record } %}
-
-        {% endfor %}
-
-        </tbody>
-    </table> #}
     <nav class="listing__filter">
         {% include '@bolt/_partials/_pager.twig' with { 'records': records } %}
         <listing-filter></listing-filter>
     </nav>
     <draggable :options="{handle:'.listing__row--move'}">
         {% for record in records %}
+
         <listing-row 
             :id="'{{ record.id }}'"
             :definition="{{ record.definition|json_encode() }}" 
