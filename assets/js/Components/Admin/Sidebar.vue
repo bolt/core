@@ -8,11 +8,11 @@
         <i class="fas fa-magic mr-2"></i> New
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a  
-          class="dropdown-item" 
-          v-for="(item, index) in content()" 
-          :key="index" 
-          :href="`/bolt/edit/${item.slug}`" 
+        <a
+          class="dropdown-item"
+          v-for="(item, index) in content()"
+          :key="index"
+          :href="`/bolt/edit/${item.slug}`"
           v-if="!item.singleton"
         >
           {{item.singular_name}}
@@ -66,7 +66,6 @@ export default {
   name: "admin-sidebar",
   props: ["brand", "menu", "version"],
   created() {
-    console.log(this.menu);
     const size = localStorage.getItem('admin-sidebar-size');
     if (size !== null && size === 'slim'){
       this.size = 'slim'
