@@ -71,6 +71,6 @@ class ContentHelperExtension extends AbstractExtension
 
         $icon = str_replace('fa-', '', $icon);
 
-        return "<i class='fas fa-fw fa-$icon'></i>";
+        return "<i class='fas mr-2 fa-$icon'></i>";
     }
 }

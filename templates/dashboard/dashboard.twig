@@ -1,19 +1,16 @@
 {% extends '@bolt/_base/layout.twig' %}
 
-{% block container "vuecontent" %}
-
-{% block title "<b>Dashboard</b>" %}
+{% block title %}
+  <i class='fas mr-2 fa-tachometer-alt'></i><strong>Dashboard</strong>
+{% endblock title %}
 
 {% block main %}
-
+  <div id="listing">
     {% include '@bolt/_partials/_content_listing.twig' with {'records': records } %}
-
+  </div>
 {% endblock %}
 
 {% block aside %}
-
-        {% include '@bolt/_partials/_widget_weather.twig' %}
-
-        <DashboardNews></DashboardNews>
+    {% include '@bolt/_partials/_widget_weather.twig' %}
 {% endblock %}
 

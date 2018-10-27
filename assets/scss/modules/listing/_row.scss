@@ -1,0 +1,91 @@
+//** Lisitng | Row
+
+.listing__row{
+  transition: all 0.2s ease-in-out;
+  transform-origin: center;
+  box-shadow: $card-box-shadow;
+  background: $white;
+  border-radius: $border-radius;
+  margin-bottom: $spacer / 1.25;
+  min-height: 50px;
+  display: flex;
+  justify-content: space-between;
+  &.sortable-ghost{
+    opacity: 0.1;
+  }
+  &.is-small{
+    .listing__row--item{
+      display: flex;
+      align-items: center;
+      &.is-details{
+        flex: 0 0 55%;
+        max-width: 55%;
+        strong{
+          white-space: nowrap; 
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        span{
+          display: none;
+        }
+      }
+      &.is-meta{
+        flex: 0 0 20%;
+      }
+      &.is-actions{
+        flex: 0 0 15%;
+      }
+    }
+  }
+  &--item{
+    min-height: inherit;
+    padding: $spacer / 2 $spacer;
+    &.is-thumbnail{
+      flex: 0 0 12.5%;
+      border-radius: $border-radius 0 0 $border-radius;
+      background-color: $gray-500;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    &.is-details{
+      span{
+        color: $gray-600;
+        font-style: italic;
+      }
+    }
+    &.is-meta{
+      flex: 0 0 22%;
+    }
+    &.is-actions{
+      flex: 0 0 15%;
+    }
+  }
+  &--list{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 90%;
+    letter-spacing: $letter-spacing;
+    li{
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacer / 4;
+      color: $gray-600;
+    }
+    i{
+      color: theme-color('secondary');
+    }
+  }
+  &--move{
+    flex: 0 0 15px;
+    padding: 0;
+    background: darken($white, 2%);
+    color: $gray-500;
+    border: 0;
+    &:focus, &:hover{
+      outline: none;
+      cursor: move;
+    }
+  }
+}

@@ -1,26 +1,31 @@
 
 {% if records %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Title / Excerpt</th>
-                <th>Meta</th>
-                <th>Image</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-
+    <nav class="listing__filter">
+        {% include '@bolt/_partials/_pager.twig' with { 'records': records } %}
+        <listing-filter></listing-filter>
+    </nav>
+    <draggable :options="{handle:'.listing__row--move'}">
         {% for record in records %}
 
-            {% include '@bolt/_partials/_content_record_default.twig' with { 'record': record } %}
-
+        <listing-row 
+            :id="'{{ record.id }}'"
+            :definition="{{ record.definition|json_encode() }}" 
+            :excerpt="{{ record.excerpt(150, true)|json_encode() }}"
+            :status="'{{ record.status }}'"
+            :thumbnail="'{{ record.image|thumbnail(150, 100) }}'"
+            :date="{
+            published: '{{ record.publishedAt|localizeddate('medium', 'none', null, 'UTC') }}',
+            created: '{{ record.datecreated|date("Y-m-d H:i") }}',
+            changed: '{{ record.datechanged|date("Y-m-d H:i") }}'
+            }"
+            author="{{record.author}}"
+        >
+        </listing-row>
         {% endfor %}
-
-        </tbody>
-    </table>
-
-    {% include '@bolt/_partials/_pager.twig' with { 'records': records } %}
+    </draggable>
+    <nav class="listing__filter">
+        {% include '@bolt/_partials/_pager.twig' with { 'records': records } %}
+    </nav>
 
 {% else %}
 

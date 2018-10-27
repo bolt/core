@@ -1,19 +1,21 @@
 {% extends '@bolt/_base/layout.twig' %}
 
+
+
 {% block title %}
     {% if contenttype %}
-        {{ 'title.contentlisting'|trans }} » <b>{{ contenttype.name }}</b>
+        <i class='fas mr-2 {{contenttype.icon_one}}'></i> <strong>{{ contenttype.name }}</strong>
     {% else %}
-        <b>{{ 'title.contentlisting'|trans }}</b>
+        <strong>{{ 'title.contentlisting'|trans }}</strong>
     {% endif %}
 {% endblock %}
 
 {% block body_id 'user_edit' %}
 
 {% block main %}
-
-    {% include '@bolt/_partials/_content_listing.twig' with {'records': records } %}
-
+    <div id="listing">
+        {% include '@bolt/_partials/_content_listing.twig' with {'records': records } %}
+    </div>
 {% endblock %}
 
 {% block aside %}

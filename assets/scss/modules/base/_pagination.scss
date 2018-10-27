@@ -1,0 +1,37 @@
+//** Base | Pagination
+
+.pagination{
+  nav{
+    display: flex;
+    span, a{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $white;
+      border-radius: $border-radius;
+      box-shadow: $card-box-shadow;
+      padding: $spacer / 2;
+      margin-right: $spacer / 3;
+      min-width: 25px;
+      letter-spacing: $letter-spacing;
+      &.disabled{
+        color: $gray-500;
+        &:hover{
+          background: $white;
+        }
+      }
+      &.current{
+        color: $white;
+        background: theme-color('primary');
+        font-weight: $font-weight-bold;
+        &:hover{
+          background: theme-color('primary');
+        }
+      }
+      &:hover{
+        text-decoration: none;
+        background: darken($white, 2%);
+      }
+    }
+  }
+}

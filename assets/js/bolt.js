@@ -33,5 +33,6 @@ window.jQuery = $;
 /**
  * Vue Components
  */
+import "./Views/admin";
+import "./Views/listing";
 import "./Views/editor";
-import "./Views/base";

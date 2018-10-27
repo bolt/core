@@ -1,0 +1,38 @@
+//** Editor | Tab Bar
+
+.editor__tabbar{
+  margin-bottom: $spacer * 2;
+  border-bottom: solid 2px $gray-400;
+  .nav-item{
+    color: $gray-600;
+    position: relative;
+    &:after{
+      transition: $transition-base;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: theme-color('primary');
+      transform-origin: center;
+      transform: scaleX(0);
+      content: '';
+    }
+    span{
+      transition: $transition-base;
+      display: block;
+      pointer-events: none;
+      letter-spacing: $letter-spacing;
+      font-weight: $font-weight-bold;
+    }
+    &.active, &.show{
+      &:after{
+        transform: scaleX(1);
+      }
+      span{
+        transform: translateY(-2px);
+        color: theme-color('primary');
+      }
+    }
+  }
+}

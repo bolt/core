@@ -85,7 +85,7 @@ pages:
             type: templateselect
             filter: '*.twig'
     taxonomy: [ groups ]
-    recordsperpage: 20
+    recordsperpage: 5
 
 
 # Entries can be used for things like 'news' or 'blogpostings'. They have a
@@ -134,6 +134,9 @@ entries:
     default_status: published
     sort: -datepublish
     recordsperpage: 20
+    icon_many: "fa:file-alt"
+    icon_one: "fa:file-alt"
+
     # class: Bundle\Site\BobEntity
 
 
