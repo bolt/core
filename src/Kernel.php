@@ -107,10 +107,9 @@ class Kernel extends BaseKernel
         return $result;
     }
 
-
     /**
      * Set the ContentType requirements that are used in Routing.
-     * Note: this functionality is partially duplicated in \Bolt\Configuration\Config
+     * Note: this functionality is partially duplicated in \Bolt\Configuration\Config.
      *
      * @throws \Exception
      */
@@ -128,7 +127,7 @@ class Kernel extends BaseKernel
 
     /**
      * Set the Taxonomy requirements that are used in Routing.
-     * Note: this functionality is partially duplicated in \Bolt\Configuration\Config
+     * Note: this functionality is partially duplicated in \Bolt\Configuration\Config.
      *
      * @throws \Exception
      */
@@ -143,5 +142,4 @@ class Kernel extends BaseKernel
         $container->setParameter('bolt.requirement.pluraltaxonomies', $pluralslugs);
         $container->setParameter('bolt.requirement.taxonomies', $slugs);
     }
-
 }

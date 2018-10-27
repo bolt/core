@@ -13,24 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class Controller extends BaseController
+class TaxonomyController extends BaseController
 {
     /**
-     * @Route("/", methods={"GET"}, name="homepage")
-     */
-    public function homepage(): Response
-    {
-        $homepage = $this->getOption('theme/homepage') ?: $this->getOption('general/homepage');
-
-        // todo get $homepage content.
-
-        $templates = $this->templateChooser->homepage();
-
-        return $this->renderTemplate($templates, []);
-    }
-
-    /**
-     * @Route("/{contenttypeslug}", methods={"GET"}, name="listing")
+     * @Route("/{taxonomyslug}/{slug}", methods={"GET"}, name="taxonomy", requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"})
      *
      * @param ContentRepository $content
      * @param Request           $request
@@ -46,7 +32,7 @@ class Controller extends BaseController
         $page = (int) $request->query->get('page', 1);
 
         /** @var Content $records */
-        $records = $content->findLatest($page);
+        $records = $content->findAll($page);
 
         $contenttype = ContentTypeFactory::get($contenttypeslug, $this->config->get('contenttypes'));
 
