@@ -26,10 +26,10 @@
             {{item.name}}
           </p>
           <a class="admin__sidebar--link" :href="item.link" v-else-if="item.singleton">
-            <i class="fas mr-2 link--icon" :class="item.icon_one"></i><span class="link--text">{{item.name}}</span>
+            <i class="fas mr-2 link--icon" :class="item.icon"></i><span class="link--text">{{item.name}}</span>
           </a>
           <a :href="item.link" class="admin__sidebar--link" :class="{ 'has-menu': item.submenu !== null || item.contenttype !== null }" v-else>
-            <i class="fas mr-2 link--icon" :class="item.icon_one"></i><span class="link--text">{{item.name}}</span>
+            <i class="fas mr-2 link--icon" :class="item.icon"></i><span class="link--text">{{item.name}}</span>
 
             <template v-if="item.submenu !== null || item.contenttype !== null">
               <i class="fas fa-caret-right link--caret"></i>
@@ -41,7 +41,7 @@
                 </li>
                 <li v-if="item.submenu !== null" v-for="(record, index) in item.submenu" :key="index">
                   <a :href="record.editlink">
-                    <i class="fas mr-2" :class="record.icon_one"></i><span v-html="record.name"></span>
+                    <i class="fas mr-2" :class="record.icon"></i><span v-html="record.name"></span>
                   </a>
                 </li>
               </ul>

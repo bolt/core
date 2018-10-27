@@ -44,18 +44,21 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page);
     }
 
-    public function findLatest(): ?array
+    public function findLatest(ContentType $contenttype = null, $amount = 6): ?array
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
             ->innerJoin('content.author', 'a')
-            ->where('content.publishedAt <= :now')
-            ->orderBy('content.publishedAt', 'DESC')
-            ->setParameter('now', new \DateTime());
+            ->orderBy('content.modifiedAt', 'DESC');
+
+        if ($contenttype) {
+            $qb->where('content.contentType = :ct')
+                ->setParameter('ct', $contenttype['slug']);
+        }
 
         $result = $qb->getQuery()->getResult();
 
-        return array_slice($result, 0, 6);
+        return array_slice($result, 0, $amount);
     }
 
     public function findOneBySlug(string $slug)
