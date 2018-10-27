@@ -30,7 +30,7 @@ class Controller extends BaseController
     }
 
     /**
-     * @Route("/content", methods={"GET"}, name="listing")
+     * @Route("/{contenttypeslug}", methods={"GET"}, name="listing")
      *
      * @param ContentRepository $content
      * @param Request           $request
@@ -41,14 +41,14 @@ class Controller extends BaseController
      *
      * @return Response
      */
-    public function contentListing(ContentRepository $content, Request $request): Response
+    public function contentListing(ContentRepository $content, Request $request, string $contenttypeslug): Response
     {
         $page = (int) $request->query->get('page', 1);
 
         /** @var Content $records */
         $records = $content->findLatest($page);
 
-        $contenttype = ContentTypeFactory::get('pages', $this->config->get('contenttypes'));
+        $contenttype = ContentTypeFactory::get($contenttypeslug, $this->config->get('contenttypes'));
 
         $templates = $this->templateChooser->listing($contenttype);
 
@@ -56,12 +56,10 @@ class Controller extends BaseController
     }
 
     /**
-     * @Route("/record/{id<[1-9]\d*>}", methods={"GET"}, name="record_by_id")
-     * @Route("/record/{slug<[a-z0-9_-]+>}", methods={"GET"}, name="record")
+     * @Route("/record/{slug}", methods={"GET"}, name="record")
      *
      * @param ContentRepository $contentRepository
      * @param FieldRepository   $fieldRepository
-     * @param null              $id
      * @param null              $slug
      *
      * @throws \Twig_Error_Loader
@@ -70,13 +68,13 @@ class Controller extends BaseController
      *
      * @return Response
      */
-    public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $id = null, $slug = null): Response
+    public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $slug = null): Response
     {
-        if ($id) {
-            $record = $contentRepository->findOneBy(['id' => $id]);
-        } elseif ($slug) {
+        if (!is_numeric($slug)) {
             $field = $fieldRepository->findOneBySlug($slug);
             $record = $field->getContent();
+        } else {
+            $record = $contentRepository->findOneBy(['id' => $slug]);
         }
 
         $recordSlug = $record->getDefinition()['singular_slug'];

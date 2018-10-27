@@ -27,3 +27,14 @@ control_panel:
   resource: '../src/Controller/Backend/'
   prefix: /bolt
 
+
+# ------------------------------------------------------------------------------
+# Examples:
+
+#contentlisting:
+#  path: /{contenttypeslug}
+#  defaults:
+#    _controller: Bolt\Controller\Frontend\Controller::contentListing
+#  requirements:
+#    contenttypeslug: '%bolt.requirement.pluralcontenttypes%'
+
