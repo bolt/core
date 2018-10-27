@@ -1,6 +1,6 @@
 <template>
   <nav class="admin__sidebar--nav">
-    <a class="admin__sidebar--brand" href="/bolt">
+    <a class="admin__sidebar--brand" href="/bolt/">
       <img :src="brand" alt="Bolt Four">
     </a>
     <div class="admin__sidebar--create">
@@ -8,11 +8,11 @@
         <i class="fas fa-magic mr-2"></i> New
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a
-          class="dropdown-item"
-          v-for="(item, index) in content()"
-          :key="index"
-          :href="`/bolt/edit/${item.slug}`"
+        <a  
+          class="dropdown-item" 
+          v-for="(item, index) in createMenu()" 
+          :key="index" 
+          :href="`/bolt/edit/${item.slug}`" 
           v-if="!item.singleton"
         >
           {{item.singular_name}}
@@ -25,7 +25,7 @@
           <p class="admin__sidebar--separator" v-if="item.type === 'separator'">
             {{item.name}}
           </p>
-          <a class="admin__sidebar--link" :href="item.link" v-else-if="item.singleton">
+          <a class="admin__sidebar--link" :href="singleton(item)" v-else-if="item.singleton">
             <i class="fas mr-2 link--icon" :class="item.icon"></i><span class="link--text">{{item.name}}</span>
           </a>
           <a :href="item.link" class="admin__sidebar--link" :class="{ 'has-menu': item.submenu !== null || item.contenttype !== null }" v-else>
@@ -94,8 +94,15 @@ export default {
         this.size = "normal"
       }
     },
-    content(){
+    createMenu(){
       return this.menu.filter(item => item.contenttype !== null)
+    },
+    singleton(item){
+      if(item.submenu !== null){
+        return item.submenu[0].editlink
+      } else{
+        return item.link_new
+      }
     }
   },
 };
