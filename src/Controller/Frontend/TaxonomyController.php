@@ -17,17 +17,8 @@ class TaxonomyController extends BaseController
 {
     /**
      * @Route("/{taxonomyslug}/{slug}", methods={"GET"}, name="taxonomy", requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"})
-     *
-     * @param ContentRepository $content
-     * @param Request           $request
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
-    public function contentListing(ContentRepository $content, Request $request, string $contenttypeslug): Response
+    public function listing(ContentRepository $content, Request $request, string $taxonomyslug, string $slug): Response
     {
         $page = (int) $request->query->get('page', 1);
 
