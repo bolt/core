@@ -6,23 +6,7 @@
   background: $white;
   height: 100%;
   box-shadow: 0 0 40px 0 transparentize(theme-color('secondary'), 0.9);
-
-  &--brand {
-    padding: $spacer;
-    text-align: center;
-    display: block;
-
-    img {
-      height: 64px;
-    }
-  }
-
-  &--create {
-    padding: $spacer;
-    display: flex;
-    justify-content: center;
-  }
-
+  padding-top: $spacer;
   &--separator {
     padding: 0 $spacer;
     margin: $spacer / 2 0;
@@ -182,16 +166,7 @@
 .admin {
   &.is-slim {
     .admin__sidebar {
-      .admin__sidebar--brand {
-        padding: $spacer $spacer / 2;
 
-        img {
-          width: 100%;
-          height: auto;
-        }
-      }
-
-      .admin__sidebar--create,
       .admin__sidebar--separator,
       .admin__sidebar--footer {
         display: none;

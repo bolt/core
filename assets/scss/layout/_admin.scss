@@ -1,6 +1,7 @@
 //** Layout | Admin
 
-$admin-header-height: 80px;
+$admin-toolbar-height: 28px;
+$admin-header-height: 70px;
 $admin-sidebar-width: 190px;
 
 html, body {
@@ -16,7 +17,7 @@ body {
 // Main Layout Grid
 
 .admin {
-  
+  margin-top: $admin-toolbar-height;
   min-height: inherit;
 
   // Flexbox Fallback
@@ -36,6 +37,16 @@ body {
     &__sidebar {
       flex: 0 0 $admin-sidebar-width / 3;
     }
+  }
+
+  &__toolbar{
+    -webkit-backface-visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: $admin-toolbar-height;
+    width: 100vw;
+    z-index: 1001;
   }
 
   &__header {

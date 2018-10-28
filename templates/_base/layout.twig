@@ -16,8 +16,14 @@
 <body>
 <div class="admin has-{{ block('container') }}">
 
+    <!-- Admin Toolbar -->
+    <nav id="toolbar" class="admin__toolbar">
+        <admin-toolbar></admin-toolbar>
+    </nav>
+    <!-- End Admin Toolbar -->
+
     <!-- Admin Header -->
-    <header class="admin__header">
+    <header id="header" class="admin__header">
         <div class="container">
           <admin-topbar title="{{ block('title') }}"></admin-topbar>
         </div>
