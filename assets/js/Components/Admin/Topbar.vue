@@ -1,5 +1,5 @@
 <template>
-  <nav class="admin__header--topbar" role="toolbar" aria-label="Toolbar with button groups">
+  <nav class="admin__header--topbar">
       <h2 class="admin__header--title" v-html="title"></h2>
 
       <ul class="admin__header--toolbar">
