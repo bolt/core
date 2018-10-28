@@ -14,11 +14,11 @@ class FloatField extends Field
 {
     public function __toString(): string
     {
-        return (string) floatval($this->value);
+        return (string) (float) ($this->value);
     }
 
     public function getValue(): ?array
     {
-        return [ floatval($this->value) ];
+        return [(float) ($this->value)];
     }
 }

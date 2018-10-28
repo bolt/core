@@ -14,11 +14,11 @@ class IntegerField extends Field
 {
     public function __toString(): string
     {
-        return (string) intval($this->value);
+        return (string) (int) ($this->value);
     }
 
     public function getValue(): ?array
     {
-        return [ intval($this->value) ];
+        return [(int) ($this->value)];
     }
 }
