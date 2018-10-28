@@ -14,7 +14,7 @@ class IntegerField extends Field
 {
     public function __toString(): string
     {
-        return intval($this->value);
+        return (string) intval($this->value);
     }
 
     public function getValue(): ?array

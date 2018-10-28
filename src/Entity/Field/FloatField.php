@@ -14,7 +14,7 @@ class FloatField extends Field
 {
     public function __toString(): string
     {
-        return floatval($this->value);
+        return (string) floatval($this->value);
     }
 
     public function getValue(): ?array
