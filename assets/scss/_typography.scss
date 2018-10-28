@@ -1,0 +1,26 @@
+:root{
+    font-size: 12px;
+    line-height: 1rem;
+
+    @include media-breakpoint-up(md) {
+        font-size: 13px;
+    }
+
+    @include media-breakpoint-up(lg) {
+        font-size: 14px;
+    }
+
+    @include media-breakpoint-up(xl) {
+        font-size: 15px;
+    }
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background: color('gray');
+    min-height: 100%;
+}

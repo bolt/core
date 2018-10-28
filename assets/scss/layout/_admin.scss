@@ -1,22 +1,12 @@
 //** Layout | Admin
 
 $admin-header-height: 80px;
-$admin-sidebar-width: 190px;
-
-html, body {
-  margin: 0;
-  height: 100%;
-}
-
-body {
-  background: color('gray');
-  min-height: 100%;
-}
+$admin-sidebar-width: 200px;
 
 // Main Layout Grid
 
 .admin {
-  
+
   min-height: inherit;
 
   // Flexbox Fallback
@@ -44,7 +34,7 @@ body {
     grid-area: header;
     height: $admin-header-height;
     position: relative;
-    padding: 0 $spacer * 2;
+    padding: 0 $spacer*2;
   }
 
   &__sidebar {
@@ -55,18 +45,37 @@ body {
   &__body {
     flex: 1;
     grid-area: body;
-    padding: $spacer * 2;
+    padding: $spacer*2 $spacer*1 $spacer*2 $spacer*2;
     min-height: 100vh;
+
+    @include media-breakpoint-up(xl) {
+      padding: $spacer*2 $spacer*2 $spacer*2 $spacer*4;
+    }
+
     >.container{
       display: flex;
     }
+
     &--main{
-      padding-right: $spacer * 3;
+      padding-right: $spacer*2;
       flex: 100%;
+      @include media-breakpoint-up(xl) {
+        padding-right: $spacer*4;
+      }
     }
+
     &--aside{
       flex: 0 0 $admin-sidebar-width * 1.25;
+
+      @include media-breakpoint-up(xl) {
+        flex: 0 0 $admin-sidebar-width * 1.5;
+      }
     }
   }
+}
 
+.container {
+  @include media-breakpoint-up(xl) {
+    max-width: 1540px;
+  }
 }
