@@ -1,6 +1,6 @@
 <template>
   <nav class="admin__sidebar--nav">
-    <a class="admin__sidebar--brand" href="/bolt/">
+    <!-- <a class="admin__sidebar--brand" href="/bolt/">
       <img :src="brand" alt="Bolt Four">
     </a>
     <div class="admin__sidebar--create">
@@ -18,7 +18,7 @@
           {{item.singular_name}}
         </a>
       </div>
-    </div>
+    </div> -->
     <div>
       <ul class="admin__sidebar--menu">
         <li v-for="(item, index) in menu" :key="index">
