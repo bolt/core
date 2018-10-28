@@ -13,11 +13,6 @@ import "./helpers/filters";
 import "bootstrap";
 
 /**
- * Styling
- */
-import "../scss/bolt.scss";
-
-/**
  * Set Axios
  */
 import Axios from 'axios'
@@ -36,3 +31,8 @@ window.jQuery = $;
 import "./Views/admin";
 import "./Views/listing";
 import "./Views/editor";
+
+/**
+ * Styling
+ */
+import "../scss/bolt.scss";
