@@ -75,6 +75,7 @@ pages:
         body:
             type: html
             height: 300px
+            allowtwig: true
         textarea:
             type: textarea
             postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."

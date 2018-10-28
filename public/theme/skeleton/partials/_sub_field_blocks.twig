@@ -1,9 +1,9 @@
 {# Sub-block for 'text' field such as 'text', 'textarea', or 'html' #}
 {% block text_field %}
-    <div {% if key is not empty %}data-bolt-field="{{ key }}"{% endif %}>
+    <div data-bolt-field="{{ value.name }}">
         {%- autoescape false -%}
             {# If 'allowtwig' is true for this field, we'll need to parse it as Twig here. #}
-            {#{% if allowtwig|default(false) %}#}
+            {#{% if allowtwig %}#}
                 {#{{ include(template_from_string(value)) }}#}
             {#{% else %}#}
                 {{ value }}
@@ -14,9 +14,9 @@
 
 {# Sub-block for Markdown fields #}
 {% block markdown_field %}
-    <div {% if key is not empty %}data-bolt-field="{{ key }}"{% endif %}>
+    <div data-bolt-field="{{ value.name }}">
         {# If 'allowtwig' is true for this field, we'll need to parse it as Twig here. #}
-        {#{% if allowtwig|default(false) %}#}
+        {#{% if allowtwig %}#}
             {#{{ include(template_from_string(value))|markdown }}#}
         {#{% else %}#}
             {{ value|markdown }}
@@ -40,7 +40,8 @@
 
     {# HTML, Textarea, Text fields #}
     {% if fieldtype in ['html', 'textarea', 'text'] %}
-        {{ block('text_field') }}
+        {% set tag = (value.name in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'p' %}
+        <{{tag}}>{{ block('text_field') }}</{{tag}}>
     {% endif %}
 
     {# Markdown fields #}
@@ -49,7 +50,7 @@
     {% endif %}
 
     {# Image fields #}
-    {% if fieldtype == "image" and value.file|default is not empty %}
+    {% if fieldtype == "image" and value is not empty %}
         {{ value|showimage('684') }}
     {% endif %}
 

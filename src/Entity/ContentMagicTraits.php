@@ -32,7 +32,7 @@ trait ContentMagicTraits
         // Prefer a field with $name
         foreach ($this->fields as $field) {
             if ($field->getName() === $name) {
-                return $field;
+                return new \Twig_Markup($field, 'UTF-8');
             }
         }
 

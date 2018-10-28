@@ -39,6 +39,9 @@ class EditFileController extends BaseController
     public function editFile(string $area, Request $request): Response
     {
         $file = $request->query->get('file');
+        if (mb_strpos($file, '/') !== 0) {
+            $file = '/' . $file;
+        }
         $basepath = $this->config->getPath($area);
         $filename = Path::canonicalize($basepath . '/' . $file);
         $contents = file_get_contents($filename);
@@ -57,6 +60,10 @@ class EditFileController extends BaseController
      *
      * @param Request               $request
      * @param UrlGeneratorInterface $urlGenerator
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      *
      * @return RedirectResponse
      */

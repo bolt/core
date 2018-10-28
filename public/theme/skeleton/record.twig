@@ -6,14 +6,6 @@
 
     {{ dump(record.definition) }}
 
-    <hr><hr>
-    {{ show_source_code(_self) }}
-    <hr><hr>
-
-    {% for field in record.fields %}
-        {{ field }}
-    {% endfor %}
-
     <hr>
 
     {% if record.image %}
@@ -30,15 +22,6 @@
     {% with { 'record': record, 'common': true, 'extended': true, 'repeaters': true, 'blocks': true } %}
         {{ block('sub_fields', 'partials/_sub_fields.twig') }}
     {% endwith %}
-
-    <p>Record:</p>
-    <code>{% verbatim %}{{ dump(record.definition) }}{% endverbatim %}</code>
-
-    {#{{ dump(record.definition) }}#}
-
-    <p>Field:</p>
-    <code>{% verbatim %}{{ dump(record.image.definition) }}{% endverbatim %}</code>
-    {#{{ dump(record.image.definition) }}#}
 
     {# Uncomment this if you wish to dump the entire record to the client, for debugging purposes.
     {{ dump(record) }}

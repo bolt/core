@@ -26,6 +26,7 @@ final class FieldType extends Collection
             'placeholder' => '',
             'sort' => '',
             'default' => '',
+            'allowtwig' => false,
         ];
 
         return $values;

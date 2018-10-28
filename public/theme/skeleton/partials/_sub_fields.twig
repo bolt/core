@@ -39,60 +39,62 @@
         {% endif %}
     {% endspaceless -%}
 
-    {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
-    {% for key, value in record.values if (key not in omittedkeys) %}
+    {{ dump(record.fields) }}
 
-        {# Is the field allowed to contain Twig functions #}
-        {% set allowtwig = record.contenttype.fields[key].allowtwig|default(false) %}
+    {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
+    {% for value in record.fields if (value.name not in omittedkeys) %}
+
+        {# Set the type #}
+        {% set fieldtype = value.definition.type %}
+
+        {# Is the field allowed to contain Twig functions? #}
+        {% set allowtwig = value.definition.allowtwig %}
 
         {# Fields that are considered 'common': 'html', 'markdown', 'textarea',
            'text', 'image', 'video' and 'imagelist' #}
-        {% if common|default(true) and (key not in exclude|default([])) %}
+        {% if common|default(true) and (value.name not in exclude|default([])) %}
 
-            {% set fieldtype = record.fieldtype(key) %}
-            {% set value = record.get(key) %}
             {{ block('common_fields') }}
 
         {% endif %}
 
         {# The rest of the built-in fieldtypes #}
-        {% if extended|default(false) and (key not in exclude|default([])) %}
+        {% if extended|default(false) and (value.name not in exclude|default([])) %}
 
-            {% set fieldtype = record.fieldtype(key) %}
             {{ block('extended_fields') }}
 
         {% endif %}
 
         {# Finally, the repeaters and blocks #}
-        {% if (repeaters|default(false) == true and record.fieldtype(key) == "repeater") or
-              (blocks|default(false) == true and record.fieldtype(key) == "block") %}
+        {#{% if (repeaters|default(false) == true and record.fieldtype(key) == "repeater") or#}
+              {#(blocks|default(false) == true and record.fieldtype(key) == "block") %}#}
 
-            {% if (global.request.get('_route') != "preview") %}
+            {#{% if (global.request.get('_route') != "preview") %}#}
 
-                {% for repeater in value %}
+                {#{% for repeater in value %}#}
 
-                    {% for key, repeaterfield in repeater %}
+                    {#{% for key, repeaterfield in repeater %}#}
 
-                        {% set fieldtype = repeaterfield.fieldtype() %}
-                        {% set value = repeaterfield.value() %}
-                        {{ block('common_fields') }}
-                        {{ block('extended_fields') }}
+                        {#{% set fieldtype = repeaterfield.fieldtype() %}#}
+                        {#{% set value = repeaterfield.value() %}#}
+                        {#{{ block('common_fields') }}#}
+                        {#{{ block('extended_fields') }}#}
 
-                    {% endfor %}
-                {% endfor %}
+                    {#{% endfor %}#}
+                {#{% endfor %}#}
 
-            {% else %}
-                {# @deprecated
-                `blocks()` does not work correctly when _previewing_ repeater fields. This will be
-                fixed properly for Bolt 4, but for now we just output a notice, and prevent crashes.
-                See also: https://github.com/bolt/bolt/issues/6605 #}
-                <p>
-                Unfortunately, Repeater and Block fields do not work correctly with the generic
-                <code>block()</code> function, when using Preview. To view these fields, please
-                save the record, and view the page normally.
-                </p>
-            {% endif %}
-        {% endif %}
+            {#{% else %}#}
+                {# @deprecated#}
+                {#`blocks()` does not work correctly when _previewing_ repeater fields. This will be#}
+                {#fixed properly for Bolt 4, but for now we just output a notice, and prevent crashes.#}
+                {#See also: https://github.com/bolt/bolt/issues/6605 #}
+                {#<p>#}
+                {#Unfortunately, Repeater and Block fields do not work correctly with the generic#}
+                {#<code>block()</code> function, when using Preview. To view these fields, please#}
+                {#save the record, and view the page normally.#}
+                {#</p>#}
+            {#{% endif %}#}
+        {#{% endif %}#}
 
     {% endfor %}
 

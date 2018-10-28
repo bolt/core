@@ -53,6 +53,7 @@ class BaseController extends AbstractController
         // Set config and version.
         $parameters['config'] = $this->config;
         $parameters['version'] = Version::VERSION;
+        $parameters['user'] = $this->getUser();
 
         // Resolve string|array of templates into the first one that is found.
         if ($template instanceof Collection) {
