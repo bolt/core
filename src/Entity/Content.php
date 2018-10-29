@@ -22,7 +22,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
- * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
  * @ORM\Table(name="bolt_content")
