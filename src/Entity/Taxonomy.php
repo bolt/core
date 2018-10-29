@@ -8,9 +8,14 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"public"}},
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\TaxonomyRepository")
  * @ORM\Table(name="bolt_taxonomy")
  */
@@ -20,32 +25,38 @@ class Taxonomy
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("public")
      */
     private $id;
 
     /**
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies")
      * @ORM\JoinTable(name="bolt_taxonomy_content")
+     * @Groups("public")
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=191)
+     * @Groups("public")
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=191)
+     * @Groups("public")
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=191)
+     * @Groups("public")
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("public")
      */
     private $sortorder;
 
