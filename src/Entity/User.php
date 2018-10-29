@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"public"}},
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
  * @ORM\Table(name="bolt_user")
  */
@@ -20,6 +27,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("public")
      */
     private $id;
 
@@ -28,6 +36,7 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Groups("public")
      */
     private $fullName;
 
@@ -37,6 +46,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", unique=true, length=190)
      * @Assert\NotBlank()
      * @Assert\Length(min=2, max=50)
+     * @Groups("public")
      */
     private $username;
 
@@ -59,16 +69,19 @@ class User implements UserInterface, \Serializable
      * @var array
      *
      * @ORM\Column(type="json")
+     * @Groups("public")
      */
     private $roles = [];
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("public")
      */
     private $lastseenAt;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Groups("public")
      */
     private $lastIp;
 

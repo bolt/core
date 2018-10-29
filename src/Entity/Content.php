@@ -14,9 +14,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ *     normalizationContext={"groups"={"public"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
@@ -37,11 +39,13 @@ class Content
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("public")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=191, name="contenttype")
+     * @Groups("public")
      */
     private $contentType;
 
@@ -50,31 +54,37 @@ class Content
      *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("public")
      */
     private $author;
 
     /**
      * @ORM\Column(type="string", length=191)
+     * @Groups("public")
      */
     private $status;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("public")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("public")
      */
     private $modifiedAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("public")
      */
     private $publishedAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("public")
      */
     private $depublishedAt;
 
