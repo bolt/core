@@ -19,8 +19,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *     normalizationContext={"groups"={"public"}},
- *     collectionOperations={"get"={"access_control"="is_granted('ROLE_ADMIN')"}},
- *     itemOperations={"get"={"access_control"="is_granted('ROLE_ADMIN')"}}
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
  * )
  * )
  * @ApiFilter(SearchFilter::class)
