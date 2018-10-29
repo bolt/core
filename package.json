@@ -65,7 +65,7 @@
     "lint": "eslint --ext .js,.vue, assets",
     "lint-fix": "eslint --ext .js,.vue, assets --fix",
     "serve": "encore dev-server --port=8001 --progress --disable-host-check",
-    "build": "encore production --progress",
+    "build": "encore production --progress"
   },
   "eslintConfig": {
     "root": true,
