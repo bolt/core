@@ -8,9 +8,14 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
 use Bolt\Content\FieldTypeFactory;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"public"}},
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(name="bolt_field")
  * @ORM\InheritanceType("SINGLE_TABLE")
@@ -47,47 +52,56 @@ class Field
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("public")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("public")
      */
     private $content_id;
 
     /**
      * @ORM\Column(type="string", length=191)
+     * @Groups("public")
      */
     public $name;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("public")
      */
     protected $value = [];
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("public")
      */
     private $parent_id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("public")
      */
     private $sortorder = 0;
 
     /**
      * @ORM\Column(type="string", length=191, nullable=true)
+     * @Groups("public")
      */
     private $locale;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("public")
      */
     private $version;
 
     /**
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("public")
      */
     private $content;
 
