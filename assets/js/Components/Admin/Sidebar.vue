@@ -53,7 +53,7 @@
     </div>
     <button class="admin__sidebar--slim" @click="slimMenu()"><i class="fas fa-arrows-alt-h"></i></button>
     <footer class="admin__sidebar--footer">
-      Bolt {{version}}
+      <i class="fas fa-fw fa-star"></i> &nbsp; <a :href="aboutlink">Bolt {{version}}</a>
     </footer>
   </nav>
 </template>
@@ -64,7 +64,7 @@ const admin = document.querySelector('.admin');
 
 export default {
   name: "admin-sidebar",
-  props: ["brand", "menu", "version"],
+  props: ["brand", "menu", "version", "aboutlink"],
   created() {
     const size = localStorage.getItem('admin-sidebar-size');
     if (size !== null && size === 'slim'){

@@ -36,7 +36,8 @@
             <admin-sidebar 
                 :brand="'{{ asset('assets/brand.svg') }}'"
                 :menu="{{ sidebarmenu() }}"
-                :version="'{{ version|default('unknown') }}'"
+                :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
+                :aboutlink="{{ path('bolt_about')|json_encode }}"
             ></admin-sidebar >
         </div>
     </div>

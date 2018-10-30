@@ -157,9 +157,12 @@
     justify-content: center;
     color: theme-color('secondary');
     font-weight: $font-weight-bold;
-    text-transform: uppercase;
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
+
+    a {
+      font-weight: $font-weight-normal;
+    }
   }
 }
 
