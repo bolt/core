@@ -4,27 +4,30 @@
   "homepage": "https://bolt.cm",
   "author": "Bob den Otter <bob@twokings.nl> (https://bolt.cm)",
   "license": "MIT",
+  "description": "Bolt 4.0.0 prototype",
+  "keywords": [
+    "bolt",
+    "cms",
+    "php",
+    "symfony",
+    "vue",
+    "content",
+    "management",
+    "system"
+  ],
+  "bugs": {
+    "url": "https://github.com/bobdenotter/symfony-skeleton/issues"
+  },
+  "main": "webpack.config.js",
+  "directories": {
+    "test": "tests"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/bobdenotter/symfony-skeleton.git"
   },
-  "devDependencies": {
-    "@symfony/webpack-encore": "^0.20.1",
-    "eslint": "5.7.0",
-    "eslint-config-prettier": "3.1.0",
-    "eslint-plugin-prettier": "3.0.0",
-    "eslint-plugin-vue": "4.7.1",
-    "node-sass": "^4.9.4",
-    "register-service-worker": "^1.5.2",
-    "sass-loader": "^7.1.0",
-    "vue-loader": "^14",
-    "vue-router": "^3.0.1",
-    "vue-template-compiler": "^2.5.17",
-    "workbox-webpack-plugin": "^3.6.2"
-  },
   "dependencies": {
     "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
     "baguettebox.js": "^1.11.0",
     "bootstrap": "^4.1.3",
     "codemirror": "^5.40.2",
@@ -41,13 +44,28 @@
     "vue-trumbowyg": "^3.4.0",
     "vuedraggable": "^2.16.0"
   },
+  "devDependencies": {
+    "@babel/preset-env": "^7.1.0",
+    "@symfony/webpack-encore": "^0.20.1",
+    "autoprefixer": "^9.3.1",
+    "eslint": "5.7.0",
+    "eslint-config-prettier": "3.1.0",
+    "eslint-plugin-prettier": "3.0.0",
+    "eslint-plugin-vue": "4.7.1",
+    "node-sass": "^4.9.4",
+    "postcss-loader": "^3.0.0",
+    "register-service-worker": "^1.5.2",
+    "sass-loader": "^7.1.0",
+    "vue-loader": "^14",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.17",
+    "workbox-webpack-plugin": "^3.6.2"
+  },
   "scripts": {
     "lint": "eslint --ext .js,.vue, assets",
     "lint-fix": "eslint --ext .js,.vue, assets --fix",
-    "dev-server": "encore dev-server",
-    "dev": "encore dev",
-    "watch": "encore dev --watch",
-    "build": "encore production"
+    "serve": "encore dev-server --port=8001 --progress --disable-host-check",
+    "build": "encore production --progress"
   },
   "eslintConfig": {
     "root": true,
@@ -56,22 +74,7 @@
       "eslint:recommended"
     ]
   },
-  "description": "Bolt 4.0.0 prototype",
-  "bugs": {
-    "url": "https://github.com/bobdenotter/symfony-skeleton/issues"
-  },
-  "main": "webpack.config.js",
-  "directories": {
-    "test": "tests"
-  },
-  "keywords": [
-    "bolt",
-    "cms",
-    "php",
-    "symfony",
-    "vue",
-    "content",
-    "management",
-    "system"
+  "browserslist": [ 
+    "> 1%"
   ]
 }

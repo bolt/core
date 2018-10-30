@@ -28,32 +28,6 @@ label{
   font-weight:                  $font-weight-bold;
 }
 
-#editcontent {
-  input.large {
-      font-size: 140%;
-      height: auto;
-  }
-
-  input[readonly] {
-      background-color: #f2f2f2;
-      color: #888;
-  }
-
-  .input-group-append .btn {
-      font-weight: normal;
-      font-size: 0.9rem;
-  }
-}
-
-.sl-overlay {
-  background: #000;
-  opacity: 0.85;
-}
-
-.sl-close {
-  color: #FFF;
-}
-
 .custom-select{
   -webkit-appearance: none;
 }

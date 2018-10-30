@@ -64,6 +64,6 @@ Build assets
 To set up initially, run `npm install` to get the required dependencies /
 `node_modules`. Then:
 
-  - Run `npm run watch`
+  - Run `npm run serve`
 
 See the other options by running `npm run`.
