@@ -1,0 +1,31 @@
+//** Init | Base
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  color: var(--body);
+  background: theme-color('background');
+  min-height: 100%;
+}
+
+label{
+  font-weight:                  $font-weight-bold;
+}
+
+strong {
+  font-weight:                  $font-weight-semibold;
+}
+
+.custom-select{
+  -webkit-appearance: none;
+}
+
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    @include button-css-variable($color);
+  }
+}

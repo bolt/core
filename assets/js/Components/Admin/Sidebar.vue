@@ -53,7 +53,7 @@
     </div>
     <button class="admin__sidebar--slim" @click="slimMenu()"><i class="fas fa-arrows-alt-h"></i></button>
     <footer class="admin__sidebar--footer">
-      Bolt {{version}}
+      <span>Bolt {{version}}</span>
     </footer>
   </nav>
 </template>
