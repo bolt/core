@@ -1,0 +1,20 @@
+//** Init | Mixins
+
+// Darken Color 
+/** We need to use this since CSS variables can't use darken/lighten sass functions **/
+
+@mixin darken($color, $level) {
+  background:
+  linear-gradient(
+    to top,
+    rgba(0, 0, 0, $level),
+    rgba(0, 0, 0, $level)
+  )
+  var($color);
+}
+
+
+@mixin button-css-variable($background) {
+  background-color: var(--#{$background});
+  border-color: var(--#{$background});
+}

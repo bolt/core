@@ -7,7 +7,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $white;
+      background: var(--shade);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
       padding: $spacer / 2;
@@ -15,22 +15,22 @@
       min-width: 25px;
       letter-spacing: $letter-spacing;
       &.disabled{
-        color: $gray-500;
+        color: var(--shade-400);
         &:hover{
-          background: $white;
+          background: var(--shade);
         }
       }
       &.current{
-        color: $white;
-        background: theme-color('primary');
+        color: var(--shade);
+        background: var(--primary);
         font-weight: $font-weight-bold;
         &:hover{
-          background: theme-color('primary');
+          background: var(--primary);
         }
       }
       &:hover{
         text-decoration: none;
-        background: darken($white, 2%);
+        @include darken(--shade, 0.02);
       }
     }
   }

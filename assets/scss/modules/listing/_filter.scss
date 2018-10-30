@@ -25,14 +25,14 @@
       }
     }
     .control--button{
-      color: $gray-600;
+      color: var(--shade-500);
       border: 0;
       height: 40px;
       width: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $white;
+      background: var(--shade);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
       padding: 0;
@@ -40,30 +40,24 @@
         cursor: pointer
       }
       &:focus{
-        outline: none;
         svg, g{
           fill: theme-color('secondary')
         }
       }
       &.is-selected{
-        &:focus{
-          svg g{
-            fill: lighten(theme-color('primary'), 10%);
-          }
-        }
         svg g{
-          fill: theme-color('primary');
+          fill: var(--primary);
         }
       }
       &.is-active{
-        background: theme-color('primary');
-        color: $white;
+        background: var(--primary);
+        color: var(--shade);
       }
       svg{
         width: 20px;
         height: 20px;
         g{
-          fill: $gray-600;
+          fill: var(--shade-500);
         }
       }
     }

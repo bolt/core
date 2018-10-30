@@ -3,14 +3,15 @@
 .admin__sidebar {
   position: relative;
   z-index: 1000;
-  background: $white;
+  background: var(--admin-sidebar);
+  color: var(--admin-sidebar-text);
   height: 100%;
-  box-shadow: 0 0 40px 0 transparentize(theme-color('secondary'), 0.9);
-  padding-top: $spacer;
+  box-shadow: 0 0 40px 0 rgba(0,0,0, 0.07);
+  padding-top: $spacer * 1.5;
   &--separator {
     padding: 0 $spacer;
     margin: $spacer / 2 0;
-    color: $gray-600;
+    opacity: 0.4;
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     font-size: $small-font-size;
@@ -27,19 +28,20 @@
   &--link {
     position: relative;
     width: 100%;
-    padding: $spacer / 1.5 $spacer;
+    padding: $spacer / 1.75 $spacer;
     display: block;
-    color: $gray-600;
     font-weight: $font-weight-semibold;
     letter-spacing: $letter-spacing;
+    color: var(--admin-sidebar-text);
     font-size: 95%;
 
     &:hover {
-      background: darken($white, 2%);
+      @include darken(--admin-sidebar, 0.02);
+      color: var(--admin-sidebar-icon);
       text-decoration: none;
 
       .link--icon {
-        transform: scale(1.2);
+        transform: scale(1.1);
       }
     }
 
@@ -48,8 +50,9 @@
       &:hover,
       &:focus {
         .link--caret {
-          color: theme-color('primary');
+          color: var(--admin-sidebar-icon);
           transform: translateX(2px);
+          opacity: 1;
         }
 
         .link--menu {
@@ -59,15 +62,17 @@
     }
 
     .link--icon {
+      font-size: $font-size-lg;
       transition: $transition-base;
       transform-origin: center;
-      color: theme-color('primary');
-      width: 20px;
+      color: var(--admin-sidebar-icon);
+      width: 22px;
     }
 
     .link--caret {
       transition: $transition-base;
-      color: $gray-400;
+      color: var(--admin-sidebar-text);
+      opacity: 0.4;
       width: 15px;
       position: absolute;
       right: 0;
@@ -78,7 +83,7 @@
     }
 
     .link--menu {
-      background: theme-color('secondary');
+      background: var(--admin-sidebar-menu);
       border-radius: 0 $border-radius $border-radius 0;
       position: absolute;
       left: 100%;
@@ -91,8 +96,7 @@
 
       li {
         &.link--create {
-          border-bottom: dashed 1px darken(theme-color('secondary'), 10%);
-
+          border-bottom: dashed 1px rgba(0,0,0, 0.1);
           a {
             font-weight: $font-weight-bold;
             letter-spacing: $letter-spacing;
@@ -101,15 +105,16 @@
         }
 
         a {
-          padding: $spacer / 2 $spacer;
-          color: $white;
+          padding: $spacer / 1.75 $spacer;
+          color: var(--admin-sidebar-menu-text);
           display: flex;
           align-items: center;
           font-weight: $font-weight-normal;
           letter-spacing: initial;
 
           &:hover {
-            background: darken(theme-color('secondary'), 10%);
+            @include darken(--admin-sidebar-menu, 0.2);
+            color: var(--admin-sidebar-menu-text);
             text-decoration: none;
           }
 
@@ -130,7 +135,7 @@
     background: transparent;
     border: 0;
     text-align: center;
-    color: theme-color('primary');
+    color: var(--primary);
     font-size: $font-size-lg;
     position: fixed;
     left: 0;
@@ -145,27 +150,26 @@
 
   &--footer {
     -webkit-backface-visibility: hidden;
+    @include darken(--admin-sidebar, 0.02);
+    color: var(--admin-sidebar-text);
     position: fixed;
     bottom: 0;
     left: 0;
     height: 40px;
     width: $admin-sidebar-width;
     padding: 0 $spacer;
-    background: darken($white, 2%);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: theme-color('secondary');
     font-weight: $font-weight-bold;
+    text-transform: uppercase;
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
-
-    a {
-      font-weight: $font-weight-normal;
+    span{
+      opacity: 0.5;
     }
   }
 }
-
 
 .admin {
   &.is-slim {
