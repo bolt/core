@@ -46,3 +46,8 @@ yarn-error.log
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+
+### Built Assets ###
+/public/assets/
+/public/assets/manifest.json
