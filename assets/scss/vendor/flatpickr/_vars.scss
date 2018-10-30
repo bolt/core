@@ -20,11 +20,11 @@ $weekdaysHeight: 28px !default;
 $timeHeight: 40px;
 
 // Colors
-$calendarBackground: $white !default;
+$calendarBackground: #fff !default;
 $calendarBorderColor: #e6e6e6 !default;
 
 $monthForeground: rgba(black, 0.9) !default;
-$arrow_hover_color: theme-color('primary')!default;
+$arrow_hover_color: var(--primary)!default;
 
 $monthBackground: transparent !default;
 
@@ -35,6 +35,6 @@ $dayForeground: #393939 !default;
 $dayHoverBackground: #e6e6e6 !default;
 
 $todayColor: #959ea9 !default;
-$selectedDayBackground: theme-color('primary') !default;
+$selectedDayBackground: var(--primary) !default;
 
 $invertedBg: invert($calendarBackground);

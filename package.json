@@ -55,6 +55,7 @@
     "eslint-plugin-vue": "4.7.1",
     "node-sass": "^4.9.4",
     "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.3.0",
     "register-service-worker": "^1.5.2",
     "sass-loader": "^7.1.0",
     "vue-loader": "^14",
