@@ -8,6 +8,7 @@ use Bolt\Common\Arr;
 use Bolt\Helpers\Html;
 use Bolt\Helpers\Str;
 use Tightenco\Collect\Support\Collection;
+use Webmozart\PathUtil\Path;
 
 class GeneralParser extends BaseParser
 {
@@ -280,9 +281,9 @@ class GeneralParser extends BaseParser
         unset($config['memory']);
 
         // Get path from config or use database path
-        $path = isset($config['path']) ? $config['path'] : $pathResolver->resolve('database');
+        $path = isset($config['path']) ? $config['path'] : $this->pathResolver->resolve('database');
         if (Path::isRelative($path)) {
-            $path = $pathResolver->resolve($path);
+            $path = $this->pathResolver->resolve($path);
         }
 
         // If path has filename with extension, use that

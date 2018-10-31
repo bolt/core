@@ -9,9 +9,11 @@ use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
 use Carbon\Carbon;
 use Faker\Factory;
+use Faker\Generator;
 use PHPExif\Reader\Reader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\SplFileInfo;
+use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
 class MediaFactory
@@ -24,6 +26,15 @@ class MediaFactory
 
     /** @var ContainerInterface */
     private $container;
+
+    /** @var Reader */
+    private $exif;
+
+    /** @var Generator */
+    private $faker;
+
+    /** @var Collection */
+    private $mediatypes;
 
     /**
      * MediaFactory constructor.

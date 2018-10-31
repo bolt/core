@@ -19,7 +19,7 @@ class BaseParser
     protected $accept_file_types;
 
     /** @var PathResolver */
-    private $pathResolver;
+    protected $pathResolver;
 
     public function __construct($accept_file_types = [])
     {
