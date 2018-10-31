@@ -45,6 +45,7 @@
     "vuedraggable": "^2.16.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@symfony/webpack-encore": "^0.20.1",
     "autoprefixer": "^9.3.1",
