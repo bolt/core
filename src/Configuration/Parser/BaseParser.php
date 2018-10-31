@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration\Parser;
 
+use Bolt\Configuration\PathResolver;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\Yaml\Yaml;
@@ -17,11 +18,15 @@ class BaseParser
     /** @var array */
     protected $accept_file_types;
 
+    /** @var PathResolver */
+    private $pathResolver;
+
     public function __construct($accept_file_types = [])
     {
         $this->accept_file_types = $accept_file_types;
         $configDirectories = [dirname(dirname(dirname(__DIR__))) . '/config/bolt'];
         $this->fileLocator = new FileLocator($configDirectories);
+        $this->pathResolver = new PathResolver(dirname(dirname(dirname(__DIR__))), []);
     }
 
     /**

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
@@ -12,8 +14,6 @@ class GeneralController extends BaseController
      */
     public function about()
     {
-        return $this->renderTemplate('about/about.twig', [
-            'controller_name' => 'GeneralController',
-        ]);
+        return $this->renderTemplate('about/about.twig');
     }
 }
