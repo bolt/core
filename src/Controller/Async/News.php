@@ -137,7 +137,7 @@ final class News
         foreach ($fetchedNewsItems as $item) {
             $type = isset($item->type) ? $item->type : 'information';
             if (!isset($news[$type])
-                && (empty($item->target_version) || Bolt\Version::compare($item->target_version, '>'))
+                && (empty($item->target_version) || Version::compare($item->target_version, '>'))
             ) {
                 $news[$type] = $item;
             }

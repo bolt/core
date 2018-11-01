@@ -10,6 +10,7 @@ use Bolt\Content\MediaFactory;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
+use Bolt\TemplateChooser;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\SplFileInfo;
@@ -49,14 +50,17 @@ class EditMediaController extends BaseController
      * EditMediaController constructor.
      *
      * @param Config                    $config
+     * @param TemplateChooser           $templateChooser
      * @param CsrfTokenManagerInterface $csrfTokenManager
      * @param ObjectManager             $manager
      * @param UrlGeneratorInterface     $urlGenerator
      * @param MediaRepository           $mediaRepository
      * @param Areas                     $areas
+     * @param MediaFactory              $mediaFactory
      */
     public function __construct(
         Config $config,
+        TemplateChooser $templateChooser,
         CsrfTokenManagerInterface $csrfTokenManager,
         ObjectManager $manager,
         UrlGeneratorInterface $urlGenerator,
@@ -64,8 +68,8 @@ class EditMediaController extends BaseController
         Areas $areas,
         MediaFactory $mediaFactory
     ) {
-        $this->config = $config;
-        $this->csrfTokenManager = $csrfTokenManager;
+        parent::__construct($config, $templateChooser, $csrfTokenManager);
+
         $this->manager = $manager;
         $this->urlGenerator = $urlGenerator;
         $this->mediaRepository = $mediaRepository;
@@ -77,6 +81,10 @@ class EditMediaController extends BaseController
      * @Route("/media/edit/{id}", name="bolt_media_edit", methods={"GET"})
      *
      * @param Media|null $media
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      *
      * @return Response
      */
