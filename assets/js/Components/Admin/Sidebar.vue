@@ -1,9 +1,5 @@
 <template>
   <nav class="admin__sidebar--nav">
-    <a class="admin__sidebar--brand" href="/bolt/">
-      <img :src="brandFull" alt="Bolt CMS" v-if="size === 'normal'">
-      <img :src="brandIcon" alt="Bolt CMS" v-else>
-    </a>
     <div>
       <ul class="admin__sidebar--menu">
         <li v-for="(item, index) in menu" :key="index">

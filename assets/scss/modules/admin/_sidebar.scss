@@ -7,19 +7,6 @@
   color: var(--admin-sidebar-text);
   height: 100%;
   box-shadow: 0 0 40px 0 rgba(0,0,0, 0.07);
-  &--brand{
-    @include darken(--admin-sidebar, 0.02);
-    width: 100%;
-    height: $admin-header-height;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: $spacer;
-    padding: 0 $spacer;
-    img{
-      width: 90%;
-    }
-  }
   &--separator {
     padding: 0 $spacer;
     margin: $spacer / 2 0;
@@ -35,6 +22,7 @@
     padding: 0;
     width: 100%;
     list-style: none;
+    margin-top: $spacer;
   }
 
   &--link {
@@ -190,12 +178,6 @@
 .admin {
   &.is-slim {
     .admin__sidebar {
-
-      .admin__sidebar--brand{
-        img{
-          width: 100%;
-        }
-      }
 
       .admin__sidebar--separator,
       .admin__sidebar--footer {
