@@ -204,7 +204,7 @@ class MenuBuilder
     private function getLatestRecords($slug)
     {
         /** @var ContentType $ct */
-        $contenttype = ContentTypeFactory::get($slug, $this->config->get('contenttypes'));
+        $contenttype = ContentType::factory($slug, $this->config->get('contenttypes'));
 
         /** @var Content $records */
         $records = $this->content->findLatest($contenttype, 5);

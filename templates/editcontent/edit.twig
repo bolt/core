@@ -42,7 +42,7 @@
           {% set field = record.field(key) %}
           {% set fieldgroup = fielddefinition.group %}
           {% if not field %}
-              {% set field = fieldfactory(fielddefinition, key) %}
+              {% set field = fieldfactory(key, fielddefinition) %}
           {% endif %}
           {% if fieldgroup == group %}
             {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field} %}
@@ -139,7 +139,7 @@
     {% set type = fielddefinition.type %}
     {% set field = record.field(key) %}
     {% if not field %}
-        {% set field = fieldfactory(fielddefinition, key) %}
+        {% set field = fieldfactory(key, fielddefinition) %}
     {% endif %}
 {% endspaceless %}
 {% include 'editcontent/javascripts/' ~ type ~ '.twig' ignore missing with { 'field': field} %}
@@ -163,7 +163,7 @@
     {% set type = fielddefinition.type %}
     {% set field = record.field(key) %}
     {% if not field %}
-        {% set field = fieldfactory(fielddefinition, key) %}
+        {% set field = fieldfactory(key, fielddefinition) %}
     {% endif %}
 {% endspaceless %}
 {% include 'editcontent/stylesheets/' ~ type ~ '.twig' ignore missing with { 'field': field} %}

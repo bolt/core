@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
-use Bolt\Content\ContentTypeFactory;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
@@ -37,7 +36,7 @@ class ListingController extends BaseController
         /** @var Content $records */
         $records = $content->findAll($page);
 
-        $contenttype = ContentTypeFactory::get($contenttypeslug, $this->config->get('contenttypes'));
+        $contenttype = ContentType::factory($contenttypeslug, $this->config->get('contenttypes'));
 
         $templates = $this->templateChooser->listing($contenttype);
 
