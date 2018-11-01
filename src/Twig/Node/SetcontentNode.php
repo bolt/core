@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Twig\Node;
 
 use Bolt\Twig\Runtime\SetcontentRuntime;
@@ -63,4 +65,4 @@ class SetcontentNode extends Node
 
         $compiler->raw(" );\n");
     }
- }
+}

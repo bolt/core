@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Directive;
 
 use Bolt\Storage\Query\QueryInterface;
@@ -27,10 +29,10 @@ class OrderDirective
         $separatedOrders = $this->getOrderBys($order);
         foreach ($separatedOrders as $order) {
             $order = trim($order);
-            if (strpos($order, '-') === 0) {
+            if (mb_strpos($order, '-') === 0) {
                 $direction = 'DESC';
-                $order = substr($order, 1);
-            } elseif (strpos($order, ' DESC') !== false) {
+                $order = mb_substr($order, 1);
+            } elseif (mb_strpos($order, ' DESC') !== false) {
                 $direction = 'DESC';
                 $order = str_replace(' DESC', '', $order);
             } else {
@@ -63,6 +65,6 @@ class OrderDirective
      */
     protected function isMultiOrderQuery($order)
     {
-        return strpos($order, ',') !== false;
+        return mb_strpos($order, ',') !== false;
     }
 }

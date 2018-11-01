@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query;
 
 use Bolt\Events\QueryEvent;
@@ -446,10 +448,11 @@ class ContentQueryParser
         $this->parse();
         // $parseEvent = new QueryEvent($this);
         // $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::PARSE, $parseEvent);
-if (! empty($this->getOperation))
-        $result = call_user_func($this->handlers[$this->getOperation()], $this);
-else
-    $result = call_user_func($this->handlers['select'], $this);;
+        if (!empty($this->getOperation)) {
+            $result = call_user_func($this->handlers[$this->getOperation()], $this);
+        } else {
+            $result = call_user_func($this->handlers['select'], $this);
+        }
         // $executeEvent = new QueryEvent($this, $result);
         // $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::EXECUTE, $executeEvent);
 

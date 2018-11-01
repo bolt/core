@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Handler;
 
 use Bolt\Storage\Query\ContentQueryParser;
@@ -20,7 +22,7 @@ class RandomQueryHandler
     public function __invoke(ContentQueryParser $contentQuery)
     {
         $params = $contentQuery->getEntityManager()->createQueryBuilder()->getConnection()->getParams();
-        if (strpos($params['driver'], 'mysql') !== false) {
+        if (mb_strpos($params['driver'], 'mysql') !== false) {
             $contentQuery->setDirective('order', 'RAND()');
         } else {
             $contentQuery->setDirective('order', 'RANDOM()');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query;
 
 use Bolt\Configuration\Config;
@@ -49,7 +51,6 @@ class SearchConfig
 
         return false;
     }
-
 
     /**
      * Get the config of one given field for a given content type.
@@ -138,11 +139,11 @@ class SearchConfig
         $fields = $this->config->get('contenttypes/' . $type . '/fields');
 
         foreach ($fields as $field => $options) {
-            if (in_array($options['type'], ['text', 'textarea', 'html', 'markdown']) ||
+            if (in_array($options['type'], ['text', 'textarea', 'html', 'markdown'], true) ||
                 (isset($options['searchable']) && $options['searchable'] === true)) {
                 if (isset($options['searchweight'])) {
                     $weight = (int) $options['searchweight'];
-                } elseif (isset($fields['slug']['uses']) && in_array($field, (array)$fields['slug']['uses'], true)) {
+                } elseif (isset($fields['slug']['uses']) && in_array($field, (array) $fields['slug']['uses'], true)) {
                     $weight = 100;
                 } else {
                     $weight = 50;
@@ -197,12 +198,12 @@ class SearchConfig
     }
 
     /**
-     * Return an array of searchable contenttypes
+     * Return an array of searchable contenttypes.
+     *
      * @return array
      */
     public function getSearchableTypes()
     {
         return $this->searchableTypes;
     }
-
 }

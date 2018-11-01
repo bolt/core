@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Twig;
 
 // use Bolt\Storage\Entity\Content;
@@ -116,7 +118,7 @@ class TwigRecordsView
     }
 
     /**
-     * Adds a transformer callback to the field type $label
+     * Adds a transformer callback to the field type $label.
      *
      * @param $label
      * @param callable $callback
@@ -127,7 +129,7 @@ class TwigRecordsView
     }
 
     /**
-     * Checks if a transformer is registered for $label
+     * Checks if a transformer is registered for $label.
      *
      * @param $label
      *

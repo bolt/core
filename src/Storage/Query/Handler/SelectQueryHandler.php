@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Handler;
 
 use Bolt\Storage\Entity\Content;
@@ -29,7 +31,8 @@ class SelectQueryHandler
             $contentType = str_replace('-', '_', $contentType);
 
             $repo = $contentQuery->getContentRepository();
-            $query->setQueryBuilder($repo
+            $query->setQueryBuilder(
+                $repo
                     ->getQueryBuilder()
                     // ->where('content.contentType = :ct')
                     // ->setParameter('ct', $contentType)
@@ -48,12 +51,12 @@ class SelectQueryHandler
             if (!$params && count($contentQuery->getParameters())) {
                 continue;
             }
-//$params['contentType'] = $contentType;
-            /** Continue and run the query add the results to the set */
+            //$params['contentType'] = $contentType;
+            /* Continue and run the query add the results to the set */
             $query->setParameters($params);
             $contentQuery->runScopes($query);
             $contentQuery->runDirectives($query);
-// dd($query->build());
+            // dd($query->build());
             // $query is of Bolt\Storage\Query\SelectQuery
             // dd($query->getQueryBuilder()->getQuery());
 
@@ -97,21 +100,21 @@ class SelectQueryHandler
         // $metadata = $repo->getClassMetadata();
         // $allowedParams = array_keys($metadata->getFieldMappings());
         $allowedParams = [
-  0 => "id",
-  1 => "slug",
-  2 => "datecreated",
-  3 => "datechanged",
-  4 => "datepublish",
-  5 => "datedepublish",
-  6 => "ownerid",
-  7 => "status",
-  8 => "templatefields",
-  9 => "title",
-  10 => "image",
-  11 => "teaser",
-  12 => "content",
-  13 => "contentlink",
-  14 => "incomingrelation",
+  0 => 'id',
+  1 => 'slug',
+  2 => 'datecreated',
+  3 => 'datechanged',
+  4 => 'datepublish',
+  5 => 'datedepublish',
+  6 => 'ownerid',
+  7 => 'status',
+  8 => 'templatefields',
+  9 => 'title',
+  10 => 'image',
+  11 => 'teaser',
+  12 => 'content',
+  13 => 'contentlink',
+  14 => 'incomingrelation',
         ];
         $cleanParams = [];
         foreach ($queryParams as $fieldSelect => $valueSelect) {
@@ -126,7 +129,7 @@ class SelectQueryHandler
                 $allowedKeys = [];
                 $allowedVals = [];
                 foreach ($stack as $i => $stackItem) {
-                    if (in_array($stackItem, $allowedParams)) {
+                    if (in_array($stackItem, $allowedParams, true)) {
                         $allowedKeys[] = $stackItem;
                         $allowedVals[] = $valueStack[$i];
                     }
@@ -138,7 +141,7 @@ class SelectQueryHandler
                 $allowed = implode(' ||| ', $allowedKeys);
                 $cleanParams[$allowed] = implode(' ||| ', $allowedVals);
             } else {
-                if (!in_array($fieldSelect, $allowedParams)) {
+                if (!in_array($fieldSelect, $allowedParams, true)) {
                     return false;
                 }
                 $cleanParams[$fieldSelect] = $valueSelect;

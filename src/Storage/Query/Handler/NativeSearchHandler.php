@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Handler;
 
 use Bolt\Storage\Query\Adapter\PostgresSearch;
@@ -20,7 +22,7 @@ class NativeSearchHandler
     public function __invoke(ContentQueryParser $contentQuery)
     {
         $params = $contentQuery->getEntityManager()->createQueryBuilder()->getConnection()->getParams();
-        if (strpos($params['driver'], 'postgres') !== false) {
+        if (mb_strpos($params['driver'], 'postgres') !== false) {
             return $this->postgresSearch($contentQuery);
         }
 

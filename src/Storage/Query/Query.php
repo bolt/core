@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query;
 
 use Bolt\Storage\Entity\Content;
@@ -106,6 +108,7 @@ class Query
                 $parameters = array_merge($parameters, $whereparameters);
             }
         }
+
         return $this->recordsView->createView(
             $this->getContentByScope('frontend', $textQuery, $parameters)
         );

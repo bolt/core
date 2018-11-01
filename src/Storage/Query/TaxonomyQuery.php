@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query;
 
 use Bolt\Storage\Database\Schema\Table\ContentType;
@@ -7,7 +9,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Pimple;
 
 /**
- *  This query class coordinates a taxonomy query build
+ *  This query class coordinates a taxonomy query build.
  *
  *  The resulting set then generates proxies to various content objects
  *
@@ -23,7 +25,7 @@ class TaxonomyQuery implements QueryInterface
     protected $contentTypes;
     /** @var array */
     protected $taxonomyTypes;
-    /**@var Pimple */
+    /** @var Pimple */
     private $schema;
 
     /**
@@ -76,7 +78,7 @@ class TaxonomyQuery implements QueryInterface
     }
 
     /**
-     * Setter to specify which content types to search on
+     * Setter to specify which content types to search on.
      *
      * @param array $contentTypes
      */
@@ -86,7 +88,7 @@ class TaxonomyQuery implements QueryInterface
     }
 
     /**
-     * Setter to specify which taxonomy types to search on
+     * Setter to specify which taxonomy types to search on.
      *
      * @param array $taxonomyTypes
      */
@@ -147,12 +149,12 @@ class TaxonomyQuery implements QueryInterface
         $subQuery = '(SELECT ';
         $fragments = [];
         foreach ($this->contentTypes as $content) {
-            /** @var ContentType  $table */
+            /** @var ContentType $table */
             $table = $this->schema[$content];
             $tableName = $table->getTableName();
             $fragments[] = "id,status, '$content' AS tablename FROM " . $tableName;
         }
-        $subQuery .= join(' UNION SELECT ', $fragments);
+        $subQuery .= implode(' UNION SELECT ', $fragments);
         $subQuery .= ')';
 
         $this->qb->from($subQuery, 'content');
@@ -169,7 +171,7 @@ class TaxonomyQuery implements QueryInterface
             $where->add($this->qb->expr()->eq('taxonomy.slug', ':slug_' . $i));
             $params['taxonomytype_' . $i] = $name;
             $params['slug_' . $i] = $slug;
-            $i++;
+            ++$i;
         }
         $this->qb->where($where)->setParameters($params);
         $this->qb->andWhere("content.status='published'");

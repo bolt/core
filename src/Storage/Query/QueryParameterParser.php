@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query;
 
 use Doctrine\ORM\Query\Expr;
@@ -101,15 +103,13 @@ class QueryParameterParser
      * @param string            $key
      * @param string            $value
      * @param ExpressionBuilder $expr
-     *
-     * @return null
      */
     public function incorrectQueryHandler($key, $value, $expr)
     {
         if (!is_string($value)) {
             return null;
         }
-        if (strpos($value, '&&') && strpos($value, '||')) {
+        if (mb_strpos($value, '&&') && mb_strpos($value, '||')) {
             throw new \Exception('Mixed && and || operators are not supported', 1);
         }
     }
@@ -127,7 +127,7 @@ class QueryParameterParser
      */
     public function multipleKeyAndValueHandler($key, $value, $expr)
     {
-        if (!strpos($key, '|||')) {
+        if (!mb_strpos($key, '|||')) {
             return null;
         }
 
@@ -184,7 +184,7 @@ class QueryParameterParser
         if (!is_string($value)) {
             return null;
         }
-        if (strpos($value, '&&') === false && strpos($value, '||') === false) {
+        if (mb_strpos($value, '&&') === false && mb_strpos($value, '||') === false) {
             return null;
         }
 
@@ -246,7 +246,7 @@ class QueryParameterParser
                 $composite->add($expr->$exprMethod($this->alias . $key, ':' . $placeholder));
                 $filter->setParameter($placeholder, $val['value']);
 
-                $count ++;
+                ++$count;
             }
             $filter->setExpression($composite);
 

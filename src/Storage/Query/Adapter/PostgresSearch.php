@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Adapter;
 
 use Bolt\Storage\Query\SearchConfig;

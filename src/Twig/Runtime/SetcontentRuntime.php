@@ -14,7 +14,7 @@ class SetcontentRuntime
     private $metadataDriver;
 
     /**
-     * @param Query $queryEngine
+     * @param Query          $queryEngine
      * @param MetadataDriver $metadataDriver
      */
     public function __construct(Query $queryEngine, MetadataDriver $metadataDriver = null)

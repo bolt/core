@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query;
 
 use ArrayIterator;
@@ -62,15 +64,16 @@ class SearchQueryResultset extends QueryResultset
             foreach ($records as $i => $record) {
                 $results[] = [
                     'record' => $record,
-                    'score'  => $scores[$i],
+                    'score' => $scores[$i],
                 ];
             }
         }
 
         usort($results, function ($a, $b) {
-            if ($a['score'] == $b['score']) {
+            if ($a['score'] === $b['score']) {
                 return 0;
             }
+
             return ($a['score'] < $b['score']) ? -1 : 1;
         });
 

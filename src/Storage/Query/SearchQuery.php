@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query;
 
 use Bolt\Exception\QueryParseException;
@@ -80,7 +82,7 @@ class SearchQuery extends SelectQuery
      */
     protected function getSearchParameter()
     {
-        if (strpos($this->search, '+')) {
+        if (mb_strpos($this->search, '+')) {
             $words = preg_split('/[\s\+]+/', $this->search);
 
             return '%' . implode('% && %', $words) . '%';

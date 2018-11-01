@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query;
 
 use Bolt\Configuration\Config;
@@ -46,7 +48,7 @@ class FrontendQueryScope implements QueryScopeInterface
     }
 
     /**
-     * Iterates over the main config and sets up what the default ordering should be
+     * Iterates over the main config and sets up what the default ordering should be.
      */
     protected function parseContenttypes()
     {

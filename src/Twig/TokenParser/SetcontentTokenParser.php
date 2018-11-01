@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Twig\TokenParser;
 
 use Bolt\Twig\Node\SetcontentNode;
