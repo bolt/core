@@ -5,8 +5,6 @@ $font-family-base:              'Open Sans', sans-serif;
 $headings-font-family:          'Source Sans Pro', sans-serif;
 
 $font-size-base:                0.85rem;
-$font-size-lg:                  ($font-size-base * 1.1);
-$font-size-sm:                  ($font-size-base * 0.85);
 
 $font-weight-light:             300;
 $font-weight-normal:            400;
@@ -14,13 +12,22 @@ $font-weight-semibold:          600;
 $font-weight-bold:              700;
 $headings-font-weight:          600;
 
+// links
+$link-color:                var(--primary);
+$link-hover-color:          var(--primary-600);
 
-//input
 
-$border-radius:                 0.15em;
+//form controls
+$border-radius:                         0.15rem;
+$component-active-bg:                   var(--primary);
+$input-focus-border-color:              var(--primary-400);
+$custom-control-indicator-active-bg:    var(--primary-400);
+$custom-range-thumb-active-bg:          var(--primary-400);
 
-// Grid
+$input-btn-focus-width:                 0.15rem;
+$input-btn-focus-box-shadow:            0 0 0 $input-btn-focus-width var(--primary-300);
 
+// grid
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
