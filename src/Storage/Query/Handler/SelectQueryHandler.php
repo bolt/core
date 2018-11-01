@@ -27,9 +27,19 @@ class SelectQueryHandler
 
         foreach ($contentQuery->getContentTypes() as $contentType) {
             $contentType = str_replace('-', '_', $contentType);
-            $repo = $contentQuery->getEntityManager()->getRepository($contentType);
-            $query->setQueryBuilder($repo->createQueryBuilder('_' . $contentType));
-            $query->setContentType($contentType);
+
+            $repo = $contentQuery->getContentRepository();
+            $query->setQueryBuilder($repo
+                    ->getQueryBuilder()
+                    // ->where('content.contentType = :ct')
+                    // ->setParameter('ct', $contentType)
+            );
+            // $query->setContentType($contentType);
+            $query->setContentType('content');
+
+            // $repo = $contentQuery->getEntityManager()->getRepository($contentType);
+            // $query->setQueryBuilder($repo->createQueryBuilder('_' . $contentType));
+            // $query->setContentType($contentType);
 
             /** Run the parameters through the whitelister. If we get a false back from this method it's because there
              * is no need to continue with the query.
@@ -38,13 +48,22 @@ class SelectQueryHandler
             if (!$params && count($contentQuery->getParameters())) {
                 continue;
             }
-
+//$params['contentType'] = $contentType;
             /** Continue and run the query add the results to the set */
             $query->setParameters($params);
             $contentQuery->runScopes($query);
             $contentQuery->runDirectives($query);
+// dd($query->build());
+            // $query is of Bolt\Storage\Query\SelectQuery
+            // dd($query->getQueryBuilder()->getQuery());
 
-            $result = $repo->queryWith($query);
+            $test = $query->build()
+                ->andWhere('content.contentType = :ct')
+                ->setParameter('ct', $contentType)
+                ->getQuery()
+            ;
+            $result = $test->getResult();
+
             if ($result) {
                 $set->setOriginalQuery($contentType, $query->getQueryBuilder());
                 $set->add($result, $contentType);
@@ -73,10 +92,27 @@ class SelectQueryHandler
      *
      * @return bool|array $cleanParams
      */
-    public function whitelistParameters(array $queryParams, Repository $repo)
+    public function whitelistParameters(array $queryParams, $repo)
     {
-        $metadata = $repo->getClassMetadata();
-        $allowedParams = array_keys($metadata->getFieldMappings());
+        // $metadata = $repo->getClassMetadata();
+        // $allowedParams = array_keys($metadata->getFieldMappings());
+        $allowedParams = [
+  0 => "id",
+  1 => "slug",
+  2 => "datecreated",
+  3 => "datechanged",
+  4 => "datepublish",
+  5 => "datedepublish",
+  6 => "ownerid",
+  7 => "status",
+  8 => "templatefields",
+  9 => "title",
+  10 => "image",
+  11 => "teaser",
+  12 => "content",
+  13 => "contentlink",
+  14 => "incomingrelation",
+        ];
         $cleanParams = [];
         foreach ($queryParams as $fieldSelect => $valueSelect) {
             $stack = [];

@@ -48,7 +48,7 @@ class SetcontentNode extends Node
             ->write("\$context['")
             ->raw($this->getAttribute('name'))
             ->raw("'] = ")
-            ->raw("\$this->env->getRuntime('" . SetcontentRuntime::class . "')->getContent(")
+            ->raw("\$this->env->getRuntime('" . SetcontentRuntime::class . "')->getQueryEngine()->getContentForTwig(")
             ->subcompile($this->getAttribute('contenttype'))
             ->raw(', ')
             ->subcompile($arguments)

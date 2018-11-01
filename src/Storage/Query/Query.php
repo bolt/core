@@ -24,6 +24,7 @@ class Query
     {
         $this->parser = $parser;
         $this->recordsView = $recordsView;
+        $this->scopes = [];
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Bolt\Storage\Query;
 
-use Bolt\Config;
+use Bolt\Configuration\Config;
 use Bolt\Storage\Query\Directive\OrderDirective;
 
 /**
@@ -52,7 +52,7 @@ class FrontendQueryScope implements QueryScopeInterface
     {
         $contentTypes = $this->config->get('contenttypes');
         foreach ($contentTypes as $type => $values) {
-            $sort = $values['sort'] ?: '-datepublish';
+            $sort = $values['sort'] ?: '-publishedAt';
             $this->orderBys[$type] = $sort;
             if (isset($values['singular_slug'])) {
                 $this->orderBys[$values['singular_slug']] = $sort;
@@ -68,7 +68,7 @@ class FrontendQueryScope implements QueryScopeInterface
         $ct = $query->getContentType();
 
         // Setup default ordering of queries on a per-contenttype basis
-        if (empty($query->getQueryBuilder()->getQueryPart('orderBy')) && isset($this->orderBys[$ct])) {
+        if (empty($query->getQueryBuilder()->getParameter('orderBy')) && isset($this->orderBys[$ct])) {
             $handler = new OrderDirective();
             $handler($query, $this->orderBys[$ct]);
         }
@@ -76,7 +76,7 @@ class FrontendQueryScope implements QueryScopeInterface
         // Setup status to only published unless otherwise specified
         $status = $query->getParameter('status');
         if (!$status) {
-            $query->setParameter('status', 'published');
+            $query->setParameter('status', 'published'); // no work??
         }
     }
 }

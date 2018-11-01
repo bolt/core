@@ -2,8 +2,7 @@
 
 namespace Bolt\Storage\Query;
 
-use Bolt\Exception\QueryParseException;
-use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
+use Doctrine\ORM\Query\Expr;
 
 /**
  *  Handler class to convert the DSL for content query parameters
@@ -32,7 +31,7 @@ class QueryParameterParser
      *
      * @param ExpressionBuilder $expr
      */
-    public function __construct(ExpressionBuilder $expr = null)
+    public function __construct(Expr $expr)
     {
         $this->expr = $expr;
         $this->setupDefaults();
@@ -77,15 +76,12 @@ class QueryParameterParser
      * @param string $key
      * @param mixed  $value
      *
-     * @throws QueryParseException
-     * @throws QueryParseException
-     *
      * @return Filter|null
      */
     public function getFilter($key, $value = null)
     {
-        if (!$this->expr instanceof ExpressionBuilder) {
-            throw new QueryParseException('Cannot call method without an Expression Builder parameter set', 1);
+        if (!$this->expr instanceof Expr) {
+            throw new \Exception('Cannot call method without an Expression Builder parameter set', 1);
         }
 
         /** @var callable $callback */
@@ -106,8 +102,6 @@ class QueryParameterParser
      * @param string            $value
      * @param ExpressionBuilder $expr
      *
-     * @throws QueryParseException
-     *
      * @return null
      */
     public function incorrectQueryHandler($key, $value, $expr)
@@ -116,7 +110,7 @@ class QueryParameterParser
             return null;
         }
         if (strpos($value, '&&') && strpos($value, '||')) {
-            throw new QueryParseException('Mixed && and || operators are not supported', 1);
+            throw new \Exception('Mixed && and || operators are not supported', 1);
         }
     }
 
@@ -128,8 +122,6 @@ class QueryParameterParser
      * @param string            $key
      * @param string            $value
      * @param ExpressionBuilder $expr
-     *
-     * @throws QueryParseException
      *
      * @return Filter|null
      */
@@ -185,8 +177,6 @@ class QueryParameterParser
      * @param string            $value
      * @param ExpressionBuilder $expr
      *
-     * @throws QueryParseException
-     *
      * @return Filter|null
      */
     public function multipleValueHandler($key, $value, $expr)
@@ -237,8 +227,6 @@ class QueryParameterParser
      * @param string|array      $value
      * @param ExpressionBuilder $expr
      *
-     * @throws QueryParseException
-     *
      * @return Filter
      */
     public function defaultFilterHandler($key, $value, $expr)
@@ -287,8 +275,6 @@ class QueryParameterParser
      *
      * @param string $value Value to process
      *
-     * @throws QueryParseException
-     *
      * @return array Parsed values
      */
     public function parseValue($value)
@@ -309,7 +295,7 @@ class QueryParameterParser
             }
         }
 
-        throw new QueryParseException(sprintf('No matching value found for "%s"', $value));
+        throw new \Exception(sprintf('No matching value found for "%s"', $value));
     }
 
     /**

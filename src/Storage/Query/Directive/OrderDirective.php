@@ -7,7 +7,7 @@ use Bolt\Storage\Query\QueryInterface;
 /**
  *  Directive to alter query based on 'order' parameter.
  *
- *  eg: 'pages', ['order'=>'-datepublish']
+ *  eg: 'pages', ['order'=>'-publishedAt']
  */
 class OrderDirective
 {
@@ -22,7 +22,7 @@ class OrderDirective
         }
 
         // remove default order
-        $query->getQueryBuilder()->resetQueryPart('orderBy');
+        $query->getQueryBuilder()->resetDQLPart('orderBy');
 
         $separatedOrders = $this->getOrderBys($order);
         foreach ($separatedOrders as $order) {
@@ -36,7 +36,7 @@ class OrderDirective
             } else {
                 $direction = null;
             }
-            $query->getQueryBuilder()->addOrderBy($order, $direction);
+            $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
         }
     }
 

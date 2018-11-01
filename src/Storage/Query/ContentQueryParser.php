@@ -4,8 +4,9 @@ namespace Bolt\Storage\Query;
 
 use Bolt\Events\QueryEvent;
 use Bolt\Events\QueryEvents;
+use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Entity\Content;
-use Bolt\Storage\EntityManager;
+//use Bolt\Storage\EntityManager;
 use Bolt\Storage\Query\Directive\GetQueryDirective;
 use Bolt\Storage\Query\Directive\HydrateDirective;
 use Bolt\Storage\Query\Directive\LimitDirective;
@@ -27,11 +28,12 @@ use Bolt\Storage\Query\Handler\SelectQueryHandler;
  *  object representation.
  *
  *  @author Ross Riley <riley.ross@gmail.com>
+ *  @author Xiao-Hu Tai <xiao@twokings.nl>
  */
 class ContentQueryParser
 {
-    /** @var EntityManager */
-    protected $em;
+    /** @var ContentRepository */
+    protected $repo;
     /** @var string */
     protected $query;
     /** @var array */
@@ -58,12 +60,12 @@ class ContentQueryParser
     /**
      * Constructor.
      *
-     * @param EntityManager  $em
-     * @param QueryInterface $queryHandler
+     * @param ContentRepository $repo
+     * @param QueryInterface    $queryHandler
      */
-    public function __construct(EntityManager $em, QueryInterface $queryHandler = null)
+    public function __construct(ContentRepository $repo, QueryInterface $queryHandler = null)
     {
-        $this->em = $em;
+        $this->repo = $repo;
 
         if ($queryHandler !== null) {
             $this->addService('select', $queryHandler);
@@ -250,13 +252,13 @@ class ContentQueryParser
     }
 
     /**
-     * Gets the object EntityManager.
+     * Gets the content repository.
      *
-     * @return EntityManager
+     * @return ContentRepository
      */
-    public function getEntityManager()
+    public function getContentRepository()
     {
-        return $this->em;
+        return $this->repo;
     }
 
     /**
@@ -442,12 +444,14 @@ class ContentQueryParser
     public function fetch()
     {
         $this->parse();
-        $parseEvent = new QueryEvent($this);
-        $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::PARSE, $parseEvent);
-
+        // $parseEvent = new QueryEvent($this);
+        // $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::PARSE, $parseEvent);
+if (! empty($this->getOperation))
         $result = call_user_func($this->handlers[$this->getOperation()], $this);
-        $executeEvent = new QueryEvent($this, $result);
-        $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::EXECUTE, $executeEvent);
+else
+    $result = call_user_func($this->handlers['select'], $this);;
+        // $executeEvent = new QueryEvent($this, $result);
+        // $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::EXECUTE, $executeEvent);
 
         return $result;
     }

@@ -2,7 +2,7 @@
 
 namespace Bolt\Storage\Query;
 
-use Doctrine\DBAL\Query\Expression\CompositeExpression;
+use Doctrine\ORM\Query\Expr\Composite;
 
 /**
  *  This class represents a single filter that converts to an expression along
@@ -14,7 +14,7 @@ use Doctrine\DBAL\Query\Expression\CompositeExpression;
 class Filter
 {
     protected $key;
-    /** @var CompositeExpression */
+    /** @var Composite */
     protected $expression;
     /** @var array */
     protected $parameters = [];
@@ -53,9 +53,9 @@ class Filter
     /**
      * Allows replacing the expression object with a modified one.
      *
-     * @param CompositeExpression $expression
+     * @param Composite $expression
      */
-    public function setExpression(CompositeExpression $expression)
+    public function setExpression(Composite $expression)
     {
         $this->expression = $expression;
     }
@@ -65,7 +65,7 @@ class Filter
      * only needed for on the fly modification, to get the compiled
      * expression use getExpression().
      *
-     * @return CompositeExpression
+     * @return Composite
      */
     public function getExpressionObject()
     {

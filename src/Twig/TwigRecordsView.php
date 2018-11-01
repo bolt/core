@@ -2,11 +2,11 @@
 
 namespace Bolt\Twig;
 
-use Bolt\Storage\Entity\Content;
-use Bolt\Storage\Field\Collection\FieldCollection;
+// use Bolt\Storage\Entity\Content;
+// use Bolt\Storage\Field\Collection\FieldCollection;
 use Bolt\Storage\Mapping\MetadataDriver;
 use Bolt\Storage\Query\QueryResultset;
-use ParsedownExtra;
+// use ParsedownExtra;
 use Twig\Markup;
 
 /**
@@ -14,6 +14,7 @@ use Twig\Markup;
  * so appropriate transformation can occur.
  *
  * @author Ross Riley <riley.ross@gmail.com>
+ * @author Xiao-Hu Tai <xiao@twokings.nl>
  */
 class TwigRecordsView
 {
@@ -27,7 +28,7 @@ class TwigRecordsView
      *
      * @param MetadataDriver $metadata
      */
-    public function __construct(MetadataDriver $metadata)
+    public function __construct(MetadataDriver $metadata = null)
     {
         $this->metadata = $metadata;
         $this->setupDefaults();
@@ -55,20 +56,20 @@ class TwigRecordsView
             return new Markup($value, 'UTF-8');
         });
 
-        $this->addTransformer('repeater', function ($value) {
-            /** @var FieldCollection $collection */
-            foreach ($value as $collection) {
-                foreach ($collection as $field) {
-                    $field->setValue($this->transform($field->getValue(), $field->getFieldType()));
-                }
-            }
+        // $this->addTransformer('repeater', function ($value) {
+        //     /** @var FieldCollection $collection */
+        //     foreach ($value as $collection) {
+        //         foreach ($collection as $field) {
+        //             $field->setValue($this->transform($field->getValue(), $field->getFieldType()));
+        //         }
+        //     }
 
-            return $value;
-        });
+        //     return $value;
+        // });
 
-        $this->addTransformer('block', function ($value) {
-            return $this->transform($value, 'repeater');
-        });
+        // $this->addTransformer('block', function ($value) {
+        //     return $this->transform($value, 'repeater');
+        // });
     }
 
     /**

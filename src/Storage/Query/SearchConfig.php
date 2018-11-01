@@ -2,7 +2,7 @@
 
 namespace Bolt\Storage\Query;
 
-use Bolt\Config;
+use Bolt\Configuration\Config;
 
 /**
  * This class takes an overall config array as input and parses into values
@@ -17,10 +17,8 @@ class SearchConfig
     protected $config = [];
     /** @var array */
     protected $searchableTypes = [];
-
     /** @var array */
     protected $invisibleTypes = [];
-
     /** @var array */
     protected $joins = [];
 

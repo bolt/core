@@ -2,9 +2,9 @@
 
 namespace Bolt\Storage\Query;
 
-use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\Connection;
+use Doctrine\ORM\Query\Expression\CompositeExpression;
+use Doctrine\ORM\Query\QueryBuilder;
 
 /**
  *  This query class coordinates a select query build from Bolt's
@@ -29,6 +29,7 @@ class SelectQuery implements ContentQueryInterface
     protected $params;
     /** @var Filter[] */
     protected $filters = [];
+    /** @var array */
     protected $replacements = [];
     /** @var bool */
     protected $singleFetchMode = false;
@@ -39,7 +40,7 @@ class SelectQuery implements ContentQueryInterface
      * @param QueryBuilder         $qb
      * @param QueryParameterParser $parser
      */
-    public function __construct(QueryBuilder $qb, QueryParameterParser $parser)
+    public function __construct(QueryBuilder $qb = null, QueryParameterParser $parser)
     {
         $this->qb = $qb;
         $this->parser = $parser;
@@ -115,7 +116,6 @@ class SelectQuery implements ContentQueryInterface
         if (!count($this->filters)) {
             return null;
         }
-
         $expr = $this->qb->expr()->andX();
         foreach ($this->filters as $filter) {
             $expr = $expr->add($filter->getExpression());
@@ -223,7 +223,7 @@ class SelectQuery implements ContentQueryInterface
      *
      * @param QueryBuilder $qb
      */
-    public function setQueryBuilder(QueryBuilder $qb)
+    public function setQueryBuilder($qb)
     {
         $this->qb = $qb;
     }
@@ -269,7 +269,9 @@ class SelectQuery implements ContentQueryInterface
     {
         $this->filters = [];
         foreach ($this->params as $key => $value) {
-            $this->parser->setAlias('_' . $this->contentType);
+            // $this->parser // Bolt\Storage\Query\QueryParameterParser
+            // $this->parser->setAlias('_' . $this->contentType);
+            $this->parser->setAlias('content');
             $filter = $this->parser->getFilter($key, $value);
             if ($filter) {
                 $this->addFilter($filter);

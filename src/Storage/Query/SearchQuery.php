@@ -32,7 +32,7 @@ class SearchQuery extends SelectQuery
      * @param QueryParameterParser $parser
      * @param SearchConfig         $config
      */
-    public function __construct(QueryBuilder $qb, QueryParameterParser $parser, SearchConfig $config)
+    public function __construct(QueryBuilder $qb = null, QueryParameterParser $parser, SearchConfig $config)
     {
         parent::__construct($qb, $parser);
         $this->config = $config;

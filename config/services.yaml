@@ -41,6 +41,27 @@ services:
         arguments: ["@knp_menu.factory"]
         tags:
             - { name: knp_menu.menu_builder, method: createSidebarMenu, alias: sidebar } # The alias is what is used to retrieve the menu
-
     # config/services.yaml
     Twig\Extension\StringLoaderExtension:
+
+    # Needed for SetContent from bolt/bolt
+    Bolt\Storage\Query\Query:
+        calls:
+            -
+                method: addScope
+                arguments: [ 'frontend', '@Bolt\Storage\Query\FrontendQueryScope' ]
+    Bolt\Storage\Query\ContentQueryParser:
+        calls:
+            -
+                method: addService
+                arguments: [ 'select', '@Bolt\Storage\Query\SelectQuery' ]
+            -
+                method: addService
+                arguments: [ 'search', '@Bolt\Storage\Query\SearchQuery' ]
+            -
+                method: addService
+                arguments: [ 'search_weighter', '@Bolt\Storage\Query\SearchWeighter' ]
+            -
+                method: addService
+                arguments: [ 'search_config', '@Bolt\Storage\Query\SearchConfig' ]
+    Doctrine\ORM\Query\Expr:
