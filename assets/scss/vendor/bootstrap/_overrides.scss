@@ -7,29 +7,8 @@ $theme-colors: (
   "primary":                  #2e2ec2,
   "secondary":                #4c5377,
 
-  "body":                     #1f252b,
-  "background":               #f3f5f7,
-
-  "admin-sidebar":            #ffffff,
-  "admin-sidebar-text":       #4a555f,
-  "admin-sidebar-icon":       #2e2ec2,
-  "admin-sidebar-menu":       #4c5377,
-  "admin-sidebar-menu-text":  #ffffff,
-  "admin-toolbar":            #1f1f84,
-
-  "shade":                    #ffffff,
-  "shade-300":                #cfd4d9,
-  "shade-400":                #95a2ad,
-  "shade-500":                #606f7c,
-  "shade-600":                #4a555f,
-
   "success":                  #08bb68,
   "danger":                   #dd2443,
-
-  "status-published":         #7fa800,
-  "status-draft":             #0569e2,
-  "status-held":              #ca2300,
-  "status-timed":             #a80,
 
 );
 
@@ -67,16 +46,13 @@ $grid-breakpoints: (
 
 
 :root {
-
-  @each $color, $value in $theme-colors {
-    --#{$color}: #{$value};
-  }
-
+  
   @each $bp, $value in $grid-breakpoints {
     --breakpoint-#{$bp}: #{$value};
   }
 
 }
+
 
 
 

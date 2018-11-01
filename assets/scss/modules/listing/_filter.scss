@@ -25,19 +25,20 @@
       }
     }
     .control--button{
-      color: var(--shade-500);
+      color: var(--shade);
       border: 0;
       height: 40px;
       width: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--shade);
+      background: var(--foreground);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
       padding: 0;
       &:hover{
-        cursor: pointer
+        cursor: pointer;
+        background: var(--shade-100);
       }
       &:focus{
         svg, g{
@@ -51,13 +52,13 @@
       }
       &.is-active{
         background: var(--primary);
-        color: var(--shade);
+        color: var(--foreground);
       }
       svg{
         width: 20px;
         height: 20px;
         g{
-          fill: var(--shade-500);
+          fill: var(--shade);
         }
       }
     }

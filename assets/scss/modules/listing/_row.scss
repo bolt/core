@@ -4,7 +4,7 @@
   transition: all 0.2s ease-in-out;
   transform-origin: center;
   box-shadow: $card-box-shadow;
-  background: var(--shade);
+  background: var(--foreground);
   border-radius: $border-radius;
   margin-bottom: $spacer / 1.25;
   min-height: 50px;
@@ -44,7 +44,7 @@
       flex: 0 0 100px;
       max-width: 100px;
       border-radius: $border-radius 0 0 $border-radius;
-      background-color: var(--shade-300);
+      background-color: var(--shade-400);
       background-repeat: no-repeat;
       background-size: cover;
       background-repeat: no-repeat;
@@ -52,7 +52,7 @@
     &.is-details{
       flex-grow: 2;
       span{
-        color: var(--shade-500);
+        color: var(--shade);
         font-style: italic;
       }
     }
@@ -73,14 +73,14 @@
       display: flex;
       align-items: center;
       margin-bottom: $spacer / 4;
-      color: var(--shade-500);
+      color: var(--shade);
     }
     i{
       color: theme-color('secondary');
     }
   }
   &--move{
-    @include darken(--shade, 0.02);
+    background: var(--shade-100);
     flex: 0 0 15px;
     padding: 0;
     color: var(--shade-400);

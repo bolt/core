@@ -7,7 +7,13 @@
   color: var(--admin-sidebar-text);
   height: 100%;
   box-shadow: 0 0 40px 0 rgba(0,0,0, 0.07);
-  padding-top: $spacer * 1.5;
+  &--brand{
+    background: var(--primary);
+    width: 100%;
+    display: flex;
+    margin-bottom: $spacer;
+    padding: $spacer * 2 0;
+  }
   &--separator {
     padding: 0 $spacer;
     margin: $spacer / 2 0;
@@ -135,7 +141,7 @@
     background: transparent;
     border: 0;
     text-align: center;
-    color: var(--primary);
+    color: var(--admin-sidebar-icon);
     font-size: $font-size-lg;
     position: fixed;
     left: 0;
@@ -165,8 +171,12 @@
     text-transform: uppercase;
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
-    span{
+    a{
+      color: var(--admin-sidebar-text);
       opacity: 0.5;
+      &:hover{
+        color: inherit;
+      }
     }
   }
 }

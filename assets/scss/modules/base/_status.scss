@@ -4,7 +4,7 @@
   width: 12px;
   height: 12px;
   border-radius: 100%;
-  background: var(--shade-500);
+  background: var(--shade);
   display: inline-block;
   &.is-published{
     background: var(--status-published)

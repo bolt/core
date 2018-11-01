@@ -1,24 +1,8 @@
 <template>
   <nav class="admin__sidebar--nav">
-    <!-- <a class="admin__sidebar--brand" href="/bolt/">
-      <img :src="brand" alt="Bolt Four">
+    <a class="admin__sidebar--brand" href="/bolt/">
+
     </a>
-    <div class="admin__sidebar--create">
-      <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-magic mr-2"></i> New
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a  
-          class="dropdown-item" 
-          v-for="(item, index) in createMenu()" 
-          :key="index" 
-          :href="`/bolt/edit/${item.slug}`" 
-          v-if="!item.singleton"
-        >
-          {{item.singular_name}}
-        </a>
-      </div>
-    </div> -->
     <div>
       <ul class="admin__sidebar--menu">
         <li v-for="(item, index) in menu" :key="index">
@@ -53,7 +37,7 @@
     </div>
     <button class="admin__sidebar--slim" @click="slimMenu()"><i class="fas fa-arrows-alt-h"></i></button>
     <footer class="admin__sidebar--footer">
-      <span>Bolt {{version}}</span>
+      <a :href="aboutLink">Bolt {{version}}</a>
     </footer>
   </nav>
 </template>
@@ -64,7 +48,7 @@ const admin = document.querySelector('.admin');
 
 export default {
   name: "admin-sidebar",
-  props: ["brand", "menu", "version"],
+  props: ["brand", "menu", "version", "aboutLink"],
   created() {
     const size = localStorage.getItem('admin-sidebar-size');
     if (size !== null && size === 'slim'){
