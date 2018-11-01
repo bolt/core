@@ -98,7 +98,7 @@
   border: 0;
   border-radius: 15%;
   background-color: transparent;
-  color: var(--shade);
+  color: var(--foreground);
   font: 1.6em sans-serif;
   transition: background-color .2s ease;
 
@@ -126,7 +126,7 @@
       left: 0;
       top: 0;
       g{
-          stroke: var(--shade);
+          stroke: var(--foreground);
       }
   }
 }

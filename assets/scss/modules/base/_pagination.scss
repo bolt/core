@@ -7,7 +7,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--shade);
+      background: var(--foreground);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
       padding: $spacer / 2;
@@ -17,11 +17,11 @@
       &.disabled{
         color: var(--shade-400);
         &:hover{
-          background: var(--shade);
+          background: var(--foreground);
         }
       }
       &.current{
-        color: var(--shade);
+        color: var(--foreground);
         background: var(--primary);
         font-weight: $font-weight-bold;
         &:hover{
@@ -30,7 +30,7 @@
       }
       &:hover{
         text-decoration: none;
-        @include darken(--shade, 0.02);
+        background: var(--shade-100);
       }
     }
   }

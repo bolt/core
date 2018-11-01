@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ block('title')|striptags }}</title>
     {% block stylesheets %}
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Source+Sans+Pro:400,600&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Sans+Pro:300,400,600&amp;subset=greek-ext,latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bolt.css') }}">
     {% endblock %}
@@ -36,8 +36,9 @@
             <admin-sidebar 
                 :brand="'{{ asset('assets/brand.svg') }}'"
                 :menu="{{ sidebarmenu() }}"
-                :version="'{{ version|default('unknown') }}'"
-            ></admin-sidebar>
+                :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
+                :about-link="{{ path('bolt_about')|json_encode }}"
+            ></admin-sidebar >
         </div>
     </div>
     <!-- End Admin Sidebar -->

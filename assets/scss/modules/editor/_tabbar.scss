@@ -4,7 +4,7 @@
   margin-bottom: $spacer * 2;
   border-bottom: solid 2px var(--shade-300);
   .nav-item{
-    color: var(--shade-500);
+    color: var(--shade);
     position: relative;
     &:after{
       transition: $transition-base;

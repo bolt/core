@@ -43,7 +43,7 @@ $admin-sidebar-width: 200px;
     flex-basis: 100%;
     grid-area: header;
     position: relative;
-    padding: $spacer $spacer 0 $spacer;
+    padding: $spacer $spacer*2 0 $spacer*2;
   }
 
   &__sidebar {
@@ -54,7 +54,7 @@ $admin-sidebar-width: 200px;
   &__body {
     flex: 1;
     grid-area: body;
-    padding: $spacer * 2 $spacer;
+    padding: $spacer * 2;
     min-height: 100vh;
 
     >.container{

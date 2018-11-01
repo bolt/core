@@ -17,6 +17,11 @@ import "bootstrap";
  */
 import Axios from 'axios'
 Vue.prototype.$axios = Axios;
+/**
+ * Loop Static Assets
+ */
+const imagesCtx = require.context('../static/', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/);
+imagesCtx.keys().forEach(imagesCtx);
 
 /**
 * Load jQuery
