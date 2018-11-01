@@ -4,7 +4,7 @@
   transition: all 0.2s ease-in-out;
   transform-origin: center;
   box-shadow: $card-box-shadow;
-  background: $white;
+  background: var(--foreground);
   border-radius: $border-radius;
   margin-bottom: $spacer / 1.25;
   min-height: 50px;
@@ -41,9 +41,10 @@
     min-height: inherit;
     padding: $spacer / 2 $spacer;
     &.is-thumbnail{
-      flex: 0 0 12.5%;
+      flex: 0 0 100px;
+      max-width: 100px;
       border-radius: $border-radius 0 0 $border-radius;
-      background-color: $gray-500;
+      background-color: var(--shade-400);
       background-repeat: no-repeat;
       background-size: cover;
       background-repeat: no-repeat;
@@ -51,7 +52,7 @@
     &.is-details{
       flex-grow: 2;
       span{
-        color: $gray-600;
+        color: var(--shade);
         font-style: italic;
       }
     }
@@ -72,17 +73,17 @@
       display: flex;
       align-items: center;
       margin-bottom: $spacer / 4;
-      color: $gray-600;
+      color: var(--shade);
     }
     i{
       color: theme-color('secondary');
     }
   }
   &--move{
+    background: var(--shade-100);
     flex: 0 0 15px;
     padding: 0;
-    background: darken($white, 2%);
-    color: $gray-500;
+    color: var(--shade-400);
     border: 0;
     &:focus, &:hover{
       outline: none;

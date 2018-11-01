@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ block('title')|striptags }}</title>
     {% block stylesheets %}
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Sans+Pro:300,400,600&amp;subset=greek-ext,latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bolt.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/theme-default.css') }}">
     {% endblock %}
 </head>
 
@@ -25,7 +26,7 @@
     <!-- Admin Header -->
     <header id="header" class="admin__header">
         <div class="container">
-          <admin-topbar title="{{ block('title') }}"></admin-topbar>
+          <admin-header title="{{ block('title') }}"></admin-header>
         </div>
     </header>
     <!-- End Admin Header -->
@@ -37,7 +38,7 @@
                 :brand="'{{ asset('assets/brand.svg') }}'"
                 :menu="{{ sidebarmenu() }}"
                 :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
-                :aboutlink="{{ path('bolt_about')|json_encode }}"
+                :about-link="{{ path('bolt_about')|json_encode }}"
             ></admin-sidebar >
         </div>
     </div>
@@ -72,8 +73,7 @@
         }
 
     </script>
-    <script src="{{ asset('assets/manifest.js') }}"></script>
-    <script src="{{ asset('assets/vendor.js') }}"></script>
+    <script src="{{ asset('assets/manifest.json') }}" type="application/json"></script>
     <script src="{{ asset('assets/bolt.js') }}"></script>
 {% endblock %}
 

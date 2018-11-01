@@ -8,7 +8,17 @@
   width: 100%;
   height: 100%;
   z-index: 1000000;
-  background-color: transparentize(theme-color('secondary'), 0.1) !important;
+  background-color: transparent!important;
+  &:before{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width:100%;
+      height: 100%;
+      background: var(--secondary);
+      opacity: 0.9;
+      content: ''
+  }
   transition: opacity .25s ease;
   &.visible {
       opacity: 1;
@@ -17,6 +27,7 @@
   .full-image {
       display: inline-block;
       position: relative;
+      z-index: 100;
       width: 100%;
       height: 100%;
       text-align: center;
@@ -36,7 +47,7 @@
           max-height: 100%;
           max-width: 100%;
           vertical-align: middle;
-          box-shadow: $box-shadow;
+          box-shadow: $card-box-shadow;
       }
 
       figcaption {
@@ -87,7 +98,7 @@
   border: 0;
   border-radius: 15%;
   background-color: transparent;
-  color: $white;
+  color: var(--foreground);
   font: 1.6em sans-serif;
   transition: background-color .2s ease;
 
@@ -115,7 +126,7 @@
       left: 0;
       top: 0;
       g{
-          stroke: $white;
+          stroke: var(--foreground);
       }
   }
 }
