@@ -7,13 +7,6 @@
   color: var(--admin-sidebar-text);
   height: 100%;
   box-shadow: 0 0 40px 0 rgba(0,0,0, 0.07);
-  &--brand{
-    background: var(--primary);
-    width: 100%;
-    display: flex;
-    margin-bottom: $spacer;
-    padding: $spacer * 2 0;
-  }
   &--separator {
     padding: 0 $spacer;
     margin: $spacer / 2 0;
@@ -29,6 +22,7 @@
     padding: 0;
     width: 100%;
     list-style: none;
+    margin-top: $spacer;
   }
 
   &--link {
@@ -68,7 +62,7 @@
     }
 
     .link--icon {
-      font-size: $font-size-lg;
+      font-size: 120%;
       transition: $transition-base;
       transform-origin: center;
       color: var(--admin-sidebar-icon);
@@ -194,10 +188,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: $spacer $spacer / 2;
+        padding: $spacer / 1.25 $spacer / 2;
 
         .link--icon {
-          font-size: 110%;
+          font-size: 130%;
           margin: 0;
           width: auto;
         }
@@ -209,6 +203,7 @@
 
       .admin__sidebar--slim {
         width: $admin-sidebar-width / 3;
+        bottom: $spacer / 2;
       }
     }
   }

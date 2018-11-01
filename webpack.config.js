@@ -1,4 +1,7 @@
+var webpack = require('webpack');
+var WebpackBar = require('webpackbar');
 var Encore = require('@symfony/webpack-encore');
+require("@babel/polyfill");
 
 Encore
 
@@ -11,14 +14,16 @@ Encore
 
   .setManifestKeyPrefix('assets')
   .addEntry('bolt', './assets/js/bolt.js')
+  .createSharedEntry('vendor', ['@babel/polyfill'])
 
   .addStyleEntry('theme-default', './assets/scss/themes/default.scss')
-  .addStyleEntry('theme-dark', './assets/scss/themes/dark.scss')
 
   .autoProvidejQuery()
   .enableVueLoader()
   .enableSassLoader()
   .enablePostCssLoader()
+
+  .addPlugin(new WebpackBar())
 
   if(Encore.isProduction()){
     Encore.configureFilenames({
@@ -26,6 +31,7 @@ Encore
       css: '[name]-[hash:8].min.css',
     })
   }
+  
 
   
 module.exports = Encore.getWebpackConfig();

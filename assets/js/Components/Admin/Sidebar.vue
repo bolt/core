@@ -1,8 +1,5 @@
 <template>
   <nav class="admin__sidebar--nav">
-    <a class="admin__sidebar--brand" href="/bolt/">
-
-    </a>
     <div>
       <ul class="admin__sidebar--menu">
         <li v-for="(item, index) in menu" :key="index">
@@ -20,7 +17,7 @@
               <ul class="link--menu">
                 <li v-if="item.link_new !== null" class="link--create">
                   <a :href="item.link_new">
-                    <i class="fas fa-plus mr-2"></i><span>New {{item.singular_name}}</span>
+                    <i class="fas fa-magic mr-2"></i><span>New {{item.singular_name}}</span>
                   </a>
                 </li>
                 <li v-if="item.submenu !== null" v-for="(record, index) in item.submenu" :key="index">
@@ -48,7 +45,7 @@ const admin = document.querySelector('.admin');
 
 export default {
   name: "admin-sidebar",
-  props: ["brand", "menu", "version", "aboutLink"],
+  props: ["brandFull", "brandIcon", "menu", "version", "aboutLink"],
   created() {
     const size = localStorage.getItem('admin-sidebar-size');
     if (size !== null && size === 'slim'){

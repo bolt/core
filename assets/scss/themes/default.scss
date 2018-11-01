@@ -16,14 +16,17 @@
   --admin-sidebar:            #ffffff;
   --admin-sidebar-text:       #4a555f;
   --admin-sidebar-icon:       #2e2ec2;
-  --admin-sidebar-menu:       #4c5377;
+  --admin-sidebar-menu:       #363d85;
   --admin-sidebar-menu-text:  #ffffff;
-  --admin-toolbar:            #1f1f84;
+
+  --admin-toolbar:            #363d85;
+  --admin-toolbar-text-light: #ffffff;
+  --admin-toolbar-text-dark:  #0c223b;
 
   @include                    generate-color(primary, 240, 62%, 47%);
-  @include                    generate-color(secondary, 230, 22%, 38%);
+  @include                    generate-color(secondary, 235, 42%, 37%);
 
-  @include                    generate-color(body, 225, 16%, 15%);
+  @include                    generate-color(body, 212, 66%, 14%);
   @include                    generate-color(shade, 208, 13%, 43%);
   
   @include                    generate-color(success, 152, 92%, 38%);
@@ -34,7 +37,7 @@
 $bootstrap-colors: (
 
   "primary":                  #2e2ec2,
-  "secondary":                #4c5377,
+  "secondary":                #141a5b,
 
   "success":                  #08bb68,
   "danger":                   #dd2443,
