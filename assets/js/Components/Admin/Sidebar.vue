@@ -1,7 +1,8 @@
 <template>
   <nav class="admin__sidebar--nav">
     <a class="admin__sidebar--brand" href="/bolt/">
-
+      <img :src="brandFull" alt="Bolt CMS" v-if="size === 'normal'">
+      <img :src="brandIcon" alt="Bolt CMS" v-else>
     </a>
     <div>
       <ul class="admin__sidebar--menu">
@@ -48,7 +49,7 @@ const admin = document.querySelector('.admin');
 
 export default {
   name: "admin-sidebar",
-  props: ["brand", "menu", "version", "aboutLink"],
+  props: ["brandFull", "brandIcon", "menu", "version", "aboutLink"],
   created() {
     const size = localStorage.getItem('admin-sidebar-size');
     if (size !== null && size === 'slim'){

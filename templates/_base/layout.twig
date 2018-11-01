@@ -19,7 +19,11 @@
 
     <!-- Admin Toolbar -->
     <nav id="toolbar" class="admin__toolbar">
-        <admin-toolbar></admin-toolbar>
+        <admin-toolbar
+            :menu="{{ sidebarmenu() }}"
+            user="{{user}}"
+            site-name="{{config.get('general/sitename')}}"
+        ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->
 
@@ -35,7 +39,8 @@
     <div class="admin__sidebar">
         <div id="sidebar">
             <admin-sidebar 
-                :brand="'{{ asset('assets/brand.svg') }}'"
+                :brand-full="'{{ asset('assets/images/brand-long.svg') }}'"
+                :brand-icon="'{{ asset('assets/images/brand-icon.svg') }}'"
                 :menu="{{ sidebarmenu() }}"
                 :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
                 :about-link="{{ path('bolt_about')|json_encode }}"
@@ -73,7 +78,8 @@
         }
 
     </script>
-    <script src="{{ asset('assets/manifest.json') }}" type="application/json"></script>
+    <script src="{{ asset('assets/manifest.js') }}"></script>
+    <script src="{{ asset('assets/vendor.js') }}"></script>
     <script src="{{ asset('assets/bolt.js') }}"></script>
 {% endblock %}
 

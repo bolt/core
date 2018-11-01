@@ -8,11 +8,17 @@
   height: 100%;
   box-shadow: 0 0 40px 0 rgba(0,0,0, 0.07);
   &--brand{
-    background: var(--primary);
+    @include darken(--admin-sidebar, 0.02);
     width: 100%;
+    height: $admin-header-height;
     display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: $spacer;
-    padding: $spacer * 2 0;
+    padding: 0 $spacer;
+    img{
+      width: 90%;
+    }
   }
   &--separator {
     padding: 0 $spacer;
@@ -68,7 +74,7 @@
     }
 
     .link--icon {
-      font-size: $font-size-lg;
+      font-size: 120%;
       transition: $transition-base;
       transform-origin: center;
       color: var(--admin-sidebar-icon);
@@ -185,6 +191,12 @@
   &.is-slim {
     .admin__sidebar {
 
+      .admin__sidebar--brand{
+        img{
+          width: 100%;
+        }
+      }
+
       .admin__sidebar--separator,
       .admin__sidebar--footer {
         display: none;
@@ -194,10 +206,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: $spacer $spacer / 2;
+        padding: $spacer / 1.25 $spacer / 2;
 
         .link--icon {
-          font-size: 110%;
+          font-size: 130%;
           margin: 0;
           width: auto;
         }
@@ -209,6 +221,7 @@
 
       .admin__sidebar--slim {
         width: $admin-sidebar-width / 3;
+        bottom: $spacer / 2;
       }
     }
   }

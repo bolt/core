@@ -1,7 +1,8 @@
 //** Layout | Admin
 
-$admin-toolbar-height: 28px;
+$admin-toolbar-height: 30px;
 $admin-sidebar-width: 200px;
+$admin-header-height: 70px;
 
 // Main Layout Grid
 
@@ -43,7 +44,8 @@ $admin-sidebar-width: 200px;
     flex-basis: 100%;
     grid-area: header;
     position: relative;
-    padding: $spacer $spacer*2 0 $spacer*2;
+    height: $admin-header-height;
+    padding: 0 $spacer * 2;
   }
 
   &__sidebar {
@@ -55,6 +57,7 @@ $admin-sidebar-width: 200px;
     flex: 1;
     grid-area: body;
     padding: $spacer * 2;
+    padding-top: 0;
     min-height: 100vh;
 
     >.container{

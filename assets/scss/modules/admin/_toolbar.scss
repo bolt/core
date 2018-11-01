@@ -2,4 +2,86 @@
 
 .admin__toolbar{
   background: var(--admin-toolbar);
+  &--body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    font-size: 90%;
+    &.is-dark{
+      color: var(--admin-toolbar-text-light);
+      a{
+        color: var(--admin-toolbar-text-light);
+      }
+      .toolbar--item.is-brand svg g{
+        fill: var(--admin-toolbar-text-light);
+      }
+    }
+    &.is-light{
+      color: var(--admin-toolbar-text-dark);
+      a{
+        color: var(--admin-toolbar-text-dark);
+      }
+      .toolbar--item.is-brand svg g{
+        fill: var(--admin-toolbar-text-dark);
+      }
+    }
+  }
+  .toolbar--item{
+    position: relative;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 $spacer / 2;
+    opacity: 0.75;
+    i{
+      font-size: 120%;
+    }
+    &.is-brand{
+      svg {
+        height: $admin-toolbar-height / 1.5;
+        width: auto;
+
+      }
+    }
+    &.is-profile{
+      margin-left: auto;
+      padding: 0 $spacer;
+      .toolbar--menu{
+        left: auto;
+        right: 0;
+      }
+    }
+    &:hover{
+      opacity: 1;
+      @include darken(--admin-toolbar, 0.2);
+      >.toolbar--menu{
+        visibility: visible;
+        height: auto;
+      }
+    }
+  }
+  .toolbar--menu{
+    @include darken(--admin-toolbar, 0.2);
+    font-weight: $font-weight-normal;
+    font-size: 100%;
+    visibility: hidden;
+    height: 0;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: $admin-sidebar-width;
+    margin: 0;
+    padding: 0;
+    li{
+      a{
+        padding: $spacer / 2;
+        display: block;
+        &:hover {
+          @include darken(--admin-toolbar, 0.3);
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
