@@ -1,0 +1,15 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+@each $color, $value in $bootstrap-colors {
+  .btn-#{$color} {
+    @include button-css-variable($color);
+  }
+}
+
+@each $color, $value in $bootstrap-colors {
+  .btn-outline-#{$color} {
+    @include button-outline-css-variable($color);
+  }
+}

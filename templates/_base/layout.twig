@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Sans+Pro:300,400,600&amp;subset=greek-ext,latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bolt.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/theme-default.css') }}">
     {% endblock %}
 </head>
 
@@ -72,6 +73,7 @@
         }
 
     </script>
+    <script src="{{ asset('assets/manifest.json') }}" type="application/json"></script>
     <script src="{{ asset('assets/bolt.js') }}"></script>
 {% endblock %}
 

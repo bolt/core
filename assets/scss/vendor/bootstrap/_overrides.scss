@@ -1,20 +1,5 @@
 //** Bootstrap Overrides
 
-// theme colours
-
-$theme-colors: (
-
-  "primary":                  #2e2ec2,
-  "secondary":                #4c5377,
-
-  "success":                  #08bb68,
-  "danger":                   #dd2443,
-
-);
-
-$theme-colors: map-remove($theme-colors, "light", "dark", "info");
-
-
 // typography
 $font-family-base:              'Open Sans', sans-serif;
 $headings-font-family:          'Source Sans Pro', sans-serif;
@@ -52,14 +37,3 @@ $grid-breakpoints: (
   }
 
 }
-
-
-
-
-
-// @each $color in $theme-colors {
-//   .btn-outline-#{$color} {
-//     @include button-outline-css-variable($color);
-//   }
-// }
-

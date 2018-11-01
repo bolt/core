@@ -20,8 +20,8 @@ Vue.prototype.$axios = Axios;
 /**
  * Loop Static Assets
  */
-const imagesCtx = require.context('../static/', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/);
-imagesCtx.keys().forEach(imagesCtx);
+const staticAssets = require.context('../static/', true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/);
+staticAssets.keys().forEach(staticAssets);
 
 /**
 * Load jQuery
