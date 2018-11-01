@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Content\ContentType;
 use Bolt\Controller\BaseController;
 use Bolt\Repository\ContentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
