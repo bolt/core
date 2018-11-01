@@ -4,7 +4,7 @@ database:
     username: root
     password: 'hunter42'
 
-sitename: A sample site in CONFIG LOCAL
+sitename: Bolt Four Website
 
 debug: true
 debug_show_loggedoff: false
