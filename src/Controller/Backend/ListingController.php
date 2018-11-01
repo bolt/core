@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Content\ContentTypeFactory;
 use Bolt\Controller\BaseController;
 use Bolt\Repository\ContentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -34,7 +33,7 @@ class ListingController extends BaseController
      */
     public function listing(ContentRepository $content, Request $request, string $contenttype = ''): Response
     {
-        $contenttype = ContentTypeFactory::get($contenttype, $this->config->get('contenttypes'));
+        $contenttype = ContentType::factory($contenttype, $this->config->get('contenttypes'));
 
         $page = (int) $request->query->get('page', 1);
 

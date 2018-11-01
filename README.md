@@ -18,6 +18,7 @@ Install
 
   - Check out the git repo
   - Run `composer install`
+  - Run `npm install && npm run build`
 
 Set up Database
 ---------------

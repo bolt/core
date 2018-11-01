@@ -54,11 +54,11 @@ class ContentHelperExtension extends AbstractExtension
         return json_encode($menu, $options);
     }
 
-    public function fieldfactory($definition, $name = null)
+    public function fieldfactory($name, $definition)
     {
         $field = FieldFactory::get($definition['type']);
         $field->setName($name);
-        $field->setDefinition($definition, $name);
+        $field->setDefinition($name, $definition);
 
         return $field;
     }

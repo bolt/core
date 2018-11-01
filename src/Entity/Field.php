@@ -6,7 +6,6 @@ namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
-use Bolt\Content\FieldTypeFactory;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -125,7 +124,7 @@ class Field
     {
         $contentTypeDefinition = $this->getContent()->getDefinition();
 
-        $this->fieldTypeDefinition = FieldTypeFactory::get($this->getName(), $contentTypeDefinition);
+        $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
     }
 
     public function getDefinition(): FieldType
@@ -133,9 +132,9 @@ class Field
         return $this->fieldTypeDefinition;
     }
 
-    public function setDefinition(array $definition, $name = null)
+    public function setDefinition($name, array $definition)
     {
-        $this->fieldTypeDefinition = FieldTypeFactory::mock($definition, $name);
+        $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }
 
     public function getContentId(): ?int
