@@ -20,10 +20,17 @@
 
     <!-- Admin Toolbar -->
     <nav id="toolbar" class="admin__toolbar">
+    {% set labels = {
+        'about.bolt_documentation': 'about.bolt_documentation'|trans,
+        'action.visit_site': 'action.visit_site'|trans,
+        'action.create_new': 'action.create_new'|trans,
+        'general.greeting': 'general.greeting'|trans({'%name%': user.fullName})
+    } %}
         <admin-toolbar
             :menu="{{ sidebarmenu() }}"
             user="{{user|default()}}"
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
+            labels="{{ labels|json_encode() }}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->
@@ -39,7 +46,7 @@
     <!-- Admin Sidebar -->
     <div class="admin__sidebar">
         <div id="sidebar">
-            <admin-sidebar 
+            <admin-sidebar
                 :brand-full="'{{ asset('assets/images/brand-long.svg') }}'"
                 :brand-icon="'{{ asset('assets/images/brand-icon.svg') }}'"
                 :menu="{{ sidebarmenu() }}"
@@ -61,7 +68,7 @@
                 </main>
                 <aside class="admin__body--aside">
                     {% block aside %}
-                    
+
                     {% endblock %}
                 </aside>
             </div>
