@@ -21,8 +21,8 @@
     <nav id="toolbar" class="admin__toolbar">
         <admin-toolbar
             :menu="{{ sidebarmenu() }}"
-            user="{{user}}"
-            site-name="{{config.get('general/sitename')}}"
+            user="{{user|default()}}"
+            site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->
