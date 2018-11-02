@@ -1,217 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="nl">
-  <file id="messages.nl">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="pt-BR">
+  <file id="messages.pt_BR">
     <unit id="80JoLd0" name="title.login">
       <notes>
         <note category="file-source" priority="1">templates/security/login.twig:4</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>title.login</source>
-        <target>__title.login</target>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="RMPnq6o" name="label.username_or_email">
+      <notes>
+        <note category="file-source" priority="1">templates/security/login.twig:61</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>label.username_or_email</source>
+        <target></target>
       </segment>
     </unit>
     <unit id="LDhDPrF" name="label.username">
       <notes>
         <note category="file-source" priority="1">templates/security/login.twig:66</note>
         <note category="file-source" priority="1">src/Form/UserType.php:31</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>label.username</source>
-        <target>__label.username</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="9pvowqn" name="label.password">
       <notes>
         <note category="file-source" priority="1">templates/security/login.twig:70</note>
         <note category="file-source" priority="1">templates/security/login.twig:75</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>label.password</source>
-        <target>__label.password</target>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="IaF1MjB" name="label.rememberme">
+      <notes>
+        <note category="file-source" priority="1">templates/security/login.twig:80</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>label.rememberme</source>
+        <target></target>
       </segment>
     </unit>
     <unit id="gLN0C81" name="action.log_in">
       <notes>
         <note category="file-source" priority="1">templates/security/login.twig:84</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>action.log_in</source>
-        <target>__action.log_in</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="vJwSCBO" name="title.contentlisting">
       <notes>
         <note category="file-source" priority="1">templates/content/listing.twig:9</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>title.contentlisting</source>
-        <target>__title.contentlisting</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="wtG.cxy" name="info.change_password">
       <notes>
         <note category="file-source" priority="1">templates/users/change_password.twig:12</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>info.change_password</source>
-        <target>__info.change_password</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="HLtdhYw" name="action.save">
       <notes>
         <note category="file-source" priority="1">templates/users/change_password.twig:18</note>
         <note category="file-source" priority="1">templates/users/edit.twig:15</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>action.save</source>
-        <target>__action.save</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="etGJjTo" name="action.edit_user">
       <notes>
         <note category="file-source" priority="1">templates/users/change_password.twig:26</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>action.edit_user</source>
-        <target>__action.edit_user</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="1sstKF9" name="title.edit_user">
       <notes>
         <note category="file-source" priority="1">templates/users/edit.twig:4</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>title.edit_user</source>
-        <target>__title.edit_user</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="CX_oSFd" name="action.change_password">
       <notes>
         <note category="file-source" priority="1">templates/users/edit.twig:24</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>action.change_password</source>
-        <target>__action.change_password</target>
+        <target></target>
       </segment>
     </unit>
-    <unit id="SNELzJ2" name="field.id">
+    <unit id="k.JymqB" name="about.visit_bolt">
       <notes>
-        <note category="file-source" priority="1">templates/editcontent/edit.twig:118</note>
-        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:98</note>
+        <note category="file-source" priority="1">templates/pages/about.twig:25</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
-        <source>field.id</source>
-        <target>__field.id</target>
+        <source>about.visit_bolt</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="UZFanGF" name="about.bolt_documentation">
+      <notes>
+        <note category="file-source" priority="1">templates/pages/about.twig:28</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>about.bolt_documentation</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <notes>
+        <note category="file-source" priority="1">templates/pages/about.twig:31</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>about.bolt_on_github</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="_9fS00R" name="about.used_libraries">
+      <notes>
+        <note category="file-source" priority="1">templates/pages/about.twig:35</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>about.used_libraries</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <notes>
+        <note category="file-source" priority="1">templates/pages/about.twig:37</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>about.list_of_used_libraries</source>
+        <target></target>
       </segment>
     </unit>
     <unit id="FuCyk5C" name="field.status">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/edit.twig:76</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.status</source>
-        <target>__field.status</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="O9wtVOp" name="field.createdAt">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/edit.twig:86</note>
         <note category="file-source" priority="1">templates/editcontent/media_edit.twig:128</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.createdAt</source>
-        <target>__field.createdAt</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="eVkSIKu" name="field.modifiedAt">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/edit.twig:94</note>
         <note category="file-source" priority="1">templates/editcontent/media_edit.twig:135</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.modifiedAt</source>
-        <target>__field.modifiedAt</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="3gdi1dy" name="field.publishedAt">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/edit.twig:102</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.publishedAt</source>
-        <target>__field.publishedAt</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="eN7IfEL" name="field.depublishedAt">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/edit.twig:110</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.depublishedAt</source>
-        <target>__field.depublishedAt</target>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="SNELzJ2" name="field.id">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/edit.twig:118</note>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:98</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>field.id</source>
+        <target></target>
       </segment>
     </unit>
     <unit id="VKhfRZB" name="field.title">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/media_edit.twig:47</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.title</source>
-        <target>__field.title</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="7_wwX8J" name="field.description">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/media_edit.twig:53</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.description</source>
-        <target>__field.description</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="hjDmcPC" name="field.copyright">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/media_edit.twig:59</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.copyright</source>
-        <target>__field.copyright</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="v0sitU8" name="field.originalFilename">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/media_edit.twig:66</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.originalFilename</source>
-        <target>__field.originalFilename</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="vlRe8Tx" name="field.width">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/media_edit.twig:105</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.width</source>
-        <target>__field.width</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="CZbXbM_" name="field.height">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/media_edit.twig:112</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.height</source>
-        <target>__field.height</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="Sz_u.OS" name="field.filesize">
       <notes>
         <note category="file-source" priority="1">templates/editcontent/media_edit.twig:119</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>field.filesize</source>
-        <target>__field.filesize</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="DF34uM2" name="http_error.name">
@@ -220,200 +313,152 @@
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>http_error.name</source>
-        <target>__http_error.name</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="e3w.2Rf" name="http_error.description">
       <notes>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>http_error.description</source>
-        <target>__http_error.description</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="ru5FEGk" name="http_error.suggestion">
       <notes>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>http_error.suggestion</source>
-        <target>__http_error.suggestion</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="_W1eNz2" name="http_error_404.description">
       <notes>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>http_error_404.description</source>
-        <target>__http_error_404.description</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="MWNS5dg" name="http_error_404.suggestion">
       <notes>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>http_error_404.suggestion</source>
-        <target>__http_error_404.suggestion</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="ZYXSW95" name="http_error_500.description">
       <notes>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>http_error_500.description</source>
-        <target>__http_error_500.description</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="VVs_J1c" name="http_error_500.suggestion">
       <notes>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>http_error_500.suggestion</source>
-        <target>__http_error_500.suggestion</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="Qn5rwdU" name="http_error_403.description">
       <notes>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>http_error_403.description</source>
-        <target>__http_error_403.description</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="zDeeh7L" name="http_error_403.suggestion">
       <notes>
         <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>http_error_403.suggestion</source>
-        <target>__http_error_403.suggestion</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="VgeTgE2" name="help.show_code">
       <notes>
         <note category="file-source" priority="1">templates/debug/source_code.twig:3</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>help.show_code</source>
-        <target>__help.show_code</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="QbohvW1" name="action.show_code">
       <notes>
         <note category="file-source" priority="1">templates/debug/source_code.twig:7</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>action.show_code</source>
-        <target>__action.show_code</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="9RwuNlf" name="title.source_code">
       <notes>
         <note category="file-source" priority="1">templates/debug/source_code.twig:17</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>title.source_code</source>
-        <target>__title.source_code</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="jaB3QjG" name="title.controller_code">
       <notes>
         <note category="file-source" priority="1">templates/debug/source_code.twig:22</note>
         <note category="file-source" priority="1">templates/debug/source_code.twig:25</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>title.controller_code</source>
-        <target>__title.controller_code</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="tbB2gib" name="not_available">
       <notes>
         <note category="file-source" priority="1">templates/debug/source_code.twig:26</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>not_available</source>
-        <target>__not_available</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="2bH7SjO" name="title.twig_template_code">
       <notes>
         <note category="file-source" priority="1">templates/debug/source_code.twig:29</note>
+        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>title.twig_template_code</source>
-        <target>__title.twig_template_code</target>
-      </segment>
-    </unit>
-    <unit id="RMPnq6o" name="label.username_or_email">
-      <notes>
-        <note category="file-source" priority="1">templates/security/login.twig:61</note>
-      </notes>
-      <segment>
-        <source>label.username_or_email</source>
-        <target>__label.username_or_email</target>
-      </segment>
-    </unit>
-    <unit id="IaF1MjB" name="label.rememberme">
-      <notes>
-        <note category="file-source" priority="1">templates/security/login.twig:80</note>
-      </notes>
-      <segment>
-        <source>label.rememberme</source>
-        <target>__label.rememberme</target>
-      </segment>
-    </unit>
-    <unit id="k.JymqB" name="about.visit_bolt">
-      <notes>
-        <note category="file-source" priority="1">templates/pages/about.twig:25</note>
-      </notes>
-      <segment>
-        <source>about.visit_bolt</source>
-        <target>__about.visit_bolt</target>
-      </segment>
-    </unit>
-    <unit id="UZFanGF" name="about.bolt_documentation">
-      <notes>
-        <note category="file-source" priority="1">templates/pages/about.twig:28</note>
-      </notes>
-      <segment>
-        <source>about.bolt_documentation</source>
-        <target>__about.bolt_documentation</target>
-      </segment>
-    </unit>
-    <unit id="FO7zDub" name="about.bolt_on_github">
-      <notes>
-        <note category="file-source" priority="1">templates/pages/about.twig:31</note>
-      </notes>
-      <segment>
-        <source>about.bolt_on_github</source>
-        <target>__about.bolt_on_github</target>
-      </segment>
-    </unit>
-    <unit id="_9fS00R" name="about.used_libraries">
-      <notes>
-        <note category="file-source" priority="1">templates/pages/about.twig:35</note>
-      </notes>
-      <segment>
-        <source>about.used_libraries</source>
-        <target>about.used_libraries</target>
-      </segment>
-    </unit>
-    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
-      <notes>
-        <note category="file-source" priority="1">templates/pages/about.twig:37</note>
-      </notes>
-      <segment>
-        <source>about.list_of_used_libraries</source>
-        <target>about.list_of_used_libraries</target>
+        <target></target>
       </segment>
     </unit>
     <unit id="aYnbvsn" name="label.fullname">

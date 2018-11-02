@@ -1,182 +1,537 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="tbB2gib" resname="not_available">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="en">
+  <file id="messages.en">
+    <unit id="tbB2gib" name="not_available">
+      <notes>
+        <note category="file-source" priority="1">templates/debug/source_code.twig:26</note>
+      </notes>
+      <segment>
         <source>not_available</source>
         <target>Not available</target>
-      </trans-unit>
-      <trans-unit id="DF34uM2" resname="http_error.name">
+      </segment>
+    </unit>
+    <unit id="DF34uM2" name="http_error.name">
+      <notes>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
+      </notes>
+      <segment>
         <source>http_error.name</source>
         <target>Error %status_code%</target>
-      </trans-unit>
-      <trans-unit id="e3w.2Rf" resname="http_error.description">
+      </segment>
+    </unit>
+    <unit id="e3w.2Rf" name="http_error.description">
+      <notes>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
+      </notes>
+      <segment>
         <source>http_error.description</source>
         <target>There was an unknown error (HTTP %status_code%) that prevented to complete your request.</target>
-      </trans-unit>
-      <trans-unit id="ru5FEGk" resname="http_error.suggestion">
+      </segment>
+    </unit>
+    <unit id="ru5FEGk" name="http_error.suggestion">
+      <notes>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
+      </notes>
+      <segment>
         <source>http_error.suggestion</source>
         <target><![CDATA[Try loading this page again in some minutes or <a href="%url%">go back to the homepage</a>.]]></target>
-      </trans-unit>
-      <trans-unit id="Qn5rwdU" resname="http_error_403.description">
+      </segment>
+    </unit>
+    <unit id="Qn5rwdU" name="http_error_403.description">
+      <notes>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
+      </notes>
+      <segment>
         <source>http_error_403.description</source>
         <target>You don't have permission to access to this resource.</target>
-      </trans-unit>
-      <trans-unit id="zDeeh7L" resname="http_error_403.suggestion">
+      </segment>
+    </unit>
+    <unit id="zDeeh7L" name="http_error_403.suggestion">
+      <notes>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
+      </notes>
+      <segment>
         <source>http_error_403.suggestion</source>
         <target>Ask your manager or system administrator to grant you access to this resource.</target>
-      </trans-unit>
-      <trans-unit id="_W1eNz2" resname="http_error_404.description">
+      </segment>
+    </unit>
+    <unit id="_W1eNz2" name="http_error_404.description">
+      <notes>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
+      </notes>
+      <segment>
         <source>http_error_404.description</source>
         <target>We couldn't find the page you requested.</target>
-      </trans-unit>
-      <trans-unit id="MWNS5dg" resname="http_error_404.suggestion">
+      </segment>
+    </unit>
+    <unit id="MWNS5dg" name="http_error_404.suggestion">
+      <notes>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
+      </notes>
+      <segment>
         <source>http_error_404.suggestion</source>
         <target><![CDATA[Check out any misspelling in the URL or <a href="%url%">go back to the homepage</a>.]]></target>
-      </trans-unit>
-      <trans-unit id="ZYXSW95" resname="http_error_500.description">
+      </segment>
+    </unit>
+    <unit id="ZYXSW95" name="http_error_500.description">
+      <notes>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
+      </notes>
+      <segment>
         <source>http_error_500.description</source>
         <target>There was an internal server error.</target>
-      </trans-unit>
-      <trans-unit id="VVs_J1c" resname="http_error_500.suggestion">
+      </segment>
+    </unit>
+    <unit id="VVs_J1c" name="http_error_500.suggestion">
+      <notes>
+        <note category="file-source" priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
+      </notes>
+      <segment>
         <source>http_error_500.suggestion</source>
         <target><![CDATA[Try loading this page again in some minutes or <a href="%url%">go back to the homepage</a>.]]></target>
-      </trans-unit>
-      <trans-unit id="9RwuNlf" resname="title.source_code">
+      </segment>
+    </unit>
+    <unit id="9RwuNlf" name="title.source_code">
+      <notes>
+        <note category="file-source" priority="1">templates/debug/source_code.twig:17</note>
+      </notes>
+      <segment>
         <source>title.source_code</source>
         <target>Source code used to render this page</target>
-      </trans-unit>
-      <trans-unit id="jaB3QjG" resname="title.controller_code">
+      </segment>
+    </unit>
+    <unit id="jaB3QjG" name="title.controller_code">
+      <notes>
+        <note category="file-source" priority="1">templates/debug/source_code.twig:22</note>
+        <note category="file-source" priority="1">templates/debug/source_code.twig:25</note>
+      </notes>
+      <segment>
         <source>title.controller_code</source>
         <target>Controller code</target>
-      </trans-unit>
-      <trans-unit id="2bH7SjO" resname="title.twig_template_code">
+      </segment>
+    </unit>
+    <unit id="2bH7SjO" name="title.twig_template_code">
+      <notes>
+        <note category="file-source" priority="1">templates/debug/source_code.twig:29</note>
+      </notes>
+      <segment>
         <source>title.twig_template_code</source>
         <target>Twig template code</target>
-      </trans-unit>
-      <trans-unit id="1sstKF9" resname="title.edit_user">
+      </segment>
+    </unit>
+    <unit id="1sstKF9" name="title.edit_user">
+      <notes>
+        <note category="file-source" priority="1">templates/users/edit.twig:4</note>
+      </notes>
+      <segment>
         <source>title.edit_user</source>
         <target>Edit user</target>
-      </trans-unit>
-      <trans-unit id="QbohvW1" resname="action.show_code">
+      </segment>
+    </unit>
+    <unit id="QbohvW1" name="action.show_code">
+      <notes>
+        <note category="file-source" priority="1">templates/debug/source_code.twig:7</note>
+      </notes>
+      <segment>
         <source>action.show_code</source>
         <target>Show code</target>
-      </trans-unit>
-      <trans-unit id="HLtdhYw" resname="action.save">
+      </segment>
+    </unit>
+    <unit id="HLtdhYw" name="action.save">
+      <notes>
+        <note category="file-source" priority="1">templates/users/change_password.twig:18</note>
+        <note category="file-source" priority="1">templates/users/edit.twig:15</note>
+      </notes>
+      <segment>
         <source>action.save</source>
         <target>Save changes</target>
-      </trans-unit>
-      <trans-unit id="etGJjTo" resname="action.edit_user">
+      </segment>
+    </unit>
+    <unit id="etGJjTo" name="action.edit_user">
+      <notes>
+        <note category="file-source" priority="1">templates/users/change_password.twig:26</note>
+      </notes>
+      <segment>
         <source>action.edit_user</source>
         <target>Edit user</target>
-      </trans-unit>
-      <trans-unit id="LDhDPrF" resname="label.username">
+      </segment>
+    </unit>
+    <unit id="LDhDPrF" name="label.username">
+      <notes>
+        <note category="file-source" priority="1">templates/security/login.twig:66</note>
+        <note category="file-source" priority="1">src/Form/UserType.php:31</note>
+      </notes>
+      <segment>
         <source>label.username</source>
         <target>Username</target>
-      </trans-unit>
-      <trans-unit id="VgeTgE2" resname="help.show_code">
+      </segment>
+    </unit>
+    <unit id="VgeTgE2" name="help.show_code">
+      <notes>
+        <note category="file-source" priority="1">templates/debug/source_code.twig:3</note>
+      </notes>
+      <segment>
         <source>help.show_code</source>
         <target><![CDATA[Click on this button to show the source code of the <strong>Controller</strong> and <strong>template</strong> used to render this page.]]></target>
-      </trans-unit>
-      <trans-unit id="wtG.cxy" resname="info.change_password">
+      </segment>
+    </unit>
+    <unit id="wtG.cxy" name="info.change_password">
+      <notes>
+        <note category="file-source" priority="1">templates/users/change_password.twig:12</note>
+      </notes>
+      <segment>
         <source>info.change_password</source>
         <target>After changing your password, you will be logged out of the application.</target>
-      </trans-unit>
-      <trans-unit id="80JoLd0" resname="title.login">
+      </segment>
+    </unit>
+    <unit id="80JoLd0" name="title.login">
+      <notes>
+        <note category="file-source" priority="1">templates/security/login.twig:4</note>
+      </notes>
+      <segment>
         <source>title.login</source>
         <target>Login</target>
-      </trans-unit>
-      <trans-unit id="9pvowqn" resname="label.password">
+      </segment>
+    </unit>
+    <unit id="9pvowqn" name="label.password">
+      <notes>
+        <note category="file-source" priority="1">templates/security/login.twig:70</note>
+        <note category="file-source" priority="1">templates/security/login.twig:75</note>
+      </notes>
+      <segment>
         <source>label.password</source>
         <target>Password</target>
-      </trans-unit>
-      <trans-unit id="gLN0C81" resname="action.log_in">
+      </segment>
+    </unit>
+    <unit id="gLN0C81" name="action.log_in">
+      <notes>
+        <note category="file-source" priority="1">templates/security/login.twig:84</note>
+      </notes>
+      <segment>
         <source>action.log_in</source>
         <target>Log in</target>
-      </trans-unit>
-      <trans-unit id="vJwSCBO" resname="title.contentlisting">
+      </segment>
+    </unit>
+    <unit id="vJwSCBO" name="title.contentlisting">
+      <notes>
+        <note category="file-source" priority="1">templates/content/listing.twig:9</note>
+      </notes>
+      <segment>
         <source>title.contentlisting</source>
         <target>Contentlisting</target>
-      </trans-unit>
-      <trans-unit id="CX_oSFd" resname="action.change_password">
+      </segment>
+    </unit>
+    <unit id="CX_oSFd" name="action.change_password">
+      <notes>
+        <note category="file-source" priority="1">templates/users/edit.twig:24</note>
+      </notes>
+      <segment>
         <source>action.change_password</source>
         <target>Change password</target>
-      </trans-unit>
-      <trans-unit id="SNELzJ2" resname="field.id">
+      </segment>
+    </unit>
+    <unit id="SNELzJ2" name="field.id">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/edit.twig:118</note>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:98</note>
+      </notes>
+      <segment>
         <source>field.id</source>
         <target>ID</target>
-      </trans-unit>
-      <trans-unit id="FuCyk5C" resname="field.status">
+      </segment>
+    </unit>
+    <unit id="FuCyk5C" name="field.status">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/edit.twig:76</note>
+      </notes>
+      <segment>
         <source>field.status</source>
         <target>Status</target>
-      </trans-unit>
-      <trans-unit id="O9wtVOp" resname="field.createdAt">
+      </segment>
+    </unit>
+    <unit id="O9wtVOp" name="field.createdAt">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/edit.twig:86</note>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:128</note>
+      </notes>
+      <segment>
         <source>field.createdAt</source>
         <target>Created at</target>
-      </trans-unit>
-      <trans-unit id="eVkSIKu" resname="field.modifiedAt">
+      </segment>
+    </unit>
+    <unit id="eVkSIKu" name="field.modifiedAt">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/edit.twig:94</note>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:135</note>
+      </notes>
+      <segment>
         <source>field.modifiedAt</source>
         <target>Modified at</target>
-      </trans-unit>
-      <trans-unit id="3gdi1dy" resname="field.publishedAt">
+      </segment>
+    </unit>
+    <unit id="3gdi1dy" name="field.publishedAt">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/edit.twig:102</note>
+      </notes>
+      <segment>
         <source>field.publishedAt</source>
         <target>Published at</target>
-      </trans-unit>
-      <trans-unit id="eN7IfEL" resname="field.depublishedAt">
+      </segment>
+    </unit>
+    <unit id="eN7IfEL" name="field.depublishedAt">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/edit.twig:110</note>
+      </notes>
+      <segment>
         <source>field.depublishedAt</source>
         <target>Depublished at</target>
-      </trans-unit>
-      <trans-unit id="VKhfRZB" resname="field.title">
+      </segment>
+    </unit>
+    <unit id="VKhfRZB" name="field.title">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:47</note>
+      </notes>
+      <segment>
         <source>field.title</source>
         <target>Title</target>
-      </trans-unit>
-      <trans-unit id="7_wwX8J" resname="field.description">
+      </segment>
+    </unit>
+    <unit id="7_wwX8J" name="field.description">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:53</note>
+      </notes>
+      <segment>
         <source>field.description</source>
         <target>Description</target>
-      </trans-unit>
-      <trans-unit id="hjDmcPC" resname="field.copyright">
+      </segment>
+    </unit>
+    <unit id="hjDmcPC" name="field.copyright">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:59</note>
+      </notes>
+      <segment>
         <source>field.copyright</source>
         <target>Copyright</target>
-      </trans-unit>
-      <trans-unit id="v0sitU8" resname="field.originalFilename">
+      </segment>
+    </unit>
+    <unit id="v0sitU8" name="field.originalFilename">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:66</note>
+      </notes>
+      <segment>
         <source>field.originalFilename</source>
         <target>Original filename</target>
-      </trans-unit>
-      <trans-unit id="vlRe8Tx" resname="field.width">
+      </segment>
+    </unit>
+    <unit id="vlRe8Tx" name="field.width">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:105</note>
+      </notes>
+      <segment>
         <source>field.width</source>
         <target>width</target>
-      </trans-unit>
-      <trans-unit id="CZbXbM_" resname="field.height">
+      </segment>
+    </unit>
+    <unit id="CZbXbM_" name="field.height">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:112</note>
+      </notes>
+      <segment>
         <source>field.height</source>
         <target>height</target>
-      </trans-unit>
-      <trans-unit id="Sz_u.OS" resname="field.filesize">
+      </segment>
+    </unit>
+    <unit id="Sz_u.OS" name="field.filesize">
+      <notes>
+        <note category="file-source" priority="1">templates/editcontent/media_edit.twig:119</note>
+      </notes>
+      <segment>
         <source>field.filesize</source>
         <target>Filesize</target>
-      </trans-unit>
-      <trans-unit id="RMPnq6o" resname="label.username_or_email">
+      </segment>
+    </unit>
+    <unit id="RMPnq6o" name="label.username_or_email">
+      <notes>
+        <note category="file-source" priority="1">templates/security/login.twig:61</note>
+      </notes>
+      <segment>
         <source>label.username_or_email</source>
         <target>Username or Email</target>
-      </trans-unit>
-      <trans-unit id="IaF1MjB" resname="label.rememberme">
+      </segment>
+    </unit>
+    <unit id="IaF1MjB" name="label.rememberme">
+      <notes>
+        <note category="file-source" priority="1">templates/security/login.twig:80</note>
+      </notes>
+      <segment>
         <source>label.rememberme</source>
         <target>Remember me?</target>
-      </trans-unit>
-      <trans-unit id="k.JymqB" resname="about.visit_bolt">
+      </segment>
+    </unit>
+    <unit id="k.JymqB" name="about.visit_bolt">
+      <notes>
+        <note category="file-source" priority="1">templates/pages/about.twig:25</note>
+      </notes>
+      <segment>
         <source>about.visit_bolt</source>
         <target>Visit Bolt.cm</target>
-      </trans-unit>
-      <trans-unit id="UZFanGF" resname="about.bolt_documentation">
+      </segment>
+    </unit>
+    <unit id="UZFanGF" name="about.bolt_documentation">
+      <notes>
+        <note category="file-source" priority="1">templates/pages/about.twig:28</note>
+      </notes>
+      <segment>
         <source>about.bolt_documentation</source>
         <target>Bolt documentation</target>
-      </trans-unit>
-      <trans-unit id="FO7zDub" resname="about.bolt_on_github">
+      </segment>
+    </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <notes>
+        <note category="file-source" priority="1">templates/pages/about.twig:31</note>
+      </notes>
+      <segment>
         <source>about.bolt_on_github</source>
         <target>Bolt on Github</target>
-      </trans-unit>
-    </body>
+      </segment>
+    </unit>
+    <unit id="_9fS00R" name="about.used_libraries">
+      <notes>
+        <note category="file-source" priority="1">templates/pages/about.twig:35</note>
+      </notes>
+      <segment>
+        <source>about.used_libraries</source>
+        <target>Used Libraries / Components</target>
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <notes>
+        <note category="file-source" priority="1">templates/pages/about.twig:37</note>
+      </notes>
+      <segment>
+        <source>about.list_of_used_libraries</source>
+        <target>Below are the third party libraries that are used by Bolt.</target>
+      </segment>
+    </unit>
+    <unit id="aYnbvsn" name="label.fullname">
+      <notes>
+        <note category="file-source" priority="1">src/Form/UserType.php:35</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>label.fullname</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="D2N6_cP" name="label.email">
+      <notes>
+        <note category="file-source" priority="1">src/Form/UserType.php:38</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>label.email</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="pGkejkU" name="label.current_password">
+      <notes>
+        <note category="file-source" priority="1">src/Form/ChangePasswordType.php:24</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>label.current_password</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="iiWFLaI" name="label.new_password">
+      <notes>
+        <note category="file-source" priority="1">src/Form/ChangePasswordType.php:42</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>label.new_password</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="Ucl9Jfc" name="label.new_password_confirm">
+      <notes>
+        <note category="file-source" priority="1">src/Form/ChangePasswordType.php:45</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>label.new_password_confirm</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="XCmpWav" name="newPassword">
+      <notes>
+        <note category="file-source" priority="1">src/Form/ChangePasswordType.php:23</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>newPassword</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="47DEQpj" name="">
+      <segment>
+        <source></source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="OBmPOoB" name="user.updated_successfully">
+      <notes>
+        <note category="file-source" priority="1">src/Controller/Backend/UserController.php:33</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>user.updated_successfully</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="3hkt.eH" name="content.updated_successfully">
+      <notes>
+        <note category="file-source" priority="1">src/Controller/Backend/EditMediaController.php:126</note>
+        <note category="file-source" priority="1">src/Controller/Backend/EditRecordController.php:86</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>content.updated_successfully</source>
+        <target>Media item updated successfully</target>
+      </segment>
+    </unit>
+    <unit id="IB0mNQh" name="content.created_successfully">
+      <notes>
+        <note category="file-source" priority="1">src/Controller/Backend/EditMediaController.php:157</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>content.created_successfully</source>
+        <target>Media item created successfully</target>
+      </segment>
+    </unit>
+    <unit id="Iyry5.g" name="editfile.updated_successfully">
+      <notes>
+        <note category="file-source" priority="1">src/Controller/Backend/EditFileController.php:99</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>editfile.updated_successfully</source>
+        <target></target>
+      </segment>
+    </unit>
+    <unit id="b1jqjUC" name="editfile.could_not_write">
+      <notes>
+        <note category="file-source" priority="1">src/Controller/Backend/EditFileController.php:101</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>editfile.could_not_write</source>
+        <target>Could not write Media item</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

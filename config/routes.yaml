@@ -26,6 +26,12 @@ frontend:
 control_panel:
   resource: '../src/Controller/Backend/'
   prefix: /bolt
+#  prefix: /bolt/{_locale}
+#  requirements:
+#    _locale: '%app_locales%'
+#  defaults:
+#    _locale: '%locale%'
+
 
 
 # ------------------------------------------------------------------------------
