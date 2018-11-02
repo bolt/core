@@ -85,6 +85,16 @@ class User implements UserInterface, \Serializable
      */
     private $lastIp;
 
+    /**
+     * @ORM\Column(type="string", length=191, nullable=true)
+     */
+    private $locale;
+
+    /**
+     * @ORM\Column(type="string", length=191, nullable=true)
+     */
+    private $backendTheme;
+
     public function __construct()
     {
     }
@@ -222,6 +232,30 @@ class User implements UserInterface, \Serializable
     public function setLastIp(?string $lastIp): self
     {
         $this->lastIp = $lastIp;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getBackendTheme(): ?string
+    {
+        return $this->backendTheme;
+    }
+
+    public function setBackendTheme(?string $backendTheme): self
+    {
+        $this->backendTheme = $backendTheme;
 
         return $this;
     }

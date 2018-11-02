@@ -35,6 +35,8 @@ class UserFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
             $user->setEmail($email);
             $user->setRoles($roles);
+            $user->setLocale('en');
+            $user->setBackendTheme('default');
 
             $manager->persist($user);
             $this->addReference($username, $user);

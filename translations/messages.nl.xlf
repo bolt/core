@@ -423,7 +423,7 @@
       </notes>
       <segment>
         <source>label.fullname</source>
-        <target></target>
+        <target>Volledige naam</target>
       </segment>
     </unit>
     <unit id="D2N6_cP" name="label.email">
@@ -433,7 +433,7 @@
       </notes>
       <segment>
         <source>label.email</source>
-        <target></target>
+        <target>E-mail</target>
       </segment>
     </unit>
     <unit id="pGkejkU" name="label.current_password">
@@ -531,6 +531,12 @@
       <segment>
         <source>editfile.could_not_write</source>
         <target></target>
+      </segment>
+    </unit>
+    <unit id="Oiwdkpg" name="The Default theme">
+      <segment>
+        <source>The Default theme</source>
+        <target>Het standaard thema</target>
       </segment>
     </unit>
   </file>

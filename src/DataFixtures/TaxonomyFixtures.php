@@ -41,7 +41,6 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
         $order = 1;
 
         foreach ($this->config as $taxonomyDefinition) {
-            dump($taxonomyDefinition);
             if (!empty($taxonomyDefinition['options'])) {
                 $options = $taxonomyDefinition['options'];
             } else {
