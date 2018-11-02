@@ -32,6 +32,10 @@ class UserController extends BaseController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'user.updated_successfully');
 
+            $locale = $form->getData()->getLocale();
+            $request->getSession()->set('_locale', $locale);
+            $request->setLocale($locale);
+
             return $this->redirectToRoute('bolt_profile_edit');
         }
 

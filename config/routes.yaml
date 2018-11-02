@@ -27,7 +27,6 @@ control_panel:
   resource: '../src/Controller/Backend/'
   prefix: /bolt
 
-
 # ------------------------------------------------------------------------------
 # Examples:
 

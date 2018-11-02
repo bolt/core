@@ -1,39 +1,77 @@
-<?xml version="1.0"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
-        <body>
-            <trans-unit id="post.blank_summary">
-                <source>post.blank_summary</source>
-                <target>No es posible dejar el resumen del artículo vacío.</target>
-            </trans-unit>
-            <trans-unit id="post.blank_content">
-                <source>post.blank_content</source>
-                <target>No es posible dejar el contenido del artículo vacío.</target>
-            </trans-unit>
-            <trans-unit id="post.too_short_content">
-                <source>post.too_short_content</source>
-                <target>El contenido del artículo es demasiado corto ({{ limit }} caracteres como mínimo)</target>
-            </trans-unit>
-            <trans-unit id="post.too_many_tags">
-                <source>post.too_many_tags</source>
-                <target>Demasiadas etiquetas (añade {{ limit }} como máximo)</target>
-            </trans-unit>
-            <trans-unit id="comment.blank">
-                <source>comment.blank</source>
-                <target>No es posible dejar el contenido del comentario vacío.</target>
-            </trans-unit>
-            <trans-unit id="comment.too_short">
-                <source>comment.too_short</source>
-                <target>El comentario es demasiado corto ({{ limit }} caracteres como mínimo)</target>
-            </trans-unit>
-            <trans-unit id="comment.too_long">
-                <source>comment.too_long</source>
-                <target>El comentario es demasiado largo ({{ limit }} caracteres como máximo)</target>
-            </trans-unit>
-            <trans-unit id="comment.is_spam">
-                <source>comment.is_spam</source>
-                <target>El contenido del comentario se considera spam.</target>
-            </trans-unit>
-        </body>
-    </file>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="es" trgLang="es">
+  <file id="validators.es">
+    <unit id="TG1D5NO" name="post.blank_summary">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.blank_summary</source>
+        <target>No es posible dejar el resumen del artículo vacío.</target>
+      </segment>
+    </unit>
+    <unit id="BZOzjk." name="post.blank_content">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.blank_content</source>
+        <target>No es posible dejar el contenido del artículo vacío.</target>
+      </segment>
+    </unit>
+    <unit id="S6M.YWY" name="post.too_short_content">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.too_short_content</source>
+        <target>El contenido del artículo es demasiado corto ({{ limit }} caracteres como mínimo)</target>
+      </segment>
+    </unit>
+    <unit id="niM7JYj" name="post.too_many_tags">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.too_many_tags</source>
+        <target>Demasiadas etiquetas (añade {{ limit }} como máximo)</target>
+      </segment>
+    </unit>
+    <unit id="ARUoKOV" name="comment.blank">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.blank</source>
+        <target>No es posible dejar el contenido del comentario vacío.</target>
+      </segment>
+    </unit>
+    <unit id="J.L_ppQ" name="comment.too_short">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.too_short</source>
+        <target>El comentario es demasiado corto ({{ limit }} caracteres como mínimo)</target>
+      </segment>
+    </unit>
+    <unit id=".bkQKXb" name="comment.too_long">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.too_long</source>
+        <target>El comentario es demasiado largo ({{ limit }} caracteres como máximo)</target>
+      </segment>
+    </unit>
+    <unit id="cTT8h4_" name="comment.is_spam">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.is_spam</source>
+        <target>El contenido del comentario se considera spam.</target>
+      </segment>
+    </unit>
+  </file>
 </xliff>
