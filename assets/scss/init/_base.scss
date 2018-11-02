@@ -19,6 +19,14 @@ strong {
   font-weight:                  $font-weight-semibold;
 }
 
+.card{
+  box-shadow: $card-box-shadow;
+  .card-header{
+    background: transparent;
+    font-weight: $font-weight-bold;
+  }
+}
+
 .custom-select{
   -webkit-appearance: none;
 }

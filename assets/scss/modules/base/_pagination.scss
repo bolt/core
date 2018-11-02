@@ -1,6 +1,7 @@
 //** Base | Pagination
 
 .pagination{
+  margin-left: auto;
   nav{
     display: flex;
     span, a{
@@ -31,6 +32,10 @@
       &:hover{
         text-decoration: none;
         background: var(--shade-100);
+      }
+      &:focus{
+        outline: none;
+        box-shadow: $input-btn-focus-box-shadow;
       }
     }
   }

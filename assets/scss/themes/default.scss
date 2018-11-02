@@ -8,23 +8,24 @@
   --background:               #f3f5f7;
   --foreground:               #ffffff;
 
-  --status-published:         #7fa800;
-  --status-draft:             #0569e2;
-  --status-held:              #ca2300;
-  --status-timed:             #a80;
+  --status-published:         #08b883;
+  --status-draft:             #1078da;
+  --status-held:              #dd2443;
+  --status-timed:             #741ce6;
 
-  --admin-sidebar:            #ffffff;
-  --admin-sidebar-text:       #4a555f;
-  --admin-sidebar-icon:       #2e2ec2;
-  --admin-sidebar-menu:       #363d85;
+  --admin-sidebar:            #0c223b;
+  --admin-sidebar-text:       #ffffff;
+  --admin-sidebar-icon:       #ffffff;
+  --admin-sidebar-menu:       #0c223b;
   --admin-sidebar-menu-text:  #ffffff;
 
-  --admin-toolbar:            #363d85;
+  --admin-toolbar:            #053b79;
   --admin-toolbar-text-light: #ffffff;
   --admin-toolbar-text-dark:  #0c223b;
+  
 
-  @include                    generate-color(primary, 240, 62%, 47%);
-  @include                    generate-color(secondary, 235, 42%, 37%);
+  @include                    generate-color(primary, 235, 42%, 37%);
+  @include                    generate-color(secondary, 212, 90%, 25%);
 
   @include                    generate-color(body, 212, 66%, 14%);
   @include                    generate-color(shade, 208, 13%, 43%);
@@ -35,13 +36,12 @@
 }
 
 $bootstrap-colors: (
-
-  "primary":                  #2e2ec2,
-  "secondary":                #141a5b,
-
-  "success":                  #08bb68,
-  "danger":                   #dd2443,
-
+  "primary",
+  "secondary",
+  "body",
+  "shade",
+  "success",
+  "danger"
 );
 
 @import '_bootstrap';
