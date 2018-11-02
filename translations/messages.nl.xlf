@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="nl">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="nl">
   <file id="messages.nl">
     <unit id="80JoLd0" name="title.login">
       <notes>
@@ -36,7 +36,7 @@
       </notes>
       <segment>
         <source>action.log_in</source>
-        <target>__action.log_in</target>
+        <target>Log in</target>
       </segment>
     </unit>
     <unit id="vJwSCBO" name="title.contentlisting">
@@ -64,7 +64,7 @@
       </notes>
       <segment>
         <source>action.save</source>
-        <target>__action.save</target>
+        <target>Wijzigingen opslaan</target>
       </segment>
     </unit>
     <unit id="etGJjTo" name="action.edit_user">
@@ -73,7 +73,7 @@
       </notes>
       <segment>
         <source>action.edit_user</source>
-        <target>__action.edit_user</target>
+        <target>Bewerk gebruiker</target>
       </segment>
     </unit>
     <unit id="1sstKF9" name="title.edit_user">
@@ -91,7 +91,7 @@
       </notes>
       <segment>
         <source>action.change_password</source>
-        <target>__action.change_password</target>
+        <target>Wijzig wachtwoord</target>
       </segment>
     </unit>
     <unit id="SNELzJ2" name="field.id">
@@ -175,7 +175,7 @@
       </notes>
       <segment>
         <source>field.copyright</source>
-        <target>__field.copyright</target>
+        <target>Copyright</target>
       </segment>
     </unit>
     <unit id="v0sitU8" name="field.originalFilename">
@@ -313,7 +313,7 @@
       </notes>
       <segment>
         <source>action.show_code</source>
-        <target>__action.show_code</target>
+        <target>Toon broncode</target>
       </segment>
     </unit>
     <unit id="9RwuNlf" name="title.source_code">
@@ -377,7 +377,7 @@
       </notes>
       <segment>
         <source>about.visit_bolt</source>
-        <target>__about.visit_bolt</target>
+        <target>Bezoek Bolt.cm</target>
       </segment>
     </unit>
     <unit id="UZFanGF" name="about.bolt_documentation">
@@ -404,7 +404,7 @@
       </notes>
       <segment>
         <source>about.used_libraries</source>
-        <target>about.used_libraries</target>
+        <target>Gebruikte Libraries / Componenten</target>
       </segment>
     </unit>
     <unit id="tgLgLDQ" name="about.list_of_used_libraries">
