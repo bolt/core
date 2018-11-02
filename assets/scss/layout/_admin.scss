@@ -41,11 +41,9 @@ $admin-header-height: 70px;
 
   &__header {
     display: flex;
-    flex-basis: 100%;
     grid-area: header;
     position: relative;
     height: $admin-header-height;
-    padding: 0 $spacer * 2;
   }
 
   &__sidebar {
@@ -56,27 +54,26 @@ $admin-header-height: 70px;
   &__body {
     flex: 1;
     grid-area: body;
-    padding: $spacer * 2;
     padding-top: 0;
-    min-height: 100vh;
-
     >.container{
-      display: flex;
+      padding: 0;
+    }
+    &--container{
+      display: grid;
+      grid-template-columns:  auto $admin-sidebar-width * 1.25;
+      grid-template-areas:    "main aside";
+      padding: $spacer * 2;
     }
 
     &--main{
+      grid-area: main;
+      min-width: 0;
       padding-right: $spacer * 2;
-      flex: 100%;
     }
 
     &--aside{
-      flex: 0 0 $admin-sidebar-width * 1.25;
+      grid-area: aside;
+      width: $admin-sidebar-width * 1.25;
     }
-  }
-}
-
-.container {
-  @include media-breakpoint-up(xl) {
-    max-width: 1540px;
   }
 }

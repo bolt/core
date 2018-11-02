@@ -1,10 +1,9 @@
 
 {% if records %}
     <nav class="listing__filter">
-      {% include '@bolt/_partials/_pager.twig' with { 'records': records } %}
       <listing-filter></listing-filter>
     </nav>
-    <draggable :options="{handle:'.listing__row--move', forceFallback: true, animation: 0}">
+    <draggable :options="{handle:'.listing__row--move', animation: 0}">
         {% for record in records %}
           <listing-row 
               :id="'{{ record.id }}'"
