@@ -14,6 +14,6 @@ class GeneralController extends BaseController
      */
     public function about()
     {
-        return $this->renderTemplate('about/about.twig');
+        return $this->renderTemplate('pages/about.twig');
     }
 }

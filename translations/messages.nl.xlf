@@ -157,6 +157,26 @@
         <source>title.twig_template_code</source>
         <target>__title.twig_template_code</target>
       </trans-unit>
+      <trans-unit id="RMPnq6o" resname="label.username_or_email">
+        <source>label.username_or_email</source>
+        <target>__label.username_or_email</target>
+      </trans-unit>
+      <trans-unit id="IaF1MjB" resname="label.rememberme">
+        <source>label.rememberme</source>
+        <target>__label.rememberme</target>
+      </trans-unit>
+      <trans-unit id="k.JymqB" resname="about.visit_bolt">
+        <source>about.visit_bolt</source>
+        <target>__about.visit_bolt</target>
+      </trans-unit>
+      <trans-unit id="UZFanGF" resname="about.bolt_documentation">
+        <source>about.bolt_documentation</source>
+        <target>__about.bolt_documentation</target>
+      </trans-unit>
+      <trans-unit id="FO7zDub" resname="about.bolt_on_github">
+        <source>about.bolt_on_github</source>
+        <target>__about.bolt_on_github</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

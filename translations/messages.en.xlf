@@ -157,6 +157,26 @@
         <source>field.filesize</source>
         <target>Filesize</target>
       </trans-unit>
+      <trans-unit id="RMPnq6o" resname="label.username_or_email">
+        <source>label.username_or_email</source>
+        <target>Username or Email</target>
+      </trans-unit>
+      <trans-unit id="IaF1MjB" resname="label.rememberme">
+        <source>label.rememberme</source>
+        <target>Remember me?</target>
+      </trans-unit>
+      <trans-unit id="k.JymqB" resname="about.visit_bolt">
+        <source>about.visit_bolt</source>
+        <target>Visit Bolt.cm</target>
+      </trans-unit>
+      <trans-unit id="UZFanGF" resname="about.bolt_documentation">
+        <source>about.bolt_documentation</source>
+        <target>Bolt documentation</target>
+      </trans-unit>
+      <trans-unit id="FO7zDub" resname="about.bolt_on_github">
+        <source>about.bolt_on_github</source>
+        <target>Bolt on Github</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
