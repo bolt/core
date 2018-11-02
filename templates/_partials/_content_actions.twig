@@ -5,16 +5,16 @@
 
 <div class="btn-group">
     <a href="{{ path('bolt_edit_record', {'id': record.id}) }}" class="btn btn-light">
-        <i class="fas fa-edit"></i> {{ __('edit') }}
+        <i class="fas fa-edit"></i> {{ 'edit'|trans }}
     </a>
     <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="sr-only">Toggle Dropdown</span>
+        <span class="sr-only">{{ 'action.toggle_dropdown'|trans }}</span>
     </button>
   <div class="dropdown-menu dropdown-menu-right">
 
     {% if record.status == "published" and record.link is not empty %}
             <a class="dropdown-item" href="{{ record.link }}" target="_blank">
-                <i class="fas fa-external-link-square-alt"></i> {{ __('general.view-on-site') }}
+                <i class="fas fa-external-link-square-alt"></i> {{ 'general.view-on-site'|trans }}
             </a>
     {% endif %}
 
@@ -30,7 +30,7 @@
         {% endif %}
         {% if permissions.create %}
                 <a class="dropdown-item" href="{{ path('bolt_edit_record', {'id': record.id, 'duplicate': 1}) }}">
-                    <i class="fas fa-copy"></i> {{ __('contenttypes.generic.duplicate', {'%contenttype%': record.definition.singular_name}) }}
+                    <i class="fas fa-copy"></i> {{ 'contenttypes.generic.duplicate', {'%contenttype%': record.definition.singular_name}|trans }}
                 </a>
         {% endif %}
         {% if permissions.delete %}
@@ -43,7 +43,7 @@
     {% endif %}
 
     <span class="dropdown-item">
-        {{ __('general.author') }}:  <strong><i class="fas fa-user"></i>
+        {{ 'general.author'|trans }}:  <strong><i class="fas fa-user"></i>
             {% set owner = record.author %}
             {% if owner %}
             {{ owner[:15] }}
@@ -53,18 +53,18 @@
         </strong>
     </span>
 
-        <span class="dropdown-item">{{ __('general.status-current') }}:
+        <span class="dropdown-item">{{ 'general.status-current'|trans }}:
             <strong> {{ record.status }}</strong></span>
-        <span class="dropdown-item">{{ __('general.slug') }}:
+        <span class="dropdown-item">{{ 'general.slug'|trans }}:
             <code title="{{ record.slug }}">{{ record.slug|excerpt(24) }}</code>
         </span>
-        <span class="dropdown-item">{{ __('general.created-on') }}:
+        <span class="dropdown-item">{{ 'general.created-on'|trans }}:
             <i class="fas fa-asterisk"></i> {{ record.datecreated|date("Y-m-d H:i") }}
         </span>
-        <span class="dropdown-item">{{ __('general.published-on') }}:
+        <span class="dropdown-item">{{ 'general.published-on'|trans }}:
             <i class="fas fa-calendar"></i> {{ record.datepublish|date("Y-m-d H:i") }}
         </span>
-        <span class="dropdown-item">{{ __('general.last-edited-on') }}:
+        <span class="dropdown-item">{{ 'general.last-edited-on'|trans }}:
             <i class="fas fa-sync-alt"></i> {{ record.datechanged|date("Y-m-d H:i") }}
         </span>
 

@@ -2,11 +2,11 @@
 
 <div class="row">
     <div class="col-2">
-        <label>Quick select:</label>
+        <label>{{ 'label.quick_select'|trans }}</label>
     </div>
     <div class="col-8">
         <select name="quickselect" id="quickselect">
-            <option>Quick select a file</option>
+            <option>{{ 'form.quick_select_file'|trans }}</option>
 
             {% for file in allfiles %}
             <option value="{{ file.filename }}">
@@ -16,7 +16,7 @@
         </select>
     </div>
     <div class="col-2">
-        <button class="btn btn-secondary">Go</button>
+        <button class="btn btn-secondary">{{ 'action.go'|trans }}</button>
     </div>
 </div>
 

@@ -2,7 +2,7 @@
 
 {% extends '@bolt/_base/layout.twig' %}
 
-{% block title %} About Bolt » Sophisticated, lightweight & simple CMS {% endblock title %}
+{% block title %} {{ 'caption.about_bolt'|trans }} » {{ 'caption.bolt_payoff'|trans }} {% endblock title %}
 
 {% block main %}
 
@@ -22,13 +22,13 @@
 
             <p>
                 <a href="https://bolt.cm" class="btn btn-primary" target="_blank">
-                    <i class="fa fa-external-link"></i> {{ 'about.visit_bolt'|trans }}
+                    <i class="fa fa-external-link-square-alt"></i> {{ 'about.visit_bolt'|trans }}
                 </a>
                 <a href="https://docs.bolt.cm" class="btn btn-secondary" target="_blank">
-                    <i class="fa fa-external-link"></i> {{ 'about.bolt_documentation'|trans }}
+                    <i class="fa fa-book"></i> {{ 'about.bolt_documentation'|trans }}
                 </a>
                 <a href="https://github.com/bolt/docs" class="btn btn-secondary" target="_blank">
-                    <i class="fa fa-github-alt"></i> {{ 'about.bolt_on_github'|trans }}
+                    <i class="fab fa-github-alt"></i> {{ 'about.bolt_on_github'|trans }}
                 </a>
             </p>
 

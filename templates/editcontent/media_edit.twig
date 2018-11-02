@@ -1,12 +1,12 @@
 {% extends '@bolt/_base/layout.twig' %}
 
 {% block title %}
-    Edit » <strong>{{ media.title|default('New')|excerpt(30) }}</strong>
+    {{ 'caption.edit'|trans }} » <strong>{{ media.title|default('New')|excerpt(30) }}</strong>
 {% endblock %}
 
 {% block main %}
 
-    <h2>Filename » <strong>{{ media.area }}://{% if media.path %}{{ media.path }}/{% endif %}{{ media.filename }}</strong></h2>
+    <h2>{{ 'caption.filename'|trans }} » <strong>{{ media.area }}://{% if media.path %}{{ media.path }}/{% endif %}{{ media.filename }}</strong></h2>
 
     <div class="imageholder">
         {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, area = media.area, path = media.path) %}
@@ -81,13 +81,14 @@
 {% block aside %}
 
 <div class="card">
-    <div class="card-header">Meta information</div>
+    <div class="card-header">{{ 'caption.meta_information'|trans }}</div>
     <div class="card-body">
 
         <form>
             <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Save" form="editcontent">
-
+            <button type="submit" class="btn btn-success mb-3" form="editcontent">
+                <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
+            </button>
 
             <ul class="ui divided selection list" id="swatcheslist">
             </ul>

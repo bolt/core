@@ -5,9 +5,9 @@
     </nav>
     <draggable :options="{handle:'.listing__row--move', animation: 0}">
         {% for record in records %}
-          <listing-row 
+          <listing-row
               :id="'{{ record.id }}'"
-              :definition="{{ record.definition|json_encode() }}" 
+              :definition="{{ record.definition|json_encode() }}"
               :excerpt="{{ record.excerpt(150, true)|json_encode() }}"
               :status="'{{ record.status }}'"
               :thumbnail="'{{ record.image|thumbnail(150, 100) }}'"

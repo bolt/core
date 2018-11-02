@@ -3,12 +3,12 @@
 {% block container "widecontent" %}
 
 {% block title %}
-    Edit File » <strong>{{ file }}</strong>
+    {{ 'caption.edit_file'|trans }} » <strong>{{ file }}</strong>
 {% endblock %}
 
 {% block main %}
 
-    <h2>Path: {{ area }}{{ file }}</h2>
+    <h2>{{ 'caption.path'|trans }}: {{ area }}{{ file }}</h2>
 
     <form method="post">
         <input type="hidden" name="file" value="{{ file }}">
@@ -18,7 +18,7 @@
             <textarea name="editfile" id="editfile_textarea">{{ contents }}</textarea>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" name="save">Save</button>
+            <button type="submit" class="btn btn-primary" name="save">{{ 'action.save'|trans }}</button>
         </div>
     </div>
     </form>
