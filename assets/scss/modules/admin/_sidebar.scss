@@ -10,7 +10,7 @@
   &--separator {
     padding: 0 $spacer;
     margin: $spacer / 2 0;
-    opacity: 0.4;
+    opacity: 0.5;
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     font-size: $small-font-size;
@@ -42,6 +42,7 @@
 
       .link--icon {
         transform: scale(1.1);
+        opacity: 1;
       }
     }
 
@@ -67,6 +68,7 @@
       transform-origin: center;
       color: var(--admin-sidebar-icon);
       width: 22px;
+      opacity: 0.5;
     }
 
     .link--caret {
@@ -167,7 +169,7 @@
     letter-spacing: $letter-spacing;
     a{
       color: var(--admin-sidebar-text);
-      opacity: 0.5;
+      opacity: 0.75;
       &:hover{
         color: inherit;
       }

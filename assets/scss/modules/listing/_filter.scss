@@ -3,11 +3,17 @@
 .listing__filter{
   display: flex;
   justify-content: space-between;
+  height: 35px;
   &:first-of-type{
-    margin-bottom: $spacer * 1.5;
+    margin-bottom: $spacer;
   }
   &:last-of-type{
-    margin-top: $spacer * 1.5;
+    margin-top: $spacer;
+  }
+  .pagination{
+    nav{
+      height: 100%;
+    }
   }
   &--controls{
     flex: 1 1 100%;
@@ -23,24 +29,28 @@
       &:last-child{
         margin-right: 0;
       }
+      &.control--left{
+        margin-right: auto;
+      }
     }
     .control--button{
+      transition: $transition-base;
       color: var(--shade);
       border: 0;
-      height: 40px;
-      width: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--foreground);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
-      padding: 0;
+      padding: $spacer / 2;
       &:hover{
         cursor: pointer;
         background: var(--shade-100);
       }
       &:focus{
+        outline: none;
+        box-shadow: $input-btn-focus-box-shadow;
         svg, g{
           fill: theme-color('secondary')
         }
@@ -55,8 +65,8 @@
         color: var(--foreground);
       }
       svg{
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         g{
           fill: var(--shade);
         }

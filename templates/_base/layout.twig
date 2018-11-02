@@ -52,16 +52,18 @@
     <!-- Admin Main -->
     <div class="admin__body" id="{% block container %}content{% endblock %}">
         <div class="container">
-          {{ include('_partials/_flash_messages.twig') }}
-          <main class="admin__body--main">
-            {% block main %}
-            {% endblock %}
-          </main>
-          <aside class="admin__body--aside">
-            {% block aside %}
-            
-            {% endblock %}
-          </aside>
+            <div class="admin__body--container">
+                {{ include('_partials/_flash_messages.twig') }}
+                <main class="admin__body--main">
+                    {% block main %}
+                    {% endblock %}
+                </main>
+                <aside class="admin__body--aside">
+                    {% block aside %}
+                    
+                    {% endblock %}
+                </aside>
+            </div>
         </div>
     </div>
     <!-- End Admin Main -->
