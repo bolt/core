@@ -17,6 +17,7 @@ Encore
   .createSharedEntry('vendor', ['@babel/polyfill'])
 
   .addStyleEntry('theme-default', './assets/scss/themes/default.scss')
+  .addStyleEntry('theme-light', './assets/scss/themes/light.scss')
 
   .autoProvidejQuery()
   .enableVueLoader()

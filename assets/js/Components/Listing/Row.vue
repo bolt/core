@@ -26,10 +26,10 @@
        <li>
           <a :href="`/bolt/edit/${id}`" class="link">
             <div class="btn-group">
-              <button class="btn btn-secondary btn-sm" type="button">
+              <button class="btn btn-grey btn-block btn-sm" type="button">
                 <i class="far fa-edit mr-1"></i> Edit
               </button>
-              <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn btn-sm btn-grey dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <div class="dropdown-menu dropdown-menu-right">

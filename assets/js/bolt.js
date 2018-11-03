@@ -36,6 +36,7 @@ window.jQuery = $;
 import "./Views/admin";
 import "./Views/listing";
 import "./Views/editor";
+import "./Views/user";
 
 /**
  * Styling
