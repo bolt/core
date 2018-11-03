@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
-use Bolt\Utils\Markdown;
 use Symfony\Component\Intl\Intl;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -12,14 +11,11 @@ use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    private $parser;
     private $localeCodes;
     private $locales;
-    private $menuBuilder;
 
-    public function __construct(Markdown $parser, string $locales)
+    public function __construct(string $locales)
     {
-        $this->parser = $parser;
         $this->localeCodes = explode('|', $locales);
     }
 
@@ -29,8 +25,6 @@ class AppExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('md2html', [$this, 'markdownToHtml'], ['is_safe' => ['html']]),
-            new TwigFilter('markdown', [$this, 'markdownToHtml'], ['is_safe' => ['html']]),
             new TwigFilter('order', [$this, 'dummy']),
             new TwigFilter('unique', [$this, 'unique']),
             new TwigFilter('localedatetime', [$this, 'dummy']),
@@ -73,14 +67,6 @@ class AppExtension extends AbstractExtension
     public function unique($array): array
     {
         return array_unique($array);
-    }
-
-    /**
-     * Transforms the given Markdown content into HTML content.
-     */
-    public function markdownToHtml(string $content): string
-    {
-        return $this->parser->toHtml($content);
     }
 
     /**
