@@ -8,6 +8,7 @@ use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
 use Bolt\Twig\Runtime;
+use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -16,9 +17,19 @@ class ContentHelperExtension extends AbstractExtension
     /** @var MenuBuilder */
     private $menuBuilder;
 
-    public function __construct(MenuBuilder $menuBuilder)
+    /** @var TranslatorInterface */
+    private $translator;
+
+    /**
+     * ContentHelperExtension constructor.
+     *
+     * @param MenuBuilder         $menuBuilder
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(MenuBuilder $menuBuilder, TranslatorInterface $translator)
     {
         $this->menuBuilder = $menuBuilder;
+        $this->translator = $translator;
     }
 
     /**
@@ -39,6 +50,7 @@ class ContentHelperExtension extends AbstractExtension
 
         return [
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
+            new TwigFunction('jsonlabels', [$this, 'jsonlabels']),
             new TwigFunction('fieldfactory', [$this, 'fieldfactory']),
             new TwigFunction('selectoptionsfromarray', [Runtime\ContentHelperRuntime::class, 'selectoptionsfromarray']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
@@ -72,5 +84,20 @@ class ContentHelperExtension extends AbstractExtension
         $icon = str_replace('fa-', '', $icon);
 
         return "<i class='fas mr-2 fa-$icon'></i>";
+    }
+
+    /**
+     * @param array $labels
+     * @return string
+     */
+    public function jsonlabels(array $labels): string
+    {
+        $result = [];
+        foreach ($labels as $label) {
+            $key = is_array($label) ? $label[0] : $label;
+            $result[$key] = $this->translator->trans(...(array) $label);
+        }
+
+        return json_encode($result);
     }
 }

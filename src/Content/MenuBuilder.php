@@ -41,6 +41,7 @@ class MenuBuilder
      * @param Stopwatch             $stopwatch
      * @param ContentRepository     $content
      * @param UrlGeneratorInterface $urlGenerator
+     * @param TranslatorInterface   $translator
      */
     public function __construct(FactoryInterface $factory, Config $config, Stopwatch $stopwatch, ContentRepository $content, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
     {

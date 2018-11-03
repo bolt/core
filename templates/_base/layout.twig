@@ -16,14 +16,17 @@
 </head>
 
 <body>
+
 <div class="admin has-{{ block('container') }}">
 
     <!-- Admin Toolbar -->
     <nav id="toolbar" class="admin__toolbar">
+        {%  set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': user.fullName}] ]) %}
         <admin-toolbar
             :menu="{{ sidebarmenu() }}"
             user="{{user|default()}}"
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
+            labels='{{ labels }}'
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->
@@ -39,7 +42,7 @@
     <!-- Admin Sidebar -->
     <div class="admin__sidebar">
         <div id="sidebar">
-            <admin-sidebar 
+            <admin-sidebar
                 :brand-full="'{{ asset('assets/images/brand-long.svg') }}'"
                 :brand-icon="'{{ asset('assets/images/brand-icon.svg') }}'"
                 :menu="{{ sidebarmenu() }}"
@@ -61,7 +64,7 @@
                 </main>
                 <aside class="admin__body--aside">
                     {% block aside %}
-                    
+
                     {% endblock %}
                 </aside>
             </div>
