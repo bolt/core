@@ -1,11 +1,8 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
 {% block field %}
-    {{ value }}
-    <label>{{ label }}</label>
-    <input name="{{ name }}" placeholder="First Name" type="checkbox" value="{{ value }}">
     <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="{{ name }}" name="{{ name }}" value="{{ value }}">
+        <input type="checkbox" class="custom-control-input" id="{{ name }}" name="{{ name }}" value="1" {{ value ? 'checked' }}>
         <label class="custom-control-label" for="{{ name }}">{{ label }}</label>
     </div>
 {% endblock %}

@@ -105,6 +105,13 @@ class EditRecordController extends BaseController
         $content->setPublishedAt(new Carbon($post['publishedAt']));
         $content->setDepublishedAt(new Carbon($post['depublishedAt']));
 
+        // Checkboxes not in post need to be set to '0'
+        foreach ($content->getFields() as $field) {
+            if ($field->getDefinition()->get('type') === 'checkbox') {
+                $field->setValue(['0']);
+            }
+        }
+
         foreach ($post['fields'] as $key => $postfield) {
             $this->updateFieldFromPost($key, $postfield, $content);
         }

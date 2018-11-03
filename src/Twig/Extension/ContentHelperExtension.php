@@ -88,6 +88,7 @@ class ContentHelperExtension extends AbstractExtension
 
     /**
      * @param array $labels
+     *
      * @return string
      */
     public function jsonlabels(array $labels): string
