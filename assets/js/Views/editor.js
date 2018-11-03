@@ -1,17 +1,19 @@
 import Vue from "vue";
 /**
- * Editor Components
+ * Components
  */
-import Slug from "../Components/Editor/Slug.vue";
-import Textarea from "../Components/Editor/Textarea.vue";
-import Markdown from "../Components/Editor/Markdown.vue";
-import Html from "../Components/Editor/Html.vue";
-import DateTime from "../Components/Editor/DateTime.vue";
-import Select from "../Components/Editor/Select.vue";
-import Image from "../Components/Editor/Image.vue";
+import Text from "../Components/Editor/Text";
+import Slug from "../Components/Editor/Slug";
+import Textarea from "../Components/Editor/Textarea";
+import Markdown from "../Components/Editor/Markdown";
+import Html from "../Components/Editor/Html";
+import DateTime from "../Components/Editor/DateTime";
+import Select from "../Components/Editor/Select";
+import Image from "../Components/Editor/Image";
 /**
  * Register Components
  */
+Vue.component("editor-text", Text);
 Vue.component("editor-slug", Slug);
 Vue.component("editor-textarea", Textarea);
 Vue.component("editor-markdown", Markdown);

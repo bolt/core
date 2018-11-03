@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bolt.css') }}">
     {% set backendTheme = 'assets/theme-' ~ user.backendTheme|default('default') ~ '.css' %}
-    <link rel="stylesheet" type="text/css" href="{{ asset(backendTheme) }}">
+    <link id="theme" rel="stylesheet" type="text/css" href="{{ asset(backendTheme) }}">
     {% endblock %}
 </head>
 

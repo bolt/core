@@ -4,7 +4,7 @@ import Vue from "vue";
  */
 import draggable from 'vuedraggable'
 /**
- * Editor Components
+ * Components
  */
 import Filter from "../Components/Listing/Filter";
 import Row from "../Components/Listing/Row";

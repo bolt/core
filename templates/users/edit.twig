@@ -7,15 +7,16 @@
 {% block body_id 'user_edit' %}
 
 {% block main %}
-
-    {% form_theme form 'bootstrap_4_layout.html.twig' %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn btn-primary">
-        <i class="fa fa-save" aria-hidden="true"></i> {{ 'action.save'|trans }}
-    </button>
-    {{ form_end(form) }}
-
+    <div id="user">
+        {% form_theme form 'bootstrap_4_layout.html.twig' %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-save" aria-hidden="true"></i> {{ 'action.save'|trans }}
+        </button>
+        {{ form_end(form) }}
+        <user-theme></user-theme>
+    </div>
 {% endblock %}
 
 {% block aside %}

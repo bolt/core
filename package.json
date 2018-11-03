@@ -30,6 +30,7 @@
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
     "baguettebox.js": "^1.11.0",
+    "barba.js": "^1.0.0",
     "bootstrap": "^4.1.3",
     "codemirror": "^5.40.2",
     "jquery": "^3.3.1",

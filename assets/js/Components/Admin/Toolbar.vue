@@ -13,12 +13,6 @@
         <li><a href="https://docs.bolt.cm/" target="_blank">Bolt Documentation</a></li>      
       </ul>
     </div>
-    <div class="toolbar--item is-site">
-      <i class="fas fa-globe-americas mr-2"></i>{{siteName}}
-      <ul class="toolbar--menu">
-        <li><a href="/" target="_blank">Visit Site</a></li>        
-      </ul>
-    </div>
     <div class="toolbar--item is-new">
       <i class="fas fa-magic mr-2"></i>Create New
       <ul class="toolbar--menu">
@@ -31,6 +25,9 @@
         </li>          
       </ul>
     </div>
+    <div class="toolbar--item is-site">
+      <a href="/" target="_blank"><i class="fas fa-globe-americas mr-2"></i>{{siteName}}</a>
+    </div>
     <div class="toolbar--item is-profile">
       <i class="fas fa-user mr-2"></i>Hey {{user}}
       <ul class="toolbar--menu">
@@ -42,11 +39,21 @@
 </template>
 
 <script>
-var tinycolor = require("tinycolor2");
+const tinycolor = require("tinycolor2");
 
 module.exports = {
   name: "admin-toolbar",
   props: ["siteName", "menu", "user"],
+  data: () => {
+    return {
+      get token() {
+        return localStorage.getItem('token') || 0;
+      },
+      set token(value) {
+        localStorage.setItem('token', value);
+      }
+    };
+  },
   computed:{
     contrast(){
       const color = getComputedStyle(document.body).getPropertyValue('--admin-toolbar');

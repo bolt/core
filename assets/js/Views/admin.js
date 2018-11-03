@@ -1,6 +1,6 @@
 import Vue from "vue";
 /**
- * Editor Components
+ * Components
  */
 import Toolbar from "../Components/Admin/Toolbar";
 import Sidebar from "../Components/Admin/Sidebar";
