@@ -13,5 +13,41 @@
         <target>Editar Usuario</target>
       </segment>
     </unit>
+    <unit id="XNTbZW6" name="action.visit_site">
+      <segment>
+        <source>action.visit_site</source>
+        <target>Visitar Sitio</target>
+      </segment>
+    </unit>
+    <unit id="UZFanGF" name="about.bolt_documentation">
+      <segment>
+        <source>about.bolt_documentation</source>
+        <target>Documentación del Bolt</target>
+      </segment>
+    </unit>
+    <unit id="b_RPpcB" name="general.greeting">
+      <segment>
+        <source>general.greeting</source>
+        <target>Hola %name%</target>
+      </segment>
+    </unit>
+    <unit id="bmdn3u9" name="action.logout">
+      <segment>
+        <source>action.logout</source>
+        <target>Cerrar Sesión</target>
+      </segment>
+    </unit>
+    <unit id="KfVJho2" name="action.create_new">
+      <segment>
+        <source>action.create_new</source>
+        <target>Crear Nuevo</target>
+      </segment>
+    </unit>
+    <unit id="zOfpTLD" name="action.edit_profile">
+      <segment>
+        <source>action.edit_profile</source>
+        <target>Editar Perfil</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

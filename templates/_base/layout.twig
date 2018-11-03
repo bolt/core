@@ -21,12 +21,12 @@
 
     <!-- Admin Toolbar -->
     <nav id="toolbar" class="admin__toolbar">
-        {%  set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': user.fullName}] ]) %}
+        {%  set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': user.fullName}], 'action.logout', 'action.edit_profile']) %}
         <admin-toolbar
             :menu="{{ sidebarmenu() }}"
             user="{{user|default()}}"
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
-            labels='{{ labels }}'
+            :labels="{{ labels|json_decode }}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->

@@ -1,6 +1,5 @@
 <template>
-  <div class="form-group">
-      <label>{{ label }}</label>
+  <div>
       <select class="custom-select" :id="id" v-model="val">
         <option 
           v-for="(option, index) in selectOptions" 
