@@ -13,7 +13,7 @@
         {% set value = value|date(format='c') %}
     {% endif %}
 
-    <editor-date
+    <editor-datetime
         :value="'{{ value }}'"
         :label="'{{ label }}'"
         :name="'{{ name }}'"

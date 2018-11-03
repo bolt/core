@@ -2,6 +2,7 @@ import Vue from "vue";
 /**
  * Components
  */
+import Text from "../Components/Editor/Text";
 import Slug from "../Components/Editor/Slug";
 import Textarea from "../Components/Editor/Textarea";
 import Markdown from "../Components/Editor/Markdown";
@@ -12,6 +13,7 @@ import Image from "../Components/Editor/Image";
 /**
  * Register Components
  */
+Vue.component("editor-text", Text);
 Vue.component("editor-slug", Slug);
 Vue.component("editor-textarea", Textarea);
 Vue.component("editor-markdown", Markdown);

@@ -1,6 +1,10 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
 {% block field %}
-    <label>{{ label }}</label>
-    <input name="{{ name }}" placeholder="…" type="text" value="{{ value }}" class="{{ class }}" {{ attributes|default()|raw }}>
+    <editor-text
+        :value="{{ value|json_encode() }}"
+        :label="'{{ label }}'"
+        :name="'{{ name }}'"
+        :type="'{{ class }}'"
+    ></editor-text>
 {% endblock %}
