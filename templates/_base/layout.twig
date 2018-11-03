@@ -16,21 +16,17 @@
 </head>
 
 <body>
+
 <div class="admin has-{{ block('container') }}">
 
     <!-- Admin Toolbar -->
     <nav id="toolbar" class="admin__toolbar">
-    {% set labels = {
-        'about.bolt_documentation': 'about.bolt_documentation'|trans,
-        'action.visit_site': 'action.visit_site'|trans,
-        'action.create_new': 'action.create_new'|trans,
-        'general.greeting': 'general.greeting'|trans({'%name%': user.fullName})
-    } %}
+        {%  set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': user.fullName}] ]) %}
         <admin-toolbar
             :menu="{{ sidebarmenu() }}"
             user="{{user|default()}}"
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
-            labels="{{ labels|json_encode() }}"
+            labels='{{ labels }}'
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->
