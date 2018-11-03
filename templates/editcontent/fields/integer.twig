@@ -1,6 +1,5 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
 {% block field %}
-    <label>{{ label }}</label>
     <input name="{{ name }}" placeholder="…" type="number" step="1" value="{{ value }}" class="{{ class }}" {{ attributes|default()|raw }}>
 {% endblock %}

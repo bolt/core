@@ -198,9 +198,10 @@ showcases:
             label: "This is a checkbox"
             group: other
         datetime:
-            type: datetime
+            type: date
             default: "2000-01-01"
             variant: inline
+            mode: datetime
         date:
             type: date
             default: "first day of last month"

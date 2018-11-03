@@ -1,6 +1,5 @@
 <template>
-  <div class="form-group">
-    <label>{{ label }}</label>
+  <div>
     <input
       class="form-control" 
       :class="type"

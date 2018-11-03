@@ -1,6 +1,5 @@
 <template>
-  <div class="form-group">
-    <label>{{ label }}</label>
+  <div>
     <trumbowyg :id="name" :name="name" v-model="val" :config="config" ></trumbowyg>
   </div>
 </template>

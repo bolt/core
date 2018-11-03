@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="form-group field__image"
+    class="field__image"
     @dragenter="onDragEnter"
     @dragleave="onDragLeave"
     @dragover.prevent
@@ -13,7 +13,6 @@
     </transition>
     <div class="row">
       <div class="col-8">
-        <label>{{ label }}</label>
         <div class="input-group mb-3">
           <input :name="name + '[alt]'" type="text" class="form-control" placeholder="alt text" :value="alt">
         </div>

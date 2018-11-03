@@ -386,7 +386,7 @@
       </notes>
       <segment>
         <source>about.bolt_documentation</source>
-        <target>Bolt documentation</target>
+        <target>Bolt Documentation</target>
       </segment>
     </unit>
     <unit id="FO7zDub" name="about.bolt_on_github">
@@ -848,13 +848,25 @@
     <unit id="KfVJho2" name="action.create_new">
       <segment>
         <source>action.create_new</source>
-        <target>Create new …</target>
+        <target>Create new</target>
       </segment>
     </unit>
     <unit id="b_RPpcB" name="general.greeting">
       <segment>
         <source>general.greeting</source>
         <target>Hey, %name%!</target>
+      </segment>
+    </unit>
+    <unit id="bmdn3u9" name="action.logout">
+      <segment>
+        <source>action.logout</source>
+        <target>Logout</target>
+      </segment>
+    </unit>
+    <unit id="zOfpTLD" name="action.edit_profile">
+      <segment>
+        <source>action.edit_profile</source>
+        <target>Edit Profile</target>
       </segment>
     </unit>
   </file>
