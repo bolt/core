@@ -10,11 +10,11 @@
       </svg>
       <ul class="toolbar--menu">
         <li><a href="https://bolt.cm/" target="_blank">bolt.cm</a></li>     
-        <li><a href="https://docs.bolt.cm/" target="_blank">Bolt Documentation</a></li>      
+        <li><a href="https://docs.bolt.cm/" target="_blank">{{labels['about.bolt_documentation']}}</a></li>      
       </ul>
     </div>
     <div class="toolbar--item is-new">
-      <i class="fas fa-magic mr-2"></i>Create New
+      <i class="fas fa-magic mr-2"></i>{{labels['action.create_new']}}
       <ul class="toolbar--menu">
         <li 
           v-for="(item, index) in createMenu" 
@@ -26,13 +26,22 @@
       </ul>
     </div>
     <div class="toolbar--item is-site">
-      <a href="/" target="_blank"><i class="fas fa-globe-americas mr-2"></i>{{siteName}}</a>
+      <i class="fas fa-globe-americas mr-2"></i>{{siteName}}
+      <ul class="toolbar--menu">
+        <li>
+          <a href="/" target="_blank">{{labels['action.visit_site']}}</a>
+        </li>            
+      </ul>
     </div>
     <div class="toolbar--item is-profile">
-      <i class="fas fa-user mr-2"></i>Hey {{user}}
+      <i class="fas fa-user mr-2"></i>{{labels['general.greeting']}}
       <ul class="toolbar--menu">
-        <li><a href="/bolt/profile-edit">Edit Profile</a></li>    
-        <li><a href="/bolt/logout">Logout</a></li>         
+        <li>
+          <a href="/bolt/profile-edit">{{labels['action.edit_profile']}}</a>
+        </li>    
+        <li>
+          <a href="/bolt/logout">{{labels['action.logout']}}</a>
+        </li>         
       </ul>
     </div>
   </div>
@@ -43,15 +52,13 @@ const tinycolor = require("tinycolor2");
 
 module.exports = {
   name: "admin-toolbar",
-  props: ["siteName", "menu", "user"],
+  props: ["siteName", "menu", "labels"],
+  mounted(){
+    console.log(this.labels);
+  },
   data: () => {
     return {
-      get token() {
-        return localStorage.getItem('token') || 0;
-      },
-      set token(value) {
-        localStorage.setItem('token', value);
-      }
+      label: {}
     };
   },
   computed:{

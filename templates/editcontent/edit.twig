@@ -38,15 +38,20 @@
   {% for group in groups %}
     <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}-tab" role="tabpanel" aria-labelledby="{{group|slug}}-tab-link">
       {% for key, fielddefinition in record.definition.fields %}
-          {% set type = fielddefinition.type %}
-          {% set field = record.field(key) %}
-          {% set fieldgroup = fielddefinition.group %}
-          {% if not field %}
-              {% set field = fieldfactory(key, fielddefinition) %}
-          {% endif %}
-          {% if fieldgroup == group %}
-            {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field} %}
-          {% endif %}
+
+        {% set type         = fielddefinition.type %}
+        {# {% set variant      = fielddefinition.variant %}
+        {% set mode         = fielddefinition.mode|default(null) %} #}
+        {% set field        = record.field(key) %}
+        {% set fieldgroup   = fielddefinition.group %}
+
+        {% if not field %}
+            {% set field = fieldfactory(key, fielddefinition) %}
+        {% endif %}
+        {% if fieldgroup == group %}
+          {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field, 'define': fielddefinition} %}
+        {% endif %}
+        
       {% endfor %}
     </div>
   {% endfor %}
@@ -62,6 +67,7 @@
 {% endblock %}
 
 {% block aside %}
+
 <div id="metadata" class="card">
     <div class="card-header">
         Meta information
@@ -83,34 +89,36 @@
 
             {#<input type="text" name="author" value="{{ record.author }}">#}
 
-            {% include '@bolt/editcontent/fields/datetime.twig' with {
+            {% include '@bolt/editcontent/fields/date.twig' with {
                 'label': 'field.createdAt'|trans,
                 'name': 'createdAt',
                 'value': record.createdAt,
-                'readonly': true,
+                'disabled': true,
+                'mode': 'datetime',
                 'form': 'editcontent'
             } %}
 
-            {% include '@bolt/editcontent/fields/datetime.twig' with {
+            {% include '@bolt/editcontent/fields/date.twig' with {
                 'label': 'field.modifiedAt'|trans,
                 'name': 'modifiedAt',
                 'value': record.modifiedAt,
-                'readonly': true,
+                'disabled': true,
+                'mode': 'datetime',
                 'form': 'editcontent'
             } %}
 
-            {% include '@bolt/editcontent/fields/datetime.twig' with {
+            {% include '@bolt/editcontent/fields/date.twig' with {
                 'label': 'field.publishedAt'|trans,
                 'name': 'publishedAt',
                 'value': record.publishedAt,
-                'readonly': false,
+                'mode': 'datetime',
                 'form': 'editcontent'
             } %}
 
-            {% include '@bolt/editcontent/fields/datetime.twig' with {
+            {% include '@bolt/editcontent/fields/date.twig' with {
                 'label': 'field.depublishedAt'|trans,
                 'name': 'depublishedAt',
-                'readonly': false,
+                'mode': 'datetime',
                 'form': 'editcontent'
             } %}
 
@@ -128,46 +136,3 @@
 </div>
 
 {% endblock aside %}
-
-{% block javascripts %}
-{{ parent( )}}
-    <!-- Javascript for fields -->
-{% for type in alltypes|unique %}
-{% include 'editcontent/javascripts/' ~ type ~ '_include.twig' ignore missing %}
-{% endfor %}
-{% for key, fielddefinition in record.definition.fields %}
-{% spaceless %}
-    {% set type = fielddefinition.type %}
-    {% set field = record.field(key) %}
-    {% if not field %}
-        {% set field = fieldfactory(key, fielddefinition) %}
-    {% endif %}
-{% endspaceless %}
-{% include 'editcontent/javascripts/' ~ type ~ '.twig' ignore missing with { 'field': field} %}
-{% endfor %}
-
-{# For the status selection #}
-    {% include '@bolt/editcontent/javascripts/select.twig' with {
-        'name': 'status',
-    } %}
-{% endblock javascripts %}
-
-
-{% block stylesheets %}
-{{ parent( )}}
-    <!-- Stylesheets for fields -->
-{% for type in alltypes|unique %}
-{% include 'editcontent/stylesheets/' ~ type ~ '_include.twig' ignore missing %}
-{% endfor %}
-{% for key, fielddefinition in record.definition.fields %}
-{% spaceless %}
-    {% set type = fielddefinition.type %}
-    {% set field = record.field(key) %}
-    {% if not field %}
-        {% set field = fieldfactory(key, fielddefinition) %}
-    {% endif %}
-{% endspaceless %}
-{% include 'editcontent/stylesheets/' ~ type ~ '.twig' ignore missing with { 'field': field} %}
-{% endfor %}
-
-{% endblock stylesheets %}

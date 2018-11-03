@@ -1,6 +1,5 @@
 <template>
-  <div class="form-group">
-      <label>{{ label }}</label>
+  <div>
       <select class="selectize form-control" :id="id" :name="fieldName" :form="form">
         <option 
           v-for="(option, index) in selectOptions" 

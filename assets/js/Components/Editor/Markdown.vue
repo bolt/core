@@ -1,6 +1,5 @@
 <template>
-  <div class="form-group">
-      <label>{{ label }}</label>
+  <div>
       <markdown-editor :name="name" :id="name" v-model="val" :configs="config"></markdown-editor>
   </div>
 </template>

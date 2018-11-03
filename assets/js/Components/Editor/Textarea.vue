@@ -1,8 +1,7 @@
 <template>
-  <div class="form-group">
-      <label>{{ label }}</label>
+  <div>
       <textarea 
-        class="form-control"
+        class="form-control field--textarea"
         :name="name" 
         v-model="val"
         rows="10"
@@ -19,9 +18,3 @@ export default {
   mixins: [field],
 };
 </script>
-
-<style scoped>
-  textarea {
-    resize: vertical;
-  }
-</style>

@@ -1,24 +1,22 @@
 <template>
-  <div class="form-group">
-    <label>{{ label }}</label>
+  <div>
       <div class="input-group">
         <flat-pickr
           v-model="val"
           :config="config"                                                          
-          class="form-control" 
+          class="form-control editor--date" 
           placeholder="Select date" 
           :name="name"              
-          :readonly="readonly"
           :form="form"
-          :disabled="readonly == 1"
+          :disabled="disabled == 1"
         >
         </flat-pickr>
         <div class="input-group-append">
           <button 
             class="btn btn-secondary"
-            :class="{'btn-outline-secondary': readonly == 1}" 
+            :class="{'btn-outline-secondary': disabled == 1}" 
             type="button"
-            :disabled="readonly == 1" 
+            :disabled="disabled == 1" 
             data-toggle>
             <i class="fa fa-calendar">
               <span aria-hidden="true" class="sr-only">Toggle</span>
@@ -32,23 +30,38 @@
 <script>
 import field from '../../helpers/mixins/fieldValue';
 import flatPickr from 'vue-flatpickr-component';
-// import 'flatpickr/dist/flatpickr.css';
+import { Spanish } from "flatpickr/dist/l10n/es.js"
+import { resolve } from 'path';
 
 export default {
-  name: "editor-datetime",
-  props: ['value', 'label', 'name', 'readonly', 'form'],
+  name: "editor-date",
+  props: ['value', 'name', 'disabled', 'mode', 'form', 'locale'],
+
   mixins: [field],
   components: {
       flatPickr
   },
+  created(){
+    if(this.locale !== 'en'){
+      const lang = require(`flatpickr/dist/l10n/${this.locale}.js`).default[this.locale];
+      this.config.locale = lang;
+    }
+    if(this.mode === 'datetime'){
+      this.config.enableTime = true;
+      this.config.altFormat = `F j, Y - h:i K`;
+    }
+  },
+  mounted() {
+
+  },
   data: () => {
     return {
       config: {
-          wrap: true,
-          altFormat: 'Z',
-          altInput: true,
-          dateFormat: 'Z',
-          enableTime: true
+        wrap: true,
+        altFormat: 'F j, Y',
+        altInput: true,
+        dateFormat: 'Z',
+        enableTime: false,
       }
     }
   }
