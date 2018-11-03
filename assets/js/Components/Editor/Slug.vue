@@ -56,8 +56,18 @@ export default {
       icon: 'lock'
     };
   },
+  mounted(){
+    setTimeout(()=>{ 
+      const title = document.querySelector(`input[name='fields[${this.generate}]']`).value;
+      if(title.length <= 0){
+        this.$root.$emit('generate-from-title', true);
+      }
+    }, 0);
+    this.$root.$on('slugify-from-title', data => this.generateSlug());
+  },
   methods: {
     editSlug(){
+      this.$root.$emit('generate-from-title', false);
       if(!this.edit){
         this.edit = true;
         this.buttonText = "Edit"
@@ -74,6 +84,7 @@ export default {
       const title = document.querySelector(`input[name='fields[${this.generate}]']`).value;
       const slug = this.$options.filters.slugify(title)
       this.val = slug;
+      this.$root.$emit('generate-from-title', true);
     }
   }
 };

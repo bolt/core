@@ -1,0 +1,40 @@
+//** User | Theme
+
+.user__theme{
+  margin: $spacer 0;
+  &--themes{
+    margin: $spacer 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.theme{
+  flex: 0 0 33%;
+  padding: 0 $spacer / 2;
+  margin-bottom: $spacer;
+  &--name{
+    font-size: 100%;
+    font-weight: $font-weight-bold;
+  }
+  &--palette{
+    background: var(--body-300);
+    border-radius: $border-radius;
+    height: 25px;
+    width: 100%;
+    display: flex;
+    box-shadow: $card-box-shadow;
+    span{
+      height: 100%;
+      flex: auto;
+      &:first-child{
+        border-radius: $border-radius 0 0 $border-radius;
+      }
+      &:last-child{
+        border-radius: 0 $border-radius $border-radius 0;
+      }
+    }
+  }
+}

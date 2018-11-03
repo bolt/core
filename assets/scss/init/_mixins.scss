@@ -25,7 +25,7 @@
   // focus
   &:focus,
   &.focus {
-    box-shadow: 0 0 0 $btn-focus-width var(--#{$color}-300);
+    box-shadow: 0 0 0 $input-btn-focus-width var(--#{$color}-200);     
   }
 
   // disabled
@@ -41,7 +41,7 @@
     background-color: var(--#{$color}-600);
     border-color: var(--#{$color}-600);
     &:focus {
-      box-shadow: 0 0 0 $btn-focus-width var(--#{$color}-300);
+      box-shadow: 0 0 0 $input-btn-focus-width var(--#{$color}-200);
     }
   }
 }
@@ -59,7 +59,7 @@
   // focus
   &:focus,
   &.focus{
-    box-shadow: 0 0 0 $btn-focus-width var(--#{$color}-300);
+    box-shadow: 0 0 0 $btn-focus-width var(--#{$color}-200);
   }
 
   // disabled
@@ -88,7 +88,7 @@
   --#{$color}-s: #{$s};
   --#{$color}-l: #{$l};
   --#{$color}-100: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 2.3));
-  --#{$color}-200: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 2));
+  --#{$color}-200: hsl(var(--#{$color}-h), calc(var(--#{$color}-s) / 1.75), calc(var(--#{$color}-l) * 2.2));
   --#{$color}-300: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 1.75));
   --#{$color}-400: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 1.25));
   --#{$color}: hsl(var(--#{$color}-h), var(--#{$color}-s), var(--#{$color}-l));

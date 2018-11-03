@@ -37,6 +37,9 @@
     i{
       font-size: 120%;
     }
+    a:hover{
+      text-decoration: none;
+    }
     &.is-brand{
       svg {
         height: $admin-toolbar-height / 1.5;
@@ -44,13 +47,17 @@
 
       }
     }
-    &.is-profile{
-      margin-left: auto;
-      padding: 0 $spacer;
+    &.is-site, &.is-profile{
       .toolbar--menu{
         left: auto;
         right: 0;
       }
+    }
+    &.is-site{
+      margin-left: auto;
+    }
+    &.is-profile{
+      padding: 0 $spacer;
     }
     &:hover{
       opacity: 1;
