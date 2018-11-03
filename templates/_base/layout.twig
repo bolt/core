@@ -57,7 +57,11 @@
     <div class="admin__body" id="{% block container %}content{% endblock %}">
         <div class="container">
             <div class="admin__body--container">
+
+                <div class="admin__body--flashes">
                 {{ include('_partials/_flash_messages.twig') }}
+                </div>
+
                 <main class="admin__body--main">
                     {% block main %}
                     {% endblock %}
