@@ -40,7 +40,7 @@
     <br>
 
 
-<form method="post" id="media_edit">
+<form method="post" id="editcontent">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('media_edit') }}">
 
     {% include '@bolt/editcontent/fields/text.twig' with {
@@ -70,8 +70,6 @@
 
 
     <input type="submit" class="btn btn-primary" value="Save">
-
-    {{ dump(media) }}
 
 </form>
 

@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
-use Bolt\Twig\Runtime;
+use Bolt\Utils\Markdown;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 /**
  * HTML functionality Twig extension.
  */
 class HtmlExtension extends AbstractExtension
 {
+    private $parser;
+
+    public function __construct(Markdown $parser)
+    {
+        $this->parser = $parser;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -23,7 +29,7 @@ class HtmlExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('markdown', [Runtime\HtmlRuntime::class, 'dummy'], $safe),
+            new TwigFilter('markdown', [$this, 'markdown'], $safe),
         ];
     }
 
@@ -36,8 +42,15 @@ class HtmlExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFilter('markdown', [Runtime\HtmlRuntime::class, 'dummy'], $safe),
-            new TwigFilter('twig', [Runtime\HtmlRuntime::class, 'twig'], $env + $safe),
+            new TwigFilter('markdown', [$this, 'markdown'], $safe),
         ];
+    }
+
+    /**
+     * Transforms the given Markdown content into HTML content.
+     */
+    public function markdown(string $content): string
+    {
+        return $this->parser->toHtml($content);
     }
 }

@@ -61,9 +61,17 @@ $admin-header-height: 70px;
     &--container{
       display: grid;
       grid-template-columns:  auto $admin-sidebar-width * 1.25;
-      grid-template-areas:    "main aside";
+      grid-template-areas:    "flashes aside"
+                              "main    aside";
       padding: $spacer * 2;
     }
+
+    &--flashes{
+      grid-area: flashes;
+      min-width: 0;
+      padding-right: $spacer * 2;
+    }
+
 
     &--main{
       grid-area: main;
