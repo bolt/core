@@ -18,7 +18,7 @@ class Str extends \Bolt\Common\Str
      *
      * @return string
      */
-    public static function makeSafe($str, $strict = false, $extrachars = '')
+    public static function makeSafe(string $str, bool $strict = false, string $extrachars = ''): string
     {
         $str = str_replace('&amp;', '', $str);
 
@@ -42,6 +42,13 @@ class Str extends \Bolt\Common\Str
         }
 
         return $str;
+    }
+
+    public static function slug(string $str): string
+    {
+        $slugify = Slugify::create();
+
+        return $slugify->slugify($str);
     }
 
     /**

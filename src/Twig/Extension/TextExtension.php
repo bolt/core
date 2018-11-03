@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig\Extension;
 
+use Bolt\Helpers\Str;
 use Bolt\Twig\Runtime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -22,8 +23,18 @@ class TextExtension extends AbstractExtension
 
         return [
             new TwigFilter('json_decode', [Runtime\TextRuntime::class, 'dummy']),
-            new TwigFilter('safestring', [Runtime\TextRuntime::class, 'dummy'], $safe),
-            new TwigFilter('slug', [Runtime\TextRuntime::class, 'dummy']),
+            new TwigFilter('safestring', [$this, 'safeString']),
+            new TwigFilter('slug', [$this, 'slug']),
         ];
     }
+
+    public function safeString($str, $strict = false, $extrachars = '')
+    {
+        return Str::makeSafe($str, $strict, $extrachars);
+    }
+
+    public function slug($str): string
+    {
+        return Str::slug((string) $str);
+    }    
 }
