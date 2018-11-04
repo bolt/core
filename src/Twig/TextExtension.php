@@ -22,7 +22,7 @@ class TextExtension extends AbstractExtension
         $safe = ['is_safe' => ['html']];
 
         return [
-            new TwigFilter('json_decode', [Runtime\TextRuntime::class, 'dummy']),
+            new TwigFilter('json_decode', [$this, 'dummy']),
             new TwigFilter('safestring', [$this, 'safeString']),
             new TwigFilter('slug', [$this, 'slug']),
         ];
@@ -36,5 +36,10 @@ class TextExtension extends AbstractExtension
     public function slug($str): string
     {
         return Str::slug((string) $str);
-    }    
+    }
+
+    public function dummy($input = null)
+    {
+        return $input;
+    }
 }

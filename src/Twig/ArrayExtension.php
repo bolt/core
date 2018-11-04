@@ -2,14 +2,48 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig\Runtime;
+namespace Bolt\Twig\Extension;
 
-class ArrayRuntime
+use Bolt\Twig\Runtime;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
+
+/**
+ * Bolt specific Twig functions and filters that provide array manipulation.
+ *
+ * @internal
+ */
+class ArrayExtension extends AbstractExtension
 {
+
     private $orderOn;
     private $orderAscending;
     private $orderOnSecondary;
     private $orderAscendingSecondary;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFunctions()
+    {
+        $safe = ['is_safe' => ['html']];
+
+        return [
+            new TwigFunction('unique', [$this, 'unique'], $safe),
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFilters()
+    {
+        return [
+            new TwigFilter('order', [$this, 'order']),
+            new TwigFilter('shuffle', [$this, 'shuffle']),
+        ];
+    }
 
     public function dummy($input = null)
     {

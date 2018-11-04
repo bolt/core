@@ -19,8 +19,13 @@ class RoutingExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('canonical', [Runtime\RoutingRuntime::class, 'dummy']),
-            new TwigFunction('htmllang', [Runtime\RoutingRuntime::class, 'dummy']),
+            new TwigFunction('canonical', [$this, 'dummy']),
+            new TwigFunction('htmllang', [$this, 'dummy']),
         ];
+    }
+
+    public function dummy($input = null)
+    {
+        return $input;
     }
 }

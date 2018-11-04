@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig\Extension;
 
 use Bolt\Twig\Runtime;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -22,10 +23,15 @@ class WidgetExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('countwidgets', [Runtime\WidgetRuntime::class, 'dummy'], $safe + $env),
-            new TwigFunction('getwidgets', [Runtime\WidgetRuntime::class, 'dummy'], $safe),
-            new TwigFunction('haswidgets', [Runtime\WidgetRuntime::class, 'dummy'], $safe + $env),
-            new TwigFunction('widgets', [Runtime\WidgetRuntime::class, 'dummy'], $safe + $env),
+            new TwigFunction('countwidgets', [$this, 'dummy'], $safe + $env),
+            new TwigFunction('getwidgets', [$this, 'dummy'], $safe),
+            new TwigFunction('haswidgets', [$this, 'dummy'], $safe + $env),
+            new TwigFunction('widgets', [$this, 'dummy'], $safe + $env),
         ];
+    }
+
+    public function dummy(Environment $env, $input = null)
+    {
+        return $input;
     }
 }
