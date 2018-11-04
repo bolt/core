@@ -49,5 +49,11 @@
         <target>Editar Perfil</target>
       </segment>
     </unit>
+    <unit id="N_0yRcH" name="action.close_alert">
+      <segment>
+        <source>action.close_alert</source>
+        <target>Cerrar</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
