@@ -84,7 +84,10 @@ export default {
       const slug = this.$options.filters.slugify(title);
       this.val = slug;
       this.$root.$emit('generate-from-title', true);
-      return this.editSlug()
+
+      this.edit = false;
+      this.buttonText = "Locked"
+      this.icon = 'lock'
     }
   }
 };
