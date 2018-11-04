@@ -24,7 +24,7 @@ Encore
   .enableSassLoader()
   .enablePostCssLoader()
 
-  .addPlugin(new WebpackBar())
+  // .addPlugin(new WebpackBar())
 
   if(Encore.isProduction()){
     Encore.configureFilenames({

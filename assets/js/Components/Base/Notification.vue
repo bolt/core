@@ -10,7 +10,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   name: "bolt-notification",
   props: ["message", "type", "time", "labels"],
   mounted(){
