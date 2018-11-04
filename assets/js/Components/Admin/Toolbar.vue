@@ -50,7 +50,7 @@
 <script>
 const tinycolor = require("tinycolor2");
 
-module.exports = {
+export default {
   name: "admin-toolbar",
   props: ["siteName", "menu", "labels"],
   data: () => {
