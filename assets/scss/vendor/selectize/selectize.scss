@@ -1,3 +1,15 @@
 //** Selectize Theme
 @import '_variables.scss';
 @import "~selectize-bootstrap4-theme/scss/selectize.bootstrap4";
+
+.form-control {
+  &.selectize-control {
+    &.single {
+      &:after {
+        border-width: 0.4rem 0.3rem 0;
+        margin-top: 0;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

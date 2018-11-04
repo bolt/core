@@ -1,11 +1,12 @@
+{%  set labels = jsonlabels(['action.close_alert']) %}
 
 {% for type, messages in app.flashes %}
     {% for message in messages %}
-        <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
-            {{ message|trans }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        <bolt-notification 
+          type="{{ type }}" 
+          message="{{ message|trans }}" 
+          :labels="{{ labels|json_decode }}"
+          :time="3000"
+        ></bolt-notification>
     {% endfor %}
 {% endfor %}

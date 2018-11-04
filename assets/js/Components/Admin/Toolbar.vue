@@ -53,9 +53,6 @@ const tinycolor = require("tinycolor2");
 module.exports = {
   name: "admin-toolbar",
   props: ["siteName", "menu", "labels"],
-  mounted(){
-    console.log(this.labels);
-  },
   data: () => {
     return {
       label: {}
