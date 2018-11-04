@@ -43,7 +43,6 @@
         </div>
       </div>
       <div class="col-4">
-        <label>Preview:</label>
         <div class="field__image--preview">
           <a 
             :href="previewImage" 

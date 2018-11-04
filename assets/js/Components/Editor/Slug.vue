@@ -81,9 +81,13 @@ export default {
     },
     generateSlug(){
       const title = document.querySelector(`input[name='fields[${this.generate}]']`).value;
-      const slug = this.$options.filters.slugify(title)
+      const slug = this.$options.filters.slugify(title);
       this.val = slug;
       this.$root.$emit('generate-from-title', true);
+
+      this.edit = false;
+      this.buttonText = "Locked"
+      this.icon = 'lock'
     }
   }
 };

@@ -15,6 +15,7 @@ import Image from "../Components/Editor/Image";
  */
 import Label from "../Components/Editor/Partials/Label";
 /**
+ * 
  * Register Components
  */
 Vue.component("editor-text", Text);

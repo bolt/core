@@ -37,7 +37,7 @@ import "./Views/admin";
 import "./Views/listing";
 import "./Views/editor";
 import "./Views/user";
-
+import "./Views/notifications";
 /**
  * Styling
  */
