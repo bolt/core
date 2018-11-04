@@ -24,7 +24,7 @@
 </template>
 
 <script>
-module.exports = {
+export default {
   name: "listing-filter",
   mounted() {
     const size = localStorage.getItem('listing-row-size');
