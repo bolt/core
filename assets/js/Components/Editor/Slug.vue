@@ -7,7 +7,8 @@
         <input 
           :name="name" 
           placeholder="…" 
-          type="text" 
+          type="text"
+          class="form-control" 
           :class="fieldClass" 
           :readonly="!edit"
           v-model="val"

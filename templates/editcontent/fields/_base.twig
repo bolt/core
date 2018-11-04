@@ -29,7 +29,8 @@
 {% if not class|default() %}
     {% set class = field.definition.class|default() %}
 {% endif %}
-{% set class = "form-control " ~ class %}
+
+{% set class = class %}
 
 
 {# Set the label #}

@@ -1,8 +1,8 @@
 <template>
   <div>
     <input
-      class="form-control" 
-      :class="type"
+      class="form-control"
+      :class="getType"
       :name="name" 
       placeholder="…" 
       type="text" 
@@ -30,6 +30,13 @@ export default {
     val(){
       if(this.generate){
         this.$root.$emit('slugify-from-title');
+      }
+    }
+  },
+  computed:{
+    getType(){
+      if(this.type === 'large'){
+        return 'form-control-lg'
       }
     }
   }
