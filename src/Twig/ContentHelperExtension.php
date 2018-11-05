@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig\Extension;
+namespace Bolt\Twig;
 
 use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
-use Bolt\Twig\Runtime;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -101,7 +100,6 @@ class ContentHelperExtension extends AbstractExtension
 
         return json_encode($result);
     }
-
 
     public function selectoptionsfromarray(Field $field)
     {

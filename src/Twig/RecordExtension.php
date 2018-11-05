@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig\Extension;
+namespace Bolt\Twig;
 
 use Bolt\Helpers\Excerpt;
-use Bolt\Twig\Runtime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -55,7 +54,8 @@ class RecordExtension extends AbstractExtension
 
     /**
      * @param $text
-     * @param integer $length
+     * @param int $length
+     *
      * @return string
      */
     public function excerpt($text, $length = 100): string
