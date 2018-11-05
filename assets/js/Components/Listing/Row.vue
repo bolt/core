@@ -1,6 +1,13 @@
 <template>
-  <transition-group :name="size !== 'large' ? 'quickeditor':null" tag="div" class="listing--container">
+  <transition-group name="quickeditor" tag="div" class="listing--container" :class="{'is-dahsboard': type === 'dashboard'}">
     
+    <!-- check box -->
+    <row-checkbox
+      v-if="type !== 'dashboard'"
+      :record-id="recordId" 
+      key="select"
+    ></row-checkbox>
+
     <!-- row -->
     <div 
       v-if="!quickEditor"
@@ -12,7 +19,7 @@
       <div
         class="listing__row--item is-thumbnail" 
         :style="`background-image: url(${thumbnail})`"
-        v-if="size === 'normal' || size === 'large'"
+        v-if="size === 'normal'"
       ></div>
       <!-- end column -->
 
@@ -25,6 +32,7 @@
 
       <!-- column meta -->
       <row-meta 
+        :type="type"
         :record-id="recordId" 
         :definition="definition" 
         :date="date" 
@@ -55,24 +63,26 @@
 
     <!-- quick editor -->
     <row-quick-editor 
-      v-if="quickEditor || size === 'large'" 
+      v-if="quickEditor" 
       @quickeditor="quickEditor = $event" 
       :size="size"
-      key="test"
+      key="quickeditor"
     ></row-quick-editor>
 
   </transition-group>
 </template>
 
 <script>
+import Checkbox from './Row/_Checkbox';
 import QuickEditor from './Row/_QuickEditor';
 import Actions from './Row/_Actions';
 import Meta from './Row/_Meta';
 
 export default {
   name: "listing-row",
-  props: ["recordId", "definition", "excerpt", "date", "status", "thumbnail", "author"],
+  props: ["type", "recordId", "definition", "excerpt", "date", "status", "thumbnail", "author"],
   components: {
+    "row-checkbox":       Checkbox,
     "row-quick-editor":   QuickEditor,
     "row-meta":           Meta,
     "row-actions":        Actions

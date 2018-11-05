@@ -33,6 +33,9 @@
         margin-left: auto;
       }
     }
+    .custom-control{
+      margin-left: $spacer / 4;
+    }
     .control--button{
       transition: $transition-base;
       color: var(--shade);

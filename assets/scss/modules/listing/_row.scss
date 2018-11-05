@@ -1,24 +1,60 @@
 //** Lisitng | Row
 
+$checkbox-row-width: 30px;
+
+.listing--container{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  &.sortable-ghost{
+    opacity: 0.1;
+  }
+  &.is-dashboard{
+    .listing__row, .quickedit__row{
+      width: 100%;
+    } 
+  }
+  .listing__row, .quickedit__row{
+    width: calc(100% - #{$checkbox-row-width});
+  }
+}
+
+.listing--checkbox{
+  width: $checkbox-row-width;
+  .custom-control{
+    position: relative;
+    height: calc(100% - #{$spacer} / 1.25);
+    padding: 0;
+    .custom-control-label {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      &:hover{
+        cursor: pointer;
+      }
+      &:before, &:after{
+        left: $spacer / 4;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
 .listing__row{
   box-shadow: $card-box-shadow;
   background: var(--foreground);
   border-radius: $border-radius;
   margin-bottom: $spacer / 1.25;
   min-height: 50px;
+  z-index: 100;
   display: flex;
+  flex: auto;
   justify-content: space-between;
-  width: 100%;
   position: relative;
-  transition: all 0.15s ease-in-out;
-  &.is-large{
-    border-radius: $border-radius $border-radius 0 0;
-    .listing__row--item{
-      &.is-thumbnail{
-        border-radius: $border-radius 0 0 0;
-      }
-    }
-  }
   &.is-small{
     .listing__row--item{
       display: flex;
@@ -87,6 +123,7 @@
       background: var(--shade-100);
       display: flex;
       align-items: center;
+      border-radius: 0 $border-radius $border-radius 0;
     }
   }
   &--list{
@@ -149,24 +186,13 @@
   min-height: 200px;
   box-shadow: $card-box-shadow;
   display: flex;
+  z-index: 99;
   justify-content: space-between;
   flex-direction: column;
   background: var(--foreground);
   margin-bottom: $spacer / 1.25;
   border-radius: $border-radius;
-  transition: all 0.15s ease-in-out;
-  width: 100%;
-  &.is-large{
-    border-radius: 0 0 $border-radius $border-radius;
-    min-height: 150px;
-    margin-top: -$spacer;
-    margin-bottom: $spacer;
-    .quickedit__row--item{
-      &.is-actions{
-        justify-content: flex-end;
-      }
-    }
-  }
+  position: relative;
   &--item{
     padding: $spacer;
     &.is-content{
@@ -182,14 +208,6 @@
   }
 }
 
-.listing--container{
-  position: relative;
-  overflow: hidden;
-  &.sortable-ghost{
-    opacity: 0.1;
-  }
-}
-
 .quickeditor-enter-active, .quickeditor-leave-active { 
   transition: transform 0.45s, opacity 0.25s; 
 }
@@ -199,4 +217,5 @@
   transform: translateY(30px);
   transform-origin: top;
   position: absolute;
+  right: 0;
 }

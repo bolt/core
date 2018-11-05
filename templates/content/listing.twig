@@ -10,11 +10,11 @@
     {% endif %}
 {% endblock %}
 
-{% block body_id 'user_edit' %}
+{% block vue_id 'listing' %}
 
 {% block main %}
-    <div id="listing">
-        {% include '@bolt/_partials/_content_listing.twig' with {'records': records } %}
+    <div>
+        {% include '@bolt/_partials/_content_listing.twig' with {'records': records, 'type': 'contenttype'  } %}
     </div>
 {% endblock %}
 

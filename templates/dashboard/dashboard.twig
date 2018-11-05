@@ -6,7 +6,7 @@
 
 {% block main %}
   <div id="listing">
-    {% include '@bolt/_partials/_content_listing.twig' with {'records': records } %}
+    {% include '@bolt/_partials/_content_listing.twig' with {'records': records, 'type': 'dashboard' } %}
   </div>
 {% endblock %}
 

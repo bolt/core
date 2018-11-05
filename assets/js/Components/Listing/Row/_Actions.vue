@@ -16,7 +16,7 @@
             </div>
           </a>
        </li>
-       <li v-if="size !== 'large'">    
+       <li>    
          <button @click="quickEditor()" type="button" class="listing--actions--quickedit"><i class="far fa-caret-square-down mr-1"></i>Quick Edit</button>
         </li>
      </ul>
