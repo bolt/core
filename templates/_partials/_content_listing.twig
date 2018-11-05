@@ -1,11 +1,14 @@
 
 {% if records %}
     <nav class="listing__filter">
-      <listing-filter></listing-filter>
+      <listing-filter
+        type="{{ type }}"
+      ></listing-filter>
     </nav>
     <draggable :options="{handle:'.listing__row--move', animation: 0}">
         {% for record in records %}
           <listing-row
+            type="{{ type }}"
             :record-id="'{{ record.id }}'"
             :definition="{{ record.definition|json_encode() }}"
             :excerpt="{{ record.excerpt(150, true)|json_encode() }}"

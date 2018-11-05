@@ -30,8 +30,11 @@
         margin-right: 0;
       }
       &.control--left{
-        margin-right: auto;
+        margin-left: auto;
       }
+    }
+    .custom-control{
+      margin-left: $spacer / 4;
     }
     .control--button{
       transition: $transition-base;
@@ -40,6 +43,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      min-width: 30px;
       background: var(--foreground);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;

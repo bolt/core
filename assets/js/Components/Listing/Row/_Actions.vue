@@ -26,7 +26,7 @@
 <script>
   export default {
     name: "actions",
-    props: ["recordId"],
+    props: ["recordId", "size"],
     methods:{
       quickEditor(){
         this.$emit('quickeditor', true);
