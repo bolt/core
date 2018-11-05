@@ -30,7 +30,7 @@
         margin-right: 0;
       }
       &.control--left{
-        margin-right: auto;
+        margin-left: auto;
       }
     }
     .control--button{
@@ -40,6 +40,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      min-width: 30px;
       background: var(--foreground);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;

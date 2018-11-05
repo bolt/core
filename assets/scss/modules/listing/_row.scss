@@ -10,8 +10,14 @@
   justify-content: space-between;
   width: 100%;
   position: relative;
-  &.sortable-ghost{
-    opacity: 0.1;
+  transition: all 0.15s ease-in-out;
+  &.is-large{
+    border-radius: $border-radius $border-radius 0 0;
+    .listing__row--item{
+      &.is-thumbnail{
+        border-radius: $border-radius 0 0 0;
+      }
+    }
   }
   &.is-small{
     .listing__row--item{
@@ -141,12 +147,26 @@
 
 .quickedit__row{
   min-height: 200px;
+  box-shadow: $card-box-shadow;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   background: var(--foreground);
   margin-bottom: $spacer / 1.25;
+  border-radius: $border-radius;
+  transition: all 0.15s ease-in-out;
   width: 100%;
+  &.is-large{
+    border-radius: 0 0 $border-radius $border-radius;
+    min-height: 150px;
+    margin-top: -$spacer;
+    margin-bottom: $spacer;
+    .quickedit__row--item{
+      &.is-actions{
+        justify-content: flex-end;
+      }
+    }
+  }
   &--item{
     padding: $spacer;
     &.is-content{
@@ -165,6 +185,9 @@
 .listing--container{
   position: relative;
   overflow: hidden;
+  &.sortable-ghost{
+    opacity: 0.1;
+  }
 }
 
 .quickeditor-enter-active, .quickeditor-leave-active { 

@@ -9,7 +9,7 @@ Encore
   .setPublicPath('/assets')
 
   .cleanupOutputBeforeBuild()
-  .enableSourceMaps(!Encore.isProduction())
+  // .enableSourceMaps(!Encore.isProduction())
   .enableVersioning(Encore.isProduction())
 
   .setManifestKeyPrefix('assets')
@@ -24,7 +24,10 @@ Encore
   .enableSassLoader()
   .enablePostCssLoader()
 
-  // .addPlugin(new WebpackBar())
+  .addPlugin(new WebpackBar({
+    profile: Encore.isProduction() ? true:false,
+    minimal: false
+  }))
 
   if(Encore.isProduction()){
     Encore.configureFilenames({
@@ -33,6 +36,5 @@ Encore
     })
   }
   
-
-  
 module.exports = Encore.getWebpackConfig();
+

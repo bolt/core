@@ -16,7 +16,7 @@
             </div>
           </a>
        </li>
-       <li>    
+       <li v-if="size !== 'large'">    
          <button @click="quickEditor()" type="button" class="listing--actions--quickedit"><i class="far fa-caret-square-down mr-1"></i>Quick Edit</button>
         </li>
      </ul>
@@ -26,7 +26,7 @@
 <script>
   export default {
     name: "actions",
-    props: ["recordId"],
+    props: ["recordId", "size"],
     methods:{
       quickEditor(){
         this.$emit('quickeditor', true);

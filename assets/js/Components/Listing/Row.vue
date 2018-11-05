@@ -1,5 +1,6 @@
 <template>
-  <transition-group name="quickeditor" tag="div" class="listing--container">
+  <transition-group :name="size !== 'large' ? 'quickeditor':null" tag="div" class="listing--container">
+    
     <!-- row -->
     <div 
       v-if="!quickEditor"
@@ -11,7 +12,7 @@
       <div
         class="listing__row--item is-thumbnail" 
         :style="`background-image: url(${thumbnail})`"
-        v-if="size === 'normal'"
+        v-if="size === 'normal' || size === 'large'"
       ></div>
       <!-- end column -->
 
@@ -36,6 +37,7 @@
       <!-- column actions -->
       <row-actions 
         :record-id="recordId" 
+        :size="size"
         @quickeditor="quickEditor = $event"
       ></row-actions>
       <!-- end column -->
@@ -53,8 +55,9 @@
 
     <!-- quick editor -->
     <row-quick-editor 
-      v-if="quickEditor" 
+      v-if="quickEditor || size === 'large'" 
       @quickeditor="quickEditor = $event" 
+      :size="size"
       key="test"
     ></row-quick-editor>
 
