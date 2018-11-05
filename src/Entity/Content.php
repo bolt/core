@@ -169,6 +169,33 @@ class Content
     }
 
     /**
+     * @return array
+     */
+    public function getSummary(): array
+    {
+        $summary = [
+            'title' => $this->magicTitle(),
+            'excerpt' => $this->magicexcerpt(),
+            'image' => $this->magicImage(),
+            'link' => $this->magicLink(),
+            'editlink' => $this->magicEditLink(),
+            'author' => [
+                    'id' => $this->getAuthor()->getid(),
+                    'fullName' => $this->getAuthor()->getfullName(),
+                    'username' => $this->getAuthor()->getusername(),
+                    'email' => $this->getAuthor()->getemail(),
+                    'roles' => $this->getAuthor()->getroles(),
+                ],
+            'createdAt' => $this->getCreatedAt(),
+            'modifiedAt' => $this->modifiedAt(),
+            'publishedAt' => $this->getPublishedAt(),
+            'depublishedAt' => $this->depublishedAt(),
+        ];
+
+        return $summary;
+    }
+
+    /**
      * @return string
      */
     public function getSlug(): string

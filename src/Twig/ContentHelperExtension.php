@@ -50,6 +50,7 @@ class ContentHelperExtension extends AbstractExtension
         return [
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
             new TwigFunction('jsonlabels', [$this, 'jsonlabels']),
+            new TwigFunction('jsonrecords', [$this, 'jsonrecords']),
             new TwigFunction('fieldfactory', [$this, 'fieldfactory']),
             new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
@@ -87,18 +88,39 @@ class ContentHelperExtension extends AbstractExtension
 
     /**
      * @param array $labels
+     * @param bool  $pretty
      *
      * @return string
      */
-    public function jsonlabels(array $labels): string
+    public function jsonlabels(array $labels, $pretty = false): string
     {
         $result = [];
+        $options = $pretty ? JSON_PRETTY_PRINT : 0;
+
         foreach ($labels as $label) {
             $key = is_array($label) ? $label[0] : $label;
             $result[$key] = $this->translator->trans(...(array) $label);
         }
 
-        return json_encode($result);
+        return json_encode($result, $options);
+    }
+
+    /**
+     * @param $records
+     * @param bool $pretty
+     *
+     * @return string
+     */
+    public function jsonrecords($records, $pretty = false): string
+    {
+        $result = [];
+        $options = $pretty ? JSON_PRETTY_PRINT : 0;
+
+        foreach ($records as $record) {
+            $result[] = $record->getSummary();
+        }
+
+        return json_encode($result, $options);
     }
 
     public function selectoptionsfromarray(Field $field)
