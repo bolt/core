@@ -20,6 +20,11 @@
 
 {% block aside %}
 
+    <listing-selected-box
+      ct="{{ contenttype.name }}"
+      ct-singular="{{ contenttype.singular_name }}"
+    ></listing-selected-box>
+
     <div class="card">
         <div class="card-header">
             {{ 'title.contentlisting'|trans }}

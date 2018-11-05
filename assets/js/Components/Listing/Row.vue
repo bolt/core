@@ -1,5 +1,5 @@
 <template>
-  <transition-group name="quickeditor" tag="div" class="listing--container" :class="{'is-dahsboard': type === 'dashboard'}">
+  <transition-group name="quickeditor" tag="div" class="listing--container" :class="{'is-dashboard': type === 'dashboard'}">
     
     <!-- check box -->
     <row-checkbox

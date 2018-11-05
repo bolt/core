@@ -32,9 +32,6 @@ $checkbox-row-width: 30px;
       top: 0;
       width: 100%;
       height: 100%;
-      &:hover{
-        cursor: pointer;
-      }
       &:before, &:after{
         left: $spacer / 4;
         top: 50%;
@@ -184,6 +181,7 @@ $checkbox-row-width: 30px;
 
 .quickedit__row{
   min-height: 200px;
+  flex: auto;
   box-shadow: $card-box-shadow;
   display: flex;
   z-index: 99;

@@ -22,9 +22,9 @@
     watch: {
       selected(){
         if(this.selected){
-
+          this.$root.$emit('listing-row-selected', this.recordId);
         } else {
-
+          this.$root.$emit('listing-row-unselected', this.recordId);
         }
       }
     },
@@ -33,9 +33,7 @@
         let selected = this.selected;
         if(selected){
           selected = true
-          this.$root.$emit('listing-row-selected', this.recordId);
         } else {
-          this.$root.$emit('listing-row-unselected', this.recordId);
           selected = false
         }
       },
