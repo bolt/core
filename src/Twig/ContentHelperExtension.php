@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig\Extension;
+namespace Bolt\Twig;
 
 use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
-use Bolt\Twig\Runtime;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -52,7 +51,7 @@ class ContentHelperExtension extends AbstractExtension
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
             new TwigFunction('jsonlabels', [$this, 'jsonlabels']),
             new TwigFunction('fieldfactory', [$this, 'fieldfactory']),
-            new TwigFunction('selectoptionsfromarray', [Runtime\ContentHelperRuntime::class, 'selectoptionsfromarray']),
+            new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
         ];
     }
@@ -100,5 +99,35 @@ class ContentHelperExtension extends AbstractExtension
         }
 
         return json_encode($result);
+    }
+
+    public function selectoptionsfromarray(Field $field)
+    {
+        $values = $field->getDefinition()->get('values');
+        $currentValues = $field->getValue();
+
+        $options = [];
+
+        if ($field->getDefinition()->get('required', false)) {
+            $options[] = [
+                'key' => '',
+                'value' => '',
+                'selected' => false,
+            ];
+        }
+
+        if (!is_iterable($values)) {
+            return $options;
+        }
+
+        foreach ($values as $key => $value) {
+            $options[] = [
+                'key' => $key,
+                'value' => $value,
+                'selected' => in_array($key, $currentValues, true),
+            ];
+        }
+
+        return $options;
     }
 }
