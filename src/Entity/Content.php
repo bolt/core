@@ -18,7 +18,6 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ApiResource(
- *     attributes={"fetchEager": true},
  *     normalizationContext={"groups"={"public"}, "enable_max_depth"=true},
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
