@@ -129,7 +129,13 @@ trait ContentMagicTraits
 
     public function magicImage()
     {
-        return 'magic image';
+        foreach ($this->getFields() as $field) {
+            if ($field->getDefinition()->get('type') === 'image') {
+                return $field->getValue();
+            }
+        }
+
+        return null;
     }
 
     public function magicExcerpt($length = 200, $includeTitle = false, $focus = null)
