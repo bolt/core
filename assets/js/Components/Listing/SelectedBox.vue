@@ -1,19 +1,21 @@
 <template>
-  <div class="card mb-3" v-if="recordCount > 0">
-    <div class="card-header">
-      <span class="badge is-primary mr-1">{{recordCount}}</span>
-      <template v-if="recordCount === 1">{{ctSingular}}</template>
-      <template v-else>{{ct}}</template>
-      Selected
-    </div>
-    <div class="card-body">
-      <h4>selected record ids passed</h4>
-     <p><em>(these can be used with something like axios to bulk modify/delete)</em></p> 
+  <transition name="card">
+    <div class="card mb-3" v-if="recordCount > 0">
+      <div class="card-header">
+        <span class="badge is-primary mr-1">{{recordCount}}</span>
+        <template v-if="recordCount === 1">{{ctSingular}}</template>
+        <template v-else>{{ct}}</template>
+        Selected
+      </div>
+      <div class="card-body">
+        <h4>selected record ids passed</h4>
+      <p><em>(these can be used with something like axios to bulk modify/delete)</em></p> 
 <pre>
 <code>{{records}}</code>
 </pre> 
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
