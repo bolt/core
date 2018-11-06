@@ -1,5 +1,6 @@
 <template>
   <ul class="listing__filter--controls">
+    {{records}}
     <li v-if="type !== 'dashboard'">
       <div class="custom-control custom-checkbox">
           <input type="checkbox" class="custom-control-input" id="selectAll" v-model="selecting">
@@ -27,7 +28,7 @@
 <script>
 export default {
   name: "listing-filter",
-  props: ["type"],
+  props: ["type", "records"],
   mounted() {
     const size = localStorage.getItem('listing-row-size');
     if (size !== null){

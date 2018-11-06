@@ -6,6 +6,7 @@ $checkbox-row-width: 30px;
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  overflow: hidden;
   width: 100%;
   &.sortable-ghost{
     opacity: 0.1;
@@ -216,4 +217,14 @@ $checkbox-row-width: 30px;
   transform-origin: top;
   position: absolute;
   right: 0;
+}
+
+.card-enter-active, .card-leave-active { 
+  transition: all 0.25s;
+}
+
+.card-enter, .card-leave-to{
+  opacity: 0;
+  transform: translateX(30px);
+  transform-origin: right;
 }
