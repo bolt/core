@@ -7,6 +7,7 @@
         type="{{ type }}"
       ></listing-filter>
     </nav>
+
     <draggable :options="{handle:'.listing__row--move', animation: 0}">
         {% for record in records %}
           <listing-row

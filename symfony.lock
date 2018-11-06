@@ -500,6 +500,9 @@
             "ref": "5b2f0ee78c90d671860ac6450e37dec10fbc0719"
         }
     },
+    "symfony/security": {
+        "version": "v4.1.7"
+    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -570,6 +573,15 @@
             "branch": "master",
             "version": "3.3",
             "ref": "c72d107d077f1654428edaed69415d0228c1aefe"
+        }
+    },
+    "symfony/webpack-encore-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "4c97a884bc54a4e66bb2d0785ca855141880b6a8"
         }
     },
     "symfony/yaml": {
