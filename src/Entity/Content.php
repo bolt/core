@@ -14,10 +14,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"public"}},
+ *     attributes={"fetchEager": true},
+ *     normalizationContext={"groups"={"public"}, "enable_max_depth"=true},
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
@@ -89,6 +91,8 @@ class Content
 
     /**
      * @var Field[]|ArrayCollection
+     * @Groups("public")
+     * @MaxDepth(1)
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
