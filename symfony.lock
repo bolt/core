@@ -500,6 +500,9 @@
             "ref": "5b2f0ee78c90d671860ac6450e37dec10fbc0719"
         }
     },
+    "symfony/security": {
+        "version": "v4.1.7"
+    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
