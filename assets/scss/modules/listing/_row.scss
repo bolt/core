@@ -135,6 +135,7 @@ $checkbox-row-width: 30px;
       align-items: center;
       margin-bottom: $spacer / 4;
       color: var(--shade);
+      text-transform: capitalize;
     }
     i{
       color: theme-color('secondary');

@@ -5,7 +5,7 @@ import moment from 'moment'
 
 Vue.filter('date', string =>{
   if (string) {
-    return moment(String(string)).add(1,'days').format('MMMM DD, YYYY')
+    return moment(String(string)).add(1,'days').format('MMM DD, YYYY')
   }
 });
 
