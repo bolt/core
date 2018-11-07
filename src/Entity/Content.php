@@ -179,7 +179,6 @@ class Content
         $summary = [
             'id' => $this->getid(),
             'contenttype' => $this->getDefinition()->get('slug'),
-            'status' => $this->getStatus(),
             'title' => $this->magicTitle(),
             'excerpt' => $this->magicexcerpt(),
             'image' => $this->magicImage(),
@@ -192,6 +191,8 @@ class Content
                     'email' => $this->getAuthor()->getemail(),
                     'roles' => $this->getAuthor()->getroles(),
                 ],
+            'status' => $this->getStatus(),
+            'icon' => $this->getDefinition()->get('icon_one'),
             'createdAt' => $this->getCreatedAt(),
             'modifiedAt' => $this->modifiedAt(),
             'publishedAt' => $this->getPublishedAt(),
