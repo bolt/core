@@ -2,7 +2,7 @@
    <div class="listing__row--item is-actions">
      <ul class="listing--actions">
        <li>
-          <a :href="`/bolt/edit/${recordId}`" class="link">
+          <a :href="`/bolt/edit/${id}`" class="link">
             <div class="btn-group">
               <button class="btn btn-grey btn-block btn-sm" type="button">
                 <i class="far fa-edit mr-1"></i> Edit
@@ -26,7 +26,7 @@
 <script>
   export default {
     name: "actions",
-    props: ["recordId", "size"],
+    props: ["id", "size"],
     methods:{
       quickEditor(){
         this.$emit('quickeditor', true);

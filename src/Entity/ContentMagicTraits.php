@@ -138,7 +138,7 @@ trait ContentMagicTraits
         return null;
     }
 
-    public function magicExcerpt($length = 200, $includeTitle = false, $focus = null)
+    public function magicExcerpt($length = 150, $includeTitle = true, $focus = null)
     {
         $excerpter = new Excerpt($this);
         $excerpt = $excerpter->getExcerpt($length, $includeTitle, $focus);

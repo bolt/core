@@ -29,13 +29,17 @@ window.jQuery = $;
  */
 import './helpers/bootstrap';
 /**
- * Vue Components
+ * Vue Apps
  */
 import "./Views/admin";
-import "./Views/listing";
 import "./Views/editor";
 import "./Views/user";
 import "./Views/notifications";
+
+
+import "./app/listing";
+
+
 /**
  * Styling
  */

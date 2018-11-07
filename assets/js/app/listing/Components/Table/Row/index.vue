@@ -1,10 +1,10 @@
 <template>
   <transition-group name="quickeditor" tag="div" class="listing--container" :class="{'is-dashboard': type === 'dashboard'}">
-    
+
     <!-- check box -->
     <row-checkbox
       v-if="type !== 'dashboard'"
-      :record-id="recordId" 
+      :id="record.id" 
       key="select"
     ></row-checkbox>
 
@@ -15,10 +15,11 @@
       :class="`is-${size}`" 
       key="row"
     >
+
       <!-- column thumbnail -->
       <div
         class="listing__row--item is-thumbnail" 
-        :style="`background-image: url(${thumbnail})`"
+        :style="`background-image: url(${record.image.path})`"
         v-if="size === 'normal'"
       ></div>
       <!-- end column -->
@@ -26,30 +27,27 @@
       <!-- column details -->
       <div 
         class="listing__row--item is-details" 
-        v-html="excerpt"
-      ></div>
+        v-html="record.excerpt"
+      >
+      </div>
       <!-- end column -->
 
       <!-- column meta -->
       <row-meta 
         :type="type"
-        :record-id="recordId" 
-        :definition="definition" 
-        :date="date" 
-        :status="status" 
-        :author="author" 
         :size="size"
+        :meta="record"
       ></row-meta>
       <!-- end column -->
-      
+
       <!-- column actions -->
       <row-actions 
-        :record-id="recordId" 
+        :id="record.id" 
         :size="size"
         @quickeditor="quickEditor = $event"
       ></row-actions>
       <!-- end column -->
-      
+
       <!-- column sorting -->
       <button 
         v-if="sorting" 
@@ -73,32 +71,34 @@
 </template>
 
 <script>
-import Checkbox from './Row/_Checkbox';
-import QuickEditor from './Row/_QuickEditor';
-import Actions from './Row/_Actions';
-import Meta from './Row/_Meta';
+import type from '../../../mixins/type'
+import Checkbox from './_Checkbox';
+import Meta from './_Meta';
+import Actions from './_Actions';
+import QuickEditor from './_QuickEditor';
 
 export default {
-  name: "listing-row",
-  props: ["type", "recordId", "definition", "excerpt", "date", "status", "thumbnail", "author"],
+  name: "table-row",
+  props: ["record"],
+  mixins: [type],
   components: {
-    "row-checkbox":       Checkbox,
-    "row-quick-editor":   QuickEditor,
-    "row-meta":           Meta,
-    "row-actions":        Actions
-  },
-  created(){
-    this.$root.$on('listing-row-size', data => this.size = data);
-  },
-  mounted() {
-    this.$root.$on('listing-row-sorting', data => this.sorting = data);
+    "row-checkbox": Checkbox,
+    "row-meta": Meta,
+    "row-actions": Actions,
+    "row-quick-editor": QuickEditor
   },
   data: () => {
     return {
-      size: "normal",
-      sorting: false,
       quickEditor: false,
     };
   },
+  computed: {
+    size(){
+      return this.$store.getters['general/getRowSize']
+    },
+    sorting(){
+      return this.$store.getters['general/getSorting']
+    }
+  }
 };
 </script>
