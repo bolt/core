@@ -177,6 +177,9 @@ class Content
     public function getSummary(): array
     {
         $summary = [
+            'id' => $this->getid(),
+            'contenttype' => $this->getDefinition()->get('slug'),
+            'status' => $this->getStatus(),
             'title' => $this->magicTitle(),
             'excerpt' => $this->magicexcerpt(),
             'image' => $this->magicImage(),
