@@ -72,7 +72,6 @@ class MediaController extends BaseController
             'area' => $area,
             'finder' => $finder,
             'parent' => $parent,
-            'allfiles' => $areas[$area]['show_all'] ? $this->buildIndex($basepath) : false,
         ]);
     }
 
