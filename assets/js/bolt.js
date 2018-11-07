@@ -24,7 +24,10 @@ Vue.prototype.$axios = Axios;
 import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
-
+/**
+ * Helpers
+ */
+import './helpers/bootstrap';
 /**
  * Vue Components
  */

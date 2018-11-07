@@ -18,16 +18,16 @@
 {% set groups = record.definition.groups %}
 <nav>
   <ul class="nav editor__tabbar" role="tablist">
-      {% for group in groups %}
+      {% for group in groups %}        
           <li class="nav-item">
               <a
                 class="nav-item nav-link {% if loop.first %}active{% endif %}"
-                id="{{group|slug}}-tab-link"
+                id="{{group|slug}}-tab"
                 data-toggle="pill"
-                href="#{{group|slug}}-tab"
+                href="#{{group|slug}}"
                 role="tab"
                 aria-controls="{{group|slug}}"
-                aria-selected="false"
+                aria-selected="{% if loop.first %}true{%else%}false{% endif %}"
               >
               <span>{{group|capitalize}}</span></a>
           </li>
@@ -36,12 +36,10 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
   {% for group in groups %}
-    <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}-tab" role="tabpanel" aria-labelledby="{{group|slug}}-tab-link">
+    <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}" role="tabpanel" aria-labelledby="{{group|slug}}-tab">
       {% for key, fielddefinition in record.definition.fields %}
 
         {% set type         = fielddefinition.type %}
-        {# {% set variant      = fielddefinition.variant %}
-        {% set mode         = fielddefinition.mode|default(null) %} #}
         {% set field        = record.field(key) %}
         {% set fieldgroup   = fielddefinition.group %}
 
