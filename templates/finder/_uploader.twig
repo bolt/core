@@ -4,8 +4,6 @@
 <div class="card mb-4">
     <div class="card-header">{{ 'caption.file_uploader'|trans }}</div>
 
-    <script type="text/javascript" src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
-
     <form action="{{ path('bolt_upload_post', {'area': area, 'path': path}) }}" method="POST" class="dropzone" style="width:200px; height:200px; border:1px dashed crimson">
         <div class="fallback">
             <input name="file" type="file" multiple />

@@ -1,18 +1,16 @@
 {% if allfiles %}
 
 <div class="row">
-    <div class="col-2">
-        <label>{{ 'label.quick_select'|trans }}</label>
-    </div>
-    <div class="col-8">
-        <select name="quickselect" id="quickselect" placeholder="{{ 'form.quick_select_file'|trans }}">
 
-            {% for file in allfiles %}
-            <option value="{{ file.filename }}">
-                {{ file.filename }} - {{ file.description }}
-            </option>
-            {% endfor %}
-        </select>
+    <div class="col-10">
+        <div class="selectize-control selectize form-control single">
+
+            <select name="quickselect" id="quickselect" placeholder="{{ 'form.quick_select_file'|trans }}">
+
+
+            </select>
+        </div>
+
     </div>
     <div class="col-2">
         <button class="btn btn-secondary">{{ 'action.go'|trans }}</button>
