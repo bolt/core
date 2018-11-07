@@ -7,6 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
