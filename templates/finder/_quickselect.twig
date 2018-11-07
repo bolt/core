@@ -5,8 +5,7 @@
         <label>{{ 'label.quick_select'|trans }}</label>
     </div>
     <div class="col-8">
-        <select name="quickselect" id="quickselect">
-            <option>{{ 'form.quick_select_file'|trans }}</option>
+        <select name="quickselect" id="quickselect" placeholder="{{ 'form.quick_select_file'|trans }}">
 
             {% for file in allfiles %}
             <option value="{{ file.filename }}">
