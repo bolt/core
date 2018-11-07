@@ -14,10 +14,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"public"}},
+ *     normalizationContext={"groups"={"public"}, "enable_max_depth"=true},
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
@@ -89,6 +90,8 @@ class Content
 
     /**
      * @var Field[]|ArrayCollection
+     * @Groups("public")
+     * @MaxDepth(1)
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
@@ -166,6 +169,37 @@ class Content
     public function getDefinition()
     {
         return $this->contentTypeDefinition;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSummary(): array
+    {
+        $summary = [
+            'id' => $this->getid(),
+            'contenttype' => $this->getDefinition()->get('slug'),
+            'title' => $this->magicTitle(),
+            'excerpt' => $this->magicexcerpt(),
+            'image' => $this->magicImage(),
+            'link' => $this->magicLink(),
+            'editlink' => $this->magicEditLink(),
+            'author' => [
+                    'id' => $this->getAuthor()->getid(),
+                    'fullName' => $this->getAuthor()->getfullName(),
+                    'username' => $this->getAuthor()->getusername(),
+                    'email' => $this->getAuthor()->getemail(),
+                    'roles' => $this->getAuthor()->getroles(),
+                ],
+            'status' => $this->getStatus(),
+            'icon' => $this->getDefinition()->get('icon_one'),
+            'createdAt' => $this->getCreatedAt(),
+            'modifiedAt' => $this->modifiedAt(),
+            'publishedAt' => $this->getPublishedAt(),
+            'depublishedAt' => $this->depublishedAt(),
+        ];
+
+        return $summary;
     }
 
     /**

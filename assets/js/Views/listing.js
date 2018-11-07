@@ -8,6 +8,7 @@ import draggable from 'vuedraggable'
  */
 import Filter from "../Components/Listing/Filter";
 import Row from "../Components/Listing/Row";
+import SelectedBox from "../Components/Listing/SelectedBox";
 
 /**
  * Register Components
@@ -15,5 +16,6 @@ import Row from "../Components/Listing/Row";
 Vue.component("listing-filter", Filter);
 Vue.component("listing-row", Row);
 Vue.component("draggable", draggable);
+Vue.component("listing-selected-box", SelectedBox);
 
 new Vue({ el: "#listing", name: "listing" });

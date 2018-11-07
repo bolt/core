@@ -1,5 +1,13 @@
 <template>
-  <transition-group name="quickeditor" tag="div" class="listing--container">
+  <transition-group name="quickeditor" tag="div" class="listing--container" :class="{'is-dashboard': type === 'dashboard'}">
+    
+    <!-- check box -->
+    <row-checkbox
+      v-if="type !== 'dashboard'"
+      :record-id="recordId" 
+      key="select"
+    ></row-checkbox>
+
     <!-- row -->
     <div 
       v-if="!quickEditor"
@@ -24,6 +32,7 @@
 
       <!-- column meta -->
       <row-meta 
+        :type="type"
         :record-id="recordId" 
         :definition="definition" 
         :date="date" 
@@ -36,6 +45,7 @@
       <!-- column actions -->
       <row-actions 
         :record-id="recordId" 
+        :size="size"
         @quickeditor="quickEditor = $event"
       ></row-actions>
       <!-- end column -->
@@ -55,21 +65,24 @@
     <row-quick-editor 
       v-if="quickEditor" 
       @quickeditor="quickEditor = $event" 
-      key="test"
+      :size="size"
+      key="quickeditor"
     ></row-quick-editor>
 
   </transition-group>
 </template>
 
 <script>
+import Checkbox from './Row/_Checkbox';
 import QuickEditor from './Row/_QuickEditor';
 import Actions from './Row/_Actions';
 import Meta from './Row/_Meta';
 
 export default {
   name: "listing-row",
-  props: ["recordId", "definition", "excerpt", "date", "status", "thumbnail", "author"],
+  props: ["type", "recordId", "definition", "excerpt", "date", "status", "thumbnail", "author"],
   components: {
+    "row-checkbox":       Checkbox,
     "row-quick-editor":   QuickEditor,
     "row-meta":           Meta,
     "row-actions":        Actions

@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig\Extension;
+namespace Bolt\Twig;
 
-use Bolt\Twig\Runtime;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 class AdminExtension extends AbstractExtension
 {
@@ -20,7 +18,8 @@ class AdminExtension extends AbstractExtension
      *
      * @param UrlGeneratorInterface $urlGenerator
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator) {
+    public function __construct(UrlGeneratorInterface $urlGenerator)
+    {
         $this->urlGenerator = $urlGenerator;
     }
 

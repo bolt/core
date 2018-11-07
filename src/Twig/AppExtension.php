@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig\Extension;
+namespace Bolt\Twig;
 
 use Symfony\Component\Intl\Intl;
 use Twig\Extension\AbstractExtension;

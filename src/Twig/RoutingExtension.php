@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig\Extension;
+namespace Bolt\Twig;
 
-use Bolt\Twig\Runtime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -19,8 +18,13 @@ class RoutingExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('canonical', [Runtime\RoutingRuntime::class, 'dummy']),
-            new TwigFunction('htmllang', [Runtime\RoutingRuntime::class, 'dummy']),
+            new TwigFunction('canonical', [$this, 'dummy']),
+            new TwigFunction('htmllang', [$this, 'dummy']),
         ];
+    }
+
+    public function dummy($input = null)
+    {
+        return $input;
     }
 }
