@@ -25,6 +25,8 @@ import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
 
+import './helpers/bootstrap';
+
 /**
  * Vue Components
  */
