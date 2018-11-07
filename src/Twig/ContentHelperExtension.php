@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Content\FieldFactory;
 use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
@@ -69,7 +68,7 @@ class ContentHelperExtension extends AbstractExtension
 
     public function fieldfactory($name, $definition)
     {
-        $field = FieldFactory::get($definition['type']);
+        $field = Field::factory($definition['type']);
         $field->setName($name);
         $field->setDefinition($name, $definition);
 
