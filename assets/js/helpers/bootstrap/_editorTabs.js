@@ -12,11 +12,8 @@ export default function editorTabs() {
     } 
     
     Array.from(tabLinks).forEach(tab => {
-      const tabAttribute = tab.getAttribute('aria-selected');
-      if(tabAttribute === 'true'){
-        generateHash(tab.getAttribute("href"))
-      }
       tab.addEventListener('click', (e) => {
+        e.preventDefault();
         generateHash(e.target.getAttribute("href"))
       });
     });
