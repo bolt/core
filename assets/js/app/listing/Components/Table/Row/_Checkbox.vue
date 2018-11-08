@@ -1,5 +1,5 @@
 <template>
-  <div class="listing--checkbox" key="checkbox" v-if="!sorting">
+  <div class="listing--checkbox" key="checkbox" v-show="!sorting">
     <div class="custom-control custom-checkbox">
         <input 
           type="checkbox" 
