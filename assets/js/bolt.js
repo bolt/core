@@ -37,6 +37,7 @@ import "./Views/user";
 import "./Views/notifications";
 
 
+import "./app/sidebar";
 import "./app/listing";
 
 
