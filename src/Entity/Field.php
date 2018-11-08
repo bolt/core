@@ -115,6 +115,23 @@ class Field
         return implode(', ', $this->getValue());
     }
 
+    /**
+     * @param string $name
+     *
+     * @return Field
+     */
+    public static function factory(string $name = 'generic'): self
+    {
+        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($name) . 'Field';
+        if (class_exists($classname)) {
+            $field = new $classname();
+        } else {
+            $field = new self();
+        }
+
+        return $field;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
