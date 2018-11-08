@@ -1,5 +1,5 @@
 <template>   
-  <draggable :options="{handle:'.listing__row--move'}" v-model="records">
+  <draggable :options="draggableOptions" v-model="records">
       <transition-group>
           <table-row 
             v-for="record in records" 
@@ -19,6 +19,14 @@ export default {
   components: {
     "draggable": draggable,
     "table-row": Row,
+  },
+  data: () => {
+    return {
+      draggableOptions: {
+        handle:'.listing__row--move', 
+        forceFallback: true
+      }
+    };
   },
   computed: {
     records: {
