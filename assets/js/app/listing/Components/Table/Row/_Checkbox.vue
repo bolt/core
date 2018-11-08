@@ -1,8 +1,12 @@
 <template>
-  <div class="listing--checkbox" key="checkbox">
-    <!-- <input type="checkbox" :id="`row-${id}`" v-model="selected"> -->
+  <div class="listing--checkbox" key="checkbox" v-if="!sorting">
     <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" :id="`row-${id}`" v-model="selected">
+        <input 
+          type="checkbox" 
+          class="custom-control-input" 
+          :id="`row-${id}`" 
+          v-model="selected"
+        >
         <label 
           class="custom-control-label" 
           :for="`row-${id}`" 
@@ -24,6 +28,9 @@
     computed: {
       selectAll() {
         return this.$store.getters['selecting/selectAll'];
+      },
+      sorting() {
+        return this.$store.getters['general/getSorting']
       }
     },
     watch: {
@@ -32,6 +39,10 @@
       },
       selected(){
         this.selected ? this.$store.dispatch('selecting/select', this.id):this.$store.dispatch('selecting/deSelect', this.id)
+      },
+      sorting(){
+        if (this.sorting)
+          this.selected = false;
       }
     }
   };

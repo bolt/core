@@ -49,12 +49,7 @@
       <!-- end column -->
 
       <!-- column sorting -->
-      <button 
-        v-if="sorting" 
-        class="listing__row--move"
-      >
-        <i class="fas px-2 fa-equals"></i>
-      </button>
+      <row-sorting></row-sorting>
       <!-- end column -->
 
     </div>
@@ -75,6 +70,7 @@ import type from '../../../mixins/type'
 import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
+import Sorting from './_Sorting';
 import QuickEditor from './_QuickEditor';
 
 export default {
@@ -85,6 +81,7 @@ export default {
     "row-checkbox": Checkbox,
     "row-meta": Meta,
     "row-actions": Actions,
+    "row-sorting": Sorting,
     "row-quick-editor": QuickEditor
   },
   data: () => {

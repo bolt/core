@@ -2,7 +2,7 @@
   <nav class="listing__filter">
     <ul class="listing__filter--controls">
       <li v-if="type !== 'dashboard'">
-        <div class="custom-control custom-checkbox">
+        <div class="custom-control custom-checkbox" v-if="!sorting">
             <input type="checkbox" class="custom-control-input" id="selectAll" v-model="selectAll">
             <label 
               class="custom-control-label" 

@@ -2,8 +2,8 @@
   <draggable :options="{handle:'.listing__row--move'}" v-model="records">
       <transition-group>
           <table-row 
-            v-for="(record, index) in records" 
-            :key="index"
+            v-for="record in records" 
+            :key="record.id"
             :record="record"
           ></table-row>
       </transition-group>
