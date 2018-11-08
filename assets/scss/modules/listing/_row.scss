@@ -23,6 +23,7 @@ $checkbox-row-width: 30px;
 
 .listing--checkbox{
   width: $checkbox-row-width;
+  user-select: none;
   .custom-control{
     position: relative;
     height: calc(100% - #{$spacer} / 1.25);

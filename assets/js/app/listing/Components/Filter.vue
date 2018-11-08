@@ -2,12 +2,12 @@
   <nav class="listing__filter">
     <ul class="listing__filter--controls">
       <li v-if="type !== 'dashboard'">
-        <div class="custom-control custom-checkbox">
+        <div class="custom-control custom-checkbox" v-if="!sorting">
             <input type="checkbox" class="custom-control-input" id="selectAll" v-model="selectAll">
             <label 
               class="custom-control-label" 
               for="selectll" 
-              @click="selectAll = !selectAll"
+              @click="enableSelectAll(!selectAll)"
             ></label>
         </div>
       </li>
@@ -25,7 +25,7 @@
         <button 
           class="control--button" 
           :class="{'is-active': sorting}" 
-          @click="sorting = !sorting"
+          @click="enableSorting(!sorting)"
         >
           <i class="fas" :class="sorting ? 'fa-check-circle':'fa-sort'"></i>  
         </button>
@@ -42,38 +42,37 @@ export default {
   mixins: [type],
   created() {
     const size = localStorage.getItem('listing-row-size');
-    size !== null ? this.$store.dispatch('general/setRowSize', size):this.$store.dispatch('general/setRowSize', 'normal');
-  },
-  data: () => {
-    return {
-      sorting: false,
-      selectAll: false,
-      size: "normal"
-    };
+    if(size !== null)
+      this.$store.dispatch('general/setRowSize', size)
   },
   watch: {
     sorting(){
-      this.$store.dispatch('general/setSorting', this.sorting)
-    },
-    selectAll(){
-      this.$store.dispatch('selecting/selectAll', this.selectAll)
+      if (this.sorting)
+        this.$store.dispatch('selecting/selectAll', false)
     }
   },
   methods:{
-    filterButton(type, emit){
-      if(this[type] === false){
-        this[type] = true
-        this.$root.$emit(emit, true);
-      } else {
-        this[type] = false
-        this.$root.$emit(emit, false);
-      }
+    enableSorting(arg){
+      this.$store.dispatch('general/setSorting', arg)
+    },
+    enableSelectAll(arg){
+      this.$store.dispatch('selecting/selectAll', arg)
     },
     changeSize(size){
       this.$store.dispatch('general/setRowSize', size)
       localStorage.setItem('listing-row-size', size);
-      this.size = size
     },
+  },
+  computed: {
+    size(){
+      return this.$store.getters['general/getRowSize'];
+    },
+    sorting(){
+      return this.$store.getters['general/getSorting'];
+    },
+    selectAll(){
+      return this.$store.getters['selecting/selectAll'];
+    }
   }
 };
 </script>
