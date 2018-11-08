@@ -45,6 +45,12 @@ export default {
     if(size !== null)
       this.$store.dispatch('general/setRowSize', size)
   },
+  watch: {
+    sorting(){
+      if (this.sorting)
+        this.$store.dispatch('selecting/selectAll', false)
+    }
+  },
   methods:{
     enableSorting(arg){
       this.$store.dispatch('general/setSorting', arg)
