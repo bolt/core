@@ -1,6 +1,6 @@
 const state = {
   type: null,
-  rowSize: null,
+  rowSize: 'normal',
   sorting: false
 }
 
