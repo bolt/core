@@ -13,6 +13,11 @@
 <pre>
 <code>{{selected}}</code>
 </pre> 
+
+<pre>
+<code>{{order}}</code>
+</pre> 
+
       </div>
     </div>
   </transition>
@@ -28,6 +33,9 @@ export default {
     },
     selected(){
       return this.$store.getters['selecting/selected']
+    },
+    order(){
+      return this.$store.getters['listing/getOrder']
     }
   }
 };

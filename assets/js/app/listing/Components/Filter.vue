@@ -48,7 +48,6 @@ export default {
     return {
       sorting: false,
       selectAll: false,
-      size: "normal"
     };
   },
   watch: {
@@ -60,19 +59,14 @@ export default {
     }
   },
   methods:{
-    filterButton(type, emit){
-      if(this[type] === false){
-        this[type] = true
-        this.$root.$emit(emit, true);
-      } else {
-        this[type] = false
-        this.$root.$emit(emit, false);
-      }
-    },
     changeSize(size){
       this.$store.dispatch('general/setRowSize', size)
       localStorage.setItem('listing-row-size', size);
-      this.size = size
+    },
+  },
+  computed: {
+    size(){
+      return this.$store.getters['general/getRowSize'];
     },
   }
 };

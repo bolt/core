@@ -1,5 +1,6 @@
 <template>
   <div class="listing--checkbox" key="checkbox">
+    <!-- <input type="checkbox" :id="`row-${id}`" v-model="selected"> -->
     <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" :id="`row-${id}`" v-model="selected">
         <label 
