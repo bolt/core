@@ -2,11 +2,40 @@
 
 {% for type, messages in app.flashes %}
     {% for message in messages %}
+        <div class="notifications"
+             data-type="{{ type }}"
+             data-message="{{ message|trans  }}"
+             data-closing-label="close"
+             data-duration="3000">
+        </div>
+        {% dump(message) %}
     {% endfor %}
 {% endfor %}
-<div id="notification"
-     data-type="test"
+
+{#
+
+For example, multiple messages
+
+<div class="notifications"
+     data-type="success"
      data-message="Test"
      data-closing-label="close"
      data-duration="3000">
 </div>
+
+<div class="notifications"
+     data-type="danger"
+     data-message="Test2"
+     data-closing-label="close"
+     data-duration="3000">
+</div>
+
+<div class="notifications"
+     data-type="success"
+     data-message="Test3"
+     data-closing-label="close"
+     data-duration="3000">
+</div>
+
+
+#}

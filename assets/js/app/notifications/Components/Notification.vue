@@ -1,52 +1,61 @@
 <template>
-  <div class="admin__notification-message">
-  <transition name="notification">
-    <div class="notification" :data-type="`is-${type}`" role="alert" v-if="!close">
-      <p v-html="message"></p>
-      <button type="button" class="notification--close" aria-label="Close" @click="close = true">
-        {{ closingLabel }}
-      </button>
+    <div class="admin__notification-message">
+        <transition name="notification" v-on:after-enter="show = false" :duration="duration">
+            <div v-show="show" class="notification" :data-type="`is-${type}`" role="alert">
+                <div v-html="message"></div>
+                <button type="button" class="notification__close" aria-label="Close" @click="show = false">
+                    {{ closingLabel }}
+                </button>
+            </div>
+        </transition>
     </div>
-  </transition>
-  </div>
 </template>
 
 <script>
-  export default {
-    name: 'bolt-notification',
-    props:
-      {
-        message: {
-          type: String,
-          required: true,
-          default: ""
+    import eventHub from "../eventhub";
+
+    export default {
+        name: 'bolt-notification',
+        props:
+            {
+                message: {
+                    type: String,
+                    required: true,
+                    default: ""
+                },
+                type: {
+                    type: String,
+                    required: true,
+                    default: "error",
+                },
+                closingLabel: {
+                    type: String,
+                    required: true,
+                    default: "action.close_alert"
+                },
+                duration: {
+                    type: String,
+                    required: false,
+                    default: "300"
+                }
+            },
+        mounted() {
+            this.show = true;
         },
-        type: {
-          type: String,
-          required: true,
-          default: "error",
+        data: () => {
+            return {
+                show: false
+            }
         },
-        closingLabel: {
-          type: String,
-          required: true,
-          default: "action.close_alert"
-        },
-        duration: {
-          type: String,
-          required: false,
-          default: "300"
+        created() {
+            const self = this;
+            eventHub.$on('showMessage', (message) => {
+                self.message = message.message;
+                self.type = message.type;
+                self.closingLabel = message.closingLabel;
+                self.duration = message.duration;
+                this.show = true;
+            })
         }
-      },
-    mounted () {
-      setTimeout(() => this.close = false, 0)
-      if (this.duration !== false) {
-        setTimeout(() => this.close = true, this.duration)
-      }
-    },
-    data: () => {
-      return {
-        close: true
-      }
     }
-  }
 </script>
