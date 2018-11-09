@@ -193,6 +193,13 @@ class MenuBuilder
             'link' => '/bolt/extensions',
         ]]);
 
+        $menu->addChild('Bolt API', ['uri' => 'settings', 'extras' => [
+            'name' => $t->trans('caption.api'),
+            'icon' => 'fa-code',
+            'link' => '/api',
+        ]]);
+
+
         $this->stopwatch->stop('bolt.sidebar');
 
         return $menu;
