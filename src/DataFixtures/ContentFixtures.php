@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\FieldFactory;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -62,7 +62,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    $field = FieldFactory::get($fieldType['type']);
+                    $field = Field::factory($fieldType['type']);
                     $field->setName($name);
                     $field->setValue($this->getValuesforFieldType($name, $fieldType));
                     $field->setSortorder($sortorder++ * 5);

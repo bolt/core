@@ -8,12 +8,18 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"public"}},
+ *     normalizationContext={"groups"={"public"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"public"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get"}
+ *     itemOperations={"get",
+ *         "put"={
+ *             "denormalization_context"={"groups"={"put"}},
+ *         }
+ *     }
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(name="bolt_field")
@@ -51,7 +57,7 @@ class Field
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $id;
 
@@ -69,7 +75,7 @@ class Field
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     protected $value = [];
 
@@ -81,7 +87,7 @@ class Field
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $sortorder = 0;
 
@@ -100,7 +106,6 @@ class Field
     /**
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("public")
      */
     private $content;
 
@@ -113,6 +118,23 @@ class Field
     public function __toString(): string
     {
         return implode(', ', $this->getValue());
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Field
+     */
+    public static function factory(string $name = 'generic'): self
+    {
+        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($name) . 'Field';
+        if (class_exists($classname)) {
+            $field = new $classname();
+        } else {
+            $field = new self();
+        }
+
+        return $field;
     }
 
     public function getId(): ?int

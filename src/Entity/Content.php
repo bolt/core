@@ -19,8 +19,13 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 /**
  * @ApiResource(
  *     normalizationContext={"groups"={"public"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"put"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get"}
+ *     itemOperations={"get",
+ *         "put"={
+ *             "denormalization_context"={"groups"={"put"}},
+ *         }
+ *     }
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
@@ -60,7 +65,7 @@ class Content
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $status;
 
@@ -72,25 +77,25 @@ class Content
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $modifiedAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $publishedAt;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $depublishedAt;
 
     /**
      * @var Field[]|ArrayCollection
-     * @Groups("public")
+     * @Groups({"public", "put"})
      * @MaxDepth(1)
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
