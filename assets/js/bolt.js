@@ -34,9 +34,9 @@ import './helpers/bootstrap';
 import "./Views/admin";
 import "./Views/editor";
 import "./Views/user";
-import "./Views/notifications";
 
 
+import "./app/notifications";
 import "./app/listing";
 
 

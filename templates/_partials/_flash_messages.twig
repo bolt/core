@@ -2,11 +2,11 @@
 
 {% for type, messages in app.flashes %}
     {% for message in messages %}
-        <bolt-notification 
-          type="{{ type }}" 
-          message="{{ message|trans }}" 
-          :labels="{{ labels|json_decode }}"
-          :time="3000"
-        ></bolt-notification>
     {% endfor %}
 {% endfor %}
+<div id="notification"
+     data-type="test"
+     data-message="Test"
+     data-closing-label="close"
+     data-duration="3000">
+</div>
