@@ -36,7 +36,11 @@ import "./Views/editor";
 import "./Views/user";
 
 
+
 import "./app/notifications";
+
+import "./app/sidebar";
+
 import "./app/listing";
 
 

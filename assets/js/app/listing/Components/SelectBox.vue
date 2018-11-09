@@ -3,8 +3,8 @@
     <div class="card mb-3" v-if="selectedCount > 0">
       <div class="card-header">
         <span class="badge is-primary mr-1">{{selectedCount}}</span>
-        <template v-if="selectedCount === 1">{{ctSingular}}</template>
-        <template v-else>{{ct}}</template>
+        <template v-if="selectedCount === 1">{{singular}}</template>
+        <template v-else>{{plural}}</template>
         Selected
       </div>
       <div class="card-body">
@@ -13,6 +13,11 @@
 <pre>
 <code>{{selected}}</code>
 </pre> 
+
+<pre>
+<code>{{order}}</code>
+</pre> 
+
       </div>
     </div>
   </transition>
@@ -21,13 +26,16 @@
 <script>
 export default {
   name: "listing-selected-box",
-  props: ["ct", "ctSingular"],
+  props: ["singular", "plural"],
   computed:{
     selectedCount(){
       return this.$store.getters['selecting/selectedCount']
     },
     selected(){
       return this.$store.getters['selecting/selected']
+    },
+    order(){
+      return this.$store.getters['listing/getOrder']
     }
   }
 };

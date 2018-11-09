@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     normalizationContext={"groups"={"public"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get"}
+ *     itemOperations={"get", "put"}
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
  * @ORM\Table(name="bolt_user")

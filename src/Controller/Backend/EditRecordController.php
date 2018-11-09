@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\FieldFactory;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -105,13 +105,6 @@ class EditRecordController extends BaseController
         $content->setPublishedAt(new Carbon($post['publishedAt']));
         $content->setDepublishedAt(new Carbon($post['depublishedAt']));
 
-        // Checkboxes not in post need to be set to '0'
-        foreach ($content->getFields() as $field) {
-            if ($field->getDefinition()->get('type') === 'checkbox') {
-                $field->setValue(['0']);
-            }
-        }
-
         foreach ($post['fields'] as $key => $postfield) {
             $this->updateFieldFromPost($key, $postfield, $content);
         }
@@ -123,7 +116,7 @@ class EditRecordController extends BaseController
     {
         if (!$field = $content->getField($key)) {
             $fields = collect($content->getDefinition()->get('fields'));
-            $field = FieldFactory::get($fields->get($key)['type']);
+            $field = Field::factory($fields->get($key)['type']);
             $field->setName($key);
             $content->addField($field);
         }

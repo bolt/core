@@ -21,7 +21,8 @@
 
     <!-- Admin Toolbar -->
     <nav id="toolbar" class="admin__toolbar">
-        {%  set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': user.fullName}], 'action.logout', 'action.edit_profile']) %}
+        {% set username = user.fullName|default('Unknown user') %}
+        {% set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': username}], 'action.logout', 'action.edit_profile']) %}
         <admin-toolbar
             :menu="{{ sidebarmenu() }}"
             user="{{user|default()}}"
@@ -43,11 +44,9 @@
     <div class="admin__sidebar">
         <div id="sidebar">
             <admin-sidebar
-                :brand-full="'{{ asset('assets/images/brand-long.svg') }}'"
-                :brand-icon="'{{ asset('assets/images/brand-icon.svg') }}'"
-                :menu="{{ sidebarmenu() }}"
-                :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
-                :about-link="{{ path('bolt_about')|json_encode }}"
+              :menu="{{ sidebarmenu() }}"
+              :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
+              :about-link="{{ path('bolt_about')|json_encode }}"
             ></admin-sidebar >
         </div>
     </div>
@@ -79,12 +78,10 @@
 {% block javascripts %}
     <script>
         var admin = document.querySelector('.admin');
-        var size = localStorage.getItem('admin-sidebar-size');
-
-        if (size !== null && size === 'slim'){
-            admin.classList.add('is-slim');
+        var slim = JSON.parse(localStorage.getItem('slim-sidebar'));
+        if (slim){
+          admin.classList.add('is-slim');
         }
-
     </script>
     {{ encore_entry_script_tags('bolt') }}
 {% endblock %}
