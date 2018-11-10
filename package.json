@@ -55,16 +55,23 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@symfony/webpack-encore": "^0.21.0",
+    "@vue/test-utils": "^1.0.0-beta.25",
+    "ajv-keywords": "^3.2.0",
     "autoprefixer": "^9.3.1",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "5.7.0",
     "eslint-config-prettier": "3.1.0",
     "eslint-plugin-prettier": "3.0.0",
-    "eslint-plugin-vue": "4.7.1",
+    "eslint-plugin-vue": "^4.7.1",
+    "jest": "^23.6.0",
+    "jest-serializer-vue": "^2.0.2",
     "node-sass": "^4.10.0",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.4.0",
     "register-service-worker": "^1.5.2",
     "sass-loader": "^7.1.0",
+    "vue-jest": "^3.0.0",
     "vue-loader": "^15.0.11",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.17",
@@ -75,7 +82,8 @@
     "lint": "eslint --ext .js,.vue, assets",
     "lint-fix": "eslint --ext .js,.vue, assets --fix",
     "serve": "encore dev-server --port=8001 --progress --disable-host-check",
-    "build": "encore production --progress"
+    "build": "encore production --progress",
+    "test": "jest"
   },
   "eslintConfig": {
     "root": true,
@@ -86,5 +94,22 @@
   },
   "browserslist": [
     "> 1%"
-  ]
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/assets/js/app/$1"
+    },
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/jest-serializer-vue"
+    ]
+  }
 }
