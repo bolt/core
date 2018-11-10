@@ -28,15 +28,12 @@ window.jQuery = $;
  */
 import "./Views/editor";
 import "./Views/user";
-import "./Views/notifications";
 
+import "./app/notifications";
 import "./app/toolbar";
 import "./app/sidebar";
 import "./app/title";
 import "./app/listing";
-
-
-
 
 /**
  * Styling

@@ -1,15 +1,13 @@
 //** Base | Notification
 
-#notifications{
+.notification {
   -webkit-backface-visibility: hidden;
   z-index: 2000;
   position: fixed;
   bottom: $spacer * 2;
   right: $spacer * 2;
   width: 440px;
-}
 
-.notification{
   background: var(--body);
   display: flex;
   padding: $spacer;
@@ -18,29 +16,29 @@
   color: var(--foreground);
   margin-bottom: $spacer;
   font-weight: $font-weight-bold;
-  width: inherit;
-  &[data-type='is-success']{
-    .notification--close{
+
+  &[data-type='is-success'] {
+    .notification__close {
       color: var(--success);
     }
   }
-  &[data-type='is-danger']{
-    .notification--close{
+  &[data-type='is-danger'] {
+    .notification__close {
       color: var(--danger);
     }
   }
-  &:last-child{
+  &:last-child {
     margin-bottom: 0;
   }
-  p{
+  p {
     margin: 0;
     flex: auto;
   }
 
-  &--close{
+  &__close {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
     background: transparent;
     border: 0;
     position: relative;
@@ -50,21 +48,20 @@
     margin-left: $spacer;
     letter-spacing: $letter-spacing;
     text-transform: capitalize;
-    &:focus{
+    &:focus {
       outline: none;
     }
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
   }
 }
 
-
 .notification-enter-active, .notification-leave-active {
-  transition: all .35s;  
+  transition: all .35s;
 }
 
-.notification-enter, .notification-leave-to{
+.notification-enter, .notification-leave-to {
   opacity: 0;
   transform: translateY(40px);
 }
