@@ -21,6 +21,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends BaseController
 {
     /**
+     * @Route("/users", name="bolt_users")
+     */
+    public function users()
+    {
+        return $this->renderTemplate('pages/about.twig');
+    }
+
+    /**
      * @Route("/profile-edit", methods={"GET", "POST"}, name="bolt_profile_edit")
      */
     public function edit(Request $request): Response

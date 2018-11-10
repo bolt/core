@@ -24,7 +24,6 @@ export default {
     "sidebar-footer": Footer
   },
   created() {
-    console.log(this.menu);
     const slim = JSON.parse(localStorage.getItem('slim-sidebar'));
     if (slim)
       this.$store.dispatch('general/slimSidebar', slim);
