@@ -27,44 +27,14 @@
 
     {% include '@bolt/finder/_uploader.twig' %}
 
-
-
 {% endblock aside %}
 
 {% block stylesheets %}
-    {{ parent() }}
+   {{ parent() }}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.min.css" integrity="sha256-EhmqrzYSImS7269rfDxk4H+AHDyu/KwV1d8FDgIXScI=" crossorigin="anonymous" />
-    <style>
+   <style>
         .filepond--root {
             margin-bottom: 0 !important;
         }
     </style>
 {% endblock %}
-
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            $('#quickselect').selectize({
-                create: true,
-                sortField: 'text',
-                maxItems: null,
-                closeAfterSelect: true
-            });
-        });
-
-        document.addEventListener("DOMContentLoaded", function() {
-            $('#field-status').selectize({
-                create: true,
-                sortField: 'text',
-                maxItems: null,
-                closeAfterSelect: true
-            });
-        });
-    </script>
-
-{% endblock javascripts %}

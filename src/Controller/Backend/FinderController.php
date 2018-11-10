@@ -86,9 +86,10 @@ class FinderController extends BaseController
         $index = [];
 
         foreach ($finder as $file) {
+            $contents = current(explode("\n", $file->getContents()));
             $index[] = [
                 'filename' => $file->getRelativePathname(),
-                'description' => '',
+                'description' => $contents,
             ];
         }
 
