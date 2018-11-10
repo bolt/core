@@ -20,7 +20,7 @@
   },
   "main": "webpack.config.js",
   "directories": {
-    "test": "tests"
+    "tests": "tests"
   },
   "repository": {
     "type": "git",
@@ -58,6 +58,7 @@
     "@vue/test-utils": "^1.0.0-beta.25",
     "ajv-keywords": "^3.2.0",
     "autoprefixer": "^9.3.1",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "eslint": "5.7.0",
     "eslint-config-prettier": "3.1.0",
@@ -68,6 +69,7 @@
     "node-sass": "^4.10.0",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.4.0",
+    "regenerator-runtime": "^0.12.1",
     "register-service-worker": "^1.5.2",
     "sass-loader": "^7.1.0",
     "vue-jest": "^3.0.0",
