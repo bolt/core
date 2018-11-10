@@ -8,7 +8,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ApiResource(
