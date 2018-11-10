@@ -33,9 +33,9 @@
     <!-- End Admin Toolbar -->
 
     <!-- Admin Header -->
-    <header id="header" class="admin__header">
+    <header id="title" class="admin__header">
         <div class="container">
-          <admin-header title="{{ block('title') }}"></admin-header>
+          <bolt-title title="{{ block('title') }}"></bolt-title>
         </div>
     </header>
     <!-- End Admin Header -->
@@ -53,7 +53,7 @@
     <!-- End Admin Sidebar -->
 
     <!-- Admin Main -->
-    <div class="admin__body" id="{% block container %}content{% endblock %}">
+    <div class="admin__body {% block container %}{% endblock %}">
         <div class="container">
             <div class="admin__body--container" id="{% block vue_id %}{% endblock %}">
                 <main class="admin__body--main">

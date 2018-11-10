@@ -3,8 +3,8 @@
 /**
  * Vue Core | Config
  */
-import Vue from "vue";
-import "./helpers/filters";
+import "./filters";
+
 // import './registerServiceWorker'
 
 /**
@@ -13,36 +13,27 @@ import "./helpers/filters";
 import "bootstrap";
 
 /**
- * Set Axios
+ * Load Axios
  */
-import Axios from 'axios'
-Vue.prototype.$axios = Axios;
-
+import axios from './helpers/axios'
 /**
 * Load jQuery
 */
 import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
-/**
- * Helpers
- */
-import './helpers/bootstrap';
+
 /**
  * Vue Apps
  */
-import "./Views/admin";
 import "./Views/editor";
 import "./Views/user";
 
-
-
 import "./app/notifications";
-
+import "./app/toolbar";
 import "./app/sidebar";
-
+import "./app/title";
 import "./app/listing";
-
 
 /**
  * Styling

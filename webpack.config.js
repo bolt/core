@@ -1,5 +1,7 @@
+var webpack = require('webpack');
 var WebpackBar = require('webpackbar');
 var Encore = require('@symfony/webpack-encore');
+var path = require('path');
 
 Encore
 
@@ -8,20 +10,23 @@ Encore
     minimal: false
   }))
 
+  // .addPlugin(new webpack.ProvidePlugin({
+  //   $bus: [path.resolve(__dirname, './assets/js/bus/'), 'default']
+  // }))
+
   .setOutputPath('public/assets/')
   .setPublicPath('/assets')
   .setManifestKeyPrefix('assets')
   .copyFiles({ from: './assets/static' })
 
   .cleanupOutputBeforeBuild()
-  .disableSingleRuntimeChunk()
+  .enableSingleRuntimeChunk()
   .enableSourceMaps(!Encore.isProduction())
   .enableVersioning(Encore.isProduction())
 
   .addEntry('bolt', './assets/js/bolt.js')
   .addStyleEntry('theme-default', './assets/scss/themes/default.scss')
   .addStyleEntry('theme-light', './assets/scss/themes/light.scss')
-
 
   .splitEntryChunks()
   .autoProvidejQuery()
@@ -31,6 +36,6 @@ Encore
 
 ;
 
-module.exports = Encore.getWebpackConfig();
+module.exports =  Encore.getWebpackConfig();
 
 

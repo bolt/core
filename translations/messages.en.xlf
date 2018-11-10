@@ -875,5 +875,11 @@
         <target>close</target>
       </segment>
     </unit>
+    <unit id="Dvu2HQx" name="caption.api">
+      <segment>
+        <source>caption.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
