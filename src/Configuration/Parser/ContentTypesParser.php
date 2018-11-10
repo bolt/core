@@ -24,7 +24,7 @@ class ContentTypesParser extends BaseParser
     public function parse(): Collection
     {
         $contentTypes = new Collection();
-        $tempContentTypes = $this->parseConfigYaml('contenttypes.yml');
+        $tempContentTypes = $this->parseConfigYaml('contenttypes.yaml');
         foreach ($tempContentTypes as $key => $contentType) {
             $contentType = $this->parseContentType($key, $contentType);
             $contentTypes[$key] = $contentType;

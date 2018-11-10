@@ -17,7 +17,7 @@ class TaxonomyParser extends BaseParser
      */
     public function parse(): Collection
     {
-        $taxonomies = $this->parseConfigYaml('taxonomy.yml');
+        $taxonomies = $this->parseConfigYaml('taxonomy.yaml');
 
         $slugify = Slugify::create();
 
