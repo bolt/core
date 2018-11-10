@@ -19,6 +19,9 @@ class ContentHelperExtension extends AbstractExtension
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var string */
+    private $menu = null;
+
     /**
      * ContentHelperExtension constructor.
      *
@@ -59,11 +62,13 @@ class ContentHelperExtension extends AbstractExtension
 
     public function sidebarmenu($pretty = false)
     {
-        $menu = $this->menuBuilder->getMenu();
+        if (!$this->menu) {
+            $menuArray = $this->menuBuilder->getMenu();
+            $options = $pretty ? JSON_PRETTY_PRINT : 0;
+            $this->menu = json_encode($menuArray, $options);
+        }
 
-        $options = $pretty ? JSON_PRETTY_PRINT : 0;
-
-        return json_encode($menu, $options);
+        return $this->menu;
     }
 
     public function fieldfactory($name, $definition)
