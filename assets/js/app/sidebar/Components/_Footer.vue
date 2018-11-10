@@ -8,7 +8,6 @@
 </template>
 
 <script>
-
 export default {
   name: "sidebar-footer",
   props: ["version", "aboutLink"],

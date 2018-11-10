@@ -27,7 +27,6 @@
     "url": "git://github.com/bolt/four.git"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
     "baguettebox.js": "^1.11.0",
     "barba.js": "^1.0.0",
@@ -51,6 +50,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/plugin-transform-regenerator": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@symfony/webpack-encore": "^0.21.0",
     "autoprefixer": "^9.3.1",
