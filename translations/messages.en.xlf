@@ -719,12 +719,6 @@
         <target>Routing configuration</target>
       </segment>
     </unit>
-    <unit id="ksH27eY" name="caption.setup_checks">
-      <segment>
-        <source>caption.setup_checks</source>
-        <target>Set-up Checks</target>
-      </segment>
-    </unit>
     <unit id="dd5MzCM" name="caption.translations">
       <segment>
         <source>caption.translations</source>
@@ -897,6 +891,18 @@
       <segment>
         <source>caption.fixtures_dummy_content</source>
         <target>Fixtures (Dummy Content)</target>
+      </segment>
+    </unit>
+    <unit id="P1FHg3Q" name="caption.edit_file">
+      <segment>
+        <source>caption.edit_file</source>
+        <target>Edit File</target>
+      </segment>
+    </unit>
+    <unit id="_ef0RBR" name="caption.installation_checks">
+      <segment>
+        <source>caption.installation_checks</source>
+        <target>Installation checks</target>
       </segment>
     </unit>
   </file>

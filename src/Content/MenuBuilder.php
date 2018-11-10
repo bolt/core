@@ -203,10 +203,10 @@ class MenuBuilder
             ]
         ]);
 
-        $menu['Maintenance']->addChild('Set-up checks', [
+        $menu['Maintenance']->addChild('Installation checks', [
             'uri' => '',
             'extras' => [
-                'name' => $t->trans('caption.setup_checks'),
+                'name' => $t->trans('caption.installation_checks'),
                 'icon' => 'fa-clipboard-check',
             ]
         ]);

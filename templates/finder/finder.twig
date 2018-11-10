@@ -38,37 +38,3 @@
         }
     </style>
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            $('#quickselect').selectize({
-                create: true,
-                sortField: 'text',
-                maxItems: 1,
-                closeAfterSelect: true,
-                options: [
-                    {% for file in allfiles %}
-                    {value: '{{ file.filename }}', description: '{{ file.description }}'},
-                    {% endfor %}
-                ],
-                render: {
-                    option: function(data) {
-                        return "<div data-value='"+data.value+"' class='option'>" +
-                            data.value +
-                            " <small> " + data.description + " </small></div>";
-                    },
-                    item: function(data) {
-                        return "<div data-value='"+data.value+"' class='option'>" +
-                            data.value +
-                            " <small> " + data.description + " </small></div>";
-                    }
-                }
-            });
-        });
-
-    </script>
-
-{% endblock javascripts %}
