@@ -17,7 +17,7 @@ Encore
   .setOutputPath('public/assets/')
   .setPublicPath('/assets')
   .setManifestKeyPrefix('assets')
-  .copyFiles({ from: './assets/static' })
+  .copyFiles({ from: './assets/static', to: '[path][name].[ext]' })
 
   .cleanupOutputBeforeBuild()
   .enableSingleRuntimeChunk()
