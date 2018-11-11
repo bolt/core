@@ -2,7 +2,7 @@
     <div class="admin__notification-message">
         <transition name="notification" v-on:after-enter="show = false" :duration="duration">
             <div v-show="show" class="notification" :data-type="`is-${type}`" role="alert">
-                <div v-html="message"></div>
+                <div v-html="message" class="notification__message"></div>
                 <button type="button" class="notification__close" aria-label="Close" @click="show = false">
                     {{ closingLabel }}
                 </button>
@@ -26,7 +26,7 @@
                 type: {
                     type: String,
                     required: true,
-                    default: "error",
+                    default: "danger",
                 },
                 closingLabel: {
                     type: String,
