@@ -1,0 +1,33 @@
+
+<div class="selectize-control form-control single" style="min-width: 220px;">
+    <select name="localeswitcher" id="localeswitcher" placeholder="{{ 'form.select_language'|trans }}">
+    </select>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        $('#localeswitcher').selectize({
+            create: false,
+            sortField: 'name',
+            maxItems: 1,
+            searchField: ['name'],
+            closeAfterSelect: true,
+            onChange: function(value) {
+                window.location = value;
+            },
+            options: [
+                {% for locale in locales() %}
+                { value: '{{ path('bolt_edit_record', {'id': record.id, 'locale': locale.code }) }}', flag: "{{ locale.flag|raw }}", name: '{{ locale.name }}'},
+                {% endfor %}
+            ],
+            render: {
+                option: function(item) {
+                    return "<div class='option'>" + item.flag + " " + item.name + "</div>";
+                },
+                item: function(item) {
+                    return "<div class='option'>" + item.flag + " " + item.name + "</div>";
+                }
+            }
+        });
+    });
+</script>

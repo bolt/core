@@ -32,6 +32,14 @@
               <span>{{group|capitalize}}</span></a>
           </li>
       {% endfor %}
+
+      {# Note: Record MUST be saved, before you can switch locales. #}
+      {% if record.id %}
+      <li class="nav-item" style="margin-left: auto;">
+          {% include('editcontent/localeswitcher.twig') %}
+      </li>
+      {% endif %}
+
   </ul>
 </nav>
 <div class="tab-content" id="nav-tabContent">

@@ -905,5 +905,11 @@
         <target>Installation checks</target>
       </segment>
     </unit>
+    <unit id="pNPctrH" name="form.select_language">
+      <segment>
+        <source>form.select_language</source>
+        <target>Select language</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -66,7 +66,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.dashboard'),
                 'icon' => 'fa-tachometer-alt',
-            ]
+            ],
         ]);
 
         $menu->addChild('Content', ['extras' => [
@@ -128,7 +128,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.contenttypes'),
                 'icon' => 'fa-object-group',
-            ]
+            ],
         ]);
 
         $menu['Configuration']->addChild('Taxonomies', [
@@ -136,7 +136,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.taxonomies'),
                 'icon' => 'fa-tags',
-            ]
+            ],
         ]);
 
         $menu['Configuration']->addChild('Menu set up', [
@@ -145,7 +145,7 @@ class MenuBuilder
                 'name' => $t->trans('caption.menu_setup'),
                 'type' => 'separator',
                 'icon' => 'fa-list',
-            ]
+            ],
         ]);
 
         $menu['Configuration']->addChild('Routing set up', [
@@ -153,7 +153,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.routing_setup'),
                 'icon' => 'fa-directions',
-            ]
+            ],
         ]);
 
         $menu['Configuration']->addChild('All configuration files', [
@@ -161,7 +161,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.all_configuration_files'),
                 'icon' => 'fa-cogs',
-            ]
+            ],
         ]);
 
         // Maintenance submenu
@@ -176,7 +176,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.api'),
                 'icon' => 'fa-code',
-            ]
+            ],
         ]);
 
         $menu['Maintenance']->addChild('Check database', [
@@ -184,7 +184,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.check_database'),
                 'icon' => 'fa-database',
-            ]
+            ],
         ]);
 
         $menu['Maintenance']->addChild('Fixtures', [
@@ -192,7 +192,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.fixtures_dummy_content'),
                 'icon' => 'fa-hat-wizard',
-            ]
+            ],
         ]);
 
         $menu['Maintenance']->addChild('Clear the cache', [
@@ -200,7 +200,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.clear_cache'),
                 'icon' => 'fa-eraser',
-            ]
+            ],
         ]);
 
         $menu['Maintenance']->addChild('Installation checks', [
@@ -208,7 +208,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.installation_checks'),
                 'icon' => 'fa-clipboard-check',
-            ]
+            ],
         ]);
 
         $menu['Maintenance']->addChild('Translations: Messages', [
@@ -216,7 +216,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.translations'),
                 'icon' => 'fa-language',
-            ]
+            ],
         ]);
 
         $menu['Maintenance']->addChild('Extensions', [
@@ -224,9 +224,8 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.extensions'),
                 'icon' => 'fa-plug',
-            ]
+            ],
         ]);
-
 
         // File Management submenu
 
@@ -240,7 +239,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.uploaded_files'),
                 'icon' => 'fa-archive',
-            ]
+            ],
         ]);
 
         $menu['File Management']->addChild('View/edit Templates', [
@@ -248,7 +247,7 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.view_edit_templates'),
                 'icon' => 'fa-scroll',
-            ]
+            ],
         ]);
 
         $this->stopwatch->stop('bolt.sidebar');
