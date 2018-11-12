@@ -73,6 +73,8 @@
     "regenerator-runtime": "^0.12.1",
     "register-service-worker": "^1.5.2",
     "sass-loader": "^7.1.0",
+    "svgo": "^1.1.1",
+    "svgo-loader": "^2.2.0",
     "vue-jest": "^3.0.0",
     "vue-loader": "^15.0.11",
     "vue-router": "^3.0.1",
