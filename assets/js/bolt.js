@@ -1,5 +1,8 @@
 "use strict";
-
+/**
+ * ES7 Polyfil
+ */
+import "@babel/polyfill";
 /**
  * Vue Core | Config
  */
@@ -32,7 +35,6 @@ import "./Views/user";
 import "./app/notifications";
 import "./app/toolbar";
 import "./app/sidebar";
-import "./app/title";
 import "./app/listing";
 
 /**

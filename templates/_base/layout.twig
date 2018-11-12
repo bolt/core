@@ -24,18 +24,20 @@
         {% set username = user.fullName|default('Unknown user') %}
         {% set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': username}], 'action.logout', 'action.edit_profile']) %}
         <admin-toolbar
+            site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
             :menu="{{ sidebarmenu() }}"
             user="{{user|default()}}"
-            site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
             :labels="{{ labels|json_decode }}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->
 
     <!-- Admin Header -->
-    <header id="title" class="admin__header">
+    <header class="admin__header">
         <div class="container">
-          <bolt-title title="{{ block('title') }}"></bolt-title>
+            <nav class="admin__header--topbar">
+              <h2 class="admin__header--title">{{ block('title') }}</h2>
+            </nav>
         </div>
     </header>
     <!-- End Admin Header -->
