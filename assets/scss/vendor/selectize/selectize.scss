@@ -11,5 +11,17 @@
         transform: translateY(-50%);
       }
     }
+
+    .selectize-dropdown .selectize-dropdown-content {
+      padding: 0;
+
+      .option {
+        padding: 0.25rem 0.5rem;
+
+        &:first-of-type {
+          margin-top: 0.25rem;
+        }
+      }
+    }
   }
 }
