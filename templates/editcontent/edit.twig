@@ -9,7 +9,10 @@
     {{ icon(record) }} {{ 'caption.edit'|trans }} {{ record.definition.singular_name }} » <strong>{{ record.title|excerpt(50)|default('New') }}</strong>
 {% endblock %}
 
+{% block vue_id 'editor' %}
+
 {% block main %}
+
 <form method="post" id="editcontent" >
 
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
@@ -32,14 +35,6 @@
               <span>{{group|capitalize}}</span></a>
           </li>
       {% endfor %}
-
-      {# Note: Record MUST be saved, before you can switch locales. #}
-      {% if record.id %}
-      <li class="nav-item localeswitcher">
-          {% include('editcontent/localeswitcher.twig') %}
-      </li>
-      {% endif %}
-
   </ul>
 </nav>
 <div class="tab-content" id="nav-tabContent">
@@ -84,6 +79,14 @@
             <button type="submit" class="btn btn-success mb-3" form="editcontent">
                 <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
             </button>
+            
+            {% if record.id %}
+              <general-language 
+                label="{{ 'field.locale'|trans }}"
+                current="{{ user.locale }}"
+                :locales="{{ locales() }}"
+              ></general-language>
+            {% endif %}
 
             {% include '@bolt/editcontent/fields/select.twig' with {
                 'label': 'field.status'|trans,

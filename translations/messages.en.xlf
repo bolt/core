@@ -911,5 +911,11 @@
         <target>Select language</target>
       </segment>
     </unit>
+    <unit id="9lJhqvA" name="field.locale">
+      <segment>
+        <source>field.locale</source>
+        <target>Locale</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
