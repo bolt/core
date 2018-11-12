@@ -5,22 +5,29 @@ var path = require('path');
 
 Encore
 
-  // .addPlugin(new WebpackBar({
-  //   profile: Encore.isProduction() ? true:false,
-  //   minimal: false
-  // }))
+  .addPlugin(new WebpackBar({
+    profile: Encore.isProduction() ? true:false,
+    minimal: false
+  }))
 
-  // .addPlugin(new webpack.ProvidePlugin({
-  //   $bus: [path.resolve(__dirname, './assets/js/bus/'), 'default']
-  // }))
+  .addPlugin(new webpack.ProvidePlugin({
+    $bus: [path.resolve(__dirname, './assets/js/bus/'), 'default']
+  }))
 
   .setOutputPath('public/assets/')
   .setPublicPath('/assets')
   .setManifestKeyPrefix('assets')
-  .copyFiles({ from: './assets/static', to: '[path][name].[ext]' })
-
+  .copyFiles({ 
+    from: './assets/static' 
+  })
+  .copyFiles({
+    from: './node_modules/flagkit-web/svgs',
+    to: 'icons/flags/[name].[ext]',
+    pattern: /\.(svg)$/
+  })
+  
   .cleanupOutputBeforeBuild()
-  .enableSingleRuntimeChunk()
+  .disableSingleRuntimeChunk()
   .enableSourceMaps(!Encore.isProduction())
   .enableVersioning(Encore.isProduction())
 
