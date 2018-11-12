@@ -5,10 +5,10 @@ var path = require('path');
 
 Encore
 
-  .addPlugin(new WebpackBar({
-    profile: Encore.isProduction() ? true:false,
-    minimal: false
-  }))
+  // .addPlugin(new WebpackBar({
+  //   profile: Encore.isProduction() ? true:false,
+  //   minimal: false
+  // }))
 
   // .addPlugin(new webpack.ProvidePlugin({
   //   $bus: [path.resolve(__dirname, './assets/js/bus/'), 'default']

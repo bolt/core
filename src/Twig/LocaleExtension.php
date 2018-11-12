@@ -116,9 +116,7 @@ class LocaleExtension extends AbstractExtension
 
     private function flagImage($flag)
     {
-        $path = '/assets';
-
-        return sprintf("<img src='%s/flags/%s.svg' style='height: 1rem; width: 1.33rem;'>", $path, mb_strtolower($flag));
+        return sprintf(mb_strtolower($flag));
     }
 
     private function getFlagCodes()

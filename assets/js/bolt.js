@@ -29,13 +29,15 @@ window.jQuery = $;
 /**
  * Vue Apps
  */
-import "./Views/editor";
+// import "./Views/editor";
 import "./Views/user";
 
 import "./app/notifications";
 import "./app/toolbar";
 import "./app/sidebar";
 import "./app/listing";
+import "./app/editor";
+
 
 /**
  * Styling
