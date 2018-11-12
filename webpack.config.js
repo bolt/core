@@ -14,30 +14,21 @@ Encore
     $bus: [path.resolve(__dirname, './assets/js/bus/'), 'default']
   }))
 
-  .addLoader({
-    test: /\.svg$/,
-    loader: 'svgo-loader',
-    options: {
-      plugins: [
-        {removeTitle: true},
-        {removeDesc: true},
-        {cleanupAttrs: true},
-        {convertColors: {shorthex: true}},
-        {convertPathData: false},
-        {removeEmptyAttrs: true},
-        {minifyStyles: true},
-      ]
-    }
-  })
-
   .setOutputPath('public/assets/')
   .setPublicPath('/assets')
   .setManifestKeyPrefix('assets')
-  .copyFiles({ from: './assets/static', to: '[path][name].[ext]' })
+  .copyFiles({ 
+    from: './assets/static' 
+  })
+  .copyFiles({
+    from: './node_modules/flagkit-web/svgs',
+    to: 'icons/flags/[name].[ext]',
+    pattern: /\.(svg)$/
+  })
 
   
   .cleanupOutputBeforeBuild()
-  .enableSingleRuntimeChunk()
+  .disableSingleRuntimeChunk()
   .enableSourceMaps(!Encore.isProduction())
   .enableVersioning(Encore.isProduction())
 

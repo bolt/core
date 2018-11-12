@@ -1,0 +1,13 @@
+$FLAGKIT_FOLDER_PATH: '/assets/icons/flags/';
+
+@import 'flagkit-web/styles/flagkit.scss';
+
+.flag{
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  position: relative;
+  display: inline-block;
+  width: (4 / 3) * 1em;
+  line-height: 1em;
+}

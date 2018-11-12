@@ -12,15 +12,15 @@
     >
     <template slot="singleLabel" slot-scope="props">
       <span 
-        class="flag-icon mr-1"
-        :class="`flag-icon-${props.option.flag}`"
+        class="flag mr-1"
+        :class="props.option.flag|uppercase"
       ></span>
       <span>{{props.option.localisedname}}</span>
     </template>
     <template slot="option" slot-scope="props">
       <span 
-        class="flag-icon mr-1"
-        :class="`flag-icon-${props.option.flag}`"
+        class="flag mr-1"
+        :class="props.option.flag|uppercase"
       ></span>
       <span>{{props.option.localisedname}}</span>
     </template>
@@ -31,7 +31,6 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
-import  'flag-icon-css/css/flag-icon.min.css'
 
 export default {
   name: "editor-language",
