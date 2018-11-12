@@ -25,7 +25,6 @@ Encore
     to: 'icons/flags/[name].[ext]',
     pattern: /\.(svg)$/
   })
-
   
   .cleanupOutputBeforeBuild()
   .disableSingleRuntimeChunk()
