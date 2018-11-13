@@ -1,0 +1,18 @@
+.listing--container{
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+  &.sortable-ghost{
+    opacity: 0.1;
+  }
+  &.is-dashboard{
+    .listing__row, .quickedit__row{
+      width: 100%;
+    } 
+  }
+  .listing__row, .quickedit__row{
+    width: calc(100% - #{$checkbox-row-width});
+  }
+}
