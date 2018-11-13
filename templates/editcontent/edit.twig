@@ -86,7 +86,10 @@
                 {% if record.id %}
                   <div class="card mb-3">
                     <div class="card-body">
-                      <general-language label="{{ 'field.locale'|trans }}" current="{{ user.locale }}" :locales="{{ locales() }}"></general-language>
+                      <general-language 
+                        label="{{ 'field.locale'|trans }}" 
+                        :locales="{{ locales() }}"
+                      ></general-language>
                     </div>
                   </div>
                 {% endif %}

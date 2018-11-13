@@ -28,19 +28,48 @@
 </template>
 
 <script>
-import field from '../../../mixins/value';
+import value from '../../../mixins/value';
 import flatPickr from 'vue-flatpickr-component';
 import { Spanish } from "flatpickr/dist/l10n/es.js"
 import { resolve } from 'path';
 
 export default {
-  name: "editor-date",
-  props: ['value', 'name', 'disabled', 'mode', 'form', 'locale'],
 
-  mixins: [field],
+  name: "editor-date",
+
+  mixins: [ value ],
+
   components: {
       flatPickr
   },
+
+  props: {
+    value: {
+      type: String,
+      required: false,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    disabled: {
+      type: String,
+      required: true,
+    },
+    mode: {
+      type: String,
+      required: true,
+      default: "date"
+    },
+    form: {
+      type: String,
+      required: true
+    },
+    locale: {
+      type: String,
+    }
+  },
+
   created(){
     if(this.locale !== 'en'){
       const lang = require(`flatpickr/dist/l10n/${this.locale}.js`).default[this.locale];
@@ -51,9 +80,11 @@ export default {
       this.config.altFormat = `F j, Y - h:i K`;
     }
   },
+
   mounted() {
 
   },
+
   data: () => {
     return {
       config: {
@@ -65,5 +96,6 @@ export default {
       }
     }
   }
+
 };
 </script>
