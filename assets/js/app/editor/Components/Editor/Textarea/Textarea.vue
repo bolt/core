@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import field from '../../mixins/value';
+import field from '../../../mixins/value';
 
 export default {
   name: "editor-textarea",

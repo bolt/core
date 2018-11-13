@@ -1,0 +1,38 @@
+.quickedit__row{
+  min-height: 200px;
+  flex: auto;
+  box-shadow: $card-box-shadow;
+  display: flex;
+  z-index: 99;
+  justify-content: space-between;
+  flex-direction: column;
+  background: var(--foreground);
+  margin-bottom: $spacer / 1.25;
+  border-radius: $border-radius;
+  position: relative;
+  &--item{
+    padding: $spacer;
+    &.is-content{
+      
+    }
+    &.is-actions{
+      background: var(--shade-100);
+      display: flex;
+      align-items: center;
+      padding: $spacer / 2;
+      justify-content: space-between;
+    }
+  }
+}
+
+.quickeditor-enter-active, .quickeditor-leave-active { 
+  transition: transform 0.45s, opacity 0.25s; 
+}
+
+.quickeditor-enter, .quickeditor-leave-to{
+  opacity: 0;
+  transform: translateY(30px);
+  transform-origin: top;
+  position: absolute;
+  right: 0;
+}
