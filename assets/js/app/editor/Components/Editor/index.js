@@ -1,14 +1,14 @@
-import Text from './Text';
-import Slug from './Slug';
-import Date from './Date';
+import Text from './Text/Text';
+import Slug from './Slug/Slug';
+import Date from './Date/Date';
 
-import Select from './Select';
+import Select from './Select/Select';
 
-import Html from './Html';
-import Markdown from './Markdown';
-import Textarea from './Textarea';
+import Html from './Html/Html';
+import Markdown from './Markdown/Markdown';
+import Textarea from './Textarea/Textarea';
 
-import Image from './Image';
+import Image from './Image/Image';
 
 import Label from './_Partials/Label'
 

@@ -1,48 +1,5 @@
 //** Lisitng | Row
 
-$checkbox-row-width: 30px;
-
-.listing--container{
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
-  width: 100%;
-  &.sortable-ghost{
-    opacity: 0.1;
-  }
-  &.is-dashboard{
-    .listing__row, .quickedit__row{
-      width: 100%;
-    } 
-  }
-  .listing__row, .quickedit__row{
-    width: calc(100% - #{$checkbox-row-width});
-  }
-}
-
-.listing--checkbox{
-  width: $checkbox-row-width;
-  user-select: none;
-  .custom-control{
-    position: relative;
-    height: calc(100% - #{$spacer} / 1.25);
-    padding: 0;
-    .custom-control-label {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      &:before, &:after{
-        left: $spacer / 4;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-    }
-  }
-}
-
 .listing__row{
   box-shadow: $card-box-shadow;
   background: var(--foreground);
@@ -180,45 +137,6 @@ $checkbox-row-width: 30px;
       }
     }
   }
-}
-
-.quickedit__row{
-  min-height: 200px;
-  flex: auto;
-  box-shadow: $card-box-shadow;
-  display: flex;
-  z-index: 99;
-  justify-content: space-between;
-  flex-direction: column;
-  background: var(--foreground);
-  margin-bottom: $spacer / 1.25;
-  border-radius: $border-radius;
-  position: relative;
-  &--item{
-    padding: $spacer;
-    &.is-content{
-      
-    }
-    &.is-actions{
-      background: var(--shade-100);
-      display: flex;
-      align-items: center;
-      padding: $spacer / 2;
-      justify-content: space-between;
-    }
-  }
-}
-
-.quickeditor-enter-active, .quickeditor-leave-active { 
-  transition: transform 0.45s, opacity 0.25s; 
-}
-
-.quickeditor-enter, .quickeditor-leave-to{
-  opacity: 0;
-  transform: translateY(30px);
-  transform-origin: top;
-  position: absolute;
-  right: 0;
 }
 
 .card-enter-active, .card-leave-active { 
