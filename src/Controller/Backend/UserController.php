@@ -7,10 +7,13 @@ namespace Bolt\Controller\Backend;
 use Bolt\Controller\BaseController;
 use Bolt\Form\ChangePasswordType;
 use Bolt\Form\UserType;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -29,7 +32,7 @@ class UserController extends BaseController
     }
 
     /**
-     * @Route("/profile-edit", methods={"GET", "POST"}, name="bolt_profile_edit")
+     * @Route("/profile-edit", methods={"GET"}, name="bolt_profile_edit")
      */
     public function edit(Request $request): Response
     {
@@ -51,6 +54,25 @@ class UserController extends BaseController
             'user' => $user,
             'form' => $form->createView(),
         ]);
+    }
+    /**
+     * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
+     */
+    public function edit_post(Request $request, UrlGeneratorInterface $urlGenerator, ObjectManager $manager): RedirectResponse
+    {
+        $user = $this->getUser();
+
+        $user->setFullName($request->get('user')['fullName']);
+        $user->setEmail($request->get('user')['email']);
+        $user->setLocale($request->get('user')['locale']);
+        $user->setbackendTheme($request->get('user')['backendTheme']);
+
+        $manager->flush();
+
+        $url = $urlGenerator->generate('bolt_profile_edit');
+
+        return new RedirectResponse($url);
+
     }
 
     /**
