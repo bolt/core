@@ -37,39 +37,43 @@ class UserController extends BaseController
     public function edit(Request $request): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'user.updated_successfully');
-
-            $locale = $form->getData()->getLocale();
-            $request->getSession()->set('_locale', $locale);
-            $request->setLocale($locale);
-
-            return $this->redirectToRoute('bolt_profile_edit');
-        }
 
         return $this->renderTemplate('users/edit.twig', [
             'user' => $user,
-            'form' => $form->createView(),
         ]);
     }
     /**
      * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
      */
-    public function edit_post(Request $request, UrlGeneratorInterface $urlGenerator, ObjectManager $manager): RedirectResponse
+    public function edit_post(Request $request, UrlGeneratorInterface $urlGenerator, ObjectManager $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
+        $url = $urlGenerator->generate('bolt_profile_edit');
+        $locale = $request->get('user')['locale'];
+
+        $newPassword = $request->get('user')['password_first'];
+        $confirmedPassword = $request->get('user')['password_second'];
 
         $user->setFullName($request->get('user')['fullName']);
         $user->setEmail($request->get('user')['email']);
-        $user->setLocale($request->get('user')['locale']);
+        $user->setLocale($locale);
         $user->setbackendTheme($request->get('user')['backendTheme']);
+
+        if (!empty($newPassword) || !empty($confirmedPassword))
+        {
+            // Set new password
+            if($newPassword === $confirmedPassword) {
+                $user->setPassword($encoder->encodePassword($user, $newPassword));
+            } else{
+                return $this->renderTemplate('users/edit.twig', [
+                    'user' => $user,
+                ]);
+            }
+        }
 
         $manager->flush();
 
-        $url = $urlGenerator->generate('bolt_profile_edit');
+        $request->getSession()->set('_locale', $locale);
 
         return new RedirectResponse($url);
 
