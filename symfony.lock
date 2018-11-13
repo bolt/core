@@ -608,6 +608,9 @@
     "webmozart/path-util": {
         "version": "2.3.0"
     },
+    "webonyx/graphql-php": {
+        "version": "v0.12.6"
+    },
     "white-october/pagerfanta-bundle": {
         "version": "v1.0.8"
     },

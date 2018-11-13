@@ -8,7 +8,7 @@
       :options="locales"
       :searchable="false"
       :show-labels="false"
-      placeholder="select locale"
+      :limit="1"
       @input="switchLocale()"
     >
     <template slot="singleLabel" slot-scope="props">

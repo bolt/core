@@ -1,4 +1,7 @@
 api_platform:
+    graphql:
+        graphiql:
+            enabled: true
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     formats:

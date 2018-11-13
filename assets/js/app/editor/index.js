@@ -28,7 +28,7 @@ new Vue({
   name: "bolt-editor",
   components: {
     "general-language": Language,
-    
+
     "editor-text": Text,
     "editor-slug": Slug,
     "editor-date": Date,
