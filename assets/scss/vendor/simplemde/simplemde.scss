@@ -1,0 +1,45 @@
+.CodeMirror-fullscreen,  
+.editor-toolbar.fullscreen,
+.editor-preview-side{
+  z-index: 10000;
+}
+
+.CodeMirror-fullscreen,  
+.editor-toolbar.fullscreen{
+  background: var(--foreground);
+}
+
+.editor-toolbar {
+  background-color: $input-disabled-bg;
+  opacity: 1;
+  padding: 0 $spacer / 2;
+  border: $input-border-width solid $input-border-color;
+  border-bottom: 0;
+  border-radius: $input-border-radius $input-border-radius 0 0;
+  &:hover{
+    opacity: 1;
+  }
+  &:before, &:after{
+    margin: 0;
+    content: none;
+  }
+  a{
+    padding: $spacer / 3 0;
+    margin: 0;
+    height: auto;
+    border-radius: 0;
+    &:hover{
+      border: 0;
+      background: var(--foreground);
+    }
+  }
+}
+
+.CodeMirror {
+  border: $input-border-width solid $input-border-color;
+  border-radius: 0 0 $input-border-radius $input-border-radius;
+  &:focus{
+    border-color: var(--primary);
+    box-shadow: $input-focus-box-shadow;
+  }
+}

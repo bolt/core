@@ -36,8 +36,6 @@
     "moment": "^2.22.2",
     "no-scroll": "^2.1.1",
     "popper.js": "^1.14.4",
-    "selectize": "^0.12.6",
-    "selectize-bootstrap4-theme": "^2.0.2",
     "simplemde": "^1.11.2",
     "tinycolor2": "^1.4.1",
     "vue": "^2.5.17",

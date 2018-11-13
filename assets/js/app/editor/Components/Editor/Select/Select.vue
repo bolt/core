@@ -1,32 +1,57 @@
 <template>
   <div>
-      <select class="selectize form-control" :id="id" :name="fieldName" :form="form">
-        <option 
-          v-for="(option, index) in selectOptions" 
-          :key="index" 
-          :value="option.key"
-          :selected="option.key == value"
-        >{{option.value}}</option>  
-      </select>
+    <multiselect
+      v-model="option"
+      track-by="key"
+      label="key"
+      :options="options"
+      :searchable="false"
+      :show-labels="false"
+      :limit="1"
+    >
+    <template slot="singleLabel" slot-scope="props" v-if="name === 'status'">
+      <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
+    </template>
+    <template slot="option" slot-scope="props" v-if="name === 'status'">
+      <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
+    </template>
+    </multiselect>
+    <input 
+      type="hidden"
+      :id="id"
+      :name="fieldName" 
+      :form="form"
+      :value="option.key"
+    >
   </div>
 </template>
 
 <script>
 import selectize from 'selectize';
+import Multiselect from 'vue-multiselect'
 
 export default {
   name: "editor-select",
-  props: ['value', 'label', 'name', 'id', 'form', 'options'],
+  props: ['value', 'name', 'id', 'form', 'options'],
+
+  components: { Multiselect },
+
   mounted(){
-    $('.selectize').selectize({
-      create: true,
-      sortField: 'text'
-    });
+    this.option.key = this.value
+    this.option.value = this.value
   },
+
+  data: () => {
+    return {
+      option: {
+        key: null,
+        selected: true,
+        value: null
+      }
+    }
+  },
+
   computed:{
-    selectOptions(){
-      return JSON.parse(this.options);
-    },
     fieldName(){
       return this.name + '[]'
     }

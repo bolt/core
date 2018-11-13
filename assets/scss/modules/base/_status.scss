@@ -5,7 +5,7 @@
   height: 12px;
   border-radius: 100%;
   background: var(--shade);
-  display: inline-block;
+  display: inline-flex;
   &.is-published{
     background: var(--status-published)
   }

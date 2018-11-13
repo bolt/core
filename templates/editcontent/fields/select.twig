@@ -15,15 +15,18 @@
     {% set multiple = false %}
 {% endif %}
 
+
+
 {% block field %}
     {% if multiple %}
         Multi
     {% else %}
         <editor-select
+ 
             :value="'{{ value }}'"
             :name="'{{ name }}'"
             :id="'{{ id }}'"
-            :options="'{{ options|json_encode() }}'"
+            :options="{{ options|json_encode() }}"
             :form="'{{ form }}'"
         ></editor-select>
     {% endif %}
