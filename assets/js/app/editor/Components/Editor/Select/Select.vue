@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import selectize from 'selectize';
 import Multiselect from 'vue-multiselect'
 
 export default {

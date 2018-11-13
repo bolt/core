@@ -7,6 +7,7 @@
       placeholder="…" 
       type="text" 
       v-model="val" 
+      :disabled="disabled == 1" 
     >
   </div>
 </template>
@@ -16,7 +17,7 @@ import field from '../../../mixins/value';
 
 export default {
   name: "editor-text",
-  props: ['value', 'label', 'name', 'type'],
+  props: ['value', 'label', 'name', 'type', 'disabled'],
   mixins: [field],
   mounted() {
     this.$root.$on('generate-from-title', data => this.generate = data);
