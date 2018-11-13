@@ -9,6 +9,7 @@
       :searchable="false"
       :show-labels="false"
       placeholder="select locale"
+      @input="switchLocale()"
     >
     <template slot="singleLabel" slot-scope="props">
       <span 
@@ -33,19 +34,49 @@
 import Multiselect from 'vue-multiselect'
 
 export default {
+
   name: "editor-language",
-  props: ['label', 'current', 'locales'],
+
   components: { Multiselect },
+
+  props: ['label', 'locales'],
+
+
   mounted(){
-    let current = this.locales.filter(locale =>
-      locale.code === this.current
-    )
-    this.locale = current[0];
+    const url = new URLSearchParams(window.location.search);
+
+    
+
+    if(url.has('locale')){
+
+      let current = this.locales.filter(locale =>
+        locale.code === url.get('locale')
+      )
+      if(current.length > 0){
+        this.locale = current[0];
+      } else {
+        this.locale = this.locales[0]
+      }
+
+    } else {
+
+      this.locale = this.locales[0]
+
+    }
   },
+
   data: () =>{
     return {
       locale: {}
     }
+  },
+
+  methods: {
+    switchLocale(){
+      const locale = this.locale.link;
+      return window.location.href = locale;
+    }
   }
+
 };
 </script>
