@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import field from '../../mixins/value';
+import field from '../../../mixins/value';
 import flatPickr from 'vue-flatpickr-component';
 import { Spanish } from "flatpickr/dist/l10n/es.js"
 import { resolve } from 'path';

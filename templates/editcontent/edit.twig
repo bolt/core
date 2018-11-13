@@ -2,147 +2,152 @@
 
 {% set alltypes = ['select'] %}
 {% for key, fielddefinition in record.definition.fields %}
-    {% set alltypes = alltypes|merge([fielddefinition.type]) %}
+    {% set alltypes = alltypes | merge([fielddefinition.type]) %}
 {% endfor %}
 
 {% block title %}
-    {{ icon(record) }} {{ 'caption.edit'|trans }} {{ record.definition.singular_name }} » <strong>{{ record.title|excerpt(50)|default('New') }}</strong>
+    {{ icon(record) }}
+    {{ 'caption.edit'|trans }}
+    {{ record.definition.singular_name }}
+    »
+    <strong>{{ record.title|excerpt(50)|default('New') }}</strong>
 {% endblock %}
 
 {% block vue_id 'editor' %}
 
-{% block main %}
+    {% block main %}
 
-<form method="post" id="editcontent" >
+        <form method="post" id="editcontent">
 
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
 
-<!-- fields -->
-{% set groups = record.definition.groups %}
-<nav>
-  <ul class="nav editor__tabbar" role="tablist">
-      {% for group in groups %}        
-          <li class="nav-item">
-              <a
-                class="nav-item nav-link {% if loop.first %}active{% endif %}"
-                id="{{group|slug}}-tab"
-                data-toggle="pill"
-                href="#{{group|slug}}"
-                role="tab"
-                aria-controls="{{group|slug}}"
-                aria-selected="{% if loop.first %}true{%else%}false{% endif %}"
-              >
-              <span>{{group|capitalize}}</span></a>
-          </li>
-      {% endfor %}
-  </ul>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-  {% for group in groups %}
-    <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}" role="tabpanel" aria-labelledby="{{group|slug}}-tab">
-      {% for key, fielddefinition in record.definition.fields %}
+            <!-- fields -->
+            {% set groups = record.definition.groups %}
+            <nav>
+                <ul class="nav editor__tabbar" role="tablist">
+                    {% for group in groups %}
+                        <li class="nav-item">
+                            <a class="nav-item nav-link {% if loop.first %}active{% endif %}" id="{{group|slug}}-tab" data-toggle="pill" href="#{{group|slug}}" role="tab" aria-controls="{{group|slug}}" aria-selected="{% if loop.first %}true{%else%}false{% endif %}">
+                                <span>{{group|capitalize}}</span></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                {% for group in groups %}
+                    <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}" role="tabpanel" aria-labelledby="{{group|slug}}-tab">
+                        {% for key, fielddefinition in record.definition.fields %}
 
-        {% set type         = fielddefinition.type %}
-        {% set field        = record.field(key) %}
-        {% set fieldgroup   = fielddefinition.group %}
+                            {% set type = fielddefinition.type %}
+                            {% set field = record.field(key) %}
+                            {% set fieldgroup = fielddefinition.group %}
 
-        {% if not field %}
-            {% set field = fieldfactory(key, fielddefinition) %}
-        {% endif %}
-        {% if fieldgroup == group %}
-          {% include ['editcontent/fields/' ~ type ~ '.twig', 'editcontent/fields/generic.twig' ] with { 'field': field, 'define': fielddefinition} %}
-        {% endif %}
-        
-      {% endfor %}
-    </div>
-  {% endfor %}
-</div>
+                            {% if not field %}
+                                {% set field = fieldfactory(key, fielddefinition) %}
+                            {% endif %}
+                            {% if fieldgroup == group %}
+                                {% include[
+                                    'editcontent/fields/' ~ type ~ '.twig',
+                                    'editcontent/fields/generic.twig'
+                                ] with {
+                                    'field' : field,
+                                    'define' : fielddefinition
+                                } %}
+                            {% endif %}
 
-<button type="submit" class="btn btn-success mb-3">
-    <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
-</button>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
 
-
-</form>
-
-{% endblock %}
-
-{% block aside %}
-
-<div id="metadata" class="card">
-    <div class="card-header">
-        Meta information
-    </div>
-    <div class="card-body">
-        <form class="ui form">
-
-            <button type="submit" class="btn btn-success mb-3" form="editcontent">
-                <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
+            <button type="submit" class="btn btn-success mb-3">
+                <i class="fas fa-save mr-2"></i>
+                {{ 'action.save'|trans }}
             </button>
-            
-            {% if record.id %}
-              <general-language 
-                label="{{ 'field.locale'|trans }}"
-                current="{{ user.locale }}"
-                :locales="{{ locales() }}"
-              ></general-language>
-            {% endif %}
-
-            {% include '@bolt/editcontent/fields/select.twig' with {
-                'label': 'field.status'|trans,
-                'name': 'status',
-                'value': record.status,
-                'options': record.statusoptions,
-                'form': 'editcontent'
-            } %}
-
-            {#<input type="text" name="author" value="{{ record.author }}">#}
-
-            {% include '@bolt/editcontent/fields/date.twig' with {
-                'label': 'field.createdAt'|trans,
-                'name': 'createdAt',
-                'value': record.createdAt,
-                'disabled': true,
-                'mode': 'datetime',
-                'form': 'editcontent'
-            } %}
-
-            {% include '@bolt/editcontent/fields/date.twig' with {
-                'label': 'field.modifiedAt'|trans,
-                'name': 'modifiedAt',
-                'value': record.modifiedAt,
-                'disabled': true,
-                'mode': 'datetime',
-                'form': 'editcontent'
-            } %}
-
-            {% include '@bolt/editcontent/fields/date.twig' with {
-                'label': 'field.publishedAt'|trans,
-                'name': 'publishedAt',
-                'value': record.publishedAt,
-                'mode': 'datetime',
-                'form': 'editcontent'
-            } %}
-
-            {% include '@bolt/editcontent/fields/date.twig' with {
-                'label': 'field.depublishedAt'|trans,
-                'name': 'depublishedAt',
-                'mode': 'datetime',
-                'form': 'editcontent'
-            } %}
-
-
-            {% include '@bolt/editcontent/fields/text.twig' with {
-                'label': 'field.id'|trans,
-                'name': 'id',
-                'value': record.id,
-                'attributes': 'readonly form="editcontent"',
-                
-            } %}
 
         </form>
 
-    </div>
-</div>
+    {% endblock %}
 
-{% endblock aside %}
+    {% block aside %}
+
+        <div id="metadata">
+            <form class="ui form">
+
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <button type="submit" class="btn btn-success mb-3" form="editcontent">
+                        <i class="fas fa-save mr-2"></i>
+                        {{ 'action.save'|trans }}
+                    </button>
+                  </div>
+                </div>
+
+                {% if record.id %}
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <general-language label="{{ 'field.locale'|trans }}" current="{{ user.locale }}" :locales="{{ locales() }}"></general-language>
+                    </div>
+                  </div>
+                {% endif %}
+
+                <div class="card">
+                    <div class="card-body">
+
+                        {% include '@bolt/editcontent/fields/select.twig' with {
+                            'label' : 'field.status' | trans,
+                            'name' : 'status',
+                            'value' : record.status,
+                            'options' : record.statusoptions,
+                            'form' : 'editcontent'
+                        } %}
+
+                        {#<input type="text" name="author" value="{{ record.author }}">#}
+
+                        {% include '@bolt/editcontent/fields/date.twig' with {
+                            'label' : 'field.createdAt' | trans,
+                            'name' : 'createdAt',
+                            'value' : record.createdAt,
+                            'disabled' : true,
+                            'mode' : 'datetime',
+                            'form' : 'editcontent'
+                        } %}
+
+                        {% include '@bolt/editcontent/fields/date.twig' with {
+                            'label' : 'field.modifiedAt' | trans,
+                            'name' : 'modifiedAt',
+                            'value' : record.modifiedAt,
+                            'disabled' : true,
+                            'mode' : 'datetime',
+                            'form' : 'editcontent'
+                        } %}
+
+                        {% include '@bolt/editcontent/fields/date.twig' with {
+                            'label' : 'field.publishedAt' | trans,
+                            'name' : 'publishedAt',
+                            'value' : record.publishedAt,
+                            'mode' : 'datetime',
+                            'form' : 'editcontent'
+                        } %}
+
+                        {% include '@bolt/editcontent/fields/date.twig' with {
+                            'label' : 'field.depublishedAt' | trans,
+                            'name' : 'depublishedAt',
+                            'mode' : 'datetime',
+                            'form' : 'editcontent'
+                        } %}
+
+                        {% include '@bolt/editcontent/fields/text.twig' with {
+                            'label' : 'field.id' | trans,
+                            'name' : 'id',
+                            'value' : record.id,
+                            'attributes' : 'readonly form="editcontent"'
+                        } %}
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    {% endblock aside %}
