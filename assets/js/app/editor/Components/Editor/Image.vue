@@ -1,13 +1,13 @@
 <template>
   <div 
-    class="field__image"
+    class="editor__image"
     @dragenter="onDragEnter"
     @dragleave="onDragLeave"
     @dragover.prevent
     @drop="onDrop"
   >
     <transition name="fade">
-      <div class="field__image--dragging" v-show="isDragging">
+      <div class="editor__image--dragging" v-show="isDragging">
         <i class="fas fa-upload"></i>
       </div>  
     </transition>
@@ -43,17 +43,17 @@
         </div>
       </div>
       <div class="col-4">
-        <div class="field__image--preview">
+        <div class="editor__image--preview">
           <a 
             :href="previewImage" 
-            class="field__image--preview-image"
+            class="editor__image--preview-image"
             :style="`background-image: url('${previewImage}')`"
           >
           </a>
         </div>
       </div>
     </div>
-    <input :name="fieldName" type="file" @change="uploadFile($event.target.files[0])" ref="selectFile" class="field__image--upload">
+    <input :name="fieldName" type="file" @change="uploadFile($event.target.files[0])" ref="selectFile" class="editor__image--upload">
     <input :name="name + '[filename]'" type="hidden" :value="val">
   </div>
 </template>
@@ -71,7 +71,7 @@ export default {
     this.previewImage = this.thumbnail;
   },
   updated() {
-    baguetteBox.run('.field__image--preview', {
+    baguetteBox.run('.editor__image--preview', {
       afterShow: () =>{
         noScroll.on()
       },
