@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Configuration\Config;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Intl;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig_Environment;
 
 class LocaleExtension extends AbstractExtension
 {
@@ -21,10 +24,14 @@ class LocaleExtension extends AbstractExtension
     /** @var Collection */
     private $locales;
 
-    public function __construct(Config $config, string $locales)
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
+
+    public function __construct(Config $config, string $locales, UrlGeneratorInterface $urlGenerator)
     {
         $this->localeCodes = explode('|', $locales);
         $this->config = $config;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -33,9 +40,10 @@ class LocaleExtension extends AbstractExtension
     public function getFunctions(): array
     {
         $safe = ['is_safe' => ['html']];
+        $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('locales', [$this, 'getLocales']),
+            new TwigFunction('locales', [$this, 'getLocales'], $env),
             new TwigFunction('locale', [$this, 'getLocale']),
             new TwigFunction('flag', [$this, 'flag'], $safe),
         ];
@@ -53,15 +61,27 @@ class LocaleExtension extends AbstractExtension
      * application and returns an array with the name of each locale written
      * in its own language (e.g. English, Français, Español, etc.).
      */
-    public function getLocales(): Collection
+    public function getLocales(Twig_Environment $env): Collection
     {
         if (null !== $this->locales) {
             return $this->locales;
         }
 
+        // Get the route and route params, to set the new localised link
+        $globals = $env->getGlobals();
+
+        /** @var Request $request */
+        $request = $globals['app']->getRequest();
+        $route = $request->attributes->get('_route');
+        $routeParams = $request->attributes->get('_route_params');
+
         $this->locales = new Collection();
         foreach ($this->localeCodes as $localeCode) {
-            $this->locales->push($this->localeInfo($localeCode));
+            $locale = $this->localeInfo($localeCode);
+            $routeParams['locale'] = $locale->get('code');
+            $locale->put('link', $this->urlGenerator->generate($route, $routeParams));
+
+            $this->locales->push($locale);
         }
 
         return $this->locales;
