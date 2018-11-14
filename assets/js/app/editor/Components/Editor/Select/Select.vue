@@ -3,7 +3,7 @@
     <multiselect
       v-model="option"
       track-by="key"
-      label="key"
+      label="value"
       :options="options"
       :searchable="false"
       :show-labels="false"
@@ -32,12 +32,19 @@ import Multiselect from 'vue-multiselect'
 export default {
   name: "editor-select",
   props: ['value', 'name', 'id', 'form', 'options'],
-
   components: { Multiselect },
 
   mounted(){
-    this.option.key = this.value
-    this.option.value = this.value
+    let key = this.value;
+    let value = '';
+    this.options.forEach(function(item) {
+        if (item.key == key) {
+            value = item.value;
+        }
+    });
+
+    this.option.key = key;
+    this.option.value = value;
   },
 
   data: () => {
