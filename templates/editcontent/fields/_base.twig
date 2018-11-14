@@ -16,6 +16,11 @@
     {% set id = 'field-' ~ field.name|default(name) %}
 {% endif %}
 
+{# Set the form #}
+{% if not form|default() %}
+    {% set form = 'editcontent' %}
+{% endif %}
+
 {# Set the value #}
 {% if not value|default() %}
     {% if field.value is defined %}
