@@ -1,10 +1,29 @@
-.idea
 composer.phar
-assets/vendor/
 
+### Built Assets and uploads ###
+/public/assets/
+/public/files/
+
+
+### NPM and frontend assets building cruft
+assets/vendor/
 /node_modules/
 npm-debug.log
 yarn-error.log
+
+### File-system cruft and temporary files
+.DS_Store
+__*
+._*
+Vagrantfile
+.vagrant*
+.*.swp
+.swp
+*.lock
+.buildpath
+.idea
+.vscode/*
+
 /var/*
 !/var/cache
 /var/cache/*
@@ -17,7 +36,6 @@ yarn-error.log
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
-/public/files/
 
 ###> symfony/framework-bundle ###
 /.env
@@ -40,13 +58,4 @@ yarn-error.log
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
 
-### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
-
-### Built Assets ###
-/public/assets/
