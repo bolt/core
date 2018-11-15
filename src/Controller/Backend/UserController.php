@@ -6,7 +6,6 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\BaseController;
 use Bolt\Form\ChangePasswordType;
-use Bolt\Form\UserType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -42,6 +41,7 @@ class UserController extends BaseController
             'user' => $user,
         ]);
     }
+
     /**
      * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
      */
@@ -59,12 +59,11 @@ class UserController extends BaseController
         $user->setLocale($locale);
         $user->setbackendTheme($request->get('user')['backendTheme']);
 
-        if (!empty($newPassword) || !empty($confirmedPassword))
-        {
+        if (!empty($newPassword) || !empty($confirmedPassword)) {
             // Set new password
-            if($newPassword === $confirmedPassword) {
+            if ($newPassword === $confirmedPassword) {
                 $user->setPassword($encoder->encodePassword($user, $newPassword));
-            } else{
+            } else {
                 return $this->renderTemplate('users/edit.twig', [
                     'user' => $user,
                 ]);
@@ -76,7 +75,6 @@ class UserController extends BaseController
         $request->getSession()->set('_locale', $locale);
 
         return new RedirectResponse($url);
-
     }
 
     /**
