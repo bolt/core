@@ -12,13 +12,4 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FloatField extends Field
 {
-    public function __toString(): string
-    {
-        return (string) (float) ($this->value);
-    }
-
-    public function getValue(): ?array
-    {
-        return [(float) ($this->value)];
-    }
 }
