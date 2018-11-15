@@ -78,33 +78,4 @@ class UserController extends BaseController
         return new RedirectResponse($url);
 
     }
-
-    /**
-     * @Route("/change-password", methods={"GET", "POST"}, name="bolt_change_password")
-     *
-     * @param Request                      $request
-     * @param UserPasswordEncoderInterface $encoder
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     *
-     * @return Response
-     */
-    public function changePassword(Request $request, UserPasswordEncoderInterface $encoder): Response
-    {
-        $user = $this->getUser();
-        $form = $this->createForm(ChangePasswordType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($encoder->encodePassword($user, $form->get('newPassword')->getData()));
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('security_logout');
-        }
-
-        return $this->renderTemplate('users/change_password.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
 }
