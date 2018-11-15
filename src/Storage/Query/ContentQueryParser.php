@@ -448,11 +448,7 @@ class ContentQueryParser
         $this->parse();
         // $parseEvent = new QueryEvent($this);
         // $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::PARSE, $parseEvent);
-        if (!empty($this->getOperation)) {
-            $result = call_user_func($this->handlers[$this->getOperation()], $this);
-        } else {
-            $result = call_user_func($this->handlers['select'], $this);
-        }
+        $result = call_user_func($this->handlers[$this->getOperation()], $this);
         // $executeEvent = new QueryEvent($this, $result);
         // $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::EXECUTE, $executeEvent);
 
