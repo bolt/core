@@ -1,8 +1,15 @@
 {% extends '@bolt/editcontent/fields/_base.twig' %}
 
 {% block field %}
-    <input name="{{ name }}" placeholder="…" type="number" step="1" value="{{ value }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
 
-    <mark>Note: This field is practically the same as the <code>integer</code>-field.</mark>
+  {% if step is not defined %}
+      {% set step = define.step|default(1) %}
+  {% endif %}
+
+  <editor-number 
+    name="{{ name }}"
+    :value="{{ value }}"
+    :step="{{ step }}"
+  ></editor-number>
 
 {% endblock %}

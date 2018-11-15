@@ -211,6 +211,7 @@ showcases:
             index: true
         floatfield:
             type: float
+            # step: 0.25
         selectfield:
             type: select
             values: [ foo, bar, baz ]

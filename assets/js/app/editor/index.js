@@ -9,6 +9,7 @@ import store from './store'
 import {
   Text,
   Slug,
+  Number,
   Date,
   Select,
   Html,
@@ -31,6 +32,7 @@ new Vue({
 
     "editor-text": Text,
     "editor-slug": Slug,
+    "editor-number": Number,
     "editor-date": Date,
     "editor-select": Select,
     "editor-html": Html,
