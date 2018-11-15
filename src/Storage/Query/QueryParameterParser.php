@@ -16,7 +16,6 @@ class QueryParameterParser
 {
     /** @var string */
     public $alias;
-
     /** @var string */
     protected $key;
     /** @var mixed */
@@ -282,7 +281,7 @@ class QueryParameterParser
         foreach ($this->valueMatchers as $matcher) {
             $regex = sprintf('/%s/u', $matcher['token']);
             $values = $matcher['params'];
-            if (preg_match($regex, $value)) {
+            if (preg_match($regex, (string)$value)) {
                 if (is_callable($values['value'])) {
                     preg_match($regex, $value, $output);
                     $values['value'] = $values['value']($output[1]);
