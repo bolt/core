@@ -8,7 +8,7 @@
       :step="step" 
       v-model="val"
     >
-    <div class="input-group-append">
+    <!-- <div class="input-group-append">
       <button 
         class="btn btn-sm btn-secondary" 
         type="button"
@@ -19,7 +19,7 @@
         type="button"
         @click="calc(val, '+')"
       ><i class="fas fa-plus"></i></button>
-    </div>
+    </div> -->
   </div>
 </template>
 

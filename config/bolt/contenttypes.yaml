@@ -207,11 +207,12 @@ showcases:
             default: "first day of last month"
             variant: inline
         integerfield:
-            type: integer
-            index: true
+            type: number
+            mode: integer
+            step: 0.25
         floatfield:
-            type: float
-            # step: 0.25
+            type: number
+            mode: float
         selectfield:
             type: select
             values: [ foo, bar, baz ]

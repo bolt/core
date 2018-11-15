@@ -10,6 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class DatetimeField extends Field
+class NumberField extends Field
 {
 }
