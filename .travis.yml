@@ -45,3 +45,5 @@ script:
   - composer validate --strict
   # this checks that Doctrine's mapping configurations are valid
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+  # run jest unit tests
+  - npm test
