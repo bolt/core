@@ -9,38 +9,40 @@
       :show-labels="false"
       :limit="1"
     >
-    <template slot="singleLabel" slot-scope="props" v-if="name === 'status'">
-      <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
-    </template>
-    <template slot="option" slot-scope="props" v-if="name === 'status'">
-      <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
-    </template>
+      <template slot="singleLabel" slot-scope="props" v-if="name === 'status'">
+        <span class="status mr-2" :class="`is-${props.option.key}`"></span
+        >{{ props.option.key }}
+      </template>
+      <template slot="option" slot-scope="props" v-if="name === 'status'">
+        <span class="status mr-2" :class="`is-${props.option.key}`"></span
+        >{{ props.option.key }}
+      </template>
     </multiselect>
-    <input 
+    <input
       type="hidden"
       :id="id"
-      :name="fieldName" 
+      :name="fieldName"
       :form="form"
       :value="option.key"
-    >
+    />
   </div>
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import Multiselect from "vue-multiselect";
 
 export default {
   name: "editor-select",
-  props: ['value', 'name', 'id', 'form', 'options'],
+  props: ["value", "name", "id", "form", "options"],
   components: { Multiselect },
 
-  mounted(){
+  mounted() {
     let key = this.value;
-    let value = '';
+    let value = "";
     this.options.forEach(function(item) {
-        if (item.key == key) {
-            value = item.value;
-        }
+      if (item.key == key) {
+        value = item.value;
+      }
     });
 
     this.option.key = key;
@@ -54,12 +56,12 @@ export default {
         selected: true,
         value: null
       }
-    }
+    };
   },
 
-  computed:{
-    fieldName(){
-      return this.name + '[]'
+  computed: {
+    fieldName() {
+      return this.name + "[]";
     }
   }
 };

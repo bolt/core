@@ -1,11 +1,15 @@
 <template>
-<div>
-  <div class="card card mb-4" v-for="newsItem in news" v-if="newsItem" :key="newsItem.id">
-    <div class="card-header">{{ newsItem.title }}</div>
-    <div class="card-body" v-html="newsItem.teaser"></div>
+  <div>
+    <div
+      class="card card mb-4"
+      v-for="newsItem in news"
+      v-if="newsItem"
+      :key="newsItem.id"
+    >
+      <div class="card-header">{{ newsItem.title }}</div>
+      <div class="card-body" v-html="newsItem.teaser"></div>
+    </div>
   </div>
-</div>
-
 </template>
 
 <script>
@@ -38,5 +42,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,25 +1,29 @@
 <template>
-    <div>
-        <div v-if="loading" class="row col">
-            <p>Loading...</p>
-        </div>
+  <div>
+    <div v-if="loading" class="row col"><p>Loading...</p></div>
 
-        <div v-else>
-            <h3>Latest {{ type }}</h3>
-            <table>
-                <tbody>
-                    <template v-for="record in records" class="row col">
-                        <tr :key="record.id">
-                            <td>{{ record.id }}</td>
-                            <td><a :href="'edit/'+record.id">{{ record.fields[0].value.value }}</a></td>
-                        </tr>
-                        <!-- Maybe is better to have a component to print each row? -->
-                        <!-- <Context :id="item.id" :key="item.id" :contenttype="content.contenttype" :title="item.fields[0]"></Context> -->
-                    </template>
-                </tbody>
-            </table>
-        </div>
+    <div v-else>
+      <h3>Latest {{ type }}</h3>
+      <table>
+        <tbody>
+          <template v-for="record in records" class="row col">
+            <tr :key="record.id">
+              <td>{{ record.id }}</td>
+              <td>
+                <a :href="'edit/' + record.id">{{
+                  record.fields[0].value.value
+                }}</a>
+              </td>
+            </tr>
+            <!-- Maybe is better to have a component to print each row? -->
+            <!--
+              <Context :id="item.id" :key="item.id" :contenttype="content.contenttype" :title="item.fields[0]"></Context>
+            -->
+          </template>
+        </tbody>
+      </table>
     </div>
+  </div>
 </template>
 
 <script>

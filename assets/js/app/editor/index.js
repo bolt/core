@@ -2,7 +2,7 @@ import Vue from "vue";
 /**
  * VueX Store
  */
-import store from './store'
+import store from "./store";
 /**
  * Components
  */
@@ -17,15 +17,13 @@ import {
   Textarea,
   Image,
   Label
-} from './Components/Editor';
+} from "./Components/Editor";
 
-import {
-  Language
-} from './Components/General';
+import { Language } from "./Components/General";
 
-new Vue({ 
+new Vue({
   store,
-  el: "#editor", 
+  el: "#editor",
   name: "bolt-editor",
   components: {
     "general-language": Language,

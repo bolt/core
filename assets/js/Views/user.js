@@ -4,7 +4,6 @@ import Vue from "vue";
  */
 import Theme from "../Components/User/Theme";
 
-
 /**
  * Register Components
  */

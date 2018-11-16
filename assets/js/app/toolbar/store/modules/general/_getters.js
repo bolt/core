@@ -1,5 +1,5 @@
-const getters = { 
-  toolbarColor: state => state.toolbarColor,
-}
+const getters = {
+  toolbarColor: state => state.toolbarColor
+};
 
-export default getters
+export default getters;

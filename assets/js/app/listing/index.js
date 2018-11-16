@@ -2,7 +2,7 @@ import Vue from "vue";
 /**
  * VueX Store
  */
-import store from './store'
+import store from "./store";
 /**
  * Components
  */
@@ -15,9 +15,9 @@ import SelectBox from "./Components/SelectBox";
  * Register Components
  */
 
-new Vue({ 
+new Vue({
   store,
-  el: "#listing", 
+  el: "#listing",
   name: "bolt-listing",
   components: {
     "listing-records": Records,
