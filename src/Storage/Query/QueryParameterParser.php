@@ -43,16 +43,20 @@ class QueryParameterParser
         $word = "[\p{L}\p{N}_]+";
 
         // @codingStandardsIgnoreStart
-        $this->addValueMatcher("<($word)",                  ['value' => '$1', 'operator' => 'lt']);
-        $this->addValueMatcher("<=($word)",                 ['value' => '$1', 'operator' => 'lte']);
-        $this->addValueMatcher(">=($word)",                 ['value' => '$1', 'operator' => 'gte']);
-        $this->addValueMatcher(">($word)",                  ['value' => '$1', 'operator' => 'gt']);
-        $this->addValueMatcher('!$',                        ['value' => '',   'operator' => 'isNotNull']);
-        $this->addValueMatcher("!($word)",                  ['value' => '$1', 'operator' => 'neq']);
-        $this->addValueMatcher('!\[([\p{L}\p{N} ,]+)\]',    ['value' => function ($val) { return explode(',', $val); }, 'operator' => 'notIn']);
-        $this->addValueMatcher('\[([\p{L}\p{N} ,]+)\]',     ['value' => function ($val) { return explode(',', $val); }, 'operator' => 'in']);
-        $this->addValueMatcher("(%$word|$word%|%$word%)",   ['value' => '$1', 'operator' => 'like']);
-        $this->addValueMatcher("($word)",                   ['value' => '$1', 'operator' => 'eq']);
+        $this->addValueMatcher("<($word)", ['value' => '$1', 'operator' => 'lt']);
+        $this->addValueMatcher("<=($word)", ['value' => '$1', 'operator' => 'lte']);
+        $this->addValueMatcher(">=($word)", ['value' => '$1', 'operator' => 'gte']);
+        $this->addValueMatcher(">($word)", ['value' => '$1', 'operator' => 'gt']);
+        $this->addValueMatcher('!$', ['value' => '',   'operator' => 'isNotNull']);
+        $this->addValueMatcher("!($word)", ['value' => '$1', 'operator' => 'neq']);
+        $this->addValueMatcher('!\[([\p{L}\p{N} ,]+)\]', ['value' => function ($val) {
+            return explode(',', $val);
+        }, 'operator' => 'notIn']);
+        $this->addValueMatcher('\[([\p{L}\p{N} ,]+)\]', ['value' => function ($val) {
+            return explode(',', $val);
+        }, 'operator' => 'in']);
+        $this->addValueMatcher("(%$word|$word%|%$word%)", ['value' => '$1', 'operator' => 'like']);
+        $this->addValueMatcher("($word)", ['value' => '$1', 'operator' => 'eq']);
         // @codingStandardsIgnoreEnd
 
         $this->addFilterHandler([$this, 'defaultFilterHandler']);
@@ -281,7 +285,7 @@ class QueryParameterParser
         foreach ($this->valueMatchers as $matcher) {
             $regex = sprintf('/%s/u', $matcher['token']);
             $values = $matcher['params'];
-            if (preg_match($regex, (string)$value)) {
+            if (preg_match($regex, (string) $value)) {
                 if (is_callable($values['value'])) {
                     preg_match($regex, $value, $output);
                     $values['value'] = $values['value']($output[1]);
