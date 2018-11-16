@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig\Node;
 
-use Bolt\Twig\Runtime\SetcontentRuntime;
+use Bolt\Twig\SetcontentExtension;
 use Twig\Compiler;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Node;
@@ -50,7 +50,7 @@ class SetcontentNode extends Node
             ->write("\$context['")
             ->raw($this->getAttribute('name'))
             ->raw("'] = ")
-            ->raw("\$this->env->getRuntime('" . SetcontentRuntime::class . "')->getQueryEngine()->getContentForTwig(")
+            ->raw("\$this->env->getExtension('" . SetcontentExtension::class . "')->getQueryEngine()->getContentForTwig(")
             ->subcompile($this->getAttribute('contenttype'))
             ->raw(', ')
             ->subcompile($arguments)

@@ -2,11 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Twig\Runtime;
+namespace Bolt\Twig;
 
 use Bolt\Storage\Query\Query;
+use Bolt\Twig\TokenParser\SetcontentTokenParser;
+use Twig\Extension\AbstractExtension;
 
-class SetcontentRuntime
+/**
+ * Setcontent functionality Twig extension.
+ *
+ * @author Xiao-Hu Tai <xiao@twokings.nl>
+ */
+class SetcontentExtension extends AbstractExtension
 {
     /** @var Query $queryEngine */
     private $queryEngine;
@@ -21,6 +28,18 @@ class SetcontentRuntime
     {
         $this->queryEngine = $queryEngine;
         $this->metadataDriver = $metadataDriver; // still needed?
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTokenParsers()
+    {
+        $parsers = [
+            new SetcontentTokenParser(),
+        ];
+
+        return $parsers;
     }
 
     /**
