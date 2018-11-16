@@ -51,7 +51,7 @@ class UserController extends BaseController
         $user = $this->getUser();
         $userTitle = $user->getFullName();
         $url = $urlGenerator->generate('bolt_profile_edit');
-        $locale = $request->get('user')['locale'];
+        $locale = current($request->get('locale'));
         $newPassword = $request->get('password');
 
         $user->setFullName($request->get('fullName'));
