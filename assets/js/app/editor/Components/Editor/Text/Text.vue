@@ -1,6 +1,7 @@
 <template>
   <div>
     <input
+      :id="id"
       class="form-control"
       :class="getType"
       :name="name" 
@@ -17,7 +18,7 @@ import field from '../../../mixins/value';
 
 export default {
   name: "editor-text",
-  props: ['value', 'label', 'name', 'type', 'disabled'],
+  props: ['value', 'label', 'name', 'type', 'disabled', 'id'],
   mixins: [field],
   mounted() {
     this.$root.$on('generate-from-title', data => this.generate = data);
