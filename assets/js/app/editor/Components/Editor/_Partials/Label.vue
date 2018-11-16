@@ -1,10 +1,10 @@
 <template>
-  <label for="">{{label}}</label>
+  <label :for="forlabel">{{label}}</label>
 </template>
 
 <script>
   export default {
     name: "editor-label",
-    props: ['label']
+    props: ['label', 'forlabel']
   };
 </script>
