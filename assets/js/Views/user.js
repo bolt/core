@@ -1,13 +1,12 @@
-import Vue from "vue";
+import Vue from 'vue';
 /**
  * Components
  */
-import Theme from "../Components/User/Theme";
-
+import Theme from '../Components/User/Theme';
 
 /**
  * Register Components
  */
-Vue.component("user-theme", Theme);
+Vue.component('user-theme', Theme);
 
-new Vue({ el: "#user", name: "user" });
+new Vue({ el: '#user', name: 'user' });

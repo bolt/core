@@ -13,8 +13,7 @@ import Textarea from './Textarea/Textarea';
 
 import Image from './Image/Image';
 
-import Label from './_Partials/Label'
-
+import Label from './_Partials/Label';
 
 export {
   Text,

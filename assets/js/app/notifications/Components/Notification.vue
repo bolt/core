@@ -12,50 +12,49 @@
 </template>
 
 <script>
-    import eventHub from "../eventhub";
+import eventHub from '../eventhub';
 
-    export default {
-        name: 'bolt-notification',
-        props:
-            {
-                message: {
-                    type: String,
-                    required: true,
-                    default: ""
-                },
-                type: {
-                    type: String,
-                    required: true,
-                    default: "danger",
-                },
-                closingLabel: {
-                    type: String,
-                    required: true,
-                    default: "action.close_alert"
-                },
-                duration: {
-                    type: String,
-                    required: false,
-                    default: "300"
-                }
-            },
-        mounted() {
-            this.show = true;
-        },
-        data: () => {
-            return {
-                show: false
-            }
-        },
-        created() {
-            const self = this;
-            eventHub.$on('showMessage', (message) => {
-                self.message = message.message;
-                self.type = message.type;
-                self.closingLabel = message.closingLabel;
-                self.duration = message.duration;
-                this.show = true;
-            })
-        }
+export default {
+  name: 'bolt-notification',
+  props: {
+    message: {
+      type: String,
+      required: true,
+      default: ''
+    },
+    type: {
+      type: String,
+      required: true,
+      default: 'danger'
+    },
+    closingLabel: {
+      type: String,
+      required: true,
+      default: 'action.close_alert'
+    },
+    duration: {
+      type: String,
+      required: false,
+      default: '300'
     }
+  },
+  mounted() {
+    this.show = true;
+  },
+  data: () => {
+    return {
+      show: false
+    };
+  },
+  created() {
+    const self = this;
+    eventHub.$on('showMessage', message => {
+      self.message = message.message;
+      self.type = message.type;
+      self.closingLabel = message.closingLabel;
+      self.duration = message.duration;
+      this.show = true;
+    });
+  }
+};
 </script>

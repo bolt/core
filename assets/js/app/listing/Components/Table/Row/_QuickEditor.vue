@@ -15,13 +15,13 @@
 </template>
 
 <script>
-  export default {
-    name: "quick-editor",
-    props: ["size"],
-    methods: {
-      cancel(){
-        this.$emit('quickeditor', false);
-      }
+export default {
+  name: 'quick-editor',
+  props: ['size'],
+  methods: {
+    cancel() {
+      this.$emit('quickeditor', false);
     }
-  };
+  }
+};
 </script>

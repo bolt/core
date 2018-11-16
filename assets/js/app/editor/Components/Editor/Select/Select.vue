@@ -27,20 +27,20 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect';
 
 export default {
-  name: "editor-select",
+  name: 'editor-select',
   props: ['value', 'name', 'id', 'form', 'options'],
   components: { Multiselect },
 
-  mounted(){
+  mounted() {
     let key = this.value;
     let value = '';
     this.options.forEach(function(item) {
-        if (item.key == key) {
-            value = item.value;
-        }
+      if (item.key == key) {
+        value = item.value;
+      }
     });
 
     this.option.key = key;
@@ -54,12 +54,12 @@ export default {
         selected: true,
         value: null
       }
-    }
+    };
   },
 
-  computed:{
-    fieldName(){
-      return this.name + '[]'
+  computed: {
+    fieldName() {
+      return this.name + '[]';
     }
   }
 };

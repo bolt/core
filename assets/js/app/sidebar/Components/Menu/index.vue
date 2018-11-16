@@ -35,19 +35,19 @@
 import SubMenu from './_SubMenu';
 
 export default {
-  name: "sidebar-menu",
-  props: ["menu"],
+  name: 'sidebar-menu',
+  props: ['menu'],
   components: {
-    "sub-menu": SubMenu
+    'sub-menu': SubMenu
   },
   methods: {
-    singleton(item){
-      if(item.submenu !== null){
-        return item.submenu[0].editlink
-      } else{
-        return item.link_new
+    singleton(item) {
+      if (item.submenu !== null) {
+        return item.submenu[0].editlink;
+      } else {
+        return item.link_new;
       }
     }
-  },
+  }
 };
 </script>

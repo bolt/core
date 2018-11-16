@@ -1,7 +1,7 @@
 const state = {
   selectAll: false,
   selectedCount: 0,
-  selected: [],
-}
+  selected: []
+};
 
-export default state
+export default state;

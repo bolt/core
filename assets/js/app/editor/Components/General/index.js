@@ -1,5 +1,3 @@
 import Language from './Language/Language';
 
-export {
-  Language
-};
+export { Language };

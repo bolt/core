@@ -25,17 +25,17 @@
 
 <script>
 export default {
-  name: "listing-selected-box",
-  props: ["singular", "plural"],
-  computed:{
-    selectedCount(){
-      return this.$store.getters['selecting/selectedCount']
+  name: 'listing-selected-box',
+  props: ['singular', 'plural'],
+  computed: {
+    selectedCount() {
+      return this.$store.getters['selecting/selectedCount'];
     },
-    selected(){
-      return this.$store.getters['selecting/selected']
+    selected() {
+      return this.$store.getters['selecting/selected'];
     },
-    order(){
-      return this.$store.getters['listing/getOrder']
+    order() {
+      return this.$store.getters['listing/getOrder'];
     }
   }
 };

@@ -1,13 +1,13 @@
 const mutations = {
-  setType(state, data){
-    state.type = data
+  setType(state, data) {
+    state.type = data;
   },
-  setRowSize(state, data){
-    state.rowSize = data
+  setRowSize(state, data) {
+    state.rowSize = data;
   },
-  setSorting(state, arg){
-    state.sorting = arg
+  setSorting(state, arg) {
+    state.sorting = arg;
   }
-}
+};
 
-export default mutations
+export default mutations;

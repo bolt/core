@@ -8,12 +8,12 @@
 </template>
 
 <script>
-  export default {
-    name: "sorting",
-    computed: {
-      sorting() {
-        return this.$store.getters['general/getSorting']
-      }
-    },
-  };
+export default {
+  name: 'sorting',
+  computed: {
+    sorting() {
+      return this.$store.getters['general/getSorting'];
+    }
+  }
+};
 </script>

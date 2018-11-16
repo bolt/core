@@ -17,8 +17,8 @@
 </template>
 
 <script>
-  export default {
-    name: "meta-data",
-    props: ["type", "size", "meta"]
-  };
+export default {
+  name: 'meta-data',
+  props: ['type', 'size', 'meta']
+};
 </script>

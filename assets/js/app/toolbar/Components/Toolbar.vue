@@ -48,25 +48,27 @@
 </template>
 
 <script>
-const tinycolor = require("tinycolor2");
+const tinycolor = require('tinycolor2');
 
 export default {
-  name: "toolbar",
-  props: ["siteName", "menu", "labels"],
-  created(){
-    const color = getComputedStyle(document.body).getPropertyValue('--admin-toolbar');
+  name: 'toolbar',
+  props: ['siteName', 'menu', 'labels'],
+  created() {
+    const color = getComputedStyle(document.body).getPropertyValue(
+      '--admin-toolbar'
+    );
     this.$store.dispatch('general/toolbarColor', color);
   },
-  computed:{
-    contrast(){
+  computed: {
+    contrast() {
       const color = tinycolor(this.toolbarColor);
       return color.isLight();
     },
-    createMenu(){
-      return this.menu.filter(item => item.contenttype !== null)
+    createMenu() {
+      return this.menu.filter(item => item.contenttype !== null);
     },
-    toolbarColor(){
-      return this.$store.getters['general/toolbarColor']
+    toolbarColor() {
+      return this.$store.getters['general/toolbarColor'];
     }
   }
 };

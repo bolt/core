@@ -35,42 +35,40 @@
 </template>
 
 <script>
-import type from '../mixins/type'
+import type from '../mixins/type';
 
 export default {
-  name: "listing-filter",
+  name: 'listing-filter',
   mixins: [type],
   created() {
     const size = localStorage.getItem('listing-row-size');
-    if(size !== null)
-      this.$store.dispatch('general/setRowSize', size)
+    if (size !== null) this.$store.dispatch('general/setRowSize', size);
   },
   watch: {
-    sorting(){
-      if (this.sorting)
-        this.$store.dispatch('selecting/selectAll', false)
+    sorting() {
+      if (this.sorting) this.$store.dispatch('selecting/selectAll', false);
     }
   },
-  methods:{
-    enableSorting(arg){
-      this.$store.dispatch('general/setSorting', arg)
+  methods: {
+    enableSorting(arg) {
+      this.$store.dispatch('general/setSorting', arg);
     },
-    enableSelectAll(arg){
-      this.$store.dispatch('selecting/selectAll', arg)
+    enableSelectAll(arg) {
+      this.$store.dispatch('selecting/selectAll', arg);
     },
-    changeSize(size){
-      this.$store.dispatch('general/setRowSize', size)
+    changeSize(size) {
+      this.$store.dispatch('general/setRowSize', size);
       localStorage.setItem('listing-row-size', size);
-    },
+    }
   },
   computed: {
-    size(){
+    size() {
       return this.$store.getters['general/getRowSize'];
     },
-    sorting(){
+    sorting() {
       return this.$store.getters['general/getSorting'];
     },
-    selectAll(){
+    selectAll() {
       return this.$store.getters['selecting/selectAll'];
     }
   }

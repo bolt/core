@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import type from '../../../mixins/type'
+import type from '../../../mixins/type';
 import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
@@ -74,27 +74,27 @@ import Sorting from './_Sorting';
 import QuickEditor from './_QuickEditor';
 
 export default {
-  name: "table-row",
-  props: ["record"],
+  name: 'table-row',
+  props: ['record'],
   mixins: [type],
   components: {
-    "row-checkbox": Checkbox,
-    "row-meta": Meta,
-    "row-actions": Actions,
-    "row-sorting": Sorting,
-    "row-quick-editor": QuickEditor
+    'row-checkbox': Checkbox,
+    'row-meta': Meta,
+    'row-actions': Actions,
+    'row-sorting': Sorting,
+    'row-quick-editor': QuickEditor
   },
   data: () => {
     return {
-      quickEditor: false,
+      quickEditor: false
     };
   },
   computed: {
-    size(){
-      return this.$store.getters['general/getRowSize']
+    size() {
+      return this.$store.getters['general/getRowSize'];
     },
-    sorting(){
-      return this.$store.getters['general/getSorting']
+    sorting() {
+      return this.$store.getters['general/getSorting'];
     }
   }
 };

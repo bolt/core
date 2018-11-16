@@ -13,32 +13,31 @@
 </template>
 
 <script>
-
 export default {
-  name: "user-theme",
+  name: 'user-theme',
   data: () => {
     return {
       themes: [
         {
-          name: "Default",
-          value: "default",
-          colors: ["#1a5597", "#053b79", "#0c223b", "#ffffff"]
+          name: 'Default',
+          value: 'default',
+          colors: ['#1a5597', '#053b79', '#0c223b', '#ffffff']
         },
         {
-          name: "Light",
-          value: "light",
-          colors: ["#1a5597", "#053b79", "#ffffff", "#f9f9f9"]
-        },
+          name: 'Light',
+          value: 'light',
+          colors: ['#1a5597', '#053b79', '#ffffff', '#f9f9f9']
+        }
       ]
     };
   },
-  methods:{
-    selectTheme(val){
+  methods: {
+    selectTheme(val) {
       const stylesheet = document.querySelector('#theme');
-      const url = stylesheet.getAttribute('href').split("theme-")[0];
+      const url = stylesheet.getAttribute('href').split('theme-')[0];
       const theme = `${url}theme-${val}.css`;
-      stylesheet.setAttribute("href", theme);
-    },
+      stylesheet.setAttribute('href', theme);
+    }
   }
 };
 </script>

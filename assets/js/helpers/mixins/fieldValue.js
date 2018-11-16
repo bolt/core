@@ -1,5 +1,5 @@
 export default {
-  mounted(){
+  mounted() {
     this.val = this.value;
   },
   data: () => {
@@ -7,4 +7,4 @@ export default {
       val: null
     };
   }
-}
+};

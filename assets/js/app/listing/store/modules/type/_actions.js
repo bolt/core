@@ -1,7 +1,7 @@
-const actions = { 
+const actions = {
   setType({ commit }, data) {
-    commit('setType', data)
-  },
-}
+    commit('setType', data);
+  }
+};
 
-export default actions
+export default actions;

@@ -1,27 +1,27 @@
-"use strict";
+'use strict';
 /**
  * ES7 Polyfil
  */
-import "@babel/polyfill";
+import '@babel/polyfill';
 /**
  * Vue Core | Config
  */
-import "./filters";
+import './filters';
 
 // import './registerServiceWorker'
 
 /**
  * Bootstrap Javascript
  */
-import "bootstrap";
+import 'bootstrap';
 
 /**
  * Load Axios
  */
-import axios from './helpers/axios'
+import axios from './helpers/axios';
 /**
-* Load jQuery
-*/
+ * Load jQuery
+ */
 import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
@@ -30,16 +30,15 @@ window.jQuery = $;
  * Vue Apps
  */
 // import "./Views/editor";
-import "./Views/user";
+import './Views/user';
 
-import "./app/notifications";
-import "./app/toolbar";
-import "./app/sidebar";
-import "./app/listing";
-import "./app/editor";
-
+import './app/notifications';
+import './app/toolbar';
+import './app/sidebar';
+import './app/listing';
+import './app/editor';
 
 /**
  * Styling
  */
-import "../scss/bolt.scss";
+import '../scss/bolt.scss';

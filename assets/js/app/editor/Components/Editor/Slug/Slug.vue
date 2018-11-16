@@ -46,7 +46,7 @@
 import field from '../../../mixins/value';
 
 export default {
-  name: "editor-slug",
+  name: 'editor-slug',
   props: ['value', 'label', 'name', 'prefix', 'fieldClass', 'generate'],
   mixins: [field],
   data: () => {
@@ -56,41 +56,44 @@ export default {
       icon: 'lock'
     };
   },
-  mounted(){
-    setTimeout(()=>{ 
-      const title = document.querySelector(`input[name='fields[${this.generate}]']`).value;
-      if(title.length <= 0){
+  mounted() {
+    setTimeout(() => {
+      const title = document.querySelector(
+        `input[name='fields[${this.generate}]']`
+      ).value;
+      if (title.length <= 0) {
         this.$root.$emit('generate-from-title', true);
       }
     }, 0);
     this.$root.$on('slugify-from-title', data => this.generateSlug());
   },
   methods: {
-    editSlug(){
+    editSlug() {
       this.$root.$emit('generate-from-title', false);
-      if(!this.edit){
+      if (!this.edit) {
         this.edit = true;
-        this.buttonText = "Edit"
-        this.icon = 'pencil-alt'
+        this.buttonText = 'Edit';
+        this.icon = 'pencil-alt';
       } else {
-        const slug = this.$options.filters.slugify(this.val)
+        const slug = this.$options.filters.slugify(this.val);
         this.val = slug;
         this.edit = false;
-        this.buttonText = "Locked"
-        this.icon = 'lock'
+        this.buttonText = 'Locked';
+        this.icon = 'lock';
       }
     },
-    generateSlug(){
-      const title = document.querySelector(`input[name='fields[${this.generate}]']`).value;
+    generateSlug() {
+      const title = document.querySelector(
+        `input[name='fields[${this.generate}]']`
+      ).value;
       const slug = this.$options.filters.slugify(title);
       this.val = slug;
       this.$root.$emit('generate-from-title', true);
 
       this.edit = false;
-      this.buttonText = "Locked"
-      this.icon = 'lock'
+      this.buttonText = 'Locked';
+      this.icon = 'lock';
     }
   }
 };
 </script>
-

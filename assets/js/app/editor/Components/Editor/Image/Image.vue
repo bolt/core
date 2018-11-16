@@ -64,19 +64,19 @@ import baguetteBox from 'baguettebox.js';
 import field from '../../../mixins/value';
 
 export default {
-  name: "editor-image",
+  name: 'editor-image',
   props: ['label', 'name', 'value', 'thumbnail', 'alt', 'title', 'directory'],
   mixins: [field],
-  mounted(){
+  mounted() {
     this.previewImage = this.thumbnail;
   },
   updated() {
     baguetteBox.run('.editor__image--preview', {
-      afterShow: () =>{
-        noScroll.on()
+      afterShow: () => {
+        noScroll.on();
       },
-      afterHide: () =>{
-        noScroll.off()
+      afterHide: () => {
+        noScroll.off();
       }
     });
   },
@@ -89,34 +89,35 @@ export default {
     };
   },
   methods: {
-    selectFile(){
-      this.$refs.selectFile.click()
+    selectFile() {
+      this.$refs.selectFile.click();
     },
     onDragEnter(e) {
-        e.preventDefault();
-        this.dragCount++;
-        this.isDragging = true;
-        return false;
+      e.preventDefault();
+      this.dragCount++;
+      this.isDragging = true;
+      return false;
     },
     onDragLeave(e) {
-        e.preventDefault();
-        this.dragCount--;
-        if (this.dragCount <= 0)
-        this.isDragging = false;
+      e.preventDefault();
+      this.dragCount--;
+      if (this.dragCount <= 0) this.isDragging = false;
     },
     onDrop(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.isDragging = false;
-        const image = e.dataTransfer.files[0];
-        return this.uploadFile(image);
+      e.preventDefault();
+      e.stopPropagation();
+      this.isDragging = false;
+      const image = e.dataTransfer.files[0];
+      return this.uploadFile(image);
     },
-    uploadFile(file){
+    uploadFile(file) {
       const thumbnailParams = this.thumbnail.split('?').pop();
       const fd = new FormData();
       const config = {
-        onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total )
+        onUploadProgress: progressEvent => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
           this.progress = percentCompleted;
         },
         headers: {
@@ -124,21 +125,22 @@ export default {
         }
       };
       fd.append('image', file);
-      this.$axios.post(this.directory, fd, config)
-      .then(res => {
-        this.val = res.data;
-        this.previewImage = `/thumbs/${res.data}?${thumbnailParams}`;
-        this.progress = 0;
-      })
-      .catch(err => {
-        console.log(err);
-        this.progress = 0;
-      })
-    },
+      this.$axios
+        .post(this.directory, fd, config)
+        .then(res => {
+          this.val = res.data;
+          this.previewImage = `/thumbs/${res.data}?${thumbnailParams}`;
+          this.progress = 0;
+        })
+        .catch(err => {
+          console.log(err);
+          this.progress = 0;
+        });
+    }
   },
-  computed:{
-    fieldName(){
-      return this.name + '[]'
+  computed: {
+    fieldName() {
+      return this.name + '[]';
     }
   }
 };

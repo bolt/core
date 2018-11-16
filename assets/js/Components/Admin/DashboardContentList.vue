@@ -23,17 +23,17 @@
 </template>
 
 <script>
-import ContentAPI from "../../service/api/content";
+import ContentAPI from '../../service/api/content';
 
 export default {
-  name: "context",
-  props: ["type", "limit"],
+  name: 'context',
+  props: ['type', 'limit'],
   components: {
     // Context
   },
   data() {
     return {
-      message: "",
+      message: '',
       loading: true,
       records: []
     };

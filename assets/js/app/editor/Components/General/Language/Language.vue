@@ -31,52 +31,43 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect';
 
 export default {
-
-  name: "editor-language",
+  name: 'editor-language',
 
   components: { Multiselect },
 
   props: ['label', 'locales'],
 
-
-  mounted(){
+  mounted() {
     const url = new URLSearchParams(window.location.search);
 
-    
-
-    if(url.has('locale')){
-
-      let current = this.locales.filter(locale =>
-        locale.code === url.get('locale')
-      )
-      if(current.length > 0){
+    if (url.has('locale')) {
+      let current = this.locales.filter(
+        locale => locale.code === url.get('locale')
+      );
+      if (current.length > 0) {
         this.locale = current[0];
       } else {
-        this.locale = this.locales[0]
+        this.locale = this.locales[0];
       }
-
     } else {
-
-      this.locale = this.locales[0]
-
+      this.locale = this.locales[0];
     }
   },
 
-  data: () =>{
+  data: () => {
     return {
       locale: {}
-    }
+    };
   },
 
   methods: {
-    switchLocale(){
+    switchLocale() {
       const locale = this.locale.link;
-      return window.location.href = locale;
+      return (window.location.href = locale);
     }
   }
-
 };
 </script>

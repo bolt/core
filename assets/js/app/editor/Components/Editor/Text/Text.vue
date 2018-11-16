@@ -16,11 +16,11 @@
 import field from '../../../mixins/value';
 
 export default {
-  name: "editor-text",
+  name: 'editor-text',
   props: ['value', 'label', 'name', 'type', 'disabled'],
   mixins: [field],
   mounted() {
-    this.$root.$on('generate-from-title', data => this.generate = data);
+    this.$root.$on('generate-from-title', data => (this.generate = data));
   },
   data: () => {
     return {
@@ -28,16 +28,16 @@ export default {
     };
   },
   watch: {
-    val(){
-      if(this.generate){
+    val() {
+      if (this.generate) {
         this.$root.$emit('slugify-from-title');
       }
     }
   },
-  computed:{
-    getType(){
-      if(this.type === 'large'){
-        return 'form-control-lg'
+  computed: {
+    getType() {
+      if (this.type === 'large') {
+        return 'form-control-lg';
       }
     }
   }

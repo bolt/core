@@ -13,8 +13,8 @@
 import field from '../../../mixins/value';
 
 export default {
-  name: "editor-textarea",
+  name: 'editor-textarea',
   props: ['value', 'label', 'name'],
-  mixins: [field],
+  mixins: [field]
 };
 </script>

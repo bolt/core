@@ -1,7 +1,7 @@
-const actions = { 
+const actions = {
   toolbarColor({ commit }, data) {
-    commit('toolbarColor', data)
-  },
-}
+    commit('toolbarColor', data);
+  }
+};
 
-export default actions
+export default actions;

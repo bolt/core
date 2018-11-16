@@ -17,33 +17,34 @@
 </template>
 
 <script>
-  export default {
-    name: "checkbox",
-    props: ["id"],
-    data: () => {
-      return {
-        selected: false,
-      };
+export default {
+  name: 'checkbox',
+  props: ['id'],
+  data: () => {
+    return {
+      selected: false
+    };
+  },
+  computed: {
+    selectAll() {
+      return this.$store.getters['selecting/selectAll'];
     },
-    computed: {
-      selectAll() {
-        return this.$store.getters['selecting/selectAll'];
-      },
-      sorting() {
-        return this.$store.getters['general/getSorting']
-      }
-    },
-    watch: {
-      selectAll(){
-        this.selected = this.selectAll
-      },
-      selected(){
-        this.selected ? this.$store.dispatch('selecting/select', this.id):this.$store.dispatch('selecting/deSelect', this.id)
-      },
-      sorting(){
-        if (this.sorting)
-          this.selected = false;
-      }
+    sorting() {
+      return this.$store.getters['general/getSorting'];
     }
-  };
+  },
+  watch: {
+    selectAll() {
+      this.selected = this.selectAll;
+    },
+    selected() {
+      this.selected
+        ? this.$store.dispatch('selecting/select', this.id)
+        : this.$store.dispatch('selecting/deSelect', this.id);
+    },
+    sorting() {
+      if (this.sorting) this.selected = false;
+    }
+  }
+};
 </script>

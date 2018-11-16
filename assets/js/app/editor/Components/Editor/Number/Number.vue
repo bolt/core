@@ -27,20 +27,17 @@
 import val from '../../../mixins/value';
 
 export default {
-  name: "editor-number",
+  name: 'editor-number',
   props: ['value', 'label', 'name', 'step', 'type', 'disabled'],
   mixins: [val],
 
   methods: {
-    calc(input, type){
-      let value = input
-      
-      if(input === '')
-        value = 0;
-      if(type === '+')
-        this.val = value += this.step
-      if(type === '-')
-        this.val = value -= this.step
+    calc(input, type) {
+      let value = input;
+
+      if (input === '') value = 0;
+      if (type === '+') this.val = value += this.step;
+      if (type === '-') this.val = value -= this.step;
     }
   }
 };

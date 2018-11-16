@@ -17,7 +17,7 @@
 import SubMenu from './_SubMenu';
 
 export default {
-  name: "sub-menu",
-  props: ["item"]
+  name: 'sub-menu',
+  props: ['item']
 };
 </script>

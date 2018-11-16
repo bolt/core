@@ -9,23 +9,25 @@
 
 <script>
 export default {
-  name: "sidebar-footer",
-  props: ["version", "aboutLink"],
+  name: 'sidebar-footer',
+  props: ['version', 'aboutLink'],
   methods: {
-    slimSidebar(arg){
+    slimSidebar(arg) {
       this.$store.dispatch('general/slimSidebar', arg);
     }
   },
   watch: {
-    slim(){
+    slim() {
       const admin = document.querySelector('.admin');
-      this.slim ? admin.classList.add('is-slim'):admin.classList.remove('is-slim');
+      this.slim
+        ? admin.classList.add('is-slim')
+        : admin.classList.remove('is-slim');
       localStorage.setItem('slim-sidebar', this.slim);
     }
   },
   computed: {
-    slim(){
-      return this.$store.getters['general/slimSidebar']
+    slim() {
+      return this.$store.getters['general/slimSidebar'];
     }
   }
 };

@@ -24,13 +24,13 @@
 </template>
 
 <script>
-  export default {
-    name: "actions",
-    props: ["id", "size"],
-    methods:{
-      quickEditor(){
-        this.$emit('quickeditor', true);
-      }
+export default {
+  name: 'actions',
+  props: ['id', 'size'],
+  methods: {
+    quickEditor() {
+      this.$emit('quickeditor', true);
     }
-  };
+  }
+};
 </script>

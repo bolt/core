@@ -1,7 +1,7 @@
 export default {
-  computed:{
-    type(){
+  computed: {
+    type() {
       return this.$store.getters['general/getType'];
     }
   }
-}
+};

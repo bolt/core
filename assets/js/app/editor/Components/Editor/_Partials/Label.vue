@@ -3,8 +3,8 @@
 </template>
 
 <script>
-  export default {
-    name: "editor-label",
-    props: ['label']
-  };
+export default {
+  name: 'editor-label',
+  props: ['label']
+};
 </script>
