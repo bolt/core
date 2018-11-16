@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -25,9 +26,10 @@ class FinderController extends BaseController
     /** @var Areas */
     private $areas;
 
-    public function __construct(Config $config, Areas $areas)
+    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, Areas $areas)
     {
-        $this->config = $config;
+        parent::__construct($config, $csrfTokenManager);
+
         $this->areas = $areas;
     }
 

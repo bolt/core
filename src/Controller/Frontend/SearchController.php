@@ -43,7 +43,7 @@ class SearchController extends BaseController
         /** @var Content $records */
         $records = $content->findAll($page);
 
-        $contenttype = ContentType::factory($contenttypeslug, $this->config->get('contenttypes'));
+        $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
 
         $templates = $this->templateChooser->listing($contenttype);
 
