@@ -99,6 +99,5 @@ class UserController extends BaseController
         $request->getSession()->set('_locale', $locale);
 
         return new RedirectResponse($url);
-
     }
 }
