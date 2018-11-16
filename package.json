@@ -80,8 +80,8 @@
     "workbox-webpack-plugin": "^3.6.3"
   },
   "scripts": {
-    "lint": "eslint --ext .js,.vue, assets",
-    "lint-fix": "eslint --ext .js,.vue, assets --fix",
+    "lint": "eslint --ext .js,.vue, assets tests",
+    "lint-fix": "eslint --ext .js,.vue, assets tests --fix",
     "serve": "encore dev-server --port=8001 --progress --disable-host-check",
     "build": "encore production --progress",
     "test": "jest"
