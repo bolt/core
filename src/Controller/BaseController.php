@@ -23,10 +23,9 @@ class BaseController extends AbstractController
     /** @var CsrfTokenManagerInterface */
     protected $csrfTokenManager;
 
-    public function __construct(Config $config, TemplateChooser $templateChooser, CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->config = $config;
-        $this->templateChooser = $templateChooser;
         $this->csrfTokenManager = $csrfTokenManager;
     }
 

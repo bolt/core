@@ -27,12 +27,6 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class EditRecordController extends BaseController
 {
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager)
-    {
-        $this->config = $config;
-        $this->csrfTokenManager = $csrfTokenManager;
-    }
-
     /**
      * @Route("/edit/{id}", name="bolt_edit_record", methods={"GET"})
      *

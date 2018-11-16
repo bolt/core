@@ -60,7 +60,6 @@ class EditMediaController extends BaseController
      */
     public function __construct(
         Config $config,
-        TemplateChooser $templateChooser,
         CsrfTokenManagerInterface $csrfTokenManager,
         ObjectManager $manager,
         UrlGeneratorInterface $urlGenerator,
@@ -68,7 +67,7 @@ class EditMediaController extends BaseController
         Areas $areas,
         MediaFactory $mediaFactory
     ) {
-        parent::__construct($config, $templateChooser, $csrfTokenManager);
+        parent::__construct($config, $csrfTokenManager);
 
         $this->manager = $manager;
         $this->urlGenerator = $urlGenerator;
