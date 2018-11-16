@@ -1,74 +1,67 @@
 {% extends '@bolt/_base/layout.twig' %}
 
 {% block title %}
- {{ 'title.edit_user'|trans }} » <strong>{{ user.fullName|default('Unknown') }}</strong>
+ {{ 'title.edit_user'|trans }} » <strong>{{ usertitle|default('Unknown') }}</strong>
 {% endblock %}
 
 {% block body_id 'user_edit' %}
+
+{% block vue_id 'editor' %}
 
 {% block main %}
 
     <div>
         <form method="post" id="editcontent" >
 
-            <div class="form-group">
-                <label for="user_username" class="required">Username</label>
-                <input type="text" id="user_username" name="user[username]" disabled="disabled" required="required" value="{{ user.username }}" class="form-control">
-            </div>
+            {% include '@bolt/editcontent/fields/text.twig' with {
+                'label' : 'label.username' | trans,
+                'name' : 'username',
+                'value' : user.username,
+                'disabled' : true,
+            } %}
 
-            <div class="form-group">
-                <label for="user_fullName" class="required">Full name</label>
-                <input type="text" id="user_fullName" name="user[fullName]" required="required" value="{{ user.fullName }}" class="form-control">
-            </div>
+            {% include '@bolt/editcontent/fields/text.twig' with {
+                'label' : 'label.fullname' | trans,
+                'name' : 'fullName',
+                'value' : user.fullName,
+                'disabled' : false,
+            } %}
 
-            <div class="form-group">
-                {% include '@bolt/editcontent/fields/password.twig' with {
-                    'label_attr': { 'for': 'user_password_first' },
-                    'label': 'label.password'|trans,
-                    'label_class': 'required',
-                    'type': 'password',
-                    'id': 'user_password_first',
-                    'name': 'user[password_first]',
-                    'value': '',
-                    'class': 'form-control',
-                } %}
-            </div>
+            {% include '@bolt/editcontent/fields/password.twig' with {
+                'label': 'label.password'|trans,
+                'label_class': 'required',
+                'name': 'password',
+                'value': '',
+                'class': 'form-control',
+            } %}
 
-            <div class="form-group">
-                {% include '@bolt/editcontent/fields/password.twig' with {
-                    'label_attr': { 'for': 'user_password_second' },
-                    'label': 'label.password_confirm'|trans,
-                    'label_class': 'required',
-                    'type': 'password',
-                    'id': 'user_password_second',
-                    'name': 'user[password_second]',
-                    'value': '',
-                    'class': 'form-control',
-                } %}
-            </div>
+            {% include '@bolt/editcontent/fields/email.twig' with {
+                'label': 'label.email'|trans,
+                'label_class': 'required',
+                'value': user.email,
+                'name': 'email',
+                'class': 'form-control',
+            } %}
 
-            <div class="form-group">
-                {% include '@bolt/editcontent/fields/email.twig' with {
-                    'label_attr': { 'for': 'user_email' },
-                    'label': 'label.email'|trans,
-                    'label_class': 'required',
-                    'type': 'email',
-                    'id': 'user_email',
-                    'name': 'user[email]',
-                    'value': user.email,
-                    'class': 'form-control',
-                } %}
-            </div>
+            {% set localeOptions = [] %}
 
-            <div class="form-group">
-                <label for="user_locale" class="required">Locale</label>
-                <select id="user_locale" name="user[locale]" class="form-control">
-                    {% for locale in locales() %}
-                        <option value="{{ locale.code }}" {% if user.locale == locale.code %}selected="selected"{% endif %}>{{ locale.name }} ({{ locale.localisedname }}, {{ locale.code }})</option>
-                    {% endfor %}
-                </select>
-            </div>
+            {% for locale in locales() %}
+                {% set localeOptions = localeOptions|merge([
+                    {
+                        'key': locale.code,
+                        'value': locale.name ~ ' (' ~ locale.localisedname ~ ', ' ~ locale.code ~ ')'
+                    }
+                ]) %}
+            {% endfor %}
 
+            {% include '@bolt/editcontent/fields/select.twig' with {
+                'label' : 'label.locale' | trans,
+                'name' : 'locale',
+                'value' : user.locale,
+                'options' : localeOptions,
+            } %}
+
+            {# TODO: include form field with '@bolt/editcontent/fields/select.twig' #}
             <div class="form-group">
                 <label for="user_backendTheme" class="required">Backend theme</label>
                 <select id="user_backendTheme" name="user[backendTheme]" class="form-control">
@@ -77,7 +70,6 @@
                     <option value="woordpers">WoordPers: Kinda looks like that other CMS</option>
                 </select>
             </div>
-
 
             <user-theme></user-theme>
 
