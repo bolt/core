@@ -1,0 +1,73 @@
+{%- spaceless -%}
+
+{# Set type #}
+{% set type = field.type|default() %}
+
+{# Set variant #}
+{% set variant = define.variant|default('normal') %}
+
+{# Set the name #}
+{% if not name|default() %}
+    {%  set name = 'fields[' ~ field.name ~ ']' %}
+{% endif %}
+
+{# Set the id #}
+{% if not id|default() %}
+    {% set id = 'field-' ~ field.name|default(name) %}
+{% endif %}
+
+{# Set the form #}
+{% if not form|default() %}
+    {% set form = 'editcontent' %}
+{% endif %}
+
+{# Set the value #}
+{% if not value|default() %}
+    {% if field.value is defined %}
+        {% set value = field.value|join|default() %}
+    {% else %}
+        {% set value = '' %}
+    {% endif %}
+{% endif %}
+
+{# Set the class #}
+{% if not class|default() %}
+    {% set class = field.definition.class|default() %}
+{% endif %}
+
+{% set class = class %}
+
+
+{# Set the label #}
+{% if not label|default() %}
+    {% set label = field.definition.label|default(field.name|ucwords) ~ ':' %}
+{% endif %}
+
+{# Set the prefix and postfix attributes #}
+{% set prefix = prefix|default(field.definition.prefix|default()) %}
+{% if prefix and not ('<p' in prefix or '<span' in prefix or '<div' in prefix) %}
+    {% set prefix = '<span id="' ~ id ~ '_prefix" class="form--helper">' ~ prefix ~ '</span>' %}
+{% endif %}
+{% set postfix = postfix|default(field.definition.postfix|default()) %}
+{% if postfix and not ('<p' in postfix or '<span' in postfix or '<div' in postfix) %}
+    {% set postfix = '<span id="' ~ id ~ '_postfix" class="form--helper">' ~ postfix ~ '</span>' %}
+{% endif %}
+
+{%- endspaceless -%}
+
+
+<!-- field " {{ type }} {{ variant }} {{ label }} {{ name }} -->
+<div class="form-group editor--group is-{{variant}}">
+{% if prefix %}
+    {% include '_partials/fields/_partials/_helper.html.twig' with { type: 'prefix', message: prefix} %}
+{% endif %}
+{% block label %}
+    {% include '_partials/fields/_partials/_label.html.twig' %}
+{% endblock %}
+{% block field %}
+
+{% endblock %}
+{% if postfix %}
+    {% include '_partials/fields/_partials/_helper.html.twig' with { type: 'postfix', message: postfix} %}
+{% endif %}
+</div>

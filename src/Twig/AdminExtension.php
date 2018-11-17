@@ -59,7 +59,7 @@ class AdminExtension extends AbstractExtension
         return preg_replace_callback(
             '/([a-z0-9_-]+\.yml)/i',
             function ($matches) {
-                $path = $this->urlGenerator->generate('bolt_edit_file', ['area' => 'config', 'file' => '/' . $matches[1]]);
+                $path = $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/' . $matches[1]]);
                 $link = sprintf(' <a href="%s">%s</a>', $path, $matches[1]);
 
                 return $link;

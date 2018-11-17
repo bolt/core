@@ -1,0 +1,41 @@
+{% if allfiles|default() %}
+
+<div class="row mb-3">
+        <div class="selectize-control selectize form-control single">
+            <select name="quickselect" id="quickselect" placeholder="{{ 'form.quick_select_file'|trans }}">
+            </select>
+        </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        $('#quickselect').selectize({
+            create: false,
+            sortField: 'text',
+            maxItems: 1,
+            searchField: ['value', 'description'],
+            closeAfterSelect: true,
+            onChange: function(value) {
+              console.log('item', value);
+              window.location = value;
+            },
+            options: [
+                {% for file in allfiles %}
+                { value: '{{ path('bolt_file_edit', {'area': 'config', 'file': file.filename}) }}', filename: '{{ file.filename }}', description: '{{ file.description }}'},
+                {% endfor %}
+            ],
+            render: {
+                option: function(item) {
+                    return "<div class='option'>" +
+                        item.filename + " <small> " + item.description + " </small></div>";
+                },
+                item: function(item) {
+                    return "<div class='option'>" +
+                        item.filename + " <small> " + item.description + " </small></div>";
+                }
+            }
+        });
+    });
+</script>
+
+{% endif %}

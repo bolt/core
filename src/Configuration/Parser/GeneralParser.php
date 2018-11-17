@@ -80,7 +80,7 @@ class GeneralParser extends BaseParser
             'debug_trace_argument_limit' => 4,
             'strict_variables' => null,
             'theme' => 'base-2016',
-            'listing_template' => 'listing.twig',
+            'listing_template' => 'listing.html.twig',
             'listing_records' => '5',
             'listing_sort' => 'datepublish DESC',
             'caching' => [

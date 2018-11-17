@@ -49,7 +49,7 @@ class TemplateChooser
 
         if (empty($content)) {
             // Fallback if no content: index.twig
-            $templates->push('index.twig');
+            $templates->push('index.html.twig');
         } elseif (is_array($content)) {
             // Fallback with multiple content: use listing() to choose template
             $first = reset($content);
@@ -106,7 +106,7 @@ class TemplateChooser
         // Fourth candidate: a template with the same filename as the name of
         // the contenttype.
         if (isset($record->contenttype['singular_slug'])) {
-            $templates->push($record->contenttype['singular_slug'] . '.twig');
+            $templates->push($record->contenttype['singular_slug'] . '.html.twig');
         }
 
         // Fifth candidate: Theme-specific config.yml file.
@@ -117,8 +117,8 @@ class TemplateChooser
         // Sixth candidate: global config.yml
         $templates->push($this->config->get('general/record_template'));
 
-        // Seventh candidate: fallback to 'record.twig'
-        $templates->push('record.twig');
+        // Seventh candidate: fallback to 'record.html.twig'
+        $templates->push('record.html.twig');
 
         return $templates->unique();
     }
@@ -142,7 +142,7 @@ class TemplateChooser
         // Second candidate: a template with the same filename as the name of
         // the contenttype.
         if (!empty($contenttype['listing_template'])) {
-            $templates->push($contenttype['slug'] . '.twig');
+            $templates->push($contenttype['slug'] . '.html.twig');
         }
 
         // Third candidate: Theme-specific config.yml file.
@@ -153,8 +153,8 @@ class TemplateChooser
         // Fourth candidate: Global config.yml
         $templates->push($this->config->get('general/listing_template'));
 
-        // Fifth candidate: fallback to 'listing.twig'
-        $templates->push('listing.twig');
+        // Fifth candidate: fallback to 'listing.html.twig'
+        $templates->push('listing.html.twig');
 
         return $templates->unique();
     }

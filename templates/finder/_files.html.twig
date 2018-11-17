@@ -1,0 +1,69 @@
+
+<table class="table table-striped" style="background-color: #FFF;">
+    <thead class="thead-light">
+    <tr>
+        <th></th>
+        <th>{{ 'filename'|trans }}</th>
+        <th>{{ 'thumbnail'|trans }}</th>
+        <th>{{ 'size'|trans }}</th>
+        <th>{{ 'date'|trans }}</th>
+        <th>{{ 'actions'|trans }}</th>
+    </tr>
+    </thead>
+
+    {% set imageformats = ['gif', 'jpg', 'jpeg', 'png', 'svg'] %}
+
+    {% for file in finder.files() %}
+
+        {% set extension = file.extension() %}
+        {% set filename = path ~ file.getRelativePathname() %}
+        {% set icon = 'fa-file' %}
+        {% set link = path('bolt_file_edit', {'area': area, 'file': filename }) %}
+        {% set thumbnail = '' %}
+        {% set title = '' %}
+        {% set dimensions = '' %}
+
+        {% if extension in imageformats %}
+            {% set thumbnail = filename|thumbnail(width = 100, height = 72, area = area) %}
+            {% set icon = 'fa-image' %}
+            {% set link = path('bolt_media_new', {'area': area, 'file': filename}) %}
+
+            {% for image in media|default([]) if image.filename in filename %}
+                {% set title = image.title %}
+                {% set dimensions = image.width ~ ' × ' ~ image.height ~ 'px' %}
+                {% set link = path('bolt_media_edit', {'id': image.id}) %}
+            {% endfor %}
+
+        {% endif %}
+        <tr>
+            <td><i class="fas {{ icon }}"></i></td>
+            <td>
+                <b>
+                    <a href="{{ link }}">
+                        {{ file.getRelativePathname }}
+                    </a>
+                </b>
+                {% if title %}<br><small style="color: #888;">{{ title }}</small>{% endif %}
+            </td>
+            <td class="listing-thumb" style="padding: 0.2em;">
+                {%- if thumbnail -%}
+                    <a href="{{ filename|thumbnail(width = 1000, height = 1000, area=area) }}" class="lightbox">
+                    <img src="{{ thumbnail }}" width="100" height="72">
+                    </a>
+                {%- else -%}
+                    &nbsp;
+                {%- endif -%}
+            </td>
+            <td>
+                {{ file.getSize() }}&nbsp;bytes
+                {% if dimensions %}<br><small style="color: #888;">{{ dimensions }}</small>{% endif %}
+            </td>
+            <td>
+                {{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    {% endfor %}
+</table>

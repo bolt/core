@@ -1,0 +1,47 @@
+
+
+
+{% if records %}
+    <!-- listing records -->
+    <listing-records
+      type="{{ type }}"
+      :data="{{ jsonrecords(records) }}"
+    >
+    </listing-records>
+    <!-- end listing records -->
+
+    <!-- listing filter -->
+    <listing-filter></listing-filter>
+    <!-- end listing filter -->
+
+    <listing-table ></listing-table>
+
+    {# <draggable :options="{handle:'.listing__row--move', animation: 0}">
+
+        {% for record in records %}
+          <listing-row
+            type="{{ type }}"
+            :record-id="'{{ record.id }}'"
+            :definition="{{ record.definition|json_encode() }}"
+            :excerpt="{{ record.excerpt(150, true)|json_encode() }}"
+            :status="'{{ record.status }}'"
+            :thumbnail="'{{ record.image|thumbnail(150, 100) }}'"
+            :date="{
+            published: '{{ record.publishedAt|localizeddate('medium', 'none', null, 'UTC') }}',
+            created: '{{ record.datecreated|date("Y-m-d H:i") }}',
+            changed: '{{ record.datechanged|date("Y-m-d H:i") }}'
+            }"
+            author="{{record.author}}"
+          >
+          </listing-row>
+        {% endfor %}
+    </draggable> #}
+
+    <nav class="listing__filter">
+      {% include '@bolt/_partials/_pager.html.twig' with { 'records': records } %}
+    </nav>
+{% else %}
+
+    (no content)
+
+{% endif %}

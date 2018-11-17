@@ -79,14 +79,14 @@ class MenuBuilder
 
         foreach ($contenttypes as $contenttype) {
             $menu->addChild($contenttype['slug'], [
-                'uri' => $this->urlGenerator->generate('bolt_contentlisting', ['contenttype' => $contenttype['slug']]),
+                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contenttype' => $contenttype['slug']]),
                 'extras' => [
                     'name' => $contenttype['name'],
                     'singular_name' => $contenttype['singular_name'],
                     'slug' => $contenttype['slug'],
                     'singular_slug' => $contenttype['singular_slug'],
                     'icon' => $contenttype['icon_many'],
-                    'link_new' => $this->urlGenerator->generate('bolt_edit_record', ['id' => $contenttype['slug']]),
+                    'link_new' => $this->urlGenerator->generate('bolt_content_edit', ['id' => $contenttype['slug']]),
                     'contenttype' => $contenttype['slug'],
                     'singleton' => $contenttype['singleton'],
                     'active' => $contenttype['slug'] === 'pages' ? true : false,
@@ -116,7 +116,7 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('Main configuration', [
-            'uri' => $this->urlGenerator->generate('bolt_edit_file', ['area' => 'config', 'file' => '/bolt/config.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/bolt/config.yaml']),
             'extras' => [
                 'name' => $t->trans('caption.main_configuration'),
                 'icon' => 'fa-cog',
@@ -124,7 +124,7 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('ContentTypes', [
-            'uri' => $this->urlGenerator->generate('bolt_edit_file', ['area' => 'config', 'file' => '/bolt/contenttypes.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/bolt/contenttypes.yaml']),
             'extras' => [
                 'name' => $t->trans('caption.contenttypes'),
                 'icon' => 'fa-object-group',
@@ -132,7 +132,7 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('Taxonomies', [
-            'uri' => $this->urlGenerator->generate('bolt_edit_file', ['area' => 'config', 'file' => '/bolt/taxonomy.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/bolt/taxonomy.yaml']),
             'extras' => [
                 'name' => $t->trans('caption.taxonomies'),
                 'icon' => 'fa-tags',
@@ -140,7 +140,7 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('Menu set up', [
-            'uri' => $this->urlGenerator->generate('bolt_edit_file', ['area' => 'config', 'file' => '/bolt/menu.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/bolt/menu.yaml']),
             'extras' => [
                 'name' => $t->trans('caption.menu_setup'),
                 'type' => 'separator',
@@ -149,7 +149,7 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('Routing set up', [
-            'uri' => $this->urlGenerator->generate('bolt_edit_file', ['area' => 'config', 'file' => '/routes.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/routes.yaml']),
             'extras' => [
                 'name' => $t->trans('caption.routing_setup'),
                 'icon' => 'fa-directions',
@@ -157,7 +157,7 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('All configuration files', [
-            'uri' => $this->urlGenerator->generate('bolt_finder', ['area' => 'config']),
+            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'config']),
             'extras' => [
                 'name' => $t->trans('caption.all_configuration_files'),
                 'icon' => 'fa-cogs',
@@ -235,7 +235,7 @@ class MenuBuilder
         ]]);
 
         $menu['File Management']->addChild('Uploaded files', [
-            'uri' => $this->urlGenerator->generate('bolt_finder', ['area' => 'files']),
+            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'files']),
             'extras' => [
                 'name' => $t->trans('caption.uploaded_files'),
                 'icon' => 'fa-archive',
@@ -243,7 +243,7 @@ class MenuBuilder
         ]);
 
         $menu['File Management']->addChild('View/edit Templates', [
-            'uri' => $this->urlGenerator->generate('bolt_finder', ['area' => 'themes']),
+            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'themes']),
             'extras' => [
                 'name' => $t->trans('caption.view_edit_templates'),
                 'icon' => 'fa-scroll',

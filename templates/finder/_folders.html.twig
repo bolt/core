@@ -1,0 +1,41 @@
+
+<table class="table table-striped" style="background-color: #FFF;">
+    <thead class="thead-light">
+    <tr>
+        <th></th>
+        <th>{{ 'directoryname'|trans }}</th>
+        <th>{{ 'actions'|trans }}</th>
+    </tr>
+    </thead>
+
+    {% if path != '/' %}
+        <tr>
+            <td><i class="fas fa-folder-open"></i></td>
+            <td>
+                <b>
+                    <a href="{{ path('bolt_filemanager', {'area': area, 'path': parent }) }}">
+                        ../
+                    </a>
+                </b>
+            </td>
+            <td>
+            </td>
+        </tr>
+    {% endif %}
+
+    {% for directory in finder.directories() %}
+        <tr>
+            <td><i class="fas fa-folder"></i></td>
+            <td>
+                <b>
+                    {% set dirname = path ~ directory.getRelativePathname() %}
+                    <a href="{{ path('bolt_filemanager', {'area': area, 'path': dirname }) }}">
+                        {{ directory.getRelativePathname }}/
+                    </a>
+                </b>
+            </td>
+            <td>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
