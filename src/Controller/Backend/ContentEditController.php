@@ -82,7 +82,13 @@ class ContentEditController extends BaseController
         return new RedirectResponse($url);
     }
 
-    private function contentFromPost(Content $content = null, Request $request)
+    /**
+     * @param Content|null $content
+     * @param Request      $request
+     *
+     * @return Content
+     */
+    private function contentFromPost(Content $content, Request $request): Content
     {
         $post = $request->request->all();
 
@@ -104,7 +110,12 @@ class ContentEditController extends BaseController
         return $content;
     }
 
-    private function updateFieldFromPost(string $key, $postfield, Content $content)
+    /**
+     * @param string  $key
+     * @param mixed   $postfield
+     * @param Content $content
+     */
+    private function updateFieldFromPost(string $key, $postfield, Content $content): void
     {
         if (!$field = $content->getField($key)) {
             $fields = collect($content->getDefinition()->get('fields'));

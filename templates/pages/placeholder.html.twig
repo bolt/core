@@ -1,0 +1,28 @@
+{# Page: Footer > About #}
+
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% block title %} <strong>{{ title }}</strong>
+    {% if subtitle|default() %}» {{ subtitle }} {% endif %}{% endblock title %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-md-9">
+            <h2>{{ title }}</h2>
+
+            {% if subtitle|default() %}
+                <h3>{{ subtitle }}</h3>
+            {% endif %}
+
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Torquatus, is qui consul
+                cum Cn. Tum ille timide vel potius verecunde: Facio, inquit. Quae sequuntur igitur?
+                Sunt enim prima elementa naturae, quibus auctis vírtutis quasi germen efficitur.
+                Omnis enim est natura diligens sui. Duo Reges: constructio interrete.
+            </p>
+
+        </div>
+    </div>
+
+{% endblock main %}
