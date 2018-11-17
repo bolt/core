@@ -18,13 +18,16 @@ class DashboardController extends BaseController
 {
     /**
      * @Route("/", name="bolt_dashboard")
-     * was: ("/{vueRouting}", requirements={"vueRouting"="^(?!api|_(profiler|wdt)).+"}, name="index")
      *
      * @param ContentRepository $content
      *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     *
      * @return Response
      */
-    public function index(ContentRepository $content)
+    public function index(ContentRepository $content): Response
     {
         /** @var Content $records */
         $records = $content->findLatest();
