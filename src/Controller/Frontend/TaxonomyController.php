@@ -4,17 +4,27 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
+use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
+use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class TaxonomyController extends BaseController
 {
+    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, TemplateChooser $templateChooser)
+    {
+        parent::__construct($config, $csrfTokenManager);
+
+        $this->templateChooser = $templateChooser;
+    }
+
     /**
      * @Route("
      *     /{taxonomyslug}/{slug}",
@@ -30,7 +40,7 @@ class TaxonomyController extends BaseController
         /** @var Content $records */
         $records = $content->findAll($page);
 
-        $contenttype = ContentType::factory($contenttypeslug, $this->config->get('contenttypes'));
+        $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
 
         $templates = $this->templateChooser->listing($contenttype);
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Configuration\Config;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
@@ -18,7 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * Class EditRecordController.
@@ -27,12 +25,6 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class EditRecordController extends BaseController
 {
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager)
-    {
-        $this->config = $config;
-        $this->csrfTokenManager = $csrfTokenManager;
-    }
-
     /**
      * @Route("/edit/{id}", name="bolt_edit_record", methods={"GET"})
      *
