@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * Class UserController.
+ * Class ProfileController.
  *
  * @Security("has_role('ROLE_ADMIN')")
  */

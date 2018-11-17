@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ContentListingController.
+ * Class ContentOverviewController.
  *
  * @Security("has_role('ROLE_ADMIN')")
  */

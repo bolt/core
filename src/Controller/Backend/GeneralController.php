@@ -8,6 +8,11 @@ use Bolt\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class GeneralController.
+ *
+ * @Security("has_role('ROLE_ADMIN')")
+ */
 class GeneralController extends BaseController
 {
     /**

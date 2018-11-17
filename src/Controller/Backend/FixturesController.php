@@ -8,6 +8,11 @@ use Bolt\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class FixturesController.
+ *
+ * @Security("has_role('ROLE_ADMIN')")
+ */
 class FixturesController extends BaseController
 {
     /**

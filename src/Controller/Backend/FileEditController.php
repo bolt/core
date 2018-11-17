@@ -18,7 +18,7 @@ use Symfony\Component\Yaml\Parser;
 use Webmozart\PathUtil\Path;
 
 /**
- * Class EditFileController.
+ * Class FileEditController.
  *
  * @Security("has_role('ROLE_ADMIN')")
  */
