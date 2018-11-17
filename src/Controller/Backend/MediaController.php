@@ -68,8 +68,6 @@ class MediaController extends BaseController
             $this->manager->flush();
         }
 
-//        dd($basepath);
-
         return $this->renderTemplate('finder/finder.twig', [
             'path' => 'path',
             'name' => $this->areas->get($area, 'name'),

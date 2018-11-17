@@ -1,0 +1,33 @@
+{% extends '@bolt/editcontent/fields/_base.html.twig' %}
+
+{# Check Attributes #}
+{% if form is not defined %}
+    {% set form = '' %}
+{% endif %}
+
+{% if options is not defined %}
+    {% set options = selectoptionsfromarray(field) %}
+{% endif %}
+
+{% if field.definition is defined %}
+    {% set multiple = field.definition.get('multiple')  %}
+{% else %}
+    {% set multiple = false %}
+{% endif %}
+
+
+
+{% block field %}
+    {% if multiple %}
+        Multi
+    {% else %}
+        <editor-select
+
+            :value="'{{ value }}'"
+            :name="'{{ name }}'"
+            :id="'{{ id }}'"
+            :options="{{ options|json_encode() }}"
+            :form="'{{ form }}'"
+        ></editor-select>
+    {% endif %}
+{% endblock %}

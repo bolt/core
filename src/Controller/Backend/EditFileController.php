@@ -52,7 +52,7 @@ class EditFileController extends BaseController
             'contents' => $contents,
         ];
 
-        return $this->renderTemplate('finder/editfile.twig', $context);
+        return $this->renderTemplate('finder/editfile.html.twig', $context);
     }
 
     /**
@@ -89,7 +89,7 @@ class EditFileController extends BaseController
                 'contents' => $contents,
             ];
 
-            return $this->renderTemplate('finder/editfile.twig', $context);
+            return $this->renderTemplate('finder/editfile.html.twig', $context);
         }
 
         $basepath = $this->config->getPath($area);

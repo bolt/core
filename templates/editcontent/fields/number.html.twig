@@ -1,0 +1,22 @@
+{% extends '@bolt/editcontent/fields/_base.html.twig' %}
+
+{% block field %}
+
+  {# set mode #}
+  {% if mode is not defined %}
+      {% set mode = define.mode|default('float') %}
+  {% endif %}
+  {# set step #}
+  {% if step is not defined and mode == 'integer' %}
+    {% set step = define.step|default(0.5) %}
+  {% else %}
+    {% set step = 1 %}
+  {% endif %}
+
+  <editor-number
+    name="{{ name }}"
+    :value="{{ value }}"
+    :step="{{ step }}"
+  ></editor-number>
+
+{% endblock %}

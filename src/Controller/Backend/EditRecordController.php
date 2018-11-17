@@ -47,7 +47,7 @@ class EditRecordController extends BaseController
             $content->setConfig($this->config);
         }
 
-        return $this->renderTemplate('editcontent/edit.twig', [
+        return $this->renderTemplate('editcontent/edit.html.twig', [
             'record' => $content,
          ]);
     }

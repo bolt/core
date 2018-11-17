@@ -57,7 +57,7 @@ class FinderController extends BaseController
 
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';
 
-        return $this->renderTemplate('finder/finder.twig', [
+        return $this->renderTemplate('finder/finder.html.twig', [
             'path' => $path,
             'name' => $area->get('name'),
             'area' => $area->get('key'),

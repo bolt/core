@@ -39,7 +39,7 @@ class SourceCodeExtension extends AbstractExtension
 
     public function showSourceCode(Environment $twig, $template): string
     {
-        return $twig->render('debug/source_code.twig', [
+        return $twig->render('debug/source_code.html.twig', [
             'controller' => $this->getController(),
             'template' => $this->getTemplateSource($twig->resolveTemplate($template)),
         ]);

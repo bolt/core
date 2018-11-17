@@ -1,0 +1,82 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% block title %}
+ {{ 'title.edit_user'|trans }} » <strong>{{ usertitle|default('Unknown') }}</strong>
+{% endblock %}
+
+{% block body_id 'user_edit' %}
+
+{% block vue_id 'editor' %}
+
+{% block main %}
+
+    <div>
+        <form method="post" id="editcontent" >
+
+            {% include '@bolt/editcontent/fields/text.html.twig' with {
+                'label' : 'label.username' | trans,
+                'name' : 'username',
+                'value' : user.username,
+                'disabled' : true,
+            } %}
+
+            {% include '@bolt/editcontent/fields/text.html.twig' with {
+                'label' : 'label.fullname' | trans,
+                'name' : 'fullName',
+                'value' : user.fullName,
+                'disabled' : false,
+            } %}
+
+            {% include '@bolt/editcontent/fields/password.html.twig' with {
+                'label': 'label.password'|trans,
+                'label_class': 'required',
+                'name': 'password',
+                'value': '',
+                'class': 'form-control',
+            } %}
+
+            {% include '@bolt/editcontent/fields/email.html.twig' with {
+                'label': 'label.email'|trans,
+                'label_class': 'required',
+                'value': user.email,
+                'name': 'email',
+                'class': 'form-control',
+            } %}
+
+            {% set localeOptions = [] %}
+
+            {% for locale in locales() %}
+                {% set localeOptions = localeOptions|merge([
+                    {
+                        'key': locale.code,
+                        'value': locale.name ~ ' (' ~ locale.localisedname ~ ', ' ~ locale.code ~ ')'
+                    }
+                ]) %}
+            {% endfor %}
+
+            {% include '@bolt/editcontent/fields/select.html.twig' with {
+                'label' : 'label.locale' | trans,
+                'name' : 'locale',
+                'value' : user.locale,
+                'options' : localeOptions,
+            } %}
+
+            {# TODO: include form field with '@bolt/editcontent/fields/select.html.twig' #}
+            <div class="form-group">
+                <label for="user_backendTheme" class="required">Backend theme</label>
+                <select id="user_backendTheme" name="user[backendTheme]" class="form-control">
+                    <option value="default" selected="selected">The Default theme</option>
+                    <option value="dark">The Default Dark theme</option>
+                    <option value="woordpers">WoordPers: Kinda looks like that other CMS</option>
+                </select>
+            </div>
+
+            <user-theme></user-theme>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save" aria-hidden="true"></i> {{ 'action.save'|trans }}
+            </button>
+
+        </form>
+    </div>
+{% endblock %}

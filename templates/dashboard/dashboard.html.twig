@@ -1,0 +1,16 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% block title %}
+  <i class='fas mr-2 fa-tachometer-alt'></i><strong>{{ 'caption.dashboard'|trans }}</strong>
+{% endblock title %}
+
+{% block main %}
+  <div id="listing">
+    {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': 'dashboard' } %}
+  </div>
+{% endblock %}
+
+{% block aside %}
+    {% include '@bolt/_partials/_widget_weather.html.twig' %}
+{% endblock %}
+

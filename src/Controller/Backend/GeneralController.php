@@ -14,7 +14,7 @@ class GeneralController extends BaseController
      */
     public function about()
     {
-        return $this->renderTemplate('pages/about.twig');
+        return $this->renderTemplate('pages/about.html.twig');
     }
 
     /**
@@ -27,6 +27,6 @@ class GeneralController extends BaseController
         $this->addFlash('warning', '<strong>Warning!</strong> Better check yourself, you\'re not looking too good.');
         $this->addFlash('danger', '<strong>Oh snap!</strong> Change a few things up and try submitting again.');
 
-        return $this->renderTemplate('pages/about.twig');
+        return $this->renderTemplate('pages/about.html.twig');
     }
 }

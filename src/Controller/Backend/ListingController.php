@@ -41,7 +41,7 @@ class ListingController extends BaseController
         /** @var Content $records */
         $records = $content->findAll($page, $contenttype);
 
-        return $this->renderTemplate('content/listing.twig', [
+        return $this->renderTemplate('content/listing.html.twig', [
             'records' => $records,
             'contenttype' => $contenttype,
         ]);

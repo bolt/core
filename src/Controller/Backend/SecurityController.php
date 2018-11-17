@@ -22,7 +22,7 @@ class SecurityController extends BaseController
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        return $this->renderTemplate('security/login.twig', [
+        return $this->renderTemplate('security/login.html.twig', [
             'last_username' => $last_username,
             'error' => $error,
         ]);

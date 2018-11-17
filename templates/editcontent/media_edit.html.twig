@@ -1,0 +1,152 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% block title %}
+    {{ 'caption.edit'|trans }} » <strong>{{ media.title|default('New')|excerpt(30) }}</strong>
+{% endblock %}
+
+{% block main %}
+
+    <h2>{{ 'caption.filename'|trans }} » <strong>{{ media.area }}://{% if media.path %}{{ media.path }}/{% endif %}{{ media.filename }}</strong></h2>
+
+    <div class="imageholder">
+        {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, area = media.area, path = media.path) %}
+        <img id="main_image" src="{{ thumbnail }}">
+    </div>
+
+    <script>
+        var img = document.createElement('img');
+        img.setAttribute('src', '{{ thumbnail|raw }}');
+
+        img.addEventListener('load', function() {
+            var vibrant = new Vibrant(img);
+            var swatches = vibrant.swatches();
+            for (var swatch in swatches) {
+                if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+                    var elem = document.createElement('li');
+                    var label = document.createElement('div');
+                    var labelNode = document.createTextNode(swatches[swatch].getHex());
+                    var referenceNode = document.getElementById('swatcheslist');
+                    label.className = "ui horizontal label";
+                    label.setAttribute('style', 'background-color: ' + swatches[swatch].getHex());
+                    elem.appendChild(label).appendChild(labelNode);
+                    elem.appendChild(document.createTextNode(swatch));
+                    referenceNode.append(elem);
+                }
+            }
+        });
+
+    </script>
+
+    <br>
+
+
+<form method="post" id="editcontent">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('media_edit') }}">
+
+    {% include '@bolt/editcontent/fields/text.html.twig' with {
+        'label': 'field.title'|trans,
+        'name': 'title',
+        'value': media.title
+    }  %}
+
+    {% include '@bolt/editcontent/fields/textarea.html.twig' with {
+        'label': 'field.description'|trans,
+        'name': 'description',
+        'value': media.description
+    }  %}
+
+    {% include '@bolt/editcontent/fields/text.html.twig' with {
+        'label': 'field.copyright'|trans,
+        'name': 'copyright',
+        'value': media.copyright,
+        'postfix': "If the image is copyrighted or licensed, mention the rightsholder here."
+    }  %}
+
+    {% include '@bolt/editcontent/fields/text.html.twig' with {
+        'label': 'field.originalFilename'|trans,
+        'name': 'originalFilename',
+        'value': media.originalFilename
+    }  %}
+
+
+    <input type="submit" class="btn btn-primary" value="Save">
+
+</form>
+
+
+{% endblock %}
+
+{% block aside %}
+
+<div class="card">
+    <div class="card-header">{{ 'caption.meta_information'|trans }}</div>
+    <div class="card-body">
+
+        <form>
+            <div class="form-group">
+            <button type="submit" class="btn btn-success mb-3" form="editcontent">
+                <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
+            </button>
+
+            <ul class="ui divided selection list" id="swatcheslist">
+            </ul>
+
+            </div>
+
+            {% include '@bolt/editcontent/fields/text.html.twig' with {
+                'label': 'field.id'|trans,
+                'name': 'id',
+                'value': media.id,
+                'attributes': 'readonly form="editcontent"',
+            }  %}
+
+            {% include '@bolt/editcontent/fields/text.html.twig' with {
+                'label': 'field.width'|trans,
+                'name': 'width',
+                'value': media.width,
+                'attributes': 'readonly form="editcontent"',
+            }  %}
+
+            {% include '@bolt/editcontent/fields/text.html.twig' with {
+                'label': 'field.height'|trans,
+                'name': 'height',
+                'value': media.height,
+                'attributes': 'readonly form="editcontent"',
+            }  %}
+
+            {% include '@bolt/editcontent/fields/text.html.twig' with {
+                'label': 'field.filesize'|trans,
+                'name': 'filesize',
+                'value': media.filesize,
+                'attributes': 'readonly form="editcontent"',
+            }  %}
+
+            {#<input type="text" name="author" value="{{ media.author }}">#}
+
+    {% include '@bolt/editcontent/fields/datetime.html.twig' with {
+        'label': 'field.createdAt'|trans,
+        'name': 'createdAt',
+        'value': media.createdAt,
+        'attributes': 'readonly form="editcontent"',
+    } %}
+
+    {% include '@bolt/editcontent/fields/datetime.html.twig' with {
+        'label': 'field.modifiedAt'|trans,
+        'name': 'modifiedAt',
+        'value': media.modifiedAt,
+        'attributes': 'readonly form="editcontent"',
+    } %}
+
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock aside %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js"></script>
+
+{% endblock javascripts %}

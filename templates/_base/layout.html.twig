@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ block('title')|striptags }}</title>
+    {% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Sans+Pro:300,400,600&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    {% set theme = 'theme-' ~ user.backendTheme|default('default') %}
+    {{ encore_entry_link_tags('bolt') }}
+    {{ encore_entry_link_tags(theme) }}
+    {% endblock %}
+</head>
+
+<body>
+
+<div class="admin has-{{ block('container') }}">
+
+    <!-- Admin Toolbar -->
+    <nav id="toolbar" class="admin__toolbar">
+        {% set username = user.fullName|default('Unknown user') %}
+        {% set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': username}], 'action.logout', 'action.edit_profile']) %}
+        <admin-toolbar
+            site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
+            :menu="{{ sidebarmenu() }}"
+            user="{{user|default()}}"
+            :labels="{{ labels|json_decode }}"
+        ></admin-toolbar>
+    </nav>
+    <!-- End Admin Toolbar -->
+
+    <!-- Admin Header -->
+    <header class="admin__header">
+        <div class="container">
+            <nav class="admin__header--topbar">
+              <h2 class="admin__header--title">{{ block('title') }}</h2>
+            </nav>
+        </div>
+    </header>
+    <!-- End Admin Header -->
+
+    <!-- Admin Sidebar -->
+    <div class="admin__sidebar">
+        <div id="sidebar">
+            <admin-sidebar
+              :menu="{{ sidebarmenu() }}"
+              :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
+              :about-link="{{ path('bolt_about')|json_encode }}"
+            ></admin-sidebar >
+        </div>
+    </div>
+    <!-- End Admin Sidebar -->
+
+    <!-- Admin Main -->
+    <div class="admin__body {% block container %}{% endblock %}">
+        <div class="container">
+            <div class="admin__body--container" id="{% block vue_id %}{% endblock %}">
+                <main class="admin__body--main">
+                    {% block main %}
+                    {% endblock %}
+                </main>
+                <aside class="admin__body--aside">
+                    {% block aside %}
+
+                    {% endblock %}
+                </aside>
+                <div class="admin__notifications">
+                    {{ include('_partials/_flash_messages.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Admin Main -->
+
+</div>
+
+{% block javascripts %}
+    <script>
+        var admin = document.querySelector('.admin');
+        var slim = JSON.parse(localStorage.getItem('slim-sidebar'));
+        if (slim){
+          admin.classList.add('is-slim');
+        }
+    </script>
+    {{ encore_entry_script_tags('bolt') }}
+{% endblock %}
+
+</body>
+
+</html>

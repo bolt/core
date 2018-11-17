@@ -26,7 +26,7 @@ class UserController extends BaseController
      */
     public function users()
     {
-        return $this->renderTemplate('pages/about.twig');
+        return $this->renderTemplate('pages/about.html.twig');
     }
 
     /**
@@ -44,7 +44,7 @@ class UserController extends BaseController
     {
         $user = $this->getUser();
 
-        return $this->renderTemplate('users/edit.twig', [
+        return $this->renderTemplate('users/edit.html.twig', [
             'usertitle' => $user->getFullName(),
             'user' => $user,
         ]);
@@ -106,7 +106,7 @@ class UserController extends BaseController
         }
 
         if ($hasError) {
-            return $this->renderTemplate('users/edit.twig', [
+            return $this->renderTemplate('users/edit.html.twig', [
                 'usertitle' => $userTitle,
                 'user' => $user,
             ]);
