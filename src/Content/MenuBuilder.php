@@ -157,7 +157,7 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('All configuration files', [
-            'uri' => $this->urlGenerator->generate('bolt_finder', ['area' => 'config']),
+            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'config']),
             'extras' => [
                 'name' => $t->trans('caption.all_configuration_files'),
                 'icon' => 'fa-cogs',
@@ -235,7 +235,7 @@ class MenuBuilder
         ]]);
 
         $menu['File Management']->addChild('Uploaded files', [
-            'uri' => $this->urlGenerator->generate('bolt_finder', ['area' => 'files']),
+            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'files']),
             'extras' => [
                 'name' => $t->trans('caption.uploaded_files'),
                 'icon' => 'fa-archive',
@@ -243,7 +243,7 @@ class MenuBuilder
         ]);
 
         $menu['File Management']->addChild('View/edit Templates', [
-            'uri' => $this->urlGenerator->generate('bolt_finder', ['area' => 'themes']),
+            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'themes']),
             'extras' => [
                 'name' => $t->trans('caption.view_edit_templates'),
                 'icon' => 'fa-scroll',

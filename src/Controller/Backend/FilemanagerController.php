@@ -12,6 +12,7 @@ use Bolt\Repository\MediaRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
@@ -21,7 +22,7 @@ use Webmozart\PathUtil\Path;
  *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class FinderController extends BaseController
+class FilemanagerController extends BaseController
 {
     /** @var Areas */
     private $areas;
@@ -34,15 +35,19 @@ class FinderController extends BaseController
     }
 
     /**
-     * @Route("/finder/{area}", name="bolt_finder", methods={"GET"})
+     * @Route("/filemanager/{area}", name="bolt_filemanager", methods={"GET"})
      *
      * @param $area
      * @param Request         $request
      * @param MediaRepository $mediaRepository
      *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function finder($area, Request $request, MediaRepository $mediaRepository)
+    public function filemanager($area, Request $request, MediaRepository $mediaRepository): Response
     {
         $path = $request->query->get('path');
         if (!str::endsWith($path, '/')) {
