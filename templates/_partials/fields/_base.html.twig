@@ -59,15 +59,15 @@
 <!-- field " {{ type }} {{ variant }} {{ label }} {{ name }} -->
 <div class="form-group editor--group is-{{variant}}">
 {% if prefix %}
-    {% include 'editcontent/fields/_partials/_helper.html.twig' with { type: 'prefix', message: prefix} %}
+    {% include '_partials/fields/_partials/_helper.html.twig' with { type: 'prefix', message: prefix} %}
 {% endif %}
 {% block label %}
-    {% include 'editcontent/fields/_partials/_label.html.twig' %}
+    {% include '_partials/fields/_partials/_label.html.twig' %}
 {% endblock %}
 {% block field %}
 
 {% endblock %}
 {% if postfix %}
-    {% include 'editcontent/fields/_partials/_helper.html.twig' with { type: 'postfix', message: postfix} %}
+    {% include '_partials/fields/_partials/_helper.html.twig' with { type: 'postfix', message: postfix} %}
 {% endif %}
 </div>

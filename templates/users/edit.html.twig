@@ -13,21 +13,21 @@
     <div>
         <form method="post" id="editcontent" >
 
-            {% include '@bolt/editcontent/fields/text.html.twig' with {
+            {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label' : 'label.username' | trans,
                 'name' : 'username',
                 'value' : user.username,
                 'disabled' : true,
             } %}
 
-            {% include '@bolt/editcontent/fields/text.html.twig' with {
+            {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label' : 'label.fullname' | trans,
                 'name' : 'fullName',
                 'value' : user.fullName,
                 'disabled' : false,
             } %}
 
-            {% include '@bolt/editcontent/fields/password.html.twig' with {
+            {% include '@bolt/_partials/fields/password.html.twig' with {
                 'label': 'label.password'|trans,
                 'label_class': 'required',
                 'name': 'password',
@@ -35,7 +35,7 @@
                 'class': 'form-control',
             } %}
 
-            {% include '@bolt/editcontent/fields/email.html.twig' with {
+            {% include '@bolt/_partials/fields/email.html.twig' with {
                 'label': 'label.email'|trans,
                 'label_class': 'required',
                 'value': user.email,
@@ -54,14 +54,14 @@
                 ]) %}
             {% endfor %}
 
-            {% include '@bolt/editcontent/fields/select.html.twig' with {
+            {% include '@bolt/_partials/fields/select.html.twig' with {
                 'label' : 'label.locale' | trans,
                 'name' : 'locale',
                 'value' : user.locale,
                 'options' : localeOptions,
             } %}
 
-            {# TODO: include form field with '@bolt/editcontent/fields/select.html.twig' #}
+            {# TODO: include form field with '@bolt/_partials/fields/select.html.twig' #}
             <div class="form-group">
                 <label for="user_backendTheme" class="required">Backend theme</label>
                 <select id="user_backendTheme" name="user[backendTheme]" class="form-control">

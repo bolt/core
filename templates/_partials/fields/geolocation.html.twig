@@ -1,6 +1,7 @@
-{% extends '@bolt/editcontent/fields/_base.html.twig' %}
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
     <input name="{{ name }}" placeholder="First Name" type="text" value="{{ value }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
-    (Embed preview, and some meta fields go here)
+
+    (Small map, lat and long go here, somewhere)
 {% endblock %}

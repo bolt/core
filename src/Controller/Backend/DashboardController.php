@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends BaseController
 {
     /**
-     * @Route("/", name="bolt_dashboard")
+     * @Route("/", name="bolt_dashboard", methods={"GET"})
      *
      * @param ContentRepository $content
      *

@@ -46,10 +46,11 @@
                                 {% set field = fieldfactory(key, fielddefinition) %}
                             {% endif %}
                             {% if fieldgroup == group %}
+
                                 {% include[
-                                    'editcontent/fields/' ~ type ~ '.html.twig',
-                                    'editcontent/fields/generic.html.twig'
-                                ] with {
+                                    '_partials/fields/' ~ type ~ '.html.twig',
+                                    '_partials/fields/generic.html.twig'
+                                    ] with {
                                     'field' : field,
                                     'define' : fielddefinition
                                 } %}
@@ -97,7 +98,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        {% include '@bolt/editcontent/fields/select.html.twig' with {
+                        {% include '@bolt/_partials/fields/select.html.twig' with {
                             'label' : 'field.status' | trans,
                             'name' : 'status',
                             'value' : record.status,
@@ -107,7 +108,7 @@
 
                         {#<input type="text" name="author" value="{{ record.author }}">#}
 
-                        {% include '@bolt/editcontent/fields/date.html.twig' with {
+                        {% include '@bolt/_partials/fields/date.html.twig' with {
                             'label' : 'field.createdAt' | trans,
                             'name' : 'createdAt',
                             'value' : record.createdAt,
@@ -116,7 +117,7 @@
                             'form' : 'editcontent'
                         } %}
 
-                        {% include '@bolt/editcontent/fields/date.html.twig' with {
+                        {% include '@bolt/_partials/fields/date.html.twig' with {
                             'label' : 'field.modifiedAt' | trans,
                             'name' : 'modifiedAt',
                             'value' : record.modifiedAt,
@@ -125,7 +126,7 @@
                             'form' : 'editcontent'
                         } %}
 
-                        {% include '@bolt/editcontent/fields/date.html.twig' with {
+                        {% include '@bolt/_partials/fields/date.html.twig' with {
                             'label' : 'field.publishedAt' | trans,
                             'name' : 'publishedAt',
                             'value' : record.publishedAt,
@@ -133,14 +134,14 @@
                             'form' : 'editcontent'
                         } %}
 
-                        {% include '@bolt/editcontent/fields/date.html.twig' with {
+                        {% include '@bolt/_partials/fields/date.html.twig' with {
                             'label' : 'field.depublishedAt' | trans,
                             'name' : 'depublishedAt',
                             'mode' : 'datetime',
                             'form' : 'editcontent'
                         } %}
 
-                        {% include '@bolt/editcontent/fields/text.html.twig' with {
+                        {% include '@bolt/_partials/fields/text.html.twig' with {
                             'label' : 'field.id' | trans,
                             'name' : 'id',
                             'value' : record.id,

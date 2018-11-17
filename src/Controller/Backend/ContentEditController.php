@@ -23,10 +23,10 @@ use Symfony\Component\Security\Csrf\CsrfToken;
  *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EditRecordController extends BaseController
+class ContentEditController extends BaseController
 {
     /**
-     * @Route("/edit/{id}", name="bolt_edit_record", methods={"GET"})
+     * @Route("/edit/{id}", name="bolt_content_edit", methods={"GET"})
      *
      * @param string       $id
      * @param Request      $request
@@ -47,13 +47,13 @@ class EditRecordController extends BaseController
             $content->setConfig($this->config);
         }
 
-        return $this->renderTemplate('editcontent/edit.html.twig', [
+        return $this->renderTemplate('content/edit.html.twig', [
             'record' => $content,
          ]);
     }
 
     /**
-     * @Route("/edit/{id}", name="bolt_edit_record_post", methods={"POST"})
+     * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"})
      *
      * @param Request               $request
      * @param ObjectManager         $manager
@@ -62,7 +62,7 @@ class EditRecordController extends BaseController
      *
      * @return Response
      */
-    public function edit_post(Request $request, ObjectManager $manager, UrlGeneratorInterface $urlGenerator, Content $content = null): Response
+    public function editPost(Request $request, ObjectManager $manager, UrlGeneratorInterface $urlGenerator, Content $content = null): Response
     {
         $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
 
@@ -77,7 +77,7 @@ class EditRecordController extends BaseController
 
         $this->addFlash('success', 'content.updated_successfully');
 
-        $url = $urlGenerator->generate('bolt_edit_record', ['id' => $content->getId()]);
+        $url = $urlGenerator->generate('bolt_content_edit', ['id' => $content->getId()]);
 
         return new RedirectResponse($url);
     }

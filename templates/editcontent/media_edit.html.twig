@@ -43,26 +43,26 @@
 <form method="post" id="editcontent">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('media_edit') }}">
 
-    {% include '@bolt/editcontent/fields/text.html.twig' with {
+    {% include '@bolt/_partials/fields/text.html.twig' with {
         'label': 'field.title'|trans,
         'name': 'title',
         'value': media.title
     }  %}
 
-    {% include '@bolt/editcontent/fields/textarea.html.twig' with {
+    {% include '@bolt/_partials/fields/textarea.html.twig' with {
         'label': 'field.description'|trans,
         'name': 'description',
         'value': media.description
     }  %}
 
-    {% include '@bolt/editcontent/fields/text.html.twig' with {
+    {% include '@bolt/_partials/fields/text.html.twig' with {
         'label': 'field.copyright'|trans,
         'name': 'copyright',
         'value': media.copyright,
         'postfix': "If the image is copyrighted or licensed, mention the rightsholder here."
     }  %}
 
-    {% include '@bolt/editcontent/fields/text.html.twig' with {
+    {% include '@bolt/_partials/fields/text.html.twig' with {
         'label': 'field.originalFilename'|trans,
         'name': 'originalFilename',
         'value': media.originalFilename
@@ -93,28 +93,28 @@
 
             </div>
 
-            {% include '@bolt/editcontent/fields/text.html.twig' with {
+            {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.id'|trans,
                 'name': 'id',
                 'value': media.id,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-            {% include '@bolt/editcontent/fields/text.html.twig' with {
+            {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.width'|trans,
                 'name': 'width',
                 'value': media.width,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-            {% include '@bolt/editcontent/fields/text.html.twig' with {
+            {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.height'|trans,
                 'name': 'height',
                 'value': media.height,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
-            {% include '@bolt/editcontent/fields/text.html.twig' with {
+            {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.filesize'|trans,
                 'name': 'filesize',
                 'value': media.filesize,
@@ -123,14 +123,14 @@
 
             {#<input type="text" name="author" value="{{ media.author }}">#}
 
-    {% include '@bolt/editcontent/fields/datetime.html.twig' with {
+    {% include '@bolt/_partials/fields/datetime.html.twig' with {
         'label': 'field.createdAt'|trans,
         'name': 'createdAt',
         'value': media.createdAt,
         'attributes': 'readonly form="editcontent"',
     } %}
 
-    {% include '@bolt/editcontent/fields/datetime.html.twig' with {
+    {% include '@bolt/_partials/fields/datetime.html.twig' with {
         'label': 'field.modifiedAt'|trans,
         'name': 'modifiedAt',
         'value': media.modifiedAt,
