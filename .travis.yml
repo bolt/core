@@ -22,10 +22,12 @@ matrix:
 before_install:
   - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || phpenv config-rm xdebug.ini'
   - composer self-update
+  - nvm install 8.2
 
 install:
   - composer install
   - ./bin/phpunit install
+  - npm install
 
 script:
   - ./bin/phpunit
@@ -43,3 +45,5 @@ script:
   - composer validate --strict
   # this checks that Doctrine's mapping configurations are valid
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+  # run jest unit tests
+  - npm test
