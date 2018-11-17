@@ -22,10 +22,10 @@ use Webmozart\PathUtil\Path;
  *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EditFileController extends BaseController
+class FileEditController extends BaseController
 {
     /**
-     * @Route("/editfile/{area}", name="bolt_edit_file", methods={"GET"})
+     * @Route("/file-edit/{area}", name="bolt_file_edit", methods={"GET"})
      *
      * @param string  $area
      * @param Request $request
@@ -56,7 +56,7 @@ class EditFileController extends BaseController
     }
 
     /**
-     * @Route("/editfile/{area}", name="bolt_edit_file_post", methods={"POST"}, requirements={"file"=".+"})
+     * @Route("/file-edit/{area}", name="bolt_file-edit_post", methods={"POST"}, requirements={"file"=".+"})
      *
      * @param Request               $request
      * @param UrlGeneratorInterface $urlGenerator
@@ -80,7 +80,7 @@ class EditFileController extends BaseController
         $contents = $request->request->get('editfile');
         $extension = Path::getExtension($file);
 
-        $url = $urlGenerator->generate('bolt_edit_file', ['area' => $area, 'file' => $file]);
+        $url = $urlGenerator->generate('bolt_file_edit', ['area' => $area, 'file' => $file]);
 
         if (in_array($extension, ['yml', 'yaml'], true) && !$this->verifyYaml($contents)) {
             $context = [

@@ -9,3 +9,5 @@ Features:
   - Simple design, function over form.
   - Uses [Sakura](https://github.com/oxalorg/sakura) as a minimal CSS theme.
   - No Javascript.
+  
+ Aw yiss.

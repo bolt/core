@@ -18,7 +18,7 @@
         {% set extension = file.extension() %}
         {% set filename = path ~ file.getRelativePathname() %}
         {% set icon = 'fa-file' %}
-        {% set link = path('bolt_edit_file', {'area': area, 'file': filename }) %}
+        {% set link = path('bolt_file_edit', {'area': area, 'file': filename }) %}
         {% set thumbnail = '' %}
         {% set title = '' %}
         {% set dimensions = '' %}
