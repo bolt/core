@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\BaseController;
-use Bolt\Form\ChangePasswordType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -32,55 +31,31 @@ class UserController extends BaseController
 
     /**
      * @Route("/profile-edit", methods={"GET"}, name="bolt_profile_edit")
+     *
+     * @param Request $request
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     *
+     * @return Response
      */
     public function edit(Request $request): Response
     {
         $user = $this->getUser();
 
         return $this->renderTemplate('users/edit.twig', [
+            'usertitle' => $user->getFullName(),
             'user' => $user,
         ]);
     }
 
     /**
      * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
-     */
-    public function edit_post(Request $request, UrlGeneratorInterface $urlGenerator, ObjectManager $manager, UserPasswordEncoderInterface $encoder): Response
-    {
-        $user = $this->getUser();
-        $url = $urlGenerator->generate('bolt_profile_edit');
-        $locale = $request->get('user')['locale'];
-
-        $newPassword = $request->get('user')['password_first'];
-        $confirmedPassword = $request->get('user')['password_second'];
-
-        $user->setFullName($request->get('user')['fullName']);
-        $user->setEmail($request->get('user')['email']);
-        $user->setLocale($locale);
-        $user->setbackendTheme($request->get('user')['backendTheme']);
-
-        if (!empty($newPassword) || !empty($confirmedPassword)) {
-            // Set new password
-            if ($newPassword === $confirmedPassword) {
-                $user->setPassword($encoder->encodePassword($user, $newPassword));
-            } else {
-                return $this->renderTemplate('users/edit.twig', [
-                    'user' => $user,
-                ]);
-            }
-        }
-
-        $manager->flush();
-
-        $request->getSession()->set('_locale', $locale);
-
-        return new RedirectResponse($url);
-    }
-
-    /**
-     * @Route("/change-password", methods={"GET", "POST"}, name="bolt_change_password")
      *
      * @param Request                      $request
+     * @param UrlGeneratorInterface        $urlGenerator
+     * @param ObjectManager                $manager
      * @param UserPasswordEncoderInterface $encoder
      *
      * @throws \Twig_Error_Loader
@@ -89,20 +64,58 @@ class UserController extends BaseController
      *
      * @return Response
      */
-    public function changePassword(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function edit_post(Request $request, UrlGeneratorInterface $urlGenerator, ObjectManager $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(ChangePasswordType::class);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($encoder->encodePassword($user, $form->get('newPassword')->getData()));
-            $this->getDoctrine()->getManager()->flush();
+        $userTitle = $user->getFullName();
+        $url = $urlGenerator->generate('bolt_profile_edit');
+        $locale = current($request->get('locale'));
+        $newPassword = $request->get('password');
 
-            return $this->redirectToRoute('security_logout');
+        $user->setFullName($request->get('fullName'));
+        $user->setEmail($request->get('email'));
+        $user->setLocale($locale);
+        $user->setbackendTheme($request->get('user')['backendTheme']);
+
+        $hasError = false;
+
+        $usernameValidateOptions = [
+            'options' => [
+                'min_range' => 1,
+            ],
+        ];
+
+        // Validate username
+        if (!filter_var(mb_strlen($user->getFullName()), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
+            $this->addFlash('danger', 'user.not_valid_username');
+            $hasError = true;
         }
 
-        return $this->renderTemplate('users/change_password.twig', [
-            'form' => $form->createView(),
-        ]);
+        // Validate password
+        if (!empty($newPassword) && mb_strlen($newPassword) < 6) {
+            $this->addFlash('danger', 'user.not_valid_password');
+            $hasError = true;
+        } elseif (!empty($newPassword) && mb_strlen($newPassword) > 6) {
+            $user->setPassword($encoder->encodePassword($user, $newPassword));
+        }
+
+        // Validate email
+        if (!filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
+            $this->addFlash('danger', 'user.not_valid_email');
+            $hasError = true;
+        }
+
+        if ($hasError) {
+            return $this->renderTemplate('users/edit.twig', [
+                'usertitle' => $userTitle,
+                'user' => $user,
+            ]);
+        }
+
+        $manager->flush();
+
+        $request->getSession()->set('_locale', $locale);
+
+        return new RedirectResponse($url);
     }
 }
