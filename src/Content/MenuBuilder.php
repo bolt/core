@@ -79,7 +79,7 @@ class MenuBuilder
 
         foreach ($contenttypes as $contenttype) {
             $menu->addChild($contenttype['slug'], [
-                'uri' => $this->urlGenerator->generate('bolt_contentlisting', ['contenttype' => $contenttype['slug']]),
+                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contenttype' => $contenttype['slug']]),
                 'extras' => [
                     'name' => $contenttype['name'],
                     'singular_name' => $contenttype['singular_name'],

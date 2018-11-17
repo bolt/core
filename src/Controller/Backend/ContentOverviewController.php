@@ -17,10 +17,10 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ListingController extends BaseController
+class ContentOverviewController extends BaseController
 {
     /**
-     * @Route("/content/{contenttype}", name="bolt_contentlisting")
+     * @Route("/content/{contenttype}", name="bolt_content_overview")
      *
      * @param ContentRepository $content
      * @param Request           $request
@@ -32,13 +32,12 @@ class ListingController extends BaseController
      *
      * @return Response
      */
-    public function listing(ContentRepository $content, Request $request, string $contenttype = ''): Response
+    public function overview(ContentRepository $content, Request $request, string $contenttype = ''): Response
     {
         $contenttype = ContentType::factory($contenttype, $this->config->get('contenttypes'));
 
         $page = (int) $request->query->get('page', 1);
 
-        /** @var Content $records */
         $records = $content->findAll($page, $contenttype);
 
         return $this->renderTemplate('content/listing.html.twig', [
