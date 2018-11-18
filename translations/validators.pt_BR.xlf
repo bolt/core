@@ -1,77 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="pt-BR">
-  <file id="validators.pt_BR">
-    <unit id="TG1D5NO" name="post.blank_summary">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="pt-BR" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="TG1D5NO" resname="post.blank_summary">
         <source>post.blank_summary</source>
         <target>Informe um sumário para o seu post!</target>
-      </segment>
-    </unit>
-    <unit id="BZOzjk." name="post.blank_content">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
+        <note priority="1">obsolete</note>
+      </trans-unit>
+      <trans-unit id="BZOzjk." resname="post.blank_content">
         <source>post.blank_content</source>
         <target>Informe um conteúdo para o seu post!</target>
-      </segment>
-    </unit>
-    <unit id="S6M.YWY" name="post.too_short_content">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
+        <note priority="1">obsolete</note>
+      </trans-unit>
+      <trans-unit id="S6M.YWY" resname="post.too_short_content">
         <source>post.too_short_content</source>
         <target>O conteúdo do post está muito curto (mínimo de {{ limit }} caracteres)</target>
-      </segment>
-    </unit>
-    <unit id="niM7JYj" name="post.too_many_tags">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
+        <note priority="1">obsolete</note>
+      </trans-unit>
+      <trans-unit id="niM7JYj" resname="post.too_many_tags">
         <source>post.too_many_tags</source>
         <target>Tags demais (adicione {{ limit }} tags ou menos)</target>
-      </segment>
-    </unit>
-    <unit id="ARUoKOV" name="comment.blank">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
+        <note priority="1">obsolete</note>
+      </trans-unit>
+      <trans-unit id="ARUoKOV" resname="comment.blank">
         <source>comment.blank</source>
         <target>Por favor, não deixe seu comentário vazio!</target>
-      </segment>
-    </unit>
-    <unit id="J.L_ppQ" name="comment.too_short">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
+        <note priority="1">obsolete</note>
+      </trans-unit>
+      <trans-unit id="J.L_ppQ" resname="comment.too_short">
         <source>comment.too_short</source>
         <target>O comentário está muito curto (mínimo de {{ limit }} caracteres)</target>
-      </segment>
-    </unit>
-    <unit id=".bkQKXb" name="comment.too_long">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
+        <note priority="1">obsolete</note>
+      </trans-unit>
+      <trans-unit id=".bkQKXb" resname="comment.too_long">
         <source>comment.too_long</source>
         <target>O comentário está muito grande (máximo de {{ limit }} caracteres)</target>
-      </segment>
-    </unit>
-    <unit id="cTT8h4_" name="comment.is_spam">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
+        <note priority="1">obsolete</note>
+      </trans-unit>
+      <trans-unit id="cTT8h4_" resname="comment.is_spam">
         <source>comment.is_spam</source>
         <target>O conteúdo desse comentário é considerado spam.</target>
-      </segment>
-    </unit>
+        <note priority="1">obsolete</note>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
