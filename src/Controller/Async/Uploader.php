@@ -70,7 +70,7 @@ class Uploader
                 $this->manager->persist($media);
                 $this->manager->flush();
 
-                return new Response($result->name);
+                return new Response($media->getFilenamePath());
             } catch (\Exception $e) {
                 // something wrong happened, we don't need the uploaded files anymore
                 $result->clear();
