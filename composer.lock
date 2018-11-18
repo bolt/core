@@ -44,16 +44,16 @@
         },
         {
             "name": "api-platform/core",
-            "version": "v2.3.3",
+            "version": "v2.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "c2329e456b680b73501b65c5298fae8f3c75bc0e"
+                "reference": "a21e504406eaa5c6e3ace2c485dd534620004c96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/c2329e456b680b73501b65c5298fae8f3c75bc0e",
-                "reference": "c2329e456b680b73501b65c5298fae8f3c75bc0e",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/a21e504406eaa5c6e3ace2c485dd534620004c96",
+                "reference": "a21e504406eaa5c6e3ace2c485dd534620004c96",
                 "shasum": ""
             },
             "require": {
@@ -104,7 +104,6 @@
                 "symfony/finder": "^3.3 || ^4.0",
                 "symfony/form": "^3.3 || ^4.0",
                 "symfony/framework-bundle": "^3.3 || ^4.0",
-                "symfony/http-foundation": "^3.1@dev || ^4.0@dev",
                 "symfony/phpunit-bridge": "^3.3 || ^4.0",
                 "symfony/routing": "^3.3 || ^4.0",
                 "symfony/security": "^3.0 || ^4.0",
@@ -162,7 +161,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2018-09-19T07:50:25+00:00"
+            "time": "2018-11-16T16:36:39+00:00"
         },
         {
             "name": "behat/transliterator",
