@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * Class DashboardController.
+ *
  * @Security("has_role('ROLE_ADMIN')")
  */
 class DashboardController extends BaseController

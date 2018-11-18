@@ -8,6 +8,9 @@ use Bolt\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class ResetPasswordController.
+ */
 class ResetPasswordController extends BaseController
 {
     /**

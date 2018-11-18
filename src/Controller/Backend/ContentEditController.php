@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 
 /**
- * Class EditRecordController.
+ * Class ContentEditController.
  *
  * @Security("has_role('ROLE_ADMIN')")
  */
