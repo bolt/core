@@ -22,8 +22,6 @@ class GeneralController extends BaseController
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function about(): Response
     {
@@ -36,8 +34,6 @@ class GeneralController extends BaseController
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function kitchensink(): Response
     {

@@ -22,9 +22,6 @@ trait ContentMagicTraits
      * - {{ record.magic('title') }} => Magic title, no fallback
      * - {{ record.get('title') }} => Field named title, no fallback
      *
-     * @param string $name
-     * @param array  $arguments
-     *
      * @return Field|mixed|null
      */
     public function __call(string $name, array $arguments = [])
@@ -40,27 +37,15 @@ trait ContentMagicTraits
         return $this->magic($name, $arguments);
     }
 
-    /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return mixed
-     */
     public function magic(string $name, array $arguments = [])
     {
         $magicName = 'magic' . $name;
 
         if (method_exists($this, $magicName)) {
-            return $this->$magicName(...$arguments);
+            return $this->{$magicName}(...$arguments);
         }
     }
 
-    /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return mixed
-     */
     public function get(string $name, array $arguments = [])
     {
         foreach ($this->fields as $field) {
@@ -113,9 +98,6 @@ trait ContentMagicTraits
         return [];
     }
 
-    /**
-     * @return string
-     */
     public function magicTitle(): string
     {
         $title = [];

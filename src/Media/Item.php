@@ -19,15 +19,15 @@ class Item
 
     public function __construct($file, $id = null)
     {
-        $this->id = isset($id) ? $id : md5(uniqid(self::$item_counter++, true));
+        $this->id = $id ?? md5(uniqid(self::$item_counter++, true));
         $this->file = $file;
         $this->name = $file['name'];
     }
 
-    public function rename($name, $extension = null)
+    public function rename($name, $extension = null): void
     {
         $info = pathinfo($this->name);
-        $this->name = $name . '.' . (isset($extension) ? $extension : $info['extension']);
+        $this->name = $name . '.' . ($extension ?? $info['extension']);
     }
 
     public function getId()

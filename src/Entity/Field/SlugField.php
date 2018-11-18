@@ -25,7 +25,7 @@ class SlugField extends Field
     {
         $content = $this->getContent();
 
-        if (!$content) {
+        if (! $content) {
             return '/foobar/';
         }
 

@@ -24,9 +24,6 @@ class ContentHelperExtension extends AbstractExtension
 
     /**
      * ContentHelperExtension constructor.
-     *
-     * @param MenuBuilder         $menuBuilder
-     * @param TranslatorInterface $translator
      */
     public function __construct(MenuBuilder $menuBuilder, TranslatorInterface $translator)
     {
@@ -62,7 +59,7 @@ class ContentHelperExtension extends AbstractExtension
 
     public function sidebarmenu($pretty = false)
     {
-        if (!$this->menu) {
+        if (! $this->menu) {
             $menuArray = $this->menuBuilder->getMenu();
             $options = $pretty ? JSON_PRETTY_PRINT : 0;
             $this->menu = json_encode($menuArray, $options);
@@ -88,14 +85,11 @@ class ContentHelperExtension extends AbstractExtension
 
         $icon = str_replace('fa-', '', $icon);
 
-        return "<i class='fas mr-2 fa-$icon'></i>";
+        return "<i class='fas mr-2 fa-${icon}'></i>";
     }
 
     /**
-     * @param array $labels
-     * @param bool  $pretty
-     *
-     * @return string
+     * @param bool $pretty
      */
     public function jsonlabels(array $labels, $pretty = false): string
     {
@@ -111,10 +105,7 @@ class ContentHelperExtension extends AbstractExtension
     }
 
     /**
-     * @param $records
      * @param bool $pretty
-     *
-     * @return string
      */
     public function jsonrecords($records, $pretty = false): string
     {
@@ -143,7 +134,7 @@ class ContentHelperExtension extends AbstractExtension
             ];
         }
 
-        if (!is_iterable($values)) {
+        if (! is_iterable($values)) {
             return $options;
         }
 

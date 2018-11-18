@@ -51,7 +51,7 @@ class AppExtension extends AbstractExtension
 
     public function ucwords($content, string $delimiters = ''): string
     {
-        if (!$content) {
+        if (! $content) {
             return '';
         }
 

@@ -36,12 +36,6 @@ class MediaController extends BaseController
 
     /**
      * MediaController constructor.
-     *
-     * @param Config                    $config
-     * @param CsrfTokenManagerInterface $csrfTokenManager
-     * @param ObjectManager             $manager
-     * @param Areas                     $areas
-     * @param MediaFactory              $mediaFactory
      */
     public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, ObjectManager $manager, Areas $areas, MediaFactory $mediaFactory)
     {

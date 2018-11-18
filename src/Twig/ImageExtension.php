@@ -61,7 +61,8 @@ class ImageExtension extends AbstractExtension
         $secret = $this->config->get('general/secret');
 
         $params = [
-            'w' => $width, 'h' => $height,
+            'w' => $width,
+            'h' => $height,
         ];
 
         if ($area) {

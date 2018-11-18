@@ -29,19 +29,15 @@ class DetailController extends BaseController
      *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
      *
-     * @param ContentRepository $contentRepository
-     * @param FieldRepository   $fieldRepository
-     * @param null              $slug
+     * @param null $slug
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, string $contenttypeslug, string $slug): Response
     {
-        if (!is_numeric($slug)) {
+        if (! is_numeric($slug)) {
             $field = $fieldRepository->findOneBySlug($slug);
             $record = $field->getContent();
         } else {

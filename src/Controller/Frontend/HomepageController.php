@@ -24,13 +24,9 @@ class HomepageController extends BaseController
     /**
      * @Route("/", methods={"GET"}, name="homepage")
      *
-     * @param ContentRepository $cr
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function homepage(ContentRepository $contentRepository): Response
     {
@@ -38,8 +34,11 @@ class HomepageController extends BaseController
         $params = explode('/', $homepage);
 
         // todo get $homepage content, using "setcontent"
-        $record = $contentRepository->findOneBy(['contentType' => $params[0], 'id' => $params[1]]);
-        if (!$record) {
+        $record = $contentRepository->findOneBy([
+            'contentType' => $params[0],
+            'id' => $params[1],
+        ]);
+        if (! $record) {
             $record = $contentRepository->findOneBy(['contentType' => $params[0]]);
         }
 

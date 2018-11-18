@@ -16,7 +16,7 @@ use Twig_Environment;
 class LocaleExtension extends AbstractExtension
 {
     /** @var array */
-    private $localeCodes;
+    private $localeCodes = [];
 
     /** @var Config */
     private $config;
@@ -63,7 +63,7 @@ class LocaleExtension extends AbstractExtension
      */
     public function getLocales(Twig_Environment $env): Collection
     {
-        if (null !== $this->locales) {
+        if ($this->locales !== null) {
             return $this->locales;
         }
 

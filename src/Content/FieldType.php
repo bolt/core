@@ -13,10 +13,7 @@ final class FieldType extends Collection
         parent::__construct(array_merge($this->defaults(), $items));
     }
 
-    /**
-     * @return array
-     */
-    private function defaults()
+    private function defaults(): array
     {
         $values = [
             'type' => '',
@@ -36,9 +33,6 @@ final class FieldType extends Collection
     }
 
     /**
-     * @param string      $name
-     * @param ContentType $contentType
-     *
      * @return FieldType|null
      */
     public static function factory(string $name, ContentType $contentType): ?self
@@ -53,9 +47,6 @@ final class FieldType extends Collection
     }
 
     /**
-     * @param string $name
-     * @param array  $definition
-     *
      * @return FieldType|null
      */
     public static function mock(string $name, array $definition): ?self

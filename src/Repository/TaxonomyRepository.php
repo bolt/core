@@ -9,8 +9,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Taxonomy|null find($id, $lockMode = null, $lockVersion = null)
- * @method Taxonomy|null findOneBy(array $criteria, array $orderBy = null)
+ * @method (Taxonomy | null) find($id, $lockMode = null, $lockVersion=null)
+ * @method (Taxonomy | null) findOneBy(array $criteria, array $orderBy=null)
  * @method Taxonomy[]    findAll()
  * @method Taxonomy[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

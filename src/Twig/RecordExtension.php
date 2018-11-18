@@ -53,10 +53,7 @@ class RecordExtension extends AbstractExtension
     }
 
     /**
-     * @param $text
      * @param int $length
-     *
-     * @return string
      */
     public function excerpt($text, $length = 100): string
     {

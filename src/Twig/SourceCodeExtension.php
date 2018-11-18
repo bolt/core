@@ -22,7 +22,7 @@ class SourceCodeExtension extends AbstractExtension
 {
     private $controller;
 
-    public function setController(?callable $controller)
+    public function setController(?callable $controller): void
     {
         $this->controller = $controller;
     }
@@ -33,7 +33,10 @@ class SourceCodeExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('show_source_code', [$this, 'showSourceCode'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('show_source_code', [$this, 'showSourceCode'], [
+                'is_safe' => ['html'],
+                'needs_environment' => true,
+            ]),
         ];
     }
 
@@ -48,7 +51,7 @@ class SourceCodeExtension extends AbstractExtension
     private function getController(): ?array
     {
         // this happens for example for exceptions (404 errors, etc.)
-        if (null === $this->controller) {
+        if ($this->controller === null) {
             return null;
         }
 
@@ -76,7 +79,7 @@ class SourceCodeExtension extends AbstractExtension
             return new \ReflectionMethod($callable[0], $callable[1]);
         }
 
-        if (\is_object($callable) && !$callable instanceof \Closure) {
+        if (\is_object($callable) && ! $callable instanceof \Closure) {
             $r = new \ReflectionObject($callable);
 
             return $r->getMethod('__invoke');
@@ -110,7 +113,7 @@ class SourceCodeExtension extends AbstractExtension
         $codeLines = explode("\n", $code);
 
         $indentedLines = array_filter($codeLines, function ($lineOfCode) {
-            return '' === $lineOfCode || 0 === mb_strpos($lineOfCode, '    ');
+            return $lineOfCode === '' || mb_strpos($lineOfCode, '    ') === 0;
         });
 
         if (\count($indentedLines) === \count($codeLines)) {

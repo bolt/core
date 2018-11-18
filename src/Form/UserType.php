@@ -58,8 +58,7 @@ class UserType extends AbstractType
                     'Default Theme' => 'default',
                     'Light Theme' => 'light',
                 ],
-            ])
-        ;
+            ]);
     }
 
     /**

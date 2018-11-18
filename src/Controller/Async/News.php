@@ -30,14 +30,11 @@ final class News
     /**
      * News. Film at 11.
      *
-     * @param Request $request
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
      *
-     * @return JsonResponse
      * @Route("/news", name="bolt_news")
      */
-    public function dashboardNews(Request $request)
+    public function dashboardNews(Request $request): JsonResponse
     {
         $news = $this->getNews($request->getHost());
 
@@ -62,10 +59,8 @@ final class News
      * @param string $hostname
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
-     *
-     * @return array
      */
-    private function getNews($hostname)
+    private function getNews($hostname): array
     {
 //        // Cached for two hours.
 //        $news = $this->app['cache']->fetch('dashboardnews');
@@ -89,10 +84,8 @@ final class News
      * @param string $hostname
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
-     *
-     * @return array
      */
-    private function fetchNews($hostname)
+    private function fetchNews($hostname): array
     {
 //        $source = $this->getOption('general/branding/news_source', 'https://news.bolt.cm/');
         $source = 'https://news.bolt.cm/';
@@ -113,7 +106,7 @@ final class News
                 'error' => [
                     'type' => 'error',
                     'title' => 'Unable to fetch news!',
-                    'teaser' => "<p>Unable to connect to $source</p>",
+                    'teaser' => "<p>Unable to connect to ${source}</p>",
                 ],
             ];
         }
@@ -136,7 +129,7 @@ final class News
         // applies and the first alert we need to show
         foreach ($fetchedNewsItems as $item) {
             $type = isset($item->type) ? $item->type : 'information';
-            if (!isset($news[$type])
+            if (! isset($news[$type])
                 && (empty($item->target_version) || Version::compare($item->target_version, '>'))
             ) {
                 $news[$type] = $item;
@@ -152,7 +145,7 @@ final class News
             'error' => [
                 'type' => 'error',
                 'title' => 'Unable to fetch news!',
-                'teaser' => "<p>Invalid JSON feed returned by $source</p>",
+                'teaser' => "<p>Invalid JSON feed returned by ${source}</p>",
             ],
         ];
     }
@@ -161,10 +154,8 @@ final class News
      * Get the guzzle options.
      *
      * @param string $hostname
-     *
-     * @return array
      */
-    private function fetchNewsOptions($hostname)
+    private function fetchNewsOptions($hostname): array
     {
 //        $driver = $this->app['db']->getDatabasePlatform()->getName();
 
