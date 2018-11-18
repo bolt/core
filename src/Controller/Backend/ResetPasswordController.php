@@ -10,8 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class ResetPasswordController.
- *
- * @Security("has_role('ROLE_ADMIN')")
  */
 class ResetPasswordController extends BaseController
 {
