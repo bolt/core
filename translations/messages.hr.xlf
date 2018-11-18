@@ -1,46 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="k.JymqB" resname="about.visit_bolt">
-        <source>about.visit_bolt</source>
-        <target>Visita bolt.cm</target>
-      </trans-unit>
-      <trans-unit id="1sstKF9" resname="title.edit_user">
-        <source>title.edit_user</source>
-        <target>Editar Usuario</target>
-      </trans-unit>
-      <trans-unit id="XNTbZW6" resname="action.visit_site">
-        <source>action.visit_site</source>
-        <target>Visitar Sitio</target>
-      </trans-unit>
-      <trans-unit id="UZFanGF" resname="about.bolt_documentation">
-        <source>about.bolt_documentation</source>
-        <target>Documentación del Bolt</target>
-      </trans-unit>
-      <trans-unit id="b_RPpcB" resname="general.greeting">
-        <source>general.greeting</source>
-        <target>Hola %name%</target>
-      </trans-unit>
-      <trans-unit id="bmdn3u9" resname="action.logout">
-        <source>action.logout</source>
-        <target>Cerrar Sesión</target>
-      </trans-unit>
-      <trans-unit id="KfVJho2" resname="action.create_new">
-        <source>action.create_new</source>
-        <target>Crear Nuevo</target>
-      </trans-unit>
-      <trans-unit id="zOfpTLD" resname="action.edit_profile">
-        <source>action.edit_profile</source>
-        <target>Editar Perfil</target>
-      </trans-unit>
-      <trans-unit id="N_0yRcH" resname="action.close_alert">
-        <source>action.close_alert</source>
-        <target>Cerrar</target>
-      </trans-unit>
       <trans-unit id="80JoLd0" resname="title.login">
         <source>title.login</source>
         <target>__title.login</target>
@@ -157,6 +121,10 @@
         <source>date</source>
         <target>__date</target>
       </trans-unit>
+      <trans-unit id="1sstKF9" resname="title.edit_user">
+        <source>title.edit_user</source>
+        <target>__title.edit_user</target>
+      </trans-unit>
       <trans-unit id="aYnbvsn" resname="label.fullname">
         <source>label.fullname</source>
         <target>__label.fullname</target>
@@ -176,6 +144,14 @@
       <trans-unit id="xN1kSQQ" resname="caption.bolt_payoff">
         <source>caption.bolt_payoff</source>
         <target>__caption.bolt_payoff</target>
+      </trans-unit>
+      <trans-unit id="k.JymqB" resname="about.visit_bolt">
+        <source>about.visit_bolt</source>
+        <target>__about.visit_bolt</target>
+      </trans-unit>
+      <trans-unit id="UZFanGF" resname="about.bolt_documentation">
+        <source>about.bolt_documentation</source>
+        <target>__about.bolt_documentation</target>
       </trans-unit>
       <trans-unit id="FO7zDub" resname="about.bolt_on_github">
         <source>about.bolt_on_github</source>
