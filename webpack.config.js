@@ -21,7 +21,7 @@ Encore
     from: './assets/static' 
   })
   .copyFiles({
-    from: './node_modules/flagkit-web/svgs',
+    from: './node_modules/flagpack/flags',
     to: 'icons/flags/[name].[ext]',
     pattern: /\.(svg)$/
   })
