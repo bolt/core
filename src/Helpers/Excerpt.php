@@ -124,9 +124,7 @@ class Excerpt
             }
         }
 
-        $startPos = $startPos > $prevCount ? $startPos - $prevCount : 0;
-
-        return $startPos;
+        return $startPos > $prevCount ? $startPos - $prevCount : 0;
     }
 
     /**

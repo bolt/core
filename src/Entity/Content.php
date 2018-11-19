@@ -172,7 +172,7 @@ class Content
 
     public function getSummary(): array
     {
-        $summary = [
+        return [
             'id' => $this->getid(),
             'contenttype' => $this->getDefinition()->get('slug'),
             'slug' => $this->getSlug(),
@@ -195,8 +195,6 @@ class Content
             'publishedAt' => $this->getPublishedAt(),
             'depublishedAt' => $this->depublishedAt(),
         ];
-
-        return $summary;
     }
 
     public function getSlug(): string

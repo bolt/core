@@ -61,9 +61,7 @@ class AdminExtension extends AbstractExtension
                     'area' => 'config',
                     'file' => '/' . $matches[1],
                 ]);
-                $link = sprintf(' <a href="%s">%s</a>', $path, $matches[1]);
-
-                return $link;
+                return sprintf(' <a href="%s">%s</a>', $path, $matches[1]);
             },
             $str
         );

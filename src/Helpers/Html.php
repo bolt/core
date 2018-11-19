@@ -58,9 +58,7 @@ class Html
     public static function decorateTT($str): string
     {
         $str = htmlspecialchars($str, ENT_QUOTES);
-        $str = preg_replace('/`([^`]*)`/', '<tt>\\1</tt>', $str);
-
-        return $str;
+        return preg_replace('/`([^`]*)`/', '<tt>\\1</tt>', $str);
     }
 
     /**
@@ -90,9 +88,7 @@ class Html
      */
     public static function addScheme($url, $scheme = 'http://'): string
     {
-        $url = parse_url($url, PHP_URL_SCHEME) === null ? $scheme . $url : $url;
-
-        return $url;
+        return parse_url($url, PHP_URL_SCHEME) === null ? $scheme . $url : $url;
     }
 
     /**

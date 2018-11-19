@@ -57,16 +57,12 @@ trait ContentMagicTraits
 
     public function magicLink()
     {
-        $path = $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
-
-        return $path;
+        return $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
     }
 
     public function magicEditLink()
     {
-        $path = $this->urlGenerator->generate('bolt_content_edit', ['id' => $this->getId()]);
-
-        return $path;
+        return $this->urlGenerator->generate('bolt_content_edit', ['id' => $this->getId()]);
     }
 
     public function magicTitleFields(): array

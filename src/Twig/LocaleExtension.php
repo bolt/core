@@ -51,9 +51,7 @@ class LocaleExtension extends AbstractExtension
 
     public function getLocale($localeCode)
     {
-        $locale = $this->localeInfo($localeCode);
-
-        return $locale;
+        return $this->localeInfo($localeCode);
     }
 
     /**
@@ -104,14 +102,12 @@ class LocaleExtension extends AbstractExtension
             $localeCode = mb_strtolower($splitCode[0]);
         }
 
-        $locale = collect([
+        return collect([
             'code' => $localeCode,
             'name' => Intl::getLocaleBundle()->getLocaleName($localeCode),
             'localisedname' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode),
             'flag' => $this->getFlagTag($localeCode),
         ]);
-
-        return $locale;
     }
 
     private function getFlagTag($localeCode)
