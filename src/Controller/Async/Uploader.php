@@ -43,8 +43,6 @@ class Uploader
      */
     public function upload(Request $request)
     {
-//        $uploadHandler = new Handler('/path/to/local_folder');
-
         $area = $request->query->get('area', '');
         $path = $request->query->get('path', '');
 

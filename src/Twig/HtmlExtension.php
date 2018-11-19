@@ -26,7 +26,6 @@ class HtmlExtension extends AbstractExtension
     public function getFunctions()
     {
         $safe = ['is_safe' => ['html']];
-        $env = ['needs_environment' => true];
 
         return [
             new TwigFilter('markdown', [$this, 'markdown'], $safe),
@@ -39,7 +38,6 @@ class HtmlExtension extends AbstractExtension
     public function getFilters()
     {
         $safe = ['is_safe' => ['html']];
-        $env = ['needs_environment' => true];
 
         return [
             new TwigFilter('markdown', [$this, 'markdown'], $safe),

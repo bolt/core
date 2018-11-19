@@ -18,8 +18,6 @@ class TextExtension extends AbstractExtension
      */
     public function getFilters()
     {
-        $safe = ['is_safe' => ['html']];
-
         return [
             new TwigFilter('json_decode', [$this, 'dummy']),
             new TwigFilter('safestring', [$this, 'safeString']),

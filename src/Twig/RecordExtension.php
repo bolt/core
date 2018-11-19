@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Helpers\Excerpt;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -35,7 +36,6 @@ class RecordExtension extends AbstractExtension
     public function getFilters()
     {
         $safe = ['is_safe' => ['html']];
-        $deprecated = ['deprecated' => true];
 
         return [
             new TwigFilter('excerpt', [$this, 'excerpt'], $safe),
@@ -53,7 +53,8 @@ class RecordExtension extends AbstractExtension
     }
 
     /**
-     * @param int $length
+     * @param string $text
+     * @param int    $length
      */
     public function excerpt($text, $length = 100): string
     {

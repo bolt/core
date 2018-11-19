@@ -26,8 +26,6 @@ class AdminExtension extends AbstractExtension
      */
     public function getFunctions()
     {
-        $safe = ['is_safe' => ['html']];
-
         return [
         ];
     }
