@@ -27,15 +27,13 @@
                 'disabled' : false,
             } %}
 
-            <div id="field-password">
-                {% include '@bolt/_partials/fields/password.html.twig' with {
-                    'label': 'label.password'|trans,
-                    'label_class': 'required',
-                    'name': 'password',
-                    'value': '',
-                    'class': 'form-control',
-                } %}
-            </div>
+            {% include '@bolt/_partials/fields/password.html.twig' with {
+                'label': 'label.password'|trans,
+                'label_class': 'required',
+                'name': 'password',
+                'value': '',
+                'class': 'form-control',
+            } %}
 
             {% include '@bolt/_partials/fields/email.html.twig' with {
                 'label': 'label.email'|trans,

@@ -7,6 +7,7 @@
         :name="name"
         :value="value"
         class="form-control"
+        autocomplete="new-password"
       />
 
       <i class="input-group-text fas fa-eye"></i>

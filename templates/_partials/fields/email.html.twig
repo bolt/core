@@ -1,5 +1,11 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    <input type="email" id="{{ id }}" name="{{ name }}" value="{{ value }}" class="{{ class }}">
+    <div id="user-email">
+        <field-email
+            :id="'{{ id }}'"
+            :name="'{{ name }}'"
+            :value="{{ value|json_encode() }}"
+        ></field-email>
+    </div>
 {% endblock %}
