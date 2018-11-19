@@ -28,12 +28,6 @@ class Excerpt
 
     /**
      * Get the excerpt of a given piece of text.
-     *
-     * @param int         $length
-     * @param bool        $includeTitle
-     * @param string|null $focus
-     *
-     * @return string
      */
     public function getExcerpt(int $length = 200, bool $includeTitle = false, ?string $focus = null): string
     {
@@ -49,7 +43,7 @@ class Excerpt
             $skip_fields = $includeTitle ? $this->content->magicTitleFields() : [];
 
             foreach ($this->content->getFields() as $key => $field) {
-                if (!in_array($field->getName(), $skip_fields, true) && $field->isExcerptable()) {
+                if (! in_array($field->getName(), $skip_fields, true) && $field->isExcerptable()) {
                     $excerpt .= (string) $field;
                 }
             }
@@ -59,13 +53,13 @@ class Excerpt
 
         $excerpt = str_replace('>', '> ', $excerpt);
 
-        if (!$focus) {
+        if (! $focus) {
             $excerpt = Html::trimText($excerpt, $length);
         } else {
             $excerpt = $this->extractRelevant($focus, $excerpt, $length);
         }
 
-        if (!empty($title)) {
+        if (! empty($title)) {
             $excerpt = '<strong>' . $title . '</strong> ' . '<span>' . $excerpt . '</span>';
         }
 
@@ -77,12 +71,9 @@ class Excerpt
      * Nothing exciting here. The array_unique is required, unless you decide
      * to make the words unique before passing in.
      *
-     * @param array  $words
      * @param string $fulltext
-     *
-     * @return array
      */
-    private function extractLocations(array $words, $fulltext)
+    private function extractLocations(array $words, $fulltext): array
     {
         $locations = [];
         foreach ($words as $word) {
@@ -107,12 +98,9 @@ class Excerpt
      * The only exception is where we have only two matches in which case we just take the
      * first as will be equally distant.
      *
-     * @param array $locations
-     * @param int   $prevCount
-     *
-     * @return int
+     * @param int $prevCount
      */
-    private function determineSnipLocation(array $locations, $prevCount)
+    private function determineSnipLocation(array $locations, $prevCount): int
     {
         // If we only have 1 match we don't actually do the for loop so set to the first
         $startPos = (int) reset($locations);
@@ -136,9 +124,7 @@ class Excerpt
             }
         }
 
-        $startPos = $startPos > $prevCount ? $startPos - $prevCount : 0;
-
-        return $startPos;
+        return $startPos > $prevCount ? $startPos - $prevCount : 0;
     }
 
     /**
@@ -149,14 +135,12 @@ class Excerpt
      * @param string|array $words
      * @param string       $fulltext
      * @param int          $relLength
-     *
-     * @return string
      */
-    private function extractRelevant($words, $fulltext, $relLength = 300)
+    private function extractRelevant($words, $fulltext, $relLength = 300): string
     {
         $fulltext = strip_tags($fulltext);
 
-        if (!is_array($words)) {
+        if (! is_array($words)) {
             $words = explode(' ', $words);
         }
 

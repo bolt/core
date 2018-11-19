@@ -16,7 +16,7 @@ use Twig_Environment;
 class LocaleExtension extends AbstractExtension
 {
     /** @var array */
-    private $localeCodes;
+    private $localeCodes = [];
 
     /** @var Config */
     private $config;
@@ -51,9 +51,7 @@ class LocaleExtension extends AbstractExtension
 
     public function getLocale($localeCode)
     {
-        $locale = $this->localeInfo($localeCode);
-
-        return $locale;
+        return $this->localeInfo($localeCode);
     }
 
     /**
@@ -63,7 +61,7 @@ class LocaleExtension extends AbstractExtension
      */
     public function getLocales(Twig_Environment $env): Collection
     {
-        if (null !== $this->locales) {
+        if ($this->locales !== null) {
             return $this->locales;
         }
 
@@ -104,14 +102,12 @@ class LocaleExtension extends AbstractExtension
             $localeCode = mb_strtolower($splitCode[0]);
         }
 
-        $locale = collect([
+        return collect([
             'code' => $localeCode,
             'name' => Intl::getLocaleBundle()->getLocaleName($localeCode),
             'localisedname' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode),
             'flag' => $this->getFlagTag($localeCode),
         ]);
-
-        return $locale;
     }
 
     private function getFlagTag($localeCode)

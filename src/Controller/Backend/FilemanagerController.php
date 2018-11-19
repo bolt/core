@@ -37,20 +37,14 @@ class FilemanagerController extends BaseController
     /**
      * @Route("/filemanager/{area}", name="bolt_filemanager", methods={"GET"})
      *
-     * @param $area
-     * @param Request         $request
-     * @param MediaRepository $mediaRepository
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function filemanager($area, Request $request, MediaRepository $mediaRepository): Response
     {
         $path = $request->query->get('path');
-        if (!str::endsWith($path, '/')) {
+        if (! str::endsWith($path, '/')) {
             $path .= '/';
         }
 

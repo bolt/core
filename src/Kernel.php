@@ -19,7 +19,7 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+    public const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
     public function getCacheDir()
     {
@@ -41,7 +41,7 @@ class Kernel extends BaseKernel
         }
     }
 
-    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader)
+    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $container->addResource(new FileResource($this->getProjectDir() . '/config/bundles.php'));
         $container->setParameter('container.dumper.inline_class_loader', true);
@@ -57,7 +57,7 @@ class Kernel extends BaseKernel
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
     }
 
-    protected function configureRoutes(RouteCollectionBuilder $routes)
+    protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
         $confDir = $this->getProjectDir() . '/config';
 
@@ -66,11 +66,7 @@ class Kernel extends BaseKernel
         $routes->import($confDir . '/{routes}' . self::CONFIG_EXTS, '/', 'glob');
     }
 
-    /**
-     * @param ContainerBuilder $container
-     * @param $confDir
-     */
-    private function setBoltParameters(ContainerBuilder $container, string $confDir)
+    private function setBoltParameters(ContainerBuilder $container, string $confDir): void
     {
         $fileLocator = new FileLocator([$confDir . '/bolt']);
         $fileName = $fileLocator->locate('config.yaml', null, true);
@@ -85,12 +81,6 @@ class Kernel extends BaseKernel
         }
     }
 
-    /**
-     * @param array  $array
-     * @param string $prefix
-     *
-     * @return array
-     */
     private function flattenKeys(array $array, string $prefix = ''): array
     {
         $result = [];
@@ -98,7 +88,7 @@ class Kernel extends BaseKernel
             if (is_int($key)) {
                 $result[trim($prefix, '.')][] = $value;
             } elseif (is_array($value)) {
-                $result = $result + $this->flattenKeys($value, $prefix . $key . '.');
+                $result += $this->flattenKeys($value, $prefix . $key . '.');
             } else {
                 $result[$prefix . $key] = $value;
             }
@@ -113,7 +103,7 @@ class Kernel extends BaseKernel
      *
      * @throws \Exception
      */
-    private function setContentTypeRequirements(ContainerBuilder $container)
+    private function setContentTypeRequirements(ContainerBuilder $container): void
     {
         $ContentTypesParser = new ContentTypesParser([]);
         $contenttypes = $ContentTypesParser->parse();
@@ -131,7 +121,7 @@ class Kernel extends BaseKernel
      *
      * @throws \Exception
      */
-    private function setTaxonomyRequirements(ContainerBuilder $container)
+    private function setTaxonomyRequirements(ContainerBuilder $container): void
     {
         $taxonomyParser = new TaxonomyParser();
         $taxonomies = $taxonomyParser->parse();

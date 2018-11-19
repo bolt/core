@@ -28,19 +28,13 @@ class ContentEditController extends BaseController
     /**
      * @Route("/edit/{id}", name="bolt_content_edit", methods={"GET"})
      *
-     * @param string       $id
-     * @param Request      $request
-     * @param Content|null $content
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
-    public function edit(string $id, Request $request, Content $content = null): Response
+    public function edit(string $id, Request $request, ?Content $content = null): Response
     {
-        if (!$content) {
+        if (! $content) {
             $content = new Content();
             $content->setAuthor($this->getUser());
             $content->setContentType($id);
@@ -49,24 +43,17 @@ class ContentEditController extends BaseController
 
         return $this->renderTemplate('content/edit.html.twig', [
             'record' => $content,
-         ]);
+        ]);
     }
 
     /**
      * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"})
-     *
-     * @param Request               $request
-     * @param ObjectManager         $manager
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param Content|null          $content
-     *
-     * @return Response
      */
-    public function editPost(Request $request, ObjectManager $manager, UrlGeneratorInterface $urlGenerator, Content $content = null): Response
+    public function editPost(Request $request, ObjectManager $manager, UrlGeneratorInterface $urlGenerator, ?Content $content = null): Response
     {
         $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
 
-        if (!$this->csrfTokenManager->isTokenValid($token)) {
+        if (! $this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
 
@@ -84,15 +71,12 @@ class ContentEditController extends BaseController
 
     /**
      * @param Content|null $content
-     * @param Request      $request
-     *
-     * @return Content
      */
     private function contentFromPost(Content $content, Request $request): Content
     {
         $post = $request->request->all();
 
-        if (!$content) {
+        if (! $content) {
             $content = new Content();
             $content->setAuthor($this->getUser());
             $content->setContentType($request->attributes->get('id'));
@@ -110,14 +94,9 @@ class ContentEditController extends BaseController
         return $content;
     }
 
-    /**
-     * @param string  $key
-     * @param mixed   $postfield
-     * @param Content $content
-     */
     private function updateFieldFromPost(string $key, $postfield, Content $content): void
     {
-        if (!$field = $content->getField($key)) {
+        if (! $field = $content->getField($key)) {
             $fields = collect($content->getDefinition()->get('fields'));
             $field = Field::factory($fields->get($key)['type']);
             $field->setName($key);

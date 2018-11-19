@@ -13,7 +13,7 @@ use Twig\TwigFunction;
  *
  * @internal
  */
-class ArrayExtension extends AbstractExtension
+final class ArrayExtension extends AbstractExtension
 {
     private $orderOn;
     private $orderAscending;
@@ -50,13 +50,8 @@ class ArrayExtension extends AbstractExtension
 
     /**
      * Takes two arrays and returns a compiled array of unique, sorted values.
-     *
-     * @param array $arr1
-     * @param array $arr2
-     *
-     * @return array
      */
-    public function unique(array $arr1, array $arr2)
+    public function unique(array $arr1, array $arr2): array
     {
         $merged = array_unique(array_merge($arr1, $arr2), SORT_REGULAR);
         $compiled = [];
@@ -76,10 +71,8 @@ class ArrayExtension extends AbstractExtension
      * Randomly shuffle the contents of a passed array.
      *
      * @param array $array
-     *
-     * @return array
      */
-    public function shuffle($array)
+    public function shuffle($array): array
     {
         if (is_array($array)) {
             shuffle($array);
@@ -91,29 +84,26 @@ class ArrayExtension extends AbstractExtension
     /**
      * Sorts / orders items of an array.
      *
-     * @param array  $array
      * @param string $on
      * @param string $onSecondary
      *
      * @throws \InvalidArgumentException
-     *
-     * @return array
      */
-    public function order(array $array, $on, $onSecondary = null)
+    public function order(array $array, $on, $onSecondary = null): array
     {
         // If we don't get a string, we can't determine a sort order.
-        if (!is_string($on)) {
+        if (! is_string($on)) {
             throw new \InvalidArgumentException(sprintf('Second parameter passed to %s must be a string, %s given', __METHOD__, gettype($on)));
         }
-        if (!(is_string($onSecondary) || $onSecondary === null)) {
+        if (! (is_string($onSecondary) || $onSecondary === null)) {
             throw new \InvalidArgumentException(sprintf('Third parameter passed to %s must be a string, %s given', __METHOD__, gettype($onSecondary)));
         }
         // Set the 'orderOn' and 'orderAscending', taking into account things like '-datepublish'.
-        list($this->orderOn, $this->orderAscending) = $this->getSortOrder($on);
+        [$this->orderOn, $this->orderAscending] = $this->getSortOrder($on);
 
         // Set the secondary order, if any.
         if ($onSecondary) {
-            list($this->orderOnSecondary, $this->orderAscendingSecondary) = $this->getSortOrder($onSecondary);
+            [$this->orderOnSecondary, $this->orderAscendingSecondary] = $this->getSortOrder($onSecondary);
         } else {
             $this->orderOnSecondary = false;
             $this->orderAscendingSecondary = false;
@@ -129,10 +119,8 @@ class ArrayExtension extends AbstractExtension
      * return the sorting order.
      *
      * @param string $name
-     *
-     * @return array
      */
-    private function getSortOrder($name = '-datepublish')
+    private function getSortOrder($name = '-datepublish'): array
     {
         $parts = explode(' ', $name);
         $fieldName = $parts[0];
@@ -154,17 +142,15 @@ class ArrayExtension extends AbstractExtension
      *
      * @param \Bolt\Legacy\Content|array $a
      * @param \Bolt\Legacy\Content|array $b
-     *
-     * @return bool
      */
-    private function orderHelper($a, $b)
+    private function orderHelper($a, $b): bool
     {
         $aVal = $a[$this->orderOn];
         $bVal = $b[$this->orderOn];
 
         // Check the primary sorting criterion.
         if ($aVal < $bVal) {
-            return !$this->orderAscending;
+            return ! $this->orderAscending;
         } elseif ($aVal > $bVal) {
             return $this->orderAscending;
         }
@@ -177,7 +163,7 @@ class ArrayExtension extends AbstractExtension
         $bVal = $b[$this->orderOnSecondary];
 
         if ($aVal < $bVal) {
-            return !$this->orderAscendingSecondary;
+            return ! $this->orderAscendingSecondary;
         } elseif ($aVal > $bVal) {
             return $this->orderAscendingSecondary;
         }

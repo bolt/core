@@ -22,11 +22,11 @@ class UserLocaleSubscriber implements EventSubscriberInterface
         $this->session = $session;
     }
 
-    public function onInteractiveLogin(InteractiveLoginEvent $event)
+    public function onInteractiveLogin(InteractiveLoginEvent $event): void
     {
         $user = $event->getAuthenticationToken()->getUser();
 
-        if (null !== $user->getLocale()) {
+        if ($user->getLocale() !== null) {
             $this->session->set('_locale', $user->getLocale());
         }
     }

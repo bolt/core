@@ -61,7 +61,8 @@ class ImageExtension extends AbstractExtension
         $secret = $this->config->get('general/secret');
 
         $params = [
-            'w' => $width, 'h' => $height,
+            'w' => $width,
+            'h' => $height,
         ];
 
         if ($area) {
@@ -75,9 +76,7 @@ class ImageExtension extends AbstractExtension
         $urlBuilder = UrlBuilderFactory::create('/thumbs/', $secret);
 
         // Generate a URL
-        $url = $urlBuilder->getUrl($filename, $params);
-
-        return $url;
+        return $urlBuilder->getUrl($filename, $params);
     }
 
     public function dummy($input = null)

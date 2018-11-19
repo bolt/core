@@ -148,10 +148,7 @@ class Content
         return $this->id;
     }
 
-    /**
-     * @param Config $config
-     */
-    public function setConfig(Config $config)
+    public function setConfig(Config $config): void
     {
         $this->config = $config;
 
@@ -163,10 +160,7 @@ class Content
         return $this->config;
     }
 
-    /**
-     * @param UrlGeneratorInterface $urlGenerator
-     */
-    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator)
+    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
     {
         $this->urlGenerator = $urlGenerator;
     }
@@ -176,12 +170,9 @@ class Content
         return $this->contentTypeDefinition;
     }
 
-    /**
-     * @return array
-     */
     public function getSummary(): array
     {
-        $summary = [
+        return [
             'id' => $this->getid(),
             'contenttype' => $this->getDefinition()->get('slug'),
             'slug' => $this->getSlug(),
@@ -204,16 +195,11 @@ class Content
             'publishedAt' => $this->getPublishedAt(),
             'depublishedAt' => $this->depublishedAt(),
         ];
-
-        return $summary;
     }
 
-    /**
-     * @return string
-     */
     public function getSlug(): string
     {
-        return  (string) $this->get('slug');
+        return (string) $this->get('slug');
     }
 
     public function getContenttype(): ?string
@@ -313,7 +299,7 @@ class Content
 
     public function addField(Field $field): self
     {
-        if (!$this->fields->contains($field)) {
+        if (! $this->fields->contains($field)) {
             $this->fields[] = $field;
             $field->setContent($this);
         }
@@ -334,9 +320,6 @@ class Content
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getStatuses(): array
     {
         return self::STATUSES;
@@ -367,7 +350,7 @@ class Content
 
     public function addTaxonomy(Taxonomy $taxonomy): self
     {
-        if (!$this->taxonomies->contains($taxonomy)) {
+        if (! $this->taxonomies->contains($taxonomy)) {
             $this->taxonomies[] = $taxonomy;
             $taxonomy->addContent($this);
         }

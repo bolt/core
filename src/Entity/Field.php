@@ -120,8 +120,6 @@ class Field
     }
 
     /**
-     * @param string $name
-     *
      * @return Field
      */
     public static function factory(string $name = 'generic'): self
@@ -141,7 +139,7 @@ class Field
         return $this->id;
     }
 
-    public function setConfig()
+    public function setConfig(): void
     {
         $contentTypeDefinition = $this->getContent()->getDefinition();
 
@@ -153,7 +151,7 @@ class Field
         return $this->fieldTypeDefinition;
     }
 
-    public function setDefinition($name, array $definition)
+    public function setDefinition($name, array $definition): void
     {
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }

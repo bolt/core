@@ -80,7 +80,7 @@ class Taxonomy
 
     public function addContent(Content $content): self
     {
-        if (!$this->content->contains($content)) {
+        if (! $this->content->contains($content)) {
             $this->content[] = $content;
         }
 
