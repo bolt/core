@@ -40,8 +40,8 @@ class SearchController extends BaseController
     {
         $page = (int) $request->query->get('page', 1);
 
-        /** @var Content $records */
-        $records = $content->findAll($page);
+        /** @var Content[] $records */
+        $records = $content->findForPage($page);
 
         $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
 

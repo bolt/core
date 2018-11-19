@@ -31,8 +31,10 @@ install:
 
 script:
   - ./bin/phpunit
-  # this checks that the source code follows the Symfony Code Syntax rules
-  - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./vendor/bin/php-cs-fixer fix --diff --dry-run -v'
+  # this checks that the source code follows the Bolt Code Syntax rules
+  - ./vendor/bin/ecs check src
+  - ./vendor/bin/phpstan analyse -c phpstan.neon src
+  #- '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./vendor/bin/php-cs-fixer fix --diff --dry-run -v'
   # this checks that the YAML config files contain no syntax errors
   - ./bin/console lint:yaml config
   # this checks that the Twig template files contain no syntax errors

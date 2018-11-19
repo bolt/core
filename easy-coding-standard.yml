@@ -102,8 +102,6 @@ parameters:
         - 'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer'
         - 'PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer'
         - 'PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer'
-        - 'PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer'
         - 'PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer'
         - 'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff'
-        - 'SlevomatCodingStandard\Sniffs\Variables\UselessVariableSniff'
         - 'Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff' #to be removed after beta release

@@ -36,9 +36,9 @@ class Content
 {
     use ContentMagicTraits;
 
-    public const NUM_ITEMS = 8;
+    public const NUM_ITEMS = 8; // @todo this can't be a const
 
-    public const STATUSES = ['published', 'held', 'timed', 'draft'];
+    public const STATUSES = ['published', 'held', 'timed', 'draft']; // @todo move to Enum
 
     /**
      * @ORM\Id()
