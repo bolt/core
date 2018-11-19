@@ -49,7 +49,7 @@ class MediaFactory
         $this->faker = Factory::create();
         $this->mediatypes = $config->getMediaTypes();
     }
-    
+
     public function createOrUpdateMedia(SplFileInfo $file, string $area): Media
     {
         $media = $this->mediaRepository->findOneBy([
@@ -78,7 +78,7 @@ class MediaFactory
 
         return $media;
     }
-    
+
     private function updateImageData(Media $media, $file): void
     {
         $exif = $this->exif->read($file->getRealPath());
@@ -123,14 +123,12 @@ class MediaFactory
 
         return $user;
     }
-    
+
     public function createFromFilename($area, $path, $filename): Media
     {
         $target = $this->config->getPath($area, true, [$path, $filename]);
         $file = new SplFileInfo($target, $path, $filename);
 
-        $media = $this->createOrUpdateMedia($file, $area);
-
-        return $media;
+        return $this->createOrUpdateMedia($file, $area);
     }
 }

@@ -48,9 +48,7 @@ final class News
             'disable' => false, // $this->getOption('general/backend/news/disable'),
         ];
 
-        $response = new JsonResponse($context, 200);
-
-        return $response;
+        return new JsonResponse($context, 200);
     }
 
     /**
@@ -71,11 +69,7 @@ final class News
 //        }
 
         // If not cached, get fresh news.
-        $news = $this->fetchNews($hostname);
-
-//        $this->app['cache']->save('dashboardnews', $news, 7200);
-
-        return $news;
+        return $this->fetchNews($hostname);
     }
 
     /**
@@ -159,7 +153,7 @@ final class News
     {
 //        $driver = $this->app['db']->getDatabasePlatform()->getName();
 
-        $options = [
+        return [
             'query' => [
                 'v' => Version::VERSION,
                 'p' => PHP_VERSION,
@@ -169,16 +163,5 @@ final class News
             'connect_timeout' => 5,
             'timeout' => 10,
         ];
-
-//        if ($this->getOption('general/httpProxy')) {
-//            $options['proxy'] = sprintf(
-//                '%s:%s@%s',
-//                $this->getOption('general/httpProxy/user'),
-//                $this->getOption('general/httpProxy/password'),
-//                $this->getOption('general/httpProxy/host')
-//            );
-//        }
-
-        return $options;
     }
 }

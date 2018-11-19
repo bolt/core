@@ -248,9 +248,7 @@ class GeneralParser extends BaseParser
             'servicename', 'service', 'pooled', 'instancename', 'server', // Oracle
             'persistent',                                                 // SQL Anywhere
         ];
-        $params = $params->intersectByKeys($validKeys);
-
-        return $params;
+        return $params->intersectByKeys($validKeys);
     }
 
     /**

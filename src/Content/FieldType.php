@@ -15,7 +15,7 @@ final class FieldType extends Collection
 
     private function defaults(): array
     {
-        $values = [
+        return [
             'type' => '',
             'class' => '',
             'group' => '',
@@ -28,8 +28,6 @@ final class FieldType extends Collection
             'default' => '',
             'allowtwig' => false,
         ];
-
-        return $values;
     }
 
     /**
@@ -53,8 +51,6 @@ final class FieldType extends Collection
     {
         $definition['name'] = $name;
 
-        $field = new self($definition);
-
-        return $field;
+        return new self($definition);
     }
 }
