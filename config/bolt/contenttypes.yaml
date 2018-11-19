@@ -199,13 +199,9 @@ showcases:
             group: other
         datetime:
             type: date
-            default: "2000-01-01"
-            variant: inline
             mode: datetime
         date:
             type: date
-            default: "first day of last month"
-            variant: inline
         integerfield:
             type: number
             mode: integer
