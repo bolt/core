@@ -5,6 +5,7 @@ namespace Bolt\Controller\Backend;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Bolt\Controller\BaseController;
 
@@ -13,7 +14,7 @@ class ClearCacheController extends BaseController
     /**
      * @Route("/clearcache", name="bolt_clear_cache")
      */
-    public function index( KernelInterface $kernel)
+    public function index( KernelInterface $kernel): Response
     {
         $application = new Application($kernel);
         $application->setAutoExit(false);
