@@ -13,15 +13,15 @@
     >
     <template slot="singleLabel" slot-scope="props">
       <span 
-        class="flag mr-1"
-        :class="props.option.flag|uppercase"
+        class="fp mr-1"
+        :class="props.option.flag"
       ></span>
       <span>{{props.option.localisedname}}</span>
     </template>
     <template slot="option" slot-scope="props">
       <span 
-        class="flag mr-1"
-        :class="props.option.flag|uppercase"
+        class="fp mr-1"
+        :class="props.option.flag"
       ></span>
       <span>{{props.option.localisedname}}</span>
     </template>

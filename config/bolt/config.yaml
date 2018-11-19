@@ -320,7 +320,7 @@ wysiwyg:
 # requires that it be loaded with an API key on new domains. You can generate
 # a key at https://developers.google.com/maps/documentation/javascript/get-api-key
 # and enter it here to make sure that the geolocation field works.
-# google_api_key:
+google_api_key: AIzaSyAlOkV-3v-JpkVJ8h_e78eTxyBUCbn6p5g
 
 # Global option to enable/disable the live editor
 liveeditor: false
