@@ -14,6 +14,10 @@
     <div class="row">
       <div class="col-8">
         <div class="input-group mb-3">
+          <input :name="name + '[media]'" type="hidden" :value="media">
+          <input :name="name + '[filename]'" type="text" class="form-control" placeholder="filename" :value="filename">
+        </div>
+        <div class="input-group mb-3">
           <input :name="name + '[alt]'" type="text" class="form-control" placeholder="alt text" :value="alt">
         </div>
         <div class="input-group mb-3">
@@ -54,7 +58,6 @@
       </div>
     </div>
     <input :name="fieldName" type="file" @change="uploadFile($event.target.files[0])" ref="selectFile" class="editor__image--upload">
-    <input :name="name + '[filename]'" type="hidden" :value="val">
   </div>
 </template>
 
@@ -65,7 +68,7 @@ import field from '../../../mixins/value';
 
 export default {
   name: "editor-image",
-  props: ['label', 'name', 'value', 'thumbnail', 'alt', 'title', 'directory'],
+  props: ['label', 'filename', 'name', 'thumbnail', 'alt', 'title', 'directory', 'media'],
   mixins: [field],
   mounted(){
     this.previewImage = this.thumbnail;
@@ -126,7 +129,7 @@ export default {
       fd.append('image', file);
       this.$axios.post(this.directory, fd, config)
       .then(res => {
-        this.val = res.data;
+        this.filename = res.data;
         this.previewImage = `/thumbs/${res.data}?${thumbnailParams}`;
         this.progress = 0;
       })

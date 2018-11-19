@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Webmozart\PathUtil\Path;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\MediaRepository")
@@ -128,6 +129,20 @@ class Media
     public function getPath(): ?string
     {
         return $this->path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilenamePath(): ?string
+    {
+        if (empty($this->path)) {
+            $path = $this->filename;
+        } else {
+            $path = Path::canonicalize($this->path . '/' . $this->filename);
+        }
+
+        return $path;
     }
 
     public function setPath(string $path): self
