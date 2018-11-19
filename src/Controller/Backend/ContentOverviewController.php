@@ -38,7 +38,7 @@ class ContentOverviewController extends BaseController
 
         $page = (int) $request->query->get('page', 1);
 
-        $records = $content->findAll($page, $contenttype);
+        $records = $content->findForPage($page, $contenttype);
 
         return $this->renderTemplate('content/listing.html.twig', [
             'records' => $records,

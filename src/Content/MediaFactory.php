@@ -6,6 +6,7 @@ namespace Bolt\Content;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Media;
+use Bolt\Entity\User;
 use Bolt\Repository\MediaRepository;
 use Carbon\Carbon;
 use Faker\Factory;
@@ -14,7 +15,6 @@ use PHPExif\Reader\Reader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Tightenco\Collect\Support\Collection;
-use Webmozart\PathUtil\Path;
 
 class MediaFactory
 {
@@ -38,10 +38,6 @@ class MediaFactory
 
     /**
      * MediaFactory constructor.
-     *
-     * @param Config             $config
-     * @param MediaRepository    $mediaRepository
-     * @param ContainerInterface $container
      */
     public function __construct(Config $config, MediaRepository $mediaRepository, ContainerInterface $container)
     {
@@ -54,20 +50,15 @@ class MediaFactory
         $this->mediatypes = $config->getMediaTypes();
     }
 
-    /**
-     * @param SplFileInfo $file
-     * @param string      $area
-     *
-     * @return Media
-     */
     public function createOrUpdateMedia(SplFileInfo $file, string $area): Media
     {
         $media = $this->mediaRepository->findOneBy([
             'area' => $area,
             'path' => $file->getRelativePath(),
-            'filename' => $file->getFilename(), ]);
+            'filename' => $file->getFilename(),
+        ]);
 
-        if (!$media) {
+        if (! $media) {
             $media = new Media();
             $media->setFilename($file->getFilename())
                 ->setPath($file->getRelativePath())
@@ -88,13 +79,8 @@ class MediaFactory
         return $media;
     }
 
-    /**
-     * @param Media $media
-     * @param $file
-     */
-    private function updateImageData(Media $media, $file)
+    private function updateImageData(Media $media, $file): void
     {
-        /** @var Exif $exif */
         $exif = $this->exif->read($file->getRealPath());
 
         if ($exif) {
@@ -114,51 +100,35 @@ class MediaFactory
         }
     }
 
-    /**
-     * @param $media
-     *
-     * @return bool
-     */
-    private function isImage($media)
+    private function isImage(Media $media): bool
     {
         return in_array($media->getType(), ['gif', 'png', 'jpg', 'svg'], true);
     }
 
-    /**
-     * @return object|string|void
-     */
-    protected function getUser()
+    protected function getUser(): ?User
     {
-        if (!$this->container->has('security.token_storage')) {
+        if (! $this->container->has('security.token_storage')) {
             throw new \LogicException('The SecurityBundle is not registered in your application. Try running "composer require symfony/security-bundle".');
         }
 
-        if (null === $token = $this->container->get('security.token_storage')->getToken()) {
-            return;
+        $token = $this->container->get('security.token_storage')->getToken();
+        if ($token === null) {
+            return null;
         }
 
-        if (!\is_object($user = $token->getUser())) {
+        if (! is_object($user = $token->getUser())) {
             // e.g. anonymous authentication
-            return;
+            return null;
         }
 
         return $user;
     }
 
-    /**
-     * @param $area
-     * @param $path
-     * @param $filename
-     *
-     * @return Media
-     */
     public function createFromFilename($area, $path, $filename): Media
     {
         $target = $this->config->getPath($area, true, [$path, $filename]);
         $file = new SplFileInfo($target, $path, $filename);
 
-        $media = $this->createOrUpdateMedia($file, $area);
-
-        return $media;
+        return $this->createOrUpdateMedia($file, $area);
     }
 }
