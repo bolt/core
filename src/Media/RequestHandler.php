@@ -36,22 +36,12 @@ class RequestHandler
         $this->tmp_dir = $this->config->getPath('cache', true, ['uploads']);
     }
 
-    /**
-     * @param $str
-     *
-     * @return bool
-     */
-    public function isFileId($str)
+    public function isFileId($str): bool
     {
         return preg_match($this->file_id_format, $str);
     }
 
-    /**
-     * @param $str
-     *
-     * @return bool
-     */
-    public function isURL($str)
+    public function isURL($str): bool
     {
         return filter_var($str, FILTER_VALIDATE_URL);
     }
@@ -59,12 +49,12 @@ class RequestHandler
     /**
      * Catch all exceptions so we can return a 500 error when the server bugs out.
      */
-    public function catchExceptions()
+    public function catchExceptions(): void
     {
         set_exception_handler('FilePond\RequestHandler::handleException');
     }
 
-    public function handleException($ex)
+    public function handleException($ex): void
     {
         // write to error log so we can still find out what's up
         error_log('Uncaught exception in class="' . get_class($ex) . '" message="' . $ex->getMessage() . '" line="' . $ex->getLine() . '"');
@@ -81,12 +71,7 @@ class RequestHandler
         return new Item($file, $id);
     }
 
-    /**
-     * @param $fieldName
-     *
-     * @return array
-     */
-    public function loadFilesByField($fieldName)
+    public function loadFilesByField($fieldName): array
     {
         // See if files are posted as JSON string (each file being base64 encoded)
         $base64Items = $this->loadBase64FormattedFiles($fieldName);
@@ -108,7 +93,7 @@ class RequestHandler
     {
         $items = [];
 
-        if (!isset($_FILES[$fieldName])) {
+        if (! isset($_FILES[$fieldName])) {
             return $items;
         }
 
@@ -147,7 +132,7 @@ class RequestHandler
 
         $items = [];
 
-        if (!isset($_POST[$fieldName])) {
+        if (! isset($_POST[$fieldName])) {
             return $items;
         }
 
@@ -155,7 +140,7 @@ class RequestHandler
         $values = $_POST[$fieldName];
 
         // Turn values in array if is submitted as single value
-        if (!is_array($values)) {
+        if (! is_array($values)) {
             $values = isset($values) ? [$values] : [];
         }
 
@@ -165,12 +150,12 @@ class RequestHandler
             $obj = @json_decode($value);
 
             // skip values that failed to be decoded
-            if (!isset($obj)) {
+            if (! isset($obj)) {
                 continue;
             }
 
             // test if this is a file object (matches the object described above)
-            if (!$this->isEncodedFile($obj)) {
+            if (! $this->isEncodedFile($obj)) {
                 continue;
             }
 
@@ -189,7 +174,7 @@ class RequestHandler
     {
         $items = [];
 
-        if (!isset($_POST[$fieldName])) {
+        if (! isset($_POST[$fieldName])) {
             return $items;
         }
 
@@ -197,7 +182,7 @@ class RequestHandler
         $values = $_POST[$fieldName];
 
         // Turn values in array if is submitted as single value
-        if (!is_array($values)) {
+        if (! is_array($values)) {
             $values = isset($values) ? [$values] : [];
         }
 
@@ -227,19 +212,12 @@ class RequestHandler
         return $this->saveFile($items, $path);
     }
 
-    /**
-     * @param $file_id
-     *
-     * @return bool
-     */
-    public function deleteTempFile($file_id)
+    public function deleteTempFile($file_id): bool
     {
         return $this->deleteTempDirectory($file_id);
     }
 
     /**
-     * @param $url
-     *
      * @return array|bool
      */
     public function getRemoteURLData($url)
@@ -274,7 +252,7 @@ class RequestHandler
         }
     }
 
-    private function saveAsTempFiles($items)
+    private function saveAsTempFiles($items): void
     {
         foreach ($items as $item) {
             $this->saveTempFile($item);
@@ -353,7 +331,7 @@ class RequestHandler
     private function saveFile($item, $path)
     {
         // nope
-        if (!isset($item)) {
+        if (! isset($item)) {
             return false;
         }
 
@@ -386,7 +364,7 @@ class RequestHandler
         return true;
     }
 
-    private function deleteTempDirectory($id)
+    private function deleteTempDirectory($id): void
     {
         @array_map('unlink', glob($this->getSecureTempPath() . $id . \DIRECTORY_SEPARATOR . '{.,}*', GLOB_BRACE));
 
@@ -434,7 +412,7 @@ class RequestHandler
         return $this->getSecurePath($this->tmp_dir);
     }
 
-    private function setSecureFilePermissions($target)
+    private function setSecureFilePermissions($target): void
     {
         $stat = stat(dirname($target));
         $perms = $stat['mode'] & 0000666;
@@ -451,7 +429,7 @@ class RequestHandler
         return true;
     }
 
-    private function createSecureDirectory($path)
+    private function createSecureDirectory($path): void
     {
         // !! If directory already exists we assume security is handled !!
 

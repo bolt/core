@@ -17,10 +17,10 @@ class LocaleSubscriber implements EventSubscriberInterface
         $this->defaultLocale = $defaultLocale;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         $request = $event->getRequest();
-        if (!$request->hasPreviousSession()) {
+        if (! $request->hasPreviousSession()) {
             return;
         }
         // try to see if the locale has been set as a _locale routing parameter

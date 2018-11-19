@@ -1,0 +1,52 @@
+{# Page: Footer > About #}
+
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% block title %} {{ 'caption.about_bolt'|trans }} » {{ 'caption.bolt_payoff'|trans }} {% endblock title %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-md-9">
+            <h2>Bolt {{ constant('Bolt\\Version::VERSION') }}</h2>
+
+            <p>
+                Bolt is a CMS that strives to be simple, fast, straightforward and enjoyable to use. Both for
+                developers and content-editors. Bolt is Open Source, and as such it uses other Open Source
+                components. If you are a developer you're very welcome to help in the further development of Bolt.
+            </p>
+            <p>
+                All parts of Bolt are free to use under the open-source MIT license. The full licensing text can be
+                found here, in the included <a href="https://docs.bolt.cm/other/license">LICENSE.md</a>.
+            </p>
+
+            <p>
+                <a href="https://bolt.cm" class="btn btn-primary" target="_blank">
+                    <i class="fa fa-external-link-square-alt"></i> {{ 'about.visit_bolt'|trans }}
+                </a>
+                <a href="https://docs.bolt.cm" class="btn btn-secondary" target="_blank">
+                    <i class="fa fa-book"></i> {{ 'about.bolt_documentation'|trans }}
+                </a>
+                <a href="https://github.com/bolt/docs" class="btn btn-secondary" target="_blank">
+                    <i class="fab fa-github-alt"></i> {{ 'about.bolt_on_github'|trans }}
+                </a>
+            </p>
+
+            <h3>{{ 'about.used_libraries'|trans }}{#  #}</h3>
+
+            <p>{{ 'about.list_of_used_libraries'|trans }}{#  #}</p>
+
+            <ul>
+                <li>The awesome <a href="https://symfony.com/4">Symfony 4, PHP framework</a> and a lot of the
+                    <a href="http://symfony.com/">Symfony components</a>.</li>
+                <li>The <a href="http://www.doctrine-project.org">Doctrine DBAL</a> for database access and abstraction.</li>
+                <li><a href="http://twig.sensiolabs.org/">Twig, flexible, fast, and secure template engine</a>.</li>
+                <li><a href="http://twitter.github.com/bootstrap">Bootstrap 4</a> and
+                    <a href="http://fortawesome.github.com/Font-Awesome/">Font Awesome</a></li>
+                <li><a href="http://ckeditor.com/">CKEditor</a> for the clean HTML5 Wysywig editor areas.</li>
+            </ul>
+
+        </div>
+    </div>
+
+{% endblock main %}

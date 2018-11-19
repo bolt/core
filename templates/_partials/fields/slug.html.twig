@@ -1,0 +1,11 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+    <editor-slug
+        :value="'{{ value }}'"
+        :name="'{{ name }}'"
+        :prefix="'{{ field.slugPrefix  }}'"
+        :field-class="'{{ class }}'"
+        :generate="'{{ field.slugUseFields|join(', ') }}'"
+    ></editor-slug>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% block container "is-wide" %}
+
+{% block title %}
+    <i class='fas fa-code'></i> <strong>Bolt API</strong>
+{% endblock %}
+
+{% block main %}
+
+<div id="swagger-ui" class="api-platform"></div>
+
+<div class="swagger-ui" id="formats">
+    <div class="information-container wrapper">
+        <div class="info">
+            Available formats:
+            {% for format in formats|keys %}
+            <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_format': format})) }}">{{ format }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700">
+<link rel="stylesheet" href="{{ asset('bundles/apiplatform/swagger-ui/swagger-ui.css') }}">
+
+{# json_encode(65) is for JSON_UNESCAPED_SLASHES|JSON_HEX_TAG to avoid JS XSS #}
+<script id="swagger-data" type="application/json">{{ swagger_data|json_encode(65)|raw }}</script>
+{%  endblock stylesheets %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('bundles/apiplatform/swagger-ui/swagger-ui-bundle.js') }}"></script>
+<script src="{{ asset('bundles/apiplatform/swagger-ui/swagger-ui-standalone-preset.js') }}"></script>
+<script src="{{ asset('bundles/apiplatform/init-swagger-ui.js') }}"></script>
+{% endblock %}

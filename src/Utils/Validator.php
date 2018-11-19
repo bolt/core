@@ -20,7 +20,7 @@ class Validator
             throw new InvalidArgumentException('The username can not be empty.');
         }
 
-        if (1 !== preg_match('/^[a-z_]+$/', $username)) {
+        if (preg_match('/^[a-z_]+$/', $username) !== 1) {
             throw new InvalidArgumentException('The username must contain only lowercase latin characters and underscores.');
         }
 
@@ -46,7 +46,7 @@ class Validator
             throw new InvalidArgumentException('The email can not be empty.');
         }
 
-        if (false === mb_strpos($email, '@')) {
+        if (mb_strpos($email, '@') === false) {
             throw new InvalidArgumentException('The email should look like a real email.');
         }
 

@@ -1,0 +1,13 @@
+{%  set labels = jsonlabels(['action.close_alert']) %}
+
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="notifications"
+             data-type="{{ type }}"
+             data-message="{{ message|trans  }}"
+             data-closing-label="close"
+             data-duration="3000">
+        </div>
+        {% dump(message) %}
+    {% endfor %}
+{% endfor %}

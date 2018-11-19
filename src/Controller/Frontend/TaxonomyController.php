@@ -4,17 +4,27 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
+use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
+use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class TaxonomyController extends BaseController
 {
+    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, TemplateChooser $templateChooser)
+    {
+        parent::__construct($config, $csrfTokenManager);
+
+        $this->templateChooser = $templateChooser;
+    }
+
     /**
      * @Route("
      *     /{taxonomyslug}/{slug}",
@@ -27,10 +37,10 @@ class TaxonomyController extends BaseController
     {
         $page = (int) $request->query->get('page', 1);
 
-        /** @var Content $records */
-        $records = $content->findAll($page);
+        /** @var Content[] $records */
+        $records = $content->findForPage($page);
 
-        $contenttype = ContentType::factory($contenttypeslug, $this->config->get('contenttypes'));
+        $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
 
         $templates = $this->templateChooser->listing($contenttype);
 
@@ -40,19 +50,13 @@ class TaxonomyController extends BaseController
     /**
      * @Route("/record/{slug}", methods={"GET"}, name="record")
      *
-     * @param ContentRepository $contentRepository
-     * @param FieldRepository   $fieldRepository
-     * @param null              $slug
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $slug = null): Response
     {
-        if (!is_numeric($slug)) {
+        if (! is_numeric($slug)) {
             $field = $fieldRepository->findOneBySlug($slug);
             $record = $field->getContent();
         } else {

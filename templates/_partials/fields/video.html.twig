@@ -1,0 +1,11 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+    <input name="{{ name }}" placeholder="First Name" type="text" value="{{ value }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+
+    <p>(Video preview, and some meta fields go here)</p>
+
+    <mark>Note: This field is _practically_ the same as the <code>video</code>-field, only a bit more specific. Do we even need this one?</mark>
+
+{% endblock %}
+

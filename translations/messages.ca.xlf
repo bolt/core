@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="80JoLd0" resname="title.login">
+        <source>title.login</source>
+        <target>__title.login</target>
+      </trans-unit>
+      <trans-unit id="RMPnq6o" resname="label.username_or_email">
+        <source>label.username_or_email</source>
+        <target>__label.username_or_email</target>
+      </trans-unit>
+      <trans-unit id="LDhDPrF" resname="label.username">
+        <source>label.username</source>
+        <target>__label.username</target>
+      </trans-unit>
+      <trans-unit id="9pvowqn" resname="label.password">
+        <source>label.password</source>
+        <target>__label.password</target>
+      </trans-unit>
+      <trans-unit id="IaF1MjB" resname="label.rememberme">
+        <source>label.rememberme</source>
+        <target>__label.rememberme</target>
+      </trans-unit>
+      <trans-unit id="gLN0C81" resname="action.log_in">
+        <source>action.log_in</source>
+        <target>__action.log_in</target>
+      </trans-unit>
+      <trans-unit id="HK7XTUX" resname="caption.edit">
+        <source>caption.edit</source>
+        <target>__caption.edit</target>
+      </trans-unit>
+      <trans-unit id="HLtdhYw" resname="action.save">
+        <source>action.save</source>
+        <target>__action.save</target>
+      </trans-unit>
+      <trans-unit id="9lJhqvA" resname="field.locale">
+        <source>field.locale</source>
+        <target>__field.locale</target>
+      </trans-unit>
+      <trans-unit id="FuCyk5C" resname="field.status">
+        <source>field.status</source>
+        <target>__field.status</target>
+      </trans-unit>
+      <trans-unit id="O9wtVOp" resname="field.createdAt">
+        <source>field.createdAt</source>
+        <target>__field.createdAt</target>
+      </trans-unit>
+      <trans-unit id="eVkSIKu" resname="field.modifiedAt">
+        <source>field.modifiedAt</source>
+        <target>__field.modifiedAt</target>
+      </trans-unit>
+      <trans-unit id="3gdi1dy" resname="field.publishedAt">
+        <source>field.publishedAt</source>
+        <target>__field.publishedAt</target>
+      </trans-unit>
+      <trans-unit id="eN7IfEL" resname="field.depublishedAt">
+        <source>field.depublishedAt</source>
+        <target>__field.depublishedAt</target>
+      </trans-unit>
+      <trans-unit id="SNELzJ2" resname="field.id">
+        <source>field.id</source>
+        <target>__field.id</target>
+      </trans-unit>
+      <trans-unit id="vJwSCBO" resname="title.contentlisting">
+        <source>title.contentlisting</source>
+        <target>__title.contentlisting</target>
+      </trans-unit>
+      <trans-unit id="7aLIA3c" resname="caption.dashboard">
+        <source>caption.dashboard</source>
+        <target>__caption.dashboard</target>
+      </trans-unit>
+      <trans-unit id="C15MbYY" resname="form.quick_select_file">
+        <source>form.quick_select_file</source>
+        <target>__form.quick_select_file</target>
+      </trans-unit>
+      <trans-unit id="dbyz2hj" resname="caption.finder">
+        <source>caption.finder</source>
+        <target>__caption.finder</target>
+      </trans-unit>
+      <trans-unit id="FSroufa" resname="caption.path">
+        <source>caption.path</source>
+        <target>__caption.path</target>
+      </trans-unit>
+      <trans-unit id="LaDIuZA" resname="caption.meta_information">
+        <source>caption.meta_information</source>
+        <target>__caption.meta_information</target>
+      </trans-unit>
+      <trans-unit id="QZYjRy0" resname="caption.file_uploader">
+        <source>caption.file_uploader</source>
+        <target>__caption.file_uploader</target>
+      </trans-unit>
+      <trans-unit id="P1FHg3Q" resname="caption.edit_file">
+        <source>caption.edit_file</source>
+        <target>__caption.edit_file</target>
+      </trans-unit>
+      <trans-unit id="KHvGNGW" resname="directoryname">
+        <source>directoryname</source>
+        <target>__directoryname</target>
+      </trans-unit>
+      <trans-unit id="Kw3N1AA" resname="actions">
+        <source>actions</source>
+        <target>__actions</target>
+      </trans-unit>
+      <trans-unit id="_XSgfqS" resname="filename">
+        <source>filename</source>
+        <target>__filename</target>
+      </trans-unit>
+      <trans-unit id="gPYflhh" resname="thumbnail">
+        <source>thumbnail</source>
+        <target>__thumbnail</target>
+      </trans-unit>
+      <trans-unit id="zNy_hG8" resname="size">
+        <source>size</source>
+        <target>__size</target>
+      </trans-unit>
+      <trans-unit id="DodjLNR" resname="date">
+        <source>date</source>
+        <target>__date</target>
+      </trans-unit>
+      <trans-unit id="1sstKF9" resname="title.edit_user">
+        <source>title.edit_user</source>
+        <target>__title.edit_user</target>
+      </trans-unit>
+      <trans-unit id="aYnbvsn" resname="label.fullname">
+        <source>label.fullname</source>
+        <target>__label.fullname</target>
+      </trans-unit>
+      <trans-unit id="D2N6_cP" resname="label.email">
+        <source>label.email</source>
+        <target>__label.email</target>
+      </trans-unit>
+      <trans-unit id="mEDsKHk" resname="label.locale">
+        <source>label.locale</source>
+        <target>__label.locale</target>
+      </trans-unit>
+      <trans-unit id="wLaDaK5" resname="caption.about_bolt">
+        <source>caption.about_bolt</source>
+        <target>__caption.about_bolt</target>
+      </trans-unit>
+      <trans-unit id="xN1kSQQ" resname="caption.bolt_payoff">
+        <source>caption.bolt_payoff</source>
+        <target>__caption.bolt_payoff</target>
+      </trans-unit>
+      <trans-unit id="k.JymqB" resname="about.visit_bolt">
+        <source>about.visit_bolt</source>
+        <target>__about.visit_bolt</target>
+      </trans-unit>
+      <trans-unit id="UZFanGF" resname="about.bolt_documentation">
+        <source>about.bolt_documentation</source>
+        <target>__about.bolt_documentation</target>
+      </trans-unit>
+      <trans-unit id="FO7zDub" resname="about.bolt_on_github">
+        <source>about.bolt_on_github</source>
+        <target>__about.bolt_on_github</target>
+      </trans-unit>
+      <trans-unit id="_9fS00R" resname="about.used_libraries">
+        <source>about.used_libraries</source>
+        <target>__about.used_libraries</target>
+      </trans-unit>
+      <trans-unit id="tgLgLDQ" resname="about.list_of_used_libraries">
+        <source>about.list_of_used_libraries</source>
+        <target>__about.list_of_used_libraries</target>
+      </trans-unit>
+      <trans-unit id="y5otxEK" resname="caption.filename">
+        <source>caption.filename</source>
+        <target>__caption.filename</target>
+      </trans-unit>
+      <trans-unit id="VKhfRZB" resname="field.title">
+        <source>field.title</source>
+        <target>__field.title</target>
+      </trans-unit>
+      <trans-unit id="7_wwX8J" resname="field.description">
+        <source>field.description</source>
+        <target>__field.description</target>
+      </trans-unit>
+      <trans-unit id="hjDmcPC" resname="field.copyright">
+        <source>field.copyright</source>
+        <target>__field.copyright</target>
+      </trans-unit>
+      <trans-unit id="v0sitU8" resname="field.originalFilename">
+        <source>field.originalFilename</source>
+        <target>__field.originalFilename</target>
+      </trans-unit>
+      <trans-unit id="vlRe8Tx" resname="field.width">
+        <source>field.width</source>
+        <target>__field.width</target>
+      </trans-unit>
+      <trans-unit id="CZbXbM_" resname="field.height">
+        <source>field.height</source>
+        <target>__field.height</target>
+      </trans-unit>
+      <trans-unit id="Sz_u.OS" resname="field.filesize">
+        <source>field.filesize</source>
+        <target>__field.filesize</target>
+      </trans-unit>
+      <trans-unit id="DF34uM2" resname="http_error.name">
+        <source>http_error.name</source>
+        <target>__http_error.name</target>
+      </trans-unit>
+      <trans-unit id="e3w.2Rf" resname="http_error.description">
+        <source>http_error.description</source>
+        <target>__http_error.description</target>
+      </trans-unit>
+      <trans-unit id="ru5FEGk" resname="http_error.suggestion">
+        <source>http_error.suggestion</source>
+        <target>__http_error.suggestion</target>
+      </trans-unit>
+      <trans-unit id="_W1eNz2" resname="http_error_404.description">
+        <source>http_error_404.description</source>
+        <target>__http_error_404.description</target>
+      </trans-unit>
+      <trans-unit id="MWNS5dg" resname="http_error_404.suggestion">
+        <source>http_error_404.suggestion</source>
+        <target>__http_error_404.suggestion</target>
+      </trans-unit>
+      <trans-unit id="ZYXSW95" resname="http_error_500.description">
+        <source>http_error_500.description</source>
+        <target>__http_error_500.description</target>
+      </trans-unit>
+      <trans-unit id="VVs_J1c" resname="http_error_500.suggestion">
+        <source>http_error_500.suggestion</source>
+        <target>__http_error_500.suggestion</target>
+      </trans-unit>
+      <trans-unit id="Qn5rwdU" resname="http_error_403.description">
+        <source>http_error_403.description</source>
+        <target>__http_error_403.description</target>
+      </trans-unit>
+      <trans-unit id="zDeeh7L" resname="http_error_403.suggestion">
+        <source>http_error_403.suggestion</source>
+        <target>__http_error_403.suggestion</target>
+      </trans-unit>
+      <trans-unit id="VgeTgE2" resname="help.show_code">
+        <source>help.show_code</source>
+        <target>__help.show_code</target>
+      </trans-unit>
+      <trans-unit id="QbohvW1" resname="action.show_code">
+        <source>action.show_code</source>
+        <target>__action.show_code</target>
+      </trans-unit>
+      <trans-unit id="9RwuNlf" resname="title.source_code">
+        <source>title.source_code</source>
+        <target>__title.source_code</target>
+      </trans-unit>
+      <trans-unit id="jaB3QjG" resname="title.controller_code">
+        <source>title.controller_code</source>
+        <target>__title.controller_code</target>
+      </trans-unit>
+      <trans-unit id="tbB2gib" resname="not_available">
+        <source>not_available</source>
+        <target>__not_available</target>
+      </trans-unit>
+      <trans-unit id="2bH7SjO" resname="title.twig_template_code">
+        <source>title.twig_template_code</source>
+        <target>__title.twig_template_code</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

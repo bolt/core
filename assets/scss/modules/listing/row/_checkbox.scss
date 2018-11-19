@@ -1,0 +1,22 @@
+
+.listing--checkbox{
+  width: $checkbox-row-width;
+  user-select: none;
+  .custom-control{
+    position: relative;
+    height: calc(100% - #{$spacer} / 1.25);
+    padding: 0;
+    .custom-control-label {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      &:before, &:after{
+        left: $spacer / 4;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}

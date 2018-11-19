@@ -1,10 +1,13 @@
 api_platform:
+    graphql:
+        graphiql:
+            enabled: true
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     formats:
-        html:     ['text/html']
         json:     ['application/json']
         jsonapi:  ['application/vnd.api+json']
+        html:     ['text/html']
     collection:
             pagination:
                 client_items_per_page: true

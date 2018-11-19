@@ -21,14 +21,12 @@ final class Version
      *   Stable      — 3.0.0
      *   Development — 3.1.0 alpha 1
      */
-    const VERSION = '3.99.99 alpha 0';
+    public const VERSION = '3.99.99 alpha 0';
 
     /**
      * Whether this release is a stable one.
-     *
-     * @return bool
      */
-    public static function isStable()
+    public static function isStable(): bool
     {
         return (bool) preg_match('/^[0-9\.]+$/', static::VERSION);
     }
@@ -63,7 +61,7 @@ final class Version
      *
      * @return bool whether the comparison succeeded
      */
-    public static function compare($version, $operator)
+    public static function compare($version, $operator): bool
     {
         $currentVersion = str_replace(' ', '', mb_strtolower(static::VERSION));
         $version = str_replace(' ', '', mb_strtolower($version));
@@ -73,10 +71,8 @@ final class Version
 
     /**
      * Returns a version formatted for composer.
-     *
-     * @return string
      */
-    public static function forComposer()
+    public static function forComposer(): string
     {
         if (mb_strpos(static::VERSION, ' ') === false) {
             return static::VERSION;
@@ -89,10 +85,8 @@ final class Version
 
     /**
      * @deprecated since 3.0, to be removed in 4.0.
-     *
-     * @return string|null
      */
-    public static function name()
+    public static function name(): ?string
     {
         if (mb_strpos(static::VERSION, ' ') === false) {
             return null;

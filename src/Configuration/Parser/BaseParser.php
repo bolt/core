@@ -16,7 +16,7 @@ class BaseParser
     protected $fileLocator;
 
     /** @var array */
-    protected $accept_file_types;
+    protected $accept_file_types = [];
 
     /** @var PathResolver */
     protected $pathResolver;
@@ -33,8 +33,6 @@ class BaseParser
      * Read and parse a YAML configuration file.
      *
      * @param string $filename The name of the YAML file to read
-     *
-     * @return Collection
      */
     protected function parseConfigYaml($filename): Collection
     {

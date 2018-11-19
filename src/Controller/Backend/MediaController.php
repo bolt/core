@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
@@ -35,18 +36,13 @@ class MediaController extends BaseController
 
     /**
      * MediaController constructor.
-     *
-     * @param Config        $config
-     * @param ObjectManager $manager
-     * @param Areas         $areas
-     * @param MediaFactory  $mediaFactory
      */
-    public function __construct(Config $config, ObjectManager $manager, Areas $areas, MediaFactory $mediaFactory)
+    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, ObjectManager $manager, Areas $areas, MediaFactory $mediaFactory)
     {
-        $this->config = $config;
+        parent::__construct($config, $csrfTokenManager);
+
         $this->manager = $manager;
         $this->areas = $areas;
-
         $this->mediaFactory = $mediaFactory;
     }
 
@@ -67,12 +63,11 @@ class MediaController extends BaseController
         }
 
         return $this->renderTemplate('finder/finder.twig', [
-            'path' => $path,
-            'name' => $areas[$area]['name'],
+            'path' => 'path',
+            'name' => $this->areas->get($area, 'name'),
             'area' => $area,
             'finder' => $finder,
-            'parent' => $parent,
-            'allfiles' => $areas[$area]['show_all'] ? $this->buildIndex($basepath) : false,
+            'parent' => 'parent',
         ]);
     }
 

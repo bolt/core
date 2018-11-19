@@ -14,8 +14,6 @@ class GeneralParser extends BaseParser
 {
     /**
      * Read and parse the config.yaml and config_local.yaml configuration files.
-     *
-     * @return Collection
      */
     public function parse(): Collection
     {
@@ -39,8 +37,6 @@ class GeneralParser extends BaseParser
 
     /**
      * Assume sensible defaults for a number of options.
-     *
-     * @return array
      */
     protected function getDefaultConfig(): array
     {
@@ -80,7 +76,7 @@ class GeneralParser extends BaseParser
             'debug_trace_argument_limit' => 4,
             'strict_variables' => null,
             'theme' => 'base-2016',
-            'listing_template' => 'listing.twig',
+            'listing_template' => 'listing.html.twig',
             'listing_records' => '5',
             'listing_sort' => 'datepublish DESC',
             'caching' => [
@@ -159,10 +155,6 @@ class GeneralParser extends BaseParser
 
     /**
      * Parse and fine-tune the database configuration.
-     *
-     * @param array $options
-     *
-     * @return Collection
      */
     protected function parseDatabase(array $options): Collection
     {
@@ -223,10 +215,7 @@ class GeneralParser extends BaseParser
      * - Bolt keys are converted to Doctrine keys
      * - Invalid keys are filtered out
      *
-     * @param array $params
      * @param array $defaults
-     *
-     * @return Collection
      */
     protected function parseConnectionParams(array $params, $defaults = []): Collection
     {
@@ -259,15 +248,11 @@ class GeneralParser extends BaseParser
             'servicename', 'service', 'pooled', 'instancename', 'server', // Oracle
             'persistent',                                                 // SQL Anywhere
         ];
-        $params = $params->intersectByKeys($validKeys);
-
-        return $params;
+        return $params->intersectByKeys($validKeys);
     }
 
     /**
      * Fine-tune Sqlite configuration parameters.
-     *
-     * @return array
      */
     protected function parseSqliteOptions(array $config): array
     {
@@ -281,7 +266,7 @@ class GeneralParser extends BaseParser
         unset($config['memory']);
 
         // Get path from config or use database path
-        $path = isset($config['path']) ? $config['path'] : $this->pathResolver->resolve('database');
+        $path = $config['path'] ?? $this->pathResolver->resolve('database');
         if (Path::isRelative($path)) {
             $path = $this->pathResolver->resolve($path);
         }
@@ -295,7 +280,7 @@ class GeneralParser extends BaseParser
 
         // Use database name for filename
         $filename = basename($config['dbname']);
-        if (!Path::hasExtension($filename)) {
+        if (! Path::hasExtension($filename)) {
             $filename .= '.db';
         }
 

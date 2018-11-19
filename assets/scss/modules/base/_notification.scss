@@ -1,70 +1,70 @@
 //** Base | Notification
-
-#notifications{
+.admin__notifications {
+  display: block;
   -webkit-backface-visibility: hidden;
   z-index: 2000;
   position: fixed;
   bottom: $spacer * 2;
   right: $spacer * 2;
-  width: 440px;
 }
-
-.notification{
+.admin__notification-message {
+  display: flex !important;
+  align-items: center;
+}
+.notification {
+  position: relative;
   background: var(--body);
-  display: flex;
-  padding: $spacer;
+  padding: $spacer $spacer;
+  margin-bottom: $spacer * .5;
   border-radius: $border-radius;
   box-shadow: $card-box-shadow;
   color: var(--foreground);
-  margin-bottom: $spacer;
   font-weight: $font-weight-bold;
-  width: inherit;
-  &[data-type='is-success']{
-    .notification--close{
+
+  & .notification__message {
+    float: left !important;;
+  }
+
+  &[data-type='is-success'] {
+    .notification__close {
       color: var(--success);
     }
   }
-  &[data-type='is-danger']{
-    .notification--close{
+  &[data-type='is-danger'] {
+    .notification__close {
       color: var(--danger);
     }
   }
-  &:last-child{
-    margin-bottom: 0;
-  }
-  p{
+
+  p {
     margin: 0;
     flex: auto;
   }
 
-  &--close{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &__close {
+    float: right !important;
     background: transparent;
     border: 0;
     position: relative;
     color: var(--foreground);
     font-weight: $font-weight-bold;
     right: -$spacer / 2;
-    margin-left: $spacer;
     letter-spacing: $letter-spacing;
     text-transform: capitalize;
-    &:focus{
+    &:focus {
       outline: none;
     }
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
   }
 }
 
-
 .notification-enter-active, .notification-leave-active {
-  transition: all .35s;  
+  transition: all .35s;
 }
 
-.notification-enter, .notification-leave-to{
+.notification-enter, .notification-leave-to {
   opacity: 0;
   transform: translateY(40px);
 }

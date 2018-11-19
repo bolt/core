@@ -1,38 +1,48 @@
 var webpack = require('webpack');
 var WebpackBar = require('webpackbar');
 var Encore = require('@symfony/webpack-encore');
-require("@babel/polyfill");
+var path = require('path');
 
 Encore
 
+  .addPlugin(new WebpackBar({
+    profile: Encore.isProduction() ? true:false,
+    minimal: false
+  }))
+
+  .addPlugin(new webpack.ProvidePlugin({
+    $bus: [path.resolve(__dirname, './assets/js/bus/'), 'default']
+  }))
+
   .setOutputPath('public/assets/')
   .setPublicPath('/assets')
-
+  .setManifestKeyPrefix('assets')
+  .copyFiles({ 
+    from: './assets/static' 
+  })
+  .copyFiles({
+    from: './node_modules/flagpack/flags',
+    to: 'icons/flags/[name].[ext]',
+    pattern: /\.(svg)$/
+  })
+  
   .cleanupOutputBeforeBuild()
+  .disableSingleRuntimeChunk()
   .enableSourceMaps(!Encore.isProduction())
   .enableVersioning(Encore.isProduction())
 
-  .setManifestKeyPrefix('assets')
   .addEntry('bolt', './assets/js/bolt.js')
-  .createSharedEntry('vendor', ['@babel/polyfill'])
-
   .addStyleEntry('theme-default', './assets/scss/themes/default.scss')
   .addStyleEntry('theme-light', './assets/scss/themes/light.scss')
 
+  .splitEntryChunks()
   .autoProvidejQuery()
   .enableVueLoader()
   .enableSassLoader()
   .enablePostCssLoader()
 
-  // .addPlugin(new WebpackBar())
+;
 
-  if(Encore.isProduction()){
-    Encore.configureFilenames({
-      js: '[name]-[hash:8].min.js',
-      css: '[name]-[hash:8].min.css',
-    })
-  }
-  
+module.exports =  Encore.getWebpackConfig();
 
-  
-module.exports = Encore.getWebpackConfig();
+

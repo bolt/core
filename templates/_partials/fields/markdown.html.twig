@@ -1,0 +1,9 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+    <editor-markdown
+        :value="'{{value|json_encode()}}'"
+        :name="'{{ name }}'"
+    ></editor-markdown>
+{% endblock %}
+

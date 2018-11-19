@@ -1,0 +1,15 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+    {% set setPath = field.definition.get('upload')|default('') %}
+    {% set directory = path('bolt_upload_post', {'area': area|default('files'), 'path': setPath}) %}
+    <editor-image
+        :name="'{{ name }}'"
+        :filename="'{{ field.get('filename') }}'"
+        :thumbnail="'{{ field|thumbnail(width=1200, height=1200, area='files', path=setPath) }}'"
+        :title="'{{ field.get('title') }}'"
+        :alt="'{{ field.get('alt') }}'"
+        :media="'{{ field.get('media') }}'"
+        :directory="'{{directory}}'"
+    ></editor-image>
+{% endblock %}

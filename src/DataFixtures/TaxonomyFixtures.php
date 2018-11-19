@@ -28,20 +28,20 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadTaxonomies($manager);
 
         $manager->flush();
     }
 
-    private function loadTaxonomies(ObjectManager $manager)
+    private function loadTaxonomies(ObjectManager $manager): void
     {
         $slugify = Slugify::create();
         $order = 1;
 
         foreach ($this->config as $taxonomyDefinition) {
-            if (!empty($taxonomyDefinition['options'])) {
+            if (! empty($taxonomyDefinition['options'])) {
                 $options = $taxonomyDefinition['options'];
             } else {
                 $options = $this->getOptions();
@@ -57,8 +57,7 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
                 $taxonomy->setType($taxonomyDefinition['slug'])
                     ->setSlug($slugify->slugify($key))
                     ->setName(Str::humanize($value))
-                    ->setSortorder($taxonomyDefinition['has_sortorder'] ? $order++ : 0)
-                    ;
+                    ->setSortorder($taxonomyDefinition['has_sortorder'] ? $order++ : 0);
 
                 $manager->persist($taxonomy);
                 $reference = 'taxonomy_' . $taxonomyDefinition['slug'] . '_' . $slugify->slugify($key);

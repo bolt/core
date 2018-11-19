@@ -11,9 +11,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"public"}},
+ *     normalizationContext={"groups"={"public"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"public"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get"}
+ *     itemOperations={"get",
+ *         "put"={
+ *             "denormalization_context"={"groups"={"put"}},
+ *         }
+ *     }
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(name="bolt_field")
@@ -24,7 +29,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "block" = "Bolt\Entity\Field\BlockField",
  *     "checkbox" = "Bolt\Entity\Field\CheckboxField",
  *     "date" = "Bolt\Entity\Field\DateField",
- *     "datetime" = "Bolt\Entity\Field\DatetimeField",
  *     "embed" = "Bolt\Entity\Field\EmbedField",
  *     "file" = "Bolt\Entity\Field\FileField",
  *     "filelist" = "Bolt\Entity\Field\FilelistField",
@@ -36,6 +40,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "imagelist" = "Bolt\Entity\Field\ImagelistField",
  *     "integer" = "Bolt\Entity\Field\IntegerField",
  *     "markdown" = "Bolt\Entity\Field\MarkdownField",
+ *     "number" = "Bolt\Entity\Field\NumberField",
  *     "repeater" = "Bolt\Entity\Field\RepeaterField",
  *     "select" = "Bolt\Entity\Field\SelectField",
  *     "slug" = "Bolt\Entity\Field\SlugField",
@@ -51,7 +56,7 @@ class Field
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $id;
 
@@ -69,7 +74,7 @@ class Field
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     protected $value = [];
 
@@ -81,7 +86,7 @@ class Field
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $sortorder = 0;
 
@@ -100,7 +105,6 @@ class Field
     /**
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\Content", inversedBy="fields")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("public")
      */
     private $content;
 
@@ -115,12 +119,27 @@ class Field
         return implode(', ', $this->getValue());
     }
 
+    /**
+     * @return Field
+     */
+    public static function factory(string $name = 'generic'): self
+    {
+        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($name) . 'Field';
+        if (class_exists($classname)) {
+            $field = new $classname();
+        } else {
+            $field = new self();
+        }
+
+        return $field;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setConfig()
+    public function setConfig(): void
     {
         $contentTypeDefinition = $this->getContent()->getDefinition();
 
@@ -132,7 +151,7 @@ class Field
         return $this->fieldTypeDefinition;
     }
 
-    public function setDefinition($name, array $definition)
+    public function setDefinition($name, array $definition): void
     {
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }

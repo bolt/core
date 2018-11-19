@@ -20,68 +20,90 @@
   },
   "main": "webpack.config.js",
   "directories": {
-    "test": "tests"
+    "tests": "tests"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/bolt/four.git"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
     "baguettebox.js": "^1.11.0",
-    "barba.js": "^1.0.0",
     "bootstrap": "^4.1.3",
-    "codemirror": "^5.40.2",
+    "codemirror": "^5.41.0",
+    "flagpack": "^0.5.1",
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
     "no-scroll": "^2.1.1",
-    "popper.js": "^1.14.4",
-    "selectize": "^0.12.6",
-    "selectize-bootstrap4-theme": "^2.0.2",
+    "popper.js": "^1.14.5",
     "simplemde": "^1.11.2",
     "tinycolor2": "^1.4.1",
     "vue": "^2.5.17",
     "vue-flatpickr-component": "^8.0.0",
+    "vue-multiselect": "^2.1.3",
     "vue-notification": "^1.3.13",
-    "vue-simplemde": "^0.4.8",
+    "vue-simplemde": "^0.5.0",
     "vue-trumbowyg": "^3.4.0",
-    "vuedraggable": "^2.16.0"
+    "vuedraggable": "^2.16.0",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "@symfony/webpack-encore": "^0.20.1",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-transform-regenerator": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "@symfony/webpack-encore": "^0.22.1",
+    "@vue/test-utils": "^1.0.0-beta.25",
+    "ajv-keywords": "^3.2.0",
     "autoprefixer": "^9.3.1",
-    "eslint": "5.7.0",
-    "eslint-config-prettier": "3.1.0",
-    "eslint-plugin-prettier": "3.0.0",
-    "eslint-plugin-vue": "4.7.1",
-    "node-sass": "^4.9.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "eslint": "5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-vue": "^4.7.1",
+    "jest": "^23.6.0",
+    "jest-serializer-vue": "^2.0.2",
+    "node-sass": "^4.10.0",
     "postcss-loader": "^3.0.0",
-    "postcss-preset-env": "^6.3.0",
+    "postcss-preset-env": "^6.4.0",
+    "prettier": "1.15.2",
+    "regenerator-runtime": "^0.13.1",
     "register-service-worker": "^1.5.2",
     "sass-loader": "^7.1.0",
-    "vue-loader": "^14",
+    "vue-jest": "^3.0.0",
+    "vue-loader": "^15.4.2",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.17",
-    "webpackbar": "^2.6.3",
-    "workbox-webpack-plugin": "^3.6.2"
+    "webpackbar": "^3.1.3",
+    "workbox-webpack-plugin": "^3.6.3"
   },
   "scripts": {
     "lint": "eslint --ext .js,.vue, assets",
     "lint-fix": "eslint --ext .js,.vue, assets --fix",
-    "serve": "encore dev-server --port=8001 --progress --disable-host-check",
-    "build": "encore production --progress"
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ]
+    "serve": "encore dev-server --port=8234 --progress --disable-host-check",
+    "build": "encore production --progress",
+    "test": "jest"
   },
   "browserslist": [
     "> 1%"
-  ]
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/assets/js/app/$1"
+    },
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/jest-serializer-vue"
+    ]
+  }
 }

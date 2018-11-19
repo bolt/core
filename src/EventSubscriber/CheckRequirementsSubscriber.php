@@ -55,7 +55,7 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
         $commandNames = ['doctrine:fixtures:load', 'doctrine:database:create', 'doctrine:schema:create', 'doctrine:database:drop'];
 
         if ($event->getCommand() && \in_array($event->getCommand()->getName(), $commandNames, true)) {
-            if ($this->isSQLitePlatform() && !\extension_loaded('sqlite3')) {
+            if ($this->isSQLitePlatform() && ! \extension_loaded('sqlite3')) {
                 $io = new SymfonyStyle($event->getInput(), $event->getOutput());
                 $io->error('This command requires to have the "sqlite3" PHP extension enabled because, by default, the Symfony Demo application uses SQLite to store its information.');
             }
@@ -77,7 +77,7 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
         $isDriverException = ($exception instanceof DriverException || $previousException instanceof DriverException);
 
         // Check if SQLite is enabled
-        if ($isDriverException && $this->isSQLitePlatform() && !\extension_loaded('sqlite3')) {
+        if ($isDriverException && $this->isSQLitePlatform() && ! \extension_loaded('sqlite3')) {
             $event->setException(new \Exception('PHP extension "sqlite3" must be enabled because, by default, the Symfony Demo application uses SQLite to store its information.'));
         }
     }
@@ -89,6 +89,6 @@ class CheckRequirementsSubscriber implements EventSubscriberInterface
     {
         $databasePlatform = $this->entityManager->getConnection()->getDatabasePlatform();
 
-        return $databasePlatform ? 'sqlite' === $databasePlatform->getName() : false;
+        return $databasePlatform ? $databasePlatform->getName() === 'sqlite' : false;
     }
 }

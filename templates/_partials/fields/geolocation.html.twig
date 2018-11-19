@@ -1,0 +1,14 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+    {% if config is defined %}
+        {% set apikey = config.get('general/google_api_key')|default(null) %}
+    {% endif %}
+    
+    {% if apikey != null %}
+      {{ apikey }}
+    {% else %}  
+        null
+    {% endif %}
+
+{% endblock %}

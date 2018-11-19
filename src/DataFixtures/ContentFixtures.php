@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\FieldFactory;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -36,20 +36,20 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadContent($manager);
 
         $manager->flush();
     }
 
-    private function loadContent(ObjectManager $manager)
+    private function loadContent(ObjectManager $manager): void
     {
         foreach ($this->config as $contentType) {
             $amount = $contentType['singleton'] ? 1 : 15;
 
             foreach (range(1, $amount) as $i) {
-                $author = $this->getReference(['jane_admin', 'tom_admin'][0 === $i ? 0 : random_int(0, 1)]);
+                $author = $this->getReference($i === ['jane_admin', 'tom_admin'][0 ?: random_int(0, 1)]);
 
                 $content = new Content();
                 $content->setContenttype($contentType['slug']);
@@ -62,7 +62,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    $field = FieldFactory::get($fieldType['type']);
+                    $field = Field::factory($fieldType['type']);
                     $field->setName($name);
                     $field->setValue($this->getValuesforFieldType($name, $fieldType));
                     $field->setSortorder($sortorder++ * 5);
@@ -91,7 +91,10 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                 $data = [$this->faker->paragraphs(3, true)];
                 break;
             case 'image':
-                $data = ['filename' => 'kitten.jpg', 'alt' => 'A cute kitten'];
+                $data = [
+                    'filename' => 'kitten.jpg',
+                    'alt' => 'A cute kitten',
+                ];
                 break;
             case 'slug':
                 $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];

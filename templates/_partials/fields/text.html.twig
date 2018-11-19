@@ -1,0 +1,16 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{# check disabled #}
+{% if disabled is not defined %}
+    {% set disabled = false %}
+{% endif %}
+
+{% block field %}
+    <editor-text
+        :id="'{{ id }}'"
+        :value="{{ value|json_encode() }}"
+        :name="'{{ name }}'"
+        :type="'{{ class }}'"
+        :disabled="'{{ disabled }}'"
+    ></editor-text>
+{% endblock %}

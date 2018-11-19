@@ -55,12 +55,10 @@ class UserType extends AbstractType
             ->add('backendTheme', ChoiceType::class, [
                 'label' => 'label.backend_theme',
                 'choices' => [
-                    'The Default theme' => 'default',
-                    'The Default Dark theme' => 'dark',
-                    'WoordPers: Kinda looks like that other CMS' => 'woordpers',
+                    'Default Theme' => 'default',
+                    'Light Theme' => 'light',
                 ],
-            ])
-        ;
+            ]);
     }
 
     /**

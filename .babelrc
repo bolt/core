@@ -1,12 +1,24 @@
 {
-    presets: [
-        ['env', {
-            modules: false,
-            targets: {
-                browsers: '> 1%',
-                uglify: true
-            },
-            useBuiltIns: true
-        }]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false
+      }
     ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ]
+    }
+  }
 }

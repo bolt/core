@@ -1,0 +1,56 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% block container "widecontent" %}
+
+{% block title %}
+    {{ 'caption.edit_file'|trans }} » <strong>{{ file }}</strong>
+{% endblock %}
+
+{% block main %}
+
+    <h2>{{ 'caption.path'|trans }}: {{ area }}{{ file }}</h2>
+
+    <form method="post">
+        <input type="hidden" name="file" value="{{ file }}">
+        <input type="hidden" name="area" value="{{ area }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('editfile') }}">
+        <div class="form-group">
+            <textarea name="editfile" id="editfile_textarea">{{ contents }}</textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" name="save">{{ 'action.save'|trans }}</button>
+        </div>
+    </div>
+    </form>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/codemirror.min.css">
+<style>
+    .CodeMirror.cm-s-default {
+        border: 1px solid #DDD;
+        border-radius: 4px;
+        height: calc(100vh - 280px);
+        width: calc(100vw - 300px);
+    }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/yaml/yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/html/html.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/htmlmixed/htmlmixed.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/php/php.min.js"></script>
+<script>
+var myCodeMirror = CodeMirror.fromTextArea(editfile_textarea,{
+    lineNumbers: true,
+    mode: 'yaml'
+});
+
+</script>
+{% endblock %}

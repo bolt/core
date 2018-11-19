@@ -1,0 +1,40 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% block title %}
+    {{ 'caption.finder'|trans }} » <strong>{{ name }}</strong>
+{% endblock %}
+
+{% block main %}
+
+    <h2>{{ 'caption.path'|trans }}: {{ area }}{{ path }}</h2>
+
+    {% include '@bolt/finder/_quickselect.html.twig' %}
+
+    {% include '@bolt/finder/_folders.html.twig' %}
+
+    {% include '@bolt/finder/_files.html.twig' %}
+
+{% endblock %}
+
+{% block aside %}
+
+<div class="card mb-4">
+    <div class="card-header">{{ 'caption.meta_information'|trans }}</div>
+    <div class="card-body">
+
+    </div>
+</div>
+
+    {% include '@bolt/finder/_uploader.html.twig' %}
+
+{% endblock aside %}
+
+{% block stylesheets %}
+   {{ parent() }}
+
+   <style>
+        .filepond--root {
+            margin-bottom: 0 !important;
+        }
+    </style>
+{% endblock %}

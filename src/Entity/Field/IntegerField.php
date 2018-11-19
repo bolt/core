@@ -12,13 +12,4 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class IntegerField extends Field
 {
-    public function __toString(): string
-    {
-        return (string) (int) ($this->value);
-    }
-
-    public function getValue(): ?array
-    {
-        return [(int) ($this->value)];
-    }
 }

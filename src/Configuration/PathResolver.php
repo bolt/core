@@ -25,10 +25,8 @@ class PathResolver
 
     /**
      * Default paths for Bolt installation.
-     *
-     * @return array
      */
-    public static function defaultPaths()
+    public static function defaultPaths(): array
     {
         return [
             'site' => '.',
@@ -71,13 +69,10 @@ class PathResolver
 
     /**
      * Define a path, or really an alias/variable.
-     *
-     * @param string $name
-     * @param string $path
      */
-    public function define(string $name, string $path)
+    public function define(string $name, string $path): void
     {
-        if (mb_strpos($path, "%$name%") !== false) {
+        if (mb_strpos($path, "%${name}%") !== false) {
             throw new \InvalidArgumentException('Paths cannot reference themselves.');
         }
 
@@ -93,11 +88,7 @@ class PathResolver
      *  - `foo/bar` - A relative path that will be resolved against the root path.
      *  - `/tmp` - An absolute path will be returned as is.
      *
-     * @param string $path       the path
-     * @param bool   $absolute   if the path is relative, resolve it against the root path
-     * @param mixed  $additional
-     *
-     * @return string
+     * @param bool $absolute if the path is relative, resolve it against the root path
      */
     public function resolve(string $path, bool $absolute = true, $additional = null): string
     {
@@ -108,12 +99,12 @@ class PathResolver
         $path = preg_replace_callback('#%(.+)%#', function ($match) use ($path) {
             $alias = $match[1];
 
-            if (!isset($this->paths[$alias])) {
-                throw new Exception("Failed to resolve path. Alias %$alias% is not defined.");
+            if (! isset($this->paths[$alias])) {
+                throw new Exception("Failed to resolve path. Alias %${alias}% is not defined.");
             }
 
             // absolute if alias is at start of path
-            $absolute = mb_strpos($path, "%$alias%") === 0;
+            $absolute = mb_strpos($path, "%${alias}%") === 0;
 
             if (isset($this->resolving[$alias])) {
                 throw new Exception('Failed to resolve path. Infinite recursion detected.');
@@ -131,19 +122,14 @@ class PathResolver
             $path = Path::makeAbsolute($path, $this->paths['root']);
         }
 
-        if (!empty($additional)) {
+        if (! empty($additional)) {
             $path .= \DIRECTORY_SEPARATOR . implode(\DIRECTORY_SEPARATOR, (array) $additional);
         }
 
         // Make sure we don't have lingering unneeded dir-seperators
-        $path = Path::canonicalize($path);
-
-        return $path;
+        return Path::canonicalize($path);
     }
 
-    /**
-     * @return Collection
-     */
     public function resolveAll(): Collection
     {
         $paths = [];
@@ -156,10 +142,6 @@ class PathResolver
 
     /**
      * Returns the raw path definition for the name given.
-     *
-     * @param string $name
-     *
-     * @return string|null
      */
     public function raw(string $name): ?string
     {
@@ -168,8 +150,6 @@ class PathResolver
 
     /**
      * Returns all path names and their raw definitions.
-     *
-     * @return array
      */
     public function rawAll(): array
     {
@@ -181,8 +161,6 @@ class PathResolver
 
     /**
      * Returns the names of all paths.
-     *
-     * @return array
      */
     public function names(): array
     {

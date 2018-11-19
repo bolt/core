@@ -14,12 +14,18 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"public"}},
+ *     normalizationContext={"groups"={"public"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"put"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get"}
+ *     itemOperations={"get",
+ *         "put"={
+ *             "denormalization_context"={"groups"={"put"}},
+ *         }
+ *     }
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
@@ -30,9 +36,9 @@ class Content
 {
     use ContentMagicTraits;
 
-    public const NUM_ITEMS = 8;
+    public const NUM_ITEMS = 8; // @todo this can't be a const
 
-    public const STATUSES = ['published', 'held', 'timed', 'draft'];
+    public const STATUSES = ['published', 'held', 'timed', 'draft']; // @todo move to Enum
 
     /**
      * @ORM\Id()
@@ -59,7 +65,7 @@ class Content
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $status;
 
@@ -71,24 +77,26 @@ class Content
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $modifiedAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $publishedAt;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups("public")
+     * @Groups({"public", "put"})
      */
     private $depublishedAt;
 
     /**
      * @var Field[]|ArrayCollection
+     * @Groups({"public", "put"})
+     * @MaxDepth(1)
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
@@ -140,10 +148,7 @@ class Content
         return $this->id;
     }
 
-    /**
-     * @param Config $config
-     */
-    public function setConfig(Config $config)
+    public function setConfig(Config $config): void
     {
         $this->config = $config;
 
@@ -155,10 +160,7 @@ class Content
         return $this->config;
     }
 
-    /**
-     * @param UrlGeneratorInterface $urlGenerator
-     */
-    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator)
+    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
     {
         $this->urlGenerator = $urlGenerator;
     }
@@ -168,12 +170,36 @@ class Content
         return $this->contentTypeDefinition;
     }
 
-    /**
-     * @return string
-     */
+    public function getSummary(): array
+    {
+        return [
+            'id' => $this->getid(),
+            'contenttype' => $this->getDefinition()->get('slug'),
+            'slug' => $this->getSlug(),
+            'title' => $this->magicTitle(),
+            'excerpt' => $this->magicexcerpt(),
+            'image' => $this->magicImage(),
+            'link' => $this->magicLink(),
+            'editlink' => $this->magicEditLink(),
+            'author' => [
+                'id' => $this->getAuthor()->getid(),
+                'fullName' => $this->getAuthor()->getfullName(),
+                'username' => $this->getAuthor()->getusername(),
+                'email' => $this->getAuthor()->getemail(),
+                'roles' => $this->getAuthor()->getroles(),
+            ],
+            'status' => $this->getStatus(),
+            'icon' => $this->getDefinition()->get('icon_one'),
+            'createdAt' => $this->getCreatedAt(),
+            'modifiedAt' => $this->modifiedAt(),
+            'publishedAt' => $this->getPublishedAt(),
+            'depublishedAt' => $this->depublishedAt(),
+        ];
+    }
+
     public function getSlug(): string
     {
-        return  (string) $this->get('slug');
+        return (string) $this->get('slug');
     }
 
     public function getContenttype(): ?string
@@ -273,7 +299,7 @@ class Content
 
     public function addField(Field $field): self
     {
-        if (!$this->fields->contains($field)) {
+        if (! $this->fields->contains($field)) {
             $this->fields[] = $field;
             $field->setContent($this);
         }
@@ -294,9 +320,6 @@ class Content
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getStatuses(): array
     {
         return self::STATUSES;
@@ -327,7 +350,7 @@ class Content
 
     public function addTaxonomy(Taxonomy $taxonomy): self
     {
-        if (!$this->taxonomies->contains($taxonomy)) {
+        if (! $this->taxonomies->contains($taxonomy)) {
             $this->taxonomies[] = $taxonomy;
             $taxonomy->addContent($this);
         }

@@ -70,8 +70,8 @@ class Uploader
                 $this->manager->persist($media);
                 $this->manager->flush();
 
-                return new Response($result->name);
-            } catch (\Exception $e) {
+                return new Response($media->getFilenamePath());
+            } catch (\Throwable $e) {
                 // something wrong happened, we don't need the uploaded files anymore
                 $result->clear();
                 throw $e;
@@ -84,11 +84,6 @@ class Uploader
         return new Response('Not OK');
     }
 
-    /**
-     * @param string $filename
-     *
-     * @return string
-     */
     private function sanitiseFilename(string $filename): string
     {
         $extensionSlug = new Slugify(['regexp' => '/([^a-z0-9]|-)+/']);

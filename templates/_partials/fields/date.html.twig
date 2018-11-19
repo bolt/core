@@ -1,0 +1,31 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+  {# check disabled #}
+  {% if disabled is not defined %}
+      {% set disabled = false %}
+  {% endif %}
+  {# Check form attribute #}
+  {% if form is not defined %}
+      {% set form = '' %}
+  {% endif %}
+  {# for timestamps, make sure it's formatted correctly #}
+  {% if value.timestamp is defined %}
+      {% set value = value|date(format='c') %}
+  {% endif %}
+  {# set mode #}
+  {% if mode is not defined %}
+      {% set mode = define.mode|default(false) %}
+  {% endif %}
+
+  <editor-date
+    :value="'{{ value }}'"
+    name="{{ name }}"
+    :disabled="'{{ disabled }}'"
+    form="{{ form }}"
+    mode="{{ mode }}"
+    locale="{{user.locale}}"
+  ></editor-date>
+  
+{% endblock %}
+

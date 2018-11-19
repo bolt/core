@@ -1,0 +1,13 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+    <div class="custom-control custom-checkbox">
+        {# What the heck is this hidden field for, you might wonder? Well, it's
+           there to make sure an unchecked checkbox still shows up in the server
+           response, so we can handle it there, if present. #}
+        <input type="hidden" name="{{ name }}" value="0">
+        <input type="checkbox" class="custom-control-input" id="{{ name }}" name="{{ name }}" value="1" {{ value ? 'checked' }}>
+        <label class="custom-control-label" for="{{ name }}">{{ label }}</label>
+    </div>
+{% endblock %}
+

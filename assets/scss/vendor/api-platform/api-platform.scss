@@ -1,0 +1,209 @@
+/**  INFORMATIONS BLOC **/
+$api-get: #2d5bf5;
+$api-put: #ddb70f;
+$api-post: #02e486;
+$api-delete: #ed5a5a;
+
+
+#swagger-ui.api-platform .information-container.wrapper {
+  display: none;
+}
+
+
+/**  METHODS BLOCS **/
+
+#swagger-ui.api-platform {
+  .opblock-summary{
+    &.opblock-summary-get{
+      .opblock-summary-method{
+        background-color: $api-get;
+        border-color: $api-get;
+      }
+    }
+    &.opblock-summary-put{
+      .opblock-summary-method{
+        background-color: $api-put;
+        border-color: $api-put;
+      }
+    }
+    &.opblock-summary-post{
+      .opblock-summary-method{
+        background-color: $api-post;
+        border-color: $api-post;
+      }
+    }
+    &.opblock-summary-delete{
+      .opblock-summary-method{
+        background-color: $api-delete;
+        border-color: $api-delete;
+      }
+    }
+  }
+  .opblock-summary {
+    padding: $spacer / 2;
+  }
+  .opblock-tag {
+    padding:5px 0;
+    margin:0 0 10px;
+    &:hover{
+      background-color:rgba(0,0,0,.1);
+      transform:scale(1.01);
+    }
+  }
+}
+
+
+
+#swagger-ui.api-platform .opblock-section-header, #swagger-ui.api-platform .opblock.opblock-get .opblock-section-header {
+  background-color: transparentize($api-get, 0.9);
+  box-shadow:none;
+}
+
+#swagger-ui.api-platform .opblock.opblock-post .opblock-section-header {
+  background-color: transparentize($api-post, 0.9);}
+
+#swagger-ui.api-platform .opblock.opblock-put .opblock-section-header {
+  background-color: transparentize($api-put, 0.9);
+}
+
+#swagger-ui.api-platform .opblock.opblock-delete .opblock-section-header {
+  background-color: transparentize($api-delete, 0.9);
+}
+
+#swagger-ui.api-platform .opblock.opblock-deprecated .opblock-section-header {
+  background-color:rgba(235,235,235,0.1);
+}
+
+#swagger-ui.api-platform .opblock {
+  border-radius:0;
+  background-color: var(--foreground);
+  box-shadow: $card-box-shadow;
+  border: none;
+  border-radius: $border-radius;
+}
+
+#swagger-ui .topbar {
+  display: none;
+}
+
+/** FORMATS **/
+
+#formats {
+  text-align:right;
+  width: 100%;
+  max-width: 1460px;
+  padding: 0px 60px;
+  margin:0 auto;
+}
+
+
+/** BUTTONS **/
+
+#swagger-ui.api-platform .btn.execute {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  animation:none;
+  transition:all ease 0.3s;
+}
+
+#swagger-ui.api-platform .btn.execute:hover {
+  background-color: var(--primary-600);
+  border-color: var(--primary-600);
+}
+
+#swagger-ui.api-platform .execute-wrapper {
+  text-align:center;
+}
+
+#swagger-ui.api-platform .execute-wrapper .btn {
+  width:auto;
+  padding:10px 40px;
+}
+
+#swagger-ui.api-platform .btn-group {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#swagger-ui.api-platform .btn-group .btn {
+  padding:10px 40px;
+}
+
+#swagger-ui.api-platform .btn {
+  transition:all ease 0.2s;
+  box-shadow:none;
+  background-color: #f7f7f7
+}
+
+#swagger-ui.api-platform .btn:hover {
+  background-color:rgba(65,68,78,0.1);
+  border-color:transparent;
+}
+
+#swagger-ui.api-platform .btn.cancel:hover {
+  background-color:rgba(237,106,90,0.1);
+}
+
+#swagger-ui.api-platform .btn.authorize:hover {
+  background-color:rgba(120,188,97,0.1);
+}
+
+#swagger-ui.api-platform select {
+  box-shadow:none;
+  cursor:pointer;
+}
+
+
+/** FIX TABS SEPARATOR **/
+
+#swagger-ui.api-platform .tab li:first-of-type:after {
+  content : none;
+}
+
+#swagger-ui.api-platform .tab li {
+  padding:0px 5px;
+  border-right:1px solid rgba(0,0,0,.2);
+}
+
+#swagger-ui.api-platform .tab li:last-of-type {
+  border-right:none;
+}
+
+
+/** REMOVE HIGHLIGHTS FOCUS INPUTS **/
+
+#swagger-ui.api-platform input:focus,
+#swagger-ui.api-platform select:focus,
+#swagger-ui.api-platform textarea:focus,
+#swagger-ui.api-platform button:focus {
+  outline: none;
+}
+
+
+/** REMOVE TITILIUM FONT **/
+
+.swagger-ui .opblock-tag,
+.swagger-ui .opblock .opblock-section-header label,
+.swagger-ui .opblock .opblock-section-header h4,
+.swagger-ui .opblock .opblock-summary-method,
+.swagger-ui .tab li,
+.swagger-ui .scheme-container .schemes>label,
+.swagger-ui .loading-container .loading:after,
+.swagger-ui .btn,
+.swagger-ui .btn.cancel,
+.swagger-ui select,
+.swagger-ui label,
+.swagger-ui .dialog-ux .modal-ux-content h4,
+.swagger-ui .dialog-ux .modal-ux-header h3,
+.swagger-ui section.models h4,
+.swagger-ui section.models h5,
+.swagger-ui .model-title,
+.swagger-ui .parameter__name,
+.swagger-ui .topbar a,
+.swagger-ui .topbar .download-url-wrapper .download-url-button,
+.swagger-ui .info .title small pre,
+.swagger-ui .scopes h2,
+.swagger-ui .errors-wrapper hgroup h4 {
+  font-family: Open Sans,sans-serif!important;
+}
