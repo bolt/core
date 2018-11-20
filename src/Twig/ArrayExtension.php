@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Entity\Content;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -136,7 +137,7 @@ final class ArrayExtension extends AbstractExtension
     /**
      * Helper function for sorting an array of \Bolt\Legacy\Content.
      */
-    private function orderHelper($a, $b): bool
+    private function orderHelper(Content $a, Content $b): bool
     {
         $aVal = $a[$this->orderOn];
         $bVal = $b[$this->orderOn];
