@@ -4,6 +4,10 @@
 
 {% block main %}
 
+    <pre style="font-family: monospace; border: 1px solid #BBB; background: #DDD; padding: 1rem; font-size: 0.8rem; line-height: 1.0rem;">
+        {{- output|trim -}}
+    </pre>
+
     <div class="row">
         <div class="col-md-9">
             <a href="{{ path('bolt_clear_cache') }}" class="btn btn-primary">{{ 'caption.clear_cache'|trans }}</a>
