@@ -21,13 +21,16 @@ export default {
   props: ["value", "name", "id"],
   methods: {
     togglePassword: function(event) {
+      let iconElement = event.target;
       let inputElement = event.target.previousElementSibling;
       let inputType = inputElement.attributes.getNamedItem("type").value;
 
       if (inputType === "password") {
         inputElement.setAttribute("type", "text");
+        iconElement.classList.replace('fa-eye', 'fa-eye-slash')
       } else if (inputType === "text") {
         inputElement.setAttribute("type", "password");
+        iconElement.classList.replace('fa-eye-slash', 'fa-eye')
       }
     }
   }
