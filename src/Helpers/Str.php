@@ -48,15 +48,13 @@ class Str extends \Bolt\Common\Str
     /**
      * Add 'soft hyphens' &shy; to a string, so that it won't break layout in HTML when
      * using strings without spaces or dashes. Only breaks in long (> 19 chars) words.
-     *
-     * @param string $str
      */
-    public static function shyphenate($str): string
+    public static function shyphenate(string $str): string
     {
         $res = preg_match_all('/([a-z0-9]{19,})/i', $str, $matches);
 
         if ($res) {
-            foreach ($matches[1] as $key => $match) {
+            foreach ($matches[1] as $match) {
                 $str = str_replace($match, wordwrap($match, 10, '&shy;', true), $str);
             }
         }

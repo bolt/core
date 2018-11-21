@@ -96,7 +96,9 @@ class ContentEditController extends BaseController
 
     private function updateFieldFromPost(string $key, $postfield, Content $content): void
     {
-        if (! $field = $content->getField($key)) {
+        if ($content->getField($key)) {
+            $field = $content->getField($key);
+        } else {
             $fields = collect($content->getDefinition()->get('fields'));
             $field = Field::factory($fields->get($key)['type']);
             $field->setName($key);

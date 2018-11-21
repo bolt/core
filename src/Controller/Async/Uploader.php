@@ -6,7 +6,6 @@ namespace Bolt\Controller\Async;
 
 use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
-use Bolt\Media\RequestHandler;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sirius\Upload\Handler;
@@ -21,19 +20,15 @@ class Uploader
     /** @var MediaFactory */
     private $mediaFactory;
 
-    /** @var RequestHandler */
-    private $requestHandler;
-
     /** @var ObjectManager */
     private $manager;
 
     /** @var Config */
     private $config;
 
-    public function __construct(MediaFactory $mediaFactory, RequestHandler $requestHandler, ObjectManager $manager, Config $config)
+    public function __construct(MediaFactory $mediaFactory, ObjectManager $manager, Config $config)
     {
         $this->mediaFactory = $mediaFactory;
-        $this->requestHandler = $requestHandler;
         $this->manager = $manager;
         $this->config = $config;
     }
@@ -79,7 +74,7 @@ class Uploader
             $messages = $result->getMessages();
         }
 
-        return new Response('Not OK');
+        return new Response('Not OK: ' . implode(', ', $messages));
     }
 
     private function sanitiseFilename(string $filename): string

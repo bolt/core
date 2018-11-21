@@ -38,6 +38,11 @@ final class News
     {
         $news = $this->getNews($request->getHost());
 
+        // Todo: Make sure this works as intended
+        if ($this->config->get('news') !== false) {
+            return new JsonResponse([], 200);
+        }
+
         // One 'alert' and one 'info' max. Regular info-items can be disabled,
         // but Alerts can't.
         $context = [

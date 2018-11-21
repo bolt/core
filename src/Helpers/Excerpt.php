@@ -42,7 +42,7 @@ class Excerpt
         if ($this->content instanceof Content) {
             $skip_fields = $includeTitle ? $this->content->magicTitleFields() : [];
 
-            foreach ($this->content->getFields() as $key => $field) {
+            foreach ($this->content->getFields() as $field) {
                 if (! in_array($field->getName(), $skip_fields, true) && $field->isExcerptable()) {
                     $excerpt .= (string) $field;
                 }
@@ -70,10 +70,8 @@ class Excerpt
      * Find the locations of each of the words.
      * Nothing exciting here. The array_unique is required, unless you decide
      * to make the words unique before passing in.
-     *
-     * @param string $fulltext
      */
-    private function extractLocations(array $words, $fulltext): array
+    private function extractLocations(array $words, string $fulltext): array
     {
         $locations = [];
         foreach ($words as $word) {

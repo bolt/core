@@ -65,6 +65,10 @@ class MediaFactory
                 ->setArea($area);
         }
 
+        if (! in_array($file->getExtension(), $this->mediatypes, true)) {
+            die('Not a valid media type.');
+        }
+
         $media->setType($file->getExtension())
             ->setModifiedAt(Carbon::createFromTimestamp($file->getMTime()))
             ->setCreatedAt(Carbon::createFromTimestamp($file->getCTime()))
@@ -116,12 +120,12 @@ class MediaFactory
             return null;
         }
 
-        if (! is_object($user = $token->getUser())) {
-            // e.g. anonymous authentication
-            return null;
+        if (is_object($token->getUser())) {
+            return $token->getUser();
         }
 
-        return $user;
+        // e.g. anonymous authentication
+        return null;
     }
 
     public function createFromFilename($area, $path, $filename): Media

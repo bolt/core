@@ -32,18 +32,14 @@ class TemplateChooser
         $templates = collect([]);
 
         // First candidate: Theme-specific config.yml file.
-        if ($template = $this->config->get('theme/homepage_template')) {
-            $templates->push($template);
-        }
+        $templates->push($this->config->get('theme/homepage_template'));
 
         // Second candidate: Global config.yml file.
-        if ($template = $this->config->get('general/homepage_template')) {
-            $templates->push($template);
-        }
+        $templates->push($this->config->get('general/homepage_template'));
 
         if (empty($content)) {
             // Fallback if no content: index.twig
-            $templates->push('index.html.twig');
+            $templates->push('index.html.twig')->push('index.twig');
         } elseif (is_array($content)) {
             // Fallback with multiple content: use listing() to choose template
             $first = reset($content);
@@ -94,14 +90,11 @@ class TemplateChooser
 
         // Fourth candidate: a template with the same filename as the name of
         // the contenttype.
-        if (isset($record->contenttype['singular_slug'])) {
-            $templates->push($record->contenttype['singular_slug'] . '.html.twig');
-        }
+        $templates->push($record->contenttype['singular_slug'] . '.html.twig');
+        $templates->push($record->contenttype['singular_slug'] . '.twig');
 
         // Fifth candidate: Theme-specific config.yml file.
-        if ($template = $this->config->get('theme/record_template')) {
-            $templates->push($template);
-        }
+        $templates->push($this->config->get('theme/record_template'));
 
         // Sixth candidate: global config.yml
         $templates->push($this->config->get('general/record_template'));
@@ -109,7 +102,7 @@ class TemplateChooser
         // Seventh candidate: fallback to 'record.html.twig'
         $templates->push('record.html.twig');
 
-        return $templates->unique();
+        return $templates->unique()->filter();
     }
 
     /**
@@ -126,14 +119,11 @@ class TemplateChooser
 
         // Second candidate: a template with the same filename as the name of
         // the contenttype.
-        if (! empty($contenttype['listing_template'])) {
-            $templates->push($contenttype['slug'] . '.html.twig');
-        }
+        $templates->push($contenttype['slug'] . '.html.twig');
+        $templates->push($contenttype['slug'] . '.twig');
 
         // Third candidate: Theme-specific config.yml file.
-        if ($template = $this->config->get('theme/listing_template')) {
-            $templates->push($template);
-        }
+        $templates->push($this->config->get('theme/listing_template'));
 
         // Fourth candidate: Global config.yml
         $templates->push($this->config->get('general/listing_template'));
@@ -141,7 +131,7 @@ class TemplateChooser
         // Fifth candidate: fallback to 'listing.html.twig'
         $templates->push('listing.html.twig');
 
-        return $templates->unique();
+        return $templates->unique()->filter();
     }
 
     /**
@@ -152,19 +142,15 @@ class TemplateChooser
         $templates = collect([]);
 
         // First candidate: defined specifically in the taxonomy
-        if ($template = $this->config->get('taxonomy/' . $taxonomyslug . '/listing_template')) {
-            $templates->push($template);
-        }
+        $templates->push($this->config->get('taxonomy/' . $taxonomyslug . '/listing_template'));
 
         // Second candidate: Theme-specific config.yml file.
-        if ($template = $this->config->get('theme/listing_template')) {
-            $templates->push($template);
-        }
+        $templates->push($this->config->get('theme/listing_template'));
 
         // Third candidate: Global config.yml
         $templates->push($this->config->get('general/listing_template'));
 
-        return $templates->unique();
+        return $templates->unique()->filter();
     }
 
     /**
@@ -175,19 +161,15 @@ class TemplateChooser
         $templates = collect([]);
 
         // First candidate: specific search setting in global config.
-        if ($template = $this->config->get('theme/search_results_template')) {
-            $templates->push($template);
-        }
+        $templates->push($this->config->get('theme/search_results_template'));
 
         // Second candidate: specific search setting in global config.
-        if ($template = $this->config->get('general/search_results_template')) {
-            $templates->push($template);
-        }
+        $templates->push($this->config->get('general/search_results_template'));
 
         // Third candidate: listing config setting.
         $templates->push($this->config->get('general/listing_template'));
 
-        return $templates->unique();
+        return $templates->unique()->filter();
     }
 
     /**
@@ -198,13 +180,11 @@ class TemplateChooser
         $templates = collect([]);
 
         // First candidate: Theme-specific config.
-        if ($template = $this->config->get('theme/maintenance_template')) {
-            $templates->push($template);
-        }
+        $templates->push($this->config->get('theme/maintenance_template'));
 
         // Second candidate: global config.
         $templates->push($this->config->get('general/maintenance_template'));
 
-        return $templates->unique();
+        return $templates->unique()->filter();
     }
 }

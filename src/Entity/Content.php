@@ -165,6 +165,11 @@ class Content
         $this->urlGenerator = $urlGenerator;
     }
 
+    public function getUrlGenerator(): UrlGeneratorInterface
+    {
+        return $this->urlGenerator;
+    }
+
     public function getDefinition()
     {
         return $this->contentTypeDefinition;
