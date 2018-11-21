@@ -196,9 +196,9 @@ class Content
             'status' => $this->getStatus(),
             'icon' => $this->getDefinition()->get('icon_one'),
             'createdAt' => $this->getCreatedAt(),
-            'modifiedAt' => $this->modifiedAt(),
+            'modifiedAt' => $this->getModifiedAt(),
             'publishedAt' => $this->getPublishedAt(),
-            'depublishedAt' => $this->depublishedAt(),
+            'depublishedAt' => $this->getDepublishedAt(),
         ];
     }
 

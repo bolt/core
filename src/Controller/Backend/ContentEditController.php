@@ -69,10 +69,7 @@ class ContentEditController extends BaseController
         return new RedirectResponse($url);
     }
 
-    /**
-     * @param Content|null $content
-     */
-    private function contentFromPost(Content $content, Request $request): Content
+    private function contentFromPost(?Content $content, Request $request): Content
     {
         $post = $request->request->all();
 

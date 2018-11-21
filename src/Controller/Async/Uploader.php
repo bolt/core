@@ -59,7 +59,7 @@ class Uploader
 
         if ($result->isValid()) {
             try {
-                $media = $this->mediaFactory->createFromFilename($area, $path, $result->name);
+                $media = $this->mediaFactory->createFromFilename($area, $path, $result->__get('name'));
                 $this->manager->persist($media);
                 $this->manager->flush();
 
@@ -69,10 +69,10 @@ class Uploader
                 $result->clear();
                 throw $e;
             }
-        } else {
-            // image was not moved to the container, where are error messages
-            $messages = $result->getMessages();
         }
+
+        // image was not moved to the container, where are error messages
+        $messages = $result->getMessages();
 
         return new Response('Not OK: ' . implode(', ', $messages), 400);
     }

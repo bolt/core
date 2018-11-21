@@ -30,8 +30,6 @@ final class News
     /**
      * News. Film at 11.
      *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     *
      * @Route("/news", name="bolt_news")
      */
     public function dashboardNews(Request $request): JsonResponse
@@ -60,8 +58,6 @@ final class News
      * Get the news from Bolt HQ (with caching).
      *
      * @param string $hostname
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function getNews($hostname): array
     {
@@ -81,8 +77,6 @@ final class News
      * Get the news from Bolt HQ.
      *
      * @param string $hostname
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function fetchNews($hostname): array
     {

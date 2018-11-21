@@ -42,11 +42,12 @@ class TemplateChooser
             $templates->push('index.html.twig')->push('index.twig');
         } elseif (is_array($content)) {
             // Fallback with multiple content: use listing() to choose template
+            /** @var Content $first */
             $first = reset($content);
-            $templates->merge($this->listing($first->contenttype));
+            $templates = $templates->merge($this->listing($first->getDefinition()));
         } else {
             // Fallback with single content: use record() to choose template
-            $templates->merge($templates, $this->record($content));
+            $templates = $templates->merge($this->record($content));
         }
 
         return $templates->unique();
@@ -60,46 +61,32 @@ class TemplateChooser
     public function record(Content $record, ?array $data = null): Collection
     {
         $templates = collect([]);
+        $definition = $record->getDefinition();
 
-        // First candidate: A legacy Content record has a templateselect field, and it's set.
-        if (isset($record->contenttype['fields'])) {
-            foreach ($record->contenttype['fields'] as $name => $field) {
-                if ($field['type'] === 'templateselect' && ! empty($record->values[$name])) {
-                    $templates->push($record->values[$name]);
-                }
+        // First candidate: Content record has a templateselect field, and it's set.
+        foreach ($definition->get('fields') as $name => $field) {
+            if ($field['type'] === 'templateselect' && ! empty($record->get($name))) {
+                $templates->push($record->get($name));
             }
         }
 
-        // Second candidate: An entity has a templateselect field, and it's set.
-        if (isset($record->contenttype['fields'])) {
-            foreach ($record->contenttype['fields'] as $name => $field) {
-                if ($field['type'] === 'templateselect' && ! empty($record[$name])) {
-                    $templates->push($record[$name]);
-                }
-
-                if ($field['type'] === 'templateselect' && $data !== null && ! empty($data[$name])) {
-                    $templates->push($data[$name]);
-                }
-            }
+        // Second candidate: defined specifically in the contenttype.
+        if ($definition->has('record_template')) {
+            $templates->push($definition->get('record_template'));
         }
 
-        // Third candidate: defined specifically in the contenttype.
-        if (isset($record->contenttype['record_template'])) {
-            $templates->push($record->contenttype['record_template']);
-        }
-
-        // Fourth candidate: a template with the same filename as the name of
+        // Third candidate: a template with the same filename as the name of
         // the contenttype.
-        $templates->push($record->contenttype['singular_slug'] . '.html.twig');
-        $templates->push($record->contenttype['singular_slug'] . '.twig');
+        $templates->push($definition->get('singular_slug') . '.html.twig');
+        $templates->push($definition->get('singular_slug') . '.twig');
 
-        // Fifth candidate: Theme-specific config.yml file.
+        // Fourth candidate: Theme-specific config.yml file.
         $templates->push($this->config->get('theme/record_template'));
 
-        // Sixth candidate: global config.yml
+        // Fifth candidate: global config.yml
         $templates->push($this->config->get('general/record_template'));
 
-        // Seventh candidate: fallback to 'record.html.twig'
+        // Sixth candidate: fallback to 'record.html.twig'
         $templates->push('record.html.twig');
 
         return $templates->unique()->filter();
