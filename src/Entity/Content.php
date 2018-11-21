@@ -297,6 +297,11 @@ class Content
         return $this->fields;
     }
 
+    public function hasField(string $name): bool
+    {
+        return collect($this->fields)->contains('name', $name);
+    }
+
     public function getField(string $name): ?Field
     {
         return collect($this->fields)->where('name', $name)->first();

@@ -67,9 +67,11 @@ trait ContentMagicTraits
 
     public function magicTitleFields(): array
     {
+        $definition = $this->getDefinition();
+
         // First, see if we have a "title format" in the contenttype.
-        if ($this->getDefinition()->get('title_format')) {
-            return (array) $this->getDefinition()->get('title_format');
+        if ($definition->has('title_format')) {
+            return (array) $definition->get('title_format');
         }
 
         // Alternatively, see if we have a field named 'title' or somesuch.
@@ -86,8 +88,8 @@ trait ContentMagicTraits
 
         // Otherwise, grab the first field of type 'text', and assume that's the title.
         foreach ($this->getFields() as $field) {
-            if ($field->getDefinition()->get('type') === 'text') {
-                return [$field->getDefinition()->get('name')];
+            if ($definition->get('type') === 'text') {
+                return [$definition->get('name')];
             }
         }
 

@@ -74,7 +74,7 @@ class Uploader
             $messages = $result->getMessages();
         }
 
-        return new Response('Not OK: ' . implode(', ', $messages));
+        return new Response('Not OK: ' . implode(', ', $messages), 400);
     }
 
     private function sanitiseFilename(string $filename): string
