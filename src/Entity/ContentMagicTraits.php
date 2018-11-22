@@ -46,13 +46,24 @@ trait ContentMagicTraits
         }
     }
 
-    public function get(string $name, array $arguments = [])
+    public function get(string $name): Field
     {
         foreach ($this->fields as $field) {
             if ($field->getName() === $name) {
                 return $field;
             }
         }
+    }
+
+    public function has(string $name): bool
+    {
+        foreach ($this->fields as $field) {
+            if ($field->getName() === $name) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function magicLink()
