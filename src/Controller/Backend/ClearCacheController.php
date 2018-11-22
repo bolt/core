@@ -24,6 +24,7 @@ class ClearCacheController extends BaseController
 
         $input = new ArrayInput([
             'command' => 'cache:clear',
+            '--no-warmup' => true
         ]);
         $output = new BufferedOutput();
 
