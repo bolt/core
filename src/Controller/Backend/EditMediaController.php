@@ -9,7 +9,6 @@ use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Media;
-use Bolt\Repository\MediaRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\SplFileInfo;
@@ -36,9 +35,6 @@ class EditMediaController extends BaseController
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var MediaRepository */
-    private $mediaRepository;
-
     /** @var Areas */
     private $areas;
 
@@ -53,7 +49,6 @@ class EditMediaController extends BaseController
         CsrfTokenManagerInterface $csrfTokenManager,
         ObjectManager $manager,
         UrlGeneratorInterface $urlGenerator,
-        MediaRepository $mediaRepository,
         Areas $areas,
         MediaFactory $mediaFactory
     ) {
@@ -61,7 +56,6 @@ class EditMediaController extends BaseController
 
         $this->manager = $manager;
         $this->urlGenerator = $urlGenerator;
-        $this->mediaRepository = $mediaRepository;
         $this->areas = $areas;
         $this->mediaFactory = $mediaFactory;
     }

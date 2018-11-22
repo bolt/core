@@ -30,13 +30,16 @@ final class News
     /**
      * News. Film at 11.
      *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     *
      * @Route("/news", name="bolt_news")
      */
     public function dashboardNews(Request $request): JsonResponse
     {
         $news = $this->getNews($request->getHost());
+
+        // Todo: Make sure this works as intended
+        if ($this->config->get('news') !== false) {
+            return new JsonResponse([], 200);
+        }
 
         // One 'alert' and one 'info' max. Regular info-items can be disabled,
         // but Alerts can't.
@@ -55,8 +58,6 @@ final class News
      * Get the news from Bolt HQ (with caching).
      *
      * @param string $hostname
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function getNews($hostname): array
     {
@@ -76,8 +77,6 @@ final class News
      * Get the news from Bolt HQ.
      *
      * @param string $hostname
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function fetchNews($hostname): array
     {

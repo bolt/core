@@ -8,16 +8,12 @@ use Bolt\Common\Arr;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
-use Symfony\Component\Config\FileLocator;
 use Tightenco\Collect\Support\Collection;
 
 class Config
 {
     /** @var array */
     protected $data = [];
-
-    /** @var FileLocator */
-    private $fileLocator;
 
     /** @var PathResolver */
     private $pathResolver;
@@ -26,23 +22,7 @@ class Config
     {
         $this->pathResolver = new PathResolver(dirname(dirname(__DIR__)), []);
 
-        $configDirectories = [dirname(dirname(__DIR__)) . '/config/bolt'];
-        $this->fileLocator = new FileLocator($configDirectories);
-
-        // $this->cacheFile = $this->app['filesystem']->getFile('cache://config-cache.json');
-
-        $data = null;
-
-        // $data = $this->loadCache();
-        if ($data === null) {
-            $data = $this->parseConfig();
-
-            // If we have to reload the config, we will also want to make sure
-            // the DB integrity is checked.
-            // $this->app['schema.timer']->setCheckRequired();
-        }
-
-        $this->data = $data;
+        $this->data = $this->parseConfig();
     }
 
     /**

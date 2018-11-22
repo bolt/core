@@ -165,6 +165,11 @@ class Content
         $this->urlGenerator = $urlGenerator;
     }
 
+    public function getUrlGenerator(): UrlGeneratorInterface
+    {
+        return $this->urlGenerator;
+    }
+
     public function getDefinition()
     {
         return $this->contentTypeDefinition;
@@ -191,9 +196,9 @@ class Content
             'status' => $this->getStatus(),
             'icon' => $this->getDefinition()->get('icon_one'),
             'createdAt' => $this->getCreatedAt(),
-            'modifiedAt' => $this->modifiedAt(),
+            'modifiedAt' => $this->getModifiedAt(),
             'publishedAt' => $this->getPublishedAt(),
-            'depublishedAt' => $this->depublishedAt(),
+            'depublishedAt' => $this->getDepublishedAt(),
         ];
     }
 
@@ -290,6 +295,11 @@ class Content
     public function getFields(): Collection
     {
         return $this->fields;
+    }
+
+    public function hasField(string $name): bool
+    {
+        return collect($this->fields)->contains('name', $name);
     }
 
     public function getField(string $name): ?Field

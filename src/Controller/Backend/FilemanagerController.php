@@ -72,7 +72,7 @@ class FilemanagerController extends BaseController
         $fullpath = Path::canonicalize($base . '/' . $path);
 
         $finder = new Finder();
-        $finder->in($fullpath)->depth('== 0')->sortByName(true);
+        $finder->in($fullpath)->depth('== 0')->sortByName();
 
         return $finder;
     }
@@ -82,7 +82,7 @@ class FilemanagerController extends BaseController
         $fullpath = Path::canonicalize($base);
 
         $finder = new Finder();
-        $finder->in($fullpath)->depth('< 5')->sortByName(true)->files();
+        $finder->in($fullpath)->depth('< 5')->sortByName()->files();
 
         $index = [];
 

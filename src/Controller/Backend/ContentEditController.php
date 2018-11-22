@@ -69,10 +69,7 @@ class ContentEditController extends BaseController
         return new RedirectResponse($url);
     }
 
-    /**
-     * @param Content|null $content
-     */
-    private function contentFromPost(Content $content, Request $request): Content
+    private function contentFromPost(?Content $content, Request $request): Content
     {
         $post = $request->request->all();
 
@@ -96,7 +93,9 @@ class ContentEditController extends BaseController
 
     private function updateFieldFromPost(string $key, $postfield, Content $content): void
     {
-        if (! $field = $content->getField($key)) {
+        if ($content->hasField($key)) {
+            $field = $content->getField($key);
+        } else {
             $fields = collect($content->getDefinition()->get('fields'));
             $field = Field::factory($fields->get($key)['type']);
             $field->setName($key);

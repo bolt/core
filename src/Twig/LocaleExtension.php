@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Configuration\Config;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,19 +17,15 @@ class LocaleExtension extends AbstractExtension
     /** @var array */
     private $localeCodes = [];
 
-    /** @var Config */
-    private $config;
-
     /** @var Collection */
     private $locales;
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    public function __construct(Config $config, string $locales, UrlGeneratorInterface $urlGenerator)
+    public function __construct(string $locales, UrlGeneratorInterface $urlGenerator)
     {
         $this->localeCodes = explode('|', $locales);
-        $this->config = $config;
         $this->urlGenerator = $urlGenerator;
     }
 
