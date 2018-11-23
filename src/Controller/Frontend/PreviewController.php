@@ -28,7 +28,7 @@ class PreviewController extends BaseController
     {
         $homepage = $this->getOption('theme/homepage') ?: $this->getOption('general/homepage');
 
-        // todo get $homepage content.
+        // @todo Get $homepage content.
         $twigvars = [
             'record' => $homepage,
         ];

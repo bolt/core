@@ -36,7 +36,7 @@ final class News
     {
         $news = $this->getNews($request->getHost());
 
-        // Todo: Make sure this works as intended
+        // @todo Make sure this works as intended
         if ($this->config->get('news') !== false) {
             return new JsonResponse([], 200);
         }

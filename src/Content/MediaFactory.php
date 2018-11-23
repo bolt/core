@@ -71,7 +71,7 @@ class MediaFactory
         }
 
         if (! $this->mediatypes->contains($file->getExtension())) {
-            // Todo: We're throwing a generic Exception here. Needs to be handled better.
+            // @todo We're throwing a generic Exception here. Needs to be handled better.
             throw new \Exception('Not a valid media type.');
         }
 
