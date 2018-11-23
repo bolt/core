@@ -91,6 +91,11 @@
                         label="{{ 'field.locale'|trans }}"
                         :locales="{{ locales() }}"
                       ></general-language>
+
+                        <a href="{{ path('bolt_content_edit_locales', {'id': record.id}) }}" class="btn btn-light btn-small">
+                            See Localisation info
+                        </a>
+
                     </div>
                   </div>
                 {% endif %}
