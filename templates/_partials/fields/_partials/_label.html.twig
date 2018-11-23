@@ -1,6 +1,7 @@
-{% block label %}
-  {% if type != 'checkbox' %}
-    <editor-label forlabel="{{ id }}" label="{{ label }}"></editor-label>
+{% if type != 'checkbox' %}
+  {% if localise %}
+    <i class="fas fa-language"></i>
   {% endif %}
-{% endblock %}
+  <editor-label forlabel="{{ id }}" label="{{ label }}"></editor-label>
+{% endif %}
 

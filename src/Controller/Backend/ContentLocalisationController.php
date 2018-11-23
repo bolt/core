@@ -39,12 +39,12 @@ class ContentLocalisationController extends BaseController
     public function locales(string $id, Request $request, Content $content): Response
     {
         dump($content);
-        die();
+//        die();
 
         /** Content $content */
         $content->getFields();
 
-        return $this->renderTemplate('content/edit.html.twig', [
+        return $this->renderTemplate('content/view_locales.html.twig', [
             'record' => $content,
         ]);
     }

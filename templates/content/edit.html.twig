@@ -13,150 +13,154 @@
     <strong>{{ record.title|excerpt(50)|default('New') }}</strong>
 {% endblock %}
 
-{% block vue_id 'editor' %}
+{% block vue_id 'edistor' %}
 
-    {% block main %}
+{% block main %}
 
-        <form method="post" id="editcontent">
+    {{ dump(record.definition) }}
+    {{ dump(locales) }}
+    {{ dump(currentlocale) }}
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
+    <form method="post" id="editcontent">
 
-            <!-- fields -->
-            {% set groups = record.definition.groups %}
-            <nav>
-                <ul class="nav editor__tabbar" role="tablist">
-                    {% for group in groups %}
-                        <li class="nav-item">
-                            <a class="nav-item nav-link {% if loop.first %}active{% endif %}" id="{{group|slug}}-tab" data-toggle="pill" href="#{{group|slug}}" role="tab" aria-controls="{{group|slug}}" aria-selected="{% if loop.first %}true{%else%}false{% endif %}">
-                                <span>{{group|capitalize}}</span></a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
+
+        <!-- fields -->
+        {% set groups = record.definition.groups %}
+        <nav>
+            <ul class="nav editor__tabbar" role="tablist">
                 {% for group in groups %}
-                    <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}" role="tabpanel" aria-labelledby="{{group|slug}}-tab">
-                        {% for key, fielddefinition in record.definition.fields %}
-
-                            {% set type = fielddefinition.type %}
-                            {% set field = record.field(key) %}
-                            {% set fieldgroup = fielddefinition.group %}
-
-                            {% if not field %}
-                                {% set field = fieldfactory(key, fielddefinition) %}
-                            {% endif %}
-                            {% if fieldgroup == group %}
-
-                                {% include[
-                                    '_partials/fields/' ~ type ~ '.html.twig',
-                                    '_partials/fields/generic.html.twig'
-                                    ] with {
-                                    'field' : field,
-                                    'define' : fielddefinition
-                                } %}
-                            {% endif %}
-
-                        {% endfor %}
-                    </div>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link {% if loop.first %}active{% endif %}" id="{{group|slug}}-tab" data-toggle="pill" href="#{{group|slug}}" role="tab" aria-controls="{{group|slug}}" aria-selected="{% if loop.first %}true{%else%}false{% endif %}">
+                            <span>{{group|capitalize}}</span></a>
+                    </li>
                 {% endfor %}
-            </div>
+            </ul>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            {% for group in groups %}
+                <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}" role="tabpanel" aria-labelledby="{{group|slug}}-tab">
+                    {% for key, fielddefinition in record.definition.fields %}
 
-            <button type="submit" class="btn btn-success mb-3">
-                <i class="fas fa-save mr-2"></i>
-                {{ 'action.save'|trans }}
-            </button>
+                        {% set type = fielddefinition.type %}
+                        {% set field = record.field(key) %}
+                        {% set fieldgroup = fielddefinition.group %}
 
-        </form>
+                        {% if not field %}
+                            {% set field = fieldfactory(key, fielddefinition) %}
+                        {% endif %}
+                        {% if fieldgroup == group %}
 
-    {% endblock %}
+                            {% include[
+                                '_partials/fields/' ~ type ~ '.html.twig',
+                                '_partials/fields/generic.html.twig'
+                                ] with {
+                                'field' : field,
+                                'define' : fielddefinition
+                            } %}
+                        {% endif %}
 
-    {% block aside %}
-
-        <div id="metadata">
-            <form class="ui form">
-
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <button type="submit" class="btn btn-success mb-3" form="editcontent">
-                        <i class="fas fa-save mr-2"></i>
-                        {{ 'action.save'|trans }}
-                    </button>
-                  </div>
+                    {% endfor %}
                 </div>
-
-                {% if record.id %}
-                  <div class="card mb-3">
-                    <div class="card-body">
-                      <general-language
-                        label="{{ 'field.locale'|trans }}"
-                        :locales="{{ locales() }}"
-                      ></general-language>
-
-                        <a href="{{ path('bolt_content_edit_locales', {'id': record.id}) }}" class="btn btn-light btn-small">
-                            See Localisation info
-                        </a>
-
-                    </div>
-                  </div>
-                {% endif %}
-
-                <div class="card">
-                    <div class="card-body">
-
-                        {% include '@bolt/_partials/fields/select.html.twig' with {
-                            'label' : 'field.status' | trans,
-                            'name' : 'status',
-                            'value' : record.status,
-                            'options' : record.statusoptions,
-                            'form' : 'editcontent'
-                        } %}
-
-                        {#<input type="text" name="author" value="{{ record.author }}">#}
-
-                        {% include '@bolt/_partials/fields/date.html.twig' with {
-                            'label' : 'field.createdAt' | trans,
-                            'name' : 'createdAt',
-                            'value' : record.createdAt,
-                            'disabled' : true,
-                            'mode' : 'datetime',
-                            'form' : 'editcontent'
-                        } %}
-
-                        {% include '@bolt/_partials/fields/date.html.twig' with {
-                            'label' : 'field.modifiedAt' | trans,
-                            'name' : 'modifiedAt',
-                            'value' : record.modifiedAt,
-                            'disabled' : true,
-                            'mode' : 'datetime',
-                            'form' : 'editcontent'
-                        } %}
-
-                        {% include '@bolt/_partials/fields/date.html.twig' with {
-                            'label' : 'field.publishedAt' | trans,
-                            'name' : 'publishedAt',
-                            'value' : record.publishedAt,
-                            'mode' : 'datetime',
-                            'form' : 'editcontent'
-                        } %}
-
-                        {% include '@bolt/_partials/fields/date.html.twig' with {
-                            'label' : 'field.depublishedAt' | trans,
-                            'name' : 'depublishedAt',
-                            'mode' : 'datetime',
-                            'form' : 'editcontent'
-                        } %}
-
-                        {% include '@bolt/_partials/fields/text.html.twig' with {
-                            'label' : 'field.id' | trans,
-                            'name' : 'id',
-                            'value' : record.id,
-                            'disabled' : true
-                        } %}
-
-                    </div>
-
-                </div>
-            </form>
+            {% endfor %}
         </div>
 
-    {% endblock aside %}
+        <button type="submit" class="btn btn-success mb-3">
+            <i class="fas fa-save mr-2"></i>
+            {{ 'action.save'|trans }}
+        </button>
+
+    </form>
+
+{% endblock %}
+
+{% block aside %}
+
+    <div id="metadata">
+        <form class="ui form">
+
+            <div class="card mb-3">
+              <div class="card-body">
+                <button type="submit" class="btn btn-success mb-3" form="editcontent">
+                    <i class="fas fa-save mr-2"></i>
+                    {{ 'action.save'|trans }}
+                </button>
+              </div>
+            </div>
+
+            {% if record.id %}
+              <div class="card mb-3">
+                <div class="card-body">
+                  <general-language
+                    label="{{ 'field.locale'|trans }}"
+                    :locales="{{ locales() }}"
+                  ></general-language>
+
+                    <a href="{{ path('bolt_content_edit_locales', {'id': record.id}) }}" class="btn btn-light btn-small">
+                        See Localisation info
+                    </a>
+
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="card">
+                <div class="card-body">
+
+                    {% include '@bolt/_partials/fields/select.html.twig' with {
+                        'label' : 'field.status' | trans,
+                        'name' : 'status',
+                        'value' : record.status,
+                        'options' : record.statusoptions,
+                        'form' : 'editcontent'
+                    } %}
+
+                    {#<input type="text" name="author" value="{{ record.author }}">#}
+
+                    {% include '@bolt/_partials/fields/date.html.twig' with {
+                        'label' : 'field.createdAt' | trans,
+                        'name' : 'createdAt',
+                        'value' : record.createdAt,
+                        'disabled' : true,
+                        'mode' : 'datetime',
+                        'form' : 'editcontent'
+                    } %}
+
+                    {% include '@bolt/_partials/fields/date.html.twig' with {
+                        'label' : 'field.modifiedAt' | trans,
+                        'name' : 'modifiedAt',
+                        'value' : record.modifiedAt,
+                        'disabled' : true,
+                        'mode' : 'datetime',
+                        'form' : 'editcontent'
+                    } %}
+
+                    {% include '@bolt/_partials/fields/date.html.twig' with {
+                        'label' : 'field.publishedAt' | trans,
+                        'name' : 'publishedAt',
+                        'value' : record.publishedAt,
+                        'mode' : 'datetime',
+                        'form' : 'editcontent'
+                    } %}
+
+                    {% include '@bolt/_partials/fields/date.html.twig' with {
+                        'label' : 'field.depublishedAt' | trans,
+                        'name' : 'depublishedAt',
+                        'mode' : 'datetime',
+                        'form' : 'editcontent'
+                    } %}
+
+                    {% include '@bolt/_partials/fields/text.html.twig' with {
+                        'label' : 'field.id' | trans,
+                        'name' : 'id',
+                        'value' : record.id,
+                        'disabled' : true
+                    } %}
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+{% endblock aside %}

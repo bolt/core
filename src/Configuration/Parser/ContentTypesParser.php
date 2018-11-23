@@ -192,6 +192,7 @@ class ContentTypesParser extends BaseParser
                     'group' => $currentGroup,
                     'label' => '',
                     'variant' => '',
+                    'localise' => false,
                 ],
                 $field
             );

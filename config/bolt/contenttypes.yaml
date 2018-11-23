@@ -13,6 +13,7 @@ homepage:
             type: text
             class: large
             group: content
+            localise: true
             postfix: |
                 The 'Homepage' can contain basic information about the website. This title will be
                 shown on the homepage of the website, as the name implies. To change the
@@ -23,10 +24,12 @@ homepage:
             placeholder: https://source.unsplash.com/1920x640/?cityscape,landscape,nature/__random__
         teaser:
             type: html
+            localise: true
             height: 150px
         content:
             type: html
             height: 300px
+            localise: true
         contentlink:
             type: text
             label: Link
@@ -37,6 +40,7 @@ homepage:
             uses: title
             group: meta
     viewless: true
+    locales: ['nl', 'en', 'pt_BR']
     singleton: true
     default_status: published
     icon_many: "fa:home"

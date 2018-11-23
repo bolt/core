@@ -41,9 +41,13 @@ class ContentEditController extends BaseController
             $content->setConfig($this->config);
         }
 
-        return $this->renderTemplate('content/edit.html.twig', [
+        $twigvars = [
             'record' => $content,
-        ]);
+            'locales' => $content->getDefinition()->get('locales'),
+            'currentlocale' => $request->query->get('locale'),
+        ];
+
+        return $this->renderTemplate('content/edit.html.twig', $twigvars);
     }
 
     /**
