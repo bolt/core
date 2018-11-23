@@ -52,6 +52,9 @@ class MediaFactory
         $this->mediatypes = $config->getMediaTypes();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function createOrUpdateMedia(SplFileInfo $file, string $area): Media
     {
         $media = $this->mediaRepository->findOneBy([
@@ -68,7 +71,8 @@ class MediaFactory
         }
 
         if (! $this->mediatypes->contains($file->getExtension())) {
-            die('Not a valid media type.');
+            // Todo: We're throwing a generic Exception here. Needs to be handled better.
+            throw new \Exception('Not a valid media type.');
         }
 
         $media->setType($file->getExtension())
