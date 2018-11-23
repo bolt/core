@@ -205,7 +205,7 @@ class MenuBuilder
         ]);
 
         $menu['Maintenance']->addChild('Clear the cache', [
-            'uri' => '',
+            'uri' => $this->urlGenerator->generate('bolt_clear_cache'),
             'extras' => [
                 'name' => $t->trans('caption.clear_cache'),
                 'icon' => 'fa-eraser',
