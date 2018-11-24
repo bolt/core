@@ -1,885 +1,548 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="nl">
-  <file id="messages.nl">
-    <unit id="80JoLd0" name="title.login">
-      <notes>
-        <note priority="1">templates/security/login.twig:4</note>
-      </notes>
-      <segment>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="nl" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="80JoLd0" resname="title.login">
         <source>title.login</source>
         <target>__title.login</target>
-      </segment>
-    </unit>
-    <unit id="LDhDPrF" name="label.username">
-      <notes>
-        <note priority="1">templates/security/login.twig:66</note>
-        <note priority="1">src/Form/UserType.php:31</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/security/login.twig:4</note>
+      </trans-unit>
+      <trans-unit id="LDhDPrF" resname="label.username">
         <source>label.username</source>
         <target>__label.username</target>
-      </segment>
-    </unit>
-    <unit id="9pvowqn" name="label.password">
-      <notes>
-        <note priority="1">templates/security/login.twig:70</note>
-        <note priority="1">templates/security/login.twig:75</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/security/login.twig:66</note>
+        <note priority="1">src/Form/UserType.php:31</note>
+      </trans-unit>
+      <trans-unit id="9pvowqn" resname="label.password">
         <source>label.password</source>
         <target>__label.password</target>
-      </segment>
-    </unit>
-    <unit id="gLN0C81" name="action.log_in">
-      <notes>
-        <note priority="1">templates/security/login.twig:84</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/security/login.twig:70</note>
+        <note priority="1">templates/security/login.twig:75</note>
+      </trans-unit>
+      <trans-unit id="gLN0C81" resname="action.log_in">
         <source>action.log_in</source>
         <target>Log in</target>
-      </segment>
-    </unit>
-    <unit id="vJwSCBO" name="title.contentlisting">
-      <notes>
-        <note priority="1">templates/content/listing.twig:9</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/security/login.twig:84</note>
+      </trans-unit>
+      <trans-unit id="vJwSCBO" resname="title.contentlisting">
         <source>title.contentlisting</source>
         <target>__title.contentlisting</target>
-      </segment>
-    </unit>
-    <unit id="wtG.cxy" name="info.change_password">
-      <notes>
-        <note priority="1">templates/users/change_password.twig:12</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/content/listing.twig:9</note>
+      </trans-unit>
+      <trans-unit id="wtG.cxy" resname="info.change_password">
         <source>info.change_password</source>
         <target>__info.change_password</target>
-      </segment>
-    </unit>
-    <unit id="HLtdhYw" name="action.save">
-      <notes>
-        <note priority="1">templates/users/change_password.twig:18</note>
-        <note priority="1">templates/users/edit.twig:15</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/users/change_password.twig:12</note>
+      </trans-unit>
+      <trans-unit id="HLtdhYw" resname="action.save">
         <source>action.save</source>
         <target>Wijzigingen opslaan</target>
-      </segment>
-    </unit>
-    <unit id="etGJjTo" name="action.edit_user">
-      <notes>
-        <note priority="1">templates/users/change_password.twig:26</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/users/change_password.twig:18</note>
+        <note priority="1">templates/users/edit.twig:15</note>
+      </trans-unit>
+      <trans-unit id="etGJjTo" resname="action.edit_user">
         <source>action.edit_user</source>
         <target>Bewerk gebruiker</target>
-      </segment>
-    </unit>
-    <unit id="1sstKF9" name="title.edit_user">
-      <notes>
-        <note priority="1">templates/users/edit.twig:4</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/users/change_password.twig:26</note>
+      </trans-unit>
+      <trans-unit id="1sstKF9" resname="title.edit_user">
         <source>title.edit_user</source>
         <target>Bewerk gebruiker</target>
-      </segment>
-    </unit>
-    <unit id="CX_oSFd" name="action.change_password">
-      <notes>
-        <note priority="1">templates/users/edit.twig:24</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/users/edit.twig:4</note>
+      </trans-unit>
+      <trans-unit id="CX_oSFd" resname="action.change_password">
         <source>action.change_password</source>
         <target>Wijzig wachtwoord</target>
-      </segment>
-    </unit>
-    <unit id="SNELzJ2" name="field.id">
-      <notes>
-        <note priority="1">templates/editcontent/edit.twig:118</note>
-        <note priority="1">templates/editcontent/media_edit.twig:98</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/users/edit.twig:24</note>
+      </trans-unit>
+      <trans-unit id="SNELzJ2" resname="field.id">
         <source>field.id</source>
         <target>ID</target>
-      </segment>
-    </unit>
-    <unit id="FuCyk5C" name="field.status">
-      <notes>
-        <note priority="1">templates/editcontent/edit.twig:76</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/edit.twig:118</note>
+        <note priority="1">templates/editcontent/media_edit.twig:98</note>
+      </trans-unit>
+      <trans-unit id="FuCyk5C" resname="field.status">
         <source>field.status</source>
         <target>Status</target>
-      </segment>
-    </unit>
-    <unit id="O9wtVOp" name="field.createdAt">
-      <notes>
-        <note priority="1">templates/editcontent/edit.twig:86</note>
-        <note priority="1">templates/editcontent/media_edit.twig:128</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/edit.twig:76</note>
+      </trans-unit>
+      <trans-unit id="O9wtVOp" resname="field.createdAt">
         <source>field.createdAt</source>
         <target>Aangemaakt op</target>
-      </segment>
-    </unit>
-    <unit id="eVkSIKu" name="field.modifiedAt">
-      <notes>
-        <note priority="1">templates/editcontent/edit.twig:94</note>
-        <note priority="1">templates/editcontent/media_edit.twig:135</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/edit.twig:86</note>
+        <note priority="1">templates/editcontent/media_edit.twig:128</note>
+      </trans-unit>
+      <trans-unit id="eVkSIKu" resname="field.modifiedAt">
         <source>field.modifiedAt</source>
         <target>Bewerkt op</target>
-      </segment>
-    </unit>
-    <unit id="3gdi1dy" name="field.publishedAt">
-      <notes>
-        <note priority="1">templates/editcontent/edit.twig:102</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/edit.twig:94</note>
+        <note priority="1">templates/editcontent/media_edit.twig:135</note>
+      </trans-unit>
+      <trans-unit id="3gdi1dy" resname="field.publishedAt">
         <source>field.publishedAt</source>
         <target>Gepubliceerd op</target>
-      </segment>
-    </unit>
-    <unit id="eN7IfEL" name="field.depublishedAt">
-      <notes>
-        <note priority="1">templates/editcontent/edit.twig:110</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/edit.twig:102</note>
+      </trans-unit>
+      <trans-unit id="eN7IfEL" resname="field.depublishedAt">
         <source>field.depublishedAt</source>
         <target>Gedepubliceerd op</target>
-      </segment>
-    </unit>
-    <unit id="VKhfRZB" name="field.title">
-      <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:47</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/edit.twig:110</note>
+      </trans-unit>
+      <trans-unit id="VKhfRZB" resname="field.title">
         <source>field.title</source>
         <target>__field.title</target>
-      </segment>
-    </unit>
-    <unit id="7_wwX8J" name="field.description">
-      <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:53</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/media_edit.twig:47</note>
+      </trans-unit>
+      <trans-unit id="7_wwX8J" resname="field.description">
         <source>field.description</source>
         <target>__field.description</target>
-      </segment>
-    </unit>
-    <unit id="hjDmcPC" name="field.copyright">
-      <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:59</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/media_edit.twig:53</note>
+      </trans-unit>
+      <trans-unit id="hjDmcPC" resname="field.copyright">
         <source>field.copyright</source>
         <target>Copyright</target>
-      </segment>
-    </unit>
-    <unit id="v0sitU8" name="field.originalFilename">
-      <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:66</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/media_edit.twig:59</note>
+      </trans-unit>
+      <trans-unit id="v0sitU8" resname="field.originalFilename">
         <source>field.originalFilename</source>
         <target>__field.originalFilename</target>
-      </segment>
-    </unit>
-    <unit id="vlRe8Tx" name="field.width">
-      <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:105</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/media_edit.twig:66</note>
+      </trans-unit>
+      <trans-unit id="vlRe8Tx" resname="field.width">
         <source>field.width</source>
         <target>__field.width</target>
-      </segment>
-    </unit>
-    <unit id="CZbXbM_" name="field.height">
-      <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:112</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/media_edit.twig:105</note>
+      </trans-unit>
+      <trans-unit id="CZbXbM_" resname="field.height">
         <source>field.height</source>
         <target>__field.height</target>
-      </segment>
-    </unit>
-    <unit id="Sz_u.OS" name="field.filesize">
-      <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:119</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/editcontent/media_edit.twig:112</note>
+      </trans-unit>
+      <trans-unit id="Sz_u.OS" resname="field.filesize">
         <source>field.filesize</source>
         <target>__field.filesize</target>
-      </segment>
-    </unit>
-    <unit id="DF34uM2" name="http_error.name">
-      <notes>
+        <note priority="1">templates/editcontent/media_edit.twig:119</note>
+      </trans-unit>
+      <trans-unit id="DF34uM2" resname="http_error.name">
+        <source>http_error.name</source>
+        <target>__http_error.name</target>
         <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
         <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
         <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
         <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
-      </notes>
-      <segment>
-        <source>http_error.name</source>
-        <target>__http_error.name</target>
-      </segment>
-    </unit>
-    <unit id="e3w.2Rf" name="http_error.description">
-      <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="e3w.2Rf" resname="http_error.description">
         <source>http_error.description</source>
         <target>__http_error.description</target>
-      </segment>
-    </unit>
-    <unit id="ru5FEGk" name="http_error.suggestion">
-      <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
+      </trans-unit>
+      <trans-unit id="ru5FEGk" resname="http_error.suggestion">
         <source>http_error.suggestion</source>
         <target>__http_error.suggestion</target>
-      </segment>
-    </unit>
-    <unit id="_W1eNz2" name="http_error_404.description">
-      <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
+      </trans-unit>
+      <trans-unit id="_W1eNz2" resname="http_error_404.description">
         <source>http_error_404.description</source>
         <target>__http_error_404.description</target>
-      </segment>
-    </unit>
-    <unit id="MWNS5dg" name="http_error_404.suggestion">
-      <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
+      </trans-unit>
+      <trans-unit id="MWNS5dg" resname="http_error_404.suggestion">
         <source>http_error_404.suggestion</source>
         <target>__http_error_404.suggestion</target>
-      </segment>
-    </unit>
-    <unit id="ZYXSW95" name="http_error_500.description">
-      <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
+      </trans-unit>
+      <trans-unit id="ZYXSW95" resname="http_error_500.description">
         <source>http_error_500.description</source>
         <target>__http_error_500.description</target>
-      </segment>
-    </unit>
-    <unit id="VVs_J1c" name="http_error_500.suggestion">
-      <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
+      </trans-unit>
+      <trans-unit id="VVs_J1c" resname="http_error_500.suggestion">
         <source>http_error_500.suggestion</source>
         <target>__http_error_500.suggestion</target>
-      </segment>
-    </unit>
-    <unit id="Qn5rwdU" name="http_error_403.description">
-      <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
+      </trans-unit>
+      <trans-unit id="Qn5rwdU" resname="http_error_403.description">
         <source>http_error_403.description</source>
         <target>__http_error_403.description</target>
-      </segment>
-    </unit>
-    <unit id="zDeeh7L" name="http_error_403.suggestion">
-      <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
+      </trans-unit>
+      <trans-unit id="zDeeh7L" resname="http_error_403.suggestion">
         <source>http_error_403.suggestion</source>
         <target>__http_error_403.suggestion</target>
-      </segment>
-    </unit>
-    <unit id="VgeTgE2" name="help.show_code">
-      <notes>
-        <note priority="1">templates/debug/source_code.twig:3</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
+      </trans-unit>
+      <trans-unit id="VgeTgE2" resname="help.show_code">
         <source>help.show_code</source>
         <target>__help.show_code</target>
-      </segment>
-    </unit>
-    <unit id="QbohvW1" name="action.show_code">
-      <notes>
-        <note priority="1">templates/debug/source_code.twig:7</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/debug/source_code.twig:3</note>
+      </trans-unit>
+      <trans-unit id="QbohvW1" resname="action.show_code">
         <source>action.show_code</source>
         <target>Toon broncode</target>
-      </segment>
-    </unit>
-    <unit id="9RwuNlf" name="title.source_code">
-      <notes>
-        <note priority="1">templates/debug/source_code.twig:17</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/debug/source_code.twig:7</note>
+      </trans-unit>
+      <trans-unit id="9RwuNlf" resname="title.source_code">
         <source>title.source_code</source>
         <target>__title.source_code</target>
-      </segment>
-    </unit>
-    <unit id="jaB3QjG" name="title.controller_code">
-      <notes>
-        <note priority="1">templates/debug/source_code.twig:22</note>
-        <note priority="1">templates/debug/source_code.twig:25</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/debug/source_code.twig:17</note>
+      </trans-unit>
+      <trans-unit id="jaB3QjG" resname="title.controller_code">
         <source>title.controller_code</source>
         <target>__title.controller_code</target>
-      </segment>
-    </unit>
-    <unit id="tbB2gib" name="not_available">
-      <notes>
-        <note priority="1">templates/debug/source_code.twig:26</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/debug/source_code.twig:22</note>
+        <note priority="1">templates/debug/source_code.twig:25</note>
+      </trans-unit>
+      <trans-unit id="tbB2gib" resname="not_available">
         <source>not_available</source>
         <target>__not_available</target>
-      </segment>
-    </unit>
-    <unit id="2bH7SjO" name="title.twig_template_code">
-      <notes>
-        <note priority="1">templates/debug/source_code.twig:29</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/debug/source_code.twig:26</note>
+      </trans-unit>
+      <trans-unit id="2bH7SjO" resname="title.twig_template_code">
         <source>title.twig_template_code</source>
         <target>__title.twig_template_code</target>
-      </segment>
-    </unit>
-    <unit id="RMPnq6o" name="label.username_or_email">
-      <notes>
-        <note priority="1">templates/security/login.twig:61</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/debug/source_code.twig:29</note>
+      </trans-unit>
+      <trans-unit id="RMPnq6o" resname="label.username_or_email">
         <source>label.username_or_email</source>
         <target>__label.username_or_email</target>
-      </segment>
-    </unit>
-    <unit id="IaF1MjB" name="label.rememberme">
-      <notes>
-        <note priority="1">templates/security/login.twig:80</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/security/login.twig:61</note>
+      </trans-unit>
+      <trans-unit id="IaF1MjB" resname="label.rememberme">
         <source>label.rememberme</source>
         <target>__label.rememberme</target>
-      </segment>
-    </unit>
-    <unit id="k.JymqB" name="about.visit_bolt">
-      <notes>
-        <note priority="1">templates/pages/about.twig:25</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/security/login.twig:80</note>
+      </trans-unit>
+      <trans-unit id="k.JymqB" resname="about.visit_bolt">
         <source>about.visit_bolt</source>
         <target>Bezoek Bolt.cm</target>
-      </segment>
-    </unit>
-    <unit id="UZFanGF" name="about.bolt_documentation">
-      <notes>
-        <note priority="1">templates/pages/about.twig:28</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/pages/about.twig:25</note>
+      </trans-unit>
+      <trans-unit id="UZFanGF" resname="about.bolt_documentation">
         <source>about.bolt_documentation</source>
         <target>Bolt documentatie</target>
-      </segment>
-    </unit>
-    <unit id="FO7zDub" name="about.bolt_on_github">
-      <notes>
-        <note priority="1">templates/pages/about.twig:31</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/pages/about.twig:28</note>
+      </trans-unit>
+      <trans-unit id="FO7zDub" resname="about.bolt_on_github">
         <source>about.bolt_on_github</source>
         <target>__about.bolt_on_github</target>
-      </segment>
-    </unit>
-    <unit id="_9fS00R" name="about.used_libraries">
-      <notes>
-        <note priority="1">templates/pages/about.twig:35</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/pages/about.twig:31</note>
+      </trans-unit>
+      <trans-unit id="_9fS00R" resname="about.used_libraries">
         <source>about.used_libraries</source>
         <target>Gebruikte Libraries / Componenten</target>
-      </segment>
-    </unit>
-    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
-      <notes>
-        <note priority="1">templates/pages/about.twig:37</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/pages/about.twig:35</note>
+      </trans-unit>
+      <trans-unit id="tgLgLDQ" resname="about.list_of_used_libraries">
         <source>about.list_of_used_libraries</source>
         <target>about.list_of_used_libraries</target>
-      </segment>
-    </unit>
-    <unit id="aYnbvsn" name="label.fullname">
-      <notes>
-        <note priority="1">src/Form/UserType.php:35</note>
-        <note priority="1">new</note>
-      </notes>
-      <segment>
+        <note priority="1">templates/pages/about.twig:37</note>
+      </trans-unit>
+      <trans-unit id="aYnbvsn" resname="label.fullname">
         <source>label.fullname</source>
         <target>Volledige naam</target>
-      </segment>
-    </unit>
-    <unit id="D2N6_cP" name="label.email">
-      <notes>
-        <note priority="1">src/Form/UserType.php:38</note>
+        <note priority="1">src/Form/UserType.php:35</note>
         <note priority="1">new</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="D2N6_cP" resname="label.email">
         <source>label.email</source>
         <target>E-mail</target>
-      </segment>
-    </unit>
-    <unit id="pGkejkU" name="label.current_password">
-      <notes>
-        <note priority="1">src/Form/ChangePasswordType.php:24</note>
+        <note priority="1">src/Form/UserType.php:38</note>
         <note priority="1">new</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="pGkejkU" resname="label.current_password">
         <source>label.current_password</source>
         <target></target>
-      </segment>
-    </unit>
-    <unit id="iiWFLaI" name="label.new_password">
-      <notes>
-        <note priority="1">src/Form/ChangePasswordType.php:42</note>
+        <note priority="1">src/Form/ChangePasswordType.php:24</note>
         <note priority="1">new</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="iiWFLaI" resname="label.new_password">
         <source>label.new_password</source>
         <target></target>
-      </segment>
-    </unit>
-    <unit id="Ucl9Jfc" name="label.new_password_confirm">
-      <notes>
-        <note priority="1">src/Form/ChangePasswordType.php:45</note>
+        <note priority="1">src/Form/ChangePasswordType.php:42</note>
         <note priority="1">new</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="Ucl9Jfc" resname="label.new_password_confirm">
         <source>label.new_password_confirm</source>
         <target></target>
-      </segment>
-    </unit>
-    <unit id="XCmpWav" name="newPassword">
-      <notes>
-        <note priority="1">src/Form/ChangePasswordType.php:23</note>
+        <note priority="1">src/Form/ChangePasswordType.php:45</note>
         <note priority="1">new</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="XCmpWav" resname="newPassword">
         <source>newPassword</source>
         <target></target>
-      </segment>
-    </unit>
-    <unit id="47DEQpj" name="">
-      <segment>
+        <note priority="1">src/Form/ChangePasswordType.php:23</note>
+        <note priority="1">new</note>
+      </trans-unit>
+      <trans-unit id="47DEQpj" resname="">
         <source></source>
         <target></target>
-      </segment>
-    </unit>
-    <unit id="OBmPOoB" name="user.updated_successfully">
-      <notes>
-        <note priority="1">src/Controller/Backend/UserController.php:33</note>
-        <note priority="1">new</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="OBmPOoB" resname="user.updated_successfully">
         <source>user.updated_successfully</source>
         <target></target>
-      </segment>
-    </unit>
-    <unit id="3hkt.eH" name="content.updated_successfully">
-      <notes>
+        <note priority="1">src/Controller/Backend/UserController.php:33</note>
+        <note priority="1">new</note>
+      </trans-unit>
+      <trans-unit id="3hkt.eH" resname="content.updated_successfully">
+        <source>content.updated_successfully</source>
+        <target></target>
         <note priority="1">src/Controller/Backend/EditMediaController.php:126</note>
         <note priority="1">src/Controller/Backend/EditRecordController.php:86</note>
         <note priority="1">new</note>
-      </notes>
-      <segment>
-        <source>content.updated_successfully</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="IB0mNQh" name="content.created_successfully">
-      <notes>
-        <note priority="1">src/Controller/Backend/EditMediaController.php:157</note>
-        <note priority="1">new</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="IB0mNQh" resname="content.created_successfully">
         <source>content.created_successfully</source>
         <target></target>
-      </segment>
-    </unit>
-    <unit id="Iyry5.g" name="editfile.updated_successfully">
-      <notes>
-        <note priority="1">src/Controller/Backend/EditFileController.php:99</note>
+        <note priority="1">src/Controller/Backend/EditMediaController.php:157</note>
         <note priority="1">new</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="Iyry5.g" resname="editfile.updated_successfully">
         <source>editfile.updated_successfully</source>
         <target></target>
-      </segment>
-    </unit>
-    <unit id="b1jqjUC" name="editfile.could_not_write">
-      <notes>
-        <note priority="1">src/Controller/Backend/EditFileController.php:101</note>
+        <note priority="1">src/Controller/Backend/EditFileController.php:99</note>
         <note priority="1">new</note>
-      </notes>
-      <segment>
+      </trans-unit>
+      <trans-unit id="b1jqjUC" resname="editfile.could_not_write">
         <source>editfile.could_not_write</source>
         <target></target>
-      </segment>
-    </unit>
-    <unit id="Oiwdkpg" name="The Default theme">
-      <segment>
+        <note priority="1">src/Controller/Backend/EditFileController.php:101</note>
+        <note priority="1">new</note>
+      </trans-unit>
+      <trans-unit id="Oiwdkpg" resname="The Default theme">
         <source>The Default theme</source>
         <target>Het standaard thema</target>
-      </segment>
-    </unit>
-    <unit id="7aLIA3c" name="caption.dashboard">
-      <segment>
+      </trans-unit>
+      <trans-unit id="7aLIA3c" resname="caption.dashboard">
         <source>caption.dashboard</source>
         <target>Dashboard</target>
-      </segment>
-    </unit>
-    <unit id="XNTbZW6" name="action.visit_site">
-      <segment>
+      </trans-unit>
+      <trans-unit id="XNTbZW6" resname="action.visit_site">
         <source>action.visit_site</source>
         <target>Bekijk site</target>
-      </segment>
-    </unit>
-    <unit id="KfVJho2" name="action.create_new">
-      <segment>
+      </trans-unit>
+      <trans-unit id="KfVJho2" resname="action.create_new">
         <source>action.create_new</source>
         <target>Maak nieuwe</target>
-      </segment>
-    </unit>
-    <unit id="b_RPpcB" name="general.greeting">
-      <segment>
+      </trans-unit>
+      <trans-unit id="b_RPpcB" resname="general.greeting">
         <source>general.greeting</source>
         <target>Hoi, %name%</target>
-      </segment>
-    </unit>
-    <unit id="bmdn3u9" name="action.logout">
-      <segment>
+      </trans-unit>
+      <trans-unit id="bmdn3u9" resname="action.logout">
         <source>action.logout</source>
         <target>Uitloggen</target>
-      </segment>
-    </unit>
-    <unit id="zOfpTLD" name="action.edit_profile">
-      <segment>
+      </trans-unit>
+      <trans-unit id="zOfpTLD" resname="action.edit_profile">
         <source>action.edit_profile</source>
         <target>Bewerk profiel</target>
-      </segment>
-    </unit>
-    <unit id="1xlE8ex" name="caption.content">
-      <segment>
+      </trans-unit>
+      <trans-unit id="1xlE8ex" resname="caption.content">
         <source>caption.content</source>
         <target>Content</target>
-      </segment>
-    </unit>
-    <unit id="ZO.uqIZ" name="caption.settings">
-      <segment>
+      </trans-unit>
+      <trans-unit id="ZO.uqIZ" resname="caption.settings">
         <source>caption.settings</source>
         <target>Instellingen</target>
-      </segment>
-    </unit>
-    <unit id="zOLL.7E" name="caption.configuration">
-      <segment>
+      </trans-unit>
+      <trans-unit id="zOLL.7E" resname="caption.configuration">
         <source>caption.configuration</source>
         <target>Configuratie</target>
-      </segment>
-    </unit>
-    <unit id="ipmA6Ah" name="caption.users_permissions">
-      <segment>
+      </trans-unit>
+      <trans-unit id="ipmA6Ah" resname="caption.users_permissions">
         <source>caption.users_permissions</source>
         <target><![CDATA[Gebruikers & permissies]]></target>
-      </segment>
-    </unit>
-    <unit id="kXNBV9S" name="caption.main_configuration">
-      <segment>
+      </trans-unit>
+      <trans-unit id="kXNBV9S" resname="caption.main_configuration">
         <source>caption.main_configuration</source>
         <target>hoofdconfiguratie</target>
-      </segment>
-    </unit>
-    <unit id="_w7J5rZ" name="caption.contenttypes">
-      <segment>
+      </trans-unit>
+      <trans-unit id="_w7J5rZ" resname="caption.contenttypes">
         <source>caption.contenttypes</source>
         <target>Contenttypen</target>
-      </segment>
-    </unit>
-    <unit id="drK.0GZ" name="caption.taxonomies">
-      <segment>
+      </trans-unit>
+      <trans-unit id="drK.0GZ" resname="caption.taxonomies">
         <source>caption.taxonomies</source>
         <target>Taxonomieën </target>
-      </segment>
-    </unit>
-    <unit id="2RUXD4A" name="caption.menu_setup">
-      <segment>
+      </trans-unit>
+      <trans-unit id="2RUXD4A" resname="caption.menu_setup">
         <source>caption.menu_setup</source>
         <target>Menu instellingen</target>
-      </segment>
-    </unit>
-    <unit id="wBKDkwl" name="caption.routing_setup">
-      <segment>
+      </trans-unit>
+      <trans-unit id="wBKDkwl" resname="caption.routing_setup">
         <source>caption.routing_setup</source>
         <target>Routing instellingen</target>
-      </segment>
-    </unit>
-    <unit id="i4cbdta" name="caption.all_configuration_files">
-      <segment>
+      </trans-unit>
+      <trans-unit id="i4cbdta" resname="caption.all_configuration_files">
         <source>caption.all_configuration_files</source>
         <target>Alle configuratie bestanden</target>
-      </segment>
-    </unit>
-    <unit id="OpKTKAL" name="caption.maintenance">
-      <segment>
+      </trans-unit>
+      <trans-unit id="OpKTKAL" resname="caption.maintenance">
         <source>caption.maintenance</source>
         <target>Onderhoud</target>
-      </segment>
-    </unit>
-    <unit id="RRQ1EJ3" name="caption.check_database">
-      <segment>
+      </trans-unit>
+      <trans-unit id="RRQ1EJ3" resname="caption.check_database">
         <source>caption.check_database</source>
         <target>Controleer Database</target>
-      </segment>
-    </unit>
-    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
-      <segment>
+      </trans-unit>
+      <trans-unit id="hGJoUs5" resname="caption.fixtures_dummy_content">
         <source>caption.fixtures_dummy_content</source>
         <target>Fixtures (loze inhoud)</target>
-      </segment>
-    </unit>
-    <unit id="K6TmK4B" name="caption.clear_cache">
-      <segment>
+      </trans-unit>
+      <trans-unit id="K6TmK4B" resname="caption.clear_cache">
         <source>caption.clear_cache</source>
         <target>Leeg de cache</target>
-      </segment>
-    </unit>
-    <unit id="_ef0RBR" name="caption.installation_checks">
-      <segment>
+      </trans-unit>
+      <trans-unit id="_ef0RBR" resname="caption.installation_checks">
         <source>caption.installation_checks</source>
         <target>Installatie-controle</target>
-      </segment>
-    </unit>
-    <unit id="Dvu2HQx" name="caption.api">
-      <segment>
+      </trans-unit>
+      <trans-unit id="Dvu2HQx" resname="caption.api">
         <source>caption.api</source>
         <target>API</target>
-      </segment>
-    </unit>
-    <unit id="dd5MzCM" name="caption.translations">
-      <segment>
+      </trans-unit>
+      <trans-unit id="dd5MzCM" resname="caption.translations">
         <source>caption.translations</source>
         <target>Vertalingen / Labels</target>
-      </segment>
-    </unit>
-    <unit id="mfvtHPQ" name="caption.extensions">
-      <segment>
+      </trans-unit>
+      <trans-unit id="mfvtHPQ" resname="caption.extensions">
         <source>caption.extensions</source>
         <target>Extensies</target>
-      </segment>
-    </unit>
-    <unit id="l4yt0BE" name="caption.file_management">
-      <segment>
+      </trans-unit>
+      <trans-unit id="l4yt0BE" resname="caption.file_management">
         <source>caption.file_management</source>
         <target>Bestandsbeheer</target>
-      </segment>
-    </unit>
-    <unit id="bq6bSf4" name="caption.uploaded_files">
-      <segment>
+      </trans-unit>
+      <trans-unit id="bq6bSf4" resname="caption.uploaded_files">
         <source>caption.uploaded_files</source>
         <target>Geüploade bestanden</target>
-      </segment>
-    </unit>
-    <unit id="K4D568R" name="caption.view_edit_templates">
-      <segment>
+      </trans-unit>
+      <trans-unit id="K4D568R" resname="caption.view_edit_templates">
         <source>caption.view_edit_templates</source>
         <target><![CDATA[Bekijk & bewerk templates]]></target>
-      </segment>
-    </unit>
-    <unit id="N_0yRcH" name="action.close_alert">
-      <segment>
+      </trans-unit>
+      <trans-unit id="N_0yRcH" resname="action.close_alert">
         <source>action.close_alert</source>
         <target>Sluit</target>
-      </segment>
-    </unit>
-    <unit id="mEDsKHk" name="label.locale">
-      <segment>
+      </trans-unit>
+      <trans-unit id="mEDsKHk" resname="label.locale">
         <source>label.locale</source>
         <target>Locale</target>
-      </segment>
-    </unit>
-    <unit id="Z84BVRW" name="English (en)">
-      <segment>
+      </trans-unit>
+      <trans-unit id="Z84BVRW" resname="English (en)">
         <source>English (en)</source>
         <target>English (en) </target>
-      </segment>
-    </unit>
-    <unit id="eG9ABZd" name="Nederlands (dutch, nl)">
-      <segment>
+      </trans-unit>
+      <trans-unit id="eG9ABZd" resname="Nederlands (dutch, nl)">
         <source>Nederlands (dutch, nl)</source>
         <target>Nederlands (dutch, nl)</target>
-      </segment>
-    </unit>
-    <unit id="57LcBXV" name="Español (Spanish, es)">
-      <segment>
+      </trans-unit>
+      <trans-unit id="57LcBXV" resname="Español (Spanish, es)">
         <source>Español (Spanish, es)</source>
         <target>Español (Spanish, es)</target>
-      </segment>
-    </unit>
-    <unit id="e7RdvJ0" name="français (French, fr)">
-      <segment>
+      </trans-unit>
+      <trans-unit id="e7RdvJ0" resname="français (French, fr)">
         <source>français (French, fr)</source>
         <target>français (French, fr)</target>
-      </segment>
-    </unit>
-    <unit id="U1vrep2" name="Deutsch (German, de)">
-      <segment>
+      </trans-unit>
+      <trans-unit id="U1vrep2" resname="Deutsch (German, de)">
         <source>Deutsch (German, de)</source>
         <target>Deutsch (German, de)</target>
-      </segment>
-    </unit>
-    <unit id="EsWjyMS" name="Język Polski (Polish, pl)">
-      <segment>
+      </trans-unit>
+      <trans-unit id="EsWjyMS" resname="Język Polski (Polish, pl)">
         <source>Język Polski (Polish, pl)</source>
         <target>Język Polski (Polish, pl)</target>
-      </segment>
-    </unit>
-    <unit id="fbEbOrT" name="Brasilian Portuguese (Brasilian Portuguese, pt_BR)">
-      <segment>
+      </trans-unit>
+      <trans-unit id="fbEbOrT" resname="Brasilian Portuguese (Brasilian Portuguese, pt_BR)">
         <source>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</source>
         <target>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</target>
-      </segment>
-    </unit>
-    <unit id="pBUPCm9" name="Italiano (Italian, it)">
-      <segment>
+      </trans-unit>
+      <trans-unit id="pBUPCm9" resname="Italiano (Italian, it)">
         <source>Italiano (Italian, it)</source>
         <target>Italiano (Italian, it)</target>
-      </segment>
-    </unit>
-    <unit id="98Q5SA2" name="label.backend_theme">
-      <segment>
+      </trans-unit>
+      <trans-unit id="98Q5SA2" resname="label.backend_theme">
         <source>label.backend_theme</source>
         <target>Backend thema</target>
-      </segment>
-    </unit>
-    <unit id="C389Knp" name="The Default Dark theme">
-      <segment>
+      </trans-unit>
+      <trans-unit id="C389Knp" resname="The Default Dark theme">
         <source>The Default Dark theme</source>
         <target>De standaard Dark Theme</target>
-      </segment>
-    </unit>
-    <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
-      <segment>
+      </trans-unit>
+      <trans-unit id="kouGbMq" resname="WoordPers: Kinda looks like that other CMS">
         <source>WoordPers: Kinda looks like that other CMS</source>
         <target>WoordPers: Lijkt een beetje op dat andere CMS</target>
-      </segment>
-    </unit>
-    <unit id="HK7XTUX" name="caption.edit">
-      <segment>
+      </trans-unit>
+      <trans-unit id="HK7XTUX" resname="caption.edit">
         <source>caption.edit</source>
         <target>Bewerk</target>
-      </segment>
-    </unit>
-    <unit id="wLaDaK5" name="caption.about_bolt">
-      <segment>
+      </trans-unit>
+      <trans-unit id="wLaDaK5" resname="caption.about_bolt">
         <source>caption.about_bolt</source>
         <target>Over Bolt</target>
-      </segment>
-    </unit>
-    <unit id="xN1kSQQ" name="caption.bolt_payoff">
-      <segment>
+      </trans-unit>
+      <trans-unit id="xN1kSQQ" resname="caption.bolt_payoff">
         <source>caption.bolt_payoff</source>
         <target>Weldoordacht, lichtgewicht en eenvoudig CMS</target>
-      </segment>
-    </unit>
-    <unit id="P1FHg3Q" name="caption.edit_file">
-      <segment>
+      </trans-unit>
+      <trans-unit id="P1FHg3Q" resname="caption.edit_file">
         <source>caption.edit_file</source>
         <target>Bewerk Bestand</target>
-      </segment>
-    </unit>
-    <unit id="FSroufa" name="caption.path">
-      <segment>
+      </trans-unit>
+      <trans-unit id="FSroufa" resname="caption.path">
         <source>caption.path</source>
         <target>Pad</target>
-      </segment>
-    </unit>
-    <unit id="dbyz2hj" name="caption.finder">
-      <segment>
+      </trans-unit>
+      <trans-unit id="dbyz2hj" resname="caption.finder">
         <source>caption.finder</source>
         <target>Finder</target>
-      </segment>
-    </unit>
-    <unit id="C15MbYY" name="form.quick_select_file">
-      <segment>
+      </trans-unit>
+      <trans-unit id="C15MbYY" resname="form.quick_select_file">
         <source>form.quick_select_file</source>
         <target>Selecteer een bestand om snel te bewerken…</target>
-      </segment>
-    </unit>
-    <unit id="KHvGNGW" name="directoryname">
-      <segment>
+      </trans-unit>
+      <trans-unit id="KHvGNGW" resname="directoryname">
         <source>directoryname</source>
         <target>Directorynaam</target>
-      </segment>
-    </unit>
-    <unit id="Kw3N1AA" name="actions">
-      <segment>
+      </trans-unit>
+      <trans-unit id="Kw3N1AA" resname="actions">
         <source>actions</source>
         <target>Acties</target>
-      </segment>
-    </unit>
-    <unit id="_XSgfqS" name="filename">
-      <segment>
+      </trans-unit>
+      <trans-unit id="_XSgfqS" resname="filename">
         <source>filename</source>
         <target>Bestandsnaam</target>
-      </segment>
-    </unit>
-    <unit id="gPYflhh" name="thumbnail">
-      <segment>
+      </trans-unit>
+      <trans-unit id="gPYflhh" resname="thumbnail">
         <source>thumbnail</source>
         <target>Thumbnail</target>
-      </segment>
-    </unit>
-    <unit id="zNy_hG8" name="size">
-      <segment>
+      </trans-unit>
+      <trans-unit id="zNy_hG8" resname="size">
         <source>size</source>
         <target>Formaat</target>
-      </segment>
-    </unit>
-    <unit id="DodjLNR" name="date">
-      <segment>
+      </trans-unit>
+      <trans-unit id="DodjLNR" resname="date">
         <source>date</source>
         <target>Datum</target>
-      </segment>
-    </unit>
-    <unit id="LaDIuZA" name="caption.meta_information">
-      <segment>
+      </trans-unit>
+      <trans-unit id="LaDIuZA" resname="caption.meta_information">
         <source>caption.meta_information</source>
         <target>Meta informatie</target>
-      </segment>
-    </unit>
-    <unit id="QZYjRy0" name="caption.file_uploader">
-      <segment>
+      </trans-unit>
+      <trans-unit id="QZYjRy0" resname="caption.file_uploader">
         <source>caption.file_uploader</source>
         <target>Bestandsuploader</target>
-      </segment>
-    </unit>
-    <unit id="9lJhqvA" name="field.locale">
-      <segment>
+      </trans-unit>
+      <trans-unit id="9lJhqvA" resname="field.locale">
         <source>field.locale</source>
         <target>Locale</target>
-      </segment>
-    </unit>
-    <unit id="y5otxEK" name="caption.filename">
-      <segment>
+      </trans-unit>
+      <trans-unit id="y5otxEK" resname="caption.filename">
         <source>caption.filename</source>
         <target>__caption.filename</target>
-      </segment>
-    </unit>
+      </trans-unit>
+    </body>
   </file>
 </xliff>

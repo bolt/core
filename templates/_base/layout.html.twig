@@ -12,6 +12,9 @@
     {% set theme = 'theme-' ~ user.backendTheme|default('default') %}
     {{ encore_entry_link_tags('bolt') }}
     {{ encore_entry_link_tags(theme) }}
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+
     {% endblock %}
 </head>
 
