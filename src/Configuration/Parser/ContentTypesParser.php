@@ -113,6 +113,12 @@ class ContentTypesParser extends BaseParser
             $contentType['singleton'] = false;
         }
 
+        if (!isset($contentType['locales'])) {
+            $contentType['locales'] = false;
+        } else if (is_string($contentType['locales'])) {
+            $contentType['locales'] = false;
+        }
+
         [$fields, $groups] = $this->parseFieldsAndGroups($contentType['fields']);
         $contentType['fields'] = $fields;
         $contentType['groups'] = $groups;

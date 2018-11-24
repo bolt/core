@@ -57,6 +57,8 @@ class ContentEditController extends BaseController
     {
         $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
 
+//        dd($token);
+
         if (! $this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
@@ -70,12 +72,15 @@ class ContentEditController extends BaseController
 
         $url = $urlGenerator->generate('bolt_content_edit', ['id' => $content->getId()]);
 
-        return new RedirectResponse($url);
+        dump($url);
+
+        return new RedirectResponse('http://nu.nl');
     }
 
     private function contentFromPost(?Content $content, Request $request): Content
     {
         $post = $request->request->all();
+        $locale = $this->getPostedLocale($post);
 
         if (! $content) {
             $content = new Content();
@@ -83,6 +88,8 @@ class ContentEditController extends BaseController
             $content->setContentType($request->attributes->get('id'));
             $content->setConfig($this->config);
         }
+
+        $locale = $this->getPostedLocale($post);
 
         $content->setStatus(current($post['status']));
         $content->setPublishedAt(new Carbon($post['publishedAt']));
@@ -108,4 +115,12 @@ class ContentEditController extends BaseController
 
         $field->setValue((array) $postfield);
     }
+
+    private function getPostedLocale($post)
+    {
+        $locale = $post->get('locale');
+
+        return $locale;
+    }
+
 }

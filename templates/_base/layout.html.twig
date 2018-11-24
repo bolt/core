@@ -60,6 +60,12 @@
     <!-- Admin Main -->
     <div class="admin__body {% block container %}{% endblock %}">
         <div class="container">
+
+            {% block topsection %}
+                {# insert stuff here that should _not_ be part of the
+                   Vue components, like `{{ dump() }}` statements #}
+            {% endblock %}
+
             <div class="admin__body--container" id="{% block vue_id %}{% endblock %}">
                 <main class="admin__body--main">
                     {% block main %}

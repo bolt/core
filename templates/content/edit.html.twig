@@ -13,17 +13,20 @@
     <strong>{{ record.title|excerpt(50)|default('New') }}</strong>
 {% endblock %}
 
-{% block vue_id 'edistor' %}
+{% block vue_id 'editor' %}
 
-{% block main %}
-
+{% block topsection %}
     {{ dump(record.definition) }}
     {{ dump(locales) }}
     {{ dump(currentlocale) }}
+{% endblock %}
+
+{% block main %}
 
     <form method="post" id="editcontent">
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
+        {#<input type="hidden" name="_edit_locale" value="{{ currentlocale }}">#}
 
         <!-- fields -->
         {% set groups = record.definition.groups %}
@@ -91,8 +94,10 @@
             {% if record.id %}
               <div class="card mb-3">
                 <div class="card-body">
+                    <p>Currently: <b>{{ currentlocale }}</b>.</p>
                   <general-language
                     label="{{ 'field.locale'|trans }}"
+                    current="{{ currentlocale }}"
                     :locales="{{ locales() }}"
                   ></general-language>
 
