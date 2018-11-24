@@ -40,7 +40,7 @@ homepage:
             uses: title
             group: meta
     viewless: true
-    locales: ['nl', 'en', 'pt_BR']
+    locales: ['en', 'nl', 'pt_BR']
     singleton: true
     default_status: published
     icon_many: "fa:home"

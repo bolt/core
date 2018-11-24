@@ -25,7 +25,7 @@ class LocaleExtension extends AbstractExtension
 
     public function __construct(string $locales, UrlGeneratorInterface $urlGenerator)
     {
-        $this->localeCodes = explode('|', $locales);
+        $this->localeCodes = collect(explode('|', $locales));
         $this->urlGenerator = $urlGenerator;
     }
 
@@ -39,6 +39,7 @@ class LocaleExtension extends AbstractExtension
 
         return [
             new TwigFunction('locales', [$this, 'getLocales'], $env),
+            new TwigFunction('contentlocales', [$this, 'getContentLocales'], $env),
             new TwigFunction('locale', [$this, 'getLocale']),
             new TwigFunction('flag', [$this, 'flag'], $safe),
         ];
@@ -60,6 +61,18 @@ class LocaleExtension extends AbstractExtension
             return $this->locales;
         }
 
+        $this->locales = $this->localeHelper($env, $this->localeCodes);
+
+        return $this->locales;
+    }
+
+    public function getContentLocales(Twig_Environment $env, Collection $localeCodes)
+    {
+        return $this->localeHelper($env, $localeCodes);
+    }
+
+    private function localeHelper(Twig_Environment $env, Collection $localeCodes)
+    {
         // Get the route and route params, to set the new localised link
         $globals = $env->getGlobals();
 
@@ -68,23 +81,31 @@ class LocaleExtension extends AbstractExtension
         $route = $request->attributes->get('_route');
         $routeParams = $request->attributes->get('_route_params');
 
-        $this->locales = new Collection();
-        foreach ($this->localeCodes as $localeCode) {
+        $locales = new Collection();
+        foreach ($localeCodes as $localeCode) {
             $locale = $this->localeInfo($localeCode);
             $routeParams['locale'] = $locale->get('code');
             $locale->put('link', $this->urlGenerator->generate($route, $routeParams));
 
-            $this->locales->push($locale);
+            $locales->push($locale);
         }
 
-        return $this->locales;
+        return $locales;
     }
 
     public function flag($localeCode)
     {
         $locale = $this->localeInfo($localeCode);
 
-        return $locale->get('flag');
+        $html = sprintf(
+            '<span class="fp mr-1 %s" title="%s - %s / %s"></span>',
+            $locale->get('flag'),
+            $locale->get('name'),
+            $locale->get('localisedname'),
+            $locale->get('code')
+        );
+
+        return $html;
     }
 
     private function localeInfo($localeCode)

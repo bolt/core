@@ -16,7 +16,8 @@
 {% block vue_id 'editor' %}
 
 {% block topsection %}
-    {{ dump(record.definition) }}
+    {{ dump(locales()) }}
+    {{ dump(contentlocales(locales)) }}
     {{ dump(locales) }}
     {{ dump(currentlocale) }}
 {% endblock %}
@@ -26,7 +27,7 @@
     <form method="post" id="editcontent">
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
-        {#<input type="hidden" name="_edit_locale" value="{{ currentlocale }}">#}
+        <input type="hidden" name="_edit_locale" value="{{ currentlocale }}">
 
         <!-- fields -->
         {% set groups = record.definition.groups %}
@@ -46,12 +47,9 @@
                     {% for key, fielddefinition in record.definition.fields %}
 
                         {% set type = fielddefinition.type %}
-                        {% set field = record.field(key) %}
+                        {% set field = record.localisedfield(key, currentlocale, false, fielddefinition) %}
                         {% set fieldgroup = fielddefinition.group %}
 
-                        {% if not field %}
-                            {% set field = fieldfactory(key, fielddefinition) %}
-                        {% endif %}
                         {% if fieldgroup == group %}
 
                             {% include[
@@ -94,11 +92,12 @@
             {% if record.id %}
               <div class="card mb-3">
                 <div class="card-body">
-                    <p>Currently: <b>{{ currentlocale }}</b>.</p>
+                    <p>{{ 'field.current_locale'|trans }}:
+                        {{ flag(currentlocale) }}<b>{{ currentlocale }}</b>.</p>
                   <general-language
-                    label="{{ 'field.locale'|trans }}"
+                    label="{{ 'field.switch_to_locale'|trans }}"
                     current="{{ currentlocale }}"
-                    :locales="{{ locales() }}"
+                    :locales="{{ contentlocales(locales) }}"
                   ></general-language>
 
                     <a href="{{ path('bolt_content_edit_locales', {'id': record.id}) }}" class="btn btn-light btn-small">
