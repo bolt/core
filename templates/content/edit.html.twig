@@ -16,10 +16,8 @@
 {% block vue_id 'editor' %}
 
 {% block topsection %}
-    {{ dump(locales()) }}
-    {{ dump(contentlocales(locales)) }}
-    {{ dump(locales) }}
-    {{ dump(currentlocale) }}
+
+
 {% endblock %}
 
 {% block main %}
@@ -48,9 +46,8 @@
 
                         {% set type = fielddefinition.type %}
                         {% set field = record.localisedfield(key, currentlocale, false, fielddefinition) %}
-                        {% set fieldgroup = fielddefinition.group %}
 
-                        {% if fieldgroup == group %}
+                        {% if fielddefinition.group == group %}
 
                             {% include[
                                 '_partials/fields/' ~ type ~ '.html.twig',
@@ -119,8 +116,6 @@
                         'form' : 'editcontent'
                     } %}
 
-                    {#<input type="text" name="author" value="{{ record.author }}">#}
-
                     {% include '@bolt/_partials/fields/date.html.twig' with {
                         'label' : 'field.createdAt' | trans,
                         'name' : 'createdAt',
@@ -152,6 +147,13 @@
                         'name' : 'depublishedAt',
                         'mode' : 'datetime',
                         'form' : 'editcontent'
+                    } %}
+
+                    {% include '@bolt/_partials/fields/text.html.twig' with {
+                        'label' : 'field.author' | trans,
+                        'name' : 'author',
+                        'value' : record.author.fullName,
+                        'disabled' : true
                     } %}
 
                     {% include '@bolt/_partials/fields/text.html.twig' with {

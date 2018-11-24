@@ -99,8 +99,8 @@ class ContentEditController extends BaseController
 
     private function updateFieldFromPost(string $key, $postfield, Content $content, string $locale): void
     {
-        if ($content->hasField($key)) {
-            $field = $content->getField($key);
+        if ($content->hasLocalisedField($key, $locale)) {
+            $field = $content->getLocalisedField($key, $locale);
         } else {
             $fields = collect($content->getDefinition()->get('fields'));
             $field = Field::factory($fields->get($key)['type']);
