@@ -46,13 +46,15 @@ trait ContentMagicTraits
         }
     }
 
-    public function get(string $name): Field
+    public function get(string $name): ?Field
     {
         foreach ($this->fields as $field) {
             if ($field->getName() === $name) {
                 return $field;
             }
         }
+
+        return null;
     }
 
     public function has(string $name): bool

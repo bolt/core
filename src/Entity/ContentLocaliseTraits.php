@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-trait ContentMagicTraits
+trait ContentLocaliseTraits
 {
-
     public function getLocales()
     {
         $locales = $this->getDefinition()->get('locales');
+
+        if (empty($locales)) {
+            $locales = [''];
+        }
 
         return collect($locales);
     }
@@ -19,13 +22,12 @@ trait ContentMagicTraits
         return $this->getLocales()->first();
     }
 
-
     /**
      * @return Collection|Field[]
      */
     public function getLocalisedFields(string $locale = '', bool $fallback = true): \Tightenco\Collect\Support\Collection
     {
-        if (!$locale) {
+        if (! $locale) {
             $locale = $this->getDefaultLocale();
         }
 
@@ -39,9 +41,10 @@ trait ContentMagicTraits
         return $fields;
     }
 
-    public function hasLocalisedField(string $name, string $locale = '') {
+    public function hasLocalisedField(string $name, string $locale = '')
+    {
         foreach ($this->fields as $field) {
-            if ($field->getName() == $name && in_array($field->getLocale(), [$locale, ''])) {
+            if ($field->getName() === $name && in_array($field->getLocale(), [$locale, ''], true)) {
                 return true;
             }
         }
@@ -53,7 +56,7 @@ trait ContentMagicTraits
     {
         // First, see if we have the field, in the correct locale
         foreach ($this->fields as $field) {
-            if ($field->getName() == $name && in_array($field->getLocale(), [$locale, ''])) {
+            if ($field->getName() === $name && in_array($field->getLocale(), [$locale, ''], true)) {
                 return $field;
             }
         }
@@ -61,19 +64,18 @@ trait ContentMagicTraits
         // Second, see if we have the field, in the fallback locale
         if ($fallback) {
             foreach ($this->fields as $field) {
-                if ($field->getName() == $name && $field->getLocale() == $this->getDefaultLocale()) {
+                if ($field->getName() === $name && $field->getLocale() === $this->getDefaultLocale()) {
                     return $field;
                 }
             }
         }
 
         // Third, see if we can create the field on the fly
-        if (!empty($definition)) {
-            return Field::factory($definition['type'], $name, $definition);
+        if (! empty($definition)) {
+            return Field::factory($definition, $name);
         }
 
         // Alas, return an empty array
         return [];
     }
-
 }

@@ -97,15 +97,13 @@ class LocaleExtension extends AbstractExtension
     {
         $locale = $this->localeInfo($localeCode);
 
-        $html = sprintf(
+        return sprintf(
             '<span class="fp mr-1 %s" title="%s - %s / %s"></span>',
             $locale->get('flag'),
             $locale->get('name'),
             $locale->get('localisedname'),
             $locale->get('code')
         );
-
-        return $html;
     }
 
     private function localeInfo($localeCode)

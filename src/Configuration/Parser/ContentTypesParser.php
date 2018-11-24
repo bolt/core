@@ -113,9 +113,9 @@ class ContentTypesParser extends BaseParser
             $contentType['singleton'] = false;
         }
 
-        if (!isset($contentType['locales'])) {
+        if (! isset($contentType['locales'])) {
             $contentType['locales'] = [];
-        } else if (is_string($contentType['locales'])) {
+        } elseif (is_string($contentType['locales'])) {
             $contentType['locales'] = (array) $contentType['locales'];
         }
 

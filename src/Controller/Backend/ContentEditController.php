@@ -103,7 +103,7 @@ class ContentEditController extends BaseController
             $field = $content->getLocalisedField($key, $locale);
         } else {
             $fields = collect($content->getDefinition()->get('fields'));
-            $field = Field::factory($fields->get($key)['type']);
+            $field = Field::factory($fields->get($key), $key);
             $field->setName($key);
             $content->addField($field);
         }
@@ -117,25 +117,20 @@ class ContentEditController extends BaseController
         }
     }
 
-
     private function getEditLocale(Request $request, Content $content): string
     {
-        $locale = $request->query->get('locale');
+        $locale = $request->query->get('locale', '');
         $locales = $content->getLocales();
 
-        if (!$locales->contains($locale)) {
+        if (! $locales->contains($locale)) {
             $locale = $locales->first();
         }
 
         return $locale;
     }
 
-
     private function getPostedLocale(array $post): string
     {
-        $locale = $post['_edit_locale'] ?: '';
-
-        return $locale;
+        return $post['_edit_locale'] ?: '';
     }
-
 }
