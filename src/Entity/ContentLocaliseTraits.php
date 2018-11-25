@@ -44,7 +44,7 @@ trait ContentLocaliseTraits
     public function hasLocalisedField(string $name, string $locale = '')
     {
         foreach ($this->fields as $field) {
-            if ($field->getName() === $name && in_array($field->getLocale(), [$locale, ''], true)) {
+            if ($field->getName() === $name && in_array($field->getLocale(), [$locale, '', null], true)) {
                 return true;
             }
         }
@@ -56,7 +56,7 @@ trait ContentLocaliseTraits
     {
         // First, see if we have the field, in the correct locale
         foreach ($this->fields as $field) {
-            if ($field->getName() === $name && in_array($field->getLocale(), [$locale, ''], true)) {
+            if ($field->getName() === $name && in_array($field->getLocale(), [$locale, '', null], true)) {
                 return $field;
             }
         }
@@ -75,7 +75,7 @@ trait ContentLocaliseTraits
             return Field::factory($definition, $name);
         }
 
-        // Alas, return an empty array
-        return [];
+        // Alas, return an empty generic Field
+        return Field::factory(['type' => 'generic']);
     }
 }

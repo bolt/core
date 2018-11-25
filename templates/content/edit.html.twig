@@ -48,7 +48,6 @@
                         {% set field = record.localisedfield(key, currentlocale, false, fielddefinition) %}
 
                         {% if fielddefinition.group == group %}
-
                             {% include[
                                 '_partials/fields/' ~ type ~ '.html.twig',
                                 '_partials/fields/generic.html.twig'
@@ -86,7 +85,7 @@
               </div>
             </div>
 
-            {% if record.id %}
+            {% if record.id and currentlocale %}
               <div class="card mb-3">
                 <div class="card-body">
                     <p>{{ 'field.current_locale'|trans }}:

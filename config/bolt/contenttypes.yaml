@@ -14,6 +14,7 @@ homepage:
             class: large
             group: content
             localise: true
+            label: Title
             postfix: |
                 The 'Homepage' can contain basic information about the website. This title will be
                 shown on the homepage of the website, as the name implies. To change the
@@ -40,7 +41,7 @@ homepage:
             uses: title
             group: meta
     viewless: true
-    locales: ['en', 'nl', 'pt_BR']
+    locales: ['en', 'nl', 'pt_BR', 'es']
     singleton: true
     default_status: published
     icon_many: "fa:home"

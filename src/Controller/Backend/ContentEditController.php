@@ -68,7 +68,11 @@ class ContentEditController extends BaseController
 
         $this->addFlash('success', 'content.updated_successfully');
 
-        $url = $urlGenerator->generate('bolt_content_edit', ['id' => $content->getId()]);
+        $urlParams = [
+            'id' => $content->getId(),
+            'locale' => $this->getEditLocale($request, $content) ?: null
+        ];
+        $url = $urlGenerator->generate('bolt_content_edit', $urlParams);
 
         return new RedirectResponse($url);
     }
