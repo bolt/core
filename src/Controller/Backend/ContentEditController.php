@@ -70,7 +70,7 @@ class ContentEditController extends BaseController
 
         $urlParams = [
             'id' => $content->getId(),
-            'locale' => $this->getEditLocale($request, $content) ?: null
+            'locale' => $this->getEditLocale($request, $content) ?: null,
         ];
         $url = $urlGenerator->generate('bolt_content_edit', $urlParams);
 

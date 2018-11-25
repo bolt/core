@@ -22,9 +22,6 @@ trait ContentLocaliseTraits
         return $this->getLocales()->first();
     }
 
-    /**
-     * @return Collection|Field[]
-     */
     public function getLocalisedFields(string $locale = '', bool $fallback = true): \Tightenco\Collect\Support\Collection
     {
         if (! $locale) {
