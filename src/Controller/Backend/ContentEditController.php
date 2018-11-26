@@ -41,9 +41,13 @@ class ContentEditController extends BaseController
             $content->setConfig($this->config);
         }
 
-        return $this->renderTemplate('content/edit.html.twig', [
+        $twigvars = [
             'record' => $content,
-        ]);
+            'locales' => $content->getLocales(),
+            'currentlocale' => $this->getEditLocale($request, $content),
+        ];
+
+        return $this->renderTemplate('content/edit.html.twig', $twigvars);
     }
 
     /**
@@ -64,7 +68,11 @@ class ContentEditController extends BaseController
 
         $this->addFlash('success', 'content.updated_successfully');
 
-        $url = $urlGenerator->generate('bolt_content_edit', ['id' => $content->getId()]);
+        $urlParams = [
+            'id' => $content->getId(),
+            'locale' => $this->getEditLocale($request, $content) ?: null,
+        ];
+        $url = $urlGenerator->generate('bolt_content_edit', $urlParams);
 
         return new RedirectResponse($url);
     }
@@ -72,6 +80,8 @@ class ContentEditController extends BaseController
     private function contentFromPost(?Content $content, Request $request): Content
     {
         $post = $request->request->all();
+
+        $locale = $this->getPostedLocale($post);
 
         if (! $content) {
             $content = new Content();
@@ -85,23 +95,46 @@ class ContentEditController extends BaseController
         $content->setDepublishedAt(new Carbon($post['depublishedAt']));
 
         foreach ($post['fields'] as $key => $postfield) {
-            $this->updateFieldFromPost($key, $postfield, $content);
+            $this->updateFieldFromPost($key, $postfield, $content, $locale);
         }
 
         return $content;
     }
 
-    private function updateFieldFromPost(string $key, $postfield, Content $content): void
+    private function updateFieldFromPost(string $key, $postfield, Content $content, string $locale): void
     {
-        if ($content->hasField($key)) {
-            $field = $content->getField($key);
+        if ($content->hasLocalisedField($key, $locale)) {
+            $field = $content->getLocalisedField($key, $locale);
         } else {
             $fields = collect($content->getDefinition()->get('fields'));
-            $field = Field::factory($fields->get($key)['type']);
+            $field = Field::factory($fields->get($key), $key);
             $field->setName($key);
             $content->addField($field);
         }
 
         $field->setValue((array) $postfield);
+
+        if ($field->getDefinition()->get('localise')) {
+            $field->setLocale($locale);
+        } else {
+            $field->setLocale('');
+        }
+    }
+
+    private function getEditLocale(Request $request, Content $content): string
+    {
+        $locale = $request->query->get('locale', '');
+        $locales = $content->getLocales();
+
+        if (! $locales->contains($locale)) {
+            $locale = $locales->first();
+        }
+
+        return $locale;
+    }
+
+    private function getPostedLocale(array $post): string
+    {
+        return $post['_edit_locale'] ?: '';
     }
 }

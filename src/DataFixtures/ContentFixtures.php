@@ -62,7 +62,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    $field = Field::factory($fieldType['type']);
+                    $field = Field::factory($fieldType, $name);
                     $field->setName($name);
                     $field->setValue($this->getValuesforFieldType($name, $fieldType));
                     $field->setSortorder($sortorder++ * 5);

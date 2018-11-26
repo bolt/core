@@ -1,0 +1,69 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% set alltypes = ['select'] %}
+{% for key, fielddefinition in record.definition.fields %}
+    {% set alltypes = alltypes | merge([fielddefinition.type]) %}
+{% endfor %}
+
+{% block title %}
+    {{ icon(record) }}
+    {{ 'caption.edit'|trans }}
+    {{ record.definition.singular_name }}
+    »
+    <strong>{{ record.title|excerpt(50)|default('New') }}</strong>
+{% endblock %}
+
+{#{% block vue_id 'editor' %}#}
+
+{% block main %}
+
+    {% set locales = record.definition.locales %}
+
+    <table class="table">
+        <tr>
+            <th>Field</th>
+            {% for locale in locales %}
+                <th>{{ flag(locale) }}{{ locale }}</th>
+            {% endfor %}
+        </tr>
+        {% for name, field in record.localisedfields %}
+            <tr>
+                <td>
+                    <b>{{ field.definition.label|default(field.name) }}</b><br>
+                    Type: {{ field.definition.type }}<br>
+                </td>
+                {% for locale in locales %}
+                    <td>
+                        {% set value = record.localisedfield(field.name, locale, false) %}
+                        {% if not field.definition.localise and not loop.first %}
+                            <span class="badge badge-info">Default</span>
+                        {% elseif value %}
+                            <span class="badge badge-success">OK</span>
+                        {% else %}
+                            <span class="badge badge-warning">Missing</span>
+                        {% endif %}
+                    </td>
+
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
+        <tr>
+            <td>&nbsp;</td>
+            {% for locale in locales %}
+                <td>
+                    <a href="{{ path('bolt_content_edit', {'id': record.id, 'locale': locale}) }}" class="btn btn-secondary btn-sm">
+                        {{ 'action.edit'|trans }}
+                    </a>
+                </td>
+
+            {% endfor %}
+        </tr>
+
+    </table>
+
+{% endblock %}
+
+{% block aside %}
+
+{% endblock aside %}

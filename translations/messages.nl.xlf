@@ -12,13 +12,13 @@
       </trans-unit>
       <trans-unit id="LDhDPrF" resname="label.username">
         <source>label.username</source>
-        <target>__label.username</target>
+        <target>Gebruikersnaam</target>
         <note priority="1">templates/security/login.twig:66</note>
         <note priority="1">src/Form/UserType.php:31</note>
       </trans-unit>
       <trans-unit id="9pvowqn" resname="label.password">
         <source>label.password</source>
-        <target>__label.password</target>
+        <target>Wachtwoord</target>
         <note priority="1">templates/security/login.twig:70</note>
         <note priority="1">templates/security/login.twig:75</note>
       </trans-unit>
@@ -542,6 +542,22 @@
       <trans-unit id="y5otxEK" resname="caption.filename">
         <source>caption.filename</source>
         <target>__caption.filename</target>
+      </trans-unit>
+      <trans-unit id="8zEzq8N" resname="field.current_locale">
+        <source>field.current_locale</source>
+        <target>Huidige locale</target>
+      </trans-unit>
+      <trans-unit id="ahZvOJz" resname="field.switch_to_locale">
+        <source>field.switch_to_locale</source>
+        <target>Wissel naar locale</target>
+      </trans-unit>
+      <trans-unit id="aQX4Emy" resname="field.author">
+        <source>field.author</source>
+        <target>Auteur</target>
+      </trans-unit>
+      <trans-unit id="ovKkXwU" resname="action.edit">
+        <source>action.edit</source>
+        <target>__action.edit</target>
       </trans-unit>
     </body>
   </file>

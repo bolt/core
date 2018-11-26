@@ -37,10 +37,15 @@
 
 {% set class = class %}
 
-
 {# Set the label #}
 {% if not label|default() %}
     {% set label = field.definition.label|default(field.name|ucwords) ~ ':' %}
+{% endif %}
+
+{% if field.definition is defined %}
+    {% set localise = field.definition.localise|default(false) %}
+{% else %}
+    {% set localise = false %}
 {% endif %}
 
 {# Set the prefix and postfix attributes #}
@@ -58,16 +63,13 @@
 
 <!-- field " {{ type }} {{ variant }} {{ label }} {{ name }} -->
 <div class="form-group editor--group is-{{variant}}">
-{% if prefix %}
-    {% include '_partials/fields/_partials/_helper.html.twig' with { type: 'prefix', message: prefix} %}
-{% endif %}
+
+{{ prefix|raw }}
 {% block label %}
-    {% include '_partials/fields/_partials/_label.html.twig' %}
+    {% include '_partials/fields/_label.html.twig' %}
 {% endblock %}
 {% block field %}
 
 {% endblock %}
-{% if postfix %}
-    {% include '_partials/fields/_partials/_helper.html.twig' with { type: 'postfix', message: postfix} %}
-{% endif %}
+{{ postfix|raw }}
 </div>

@@ -68,15 +68,6 @@ class ContentHelperExtension extends AbstractExtension
         return $this->menu;
     }
 
-    public function fieldfactory($name, $definition)
-    {
-        $field = Field::factory($definition['type']);
-        $field->setName($name);
-        $field->setDefinition($name, $definition);
-
-        return $field;
-    }
-
     public function icon($record, $icon = 'question-circle')
     {
         if ($record instanceof Content) {

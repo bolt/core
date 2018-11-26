@@ -567,6 +567,22 @@
         <source>field.locale</source>
         <target>Locale</target>
       </trans-unit>
+      <trans-unit id="8zEzq8N" resname="field.current_locale">
+        <source>field.current_locale</source>
+        <target>Current locale</target>
+      </trans-unit>
+      <trans-unit id="ahZvOJz" resname="field.switch_to_locale">
+        <source>field.switch_to_locale</source>
+        <target>Switch to locale</target>
+      </trans-unit>
+      <trans-unit id="aQX4Emy" resname="field.author">
+        <source>field.author</source>
+        <target>Author</target>
+      </trans-unit>
+      <trans-unit id="ovKkXwU" resname="action.edit">
+        <source>action.edit</source>
+        <target>__action.edit</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

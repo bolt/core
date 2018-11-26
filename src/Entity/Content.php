@@ -35,6 +35,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 class Content
 {
     use ContentMagicTraits;
+    use ContentLocaliseTraits;
 
     public const NUM_ITEMS = 8; // @todo This can't be a const
 
