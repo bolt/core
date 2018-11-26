@@ -54,9 +54,7 @@
         {% endif %}
 
         <form action="{{ path('bolt_login') }}" method="post" class="" id="login-form">
-            {# TODO: Add _target_path hidden input as Vue Component #}
             <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
-            {# TODO: Add _csrf_token hidden input as Vue Component #}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label' : 'label.fullname'|trans,
@@ -71,12 +69,10 @@
                 'value': '',
                 'class': 'form-control',
             } %}
-            {# TODO: Add remember me checkbox as Vue Component #}
             <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" name="_remember_me" id="_remember_me">
                 <label class="form-check-label" for="_remember_me">{{ 'label.rememberme'|trans }}</label>
             </div>
-            {# TODO: Add submit button as Vue Component #}
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
                 {{ 'action.log_in'|trans }}
