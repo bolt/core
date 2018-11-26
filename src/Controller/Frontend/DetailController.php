@@ -29,8 +29,6 @@ class DetailController extends BaseController
      *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
      *
-     * @param null $slug
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax

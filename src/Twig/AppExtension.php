@@ -10,7 +10,7 @@ use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    public function __construct(string $locales)
+    public function __construct()
     {
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Entity\Content;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -69,10 +70,8 @@ final class ArrayExtension extends AbstractExtension
 
     /**
      * Randomly shuffle the contents of a passed array.
-     *
-     * @param array $array
      */
-    public function shuffle($array): array
+    public function shuffle(array $array): array
     {
         if (is_array($array)) {
             shuffle($array);
@@ -86,8 +85,6 @@ final class ArrayExtension extends AbstractExtension
      *
      * @param string $on
      * @param string $onSecondary
-     *
-     * @throws \InvalidArgumentException
      */
     public function order(array $array, $on, $onSecondary = null): array
     {
@@ -109,7 +106,9 @@ final class ArrayExtension extends AbstractExtension
             $this->orderAscendingSecondary = false;
         }
 
-        uasort($array, [$this, 'orderHelper']);
+        uasort($array, function ($a, $b): void {
+            $this->orderHelper($a, $b);
+        });
 
         return $array;
     }
@@ -117,10 +116,8 @@ final class ArrayExtension extends AbstractExtension
     /**
      * Get sorting order of name, stripping possible "DESC", "ASC", and also
      * return the sorting order.
-     *
-     * @param string $name
      */
-    private function getSortOrder($name = '-datepublish'): array
+    private function getSortOrder(string $name = '-datepublish'): array
     {
         $parts = explode(' ', $name);
         $fieldName = $parts[0];
@@ -139,11 +136,8 @@ final class ArrayExtension extends AbstractExtension
 
     /**
      * Helper function for sorting an array of \Bolt\Legacy\Content.
-     *
-     * @param \Bolt\Legacy\Content|array $a
-     * @param \Bolt\Legacy\Content|array $b
      */
-    private function orderHelper($a, $b): bool
+    private function orderHelper(Content $a, Content $b): bool
     {
         $aVal = $a[$this->orderOn];
         $bVal = $b[$this->orderOn];

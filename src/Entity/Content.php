@@ -35,10 +35,11 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 class Content
 {
     use ContentMagicTraits;
+    use ContentLocaliseTraits;
 
-    public const NUM_ITEMS = 8; // @todo this can't be a const
+    public const NUM_ITEMS = 8; // @todo This can't be a const
 
-    public const STATUSES = ['published', 'held', 'timed', 'draft']; // @todo move to Enum
+    public const STATUSES = ['published', 'held', 'timed', 'draft']; // @todo Move to Enum
 
     /**
      * @ORM\Id()
@@ -165,6 +166,11 @@ class Content
         $this->urlGenerator = $urlGenerator;
     }
 
+    public function getUrlGenerator(): UrlGeneratorInterface
+    {
+        return $this->urlGenerator;
+    }
+
     public function getDefinition()
     {
         return $this->contentTypeDefinition;
@@ -191,9 +197,9 @@ class Content
             'status' => $this->getStatus(),
             'icon' => $this->getDefinition()->get('icon_one'),
             'createdAt' => $this->getCreatedAt(),
-            'modifiedAt' => $this->modifiedAt(),
+            'modifiedAt' => $this->getModifiedAt(),
             'publishedAt' => $this->getPublishedAt(),
-            'depublishedAt' => $this->depublishedAt(),
+            'depublishedAt' => $this->getDepublishedAt(),
         ];
     }
 
@@ -290,6 +296,11 @@ class Content
     public function getFields(): Collection
     {
         return $this->fields;
+    }
+
+    public function hasField(string $name): bool
+    {
+        return collect($this->fields)->contains('name', $name);
     }
 
     public function getField(string $name): ?Field

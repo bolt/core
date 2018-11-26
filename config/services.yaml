@@ -3,7 +3,7 @@
 parameters:
     locale: 'en'
     # This parameter defines the codes of the locales (languages) enabled in the application
-    app_locales: en|nl|es|fr|de|pl|it|pt_BR
+    app_locales: en|nl|nl_NL|nl_BE|es|fr|de|pl|it|pt_BR
     app.notifications.email_sender: anonymous@example.com
 
 services:

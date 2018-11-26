@@ -14,6 +14,8 @@ use Faker\Generator;
 use PHPExif\Reader\Reader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 use Tightenco\Collect\Support\Collection;
 
 class MediaFactory
@@ -50,6 +52,9 @@ class MediaFactory
         $this->mediatypes = $config->getMediaTypes();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function createOrUpdateMedia(SplFileInfo $file, string $area): Media
     {
         $media = $this->mediaRepository->findOneBy([
@@ -63,6 +68,11 @@ class MediaFactory
             $media->setFilename($file->getFilename())
                 ->setPath($file->getRelativePath())
                 ->setArea($area);
+        }
+
+        if (! $this->mediatypes->contains($file->getExtension())) {
+            // @todo We're throwing a generic Exception here. Needs to be handled better.
+            throw new \Exception('Not a valid media type.');
         }
 
         $media->setType($file->getExtension())
@@ -111,17 +121,21 @@ class MediaFactory
             throw new \LogicException('The SecurityBundle is not registered in your application. Try running "composer require symfony/security-bundle".');
         }
 
-        $token = $this->container->get('security.token_storage')->getToken();
+        /** @var TokenStorage $tokenStorage */
+        $tokenStorage = $this->container->get('security.token_storage');
+
+        /** @var PostAuthenticationGuardToken $token */
+        $token = $tokenStorage->getToken();
         if ($token === null) {
             return null;
         }
 
-        if (! is_object($user = $token->getUser())) {
-            // e.g. anonymous authentication
-            return null;
+        if (is_object($token->getUser())) {
+            return $token->getUser();
         }
 
-        return $user;
+        // e.g. anonymous authentication
+        return null;
     }
 
     public function createFromFilename($area, $path, $filename): Media

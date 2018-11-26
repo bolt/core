@@ -122,14 +122,22 @@ class Field
     /**
      * @return Field
      */
-    public static function factory(string $name = 'generic'): self
+    public static function factory(array $definition, string $name = ''): self
     {
-        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($name) . 'Field';
+        $type = $definition['type'];
+
+        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($type) . 'Field';
         if (class_exists($classname)) {
             $field = new $classname();
         } else {
             $field = new self();
         }
+
+        if (! empty($name)) {
+            $field->setName($name);
+        }
+
+        $field->setDefinition($type, $definition);
 
         return $field;
     }

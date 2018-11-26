@@ -36,8 +36,8 @@ class ImageController
             'cache' => $this->config->getPath('cache', true, 'thumbnails'),
         ]);
 
-        if ($path = $request->query->get('path')) {
-            $filename = sprintf('%s/%s', $path, $filename);
+        if ($request->query->has('path')) {
+            $filename = sprintf('%s/%s', $request->query->get('path'), $filename);
         }
 
         /** @var StreamedResponse $response */

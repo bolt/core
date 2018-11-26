@@ -16,7 +16,7 @@ class Html
      *
      * @return string Trimmed string
      */
-    public static function trimText($str, $desiredLength, $hellip = true, $cutOffCap = 10): string
+    public static function trimText(string $str, int $desiredLength, bool $hellip = true, int $cutOffCap = 10): string
     {
         if ($hellip) {
             $ellipseStr = ' …';
@@ -31,15 +31,14 @@ class Html
         if (mb_strlen($str) > $desiredLength) {
             $nextChar = mb_substr($str, $newLength, 1);
             $str = mb_substr($str, 0, $newLength);
-            if ($nextChar !== ' ') {
-                if (($lastSpace = mb_strrpos($str, ' ')) !== false) {
-                    // Check for to long cutoff
-                    if (mb_strlen($str) - $lastSpace >= $cutOffCap) {
-                        // Trim the ellipse, as we do not want a space now
-                        return $str . trim($ellipseStr);
-                    }
-                    $str = mb_substr($str, 0, $lastSpace);
+            $lastSpace = mb_strrpos($str, ' ');
+            if ($nextChar !== ' ' && $lastSpace !== false) {
+                // Check for too long cutoff
+                if (mb_strlen($str) - $lastSpace >= $cutOffCap) {
+                    // Trim the ellipse, as we do not want a space now
+                    return $str . trim($ellipseStr);
                 }
+                $str = mb_substr($str, 0, $lastSpace);
             }
             $str .= $ellipseStr;
         }

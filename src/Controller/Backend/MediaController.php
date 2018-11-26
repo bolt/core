@@ -78,7 +78,7 @@ class MediaController extends BaseController
         $glob = sprintf('*.{%s}', $this->config->getMediaTypes()->implode(','));
 
         $finder = new Finder();
-        $finder->in($fullpath)->depth('< 2')->sortByName(true)->name($glob)->files();
+        $finder->in($fullpath)->depth('< 2')->sortByName()->name($glob)->files();
 
         return $finder;
     }

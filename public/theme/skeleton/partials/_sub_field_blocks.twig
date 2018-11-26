@@ -73,14 +73,14 @@
 
     {# Special case for 'select' fields: if it's a multiple select, the value is an array. #}
     {% if fieldtype == "select" and value is not empty %}
-        <p><strong>{{ record.contenttype.fields[key].label|default(key) }}: </strong>
+        <p><strong>{{ value.definition.label|default(value.name) }}: </strong>
         {{ value|join(", ") }}
         </p>
     {% endif %}
 
     {# Checkbox fields #}
     {% if fieldtype == "checkbox" %}
-        <p><strong>{{ record.contenttype.fields[key].label|default(key) }}</strong>: {{ value ? "checked" : "not checked" }}</p>
+        <p><strong>{{ value.definition.label|default(value.name) }}</strong>: {{ value ? "checked" : "not checked" }}</p>
     {% endif %}
 
     {# Imagelist fields #}
@@ -91,7 +91,7 @@
     {# No special case defined for this type of field. We just output them, if it's
        a simple scalar, and 'dump' them otherwise. #}
     {% if fieldtype in [ 'filelist', 'datetime', 'date', 'integer', 'float' ] and value is not empty  %}
-        <p><strong>{{ record.contenttype.fields[key].label|default(key) }}: </strong>
+        <p><strong>{{ value.definition.label|default(value.name) }}: </strong>
         {% if value is iterable %}
             {{ dump(value) }}
         {% else %}

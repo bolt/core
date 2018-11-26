@@ -33,7 +33,7 @@ class HomepageController extends BaseController
         $homepage = $this->getOption('theme/homepage') ?: $this->getOption('general/homepage');
         $params = explode('/', $homepage);
 
-        // todo get $homepage content, using "setcontent"
+        // @todo Get $homepage content, using "setcontent"
         $record = $contentRepository->findOneBy([
             'contentType' => $params[0],
             'id' => $params[1],
