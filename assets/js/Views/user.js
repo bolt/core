@@ -5,6 +5,8 @@ import Vue from "vue";
 import Theme from "../Components/User/Theme";
 import Password from "../Components/Password/Password";
 import Email from "../Components/Email/Email";
+import Text from "../app/editor/Components/Editor/Text/Text";
+import Label from "../app/editor/Components/Editor/_Partials/Label";
 
 /**
  * Register Components
@@ -12,7 +14,16 @@ import Email from "../Components/Email/Email";
 Vue.component("user-theme", Theme);
 Vue.component("field-password", Password);
 Vue.component("field-email", Email);
+Vue.component("editor-text", Text);
+Vue.component("editor-label", Label);
 
-new Vue({ el: "#user", name: "user" });
-new Vue({ el: "#user-password", name: "field-password" });
-new Vue({ el: "#user-email", name: "field-password" });
+new Vue({
+    el: "#login-form",
+    name: "bolt-login",
+    components: {
+        "editor-text": Text,
+        "field-password": Password,
+        "editor-label": Label
+    }
+})
+
