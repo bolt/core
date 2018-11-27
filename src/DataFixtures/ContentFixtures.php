@@ -49,7 +49,8 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             $amount = $contentType['singleton'] ? 1 : 15;
 
             foreach (range(1, $amount) as $i) {
-                $author = $this->getReference($i === ['jane_admin', 'tom_admin'][0 ?: random_int(0, 1)]);
+                $ref = $i === 0 ? 'admin' : ['admin', 'henkie', 'jane_admin', 'tom_admin'][random_int(0, 3)];
+                $author = $this->getReference($ref);
 
                 $content = new Content();
                 $content->setContenttype($contentType['slug']);
