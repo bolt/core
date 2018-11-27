@@ -6,7 +6,6 @@ import Theme from "../Components/User/Theme";
 import Password from "../Components/Password/Password";
 import Email from "../Components/Email/Email";
 import Text from "../app/editor/Components/Editor/Text/Text";
-import Label from "../app/editor/Components/Editor/_Partials/Label";
 
 /**
  * Register Components

@@ -15,17 +15,16 @@ import {
   Html,
   Markdown,
   Textarea,
-  Image,
-  Label
+  Image
 } from './Components/Editor';
 
 import {
   Language
 } from './Components/General';
 
-new Vue({ 
+new Vue({
   store,
-  el: "#editor", 
+  el: "#editor",
   name: "bolt-editor",
   components: {
     "general-language": Language,
@@ -38,7 +37,6 @@ new Vue({
     "editor-html": Html,
     "editor-markdown": Markdown,
     "editor-textarea": Textarea,
-    "editor-image": Image,
-    "editor-label": Label
+    "editor-image": Image
   }
 });
