@@ -14,7 +14,6 @@ Vue.component("user-theme", Theme);
 Vue.component("field-password", Password);
 Vue.component("field-email", Email);
 Vue.component("editor-text", Text);
-Vue.component("editor-label", Label);
 
 new Vue({
     el: "#login-form",
@@ -22,7 +21,6 @@ new Vue({
     components: {
         "editor-text": Text,
         "field-password": Password,
-        "editor-label": Label
     }
 })
 
