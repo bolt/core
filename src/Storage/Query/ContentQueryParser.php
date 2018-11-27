@@ -21,7 +21,6 @@ use Bolt\Storage\Query\Handler\FirstQueryHandler;
 use Bolt\Storage\Query\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Query\Handler\LatestQueryHandler;
 use Bolt\Storage\Query\Handler\NativeSearchHandler;
-use Bolt\Storage\Query\Handler\RandomQueryHandler;
 use Bolt\Storage\Query\Handler\SearchQueryHandler;
 use Bolt\Storage\Query\Handler\SelectQueryHandler;
 
@@ -47,7 +46,7 @@ class ContentQueryParser
     /** @var string */
     protected $identifier;
     /** @var array */
-    protected $operations = ['search', 'latest', 'first', 'random', 'nativesearch'];
+    protected $operations = ['search', 'latest', 'first', 'nativesearch'];
     /** @var array */
     protected $directives = [];
     /** @var callable[] */
@@ -83,7 +82,6 @@ class ContentQueryParser
     {
         $this->addHandler('select', new SelectQueryHandler());
         $this->addHandler('search', new SearchQueryHandler());
-        $this->addHandler('random', new RandomQueryHandler());
         $this->addHandler('first', new FirstQueryHandler());
         $this->addHandler('latest', new LatestQueryHandler());
         $this->addHandler('nativesearch', new NativeSearchHandler());

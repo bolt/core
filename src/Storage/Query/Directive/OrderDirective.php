@@ -38,7 +38,26 @@ class OrderDirective
             } else {
                 $direction = null;
             }
-            $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
+
+            // - Check if its a column
+            // - Check if its a row in `bolt_fields`
+            $coreFields = [
+                'id',
+                'created_at',
+                'modified_at',
+                'published_at',
+                'depublished_at',
+                'author_id',
+                'status',
+            ];
+
+            if (in_array($order, $coreFields)) {
+                $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
+            } else {
+                // need a merge, but will not be possible with multiple values?
+                // $query->getQueryBuilder()->addOrderBy('fields_1'.$order, $direction);
+                throw new \Exception('not implemented yet ...');
+            }
         }
     }
 
