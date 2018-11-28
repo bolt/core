@@ -91,10 +91,10 @@ class Field
     private $sortorder = 0;
 
     /**
-     * @ORM\Column(type="string", length=191, nullable=true)
+     * @ORM\Column(type="string", length=191)
      * @Groups("public")
      */
-    private $locale;
+    private $locale = '';
 
     /**
      * @ORM\Column(type="integer", nullable=true)

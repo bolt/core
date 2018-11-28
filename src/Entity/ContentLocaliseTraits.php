@@ -41,7 +41,7 @@ trait ContentLocaliseTraits
     public function hasLocalisedField(string $name, string $locale = '')
     {
         foreach ($this->fields as $field) {
-            if ($field->getName() === $name && in_array($field->getLocale(), [$locale, '', null], true)) {
+            if ($field->getName() === $name && ($field->getDefinition()->get('localise') === false || $field->getLocale() === $locale)) {
                 return true;
             }
         }
@@ -51,14 +51,14 @@ trait ContentLocaliseTraits
 
     public function getLocalisedField(string $name, string $locale = '', bool $fallback = true, array $definition = [])
     {
-        // First, see if we have the field, in the correct locale
+        // First: see if we have the field, in the correct locale
         foreach ($this->fields as $field) {
-            if ($field->getName() === $name && in_array($field->getLocale(), [$locale, '', null], true)) {
+            if ($field->getName() === $name && ($field->getDefinition()->get('localise') === false || $field->getLocale() === $locale)) {
                 return $field;
             }
         }
 
-        // Second, see if we have the field, in the fallback locale
+        // Second: see if we have the field, in the fallback locale
         if ($fallback) {
             foreach ($this->fields as $field) {
                 if ($field->getName() === $name && $field->getLocale() === $this->getDefaultLocale()) {
@@ -67,7 +67,16 @@ trait ContentLocaliseTraits
             }
         }
 
-        // Third, see if we can create the field on the fly
+        // Third: see if we have the field, with no locale set, or we're asking for the default locale
+        if ($fallback || $locale === $this->getDefaultLocale()) {
+            foreach ($this->fields as $field) {
+                if ($field->getName() === $name && empty($field->getLocale())) {
+                    return $field;
+                }
+            }
+        }
+
+        // Fourth: see if we can create the field on the fly
         if (! empty($definition)) {
             return Field::factory($definition, $name);
         }
