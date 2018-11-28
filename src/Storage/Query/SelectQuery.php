@@ -257,7 +257,7 @@ class SelectQuery implements ContentQueryInterface
     {
         $query = $this->build();
 
-        return $query->getSQL();
+        return $query->getDQL();
     }
 
     /**
