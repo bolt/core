@@ -13,11 +13,17 @@ use Bolt\Storage\Query\QueryInterface;
  */
 class OrderDirective
 {
-    /**
-     * @param QueryInterface $query
-     * @param string         $order
-     */
-    public function __invoke(QueryInterface $query, $order)
+    private $coreFields = [
+        'id',
+        'createdAt',
+        'modifiedAt',
+        'publishedAt',
+        'depublishedAt',
+        'author',
+        'status',
+    ];
+
+    public function __invoke(QueryInterface $query, string $order)
     {
         if (!$order) {
             return;
@@ -27,6 +33,7 @@ class OrderDirective
         $query->getQueryBuilder()->resetDQLPart('orderBy');
 
         $separatedOrders = $this->getOrderBys($order);
+        $index = 1;
         foreach ($separatedOrders as $order) {
             $order = trim($order);
             if (mb_strpos($order, '-') === 0) {
@@ -39,24 +46,19 @@ class OrderDirective
                 $direction = null;
             }
 
-            // - Check if its a column
-            // - Check if its a row in `bolt_fields`
-            $coreFields = [
-                'id',
-                'created_at',
-                'modified_at',
-                'published_at',
-                'depublished_at',
-                'author_id',
-                'status',
-            ];
-
-            if (in_array($order, $coreFields)) {
+            if (in_array($order, $this->coreFields)) {
                 $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
             } else {
-                // need a merge, but will not be possible with multiple values?
-                // $query->getQueryBuilder()->addOrderBy('fields_1'.$order, $direction);
-                throw new \Exception('not implemented yet ...');
+                $fieldsAlias = 'fields_order_' . $index;
+                $fieldAlias  = 'order_' . $index;
+                $query
+                    ->getQueryBuilder()
+                    ->leftJoin('content.fields', $fieldsAlias)
+                    ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
+                    ->addOrderBy($fieldsAlias . '.value', $direction)
+                    ->setParameter($fieldAlias, $order);
+                ;
+                $index++;
             }
         }
     }

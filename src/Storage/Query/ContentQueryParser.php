@@ -8,7 +8,6 @@ use Bolt\Events\QueryEvent;
 use Bolt\Events\QueryEvents;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Entity\Content;
-//use Bolt\Storage\EntityManager;
 use Bolt\Storage\Query\Directive\GetQueryDirective;
 use Bolt\Storage\Query\Directive\HydrateDirective;
 use Bolt\Storage\Query\Directive\LimitDirective;
