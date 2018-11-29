@@ -35,6 +35,23 @@ class SelectQuery implements ContentQueryInterface
     protected $replacements = [];
     /** @var bool */
     protected $singleFetchMode = false;
+    /** @var array */
+    protected $coreFields = [
+        'id',
+        'createdAt',
+        'modifiedAt',
+        'publishedAt',
+        'depublishedAt',
+        'status',
+    ];
+    /** @var array */
+    protected $referenceFields = [
+        'author',
+    ];
+    /** @var array */
+    private $referenceJoins = [];
+    /** @var array */
+    private $fieldJoins = [];
 
     /**
      * Constructor.
@@ -119,8 +136,23 @@ class SelectQuery implements ContentQueryInterface
             return null;
         }
         $expr = $this->qb->expr()->andX();
+
+        $this->referenceJoins = [];
+        $this->fieldJoins = [];
+
         foreach ($this->filters as $filter) {
-            $expr = $expr->add($filter->getExpression());
+            if ($filter->getExpressionObject() instanceof \Doctrine\ORM\Query\Expr\Orx) {
+                // todo: `|||` and `bolt_field` integration.
+                $expr = $expr->add($filter->getExpression());
+            } elseif (in_array($filter->getKey(), $this->coreFields, true)) {
+                $expr = $expr->add($filter->getExpression());
+            } elseif (in_array($filter->getKey(), $this->referenceFields, true)) {
+                $this->referenceJoins[$filter->getKey()] = $filter;
+                $expr = $expr->add($filter->getExpression());
+            } else {
+                // This means the value is stored in the `bolt_field` table
+                $this->fieldJoins[$filter->getKey()] = $filter;
+            }
         }
 
         return $expr;
@@ -270,13 +302,64 @@ class SelectQuery implements ContentQueryInterface
     protected function processFilters()
     {
         $this->filters = [];
+
         foreach ($this->params as $key => $value) {
-            // $this->parser // Bolt\Storage\Query\QueryParameterParser
-            // $this->parser->setAlias('_' . $this->contentType);
             $this->parser->setAlias('content');
+
             $filter = $this->parser->getFilter($key, $value);
             if ($filter) {
                 $this->addFilter($filter);
+            }
+        }
+    }
+
+    /**
+     * Allows key-value queries for `bolt_user` (id) values.
+     */
+    public function doReferenceJoins()
+    {
+        foreach ($this->referenceJoins as $key => $filter) {
+            $this->qb->join('content.' . $key, $key);
+        }
+    }
+
+    /**
+     * Allows key-value queries for `bolt_field` values.
+     */
+    public function doFieldJoins()
+    {
+        $index = 1;
+        foreach ($this->fieldJoins as $key => $filter) {
+            $contentAlias = 'content_' . $index;
+            $fieldsAlias = 'fields_' . $index;
+            $keyParam = 'field_' . $index;
+            $valueParam = 'value_' . $index;
+
+            $originalLeftExpression = 'content.' . $key;
+            $newLeftExpression = $fieldsAlias . '.value';
+            $where = $filter->getExpression();
+            $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
+
+            $em = $this->qb->getEntityManager();
+
+            $this->qb
+                ->andWhere(
+                    $this->qb->expr()->in(
+                        'content.id',
+                        $em
+                            ->createQueryBuilder($contentAlias)
+                            ->select($contentAlias . '.id')
+                            ->from('Bolt\Entity\Content', $contentAlias)
+                            ->innerJoin($contentAlias . '.fields', $fieldsAlias)
+                            ->andWhere($fieldsAlias . '.name = :' . $keyParam)
+                            ->andWhere($where)
+                            ->getDQL()
+                    )
+                )
+                ->setParameter($keyParam, $key)
+            ;
+            foreach ($filter->getParameters() as $key => $value) {
+                $this->qb->setParameter($key, \GuzzleHttp\json_encode([$value]));
             }
         }
     }

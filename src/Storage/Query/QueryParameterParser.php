@@ -8,7 +8,7 @@ use Doctrine\ORM\Query\Expr;
 
 /**
  *  Handler class to convert the DSL for content query parameters
- *  into equivalent DBAL expressions.
+ *  into equivalent ORM expressions.
  *
  *  @author Ross Riley <riley.ross@gmail.com>
  */
@@ -67,10 +67,8 @@ class QueryParameterParser
 
     /**
      * Sets the select alias to be used in sql queries.
-     *
-     * @param string $alias
      */
-    public function setAlias($alias)
+    public function setAlias(string $alias)
     {
         $this->alias = $alias . '.';
     }
@@ -83,7 +81,7 @@ class QueryParameterParser
      *
      * @return Filter|null
      */
-    public function getFilter($key, $value = null)
+    public function getFilter(string $key, $value = null)
     {
         if (!$this->expr instanceof Expr) {
             throw new \Exception('Cannot call method without an Expression Builder parameter set', 1);
@@ -102,12 +100,8 @@ class QueryParameterParser
 
     /**
      * Handles some errors in key/value string formatting.
-     *
-     * @param string            $key
-     * @param string            $value
-     * @param ExpressionBuilder $expr
      */
-    public function incorrectQueryHandler($key, $value, $expr)
+    public function incorrectQueryHandler(string $key, $value, Expr $expr)
     {
         if (!is_string($value)) {
             return null;
@@ -122,13 +116,9 @@ class QueryParameterParser
      * It looks for three pipes in the key and value and creates an OR composite
      * expression for example: 'username|||email':'fred|||pete'.
      *
-     * @param string            $key
-     * @param string            $value
-     * @param ExpressionBuilder $expr
-     *
      * @return Filter|null
      */
-    public function multipleKeyAndValueHandler($key, $value, $expr)
+    public function multipleKeyAndValueHandler(string $key, $value, Expr $expr)
     {
         if (!mb_strpos($key, '|||')) {
             return null;
@@ -150,6 +140,7 @@ class QueryParameterParser
                 $filterParams += $multipleValue->getParameters();
             } else {
                 $val = $this->parseValue($val);
+                // todo: check what type of field $key is
                 $placeholder = $key . '_' . $count;
                 $filterParams[$placeholder] = $val['value'];
                 $exprMethod = $val['operator'];
@@ -176,13 +167,9 @@ class QueryParameterParser
      *     'username': 'fred||bob'
      *     'id': '<5 && !1'
      *
-     * @param string            $key
-     * @param string            $value
-     * @param ExpressionBuilder $expr
-     *
      * @return Filter|null
      */
-    public function multipleValueHandler($key, $value, $expr)
+    public function multipleValueHandler(string $key, $value, Expr $expr)
     {
         if (!is_string($value)) {
             return null;
@@ -226,13 +213,9 @@ class QueryParameterParser
     /**
      * The default handler is the last to be run and handler simple value parsing.
      *
-     * @param string            $key
-     * @param string|array      $value
-     * @param ExpressionBuilder $expr
-     *
-     * @return Filter
+     * @param string|array $value
      */
-    public function defaultFilterHandler($key, $value, $expr)
+    public function defaultFilterHandler(string $key, $value, Expr $expr): Filter
     {
         $filter = new Filter();
         $filter->setKey($key);
@@ -276,11 +259,11 @@ class QueryParameterParser
      *     'matched'  => <the pattern that the value matched>
      * ]
      *
-     * @param string $value Value to process
+     * @param mixed $value Value to process
      *
      * @return array Parsed values
      */
-    public function parseValue($value)
+    public function parseValue($value): array
     {
         foreach ($this->valueMatchers as $matcher) {
             $regex = sprintf('/%s/u', $matcher['token']);
@@ -325,7 +308,7 @@ class QueryParameterParser
      * @param array  $params   Options to provide to the matched param
      * @param bool   $priority If set item will be prepended to start of list
      */
-    public function addValueMatcher($token, array $params = [], $priority = null)
+    public function addValueMatcher(string $token, array $params = [], $priority = null)
     {
         if ($priority) {
             array_unshift($this->valueMatchers, ['token' => $token, 'params' => $params]);

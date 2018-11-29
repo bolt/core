@@ -46,19 +46,19 @@ class OrderDirective
                 $direction = null;
             }
 
-            if (in_array($order, $this->coreFields)) {
+            if (in_array($order, $this->coreFields, true)) {
                 $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
             } else {
                 $fieldsAlias = 'fields_order_' . $index;
-                $fieldAlias  = 'order_' . $index;
+                $fieldAlias = 'order_' . $index;
                 $query
                     ->getQueryBuilder()
                     ->leftJoin('content.fields', $fieldsAlias)
                     ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
                     ->addOrderBy($fieldsAlias . '.value', $direction)
                     ->setParameter($fieldAlias, $order);
-                ;
-                $index++;
+
+                ++$index;
             }
         }
     }
