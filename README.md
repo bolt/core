@@ -26,7 +26,7 @@ To install Bolt 4 (for now):
   - Run `composer install`
   - Run `npm install && npm run build`
 
-Alternatively, run `make install`, on a Linuxy system.
+Alternatively, run `make install`, on a UNIX-like system.
 
 It's on the roadmap for Beta 1 to provide a `composer create-project` install.
 
@@ -43,7 +43,7 @@ bin/console doctrine:schema:create
 bin/console doctrine:fixtures:load -n
 ```
 
-Alternatively, run `make db-create`, on a Linuxy system.
+Alternatively, run `make db-create`, on a UNIX-like system.
 
 Re-set the Database
 -------------------
@@ -58,7 +58,7 @@ bin/console doctrine:schema:create
 bin/console doctrine:fixtures:load -n
 ```
 
-Alternatively, run `make db-reset`, on a Linuxy system.
+Alternatively, run `make db-reset`, on a UNIX-like system.
 
 Run the prototype
 -----------------
@@ -86,7 +86,8 @@ See the other options by running `npm run`.
 Code Style / Static Analysis
 ----------------------------
 
-Run the following commands with `make`, to perform Code Style checking and automatic fixing:
+Run the following commands with `make`, to perform Code Style checking and 
+automatic fixing:
 
  - `make cscheck`: Run ECS and PHPStan
  - `make cscheck`: Run ECS, perform automatic fixes and run PHPStan
