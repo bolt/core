@@ -29,7 +29,7 @@ class SearchConfig
     public function __construct(Config $config)
     {
         $this->config = $config;
-        $this->parseContenttypes();
+        $this->parseContentTypes();
     }
 
     /**
@@ -77,7 +77,7 @@ class SearchConfig
      * Iterates over the main config and delegates weighting to both
      * searchable columns and searchable taxonomies.
      */
-    protected function parseContenttypes()
+    protected function parseContentTypes()
     {
         $contentTypes = $this->config->get('contenttypes');
 

@@ -11,11 +11,7 @@ use Bolt\Storage\Query\QueryInterface;
  */
 class LimitDirective
 {
-    /**
-     * @param QueryInterface $query
-     * @param int            $limit
-     */
-    public function __invoke(QueryInterface $query, $limit)
+    public function __invoke(QueryInterface $query, int $limit): void
     {
         $query->getQueryBuilder()->setMaxResults($limit);
     }

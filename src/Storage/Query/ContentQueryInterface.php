@@ -8,27 +8,20 @@ interface ContentQueryInterface extends QueryInterface
 {
     /**
      * Returns the content type this query is executing on.
-     *
-     * @return string
      */
-    public function getContentType();
+    public function getContentType(): string;
 
     /**
      * Returns the value of a parameter by key name.
      *
-     * @param string $key
-     *
      * @return mixed
      */
-    public function getParameter($key);
+    public function getParameter(string $key);
 
     /**
      * Sets the value of a parameter by key name.
      *
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return mixed
+     * @param mixed $value
      */
-    public function setParameter($key, $value);
+    public function setParameter(string $key, $value): void;
 }

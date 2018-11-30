@@ -67,28 +67,22 @@ class SelectQuery implements ContentQueryInterface
 
     /**
      * Sets the ContentType that this query will run against.
-     *
-     * @param string $contentType
      */
-    public function setContentType($contentType)
+    public function setContentType(string $contentType)
     {
         $this->contentType = $contentType;
     }
 
     /**
      * Gets the ContentType that this query will run against.
-     *
-     * @return string
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return $this->contentType;
     }
 
     /**
      * Sets the parameters that will filter / alter the query.
-     *
-     * @param array $params
      */
     public function setParameters(array $params)
     {
@@ -99,11 +93,9 @@ class SelectQuery implements ContentQueryInterface
     /**
      * Getter to allow access to a set parameter.
      *
-     * @param $name
-     *
      * @return array|null
      */
-    public function getParameter($name)
+    public function getParameter(string $name)
     {
         if (array_key_exists($name, $this->params)) {
             return $this->params[$name];
@@ -115,10 +107,9 @@ class SelectQuery implements ContentQueryInterface
     /**
      * Setter to allow writing to a named parameter.
      *
-     * @param string $name
-     * @param mixed  $value
+     * @param mixed $value
      */
-    public function setParameter($name, $value)
+    public function setParameter(string $name, $value): void
     {
         $this->params[$name] = $value;
         $this->processFilters();

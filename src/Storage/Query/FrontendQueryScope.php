@@ -28,7 +28,7 @@ class FrontendQueryScope implements QueryScopeInterface
     public function __construct(Config $config)
     {
         $this->config = $config;
-        $this->parseContenttypes();
+        $this->parseContentTypes();
     }
 
     /**
@@ -50,7 +50,7 @@ class FrontendQueryScope implements QueryScopeInterface
     /**
      * Iterates over the main config and sets up what the default ordering should be.
      */
-    protected function parseContenttypes()
+    protected function parseContentTypes()
     {
         $contentTypes = $this->config->get('contenttypes');
         foreach ($contentTypes as $type => $values) {
