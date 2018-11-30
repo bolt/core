@@ -15,7 +15,7 @@ import Image from "../Components/Editor/Image";
  */
 import Label from "../Components/Editor/Partials/Label";
 /**
- * 
+ *
  * Register Components
  */
 Vue.component("editor-text", Text);
@@ -29,7 +29,5 @@ Vue.component("editor-image", Image);
 /**
  * Register Partial Components
  */
-Vue.component("editor-label", Label);
-
 new Vue({ el: "#editcontent", name: "admin-editor" });
 new Vue({ el: "#metadata", name: "admin-meta" });

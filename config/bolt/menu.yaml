@@ -24,3 +24,5 @@ main:
     - label: The Bolt site
       link: http://bolt.cm
       class: last
+      
+foo: bar

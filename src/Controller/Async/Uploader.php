@@ -6,7 +6,6 @@ namespace Bolt\Controller\Async;
 
 use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
-use Bolt\Media\RequestHandler;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sirius\Upload\Handler;
@@ -21,19 +20,15 @@ class Uploader
     /** @var MediaFactory */
     private $mediaFactory;
 
-    /** @var RequestHandler */
-    private $requestHandler;
-
     /** @var ObjectManager */
     private $manager;
 
     /** @var Config */
     private $config;
 
-    public function __construct(MediaFactory $mediaFactory, RequestHandler $requestHandler, ObjectManager $manager, Config $config)
+    public function __construct(MediaFactory $mediaFactory, ObjectManager $manager, Config $config)
     {
         $this->mediaFactory = $mediaFactory;
-        $this->requestHandler = $requestHandler;
         $this->manager = $manager;
         $this->config = $config;
     }
@@ -43,8 +38,6 @@ class Uploader
      */
     public function upload(Request $request)
     {
-//        $uploadHandler = new Handler('/path/to/local_folder');
-
         $area = $request->query->get('area', '');
         $path = $request->query->get('path', '');
 
@@ -66,29 +59,24 @@ class Uploader
 
         if ($result->isValid()) {
             try {
-                $media = $this->mediaFactory->createFromFilename($area, $path, $result->name);
+                $media = $this->mediaFactory->createFromFilename($area, $path, $result->__get('name'));
                 $this->manager->persist($media);
                 $this->manager->flush();
 
-                return new Response($result->name);
-            } catch (\Exception $e) {
+                return new Response($media->getFilenamePath());
+            } catch (\Throwable $e) {
                 // something wrong happened, we don't need the uploaded files anymore
                 $result->clear();
                 throw $e;
             }
-        } else {
-            // image was not moved to the container, where are error messages
-            $messages = $result->getMessages();
         }
 
-        return new Response('Not OK');
+        // image was not moved to the container, where are error messages
+        $messages = $result->getMessages();
+
+        return new Response('Not OK: ' . implode(', ', $messages), 400);
     }
 
-    /**
-     * @param string $filename
-     *
-     * @return string
-     */
     private function sanitiseFilename(string $filename): string
     {
         $extensionSlug = new Slugify(['regexp' => '/([^a-z0-9]|-)+/']);

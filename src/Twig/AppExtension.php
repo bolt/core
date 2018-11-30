@@ -10,7 +10,7 @@ use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    public function __construct(string $locales)
+    public function __construct()
     {
     }
 
@@ -51,7 +51,7 @@ class AppExtension extends AbstractExtension
 
     public function ucwords($content, string $delimiters = ''): string
     {
-        if (!$content) {
+        if (! $content) {
             return '';
         }
 

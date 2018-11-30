@@ -15,8 +15,6 @@ class AdminExtension extends AbstractExtension
 
     /**
      * Constructor.
-     *
-     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
@@ -28,8 +26,6 @@ class AdminExtension extends AbstractExtension
      */
     public function getFunctions()
     {
-        $safe = ['is_safe' => ['html']];
-
         return [
         ];
     }
@@ -54,15 +50,16 @@ class AdminExtension extends AbstractExtension
      *
      * @return string Resulting string
      */
-    public function ymllink($str)
+    public function ymllink($str): string
     {
         return preg_replace_callback(
             '/([a-z0-9_-]+\.yml)/i',
             function ($matches) {
-                $path = $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/' . $matches[1]]);
-                $link = sprintf(' <a href="%s">%s</a>', $path, $matches[1]);
-
-                return $link;
+                $path = $this->urlGenerator->generate('bolt_file_edit', [
+                    'area' => 'config',
+                    'file' => '/' . $matches[1],
+                ]);
+                return sprintf(' <a href="%s">%s</a>', $path, $matches[1]);
             },
             $str
         );

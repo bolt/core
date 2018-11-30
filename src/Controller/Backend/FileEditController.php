@@ -27,14 +27,9 @@ class FileEditController extends BaseController
     /**
      * @Route("/file-edit/{area}", name="bolt_file_edit", methods={"GET"})
      *
-     * @param string  $area
-     * @param Request $request
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function editFile(string $area, Request $request): Response
     {
@@ -58,9 +53,6 @@ class FileEditController extends BaseController
     /**
      * @Route("/file-edit/{area}", name="bolt_file-edit_post", methods={"POST"}, requirements={"file"=".+"})
      *
-     * @param Request               $request
-     * @param UrlGeneratorInterface $urlGenerator
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -71,7 +63,7 @@ class FileEditController extends BaseController
     {
         $token = new CsrfToken('editfile', $request->request->get('_csrf_token'));
 
-        if (!$this->csrfTokenManager->isTokenValid($token)) {
+        if (! $this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
 
@@ -80,9 +72,12 @@ class FileEditController extends BaseController
         $contents = $request->request->get('editfile');
         $extension = Path::getExtension($file);
 
-        $url = $urlGenerator->generate('bolt_file_edit', ['area' => $area, 'file' => $file]);
+        $url = $urlGenerator->generate('bolt_file_edit', [
+            'area' => $area,
+            'file' => $file,
+        ]);
 
-        if (in_array($extension, ['yml', 'yaml'], true) && !$this->verifyYaml($contents)) {
+        if (in_array($extension, ['yml', 'yaml'], true) && ! $this->verifyYaml($contents)) {
             $context = [
                 'area' => $area,
                 'file' => $file,
@@ -104,11 +99,6 @@ class FileEditController extends BaseController
         return new RedirectResponse($url);
     }
 
-    /**
-     * @param string $yaml
-     *
-     * @return bool
-     */
     private function verifyYaml(string $yaml): bool
     {
         $yamlparser = new Parser();

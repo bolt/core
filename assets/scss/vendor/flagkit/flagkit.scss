@@ -1,6 +1,6 @@
-$FLAGKIT_FOLDER_PATH: '/assets/icons/flags/';
+$fp-path: '/assets/icons/flags/';
 
-@import 'flagkit-web/styles/flagkit.scss';
+@import 'flagpack/src/flagpack.scss';
 
 .flag{
   background-size: contain;
@@ -12,3 +12,5 @@ $FLAGKIT_FOLDER_PATH: '/assets/icons/flags/';
   vertical-align: sub;
   line-height: 1em;
 }
+
+

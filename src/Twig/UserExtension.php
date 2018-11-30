@@ -18,8 +18,13 @@ class UserExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('getuser', [Runtime\UserRuntime::class, 'dummy']),
-            new TwigFunction('getuserid', [Runtime\UserRuntime::class, 'dummy']),
+            new TwigFunction('getuser', [$this, 'dummy']),
+            new TwigFunction('getuserid', [$this, 'dummy']),
         ];
+    }
+
+    public function dummy($input = null)
+    {
+        return $input;
     }
 }

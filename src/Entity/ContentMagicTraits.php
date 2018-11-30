@@ -22,9 +22,6 @@ trait ContentMagicTraits
      * - {{ record.magic('title') }} => Magic title, no fallback
      * - {{ record.get('title') }} => Field named title, no fallback
      *
-     * @param string $name
-     * @param array  $arguments
-     *
      * @return Field|mixed|null
      */
     public function __call(string $name, array $arguments = [])
@@ -40,55 +37,54 @@ trait ContentMagicTraits
         return $this->magic($name, $arguments);
     }
 
-    /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return mixed
-     */
     public function magic(string $name, array $arguments = [])
     {
         $magicName = 'magic' . $name;
 
         if (method_exists($this, $magicName)) {
-            return $this->$magicName(...$arguments);
+            return $this->{$magicName}(...$arguments);
         }
     }
 
-    /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return mixed
-     */
-    public function get(string $name, array $arguments = [])
+    public function get(string $name): ?Field
     {
         foreach ($this->fields as $field) {
             if ($field->getName() === $name) {
                 return $field;
             }
         }
+
+        return null;
+    }
+
+    public function has(string $name): bool
+    {
+        foreach ($this->fields as $field) {
+            if ($field->getName() === $name) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function magicLink()
     {
-        $path = $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
-
-        return $path;
+        return $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
     }
 
     public function magicEditLink()
     {
-        $path = $this->urlGenerator->generate('bolt_content_edit', ['id' => $this->getId()]);
-
-        return $path;
+        return $this->urlGenerator->generate('bolt_content_edit', ['id' => $this->getId()]);
     }
 
     public function magicTitleFields(): array
     {
+        $definition = $this->getDefinition();
+
         // First, see if we have a "title format" in the contenttype.
-        if ($title_format = $this->getDefinition()->get('title_format')) {
-            return (array) $title_format;
+        if ($definition->has('title_format')) {
+            return (array) $definition->get('title_format');
         }
 
         // Alternatively, see if we have a field named 'title' or somesuch.
@@ -98,24 +94,21 @@ trait ContentMagicTraits
         $names = array_merge($names, ['nombre', 'sujeto']); // Spanish
 
         foreach ($names as $name) {
-            if ($field = $this->get($name)) {
+            if ($this->get($name)) {
                 return (array) $name;
             }
         }
 
         // Otherwise, grab the first field of type 'text', and assume that's the title.
-        foreach ($this->getFields() as $key => $field) {
-            if ($field->getDefinition()->get('type') === 'text') {
-                return [$field->getDefinition()->get('name')];
+        foreach ($this->getFields() as $field) {
+            if ($field->getType() === 'text') {
+                return [$field->getName()];
             }
         }
 
         return [];
     }
 
-    /**
-     * @return string
-     */
     public function magicTitle(): string
     {
         $title = [];

@@ -22,15 +22,9 @@ class ContentOverviewController extends BaseController
     /**
      * @Route("/content/{contenttype}", name="bolt_content_overview")
      *
-     * @param ContentRepository $content
-     * @param Request           $request
-     * @param string            $contenttype
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function overview(ContentRepository $content, Request $request, string $contenttype = ''): Response
     {
@@ -38,7 +32,7 @@ class ContentOverviewController extends BaseController
 
         $page = (int) $request->query->get('page', 1);
 
-        $records = $content->findAll($page, $contenttype);
+        $records = $content->findForPage($page, $contenttype);
 
         return $this->renderTemplate('content/listing.html.twig', [
             'records' => $records,

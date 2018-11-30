@@ -12,14 +12,10 @@ use Tightenco\Collect\Support\Collection;
 
 class ContentTypesParser extends BaseParser
 {
-    private $exceptions;
-
     /**
      * Read and parse the contenttypes.yml configuration file.
      *
      * @throws Exception
-     *
-     * @return Collection
      */
     public function parse(): Collection
     {
@@ -40,66 +36,64 @@ class ContentTypesParser extends BaseParser
      * @param array  $contentType
      *
      * @throws \Exception
-     *
-     * @return array
      */
-    protected function parseContentType($key, $contentType)
+    protected function parseContentType($key, $contentType): array
     {
         // If the slug isn't set, and the 'key' isn't numeric, use that as the slug.
-        if (!isset($contentType['slug']) && !is_numeric($key)) {
+        if (! isset($contentType['slug']) && ! is_numeric($key)) {
             $contentType['slug'] = Slugify::create()->slugify($key);
         }
 
         // If neither 'name' nor 'slug' is set, we need to warn the user. Same goes for when
         // neither 'singular_name' nor 'singular_slug' is set.
-        if (!isset($contentType['name']) && !isset($contentType['slug'])) {
+        if (! isset($contentType['name']) && ! isset($contentType['slug'])) {
             $error = sprintf("In contenttype <code>%s</code>, neither 'name' nor 'slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
             throw new Exception($error);
         }
-        if (!isset($contentType['singular_name']) && !isset($contentType['singular_slug'])) {
+        if (! isset($contentType['singular_name']) && ! isset($contentType['singular_slug'])) {
             $error = sprintf("In contenttype <code>%s</code>, neither 'singular_name' nor 'singular_slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
             throw new Exception($error);
         }
 
         // Contenttypes without fields make no sense.
-        if (!isset($contentType['fields'])) {
+        if (! isset($contentType['fields'])) {
             $error = sprintf("In contenttype <code>%s</code>, no 'fields' are set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
             throw new Exception($error);
         }
 
-        if (!isset($contentType['slug'])) {
+        if (! isset($contentType['slug'])) {
             $contentType['slug'] = Slugify::create()->slugify($contentType['name']);
         }
-        if (!isset($contentType['name'])) {
+        if (! isset($contentType['name'])) {
             $contentType['name'] = ucwords(preg_replace('/[^a-z0-9]/i', ' ', $contentType['slug']));
         }
-        if (!isset($contentType['singular_slug'])) {
+        if (! isset($contentType['singular_slug'])) {
             $contentType['singular_slug'] = Slugify::create()->slugify($contentType['singular_name']);
         }
-        if (!isset($contentType['singular_name'])) {
+        if (! isset($contentType['singular_name'])) {
             $contentType['singular_name'] = ucwords(preg_replace('/[^a-z0-9]/i', ' ', $contentType['singular_slug']));
         }
-        if (!isset($contentType['show_on_dashboard'])) {
+        if (! isset($contentType['show_on_dashboard'])) {
             $contentType['show_on_dashboard'] = true;
         }
-        if (!isset($contentType['show_in_menu'])) {
+        if (! isset($contentType['show_in_menu'])) {
             $contentType['show_in_menu'] = true;
         }
-        if (!isset($contentType['sort'])) {
+        if (! isset($contentType['sort'])) {
             $contentType['sort'] = false;
         }
-        if (!isset($contentType['default_status'])) {
+        if (! isset($contentType['default_status'])) {
             $contentType['default_status'] = 'published';
         }
-        if (!isset($contentType['viewless'])) {
+        if (! isset($contentType['viewless'])) {
             $contentType['viewless'] = false;
         }
-        if (!isset($contentType['icon_one'])) {
+        if (! isset($contentType['icon_one'])) {
             $contentType['icon_one'] = 'fa-file';
         } else {
             $contentType['icon_one'] = str_replace('fa:', 'fa-', $contentType['icon_one']);
         }
-        if (!isset($contentType['icon_many'])) {
+        if (! isset($contentType['icon_many'])) {
             $contentType['icon_many'] = 'fa-copy';
         } else {
             $contentType['icon_many'] = str_replace('fa:', 'fa-', $contentType['icon_many']);
@@ -107,19 +101,25 @@ class ContentTypesParser extends BaseParser
 
         // Allow explicit setting of a Contenttype's table name suffix. We default
         // to slug if not present as it has been this way since Bolt v1.2.1
-        if (!isset($contentType['tablename'])) {
+        if (! isset($contentType['tablename'])) {
             $contentType['tablename'] = Slugify::create()->slugify($contentType['slug'], '_');
         } else {
             $contentType['tablename'] = Slugify::create()->slugify($contentType['tablename'], '_');
         }
-        if (!isset($contentType['allow_numeric_slugs'])) {
+        if (! isset($contentType['allow_numeric_slugs'])) {
             $contentType['allow_numeric_slugs'] = false;
         }
-        if (!isset($contentType['singleton'])) {
+        if (! isset($contentType['singleton'])) {
             $contentType['singleton'] = false;
         }
 
-        list($fields, $groups) = $this->parseFieldsAndGroups($contentType['fields']);
+        if (! isset($contentType['locales'])) {
+            $contentType['locales'] = [];
+        } elseif (is_string($contentType['locales'])) {
+            $contentType['locales'] = (array) $contentType['locales'];
+        }
+
+        [$fields, $groups] = $this->parseFieldsAndGroups($contentType['fields']);
         $contentType['fields'] = $fields;
         $contentType['groups'] = $groups;
 
@@ -129,7 +129,7 @@ class ContentTypesParser extends BaseParser
         }
 
         // when adding relations, make sure they're added by their slug. Not their 'name' or 'singular name'.
-        if (!empty($contentType['relations']) && is_array($contentType['relations'])) {
+        if (! empty($contentType['relations']) && is_array($contentType['relations'])) {
             foreach (array_keys($contentType['relations']) as $relkey) {
                 if ($relkey !== Slugify::create()->slugify($relkey)) {
                     $contentType['relations'][Slugify::create()->slugify($relkey)] = $contentType['relations'][$relkey];
@@ -144,13 +144,9 @@ class ContentTypesParser extends BaseParser
     /**
      * Parse a Contenttype's field and determine the grouping.
      *
-     * @param array $fields
-     *
      * @throws Exception
-     *
-     * @return array
      */
-    protected function parseFieldsAndGroups(array $fields)
+    protected function parseFieldsAndGroups(array $fields): array
     {
         $currentGroup = 'ungrouped';
         $groups = [];
@@ -159,7 +155,7 @@ class ContentTypesParser extends BaseParser
         foreach ($fields as $key => $field) {
             unset($fields[$key]);
             $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
-            if (!isset($field['type']) || empty($field['type'])) {
+            if (! isset($field['type']) || empty($field['type'])) {
                 $error = sprintf('Field "%s" has no "type" set.', $key);
 
                 throw new \Exception($error);
@@ -190,7 +186,7 @@ class ContentTypesParser extends BaseParser
                 $field['values'] = array_combine($field['values'], $field['values']);
             }
 
-            if (!empty($field['group'])) {
+            if (! empty($field['group'])) {
                 $hasGroups = true;
             }
 
@@ -202,6 +198,7 @@ class ContentTypesParser extends BaseParser
                     'group' => $currentGroup,
                     'label' => '',
                     'variant' => '',
+                    'localise' => false,
                 ],
                 $field
             );
@@ -232,23 +229,18 @@ class ContentTypesParser extends BaseParser
 
     /**
      * Basic validation of repeater fields.
-     *
-     * @param array  $fields
-     * @param string $key
-     *
-     * @return array
      */
-    private function parseFieldRepeaters(array $fields, $key)
+    private function parseFieldRepeaters(array $fields, string $key): array
     {
         $blacklist = ['repeater', 'slug', 'templatefield'];
         $repeater = $fields[$key];
 
-        if (!isset($repeater['fields']) || !is_array($repeater['fields'])) {
-            return;
+        if (! isset($repeater['fields']) || ! is_array($repeater['fields'])) {
+            return [];
         }
 
         foreach ($repeater['fields'] as $repeaterKey => $repeaterField) {
-            if (!isset($repeaterField['type']) || in_array($repeaterField['type'], $blacklist, true)) {
+            if (! isset($repeaterField['type']) || in_array($repeaterField['type'], $blacklist, true)) {
                 unset($repeater['fields'][$repeaterKey]);
             }
         }

@@ -14,7 +14,6 @@ final class ContentType extends Collection
     }
 
     /**
-     * @param string     $name
      * @param Collection $contenttypesconfig
      *
      * @return ContentType

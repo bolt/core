@@ -35,13 +35,6 @@ class MenuBuilder
 
     /**
      * MenuBuilder constructor.
-     *
-     * @param FactoryInterface      $factory
-     * @param Config                $config
-     * @param Stopwatch             $stopwatch
-     * @param ContentRepository     $content
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param TranslatorInterface   $translator
      */
     public function __construct(FactoryInterface $factory, Config $config, Stopwatch $stopwatch, ContentRepository $content, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
     {
@@ -91,7 +84,8 @@ class MenuBuilder
                     'singleton' => $contenttype['singleton'],
                     'active' => $contenttype['slug'] === 'pages' ? true : false,
                     'submenu' => $this->getLatestRecords($contenttype['slug']),
-                ], ]);
+                ],
+            ]);
         }
 
         $menu->addChild('Settings', ['extras' => [
@@ -116,7 +110,10 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('Main configuration', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/bolt/config.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                'area' => 'config',
+                'file' => '/bolt/config.yaml',
+            ]),
             'extras' => [
                 'name' => $t->trans('caption.main_configuration'),
                 'icon' => 'fa-cog',
@@ -124,7 +121,10 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('ContentTypes', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/bolt/contenttypes.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                'area' => 'config',
+                'file' => '/bolt/contenttypes.yaml',
+            ]),
             'extras' => [
                 'name' => $t->trans('caption.contenttypes'),
                 'icon' => 'fa-object-group',
@@ -132,7 +132,10 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('Taxonomies', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/bolt/taxonomy.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                'area' => 'config',
+                'file' => '/bolt/taxonomy.yaml',
+            ]),
             'extras' => [
                 'name' => $t->trans('caption.taxonomies'),
                 'icon' => 'fa-tags',
@@ -140,7 +143,10 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('Menu set up', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/bolt/menu.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                'area' => 'config',
+                'file' => '/bolt/menu.yaml',
+            ]),
             'extras' => [
                 'name' => $t->trans('caption.menu_setup'),
                 'type' => 'separator',
@@ -149,7 +155,10 @@ class MenuBuilder
         ]);
 
         $menu['Configuration']->addChild('Routing set up', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', ['area' => 'config', 'file' => '/routes.yaml']),
+            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                'area' => 'config',
+                'file' => '/routes.yaml',
+            ]),
             'extras' => [
                 'name' => $t->trans('caption.routing_setup'),
                 'icon' => 'fa-directions',
@@ -196,7 +205,7 @@ class MenuBuilder
         ]);
 
         $menu['Maintenance']->addChild('Clear the cache', [
-            'uri' => '',
+            'uri' => $this->urlGenerator->generate('bolt_clear_cache'),
             'extras' => [
                 'name' => $t->trans('caption.clear_cache'),
                 'icon' => 'fa-eraser',

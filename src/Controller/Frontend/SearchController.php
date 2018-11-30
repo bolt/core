@@ -27,21 +27,16 @@ class SearchController extends BaseController
     /**
      * @Route("/search", methods={"GET", "POST"}, name="search")
      *
-     * @param ContentRepository $content
-     * @param Request           $request
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function search(ContentRepository $content, Request $request): Response
     {
         $page = (int) $request->query->get('page', 1);
 
-        /** @var Content $records */
-        $records = $content->findAll($page);
+        /** @var Content[] $records */
+        $records = $content->findForPage($page);
 
         $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
 

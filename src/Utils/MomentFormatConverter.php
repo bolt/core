@@ -20,13 +20,18 @@ class MomentFormatConverter
      */
     private static $formatConvertRules = [
         // year
-        'yyyy' => 'YYYY', 'yy' => 'YY', 'y' => 'YYYY',
+        'yyyy' => 'YYYY',
+        'yy' => 'YY',
+        'y' => 'YYYY',
         // day
-        'dd' => 'DD', 'd' => 'D',
+        'dd' => 'DD',
+        'd' => 'D',
         // day of week
-        'EE' => 'ddd', 'EEEEEE' => 'dd',
+        'EE' => 'ddd',
+        'EEEEEE' => 'dd',
         // timezone
-        'ZZZZZ' => 'Z', 'ZZZ' => 'ZZ',
+        'ZZZZZ' => 'Z',
+        'ZZZ' => 'ZZ',
         // letter 'T'
         '\'T\'' => 'T',
     ];

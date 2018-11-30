@@ -36,20 +36,21 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadContent($manager);
 
         $manager->flush();
     }
 
-    private function loadContent(ObjectManager $manager)
+    private function loadContent(ObjectManager $manager): void
     {
         foreach ($this->config as $contentType) {
             $amount = $contentType['singleton'] ? 1 : 15;
 
             foreach (range(1, $amount) as $i) {
-                $author = $this->getReference(['jane_admin', 'tom_admin'][0 === $i ? 0 : random_int(0, 1)]);
+                $ref = $i === 0 ? 'admin' : ['admin', 'henkie', 'jane_admin', 'tom_admin'][random_int(0, 3)];
+                $author = $this->getReference($ref);
 
                 $content = new Content();
                 $content->setContenttype($contentType['slug']);
@@ -62,12 +63,21 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    $field = Field::factory($fieldType['type']);
-                    $field->setName($name);
-                    $field->setValue($this->getValuesforFieldType($name, $fieldType));
-                    $field->setSortorder($sortorder++ * 5);
+                    if ($fieldType['localise']) {
+                        $locales = $contentType['locales'];
+                    } else {
+                        $locales = [''];
+                    }
 
-                    $content->addField($field);
+                    foreach ($locales as $locale) {
+                        $field = Field::factory($fieldType, $name);
+                        $field->setName($name);
+                        $field->setValue($this->getValuesforFieldType($name, $fieldType));
+                        $field->setSortorder($sortorder++ * 5);
+                        $field->setLocale($locale);
+
+                        $content->addField($field);
+                    }
                 }
 
                 $manager->persist($content);
@@ -91,7 +101,10 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                 $data = [$this->faker->paragraphs(3, true)];
                 break;
             case 'image':
-                $data = ['filename' => 'kitten.jpg', 'alt' => 'A cute kitten'];
+                $data = [
+                    'filename' => 'kitten.jpg',
+                    'alt' => 'A cute kitten',
+                ];
                 break;
             case 'slug':
                 $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];

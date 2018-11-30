@@ -11,12 +11,6 @@ class Str extends \Bolt\Common\Str
     /**
      * Returns a "safe" version of the given string - basically only US-ASCII and
      * numbers. Needed because filenames and titles and such, can't use all characters.
-     *
-     * @param string $str
-     * @param bool   $strict
-     * @param string $extrachars
-     *
-     * @return string
      */
     public static function makeSafe(string $str, bool $strict = false, string $extrachars = ''): string
     {
@@ -54,17 +48,13 @@ class Str extends \Bolt\Common\Str
     /**
      * Add 'soft hyphens' &shy; to a string, so that it won't break layout in HTML when
      * using strings without spaces or dashes. Only breaks in long (> 19 chars) words.
-     *
-     * @param string $str
-     *
-     * @return string
      */
-    public static function shyphenate($str)
+    public static function shyphenate(string $str): string
     {
         $res = preg_match_all('/([a-z0-9]{19,})/i', $str, $matches);
 
         if ($res) {
-            foreach ($matches[1] as $key => $match) {
+            foreach ($matches[1] as $match) {
                 $str = str_replace($match, wordwrap($match, 10, '&shy;', true), $str);
             }
         }

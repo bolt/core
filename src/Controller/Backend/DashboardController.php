@@ -21,13 +21,9 @@ class DashboardController extends BaseController
     /**
      * @Route("/", name="bolt_dashboard", methods={"GET"})
      *
-     * @param ContentRepository $content
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function index(ContentRepository $content): Response
     {

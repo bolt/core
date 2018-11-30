@@ -17,9 +17,7 @@ class ImageField extends Field
     {
         $config = $this->getContent()->getConfig();
 
-        $path = $config->getPath('files', false, $this->get('filename'));
-
-        return $path;
+        return $config->getPath('files', false, $this->get('filename'));
     }
 
     public function getValue(): ?array
@@ -30,7 +28,11 @@ class ImageField extends Field
         $urlBuilder = UrlBuilderFactory::create('/thumbs/');
 
         // Generate a URL
-        $value['path'] = $urlBuilder->getUrl($this->get('filename'), ['w' => 240, 'h' => 160, 'area' => 'files']);
+        $value['path'] = $urlBuilder->getUrl($this->get('filename'), [
+            'w' => 240,
+            'h' => 160,
+            'area' => 'files',
+        ]);
 
         return $value;
     }

@@ -48,7 +48,7 @@ class ListUsersCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Lists all the existing users')
@@ -73,15 +73,14 @@ HELP
             // commands can optionally define arguments and/or options (mandatory and optional)
             // see https://symfony.com/doc/current/components/console/console_arguments.html
             ->addOption('max-results', null, InputOption::VALUE_OPTIONAL, 'Limits the number of users listed', 50)
-            ->addOption('send-to', null, InputOption::VALUE_OPTIONAL, 'If set, the result is sent to the given email address')
-        ;
+            ->addOption('send-to', null, InputOption::VALUE_OPTIONAL, 'If set, the result is sent to the given email address');
     }
 
     /**
      * This method is executed after initialize(). It usually contains the logic
      * to execute to complete this command task.
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $maxResults = $input->getOption('max-results');
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
@@ -114,7 +113,8 @@ HELP
         $usersAsATable = $bufferedOutput->fetch();
         $output->write($usersAsATable);
 
-        if (null !== $email = $input->getOption('send-to')) {
+        $email = $input->getOption('send-to');
+        if ($email !== null) {
             $this->sendReport($usersAsATable, $email);
         }
     }
@@ -129,8 +129,7 @@ HELP
             ->setSubject(sprintf('app:list-users report (%s)', date('Y-m-d H:i:s')))
             ->setFrom($this->emailSender)
             ->setTo($recipient)
-            ->setBody($contents, 'text/plain')
-        ;
+            ->setBody($contents, 'text/plain');
 
         $this->mailer->send($message);
     }

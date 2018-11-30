@@ -16,7 +16,7 @@ class Html
      *
      * @return string Trimmed string
      */
-    public static function trimText($str, $desiredLength, $hellip = true, $cutOffCap = 10)
+    public static function trimText(string $str, int $desiredLength, bool $hellip = true, int $cutOffCap = 10): string
     {
         if ($hellip) {
             $ellipseStr = ' …';
@@ -31,15 +31,14 @@ class Html
         if (mb_strlen($str) > $desiredLength) {
             $nextChar = mb_substr($str, $newLength, 1);
             $str = mb_substr($str, 0, $newLength);
-            if ($nextChar !== ' ') {
-                if (($lastSpace = mb_strrpos($str, ' ')) !== false) {
-                    // Check for to long cutoff
-                    if (mb_strlen($str) - $lastSpace >= $cutOffCap) {
-                        // Trim the ellipse, as we do not want a space now
-                        return $str . trim($ellipseStr);
-                    }
-                    $str = mb_substr($str, 0, $lastSpace);
+            $lastSpace = mb_strrpos($str, ' ');
+            if ($nextChar !== ' ' && $lastSpace !== false) {
+                // Check for too long cutoff
+                if (mb_strlen($str) - $lastSpace >= $cutOffCap) {
+                    // Trim the ellipse, as we do not want a space now
+                    return $str . trim($ellipseStr);
                 }
+                $str = mb_substr($str, 0, $lastSpace);
             }
             $str .= $ellipseStr;
         }
@@ -55,12 +54,10 @@ class Html
      *
      * @return string The resulting HTML
      */
-    public static function decorateTT($str)
+    public static function decorateTT($str): string
     {
         $str = htmlspecialchars($str, ENT_QUOTES);
-        $str = preg_replace('/`([^`]*)`/', '<tt>\\1</tt>', $str);
-
-        return $str;
+        return preg_replace('/`([^`]*)`/', '<tt>\\1</tt>', $str);
     }
 
     /**
@@ -69,10 +66,8 @@ class Html
      * @see https://mathiasbynens.be/demo/url-regex
      *
      * @param string $str
-     *
-     * @return bool
      */
-    public static function isURL($str)
+    public static function isURL($str): bool
     {
         $pattern = '~^(?:\b[a-z\d.-]+://[^<>\s]+|\b(?:(?:(?:[^\s!@#$%^&*()_=+[\]{}\|;:\'",.<>/?]+)\.)+(?:ac|ad|aero|ae|af|ag|ai|al|am|an|ao|aq|arpa|ar|asia|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|biz|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|cat|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|coop|com|co|cr|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|edu|ee|eg|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gov|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|info|int|in|io|iq|ir|is|it|je|jm|jobs|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mil|mk|ml|mm|mn|mobi|mo|mp|mq|mr|ms|mt|museum|mu|mv|mw|mx|my|mz|name|na|nc|net|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|org|pa|pe|pf|pg|ph|pk|pl|pm|pn|pro|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tel|tf|tg|th|tj|tk|tl|tm|tn|to|tp|travel|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|xn--0zwm56d|xn--11b5bs3a9aj6g|xn--80akhbyknj4f|xn--9t4b11yi5a|xn--deba0ad|xn--g6w251d|xn--hgbk6aj7f53bba|xn--hlcj6aya9esc7a|xn--jxalpdlp|xn--kgbechtv|xn--zckzah|ye|yt|yu|za|zm|zw)|(?:(?:[0-9]|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(?:[0-9]|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]))(?:[;/][^#?<>\s]*)?(?:\?[^#<>\s]*)?(?:#[^<>\s]*)?(?!\w))$~iS';
 
@@ -89,14 +84,10 @@ class Html
      *
      * @param string $url
      * @param string $scheme
-     *
-     * @return string
      */
-    public static function addScheme($url, $scheme = 'http://')
+    public static function addScheme($url, $scheme = 'http://'): string
     {
-        $url = parse_url($url, PHP_URL_SCHEME) === null ? $scheme . $url : $url;
-
-        return $url;
+        return parse_url($url, PHP_URL_SCHEME) === null ? $scheme . $url : $url;
     }
 
     /**
@@ -104,13 +95,11 @@ class Html
      * email address or website URL.
      *
      * @param array $providedby
-     *
-     * @return string
      */
-    public static function providerLink($providedby)
+    public static function providerLink($providedby): string
     {
         // If nothing is provided, we don't make a link.
-        if (empty($providedby) || !is_array($providedby)) {
+        if (empty($providedby) || ! is_array($providedby)) {
             return '';
         }
 

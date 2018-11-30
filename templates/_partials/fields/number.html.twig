@@ -9,10 +9,14 @@
   {# set step #}
   {% if step is not defined and mode == 'integer' %}
     {% set step = define.step|default(0.5) %}
-  {% else %}
+  {% elseif mode == 'integer' %}
     {% set step = 1 %}
+  {% else %}
+    {% set step = 0 %}
   {% endif %}
 
+  {# @todo: Number_format 'fixes' it, so it won't break, but it's not a _good_ fix. #}
+  {% set value = value|number_format(32) %}
 
   <editor-number
     name="{{ name }}"

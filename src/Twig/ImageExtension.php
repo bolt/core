@@ -13,14 +13,14 @@ use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
 {
-    private $key;
+    private $secret = '';
 
-    private $config;
+    private $config = [];
 
     public function __construct(Config $config)
     {
-        $this->key = 'foo';
         $this->config = $config;
+        $this->secret = $this->config->get('general/secret');
     }
 
     /**
@@ -58,10 +58,9 @@ class ImageExtension extends AbstractExtension
             return '';
         }
 
-        $secret = $this->config->get('general/secret');
-
         $params = [
-            'w' => $width, 'h' => $height,
+            'w' => $width,
+            'h' => $height,
         ];
 
         if ($area) {
@@ -72,12 +71,10 @@ class ImageExtension extends AbstractExtension
         }
 
         // Create an instance of the URL builder
-        $urlBuilder = UrlBuilderFactory::create('/thumbs/', $secret);
+        $urlBuilder = UrlBuilderFactory::create('/thumbs/', $this->secret);
 
         // Generate a URL
-        $url = $urlBuilder->getUrl($filename, $params);
-
-        return $url;
+        return $urlBuilder->getUrl($filename, $params);
     }
 
     public function dummy($input = null)

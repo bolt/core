@@ -1,7 +1,60 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    <input name="{{ name }}" placeholder="First Name" type="text" value="{{ value }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+    {% if config is defined %}
+        {% set apikey = config.get('general/google_api_key')|default(null) %}
+    {% endif %}
+    
+    {% if apikey != null %}
+      {{ apikey }}
+    {% else %}  
+        null
+    {% endif %}
 
-    (Small map, lat and long go here, somewhere)
+    <div class="form-group editor--group">
+        <label for="field-geolocation">Geolocation:</label>
+        <div class="editor__geolocation">
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group">
+                        <label>Address lookup</label>
+                        <input class="form-control address" name="geolocation[address]" placeholder="Street, ZIP code, city or other location …" type="text" value="">
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="form-inline">
+                                <div class="col-6">
+                                    <label class="justify-content-start">Latitude</label>
+                                    <input class="form-control" name="geolocation[latitude]" readonly="" step="any" type="number" value="">
+                                </div>
+                                <div class="col-6">
+                                    <label class="justify-content-start">Longitude</label>
+                                    <input class="form-control" name="geolocation[longitude]" readonly="" step="any" type="number" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Matched address</label>
+                        <input class="form-control" name="geolocation[formatted_address]" placeholder="—" readonly="" type="text" value="">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="header">Marker placement</label>
+                        <button type="button" class="btn btn-sm btn-default expand justify-content-end"><i class="fa fa-expand"></i></button>
+                        <button type="button" class="btn btn-sm btn-default compress"><i class="fa fa-compress "></i></button>
+                        <div class="mapholder" style="position: relative; overflow: hidden;">
+                            <a class="editor__image--preview-image" href="/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;area=files&amp;s=1e1ae532b569d01e17644e1c31b12fe9" style="background-image: url(&quot;/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;area=files&amp;s=1e1ae532b569d01e17644e1c31b12fe9&quot;);"></a>
+                        </div>
+                        <div class="input-group custom-control custom-checkbox">
+                            <input checked="" class="custom-control-input" type="checkbox" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">Snap to nearest address</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

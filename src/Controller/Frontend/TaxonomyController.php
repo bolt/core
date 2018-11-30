@@ -37,8 +37,8 @@ class TaxonomyController extends BaseController
     {
         $page = (int) $request->query->get('page', 1);
 
-        /** @var Content $records */
-        $records = $content->findAll($page);
+        /** @var Content[] $records */
+        $records = $content->findForPage($page);
 
         $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
 
@@ -50,19 +50,13 @@ class TaxonomyController extends BaseController
     /**
      * @Route("/record/{slug}", methods={"GET"}, name="record")
      *
-     * @param ContentRepository $contentRepository
-     * @param FieldRepository   $fieldRepository
-     * @param null              $slug
-     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return Response
      */
     public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $slug = null): Response
     {
-        if (!is_numeric($slug)) {
+        if (! is_numeric($slug)) {
             $field = $fieldRepository->findOneBySlug($slug);
             $record = $field->getContent();
         } else {

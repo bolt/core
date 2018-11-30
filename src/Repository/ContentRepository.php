@@ -8,13 +8,14 @@ use Bolt\Content\ContentType;
 use Bolt\Entity\Content;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Content|null find($id, $lockMode = null, $lockVersion = null)
- * @method Content|null findOneBy(array $criteria, array $orderBy = null)
+ * @method (Content | null) find($id, $lockMode = null, $lockVersion=null)
+ * @method (Content | null) findOneBy(array $criteria, array $orderBy=null)
  * @method Content[]    findAll()
  * @method Content[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -25,12 +26,12 @@ class ContentRepository extends ServiceEntityRepository
         parent::__construct($registry, Content::class);
     }
 
-    private function getQueryBuilder(QueryBuilder $qb = null)
+    private function getQueryBuilder(): QueryBuilder
     {
-        return $qb ?: $this->createQueryBuilder('content');
+        return $this->createQueryBuilder('content');
     }
 
-    public function findAll(int $page = 1, ContentType $contenttype = null): Pagerfanta
+    public function findForPage(int $page = 1, ?ContentType $contenttype = null): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -44,7 +45,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page);
     }
 
-    public function findLatest(ContentType $contenttype = null, $amount = 6): ?array
+    public function findLatest(?ContentType $contenttype = null, int $amount = 6): ?array
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -61,15 +62,14 @@ class ContentRepository extends ServiceEntityRepository
         return array_slice($result, 0, $amount);
     }
 
-    public function findOneBySlug(string $slug)
+    public function findOneBySlug(string $slug): ?Content
     {
         return $this->getQueryBuilder()
-            ->innerJoin('Bolt\Entity\Field\SlugField', 'field')
+            ->innerJoin(\Bolt\Entity\Field\SlugField::class, 'field')
             ->andWhere('field.value = :slug')
             ->setParameter('slug', json_encode([$slug]))
             ->getQuery()
-            ->getResult()
-            ;
+            ->getOneOrNullResult();
 
 //        ->join('m.PropertyEntity', 'p')
 //        ->where('p.value IN (:values)')

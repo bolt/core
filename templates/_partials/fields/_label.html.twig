@@ -1,0 +1,9 @@
+{% if type != 'checkbox' %}
+  <label for="{{ id }}">
+      {% if localise %}
+        <i class="fas fa-language"></i>
+      {% endif %}
+      {{ label }}
+  </label>
+{% endif %}
+

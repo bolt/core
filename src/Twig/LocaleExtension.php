@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Configuration\Config;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -16,10 +15,7 @@ use Twig_Environment;
 class LocaleExtension extends AbstractExtension
 {
     /** @var array */
-    private $localeCodes;
-
-    /** @var Config */
-    private $config;
+    private $localeCodes = [];
 
     /** @var Collection */
     private $locales;
@@ -27,10 +23,9 @@ class LocaleExtension extends AbstractExtension
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    public function __construct(Config $config, string $locales, UrlGeneratorInterface $urlGenerator)
+    public function __construct(string $locales, UrlGeneratorInterface $urlGenerator)
     {
-        $this->localeCodes = explode('|', $locales);
-        $this->config = $config;
+        $this->localeCodes = collect(explode('|', $locales));
         $this->urlGenerator = $urlGenerator;
     }
 
@@ -44,6 +39,7 @@ class LocaleExtension extends AbstractExtension
 
         return [
             new TwigFunction('locales', [$this, 'getLocales'], $env),
+            new TwigFunction('contentlocales', [$this, 'getContentLocales'], $env),
             new TwigFunction('locale', [$this, 'getLocale']),
             new TwigFunction('flag', [$this, 'flag'], $safe),
         ];
@@ -51,9 +47,7 @@ class LocaleExtension extends AbstractExtension
 
     public function getLocale($localeCode)
     {
-        $locale = $this->localeInfo($localeCode);
-
-        return $locale;
+        return $this->localeInfo($localeCode);
     }
 
     /**
@@ -63,10 +57,22 @@ class LocaleExtension extends AbstractExtension
      */
     public function getLocales(Twig_Environment $env): Collection
     {
-        if (null !== $this->locales) {
+        if ($this->locales !== null) {
             return $this->locales;
         }
 
+        $this->locales = $this->localeHelper($env, $this->localeCodes);
+
+        return $this->locales;
+    }
+
+    public function getContentLocales(Twig_Environment $env, Collection $localeCodes)
+    {
+        return $this->localeHelper($env, $localeCodes);
+    }
+
+    private function localeHelper(Twig_Environment $env, Collection $localeCodes)
+    {
         // Get the route and route params, to set the new localised link
         $globals = $env->getGlobals();
 
@@ -75,23 +81,29 @@ class LocaleExtension extends AbstractExtension
         $route = $request->attributes->get('_route');
         $routeParams = $request->attributes->get('_route_params');
 
-        $this->locales = new Collection();
-        foreach ($this->localeCodes as $localeCode) {
+        $locales = new Collection();
+        foreach ($localeCodes as $localeCode) {
             $locale = $this->localeInfo($localeCode);
             $routeParams['locale'] = $locale->get('code');
             $locale->put('link', $this->urlGenerator->generate($route, $routeParams));
 
-            $this->locales->push($locale);
+            $locales->push($locale);
         }
 
-        return $this->locales;
+        return $locales;
     }
 
     public function flag($localeCode)
     {
         $locale = $this->localeInfo($localeCode);
 
-        return $locale->get('flag');
+        return sprintf(
+            '<span class="fp mr-1 %s" title="%s - %s / %s"></span>',
+            $locale->get('flag'),
+            $locale->get('name'),
+            $locale->get('localisedname'),
+            $locale->get('code')
+        );
     }
 
     private function localeInfo($localeCode)
@@ -104,14 +116,12 @@ class LocaleExtension extends AbstractExtension
             $localeCode = mb_strtolower($splitCode[0]);
         }
 
-        $locale = collect([
+        return collect([
             'code' => $localeCode,
             'name' => Intl::getLocaleBundle()->getLocaleName($localeCode),
             'localisedname' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode),
             'flag' => $this->getFlagTag($localeCode),
         ]);
-
-        return $locale;
     }
 
     private function getFlagTag($localeCode)

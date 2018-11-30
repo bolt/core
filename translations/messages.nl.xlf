@@ -12,13 +12,13 @@
       </trans-unit>
       <trans-unit id="LDhDPrF" resname="label.username">
         <source>label.username</source>
-        <target>__label.username</target>
+        <target>Gebruikersnaam</target>
         <note priority="1">templates/security/login.twig:66</note>
         <note priority="1">src/Form/UserType.php:31</note>
       </trans-unit>
       <trans-unit id="9pvowqn" resname="label.password">
         <source>label.password</source>
-        <target>__label.password</target>
+        <target>Wachtwoord</target>
         <note priority="1">templates/security/login.twig:70</note>
         <note priority="1">templates/security/login.twig:75</note>
       </trans-unit>
@@ -60,35 +60,35 @@
       </trans-unit>
       <trans-unit id="SNELzJ2" resname="field.id">
         <source>field.id</source>
-        <target>__field.id</target>
+        <target>ID</target>
         <note priority="1">templates/editcontent/edit.twig:118</note>
         <note priority="1">templates/editcontent/media_edit.twig:98</note>
       </trans-unit>
       <trans-unit id="FuCyk5C" resname="field.status">
         <source>field.status</source>
-        <target>__field.status</target>
+        <target>Status</target>
         <note priority="1">templates/editcontent/edit.twig:76</note>
       </trans-unit>
       <trans-unit id="O9wtVOp" resname="field.createdAt">
         <source>field.createdAt</source>
-        <target>__field.createdAt</target>
+        <target>Aangemaakt op</target>
         <note priority="1">templates/editcontent/edit.twig:86</note>
         <note priority="1">templates/editcontent/media_edit.twig:128</note>
       </trans-unit>
       <trans-unit id="eVkSIKu" resname="field.modifiedAt">
         <source>field.modifiedAt</source>
-        <target>__field.modifiedAt</target>
+        <target>Bewerkt op</target>
         <note priority="1">templates/editcontent/edit.twig:94</note>
         <note priority="1">templates/editcontent/media_edit.twig:135</note>
       </trans-unit>
       <trans-unit id="3gdi1dy" resname="field.publishedAt">
         <source>field.publishedAt</source>
-        <target>__field.publishedAt</target>
+        <target>Gepubliceerd op</target>
         <note priority="1">templates/editcontent/edit.twig:102</note>
       </trans-unit>
       <trans-unit id="eN7IfEL" resname="field.depublishedAt">
         <source>field.depublishedAt</source>
-        <target>__field.depublishedAt</target>
+        <target>Gedepubliceerd op</target>
         <note priority="1">templates/editcontent/edit.twig:110</note>
       </trans-unit>
       <trans-unit id="VKhfRZB" resname="field.title">
@@ -542,6 +542,22 @@
       <trans-unit id="y5otxEK" resname="caption.filename">
         <source>caption.filename</source>
         <target>__caption.filename</target>
+      </trans-unit>
+      <trans-unit id="8zEzq8N" resname="field.current_locale">
+        <source>field.current_locale</source>
+        <target>Huidige locale</target>
+      </trans-unit>
+      <trans-unit id="ahZvOJz" resname="field.switch_to_locale">
+        <source>field.switch_to_locale</source>
+        <target>Wissel naar locale</target>
+      </trans-unit>
+      <trans-unit id="aQX4Emy" resname="field.author">
+        <source>field.author</source>
+        <target>Auteur</target>
+      </trans-unit>
+      <trans-unit id="ovKkXwU" resname="action.edit">
+        <source>action.edit</source>
+        <target>__action.edit</target>
       </trans-unit>
     </body>
   </file>

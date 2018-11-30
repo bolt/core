@@ -53,28 +53,22 @@
             </div>
         {% endif %}
 
-        <form action="{{ path('bolt_login') }}" method="post" class="">
+        <form action="{{ path('bolt_login') }}" method="post" class="" id="login-form">
             <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-
-            <div class="form-group">
-                <label for="username">{{ 'label.username_or_email'|trans }}</label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-user"></i> </span>
-                    </div>
-                    <input type="text" placeholder="{{ 'label.username'|trans }}" id="username" name="username" value="{{ last_username }}" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">{{ 'label.password'|trans }}</label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-key"></i></span>
-                    </div>
-                    <input type="password" placeholder="{{ 'label.password'|trans }}" id="password" name="password" class="form-control"/>
-                </div>
-            </div>
+            {% include '@bolt/_partials/fields/text.html.twig' with {
+                'label' : 'label.fullname'|trans,
+                'name' : 'username',
+                'value' : last_username,
+                'disabled' : false,
+            } %}
+            {% include '@bolt/_partials/fields/password.html.twig' with {
+                'label': 'label.password'|trans,
+                'label_class': 'required',
+                'name': 'password',
+                'value': '',
+                'class': 'form-control',
+            } %}
             <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" name="_remember_me" id="_remember_me">
                 <label class="form-check-label" for="_remember_me">{{ 'label.rememberme'|trans }}</label>

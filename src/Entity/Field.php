@@ -91,10 +91,10 @@ class Field
     private $sortorder = 0;
 
     /**
-     * @ORM\Column(type="string", length=191, nullable=true)
+     * @ORM\Column(type="string", length=191)
      * @Groups("public")
      */
-    private $locale;
+    private $locale = '';
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -120,18 +120,24 @@ class Field
     }
 
     /**
-     * @param string $name
-     *
      * @return Field
      */
-    public static function factory(string $name = 'generic'): self
+    public static function factory(array $definition, string $name = ''): self
     {
-        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($name) . 'Field';
+        $type = $definition['type'];
+
+        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($type) . 'Field';
         if (class_exists($classname)) {
             $field = new $classname();
         } else {
             $field = new self();
         }
+
+        if (! empty($name)) {
+            $field->setName($name);
+        }
+
+        $field->setDefinition($type, $definition);
 
         return $field;
     }
@@ -141,7 +147,7 @@ class Field
         return $this->id;
     }
 
-    public function setConfig()
+    public function setConfig(): void
     {
         $contentTypeDefinition = $this->getContent()->getDefinition();
 
@@ -153,7 +159,7 @@ class Field
         return $this->fieldTypeDefinition;
     }
 
-    public function setDefinition($name, array $definition)
+    public function setDefinition($name, array $definition): void
     {
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\EventSubscriber;
 
+use Bolt\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -22,11 +23,12 @@ class UserLocaleSubscriber implements EventSubscriberInterface
         $this->session = $session;
     }
 
-    public function onInteractiveLogin(InteractiveLoginEvent $event)
+    public function onInteractiveLogin(InteractiveLoginEvent $event): void
     {
+        /** @var User $user */
         $user = $event->getAuthenticationToken()->getUser();
 
-        if (null !== $user->getLocale()) {
+        if ($user->getLocale() !== null) {
             $this->session->set('_locale', $user->getLocale());
         }
     }

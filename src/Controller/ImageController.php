@@ -18,8 +18,6 @@ class ImageController
 
     /**
      * ImageController constructor.
-     *
-     * @param Config $config
      */
     public function __construct(Config $config)
     {
@@ -28,10 +26,6 @@ class ImageController
 
     /**
      * @Route("/thumbs/{filename}", methods={"GET"}, name="thumbnail", requirements={"filename"=".+"})
-     *
-     * @param string $filename
-     *
-     * @return StreamedResponse
      */
     public function image(string $filename, Request $request): StreamedResponse
     {
@@ -42,8 +36,8 @@ class ImageController
             'cache' => $this->config->getPath('cache', true, 'thumbnails'),
         ]);
 
-        if ($path = $request->query->get('path')) {
-            $filename = sprintf('%s/%s', $path, $filename);
+        if ($request->query->has('path')) {
+            $filename = sprintf('%s/%s', $request->query->get('path'), $filename);
         }
 
         /** @var StreamedResponse $response */
