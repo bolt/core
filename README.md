@@ -23,8 +23,12 @@ Install
 To install Bolt 4 (for now):
 
   - Check out the git repo
-  - Run `composer install`
-  - Run `npm install && npm run build`
+  - Then:
+  
+  ```bash
+composer install
+npm install && npm run build
+  ```
 
 Alternatively, run `make install`, on a UNIX-like system.
 
