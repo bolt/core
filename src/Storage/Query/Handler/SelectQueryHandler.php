@@ -31,12 +31,8 @@ class SelectQueryHandler
             $contentType = str_replace('-', '_', $contentType);
 
             $repo = $contentQuery->getContentRepository();
-            $query->setQueryBuilder(
-                $repo
-                    ->getQueryBuilder()
-                    // ->where('content.contentType = :ct')
-                    // ->setParameter('ct', $contentType)
-            );
+            $qb   = $repo->getQueryBuilder();
+            $query->setQueryBuilder($qb);
             // $query->setContentType($contentType);
             $query->setContentType('content');
 
@@ -47,11 +43,13 @@ class SelectQueryHandler
             /** Run the parameters through the whitelister. If we get a false back from this method it's because there
              * is no need to continue with the query.
              */
-            $params = $this->whitelistParameters($contentQuery->getParameters(), $repo);
-            if (!$params && count($contentQuery->getParameters())) {
-                continue;
-            }
+            // $params = $this->whitelistParameters($contentQuery->getParameters(), $repo);
+            // if (!$params && count($contentQuery->getParameters())) {
+            //     continue;
+            // }
             //$params['contentType'] = $contentType;
+            $params = $this->cleanParameters($contentQuery->getParameters());
+
             /* Continue and run the query add the results to the set */
             $query->setParameters($params);
             $contentQuery->runScopes($query);
@@ -60,12 +58,12 @@ class SelectQueryHandler
             // $query is of Bolt\Storage\Query\SelectQuery
             // dd($query->getQueryBuilder()->getQuery());
 
-            $test = $query->build()
-                ->andWhere('content.contentType = :ct')
-                ->setParameter('ct', $contentType)
-                ->getQuery()
-            ;
-            $result = $test->getResult();
+            $foo = $query->build();
+            $foo->andWhere('content.contentType = :ct');
+            $foo->setParameter('ct', $contentType);
+
+            $this->setWhereParameters($foo, $qb, $repo, $contentQuery->getParameters()); // ROUGH!
+            $result = $foo->getQuery()->getResult();
 
             if ($result) {
                 $set->setOriginalQuery($contentType, $query->getQueryBuilder());
@@ -83,6 +81,85 @@ class SelectQueryHandler
 
         return $set;
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+    var $coreFields = [
+        'id',
+        'created_at',
+        'modified_at',
+        'published_at',
+        'depublished_at',
+        'author_id',
+        'status',
+    ];
+
+    /**
+     *
+     */
+    private function cleanParameters($params)
+    {
+        $cleanParams = [];
+
+        foreach ($params as $key => $value) {
+            if (in_array($key, $this->coreFields)) {
+                $cleanParams[$key] = $value;
+            }
+        }
+        return $cleanParams;
+    }
+
+    /**
+     *
+     */
+    private function setWhereParameters($q, $qb, $repo, $params)
+    {
+        // todo: Check if a key is a column in the `bolt_content` table or a row in the `bolt_fields` table.
+        // todo: Is there a difference between taxonomies?
+        // todo: Add a (default) locale check when it is ready.
+
+        // Let's allow every other field, because it will not throw an error anymore. It
+        // will just not return no results. In previous Bolt versions, it would throw an
+        // exception if the column did not exist. We can still double check this with
+        // `contenttypes.yml`.
+        $index = 0;
+        foreach ($params as $key => $value) {
+            if (in_array($key, $this->coreFields)) {
+              //something going on with id and slug blegh!
+                // $q = $q
+                //     ->andWhere('content.' . $key . ' = :key')
+                //     ->setParmeter($key, $value)
+                // ;
+            } else {
+                $contentAlias = 'content_' . $index;
+                $fieldsAlias  = 'fields_' . $index;
+                $keyParam     = 'field_' . $index;
+                $valueParam   = 'value_' . $index;
+
+                $q = $q
+                    ->andWhere(
+                        $qb->expr()->in('content.id',
+                          $repo
+                            ->createQueryBuilder($contentAlias)
+                            ->select($contentAlias . '.id')
+                            ->innerJoin($contentAlias. '.fields', $fieldsAlias)
+                            ->andWhere($fieldsAlias . '.name = :' . $keyParam)
+                            ->andWhere($fieldsAlias . '.value = :' . $valueParam)
+                            ->getDQL()
+                        )
+                    )
+                    ->setParameter($keyParam, $key)
+                    ->setParameter($valueParam, \GuzzleHttp\json_encode([ $value ]))
+                ;
+
+                $index++;
+            }
+        }
+
+        return $q;
+    }
+
+
 
     /**
      * This block is added to deal with the possibility that a requested filter is not an allowable option on the
