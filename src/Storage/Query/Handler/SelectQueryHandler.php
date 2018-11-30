@@ -17,7 +17,7 @@ class SelectQueryHandler
     /**
      * @param ContentQueryParser $contentQuery
      *
-     * @return QueryResultset|Content|false
+     * @return Content[]|Content|false
      */
     public function __invoke(ContentQueryParser $contentQuery)
     {
@@ -73,6 +73,6 @@ class SelectQueryHandler
             return $set->current();
         }
 
-        return $set;
+        return $set->get();
     }
 }
