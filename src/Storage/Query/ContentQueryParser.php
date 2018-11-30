@@ -19,7 +19,6 @@ use Bolt\Storage\Query\Directive\ReturnSingleDirective;
 use Bolt\Storage\Query\Handler\FirstQueryHandler;
 use Bolt\Storage\Query\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Query\Handler\LatestQueryHandler;
-use Bolt\Storage\Query\Handler\NativeSearchHandler;
 use Bolt\Storage\Query\Handler\SearchQueryHandler;
 use Bolt\Storage\Query\Handler\SelectQueryHandler;
 
@@ -45,7 +44,7 @@ class ContentQueryParser
     /** @var string */
     protected $identifier;
     /** @var array */
-    protected $operations = ['search', 'latest', 'first', 'nativesearch'];
+    protected $operations = ['search', 'latest', 'first'];
     /** @var array */
     protected $directives = [];
     /** @var callable[] */
@@ -83,7 +82,6 @@ class ContentQueryParser
         $this->addHandler('search', new SearchQueryHandler());
         $this->addHandler('first', new FirstQueryHandler());
         $this->addHandler('latest', new LatestQueryHandler());
-        $this->addHandler('nativesearch', new NativeSearchHandler());
         $this->addHandler('namedselect', new IdentifiedSelectHandler());
 
         $this->addDirectiveHandler('getquery', new GetQueryDirective());
