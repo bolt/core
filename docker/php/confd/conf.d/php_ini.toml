@@ -1,0 +1,10 @@
+[template]
+src = "php_init.tmpl"
+dest = "/usr/local/etc/php/php.ini"
+prefix = "php"
+keys = [
+    "timezone",
+    "memorylimit",
+    "maxfilesize",
+    "maxexectime"
+]
