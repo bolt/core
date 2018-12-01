@@ -94,7 +94,7 @@ Run the following commands with `make`, to perform Code Style checking and
 automatic fixing:
 
  - `make cscheck`: Run ECS and PHPStan
- - `make cscheck`: Run ECS, perform automatic fixes and run PHPStan
+ - `make csfix`: Run ECS, perform automatic fixes and run PHPStan
 
 On windows, you can run the commands separately:
 
