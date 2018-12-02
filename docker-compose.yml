@@ -1,0 +1,58 @@
+version: '3.4'
+services:
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+      cache_from:
+        - php:7.3-rc-fpm
+#    env_file:
+#      - .env
+#    depends_on:
+#      - database
+#      - redis
+    volumes:
+      - ./:/var/www/bolt
+    working_dir: /var/www/bolt
+
+#  database:
+#    image: mariadb:10
+#    env_file:
+#      - .env
+#    ports:
+#      - 33306:3306
+#    environment:
+#      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+#      MYSQL_PASSWORD: ${DB_PASSWORD}
+#      MYSQL_USER: ${DB_USER}
+#      MYSQL_DATABASE: ${DB_NAME}
+#      MYSQL_INITDB_SKIP_TZINFO: 0
+
+#  redis:
+#    image: redis:4-alpine
+#    env_file:
+#      - .env
+#    ports:
+#      - 6379
+
+  web:
+    image: nginx:alpine
+    ports:
+      - 8088:80
+    depends_on:
+      - php
+#    env_file:
+#      - .env
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+      - ./:/var/www/bolt
+      - ./var/logs:/var/log/nginx
+    entrypoint:
+      - sh
+      - /etc/nginx/conf.d/entrypoint.sh
+
+  node:
+    image: node:latest
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app

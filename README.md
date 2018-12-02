@@ -34,6 +34,24 @@ Alternatively, run `make install`, on a UNIX-like system.
 
 It's on the roadmap for Beta 1 to provide a `composer create-project` install.
 
+Use with Docker
+---------------
+
+To install Bolt 4 with Docker (for now, on a UNIX-like system):
+
+  - Check out the git repo
+  - Then:
+
+  ```bash
+docker-compose up -d
+make docker-install
+make docker-db-create
+  ```
+
+Actually, just add `docker-` prefix to any Make command and that's it!
+
+In your browser, go to http://0.0.0.0:8088/ for the frontend, and to http://0.0.0.0:8088/bolt for the Admin Panel.
+
 Set up Database
 ---------------
 
