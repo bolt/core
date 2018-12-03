@@ -52,14 +52,14 @@ class FrontendQueryScope implements QueryScopeInterface
     {
         $contentTypes = $this->config->get('contenttypes');
         foreach ($contentTypes as $type => $values) {
-            $sort = $values['sort'] ?: '-publishedAt';
+            $sort = $values['sort'] ?? '-publishedAt';
             $this->orderBys[$type] = $sort;
             if (isset($values['singular_slug'])) {
                 $this->orderBys[$values['singular_slug']] = $sort;
             }
         }
     }
-    
+
     public function onQueryExecute(ContentQueryInterface $query): void
     {
         $ct = $query->getContentType();

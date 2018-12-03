@@ -55,13 +55,4 @@ services:
             -
                 method: addService
                 arguments: [ 'select', '@Bolt\Storage\Query\SelectQuery' ]
-            -
-                method: addService
-                arguments: [ 'search', '@Bolt\Storage\Query\SearchQuery' ]
-            -
-                method: addService
-                arguments: [ 'search_weighter', '@Bolt\Storage\Query\SearchWeighter' ]
-            -
-                method: addService
-                arguments: [ 'search_config', '@Bolt\Storage\Query\SearchConfig' ]
     Doctrine\ORM\Query\Expr:

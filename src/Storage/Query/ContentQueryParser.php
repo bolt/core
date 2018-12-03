@@ -76,7 +76,6 @@ class ContentQueryParser
     protected function setupDefaults(): void
     {
         $this->addHandler('select', new SelectQueryHandler());
-        $this->addHandler('search', new SearchQueryHandler());
         $this->addHandler('first', new FirstQueryHandler());
         $this->addHandler('latest', new LatestQueryHandler());
         $this->addHandler('namedselect', new IdentifiedSelectHandler());
