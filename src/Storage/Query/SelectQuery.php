@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query;
 
-use Doctrine\ORM\Connection;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Query\Expr\Composite;
 use Doctrine\ORM\QueryBuilder;
 
@@ -89,8 +89,6 @@ class SelectQuery implements ContentQueryInterface
 
     /**
      * Getter to allow access to a set parameter.
-     *
-     * @return mixed
      */
     public function getParameter(string $name)
     {
@@ -212,6 +210,7 @@ class SelectQuery implements ContentQueryInterface
             $query->where($this->getWhereExpression());
         }
         foreach ($this->getWhereParameters() as $key => $param) {
+            // xiao: `Connection::PARAM_STR_ARRAY` seems incorrect to me
             $query->setParameter($key, $param, is_array($param) ? Connection::PARAM_STR_ARRAY : null);
         }
 
@@ -269,7 +268,7 @@ class SelectQuery implements ContentQueryInterface
      * the QueryParameterParser. This allows complicated expressions to
      * be turned into simple sql expressions.
      *
-     * @throws \Bolt\Exception\QueryParseException
+     * @throws \Exception
      */
     protected function processFilters(): void
     {
@@ -290,7 +289,7 @@ class SelectQuery implements ContentQueryInterface
      */
     public function doReferenceJoins(): void
     {
-        foreach ($this->referenceJoins as $key => $filter) {
+        foreach (array_keys($this->referenceJoins) as $key) {
             $this->qb->join('content.' . $key, $key);
         }
     }
@@ -305,7 +304,6 @@ class SelectQuery implements ContentQueryInterface
             $contentAlias = 'content_' . $index;
             $fieldsAlias = 'fields_' . $index;
             $keyParam = 'field_' . $index;
-            $valueParam = 'value_' . $index;
 
             $originalLeftExpression = 'content.' . $key;
             $newLeftExpression = $fieldsAlias . '.value';
@@ -319,7 +317,7 @@ class SelectQuery implements ContentQueryInterface
                     $this->qb->expr()->in(
                         'content.id',
                         $em
-                            ->createQueryBuilder($contentAlias)
+                            ->createQueryBuilder()
                             ->select($contentAlias . '.id')
                             ->from(\Bolt\Entity\Content::class, $contentAlias)
                             ->innerJoin($contentAlias . '.fields', $fieldsAlias)

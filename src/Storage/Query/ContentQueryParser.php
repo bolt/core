@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query;
 
+use Bolt\Entity\Content;
 use Bolt\Events\QueryEvent;
 use Bolt\Events\QueryEvents;
 use Bolt\Repository\ContentRepository;
-use Bolt\Storage\Entity\Content;
 use Bolt\Storage\Query\Directive\GetQueryDirective;
 use Bolt\Storage\Query\Directive\HydrateDirective;
 use Bolt\Storage\Query\Directive\LimitDirective;
@@ -19,7 +19,6 @@ use Bolt\Storage\Query\Directive\ReturnSingleDirective;
 use Bolt\Storage\Query\Handler\FirstQueryHandler;
 use Bolt\Storage\Query\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Query\Handler\LatestQueryHandler;
-use Bolt\Storage\Query\Handler\SearchQueryHandler;
 use Bolt\Storage\Query\Handler\SelectQueryHandler;
 
 /**

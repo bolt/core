@@ -20,7 +20,7 @@ class QueryParameterParser
     protected $key;
     /** @var mixed */
     protected $value;
-    /** @var ExpressionBuilder */
+    /** @var Expr */
     protected $expr;
     /** @var array */
     protected $valueMatchers = [];
@@ -29,8 +29,6 @@ class QueryParameterParser
 
     /**
      * Constructor.
-     *
-     * @param ExpressionBuilder $expr
      */
     public function __construct(Expr $expr)
     {
@@ -201,6 +199,8 @@ class QueryParameterParser
 
         $values = preg_split('/ *(&&|\|\|) */', $value, -1, PREG_SPLIT_DELIM_CAPTURE);
         $op = $values[1];
+
+        $comparison = 'andX';
 
         if ($op === '&&') {
             $comparison = 'andX';

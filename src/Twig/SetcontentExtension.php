@@ -17,13 +17,10 @@ class SetcontentExtension extends AbstractExtension
 {
     /** @var Query */
     private $queryEngine;
-    /** @var MetadataDriver */
-    private $metadataDriver;
-    
-    public function __construct(Query $queryEngine, ?MetadataDriver $metadataDriver = null)
+
+    public function __construct(Query $queryEngine)
     {
         $this->queryEngine = $queryEngine;
-        $this->metadataDriver = $metadataDriver; // still needed?
     }
 
     /**

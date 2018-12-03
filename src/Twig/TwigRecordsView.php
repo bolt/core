@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-// use Bolt\Storage\Entity\Content;
-// use Bolt\Storage\Field\Collection\FieldCollection;
-use Bolt\Storage\Mapping\MetadataDriver;
+use Bolt\Entity\Content;
 use Bolt\Storage\Query\QueryResultset;
-// use ParsedownExtra;
 use Twig\Markup;
 
 /**
@@ -20,17 +17,14 @@ use Twig\Markup;
  */
 class TwigRecordsView
 {
-    /** @var MetadataDriver */
-    protected $metadata;
     /** @var array */
     protected $transformers = [];
 
     /**
      * Constructor.
      */
-    public function __construct(?MetadataDriver $metadata = null)
+    public function __construct()
     {
-        $this->metadata = $metadata;
         $this->setupDefaults();
     }
 
@@ -49,27 +43,6 @@ class TwigRecordsView
         $this->addTransformer('textarea', function ($value) {
             return new Markup($value, 'UTF-8');
         });
-        $this->addTransformer('markdown', function ($value) {
-            $markdown = new ParsedownExtra();
-            $value = $markdown->text($value);
-
-            return new Markup($value, 'UTF-8');
-        });
-
-        // $this->addTransformer('repeater', function ($value) {
-        //     /** @var FieldCollection $collection */
-        //     foreach ($value as $collection) {
-        //         foreach ($collection as $field) {
-        //             $field->setValue($this->transform($field->getValue(), $field->getFieldType()));
-        //         }
-        //     }
-
-        //     return $value;
-        // });
-
-        // $this->addTransformer('block', function ($value) {
-        //     return $this->transform($value, 'repeater');
-        // });
     }
 
     /**
@@ -89,19 +62,20 @@ class TwigRecordsView
 
         return $records;
     }
-    
+
     protected function processSingleRecord($record): void
     {
         $values = $record->getValues();
         if (is_array($values)) {
             foreach ($values as $field => $value) {
-                $type = $this->metadata->getFieldMetadata((string) $record->getContenttype(), $field);
-                $boltType = $type['data']['type'];
+                /* Get type of a field based on $record->getContenttype() and $field */
+                $type = '';
+                $boltType = '';
                 $record->set($field, $this->transform($value, $boltType, $type));
             }
         }
     }
-    
+
     protected function processRecords($records): void
     {
         foreach ($records as $record) {

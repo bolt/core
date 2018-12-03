@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query;
 
-use Bolt\Storage\Entity\Content;
+use Bolt\Entity\Content;
 use Bolt\Twig\TwigRecordsView;
 
 class Query
@@ -52,12 +52,9 @@ class Query
      * Used by the twig command {% setcontent %} but also directly.
      * For reference refer to @link https://docs.bolt.cm/templating/content-fetching
      *
-     * @param string       $textQuery
-     * @param array|string $parameters
-     *
      * @return QueryResultset|Content|null
      */
-    public function getContent($textQuery, array $parameters = [])
+    public function getContent(string $textQuery, array $parameters = [])
     {
         $this->parser->setQuery($textQuery);
         $this->parser->setParameters($parameters);
@@ -66,11 +63,12 @@ class Query
     }
 
     /**
-     * @return boolean|null|QueryResultset
+     * @return bool|QueryResultset|null
      */
     public function getContentByScope(string $scopeName, string $textQuery, array $parameters = [])
     {
-        if ($scope = $this->getScope($scopeName)) {
+        $scope = $this->getScope($scopeName);
+        if ($scope) {
             $this->parser->setQuery($textQuery);
             $this->parser->setParameters($parameters);
             $this->parser->setScope($scope);

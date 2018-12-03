@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query\Handler;
 
-use Bolt\Storage\Entity\Content;
+use Bolt\Entity\Content;
 use Bolt\Storage\Query\ContentQueryParser;
 use Bolt\Storage\Query\QueryResultset;
 use Bolt\Storage\Query\SelectQuery;
