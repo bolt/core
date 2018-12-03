@@ -105,3 +105,6 @@ parameters:
         - 'PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer'
         - 'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff'
         - 'Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff' #to be removed after beta release
+    skip:
+        # assignment in "while ($var = ...)" are ok
+        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff.FoundInWhileCondition:
