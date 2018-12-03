@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Storage\Query;
 
 use Bolt\Exception\QueryParseException;
-use Doctrine\DBAL\Query\Expression\CompositeExpression;
-use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Composite;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * This query class coordinates a search query building mainly on the same
@@ -29,12 +29,8 @@ class SearchQuery extends SelectQuery
 
     /**
      * Constructor.
-     *
-     * @param QueryBuilder         $qb
-     * @param QueryParameterParser $parser
-     * @param SearchConfig         $config
      */
-    public function __construct(QueryBuilder $qb = null, QueryParameterParser $parser, SearchConfig $config)
+    public function __construct(?QueryBuilder $qb = null, QueryParameterParser $parser, SearchConfig $config)
     {
         parent::__construct($qb, $parser);
         $this->config = $config;
@@ -47,7 +43,7 @@ class SearchQuery extends SelectQuery
      *
      * @throws QueryParseException
      */
-    public function setSearch($search)
+    public function setSearch($search): void
     {
         $this->search = $search;
         $this->processFilters();
@@ -56,20 +52,16 @@ class SearchQuery extends SelectQuery
     /**
      * Sets the overall parameters on the query. This may include others
      * than the search query itself which gets set to the 'filter' param.
-     *
-     * @param array $params
      */
-    public function setParameters(array $params)
+    public function setParameters(array $params): void
     {
         $this->params = $params;
     }
 
     /**
      * Gets the individual elements of the search query as an array.
-     *
-     * @return array
      */
-    public function getSearchWords()
+    public function getSearchWords(): array
     {
         return explode(' ', $this->search);
     }
@@ -77,10 +69,8 @@ class SearchQuery extends SelectQuery
     /**
      * This is an internal helper method to get the search words prepared to
      * be passed to the expression builder.
-     *
-     * @return string
      */
-    protected function getSearchParameter()
+    protected function getSearchParameter(): string
     {
         if (mb_strpos($this->search, '+')) {
             $words = preg_split('/[\s\+]+/', $this->search);
@@ -99,11 +89,11 @@ class SearchQuery extends SelectQuery
      *
      * @throws QueryParseException
      */
-    protected function processFilters()
+    protected function processFilters(): void
     {
         $params = $this->params;
 
-        if (!$this->contentType) {
+        if (! $this->contentType) {
             throw new QueryParseException('You have attempted to run a search query without specifying a ContentType', 1);
         }
 
@@ -111,7 +101,7 @@ class SearchQuery extends SelectQuery
             $this->config->enableSearchInvisible(true);
         }
 
-        if (!$config = $this->config->getConfig($this->contentType)) {
+        if (! $config = $this->config->getConfig($this->contentType)) {
             throw new QueryParseException('You have attempted to run a search query on an unknown ContentType or one that is not searchable', 1);
         }
 
@@ -129,12 +119,10 @@ class SearchQuery extends SelectQuery
     /**
      * Creates a composite expression that adds all the attached
      * filters individual expressions into a combined one.
-     *
-     * @return CompositeExpression|null
      */
-    public function getWhereExpression()
+    public function getWhereExpression(): ?Composite
     {
-        if (!count($this->filters)) {
+        if (! count($this->filters)) {
             return null;
         }
 

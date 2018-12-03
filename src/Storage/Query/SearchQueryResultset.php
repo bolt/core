@@ -22,7 +22,7 @@ class SearchQueryResultset extends QueryResultset
      * @param string $type    An optional label to partition results
      * @param array  $scores  An array of scores for the corresponding results
      */
-    public function add($results, $type = null, $scores = [])
+    public function add($results, $type = null, $scores = []): void
     {
         if ($type !== null) {
             $this->results[$type] = $results;
@@ -38,7 +38,7 @@ class SearchQueryResultset extends QueryResultset
     /**
      * @param string $label
      */
-    public function sortSingle($label)
+    public function sortSingle($label): void
     {
         $results = $this->get($label);
         $scores = $this->scores[$label];
@@ -52,10 +52,7 @@ class SearchQueryResultset extends QueryResultset
         $this->results[$label] = $sorted;
     }
 
-    /**
-     * @return array
-     */
-    public function getSortedResults()
+    public function getSortedResults(): array
     {
         $results = [];
         foreach ($this->results as $type => $records) {
@@ -74,7 +71,7 @@ class SearchQueryResultset extends QueryResultset
                 return 0;
             }
 
-            return ($a['score'] < $b['score']) ? -1 : 1;
+            return $a['score'] < $b['score'] ? -1 : 1;
         });
 
         $results = array_map(function ($item) {

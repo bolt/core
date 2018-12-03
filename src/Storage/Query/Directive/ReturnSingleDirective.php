@@ -11,10 +11,7 @@ use Bolt\Storage\Query\QueryInterface;
  */
 class ReturnSingleDirective
 {
-    /**
-     * @param QueryInterface $query
-     */
-    public function __invoke(QueryInterface $query)
+    public function __invoke(QueryInterface $query): void
     {
         $query->getQueryBuilder()->setMaxResults(1);
         $query->setSingleFetchMode(true);

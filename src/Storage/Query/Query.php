@@ -12,15 +12,12 @@ class Query
     /** @var ContentQueryParser */
     protected $parser;
     /** @var array */
-    protected $scopes;
+    protected $scopes = [];
     /** @var TwigRecordsView */
     protected $recordsView;
 
     /**
      * Constructor.
-     *
-     * @param ContentQueryParser $parser
-     * @param TwigRecordsView    $recordsView
      */
     public function __construct(ContentQueryParser $parser, TwigRecordsView $recordsView)
     {
@@ -30,20 +27,17 @@ class Query
     }
 
     /**
-     * @param string              $name
-     * @param QueryScopeInterface $scope
+     * @param string $name
      */
-    public function addScope($name, QueryScopeInterface $scope)
+    public function addScope($name, QueryScopeInterface $scope): void
     {
         $this->scopes[$name] = $scope;
     }
 
     /**
      * @param string $name
-     *
-     * @return QueryScopeInterface|null
      */
-    public function getScope($name)
+    public function getScope($name): ?QueryScopeInterface
     {
         if (array_key_exists($name, $this->scopes)) {
             return $this->scopes[$name];
@@ -72,13 +66,9 @@ class Query
     }
 
     /**
-     * @param string $scopeName
-     * @param string $textQuery
-     * @param array  $parameters
-     *
-     * @return QueryResultset|null
+     * @return boolean|null|QueryResultset
      */
-    public function getContentByScope($scopeName, $textQuery, array $parameters = [])
+    public function getContentByScope(string $scopeName, string $textQuery, array $parameters = [])
     {
         if ($scope = $this->getScope($scopeName)) {
             $this->parser->setQuery($textQuery);
@@ -93,24 +83,22 @@ class Query
 
     /**
      * Helper to be called from Twig that is passed via a TwigRecordsView rather than the raw records.
-     *
-     * @param $textQuery
-     * @param array $parameters
-     *
-     * @return QueryResultset|null
      */
     public function getContentForTwig($textQuery, array $parameters = [])
     {
         // fix BC break
         if (func_num_args() === 3) {
             $whereparameters = func_get_arg(2);
-            if (is_array($whereparameters) && !empty($whereparameters)) {
+            if (is_array($whereparameters) && ! empty($whereparameters)) {
                 $parameters = array_merge($parameters, $whereparameters);
             }
         }
 
-        return $this->recordsView->createView(
-            $this->getContentByScope('frontend', $textQuery, $parameters)
-        );
+        $results = $this->getContentByScope('frontend', $textQuery, $parameters);
+        if ($results instanceof QueryResultset) {
+            $results = $results->get();
+        }
+
+        return $this->recordsView->createView($results);
     }
 }

@@ -12,10 +12,9 @@ use Bolt\Storage\Query\QueryInterface;
 class PagingDirective
 {
     /**
-     * @param QueryInterface $query
-     * @param int            $limit
+     * @param int $limit
      */
-    public function __invoke(QueryInterface $query, $limit)
+    public function __invoke(QueryInterface $query, $limit): void
     {
         // Not implemented yet
     }

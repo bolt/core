@@ -22,15 +22,13 @@ class TwigRecordsView
 {
     /** @var MetadataDriver */
     protected $metadata;
-    /** @var array $transformers */
-    protected $transformers;
+    /** @var array */
+    protected $transformers = [];
 
     /**
      * Constructor.
-     *
-     * @param MetadataDriver $metadata
      */
-    public function __construct(MetadataDriver $metadata = null)
+    public function __construct(?MetadataDriver $metadata = null)
     {
         $this->metadata = $metadata;
         $this->setupDefaults();
@@ -40,7 +38,7 @@ class TwigRecordsView
      *  Here we register some transformers that prepare the fields to be passed to
      *  twig. For repeaters and blocks this is recursive.
      */
-    protected function setupDefaults()
+    protected function setupDefaults(): void
     {
         $this->addTransformer('html', function ($value) {
             return new Markup($value, 'UTF-8');
@@ -91,11 +89,8 @@ class TwigRecordsView
 
         return $records;
     }
-
-    /**
-     * @param $record
-     */
-    protected function processSingleRecord($record)
+    
+    protected function processSingleRecord($record): void
     {
         $values = $record->getValues();
         if (is_array($values)) {
@@ -106,11 +101,8 @@ class TwigRecordsView
             }
         }
     }
-
-    /**
-     * @param $records
-     */
-    protected function processRecords($records)
+    
+    protected function processRecords($records): void
     {
         foreach ($records as $record) {
             $this->processSingleRecord($record);
@@ -119,30 +111,21 @@ class TwigRecordsView
 
     /**
      * Adds a transformer callback to the field type $label.
-     *
-     * @param $label
-     * @param callable $callback
      */
-    public function addTransformer($label, callable $callback)
+    public function addTransformer($label, callable $callback): void
     {
         $this->transformers[$label] = $callback;
     }
 
     /**
      * Checks if a transformer is registered for $label.
-     *
-     * @param $label
-     *
-     * @return bool
      */
-    public function hasTransformer($label)
+    public function hasTransformer($label): bool
     {
         return array_key_exists($label, $this->transformers);
     }
 
     /**
-     * @param $label
-     *
      * @return array|mixed
      */
     public function getTransformer($label)
@@ -152,13 +135,6 @@ class TwigRecordsView
         }
     }
 
-    /**
-     * @param $value
-     * @param $label
-     * @param array $fieldData
-     *
-     * @return mixed
-     */
     protected function transform($value, $label, array $fieldData = [])
     {
         if ($this->hasTransformer($label)) {

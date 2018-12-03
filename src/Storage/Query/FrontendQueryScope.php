@@ -22,8 +22,6 @@ class FrontendQueryScope implements QueryScopeInterface
 
     /**
      * Constructor.
-     *
-     * @param Config $config
      */
     public function __construct(Config $config)
     {
@@ -50,7 +48,7 @@ class FrontendQueryScope implements QueryScopeInterface
     /**
      * Iterates over the main config and sets up what the default ordering should be.
      */
-    protected function parseContentTypes()
+    protected function parseContentTypes(): void
     {
         $contentTypes = $this->config->get('contenttypes');
         foreach ($contentTypes as $type => $values) {
@@ -61,11 +59,8 @@ class FrontendQueryScope implements QueryScopeInterface
             }
         }
     }
-
-    /**
-     * @param ContentQueryInterface $query
-     */
-    public function onQueryExecute(ContentQueryInterface $query)
+    
+    public function onQueryExecute(ContentQueryInterface $query): void
     {
         $ct = $query->getContentType();
 
@@ -77,7 +72,7 @@ class FrontendQueryScope implements QueryScopeInterface
 
         // Setup status to only published unless otherwise specified
         $status = $query->getParameter('status');
-        if (!$status) {
+        if (! $status) {
             $query->setParameter('status', 'published');
         }
     }

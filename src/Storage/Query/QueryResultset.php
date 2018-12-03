@@ -7,7 +7,7 @@ namespace Bolt\Storage\Query;
 use AppendIterator;
 use ArrayIterator;
 use Countable;
-use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * This class is a wrapper that handles single or multiple
@@ -27,7 +27,7 @@ class QueryResultset extends AppendIterator implements Countable
      * @param array  $results A set of results
      * @param string $type    An optional label to partition results
      */
-    public function add($results, $type = null)
+    public function add($results, $type = null): void
     {
         if ($type) {
             $this->results[$type] = $results;
@@ -44,10 +44,8 @@ class QueryResultset extends AppendIterator implements Countable
      * that set of results.
      *
      * @param string $label
-     *
-     * @return ArrayIterator
      */
-    public function get($label = null)
+    public function get($label = null): array
     {
         if ($label && array_key_exists($label, $this->results)) {
             return $this->results[$label];
@@ -66,29 +64,18 @@ class QueryResultset extends AppendIterator implements Countable
 
     /**
      * Returns the total count.
-     *
-     * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->get());
     }
 
-    /**
-     * @param $type
-     * @param $originalQuery
-     */
-    public function setOriginalQuery($type, $originalQuery)
+    public function setOriginalQuery($type, $originalQuery): void
     {
         $this->originalQueries[$type] = $originalQuery;
     }
 
-    /**
-     * @param null $type
-     *
-     * @return QueryBuilder
-     */
-    public function getOriginalQuery($type = null)
+    public function getOriginalQuery($type = null): QueryBuilder
     {
         if ($type !== null) {
             return $this->originalQueries[$type];
@@ -100,7 +87,7 @@ class QueryResultset extends AppendIterator implements Countable
     /**
      * @return QueryBuilder[]
      */
-    public function getOriginalQueries()
+    public function getOriginalQueries(): array
     {
         return $this->originalQueries;
     }

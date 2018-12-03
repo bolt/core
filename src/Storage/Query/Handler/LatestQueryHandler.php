@@ -14,12 +14,7 @@ use Bolt\Storage\Query\QueryResultset;
  */
 class LatestQueryHandler
 {
-    /**
-     * @param ContentQueryParser $contentQuery
-     *
-     * @return QueryResultset
-     */
-    public function __invoke(ContentQueryParser $contentQuery)
+    public function __invoke(ContentQueryParser $contentQuery): QueryResultset
     {
         $contentQuery->setDirective('order', '-id');
 

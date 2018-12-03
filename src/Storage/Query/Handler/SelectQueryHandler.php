@@ -15,8 +15,6 @@ use Bolt\Storage\Query\SelectQuery;
 class SelectQueryHandler
 {
     /**
-     * @param ContentQueryParser $contentQuery
-     *
      * @return Content[]|Content|false
      */
     public function __invoke(ContentQueryParser $contentQuery)
@@ -43,21 +41,19 @@ class SelectQueryHandler
             $query->build();
 
             // Bolt4 introduces an extra table for field values, so additional
-            // joins is required.
+            // joins are required.
             $query->doReferenceJoins();
             $query->doFieldJoins();
 
             $query
                 ->getQueryBuilder()
                 ->andWhere('content.contentType = :ct')
-                ->setParameter('ct', $contentType)
-            ;
+                ->setParameter('ct', $contentType);
 
             $result = $query
                 ->getQueryBuilder()
                 ->getQuery()
-                ->getResult()
-            ;
+                ->getResult();
 
             if ($result) {
                 $set->setOriginalQuery($contentType, $query);
@@ -73,6 +69,6 @@ class SelectQueryHandler
             return $set->current();
         }
 
-        return $set->get();
+        return $set;
     }
 }

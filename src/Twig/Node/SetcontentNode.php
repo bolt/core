@@ -21,18 +21,18 @@ class SetcontentNode extends Node
     /**
      * Constructor.
      *
-     * @param string          $name
-     * @param Node            $contentType
-     * @param ArrayExpression $arguments
-     * @param array           $whereArguments
-     * @param int             $lineNo
-     * @param null            $tag
+     * @param string $name
+     * @param int    $lineNo
      */
     public function __construct($name, Node $contentType, ArrayExpression $arguments, array $whereArguments, $lineNo, $tag = null)
     {
         parent::__construct(
             $whereArguments,
-            ['name' => $name, 'contenttype' => $contentType, 'arguments' => $arguments],
+            [
+                'name' => $name,
+                'contenttype' => $contentType,
+                'arguments' => $arguments,
+            ],
             $lineNo,
             $tag
         );
@@ -41,7 +41,7 @@ class SetcontentNode extends Node
     /**
      * {@inheritdoc}
      */
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $arguments = $this->getAttribute('arguments');
 
@@ -53,14 +53,12 @@ class SetcontentNode extends Node
             ->raw("\$this->env->getExtension('" . SetcontentExtension::class . "')->getQueryEngine()->getContentForTwig(")
             ->subcompile($this->getAttribute('contenttype'))
             ->raw(', ')
-            ->subcompile($arguments)
-        ;
+            ->subcompile($arguments);
 
         if ($this->hasNode('wherearguments')) {
             $compiler
                 ->raw(', ')
-                ->subcompile($this->getNode('wherearguments'))
-            ;
+                ->subcompile($this->getNode('wherearguments'));
         }
 
         $compiler->raw(" );\n");

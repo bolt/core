@@ -10,7 +10,6 @@ use Doctrine\ORM\Query\Expr\Composite;
  *  This class represents a single filter that converts to an expression along
  *  with associated query values.
  *
- *
  *  @author Ross Riley <riley.ross@gmail.com>
  */
 class Filter
@@ -26,17 +25,15 @@ class Filter
      *
      * @param string $key
      */
-    public function setKey($key)
+    public function setKey($key): void
     {
         $this->key = $key;
     }
 
     /**
      * Getter for key.
-     *
-     * @return string
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -44,20 +41,16 @@ class Filter
     /**
      * Gets the compiled expression as a string. This will look
      * something like `(alias.key = :placeholder)`.
-     *
-     * @return string
      */
-    public function getExpression()
+    public function getExpression(): string
     {
         return $this->expression->__toString();
     }
 
     /**
      * Allows replacing the expression object with a modified one.
-     *
-     * @param Composite $expression
      */
-    public function setExpression(Composite $expression)
+    public function setExpression(Composite $expression): void
     {
         $this->expression = $expression;
     }
@@ -66,10 +59,8 @@ class Filter
      * Returns the actual object of the expression. This is generally
      * only needed for on the fly modification, to get the compiled
      * expression use getExpression().
-     *
-     * @return Composite
      */
-    public function getExpressionObject()
+    public function getExpressionObject(): Composite
     {
         return $this->expression;
     }
@@ -77,20 +68,16 @@ class Filter
     /**
      * Returns the array of parameters attached to this filter. These are
      * normally used to replace placeholders at compile time.
-     *
-     * @return array
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
     /**
      * Setter method to replace parameters.
-     *
-     * @param array $parameters
      */
-    public function setParameters(array $parameters)
+    public function setParameters(array $parameters): void
     {
         $this->parameters = $parameters;
     }
@@ -99,10 +86,8 @@ class Filter
      * Helper method to check if parameters are set for a specific key.
      *
      * @param string $param
-     *
-     * @return bool
      */
-    public function hasParameter($param)
+    public function hasParameter($param): bool
     {
         return array_key_exists($param, $this->parameters);
     }
@@ -111,9 +96,8 @@ class Filter
      * Allows setting a parameter for a single key.
      *
      * @param string $param
-     * @param mixed  $value
      */
-    public function setParameter($param, $value)
+    public function setParameter($param, $value): void
     {
         $this->parameters[$param] = $value;
     }

@@ -11,10 +11,7 @@ use Bolt\Storage\Query\QueryInterface;
  */
 class PrintQueryDirective
 {
-    /**
-     * @param QueryInterface $query
-     */
-    public function __invoke(QueryInterface $query)
+    public function __invoke(QueryInterface $query): void
     {
         echo $query;
     }

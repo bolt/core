@@ -15,7 +15,7 @@ class SearchWeighter
     /** @var QueryResultset|array */
     protected $results;
     /** @var array */
-    protected $searchWords;
+    protected $searchWords = [];
     /** @var string */
     protected $contentType;
 
@@ -23,8 +23,6 @@ class SearchWeighter
      * Constructor takes a compiled SearchConfig which is essentially an array
      * of fields that we will search for text content, along with their corresponding
      * weighting score.
-     *
-     * @param SearchConfig $config
      */
     public function __construct(SearchConfig $config)
     {
@@ -37,7 +35,7 @@ class SearchWeighter
      *
      * @param QueryResultset|array $results
      */
-    public function setResults(array $results)
+    public function setResults(array $results): void
     {
         $this->results = $results;
     }
@@ -49,7 +47,7 @@ class SearchWeighter
      *
      * @param string $type
      */
-    public function setContentType($type)
+    public function setContentType($type): void
     {
         $this->contentType = $type;
     }
@@ -57,10 +55,8 @@ class SearchWeighter
     /**
      * Sets the words that we want to query against. Normally this comes from the
      * filter in a search, exploded into an array so the words are separated.
-     *
-     * @param array $words
      */
-    public function setSearchWords(array $words)
+    public function setSearchWords(array $words): void
     {
         $this->searchWords = $words;
     }
@@ -70,7 +66,7 @@ class SearchWeighter
      *
      * @return array An array of scores for each of the corresponding results
      */
-    public function weight()
+    public function weight(): array
     {
         $scores = [];
         foreach ($this->results as $result) {
@@ -110,7 +106,7 @@ class SearchWeighter
      *
      * @return array An array consisting of a count / dictionary of words
      */
-    protected function buildResultIndex($result)
+    protected function buildResultIndex($result): array
     {
         $corpus = [];
 
@@ -137,10 +133,13 @@ class SearchWeighter
             $count[$id] = count($terms);
 
             foreach ($terms as $term) {
-                if (!isset($dictionary[$term])) {
-                    $dictionary[$term] = ['frequency' => 0, 'postings' => []];
+                if (! isset($dictionary[$term])) {
+                    $dictionary[$term] = [
+                        'frequency' => 0,
+                        'postings' => [],
+                    ];
                 }
-                if (!isset($dictionary[$term]['postings'][$id])) {
+                if (! isset($dictionary[$term]['postings'][$id])) {
                     ++$dictionary[$term]['frequency'];
                     $dictionary[$term]['postings'][$id] = ['frequency' => 0];
                 }
@@ -149,7 +148,10 @@ class SearchWeighter
             }
         }
 
-        return ['count' => $count, 'dictionary' => $dictionary];
+        return [
+            'count' => $count,
+            'dictionary' => $dictionary,
+        ];
     }
 
     /**
@@ -158,10 +160,8 @@ class SearchWeighter
      * index dictionary.
      *
      * @param object $result
-     *
-     * @return float
      */
-    protected function getResultScore($result)
+    protected function getResultScore($result): float
     {
         $output = [];
 
@@ -172,7 +172,6 @@ class SearchWeighter
         // existence and frequency in the index.
         //
         // The score is passed through log(x, 2) to reduce the smooth the difference.
-        //
         foreach ($this->searchWords as $word) {
             $word = mb_strtolower($word);
             if (isset($corpus['dictionary'][$word])) {

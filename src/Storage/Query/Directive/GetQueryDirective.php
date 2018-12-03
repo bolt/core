@@ -11,11 +11,7 @@ use Bolt\Storage\Query\QueryInterface;
  */
 class GetQueryDirective
 {
-    /**
-     * @param QueryInterface $query
-     * @param callable       $callback
-     */
-    public function __invoke(QueryInterface $query, callable $callback)
+    public function __invoke(QueryInterface $query, callable $callback): void
     {
         $callback($query);
     }

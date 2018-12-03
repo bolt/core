@@ -38,25 +38,55 @@ class QueryParameterParser
         $this->setupDefaults();
     }
 
-    public function setupDefaults()
+    public function setupDefaults(): void
     {
         $word = "[\p{L}\p{N}_]+";
 
         // @codingStandardsIgnoreStart
-        $this->addValueMatcher("<($word)", ['value' => '$1', 'operator' => 'lt']);
-        $this->addValueMatcher("<=($word)", ['value' => '$1', 'operator' => 'lte']);
-        $this->addValueMatcher(">=($word)", ['value' => '$1', 'operator' => 'gte']);
-        $this->addValueMatcher(">($word)", ['value' => '$1', 'operator' => 'gt']);
-        $this->addValueMatcher('!$', ['value' => '',   'operator' => 'isNotNull']);
-        $this->addValueMatcher("!($word)", ['value' => '$1', 'operator' => 'neq']);
-        $this->addValueMatcher('!\[([\p{L}\p{N} ,]+)\]', ['value' => function ($val) {
-            return explode(',', $val);
-        }, 'operator' => 'notIn']);
-        $this->addValueMatcher('\[([\p{L}\p{N} ,]+)\]', ['value' => function ($val) {
-            return explode(',', $val);
-        }, 'operator' => 'in']);
-        $this->addValueMatcher("(%$word|$word%|%$word%)", ['value' => '$1', 'operator' => 'like']);
-        $this->addValueMatcher("($word)", ['value' => '$1', 'operator' => 'eq']);
+        $this->addValueMatcher("<(${word})", [
+            'value' => '$1',
+            'operator' => 'lt',
+        ]);
+        $this->addValueMatcher("<=(${word})", [
+            'value' => '$1',
+            'operator' => 'lte',
+        ]);
+        $this->addValueMatcher(">=(${word})", [
+            'value' => '$1',
+            'operator' => 'gte',
+        ]);
+        $this->addValueMatcher(">(${word})", [
+            'value' => '$1',
+            'operator' => 'gt',
+        ]);
+        $this->addValueMatcher('!$', [
+            'value' => '',
+            'operator' => 'isNotNull',
+        ]);
+        $this->addValueMatcher("!(${word})", [
+            'value' => '$1',
+            'operator' => 'neq',
+        ]);
+        $this->addValueMatcher('!\[([\p{L}\p{N} ,]+)\]', [
+            'value' => function ($val) {
+                return explode(',', $val);
+            },
+            'operator' => 'notIn',
+        ]);
+        $this->addValueMatcher('\[([\p{L}\p{N} ,]+)\]', [
+            'value' => function ($val) {
+                return explode(',', $val);
+            },
+            'operator' => 'in',
+        ]);
+        $this->addValueMatcher("(%${word}|${word}%|%${word}%)", [
+            'value' => '$1',
+            'operator' => 'like',
+        ]);
+        $this->addValueMatcher("(${word})", [
+            'value' => '$1',
+            'operator' => 'eq',
+        ]);
         // @codingStandardsIgnoreEnd
 
         $this->addFilterHandler([$this, 'defaultFilterHandler']);
@@ -68,22 +98,17 @@ class QueryParameterParser
     /**
      * Sets the select alias to be used in sql queries.
      */
-    public function setAlias(string $alias)
+    public function setAlias(string $alias): void
     {
         $this->alias = $alias . '.';
     }
 
     /**
      * Runs the keys/values through the relevant parsers.
-     *
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return Filter|null
      */
-    public function getFilter(string $key, $value = null)
+    public function getFilter(string $key, $value = null): ?Filter
     {
-        if (!$this->expr instanceof Expr) {
+        if (! $this->expr instanceof Expr) {
             throw new \Exception('Cannot call method without an Expression Builder parameter set', 1);
         }
 
@@ -103,7 +128,7 @@ class QueryParameterParser
      */
     public function incorrectQueryHandler(string $key, $value, Expr $expr)
     {
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             return null;
         }
         if (mb_strpos($value, '&&') && mb_strpos($value, '||')) {
@@ -115,12 +140,10 @@ class QueryParameterParser
      * This handler processes 'triple pipe' queries as implemented in Bolt
      * It looks for three pipes in the key and value and creates an OR composite
      * expression for example: 'username|||email':'fred|||pete'.
-     *
-     * @return Filter|null
      */
-    public function multipleKeyAndValueHandler(string $key, $value, Expr $expr)
+    public function multipleKeyAndValueHandler(string $key, $value, Expr $expr): ?Filter
     {
-        if (!mb_strpos($key, '|||')) {
+        if (! mb_strpos($key, '|||')) {
             return null;
         }
 
@@ -144,7 +167,7 @@ class QueryParameterParser
                 $placeholder = $key . '_' . $count;
                 $filterParams[$placeholder] = $val['value'];
                 $exprMethod = $val['operator'];
-                $filter = $this->expr->$exprMethod($this->alias . $key, ':' . $placeholder);
+                $filter = $this->expr->{$exprMethod}($this->alias . $key, ':' . $placeholder);
             }
 
             $parts[] = $filter;
@@ -166,12 +189,10 @@ class QueryParameterParser
      * For example, this handler will correctly parse values like:
      *     'username': 'fred||bob'
      *     'id': '<5 && !1'
-     *
-     * @return Filter|null
      */
-    public function multipleValueHandler(string $key, $value, Expr $expr)
+    public function multipleValueHandler(string $key, $value, Expr $expr): ?Filter
     {
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             return null;
         }
         if (mb_strpos($value, '&&') === false && mb_strpos($value, '||') === false) {
@@ -198,7 +219,7 @@ class QueryParameterParser
             $placeholder = $key . '_' . $count;
             $filterParams[$placeholder] = $val['value'];
             $exprMethod = $val['operator'];
-            $parts[] = $this->expr->$exprMethod($this->alias . $key, ':' . $placeholder);
+            $parts[] = $this->expr->{$exprMethod}($this->alias . $key, ':' . $placeholder);
             ++$count;
         }
 
@@ -229,7 +250,7 @@ class QueryParameterParser
                 $val = $this->parseValue($valueItem);
                 $placeholder = sprintf('%s_%s_%s', $key, $paramName, $count);
                 $exprMethod = $val['operator'];
-                $composite->add($expr->$exprMethod($this->alias . $key, ':' . $placeholder));
+                $composite->add($expr->{$exprMethod}($this->alias . $key, ':' . $placeholder));
                 $filter->setParameter($placeholder, $val['value']);
 
                 ++$count;
@@ -243,7 +264,7 @@ class QueryParameterParser
         $placeholder = $key . '_1';
         $exprMethod = $val['operator'];
 
-        $filter->setExpression($expr->andX($expr->$exprMethod($this->alias . $key, ':' . $placeholder)));
+        $filter->setExpression($expr->andX($expr->{$exprMethod}($this->alias . $key, ':' . $placeholder)));
         $filter->setParameters([$placeholder => $val['value']]);
 
         return $filter;
@@ -291,10 +312,8 @@ class QueryParameterParser
      *
      * Note: the callback should either return nothing or an instance of
      * \Bolt\Storage\Query\Filter
-     *
-     * @param callable $handler
      */
-    public function addFilterHandler(callable $handler)
+    public function addFilterHandler(callable $handler): void
     {
         array_unshift($this->filterHandlers, $handler);
     }
@@ -308,12 +327,18 @@ class QueryParameterParser
      * @param array  $params   Options to provide to the matched param
      * @param bool   $priority If set item will be prepended to start of list
      */
-    public function addValueMatcher(string $token, array $params = [], $priority = null)
+    public function addValueMatcher(string $token, array $params = [], $priority = null): void
     {
         if ($priority) {
-            array_unshift($this->valueMatchers, ['token' => $token, 'params' => $params]);
+            array_unshift($this->valueMatchers, [
+                'token' => $token,
+                'params' => $params,
+            ]);
         } else {
-            $this->valueMatchers[] = ['token' => $token, 'params' => $params];
+            $this->valueMatchers[] = [
+                'token' => $token,
+                'params' => $params,
+            ];
         }
     }
 }

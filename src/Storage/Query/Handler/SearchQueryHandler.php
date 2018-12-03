@@ -16,8 +16,6 @@ use Bolt\Storage\Query\SearchWeighter;
 class SearchQueryHandler
 {
     /**
-     * @param ContentQueryParser $contentQuery
-     *
      * @return SearchQueryResultset|Content|false
      */
     public function __invoke(ContentQueryParser $contentQuery)

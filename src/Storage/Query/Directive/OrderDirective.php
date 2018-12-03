@@ -23,9 +23,9 @@ class OrderDirective
         'status',
     ];
 
-    public function __invoke(QueryInterface $query, string $order)
+    public function __invoke(QueryInterface $query, string $order): void
     {
-        if (!$order) {
+        if (! $order) {
             return;
         }
 
@@ -63,12 +63,7 @@ class OrderDirective
         }
     }
 
-    /**
-     * @param $order
-     *
-     * @return array
-     */
-    protected function getOrderBys($order)
+    protected function getOrderBys($order): array
     {
         $separatedOrders = [$order];
 
@@ -79,12 +74,7 @@ class OrderDirective
         return $separatedOrders;
     }
 
-    /**
-     * @param $order
-     *
-     * @return bool
-     */
-    protected function isMultiOrderQuery($order)
+    protected function isMultiOrderQuery($order): bool
     {
         return mb_strpos($order, ',') !== false;
     }

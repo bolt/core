@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Storage\Query;
 
 use Doctrine\ORM\Connection;
-use Doctrine\ORM\Query\Expression\CompositeExpression;
-use Doctrine\ORM\Query\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Composite;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  *  This query class coordinates a select query build from Bolt's
@@ -28,7 +28,7 @@ class SelectQuery implements ContentQueryInterface
     /** @var string */
     protected $contentType;
     /** @var array */
-    protected $params;
+    protected $params = [];
     /** @var Filter[] */
     protected $filters = [];
     /** @var array */
@@ -55,11 +55,8 @@ class SelectQuery implements ContentQueryInterface
 
     /**
      * Constructor.
-     *
-     * @param QueryBuilder         $qb
-     * @param QueryParameterParser $parser
      */
-    public function __construct(QueryBuilder $qb = null, QueryParameterParser $parser)
+    public function __construct(?QueryBuilder $qb = null, QueryParameterParser $parser)
     {
         $this->qb = $qb;
         $this->parser = $parser;
@@ -68,7 +65,7 @@ class SelectQuery implements ContentQueryInterface
     /**
      * Sets the ContentType that this query will run against.
      */
-    public function setContentType(string $contentType)
+    public function setContentType(string $contentType): void
     {
         $this->contentType = $contentType;
     }
@@ -84,7 +81,7 @@ class SelectQuery implements ContentQueryInterface
     /**
      * Sets the parameters that will filter / alter the query.
      */
-    public function setParameters(array $params)
+    public function setParameters(array $params): void
     {
         $this->params = array_filter($params);
         $this->processFilters();
@@ -93,7 +90,7 @@ class SelectQuery implements ContentQueryInterface
     /**
      * Getter to allow access to a set parameter.
      *
-     * @return array|null
+     * @return mixed
      */
     public function getParameter(string $name)
     {
@@ -106,8 +103,6 @@ class SelectQuery implements ContentQueryInterface
 
     /**
      * Setter to allow writing to a named parameter.
-     *
-     * @param mixed $value
      */
     public function setParameter(string $name, $value): void
     {
@@ -118,12 +113,10 @@ class SelectQuery implements ContentQueryInterface
     /**
      * Creates a composite expression that adds all the attached
      * filters individual expressions into a combined one.
-     *
-     * @return CompositeExpression
      */
-    public function getWhereExpression()
+    public function getWhereExpression(): ?Composite
     {
-        if (!count($this->filters)) {
+        if (! count($this->filters)) {
             return null;
         }
         $expr = $this->qb->expr()->andX();
@@ -151,10 +144,8 @@ class SelectQuery implements ContentQueryInterface
 
     /**
      * Returns all the parameters for the query.
-     *
-     * @return array
      */
-    public function getWhereParameters()
+    public function getWhereParameters(): array
     {
         $params = [];
         foreach ($this->filters as $filter) {
@@ -171,7 +162,7 @@ class SelectQuery implements ContentQueryInterface
      *
      * @return array array of key=>value parameters
      */
-    public function getWhereParametersFor($fieldName)
+    public function getWhereParametersFor($fieldName): array
     {
         return array_intersect_key(
             $this->getWhereParameters(),
@@ -183,9 +174,8 @@ class SelectQuery implements ContentQueryInterface
      * Sets all the parameters for a specific field name.
      *
      * @param string $key
-     * @param mixed  $value
      */
-    public function setWhereParameter($key, $value)
+    public function setWhereParameter($key, $value): void
     {
         foreach ($this->filters as $filter) {
             if ($filter->hasParameter($key)) {
@@ -194,10 +184,7 @@ class SelectQuery implements ContentQueryInterface
         }
     }
 
-    /**
-     * @param Filter $filter
-     */
-    public function addFilter(Filter $filter)
+    public function addFilter(Filter $filter): void
     {
         $this->filters[] = $filter;
     }
@@ -207,7 +194,7 @@ class SelectQuery implements ContentQueryInterface
      *
      * @return Filter[]
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return $this->filters;
     }
@@ -217,10 +204,8 @@ class SelectQuery implements ContentQueryInterface
      * QueryBuilder object and is usually run just before query execution.
      * That allows modifications to be made to any of the parameters up until
      * query execution time.
-     *
-     * @return QueryBuilder
      */
-    public function build()
+    public function build(): QueryBuilder
     {
         $query = $this->qb;
         if ($this->getWhereExpression()) {
@@ -235,10 +220,8 @@ class SelectQuery implements ContentQueryInterface
 
     /**
      * Allows public access to the QueryBuilder object.
-     *
-     * @return QueryBuilder
      */
-    public function getQueryBuilder()
+    public function getQueryBuilder(): QueryBuilder
     {
         return $this->qb;
     }
@@ -248,17 +231,15 @@ class SelectQuery implements ContentQueryInterface
      *
      * @param QueryBuilder $qb
      */
-    public function setQueryBuilder($qb)
+    public function setQueryBuilder($qb): void
     {
         $this->qb = $qb;
     }
 
     /**
      * Returns whether the query is in single fetch mode.
-     *
-     * @return bool
      */
-    public function getSingleFetchMode()
+    public function getSingleFetchMode(): bool
     {
         return $this->singleFetchMode;
     }
@@ -268,7 +249,7 @@ class SelectQuery implements ContentQueryInterface
      *
      * @param bool $value
      */
-    public function setSingleFetchMode($value)
+    public function setSingleFetchMode($value): void
     {
         $this->singleFetchMode = (bool) $value;
     }
@@ -276,7 +257,7 @@ class SelectQuery implements ContentQueryInterface
     /**
      * @return string String representation of query
      */
-    public function __toString()
+    public function __toString(): string
     {
         $query = $this->build();
 
@@ -290,7 +271,7 @@ class SelectQuery implements ContentQueryInterface
      *
      * @throws \Bolt\Exception\QueryParseException
      */
-    protected function processFilters()
+    protected function processFilters(): void
     {
         $this->filters = [];
 
@@ -307,7 +288,7 @@ class SelectQuery implements ContentQueryInterface
     /**
      * Allows key-value queries for `bolt_user` (id) values.
      */
-    public function doReferenceJoins()
+    public function doReferenceJoins(): void
     {
         foreach ($this->referenceJoins as $key => $filter) {
             $this->qb->join('content.' . $key, $key);
@@ -317,7 +298,7 @@ class SelectQuery implements ContentQueryInterface
     /**
      * Allows key-value queries for `bolt_field` values.
      */
-    public function doFieldJoins()
+    public function doFieldJoins(): void
     {
         $index = 1;
         foreach ($this->fieldJoins as $key => $filter) {
@@ -340,15 +321,14 @@ class SelectQuery implements ContentQueryInterface
                         $em
                             ->createQueryBuilder($contentAlias)
                             ->select($contentAlias . '.id')
-                            ->from('Bolt\Entity\Content', $contentAlias)
+                            ->from(\Bolt\Entity\Content::class, $contentAlias)
                             ->innerJoin($contentAlias . '.fields', $fieldsAlias)
                             ->andWhere($fieldsAlias . '.name = :' . $keyParam)
                             ->andWhere($where)
                             ->getDQL()
                     )
                 )
-                ->setParameter($keyParam, $key)
-            ;
+                ->setParameter($keyParam, $key);
             foreach ($filter->getParameters() as $key => $value) {
                 $this->qb->setParameter($key, \GuzzleHttp\json_encode([$value]));
             }

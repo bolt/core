@@ -77,7 +77,7 @@ class SearchConfig
      * Iterates over the main config and delegates weighting to both
      * searchable columns and searchable taxonomies.
      */
-    protected function parseContentTypes()
+    protected function parseContentTypes(): void
     {
         $contentTypes = $this->config->get('contenttypes');
 
@@ -96,7 +96,7 @@ class SearchConfig
      * @param string $contentType
      * @param array  $taxonomies
      */
-    protected function parseTaxonomies($contentType, $taxonomies)
+    protected function parseTaxonomies($contentType, $taxonomies): void
     {
         foreach ((array) $taxonomies as $taxonomy) {
             $taxonomyConfig = $this->config->get('taxonomy/' . $taxonomy);
@@ -107,7 +107,7 @@ class SearchConfig
             } else {
                 $weight = 50;
             }
-            if (!$this->isInvisible($contentType)) {
+            if (! $this->isInvisible($contentType)) {
                 $this->searchableTypes[$contentType][$taxonomy] = ['weight' => $weight];
             } else {
                 $this->invisibleTypes[$contentType][$taxonomy] = ['weight' => $weight];
@@ -121,10 +121,8 @@ class SearchConfig
      * weighting based on type.
      *
      * @param string $contentType
-     *
-     * @return array
      */
-    public function getJoins($contentType)
+    public function getJoins($contentType): array
     {
         return $this->joins[$contentType];
     }
@@ -134,7 +132,7 @@ class SearchConfig
      *
      * @param string $type
      */
-    protected function getSearchableColumns($type)
+    protected function getSearchableColumns($type): void
     {
         $fields = $this->config->get('contenttypes/' . $type . '/fields');
 
@@ -149,7 +147,7 @@ class SearchConfig
                     $weight = 50;
                 }
 
-                if (!$this->isInvisible($type)) {
+                if (! $this->isInvisible($type)) {
                     $this->searchableTypes[$type][$field] = ['weight' => $weight];
                 } else {
                     $this->invisibleTypes[$type][$field] = ['weight' => $weight];
@@ -163,10 +161,8 @@ class SearchConfig
      * This is based on ContentType options.
      *
      * @param string $contentType
-     *
-     * @return bool
      */
-    protected function isInvisible($contentType)
+    protected function isInvisible($contentType): bool
     {
         $info = $this->config->get('contenttypes/' . $contentType);
         if ($info) {
@@ -181,10 +177,7 @@ class SearchConfig
         return false;
     }
 
-    /**
-     * @return bool
-     */
-    public function canSearchInvisible()
+    public function canSearchInvisible(): bool
     {
         return $this->searchInvisible;
     }
@@ -192,17 +185,15 @@ class SearchConfig
     /**
      * @param bool $searchInvisible
      */
-    public function enableSearchInvisible($searchInvisible)
+    public function enableSearchInvisible($searchInvisible): void
     {
         $this->searchInvisible = $searchInvisible;
     }
 
     /**
      * Return an array of searchable contenttypes.
-     *
-     * @return array
      */
-    public function getSearchableTypes()
+    public function getSearchableTypes(): array
     {
         return $this->searchableTypes;
     }

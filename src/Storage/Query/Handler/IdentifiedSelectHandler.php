@@ -11,11 +11,6 @@ use Bolt\Storage\Query\ContentQueryParser;
  */
 class IdentifiedSelectHandler
 {
-    /**
-     * @param ContentQueryParser $contentQuery
-     *
-     * @return mixed
-     */
     public function __invoke(ContentQueryParser $contentQuery)
     {
         if (is_numeric($contentQuery->getIdentifier())) {

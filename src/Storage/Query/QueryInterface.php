@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query;
 
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * Interface that defines minimum functionality of a Bolt Query class.
  *
@@ -14,15 +16,11 @@ interface QueryInterface
 {
     /**
      * Builds the query and returns an instance of QueryBuilder.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    public function build();
+    public function build(): QueryBuilder;
 
     /**
      * Returns the current instance of QueryBuilder.
-     *
-     * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    public function getQueryBuilder();
+    public function getQueryBuilder(): QueryBuilder;
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage\Query;
 
 use Bolt\Storage\Database\Schema\Table\ContentType;
-use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\QueryBuilder;
 use Pimple;
 
 /**
@@ -20,19 +20,16 @@ class TaxonomyQuery implements QueryInterface
     /** @var QueryBuilder */
     protected $qb;
     /** @var array */
-    protected $params;
+    protected $params = [];
     /** @var array */
-    protected $contentTypes;
+    protected $contentTypes = [];
     /** @var array */
-    protected $taxonomyTypes;
+    protected $taxonomyTypes = [];
     /** @var Pimple */
     private $schema;
 
     /**
      * Constructor.
-     *
-     * @param QueryBuilder $qb
-     * @param Pimple       $schema
      */
     public function __construct(QueryBuilder $qb, Pimple $schema)
     {
@@ -42,22 +39,16 @@ class TaxonomyQuery implements QueryInterface
 
     /**
      * Sets the parameters that will filter / alter the query.
-     *
-     * @param array $params
      */
-    public function setParameters(array $params)
+    public function setParameters(array $params): void
     {
         $this->params = array_filter($params);
     }
 
     /**
      * Getter to allow access to a set parameter.
-     *
-     * @param $name
-     *
-     * @return array|null
      */
-    public function getParameter($name)
+    public function getParameter($name): ?array
     {
         if (array_key_exists($name, $this->params)) {
             return $this->params[$name];
@@ -70,29 +61,24 @@ class TaxonomyQuery implements QueryInterface
      * Setter to allow writing to a named parameter.
      *
      * @param string $name
-     * @param mixed  $value
      */
-    public function setParameter($name, $value)
+    public function setParameter($name, $value): void
     {
         $this->params[$name] = $value;
     }
 
     /**
      * Setter to specify which content types to search on.
-     *
-     * @param array $contentTypes
      */
-    public function setContentTypes(array $contentTypes)
+    public function setContentTypes(array $contentTypes): void
     {
         $this->contentTypes = $contentTypes;
     }
 
     /**
      * Setter to specify which taxonomy types to search on.
-     *
-     * @param array $taxonomyTypes
      */
-    public function setTaxonomyTypes(array $taxonomyTypes)
+    public function setTaxonomyTypes(array $taxonomyTypes): void
     {
         $this->taxonomyTypes = $taxonomyTypes;
     }
@@ -102,10 +88,8 @@ class TaxonomyQuery implements QueryInterface
      * QueryBuilder object and is usually run just before query execution.
      * That allows modifications to be made to any of the parameters up until
      * query execution time.
-     *
-     * @return QueryBuilder
      */
-    public function build()
+    public function build(): QueryBuilder
     {
         $query = $this->qb;
         $this->buildJoin();
@@ -116,20 +100,16 @@ class TaxonomyQuery implements QueryInterface
 
     /**
      * Allows public access to the QueryBuilder object.
-     *
-     * @return QueryBuilder
      */
-    public function getQueryBuilder()
+    public function getQueryBuilder(): QueryBuilder
     {
         return $this->qb;
     }
 
     /**
      * Allows replacing the default QueryBuilder.
-     *
-     * @param QueryBuilder $qb
      */
-    public function setQueryBuilder(QueryBuilder $qb)
+    public function setQueryBuilder(QueryBuilder $qb): void
     {
         $this->qb = $qb;
     }
@@ -137,14 +117,14 @@ class TaxonomyQuery implements QueryInterface
     /**
      * @return string String representation of query
      */
-    public function __toString()
+    public function __toString(): string
     {
         $query = $this->build();
 
         return $query->getSQL();
     }
 
-    protected function buildJoin()
+    protected function buildJoin(): void
     {
         $subQuery = '(SELECT ';
         $fragments = [];
@@ -152,7 +132,7 @@ class TaxonomyQuery implements QueryInterface
             /** @var ContentType $table */
             $table = $this->schema[$content];
             $tableName = $table->getTableName();
-            $fragments[] = "id,status, '$content' AS tablename FROM " . $tableName;
+            $fragments[] = "id,status, '${content}' AS tablename FROM " . $tableName;
         }
         $subQuery .= implode(' UNION SELECT ', $fragments);
         $subQuery .= ')';
@@ -161,7 +141,7 @@ class TaxonomyQuery implements QueryInterface
         $this->qb->addSelect('content.*');
     }
 
-    protected function buildWhere()
+    protected function buildWhere(): void
     {
         $params = [];
         $i = 0;
