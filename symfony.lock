@@ -281,6 +281,9 @@
     "psr/simple-cache": {
         "version": "1.0.0"
     },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
+    },
     "seld/jsonlint": {
         "version": "1.7.1"
     },
