@@ -23,7 +23,7 @@ class Filter
     /**
      * Sets the key that this filter affects.
      *
-     * @param string $key
+     * @param string|array $key
      */
     public function setKey($key): void
     {
@@ -32,8 +32,10 @@ class Filter
 
     /**
      * Getter for key.
+     *
+     * @return string|array
      */
-    public function getKey(): string
+    public function getKey()
     {
         return $this->key;
     }
@@ -84,10 +86,8 @@ class Filter
 
     /**
      * Helper method to check if parameters are set for a specific key.
-     *
-     * @param string $param
      */
-    public function hasParameter($param): bool
+    public function hasParameter(string $param): bool
     {
         return array_key_exists($param, $this->parameters);
     }
@@ -95,9 +95,9 @@ class Filter
     /**
      * Allows setting a parameter for a single key.
      *
-     * @param string $param
+     * @param mixed $value
      */
-    public function setParameter($param, $value): void
+    public function setParameter(string $param, $value): void
     {
         $this->parameters[$param] = $value;
     }

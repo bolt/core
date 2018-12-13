@@ -23,4 +23,6 @@ interface QueryInterface
      * Returns the current instance of QueryBuilder.
      */
     public function getQueryBuilder(): QueryBuilder;
+
+    public function __toString(): string;
 }

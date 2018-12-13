@@ -26,18 +26,12 @@ class Query
         $this->scopes = [];
     }
 
-    /**
-     * @param string $name
-     */
-    public function addScope($name, QueryScopeInterface $scope): void
+    public function addScope(string $name, QueryScopeInterface $scope): void
     {
         $this->scopes[$name] = $scope;
     }
 
-    /**
-     * @param string $name
-     */
-    public function getScope($name): ?QueryScopeInterface
+    public function getScope(string $name): ?QueryScopeInterface
     {
         if (array_key_exists($name, $this->scopes)) {
             return $this->scopes[$name];
@@ -82,9 +76,8 @@ class Query
     /**
      * Helper to be called from Twig that is passed via a TwigRecordsView rather than the raw records.
      */
-    public function getContentForTwig($textQuery, array $parameters = [])
+    public function getContentForTwig(string $textQuery, array $parameters = [])
     {
-        // fix BC break
         if (func_num_args() === 3) {
             $whereparameters = func_get_arg(2);
             if (is_array($whereparameters) && ! empty($whereparameters)) {

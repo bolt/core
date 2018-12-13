@@ -15,7 +15,7 @@ use Bolt\Storage\Query\SelectQuery;
 class SelectQueryHandler
 {
     /**
-     * @return Content[]|Content|false
+     * @return Content[]|Content|null
      */
     public function __invoke(ContentQueryParser $contentQuery)
     {
@@ -30,8 +30,8 @@ class SelectQueryHandler
             $repo = $contentQuery->getContentRepository();
             $qb = $repo->getQueryBuilder();
             $query->setQueryBuilder($qb);
-            // $query->setContentType($contentType);
             $query->setContentType('content');
+            // $query->setAlias('content')
 
             $query->setParameters($contentQuery->getParameters());
             $contentQuery->runScopes($query);
@@ -63,7 +63,7 @@ class SelectQueryHandler
 
         if ($query->getSingleFetchMode()) {
             if ($set->count() === 0) {
-                return false;
+                return null;
             }
 
             return $set->current();

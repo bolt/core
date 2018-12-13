@@ -15,8 +15,8 @@ use Bolt\Storage\Query\Directive\OrderDirective;
  */
 class FrontendQueryScope implements QueryScopeInterface
 {
-    /** @var array|Config */
-    protected $config = [];
+    /** @var Config */
+    protected $config;
     /** @var array */
     protected $orderBys = [];
 
@@ -31,18 +31,14 @@ class FrontendQueryScope implements QueryScopeInterface
 
     /**
      * Get the default order setting for a given content type.
-     *
-     * @param string $contentType
-     *
-     * @return array|false
      */
-    public function getOrder($contentType)
+    public function getOrder(string $contentType): array
     {
         if (isset($this->orderBys[$contentType])) {
             return $this->orderBys[$contentType];
         }
 
-        return false;
+        return [];
     }
 
     /**

@@ -6,6 +6,7 @@ namespace Bolt\Storage\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Query\Expr\Composite;
+use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -210,8 +211,7 @@ class SelectQuery implements ContentQueryInterface
             $query->where($this->getWhereExpression());
         }
         foreach ($this->getWhereParameters() as $key => $param) {
-            // xiao: `Connection::PARAM_STR_ARRAY` seems incorrect to me
-            $query->setParameter($key, $param, is_array($param) ? Connection::PARAM_STR_ARRAY : null);
+            $query->setParameter($key, $param, ParameterTypeInferer::inferType($param));
         }
 
         return $query;

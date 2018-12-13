@@ -18,6 +18,6 @@ class LatestQueryHandler
     {
         $contentQuery->setDirective('order', '-id');
 
-        return call_user_func($contentQuery->getHandler('select'), $contentQuery);
+        return $contentQuery->getHandler('select')($contentQuery);
     }
 }
