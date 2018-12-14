@@ -14,8 +14,8 @@ use Twig_Environment;
 
 class LocaleExtension extends AbstractExtension
 {
-    /** @var array */
-    private $localeCodes = [];
+    /** @var Collection */
+    private $localeCodes;
 
     /** @var Collection */
     private $locales;

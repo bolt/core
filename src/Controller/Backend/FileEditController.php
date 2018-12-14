@@ -56,8 +56,6 @@ class FileEditController extends BaseController
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     *
-     * @return RedirectResponse
      */
     public function editFilePost(Request $request, UrlGeneratorInterface $urlGenerator): Response
     {

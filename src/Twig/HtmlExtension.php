@@ -7,6 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Utils\Markdown;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * HTML functionality Twig extension.
@@ -28,7 +29,7 @@ class HtmlExtension extends AbstractExtension
         $safe = ['is_safe' => ['html']];
 
         return [
-            new TwigFilter('markdown', [$this, 'markdown'], $safe),
+            new TwigFunction('markdown', [$this, 'markdown'], $safe),
         ];
     }
 

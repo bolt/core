@@ -14,7 +14,6 @@ use PHPExif\Reader\Reader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 use Tightenco\Collect\Support\Collection;
 
@@ -115,7 +114,12 @@ class MediaFactory
         return in_array($media->getType(), ['gif', 'png', 'jpg', 'svg'], true);
     }
 
-    protected function getUser(): ?UserInterface
+    /**
+     * @todo Refactor this out!
+     *
+     * @return object|string|null
+     */
+    protected function getUser()
     {
         if (! $this->container->has('security.token_storage')) {
             throw new \LogicException('The SecurityBundle is not registered in your application. Try running "composer require symfony/security-bundle".');

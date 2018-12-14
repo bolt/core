@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -17,7 +18,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
     /** @var \Faker\Generator */
     private $faker;
 
-    /** @var Config */
+    /** @var Collection */
     private $config;
 
     private $lastTitle = null;
