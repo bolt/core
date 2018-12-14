@@ -269,7 +269,7 @@ class MenuBuilder
         /** @var ContentType $ct */
         $contenttype = ContentType::factory($slug, $this->config->get('contenttypes'));
 
-        /** @var Content $records */
+        /** @var Content[] $records */
         $records = $this->content->findLatest($contenttype, 5);
 
         $result = [];

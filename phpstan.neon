@@ -1,6 +1,6 @@
 parameters:
     tmpDir: var/cache/ecs
-    level: 2
+    level: 3
 
 includes:
 #    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon # make ON when thecodingmachine/safe will get stable
