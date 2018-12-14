@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query;
 
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Query\Expr\Composite;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;

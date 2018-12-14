@@ -138,8 +138,6 @@ class QueryParameterParser
      * This handler processes 'triple pipe' queries as implemented in Bolt
      * It looks for three pipes in the key and value and creates an OR composite
      * expression for example: 'username|||email':'fred|||pete'.
-     *
-     * @param mixed $value
      */
     public function multipleKeyAndValueHandler(string $key, $value, Expr $expr): ?Filter
     {
@@ -156,7 +154,7 @@ class QueryParameterParser
         $parts = [];
         $count = 1;
 
-        foreach(array_combine($keys, $values) as $key => $val) {
+        foreach (array_combine($keys, $values) as $key => $val) {
             $multipleValue = $this->multipleValueHandler($key, $val, $this->expr);
             if ($multipleValue) {
                 $filter = $multipleValue->getExpression();
@@ -189,8 +187,6 @@ class QueryParameterParser
      * For example, this handler will correctly parse values like:
      *     'username': 'fred||bob'
      *     'id': '<5 && !1'
-     *
-     * @param mixed $value
      */
     public function multipleValueHandler(string $key, $value, Expr $expr): ?Filter
     {

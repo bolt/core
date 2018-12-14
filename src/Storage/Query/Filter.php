@@ -94,8 +94,6 @@ class Filter
 
     /**
      * Allows setting a parameter for a single key.
-     *
-     * @param mixed $value
      */
     public function setParameter(string $param, $value): void
     {
