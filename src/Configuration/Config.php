@@ -12,8 +12,8 @@ use Tightenco\Collect\Support\Collection;
 
 class Config
 {
-    /** @var array */
-    protected $data = [];
+    /** @var Collection */
+    protected $data;
 
     /** @var PathResolver */
     private $pathResolver;

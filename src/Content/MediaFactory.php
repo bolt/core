@@ -6,7 +6,6 @@ namespace Bolt\Content;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Media;
-use Bolt\Entity\User;
 use Bolt\Repository\MediaRepository;
 use Carbon\Carbon;
 use Faker\Factory;
@@ -115,7 +114,12 @@ class MediaFactory
         return in_array($media->getType(), ['gif', 'png', 'jpg', 'svg'], true);
     }
 
-    protected function getUser(): ?User
+    /**
+     * @todo Refactor this out!
+     *
+     * @return object|string|null
+     */
+    protected function getUser()
     {
         if (! $this->container->has('security.token_storage')) {
             throw new \LogicException('The SecurityBundle is not registered in your application. Try running "composer require symfony/security-bundle".');

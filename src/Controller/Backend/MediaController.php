@@ -15,7 +15,6 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -28,7 +27,7 @@ class MediaController extends BaseController
     /** @var ObjectManager */
     private $manager;
 
-    /** @var Collection */
+    /** @var Areas */
     private $areas;
 
     /** @var MediaFactory */

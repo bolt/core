@@ -254,13 +254,13 @@ class GeneralParser extends BaseParser
     /**
      * Fine-tune Sqlite configuration parameters.
      */
-    protected function parseSqliteOptions(array $config): array
+    protected function parseSqliteOptions(array $config): Collection
     {
         if (isset($config['memory']) && $config['memory']) {
             // If in-memory, no need to parse paths
             unset($config['path']);
 
-            return $config;
+            return collect($config);
         }
         // Prevent SQLite driver from trying to use in-memory connection
         unset($config['memory']);
@@ -275,7 +275,7 @@ class GeneralParser extends BaseParser
         if (Path::hasExtension($path)) {
             $config['path'] = $path;
 
-            return $config;
+            return collect($config);
         }
 
         // Use database name for filename
@@ -287,6 +287,6 @@ class GeneralParser extends BaseParser
         // Join filename with database path
         $config['path'] = Path::join($path, $filename);
 
-        return $config;
+        return collect($config);
     }
 }

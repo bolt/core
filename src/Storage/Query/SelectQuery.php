@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query;
 
-use Doctrine\ORM\Query\Expr\Composite;
+use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
 
@@ -112,7 +112,7 @@ class SelectQuery implements ContentQueryInterface
      * Creates a composite expression that adds all the attached
      * filters individual expressions into a combined one.
      */
-    public function getWhereExpression(): ?Composite
+    public function getWhereExpression(): ?Base
     {
         if (! count($this->filters)) {
             return null;

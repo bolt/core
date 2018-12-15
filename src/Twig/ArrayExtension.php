@@ -16,10 +16,17 @@ use Twig\TwigFunction;
  */
 final class ArrayExtension extends AbstractExtension
 {
-    private $orderOn;
-    private $orderAscending;
-    private $orderOnSecondary;
-    private $orderAscendingSecondary;
+    /** @var string */
+    private $orderOn = '';
+
+    /** @var int */
+    private $orderAscending = 1;
+
+    /** @var ?string */
+    private $orderOnSecondary = null;
+
+    /** @var ?boolean */
+    private $orderAscendingSecondary = null;
 
     /**
      * {@inheritdoc}
@@ -82,11 +89,8 @@ final class ArrayExtension extends AbstractExtension
 
     /**
      * Sorts / orders items of an array.
-     *
-     * @param string $on
-     * @param string $onSecondary
      */
-    public function order(array $array, $on, $onSecondary = null): array
+    public function order(array $array, string $on, ?string $onSecondary = null): array
     {
         // If we don't get a string, we can't determine a sort order.
         if (! is_string($on)) {
@@ -102,8 +106,8 @@ final class ArrayExtension extends AbstractExtension
         if ($onSecondary) {
             [$this->orderOnSecondary, $this->orderAscendingSecondary] = $this->getSortOrder($onSecondary);
         } else {
-            $this->orderOnSecondary = false;
-            $this->orderAscendingSecondary = false;
+            $this->orderOnSecondary = null;
+            $this->orderAscendingSecondary = null;
         }
 
         uasort($array, function ($a, $b): void {
@@ -137,14 +141,14 @@ final class ArrayExtension extends AbstractExtension
     /**
      * Helper function for sorting an array of \Bolt\Legacy\Content.
      */
-    private function orderHelper(Content $a, Content $b): bool
+    private function orderHelper(Content $a, Content $b): int
     {
-        $aVal = $a[$this->orderOn];
-        $bVal = $b[$this->orderOn];
+        $aVal = $a->getField($this->orderOn);
+        $bVal = $b->getField($this->orderOn);
 
         // Check the primary sorting criterion.
         if ($aVal < $bVal) {
-            return ! $this->orderAscending;
+            return -$this->orderAscending;
         } elseif ($aVal > $bVal) {
             return $this->orderAscending;
         }
@@ -153,11 +157,11 @@ final class ArrayExtension extends AbstractExtension
             return 0;
         }
 
-        $aVal = $a[$this->orderOnSecondary];
-        $bVal = $b[$this->orderOnSecondary];
+        $aVal = $a->getField($this->orderOnSecondary);
+        $bVal = $b->getField($this->orderOnSecondary);
 
         if ($aVal < $bVal) {
-            return ! $this->orderAscendingSecondary;
+            return -$this->orderAscendingSecondary;
         } elseif ($aVal > $bVal) {
             return $this->orderAscendingSecondary;
         }

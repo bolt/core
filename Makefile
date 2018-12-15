@@ -27,7 +27,7 @@ csfix:
 	make stancheck
 	
 stancheck:
-	vendor/bin/phpstan analyse -c phpstan.neon src
+	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
 
 db-create:
 	bin/console doctrine:database:create
