@@ -177,7 +177,7 @@ class MenuBuilder
 
         $menu->addChild('Maintenance', ['extras' => [
             'name' => $t->trans('caption.maintenance'),
-            'icon' => 'fa-wrench',
+            'icon' => 'fa-tools',
         ]]);
 
         $menu['Maintenance']->addChild('Bolt API', [
