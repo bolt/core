@@ -40,7 +40,6 @@ class ContentEditController extends BaseController
         parent::__construct($config, $csrfTokenManager);
     }
 
-
     /**
      * @Route("/edit/{id}", name="bolt_content_edit", methods={"GET"})
      *
@@ -145,26 +144,26 @@ class ContentEditController extends BaseController
         }
     }
 
-    private function updateTaxonomyFromPost(string $key, $taxonomy, Content $content)
+    private function updateTaxonomyFromPost(string $key, $taxonomy, Content $content): void
     {
         $taxonomy = collect($taxonomy)->filter();
 
-        foreach($taxonomy as $slug) {
-
-//            $taxonomy = $this->taxonomyRepository->findOneBy(['key' => $key, 'slug' => $slug]);
+        foreach ($taxonomy as $slug) {
+            $taxonomy = $this->taxonomyRepository->findOneBy([
+                'type' => $key,
+                'slug' => $slug,
+            ]);
 
             if ($taxonomy) {
-                dump("Found!");
+                dump('Found!');
             } else {
-                dump("Create!");
+                dump('Create!');
                 $taxonomy = Taxonomy::factory($key, $slug);
             }
-
 
             $content->addTaxonomy($taxonomy);
         }
     }
-
 
     private function getEditLocale(Request $request, Content $content): string
     {

@@ -142,8 +142,8 @@ class ContentTypesParser extends BaseParser
             $contentType['relations'] = [];
         }
 
-        if (!empty($contentType['relations']) || !empty($contentType['taxonomy'])) {
-            $contentType['groups'][] = "Relations";
+        if (! empty($contentType['relations']) || ! empty($contentType['taxonomy'])) {
+            $contentType['groups'][] = 'Relations';
         }
 
         return $contentType;

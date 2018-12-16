@@ -75,7 +75,7 @@ class Taxonomy
 
         $taxonomy->setType($type);
         $taxonomy->setSlug($slug);
-        $taxonomy->setName($name ? $name : Str::humanize($slug));
+        $taxonomy->setName($name ?: Str::humanize($slug));
 
         return $taxonomy;
     }

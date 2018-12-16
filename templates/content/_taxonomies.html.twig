@@ -4,11 +4,13 @@
         {% set definition = config.get('taxonomies/' ~ taxonomy) %}
         {% if definition %}
 
-            {% set options = taxonomyoptions(definition, record.taxonomies) %}
+            {% set options = taxonomyoptions(record.taxonomies, definition) %}
+
+            {% set value = taxonomyvalues(record.taxonomies, definition.slug)|first %}
 
             {{ definition.name }}
             <editor-select
-                    :value="''"
+                    :value="'{{ value }}'"
                     :name="'taxonomy[{{ definition.slug }}]'"
                     :id="'taxonomy-{{ definition.slug }}'"
                     :options="{{ options|json_encode() }}"
