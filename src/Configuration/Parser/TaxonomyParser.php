@@ -49,11 +49,14 @@ class TaxonomyParser extends BaseParser
                 foreach ($taxonomy['options'] as $optionKey => $optionValue) {
                     if (is_numeric($optionKey)) {
                         $optionKey = $optionValue;
+                        $optionValue = Str::humanize($optionValue);
                     }
                     $optionKey = $slugify->slugify($optionKey);
                     $options[$optionKey] = $optionValue;
                 }
                 $taxonomy['options'] = $options;
+            } else {
+                $taxonomy['options'] = [];
             }
 
             if (! isset($taxonomy['behaves_like'])) {

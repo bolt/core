@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Configuration\Config;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Taxonomy;
+use Bolt\Repository\TaxonomyRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -17,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * Class ContentEditController.
@@ -25,6 +29,18 @@ use Symfony\Component\Security\Csrf\CsrfToken;
  */
 class ContentEditController extends BaseController
 {
+    /**
+     * @var TaxonomyRepository
+     */
+    private $taxonomyRepository;
+
+    public function __construct(TaxonomyRepository $taxonomyRepository, Config $config, CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $this->taxonomyRepository = $taxonomyRepository;
+        parent::__construct($config, $csrfTokenManager);
+    }
+
+
     /**
      * @Route("/edit/{id}", name="bolt_content_edit", methods={"GET"})
      *
@@ -81,6 +97,8 @@ class ContentEditController extends BaseController
     {
         $post = $request->request->all();
 
+        dump($post);
+
         $locale = $this->getPostedLocale($post);
 
         if (! $content) {
@@ -97,6 +115,12 @@ class ContentEditController extends BaseController
         foreach ($post['fields'] as $key => $postfield) {
             $this->updateFieldFromPost($key, $postfield, $content, $locale);
         }
+
+        foreach ($post['taxonomy'] as $key => $taxonomy) {
+            $this->updateTaxonomyFromPost($key, $taxonomy, $content);
+        }
+
+//        dd($content);
 
         return $content;
     }
@@ -120,6 +144,27 @@ class ContentEditController extends BaseController
             $field->setLocale('');
         }
     }
+
+    private function updateTaxonomyFromPost(string $key, $taxonomy, Content $content)
+    {
+        $taxonomy = collect($taxonomy)->filter();
+
+        foreach($taxonomy as $slug) {
+
+//            $taxonomy = $this->taxonomyRepository->findOneBy(['key' => $key, 'slug' => $slug]);
+
+            if ($taxonomy) {
+                dump("Found!");
+            } else {
+                dump("Create!");
+                $taxonomy = Taxonomy::factory($key, $slug);
+            }
+
+
+            $content->addTaxonomy($taxonomy);
+        }
+    }
+
 
     private function getEditLocale(Request $request, Content $content): string
     {

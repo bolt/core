@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Bolt\Helpers\Str;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -58,11 +59,25 @@ class Taxonomy
      * @ORM\Column(type="integer")
      * @Groups("public")
      */
-    private $sortorder;
+    private $sortorder = 0;
 
     public function __construct()
     {
         $this->content = new ArrayCollection();
+    }
+
+    /**
+     * @return Taxonomy
+     */
+    public static function factory(string $type, string $slug, ?string $name = null): self
+    {
+        $taxonomy = new self();
+
+        $taxonomy->setType($type);
+        $taxonomy->setSlug($slug);
+        $taxonomy->setName($name ? $name : Str::humanize($slug));
+
+        return $taxonomy;
     }
 
     public function getId(): ?int

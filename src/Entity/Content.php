@@ -129,7 +129,7 @@ class Content
     public $magiceditlink;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content")
+     * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
      * @ORM\JoinTable(name="bolt_taxonomy_content")
      */
     private $taxonomies;
