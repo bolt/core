@@ -19,7 +19,13 @@
 
 {% block field %}
     {% if multiple %}
-        Multi
+        <editor-multiselect
+            :value="'{{ value }}'"
+            :name="'{{ name }}'"
+            :id="'{{ id }}'"
+            :options="{{ options|json_encode() }}"
+            :form="'{{ form }}'"
+        ></editor-multiselect>
     {% else %}
         <editor-select
 
