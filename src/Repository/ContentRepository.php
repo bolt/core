@@ -57,6 +57,7 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('ct', $contenttype['slug']);
         }
 
+        $qb->setMaxResults( $amount );
         $result = $qb->getQuery()->getResult();
 
         return array_slice($result, 0, $amount);
