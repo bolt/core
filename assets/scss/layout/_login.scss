@@ -1,0 +1,18 @@
+html#login {
+  background: linear-gradient( rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.4) ), url(https://source.unsplash.com/daily);
+  background-position: center;
+  background-size: cover;
+
+  body {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    width: 22rem;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+

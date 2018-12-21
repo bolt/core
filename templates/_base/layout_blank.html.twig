@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="{% block html_id %}{% endblock %}">
 
 <head>
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
     {% endblock %}
 </head>
 
-<body>
+<body id="{% block body_id %}{% endblock %}">
 
         {% block main %}
         {% endblock %}

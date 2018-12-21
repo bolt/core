@@ -21,8 +21,8 @@ strong {
 
 .card{
   box-shadow: $card-box-shadow;
+  background: #FFF;
   .card-header{
-    background: transparent;
     font-weight: $font-weight-bold;
   }
 }

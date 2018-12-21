@@ -21,7 +21,7 @@ final class Version
      *   Stable      — 3.0.0
      *   Development — 3.1.0 alpha 1
      */
-    public const VERSION = '3.99.99 alpha 0';
+    public const VERSION = '4.0 alpha 1';
 
     /**
      * Whether this release is a stable one.
