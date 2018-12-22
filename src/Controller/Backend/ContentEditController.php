@@ -96,8 +96,6 @@ class ContentEditController extends BaseController
     {
         $post = $request->request->all();
 
-        dump($post);
-
         $locale = $this->getPostedLocale($post);
 
         if (! $content) {
@@ -118,8 +116,6 @@ class ContentEditController extends BaseController
         foreach ($post['taxonomy'] as $key => $taxonomy) {
             $this->updateTaxonomyFromPost($key, $taxonomy, $content);
         }
-
-//        dd($content);
 
         return $content;
     }
@@ -155,9 +151,9 @@ class ContentEditController extends BaseController
             ]);
 
             if ($taxonomy) {
-                dump('Found!');
+//                dump('Found!');
             } else {
-                dump('Create!');
+//                dump('Create!');
                 $taxonomy = Taxonomy::factory($key, $slug);
             }
 

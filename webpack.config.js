@@ -34,6 +34,8 @@ Encore
   .addEntry('bolt', './assets/js/bolt.js')
   .addStyleEntry('theme-default', './assets/scss/themes/default.scss')
   .addStyleEntry('theme-light', './assets/scss/themes/light.scss')
+  .addStyleEntry('theme-dark', './assets/scss/themes/dark.scss')
+  .addStyleEntry('theme-woordpers', './assets/scss/themes/woordpers.scss')
 
   .splitEntryChunks()
   .autoProvidejQuery()

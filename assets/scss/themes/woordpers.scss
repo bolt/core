@@ -1,0 +1,47 @@
+//** Theme | Default
+
+@import '../init/mixins';
+@import '_shared';
+
+:root{
+
+  --background:               #f3f5f7;
+  --foreground:               #ffffff;
+
+  --status-published:         #08b883;
+  --status-draft:             #1078da;
+  --status-held:              #dd2443;
+  --status-timed:             #741ce6;
+
+  --admin-sidebar:            #ffffff;
+  --admin-sidebar-text:       #0c223b;
+  --admin-sidebar-icon:       #053b7a;
+  --admin-sidebar-menu:       #053b7a;
+  --admin-sidebar-menu-text:  #ffffff;
+
+  --admin-toolbar:            #ffffff;
+  --admin-toolbar-text-light: #ffffff;
+  --admin-toolbar-text-dark:  #0c223b;
+  
+
+  @include                    generate-color(primary, 212, 70%, 35%);
+  @include                    generate-color(secondary, 212, 90%, 25%);
+
+  @include                    generate-color(body, 212, 66%, 14%);
+  @include                    generate-color(shade, 208, 13%, 43%);
+  @include                    generate-color(grey, 251, 20%, 92%);
+  
+  @include                    generate-color(success, 152, 92%, 38%);
+  @include                    generate-color(danger, 350, 73%, 50%);
+
+}
+
+$bootstrap-colors: (
+  "primary",
+  "secondary",
+  "grey",
+  "success",
+  "danger"
+);
+
+@import '_bootstrap';

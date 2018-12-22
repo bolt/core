@@ -18,18 +18,6 @@
 
 {% block topsection %}
 
-    {{ dump(taxonomyvalues(record.taxonomies, 'categories')) }}
-
-    {% for taxonomy in record.definition.taxonomy %}
-
-        {% set taxonomy = config.get('taxonomies/' ~ taxonomy) %}
-
-        {% if taxonomy %}
-            {{ dump(taxonomyoptions(record.taxonomies, taxonomy)) }}
-        {% endif %}
-
-    {% endfor %}
-
 {% endblock %}
 
 {% block main %}
