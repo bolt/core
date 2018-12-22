@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Bolt\Helpers\Excerpt;
+use Twig_Markup;
 
 trait ContentMagicTraits
 {
@@ -29,7 +30,7 @@ trait ContentMagicTraits
         // Prefer a field with $name
         foreach ($this->fields as $field) {
             if ($field->getName() === $name) {
-                return $field->isExcerptable() ? new \Twig_Markup($field, 'UTF-8') : $field;
+                return $field->isExcerptable() ? new Twig_Markup($field, 'UTF-8') : $field;
             }
         }
 
@@ -120,7 +121,7 @@ trait ContentMagicTraits
         return implode(' ', $title);
     }
 
-    public function magicImage()
+    public function magicImage(): array
     {
         foreach ($this->getFields() as $field) {
             if ($field->getDefinition()->get('type') === 'image') {
@@ -128,15 +129,19 @@ trait ContentMagicTraits
             }
         }
 
-        return null;
+        return [
+            'filename' => '',
+            'alt' => '',
+            'path' => '',
+        ];
     }
 
-    public function magicExcerpt($length = 150, $includeTitle = true, $focus = null)
+    public function magicExcerpt($length = 150, $includeTitle = true, $focus = null): Twig_Markup
     {
         $excerpter = new Excerpt($this);
         $excerpt = $excerpter->getExcerpt($length, $includeTitle, $focus);
 
-        return new \Twig_Markup($excerpt, 'utf-8');
+        return new Twig_Markup($excerpt, 'utf-8');
     }
 
     public function magicPrevious()

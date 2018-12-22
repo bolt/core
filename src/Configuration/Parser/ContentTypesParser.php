@@ -126,6 +126,8 @@ class ContentTypesParser extends BaseParser
         // Make sure taxonomy is an array.
         if (isset($contentType['taxonomy'])) {
             $contentType['taxonomy'] = (array) $contentType['taxonomy'];
+        } else {
+            $contentType['taxonomy'] = [];
         }
 
         // when adding relations, make sure they're added by their slug. Not their 'name' or 'singular name'.
@@ -136,6 +138,12 @@ class ContentTypesParser extends BaseParser
                     unset($contentType['relations'][$relkey]);
                 }
             }
+        } else {
+            $contentType['relations'] = [];
+        }
+
+        if (! empty($contentType['relations']) || ! empty($contentType['taxonomy'])) {
+            $contentType['groups'][] = 'Relations';
         }
 
         return $contentType;

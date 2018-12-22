@@ -1,0 +1,45 @@
+<div class="tab-pane" id="relations" role="tabpanel" aria-labelledby="relations-tab">
+{% for taxonomy in record.definition.taxonomy %}
+
+        {% set definition = config.get('taxonomies/' ~ taxonomy) %}
+        {% if definition %}
+
+            {% set options = taxonomyoptions(record.taxonomies, definition) %}
+
+            {% set value = taxonomyvalues(record.taxonomies, definition.slug) %}
+
+            {{ definition.name }} [ {{ value }} ]
+            <editor-multiselect
+                    :value="'{{ value }}'"
+                    :name="'taxonomy[{{ definition.slug }}]'"
+                    :id="'taxonomy-{{ definition.slug }}'"
+                    :options="{{ options|json_encode() }}"
+            ></editor-multiselect>
+
+                {#{% if definition.behaves_like == 'categories' %}#}
+                        {#cats#}
+                {#{% endif %}#}
+
+        {% endif %}
+
+{% endfor %}
+
+    {#{% for group in groups %}#}
+        {#<div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}" role="tabpanel" aria-labelledby="{{group|slug}}-tab">#}
+            {#{% for key, fielddefinition in record.definition.fields if fielddefinition.group == group %}#}
+
+                {#{% set type = fielddefinition.type %}#}
+                {#{% set field = record.localisedfield(key, currentlocale, false, fielddefinition) %}#}
+
+                {#{% include[#}
+                    {#'_partials/fields/' ~ type ~ '.html.twig',#}
+                    {#'_partials/fields/generic.html.twig'#}
+                    {#] with {#}
+                    {#'field' : field,#}
+                    {#'define' : fielddefinition#}
+                {#} %}#}
+
+            {#{% endfor %}#}
+        {#</div>#}
+    {#{% endfor %}#}
+</div>

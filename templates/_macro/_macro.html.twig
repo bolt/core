@@ -1,7 +1,14 @@
-{## Actionform #}
-{% macro actionform(content, action, icon, text, confirmation_text) %}
-    {% if action == 'held' %}
-        {% set action = 'depublish' %}
-    {% endif %}
-    <a class="dropdown-item" data-listing-cmd="record:{{ action }}"><i class="fa {{ icon }}"></i> {{ __(text) }}</a>
-{% endmacro %}
+{# Button Macro #}
+{% macro button(label, icon, class, type) %}{% spaceless %}
+
+    {% set label = label|default('button')|trans %}
+    {% set icon = icon|replace({'fa-': ''})|default('question-circle') %}
+    {% set class = class|replace({'btn-': ''})|default('info') %}
+    {% set type = type|default('submit') %}
+
+    <button type="{{ type }}" class="btn btn-{{ class }} mb-3">
+        <i class="fas fa-{{ icon }} mr-2"></i>
+        {{- label -}}
+    </button>
+
+{% endspaceless %}{% endmacro %}
