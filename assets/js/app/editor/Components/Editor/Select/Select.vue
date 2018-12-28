@@ -7,7 +7,9 @@
       :options="options"
       :searchable="false"
       :show-labels="false"
-      :limit="1"
+      :multiple="multiple"
+      :limit="1000"
+      @input="serialiseValues"
     >
     <template slot="singleLabel" slot-scope="props" v-if="name === 'status'">
       <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
@@ -16,12 +18,12 @@
       <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
     </template>
     </multiselect>
-    <input 
-      type="hidden"
+    <input
+      type="text"
       :id="id"
       :name="fieldName" 
       :form="form"
-      :value="option.key"
+      :value="serialised"
     >
   </div>
 </template>
@@ -31,7 +33,7 @@ import Multiselect from 'vue-multiselect'
 
 export default {
   name: "editor-select",
-  props: ['value', 'name', 'id', 'form', 'options'],
+  props: ['value', 'name', 'id', 'form', 'options', 'multiple'],
   components: { Multiselect },
 
   mounted(){
@@ -45,6 +47,7 @@ export default {
 
     this.option.key = key;
     this.option.value = value;
+    this.serialised = 'FIXMEEEE';
   },
 
   data: () => {
@@ -53,13 +56,32 @@ export default {
         key: null,
         selected: true,
         value: null
-      }
+      },
+      serialised: ''
     }
   },
 
-  computed:{
-    fieldName(){
+  computed: {
+    fieldName() {
       return this.name + '[]'
+    },
+  },
+
+  methods: {
+    serialiseValues(value) {
+      var selected = [];
+
+      if (value.key) {
+        // Single
+        selected.push(value.key);
+      } else {
+        // Multiple
+        value.forEach(function(item) {
+          selected.push(item.key);
+        });
+      }
+
+      this.serialised = JSON.stringify(selected);
     }
   }
 };

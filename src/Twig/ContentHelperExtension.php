@@ -7,7 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -143,7 +143,7 @@ class ContentHelperExtension extends AbstractExtension
         return $options;
     }
 
-    public function taxonomyoptions(PersistentCollection $currentCollection, $taxonomy)
+    public function taxonomyoptions(Collection $currentCollection, $taxonomy)
     {
         $currentValues = [];
         $options = [];
@@ -167,7 +167,7 @@ class ContentHelperExtension extends AbstractExtension
         return $options;
     }
 
-    public function taxonomyvalues(PersistentCollection $currentCollection, ?string $taxonomy = null)
+    public function taxonomyvalues(Collection $currentCollection, ?string $taxonomy = null)
     {
         $values = [];
 

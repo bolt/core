@@ -18,6 +18,12 @@
 
 {% block topsection %}
 
+    {{ dump(record.taxonomies) }}
+
+
+    {{ dump(record.taxonomies|first) }}
+    {{ dump(record.taxonomies) }}
+
 {% endblock %}
 
 {% block main %}

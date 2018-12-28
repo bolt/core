@@ -9,14 +9,17 @@
             {% set value = taxonomyvalues(record.taxonomies, definition.slug) %}
 
             {{ definition.name }} [ {{ value }} ]
-            <editor-multiselect
+
+            <editor-select
                     :value="'{{ value }}'"
                     :name="'taxonomy[{{ definition.slug }}]'"
                     :id="'taxonomy-{{ definition.slug }}'"
                     :options="{{ options|json_encode() }}"
-            ></editor-multiselect>
+                    :multiple="false"
+            ></editor-select>
 
-                {#{% if definition.behaves_like == 'categories' %}#}
+
+            {#{% if definition.behaves_like == 'categories' %}#}
                         {#cats#}
                 {#{% endif %}#}
 
