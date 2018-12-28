@@ -12,7 +12,6 @@ import {
   Number,
   Date,
   Select,
-  Multiselect,
   Html,
   Markdown,
   Textarea,
@@ -29,13 +28,11 @@ new Vue({
   name: "bolt-editor",
   components: {
     "general-language": Language,
-
     "editor-text": Text,
     "editor-slug": Slug,
     "editor-number": Number,
     "editor-date": Date,
     "editor-select": Select,
-    "editor-multiselect": Multiselect,
     "editor-html": Html,
     "editor-markdown": Markdown,
     "editor-textarea": Textarea,
