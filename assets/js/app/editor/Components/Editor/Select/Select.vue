@@ -39,15 +39,24 @@ export default {
   mounted(){
     let key = this.value;
     let value = '';
+
+    console.log('options:', this.options);
+    console.log('value:', this.value);
+    console.log('key:', key);
+
     this.options.forEach(function(item) {
-        if (item.key == key) {
+        if (item.selected == true) {
             value = item.value;
+            console.log('selected: ', item.key);
         }
     });
 
-    this.option.key = key;
-    this.option.value = value;
-    this.serialised = 'FIXMEEEE';
+    value = this.options;
+
+    // This is still whack
+    this.option.key = this.value;
+    this.serialised = JSON.stringify(key);
+
   },
 
   data: () => {
