@@ -19,11 +19,12 @@
 
 {% block topsection %}
 
-    {{ dump(record.taxonomies) }}
+    {{ dump(record.statusoptions) }}
+    {#{{ dump(record.taxonomies) }}#}
 
 
-    {{ dump(record.taxonomies|first) }}
-    {{ dump(record.taxonomies) }}
+    {#{{ dump(record.taxonomies|first) }}#}
+    {#{{ dump(record.taxonomies) }}#}
 
 {% endblock %}
 
@@ -59,7 +60,7 @@
 
             <div class="card mb-3">
               <div class="card-body">
-                  {{ macro.button('action.save', 'fa-save', 'success') }}
+                  {{ macro.button('action.save', 'fa-save', 'success', 'submit', 'editcontent') }}
               </div>
             </div>
 
