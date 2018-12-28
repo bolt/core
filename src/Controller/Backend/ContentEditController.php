@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Common\Json;
 use Bolt\Configuration\Config;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
@@ -105,7 +106,7 @@ class ContentEditController extends BaseController
             $content->setConfig($this->config);
         }
 
-        $content->setStatus(current($post['status']));
+        $content->setStatus(Json::findScalar($post['status']));
         $content->setPublishedAt(new Carbon($post['publishedAt']));
         $content->setDepublishedAt(new Carbon($post['depublishedAt']));
 
