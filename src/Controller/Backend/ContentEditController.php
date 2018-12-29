@@ -148,23 +148,31 @@ class ContentEditController extends BaseController
 
     private function updateTaxonomyFromPost(string $key, $taxonomy, Content $content): void
     {
-        $taxonomy = collect($taxonomy)->filter();
+        $taxonomy = collect(Json::findArray($taxonomy))->filter();
+
+        dump($taxonomy);
+
+        // Remove old ones
+        foreach ($content->getTaxonomies() as $current) {
+            $content->removeTaxonomy($current);
+        }
 
         foreach ($taxonomy as $slug) {
+            dump($slug);
             $taxonomy = $this->taxonomyRepository->findOneBy([
                 'type' => $key,
                 'slug' => $slug,
             ]);
 
-            if ($taxonomy) {
-//                dump('Found!');
-            } else {
-//                dump('Create!');
+            if (!$taxonomy) {
                 $taxonomy = Taxonomy::factory($key, $slug);
             }
 
             $content->addTaxonomy($taxonomy);
         }
+
+
+
     }
 
     private function getEditLocale(Request $request, Content $content): string
