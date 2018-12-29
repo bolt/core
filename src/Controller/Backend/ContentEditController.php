@@ -132,6 +132,11 @@ class ContentEditController extends BaseController
             $content->addField($field);
         }
 
+        // If the value is an array that contains a string of JSON, parse it
+        if (is_iterable($postfield) && Json::test(current($postfield))) {
+            $postfield = Json::findArray($postfield);
+        }
+
         $field->setValue((array) $postfield);
 
         if ($field->getDefinition()->get('localise')) {
