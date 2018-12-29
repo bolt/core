@@ -23,8 +23,10 @@
 
 {# Set the value #}
 {% if not value|default() %}
-    {% if field.value is defined %}
+    {% if field.value is defined and not field.isArray  %}
         {% set value = field.value|join|default() %}
+    {% elseif field.value is defined  %}
+            {% set value = field.value|default([]) %}
     {% else %}
         {% set value = '' %}
     {% endif %}

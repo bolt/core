@@ -18,13 +18,15 @@
       <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
     </template>
     </multiselect>
+
+    (Hidden input:
     <input
       type="text"
       :id="id"
       :name="fieldName" 
       :form="form"
       :value="serialised"
-    >
+    > )
   </div>
 </template>
 

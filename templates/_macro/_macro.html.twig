@@ -7,7 +7,7 @@
     {% set type = type|default('submit') %}
     {% set form = form|default('') %}
 
-    <button type="{{ type }}" class="btn btn-{{ class }} mb-3" form="{{ form }}">
+    <button type="{{ type }}" class="btn btn-{{ class }} mb-3" {% if form %}form="{{ form }}"{% endif %}>
         <i class="fas fa-{{ icon }} mr-2"></i>
         {{- label -}}
     </button>

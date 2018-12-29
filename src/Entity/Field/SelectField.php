@@ -12,4 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SelectField extends Field
 {
+    /** @var bool */
+    protected $array = true;
 }

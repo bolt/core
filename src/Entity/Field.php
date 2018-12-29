@@ -114,6 +114,9 @@ class Field
     /** @var bool */
     protected $excerptable = false;
 
+    /** @var bool */
+    protected $array = false;
+
     public function __toString(): string
     {
         return implode(', ', $this->getValue());
@@ -273,5 +276,10 @@ class Field
     public function isExcerptable(): bool
     {
         return $this->excerptable;
+    }
+
+    public function isArray(): bool
+    {
+        return $this->array;
     }
 }
