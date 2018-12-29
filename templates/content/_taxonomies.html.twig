@@ -8,7 +8,7 @@
 
             {% set value = taxonomyvalues(record.taxonomies, definition.slug) %}
 
-            {{ definition.name }} [ {{ value }} ]
+            {{ definition.name }}
 
             <editor-select
                     :value={{ ['fun', 'love']|json_encode() }}
@@ -16,9 +16,9 @@
                     :id="'taxonomy-{{ definition.slug }}'"
                     :options={{ options|json_encode() }}
                     :multiple="true"
-            ></editor-select
-                    :value={{ ['fun', 'love']|json_encode() }}>
+            ></editor-select>
 
+            (Current saved value: <code>{{ value|json_encode() }}</code> )
 
             {#{% if definition.behaves_like == 'categories' %}#}
                         {#cats#}

@@ -15,11 +15,9 @@
     {% set multiple = 'false' %}
 {% endif %}
 
-
-
 {% block field %}
         <editor-select
-            :value="'{{ value|json_encode() }}'"
+            :value={{ value|json_encode() }}
             :name="'{{ name }}'"
             :id="'{{ id }}'"
             :options="{{ options|json_encode() }}"
@@ -27,5 +25,5 @@
             :multiple="{{ multiple }}"
         ></editor-select>
 
-    (Current saved value: <code>{{ value|join(', ') }}</code> )
+    (Current saved value: <code>{{ value|json_encode() }}</code> )
 {% endblock %}
