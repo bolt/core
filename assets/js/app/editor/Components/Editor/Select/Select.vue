@@ -1,32 +1,32 @@
 <template>
   <div>
     <multiselect
-      v-model="option"
+      v-model="selected"
       track-by="key"
       label="value"
       :options="options"
       :searchable="false"
       :show-labels="false"
-      :multiple="multiple"
       :limit="1000"
-      @input="serialiseValues"
+      :multiple="multiple"
     >
+
     <template slot="singleLabel" slot-scope="props" v-if="name === 'status'">
       <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
     </template>
     <template slot="option" slot-scope="props" v-if="name === 'status'">
       <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
     </template>
-    </multiselect>
 
-    (Hidden input:
+    </multiselect>
+    
     <input
       type="text"
       :id="id"
       :name="fieldName" 
       :form="form"
-      :value="serialised"
-    > )
+      :value="sanitized"
+    >
   </div>
 </template>
 
@@ -37,63 +37,35 @@ export default {
   name: "editor-select",
   props: ['value', 'name', 'id', 'form', 'options', 'multiple'],
   components: { Multiselect },
-
   mounted(){
-    let key = this.value;
-    let value = '';
+    const _values = this.value;
+    const _options = this.options;
 
-    console.log('options:', this.options);
-    console.log('value:', this.value);
-    console.log('key:', key);
+    let filterSelectedItems = _options.filter(item => {
+      return _values.includes(item.key); 
+    })
 
-    this.options.forEach(function(item) {
-        if (item.selected == true) {
-            value = item.value;
-            console.log('selected: ', item.key);
-        }
-    });
-
-    value = this.options;
-
-    // This is still whack
-    this.option.key = this.value;
-    this.serialised = JSON.stringify(key);
-
+    this.selected = filterSelectedItems;
   },
-
   data: () => {
     return {
-      option: {
-        key: null,
-        selected: true,
-        value: null
-      },
-      serialised: ''
+      selected: [],
     }
   },
-
   computed: {
+    sanitized(){
+      let filtered;
+      if(this.multiple){
+        filtered = this.selected.map(item => item.key);
+        return JSON.stringify(filtered);
+      } else {
+        filtered = [this.selected];
+        return JSON.stringify(filtered[0].key);
+      }
+    },
     fieldName() {
       return this.name + '[]'
     },
-  },
-
-  methods: {
-    serialiseValues(value) {
-      var selected = [];
-
-      if (value.key) {
-        // Single
-        selected.push(value.key);
-      } else {
-        // Multiple
-        value.forEach(function(item) {
-          selected.push(item.key);
-        });
-      }
-
-      this.serialised = JSON.stringify(selected);
-    }
   }
 };
 </script>
