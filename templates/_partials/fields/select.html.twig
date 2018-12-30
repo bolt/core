@@ -17,10 +17,10 @@
 
 {% block field %}
         <editor-select
-            :value={{ value|json_encode() }}
+            :value="'{{ value|json_encode() }}'"
             :name="'{{ name }}'"
             :id="'{{ id }}'"
-            :options="{{ options|json_encode() }}"
+            :options="'{{ options|json_encode() }}'"
             :form="'{{ form }}'"
             :multiple="{{ multiple }}"
         ></editor-select>
