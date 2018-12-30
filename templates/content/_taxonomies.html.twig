@@ -11,14 +11,14 @@
             {{ definition.name }}
 
             <editor-select
-                    :value={{ ['fun', 'love']|json_encode() }}
+                    :value="'{{ ['fun', 'love']|json_encode() }}'"
                     :name="'taxonomy[{{ definition.slug }}]'"
                     :id="'taxonomy-{{ definition.slug }}'"
-                    :options={{ options|json_encode() }}
+                    :options="'{{ options|json_encode() }}'"
                     :multiple="true"
-            ></editor-select
-                    :value={{ ['fun', 'love']|json_encode() }}>
+            ></editor-select>
 
+            (Current saved value: <code>{{ value|json_encode() }}</code> )
 
             {#{% if definition.behaves_like == 'categories' %}#}
                         {#cats#}
