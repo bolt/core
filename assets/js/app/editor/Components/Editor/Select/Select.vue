@@ -55,13 +55,8 @@ export default {
   computed: {
     sanitized(){
       let filtered;
-      if(this.multiple){
-        filtered = this.selected.map(item => item.key);
-        return JSON.stringify(filtered);
-      } else {
-        filtered = [this.selected];
-        return JSON.stringify(filtered[0].key);
-      }
+      filtered = this.selected.map(item => item.key);
+      return JSON.stringify(filtered);
     },
     fieldName() {
       return this.name + '[]'
