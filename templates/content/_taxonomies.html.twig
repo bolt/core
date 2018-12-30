@@ -8,7 +8,7 @@
 
             {% set value = taxonomyvalues(record.taxonomies, definition.slug) %}
 
-            {{ definition.name }} [ {{ value }} ]
+            {{ definition.name }}
 
             <editor-select
                     :value={{ ['fun', 'love']|json_encode() }}

@@ -15,17 +15,13 @@
     {% set multiple = 'false' %}
 {% endif %}
 
-
-
 {% block field %}
-        <editor-select
-            :value="'{{ value|json_encode() }}'"
-            :name="'{{ name }}'"
-            :id="'{{ id }}'"
-            :options="{{ options|json_encode() }}"
-            :form="'{{ form }}'"
-            :multiple="{{ multiple }}"
-        ></editor-select>
-
-    (Current saved value: <code>{{ value|join(', ') }}</code> )
+    <editor-select
+        :value="'{{ value|json_encode() }}'"
+        :name="'{{ name }}'"
+        :id="'{{ id }}'"
+        :options="{{ options|json_encode() }}"
+        :form="'{{ form }}'"
+        :multiple="{{ multiple }}"
+    ></editor-select>
 {% endblock %}

@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "3d126a787de5a454270a8af5e2052a9b",
@@ -211,16 +211,16 @@
         },
         {
             "name": "bolt/common",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bolt/common.git",
-                "reference": "e2cab20e2b2e15be5f2403c937e20cd924ff810e"
+                "reference": "3d7e4ddf6279601cd0483d14d929848f725fb834"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bolt/common/zipball/e2cab20e2b2e15be5f2403c937e20cd924ff810e",
-                "reference": "e2cab20e2b2e15be5f2403c937e20cd924ff810e",
+                "url": "https://api.github.com/repos/bolt/common/zipball/3d7e4ddf6279601cd0483d14d929848f725fb834",
+                "reference": "3d7e4ddf6279601cd0483d14d929848f725fb834",
                 "shasum": ""
             },
             "require": {
@@ -261,7 +261,7 @@
                 }
             ],
             "description": "Common utilities for all Bolt libraries",
-            "time": "2018-12-28T19:57:32+00:00"
+            "time": "2018-12-29T09:17:36+00:00"
         },
         {
             "name": "cocur/slugify",
