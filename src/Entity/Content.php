@@ -358,8 +358,16 @@ class Content
     /**
      * @return Collection|Taxonomy[]
      */
-    public function getTaxonomies(): Collection
+    public function getTaxonomies(?string $type = null): Collection
     {
+        if (! empty($type)) {
+            return $this->taxonomies->filter(
+                function ($taxo) use ($type) {
+                    return $taxo->getType() === $type;
+                }
+            );
+        }
+
         return $this->taxonomies;
     }
 

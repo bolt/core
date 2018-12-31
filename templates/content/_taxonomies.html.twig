@@ -5,45 +5,42 @@
         {% if definition %}
 
             {% set options = taxonomyoptions(record.taxonomies, definition) %}
-
             {% set value = taxonomyvalues(record.taxonomies, definition.slug) %}
 
-            {{ definition.name }}
+            {% if definition.behaves_like == 'grouping' %}
+                {% set multiple = 'false' %}
+                {% set taggable = 'false' %}
+            {% elseif definition.behaves_like == 'categories' %}
+                {% set multiple = definition.multiple ? 'true' : 'false' %}
+                {% set taggable = 'false' %}
+            {% else %} {# so, 'tags' #}
+                {% set multiple = 'true' %}
+                {% set taggable = 'true' %}
+            {% endif %}
+
+    <div class="form-group editor--group is-normal">
+        <label for="field-title">
+            {{ definition.name }}:
+        </label>
+        <div>
+            {#<pre><code>{{ value|json_encode()  }}</code></pre>#}
 
             <editor-select
-                    :value="'{{ ['fun', 'love']|json_encode() }}'"
+                    :value="{{ value|json_encode() }}"
                     :name="'taxonomy[{{ definition.slug }}]'"
                     :id="'taxonomy-{{ definition.slug }}'"
-                    :options="'{{ options|json_encode() }}'"
-                    :multiple="true"
+                    :options="{{ options|json_encode() }}"
+                    :multiple="{{ multiple }}"
+                    :taggable="{{ taggable }}"
             ></editor-select>
 
-            (Current saved value: <code>{{ value|json_encode() }}</code> )
+            {#(Current saved value: <code>{{ value|json_encode() }}</code> )#}
+        </div>
 
-            {#{% if definition.behaves_like == 'categories' %}#}
-                        {#cats#}
-                {#{% endif %}#}
+    </div>
 
         {% endif %}
 
 {% endfor %}
 
-    {#{% for group in groups %}#}
-        {#<div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}" role="tabpanel" aria-labelledby="{{group|slug}}-tab">#}
-            {#{% for key, fielddefinition in record.definition.fields if fielddefinition.group == group %}#}
-
-                {#{% set type = fielddefinition.type %}#}
-                {#{% set field = record.localisedfield(key, currentlocale, false, fielddefinition) %}#}
-
-                {#{% include[#}
-                    {#'_partials/fields/' ~ type ~ '.html.twig',#}
-                    {#'_partials/fields/generic.html.twig'#}
-                    {#] with {#}
-                    {#'field' : field,#}
-                    {#'define' : fielddefinition#}
-                {#} %}#}
-
-            {#{% endfor %}#}
-        {#</div>#}
-    {#{% endfor %}#}
 </div>

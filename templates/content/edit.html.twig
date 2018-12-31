@@ -19,13 +19,12 @@
 
 {% block topsection %}
 
-    {{ dump(record.selectfield) }}
-    {{ dump(record.multiselect) }}
-    {#{{ dump(record.taxonomies) }}#}
+    {% for taxonomy in record.definition.taxonomy %}
 
+        {% set definition = config.get('taxonomies/' ~ taxonomy) %}
+    {{ dump(definition) }}
+    {% endfor %}
 
-    {#{{ dump(record.taxonomies|first) }}#}
-    {#{{ dump(record.taxonomies) }}#}
 
 {% endblock %}
 
