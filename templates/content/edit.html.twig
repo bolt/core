@@ -7,11 +7,12 @@
 {% endfor %}
 
 {% block title %}
+    {% set default = record.id ? '(untitled)' : 'New' %}
     {{ icon(record) }}
     {{ 'caption.edit'|trans }}
     {{ record.definition.singular_name }}
     »
-    <strong>{{ record.title|excerpt(50)|default('New') }}</strong>
+    <strong>{{ record.title|excerpt(50)|default(default) }}</strong>
 {% endblock %}
 
 {% block vue_id 'editor' %}

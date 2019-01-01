@@ -178,6 +178,10 @@ class Content
 
     public function getSummary(): array
     {
+        if (!$this->getDefinition()) {
+            return [];
+        }
+
         return [
             'id' => $this->getid(),
             'contenttype' => $this->getDefinition()->get('slug'),

@@ -20,8 +20,8 @@ final class ContentType extends Collection
      */
     public static function factory(string $name, $contenttypesconfig): ?self
     {
-        if ($contenttypesconfig[$name]) {
-            return new self($contenttypesconfig[$name]);
+        if ($contenttypesconfig->get($name)) {
+            return new self($contenttypesconfig->get($name));
         }
 
         foreach ($contenttypesconfig as $item => $value) {
