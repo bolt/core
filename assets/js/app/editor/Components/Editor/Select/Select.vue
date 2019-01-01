@@ -1,27 +1,32 @@
 <template>
   <div>
     <multiselect
-      v-model="option"
+      v-model="selected"
       track-by="key"
       label="value"
       :options="options"
-      :searchable="false"
       :show-labels="false"
-      :limit="1"
+      :limit="1000"
+      :multiple="multiple"
+      :taggable="taggable"
+      :searchable="taggable"
+      tag-placeholder="Add this as new tag"
+      tag-position="bottom"
+      @tag="addTag"
     >
-    <template slot="singleLabel" slot-scope="props" v-if="name === 'status'">
-      <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
-    </template>
-    <template slot="option" slot-scope="props" v-if="name === 'status'">
-      <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
-    </template>
+      <template slot="singleLabel" slot-scope="props" v-if="name === 'status'">
+        <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
+      </template>
+      <template slot="option" slot-scope="props" v-if="name === 'status'">
+        <span class="status mr-2" :class="`is-${props.option.key}`"></span>{{props.option.key}}
+      </template>
     </multiselect>
-    <input 
+    <input
       type="hidden"
       :id="id"
       :name="fieldName" 
       :form="form"
-      :value="option.key"
+      :value="sanitized"
     >
   </div>
 </template>
@@ -31,35 +36,43 @@ import Multiselect from 'vue-multiselect'
 
 export default {
   name: "editor-select",
-  props: ['value', 'name', 'id', 'form', 'options'],
+  props: ['value', 'name', 'id', 'form', 'options', 'multiple', 'taggable'],
   components: { Multiselect },
-
   mounted(){
-    let key = this.value;
-    let value = '';
-    this.options.forEach(function(item) {
-        if (item.key == key) {
-            value = item.value;
-        }
-    });
+    const _values = this.value;
+    const _options = this.options;
 
-    this.option.key = key;
-    this.option.value = value;
+    let filterSelectedItems = _options.filter(item => {
+      return _values.includes(item.key) || _values == item.key;
+    })
+
+    this.selected = filterSelectedItems;
   },
-
   data: () => {
     return {
-      option: {
-        key: null,
-        selected: true,
-        value: null
-      }
+      selected: [],
     }
   },
-
-  computed:{
-    fieldName(){
+  computed: {
+    sanitized(){
+      let filtered;
+      filtered = this.selected.map(item => item.key);
+      return JSON.stringify(filtered);
+    },
+    fieldName() {
       return this.name + '[]'
+    },
+  },
+  methods: {
+    addTag (newTag) {
+      const tag = {
+        key: newTag,
+        value: newTag,
+        selected: true
+      };
+      this.options.push(tag);
+      this.value.push(tag);
+      this.selected.push(tag);
     }
   }
 };

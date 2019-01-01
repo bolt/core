@@ -7,7 +7,8 @@ namespace Bolt\Twig;
 use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Doctrine\ORM\PersistentCollection;
+use Bolt\Repository\TaxonomyRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -23,13 +24,17 @@ class ContentHelperExtension extends AbstractExtension
     /** @var string */
     private $menu = null;
 
+    /** @var TaxonomyRepository */
+    private $taxonomyRepository;
+
     /**
      * ContentHelperExtension constructor.
      */
-    public function __construct(MenuBuilder $menuBuilder, TranslatorInterface $translator)
+    public function __construct(MenuBuilder $menuBuilder, TranslatorInterface $translator, TaxonomyRepository $taxonomyRepository)
     {
         $this->menuBuilder = $menuBuilder;
         $this->translator = $translator;
+        $this->taxonomyRepository = $taxonomyRepository;
     }
 
     /**
@@ -82,10 +87,7 @@ class ContentHelperExtension extends AbstractExtension
         return "<i class='fas mr-2 fa-${icon}'></i>";
     }
 
-    /**
-     * @param bool $pretty
-     */
-    public function jsonlabels(array $labels, $pretty = false): string
+    public function jsonlabels(array $labels, bool $pretty = false): string
     {
         $result = [];
         $options = $pretty ? JSON_PRETTY_PRINT : 0;
@@ -98,10 +100,7 @@ class ContentHelperExtension extends AbstractExtension
         return json_encode($result, $options);
     }
 
-    /**
-     * @param bool $pretty
-     */
-    public function jsonrecords($records, $pretty = false): string
+    public function jsonrecords($records, bool $pretty = false): string
     {
         $result = [];
         $options = $pretty ? JSON_PRETTY_PRINT : 0;
@@ -113,7 +112,7 @@ class ContentHelperExtension extends AbstractExtension
         return json_encode($result, $options);
     }
 
-    public function selectoptionsfromarray(Field $field)
+    public function selectoptionsfromarray(Field $field): \Tightenco\Collect\Support\Collection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -129,7 +128,7 @@ class ContentHelperExtension extends AbstractExtension
         }
 
         if (! is_iterable($values)) {
-            return $options;
+            return collect($options);
         }
 
         foreach ($values as $key => $value) {
@@ -140,19 +139,17 @@ class ContentHelperExtension extends AbstractExtension
             ];
         }
 
-        return $options;
+        return collect($options);
     }
 
-    public function taxonomyoptions(PersistentCollection $currentCollection, $taxonomy)
+    public function taxonomyoptions($taxonomy): \Tightenco\Collect\Support\Collection
     {
-        $currentValues = [];
         $options = [];
 
-        if (is_iterable($currentCollection)) {
-            foreach ($currentCollection as $value) {
-                if ($value->getType() === $taxonomy['slug']) {
-                    $currentValues[] = $value->getSlug();
-                }
+        if ($taxonomy['behaves_like'] === 'tags') {
+            $allTaxonomies = $this->taxonomyRepository->findBy(['type' => $taxonomy['slug']]);
+            foreach ($allTaxonomies as $item) {
+                $taxonomy['options'][$item->getSlug()] = $item->getName();
             }
         }
 
@@ -160,23 +157,34 @@ class ContentHelperExtension extends AbstractExtension
             $options[] = [
                 'key' => $key,
                 'value' => $value,
-                'selected' => in_array($key, $currentValues, true),
+                'selected' => false, // TODO: determine if we need this.
             ];
         }
 
-        return $options;
+        if ($taxonomy['allow_empty']) {
+            $options[] = [
+                'key' => '',
+                'value' => '(none selected)',
+            ];
+        }
+
+        return collect($options);
     }
 
-    public function taxonomyvalues(PersistentCollection $currentCollection, ?string $taxonomy = null)
+    public function taxonomyvalues(Collection $current, $taxonomy): \Tightenco\Collect\Support\Collection
     {
         $values = [];
 
-        foreach ($currentCollection as $value) {
+        foreach ($current as $value) {
             $values[$value->getType()][] = $value->getSlug();
         }
 
-        if ($taxonomy) {
-            $values = $values[$taxonomy] ?? [];
+        if ($taxonomy['slug']) {
+            $values = $values[$taxonomy['slug']] ?? [];
+        }
+
+        if (empty($values) && ! $taxonomy['allow_empty']) {
+            $values[] = key($taxonomy['options']);
         }
 
         return collect($values);

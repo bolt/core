@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Common\Json;
 use Bolt\Configuration\Config;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
@@ -105,7 +106,7 @@ class ContentEditController extends BaseController
             $content->setConfig($this->config);
         }
 
-        $content->setStatus(current($post['status']));
+        $content->setStatus(Json::findScalar($post['status']));
         $content->setPublishedAt(new Carbon($post['publishedAt']));
         $content->setDepublishedAt(new Carbon($post['depublishedAt']));
 
@@ -131,6 +132,11 @@ class ContentEditController extends BaseController
             $content->addField($field);
         }
 
+        // If the value is an array that contains a string of JSON, parse it
+        if (is_iterable($postfield) && Json::test(current($postfield))) {
+            $postfield = Json::findArray($postfield);
+        }
+
         $field->setValue((array) $postfield);
 
         if ($field->getDefinition()->get('localise')) {
@@ -142,18 +148,21 @@ class ContentEditController extends BaseController
 
     private function updateTaxonomyFromPost(string $key, $taxonomy, Content $content): void
     {
-        $taxonomy = collect($taxonomy)->filter();
+        $taxonomy = collect(Json::findArray($taxonomy))->filter();
 
+        // Remove old ones
+        foreach ($content->getTaxonomies($key) as $current) {
+            $content->removeTaxonomy($current);
+        }
+
+        // Then (re-) add selected ones
         foreach ($taxonomy as $slug) {
             $taxonomy = $this->taxonomyRepository->findOneBy([
                 'type' => $key,
                 'slug' => $slug,
             ]);
 
-            if ($taxonomy) {
-//                dump('Found!');
-            } else {
-//                dump('Create!');
+            if (! $taxonomy) {
                 $taxonomy = Taxonomy::factory($key, $slug);
             }
 

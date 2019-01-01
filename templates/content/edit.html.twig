@@ -17,6 +17,7 @@
 
 {% block vue_id 'editor' %}
 
+{# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
 
 {% endblock %}
@@ -53,7 +54,7 @@
 
             <div class="card mb-3">
               <div class="card-body">
-                  {{ macro.button('action.save', 'fa-save', 'success') }}
+                  {{ macro.button('action.save', 'fa-save', 'success', 'submit', 'editcontent') }}
               </div>
             </div>
 

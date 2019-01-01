@@ -42,6 +42,9 @@ class TaxonomyParser extends BaseParser
             if (! isset($taxonomy['allow_spaces'])) {
                 $taxonomy['allow_spaces'] = false;
             }
+            if (! isset($taxonomy['allow_empty'])) {
+                $taxonomy['allow_empty'] = false;
+            }
 
             // Make sure the options are $key => $value pairs, and not have implied integers for keys.
             if (! empty($taxonomy['options']) && is_array($taxonomy['options'])) {

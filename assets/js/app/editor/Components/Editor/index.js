@@ -4,7 +4,6 @@ import Slug from './Slug/Slug';
 import Date from './Date/Date';
 
 import Select from './Select/Select';
-import Multiselect from './Multiselect/Multiselect';
 
 import Number from './Number/Number';
 
@@ -21,7 +20,6 @@ export {
   Number,
   Date,
   Select,
-  Multiselect,
   Html,
   Markdown,
   Textarea,

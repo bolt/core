@@ -10,29 +10,19 @@
 {% endif %}
 
 {% if field.definition is defined %}
-    {% set multiple = field.definition.get('multiple')  %}
+    {% set multiple = field.definition.get('multiple') ? 'true' : 'false' %}
 {% else %}
-    {% set multiple = false %}
+    {% set multiple = 'false' %}
 {% endif %}
 
-
-
 {% block field %}
-    {% if multiple %}
-        <editor-multiselect
-            :value="'{{ value }}'"
-            :name="'{{ name }}'"
-            :id="'{{ id }}'"
-            :options="{{ options|json_encode() }}"
-            :form="'{{ form }}'"
-        ></editor-multiselect>
-    {% else %}
-        <editor-select
-            :value="'{{ value }}'"
-            :name="'{{ name }}'"
-            :id="'{{ id }}'"
-            :options="{{ options|json_encode() }}"
-            :form="'{{ form }}'"
-        ></editor-select>
-    {% endif %}
+    {#<pre><code>{{ value|json_encode() }}</code></pre>#}
+    <editor-select
+        :value="'{{ value|json_encode() }}'"
+        :name="'{{ name }}'"
+        :id="'{{ id }}'"
+        :options="{{ options|json_encode() }}"
+        :form="'{{ form }}'"
+        :multiple="{{ multiple }}"
+    ></editor-select>
 {% endblock %}

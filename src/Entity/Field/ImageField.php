@@ -13,6 +13,9 @@ use League\Glide\Urls\UrlBuilderFactory;
  */
 class ImageField extends Field
 {
+    /** @var bool */
+    protected $array = true;
+
     public function __toString(): string
     {
         $config = $this->getContent()->getConfig();

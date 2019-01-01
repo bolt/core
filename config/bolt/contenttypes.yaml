@@ -319,6 +319,31 @@ blocks:
     icon_many: "fa:cubes"
     icon_one: "fa:cube"
 
+
+dummies:
+    name: Dummies
+    singular_name: Dummy
+    fields:
+        title:
+            type: text
+            class: large
+            group: content
+        slug:
+            type: slug
+            uses: title
+        selectfield:
+            type: select
+            values:
+                foo: Foooo
+                bar: Bario
+                baz: BAzzazza
+#        multiselect:
+#            type: select
+#            values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
+#            multiple: true
+#            postfix: "Select your favourite turtle(s)."
+    taxonomy: [ groups, categories, tags, foobars ]
+    
 # Possible field types:
 #
 # text - varchar(256) - input type text.

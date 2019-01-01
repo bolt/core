@@ -142,6 +142,7 @@ class Content
         $this->depublishedAt = new \DateTime();
         $this->fields = new ArrayCollection();
         $this->taxonomies = new ArrayCollection();
+        $this->status = null;
     }
 
     public function getId(): ?int
@@ -236,12 +237,17 @@ class Content
 
     public function getStatus(): ?string
     {
+        if (! in_array($this->status, self::STATUSES, true)) {
+            $this->status = $this->getDefinition()->get('default_status');
+        }
         return $this->status;
     }
 
     public function setStatus(string $status): self
     {
-        $this->status = $status;
+        if (in_array($status, self::STATUSES, true)) {
+            $this->status = $status;
+        }
 
         return $this;
     }
@@ -358,8 +364,16 @@ class Content
     /**
      * @return Collection|Taxonomy[]
      */
-    public function getTaxonomies(): Collection
+    public function getTaxonomies(?string $type = null): Collection
     {
+        if (! empty($type)) {
+            return $this->taxonomies->filter(
+                function ($taxo) use ($type) {
+                    return $taxo->getType() === $type;
+                }
+            );
+        }
+
         return $this->taxonomies;
     }
 
