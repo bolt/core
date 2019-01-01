@@ -7,6 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Repository\TaxonomyRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -23,13 +24,17 @@ class ContentHelperExtension extends AbstractExtension
     /** @var string */
     private $menu = null;
 
+    /** @var TaxonomyRepository */
+    private $taxonomyRepository;
+
     /**
      * ContentHelperExtension constructor.
      */
-    public function __construct(MenuBuilder $menuBuilder, TranslatorInterface $translator)
+    public function __construct(MenuBuilder $menuBuilder, TranslatorInterface $translator, TaxonomyRepository $taxonomyRepository)
     {
         $this->menuBuilder = $menuBuilder;
         $this->translator = $translator;
+        $this->taxonomyRepository = $taxonomyRepository;
     }
 
     /**
@@ -140,6 +145,13 @@ class ContentHelperExtension extends AbstractExtension
     public function taxonomyoptions($taxonomy): \Tightenco\Collect\Support\Collection
     {
         $options = [];
+
+        if ($taxonomy['behaves_like'] === 'tags') {
+            $allTaxonomies = $this->taxonomyRepository->findBy(['type' => $taxonomy['slug']]);
+            foreach ($allTaxonomies as $item) {
+                $taxonomy['options'][$item->getSlug()] = $item->getName();
+            }
+        }
 
         foreach ($taxonomy['options'] as $key => $value) {
             $options[] = [
