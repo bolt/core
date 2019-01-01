@@ -57,9 +57,8 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('ct', $contenttype['slug']);
         }
 
-        $result = $qb->getQuery()->getResult();
-
-        return array_slice($result, 0, $amount);
+        $qb->setMaxResults($amount);
+        return $qb->getQuery()->getResult();
     }
 
     public function findOneBySlug(string $slug): ?Content
