@@ -333,7 +333,10 @@ dummies:
             uses: title
         selectfield:
             type: select
-            values: [ foo, bar, baz ]
+            values:
+                foo: Foooo
+                bar: Bario
+                baz: BAzzazza
 #        multiselect:
 #            type: select
 #            values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]

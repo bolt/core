@@ -82,10 +82,7 @@ class ContentHelperExtension extends AbstractExtension
         return "<i class='fas mr-2 fa-${icon}'></i>";
     }
 
-    /**
-     * @param bool $pretty
-     */
-    public function jsonlabels(array $labels, $pretty = false): string
+    public function jsonlabels(array $labels, bool $pretty = false): string
     {
         $result = [];
         $options = $pretty ? JSON_PRETTY_PRINT : 0;
@@ -98,10 +95,7 @@ class ContentHelperExtension extends AbstractExtension
         return json_encode($result, $options);
     }
 
-    /**
-     * @param bool $pretty
-     */
-    public function jsonrecords($records, $pretty = false): string
+    public function jsonrecords($records, bool $pretty = false): string
     {
         $result = [];
         $options = $pretty ? JSON_PRETTY_PRINT : 0;
@@ -113,7 +107,7 @@ class ContentHelperExtension extends AbstractExtension
         return json_encode($result, $options);
     }
 
-    public function selectoptionsfromarray(Field $field)
+    public function selectoptionsfromarray(Field $field): \Tightenco\Collect\Support\Collection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -129,7 +123,7 @@ class ContentHelperExtension extends AbstractExtension
         }
 
         if (! is_iterable($values)) {
-            return $options;
+            return collect($options);
         }
 
         foreach ($values as $key => $value) {
@@ -140,43 +134,45 @@ class ContentHelperExtension extends AbstractExtension
             ];
         }
 
-        return $options;
+        return collect($options);
     }
 
-    public function taxonomyoptions(Collection $currentCollection, $taxonomy)
+    public function taxonomyoptions($taxonomy): \Tightenco\Collect\Support\Collection
     {
-        $currentValues = [];
         $options = [];
-
-        if (is_iterable($currentCollection)) {
-            foreach ($currentCollection as $value) {
-                if ($value->getType() === $taxonomy['slug']) {
-                    $currentValues[] = $value->getSlug();
-                }
-            }
-        }
 
         foreach ($taxonomy['options'] as $key => $value) {
             $options[] = [
                 'key' => $key,
                 'value' => $value,
-                'selected' => in_array($key, $currentValues, true),
+                'selected' => false, // TODO: determine if we need this.
             ];
         }
 
-        return $options;
+        if ($taxonomy['allow_empty']) {
+            $options[] = [
+                'key' => '',
+                'value' => '(none selected)',
+            ];
+        }
+
+        return collect($options);
     }
 
-    public function taxonomyvalues(Collection $currentCollection, ?string $taxonomy = null)
+    public function taxonomyvalues(Collection $current, $taxonomy): \Tightenco\Collect\Support\Collection
     {
         $values = [];
 
-        foreach ($currentCollection as $value) {
+        foreach ($current as $value) {
             $values[$value->getType()][] = $value->getSlug();
         }
 
-        if ($taxonomy) {
-            $values = $values[$taxonomy] ?? [];
+        if ($taxonomy['slug']) {
+            $values = $values[$taxonomy['slug']] ?? [];
+        }
+
+        if (empty($values) && ! $taxonomy['allow_empty']) {
+            $values[] = key($taxonomy['options']);
         }
 
         return collect($values);

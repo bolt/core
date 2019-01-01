@@ -4,8 +4,8 @@
         {% set definition = config.get('taxonomies/' ~ taxonomy) %}
         {% if definition %}
 
-            {% set options = taxonomyoptions(record.taxonomies, definition) %}
-            {% set value = taxonomyvalues(record.taxonomies, definition.slug) %}
+            {% set options = taxonomyoptions(definition) %}
+            {% set value = taxonomyvalues(record.taxonomies, definition) %}
 
             {% if definition.behaves_like == 'grouping' %}
                 {% set multiple = 'false' %}
@@ -23,8 +23,6 @@
             {{ definition.name }}:
         </label>
         <div>
-            {#<pre><code>{{ value|json_encode()  }}</code></pre>#}
-
             <editor-select
                     :value="{{ value|json_encode() }}"
                     :name="'taxonomy[{{ definition.slug }}]'"
@@ -34,7 +32,7 @@
                     :taggable="{{ taggable }}"
             ></editor-select>
 
-            {#(Current saved value: <code>{{ value|json_encode() }}</code> )#}
+            (Current saved value: <code>{{ value|json_encode() }}</code> )
         </div>
 
     </div>

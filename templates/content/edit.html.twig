@@ -17,14 +17,8 @@
 
 {% block vue_id 'editor' %}
 
+{# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
-
-    {% for taxonomy in record.definition.taxonomy %}
-
-        {% set definition = config.get('taxonomies/' ~ taxonomy) %}
-    {{ dump(definition) }}
-    {% endfor %}
-
 
 {% endblock %}
 

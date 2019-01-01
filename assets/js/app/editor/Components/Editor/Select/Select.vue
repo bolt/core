@@ -22,7 +22,7 @@
       </template>
     </multiselect>
     <input
-      type="text"
+      type="hidden"
       :id="id"
       :name="fieldName" 
       :form="form"
@@ -43,7 +43,7 @@ export default {
     const _options = this.options;
 
     let filterSelectedItems = _options.filter(item => {
-      return _values.includes(item.key); 
+      return _values.includes(item.key) || _values == item.key;
     })
 
     this.selected = filterSelectedItems;
