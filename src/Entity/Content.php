@@ -178,7 +178,7 @@ class Content
 
     public function getSummary(): array
     {
-        if (!$this->getDefinition()) {
+        if (! $this->getDefinition()) {
             return [];
         }
 
