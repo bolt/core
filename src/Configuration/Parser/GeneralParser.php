@@ -23,7 +23,7 @@ class GeneralParser extends BaseParser
         $general = Arr::replaceRecursive($defaultconfig, Arr::replaceRecursive($tempconfig, $tempconfiglocal));
 
         // Make sure Bolt's mount point is OK:
-        $general['branding']['path'] = '/' . Str::makeSafe($general['branding']['path']);
+        $general['branding']['path'] = '/' . Str::makeSafe((string) $general['branding']['path']);
 
         // Set the link in branding, if provided_by is set.
         $general['branding']['provided_link'] = Html::providerLink(
@@ -156,7 +156,7 @@ class GeneralParser extends BaseParser
     /**
      * Parse and fine-tune the database configuration.
      */
-    protected function parseDatabase(array $options): Collection
+    protected function parseDatabase(array $options): array
     {
         // Make sure prefix ends with underscore
         if (mb_substr($options['prefix'], mb_strlen($options['prefix']) - 1) !== '_') {
@@ -166,7 +166,7 @@ class GeneralParser extends BaseParser
         // Parse master connection parameters
         $master = $this->parseConnectionParams($options);
         // Merge master connection into options
-        $options = collect($options)->merge($master);
+        $options = collect($options)->merge($master)->toArray();
 
         // Add platform specific random functions
         $driver = \Bolt\Common\Str::replaceFirst($options['driver'], 'pdo_', '');
@@ -215,9 +215,9 @@ class GeneralParser extends BaseParser
      * - Bolt keys are converted to Doctrine keys
      * - Invalid keys are filtered out
      *
-     * @param array $defaults
+     * @param array|string $params
      */
-    protected function parseConnectionParams(array $params, $defaults = []): Collection
+    protected function parseConnectionParams($params, ?Collection $defaults = null): Collection
     {
         // Handle host shortcut
         if (is_string($params)) {
@@ -236,8 +236,10 @@ class GeneralParser extends BaseParser
             }
         }
 
-        // Merge in defaults
-        $params = collect($defaults)->merge($params);
+        // Merge with defaults
+        if ($defaults !== null) {
+            $params = $defaults->merge($params);
+        }
 
         // Filter out invalid keys
         $validKeys = [
@@ -254,13 +256,13 @@ class GeneralParser extends BaseParser
     /**
      * Fine-tune Sqlite configuration parameters.
      */
-    protected function parseSqliteOptions(array $config): Collection
+    protected function parseSqliteOptions(array $config): array
     {
         if (isset($config['memory']) && $config['memory']) {
             // If in-memory, no need to parse paths
             unset($config['path']);
 
-            return collect($config);
+            return $config;
         }
         // Prevent SQLite driver from trying to use in-memory connection
         unset($config['memory']);
@@ -275,7 +277,7 @@ class GeneralParser extends BaseParser
         if (Path::hasExtension($path)) {
             $config['path'] = $path;
 
-            return collect($config);
+            return $config;
         }
 
         // Use database name for filename
@@ -287,6 +289,6 @@ class GeneralParser extends BaseParser
         // Join filename with database path
         $config['path'] = Path::join($path, $filename);
 
-        return collect($config);
+        return $config;
     }
 }

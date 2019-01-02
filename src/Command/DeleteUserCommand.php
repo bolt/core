@@ -106,10 +106,9 @@ HELP
     {
         $username = $this->validator->validateUsername($input->getArgument('username'));
 
-        /** @var User $user */
-        $user = $this->users->findOneByUsername($username);
+        $user = $this->users->findOneBy(['username' => $username]);
 
-        if ($user === null) {
+        if (! $user instanceof User) {
             throw new RuntimeException(sprintf('User with username "%s" not found.', $username));
         }
 

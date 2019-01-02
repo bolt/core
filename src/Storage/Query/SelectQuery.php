@@ -244,12 +244,10 @@ class SelectQuery implements ContentQueryInterface
 
     /**
      * Turns single fetch mode on or off.
-     *
-     * @param bool $value
      */
-    public function setSingleFetchMode($value): void
+    public function setSingleFetchMode(bool $value): void
     {
-        $this->singleFetchMode = (bool) $value;
+        $this->singleFetchMode = $value;
     }
 
     /**

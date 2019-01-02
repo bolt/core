@@ -57,7 +57,6 @@ class ContentHelperExtension extends AbstractExtension
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
             new TwigFunction('jsonlabels', [$this, 'jsonlabels']),
             new TwigFunction('jsonrecords', [$this, 'jsonrecords']),
-            new TwigFunction('fieldfactory', [$this, 'fieldfactory']),
             new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
             new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),

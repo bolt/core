@@ -18,9 +18,8 @@ class Excerpt
      * Constructor.
      *
      * @param Content|string $content
-     * @param string|null    $title
      */
-    public function __construct($content, $title = null)
+    public function __construct($content, ?string $title = null)
     {
         $this->content = $content;
         $this->title = $title;
@@ -28,14 +27,16 @@ class Excerpt
 
     /**
      * Get the excerpt of a given piece of text.
+     *
+     * @param string|array|null $focus
      */
-    public function getExcerpt(int $length = 200, bool $includeTitle = false, ?string $focus = null): string
+    public function getExcerpt(int $length = 200, bool $includeTitle = false, $focus = null): string
     {
         $title = null;
         $excerpt = '';
 
         if ($includeTitle && $this->content->magicTitle() !== null) {
-            $title = Html::trimText((string) $this->content->magicTitle(), $length);
+            $title = Html::trimText($this->content->magicTitle(), $length);
             $length -= mb_strlen($title);
         }
 
@@ -48,15 +49,15 @@ class Excerpt
                 }
             }
         } else {
-            $excerpt = (string) $this->content;
+            $excerpt = $this->content;
         }
 
         $excerpt = str_replace('>', '> ', $excerpt);
 
-        if (! $focus) {
-            $excerpt = Html::trimText($excerpt, $length);
-        } else {
+        if ($focus) {
             $excerpt = $this->extractRelevant($focus, $excerpt, $length);
+        } else {
+            $excerpt = Html::trimText($excerpt, $length);
         }
 
         if (! empty($title)) {
@@ -95,10 +96,8 @@ class Excerpt
      * When checking for matches we only change the location if there is a better match.
      * The only exception is where we have only two matches in which case we just take the
      * first as will be equally distant.
-     *
-     * @param int $prevCount
      */
-    private function determineSnipLocation(array $locations, $prevCount): int
+    private function determineSnipLocation(array $locations, int $prevCount): int
     {
         // If we only have 1 match we don't actually do the for loop so set to the first
         $startPos = (int) reset($locations);
@@ -131,10 +130,8 @@ class Excerpt
      * @see: http://www.boyter.org/2013/04/building-a-search-result-extract-generator-in-php/
      *
      * @param string|array $words
-     * @param string       $fulltext
-     * @param int          $relLength
      */
-    private function extractRelevant($words, $fulltext, $relLength = 300): string
+    private function extractRelevant($words, string $fulltext, int $relLength = 300): string
     {
         $fulltext = strip_tags($fulltext);
 
@@ -144,7 +141,7 @@ class Excerpt
 
         // 1/6 ratio on prevcount tends to work pretty well and puts the terms
         // in the middle of the extract
-        $prevCount = floor($relLength / 6);
+        $prevCount = (int) floor($relLength / 6);
 
         $indicator = '…';
 
@@ -158,10 +155,10 @@ class Excerpt
 
         // if we are going to snip too much...
         if ($textlength - $startPos < $relLength) {
-            $startPos -= ($textlength - $startPos) / 2;
+            $startPos -= (int) round(($textlength - $startPos) / 2);
         }
 
-        $relText = mb_substr($fulltext, (int) $startPos, (int) $relLength);
+        $relText = mb_substr($fulltext, $startPos, $relLength);
 
         // check to ensure we don't snip the last word if that's the match
         if ($startPos + $relLength < $textlength) {

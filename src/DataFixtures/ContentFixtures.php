@@ -7,6 +7,7 @@ namespace Bolt\DataFixtures;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -51,6 +52,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
             foreach (range(1, $amount) as $i) {
                 $ref = $i === 0 ? 'admin' : ['admin', 'henkie', 'jane_admin', 'tom_admin'][random_int(0, 3)];
+                /** @var User $author */
                 $author = $this->getReference($ref);
 
                 $content = new Content();
