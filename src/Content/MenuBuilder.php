@@ -10,7 +10,7 @@ use Bolt\Repository\ContentRepository;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MenuBuilder
 {
