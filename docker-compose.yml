@@ -2,38 +2,31 @@ version: '3.4'
 services:
   php:
     build:
-      context: ./docker/php
+      context: docker/php
       dockerfile: Dockerfile
       cache_from:
-        - php:7.3-rc-fpm
-#    env_file:
-#      - .env
-#    depends_on:
-#      - database
-#      - redis
+        - php:7.3-fpm
+    env_file:
+      - .env
+    depends_on:
+      - database
+      - maildev
     volumes:
       - ./:/var/www/bolt
     working_dir: /var/www/bolt
 
-#  database:
-#    image: mariadb:10
-#    env_file:
-#      - .env
-#    ports:
-#      - 33306:3306
-#    environment:
-#      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-#      MYSQL_PASSWORD: ${DB_PASSWORD}
-#      MYSQL_USER: ${DB_USER}
-#      MYSQL_DATABASE: ${DB_NAME}
-#      MYSQL_INITDB_SKIP_TZINFO: 0
-
-#  redis:
-#    image: redis:4-alpine
-#    env_file:
-#      - .env
-#    ports:
-#      - 6379
+  database:
+    image: mariadb:10
+    env_file:
+      - .env
+    ports:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_INITDB_SKIP_TZINFO: 0
 
   web:
     image: nginx:alpine
@@ -41,18 +34,22 @@ services:
       - 8088:80
     depends_on:
       - php
-#    env_file:
-#      - .env
     volumes:
       - ./docker/nginx:/etc/nginx/conf.d
       - ./:/var/www/bolt
-      - ./var/logs:/var/log/nginx
+      - ./var/log:/var/log/nginx
     entrypoint:
       - sh
       - /etc/nginx/conf.d/entrypoint.sh
 
   node:
     image: node:latest
-    working_dir: /home/node/app
     volumes:
       - ./:/home/node/app
+    working_dir: /home/node/app
+
+  maildev:
+    image: djfarrelly/maildev
+    container_name: sf4_maildev
+    ports:
+      - 8089:80

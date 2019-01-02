@@ -1,6 +1,5 @@
-# https://github.com/docker-library/php/blob/master/7.1/stretch/fpm/Dockerfile
-# https://hub.docker.com/r/jarjak/php-najk/
-FROM php:7.3-rc-fpm
+# https://github.com/docker-library/php/blob/master/7.3/stretch/fpm/Dockerfile
+FROM php:7.3-fpm
 
 ENV PATH /path/to/bin/folder:$PATH
 ENV PHP_MEMORYLIMIT 2048M
@@ -31,6 +30,7 @@ RUN extBuildDeps=" \
             bash \
             xvfb \
             wget \
+            unzip \
             acl \
             iproute2 \
             ttf-freefont \

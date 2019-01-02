@@ -39,7 +39,7 @@ db-reset:
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n
 
-# Dockerized commands
+# Dockerized commands:
 docker-install:
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
@@ -76,3 +76,6 @@ docker-db-reset:
 	docker-compose exec -T php sh -c "bin/console doctrine:schema:drop --force"
 	docker-compose exec -T php sh -c "bin/console doctrine:schema:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
+
+docker-npm-fix-env:
+	docker-compose run node sh -c "npm rebuild node-sass"
