@@ -92,13 +92,6 @@ final class ArrayExtension extends AbstractExtension
      */
     public function order(array $array, string $on, ?string $onSecondary = null): array
     {
-        // If we don't get a string, we can't determine a sort order.
-        if (! is_string($on)) {
-            throw new \InvalidArgumentException(sprintf('Second parameter passed to %s must be a string, %s given', __METHOD__, gettype($on)));
-        }
-        if (! (is_string($onSecondary) || $onSecondary === null)) {
-            throw new \InvalidArgumentException(sprintf('Third parameter passed to %s must be a string, %s given', __METHOD__, gettype($onSecondary)));
-        }
         // Set the 'orderOn' and 'orderAscending', taking into account things like '-datepublish'.
         [$this->orderOn, $this->orderAscending] = $this->getSortOrder($on);
 

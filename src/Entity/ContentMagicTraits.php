@@ -11,7 +11,7 @@ trait ContentMagicTraits
 {
     public function __toString(): string
     {
-        return (string) 'Content # ' . $this->getId();
+        return 'Content # ' . (string) $this->getId();
     }
 
     /**
@@ -142,7 +142,10 @@ trait ContentMagicTraits
         ];
     }
 
-    public function magicExcerpt($length = 150, $includeTitle = true, $focus = null): Twig_Markup
+    /**
+     * @param string|array|null $focus
+     */
+    public function magicExcerpt(int $length = 150, bool $includeTitle = true, $focus = null): Twig_Markup
     {
         $excerpter = new Excerpt($this);
         $excerpt = $excerpter->getExcerpt($length, $includeTitle, $focus);

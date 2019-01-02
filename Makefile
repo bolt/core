@@ -11,6 +11,9 @@ start:
 server:
 	bin/console server:start
 
+cache:
+	bin/console cache:clear
+
 csclear:
 	mkdir -p var/cache/ecs
 	chmod -R a+rw var/cache/ecs
@@ -48,6 +51,9 @@ docker-install:
 docker-start:
 	make docker-install
 	make docker-db-create
+
+docker-cache:
+	docker-compose exec -T php sh -c "bin/console cache:clear"
 
 docker-csclear:
 	docker-compose exec -T php sh -c "mkdir -p var/cache/ecs"

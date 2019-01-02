@@ -24,7 +24,6 @@ class AppExtension extends AbstractExtension
             new TwigFilter('unique', [$this, 'unique']),
             new TwigFilter('localedatetime', [$this, 'dummy']),
             new TwigFilter('showimage', [$this, 'dummy']),
-            new TwigFilter('excerpt', [$this, 'excerpt']),
             new TwigFilter('ucwords', [$this, 'ucwords']),
         ];
     }

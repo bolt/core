@@ -57,7 +57,7 @@ class Query
     }
 
     /**
-     * @return bool|QueryResultset|null
+     * @return QueryResultset|Content|null
      */
     public function getContentByScope(string $scopeName, string $textQuery, array $parameters = [])
     {
@@ -78,17 +78,7 @@ class Query
      */
     public function getContentForTwig(string $textQuery, array $parameters = [])
     {
-        if (func_num_args() === 3) {
-            $whereparameters = func_get_arg(2);
-            if (is_array($whereparameters) && ! empty($whereparameters)) {
-                $parameters = array_merge($parameters, $whereparameters);
-            }
-        }
-
         $results = $this->getContentByScope('frontend', $textQuery, $parameters);
-        if ($results instanceof QueryResultset) {
-            $results = $results->get();
-        }
 
         return $this->recordsView->createView($results);
     }

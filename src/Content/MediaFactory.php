@@ -10,11 +10,11 @@ use Bolt\Repository\MediaRepository;
 use Carbon\Carbon;
 use Faker\Factory;
 use Faker\Generator;
+use PHPExif\Exif;
 use PHPExif\Reader\Reader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 use Tightenco\Collect\Support\Collection;
 
 class MediaFactory
@@ -88,11 +88,12 @@ class MediaFactory
         return $media;
     }
 
-    private function updateImageData(Media $media, $file): void
+    private function updateImageData(Media $media, SplFileInfo $file): void
     {
+        /** @var Exif|bool $exif */
         $exif = $this->exif->read($file->getRealPath());
 
-        if ($exif) {
+        if ($exif instanceof Exif) {
             $media->setWidth($exif->getWidth())
                 ->setHeight($exif->getHeight());
 
@@ -128,7 +129,6 @@ class MediaFactory
         /** @var TokenStorage $tokenStorage */
         $tokenStorage = $this->container->get('security.token_storage');
 
-        /** @var PostAuthenticationGuardToken $token */
         $token = $tokenStorage->getToken();
         if ($token === null) {
             return null;
