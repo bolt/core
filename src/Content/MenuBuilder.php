@@ -28,9 +28,8 @@ class MenuBuilder
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
-    /**
-     * @var TranslatorInterface
-     */
+
+    /** @var TranslatorInterface */
     private $translator;
 
     /**

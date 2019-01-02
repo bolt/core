@@ -108,9 +108,7 @@ class Content
      */
     private $fields;
 
-    /**
-     * @var ContentType
-     */
+    /** @var ContentType */
     private $contentTypeDefinition;
 
     /** @var UrlGeneratorInterface */
@@ -150,6 +148,9 @@ class Content
         return $this->id;
     }
 
+    /**
+     * @see: Bolt\EventListener\ContentListener
+     */
     public function setConfig(Config $config): void
     {
         $this->config = $config;
@@ -188,7 +189,7 @@ class Content
             'contenttype' => $this->getDefinition()->get('slug'),
             'slug' => $this->getSlug(),
             'title' => $this->magicTitle(),
-            'excerpt' => $this->magicexcerpt(),
+            'excerpt' => $this->magicExcerpt(200, false),
             'image' => $this->magicImage(),
             'link' => $this->magicLink(),
             'editlink' => $this->magicEditLink(),

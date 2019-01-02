@@ -67,6 +67,18 @@ $checkbox-row-width: 30px;
     }
     &.is-details{
       flex-grow: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      line-height: 1.3rem;
+      max-height: 4.5rem;
+
+      a {
+        font-weight: bold;
+      }
+
       span{
         color: var(--shade);
         font-style: italic;
