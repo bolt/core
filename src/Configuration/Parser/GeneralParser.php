@@ -156,7 +156,7 @@ class GeneralParser extends BaseParser
     /**
      * Parse and fine-tune the database configuration.
      */
-    protected function parseDatabase(array $options): array
+    protected function parseDatabase(array $options): Collection
     {
         // Make sure prefix ends with underscore
         if (mb_substr($options['prefix'], mb_strlen($options['prefix']) - 1) !== '_') {
@@ -166,7 +166,7 @@ class GeneralParser extends BaseParser
         // Parse master connection parameters
         $master = $this->parseConnectionParams($options);
         // Merge master connection into options
-        $options = collect($options)->merge($master)->toArray();
+        $options = collect($options)->merge($master);
 
         // Add platform specific random functions
         $driver = \Bolt\Common\Str::replaceFirst($options['driver'], 'pdo_', '');
@@ -224,6 +224,8 @@ class GeneralParser extends BaseParser
             $params = ['host' => $params];
         }
 
+        $params = collect($params);
+
         // Convert keys from Bolt
         $replacements = [
             'databasename' => 'dbname',
@@ -256,7 +258,7 @@ class GeneralParser extends BaseParser
     /**
      * Fine-tune Sqlite configuration parameters.
      */
-    protected function parseSqliteOptions(array $config): array
+    protected function parseSqliteOptions(Collection $config): Collection
     {
         if (isset($config['memory']) && $config['memory']) {
             // If in-memory, no need to parse paths
