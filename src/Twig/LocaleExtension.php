@@ -7,6 +7,7 @@ namespace Bolt\Twig;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -23,10 +24,14 @@ class LocaleExtension extends AbstractExtension
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    public function __construct(string $locales, UrlGeneratorInterface $urlGenerator)
+    /** @var TranslatorInterface */
+    private $translator;
+
+    public function __construct(string $locales, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
     {
         $this->localeCodes = collect(explode('|', $locales));
         $this->urlGenerator = $urlGenerator;
+        $this->translator = $translator;
     }
 
     /**
@@ -38,11 +43,23 @@ class LocaleExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
+            new TwigFunction('__', [$this, 'translate'], ['is_safe' => ['html']]),
+            new TwigFunction('htmllang', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('locales', [$this, 'getLocales'], $env),
             new TwigFunction('contentlocales', [$this, 'getContentLocales'], $env),
             new TwigFunction('locale', [$this, 'getLocale']),
             new TwigFunction('flag', [$this, 'flag'], $safe),
         ];
+    }
+
+    public function dummy($input = null)
+    {
+        return $input;
+    }
+
+    public function translate(string $id, array $parameters = [], $domain = null, $locale = null): string
+    {
+        return $this->translator->trans($id, $parameters, $domain, $locale);
     }
 
     public function getLocale($localeCode)

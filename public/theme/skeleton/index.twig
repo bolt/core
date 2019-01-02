@@ -23,13 +23,4 @@
 
     {% endif %}
 
-    <hr>
-    {% setcontent pages = "pages" %}
-
-    <ul>
-    {% for page in pages %}
-        <li><a href="{{ page.link }}">{{ page.title }}</a></li>
-    {% endfor %}
-    </ul>
-
 {% endblock main %}

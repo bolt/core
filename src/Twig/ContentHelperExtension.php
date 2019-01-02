@@ -9,7 +9,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Repository\TaxonomyRepository;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
