@@ -1,0 +1,12 @@
+doctrine:
+    # for SQLite
+    dbal:
+        driver: 'pdo_sqlite'
+        server_version: '3.15'
+        charset: utf8mb4
+        url: '%env(resolve:DATABASE_URL)%'
+    # for MySQL (with Docker)
+#    dbal:
+#        driver: 'pdo_mysql'
+#        charset: utf8mb4
+#        url: 'mysql://%env(DATABASE_USER)%:%env(DATABASE_PASSWORD)%@%env(DATABASE_HOST)%:3306/%env(DATABASE_NAME)%'

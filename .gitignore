@@ -2,8 +2,10 @@ composer.phar
 
 ### Built Assets and uploads ###
 /public/assets/
-/public/files/
-
+/public/files/*
+!/public/files/hal.jpg
+!/public/files/kitten.jpg
+!/public/files/vlinders.jpg
 
 ### NPM and frontend assets building cruft
 assets/vendor/
@@ -20,27 +22,27 @@ Vagrantfile
 .*.swp
 .swp
 *.lock
+!composer.lock
+!symfony.lock
 .buildpath
 .idea
 .vscode/*
 
-/var/*
-!/var/cache
 /var/cache/*
-!var/cache/.gitkeep
-!/var/data
-!/var/log
+!/var/cache/.gitkeep
 /var/log/*
-!var/log/.gitkeep
-!/var/sessions
+!/var/log/.gitkeep
+/var/data/*
+!/var/data/.gitkeep
 /var/sessions/*
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
+!/var/sessions/.gitkeep
+
+###Local config
+/config/packages/local
 
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
-/var/
 /vendor/
 ###< symfony/framework-bundle ###
 
@@ -57,8 +59,6 @@ Vagrantfile
 /.php_cs
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
-
-
 
 ###> squizlabs/php_codesniffer ###
 /.phpcs-cache
