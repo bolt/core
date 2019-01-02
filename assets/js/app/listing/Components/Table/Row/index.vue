@@ -4,36 +4,37 @@
     <!-- check box -->
     <row-checkbox
       v-if="type !== 'dashboard'"
-      :id="record.id" 
+      :id="record.id"
       key="select"
     ></row-checkbox>
 
     <!-- row -->
-    <div 
+    <div
       v-if="!quickEditor"
       class="listing__row"
-      :class="`is-${size}`" 
+      :class="`is-${size}`"
       key="row"
     >
 
       <!-- column thumbnail -->
       <div
-        class="listing__row--item is-thumbnail" 
+        class="listing__row--item is-thumbnail"
         :style="`background-image: url(${record.image.path})`"
         v-if="size === 'normal'"
       ></div>
       <!-- end column -->
 
       <!-- column details -->
-      <div 
-        class="listing__row--item is-details" 
-        v-html="record.excerpt"
+      <div
+              class="listing__row--item is-details"
       >
+        <a :href="record.editlink">{{ record.title }}</a>
+        <span>{{ record.excerpt }}</span>
       </div>
       <!-- end column -->
 
       <!-- column meta -->
-      <row-meta 
+      <row-meta
         :type="type"
         :size="size"
         :meta="record"
@@ -41,8 +42,8 @@
       <!-- end column -->
 
       <!-- column actions -->
-      <row-actions 
-        :id="record.id" 
+      <row-actions
+        :id="record.id"
         :size="size"
         @quickeditor="quickEditor = $event"
       ></row-actions>
@@ -55,9 +56,9 @@
     </div>
 
     <!-- quick editor -->
-    <row-quick-editor 
-      v-if="quickEditor" 
-      @quickeditor="quickEditor = $event" 
+    <row-quick-editor
+      v-if="quickEditor"
+      @quickeditor="quickEditor = $event"
       :size="size"
       key="quickeditor"
     ></row-quick-editor>

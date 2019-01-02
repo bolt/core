@@ -40,10 +40,10 @@ class Excerpt
         }
 
         if ($this->content instanceof Content) {
-            $skip_fields = $includeTitle ? $this->content->magicTitleFields() : [];
+            $skipFields = $this->content->magicTitleFields();
 
             foreach ($this->content->getFields() as $field) {
-                if (! in_array($field->getName(), $skip_fields, true) && $field->isExcerptable()) {
+                if (! in_array($field->getName(), $skipFields, true) && $field->isExcerptable()) {
                     $excerpt .= (string) $field;
                 }
             }

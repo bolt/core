@@ -112,13 +112,19 @@ trait ContentMagicTraits
 
     public function magicTitle(): string
     {
-        $title = [];
+        $titleParts = [];
 
         foreach ($this->magicTitleFields() as $field) {
-            $title[] = $this->get($field);
+            $titleParts[] = $this->get($field);
         }
 
-        return implode(' ', $title);
+        $title = trim(implode(' ', $titleParts));
+
+        if (empty($title)) {
+            return '(untitled)';
+        }
+
+        return $title;
     }
 
     public function magicImage(): array
