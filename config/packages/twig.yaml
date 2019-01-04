@@ -1,6 +1,6 @@
 twig:
     debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
+    strict_variables: true
     form_themes:
         - 'form/layout.twig'
         - 'form/fields.twig'

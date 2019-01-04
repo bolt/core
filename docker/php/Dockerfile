@@ -30,7 +30,7 @@ RUN extBuildDeps=" \
             bash \
             xvfb \
             wget \
-            unzip \
+            zip unzip \
             acl \
             iproute2 \
             ttf-freefont \

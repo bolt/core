@@ -32,6 +32,9 @@ csfix:
 stancheck:
 	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
 
+test:
+	vendor/bin/phpunit
+
 db-create:
 	bin/console doctrine:database:create
 	bin/console doctrine:schema:create
@@ -47,6 +50,9 @@ docker-install:
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
 	docker-compose run node sh -c "npm run build"
+
+docker-update:
+	docker-compose exec -T php sh -c "composer update"
 
 docker-start:
 	make docker-install

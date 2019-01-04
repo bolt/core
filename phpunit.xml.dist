@@ -30,8 +30,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests/</directory>
+        <testsuite name="Bolt Test Suite">
+            <directory>tests/php/</directory>
         </testsuite>
     </testsuites>
 
