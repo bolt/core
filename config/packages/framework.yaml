@@ -19,12 +19,12 @@ framework:
         # this value is used as part of the "namespace" generated for the cache item keys
         # to avoid collisions when multiple apps share the same cache backend (e.g. a Redis server)
         # See https://symfony.com/doc/current/reference/configuration/framework.html#prefix-seed
-        prefix_seed: symfony-demo
+        prefix_seed: bolt
     # The 'ide' option turns all of the file paths in an exception page
     # into clickable links that open the given file using your favorite IDE.
     # When 'ide' is set to null the file is opened in your web browser.
     # See https://symfony.com/doc/current/reference/configuration/framework.html#ide
-    ide: ~
+    ide: phpstorm
     validation:
         email_validation_mode: 'html5'
         enable_annotations: true

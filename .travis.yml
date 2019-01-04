@@ -14,9 +14,11 @@ matrix:
   fast_finish: true
   include:
     - php: 7.1.18
+      env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 7.2
     - php: 7.3
     - php: nightly
+      env: COMPOSER_FLAGS="--ignore-platform-reqs"
   allow_failures:
     - php: nightly
 
@@ -26,7 +28,9 @@ before_install:
   - nvm install 8.2
 
 install:
-  - composer install
+  - COMPOSER_MEMORY_LIMIT=-1 composer install $COMPOSER_FLAGS
+
+before_script:
   - ./bin/phpunit install
   - npm install
 
@@ -35,7 +39,6 @@ script:
   # this checks that the source code follows the Bolt Code Syntax rules
   - ./vendor/bin/ecs check src
   - ./vendor/bin/phpstan analyse -c phpstan.neon src
-  #- '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./vendor/bin/php-cs-fixer fix --diff --dry-run -v'
   # this checks that the YAML config files contain no syntax errors
   - ./bin/console lint:yaml config
   # this checks that the Twig template files contain no syntax errors

@@ -47,7 +47,7 @@ class UserType extends AbstractType
                     'Español (Spanish, es)' => 'es',
                     'français (French, fr)' => 'fr',
                     'Deutsch (German, de)' => 'de',
-                    'Język Polski (Polish, pl)' => 'pl',
+                    'Polski (Polish, pl)' => 'pl',
                     'Brasilian Portuguese (Brasilian Portuguese, pt_BR)' => 'pt_BR',
                     'Italiano (Italian, it)' => 'it',
                 ],
