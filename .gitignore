@@ -22,6 +22,7 @@ Vagrantfile
 .*.swp
 .swp
 *.lock
+!symfony.lock
 .buildpath
 .idea
 .vscode/*
