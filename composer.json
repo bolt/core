@@ -44,7 +44,6 @@
         "symfony/twig-bundle": "^4.2",
         "symfony/validator": "^4.2",
         "symfony/var-dumper": "^4.2",
-        "symfony/web-profiler-bundle": "^4.2",
         "symfony/webpack-encore-bundle": "^1.0",
         "symfony/yaml": "^4.2",
         "tightenco/collect": "^5.7",
