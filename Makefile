@@ -33,7 +33,7 @@ stancheck:
 	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
 
 test:
-	APP_ENV=test vendor/bin/phpunit -c phpunit.xml.dist
+	vendor/bin/phpunit
 
 db-create:
 	bin/console doctrine:database:create
