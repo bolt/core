@@ -31,11 +31,11 @@ install:
   - COMPOSER_MEMORY_LIMIT=-1 composer install $COMPOSER_FLAGS
 
 before_script:
-  - ./bin/phpunit install
   - npm install
 
 script:
-  - ./bin/phpunit
+  # run PHP Unit tests
+  - ./vendor/bin/phpunit
   # this checks that the source code follows the Bolt Code Syntax rules
   - ./vendor/bin/ecs check src
   - ./vendor/bin/phpstan analyse -c phpstan.neon src
