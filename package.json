@@ -86,6 +86,13 @@
     "build": "encore production --progress",
     "test": "jest"
   },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ]
+  },
   "browserslist": [
     "> 1%"
   ],

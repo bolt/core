@@ -13,15 +13,4 @@ import Textarea from './Textarea/Textarea';
 
 import Image from './Image/Image';
 
-
-export {
-  Text,
-  Slug,
-  Number,
-  Date,
-  Select,
-  Html,
-  Markdown,
-  Textarea,
-  Image
-};
+export { Text, Slug, Number, Date, Select, Html, Markdown, Textarea, Image };
