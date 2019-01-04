@@ -1,7 +1,4 @@
 {
-    "api-platform/api-pack": {
-        "version": "1.1.0"
-    },
     "api-platform/core": {
         "version": "2.1",
         "recipe": {
@@ -386,9 +383,6 @@
             "ref": "de31e687f3964939abd1f66817bd96ed34bc2eee"
         }
     },
-    "symfony/debug-pack": {
-        "version": "v1.0.6"
-    },
     "symfony/dependency-injection": {
         "version": "v3.4.0-beta2"
     },
@@ -470,9 +464,6 @@
     "symfony/options-resolver": {
         "version": "v3.4.0-beta2"
     },
-    "symfony/orm-pack": {
-        "version": "v1.0.5"
-    },
     "symfony/phpunit-bridge": {
         "version": "3.3",
         "recipe": {
@@ -499,9 +490,6 @@
     },
     "symfony/process": {
         "version": "v3.4.0-beta2"
-    },
-    "symfony/profiler-pack": {
-        "version": "v1.0.3"
     },
     "symfony/property-access": {
         "version": "v3.4.0-beta2"
