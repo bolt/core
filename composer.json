@@ -50,7 +50,7 @@
         "tightenco/collect": "^5.7",
         "twig/extensions": "^1.5",
         "webmozart/path-util": "^2.3",
-        "webonyx/graphql-php": "^0.12.6",
+        "webonyx/graphql-php": "^0.13.0",
         "white-october/pagerfanta-bundle": "^1.1"
     },
     "require-dev": {
