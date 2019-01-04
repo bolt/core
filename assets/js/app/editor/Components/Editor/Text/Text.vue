@@ -4,12 +4,12 @@
       :id="id"
       class="form-control"
       :class="getType"
-      :name="name" 
-      placeholder="…" 
-      type="text" 
-      v-model="val" 
-      :disabled="disabled == 1" 
-    >
+      :name="name"
+      placeholder="…"
+      type="text"
+      v-model="val"
+      :disabled="disabled == 1"
+    />
   </div>
 </template>
 
@@ -17,30 +17,30 @@
 import field from '../../../mixins/value';
 
 export default {
-  name: "editor-text",
+  name: 'editor-text',
   props: ['value', 'label', 'name', 'type', 'disabled', 'id'],
   mixins: [field],
   mounted() {
-    this.$root.$on('generate-from-title', data => this.generate = data);
+    this.$root.$on('generate-from-title', data => (this.generate = data));
   },
   data: () => {
     return {
-      generate: false
+      generate: false,
     };
   },
   watch: {
-    val(){
-      if(this.generate){
+    val() {
+      if (this.generate) {
         this.$root.$emit('slugify-from-title');
       }
-    }
+    },
   },
-  computed:{
-    getType(){
-      if(this.type === 'large'){
-        return 'form-control-lg'
+  computed: {
+    getType() {
+      if (this.type === 'large') {
+        return 'form-control-lg';
       }
-    }
-  }
+    },
+  },
 };
 </script>
