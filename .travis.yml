@@ -4,11 +4,6 @@ sudo: false
 cache:
   directories:
     - $HOME/.composer/cache/files
-    - ./bin/.phpunit
-
-env:
-  global:
-    - SYMFONY_PHPUNIT_DIR=./bin/.phpunit
 
 matrix:
   fast_finish: true
@@ -25,12 +20,10 @@ matrix:
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
   - composer self-update
-  - nvm install 8.2
 
 install:
   - COMPOSER_MEMORY_LIMIT=-1 composer install $COMPOSER_FLAGS
-
-before_script:
+  - nvm install 8.2
   - npm install
 
 script:
