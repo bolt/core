@@ -22,7 +22,7 @@ before_install:
   - composer self-update
 
 install:
-  - COMPOSER_MEMORY_LIMIT=-1 composer install $COMPOSER_FLAGS
+  - COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
   - nvm install 8.2
   - npm install
 
