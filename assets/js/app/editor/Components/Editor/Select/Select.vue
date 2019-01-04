@@ -52,7 +52,7 @@ export default {
   },
   data: () => {
     return {
-      selected: []
+      selected: [],
     };
   },
   computed: {
@@ -68,19 +68,19 @@ export default {
     },
     fieldName() {
       return this.name + '[]';
-    }
+    },
   },
   methods: {
     addTag(newTag) {
       const tag = {
         key: newTag,
         value: newTag,
-        selected: true
+        selected: true,
       };
       this.options.push(tag);
       this.value.push(tag);
       this.selected.push(tag);
-    }
-  }
+    },
+  },
 };
 </script>

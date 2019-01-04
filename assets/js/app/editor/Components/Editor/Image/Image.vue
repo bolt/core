@@ -100,7 +100,7 @@ export default {
     'alt',
     'title',
     'directory',
-    'media'
+    'media',
   ],
   mixins: [field],
   mounted() {
@@ -113,7 +113,7 @@ export default {
       },
       afterHide: () => {
         noScroll.off();
-      }
+      },
     });
   },
   data: () => {
@@ -121,7 +121,7 @@ export default {
       previewImage: null,
       isDragging: false,
       dragCount: 0,
-      progress: 0
+      progress: 0,
     };
   },
   methods: {
@@ -157,8 +157,8 @@ export default {
           this.progress = percentCompleted;
         },
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       };
       fd.append('image', file);
       this.$axios
@@ -172,12 +172,12 @@ export default {
           console.log(err);
           this.progress = 0;
         });
-    }
+    },
   },
   computed: {
     fieldName() {
       return this.name + '[]';
-    }
-  }
+    },
+  },
 };
 </script>

@@ -53,7 +53,7 @@ export default {
     return {
       edit: false,
       buttonText: 'Locked',
-      icon: 'lock'
+      icon: 'lock',
     };
   },
   mounted() {
@@ -93,7 +93,7 @@ export default {
       this.edit = false;
       this.buttonText = 'Locked';
       this.icon = 'lock';
-    }
-  }
+    },
+  },
 };
 </script>

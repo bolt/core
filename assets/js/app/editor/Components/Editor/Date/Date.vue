@@ -40,34 +40,34 @@ export default {
   mixins: [value],
 
   components: {
-    flatPickr
+    flatPickr,
   },
 
   props: {
     value: {
       type: String,
-      required: false
+      required: false,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     disabled: {
       type: String,
-      required: true
+      required: true,
     },
     mode: {
       type: String,
       required: true,
-      default: 'date'
+      default: 'date',
     },
     form: {
       type: String,
-      required: true
+      required: true,
     },
     locale: {
-      type: String
-    }
+      type: String,
+    },
   },
 
   created() {
@@ -92,9 +92,9 @@ export default {
         altFormat: 'F j, Y',
         altInput: true,
         dateFormat: 'Z',
-        enableTime: false
-      }
+        enableTime: false,
+      },
     };
-  }
+  },
 };
 </script>

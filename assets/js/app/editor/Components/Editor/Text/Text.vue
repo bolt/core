@@ -25,7 +25,7 @@ export default {
   },
   data: () => {
     return {
-      generate: false
+      generate: false,
     };
   },
   watch: {
@@ -33,14 +33,14 @@ export default {
       if (this.generate) {
         this.$root.$emit('slugify-from-title');
       }
-    }
+    },
   },
   computed: {
     getType() {
       if (this.type === 'large') {
         return 'form-control-lg';
       }
-    }
-  }
+    },
+  },
 };
 </script>

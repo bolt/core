@@ -16,7 +16,7 @@ export default {
   name: 'editor-markdown',
   props: ['value', 'label', 'name'],
   components: {
-    markdownEditor
+    markdownEditor,
   },
   mounted() {
     this.val = this.$options.filters.strip(this.value);
@@ -27,10 +27,10 @@ export default {
       config: {
         spellChecker: false,
         status: false,
-        toggleFullScreen: true
-      }
+        toggleFullScreen: true,
+      },
     };
-  }
+  },
 };
 </script>
 

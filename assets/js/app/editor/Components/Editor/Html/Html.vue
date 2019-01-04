@@ -17,7 +17,7 @@ export default {
   name: 'editor-html',
   props: ['value', 'label', 'name'],
   components: {
-    trumbowyg
+    trumbowyg,
   },
   mounted() {
     this.val = this.$options.filters.strip(this.value);
@@ -37,10 +37,10 @@ export default {
           ['horizontalRule'],
           ['removeformat'],
           ['fullscreen'],
-          ['viewHTML']
-        ]
-      }
+          ['viewHTML'],
+        ],
+      },
     };
-  }
+  },
 };
 </script>
