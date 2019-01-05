@@ -20,6 +20,7 @@ class SelectField extends Field
         if (empty($this->value)) {
             $this->value = [];
         }
+
         return $this->value;
     }
 }
