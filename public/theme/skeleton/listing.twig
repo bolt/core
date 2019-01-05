@@ -41,7 +41,7 @@
 
                 <p>{{ record.excerpt(300, false, search|default('')) }}</p>
 
-                {#{% include 'partials/_recordfooter.twig' with { 'record': record } %}#}
+                {% include 'partials/_recordfooter.twig' with { 'record': record } %}
 
             </article>
 
@@ -62,6 +62,6 @@
         {% endfor %}
 
         {# If there are more records than will fit on one page, the pager is shown. #}
-        {#{{ pager(template = 'partials/_sub_pager.twig') }}#}
+        {{ pager(template = 'partials/_sub_pager.twig') }}
 
 {% endblock main %}

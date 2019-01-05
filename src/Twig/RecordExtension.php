@@ -26,7 +26,8 @@ class RecordExtension extends AbstractExtension
         return [
             new TwigFunction('excerpt', [$this, 'excerpt'], $safe),
             new TwigFunction('listtemplates', [$this, 'dummy']),
-            new TwigFunction('pager', [$this, 'dummy_with_env'], $env + $safe),
+            new TwigFunction('pager', [$this, 'pager'], $env + $safe),
+            new TwigFunction('menu', [$this, 'pager'], $env + $safe),
         ];
     }
 
@@ -50,6 +51,16 @@ class RecordExtension extends AbstractExtension
     public function dummy_with_env(Environment $env, $input = null)
     {
         return $input;
+    }
+
+    public function pager(Environment $env, string $template = '')
+    {
+        return '[pager placeholder]';
+    }
+
+    public function menu(Environment $env, string $template = '')
+    {
+        return '[menu placeholder]';
     }
 
     public static function excerpt(string $text, int $length = 100): string
