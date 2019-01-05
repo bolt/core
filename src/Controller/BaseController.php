@@ -50,6 +50,7 @@ class BaseController extends AbstractController
 
         // Resolve string|array of templates into the first one that is found.
         if ($template instanceof Collection) {
+//            dd($template);
             $template = $twig->resolveTemplate($template->toArray());
         }
 
