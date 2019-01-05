@@ -1019,5 +1019,11 @@
         <target>Search</target>
       </segment>
     </unit>
+    <unit id="k.xuYv2" name="general.phrase.permalink">
+      <segment>
+        <source>general.phrase.permalink</source>
+        <target>Permalink</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

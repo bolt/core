@@ -84,6 +84,34 @@ class ContentRepository extends ServiceEntityRepository
         return $paginator;
     }
 
+    public function findAdjacentBy(string $column, string $direction, $currentValue, ?string $contentType = null)
+    {
+        $column = filter_var($column, FILTER_SANITIZE_STRING);
+
+        if ($direction === 'next') {
+            $order = 'ASC';
+            $whereClause = 'content.' . $column .' > :value';
+        } else {
+            $order = 'DESC';
+            $whereClause = 'content.' . $column .' < :value';
+        }
+
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a')
+            ->orderBy('content.' . $column, $order)
+            ->where($whereClause)
+            ->setParameter('value', $currentValue)
+            ->setMaxResults(1);
+
+        if ($contentType) {
+            $qb->andWhere('content.contentType = :contenttype')
+                ->setParameter('contenttype', $contentType);
+        }
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Content[] Returns an array of Content objects
 //     */
