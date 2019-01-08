@@ -146,6 +146,9 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
+    "hamcrest/hamcrest-php": {
+        "version": "v2.0.0"
+    },
     "intervention/image": {
         "version": "2.4.2"
     },
@@ -172,6 +175,9 @@
     },
     "miljar/php-exif": {
         "version": "v0.6.4"
+    },
+    "mockery/mockery": {
+        "version": "1.2.0"
     },
     "monolog/monolog": {
         "version": "1.23.0"
@@ -256,6 +262,12 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
+    },
+    "phpspec/php-diff": {
+        "version": "v1.1.0"
+    },
+    "phpspec/phpspec": {
+        "version": "5.1.0"
     },
     "phpstan/phpdoc-parser": {
         "version": "0.3"
