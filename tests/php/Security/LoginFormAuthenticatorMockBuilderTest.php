@@ -16,6 +16,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class LoginFormAuthenticatorMockBuilderTest extends \PHPUnit\Framework\TestCase
 {
+    const TEST_TOKEN = ['csrf_token' => null, 'username' => null];
+
     function test_get_login_url()
     {
         $router = $this->createMock(RouterInterface::class);
@@ -37,9 +39,7 @@ class LoginFormAuthenticatorMockBuilderTest extends \PHPUnit\Framework\TestCase
             'isTokenValid' => true
         ]);
 
-        $token = ['csrf_token' => null, 'username' => null];
-
-        $res = $this->getTestObj($userRepository, null, $csrfTokenManager, null)->getUser($token, $this->createMock(UserProviderInterface::class));
+        $res = $this->getTestObj($userRepository, null, $csrfTokenManager, null)->getUser(self::TEST_TOKEN, $this->createMock(UserProviderInterface::class));
         $this->assertInstanceOf(User::class, $res);
     }
 
@@ -50,7 +50,7 @@ class LoginFormAuthenticatorMockBuilderTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $this->expectException(InvalidCsrfTokenException::class);
-        $this->getTestObj(null, null, $csrfTokenManager, null)->getUser(['csrf_token' => null], $this->createMock(UserProviderInterface::class));
+        $this->getTestObj(null, null, $csrfTokenManager, null)->getUser(self::TEST_TOKEN, $this->createMock(UserProviderInterface::class));
     }
     
     private function getTestObj(?UserRepository $userRepository, ?RouterInterface $router, ?CsrfTokenManagerInterface $csrfTokenManager, ?UserPasswordEncoderInterface $userPasswordEncoder): LoginFormAuthenticator
