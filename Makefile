@@ -1,12 +1,12 @@
-install:
-	composer install
-	npm install
-	npm run build
-
 start:
 	make install
 	make db-create
 	make server
+
+install:
+	composer install
+	npm install
+	npm run build
 
 server:
 	bin/console server:start
@@ -36,7 +36,7 @@ test:
 	vendor/bin/phpunit
 
 db-create:
-	bin/console doctrine:database:create
+	bin/console doctrine:database:create --if-not-exists
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n
 
@@ -46,17 +46,18 @@ db-reset:
 	bin/console doctrine:fixtures:load -n
 
 # Dockerized commands:
+docker-start:
+	make docker-install
+	make docker-db-create
+
 docker-install:
+	docker-compose up -d
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
 	docker-compose run node sh -c "npm run build"
 
 docker-update:
 	docker-compose exec -T php sh -c "composer update"
-
-docker-start:
-	make docker-install
-	make docker-db-create
 
 docker-cache:
 	docker-compose exec -T php sh -c "bin/console cache:clear"
@@ -80,7 +81,7 @@ docker-stancheck:
 	docker-compose exec -T php sh -c "vendor/bin/phpstan analyse -c phpstan.neon src"
 
 docker-db-create:
-	docker-compose exec -T php sh -c "bin/console doctrine:database:create"
+	docker-compose exec -T php sh -c "bin/console doctrine:database:create --if-not-exists"
 	docker-compose exec -T php sh -c "bin/console doctrine:schema:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
 
