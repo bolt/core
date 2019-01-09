@@ -146,9 +146,6 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
-    "hamcrest/hamcrest-php": {
-        "version": "v2.0.0"
-    },
     "intervention/image": {
         "version": "2.4.2"
     },
@@ -175,9 +172,6 @@
     },
     "miljar/php-exif": {
         "version": "v0.6.4"
-    },
-    "mockery/mockery": {
-        "version": "1.2.0"
     },
     "monolog/monolog": {
         "version": "1.23.0"

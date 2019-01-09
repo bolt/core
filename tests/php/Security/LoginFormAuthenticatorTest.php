@@ -7,6 +7,7 @@ namespace Bolt\Tests\Security;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
 use Bolt\Security\LoginFormAuthenticator;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class LoginFormAuthenticatorMockBuilderTest extends \PHPUnit\Framework\TestCase
+class LoginFormAuthenticatorTest extends TestCase
 {
     const TEST_TOKEN = ['csrf_token' => null, 'username' => null];
 

@@ -26,8 +26,9 @@ install:
   - npm install
 
 script:
-  # run PHP Unit tests
+  # run PHP Unit / PHP Spec tests
   - ./vendor/bin/phpunit
+  - ./vendor/bin/phpspec run
   # this checks that the source code follows the Bolt Code Syntax rules
   - ./vendor/bin/ecs check src
   - ./vendor/bin/phpstan analyse -c phpstan.neon src
