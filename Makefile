@@ -28,12 +28,18 @@ csfix:
 	make csclear
 	vendor/bin/ecs check src --fix
 	make stancheck
+
+csfix-tests:
+	make csclear
+	vendor/bin/ecs check tests/php --fix
+	make stancheck
 	
 stancheck:
 	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
 
 test:
 	vendor/bin/phpunit
+	vendor/bin/phpspec run
 
 db-create:
 	bin/console doctrine:database:create --if-not-exists

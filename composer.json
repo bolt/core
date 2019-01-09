@@ -56,6 +56,7 @@
         "ext-pdo_sqlite": "*",
         "dama/doctrine-test-bundle": "^5.0",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "phpspec/phpspec": "^5.1",
         "phpstan/phpstan": "^0.10.3",
         "phpunit/phpunit": "^7.0",
         "symfony/browser-kit": "^4.2",
@@ -86,7 +87,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Bolt\\Tests\\": "tests/php/"
+            "Bolt\\Tests\\": "tests/php/",
+            "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
     "scripts": {
