@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Tightenco\Collect\Support\Collection;
+
 trait ContentLocaliseTraits
 {
     public function getLocales()
@@ -22,7 +24,7 @@ trait ContentLocaliseTraits
         return $this->getLocales()->first();
     }
 
-    public function getLocalisedFields(string $locale = '', bool $fallback = true): \Tightenco\Collect\Support\Collection
+    public function getLocalisedFields(string $locale = '', bool $fallback = true): Collection
     {
         if (! $locale) {
             $locale = $this->getDefaultLocale();
