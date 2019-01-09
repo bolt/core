@@ -27,9 +27,9 @@ class TemplateChooser
     /**
      * Choose a template for the homepage.
      */
-    public function homepage(?Content $content = null): Collection
+    public function homepage(?Content $content = null): array
     {
-        $templates = collect([]);
+        $templates = new Collection();
 
         // First candidate: Theme-specific config.yml file.
         $templates->push($this->config->get('theme/homepage_template'));
@@ -50,7 +50,7 @@ class TemplateChooser
             $templates = $templates->merge($this->record($content));
         }
 
-        return $templates->unique();
+        return $templates->unique()->toArray();
     }
 
     /**
@@ -58,9 +58,9 @@ class TemplateChooser
      * - '/page/about'
      * - '/entry/lorum-ipsum'.
      */
-    public function record(Content $record, ?array $data = null): Collection
+    public function record(Content $record, ?array $data = null): array
     {
-        $templates = collect([]);
+        $templates = new Collection();
         $definition = $record->getDefinition();
 
         // First candidate: Content record has a templateselect field, and it's set.
@@ -89,15 +89,15 @@ class TemplateChooser
         // Sixth candidate: fallback to 'record.html.twig'
         $templates->push('record.html.twig');
 
-        return $templates->unique()->filter();
+        return $templates->unique()->filter()->toArray();
     }
 
     /**
      * Select a template for listing pages.
      */
-    public function listing(?Collection $contenttype = null): Collection
+    public function listing(?Collection $contenttype = null): array
     {
-        $templates = collect([]);
+        $templates = new Collection();
 
         // First candidate: defined specifically in the contenttype.
         if (! empty($contenttype['listing_template'])) {
@@ -118,15 +118,15 @@ class TemplateChooser
         // Fifth candidate: fallback to 'listing.html.twig'
         $templates->push('listing.html.twig');
 
-        return $templates->unique()->filter();
+        return $templates->unique()->filter()->toArray();
     }
 
     /**
      * Select a template for taxonomy.
      */
-    public function taxonomy(string $taxonomyslug): Collection
+    public function taxonomy(string $taxonomyslug): array
     {
-        $templates = collect([]);
+        $templates = new Collection();
 
         // First candidate: defined specifically in the taxonomy
         $templates->push($this->config->get('taxonomy/' . $taxonomyslug . '/listing_template'));
@@ -137,15 +137,15 @@ class TemplateChooser
         // Third candidate: Global config.yml
         $templates->push($this->config->get('general/listing_template'));
 
-        return $templates->unique()->filter();
+        return $templates->unique()->filter()->toArray();
     }
 
     /**
      * Select a search template.
      */
-    public function search(): Collection
+    public function search(): array
     {
-        $templates = collect([]);
+        $templates = new Collection();
 
         // First candidate: specific search setting in global config.
         $templates->push($this->config->get('theme/search_results_template'));
@@ -156,15 +156,15 @@ class TemplateChooser
         // Third candidate: listing config setting.
         $templates->push($this->config->get('general/listing_template'));
 
-        return $templates->unique()->filter();
+        return $templates->unique()->filter()->toArray();
     }
 
     /**
      * Select a template to use for the "maintenance" page.
      */
-    public function maintenance(): Collection
+    public function maintenance(): array
     {
-        $templates = collect([]);
+        $templates = new Collection();
 
         // First candidate: Theme-specific config.
         $templates->push($this->config->get('theme/maintenance_template'));
@@ -172,6 +172,6 @@ class TemplateChooser
         // Second candidate: global config.
         $templates->push($this->config->get('general/maintenance_template'));
 
-        return $templates->unique()->filter();
+        return $templates->unique()->filter()->toArray();
     }
 }

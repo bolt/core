@@ -39,7 +39,7 @@ class BaseParser
         try {
             $filename = $this->fileLocator->locate($filename, null, true);
         } catch (FileNotFoundException $e) {
-            return collect([]);
+            return new Collection();
         }
 
         $yaml = Yaml::parseFile($filename);

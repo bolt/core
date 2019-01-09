@@ -31,12 +31,12 @@ class SearchController extends BaseController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function search(ContentRepository $content, Request $request): Response
+    public function search(ContentRepository $contentRepository, Request $request): Response
     {
         $page = (int) $request->query->get('page', 1);
 
         /** @var Content[] $records */
-        $records = $content->findForPage($page);
+        $records = $contentRepository->findForPage($page);
 
         $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
 

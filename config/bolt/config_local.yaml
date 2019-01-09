@@ -2,7 +2,7 @@ database:
     driver: mysql
     databasename: bolt
     username: root
-    password: 'hunter42'
+    password: ''
 
 sitename: Bolt Four Website
 

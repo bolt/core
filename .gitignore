@@ -14,18 +14,22 @@ npm-debug.log
 yarn-error.log
 
 ### File-system cruft and temporary files
-.DS_Store
 __*
 ._*
-Vagrantfile
-.vagrant*
 .*.swp
 .swp
 *.lock
 !symfony.lock
 .buildpath
+
+### Platfom-specific files
+.DS_Store
+thumbs.db
+Vagrantfile
+.vagrant*
 .idea
 .vscode/*
+appveyor.yml
 
 /var/cache/*
 !/var/cache/.gitkeep

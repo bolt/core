@@ -31,18 +31,18 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    doctrine.content_listener:
-        class: Bolt\EventListener\ContentListener
+    Bolt\EventListener\ContentListener:
         arguments: []
         tags:
-        - { name: doctrine.event_listener, event: postLoad }
-    app.menu_builder:
-        class: Bolt\Content\MenuBuilder
+            - { name: doctrine.event_listener, event: postLoad }
+
+    Bolt\Content\MenuBuilder:
         arguments: ["@knp_menu.factory"]
         tags:
             - { name: knp_menu.menu_builder, method: createSidebarMenu, alias: sidebar } # The alias is what is used to retrieve the menu
-    # config/services.yaml
-    Twig\Extension\StringLoaderExtension:
+
+    Twig\Extension\StringLoaderExtension: ~
+    Doctrine\ORM\Query\Expr: ~
 
     # Needed for SetContent from bolt/bolt
     Bolt\Storage\Query\Query:
@@ -55,4 +55,3 @@ services:
             -
                 method: addService
                 arguments: [ 'select', '@Bolt\Storage\Query\SelectQuery' ]
-    Doctrine\ORM\Query\Expr:

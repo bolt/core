@@ -23,7 +23,10 @@ final class Areas
         $this->initAreas();
     }
 
-    public function get($area, $key = null)
+    /**
+     * @return Collection|string
+     */
+    public function get(string $area, ?string $key = null)
     {
         if ($key) {
             return $this->areas->get($area)[$key];

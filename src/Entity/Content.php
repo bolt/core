@@ -347,7 +347,7 @@ class Content
         return self::STATUSES;
     }
 
-    public function getStatusOptions()
+    public function getStatusOptions(): array
     {
         $options = [];
 

@@ -35,12 +35,12 @@ class ListingController extends BaseController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function contentListing(ContentRepository $content, Request $request, string $contenttypeslug): Response
+    public function contentListing(ContentRepository $contentRepository, Request $request, string $contenttypeslug): Response
     {
         $page = (int) $request->query->get('page', 1);
 
         /** @var Content[] $records */
-        $records = $content->findForPage($page);
+        $records = $contentRepository->findForPage($page);
 
         $contenttype = ContentType::factory($contenttypeslug, $this->config->get('contenttypes'));
 

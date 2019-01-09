@@ -28,7 +28,7 @@ trait ContentLocaliseTraits
             $locale = $this->getDefaultLocale();
         }
 
-        $fields = collect([]);
+        $fields = new Collection();
 
         foreach ($this->getDefinition()->get('fields') as $name => $field) {
             $field = $this->getLocalisedField($name, $locale, $fallback, $field);
