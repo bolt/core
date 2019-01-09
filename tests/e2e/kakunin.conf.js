@@ -10,7 +10,7 @@ module.exports = {
     "emails": [
         "/emails"
     ],
-    "reports": "/reports",
+    "reports": "../../var/log/e2e-reports",
     "downloads": "/downloads",
     "data": "/data",
     "features": [

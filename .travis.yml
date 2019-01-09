@@ -28,7 +28,7 @@ install:
   - COMPOSER_MEMORY_LIMIT=-1 composer install $COMPOSER_FLAGS
   - nvm install 8.2
   - npm install
-  - cd tests/e2e && npm install && node ./node_modules/protractor/bin/webdriver-manager update --gecko=false
+  - cd tests/e2e && npm install && node ./node_modules/protractor/bin/webdriver-manager update --gecko=false && cd ../..
 
 script:
   # run PHP Unit / PHP Spec tests
@@ -52,4 +52,4 @@ script:
   # run jest unit tests
   - npm test
   # run e2e tests with Kakunin
-  - ./bin/console server:start *:8088 && cd tests/e2e && xvfb-run npm run kakunin
+  - ./bin/console server:start *:8088 && cd tests/e2e && xvfb-run npm run kakunin && cd ../..

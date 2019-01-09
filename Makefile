@@ -41,6 +41,9 @@ test:
 	vendor/bin/phpunit
 	vendor/bin/phpspec run
 
+e2e:
+	cd tests/e2e && npm run kakunin
+
 db-create:
 	bin/console doctrine:database:create --if-not-exists
 	bin/console doctrine:schema:create
