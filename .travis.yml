@@ -52,4 +52,4 @@ script:
   # run jest unit tests
   - npm test
   # run e2e tests with Kakunin
-  - ./bin/console server:start *:8088 && cd tests/e2e && xvfb-run npm run kakunin && cd ../..
+  - ./bin/console server:start 127.0.0.1:8088 && cd tests/e2e && xvfb-run npm run kakunin && cd ../..

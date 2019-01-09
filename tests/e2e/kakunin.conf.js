@@ -53,7 +53,7 @@ module.exports = {
     "headless": false,
     "noGpu": false,
     "type": "otherWeb",
-    "baseUrl": "http://localhost:8088",
+    "baseUrl": "http://127.0.0.1:8088",
     "accounts": {
         "admin": {
             "accounts": [
