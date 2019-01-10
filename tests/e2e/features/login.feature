@@ -1,4 +1,4 @@
-Feature: Logging
+Feature: Logging in
     Scenario: Login as Admin to the Dashboard
         When I visit the "login" page
         And I fill the "login" form with:
