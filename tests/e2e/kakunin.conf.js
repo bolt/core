@@ -50,7 +50,7 @@ module.exports = {
     "clearCookiesAfterScenario": true,
     "clearLocalStorageAfterScenario": true,
     "email": null,
-    "headless": false,
+    "headless": true,
     "noGpu": false,
     "type": "otherWeb",
     "baseUrl": "http://127.0.0.1:8088",
