@@ -31,6 +31,6 @@ class WidgetExtension extends AbstractExtension
 
     public function dummy(Environment $env, $input = null)
     {
-        return $input;
+        return '<!-- Widget "' . $input . '" -->';
     }
 }
