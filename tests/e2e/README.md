@@ -3,7 +3,7 @@ Bolt end-to-end tests
 
 Bolt uses [Kakunin](https://thesoftwarehouse.github.io/Kakunin/docs/index.html) for E2E testing.
 
-Install
+Installation
 ---
 
 Under `./tests/e2e/` folder, run:
