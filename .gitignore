@@ -9,7 +9,7 @@ composer.phar
 
 ### NPM and frontend assets building cruft
 assets/vendor/
-/node_modules/
+node_modules/
 npm-debug.log
 yarn-error.log
 

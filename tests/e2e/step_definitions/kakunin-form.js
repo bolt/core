@@ -1,0 +1,1 @@
+../node_modules/kakunin/dist/step_definitions/form.js
