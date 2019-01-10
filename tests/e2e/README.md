@@ -15,12 +15,19 @@ node ./node_modules/protractor/bin/webdriver-manager update --gecko=false
 Usage
 ---
 
-Put your tests inside `features/` folder.
-
 Run tests with:
 ```
 npm run kakunin
 ```
+
+Writing tests
+---
+
+Put your tests inside `features/` folder.
+
+For describing test scenarions Kakunin uses [Gherkin syntax](https://docs.cucumber.io/gherkin/reference/), same as in (or at least similar to) [Behat](http://docs.behat.org/en/v2.5/guides/1.gherkin.html).
+
+For writing custom steps please refer to [Kakunin docs](https://thesoftwarehouse.github.io/Kakunin/docs/extending#adding-custom-code).
 
 Fix for JetBrains IDE
 ---
