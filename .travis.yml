@@ -30,9 +30,18 @@ install:
   - npm install
   - cd tests/e2e && npm install && node ./node_modules/protractor/bin/webdriver-manager update --gecko=false && cd ../..
 
+before_script:
+  - npm run build
+  - ./bin/console doctrine:database:create
+  - ./bin/console doctrine:schema:create
+  - ./bin/console doctrine:fixtures:load -n
+  - ./bin/console server:start 127.0.0.1:8088
+  - sleep 3
+  - wget "http://127.0.0.1:8088/bolt/login"
+
 script:
   # test if server works
-  - ./bin/console server:start 127.0.0.1:8088 && sleep 3 && wget "http://127.0.0.1:8088/bolt/login"
+  - wget "http://127.0.0.1:8088/bolt/login"
   # run PHP Unit / PHP Spec tests
   - ./vendor/bin/phpunit
   - ./vendor/bin/phpspec run
