@@ -45,9 +45,8 @@ export default {
     const _options = this.options;
 
     let filterSelectedItems = _options.filter(item => {
-      return _values.includes(item.key) || _values == item.key;
+      return _values.includes(item.key);
     });
-
     this.selected = filterSelectedItems;
   },
   data: () => {
@@ -58,12 +57,14 @@ export default {
   computed: {
     sanitized() {
       let filtered;
-      if (this.multiple) {
+
+      if (this.selected === null) {
+        return JSON.stringify([]);
+      } else if (this.selected.map) {
         filtered = this.selected.map(item => item.key);
         return JSON.stringify(filtered);
       } else {
-        filtered = [this.selected];
-        return JSON.stringify(filtered[0].key);
+        return JSON.stringify([this.selected.key]);
       }
     },
     fieldName() {

@@ -337,11 +337,11 @@ dummies:
                 foo: Foooo
                 bar: Bario
                 baz: BAzzazza
-#        multiselect:
-#            type: select
-#            values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
-#            multiple: true
-#            postfix: "Select your favourite turtle(s)."
+        multiselect:
+            type: select
+            values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
+            multiple: true
+            postfix: "Select your favourite turtle(s)."
     taxonomy: [ groups, categories, tags, foobars ]
     
 # Possible field types:
