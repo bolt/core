@@ -127,3 +127,27 @@ vendor/bin/ecs.bat check src --fix
 vendor/bin/phpstan.bat analyse -c phpstan.neon src
 ```
 
+Testing
+---
+
+Bolt uses several testing frameworks for [different test layers](https://martinfowler.com/articles/practical-test-pyramid.html):
+- unit: PHPUnit, PHPSpec, Jest
+- functional: PHPUnit with WebTestCase (not yet configured)
+- integration (API endpoints): Behat (not yet configured)
+- acceptance (UI, end-to-end): Kakunin
+
+To run PHP unit tests:
+```
+make test
+```
+
+To run JS unit tests:
+```
+npm test
+```
+
+To run E2E tests:
+```
+make e2e
+```
+
