@@ -47,4 +47,17 @@ class AuthenticationController extends BaseController
     {
         throw new \Exception('This should never be reached!');
     }
+
+    /**
+     * @Route("/resetpassword", name="bolt_resetpassword")
+     */
+    public function resetPassword(): Response
+    {
+        $twigVars = [
+            'title' => 'Reset Password',
+            'subtitle' => 'To reset your password, if you\'ve misplaced it',
+        ];
+
+        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+    }
 }

@@ -33,12 +33,12 @@ class TaxonomyController extends BaseController
      *     methods={"GET"}
      * )
      */
-    public function listing(ContentRepository $content, Request $request, string $taxonomyslug, string $slug): Response
+    public function listing(ContentRepository $contentRepository, Request $request, string $taxonomyslug, string $slug): Response
     {
         $page = (int) $request->query->get('page', 1);
 
         /** @var Content[] $records */
-        $records = $content->findForPage($page);
+        $records = $contentRepository->findForPage($page);
 
         $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
 

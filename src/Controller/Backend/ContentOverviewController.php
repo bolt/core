@@ -26,13 +26,13 @@ class ContentOverviewController extends BaseController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function overview(ContentRepository $content, Request $request, string $contenttype = ''): Response
+    public function overview(ContentRepository $contentRepository, Request $request, string $contenttype = ''): Response
     {
         $contenttype = ContentType::factory($contenttype, $this->config->get('contenttypes'));
 
         $page = (int) $request->query->get('page', 1);
 
-        $records = $content->findForPage($page, $contenttype);
+        $records = $contentRepository->findForPage($page, $contenttype);
 
         return $this->renderTemplate('content/listing.html.twig', [
             'records' => $records,

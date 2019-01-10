@@ -12,7 +12,7 @@ use Bolt\Entity\Media;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
@@ -48,7 +48,7 @@ class MediaController extends BaseController
     /**
      * @Route("/media/crawl/{area}", name="bolt_media_crawler", methods={"GET"})
      */
-    public function finder($area, Request $request)
+    public function finder(string $area): Response
     {
         $basepath = $this->areas->get($area, 'basepath');
 
@@ -70,7 +70,7 @@ class MediaController extends BaseController
         ]);
     }
 
-    private function findFiles($base)
+    private function findFiles(string $base): Finder
     {
         $fullpath = Path::canonicalize($base);
 

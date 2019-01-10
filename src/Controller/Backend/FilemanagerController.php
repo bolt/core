@@ -41,7 +41,7 @@ class FilemanagerController extends BaseController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function filemanager($area, Request $request, MediaRepository $mediaRepository): Response
+    public function filemanager(string $area, Request $request, MediaRepository $mediaRepository): Response
     {
         $path = $request->query->get('path');
         if (! str::endsWith($path, '/')) {
@@ -67,7 +67,7 @@ class FilemanagerController extends BaseController
         ]);
     }
 
-    private function findFiles($base, $path)
+    private function findFiles(string $base, string $path): Finder
     {
         $fullpath = Path::canonicalize($base . '/' . $path);
 
@@ -77,7 +77,7 @@ class FilemanagerController extends BaseController
         return $finder;
     }
 
-    private function buildIndex($base)
+    private function buildIndex(string $base)
     {
         $fullpath = Path::canonicalize($base);
 

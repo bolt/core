@@ -10,7 +10,6 @@ use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Tightenco\Collect\Support\Collection;
 
 class BaseController extends AbstractController
 {
@@ -34,6 +33,8 @@ class BaseController extends AbstractController
      *
      * @final
      *
+     * @param string|array $template
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -49,8 +50,8 @@ class BaseController extends AbstractController
         $parameters['user'] = $this->getUser();
 
         // Resolve string|array of templates into the first one that is found.
-        if ($template instanceof Collection) {
-            $template = $twig->resolveTemplate($template->toArray());
+        if (is_array($template)) {
+            $template = $twig->resolveTemplate($template);
         }
 
         $content = $twig->render($template, $parameters);

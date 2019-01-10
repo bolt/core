@@ -79,7 +79,7 @@ class EditMediaController extends BaseController
     /**
      * @Route("/media/edit/{id}", name="bolt_media_edit_post", methods={"POST"})
      */
-    public function editPost(?Media $media = null, Request $request): Response
+    public function editPost(Request $request, ?Media $media = null): Response
     {
         $token = new CsrfToken('media_edit', $request->request->get('_csrf_token'));
 

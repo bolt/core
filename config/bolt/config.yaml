@@ -454,4 +454,4 @@ compatibility:
     # Setting this value to false is deprecated.
     template_view: true
     # Set to 'false' to enable using a newer version of the setcontent parser.
-    setcontent_legacy: true
+    setcontent_legacy: false

@@ -24,7 +24,7 @@ class MenuBuilder
     private $stopwatch;
 
     /** @var ContentRepository */
-    private $content;
+    private $contentRepository;
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
@@ -35,12 +35,12 @@ class MenuBuilder
     /**
      * MenuBuilder constructor.
      */
-    public function __construct(FactoryInterface $factory, Config $config, Stopwatch $stopwatch, ContentRepository $content, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
+    public function __construct(FactoryInterface $factory, Config $config, Stopwatch $stopwatch, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
     {
         $this->config = $config;
         $this->factory = $factory;
         $this->stopwatch = $stopwatch;
-        $this->content = $content;
+        $this->contentRepository = $contentRepository;
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
     }
@@ -269,7 +269,7 @@ class MenuBuilder
         $contenttype = ContentType::factory($slug, $this->config->get('contenttypes'));
 
         /** @var Content[] $records */
-        $records = $this->content->findLatest($contenttype, 5);
+        $records = $this->contentRepository->findLatest($contenttype, 5);
 
         $result = [];
 

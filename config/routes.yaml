@@ -25,7 +25,7 @@ frontend:
 # to modify the `prefix` so the Control Panel can be accessed at a custom URL.
 control_panel:
   resource: '../src/Controller/Backend/'
-  prefix: /bolt
+  prefix: /bolt # @todo make admin area prefix configurable
 
 # ------------------------------------------------------------------------------
 # Examples:

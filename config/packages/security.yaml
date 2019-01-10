@@ -32,4 +32,6 @@ security:
     access_control:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
-        - { path: '^/(%app_locales%)/admin', roles: ROLE_ADMIN }
+        # @todo make admin area prefix configurable
+        - { path: '^/bolt', roles: ROLE_ADMIN }
+        - { path: '^/(%app_locales%)/bolt', roles: ROLE_ADMIN }

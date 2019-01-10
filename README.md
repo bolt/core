@@ -43,7 +43,6 @@ To install Bolt 4 with Docker (for now, on a UNIX-like system):
   - Then:
 
   ```bash
-docker-compose up -d
 make docker-install
 make docker-db-create
   ```
