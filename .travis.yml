@@ -32,16 +32,16 @@ install:
 
 before_script:
   - npm run build
+  # prepare web server for e2e tests
   - ./bin/console doctrine:database:create
   - ./bin/console doctrine:schema:create
   - ./bin/console doctrine:fixtures:load -n
   - ./bin/console server:start 127.0.0.1:8088
+  # test if web server works
   - sleep 3
   - wget "http://127.0.0.1:8088/bolt/login"
 
 script:
-  # test if server works
-  - wget "http://127.0.0.1:8088/bolt/login"
   # run PHP Unit / PHP Spec tests
   - ./vendor/bin/phpunit
   - ./vendor/bin/phpspec run
@@ -63,4 +63,4 @@ script:
   # run jest unit tests
   - npm test
   # run e2e tests with Kakunin
-  - ./bin/console server:start 127.0.0.1:8088 && cd tests/e2e && npm run kakunin && cd ../..
+  - cd tests/e2e && npm run kakunin && cd ../..
