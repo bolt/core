@@ -4,8 +4,8 @@ module.exports = {
     "timeout": 60,
     "intervalEmail": 5,
     "maxEmailRepeats": 5,
-    "elementsVisibilityTimeout": 30,
-    "waitForPageTimeout": 30,
+    "elementsVisibilityTimeout": 60,
+    "waitForPageTimeout": 60,
     "downloadTimeout": 30,
     "emails": [
         "/emails"
