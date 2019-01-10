@@ -20,13 +20,6 @@
     {% set previous = record.previous('id') %}
     {% set next = record.next('id') %}
 
-    <hr>
-    {{ dump(record) }}
-    <hr>
-    {{ dump(previous) }}
-    <hr>
-    {{ dump(next) }}
-
     {% if previous or next %}
         <p class="meta">
             {% if previous %}

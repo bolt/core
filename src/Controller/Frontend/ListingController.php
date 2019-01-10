@@ -35,7 +35,7 @@ class ListingController extends BaseController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function listing(ContentRepository $content, Request $request, string $contenttypeslug): Response
+    public function listing(ContentRepository $contentRepository, Request $request, string $contenttypeslug): Response
     {
         $page = (int) $request->query->get('page', 1);
 
@@ -59,8 +59,8 @@ class ListingController extends BaseController
      *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
      */
-    public function contentListing(ContentRepository $content, Request $request, string $contenttypeslug): Response
+    public function contentListing(ContentRepository $contentRepository, Request $request, string $contenttypeslug): Response
     {
-        return $this->listing($content, $request, $contenttypeslug);
+        return $this->listing($contentRepository, $request, $contenttypeslug);
     }
 }
