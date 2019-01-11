@@ -76,7 +76,7 @@ class AddUserCommand extends Command
             ->addArgument('username', InputArgument::OPTIONAL, 'The username of the new user')
             ->addArgument('password', InputArgument::OPTIONAL, 'The plain password of the new user')
             ->addArgument('email', InputArgument::OPTIONAL, 'The email of the new user')
-            ->addArgument('full-name', InputArgument::OPTIONAL, 'The full name of the new user')
+            ->addArgument('display-name', InputArgument::OPTIONAL, 'The display name of the new user')
             ->addOption('admin', null, InputOption::VALUE_NONE, 'If set, the user is created as an administrator');
     }
 
@@ -148,7 +148,7 @@ class AddUserCommand extends Command
         // Ask for the full name if it's not defined
         $displayName = $input->getArgument('display-name');
         if ($displayName !== null) {
-            $this->io->text(' > <info>Full Name</info>: ' . $displayName);
+            $this->io->text(' > <info>Display Name</info>: ' . $displayName);
         } else {
             $displayName = $this->io->ask('Full Name', null, [$this->validator, 'validateDisplayName']);
             $input->setArgument('display-name', $displayName);
@@ -195,7 +195,7 @@ class AddUserCommand extends Command
         }
     }
 
-    private function validateUserData($username, $plainPassword, $email, $displayName): void
+    private function validateUserData(string $username, string $plainPassword, string $email, string $displayName): void
     {
         // first check if a user with the same username already exists.
         $existingUser = $this->users->findOneBy(['username' => $username]);

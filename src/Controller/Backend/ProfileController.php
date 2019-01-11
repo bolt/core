@@ -48,7 +48,7 @@ class ProfileController extends BaseController
     public function profileEditPost(Request $request, UrlGeneratorInterface $urlGenerator, ObjectManager $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
-        $userTitle = $user->getDisplayName();
+        $displayName = $user->getDisplayName();
         $url = $urlGenerator->generate('bolt_profile_edit');
         $locale = current($request->get('locale'));
         $newPassword = $request->get('password');
@@ -88,7 +88,7 @@ class ProfileController extends BaseController
 
         if ($hasError) {
             return $this->renderTemplate('users/edit.html.twig', [
-                'usertitle' => $userTitle,
+                'usertitle' => $displayName,
                 'user' => $user,
             ]);
         }
