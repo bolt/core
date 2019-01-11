@@ -12,7 +12,6 @@ use Bolt\Enum\Statuses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
@@ -125,9 +124,6 @@ class Content
     /** @var ?ContentType */
     private $contentTypeDefinition;
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
     /**
      * Set the "Magic properties for automagic population in the API.
      */
@@ -163,11 +159,6 @@ class Content
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
-    }
-
-    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
-    {
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function getDefinition(): ?ContentType

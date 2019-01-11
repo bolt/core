@@ -6,10 +6,14 @@ namespace Bolt\Entity;
 
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Helpers\Excerpt;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig_Markup;
 
 trait ContentMagicTraits
 {
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
+
     public function __toString(): string
     {
         return sprintf('Content # %d', $this->getId());
@@ -70,6 +74,11 @@ trait ContentMagicTraits
         return false;
     }
 
+    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
+    {
+        $this->urlGenerator = $urlGenerator;
+    }
+
     public function magicLink()
     {
         return $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
@@ -128,7 +137,7 @@ trait ContentMagicTraits
         return $title;
     }
 
-    public function magicImage(): array
+    public function magicImage(): ?array
     {
         foreach ($this->getFields() as $field) {
             if ($field->getDefinition()->get('type') === 'image') {
