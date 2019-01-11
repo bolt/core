@@ -34,6 +34,7 @@
         </p>
     {% endif %}
 
+    {# @todo See Github Issue https://github.com/bolt/four/issues/252 #}
     {% set relatedrecords = record.related() %}
     {% if relatedrecords is not empty %}
         <p class="meta">{{ __('general.phrase.related-content') }}
