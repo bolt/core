@@ -31,6 +31,7 @@ class WidgetExtension extends AbstractExtension
 
     public function dummy(Environment $env, $input = null)
     {
-        return $input;
+        // @todo See Github issue https://github.com/bolt/four/issues/135
+        return '<!-- Widget "' . $input . '" -->';
     }
 }

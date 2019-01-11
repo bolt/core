@@ -11,6 +11,9 @@ use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectManagerAware;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -32,7 +35,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  * @ORM\Table(name="bolt_content")
  * @ORM\HasLifecycleCallbacks
  */
-class Content
+class Content implements ObjectManagerAware
 {
     use ContentMagicTraits;
     use ContentLocaliseTraits;
@@ -132,6 +135,9 @@ class Content
      */
     private $taxonomies;
 
+    /** @var ObjectManager */
+    private $entityManager;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -141,6 +147,11 @@ class Content
         $this->fields = new ArrayCollection();
         $this->taxonomies = new ArrayCollection();
         $this->status = null;
+    }
+
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
+    {
+        $this->entityManager = $objectManager;
     }
 
     public function getId(): ?int
@@ -161,6 +172,11 @@ class Content
     public function getConfig(): Config
     {
         return $this->config;
+    }
+
+    private function getRepository()
+    {
+        return $this->entityManager->getRepository(self::class);
     }
 
     public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
@@ -227,6 +243,14 @@ class Content
     }
 
     public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    /**
+     * Backward-compatible alias for `getAuthor`
+     */
+    public function geUser(): User
     {
         return $this->author;
     }

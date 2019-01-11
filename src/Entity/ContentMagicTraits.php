@@ -71,7 +71,10 @@ trait ContentMagicTraits
 
     public function magicLink()
     {
-        return $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
+        return $this->urlGenerator->generate('record', [
+            'slug' => $this->getSlug() ?: $this->getId(),
+            'contenttypeslug' => $this->getDefinition()->get('singular_slug'),
+        ]);
     }
 
     public function magicEditLink()
@@ -153,13 +156,19 @@ trait ContentMagicTraits
         return new Twig_Markup($excerpt, 'utf-8');
     }
 
-    public function magicPrevious()
+    public function magicPrevious(string $column = 'id', bool $sameContentType = true): ?Content
     {
-        return 'magic previous';
+        $repository = $this->getRepository();
+        $contentType = $sameContentType ? $this->getContenttype() : null;
+
+        return $repository->findAdjacentBy($column, 'previous', $this->getId(), $contentType);
     }
 
-    public function magicNext()
+    public function magicNext(string $column = 'id', bool $sameContentType = true): ?Content
     {
-        return 'magic next';
+        $repository = $this->getRepository();
+        $contentType = $sameContentType ? $this->getContenttype() : null;
+
+        return $repository->findAdjacentBy($column, 'next', $this->getId(), $contentType);
     }
 }

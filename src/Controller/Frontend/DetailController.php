@@ -25,7 +25,7 @@ class DetailController extends BaseController
     /**
      * @Route(
      *     "/{contenttypeslug}/{slug}",
-     *     name="detail",
+     *     name="record",
      *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
      *
