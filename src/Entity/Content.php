@@ -195,7 +195,7 @@ class Content
             'editlink' => $this->magicEditLink(),
             'author' => [
                 'id' => $this->getAuthor()->getid(),
-                'fullName' => $this->getAuthor()->getfullName(),
+                'displayName' => $this->getAuthor()->getDisplayName(),
                 'username' => $this->getAuthor()->getusername(),
                 'email' => $this->getAuthor()->getemail(),
                 'roles' => $this->getAuthor()->getroles(),

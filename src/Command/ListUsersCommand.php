@@ -90,7 +90,7 @@ HELP
         $usersAsPlainArrays = array_map(function (User $user) {
             return [
                 $user->getId(),
-                $user->getFullName(),
+                $user->getDisplayName(),
                 $user->getUsername(),
                 $user->getEmail(),
                 implode(', ', $user->getRoles()),

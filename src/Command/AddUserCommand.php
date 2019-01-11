@@ -146,12 +146,12 @@ class AddUserCommand extends Command
         }
 
         // Ask for the full name if it's not defined
-        $fullName = $input->getArgument('full-name');
-        if ($fullName !== null) {
-            $this->io->text(' > <info>Full Name</info>: ' . $fullName);
+        $displayName = $input->getArgument('display-name');
+        if ($displayName !== null) {
+            $this->io->text(' > <info>Full Name</info>: ' . $displayName);
         } else {
-            $fullName = $this->io->ask('Full Name', null, [$this->validator, 'validateFullName']);
-            $input->setArgument('full-name', $fullName);
+            $displayName = $this->io->ask('Full Name', null, [$this->validator, 'validateDisplayName']);
+            $input->setArgument('display-name', $displayName);
         }
     }
 
@@ -167,15 +167,15 @@ class AddUserCommand extends Command
         $username = $input->getArgument('username');
         $plainPassword = $input->getArgument('password');
         $email = $input->getArgument('email');
-        $fullName = $input->getArgument('full-name');
+        $displayName = $input->getArgument('display-name');
         $isAdmin = $input->getOption('admin');
 
         // make sure to validate the user data is correct
-        $this->validateUserData($username, $plainPassword, $email, $fullName);
+        $this->validateUserData($username, $plainPassword, $email, $displayName);
 
         // create the user and encode its password
         $user = new User();
-        $user->setFullName($fullName);
+        $user->setDisplayName($displayName);
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setRoles([$isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER']);
@@ -195,7 +195,7 @@ class AddUserCommand extends Command
         }
     }
 
-    private function validateUserData($username, $plainPassword, $email, $fullName): void
+    private function validateUserData($username, $plainPassword, $email, $displayName): void
     {
         // first check if a user with the same username already exists.
         $existingUser = $this->users->findOneBy(['username' => $username]);
@@ -207,7 +207,7 @@ class AddUserCommand extends Command
         // validate password and email if is not this input means interactive.
         $this->validator->validatePassword($plainPassword);
         $this->validator->validateEmail($email);
-        $this->validator->validateFullName($fullName);
+        $this->validator->validateDisplayName($displayName);
 
         // check if a user with the same email already exists.
         $existingEmail = $this->users->findOneBy(['email' => $email]);

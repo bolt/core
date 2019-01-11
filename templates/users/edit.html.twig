@@ -21,9 +21,9 @@
             } %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
-                'label' : 'label.fullname' | trans,
-                'name' : 'fullName',
-                'value' : user.fullName,
+                'label' : 'label.displayname' | trans,
+                'name' : 'displayName',
+                'value' : user.displayName,
                 'disabled' : false,
             } %}
 
