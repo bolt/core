@@ -1,7 +1,7 @@
 {% include '@bolt/_partials/fields/select.html.twig' with {
     'label' : 'field.status' | trans,
     'name' : 'status',
-    'value' : record.status,
+    'value' : [record.status],
     'options' : record.statusoptions,
     'form' : 'editcontent'
 } %}
