@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Common\Json;
 use Bolt\Controller\BaseController;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -50,7 +51,7 @@ class ProfileController extends BaseController
         $user = $this->getUser();
         $displayName = $user->getDisplayName();
         $url = $urlGenerator->generate('bolt_profile_edit');
-        $locale = current($request->get('locale'));
+        $locale = Json::findScalar($request->get('locale'));
         $newPassword = $request->get('password');
 
         $user->setDisplayName($request->get('displayName'));
