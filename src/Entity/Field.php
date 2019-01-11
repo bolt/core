@@ -105,12 +105,6 @@ class Field
     /** @var ?FieldType */
     private $fieldTypeDefinition;
 
-    /** @var bool */
-    protected $isExcerptable = false;
-
-    /** @var bool */
-    protected $isArray = false;
-
     public function __toString(): string
     {
         return implode(', ', $this->getValue());
@@ -254,15 +248,5 @@ class Field
         $this->parent = $parent;
 
         return $this;
-    }
-
-    public function isExcerptable(): bool
-    {
-        return $this->isExcerptable;
-    }
-
-    public function isArray(): bool
-    {
-        return $this->isArray;
     }
 }

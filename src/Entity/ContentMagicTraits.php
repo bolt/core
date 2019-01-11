@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Bolt\Entity\Field\Excerptable;
 use Bolt\Helpers\Excerpt;
 use Twig_Markup;
 
@@ -30,7 +31,7 @@ trait ContentMagicTraits
         // Prefer a field with $name
         foreach ($this->fields as $field) {
             if ($field->getName() === $name) {
-                return $field->isExcerptable() ? new Twig_Markup($field, 'UTF-8') : $field;
+                return $field instanceof Excerptable ? new Twig_Markup($field, 'UTF-8') : $field;
             }
         }
 
@@ -38,7 +39,7 @@ trait ContentMagicTraits
         return $this->magic($name, $arguments);
     }
 
-    public function magic(string $name, array $arguments = [])
+    private function magic(string $name, array $arguments = [])
     {
         $magicName = 'magic' . $name;
 
