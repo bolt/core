@@ -43,7 +43,11 @@ $admin-header-height: 70px;
     display: flex;
     grid-area: header;
     position: relative;
-    height: $admin-header-height;
+    padding: 1.5rem 0 0 0;
+
+    .container {
+      padding: 0;
+    }
   }
 
   &__sidebar {
