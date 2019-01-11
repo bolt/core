@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Symfony\Component\Intl\DateFormatter\IntlDateFormatter;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -67,13 +66,13 @@ class AppExtension extends AbstractExtension
 
     public function localedatetime($dateTime, $format = '%B %e, %Y %H:%M', $locale = 0)
     {
-        if (!$dateTime instanceof \DateTime) {
+        if (! $dateTime instanceof \DateTime) {
             $dateTime = new \DateTime($dateTime);
         }
 
         // Check for Windows to find and replace the %e modifier correctly
         // @see: http://php.net/strftime
-        $os = strtoupper(substr(PHP_OS, 0, 3));
+        $os = mb_strtoupper(mb_substr(PHP_OS, 0, 3));
         $format = $os !== 'WIN' ? $format : preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
 
         // According to http://php.net/manual/en/function.setlocale.php manual

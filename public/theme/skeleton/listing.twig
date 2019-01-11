@@ -31,8 +31,6 @@
 
                 <h2><a href="{{ record.link }}">{{ record.title }}</a></h2>
 
-                {{ dump(record) }}
-
                 {% if record.image!="" %}
                     <a href="{{ image(record.image) }}">
                         <img src="{{ thumbnail(record.image, 400, 260) }}">
