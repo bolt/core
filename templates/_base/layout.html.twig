@@ -24,8 +24,8 @@
 
     <!-- Admin Toolbar -->
     <nav id="toolbar" class="admin__toolbar">
-        {% set username = user.fullName|default('Unknown user') %}
-        {% set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': username}], 'action.logout', 'action.edit_profile']) %}
+        {% set user_display_name = user.displayName|default('Unknown user') %}
+        {% set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': user_display_name}], 'action.logout', 'action.edit_profile']) %}
         <admin-toolbar
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
             :menu="{{ sidebarmenu() }}"
