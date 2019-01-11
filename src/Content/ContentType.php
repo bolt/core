@@ -19,12 +19,13 @@ final class ContentType extends Collection
             return new self($contentTypesConfig->get($name));
         }
 
-        foreach ($contentTypesConfig as $item => $value) {
-            if ($value['singular_slug'] === $name) {
-                return new self($contentTypesConfig[$item]);
-            }
-        }
-
-        return null;
+        return $contentTypesConfig
+            ->filter(function (array $contentTypeConfig) use ($name): bool {
+                return $contentTypeConfig['singular_slug'] === $name;
+            })
+            ->map(function (array $contentTypeConfig): self {
+                return new self($contentTypeConfig);
+            })
+            ->first();
     }
 }
