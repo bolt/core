@@ -104,7 +104,7 @@ class AddUserCommand extends Command
      */
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
-        if ($input->getArgument('username') !== null && $input->getArgument('password') !== null && $input->getArgument('email') !== null && $input->getArgument('full-name') !== null) {
+        if ($input->getArgument('username') !== null && $input->getArgument('password') !== null && $input->getArgument('email') !== null && $input->getArgument('display-name') !== null) {
             return;
         }
 
@@ -145,12 +145,12 @@ class AddUserCommand extends Command
             $input->setArgument('email', $email);
         }
 
-        // Ask for the full name if it's not defined
+        // Ask for the display name if it's not defined
         $displayName = $input->getArgument('display-name');
         if ($displayName !== null) {
             $this->io->text(' > <info>Display Name</info>: ' . $displayName);
         } else {
-            $displayName = $this->io->ask('Full Name', null, [$this->validator, 'validateDisplayName']);
+            $displayName = $this->io->ask('Display Name', null, [$this->validator, 'validateDisplayName']);
             $input->setArgument('display-name', $displayName);
         }
     }
@@ -203,6 +203,8 @@ class AddUserCommand extends Command
         if ($existingUser !== null) {
             throw new RuntimeException(sprintf('There is already a user registered with the "%s" username.', $username));
         }
+
+        // @todo Validation must be moved to a separate UserValidator
 
         // validate password and email if is not this input means interactive.
         $this->validator->validatePassword($plainPassword);

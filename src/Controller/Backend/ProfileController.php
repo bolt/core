@@ -33,7 +33,7 @@ class ProfileController extends BaseController
         $user = $this->getUser();
 
         return $this->renderTemplate('users/edit.html.twig', [
-            'usertitle' => $user->getDisplayName(),
+            'display_name' => $user->getDisplayName(),
             'user' => $user,
         ]);
     }
@@ -66,6 +66,8 @@ class ProfileController extends BaseController
             ],
         ];
 
+        // @todo Validation must be moved to a separate UserValidator
+
         // Validate username
         if (! filter_var(mb_strlen($user->getDisplayName()), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
             $this->addFlash('danger', 'user.not_valid_username');
@@ -88,7 +90,7 @@ class ProfileController extends BaseController
 
         if ($hasError) {
             return $this->renderTemplate('users/edit.html.twig', [
-                'usertitle' => $displayName,
+                'display_name' => $displayName,
                 'user' => $user,
             ]);
         }
