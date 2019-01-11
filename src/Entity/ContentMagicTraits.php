@@ -72,7 +72,7 @@ trait ContentMagicTraits
     public function magicLink()
     {
         return $this->urlGenerator->generate('record', [
-            'slug' => $this->getSlug(),
+            'slug' => $this->getSlug() ?: $this->getId(),
             'contenttypeslug' => $this->getDefinition()->get('singular_slug'),
         ]);
     }

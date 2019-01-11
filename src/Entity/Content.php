@@ -247,6 +247,14 @@ class Content implements ObjectManagerAware
         return $this->author;
     }
 
+    /**
+     * Backward-compatible alias for `getAuthor`
+     */
+    public function geUser(): User
+    {
+        return $this->author;
+    }
+
     public function setAuthor(?User $author): void
     {
         $this->author = $author;
