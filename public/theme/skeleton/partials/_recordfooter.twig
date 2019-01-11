@@ -4,8 +4,8 @@
         <span class="edit-link"><a href="{{ record.editlink() }}"><strong>{{ __('general.phrase.edit') }}</strong></a></span> -    
     {% endif %}
     {{ __('general.phrase.written-by-on', {
-        '%name%': record.user.displayname|default(__('Unknown')),
-        '%date%': record.datepublish|localedatetime("%A %B %e, %Y")
+        '%name%': record.author.displayname|default(__('Unknown')),
+        '%date%': record.publishedAt|localedatetime("%A %B %e, %Y")
     }) }}
 </p>
 
