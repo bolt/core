@@ -45,9 +45,9 @@
 {% endif %}
 
 {% if field.definition is defined %}
-    {% set localise = field.definition.localise|default(false) %}
+    {% set localize = field.definition.localize|default(false) %}
 {% else %}
-    {% set localise = false %}
+    {% set localize = false %}
 {% endif %}
 
 {# Set the prefix and postfix attributes #}

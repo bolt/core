@@ -14,29 +14,32 @@ use League\Glide\Urls\UrlBuilderFactory;
 class ImageField extends Field
 {
     /** @var bool */
-    protected $array = true;
+    protected $isArray = true;
 
     public function __toString(): string
     {
-        $config = $this->getContent()->getConfig();
-
-        return $config->getPath('files', false, $this->get('filename'));
+        return $this->getPath();
     }
 
     public function getValue(): ?array
     {
         $value = parent::getValue();
 
-        // Create an instance of the URL builder
+        // Generate a URL
+        $value['path'] = $this->getPath();
+
+        return $value;
+    }
+
+    private function getPath(): string
+    {
         $urlBuilder = UrlBuilderFactory::create('/thumbs/');
 
-        // Generate a URL
-        $value['path'] = $urlBuilder->getUrl($this->get('filename'), [
+        // @todo those dimensions shouldn't be hardcoded here
+        return $urlBuilder->getUrl($this->get('filename'), [
             'w' => 240,
             'h' => 160,
             'area' => 'files',
         ]);
-
-        return $value;
     }
 }

@@ -66,7 +66,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    if ($fieldType['localise']) {
+                    if ($fieldType['localize']) {
                         $locales = $contentType['locales'];
                     } else {
                         $locales = [''];

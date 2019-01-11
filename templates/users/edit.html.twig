@@ -49,7 +49,7 @@
                 {% set localeOptions = localeOptions|merge([
                     {
                         'key': locale.code,
-                        'value': locale.name ~ ' (' ~ locale.localisedname ~ ', ' ~ locale.code ~ ')'
+                        'value': locale.name ~ ' (' ~ locale.localizedname ~ ', ' ~ locale.code ~ ')'
                     }
                 ]) %}
             {% endfor %}

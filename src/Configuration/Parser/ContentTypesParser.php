@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
+use Bolt\Enum\Statuses;
 use Bolt\Helpers\Str;
 use Cocur\Slugify\Slugify;
 use Exception;
@@ -83,7 +84,7 @@ class ContentTypesParser extends BaseParser
             $contentType['sort'] = false;
         }
         if (! isset($contentType['default_status'])) {
-            $contentType['default_status'] = 'published';
+            $contentType['default_status'] = Statuses::PUBLISHED;
         }
         if (! isset($contentType['viewless'])) {
             $contentType['viewless'] = false;
@@ -206,7 +207,7 @@ class ContentTypesParser extends BaseParser
                     'group' => $currentGroup,
                     'label' => '',
                     'variant' => '',
-                    'localise' => false,
+                    'localize' => false,
                 ],
                 $field
             );

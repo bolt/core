@@ -54,7 +54,7 @@ class ContentEditController extends BaseController
             $content = new Content();
             $content->setAuthor($this->getUser());
             $content->setContentType($id);
-            $content->setConfig($this->config);
+            $content->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
         }
 
         $twigvars = [
@@ -103,7 +103,7 @@ class ContentEditController extends BaseController
             $content = new Content();
             $content->setAuthor($this->getUser());
             $content->setContentType($request->attributes->get('id'));
-            $content->setConfig($this->config);
+            $content->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
         }
 
         $content->setStatus(Json::findScalar($post['status']));
@@ -123,8 +123,8 @@ class ContentEditController extends BaseController
 
     private function updateFieldFromPost(string $key, $postfield, Content $content, string $locale): void
     {
-        if ($content->hasLocalisedField($key, $locale)) {
-            $field = $content->getLocalisedField($key, $locale);
+        if ($content->hasLocalizedField($key, $locale)) {
+            $field = $content->getLocalizedField($key, $locale);
         } else {
             $fields = collect($content->getDefinition()->get('fields'));
             $field = Field::factory($fields->get($key), $key);
@@ -139,7 +139,7 @@ class ContentEditController extends BaseController
 
         $field->setValue((array) $postfield);
 
-        if ($field->getDefinition()->get('localise')) {
+        if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);
         } else {
             $field->setLocale('');

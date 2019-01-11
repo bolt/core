@@ -13,5 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
 class GeolocationField extends Field
 {
     /** @var bool */
-    protected $array = true;
+    protected $isArray = true;
 }

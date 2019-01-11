@@ -45,7 +45,7 @@ class Excerpt
 
             foreach ($this->content->getFields() as $field) {
                 if (! in_array($field->getName(), $skipFields, true) && $field->isExcerptable()) {
-                    $excerpt .= (string) $field;
+                    $excerpt .= $field->__toString();
                 }
             }
         } else {

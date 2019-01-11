@@ -13,7 +13,7 @@ homepage:
             type: text
             class: large
             group: content
-            localise: true
+            localize: true
             label: Title
             postfix: |
                 The 'Homepage' can contain basic information about the website. This title will be
@@ -25,12 +25,12 @@ homepage:
             placeholder: https://source.unsplash.com/1920x640/?cityscape,landscape,nature/__random__
         teaser:
             type: html
-            localise: true
+            localize: true
             height: 150px
         content:
             type: html
             height: 300px
-            localise: true
+            localize: true
         contentlink:
             type: text
             label: Link

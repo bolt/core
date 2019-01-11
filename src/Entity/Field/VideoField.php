@@ -13,5 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
 class VideoField extends Field
 {
     /** @var bool */
-    protected $array = true;
+    protected $isArray = true;
 }

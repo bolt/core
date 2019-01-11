@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
+use Bolt\Entity\Field\TemplateselectField;
 use Bolt\TemplateChooser;
 use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,7 +52,16 @@ class BaseController extends AbstractController
 
         // Resolve string|array of templates into the first one that is found.
         if (is_array($template)) {
-            $template = $twig->resolveTemplate($template);
+            $templates = collect($template)
+                ->map(function ($element): string {
+                    if ($element instanceof TemplateselectField) {
+                        return $element->__toString();
+                    }
+                    return $element;
+                })
+                ->filter()
+                ->toArray();
+            $template = $twig->resolveTemplate($templates);
         }
 
         $content = $twig->render($template, $parameters);

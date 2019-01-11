@@ -11,7 +11,7 @@ trait ContentMagicTraits
 {
     public function __toString(): string
     {
-        return 'Content # ' . (string) $this->getId();
+        return sprintf('Content # %d', $this->getId());
     }
 
     /**

@@ -30,10 +30,7 @@ final class FieldType extends Collection
         ];
     }
 
-    /**
-     * @return FieldType|null
-     */
-    public static function factory(string $name, ContentType $contentType): ?self
+    public static function factory(string $name, ContentType $contentType): self
     {
         if (isset($contentType['fields'][$name])) {
             $field = new self($contentType['fields'][$name]);
@@ -44,10 +41,7 @@ final class FieldType extends Collection
         return $field;
     }
 
-    /**
-     * @return FieldType|null
-     */
-    public static function mock(string $name, array $definition): ?self
+    public static function mock(string $name, array $definition): self
     {
         $definition['name'] = $name;
 

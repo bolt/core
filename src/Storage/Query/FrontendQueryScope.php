@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage\Query;
 
 use Bolt\Configuration\Config;
+use Bolt\Enum\Statuses;
 use Bolt\Storage\Query\Directive\OrderDirective;
 
 /**
@@ -69,7 +70,7 @@ class FrontendQueryScope implements QueryScopeInterface
         // Setup status to only published unless otherwise specified
         $status = $query->getParameter('status');
         if (! $status) {
-            $query->setParameter('status', 'published');
+            $query->setParameter('status', Statuses::PUBLISHED);
         }
     }
 }

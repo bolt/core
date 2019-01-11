@@ -7,14 +7,15 @@ namespace Bolt\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
+use Bolt\Enum\Statuses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ApiResource(
@@ -35,13 +36,13 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 class Content
 {
     use ContentMagicTraits;
-    use ContentLocaliseTraits;
+    use ContentLocalizeTraits;
 
     public const NUM_ITEMS = 8; // @todo This can't be a const
 
-    public const STATUSES = ['published', 'held', 'timed', 'draft']; // @todo Move to Enum
-
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -50,6 +51,8 @@ class Content
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=191, name="contenttype")
      * @Groups("public")
      */
@@ -65,37 +68,48 @@ class Content
     private $author;
 
     /**
+     * @var ?string
+     *
      * @ORM\Column(type="string", length=191)
      * @Groups({"public", "put"})
      */
-    private $status;
+    private $status = null;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface
+     *
+     * @ORM\Column(type="datetime", nullable=false)
      * @Groups("public")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"public", "put"})
-     */
-    private $modifiedAt;
-
-    /**
+     * @var ?\DateTimeInterface
+     *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"public", "put"})
      */
-    private $publishedAt;
+    private $modifiedAt = null;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var ?\DateTimeInterface
+     *
+     * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"public", "put"})
      */
-    private $depublishedAt;
+    private $publishedAt = null;
 
     /**
-     * @var Field[]|ArrayCollection
+     * @var ?\DateTimeInterface
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"public", "put"})
+     */
+    private $depublishedAt = null;
+
+    /**
+     * @var Collection|Field[]
+     *
      * @Groups({"public", "put"})
      * @MaxDepth(1)
      * @ORM\OneToMany(
@@ -108,14 +122,11 @@ class Content
      */
     private $fields;
 
-    /** @var ContentType */
+    /** @var ?ContentType */
     private $contentTypeDefinition;
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
-
-    /** @var Config */
-    private $config;
 
     /**
      * Set the "Magic properties for automagic population in the API.
@@ -127,6 +138,8 @@ class Content
     public $magiceditlink;
 
     /**
+     * @var Collection|Taxonomy[]
+     *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
      * @ORM\JoinTable(name="bolt_taxonomy_content")
      */
@@ -135,12 +148,8 @@ class Content
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->modifiedAt = new \DateTime();
-        $this->publishedAt = new \DateTime();
-        $this->depublishedAt = new \DateTime();
         $this->fields = new ArrayCollection();
         $this->taxonomies = new ArrayCollection();
-        $this->status = null;
     }
 
     public function getId(): ?int
@@ -151,16 +160,9 @@ class Content
     /**
      * @see: Bolt\EventListener\ContentListener
      */
-    public function setConfig(Config $config): void
+    public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
-        $this->config = $config;
-
-        $this->contentTypeDefinition = ContentType::factory($this->contentType, $config->get('contenttypes'));
-    }
-
-    public function getConfig(): Config
-    {
-        return $this->config;
+        $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
     }
 
     public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
@@ -173,14 +175,14 @@ class Content
         return $this->urlGenerator;
     }
 
-    public function getDefinition()
+    public function getDefinition(): ?ContentType
     {
         return $this->contentTypeDefinition;
     }
 
     public function getSummary(): array
     {
-        if (! $this->getDefinition()) {
+        if ($this->getDefinition() === null) {
             return [];
         }
 
@@ -211,7 +213,7 @@ class Content
 
     public function getSlug(): string
     {
-        return (string) $this->get('slug');
+        return $this->get('slug')->__toString();
     }
 
     public function getContenttype(): ?string
@@ -238,22 +240,23 @@ class Content
 
     public function getStatus(): ?string
     {
-        if (! in_array($this->status, self::STATUSES, true)) {
+        if (Statuses::isValid($this->status) === false) {
             $this->status = $this->getDefinition()->get('default_status');
         }
+
         return $this->status;
     }
 
     public function setStatus(string $status): self
     {
-        if (in_array($status, self::STATUSES, true)) {
+        if (Statuses::isValid($status)) {
             $this->status = $status;
         }
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -270,7 +273,7 @@ class Content
         return $this->modifiedAt;
     }
 
-    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
+    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
 
@@ -294,7 +297,7 @@ class Content
         return $this->depublishedAt;
     }
 
-    public function setDepublishedAt(\DateTimeInterface $depublishedAt): self
+    public function setDepublishedAt(?\DateTimeInterface $depublishedAt): self
     {
         $this->depublishedAt = $depublishedAt;
 
@@ -302,7 +305,7 @@ class Content
     }
 
     /**
-     * @return Collection|Field[]
+     * @return Field[]|Collection
      */
     public function getFields(): Collection
     {
@@ -321,7 +324,7 @@ class Content
 
     public function addField(Field $field): self
     {
-        if (! $this->fields->contains($field)) {
+        if ($this->fields->contains($field) === false) {
             $this->fields[] = $field;
             $field->setContent($this);
         }
@@ -344,14 +347,14 @@ class Content
 
     public function getStatuses(): array
     {
-        return self::STATUSES;
+        return Statuses::all();
     }
 
     public function getStatusOptions(): array
     {
         $options = [];
 
-        foreach (self::STATUSES as $option) {
+        foreach (Statuses::all() as $option) {
             $options[] = [
                 'key' => $option,
                 'value' => ucwords($option),
@@ -367,10 +370,10 @@ class Content
      */
     public function getTaxonomies(?string $type = null): Collection
     {
-        if (! empty($type)) {
+        if ($type) {
             return $this->taxonomies->filter(
-                function ($taxo) use ($type) {
-                    return $taxo->getType() === $type;
+                function (Taxonomy $taxonomy) use ($type) {
+                    return $taxonomy->getType() === $type;
                 }
             );
         }
@@ -380,7 +383,7 @@ class Content
 
     public function addTaxonomy(Taxonomy $taxonomy): self
     {
-        if (! $this->taxonomies->contains($taxonomy)) {
+        if ($this->taxonomies->contains($taxonomy) === false) {
             $this->taxonomies[] = $taxonomy;
             $taxonomy->addContent($this);
         }

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class SelectField extends Field
 {
     /** @var bool */
-    protected $array = true;
+    protected $isArray = true;
 
     public function getValue(): ?array
     {

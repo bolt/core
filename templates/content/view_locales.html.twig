@@ -26,7 +26,7 @@
                 <th>{{ flag(locale) }}{{ locale }}</th>
             {% endfor %}
         </tr>
-        {% for name, field in record.localisedfields %}
+        {% for name, field in record.localizedfields %}
             <tr>
                 <td>
                     <b>{{ field.definition.label|default(field.name) }}</b><br>
@@ -34,8 +34,8 @@
                 </td>
                 {% for locale in locales %}
                     <td>
-                        {% set value = record.localisedfield(field.name, locale, false) %}
-                        {% if not field.definition.localise and not loop.first %}
+                        {% set value = record.localizedfield(field.name, locale, false) %}
+                        {% if not field.definition.localize and not loop.first %}
                             <span class="badge badge-info">Default</span>
                         {% elseif value %}
                             <span class="badge badge-success">OK</span>
