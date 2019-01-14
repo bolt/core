@@ -6,13 +6,41 @@ namespace Bolt\Entity;
 
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Helpers\Excerpt;
+use Bolt\Repository\ContentRepository;
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig_Markup;
 
-trait ContentMagicTraits
+trait ContentMagicTrait
 {
+    /**
+     * Set the "Magic properties for automagic population in the API.
+     */
+    public $magictitle;
+    public $magicexcerpt;
+    public $magicimage;
+    public $magiclink;
+    public $magiceditlink;
+
+    /** @var ContentRepository */
+    private $repository;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
+
+    /**
+     * Injected with ObjectManagerAware
+     */
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
+    {
+        $this->repository = $objectManager->getRepository(self::class);
+    }
+
+    private function getRepository(): ContentRepository
+    {
+        return $this->repository;
+    }
 
     public function __toString(): string
     {
@@ -81,7 +109,10 @@ trait ContentMagicTraits
 
     public function magicLink()
     {
-        return $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
+        return $this->urlGenerator->generate('record', [
+            'slug' => $this->getSlug(),
+            'contenttypeslug' => $this->getDefinition()->get('singular_slug'),
+        ]);
     }
 
     public function magicEditLink()
@@ -137,7 +168,7 @@ trait ContentMagicTraits
         return $title;
     }
 
-    public function magicImage(): ?array
+    public function magicImage(): array
     {
         foreach ($this->getFields() as $field) {
             if ($field->getDefinition()->get('type') === 'image') {
@@ -163,13 +194,21 @@ trait ContentMagicTraits
         return new Twig_Markup($excerpt, 'utf-8');
     }
 
-    public function magicPrevious()
+    public function magicPrevious(string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
-        return 'magic previous';
+        $byColumn = filter_var($byColumn, FILTER_SANITIZE_STRING);
+        $repository = $this->getRepository();
+        $contentType = $sameContentType ? $this->getContenttype() : null;
+
+        return $repository->findAdjacentBy($byColumn, 'previous', $this->getId(), $contentType);
     }
 
-    public function magicNext()
+    public function magicNext(string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
-        return 'magic next';
+        $byColumn = filter_var($byColumn, FILTER_SANITIZE_STRING);
+        $repository = $this->getRepository();
+        $contentType = $sameContentType ? $this->getContenttype() : null;
+
+        return $repository->findAdjacentBy($byColumn, 'next', $this->getId(), $contentType);
     }
 }

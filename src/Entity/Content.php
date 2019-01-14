@@ -11,6 +11,7 @@ use Bolt\Content\ContentType;
 use Bolt\Enum\Statuses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Persistence\ObjectManagerAware;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -32,10 +33,10 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * @ORM\Table(name="bolt_content")
  * @ORM\HasLifecycleCallbacks
  */
-class Content
+class Content implements ObjectManagerAware
 {
-    use ContentMagicTraits;
-    use ContentLocalizeTraits;
+    use ContentMagicTrait;
+    use ContentLocalizeTrait;
 
     public const NUM_ITEMS = 8; // @todo This can't be a const
 
@@ -123,15 +124,6 @@ class Content
 
     /** @var ?ContentType */
     private $contentTypeDefinition;
-
-    /**
-     * Set the "Magic properties for automagic population in the API.
-     */
-    public $magictitle;
-    public $magicexcerpt;
-    public $magicimage;
-    public $magiclink;
-    public $magiceditlink;
 
     /**
      * @var Collection|Taxonomy[]

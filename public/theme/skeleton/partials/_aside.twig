@@ -9,7 +9,7 @@
     <div>
         {# The next section attempts to fill the panel in the sidebar with the contents of the
             'about-us'-block, if it exists. First, attempt to fetch the block with slug 'about-us' #}
-        {#{% setcontent block = "block/about-us" %}#}
+        {% setcontent block = "block/about-us" %}
 
         {# check if we have a title. If so, we know we have content to display. Otherwise, we will
             output a default text, telling the user to create the 'blocks' in the backend. #}
@@ -53,17 +53,17 @@
 
     {% for ct in config.get('contenttypes') if not ct.viewless|default(false) %}
 
-        {#{% setcontent records = ct.slug ~ "/latest/3" %}#}
+        {% setcontent records = ct.slug ~ "/latest/3" %}
 
         <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.name}) }}</h5>
         <ul>
-            {% for record in records|default([]) %}
+            {% for record in records %}
                 <li><a href="{{ record.link }}">{{ record.title }}</a></li>
             {% else %}
                 <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>
             {% endfor %}
         </ul>
-        {#<p><a href="{{ path('contentlisting', {'contenttypeslug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }} &raquo;</a></p>#}
+        <p><a href="{{ path('contentlisting', {'contenttypeslug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }} &raquo;</a></p>
 
 
     {% endfor %}

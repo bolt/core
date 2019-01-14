@@ -34,11 +34,9 @@ class AppExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('__', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('image', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('thumbnail', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('widgets', [$this, 'dummy'], ['is_safe' => ['html']]),
-            new TwigFunction('htmllang', [$this, 'dummy'], ['is_safe' => ['html']]),
             new TwigFunction('popup', [$this, 'dummy'], ['is_safe' => ['html']]),
         ];
     }

@@ -15,8 +15,12 @@ class SelectField extends Field
     public function getValue(): ?array
     {
         if (empty($this->value)) {
-            $this->value = [];
+            $options = (array) $this->getDefinition()->get('values');
+
+            // Pick the first key from array, or the full value as string, like `entries/id,title`
+            $this->value = [key($options)];
         }
+
         return $this->value;
     }
 }
