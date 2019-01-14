@@ -41,6 +41,8 @@ before_script:
   # test if web server works
   - sleep 3
   - wget "http://127.0.0.1:8088/bolt/login"
+  # fix permissions for logs folder
+  - chmod a+rw var/log -R
 
 script:
   # run PHP Unit / PHP Spec tests
