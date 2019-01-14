@@ -7,14 +7,17 @@ defineSupportCode(({ When, Then }) => {
     return this.currentPage.waitForVisibilityOf(elementName);
   });
 
-  Then(/^there is element "([^"]*)" with text "([^"]*)"$/, function (elementName, value) {
+  Then(/^there is element "([^"]*)" with text "([^"]*)"$/, async function (elementName, value) {
     const pageElement = this.currentPage[elementName];
 
-    return this.currentPage.waitForVisibilityOf(elementName).then(() => {
-
-      return matchers.match(pageElement, variableStore.replaceTextVariables('t:' + value)).then(function (matcherResult) {
-        return expect(matcherResult).to.be.true;
-      });
+    await this.currentPage.waitForVisibilityOf(elementName);
+    return matchers.match(pageElement, variableStore.replaceTextVariables('t:' + value)).then(function (matcherResult) {
+      return expect(matcherResult).to.be.true;
     });
+  });
+
+  When(/^I fill the "([^"]*)" field with "([^"]*)"$/, async function (elementName, value) {
+    await this.currentPage.waitForVisibilityOf(elementName);
+    await this.currentPage.fillField(elementName, value);
   });
 });
