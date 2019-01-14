@@ -30,11 +30,16 @@ trait ContentMagicTrait
     private $urlGenerator;
 
     /**
-     * Injected with ObjectManagerAware
+     * Required by ObjectManagerAware interface
      */
     public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
     {
-        $this->repository = $objectManager->getRepository(self::class);
+        $repository = $objectManager->getRepository(self::class);
+        if ($repository instanceof ContentRepository) {
+            $this->repository = $repository;
+        } else {
+            throw new \Exception('Invalid repository for Content');
+        }
     }
 
     private function getRepository(): ContentRepository
