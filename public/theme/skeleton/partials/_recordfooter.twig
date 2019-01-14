@@ -1,7 +1,7 @@
 {# This file is inserted as the 'footer' of each listed record. #}
 <p class="meta">
     {% if record.editlink() %}
-        <span class="edit-link"><a href="{{ record.editlink() }}"><strong>{{ __('general.phrase.edit') }}</strong></a></span> -    
+        <span class="edit-link"><a href="{{ record.editlink() }}"><strong>{{ __('general.phrase.edit') }}</strong></a></span> -
     {% endif %}
     {{ __('general.phrase.written-by-on', {
         '%name%': record.author.displayname|default(__('Unknown')),
@@ -17,6 +17,7 @@
         {{ include('partials/_sub_taxonomylinks.twig', { record: record }) }}
     </p>
 
+    {# @todo refactor to eg. record_prevoius(record, field='id'), same with next #}
     {% set previous = record.previous('id') %}
     {% set next = record.next('id') %}
 

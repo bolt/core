@@ -3,7 +3,7 @@
         {% for key, fielddefinition in record.definition.fields if fielddefinition.group == group %}
 
         {% set type = fielddefinition.type %}
-        {% set field = record.localisedfield(key, currentlocale, false, fielddefinition) %}
+        {% set field = record.localizedfield(key, currentlocale, false, fielddefinition) %}
 
         {% include[
         '_partials/fields/' ~ type ~ '.html.twig',

@@ -39,9 +39,9 @@ class TaxonomyController extends BaseController
         /** @var Content[] $records */
         $records = $contentRepository->findForPage($page);
 
-        $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
+        $contentType = ContentType::factory('page', $this->config->get('contenttypes'));
 
-        $templates = $this->templateChooser->listing($contenttype);
+        $templates = $this->templateChooser->listing($contentType);
 
         return $this->renderTemplate($templates, ['records' => $records]);
     }

@@ -70,13 +70,13 @@ class TemplateChooser
             }
         }
 
-        // Second candidate: defined specifically in the contenttype.
+        // Second candidate: defined specifically in the content type.
         if ($definition->has('record_template')) {
             $templates->push($definition->get('record_template'));
         }
 
         // Third candidate: a template with the same filename as the name of
-        // the contenttype.
+        // the content type.
         $templates->push($definition->get('singular_slug') . '.html.twig');
         $templates->push($definition->get('singular_slug') . '.twig');
 
@@ -95,19 +95,19 @@ class TemplateChooser
     /**
      * Select a template for listing pages.
      */
-    public function listing(?Collection $contenttype = null): array
+    public function listing(?Collection $contentType = null): array
     {
         $templates = new Collection();
 
-        // First candidate: defined specifically in the contenttype.
-        if (! empty($contenttype['listing_template'])) {
-            $templates->push($contenttype['listing_template']);
+        // First candidate: defined specifically in the content type.
+        if (! empty($contentType['listing_template'])) {
+            $templates->push($contentType['listing_template']);
         }
 
         // Second candidate: a template with the same filename as the name of
-        // the contenttype.
-        $templates->push($contenttype['slug'] . '.html.twig');
-        $templates->push($contenttype['slug'] . '.twig');
+        // the content type.
+        $templates->push($contentType['slug'] . '.html.twig');
+        $templates->push($contentType['slug'] . '.twig');
 
         // Third candidate: Theme-specific config.yml file.
         $templates->push($this->config->get('theme/listing_template'));

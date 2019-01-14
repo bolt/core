@@ -1,8 +1,8 @@
-# This file defines the contenttypes on the website. See the documentation for
+# This file defines the content types on the website. See the documentation for
 # details: https://docs.bolt.cm/contenttypes/intro
 
-# The Homepage contenttype is a singleton: There can be only one record of this
-# contenttype.
+# The Homepage content type is a singleton: There can be only one record of this
+# content type.
 
 
 homepage:
@@ -13,7 +13,7 @@ homepage:
             type: text
             class: large
             group: content
-            localise: true
+            localize: true
             label: Title
             postfix: |
                 The 'Homepage' can contain basic information about the website. This title will be
@@ -25,17 +25,17 @@ homepage:
             placeholder: https://source.unsplash.com/1920x640/?cityscape,landscape,nature/__random__
         teaser:
             type: html
-            localise: true
+            localize: true
             height: 150px
         content:
             type: html
             height: 300px
-            localise: true
+            localize: true
         contentlink:
             type: text
             label: Link
-            placeholder: 'contenttype/slug or http://example.org/'
-            postfix: "Use this to add a link for this Homepage. This could either be an 'internal' link like <tt>page//about</tt>, if you use a contenttype/slug combination. Otherwise use a proper URL, like `http://example.org`."
+            placeholder: 'contentType/slug or http://example.org/'
+            postfix: "Use this to add a link for this Homepage. This could either be an 'internal' link like <tt>page//about</tt>, if you use a contentType/slug combination. Otherwise use a proper URL, like `http://example.org`."
         slug:
             type: slug
             uses: title
@@ -307,7 +307,7 @@ blocks:
 #            type: text
 #            label: Link
 #            placeholder: 'contenttype/slug or http://example.org/'
-#            postfix: "Use this to add a link for this Block. This could either be an 'internal' link like <tt>page/about</tt>, if you use a contenttype/slug combination. Otherwise use a proper URL, like `http://example.org`."
+#            postfix: "Use this to add a link for this Block. This could either be an 'internal' link like <tt>page/about</tt>, if you use a contentType/slug combination. Otherwise use a proper URL, like `http://example.org`."
 #        image:
 #            type: image
 #            attrib: title

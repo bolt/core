@@ -6,7 +6,7 @@ namespace Bolt\Entity;
 
 use Tightenco\Collect\Support\Collection;
 
-trait ContentLocaliseTraits
+trait ContentLocalizeTrait
 {
     public function getLocales()
     {
@@ -24,7 +24,7 @@ trait ContentLocaliseTraits
         return $this->getLocales()->first();
     }
 
-    public function getLocalisedFields(string $locale = '', bool $fallback = true): Collection
+    public function getLocalizedFields(string $locale = '', bool $fallback = true): Collection
     {
         if (! $locale) {
             $locale = $this->getDefaultLocale();
@@ -33,17 +33,17 @@ trait ContentLocaliseTraits
         $fields = new Collection();
 
         foreach ($this->getDefinition()->get('fields') as $name => $field) {
-            $field = $this->getLocalisedField($name, $locale, $fallback, $field);
+            $field = $this->getLocalizedField($name, $locale, $fallback, $field);
             $fields->put($name, $field);
         }
 
         return $fields;
     }
 
-    public function hasLocalisedField(string $name, string $locale = '')
+    public function hasLocalizedField(string $name, string $locale = '')
     {
         foreach ($this->fields as $field) {
-            if ($field->getName() === $name && ($field->getDefinition()->get('localise') === false || $field->getLocale() === $locale)) {
+            if ($field->getName() === $name && ($field->getDefinition()->get('localize') === false || $field->getLocale() === $locale)) {
                 return true;
             }
         }
@@ -51,11 +51,11 @@ trait ContentLocaliseTraits
         return false;
     }
 
-    public function getLocalisedField(string $name, string $locale = '', bool $fallback = true, array $definition = [])
+    public function getLocalizedField(string $name, string $locale = '', bool $fallback = true, array $definition = [])
     {
         // First: see if we have the field, in the correct locale
         foreach ($this->fields as $field) {
-            if ($field->getName() === $name && ($field->getDefinition()->get('localise') === false || $field->getLocale() === $locale)) {
+            if ($field->getName() === $name && ($field->getDefinition()->get('localize') === false || $field->getLocale() === $locale)) {
                 return $field;
             }
         }

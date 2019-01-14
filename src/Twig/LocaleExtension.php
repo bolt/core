@@ -90,7 +90,7 @@ class LocaleExtension extends AbstractExtension
 
     private function localeHelper(Twig_Environment $env, Collection $localeCodes)
     {
-        // Get the route and route params, to set the new localised link
+        // Get the route and route params, to set the new localized link
         $globals = $env->getGlobals();
 
         /** @var Request $request */
@@ -118,7 +118,7 @@ class LocaleExtension extends AbstractExtension
             '<span class="fp mr-1 %s" title="%s - %s / %s"></span>',
             $locale->get('flag'),
             $locale->get('name'),
-            $locale->get('localisedname'),
+            $locale->get('localizedname'),
             $locale->get('code')
         );
     }
@@ -136,7 +136,7 @@ class LocaleExtension extends AbstractExtension
         return collect([
             'code' => $localeCode,
             'name' => Intl::getLocaleBundle()->getLocaleName($localeCode),
-            'localisedname' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode),
+            'localizedname' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode),
             'flag' => $this->getFlagTag($localeCode),
         ]);
     }

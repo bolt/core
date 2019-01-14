@@ -9,7 +9,7 @@ install:
 	npm run build
 
 server:
-	bin/console server:start
+	bin/console server:start 127.0.0.1:8088
 
 cache:
 	bin/console cache:clear
@@ -42,7 +42,8 @@ test:
 	vendor/bin/phpspec run
 
 e2e:
-	cd tests/e2e && npm run kakunin
+	make server
+	cd tests/e2e && npm run kakunin && cd ../..
 
 db-create:
 	bin/console doctrine:database:create --if-not-exists

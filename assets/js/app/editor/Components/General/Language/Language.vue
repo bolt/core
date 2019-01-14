@@ -4,7 +4,7 @@
     <multiselect
       v-model="locale"
       track-by="name"
-      label="localisedname"
+      label="localizedname"
       :options="locales"
       :searchable="false"
       :show-labels="false"

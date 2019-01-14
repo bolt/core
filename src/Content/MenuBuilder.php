@@ -67,22 +67,22 @@ class MenuBuilder
             'icon' => 'fa-file',
         ]]);
 
-        $contenttypes = $this->config->get('contenttypes');
+        $contentTypes = $this->config->get('contenttypes');
 
-        foreach ($contenttypes as $contenttype) {
-            $menu->addChild($contenttype['slug'], [
-                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contenttype' => $contenttype['slug']]),
+        foreach ($contentTypes as $contentType) {
+            $menu->addChild($contentType['slug'], [
+                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contentType' => $contentType['slug']]),
                 'extras' => [
-                    'name' => $contenttype['name'],
-                    'singular_name' => $contenttype['singular_name'],
-                    'slug' => $contenttype['slug'],
-                    'singular_slug' => $contenttype['singular_slug'],
-                    'icon' => $contenttype['icon_many'],
-                    'link_new' => $this->urlGenerator->generate('bolt_content_edit', ['id' => $contenttype['slug']]),
-                    'contenttype' => $contenttype['slug'],
-                    'singleton' => $contenttype['singleton'],
-                    'active' => $contenttype['slug'] === 'pages' ? true : false,
-                    'submenu' => $this->getLatestRecords($contenttype['slug']),
+                    'name' => $contentType['name'],
+                    'singular_name' => $contentType['singular_name'],
+                    'slug' => $contentType['slug'],
+                    'singular_slug' => $contentType['singular_slug'],
+                    'icon' => $contentType['icon_many'],
+                    'link_new' => $this->urlGenerator->generate('bolt_content_edit', ['id' => $contentType['slug']]),
+                    'content_type' => $contentType['slug'],
+                    'singleton' => $contentType['singleton'],
+                    'active' => $contentType['slug'] === 'pages' ? true : false,
+                    'submenu' => $this->getLatestRecords($contentType['slug']),
                 ],
             ]);
         }
@@ -266,10 +266,10 @@ class MenuBuilder
     private function getLatestRecords($slug)
     {
         /** @var ContentType $ct */
-        $contenttype = ContentType::factory($slug, $this->config->get('contenttypes'));
+        $contentType = ContentType::factory($slug, $this->config->get('contenttypes'));
 
         /** @var Content[] $records */
-        $records = $this->contentRepository->findLatest($contenttype, 5);
+        $records = $this->contentRepository->findLatest($contentType, 5);
 
         $result = [];
 

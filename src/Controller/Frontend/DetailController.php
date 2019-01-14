@@ -24,22 +24,25 @@ class DetailController extends BaseController
 
     /**
      * @Route(
-     *     "/{contenttypeslug}/{slug}",
+     *     "/{contentTypeSlug}/{slugOrId}",
      *     name="record",
-     *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
+     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
+     *
+     * @param string|int $slugOrId
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, string $contenttypeslug, string $slug): Response
+    public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, string $contentTypeSlug, $slugOrId): Response
     {
-        if (! is_numeric($slug)) {
-            $field = $fieldRepository->findOneBySlug($slug);
-            $record = $field->getContent();
+        if (is_numeric($slugOrId)) {
+            $record = $contentRepository->findOneBy(['id' => (int) $slugOrId]);
         } else {
-            $record = $contentRepository->findOneBy(['id' => $slug]);
+            /* @todo this should search only by slug or any other unique field */
+            $field = $fieldRepository->findOneBySlug($slugOrId);
+            $record = $field->getContent();
         }
 
         $recordSlug = $record->getDefinition()['singular_slug'];

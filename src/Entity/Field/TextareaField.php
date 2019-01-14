@@ -10,8 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class TextareaField extends Field
+class TextareaField extends Field implements Excerptable
 {
-    /** @var bool */
-    protected $excerptable = true;
 }

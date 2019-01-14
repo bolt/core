@@ -13,23 +13,19 @@ final class ContentType extends Collection
         return $this->get($name);
     }
 
-    /**
-     * @param Collection $contenttypesconfig
-     *
-     * @return ContentType
-     */
-    public static function factory(string $name, $contenttypesconfig): ?self
+    public static function factory(string $name, Collection $contentTypesConfig): ?self
     {
-        if ($contenttypesconfig->get($name)) {
-            return new self($contenttypesconfig->get($name));
+        if ($contentTypesConfig->has($name)) {
+            return new self($contentTypesConfig->get($name));
         }
 
-        foreach ($contenttypesconfig as $item => $value) {
-            if ($value['singular_slug'] === $name) {
-                return new self($contenttypesconfig[$item]);
-            }
-        }
-
-        return null;
+        return $contentTypesConfig
+            ->filter(function (array $contentTypeConfig) use ($name): bool {
+                return $contentTypeConfig['singular_slug'] === $name;
+            })
+            ->map(function (array $contentTypeConfig): self {
+                return new self($contentTypeConfig);
+            })
+            ->first();
     }
 }

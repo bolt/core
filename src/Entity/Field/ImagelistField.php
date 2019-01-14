@@ -12,6 +12,4 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ImagelistField extends Field
 {
-    /** @var bool */
-    protected $array = true;
 }

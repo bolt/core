@@ -656,7 +656,7 @@
     <unit id="_w7J5rZ" name="caption.contenttypes">
       <segment>
         <source>caption.contenttypes</source>
-        <target>Contenttypes</target>
+        <target>Content Types</target>
       </segment>
     </unit>
     <unit id="kXNBV9S" name="caption.main_configuration">

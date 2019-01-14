@@ -7,17 +7,15 @@ namespace Bolt\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
+use Bolt\Enum\Statuses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Persistence\Mapping\ClassMetadata;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectManagerAware;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ApiResource(
@@ -37,14 +35,14 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  */
 class Content implements ObjectManagerAware
 {
-    use ContentMagicTraits;
-    use ContentLocaliseTraits;
+    use ContentMagicTrait;
+    use ContentLocalizeTrait;
 
     public const NUM_ITEMS = 8; // @todo This can't be a const
 
-    public const STATUSES = ['published', 'held', 'timed', 'draft']; // @todo Move to Enum
-
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -53,6 +51,8 @@ class Content implements ObjectManagerAware
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=191, name="contenttype")
      * @Groups("public")
      */
@@ -68,37 +68,48 @@ class Content implements ObjectManagerAware
     private $author;
 
     /**
+     * @var ?string
+     *
      * @ORM\Column(type="string", length=191)
      * @Groups({"public", "put"})
      */
-    private $status;
+    private $status = null;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface
+     *
+     * @ORM\Column(type="datetime", nullable=false)
      * @Groups("public")
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"public", "put"})
-     */
-    private $modifiedAt;
-
-    /**
+     * @var ?\DateTimeInterface
+     *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"public", "put"})
      */
-    private $publishedAt;
+    private $modifiedAt = null;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var ?\DateTimeInterface
+     *
+     * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"public", "put"})
      */
-    private $depublishedAt;
+    private $publishedAt = null;
 
     /**
-     * @var Field[]|ArrayCollection
+     * @var ?\DateTimeInterface
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"public", "put"})
+     */
+    private $depublishedAt = null;
+
+    /**
+     * @var Collection|Field[]
+     *
      * @Groups({"public", "put"})
      * @MaxDepth(1)
      * @ORM\OneToMany(
@@ -111,47 +122,22 @@ class Content implements ObjectManagerAware
      */
     private $fields;
 
-    /** @var ContentType */
+    /** @var ?ContentType */
     private $contentTypeDefinition;
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var Config */
-    private $config;
-
     /**
-     * Set the "Magic properties for automagic population in the API.
-     */
-    public $magictitle;
-    public $magicexcerpt;
-    public $magicimage;
-    public $magiclink;
-    public $magiceditlink;
-
-    /**
+     * @var Collection|Taxonomy[]
+     *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
      * @ORM\JoinTable(name="bolt_taxonomy_content")
      */
     private $taxonomies;
 
-    /** @var ObjectManager */
-    private $entityManager;
-
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->modifiedAt = new \DateTime();
-        $this->publishedAt = new \DateTime();
-        $this->depublishedAt = new \DateTime();
         $this->fields = new ArrayCollection();
         $this->taxonomies = new ArrayCollection();
-        $this->status = null;
-    }
-
-    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
-    {
-        $this->entityManager = $objectManager;
     }
 
     public function getId(): ?int
@@ -162,53 +148,31 @@ class Content implements ObjectManagerAware
     /**
      * @see: Bolt\EventListener\ContentListener
      */
-    public function setConfig(Config $config): void
+    public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
-        $this->config = $config;
-
-        $this->contentTypeDefinition = ContentType::factory($this->contentType, $config->get('contenttypes'));
+        $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
     }
 
-    public function getConfig(): Config
-    {
-        return $this->config;
-    }
-
-    private function getRepository()
-    {
-        return $this->entityManager->getRepository(self::class);
-    }
-
-    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
-    {
-        $this->urlGenerator = $urlGenerator;
-    }
-
-    public function getUrlGenerator(): UrlGeneratorInterface
-    {
-        return $this->urlGenerator;
-    }
-
-    public function getDefinition()
+    public function getDefinition(): ?ContentType
     {
         return $this->contentTypeDefinition;
     }
 
     public function getSummary(): array
     {
-        if (! $this->getDefinition()) {
+        if ($this->getDefinition() === null) {
             return [];
         }
 
         return [
             'id' => $this->getid(),
-            'contenttype' => $this->getDefinition()->get('slug'),
+            'contentType' => $this->getDefinition()->get('slug'),
             'slug' => $this->getSlug(),
             'title' => $this->magicTitle(),
             'excerpt' => $this->magicExcerpt(200, false),
             'image' => $this->magicImage(),
             'link' => $this->magicLink(),
-            'editlink' => $this->magicEditLink(),
+            'editLink' => $this->magicEditLink(),
             'author' => [
                 'id' => $this->getAuthor()->getid(),
                 'displayName' => $this->getAuthor()->getDisplayName(),
@@ -227,17 +191,17 @@ class Content implements ObjectManagerAware
 
     public function getSlug(): string
     {
-        return (string) $this->get('slug');
+        return $this->get('slug')->__toString();
     }
 
-    public function getContenttype(): ?string
+    public function getContentType(): ?string
     {
         return $this->contentType;
     }
 
-    public function setContenttype(string $contenttype): self
+    public function setContentType(string $contentType): self
     {
-        $this->contentType = $contenttype;
+        $this->contentType = $contentType;
 
         return $this;
     }
@@ -248,7 +212,7 @@ class Content implements ObjectManagerAware
     }
 
     /**
-     * Backward-compatible alias for `getAuthor`
+     * @deprecated Backward-compatible alias for `getAuthor`
      */
     public function geUser(): User
     {
@@ -262,22 +226,23 @@ class Content implements ObjectManagerAware
 
     public function getStatus(): ?string
     {
-        if (! in_array($this->status, self::STATUSES, true)) {
+        if (Statuses::isValid($this->status) === false) {
             $this->status = $this->getDefinition()->get('default_status');
         }
+
         return $this->status;
     }
 
     public function setStatus(string $status): self
     {
-        if (in_array($status, self::STATUSES, true)) {
+        if (Statuses::isValid($status)) {
             $this->status = $status;
         }
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -294,7 +259,7 @@ class Content implements ObjectManagerAware
         return $this->modifiedAt;
     }
 
-    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
+    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
 
@@ -318,7 +283,7 @@ class Content implements ObjectManagerAware
         return $this->depublishedAt;
     }
 
-    public function setDepublishedAt(\DateTimeInterface $depublishedAt): self
+    public function setDepublishedAt(?\DateTimeInterface $depublishedAt): self
     {
         $this->depublishedAt = $depublishedAt;
 
@@ -326,7 +291,7 @@ class Content implements ObjectManagerAware
     }
 
     /**
-     * @return Collection|Field[]
+     * @return Field[]|Collection
      */
     public function getFields(): Collection
     {
@@ -345,7 +310,7 @@ class Content implements ObjectManagerAware
 
     public function addField(Field $field): self
     {
-        if (! $this->fields->contains($field)) {
+        if ($this->fields->contains($field) === false) {
             $this->fields[] = $field;
             $field->setContent($this);
         }
@@ -368,14 +333,14 @@ class Content implements ObjectManagerAware
 
     public function getStatuses(): array
     {
-        return self::STATUSES;
+        return Statuses::all();
     }
 
     public function getStatusOptions(): array
     {
         $options = [];
 
-        foreach (self::STATUSES as $option) {
+        foreach (Statuses::all() as $option) {
             $options[] = [
                 'key' => $option,
                 'value' => ucwords($option),
@@ -391,10 +356,10 @@ class Content implements ObjectManagerAware
      */
     public function getTaxonomies(?string $type = null): Collection
     {
-        if (! empty($type)) {
+        if ($type) {
             return $this->taxonomies->filter(
-                function ($taxo) use ($type) {
-                    return $taxo->getType() === $type;
+                function (Taxonomy $taxonomy) use ($type) {
+                    return $taxonomy->getType() === $type;
                 }
             );
         }
@@ -404,7 +369,7 @@ class Content implements ObjectManagerAware
 
     public function addTaxonomy(Taxonomy $taxonomy): self
     {
-        if (! $this->taxonomies->contains($taxonomy)) {
+        if ($this->taxonomies->contains($taxonomy) === false) {
             $this->taxonomies[] = $taxonomy;
             $taxonomy->addContent($this);
         }

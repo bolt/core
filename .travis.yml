@@ -31,6 +31,7 @@ install:
   - cd tests/e2e && npm install && node ./node_modules/protractor/bin/webdriver-manager update --gecko=false && cd ../..
 
 before_script:
+  # build assets
   - npm run build
   # prepare web server for e2e tests
   - ./bin/console doctrine:database:create

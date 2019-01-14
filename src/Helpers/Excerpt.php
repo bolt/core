@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Helpers;
 
 use Bolt\Entity\Content;
+use Bolt\Entity\Field\Excerptable;
 
 class Excerpt
 {
@@ -44,8 +45,8 @@ class Excerpt
             $skipFields = $this->content->magicTitleFields();
 
             foreach ($this->content->getFields() as $field) {
-                if (! in_array($field->getName(), $skipFields, true) && $field->isExcerptable()) {
-                    $excerpt .= (string) $field;
+                if (in_array($field->getName(), $skipFields, true) === false && $field instanceof Excerptable) {
+                    $excerpt .= $field->__toString();
                 }
             }
         } else {

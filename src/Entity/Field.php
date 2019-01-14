@@ -61,12 +61,6 @@ class Field
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Groups("public")
-     */
-    private $content_id;
-
-    /**
      * @ORM\Column(type="string", length=191)
      * @Groups("public")
      */
@@ -77,12 +71,6 @@ class Field
      * @Groups({"public", "put"})
      */
     protected $value = [];
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups("public")
-     */
-    private $parent_id;
 
     /**
      * @ORM\Column(type="integer")
@@ -108,23 +96,20 @@ class Field
      */
     private $content;
 
-    /** @var FieldType */
+    /**
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field")
+     * @Groups("public")
+     */
+    private $parent;
+
+    /** @var ?FieldType */
     private $fieldTypeDefinition;
-
-    /** @var bool */
-    protected $excerptable = false;
-
-    /** @var bool */
-    protected $array = false;
 
     public function __toString(): string
     {
         return implode(', ', $this->getValue());
     }
 
-    /**
-     * @return Field
-     */
     public static function factory(array $definition, string $name = ''): self
     {
         $type = $definition['type'];
@@ -150,33 +135,25 @@ class Field
         return $this->id;
     }
 
-    public function setConfig(): void
+    private function setDefinitionFromContentDefinition(): void
     {
         $contentTypeDefinition = $this->getContent()->getDefinition();
 
         $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
     }
 
-    public function getDefinition(): FieldType
+    public function getDefinition(): ?FieldType
     {
+        if ($this->fieldTypeDefinition === null && $this->getContent()) {
+            $this->setDefinitionFromContentDefinition();
+        }
+
         return $this->fieldTypeDefinition;
     }
 
     public function setDefinition($name, array $definition): void
     {
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
-    }
-
-    public function getContentId(): ?int
-    {
-        return $this->content_id;
-    }
-
-    public function setContentId(int $content_id): self
-    {
-        $this->content_id = $content_id;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -209,18 +186,6 @@ class Field
     public function setValue(array $value): self
     {
         $this->value = $value;
-
-        return $this;
-    }
-
-    public function getParentId(): ?int
-    {
-        return $this->parent_id;
-    }
-
-    public function setParentId(int $parent_id): self
-    {
-        $this->parent_id = $parent_id;
 
         return $this;
     }
@@ -273,13 +238,15 @@ class Field
         return $this;
     }
 
-    public function isExcerptable(): bool
+    public function getParent(): ?self
     {
-        return $this->excerptable;
+        return $this->parent;
     }
 
-    public function isArray(): bool
+    public function setParent(?self $parent): self
     {
-        return $this->array;
+        $this->parent = $parent;
+
+        return $this;
     }
 }

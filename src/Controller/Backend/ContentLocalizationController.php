@@ -12,11 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ContentLocalisationController.
+ * Class ContentLocalizationController.
  *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ContentLocalisationController extends BaseController
+class ContentLocalizationController extends BaseController
 {
     /**
      * @Route("/edit_locales/{id}", name="bolt_content_edit_locales", methods={"GET"})

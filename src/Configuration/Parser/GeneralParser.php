@@ -23,7 +23,13 @@ class GeneralParser extends BaseParser
         $general = Arr::replaceRecursive($defaultconfig, Arr::replaceRecursive($tempconfig, $tempconfiglocal));
 
         // Make sure Bolt's mount point is OK:
-        $general['branding']['path'] = '/' . Str::makeSafe((string) $general['branding']['path']);
+        $path = $general['branding']['path'];
+        if (is_string($path)) {
+            $path = '/' . Str::makeSafe($path);
+        } else {
+            $path = '/';
+        }
+        $general['branding']['path'] = $path;
 
         // Set the link in branding, if provided_by is set.
         $general['branding']['provided_link'] = Html::providerLink(
