@@ -11,8 +11,6 @@ use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Persistence\Mapping\ClassMetadata;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectManagerAware;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -37,8 +35,8 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  */
 class Content implements ObjectManagerAware
 {
-    use ContentMagicTraits;
-    use ContentLocaliseTraits;
+    use ContentMagicTrait;
+    use ContentLocalizeTrait;
 
     public const NUM_ITEMS = 8; // @todo This can't be a const
 
@@ -114,29 +112,23 @@ class Content implements ObjectManagerAware
     /** @var ContentType */
     private $contentTypeDefinition;
 
-    /** @var UrlGeneratorInterface */
+    /**
+     * @var UrlGeneratorInterface
+     * @todo move out of Entity
+     */
     private $urlGenerator;
 
-    /** @var Config */
-    private $config;
-
     /**
-     * Set the "Magic properties for automagic population in the API.
+     * @var Config
+     * @todo move out of Entity
      */
-    public $magictitle;
-    public $magicexcerpt;
-    public $magicimage;
-    public $magiclink;
-    public $magiceditlink;
+    private $config;
 
     /**
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
      * @ORM\JoinTable(name="bolt_taxonomy_content")
      */
     private $taxonomies;
-
-    /** @var ObjectManager */
-    private $entityManager;
 
     public function __construct()
     {
@@ -147,11 +139,6 @@ class Content implements ObjectManagerAware
         $this->fields = new ArrayCollection();
         $this->taxonomies = new ArrayCollection();
         $this->status = null;
-    }
-
-    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
-    {
-        $this->entityManager = $objectManager;
     }
 
     public function getId(): ?int
@@ -172,11 +159,6 @@ class Content implements ObjectManagerAware
     public function getConfig(): Config
     {
         return $this->config;
-    }
-
-    private function getRepository()
-    {
-        return $this->entityManager->getRepository(self::class);
     }
 
     public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void

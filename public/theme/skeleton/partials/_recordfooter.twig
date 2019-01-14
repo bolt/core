@@ -17,6 +17,7 @@
         {{ include('partials/_sub_taxonomylinks.twig', { record: record }) }}
     </p>
 
+    {# @todo refactor to eg. record_prevoius(record, field='id'), same with next #}
     {% set previous = record.previous('id') %}
     {% set next = record.next('id') %}
 

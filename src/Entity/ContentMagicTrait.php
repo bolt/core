@@ -5,10 +5,38 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Bolt\Helpers\Excerpt;
+use Bolt\Repository\ContentRepository;
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
 use Twig_Markup;
 
-trait ContentMagicTraits
+trait ContentMagicTrait
 {
+    /**
+     * Set the "Magic properties for automagic population in the API.
+     */
+    public $magictitle;
+    public $magicexcerpt;
+    public $magicimage;
+    public $magiclink;
+    public $magiceditlink;
+
+    /** @var ContentRepository */
+    private $repository;
+
+    /**
+     * Injected with ObjectManagerAware
+     */
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
+    {
+        $this->repository = $objectManager->getRepository(self::class);
+    }
+
+    private function getRepository(): ContentRepository
+    {
+        return $this->repository;
+    }
+
     public function __toString(): string
     {
         return 'Content # ' . (string) $this->getId();
@@ -156,19 +184,21 @@ trait ContentMagicTraits
         return new Twig_Markup($excerpt, 'utf-8');
     }
 
-    public function magicPrevious(string $column = 'id', bool $sameContentType = true): ?Content
+    public function magicPrevious(string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
+        $byColumn = filter_var($byColumn, FILTER_SANITIZE_STRING);
         $repository = $this->getRepository();
         $contentType = $sameContentType ? $this->getContenttype() : null;
 
-        return $repository->findAdjacentBy($column, 'previous', $this->getId(), $contentType);
+        return $repository->findAdjacentBy($byColumn, 'previous', $this->getId(), $contentType);
     }
 
-    public function magicNext(string $column = 'id', bool $sameContentType = true): ?Content
+    public function magicNext(string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
+        $byColumn = filter_var($byColumn, FILTER_SANITIZE_STRING);
         $repository = $this->getRepository();
         $contentType = $sameContentType ? $this->getContenttype() : null;
 
-        return $repository->findAdjacentBy($column, 'next', $this->getId(), $contentType);
+        return $repository->findAdjacentBy($byColumn, 'next', $this->getId(), $contentType);
     }
 }

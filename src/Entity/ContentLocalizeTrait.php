@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-trait ContentLocaliseTraits
+trait ContentLocalizeTrait
 {
     public function getLocales()
     {
