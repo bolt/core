@@ -51,6 +51,7 @@ class ListingController extends BaseController
 
     /**
      * Route alias for Bolt 3 backwards compatibility
+     *
      * @deprecated since 4.0
      *
      * @Route(
