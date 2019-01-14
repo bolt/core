@@ -1,8 +1,8 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 
 {% block title %}
-    {% if contenttype %}
-        <i class='fas mr-2 {{contenttype.icon_one}}'></i> <strong>{{ contenttype.name }}</strong>
+    {% if contentType %}
+        <i class='fas mr-2 {{contentType.icon_one}}'></i> <strong>{{ contentType.name }}</strong>
     {% else %}
         <strong>{{ 'title.contentlisting'|trans }}</strong>
     {% endif %}
@@ -12,15 +12,15 @@
 
 {% block main %}
     <div>
-        {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': 'contenttype'  } %}
+        {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': 'contentType'  } %}
     </div>
 {% endblock %}
 
 {% block aside %}
 
     <listing-select-box
-      plural="{{ contenttype.name }}"
-      singular="{{ contenttype.singular_name }}"
+      plural="{{ contentType.name }}"
+      singular="{{ contentType.singular_name }}"
     ></listing-select-box>
 
     <div class="card">

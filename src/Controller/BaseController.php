@@ -53,7 +53,7 @@ class BaseController extends AbstractController
         // Resolve string|array of templates into the first one that is found.
         if (is_array($template)) {
             $templates = collect($template)
-                ->map(function ($element): string {
+                ->map(function ($element): ?string {
                     if ($element instanceof TemplateselectField) {
                         return $element->__toString();
                     }

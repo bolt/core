@@ -135,7 +135,7 @@ class Field
         return $this->id;
     }
 
-    public function setDefinitionFromContentDefinition(): void
+    private function setDefinitionFromContentDefinition(): void
     {
         $contentTypeDefinition = $this->getContent()->getDefinition();
 
