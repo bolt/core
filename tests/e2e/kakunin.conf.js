@@ -1,11 +1,11 @@
 module.exports = {
     "browserWidth": 1600,
     "browserHeight": 900,
-    "timeout": 60,
+    "timeout": 120,
     "intervalEmail": 5,
     "maxEmailRepeats": 5,
-    "elementsVisibilityTimeout": 60,
-    "waitForPageTimeout": 60,
+    "elementsVisibilityTimeout": 120,
+    "waitForPageTimeout": 120,
     "downloadTimeout": 30,
     "emails": [
         "/emails"
