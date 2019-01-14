@@ -93,7 +93,7 @@ notfound: [ not-found.twig, block/404-not-found ]
 # The default template and amount of records to use for listing-pages on the
 # site.
 #
-# Can be overridden for each contenttype and for each record, if it has a
+# Can be overridden for each content type and for each record, if it has a
 # 'templateselect' field.
 #
 # Note: If you've changed the filename, and your changes do not show up on the
@@ -104,7 +104,7 @@ record_template: record.twig
 # The default template and amount of records to use for listing-pages on the
 # site.
 #
-# Can be overridden for each contenttype.
+# Can be overridden for each content type.
 #
 # Note 1: Sorting on TAXONOMY-pages will give unexpected results, if it has a
 #         pager.
@@ -136,7 +136,7 @@ search_results_records: 10
 add_jquery: false
 
 # The default amount of records to show on overview pages. Can be overridden
-# for each contenttype.
+# for each content type.
 recordsperpage: 10
 
 # Settings for caching in parts of Bolt.

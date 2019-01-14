@@ -1,7 +1,7 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 
 {% block title %}
- {{ 'title.edit_user'|trans }} » <strong>{{ usertitle|default('Unknown') }}</strong>
+ {{ 'title.edit_user'|trans }} » <strong>{{ display_name|default('Unknown') }}</strong>
 {% endblock %}
 
 {% block body_id 'user_edit' %}
@@ -21,9 +21,9 @@
             } %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
-                'label' : 'label.fullname' | trans,
-                'name' : 'fullName',
-                'value' : user.fullName,
+                'label' : 'label.displayname' | trans,
+                'name' : 'displayName',
+                'value' : user.displayName,
                 'disabled' : false,
             } %}
 

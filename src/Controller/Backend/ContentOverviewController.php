@@ -20,23 +20,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContentOverviewController extends BaseController
 {
     /**
-     * @Route("/content/{contenttype}", name="bolt_content_overview")
+     * @Route("/content/{contentType}", name="bolt_content_overview")
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function overview(ContentRepository $contentRepository, Request $request, string $contenttype = ''): Response
+    public function overview(ContentRepository $contentRepository, Request $request, string $contentType = ''): Response
     {
-        $contenttype = ContentType::factory($contenttype, $this->config->get('contenttypes'));
+        $contentType = ContentType::factory($contentType, $this->config->get('contenttypes'));
 
         $page = (int) $request->query->get('page', 1);
 
-        $records = $contentRepository->findForPage($page, $contenttype);
+        $records = $contentRepository->findForPage($page, $contentType);
 
         return $this->renderTemplate('content/listing.html.twig', [
             'records' => $records,
-            'contenttype' => $contenttype,
+            'contentType' => $contentType,
         ]);
     }
 }

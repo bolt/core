@@ -31,30 +31,30 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForPage(int $page = 1, ?ContentType $contenttype = null): Pagerfanta
+    public function findForPage(int $page = 1, ?ContentType $contentType = null): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
             ->innerJoin('content.author', 'a');
 
-        if ($contenttype) {
+        if ($contentType) {
             $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contenttype['slug']);
+                ->setParameter('ct', $contentType['slug']);
         }
 
         return $this->createPaginator($qb->getQuery(), $page);
     }
 
-    public function findLatest(?ContentType $contenttype = null, int $amount = 6): ?array
+    public function findLatest(?ContentType $contentType = null, int $amount = 6): ?array
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
             ->innerJoin('content.author', 'a')
             ->orderBy('content.modifiedAt', 'DESC');
 
-        if ($contenttype) {
+        if ($contentType) {
             $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contenttype['slug']);
+                ->setParameter('ct', $contentType['slug']);
         }
 
         $qb->setMaxResults($amount);
@@ -84,7 +84,7 @@ class ContentRepository extends ServiceEntityRepository
         return $paginator;
     }
 
-    public function findAdjacentBy(string $column, string $direction, int $currentValue, ?string $contentType = null)
+    public function findAdjacentBy(string $column, string $direction, int $currentValue, ?string $contentType = null): ?Content
     {
         if ($direction === 'next') {
             $order = 'ASC';
@@ -103,8 +103,8 @@ class ContentRepository extends ServiceEntityRepository
             ->setMaxResults(1);
 
         if ($contentType) {
-            $qb->andWhere('content.contentType = :contenttype')
-                ->setParameter('contenttype', $contentType);
+            $qb->andWhere('content.contentType = :contentType')
+                ->setParameter('contentType', $contentType);
         }
 
         return $qb->getQuery()->getOneOrNullResult();

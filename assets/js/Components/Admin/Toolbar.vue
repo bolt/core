@@ -65,7 +65,7 @@ export default {
       return test.isLight();
     },
     createMenu(){
-      return this.menu.filter(item => item.contenttype !== null)
+      return this.menu.filter(item => item.contentType !== null)
     },
   }
 };

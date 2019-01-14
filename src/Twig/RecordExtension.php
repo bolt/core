@@ -55,11 +55,13 @@ class RecordExtension extends AbstractExtension
 
     public function pager(Environment $env, string $template = '')
     {
+        // @todo See Github issue https://github.com/bolt/four/issues/254
         return '[pager placeholder]';
     }
 
     public function menu(Environment $env, string $template = '')
     {
+        // @todo See Github issue https://github.com/bolt/four/issues/253
         return '[menu placeholder]';
     }
 

@@ -1,11 +1,11 @@
 {# This file is inserted as the 'footer' of each listed record. #}
 <p class="meta">
     {% if record.editlink() %}
-        <span class="edit-link"><a href="{{ record.editlink() }}"><strong>{{ __('general.phrase.edit') }}</strong></a></span> -    
+        <span class="edit-link"><a href="{{ record.editlink() }}"><strong>{{ __('general.phrase.edit') }}</strong></a></span> -
     {% endif %}
     {{ __('general.phrase.written-by-on', {
-        '%name%': record.user.displayname|default(__('Unknown')),
-        '%date%': record.datepublish|localedatetime("%A %B %e, %Y")
+        '%name%': record.author.displayname|default(__('Unknown')),
+        '%date%': record.publishedAt|localedatetime("%A %B %e, %Y")
     }) }}
 </p>
 
@@ -21,13 +21,6 @@
     {% set previous = record.previous('id') %}
     {% set next = record.next('id') %}
 
-    <hr>
-    {{ dump(record) }}
-    <hr>
-    {{ dump(previous) }}
-    <hr>
-    {{ dump(next) }}
-
     {% if previous or next %}
         <p class="meta">
             {% if previous %}
@@ -42,6 +35,7 @@
         </p>
     {% endif %}
 
+    {# @todo See Github Issue https://github.com/bolt/four/issues/252 #}
     {% set relatedrecords = record.related() %}
     {% if relatedrecords is not empty %}
         <p class="meta">{{ __('general.phrase.related-content') }}

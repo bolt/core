@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Common\Json;
 use Bolt\Controller\BaseController;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -33,7 +34,7 @@ class ProfileController extends BaseController
         $user = $this->getUser();
 
         return $this->renderTemplate('users/edit.html.twig', [
-            'usertitle' => $user->getFullName(),
+            'display_name' => $user->getDisplayName(),
             'user' => $user,
         ]);
     }
@@ -48,12 +49,12 @@ class ProfileController extends BaseController
     public function profileEditPost(Request $request, UrlGeneratorInterface $urlGenerator, ObjectManager $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
-        $userTitle = $user->getFullName();
+        $displayName = $user->getDisplayName();
         $url = $urlGenerator->generate('bolt_profile_edit');
-        $locale = current($request->get('locale'));
+        $locale = Json::findScalar($request->get('locale'));
         $newPassword = $request->get('password');
 
-        $user->setFullName($request->get('fullName'));
+        $user->setDisplayName($request->get('displayName'));
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
         $user->setbackendTheme($request->get('user')['backendTheme']);
@@ -66,8 +67,10 @@ class ProfileController extends BaseController
             ],
         ];
 
+        // @todo Validation must be moved to a separate UserValidator
+
         // Validate username
-        if (! filter_var(mb_strlen($user->getFullName()), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
+        if (! filter_var(mb_strlen($user->getDisplayName()), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
             $this->addFlash('danger', 'user.not_valid_username');
             $hasError = true;
         }
@@ -88,7 +91,7 @@ class ProfileController extends BaseController
 
         if ($hasError) {
             return $this->renderTemplate('users/edit.html.twig', [
-                'usertitle' => $userTitle,
+                'display_name' => $displayName,
                 'user' => $user,
             ]);
         }

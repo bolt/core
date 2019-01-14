@@ -63,7 +63,7 @@ export default {
       return color.isLight();
     },
     createMenu(){
-      return this.menu.filter(item => item.contenttype !== null)
+      return this.menu.filter(item => item.contentType !== null)
     },
     toolbarColor(){
       return this.$store.getters['general/toolbarColor']

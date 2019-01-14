@@ -166,16 +166,16 @@ class Content implements ObjectManagerAware
 
         return [
             'id' => $this->getid(),
-            'contenttype' => $this->getDefinition()->get('slug'),
+            'contentType' => $this->getDefinition()->get('slug'),
             'slug' => $this->getSlug(),
             'title' => $this->magicTitle(),
             'excerpt' => $this->magicExcerpt(200, false),
             'image' => $this->magicImage(),
             'link' => $this->magicLink(),
-            'editlink' => $this->magicEditLink(),
+            'editLink' => $this->magicEditLink(),
             'author' => [
                 'id' => $this->getAuthor()->getid(),
-                'fullName' => $this->getAuthor()->getfullName(),
+                'displayName' => $this->getAuthor()->getDisplayName(),
                 'username' => $this->getAuthor()->getusername(),
                 'email' => $this->getAuthor()->getemail(),
                 'roles' => $this->getAuthor()->getroles(),
@@ -194,19 +194,27 @@ class Content implements ObjectManagerAware
         return $this->get('slug')->__toString();
     }
 
-    public function getContenttype(): ?string
+    public function getContentType(): ?string
     {
         return $this->contentType;
     }
 
-    public function setContenttype(string $contenttype): self
+    public function setContentType(string $contentType): self
     {
-        $this->contentType = $contenttype;
+        $this->contentType = $contentType;
 
         return $this;
     }
 
     public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @deprecated Backward-compatible alias for `getAuthor`
+     */
+    public function geUser(): User
     {
         return $this->author;
     }

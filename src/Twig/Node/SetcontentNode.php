@@ -30,7 +30,7 @@ class SetcontentNode extends Node
             $whereArguments,
             [
                 'name' => $name,
-                'contenttype' => $contentType,
+                'contentType' => $contentType,
                 'arguments' => $arguments,
             ],
             $lineNo,
@@ -51,7 +51,7 @@ class SetcontentNode extends Node
             ->raw($this->getAttribute('name'))
             ->raw("'] = ")
             ->raw("\$this->env->getExtension('" . SetcontentExtension::class . "')->getQueryEngine()->getContentForTwig(")
-            ->subcompile($this->getAttribute('contenttype'))
+            ->subcompile($this->getAttribute('contentType'))
             ->raw(', ')
             ->subcompile($arguments);
 

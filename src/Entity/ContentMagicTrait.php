@@ -110,8 +110,8 @@ trait ContentMagicTrait
     public function magicLink()
     {
         return $this->urlGenerator->generate('record', [
-            'slug' => $this->getSlug(),
-            'contenttypeslug' => $this->getDefinition()->get('singular_slug'),
+            'slugOrId' => $this->getSlug() ?: $this->getId(),
+            'contentTypeSlug' => $this->getDefinition()->get('singular_slug'),
         ]);
     }
 
@@ -198,7 +198,7 @@ trait ContentMagicTrait
     {
         $byColumn = filter_var($byColumn, FILTER_SANITIZE_STRING);
         $repository = $this->getRepository();
-        $contentType = $sameContentType ? $this->getContenttype() : null;
+        $contentType = $sameContentType ? $this->getContentType() : null;
 
         return $repository->findAdjacentBy($byColumn, 'previous', $this->getId(), $contentType);
     }
@@ -207,7 +207,7 @@ trait ContentMagicTrait
     {
         $byColumn = filter_var($byColumn, FILTER_SANITIZE_STRING);
         $repository = $this->getRepository();
-        $contentType = $sameContentType ? $this->getContenttype() : null;
+        $contentType = $sameContentType ? $this->getContentType() : null;
 
         return $repository->findAdjacentBy($byColumn, 'next', $this->getId(), $contentType);
     }
