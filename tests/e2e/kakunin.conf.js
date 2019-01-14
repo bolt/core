@@ -58,7 +58,7 @@ module.exports = {
         "admin": {
             "accounts": [
                 {
-                    "email": "admin",
+                    "username": "admin",
                     "password": "admin%1"
                 }
             ]
