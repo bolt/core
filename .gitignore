@@ -36,6 +36,7 @@ appveyor.yml
 !/var/cache/.gitkeep
 /var/log/*
 !/var/log/.gitkeep
+!/var/log/e2e-reports/report/.gitkeep
 /var/data/*
 !/var/data/.gitkeep
 /var/sessions/*
