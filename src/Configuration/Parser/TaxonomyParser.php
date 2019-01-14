@@ -40,7 +40,14 @@ class TaxonomyParser extends BaseParser
                 $taxonomy['allow_spaces'] = false;
             }
             if (! isset($taxonomy['allow_empty'])) {
-                $taxonomy['allow_empty'] = false;
+                $taxonomy['allow_empty'] = true;
+            }
+            if ($taxonomy['behaves_like'] === 'grouping') {
+                $taxonomy['multiple'] = false;
+            } elseif ($taxonomy['behaves_like'] === 'tags' || (isset($taxonomy['multiple']) && $taxonomy['multiple'])) {
+                $taxonomy['multiple'] = true;
+            } else {
+                $taxonomy['multiple'] = false;
             }
 
             // Make sure the options are $key => $value pairs, and not have implied integers for keys.

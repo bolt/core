@@ -75,7 +75,7 @@ class Taxonomy
 
         $taxonomy->setType($type);
         $taxonomy->setSlug($slug);
-        $taxonomy->setName($name ?: Str::humanize($slug));
+        $taxonomy->setName($name ?: $slug);
 
         return $taxonomy;
     }
@@ -130,7 +130,7 @@ class Taxonomy
 
     public function setSlug(string $slug): self
     {
-        $this->slug = $slug;
+        $this->slug = Str::slug($slug);
 
         return $this;
     }
@@ -142,6 +142,10 @@ class Taxonomy
 
     public function setName(string $name): self
     {
+        if ($name === mb_strtolower($name)) {
+            $name = Str::humanize($name);
+        }
+
         $this->name = $name;
 
         return $this;
