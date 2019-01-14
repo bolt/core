@@ -17,8 +17,8 @@
                             :name="'taxonomy[{{ definition.slug }}]'"
                             :id="'taxonomy-{{ definition.slug }}'"
                             :options="{{ options|json_encode() }}"
-                            :multiple="{{ definition.multiple }}"
-                            :taggable="{{ (definition.behaves_like == 'tags') }}"
+                            :multiple="{{ definition.multiple ? 'true' : 'false' }}"
+                            :taggable="{{ (definition.behaves_like == 'tags') ? 'true' : 'false' }}"
                     ></editor-select>
 
                     {# (Current saved value: <code>{{ value|json_encode() }}</code> ) #}
