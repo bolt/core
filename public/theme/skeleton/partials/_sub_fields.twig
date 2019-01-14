@@ -39,7 +39,7 @@
         {% endif %}
     {% endspaceless -%}
 
-    {{ dump(record.fields) }}
+    {#{{ dump(record.fields) }}#}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
     {% for value in record.fields if (value.name not in omittedkeys) %}

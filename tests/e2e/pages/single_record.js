@@ -4,10 +4,10 @@ class SingleRecordPage extends BasePage {
   constructor() {
     super();
 
-    this.url = '/record/1';
+    this.url = '/page/1';
 
-    this.title = element(by.css('#login-form'));
-    this.edit_button = element(by.css('#login-form [name="username"]'));
+    this.title = element(by.css('h1'));
+    this.edit_button = element(by.css('.meta .edit-link a'));
   }
 }
 
