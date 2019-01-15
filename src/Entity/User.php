@@ -38,7 +38,7 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank()
      * @Groups("public")
      */
-    private $fullName;
+    private $displayName;
 
     /**
      * @var string
@@ -104,19 +104,19 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function setFullName(string $fullName): void
+    public function setDisplayName(string $displayName): void
     {
-        $this->fullName = $fullName;
+        $this->displayName = $displayName;
     }
 
-    public function getFullName(): string
+    public function getDisplayName(): string
     {
-        return $this->fullName;
+        return $this->displayName;
     }
 
     public function __toString()
     {
-        return $this->getFullName();
+        return $this->getdisplayName();
     }
 
     public function getUsername(): string

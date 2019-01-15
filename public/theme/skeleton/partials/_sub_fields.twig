@@ -29,8 +29,8 @@
 
         {# Skip over the fields that are used in the slug, unless explicitly told not to,
            using the `skip_uses` parameter. #}
-        {% if (record.contenttype.fields.slug.uses|default(null) is iterable) and skip_uses|default(true) %}
-            {% set omittedkeys = omittedkeys|merge(record.contenttype.fields.slug.uses) %}
+        {% if (record.contentType.fields.slug.uses|default(null) is iterable) and skip_uses|default(true) %}
+            {% set omittedkeys = omittedkeys|merge(record.contentType.fields.slug.uses) %}
         {% endif %}
 
         {# We also skip over the fields that are explicitly excluded. #}
@@ -39,7 +39,7 @@
         {% endif %}
     {% endspaceless -%}
 
-    {{ dump(record.fields) }}
+    {#{{ dump(record.fields) }}#}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
     {% for value in record.fields if (value.name not in omittedkeys) %}
@@ -103,8 +103,8 @@
     {% if templatefields is not empty %}
 
         {# Note: This needs to be expanded upon!! For better detection the 'virtual'
-           contenttype for the templatefields should know about the types of fields. #}
-        {% set templatefields_field_types = attribute(record.contenttype.templatefields|first, 'fields') %}
+           content type for the templatefields should know about the types of fields. #}
+        {% set templatefields_field_types = attribute(record.contentType.templatefields|first, 'fields') %}
 
         {% for key, value in templatefields if (key not in omittedkeys) %}
 

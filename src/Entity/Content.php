@@ -11,8 +11,8 @@ use Bolt\Content\ContentType;
 use Bolt\Enum\Statuses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Persistence\ObjectManagerAware;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
@@ -33,10 +33,10 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * @ORM\Table(name="bolt_content")
  * @ORM\HasLifecycleCallbacks
  */
-class Content
+class Content implements ObjectManagerAware
 {
-    use ContentMagicTraits;
-    use ContentLocalizeTraits;
+    use ContentMagicTrait;
+    use ContentLocalizeTrait;
 
     public const NUM_ITEMS = 8; // @todo This can't be a const
 
@@ -125,18 +125,6 @@ class Content
     /** @var ?ContentType */
     private $contentTypeDefinition;
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /**
-     * Set the "Magic properties for automagic population in the API.
-     */
-    public $magictitle;
-    public $magicexcerpt;
-    public $magicimage;
-    public $magiclink;
-    public $magiceditlink;
-
     /**
      * @var Collection|Taxonomy[]
      *
@@ -165,16 +153,6 @@ class Content
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
     }
 
-    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
-    {
-        $this->urlGenerator = $urlGenerator;
-    }
-
-    public function getUrlGenerator(): UrlGeneratorInterface
-    {
-        return $this->urlGenerator;
-    }
-
     public function getDefinition(): ?ContentType
     {
         return $this->contentTypeDefinition;
@@ -188,16 +166,16 @@ class Content
 
         return [
             'id' => $this->getid(),
-            'contenttype' => $this->getDefinition()->get('slug'),
+            'contentType' => $this->getDefinition()->get('slug'),
             'slug' => $this->getSlug(),
             'title' => $this->magicTitle(),
             'excerpt' => $this->magicExcerpt(200, false),
             'image' => $this->magicImage(),
             'link' => $this->magicLink(),
-            'editlink' => $this->magicEditLink(),
+            'editLink' => $this->magicEditLink(),
             'author' => [
                 'id' => $this->getAuthor()->getid(),
-                'fullName' => $this->getAuthor()->getfullName(),
+                'displayName' => $this->getAuthor()->getDisplayName(),
                 'username' => $this->getAuthor()->getusername(),
                 'email' => $this->getAuthor()->getemail(),
                 'roles' => $this->getAuthor()->getroles(),
@@ -216,19 +194,27 @@ class Content
         return $this->get('slug')->__toString();
     }
 
-    public function getContenttype(): ?string
+    public function getContentType(): ?string
     {
         return $this->contentType;
     }
 
-    public function setContenttype(string $contenttype): self
+    public function setContentType(string $contentType): self
     {
-        $this->contentType = $contenttype;
+        $this->contentType = $contentType;
 
         return $this;
     }
 
     public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @deprecated Backward-compatible alias for `getAuthor`
+     */
+    public function geUser(): User
     {
         return $this->author;
     }

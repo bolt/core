@@ -2,13 +2,6 @@
 
 {% block main %}
 
-    <hr>
-    {{ dump() }}
-    {{ dump(app) }}
-    {{ dump(config) }}
-    {{ dump(record) }}
-    <hr>
-
     {% if record is defined %}
 
         <h1>{{ record.title }}</h1>
@@ -25,14 +18,5 @@
         {{ include('partials/_recordfooter.twig', { 'record': record }) }}
 
     {% endif %}
-
-    <hr>
-    {% setcontent pages = "pages" %}
-
-    <ul class="record_list">
-    {% for page in pages %}
-        <li><a href="{{ page.link }}">{{ page.title }}</a></li>
-    {% endfor %}
-    </ul>
 
 {% endblock main %}

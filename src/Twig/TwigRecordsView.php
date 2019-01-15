@@ -68,7 +68,7 @@ class TwigRecordsView
         $values = $record->getValues();
         if (is_array($values)) {
             foreach ($values as $field => $value) {
-                /* Get type of a field based on $record->getContenttype() and $field */
+                /* Get type of a field based on $record->getContentType() and $field */
                 $type = [];
                 $boltType = '';
                 $record->set($field, $this->transform($value, $boltType, $type));

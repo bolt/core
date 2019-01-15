@@ -28,18 +28,18 @@ class UserFixtures extends Fixture
 
     private function loadUsers(ObjectManager $manager): void
     {
-        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
+        foreach ($this->getUserData() as $userData) {
             $user = new User();
-            $user->setFullName($fullname);
-            $user->setUsername($username);
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
-            $user->setEmail($email);
-            $user->setRoles($roles);
+            $user->setDisplayName($userData['displayname']);
+            $user->setUsername($userData['username']);
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $userData['password']));
+            $user->setEmail($userData['email']);
+            $user->setRoles($userData['roles']);
             $user->setLocale('en');
             $user->setBackendTheme('default');
 
             $manager->persist($user);
-            $this->addReference($username, $user);
+            $this->addReference($userData['username'], $user);
         }
 
         $manager->flush();
@@ -48,12 +48,41 @@ class UserFixtures extends Fixture
     private function getUserData(): array
     {
         return [
-            // $userData = [$fullname, $username, $password, $email, $roles];
-            ['Admin', 'admin', 'admin%1', 'admin@example.org', ['ROLE_ADMIN']],
-            ['Gekke Henkie', 'henkie', 'henkie%1', 'henkie@example.org', ['ROLE_EDITOR']],
-            ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@example.org', ['ROLE_ADMIN']],
-            ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@example.org', ['ROLE_ADMIN']],
-            ['John Doe', 'john_user', 'kitten', 'john_user@example.org', ['ROLE_USER']],
+            [
+                'displayname' => 'Admin',
+                'username' => 'admin',
+                'password' => 'admin%1',
+                'email' => 'admin@example.org',
+                'roles' => ['ROLE_ADMIN'],
+            ],
+            [
+                'displayname' => 'Gekke Henkie',
+                'username' => 'henkie',
+                'password' => 'henkie%1',
+                'email' => 'henkie@example.org',
+                'roles' => ['ROLE_EDITOR'],
+            ],
+            [
+                'displayname' => 'Jane Doe',
+                'username' => 'jane_admin',
+                'password' => 'kitten',
+                'email' => 'jane_admin@example.org',
+                'roles' => ['ROLE_ADMIN'],
+            ],
+            [
+                'displayname' => 'Tom Doe',
+                'username' => 'tom_admin',
+                'password' => 'kitten',
+                'email' => 'tom_admin@example.org',
+                'roles' => ['ROLE_ADMIN'],
+            ],
+            [
+                'displayname' => 'John Doe',
+                'username' => 'john_user',
+                'password' => 'kitten',
+                'email' => 'john_user@example.org',
+                'roles' => ['ROLE_USER'],
+            ],
         ];
     }
 }

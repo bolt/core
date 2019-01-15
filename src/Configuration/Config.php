@@ -41,8 +41,8 @@ class Config
         $taxonomy = new TaxonomyParser();
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contenttypes = new ContentTypesParser($this->get('general')['accept_file_types']);
-        $config['contenttypes'] = $contenttypes->parse();
+        $contentTypes = new ContentTypesParser($this->get('general')['accept_file_types']);
+        $config['contenttypes'] = $contentTypes->parse();
 
         //'menu' => $this->parseConfigYaml('menu.yml'),
         //'routing' => $this->parseConfigYaml('routing.yml'),

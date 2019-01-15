@@ -4,11 +4,49 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Bolt\Entity\Field\Excerptable;
 use Bolt\Helpers\Excerpt;
+use Bolt\Repository\ContentRepository;
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig_Markup;
 
-trait ContentMagicTraits
+trait ContentMagicTrait
 {
+    /**
+     * Set the "Magic properties for automagic population in the API.
+     */
+    public $magictitle;
+    public $magicexcerpt;
+    public $magicimage;
+    public $magiclink;
+    public $magiceditlink;
+
+    /** @var ContentRepository */
+    private $repository;
+
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
+
+    /**
+     * Required by ObjectManagerAware interface
+     */
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
+    {
+        $repository = $objectManager->getRepository(self::class);
+        if ($repository instanceof ContentRepository) {
+            $this->repository = $repository;
+        } else {
+            throw new \Exception('Invalid repository for Content');
+        }
+    }
+
+    private function getRepository(): ContentRepository
+    {
+        return $this->repository;
+    }
+
     public function __toString(): string
     {
         return sprintf('Content # %d', $this->getId());
@@ -30,7 +68,7 @@ trait ContentMagicTraits
         // Prefer a field with $name
         foreach ($this->fields as $field) {
             if ($field->getName() === $name) {
-                return $field->isExcerptable() ? new Twig_Markup($field, 'UTF-8') : $field;
+                return $field instanceof Excerptable ? new Twig_Markup($field, 'UTF-8') : $field;
             }
         }
 
@@ -38,7 +76,7 @@ trait ContentMagicTraits
         return $this->magic($name, $arguments);
     }
 
-    public function magic(string $name, array $arguments = [])
+    private function magic(string $name, array $arguments = [])
     {
         $magicName = 'magic' . $name;
 
@@ -69,9 +107,17 @@ trait ContentMagicTraits
         return false;
     }
 
+    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
+    {
+        $this->urlGenerator = $urlGenerator;
+    }
+
     public function magicLink()
     {
-        return $this->urlGenerator->generate('record', ['slug' => $this->getSlug()]);
+        return $this->urlGenerator->generate('record', [
+            'slugOrId' => $this->getSlug() ?: $this->getId(),
+            'contentTypeSlug' => $this->getDefinition()->get('singular_slug'),
+        ]);
     }
 
     public function magicEditLink()
@@ -153,13 +199,21 @@ trait ContentMagicTraits
         return new Twig_Markup($excerpt, 'utf-8');
     }
 
-    public function magicPrevious()
+    public function magicPrevious(string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
-        return 'magic previous';
+        $byColumn = filter_var($byColumn, FILTER_SANITIZE_STRING);
+        $repository = $this->getRepository();
+        $contentType = $sameContentType ? $this->getContentType() : null;
+
+        return $repository->findAdjacentBy($byColumn, 'previous', $this->getId(), $contentType);
     }
 
-    public function magicNext()
+    public function magicNext(string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
-        return 'magic next';
+        $byColumn = filter_var($byColumn, FILTER_SANITIZE_STRING);
+        $repository = $this->getRepository();
+        $contentType = $sameContentType ? $this->getContentType() : null;
+
+        return $repository->findAdjacentBy($byColumn, 'next', $this->getId(), $contentType);
     }
 }

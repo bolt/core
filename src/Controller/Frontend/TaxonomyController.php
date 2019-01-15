@@ -9,7 +9,6 @@ use Bolt\Content\ContentType;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
-use Bolt\Repository\FieldRepository;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,38 +39,10 @@ class TaxonomyController extends BaseController
         /** @var Content[] $records */
         $records = $contentRepository->findForPage($page);
 
-        $contenttype = ContentType::factory('page', $this->config->get('contenttypes'));
+        $contentType = ContentType::factory('page', $this->config->get('contenttypes'));
 
-        $templates = $this->templateChooser->listing($contenttype);
+        $templates = $this->templateChooser->listing($contentType);
 
         return $this->renderTemplate($templates, ['records' => $records]);
-    }
-
-    /**
-     * @Route("/record/{slug}", methods={"GET"}, name="record")
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
-    public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, $slug = null): Response
-    {
-        if (! is_numeric($slug)) {
-            $field = $fieldRepository->findOneBySlug($slug);
-            $record = $field->getContent();
-        } else {
-            $record = $contentRepository->findOneBy(['id' => $slug]);
-        }
-
-        $recordSlug = $record->getDefinition()['singular_slug'];
-
-        $context = [
-            'record' => $record,
-            $recordSlug => $record,
-        ];
-
-        $templates = $this->templateChooser->record($record);
-
-        return $this->renderTemplate($templates, $context);
     }
 }

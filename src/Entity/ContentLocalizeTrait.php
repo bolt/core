@@ -6,7 +6,7 @@ namespace Bolt\Entity;
 
 use Tightenco\Collect\Support\Collection;
 
-trait ContentLocalizeTraits
+trait ContentLocalizeTrait
 {
     public function getLocales()
     {

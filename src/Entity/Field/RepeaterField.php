@@ -12,6 +12,4 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class RepeaterField extends Field
 {
-    /** @var bool */
-    protected $isArray = true;
 }

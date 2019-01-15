@@ -12,6 +12,4 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FilelistField extends Field
 {
-    /** @var bool */
-    protected $isArray = true;
 }

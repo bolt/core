@@ -13,9 +13,6 @@ use League\Glide\Urls\UrlBuilderFactory;
  */
 class ImageField extends Field
 {
-    /** @var bool */
-    protected $isArray = true;
-
     public function __toString(): string
     {
         return $this->getPath();

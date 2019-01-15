@@ -106,10 +106,10 @@ class Kernel extends BaseKernel
     private function setContentTypeRequirements(ContainerBuilder $container): void
     {
         $ContentTypesParser = new ContentTypesParser([]);
-        $contenttypes = $ContentTypesParser->parse();
+        $contentTypes = $ContentTypesParser->parse();
 
-        $pluralslugs = $contenttypes->pluck('slug')->implode('|');
-        $slugs = $contenttypes->pluck('slug')->concat($contenttypes->pluck('singular_slug'))->unique()->implode('|');
+        $pluralslugs = $contentTypes->pluck('slug')->implode('|');
+        $slugs = $contentTypes->pluck('slug')->concat($contentTypes->pluck('singular_slug'))->unique()->implode('|');
 
         $container->setParameter('bolt.requirement.pluralcontenttypes', $pluralslugs);
         $container->setParameter('bolt.requirement.contenttypes', $slugs);

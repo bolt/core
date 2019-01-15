@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "cross-env": "^5.2.0",
-    "kakunin": "^2.3.0",
+    "kakunin": "^2.4",
     "protractor": "^5.4.2",
     "webdriver-manager": "^12.1.1"
   }

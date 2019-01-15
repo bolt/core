@@ -26,26 +26,42 @@ class ListingController extends BaseController
 
     /**
      * @Route(
-     *     "/{contenttypeslug}",
+     *     "/{contentTypeSlug}",
      *     name="listing",
-     *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
+     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
      *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function contentListing(ContentRepository $contentRepository, Request $request, string $contenttypeslug): Response
+    public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
     {
         $page = (int) $request->query->get('page', 1);
 
         /** @var Content[] $records */
         $records = $contentRepository->findForPage($page);
 
-        $contenttype = ContentType::factory($contenttypeslug, $this->config->get('contenttypes'));
+        $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
 
-        $templates = $this->templateChooser->listing($contenttype);
+        $templates = $this->templateChooser->listing($contentType);
 
         return $this->renderTemplate($templates, ['records' => $records]);
+    }
+
+    /**
+     * Route alias for Bolt 3 backwards compatibility
+     *
+     * @deprecated since 4.0
+     *
+     * @Route(
+     *     "/{contenttypeslug}",
+     *     name="contentlisting",
+     *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
+     *     methods={"GET"})
+     */
+    public function contentListing(ContentRepository $contentRepository, Request $request, string $contenttypeslug): Response
+    {
+        return $this->listing($contentRepository, $request, $contenttypeslug);
     }
 }

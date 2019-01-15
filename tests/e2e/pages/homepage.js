@@ -6,8 +6,8 @@ class HomepagePage extends BasePage {
 
     this.url = '/';
 
-    this.title = element(by.css('header h2 a'));
-    this.record_list = element(by.css('ul.record_list'));
+    this.title = element(by.css('header a'));
+    this.recent_pages_list = element(by.css('aside ul'));
   }
 }
 

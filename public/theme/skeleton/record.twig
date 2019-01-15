@@ -4,8 +4,6 @@
 
     <h1>{{ record.title }}</h1>
 
-    {{ dump(record.definition) }}
-
     <hr>
 
     {% if record.image %}
@@ -16,7 +14,7 @@
 
     <hr>
 
-    {# Output all fields, in the order as defined in the contenttype.
+    {# Output all fields, in the order as defined in the content type.
        To change the generated html and configure the options, see:
        https://docs.bolt.cm/templating #}
     {% with { 'record': record, 'common': true, 'extended': true, 'repeaters': true, 'blocks': true } %}

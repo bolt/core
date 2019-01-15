@@ -3,7 +3,7 @@
 {% block main %}
 
         {# This template is used for 'listings': Generic pages that list a number of
-           records from a certain contenttype. These records are available as an array
+           records from a certain content type. These records are available as an array
            called 'records'. In the for-loop below, we iterate over the records that
            are on this page. It can be used for overview pages like 'all entries', or
            'all records tagged with kittens'. #}
@@ -31,8 +31,6 @@
 
                 <h2><a href="{{ record.link }}">{{ record.title }}</a></h2>
 
-                {{ dump(record) }}
-
                 {% if record.image!="" %}
                     <a href="{{ image(record.image) }}">
                         <img src="{{ thumbnail(record.image, 400, 260) }}">
@@ -41,7 +39,7 @@
 
                 <p>{{ record.excerpt(300, false, search|default('')) }}</p>
 
-                {#{% include 'partials/_recordfooter.twig' with { 'record': record } %}#}
+                {% include 'partials/_recordfooter.twig' with { 'record': record } %}
 
             </article>
 
@@ -62,6 +60,6 @@
         {% endfor %}
 
         {# If there are more records than will fit on one page, the pager is shown. #}
-        {#{{ pager(template = 'partials/_sub_pager.twig') }}#}
+        {{ pager(template = 'partials/_sub_pager.twig') }}
 
 {% endblock main %}
