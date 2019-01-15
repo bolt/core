@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Helpers\Str;
+use Bolt\Utils\Str;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 

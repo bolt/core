@@ -6,8 +6,7 @@ namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
 use Bolt\Enum\Statuses;
-use Bolt\Helpers\Str;
-use Cocur\Slugify\Slugify;
+use Bolt\Utils\Str;
 use Exception;
 use Tightenco\Collect\Support\Collection;
 
@@ -31,7 +30,7 @@ class ContentTypesParser extends BaseParser
     }
 
     /**
-     * Parse a single Contenttype configuration array.
+     * Parse a single Content Type configuration array.
      *
      * @param string $key
      * @param array  $contentType
@@ -42,34 +41,34 @@ class ContentTypesParser extends BaseParser
     {
         // If the slug isn't set, and the 'key' isn't numeric, use that as the slug.
         if (! isset($contentType['slug']) && ! is_numeric($key)) {
-            $contentType['slug'] = Slugify::create()->slugify($key);
+            $contentType['slug'] = Str::slug($key);
         }
 
         // If neither 'name' nor 'slug' is set, we need to warn the user. Same goes for when
         // neither 'singular_name' nor 'singular_slug' is set.
         if (! isset($contentType['name']) && ! isset($contentType['slug'])) {
-            $error = sprintf("In contenttype <code>%s</code>, neither 'name' nor 'slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+            $error = sprintf("In content type <code>%s</code>, neither 'name' nor 'slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
             throw new Exception($error);
         }
         if (! isset($contentType['singular_name']) && ! isset($contentType['singular_slug'])) {
-            $error = sprintf("In contenttype <code>%s</code>, neither 'singular_name' nor 'singular_slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+            $error = sprintf("In content type <code>%s</code>, neither 'singular_name' nor 'singular_slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
             throw new Exception($error);
         }
 
-        // Contenttypes without fields make no sense.
+        // Content types without fields make no sense.
         if (! isset($contentType['fields'])) {
-            $error = sprintf("In contenttype <code>%s</code>, no 'fields' are set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+            $error = sprintf("In content type <code>%s</code>, no 'fields' are set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
             throw new Exception($error);
         }
 
         if (! isset($contentType['slug'])) {
-            $contentType['slug'] = Slugify::create()->slugify($contentType['name']);
+            $contentType['slug'] = Str::slug($contentType['name']);
         }
         if (! isset($contentType['name'])) {
             $contentType['name'] = ucwords(preg_replace('/[^a-z0-9]/i', ' ', $contentType['slug']));
         }
         if (! isset($contentType['singular_slug'])) {
-            $contentType['singular_slug'] = Slugify::create()->slugify($contentType['singular_name']);
+            $contentType['singular_slug'] = Str::slug($contentType['singular_name']);
         }
         if (! isset($contentType['singular_name'])) {
             $contentType['singular_name'] = ucwords(preg_replace('/[^a-z0-9]/i', ' ', $contentType['singular_slug']));
@@ -100,13 +99,13 @@ class ContentTypesParser extends BaseParser
             $contentType['icon_many'] = str_replace('fa:', 'fa-', $contentType['icon_many']);
         }
 
-        // Allow explicit setting of a Contenttype's table name suffix. We default
-        // to slug if not present as it has been this way since Bolt v1.2.1
-        if (! isset($contentType['tablename'])) {
-            $contentType['tablename'] = Slugify::create()->slugify($contentType['slug'], '_');
+        // Allow explicit setting of a Content Type's table name suffix. We default to slug if not present.
+        if (isset($contentType['tablename'])) {
+            $contentType['tablename'] = Str::slug($contentType['tablename'], '_');
         } else {
-            $contentType['tablename'] = Slugify::create()->slugify($contentType['tablename'], '_');
+            $contentType['tablename'] = Str::slug($contentType['slug'], '_');
         }
+
         if (! isset($contentType['allow_numeric_slugs'])) {
             $contentType['allow_numeric_slugs'] = false;
         }
@@ -134,8 +133,8 @@ class ContentTypesParser extends BaseParser
         // when adding relations, make sure they're added by their slug. Not their 'name' or 'singular name'.
         if (! empty($contentType['relations']) && is_array($contentType['relations'])) {
             foreach (array_keys($contentType['relations']) as $relkey) {
-                if ($relkey !== Slugify::create()->slugify($relkey)) {
-                    $contentType['relations'][Slugify::create()->slugify($relkey)] = $contentType['relations'][$relkey];
+                if ($relkey !== Str::slug($relkey)) {
+                    $contentType['relations'][Str::slug($relkey)] = $contentType['relations'][$relkey];
                     unset($contentType['relations'][$relkey]);
                 }
             }
@@ -151,7 +150,7 @@ class ContentTypesParser extends BaseParser
     }
 
     /**
-     * Parse a Contenttype's field and determine the grouping.
+     * Parse a Content Type's field and determine the grouping.
      *
      * @throws Exception
      */
