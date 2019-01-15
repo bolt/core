@@ -6,9 +6,9 @@ namespace Bolt\Tests\Utils;
 
 class StrTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSlug()
+    public function testSlug(): void
     {
         $slug = \Bolt\Utils\Str::slug('test 1');
-        $this->assertEquals('test-1', $slug);
+        $this->assertSame('test-1', $slug);
     }
 }
