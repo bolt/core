@@ -20,12 +20,12 @@ class StrTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('test-3', $slug);
 
         $slug = Str::slug('This is a title');
-        $this->assertEquals('this-is-a-title', $slug);
+        $this->assertSame('this-is-a-title', $slug);
 
         $slug = Str::slug('Hēävy METÄL ümlåü†!!! 🤘');
-        $this->assertEquals('heaevy-metael-uemlaaue', $slug);
+        $this->assertSame('heaevy-metael-uemlaaue', $slug);
 
         $slug = Str::slug('Крещение Господне: истинная вера и традиции');
-        $this->assertEquals('kreshchenie-gospodne-istinnaya-vera-i-tradicii', $slug);
+        $this->assertSame('kreshchenie-gospodne-istinnaya-vera-i-tradicii', $slug);
     }
 }

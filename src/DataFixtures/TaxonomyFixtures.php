@@ -46,16 +46,16 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
             }
 
             foreach ($options as $key => $value) {
-                $taxonomy = new Taxonomy();
-
                 if (is_numeric($key)) {
                     $key = $value;
                 }
 
-                $taxonomy->setType($taxonomyDefinition['slug'])
-                    ->setSlug(Str::slug($key))
-                    ->setName(Str::humanize($value))
-                    ->setSortorder($taxonomyDefinition['has_sortorder'] ? $order++ : 0);
+                $taxonomy = Taxonomy::factory(
+                    $taxonomyDefinition['slug'],
+                    $key,
+                    $value,
+                    $taxonomyDefinition['has_sortorder'] ? $order++ : 0
+                );
 
                 $manager->persist($taxonomy);
                 $reference = 'taxonomy_' . $taxonomyDefinition['slug'] . '_' . Str::slug($key);
