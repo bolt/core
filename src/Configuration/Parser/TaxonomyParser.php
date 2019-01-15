@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration\Parser;
 
-use Bolt\Helpers\Str;
-use Cocur\Slugify\Slugify;
+use Bolt\Utils\Str;
 use Tightenco\Collect\Support\Collection;
 
 class TaxonomyParser extends BaseParser
@@ -16,8 +15,6 @@ class TaxonomyParser extends BaseParser
     public function parse(): Collection
     {
         $taxonomies = $this->parseConfigYaml('taxonomy.yaml');
-
-        $slugify = Slugify::create();
 
         foreach ($taxonomies as $key => $taxonomy) {
             if (! isset($taxonomy['name'])) {
@@ -31,10 +28,10 @@ class TaxonomyParser extends BaseParser
                 }
             }
             if (! isset($taxonomy['slug'])) {
-                $taxonomy['slug'] = $slugify->slugify($taxonomy['name']);
+                $taxonomy['slug'] = Str::slug($taxonomy['name']);
             }
             if (! isset($taxonomy['singular_slug'])) {
-                $taxonomy['singular_slug'] = $slugify->slugify($taxonomy['singular_name']);
+                $taxonomy['singular_slug'] = Str::slug($taxonomy['singular_name']);
             }
             if (! isset($taxonomy['has_sortorder'])) {
                 $taxonomy['has_sortorder'] = false;
@@ -54,7 +51,7 @@ class TaxonomyParser extends BaseParser
                         $optionKey = $optionValue;
                         $optionValue = Str::humanize($optionValue);
                     }
-                    $optionKey = $slugify->slugify($optionKey);
+                    $optionKey = Str::slug($optionKey);
                     $options[$optionKey] = $optionValue;
                 }
                 $taxonomy['options'] = $options;

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
-use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
-use Cocur\Slugify\Slugify;
+use Bolt\Utils\Str;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -37,7 +36,6 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
 
     private function loadTaxonomies(ObjectManager $manager): void
     {
-        $slugify = Slugify::create();
         $order = 1;
 
         foreach ($this->config as $taxonomyDefinition) {
@@ -55,12 +53,12 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
                 }
 
                 $taxonomy->setType($taxonomyDefinition['slug'])
-                    ->setSlug($slugify->slugify($key))
+                    ->setSlug(Str::slug($key))
                     ->setName(Str::humanize($value))
                     ->setSortorder($taxonomyDefinition['has_sortorder'] ? $order++ : 0);
 
                 $manager->persist($taxonomy);
-                $reference = 'taxonomy_' . $taxonomyDefinition['slug'] . '_' . $slugify->slugify($key);
+                $reference = 'taxonomy_' . $taxonomyDefinition['slug'] . '_' . Str::slug($key);
                 $this->addReference($reference, $taxonomy);
             }
         }

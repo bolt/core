@@ -6,6 +6,7 @@ namespace Bolt\Helpers;
 
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
+use Bolt\Utils\Html;
 
 class Excerpt
 {

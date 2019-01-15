@@ -6,8 +6,7 @@ namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
 use Bolt\Enum\Statuses;
-use Bolt\Helpers\Str;
-use Cocur\Slugify\Slugify;
+use Bolt\Utils\Str;
 use Exception;
 use Tightenco\Collect\Support\Collection;
 
@@ -42,7 +41,7 @@ class ContentTypesParser extends BaseParser
     {
         // If the slug isn't set, and the 'key' isn't numeric, use that as the slug.
         if (! isset($contentType['slug']) && ! is_numeric($key)) {
-            $contentType['slug'] = Slugify::create()->slugify($key);
+            $contentType['slug'] = Str::slug($key);
         }
 
         // If neither 'name' nor 'slug' is set, we need to warn the user. Same goes for when
@@ -63,13 +62,13 @@ class ContentTypesParser extends BaseParser
         }
 
         if (! isset($contentType['slug'])) {
-            $contentType['slug'] = Slugify::create()->slugify($contentType['name']);
+            $contentType['slug'] = Str::slug($contentType['name']);
         }
         if (! isset($contentType['name'])) {
             $contentType['name'] = ucwords(preg_replace('/[^a-z0-9]/i', ' ', $contentType['slug']));
         }
         if (! isset($contentType['singular_slug'])) {
-            $contentType['singular_slug'] = Slugify::create()->slugify($contentType['singular_name']);
+            $contentType['singular_slug'] = Str::slug($contentType['singular_name']);
         }
         if (! isset($contentType['singular_name'])) {
             $contentType['singular_name'] = ucwords(preg_replace('/[^a-z0-9]/i', ' ', $contentType['singular_slug']));
@@ -102,9 +101,9 @@ class ContentTypesParser extends BaseParser
 
         // Allow explicit setting of a Content Type's table name suffix. We default to slug if not present.
         if (isset($contentType['tablename'])) {
-            $contentType['tablename'] = Slugify::create()->slugify($contentType['tablename'], '_');
+            $contentType['tablename'] = Str::slug($contentType['tablename'], '_');
         } else {
-            $contentType['tablename'] = Slugify::create()->slugify($contentType['slug'], '_');
+            $contentType['tablename'] = Str::slug($contentType['slug'], '_');
         }
 
         if (! isset($contentType['allow_numeric_slugs'])) {
@@ -134,8 +133,8 @@ class ContentTypesParser extends BaseParser
         // when adding relations, make sure they're added by their slug. Not their 'name' or 'singular name'.
         if (! empty($contentType['relations']) && is_array($contentType['relations'])) {
             foreach (array_keys($contentType['relations']) as $relkey) {
-                if ($relkey !== Slugify::create()->slugify($relkey)) {
-                    $contentType['relations'][Slugify::create()->slugify($relkey)] = $contentType['relations'][$relkey];
+                if ($relkey !== Str::slug($relkey)) {
+                    $contentType['relations'][Str::slug($relkey)] = $contentType['relations'][$relkey];
                     unset($contentType['relations'][$relkey]);
                 }
             }

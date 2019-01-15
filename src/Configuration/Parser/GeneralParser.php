@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
-use Bolt\Helpers\Html;
-use Bolt\Helpers\Str;
+use Bolt\Utils\Html;
+use Bolt\Utils\Str;
 use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
-use Cocur\Slugify\Slugify;
+use Bolt\Utils\Str;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,7 +15,7 @@ class SlugField extends Field
 {
     public function setValue(array $value): parent
     {
-        $value = Slugify::create()->slugify(reset($value));
+        $value = Str::slug(reset($value));
         $this->value = [$value];
 
         return $this;
