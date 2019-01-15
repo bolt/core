@@ -4,11 +4,10 @@ Feature: Edit record
 
         When I visit the "pages_overview" page
         And I click the "edit_button" element
-        Then the "edit_record" page is displayed
+        Then I wait for "title_field" element to appear
 
         When I fill the "title_field" field with "Changed title"
         And I click the "save_button" element
-        Then the "edit_record" page is displayed
 
         When I visit the "pages_overview" page
         Then there is element "record_title" with text "Changed title"
