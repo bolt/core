@@ -15,10 +15,23 @@ node ./node_modules/protractor/bin/webdriver-manager update --gecko=false
 Usage
 ---
 
-Run tests with:
+Run all tests with:
 ```
 npm run kakunin
 ```
+
+Running only failed tests is not yet implemented. However you can use tags to run only a few of them!
+Just add a tag before scenario, like:
+```
+Feature: Display record
+    @wip
+    Scenario: As a user I want to display a single record
+```
+And then run:
+```
+npm run kakunin -- --tags @wip
+```
+
 
 Writing tests
 ---

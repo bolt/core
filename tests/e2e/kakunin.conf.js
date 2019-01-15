@@ -4,8 +4,8 @@ module.exports = {
     "timeout": 60,
     "intervalEmail": 5,
     "maxEmailRepeats": 5,
-    "elementsVisibilityTimeout": 60,
-    "waitForPageTimeout": 60,
+    "elementsVisibilityTimeout": 10,
+    "waitForPageTimeout": 30,
     "downloadTimeout": 30,
     "emails": [
         "/emails"
@@ -58,7 +58,7 @@ module.exports = {
         "admin": {
             "accounts": [
                 {
-                    "email": "admin",
+                    "username": "admin",
                     "password": "admin%1"
                 }
             ]
