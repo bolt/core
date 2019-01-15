@@ -4,11 +4,28 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Utils;
 
+use Bolt\Utils\Str;
+
 class StrTest extends \PHPUnit\Framework\TestCase
 {
     public function testSlug(): void
     {
-        $slug = \Bolt\Utils\Str::slug('test 1');
+        $slug = Str::slug('test 1');
         $this->assertSame('test-1', $slug);
+
+        $slug = Str::slug('test  2');
+        $this->assertSame('test-2', $slug);
+
+        $slug = Str::slug('test -  - __ ---  3');
+        $this->assertSame('test-3', $slug);
+
+        $slug = Str::slug('This is a title');
+        $this->assertEquals('this-is-a-title', $slug);
+
+        $slug = Str::slug('Hēävy METÄL ümlåü†!!! 🤘');
+        $this->assertEquals('heaevy-metael-uemlaaue', $slug);
+
+        $slug = Str::slug('Крещение Господне: истинная вера и традиции');
+        $this->assertEquals('kreshchenie-gospodne-istinnaya-vera-i-tradicii', $slug);
     }
 }
