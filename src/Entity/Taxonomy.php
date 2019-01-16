@@ -69,14 +69,14 @@ class Taxonomy
     /**
      * @return Taxonomy
      */
-    public static function factory(string $type, string $slug, ?string $name = null, ?int $sortorder = null): self
+    public static function factory(string $type, string $slug, ?string $name = null, int $sortorder = 0): self
     {
         $taxonomy = new self();
 
         $taxonomy->setType($type);
         $taxonomy->setSlug($slug);
         $taxonomy->setName($name ?: $slug);
-        $taxonomy->setSortorder($sortorder ?: 0);
+        $taxonomy->setSortorder($sortorder);
 
         return $taxonomy;
     }
