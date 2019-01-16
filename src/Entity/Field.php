@@ -184,6 +184,8 @@ class Field
     }
 
     /**
+     * like getValue() but returns single value for single value fields
+     *
      * @Groups({"get_content"})
      *
      * @return array|mixed|null

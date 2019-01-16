@@ -101,11 +101,13 @@ trait ContentMagicTrait
 
     private function magic(string $name, array $arguments = [])
     {
-        $magicName = 'magic' . $name;
+        $magicName = 'magic' . ucfirst($name);
 
         if (method_exists($this, $magicName)) {
             return $this->{$magicName}(...$arguments);
         }
+
+        throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', self::class, $name));
     }
 
     public function get(string $name): ?Field
@@ -187,13 +189,7 @@ trait ContentMagicTrait
             $titleParts[] = $this->get($field);
         }
 
-        $title = trim(implode(' ', $titleParts));
-
-        if (empty($title)) {
-            return '(untitled)';
-        }
-
-        return $title;
+        return trim(implode(' ', $titleParts));
     }
 
     public function magicImage(): array

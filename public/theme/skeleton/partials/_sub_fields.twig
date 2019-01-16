@@ -99,7 +99,7 @@
     {% endfor %}
 
     {# We do the same for the templatefields, if set and not empty. #}
-    {% set templatefields = record.values.templatefields.values|default() %}
+    {% set templatefields = record.getValue('templateFields') %}
     {% if templatefields is not empty %}
 
         {# Note: This needs to be expanded upon!! For better detection the 'virtual'

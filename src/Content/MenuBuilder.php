@@ -100,7 +100,7 @@ class MenuBuilder
             'icon' => 'fa-sliders-h',
         ]]);
 
-        $menu['Configuration']->addChild('Users &amp; Permissions', [
+        $menu->getChild('Configuration')->addChild('Users &amp; Permissions', [
             'uri' => $this->urlGenerator->generate('bolt_users'),
             'extras' => [
                 'name' => $t->trans('caption.users_permissions'),
@@ -108,7 +108,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Configuration']->addChild('Main configuration', [
+        $menu->getChild('Configuration')->addChild('Main configuration', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
                 'area' => 'config',
                 'file' => '/bolt/config.yaml',
@@ -119,7 +119,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Configuration']->addChild('ContentTypes', [
+        $menu->getChild('Configuration')->addChild('ContentTypes', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
                 'area' => 'config',
                 'file' => '/bolt/contenttypes.yaml',
@@ -130,7 +130,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Configuration']->addChild('Taxonomies', [
+        $menu->getChild('Configuration')->addChild('Taxonomies', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
                 'area' => 'config',
                 'file' => '/bolt/taxonomy.yaml',
@@ -141,7 +141,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Configuration']->addChild('Menu set up', [
+        $menu->getChild('Configuration')->addChild('Menu set up', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
                 'area' => 'config',
                 'file' => '/bolt/menu.yaml',
@@ -153,7 +153,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Configuration']->addChild('Routing set up', [
+        $menu->getChild('Configuration')->addChild('Routing set up', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
                 'area' => 'config',
                 'file' => '/routes.yaml',
@@ -164,7 +164,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Configuration']->addChild('All configuration files', [
+        $menu->getChild('Configuration')->addChild('All configuration files', [
             'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'config']),
             'extras' => [
                 'name' => $t->trans('caption.all_configuration_files'),
@@ -179,7 +179,7 @@ class MenuBuilder
             'icon' => 'fa-tools',
         ]]);
 
-        $menu['Maintenance']->addChild('Bolt API', [
+        $menu->getChild('Maintenance')->addChild('Bolt API', [
             'uri' => $this->urlGenerator->generate('api_entrypoint'),
             'extras' => [
                 'name' => $t->trans('caption.api'),
@@ -187,7 +187,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Maintenance']->addChild('Check database', [
+        $menu->getChild('Maintenance')->addChild('Check database', [
             'uri' => '',
             'extras' => [
                 'name' => $t->trans('caption.check_database'),
@@ -195,7 +195,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Maintenance']->addChild('Fixtures', [
+        $menu->getChild('Maintenance')->addChild('Fixtures', [
             'uri' => '',
             'extras' => [
                 'name' => $t->trans('caption.fixtures_dummy_content'),
@@ -203,7 +203,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Maintenance']->addChild('Clear the cache', [
+        $menu->getChild('Maintenance')->addChild('Clear the cache', [
             'uri' => $this->urlGenerator->generate('bolt_clear_cache'),
             'extras' => [
                 'name' => $t->trans('caption.clear_cache'),
@@ -211,7 +211,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Maintenance']->addChild('Installation checks', [
+        $menu->getChild('Maintenance')->addChild('Installation checks', [
             'uri' => '',
             'extras' => [
                 'name' => $t->trans('caption.installation_checks'),
@@ -219,7 +219,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Maintenance']->addChild('Translations: Messages', [
+        $menu->getChild('Maintenance')->addChild('Translations: Messages', [
             'uri' => $this->urlGenerator->generate('translation_index'),
             'extras' => [
                 'name' => $t->trans('caption.translations'),
@@ -227,7 +227,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['Maintenance']->addChild('Extensions', [
+        $menu->getChild('Maintenance')->addChild('Extensions', [
             'uri' => '',
             'extras' => [
                 'name' => $t->trans('caption.extensions'),
@@ -242,7 +242,7 @@ class MenuBuilder
             'icon' => 'fa-folder-open',
         ]]);
 
-        $menu['File Management']->addChild('Uploaded files', [
+        $menu->getChild('File Management')->addChild('Uploaded files', [
             'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'files']),
             'extras' => [
                 'name' => $t->trans('caption.uploaded_files'),
@@ -250,7 +250,7 @@ class MenuBuilder
             ],
         ]);
 
-        $menu['File Management']->addChild('View/edit Templates', [
+        $menu->getChild('File Management')->addChild('View/edit Templates', [
             'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'themes']),
             'extras' => [
                 'name' => $t->trans('caption.view_edit_templates'),

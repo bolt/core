@@ -312,6 +312,12 @@ class Content implements ObjectManagerAware
         return $fieldValues;
     }
 
+    public function getValue(string $fieldName): ?array
+    {
+        $field = $this->getField($fieldName);
+        return $field ? $field->getValue() : null;
+    }
+
     /**
      * @Groups("get_content")
      */
@@ -407,5 +413,11 @@ class Content implements ObjectManagerAware
         }
 
         return $this;
+    }
+
+    public function related(): array
+    {
+        // @todo See Github issue https://github.com/bolt/four/issues/163
+        return [];
     }
 }
