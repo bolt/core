@@ -17,6 +17,7 @@ trait ContentMagicTrait
 {
     /**
      * Set the "Magic properties for automagic population in the API.
+     *
      * @todo to be removed with proper API implementation
      */
 
@@ -24,7 +25,7 @@ trait ContentMagicTrait
      * @Groups("get_content")
      */
     public $magicTitle;
-    
+
     /**
      * @Groups("get_content")
      */

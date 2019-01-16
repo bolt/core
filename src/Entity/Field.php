@@ -185,6 +185,7 @@ class Field
 
     /**
      * @Groups({"get_content"})
+     *
      * @return array|mixed|null
      */
     public function getFieldValue()

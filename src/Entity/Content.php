@@ -315,9 +315,9 @@ class Content implements ObjectManagerAware
     /**
      * @Groups("get_content")
      */
-    public function getAuthorName(): ?string
+    public function getAuthorName(): string
     {
-        return $this->getAuthor() ? $this->getAuthor()->getDisplayName() : null;
+        return $this->getAuthor()->getDisplayName();
     }
 
     public function hasField(string $name): bool
