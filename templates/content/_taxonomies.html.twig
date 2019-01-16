@@ -7,35 +7,24 @@
             {% set options = taxonomyoptions(definition) %}
             {% set value = taxonomyvalues(record.taxonomies, definition) %}
 
-            {% if definition.behaves_like == 'grouping' %}
-                {% set multiple = 'false' %}
-                {% set taggable = 'false' %}
-            {% elseif definition.behaves_like == 'categories' %}
-                {% set multiple = definition.multiple ? 'true' : 'false' %}
-                {% set taggable = 'false' %}
-            {% else %} {# so, 'tags' #}
-                {% set multiple = 'true' %}
-                {% set taggable = 'true' %}
-            {% endif %}
+            <div class="form-group editor--group is-normal">
+                <label for="field-title">
+                    {{ definition.name }}:
+                </label>
+                <div>
+                    <editor-select
+                            :value="{{ value|json_encode() }}"
+                            :name="'taxonomy[{{ definition.slug }}]'"
+                            :id="'taxonomy-{{ definition.slug }}'"
+                            :options="{{ options|json_encode() }}"
+                            :multiple="{{ definition.multiple ? 'true' : 'false' }}"
+                            :taggable="{{ (definition.behaves_like == 'tags') ? 'true' : 'false' }}"
+                    ></editor-select>
 
-    <div class="form-group editor--group is-normal">
-        <label for="field-title">
-            {{ definition.name }}:
-        </label>
-        <div>
-            <editor-select
-                    :value="{{ value|json_encode() }}"
-                    :name="'taxonomy[{{ definition.slug }}]'"
-                    :id="'taxonomy-{{ definition.slug }}'"
-                    :options="{{ options|json_encode() }}"
-                    :multiple="{{ multiple }}"
-                    :taggable="{{ taggable }}"
-            ></editor-select>
+                    {# (Current saved value: <code>{{ value|json_encode() }}</code> ) #}
+                </div>
 
-            (Current saved value: <code>{{ value|json_encode() }}</code> )
-        </div>
-
-    </div>
+            </div>
 
         {% endif %}
 

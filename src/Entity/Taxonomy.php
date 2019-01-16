@@ -69,13 +69,14 @@ class Taxonomy
     /**
      * @return Taxonomy
      */
-    public static function factory(string $type, string $slug, ?string $name = null): self
+    public static function factory(string $type, string $slug, ?string $name = null, int $sortorder = 0): self
     {
         $taxonomy = new self();
 
         $taxonomy->setType($type);
         $taxonomy->setSlug($slug);
-        $taxonomy->setName($name ?: Str::humanize($slug));
+        $taxonomy->setName($name ?: $slug);
+        $taxonomy->setSortorder($sortorder);
 
         return $taxonomy;
     }
@@ -130,7 +131,7 @@ class Taxonomy
 
     public function setSlug(string $slug): self
     {
-        $this->slug = $slug;
+        $this->slug = Str::slug($slug);
 
         return $this;
     }

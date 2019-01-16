@@ -156,14 +156,6 @@ class ContentHelperExtension extends AbstractExtension
             $options[] = [
                 'key' => $key,
                 'value' => $value,
-                'selected' => false, // TODO: determine if we need this.
-            ];
-        }
-
-        if ($taxonomy['allow_empty']) {
-            $options[] = [
-                'key' => '',
-                'value' => '(none selected)',
             ];
         }
 

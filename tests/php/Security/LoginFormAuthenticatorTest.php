@@ -17,9 +17,12 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class LoginFormAuthenticatorTest extends TestCase
 {
-    const TEST_TOKEN = ['csrf_token' => null, 'username' => null];
+    public const TEST_TOKEN = [
+        'csrf_token' => null,
+        'username' => null,
+    ];
 
-    function test_get_login_url()
+    public function testGetLoginUrl(): void
     {
         $router = $this->createMock(RouterInterface::class);
         $router->expects($this->once())
@@ -28,37 +31,37 @@ class LoginFormAuthenticatorTest extends TestCase
             ->willReturn('test_route');
 
         $res = $this->getTestObj(null, $router, null, null)->start($this->createMock(Request::class));
-        $this->assertEquals('test_route', $res->getTargetUrl());
+        $this->assertSame('test_route', $res->getTargetUrl());
     }
 
-    function test_get_user()
+    public function testGetUser(): void
     {
         $userRepository = $this->createConfiguredMock(UserRepository::class, [
-            'findOneBy' => $this->createMock(User::class)
+            'findOneBy' => $this->createMock(User::class),
         ]);
         $csrfTokenManager = $this->createConfiguredMock(CsrfTokenManagerInterface::class, [
-            'isTokenValid' => true
+            'isTokenValid' => true,
         ]);
 
         $res = $this->getTestObj($userRepository, null, $csrfTokenManager, null)->getUser(self::TEST_TOKEN, $this->createMock(UserProviderInterface::class));
         $this->assertInstanceOf(User::class, $res);
     }
 
-    function test_get_user_throws()
+    public function testGetUserThrows(): void
     {
         $csrfTokenManager = $this->createConfiguredMock(CsrfTokenManagerInterface::class, [
-            'isTokenValid' => false
+            'isTokenValid' => false,
         ]);
 
         $this->expectException(InvalidCsrfTokenException::class);
         $this->getTestObj(null, null, $csrfTokenManager, null)->getUser(self::TEST_TOKEN, $this->createMock(UserProviderInterface::class));
     }
-    
+
     private function getTestObj(?UserRepository $userRepository, ?RouterInterface $router, ?CsrfTokenManagerInterface $csrfTokenManager, ?UserPasswordEncoderInterface $userPasswordEncoder): LoginFormAuthenticator
     {
         return new LoginFormAuthenticator(
             $userRepository ?? $this->createMock(UserRepository::class),
-            $router ?? $this->createMock(RouterInterface::class), 
+            $router ?? $this->createMock(RouterInterface::class),
             $csrfTokenManager ?? $this->createMock(CsrfTokenManagerInterface::class),
             $userPasswordEncoder ?? $this->createMock(UserPasswordEncoderInterface::class)
         );

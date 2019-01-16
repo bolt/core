@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Bolt\Security;
 
 use Bolt\Entity\User;
@@ -20,28 +22,31 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class LoginFormAuthenticatorSpec extends ObjectBehavior
 {
-    const TEST_TOKEN = ['csrf_token' => null, 'username' => null];
+    public const TEST_TOKEN = [
+        'csrf_token' => null,
+        'username' => null,
+    ];
 
-    function let(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $userPasswordEncoder)
+    public function let(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $userPasswordEncoder): void
     {
         $this->beConstructedWith($userRepository, $router, $csrfTokenManager, $userPasswordEncoder);
     }
 
-    function it_gets_login_url(RouterInterface $router, Request $request)
+    public function it_gets_login_url(RouterInterface $router, Request $request): void
     {
         $router->generate(Argument::type('string'))->shouldBeCalledOnce()->willReturn('test_route');
         $res = $this->start($request);
         $res->getTargetUrl()->shouldBe('test_route');
     }
 
-    function it_gets_user(CsrfTokenManagerInterface $csrfTokenManager, UserProviderInterface $userProvider, UserRepository $userRepository, User $user)
+    public function it_gets_user(CsrfTokenManagerInterface $csrfTokenManager, UserProviderInterface $userProvider, UserRepository $userRepository, User $user): void
     {
         $userRepository->findOneBy(['username' => null])->shouldBeCalledOnce()->wilLReturn($user);
         $csrfTokenManager->isTokenValid(Argument::type(CsrfToken::class))->willReturn(true);
-        $this->getUser(self::TEST_TOKEN , $userProvider)->shouldBeAnInstanceOf(User::class);
+        $this->getUser(self::TEST_TOKEN, $userProvider)->shouldBeAnInstanceOf(User::class);
     }
 
-    function it_throws_while_getting_user(CsrfTokenManagerInterface $csrfTokenManager, UserProviderInterface $userProvider)
+    public function it_throws_while_getting_user(CsrfTokenManagerInterface $csrfTokenManager, UserProviderInterface $userProvider): void
     {
         $csrfTokenManager->isTokenValid(Argument::any())->willReturn(false);
 
@@ -49,7 +54,7 @@ class LoginFormAuthenticatorSpec extends ObjectBehavior
             'getUser',
             [
                 self::TEST_TOKEN,
-                $userProvider
+                $userProvider,
             ]
         );
     }
