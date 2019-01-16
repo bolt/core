@@ -8,7 +8,7 @@ use Bolt\Entity\Taxonomy;
 
 class TaxonomyTest extends \PHPUnit\Framework\TestCase
 {
-    public function testFactory1(): void
+    public function testFactory(): void
     {
         $taxonomy = Taxonomy::factory('foo', 'bar', 'Bar');
 
@@ -17,7 +17,7 @@ class TaxonomyTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('Bar', $taxonomy->getName());
     }
 
-    public function testFactory2(): void
+    public function testFactoryWithSortOrder(): void
     {
         $taxonomy = Taxonomy::factory('foo', 'Bår', 'Pømpidöm', 1000);
 
@@ -27,7 +27,7 @@ class TaxonomyTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(1000, $taxonomy->getSortorder());
     }
 
-    public function testFactory3(): void
+    public function testFactoryWithMinimalParameters(): void
     {
         $taxonomy = Taxonomy::factory('foo', 'Døøp');
 
