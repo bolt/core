@@ -131,9 +131,9 @@ Testing
 ---
 
 Bolt uses several testing frameworks for [different test layers](https://martinfowler.com/articles/practical-test-pyramid.html):
-- unit: PHPUnit, PHPSpec, Jest
-- functional: PHPUnit with WebTestCase (not yet configured)
-- integration (API endpoints): Behat (not yet configured)
+- unit: PHPSpec, PHPUnit, Jest
+- integration (of Symfony services): PHPUnit with KernelTestCase
+- functional (API Contracts): Behat
 - acceptance (UI, end-to-end): Kakunin
 
 To run PHP unit tests:

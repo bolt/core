@@ -10,18 +10,40 @@ use Bolt\Repository\ContentRepository;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Twig_Markup;
 
 trait ContentMagicTrait
 {
     /**
      * Set the "Magic properties for automagic population in the API.
+     * @todo to be removed with proper API implementation
      */
-    public $magictitle;
-    public $magicexcerpt;
-    public $magicimage;
-    public $magiclink;
-    public $magiceditlink;
+
+    /**
+     * @Groups("get_content")
+     */
+    public $magicTitle;
+    
+    /**
+     * @Groups("get_content")
+     */
+    public $magicExcerpt;
+
+    /**
+     * @Groups("get_content")
+     */
+    public $magicImage;
+
+    /**
+     * @Groups("get_content")
+     */
+    public $magicLink;
+
+    /**
+     * @Groups("get_content")
+     */
+    public $magicEditLink;
 
     /** @var ContentRepository */
     private $repository;

@@ -54,11 +54,19 @@
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
+        "behat/behat": "^3.5",
+        "behat/mink": "dev-master@dev",
+        "behat/mink-extension": "^2.3",
+        "behat/mink-goutte-driver": "^1.2",
+        "behatch/contexts": "^3.2",
+        "coduo/php-matcher": "dev-feature/array-universal-key@dev",
         "dama/doctrine-test-bundle": "^5.0",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "lakion/mink-debug-extension": "^1.2",
         "phpspec/phpspec": "^5.1",
         "phpstan/phpstan": "^0.10.3",
         "phpunit/phpunit": "^7.0",
+        "roave/security-advisories": "dev-master@dev",
         "symfony/browser-kit": "^4.2",
         "symfony/css-selector": "^4.2",
         "symfony/debug-bundle": "^4.2",
@@ -69,6 +77,9 @@
         "symfony/web-server-bundle": "^4.2",
         "symplify/easy-coding-standard": "^5.2"
     },
+    "repositories": [
+        { "type": "vcs", "url": "https://github.com/jarjak/php-matcher" }
+    ],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "config": {
@@ -88,6 +99,7 @@
     "autoload-dev": {
         "psr-4": {
             "Bolt\\Tests\\": "tests/php/",
+            "Context\\": "tests/api/bootstrap/",
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },

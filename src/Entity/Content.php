@@ -19,7 +19,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"public"}, "enable_max_depth"=true},
+ *     normalizationContext={"groups"={"get_content"}, "enable_max_depth"=true},
  *     denormalizationContext={"groups"={"put"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get",
@@ -35,8 +35,8 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  */
 class Content implements ObjectManagerAware
 {
-    use ContentMagicTrait;
     use ContentLocalizeTrait;
+    use ContentMagicTrait;
 
     public const NUM_ITEMS = 8; // @todo This can't be a const
 
@@ -46,7 +46,7 @@ class Content implements ObjectManagerAware
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("public")
+     * @Groups("get_content")
      */
     private $id;
 
@@ -54,7 +54,7 @@ class Content implements ObjectManagerAware
      * @var string
      *
      * @ORM\Column(type="string", length=191, name="contenttype")
-     * @Groups("public")
+     * @Groups("get_content")
      */
     private $contentType;
 
@@ -63,7 +63,7 @@ class Content implements ObjectManagerAware
      *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("public")
+     * @Groups("put")
      */
     private $author;
 
@@ -71,7 +71,7 @@ class Content implements ObjectManagerAware
      * @var ?string
      *
      * @ORM\Column(type="string", length=191)
-     * @Groups({"public", "put"})
+     * @Groups("put")
      */
     private $status = null;
 
@@ -79,7 +79,6 @@ class Content implements ObjectManagerAware
      * @var \DateTimeInterface
      *
      * @ORM\Column(type="datetime", nullable=false)
-     * @Groups("public")
      */
     private $createdAt;
 
@@ -87,7 +86,7 @@ class Content implements ObjectManagerAware
      * @var ?\DateTimeInterface
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"public", "put"})
+     * @Groups("put")
      */
     private $modifiedAt = null;
 
@@ -95,7 +94,7 @@ class Content implements ObjectManagerAware
      * @var ?\DateTimeInterface
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"public", "put"})
+     * @Groups({"get_content", "put"})
      */
     private $publishedAt = null;
 
@@ -103,14 +102,14 @@ class Content implements ObjectManagerAware
      * @var ?\DateTimeInterface
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"public", "put"})
+     * @Groups("put")
      */
     private $depublishedAt = null;
 
     /**
      * @var Collection|Field[]
      *
-     * @Groups({"public", "put"})
+     * @Groups({"put"})
      * @MaxDepth(1)
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
@@ -127,6 +126,8 @@ class Content implements ObjectManagerAware
 
     /**
      * @var Collection|Taxonomy[]
+     * @Groups({"get_content", "put"})
+     * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
      * @ORM\JoinTable(name="bolt_taxonomy_content")
@@ -296,6 +297,27 @@ class Content implements ObjectManagerAware
     public function getFields(): Collection
     {
         return $this->fields;
+    }
+
+    /**
+     * @Groups("get_content")
+     */
+    public function getFieldValues(): array
+    {
+        $fieldValues = [];
+        foreach ($this->getFields() as $field) {
+            $fieldValues[$field->getName()] = $field->getFieldValue();
+        }
+
+        return $fieldValues;
+    }
+
+    /**
+     * @Groups("get_content")
+     */
+    public function getAuthorName(): ?string
+    {
+        return $this->getAuthor() ? $this->getAuthor()->getDisplayName() : null;
     }
 
     public function hasField(string $name): bool

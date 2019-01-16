@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"public"}},
+ *     normalizationContext={"groups"={"get_content", "public"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
@@ -33,25 +33,24 @@ class Taxonomy
     /**
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies")
      * @ORM\JoinTable(name="bolt_taxonomy_content")
-     * @Groups("public")
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("public")
+     * @Groups({"get_content", "public"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("public")
+     * @Groups({"get_content", "public"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("public")
+     * @Groups({"get_content", "public"})
      */
     private $name;
 

@@ -18,7 +18,9 @@ frontend:
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a LOWER priority than the default routes.
 
-
+api_entrypoint:
+  path: /bolt/api # moved to admin area firewall
+  controller: api_platform.swagger.action.ui
 
 # ------------------------------------------------------------------------------
 # These are the routes defining the Bolt Control Panel ("backend"). It's common

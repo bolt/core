@@ -10,6 +10,7 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
@@ -42,6 +43,9 @@ class DetailController extends BaseController
         } else {
             /* @todo this should search only by slug or any other unique field */
             $field = $fieldRepository->findOneBySlug($slugOrId);
+            if ($field === null) {
+                throw new NotFoundHttpException('Content does not exist.');
+            }
             $record = $field->getContent();
         }
 
@@ -51,6 +55,9 @@ class DetailController extends BaseController
             'record' => $record,
             $recordSlug => $record,
         ];
+
+        dump($record);
+        dump($record->getFieldValues());
 
         $templates = $this->templateChooser->record($record);
 
