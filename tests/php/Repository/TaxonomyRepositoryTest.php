@@ -48,7 +48,7 @@ class TaxonomyRepositoryTest extends KernelTestCase
             ->getRepository(Taxonomy::class)
             ->findBy(['name' => 'Movies']);
 
-        $this->assertCount(2, $taxonomies);
+        $this->assertCount(1, $taxonomies);
     }
 
     public function testPersistEntity(): void
