@@ -7,6 +7,11 @@ namespace Bolt\Tests\Repository;
 use Bolt\Entity\Taxonomy;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * Class TaxonomyRepositoryTest
+ *
+ * @todo Add represenative tests here, when methods are implemented in TaxonomyRepository
+ */
 class TaxonomyRepositoryTest extends KernelTestCase
 {
     /** @var \Doctrine\ORM\EntityManager */
