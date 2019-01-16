@@ -78,7 +78,7 @@
         "symplify/easy-coding-standard": "^5.2"
     },
     "repositories": [
-        { "type": "vcs", "url": "https://github.com/jarjak/php-matcher" }
+        { "type": "vcs", "url": "https://github.com/jarjak/php-matcher", "no-api": true }
     ],
     "minimum-stability": "stable",
     "prefer-stable": true,
