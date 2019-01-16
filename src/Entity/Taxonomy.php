@@ -143,10 +143,6 @@ class Taxonomy
 
     public function setName(string $name): self
     {
-        if ($name === mb_strtolower($name)) {
-            $name = Str::humanize($name);
-        }
-
         $this->name = $name;
 
         return $this;

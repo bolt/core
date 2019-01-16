@@ -27,6 +27,16 @@ class TaxonomyTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(1000, $taxonomy->getSortorder());
     }
 
+    public function testFactory3(): void
+    {
+        $taxonomy = Taxonomy::factory('foo', 'Døøp');
+
+        $this->assertSame('foo', $taxonomy->getType());
+        $this->assertSame('doeoep', $taxonomy->getSlug());
+        $this->assertSame('Døøp', $taxonomy->getName());
+        $this->assertSame(0, $taxonomy->getSortorder());
+    }
+
     public function testSetSlug(): void
     {
         $taxonomy = Taxonomy::factory('foo', 'bar', 'baz');
@@ -46,7 +56,7 @@ class TaxonomyTest extends \PHPUnit\Framework\TestCase
 
         $taxonomy->setName('bar');
 
-        $this->assertSame('Bar', $taxonomy->getName());
+        $this->assertSame('bar', $taxonomy->getName());
     }
 
     public function testSetSortorder(): void
