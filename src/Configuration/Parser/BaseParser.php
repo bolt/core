@@ -21,6 +21,9 @@ class BaseParser
     /** @var PathResolver */
     protected $pathResolver;
 
+    /** @var array */
+    protected $filenames = [];
+
     public function __construct($accept_file_types = [])
     {
         $this->accept_file_types = $accept_file_types;
@@ -44,9 +47,16 @@ class BaseParser
 
         $yaml = Yaml::parseFile($filename);
 
+        $this->filenames[] = $filename;
+
         // Unset the repeated nodes key after parse
         unset($yaml['__nodes']);
 
         return collect($yaml);
+    }
+
+    public function getFilenames(): array
+    {
+        return $this->filenames;
     }
 }
