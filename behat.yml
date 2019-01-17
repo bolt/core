@@ -1,0 +1,38 @@
+default:
+
+  gherkin:
+    filters:
+      tags: ~@wip
+
+  autoload:
+    - "%paths.base%/tests/api/bootstrap"
+
+  formatters:
+    pretty:
+      output_styles:
+        comment: [ white, black ]
+  calls:
+    error_reporting: 16383 # E_ALL & ~E_USER_DREPRECATED
+
+  extensions:
+    Lakion\Behat\MinkDebugExtension:
+      directory: var/log/behat-reports
+      screenshot: false
+
+    Behat\MinkExtension:
+      base_url: 'http://127.0.0.1:8088/'
+      goutte: ~
+      sessions:
+        default:
+          goutte: ~
+
+    Behatch\Extension: ~
+
+  suites:
+    default:
+      filters:
+        tags: "~@wip"
+      contexts:
+        - Behatch\Context\JsonContext
+        - Context\FeatureContext
+      paths: [ "%paths.base%/tests/api" ]

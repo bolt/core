@@ -63,16 +63,17 @@ class TwigRecordsView
         return $records;
     }
 
-    protected function processSingleRecord($record): void
+    protected function processSingleRecord(Content $record): void
     {
-        $values = $record->getValues();
-        if (is_array($values)) {
-            foreach ($values as $field => $value) {
-                /* Get type of a field based on $record->getContentType() and $field */
-                $type = [];
-                $boltType = '';
-                $record->set($field, $this->transform($value, $boltType, $type));
-            }
+        $values = $record->getFields();
+        foreach ($values as $field) {
+            $field->setValue(
+                (array) $this->transform(
+                    $field->getFieldValue(),
+                    $field->getType(),
+                    $field->getValue()
+                )
+            );
         }
     }
 

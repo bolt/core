@@ -41,6 +41,14 @@ test:
 	vendor/bin/phpunit
 	vendor/bin/phpspec run
 
+behat:
+	make server
+	vendor/bin/behat -v
+
+behat-rerun:
+	make server
+	vendor/bin/behat -v --rerun
+
 e2e:
 	make server
 	cd tests/e2e && npm run kakunin && cd ../..
@@ -108,3 +116,9 @@ docker-npm-fix-env:
 docker-test:
 	docker-compose exec -T php sh -c "vendor/bin/phpunit"
 	docker-compose exec -T php sh -c "vendor/bin/phpspec run"
+
+docker-behat:
+	docker-compose exec -T php vendor/bin/behat -v
+
+docker-behat-rerun:
+	docker-compose exec -T php vendor/bin/behat -v --rerun

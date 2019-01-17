@@ -104,4 +104,5 @@ parameters:
         - 'PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer'
         - 'PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer'
         - 'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff'
-        - 'Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff' #to be removed after beta release
+        - 'Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff' #to be removed before beta release
+        - 'Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff' #to be removed before beta release

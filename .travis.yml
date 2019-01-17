@@ -63,5 +63,7 @@ script:
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
   # run jest unit tests
   - npm test
+  # run API tests
+  - ./vendor/bin/behat
   # run e2e tests with Kakunin
   - cd tests/e2e && npm run kakunin && cd ../..

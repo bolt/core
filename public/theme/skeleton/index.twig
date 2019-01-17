@@ -4,7 +4,7 @@
 
     {% if record is defined %}
 
-        <h1>{{ record.title }}</h1>
+        <h1><a href="{{ record.link }}">{{ record.title }}</a></h1>
 
         {# Remove this block if you don't need it anymore. #}
         {{ include('partials/_fresh_install.twig') }}
