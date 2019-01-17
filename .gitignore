@@ -38,6 +38,7 @@ appveyor.yml
 !/var/log/.gitkeep
 !/var/log/e2e-reports/performance/.gitkeep
 !/var/log/e2e-reports/report/.gitkeep
+!/var/log/behat-reports/.gitkeep
 /var/data/*
 !/var/data/.gitkeep
 /var/sessions/*

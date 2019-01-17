@@ -41,12 +41,20 @@ test:
 	vendor/bin/phpunit
 	vendor/bin/phpspec run
 
+behat:
+	make server
+	vendor/bin/behat -v
+
+behat-rerun:
+	make server
+	vendor/bin/behat -v --rerun
+
 e2e:
 	make server
 	cd tests/e2e && npm run kakunin && cd ../..
 
 db-create:
-	bin/console doctrine:database:create --if-not-exists
+	bin/console doctrine:database:create
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n
 
@@ -102,3 +110,9 @@ docker-db-reset:
 
 docker-npm-fix-env:
 	docker-compose run node sh -c "npm rebuild node-sass"
+
+docker-behat:
+	docker-compose exec -T php vendor/bin/behat -v
+
+docker-behat-rerun:
+	docker-compose exec -T php vendor/bin/behat -v --rerun

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"public"}},
+ *     normalizationContext={"groups"={"get_content", "get_user"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get", "put"}
  * )
@@ -27,7 +27,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("public")
+     * @Groups("get_user")
      */
     private $id;
 
@@ -36,7 +36,7 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
-     * @Groups("public")
+     * @Groups({"get_content", "get_user"})
      */
     private $displayName;
 
@@ -46,7 +46,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", unique=true, length=190)
      * @Assert\NotBlank()
      * @Assert\Length(min=2, max=50)
-     * @Groups("public")
+     * @Groups("get_user")
      */
     private $username;
 
@@ -55,6 +55,7 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string", unique=true, length=190)
      * @Assert\Email()
+     * @Groups("get_user")
      */
     private $email;
 
@@ -69,24 +70,24 @@ class User implements UserInterface, \Serializable
      * @var array
      *
      * @ORM\Column(type="json")
-     * @Groups("public")
+     * @Groups("get_user")
      */
     private $roles = [];
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("public")
+     * @Groups("get_user")
      */
     private $lastseenAt;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Groups("public")
      */
     private $lastIp;
 
     /**
      * @ORM\Column(type="string", length=191, nullable=true)
+     * @Groups("get_user")
      */
     private $locale;
 

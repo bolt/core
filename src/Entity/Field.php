@@ -11,8 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"public"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"public"}},
+ *     normalizationContext={"groups"={"get_content"}, "enable_max_depth"=true},
+ *     denormalizationContext={"groups"={"put"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get",
  *         "put"={
@@ -56,13 +56,13 @@ class Field
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"public", "put"})
+     * @Groups({"put"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("public")
+     * @Groups("get_content")
      */
     public $name;
 
@@ -181,6 +181,23 @@ class Field
     public function getValue(): ?array
     {
         return $this->value;
+    }
+
+    /**
+     * like getValue() but returns single value for single value fields
+     *
+     * @Groups({"get_content"})
+     *
+     * @return array|mixed|null
+     */
+    public function getFieldValue()
+    {
+        $value = $this->getValue();
+        if (is_iterable($value) && count($value) < 2) {
+            return reset($value);
+        }
+
+        return $value;
     }
 
     public function setValue(array $value): self
