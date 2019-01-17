@@ -34,9 +34,11 @@ class Config
     {
         $this->stopwatch = $stopwatch;
         $this->cache = new FilesystemCache();
-        $this->pathResolver = new PathResolver($projectDir, []);
         $this->projectDir = $projectDir;
         $this->data = $this->getConfig();
+
+        // @todo PathResolver shouldn't be part of Config. Refactor to separate class
+        $this->pathResolver = new PathResolver($projectDir, []);
     }
 
     private function getConfig(): Collection
