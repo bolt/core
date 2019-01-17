@@ -27,11 +27,15 @@ class Config
     /** @var FilesystemCache */
     private $cache;
 
-    public function __construct(Stopwatch $stopwatch)
+    /** @var string */
+    private $projectDir;
+
+    public function __construct(Stopwatch $stopwatch, $projectDir)
     {
         $this->stopwatch = $stopwatch;
         $this->cache = new FilesystemCache();
-        $this->pathResolver = new PathResolver(dirname(dirname(__DIR__)), []);
+        $this->pathResolver = new PathResolver($projectDir, []);
+        $this->projectDir = $projectDir;
         $this->data = $this->getConfig();
     }
 
@@ -116,7 +120,7 @@ class Config
             }
         }
 
-        $envFilename = dirname(dirname(__DIR__)) . '/.env';
+        $envFilename = $this->projectDir . '/.env';
         if (file_exists($envFilename)) {
             $timestamps[$envFilename] = filemtime($envFilename);
         }
