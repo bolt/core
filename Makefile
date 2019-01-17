@@ -46,7 +46,7 @@ e2e:
 	cd tests/e2e && npm run kakunin && cd ../..
 
 db-create:
-	bin/console doctrine:database:create --if-not-exists
+	bin/console doctrine:database:create
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n
 
@@ -61,10 +61,12 @@ docker-start:
 	make docker-db-create
 
 docker-install:
+	cp -n .env.dist .env
 	docker-compose up -d
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
 	docker-compose run node sh -c "npm run build"
+	make docker-db-create
 
 docker-update:
 	docker-compose exec -T php sh -c "composer update"
@@ -102,3 +104,7 @@ docker-db-reset:
 
 docker-npm-fix-env:
 	docker-compose run node sh -c "npm rebuild node-sass"
+
+docker-test:
+	docker-compose exec -T php sh -c "vendor/bin/phpunit"
+	docker-compose exec -T php sh -c "vendor/bin/phpspec run"

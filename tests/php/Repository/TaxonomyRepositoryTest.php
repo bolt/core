@@ -42,7 +42,7 @@ class TaxonomyRepositoryTest extends KernelTestCase
     {
         $taxonomies = $this->entityManager
             ->getRepository(Taxonomy::class)
-            ->findBy(['slug' => 'zombies']);
+            ->findBy(['slug' => 'events']);
 
         $this->assertCount(1, $taxonomies);
     }
