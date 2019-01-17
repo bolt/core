@@ -9,7 +9,7 @@ use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
-use Symfony\Component\Cache\Simple\FilesystemCache;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Tightenco\Collect\Support\Collection;
 
@@ -24,16 +24,16 @@ class Config
     /** @var Stopwatch */
     private $stopwatch;
 
-    /** @var FilesystemCache */
+    /** @var CacheInterface */
     private $cache;
 
     /** @var string */
     private $projectDir;
 
-    public function __construct(Stopwatch $stopwatch, $projectDir)
+    public function __construct(Stopwatch $stopwatch, $projectDir, CacheInterface $cache)
     {
         $this->stopwatch = $stopwatch;
-        $this->cache = new FilesystemCache();
+        $this->cache = $cache;
         $this->projectDir = $projectDir;
         $this->data = $this->getConfig();
 
