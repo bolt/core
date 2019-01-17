@@ -30,8 +30,9 @@ class Config
     /** @var string */
     private $projectDir;
 
-    public function __construct(Stopwatch $stopwatch, $projectDir, CacheInterface $cache)
+    public function __construct(Stopwatch $stopwatch, string $projectDir, CacheInterface $cache)
     {
+        // @todo move stopwatch to decorator or remove it completely
         $this->stopwatch = $stopwatch;
         $this->cache = $cache;
         $this->projectDir = $projectDir;
@@ -156,6 +157,7 @@ class Config
 
     public function getMediaTypes(): Collection
     {
+        // @todo what is this for?
         return collect(['png', 'jpg', 'jpeg', 'gif', 'svg', 'pdf', 'mp3', 'tiff']);
     }
 }
