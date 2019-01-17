@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Configuration;
 
 use Bolt\Common\Arr;
+use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
@@ -26,9 +27,6 @@ class Config
     /** @var FilesystemCache */
     private $cache;
 
-    /** @var array */
-    private $timestamps = [];
-
     public function __construct(Stopwatch $stopwatch)
     {
         $this->stopwatch = $stopwatch;
@@ -45,7 +43,7 @@ class Config
             $data = $this->getCache();
         } else {
             $data = $this->parseConfig();
-            $this->setCache();
+            $this->setCache($data);
         }
 
         $this->stopwatch->stop('bolt.parseconfig');
@@ -75,10 +73,9 @@ class Config
         return $this->cache->get('config_cache');
     }
 
-    private function setCache(): void
+    private function setCache($data): void
     {
-        $this->cache->set('config_cache', $this->data);
-        $this->cache->set('config_timestamps', $this->timestamps);
+        $this->cache->set('config_cache', $data);
     }
 
     /**
@@ -92,38 +89,39 @@ class Config
             'general' => $general->parse(),
         ]);
 
-        $this->data = $config;
-
         $taxonomy = new TaxonomyParser();
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contentTypes = new ContentTypesParser($this->get('general')['accept_file_types']);
+        $contentTypes = new ContentTypesParser($config->get('general')['accept_file_types']);
         $config['contenttypes'] = $contentTypes->parse();
 
+        // @todo Add these config files if needed, or refactor them out otherwise
         //'menu' => $this->parseConfigYaml('menu.yml'),
         //'routing' => $this->parseConfigYaml('routing.yml'),
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
 
-        $this->setTimestamps($general, $taxonomy, $contentTypes);
+        $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes);
 
         return $config;
     }
 
-    private function setTimestamps(...$configs): void
+    private function getConfigFilesTimestamps(BaseParser ...$configs): void
     {
-        $this->timestamps = [];
+        $timestamps = [];
 
         foreach ($configs as $config) {
             foreach ($config->getFilenames() as $file) {
-                $this->timestamps[$file] = filemtime($file);
+                $timestamps[$file] = filemtime($file);
             }
         }
 
         $envFilename = dirname(dirname(__DIR__)) . '/.env';
         if (file_exists($envFilename)) {
-            $this->timestamps[$envFilename] = filemtime($envFilename);
+            $timestamps[$envFilename] = filemtime($envFilename);
         }
+
+        $this->cache->set('config_timestamps', $timestamps);
     }
 
     /**
