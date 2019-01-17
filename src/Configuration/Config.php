@@ -48,8 +48,8 @@ class Config
         if ($this->validCache()) {
             $data = $this->getCache();
         } else {
-            $data = $this->parseConfig();
-            $this->setCache($data);
+            [$data, $timestamps] = $this->parseConfig();
+            $this->setCache($data, $timestamps);
         }
 
         $this->stopwatch->stop('bolt.parseconfig');
@@ -79,15 +79,16 @@ class Config
         return $this->cache->get('config_cache');
     }
 
-    private function setCache($data): void
+    private function setCache(Collection $data, array $timestamps): void
     {
         $this->cache->set('config_cache', $data);
+        $this->cache->set('config_timestamps', $timestamps);
     }
 
     /**
      * Load the configuration from the various YML files.
      */
-    private function parseConfig(): Collection
+    private function parseConfig(): array
     {
         $general = new GeneralParser();
 
@@ -107,12 +108,12 @@ class Config
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
 
-        $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes);
+        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes);
 
-        return $config;
+        return [$config, $timestamps];
     }
 
-    private function getConfigFilesTimestamps(BaseParser ...$configs): void
+    private function getConfigFilesTimestamps(BaseParser ...$configs): array
     {
         $timestamps = [];
 
@@ -127,7 +128,7 @@ class Config
             $timestamps[$envFilename] = filemtime($envFilename);
         }
 
-        $this->cache->set('config_timestamps', $timestamps);
+        return $timestamps;
     }
 
     /**
