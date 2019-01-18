@@ -6,8 +6,8 @@ class EditRecordPage extends BasePage {
 
     this.url = '/bolt/edit/:id';
 
-    this.title_field = element(by.id('field-title'));
-    this.save_button = element(by.css('button[type="submit"]'));
+    this.title_field = $('#field-title');
+    this.save_button = $('button[type="submit"]');
   }
 }
 
