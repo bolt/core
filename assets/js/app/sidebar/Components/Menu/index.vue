@@ -43,7 +43,7 @@ export default {
   methods: {
     singleton(item){
       if(item.submenu !== null){
-        return item.submenu[0].editlink
+        return item.submenu[0].editLink
       } else{
         return item.link_new
       }
