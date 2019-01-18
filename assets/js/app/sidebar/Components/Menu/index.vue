@@ -16,11 +16,11 @@
       </a>
       <a 
         :href="item.link" class="admin__sidebar--link" 
-        :class="{ 'has-menu': item.submenu !== null || item.contenttype !== null }" 
+        :class="{ 'has-menu': item.submenu !== null || item.contentType !== null }"
         v-else
       >
         <i class="fas mr-2 link--icon" :class="item.icon"></i><span class="link--text">{{item.name}}</span>
-        <template v-if="item.submenu !== null || item.contenttype !== null">
+        <template v-if="item.submenu !== null || item.contentType !== null">
           <i class="fas fa-caret-right link--caret"></i>
           <sub-menu
             :item="item"
@@ -43,7 +43,7 @@ export default {
   methods: {
     singleton(item){
       if(item.submenu !== null){
-        return item.submenu[0].editlink
+        return item.submenu[0].editLink
       } else{
         return item.link_new
       }
