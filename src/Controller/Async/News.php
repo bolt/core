@@ -88,7 +88,7 @@ final class News
 
         try {
             $client = new Client(['base_uri' => $source]);
-            $fetchedNewsData = $client->request('GET', '/', $options)->getBody();
+            $fetchedNewsData = $client->request('GET', '/', $options)->getBody()->getContents();
         } catch (RequestException $e) {
 //            $this->app['logger.system']->error(
 //                'Error occurred during newsfeed fetch',

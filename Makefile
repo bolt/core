@@ -53,6 +53,13 @@ e2e:
 	make server
 	cd tests/e2e && npm run kakunin && cd ../..
 
+full-test:
+	make cscheck
+	make test
+	npm test
+	make behat
+	make e2e
+
 e2e-wip:
 	make server
 	cd tests/e2e && npm run kakunin -- --tags @wip && cd ../..
@@ -129,8 +136,20 @@ docker-db-reset:
 docker-npm-fix-env:
 	docker-compose run node sh -c "npm rebuild node-sass"
 
+docker-test:
+	docker-compose exec -T php sh -c "vendor/bin/phpunit"
+	docker-compose exec -T php sh -c "vendor/bin/phpspec run"
+
 docker-behat:
 	docker-compose exec -T php vendor/bin/behat -v
 
 docker-behat-rerun:
 	docker-compose exec -T php vendor/bin/behat -v --rerun
+
+docker-full-test:
+	make docker-cache
+	make docker-cscheck
+	make docker-test
+	npm test
+	make docker-behat
+	make e2e
