@@ -28,7 +28,7 @@
       <div
               class="listing__row--item is-details"
       >
-        <a :href="record.editlink">{{ record.title }}</a>
+        <a :href="record.editLink">{{ record.title }}</a>
         <span>{{ record.excerpt }}</span>
       </div>
       <!-- end column -->

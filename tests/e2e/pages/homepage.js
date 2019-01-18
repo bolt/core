@@ -6,8 +6,8 @@ class HomepagePage extends BasePage {
 
     this.url = '/';
 
-    this.title = element(by.css('header a'));
-    this.recent_pages_list = element(by.css('aside ul'));
+    this.title = $('header a');
+    this.recent_pages_list = $('aside ul');
   }
 }
 

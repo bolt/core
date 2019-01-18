@@ -6,10 +6,10 @@ class LoginPage extends BasePage {
 
     this.url = '/bolt/login';
 
-    this.login_form = element(by.css('#login-form'));
-    this.username = element(by.css('#login-form [name="username"]'));
-    this.password = element(by.css('#login-form [name="password"]'));
-    this.login_button = element(by.css('#login-form [type="submit"]'));
+    this.login_form = $('#login-form');
+    this.username = $('#login-form [name="username"]');
+    this.password = $('#login-form [name="password"]');
+    this.login_button = $('#login-form [type="submit"]');
   }
 }
 
