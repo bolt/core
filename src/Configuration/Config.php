@@ -32,7 +32,6 @@ class Config
 
     public function __construct(Stopwatch $stopwatch, string $projectDir, CacheInterface $cache)
     {
-        // @todo move stopwatch to decorator or remove it completely
         $this->stopwatch = $stopwatch;
         $this->cache = $cache;
         $this->projectDir = $projectDir;
@@ -67,7 +66,7 @@ class Config
         $timestamps = $this->cache->get('config_timestamps');
 
         foreach ($timestamps as $filename => $timestamp) {
-            if (filemtime($filename) > $timestamp) {
+            if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
                 return false;
             }
         }
@@ -157,7 +156,6 @@ class Config
 
     public function getMediaTypes(): Collection
     {
-        // @todo what is this for?
-        return collect(['png', 'jpg', 'jpeg', 'gif', 'svg', 'pdf', 'mp3', 'tiff']);
+        return collect($this->get('general/accept_media_types'));
     }
 }

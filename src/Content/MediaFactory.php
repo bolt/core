@@ -35,7 +35,7 @@ class MediaFactory
     private $faker;
 
     /** @var Collection */
-    private $mediatypes;
+    private $mediaTypes;
 
     /**
      * MediaFactory constructor.
@@ -48,7 +48,7 @@ class MediaFactory
 
         $this->exif = Reader::factory(Reader::TYPE_NATIVE);
         $this->faker = Factory::create();
-        $this->mediatypes = $config->getMediaTypes();
+        $this->mediaTypes = $config->getMediaTypes();
     }
 
     /**
@@ -69,7 +69,7 @@ class MediaFactory
                 ->setArea($area);
         }
 
-        if (! $this->mediatypes->contains($file->getExtension())) {
+        if (! $this->mediaTypes->contains($file->getExtension())) {
             // @todo We're throwing a generic Exception here. Needs to be handled better.
             throw new \Exception('Not a valid media type.');
         }
