@@ -30,7 +30,7 @@ class Config
     /** @var string */
     private $projectDir;
 
-    public function __construct(Stopwatch $stopwatch, $projectDir, CacheInterface $cache)
+    public function __construct(Stopwatch $stopwatch, string $projectDir, CacheInterface $cache)
     {
         $this->stopwatch = $stopwatch;
         $this->cache = $cache;
@@ -66,7 +66,7 @@ class Config
         $timestamps = $this->cache->get('config_timestamps');
 
         foreach ($timestamps as $filename => $timestamp) {
-            if (filemtime($filename) > $timestamp) {
+            if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
                 return false;
             }
         }
@@ -156,6 +156,6 @@ class Config
 
     public function getMediaTypes(): Collection
     {
-        return collect(['png', 'jpg', 'jpeg', 'gif', 'svg', 'pdf', 'mp3', 'tiff']);
+        return collect($this->get('general/accept_media_types'));
     }
 }
