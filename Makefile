@@ -53,6 +53,10 @@ e2e:
 	make server
 	cd tests/e2e && npm run kakunin && cd ../..
 
+e2e-wip:
+	make server
+	cd tests/e2e && npm run kakunin -- --tags @wip && cd ../..
+
 e2e-install:
 	cd tests/e2e
 	npm install

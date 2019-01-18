@@ -2,7 +2,7 @@
     <div class="pagination">
       {{ pagerfanta(records, {
         routeName: 'bolt_content_overview',
-        routeParams: { 'contenttype': contenttype.slug|default() }
+        routeParams: { 'contentType': contentType.slug|default() }
       }) }}
     </div>
 {% endif %}

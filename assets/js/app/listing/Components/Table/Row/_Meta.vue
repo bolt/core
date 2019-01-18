@@ -6,8 +6,8 @@
           </li>
           <li v-if="size === 'normal'">
             <i class="fas mr-2" :class="meta.icon"></i>
-            <template v-if="type === 'dashboard'"><a :href="`/bolt/content/${meta.contenttype}`">{{meta.contenttype}}</a></template>
-            <template v-else>{{meta.contenttype}}</template>&nbsp;№ <strong>&nbsp;{{meta.id}}</strong>
+            <template v-if="type === 'dashboard'"><a :href="`/bolt/content/${meta.contentType}`">{{meta.contentType}}</a></template>
+            <template v-else>{{meta.contentType}}</template>&nbsp;№ <strong>&nbsp;{{meta.id}}</strong>
           </li>
           <li>
             <span class="status mr-2" :class="`is-${meta.status}`"></span>{{meta.publishedAt.date|date}}
