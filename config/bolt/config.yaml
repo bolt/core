@@ -6,14 +6,14 @@
 #
 # If youre trying out Bolt, just keep it set to SQLite for now.
 database:
-    url: %env(resolve:DATABASE_URL)%
+    url: '%env(resolve:DATABASE_URL)%'
 
 # The name of the website
 sitename: A sample site in CONFIG
 payoff: The amazing payoff goes here
 
 # note: ENV vars do not get parsed, yet!
-secret: %env(APP_SECRET)%
+secret: '%env(APP_SECRET)%'
 
 # The theme to use.
 #
@@ -238,7 +238,7 @@ accept_file_types: [ twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, t
 # instead. It just includes file types / extensions that are harder to exploit.
 # accept_file_types: [ gif, jpg, jpeg, png, txt, md, pdf, epub, mp3, svg ]
 
-: [ png, jpg, jpeg, gif, svg, pdf, mp3, tiff ]
+accept_media_types: [ png, jpg, jpeg, gif, svg, pdf, mp3, tiff ]
 
 # If you want to brand the Bolt backend for a client, you can change some key
 # variables here, that determine the name of the backend, and adds a primary
