@@ -13,6 +13,17 @@ use Tightenco\Collect\Support\Collection;
 class ContentTypesParser extends BaseParser
 {
     /**
+     * @var string[]
+     */
+    private $acceptFileTypes = [];
+
+    public function __construct(array $acceptFileTypes)
+    {
+        $this->acceptFileTypes = $acceptFileTypes;
+        parent::__construct();
+    }
+
+    /**
      * Read and parse the contenttypes.yml configuration file.
      *
      * @throws Exception
@@ -172,7 +183,7 @@ class ContentTypesParser extends BaseParser
             // If field is a "file" type, make sure the 'extensions' are set, and it's an array.
             if ($field['type'] === 'file' || $field['type'] === 'filelist') {
                 if (empty($field['extensions'])) {
-                    $field['extensions'] = $this->accept_file_types;
+                    $field['extensions'] = $this->acceptFileTypes;
                 }
 
                 $field['extensions'] = (array) $field['extensions'];
@@ -182,7 +193,7 @@ class ContentTypesParser extends BaseParser
             if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
                 if (empty($field['extensions'])) {
                     $field['extensions'] = collect(['gif', 'jpg', 'jpeg', 'png', 'svg'])
-                        ->intersect($this->accept_file_types);
+                        ->intersect($this->acceptFileTypes);
                 }
 
                 $field['extensions'] = (array) $field['extensions'];
@@ -220,7 +231,7 @@ class ContentTypesParser extends BaseParser
 
             // Repeating fields checks
             if ($field['type'] === 'repeater') {
-                $fields[$key] = $this->parseFieldRepeaters($fields, $key);
+                $fields[$key] = $this->parseFieldRepeaters($fields[$key]);
                 if ($fields[$key] === null) {
                     unset($fields[$key]);
                 }
@@ -238,10 +249,9 @@ class ContentTypesParser extends BaseParser
     /**
      * Basic validation of repeater fields.
      */
-    private function parseFieldRepeaters(array $fields, string $key): array
+    private function parseFieldRepeaters(array $repeater): array
     {
         $blacklist = ['repeater', 'slug', 'templatefield'];
-        $repeater = $fields[$key];
 
         if (! isset($repeater['fields']) || ! is_array($repeater['fields'])) {
             return [];

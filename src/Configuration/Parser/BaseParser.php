@@ -15,18 +15,14 @@ class BaseParser
     /** @var FileLocator */
     protected $fileLocator;
 
-    /** @var array */
-    protected $accept_file_types = [];
-
     /** @var PathResolver */
     protected $pathResolver;
 
-    /** @var array */
+    /** @var string[] */
     protected $filenames = [];
 
-    public function __construct($accept_file_types = [])
+    public function __construct()
     {
-        $this->accept_file_types = $accept_file_types;
         $configDirectories = [dirname(dirname(dirname(__DIR__))) . '/config/bolt'];
         $this->fileLocator = new FileLocator($configDirectories);
         $this->pathResolver = new PathResolver(dirname(dirname(dirname(__DIR__))), []);
@@ -34,10 +30,8 @@ class BaseParser
 
     /**
      * Read and parse a YAML configuration file.
-     *
-     * @param string $filename The name of the YAML file to read
      */
-    protected function parseConfigYaml($filename): Collection
+    protected function parseConfigYaml(string $filename): Collection
     {
         try {
             $filename = $this->fileLocator->locate($filename, null, true);
