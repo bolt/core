@@ -16,18 +16,6 @@ use Twig\TwigFunction;
  */
 final class ArrayExtension extends AbstractExtension
 {
-    /** @var string */
-    private $orderOn = '';
-
-    /** @var int */
-    private $orderAscending = 1;
-
-    /** @var ?string */
-    private $orderOnSecondary = null;
-
-    /** @var ?boolean */
-    private $orderAscendingSecondary = null;
-
     /**
      * {@inheritdoc}
      */
@@ -65,8 +53,10 @@ final class ArrayExtension extends AbstractExtension
         $compiled = [];
 
         foreach ($merged as $key => $val) {
-            if (is_array($val) && array_values($val) === $val) {
-                $compiled[$key] = $val;
+            if (is_array($val)) {
+                if (array_values($val) === $val) {
+                    $compiled[$key] = $val;
+                }
             } else {
                 $compiled[$val] = $val;
             }
@@ -90,21 +80,20 @@ final class ArrayExtension extends AbstractExtension
     /**
      * Sorts / orders items of an array.
      */
-    public function order(array $array, string $on, ?string $onSecondary = null): array
+    public static function order(array $array, string $on = '-datepublish', ?string $onSecondary = null): array
     {
         // Set the 'orderOn' and 'orderAscending', taking into account things like '-datepublish'.
-        [$this->orderOn, $this->orderAscending] = $this->getSortOrder($on);
+        [$orderOn, $orderAscending] = self::getSortOrder($on);
 
         // Set the secondary order, if any.
-        if ($onSecondary) {
-            [$this->orderOnSecondary, $this->orderAscendingSecondary] = $this->getSortOrder($onSecondary);
-        } else {
-            $this->orderOnSecondary = null;
-            $this->orderAscendingSecondary = null;
-        }
+        [$orderOnSecondary, $orderAscendingSecondary] = self::getSortOrder($onSecondary);
 
-        uasort($array, function ($a, $b): void {
-            $this->orderHelper($a, $b);
+        uasort($array, function ($a, $b) use ($orderOn, $orderAscending, $orderOnSecondary, $orderAscendingSecondary): int {
+            $check = self::orderHelper($a, $b, $orderOn, $orderAscending);
+            if ($check !== 0 || $orderOnSecondary !== '') {
+                return $check;
+            }
+            return self::orderHelper($a, $b, $orderOnSecondary, $orderAscendingSecondary);
         });
 
         return $array;
@@ -114,8 +103,12 @@ final class ArrayExtension extends AbstractExtension
      * Get sorting order of name, stripping possible "DESC", "ASC", and also
      * return the sorting order.
      */
-    private function getSortOrder(string $name = '-datepublish'): array
+    private static function getSortOrder(?string $name): array
     {
+        if ($name === null) {
+            return ['', true];
+        }
+
         $parts = explode(' ', $name);
         $fieldName = $parts[0];
         $sort = 'ASC';
@@ -132,34 +125,17 @@ final class ArrayExtension extends AbstractExtension
     }
 
     /**
-     * Helper function for sorting an array of \Bolt\Legacy\Content.
+     * Helper function for sorting an array of Content.
      */
-    private function orderHelper(Content $a, Content $b): int
+    private static function orderHelper(Content $a, Content $b, string $orderOn, bool $orderAscending): int
     {
-        $aVal = $a->getField($this->orderOn);
-        $bVal = $b->getField($this->orderOn);
+        $aVal = $a->getField($orderOn);
+        $bVal = $b->getField($orderOn);
 
         // Check the primary sorting criterion.
-        if ($aVal < $bVal) {
-            return -$this->orderAscending;
-        } elseif ($aVal > $bVal) {
-            return $this->orderAscending;
+        if ($orderAscending) {
+            return $aVal <=> $bVal;
         }
-        // Primary criterion is the same. Use the secondary criterion, if it is set. Otherwise return 0.
-        if (empty($this->orderOnSecondary)) {
-            return 0;
-        }
-
-        $aVal = $a->getField($this->orderOnSecondary);
-        $bVal = $b->getField($this->orderOnSecondary);
-
-        if ($aVal < $bVal) {
-            return -$this->orderAscendingSecondary;
-        } elseif ($aVal > $bVal) {
-            return $this->orderAscendingSecondary;
-        }
-
-        // both criteria are the same. Whatever!
-        return 0;
+        return $bVal <=> $aVal;
     }
 }

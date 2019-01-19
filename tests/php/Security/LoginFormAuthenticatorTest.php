@@ -19,7 +19,7 @@ class LoginFormAuthenticatorTest extends TestCase
 {
     public const TEST_TOKEN = [
         'csrf_token' => null,
-        'username' => null,
+        'username' => 'test',
     ];
 
     public function testGetLoginUrl(): void
@@ -37,7 +37,7 @@ class LoginFormAuthenticatorTest extends TestCase
     public function testGetUser(): void
     {
         $userRepository = $this->createConfiguredMock(UserRepository::class, [
-            'findOneBy' => $this->createMock(User::class),
+            'findOneByUsername' => $this->createMock(User::class),
         ]);
         $csrfTokenManager = $this->createConfiguredMock(CsrfTokenManagerInterface::class, [
             'isTokenValid' => true,

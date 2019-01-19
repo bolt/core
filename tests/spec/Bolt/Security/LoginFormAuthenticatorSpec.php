@@ -24,7 +24,7 @@ class LoginFormAuthenticatorSpec extends ObjectBehavior
 {
     public const TEST_TOKEN = [
         'csrf_token' => null,
-        'username' => null,
+        'username' => 'test',
     ];
 
     public function let(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $userPasswordEncoder): void
@@ -41,7 +41,7 @@ class LoginFormAuthenticatorSpec extends ObjectBehavior
 
     public function it_gets_user(CsrfTokenManagerInterface $csrfTokenManager, UserProviderInterface $userProvider, UserRepository $userRepository, User $user): void
     {
-        $userRepository->findOneBy(['username' => null])->shouldBeCalledOnce()->wilLReturn($user);
+        $userRepository->findOneByUsername(self::TEST_TOKEN['username'])->shouldBeCalledOnce()->wilLReturn($user);
         $csrfTokenManager->isTokenValid(Argument::type(CsrfToken::class))->willReturn(true);
         $this->getUser(self::TEST_TOKEN, $userProvider)->shouldBeAnInstanceOf(User::class);
     }

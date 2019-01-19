@@ -80,7 +80,7 @@ HELP
      * This method is executed after initialize(). It usually contains the logic
      * to execute to complete this command task.
      */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $maxResults = $input->getOption('max-results');
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
@@ -117,6 +117,8 @@ HELP
         if ($email !== null) {
             $this->sendReport($usersAsATable, $email);
         }
+
+        return null;
     }
 
     /**
