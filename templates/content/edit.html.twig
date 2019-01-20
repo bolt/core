@@ -42,6 +42,20 @@
 
         {{ macro.button('action.save', 'fa-save', 'success') }}
 
+        <div class="btn-group">
+            <button type="submit" class="btn btn-secondary mb-3" formaction="{{ path('bolt_content_edit_preview', {'id': record.id }) }}" formtarget="_blank">
+                <i class="fas fa-external-link-square-alt mr-2"></i>
+                {{ 'action.preview'|trans }}
+            </button>
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split mb-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <button type="submit" class="btn btn-light dropdown-menu dropdown-menu-right" form="editcontent" formaction="{{ path('bolt_content_edit_viewsave', {'id': record.id }) }}" formtarget="_blank">
+                <i class="fas fa-external-link-square-alt"></i>
+                {{ 'action.view_saved'|trans }}
+            </button>
+        </div>
+
     </form>
 
 {% endblock %}
@@ -54,6 +68,26 @@
             <div class="card mb-3">
               <div class="card-body">
                   {{ macro.button('action.save', 'fa-save', 'success', 'submit', 'editcontent') }}
+
+                  <button type="submit" class="btn btn-secondary mb-3" form="editcontent" formaction="{{ path('bolt_content_edit_preview', {'id': record.id }) }}" formtarget="_blank">
+                      <i class="fas fa-external-link-square-alt mr-2"></i>
+                      {{ 'action.preview'|trans }}
+                  </button>
+
+                  <div class="btn-group">
+                      <button type="submit" class="btn btn-secondary mb-3" form="editcontent" formaction="{{ path('bolt_content_edit_preview', {'id': record.id }) }}" formtarget="_blank">
+                          <i class="fas fa-external-link-square-alt mr-2"></i>
+                          {{ 'action.preview'|trans }}
+                      </button>
+                      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split mb-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <button type="submit" class="btn btn-light dropdown-menu dropdown-menu-right" form="editcontent" formaction="{{ path('bolt_content_edit_viewsave', {'id': record.id }) }}" formtarget="_blank">
+                          <i class="fas fa-external-link-square-alt"></i>
+                          {{ 'action.view_saved'|trans }}
+                      </button>
+                  </div>
+
               </div>
             </div>
 

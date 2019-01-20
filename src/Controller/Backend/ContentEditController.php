@@ -11,6 +11,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Taxonomy;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\TemplateChooser;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -30,15 +31,18 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class ContentEditController extends BaseController
 {
-    /**
-     * @var TaxonomyRepository
-     */
+    /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
-    public function __construct(TaxonomyRepository $taxonomyRepository, Config $config, CsrfTokenManagerInterface $csrfTokenManager)
-    {
+    public function __construct(
+        TaxonomyRepository $taxonomyRepository,
+        Config $config,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        TemplateChooser $templateChooser
+    ) {
         $this->taxonomyRepository = $taxonomyRepository;
         parent::__construct($config, $csrfTokenManager);
+        $this->templateChooser = $templateChooser;
     }
 
     /**
@@ -71,11 +75,7 @@ class ContentEditController extends BaseController
      */
     public function editPost(Request $request, ObjectManager $manager, UrlGeneratorInterface $urlGenerator, ?Content $content = null): Response
     {
-        $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
-
-        if (! $this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
-        }
+        $this->validateToken($request);
 
         $content = $this->contentFromPost($content, $request);
 
@@ -91,6 +91,43 @@ class ContentEditController extends BaseController
         $url = $urlGenerator->generate('bolt_content_edit', $urlParams);
 
         return new RedirectResponse($url);
+    }
+
+    /**
+     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsave", methods={"POST"})
+     */
+    public function editViewSaved(Request $request, UrlGeneratorInterface $urlGenerator, ?Content $content = null): Response
+    {
+        $this->validateToken($request);
+
+        $urlParams = [
+            'slugOrId' => $content->getId(),
+            'contentTypeSlug' => $content->getDefinition()->get('slug'),
+        ];
+        $url = $urlGenerator->generate('record', $urlParams);
+
+        return new RedirectResponse($url);
+    }
+
+    /**
+     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"})
+     */
+    public function editPreview(Request $request, ?Content $content = null): Response
+    {
+        $this->validateToken($request);
+
+        $content = $this->contentFromPost($content, $request);
+
+        $recordSlug = $content->getDefinition()->get('singular_slug');
+
+        $context = [
+            'record' => $content,
+            $recordSlug => $content,
+        ];
+
+        $templates = $this->templateChooser->record($content);
+
+        return $this->renderTemplate($templates, $context);
     }
 
     private function contentFromPost(?Content $content, Request $request): Content
@@ -169,6 +206,15 @@ class ContentEditController extends BaseController
             }
 
             $content->addTaxonomy($taxonomy);
+        }
+    }
+
+    private function validateToken(Request $request): void
+    {
+        $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
+
+        if (! $this->csrfTokenManager->isTokenValid($token)) {
+            throw new InvalidCsrfTokenException();
         }
     }
 

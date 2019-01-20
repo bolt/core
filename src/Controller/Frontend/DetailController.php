@@ -49,7 +49,7 @@ class DetailController extends BaseController
             $record = $field->getContent();
         }
 
-        $recordSlug = $record->getDefinition()['singular_slug'];
+        $recordSlug = $record->getDefinition()->get('singular_slug');
 
         $context = [
             'record' => $record,
