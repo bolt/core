@@ -1025,5 +1025,17 @@
         <target>Permalink</target>
       </segment>
     </unit>
+    <unit id="dQIY7_J" name="action.preview">
+      <segment>
+        <source>action.preview</source>
+        <target>Preview</target>
+      </segment>
+    </unit>
+    <unit id="ok6YulQ" name="action.view_saved">
+      <segment>
+        <source>action.view_saved</source>
+        <target>View (saved version) on site</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
