@@ -39,17 +39,9 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
         $order = 1;
 
         foreach ($this->config as $taxonomyDefinition) {
-            if (! empty($taxonomyDefinition['options'])) {
-                $options = $taxonomyDefinition['options'];
-            } else {
-                $options = $this->getOptions();
-            }
+            $options = empty($taxonomyDefinition['options']) ? $this->getDefaultOptions() : $taxonomyDefinition['options'];
 
             foreach ($options as $key => $value) {
-                if (is_numeric($key)) {
-                    $key = $value;
-                }
-
                 $taxonomy = Taxonomy::factory(
                     $taxonomyDefinition['slug'],
                     $key,
@@ -64,9 +56,9 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
         }
     }
 
-    private function getOptions()
+    private function getDefaultOptions()
     {
-        return ['action', 'adult', 'adventure', 'alpha', 'animals', 'animation', 'anime', 'architecture', 'art',
+        $options = ['action', 'adult', 'adventure', 'alpha', 'animals', 'animation', 'anime', 'architecture', 'art',
             'astronomy', 'baby', 'batshitinsane', 'biography', 'biology', 'book', 'books', 'business',
             'camera', 'cars', 'cats', 'cinema', 'classic', 'comedy', 'comics', 'computers', 'cookbook', 'cooking',
             'crime', 'culture', 'dark', 'design', 'digital', 'documentary', 'dogs', 'drama', 'drugs', 'education',
@@ -81,5 +73,7 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
             'television', 'terrorism', 'thriller', 'travel', 'tv', 'uk', 'urban', 'us', 'usa', 'vampire', 'video',
             'videogames', 'war', 'web', 'women', 'world', 'writing', 'wtf', 'zombies',
         ];
+
+        return array_combine($options, $options);
     }
 }
