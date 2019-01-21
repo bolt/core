@@ -120,15 +120,10 @@ class ContentEditController extends BaseController
             $this->updateFieldFromPost($fieldName, $fieldValue, $content, $locale);
         }
 
-<<<<<<< Updated upstream
-        if (isset($post['taxonomy'])) {
-            foreach ($post['taxonomy'] as $key => $taxonomy) {
-                $this->updateTaxonomyFromPost($key, $taxonomy, $content);
+        if (isset($formData['taxonomy'])) {
+            foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
+                $this->updateTaxonomyFromPost($fieldName, $taxonomy, $content);
             }
-=======
-        foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
-            $this->updateTaxonomyFromPost($fieldName, $taxonomy, $content);
->>>>>>> Stashed changes
         }
 
         return $content;
