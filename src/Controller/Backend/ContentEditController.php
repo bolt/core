@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Common\Json;
 use Bolt\Configuration\Config;
+use Bolt\ContentFromFormdata;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
-use Bolt\Entity\Field;
-use Bolt\Entity\Taxonomy;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
-use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -31,9 +28,6 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class ContentEditController extends BaseController
 {
-    /** @var TaxonomyRepository */
-    private $taxonomyRepository;
-
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
         Config $config,
@@ -52,13 +46,10 @@ class ContentEditController extends BaseController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function edit(string $id, Request $request, ?Content $content = null): Response
+    public function edit(Request $request, ?Content $content = null): Response
     {
         if (! $content) {
-            $content = new Content();
-            $content->setAuthor($this->getUser());
-            $content->setContentType($id);
-            $content->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
+            $content = $this->createNewContent();
         }
 
         $twigvars = [
@@ -77,7 +68,11 @@ class ContentEditController extends BaseController
     {
         $this->validateToken($request);
 
-        $content = $this->contentFromPost($content, $request);
+        if (! $content) {
+            $content = $this->createNewContent();
+        }
+
+        $content = ContentFromFormdata::update($content, $request->request->all());
 
         $manager->persist($content);
         $manager->flush();
@@ -116,7 +111,11 @@ class ContentEditController extends BaseController
     {
         $this->validateToken($request);
 
-        $content = $this->contentFromPost($content, $request);
+        if (! $content) {
+            $content = $this->createNewContent();
+        }
+
+        $content = ContentFromFormdata::update($content, $request);
 
         $recordSlug = $content->getDefinition()->get('singular_slug');
 
@@ -230,8 +229,9 @@ class ContentEditController extends BaseController
         return $locale;
     }
 
-    private function getPostedLocale(array $post): string
+    private function createNewContent()
     {
-        return $post['_edit_locale'] ?: '';
+        $id = $request->attributes->get('id');
+        return Content::factory($id, $this->getUser(), $this->config->get('contenttypes'));
     }
 }

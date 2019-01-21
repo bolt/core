@@ -141,6 +141,16 @@ class Content implements ObjectManagerAware
         $this->taxonomies = new ArrayCollection();
     }
 
+    public static function factory(string $contentType, User $user, LaravelCollection $contenttypes): self
+    {
+        $content = new self();
+        $content->setContentType($contentType);
+        $content->setAuthor($user);
+        $content->setDefinitionFromContentTypesConfig($contenttypes);
+
+        return $content;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
