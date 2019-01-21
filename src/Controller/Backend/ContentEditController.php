@@ -114,8 +114,10 @@ class ContentEditController extends BaseController
             $this->updateFieldFromPost($key, $postfield, $content, $locale);
         }
 
-        foreach ($post['taxonomy'] as $key => $taxonomy) {
-            $this->updateTaxonomyFromPost($key, $taxonomy, $content);
+        if (isset($post['taxonomy'])) {
+            foreach ($post['taxonomy'] as $key => $taxonomy) {
+                $this->updateTaxonomyFromPost($key, $taxonomy, $content);
+            }
         }
 
         return $content;
