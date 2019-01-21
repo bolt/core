@@ -200,11 +200,7 @@ trait ContentMagicTrait
             }
         }
 
-        return [
-            'filename' => '',
-            'alt' => '',
-            'path' => '',
-        ];
+        return [];
     }
 
     /**
