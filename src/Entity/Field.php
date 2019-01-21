@@ -26,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Table(
  *  name="bolt_field",
  *  uniqueConstraints={
- *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name", "locale"}),
+ *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name"}),
  *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
@@ -88,7 +88,7 @@ class Field implements Translatable
     /**
      * @Gedmo\Locale
      */
-    private $locale;
+    protected $locale;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -223,11 +223,6 @@ class Field implements Translatable
         $this->sortorder = $sortorder;
 
         return $this;
-    }
-
-    public function getLocale(): ?string
-    {
-        return $this->locale;
     }
 
     public function setLocale(string $locale): self
