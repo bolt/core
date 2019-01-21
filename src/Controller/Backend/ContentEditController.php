@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Common\Json;
 use Bolt\Configuration\Config;
-use Bolt\ContentFromFormdata;
 use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
+use Bolt\Entity\Taxonomy;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
+use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -28,6 +31,9 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class ContentEditController extends BaseController
 {
+    /** @var TaxonomyRepository */
+    private $taxonomyRepository;
+
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
         Config $config,
@@ -49,7 +55,7 @@ class ContentEditController extends BaseController
     public function edit(Request $request, ?Content $content = null): Response
     {
         if (! $content) {
-            $content = $this->createNewContent();
+            $content = $this->createNewContent($request);
         }
 
         $twigvars = [
@@ -69,10 +75,10 @@ class ContentEditController extends BaseController
         $this->validateToken($request);
 
         if (! $content) {
-            $content = $this->createNewContent();
+            $content = $this->createNewContent($request);
         }
 
-        $content = ContentFromFormdata::update($content, $request->request->all());
+        $content = $this->contentFromPost($content, $request->request->all());
 
         $manager->persist($content);
         $manager->flush();
@@ -111,11 +117,7 @@ class ContentEditController extends BaseController
     {
         $this->validateToken($request);
 
-        if (! $content) {
-            $content = $this->createNewContent();
-        }
-
-        $content = ContentFromFormdata::update($content, $request);
+        $content = $this->contentFromPost($content, $request->request->all());
 
         $recordSlug = $content->getDefinition()->get('singular_slug');
 
@@ -217,6 +219,76 @@ class ContentEditController extends BaseController
         }
     }
 
+    public function contentFromPost(Content $content, array $post): Content
+    {
+        $locale = $this->getPostedLocale($post);
+
+        $content->setStatus(Json::findScalar($post['status']));
+        $content->setPublishedAt(new Carbon($post['publishedAt']));
+        $content->setDepublishedAt(new Carbon($post['depublishedAt']));
+
+        foreach ($post['fields'] as $key => $postfield) {
+            $this->updateFieldFromPost($key, $postfield, $content, $locale);
+        }
+
+        if (isset($post['taxonomy'])) {
+            foreach ($post['taxonomy'] as $key => $taxonomy) {
+                $this->updateTaxonomyFromPost($key, $taxonomy, $content);
+            }
+        }
+
+        return $content;
+    }
+
+    private function updateFieldFromPost(string $key, $postfield, Content $content, string $locale): void
+    {
+        if ($content->hasLocalizedField($key, $locale)) {
+            $field = $content->getLocalizedField($key, $locale);
+        } else {
+            $fields = collect($content->getDefinition()->get('fields'));
+            $field = Field::factory($fields->get($key), $key);
+            $field->setName($key);
+            $content->addField($field);
+        }
+
+        // If the value is an array that contains a string of JSON, parse it
+        if (is_iterable($postfield) && Json::test(current($postfield))) {
+            $postfield = Json::findArray($postfield);
+        }
+
+        $field->setValue((array) $postfield);
+
+        if ($field->getDefinition()->get('localize')) {
+            $field->setLocale($locale);
+        } else {
+            $field->setLocale('');
+        }
+    }
+
+    private function updateTaxonomyFromPost(string $key, $taxonomy, Content $content): void
+    {
+        $taxonomy = collect(Json::findArray($taxonomy))->filter();
+
+        // Remove old ones
+        foreach ($content->getTaxonomies($key) as $current) {
+            $content->removeTaxonomy($current);
+        }
+
+        // Then (re-) add selected ones
+        foreach ($taxonomy as $slug) {
+            $taxonomy = $this->taxonomyRepository->findOneBy([
+                'type' => $key,
+                'slug' => $slug,
+            ]);
+
+            if (! $taxonomy) {
+                $taxonomy = Taxonomy::factory($key, $slug);
+            }
+
+            $content->addTaxonomy($taxonomy);
+        }
+    }
+
     private function getEditLocale(Request $request, Content $content): string
     {
         $locale = $request->query->get('locale', '');
@@ -229,7 +301,12 @@ class ContentEditController extends BaseController
         return $locale;
     }
 
-    private function createNewContent()
+    private function getPostedLocale(array $post): string
+    {
+        return $post['_edit_locale'] ?: '';
+    }
+
+    private function createNewContent(Request $request): Content
     {
         $id = $request->attributes->get('id');
         return Content::factory($id, $this->getUser(), $this->config->get('contenttypes'));
