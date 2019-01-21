@@ -2,3 +2,8 @@
 # See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
 stof_doctrine_extensions:
     default_locale: '%locale%'
+    translation_fallback: true
+    persist_default_translation: true
+    orm:
+        default:
+            translatable: true

@@ -7,6 +7,8 @@ namespace Bolt\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -21,7 +23,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     }
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
- * @ORM\Table(name="bolt_field")
+ * @ORM\Table(
+ *  name="bolt_field",
+ *  uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name", "locale"}),
+ *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
@@ -50,7 +56,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "video" = "Bolt\Entity\Field\VideoField"
  * })
  */
-class Field
+class Field implements Translatable
 {
     /**
      * @ORM\Id()
@@ -69,6 +75,7 @@ class Field
     /**
      * @ORM\Column(type="json")
      * @Groups({"public", "put"})
+     * @Gedmo\Translatable
      */
     protected $value = [];
 
@@ -79,10 +86,9 @@ class Field
     private $sortorder = 0;
 
     /**
-     * @ORM\Column(type="string", length=191)
-     * @Groups("public")
+     * @Gedmo\Locale
      */
-    private $locale = '';
+    private $locale;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -142,7 +148,7 @@ class Field
         $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
     }
 
-    public function getDefinition(): ?FieldType
+    public function getDefinition(): FieldType
     {
         if ($this->fieldTypeDefinition === null && $this->getContent()) {
             $this->setDefinitionFromContentDefinition();
@@ -190,7 +196,7 @@ class Field
      *
      * @return array|mixed|null
      */
-    public function getFieldValue()
+    public function getFlatenValue()
     {
         $value = $this->getValue();
         if (is_iterable($value) && count($value) < 2) {

@@ -114,6 +114,7 @@ class Content implements ObjectManagerAware
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
+     *     indexBy="name",
      *     orphanRemoval=true,
      *     cascade={"persist"}
      * )
@@ -192,7 +193,7 @@ class Content implements ObjectManagerAware
 
     public function getSlug(): string
     {
-        return $this->get('slug')->__toString();
+        return $this->getField('slug')->__toString();
     }
 
     public function getContentType(): ?string
@@ -292,9 +293,9 @@ class Content implements ObjectManagerAware
     }
 
     /**
-     * @return Field[]|Collection
+     * @return Field[]
      */
-    public function getFields(): Collection
+    public function getFields(): array
     {
         return $this->fields;
     }
@@ -304,18 +305,58 @@ class Content implements ObjectManagerAware
      */
     public function getFieldValues(): array
     {
-        $fieldValues = [];
-        foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $field->getFieldValue();
-        }
-
-        return $fieldValues;
+        return collect($this->fields)
+            ->map(function (Field $field) {
+                return $field->getFlatenValue();
+            })
+            ->toArray();
     }
 
-    public function getValue(string $fieldName): ?array
+    public function getFieldValue(string $fieldName): ?array
     {
-        $field = $this->getField($fieldName);
-        return $field ? $field->getValue() : null;
+        if ($this->hasField($fieldName) === false) {
+            return null;
+        }
+
+        return $this->getField($fieldName)->getValue();
+    }
+
+    public function getField(string $fieldName): Field
+    {
+        if ($this->hasField($fieldName)) {
+            throw new \InvalidArgumentException(sprintf("Content does not have '%s' field!", $fieldName));
+        }
+
+        return $this->fields[$fieldName];
+    }
+
+    public function hasField(string $fieldName): bool
+    {
+        return isset($this->fields[$fieldName]);
+    }
+
+    public function addField(Field $field): self
+    {
+        if ($this->hasField($field->getName())) {
+            throw new \InvalidArgumentException(sprintf("Content already has '%s' field!", $field->getName()));
+        }
+
+        $this->fields[$field->getName()] = $field;
+        $field->setContent($this);
+
+        return $this;
+    }
+
+    public function removeField(Field $field): self
+    {
+        unset($this->fields[$field->getName()]);
+
+        // set the owning side to null (unless already changed)
+        if ($field->getContent() === $this) {
+            $field->setContent(null);
+        }
+
+        return $this;
     }
 
     /**
@@ -324,39 +365,6 @@ class Content implements ObjectManagerAware
     public function getAuthorName(): string
     {
         return $this->getAuthor()->getDisplayName();
-    }
-
-    public function hasField(string $name): bool
-    {
-        return collect($this->fields)->contains('name', $name);
-    }
-
-    public function getField(string $name): ?Field
-    {
-        return collect($this->fields)->where('name', $name)->first();
-    }
-
-    public function addField(Field $field): self
-    {
-        if ($this->fields->contains($field) === false) {
-            $this->fields[] = $field;
-            $field->setContent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeField(Field $field): self
-    {
-        if ($this->fields->contains($field)) {
-            $this->fields->removeElement($field);
-            // set the owning side to null (unless already changed)
-            if ($field->getContent() === $this) {
-                $field->setContent(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getStatuses(): array

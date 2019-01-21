@@ -65,8 +65,8 @@ class TemplateChooser
 
         // First candidate: Content record has a templateselect field, and it's set.
         foreach ($definition->get('fields') as $name => $field) {
-            if ($field['type'] === 'templateselect' && $record->has($name)) {
-                $templates->push((string) $record->get($name));
+            if ($field['type'] === 'templateselect' && $record->hasField($name)) {
+                $templates->push((string) $record->getField($name));
             }
         }
 

@@ -23,9 +23,11 @@ class SlugField extends Field
 
     public function getSlugPrefix()
     {
+        // @todo https://github.com/bolt/four/issues/188 allow empty slug prefix
         $content = $this->getContent();
 
         if (! $content) {
+            //@todo remove this
             return '/foobar/';
         }
 

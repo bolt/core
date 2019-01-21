@@ -18,7 +18,11 @@ trait ContentMagicTrait
     /**
      * Set the "Magic properties for automagic population in the API.
      *
+     * @todo maybe we could replace them with twig filters
+     *       and use same mechanism while building api response?
      * @todo to be removed with proper API implementation
+     *
+     * @see https://github.com/bolt/four/issues/151#issuecomment-441994478
      */
 
     /**
@@ -110,28 +114,6 @@ trait ContentMagicTrait
         throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', self::class, $name));
     }
 
-    public function get(string $name): ?Field
-    {
-        foreach ($this->fields as $field) {
-            if ($field->getName() === $name) {
-                return $field;
-            }
-        }
-
-        return null;
-    }
-
-    public function has(string $name): bool
-    {
-        foreach ($this->fields as $field) {
-            if ($field->getName() === $name) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): void
     {
         $this->urlGenerator = $urlGenerator;
@@ -141,8 +123,13 @@ trait ContentMagicTrait
     {
         return $this->urlGenerator->generate('record', [
             'slugOrId' => $this->getSlug() ?: $this->getId(),
-            'contentTypeSlug' => $this->getDefinition()->get('singular_slug'),
+            'contentTypeSlug' => $this->getContentTypeSlug(),
         ]);
+    }
+
+    public function getContentTypeSlug(): string
+    {
+        return $this->getDefinition()->get('singular_slug');
     }
 
     public function magicEditLink()
@@ -166,7 +153,7 @@ trait ContentMagicTrait
         $names = array_merge($names, ['nombre', 'sujeto']); // Spanish
 
         foreach ($names as $name) {
-            if ($this->get($name)) {
+            if ($this->hasField($name)) {
                 return (array) $name;
             }
         }
@@ -186,7 +173,7 @@ trait ContentMagicTrait
         $titleParts = [];
 
         foreach ($this->magicTitleFields() as $field) {
-            $titleParts[] = $this->get($field);
+            $titleParts[] = $this->getField($field)->__toString();
         }
 
         return trim(implode(' ', $titleParts));

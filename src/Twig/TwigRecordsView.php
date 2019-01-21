@@ -69,7 +69,7 @@ class TwigRecordsView
         foreach ($values as $field) {
             $field->setValue(
                 (array) $this->transform(
-                    $field->getFieldValue(),
+                    $field->getFlatenValue(),
                     $field->getType(),
                     $field->getValue()
                 )
