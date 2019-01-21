@@ -74,11 +74,7 @@ class ContentEditController extends BaseController
     {
         $this->validateToken($request);
 
-        if (! $content) {
-            $content = $this->createNewContent($request);
-        }
-
-        $content = $this->contentFromPost($content, $request->request->all());
+        $content = $this->contentFromPost($request, $content);
 
         $manager->persist($content);
         $manager->flush();
@@ -117,7 +113,7 @@ class ContentEditController extends BaseController
     {
         $this->validateToken($request);
 
-        $content = $this->contentFromPost($content, $request->request->all());
+        $content = $this->contentFromPost($request, $content);
 
         $recordSlug = $content->getDefinition()->get('singular_slug');
 
@@ -131,85 +127,6 @@ class ContentEditController extends BaseController
         return $this->renderTemplate($templates, $context);
     }
 
-    private function contentFromPost(?Content $content, Request $request): Content
-    {
-        $post = $request->request->all();
-
-        $locale = $this->getPostedLocale($post);
-
-        if (! $content) {
-            $content = new Content();
-            $content->setAuthor($this->getUser());
-            $content->setContentType($request->attributes->get('id'));
-            $content->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
-        }
-
-        $content->setStatus(Json::findScalar($post['status']));
-        $content->setPublishedAt(new Carbon($post['publishedAt']));
-        $content->setDepublishedAt(new Carbon($post['depublishedAt']));
-
-        foreach ($post['fields'] as $key => $postfield) {
-            $this->updateFieldFromPost($key, $postfield, $content, $locale);
-        }
-
-        if (isset($post['taxonomy'])) {
-            foreach ($post['taxonomy'] as $key => $taxonomy) {
-                $this->updateTaxonomyFromPost($key, $taxonomy, $content);
-            }
-        }
-
-        return $content;
-    }
-
-    private function updateFieldFromPost(string $key, $postfield, Content $content, string $locale): void
-    {
-        if ($content->hasLocalizedField($key, $locale)) {
-            $field = $content->getLocalizedField($key, $locale);
-        } else {
-            $fields = collect($content->getDefinition()->get('fields'));
-            $field = Field::factory($fields->get($key), $key);
-            $field->setName($key);
-            $content->addField($field);
-        }
-
-        // If the value is an array that contains a string of JSON, parse it
-        if (is_iterable($postfield) && Json::test(current($postfield))) {
-            $postfield = Json::findArray($postfield);
-        }
-
-        $field->setValue((array) $postfield);
-
-        if ($field->getDefinition()->get('localize')) {
-            $field->setLocale($locale);
-        } else {
-            $field->setLocale('');
-        }
-    }
-
-    private function updateTaxonomyFromPost(string $key, $taxonomy, Content $content): void
-    {
-        $taxonomy = collect(Json::findArray($taxonomy))->filter();
-
-        // Remove old ones
-        foreach ($content->getTaxonomies($key) as $current) {
-            $content->removeTaxonomy($current);
-        }
-
-        // Then (re-) add selected ones
-        foreach ($taxonomy as $slug) {
-            $taxonomy = $this->taxonomyRepository->findOneBy([
-                'type' => $key,
-                'slug' => $slug,
-            ]);
-
-            if (! $taxonomy) {
-                $taxonomy = Taxonomy::factory($key, $slug);
-            }
-
-            $content->addTaxonomy($taxonomy);
-        }
-    }
-
     private function validateToken(Request $request): void
     {
         $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
@@ -219,8 +136,20 @@ class ContentEditController extends BaseController
         }
     }
 
-    public function contentFromPost(Content $content, array $post): Content
+    /**
+     * Gather data from POST-ed form, and combine it with existing Content, or
+     * create a new one.
+     *
+     * @todo Refactor into separate service
+     */
+    public function contentFromPost(Request $request, ?Content $content = null): Content
     {
+        if (! $content) {
+            $content = $this->createNewContent($request);
+        }
+
+        $post = $request->request->all();
+
         $locale = $this->getPostedLocale($post);
 
         $content->setStatus(Json::findScalar($post['status']));
