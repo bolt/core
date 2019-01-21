@@ -5,33 +5,16 @@ declare(strict_types=1);
 namespace Bolt\Tests\Repository;
 
 use Bolt\Entity\Taxonomy;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Bolt\Tests\DbAwareTestCase;
 
 /**
- * Class TaxonomyRepositoryTest
- *
  * @todo Add represenative tests here, when methods are implemented in TaxonomyRepository
  */
-class TaxonomyRepositoryTest extends KernelTestCase
+class TaxonomyRepositoryTest extends DbAwareTestCase
 {
-    /** @var \Doctrine\ORM\EntityManager */
-    private $entityManager;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp(): void
-    {
-        $kernel = self::bootKernel();
-
-        $this->entityManager = $kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
-    }
-
     public function testSearchByType(): void
     {
-        $taxonomies = $this->entityManager
+        $taxonomies = $this->getEm()
             ->getRepository(Taxonomy::class)
             ->findBy(['type' => 'groups']);
 
@@ -40,16 +23,16 @@ class TaxonomyRepositoryTest extends KernelTestCase
 
     public function testSearchBySlug(): void
     {
-        $taxonomies = $this->entityManager
+        $taxonomies = $this->getEm()
             ->getRepository(Taxonomy::class)
-            ->findBy(['slug' => 'events']);
+            ->findBy(['slug' => 'fun']);
 
-        $this->assertCount(1, $taxonomies);
+        $this->assertCount(2, $taxonomies);
     }
 
     public function testSearchByName(): void
     {
-        $taxonomies = $this->entityManager
+        $taxonomies = $this->getEm()
             ->getRepository(Taxonomy::class)
             ->findBy(['name' => 'Movies']);
 
@@ -60,33 +43,22 @@ class TaxonomyRepositoryTest extends KernelTestCase
     {
         $taxonomy = Taxonomy::factory('foo', 'bar');
 
-        $this->entityManager->persist($taxonomy);
-        $this->entityManager->flush();
+        $this->getEm()->persist($taxonomy);
+        $this->getEm()->flush();
 
-        $taxonomies = $this->entityManager
+        $taxonomies = $this->getEm()
             ->getRepository(Taxonomy::class)
             ->findBy(['type' => 'foo']);
 
         $this->assertCount(1, $taxonomies);
 
-        $this->entityManager->remove($taxonomy);
-        $this->entityManager->flush();
+        $this->getEm()->remove($taxonomy);
+        $this->getEm()->flush();
 
-        $taxonomies = $this->entityManager
+        $taxonomies = $this->getEm()
             ->getRepository(Taxonomy::class)
             ->findBy(['type' => 'foo']);
 
         $this->assertCount(0, $taxonomies);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        $this->entityManager->close();
-        $this->entityManager = null; // avoid memory leaks
     }
 }
