@@ -280,7 +280,7 @@ class QueryParameterParser
      *     'matched'  => <the pattern that the value matched>
      * ]
      *
-     * @param $value Value to process
+     * @param mixed $value Value to process
      *
      * @return array Parsed values
      */
