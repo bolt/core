@@ -8,7 +8,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -223,11 +222,9 @@ class Field implements Translatable
         return $this;
     }
 
-    public function setLocale(string $locale): self
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
-
-        return $this;
     }
 
     public function getVersion(): ?int
