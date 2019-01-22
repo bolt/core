@@ -200,6 +200,7 @@ trait ContentMagicTrait
             }
         }
 
+        // @todo Consider changing this to `null`, but it will require work in the Vue parts, since they expect an array
         return [];
     }
 
