@@ -69,6 +69,11 @@ class Query
 
     /**
      * Helper to be called from Twig that is passed via a TwigRecordsView rather than the raw records.
+     *
+     * @param $textQuery Base part of setcontent like `pages` or `pages/1`
+     * @param $parameters Parameters like `printquery` and `paging`
+     * @param $whereParameters Actual `where` parameters taken from `... where { foo: bar } ...`
+
      */
     public function getContentForTwig(string $textQuery, array $parameters = [], array $whereParameters = [])
     {
