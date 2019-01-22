@@ -14,7 +14,7 @@ use Bolt\Storage\Query\SelectQuery;
  */
 class SelectQueryHandler
 {
-    public function __invoke(ContentQueryParser $contentQuery): ?QueryResultset
+    public function __invoke(ContentQueryParser $contentQuery)
     {
         $set = new QueryResultset();
         /** @var SelectQuery $query */
