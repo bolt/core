@@ -276,7 +276,7 @@ class Content implements ObjectManagerAware
     {
         return $this->fields
             ->map(function (Field $field) {
-                return $field->getFlatenValue();
+                return $field->getFlattenedValue();
             })
             ->toArray();
     }

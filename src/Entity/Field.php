@@ -192,11 +192,9 @@ class Field implements Translatable
     /**
      * like getValue() but returns single value for single value fields
      *
-     * @Groups({"get_content"})
-     *
      * @return array|mixed|null
      */
-    public function getFlatenValue()
+    public function getFlattenedValue()
     {
         $value = $this->getValue();
         if (is_iterable($value) && count($value) < 2) {
