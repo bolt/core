@@ -1,9 +1,11 @@
 {# Page: Footer > About #}
 
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% block title %} <strong>{{ title }}</strong>
-    {% if subtitle|default() %}» {{ subtitle }} {% endif %}{% endblock title %}
+    {% if subtitle|default() %}» {{ subtitle }} {% endif %}
+{% endblock title %}
 
 {% block main %}
 
@@ -21,6 +23,17 @@
                 Sunt enim prima elementa naturae, quibus auctis vírtutis quasi germen efficitur.
                 Omnis enim est natura diligens sui. Duo Reges: constructio interrete.
             </p>
+
+            {{ macro.button('action.save', 'fa-save', 'primary', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'secondary', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'tertiary', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'success', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'danger', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'warning', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'info', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'light', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'dark', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'link', 'button', '') }}
 
         </div>
     </div>
