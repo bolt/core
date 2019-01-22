@@ -70,14 +70,9 @@ class Query
     /**
      * Helper to be called from Twig that is passed via a TwigRecordsView rather than the raw records.
      */
-    public function getContentForTwig(string $textQuery, array $parameters = [])
+    public function getContentForTwig(string $textQuery, array $parameters = [], array $whereParameters = [])
     {
-        if (func_num_args() === 3) {
-            $whereparameters = func_get_arg(2);
-            if (is_array($whereparameters) && ! empty($whereparameters)) {
-                $parameters = array_merge($parameters, $whereparameters);
-            }
-        }
+        $parameters = array_merge($parameters, $whereParameters);
 
         return $this->getContentByScope('frontend', $textQuery, $parameters);
     }
