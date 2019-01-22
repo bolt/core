@@ -280,16 +280,16 @@ class QueryParameterParser
      *     'matched'  => <the pattern that the value matched>
      * ]
      *
-     * @param string $value Value to process
+     * @param $value Value to process
      *
      * @return array Parsed values
      */
-    public function parseValue(string $value): array
+    public function parseValue($value): array
     {
         foreach ($this->valueMatchers as $matcher) {
             $regex = sprintf('/%s/u', $matcher['token']);
             $values = $matcher['params'];
-            if (preg_match($regex, $value)) {
+            if (preg_match($regex, (string) $value)) {
                 if (is_callable($values['value'])) {
                     preg_match($regex, $value, $output);
                     $values['value'] = $values['value']($output[1]);
