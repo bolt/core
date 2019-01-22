@@ -25,7 +25,7 @@ class ContentLocalizationController extends BaseController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function locales(string $id, Request $request, Content $content): Response
+    public function locales(Request $request, Content $content): Response
     {
         $content->getFields();
 
