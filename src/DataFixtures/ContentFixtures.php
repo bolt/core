@@ -12,6 +12,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Gedmo\Translatable\Entity\Translation;
 use Tightenco\Collect\Support\Collection;
 
@@ -48,6 +49,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
     private function loadContent(ObjectManager $manager): void
     {
+        /** @var TranslationRepository $translationRepository */
         $translationRepository = $manager->getRepository(Translation::class);
 
         foreach ($this->config as $contentType) {

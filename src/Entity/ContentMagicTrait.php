@@ -187,11 +187,8 @@ trait ContentMagicTrait
             }
         }
 
-        return [
-            'filename' => '',
-            'alt' => '',
-            'path' => '',
-        ];
+        // @todo Consider changing this to `null`, but it will require work in the Vue parts, since they expect an array
+        return [];
     }
 
     /**
@@ -221,5 +218,37 @@ trait ContentMagicTrait
         $contentType = $sameContentType ? $this->getContentType() : null;
 
         return $repository->findAdjacentBy($byColumn, 'next', $this->getId(), $contentType);
+    }
+
+    public function getSummary(): array
+    {
+        //@todo moved to magic because it uses magic methods, but it should look same as Content object after serialization (with group = summary?)
+        if ($this->getDefinition() === null) {
+            return [];
+        }
+
+        return [
+            'id' => $this->getid(),
+            'contentType' => $this->getDefinition()->get('slug'),
+            'slug' => $this->getSlug(),
+            'title' => $this->magicTitle(),
+            'excerpt' => $this->magicExcerpt(200, false),
+            'image' => $this->magicImage(),
+            'link' => $this->magicLink(),
+            'editLink' => $this->magicEditLink(),
+            'author' => [
+                'id' => $this->getAuthor()->getid(),
+                'displayName' => $this->getAuthor()->getDisplayName(),
+                'username' => $this->getAuthor()->getusername(),
+                'email' => $this->getAuthor()->getemail(),
+                'roles' => $this->getAuthor()->getroles(),
+            ],
+            'status' => $this->getStatus(),
+            'icon' => $this->getDefinition()->get('icon_one'),
+            'createdAt' => $this->getCreatedAt(),
+            'modifiedAt' => $this->getModifiedAt(),
+            'publishedAt' => $this->getPublishedAt(),
+            'depublishedAt' => $this->getDepublishedAt(),
+        ];
     }
 }

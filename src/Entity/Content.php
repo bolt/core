@@ -138,7 +138,7 @@ class Content implements ObjectManagerAware
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->fields = new ArrayCollection();
+//        $this->fields = new ArrayCollection();
         $this->taxonomies = new ArrayCollection();
     }
 
@@ -158,37 +158,6 @@ class Content implements ObjectManagerAware
     public function getDefinition(): ?ContentType
     {
         return $this->contentTypeDefinition;
-    }
-
-    public function getSummary(): array
-    {
-        if ($this->getDefinition() === null) {
-            return [];
-        }
-
-        return [
-            'id' => $this->getid(),
-            'contentType' => $this->getDefinition()->get('slug'),
-            'slug' => $this->getSlug(),
-            'title' => $this->magicTitle(),
-            'excerpt' => $this->magicExcerpt(200, false),
-            'image' => $this->magicImage(),
-            'link' => $this->magicLink(),
-            'editLink' => $this->magicEditLink(),
-            'author' => [
-                'id' => $this->getAuthor()->getid(),
-                'displayName' => $this->getAuthor()->getDisplayName(),
-                'username' => $this->getAuthor()->getusername(),
-                'email' => $this->getAuthor()->getemail(),
-                'roles' => $this->getAuthor()->getroles(),
-            ],
-            'status' => $this->getStatus(),
-            'icon' => $this->getDefinition()->get('icon_one'),
-            'createdAt' => $this->getCreatedAt(),
-            'modifiedAt' => $this->getModifiedAt(),
-            'publishedAt' => $this->getPublishedAt(),
-            'depublishedAt' => $this->getDepublishedAt(),
-        ];
     }
 
     public function getSlug(): string
@@ -293,9 +262,9 @@ class Content implements ObjectManagerAware
     }
 
     /**
-     * @return Field[]
+     * @return Collection|Field[]
      */
-    public function getFields(): array
+    public function getFields(): Collection
     {
         return $this->fields;
     }
@@ -305,7 +274,7 @@ class Content implements ObjectManagerAware
      */
     public function getFieldValues(): array
     {
-        return collect($this->fields)
+        return $this->fields
             ->map(function (Field $field) {
                 return $field->getFlatenValue();
             })
