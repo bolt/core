@@ -68,7 +68,7 @@ class Query
     }
 
     /**
-     * Helper to be called from Twig that is passed via a TwigRecordsView rather than the raw records.
+     * Helper to be called from Twig
      */
     public function getContentForTwig(string $textQuery, array $parameters = [])
     {

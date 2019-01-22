@@ -292,7 +292,7 @@ class Content implements ObjectManagerAware
 
     public function getField(string $fieldName): Field
     {
-        if ($this->hasField($fieldName)) {
+        if ($this->hasField($fieldName) === false) {
             throw new \InvalidArgumentException(sprintf("Content does not have '%s' field!", $fieldName));
         }
 
