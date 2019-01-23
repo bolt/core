@@ -61,7 +61,7 @@ class Content implements ObjectManagerAware
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("put")
      */
@@ -115,6 +115,7 @@ class Content implements ObjectManagerAware
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
      *     indexBy="name",
+     *     fetch="EAGER",
      *     orphanRemoval=true,
      *     cascade={"persist"}
      * )

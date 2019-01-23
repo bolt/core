@@ -6,6 +6,9 @@ namespace Bolt;
 
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query;
+use Gedmo\Translatable\Query\TreeWalker\TranslationWalker;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -39,6 +42,23 @@ class Kernel extends BaseKernel
                 yield new $class();
             }
         }
+    }
+
+    public function boot()
+    {
+        parent::boot();
+
+        /**
+         * set TranslationWalker globally
+         */
+        $this->container
+            ->get('doctrine.orm.entity_manager')
+            ->getConfiguration()
+            ->setDefaultQueryHint(
+                Query::HINT_CUSTOM_OUTPUT_WALKER,
+                TranslationWalker::class
+            );
+
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
