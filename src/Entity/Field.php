@@ -23,7 +23,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(
- *  name="bolt_field",
  *  uniqueConstraints={
  *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name"}),
  *  })

@@ -30,7 +30,6 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
- * @ORM\Table(name="bolt_content")
  * @ORM\HasLifecycleCallbacks
  */
 class Content implements ObjectManagerAware
@@ -132,7 +131,6 @@ class Content implements ObjectManagerAware
      * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
-     * @ORM\JoinTable(name="bolt_taxonomy_content")
      */
     private $taxonomies;
 

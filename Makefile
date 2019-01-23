@@ -83,8 +83,11 @@ db-create:
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n
 
+db-update:
+	bin/console doctrine:schema:update -v --force
+
 db-reset:
-	bin/console doctrine:schema:drop --force
+	bin/console doctrine:schema:drop --force --full-database
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n
 
@@ -131,9 +134,12 @@ docker-db-create:
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
 
 docker-db-reset:
-	docker-compose exec -T php sh -c "bin/console doctrine:schema:drop --force"
+	docker-compose exec -T php sh -c "bin/console doctrine:schema:drop --force --full-database"
 	docker-compose exec -T php sh -c "bin/console doctrine:schema:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
+
+docker-db-update:
+	docker-compose exec -T php sh -c "bin/console doctrine:schema:update --force"
 
 docker-npm-fix-env:
 	docker-compose run node sh -c "npm rebuild node-sass"
@@ -155,3 +161,9 @@ docker-full-test:
 	npm test
 	make docker-behat
 	make e2e
+
+docker-command:
+	docker-compose exec -T php sh -c "$(c)"
+
+docker-console:
+	docker-compose exec -T php sh -c "bin/console $(c)"

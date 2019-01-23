@@ -18,7 +18,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     itemOperations={"get"}
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\TaxonomyRepository")
- * @ORM\Table(name="bolt_taxonomy")
  */
 class Taxonomy
 {
@@ -32,7 +31,7 @@ class Taxonomy
 
     /**
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies")
-     * @ORM\JoinTable(name="bolt_taxonomy_content")
+     * @ORM\JoinTable(name="taxonomy_content")
      */
     private $content;
 

@@ -9,7 +9,6 @@ use Webmozart\PathUtil\Path;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\MediaRepository")
- * @ORM\Table(name="bolt_media")
  */
 class Media
 {
