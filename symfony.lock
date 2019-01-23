@@ -215,6 +215,9 @@
     "monolog/monolog": {
         "version": "1.23.0"
     },
+    "myclabs/deep-copy": {
+        "version": "1.8.1"
+    },
     "nelmio/cors-bundle": {
         "version": "1.5",
         "recipe": {
@@ -269,6 +272,12 @@
     "paragonie/random_compat": {
         "version": "v2.0.11"
     },
+    "phar-io/manifest": {
+        "version": "1.0.3"
+    },
+    "phar-io/version": {
+        "version": "2.0.1"
+    },
     "php-cs-fixer/diff": {
         "version": "v1.2.0"
     },
@@ -305,11 +314,38 @@
     "phpspec/phpspec": {
         "version": "5.1.0"
     },
+    "phpspec/prophecy": {
+        "version": "1.8.0"
+    },
     "phpstan/phpdoc-parser": {
         "version": "0.3"
     },
     "phpstan/phpstan": {
         "version": "0.10.3"
+    },
+    "phpunit/php-code-coverage": {
+        "version": "6.1.4"
+    },
+    "phpunit/php-file-iterator": {
+        "version": "2.0.2"
+    },
+    "phpunit/php-text-template": {
+        "version": "1.2.1"
+    },
+    "phpunit/php-timer": {
+        "version": "2.0.0"
+    },
+    "phpunit/php-token-stream": {
+        "version": "3.0.1"
+    },
+    "phpunit/phpunit": {
+        "version": "4.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.7",
+            "ref": "89239f0cf2759efccc76b9944083bfcc4d180f9d"
+        }
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -331,6 +367,39 @@
     },
     "roave/security-advisories": {
         "version": "dev-master"
+    },
+    "sebastian/code-unit-reverse-lookup": {
+        "version": "1.0.1"
+    },
+    "sebastian/comparator": {
+        "version": "3.0.2"
+    },
+    "sebastian/diff": {
+        "version": "3.0.1"
+    },
+    "sebastian/environment": {
+        "version": "4.0.1"
+    },
+    "sebastian/exporter": {
+        "version": "3.1.0"
+    },
+    "sebastian/global-state": {
+        "version": "2.0.0"
+    },
+    "sebastian/object-enumerator": {
+        "version": "3.0.3"
+    },
+    "sebastian/object-reflector": {
+        "version": "1.1.1"
+    },
+    "sebastian/recursion-context": {
+        "version": "3.0.0"
+    },
+    "sebastian/resource-operations": {
+        "version": "2.0.1"
+    },
+    "sebastian/version": {
+        "version": "2.0.1"
     },
     "seld/jsonlint": {
         "version": "1.7.1"
@@ -673,6 +742,9 @@
     },
     "thecodingmachine/safe": {
         "version": "v0.1.8"
+    },
+    "theseer/tokenizer": {
+        "version": "1.1.0"
     },
     "tightenco/collect": {
         "version": "v5.7.6"

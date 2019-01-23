@@ -6,7 +6,6 @@ namespace Bolt;
 
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Gedmo\Translatable\Query\TreeWalker\TranslationWalker;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -58,7 +57,6 @@ class Kernel extends BaseKernel
                 Query::HINT_CUSTOM_OUTPUT_WALKER,
                 TranslationWalker::class
             );
-
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void

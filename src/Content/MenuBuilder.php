@@ -269,10 +269,13 @@ class MenuBuilder
         $contentType = ContentType::factory($slug, $this->config->get('contenttypes'));
 
         /** @var Content[] $records */
+        $this->stopwatch->start('menuBuilder.findLatest');
         $records = $this->contentRepository->findLatest($contentType, 5);
+        $this->stopwatch->stop('menuBuilder.findLatest');
 
         $result = [];
 
+        $this->stopwatch->start('menuBuilder.parseLatest');
         /** @var Content $record */
         foreach ($records as $record) {
             $result[] = [
@@ -283,6 +286,7 @@ class MenuBuilder
                 'icon' => $record->getDefinition()->get('icon_one'),
             ];
         }
+        $this->stopwatch->stop('menuBuilder.parseLatest');
 
         return $result;
     }
