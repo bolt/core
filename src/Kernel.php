@@ -43,11 +43,11 @@ class Kernel extends BaseKernel
         }
     }
 
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 
-        /**
+        /*
          * set TranslationWalker globally
          */
         $this->container

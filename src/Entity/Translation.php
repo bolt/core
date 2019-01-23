@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gedmo\Translatable\Entity;
 
-use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Index;
-use Doctrine\ORM\Mapping\UniqueConstraint;
 use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Gedmo\Translatable\Entity\Translation
@@ -24,7 +26,7 @@ use Doctrine\ORM\Mapping\Entity;
  */
 class Translation extends MappedSuperclass\AbstractTranslation
 {
-    /**
+    /*
      * All required columns are mapped through inherited superclass
      */
 }
