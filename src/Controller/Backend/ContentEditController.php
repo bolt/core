@@ -10,6 +10,7 @@ use Bolt\Controller\BaseController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Taxonomy;
+use Bolt\Enum\Statuses;
 use Bolt\Repository\TaxonomyRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -106,7 +107,12 @@ class ContentEditController extends BaseController
             $content->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
         }
 
-        $content->setStatus(Json::findScalar($post['status']));
+        // @todo dumb status validation, to be replaced with Symfony Form validation
+        $status = Json::findScalar($post['status']);
+        if (in_array($status, Statuses::all(), true)) {
+            $content->setStatus($status);
+        }
+
         $content->setPublishedAt(new Carbon($post['publishedAt']));
         $content->setDepublishedAt(new Carbon($post['depublishedAt']));
 
