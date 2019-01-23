@@ -17,7 +17,7 @@ use Twig\TokenStream;
  * @author Gawain Lynch <gawain.lynch@gmail.com>
  * @author Bob den Otter <bobdenotter@gmail.com>
  */
-abstract class AbstractTestTokenParser extends \PHPUnit\Framework\TestCase
+abstract class TokenParserTestCase extends \PHPUnit\Framework\TestCase
 {
     protected function getParser(TokenStream $tokenStream, AbstractTokenParser $testParser): Parser
     {

@@ -22,7 +22,7 @@ use Twig\TokenStream;
  * @author Gawain Lynch <gawain.lynch@gmail.com>
  * @author Bob den Otter <bobdenotter@gmail.com>
  */
-class SetcontentTokenParserTest extends AbstractTestTokenParser
+class SetcontentTokenParserTest extends TokenParserTestCase
 {
     public function testClass(): void
     {
