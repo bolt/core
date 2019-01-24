@@ -99,14 +99,12 @@
     {% endfor %}
 
     {# We do the same for the templatefields, if set and not empty. #}
-    {% set templatefields = record.getValue('templateFields') %}
-    {% if templatefields is not empty %}
-
+    {% if record.hasField('templateFields') %}
         {# Note: This needs to be expanded upon!! For better detection the 'virtual'
            content type for the templatefields should know about the types of fields. #}
         {% set templatefields_field_types = attribute(record.contentType.templatefields|first, 'fields') %}
 
-        {% for key, value in templatefields if (key not in omittedkeys) %}
+        {% for key, value in record.templateFields if (key not in omittedkeys) %}
 
             {% set fieldtype = attribute(attribute(templatefields_field_types, key), 'type')  %}
             {{ block('common_fields') }}

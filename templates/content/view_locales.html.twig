@@ -26,24 +26,23 @@
                 <th>{{ flag(locale) }}{{ locale }}</th>
             {% endfor %}
         </tr>
-        {% for name, field in record.localizedfields %}
+        {% for name, field in record.fields %}
             <tr>
                 <td>
                     <b>{{ field.definition.label|default(field.name) }}</b><br>
                     Type: {{ field.definition.type }}<br>
                 </td>
+                {% set localizedValues = find_translations(field) %}
                 {% for locale in locales %}
                     <td>
-                        {% set value = record.localizedfield(field.name, locale, false) %}
                         {% if not field.definition.localize and not loop.first %}
                             <span class="badge badge-info">Default</span>
-                        {% elseif value %}
+                        {% elseif localizedValues[locale] | default and localizedValues[locale].value is not empty %}
                             <span class="badge badge-success">OK</span>
                         {% else %}
                             <span class="badge badge-warning">Missing</span>
                         {% endif %}
                     </td>
-
                 {% endfor %}
             </tr>
         {% endfor %}

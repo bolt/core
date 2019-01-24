@@ -94,7 +94,8 @@
     "autoload": {
         "psr-4": {
             "Bolt\\": "src/"
-        }
+        },
+        "files": ["src/Entity/Translation.php"]
     },
     "autoload-dev": {
         "psr-4": {

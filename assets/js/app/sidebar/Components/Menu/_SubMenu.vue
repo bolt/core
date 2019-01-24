@@ -6,7 +6,7 @@
       </a>
     </li>
     <li v-if="item.submenu !== null" v-for="(record, index) in item.submenu" :key="index">
-      <a :href="record.editLink || record.link">
+      <a :href="record.editLink">
         <i class="fas fa-fw mr-2" :class="record.icon"></i><span v-html="record.name"></span>
       </a>
     </li>

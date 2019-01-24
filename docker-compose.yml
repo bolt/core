@@ -48,6 +48,13 @@ services:
       - ./:/home/node/app
     working_dir: /home/node/app
 
+  padm:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8099:80
+    external_links:
+      - database:db
+
   maildev:
     image: djfarrelly/maildev
     container_name: sf4_maildev

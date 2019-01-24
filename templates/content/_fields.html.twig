@@ -1,18 +1,24 @@
-    {% for group in groups if group != 'Relations' %}
-    <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{group|slug}}" role="tabpanel" aria-labelledby="{{group|slug}}-tab">
+{% for group in groups if group != 'Relations' %}
+    <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{ group|slug }}" role="tabpanel"
+         aria-labelledby="{{ group|slug }}-tab">
         {% for key, fielddefinition in record.definition.fields if fielddefinition.group == group %}
 
-        {% set type = fielddefinition.type %}
-        {% set field = record.localizedfield(key, currentlocale, false, fielddefinition) %}
+            {% set type = fielddefinition.type %}
 
-        {% include[
-        '_partials/fields/' ~ type ~ '.html.twig',
-        '_partials/fields/generic.html.twig'
-        ] with {
-        'field' : field,
-        'define' : fielddefinition
-        } %}
+            {% if record.hasField(key) %}
+                {% set field = record.getField(key) | translated(currentlocale) %}
+            {% else %}
+                {% set field = field_factory(key, fielddefinition) %}
+            {%  endif %}
+
+            {% include [
+                '_partials/fields/' ~ type ~ '.html.twig',
+                '_partials/fields/generic.html.twig'
+                ] with {
+                'field' : field,
+                'define' : fielddefinition
+            } %}
 
         {% endfor %}
     </div>
-    {% endfor %}
+{% endfor %}

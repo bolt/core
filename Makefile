@@ -38,8 +38,8 @@ stancheck:
 	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
 
 test:
-	vendor/bin/phpunit
 	vendor/bin/phpspec run
+	vendor/bin/phpunit
 
 behat:
 	make server
@@ -83,8 +83,11 @@ db-create:
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n
 
+db-update:
+	bin/console doctrine:schema:update -v --force
+
 db-reset:
-	bin/console doctrine:schema:drop --force
+	bin/console doctrine:schema:drop --force --full-database
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n
 
@@ -130,16 +133,22 @@ docker-db-create:
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
 
 docker-db-reset:
-	docker-compose exec -T php sh -c "bin/console doctrine:schema:drop --force"
+	docker-compose exec -T php sh -c "bin/console doctrine:schema:drop --force --full-database"
 	docker-compose exec -T php sh -c "bin/console doctrine:schema:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
+
+docker-db-update:
+	docker-compose exec -T php sh -c "bin/console doctrine:schema:update --force"
 
 docker-npm-fix-env:
 	docker-compose run node sh -c "npm rebuild node-sass"
 
 docker-test:
-	docker-compose exec -T php sh -c "vendor/bin/phpunit"
 	docker-compose exec -T php sh -c "vendor/bin/phpspec run"
+	docker-compose exec -T php sh -c "vendor/bin/phpunit"
+
+docker-server:
+	docker-compose exec -T php bin/console server:start 127.0.0.1:8088
 
 docker-behat:
 	docker-compose exec -T php vendor/bin/behat -v
@@ -154,3 +163,9 @@ docker-full-test:
 	npm test
 	make docker-behat
 	make e2e
+
+docker-command:
+	docker-compose exec -T php sh -c "$(c)"
+
+docker-console:
+	docker-compose exec -T php sh -c "bin/console $(c)"

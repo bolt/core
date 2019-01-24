@@ -7,6 +7,7 @@ namespace Bolt\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -21,7 +22,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     }
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
- * @ORM\Table(name="bolt_field")
+ * @ORM\Table(
+ *  uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name"}),
+ *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
@@ -50,7 +54,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "video" = "Bolt\Entity\Field\VideoField"
  * })
  */
-class Field
+class Field implements Translatable
 {
     /**
      * @ORM\Id()
@@ -69,6 +73,7 @@ class Field
     /**
      * @ORM\Column(type="json")
      * @Groups({"public", "put"})
+     * @Gedmo\Translatable
      */
     protected $value = [];
 
@@ -79,10 +84,9 @@ class Field
     private $sortorder = 0;
 
     /**
-     * @ORM\Column(type="string", length=191)
-     * @Groups("public")
+     * @Gedmo\Locale
      */
-    private $locale = '';
+    protected $locale;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -142,7 +146,7 @@ class Field
         $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
     }
 
-    public function getDefinition(): ?FieldType
+    public function getDefinition(): FieldType
     {
         if ($this->fieldTypeDefinition === null && $this->getContent()) {
             $this->setDefinitionFromContentDefinition();
@@ -186,11 +190,9 @@ class Field
     /**
      * like getValue() but returns single value for single value fields
      *
-     * @Groups({"get_content"})
-     *
      * @return array|mixed|null
      */
-    public function getFieldValue()
+    public function getFlattenedValue()
     {
         $value = $this->getValue();
         if (is_iterable($value) && count($value) < 2) {
@@ -219,16 +221,9 @@ class Field
         return $this;
     }
 
-    public function getLocale(): ?string
-    {
-        return $this->locale;
-    }
-
-    public function setLocale(string $locale): self
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
-
-        return $this;
     }
 
     public function getVersion(): ?int

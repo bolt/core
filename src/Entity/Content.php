@@ -30,7 +30,6 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
- * @ORM\Table(name="bolt_content")
  * @ORM\HasLifecycleCallbacks
  */
 class Content implements ObjectManagerAware
@@ -61,7 +60,7 @@ class Content implements ObjectManagerAware
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("put")
      */
@@ -114,6 +113,8 @@ class Content implements ObjectManagerAware
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
+     *     indexBy="name",
+     *     fetch="EAGER",
      *     orphanRemoval=true,
      *     cascade={"persist"}
      * )
@@ -130,14 +131,12 @@ class Content implements ObjectManagerAware
      * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
-     * @ORM\JoinTable(name="bolt_taxonomy_content")
      */
     private $taxonomies;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->fields = new ArrayCollection();
         $this->taxonomies = new ArrayCollection();
     }
 
@@ -159,40 +158,9 @@ class Content implements ObjectManagerAware
         return $this->contentTypeDefinition;
     }
 
-    public function getSummary(): array
-    {
-        if ($this->getDefinition() === null) {
-            return [];
-        }
-
-        return [
-            'id' => $this->getid(),
-            'contentType' => $this->getDefinition()->get('slug'),
-            'slug' => $this->getSlug(),
-            'title' => $this->magicTitle(),
-            'excerpt' => $this->magicExcerpt(200, false),
-            'image' => $this->magicImage(),
-            'link' => $this->magicLink(),
-            'editLink' => $this->magicEditLink(),
-            'author' => [
-                'id' => $this->getAuthor()->getid(),
-                'displayName' => $this->getAuthor()->getDisplayName(),
-                'username' => $this->getAuthor()->getusername(),
-                'email' => $this->getAuthor()->getemail(),
-                'roles' => $this->getAuthor()->getroles(),
-            ],
-            'status' => $this->getStatus(),
-            'icon' => $this->getDefinition()->get('icon_one'),
-            'createdAt' => $this->getCreatedAt(),
-            'modifiedAt' => $this->getModifiedAt(),
-            'publishedAt' => $this->getPublishedAt(),
-            'depublishedAt' => $this->getDepublishedAt(),
-        ];
-    }
-
     public function getSlug(): string
     {
-        return $this->get('slug')->__toString();
+        return $this->getField('slug')->__toString();
     }
 
     public function getContentType(): ?string
@@ -292,7 +260,7 @@ class Content implements ObjectManagerAware
     }
 
     /**
-     * @return Field[]|Collection
+     * @return Collection|Field[]
      */
     public function getFields(): Collection
     {
@@ -304,18 +272,58 @@ class Content implements ObjectManagerAware
      */
     public function getFieldValues(): array
     {
-        $fieldValues = [];
-        foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $field->getFieldValue();
-        }
-
-        return $fieldValues;
+        return $this->fields
+            ->map(function (Field $field) {
+                return $field->getFlattenedValue();
+            })
+            ->toArray();
     }
 
-    public function getValue(string $fieldName): ?array
+    public function getFieldValue(string $fieldName): ?array
     {
-        $field = $this->getField($fieldName);
-        return $field ? $field->getValue() : null;
+        if ($this->hasField($fieldName) === false) {
+            return null;
+        }
+
+        return $this->getField($fieldName)->getValue();
+    }
+
+    public function getField(string $fieldName): Field
+    {
+        if ($this->hasField($fieldName) === false) {
+            throw new \InvalidArgumentException(sprintf("Content does not have '%s' field!", $fieldName));
+        }
+
+        return $this->fields[$fieldName];
+    }
+
+    public function hasField(string $fieldName): bool
+    {
+        return isset($this->fields[$fieldName]);
+    }
+
+    public function addField(Field $field): self
+    {
+        if ($this->hasField($field->getName())) {
+            throw new \InvalidArgumentException(sprintf("Content already has '%s' field!", $field->getName()));
+        }
+
+        $this->fields[$field->getName()] = $field;
+        $field->setContent($this);
+
+        return $this;
+    }
+
+    public function removeField(Field $field): self
+    {
+        unset($this->fields[$field->getName()]);
+
+        // set the owning side to null (unless already changed)
+        if ($field->getContent() === $this) {
+            $field->setContent(null);
+        }
+
+        return $this;
     }
 
     /**
@@ -324,39 +332,6 @@ class Content implements ObjectManagerAware
     public function getAuthorName(): string
     {
         return $this->getAuthor()->getDisplayName();
-    }
-
-    public function hasField(string $name): bool
-    {
-        return collect($this->fields)->contains('name', $name);
-    }
-
-    public function getField(string $name): ?Field
-    {
-        return collect($this->fields)->where('name', $name)->first();
-    }
-
-    public function addField(Field $field): self
-    {
-        if ($this->fields->contains($field) === false) {
-            $this->fields[] = $field;
-            $field->setContent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeField(Field $field): self
-    {
-        if ($this->fields->contains($field)) {
-            $this->fields->removeElement($field);
-            // set the owning side to null (unless already changed)
-            if ($field->getContent() === $this) {
-                $field->setContent(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getStatuses(): array

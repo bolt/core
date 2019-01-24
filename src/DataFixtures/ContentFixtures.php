@@ -13,6 +13,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Gedmo\Translatable\Entity\Repository\TranslationRepository;
+use Gedmo\Translatable\Entity\Translation;
 use Tightenco\Collect\Support\Collection;
 
 class ContentFixtures extends Fixture implements DependentFixtureInterface
@@ -48,6 +50,9 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
     private function loadContent(ObjectManager $manager): void
     {
+        /** @var TranslationRepository $translationRepository */
+        $translationRepository = $manager->getRepository(Translation::class);
+
         foreach ($this->config as $contentType) {
             $amount = $contentType['singleton'] ? 1 : 15;
 
@@ -67,20 +72,17 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
+                    $field = Field::factory($fieldType, $name);
+                    $field->setName($name);
+                    $field->setValue($this->getValuesforFieldType($name, $fieldType));
+                    $field->setSortorder($sortorder++ * 5);
+
+                    $content->addField($field);
+
                     if ($fieldType['localize']) {
-                        $locales = $contentType['locales'];
-                    } else {
-                        $locales = [''];
-                    }
-
-                    foreach ($locales as $locale) {
-                        $field = Field::factory($fieldType, $name);
-                        $field->setName($name);
-                        $field->setValue($this->getValuesforFieldType($name, $fieldType));
-                        $field->setSortorder($sortorder++ * 5);
-                        $field->setLocale($locale);
-
-                        $content->addField($field);
+                        foreach ($contentType['locales'] as $locale) {
+                            $translationRepository->translate($field, 'value', $locale, $field->getValue());
+                        }
                     }
                 }
 
