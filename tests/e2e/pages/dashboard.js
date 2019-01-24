@@ -8,8 +8,8 @@ class DashboardPage extends BasePage {
 
     this.profile_text = $('#toolbar .is-profile');
     this.header = $('.admin__header--title strong');
-    this.records = element.all(by.css('.listing__row'));
-    this.first_record = element(by.css('.listing__row'));
+    this.records = $$('.listing__row');
+    this.first_record = $('.listing__row');
   }
 }
 
