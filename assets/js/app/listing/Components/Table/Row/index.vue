@@ -37,13 +37,13 @@
       <row-meta
         :type="type"
         :size="size"
-        :meta="record"
+        :record="record"
       ></row-meta>
       <!-- end column -->
 
       <!-- column actions -->
       <row-actions
-        :id="record.id"
+        :record="record"
         :size="size"
         @quickeditor="quickEditor = $event"
       ></row-actions>

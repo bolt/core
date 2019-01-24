@@ -2,15 +2,17 @@
     <div class="listing__row--item is-meta">
       <ul class="listing__row--list">
           <li v-if="size === 'normal'">
-            <i class="fas fa-user mr-2"></i> {{meta.author.fullName}}
+            <i class="fas fa-user mr-2"></i> {{record.author.displayName}}
           </li>
           <li v-if="size === 'normal'">
-            <i class="fas mr-2" :class="meta.icon"></i>
-            <template v-if="type === 'dashboard'"><a :href="`/bolt/content/${meta.contentType}`">{{meta.contentType}}</a></template>
-            <template v-else>{{meta.contentType}}</template>&nbsp;№ <strong>&nbsp;{{meta.id}}</strong>
+            <i class="fas mr-2" :class="record.icon"></i>
+            <template v-if="type === 'dashboard'"><a :href="`/bolt/content/${record.contentType}`">
+                {{record.contentType}}</a>
+            </template>
+            <template v-else>{{record.contentType}}</template>&nbsp;№ <strong>&nbsp;{{record.id}}</strong>
           </li>
           <li>
-            <span class="status mr-2" :class="`is-${meta.status}`"></span>{{meta.publishedAt.date|date}}
+            <span class="status mr-2" :class="`is-${record.status}`"></span>{{record.publishedAt.date|date}}
           </li>
       </ul>
     </div>
@@ -19,6 +21,6 @@
 <script>
   export default {
     name: "meta-data",
-    props: ["type", "size", "meta"]
+    props: ["type", "size", "record"]
   };
 </script>
