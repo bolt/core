@@ -20,48 +20,51 @@ class SelectQueryHandler
     public function __invoke(ContentQueryParser $contentQuery)
     {
         $set = new QueryResultset();
-        /** @var SelectQuery $query */
-        $query = $contentQuery->getService('select');
-        $query->setSingleFetchMode(false);
+        /** @var SelectQuery $selectQuery */
+        $selectQuery = $contentQuery->getService('select');
+        $selectQuery->setSingleFetchMode(false);
 
         foreach ($contentQuery->getContentTypes() as $contentType) {
             $contentType = str_replace('-', '_', $contentType);
 
             $repo = $contentQuery->getContentRepository();
             $qb = $repo->getQueryBuilder();
-            $query->setQueryBuilder($qb);
-            $query->setContentType('content');
+            $selectQuery->setQueryBuilder($qb);
+            $selectQuery->setContentType('content');
             // $query->setAlias('content')
 
-            $query->setParameters($contentQuery->getParameters());
-            $contentQuery->runScopes($query);
-            $contentQuery->runDirectives($query);
+            $selectQuery->setParameters($contentQuery->getParameters());
+            $contentQuery->runScopes($selectQuery);
+            $contentQuery->runDirectives($selectQuery);
 
             // This is required. Not entirely sure why.
-            $query->build();
+            $selectQuery->build();
 
             // Bolt4 introduces an extra table for field values, so additional
             // joins are required.
-            $query->doReferenceJoins();
-            $query->doFieldJoins();
+            $selectQuery->doReferenceJoins();
+            $selectQuery->doFieldJoins();
 
-            $query
+            $selectQuery
                 ->getQueryBuilder()
                 ->andWhere('content.contentType = :ct')
                 ->setParameter('ct', $contentType);
 
-            $result = $query
+            $query = $selectQuery
                 ->getQueryBuilder()
-                ->getQuery()
+                ->getQuery();
+
+            $set->setOriginalQuery($contentType, $query);
+
+            $result = $query
                 ->getResult();
 
             if ($result) {
-                $set->setOriginalQuery($contentType, $query);
                 $set->add($result, $contentType);
             }
         }
 
-        if ($query->getSingleFetchMode()) {
+        if ($selectQuery->getSingleFetchMode()) {
             if ($set->count() === 0) {
                 return null;
             }

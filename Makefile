@@ -99,7 +99,6 @@ docker-install:
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
 	docker-compose run node sh -c "npm run build"
-	make docker-db-create
 
 docker-update:
 	docker-compose exec -T php sh -c "composer update"
