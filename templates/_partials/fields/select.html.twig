@@ -15,6 +15,12 @@
     {% set multiple = 'false' %}
 {% endif %}
 
+{% if field.allowempty is defined %}
+    {% set allowempty = field.definition.get('allowempty') ? 'true' : 'false' %}
+{% else %}
+    {% set allowempty = allowempty ? 'true' : 'false' %}
+{% endif %}
+
 {% block field %}
     {#<pre><code>{{ value|json_encode() }}</code></pre>#}
     <editor-select
@@ -24,5 +30,6 @@
         :options="{{ options|json_encode() }}"
         :form="'{{ form }}'"
         :multiple="{{ multiple }}"
+        :allowempty="{{ allowempty }}"
     ></editor-select>
 {% endblock %}

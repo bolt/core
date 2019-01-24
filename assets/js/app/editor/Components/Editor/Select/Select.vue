@@ -10,6 +10,7 @@
       :multiple="multiple"
       :taggable="taggable"
       :searchable="taggable"
+      :allow-empty="allowempty"
       tag-placeholder="Add this as new tag"
       tag-position="bottom"
       @tag="addTag"
@@ -38,7 +39,7 @@ import Multiselect from 'vue-multiselect';
 
 export default {
   name: 'editor-select',
-  props: ['value', 'name', 'id', 'form', 'options', 'multiple', 'taggable'],
+  props: ['value', 'name', 'id', 'form', 'options', 'multiple', 'taggable', 'allowempty'],
   components: { Multiselect },
   mounted() {
     const _values = this.value;
