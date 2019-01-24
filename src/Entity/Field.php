@@ -85,6 +85,8 @@ class Field implements Translatable
 
     /**
      * @Gedmo\Locale
+     *
+     * @var string|null
      */
     protected $locale;
 
@@ -224,6 +226,11 @@ class Field implements Translatable
     public function setLocale(string $locale): void
     {
         $this->locale = $locale;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
     }
 
     public function getVersion(): ?int

@@ -47,7 +47,7 @@ class TranslatableExtension extends AbstractExtension
         ];
     }
 
-    public function findTranslations(Translatable $entity, ?string $locale)
+    public function findTranslations(Translatable $entity, ?string $locale = null)
     {
         $translations = $this->translationRepository->findTranslations($entity);
         if ($locale) {
@@ -59,6 +59,11 @@ class TranslatableExtension extends AbstractExtension
 
     public function findTranslated(Translatable $entity, string $locale): Translatable
     {
+        if ($locale === '') {
+            // nothing to translate
+            return $entity;
+        }
+
         $entity->setLocale($locale);
         $this->em->refresh($entity);
 

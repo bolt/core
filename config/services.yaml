@@ -6,6 +6,7 @@ parameters:
     app_locales: en|nl|nl_NL|nl_BE|es|fr|de|pl|it|pt_BR
     app.notifications.email_sender: anonymous@example.com
     doctrine.orm.entity_manager.class: Bolt\Doctrine\TranslatableEntityManager
+    stof_doctrine_extensions.listener.translatable.class: Bolt\EventListener\PreTranslatableListener
     bolt.table_prefix: bolt_
 
 services:
@@ -35,7 +36,6 @@ services:
         tags: ['controller.service_arguments']
 
     Bolt\EventListener\ContentListener:
-        arguments: []
         tags:
             - { name: doctrine.event_listener, event: postLoad }
 
