@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\User;
+use Bolt\Enum\Statuses;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -63,7 +64,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                 $content = new Content();
                 $content->setContentType($contentType['slug']);
                 $content->setAuthor($author);
-                $content->setStatus($this->getRandomStatus());
+                $content->setStatus($i === 1 ? Statuses::PUBLISHED : $this->getRandomStatus());
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setModifiedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setPublishedAt($this->faker->dateTimeBetween('-1 year'));

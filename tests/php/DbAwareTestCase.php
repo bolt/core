@@ -11,10 +11,10 @@ use Symfony\Component\Console\Input\StringInput;
 
 class DbAwareTestCase extends WebTestCase
 {
-    /** @var  Application $application */
+    /** @var Application */
     private static $application;
 
-    /** @var  EntityManager $entityManager */
+    /** @var EntityManager */
     private $entityManager;
 
     protected function getEm(): EntityManager
@@ -22,7 +22,7 @@ class DbAwareTestCase extends WebTestCase
         return $this->entityManager;
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         self::runCommand('doctrine:database:drop --force');
         self::runCommand('doctrine:database:create');
@@ -45,7 +45,7 @@ class DbAwareTestCase extends WebTestCase
 
     private static function getApplication()
     {
-        if (null === self::$application) {
+        if (self::$application === null) {
             $client = static::createClient();
 
             self::$application = new Application($client->getKernel());
@@ -55,7 +55,7 @@ class DbAwareTestCase extends WebTestCase
         return self::$application;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         self::runCommand('doctrine:database:drop --force');
 

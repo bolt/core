@@ -6,6 +6,7 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Config;
 use Bolt\Controller\BaseController;
+use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
 use Bolt\TemplateChooser;
@@ -47,6 +48,10 @@ class DetailController extends BaseController
                 throw new NotFoundHttpException('Content does not exist.');
             }
             $record = $field->getContent();
+        }
+
+        if ($record->getStatus() !== Statuses::PUBLISHED) {
+            throw new NotFoundHttpException('Content is not published');
         }
 
         $recordSlug = $record->getDefinition()['singular_slug'];

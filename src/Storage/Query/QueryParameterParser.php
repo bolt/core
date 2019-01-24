@@ -126,9 +126,10 @@ class QueryParameterParser
      */
     public function incorrectQueryHandler(string $key, $value, Expr $expr)
     {
-        if (! is_string($value)) {
+        if (is_string($value) === false) {
             return null;
         }
+
         if (mb_strpos($value, '&&') && mb_strpos($value, '||')) {
             throw new \Exception('Mixed && and || operators are not supported', 1);
         }
@@ -141,6 +142,10 @@ class QueryParameterParser
      */
     public function multipleKeyAndValueHandler(string $key, $value, Expr $expr): ?Filter
     {
+        if (is_string($value) === false) {
+            return null;
+        }
+
         if (! mb_strpos($key, '|||')) {
             return null;
         }
@@ -161,7 +166,7 @@ class QueryParameterParser
                 $filterParams += $multipleValue->getParameters();
             } else {
                 $val = $this->parseValue($val);
-                // todo: check what type of field $key is
+                // @todo check what type of field $key is
                 $placeholder = $key . '_' . $count;
                 $filterParams[$placeholder] = $val['value'];
                 $exprMethod = $val['operator'];
@@ -190,9 +195,10 @@ class QueryParameterParser
      */
     public function multipleValueHandler(string $key, $value, Expr $expr): ?Filter
     {
-        if (! is_string($value)) {
+        if (is_string($value) === false) {
             return null;
         }
+
         if (mb_strpos($value, '&&') === false && mb_strpos($value, '||') === false) {
             return null;
         }
@@ -232,7 +238,7 @@ class QueryParameterParser
     }
 
     /**
-     * The default handler is the last to be run and handler simple value parsing.
+     * The default handler is the last to be run and handles simple value parsing.
      *
      * @param string|array $value
      */
@@ -247,7 +253,7 @@ class QueryParameterParser
             $composite = $expr->andX();
 
             foreach ($value as $paramName => $valueItem) {
-                $val = $this->parseValue($valueItem);
+                $val = $this->parseValue((string) $valueItem);
                 $placeholder = sprintf('%s_%s_%s', $key, $paramName, $count);
                 $exprMethod = $val['operator'];
                 $composite->add($expr->{$exprMethod}($this->alias . $key, ':' . $placeholder));
@@ -260,7 +266,7 @@ class QueryParameterParser
             return $filter;
         }
 
-        $val = $this->parseValue($value);
+        $val = $this->parseValue((string) $value);
         $placeholder = $key . '_1';
         $exprMethod = $val['operator'];
 
@@ -279,17 +285,13 @@ class QueryParameterParser
      *     'operator' => <the operator that should be used>
      *     'matched'  => <the pattern that the value matched>
      * ]
-     *
-     * @param mixed $value Value to process
-     *
-     * @return array Parsed values
      */
-    public function parseValue($value): array
+    public function parseValue(string $value): array
     {
         foreach ($this->valueMatchers as $matcher) {
             $regex = sprintf('/%s/u', $matcher['token']);
             $values = $matcher['params'];
-            if (preg_match($regex, (string) $value)) {
+            if (preg_match($regex, $value)) {
                 if (is_callable($values['value'])) {
                     preg_match($regex, $value, $output);
                     $values['value'] = $values['value']($output[1]);

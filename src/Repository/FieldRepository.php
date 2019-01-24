@@ -40,7 +40,7 @@ class FieldRepository extends ServiceEntityRepository
 //     * @return Field[] Returns an array of Field objects
 //     */
     /*
-    public function findByExampleField($value)
+    public function findByExampleField($value): ?Field
     {
         return $this->createQueryBuilder('field')
             ->andWhere('field.exampleField = :val')
@@ -48,16 +48,7 @@ class FieldRepository extends ServiceEntityRepository
             ->orderBy('field.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
-    }
-     */
-    public function findOneBySomeField($value): ?Field
-    {
-        return $this->createQueryBuilder('field')
-            ->andWhere('field.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
             ->getOneOrNullResult();
     }
+     */
 }

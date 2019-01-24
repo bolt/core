@@ -7,7 +7,7 @@ namespace Bolt\Storage\Query;
 use AppendIterator;
 use ArrayIterator;
 use Countable;
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 
 /**
  * This class is a wrapper that handles single or multiple
@@ -20,7 +20,7 @@ class QueryResultset extends AppendIterator implements Countable
     /** @var array */
     protected $results = [];
 
-    /** @var QueryBuilder[] */
+    /** @var Query[] */
     protected $originalQueries = [];
 
     /**
@@ -62,20 +62,17 @@ class QueryResultset extends AppendIterator implements Countable
         return $results;
     }
 
-    /**
-     * Returns the total count.
-     */
     public function count(): int
     {
         return count($this->get());
     }
 
-    public function setOriginalQuery($type, $originalQuery): void
+    public function setOriginalQuery(string $type, Query $originalQuery): void
     {
         $this->originalQueries[$type] = $originalQuery;
     }
 
-    public function getOriginalQuery($type = null): QueryBuilder
+    public function getOriginalQuery($type = null): ?Query
     {
         if ($type !== null) {
             return $this->originalQueries[$type];
@@ -85,7 +82,7 @@ class QueryResultset extends AppendIterator implements Countable
     }
 
     /**
-     * @return QueryBuilder[]
+     * @return Query[]
      */
     public function getOriginalQueries(): array
     {

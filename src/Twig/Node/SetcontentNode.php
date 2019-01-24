@@ -52,15 +52,20 @@ class SetcontentNode extends Node
             ->raw("'] = ")
             ->raw("\$this->env->getExtension('" . SetcontentExtension::class . "')->getQueryEngine()->getContentForTwig(")
             ->subcompile($this->getAttribute('contentType'))
-            ->raw(', ')
-            ->subcompile($arguments);
+            ->raw(', ');
 
         if ($this->hasNode('wherearguments')) {
             $compiler
+                ->raw('array_merge(')
+                ->subcompile($arguments)
                 ->raw(', ')
-                ->subcompile($this->getNode('wherearguments'));
+                ->subcompile($this->getNode('wherearguments'))
+                ->raw(')');
+        } else {
+            $compiler
+                ->subcompile($arguments);
         }
 
-        $compiler->raw(" );\n");
+        $compiler->raw(");\n");
     }
 }

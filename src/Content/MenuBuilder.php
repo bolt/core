@@ -282,7 +282,7 @@ class MenuBuilder
                 'id' => $record->getId(),
                 'name' => $record->magicTitle(),
                 'link' => $record->magicLink(),
-                'editlink' => $record->magicEditLink(),
+                'editLink' => $record->magicEditLink(),
                 'icon' => $record->getDefinition()->get('icon_one'),
             ];
         }
