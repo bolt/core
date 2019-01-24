@@ -137,7 +137,6 @@ class Content implements ObjectManagerAware
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-//        $this->fields = new ArrayCollection();
         $this->taxonomies = new ArrayCollection();
     }
 
