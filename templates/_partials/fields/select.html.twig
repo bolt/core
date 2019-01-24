@@ -15,10 +15,10 @@
     {% set multiple = 'false' %}
 {% endif %}
 
-{% if field.allowempty is defined %}
+{% if allowempty is not defined and field.definition is defined %}
     {% set allowempty = field.definition.get('allowempty') ? 'true' : 'false' %}
 {% else %}
-    {% set allowempty = allowempty ? 'true' : 'false' %}
+    {% set allowempty = allowempty|default() ? 'true' : 'false' %}
 {% endif %}
 
 {% block field %}
