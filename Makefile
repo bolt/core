@@ -38,8 +38,8 @@ stancheck:
 	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
 
 test:
-	vendor/bin/phpunit
 	vendor/bin/phpspec run
+	vendor/bin/phpunit
 
 behat:
 	make server
@@ -144,8 +144,11 @@ docker-npm-fix-env:
 	docker-compose run node sh -c "npm rebuild node-sass"
 
 docker-test:
-	docker-compose exec -T php sh -c "vendor/bin/phpunit"
 	docker-compose exec -T php sh -c "vendor/bin/phpspec run"
+	docker-compose exec -T php sh -c "vendor/bin/phpunit"
+
+docker-server:
+	docker-compose exec -T php bin/console server:start 127.0.0.1:8088
 
 docker-behat:
 	docker-compose exec -T php vendor/bin/behat -v
