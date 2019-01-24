@@ -26,7 +26,8 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  *         "put"={
  *             "denormalization_context"={"groups"={"put"}},
  *         }
- *     }
+ *     },
+ *     outputClass=Bolt\Model\ContentResponse::class
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")

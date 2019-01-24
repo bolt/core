@@ -62,3 +62,8 @@ services:
         arguments: [ "%bolt.table_prefix%" ]
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata, lazy: true }
+
+    Bolt\DataProvider\ContentDataProvider:
+        arguments:
+            $itemExtensions: !tagged api_platform.doctrine.orm.query_extension.item
+            $collectionExtensions: !tagged api_platform.doctrine.orm.query_extension.collection

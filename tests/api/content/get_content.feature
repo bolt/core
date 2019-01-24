@@ -13,7 +13,7 @@ Feature: Get content with API
        "publishedAt": "@string@.isDateTime()",
        "taxonomies": @array@,
        "authorName": "@string@",
-       "fieldValues": {
+       "fields": {
           "title": "@string@",
           "slug": "@string@",
           "image": {
@@ -23,6 +23,11 @@ Feature: Get content with API
           },
           "@*@": "@*@"
        },
+       "extras: {
+          "link": "@string@",
+          "editLink": "@string@",
+          "@*@": "@*@"
+       }
        "@*@": "@*@"
     },
     "@...@"
