@@ -93,7 +93,7 @@ class ContentEditController extends BaseController
 
         $urlParams = [
             'id' => $content->getId(),
-            'locale' => $this->getEditLocale($request, $content) ?: null,
+            'edit_locale' => $this->getEditLocale($request, $content) ?: null,
         ];
         $url = $urlGenerator->generate('bolt_content_edit', $urlParams);
 
@@ -188,7 +188,7 @@ class ContentEditController extends BaseController
 
     private function getEditLocale(Request $request, Content $content): string
     {
-        $locale = $request->query->get('locale', '');
+        $locale = $request->query->get('edit_locale', '');
         $locales = $content->getLocales();
 
         if ($locales->contains($locale) === false) {

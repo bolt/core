@@ -35,23 +35,23 @@ Feature: Edit record
         And I click the "save_button" element
 
         When I visit the "single_record" page with parameters:
-            | id     | 1  |
-            | locale | nl |
+            | id          | 1  |
+            | edit_locale | nl |
         Then there is element "title" with text "Changed title NL"
 
         When I visit the "single_record" page with parameters:
-          | id      | 1  |
-          | locale  | nl |
-          | _locale | nl |
+            | id          | 1  |
+            | edit_locale | nl |
+            | _locale     | nl |
         Then there is element "title" with text "Changed title NL"
 
         When I visit the "single_record" page with parameters:
-          | id      | 1  |
-          | locale  | en |
-          | _locale | nl |
+            | id          | 1  |
+            | edit_locale | en |
+            | _locale     | nl |
         Then there is element "title" with text "Changed title NL"
 
         When I visit the "display_record" page with parameters:
-          | id      | 1  |
-          | _locale | nl |
+            | id      | 1  |
+            | _locale | nl |
         Then there is element "title" with text "Changed title NL"
