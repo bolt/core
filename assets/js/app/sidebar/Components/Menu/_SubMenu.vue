@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import SubMenu from './_SubMenu';
 
 export default {
   name: "sub-menu",
