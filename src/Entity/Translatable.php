@@ -9,4 +9,5 @@ use Gedmo\Translatable\Translatable as GedmoTranslatable;
 interface Translatable extends GedmoTranslatable
 {
     public function setLocale(string $locale): void;
+    public function getLocale(): ?string;
 }

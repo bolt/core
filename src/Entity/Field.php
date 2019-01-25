@@ -85,6 +85,8 @@ class Field implements Translatable
 
     /**
      * @Gedmo\Locale
+     *
+     * @var string|null
      */
     protected $locale;
 
@@ -160,7 +162,7 @@ class Field implements Translatable
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -224,6 +226,11 @@ class Field implements Translatable
     public function setLocale(string $locale): void
     {
         $this->locale = $locale;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
     }
 
     public function getVersion(): ?int

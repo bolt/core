@@ -555,10 +555,6 @@
         <source>field.author</source>
         <target>Auteur</target>
       </trans-unit>
-      <trans-unit id="ovKkXwU" resname="action.edit">
-        <source>action.edit</source>
-        <target>__action.edit</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>

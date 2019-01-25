@@ -935,12 +935,6 @@
         <target>Author</target>
       </segment>
     </unit>
-    <unit id="ovKkXwU" name="action.edit">
-      <segment>
-        <source>action.edit</source>
-        <target>__action.edit</target>
-      </segment>
-    </unit>
     <unit id="UNBaDz." name="general.phrase.edit">
       <segment>
         <source>general.phrase.edit</source>

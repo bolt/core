@@ -101,7 +101,7 @@ class LocaleExtension extends AbstractExtension
         $locales = new Collection();
         foreach ($localeCodes as $localeCode) {
             $locale = $this->localeInfo($localeCode);
-            $routeParams['locale'] = $locale->get('code');
+            $routeParams['edit_locale'] = $locale->get('code');
             $locale->put('link', $this->urlGenerator->generate($route, $routeParams));
 
             $locales->push($locale);
