@@ -1,28 +1,48 @@
 {%- spaceless -%}
 
+{# This template fragment is used to "extend" the different fields, used in
+   Bolt's backend. Most of the values get passed in, either through a `Field`,
+   or otherwise through parameters.
+
+   The used variables are: ("P" is parameter, "F" comes from a `Field`)
+
+   - type: P - The type of the field
+   - variant: F - the "variant" of the field, if applicable
+   - name: P+F - The `name` attribute of the <input> field
+   - id: P+F - The `id` attribut of the <input> field
+   - class: P+F - The `class` attribute of the <input> field
+   - form: P - The `form` attribute of the <input>, defaults to 'editcontent'
+   - value: P+F - The default value if the <input> field
+   - label: P+F - Label used as visible anchor to the <input> field
+   - placeholder: P+F - Placeholder text to use in the <input>
+   - prefix: P+F - Short text to display as a prefix before a field
+   - postfix: P+F - Short text to display as a postfix after a field
+
+   #}
+
 {# Set type #}
-{% set type = field.type|default() %}
+{% set type = field.type|default %}
 
 {# Set variant #}
 {% set variant = define.variant|default('normal') %}
 
 {# Set the name #}
-{% if not name|default() %}
+{% if not name|default %}
     {%  set name = 'fields[' ~ field.name ~ ']' %}
 {% endif %}
 
 {# Set the id #}
-{% if not id|default() %}
+{% if not id|default %}
     {% set id = 'field-' ~ field.name|default(name) %}
 {% endif %}
 
 {# Set the form #}
-{% if not form|default() %}
+{% if not form|default %}
     {% set form = 'editcontent' %}
 {% endif %}
 
 {# Set the value #}
-{% if not value|default() %}
+{% if not value|default %}
     {% set value = field.value|default('') %}
     {% if value is iterable %}
         {% set value = field.__toString() %}
@@ -30,29 +50,26 @@
 {% endif %}
 
 {# Set the class #}
-{% if not class|default() %}
-    {% set class = field.definition.class|default() %}
+{% if not class|default %}
+    {% set class = field.definition.class|default %}
 {% endif %}
 
 {% set class = class %}
 
 {# Set the label #}
-{% if not label|default() %}
+{% if not label|default %}
     {% set label = field.definition.label|default(field.name|ucwords) ~ ':' %}
 {% endif %}
 
-{% if field.definition is defined %}
-    {% set localize = field.definition.localize|default(false) %}
-{% else %}
-    {% set localize = false %}
-{% endif %}
+{% set localize = field.definition.localize|default %}
 
 {# Set the prefix and postfix attributes #}
-{% set prefix = prefix|default(field.definition.prefix|default()) %}
+{% set prefix = prefix|default(field.definition.prefix|default) %}
 {% if prefix and not ('<p' in prefix or '<span' in prefix or '<div' in prefix) %}
     {% set prefix = '<span id="' ~ id ~ '_prefix" class="form--helper">' ~ prefix ~ '</span>' %}
 {% endif %}
-{% set postfix = postfix|default(field.definition.postfix|default()) %}
+
+{% set postfix = postfix|default(field.definition.postfix|default) %}
 {% if postfix and not ('<p' in postfix or '<span' in postfix or '<div' in postfix) %}
     {% set postfix = '<span id="' ~ id ~ '_postfix" class="form--helper">' ~ postfix ~ '</span>' %}
 {% endif %}

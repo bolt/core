@@ -1,18 +1,23 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
-{# Check Attributes #}
-{% if form is not defined %}
-    {% set form = '' %}
-{% endif %}
+{# On top of the attributes that get set/defined in `_base.html.twig`,
+   The Select fields has three additional attributes:
+
+     - options: The actual options that are available in the select
+     - multiple: A boolean to set whether or not we allow multiple selections
+     - allowempty: A boolean to set whether or not we allow clearing the selection
+ #}
 
 {% if options is not defined %}
     {% set options = selectoptionsfromarray(field) %}
 {% endif %}
 
-{% if field.definition is defined %}
-    {% set multiple = field.definition.get('multiple') ? 'true' : 'false' %}
+{% set multiple = field.definition.get('multiple')|default ? 'true' : 'false' %}
+
+{% if allowempty is not defined and field.definition|default %}
+    {% set allowempty = field.definition.get('allowempty') ? 'true' : 'false' %}
 {% else %}
-    {% set multiple = 'false' %}
+    {% set allowempty = allowempty|default ? 'true' : 'false' %}
 {% endif %}
 
 {% block field %}
@@ -24,5 +29,6 @@
         :options="{{ options|json_encode() }}"
         :form="'{{ form }}'"
         :multiple="{{ multiple }}"
+        :allowempty="{{ allowempty }}"
     ></editor-select>
 {% endblock %}
