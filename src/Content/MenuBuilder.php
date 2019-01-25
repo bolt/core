@@ -304,15 +304,8 @@ class MenuBuilder
                 foreach ($child->getChildren() as $submenuChild) {
                     $submenu[] = [
                         'name' => $submenuChild->getExtra('name') ?: $submenuChild->getLabel(),
-                        'singular_name' => $submenuChild->getExtra('singular_name'),
-                        'slug' => $submenuChild->getExtra('slug'),
-                        'singular_slug' => $submenuChild->getExtra('singular_slug'),
                         'icon' => $submenuChild->getExtra('icon'),
-                        'link' => $submenuChild->getUri(),
-                        'link_new' => $submenuChild->getExtra('link_new'),
-                        'contenttype' => $submenuChild->getExtra('contenttype'),
-                        'singleton' => $submenuChild->getExtra('singleton'),
-                        'type' => $submenuChild->getExtra('type'),
+                        'editLink' => $submenuChild->getUri(),
                         'active' => $submenuChild->getExtra('active'),
                     ];
                 }
