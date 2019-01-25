@@ -24,7 +24,7 @@
 {% set type = field.type|default %}
 
 {# Set variant #}
-{% set variant = field.variant|default('normal') %}
+{% set variant = field.definition.variant|default('normal') %}
 
 {# Set the name #}
 {% if not name|default %}

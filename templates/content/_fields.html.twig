@@ -12,9 +12,7 @@
             {% include [
                 '_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
                 '_partials/fields/generic.html.twig'
-                ] with {
-                'field' : field
-            } %}
+                ] with { 'field' : field } %}
 
         {% endfor %}
     </div>
