@@ -1,28 +1,79 @@
 {# Page: Footer > About #}
 
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% block title %} <strong>{{ title }}</strong>
-    {% if subtitle|default() %}» {{ subtitle }} {% endif %}{% endblock title %}
+    {% if subtitle|default() %}» {{ subtitle }} {% endif %}
+{% endblock title %}
 
 {% block main %}
 
-    <div class="row">
-        <div class="col-md-9">
-            <h1>{{ title }}</h1>
+    <h2>{{ title }}</h2>
 
-            {% if subtitle|default() %}
-                <h3>{{ subtitle }}</h3>
-            {% endif %}
+    {% if subtitle|default() %}
+        <h3>{{ subtitle }}</h3>
+    {% endif %}
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Torquatus, is qui consul
-                cum Cn. Tum ille timide vel potius verecunde: Facio, inquit. Quae sequuntur igitur?
-                Sunt enim prima elementa naturae, quibus auctis vírtutis quasi germen efficitur.
-                Omnis enim est natura diligens sui. Duo Reges: constructio interrete.
-            </p>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Torquatus, is qui consul
+        cum Cn. Tum ille timide vel potius verecunde: Facio, inquit. Quae sequuntur igitur?
+        Sunt enim prima elementa naturae, quibus auctis vírtutis quasi germen efficitur.
+        Omnis enim est natura diligens sui. Duo Reges: constructio interrete.
+    </p>
 
-        </div>
-    </div>
+    <section class="buttons">
+        <h1>Buttons</h1>
+
+            {{ macro.button('action.save', 'fa-save', 'primary', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'secondary', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'tertiary', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'success', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'danger', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'warning', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'info', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'light', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'dark', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'link', 'button', '') }}
+
+        <hr>
+    </section>
+
+
+    <section class="fields">
+        <h1>Fields</h1>
+
+        <form method="post" id="editor">
+
+        {# a field with _no_ options, all defaults/fallbacks #}
+        {% include '_partials/fields/generic.html.twig' %}
+
+        {# a field with passed in options #}
+        {% include '_partials/fields/generic.html.twig' with {
+            'name': 'foo',
+            'id': 'bar',
+            'value': "FooBar",
+            'label': 'A Field',
+            'placeholder': 'Just a dummy field'
+        } %}
+
+        {# fields from a contenttype #}
+        {% setcontent record = 'homepage' returnsingle %}
+        {% for key, fielddefinition in record.definition.fields|slice(0,3) %}
+
+            {% set field = record.field(key, 'en', false, fielddefinition) %}
+
+            {% include [
+                '_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
+                '_partials/fields/generic.html.twig'
+                ] with { 'field' : field } %}
+
+        {% endfor %}
+
+        {# @todo Add more fields #}
+        </form>
+
+        <hr>
+    </section>
 
 {% endblock main %}

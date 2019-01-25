@@ -19,7 +19,7 @@
                     <label>Alt</label>
                 </div>
                 <div class="col-9">
-                    <input name="{{ name }}[alt]" placeholder="An image depicting a kitten" type="text" value="{{ field.get('alt') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+                    <input name="{{ name }}[alt]" placeholder="…" type="text" value="{{ field.get('alt') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
                 </div>
             </div>
 
@@ -28,7 +28,7 @@
                     <label>Title</label>
                 </div>
                 <div class="col-9">
-                    <input name="{{ name }}[alt]" placeholder="A description of this image" type="text" value="{{ field.get('title') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+                    <input name="{{ name }}[alt]" placeholder="{{ placeholder|default('The title of this image') }}" type="text" value="{{ field.get('title') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
                 </div>
             </div>
 
