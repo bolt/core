@@ -12,16 +12,12 @@
     {% set options = selectoptionsfromarray(field) %}
 {% endif %}
 
-{% if field.definition is defined %}
-    {% set multiple = field.definition.get('multiple') ? 'true' : 'false' %}
-{% else %}
-    {% set multiple = 'false' %}
-{% endif %}
+{% set multiple = field.definition.get('multiple')|default ? 'true' : 'false' %}
 
-{% if allowempty is not defined and field.definition is defined %}
+{% if allowempty is not defined and field.definition|default %}
     {% set allowempty = field.definition.get('allowempty') ? 'true' : 'false' %}
 {% else %}
-    {% set allowempty = allowempty|default() ? 'true' : 'false' %}
+    {% set allowempty = allowempty|default ? 'true' : 'false' %}
 {% endif %}
 
 {% block field %}
