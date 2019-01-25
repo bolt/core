@@ -18,22 +18,22 @@
    - prefix: P+F - Short text to display as a prefix before a field
    - postfix: P+F - Short text to display as a postfix after a field
 
-   #}
+#}
 
 {# Set type #}
 {% set type = field.type|default %}
 
 {# Set variant #}
-{% set variant = define.variant|default('normal') %}
+{% set variant = field.variant|default('normal') %}
 
 {# Set the name #}
 {% if not name|default %}
-    {%  set name = 'fields[' ~ field.name ~ ']' %}
+    {%  set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
 {% endif %}
 
 {# Set the id #}
 {% if not id|default %}
-    {% set id = 'field-' ~ field.name|default(name) %}
+    {% set id = 'field-' ~ field.name|default('unnamed') %}
 {% endif %}
 
 {# Set the form #}
@@ -54,13 +54,18 @@
     {% set class = field.definition.class|default %}
 {% endif %}
 
-{% set class = class %}
-
 {# Set the label #}
 {% if not label|default %}
-    {% set label = field.definition.label|default(field.name|ucwords) ~ ':' %}
+    {% set label = field.definition.label|default(field.name|default('unnamed')|ucwords) %}
+{% endif %}
+{% set label = label|trim(':') ~ ':' %}
+
+{# Set the placeholder #}
+{% if not placeholder|default %}
+    {% set placeholder = field.definition.placeholder|default('') %}
 {% endif %}
 
+{# Set the locale #}
 {% set localize = field.definition.localize|default %}
 
 {# Set the prefix and postfix attributes #}

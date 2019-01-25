@@ -3,8 +3,6 @@
          aria-labelledby="{{ group|slug }}-tab">
         {% for key, fielddefinition in record.definition.fields if fielddefinition.group == group %}
 
-            {% set type = fielddefinition.type %}
-
             {% if record.hasField(key) %}
                 {% set field = record.getField(key) | translated(currentlocale) %}
             {% else %}
@@ -12,11 +10,10 @@
             {%  endif %}
 
             {% include [
-                '_partials/fields/' ~ type ~ '.html.twig',
+                '_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
                 '_partials/fields/generic.html.twig'
                 ] with {
-                'field' : field,
-                'define' : fielddefinition
+                'field' : field
             } %}
 
         {% endfor %}

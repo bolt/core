@@ -35,6 +35,36 @@
             {{ macro.button('action.save', 'fa-save', 'dark', 'button', '') }}
             {{ macro.button('action.save', 'fa-save', 'link', 'button', '') }}
 
+            <hr>
+
+            <h1>Fields</h1>
+
+            <form method="post" id="editor">
+
+            {% include ['_partials/fields/generic.html.twig'] %}
+
+            {% include ['_partials/fields/generic.html.twig'] with {
+                'name': 'foo',
+                'id': 'bar',
+                'label': 'A Field',
+                'placeholder': 'Just a dummy field'
+            } %}
+
+            {% setcontent record = 'homepage' returnsingle %}
+            {% for key, fielddefinition in record.definition.fields %}
+
+                {% set field = record.field(key, 'en', false, fielddefinition) %}
+
+                {% include [
+                    '_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
+                    '_partials/fields/generic.html.twig'
+                    ] with { 'field' : field } %}
+
+            {% endfor %}
+
+            {# @todo Add more fields #}
+            </form>
+
         </div>
     </div>
 
