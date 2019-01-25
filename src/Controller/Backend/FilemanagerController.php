@@ -43,7 +43,7 @@ class FilemanagerController extends BaseController
      */
     public function filemanager(string $area, Request $request, MediaRepository $mediaRepository): Response
     {
-        $path = $request->query->get('path');
+        $path = $request->query->get('path', '');
         if (! str::endsWith($path, '/')) {
             $path .= '/';
         }
