@@ -9,7 +9,7 @@ use Bolt\Entity\Content;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class ContentListener
+class ContentFillListener
 {
     /** @var Config */
     private $config;
@@ -28,6 +28,11 @@ class ContentListener
         /** @var Content $entity */
         $entity = $args->getEntity();
 
+        $this->fillContent($entity);
+    }
+
+    public function fillContent($entity): void
+    {
         if (method_exists($entity, 'setDefinitionFromContentTypesConfig')) {
             $entity->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
         }

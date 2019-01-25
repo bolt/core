@@ -11,6 +11,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
+use Bolt\EventListener\ContentFillListener;
 use Bolt\Repository\TaxonomyRepository;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -41,29 +42,37 @@ class ContentEditController extends BaseController
      */
     private $em;
 
-    public function __construct(TaxonomyRepository $taxonomyRepository, Config $config, CsrfTokenManagerInterface $csrfTokenManager, ObjectManager $em)
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    public function __construct(TaxonomyRepository $taxonomyRepository, Config $config, CsrfTokenManagerInterface $csrfTokenManager, ObjectManager $em, UrlGeneratorInterface $urlGenerator)
     {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->em = $em;
+        $this->urlGenerator = $urlGenerator;
         parent::__construct($config, $csrfTokenManager);
     }
 
     /**
-     * @Route("/edit/{id}", name="bolt_content_edit", methods={"GET"})
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @Route("/new/{contentType}", name="bolt_content_new", methods={"GET"})
      */
-    public function edit(string $id, Request $request, ?Content $content = null): Response
+    public function new(string $contentType, Request $request, ContentFillListener $contentListener): Response
     {
-        if (! $content) {
-            $content = new Content();
-            $content->setAuthor($this->getUser());
-            $content->setContentType($id);
-            $content->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
-        }
+        $content = new Content();
+        $content->setAuthor($this->getUser());
+        $content->setContentType($contentType);
+        $contentListener->fillContent($content);
 
+        return $this->edit($request, $content);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="bolt_content_edit", methods={"GET"}, requirements={"id": "\d+"})
+     */
+    public function edit(Request $request, Content $content): Response
+    {
         $twigvars = [
             'record' => $content,
             'locales' => $content->getLocales(),
@@ -74,9 +83,9 @@ class ContentEditController extends BaseController
     }
 
     /**
-     * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"})
+     * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
      */
-    public function editPost(Request $request, UrlGeneratorInterface $urlGenerator, ?Content $content = null): Response
+    public function editPost(Request $request, ?Content $content = null): Response
     {
         $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
 
@@ -95,7 +104,7 @@ class ContentEditController extends BaseController
             'id' => $content->getId(),
             'edit_locale' => $this->getEditLocale($request, $content) ?: null,
         ];
-        $url = $urlGenerator->generate('bolt_content_edit', $urlParams);
+        $url = $this->urlGenerator->generate('bolt_content_edit', $urlParams);
 
         return new RedirectResponse($url);
     }

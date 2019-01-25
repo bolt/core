@@ -28,30 +28,42 @@ Feature: Edit record
 
         And I click the "lang_select" element
         And I click the "lang_nl" element
-        And I click the "change_lang" element
 
         Then I wait for "title_field" element to appear
         When I fill the "title_field" field with "Changed title NL"
         And I click the "save_button" element
 
-        When I visit the "single_record" page with parameters:
+        When I visit the "edit_record" page with parameters:
             | id          | 1  |
             | edit_locale | nl |
-        Then there is element "title" with text "Changed title NL"
+        Then there is element "title_field" with text "Changed title NL"
 
-        When I visit the "single_record" page with parameters:
+        When I visit the "edit_record" page with parameters:
             | id          | 1  |
             | edit_locale | nl |
             | _locale     | nl |
-        Then there is element "title" with text "Changed title NL"
+        Then there is element "title_field" with text "Changed title NL"
 
-        When I visit the "single_record" page with parameters:
+        When I visit the "edit_record" page with parameters:
             | id          | 1  |
             | edit_locale | en |
             | _locale     | nl |
-        Then there is element "title" with text "Changed title NL"
+        Then there is element "title_field" with text "Changed title EN"
 
-        When I visit the "display_record" page with parameters:
+        When I visit the "single_record" page with parameters:
             | id      | 1  |
             | _locale | nl |
         Then there is element "title" with text "Changed title NL"
+
+        When I visit the "single_record" page with parameters:
+            | id      | 1  |
+        Then there is element "title" with text "Changed title NL"
+
+        When I visit the "single_record" page with parameters:
+            | id      | 1  |
+            | _locale | en |
+        Then there is element "title" with text "Changed title EN"
+
+        When I visit the "single_record" page with parameters:
+            | id      | 1  |
+        Then there is element "title" with text "Changed title EN"

@@ -162,7 +162,7 @@ class Field implements Translatable
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }

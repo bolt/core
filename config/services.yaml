@@ -35,7 +35,7 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    Bolt\EventListener\ContentListener:
+    Bolt\EventListener\ContentFillListener:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
 

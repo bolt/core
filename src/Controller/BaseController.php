@@ -35,10 +35,6 @@ class BaseController extends AbstractController
      * @final
      *
      * @param string|array $template
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     protected function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
     {

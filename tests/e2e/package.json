@@ -1,12 +1,13 @@
 {
   "name": "e2e",
   "description": "Bolt E2E tests",
+  "private": true,
   "scripts": {
     "kakunin": "cross-env NODE_ENV=prod kakunin"
   },
   "dependencies": {
     "cross-env": "^5.2.0",
-    "kakunin": "^2.4",
+    "kakunin": "https://github.com/JarJak/Kakunin/tarball/feature/url-additional-params",
     "protractor": "^5.4.2",
     "webdriver-manager": "^12.1.1"
   }

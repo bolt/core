@@ -78,7 +78,7 @@ class MenuBuilder
                     'slug' => $contentType['slug'],
                     'singular_slug' => $contentType['singular_slug'],
                     'icon' => $contentType['icon_many'],
-                    'link_new' => $this->urlGenerator->generate('bolt_content_edit', ['id' => $contentType['slug']]),
+                    'link_new' => $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType['slug']]),
                     'content_type' => $contentType['slug'],
                     'singleton' => $contentType['singleton'],
                     'active' => $contentType['slug'] === 'pages' ? true : false,

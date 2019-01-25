@@ -3,7 +3,7 @@
 stof_doctrine_extensions:
     default_locale: '%locale%'
     translation_fallback: true
-    persist_default_translation: true
+    persist_default_translation: false
     orm:
         default:
             translatable: true

@@ -94,6 +94,7 @@ trait ContentMagicTrait
     {
         // Prefer a field with $name
         foreach ($this->fields as $field) {
+            /** @var Field $field */
             if ($field->getName() === $name) {
                 return $field instanceof Excerptable ? new Twig_Markup($field, 'UTF-8') : $field;
             }
