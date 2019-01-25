@@ -138,6 +138,7 @@ class Content implements ObjectManagerAware
     {
         $this->createdAt = new \DateTime();
         $this->taxonomies = new ArrayCollection();
+        $this->fields = new ArrayCollection();
     }
 
     public function getId(): ?int
