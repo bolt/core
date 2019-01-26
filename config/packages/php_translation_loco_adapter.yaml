@@ -1,6 +1,0 @@
-translation_adapter_loco:
-    index_parameter: 'id' # 'text' or 'name'. Leave blank for "auto"  See https://localise.biz/api/docs/export/exportlocale
-    projects:
-        my_project:
-            api_key: '%env(LOCO_PROJECT_API_KEY)%'
-            domains: ['messages']

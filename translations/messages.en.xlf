@@ -12,7 +12,6 @@
     </unit>
     <unit id="DF34uM2" name="http_error.name">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
