@@ -54,7 +54,7 @@ class DetailController extends BaseController
             throw new NotFoundHttpException('Content is not published');
         }
 
-        $recordSlug = $record->getDefinition()['singular_slug'];
+        $recordSlug = $record->getDefinition()->get('singular_slug');
 
         $context = [
             'record' => $record,
