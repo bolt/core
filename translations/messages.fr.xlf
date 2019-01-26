@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="fr">
   <file id="messages.fr">
-    <unit id="XNTbZW6" name="action.visit_site">
-      <segment>
-        <source>action.visit_site</source>
-        <target>action.visit_site</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

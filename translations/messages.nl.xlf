@@ -1,39 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="nl">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="pl" trgLang="nl">
   <file id="messages.nl">
-    <unit id="LDhDPrF" name="label.username">
+    <unit id="tbB2gib" name="not_available">
       <notes>
-        <note priority="1">templates/security/login.twig:66</note>
-        <note priority="1">src/Form/UserType.php:31</note>
+        <note>templates/debug/source_code.twig:26</note>
       </notes>
       <segment>
-        <source>label.username</source>
-        <target>Gebruikersnaam</target>
+        <source>not_available</source>
+        <target>Niet beschikbaar</target>
       </segment>
     </unit>
-    <unit id="9pvowqn" name="label.password">
+    <unit id="DF34uM2" name="http_error.name">
       <notes>
-        <note priority="1">templates/security/login.twig:70</note>
-        <note priority="1">templates/security/login.twig:75</note>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
       </notes>
       <segment>
-        <source>label.password</source>
-        <target>Wachtwoord</target>
+        <source>http_error.name</source>
+        <target>Fout %status_code%</target>
       </segment>
     </unit>
-    <unit id="gLN0C81" name="action.log_in">
+    <unit id="2bH7SjO" name="title.twig_template_code">
       <notes>
-        <note priority="1">templates/security/login.twig:84</note>
+        <note>templates/debug/source_code.twig:29</note>
       </notes>
       <segment>
-        <source>action.log_in</source>
-        <target>Log in</target>
+        <source>title.twig_template_code</source>
+        <target>Twig template broncode</target>
+      </segment>
+    </unit>
+    <unit id="1sstKF9" name="title.edit_user">
+      <notes>
+        <note>templates/users/edit.twig:4</note>
+      </notes>
+      <segment>
+        <source>title.edit_user</source>
+        <target>Bewerk gebruiker</target>
+      </segment>
+    </unit>
+    <unit id="QbohvW1" name="action.show_code">
+      <notes>
+        <note>templates/debug/source_code.twig:7</note>
+      </notes>
+      <segment>
+        <source>action.show_code</source>
+        <target>Toon broncode</target>
       </segment>
     </unit>
     <unit id="HLtdhYw" name="action.save">
       <notes>
-        <note priority="1">templates/users/change_password.twig:18</note>
-        <note priority="1">templates/users/edit.twig:15</note>
+        <note>templates/users/change_password.twig:18</note>
+        <note>templates/users/edit.twig:15</note>
       </notes>
       <segment>
         <source>action.save</source>
@@ -42,25 +61,45 @@
     </unit>
     <unit id="etGJjTo" name="action.edit_user">
       <notes>
-        <note priority="1">templates/users/change_password.twig:26</note>
+        <note>templates/users/change_password.twig:26</note>
       </notes>
       <segment>
         <source>action.edit_user</source>
         <target>Bewerk gebruiker</target>
       </segment>
     </unit>
-    <unit id="1sstKF9" name="title.edit_user">
+    <unit id="LDhDPrF" name="label.username">
       <notes>
-        <note priority="1">templates/users/edit.twig:4</note>
+        <note>templates/security/login.twig:66</note>
+        <note>src/Form/UserType.php:31</note>
       </notes>
       <segment>
-        <source>title.edit_user</source>
-        <target>Bewerk gebruiker</target>
+        <source>label.username</source>
+        <target>Gebruikersnaam</target>
+      </segment>
+    </unit>
+    <unit id="9pvowqn" name="label.password">
+      <notes>
+        <note>templates/security/login.twig:70</note>
+        <note>templates/security/login.twig:75</note>
+      </notes>
+      <segment>
+        <source>label.password</source>
+        <target>Wachtwoord</target>
+      </segment>
+    </unit>
+    <unit id="gLN0C81" name="action.log_in">
+      <notes>
+        <note>templates/security/login.twig:84</note>
+      </notes>
+      <segment>
+        <source>action.log_in</source>
+        <target>Log in</target>
       </segment>
     </unit>
     <unit id="CX_oSFd" name="action.change_password">
       <notes>
-        <note priority="1">templates/users/edit.twig:24</note>
+        <note>templates/users/edit.twig:24</note>
       </notes>
       <segment>
         <source>action.change_password</source>
@@ -69,8 +108,8 @@
     </unit>
     <unit id="SNELzJ2" name="field.id">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:118</note>
-        <note priority="1">templates/editcontent/media_edit.twig:98</note>
+        <note>templates/editcontent/edit.twig:118</note>
+        <note>templates/editcontent/media_edit.twig:98</note>
       </notes>
       <segment>
         <source>field.id</source>
@@ -79,7 +118,7 @@
     </unit>
     <unit id="FuCyk5C" name="field.status">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:76</note>
+        <note>templates/editcontent/edit.twig:76</note>
       </notes>
       <segment>
         <source>field.status</source>
@@ -88,8 +127,8 @@
     </unit>
     <unit id="O9wtVOp" name="field.createdAt">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:86</note>
-        <note priority="1">templates/editcontent/media_edit.twig:128</note>
+        <note>templates/editcontent/edit.twig:86</note>
+        <note>templates/editcontent/media_edit.twig:128</note>
       </notes>
       <segment>
         <source>field.createdAt</source>
@@ -98,8 +137,8 @@
     </unit>
     <unit id="eVkSIKu" name="field.modifiedAt">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:94</note>
-        <note priority="1">templates/editcontent/media_edit.twig:135</note>
+        <note>templates/editcontent/edit.twig:94</note>
+        <note>templates/editcontent/media_edit.twig:135</note>
       </notes>
       <segment>
         <source>field.modifiedAt</source>
@@ -108,7 +147,7 @@
     </unit>
     <unit id="3gdi1dy" name="field.publishedAt">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:102</note>
+        <note>templates/editcontent/edit.twig:102</note>
       </notes>
       <segment>
         <source>field.publishedAt</source>
@@ -117,7 +156,7 @@
     </unit>
     <unit id="eN7IfEL" name="field.depublishedAt">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:110</note>
+        <note>templates/editcontent/edit.twig:110</note>
       </notes>
       <segment>
         <source>field.depublishedAt</source>
@@ -126,25 +165,16 @@
     </unit>
     <unit id="hjDmcPC" name="field.copyright">
       <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:59</note>
+        <note>templates/editcontent/media_edit.twig:59</note>
       </notes>
       <segment>
         <source>field.copyright</source>
         <target>Copyright</target>
       </segment>
     </unit>
-    <unit id="QbohvW1" name="action.show_code">
-      <notes>
-        <note priority="1">templates/debug/source_code.twig:7</note>
-      </notes>
-      <segment>
-        <source>action.show_code</source>
-        <target>Toon broncode</target>
-      </segment>
-    </unit>
     <unit id="k.JymqB" name="about.visit_bolt">
       <notes>
-        <note priority="1">templates/pages/about.twig:25</note>
+        <note>templates/pages/about.twig:25</note>
       </notes>
       <segment>
         <source>about.visit_bolt</source>
@@ -153,16 +183,25 @@
     </unit>
     <unit id="UZFanGF" name="about.bolt_documentation">
       <notes>
-        <note priority="1">templates/pages/about.twig:28</note>
+        <note>templates/pages/about.twig:28</note>
       </notes>
       <segment>
         <source>about.bolt_documentation</source>
         <target>Bolt documentatie</target>
       </segment>
     </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <notes>
+        <note>templates/pages/about.twig:31</note>
+      </notes>
+      <segment>
+        <source>about.bolt_on_github</source>
+        <target>Bolt op Github</target>
+      </segment>
+    </unit>
     <unit id="_9fS00R" name="about.used_libraries">
       <notes>
-        <note priority="1">templates/pages/about.twig:35</note>
+        <note>templates/pages/about.twig:35</note>
       </notes>
       <segment>
         <source>about.used_libraries</source>
@@ -171,8 +210,8 @@
     </unit>
     <unit id="aYnbvsn" name="label.fullname">
       <notes>
-        <note priority="1">src/Form/UserType.php:35</note>
-        <note priority="1">new</note>
+        <note>src/Form/UserType.php:35</note>
+        <note>new</note>
       </notes>
       <segment>
         <source>label.fullname</source>
@@ -181,186 +220,12 @@
     </unit>
     <unit id="D2N6_cP" name="label.email">
       <notes>
-        <note priority="1">src/Form/UserType.php:38</note>
-        <note priority="1">new</note>
+        <note>src/Form/UserType.php:38</note>
+        <note>new</note>
       </notes>
       <segment>
         <source>label.email</source>
         <target>E-mail</target>
-      </segment>
-    </unit>
-    <unit id="Oiwdkpg" name="The Default theme">
-      <segment>
-        <source>The Default theme</source>
-        <target>Het standaard thema</target>
-      </segment>
-    </unit>
-    <unit id="7aLIA3c" name="caption.dashboard">
-      <segment>
-        <source>caption.dashboard</source>
-        <target>Dashboard</target>
-      </segment>
-    </unit>
-    <unit id="XNTbZW6" name="action.visit_site">
-      <segment>
-        <source>action.visit_site</source>
-        <target>Bekijk site</target>
-      </segment>
-    </unit>
-    <unit id="KfVJho2" name="action.create_new">
-      <segment>
-        <source>action.create_new</source>
-        <target>Maak nieuwe</target>
-      </segment>
-    </unit>
-    <unit id="b_RPpcB" name="general.greeting">
-      <segment>
-        <source>general.greeting</source>
-        <target>Hoi, %name%</target>
-      </segment>
-    </unit>
-    <unit id="bmdn3u9" name="action.logout">
-      <segment>
-        <source>action.logout</source>
-        <target>Uitloggen</target>
-      </segment>
-    </unit>
-    <unit id="zOfpTLD" name="action.edit_profile">
-      <segment>
-        <source>action.edit_profile</source>
-        <target>Bewerk profiel</target>
-      </segment>
-    </unit>
-    <unit id="1xlE8ex" name="caption.content">
-      <segment>
-        <source>caption.content</source>
-        <target>Content</target>
-      </segment>
-    </unit>
-    <unit id="ZO.uqIZ" name="caption.settings">
-      <segment>
-        <source>caption.settings</source>
-        <target>Instellingen</target>
-      </segment>
-    </unit>
-    <unit id="zOLL.7E" name="caption.configuration">
-      <segment>
-        <source>caption.configuration</source>
-        <target>Configuratie</target>
-      </segment>
-    </unit>
-    <unit id="ipmA6Ah" name="caption.users_permissions">
-      <segment>
-        <source>caption.users_permissions</source>
-        <target><![CDATA[Gebruikers & permissies]]></target>
-      </segment>
-    </unit>
-    <unit id="kXNBV9S" name="caption.main_configuration">
-      <segment>
-        <source>caption.main_configuration</source>
-        <target>hoofdconfiguratie</target>
-      </segment>
-    </unit>
-    <unit id="_w7J5rZ" name="caption.contenttypes">
-      <segment>
-        <source>caption.contenttypes</source>
-        <target>Contenttypen</target>
-      </segment>
-    </unit>
-    <unit id="drK.0GZ" name="caption.taxonomies">
-      <segment>
-        <source>caption.taxonomies</source>
-        <target>Taxonomieën </target>
-      </segment>
-    </unit>
-    <unit id="2RUXD4A" name="caption.menu_setup">
-      <segment>
-        <source>caption.menu_setup</source>
-        <target>Menu instellingen</target>
-      </segment>
-    </unit>
-    <unit id="wBKDkwl" name="caption.routing_setup">
-      <segment>
-        <source>caption.routing_setup</source>
-        <target>Routing instellingen</target>
-      </segment>
-    </unit>
-    <unit id="i4cbdta" name="caption.all_configuration_files">
-      <segment>
-        <source>caption.all_configuration_files</source>
-        <target>Alle configuratie bestanden</target>
-      </segment>
-    </unit>
-    <unit id="OpKTKAL" name="caption.maintenance">
-      <segment>
-        <source>caption.maintenance</source>
-        <target>Onderhoud</target>
-      </segment>
-    </unit>
-    <unit id="RRQ1EJ3" name="caption.check_database">
-      <segment>
-        <source>caption.check_database</source>
-        <target>Controleer Database</target>
-      </segment>
-    </unit>
-    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
-      <segment>
-        <source>caption.fixtures_dummy_content</source>
-        <target>Fixtures (loze inhoud)</target>
-      </segment>
-    </unit>
-    <unit id="K6TmK4B" name="caption.clear_cache">
-      <segment>
-        <source>caption.clear_cache</source>
-        <target>Leeg de cache</target>
-      </segment>
-    </unit>
-    <unit id="_ef0RBR" name="caption.installation_checks">
-      <segment>
-        <source>caption.installation_checks</source>
-        <target>Installatie-controle</target>
-      </segment>
-    </unit>
-    <unit id="Dvu2HQx" name="caption.api">
-      <segment>
-        <source>caption.api</source>
-        <target>API</target>
-      </segment>
-    </unit>
-    <unit id="dd5MzCM" name="caption.translations">
-      <segment>
-        <source>caption.translations</source>
-        <target>Vertalingen / Labels</target>
-      </segment>
-    </unit>
-    <unit id="mfvtHPQ" name="caption.extensions">
-      <segment>
-        <source>caption.extensions</source>
-        <target>Extensies</target>
-      </segment>
-    </unit>
-    <unit id="l4yt0BE" name="caption.file_management">
-      <segment>
-        <source>caption.file_management</source>
-        <target>Bestandsbeheer</target>
-      </segment>
-    </unit>
-    <unit id="bq6bSf4" name="caption.uploaded_files">
-      <segment>
-        <source>caption.uploaded_files</source>
-        <target>Geüploade bestanden</target>
-      </segment>
-    </unit>
-    <unit id="K4D568R" name="caption.view_edit_templates">
-      <segment>
-        <source>caption.view_edit_templates</source>
-        <target><![CDATA[Bekijk & bewerk templates]]></target>
-      </segment>
-    </unit>
-    <unit id="N_0yRcH" name="action.close_alert">
-      <segment>
-        <source>action.close_alert</source>
-        <target>Sluit</target>
       </segment>
     </unit>
     <unit id="mEDsKHk" name="label.locale">
@@ -369,10 +234,16 @@
         <target>Locale</target>
       </segment>
     </unit>
+    <unit id="98Q5SA2" name="label.backend_theme">
+      <segment>
+        <source>label.backend_theme</source>
+        <target>Backend thema</target>
+      </segment>
+    </unit>
     <unit id="Z84BVRW" name="English (en)">
       <segment>
         <source>English (en)</source>
-        <target>English (en) </target>
+        <target>English (en)</target>
       </segment>
     </unit>
     <unit id="eG9ABZd" name="Nederlands (dutch, nl)">
@@ -417,10 +288,10 @@
         <target>Italiano (Italian, it)</target>
       </segment>
     </unit>
-    <unit id="98Q5SA2" name="label.backend_theme">
+    <unit id="Oiwdkpg" name="The Default theme">
       <segment>
-        <source>label.backend_theme</source>
-        <target>Backend thema</target>
+        <source>The Default theme</source>
+        <target>Het standaard thema</target>
       </segment>
     </unit>
     <unit id="C389Knp" name="The Default Dark theme">
@@ -435,10 +306,106 @@
         <target>WoordPers: Lijkt een beetje op dat andere CMS</target>
       </segment>
     </unit>
-    <unit id="HK7XTUX" name="caption.edit">
+    <unit id="7aLIA3c" name="caption.dashboard">
       <segment>
-        <source>caption.edit</source>
-        <target>Bewerk</target>
+        <source>caption.dashboard</source>
+        <target>Dashboard</target>
+      </segment>
+    </unit>
+    <unit id="K6TmK4B" name="caption.clear_cache">
+      <segment>
+        <source>caption.clear_cache</source>
+        <target>Leeg de cache</target>
+      </segment>
+    </unit>
+    <unit id="RRQ1EJ3" name="caption.check_database">
+      <segment>
+        <source>caption.check_database</source>
+        <target>Controleer Database</target>
+      </segment>
+    </unit>
+    <unit id="2RUXD4A" name="caption.menu_setup">
+      <segment>
+        <source>caption.menu_setup</source>
+        <target>Menu instellingen</target>
+      </segment>
+    </unit>
+    <unit id="drK.0GZ" name="caption.taxonomies">
+      <segment>
+        <source>caption.taxonomies</source>
+        <target>Taxonomieën</target>
+      </segment>
+    </unit>
+    <unit id="_w7J5rZ" name="caption.contenttypes">
+      <segment>
+        <source>caption.contenttypes</source>
+        <target>Contenttypen</target>
+      </segment>
+    </unit>
+    <unit id="kXNBV9S" name="caption.main_configuration">
+      <segment>
+        <source>caption.main_configuration</source>
+        <target>hoofdconfiguratie</target>
+      </segment>
+    </unit>
+    <unit id="ipmA6Ah" name="caption.users_permissions">
+      <segment>
+        <source>caption.users_permissions</source>
+        <target><![CDATA[Gebruikers & permissies]]></target>
+      </segment>
+    </unit>
+    <unit id="zOLL.7E" name="caption.configuration">
+      <segment>
+        <source>caption.configuration</source>
+        <target>Configuratie</target>
+      </segment>
+    </unit>
+    <unit id="ZO.uqIZ" name="caption.settings">
+      <segment>
+        <source>caption.settings</source>
+        <target>Instellingen</target>
+      </segment>
+    </unit>
+    <unit id="1xlE8ex" name="caption.content">
+      <segment>
+        <source>caption.content</source>
+        <target>Content</target>
+      </segment>
+    </unit>
+    <unit id="l4yt0BE" name="caption.file_management">
+      <segment>
+        <source>caption.file_management</source>
+        <target>Bestandsbeheer</target>
+      </segment>
+    </unit>
+    <unit id="mfvtHPQ" name="caption.extensions">
+      <segment>
+        <source>caption.extensions</source>
+        <target>Extensies</target>
+      </segment>
+    </unit>
+    <unit id="K4D568R" name="caption.view_edit_templates">
+      <segment>
+        <source>caption.view_edit_templates</source>
+        <target><![CDATA[Bekijk & bewerk templates]]></target>
+      </segment>
+    </unit>
+    <unit id="bq6bSf4" name="caption.uploaded_files">
+      <segment>
+        <source>caption.uploaded_files</source>
+        <target>Geüploade bestanden</target>
+      </segment>
+    </unit>
+    <unit id="wBKDkwl" name="caption.routing_setup">
+      <segment>
+        <source>caption.routing_setup</source>
+        <target>Routing instellingen</target>
+      </segment>
+    </unit>
+    <unit id="dd5MzCM" name="caption.translations">
+      <segment>
+        <source>caption.translations</source>
+        <target>Vertalingen / Labels</target>
       </segment>
     </unit>
     <unit id="wLaDaK5" name="caption.about_bolt">
@@ -453,16 +420,10 @@
         <target>Weldoordacht, lichtgewicht en eenvoudig CMS</target>
       </segment>
     </unit>
-    <unit id="P1FHg3Q" name="caption.edit_file">
+    <unit id="HK7XTUX" name="caption.edit">
       <segment>
-        <source>caption.edit_file</source>
-        <target>Bewerk Bestand</target>
-      </segment>
-    </unit>
-    <unit id="FSroufa" name="caption.path">
-      <segment>
-        <source>caption.path</source>
-        <target>Pad</target>
+        <source>caption.edit</source>
+        <target>Bewerk</target>
       </segment>
     </unit>
     <unit id="dbyz2hj" name="caption.finder">
@@ -471,46 +432,10 @@
         <target>Finder</target>
       </segment>
     </unit>
-    <unit id="C15MbYY" name="form.quick_select_file">
+    <unit id="QZYjRy0" name="caption.file_uploader">
       <segment>
-        <source>form.quick_select_file</source>
-        <target>Selecteer een bestand om snel te bewerken…</target>
-      </segment>
-    </unit>
-    <unit id="KHvGNGW" name="directoryname">
-      <segment>
-        <source>directoryname</source>
-        <target>Directorynaam</target>
-      </segment>
-    </unit>
-    <unit id="Kw3N1AA" name="actions">
-      <segment>
-        <source>actions</source>
-        <target>Acties</target>
-      </segment>
-    </unit>
-    <unit id="_XSgfqS" name="filename">
-      <segment>
-        <source>filename</source>
-        <target>Bestandsnaam</target>
-      </segment>
-    </unit>
-    <unit id="gPYflhh" name="thumbnail">
-      <segment>
-        <source>thumbnail</source>
-        <target>Thumbnail</target>
-      </segment>
-    </unit>
-    <unit id="zNy_hG8" name="size">
-      <segment>
-        <source>size</source>
-        <target>Formaat</target>
-      </segment>
-    </unit>
-    <unit id="DodjLNR" name="date">
-      <segment>
-        <source>date</source>
-        <target>Datum</target>
+        <source>caption.file_uploader</source>
+        <target>Bestandsuploader</target>
       </segment>
     </unit>
     <unit id="LaDIuZA" name="caption.meta_information">
@@ -519,10 +444,124 @@
         <target>Meta informatie</target>
       </segment>
     </unit>
-    <unit id="QZYjRy0" name="caption.file_uploader">
+    <unit id="DodjLNR" name="date">
       <segment>
-        <source>caption.file_uploader</source>
-        <target>Bestandsuploader</target>
+        <source>date</source>
+        <target>Datum</target>
+      </segment>
+    </unit>
+    <unit id="zNy_hG8" name="size">
+      <segment>
+        <source>size</source>
+        <target>Formaat</target>
+      </segment>
+    </unit>
+    <unit id="gPYflhh" name="thumbnail">
+      <segment>
+        <source>thumbnail</source>
+        <target>Thumbnail</target>
+      </segment>
+    </unit>
+    <unit id="_XSgfqS" name="filename">
+      <segment>
+        <source>filename</source>
+        <target>Bestandsnaam</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <segment>
+        <source>actions</source>
+        <target>Acties</target>
+      </segment>
+    </unit>
+    <unit id="KHvGNGW" name="directoryname">
+      <segment>
+        <source>directoryname</source>
+        <target>Directorynaam</target>
+      </segment>
+    </unit>
+    <unit id="C15MbYY" name="form.quick_select_file">
+      <segment>
+        <source>form.quick_select_file</source>
+        <target>Selecteer een bestand om snel te bewerken…</target>
+      </segment>
+    </unit>
+    <unit id="FSroufa" name="caption.path">
+      <segment>
+        <source>caption.path</source>
+        <target>Pad</target>
+      </segment>
+    </unit>
+    <unit id="XNTbZW6" name="action.visit_site">
+      <segment>
+        <source>action.visit_site</source>
+        <target>Bekijk site</target>
+      </segment>
+    </unit>
+    <unit id="KfVJho2" name="action.create_new">
+      <segment>
+        <source>action.create_new</source>
+        <target>Maak nieuwe</target>
+      </segment>
+    </unit>
+    <unit id="b_RPpcB" name="general.greeting">
+      <segment>
+        <source>general.greeting</source>
+        <target>Hoi, %name%</target>
+      </segment>
+    </unit>
+    <unit id="bmdn3u9" name="action.logout">
+      <segment>
+        <source>action.logout</source>
+        <target>Uitloggen</target>
+      </segment>
+    </unit>
+    <unit id="zOfpTLD" name="action.edit_profile">
+      <segment>
+        <source>action.edit_profile</source>
+        <target>Bewerk profiel</target>
+      </segment>
+    </unit>
+    <unit id="N_0yRcH" name="action.close_alert">
+      <segment>
+        <source>action.close_alert</source>
+        <target>Sluit</target>
+      </segment>
+    </unit>
+    <unit id="Dvu2HQx" name="caption.api">
+      <segment>
+        <source>caption.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
+    <unit id="i4cbdta" name="caption.all_configuration_files">
+      <segment>
+        <source>caption.all_configuration_files</source>
+        <target>Alle configuratie bestanden</target>
+      </segment>
+    </unit>
+    <unit id="OpKTKAL" name="caption.maintenance">
+      <segment>
+        <source>caption.maintenance</source>
+        <target>Onderhoud</target>
+      </segment>
+    </unit>
+    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
+      <segment>
+        <source>caption.fixtures_dummy_content</source>
+        <target>Fixtures (loze inhoud)</target>
+      </segment>
+    </unit>
+    <unit id="P1FHg3Q" name="caption.edit_file">
+      <segment>
+        <source>caption.edit_file</source>
+        <target>Bewerk Bestand</target>
+      </segment>
+    </unit>
+    <unit id="_ef0RBR" name="caption.installation_checks">
+      <segment>
+        <source>caption.installation_checks</source>
+        <target>Installatie-controle</target>
       </segment>
     </unit>
     <unit id="9lJhqvA" name="field.locale">
