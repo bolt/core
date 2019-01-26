@@ -16,7 +16,6 @@ Feature: Edit record
             | id | 5 |
         Then there is element "title" with text "Changed title"
 
-    @wip
     Scenario: As an Admin I want to change title of a record in another language
         Given I am logged in as "admin"
 
@@ -54,10 +53,6 @@ Feature: Edit record
         When I visit the "single_record" page with parameters:
             | id      | 1  |
             | _locale | nl |
-        Then there is element "title" with text "Changed title NL"
-
-        When I visit the "single_record" page with parameters:
-            | id      | 1  |
         Then there is element "title" with text "Changed title NL"
 
         When I visit the "single_record" page with parameters:
