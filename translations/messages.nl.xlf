@@ -5,11 +5,6 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="80JoLd0" resname="title.login">
-        <source>title.login</source>
-        <target>__title.login</target>
-        <note priority="1">templates/security/login.twig:4</note>
-      </trans-unit>
       <trans-unit id="LDhDPrF" resname="label.username">
         <source>label.username</source>
         <target>Gebruikersnaam</target>
@@ -26,16 +21,6 @@
         <source>action.log_in</source>
         <target>Log in</target>
         <note priority="1">templates/security/login.twig:84</note>
-      </trans-unit>
-      <trans-unit id="vJwSCBO" resname="title.contentlisting">
-        <source>title.contentlisting</source>
-        <target>__title.contentlisting</target>
-        <note priority="1">templates/content/listing.twig:9</note>
-      </trans-unit>
-      <trans-unit id="wtG.cxy" resname="info.change_password">
-        <source>info.change_password</source>
-        <target>__info.change_password</target>
-        <note priority="1">templates/users/change_password.twig:12</note>
       </trans-unit>
       <trans-unit id="HLtdhYw" resname="action.save">
         <source>action.save</source>
@@ -91,129 +76,15 @@
         <target>Gedepubliceerd op</target>
         <note priority="1">templates/editcontent/edit.twig:110</note>
       </trans-unit>
-      <trans-unit id="VKhfRZB" resname="field.title">
-        <source>field.title</source>
-        <target>__field.title</target>
-        <note priority="1">templates/editcontent/media_edit.twig:47</note>
-      </trans-unit>
-      <trans-unit id="7_wwX8J" resname="field.description">
-        <source>field.description</source>
-        <target>__field.description</target>
-        <note priority="1">templates/editcontent/media_edit.twig:53</note>
-      </trans-unit>
       <trans-unit id="hjDmcPC" resname="field.copyright">
         <source>field.copyright</source>
         <target>Copyright</target>
         <note priority="1">templates/editcontent/media_edit.twig:59</note>
       </trans-unit>
-      <trans-unit id="v0sitU8" resname="field.originalFilename">
-        <source>field.originalFilename</source>
-        <target>__field.originalFilename</target>
-        <note priority="1">templates/editcontent/media_edit.twig:66</note>
-      </trans-unit>
-      <trans-unit id="vlRe8Tx" resname="field.width">
-        <source>field.width</source>
-        <target>__field.width</target>
-        <note priority="1">templates/editcontent/media_edit.twig:105</note>
-      </trans-unit>
-      <trans-unit id="CZbXbM_" resname="field.height">
-        <source>field.height</source>
-        <target>__field.height</target>
-        <note priority="1">templates/editcontent/media_edit.twig:112</note>
-      </trans-unit>
-      <trans-unit id="Sz_u.OS" resname="field.filesize">
-        <source>field.filesize</source>
-        <target>__field.filesize</target>
-        <note priority="1">templates/editcontent/media_edit.twig:119</note>
-      </trans-unit>
-      <trans-unit id="DF34uM2" resname="http_error.name">
-        <source>http_error.name</source>
-        <target>__http_error.name</target>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
-      </trans-unit>
-      <trans-unit id="e3w.2Rf" resname="http_error.description">
-        <source>http_error.description</source>
-        <target>__http_error.description</target>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
-      </trans-unit>
-      <trans-unit id="ru5FEGk" resname="http_error.suggestion">
-        <source>http_error.suggestion</source>
-        <target>__http_error.suggestion</target>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
-      </trans-unit>
-      <trans-unit id="_W1eNz2" resname="http_error_404.description">
-        <source>http_error_404.description</source>
-        <target>__http_error_404.description</target>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
-      </trans-unit>
-      <trans-unit id="MWNS5dg" resname="http_error_404.suggestion">
-        <source>http_error_404.suggestion</source>
-        <target>__http_error_404.suggestion</target>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
-      </trans-unit>
-      <trans-unit id="ZYXSW95" resname="http_error_500.description">
-        <source>http_error_500.description</source>
-        <target>__http_error_500.description</target>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
-      </trans-unit>
-      <trans-unit id="VVs_J1c" resname="http_error_500.suggestion">
-        <source>http_error_500.suggestion</source>
-        <target>__http_error_500.suggestion</target>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
-      </trans-unit>
-      <trans-unit id="Qn5rwdU" resname="http_error_403.description">
-        <source>http_error_403.description</source>
-        <target>__http_error_403.description</target>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
-      </trans-unit>
-      <trans-unit id="zDeeh7L" resname="http_error_403.suggestion">
-        <source>http_error_403.suggestion</source>
-        <target>__http_error_403.suggestion</target>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
-      </trans-unit>
-      <trans-unit id="VgeTgE2" resname="help.show_code">
-        <source>help.show_code</source>
-        <target>__help.show_code</target>
-        <note priority="1">templates/debug/source_code.twig:3</note>
-      </trans-unit>
       <trans-unit id="QbohvW1" resname="action.show_code">
         <source>action.show_code</source>
         <target>Toon broncode</target>
         <note priority="1">templates/debug/source_code.twig:7</note>
-      </trans-unit>
-      <trans-unit id="9RwuNlf" resname="title.source_code">
-        <source>title.source_code</source>
-        <target>__title.source_code</target>
-        <note priority="1">templates/debug/source_code.twig:17</note>
-      </trans-unit>
-      <trans-unit id="jaB3QjG" resname="title.controller_code">
-        <source>title.controller_code</source>
-        <target>__title.controller_code</target>
-        <note priority="1">templates/debug/source_code.twig:22</note>
-        <note priority="1">templates/debug/source_code.twig:25</note>
-      </trans-unit>
-      <trans-unit id="tbB2gib" resname="not_available">
-        <source>not_available</source>
-        <target>__not_available</target>
-        <note priority="1">templates/debug/source_code.twig:26</note>
-      </trans-unit>
-      <trans-unit id="2bH7SjO" resname="title.twig_template_code">
-        <source>title.twig_template_code</source>
-        <target>__title.twig_template_code</target>
-        <note priority="1">templates/debug/source_code.twig:29</note>
-      </trans-unit>
-      <trans-unit id="RMPnq6o" resname="label.username_or_email">
-        <source>label.username_or_email</source>
-        <target>__label.username_or_email</target>
-        <note priority="1">templates/security/login.twig:61</note>
-      </trans-unit>
-      <trans-unit id="IaF1MjB" resname="label.rememberme">
-        <source>label.rememberme</source>
-        <target>__label.rememberme</target>
-        <note priority="1">templates/security/login.twig:80</note>
       </trans-unit>
       <trans-unit id="k.JymqB" resname="about.visit_bolt">
         <source>about.visit_bolt</source>
@@ -225,20 +96,10 @@
         <target>Bolt documentatie</target>
         <note priority="1">templates/pages/about.twig:28</note>
       </trans-unit>
-      <trans-unit id="FO7zDub" resname="about.bolt_on_github">
-        <source>about.bolt_on_github</source>
-        <target>__about.bolt_on_github</target>
-        <note priority="1">templates/pages/about.twig:31</note>
-      </trans-unit>
       <trans-unit id="_9fS00R" resname="about.used_libraries">
         <source>about.used_libraries</source>
         <target>Gebruikte Libraries / Componenten</target>
         <note priority="1">templates/pages/about.twig:35</note>
-      </trans-unit>
-      <trans-unit id="tgLgLDQ" resname="about.list_of_used_libraries">
-        <source>about.list_of_used_libraries</source>
-        <target>about.list_of_used_libraries</target>
-        <note priority="1">templates/pages/about.twig:37</note>
       </trans-unit>
       <trans-unit id="aYnbvsn" resname="label.fullname">
         <source>label.fullname</source>
@@ -250,65 +111,6 @@
         <source>label.email</source>
         <target>E-mail</target>
         <note priority="1">src/Form/UserType.php:38</note>
-        <note priority="1">new</note>
-      </trans-unit>
-      <trans-unit id="pGkejkU" resname="label.current_password">
-        <source>label.current_password</source>
-        <target></target>
-        <note priority="1">src/Form/ChangePasswordType.php:24</note>
-        <note priority="1">new</note>
-      </trans-unit>
-      <trans-unit id="iiWFLaI" resname="label.new_password">
-        <source>label.new_password</source>
-        <target></target>
-        <note priority="1">src/Form/ChangePasswordType.php:42</note>
-        <note priority="1">new</note>
-      </trans-unit>
-      <trans-unit id="Ucl9Jfc" resname="label.new_password_confirm">
-        <source>label.new_password_confirm</source>
-        <target></target>
-        <note priority="1">src/Form/ChangePasswordType.php:45</note>
-        <note priority="1">new</note>
-      </trans-unit>
-      <trans-unit id="XCmpWav" resname="newPassword">
-        <source>newPassword</source>
-        <target></target>
-        <note priority="1">src/Form/ChangePasswordType.php:23</note>
-        <note priority="1">new</note>
-      </trans-unit>
-      <trans-unit id="47DEQpj" resname="">
-        <source></source>
-        <target></target>
-      </trans-unit>
-      <trans-unit id="OBmPOoB" resname="user.updated_successfully">
-        <source>user.updated_successfully</source>
-        <target></target>
-        <note priority="1">src/Controller/Backend/UserController.php:33</note>
-        <note priority="1">new</note>
-      </trans-unit>
-      <trans-unit id="3hkt.eH" resname="content.updated_successfully">
-        <source>content.updated_successfully</source>
-        <target></target>
-        <note priority="1">src/Controller/Backend/EditMediaController.php:126</note>
-        <note priority="1">src/Controller/Backend/EditRecordController.php:86</note>
-        <note priority="1">new</note>
-      </trans-unit>
-      <trans-unit id="IB0mNQh" resname="content.created_successfully">
-        <source>content.created_successfully</source>
-        <target></target>
-        <note priority="1">src/Controller/Backend/EditMediaController.php:157</note>
-        <note priority="1">new</note>
-      </trans-unit>
-      <trans-unit id="Iyry5.g" resname="editfile.updated_successfully">
-        <source>editfile.updated_successfully</source>
-        <target></target>
-        <note priority="1">src/Controller/Backend/EditFileController.php:99</note>
-        <note priority="1">new</note>
-      </trans-unit>
-      <trans-unit id="b1jqjUC" resname="editfile.could_not_write">
-        <source>editfile.could_not_write</source>
-        <target></target>
-        <note priority="1">src/Controller/Backend/EditFileController.php:101</note>
         <note priority="1">new</note>
       </trans-unit>
       <trans-unit id="Oiwdkpg" resname="The Default theme">
@@ -538,10 +340,6 @@
       <trans-unit id="9lJhqvA" resname="field.locale">
         <source>field.locale</source>
         <target>Locale</target>
-      </trans-unit>
-      <trans-unit id="y5otxEK" resname="caption.filename">
-        <source>caption.filename</source>
-        <target>__caption.filename</target>
       </trans-unit>
       <trans-unit id="8zEzq8N" resname="field.current_locale">
         <source>field.current_locale</source>
