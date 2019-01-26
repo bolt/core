@@ -10,7 +10,8 @@ services:
       - .env
     depends_on:
       - database
-      - maildev
+#      - maildev
+      - blackfire
     volumes:
       - ./:/var/www/bolt
     working_dir: /var/www/bolt
@@ -55,8 +56,15 @@ services:
     external_links:
       - database:db
 
-  maildev:
-    image: djfarrelly/maildev
-    container_name: sf4_maildev
+  blackfire:
+    image: blackfire/blackfire
+    env_file:
+      - .env
     ports:
-      - 8089:80
+      - 8707 # for blackfire probe
+
+#  maildev:
+#    image: djfarrelly/maildev
+#    container_name: sf4_maildev
+#    ports:
+#      - 8089:80
