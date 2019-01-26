@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="pl" trgLang="pl">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="pl">
   <file id="messages.pl">
     <unit id="1sstKF9" name="title.edit_user">
+      <notes>
+        <note>templates/users/edit.twig:4</note>
+      </notes>
       <segment>
         <source>title.edit_user</source>
         <target>Edytuj użytkownika</target>
       </segment>
     </unit>
     <unit id="LDhDPrF" name="label.username">
+      <notes>
+        <note>templates/security/login.twig:66</note>
+        <note>src/Form/UserType.php:31</note>
+      </notes>
       <segment>
         <source>label.username</source>
         <target>Nazwa Użytkownika</target>
