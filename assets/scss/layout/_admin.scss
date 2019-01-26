@@ -2,6 +2,7 @@
 
 $admin-toolbar-height: 30px;
 $admin-sidebar-width: 200px;
+$admin-aside-width: 320px;
 $admin-header-height: 70px;
 
 // Main Layout Grid
@@ -68,10 +69,13 @@ $admin-header-height: 70px;
     }
     >.container{
       padding: 0;
+      @include media-breakpoint-up(xl) {
+        max-width: 1240px;
+      }
     }
     &--container{
       display: grid;
-      grid-template-columns:  auto $admin-sidebar-width * 1.25;
+      grid-template-columns:  auto $admin-aside-width;
       grid-template-areas:    "main    aside";
       padding: $spacer * 2;
     }
@@ -84,7 +88,7 @@ $admin-header-height: 70px;
 
     &--aside{
       grid-area: aside;
-      width: $admin-sidebar-width * 1.25;
+      width: $admin-aside-width;
     }
   }
 }

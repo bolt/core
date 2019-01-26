@@ -131,7 +131,7 @@ class ContentEditController extends BaseController
     {
         $this->validateToken($request);
 
-        $content = $this->contentFromPost($request, $content);
+        $content = $this->contentFromPost($content, $request);
         $recordSlug = $content->getDefinition()->get('singular_slug');
 
         $context = [
