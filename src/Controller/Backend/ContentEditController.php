@@ -48,8 +48,8 @@ class ContentEditController extends BaseController
         CsrfTokenManagerInterface $csrfTokenManager,
         ObjectManager $em,
         UrlGeneratorInterface $urlGenerator,
-        TemplateChooser $templateChooser)
-    {
+        TemplateChooser $templateChooser
+    ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
