@@ -16,4 +16,12 @@ translation:
             output_dir: "%kernel.project_dir%/translations"
             excluded_names: ["*TestCase.php", "*Test.php"]
             excluded_dirs: [cache, data, logs]
+            remote_storage: ["php_translation.adapter.loco"]
 
+# php_translation_adapter_loco_adapter
+translation_adapter_loco:
+    index_parameter: 'id' # 'text' or 'name'. Leave blank for "auto"  See https://localise.biz/api/docs/export/exportlocale
+    projects:
+        my_project:
+            api_key: '%env(LOCO_PROJECT_API_KEY)%'
+            domains: ['messages']
