@@ -26,6 +26,7 @@ Feature: Edit record
         When I fill the "title_field" field with "Changed title EN"
         And I click the "save_button" element
 
+        Then I wait for "lang_select" element to appear
         And I click the "lang_select" element
         And I click the "lang_nl" element
 
