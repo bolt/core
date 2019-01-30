@@ -973,6 +973,8 @@
       <segment>
         <source>action.view_saved</source>
         <target>View (saved version) on site</target>
+      </segment>
+    </unit>
     <unit id="zsyp43M" name="label.displayname">
       <segment>
         <source>label.displayname</source>
