@@ -16,6 +16,7 @@ Feature: Edit record
             | id | 5 |
         Then there is element "title" with text "Changed title"
 
+    @wip
     Scenario: As an Admin I want to change title of a record in another language
         Given I am logged in as "admin"
 
@@ -25,8 +26,7 @@ Feature: Edit record
         When I fill the "title_field" field with "Changed title EN"
         And I click the "save_button" element
 
-        And I wait for "1" seconds
-
+        Then I wait for "lang_select" element to appear
         And I click the "lang_select" element
         And I click the "lang_nl" element
 
@@ -54,6 +54,10 @@ Feature: Edit record
         When I visit the "single_record" page with parameters:
             | id      | 1  |
             | _locale | nl |
+        Then there is element "title" with text "Changed title NL"
+
+        When I visit the "single_record" page with parameters:
+            | id      | 1  |
         Then there is element "title" with text "Changed title NL"
 
         When I visit the "single_record" page with parameters:

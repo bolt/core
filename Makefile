@@ -11,6 +11,9 @@ install:
 server:
 	bin/console server:start 127.0.0.1:8088 || true
 
+server-stop:
+	bin/console server:stop
+
 cache:
 	bin/console cache:clear
 
@@ -33,7 +36,7 @@ csfix-tests:
 	make csclear
 	vendor/bin/ecs check tests/php --fix
 	make stancheck
-	
+
 stancheck:
 	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
 
@@ -101,6 +104,7 @@ docker-install:
 	docker-compose up -d
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
+	docker-compose run node sh -c "npm rebuild node-sass"
 	docker-compose run node sh -c "npm run build"
 
 docker-update:
