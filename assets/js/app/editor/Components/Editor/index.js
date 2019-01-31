@@ -10,7 +10,8 @@ import Number from './Number/Number';
 import Html from './Html/Html';
 import Markdown from './Markdown/Markdown';
 import Textarea from './Textarea/Textarea';
+import Embed from './Embed/Embed';
 
 import Image from './Image/Image';
 
-export { Text, Slug, Number, Date, Select, Html, Markdown, Textarea, Image };
+export { Text, Slug, Number, Date, Select, Html, Markdown, Textarea, Embed, Image };

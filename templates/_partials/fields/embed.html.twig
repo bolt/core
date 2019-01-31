@@ -1,42 +1,15 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    <div class="editor__embed">
-        <div class="row">
-            <div class="col-8">
-                <div class="form-group">
-                    <label for="embed-url">URL of content to embed</label>
-                    <div class="input-group">
-                        <input id="embed-url" class="form-control" name="embed[url]" placeholder="URL of content on Facebook, Twitter, Soundcloud, Youtube, Vimeo…" type="url">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default refresh" type="button" disabled=""><i class="fa fa-refresh"></i></button>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group form-inline">
-                        <label for="embed-width-size">Size</label>
-                        <input class="form-control col-2 offset-1" id="embed-width-size" name="embed[width]" type="number"> ×
-                        <label for="embed-height-size" class="sr-only">Height</label>
-                        <input class="form-control col-2" id="embed-height-size" name="embed[height]" type="number">
-                        <label>pixel</label>
-                </div>
-                <div class="form-group">
-                        <label>Matched Embed</label>
-                        <input class="form-control title" name="embed[title]" readonly="" title="Title" type="text">
-                        <input class="form-control author_name" name="embed[authorname]" readonly="" title="Author" type="text">
-
-                        <input class="author_url" name="embed[author_url]" type="hidden" value="https://www.youtube.com/user/SensioLabs">
-                        <input class="html" name="embed[html]" type="hidden" value="<iframe width=&quot;480&quot; height=&quot;270&quot; src=&quot;https://www.youtube.com/embed/videoseries?list=PLo7mBDsRHu12EjGa-mNZTSiPcDxCpSYoy&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen></iframe>">
-                        <input class="thumbnail_url" name="embed[thumbnail]" type="hidden" value="https://i.ytimg.com/vi/DtLV1ul4HG4/hqdefault.jpg">
-                </div>
-            </div>
-            <div class="col-4">
-                <label>Preview</label>
-                <div class="editor__image--preview">
-                    <a class="editor__image--preview-image" href="/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;area=files&amp;s=1e1ae532b569d01e17644e1c31b12fe9" style="background-image: url(&quot;/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;area=files&amp;s=1e1ae532b569d01e17644e1c31b12fe9&quot;);"></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <editor-embed
+        :name="'{{ name }}'"
+        :url="'{{ field.get('url') }}'"
+        :width="'{{ field.get('width') }}'"
+        :height="'{{ field.get('height') }}'"
+        :title="'{{ field.get('title') }}'"
+        :authorname="'{{ field.get('authorname') }}'"
+        :author_url="'{{ field.get('author_url') }}'"
+        :html="'{{ field.get('html') }}'"
+        :thumbnail="'{{ field.get('thumbnail') }}'"
+    ></editor-embed>
 {% endblock %}
