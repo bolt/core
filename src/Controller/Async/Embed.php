@@ -8,19 +8,40 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * Async controller for embed routes.
  */
 final class Embed
 {
+    /** @var CsrfTokenManagerInterface */
+    private $csrfTokenManager;
+
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $this->csrfTokenManager = $csrfTokenManager;
+    }
+
     /**
-     * @Route("/embed", name="bolt_embed")
+     * @Route(
+     *     "/embed",
+     *     name="bolt_embed",
+     *     methods={"POST"})
      */
     public function embed(Request $request): JsonResponse
     {
+        $csrfToken = $request->request->get('_csrf_token');
+        $token = new CsrfToken('editrecord', $csrfToken);
+
+        if (! $this->csrfTokenManager->isTokenValid($token)) {
+            throw new InvalidCsrfTokenException();
+        }
+
         try {
-            $url = $request->query->get('url');
+            $url = $request->request->get('url');
             $info = \Embed\Embed::create($url);
 
             $providers = $info->getProviders();

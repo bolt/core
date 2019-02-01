@@ -96,7 +96,11 @@ export default {
   },
   methods: {
     fetchEmbed: function() {
-      fetch(this.embedapi + '?url=' + this.url)
+      const body = new FormData();
+      body.append('url', this.url);
+      body.append( '_csrf_token',  document.getElementsByName('_csrf_token')[0].value)
+
+      fetch(this.embedapi, { method: 'POST', body: body })
       .then(response => response.json())
       .then(json => {
         this.authorurl    = json.author_url;
