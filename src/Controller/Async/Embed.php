@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Async;
 
-use Embed\Embed as EmbedService;
+use Embed\Embed as EmbedFactory;
 use Embed\Exceptions\InvalidUrlException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
- * Async controller for embed routes.
+ * @Security("has_role('ROLE_ADMIN')")
  */
 final class Embed
 {
@@ -43,7 +44,7 @@ final class Embed
 
         try {
             $url = $request->request->get('url');
-            $info = EmbedService::create($url);
+            $info = EmbedFactory::create($url);
             $oembed = $info->getProviders()['oembed'];
 
             return new JsonResponse(
