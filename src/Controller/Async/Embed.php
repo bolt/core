@@ -50,7 +50,7 @@ final class Embed
                 $oembed->getBag()->getAll()
             );
         } catch (InvalidUrlException $e) {
-            return new JsonResponse(['error' => ['message' => $e->getMessage()]], Response::HTTP_SERVICE_UNAVAILABLE);
+            return new JsonResponse(['error' => ['message' => $e->getMessage()]], Response::HTTP_BAD_REQUEST);
         }
     }
 }
