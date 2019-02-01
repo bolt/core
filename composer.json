@@ -63,6 +63,8 @@
         "dama/doctrine-test-bundle": "^5.0",
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "lakion/mink-debug-extension": "^1.2",
+        "php-http/httplug-pack": "^1.1",
+        "php-translation/loco-adapter": "^0.8.0",
         "phpspec/phpspec": "^5.1",
         "phpstan/phpstan": "^0.11",
         "phpunit/phpunit": "^7.0",

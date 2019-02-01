@@ -14,4 +14,12 @@ translation:
         app:
             dirs: ["%kernel.project_dir%/templates", "%kernel.project_dir%/src"]
             output_dir: "%kernel.project_dir%/translations"
+            remote_storage: ["php_translation.adapter.loco"]
 
+# php_translation_adapter_loco_adapter
+translation_adapter_loco:
+    index_parameter: 'id' # 'text' or 'name'. Leave blank for "auto"  See https://localise.biz/api/docs/export/exportlocale
+    projects:
+        my_project:
+            api_key: '%env(LOCO_PROJECT_API_KEY)%'
+            domains: ['messages']

@@ -35,6 +35,9 @@
     "bolt/common": {
         "version": "v1.1.0"
     },
+    "clue/stream-filter": {
+        "version": "v1.4.0"
+    },
     "cocur/slugify": {
         "version": "v3.1"
     },
@@ -151,6 +154,9 @@
     },
     "fabpot/goutte": {
         "version": "v3.2.3"
+    },
+    "friendsofapi/localise.biz": {
+        "version": "0.2.4"
     },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
@@ -281,11 +287,65 @@
     "php-cs-fixer/diff": {
         "version": "v1.2.0"
     },
+    "php-http/cache-plugin": {
+        "version": "1.6.0"
+    },
+    "php-http/client-common": {
+        "version": "1.9.0"
+    },
+    "php-http/curl-client": {
+        "version": "v1.7.1"
+    },
+    "php-http/discovery": {
+        "version": "1.6.0"
+    },
+    "php-http/httplug": {
+        "version": "v1.1.0"
+    },
+    "php-http/httplug-bundle": {
+        "version": "1.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.6",
+            "ref": "4655962c64e2de96c418caf576c57215711c7877"
+        }
+    },
+    "php-http/httplug-pack": {
+        "version": "1.1.0"
+    },
+    "php-http/logger-plugin": {
+        "version": "v1.0.0"
+    },
+    "php-http/message": {
+        "version": "1.7.2"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
+    },
+    "php-http/multipart-stream-builder": {
+        "version": "1.0.0"
+    },
+    "php-http/promise": {
+        "version": "v1.0.0"
+    },
+    "php-http/stopwatch-plugin": {
+        "version": "1.1.0"
+    },
     "php-translation/common": {
         "version": "1.0.0"
     },
     "php-translation/extractor": {
         "version": "1.7.1"
+    },
+    "php-translation/loco-adapter": {
+        "version": "0.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.8",
+            "ref": "c97545d1c229338606d881294eceeb4cdc993777"
+        }
     },
     "php-translation/symfony-bundle": {
         "version": "0.4",
