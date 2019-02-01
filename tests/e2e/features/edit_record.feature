@@ -57,6 +57,10 @@ Feature: Edit record
 
         When I visit the "single_record" page with parameters:
             | id      | 1  |
+        Then there is element "title" with text "Changed title NL"
+
+        When I visit the "single_record" page with parameters:
+            | id      | 1  |
             | _locale | en |
         Then there is element "title" with text "Changed title EN"
 
