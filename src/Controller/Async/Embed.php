@@ -37,7 +37,7 @@ final class Embed
         $token = new CsrfToken('editrecord', $csrfToken);
 
         if (! $this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
+            return new JsonResponse(['error' => ['message' => 'Invalid CSRF token']], Response::HTTP_FORBIDDEN);
         }
 
         try {
@@ -51,12 +51,7 @@ final class Embed
                 $oembed->getBag()->getAll()
             );
         } catch (\Embed\Exceptions\InvalidUrlException $e) {
-            $response = [
-                'error' => [
-                    'message' => $e->getMessage(),
-                ],
-            ];
-            return new JsonResponse($response, Response::HTTP_SERVICE_UNAVAILABLE);
+            return new JsonResponse(['error' => ['message' => $e->getMessage()]], Response::HTTP_SERVICE_UNAVAILABLE);
         }
     }
 }
