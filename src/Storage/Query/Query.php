@@ -11,7 +11,7 @@ class Query
     /** @var ContentQueryParser */
     protected $parser;
 
-    /** @var array */
+    /** @var array<string> */
     protected $scopes = [];
 
     public function __construct(ContentQueryParser $parser)

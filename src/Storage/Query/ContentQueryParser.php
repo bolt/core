@@ -406,6 +406,7 @@ class ContentQueryParser
         $this->parse();
         // $parseEvent = new QueryEvent($this);
         // $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::PARSE, $parseEvent);
+//        dump($this->handlers, $this->getOperation());die;
         return call_user_func($this->handlers[$this->getOperation()], $this);
     }
 

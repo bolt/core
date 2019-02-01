@@ -324,7 +324,7 @@ class SelectQuery implements ContentQueryInterface
                     )
                 )
                 ->setParameter($keyParam, $key);
-            foreach ($filter->getParameters() as $key => $value) {
+            foreach ($filter->getParameters() as $filterKey => $value) {
                 $this->qb->setParameter($key, \GuzzleHttp\json_encode([$value]));
             }
         }

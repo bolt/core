@@ -61,9 +61,6 @@ class DetailController extends BaseController
             $recordSlug => $record,
         ];
 
-        dump($record);
-        dump($record->getFieldValues());
-
         $templates = $this->templateChooser->record($record);
 
         return $this->renderTemplate($templates, $context);

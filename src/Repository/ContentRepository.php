@@ -8,7 +8,7 @@ use Bolt\Content\ContentType;
 use Bolt\Entity\Content;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
+use Bolt\Storage\Query\Builder\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -24,6 +24,13 @@ class ContentRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Content::class);
+    }
+
+    public function createQueryBuilder($alias, $indexBy = null): QueryBuilder
+    {
+        return (new QueryBuilder($this->getEntityManager()))
+        ->select($alias)
+        ->from($this->_entityName, $alias, $indexBy);
     }
 
     public function getQueryBuilder(): QueryBuilder
@@ -45,7 +52,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page);
     }
 
-    public function findLatest(?ContentType $contentType = null, int $amount = 6): ?array
+    public function findLatest(?ContentType $contentType = null, ?int $amount = null): ?array
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -57,7 +64,9 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('ct', $contentType['slug']);
         }
 
-        $qb->setMaxResults($amount);
+        if ($amount !== null) {
+            $qb->setMaxResults($amount);
+        }
         return $qb->getQuery()->getResult();
     }
 

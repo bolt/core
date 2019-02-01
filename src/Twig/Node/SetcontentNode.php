@@ -19,10 +19,12 @@ use Twig\Node\Node;
 class SetcontentNode extends Node
 {
     /**
-     * Constructor.
-     *
-     * @param string $name
-     * @param int    $lineNo
+     * @param $name
+     * @param Node $contentType
+     * @param ArrayExpression $arguments
+     * @param array $whereArguments
+     * @param integer $lineNo
+     * @param string|null $tag
      */
     public function __construct($name, Node $contentType, ArrayExpression $arguments, array $whereArguments, $lineNo, $tag = null)
     {
@@ -41,7 +43,7 @@ class SetcontentNode extends Node
     /**
      * {@inheritdoc}
      */
-    public function compile(Compiler $compiler): void
+    public function compile(\Twig_Compiler $compiler): void
     {
         $arguments = $this->getAttribute('arguments');
 

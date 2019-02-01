@@ -41,6 +41,8 @@
 
     {#{{ dump(record.fields) }}#}
 
+    {% setcontent test = 'homepage/dolores-maxime-eveniet-delectus' %}
+
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
     {% for value in record.fields if (value.name not in omittedkeys) %}
 
