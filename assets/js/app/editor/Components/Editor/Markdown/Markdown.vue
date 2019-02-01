@@ -1,9 +1,9 @@
 <template>
   <div>
     <markdown-editor
-      :name="name"
       :id="name"
       v-model="val"
+      :name="name"
       :configs="config"
     ></markdown-editor>
   </div>
@@ -13,14 +13,11 @@
 import markdownEditor from 'vue-simplemde/src/markdown-editor';
 
 export default {
-  name: 'editor-markdown',
-  props: ['value', 'label', 'name'],
+  name: 'EditorMarkdown',
   components: {
     markdownEditor,
   },
-  mounted() {
-    this.val = this.$options.filters.strip(this.value);
-  },
+  props: ['value', 'label', 'name'],
   data: () => {
     return {
       val: null,
@@ -30,6 +27,9 @@ export default {
         toggleFullScreen: true,
       },
     };
+  },
+  mounted() {
+    this.val = this.$options.filters.strip(this.value);
   },
 };
 </script>

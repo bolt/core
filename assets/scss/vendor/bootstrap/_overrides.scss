@@ -1,5 +1,3 @@
-//** Bootstrap Overrides
-
 // Typography
 $font-family-base:              -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $headings-font-family:          'Source Sans Pro', sans-serif;
@@ -15,7 +13,6 @@ $headings-font-weight:          600;
 // Links
 $link-color:                var(--primary);
 $link-hover-color:          var(--primary-600);
-
 
 // Form controls
 $border-radius:                         0.15rem;
@@ -33,7 +30,6 @@ $card-border-radius:                $border-radius;
 $card-border-color:                 transparent;
 $card-bg:                           var(--foreground);
 
-
 // Buttons
 $btn-font-weight: 500;
 
@@ -46,11 +42,8 @@ $grid-breakpoints: (
   xl: 1200px
 );
 
-
 :root {
-
   @each $bp, $value in $grid-breakpoints {
     --breakpoint-#{$bp}: #{$value};
   }
-
 }

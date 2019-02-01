@@ -1,4 +1,4 @@
-.quickedit__row{
+.quickedit__row {
   min-height: 200px;
   flex: auto;
   box-shadow: $card-box-shadow;
@@ -10,12 +10,11 @@
   margin-bottom: $spacer / 1.25;
   border-radius: $border-radius;
   position: relative;
-  &--item{
+
+  &--item {
     padding: $spacer;
-    &.is-content{
-      
-    }
-    &.is-actions{
+
+    &.is-actions {
       background: var(--shade-100);
       display: flex;
       align-items: center;
@@ -25,11 +24,13 @@
   }
 }
 
-.quickeditor-enter-active, .quickeditor-leave-active { 
-  transition: transform 0.45s, opacity 0.25s; 
+.quickeditor-enter-active,
+.quickeditor-leave-active {
+  transition: transform 0.45s, opacity 0.25s;
 }
 
-.quickeditor-enter, .quickeditor-leave-to{
+.quickeditor-enter,
+.quickeditor-leave-to {
   opacity: 0;
   transform: translateY(30px);
   transform-origin: top;

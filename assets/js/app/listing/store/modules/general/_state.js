@@ -1,7 +1,7 @@
 const state = {
   type: null,
   rowSize: 'normal',
-  sorting: false
-}
+  sorting: false,
+};
 
-export default state
+export default state;

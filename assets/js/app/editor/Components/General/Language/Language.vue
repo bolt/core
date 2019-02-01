@@ -9,25 +9,21 @@
       :searchable="false"
       :show-labels="false"
       :limit="1"
-      @input="switchLocale();"
+      @input="switchLocale()"
     >
       <template slot="singleLabel" slot-scope="props">
         <span class="fp mr-1" :class="props.option.flag"></span>
-        <span
-          >{{ props.option.name }}
-          <small style="white-space: nowrap"
-            >({{ props.option.code }})</small
-          ></span
-        >
+        <span>
+          {{ props.option.name }}
+          <small style="white-space: nowrap">({{ props.option.code }})</small>
+        </span>
       </template>
       <template slot="option" slot-scope="props">
         <span class="fp mr-1" :class="props.option.flag"></span>
-        <span
-          >{{ props.option.name }}
-          <small style="white-space: nowrap"
-            >({{ props.option.code }})</small
-          ></span
-        >
+        <span>
+          {{ props.option.name }}
+          <small style="white-space: nowrap">({{ props.option.code }})</small>
+        </span>
       </template>
     </multiselect>
   </div>
@@ -37,15 +33,17 @@
 import Multiselect from 'vue-multiselect';
 
 export default {
-  name: 'editor-language',
-
+  name: 'EditorLanguage',
   components: { Multiselect },
-
   props: ['label', 'locales', 'current'],
 
-  mounted() {
-    const url = new URLSearchParams(window.location.search);
+  data: () => {
+    return {
+      locale: {},
+    };
+  },
 
+  mounted() {
     if (this.current) {
       let current = this.locales.filter(locale => locale.code === this.current);
       if (current.length > 0) {
@@ -58,17 +56,11 @@ export default {
     }
   },
 
-  data: () => {
-    return {
-      locale: {}
-    };
-  },
-
   methods: {
     switchLocale() {
       const locale = this.locale.link;
       return (window.location.href = locale);
-    }
-  }
+    },
+  },
 };
 </script>

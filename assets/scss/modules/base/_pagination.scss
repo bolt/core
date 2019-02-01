@@ -1,10 +1,13 @@
 //** Base | Pagination
 
-.pagination{
+.pagination {
   margin-left: auto;
-  nav{
+
+  nav {
     display: flex;
-    span, a{
+
+    span,
+    a {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -15,25 +18,31 @@
       margin-right: $spacer / 3;
       min-width: 25px;
       letter-spacing: $letter-spacing;
-      &.disabled{
+
+      &.disabled {
         color: var(--shade-400);
-        &:hover{
+
+        &:hover {
           background: var(--foreground);
         }
       }
-      &.current{
+
+      &.current {
         color: var(--foreground);
         background: var(--primary);
         font-weight: $font-weight-bold;
-        &:hover{
+
+        &:hover {
           background: var(--primary);
         }
       }
-      &:hover{
+
+      &:hover {
         text-decoration: none;
         background: var(--shade-100);
       }
-      &:focus{
+
+      &:focus {
         outline: none;
         box-shadow: $input-btn-focus-box-shadow;
       }

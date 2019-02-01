@@ -1,30 +1,30 @@
 <template>
   <ul class="admin__sidebar--menu">
     <li v-for="(item, index) in menu" :key="index">
-      <p 
-        class="admin__sidebar--separator" 
-        v-if="item.type === 'separator'"
-      >
-        {{item.name}}
+      <p v-if="item.type === 'separator'" class="admin__sidebar--separator">
+        {{ item.name }}
       </p>
-      <a 
-        class="admin__sidebar--link" 
-        :href="singleton(item)" 
+      <a
         v-else-if="item.singleton"
+        class="admin__sidebar--link"
+        :href="singleton(item)"
       >
-        <i class="fas mr-2 link--icon" :class="item.icon"></i><span class="link--text">{{item.name}}</span>
+        <i class="fas mr-2 link--icon" :class="item.icon"></i
+        ><span class="link--text">{{ item.name }}</span>
       </a>
-      <a 
-        :href="item.link" class="admin__sidebar--link" 
-        :class="{ 'has-menu': item.submenu !== null || item.contentType !== null }"
+      <a
         v-else
+        :href="item.link"
+        class="admin__sidebar--link"
+        :class="{
+          'has-menu': item.submenu !== null || item.contentType !== null,
+        }"
       >
-        <i class="fas mr-2 link--icon" :class="item.icon"></i><span class="link--text">{{item.name}}</span>
+        <i class="fas mr-2 link--icon" :class="item.icon"></i
+        ><span class="link--text">{{ item.name }}</span>
         <template v-if="item.submenu !== null || item.contentType !== null">
           <i class="fas fa-caret-right link--caret"></i>
-          <sub-menu
-            :item="item"
-          ></sub-menu>
+          <sub-menu :item="item"></sub-menu>
         </template>
       </a>
     </li>
@@ -35,19 +35,19 @@
 import SubMenu from './_SubMenu';
 
 export default {
-  name: "sidebar-menu",
-  props: ["menu"],
+  name: 'SidebarMenu',
   components: {
-    "sub-menu": SubMenu
+    'sub-menu': SubMenu,
   },
+  props: ['menu'],
   methods: {
-    singleton(item){
-      if(item.submenu !== null){
-        return item.submenu[0].editLink
-      } else{
-        return item.link_new
+    singleton(item) {
+      if (item.submenu !== null) {
+        return item.submenu[0].editLink;
+      } else {
+        return item.link_new;
       }
-    }
+    },
   },
 };
 </script>

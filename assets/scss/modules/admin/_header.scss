@@ -1,15 +1,16 @@
 //** Admin | Header
 
-.admin__header{
-
-  &--title{
+.admin__header {
+  &--title {
     font-weight: $font-weight-normal;
     font-size: $h2-font-size;
-    i{
-      color: var(--primary)
+
+    i {
+      color: var(--primary);
     }
   }
-  &--topbar{
+
+  &--topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;

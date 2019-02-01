@@ -1,8 +1,9 @@
 //** Fileds | Image
 
-.editor__image{
+.editor__image {
   position: relative;
-  &--dragging{
+
+  &--dragging {
     position: absolute;
     left: 0;
     top: 0;
@@ -18,11 +19,13 @@
     font-size: 3.5rem;
     border-radius: $border-radius;
   }
-  &--upload{
+
+  &--upload {
     @include sr-only;
     @include sr-only-focusable;
   }
-  &--preview-image{
+
+  &--preview-image {
     display: block;
     width: 100%;
     height: 200px;
@@ -31,15 +34,19 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    img{
+
+    img {
       width: 100%;
     }
   }
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter,
+.fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }

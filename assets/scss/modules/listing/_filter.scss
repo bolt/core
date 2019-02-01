@@ -1,21 +1,25 @@
 //** Lisitng | Filter
 
-.listing__filter{
+.listing__filter {
   display: flex;
   justify-content: space-between;
   height: 35px;
-  &:first-of-type{
+
+  &:first-of-type {
     margin-bottom: $spacer;
   }
-  &:last-of-type{
+
+  &:last-of-type {
     margin-top: $spacer;
   }
-  .pagination{
-    nav{
+
+  .pagination {
+    nav {
       height: 100%;
     }
   }
-  &--controls{
+
+  &--controls {
     flex: 1 1 100%;
     text-align: right;
     margin: 0;
@@ -23,20 +27,25 @@
     list-style: none;
     display: flex;
     justify-content: flex-end;
-    li{
+
+    li {
       display: inline-flex;
       margin-right: $spacer / 3;
-      &:last-child{
+
+      &:last-child {
         margin-right: 0;
       }
-      &.control--left{
+
+      &.control--left {
         margin-left: auto;
       }
     }
-    .custom-control{
+
+    .custom-control {
       margin-left: $spacer / 4;
     }
-    .control--button{
+
+    .control--button {
       transition: $transition-base;
       color: var(--shade);
       border: 0;
@@ -48,31 +57,40 @@
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
       padding: $spacer / 2;
-      &:hover{
+
+      &:hover {
         cursor: pointer;
         background: var(--shade-100);
       }
-      &:focus{
+
+      &:focus {
         outline: none;
         box-shadow: $input-btn-focus-box-shadow;
-        svg, g{
-          fill: theme-color('secondary')
+
+        svg,
+        g {
+          fill: theme-color('secondary');
         }
       }
-      &.is-selected{
+
+      &.is-selected {
         background: var(--primary);
-        svg g{
+
+        svg g {
           fill: var(--foreground);
         }
       }
-      &.is-active{
+
+      &.is-active {
         background: var(--primary);
         color: var(--foreground);
       }
-      svg{
+
+      svg {
         width: 18px;
         height: 18px;
-        g{
+
+        g {
           fill: var(--shade);
         }
       }

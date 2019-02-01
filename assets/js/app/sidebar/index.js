@@ -1,22 +1,12 @@
-import Vue from "vue";
-/**
- * VueX Store
- */
-import store from './store'
-/**
- * Components
- */
-import Sidebar from "./Components/Sidebar.vue";
+import Vue from 'vue';
+import store from './store';
+import Sidebar from './Components/Sidebar.vue';
 
-/**
- * Register Components
- */
-
-new Vue({ 
+new Vue({
   store,
-  el: "#sidebar", 
-  name: "bolt-sidebar",
+  el: '#sidebar',
+  name: 'BoltSidebar',
   components: {
-    "admin-sidebar": Sidebar
-  }
+    'admin-sidebar': Sidebar,
+  },
 });
