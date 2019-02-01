@@ -10,7 +10,7 @@
         <div class="form-group">
           <label for="embed-url">URL of content to embed</label>
           <div class="input-group">
-            <input class="form-control" :name="name + '[url]'" placeholder="URL of content on Facebook, Twitter, Soundcloud, Youtube, Vimeo…" type="url" :value="url">
+            <input class="form-control" :name="name + '[url]'" placeholder="URL of content on Facebook, Twitter, Soundcloud, Youtube, Vimeo…" type="url" v-model="url">
             <span class="input-group-btn">
               <button class="btn btn-default refresh" type="button" disabled=""><i class="fa fa-refresh"></i></button>
             </span>
@@ -27,7 +27,7 @@
           <label>Matched Embed</label>
           <input class="form-control title" :name="name + '[title]'" readonly="" title="Title" type="text" :value="title">
           <input class="form-control author_name" :name="name + '[authorname]'" readonly="" title="Author" type="text" :value="authorname">
-          <input class="author_url" :name="name + '[author_url]'" type="hidden" :value="author_url">
+          <input class="author_url" :name="name + '[authorurl]'" type="hidden" :value="author_url">
           <input class="html" :name="name + '[html]'" type="hidden" :value="html">
           <input class="thumbnail_url" :name="name + '[thumbnail]'" type="hidden" :value="thumbnail">
         </div>
@@ -36,8 +36,11 @@
         <label>Preview</label>
         <div class="editor__image--preview">
           <a
+            :href="previewImage"
             class="editor__image--preview-image"
             :style="`background-image: url('${previewImage}')`"
+          >
+          </a>
         </div>
       </div>
     </div>
@@ -46,14 +49,17 @@
 </template>
 
 <script>
+import _ from 'lodash';
+import baguetteBox from 'baguettebox.js';
 import field from '../../../mixins/value';
 
 export default {
   name: 'editor-embed',
   props: [
+    'embedapi',
     'label',
     'name',
-    'author_url',
+    'authorurl',
     'authorname',
     'height',
     'html',
@@ -66,12 +72,9 @@ export default {
   mounted() {
     this.previewImage = this.thumbnail;
   },
-  updated() {
-
-  },
   data: () => {
     return {
-      author_url: null,
+      authorurl: null,
       authorname: null,
       height: null,
       html: null,
@@ -81,13 +84,49 @@ export default {
       width: null,
     };
   },
-  methods: {
-
+  watch: {
+    url: function (newValue, oldValue) {
+      if (! newValue) { return; }
+      this.debouncedFetchEmbed();
+    }
   },
-  computed: {
+  created: function () {
+    this.debouncedFetchEmbed = _.debounce(this.fetchEmbed, 500);
+    this.previewImage = this.thumbnail;
+  },
+  methods: {
+    fetchEmbed: function() {
+      fetch(this.embedapi + '?url=' + this.url)
+      .then(response => response.json())
+      .then(json => {
+        this.authorurl    = json.author_url;
+        this.authorname   = json.author_name;
+        this.height       = json.height;
+        this.html         = json.html;
+        this.thumbnail    = json.thumbnail_url;
+        this.title        = json.title;
+        //this.url          = json.url;
+        this.width        = json.width;
+        this.previewImage = json.thumbnail_url;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  },
+  updated() {
+    baguetteBox.run('.editor__image--preview', {
+      afterShow: () => {
+        noScroll.on();
+      },
+      afterHide: () => {
+        noScroll.off();
+      },
+    });
   },
 };
 </script>
 
 <style scoped>
 </style>
+

@@ -2,13 +2,14 @@
 
 {% block field %}
     <editor-embed
+        :embedapi="'{{ path('bolt_embed') }}'"
         :name="'{{ name }}'"
         :url="'{{ field.get('url') }}'"
         :width="'{{ field.get('width') }}'"
         :height="'{{ field.get('height') }}'"
-        :title="'{{ field.get('title') }}'"
-        :authorname="'{{ field.get('authorname') }}'"
-        :author_url="'{{ field.get('author_url') }}'"
+        :title="'{{ field.get('title')|e('js') }}'"
+        :authorname="'{{ field.get('authorname')|e('js') }}'"
+        :authorurl="'{{ field.get('authorurl') }}'"
         :html="'{{ field.get('html') }}'"
         :thumbnail="'{{ field.get('thumbnail') }}'"
     ></editor-embed>
