@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Async;
 
+use Embed\Embed as EmbedService;
 use Embed\Exceptions\InvalidUrlException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +43,7 @@ final class Embed
 
         try {
             $url = $request->request->get('url');
-            $info = \Embed\Embed::create($url);
+            $info = EmbedService::create($url);
             $oembed = $info->getProviders()['oembed'];
 
             return new JsonResponse(
