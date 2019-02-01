@@ -32,8 +32,8 @@ final class Embed
         } catch (\Embed\Exceptions\InvalidUrlException $e) {
             $response = [
                 'error' => [
-                    'message' => $e->getMessage()
-                ]
+                    'message' => $e->getMessage(),
+                ],
             ];
             return new JsonResponse($response, Response::HTTP_SERVICE_UNAVAILABLE);
         }
