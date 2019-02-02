@@ -26,6 +26,6 @@ class UserController extends BaseController
             'subtitle' => 'To edit users and their permissions',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

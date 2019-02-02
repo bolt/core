@@ -10,8 +10,8 @@
             {%  endif %}
 
             {% include [
-                '_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
-                '_partials/fields/generic.html.twig'
+                '@bolt/_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
+                '@bolt/_partials/fields/generic.html.twig'
                 ] with { 'field' : field } %}
 
         {% endfor %}

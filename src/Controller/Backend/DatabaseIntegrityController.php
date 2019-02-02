@@ -26,7 +26,7 @@ class DatabaseIntegrityController extends BaseController
             'subtitle' => 'To check the Database',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 
     /**
@@ -39,6 +39,6 @@ class DatabaseIntegrityController extends BaseController
             'subtitle' => 'To update the Database',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

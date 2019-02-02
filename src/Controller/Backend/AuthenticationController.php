@@ -29,7 +29,7 @@ class AuthenticationController extends BaseController
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        return $this->renderTemplate('security/login.html.twig', [
+        return $this->renderTemplate('@bolt/security/login.html.twig', [
             'last_username' => $last_username,
             'error' => $error,
         ]);
@@ -58,6 +58,6 @@ class AuthenticationController extends BaseController
             'subtitle' => 'To reset your password, if you\'ve misplaced it',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

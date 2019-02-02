@@ -81,7 +81,7 @@ class ContentEditController extends BaseController
             'currentlocale' => $this->getEditLocale($request, $content),
         ];
 
-        return $this->renderTemplate('content/edit.html.twig', $twigvars);
+        return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
     }
 
     /**

@@ -47,7 +47,7 @@ class FileEditController extends BaseController
             'contents' => $contents,
         ];
 
-        return $this->renderTemplate('finder/editfile.html.twig', $context);
+        return $this->renderTemplate('@bolt/finder/editfile.html.twig', $context);
     }
 
     /**
@@ -82,7 +82,7 @@ class FileEditController extends BaseController
                 'contents' => $contents,
             ];
 
-            return $this->renderTemplate('finder/editfile.html.twig', $context);
+            return $this->renderTemplate('@bolt/finder/editfile.html.twig', $context);
         }
 
         $basepath = $this->config->getPath($area);

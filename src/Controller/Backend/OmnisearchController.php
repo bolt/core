@@ -26,6 +26,6 @@ class OmnisearchController extends BaseController
             'subtitle' => 'To search, in an omni-like fashion',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

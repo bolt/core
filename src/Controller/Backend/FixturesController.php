@@ -26,6 +26,6 @@ class FixturesController extends BaseController
             'subtitle' => 'To add Fixtures, or "Dummy Content".',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }
