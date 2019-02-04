@@ -73,7 +73,7 @@ class EditMediaController extends BaseController
             'media' => $media,
         ];
 
-        return $this->renderTemplate('editcontent/media_edit.html.twig', $context);
+        return $this->renderTemplate('@bolt/editcontent/media_edit.html.twig', $context);
     }
 
     /**

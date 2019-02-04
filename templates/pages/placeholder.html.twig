@@ -46,10 +46,10 @@
         <form method="post" id="editor">
 
         {# a field with _no_ options, all defaults/fallbacks #}
-        {% include '_partials/fields/generic.html.twig' %}
+        {% include '@bolt/_partials/fields/generic.html.twig' %}
 
         {# a field with passed in options #}
-        {% include '_partials/fields/generic.html.twig' with {
+        {% include '@bolt/_partials/fields/generic.html.twig' with {
             'name': 'foo',
             'id': 'bar',
             'value': "FooBar",
@@ -64,8 +64,8 @@
             {% set field = record.field(key, 'en', false, fielddefinition) %}
 
             {% include [
-                '_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
-                '_partials/fields/generic.html.twig'
+                '@bolt/_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
+                '@bolt/_partials/fields/generic.html.twig'
                 ] with { 'field' : field } %}
 
         {% endfor %}

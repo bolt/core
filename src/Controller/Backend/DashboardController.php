@@ -30,7 +30,7 @@ class DashboardController extends BaseController
         /** @var Content $records */
         $records = $content->findLatest();
 
-        return $this->renderTemplate('dashboard/dashboard.html.twig', [
+        return $this->renderTemplate('@bolt/dashboard/dashboard.html.twig', [
             'records' => $records,
         ]);
     }

@@ -25,7 +25,7 @@ class GeneralController extends BaseController
      */
     public function about(): Response
     {
-        return $this->renderTemplate('pages/about.html.twig');
+        return $this->renderTemplate('@bolt/pages/about.html.twig');
     }
 
     /**
@@ -47,6 +47,6 @@ class GeneralController extends BaseController
             'subtitle' => 'To show a number of different things, on one page',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

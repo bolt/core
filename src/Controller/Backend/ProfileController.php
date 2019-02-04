@@ -33,7 +33,7 @@ class ProfileController extends BaseController
     {
         $user = $this->getUser();
 
-        return $this->renderTemplate('users/edit.html.twig', [
+        return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
             'user' => $user,
         ]);
@@ -90,7 +90,7 @@ class ProfileController extends BaseController
         }
 
         if ($hasError) {
-            return $this->renderTemplate('users/edit.html.twig', [
+            return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
                 'user' => $user,
             ]);

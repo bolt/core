@@ -34,7 +34,7 @@ class ContentOverviewController extends BaseController
 
         $records = $contentRepository->findForPage($page, $contentType);
 
-        return $this->renderTemplate('content/listing.html.twig', [
+        return $this->renderTemplate('@bolt/content/listing.html.twig', [
             'records' => $records,
             'contentType' => $contentType,
         ]);
