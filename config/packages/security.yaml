@@ -1,7 +1,6 @@
 security:
     encoders:
-        Bolt\Entity\User:
-            algorithm: argon2i
+        Bolt\Entity\User: bcrypt
 
     providers:
         database_users:
