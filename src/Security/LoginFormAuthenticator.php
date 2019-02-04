@@ -87,6 +87,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return new RedirectResponse($request->getSession()->get(
             '_security.'.$providerKey.'.target_path',
             $this->router->generate('bolt_dashboard')
-            ));
+        ));
     }
 }
