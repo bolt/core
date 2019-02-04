@@ -8,26 +8,17 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Tightenco\Collect\Support\Collection;
 
-/**
- * A class for choosing whichever template should be used.
- */
 class TemplateChooser
 {
     /** @var Config */
     private $config;
 
-    /**
-     * Constructor.
-     */
     public function __construct(Config $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * Choose a template for the homepage.
-     */
-    public function homepage(?Content $content = null): array
+    public function forHomepage(?Content $content = null): array
     {
         $templates = new Collection();
 
@@ -44,10 +35,10 @@ class TemplateChooser
             // Fallback with multiple content: use listing() to choose template
             /** @var Content $first */
             $first = reset($content);
-            $templates = $templates->merge($this->listing($first->getDefinition()));
+            $templates = $templates->merge($this->forListing($first->getDefinition()));
         } else {
             // Fallback with single content: use record() to choose template
-            $templates = $templates->merge($this->record($content));
+            $templates = $templates->merge($this->forRecord($content));
         }
 
         return $templates->unique()->toArray();
@@ -58,7 +49,7 @@ class TemplateChooser
      * - '/page/about'
      * - '/entry/lorum-ipsum'.
      */
-    public function record(Content $record, ?array $data = null): array
+    public function forRecord(Content $record): array
     {
         $templates = new Collection();
         $definition = $record->getDefinition();
@@ -92,10 +83,7 @@ class TemplateChooser
         return $templates->unique()->filter()->toArray();
     }
 
-    /**
-     * Select a template for listing pages.
-     */
-    public function listing(?Collection $contentType = null): array
+    public function forListing(?Collection $contentType = null): array
     {
         $templates = new Collection();
 
@@ -121,10 +109,7 @@ class TemplateChooser
         return $templates->unique()->filter()->toArray();
     }
 
-    /**
-     * Select a template for taxonomy.
-     */
-    public function taxonomy(string $taxonomyslug): array
+    public function forTaxonomy(string $taxonomyslug): array
     {
         $templates = new Collection();
 
@@ -140,10 +125,7 @@ class TemplateChooser
         return $templates->unique()->filter()->toArray();
     }
 
-    /**
-     * Select a search template.
-     */
-    public function search(): array
+    public function forSearch(): array
     {
         $templates = new Collection();
 
@@ -159,10 +141,7 @@ class TemplateChooser
         return $templates->unique()->filter()->toArray();
     }
 
-    /**
-     * Select a template to use for the "maintenance" page.
-     */
-    public function maintenance(): array
+    public function forMaintenance(): array
     {
         $templates = new Collection();
 

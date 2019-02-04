@@ -6,27 +6,27 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
-use Bolt\TemplateChooser;
 use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
-class BaseController extends AbstractController
+class TwigAwareController extends AbstractController
 {
-    /** @var Config */
+    /**
+     * @var Config
+     */
     protected $config;
 
-    /** @var TemplateChooser */
-    protected $templateChooser;
+    /**
+     * @var Environment
+     */
+    protected $twig;
 
-    /** @var CsrfTokenManagerInterface */
-    protected $csrfTokenManager;
-
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(Config $config, Environment $twig)
     {
         $this->config = $config;
-        $this->csrfTokenManager = $csrfTokenManager;
+        $this->twig = $twig;
     }
 
     /**
@@ -35,16 +35,17 @@ class BaseController extends AbstractController
      * @final
      *
      * @param string|array $template
+     *
+     * @throws \Twig_Error_Loader  When none of the templates can be found
+     * @throws \Twig_Error_Syntax  When an error occurred during compilation
+     * @throws \Twig_Error_Runtime When an error occurred during rendering
      */
     protected function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
     {
-        /** @var \Twig_Environment $twig */
-        $twig = $this->container->get('twig');
-
         // Set config and version.
-        $parameters['config'] = $this->config;
-        $parameters['version'] = Version::VERSION;
-        $parameters['user'] = $this->getUser();
+        $parameters['config'] = $parameters['config'] ?? $this->config;
+        $parameters['version'] = $parameters['version'] ?? Version::VERSION;
+        $parameters['user'] = $parameters['user'] ?? $this->getUser();
 
         // Resolve string|array of templates into the first one that is found.
         if (is_array($template)) {
@@ -57,10 +58,10 @@ class BaseController extends AbstractController
                 })
                 ->filter()
                 ->toArray();
-            $template = $twig->resolveTemplate($templates);
+            $template = $this->twig->resolveTemplate($templates);
         }
 
-        $content = $twig->render($template, $parameters);
+        $content = $this->twig->render($template, $parameters);
 
         if ($response === null) {
             $response = new Response();
@@ -69,17 +70,5 @@ class BaseController extends AbstractController
         $response->setContent($content);
 
         return $response;
-    }
-
-    /**
-     * Shortcut for {@see \Bolt\Config::get}.
-     *
-     * @param string $path
-     *
-     * @return string|int|array|null
-     */
-    protected function getOption($path, $default = null)
-    {
-        return $this->config->get($path, $default);
     }
 }

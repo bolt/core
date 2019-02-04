@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class FixturesController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class FixturesController extends BaseController
+class FixturesController extends TwigAwareController
 {
     /**
      * @Route("/fixtures", name="bolt_fixtures")

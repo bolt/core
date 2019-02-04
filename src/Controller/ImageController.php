@@ -41,8 +41,6 @@ class ImageController
         }
 
         /** @var StreamedResponse $response */
-        $response = $server->getImageResponse($filename, $_GET);
-
-        return $response;
+        return $server->getImageResponse($filename, $request->query->all());
     }
 }

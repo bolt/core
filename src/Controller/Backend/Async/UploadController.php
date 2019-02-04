@@ -2,42 +2,53 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Async;
+namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
+use Bolt\Controller\CsrfTrait;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sirius\Upload\Handler;
 use Sirius\Upload\Result\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
 
-class Uploader
+/**
+ * @Security("has_role('ROLE_ADMIN')")
+ */
+class UploadController
 {
+    use CsrfTrait;
+
     /** @var MediaFactory */
     private $mediaFactory;
 
     /** @var ObjectManager */
-    private $manager;
+    private $em;
 
     /** @var Config */
     private $config;
 
-    public function __construct(MediaFactory $mediaFactory, ObjectManager $manager, Config $config)
+    public function __construct(MediaFactory $mediaFactory, ObjectManager $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->mediaFactory = $mediaFactory;
-        $this->manager = $manager;
+        $this->em = $em;
         $this->config = $config;
+        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     /**
-     * @Route("/upload", name="bolt_upload_post", methods={"POST"})
+     * @Route("/upload", name="bolt_async_upload", methods={"POST"})
      */
     public function upload(Request $request)
     {
+        $this->validateCsrf($request, 'upload');
+
         $area = $request->query->get('area', '');
         $path = $request->query->get('path', '');
 
@@ -48,20 +59,30 @@ class Uploader
             Handler::OPTION_OVERWRITE => true,
         ]);
 
-        $uploadHandler->addRule('extension', ['allowed' => 'jpg', 'jpeg', 'png'], '{label} should be a valid image (jpg, jpeg, png)', 'Profile picture');
-        $uploadHandler->addRule('size', ['max' => '20M'], '{label} should have less than {max}', 'Profile picture');
+        $uploadHandler->addRule(
+            'extension',
+            ['allowed' => 'jpg', 'jpeg', 'png'],
+            '{label} should be a valid image (jpg, jpeg, png)',
+            'Profile picture'
+        );
+        $uploadHandler->addRule(
+            'size',
+            ['max' => '20M'],
+            '{label} should have less than {max}',
+            'Profile picture'
+        );
         $uploadHandler->setSanitizerCallback(function ($name) {
             return $this->sanitiseFilename($name);
         });
 
         /** @var File $result */
-        $result = $uploadHandler->process($_FILES);
+        $result = $uploadHandler->process($request->files->all());
 
         if ($result->isValid()) {
             try {
                 $media = $this->mediaFactory->createFromFilename($area, $path, $result->__get('name'));
-                $this->manager->persist($media);
-                $this->manager->flush();
+                $this->em->persist($media);
+                $this->em->flush();
 
                 return new Response($media->getFilenamePath());
             } catch (\Throwable $e) {

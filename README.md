@@ -44,7 +44,6 @@ To install Bolt 4 with Docker (for now, on a UNIX-like system):
 
   ```bash
 make docker-install
-make docker-db-create
   ```
 
 Actually, just add `docker-` prefix to any Make command and that's it!
@@ -164,3 +163,10 @@ translations, and keep them up to date. If you wish to participate, read the
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
 [translations]: https://github.com/bolt/four/wiki/Contribute-on-translations
 [hatebreed]: https://www.youtube.com/watch?v=DBwgX8yBqsw
+
+Fixing PHPStorm issues
+----
+
+- PHPStorm Symfony/Twig plugin does not see `@bolt` Twig namespace.
+  
+  This namespace needs to be added manually in Twig settings.

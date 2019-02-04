@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-/**
- * Class AuthenticationController.
- */
-class AuthenticationController extends BaseController
+class AuthenticationController extends TwigAwareController
 {
     /**
      * @Route("/login", name="bolt_login")
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

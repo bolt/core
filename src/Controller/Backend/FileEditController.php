@@ -4,34 +4,41 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Controller\BaseController;
+use Bolt\Configuration\Config;
+use Bolt\Controller\CsrfTrait;
+use Bolt\Controller\TwigAwareController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
-use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
+use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
- * Class FileEditController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class FileEditController extends BaseController
+class FileEditController extends TwigAwareController
 {
+    use CsrfTrait;
+
+    public function __construct(
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Config $config,
+        Environment $twig
+    ) {
+        $this->csrfTokenManager = $csrfTokenManager;
+        parent::__construct($config, $twig);
+    }
+
     /**
      * @Route("/file-edit/{area}", name="bolt_file_edit", methods={"GET"})
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
-    public function editFile(string $area, Request $request): Response
+    public function edit(string $area, Request $request): Response
     {
         $file = $request->query->get('file');
         if (mb_strpos($file, '/') !== 0) {
@@ -52,18 +59,10 @@ class FileEditController extends BaseController
 
     /**
      * @Route("/file-edit/{area}", name="bolt_file-edit_post", methods={"POST"}, requirements={"file"=".+"})
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
-    public function editFilePost(Request $request, UrlGeneratorInterface $urlGenerator): Response
+    public function save(Request $request, UrlGeneratorInterface $urlGenerator): Response
     {
-        $token = new CsrfToken('editfile', $request->request->get('_csrf_token'));
-
-        if (! $this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
-        }
+        $this->validateCsrf($request, 'editfile');
 
         $file = $request->request->get('file');
         $area = $request->request->get('area');
@@ -88,6 +87,7 @@ class FileEditController extends BaseController
         $basepath = $this->config->getPath($area);
         $filename = Path::canonicalize($basepath . '/' . $file);
 
+        // @todo maybe replace file_put_contents with some more abstract Filesystem?
         if (file_put_contents($filename, $contents)) {
             $this->addFlash('success', 'editfile.updated_successfully');
         } else {
@@ -99,9 +99,9 @@ class FileEditController extends BaseController
 
     private function verifyYaml(string $yaml): bool
     {
-        $yamlparser = new Parser();
+        $yamlParser = new Parser();
         try {
-            $yamlparser->parse($yaml);
+            $yamlParser->parse($yaml);
         } catch (ParseException $e) {
             $this->addFlash('error', $e->getMessage());
 

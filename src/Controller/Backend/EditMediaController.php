@@ -7,7 +7,8 @@ namespace Bolt\Controller\Backend;
 use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
-use Bolt\Controller\BaseController;
+use Bolt\Controller\CsrfTrait;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Media;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -17,20 +18,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
-use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
- * Class EditMediaController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EditMediaController extends BaseController
+class EditMediaController extends TwigAwareController
 {
+    use CsrfTrait;
+
     /** @var ObjectManager */
-    private $manager;
+    private $em;
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
@@ -41,31 +41,26 @@ class EditMediaController extends BaseController
     /** @var MediaFactory */
     private $mediaFactory;
 
-    /**
-     * EditMediaController constructor.
-     */
     public function __construct(
-        Config $config,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        ObjectManager $manager,
+        ObjectManager $em,
         UrlGeneratorInterface $urlGenerator,
         Areas $areas,
-        MediaFactory $mediaFactory
+        MediaFactory $mediaFactory,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Config $config,
+        Environment $twig
     ) {
-        parent::__construct($config, $csrfTokenManager);
-
-        $this->manager = $manager;
+        $this->em = $em;
         $this->urlGenerator = $urlGenerator;
         $this->areas = $areas;
         $this->mediaFactory = $mediaFactory;
+        $this->urlGenerator = $urlGenerator;
+        $this->csrfTokenManager = $csrfTokenManager;
+        parent::__construct($config, $twig);
     }
 
     /**
      * @Route("/media/edit/{id}", name="bolt_media_edit", methods={"GET"})
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function edit(?Media $media = null): Response
     {
@@ -79,13 +74,9 @@ class EditMediaController extends BaseController
     /**
      * @Route("/media/edit/{id}", name="bolt_media_edit_post", methods={"POST"})
      */
-    public function editPost(Request $request, ?Media $media = null): Response
+    public function save(Request $request, ?Media $media = null): Response
     {
-        $token = new CsrfToken('media_edit', $request->request->get('_csrf_token'));
-
-        if (! $this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
-        }
+        $this->validateCsrf($request, 'media_edit');
 
         $post = $request->request->all();
 
@@ -94,8 +85,8 @@ class EditMediaController extends BaseController
             ->setCopyright($post['copyright'])
             ->setOriginalFilename($post['originalFilename']);
 
-        $this->manager->persist($media);
-        $this->manager->flush();
+        $this->em->persist($media);
+        $this->em->flush();
 
         $this->addFlash('success', 'content.updated_successfully');
 
@@ -121,8 +112,8 @@ class EditMediaController extends BaseController
 
         $media = $this->mediaFactory->createOrUpdateMedia($file, $area);
 
-        $this->manager->persist($media);
-        $this->manager->flush();
+        $this->em->persist($media);
+        $this->em->flush();
 
         $this->addFlash('success', 'content.created_successfully');
 

@@ -4,24 +4,18 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class GeneralController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class GeneralController extends BaseController
+class GeneralController extends TwigAwareController
 {
     /**
      * @Route("/about", name="bolt_about")
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function about(): Response
     {
@@ -30,10 +24,6 @@ class GeneralController extends BaseController
 
     /**
      * @Route("/kitchensink", name="bolt_kitchensink")
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function kitchensink(): Response
     {

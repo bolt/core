@@ -13,13 +13,14 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Faker\Generator;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Gedmo\Translatable\Entity\Translation;
 use Tightenco\Collect\Support\Collection;
 
 class ContentFixtures extends Fixture implements DependentFixtureInterface
 {
-    /** @var \Faker\Generator */
+    /** @var Generator */
     private $faker;
 
     /** @var Collection */
