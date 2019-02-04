@@ -184,7 +184,7 @@ class ContentEditController extends TwigAwareController
 
         // @todo dumb status validation, to be replaced with Symfony Form validation
         $status = Json::findScalar($formData['status']);
-        if (in_array($status, Statuses::all(), true) === false) {
+        if (in_array($status, Statuses::all(), true) === true) {
             $content->setStatus($status);
         }
 
