@@ -41,8 +41,8 @@
     "register-service-worker": "^1.5.2",
     "simplemde": "^1.11.2",
     "stylelint-config-recommended-scss": "^3.2.0",
-    "stylelint-scss": "^3.5.1",,
-    "terser": "^3.14.1"
+    "stylelint-scss": "^3.5.1",
+    "terser": "^3.14.1",
     "tinycolor2": "^1.4.1",
     "vue": "^2.5.21",
     "vue-flatpickr-component": "^8.1.1",
