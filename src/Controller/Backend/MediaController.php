@@ -7,25 +7,22 @@ namespace Bolt\Controller\Backend;
 use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
-use Bolt\Controller\BaseController;
-use Bolt\Entity\Media;
+use Bolt\Controller\TwigAwareController;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
- * Class MediaController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class MediaController extends BaseController
+class MediaController extends TwigAwareController
 {
     /** @var ObjectManager */
-    private $manager;
+    private $em;
 
     /** @var Areas */
     private $areas;
@@ -33,16 +30,12 @@ class MediaController extends BaseController
     /** @var MediaFactory */
     private $mediaFactory;
 
-    /**
-     * MediaController constructor.
-     */
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, ObjectManager $manager, Areas $areas, MediaFactory $mediaFactory)
+    public function __construct(Config $config, Environment $twig, ObjectManager $em, Areas $areas, MediaFactory $mediaFactory)
     {
-        parent::__construct($config, $csrfTokenManager);
-
-        $this->manager = $manager;
+        $this->em = $em;
         $this->areas = $areas;
         $this->mediaFactory = $mediaFactory;
+        parent::__construct($config, $twig);
     }
 
     /**
@@ -57,8 +50,8 @@ class MediaController extends BaseController
         foreach ($finder as $file) {
             $media = $this->mediaFactory->createOrUpdateMedia($file, $area);
 
-            $this->manager->persist($media);
-            $this->manager->flush();
+            $this->em->persist($media);
+            $this->em->flush();
         }
 
         return $this->renderTemplate('@bolt/finder/finder.twig', [

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Async;
+namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Common\Exception\ParseException;
 use Bolt\Common\Json;
@@ -14,10 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Fetching the news.
- */
-final class News
+class NewsController
 {
     /** @var Config */
     private $config;

@@ -28,7 +28,6 @@
         {% endif %}
 
         <form action="{{ path('bolt_login') }}" method="post" class="" id="login-form">
-            <input type="hidden" name="_target_path" value="{{ app.request.get('redirect_to') }}"/>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label' : 'label.fullname'|trans,

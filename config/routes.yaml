@@ -25,6 +25,10 @@ api_entrypoint:
 # ------------------------------------------------------------------------------
 # These are the routes defining the Bolt Control Panel ("backend"). It's common
 # to modify the `prefix` so the Control Panel can be accessed at a custom URL.
+control_panel_async:
+  resource: '../src/Controller/Backend/Async'
+  prefix: /bolt/async # @todo make admin area prefix configurable
+
 control_panel:
   resource: '../src/Controller/Backend/'
   prefix: /bolt # @todo make admin area prefix configurable
@@ -39,3 +43,10 @@ control_panel:
 #  requirements:
 #    contenttypeslug: '%bolt.requirement.pluralcontenttypes%'
 
+# ------------------------------------------------------------------------------
+# last of all, try to find content only by slug (SEO routes) before throwing 404
+content_seo:
+   path: /{slugOrId}
+   methods: [GET]
+   defaults:
+     _controller: Bolt\Controller\Frontend\DetailController::record

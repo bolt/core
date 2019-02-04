@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
-use Bolt\Controller\BaseController;
+use Bolt\Configuration\Config;
+use Bolt\Controller\CsrfTrait;
+use Bolt\Controller\TwigAwareController;
+use Bolt\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,22 +17,50 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
 /**
- * Class ProfileController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ProfileController extends BaseController
+class ProfileController extends TwigAwareController
 {
+    use CsrfTrait;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $urlGenerator;
+
+    /**
+     * @var ObjectManager
+     */
+    private $em;
+
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $passwordEncoder;
+
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        ObjectManager $em,
+        UserPasswordEncoderInterface $passwordEncoder,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Config $config,
+        Environment $twig
+    ) {
+        $this->urlGenerator = $urlGenerator;
+        $this->em = $em;
+        $this->passwordEncoder = $passwordEncoder;
+        $this->csrfTokenManager = $csrfTokenManager;
+        parent::__construct($config, $twig);
+    }
+
     /**
      * @Route("/profile-edit", methods={"GET"}, name="bolt_profile_edit")
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
-    public function profileEdit(Request $request): Response
+    public function edit(Request $request): Response
     {
         $user = $this->getUser();
 
@@ -41,16 +72,14 @@ class ProfileController extends BaseController
 
     /**
      * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
-    public function profileEditPost(Request $request, UrlGeneratorInterface $urlGenerator, ObjectManager $manager, UserPasswordEncoderInterface $encoder): Response
+    public function save(Request $request): Response
     {
+        $this->validateCsrf($request, 'profileedit');
+
         $user = $this->getUser();
         $displayName = $user->getDisplayName();
-        $url = $urlGenerator->generate('bolt_profile_edit');
+        $url = $this->urlGenerator->generate('bolt_profile_edit');
         $locale = Json::findScalar($request->get('locale'));
         $newPassword = $request->get('password');
 
@@ -59,7 +88,27 @@ class ProfileController extends BaseController
         $user->setLocale($locale);
         $user->setbackendTheme($request->get('user')['backendTheme']);
 
-        $hasError = false;
+        if ($this->validateUser($user, $newPassword) === false) {
+            return $this->renderTemplate('@bolt/users/edit.html.twig', [
+                'display_name' => $displayName,
+                'user' => $user,
+            ]);
+        }
+
+        if ($newPassword !== null) {
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
+        }
+
+        $this->em->flush();
+
+        $request->getSession()->set('_locale', $locale);
+
+        return new RedirectResponse($url);
+    }
+
+    private function validateUser(User $user, ?string $newPassword): bool
+    {
+        // @todo Validation should be moved to a separate UserValidator
 
         $usernameValidateOptions = [
             'options' => [
@@ -67,39 +116,24 @@ class ProfileController extends BaseController
             ],
         ];
 
-        // @todo Validation must be moved to a separate UserValidator
-
         // Validate username
         if (! filter_var(mb_strlen($user->getDisplayName()), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
             $this->addFlash('danger', 'user.not_valid_username');
-            $hasError = true;
-        }
-
-        // Validate password
-        if (! empty($newPassword) && mb_strlen($newPassword) < 6) {
-            $this->addFlash('danger', 'user.not_valid_password');
-            $hasError = true;
-        } elseif (! empty($newPassword) && mb_strlen($newPassword) > 6) {
-            $user->setPassword($encoder->encodePassword($user, $newPassword));
+            return false;
         }
 
         // Validate email
         if (! filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
             $this->addFlash('danger', 'user.not_valid_email');
-            $hasError = true;
+            return false;
         }
 
-        if ($hasError) {
-            return $this->renderTemplate('@bolt/users/edit.html.twig', [
-                'display_name' => $displayName,
-                'user' => $user,
-            ]);
+        // Validate password
+        if ($newPassword !== null && mb_strlen($newPassword) < 6) {
+            $this->addFlash('danger', 'user.not_valid_password');
+            return false;
         }
 
-        $manager->flush();
-
-        $request->getSession()->set('_locale', $locale);
-
-        return new RedirectResponse($url);
+        return true;
     }
 }

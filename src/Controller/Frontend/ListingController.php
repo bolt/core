@@ -6,20 +6,25 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
-class ListingController extends BaseController
+class ListingController extends TwigAwareController
 {
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, TemplateChooser $templateChooser)
+    /**
+     * @var TemplateChooser
+     */
+    private $templateChooser;
+
+    public function __construct(Config $config, Environment $twig, TemplateChooser $templateChooser)
     {
-        parent::__construct($config, $csrfTokenManager);
+        parent::__construct($config, $twig);
 
         $this->templateChooser = $templateChooser;
     }
@@ -30,10 +35,6 @@ class ListingController extends BaseController
      *     name="listing",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
     {
@@ -44,7 +45,7 @@ class ListingController extends BaseController
 
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
 
-        $templates = $this->templateChooser->listing($contentType);
+        $templates = $this->templateChooser->forListing($contentType);
 
         return $this->renderTemplate($templates, ['records' => $records]);
     }

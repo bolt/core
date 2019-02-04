@@ -44,7 +44,6 @@ To install Bolt 4 with Docker (for now, on a UNIX-like system):
 
   ```bash
 make docker-install
-make docker-db-create
   ```
 
 Actually, just add `docker-` prefix to any Make command and that's it!
@@ -151,6 +150,13 @@ To run E2E tests:
 ```
 make e2e
 ```
+
+Fixing IDE issues
+----
+
+- PHPStorm does not see `@bolt` Twig namespace.
+  
+  The namespace needs to be added manually in Twig Plugin settings, pointing to `templates` folder.
 
 
 Translations

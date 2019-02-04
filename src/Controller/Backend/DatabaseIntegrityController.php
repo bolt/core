@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class DatabaseIntegrityController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class DatabaseIntegrityController extends BaseController
+class DatabaseIntegrityController extends TwigAwareController
 {
     /**
      * @Route("/database-check", name="bolt_database_check")

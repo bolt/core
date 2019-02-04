@@ -7,44 +7,45 @@ namespace Bolt\Controller\Backend;
 use Bolt\Common\Str;
 use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
- * Class EditRecordController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class FilemanagerController extends BaseController
+class FilemanagerController extends TwigAwareController
 {
-    /** @var Areas */
+    /**
+     * @var Areas
+     */
     private $areas;
 
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, Areas $areas)
-    {
-        parent::__construct($config, $csrfTokenManager);
+    /**
+     * @var MediaRepository
+     */
+    private $mediaRepository;
 
+    public function __construct(Areas $areas, MediaRepository $mediaRepository, Config $config, Environment $twig)
+    {
         $this->areas = $areas;
+        $this->mediaRepository = $mediaRepository;
+        parent::__construct($config, $twig);
     }
 
     /**
      * @Route("/filemanager/{area}", name="bolt_filemanager", methods={"GET"})
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
-    public function filemanager(string $area, Request $request, MediaRepository $mediaRepository): Response
+    public function filemanager(string $area, Request $request): Response
     {
         $path = $request->query->get('path', '');
-        if (! str::endsWith($path, '/')) {
+        if (str::endsWith($path, '/') === false) {
             $path .= '/';
         }
 
@@ -52,7 +53,7 @@ class FilemanagerController extends BaseController
 
         $finder = $this->findFiles($area->get('basepath'), $path);
 
-        $media = $mediaRepository->findAll();
+        $media = $this->mediaRepository->findAll();
 
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';
 

@@ -9,7 +9,7 @@ install:
 	npm run build
 
 server:
-	bin/console server:start 127.0.0.1:8088 || true
+	bin/console server:start 127.0.0.1:8088 -q || true
 
 server-stop:
 	bin/console server:stop
@@ -95,11 +95,11 @@ db-reset:
 	bin/console doctrine:fixtures:load -n
 
 # Dockerized commands:
-docker-start:
-	make docker-install
+docker-install:
+	make docker-start
 	make docker-db-create
 
-docker-install:
+docker-start:
 	cp -n .env.dist .env
 	docker-compose up -d
 	docker-compose exec -T php sh -c "composer install"
