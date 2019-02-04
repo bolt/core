@@ -151,6 +151,13 @@ To run E2E tests:
 make e2e
 ```
 
+Fixing IDE issues
+----
+
+- PHPStorm does not see `@bolt` Twig namespace.
+  
+  The namespace needs to be added manually in Twig Plugin settings, pointing to `templates` folder.
+
 
 Translations
 ------------
@@ -163,10 +170,3 @@ translations, and keep them up to date. If you wish to participate, read the
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
 [translations]: https://github.com/bolt/four/wiki/Contribute-on-translations
 [hatebreed]: https://www.youtube.com/watch?v=DBwgX8yBqsw
-
-Fixing PHPStorm issues
-----
-
-- PHPStorm Symfony/Twig plugin does not see `@bolt` Twig namespace.
-  
-  This namespace needs to be added manually in Twig settings.
