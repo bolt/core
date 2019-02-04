@@ -38,6 +38,7 @@
     "moment": "^2.24.0",
     "no-scroll": "^2.1.1",
     "popper.js": "^1.14.7",
+    "register-service-worker": "^1.5.2",
     "simplemde": "^1.11.2",
     "stylelint-config-recommended-scss": "^3.2.0",
     "stylelint-scss": "^3.5.1",
