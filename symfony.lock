@@ -800,9 +800,6 @@
     "symplify/token-runner": {
         "version": "v5.2.3"
     },
-    "thecodingmachine/safe": {
-        "version": "v0.1.8"
-    },
     "theseer/tokenizer": {
         "version": "1.1.0"
     },
