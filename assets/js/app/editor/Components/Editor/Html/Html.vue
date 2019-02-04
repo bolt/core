@@ -2,8 +2,8 @@
   <div>
     <trumbowyg
       :id="name"
-      :name="name"
       v-model="val"
+      :name="name"
       :config="config"
     ></trumbowyg>
   </div>
@@ -14,14 +14,11 @@ import trumbowyg from 'vue-trumbowyg';
 import 'trumbowyg/dist/ui/trumbowyg.css';
 
 export default {
-  name: 'editor-html',
-  props: ['value', 'label', 'name'],
+  name: 'EditorHtml',
   components: {
     trumbowyg,
   },
-  mounted() {
-    this.val = this.$options.filters.strip(this.value);
-  },
+  props: ['value', 'label', 'name'],
   data: () => {
     return {
       val: null,
@@ -41,6 +38,9 @@ export default {
         ],
       },
     };
+  },
+  mounted() {
+    this.val = this.$options.filters.strip(this.value);
   },
 };
 </script>

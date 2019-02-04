@@ -1,12 +1,14 @@
 //** Editor | Tab Bar
 
-.editor__tabbar{
+.editor__tabbar {
   margin-bottom: $spacer * 2;
   border-bottom: solid 2px var(--shade-300);
-  .nav-item{
+
+  .nav-item {
     color: var(--shade);
     position: relative;
-    &:after{
+
+    &::after {
       transition: $transition-base;
       position: absolute;
       bottom: -2px;
@@ -18,7 +20,8 @@
       transform: scaleX(0);
       content: '';
     }
-    span{
+
+    span {
       font-size: 95%;
       transition: $transition-base;
       display: block;
@@ -26,17 +29,21 @@
       letter-spacing: $letter-spacing;
       font-weight: $font-weight-semibold;
     }
-    &.active, &.show{
-      &:after{
+
+    &.active,
+    &.show {
+      &::after {
         transform: scaleX(1);
       }
-      span{
+
+      span {
         transform: translateY(-2px);
         color: var(--primary);
       }
     }
   }
-  .nav-link{
+
+  .nav-link {
     padding: $spacer / 2 $spacer / 1.5;
   }
 }

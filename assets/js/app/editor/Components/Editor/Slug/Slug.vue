@@ -5,13 +5,13 @@
         <span class="input-group-text">{{ prefix }}</span>
       </div>
       <input
+        v-model="val"
         :name="name"
         placeholder="…"
         type="text"
         class="form-control"
         :class="fieldClass"
         :readonly="!edit"
-        v-model="val"
       />
       <div class="input-group-append">
         <button
@@ -33,7 +33,7 @@
               <i class="fas fa-lock fa-fw"></i> Lock
             </template>
           </a>
-          <a class="dropdown-item" @click="generateSlug();">
+          <a class="dropdown-item" @click="generateSlug()">
             <i class="fas fa-link fa-fw"></i> Generate from: {{ generate }}
           </a>
         </div>
@@ -46,9 +46,9 @@
 import field from '../../../mixins/value';
 
 export default {
-  name: 'editor-slug',
-  props: ['value', 'label', 'name', 'prefix', 'fieldClass', 'generate'],
+  name: 'EditorSlug',
   mixins: [field],
+  props: ['value', 'label', 'name', 'prefix', 'fieldClass', 'generate'],
   data: () => {
     return {
       edit: false,
@@ -59,13 +59,13 @@ export default {
   mounted() {
     setTimeout(() => {
       const title = document.querySelector(
-        `input[name='fields[${this.generate}]']`
+        `input[name='fields[${this.generate}]']`,
       ).value;
       if (title.length <= 0) {
         this.$root.$emit('generate-from-title', true);
       }
     }, 0);
-    this.$root.$on('slugify-from-title', data => this.generateSlug());
+    this.$root.$on('slugify-from-title', () => this.generateSlug());
   },
   methods: {
     editSlug() {
@@ -84,7 +84,7 @@ export default {
     },
     generateSlug() {
       const title = document.querySelector(
-        `input[name='fields[${this.generate}]']`
+        `input[name='fields[${this.generate}]']`,
       ).value;
       const slug = this.$options.filters.slugify(title);
       this.val = slug;

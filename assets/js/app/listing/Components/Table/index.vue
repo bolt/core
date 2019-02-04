@@ -1,12 +1,12 @@
-<template>   
-  <draggable :options="draggableOptions" v-model="records">
-      <transition-group>
-          <table-row 
-            v-for="record in records" 
-            :key="record.id"
-            :record="record"
-          ></table-row>
-      </transition-group>
+<template>
+  <draggable v-model="records" :options="draggableOptions">
+    <transition-group>
+      <table-row
+        v-for="record in records"
+        :key="record.id"
+        :record="record"
+      ></table-row>
+    </transition-group>
   </draggable>
 </template>
 
@@ -15,17 +15,17 @@ import draggable from 'vuedraggable';
 import Row from './Row';
 
 export default {
-  name: "listing-table",
+  name: 'ListingTable',
   components: {
-    "draggable": draggable,
-    "table-row": Row,
+    draggable: draggable,
+    'table-row': Row,
   },
   data: () => {
     return {
       draggableOptions: {
-        handle:'.listing__row--move', 
-        forceFallback: true
-      }
+        handle: '.listing__row--move',
+        forceFallback: true,
+      },
     };
   },
   computed: {
@@ -34,9 +34,9 @@ export default {
         return this.$store.getters['listing/getRecords'];
       },
       set(val) {
-        this.$store.dispatch('listing/setRecords', val)
-      }
-    }
-  }
+        this.$store.dispatch('listing/setRecords', val);
+      },
+    },
+  },
 };
 </script>

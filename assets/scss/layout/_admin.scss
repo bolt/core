@@ -16,21 +16,24 @@ $admin-header-height: 70px;
   flex-wrap: wrap;
 
   // Grid
+  /* stylelint-disable declaration-block-no-duplicate-properties */
   display: grid;
-
-  grid-template-rows:     auto 1fr auto;
-  grid-template-columns:  $admin-sidebar-width 1fr;
-  grid-template-areas:    "sidebar header"
-                          "sidebar body";
+  /* stylelint-enable */
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: $admin-sidebar-width 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar body";
   // Slim Sidebar
   &.is-slim {
     grid-template-columns: $admin-sidebar-width / 3 1fr;
+
     &__sidebar {
       flex: 0 0 $admin-sidebar-width / 3;
     }
   }
 
-  &__toolbar{
+  &__toolbar {
     -webkit-backface-visibility: hidden;
     position: fixed;
     top: 0;
@@ -60,33 +63,38 @@ $admin-header-height: 70px;
     flex: 1;
     grid-area: body;
     padding-top: 0;
-    &.is-wide{
-      .admin__body--container{
-        grid-template-columns:  auto;
-        grid-template-areas:    "main"
-                                "aside";
+
+    &.is-wide {
+      .admin__body--container {
+        grid-template-columns: auto;
+        grid-template-areas:
+          "main"
+          "aside";
       }
     }
-    >.container{
+
+    > .container {
       padding: 0;
+
       @include media-breakpoint-up(xl) {
         max-width: 1240px;
       }
     }
-    &--container{
+
+    &--container {
       display: grid;
-      grid-template-columns:  auto $admin-aside-width;
-      grid-template-areas:    "main    aside";
+      grid-template-columns: auto $admin-aside-width;
+      grid-template-areas: "main    aside";
       padding: $spacer * 2;
     }
 
-    &--main{
+    &--main {
       grid-area: main;
       min-width: 0;
       padding-right: $spacer * 2;
     }
 
-    &--aside{
+    &--aside {
       grid-area: aside;
       width: $admin-aside-width;
     }

@@ -2,12 +2,12 @@
   <div>
     <input
       :id="id"
+      v-model="val"
       class="form-control"
       :class="getType"
       :name="name"
       placeholder="…"
       type="text"
-      v-model="val"
       :disabled="disabled == 1"
     />
   </div>
@@ -17,16 +17,22 @@
 import field from '../../../mixins/value';
 
 export default {
-  name: 'editor-text',
-  props: ['value', 'label', 'name', 'type', 'disabled', 'id'],
+  name: 'EditorText',
   mixins: [field],
-  mounted() {
-    this.$root.$on('generate-from-title', data => (this.generate = data));
-  },
+  props: ['value', 'label', 'name', 'type', 'disabled', 'id'],
   data: () => {
     return {
       generate: false,
     };
+  },
+  computed: {
+    getType() {
+      if (this.type === 'large') {
+        return 'form-control-lg';
+      }
+
+      return '';
+    },
   },
   watch: {
     val() {
@@ -35,12 +41,8 @@ export default {
       }
     },
   },
-  computed: {
-    getType() {
-      if (this.type === 'large') {
-        return 'form-control-lg';
-      }
-    },
+  mounted() {
+    this.$root.$on('generate-from-title', data => (this.generate = data));
   },
 };
 </script>

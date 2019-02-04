@@ -1,8 +1,8 @@
 <template>
   <div>
     <input
-      type="email"
       :id="id"
+      type="email"
       :name="name"
       :value="value"
       class="form-control"
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "field-email",
-  props: ["value", "name", "id"]
+  name: 'FieldEmail',
+  props: ['value', 'name', 'id'],
 };
 </script>

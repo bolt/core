@@ -1,28 +1,28 @@
-import Vue from "vue";
+import Vue from 'vue';
 /**
  * VueX Store
  */
-import store from './store'
+import store from './store';
 /**
  * Components
  */
-import Records from "./Components/Records";
-import Filter from "./Components/Filter";
-import Table from "./Components/Table";
-import SelectBox from "./Components/SelectBox";
+import Records from './Components/Records';
+import Filter from './Components/Filter';
+import Table from './Components/Table';
+import SelectBox from './Components/SelectBox';
 
 /**
  * Register Components
  */
 
-new Vue({ 
+new Vue({
   store,
-  el: "#listing", 
-  name: "bolt-listing",
+  el: '#listing',
+  name: 'BoltListing',
   components: {
-    "listing-records": Records,
-    "listing-filter": Filter,
-    "listing-table": Table,
-    "listing-select-box": SelectBox
-  }
+    'listing-records': Records,
+    'listing-filter': Filter,
+    'listing-table': Table,
+    'listing-select-box': SelectBox,
+  },
 });

@@ -1,12 +1,12 @@
 <template>
   <div class="input-group">
     <input
+      v-model="val"
       :name="name"
       class="form-control"
       placeholder="…"
       type="number"
       :step="step"
-      v-model="val"
     />
   </div>
 </template>
@@ -15,8 +15,8 @@
 import val from '../../../mixins/value';
 
 export default {
-  name: 'editor-number',
-  props: ['value', 'label', 'name', 'step', 'type', 'disabled'],
+  name: 'EditorNumber',
   mixins: [val],
+  props: ['value', 'label', 'name', 'step', 'type', 'disabled'],
 };
 </script>

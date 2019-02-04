@@ -1,9 +1,9 @@
 <template>
   <div>
     <textarea
+      v-model="val"
       class="form-control field--textarea"
       :name="name"
-      v-model="val"
       rows="10"
     ></textarea>
   </div>
@@ -13,8 +13,8 @@
 import field from '../../../mixins/value';
 
 export default {
-  name: 'editor-textarea',
-  props: ['value', 'label', 'name'],
+  name: 'EditorTextarea',
   mixins: [field],
+  props: ['value', 'label', 'name'],
 };
 </script>
