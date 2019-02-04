@@ -14,6 +14,12 @@ class EditRecordPage extends BasePage {
     this.lang_select = $('#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__select');
     this.lang_nl = $('#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span');
 
+    this.embed_field  = $('[name="fields[embed][url]"]');
+    this.embed_width  = $('[name="fields[embed][width]"]');
+    this.embed_height = $('[name="fields[embed][height]"]');
+    this.embed_title  = $('[name="fields[embed][title]"]');
+    this.embed_author = $('[name="fields[embed][authorname]"]');
+
     this.save_button = $('button[type="submit"]');
   }
 }
