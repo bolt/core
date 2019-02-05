@@ -75,6 +75,7 @@ Feature: Edit record
         When I visit the "edit_record" page with parameters:
             | id | 32 |
         Then I wait for "title_field" element to appear
+        Then I click the "tab_media" element
         When I fill the "embed_field" field with "https://www.youtube.com/watch?v=x4IDM3ltTYo"
         And I wait for "2" seconds
         Then there is element "embed_title" with text "Silversun Pickups - Nightlight (Official Video)"
