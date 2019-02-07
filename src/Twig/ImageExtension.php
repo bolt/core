@@ -50,6 +50,8 @@ class ImageExtension extends AbstractExtension
     {
         if ($image instanceof ImageField) {
             $filename = $image->get('filename');
+        } elseif (is_array($image)) {
+            $filename = $image['filename'];
         } elseif (is_string($image)) {
             $filename = $image;
         }
@@ -79,6 +81,6 @@ class ImageExtension extends AbstractExtension
 
     public function dummy($input = null)
     {
-        return $input;
+        return 'dummy';
     }
 }

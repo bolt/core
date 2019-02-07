@@ -82,7 +82,7 @@ class ContentExtension extends AbstractExtension
         $definition = $content->getDefinition();
 
         // First, see if we have a "title format" in the contenttype.
-        if ($definition->has('title_format')) {
+        if ($definition !== null && $definition->has('title_format')) {
             return (array) $definition->get('title_format');
         }
 

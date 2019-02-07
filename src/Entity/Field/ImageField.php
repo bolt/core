@@ -18,9 +18,9 @@ class ImageField extends Field
         return $this->getPath();
     }
 
-    public function getValue(): ?array
+    public function getValue(): array
     {
-        $value = parent::getValue();
+        $value = parent::getValue() ?: [];
 
         // Generate a URL
         $value['path'] = $this->getPath();

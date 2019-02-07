@@ -4,7 +4,6 @@ Feature: Get content with API
     When I send a GET request to "/api/contents.json"
     Then the response status code should be 200
     And the response should be in JSON
-    And print last JSON response
     And the response should contain json:
   """
   [
@@ -22,15 +21,15 @@ Feature: Get content with API
              "alt": @string@,
              "path": @string@
           },
-          "@*@": @*@
+          "@*@": "@*@"
        },
-       "taxonomyValues": [],
-       "extras: {
+       "taxonomyValues": @array@,
+       "extras": {
           "link": @string@,
           "editLink": @string@,
-          "@*@": @*@
-       }
-       "@*@": @*@
+          "@*@": "@*@"
+       },
+       "@*@": "@*@"
     },
     @...@
   ]
@@ -44,17 +43,17 @@ Feature: Get content with API
   """
   {
      "id": 1,
-     "contentType": "@string@",
+     "contentType": @string@,
      "publishedAt": "@string@.isDateTime()",
-     "taxonomies": @array@,
-     "authorName": "@string@",
+     "taxonomyValues": @array@,
+     "authorName": @string@,
      "fieldValues": {
-        "title": "@string@",
-        "slug": "@string@",
+        "title": @string@,
+        "slug": @string@,
         "image": {
-           "filename": "@string@",
-           "alt": "@string@",
-           "path": "@string@"
+           "filename": @string@,
+           "alt": @string@,
+           "path": @string@
         },
        "@*@": "@*@"
      },
@@ -74,18 +73,18 @@ Feature: Get content with API
      "@type": "hydra:Collection",
      "hydra:member": [
         {
-           "id": "@integer@",
+           "id": @integer@,
            "contentType": "homepage",
            "publishedAt": "@string@.isDateTime()",
-           "taxonomies": @array@,
-           "authorName": "@string@",
+           "taxonomyValues": @array@,
+           "authorName": @string@,
            "fieldValues": {
-              "title": "@string@",
-              "slug": "@string@",
+              "title": @string@,
+              "slug": @string@,
               "image": {
-                 "filename": "@string@",
-                 "alt": "@string@",
-                 "path": "@string@"
+                 "filename": @string@,
+                 "alt": @string@,
+                 "path": @string@
               },
               "@*@": "@*@"
            },
