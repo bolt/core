@@ -11,7 +11,6 @@ use Bolt\Content\ContentType;
 use Bolt\Enum\Statuses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Persistence\ObjectManagerAware;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -24,19 +23,18 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  *     collectionOperations={"get"},
  *     itemOperations={"get",
  *         "put"={
- *             "denormalization_context"={"groups"={"put"}},
+ *             "denormalization_context"={"groups"={"put"}}
  *         }
- *     },
- *     outputClass=Bolt\Model\ContentResponse::class
+ *     }
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Content implements ObjectManagerAware
+class Content implements \JsonSerializable
 {
     use ContentLocalizeTrait;
-    use ContentMagicTrait;
+    use ContentExtrasTrait;
 
     public const NUM_ITEMS = 8; // @todo This can't be a const
 
@@ -76,22 +74,22 @@ class Content implements ObjectManagerAware
     private $status = null;
 
     /**
-     * @var \DateTimeInterface
+     * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * @var ?\DateTimeInterface
+     * @var ?\DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("put")
+     * @Groups({"get_content", "put"})
      */
     private $modifiedAt = null;
 
     /**
-     * @var ?\DateTimeInterface
+     * @var ?\DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"get_content", "put"})
@@ -99,7 +97,7 @@ class Content implements ObjectManagerAware
     private $publishedAt = null;
 
     /**
-     * @var ?\DateTimeInterface
+     * @var ?\DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups("put")
@@ -128,7 +126,7 @@ class Content implements ObjectManagerAware
 
     /**
      * @var Collection|Taxonomy[]
-     * @Groups({"get_content", "put"})
+     * @Groups({"put"})
      * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
@@ -140,6 +138,15 @@ class Content implements ObjectManagerAware
         $this->createdAt = new \DateTime();
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        $contentName = $this->getDefinition() ? $this->getContentTypeName() : 'Content';
+        if ($this->getId()) {
+            return sprintf('%s #%d', $contentName, $this->getId());
+        }
+        return sprintf('New %s', $contentName);
     }
 
     public function getId(): ?int
@@ -160,9 +167,9 @@ class Content implements ObjectManagerAware
         return $this->contentTypeDefinition;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
-        return $this->getField('slug')->__toString();
+        return $this->getFieldValue('slug');
     }
 
     public function getContentType(): ?string
@@ -170,22 +177,27 @@ class Content implements ObjectManagerAware
         return $this->contentType;
     }
 
-    public function setContentType(string $contentType): self
+    public function setContentType(string $contentType): void
     {
         $this->contentType = $contentType;
+    }
 
-        return $this;
+    public function getContentTypeSlug(): string
+    {
+        return $this->getDefinition()->get('singular_slug');
+    }
+
+    public function getContentTypeName(): string
+    {
+        return $this->getDefinition()->get('singular_name') ?: $this->getContentTypeSlug();
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->getDefinition()->get('icon_one') ?: $this->getDefinition()->get('icon_many');
     }
 
     public function getAuthor(): User
-    {
-        return $this->author;
-    }
-
-    /**
-     * @deprecated Backward-compatible alias for `getAuthor`
-     */
-    public function geUser(): User
     {
         return $this->author;
     }
@@ -213,48 +225,48 @@ class Content implements ObjectManagerAware
         return $this;
     }
 
-    public function getCreatedAt(): \DateTimeInterface
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getModifiedAt(): ?\DateTimeInterface
+    public function getModifiedAt(): ?\DateTime
     {
         return $this->modifiedAt;
     }
 
-    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
+    public function setModifiedAt(?\DateTime $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
 
         return $this;
     }
 
-    public function getPublishedAt(): ?\DateTimeInterface
+    public function getPublishedAt(): ?\DateTime
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(?\DateTimeInterface $publishedAt): self
+    public function setPublishedAt(?\DateTime $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
 
         return $this;
     }
 
-    public function getDepublishedAt(): ?\DateTimeInterface
+    public function getDepublishedAt(): ?\DateTime
     {
         return $this->depublishedAt;
     }
 
-    public function setDepublishedAt(?\DateTimeInterface $depublishedAt): self
+    public function setDepublishedAt(?\DateTime $depublishedAt): self
     {
         $this->depublishedAt = $depublishedAt;
 
@@ -274,20 +286,40 @@ class Content implements ObjectManagerAware
      */
     public function getFieldValues(): array
     {
-        return $this->fields
-            ->map(function (Field $field) {
-                return $field->getFlattenedValue();
-            })
-            ->toArray();
+        $fieldValues = [];
+        foreach ($this->getFields() as $field) {
+            $fieldValues[$field->getName()] = $field->getFlattenedValue();
+        }
+
+        return $fieldValues;
     }
 
-    public function getFieldValue(string $fieldName): ?array
+    /**
+     * @Groups("get_content")
+     */
+    public function getTaxonomyValues(): array
+    {
+        $taxonomyValues = [];
+        foreach ($this->getTaxonomies() as $taxonomy) {
+            if (isset($taxonomyValues[$taxonomy->getType()]) === false) {
+                $taxonomyValues[$taxonomy->getType()] = [];
+            }
+            $taxonomyValues[$taxonomy->getType()][$taxonomy->getSlug()] = $taxonomy->getName();
+        }
+
+        return $taxonomyValues;
+    }
+
+    /**
+     * @return array|mixed|null
+     */
+    public function getFieldValue(string $fieldName)
     {
         if ($this->hasField($fieldName) === false) {
             return null;
         }
 
-        return $this->getField($fieldName)->getValue();
+        return $this->getField($fieldName)->getFlattenedValue();
     }
 
     public function getField(string $fieldName): Field
@@ -396,5 +428,22 @@ class Content implements ObjectManagerAware
     {
         // @todo See Github issue https://github.com/bolt/four/issues/163
         return [];
+    }
+
+    /**
+     * Generic getter for a record fields. Will return the field with $name.
+     *
+     * - {{ record.title }} => field named title
+     * - {{ record|title }} => value of guessed title field
+     * - {{ record.image }} => field named image
+     * - {{ record|image }} => value of guessed image field
+     */
+    public function __call(string $name, array $arguments = []): Field
+    {
+        try {
+            return $this->getField($name);
+        } catch (\InvalidArgumentException $e) {
+            throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
+        }
     }
 }

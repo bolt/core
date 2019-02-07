@@ -199,7 +199,6 @@ class User implements UserInterface, \Serializable
      */
     public function serialize(): string
     {
-        // add $this->salt too if you don't use Bcrypt or Argon2i
         return serialize([$this->id, $this->username, $this->password]);
     }
 

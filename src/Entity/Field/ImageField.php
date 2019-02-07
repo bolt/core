@@ -28,7 +28,7 @@ class ImageField extends Field
         return $value;
     }
 
-    private function getPath(): string
+    public function getPath(): string
     {
         $urlBuilder = UrlBuilderFactory::create('/thumbs/');
 

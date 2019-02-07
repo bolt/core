@@ -11,7 +11,7 @@
     {{ 'caption.edit'|trans }}
     {{ record.definition.singular_name }}
     »
-    <strong>{{ record.magicTitle()|default('New')|excerpt(50) }}</strong>
+    <strong>{{ excerpt(record | title, 50) | default('New') }}</strong>
 {% endblock %}
 
 {% block vue_id 'editor' %}

@@ -197,8 +197,13 @@ class Field implements Translatable
     public function getFlattenedValue()
     {
         $value = $this->getValue();
-        if (is_iterable($value) && count($value) < 2) {
-            return reset($value);
+        if (is_iterable($value)) {
+            $count = count($value);
+            if ($count === 0) {
+                return null;
+            } elseif ($count === 1) {
+                return reset($value);
+            }
         }
 
         return $value;

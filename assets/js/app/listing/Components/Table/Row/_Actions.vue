@@ -2,7 +2,7 @@
   <div class="listing__row--item is-actions">
     <ul class="listing--actions">
       <li>
-        <a :href="record.editLink" class="link">
+        <a :href="record.extras.editLink" class="link">
           <div class="btn-group">
             <button class="btn btn-grey btn-block btn-sm" type="button">
               <i class="far fa-edit mr-1"></i> Edit

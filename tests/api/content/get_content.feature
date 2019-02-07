@@ -4,33 +4,35 @@ Feature: Get content with API
     When I send a GET request to "/api/contents.json"
     Then the response status code should be 200
     And the response should be in JSON
+    And print last JSON response
     And the response should contain json:
   """
   [
     {
-       "id": "@integer@",
-       "contentType": "@string@",
+       "id": @integer@,
+       "contentType": @string@,
        "publishedAt": "@string@.isDateTime()",
-       "taxonomies": @array@,
-       "authorName": "@string@",
-       "fields": {
-          "title": "@string@",
-          "slug": "@string@",
+       "updatedAt": "@string@.isDateTime()",
+       "authorName": @string@,
+       "fieldValues": {
+          "title": @string@,
+          "slug": @string@,
           "image": {
-             "filename": "@string@",
-             "alt": "@string@",
-             "path": "@string@"
+             "filename": @string@,
+             "alt": @string@,
+             "path": @string@
           },
-          "@*@": "@*@"
+          "@*@": @*@
        },
+       "taxonomyValues": [],
        "extras: {
-          "link": "@string@",
-          "editLink": "@string@",
-          "@*@": "@*@"
+          "link": @string@,
+          "editLink": @string@,
+          "@*@": @*@
        }
-       "@*@": "@*@"
+       "@*@": @*@
     },
-    "@...@"
+    @...@
   ]
   """
 

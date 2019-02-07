@@ -2,7 +2,7 @@
     <!-- listing records -->
     <listing-records
       type="{{ type }}"
-      :data="{{ jsonrecords(records) }}"
+      :data="{{ records|json_encode }}"
     >
     </listing-records>
     <!-- end listing records -->

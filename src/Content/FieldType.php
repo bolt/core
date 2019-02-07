@@ -6,7 +6,7 @@ namespace Bolt\Content;
 
 use Tightenco\Collect\Support\Collection;
 
-final class FieldType extends Collection
+class FieldType extends Collection
 {
     public function __construct($items = [])
     {

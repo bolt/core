@@ -31,7 +31,6 @@ class Taxonomy
 
     /**
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies")
-     * @ORM\JoinTable(name="taxonomy_content")
      */
     private $content;
 

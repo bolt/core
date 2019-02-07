@@ -7,6 +7,7 @@ namespace Bolt\Content;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
+use Bolt\Twig\ContentExtension;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -33,16 +34,19 @@ class MenuBuilder
     private $translator;
 
     /**
-     * MenuBuilder constructor.
+     * @var ContentExtension
      */
-    public function __construct(FactoryInterface $factory, Config $config, Stopwatch $stopwatch, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
+    private $contentExtension;
+
+    public function __construct(FactoryInterface $factory, Config $config, Stopwatch $stopwatch, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ContentExtension $contentExtension)
     {
-        $this->config = $config;
         $this->factory = $factory;
+        $this->config = $config;
         $this->stopwatch = $stopwatch;
         $this->contentRepository = $contentRepository;
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
+        $this->contentExtension = $contentExtension;
     }
 
     public function createSidebarMenu()
@@ -280,10 +284,10 @@ class MenuBuilder
         foreach ($records as $record) {
             $result[] = [
                 'id' => $record->getId(),
-                'name' => $record->magicTitle(),
-                'link' => $record->magicLink(),
-                'editLink' => $record->magicEditLink(),
-                'icon' => $record->getDefinition()->get('icon_one'),
+                'name' => $this->contentExtension->getTitle($record),
+                'link' => $this->contentExtension->getLink($record),
+                'editLink' => $this->contentExtension->getEditLink($record),
+                'icon' => $record->getIcon(),
             ];
         }
         $this->stopwatch->stop('menuBuilder.parseLatest');

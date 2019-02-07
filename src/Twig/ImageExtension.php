@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Configuration\Config;
-use Bolt\Entity\Field;
+use Bolt\Entity\Field\ImageField;
 use League\Glide\Urls\UrlBuilderFactory;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -48,7 +48,7 @@ class ImageExtension extends AbstractExtension
 
     public function thumbnail($image, $width = 320, $height = 240, $area = null, $path = null)
     {
-        if ($image instanceof Field) {
+        if ($image instanceof ImageField) {
             $filename = $image->get('filename');
         } elseif (is_string($image)) {
             $filename = $image;
