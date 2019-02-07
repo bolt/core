@@ -11,16 +11,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"get_content"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"put"}},
- *     collectionOperations={"get"},
- *     itemOperations={"get",
- *         "put"={
- *             "denormalization_context"={"groups"={"put"}},
- *         }
- *     }
- * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(
  *  uniqueConstraints={
@@ -66,20 +56,20 @@ class Field implements Translatable
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("get_content")
+     * @Groups("put")
      */
     public $name;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"public", "put"})
+     * @Groups({"put"})
      * @Gedmo\Translatable
      */
     protected $value = [];
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"public", "put"})
+     * @Groups({"put"})
      */
     private $sortorder = 0;
 

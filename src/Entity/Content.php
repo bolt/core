@@ -18,14 +18,9 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"get_content"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"put"}},
+ *     normalizationContext={"groups"={"get_content"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get",
- *         "put"={
- *             "denormalization_context"={"groups"={"put"}}
- *         }
- *     }
+ *     itemOperations={"get"}
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")

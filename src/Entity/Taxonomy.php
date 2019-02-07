@@ -12,11 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"get_content", "public"}},
- *     collectionOperations={"get"},
- *     itemOperations={"get"}
- * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\TaxonomyRepository")
  */
 class Taxonomy

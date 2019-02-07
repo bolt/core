@@ -11,11 +11,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"get_content", "get_user"}},
- *     collectionOperations={"get"},
- *     itemOperations={"get", "put"}
- * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
  */
 class User implements UserInterface, \Serializable
