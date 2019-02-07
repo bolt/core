@@ -25,6 +25,11 @@ class ImageField extends Field
         // Generate a URL
         $value['path'] = $this->getPath();
 
+        // @todo temp fix for https://github.com/bolt/four/issues/318
+        unset($value['media']);
+        unset($value['title']);
+        unset($value[0]);
+
         return $value;
     }
 

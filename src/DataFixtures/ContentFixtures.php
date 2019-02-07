@@ -123,7 +123,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                 $data = [$this->faker->sentence(6, true)];
         }
 
-        if ($name === 'title') {
+        if ($name === 'title' || $name === 'heading') {
             $this->lastTitle = $data;
         }
 
