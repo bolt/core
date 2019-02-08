@@ -10,9 +10,7 @@
             <tr :key="record.id">
               <td>{{ record.id }}</td>
               <td>
-                <a :href="'edit/' + record.id">{{
-                  record.fields[0].value.value
-                }}</a>
+                <a :href="record.extras.editLink">{{ record.extras.title }}</a>
               </td>
             </tr>
             <!-- Maybe is better to have a component to print each row? -->

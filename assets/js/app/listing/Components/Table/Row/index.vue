@@ -23,14 +23,14 @@
       <div
         v-if="size === 'normal'"
         class="listing__row--item is-thumbnail"
-        :style="`background-image: url(${record | image(onlyPath=true)})`"
+        :style="`background-image: url(${record.extras.image.path})`"
       ></div>
       <!-- end column -->
 
       <!-- column details -->
       <div class="listing__row--item is-details">
-        <a :href="record.extras.editLink">record.extras.title</a>
-        <span>record.extras.excerpt</span>
+        <a :href="record.extras.editLink">{{ record.extras.title }}</a>
+        <span>{{ record.extras.excerpt }}</span>
       </div>
       <!-- end column -->
 
