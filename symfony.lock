@@ -146,6 +146,9 @@
     "egulias/email-validator": {
         "version": "2.1.2"
     },
+    "embed/embed": {
+        "version": "v3.3.7"
+    },
     "erusev/parsedown": {
         "version": "1.6.3"
     },

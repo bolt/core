@@ -12,9 +12,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sirius\Upload\Handler;
 use Sirius\Upload\Result\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
 
@@ -45,9 +47,13 @@ class UploadController
     /**
      * @Route("/upload", name="bolt_async_upload", methods={"POST"})
      */
-    public function upload(Request $request)
+    public function handleUpload(Request $request): JsonResponse
     {
-        $this->validateCsrf($request, 'upload');
+        try {
+            $this->validateCsrf($request, 'upload');
+        } catch (InvalidCsrfTokenException $e) {
+            return new JsonResponse(['error' => ['message' => 'Invalid CSRF token']], Response::HTTP_FORBIDDEN);
+        }
 
         $area = $request->query->get('area', '');
         $path = $request->query->get('path', '');
@@ -84,7 +90,7 @@ class UploadController
                 $this->em->persist($media);
                 $this->em->flush();
 
-                return new Response($media->getFilenamePath());
+                return new JsonResponse($media->getFilenamePath());
             } catch (\Throwable $e) {
                 // something wrong happened, we don't need the uploaded files anymore
                 $result->clear();
@@ -95,7 +101,7 @@ class UploadController
         // image was not moved to the container, where are error messages
         $messages = $result->getMessages();
 
-        return new Response('Not OK: ' . implode(', ', $messages), 400);
+        return new JsonResponse(['error' => ['message' => implode(', ', $messages)]], Response::HTTP_BAD_REQUEST);
     }
 
     private function sanitiseFilename(string $filename): string
