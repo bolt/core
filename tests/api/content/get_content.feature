@@ -70,7 +70,6 @@ Feature: Get content with API
     When I send a GET request to "/api/contents.jsonld"
     Then the response status code should be 200
     And the response should be in JSON
-    And print last JSON response
     And the response should contain json:
   """
   {
