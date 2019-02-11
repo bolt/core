@@ -33,7 +33,7 @@ final class Embed
      *     name="bolt_embed",
      *     methods={"POST"})
      */
-    public function embed(Request $request): JsonResponse
+    public function __invoke(Request $request): JsonResponse
     {
         $csrfToken = $request->request->get('_csrf_token');
         $token = new CsrfToken('editrecord', $csrfToken);
