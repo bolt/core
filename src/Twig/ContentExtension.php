@@ -49,8 +49,6 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('next', [$this, 'getNextContent']),
             new TwigFilter('link', [$this, 'getLink'], $safe),
             new TwigFilter('edit_link', [$this, 'getEditLink'], $safe),
-            new TwigFilter('related', [$this, 'getRelatedContent']),
-            new TwigFilter('related_first', [$this, 'getFirstRelatedContent']),
         ];
     }
 
@@ -62,8 +60,6 @@ class ContentExtension extends AbstractExtension
         return [
             new TwigFunction('previous_record', [$this, 'getPreviousContent']),
             new TwigFunction('next_record', [$this, 'getNextContent']),
-            new TwigFunction('related_content', [$this, 'getRelatedContent']),
-            new TwigFunction('first_related_content', [$this, 'getFirstRelatedContent']),
         ];
     }
 
@@ -218,28 +214,5 @@ class ContentExtension extends AbstractExtension
             ],
             $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
         );
-    }
-
-    /**
-     * @return Content[]
-     */
-    public function getRelatedContent(Content $content, string $contentType = '', bool $biDirectional = true): array
-    {
-        // @todo See Github Issue https://github.com/bolt/four/issues/252
-        // @todo maybe move to separate extension?
-
-        $placeholder = new Content();
-        $placeholder->setContentType('relations placeholder');
-        return [$placeholder];
-    }
-
-    public function getFirstRelatedContent(Content $content, string $contentType, bool $biDirectional = true): ?Content
-    {
-        // @todo See Github Issue https://github.com/bolt/four/issues/252
-        // @todo maybe move to separate extension?
-
-        $placeholder = new Content();
-        $placeholder->setContentType('relations placeholder');
-        return $placeholder;
     }
 }

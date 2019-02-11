@@ -7,3 +7,4 @@ stof_doctrine_extensions:
     orm:
         default:
             translatable: true
+            sortable: true

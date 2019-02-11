@@ -4,6 +4,7 @@ start:
 	make server
 
 install:
+	cp -n .env.dist .env || true
 	composer install
 	npm install
 	npm run build
