@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Helpers;
-
-use Bolt\Utils\Html;
+namespace Bolt\Utils;
 
 class Excerpt
 {
