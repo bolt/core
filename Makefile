@@ -107,6 +107,9 @@ docker-start:
 	docker-compose run node sh -c "npm rebuild node-sass"
 	docker-compose run node sh -c "npm run build"
 
+docker-assets-serve:
+	docker-compose run node sh -c "npm run serve"
+
 docker-update:
 	docker-compose exec -T php sh -c "composer update"
 

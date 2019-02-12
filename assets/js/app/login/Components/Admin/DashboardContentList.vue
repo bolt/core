@@ -39,13 +39,15 @@ export default {
     };
   },
   created() {
+    // @todo is this ever used?
+    console.warn('remove above todo');
     this.records = getRecords(this.type);
 
     fetchRecords(this.type)
       .then(records => {
         this.records = records;
       })
-      .catch(error => console.log(error))
+      .catch(error => console.warn(error))
       .finally(() => {
         this.loading = false;
       });
