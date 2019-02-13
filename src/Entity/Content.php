@@ -61,7 +61,7 @@ class Content implements \JsonSerializable
     private $author;
 
     /**
-     * @var ?string
+     * @var string|null
      *
      * @ORM\Column(type="string", length=191)
      * @Groups("put")
@@ -69,14 +69,14 @@ class Content implements \JsonSerializable
     private $status = null;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $createdAt;
 
     /**
-     * @var ?\DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"get_content", "put"})
@@ -84,7 +84,7 @@ class Content implements \JsonSerializable
     private $modifiedAt = null;
 
     /**
-     * @var ?\DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"get_content", "put"})
@@ -92,7 +92,7 @@ class Content implements \JsonSerializable
     private $publishedAt = null;
 
     /**
-     * @var ?\DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups("put")
@@ -116,7 +116,9 @@ class Content implements \JsonSerializable
      */
     private $fields;
 
-    /** @var ?ContentType */
+    /**
+     * @var ContentType|null
+     */
     private $contentTypeDefinition;
 
     /**
@@ -150,7 +152,7 @@ class Content implements \JsonSerializable
     }
 
     /**
-     * @see: Bolt\EventListener\ContentListener
+     * @see: Bolt\EventListener\ContentFillListener
      */
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
@@ -329,6 +331,11 @@ class Content implements \JsonSerializable
     public function hasField(string $fieldName): bool
     {
         return isset($this->fields[$fieldName]);
+    }
+
+    public function hasFieldDefined(string $fieldName): bool
+    {
+        return $this->contentTypeDefinition->get('fields')->has($fieldName);
     }
 
     public function addField(Field $field): self

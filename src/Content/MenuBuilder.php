@@ -262,6 +262,14 @@ class MenuBuilder
             ],
         ]);
 
+        $menu->addChild('The Kitchensink', [
+            'uri' => $this->urlGenerator->generate('bolt_kitchensink'),
+            'extras' => [
+                'icon' => 'fa-bath',
+                'singleton' => true,
+            ],
+        ]);
+
         $this->stopwatch->stop('bolt.sidebar');
 
         return $menu;

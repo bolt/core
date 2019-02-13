@@ -102,7 +102,7 @@
     {% if record.hasField('templateFields') %}
         {# Note: This needs to be expanded upon!! For better detection the 'virtual'
            content type for the templatefields should know about the types of fields. #}
-        {% set templatefields_field_types = attribute(record.contentType.templatefields|first, 'fields') %}
+        {% set templatefields_field_types = attribute(record.contentType.templatefields.first, 'fields') %}
 
         {% for key, value in record.templateFields if (key not in omittedkeys) %}
 

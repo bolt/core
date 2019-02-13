@@ -8,6 +8,7 @@ use Bolt\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
@@ -105,8 +106,9 @@ class Field implements Translatable
         return implode(', ', $this->getValue());
     }
 
-    public static function factory(array $definition, string $name = ''): self
+    public static function factory(LaravelCollection $definition, string $name = ''): self
     {
+        dd($definition);
         $type = $definition['type'];
 
         $classname = '\\Bolt\\Entity\\Field\\' . ucwords($type) . 'Field';
@@ -116,7 +118,7 @@ class Field implements Translatable
             $field = new self();
         }
 
-        if (! empty($name)) {
+        if ($name !== '') {
             $field->setName($name);
         }
 
@@ -130,13 +132,6 @@ class Field implements Translatable
         return $this->id;
     }
 
-    private function setDefinitionFromContentDefinition(): void
-    {
-        $contentTypeDefinition = $this->getContent()->getDefinition();
-
-        $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
-    }
-
     public function getDefinition(): FieldType
     {
         if ($this->fieldTypeDefinition === null && $this->getContent()) {
@@ -146,7 +141,13 @@ class Field implements Translatable
         return $this->fieldTypeDefinition;
     }
 
-    public function setDefinition($name, array $definition): void
+    private function setDefinitionFromContentDefinition(): void
+    {
+        $contentTypeDefinition = $this->getContent()->getDefinition();
+        $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
+    }
+
+    public function setDefinition($name, LaravelCollection $definition): void
     {
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }
@@ -165,7 +166,7 @@ class Field implements Translatable
 
     public function getType(): ?string
     {
-        return $this->getDefinition()['type'];
+        return $this->getDefinition()->get('type');
     }
 
     public function get($key)

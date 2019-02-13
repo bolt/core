@@ -216,7 +216,7 @@ class ContentEditController extends TwigAwareController
                 $this->em->refresh($field);
             }
         } else {
-            $fields = collect($content->getDefinition()->get('fields'));
+            $fields = $content->getDefinition()->get('fields');
             $field = Field::factory($fields->get($fieldName), $fieldName);
             $field->setName($fieldName);
             $content->addField($field);

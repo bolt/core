@@ -29,7 +29,7 @@
         <admin-toolbar
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
             :menu="{{ sidebarmenu() }}"
-            user="{{user|default()}}"
+            user="{{ user|default }}"
             :labels="{{ labels|json_decode }}"
         ></admin-toolbar>
     </nav>

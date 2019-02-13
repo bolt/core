@@ -20,10 +20,10 @@ class ContentType extends Collection
         }
 
         return $contentTypesConfig
-            ->filter(function (array $contentTypeConfig) use ($name): bool {
+            ->filter(function (Collection $contentTypeConfig) use ($name): bool {
                 return $contentTypeConfig['singular_slug'] === $name;
             })
-            ->map(function (array $contentTypeConfig): self {
+            ->map(function (Collection $contentTypeConfig): self {
                 return new self($contentTypeConfig);
             })
             ->first();

@@ -53,18 +53,18 @@
             'name': 'foo',
             'id': 'bar',
             'value': "FooBar",
-            'label': 'A Field',
+            'label': 'A dummy Field',
             'placeholder': 'Just a dummy field'
         } %}
 
         {# fields from a contenttype #}
         {% setcontent record = 'homepage' returnsingle %}
-        {% for key, fielddefinition in record.definition.fields|slice(0,3) %}
+        {% for key, fieldDefinition in record.definition.fields.slice(0,3) %}
 
-            {% set field = record.field(key, 'en', false, fielddefinition) %}
+            {% set field = record.field(key) %}
 
             {% include [
-                '@bolt/_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
+                '@bolt/_partials/fields/' ~ field.definition.type ~ '.html.twig',
                 '@bolt/_partials/fields/generic.html.twig'
                 ] with { 'field' : field } %}
 

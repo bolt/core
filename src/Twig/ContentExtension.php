@@ -11,6 +11,7 @@ use Bolt\Helpers\Excerpt;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Html;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -81,9 +82,24 @@ class ContentExtension extends AbstractExtension
     {
         $definition = $content->getDefinition();
 
-        // First, see if we have a "title format" in the contenttype.
+        // First, see if we have a "title format" in the Content Type.
         if ($definition !== null && $definition->has('title_format')) {
-            return (array) $definition->get('title_format');
+            $names = $definition->get('title_format');
+
+            $namesCollection = Collection::wrap($names)->filter(function (string $name) use ($content): bool {
+                if ($content->hasFieldDefined($name) === false) {
+                    throw new \RuntimeException(sprintf(
+                        "Content '%s' has field '%s' added to title_format config option, but the field is not present in Content's definition.",
+                        $content->getContentTypeName(),
+                        $name
+                    ));
+                }
+                return $content->hasField($name);
+            });
+
+            if ($namesCollection->isNotEmpty()) {
+                return $namesCollection->values()->toArray();
+            }
         }
 
         // Alternatively, see if we have a field named 'title' or somesuch.
