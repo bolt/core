@@ -22,22 +22,22 @@
                is set to true. This way we keep 'grouping' intact in the listing. #}
             {% if not taxonomy.has_sortorder %}
                 {# If we specified an order in config.yml, sort them here, accordingly: #}
-                {% set records = records | order(config.get('general/listing_sort')) %}
+                {% set records = records|order(config.get('general/listing_sort')) %}
             {% endif %}
         {% endif %}
 
         {% for record in records %}
             <article>
 
-                <h2><a href="{{ record | link }}">{{ record | title }}</a></h2>
+                <h2><a href="{{ record|link }}">{{ record|title }}</a></h2>
 
-                {% if record | image is not empty %}
-                    <a href="{{ image(record | image) }}">
-                        <img src="{{ thumbnail(record | image, 400, 260) }}" alt="{{ (record | image).alt | default(record | title) }}">
+                {% if record|image is not empty %}
+                    <a href="{{ image(record|image) }}">
+                        <img src="{{ thumbnail(record|image, 400, 260) }}" alt="{{ (record|image).alt|default(record|title) }}">
                     </a>
                 {% endif %}
 
-                <p>{{ record | excerpt(300, false, search | default('')) }}</p>
+                <p>{{ record|excerpt(300, false, search|default('')) }}</p>
 
                 {% include 'partials/_recordfooter.twig' with { 'record': record } %}
 

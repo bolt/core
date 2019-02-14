@@ -16,7 +16,7 @@
       </li>
       <li>
         <span class="status mr-2" :class="`is-${record.status}`"></span
-        >{{ record.publishedAt.date | date }}
+        >{{ record.publishedAt.date|date }}
       </li>
     </ul>
   </div>
