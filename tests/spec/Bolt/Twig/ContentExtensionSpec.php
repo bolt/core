@@ -63,6 +63,8 @@ class ContentExtensionSpec extends ObjectBehavior
         $definition->get('title_format')->shouldBeCalled()->willReturn(['other_text_field']);
         $content->getDefinition()->willReturn($definition);
         $field->__toString()->shouldBeCalled()->willReturn(self::TEST_TITLE);
+        $content->hasFieldDefined('other_text_field')->shouldBeCalled()->willReturn(true);
+        $content->hasField('other_text_field')->shouldBeCalled()->willReturn(true);
         $content->getField('other_text_field')->shouldBeCalled()->willReturn($field);
 
         $this->getTitle($content)->shouldBe(self::TEST_TITLE);
