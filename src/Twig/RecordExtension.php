@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Bolt\Helpers\Excerpt;
+use Bolt\Menu\MenuBuilder;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;

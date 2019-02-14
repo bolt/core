@@ -2,16 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Helpers;
-
-use Bolt\Utils\Html;
+namespace Bolt\Utils;
 
 class Excerpt
 {
-    private function __construct()
-    {
-    }
-
     public static function getExcerpt(string $text, int $length = 200, $focus = null): string
     {
         if ($focus) {

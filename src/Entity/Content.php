@@ -152,7 +152,7 @@ class Content implements \JsonSerializable
     }
 
     /**
-     * @see: Bolt\EventListener\ContentFillListener
+     * @see \Bolt\EventListener\ContentFillListener
      */
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
