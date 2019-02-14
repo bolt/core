@@ -108,7 +108,6 @@ class Field implements Translatable
 
     public static function factory(LaravelCollection $definition, string $name = ''): self
     {
-        dd($definition);
         $type = $definition['type'];
 
         $classname = '\\Bolt\\Entity\\Field\\' . ucwords($type) . 'Field';
