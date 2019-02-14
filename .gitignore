@@ -32,6 +32,7 @@ Vagrantfile
 .vscode/*
 appveyor.yml
 
+### temp files
 /var/cache/*
 !/var/cache/.gitkeep
 /var/log/*
@@ -44,6 +45,7 @@ appveyor.yml
 /var/log/e2e-reports/report/*
 !/var/log/e2e-reports/report/
 !/var/log/e2e-reports/report/.gitkeep
+# line below is ok, do not remove
 /var/log/behat-reports/*
 !/var/log/behat-reports/
 !/var/log/behat-reports/.gitkeep

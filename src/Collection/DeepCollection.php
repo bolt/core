@@ -29,6 +29,6 @@ class DeepCollection extends Collection
 
     public function isKeyNotEmpty($key): bool
     {
-        return !$this->isKeyEmpty($key);
+        return ! $this->isKeyEmpty($key);
     }
 }
