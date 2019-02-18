@@ -34,13 +34,19 @@
         </p>
     {% endif %}
 
-    {# @todo See Github Issue https://github.com/bolt/four/issues/252 #}
-    {% set relatedrecords = related_content(record) %}
-    {% if relatedrecords is not empty %}
+    {% set related_cts = record|related_all %}
+    {% if related_cts is not empty %}
         <p class="meta">{{ __('general.phrase.related-content') }}
         <ul>
-            {% for related in relatedrecords %}
-                <li><a href="{{ related|link }}">{{ related|title }}</a></li>
+            {% for ct, related_records in related_cts %}
+                <li>
+                    <h4>Related {{ app.config.contenttypes[ct].name }}</h4>
+                    <ul>
+                        {% for related_record in related_records %}
+                            <li><a href="{{ related|link }}">{{ related|title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
             {%  endfor %}
         </ul>
         </p>

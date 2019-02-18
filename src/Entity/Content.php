@@ -442,12 +442,6 @@ class Content implements \JsonSerializable
         return $this;
     }
 
-    public function related(): array
-    {
-        // @todo See Github issue https://github.com/bolt/four/issues/163
-        return [];
-    }
-
     /**
      * Generic getter for a record fields. Will return the field with $name.
      *

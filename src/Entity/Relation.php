@@ -61,7 +61,7 @@ class Relation
     private $position = 0;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="`group`", type="string")
      * @Gedmo\SortableGroup
      */
     private $group;

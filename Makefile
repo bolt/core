@@ -98,15 +98,18 @@ db-reset:
 # Dockerized commands:
 docker-install:
 	make docker-start
+	make docker-install-deps
 	make docker-db-create
 
-docker-start:
-	cp -n .env.dist .env || true
-	docker-compose up -d
+docker-install-deps:
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
 	docker-compose run node sh -c "npm rebuild node-sass"
 	docker-compose run node sh -c "npm run build"
+
+docker-start:
+	cp -n .env.dist .env || true
+	docker-compose up -d
 
 docker-assets-serve:
 	docker-compose run node sh -c "npm run serve"

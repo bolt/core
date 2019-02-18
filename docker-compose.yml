@@ -10,7 +10,6 @@ services:
       - .env
     depends_on:
       - database
-#      - maildev
       - blackfire
     volumes:
       - ./:/var/www/bolt
@@ -53,7 +52,7 @@ services:
     image: phpmyadmin/phpmyadmin
     ports:
       - 8099:80
-    external_links:
+    links:
       - database:db
 
   blackfire:

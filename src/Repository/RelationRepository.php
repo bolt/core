@@ -12,8 +12,8 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method (Relation | null) find($id, $lockMode = null, $lockVersion=null)
- * @method (Relation | null) findOneBy(array $criteria, array $orderBy=null)
+ * @method Relation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Relation|null findOneBy(array $criteria, array $orderBy = null)
  * @method Relation[]    findAll()
  * @method Relation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -73,7 +73,7 @@ class RelationRepository extends SortableRepository
             ->select('r, cfrom, cto')
             ->join('r.fromContent', 'cfrom')
             ->join('r.toContent', 'cto')
-            ->orderBy('r.sort', 'DESC');
+            ->orderBy('r.position', 'DESC');
 
         if ($name !== null) {
             $qb->andWhere('r.name = :name')
@@ -81,10 +81,11 @@ class RelationRepository extends SortableRepository
         }
 
         if ($reversed === false) {
-            $qb->andWhere('cfrom.id', $from->getId(), \PDO::PARAM_INT);
+            $qb->andWhere('r.fromContent = :from');
         } else {
-            $qb->andWhere('cto.id', $from->getId(), \PDO::PARAM_INT);
+            $qb->andWhere('r.toContent = :from');
         }
+        $qb->setParameter(':from', $from);
 
         return $qb;
     }
