@@ -43,6 +43,8 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  *     "textarea" = "Bolt\Entity\Field\TextareaField",
  *     "video" = "Bolt\Entity\Field\VideoField"
  * })
+ *
+ * @todo allow adding fields with extensions https://github.com/facile-it/doctrine-dynamic-discriminator-map
  */
 class Field implements Translatable
 {

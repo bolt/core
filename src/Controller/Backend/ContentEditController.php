@@ -13,11 +13,13 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
 use Bolt\EventListener\ContentFillListener;
+use Bolt\Form\ContentFormType;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,12 +84,52 @@ class ContentEditController extends TwigAwareController
      */
     public function new(string $contentType, Request $request): Response
     {
-        $content = new Content();
-        $content->setAuthor($this->getUser());
-        $content->setContentType($contentType);
+        $content = $this->createContent($contentType);
+
+        $form = $this->createCreateForm($content, $request);
+
+        return $this->renderEdit($request, $content, $form);
+    }
+
+    /**
+     * @Route("/new/{contentType}", name="bolt_content_create", methods={"POST"})
+     */
+    public function create(string $contentType, Request $request): Response
+    {
+        $this->validateToken($request); // @todo move token validation to form itself
+
+        $content = $this->createContent($contentType);
+
+        $form = $this->createCreateForm($content, $request);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            return $this->saveContentAndRedirect($content, $request);
+        }
+
+        return $this->renderEdit($request, $content, $form);
+    }
+
+    private function createContent(string $contentType): Content
+    {
+        $content = new Content($contentType, $this->getUser());
         $this->contentFillListener->fillContent($content);
 
-        return $this->edit($request, $content);
+        return $content;
+    }
+
+    private function createCreateForm(Content $content, Request $request): FormInterface
+    {
+        $urlParams = [
+            'contentType' => $content->getContentType(),
+            'edit_locale' => $this->getEditLocale($request, $content),
+        ];
+        $postUrl = $this->urlGenerator->generate('bolt_content_create', $urlParams);
+
+        return $this->createForm(ContentFormType::class, $content, [
+            'action' => $postUrl,
+            'method' => Request::METHOD_POST,
+        ]);
     }
 
     /**
@@ -95,24 +137,45 @@ class ContentEditController extends TwigAwareController
      */
     public function edit(Request $request, Content $content): Response
     {
-        $twigvars = [
-            'record' => $content,
-            'locales' => $content->getLocales(),
-            'currentlocale' => $this->getEditLocale($request, $content),
-        ];
+        $form = $this->createEditForm($content, $request);
 
-        return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
+        return $this->renderEdit($request, $content, $form);
     }
 
     /**
-     * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
+     * @Route("/edit/{id}", name="bolt_content_save", methods={"PUT"}, requirements={"id": "\d+"})
      */
-    public function save(Request $request, ?Content $content = null): Response
+    public function save(Request $request, Content $content): Response
     {
-        $this->validateToken($request);
+        //$this->validateToken($request); // @todo move token validation to form itself
 
-        $content = $this->contentFromPost($content, $request);
+        $form = $this->createEditForm($content, $request);
 
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            return $this->saveContentAndRedirect($content, $request);
+        }
+
+        return $this->renderEdit($request, $content, $form);
+    }
+
+    private function createEditForm(Content $content, Request $request): FormInterface
+    {
+        $urlParams = [
+            'id' => $content->getId(),
+            'edit_locale' => $this->getEditLocale($request, $content),
+        ];
+        $postUrl = $this->urlGenerator->generate('bolt_content_save', $urlParams);
+
+        return $this->createForm(ContentFormType::class, $content, [
+            'action' => $postUrl,
+            'method' => Request::METHOD_PUT,
+        ]);
+    }
+
+    private function saveContentAndRedirect(Content $content, Request $request)
+    {
         $this->em->persist($content);
         $this->em->flush();
 
@@ -120,15 +183,28 @@ class ContentEditController extends TwigAwareController
 
         $urlParams = [
             'id' => $content->getId(),
-            'edit_locale' => $this->getEditLocale($request, $content) ?: null,
+            'edit_locale' => $this->getEditLocale($request, $content),
         ];
         $url = $this->urlGenerator->generate('bolt_content_edit', $urlParams);
 
+        // redirect to prevent form resubmission
         return new RedirectResponse($url);
     }
 
+    private function renderEdit(Request $request, Content $content, FormInterface $form)
+    {
+        $twigvars = [
+            'record' => $content,
+            'locales' => $content->getLocales(),
+            'currentlocale' => $this->getEditLocale($request, $content),
+            'form' => $form,
+        ];
+
+        return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
+    }
+
     /**
-     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsave", methods={"POST"}, requirements={"id": "\d+"})
+     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsaved", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
     {
@@ -145,13 +221,19 @@ class ContentEditController extends TwigAwareController
     }
 
     /**
-     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"}, requirements={"id": "\d+"})
+     * @Route("/preview/{contentType}", name="bolt_content_edit_preview", methods={"POST"})
      */
-    public function preview(Request $request, ?Content $content = null): Response
+    public function preview(string $contentType, Request $request): Response
     {
         $this->validateToken($request);
 
-        $content = $this->contentFromPost($content, $request);
+        $content = $this->createContent($contentType);
+
+        $form = $this->createForm(ContentFormType::class, $content, [
+            'method' => Request::METHOD_POST,
+        ]);
+        $form->handleRequest($request);
+
         $recordSlug = $content->getDefinition()->get('singular_slug');
 
         $context = [
@@ -164,21 +246,26 @@ class ContentEditController extends TwigAwareController
         return $this->renderTemplate($templates, $context);
     }
 
+    /**
+     * @deprecated
+     */
     private function validateToken(Request $request): void
     {
         $this->validateCsrf($request, 'editrecord');
     }
 
-    private function contentFromPost(?Content $content, Request $request): Content
+    /**
+     * @deprecated
+     * @private made public just to stop fixer screaming about unused private method
+     */
+    protected function contentFromPost(?Content $content, Request $request): Content
     {
         $formData = $request->request->all();
 
         $locale = $this->getPostedLocale($formData);
 
         if ($content === null) {
-            $content = new Content();
-            $content->setAuthor($this->getUser());
-            $content->setContentType($request->attributes->get('id'));
+            $content = new Content($request->attributes->get('id'), $this->getUser());
         }
         $this->contentFillListener->fillContent($content);
 
@@ -206,6 +293,9 @@ class ContentEditController extends TwigAwareController
         return $content;
     }
 
+    /**
+     * @deprecated
+     */
     private function updateField(Content $content, string $fieldName, $value, ?string $locale): void
     {
         if ($content->hasField($fieldName)) {
@@ -233,6 +323,9 @@ class ContentEditController extends TwigAwareController
         $field->setValue((array) $value);
     }
 
+    /**
+     * @deprecated
+     */
     private function updateTaxonomy(Content $content, string $key, $taxonomy): void
     {
         $taxonomy = collect(Json::findArray($taxonomy))->filter();
@@ -250,14 +343,15 @@ class ContentEditController extends TwigAwareController
             ]);
 
             if ($taxonomy === null) {
-                $taxonomy = Taxonomy::factory($key, $slug);
+                $taxonomy = new Taxonomy($key, $slug);
+                $this->em->persist($taxonomy);
             }
 
             $content->addTaxonomy($taxonomy);
         }
     }
 
-    private function getEditLocale(Request $request, Content $content): string
+    private function getEditLocale(Request $request, Content $content): ?string
     {
         $locale = $request->query->get('edit_locale', '');
         $locales = $content->getLocales();
@@ -266,9 +360,12 @@ class ContentEditController extends TwigAwareController
             $locale = $content->getDefaultLocale();
         }
 
-        return $locale;
+        return $locale ?: null;
     }
 
+    /**
+     * @deprecated
+     */
     private function getPostedLocale(array $post): ?string
     {
         return $post['_edit_locale'] ?: null;

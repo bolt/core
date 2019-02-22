@@ -41,7 +41,7 @@ class TaxonomyRepositoryTest extends DbAwareTestCase
 
     public function testPersistEntity(): void
     {
-        $taxonomy = Taxonomy::factory('foo', 'bar');
+        $taxonomy = new Taxonomy('foo', 'bar');
 
         $this->getEm()->persist($taxonomy);
         $this->getEm()->flush();

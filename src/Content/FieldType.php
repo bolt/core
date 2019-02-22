@@ -29,6 +29,13 @@ class FieldType extends Collection
             'sort' => '',
             'default' => '',
             'allowtwig' => false,
+            'required' => true,
+            'pattern' => null,
+            'minLength' => null,
+            'maxLength' => null,
+            'min' => null,
+            'max' => null,
+            'customValidation' => [],
         ]);
     }
 

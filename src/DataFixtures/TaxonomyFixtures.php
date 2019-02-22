@@ -46,7 +46,7 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
             $options = $taxonomyDefinition->isKeyEmpty('options') ? $this->getDefaultOptions() : $taxonomyDefinition['options'];
 
             foreach ($options as $key => $value) {
-                $taxonomy = Taxonomy::factory(
+                $taxonomy = new Taxonomy(
                     $taxonomyDefinition['slug'],
                     $key,
                     $value,

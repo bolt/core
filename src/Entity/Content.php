@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
@@ -23,12 +24,15 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  *     itemOperations={"get"}
  * )
  * @ApiFilter(SearchFilter::class)
+ *
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
  * @ORM\Table(indexes={
  *     @ORM\Index(name="content_type_idx", columns={"content_type"}),
  *     @ORM\Index(name="status_idx", columns={"status"})
  * })
  * @ORM\HasLifecycleCallbacks
+ *
+ * @Assert\Callback({"Bolt\Validator\ContentValidator", "validate"})
  */
 class Content implements \JsonSerializable
 {
@@ -61,6 +65,7 @@ class Content implements \JsonSerializable
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("put")
+     * @Assert\NotNull
      */
     private $author;
 
@@ -69,6 +74,7 @@ class Content implements \JsonSerializable
      *
      * @ORM\Column(type="string")
      * @Groups("put")
+     * @Assert\Choice(callback={"Bolt\Enum\Statuses", "all"})
      */
     private $status = null;
 
@@ -76,6 +82,7 @@ class Content implements \JsonSerializable
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     * @Assert\NotNull
      */
     private $createdAt;
 
@@ -117,6 +124,7 @@ class Content implements \JsonSerializable
      *     cascade={"persist"}
      * )
      * @ORM\OrderBy({"sortorder": "ASC"})
+     * @Assert\Valid
      */
     private $fields;
 
@@ -134,8 +142,10 @@ class Content implements \JsonSerializable
      */
     private $taxonomies;
 
-    public function __construct()
+    public function __construct(string $contentType, User $author)
     {
+        $this->contentType = $contentType;
+        $this->author = $author;
         $this->createdAt = new \DateTime();
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
@@ -173,7 +183,7 @@ class Content implements \JsonSerializable
         return $this->getFieldValue('slug');
     }
 
-    public function getContentType(): ?string
+    public function getContentType(): string
     {
         return $this->contentType;
     }
@@ -215,7 +225,7 @@ class Content implements \JsonSerializable
         return $this->author;
     }
 
-    public function setAuthor(?User $author): void
+    public function setAuthor(User $author): void
     {
         $this->author = $author;
     }
@@ -386,11 +396,9 @@ class Content implements \JsonSerializable
         return $this->getAuthor()->getDisplayName();
     }
 
-    public function getStatuses(): array
-    {
-        return Statuses::all();
-    }
-
+    /**
+     * @deprecated used in old status select field template
+     */
     public function getStatusOptions(): array
     {
         $options = [];
@@ -411,7 +419,7 @@ class Content implements \JsonSerializable
      */
     public function getTaxonomies(?string $type = null): Collection
     {
-        if ($type) {
+        if ($type !== null) {
             return $this->taxonomies->filter(
                 function (Taxonomy $taxonomy) use ($type) {
                     return $taxonomy->getType() === $type;

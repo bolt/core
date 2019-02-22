@@ -62,9 +62,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                 /** @var User $author */
                 $author = $this->getReference($ref);
 
-                $content = new Content();
-                $content->setContentType($contentType['slug']);
-                $content->setAuthor($author);
+                $content = new Content($contentType['slug'], $author);
                 $content->setStatus($i === 1 ? Statuses::PUBLISHED : $this->getRandomStatus());
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setModifiedAt($this->faker->dateTimeBetween('-1 year'));
