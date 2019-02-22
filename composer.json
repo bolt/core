@@ -33,7 +33,7 @@
         "symfony/asset": "^4.2",
         "symfony/console": "^4.2",
         "symfony/expression-language": "^4.2",
-        "symfony/flex": "^1.1",
+        "symfony/flex": "^1.2",
         "symfony/form": "^4.2",
         "symfony/framework-bundle": "^4.2",
         "symfony/monolog-bundle": "^3.0",
@@ -125,7 +125,8 @@
         ]
     },
     "conflict": {
-        "symfony/symfony": "*"
+        "symfony/symfony": "*",
+        "illuminate/support": "*"
     },
     "extra": {
         "symfony": {
