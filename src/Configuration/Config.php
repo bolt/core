@@ -12,7 +12,7 @@ use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class Config
 {

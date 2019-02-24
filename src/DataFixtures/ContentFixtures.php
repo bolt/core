@@ -16,7 +16,7 @@ use Faker\Factory;
 use Faker\Generator;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Gedmo\Translatable\Entity\Translation;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ContentFixtures extends Fixture implements DependentFixtureInterface
 {

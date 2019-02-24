@@ -155,7 +155,7 @@ class RecordExtension extends AbstractExtension
         return collect($options);
     }
 
-    public function taxonomyoptions($taxonomy): \Tightenco\Collect\Support\Collection
+    public function taxonomyoptions($taxonomy): \Illuminate\Support\Collection
     {
         $options = [];
 
@@ -176,7 +176,7 @@ class RecordExtension extends AbstractExtension
         return collect($options);
     }
 
-    public function taxonomyvalues(Collection $current, $taxonomy): \Tightenco\Collect\Support\Collection
+    public function taxonomyvalues(Collection $current, $taxonomy): \Illuminate\Support\Collection
     {
         $values = [];
 

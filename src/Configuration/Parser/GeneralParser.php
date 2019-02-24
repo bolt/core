@@ -7,7 +7,7 @@ namespace Bolt\Configuration\Parser;
 use Bolt\Common\Arr;
 use Bolt\Utils\Html;
 use Bolt\Utils\Str;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 use Webmozart\PathUtil\Path;
 
 class GeneralParser extends BaseParser

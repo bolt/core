@@ -8,7 +8,7 @@ use Bolt\Common\Arr;
 use Bolt\Enum\Statuses;
 use Bolt\Utils\Str;
 use Exception;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 
 class ContentTypesParser extends BaseParser
 {
