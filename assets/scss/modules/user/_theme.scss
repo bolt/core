@@ -1,8 +1,9 @@
 //** User | Theme
 
-.user__theme{
+.user__theme {
   margin: $spacer 0;
-  &--themes{
+
+  &--themes {
     margin: $spacer 0;
     padding: 0;
     list-style: none;
@@ -11,28 +12,33 @@
   }
 }
 
-.theme{
+.theme {
   flex: 0 0 33%;
   padding: 0 $spacer / 2;
   margin-bottom: $spacer;
-  &--name{
+
+  &--name {
     font-size: 100%;
     font-weight: $font-weight-bold;
   }
-  &--palette{
+
+  &--palette {
     background: var(--body-300);
     border-radius: $border-radius;
     height: 25px;
     width: 100%;
     display: flex;
     box-shadow: $card-box-shadow;
-    span{
+
+    span {
       height: 100%;
       flex: auto;
-      &:first-child{
+
+      &:first-child {
         border-radius: $border-radius 0 0 $border-radius;
       }
-      &:last-child{
+
+      &:last-child {
         border-radius: 0 $border-radius $border-radius 0;
       }
     }

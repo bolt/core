@@ -1,7 +1,7 @@
 //** Base | Badge
 
-.badge{
-  &.is-primary{
+.badge {
+  &.is-primary {
     background: var(--primary);
     color: var(--foreground);
     padding: 0 $spacer / 4;

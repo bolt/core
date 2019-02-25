@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class UserController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class UserController extends BaseController
+class UserController extends TwigAwareController
 {
     /**
      * @Route("/users", name="bolt_users")
@@ -26,6 +24,6 @@ class UserController extends BaseController
             'subtitle' => 'To edit users and their permissions',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

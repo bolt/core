@@ -1,5 +1,5 @@
 const state = {
   records: [],
-}
+};
 
-export default state
+export default state;

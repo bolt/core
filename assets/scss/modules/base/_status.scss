@@ -1,21 +1,25 @@
 //** Base | Status
 
-.status{
+.status {
   width: 12px;
   height: 12px;
   border-radius: 100%;
   background: var(--shade);
   display: inline-flex;
-  &.is-published{
-    background: var(--status-published)
+
+  &.is-published {
+    background: var(--status-published);
   }
-  &.is-held{
-    background: var(--status-held)
+
+  &.is-held {
+    background: var(--status-held);
   }
-  &.is-draft{
-    background: var(--status-draft)
+
+  &.is-draft {
+    background: var(--status-draft);
   }
-  &.is-timed{
-    background: var(--status-timed)
+
+  &.is-timed {
+    background: var(--status-timed);
   }
 }

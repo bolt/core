@@ -5,21 +5,24 @@ declare(strict_types=1);
 namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\ContentType;
-use Bolt\Controller\BaseController;
-use Bolt\Entity\Content;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
-class SearchController extends BaseController
+class SearchController extends TwigAwareController
 {
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, TemplateChooser $templateChooser)
+    /**
+     * @var TemplateChooser
+     */
+    private $templateChooser;
+
+    public function __construct(Config $config, Environment $twig, TemplateChooser $templateChooser)
     {
-        parent::__construct($config, $csrfTokenManager);
+        parent::__construct($config, $twig);
 
         $this->templateChooser = $templateChooser;
     }
@@ -35,12 +38,10 @@ class SearchController extends BaseController
     {
         $page = (int) $request->query->get('page', 1);
 
-        /** @var Content[] $records */
+        // @todo implement actual Search Engine
         $records = $contentRepository->findForPage($page);
 
-        $contentType = ContentType::factory('page', $this->config->get('contenttypes'));
-
-        $templates = $this->templateChooser->listing($contentType);
+        $templates = $this->templateChooser->forSearch();
 
         return $this->renderTemplate($templates, ['records' => $records]);
     }

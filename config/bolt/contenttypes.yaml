@@ -61,30 +61,32 @@ homepage:
 pages:
     name: Pages
     singular_name: Page
+    title_format: [ heading, subheading ]
     fields:
-        title:
+        heading:
             type: text
             class: large
             group: content
+        subheading:
+            type: text
+            class: large
         slug:
             type: slug
-            uses: title
-        image:
+            uses: header
+        photo:
             type: image
             label: "Eén plaatje"
             placeholder: https://source.unsplash.com/1280x768/?business,workplace/__random__
         teaser:
-            type: html
+            type: textarea
+            postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."
             height: 150px
         marky:
             type: markdown
-        body:
+        content:
             type: html
             height: 300px
             allowtwig: true
-        textarea:
-            type: textarea
-            postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."
         checkbox:
             type: checkbox
             label: "This is a checkbox"
@@ -343,7 +345,7 @@ dummies:
             multiple: true
             postfix: "Select your favourite turtle(s)."
     taxonomy: [ groups, categories, tags, foobars ]
-    
+
 # Possible field types:
 #
 # text - varchar(256) - input type text.

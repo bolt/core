@@ -1,11 +1,11 @@
-.CodeMirror-fullscreen,  
+.CodeMirror-fullscreen,
 .editor-toolbar.fullscreen,
-.editor-preview-side{
+.editor-preview-side {
   z-index: 10000;
 }
 
-.CodeMirror-fullscreen,  
-.editor-toolbar.fullscreen{
+.CodeMirror-fullscreen,
+.editor-toolbar.fullscreen {
   background: var(--foreground);
 }
 
@@ -16,19 +16,24 @@
   border: $input-border-width solid $input-border-color;
   border-bottom: 0;
   border-radius: $input-border-radius $input-border-radius 0 0;
-  &:hover{
+
+  &:hover {
     opacity: 1;
   }
-  &:before, &:after{
+
+  &::before,
+  &::after {
     margin: 0;
     content: none;
   }
-  a{
+
+  a {
     padding: $spacer / 3 0;
     margin: 0;
     height: auto;
     border-radius: 0;
-    &:hover{
+
+    &:hover {
       border: 0;
       background: var(--foreground);
     }
@@ -38,7 +43,8 @@
 .CodeMirror {
   border: $input-border-width solid $input-border-color;
   border-radius: 0 0 $input-border-radius $input-border-radius;
-  &:focus{
+
+  &:focus {
     border-color: var(--primary);
     box-shadow: $input-focus-box-shadow;
   }

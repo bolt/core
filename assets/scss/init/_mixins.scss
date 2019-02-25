@@ -1,18 +1,18 @@
 //** Init | Mixins
 
-// Darken Color 
+// Darken Color
+
 /** We need to use this since CSS variables can't use darken/lighten sass functions **/
 
 @mixin darken($color, $level) {
   background:
-  linear-gradient(
-    to top,
-    rgba(0, 0, 0, $level),
-    rgba(0, 0, 0, $level)
-  )
-  var($color);
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, $level),
+      rgba(0, 0, 0, $level)
+    )
+    var($color);
 }
-
 
 @mixin button-css-variable($color) {
   background-color: var(--#{$color});
@@ -25,7 +25,7 @@
   // focus
   &:focus,
   &.focus {
-    box-shadow: 0 0 0 $input-btn-focus-width var(--#{$color}-200);     
+    box-shadow: 0 0 0 $input-btn-focus-width var(--#{$color}-200);
   }
 
   // disabled
@@ -40,25 +40,25 @@
   .show > &.dropdown-toggle {
     background-color: var(--#{$color}-600);
     border-color: var(--#{$color}-600);
+
     &:focus {
       box-shadow: 0 0 0 $input-btn-focus-width var(--#{$color}-200);
     }
   }
 }
 
-
 @mixin button-outline-css-variable($color) {
   color: var(--#{$color});
   border-color: var(--#{$color});
 
-   // hover
-   @include hover {
+  // hover
+  @include hover {
     background-color: var(--#{$color}-600);
     border-color: var(--#{$color}-600);
   }
   // focus
   &:focus,
-  &.focus{
+  &.focus {
     box-shadow: 0 0 0 $btn-focus-width var(--#{$color}-200);
   }
 
@@ -74,16 +74,14 @@
   .show > &.dropdown-toggle {
     background-color: var(--#{$color}-600);
     border-color: var(--#{$color}-600);
+
     &:focus {
       box-shadow: 0 0 0 $btn-focus-width var(--#{$color}-300);
     }
   }
 }
 
-
-
-
-@mixin generate-color($color, $h, $s, $l){
+@mixin generate-color($color, $h, $s, $l) {
   --#{$color}-h: #{$h};
   --#{$color}-s: #{$s};
   --#{$color}-l: #{$l};
@@ -95,4 +93,3 @@
   --#{$color}-600: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 0.85));
   --#{$color}-700: hsl(var(--#{$color}-h), var(--#{$color}-s), calc(var(--#{$color}-l) * 0.5));
 }
-

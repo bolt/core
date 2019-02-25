@@ -31,22 +31,21 @@
 <script>
 import value from '../../../mixins/value';
 import flatPickr from 'vue-flatpickr-component';
-import { Spanish } from 'flatpickr/dist/l10n/es.js';
-import { resolve } from 'path';
 
 export default {
-  name: 'editor-date',
-
-  mixins: [value],
+  name: 'EditorDate',
 
   components: {
     flatPickr,
   },
 
+  mixins: [value],
+
   props: {
     value: {
       type: String,
       required: false,
+      default: '',
     },
     name: {
       type: String,
@@ -67,7 +66,20 @@ export default {
     },
     locale: {
       type: String,
+      default: 'en',
     },
+  },
+
+  data: () => {
+    return {
+      config: {
+        wrap: true,
+        altFormat: 'F j, Y',
+        altInput: true,
+        dateFormat: 'Z',
+        enableTime: false,
+      },
+    };
   },
 
   created() {
@@ -84,17 +96,5 @@ export default {
   },
 
   mounted() {},
-
-  data: () => {
-    return {
-      config: {
-        wrap: true,
-        altFormat: 'F j, Y',
-        altInput: true,
-        dateFormat: 'Z',
-        enableTime: false,
-      },
-    };
-  },
 };
 </script>

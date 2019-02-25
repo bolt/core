@@ -6,7 +6,7 @@ Bolt 4.0.0 prototype
 > **Rebuild and start again**
 > Obliterate what makes us weak
 
--- Hatebreed - [Destroy Everything](https://www.youtube.com/watch?v=DBwgX8yBqsw)
+-- Hatebreed - [Destroy Everything][hatebreed]
 
 Progress towards alpha / beta
 -----------------------------
@@ -44,12 +44,12 @@ To install Bolt 4 with Docker (for now, on a UNIX-like system):
 
   ```bash
 make docker-install
-make docker-db-create
   ```
 
 Actually, just add `docker-` prefix to any Make command and that's it!
 
-In your browser, go to http://0.0.0.0:8088/ for the frontend, and to http://0.0.0.0:8088/bolt for the Admin Panel.
+In your browser, go to `http://0.0.0.0:8088/` for the frontend, and to 
+`http://0.0.0.0:8088/bolt` for the Admin Panel.
 
 Set up Database
 ---------------
@@ -100,7 +100,7 @@ Build assets
 To set up initially, run `npm install` to get the required dependencies /
 `node_modules`. Then:
 
-  - Run `npm run serve`
+  - Run `npm run start`
 
 See the other options by running `npm run`.
 
@@ -130,7 +130,7 @@ vendor/bin/phpstan.bat analyse -c phpstan.neon src
 Testing
 ---
 
-Bolt uses several testing frameworks for [different test layers](https://martinfowler.com/articles/practical-test-pyramid.html):
+Bolt uses several testing frameworks for [different test layers][fowler]:
 - unit: PHPSpec, PHPUnit, Jest
 - integration (of Symfony services): PHPUnit with KernelTestCase
 - functional (API Contracts): Behat
@@ -151,3 +151,22 @@ To run E2E tests:
 make e2e
 ```
 
+Fixing IDE issues
+----
+
+- PHPStorm does not see `@bolt` Twig namespace.
+  
+  The namespace needs to be added manually in Twig Plugin settings, pointing to `templates` folder.
+
+
+Translations
+------------
+
+These are the translations used in Bolt. We rely on the community to expand on new
+translations, and keep them up to date. If you wish to participate, read the
+[instructions here][translations].
+
+
+[fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
+[translations]: https://github.com/bolt/four/wiki/Contribute-on-translations
+[hatebreed]: https://www.youtube.com/watch?v=DBwgX8yBqsw

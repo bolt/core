@@ -1,8 +1,8 @@
-import Vue from "vue";
+import Vue from 'vue';
 /**
  * VueX Store
  */
-import store from './store'
+import store from './store';
 /**
  * Components
  */
@@ -15,27 +15,25 @@ import {
   Html,
   Markdown,
   Textarea,
-  Image
+  Image,
 } from './Components/Editor';
 
-import {
-  Language
-} from './Components/General';
+import { Language } from './Components/General';
 
 new Vue({
   store,
-  el: "#editor",
-  name: "bolt-editor",
+  el: '#editor',
+  name: 'BoltEditor',
   components: {
-    "general-language": Language,
-    "editor-text": Text,
-    "editor-slug": Slug,
-    "editor-number": Number,
-    "editor-date": Date,
-    "editor-select": Select,
-    "editor-html": Html,
-    "editor-markdown": Markdown,
-    "editor-textarea": Textarea,
-    "editor-image": Image
-  }
+    'general-language': Language,
+    'editor-text': Text,
+    'editor-slug': Slug,
+    'editor-number': Number,
+    'editor-date': Date,
+    'editor-select': Select,
+    'editor-html': Html,
+    'editor-markdown': Markdown,
+    'editor-textarea': Textarea,
+    'editor-image': Image,
+  },
 });

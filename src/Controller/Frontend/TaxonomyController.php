@@ -6,20 +6,25 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
-class TaxonomyController extends BaseController
+class TaxonomyController extends TwigAwareController
 {
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, TemplateChooser $templateChooser)
+    /**
+     * @var TemplateChooser
+     */
+    private $templateChooser;
+
+    public function __construct(Config $config, Environment $twig, TemplateChooser $templateChooser)
     {
-        parent::__construct($config, $csrfTokenManager);
+        parent::__construct($config, $twig);
 
         $this->templateChooser = $templateChooser;
     }
@@ -41,7 +46,7 @@ class TaxonomyController extends BaseController
 
         $contentType = ContentType::factory('page', $this->config->get('contenttypes'));
 
-        $templates = $this->templateChooser->listing($contentType);
+        $templates = $this->templateChooser->forListing($contentType);
 
         return $this->renderTemplate($templates, ['records' => $records]);
     }

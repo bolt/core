@@ -20,4 +20,8 @@ defineSupportCode(({ When, Then }) => {
     await this.currentPage.waitForVisibilityOf(elementName);
     await this.currentPage.fillField(elementName, value);
   });
+
+  Then(/^I wait "([^"]*)" seconds$/, function (number) {
+    return browser.sleep(Number(number) * 1000);
+  });
 });

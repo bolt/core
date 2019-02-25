@@ -28,6 +28,8 @@ class Html
 
         $str = trim(strip_tags($str));
 
+        $str = filter_var($str, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW);
+
         if (mb_strlen($str) > $desiredLength) {
             $nextChar = mb_substr($str, $newLength, 1);
             $str = mb_substr($str, 0, $newLength);

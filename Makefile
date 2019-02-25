@@ -4,12 +4,16 @@ start:
 	make server
 
 install:
+	cp -n .env.dist .env || true
 	composer install
 	npm install
 	npm run build
 
 server:
-	bin/console server:start 127.0.0.1:8088 || true
+	bin/console server:start 127.0.0.1:8088 -q || true
+
+server-stop:
+	bin/console server:stop
 
 cache:
 	bin/console cache:clear
@@ -33,7 +37,7 @@ csfix-tests:
 	make csclear
 	vendor/bin/ecs check tests/php --fix
 	make stancheck
-	
+
 stancheck:
 	vendor/bin/phpstan --memory-limit=1G analyse -c phpstan.neon src
 
@@ -84,7 +88,7 @@ db-create:
 	bin/console doctrine:fixtures:load -n
 
 db-update:
-	bin/console doctrine:schema:update -v --force
+	bin/console doctrine:schema:update -v --dump-sql --force --complete
 
 db-reset:
 	bin/console doctrine:schema:drop --force --full-database
@@ -92,16 +96,23 @@ db-reset:
 	bin/console doctrine:fixtures:load -n
 
 # Dockerized commands:
-docker-start:
-	make docker-install
+docker-install:
+	make docker-start
+	make docker-install-deps
 	make docker-db-create
 
-docker-install:
-	cp -n .env.dist .env
-	docker-compose up -d
+docker-install-deps:
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
+	docker-compose run node sh -c "npm rebuild node-sass"
 	docker-compose run node sh -c "npm run build"
+
+docker-start:
+	cp -n .env.dist .env || true
+	docker-compose up -d
+
+docker-assets-serve:
+	docker-compose run node sh -c "npm run serve"
 
 docker-update:
 	docker-compose exec -T php sh -c "composer update"
@@ -138,7 +149,7 @@ docker-db-reset:
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
 
 docker-db-update:
-	docker-compose exec -T php sh -c "bin/console doctrine:schema:update --force"
+	docker-compose exec -T php sh -c "bin/console doctrine:schema:update -v --dump-sql --force --complete"
 
 docker-npm-fix-env:
 	docker-compose run node sh -c "npm rebuild node-sass"

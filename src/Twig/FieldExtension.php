@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Entity\Field;
+use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -17,10 +18,10 @@ class FieldExtension extends AbstractExtension
         ];
     }
 
-    public function fieldFactory(string $name, array $definition = []): Field
+    public function fieldFactory(string $name, ?Collection $definition = null): Field
     {
-        if (empty($definition)) {
-            $definition = ['type' => 'generic'];
+        if ($definition === null || $definition->isEmpty()) {
+            $definition = collect(['type' => 'generic']);
         }
 
         return Field::factory($definition, $name);

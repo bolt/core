@@ -37,6 +37,7 @@
 
     &:hover {
       @include darken(--admin-sidebar, 0.02);
+
       color: var(--admin-sidebar-icon);
       text-decoration: none;
 
@@ -47,7 +48,6 @@
     }
 
     &.has-menu {
-
       &:hover,
       &:focus {
         .link--caret {
@@ -99,7 +99,8 @@
 
       li {
         &.link--create {
-          border-bottom: dashed 1px rgba(0,0,0, 0.1);
+          border-bottom: dashed 1px rgba(0, 0, 0, 0.1);
+
           a {
             font-weight: $font-weight-bold;
             letter-spacing: $letter-spacing;
@@ -117,6 +118,7 @@
 
           &:hover {
             @include darken(--admin-sidebar-menu, 0.2);
+
             color: var(--admin-sidebar-menu-text);
             text-decoration: none;
           }
@@ -153,7 +155,9 @@
 
   &--footer {
     -webkit-backface-visibility: hidden;
+
     @include darken(--admin-sidebar, 0.02);
+
     color: var(--admin-sidebar-text);
     position: fixed;
     bottom: 0;
@@ -165,13 +169,14 @@
     align-items: center;
     justify-content: center;
     font-weight: $font-weight-bold;
-
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
-    a{
+
+    a {
       color: var(--admin-sidebar-text);
       opacity: 0.75;
-      &:hover{
+
+      &:hover {
         color: inherit;
       }
     }
@@ -181,7 +186,6 @@
 .admin {
   &.is-slim {
     .admin__sidebar {
-
       .admin__sidebar--separator,
       .admin__sidebar--footer {
         display: none;

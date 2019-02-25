@@ -3,7 +3,7 @@
   <file id="messages.en">
     <unit id="tbB2gib" name="not_available">
       <notes>
-        <note priority="1">templates/debug/source_code.twig:26</note>
+        <note>templates/debug/source_code.twig:26</note>
       </notes>
       <segment>
         <source>not_available</source>
@@ -12,10 +12,10 @@
     </unit>
     <unit id="DF34uM2" name="http_error.name">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
       </notes>
       <segment>
         <source>http_error.name</source>
@@ -24,7 +24,7 @@
     </unit>
     <unit id="e3w.2Rf" name="http_error.description">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
       </notes>
       <segment>
         <source>http_error.description</source>
@@ -33,7 +33,7 @@
     </unit>
     <unit id="ru5FEGk" name="http_error.suggestion">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
       </notes>
       <segment>
         <source>http_error.suggestion</source>
@@ -42,7 +42,7 @@
     </unit>
     <unit id="Qn5rwdU" name="http_error_403.description">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
       </notes>
       <segment>
         <source>http_error_403.description</source>
@@ -51,7 +51,7 @@
     </unit>
     <unit id="zDeeh7L" name="http_error_403.suggestion">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
       </notes>
       <segment>
         <source>http_error_403.suggestion</source>
@@ -60,7 +60,7 @@
     </unit>
     <unit id="_W1eNz2" name="http_error_404.description">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
       </notes>
       <segment>
         <source>http_error_404.description</source>
@@ -69,7 +69,7 @@
     </unit>
     <unit id="MWNS5dg" name="http_error_404.suggestion">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
       </notes>
       <segment>
         <source>http_error_404.suggestion</source>
@@ -78,7 +78,7 @@
     </unit>
     <unit id="ZYXSW95" name="http_error_500.description">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
       </notes>
       <segment>
         <source>http_error_500.description</source>
@@ -87,7 +87,7 @@
     </unit>
     <unit id="VVs_J1c" name="http_error_500.suggestion">
       <notes>
-        <note priority="1">templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
       </notes>
       <segment>
         <source>http_error_500.suggestion</source>
@@ -96,7 +96,7 @@
     </unit>
     <unit id="9RwuNlf" name="title.source_code">
       <notes>
-        <note priority="1">templates/debug/source_code.twig:17</note>
+        <note>templates/debug/source_code.twig:17</note>
       </notes>
       <segment>
         <source>title.source_code</source>
@@ -105,8 +105,8 @@
     </unit>
     <unit id="jaB3QjG" name="title.controller_code">
       <notes>
-        <note priority="1">templates/debug/source_code.twig:22</note>
-        <note priority="1">templates/debug/source_code.twig:25</note>
+        <note>templates/debug/source_code.twig:22</note>
+        <note>templates/debug/source_code.twig:25</note>
       </notes>
       <segment>
         <source>title.controller_code</source>
@@ -115,7 +115,7 @@
     </unit>
     <unit id="2bH7SjO" name="title.twig_template_code">
       <notes>
-        <note priority="1">templates/debug/source_code.twig:29</note>
+        <note>templates/debug/source_code.twig:29</note>
       </notes>
       <segment>
         <source>title.twig_template_code</source>
@@ -124,7 +124,7 @@
     </unit>
     <unit id="1sstKF9" name="title.edit_user">
       <notes>
-        <note priority="1">templates/users/edit.twig:4</note>
+        <note>templates/users/edit.twig:4</note>
       </notes>
       <segment>
         <source>title.edit_user</source>
@@ -133,7 +133,7 @@
     </unit>
     <unit id="QbohvW1" name="action.show_code">
       <notes>
-        <note priority="1">templates/debug/source_code.twig:7</note>
+        <note>templates/debug/source_code.twig:7</note>
       </notes>
       <segment>
         <source>action.show_code</source>
@@ -142,8 +142,8 @@
     </unit>
     <unit id="HLtdhYw" name="action.save">
       <notes>
-        <note priority="1">templates/users/change_password.twig:18</note>
-        <note priority="1">templates/users/edit.twig:15</note>
+        <note>templates/users/change_password.twig:18</note>
+        <note>templates/users/edit.twig:15</note>
       </notes>
       <segment>
         <source>action.save</source>
@@ -152,7 +152,7 @@
     </unit>
     <unit id="etGJjTo" name="action.edit_user">
       <notes>
-        <note priority="1">templates/users/change_password.twig:26</note>
+        <note>templates/users/change_password.twig:26</note>
       </notes>
       <segment>
         <source>action.edit_user</source>
@@ -161,8 +161,8 @@
     </unit>
     <unit id="LDhDPrF" name="label.username">
       <notes>
-        <note priority="1">templates/security/login.twig:66</note>
-        <note priority="1">src/Form/UserType.php:31</note>
+        <note>templates/security/login.twig:66</note>
+        <note>src/Form/UserType.php:31</note>
       </notes>
       <segment>
         <source>label.username</source>
@@ -171,7 +171,7 @@
     </unit>
     <unit id="VgeTgE2" name="help.show_code">
       <notes>
-        <note priority="1">templates/debug/source_code.twig:3</note>
+        <note>templates/debug/source_code.twig:3</note>
       </notes>
       <segment>
         <source>help.show_code</source>
@@ -180,7 +180,7 @@
     </unit>
     <unit id="wtG.cxy" name="info.change_password">
       <notes>
-        <note priority="1">templates/users/change_password.twig:12</note>
+        <note>templates/users/change_password.twig:12</note>
       </notes>
       <segment>
         <source>info.change_password</source>
@@ -189,7 +189,7 @@
     </unit>
     <unit id="80JoLd0" name="title.login">
       <notes>
-        <note priority="1">templates/security/login.twig:4</note>
+        <note>templates/security/login.twig:4</note>
       </notes>
       <segment>
         <source>title.login</source>
@@ -198,8 +198,8 @@
     </unit>
     <unit id="9pvowqn" name="label.password">
       <notes>
-        <note priority="1">templates/security/login.twig:70</note>
-        <note priority="1">templates/security/login.twig:75</note>
+        <note>templates/security/login.twig:70</note>
+        <note>templates/security/login.twig:75</note>
       </notes>
       <segment>
         <source>label.password</source>
@@ -208,7 +208,7 @@
     </unit>
     <unit id="gLN0C81" name="action.log_in">
       <notes>
-        <note priority="1">templates/security/login.twig:84</note>
+        <note>templates/security/login.twig:84</note>
       </notes>
       <segment>
         <source>action.log_in</source>
@@ -217,7 +217,7 @@
     </unit>
     <unit id="vJwSCBO" name="title.contentlisting">
       <notes>
-        <note priority="1">templates/content/listing.twig:9</note>
+        <note>templates/content/listing.twig:9</note>
       </notes>
       <segment>
         <source>title.contentlisting</source>
@@ -226,7 +226,7 @@
     </unit>
     <unit id="CX_oSFd" name="action.change_password">
       <notes>
-        <note priority="1">templates/users/edit.twig:24</note>
+        <note>templates/users/edit.twig:24</note>
       </notes>
       <segment>
         <source>action.change_password</source>
@@ -235,8 +235,8 @@
     </unit>
     <unit id="SNELzJ2" name="field.id">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:118</note>
-        <note priority="1">templates/editcontent/media_edit.twig:98</note>
+        <note>templates/editcontent/edit.twig:118</note>
+        <note>templates/editcontent/media_edit.twig:98</note>
       </notes>
       <segment>
         <source>field.id</source>
@@ -245,7 +245,7 @@
     </unit>
     <unit id="FuCyk5C" name="field.status">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:76</note>
+        <note>templates/editcontent/edit.twig:76</note>
       </notes>
       <segment>
         <source>field.status</source>
@@ -254,8 +254,8 @@
     </unit>
     <unit id="O9wtVOp" name="field.createdAt">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:86</note>
-        <note priority="1">templates/editcontent/media_edit.twig:128</note>
+        <note>templates/editcontent/edit.twig:86</note>
+        <note>templates/editcontent/media_edit.twig:128</note>
       </notes>
       <segment>
         <source>field.createdAt</source>
@@ -264,8 +264,8 @@
     </unit>
     <unit id="eVkSIKu" name="field.modifiedAt">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:94</note>
-        <note priority="1">templates/editcontent/media_edit.twig:135</note>
+        <note>templates/editcontent/edit.twig:94</note>
+        <note>templates/editcontent/media_edit.twig:135</note>
       </notes>
       <segment>
         <source>field.modifiedAt</source>
@@ -274,7 +274,7 @@
     </unit>
     <unit id="3gdi1dy" name="field.publishedAt">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:102</note>
+        <note>templates/editcontent/edit.twig:102</note>
       </notes>
       <segment>
         <source>field.publishedAt</source>
@@ -283,7 +283,7 @@
     </unit>
     <unit id="eN7IfEL" name="field.depublishedAt">
       <notes>
-        <note priority="1">templates/editcontent/edit.twig:110</note>
+        <note>templates/editcontent/edit.twig:110</note>
       </notes>
       <segment>
         <source>field.depublishedAt</source>
@@ -292,7 +292,7 @@
     </unit>
     <unit id="VKhfRZB" name="field.title">
       <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:47</note>
+        <note>templates/editcontent/media_edit.twig:47</note>
       </notes>
       <segment>
         <source>field.title</source>
@@ -301,7 +301,7 @@
     </unit>
     <unit id="7_wwX8J" name="field.description">
       <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:53</note>
+        <note>templates/editcontent/media_edit.twig:53</note>
       </notes>
       <segment>
         <source>field.description</source>
@@ -310,7 +310,7 @@
     </unit>
     <unit id="hjDmcPC" name="field.copyright">
       <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:59</note>
+        <note>templates/editcontent/media_edit.twig:59</note>
       </notes>
       <segment>
         <source>field.copyright</source>
@@ -319,7 +319,7 @@
     </unit>
     <unit id="v0sitU8" name="field.originalFilename">
       <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:66</note>
+        <note>templates/editcontent/media_edit.twig:66</note>
       </notes>
       <segment>
         <source>field.originalFilename</source>
@@ -328,7 +328,7 @@
     </unit>
     <unit id="vlRe8Tx" name="field.width">
       <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:105</note>
+        <note>templates/editcontent/media_edit.twig:105</note>
       </notes>
       <segment>
         <source>field.width</source>
@@ -337,7 +337,7 @@
     </unit>
     <unit id="CZbXbM_" name="field.height">
       <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:112</note>
+        <note>templates/editcontent/media_edit.twig:112</note>
       </notes>
       <segment>
         <source>field.height</source>
@@ -346,7 +346,7 @@
     </unit>
     <unit id="Sz_u.OS" name="field.filesize">
       <notes>
-        <note priority="1">templates/editcontent/media_edit.twig:119</note>
+        <note>templates/editcontent/media_edit.twig:119</note>
       </notes>
       <segment>
         <source>field.filesize</source>
@@ -355,7 +355,7 @@
     </unit>
     <unit id="RMPnq6o" name="label.username_or_email">
       <notes>
-        <note priority="1">templates/security/login.twig:61</note>
+        <note>templates/security/login.twig:61</note>
       </notes>
       <segment>
         <source>label.username_or_email</source>
@@ -364,7 +364,7 @@
     </unit>
     <unit id="IaF1MjB" name="label.rememberme">
       <notes>
-        <note priority="1">templates/security/login.twig:80</note>
+        <note>templates/security/login.twig:80</note>
       </notes>
       <segment>
         <source>label.rememberme</source>
@@ -373,7 +373,7 @@
     </unit>
     <unit id="k.JymqB" name="about.visit_bolt">
       <notes>
-        <note priority="1">templates/pages/about.twig:25</note>
+        <note>templates/pages/about.twig:25</note>
       </notes>
       <segment>
         <source>about.visit_bolt</source>
@@ -382,7 +382,7 @@
     </unit>
     <unit id="UZFanGF" name="about.bolt_documentation">
       <notes>
-        <note priority="1">templates/pages/about.twig:28</note>
+        <note>templates/pages/about.twig:28</note>
       </notes>
       <segment>
         <source>about.bolt_documentation</source>
@@ -391,7 +391,7 @@
     </unit>
     <unit id="FO7zDub" name="about.bolt_on_github">
       <notes>
-        <note priority="1">templates/pages/about.twig:31</note>
+        <note>templates/pages/about.twig:31</note>
       </notes>
       <segment>
         <source>about.bolt_on_github</source>
@@ -400,7 +400,7 @@
     </unit>
     <unit id="_9fS00R" name="about.used_libraries">
       <notes>
-        <note priority="1">templates/pages/about.twig:35</note>
+        <note>templates/pages/about.twig:35</note>
       </notes>
       <segment>
         <source>about.used_libraries</source>
@@ -409,7 +409,7 @@
     </unit>
     <unit id="tgLgLDQ" name="about.list_of_used_libraries">
       <notes>
-        <note priority="1">templates/pages/about.twig:37</note>
+        <note>templates/pages/about.twig:37</note>
       </notes>
       <segment>
         <source>about.list_of_used_libraries</source>
@@ -418,8 +418,8 @@
     </unit>
     <unit id="aYnbvsn" name="label.fullname">
       <notes>
-        <note priority="1">src/Form/UserType.php:35</note>
-        <note priority="1">new</note>
+        <note>src/Form/UserType.php:35</note>
+        <note>new</note>
       </notes>
       <segment>
         <source>label.fullname</source>
@@ -428,64 +428,18 @@
     </unit>
     <unit id="D2N6_cP" name="label.email">
       <notes>
-        <note priority="1">src/Form/UserType.php:38</note>
-        <note priority="1">new</note>
+        <note>src/Form/UserType.php:38</note>
+        <note>new</note>
       </notes>
       <segment>
         <source>label.email</source>
         <target>Email address</target>
       </segment>
     </unit>
-    <unit id="pGkejkU" name="label.current_password">
-      <notes>
-        <note priority="1">src/Form/ChangePasswordType.php:24</note>
-        <note priority="1">new</note>
-      </notes>
-      <segment>
-        <source>label.current_password</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="iiWFLaI" name="label.new_password">
-      <notes>
-        <note priority="1">src/Form/ChangePasswordType.php:42</note>
-        <note priority="1">new</note>
-      </notes>
-      <segment>
-        <source>label.new_password</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="Ucl9Jfc" name="label.new_password_confirm">
-      <notes>
-        <note priority="1">src/Form/ChangePasswordType.php:45</note>
-        <note priority="1">new</note>
-      </notes>
-      <segment>
-        <source>label.new_password_confirm</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="XCmpWav" name="newPassword">
-      <notes>
-        <note priority="1">src/Form/ChangePasswordType.php:23</note>
-        <note priority="1">new</note>
-      </notes>
-      <segment>
-        <source>newPassword</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="47DEQpj" name="">
-      <segment>
-        <source></source>
-        <target></target>
-      </segment>
-    </unit>
     <unit id="OBmPOoB" name="user.updated_successfully">
       <notes>
-        <note priority="1">src/Controller/Backend/UserController.php:33</note>
-        <note priority="1">new</note>
+        <note>src/Controller/Backend/UserController.php:33</note>
+        <note>new</note>
       </notes>
       <segment>
         <source>user.updated_successfully</source>
@@ -494,9 +448,9 @@
     </unit>
     <unit id="3hkt.eH" name="content.updated_successfully">
       <notes>
-        <note priority="1">src/Controller/Backend/EditMediaController.php:126</note>
-        <note priority="1">src/Controller/Backend/EditRecordController.php:86</note>
-        <note priority="1">new</note>
+        <note>src/Controller/Backend/EditMediaController.php:126</note>
+        <note>src/Controller/Backend/EditRecordController.php:86</note>
+        <note>new</note>
       </notes>
       <segment>
         <source>content.updated_successfully</source>
@@ -505,28 +459,18 @@
     </unit>
     <unit id="IB0mNQh" name="content.created_successfully">
       <notes>
-        <note priority="1">src/Controller/Backend/EditMediaController.php:157</note>
-        <note priority="1">new</note>
+        <note>src/Controller/Backend/EditMediaController.php:157</note>
+        <note>new</note>
       </notes>
       <segment>
         <source>content.created_successfully</source>
         <target>Media item created successfully</target>
       </segment>
     </unit>
-    <unit id="Iyry5.g" name="editfile.updated_successfully">
-      <notes>
-        <note priority="1">src/Controller/Backend/EditFileController.php:99</note>
-        <note priority="1">new</note>
-      </notes>
-      <segment>
-        <source>editfile.updated_successfully</source>
-        <target></target>
-      </segment>
-    </unit>
     <unit id="b1jqjUC" name="editfile.could_not_write">
       <notes>
-        <note priority="1">src/Controller/Backend/EditFileController.php:101</note>
-        <note priority="1">new</note>
+        <note>src/Controller/Backend/EditFileController.php:101</note>
+        <note>new</note>
       </notes>
       <segment>
         <source>editfile.could_not_write</source>
@@ -983,9 +927,9 @@
         <target>Search</target>
       </segment>
     </unit>
-    <unit id="eq5YMQf" name="9fb3e6e">
+    <unit id="z0k8hRg" name="9fb3e6e">
       <segment>
-        <source>This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
+        <source>9fb3e6e</source>
         <target><![CDATA[This website is <a href='%url%' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
       </segment>
     </unit>
@@ -1017,6 +961,24 @@
       <segment>
         <source>general.phrase.permalink</source>
         <target>Permalink</target>
+      </segment>
+    </unit>
+    <unit id="dQIY7_J" name="action.preview">
+      <segment>
+        <source>action.preview</source>
+        <target>Preview</target>
+      </segment>
+    </unit>
+    <unit id="ok6YulQ" name="action.view_saved">
+      <segment>
+        <source>action.view_saved</source>
+        <target>View (saved version) on site</target>
+      </segment>
+    </unit>
+    <unit id="zsyp43M" name="label.displayname">
+      <segment>
+        <source>label.displayname</source>
+        <target>Displayname</target>
       </segment>
     </unit>
   </file>

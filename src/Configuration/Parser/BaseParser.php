@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\Yaml\Yaml;
 use Tightenco\Collect\Support\Collection;
 
-class BaseParser
+abstract class BaseParser
 {
     /** @var FileLocator */
     protected $fileLocator;
@@ -53,4 +53,6 @@ class BaseParser
     {
         return $this->filenames;
     }
+
+    abstract public function parse(): Collection;
 }

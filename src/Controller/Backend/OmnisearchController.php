@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class OmnisearchController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class OmnisearchController extends BaseController
+class OmnisearchController extends TwigAwareController
 {
     /**
      * @Route("/omnisearch", name="bolt_omnisearch")
@@ -26,6 +24,6 @@ class OmnisearchController extends BaseController
             'subtitle' => 'To search, in an omni-like fashion',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

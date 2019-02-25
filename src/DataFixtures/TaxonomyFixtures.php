@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
 use Bolt\Utils\Str;
@@ -13,6 +14,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
 {
+    /**
+     * @var DeepCollection
+     */
     private $config;
 
     public function __construct(Config $config)
@@ -37,9 +41,9 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
     private function loadTaxonomies(ObjectManager $manager): void
     {
         $order = 1;
-
         foreach ($this->config as $taxonomyDefinition) {
-            $options = empty($taxonomyDefinition['options']) ? $this->getDefaultOptions() : $taxonomyDefinition['options'];
+            /** @var DeepCollection $taxonomyDefinition */
+            $options = $taxonomyDefinition->isKeyEmpty('options') ? $this->getDefaultOptions() : $taxonomyDefinition['options'];
 
             foreach ($options as $key => $value) {
                 $taxonomy = Taxonomy::factory(

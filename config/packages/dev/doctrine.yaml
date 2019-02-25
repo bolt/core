@@ -9,4 +9,5 @@ doctrine:
 #    dbal:
 #        driver: 'pdo_mysql'
 #        charset: utf8mb4
+#        server_version: 5.6
 #        url: 'mysql://%env(DATABASE_USER)%:%env(DATABASE_PASSWORD)%@%env(DATABASE_HOST)%:3306/%env(DATABASE_NAME)%'

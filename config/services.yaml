@@ -19,7 +19,6 @@ services:
                             # The best practice is to be explicit about your dependencies anyway.
         bind:               # defines the scalar arguments once and apply them to any service defined/created in this file
             $locales: '%app_locales%'
-            $defaultLocale: '%locale%'
             $emailSender: '%app.notifications.email_sender%'
             $projectDir: '%kernel.project_dir%'
 

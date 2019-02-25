@@ -14,14 +14,14 @@
         <form method="post" id="editcontent" >
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
-                'label' : 'label.username' | trans,
+                'label' : 'label.username'|trans,
                 'name' : 'username',
                 'value' : user.username,
                 'disabled' : true,
             } %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
-                'label' : 'label.displayname' | trans,
+                'label' : 'label.displayname'|trans,
                 'name' : 'displayName',
                 'value' : user.displayName,
                 'disabled' : false,
@@ -55,7 +55,7 @@
             {% endfor %}
 
             {% include '@bolt/_partials/fields/select.html.twig' with {
-                'label' : 'label.locale' | trans,
+                'label' : 'label.locale'|trans,
                 'name' : 'locale',
                 'value' : user.locale,
                 'options' : localeOptions,

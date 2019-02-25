@@ -7,22 +7,24 @@
   bottom: $spacer * 2;
   right: $spacer * 2;
 }
+
 .admin__notification-message {
   display: flex !important;
   align-items: center;
 }
+
 .notification {
   position: relative;
   background: var(--body);
   padding: $spacer $spacer;
-  margin-bottom: $spacer * .5;
+  margin-bottom: $spacer * 0.5;
   border-radius: $border-radius;
   box-shadow: $card-box-shadow;
   color: var(--foreground);
   font-weight: $font-weight-bold;
 
   & .notification__message {
-    float: left !important;;
+    float: left !important;
   }
 
   &[data-type='is-success'] {
@@ -30,6 +32,7 @@
       color: var(--success);
     }
   }
+
   &[data-type='is-danger'] {
     .notification__close {
       color: var(--danger);
@@ -51,20 +54,24 @@
     right: -$spacer / 2;
     letter-spacing: $letter-spacing;
     text-transform: capitalize;
+
     &:focus {
       outline: none;
     }
+
     &:hover {
       cursor: pointer;
     }
   }
 }
 
-.notification-enter-active, .notification-leave-active {
-  transition: all .35s;
+.notification-enter-active,
+.notification-leave-active {
+  transition: all 0.35s;
 }
 
-.notification-enter, .notification-leave-to {
+.notification-enter,
+.notification-leave-to {
   opacity: 0;
   transform: translateY(40px);
 }

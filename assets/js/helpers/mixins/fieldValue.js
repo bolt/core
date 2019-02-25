@@ -1,10 +1,10 @@
 export default {
-  mounted(){
+  mounted() {
     this.val = this.value;
   },
   data: () => {
     return {
-      val: null
+      val: null,
     };
-  }
-}
+  },
+};

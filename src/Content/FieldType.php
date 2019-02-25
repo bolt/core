@@ -6,16 +6,18 @@ namespace Bolt\Content;
 
 use Tightenco\Collect\Support\Collection;
 
-final class FieldType extends Collection
+class FieldType extends Collection
 {
     public function __construct($items = [])
     {
-        parent::__construct(array_merge($this->defaults(), $items));
+        parent::__construct(
+            static::defaults()->merge($items)
+        );
     }
 
-    private function defaults(): array
+    private static function defaults(): Collection
     {
-        return [
+        return new Collection([
             'type' => '',
             'class' => '',
             'group' => '',
@@ -27,21 +29,15 @@ final class FieldType extends Collection
             'sort' => '',
             'default' => '',
             'allowtwig' => false,
-        ];
+        ]);
     }
 
     public static function factory(string $name, ContentType $contentType): self
     {
-        if (isset($contentType['fields'][$name])) {
-            $field = new self($contentType['fields'][$name]);
-        } else {
-            $field = new self([]);
-        }
-
-        return $field;
+        return new self($contentType->get('fields')->get($name, []));
     }
 
-    public static function mock(string $name, array $definition): self
+    public static function mock(string $name, Collection $definition): self
     {
         $definition['name'] = $name;
 

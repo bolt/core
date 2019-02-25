@@ -7,7 +7,7 @@
     @drop="onDrop"
   >
     <transition name="fade">
-      <div class="editor__image--dragging" v-show="isDragging">
+      <div v-show="isDragging" class="editor__image--dragging">
         <i class="fas fa-upload"></i>
       </div>
     </transition>
@@ -53,7 +53,7 @@
             </button>
           </div>
         </div>
-        <div class="progress mt-3" v-if="progress > 0">
+        <div v-if="progress > 0" class="progress mt-3">
           <div
             class="progress-bar progress-bar-striped progress-bar-animated"
             role="progressbar"
@@ -76,11 +76,11 @@
       </div>
     </div>
     <input
+      ref="selectFile"
       :name="fieldName"
       type="file"
-      @change="uploadFile($event.target.files[0]);"
-      ref="selectFile"
       class="editor__image--upload"
+      @change="uploadFile($event.target.files[0])"
     />
   </div>
 </template>
@@ -91,7 +91,8 @@ import baguetteBox from 'baguettebox.js';
 import field from '../../../mixins/value';
 
 export default {
-  name: 'editor-image',
+  name: 'EditorImage',
+  mixins: [field],
   props: [
     'label',
     'filename',
@@ -102,7 +103,19 @@ export default {
     'directory',
     'media',
   ],
-  mixins: [field],
+  data: () => {
+    return {
+      previewImage: null,
+      isDragging: false,
+      dragCount: 0,
+      progress: 0,
+    };
+  },
+  computed: {
+    fieldName() {
+      return this.name + '[]';
+    },
+  },
   mounted() {
     this.previewImage = this.thumbnail;
   },
@@ -115,14 +128,6 @@ export default {
         noScroll.off();
       },
     });
-  },
-  data: () => {
-    return {
-      previewImage: null,
-      isDragging: false,
-      dragCount: 0,
-      progress: 0,
-    };
   },
   methods: {
     selectFile() {
@@ -152,7 +157,7 @@ export default {
       const config = {
         onUploadProgress: progressEvent => {
           const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
+            (progressEvent.loaded * 100) / progressEvent.total,
           );
           this.progress = percentCompleted;
         },
@@ -169,14 +174,9 @@ export default {
           this.progress = 0;
         })
         .catch(err => {
-          console.log(err);
+          console.warn(err);
           this.progress = 0;
         });
-    },
-  },
-  computed: {
-    fieldName() {
-      return this.name + '[]';
     },
   },
 };

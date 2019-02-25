@@ -84,6 +84,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return new RedirectResponse($this->router->generate('bolt_dashboard'));
+        return new RedirectResponse($request->getSession()->get(
+            '_security.'.$providerKey.'.target_path',
+            $this->router->generate('bolt_dashboard')
+        ));
     }
 }

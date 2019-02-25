@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
  * Gedmo\Translatable\Entity\Translation
  *
  * @Table(
- *         name="translations",
+ *         name="translation",
  *         options={"row_format":"DYNAMIC"},
  *         indexes={@Index(name="translations_lookup_idx", columns={
  *             "locale", "object_class", "foreign_key"

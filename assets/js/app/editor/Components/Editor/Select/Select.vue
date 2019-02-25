@@ -15,18 +15,18 @@
       tag-position="bottom"
       @tag="addTag"
     >
-      <template slot="singleLabel" slot-scope="props" v-if="name === 'status'">
+      <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>
         {{ props.option.key }}
       </template>
-      <template slot="option" slot-scope="props" v-if="name === 'status'">
+      <template v-if="name === 'status'" slot="option" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>
         {{ props.option.key }}
       </template>
     </multiselect>
     <input
-      type="hidden"
       :id="id"
+      type="hidden"
       :name="fieldName"
       :form="form"
       :value="sanitized"
@@ -38,18 +38,18 @@
 import Multiselect from 'vue-multiselect';
 
 export default {
-  name: 'editor-select',
-  props: ['value', 'name', 'id', 'form', 'options', 'multiple', 'taggable', 'allowempty'],
+  name: 'EditorSelect',
   components: { Multiselect },
-  mounted() {
-    const _values = this.value;
-    const _options = this.options;
-
-    let filterSelectedItems = _options.filter(item => {
-      return _values.includes(item.key);
-    });
-    this.selected = filterSelectedItems;
-  },
+  props: [
+    'value',
+    'name',
+    'id',
+    'form',
+    'options',
+    'multiple',
+    'taggable',
+    'allowempty',
+  ],
   data: () => {
     return {
       selected: [],
@@ -71,6 +71,15 @@ export default {
     fieldName() {
       return this.name + '[]';
     },
+  },
+  mounted() {
+    const _values = this.value;
+    const _options = this.options;
+
+    let filterSelectedItems = _options.filter(item => {
+      return _values.includes(item.key);
+    });
+    this.selected = filterSelectedItems;
   },
   methods: {
     addTag(newTag) {

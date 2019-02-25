@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-/**
- * Class AuthenticationController.
- */
-class AuthenticationController extends BaseController
+class AuthenticationController extends TwigAwareController
 {
     /**
      * @Route("/login", name="bolt_login")
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -29,7 +22,7 @@ class AuthenticationController extends BaseController
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        return $this->renderTemplate('security/login.html.twig', [
+        return $this->renderTemplate('@bolt/security/login.html.twig', [
             'last_username' => $last_username,
             'error' => $error,
         ]);
@@ -58,6 +51,6 @@ class AuthenticationController extends BaseController
             'subtitle' => 'To reset your password, if you\'ve misplaced it',
         ];
 
-        return $this->renderTemplate('pages/placeholder.html.twig', $twigVars);
+        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

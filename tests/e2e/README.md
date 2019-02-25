@@ -5,7 +5,7 @@ Bolt uses [Kakunin](https://thesoftwarehouse.github.io/Kakunin/docs/index.html) 
 
 Installation
 ---
-Be sure that you have Java (in version <= 10) and npm installed.
+Be sure that you have Java (in version <= 10), Chrome and npm installed.
 
 Under `./tests/e2e/` folder, run:
 ```
@@ -32,7 +32,6 @@ And then run:
 ```
 npm run kakunin -- --tags @wip
 ```
-
 
 Writing tests
 ---

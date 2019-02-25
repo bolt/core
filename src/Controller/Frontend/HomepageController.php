@@ -5,32 +5,33 @@ declare(strict_types=1);
 namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Config;
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
-class HomepageController extends BaseController
+class HomepageController extends TwigAwareController
 {
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, TemplateChooser $templateChooser)
+    /**
+     * @var TemplateChooser
+     */
+    private $templateChooser;
+
+    public function __construct(Config $config, Environment $twig, TemplateChooser $templateChooser)
     {
-        parent::__construct($config, $csrfTokenManager);
+        parent::__construct($config, $twig);
 
         $this->templateChooser = $templateChooser;
     }
 
     /**
      * @Route("/", methods={"GET"}, name="homepage")
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function homepage(ContentRepository $contentRepository): Response
     {
-        $homepage = $this->getOption('theme/homepage') ?: $this->getOption('general/homepage');
+        $homepage = $this->config->get('theme/homepage') ?: $this->config->get('general/homepage');
         $params = explode('/', $homepage);
 
         // @todo Get $homepage content, using "setcontent"
@@ -42,7 +43,7 @@ class HomepageController extends BaseController
             $record = $contentRepository->findOneBy(['contentType' => $params[0]]);
         }
 
-        $templates = $this->templateChooser->homepage();
+        $templates = $this->templateChooser->forHomepage();
 
         return $this->renderTemplate($templates, ['record' => $record]);
     }

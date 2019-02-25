@@ -6,13 +6,15 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
 use Bolt\Configuration\Config;
-use Bolt\Controller\BaseController;
+use Bolt\Controller\CsrfTrait;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
 use Bolt\EventListener\ContentFillListener;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\TemplateChooser;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -21,17 +23,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
-use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
 /**
- * Class ContentEditController.
- *
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ContentEditController extends BaseController
+class ContentEditController extends TwigAwareController
 {
+    use CsrfTrait;
+
     /**
      * @var TaxonomyRepository
      */
@@ -47,23 +48,44 @@ class ContentEditController extends BaseController
      */
     private $urlGenerator;
 
-    public function __construct(TaxonomyRepository $taxonomyRepository, Config $config, CsrfTokenManagerInterface $csrfTokenManager, ObjectManager $em, UrlGeneratorInterface $urlGenerator)
-    {
+    /**
+     * @var TemplateChooser
+     */
+    private $templateChooser;
+
+    /**
+     * @var ContentFillListener
+     */
+    private $contentFillListener;
+
+    public function __construct(
+        TaxonomyRepository $taxonomyRepository,
+        ObjectManager $em,
+        UrlGeneratorInterface $urlGenerator,
+        ContentFillListener $contentFillListener,
+        TemplateChooser $templateChooser,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Config $config,
+        Environment $twig
+    ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
-        parent::__construct($config, $csrfTokenManager);
+        $this->contentFillListener = $contentFillListener;
+        $this->templateChooser = $templateChooser;
+        $this->csrfTokenManager = $csrfTokenManager;
+        parent::__construct($config, $twig);
     }
 
     /**
      * @Route("/new/{contentType}", name="bolt_content_new", methods={"GET"})
      */
-    public function new(string $contentType, Request $request, ContentFillListener $contentListener): Response
+    public function new(string $contentType, Request $request): Response
     {
         $content = new Content();
         $content->setAuthor($this->getUser());
         $content->setContentType($contentType);
-        $contentListener->fillContent($content);
+        $this->contentFillListener->fillContent($content);
 
         return $this->edit($request, $content);
     }
@@ -79,19 +101,15 @@ class ContentEditController extends BaseController
             'currentlocale' => $this->getEditLocale($request, $content),
         ];
 
-        return $this->renderTemplate('content/edit.html.twig', $twigvars);
+        return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
     }
 
     /**
      * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
      */
-    public function editPost(Request $request, ?Content $content = null): Response
+    public function save(Request $request, ?Content $content = null): Response
     {
-        $token = new CsrfToken('editrecord', $request->request->get('_csrf_token'));
-
-        if (! $this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
-        }
+        $this->validateToken($request);
 
         $content = $this->contentFromPost($content, $request);
 
@@ -109,54 +127,98 @@ class ContentEditController extends BaseController
         return new RedirectResponse($url);
     }
 
+    /**
+     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsave", methods={"POST"}, requirements={"id": "\d+"})
+     */
+    public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
+    {
+        $this->validateToken($request);
+
+        $urlParams = [
+            'slugOrId' => $content->getId(),
+            'contentTypeSlug' => $content->getDefinition()->get('slug'),
+        ];
+
+        $url = $this->urlGenerator->generate('record', $urlParams);
+
+        return new RedirectResponse($url);
+    }
+
+    /**
+     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"}, requirements={"id": "\d+"})
+     */
+    public function preview(Request $request, ?Content $content = null): Response
+    {
+        $this->validateToken($request);
+
+        $content = $this->contentFromPost($content, $request);
+        $recordSlug = $content->getDefinition()->get('singular_slug');
+
+        $context = [
+            'record' => $content,
+            $recordSlug => $content,
+        ];
+
+        $templates = $this->templateChooser->forRecord($content);
+
+        return $this->renderTemplate($templates, $context);
+    }
+
+    private function validateToken(Request $request): void
+    {
+        $this->validateCsrf($request, 'editrecord');
+    }
+
     private function contentFromPost(?Content $content, Request $request): Content
     {
         $formData = $request->request->all();
 
         $locale = $this->getPostedLocale($formData);
 
-        if (! $content) {
+        if ($content === null) {
             $content = new Content();
             $content->setAuthor($this->getUser());
             $content->setContentType($request->attributes->get('id'));
-            $content->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
         }
+        $this->contentFillListener->fillContent($content);
 
         // @todo dumb status validation, to be replaced with Symfony Form validation
         $status = Json::findScalar($formData['status']);
-        if (in_array($status, Statuses::all(), true)) {
+        if (in_array($status, Statuses::all(), true) === true) {
             $content->setStatus($status);
         }
 
         $content->setPublishedAt(new Carbon($formData['publishedAt']));
         $content->setDepublishedAt(new Carbon($formData['depublishedAt']));
 
-        foreach ($formData['fields'] as $fieldName => $fieldValue) {
-            $this->updateFieldFromPost($fieldName, $fieldValue, $content, $locale);
+        if (isset($formData['fields'])) {
+            foreach ($formData['fields'] as $fieldName => $fieldValue) {
+                $this->updateField($content, $fieldName, $fieldValue, $locale);
+            }
         }
 
         if (isset($formData['taxonomy'])) {
             foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
-                $this->updateTaxonomyFromPost($fieldName, $taxonomy, $content);
+                $this->updateTaxonomy($content, $fieldName, $taxonomy);
             }
         }
 
         return $content;
     }
 
-    private function updateFieldFromPost(string $key, $postfield, Content $content, ?string $locale): void
+    private function updateField(Content $content, string $fieldName, $value, ?string $locale): void
     {
-        if ($content->hasField($key)) {
-            $field = $content->getField($key);
+        if ($content->hasField($fieldName)) {
+            $field = $content->getField($fieldName);
             if ($field->getDefinition()->get('localize')) {
                 // load translated field
                 $field->setLocale($locale);
                 $this->em->refresh($field);
             }
         } else {
-            $fields = collect($content->getDefinition()->get('fields'));
-            $field = Field::factory($fields->get($key), $key);
-            $field->setName($key);
+            $fields = $content->getDefinition()->get('fields');
+            $field = Field::factory($fields->get($fieldName), $fieldName);
+            $field->setName($fieldName);
             $content->addField($field);
             if ($field->getDefinition()->get('localize')) {
                 $field->setLocale($locale);
@@ -164,14 +226,14 @@ class ContentEditController extends BaseController
         }
 
         // If the value is an array that contains a string of JSON, parse it
-        if (is_iterable($postfield) && Json::test(current($postfield))) {
-            $postfield = Json::findArray($postfield);
+        if (is_iterable($value) && Json::test(current($value))) {
+            $value = Json::findArray($value);
         }
 
-        $field->setValue((array) $postfield);
+        $field->setValue((array) $value);
     }
 
-    private function updateTaxonomyFromPost(string $key, $taxonomy, Content $content): void
+    private function updateTaxonomy(Content $content, string $key, $taxonomy): void
     {
         $taxonomy = collect(Json::findArray($taxonomy))->filter();
 
@@ -187,7 +249,7 @@ class ContentEditController extends BaseController
                 'slug' => $slug,
             ]);
 
-            if (! $taxonomy) {
+            if ($taxonomy === null) {
                 $taxonomy = Taxonomy::factory($key, $slug);
             }
 

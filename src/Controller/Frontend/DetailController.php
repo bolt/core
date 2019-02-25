@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Config;
-use Bolt\Controller\BaseController;
+use Bolt\Controller\TwigAwareController;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
@@ -13,15 +13,36 @@ use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 
-class DetailController extends BaseController
+class DetailController extends TwigAwareController
 {
-    public function __construct(Config $config, CsrfTokenManagerInterface $csrfTokenManager, TemplateChooser $templateChooser)
-    {
-        parent::__construct($config, $csrfTokenManager);
+    /**
+     * @var TemplateChooser
+     */
+    private $templateChooser;
 
+    /**
+     * @var ContentRepository
+     */
+    private $contentRepository;
+
+    /**
+     * @var FieldRepository
+     */
+    private $fieldRepository;
+
+    public function __construct(
+        Config $config,
+        Environment $twig,
+        TemplateChooser $templateChooser,
+        ContentRepository $contentRepository,
+        FieldRepository $fieldRepository
+    ) {
         $this->templateChooser = $templateChooser;
+        $this->contentRepository = $contentRepository;
+        $this->fieldRepository = $fieldRepository;
+        parent::__construct($config, $twig);
     }
 
     /**
@@ -32,18 +53,15 @@ class DetailController extends BaseController
      *     methods={"GET"})
      *
      * @param string|int $slugOrId
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
-    public function record(ContentRepository $contentRepository, FieldRepository $fieldRepository, string $contentTypeSlug, $slugOrId): Response
+    public function record($slugOrId, ?string $contentTypeSlug = null): Response
     {
+        // @todo should we check content type?
         if (is_numeric($slugOrId)) {
-            $record = $contentRepository->findOneBy(['id' => (int) $slugOrId]);
+            $record = $this->contentRepository->findOneBy(['id' => (int) $slugOrId]);
         } else {
-            /* @todo this should search only by slug or any other unique field */
-            $field = $fieldRepository->findOneBySlug($slugOrId);
+            // @todo this should search only by slug or any other unique field
+            $field = $this->fieldRepository->findOneBySlug($slugOrId);
             if ($field === null) {
                 throw new NotFoundHttpException('Content does not exist.');
             }
@@ -54,14 +72,17 @@ class DetailController extends BaseController
             throw new NotFoundHttpException('Content is not published');
         }
 
-        $recordSlug = $record->getDefinition()['singular_slug'];
+        $recordSlug = $record->getDefinition()->get('singular_slug');
 
         $context = [
             'record' => $record,
             $recordSlug => $record,
         ];
 
-        $templates = $this->templateChooser->record($record);
+        dump($record);
+        dump($record->getFieldValues());
+
+        $templates = $this->templateChooser->forRecord($record);
 
         return $this->renderTemplate($templates, $context);
     }

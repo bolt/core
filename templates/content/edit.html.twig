@@ -3,7 +3,7 @@
 
 {% set alltypes = ['select'] %}
 {% for key, fielddefinition in record.definition.fields %}
-    {% set alltypes = alltypes | merge([fielddefinition.type]) %}
+    {% set alltypes = alltypes|merge([fielddefinition.type]) %}
 {% endfor %}
 
 {% block title %}
@@ -11,7 +11,7 @@
     {{ 'caption.edit'|trans }}
     {{ record.definition.singular_name }}
     »
-    <strong>{{ record.magicTitle()|default('New')|excerpt(50) }}</strong>
+    <strong>{{ excerpt(record|title, 50)|default('New') }}</strong>
 {% endblock %}
 
 {% block vue_id 'editor' %}
@@ -40,7 +40,7 @@
 
         </div>
 
-        {{ macro.button('action.save', 'fa-save', 'success') }}
+        {% include '@bolt/content/_buttons.html.twig' %}
 
     </form>
 
@@ -53,7 +53,7 @@
 
             <div class="card mb-3">
               <div class="card-body">
-                  {{ macro.button('action.save', 'fa-save', 'success', 'submit', 'editcontent') }}
+                  {% include '@bolt/content/_buttons.html.twig' %}
               </div>
             </div>
 

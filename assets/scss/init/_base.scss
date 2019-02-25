@@ -1,6 +1,7 @@
 //** Init | Base
 
-html, body {
+html,
+body {
   margin: 0;
   height: 100%;
 }
@@ -11,23 +12,23 @@ body {
   min-height: 100%;
 }
 
-label{
-  font-weight:                  $font-weight-bold;
+label {
+  font-weight: $font-weight-bold;
 }
 
 strong {
-  font-weight:                  $font-weight-semibold;
+  font-weight: $font-weight-semibold;
 }
 
-.card{
+.card {
   box-shadow: $card-box-shadow;
-  background: #FFF;
-  .card-header{
+  background: #fff;
+
+  .card-header {
     font-weight: $font-weight-bold;
   }
 }
 
-.custom-select{
+.custom-select {
   -webkit-appearance: none;
 }
-
