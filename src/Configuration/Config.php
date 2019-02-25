@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration;
 
+use Bolt\Collection\DeepCollection;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
@@ -110,7 +111,10 @@ class Config
 
         $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes);
 
-        return [$config, $timestamps];
+        return [
+            DeepCollection::deepMake($config),
+            $timestamps,
+        ];
     }
 
     private function getConfigFilesTimestamps(BaseParser ...$configs): array

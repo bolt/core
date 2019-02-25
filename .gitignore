@@ -32,12 +32,22 @@ Vagrantfile
 .vscode/*
 appveyor.yml
 
+### temp files
 /var/cache/*
 !/var/cache/.gitkeep
 /var/log/*
-!/var/log/.gitkeep
+!/var/log/*.gitkeep
+/var/log/e2e-reports/*
+!/var/log/e2e-reports/
+/var/log/e2e-reports/performance/*
+!/var/log/e2e-reports/performance/
 !/var/log/e2e-reports/performance/.gitkeep
+/var/log/e2e-reports/report/*
+!/var/log/e2e-reports/report/
 !/var/log/e2e-reports/report/.gitkeep
+# line below is ok, do not remove
+/var/log/behat-reports/*
+!/var/log/behat-reports/
 !/var/log/behat-reports/.gitkeep
 /var/data/*
 !/var/data/.gitkeep
@@ -46,7 +56,9 @@ appveyor.yml
 
 ###Local config
 /config/packages/local
+!/config/packages/local/_import_dev.yaml
 /config/routes/local
+!/config/routes/local/_import_dev.yaml
 
 ###> symfony/framework-bundle ###
 /.env

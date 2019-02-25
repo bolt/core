@@ -12,11 +12,11 @@ trait ContentLocalizeTrait
     {
         $locales = $this->getDefinition()->get('locales');
 
-        if (empty($locales)) {
-            $locales = [''];
+        if ($locales->isEmpty()) {
+            return new Collection(['']);
         }
 
-        return collect($locales);
+        return $locales;
     }
 
     public function getDefaultLocale(): string

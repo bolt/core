@@ -6,6 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Content\ContentType;
 use Bolt\Entity\Content;
+use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -100,6 +101,8 @@ class ContentRepository extends ServiceEntityRepository
             ->orderBy('content.' . $column, $order)
             ->where($whereClause)
             ->setParameter('value', $currentValue)
+            ->andWhere('content.status = :status')
+            ->setParameter('status', Statuses::PUBLISHED)
             ->setMaxResults(1);
 
         if ($contentType) {

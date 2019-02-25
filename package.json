@@ -91,6 +91,7 @@
   "scripts": {
     "start": "encore dev-server --port=8234 --progress --disable-host-check --verbose",
     "build": "encore production --progress",
+    "serve": "encore dev --watch",
     "lint": "eslint --ext .js,.vue, assets",
     "lint-fix": "eslint --ext .js,.vue, assets --fix",
     "stylelint": "stylelint 'assets/scss'",

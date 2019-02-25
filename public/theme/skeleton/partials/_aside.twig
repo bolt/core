@@ -18,8 +18,8 @@
             <h5>{{ block.title }}</h5>
             {{ block.content }}
 
-            {% set edit_link = block.editlink() %}
-            {% set content_link = block.contentlink|default() %}
+            {% set edit_link = block|edit_link %}
+            {% set content_link = block|link %}
             {% if content_link or edit_link %}
                 <p>
                 {%- if content_link %}
@@ -58,7 +58,7 @@
         <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.name}) }}</h5>
         <ul>
             {% for record in records %}
-                <li><a href="{{ record.link }}">{{ record.title }}</a></li>
+                <li><a href="{{ record|link }}">{{ record|title }}</a></li>
             {% else %}
                 <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>
             {% endfor %}

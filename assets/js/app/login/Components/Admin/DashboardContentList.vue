@@ -10,9 +10,7 @@
             <tr :key="record.id">
               <td>{{ record.id }}</td>
               <td>
-                <a :href="'edit/' + record.id">{{
-                  record.fields[0].value.value
-                }}</a>
+                <a :href="record.extras.editLink">{{ record.extras.title }}</a>
               </td>
             </tr>
             <!-- Maybe is better to have a component to print each row? -->
@@ -41,13 +39,15 @@ export default {
     };
   },
   created() {
+    // @todo is this ever used?
+    console.warn('remove above todo');
     this.records = getRecords(this.type);
 
     fetchRecords(this.type)
       .then(records => {
         this.records = records;
       })
-      .catch(error => console.log(error))
+      .catch(error => console.warn(error))
       .finally(() => {
         this.loading = false;
       });

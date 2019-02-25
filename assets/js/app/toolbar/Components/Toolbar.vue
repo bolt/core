@@ -74,7 +74,7 @@ export default {
       return this.menu.filter(item => {
         return (
           (item.contentType !== null && !item.singleton) ||
-          (item.singleton && item.submenu.length < 1)
+          (item.singleton && (item.submenu === null || item.submenu.length < 1))
         );
       });
     },

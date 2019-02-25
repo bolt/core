@@ -87,7 +87,7 @@ db-create:
 	bin/console doctrine:fixtures:load -n
 
 db-update:
-	bin/console doctrine:schema:update -v --force
+	bin/console doctrine:schema:update -v --dump-sql --force --complete
 
 db-reset:
 	bin/console doctrine:schema:drop --force --full-database
@@ -100,12 +100,15 @@ docker-install:
 	make docker-db-create
 
 docker-start:
-	cp -n .env.dist .env
+	cp -n .env.dist .env || true
 	docker-compose up -d
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
 	docker-compose run node sh -c "npm rebuild node-sass"
 	docker-compose run node sh -c "npm run build"
+
+docker-assets-serve:
+	docker-compose run node sh -c "npm run serve"
 
 docker-update:
 	docker-compose exec -T php sh -c "composer update"
@@ -142,7 +145,7 @@ docker-db-reset:
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
 
 docker-db-update:
-	docker-compose exec -T php sh -c "bin/console doctrine:schema:update --force"
+	docker-compose exec -T php sh -c "bin/console doctrine:schema:update -v --dump-sql --force --complete"
 
 docker-npm-fix-env:
 	docker-compose run node sh -c "npm rebuild node-sass"

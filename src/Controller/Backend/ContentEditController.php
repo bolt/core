@@ -128,7 +128,7 @@ class ContentEditController extends TwigAwareController
     }
 
     /**
-     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsave", methods={"POST"})
+     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsave", methods={"POST"}, requirements={"id": "\d+"})
      */
     public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
     {
@@ -145,7 +145,7 @@ class ContentEditController extends TwigAwareController
     }
 
     /**
-     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"})
+     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"}, requirements={"id": "\d+"})
      */
     public function preview(Request $request, ?Content $content = null): Response
     {
@@ -179,8 +179,8 @@ class ContentEditController extends TwigAwareController
             $content = new Content();
             $content->setAuthor($this->getUser());
             $content->setContentType($request->attributes->get('id'));
-            $content->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
         }
+        $this->contentFillListener->fillContent($content);
 
         // @todo dumb status validation, to be replaced with Symfony Form validation
         $status = Json::findScalar($formData['status']);
@@ -191,8 +191,10 @@ class ContentEditController extends TwigAwareController
         $content->setPublishedAt(new Carbon($formData['publishedAt']));
         $content->setDepublishedAt(new Carbon($formData['depublishedAt']));
 
-        foreach ($formData['fields'] as $fieldName => $fieldValue) {
-            $this->updateField($content, $fieldName, $fieldValue, $locale);
+        if (isset($formData['fields'])) {
+            foreach ($formData['fields'] as $fieldName => $fieldValue) {
+                $this->updateField($content, $fieldName, $fieldValue, $locale);
+            }
         }
 
         if (isset($formData['taxonomy'])) {
@@ -214,7 +216,7 @@ class ContentEditController extends TwigAwareController
                 $this->em->refresh($field);
             }
         } else {
-            $fields = collect($content->getDefinition()->get('fields'));
+            $fields = $content->getDefinition()->get('fields');
             $field = Field::factory($fields->get($fieldName), $fieldName);
             $field->setName($fieldName);
             $content->addField($field);
@@ -247,7 +249,7 @@ class ContentEditController extends TwigAwareController
                 'slug' => $slug,
             ]);
 
-            if (! $taxonomy) {
+            if ($taxonomy === null) {
                 $taxonomy = Taxonomy::factory($key, $slug);
             }
 

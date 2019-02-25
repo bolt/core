@@ -12,7 +12,7 @@
 
 {% block main %}
     <div>
-        {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': 'contentType'  } %}
+        {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': contentType.slug } %}
     </div>
 {% endblock %}
 

@@ -43,9 +43,6 @@ before_script:
   - wget "http://127.0.0.1:8088/bolt/login"
 
 script:
-  # run PHP Unit / PHP Spec tests
-  - ./vendor/bin/phpunit
-  - ./vendor/bin/phpspec run
   # this checks that the source code follows the Bolt Code Syntax rules
   - ./vendor/bin/ecs check src
   - ./vendor/bin/phpstan analyse -c phpstan.neon src
@@ -61,6 +58,9 @@ script:
   - composer validate --strict
   # this checks that Doctrine's mapping configurations are valid
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+  # run PHP Unit / PHP Spec tests
+  - ./vendor/bin/phpspec run
+  - ./vendor/bin/phpunit
   # run jest unit tests
   - npm test
   # run API tests

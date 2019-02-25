@@ -29,15 +29,15 @@
         {% for record in records %}
             <article>
 
-                <h2><a href="{{ record.link }}">{{ record.title }}</a></h2>
+                <h2><a href="{{ record|link }}">{{ record|title }}</a></h2>
 
-                {% if record.image!="" %}
-                    <a href="{{ image(record.image) }}">
-                        <img src="{{ thumbnail(record.image, 400, 260) }}">
+                {% if record|image is not empty %}
+                    <a href="{{ image(record|image) }}">
+                        <img src="{{ thumbnail(record|image, 400, 260) }}" alt="{{ (record|image).alt|default(record|title) }}">
                     </a>
                 {% endif %}
 
-                <p>{{ record.excerpt(300, false, search|default('')) }}</p>
+                <p>{{ record|excerpt(300, false, search|default('')) }}</p>
 
                 {% include 'partials/_recordfooter.twig' with { 'record': record } %}
 

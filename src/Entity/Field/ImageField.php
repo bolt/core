@@ -18,17 +18,22 @@ class ImageField extends Field
         return $this->getPath();
     }
 
-    public function getValue(): ?array
+    public function getValue(): array
     {
-        $value = parent::getValue();
+        $value = parent::getValue() ?: [];
 
         // Generate a URL
         $value['path'] = $this->getPath();
 
+        // @todo temp fix for https://github.com/bolt/four/issues/318
+        unset($value['media']);
+        unset($value['title']);
+        unset($value[0]);
+
         return $value;
     }
 
-    private function getPath(): string
+    public function getPath(): string
     {
         $urlBuilder = UrlBuilderFactory::create('/thumbs/');
 
