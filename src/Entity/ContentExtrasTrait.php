@@ -7,6 +7,9 @@ namespace Bolt\Entity;
 use Bolt\Twig\ContentExtension;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+/**
+ * @see \Bolt\Entity\Content
+ */
 trait ContentExtrasTrait
 {
     /**
