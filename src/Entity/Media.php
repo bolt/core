@@ -25,7 +25,7 @@ class Media
     private $area;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\Column(type="text", length=1000)
      */
     private $path;
 
@@ -130,10 +130,7 @@ class Media
         return $this->path;
     }
 
-    /**
-     * @return string
-     */
-    public function getFilenamePath(): ?string
+    public function getFilenamePath(): string
     {
         if (empty($this->path)) {
             $path = $this->filename;
