@@ -9,7 +9,10 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
+use Bolt\Storage\Query\Query;
 use Bolt\TemplateChooser;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,17 +35,69 @@ class DetailController extends TwigAwareController
      */
     private $fieldRepository;
 
+    private $query;
+
     public function __construct(
         Config $config,
         Environment $twig,
         TemplateChooser $templateChooser,
         ContentRepository $contentRepository,
-        FieldRepository $fieldRepository
+        FieldRepository $fieldRepository,
+        Query $query
     ) {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
         $this->fieldRepository = $fieldRepository;
+        $this->query = $query;
         parent::__construct($config, $twig);
+    }
+
+    /**
+     * @Route(
+     *     "/api/graphql",
+     *     name="graphql",
+     *     methods={"GET", "POST"})
+     *
+     */
+    public function graph(): RedirectResponse
+    {
+        return $this->redirectToRoute('api_graphql_entrypoint');
+    }
+
+    /**
+     * @Route(
+     *     "/content",
+     *     name="content",
+     *     methods={"GET", "POST"})
+     *
+     */
+    public function content(): RedirectResponse
+    {
+        $content = '
+        query {
+            homepage {
+                title
+            }
+        }
+        ';
+
+//        $hello = '
+//        query {
+//            hello
+//        }
+//        ';
+        $this->query->getContentForTwig($content);
+    }
+
+    /**
+     * @Route(
+     *     "/api",
+     *     methods={"GET", "POST"})
+     *
+     */
+    public function api(): RedirectResponse
+    {
+        return $this->redirectToRoute('api_entrypoint');
     }
 
     /**
@@ -51,10 +106,8 @@ class DetailController extends TwigAwareController
      *     name="record",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
-     *
-     * @param string|int $slugOrId
      */
-    public function record($slugOrId, ?string $contentTypeSlug = null): Response
+    public function record($slugOrId): Response
     {
         // @todo should we check content type?
         if (is_numeric($slugOrId)) {

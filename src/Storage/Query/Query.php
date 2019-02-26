@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query;
 
+use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
+use Bolt\Storage\Query\Types\QueryType;
+use GraphQL\GraphQL;
+use GraphQL\Type\Schema;
 
 class Query
 {
@@ -14,10 +18,13 @@ class Query
     /** @var array<string> */
     protected $scopes = [];
 
-    public function __construct(ContentQueryParser $parser)
+    protected $configuration;
+
+    public function __construct(ContentQueryParser $parser, Config $configuration)
     {
         $this->parser = $parser;
         $this->scopes = [];
+        $this->configuration = $configuration;
     }
 
     public function addScope(string $name, QueryScopeInterface $scope): void
@@ -57,14 +64,10 @@ class Query
     {
         $scope = $this->getScope($scopeName);
         if ($scope) {
-            $this->parser->setQuery($textQuery);
-            $this->parser->setParameters($parameters);
             $this->parser->setScope($scope);
-
-            return $this->parser->fetch();
         }
 
-        return null;
+        return $this->getContent($textQuery, $parameters);
     }
 
     /**
@@ -75,6 +78,12 @@ class Query
      */
     public function getContentForTwig(string $textQuery, array $parameters = [])
     {
+        $schema = new Schema([
+            'query' => new QueryType($this->configuration)
+        ]);
+
+        $result = GraphQL::executeQuery($schema, $textQuery);
+        dump($result);die;
         return $this->getContentByScope('frontend', $textQuery, $parameters);
     }
 }

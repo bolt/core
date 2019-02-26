@@ -116,6 +116,7 @@ class QueryParameterParser
             if ($result instanceof Filter) {
                 return $result;
             }
+
         }
 
         return null;

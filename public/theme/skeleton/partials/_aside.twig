@@ -9,7 +9,9 @@
     <div>
         {# The next section attempts to fill the panel in the sidebar with the contents of the
             'about-us'-block, if it exists. First, attempt to fetch the block with slug 'about-us' #}
-        {% setcontent block = "block/about-us" %}
+        {#{% setcontent block = 'block' where {slug: 'about-us'}%}#}
+        {#{% setcontent block = 'block' where { createdAt: '2019-01-01 || 2019-01-02' } %}#}
+        {#{% setcontent mypages = 'pages' where { city: 'Amsterdam', 'username | firstname': 'pete | Mike' } %}#}
 
         {# check if we have a title. If so, we know we have content to display. Otherwise, we will
             output a default text, telling the user to create the 'blocks' in the backend. #}
