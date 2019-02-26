@@ -4,6 +4,7 @@ start:
 	make server
 
 install:
+	cp -n .env.dist .env || true
 	composer install
 	npm install
 	npm run build
@@ -97,15 +98,18 @@ db-reset:
 # Dockerized commands:
 docker-install:
 	make docker-start
+	make docker-install-deps
 	make docker-db-create
 
-docker-start:
-	cp -n .env.dist .env || true
-	docker-compose up -d
+docker-install-deps:
 	docker-compose exec -T php sh -c "composer install"
 	docker-compose run node sh -c "npm install"
 	docker-compose run node sh -c "npm rebuild node-sass"
 	docker-compose run node sh -c "npm run build"
+
+docker-start:
+	cp -n .env.dist .env || true
+	docker-compose up -d
 
 docker-assets-serve:
 	docker-compose run node sh -c "npm run serve"
@@ -135,7 +139,7 @@ docker-stancheck:
 	docker-compose exec -T php sh -c "vendor/bin/phpstan analyse -c phpstan.neon src"
 
 docker-db-create:
-	docker-compose exec -T php sh -c "bin/console doctrine:database:create --if-not-exists"
+	docker-compose exec -T php sh -c "bin/console doctrine:database:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:schema:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
 

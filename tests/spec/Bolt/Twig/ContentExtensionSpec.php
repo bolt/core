@@ -220,21 +220,4 @@ class ContentExtensionSpec extends ObjectBehavior
 
         $this->getNextContent($content, 'id', false)->shouldBe($nextContent);
     }
-
-    function it_gets_related_content(Content $content)
-    {
-        // @todo fix test with right implementation
-        $result = $this->getRelatedContent($content);
-        $result->shouldBeArray();
-        $result[0]->shouldBeAnInstanceOf(Content::class);
-        $result[0]->getContentType()->shouldBe('relations placeholder');
-    }
-
-    function it_gets_first_related_content(Content $content)
-    {
-        // @todo fix test with right implementation
-        $result = $this->getFirstRelatedContent($content, self::TEST_CT_SLUG);
-        $result->shouldBeAnInstanceOf(Content::class);
-        $result->getContentType()->shouldBe('relations placeholder');
-    }
 }

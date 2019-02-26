@@ -146,6 +146,9 @@
     "egulias/email-validator": {
         "version": "2.1.2"
     },
+    "embed/embed": {
+        "version": "v3.3.9"
+    },
     "erusev/parsedown": {
         "version": "1.6.3"
     },
@@ -154,6 +157,9 @@
     },
     "fabpot/goutte": {
         "version": "v3.2.3"
+    },
+    "fig/link-util": {
+        "version": "1.0.0"
     },
     "friendsofapi/localise.biz": {
         "version": "0.2.4"
@@ -383,6 +389,12 @@
     "phpstan/phpstan": {
         "version": "0.10.3"
     },
+    "phpstan/phpstan-doctrine": {
+        "version": "0.11"
+    },
+    "phpstan/phpstan-symfony": {
+        "version": "0.11"
+    },
     "phpunit/php-code-coverage": {
         "version": "6.1.4"
     },
@@ -415,6 +427,9 @@
     },
     "psr/http-message": {
         "version": "1.0.1"
+    },
+    "psr/link": {
+        "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.0.2"
@@ -754,6 +769,9 @@
     },
     "symfony/var-exporter": {
         "version": "v4.2.0"
+    },
+    "symfony/web-link": {
+        "version": "v4.2.3"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",

@@ -24,6 +24,10 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
+ * @ORM\Table(indexes={
+ *     @ORM\Index(name="content_type_idx", columns={"content_type"}),
+ *     @ORM\Index(name="status_idx", columns={"status"})
+ * })
  * @ORM\HasLifecycleCallbacks
  */
 class Content implements \JsonSerializable
@@ -46,7 +50,7 @@ class Content implements \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=191, name="contenttype")
+     * @ORM\Column(type="string", length=191)
      * @Groups("get_content")
      */
     private $contentType;
@@ -61,17 +65,17 @@ class Content implements \JsonSerializable
     private $author;
 
     /**
-     * @var string|null
+     * @var string
      *
      * @ORM\Column(type="string", length=191)
      * @Groups("put")
      */
-    private $status = null;
+    private $status;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTime
      *
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
@@ -181,16 +185,28 @@ class Content implements \JsonSerializable
 
     public function getContentTypeSlug(): string
     {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
         return $this->getDefinition()->get('singular_slug');
     }
 
     public function getContentTypeName(): string
     {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
         return $this->getDefinition()->get('singular_name') ?: $this->getContentTypeSlug();
     }
 
     public function getIcon(): ?string
     {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
         return $this->getDefinition()->get('icon_one') ?: $this->getDefinition()->get('icon_many');
     }
 
@@ -204,7 +220,7 @@ class Content implements \JsonSerializable
         $this->author = $author;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         if (Statuses::isValid($this->status) === false) {
             $this->status = $this->getDefinition()->get('default_status');
@@ -322,7 +338,7 @@ class Content implements \JsonSerializable
     public function getField(string $fieldName): Field
     {
         if ($this->hasField($fieldName) === false) {
-            throw new \InvalidArgumentException(sprintf("Content does not have '%s' field!", $fieldName));
+            throw new \InvalidArgumentException(sprintf("Content does not have '%s' field", $fieldName));
         }
 
         return $this->fields[$fieldName];
@@ -341,7 +357,7 @@ class Content implements \JsonSerializable
     public function addField(Field $field): self
     {
         if ($this->hasField($field->getName())) {
-            throw new \InvalidArgumentException(sprintf("Content already has '%s' field!", $field->getName()));
+            throw new \InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
         }
 
         $this->fields[$field->getName()] = $field;
@@ -424,12 +440,6 @@ class Content implements \JsonSerializable
         }
 
         return $this;
-    }
-
-    public function related(): array
-    {
-        // @todo See Github issue https://github.com/bolt/four/issues/163
-        return [];
     }
 
     /**

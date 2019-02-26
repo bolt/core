@@ -36,7 +36,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true, length=190)
+     * @ORM\Column(type="string", unique=true, length=191)
      * @Assert\NotBlank()
      * @Assert\Length(min=2, max=50)
      * @Groups("get_user")
@@ -46,7 +46,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true, length=190)
+     * @ORM\Column(type="string", unique=true, length=191)
      * @Assert\Email()
      * @Groups("get_user")
      */
@@ -55,7 +55,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=191)
      */
     private $password;
 

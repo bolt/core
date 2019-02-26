@@ -11,6 +11,7 @@ Feature: Edit record
         And I click the "status_select" element
         And I click the "status_published" element
         And I click the "save_button" element
+        Then I wait for "title_field" element to appear
 
         When I visit the "single_record" page with parameters:
             | id | 30 |
