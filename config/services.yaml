@@ -46,18 +46,6 @@ services:
     Twig\Extension\StringLoaderExtension: ~
     Doctrine\ORM\Query\Expr: ~
 
-    # Needed for SetContent from bolt/bolt
-    Bolt\Storage\Query\Query:
-        calls:
-            -
-                method: addScope
-                arguments: [ 'frontend', '@Bolt\Storage\Query\FrontendQueryScope' ]
-    Bolt\Storage\Query\ContentQueryParser:
-        calls:
-            -
-                method: addService
-                arguments: [ 'select', '@Bolt\Storage\Query\SelectQuery' ]
-
     Bolt\Doctrine\TablePrefix:
         arguments: [ "%bolt.table_prefix%" ]
         tags:

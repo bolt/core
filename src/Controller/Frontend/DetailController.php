@@ -75,13 +75,13 @@ class DetailController extends TwigAwareController
     {
         $content = '
         query {
-            homepage {
+            showcases (filter:{title_contains:"test", integerfield: 3, OR:[{title: "test"}, {integerfield: 2}]}) {
                 title
             }
         }
         ';
 
-//        $hello = '
+//        $content = '
 //        query {
 //            hello
 //        }

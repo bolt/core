@@ -43,7 +43,7 @@ class SetcontentNode extends Node
     /**
      * {@inheritdoc}
      */
-    public function compile(\Twig_Compiler $compiler): void
+    public function compile(Compiler $compiler): void
     {
         $arguments = $this->getAttribute('arguments');
 
