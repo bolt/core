@@ -6,6 +6,9 @@ namespace Bolt\Entity;
 
 use Tightenco\Collect\Support\Collection;
 
+/**
+ * @see \Bolt\Entity\Content
+ */
 trait ContentLocalizeTrait
 {
     public function getLocales(): Collection

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Content;
+namespace Bolt\Menu;
 
 use Bolt\Configuration\Config;
+use Bolt\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
@@ -16,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class MenuBuilder
 {
     /** @var FactoryInterface */
-    private $factory;
+    private $menuFactory;
 
     /** @var Config */
     private $config;
@@ -33,14 +34,12 @@ class MenuBuilder
     /** @var TranslatorInterface */
     private $translator;
 
-    /**
-     * @var ContentExtension
-     */
+    /** @var ContentExtension */
     private $contentExtension;
 
-    public function __construct(FactoryInterface $factory, Config $config, Stopwatch $stopwatch, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ContentExtension $contentExtension)
+    public function __construct(FactoryInterface $menuFactory, Config $config, Stopwatch $stopwatch, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ContentExtension $contentExtension)
     {
-        $this->factory = $factory;
+        $this->menuFactory = $menuFactory;
         $this->config = $config;
         $this->stopwatch = $stopwatch;
         $this->contentRepository = $contentRepository;
@@ -55,7 +54,7 @@ class MenuBuilder
 
         $t = $this->translator;
 
-        $menu = $this->factory->createItem('root');
+        $menu = $this->menuFactory->createItem('root');
 
         $menu->addChild('Dashboard', [
             'uri' => $this->urlGenerator->generate('bolt_dashboard'),
