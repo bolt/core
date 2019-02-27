@@ -7,10 +7,10 @@ namespace Bolt\Twig;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
+use Illuminate\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Illuminate\Support\Collection;
 
 class RelatedExtension extends AbstractExtension
 {

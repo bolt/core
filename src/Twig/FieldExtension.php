@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Entity\Field;
-use Tightenco\Collect\Support\Collection;
+use Illuminate\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

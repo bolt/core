@@ -17,6 +17,7 @@ use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
 use Carbon\Carbon;
 use Doctrine\Common\Persistence\ObjectManager;
+use Illuminate\Support\Collection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

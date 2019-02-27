@@ -10,11 +10,11 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
+use Illuminate\Support\Collection;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Illuminate\Support\Collection;
 
 class ContentExtension extends AbstractExtension
 {

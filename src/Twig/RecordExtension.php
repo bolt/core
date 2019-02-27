@@ -10,6 +10,7 @@ use Bolt\Menu\MenuBuilder;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
+use Illuminate\Support\Collection as LaravelCollection;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -125,7 +126,7 @@ class RecordExtension extends AbstractExtension
         return json_encode($result, $options);
     }
 
-    public function selectoptionsfromarray(Field $field): \Tightenco\Collect\Support\Collection
+    public function selectoptionsfromarray(Field $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -141,7 +142,7 @@ class RecordExtension extends AbstractExtension
         }
 
         if (! is_iterable($values)) {
-            return new Collection($options);
+            return new LaravelCollection($options);
         }
 
         foreach ($values as $key => $value) {
@@ -152,10 +153,10 @@ class RecordExtension extends AbstractExtension
             ];
         }
 
-        return new Collection($options);
+        return new LaravelCollection($options);
     }
 
-    public function taxonomyoptions($taxonomy): \Illuminate\Support\Collection
+    public function taxonomyoptions($taxonomy): LaravelCollection
     {
         $options = [];
 
@@ -173,10 +174,10 @@ class RecordExtension extends AbstractExtension
             ];
         }
 
-        return new Collection($options);
+        return new LaravelCollection($options);
     }
 
-    public function taxonomyvalues(Collection $current, $taxonomy): \Illuminate\Support\Collection
+    public function taxonomyvalues(Collection $current, $taxonomy): LaravelCollection
     {
         $values = [];
 
@@ -192,6 +193,6 @@ class RecordExtension extends AbstractExtension
             $values[] = key($taxonomy['options']);
         }
 
-        return new Collection($values);
+        return new LaravelCollection($values);
     }
 }
