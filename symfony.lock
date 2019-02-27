@@ -419,6 +419,9 @@
             "ref": "89239f0cf2759efccc76b9944083bfcc4d180f9d"
         }
     },
+    "phpunit/phpunit-mock-objects": {
+        "version": "6.0.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -436,9 +439,6 @@
     },
     "psr/simple-cache": {
         "version": "1.0.0"
-    },
-    "ralouphie/getallheaders": {
-        "version": "2.0.5"
     },
     "roave/security-advisories": {
         "version": "dev-master"
@@ -856,5 +856,8 @@
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.0"
+    },
+    "zendframework/zend-stdlib": {
+        "version": "2.2.6"
     }
 }

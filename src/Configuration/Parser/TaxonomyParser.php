@@ -17,41 +17,41 @@ class TaxonomyParser extends BaseParser
         $taxonomies = $this->parseConfigYaml('taxonomy.yaml');
 
         foreach ($taxonomies as $key => $taxonomy) {
-            if (! isset($taxonomy['name'])) {
+            if (isset($taxonomy['name']) === false) {
                 $taxonomy['name'] = ucwords(str_replace('-', ' ', Str::humanize($taxonomy['slug'])));
             }
-            if (! isset($taxonomy['singular_name'])) {
+            if (isset($taxonomy['singular_name']) === false) {
                 if (isset($taxonomy['singular_slug'])) {
                     $taxonomy['singular_name'] = ucwords(str_replace('-', ' ', Str::humanize($taxonomy['singular_slug'])));
                 } else {
                     $taxonomy['singular_name'] = ucwords(str_replace('-', ' ', Str::humanize($taxonomy['slug'])));
                 }
             }
-            if (! isset($taxonomy['slug'])) {
+            if (isset($taxonomy['slug']) === false) {
                 $taxonomy['slug'] = Str::slug($taxonomy['name']);
             }
-            if (! isset($taxonomy['singular_slug'])) {
+            if (isset($taxonomy['singular_slug']) === false) {
                 $taxonomy['singular_slug'] = Str::slug($taxonomy['singular_name']);
             }
-            if (! isset($taxonomy['has_sortorder'])) {
+            if (isset($taxonomy['has_sortorder']) === false) {
                 $taxonomy['has_sortorder'] = false;
             }
-            if (! isset($taxonomy['allow_spaces'])) {
+            if (isset($taxonomy['allow_spaces']) === false) {
                 $taxonomy['allow_spaces'] = false;
             }
-            if (! isset($taxonomy['allow_empty'])) {
+            if (isset($taxonomy['allow_empty']) === false) {
                 $taxonomy['allow_empty'] = true;
             }
             if ($taxonomy['behaves_like'] === 'grouping') {
                 $taxonomy['multiple'] = false;
-            } elseif ($taxonomy['behaves_like'] === 'tags' || (isset($taxonomy['multiple']) && $taxonomy['multiple'])) {
+            } elseif ($taxonomy['behaves_like'] === 'tags' || (isset($taxonomy['multiple']) && $taxonomy['multiple'] === true)) {
                 $taxonomy['multiple'] = true;
             } else {
                 $taxonomy['multiple'] = false;
             }
 
             // Make sure the options are $key => $value pairs, and not have implied integers for keys.
-            if (! empty($taxonomy['options']) && is_array($taxonomy['options'])) {
+            if (empty($taxonomy['options']) === false && is_array($taxonomy['options'])) {
                 $options = [];
                 foreach ($taxonomy['options'] as $optionKey => $optionValue) {
                     if (is_numeric($optionKey)) {
@@ -66,11 +66,11 @@ class TaxonomyParser extends BaseParser
                 $taxonomy['options'] = [];
             }
 
-            if (! isset($taxonomy['behaves_like'])) {
+            if (isset($taxonomy['behaves_like']) === false) {
                 $taxonomy['behaves_like'] = 'tags';
             }
             // If taxonomy is like tags, set 'tagcloud' to true by default.
-            if (($taxonomy['behaves_like'] === 'tags') && (! isset($taxonomy['tagcloud']))) {
+            if ($taxonomy['behaves_like'] === 'tags' && isset($taxonomy['tagcloud']) === false) {
                 $taxonomy['tagcloud'] = true;
             } else {
                 $taxonomy += ['tagcloud' => false];
