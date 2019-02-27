@@ -7,6 +7,7 @@
         "php": ">=7.1.3",
         "ext-json": "*",
         "ext-pdo": "*",
+        "ext-mbstring": "*",
         "api-platform/core": "^2.4@beta",
         "bolt/common": "^2.0",
         "cocur/slugify": "^3.1",
@@ -15,6 +16,7 @@
         "doctrine/doctrine-migrations-bundle": "^1.3",
         "doctrine/orm": "^2.5.11",
         "easycorp/easy-log-handler": "^1.0.7",
+        "embed/embed": "^3.3",
         "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4.10",
         "fzaninotto/faker": "^1.8",
@@ -55,6 +57,7 @@
     },
     "require-dev": {
         "ext-pdo_sqlite": "*",
+        "ext-curl": "*",
         "behat/behat": "^3.5",
         "behat/mink": "dev-master@dev",
         "behat/mink-extension": "^2.3",
@@ -126,7 +129,7 @@
     },
     "conflict": {
         "symfony/symfony": "*",
-        "illuminate/support": "*"
+        "api-platform/core": "v2.4.0-beta.2"
     },
     "extra": {
         "symfony": {

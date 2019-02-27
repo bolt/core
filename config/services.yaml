@@ -38,7 +38,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
 
-    Bolt\Content\MenuBuilder:
+    Bolt\Menu\MenuBuilder:
         arguments: ["@knp_menu.factory"]
         tags:
             - { name: knp_menu.menu_builder, method: createSidebarMenu, alias: sidebar } # The alias is what is used to retrieve the menu

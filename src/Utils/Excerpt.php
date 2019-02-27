@@ -6,10 +6,6 @@ namespace Bolt\Utils;
 
 class Excerpt
 {
-    private function __construct()
-    {
-    }
-
     public static function getExcerpt(string $text, int $length = 200, $focus = null): string
     {
         if ($focus) {

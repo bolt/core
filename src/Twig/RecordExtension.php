@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Content\MenuBuilder;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Menu\MenuBuilder;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
