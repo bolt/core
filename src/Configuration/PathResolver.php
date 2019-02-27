@@ -137,7 +137,7 @@ class PathResolver
             $paths[$name] = $this->resolve($path);
         }
 
-        return collect($paths);
+        return new Collection($paths);
     }
 
     /**
