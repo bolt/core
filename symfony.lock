@@ -60,7 +60,16 @@
         "version": "1.2.0"
     },
     "dama/doctrine-test-bundle": {
-        "version": "v4.0.1"
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "56eaa387b5e48ebcc7c95a893b47dfa1ad51449c"
+        },
+        "files": [
+            "config/packages/test/dama_doctrine_test_bundle.yaml"
+        ]
     },
     "doctrine/annotations": {
         "version": "v1.5.0"
@@ -75,7 +84,7 @@
         "version": "v2.8.1"
     },
     "doctrine/data-fixtures": {
-        "version": "v1.3.1"
+        "version": "v1.3.0"
     },
     "doctrine/dbal": {
         "version": "v2.6.2"
@@ -98,8 +107,11 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "3.0",
-            "ref": "2ea6070ecf365f9a801ccaed4b31d4a3b7af5693"
-        }
+            "ref": "fc52d86631a6dfd9fdf3381d0b7e3df2069e51b3"
+        },
+        "files": [
+            "src/DataFixtures/AppFixtures.php"
+        ]
     },
     "doctrine/doctrine-migrations-bundle": {
         "version": "1.2",
@@ -419,9 +431,6 @@
             "ref": "89239f0cf2759efccc76b9944083bfcc4d180f9d"
         }
     },
-    "phpunit/phpunit-mock-objects": {
-        "version": "6.0.0"
-    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -439,6 +448,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.0"
+    },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
     },
     "roave/security-advisories": {
         "version": "dev-master"
@@ -856,8 +868,5 @@
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.0"
-    },
-    "zendframework/zend-stdlib": {
-        "version": "2.2.6"
     }
 }
