@@ -141,7 +141,7 @@ class RecordExtension extends AbstractExtension
         }
 
         if (! is_iterable($values)) {
-            return collect($options);
+            return new Collection($options);
         }
 
         foreach ($values as $key => $value) {
@@ -152,7 +152,7 @@ class RecordExtension extends AbstractExtension
             ];
         }
 
-        return collect($options);
+        return new Collection($options);
     }
 
     public function taxonomyoptions($taxonomy): \Illuminate\Support\Collection
@@ -173,7 +173,7 @@ class RecordExtension extends AbstractExtension
             ];
         }
 
-        return collect($options);
+        return new Collection($options);
     }
 
     public function taxonomyvalues(Collection $current, $taxonomy): \Illuminate\Support\Collection
@@ -192,6 +192,6 @@ class RecordExtension extends AbstractExtension
             $values[] = key($taxonomy['options']);
         }
 
-        return collect($values);
+        return new Collection($values);
     }
 }

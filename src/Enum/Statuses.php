@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Enum;
 
+use Illuminate\Support\Collection;
+
 class Statuses
 {
     public const PUBLISHED = 'published';
@@ -29,6 +31,7 @@ class Statuses
         if ($status === null) {
             return false;
         }
-        return collect(static::all())->containsStrict($status);
+
+        return (new Collection(static::all()))->containsStrict($status);
     }
 }

@@ -93,7 +93,7 @@ class Config
     {
         $general = new GeneralParser();
 
-        $config = collect([
+        $config = new Collection([
             'general' => $general->parse(),
         ]);
 
@@ -160,6 +160,6 @@ class Config
 
     public function getMediaTypes(): Collection
     {
-        return collect($this->get('general/accept_media_types'));
+        return new Collection($this->get('general/accept_media_types'));
     }
 }

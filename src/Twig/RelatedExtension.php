@@ -10,6 +10,7 @@ use Bolt\Repository\RelationRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Illuminate\Support\Collection;
 
 class RelatedExtension extends AbstractExtension
 {
@@ -54,7 +55,7 @@ class RelatedExtension extends AbstractExtension
     {
         $relations = $this->relationRepository->findRelations($content, null, $bidirectional, $limit);
 
-        return collect($relations)
+        return (new Collection($relations))
             ->reduce(function (array $result, Relation $relation) use ($content): array {
                 $relatedContent = $this->extractContentFromRelation($relation, $content);
                 if ($relatedContent !== null) {
@@ -76,7 +77,7 @@ class RelatedExtension extends AbstractExtension
 
         $relations = $this->relationRepository->findRelations($content, $name, $bidirectional, $limit);
 
-        return collect($relations)
+        return (new Collection($relations))
             ->map(function (Relation $relation) use ($content) {
                 return $this->extractContentFromRelation($relation, $content);
             })

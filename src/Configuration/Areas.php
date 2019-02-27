@@ -32,12 +32,12 @@ final class Areas
             return $this->areas->get($area)[$key];
         }
 
-        return collect($this->areas->get($area));
+        return new Collection($this->areas->get($area));
     }
 
     private function initAreas(): void
     {
-        $this->areas = collect([
+        $this->areas = new Collection([
             'config' => [
                 'key' => 'config',
                 'name' => 'Configuration files',

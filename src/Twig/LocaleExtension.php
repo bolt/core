@@ -29,7 +29,7 @@ class LocaleExtension extends AbstractExtension
 
     public function __construct(string $locales, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
     {
-        $this->localeCodes = collect(explode('|', $locales));
+        $this->localeCodes = new Collection(explode('|', $locales));
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
     }
@@ -133,7 +133,7 @@ class LocaleExtension extends AbstractExtension
             $localeCode = mb_strtolower($splitCode[0]);
         }
 
-        return collect([
+        return new Collection([
             'code' => $localeCode,
             'name' => Intl::getLocaleBundle()->getLocaleName($localeCode),
             'localizedname' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode),
@@ -168,7 +168,7 @@ class LocaleExtension extends AbstractExtension
 
     private function getFlagCodes()
     {
-        return collect([
+        return new Collection([
             'AD' => 'Andorra',
             'AE' => 'United Arab Emirates',
             'AF' => 'Afghanistan',

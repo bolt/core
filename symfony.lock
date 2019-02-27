@@ -191,6 +191,12 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
+    "illuminate/contracts": {
+        "version": "v5.8.0"
+    },
+    "illuminate/support": {
+        "version": "v5.8.0"
+    },
     "intervention/image": {
         "version": "2.4.2"
     },

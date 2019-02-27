@@ -129,7 +129,6 @@
     },
     "conflict": {
         "symfony/symfony": "*",
-        "illuminate/support": "*",
         "api-platform/core": "v2.4.0-beta.2"
     },
     "extra": {
