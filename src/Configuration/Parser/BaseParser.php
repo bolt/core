@@ -46,7 +46,7 @@ abstract class BaseParser
         // Unset the repeated nodes key after parse
         unset($yaml['__nodes']);
 
-        return collect($yaml);
+        return new Collection($yaml);
     }
 
     public function getFilenames(): array

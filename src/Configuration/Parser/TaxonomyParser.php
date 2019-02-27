@@ -79,6 +79,6 @@ class TaxonomyParser extends BaseParser
             $taxonomies[$key] = $taxonomy;
         }
 
-        return collect($taxonomies);
+        return new Collection($taxonomies);
     }
 }
