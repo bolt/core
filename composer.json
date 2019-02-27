@@ -8,7 +8,7 @@
         "ext-json": "*",
         "ext-pdo": "*",
         "ext-mbstring": "*",
-        "api-platform/core": "^2.4@beta",
+        "api-platform/core": "v2.4.0-beta.1",
         "bolt/common": "^2.0.2",
         "cocur/slugify": "^3.1",
         "doctrine/annotations": "^1.0",
@@ -133,7 +133,7 @@
     "conflict": {
         "symfony/symfony": "*",
         "illuminate/support": "*",
-        "api-platform/core": "v2.4.0-beta.2, 2.4.x-dev, dev-2.4.x-dev, @dev"
+        "api-platform/core": "v2.4.0-beta.2"
     },
     "extra": {
         "symfony": {
