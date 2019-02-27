@@ -43,7 +43,7 @@
         "symfony/polyfill-php72": "^1.8",
         "symfony/security-bundle": "^4.2",
         "symfony/serializer": "^4.2",
-        "symfony/swiftmailer-bundle": "^3.1",
+        "symfony/swiftmailer-bundle": "^3.2",
         "symfony/translation": "^4.2",
         "symfony/twig-bundle": "^4.2",
         "symfony/validator": "^4.2",
