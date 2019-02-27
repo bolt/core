@@ -13,19 +13,23 @@ matrix:
   fast_finish: true
   include:
     - php: 7.1
+    - php: 7.1
+      env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 7.2
     - php: 7.3
     - php: nightly
       env: COMPOSER_FLAGS="--ignore-platform-reqs"
   allow_failures:
     - php: nightly
+    - php: 7.1
+      env: COMPOSER_FLAGS="--prefer-lowest"
 
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
-  - composer self-update
+  - composer self-update -q
 
 install:
-  - COMPOSER_MEMORY_LIMIT=-1 composer install $COMPOSER_FLAGS
+  - COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
   - nvm install 8.2
   - npm install
   - cd tests/e2e && npm install && node ./node_modules/protractor/bin/webdriver-manager update --gecko=false && cd ../..
@@ -55,7 +59,7 @@ script:
   # this checks that the application doesn't use dependencies with known security vulnerabilities
   - ./bin/console security:check
   # this checks that the composer.json and composer.lock files are valid
-  - composer validate --strict
+  # - composer validate --strict # temporarily disabled bue to bug in api platform 2.4.0-beta.2
   # this checks that Doctrine's mapping configurations are valid
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
   # run PHP Unit / PHP Spec tests
