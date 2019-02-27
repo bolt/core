@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig_Environment;

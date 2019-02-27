@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Configuration;
 
 use Exception;
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
 /**

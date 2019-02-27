@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Configuration\PathResolver;
-use Illuminate\Support\Collection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\Yaml\Yaml;
+use Tightenco\Collect\Support\Collection;
 
 abstract class BaseParser
 {

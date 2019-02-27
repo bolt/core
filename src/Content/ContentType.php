@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 
 class ContentType extends Collection
 {

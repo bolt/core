@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * @see \Bolt\Entity\Content

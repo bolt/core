@@ -7,7 +7,7 @@ namespace Bolt\Entity\Field;
 use Bolt\Entity\Field;
 use Bolt\Utils\Str;
 use Doctrine\ORM\Mapping as ORM;
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity

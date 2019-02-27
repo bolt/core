@@ -7,7 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;

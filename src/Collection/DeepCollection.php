@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Collection;
 
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 
 class DeepCollection extends Collection
 {

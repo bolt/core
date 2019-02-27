@@ -10,9 +10,9 @@ use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
-use Illuminate\Support\Collection;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Tightenco\Collect\Support\Collection;
 
 class Config
 {

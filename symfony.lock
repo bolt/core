@@ -827,6 +827,9 @@
     "theseer/tokenizer": {
         "version": "1.1.0"
     },
+    "tightenco/collect": {
+        "version": "v5.7.27"
+    },
     "twig/extensions": {
         "version": "1.0",
         "recipe": {

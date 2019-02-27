@@ -6,7 +6,7 @@ namespace Bolt;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 
 class TemplateChooser
 {

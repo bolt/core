@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Utils\Str;
-use Illuminate\Support\Collection;
+use Tightenco\Collect\Support\Collection;
 
 class TaxonomyParser extends BaseParser
 {

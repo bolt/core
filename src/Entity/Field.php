@@ -7,8 +7,8 @@ namespace Bolt\Entity;
 use Bolt\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Illuminate\Support\Collection as LaravelCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")

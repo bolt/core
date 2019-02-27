@@ -7,9 +7,9 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Version;
-use Illuminate\Support\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
 class TwigAwareController extends AbstractController
