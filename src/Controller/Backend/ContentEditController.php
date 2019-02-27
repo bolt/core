@@ -236,7 +236,7 @@ class ContentEditController extends TwigAwareController
 
     private function updateTaxonomy(Content $content, string $key, $taxonomy): void
     {
-        $taxonomy = new Collection(Json::findArray($taxonomy));
+        $taxonomy = (new Collection(Json::findArray($taxonomy)))->filter();
 
         // Remove old ones
         foreach ($content->getTaxonomies($key) as $current) {
@@ -244,7 +244,7 @@ class ContentEditController extends TwigAwareController
         }
 
         // Then (re-) add selected ones
-        foreach ($taxonomy->filter() as $slug) {
+        foreach ($taxonomy as $slug) {
             $taxonomy = $this->taxonomyRepository->findOneBy([
                 'type' => $key,
                 'slug' => $slug,
