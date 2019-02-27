@@ -30,8 +30,8 @@ class ContentRepository extends ServiceEntityRepository
     public function createQueryBuilder($alias, $indexBy = null): QueryBuilder
     {
         return (new QueryBuilder($this->getEntityManager()))
-        ->select($alias)
-        ->from($this->_entityName, $alias, $indexBy);
+            ->select($alias)
+            ->from($this->_entityName, $alias, $indexBy);
     }
 
     public function getQueryBuilder(): QueryBuilder

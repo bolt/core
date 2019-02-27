@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Parser;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Storage\Query\Conditional\Types;
-use Bolt\Storage\Query\Types\BlockType;
 use Bolt\Storage\Query\Types\DateType;
 use Bolt\Storage\Query\Types\RepeaterType;
 use GraphQL\Type\Definition\IDType;
@@ -14,6 +15,7 @@ use GraphQL\Type\Definition\IntType;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\StringType;
 use GraphQL\Type\Definition\Type;
+use Ramsey\Uuid\Uuid;
 
 class ContentFieldParser
 {
@@ -54,20 +56,22 @@ class ContentFieldParser
             'OR' => [
                 'type' => new ListOfType(Type::nonNull(
                     new InputObjectType([
-                        'name' => 'OR_filter_'.md5(time().rand(1000,9999)),
+                        'name' => 'OR_filter_'.Uuid::uuid4()->toString(),
                         'fields' => $isFirst ? array_merge(
-                            $contentFields[$contentType], $this->getContentFilterFields($contentType,false)
-                        ) : $contentFields[$contentType]
+                            $contentFields[$contentType],
+                            $this->getContentFilterFields($contentType, false)
+                        ) : $contentFields[$contentType],
                     ])
                 )),
             ],
             'AND' => [
                 'type' => new ListOfType(Type::nonNull(
                     new InputObjectType([
-                        'name' => 'AND_filter_'.md5(time().rand(1000,9999)),
+                        'name' => 'AND_filter_'.Uuid::uuid4()->toString(),
                         'fields' => $isFirst ? array_merge(
-                            $contentFields[$contentType], $this->getContentFilterFields($contentType,false)
-                        ) : $contentFields[$contentType]
+                            $contentFields[$contentType],
+                            $this->getContentFilterFields($contentType, false)
+                        ) : $contentFields[$contentType],
                     ])
                 )),
             ],
@@ -99,19 +103,16 @@ class ContentFieldParser
                 return Type::int();
                 break;
             case 'number':
-                if ($fieldConfiguration['mode'] === 'integer'){
+                if ($fieldConfiguration['mode'] === 'integer') {
                     return Type::int();
-                } else {
-                    return Type::float();
                 }
+                return Type::float();
+
                 break;
             case 'date':
                 return new DateType();
                 break;
             case 'block':
-                return new BlockType($this->parseContentTypeFields($contentType, $fieldConfiguration['fields']), $this);
-
-                break;
             case 'repeater':
                 return new RepeaterType($this->parseContentTypeFields($contentType, $fieldConfiguration['fields']));
                 break;

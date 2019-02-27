@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Types;
 
 use GraphQL\Type\Definition\ObjectType;
+use Ramsey\Uuid\Uuid;
 
 class RepeaterType extends ObjectType
 {
     public function __construct(array $fields)
     {
         $config = [
-            'name' => 'Repeater_'.md5(time().rand(1000,9999)),
+            'name' => 'Repeater_'.Uuid::uuid4()->toString(),
             'fields' => $fields,
         ];
         parent::__construct($config);

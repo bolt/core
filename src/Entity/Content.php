@@ -14,7 +14,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
-use Symfony\Component\Serializer\SerializerAwareInterface;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
@@ -31,7 +30,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * })
  * @ORM\HasLifecycleCallbacks
  */
-class Content implements \JsonSerializable, \Serializable
+class Content implements \JsonSerializable
 {
     use ContentLocalizeTrait;
     use ContentExtrasTrait;
@@ -458,43 +457,5 @@ class Content implements \JsonSerializable, \Serializable
         } catch (\InvalidArgumentException $e) {
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
-    }
-
-    public function serialize(): string
-    {
-        /** @var Content $content */
-        $content = $this;
-
-        if ($this->getDefinition() === null) {
-            return '';
-        }
-
-        $arrayObject =  [
-            'id' => $content->getId(),
-            'contentType' => $content->getContentType(),
-            'slug' => $content->getSlug(),
-            'author' => [
-                'id' => $content->getAuthor()->getId(),
-                'displayName' => $content->getAuthor()->getDisplayName(),
-                'username' => $content->getAuthor()->getUsername(),
-                'email' => $content->getAuthor()->getEmail(),
-            ],
-            'fields' => $content->getFieldValues(),
-            'taxonomies' => $content->getTaxonomyValues(),
-            'extras' => $this->getExtras(),
-            'status' => $content->getStatus(),
-            'icon' => $content->getIcon(),
-            'createdAt' => $content->getCreatedAt(),
-            'modifiedAt' => $content->getModifiedAt(),
-            'publishedAt' => $content->getPublishedAt(),
-            'depublishedAt' => $content->getDepublishedAt(),
-        ];
-
-        return serialize($arrayObject);
-    }
-
-    public function unserialize($serialized): array
-    {
-        return $this->unserialize($serialized);
     }
 }

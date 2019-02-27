@@ -437,6 +437,9 @@
     "ralouphie/getallheaders": {
         "version": "2.0.5"
     },
+    "ramsey/uuid": {
+        "version": "3.8.0"
+    },
     "roave/security-advisories": {
         "version": "dev-master"
     },

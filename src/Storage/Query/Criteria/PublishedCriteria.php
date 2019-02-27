@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Criteria;
 
 use Bolt\Enum\Statuses;
@@ -15,7 +17,7 @@ class PublishedCriteria implements CriteriaInterface
         return $criteria
             ->where(
                 $expr->andX(
-                    $expr->eq(sprintf('%s.published', $alias), Statuses::PUBLISHED)
+                    $expr->eq(sprintf('%s.status', $alias), Statuses::PUBLISHED)
                 )
             );
     }

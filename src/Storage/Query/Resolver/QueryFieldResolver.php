@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Storage\Query\Resolver;
 
+use Bolt\Entity\Content;
+use Bolt\Entity\Field;
+use Bolt\Storage\Query\Criteria\ContentCriteria;
+use Bolt\Storage\Query\Criteria\PublishedCriteria;
 use Bolt\Storage\Query\FilterExpressionBuilder;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Join;
 use GraphQL\Type\Definition\ResolveInfo;
 
 class QueryFieldResolver
@@ -19,7 +24,7 @@ class QueryFieldResolver
         $this->entityManager = $entityManager;
     }
 
-    public function resolve(array $args, ResolveInfo $info): array
+    public function resolve(array $args, ResolveInfo $info)
     {
         if ($info->fieldName === 'hello') {
             return $this->helloMessage();
@@ -31,22 +36,50 @@ class QueryFieldResolver
     private function helloMessage(): array
     {
         return [
-            'This message will be shown if welcome query works!'
+            'This message will be shown if welcome query works!',
         ];
     }
 
-    private function contentResolve(array $args, ResolveInfo $info): array
+    private function contentResolve(array $args, ResolveInfo $info)
     {
-        $expression = $this->filterExpressionBuilder->build($args['filter']);
+        $parameters = [];
 
-        dump($expression);die;
+        $contentTypeAlias = 'c';
 
-        $qb = new QueryBuilder($this->entityManager);
-        $qb->select('*')
-            ->from('content', 'c')
-            ->where($expression);
+        $qb = $this->entityManager->createQueryBuilder();
+        $qb->select($contentTypeAlias)
+            ->from(Content::class, $contentTypeAlias)
+            ->join(Field::class, $info->fieldName, Join::WITH, $info->fieldName.'.content = c.id');
 
-        dump($qb->getDQL());die;
-        return [];
+        if (isset($args['filter'])) {
+            $expression = $this->filterExpressionBuilder->build($info->fieldName, $args['filter']);
+            $parameters += $this->filterExpressionBuilder->getParametersValues();
+            $qb->andWhere($expression)
+                ->setParameters($parameters);
+        }
+
+        $qb->setMaxResults($args['limit']);
+
+        $qb->addCriteria((new ContentCriteria())->getCriteria($info->fieldName, $contentTypeAlias));
+        $qb->addCriteria((new PublishedCriteria())->getCriteria());
+
+        $results = $qb->getQuery()->execute();
+
+        return $this->getPreparedResults($results, $info->getFieldSelection());
+    }
+
+    private function getPreparedResults(array $results, array $fields)
+    {
+        $preparedResults = [];
+        /** @var Content $result */
+        foreach ($results as $resultKey => $result) {
+            $arrayResult = $result->jsonSerialize();
+            foreach (array_keys($fields) as $key) {
+                $preparedResults[$resultKey][$key] = $arrayResult['fields'][$key];
+            }
+            $preparedResults[$resultKey] = new \ArrayObject($preparedResults[$resultKey]);
+        }
+
+        return $preparedResults;
     }
 }

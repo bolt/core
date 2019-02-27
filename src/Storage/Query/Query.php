@@ -22,13 +22,14 @@ class Query
         $this->queryFieldResolver = $queryFieldResolver;
     }
 
-    public function getContentForTwig(string $textQuery, array $parameters = [])
+    public function getContentForTwig(string $textQuery, array $parameters = []): void
     {
         $schema = new Schema([
-            'query' => new QueryType($this->contentFieldParser, $this->queryFieldResolver)
+            'query' => new QueryType($this->contentFieldParser, $this->queryFieldResolver),
         ]);
 
         $result = GraphQL::executeQuery($schema, $textQuery);
-        dump($result);die;
+        dump($result);
+        die;
     }
 }

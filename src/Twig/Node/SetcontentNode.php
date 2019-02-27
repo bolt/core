@@ -19,11 +19,7 @@ use Twig\Node\Node;
 class SetcontentNode extends Node
 {
     /**
-     * @param $name
-     * @param Node $contentType
-     * @param ArrayExpression $arguments
-     * @param array $whereArguments
-     * @param integer $lineNo
+     * @param int         $lineNo
      * @param string|null $tag
      */
     public function __construct($name, Node $contentType, ArrayExpression $arguments, array $whereArguments, $lineNo, $tag = null)

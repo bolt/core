@@ -12,7 +12,6 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Storage\Query\Query;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,7 +56,6 @@ class DetailController extends TwigAwareController
      *     "/api/graphql",
      *     name="graphql",
      *     methods={"GET", "POST"})
-     *
      */
     public function graph(): RedirectResponse
     {
@@ -66,20 +64,29 @@ class DetailController extends TwigAwareController
 
     /**
      * @Route(
-     *     "/content",
-     *     name="content",
-     *     methods={"GET", "POST"})
-     *
+     *     "/get_content",
+     *     name="get_content",
+     *     methods={"GET"})
      */
     public function content(): RedirectResponse
     {
         $content = '
         query {
-            showcases (filter:{title_contains:"test", integerfield: 3, OR:[{title: "test"}, {integerfield: 2}]}) {
-                title
-            }
+            showcases {
+                *
+            }  
         }
         ';
+
+        /*
+         * get_content( '
+        query {
+            showcases {
+                *
+            }
+        }
+        ')
+         */
 
 //        $content = '
 //        query {
@@ -93,7 +100,6 @@ class DetailController extends TwigAwareController
      * @Route(
      *     "/api",
      *     methods={"GET", "POST"})
-     *
      */
     public function api(): RedirectResponse
     {

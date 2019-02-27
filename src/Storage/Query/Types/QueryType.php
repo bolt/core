@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Types;
 
 use Bolt\Storage\Query\Parser\ContentFieldParser;
@@ -8,24 +10,22 @@ use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use Ramsey\Uuid\Uuid;
 
 class QueryType extends ObjectType
 {
     private $contentFieldParser;
 
-    private $queryResolver;
-
     public function __construct(ContentFieldParser $contentFieldParser, QueryFieldResolver $queryResolver)
     {
         $this->contentFieldParser = $contentFieldParser;
-        $this->queryResolver = $queryResolver;
 
         $config = [
             'name' => 'Query',
             'fields' => $this->generateQueryFields(),
             'resolveField' => function ($val, array $args, $context, ResolveInfo $info) use ($queryResolver) {
                 return $queryResolver->resolve($args, $info);
-            }
+            },
         ];
 
         parent::__construct($config);
@@ -37,7 +37,7 @@ class QueryType extends ObjectType
         $queryContentFields = [];
         foreach ($contentFields as $contentType => $fields) {
             $queryContentFields[$contentType] = [
-                'type' => new ContentType($contentType, $fields),
+                'type' => Type::listOf(new ContentType($contentType, $fields)),
                 'description' => 'Represents list of ' . $contentType,
                 'args' => [
                     'first' => [
@@ -49,11 +49,11 @@ class QueryType extends ObjectType
                     ],
                     'filter' => [
                         'type' => Type::getNullableType(new InputObjectType([
-                            'name' => 'ContentFilterInput_' . md5(time() . rand(1000, 9999)),
+                            'name' => 'ContentFilterInput_' . Uuid::uuid4()->toString(),
                             'fields' => $this->contentFieldParser->getContentFilterFields($contentType),
                         ])),
-                    ]
-                ]
+                    ],
+                ],
             ];
         }
 
