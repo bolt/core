@@ -8,6 +8,7 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Storage\Query\Conditional\Types;
 use Bolt\Storage\Query\Types\DateType;
+use Bolt\Storage\Query\Types\ImageType;
 use Bolt\Storage\Query\Types\RepeaterType;
 use GraphQL\Type\Definition\IDType;
 use GraphQL\Type\Definition\InputObjectType;
@@ -89,7 +90,6 @@ class ContentFieldParser
             case 'html':
             case 'templateselect':
             case 'file':
-            case 'image':
             case 'video':
             case 'select':
             case 'filelist':
@@ -97,6 +97,7 @@ class ContentFieldParser
             case 'embed':
             case 'geolocation':
             case 'markdown':
+            case 'date':
                 return Type::string();
                 break;
             case 'checkbox':
@@ -109,12 +110,16 @@ class ContentFieldParser
                 return Type::float();
 
                 break;
-            case 'date':
-                return new DateType();
-                break;
             case 'block':
             case 'repeater':
-                return new RepeaterType($this->parseContentTypeFields($contentType, $fieldConfiguration['fields']));
+                return Type::listOf(
+                    new RepeaterType(
+                        $this->parseContentTypeFields($contentType, $fieldConfiguration['fields'])
+                    )
+                );
+                break;
+            case 'image':
+                return new ImageType();
                 break;
         }
 

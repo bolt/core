@@ -9,9 +9,12 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
+use Bolt\Storage\Query\Generator\SimpleGraphGenerator;
 use Bolt\Storage\Query\Query;
 use Bolt\TemplateChooser;
+use function GuzzleHttp\Psr7\parse_query;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,18 +39,22 @@ class DetailController extends TwigAwareController
 
     private $query;
 
+    private $simpleGraphGenerator;
+
     public function __construct(
         Config $config,
         Environment $twig,
         TemplateChooser $templateChooser,
         ContentRepository $contentRepository,
         FieldRepository $fieldRepository,
-        Query $query
+        Query $query,
+        SimpleGraphGenerator $simpleGraphGenerator
     ) {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
         $this->fieldRepository = $fieldRepository;
         $this->query = $query;
+        $this->simpleGraphGenerator = $simpleGraphGenerator;
         parent::__construct($config, $twig);
     }
 
@@ -64,36 +71,19 @@ class DetailController extends TwigAwareController
 
     /**
      * @Route(
-     *     "/get_content",
+     *     "/api/get_content",
      *     name="get_content",
      *     methods={"GET"})
      */
-    public function content(): RedirectResponse
+    public function content(Request $request): Response
     {
-        $content = '
-        query {
-            showcases {
-                *
-            }  
-        }
-        ';
+        $query = $request->get('query');
 
-        /*
-         * get_content( '
-        query {
-            showcases {
-                *
-            }
+        if (preg_match('#[a-zA-Z0-9_]+\/[a-zA-Z0-9_\-]+#', $query)) {
+            return $this->query->getContentForTwig($this->simpleGraphGenerator->generate($query));
         }
-        ')
-         */
 
-//        $content = '
-//        query {
-//            hello
-//        }
-//        ';
-        $this->query->getContentForTwig($content);
+        return $this->query->getContentForTwig($query);
     }
 
     /**

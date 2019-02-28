@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query;
+namespace Bolt\Storage\Query\Expression;
 
 use Bolt\Storage\Query\Conditional\Types;
 use Doctrine\ORM\Query\Expr;

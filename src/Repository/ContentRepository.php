@@ -27,13 +27,6 @@ class ContentRepository extends ServiceEntityRepository
         parent::__construct($registry, Content::class);
     }
 
-    public function createQueryBuilder($alias, $indexBy = null): QueryBuilder
-    {
-        return (new QueryBuilder($this->getEntityManager()))
-            ->select($alias)
-            ->from($this->_entityName, $alias, $indexBy);
-    }
-
     public function getQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('content');

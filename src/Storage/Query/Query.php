@@ -9,6 +9,7 @@ use Bolt\Storage\Query\Resolver\QueryFieldResolver;
 use Bolt\Storage\Query\Types\QueryType;
 use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Query
 {
@@ -22,14 +23,14 @@ class Query
         $this->queryFieldResolver = $queryFieldResolver;
     }
 
-    public function getContentForTwig(string $textQuery, array $parameters = []): void
+    public function getContentForTwig(string $textQuery): JsonResponse
     {
         $schema = new Schema([
             'query' => new QueryType($this->contentFieldParser, $this->queryFieldResolver),
         ]);
 
         $result = GraphQL::executeQuery($schema, $textQuery);
-        dump($result);
-        die;
+
+        return new JsonResponse($result->toArray());
     }
 }

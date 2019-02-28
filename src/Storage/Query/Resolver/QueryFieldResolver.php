@@ -8,7 +8,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Storage\Query\Criteria\ContentCriteria;
 use Bolt\Storage\Query\Criteria\PublishedCriteria;
-use Bolt\Storage\Query\FilterExpressionBuilder;
+use Bolt\Storage\Query\Expression\FilterExpressionBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -24,7 +24,7 @@ class QueryFieldResolver
         $this->entityManager = $entityManager;
     }
 
-    public function resolve(array $args, ResolveInfo $info)
+    public function resolve(array $args, ResolveInfo $info): array
     {
         if ($info->fieldName === 'hello') {
             return $this->helloMessage();
@@ -40,7 +40,7 @@ class QueryFieldResolver
         ];
     }
 
-    private function contentResolve(array $args, ResolveInfo $info)
+    private function contentResolve(array $args, ResolveInfo $info): array
     {
         $parameters = [];
 
@@ -59,16 +59,16 @@ class QueryFieldResolver
         }
 
         $qb->setMaxResults($args['limit']);
+        $qb->groupBy($contentTypeAlias.'.id');
 
         $qb->addCriteria((new ContentCriteria())->getCriteria($info->fieldName, $contentTypeAlias));
         $qb->addCriteria((new PublishedCriteria())->getCriteria());
-
         $results = $qb->getQuery()->execute();
 
         return $this->getPreparedResults($results, $info->getFieldSelection());
     }
 
-    private function getPreparedResults(array $results, array $fields)
+    private function getPreparedResults(array $results, array $fields): array
     {
         $preparedResults = [];
         /** @var Content $result */
