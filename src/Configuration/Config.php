@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration;
 
+use Bolt\Collection\DeepCollection;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
@@ -92,7 +93,7 @@ class Config
     {
         $general = new GeneralParser();
 
-        $config = collect([
+        $config = new Collection([
             'general' => $general->parse(),
         ]);
 
@@ -110,7 +111,10 @@ class Config
 
         $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes);
 
-        return [$config, $timestamps];
+        return [
+            DeepCollection::deepMake($config),
+            $timestamps,
+        ];
     }
 
     private function getConfigFilesTimestamps(BaseParser ...$configs): array
@@ -156,6 +160,6 @@ class Config
 
     public function getMediaTypes(): Collection
     {
-        return collect($this->get('general/accept_media_types'));
+        return new Collection($this->get('general/accept_media_types'));
     }
 }

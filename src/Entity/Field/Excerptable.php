@@ -9,4 +9,7 @@ namespace Bolt\Entity\Field;
  */
 interface Excerptable
 {
+    public function __toString(): string;
+
+    public function getName(): string;
 }

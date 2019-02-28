@@ -2,7 +2,8 @@
     <!-- listing records -->
     <listing-records
       type="{{ type }}"
-      :data="{{ jsonrecords(records) }}"
+      {# tricky part: https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle/issues/165#issuecomment-462777227 #}
+      :data="{{ records|merge([])|json_encode }}"
     >
     </listing-records>
     <!-- end listing records -->

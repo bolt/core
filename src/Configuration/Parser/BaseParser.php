@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\Yaml\Yaml;
 use Tightenco\Collect\Support\Collection;
 
-class BaseParser
+abstract class BaseParser
 {
     /** @var FileLocator */
     protected $fileLocator;
@@ -46,11 +46,13 @@ class BaseParser
         // Unset the repeated nodes key after parse
         unset($yaml['__nodes']);
 
-        return collect($yaml);
+        return new Collection($yaml);
     }
 
     public function getFilenames(): array
     {
         return $this->filenames;
     }
+
+    abstract public function parse(): Collection;
 }

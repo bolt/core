@@ -1,7 +1,7 @@
 {# This file is inserted as the 'footer' of each listed record. #}
 <p class="meta">
-    {% if record.editlink() %}
-        <span class="edit-link"><a href="{{ record.editlink() }}"><strong>{{ __('general.phrase.edit') }}</strong></a></span> -
+    {% if user %}
+        <span class="edit-link"><a href="{{ record|edit_link }}"><strong>{{ __('general.phrase.edit') }}</strong></a></span> -
     {% endif %}
     {{ __('general.phrase.written-by-on', {
         '%name%': record.author.displayname|default(__('Unknown')),
@@ -9,39 +9,44 @@
     }) }}
 </p>
 
-{% if extended|default() %}
+{% if extended|default %}
     <p class="meta">
-        <a href="{{ record.link() }}">{{ __('general.phrase.permalink') }}</a> -
+        <a href="{{ record|link }}">{{ __('general.phrase.permalink') }}</a> -
         {# include the 'default' links to taxonomies. Check the documentation for ways to modify and customize
            what is output to the browser: https://docs.bolt.cm/contenttypes/taxonomies#displaying-taxonomies-in-templates #}
         {{ include('partials/_sub_taxonomylinks.twig', { record: record }) }}
     </p>
 
-    {# @todo refactor to eg. record_prevoius(record, field='id'), same with next #}
-    {% set previous = record.previous('id') %}
-    {% set next = record.next('id') %}
+    {% set previous = previous_record(record, byColumn='id') %}
+    {% set next = next_record(record, byColumn='id') %}
 
     {% if previous or next %}
         <p class="meta">
             {% if previous %}
-                <a href="{{ previous.link }}">&laquo; {{ previous.title }}</a>
+                <a href="{{ previous|link }}">&laquo; {{ previous|title }}</a>
             {% endif %}
             {% if previous and next %}
             -
             {% endif %}
             {% if next %}
-                <a href="{{ next.link }}">{{ next.title }} &raquo;</a>
+                <a href="{{ next|link }}">{{ next|title }} &raquo;</a>
             {% endif %}
         </p>
     {% endif %}
 
-    {# @todo See Github Issue https://github.com/bolt/four/issues/252 #}
-    {% set relatedrecords = record.related() %}
-    {% if relatedrecords is not empty %}
+    {% set related_content_types = record|related_all %}
+    {% if related_content_types is not empty %}
         <p class="meta">{{ __('general.phrase.related-content') }}
         <ul>
-            {% for related in relatedrecords %}
-                <li><a href="{{ related.link }}">{{ related.title }}</a></li>
+            {% for content_type, related_records in related_content_types %}
+                <li>
+                    <h4>Related {{ app.config.contenttypes[content_type].name }}</h4>
+                    <ul>
+                        {% for related_record in related_records %}
+                            <li><a href="{{ related_record|link }}">{{ related_record|title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
             {%  endfor %}
         </ul>
         </p>

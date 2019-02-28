@@ -30,14 +30,14 @@ class ContentTypesParser extends BaseParser
      */
     public function parse(): Collection
     {
-        $contentTypes = new Collection();
+        $contentTypes = [];
         $tempContentTypes = $this->parseConfigYaml('contenttypes.yaml');
         foreach ($tempContentTypes as $key => $contentType) {
             $contentType = $this->parseContentType($key, $contentType);
             $contentTypes[$key] = $contentType;
         }
 
-        return $contentTypes;
+        return new Collection($contentTypes);
     }
 
     /**
@@ -192,8 +192,8 @@ class ContentTypesParser extends BaseParser
             // If field is an "image" type, make sure the 'extensions' are set, and it's an array.
             if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
                 if (empty($field['extensions'])) {
-                    $field['extensions'] = collect(['gif', 'jpg', 'jpeg', 'png', 'svg'])
-                        ->intersect($this->acceptFileTypes);
+                    $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg']);
+                    $field['extensions'] = $extensions->intersect($this->acceptFileTypes)->toArray();
                 }
 
                 $field['extensions'] = (array) $field['extensions'];

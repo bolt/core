@@ -4,14 +4,14 @@
 
     {% if record is defined %}
 
-        <h1><a href="{{ record.link }}">{{ record.title }}</a></h1>
+        <h1><a href="{{ record|link }}">{{ record|title }}</a></h1>
 
         {# Remove this block if you don't need it anymore. #}
         {{ include('partials/_fresh_install.twig') }}
 
-        {{ record.teaser }}
+        {{ record|excerpt }}
 
-        {{ popup(record.image, 1200, 500) }}
+        {{ popup(record|image, 1200, 500) }}
 
         {{ record.content }}
 

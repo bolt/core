@@ -10,9 +10,14 @@
 
 {% block vue_id 'listing' %}
 
+{# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
+{% block topsection %}
+
+{% endblock %}
+
 {% block main %}
     <div>
-        {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': 'contentType'  } %}
+        {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': contentType.slug } %}
     </div>
 {% endblock %}
 

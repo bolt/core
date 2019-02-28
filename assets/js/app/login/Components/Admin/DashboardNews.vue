@@ -29,7 +29,7 @@ export default {
         .then(news => {
           this.news = news;
         })
-        .catch(error => console.log(error))
+        .catch(error => console.warn(error))
         .finally(() => {
           this.loading = false;
         });

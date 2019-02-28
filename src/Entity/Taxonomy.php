@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Utils\Str;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,11 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"get_content", "public"}},
- *     collectionOperations={"get"},
- *     itemOperations={"get"}
- * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\TaxonomyRepository")
  */
 class Taxonomy
@@ -31,7 +25,6 @@ class Taxonomy
 
     /**
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies")
-     * @ORM\JoinTable(name="taxonomy_content")
      */
     private $content;
 

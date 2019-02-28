@@ -5,6 +5,8 @@ export function getRecords(type) {
 }
 
 export function fetchRecords(type) {
+  // @todo this is probably never used
+  console.warn('remove above todo');
   return axios
     .get(`/api/contents.json?contentType=${type}&pageSize=5`)
     .then(response => {

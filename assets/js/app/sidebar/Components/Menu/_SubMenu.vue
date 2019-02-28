@@ -8,15 +8,15 @@
     </li>
     <!-- eslint-disable vue/no-use-v-if-with-v-for -->
     <li
-      v-for="(record, index) in item.submenu"
+      v-for="(subitem, index) in item.submenu"
       v-if="item.submenu !== null"
       :key="index"
     >
       <!-- eslint-enable -->
-      <a :href="record.editLink">
-        <i class="fas fa-fw mr-2" :class="record.icon"></i>
+      <a :href="subitem.editLink">
+        <i class="fas fa-fw mr-2" :class="subitem.icon"></i>
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="record.name"></span>
+        <span v-html="subitem.name"></span>
       </a>
     </li>
   </ul>

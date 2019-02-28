@@ -6,7 +6,7 @@ export function getNews() {
 
 export function fetchNews() {
   return axios.get('/async/news').then(response => {
-    localStorage.setItem('dashboardnews', JSON.stringify(response.data));
+    localStorage.setItem('dashboardnews', response.data);
     return response.data;
   });
 }

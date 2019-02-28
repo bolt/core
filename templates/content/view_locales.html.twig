@@ -2,7 +2,7 @@
 
 {% set alltypes = ['select'] %}
 {% for key, fielddefinition in record.definition.fields %}
-    {% set alltypes = alltypes | merge([fielddefinition.type]) %}
+    {% set alltypes = alltypes|merge([fielddefinition.type]) %}
 {% endfor %}
 
 {% block title %}
@@ -10,7 +10,7 @@
     {{ 'caption.edit'|trans }}
     {{ record.definition.singular_name }}
     »
-    <strong>{{ record.title|excerpt(50)|default('New') }}</strong>
+    <strong>{{ excerpt(record|title, 50)|default('New') }}</strong>
 {% endblock %}
 
 {#{% block vue_id 'editor' %}#}
@@ -37,7 +37,7 @@
                     <td>
                         {% if not field.definition.localize and not loop.first %}
                             <span class="badge badge-info">Default</span>
-                        {% elseif localizedValues[locale] | default and localizedValues[locale].value is not empty %}
+                        {% elseif localizedValues[locale]|default and localizedValues[locale].value is not empty %}
                             <span class="badge badge-success">OK</span>
                         {% else %}
                             <span class="badge badge-warning">Missing</span>

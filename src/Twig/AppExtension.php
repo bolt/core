@@ -38,10 +38,7 @@ class AppExtension extends AbstractExtension
         $safe = ['is_safe' => ['html']];
 
         return [
-            new TwigFunction('image', [$this, 'dummy'], $safe),
-            new TwigFunction('thumbnail', [$this, 'dummy'], $safe),
             new TwigFunction('widgets', [$this, 'dummy'], $safe),
-            new TwigFunction('popup', [$this, 'dummy'], $safe),
         ];
     }
 

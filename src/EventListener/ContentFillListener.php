@@ -6,38 +6,35 @@ namespace Bolt\EventListener;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
+use Bolt\Twig\ContentExtension;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ContentFillListener
 {
     /** @var Config */
     private $config;
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
+    /** @var ContentExtension */
+    private $contentExtension;
 
-    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator)
+    public function __construct(Config $config, ContentExtension $contentExtension)
     {
         $this->config = $config;
-        $this->urlGenerator = $urlGenerator;
+        $this->contentExtension = $contentExtension;
     }
 
     public function postLoad(LifecycleEventArgs $args): void
     {
-        /** @var Content $entity */
         $entity = $args->getEntity();
 
-        $this->fillContent($entity);
+        if ($entity instanceof Content) {
+            $this->fillContent($entity);
+        }
     }
 
-    public function fillContent($entity): void
+    public function fillContent(Content $entity): void
     {
-        if (method_exists($entity, 'setDefinitionFromContentTypesConfig')) {
-            $entity->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
-        }
-        if (method_exists($entity, 'setUrlGenerator')) {
-            $entity->setUrlGenerator($this->urlGenerator);
-        }
+        $entity->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
+        $entity->setContentExtension($this->contentExtension);
     }
 }

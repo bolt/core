@@ -174,7 +174,7 @@ export default {
           this.progress = 0;
         })
         .catch(err => {
-          console.log(err);
+          console.warn(err);
           this.progress = 0;
         });
     },

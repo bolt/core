@@ -4,30 +4,20 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"get_content"}, "enable_max_depth"=true},
- *     denormalizationContext={"groups"={"put"}},
- *     collectionOperations={"get"},
- *     itemOperations={"get",
- *         "put"={
- *             "denormalization_context"={"groups"={"put"}},
- *         }
- *     }
- * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(
  *  uniqueConstraints={
  *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name"}),
  *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({
  *     "generic" = "field",
  *     "block" = "Bolt\Entity\Field\BlockField",
@@ -66,20 +56,20 @@ class Field implements Translatable
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("get_content")
+     * @Groups("put")
      */
     public $name;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"public", "put"})
+     * @Groups({"put"})
      * @Gedmo\Translatable
      */
     protected $value = [];
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"public", "put"})
+     * @Groups({"put"})
      */
     private $sortorder = 0;
 
@@ -116,7 +106,7 @@ class Field implements Translatable
         return implode(', ', $this->getValue());
     }
 
-    public static function factory(array $definition, string $name = ''): self
+    public static function factory(LaravelCollection $definition, string $name = ''): self
     {
         $type = $definition['type'];
 
@@ -127,7 +117,7 @@ class Field implements Translatable
             $field = new self();
         }
 
-        if (! empty($name)) {
+        if ($name !== '') {
             $field->setName($name);
         }
 
@@ -141,13 +131,6 @@ class Field implements Translatable
         return $this->id;
     }
 
-    private function setDefinitionFromContentDefinition(): void
-    {
-        $contentTypeDefinition = $this->getContent()->getDefinition();
-
-        $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
-    }
-
     public function getDefinition(): FieldType
     {
         if ($this->fieldTypeDefinition === null && $this->getContent()) {
@@ -157,7 +140,13 @@ class Field implements Translatable
         return $this->fieldTypeDefinition;
     }
 
-    public function setDefinition($name, array $definition): void
+    private function setDefinitionFromContentDefinition(): void
+    {
+        $contentTypeDefinition = $this->getContent()->getDefinition();
+        $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
+    }
+
+    public function setDefinition($name, LaravelCollection $definition): void
     {
         $this->fieldTypeDefinition = FieldType::mock($name, $definition);
     }
@@ -176,7 +165,7 @@ class Field implements Translatable
 
     public function getType(): ?string
     {
-        return $this->getDefinition()['type'];
+        return $this->getDefinition()->get('type');
     }
 
     public function get($key)
@@ -197,8 +186,13 @@ class Field implements Translatable
     public function getFlattenedValue()
     {
         $value = $this->getValue();
-        if (is_iterable($value) && count($value) < 2) {
-            return reset($value);
+        if (is_iterable($value)) {
+            $count = count($value);
+            if ($count === 0) {
+                return null;
+            } elseif ($count === 1) {
+                return reset($value);
+            }
         }
 
         return $value;

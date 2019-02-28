@@ -4,18 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"get_content", "get_user"}},
- *     collectionOperations={"get"},
- *     itemOperations={"get", "put"}
- * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
  */
 class User implements UserInterface, \Serializable
@@ -42,7 +36,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true, length=190)
+     * @ORM\Column(type="string", unique=true, length=191)
      * @Assert\NotBlank()
      * @Assert\Length(min=2, max=50)
      * @Groups("get_user")
@@ -52,7 +46,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string", unique=true, length=190)
+     * @ORM\Column(type="string", unique=true, length=191)
      * @Assert\Email()
      * @Groups("get_user")
      */
@@ -61,7 +55,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=191)
      */
     private $password;
 
@@ -199,7 +193,6 @@ class User implements UserInterface, \Serializable
      */
     public function serialize(): string
     {
-        // add $this->salt too if you don't use Bcrypt or Argon2i
         return serialize([$this->id, $this->username, $this->password]);
     }
 
