@@ -17,7 +17,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name"}),
  *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({
  *     "generic" = "field",
  *     "block" = "Bolt\Entity\Field\BlockField",

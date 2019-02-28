@@ -39,8 +39,8 @@ class MomentFormatConverter
     /**
      * Returns associated moment.js format.
      */
-    public function convert(string $format): string
+    public static function convert(string $format): string
     {
-        return strtr($format, self::$formatConvertRules);
+        return strtr($format, static::$formatConvertRules);
     }
 }

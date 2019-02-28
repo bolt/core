@@ -21,7 +21,7 @@ class FieldExtension extends AbstractExtension
     public function fieldFactory(string $name, ?Collection $definition = null): Field
     {
         if ($definition === null || $definition->isEmpty()) {
-            $definition = collect(['type' => 'generic']);
+            $definition = new Collection(['type' => 'generic']);
         }
 
         return Field::factory($definition, $name);

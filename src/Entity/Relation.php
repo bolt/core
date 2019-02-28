@@ -31,7 +31,7 @@ class Relation
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191)
      * @Groups("get_relation")
      */
     private $name;
@@ -61,7 +61,7 @@ class Relation
     private $position = 0;
 
     /**
-     * @ORM\Column(name="`group`", type="string")
+     * @ORM\Column(name="`group`", type="string", length=191)
      * @Gedmo\SortableGroup
      */
     private $group;

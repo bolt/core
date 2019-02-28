@@ -139,7 +139,7 @@ docker-stancheck:
 	docker-compose exec -T php sh -c "vendor/bin/phpstan analyse -c phpstan.neon src"
 
 docker-db-create:
-	docker-compose exec -T php sh -c "bin/console doctrine:database:create --if-not-exists"
+	docker-compose exec -T php sh -c "bin/console doctrine:database:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:schema:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
 

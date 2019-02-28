@@ -9,6 +9,7 @@ use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
 class TwigAwareController extends AbstractController
@@ -49,7 +50,7 @@ class TwigAwareController extends AbstractController
 
         // Resolve string|array of templates into the first one that is found.
         if (is_array($template)) {
-            $templates = collect($template)
+            $templates = (new Collection($template))
                 ->map(function ($element): ?string {
                     if ($element instanceof TemplateselectField) {
                         return $element->__toString();

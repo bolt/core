@@ -50,7 +50,7 @@ class Content implements \JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=191)
      * @Groups("get_content")
      */
     private $contentType;
@@ -65,12 +65,12 @@ class Content implements \JsonSerializable
     private $author;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=191)
      * @Groups("put")
      */
-    private $status = null;
+    private $status;
 
     /**
      * @var \DateTime
@@ -156,7 +156,7 @@ class Content implements \JsonSerializable
     }
 
     /**
-     * @see: Bolt\EventListener\ContentFillListener
+     * @see \Bolt\EventListener\ContentFillListener
      */
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
@@ -220,7 +220,7 @@ class Content implements \JsonSerializable
         $this->author = $author;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string
     {
         if (Statuses::isValid($this->status) === false) {
             $this->status = $this->getDefinition()->get('default_status');
