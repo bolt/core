@@ -43,6 +43,9 @@ class QueryType extends ObjectType
                     'first' => [
                         'type' => Type::id(),
                     ],
+                    'last' => [
+                        'type' => Type::id(),
+                    ],
                     'limit' => [
                         'type' => Type::int(),
                         'defaultValue' => 10,

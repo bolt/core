@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage\Query\Types;
 
 use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\Type;
 
 class ContentType extends ObjectType
 {
@@ -13,7 +14,9 @@ class ContentType extends ObjectType
         $config = [
             'name' => 'Content ' . $contentType,
             'fields' => function () use ($fields) {
-                return $fields;
+                return array_merge($fields, [
+                    '*' => Type::string(),
+                ]);
             },
         ];
 

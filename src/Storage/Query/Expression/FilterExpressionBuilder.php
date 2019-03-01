@@ -84,7 +84,8 @@ class FilterExpressionBuilder
         $parameterName = $this->getUniqueParameterName($field);
         $this->parameterNames[$parameterName] = $fieldValue;
         $andFieldExpressions = [];
-        $andFieldExpressions[] = $expr->eq($this->table.'.name', "'".$field."'");
+        $andFieldExpressions[] = $expr->eq($this->table.'.name', ':fieldName'.ucfirst($fieldName));
+        $this->parameterNames['fieldName'.ucfirst($fieldName)] = $field;
         switch ($operation) {
             case Types::CONTAINS:
                 $this->parameterNames[$parameterName] = '%'.$fieldValue.'%';

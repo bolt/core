@@ -1,22 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Generator;
 
 use Bolt\Configuration\Config;
+use Bolt\Storage\Query\Definition\ContentFieldsDefinition;
+use Bolt\Storage\Query\Definition\FieldDefinition;
 
 class SimpleGraphGenerator
 {
     private $config;
-
-    private $subFieldTypes = [
-        'image' => [
-            'filename', 'alt', 'path',
-        ],
-    ];
-
-    private $customSubFieldTypes = [
-        'repeater', 'block',
-    ];
 
     public function __construct(Config $config)
     {
@@ -34,17 +28,17 @@ class SimpleGraphGenerator
     {
         $existingContentTypes = array_keys($this->config->get('contenttypes')->toArray());
 
-        if (strpos($query, '/')) {
+        if (mb_strpos($query, '/')) {
             [$contentType, $searchValue] = explode('/', $query);
 
-            if ($this->conditionValid($searchValue) === false) {
+            if ((int) $searchValue && $this->conditionValid($searchValue) === false) {
                 throw new \Exception('Search value is wrong');
             }
         } else {
-            $contentType = trim(trim($query),'/');
+            $contentType = trim(trim($query), '/');
         }
 
-        if (in_array($contentType, $existingContentTypes) === false) {
+        if (in_array($contentType, $existingContentTypes, true) === false) {
             throw new \Exception(sprintf('Content type %s is not defined', $contentType));
         }
     }
@@ -60,30 +54,38 @@ class SimpleGraphGenerator
 
     private function doGenerate(string $query): string
     {
-        [$contentType, $condition] = explode('/', $query);
-
+        if (mb_strpos($query, '/')) {
+            [$contentType, $condition] = explode('/', $query);
+        } else {
+            $contentType = trim(trim($query), '/');
+        }
         $fields = $this->config->get('contenttypes')
-                ->get($contentType)
-                ->get('fields')
-                ->toArray();
+            ->get($contentType)
+            ->get('fields')
+            ->toArray();
+
+        $fields = array_merge($fields, ContentFieldsDefinition::getMainContentFields(true));
 
         $fields = $this->prepareSubFieldType($fields);
 
-        $joinedFields = join(' ', $fields);
+        $joinedFields = implode(' ', $fields);
 
-        $query = 'query {'.$contentType.' (filter: {slug_contains: "'.$condition.'"}) {'.$joinedFields.'}}';
+        if (isset($condition)) {
+            $conditionType = (int) $condition ? 'id' : 'slug';
+            return 'query {' . $contentType . ' (filter: {'.$conditionType.': "' . $condition . '"}) {' . $joinedFields . '}}';
+        }
 
-        return $query;
+        return 'query {' . $contentType . ' {' . $joinedFields . '}}';
     }
 
     private function prepareSubFieldType(array $fields): array
     {
         $stringFields = [];
         foreach ($fields as $key => $field) {
-            if (in_array($field['type'], array_keys($this->subFieldTypes))) {
-                $stringFields[$key] = $key.' { '.join(' ', $this->subFieldTypes[$field['type']]).'}';
+            if (in_array($field['type'], array_keys(FieldDefinition::SUB_FIELDS), true)) {
+                $stringFields[$key] = $key.' { '.implode(' ', FieldDefinition::SUB_FIELDS[$field['type']]).'}';
                 continue;
-            } elseif (in_array($field['type'] , $this->customSubFieldTypes)) {
+            } elseif (in_array($field['type'], FieldDefinition::CUSTOM_FIELDS, true)) {
                 $stringFields[$key] = $this->getCustomSubFieldsForQuery($key, $field['fields']);
             } else {
                 $stringFields[$key] = $key;
@@ -104,6 +106,6 @@ class SimpleGraphGenerator
 
         $stringFields = $this->prepareSubFieldType($fields);
 
-        return $fieldName.' { '.join(' ', $stringFields).'}';
+        return $fieldName.' { '.implode(' ', $stringFields).'}';
     }
 }

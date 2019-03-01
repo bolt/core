@@ -42,8 +42,6 @@ class QueryFieldResolver
 
     private function contentResolve(array $args, ResolveInfo $info): array
     {
-        $parameters = [];
-
         $contentTypeAlias = 'c';
 
         $qb = $this->entityManager->createQueryBuilder();
@@ -53,7 +51,7 @@ class QueryFieldResolver
 
         if (isset($args['filter'])) {
             $expression = $this->filterExpressionBuilder->build($info->fieldName, $args['filter']);
-            $parameters += $this->filterExpressionBuilder->getParametersValues();
+            $parameters = $this->filterExpressionBuilder->getParametersValues();
             $qb->andWhere($expression)
                 ->setParameters($parameters);
         }
@@ -75,7 +73,12 @@ class QueryFieldResolver
         foreach ($results as $resultKey => $result) {
             $arrayResult = $result->jsonSerialize();
             foreach (array_keys($fields) as $key) {
-                $preparedResults[$resultKey][$key] = $arrayResult['fields'][$key];
+                if (array_key_exists($key, $arrayResult['fields'])) {
+                    $preparedResults[$resultKey][$key] = $arrayResult['fields'][$key];
+                }
+            }
+            foreach (array_keys($arrayResult) as $contentField) {
+                $preparedResults[$resultKey][$contentField] = $arrayResult[$contentField];
             }
             $preparedResults[$resultKey] = new \ArrayObject($preparedResults[$resultKey]);
         }

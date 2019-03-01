@@ -301,7 +301,7 @@ class Content implements \JsonSerializable
     {
         $fieldValues = [];
         foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $field->getFlattenedValue();
+            $fieldValues[$field->getName()] = $field->getValue();
         }
 
         return $fieldValues;
@@ -323,16 +323,13 @@ class Content implements \JsonSerializable
         return $taxonomyValues;
     }
 
-    /**
-     * @return array|mixed|null
-     */
     public function getFieldValue(string $fieldName)
     {
         if ($this->hasField($fieldName) === false) {
             return null;
         }
 
-        return $this->getField($fieldName)->getFlattenedValue();
+        return $this->getField($fieldName)->getValue();
     }
 
     public function getField(string $fieldName): Field

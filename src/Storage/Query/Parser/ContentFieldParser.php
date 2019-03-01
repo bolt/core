@@ -7,7 +7,7 @@ namespace Bolt\Storage\Query\Parser;
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Storage\Query\Conditional\Types;
-use Bolt\Storage\Query\Types\DateType;
+use Bolt\Storage\Query\Definition\ContentFieldsDefinition;
 use Bolt\Storage\Query\Types\ImageType;
 use Bolt\Storage\Query\Types\RepeaterType;
 use GraphQL\Type\Definition\IDType;
@@ -33,7 +33,10 @@ class ContentFieldParser
         $contentTypesFields = [];
         /** @var DeepCollection $contentTypeConfiguration */
         foreach ($contentTypes as $contentType => $contentTypeConfiguration) {
-            $contentTypesFields[$contentType] = $this->parseContentTypeFields($contentType, $contentTypeConfiguration->get('fields'));
+            $contentTypesFields[$contentType] = $this->parseContentTypeFields(
+                $contentType,
+                $contentTypeConfiguration->get('fields')
+            );
         }
 
         return $contentTypesFields;
@@ -44,8 +47,9 @@ class ContentFieldParser
         $parsedFields = [];
         foreach ($fields as $fieldName => $fieldConfiguration) {
             $parsedFields[$fieldName] = $this->getTypeForField($contentType, $fieldConfiguration);
-            $parsedFields['contentType'] = $this->getTypeForField($contentType, new DeepCollection(['type' => 'string']));
         }
+
+        $parsedFields = array_merge($parsedFields, ContentFieldsDefinition::getMainContentFields());
 
         return $this->prepareConditionalFields($parsedFields);
     }
@@ -91,7 +95,6 @@ class ContentFieldParser
             case 'templateselect':
             case 'file':
             case 'video':
-            case 'select':
             case 'filelist':
             case 'imagelist':
             case 'embed':
@@ -109,6 +112,9 @@ class ContentFieldParser
                 }
                 return Type::float();
 
+                break;
+            case 'select':
+                return Type::listOf(Type::string());
                 break;
             case 'block':
             case 'repeater':
@@ -146,7 +152,7 @@ class ContentFieldParser
                         $field.Types::GREATER_THAN_EQUAL => $type,
                     ];
                     break;
-                case $type instanceof DateType:
+                case $type instanceof \DateTime:
                     $conditionalFields += [
                         $field.Types::CONTAINS => $type,
                         $field.Types::NOT_CONTAINS => $type,

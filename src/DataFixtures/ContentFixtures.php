@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
+use Bolt\Storage\Query\Definition\FieldDefinition;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -73,9 +75,11 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
+                    [$value, $type] = $this->getValuesForFieldType($name, $fieldType);
                     $field = Field::factory($fieldType, $name);
                     $field->setName($name);
-                    $field->setValue($this->getValuesforFieldType($name, $fieldType));
+                    $field->setValue($value);
+                    $field->setFieldType($type);
                     $field->setSortorder($sortorder++ * 5);
 
                     $content->addField($field);
@@ -99,34 +103,73 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType($name, $field)
+    private function getValuesForFieldType($name, $field): array
     {
         switch ($field['type']) {
             case 'html':
             case 'textarea':
             case 'markdown':
-                $data = [$this->faker->paragraphs(3, true)];
+                $data = $this->faker->paragraphs(3, true);
+                $fieldType = 'string';
                 break;
             case 'image':
-                $data = [
+                $data = \GuzzleHttp\json_encode([
                     'filename' => 'kitten.jpg',
                     'alt' => 'A cute kitten',
-                ];
+                ]);
+                $fieldType = 'array';
                 break;
             case 'slug':
-                $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
+                $data = $this->lastTitle ?? $this->faker->sentence(3, true);
+                $fieldType = 'string';
+                break;
+            case 'checkbox':
+                $data = (string) $this->faker->numberBetween(0, 1);
+                $fieldType = 'string';
                 break;
             case 'text':
-                $data = [$this->faker->sentence(6, true)];
+                $data = $this->faker->sentence(6, true);
+                $fieldType = 'string';
+                break;
+            case 'number':
+                $data = (string) $this->faker->numberBetween(0, 10000);
+                $fieldType = 'string';
+                break;
+            case 'repeater':
+                $repeater = [];
+                /** @var DeepCollection $field */
+                $subFields = $field['fields']->toArray();
+                for ($i = 0; $i < random_int(1, 4); $i++) {
+                    foreach ($subFields as $key => $subField) {
+                        if (in_array($subField['type'], array_keys(FieldDefinition::SUB_FIELDS), true)) {
+                            foreach (FieldDefinition::SUB_FIELDS[$subField['type']] as $subFieldValue) {
+                                $repeater[$i][$key][$subFieldValue] = $this->faker->sentence(3);
+                            }
+                        } else {
+                            $repeater[$i][$key] = $this->faker->sentence(4);
+                        }
+                    }
+                }
+                $data = \GuzzleHttp\json_encode($repeater);
+                $fieldType = 'array';
+                break;
+            case 'select':
+                $select = [];
+                for ($i = 0; $i < random_int(1, 4); $i++) {
+                    $select[$i] = $this->faker->sentence(2);
+                }
+                $data = \GuzzleHttp\json_encode($select);
+                $fieldType = 'array';
                 break;
             default:
-                $data = [$this->faker->sentence(6, true)];
+                $data = $this->faker->sentence(6, true);
+                $fieldType = 'string';
         }
 
         if ($name === 'title' || $name === 'heading') {
             $this->lastTitle = $data;
         }
 
-        return $data;
+        return [$data, $fieldType];
     }
 }

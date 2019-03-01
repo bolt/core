@@ -14,10 +14,9 @@ use Tightenco\Collect\Support\Collection;
  */
 class SlugField extends Field
 {
-    public function setValue(array $value): parent
+    public function setValue(string $value): parent
     {
-        $value = Str::slug(reset($value));
-        $this->value = [$value];
+        $this->value = Str::slug($value);
 
         return $this;
     }

@@ -8,19 +8,19 @@ use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use Ramsey\Uuid\Uuid;
 
-class ImageType extends ObjectType
+class AuthorType extends ObjectType
 {
     public function __construct()
     {
         $config = [
-            'name' => 'Image_'.Uuid::uuid4()->toString(),
+            'name' => 'Author_'.Uuid::uuid4()->toString(),
             'fields' => [
-                'filename' => Type::string(),
-                'alt' => Type::string(),
-                'path' => Type::string(),
+                'id' => Type::id(),
+                'displayName' => Type::string(),
+                'username' => Type::string(),
+                'email' => Type::string(),
             ],
         ];
-
         parent::__construct($config);
     }
 }

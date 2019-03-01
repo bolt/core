@@ -12,7 +12,6 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Storage\Query\Generator\SimpleGraphGenerator;
 use Bolt\Storage\Query\Query;
 use Bolt\TemplateChooser;
-use function GuzzleHttp\Psr7\parse_query;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,7 +78,7 @@ class DetailController extends TwigAwareController
     {
         $query = $request->get('query');
 
-        if (preg_match('#[a-zA-Z0-9_]+\/[a-zA-Z0-9_\-]+#', $query)) {
+        if (preg_match('#[a-zA-Z0-9_]+(\/[a-zA-Z0-9_\-]+)?#', $query)) {
             return $this->query->getContentForTwig($this->simpleGraphGenerator->generate($query));
         }
 

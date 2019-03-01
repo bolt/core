@@ -61,11 +61,19 @@ class Field implements Translatable
     public $name;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=4294967295)
      * @Groups({"put"})
      * @Gedmo\Translatable
+     *
+     * @var string
      */
-    protected $value = [];
+    protected $value;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Groups({"put"})
+     */
+    protected $fieldType;
 
     /**
      * @ORM\Column(type="integer")
@@ -103,7 +111,7 @@ class Field implements Translatable
 
     public function __toString(): string
     {
-        return implode(', ', $this->getValue());
+        return $this->getValue();
     }
 
     public static function factory(LaravelCollection $definition, string $name = ''): self
@@ -170,37 +178,31 @@ class Field implements Translatable
 
     public function get($key)
     {
-        return isset($this->value[$key]) ? $this->value[$key] : null;
+        try {
+            $value = \GuzzleHttp\json_decode($this->value, true);
+        } catch (\InvalidArgumentException $e) {
+            return null;
+        }
+
+        return $value[$key] ?? null;
     }
 
-    public function getValue(): ?array
+    public function getValue()
     {
+        if ($this->fieldType === 'array') {
+            return \GuzzleHttp\json_decode($this->value, true);
+        }
+
         return $this->value;
     }
 
-    /**
-     * like getValue() but returns single value for single value fields
-     *
-     * @return array|mixed|null
-     */
-    public function getFlattenedValue()
+    public function setValue(string $value): self
     {
-        $value = $this->getValue();
-        if (is_iterable($value)) {
-            $count = count($value);
-            if ($count === 0) {
-                return null;
-            } elseif ($count === 1) {
-                return reset($value);
-            }
+        if ($this->fieldType === 'array') {
+            $this->value = \GuzzleHttp\json_encode($value);
+        } else {
+            $this->value = $value;
         }
-
-        return $value;
-    }
-
-    public function setValue(array $value): self
-    {
-        $this->value = $value;
 
         return $this;
     }
@@ -237,6 +239,16 @@ class Field implements Translatable
         $this->version = $version;
 
         return $this;
+    }
+
+    public function getFieldType(): string
+    {
+        return $this->fieldType;
+    }
+
+    public function setFieldType(string $fieldType): void
+    {
+        $this->fieldType = $fieldType;
     }
 
     public function getContent(): ?Content

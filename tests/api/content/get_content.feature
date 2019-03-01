@@ -8,30 +8,24 @@ Feature: Get content with API
   """
   [
     {
-       "id": @integer@,
-       "contentType": @string@,
+       "id": "@integer@",
+       "contentType": "@string@",
        "publishedAt": "@string@.isDateTime()",
-       "updatedAt": "@string@.isDateTime()",
-       "authorName": @string@,
+       "taxonomies": @array@,
+       "authorName": "@string@",
        "fieldValues": {
-          "title": @string@,
-          "slug": @string@,
+          "title": "@string@",
+          "slug": "@string@",
           "image": {
-             "filename": @string@,
-             "alt": @string@,
-             "path": @string@
+             "filename": "@string@",
+             "alt": "@string@",
+             "path": "@string@"
           },
-          "@*@": "@*@"
-       },
-       "taxonomyValues": @array@,
-       "extras": {
-          "link": @string@,
-          "editLink": @string@,
           "@*@": "@*@"
        },
        "@*@": "@*@"
     },
-    @...@
+    "@...@"
   ]
   """
 
@@ -43,81 +37,21 @@ Feature: Get content with API
   """
   {
      "id": 1,
-     "contentType": @string@,
+     "contentType": "@string@",
      "publishedAt": "@string@.isDateTime()",
-     "authorName": @string@,
+     "taxonomies": @array@,
+     "authorName": "@string@",
      "fieldValues": {
-        "title": @string@,
-        "slug": @string@,
+        "title": "@string@",
+        "slug": "@string@",
         "image": {
-           "filename": @string@,
-           "alt": @string@,
-           "path": @string@
+           "filename": "@string@",
+           "alt": "@string@",
+           "path": "@string@"
         },
        "@*@": "@*@"
      },
-     "taxonomyValues": @array@,
-     "extras": {
-        "link": @string@,
-        "editLink": @string@,
-        "@*@": "@*@"
-     },
      "@*@": "@*@"
-  }
-  """
-
-  Scenario: As a user I fetch contents in JSON+LD format
-    When I send a GET request to "/api/contents.jsonld"
-    Then the response status code should be 200
-    And the response should be in JSON
-    And the response should contain json:
-  """
-  {
-     "@context": "/api/contexts/Content",
-     "@id": "/api/contents",
-     "@type": "hydra:Collection",
-     "hydra:member": [
-        {
-           "@id": @string@,
-           "@type": "Content",
-           "id": @integer@,
-           "contentType": "homepage",
-           "publishedAt": "@string@.isDateTime()",
-           "authorName": @string@,
-           "fieldValues": {
-              "title": @string@,
-              "slug": @string@,
-              "image": {
-                 "filename": @string@,
-                 "alt": @string@,
-                 "path": @string@
-              },
-              "@*@": "@*@"
-           },
-           "taxonomyValues": @array@,
-           "extras": {
-              "link": @string@,
-              "editLink": @string@,
-              "@*@": "@*@"
-           },
-           "@*@": "@*@"
-        },
-        @...@
-     ],
-     "hydra:totalItems": @integer@,
-     "hydra:view": {
-        "@id": @string@,
-        "@type": "hydra:PartialCollectionView",
-        "hydra:first": "/api/contents.jsonld?page=1",
-        "hydra:last": @string@,
-        "hydra:next": "/api/contents.jsonld?page=2"
-     },
-     "hydra:search": {
-        "@type": "hydra:IriTemplate",
-        "hydra:template": @string@,
-        "hydra:variableRepresentation": "BasicRepresentation",
-        "hydra:mapping": @array@
-     }
   }
   """
 
@@ -133,24 +67,19 @@ Feature: Get content with API
      "@type": "hydra:Collection",
      "hydra:member": [
         {
-           "id": @integer@,
+           "id": "@integer@",
            "contentType": "homepage",
            "publishedAt": "@string@.isDateTime()",
-           "authorName": @string@,
+           "taxonomies": @array@,
+           "authorName": "@string@",
            "fieldValues": {
-              "title": @string@,
-              "slug": @string@,
+              "title": "@string@",
+              "slug": "@string@",
               "image": {
-                 "filename": @string@,
-                 "alt": @string@,
-                 "path": @string@
+                 "filename": "@string@",
+                 "alt": "@string@",
+                 "path": "@string@"
               },
-              "@*@": "@*@"
-           },
-           "taxonomyValues": @array@,
-           "extras": {
-              "link": @string@,
-              "editLink": @string@,
               "@*@": "@*@"
            },
            "@*@": "@*@"
@@ -167,39 +96,5 @@ Feature: Get content with API
         "hydra:variableRepresentation": "BasicRepresentation",
         "hydra:mapping": @array@
      }
-  }
-  """
-
-  Scenario: As a user I fetch single content in JSON+LD format
-    When I send a GET request to "/api/contents/1.jsonld"
-    Then the response status code should be 200
-    And the response should be in JSON
-    And the response should contain json:
-  """
-  {
-     "@context": "/api/contexts/Content",
-     "@id": "/api/contents/1",
-     "@type": "Content",
-     "id": 1,
-     "contentType": @string@,
-     "publishedAt": "@string@.isDateTime()",
-     "authorName": @string@,
-     "fieldValues": {
-        "title": @string@,
-        "slug": @string@,
-        "image": {
-           "filename": @string@,
-           "alt": @string@,
-           "path": @string@
-        },
-       "@*@": "@*@"
-     },
-     "taxonomyValues": @array@,
-     "extras": {
-        "link": @string@,
-        "editLink": @string@,
-        "@*@": "@*@"
-     },
-     "@*@": "@*@"
   }
   """
