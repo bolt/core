@@ -1,7 +1,7 @@
 {
     "name": "bolt/bolt",
     "license": "MIT",
-    "type": "project",
+    "type": "library",
     "description": "Bolt 4 skeleton / prototype",
     "require": {
         "php": ">=7.1.3",
