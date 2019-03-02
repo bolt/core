@@ -981,5 +981,17 @@
         <target>Displayname</target>
       </segment>
     </unit>
+    <unit id="2MMvCKK" name="label.cache_cleared">
+      <segment>
+        <source>label.cache_cleared</source>
+        <target>Cache cleared succesfully!</target>
+      </segment>
+    </unit>
+    <unit id="Wou02nK" name="caption.kitchensink">
+      <segment>
+        <source>caption.kitchensink</source>
+        <target>The Kitchensink</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
