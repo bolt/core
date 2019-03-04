@@ -463,7 +463,7 @@ class Content implements \JsonSerializable
         try {
             $field = $this->getField($name);
         } catch (\InvalidArgumentException $e) {
-            $backtrace = new LaravelCollection(debug_backtrace());
+            $backtrace = new LaravelCollection($e->getTrace());
 
             if ($backtrace->contains('class', \Twig_Template::class)) {
                 // Invoked from within a Template render, so be lenient.
