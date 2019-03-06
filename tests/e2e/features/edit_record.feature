@@ -72,7 +72,6 @@ Feature: Edit record
             | id      | 1  |
         Then there is element "title" with text "Changed title EN"
 
-    @wip
     Scenario: As an Admin I want to be able to make use of the embed field
         Given I am logged in as "admin"
 
