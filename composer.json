@@ -134,7 +134,8 @@
     },
     "conflict": {
         "symfony/symfony": "*",
-        "api-platform/core": "v2.4.0-beta.2"
+        "api-platform/core": "v2.4.0-beta.2",
+        "symplify/coding-standard": "5.4.13"
     },
     "extra": {
         "symfony": {
