@@ -9,7 +9,7 @@
         <title>
             {%- if record.hasField('title') %}{{ record.title|striptags }} | {% endif -%}
                 {{ config.get('general/sitename') -}}
-            {% if not record.hasField('title') and config.get('general/payoff') %} | {{ config.get('general/payoff') }}{% endif -%}
+            {% if not record.hasField('title') and config.has('general/payoff') %} | {{ config.get('general/payoff') }}{% endif -%}
         </title>
         {#<link rel="stylesheet" href="{{ asset('css/normalize.css', 'theme') }}">#}
         {#<link rel="stylesheet" href="{{ asset('css/sakura.css', 'theme') }}">#}
