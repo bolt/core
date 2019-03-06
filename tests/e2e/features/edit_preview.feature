@@ -1,4 +1,4 @@
-Feature: Edit record
+Feature: Preview record after editing
 
     @wip
     Scenario: As an Admin I want to preview an edited record
@@ -12,5 +12,3 @@ Feature: Edit record
         And I click the "preview_button" element
         Then I wait for "frontend_title" element to appear
         Then there is element "frontend_title" with text "Check preview"
-
-
