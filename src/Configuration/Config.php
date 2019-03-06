@@ -148,6 +148,11 @@ class Config
         return Arr::get($this->data, $path, $default);
     }
 
+    public function has(string $path): bool
+    {
+        return Arr::has($this->data, $path);
+    }
+
     public function getPath(string $path, bool $absolute = true, $additional = null): string
     {
         return $this->pathResolver->resolve($path, $absolute, $additional);
