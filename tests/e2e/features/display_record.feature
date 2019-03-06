@@ -11,3 +11,9 @@ Feature: Display single record
             | id | 1 |
         Then I wait for "title" element to appear
         And the "edit_button" element is visible
+
+    Scenario: As a user I want to see the difference between records with a "Title" and a "Heading"
+        When I visit the "single_record" page with parameters:
+            | id | 2 |
+        Then I wait for "heading" element to appear
+        And the "title" element is not visible
