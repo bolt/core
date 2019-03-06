@@ -21,7 +21,11 @@ class EditRecordPage extends BasePage {
     this.embed_title = $('[name="fields[embed][title]"]');
     this.embed_author = $('[name="fields[embed][authorname]"]');
 
-    this.save_button = $('button[type="submit"]');
+    this.save_button = $('button[type="submit"]:not([formaction])');
+    this.preview_button = $('button[type="submit"][formaction*="/bolt/preview/"]');
+    this.viewsaved_button = $('button[type="submit"][formaction*="/bolt/viewsaved/"]');
+
+    this.frontend_title = $('h1.title');
   }
 }
 
