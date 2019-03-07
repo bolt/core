@@ -18,7 +18,7 @@
         {% setcontent block = "block/search-teaser" %}
 
         {# check if we have 'content'. If so, we know we have have a teaser to display. #}
-        {% if block.content is defined %}
+        {% if block is defined and block.hasField('content') %}
             {{ block.content }}
         {% endif %}
 

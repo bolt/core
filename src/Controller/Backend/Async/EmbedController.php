@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller\Async;
+namespace Bolt\Controller\Backend\Async;
 
+use Bolt\Controller\CsrfTrait;
 use Embed\Embed as EmbedFactory;
 use Embed\Exceptions\InvalidUrlException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -11,16 +12,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-final class Embed
+class EmbedController
 {
-    /** @var CsrfTokenManagerInterface */
-    private $csrfTokenManager;
+    use CsrfTrait;
 
     public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
     {
@@ -28,17 +28,13 @@ final class Embed
     }
 
     /**
-     * @Route(
-     *     "/embed",
-     *     name="bolt_embed",
-     *     methods={"POST"})
+     * @Route("/embed", name="bolt_embed", methods={"POST"})
      */
-    public function __invoke(Request $request): JsonResponse
+    public function fetchEmbed(Request $request): JsonResponse
     {
-        $csrfToken = $request->request->get('_csrf_token');
-        $token = new CsrfToken('editrecord', $csrfToken);
-
-        if (! $this->csrfTokenManager->isTokenValid($token)) {
+        try {
+            $this->validateCsrf($request, 'editrecord');
+        } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse(['error' => ['message' => 'Invalid CSRF token']], Response::HTTP_FORBIDDEN);
         }
 
