@@ -2,6 +2,15 @@
 
 {% block main %}
 
+    <style>
+        .box {
+            display: inline-block;
+            border: 1px solid #CCC;
+            padding: 0.5em;
+            margin: 0.5em;
+        }
+    </style>
+
     <marquee>This template is for testing only! This template is for testing only! This template is for testing only!</marquee>
 
     {% if record.hasField('title') %}
@@ -12,16 +21,35 @@
 
     <hr>
 
-    <p class="text_markup_a">{{ record.text_markup }}</p>
-    <p class="text_markup_b">{{ record.text_markup|raw }}</p>
-    <p class="text_markup_c">{{ record.text_markup|e('html') }}</p>
-    <p class="text_markup_d">{{ dump(record.text_markup.getValue())}}</p>
+    <h2>Testing output with `allow_markup`</h2>
 
-    <p class="text_plain_a">{{ record.text_plain }}</p>
-    <p class="text_plain_b">{{ record.text_plain|raw }}</p>
-    <p class="text_plain_c">{{ record.text_plain|e('html') }}</p>
-    <p class="text_plain_d">{{ dump(record.text_plain.getValue())}}</p>
+    <p>
+        Default output with <code>allow_markup: {{ record.text_markup.definition.allow_markup ? 'true' : 'false' }}</code>:<br>
+        <span class="box text_markup_a">{{ record.text_markup }}</span><br>
 
+        Explicit raw: <br>
+        <span class="box text_markup_b">{{ record.raw('text_markup') }}</span><br>
+
+        Escaped: <br>
+        <span class="box text_markup_c">{{ record.escape('text_markup') }}</span><br>
+
+        {{ dump(record.text_plain.getValue())}}
+    </p>
+
+    <hr>
+
+    <p>
+        Default output with <code>allow_markup: {{ record.text_plain.definition.allow_markup ? 'true' : 'false' }}</code>:<br>
+        <span class="box text_plain_a">{{ record.text_plain }}</span><br>
+
+        Explicit raw: <br>
+        <span class="box text_plain_b">{{ record.raw('text_plain') }}</span><br>
+
+        Escaped: <br>
+        <span class="box text_plain_c">{{ record.escape('text_plain') }}</span><br>
+
+        {{ dump(record.text_plain.getValue())}}
+    </p>
 
     {% if record.hasField('image') %}
         <a href="{{ record.image }}">
