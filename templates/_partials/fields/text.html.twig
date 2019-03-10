@@ -8,7 +8,7 @@
 {% block field %}
     <editor-text
         :id="'{{ id }}'"
-        :value="{{ value|json_encode() }}"
+        :value="{{ value|json_encode()|e }}"
         :name="'{{ name }}'"
         :type="'{{ class }}'"
         :disabled="'{{ disabled }}'"

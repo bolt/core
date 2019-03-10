@@ -4,6 +4,6 @@
         <field-email
             :id="'{{ id }}'"
             :name="'{{ name }}'"
-            :value="{{ value|json_encode() }}"
+            :value="{{ value|json_encode()|e }}"
         ></field-email>
 {% endblock %}
