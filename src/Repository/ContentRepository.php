@@ -32,7 +32,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForPage(int $page = 1, ?ContentType $contentType = null): Pagerfanta
+    public function findForListing(int $page = 1, ?ContentType $contentType = null, bool $published = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -43,6 +43,10 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('ct', $contentType['slug']);
         }
 
+        if ($published) {
+            $qb->andWhere('content.status = :status')
+                ->setParameter('status', 'published');
+        }
         return $this->createPaginator($qb->getQuery(), $page);
     }
 

@@ -42,7 +42,7 @@ class TaxonomyController extends TwigAwareController
         $page = (int) $request->query->get('page', 1);
 
         /** @var Content[] $records */
-        $records = $contentRepository->findForPage($page);
+        $records = $contentRepository->findForListing($page);
 
         $contentType = ContentType::factory('page', $this->config->get('contenttypes'));
 
