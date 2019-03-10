@@ -336,12 +336,10 @@ tests:
             uses: title
         text_markup:
             type: text
-            allow:
-                markup: true
+            allow_markup: true
         text_plain:
             type: text
-            allow:
-                markup: false
+            allow_markup: false
         selectfield:
             type: select
             values:
