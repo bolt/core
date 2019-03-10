@@ -450,12 +450,18 @@ class Content implements \JsonSerializable
      * - {{ record.image }} => field named image
      * - {{ record|image }} => value of guessed image field
      */
-    public function __call(string $name, array $arguments = []): Field
+    public function __call(string $name, array $arguments = [])
     {
         try {
-            return $this->getField($name);
+            $field = $this->getField($name);
         } catch (\InvalidArgumentException $e) {
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
+
+        if ($field->getDefinition()->get('allow_markup')) {
+            $field = new \Twig_Markup($field, 'UTF-8');
+        }
+
+        return $field;
     }
 }

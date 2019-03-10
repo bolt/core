@@ -105,10 +105,6 @@ class Field implements Translatable
     {
         $stringValue = implode(', ', $this->getValue());
 
-        if (! $this->getDefinition()->get('allow_markup')) {
-            $stringValue = htmlentities($stringValue);
-        }
-
         return $stringValue;
     }
 
