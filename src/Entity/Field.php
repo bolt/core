@@ -103,7 +103,13 @@ class Field implements Translatable
 
     public function __toString(): string
     {
-        return implode(', ', $this->getValue());
+        $stringValue = implode(', ', $this->getValue());
+
+        if (! $this->getDefinition()->get('allow_markup')) {
+            $stringValue = htmlentities($stringValue);
+        }
+
+        return $stringValue;
     }
 
     public static function factory(LaravelCollection $definition, string $name = ''): self
