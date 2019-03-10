@@ -103,9 +103,7 @@ class Field implements Translatable
 
     public function __toString(): string
     {
-        $stringValue = implode(', ', $this->getValue());
-
-        return $stringValue;
+        return implode(', ', $this->getValue());
     }
 
     public static function factory(LaravelCollection $definition, string $name = ''): self

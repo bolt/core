@@ -23,10 +23,10 @@
 {% block field %}
     {#<pre><code>{{ value|json_encode() }}</code></pre>#}
     <editor-select
-        :value="{{ value|json_encode()|e }}"
+        :value="{{ value|json_encode() }}"
         :name="'{{ name }}'"
         :id="'{{ id }}'"
-        :options="{{ options|json_encode()|e }}"
+        :options="{{ options|json_encode() }}"
         :form="'{{ form }}'"
         :multiple="{{ multiple }}"
         :allowempty="{{ allowempty }}"

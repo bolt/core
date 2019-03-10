@@ -24,31 +24,33 @@
     <h2>Testing output with `allow_markup`</h2>
 
     <p>
-        Default output with <code>allow_markup: {{ record.text_markup.definition.allow_markup ? 'true' : 'false' }}</code>:<br>
+        Default output with <code>allow_markup: {{ record.field('text_markup').definition.allow_markup ? 'true' : 'false' }}</code>:<br>
         <span class="box text_markup_a">{{ record.text_markup }}</span><br>
 
         Explicit raw: <br>
-        <span class="box text_markup_b">{{ record.raw('text_markup') }}</span><br>
+        <span class="box text_markup_b">{{ record.text_markup|raw }}</span><br>
 
         Escaped: <br>
-        <span class="box text_markup_c">{{ record.escape('text_markup') }}</span><br>
+        <span class="box text_markup_b">{{ record.text_markup|e }}</span><br>
 
-        {{ dump(record.text_plain.getValue())}}
+        {{ dump(record.field('text_plain').definition) }}
+
+        {{ dump(record.field('text_plain').getValue())}}
     </p>
 
     <hr>
 
     <p>
-        Default output with <code>allow_markup: {{ record.text_plain.definition.allow_markup ? 'true' : 'false' }}</code>:<br>
+        Default output with <code>allow_markup: {{ record.field('text_plain').definition.allow_markup ? 'true' : 'false' }}</code>:<br>
         <span class="box text_plain_a">{{ record.text_plain }}</span><br>
 
         Explicit raw: <br>
-        <span class="box text_plain_b">{{ record.raw('text_plain') }}</span><br>
+        <span class="box text_plain_b">{{ record.text_plain|raw }}</span><br>
 
         Escaped: <br>
-        <span class="box text_plain_c">{{ record.escape('text_plain') }}</span><br>
+        <span class="box text_plain_c">{{ record.text_plain|e }}</span><br>
 
-        {{ dump(record.text_plain.getValue())}}
+        {{ dump(record.field('text_plain').getValue())}}
     </p>
 
     {% if record.hasField('image') %}

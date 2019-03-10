@@ -6,7 +6,7 @@
             <general-language
                     label="{{ 'field.switch_to_locale'|trans }}"
                     current="{{ currentlocale }}"
-                    :locales="{{ contentlocales(locales)|e }}"
+                    :locales="{{ contentlocales(locales) }}"
             ></general-language>
 
             <a href="{{ path('bolt_content_edit_locales', {'id': record.id}) }}" class="btn btn-light btn-small">

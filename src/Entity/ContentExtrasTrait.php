@@ -78,18 +78,4 @@ trait ContentExtrasTrait
 
         return var_export($array, true);
     }
-
-    public function raw(string $fieldName): \Twig_Markup
-    {
-        $output = implode('', $this->getField($fieldName)->getValue());
-
-        return new \Twig_Markup($output, 'UTF-8');
-    }
-
-    public function escape(string $fieldName): string
-    {
-        $output = implode('', $this->getField($fieldName)->getValue());
-
-        return htmlentities($output);
-    }
 }

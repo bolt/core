@@ -28,9 +28,9 @@
         {% set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': user_display_name}], 'action.logout', 'action.edit_profile']) %}
         <admin-toolbar
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
-            :menu="{{ sidebarmenu()|e }}"
+            :menu="{{ sidebarmenu() }}"
             user="{{ user|default }}"
-            :labels="{{ labels|json_decode|e }}"
+            :labels="{{ labels|json_decode }}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->
@@ -49,9 +49,9 @@
     <div class="admin__sidebar">
         <div id="sidebar">
             <admin-sidebar
-              :menu="{{ sidebarmenu()|e }}"
+              :menu="{{ sidebarmenu() }}"
               :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
-              :about-link="{{ path('bolt_about')|json_encode|e }}"
+              :about-link="{{ path('bolt_about')|json_encode }}"
             ></admin-sidebar >
         </div>
     </div>
