@@ -7,9 +7,9 @@
         {# make sure we always display a proper title: The record's title if there is one, appended with the
            sitename. If there is no title, we append the sitename with the payoff, if there is one. #}
         <title>
-            {%- if record.hasField('title') %}{{ record.title|striptags }} | {% endif -%}
+            {%- if record.hasField('title')|default() %}{{ record.title|striptags }} | {% endif -%}
                 {{ config.get('general/sitename') -}}
-            {% if not record.hasField('title') and config.has('general/payoff') %} | {{ config.get('general/payoff') }}{% endif -%}
+            {% if not record.hasField('title')|default() and config.has('general/payoff') %} | {{ config.get('general/payoff') }}{% endif -%}
         </title>
         {#<link rel="stylesheet" href="{{ asset('css/normalize.css', 'theme') }}">#}
         {#<link rel="stylesheet" href="{{ asset('css/sakura.css', 'theme') }}">#}
