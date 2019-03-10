@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
@@ -103,14 +104,14 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         }
     }
 
-    private function getRandomStatus()
+    private function getRandomStatus(): string
     {
         $statuses = ['published', 'published', 'published', 'held', 'draft', 'timed'];
 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType($name, $field)
+    private function getValuesforFieldType(string $name, DeepCollection $field): array
     {
         switch ($field['type']) {
             case 'html':
@@ -162,7 +163,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         return $records;
     }
 
-    private function getPreset($slug): array
+    private function getPreset(string $slug): array
     {
         if (isset($this->presetRecords[$slug]) && ! empty($this->presetRecords[$slug])) {
             $preset = array_pop($this->presetRecords[$slug]);
