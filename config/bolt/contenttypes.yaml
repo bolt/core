@@ -139,7 +139,7 @@ entries:
     taxonomy: [ categories, tags, groups ]
     record_template: entry.twig
     listing_template: listing.twig
-    listing_records: 10
+    listing_records: 20
     default_status: published
     sort: -publishedAt
     recordsperpage: 20
