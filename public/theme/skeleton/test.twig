@@ -33,8 +33,6 @@
         Escaped: <br>
         <span class="box text_markup_b">{{ record.text_markup|e }}</span><br>
 
-        {{ dump(record.field('text_plain').definition) }}
-
         {{ dump(record.field('text_plain').getValue())}}
     </p>
 
