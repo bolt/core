@@ -31,7 +31,7 @@
         <span class="box text_markup_b">{{ record.text_markup|raw }}</span><br>
 
         Escaped: <br>
-        <span class="box text_markup_b">{{ record.text_markup|e }}</span><br>
+        <span class="box text_markup_c">{{ record.text_markup|e }}</span><br>
 
         {{ dump(record.field('text_plain').getValue())}}
     </p>
