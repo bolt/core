@@ -458,10 +458,6 @@ class Content implements \JsonSerializable
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
 
-        if ($field->getDefinition()->get('allow_html')) {
-            $field = new \Twig_Markup($field, 'UTF-8');
-        }
-
-        return $field;
+        return $field->getTwigValue();
     }
 }

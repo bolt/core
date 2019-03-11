@@ -198,6 +198,17 @@ class Field implements Translatable
         return $value;
     }
 
+    public function getTwigValue()
+    {
+        $value = $this->__toString();
+
+        if ($this->getDefinition()->get('allow_html')) {
+            $value = new \Twig_Markup($value, 'UTF-8');
+        }
+
+        return $value;
+    }
+
     public function setValue($value): self
     {
         $this->value = (array) $value;

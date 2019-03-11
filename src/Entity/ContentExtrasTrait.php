@@ -71,11 +71,4 @@ trait ContentExtrasTrait
             'depublishedAt' => $content->getDepublishedAt(),
         ];
     }
-
-    public function var_export(): string
-    {
-        $array = $this->getFieldValues();
-
-        return var_export($array, true);
-    }
 }
