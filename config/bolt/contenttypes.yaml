@@ -340,6 +340,12 @@ tests:
         text_plain:
             type: text
             allow_markup: false
+        html_field:
+            type: html
+        markdown_field:
+            type: markdown
+        textarea_field:
+            type: textarea
         selectfield:
             type: select
             values:

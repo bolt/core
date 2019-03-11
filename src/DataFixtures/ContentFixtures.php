@@ -158,6 +158,9 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             'title' => 'Title of the test',
             'text_markup' => 'Text with <em>markup allowed</em>.',
             'text_plain' => 'Text with <strong>no</strong> markup allowed.',
+            'textarea_field' => 'Textarea field with <em>simple</em> HTML in it.',
+            'html_field' => 'HTML field with <em>simple</em> HTML in it.',
+            'markdown_field' => 'Markdown field  with *simple* Markdown in it.',
         ];
 
         return $records;

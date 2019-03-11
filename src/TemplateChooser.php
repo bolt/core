@@ -31,11 +31,6 @@ class TemplateChooser
         if (empty($content)) {
             // Fallback if no content: index.twig
             $templates->push('index.html.twig')->push('index.twig');
-        } elseif (is_array($content)) {
-            // Fallback with multiple content: use listing() to choose template
-            /** @var Content $first */
-            $first = reset($content);
-            $templates = $templates->merge($this->forListing($first->getDefinition()));
         } else {
             // Fallback with single content: use record() to choose template
             $templates = $templates->merge($this->forRecord($content));

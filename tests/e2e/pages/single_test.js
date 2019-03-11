@@ -16,6 +16,10 @@ class SingleTestPage extends BasePage {
     this.text_plain_a = $('.text_plain_a');
     this.text_plain_b = $('.text_plain_b');
     this.text_plain_c = $('.text_plain_c');
+
+    this.textarea_field = $('.text_textarea');
+    this.html_field = $('.text_html');
+    this.markdown_field = $('.text_markdown');
   }
 }
 
