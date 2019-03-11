@@ -209,8 +209,8 @@ class ContentTypesParser extends BaseParser
                 $hasGroups = true;
             }
 
-            if (isset($field['allow_markup']) === false) {
-                $field['allow_markup'] = in_array($field['type'], ['html', 'markdown'], true);
+            if (isset($field['allow_html']) === false) {
+                $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
             }
 
             // Make sure we have these keys and every field has a group set.

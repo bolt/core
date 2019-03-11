@@ -1,5 +1,5 @@
 Feature: Test field output
-    @wip
+
     Scenario: As a user I want to see how fields are escaped
 
         When I visit the "single_test" page with parameters:

@@ -21,10 +21,10 @@
 
     <hr>
 
-    <h2>Testing output with `allow_markup`</h2>
+    <h2>Testing output with `allow_html`</h2>
 
     <p>
-        Default output with <code>allow_markup: {{ record.field('text_markup').definition.allow_markup ? 'true' : 'false' }}</code>:<br>
+        Default output with <code>allow_html: {{ record.field('text_markup').definition.allow_html ? 'true' : 'false' }}</code>:<br>
         <div class="box text_markup_a">{{ record.text_markup }}</div><br>
 
         Explicit raw: <br>
@@ -38,7 +38,7 @@
     <hr>
 
     <p>
-        Default output with <code>allow_markup: {{ record.field('text_plain').definition.allow_markup ? 'true' : 'false' }}</code>:<br>
+        Default output with <code>allow_html: {{ record.field('text_plain').definition.allow_html ? 'true' : 'false' }}</code>:<br>
         <div class="box text_plain_a">{{ record.text_plain }}</div><br>
 
         Explicit raw: <br>

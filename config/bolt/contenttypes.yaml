@@ -336,10 +336,10 @@ tests:
             uses: title
         text_markup:
             type: text
-            allow_markup: true
+            allow_html: true
         text_plain:
             type: text
-            allow_markup: false
+            allow_html: false
         html_field:
             type: html
         markdown_field:
