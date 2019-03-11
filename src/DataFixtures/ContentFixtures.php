@@ -84,7 +84,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                     $field->setName($name);
 
                     if (isset($preset[$name])) {
-                        $field->setValue((array) $preset[$name]);
+                        $field->setValue($preset[$name]);
                     } else {
                         $field->setValue($this->getValuesforFieldType($name, $fieldType));
                     }

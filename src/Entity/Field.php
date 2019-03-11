@@ -198,9 +198,9 @@ class Field implements Translatable
         return $value;
     }
 
-    public function setValue(array $value): self
+    public function setValue($value): self
     {
-        $this->value = $value;
+        $this->value = (array) $value;
 
         return $this;
     }

@@ -16,7 +16,8 @@ class MarkdownField extends Field implements Excerptable
     public function __toString(): string
     {
         $markdown = new Markdown();
+        $value = $this->getValue();
 
-        return $markdown->toHtml(implode(', ', $this->getValue()));
+        return $markdown->toHtml(reset($value));
     }
 }
