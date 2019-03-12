@@ -235,7 +235,7 @@ class ContentEditController extends TwigAwareController
             $value = Json::findArray($value);
         }
 
-        $field->setValue((array) $value);
+        $field->setValue($value);
     }
 
     private function updateTaxonomy(Content $content, string $key, $taxonomy): void

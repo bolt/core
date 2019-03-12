@@ -1,0 +1,83 @@
+{% extends 'partials/_master.twig' %}
+
+{% block main %}
+
+    <style>
+        .box {
+            display: inline-block;
+            border: 1px solid #CCC;
+            padding: 0.5em;
+            margin: 0.5em;
+        }
+    </style>
+
+    <marquee>This template is for testing only! This template is for testing only! This template is for testing only!</marquee>
+
+    {% if record.hasField('title') %}
+        <h1 class="title">{{ record.title }}</h1>
+    {% else %}
+        <h1 class="heading">{{ record|title }}</h1>
+    {% endif %}
+
+    <hr>
+
+    <h2>Testing output with `allow_html`</h2>
+
+    <p>
+        Default output with <code>allow_html: {{ record.field('text_markup').definition.allow_html ? 'true' : 'false' }}</code>:<br>
+        <div class="box text_markup_a">{{ record.text_markup }}</div><br>
+
+        Explicit raw: <br>
+        <div class="box text_markup_b">{{ record.text_markup|raw }}</div><br>
+
+        Escaped: <br>
+        <div class="box text_markup_c">{{ record.text_markup|e }}</div><br>
+    </p>
+
+    <hr>
+
+    <p>
+        Default output with <code>allow_html: {{ record.field('text_plain').definition.allow_html ? 'true' : 'false' }}</code>:<br>
+        <div class="box text_plain_a">{{ record.text_plain }}</div><br>
+
+        Explicit raw: <br>
+        <div class="box text_plain_b">{{ record.text_plain|raw }}</div><br>
+
+        Escaped: <br>
+        <div class="box text_plain_c">{{ record.text_plain|e }}</div><br>
+    </p>
+
+    <p>
+        Default output for <code>type: html</code>:<br>
+        <div class="box text_html">{{ record.html_field }}</div><br>
+    </p>
+
+    <p>
+        Default output for <code>type: markdown</code>:<br>
+        <div class="box text_markdown">{{ record.markdown_field }}</div><br>
+    </p>
+
+    <p>
+        Default output for <code>type: html</code>:<br>
+        <div class="box text_textarea">{{ record.textarea_field }}</div><br>
+    </p>
+
+    {% if record.hasField('image') %}
+        <a href="{{ record.image }}">
+            <img src="{{ thumbnail(record.image, 400, 260) }}">
+        </a>
+        <hr>
+    {% endif %}
+
+    {# Output all fields, in the order as defined in the content type.
+       To change the generated html and configure the options, see:
+       https://docs.bolt.cm/templating #}
+    {% with { 'record': record, 'common': true, 'extended': true, 'repeaters': true, 'blocks': true } %}
+        {{ block('sub_fields', 'partials/_sub_fields.twig') }}
+    {% endwith %}
+
+    {{ dump(record) }}
+
+    {% include 'partials/_recordfooter.twig' with { 'record': record, 'extended': true } %}
+
+{% endblock main %}
