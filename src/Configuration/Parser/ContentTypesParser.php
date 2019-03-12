@@ -126,7 +126,7 @@ class ContentTypesParser extends BaseParser
 
         if ($contentType['singleton']) {
             $contentType['listing_records'] = 1;
-        } else if (! isset($contentType['listing_records'])) {
+        } else if (isset($contentType['listing_records']) === false) {
             $contentType['listing_records'] = 6;
         }
 
