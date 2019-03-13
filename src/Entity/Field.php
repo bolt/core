@@ -200,11 +200,11 @@ class Field implements Translatable
     }
 
     /**
-     * @return string|Markup
+     * @return string|array|Markup
      */
     public function getTwigValue()
     {
-        $value = $this->__toString();
+        $value = $this->getFlattenedValue();
 
         if ($this->getDefinition()->get('allow_html')) {
             $value = new Markup($value, 'UTF-8');
