@@ -100,7 +100,7 @@ class Config
         $taxonomy = new TaxonomyParser();
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contentTypes = new ContentTypesParser($config->get('general')['accept_file_types']);
+        $contentTypes = new ContentTypesParser($config->get('general'));
         $config['contenttypes'] = $contentTypes->parse();
 
         // @todo Add these config files if needed, or refactor them out otherwise

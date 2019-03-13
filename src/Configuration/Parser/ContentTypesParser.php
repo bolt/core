@@ -13,13 +13,13 @@ use Tightenco\Collect\Support\Collection;
 class ContentTypesParser extends BaseParser
 {
     /**
-     * @var string[]
+     * @var Collection
      */
-    private $acceptFileTypes = [];
+    private $generalConfig;
 
-    public function __construct(array $acceptFileTypes)
+    public function __construct(Collection $generalConfig)
     {
-        $this->acceptFileTypes = $acceptFileTypes;
+        $this->generalConfig = $generalConfig;
         parent::__construct();
     }
 
@@ -127,8 +127,9 @@ class ContentTypesParser extends BaseParser
         if ($contentType['singleton']) {
             $contentType['listing_records'] = 1;
         } elseif (isset($contentType['listing_records']) === false) {
-            $contentType['listing_records'] = 6;
+            $contentType['listing_records'] = $this->generalConfig->get('listing_records');
         }
+
 
         if (! isset($contentType['locales'])) {
             $contentType['locales'] = [];
@@ -176,6 +177,7 @@ class ContentTypesParser extends BaseParser
         $currentGroup = 'ungrouped';
         $groups = [];
         $hasGroups = false;
+        $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
             unset($fields[$key]);
@@ -189,7 +191,7 @@ class ContentTypesParser extends BaseParser
             // If field is a "file" type, make sure the 'extensions' are set, and it's an array.
             if ($field['type'] === 'file' || $field['type'] === 'filelist') {
                 if (empty($field['extensions'])) {
-                    $field['extensions'] = $this->acceptFileTypes;
+                    $field['extensions'] = $acceptFileTypes;
                 }
 
                 $field['extensions'] = (array) $field['extensions'];
@@ -199,7 +201,7 @@ class ContentTypesParser extends BaseParser
             if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
                 if (empty($field['extensions'])) {
                     $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg']);
-                    $field['extensions'] = $extensions->intersect($this->acceptFileTypes)->toArray();
+                    $field['extensions'] = $extensions->intersect($acceptFileTypes)->toArray();
                 }
 
                 $field['extensions'] = (array) $field['extensions'];

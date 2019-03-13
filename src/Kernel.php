@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 use Symfony\Component\Yaml\Yaml;
+use Tightenco\Collect\Support\Collection;
 
 class Kernel extends BaseKernel
 {
@@ -123,7 +124,7 @@ class Kernel extends BaseKernel
      */
     private function setContentTypeRequirements(ContainerBuilder $container): void
     {
-        $ContentTypesParser = new ContentTypesParser([]);
+        $ContentTypesParser = new ContentTypesParser(new Collection());
         $contentTypes = $ContentTypesParser->parse();
 
         $pluralslugs = $contentTypes->pluck('slug')->implode('|');
