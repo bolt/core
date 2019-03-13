@@ -2,7 +2,7 @@
 
 {% block main %}
 
-    {% if record.hasField('title') %}
+    {% if record.title %}
         <h1 class="title">{{ record.title }}</h1>
     {% else %}
         <h1 class="heading">{{ record|title }}</h1>
@@ -14,6 +14,7 @@
         <a href="{{ record.image }}">
             <img src="{{ thumbnail(record.image, 400, 260) }}">
         </a>
+
         <hr>
     {% endif %}
 
