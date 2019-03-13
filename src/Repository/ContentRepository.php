@@ -32,7 +32,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page = 1, ?ContentType $contentType = null, bool $published = true): Pagerfanta
+    public function findForListing(int $page = 1, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -43,11 +43,12 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('ct', $contentType['slug']);
         }
 
-        if ($published) {
+        if ($onlyPublished) {
             $qb->andWhere('content.status = :status')
-                ->setParameter('status', 'published');
+                ->setParameter('status', Statuses::PUBLISHED);
         }
-        return $this->createPaginator($qb->getQuery(), $page);
+
+        return $this->createPaginator($qb->getQuery(), $page, $contentType['recordsperpage']);
     }
 
     public function findLatest(?ContentType $contentType = null, int $amount = 6): ?array
