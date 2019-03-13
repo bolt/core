@@ -465,7 +465,7 @@ class Content implements \JsonSerializable
         } catch (\InvalidArgumentException $e) {
             $backtrace = new LaravelCollection($e->getTrace());
 
-            if ($backtrace->contains('class', \Twig_Template::class)) {
+            if ($backtrace->contains('class', \Twig\Template::class)) {
                 // Invoked from within a Template render, so be lenient.
                 return null;
             }
