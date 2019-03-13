@@ -33,6 +33,11 @@ class ImageField extends Field
         return $value;
     }
 
+    public function getTwigValue()
+    {
+        return $this->getValue();
+    }
+
     public function getPath(): string
     {
         $urlBuilder = UrlBuilderFactory::create('/thumbs/');

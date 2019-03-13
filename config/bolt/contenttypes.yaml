@@ -342,6 +342,12 @@ tests:
             allow_html: false
         html_field:
             type: html
+        image:
+            type: image
+            postfix: An image, actually _named_ image.
+        picture:
+            type: image
+            postfix: An image, named differently.
         markdown_field:
             type: markdown
         textarea_field:

@@ -62,12 +62,27 @@
         <div class="box text_textarea">{{ record.textarea_field }}</div><br>
     </p>
 
-    {% if record.hasField('image') %}
-        <a href="{{ record.image }}">
-            <img src="{{ thumbnail(record.image, 400, 260) }}">
-        </a>
+    <h2>Testing output for images</h2>
+
+    {% if record.image %}
+        We have a field named `image`: {{ dump(record.getField('image').getValue()) }}
+        {{ dump(record.image) }}
+        <img src="{{ thumbnail(record.image, 400, 260) }}">
         <hr>
     {% endif %}
+
+    {% if record.image %}
+        We have a field named `picture`: {{ dump(record.picture) }}
+        <img src="{{ thumbnail(record.picture, 400, 260) }}">
+        <hr>
+    {% endif %}
+
+    {% if record|image %}
+        We have an 'extras' image: {{ dump(record|image) }}
+        <img src="{{ thumbnail(record|image, 400, 260) }}">
+        <hr>
+    {% endif %}
+
 
     {# Output all fields, in the order as defined in the content type.
        To change the generated html and configure the options, see:
