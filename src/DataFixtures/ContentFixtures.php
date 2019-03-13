@@ -60,7 +60,6 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         $translationRepository = $manager->getRepository(Translation::class);
 
         foreach ($this->config as $contentType) {
-
             $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 2.5);
 
             foreach (range(1, $amount) as $i) {

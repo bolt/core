@@ -74,10 +74,9 @@ class RecordExtension extends AbstractExtension
         return $input;
     }
 
-
-    public function pager(Environment $env, $records = null, string $template = '_sub_pager.twig', string $class = null, string $theme = null, int $surround = null)
+    public function pager(Environment $env, $records = null, string $template = '_sub_pager.twig', ?string $class = null, ?string $theme = null, ?int $surround = null)
     {
-        if (!is_iterable($records)) {
+        if (! is_iterable($records)) {
             return "<strong class='bolt_template_warning'>Warning: Not possible to paginate given object.</strong>";
         }
 
