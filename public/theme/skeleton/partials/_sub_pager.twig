@@ -1,5 +1,5 @@
 {% if records.haveToPaginate|default() %}
-    <div class="pagination">
+    <div class="{{ class|default('pagination') }}">
         {{ pagerfanta(records) }}
     </div>
 {% else %}
