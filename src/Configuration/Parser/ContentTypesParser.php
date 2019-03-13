@@ -130,7 +130,6 @@ class ContentTypesParser extends BaseParser
             $contentType['listing_records'] = $this->generalConfig->get('listing_records');
         }
 
-
         if (! isset($contentType['locales'])) {
             $contentType['locales'] = [];
         } elseif (is_string($contentType['locales'])) {
