@@ -81,10 +81,10 @@ class ContentRepository extends ServiceEntityRepository
 //        ->setParameter('values',['red','yellow']);
     }
 
-    private function createPaginator(Query $query, int $page): Pagerfanta
+    private function createPaginator(Query $query, int $page, int $max): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
-        $paginator->setMaxPerPage(Content::NUM_ITEMS);
+        $paginator->setMaxPerPage($max);
         $paginator->setCurrentPage($page);
 
         return $paginator;

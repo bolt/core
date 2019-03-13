@@ -142,7 +142,7 @@ entries:
     listing_records: 20
     default_status: published
     sort: -publishedAt
-    recordsperpage: 20
+    recordsperpage: 6
     icon_many: "fa:file-alt"
     icon_one: "fa:file-alt"
 
