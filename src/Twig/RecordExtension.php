@@ -54,7 +54,7 @@ class RecordExtension extends AbstractExtension
             new TwigFunction('excerpt', [$this, 'excerpt'], $safe),
             new TwigFunction('listtemplates', [$this, 'dummy']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('menu', [$this, 'pager'], $env + $safe),
+            new TwigFunction('menu', [$this, 'menu'], $env + $safe),
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
             new TwigFunction('jsonlabels', [$this, 'jsonlabels']),
             new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
@@ -74,10 +74,21 @@ class RecordExtension extends AbstractExtension
         return $input;
     }
 
-    public function pager(Environment $env, string $template = '')
+
+    public function pager(Environment $env, $records = null, string $template = '_sub_pager.twig', string $class = null, string $theme = null, int $surround = null)
     {
-        // @todo See Github issue https://github.com/bolt/four/issues/254
-        return '[pager placeholder]';
+        if (!is_iterable($records)) {
+            return "<strong class='bolt_template_warning'>Warning: Not possible to paginate given object.</strong>";
+        }
+
+        $context = [
+            'records' => $records,
+            'surround' => $surround,
+            'class' => $class,
+            'theme' => $theme,
+        ];
+
+        return $env->render($template, $context);
     }
 
     public function menu(Environment $env, string $template = '')
