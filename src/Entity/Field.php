@@ -206,7 +206,7 @@ class Field implements Translatable
     {
         $value = $this->getFlattenedValue();
 
-        if ($this->getDefinition()->get('allow_html')) {
+        if (is_string($value) && $this->getDefinition()->get('allow_html')) {
             $value = new Markup($value, 'UTF-8');
         }
 
