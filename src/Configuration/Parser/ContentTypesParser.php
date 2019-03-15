@@ -130,6 +130,12 @@ class ContentTypesParser extends BaseParser
             $contentType['listing_records'] = $this->generalConfig->get('listing_records');
         }
 
+        if ($contentType['singleton']) {
+            $contentType['records_per_page'] = 1;
+        } elseif (isset($contentType['records_per_page']) === false) {
+            $contentType['records_per_page'] = $this->generalConfig->get('records_per_page');
+        }
+
         if (! isset($contentType['locales'])) {
             $contentType['locales'] = [];
         } elseif (is_string($contentType['locales'])) {

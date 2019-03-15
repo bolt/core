@@ -10,6 +10,7 @@ use Bolt\Menu\MenuBuilder;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
+use Pagerfanta\Pagerfanta;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Environment;
@@ -74,12 +75,8 @@ class RecordExtension extends AbstractExtension
         return $input;
     }
 
-    public function pager(Environment $env, $records = null, string $template = '_sub_pager.twig', ?string $class = null, ?string $theme = null, ?int $surround = null)
+    public function pager(Environment $env, Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)
     {
-        if (! is_iterable($records)) {
-            return "<strong class='bolt_template_warning'>Warning: Not possible to paginate given object.</strong>";
-        }
-
         $context = [
             'records' => $records,
             'surround' => $surround,

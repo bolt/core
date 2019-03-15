@@ -48,7 +48,7 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        return $this->createPaginator($qb->getQuery(), $page, $contentType['recordsperpage']);
+        return $this->createPaginator($qb->getQuery(), $page, $contentType['listing_records']);
     }
 
     public function findLatest(?ContentType $contentType = null, int $amount = 6): ?array

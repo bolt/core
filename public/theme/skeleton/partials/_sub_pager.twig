@@ -1,13 +1,11 @@
 {% if records.haveToPaginate|default() %}
 
-    {% set theme = theme|default('default') %}
+    {% set theme = theme %}
     {% set options = {
-        'proximity': surround|default(3)
+        'proximity': surround
     } %}
 
-    <div class="{{ class|default('pagination') }}">
+    <div class="{{ class }}">
         {{ pagerfanta(records, theme, options) }}
     </div>
-{% else %}
-    <strong class='bolt_template_warning'>Warning: Not possible to paginate given object.</strong>
 {% endif %}
