@@ -1,11 +1,12 @@
 {% if records.haveToPaginate|default() %}
 
-    {% set theme = theme %}
-    {% set options = {
-        'proximity': surround
-    } %}
+    {# The Pagerfanta function allows you to configure what is paginated,
+       the theme (template) to use for it, as well as a number of other options.
+       See: https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle #}
 
     <div class="{{ class }}">
-        {{ pagerfanta(records, theme, options) }}
+        {{ pagerfanta(records, theme, {
+            'proximity': surround
+        }) }}
     </div>
 {% endif %}
