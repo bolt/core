@@ -34,29 +34,25 @@ Feature: Edit record
         When I fill the "title_field" field with "Changed title NL"
         And I click the "save_button" element
 
+        # Note, see https://github.com/TheSoftwareHouse/Kakunin/pull/157
+        # @todo update, when the mentioned PR lands in stable Kakunin
         When I visit the "edit_record" page with parameters:
-            | id          | 1  |
-            | edit_locale | nl |
+            | id          | 1?edit_locale=nl  |
         Then I wait for "title_field" element to appear
         Then there is element "title_field" with text "Changed title NL"
 
         When I visit the "edit_record" page with parameters:
-            | id          | 1  |
-            | edit_locale | nl |
-            | _locale     | nl |
+            | id          | 1?edit_locale=nl&_locale=nl |
         Then I wait for "title_field" element to appear
         Then there is element "title_field" with text "Changed title NL"
 
         When I visit the "edit_record" page with parameters:
-            | id          | 1  |
-            | edit_locale | en |
-            | _locale     | nl |
+            | id          | 1?edit_locale=en&_locale=nl |
         Then I wait for "title_field" element to appear
         Then there is element "title_field" with text "Changed title EN"
 
         When I visit the "single_record" page with parameters:
-            | id      | 1  |
-            | _locale | nl |
+            | id      | 1?_locale=nl |
         Then there is element "title" with text "Changed title NL"
 
         When I visit the "single_record" page with parameters:
@@ -64,8 +60,7 @@ Feature: Edit record
         Then there is element "title" with text "Changed title NL"
 
         When I visit the "single_record" page with parameters:
-            | id      | 1  |
-            | _locale | en |
+            | id      | 1?_locale=en |
         Then there is element "title" with text "Changed title EN"
 
         When I visit the "single_record" page with parameters:
