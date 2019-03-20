@@ -299,7 +299,7 @@ class Content implements \JsonSerializable
     {
         $fieldValues = [];
         foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $field->getFlattenedValue();
+            $fieldValues[$field->getName()] = $field->getParsedValue();
         }
 
         return $fieldValues;
@@ -330,7 +330,7 @@ class Content implements \JsonSerializable
             return null;
         }
 
-        return $this->getField($fieldName)->getFlattenedValue();
+        return $this->getField($fieldName)->getParsedValue();
     }
 
     public function getField(string $fieldName): Field

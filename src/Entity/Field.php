@@ -184,7 +184,7 @@ class Field implements Translatable
      *
      * @return array|mixed|null
      */
-    public function getFlattenedValue()
+    public function getParsedValue()
     {
         $value = $this->getValue();
         if (is_iterable($value)) {
@@ -204,7 +204,7 @@ class Field implements Translatable
      */
     public function getTwigValue()
     {
-        $value = $this->getFlattenedValue();
+        $value = $this->getParsedValue();
 
         if (is_string($value) && $this->getDefinition()->get('allow_html')) {
             $value = new Markup($value, 'UTF-8');
