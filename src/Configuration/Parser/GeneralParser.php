@@ -60,7 +60,7 @@ class GeneralParser extends BaseParser
             'sitename' => 'Default Bolt site',
             'locale' => null,
             'records_per_page' => 10,
-            'records_per_dashboardwidget' => 5,
+            'records_on_dashboard' => 5,
             'systemlog' => [
                 'enabled' => true,
             ],
