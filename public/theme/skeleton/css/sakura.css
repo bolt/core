@@ -177,12 +177,40 @@ label, legend, fieldset {
   font-size: 0.9em;
 }
 
-ul.pagination li {
-  list-style-type: none;
-  display: inline;
-  color: #999;
+/* Default pagerfanta styles, for pagination */
+.pagination {
 }
 
-ul.pagination li+li:before {
-  content: " | ";
+.pagination a,
+.pagination span {
+  display: inline-block;
+  background: #f4f9fa;
+  border: 1px solid #96c4cc;
+  color: #2c8898;
+  margin-right: .2em;
+  padding: .25em .35em;
 }
+
+.pagination a {
+  text-decoration: none;
+}
+
+.pagination a:hover {
+  background: #c0dbe0;
+  color: #982c61;
+}
+
+.pagination .dots {
+  border-width: 0;
+}
+
+.pagination .current {
+  background: #c0dbe0;
+  font-weight: bold;
+}
+
+.pagination .disabled {
+  border-color: #c0dbe0;
+  color: #abcfd6;
+}
+

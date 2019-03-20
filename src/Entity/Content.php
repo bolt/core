@@ -35,8 +35,6 @@ class Content implements \JsonSerializable
     use ContentLocalizeTrait;
     use ContentExtrasTrait;
 
-    public const NUM_ITEMS = 8; // @todo This can't be a const
-
     /**
      * @var int
      *
