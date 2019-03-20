@@ -10,8 +10,8 @@
 
     <hr>
 
-    {% if record.hasField('image') %}
-        <a href="{{ record.image }}">
+    {% if record.image %}
+        <a href="{{ image(record.image) }}">
             <img src="{{ thumbnail(record.image, 400, 260) }}">
         </a>
 
