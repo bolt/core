@@ -51,6 +51,27 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page, $contentType['listing_records']);
     }
 
+    public function findForTaxonomy(int $page = 1, string $taxonomyslug, string $slug, bool $onlyPublished = true): Pagerfanta
+    {
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a');
+
+        $qb->addSelect('t')
+            ->innerJoin('content.taxonomies', 't')
+            ->andWhere('t.type = :taxonomyslug')
+            ->setParameter('taxonomyslug', $taxonomyslug)
+            ->andWhere('t.slug = :slug')
+            ->setParameter('slug', $slug);
+
+        if ($onlyPublished) {
+            $qb->andWhere('content.status = :status')
+                ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        return $this->createPaginator($qb->getQuery(), $page, 6);
+    }
+
     public function findLatest(?ContentType $contentType = null, int $amount = 6): ?array
     {
         $qb = $this->getQueryBuilder()
@@ -81,10 +102,10 @@ class ContentRepository extends ServiceEntityRepository
 //        ->setParameter('values',['red','yellow']);
     }
 
-    private function createPaginator(Query $query, int $page, int $max): Pagerfanta
+    private function createPaginator(Query $query, int $page, ?int $max): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
-        $paginator->setMaxPerPage($max);
+        $paginator->setMaxPerPage($max ?: 6);
         $paginator->setCurrentPage($page);
 
         return $paginator;

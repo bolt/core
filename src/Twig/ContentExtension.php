@@ -49,6 +49,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('next', [$this, 'getNextContent']),
             new TwigFilter('link', [$this, 'getLink'], $safe),
             new TwigFilter('edit_link', [$this, 'getEditLink'], $safe),
+            new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
         ];
     }
 
@@ -214,5 +215,30 @@ class ContentExtension extends AbstractExtension
             ],
             $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
         );
+    }
+
+    public function getTaxonomies(Content $content): Collection
+    {
+        $taxonomies = [];
+        foreach ($content->getTaxonomies() as $t) {
+            $link = $this->urlGenerator->generate('taxonomy', [
+                'taxonomyslug' => $t->getType(),
+                'slug' => $t->getSlug(),
+            ]);
+
+            $taxonomy = [
+                'slug' => $t->getSlug(),
+                'name' => $t->getName(),
+                'link' => $link,
+            ];
+
+            if ($t->getSortorder()) {
+                $taxonomy['sortorder'] = $t->getSortorder();
+            }
+
+            $taxonomies[$t->getType()][$t->getSlug()] = $taxonomy;
+        }
+
+        return new Collection($taxonomies);
     }
 }

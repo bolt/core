@@ -30,8 +30,8 @@ class TaxonomyController extends TwigAwareController
     }
 
     /**
-     * @Route("
-     *     /{taxonomyslug}/{slug}",
+     * @Route(
+     *     "/{taxonomyslug}/{slug}",
      *     name="taxonomy",
      *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"},
      *     methods={"GET"}
@@ -41,13 +41,16 @@ class TaxonomyController extends TwigAwareController
     {
         $page = (int) $request->query->get('page', 1);
 
-        /** @var Content[] $records */
-        $records = $contentRepository->findForListing($page);
-
         $contentType = ContentType::factory('page', $this->config->get('contenttypes'));
+
+        /** @var Content[] $records */
+        $records = $contentRepository->findForTaxonomy($page, $taxonomyslug, $slug);
 
         $templates = $this->templateChooser->forListing($contentType);
 
         return $this->renderTemplate($templates, ['records' => $records]);
+
+
+
     }
 }
