@@ -8,9 +8,7 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -19,7 +17,7 @@ use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Gedmo\Translatable\Entity\Translation;
 use Tightenco\Collect\Support\Collection;
 
-class ContentFixtures extends Fixture implements DependentFixtureInterface
+class ContentFixtures extends BaseFixture implements DependentFixtureInterface
 {
     /** @var Generator */
     private $faker;
@@ -63,9 +61,11 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
             foreach (range(1, $amount) as $i) {
-                $ref = $i === 1 ? 'admin' : ['admin', 'henkie', 'jane_admin', 'tom_admin'][random_int(0, 3)];
-                /** @var User $author */
-                $author = $this->getReference($ref);
+                if ($i === 1) {
+                    $author = $this->getReference('user_admin');
+                } else {
+                    $author = $this->getRandomReference('user');
+                }
 
                 $content = new Content();
                 $content->setContentType($contentType['slug']);
@@ -100,6 +100,24 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                     if ($fieldType['localize']) {
                         foreach ($contentType['locales'] as $locale) {
                             $translationRepository->translate($field, 'value', $locale, $field->getValue());
+                        }
+                    }
+                }
+
+                foreach ($contentType['taxonomy'] as $taxonomySlug) {
+                    if ($taxonomySlug === 'categories') {
+                        $amount = 2;
+                    } elseif ($taxonomySlug === 'tags') {
+                        $amount = 4;
+                    } else {
+                        $amount = 1;
+                    }
+
+                    for ($i = 1; $i <= $amount; $i++) {
+                        $taxonomy = $this->getRandomTaxonomy($taxonomySlug);
+
+                        if ($taxonomy) {
+                            $content->addTaxonomy($taxonomy);
                         }
                     }
                 }
