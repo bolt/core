@@ -38,7 +38,7 @@ class GeneralParser extends BaseParser
 
         $general['database'] = $this->parseDatabase($general['database']);
 
-        return collect($general);
+        return new Collection($general);
     }
 
     /**
@@ -59,8 +59,8 @@ class GeneralParser extends BaseParser
             ],
             'sitename' => 'Default Bolt site',
             'locale' => null,
-            'recordsperpage' => 10,
-            'recordsperdashboardwidget' => 5,
+            'records_per_page' => 10,
+            'records_on_dashboard' => 5,
             'systemlog' => [
                 'enabled' => true,
             ],
@@ -172,7 +172,7 @@ class GeneralParser extends BaseParser
         // Parse master connection parameters
         $master = $this->parseConnectionParams($options);
         // Merge master connection into options
-        $options = collect($options)->merge($master);
+        $options = (new Collection($options))->merge($master);
 
         // Add platform specific random functions
         $driver = \Bolt\Common\Str::replaceFirst($options['driver'], 'pdo_', '');
@@ -230,7 +230,7 @@ class GeneralParser extends BaseParser
             $params = ['host' => $params];
         }
 
-        $params = collect($params);
+        $params = new Collection($params);
 
         // Convert keys from Bolt
         $replacements = [

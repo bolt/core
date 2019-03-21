@@ -139,10 +139,10 @@ entries:
     taxonomy: [ categories, tags, groups ]
     record_template: entry.twig
     listing_template: listing.twig
-    listing_records: 10
+    listing_records: 6
     default_status: published
     sort: -publishedAt
-    recordsperpage: 20
+    records_per_page: 3
     icon_many: "fa:file-alt"
     icon_one: "fa:file-alt"
 
@@ -322,9 +322,10 @@ blocks:
     icon_one: "fa:cube"
 
 
-dummies:
-    name: Dummies
-    singular_name: Dummy
+# This contenttype is here to use for (automated) tests.
+tests:
+    name: Tests
+    singular_name: Test
     fields:
         title:
             type: text
@@ -333,6 +334,24 @@ dummies:
         slug:
             type: slug
             uses: title
+        text_markup:
+            type: text
+            allow_html: true
+        text_plain:
+            type: text
+            allow_html: false
+        html_field:
+            type: html
+        image:
+            type: image
+            postfix: An image, actually _named_ image.
+        picture:
+            type: image
+            postfix: An image, named differently.
+        markdown_field:
+            type: markdown
+        textarea_field:
+            type: textarea
         selectfield:
             type: select
             values:
@@ -345,6 +364,10 @@ dummies:
             multiple: true
             postfix: "Select your favourite turtle(s)."
     taxonomy: [ groups, categories, tags, foobars ]
+    record_template: test.twig
+    listing_template: listing.twig
+    listing_records: 10
+
 
 # Possible field types:
 #

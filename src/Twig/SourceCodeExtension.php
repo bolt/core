@@ -6,7 +6,7 @@ namespace Bolt\Twig;
 
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
-use Twig\Template;
+use Twig\TemplateWrapper;
 use Twig\TwigFunction;
 
 /**
@@ -88,7 +88,7 @@ class SourceCodeExtension extends AbstractExtension
         return new \ReflectionFunction($callable);
     }
 
-    private function getTemplateSource(Template $template): array
+    private function getTemplateSource(TemplateWrapper $template): array
     {
         $templateSource = $template->getSourceContext();
 

@@ -26,7 +26,7 @@ class ContentOverviewController extends TwigAwareController
 
         $page = (int) $request->query->get('page', 1);
 
-        $records = $contentRepository->findForPage($page, $contentType);
+        $records = $contentRepository->findForListing($page, $contentType, false);
 
         return $this->renderTemplate('@bolt/content/listing.html.twig', [
             'records' => $records,

@@ -39,8 +39,6 @@ class Content implements \JsonSerializable
     use ContentLocalizeTrait;
     use ContentExtrasTrait;
 
-    public const NUM_ITEMS = 8; // @todo This can't be a const
-
     /**
      * @var int
      *
@@ -311,7 +309,7 @@ class Content implements \JsonSerializable
     {
         $fieldValues = [];
         foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $field->getFlattenedValue();
+            $fieldValues[$field->getName()] = $field->getParsedValue();
         }
 
         return $fieldValues;
@@ -342,7 +340,7 @@ class Content implements \JsonSerializable
             return null;
         }
 
-        return $this->getField($fieldName)->getFlattenedValue();
+        return $this->getField($fieldName)->getParsedValue();
     }
 
     public function getField(string $fieldName): Field
@@ -453,17 +451,35 @@ class Content implements \JsonSerializable
     /**
      * Generic getter for a record fields. Will return the field with $name.
      *
+     * If $name is not found, throw an exception if it's invoked from code, and
+     * return null if invoked from within a template. In templates we need to be
+     * more lenient, in order to do things like `{% if record.foo %}..{% endif %}
+     *
+     * Note: We can not rely on `{% if record.foo is defined %}`, because it
+     * always returns `true` for object properties.
+     * See: https://craftcms.stackexchange.com/questions/2116/twig-is-defined-always-returning-true
+     *
      * - {{ record.title }} => field named title
      * - {{ record|title }} => value of guessed title field
      * - {{ record.image }} => field named image
      * - {{ record|image }} => value of guessed image field
      */
-    public function __call(string $name, array $arguments = []): Field
+    public function __call(string $name, array $arguments = [])
     {
         try {
-            return $this->getField($name);
+            $field = $this->getField($name);
         } catch (\InvalidArgumentException $e) {
+            $backtrace = new LaravelCollection($e->getTrace());
+
+            if ($backtrace->contains('class', \Twig\Template::class)) {
+                // Invoked from within a Template render, so be lenient.
+                return null;
+            }
+
+            // Invoked from code, throw Exception
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
+
+        return $field->getTwigValue();
     }
 }

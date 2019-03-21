@@ -2,17 +2,21 @@
 
 {% block main %}
 
-    <h1>{{ record.title }}</h1>
+    {% if record.title %}
+        <h1 class="title">{{ record.title }}</h1>
+    {% else %}
+        <h1 class="heading">{{ record|title }}</h1>
+    {% endif %}
 
     <hr>
 
     {% if record.image %}
-        <a href="{{ record.image }}">
+        <a href="{{ image(record.image) }}">
             <img src="{{ thumbnail(record.image, 400, 260) }}">
         </a>
-    {% endif %}
 
-    <hr>
+        <hr>
+    {% endif %}
 
     {# Output all fields, in the order as defined in the content type.
        To change the generated html and configure the options, see:

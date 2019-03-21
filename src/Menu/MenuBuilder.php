@@ -238,6 +238,23 @@ class MenuBuilder
             ],
         ]);
 
+        // @todo When we're close to stable release, make this less prominent
+        $menu->getChild('Maintenance')->addChild('The Kitchensink', [
+            'uri' => $this->urlGenerator->generate('bolt_kitchensink'),
+            'extras' => [
+                'name' => $t->trans('caption.kitchensink'),
+                'icon' => 'fa-bath',
+            ],
+        ]);
+
+        $menu->getChild('Maintenance')->addChild('About Bolt', [
+            'uri' => $this->urlGenerator->generate('bolt_about'),
+            'extras' => [
+                'name' => $t->trans('caption.about_bolt'),
+                'icon' => 'fa-award',
+            ],
+        ]);
+
         // File Management submenu
 
         $menu->addChild('File Management', ['extras' => [
@@ -258,14 +275,6 @@ class MenuBuilder
             'extras' => [
                 'name' => $t->trans('caption.view_edit_templates'),
                 'icon' => 'fa-scroll',
-            ],
-        ]);
-
-        $menu->addChild('The Kitchensink', [
-            'uri' => $this->urlGenerator->generate('bolt_kitchensink'),
-            'extras' => [
-                'icon' => 'fa-bath',
-                'singleton' => true,
             ],
         ]);
 

@@ -6,7 +6,8 @@ class SingleRecordPage extends BasePage {
 
     this.url = '/page/:id';
 
-    this.title = $('h1');
+    this.title = $('h1.title');
+    this.heading = $('h1.heading');
     this.edit_button = $('.meta .edit-link a');
   }
 }

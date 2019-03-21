@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
+use Twig\Markup;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
@@ -185,7 +186,7 @@ class Field implements Translatable
      *
      * @return array|mixed|null
      */
-    public function getFlattenedValue()
+    public function getParsedValue()
     {
         $value = $this->getValue();
         if (is_iterable($value)) {
@@ -200,9 +201,23 @@ class Field implements Translatable
         return $value;
     }
 
-    public function setValue(array $value): self
+    /**
+     * @return string|array|Markup
+     */
+    public function getTwigValue()
     {
-        $this->value = $value;
+        $value = $this->getParsedValue();
+
+        if (is_string($value) && $this->getDefinition()->get('allow_html')) {
+            $value = new Markup($value, 'UTF-8');
+        }
+
+        return $value;
+    }
+
+    public function setValue($value): self
+    {
+        $this->value = (array) $value;
 
         return $this;
     }

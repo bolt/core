@@ -93,14 +93,14 @@ class Config
     {
         $general = new GeneralParser();
 
-        $config = collect([
+        $config = new Collection([
             'general' => $general->parse(),
         ]);
 
         $taxonomy = new TaxonomyParser();
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contentTypes = new ContentTypesParser($config->get('general')['accept_file_types']);
+        $contentTypes = new ContentTypesParser($config->get('general'));
         $config['contenttypes'] = $contentTypes->parse();
 
         // @todo Add these config files if needed, or refactor them out otherwise
@@ -148,6 +148,11 @@ class Config
         return Arr::get($this->data, $path, $default);
     }
 
+    public function has(string $path): bool
+    {
+        return Arr::has($this->data, $path);
+    }
+
     public function getPath(string $path, bool $absolute = true, $additional = null): string
     {
         return $this->pathResolver->resolve($path, $absolute, $additional);
@@ -160,6 +165,6 @@ class Config
 
     public function getMediaTypes(): Collection
     {
-        return collect($this->get('general/accept_media_types'));
+        return new Collection($this->get('general/accept_media_types'));
     }
 }

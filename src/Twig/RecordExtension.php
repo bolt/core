@@ -10,7 +10,9 @@ use Bolt\Menu\MenuBuilder;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
+use Pagerfanta\Pagerfanta;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -53,7 +55,7 @@ class RecordExtension extends AbstractExtension
             new TwigFunction('excerpt', [$this, 'excerpt'], $safe),
             new TwigFunction('listtemplates', [$this, 'dummy']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('menu', [$this, 'pager'], $env + $safe),
+            new TwigFunction('menu', [$this, 'menu'], $env + $safe),
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
             new TwigFunction('jsonlabels', [$this, 'jsonlabels']),
             new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
@@ -73,10 +75,16 @@ class RecordExtension extends AbstractExtension
         return $input;
     }
 
-    public function pager(Environment $env, string $template = '')
+    public function pager(Environment $env, Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)
     {
-        // @todo See Github issue https://github.com/bolt/four/issues/254
-        return '[pager placeholder]';
+        $context = [
+            'records' => $records,
+            'surround' => $surround,
+            'class' => $class,
+            'theme' => $theme,
+        ];
+
+        return $env->render($template, $context);
     }
 
     public function menu(Environment $env, string $template = '')
@@ -125,7 +133,7 @@ class RecordExtension extends AbstractExtension
         return json_encode($result, $options);
     }
 
-    public function selectoptionsfromarray(Field $field): \Tightenco\Collect\Support\Collection
+    public function selectoptionsfromarray(Field $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -141,7 +149,7 @@ class RecordExtension extends AbstractExtension
         }
 
         if (! is_iterable($values)) {
-            return collect($options);
+            return new LaravelCollection($options);
         }
 
         foreach ($values as $key => $value) {
@@ -152,10 +160,10 @@ class RecordExtension extends AbstractExtension
             ];
         }
 
-        return collect($options);
+        return new LaravelCollection($options);
     }
 
-    public function taxonomyoptions($taxonomy): \Tightenco\Collect\Support\Collection
+    public function taxonomyoptions($taxonomy): LaravelCollection
     {
         $options = [];
 
@@ -173,10 +181,10 @@ class RecordExtension extends AbstractExtension
             ];
         }
 
-        return collect($options);
+        return new LaravelCollection($options);
     }
 
-    public function taxonomyvalues(Collection $current, $taxonomy): \Tightenco\Collect\Support\Collection
+    public function taxonomyvalues(Collection $current, $taxonomy): LaravelCollection
     {
         $values = [];
 
@@ -192,6 +200,6 @@ class RecordExtension extends AbstractExtension
             $values[] = key($taxonomy['options']);
         }
 
-        return collect($values);
+        return new LaravelCollection($values);
     }
 }

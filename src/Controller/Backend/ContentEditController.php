@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
 /**
@@ -320,7 +321,7 @@ class ContentEditController extends TwigAwareController
             $value = Json::findArray($value);
         }
 
-        $field->setValue((array) $value);
+        $field->setValue($value);
     }
 
     /**
@@ -328,7 +329,7 @@ class ContentEditController extends TwigAwareController
      */
     private function updateTaxonomy(Content $content, string $key, $taxonomy): void
     {
-        $taxonomy = collect(Json::findArray($taxonomy))->filter();
+        $taxonomy = (new Collection(Json::findArray($taxonomy)))->filter();
 
         // Remove old ones
         foreach ($content->getTaxonomies($key) as $current) {
