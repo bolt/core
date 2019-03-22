@@ -19,6 +19,12 @@ class ContentValidatorSpec extends ObjectBehavior
 {
     function it_validates_on_empty_values(Content $content, ExecutionContextInterface $context)
     {
+        $content->getCreatedAt()->willReturn(null);
+        $content->getPublishedAt()->willReturn(null);
+        $content->getDepublishedAt()->willReturn(null);
+        $content->getModifiedAt()->willReturn(null);
+        $content->getStatus()->willReturn(Statuses::DRAFT);
+
         $context->buildViolation(Argument::any())->shouldNotBeCalled();
         $this->validate($content, $context);
     }
@@ -41,7 +47,7 @@ class ContentValidatorSpec extends ObjectBehavior
         $content->getModifiedAt()->willReturn((new \DateTime())->modify('-7 days'));
         $content->getPublishedAt()->willReturn(null);
         $content->getDepublishedAt()->willReturn(null);
-        $content->getStatus()->willReturn(null);
+        $content->getStatus()->willReturn(Statuses::DRAFT);
 
         $violation->atPath('modifiedAt')->shouldBeCalled()->willReturn($violation);
         $violation->addViolation()->shouldBeCalled();
@@ -56,8 +62,7 @@ class ContentValidatorSpec extends ObjectBehavior
         $content->getPublishedAt()->willReturn((new \DateTime())->modify('-7 days'));
         $content->getModifiedAt()->willReturn(null);
         $content->getDepublishedAt()->willReturn(null);
-        $content->getStatus()->willReturn(null);
-
+        $content->getStatus()->willReturn(Statuses::DRAFT);
 
         $violation->atPath('publishedAt')->shouldBeCalled()->willReturn($violation);
         $violation->addViolation()->shouldBeCalled();
@@ -71,7 +76,7 @@ class ContentValidatorSpec extends ObjectBehavior
         $content->getDepublishedAt()->willReturn((new \DateTime())->modify('-7 days'));
         $content->getModifiedAt()->willReturn(null);
         $content->getPublishedAt()->willReturn(null);
-        $content->getStatus()->willReturn(null);
+        $content->getStatus()->willReturn(Statuses::DRAFT);
 
         $violation->atPath('depublishedAt')->shouldBeCalled()->willReturn($violation);
         $violation->addViolation()->shouldBeCalled();
