@@ -18,7 +18,7 @@
         {% setcontent block = "block/search-teaser" %}
 
         {# check if we have 'content'. If so, we know we have have a teaser to display. #}
-        {% if block is defined and block.hasField('content') %}
+        {% if block and block.content %}
             {{ block.content }}
         {% endif %}
 
@@ -57,6 +57,6 @@
         {% endfor %}
 
         {# If there are more records than will fit on one page, the pager is shown. #}
-        {{ pager(template = 'partials/_sub_pager.twig') }}
+        {{ pager(records, template = 'partials/_sub_pager.twig') }}
 
 {% endblock main %}
