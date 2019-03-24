@@ -69,10 +69,9 @@ e2e-wip:
 	cd tests/e2e && npm run kakunin -- --tags @wip && cd ../..
 
 e2e-install:
-	cd tests/e2e
-	npm install
-	node ./node_modules/protractor/bin/webdriver-manager update --gecko=false
-	cd step_definitions
+	cd tests/e2e && npm install
+	node ./tests/e2e/node_modules/protractor/bin/webdriver-manager update --gecko=false
+	cd tests/e2e/step_definitions
 	ln -s ../node_modules/kakunin/dist/step_definitions/elements.js kakunin-elements.js
 	ln -s ../node_modules/kakunin/dist/step_definitions/debug.js kakunin-debug.js
 	ln -s ../node_modules/kakunin/dist/step_definitions/file.js kakunin-file.js
