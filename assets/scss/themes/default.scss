@@ -1,7 +1,11 @@
 //** Theme | Default
 
+@import '../init/variables';
 @import '../init/mixins';
 @import '_shared';
+
+$bolt-blue: #003E7C; // Very saturated. Use with care
+$bolt-bluegray: #2F3E4D; // Nice dark and desaturated
 
 :root {
   --background: #f3f5f7;
@@ -10,22 +14,24 @@
   --status-draft: #1078da;
   --status-held: #dd2443;
   --status-timed: #741ce6;
-  --admin-sidebar: #0c223b;
-  --admin-sidebar-text: #fff;
-  --admin-sidebar-icon: #fff;
-  --admin-sidebar-menu: #0a1d32;
-  --admin-sidebar-menu-text: #fff;
-  --admin-toolbar: #053b7a;
+  --admin-sidebar: #2F3E4D;
+  --admin-sidebar-text: #EEE;
+  --admin-sidebar-icon: #FFF;
+  --admin-sidebar-menu: #f0f3f5;
+  --admin-sidebar-menu-text: #666;
+  --admin-toolbar: #4C6E91;
   --admin-toolbar-text-light: #fff;
   --admin-toolbar-text-dark: #0c223b;
 
-  @include generate-color(primary, 212, 70%, 35%);
-  @include generate-color(secondary, 212, 90%, 25%);
+  @include generate-color(primary, 210, 76%, 39%);
+  @include generate-color(secondary, 188, 32%, 52%);
   @include generate-color(body, 212, 66%, 14%);
   @include generate-color(shade, 208, 13%, 43%);
   @include generate-color(grey, 251, 20%, 92%);
-  @include generate-color(success, 152, 92%, 38%);
-  @include generate-color(danger, 350, 73%, 50%);
+  @include generate-color(success, 90, 68%, 38%);
+  @include generate-color(danger, 359, 72%, 50%);
+  @include generate-color(boltblue, 210, 88%, 32%);
+
 }
 
 $bootstrap-colors: (
@@ -37,3 +43,8 @@ $bootstrap-colors: (
 );
 
 @import '_bootstrap';
+
+.admin__sidebar {
+  background: rgb(42,57,70);
+  background: linear-gradient(-70deg, rgba(47,62,77,1) 50%, rgba(42,57,70,1) 50.5%);
+}
