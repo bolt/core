@@ -77,7 +77,7 @@ class RecordExtension extends AbstractExtension
 
     public function pager(Environment $env, ?Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)
     {
-        if (!$records) {
+        if (! $records) {
             return;
         }
 
