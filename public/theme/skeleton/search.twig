@@ -6,9 +6,9 @@
            we display an appropriate title. The 'records' array contains all of the
            records matching the current query. If there are no results, the
            code in the 'else' part of the for-loop is used. #}
-        <h1>
+        <h1 class="search-results">
             {% if search is not empty %}
-                {{ __('general.phrase.search-results-for-variable', { '%search%': search }) }}
+                {{ __('general.phrase.search-results-for', { '%search%': search }) }}
             {% else %}
                 {{ __('general.phrase.search') }}
             {% endif %}
@@ -47,13 +47,11 @@
             {% endif %}
 
         {% else %}
-            <article>
 
                 <p>
-                    {{ __('general.phrase.no-result-for-search-term', { '%SEARCHTERM%': search|escape }) }}
+                    {{ __('general.phrase.no-search-results-for', { '%search%': search|escape }) }}
                 </p>
 
-            </article>
         {% endfor %}
 
         {# If there are more records than will fit on one page, the pager is shown. #}

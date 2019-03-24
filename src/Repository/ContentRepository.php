@@ -72,6 +72,10 @@ class ContentRepository extends ServiceEntityRepository
 
     public function findNaiveSearch(int $page = 1, string $search = '', int $amountPerPage = 6, bool $onlyPublished = true)
     {
+        if (empty($search)) {
+            return null;
+        }
+
         // First, create a querybuilder to get the fields that match the Query
         $qb = $this->getQueryBuilder()
             ->select('partial content.{id}');
