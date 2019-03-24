@@ -1,5 +1,4 @@
 Feature: Display a listing of records
-    @wip
     Scenario: As a user I want to display a listing of records
         When I visit the "listing_records" page
         Then I wait for "heading" element to appear
