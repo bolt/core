@@ -71,7 +71,7 @@ Feature: Edit record
         Given I am logged in as "admin"
 
         When I visit the "edit_record" page with parameters:
-            | id | 32 |
+            | id | 44 |
         Then I wait for "title_field" element to appear
         Then I click the "tab_media" element
         When I fill the "embed_field" field with "https://www.youtube.com/watch?v=x4IDM3ltTYo"

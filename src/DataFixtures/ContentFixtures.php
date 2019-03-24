@@ -60,7 +60,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         $translationRepository = $manager->getRepository(Translation::class);
 
         foreach ($this->config as $contentType) {
-            $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 2.5);
+            $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
             foreach (range(1, $amount) as $i) {
                 $ref = $i === 1 ? 'admin' : ['admin', 'henkie', 'jane_admin', 'tom_admin'][random_int(0, 3)];
@@ -70,13 +70,18 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                 $content = new Content();
                 $content->setContentType($contentType['slug']);
                 $content->setAuthor($author);
-                $content->setStatus($i === 1 ? Statuses::PUBLISHED : $this->getRandomStatus());
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setModifiedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setPublishedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setDepublishedAt($this->faker->dateTimeBetween('-1 year'));
 
                 $preset = $this->getPreset($contentType['slug']);
+
+                if ($i === 1 || ! empty($preset)) {
+                    $content->setStatus(Statuses::PUBLISHED);
+                } else {
+                    $content->setStatus($this->getRandomStatus());
+                }
 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
@@ -144,6 +149,10 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
     private function getPresetRecords(): array
     {
+        $records['entries'][] = [
+            'title' => 'This is a record in the "Entries" ContentType',
+            'slug' => 'This is a record in the "Entries" ContentType',
+        ];
         $records['blocks'][] = [
             'title' => 'About',
         ];
