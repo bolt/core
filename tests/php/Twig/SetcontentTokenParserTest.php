@@ -74,7 +74,7 @@ class SetcontentTokenParserTest extends TokenParserTestCase
             new Token(Token::BLOCK_END_TYPE, '', 98),
             new Token(Token::EOF_TYPE, '', 99),
         ];
-        $twigTokenStream = new TokenStream($streamTokens, new Source(null, 'clippy'));
+        $twigTokenStream = new TokenStream($streamTokens, new Source('', 'clippy'));
 
         $parser = $this->getParser($twigTokenStream, new SetcontentTokenParser());
 
