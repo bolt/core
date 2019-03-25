@@ -97,8 +97,6 @@ class ContentEditController extends TwigAwareController
      */
     public function create(string $contentType, Request $request): Response
     {
-        $this->validateToken($request); // @todo move token validation to form itself
-
         $content = $this->createContent($contentType);
 
         $form = $this->createCreateForm($content, $request);
@@ -130,6 +128,7 @@ class ContentEditController extends TwigAwareController
         return $this->createForm(ContentFormType::class, $content, [
             'action' => $postUrl,
             'method' => Request::METHOD_POST,
+            'content_definition' => $content->getDefinition()
         ]);
     }
 
@@ -172,6 +171,7 @@ class ContentEditController extends TwigAwareController
         return $this->createForm(ContentFormType::class, $content, [
             'action' => $postUrl,
             'method' => Request::METHOD_PUT,
+            'content_definition' => $content->getDefinition()
         ]);
     }
 
@@ -209,8 +209,6 @@ class ContentEditController extends TwigAwareController
      */
     public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
     {
-        $this->validateToken($request);
-
         $urlParams = [
             'slugOrId' => $content->getId(),
             'contentTypeSlug' => $content->getDefinition()->get('slug'),
@@ -226,12 +224,11 @@ class ContentEditController extends TwigAwareController
      */
     public function preview(string $contentType, Request $request): Response
     {
-        $this->validateToken($request);
-
         $content = $this->createContent($contentType);
 
         $form = $this->createForm(ContentFormType::class, $content, [
             'method' => Request::METHOD_POST,
+            'content_definition' => $content->getDefinition()
         ]);
         $form->handleRequest($request);
 
@@ -259,7 +256,7 @@ class ContentEditController extends TwigAwareController
      * @deprecated
      * @private made public just to stop fixer screaming about unused private method
      */
-    protected function contentFromPost(?Content $content, Request $request): Content
+    private function contentFromPost(?Content $content, Request $request): Content
     {
         $formData = $request->request->all();
 
