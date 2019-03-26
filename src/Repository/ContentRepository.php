@@ -69,7 +69,7 @@ class ContentRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function searchNaive(int $page = 1, string $search = '', int $amountPerPage, bool $onlyPublished = true)
+    public function searchNaive(string $search, int $page, int $amountPerPage, bool $onlyPublished = true)
     {
         // First, create a querybuilder to get the fields that match the Query
         $qb = $this->getQueryBuilder()
@@ -81,7 +81,7 @@ class ContentRepository extends ServiceEntityRepository
             ->setParameter('search', '%' . $search . '%');
 
         // These are the ID's of content we need.
-        $ids = array_column($qb->getQuery()->getArrayResult(), "id");
+        $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
 
         // Next, we'll get the full Content objects, based on ID's
         $qb = $this->getQueryBuilder()
