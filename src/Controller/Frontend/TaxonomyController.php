@@ -39,9 +39,10 @@ class TaxonomyController extends TwigAwareController
     public function listing(ContentRepository $contentRepository, Request $request, string $taxonomyslug, string $slug): Response
     {
         $page = (int) $request->query->get('page', 1);
+        $amountPerPage = $this->config->get('general/listing_records');
 
         /** @var Content[] $records */
-        $records = $contentRepository->findForTaxonomy($page, $taxonomyslug, $slug, $this->config->get('listing_records'));
+        $records = $contentRepository->findForTaxonomy($page, $taxonomyslug, $slug, $amountPerPage);
 
         $templates = $this->templateChooser->forTaxonomy($taxonomyslug);
 

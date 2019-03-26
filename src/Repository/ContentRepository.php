@@ -48,10 +48,12 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        return $this->createPaginator($qb->getQuery(), $page, $contentType['listing_records']);
+        $amountPerPage = $contentType['listing_records'];
+
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
-    public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, ?int $amountPerPage = null, bool $onlyPublished = true): Pagerfanta
+    public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -105,7 +107,7 @@ class ContentRepository extends ServiceEntityRepository
     private function createPaginator(Query $query, int $page, ?int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
-        $paginator->setMaxPerPage($amountPerPage ?: 6);
+        $paginator->setMaxPerPage($amountPerPage);
         $paginator->setCurrentPage($page);
 
         return $paginator;

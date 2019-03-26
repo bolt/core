@@ -11,23 +11,23 @@ abstract class BaseFixture extends Fixture
     private $referencesIndex = [];
     private $taxonomyIndex = [];
 
-    protected function getRandomReference(string $className)
+    protected function getRandomReference(string $entityName)
     {
-        if (! isset($this->referencesIndex[$className])) {
-            $this->referencesIndex[$className] = [];
+        if (! isset($this->referencesIndex[$entityName])) {
+            $this->referencesIndex[$entityName] = [];
 
             foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
-                if (mb_strpos($key, $className.'_') === 0) {
-                    $this->referencesIndex[$className][] = $key;
+                if (mb_strpos($key, $entityName.'_') === 0) {
+                    $this->referencesIndex[$entityName][] = $key;
                 }
             }
         }
-        if (empty($this->referencesIndex[$className])) {
-            throw new \Exception(sprintf('Cannot find any references for class "%s"', $className));
+        if (empty($this->referencesIndex[$entityName])) {
+            throw new \Exception(sprintf('Cannot find any references for Entity "%s"', $entityName));
         }
-        $randomReferenceKey = array_rand($this->referencesIndex[$className], 1);
+        $randomReferenceKey = array_rand($this->referencesIndex[$entityName], 1);
 
-        return $this->getReference($this->referencesIndex[$className][$randomReferenceKey]);
+        return $this->getReference($this->referencesIndex[$entityName][$randomReferenceKey]);
     }
 
     protected function getRandomTaxonomy(string $type)
