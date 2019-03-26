@@ -13,7 +13,6 @@ class SingleRecordPage extends BasePage {
     this.taxonomy_tags = $$('.taxonomy-tags');
     this.taxonomy_categories = $$('.taxonomy-categories');
     this.first_category = $('.taxonomy-categories');
-    this.article = $$('article');
   }
 }
 
