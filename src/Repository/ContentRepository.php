@@ -13,7 +13,6 @@ use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @method Content|null find($id, $lockMode = null, $lockVersion = null)
@@ -70,12 +69,8 @@ class ContentRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findNaiveSearch(int $page = 1, string $search = '', int $amountPerPage = 6, bool $onlyPublished = true)
+    public function searchNaive(int $page = 1, string $search = '', int $amountPerPage, bool $onlyPublished = true)
     {
-        if (empty($search)) {
-            return null;
-        }
-
         // First, create a querybuilder to get the fields that match the Query
         $qb = $this->getQueryBuilder()
             ->select('partial content.{id}');
@@ -86,7 +81,7 @@ class ContentRepository extends ServiceEntityRepository
             ->setParameter('search', '%' . $search . '%');
 
         // These are the ID's of content we need.
-        $ids = new Collection($qb->getQuery()->getArrayResult());
+        $ids = array_column($qb->getQuery()->getArrayResult(), "id");
 
         // Next, we'll get the full Content objects, based on ID's
         $qb = $this->getQueryBuilder()
@@ -100,7 +95,7 @@ class ContentRepository extends ServiceEntityRepository
         }
 
         $qb->andWhere('content.id IN (:ids)')
-            ->setParameter('ids', $ids->pluck('id')->toArray());
+            ->setParameter('ids', $ids);
 
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }

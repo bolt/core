@@ -7,7 +7,8 @@ Feature: Display search functionality
         When I fill the "search_input" field with "consequatur"
         And I click the "search_button" element
 
-        Then there is element "search_results_title" with text "Search results for 'consequatur'."
+        Then the "search" page is displayed
+        And there is element "search_results_title" with text "Search results for 'consequatur'."
         And there are "at least 3" "article" elements
         And there is element "search_input" with text "consequatur"
 
