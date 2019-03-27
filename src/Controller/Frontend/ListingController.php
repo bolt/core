@@ -40,10 +40,10 @@ class ListingController extends TwigAwareController
     {
         $page = (int) $request->query->get('page', 1);
 
-        /** @var Content[] $records */
-        $records = $contentRepository->findForPage($page);
-
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+
+        /** @var Content[] $records */
+        $records = $contentRepository->findForListing($page, $contentType);
 
         $templates = $this->templateChooser->forListing($contentType);
 

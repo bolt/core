@@ -23,4 +23,9 @@ class MarkdownField extends Field implements Excerptable
 
         return $markdown->toHtml($value);
     }
+
+    public function getParsedValue(): string
+    {
+        return (string) $this;
+    }
 }

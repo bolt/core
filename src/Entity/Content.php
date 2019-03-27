@@ -35,8 +35,6 @@ class Content implements \JsonSerializable
     use ContentLocalizeTrait;
     use ContentExtrasTrait;
 
-    public const NUM_ITEMS = 8; // @todo This can't be a const
-
     /**
      * @var int
      *
@@ -301,7 +299,7 @@ class Content implements \JsonSerializable
     {
         $fieldValues = [];
         foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $field->getValue();
+            $fieldValues[$field->getName()] = $field->getParsedValue();
         }
 
         return $fieldValues;
@@ -323,13 +321,16 @@ class Content implements \JsonSerializable
         return $taxonomyValues;
     }
 
+    /**
+     * @return array|mixed|null
+     */
     public function getFieldValue(string $fieldName)
     {
         if ($this->hasField($fieldName) === false) {
             return null;
         }
 
-        return $this->getField($fieldName)->getValue();
+        return $this->getField($fieldName)->getParsedValue();
     }
 
     public function getField(string $fieldName): Field

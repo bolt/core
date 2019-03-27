@@ -7,8 +7,8 @@
   },
   "dependencies": {
     "cross-env": "^5.2.0",
-    "kakunin": "https://github.com/JarJak/Kakunin/tarball/feature/url-additional-params",
+    "kakunin": "^2.5",
     "protractor": "^5.4.2",
-    "webdriver-manager": "^12.1.1"
+    "webdriver-manager": "^13.0.0"
   }
 }

@@ -198,13 +198,33 @@ class Field implements Translatable
     }
 
     /**
-     * @return string|Markup
+     * like getValue() but returns single value for single value fields
+     *
+     * @return array|mixed|null
+     */
+    public function getParsedValue()
+    {
+        $value = $this->getValue();
+        if (is_iterable($value)) {
+            $count = count($value);
+            if ($count === 0) {
+                return null;
+            } elseif ($count === 1) {
+                return reset($value);
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * @return string|array|Markup
      */
     public function getTwigValue()
     {
-        $value = $this->__toString();
+        $value = $this->getParsedValue();
 
-        if ($this->getDefinition()->get('allow_html')) {
+        if (is_string($value) && $this->getDefinition()->get('allow_html')) {
             $value = new Markup($value, 'UTF-8');
         }
 
