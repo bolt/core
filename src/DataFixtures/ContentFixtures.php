@@ -60,7 +60,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
         foreach ($this->config as $contentType) {
             $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
-            foreach (range(1, $amount) as $i) {
+            for ($i = 1; $i <= $amount; $i++) {
                 if ($i === 1) {
                     $author = $this->getReference('user_admin');
                 } else {
@@ -106,14 +106,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
                     if ($taxonomySlug === 'categories') {
-                        $amount = 2;
+                        $taxonomyAmount = 2;
                     } elseif ($taxonomySlug === 'tags') {
-                        $amount = 4;
+                        $taxonomyAmount = 4;
                     } else {
-                        $amount = 1;
+                        $taxonomyAmount = 1;
                     }
 
-                    for ($i = 1; $i <= $amount; $i++) {
+                    for ($j = 1; $j <= $taxonomyAmount; $j++) {
                         $taxonomy = $this->getRandomTaxonomy($taxonomySlug);
 
                         if ($taxonomy) {

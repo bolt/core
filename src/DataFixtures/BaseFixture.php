@@ -13,7 +13,7 @@ abstract class BaseFixture extends Fixture
 
     protected function getRandomReference(string $entityName)
     {
-        if (! isset($this->referencesIndex[$entityName])) {
+        if (isset($this->referencesIndex[$entityName]) === false) {
             $this->referencesIndex[$entityName] = [];
 
             foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
