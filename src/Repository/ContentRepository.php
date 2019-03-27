@@ -32,7 +32,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page = 1, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
+    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -47,8 +47,6 @@ class ContentRepository extends ServiceEntityRepository
             $qb->andWhere('content.status = :status')
                 ->setParameter('status', Statuses::PUBLISHED);
         }
-
-        $amountPerPage = $contentType['listing_records'];
 
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
@@ -104,7 +102,7 @@ class ContentRepository extends ServiceEntityRepository
 //        ->setParameter('values',['red','yellow']);
     }
 
-    private function createPaginator(Query $query, int $page, ?int $amountPerPage): Pagerfanta
+    private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
         $paginator->setMaxPerPage($amountPerPage);

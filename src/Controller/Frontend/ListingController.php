@@ -38,12 +38,13 @@ class ListingController extends TwigAwareController
      */
     public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
     {
-        $page = (int) $request->query->get('page', 1);
-
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
 
+        $page = (int) $request->query->get('page', 1);
+        $amountPerPage = $contentType->get('listing_records');
+
         /** @var Content[] $records */
-        $records = $contentRepository->findForListing($page, $contentType);
+        $records = $contentRepository->findForListing($page, $amountPerPage, $contentType);
 
         $templates = $this->templateChooser->forListing($contentType);
 

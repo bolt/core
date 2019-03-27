@@ -37,9 +37,10 @@ class SearchController extends TwigAwareController
     public function search(ContentRepository $contentRepository, Request $request): Response
     {
         $page = (int) $request->query->get('page', 1);
+        $amountPerPage = $this->config->get('general/listing_records');
 
         // @todo implement actual Search Engine
-        $records = $contentRepository->findForListing($page);
+        $records = $contentRepository->findForListing($page, $amountPerPage);
 
         $templates = $this->templateChooser->forSearch();
 
