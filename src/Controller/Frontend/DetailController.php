@@ -9,6 +9,9 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
+use Bolt\Storage\Query\Builder\ContentBuilder;
+use Bolt\Storage\Query\Builder\Filter\GraphFilter;
+use Bolt\Storage\Query\Builder\GraphBuilder;
 use Bolt\Storage\Query\Generator\SimpleGraphGenerator;
 use Bolt\Storage\Query\Query;
 use Bolt\TemplateChooser;
@@ -79,10 +82,46 @@ class DetailController extends TwigAwareController
         $query = $request->get('query');
 
         if (preg_match('#[a-zA-Z0-9_]+(\/[a-zA-Z0-9_\-]+)?#', $query)) {
-            return $this->query->getContentForTwig($this->simpleGraphGenerator->generate($query));
+            $graphBuilder = new GraphBuilder();
+            [$contentType, $searchValue] = explode('/', $query);
+//            $query = $graphBuilder->selectContent($contentType)
+//                ->selectFields('slug', 'title')
+//                ->getQuery();
+
+            return $this->query->getContent($query);
         }
 
-        return $this->query->getContentForTwig($query);
+//        $query = '
+//        query {
+//            content (filter:{slug_contains: "quo", OR:[{title_contains: "quo"}, {heading_contains: "quo"}]}) {
+//                title
+//                slug
+//            }
+//        }
+//        ';
+
+//        $query1 = '
+//            query {
+//                homepage {
+//                    slug
+//                    title
+//                }
+//                showcases {
+//                    slug
+//                    title
+//                }
+//            }
+//        ';
+        $graphBuilder = new GraphBuilder();
+
+        $query = $graphBuilder->addContent(
+            ContentBuilder::create('homepage')
+            ->selectFields('slug', 'title'),
+            ContentBuilder::create('showcases')
+            ->selectFields('slug', 'title')
+        )->getQuery();
+
+        return $this->query->getContent($query);
     }
 
     /**

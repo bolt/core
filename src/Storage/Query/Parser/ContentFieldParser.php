@@ -31,12 +31,15 @@ class ContentFieldParser
     {
         $contentTypes = $this->config->get('contenttypes');
         $contentTypesFields = [];
+        $contentTypesFields['content'] = [];
         /** @var DeepCollection $contentTypeConfiguration */
         foreach ($contentTypes as $contentType => $contentTypeConfiguration) {
-            $contentTypesFields[$contentType] = $this->parseContentTypeFields(
+            $fields = $this->parseContentTypeFields(
                 $contentType,
                 $contentTypeConfiguration->get('fields')
             );
+            $contentTypesFields[$contentType] = $fields;
+            $contentTypesFields['content'] = array_merge($contentTypesFields['content'], $fields);
         }
 
         return $contentTypesFields;

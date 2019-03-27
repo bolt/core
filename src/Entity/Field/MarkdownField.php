@@ -17,7 +17,10 @@ class MarkdownField extends Field implements Excerptable
     {
         $markdown = new Markdown();
         $value = $this->getValue();
+        if (is_array($value)) {
+            return $markdown->toHtml(reset($value));
+        }
 
-        return $markdown->toHtml(reset($value));
+        return $markdown->toHtml($value);
     }
 }

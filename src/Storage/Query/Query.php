@@ -6,6 +6,7 @@ namespace Bolt\Storage\Query;
 
 use Bolt\Storage\Query\Parser\ContentFieldParser;
 use Bolt\Storage\Query\Resolver\QueryFieldResolver;
+use Bolt\Storage\Query\Scope\ScopeEnum;
 use Bolt\Storage\Query\Types\QueryType;
 use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
@@ -23,12 +24,29 @@ class Query
         $this->queryFieldResolver = $queryFieldResolver;
     }
 
+    public function getContent(string $textQuery): JsonResponse
+    {
+        $schema = new Schema([
+            'query' => new QueryType(
+                $this->contentFieldParser,
+                $this->queryFieldResolver,
+                ScopeEnum::DEFAULT
+            ),
+        ]);
+        $result = GraphQL::executeQuery($schema, $textQuery);
+
+        return new JsonResponse($result->toArray());
+    }
+
     public function getContentForTwig(string $textQuery): JsonResponse
     {
         $schema = new Schema([
-            'query' => new QueryType($this->contentFieldParser, $this->queryFieldResolver),
+            'query' => new QueryType(
+                $this->contentFieldParser,
+                $this->queryFieldResolver,
+                ScopeEnum::FRONT
+            ),
         ]);
-
         $result = GraphQL::executeQuery($schema, $textQuery);
 
         return new JsonResponse($result->toArray());

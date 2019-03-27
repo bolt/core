@@ -85,9 +85,13 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                     $field->setName($name);
 
                     if (isset($preset[$name])) {
-                        $field->setValue($preset[$name]);
+                        [$value, $type] = $this->getValuesforFieldType($preset[$name], $fieldType);
+                        $field->setValue($value);
+                        $field->setFieldType($type);
                     } else {
-                        $field->setValue($this->getValuesforFieldType($name, $fieldType));
+                        [$value, $type] = $this->getValuesforFieldType($name, $fieldType);
+                        $field->setValue($value);
+                        $field->setFieldType($type);
                     }
                     $field->setSortorder($sortorder++ * 5);
 

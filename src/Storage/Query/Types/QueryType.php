@@ -16,15 +16,18 @@ class QueryType extends ObjectType
 {
     private $contentFieldParser;
 
-    public function __construct(ContentFieldParser $contentFieldParser, QueryFieldResolver $queryResolver)
-    {
+    public function __construct(
+        ContentFieldParser $contentFieldParser,
+        QueryFieldResolver $queryResolver,
+        string $scope
+    ) {
         $this->contentFieldParser = $contentFieldParser;
 
         $config = [
             'name' => 'Query',
             'fields' => $this->generateQueryFields(),
-            'resolveField' => function ($val, array $args, $context, ResolveInfo $info) use ($queryResolver) {
-                return $queryResolver->resolve($args, $info);
+            'resolveField' => function ($val, array $args, $context, ResolveInfo $info) use ($queryResolver, $scope) {
+                return $queryResolver->resolve($args, $info, $scope);
             },
         ];
 
@@ -36,20 +39,27 @@ class QueryType extends ObjectType
         $contentFields = $this->contentFieldParser->getParsedContentFields();
         $queryContentFields = [];
         foreach ($contentFields as $contentType => $fields) {
+            $typeOfContent = Type::listOf(new ContentType($contentType, $fields));
             $queryContentFields[$contentType] = [
-                'type' => Type::listOf(new ContentType($contentType, $fields)),
+                'type' => $typeOfContent,
                 'description' => 'Represents list of ' . $contentType,
                 'args' => [
                     'first' => [
-                        'type' => Type::id(),
+                        'type' => Type::int(),
                     ],
                     'last' => [
-                        'type' => Type::id(),
+                        'type' => Type::int(),
                     ],
                     'limit' => [
                         'type' => Type::int(),
                         'defaultValue' => 10,
                     ],
+                    'random' => [
+                        'type' => Type::int(),
+                    ],
+//                    'order' => [
+//                        'type' => new OrderType(),
+//                    ],
                     'filter' => [
                         'type' => Type::getNullableType(new InputObjectType([
                             'name' => 'ContentFilterInput_' . Uuid::uuid4()->toString(),
