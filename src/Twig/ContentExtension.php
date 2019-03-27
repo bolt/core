@@ -220,23 +220,13 @@ class ContentExtension extends AbstractExtension
     public function getTaxonomies(Content $content): Collection
     {
         $taxonomies = [];
-        foreach ($content->getTaxonomies() as $t) {
+        foreach ($content->getTaxonomies() as $taxonomy) {
             $link = $this->urlGenerator->generate('taxonomy', [
-                'taxonomyslug' => $t->getType(),
-                'slug' => $t->getSlug(),
+                'taxonomyslug' => $taxonomy->getType(),
+                'slug' => $taxonomy->getSlug(),
             ]);
-
-            $taxonomy = [
-                'slug' => $t->getSlug(),
-                'name' => $t->getName(),
-                'link' => $link,
-            ];
-
-            if ($t->getSortorder()) {
-                $taxonomy['sortorder'] = $t->getSortorder();
-            }
-
-            $taxonomies[$t->getType()][$t->getSlug()] = $taxonomy;
+            $taxonomy->setLink($link);
+            $taxonomies[$taxonomy->getType()][$taxonomy->getSlug()] = $taxonomy;
         }
 
         return new Collection($taxonomies);
