@@ -1011,5 +1011,11 @@
         <target>No search results found for '%search%'.</target>
       </segment>
     </unit>
+    <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
+      <segment>
+        <source>general.phrase.no-search-term-provided</source>
+        <target>Please provide a search term, in order to display relevant results.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
