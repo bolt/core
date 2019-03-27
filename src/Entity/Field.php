@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
+use Twig\Markup;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
@@ -194,6 +195,20 @@ class Field implements Translatable
         }
 
         return $this->value;
+    }
+
+    /**
+     * @return string|Markup
+     */
+    public function getTwigValue()
+    {
+        $value = $this->__toString();
+
+        if ($this->getDefinition()->get('allow_html')) {
+            $value = new Markup($value, 'UTF-8');
+        }
+
+        return $value;
     }
 
     public function setValue(string $value): self

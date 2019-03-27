@@ -30,9 +30,13 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
 
     private $lastTitle = null;
 
+    /** @var array */
+    private $presetRecords = [];
+
     public function __construct(Config $config)
     {
         $this->faker = Factory::create();
+        $this->presetRecords = $this->getPresetRecords();
         $this->config = $config->get('contenttypes');
     }
 
@@ -60,7 +64,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             $amount = $contentType['singleton'] ? 1 : 15;
 
             foreach (range(1, $amount) as $i) {
-                $ref = $i === 0 ? 'admin' : ['admin', 'henkie', 'jane_admin', 'tom_admin'][random_int(0, 3)];
+                $ref = $i === 1 ? 'admin' : ['admin', 'henkie', 'jane_admin', 'tom_admin'][random_int(0, 3)];
                 /** @var User $author */
                 $author = $this->getReference($ref);
 
@@ -73,13 +77,18 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                 $content->setPublishedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setDepublishedAt($this->faker->dateTimeBetween('-1 year'));
 
+                $preset = $this->getPreset($contentType['slug']);
+
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    [$value, $type] = $this->getValuesForFieldType($name, $fieldType);
                     $field = Field::factory($fieldType, $name);
                     $field->setName($name);
-                    $field->setValue($value);
-                    $field->setFieldType($type);
+
+                    if (isset($preset[$name])) {
+                        $field->setValue($preset[$name]);
+                    } else {
+                        $field->setValue($this->getValuesforFieldType($name, $fieldType));
+                    }
                     $field->setSortorder($sortorder++ * 5);
 
                     $content->addField($field);
@@ -96,14 +105,14 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         }
     }
 
-    private function getRandomStatus()
+    private function getRandomStatus(): string
     {
         $statuses = ['published', 'published', 'published', 'held', 'draft', 'timed'];
 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesForFieldType($name, $field): array
+    private function getValuesforFieldType(string $name, DeepCollection $field): array
     {
         switch ($field['type']) {
             case 'html':
@@ -171,5 +180,40 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         }
 
         return [$data, $fieldType];
+    }
+
+    private function getPresetRecords(): array
+    {
+        $records['blocks'][] = [
+            'title' => 'About',
+        ];
+        $records['blocks'][] = [
+            'title' => 'Search',
+        ];
+
+        $records['tests'][] = [
+            'selectfield' => 'bar',
+            'multiselect' => 'Michelangelo',
+            'slug' => 'title-of-the-test',
+            'title' => 'Title of the test',
+            'text_markup' => 'Text with <em>markup allowed</em>.',
+            'text_plain' => 'Text with <strong>no</strong> markup allowed.',
+            'textarea_field' => 'Textarea field with <em>simple</em> HTML in it.',
+            'html_field' => 'HTML field with <em>simple</em> HTML in it.',
+            'markdown_field' => 'Markdown field  with *simple* Markdown in it.',
+        ];
+
+        return $records;
+    }
+
+    private function getPreset(string $slug): array
+    {
+        if (isset($this->presetRecords[$slug]) && ! empty($this->presetRecords[$slug])) {
+            $preset = array_pop($this->presetRecords[$slug]);
+        } else {
+            $preset = [];
+        }
+
+        return $preset;
     }
 }

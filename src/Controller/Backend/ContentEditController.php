@@ -79,7 +79,7 @@ class ContentEditController extends TwigAwareController
     }
 
     /**
-     * @Route("/new/{contentType}", name="bolt_content_new", methods={"GET"})
+     * @Route("/new/{contentType}", name="bolt_content_new", methods={"GET|POST"})
      */
     public function new(string $contentType, Request $request): Response
     {
@@ -87,6 +87,10 @@ class ContentEditController extends TwigAwareController
         $content->setAuthor($this->getUser());
         $content->setContentType($contentType);
         $this->contentFillListener->fillContent($content);
+
+        if ($request->getMethod() === 'POST') {
+            return $this->save($request, $content);
+        }
 
         return $this->edit($request, $content);
     }

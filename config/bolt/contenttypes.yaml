@@ -322,9 +322,10 @@ blocks:
     icon_one: "fa:cube"
 
 
-dummies:
-    name: Dummies
-    singular_name: Dummy
+# This contenttype is here to use for (automated) tests.
+tests:
+    name: Tests
+    singular_name: Test
     fields:
         title:
             type: text
@@ -333,6 +334,18 @@ dummies:
         slug:
             type: slug
             uses: title
+        text_markup:
+            type: text
+            allow_html: true
+        text_plain:
+            type: text
+            allow_html: false
+        html_field:
+            type: html
+        markdown_field:
+            type: markdown
+        textarea_field:
+            type: textarea
         selectfield:
             type: select
             values:
@@ -345,6 +358,10 @@ dummies:
             multiple: true
             postfix: "Select your favourite turtle(s)."
     taxonomy: [ groups, categories, tags, foobars ]
+    record_template: test.twig
+    listing_template: listing.twig
+    listing_records: 10
+
 
 # Possible field types:
 #

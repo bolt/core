@@ -442,17 +442,35 @@ class Content implements \JsonSerializable
     /**
      * Generic getter for a record fields. Will return the field with $name.
      *
+     * If $name is not found, throw an exception if it's invoked from code, and
+     * return null if invoked from within a template. In templates we need to be
+     * more lenient, in order to do things like `{% if record.foo %}..{% endif %}
+     *
+     * Note: We can not rely on `{% if record.foo is defined %}`, because it
+     * always returns `true` for object properties.
+     * See: https://craftcms.stackexchange.com/questions/2116/twig-is-defined-always-returning-true
+     *
      * - {{ record.title }} => field named title
      * - {{ record|title }} => value of guessed title field
      * - {{ record.image }} => field named image
      * - {{ record|image }} => value of guessed image field
      */
-    public function __call(string $name, array $arguments = []): Field
+    public function __call(string $name, array $arguments = [])
     {
         try {
-            return $this->getField($name);
+            $field = $this->getField($name);
         } catch (\InvalidArgumentException $e) {
+            $backtrace = new LaravelCollection($e->getTrace());
+
+            if ($backtrace->contains('class', \Twig\Template::class)) {
+                // Invoked from within a Template render, so be lenient.
+                return null;
+            }
+
+            // Invoked from code, throw Exception
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
+
+        return $field->getTwigValue();
     }
 }
