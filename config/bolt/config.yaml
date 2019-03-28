@@ -132,9 +132,6 @@ taxonomy_sort: DESC
 search_results_template: search.twig
 search_results_records: 10
 
-# Add jQuery to the rendered HTML, whether or not its added by an extension.
-add_jquery: false
-
 # The default amount of records to show on overview pages. Can be overridden
 # for each content type.
 recordsperpage: 10
@@ -171,15 +168,6 @@ caching:
     request: false
     duration: 10
     authenticated: false
-    thumbnails: true
-    translations: true
-
-# Set enabled to true to log all content changes in the database.
-#
-# Unless you need to rigorously monitor every change to your sites content, it
-# is recommended to keep this disabled.
-changelog:
-    enabled: false
 
 # Default settings for thumbnails.
 #
@@ -238,7 +226,7 @@ accept_file_types: [ twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, t
 # instead. It just includes file types / extensions that are harder to exploit.
 # accept_file_types: [ gif, jpg, jpeg, png, txt, md, pdf, epub, mp3, svg ]
 
-accept_media_types: [ png, jpg, jpeg, gif, svg, pdf, mp3, tiff ]
+accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff ]
 
 # If you want to brand the Bolt backend for a client, you can change some key
 # variables here, that determine the name of the backend, and adds a primary
@@ -256,8 +244,6 @@ accept_media_types: [ png, jpg, jpeg, gif, svg, pdf, mp3, tiff ]
 #     name: SuperCMS
 #     path: /admin
 #     provided_by: [ supercool@example.org, "Supercool Webdesign Co." ]
-#     news_source: http://news.example.org
-#     news_variable: news
 
 # Show the debug nut in the lower right corner for logged-in user. By default,
 # the debugbar is only shown to logged-in users. Use the debug_show_loggedoff
@@ -265,26 +251,6 @@ accept_media_types: [ png, jpg, jpeg, gif, svg, pdf, mp3, tiff ]
 # production environment.
 debug: true
 debug_show_loggedoff: false
-debug_permission_audit_mode: false
-# debug_error_level: 8181           # equivalent to E_ALL &~ E_NOTICE &~ E_DEPRECATED &~ E_USER_DEPRECATED &~ E_WARNING
-debug_error_level: -1               # equivalent to E_ALL
-debug_error_use_symfony: false      # When set to true, Symfony Profiler will be used for exception display when possible
-debug_trace_argument_limit: 4       # Determine how many steps in the backtrace will show (dump) arguments.
-
-# error level when debug is disabled
-#production_error_level: 8181 # = E_ALL &~ E_NOTICE &~ E_WARNING &~ E_DEPRECATED &~ E_USER_DEPRECATED
-
-# System debug logging
-# This will enable intensive logging of Silex functions and will be very hard on
-# performance and log file size.    The log file will be created in your cache
-# directory.
-#
-# Enable this for short time periods only when diagnosing system issues.
-# The level can be either: DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY
-debuglog:
-    enabled: false
-    filename: bolt-debug.log
-    level: DEBUG
 
 # Use strict variables. This will make Bolt complain if you use {{ foo }},
 # when foo doesnt exist.
@@ -318,142 +284,6 @@ wysiwyg:
         disableNativeSpellChecker: true # If set to true it will stop browsers from underlining spelling mistakes
         allowNbsp: false     # If set to false, the editor will strip out `&nbsp;` characters. If set to true, it will allow them. ¯\_(ツ)_/¯
 
-# Bolt uses the Google maps API for its geolocation field and Google now
-# requires that it be loaded with an API key on new domains. You can generate
-# a key at https://developers.google.com/maps/documentation/javascript/get-api-key
-# and enter it here to make sure that the geolocation field works.
-google_api_key: AIzaSyAlOkV-3v-JpkVJ8h_e78eTxyBUCbn6p5g
-
-# Global option to enable/disable the live editor
-liveeditor: false
-
-# Use the mailoptions setting to configure how Bolt sends email: using smtp
-# or PHPs built-in `mail()`-function.
-
-# Note that the latter might _seem_ easier, but its been disabled by a lot of
-# webhosts, in order to prevent spam from wrongly configured scripts. If you use
-# it, your mail might disappear into a black hole, without producing any errors.
-# Generally speaking, using smtp is the better option, so use that if possible.
-#
-# Protip: If your webhost does not support SMTP, sign up for a (free) Sparkpost
-# account at https://www.sparkpost.com/pricing/ for sending emails reliably.
-
-# mailoptions:
-#     transport: smtp
-#     spool: true
-#     host: localhost
-#     port: 25
-#     username: username
-#     password: password
-#     encryption: null
-#     auth_mode: null
-#     senderMail: null
-#     senderName: null
-
-# mailoptions:
-#     transport: mail
-#     spool: false
-
-# Bolt allows some modifications to how strict login sessions are. For every
-# option that is set to true, it becomes harder for a bad-willing person to
-# spoof your login session. However, it also requires you to re-authenticate
-# more often if you change location(ip-address) or your browser has frequent
-# upgrades. Only change these if you know what youre doing, and youre having
-# issues with the default settings.
-#
-# Note: If you change any of these, all current users will automatically be
-#       logged off.
-cookies_use_remoteaddr: true
-cookies_use_browseragent: false
-cookies_use_httphost: true
-
-# The length of time a user stays logged in. Change to 0 to end the session
-# when the browser is closed.
-#
-# The default is 1209600 (two weeks, in seconds).
-cookies_lifetime: 1209600
-
-# Set the session cookie to a specific domain. Leave blank, unless you know what
-# youre doing.
-#
-# When set incorrectly, you might not be able to log on at all.
-#
-# If youd like it to be valid for all subdomains of www.example.org, set this
-# to .example.org.
-cookies_domain:
-
-# The hash_strength determines the amount of iterations for encrypting
-# passwords.
-#
-# A higher number means a harder to decrypt password, but takes longer to
-# compute. 8 is the minimum, 10 is the default, 12 is better.
-hash_strength: 10
-
-# Bolt sets the `X-Frame-Options` and `Frame-Options` to `SAMEORIGIN` by
-# default, to prevent the web browser from rendering an iframe if origin
-# mismatch (i.e. iframe source refers to a different domain).
-#
-# Setting this to false, will prevent the setting of these headers.
-# headers:
-#     x_frame_options: true
-
-# Bolt uses market.bolt.cm to fetch its extensions by default. You can
-# change that URL here.
-#
-# Do not change this, unless you know what youre doing, and understand the
-# associated risks. If you use http://market.bolt.cm, Bolt will not use
-# SSL, increasing the risk for a MITM attacks.
-# extensions:
-#     site: https://market.bolt.cm/
-#     enabled: true
-#     composer:
-#         minimum-stability: stable      # Either stable, beta, or dev. Setting dev will allow you to install dev-master versions of extensions.
-#         prefer-stable: true            # Prefer stable releases over development ones
-#         prefer-dist: true              # Forces installation from package dist even for dev versions.
-#         prefer-source: false           # Forces installation from package sources when possible, including VCS information.
-#         config:
-#             optimize-autoloader: false     # Optimize autoloader during autoloader dump.
-#             classmap-authoritative: false  # Autoload classes from the classmap only. Implicitly enables `optimize-autoloader`.
-
 # Enforcing the use of SSL. If set, all pages will enforce an SSL connection,
 # and redirect to HTTPS if you attempt to visit plain HTTP pages.
 # enforce_ssl: true
-
-# If configured, Bolt will trust X-Forwarded-XXX headers from the listed IP
-# addresses and ranges when determining whether the current request is
-# secure.
-#
-# This is required to correctly determine the current hostname and protocol
-# (HTTP vs. HTTPS) when running behind some proxy, e.g. a load balancer, cache,
-# or SSL proxy.
-#
-# List the IP addresses or subnets that you know are such proxies.
-#
-# Note: Allowing hosts here that may not be trusted proxies is a security risk.
-#       If you do not understand what this does, it is probably best to not
-#       touch it.
-# trustProxies:
-#     - 127.0.0.1
-#     - 10.0.0.0/8
-
-# If you want Bolt installation get news through a proxy
-# httpProxy:
-#     host: my.proxy.server
-#     user: usr
-#     password: pwd
-
-# Options for backend user interface
-# backend:
-#    news:
-#        disable: true     # Disable news panel. Defaults to false. "Alerts" will still be shown.
-#    stack:
-#        disable: true     # Disable stack usage. Defaults to false.
-
-# Options that will be forced in next major version
-compatibility:
-    # Whether to return TemplateView instead of TemplateResponse from Controller\Base::render()
-    # Response methods cannot be used on TemplateView objects.
-    # Setting this value to false is deprecated.
-    template_view: true
-    # Set to false to enable using a newer version of the setcontent parser.
-    setcontent_legacy: false

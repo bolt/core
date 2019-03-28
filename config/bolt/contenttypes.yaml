@@ -4,7 +4,6 @@
 # The Homepage content type is a singleton: There can be only one record of this
 # content type.
 
-
 homepage:
     name: Homepage
     singular_name: Homepage
@@ -145,8 +144,6 @@ entries:
     records_per_page: 3
     icon_many: "fa:file-alt"
     icon_one: "fa:file-alt"
-
-    # class: Bundle\Site\BobEntity
 
 
 # The 'Showcases' is not particularly useful in most cases, but it does a good
