@@ -8,6 +8,8 @@ use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,7 +46,7 @@ class SearchController extends TwigAwareController
         if (! empty($search)) {
             $records = $contentRepository->searchNaive($search, $page, $amountPerPage);
         } else {
-            $records = null;
+            $records = new Pagerfanta(new ArrayAdapter([]));
         }
 
         $context = [

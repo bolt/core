@@ -69,7 +69,7 @@ class ContentRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function searchNaive(string $search, int $page, int $amountPerPage, bool $onlyPublished = true)
+    public function searchNaive(string $search, int $page, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
     {
         // First, create a querybuilder to get the fields that match the Query
         $qb = $this->getQueryBuilder()
