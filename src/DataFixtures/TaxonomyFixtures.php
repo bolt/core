@@ -51,7 +51,7 @@ class TaxonomyFixtures extends BaseFixture
         }
     }
 
-    private function getDefaultOptions()
+    private function getDefaultOptions(): array
     {
         $options = ['action', 'adult', 'adventure', 'alpha', 'animals', 'animation', 'anime', 'architecture', 'art',
             'astronomy', 'baby', 'batshitinsane', 'biography', 'biology', 'book', 'books', 'business',
