@@ -1003,6 +1003,8 @@
       <segment>
         <source>general.phrase.no-search-term-provided</source>
         <target>Please provide a search term, in order to display relevant results.</target>
+      </segment>
+    </unit>
     <unit id="Pily_qo" name="general.phrase.read-more">
       <segment>
         <source>general.phrase.read-more</source>

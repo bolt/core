@@ -9,10 +9,10 @@ use Symfony\Component\Intl\Intl;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Twig_Environment;
 
 class LocaleExtension extends AbstractExtension
 {
@@ -85,7 +85,7 @@ class LocaleExtension extends AbstractExtension
      * application and returns an array with the name of each locale written
      * in its own language (e.g. English, Français, Español, etc.).
      */
-    public function getLocales(Twig_Environment $env): Collection
+    public function getLocales(Environment $env): Collection
     {
         if ($this->locales !== null) {
             return $this->locales;
@@ -96,12 +96,12 @@ class LocaleExtension extends AbstractExtension
         return $this->locales;
     }
 
-    public function getContentLocales(Twig_Environment $env, Collection $localeCodes)
+    public function getContentLocales(Environment $env, Collection $localeCodes)
     {
         return $this->localeHelper($env, $localeCodes);
     }
 
-    private function localeHelper(Twig_Environment $env, Collection $localeCodes)
+    private function localeHelper(Environment $env, Collection $localeCodes)
     {
         // Get the route and route params, to set the new localized link
         $globals = $env->getGlobals();
@@ -440,7 +440,10 @@ class LocaleExtension extends AbstractExtension
         ]);
     }
 
-    public function localedatetime($dateTime, string $format = '%B %e, %Y %H:%M', ?string $locale = '0')
+    /**
+     * @param string|\DateTime $dateTime
+     */
+    public function localedatetime($dateTime, string $format = '%B %e, %Y %H:%M', ?string $locale = '0'): string
     {
         if (! $dateTime instanceof \DateTime) {
             $dateTime = new \DateTime($dateTime);
