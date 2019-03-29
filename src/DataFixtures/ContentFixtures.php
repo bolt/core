@@ -113,12 +113,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
                         $taxonomyAmount = 1;
                     }
 
-                    for ($j = 1; $j <= $taxonomyAmount; $j++) {
-                        $taxonomy = $this->getRandomTaxonomy($taxonomySlug);
-
-                        if ($taxonomy) {
-                            $content->addTaxonomy($taxonomy);
-                        }
+                    foreach ($this->getRandomTaxonomies($taxonomySlug, $taxonomyAmount) as $taxonomy) {
+                        $content->addTaxonomy($taxonomy);
                     }
                 }
 

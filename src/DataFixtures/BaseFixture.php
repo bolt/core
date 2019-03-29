@@ -30,7 +30,7 @@ abstract class BaseFixture extends Fixture
         return $this->getReference($this->referencesIndex[$entityName][$randomReferenceKey]);
     }
 
-    protected function getRandomTaxonomy(string $type)
+    protected function getRandomTaxonomies(string $type, int $amount): array
     {
         if (empty($this->taxonomyIndex)) {
             foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
@@ -42,11 +42,15 @@ abstract class BaseFixture extends Fixture
         }
 
         if (empty($this->taxonomyIndex[$type])) {
-            return null;
+            return [];
         }
 
-        $randomReferenceKey = array_rand($this->taxonomyIndex[$type], 1);
+        $taxonomies = [];
 
-        return $this->getReference($this->taxonomyIndex[$type][$randomReferenceKey]);
+        foreach ((array) array_rand($this->taxonomyIndex[$type], $amount) as $key) {
+            $taxonomies[] = $this->getReference($this->taxonomyIndex[$type][$key]);
+        }
+
+        return $taxonomies;
     }
 }
