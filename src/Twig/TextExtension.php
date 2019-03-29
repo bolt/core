@@ -19,9 +19,9 @@ class TextExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('json_decode', [$this, 'dummy']),
             new TwigFilter('safestring', [$this, 'safeString']),
             new TwigFilter('slug', [$this, 'slug']),
+            new TwigFilter('ucwords', [$this, 'ucwords']),
         ];
     }
 
@@ -35,8 +35,12 @@ class TextExtension extends AbstractExtension
         return Str::slug((string) $str);
     }
 
-    public function dummy($input = null)
+    public function ucwords($content, string $delimiters = ''): string
     {
-        return $input;
+        if (! $content) {
+            return '';
+        }
+
+        return ucwords($content, $delimiters);
     }
 }

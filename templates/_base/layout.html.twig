@@ -30,7 +30,7 @@
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
             :menu="{{ sidebarmenu() }}"
             user="{{ user|default }}"
-            :labels="{{ labels|json_decode }}"
+            :labels="{{ labels }}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->

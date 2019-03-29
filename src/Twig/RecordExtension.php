@@ -53,7 +53,7 @@ class RecordExtension extends AbstractExtension
 
         return [
             new TwigFunction('excerpt', [$this, 'excerpt'], $safe),
-            new TwigFunction('listtemplates', [$this, 'dummy']),
+            new TwigFunction('listtemplates', [$this, 'listtemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
             new TwigFunction('menu', [$this, 'menu'], $env + $safe),
             new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
@@ -65,14 +65,9 @@ class RecordExtension extends AbstractExtension
         ];
     }
 
-    public function dummy($input = null)
+    public function listtemplates()
     {
-        return $input;
-    }
-
-    public function dummy_with_env(Environment $env, $input = null)
-    {
-        return $input;
+        return 'listtemplates placeholder';
     }
 
     public function pager(Environment $env, Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)

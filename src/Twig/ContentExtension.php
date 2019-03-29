@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Repository\ContentRepository;
@@ -50,6 +51,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('link', [$this, 'getLink'], $safe),
             new TwigFilter('edit_link', [$this, 'getEditLink'], $safe),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
+            new TwigFilter('field_factory', [$this, 'getFieldFactory']),
         ];
     }
 
@@ -230,5 +232,14 @@ class ContentExtension extends AbstractExtension
         }
 
         return new Collection($taxonomies);
+    }
+
+    public function getFieldFactory(Content $content, string $name, ?Collection $definition = null): Field
+    {
+        if ($definition === null || $definition->isEmpty()) {
+            $definition = new Collection(['type' => 'generic']);
+        }
+
+        return Field::factory($definition, $name);
     }
 }

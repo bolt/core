@@ -8,8 +8,8 @@
     {# This part is only shown if there are no widgets in the 'aside_top' widgets slot. #}
     <div>
         {# The next section attempts to fill the panel in the sidebar with the contents of the
-            'about-us'-block, if it exists. First, attempt to fetch the block with slug 'about-us' #}
-        {% setcontent block = "block/about-us" %}
+            'about'-block, if it exists. First, attempt to fetch the block by its slug #}
+        {% setcontent block = "blocks/about" %}
 
         {# check if we have a title. If so, we know we have content to display. Otherwise, we will
             output a default text, telling the user to create the 'blocks' in the backend. #}

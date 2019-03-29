@@ -168,10 +168,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
             'slug' => 'This is a record in the "Entries" ContentType',
         ];
         $records['blocks'][] = [
-            'title' => 'About',
+            'title' => 'About This Site',
+            'slug' => 'about',
         ];
         $records['blocks'][] = [
             'title' => 'Search',
+            'slug' => 'Search',
         ];
 
         $records['tests'][] = [

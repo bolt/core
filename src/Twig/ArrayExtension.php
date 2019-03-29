@@ -39,11 +39,6 @@ final class ArrayExtension extends AbstractExtension
         ];
     }
 
-    public function dummy($input = null)
-    {
-        return $input;
-    }
-
     /**
      * Takes two arrays and returns a compiled array of unique, sorted values.
      */
