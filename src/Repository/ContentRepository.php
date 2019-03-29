@@ -48,9 +48,28 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        $max = $contentType['listing_records'] ?: 6;
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+    }
 
-        return $this->createPaginator($qb->getQuery(), $page, $max);
+    public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    {
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a');
+
+        $qb->addSelect('t')
+            ->innerJoin('content.taxonomies', 't')
+            ->andWhere('t.type = :taxonomyslug')
+            ->setParameter('taxonomyslug', $taxonomyslug)
+            ->andWhere('t.slug = :slug')
+            ->setParameter('slug', $slug);
+
+        if ($onlyPublished) {
+            $qb->andWhere('content.status = :status')
+                ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
     public function findLatest(?ContentType $contentType = null, int $amount = 6): ?array
@@ -69,7 +88,7 @@ class ContentRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function searchNaive(string $search, int $page, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    public function searchNaive(string $searchTerm, int $page, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
     {
         // First, create a querybuilder to get the fields that match the Query
         $qb = $this->getQueryBuilder()
@@ -78,7 +97,7 @@ class ContentRepository extends ServiceEntityRepository
         $qb->addSelect('f')
             ->leftJoin('content.fields', 'f')
             ->andWhere($qb->expr()->like('f.value', ':search'))
-            ->setParameter('search', '%' . $search . '%');
+            ->setParameter('search', '%' . $searchTerm . '%');
 
         // These are the ID's of content we need.
         $ids = array_column($qb->getQuery()->getArrayResult(), 'id');

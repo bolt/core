@@ -7,8 +7,8 @@
            records matching the current query. If there are no results, the
            code in the 'else' part of the for-loop is used. #}
         <h1 class="search-results">
-            {% if search is not empty %}
-                {{ __('general.phrase.search-results-for', { '%search%': search }) }}
+            {% if searchTerm is not empty %}
+                {{ __('general.phrase.search-results-for', { '%search%': searchTerm }) }}
             {% else %}
                 {{ __('general.phrase.search') }}
             {% endif %}
@@ -23,7 +23,7 @@
         {% endif %}
 
         <form method="get" action="{{ path('search') }}" id="searchform-inline" enctype="text/plain">
-            <input type="search" value="{{ search|default() }}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="search" >
+            <input type="search" value="{{ searchTerm|default() }}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="searchTerm" >
             <button type="submit">{{ __('general.phrase.search') }}</button>
         </form>
 
@@ -50,7 +50,7 @@
 
             {% if search is not empty %}
                 <p class="search-results-description">
-                    {{ __('general.phrase.no-search-results-for', { '%search%': search|escape }) }}
+                    {{ __('general.phrase.no-search-results-for', { '%search%': searchTerm|escape }) }}
                 </p>
             {% else %}
                 <p class="search-results-description">
