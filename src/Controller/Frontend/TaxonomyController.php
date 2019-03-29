@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
@@ -30,8 +29,8 @@ class TaxonomyController extends TwigAwareController
     }
 
     /**
-     * @Route("
-     *     /{taxonomyslug}/{slug}",
+     * @Route(
+     *     "/{taxonomyslug}/{slug}",
      *     name="taxonomy",
      *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"},
      *     methods={"GET"}
@@ -40,13 +39,12 @@ class TaxonomyController extends TwigAwareController
     public function listing(ContentRepository $contentRepository, Request $request, string $taxonomyslug, string $slug): Response
     {
         $page = (int) $request->query->get('page', 1);
+        $amountPerPage = $this->config->get('general/listing_records');
 
         /** @var Content[] $records */
-        $records = $contentRepository->findForListing($page);
+        $records = $contentRepository->findForTaxonomy($page, $taxonomyslug, $slug, $amountPerPage);
 
-        $contentType = ContentType::factory('page', $this->config->get('contenttypes'));
-
-        $templates = $this->templateChooser->forListing($contentType);
+        $templates = $this->templateChooser->forTaxonomy($taxonomyslug);
 
         return $this->renderTemplate($templates, ['records' => $records]);
     }

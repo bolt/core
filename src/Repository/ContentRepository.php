@@ -32,7 +32,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page = 1, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
+    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -48,7 +48,28 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        return $this->createPaginator($qb->getQuery(), $page, $contentType['listing_records']);
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+    }
+
+    public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    {
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a');
+
+        $qb->addSelect('t')
+            ->innerJoin('content.taxonomies', 't')
+            ->andWhere('t.type = :taxonomyslug')
+            ->setParameter('taxonomyslug', $taxonomyslug)
+            ->andWhere('t.slug = :slug')
+            ->setParameter('slug', $slug);
+
+        if ($onlyPublished) {
+            $qb->andWhere('content.status = :status')
+                ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
     public function findLatest(?ContentType $contentType = null, int $amount = 6): ?array
@@ -81,10 +102,10 @@ class ContentRepository extends ServiceEntityRepository
 //        ->setParameter('values',['red','yellow']);
     }
 
-    private function createPaginator(Query $query, int $page, int $max): Pagerfanta
+    private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
-        $paginator->setMaxPerPage($max);
+        $paginator->setMaxPerPage($amountPerPage);
         $paginator->setCurrentPage($page);
 
         return $paginator;
