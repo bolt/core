@@ -48,7 +48,7 @@
 
         {% else %}
 
-            {% if search is not empty %}
+            {% if searchTerm is not empty %}
                 <p class="search-results-description">
                     {{ __('general.phrase.no-search-results-for', { '%search%': searchTerm|escape }) }}
                 </p>
