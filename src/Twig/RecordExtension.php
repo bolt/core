@@ -53,10 +53,10 @@ class RecordExtension extends AbstractExtension
 
         return [
             new TwigFunction('excerpt', [$this, 'excerpt'], $safe),
-            new TwigFunction('listtemplates', [$this, 'listtemplates']),
+            new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('menu', [$this, 'menu'], $env + $safe),
-            new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
+            new TwigFunction('menu', [$this, 'getMenu'], $env + $safe),
+            new TwigFunction('sidebar_menu', [$this, 'getSidebarMenu']),
             new TwigFunction('jsonlabels', [$this, 'jsonlabels']),
             new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
@@ -65,9 +65,9 @@ class RecordExtension extends AbstractExtension
         ];
     }
 
-    public function listtemplates()
+    public function getListTemplates(): string
     {
-        return 'listtemplates placeholder';
+        return 'list_templates placeholder';
     }
 
     public function pager(Environment $env, Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)
@@ -82,7 +82,7 @@ class RecordExtension extends AbstractExtension
         return $env->render($template, $context);
     }
 
-    public function menu(Environment $env, string $template = '')
+    public function getMenu(Environment $env, string $template = ''): string
     {
         // @todo See Github issue https://github.com/bolt/four/issues/253
         return '[menu placeholder]';
@@ -93,7 +93,7 @@ class RecordExtension extends AbstractExtension
         return Excerpt::getExcerpt($text, $length);
     }
 
-    public function sidebarmenu($pretty = false)
+    public function getSidebarMenu($pretty = false): string
     {
         if (! $this->menu) {
             $menuArray = $this->menuBuilder->getMenu();

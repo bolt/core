@@ -440,7 +440,7 @@ class LocaleExtension extends AbstractExtension
         ]);
     }
 
-    public function localedatetime($dateTime, $format = '%B %e, %Y %H:%M', $locale = 0)
+    public function localedatetime($dateTime, string $format = '%B %e, %Y %H:%M', ?string $locale = '0')
     {
         if (! $dateTime instanceof \DateTime) {
             $dateTime = new \DateTime($dateTime);

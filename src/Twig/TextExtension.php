@@ -35,12 +35,12 @@ class TextExtension extends AbstractExtension
         return Str::slug((string) $str);
     }
 
-    public function ucwords($content, string $delimiters = ''): string
+    public function ucwords(string $string, string $delimiters = ''): string
     {
-        if (! $content) {
+        if (! $string) {
             return '';
         }
 
-        return ucwords($content, $delimiters);
+        return ucwords($string, $delimiters);
     }
 }

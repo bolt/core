@@ -7,7 +7,7 @@
             {% if record.hasField(key) %}
                 {% set field = record.getField(key)|translated(currentlocale) %}
             {% else %}
-                {% set field = record|field_factory(key, fielddefinition) %}
+                {% set field = field_factory(key, fielddefinition) %}
             {%  endif %}
 
             {% include [
