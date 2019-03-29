@@ -88,6 +88,37 @@ class ContentRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function searchNaive(string $searchTerm, int $page, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    {
+        // First, create a querybuilder to get the fields that match the Query
+        $qb = $this->getQueryBuilder()
+            ->select('partial content.{id}');
+
+        $qb->addSelect('f')
+            ->leftJoin('content.fields', 'f')
+            ->andWhere($qb->expr()->like('f.value', ':search'))
+            ->setParameter('search', '%' . $searchTerm . '%');
+
+        // These are the ID's of content we need.
+        $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
+
+        // Next, we'll get the full Content objects, based on ID's
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a')
+            ->orderBy('content.modifiedAt', 'DESC');
+
+        if ($onlyPublished) {
+            $qb->andWhere('content.status = :status')
+                ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        $qb->andWhere('content.id IN (:ids)')
+            ->setParameter('ids', $ids);
+
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+    }
+
     public function findOneBySlug(string $slug): ?Content
     {
         return $this->getQueryBuilder()

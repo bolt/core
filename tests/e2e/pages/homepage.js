@@ -8,6 +8,9 @@ class HomepagePage extends BasePage {
 
     this.title = $('header a');
     this.recent_pages_list = $('aside ul');
+
+    this.search_input = $('#searchform-inline input[name="searchTerm"');
+    this.search_button = $('#searchform-inline button');
   }
 }
 

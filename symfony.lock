@@ -203,6 +203,12 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
+    "illuminate/contracts": {
+        "version": "v5.8.8"
+    },
+    "illuminate/support": {
+        "version": "v5.8.8"
+    },
     "intervention/image": {
         "version": "2.4.2"
     },
@@ -831,9 +837,6 @@
         "version": "v5.2.3"
     },
     "symplify/package-builder": {
-        "version": "v5.2.3"
-    },
-    "symplify/token-runner": {
         "version": "v5.2.3"
     },
     "theseer/tokenizer": {
