@@ -85,26 +85,26 @@ class LocaleExtension extends AbstractExtension
      * application and returns an array with the name of each locale written
      * in its own language (e.g. English, Français, Español, etc.).
      */
-    public function getLocales(Environment $env): Collection
+    public function getLocales(Environment $twig): Collection
     {
         if ($this->locales !== null) {
             return $this->locales;
         }
 
-        $this->locales = $this->localeHelper($env, $this->localeCodes);
+        $this->locales = $this->localeHelper($twig, $this->localeCodes);
 
         return $this->locales;
     }
 
-    public function getContentLocales(Environment $env, Collection $localeCodes)
+    public function getContentLocales(Environment $twig, Collection $localeCodes)
     {
-        return $this->localeHelper($env, $localeCodes);
+        return $this->localeHelper($twig, $localeCodes);
     }
 
-    private function localeHelper(Environment $env, Collection $localeCodes)
+    private function localeHelper(Environment $twig, Collection $localeCodes)
     {
         // Get the route and route params, to set the new localized link
-        $globals = $env->getGlobals();
+        $globals = $twig->getGlobals();
 
         /** @var Request $request */
         $request = $globals['app']->getRequest();
