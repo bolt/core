@@ -11,7 +11,6 @@ use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -27,19 +26,15 @@ class RecordExtension extends AbstractExtension
     /** @var MenuBuilder */
     private $menuBuilder;
 
-    /** @var TranslatorInterface */
-    private $translator;
-
     /** @var string */
     private $menu = null;
 
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
-    public function __construct(MenuBuilder $menuBuilder, TranslatorInterface $translator, TaxonomyRepository $taxonomyRepository)
+    public function __construct(MenuBuilder $menuBuilder, TaxonomyRepository $taxonomyRepository)
     {
         $this->menuBuilder = $menuBuilder;
-        $this->translator = $translator;
         $this->taxonomyRepository = $taxonomyRepository;
     }
 
@@ -57,7 +52,6 @@ class RecordExtension extends AbstractExtension
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
             new TwigFunction('menu', [$this, 'getMenu'], $env + $safe),
             new TwigFunction('sidebar_menu', [$this, 'getSidebarMenu']),
-            new TwigFunction('jsonlabels', [$this, 'jsonlabels']),
             new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
             new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),
@@ -113,19 +107,6 @@ class RecordExtension extends AbstractExtension
         $icon = str_replace('fa-', '', $icon);
 
         return "<i class='fas mr-2 fa-${icon}'></i>";
-    }
-
-    public function jsonlabels(array $labels, bool $pretty = false): string
-    {
-        $result = [];
-        $options = $pretty ? JSON_PRETTY_PRINT : 0;
-
-        foreach ($labels as $label) {
-            $key = is_array($label) ? $label[0] : $label;
-            $result[$key] = $this->translator->trans(...(array) $label);
-        }
-
-        return json_encode($result, $options);
     }
 
     public function selectoptionsfromarray(Field $field): LaravelCollection
