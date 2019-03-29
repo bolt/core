@@ -1,5 +1,5 @@
 Feature: Display search functionality
-    @wip
+
     Scenario: As a user I want to display search results
         When I visit the "homepage" page
 

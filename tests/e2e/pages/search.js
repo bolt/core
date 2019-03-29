@@ -6,7 +6,7 @@ class SearchPage extends BasePage {
 
     this.url = '/search';
 
-    this.search_input = $('#searchform-inline input[name="search"');
+    this.search_input = $('#searchform-inline input[name="searchTerm"');
     this.search_button = $('#searchform-inline button');
 
     this.search_results_title = $('h1.search-results');
