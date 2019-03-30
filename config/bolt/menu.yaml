@@ -2,6 +2,7 @@
 # details: https://docs.bolt.cm/configuration/menus
 
 main:
+<<<<<<< HEAD
   - label: Home
     title: This is the <b>first<b> menu item.
     link: homepage
@@ -55,4 +56,30 @@ multi-level:
     link: https://example.org
     class: item-2
 
+=======
+    - label: Home
+      title: This is the first menu item.
+      link: homepage
+      class: first
+    - label: About
+      link: blocks/about
+      submenu:
+          - label: Sub 1
+            link: entry/29
+          - label: Sub 2
+            class: menu-item-class
+            link: entry/30
+          - label: Sub 3
+            link: entry/31
+          - label: Sub 4
+            class: sub-class
+            link: page/32
+    - label: All pages
+      link: pages/
+    - label: The Bolt site
+      link: https://bolt.cm
+      class: last
+      title: Visit the excellent Bolt website!
+      
+>>>>>>> bb8135a... Making menu work in frontend
 foo: bar

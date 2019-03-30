@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration\Parser;
 
+use Bolt\Utils\Str;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tightenco\Collect\Support\Collection;
 
 class MenuParser extends BaseParser
