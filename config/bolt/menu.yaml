@@ -58,7 +58,7 @@ multi-level:
 
 =======
     - label: Home
-      title: This is the first menu item.
+      title: This is the <b>first<b> menu item.
       link: homepage
       class: first
     - label: About
