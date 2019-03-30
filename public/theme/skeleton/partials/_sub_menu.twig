@@ -15,14 +15,13 @@
     {% from _self import display_menu_item %}
     {% spaceless %}
     <li class="index-{{ loop.index -}}
-        {{ item.path == 'homepage' ? ' menu-text' -}}
         {{ loop.first ? ' first' -}}
         {{ loop.last ? ' last' -}}
-        {{ (item.submenu and withsubmenus) ? ' is-dropdown-submenu-parent' -}}
+        {{ (item.submenu and withsubmenus) ? ' has-submenu' -}}
         {{ item.current ? ' active' }}">
 
-        <a href="{{ item.link }}" title='{{ item.title|default('')|escape }}' class='{{ item.class|default('') }}'>
-            {{- item.label|default('-') -}}
+        <a href="{{ item.uri }}" title='{{ item.title }}' class='{{ item.class }}'>
+            {{- item.label -}}
         </a>
 
         {% if item.submenu is defined and withsubmenus %}
@@ -40,7 +39,7 @@
 {% from _self import display_menu_item %}
 
 {# The main menu loop: Iterates over the items, calling `display_menu_item` #}
-<ul  class="menu {{ class|default('') }}">
+<ul  class="menu {{ class }}">
 {% for item in menu %}
     {% if item.label is defined %}
         {{ display_menu_item(item, loop, '', withsubmenus) }}

@@ -82,6 +82,8 @@ class RecordExtension extends AbstractExtension
     {
         $context = [
             'menu' => $this->frontendMenuBuilder->getMenu(),
+            'class' => $class,
+            'bool' => $withsubmenus,
         ];
 
         return $env->render($template, $context);

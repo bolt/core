@@ -16,7 +16,6 @@ class MenuParser extends BaseParser
         $this->baseItem = [
             'label' => '',
             'title' => '',
-            'path' => '',
             'link' => '',
             'class' => '',
             'submenu' => null,
@@ -54,6 +53,11 @@ class MenuParser extends BaseParser
 
             if (isset($item['submenu']) && is_array($item['submenu'])) {
                 $item['submenu'] = $this->parseItems($item['submenu']);
+            }
+
+            // Backwards compatibility for `path`
+            if (!empty($item['path']) && $item['link'] === '') {
+                $item['link'] = $item['path'];
             }
 
             $menu[] = $item;
