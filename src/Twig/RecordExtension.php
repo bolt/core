@@ -81,10 +81,8 @@ class RecordExtension extends AbstractExtension
     public function getMenu(Environment $twig, string $template = ''): string
     {
         $context = [
-            'menu' => $this->frontendMenuBuilder->getMenu()
+            'menu' => $this->frontendMenuBuilder->getMenu(),
         ];
-
-
 
         return $env->render($template, $context);
     }

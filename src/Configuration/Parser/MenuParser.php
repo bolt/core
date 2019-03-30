@@ -1,19 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Configuration\Parser;
 
-use Bolt\Utils\Str;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tightenco\Collect\Support\Collection;
 
 class MenuParser extends BaseParser
 {
     /** @var array */
-    private $baseItem;
-    /**
-     * @var UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private $baseItem = [];
 
     public function __construct()
     {
@@ -53,7 +49,7 @@ class MenuParser extends BaseParser
     {
         $menu = [];
 
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $item = array_merge($this->baseItem, $item);
 
             if (isset($item['submenu']) && is_array($item['submenu'])) {
@@ -65,5 +61,4 @@ class MenuParser extends BaseParser
 
         return $menu;
     }
-
 }
