@@ -4,25 +4,26 @@
 main:
     - label: Home
       title: This is the first menu item.
-      path: homepage
+      link: homepage
       class: first
-    - label: Second item
-      path: entry/1
+    - label: About
+      link: blocks/about
       submenu:
           - label: Sub 1
-            path: entry/2
+            link: entry/29
           - label: Sub 2
             class: menu-item-class
-            path: entry/3
+            link: entry/30
           - label: Sub 3
-            path: entry/4
+            link: entry/31
           - label: Sub 4
             class: sub-class
-            path: page/3
+            link: page/32
     - label: All pages
-      path: pages/
+      link: pages/
     - label: The Bolt site
-      link: http://bolt.cm
+      link: https://bolt.cm
       class: last
+      title: Visit the excellent Bolt website!
       
 foo: bar

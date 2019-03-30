@@ -15,11 +15,11 @@
     {% from _self import display_menu_item %}
     {% spaceless %}
     <li class="index-{{ loop.index -}}
-        {{ item.path|default('') == 'homepage' ? ' menu-text' -}}
+        {{ item.path == 'homepage' ? ' menu-text' -}}
         {{ loop.first ? ' first' -}}
         {{ loop.last ? ' last' -}}
-        {{ (item.submenu|default(false) and withsubmenus) ? ' is-dropdown-submenu-parent' -}}
-        {{ item|current ? ' active' }}">
+        {{ (item.submenu and withsubmenus) ? ' is-dropdown-submenu-parent' -}}
+        {{ item.current ? ' active' }}">
 
         <a href="{{ item.link }}" title='{{ item.title|default('')|escape }}' class='{{ item.class|default('') }}'>
             {{- item.label|default('-') -}}

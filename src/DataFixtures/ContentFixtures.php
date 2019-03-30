@@ -175,7 +175,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
             'title' => 'Search',
             'slug' => 'search',
         ];
-
         $records['tests'][] = [
             'selectfield' => 'bar',
             'multiselect' => 'Michelangelo',

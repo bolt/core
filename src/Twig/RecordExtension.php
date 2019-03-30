@@ -6,6 +6,7 @@ namespace Bolt\Twig;
 
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Menu\FrontendMenuBuilder;
 use Bolt\Menu\MenuBuilder;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
@@ -27,7 +28,7 @@ class RecordExtension extends AbstractExtension
     private $menuBuilder;
 
     /** @var string */
-    private $menu = null;
+    private $sidebarMenu = null;
 
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
@@ -36,6 +37,7 @@ class RecordExtension extends AbstractExtension
     {
         $this->menuBuilder = $menuBuilder;
         $this->taxonomyRepository = $taxonomyRepository;
+        $this->frontendMenuBuilder = $frontendMenuBuilder;
     }
 
     /**
@@ -78,8 +80,13 @@ class RecordExtension extends AbstractExtension
 
     public function getMenu(Environment $twig, string $template = ''): string
     {
-        // @todo See Github issue https://github.com/bolt/four/issues/253
-        return '[menu placeholder]';
+        $context = [
+            'menu' => $this->frontendMenuBuilder->getMenu()
+        ];
+
+
+
+        return $env->render($template, $context);
     }
 
     public static function excerpt(string $text, int $length = 100): string
@@ -89,16 +96,16 @@ class RecordExtension extends AbstractExtension
 
     public function getSidebarMenu($pretty = false): string
     {
-        if (! $this->menu) {
+        if (! $this->sidebarMenu) {
             $menuArray = $this->menuBuilder->getMenu();
             $options = $pretty ? JSON_PRETTY_PRINT : 0;
-            $this->menu = json_encode($menuArray, $options);
+            $this->sidebarMenu = json_encode($menuArray, $options);
         }
 
-        return $this->menu;
+        return $this->sidebarMenu;
     }
 
-    public function icon($record, $icon = 'question-circle')
+    public function icon($record, $icon = 'question-circle'): string
     {
         if ($record instanceof Content) {
             $icon = $record->getIcon();
