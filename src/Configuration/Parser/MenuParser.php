@@ -56,7 +56,7 @@ class MenuParser extends BaseParser
             }
 
             // Backwards compatibility for `path`
-            if (!empty($item['path']) && $item['link'] === '') {
+            if (! empty($item['path']) && $item['link'] === '') {
                 $item['link'] = $item['path'];
             }
 
