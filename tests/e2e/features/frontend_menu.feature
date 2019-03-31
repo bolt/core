@@ -1,5 +1,5 @@
 Feature: Frontend menu
-    @wip
+
     Scenario: As a user I want to see the menu in the frontend
         When I visit the "homepage" page
         Then there is element "menu_first" with text "Home"
