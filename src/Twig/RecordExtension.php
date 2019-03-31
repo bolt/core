@@ -81,7 +81,11 @@ class RecordExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
+<<<<<<< HEAD
     public function getMenu(Environment $twig, ?string $name = null, string $template = '_sub_menu.twig', string $class = '', bool $withsubmenus = true): string
+=======
+    public function menu(Environment $env, ?string $name = null, string $template = '_sub_menu.twig', string $class = '', bool $withsubmenus = true): string
+>>>>>>> 387cb1d... Add e2e test for menu
     {
         $context = [
             'menu' => $this->frontendMenuBuilder->getMenu($name),

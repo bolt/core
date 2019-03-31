@@ -60,7 +60,7 @@ multi-level:
     - label: Home
       title: This is the <b>first<b> menu item.
       link: homepage
-      class: first
+      class: homepage
     - label: About
       link: blocks/about
       submenu:
@@ -78,7 +78,7 @@ multi-level:
       link: pages/
     - label: The Bolt site
       link: https://bolt.cm
-      class: last
+      class: bolt-site
       title: Visit the excellent Bolt website!
       
 >>>>>>> bb8135a... Making menu work in frontend
