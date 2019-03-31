@@ -24,7 +24,7 @@
             {{- item.label -}}
         </a>
 
-        {% if item.submenu is defined and withsubmenus %}
+        {% if item.submenu and withsubmenus %}
             <ul class="menu submenu vertical">
                 {% for submenu in item.submenu %}
                     {{ display_menu_item(submenu, loop) }}

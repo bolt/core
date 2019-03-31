@@ -37,12 +37,12 @@ class FrontendMenuBuilder
         $this->fieldRepository = $fieldRepository;
     }
 
-    public function getMenu(string $name = ''): ?DeepCollection
+    public function getMenu(?string $name = null): ?DeepCollection
     {
         /** @var DeepCollection $menuConfig */
         $menuConfig = $this->config->get('menu');
 
-        if ($name === '' && is_iterable($menuConfig)) {
+        if (! $name && is_iterable($menuConfig)) {
             $menu = $menuConfig->first();
         } elseif ($name !== '' && isset($menuConfig[$name])) {
             $menu = $menuConfig[$name];
