@@ -68,7 +68,7 @@ class FrontendMenuBuilder
         }
     }
 
-    public function setUri($link = ''): string
+    private function setUri($link = ''): string
     {
         $link = trim($link, '/');
 
@@ -89,7 +89,7 @@ class FrontendMenuBuilder
         return $link;
     }
 
-    public function getContent(string $link): ?Content
+    private function getContent(string $link): ?Content
     {
         $parts = explode('/', $link);
 
