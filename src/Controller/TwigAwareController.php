@@ -6,6 +6,7 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
+use Bolt\Snippets\Manager;
 use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,14 +24,22 @@ class TwigAwareController extends AbstractController
      * @var Environment
      */
     protected $twig;
+    /**
+     * @var Manager
+     */
+    private $snippetManager;
 
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig): void
+    public function setAutowire(Config $config, Environment $twig, Manager $snippetManager)
     {
         $this->config = $config;
         $this->twig = $twig;
+        $this->snippetManager = $snippetManager;
+
+        $this->snippetManager->registerSnippet('Foo', 'bar');
+        $this->snippetManager->registerBoltSnippets();
     }
 
     /**
