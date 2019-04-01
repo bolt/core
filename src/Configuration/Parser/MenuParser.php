@@ -9,11 +9,11 @@ use Tightenco\Collect\Support\Collection;
 class MenuParser extends BaseParser
 {
     /** @var array */
-    private $baseItem = [];
+    private $itemBase = [];
 
     public function __construct()
     {
-        $this->baseItem = [
+        $this->itemBase = [
             'label' => '',
             'title' => '',
             'link' => '',
@@ -44,12 +44,12 @@ class MenuParser extends BaseParser
         return new Collection($menu);
     }
 
-    private function parseItems(array $items)
+    private function parseItems(array $items): array
     {
         $menu = [];
 
         foreach ($items as $item) {
-            $item = array_merge($this->baseItem, $item);
+            $item = array_merge($this->itemBase, $item);
 
             if (isset($item['submenu']) && is_array($item['submenu'])) {
                 $item['submenu'] = $this->parseItems($item['submenu']);

@@ -42,7 +42,7 @@ class FrontendMenuBuilder
         /** @var DeepCollection $menuConfig */
         $menuConfig = $this->config->get('menu');
 
-        if (! $name && is_iterable($menuConfig)) {
+        if ($name === null) {
             $menu = $menuConfig->first();
         } elseif ($name !== '' && isset($menuConfig[$name])) {
             $menu = $menuConfig[$name];
@@ -70,16 +70,16 @@ class FrontendMenuBuilder
 
     private function setUri(string $link = ''): string
     {
-        $link = trim($link, '/');
+        $trimmedLink = trim($link, '/');
 
         // Special case for "Homepage"
-        if ($link === 'homepage') {
+        if ($trimmedLink === 'homepage') {
             return $this->urlGenerator->generate('homepage');
         }
 
         // If it looks like `contenttype/slug`, get the Record.
-        if (mb_strpos($link, '/') && mb_strpos($link, 'http') === false) {
-            $content = $this->getContent($link);
+        if (mb_strpos($trimmedLink, '/') && mb_strpos($trimmedLink, 'http') === false) {
+            $content = $this->getContent($trimmedLink);
             if ($content) {
                 return $content->getExtras()['link'];
             }
