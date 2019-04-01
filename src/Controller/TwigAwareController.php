@@ -6,7 +6,7 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
-use Bolt\Snippet\Manager;
+use Bolt\Snippets\Manager;
 use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +20,10 @@ class TwigAwareController extends AbstractController
 
     /** @var Environment */
     protected $twig;
+    /**
+     * @var Manager
+     */
+    private $snippetManager;
 
     /** @var Manager */
     private $snippetManager;
