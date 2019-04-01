@@ -46,10 +46,10 @@
       <i class="fas fa-user mr-2"></i>{{ labels['general.greeting'] }}
       <ul class="toolbar--menu">
         <li>
-          <a href="/bolt/profile-edit">{{ labels['action.edit_profile'] }}</a>
+          <a :href="backend_prefix + 'profile-edit'">{{ labels['action.edit_profile'] }}</a>
         </li>
         <li>
-          <a href="/bolt/logout">{{ labels['action.logout'] }}</a>
+          <a :href="backend_prefix + 'logout'">{{ labels['action.logout'] }}</a>
         </li>
       </ul>
     </div>
@@ -61,7 +61,7 @@ const tinycolor = require('tinycolor2');
 
 export default {
   name: 'Toolbar',
-  props: ['siteName', 'menu', 'labels'],
+  props: ['siteName', 'menu', 'labels', 'backend_prefix'],
   computed: {
     contrast() {
       const color = tinycolor(this.toolbarColor);
