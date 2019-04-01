@@ -57,7 +57,7 @@ class FrontendMenuBuilder
         return $menu;
     }
 
-    private function updateItem($item): void
+    private function updateItem(DeepCollection $item): void
     {
         $item['uri'] = $this->setUri($item['link']);
 
@@ -68,7 +68,7 @@ class FrontendMenuBuilder
         }
     }
 
-    private function setUri($link = ''): string
+    private function setUri(string $link = ''): string
     {
         $link = trim($link, '/');
 

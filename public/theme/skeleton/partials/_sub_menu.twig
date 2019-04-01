@@ -4,14 +4,9 @@
    ternary operators: http://twig.sensiolabs.org/doc/templates.html#other-operators
 #}
 
-{# Make sure the setting for the submenus is defined. #}
-{% if withsubmenus is not defined %}
-    {% set withsubmenus = true %}
-{% endif %}
-
 {# The 'recursive' macro, for inserting one menu item. If it has a submenu, it
    invokes itself to insert the items of the submenus. #}
-{% macro display_menu_item(item, loop, extraclass, withsubmenus) %}
+{% macro display_menu_item(item, loop, withsubmenus) %}
     {% from _self import display_menu_item %}
     {% spaceless %}
     <li class="index-{{ loop.index -}}
@@ -39,10 +34,10 @@
 {% from _self import display_menu_item %}
 
 {# The main menu loop: Iterates over the items, calling `display_menu_item` #}
-<ul  class="menu {{ class }}">
+<ul class="menu {{ class }}">
 {% for item in menu %}
     {% if item.label is defined %}
-        {{ display_menu_item(item, loop, '', withsubmenus) }}
+        {{ display_menu_item(item, loop, withsubmenus) }}
     {% endif %}
 {% endfor %}
 </ul>

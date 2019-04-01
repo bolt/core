@@ -83,7 +83,7 @@ class RecordExtension extends AbstractExtension
         $context = [
             'menu' => $this->frontendMenuBuilder->getMenu($name),
             'class' => $class,
-            'bool' => $withsubmenus,
+            'withsubmenus' => $withsubmenus,
         ];
 
         return $env->render($template, $context);
@@ -105,7 +105,7 @@ class RecordExtension extends AbstractExtension
         return $this->sidebarMenu;
     }
 
-    public function icon($record, $icon = 'question-circle'): string
+    public function icon(?Content $record = null, string $icon = 'question-circle'): string
     {
         if ($record instanceof Content) {
             $icon = $record->getIcon();
