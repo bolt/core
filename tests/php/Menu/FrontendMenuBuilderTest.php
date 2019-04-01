@@ -10,12 +10,14 @@ use Bolt\Tests\DbAwareTestCase;
 
 class FrontendMenuBuilderTest extends DbAwareTestCase
 {
+    /** @var FrontendMenuBuilder */
+    private $menuBuilder;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        /** @var FrontendMenuBuilder menu */
-        $this->menuBuilder = self::$container->get(\Bolt\Menu\FrontendMenuBuilder::class);
+        $this->menuBuilder = self::$container->get(FrontendMenuBuilder::class);
     }
 
     public function testNonExistingMenu(): void
