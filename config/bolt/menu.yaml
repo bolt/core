@@ -2,28 +2,57 @@
 # details: https://docs.bolt.cm/configuration/menus
 
 main:
-    - label: Home
-      title: This is the <b>first<b> menu item.
-      link: homepage
-      class: homepage
-    - label: About
-      link: blocks/about
-      submenu:
-          - label: Sub 1
-            link: entry/29
-          - label: Sub 2
-            class: menu-item-class
-            link: entry/30
-          - label: Sub 3
-            link: entry/31
-          - label: Sub 4
-            class: sub-class
-            link: page/32
-    - label: All pages
-      link: pages/
-    - label: The Bolt site
-      link: https://bolt.cm
-      class: bolt-site
-      title: Visit the excellent Bolt website!
-      
+  - label: Home
+    title: This is the <b>first<b> menu item.
+    link: homepage
+    class: homepage
+  - label: About
+    link: blocks/about
+    submenu:
+        - label: Sub 1
+          link: entry/29
+        - label: Sub 2
+          class: menu-item-class
+          link: entry/30
+        - label: Sub 3
+          link: entry/31
+        - label: Sub 4
+          class: sub-class
+          link: page/32
+  - label: All pages
+    link: pages/
+  - label: The Bolt site
+    link: https://bolt.cm
+    class: bolt-site
+    title: Visit the excellent Bolt website!
+
+multi-level:
+  - label: Item 1
+    link: https://example.org
+    class: item-1
+    submenu:
+      - label: Item 1.1
+        link: https://example.org
+        class: item-1-1
+        submenu:
+          - label: Item 1.1.1
+            link: https://example.org
+            class: item-1-1-1
+          - label: Item 1.1.2
+            link: https://example.org
+            class: item-1-1-2
+            submenu:
+              - label: Item 1.1.2.1
+                link: https://example.org
+                class: item-1-1-2-1
+              - label: Item 1.1.2.2
+                link: https://example.org
+                class: item-1-1-2-2
+      - label: Item 1.2
+        link: https://example.org
+        class: item-1-2
+  - label: Item 2
+    link: https://example.org
+    class: item-2
+
 foo: bar

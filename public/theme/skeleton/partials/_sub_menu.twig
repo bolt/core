@@ -22,7 +22,7 @@
         {% if item.submenu and withsubmenus %}
             <ul class="menu submenu vertical">
                 {% for submenu in item.submenu %}
-                    {{ display_menu_item(submenu, loop) }}
+                    {{ display_menu_item(submenu, loop, true) }}
                 {% endfor %}
             </ul>
         {% endif %}
