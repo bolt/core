@@ -31,6 +31,7 @@
             :menu="{{ sidebarmenu() }}"
             user="{{ user|default }}"
             :labels="{{ labels|json_decode }}"
+            :backend_prefix="{{ path('bolt_dashboard') }}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->

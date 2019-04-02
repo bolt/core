@@ -8,6 +8,7 @@ parameters:
     doctrine.orm.entity_manager.class: Bolt\Doctrine\TranslatableEntityManager
     stof_doctrine_extensions.listener.translatable.class: Bolt\EventListener\PreTranslatableListener
     bolt.table_prefix: bolt_
+    bolt.backend_url: /bolt
 
 services:
     # default configuration for services in *this* file

@@ -23,7 +23,7 @@ security:
 
             logout:
                 path: bolt_logout
-                target: homepage
+                target: bolt_login
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -32,7 +32,6 @@ security:
     access_control:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
-        # @todo make admin area prefix configurable
-        - { path: '^/bolt/(login|resetpassword)$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^/bolt', roles: ROLE_ADMIN }
-        - { path: '^/(%app_locales%)/bolt', roles: ROLE_ADMIN }
+        - { path: '^%bolt.backend_url%/(login|resetpassword)$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^%bolt.backend_url%', roles: ROLE_ADMIN }
+        - { path: '^/(%app_locales%)%bolt.backend_url%', roles: ROLE_ADMIN }
