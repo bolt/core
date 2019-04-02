@@ -1,4 +1,5 @@
-{%  set labels = jsonlabels(['action.close_alert']) %}
+{%  set labels = {'action.close_alert': 'action.close_alert'|trans } %}
+
 
 {% for type, messages in app.flashes %}
     {% for message in messages %}

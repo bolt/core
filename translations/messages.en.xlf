@@ -927,12 +927,6 @@
         <target>Search</target>
       </segment>
     </unit>
-    <unit id="z0k8hRg" name="9fb3e6e">
-      <segment>
-        <source>9fb3e6e</source>
-        <target><![CDATA[This website is <a href='%url%' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
       <segment>
         <source>contenttypes.generic.overview</source>
@@ -993,12 +987,6 @@
         <target>The Kitchensink</target>
       </segment>
     </unit>
-    <unit id="eq5YMQf" name="9fb3e6e">
-      <segment>
-        <source>This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
-        <target><![CDATA[This website is <a href='%url%' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="2CfJ3WY" name="general.phrase.search-results-for">
       <segment>
         <source>general.phrase.search-results-for</source>
@@ -1015,6 +1003,18 @@
       <segment>
         <source>general.phrase.no-search-term-provided</source>
         <target>Please provide a search term, in order to display relevant results.</target>
+      </segment>
+    </unit>
+    <unit id="Pily_qo" name="general.phrase.read-more">
+      <segment>
+        <source>general.phrase.read-more</source>
+        <target>Read More</target>
+      </segment>
+    </unit>
+    <unit id="psOa_9x" name="general.phrase.built-with-bolt">
+      <segment>
+        <source>general.phrase.built-with-bolt</source>
+        <target><![CDATA[This website is <a href='https://bolt.cm' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
       </segment>
     </unit>
   </file>
