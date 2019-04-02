@@ -93,16 +93,16 @@ services:
 
 parameters:
     cache_directory: var/cache/ecs
-    exclude_checkers:
-        - 'PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer'
-        - 'PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer'
-        - 'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer'
-        - 'PhpCsFixer\Fixer\Operator\ConcatSpaceFixer'
-        - 'PhpCsFixer\Fixer\Operator\IncrementStyleFixer'
-        - 'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer'
-        - 'PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer'
-        - 'PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer'
-        - 'PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer'
-        - 'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff'
-        - 'Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff' #to be removed before beta release
-        - 'Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff' #to be removed before beta release
+    skip:
+        PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer: ~
+        PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~
+        PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: ~
+        PhpCsFixer\Fixer\Operator\ConcatSpaceFixer: ~
+        PhpCsFixer\Fixer\Operator\IncrementStyleFixer: ~
+        PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
+        PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer: ~
+        PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer: ~
+        PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff: ~
+        Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: ~ #to be removed before beta release
+        Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~ #to be removed before beta release
