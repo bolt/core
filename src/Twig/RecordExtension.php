@@ -33,7 +33,10 @@ class RecordExtension extends AbstractExtension
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
-    public function __construct(MenuBuilder $menuBuilder, TaxonomyRepository $taxonomyRepository)
+    /** @var FrontendMenuBuilder */
+    private $frontendMenuBuilder;
+
+    public function __construct(MenuBuilder $menuBuilder, TaxonomyRepository $taxonomyRepository, FrontendMenuBuilder $frontendMenuBuilder)
     {
         $this->menuBuilder = $menuBuilder;
         $this->taxonomyRepository = $taxonomyRepository;
@@ -78,7 +81,7 @@ class RecordExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
-    public function getMenu(Environment $twig, string $template = ''): string
+    public function getMenu(Environment $twig, ?string $name = null, string $template = '_sub_menu.twig', string $class = '', bool $withsubmenus = true): string
     {
         $context = [
             'menu' => $this->frontendMenuBuilder->getMenu($name),
@@ -86,7 +89,7 @@ class RecordExtension extends AbstractExtension
             'withsubmenus' => $withsubmenus,
         ];
 
-        return $env->render($template, $context);
+        return $twig->render($template, $context);
     }
 
     public static function excerpt(string $text, int $length = 100): string
