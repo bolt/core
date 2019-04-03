@@ -64,7 +64,7 @@ class RecordExtension extends AbstractExtension
         return 'list_templates placeholder';
     }
 
-    public function pager(Environment $env, Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)
+    public function pager(Environment $twig, Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)
     {
         $context = [
             'records' => $records,
@@ -73,10 +73,10 @@ class RecordExtension extends AbstractExtension
             'theme' => $theme,
         ];
 
-        return $env->render($template, $context);
+        return $twig->render($template, $context);
     }
 
-    public function getMenu(Environment $env, string $template = ''): string
+    public function getMenu(Environment $twig, string $template = ''): string
     {
         // @todo See Github issue https://github.com/bolt/four/issues/253
         return '[menu placeholder]';
