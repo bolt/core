@@ -31,6 +31,7 @@ class MenuParser extends BaseParser
      */
     public function parse(): Collection
     {
+        // @todo Allow setting of file/path. See Github issue https://github.com/bolt/four/issues/379
         $menuYaml = $this->parseConfigYaml('menu.yaml');
 
         $menu = [];

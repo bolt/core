@@ -15,6 +15,7 @@ class MenuParserTest extends TestCase
         $menuParser = new MenuParser();
         $config = $menuParser->parse();
 
+        // @todo Test breakage on corrupt files. See Github issue https://github.com/bolt/four/issues/379
         $this->assertInstanceOf(Collection::class, $config);
     }
 
