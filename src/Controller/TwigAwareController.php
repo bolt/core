@@ -15,18 +15,13 @@ use Twig\Environment;
 
 class TwigAwareController extends AbstractController
 {
-    /**
-     * @var Config
-     */
+    /** @var Config */
     protected $config;
 
-    /**
-     * @var Environment
-     */
+    /** @var Environment */
     protected $twig;
-    /**
-     * @var Manager
-     */
+
+    /** @var Manager */
     private $snippetManager;
 
     /**
@@ -36,6 +31,13 @@ class TwigAwareController extends AbstractController
     {
         $this->config = $config;
         $this->twig = $twig;
+    }
+
+    /**
+     * @required
+     */
+    public function setSnippetManager(Manager $snippetManager): void
+    {
         $this->snippetManager = $snippetManager;
 
         $this->snippetManager->registerSnippet('Foo', 'bar');
