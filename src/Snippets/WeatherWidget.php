@@ -1,12 +1,8 @@
 <?php
-/**
- *
- *
- * @author Bob den Otter <bobdenotter@gmail.com>
- */
+
+declare(strict_types=1);
 
 namespace Bolt\Snippets;
-
 
 class WeatherWidget extends BaseWidget
 {
@@ -14,9 +10,5 @@ class WeatherWidget extends BaseWidget
     protected $type = 'widget';
     protected $target = Target::WIDGET_BACK_EDITCONTENT_ASIDE_TOP;
     protected $priority = 100;
-
-    public function invoke()
-    {
-        return "This is the weather, man!";
-    }
+    protected $template = '@bolt/widgets/weather.twig';
 }

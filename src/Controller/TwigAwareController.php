@@ -20,9 +20,8 @@ class TwigAwareController extends AbstractController
 
     /** @var Environment */
     protected $twig;
-    /**
-     * @var Manager
-     */
+
+    /** @var Manager */
     private $snippetManager;
 
     /** @var Manager */
@@ -35,6 +34,13 @@ class TwigAwareController extends AbstractController
     {
         $this->config = $config;
         $this->twig = $twig;
+    }
+
+    /**
+     * @required
+     */
+    public function setSnippetManager(Manager $snippetManager): void
+    {
         $this->snippetManager = $snippetManager;
 
         $this->snippetManager->registerBoltSnippets();
