@@ -1,7 +1,8 @@
 <?php
 
-namespace Bolt\Twig;
+declare(strict_types=1);
 
+namespace Bolt\Twig;
 
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -23,14 +24,13 @@ class SnippetExtension extends AbstractExtension
         ];
     }
 
-    public function getSnippet(Environment $twig, string $name = null)
+    public function getSnippet(Environment $twig, ?string $name = null)
     {
-        return "-- Snippet $name --";
+        return "-- Snippet ${name} --";
     }
 
     public function getSnippetList()
     {
         return [];
     }
-
 }

@@ -15,29 +15,30 @@ use Twig\Environment;
 
 class TwigAwareController extends AbstractController
 {
-    /**
-     * @var Config
-     */
+    /** @var Config */
     protected $config;
 
-    /**
-     * @var Environment
-     */
+    /** @var Environment */
     protected $twig;
-    /**
-     * @var Manager
-     */
+
+    /** @var Manager */
     private $snippetManager;
 
-    public function __construct(Config $config, Environment $twig, Manager $snippetManager)
+    public function __construct(Config $config, Environment $twig)
     {
         $this->config = $config;
         $this->twig = $twig;
+    }
+
+    /**
+     * @required
+     */
+    public function setSnippetManager(Manager $snippetManager): void
+    {
         $this->snippetManager = $snippetManager;
 
         $this->snippetManager->registerSnippet('Foo', 'bar');
         $this->snippetManager->registerBoltSnippets();
-
     }
 
     /**
