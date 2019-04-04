@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Snippets;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Tightenco\Collect\Support\Collection;
 
 class Manager
@@ -11,9 +13,13 @@ class Manager
     /** @var Collection */
     private $queue;
 
-    public function __construct()
+    /** @var Request */
+    private $request;
+
+    public function __construct(RequestStack $requestStack)
     {
         $this->queue = new Collection([]);
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     public function registerSnippet($name, $callback): void
@@ -34,8 +40,9 @@ class Manager
         }
     }
 
-    public function getWidgets(): void
+    public function getWidgets(string $target): array
     {
+        return [];
     }
 
     public function invoke($twig, $callback)
@@ -52,6 +59,8 @@ class Manager
 
     public function registerWidget(BaseWidget $widget): void
     {
+        $widget->setRequest($this->request);
+
         $this->queue->push([
             'priority' => $widget->getPriority(),
             'target' => $widget->getTarget(),
@@ -63,5 +72,6 @@ class Manager
     public function registerBoltSnippets(): void
     {
         $this->registerWidget(new WeatherWidget());
+        $this->registerWidget(new NewsWidget());
     }
 }
