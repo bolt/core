@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Snippets;
 
+use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
 class BaseWidget
@@ -12,12 +13,16 @@ class BaseWidget
     protected $type = 'widget';
     protected $target = Target::NOWHERE;
     protected $priority = 0;
+    protected $context = [];
 
     /** @var Environment */
     protected $twig;
 
     /** @var string */
     protected $template;
+
+    /** @var Request */
+    protected $request;
 
     public function setName(string $name): self
     {
@@ -74,7 +79,7 @@ class BaseWidget
             $template = $this->template;
         }
 
-        return $this->twig->render($template);
+        return $this->twig->render($template, $this->context);
     }
 
     public function setTemplate(string $template): void
@@ -85,5 +90,15 @@ class BaseWidget
     public function getTemplate(): string
     {
         return $this->template;
+    }
+
+    public function setRequest(Request $request): void
+    {
+        $this->request = $request;
+    }
+
+    public function getRequest(): Request
+    {
+        return $this->request;
     }
 }
