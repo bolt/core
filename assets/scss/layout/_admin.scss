@@ -51,6 +51,10 @@ $admin-header-height: 70px;
 
     .container {
       padding: 0;
+
+      @include media-breakpoint-up(xl) {
+        max-width: 1240px;
+      }
     }
   }
 
