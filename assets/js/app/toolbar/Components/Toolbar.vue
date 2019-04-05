@@ -70,7 +70,7 @@ export default {
     createMenu() {
       return this.menu.filter(item => {
         return (
-          (item.contentType !== null && !item.singleton && item.singular_name) ||
+          (!item.singleton && item.singular_name) ||
           (item.singleton && (item.submenu === null || item.submenu.length < 1))
         );
       });
