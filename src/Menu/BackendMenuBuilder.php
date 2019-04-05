@@ -11,19 +11,15 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class MenuBuilder
+class BackendMenuBuilder
 {
     /** @var FactoryInterface */
     private $menuFactory;
 
     /** @var Config */
     private $config;
-
-    /** @var Stopwatch */
-    private $stopwatch;
 
     /** @var ContentRepository */
     private $contentRepository;
@@ -37,11 +33,10 @@ class MenuBuilder
     /** @var ContentExtension */
     private $contentExtension;
 
-    public function __construct(FactoryInterface $menuFactory, Config $config, Stopwatch $stopwatch, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ContentExtension $contentExtension)
+    public function __construct(FactoryInterface $menuFactory, Config $config, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ContentExtension $contentExtension)
     {
         $this->menuFactory = $menuFactory;
         $this->config = $config;
-        $this->stopwatch = $stopwatch;
         $this->contentRepository = $contentRepository;
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
@@ -50,8 +45,6 @@ class MenuBuilder
 
     public function createSidebarMenu()
     {
-        $this->stopwatch->start('bolt.sidebar');
-
         $t = $this->translator;
 
         $menu = $this->menuFactory->createItem('root');
@@ -277,8 +270,6 @@ class MenuBuilder
             ],
         ]);
 
-        $this->stopwatch->stop('bolt.sidebar');
-
         return $menu;
     }
 
@@ -288,13 +279,10 @@ class MenuBuilder
         $contentType = ContentType::factory($slug, $this->config->get('contenttypes'));
 
         /** @var Content[] $records */
-        $this->stopwatch->start('menuBuilder.findLatest');
         $records = $this->contentRepository->findLatest($contentType, 5);
-        $this->stopwatch->stop('menuBuilder.findLatest');
 
         $result = [];
 
-        $this->stopwatch->start('menuBuilder.parseLatest');
         /** @var Content $record */
         foreach ($records as $record) {
             $result[] = [
@@ -305,7 +293,6 @@ class MenuBuilder
                 'icon' => $record->getIcon(),
             ];
         }
-        $this->stopwatch->stop('menuBuilder.parseLatest');
 
         return $result;
     }

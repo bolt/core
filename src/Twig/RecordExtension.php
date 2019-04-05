@@ -6,8 +6,6 @@ namespace Bolt\Twig;
 
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Bolt\Menu\FrontendMenuBuilder;
-use Bolt\Menu\MenuBuilder;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
@@ -24,29 +22,18 @@ use Twig\TwigFunction;
  */
 class RecordExtension extends AbstractExtension
 {
-    /** @var MenuBuilder */
-    private $menuBuilder;
-
-    /** @var string */
-    private $sidebarMenu = null;
-
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
-    /** @var FrontendMenuBuilder */
-    private $frontendMenuBuilder;
-
-    public function __construct(MenuBuilder $menuBuilder, TaxonomyRepository $taxonomyRepository, FrontendMenuBuilder $frontendMenuBuilder)
+    public function __construct(TaxonomyRepository $taxonomyRepository)
     {
-        $this->menuBuilder = $menuBuilder;
         $this->taxonomyRepository = $taxonomyRepository;
-        $this->frontendMenuBuilder = $frontendMenuBuilder;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $safe = ['is_safe' => ['html']];
         $env = ['needs_environment' => true];
@@ -55,8 +42,6 @@ class RecordExtension extends AbstractExtension
             new TwigFunction('excerpt', [$this, 'excerpt'], $safe),
             new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('menu', [$this, 'getMenu'], $env + $safe),
-            new TwigFunction('sidebar_menu', [$this, 'getSidebarMenu']),
             new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
             new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),
@@ -81,31 +66,9 @@ class RecordExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
-    public function getMenu(Environment $twig, ?string $name = null, string $template = '_sub_menu.twig', string $class = '', bool $withsubmenus = true): string
-    {
-        $context = [
-            'menu' => $this->frontendMenuBuilder->getMenu($name),
-            'class' => $class,
-            'withsubmenus' => $withsubmenus,
-        ];
-
-        return $twig->render($template, $context);
-    }
-
     public static function excerpt(string $text, int $length = 100): string
     {
         return Excerpt::getExcerpt($text, $length);
-    }
-
-    public function getSidebarMenu($pretty = false): string
-    {
-        if (! $this->sidebarMenu) {
-            $menuArray = $this->menuBuilder->getMenu();
-            $options = $pretty ? JSON_PRETTY_PRINT : 0;
-            $this->sidebarMenu = json_encode($menuArray, $options);
-        }
-
-        return $this->sidebarMenu;
     }
 
     public function icon(?Content $record = null, string $icon = 'question-circle'): string
