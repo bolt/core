@@ -14,15 +14,13 @@ class NewsWidget extends BaseWidget
 {
     protected $name = 'News Widget';
     protected $type = 'widget';
-    protected $target = Target::WIDGET_BACK_EDITCONTENT_ASIDE_TOP;
+    protected $target = Target::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
     protected $priority = 150;
     protected $template = '@bolt/widgets/news.twig';
 
     public function invoke(?string $template = null)
     {
         $news = $this->getNews();
-
-//        dd($news);
 
         $currentItem = $news['information'];
 

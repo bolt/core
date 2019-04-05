@@ -43,12 +43,12 @@ class WidgetExtension extends AbstractExtension
         return $this->snippetManager->getWidget($twig, $name);
     }
 
-    public function getWidgets($target)
+    public function getWidgets(Environment $twig, $target)
     {
-        return $this->snippetManager->getWidgets($target);
+        return $this->snippetManager->getWidgets($twig, $target);
     }
 
-    public function dummy(Environment $env, $input = null)
+    public function dummy(Environment $twig, $input = null)
     {
         // @todo See Github issue https://github.com/bolt/four/issues/135
         return '<!-- Widget "' . $input . '" -->';
