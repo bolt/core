@@ -27,7 +27,7 @@ class CachedBackendMenuBuilder
 
     public function getMenu(bool $jsonPrettyPrint = false): string
     {
-        $key = 'backendmenu_' . (int) $pretty;
+        $key = 'backendmenu_' . (int) $jsonPrettyPrint;
 
         if ($this->cache->has($key)) {
             $menu = $this->cache->get($key);

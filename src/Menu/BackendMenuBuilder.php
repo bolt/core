@@ -10,7 +10,7 @@ use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
 use Knp\Menu\FactoryInterface;
-use Knp\Menu\MenuItem;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -34,8 +34,14 @@ class BackendMenuBuilder
     /** @var ContentExtension */
     private $contentExtension;
 
-    public function __construct(FactoryInterface $menuFactory, Config $config, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ContentExtension $contentExtension)
-    {
+    public function __construct(
+        FactoryInterface $menuFactory,
+        Config $config,
+        ContentRepository $contentRepository,
+        UrlGeneratorInterface $urlGenerator,
+        TranslatorInterface $translator,
+        ContentExtension $contentExtension
+    ) {
         $this->menuFactory = $menuFactory;
         $this->config = $config;
         $this->contentRepository = $contentRepository;
@@ -44,7 +50,7 @@ class BackendMenuBuilder
         $this->contentExtension = $contentExtension;
     }
 
-    private function createSidebarMenu(): MenuItem
+    private function createSidebarMenu(): ItemInterface
     {
         $t = $this->translator;
 
