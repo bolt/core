@@ -25,7 +25,7 @@ class CachedBackendMenuBuilder
         $this->stopwatch = $stopwatch;
     }
 
-    public function getMenu(bool $pretty = false): string
+    public function getMenu(bool $jsonPrettyPrint = false): string
     {
         $key = 'backendmenu_' . (int) $pretty;
 
@@ -35,7 +35,7 @@ class CachedBackendMenuBuilder
             $this->stopwatch->start('bolt.sidebarMenu');
 
             $menuArray = $this->menuBuilder->getMenu();
-            $options = $pretty ? JSON_PRETTY_PRINT : 0;
+            $options = $jsonPrettyPrint ? JSON_PRETTY_PRINT : 0;
             $menu = json_encode($menuArray, $options);
 
             $this->cache->set($key, $menu);

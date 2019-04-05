@@ -28,8 +28,8 @@ class BackendMenuExtension extends AbstractExtension
         ];
     }
 
-    public function getSidebarMenu($pretty = false): string
+    public function getSidebarMenu($jsonPrettyPrint = false): string
     {
-        return $this->menuBuilder->getMenu($pretty);
+        return $this->menuBuilder->getMenu($jsonPrettyPrint);
     }
 }
