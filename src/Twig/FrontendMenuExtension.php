@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Menu\FrontendMenuBuilder;
+use Bolt\Menu\CachedFrontendMenuBuilder;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class FrontendMenuExtension extends AbstractExtension
 {
-    /** @var FrontendMenuBuilder */
+    /** @var CachedFrontendMenuBuilder */
     private $menuBuilder;
 
-    public function __construct(FrontendMenuBuilder $menuBuilder)
+    public function __construct(CachedFrontendMenuBuilder $menuBuilder)
     {
         $this->menuBuilder = $menuBuilder;
     }
