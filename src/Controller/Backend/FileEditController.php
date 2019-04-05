@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
+use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -24,9 +26,13 @@ class FileEditController extends TwigAwareController
 {
     use CsrfTrait;
 
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
-    {
+    public function __construct(
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Config $config,
+        Environment $twig
+    ) {
         $this->csrfTokenManager = $csrfTokenManager;
+        parent::__construct($config, $twig);
     }
 
     /**

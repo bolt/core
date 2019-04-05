@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
+use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 class HomepageController extends TwigAwareController
 {
@@ -17,8 +19,10 @@ class HomepageController extends TwigAwareController
      */
     private $templateChooser;
 
-    public function __construct(TemplateChooser $templateChooser)
+    public function __construct(Config $config, Environment $twig, TemplateChooser $templateChooser)
     {
+        parent::__construct($config, $twig);
+
         $this->templateChooser = $templateChooser;
     }
 

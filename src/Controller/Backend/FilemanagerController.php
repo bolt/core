@@ -6,6 +6,7 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Str;
 use Bolt\Configuration\Areas;
+use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -13,6 +14,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -30,10 +32,11 @@ class FilemanagerController extends TwigAwareController
      */
     private $mediaRepository;
 
-    public function __construct(Areas $areas, MediaRepository $mediaRepository)
+    public function __construct(Areas $areas, MediaRepository $mediaRepository, Config $config, Environment $twig)
     {
         $this->areas = $areas;
         $this->mediaRepository = $mediaRepository;
+        parent::__construct($config, $twig);
     }
 
     /**

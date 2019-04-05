@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
+use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
@@ -12,6 +13,7 @@ use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
 
 class DetailController extends TwigAwareController
 {
@@ -30,11 +32,17 @@ class DetailController extends TwigAwareController
      */
     private $fieldRepository;
 
-    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, FieldRepository $fieldRepository
+    public function __construct(
+        Config $config,
+        Environment $twig,
+        TemplateChooser $templateChooser,
+        ContentRepository $contentRepository,
+        FieldRepository $fieldRepository
     ) {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
         $this->fieldRepository = $fieldRepository;
+        parent::__construct($config, $twig);
     }
 
     /**

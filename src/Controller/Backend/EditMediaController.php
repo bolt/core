@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Areas;
+use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -44,7 +46,9 @@ class EditMediaController extends TwigAwareController
         UrlGeneratorInterface $urlGenerator,
         Areas $areas,
         MediaFactory $mediaFactory,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Config $config,
+        Environment $twig
     ) {
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
@@ -52,6 +56,7 @@ class EditMediaController extends TwigAwareController
         $this->mediaFactory = $mediaFactory;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
+        parent::__construct($config, $twig);
     }
 
     /**

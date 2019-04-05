@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
+use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
@@ -24,6 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
+use Twig\Environment;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
@@ -63,7 +65,9 @@ class ContentEditController extends TwigAwareController
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
         TemplateChooser $templateChooser,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Config $config,
+        Environment $twig
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->em = $em;
@@ -71,6 +75,7 @@ class ContentEditController extends TwigAwareController
         $this->contentFillListener = $contentFillListener;
         $this->templateChooser = $templateChooser;
         $this->csrfTokenManager = $csrfTokenManager;
+        parent::__construct($config, $twig);
     }
 
     /**
