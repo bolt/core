@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Snippets;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -10,44 +12,32 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Zone
 {
-    const KEY = 'zone';
+    public const KEY = 'zone';
 
-    const FRONTEND = 'frontend';
-    const BACKEND = 'backend';
-    const ASYNC = 'async';
+    public const FRONTEND = 'frontend';
+    public const BACKEND = 'backend';
+    public const ASYNC = 'async';
 
     /**
      * Check if request is for frontend routes.
-     *
-     * @param Request $request
-     *
-     * @return bool
      */
-    public static function isFrontend(Request $request)
+    public static function isFrontend(Request $request): bool
     {
         return static::is($request, static::FRONTEND);
     }
 
     /**
      * Check if request is for backend routes.
-     *
-     * @param Request $request
-     *
-     * @return bool
      */
-    public static function isBackend(Request $request)
+    public static function isBackend(Request $request): bool
     {
         return static::is($request, static::BACKEND);
     }
 
     /**
      * Check if request is for asynchronous/AJAX routes.
-     *
-     * @param Request $request
-     *
-     * @return bool
      */
-    public static function isAsync(Request $request)
+    public static function isAsync(Request $request): bool
     {
         return static::is($request, static::ASYNC);
     }
@@ -55,24 +45,17 @@ class Zone
     /**
      * Check if request is for a specific zone.
      *
-     * @param Request $request
-     * @param string  $value
-     *
-     * @return bool
+     * @param string $value
      */
-    public static function is(Request $request, $value)
+    public static function is(Request $request, $value): bool
     {
         return static::get($request) === $value;
     }
 
     /**
      * Get the current zone.
-     *
-     * @param Request $request
-     *
-     * @return string|null
      */
-    public static function get(Request $request)
+    public static function get(Request $request): ?string
     {
         return $request->attributes->get(static::KEY);
     }
@@ -80,10 +63,9 @@ class Zone
     /**
      * Set the current zone.
      *
-     * @param Request $request
-     * @param string  $value
+     * @param string $value
      */
-    public static function set(Request $request, $value)
+    public static function set(Request $request, $value): void
     {
         $request->attributes->set(static::KEY, $value);
     }
