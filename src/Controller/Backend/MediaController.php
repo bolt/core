@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Areas;
-use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
 use Bolt\Controller\TwigAwareController;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -13,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -30,12 +28,11 @@ class MediaController extends TwigAwareController
     /** @var MediaFactory */
     private $mediaFactory;
 
-    public function __construct(Config $config, Environment $twig, ObjectManager $em, Areas $areas, MediaFactory $mediaFactory)
+    public function __construct(ObjectManager $em, Areas $areas, MediaFactory $mediaFactory)
     {
         $this->em = $em;
         $this->areas = $areas;
         $this->mediaFactory = $mediaFactory;
-        parent::__construct($config, $twig);
     }
 
     /**
