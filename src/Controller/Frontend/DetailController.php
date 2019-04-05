@@ -30,8 +30,8 @@ class DetailController extends TwigAwareController
      */
     private $fieldRepository;
 
-    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, FieldRepository $fieldRepository
-    ) {
+    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, FieldRepository $fieldRepository)
+    {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
         $this->fieldRepository = $fieldRepository;
