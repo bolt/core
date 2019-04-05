@@ -79,7 +79,15 @@ class BaseWidget
             $template = $this->template;
         }
 
-        return $this->twig->render($template, $this->context);
+        $output = $this->twig->render($template, $this->context);
+        $output .= sprintf(
+            '<!-- Widget: %s / %s @ %s -->',
+            $this->getName(),
+            $this->getTarget(),
+            $this->getPriority()
+        );
+
+        return $output;
     }
 
     public function setTemplate(string $template): void

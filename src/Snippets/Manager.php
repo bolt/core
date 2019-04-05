@@ -31,7 +31,7 @@ class Manager
     {
     }
 
-    public function getWidget($twig, $name)
+    public function getWidget($twig, $name): string
     {
         $widget = $this->queue->where('name', $name)->first();
 
@@ -40,9 +40,19 @@ class Manager
         }
     }
 
-    public function getWidgets(string $target): array
+    public function getWidgets($twig, string $target)
     {
-        return [];
+        $widgets = $this->queue->where('target', $target)->sortBy('priority');
+
+        $output = '';
+
+        if ($widgets) {
+            foreach ($widgets as $widget) {
+                $output .= $this->invoke($twig, $widget['callback']);
+            }
+        }
+
+        return $output;
     }
 
     public function invoke($twig, $callback)
