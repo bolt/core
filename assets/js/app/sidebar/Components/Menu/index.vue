@@ -16,13 +16,11 @@
         v-else
         :href="item.link"
         class="admin__sidebar--link"
-        :class="{
-          'has-menu': item.submenu !== null || item.contenttype !== null,
-        }"
+        :class="{'has-menu': item.submenu !== null}"
       >
         <i class="fas mr-2 link--icon" :class="item.icon"></i
         ><span class="link--text">{{ item.name }}</span>
-        <template v-if="item.submenu !== null || item.contenttype !== null">
+        <template v-if="item.submenu !== null">
           <i class="fas fa-caret-right link--caret"></i>
           <sub-menu :item="item"></sub-menu>
         </template>
