@@ -112,4 +112,14 @@ class BaseWidget
     {
         return $this->request;
     }
+
+    public function setZone(string $zone): void
+    {
+        $this->zone = $zone;
+    }
+
+    public function getZone(): string
+    {
+        return $this->zone;
+    }
 }

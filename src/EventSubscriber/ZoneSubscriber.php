@@ -34,8 +34,8 @@ class ZoneSubscriber implements EventSubscriberInterface
      */
     public function setZone(Request $request): string
     {
-        if ($zone = Zone::get($request)) {
-            return $zone;
+        if (Zone::get($request)) {
+            return Zone::get($request);
         }
 
         $zone = $this->determineZone($request);

@@ -13,35 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class QueueProcessor
 {
-    /** @var Snippet[] Queue with snippets of HTML to insert. */
-    protected $queue = [];
-
     /** @var Injector */
     protected $injector;
 
     /** @var array */
     private $matchedComments = [];
 
-    /**
-     * Constructor.
-     */
     public function __construct(Injector $injector)
     {
         $this->injector = $injector;
-    }
-
-    /**
-     * Insert a snippet. And by 'insert' we actually mean 'add it to the queue,
-     * to be processed later'.
-     */
-    public function add(SnippetAssetInterface $snippet): void
-    {
-        $this->queue[] = $snippet;
-    }
-
-    public function clear(): void
-    {
-        $this->queue = [];
     }
 
     public function process(Response $response, $queue, string $zone): void
@@ -51,12 +31,11 @@ class QueueProcessor
         // $this->matchedComments array
         preg_replace_callback('/<!--(.*)-->/Uis', [$this, 'pregCallback'], $response->getContent());
 
-        /** @var Snippet $snippet */
-        foreach ($this->queue as $snippet) {
-            if ($snippet->getZone() === $zone) {
+        foreach ($queue as $snippet) {
+            if ($snippet['zone'] === $zone) {
                 $this->injector->inject($snippet, $response);
             }
-            unset($this->queue[$key]);
+            // unset($this->queue[$key]);
         }
 
         // Finally, replace back ###comment### with its original comment.
@@ -67,26 +46,12 @@ class QueueProcessor
     }
 
     /**
-     * Get the queued snippets.
-     *
-     * @return \Bolt\Asset\Snippet\Snippet[]
-     */
-    public function getQueue(): array
-    {
-        return $this->queue;
-    }
-
-    /**
      * Callback method to identify comments and store them in the
      * matchedComments array.
      *
      * These will be put back after the replacements on the HTML are finished.
-     *
-     * @param string $c
-     *
-     * @return string The key under which the comment is stored
      */
-    private function pregCallback($c): string
+    public function pregCallback(array $c): string
     {
         $key = '###bolt-comment-' . count((array) $this->matchedComments) . '###';
         // Add it to the array of matched comments.

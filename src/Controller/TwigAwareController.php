@@ -7,11 +7,8 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Snippet\Manager;
-use Bolt\Snippet\Zone;
 use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
@@ -27,18 +24,14 @@ class TwigAwareController extends AbstractController
     /** @var Manager */
     private $snippetManager;
 
-    /** @var Request */
-    private $request;
-
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig, Manager $snippetManager, RequestStack $requestStack): void
+    public function setAutowire(Config $config, Environment $twig, Manager $snippetManager): void
     {
         $this->config = $config;
         $this->twig = $twig;
         $this->snippetManager = $snippetManager;
-        $this->request = $requestStack->getCurrentRequest();
 
         $this->snippetManager->registerBoltSnippets();
     }
@@ -77,8 +70,6 @@ class TwigAwareController extends AbstractController
 
         // Render the template
         $content = $this->twig->render($template, $parameters);
-
-//        dd(Zone::isFrontend($this->request));
 
         // Make sure we have a Response
         if ($response === null) {
