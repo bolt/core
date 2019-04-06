@@ -18,6 +18,9 @@ class Zone
     public const BACKEND = 'backend';
     public const ASYNC = 'async';
 
+    public const EVERYWHERE = 'everywhere';
+    public const NOWHERE = 'nowhere';
+
     /**
      * Check if request is for frontend routes.
      */

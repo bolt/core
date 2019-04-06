@@ -83,5 +83,11 @@ class Manager
     {
         $this->registerWidget(new WeatherWidget());
         $this->registerWidget(new NewsWidget());
+
+        $this->registerSnippet(ZONE::FRONTEND, Target::END_OF_HEAD, '<meta name="generator" content="Bolt">');
+        $this->registerWidget(new CanonicalLinkWidget());
+
+        // @todo Determine if a favicon is something we want in 2019, by default
+        // $this->registerWidget(new FaviconWidget());
     }
 }

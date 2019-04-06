@@ -12,6 +12,7 @@ class BaseWidget
     protected $name = 'Nameless widget';
     protected $type = 'widget';
     protected $target = Target::NOWHERE;
+    protected $zone = Zone::EVERYWHERE;
     protected $priority = 0;
     protected $context = [];
 
