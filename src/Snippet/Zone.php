@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Snippets;
+namespace Bolt\Snippet;
 
 use Symfony\Component\HttpFoundation\Request;
 

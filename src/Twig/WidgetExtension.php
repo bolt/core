@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Snippets\Manager;
+use Bolt\Snippet\Manager;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
