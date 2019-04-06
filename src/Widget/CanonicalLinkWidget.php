@@ -11,7 +11,7 @@ class CanonicalLinkWidget extends BaseWidget
 {
     protected $name = 'Weather Widget';
     protected $type = 'widget';
-    protected $target = Target::END_OF_HEAD;
-    protected $zone = Zone::FRONTEND;
+    protected $target = Target::NOWHERE;
+    protected $zone = Zone::NOWHERE;
     protected $priority = 200;
 }

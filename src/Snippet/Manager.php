@@ -32,7 +32,7 @@ class Manager
     }
 
     /**
-     * @param Widget|string|callable $callback
+     * @param BaseWidget|string|callable $callback
      */
     public function registerSnippet(
         $callback,
@@ -40,7 +40,7 @@ class Manager
         string $zone = Zone::FRONTEND,
         string $name = 'nameless snippet',
         int $priority = 100
-): void {
+    ): void {
         $this->queue->push([
             'priority' => $priority,
             'target' => $target,
@@ -69,10 +69,8 @@ class Manager
 
         $output = '';
 
-        if ($widgets) {
-            foreach ($widgets as $widget) {
-                $output .= $this->invoke($twig, $widget['callback']);
-            }
+        foreach ($widgets as $widget) {
+            $output .= $this->invoke($twig, $widget['callback']);
         }
 
         return $output;
@@ -98,6 +96,7 @@ class Manager
             'priority' => $widget->getPriority(),
             'target' => $widget->getTarget(),
             'name' => $widget->getName(),
+            'zone' => $widget->getZone(),
             'callback' => $widget,
         ]);
     }
@@ -116,7 +115,6 @@ class Manager
 
     public function processQueue(Response $response): void
     {
-        dd($this->queue);
         $zone = Zone::get($this->request);
         $this->queueProcessor->process($response, $this->queue, $zone);
     }

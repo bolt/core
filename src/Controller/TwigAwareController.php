@@ -7,11 +7,8 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Snippet\Manager;
-use Bolt\Snippet\Zone;
 use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
@@ -38,7 +35,6 @@ class TwigAwareController extends AbstractController
         $this->config = $config;
         $this->twig = $twig;
         $this->snippetManager = $snippetManager;
-        $this->request = $requestStack->getCurrentRequest();
 
         $this->snippetManager->registerBoltSnippets();
     }
