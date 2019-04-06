@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Snippet;
 
 use Doctrine\Common\Cache\CacheProvider;
@@ -21,13 +23,10 @@ class QueueProcessor
     protected $cache;
 
     /** @var array */
-    private $matchedComments;
+    private $matchedComments = [];
 
     /**
      * Constructor.
-     *
-     * @param Injector      $injector
-     * @param CacheProvider $cache
      */
     public function __construct(
         Injector $injector,
@@ -40,26 +39,18 @@ class QueueProcessor
     /**
      * Insert a snippet. And by 'insert' we actually mean 'add it to the queue,
      * to be processed later'.
-     *
-     * @param SnippetAssetInterface $snippet
      */
-    public function add(SnippetAssetInterface $snippet)
+    public function add(SnippetAssetInterface $snippet): void
     {
         $this->queue[] = $snippet;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function clear()
+    public function clear(): void
     {
         $this->queue = [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function process(Request $request, Response $response)
+    public function process(Request $request, Response $response): void
     {
         // First, gather all html <!-- comments -->, because they shouldn't be
         // considered for replacements. We use a callback, so we can fill our
@@ -75,7 +66,7 @@ class QueueProcessor
         }
 
         // Finally, replace back ###comment### with its original comment.
-        if (!empty($this->matchedComments)) {
+        if (! empty($this->matchedComments)) {
             $html = preg_replace(array_keys($this->matchedComments), $this->matchedComments, $response->getContent(), 1);
             $response->setContent($html);
         }
@@ -86,7 +77,7 @@ class QueueProcessor
      *
      * @return \Bolt\Asset\Snippet\Snippet[]
      */
-    public function getQueue()
+    public function getQueue(): array
     {
         return $this->queue;
     }
@@ -101,7 +92,7 @@ class QueueProcessor
      *
      * @return string The key under which the comment is stored
      */
-    private function pregCallback($c)
+    private function pregCallback($c): string
     {
         $key = '###bolt-comment-' . count((array) $this->matchedComments) . '###';
         // Add it to the array of matched comments.

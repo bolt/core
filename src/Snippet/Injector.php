@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Snippet;
 
 use Bolt\Common\Str;
@@ -13,50 +15,50 @@ use Symfony\Component\HttpFoundation\Response;
 class Injector
 {
     /**
-     * Get a map of function names to locations. We don't have unique callbacks 
-     * for all targets, because in practice they end up in about the same 
+     * Get a map of function names to locations. We don't have unique callbacks
+     * for all targets, because in practice they end up in about the same
      * location
      */
-    public function getMap(): array 
+    public function getMap(): array
     {
         return [
-            Target::END_OF_HEAD      => 'headTagEnd',
-            Target::AFTER_HEAD_JS    => 'headTagEnd', // same as end of head 
-            Target::AFTER_HEAD_CSS   => 'headTagEnd', // same as end of head 
-            Target::AFTER_HEAD_META  => 'headTagEnd', // same as end of head because meta tags are unordered
+            Target::END_OF_HEAD => 'headTagEnd',
+            Target::AFTER_HEAD_JS => 'headTagEnd', // same as end of head
+            Target::AFTER_HEAD_CSS => 'headTagEnd', // same as end of head
+            Target::AFTER_HEAD_META => 'headTagEnd', // same as end of head because meta tags are unordered
 
-            Target::BEFORE_CSS       => 'cssTagsBefore',
-            Target::BEFORE_JS        => 'jsTagsBefore',
-            Target::AFTER_META       => 'metaTagsAfter',
-            Target::AFTER_CSS        => 'cssTagsAfter',
-            Target::AFTER_JS         => 'jsTagsAfter',
+            Target::BEFORE_CSS => 'cssTagsBefore',
+            Target::BEFORE_JS => 'jsTagsBefore',
+            Target::AFTER_META => 'metaTagsAfter',
+            Target::AFTER_CSS => 'cssTagsAfter',
+            Target::AFTER_JS => 'jsTagsAfter',
 
-            Target::START_OF_HEAD    => 'headTagStart',
-            Target::BEFORE_HEAD_JS   => 'headTagStart', // same as start of head 
-            Target::BEFORE_HEAD_CSS  => 'headTagStart', // same as start of head 
+            Target::START_OF_HEAD => 'headTagStart',
+            Target::BEFORE_HEAD_JS => 'headTagStart', // same as start of head
+            Target::BEFORE_HEAD_CSS => 'headTagStart', // same as start of head
             Target::BEFORE_HEAD_META => 'headTagStart', // same as start of head because meta tags are unordered
 
-            Target::START_OF_BODY    => 'bodyTagStart',
-            Target::BEFORE_BODY_JS   => 'bodyTagStart', // same as start of body 
-            Target::BEFORE_BODY_CSS  => 'bodyTagStart', // same as start of body 
+            Target::START_OF_BODY => 'bodyTagStart',
+            Target::BEFORE_BODY_JS => 'bodyTagStart', // same as start of body
+            Target::BEFORE_BODY_CSS => 'bodyTagStart', // same as start of body
 
-            Target::END_OF_BODY      => 'bodyTagEnd',
-            Target::AFTER_BODY_JS    => 'bodyTagEnd',   // same as end of body 
-            Target::AFTER_BODY_CSS   => 'bodyTagEnd',   // same as end of body 
+            Target::END_OF_BODY => 'bodyTagEnd',
+            Target::AFTER_BODY_JS => 'bodyTagEnd',   // same as end of body
+            Target::AFTER_BODY_CSS => 'bodyTagEnd',   // same as end of body
 
-            Target::END_OF_HTML      => 'htmlTagEnd',
-            Target::AFTER_HTML       => 'htmlTagEnd',
+            Target::END_OF_HTML => 'htmlTagEnd',
+            Target::AFTER_HTML => 'htmlTagEnd',
         ];
     }
 
-    public function inject(string $snippet, string $location, Response $response): void 
+    public function inject(string $snippet, string $location, Response $response): void
     {
         $html = $response->getContent();
         $functionMap = $this->getMap();
         if (isset($functionMap[$location])) {
             $html = $this->{$functionMap[$location]}($snippet, $html);
         } else {
-            $html .= "$snippet\n";
+            $html .= "${snippet}\n";
         }
 
         $response->setContent($html);
@@ -80,11 +82,6 @@ class Injector
     /**
      * Helper function to insert some HTML into the head section of an HTML
      * page, right before the </head> tag.
-     *
-     * @param string $asset
-     * @param string         $rawHtml
-     *
-     * @return string
      */
     protected function headTagEnd(string $asset, string $rawHtml): string
     {
@@ -100,11 +97,6 @@ class Injector
     /**
      * Helper function to insert some HTML into the start of the head section of
      * an HTML page, right after the <body> tag.
-     *
-     * @param string $asset
-     * @param string         $rawHtml
-     *
-     * @return string
      */
     protected function bodyTagStart(string $asset, string $rawHtml): string
     {
@@ -120,11 +112,6 @@ class Injector
     /**
      * Helper function to insert some HTML into the body section of an HTML
      * page, right before the </body> tag.
-     *
-     * @param string $asset
-     * @param string         $rawHtml
-     *
-     * @return string
      */
     protected function bodyTagEnd(string $asset, string $rawHtml): string
     {
@@ -140,11 +127,6 @@ class Injector
     /**
      * Helper function to insert some HTML into the html section of an HTML
      * page, right before the </html> tag.
-     *
-     * @param string $asset
-     * @param string         $rawHtml
-     *
-     * @return string
      */
     protected function htmlTagEnd(string $asset, string $rawHtml): string
     {
@@ -159,11 +141,6 @@ class Injector
 
     /**
      * Helper function to insert some HTML into the head section of an HTML page.
-     *
-     * @param string $asset
-     * @param string         $rawHtml
-     *
-     * @return string
      */
     protected function metaTagsAfter(string $asset, string $rawHtml): string
     {
@@ -179,11 +156,6 @@ class Injector
 
     /**
      * Helper function to insert some HTML into the head section of an HTML page.
-     *
-     * @param string $asset
-     * @param string         $rawHtml
-     *
-     * @return string
      */
     protected function cssTagsAfter(string $asset, string $rawHtml): string
     {
@@ -199,11 +171,6 @@ class Injector
 
     /**
      * Helper function to insert some HTML before the first CSS include in the page.
-     *
-     * @param string $asset
-     * @param string         $rawHtml
-     *
-     * @return string
      */
     protected function cssTagsBefore(string $asset, string $rawHtml): string
     {
@@ -218,11 +185,6 @@ class Injector
 
     /**
      * Helper function to insert some HTML before the first javascript include in the page.
-     *
-     * @param string $asset
-     * @param string         $rawHtml
-     *
-     * @return string
      */
     protected function jsTagsBefore(string $asset, string $rawHtml): string
     {
@@ -243,8 +205,8 @@ class Injector
     protected function jsTagsAfter(string $asset, string $rawHtml, $insidehead = true): string
     {
         if ($insidehead) {
-            $pos = strpos($rawHtml, '</head>');
-            $context = substr($rawHtml, 0, $pos);
+            $pos = mb_strpos($rawHtml, '</head>');
+            $context = mb_substr($rawHtml, 0, $pos);
         } else {
             $context = $rawHtml;
         }
@@ -282,7 +244,7 @@ class Injector
 
         if ($matchAll && preg_match_all($regex, $rawHtml, $matches)) {
             return $matches;
-        } elseif (!$matchAll && preg_match($regex, $rawHtml, $matches)) {
+        } elseif (! $matchAll && preg_match($regex, $rawHtml, $matches)) {
             return $matches;
         }
 
