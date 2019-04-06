@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
-use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
@@ -13,7 +12,6 @@ use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 class ListingController extends TwigAwareController
 {
@@ -22,10 +20,8 @@ class ListingController extends TwigAwareController
      */
     private $templateChooser;
 
-    public function __construct(Config $config, Environment $twig, TemplateChooser $templateChooser)
+    public function __construct(TemplateChooser $templateChooser)
     {
-        parent::__construct($config, $twig);
-
         $this->templateChooser = $templateChooser;
     }
 
