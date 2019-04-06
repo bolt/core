@@ -31,13 +31,6 @@ class TwigAwareController extends AbstractController
     {
         $this->config = $config;
         $this->twig = $twig;
-    }
-
-    /**
-     * @required
-     */
-    public function setSnippetManager(Manager $snippetManager): void
-    {
         $this->snippetManager = $snippetManager;
 
         $this->snippetManager->registerBoltSnippets();
