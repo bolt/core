@@ -75,15 +75,19 @@ class TwigAwareController extends AbstractController
             $template = $this->twig->resolveTemplate($templates);
         }
 
+        // Render the template
         $content = $this->twig->render($template, $parameters);
 
 //        dd(Zone::isFrontend($this->request));
 
+        // Make sure we have a Response
         if ($response === null) {
             $response = new Response();
         }
-
         $response->setContent($content);
+
+        // Process the snippet Queue on the Response
+        $this->snippetManager->processQueue($response);
 
         return $response;
     }

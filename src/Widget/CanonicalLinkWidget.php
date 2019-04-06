@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Snippet;
+namespace Bolt\Widget;
+
+use Bolt\Snippet\Target;
+use Bolt\Snippet\Zone;
 
 class CanonicalLinkWidget extends BaseWidget
 {

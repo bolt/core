@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Snippet;
 
-use Doctrine\Common\Cache\CacheProvider;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -17,10 +15,9 @@ class QueueProcessor
 {
     /** @var Snippet[] Queue with snippets of HTML to insert. */
     protected $queue = [];
-    /** @var \Bolt\Asset\Injector */
+
+    /** @var Injector */
     protected $injector;
-    /** @var \Doctrine\Common\Cache\CacheProvider */
-    protected $cache;
 
     /** @var array */
     private $matchedComments = [];
@@ -28,12 +25,9 @@ class QueueProcessor
     /**
      * Constructor.
      */
-    public function __construct(
-        Injector $injector,
-        CacheProvider $cache
-    ) {
+    public function __construct(Injector $injector)
+    {
         $this->injector = $injector;
-        $this->cache = $cache;
     }
 
     /**
@@ -50,17 +44,17 @@ class QueueProcessor
         $this->queue = [];
     }
 
-    public function process(Request $request, Response $response): void
+    public function process(Response $response, $queue, string $zone): void
     {
         // First, gather all html <!-- comments -->, because they shouldn't be
         // considered for replacements. We use a callback, so we can fill our
         // $this->matchedComments array
         preg_replace_callback('/<!--(.*)-->/Uis', [$this, 'pregCallback'], $response->getContent());
 
-        /** @var Snippet $asset */
-        foreach ($this->queue as $key => $asset) {
-            if ($asset->getZone() === Zone::get($request)) {
-                $this->injector->inject($asset, $asset->getLocation(), $response);
+        /** @var Snippet $snippet */
+        foreach ($this->queue as $snippet) {
+            if ($snippet->getZone() === $zone) {
+                $this->injector->inject($snippet, $response);
             }
             unset($this->queue[$key]);
         }
