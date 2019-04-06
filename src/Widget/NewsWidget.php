@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Widget;
+namespace Bolt\Snippet;
 
 use Bolt\Common\Exception\ParseException;
 use Bolt\Common\Json;
-use Bolt\Snippet\Target;
 use Bolt\Version;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;

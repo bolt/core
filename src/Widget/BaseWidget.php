@@ -2,13 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Widget;
+namespace Bolt\Snippet;
 
-use Bolt\Snippet\Target;
-use Bolt\Snippet\Zone;
-use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 class BaseWidget
@@ -28,9 +24,6 @@ class BaseWidget
 
     /** @var Request */
     protected $request;
-
-    /** @var Response */
-    protected $response;
 
     public function setName(string $name): self
     {
@@ -88,13 +81,14 @@ class BaseWidget
         }
 
         $output = $this->twig->render($template, $this->context);
-
-        return sprintf(
-            '<div id="widget-%s" name="%s">%s</div>',
-            $this->getSlug(),
+        $output .= sprintf(
+            '<!-- Widget: %s / %s @ %s -->',
             $this->getName(),
-            $output
+            $this->getTarget(),
+            $this->getPriority()
         );
+
+        return $output;
     }
 
     public function setTemplate(string $template): void
@@ -116,33 +110,4 @@ class BaseWidget
     {
         return $this->request;
     }
-
-    public function setResponse(?Response $response = null): void
-    {
-        if ($response !== null) {
-            $this->response = $response;
-        }
-    }
-
-    public function getResponse(): ?Response
-    {
-        return $this->response;
-    }
-
-    public function setZone(string $zone): void
-    {
-        $this->zone = $zone;
-    }
-
-    public function getZone(): string
-    {
-        return $this->zone;
-    }
-
-    public function getSlug(): string
-    {
-        $slugify = Slugify::create();
-        return $slugify->slugify($this->name);
-    }
-
 }

@@ -9,8 +9,6 @@ use Tightenco\Collect\Support\Collection;
 
 /**
  * Snippet queue processor.
- *
- * @author Bob den Otter <bob@twokings.nl>
  */
 class QueueProcessor
 {

@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Widget;
-
-use Bolt\Snippet\Target;
+namespace Bolt\Snippet;
 
 class WeatherWidget extends BaseWidget
 {

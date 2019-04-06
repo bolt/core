@@ -10,8 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class for matching HTML elements and injecting text.
- *
- * @author Bob den Otter <bob@twokings.nl>
  */
 class Injector
 {
@@ -269,7 +267,7 @@ class Injector
     /**
      * Nowhere, don't replace anything.
      */
-    private function nowhere(string $snippet, string $rawHtml): string
+    public function nowhere(string $snippet, string $rawHtml): string
     {
         return $rawHtml;
     }

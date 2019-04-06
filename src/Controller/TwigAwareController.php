@@ -6,8 +6,8 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
-use Bolt\Snippets\Manager;
-use Bolt\Snippets\Zone;
+use Bolt\Snippet\Manager;
+use Bolt\Snippet\Zone;
 use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
