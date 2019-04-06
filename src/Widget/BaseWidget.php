@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Snippet;
+namespace Bolt\Widget;
 
+use Bolt\Snippet\Target;
+use Bolt\Snippet\Zone;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
