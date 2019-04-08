@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Snippet;
 
 use Bolt\Common\Str;
+use Bolt\Widget\BaseWidget;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -48,6 +49,8 @@ class Injector
 
             Target::END_OF_HTML => 'htmlTagEnd',
             Target::AFTER_HTML => 'htmlTagEnd',
+
+            Target::NOWHERE => 'nowhere'
         ];
     }
 
@@ -57,8 +60,15 @@ class Injector
         $functionMap = $this->getMap();
         $target = $snippet['target'];
 
+        if ($snippet['callback'] instanceof BaseWidget) {
+            $snippet['callback']->setResponse($response);
+            $output = $snippet['callback']->invoke();
+        } else {
+            $output = $snippet['callback'];
+        }
+
         if (isset($functionMap[$target])) {
-            $html = $this->{$functionMap[$target]}($snippet['callback'], $html);
+            $html = $this->{$functionMap[$target]}($output, $html);
         } else {
             $html .= (string) $snippet['callback'] . "\n";
         }
@@ -254,6 +264,14 @@ class Injector
     private function tagSoup(string $snippet, string $rawHtml): string
     {
         return $rawHtml . $snippet . "\n";
+    }
+
+    /**
+     * Nowhere, don't replace anything.
+     */
+    private function nowhere(string $snippet, string $rawHtml): string
+    {
+        return $rawHtml;
     }
 
     /**

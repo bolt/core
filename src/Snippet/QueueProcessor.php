@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Snippet;
 
 use Symfony\Component\HttpFoundation\Response;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * Snippet queue processor.
@@ -24,7 +25,7 @@ class QueueProcessor
         $this->injector = $injector;
     }
 
-    public function process(Response $response, $queue, string $zone): void
+    public function process(Response $response, Collection $queue, string $zone): void
     {
         // First, gather all html <!-- comments -->, because they shouldn't be
         // considered for replacements. We use a callback, so we can fill our

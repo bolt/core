@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Snippet;
 
 use Bolt\Widget\BaseWidget;
+use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
 use Bolt\Widget\NewsWidget;
 use Bolt\Widget\WeatherWidget;
@@ -108,6 +109,7 @@ class Manager
 
         $this->registerSnippet('<meta name="generator" content="Bolt">', Target::END_OF_HEAD);
         $this->registerWidget(new CanonicalLinkWidget());
+        $this->registerWidget(new BoltHeaderWidget());
 
         // @todo Determine if a favicon is something we want in 2019, by default
         // $this->registerWidget(new FaviconWidget());
