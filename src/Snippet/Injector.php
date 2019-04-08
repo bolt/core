@@ -232,7 +232,7 @@ class Injector
      * First in the head section, but if there is no script in the head, place
      * it anywhere.
      */
-    protected function jsTagsAfter(string $snippet, string $rawHtml, $insidehead = true): string
+    protected function jsTagsAfter(string $snippet, string $rawHtml, $insidehead = false): string
     {
         if ($insidehead) {
             $pos = mb_strpos($rawHtml, '</head>');
