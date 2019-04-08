@@ -50,7 +50,7 @@ class Injector
             Target::END_OF_HTML => 'htmlTagEnd',
             Target::AFTER_HTML => 'htmlTagEnd',
 
-            Target::NOWHERE => 'nowhere'
+            Target::NOWHERE => 'nowhere',
         ];
     }
 
