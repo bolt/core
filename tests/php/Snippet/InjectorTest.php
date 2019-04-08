@@ -17,7 +17,7 @@ class InjectorTest extends TestCase
         $o = new \ReflectionClass(Target::class);
         $constants = (new Collection(array_keys($o->getConstants())))
             ->filter(function ($v) {
-                return (mb_strpos($v, 'WIDGET') === false && mb_strpos($v, 'NOWHERE') === false);
+                return mb_strpos($v, 'WIDGET') === false && mb_strpos($v, 'NOWHERE') === false;
             })
             ->map(function ($v) {
                 return [$v];
