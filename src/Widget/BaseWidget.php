@@ -7,6 +7,7 @@ namespace Bolt\Widget;
 use Bolt\Snippet\Target;
 use Bolt\Snippet\Zone;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 class BaseWidget
@@ -26,6 +27,9 @@ class BaseWidget
 
     /** @var Request */
     protected $request;
+
+    /** @var Response */
+    protected $response;
 
     public function setName(string $name): self
     {
@@ -111,6 +115,18 @@ class BaseWidget
     public function getRequest(): Request
     {
         return $this->request;
+    }
+
+    public function setResponse(?Response $response = null): void
+    {
+        if ($response !== null) {
+            $this->response = $response;
+        }
+    }
+
+    public function getResponse(): ?Response
+    {
+        return $this->response;
     }
 
     public function setZone(string $zone): void
