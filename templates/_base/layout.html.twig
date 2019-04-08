@@ -38,7 +38,7 @@
 
         <admin-toolbar
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
-            :menu="{{ sidebar_menu() }}"
+            :menu="{{ admin_menu_json() }}"
             user="{{ user|default }}"
             :labels="{{ labels }}"
             :backend_prefix="{{ path('bolt_dashboard') }}"
@@ -60,7 +60,7 @@
     <div class="admin__sidebar">
         <div id="sidebar">
             <admin-sidebar
-              :menu="{{ sidebar_menu() }}"
+              :menu="{{ admin_menu_json() }}"
               :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
               :about-link="{{ path('bolt_about')|json_encode }}"
             ></admin-sidebar >

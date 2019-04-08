@@ -29,6 +29,7 @@ class FrontendMenuExtension extends AbstractExtension
 
         return [
             new TwigFunction('menu', [$this, 'getMenu'], $env + $safe),
+            new TwigFunction('menu_json', [$this, 'getMenuJson']),
         ];
     }
 
@@ -41,5 +42,10 @@ class FrontendMenuExtension extends AbstractExtension
         ];
 
         return $twig->render($template, $context);
+    }
+
+    public function getMenuJson(?string $name = null, bool $jsonPrettyPrint = false)
+    {
+        return $this->menuBuilder->getMenuJson($name, $jsonPrettyPrint);
     }
 }

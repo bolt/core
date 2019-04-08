@@ -24,12 +24,18 @@ class BackendMenuExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('sidebar_menu', [$this, 'getSidebarMenu']),
+            new TwigFunction('admin_menu', [$this, 'getAdminMenu']),
+            new TwigFunction('admin_menu_json', [$this, 'getAdminMenuJson']),
         ];
     }
 
-    public function getSidebarMenu($jsonPrettyPrint = false): string
+    public function getAdminMenu(): array
     {
-        return $this->menuBuilder->getMenu($jsonPrettyPrint);
+        return $this->menuBuilder->getMenu();
+    }
+
+    public function getAdminMenuJson($jsonPrettyPrint = false): string
+    {
+        return $this->menuBuilder->getMenuJson($jsonPrettyPrint);
     }
 }

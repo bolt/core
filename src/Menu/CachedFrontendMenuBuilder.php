@@ -44,4 +44,12 @@ class CachedFrontendMenuBuilder
 
         return $menu;
     }
+
+    public function getMenuJson(?string $name = '', bool $jsonPrettyPrint = false): string
+    {
+        $menu = $this->getMenu($name);
+        $options = $jsonPrettyPrint ? JSON_PRETTY_PRINT : 0;
+
+        return json_encode($menu, $options);
+    }
 }
