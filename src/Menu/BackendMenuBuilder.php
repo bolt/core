@@ -34,8 +34,14 @@ class BackendMenuBuilder
     /** @var ContentExtension */
     private $contentExtension;
 
-    public function __construct(FactoryInterface $menuFactory, Config $config, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ContentExtension $contentExtension)
-    {
+    public function __construct(
+        FactoryInterface $menuFactory,
+        Config $config,
+        ContentRepository $contentRepository,
+        UrlGeneratorInterface $urlGenerator,
+        TranslatorInterface $translator,
+        ContentExtension $contentExtension
+    ) {
         $this->menuFactory = $menuFactory;
         $this->config = $config;
         $this->contentRepository = $contentRepository;
