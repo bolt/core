@@ -24,7 +24,7 @@ class WidgetExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $safe = ['is_safe' => ['html']];
         $env = ['needs_environment' => true];
@@ -38,17 +38,17 @@ class WidgetExtension extends AbstractExtension
         ];
     }
 
-    public function getWidget(Environment $twig, $name)
+    public function getWidget(Environment $twig, string $name): string
     {
         return $this->snippetManager->getWidget($twig, $name);
     }
 
-    public function getWidgets(Environment $twig, $target)
+    public function getWidgets(Environment $twig, string $target): string
     {
         return $this->snippetManager->getWidgets($twig, $target);
     }
 
-    public function dummy(Environment $twig, $input = null)
+    public function dummy(Environment $twig, $input = null): string
     {
         // @todo See Github issue https://github.com/bolt/four/issues/135
         return '<!-- Widget "' . $input . '" -->';

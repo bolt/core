@@ -19,7 +19,7 @@ class NewsWidget extends BaseWidget
     protected $priority = 150;
     protected $template = '@bolt/widgets/news.twig';
 
-    public function invoke(?string $template = null)
+    public function invoke(?string $template = null): string
     {
         $news = $this->getNews();
 

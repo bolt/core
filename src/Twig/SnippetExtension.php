@@ -13,7 +13,7 @@ class SnippetExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $safe = ['is_safe' => ['html']];
         $env = ['needs_environment' => true];
@@ -24,12 +24,12 @@ class SnippetExtension extends AbstractExtension
         ];
     }
 
-    public function getSnippet(Environment $twig, ?string $name = null)
+    public function getSnippet(Environment $twig, $name = null): string
     {
         return "-- Snippet ${name} --";
     }
 
-    public function getSnippetList()
+    public function getSnippetList(): array
     {
         return [];
     }

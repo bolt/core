@@ -47,10 +47,8 @@ class Zone
 
     /**
      * Check if request is for a specific zone.
-     *
-     * @param string $value
      */
-    public static function is(Request $request, $value): bool
+    public static function is(Request $request, string $value): bool
     {
         return static::get($request) === $value;
     }
@@ -65,10 +63,8 @@ class Zone
 
     /**
      * Set the current zone.
-     *
-     * @param string $value
      */
-    public static function set(Request $request, $value): void
+    public static function set(Request $request, string $value): void
     {
         $request->attributes->set(static::KEY, $value);
     }

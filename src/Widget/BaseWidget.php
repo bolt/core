@@ -35,6 +35,7 @@ class BaseWidget
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -46,6 +47,7 @@ class BaseWidget
     public function setType(string $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -57,6 +59,7 @@ class BaseWidget
     public function setTarget(string $target): self
     {
         $this->target = $target;
+
         return $this;
     }
 
@@ -68,6 +71,7 @@ class BaseWidget
     public function setPriority(int $priority): self
     {
         $this->priority = $priority;
+
         return $this;
     }
 
@@ -76,12 +80,14 @@ class BaseWidget
         return $this->priority;
     }
 
-    public function setTwig(Environment $twig): void
+    public function setTwig(Environment $twig): self
     {
         $this->twig = $twig;
+
+        return $this;
     }
 
-    public function invoke(?string $template = null)
+    public function invoke(?string $template = null): string
     {
         if ($template === null) {
             $template = $this->template;
@@ -97,9 +103,11 @@ class BaseWidget
         );
     }
 
-    public function setTemplate(string $template): void
+    public function setTemplate(string $template): self
     {
         $this->template = $template;
+
+        return $this;
     }
 
     public function getTemplate(): string
@@ -107,9 +115,11 @@ class BaseWidget
         return $this->template;
     }
 
-    public function setRequest(Request $request): void
+    public function setRequest(Request $request): self
     {
         $this->request = $request;
+
+        return $this;
     }
 
     public function getRequest(): Request
@@ -117,11 +127,13 @@ class BaseWidget
         return $this->request;
     }
 
-    public function setResponse(?Response $response = null): void
+    public function setResponse(?Response $response = null): self
     {
         if ($response !== null) {
             $this->response = $response;
         }
+
+        return $this;
     }
 
     public function getResponse(): ?Response
@@ -129,9 +141,11 @@ class BaseWidget
         return $this->response;
     }
 
-    public function setZone(string $zone): void
+    public function setZone(string $zone): self
     {
         $this->zone = $zone;
+
+        return $this;
     }
 
     public function getZone(): string
@@ -142,6 +156,7 @@ class BaseWidget
     public function getSlug(): string
     {
         $slugify = Slugify::create();
+
         return $slugify->slugify($this->name);
     }
 

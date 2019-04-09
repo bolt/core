@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
+use Twig\Environment;
 
 class Manager
 {
@@ -51,11 +52,11 @@ class Manager
         ]);
     }
 
-    public function getSnippet($name): void
+    public function getSnippet(string $name): void
     {
     }
 
-    public function getWidget($twig, $name): string
+    public function getWidget(Environment $twig, string $name): string
     {
         $widget = $this->queue->where('name', $name)->first();
 
@@ -64,7 +65,7 @@ class Manager
         }
     }
 
-    public function getWidgets($twig, string $target)
+    public function getWidgets(Environment $twig, string $target): string
     {
         $widgets = $this->queue->where('target', $target)->sortBy('priority');
 
@@ -77,7 +78,10 @@ class Manager
         return $output;
     }
 
-    public function invoke($twig, $callback)
+    /**
+     * @param BaseWidget|string|callable $callback
+     */
+    public function invoke(Environment $twig, $callback): string
     {
         if (is_string($callback)) {
             return $callback;
