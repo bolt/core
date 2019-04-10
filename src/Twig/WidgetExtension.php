@@ -40,12 +40,12 @@ class WidgetExtension extends AbstractExtension
 
     public function getWidget(Environment $twig, string $name): string
     {
-        return $this->snippets->getWidget($twig, $name);
+        return $this->snippets->getWidget($name, $twig);
     }
 
     public function getWidgets(Environment $twig, string $target): string
     {
-        return $this->snippets->getWidgets($twig, $target);
+        return $this->snippets->getWidgets($target, $twig);
     }
 
     public function dummy(Environment $twig, $input = null): string

@@ -55,47 +55,6 @@ class Snippets
         ]);
     }
 
-    public function getSnippet(string $name): void
-    {
-    }
-
-    public function getWidget(Environment $twig, string $name): string
-    {
-        $widget = $this->queue->where('name', $name)->first();
-
-        if ($widget) {
-            return $this->invoke($twig, $widget['callback']);
-        }
-    }
-
-    public function getWidgets(Environment $twig, string $target): string
-    {
-        $widgets = $this->queue->where('target', $target)->sortBy('priority');
-
-        $output = '';
-
-        foreach ($widgets as $widget) {
-            $output .= $this->invoke($twig, $widget['callback']);
-        }
-
-        return $output;
-    }
-
-    /**
-     * @param BaseWidget|string|callable $callback
-     */
-    public function invoke(Environment $twig, $callback): string
-    {
-        if (is_string($callback)) {
-            return $callback;
-        } elseif ($callback instanceof BaseWidget) {
-            $callback->setTwig($twig);
-            return $callback->invoke();
-        }
-
-        return '<!-- No callback -->';
-    }
-
     public function registerWidget(BaseWidget $widget): void
     {
         $widget->setRequest($this->request);
@@ -109,6 +68,51 @@ class Snippets
         ]);
     }
 
+    public function getWidget(string $name, ?Environment $twig = null): string
+    {
+        $widget = $this->queue->where('name', $name)->first();
+
+        if ($widget) {
+            return $this->invoke($widget['callback'], $twig);
+        }
+    }
+
+    public function getWidgets(string $target, Environment $twig): string
+    {
+        $widgets = $this->queue->where('target', $target)->sortBy('priority');
+
+        $output = '';
+
+        foreach ($widgets as $widget) {
+            $output .= $this->invoke($widget['callback'], $twig);
+        }
+
+        return $output;
+    }
+
+    /**
+     * @param BaseWidget|string|callable $callback
+     */
+    public function invoke($callback, ?Environment $twig = null): string
+    {
+        if (is_string($callback)) {
+            return $callback;
+        } elseif ($callback instanceof BaseWidget) {
+            if ($twig !== null) {
+                $callback->setTwig($twig);
+            }
+            return $callback->invoke();
+        }
+
+        return '<!-- No callback -->';
+    }
+
+    public function processQueue(Response $response): void
+    {
+        $zone = Zone::get($this->request);
+        $this->queueProcessor->process($response, $this->queue, $zone);
+    }
+
     public function registerBoltSnippets(): void
     {
         $this->registerWidget(new WeatherWidget());
@@ -120,11 +124,5 @@ class Snippets
 
         // @todo Determine if a favicon is something we want in 2019, by default
         // $this->registerWidget(new FaviconWidget());
-    }
-
-    public function processQueue(Response $response): void
-    {
-        $zone = Zone::get($this->request);
-        $this->queueProcessor->process($response, $this->queue, $zone);
     }
 }
