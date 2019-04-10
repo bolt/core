@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Snippet\Manager;
+use Bolt\Snippets;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -14,12 +14,12 @@ use Twig\TwigFunction;
  */
 class WidgetExtension extends AbstractExtension
 {
-    /** @var Manager */
-    private $snippetManager;
+    /** @var Snippets */
+    private $snippets;
 
-    public function __construct(Manager $snippetManager)
+    public function __construct(Snippets $snippets)
     {
-        $this->snippetManager = $snippetManager;
+        $this->snippets = $snippets;
     }
     /**
      * {@inheritdoc}
@@ -40,12 +40,12 @@ class WidgetExtension extends AbstractExtension
 
     public function getWidget(Environment $twig, string $name): string
     {
-        return $this->snippetManager->getWidget($twig, $name);
+        return $this->snippets->getWidget($twig, $name);
     }
 
     public function getWidgets(Environment $twig, string $target): string
     {
-        return $this->snippetManager->getWidgets($twig, $target);
+        return $this->snippets->getWidgets($twig, $target);
     }
 
     public function dummy(Environment $twig, $input = null): string

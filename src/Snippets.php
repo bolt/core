@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Snippet;
+namespace Bolt;
 
+use Bolt\Snippet\QueueProcessor;
+use Bolt\Snippet\Target;
+use Bolt\Snippet\Zone;
 use Bolt\Widget\BaseWidget;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
@@ -15,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
-class Manager
+class Snippets
 {
     /** @var Collection */
     private $queue;

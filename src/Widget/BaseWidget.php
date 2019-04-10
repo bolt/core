@@ -159,5 +159,4 @@ class BaseWidget
 
         return $slugify->slugify($this->name);
     }
-
 }
