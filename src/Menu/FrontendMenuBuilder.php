@@ -37,7 +37,7 @@ class FrontendMenuBuilder
         $this->fieldRepository = $fieldRepository;
     }
 
-    public function getMenu(?string $name = null): ?DeepCollection
+    public function buildMenu(?string $name = null): ?DeepCollection
     {
         /** @var DeepCollection $menuConfig */
         $menuConfig = $this->config->get('menu');

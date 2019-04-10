@@ -25,27 +25,19 @@ class CachedBackendMenuBuilder
         $this->stopwatch = $stopwatch;
     }
 
-    public function getMenu(): array
+    public function buildMenu(): array
     {
         if ($this->cache->has('backendmenu')) {
             $menu = $this->cache->get('backendmenu');
         } else {
             $this->stopwatch->start('bolt.sidebarMenu');
 
-            $menu = $this->menuBuilder->getMenu();
+            $menu = $this->menuBuilder->buildMenu();
             $this->cache->set('backendmenu', $menu);
 
             $this->stopwatch->stop('bolt.sidebarMenu');
         }
 
         return $menu;
-    }
-
-    public function getMenuJson(bool $jsonPrettyPrint = false): string
-    {
-        $menu = $this->getMenu();
-        $options = $jsonPrettyPrint ? JSON_PRETTY_PRINT : 0;
-
-        return json_encode($menu, $options);
     }
 }

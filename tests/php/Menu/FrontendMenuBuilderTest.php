@@ -22,29 +22,29 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
 
     public function testNonExistingMenu(): void
     {
-        $menu = $this->menuBuilder->getMenu('foo');
+        $menu = $this->menuBuilder->buildMenu('foo');
 
         $this->assertNull($menu);
     }
 
     public function testExistingMenu(): void
     {
-        $menu = $this->menuBuilder->getMenu();
+        $menu = $this->menuBuilder->buildMenu();
 
         $this->assertInstanceOf(DeepCollection::class, $menu);
     }
 
     public function testDefaultMenuIsFirst(): void
     {
-        $menu1 = $this->menuBuilder->getMenu();
-        $menu2 = $this->menuBuilder->getMenu('main');
+        $menu1 = $this->menuBuilder->buildMenu();
+        $menu2 = $this->menuBuilder->buildMenu('main');
 
         $this->assertSame($menu1, $menu2);
     }
 
     public function testFirstItem(): void
     {
-        $menu = $this->menuBuilder->getMenu('main');
+        $menu = $this->menuBuilder->buildMenu('main');
 
         $firstItem = $menu->first();
 
@@ -60,7 +60,7 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
 
     public function testLastItem(): void
     {
-        $menu = $this->menuBuilder->getMenu('main');
+        $menu = $this->menuBuilder->buildMenu('main');
 
         $lastItem = $menu->last();
 
@@ -76,7 +76,7 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
 
     public function testHasSubMenu(): void
     {
-        $menu = $this->menuBuilder->getMenu('main');
+        $menu = $this->menuBuilder->buildMenu('main');
 
         $submenu = $menu->get('1')->get('submenu');
 

@@ -26,7 +26,7 @@ class CachedFrontendMenuBuilder
         $this->stopwatch = $stopwatch;
     }
 
-    public function getMenu(?string $name = ''): ?DeepCollection
+    public function buildMenu(?string $name = ''): ?DeepCollection
     {
         $key = 'frontendmenu_' . ($name ?: 'default');
 
@@ -35,7 +35,7 @@ class CachedFrontendMenuBuilder
         } else {
             $this->stopwatch->start('bolt.frontendMenu');
 
-            $menu = $this->menuBuilder->getMenu($name);
+            $menu = $this->menuBuilder->buildMenu($name);
 
             $this->cache->set($key, $menu);
 
@@ -43,13 +43,5 @@ class CachedFrontendMenuBuilder
         }
 
         return $menu;
-    }
-
-    public function getMenuJson(?string $name = '', bool $jsonPrettyPrint = false): string
-    {
-        $menu = $this->getMenu($name);
-        $options = $jsonPrettyPrint ? JSON_PRETTY_PRINT : 0;
-
-        return json_encode($menu, $options);
     }
 }

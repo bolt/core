@@ -31,11 +31,15 @@ class BackendMenuExtension extends AbstractExtension
 
     public function getAdminMenu(): array
     {
-        return $this->menuBuilder->getMenu();
+        return $this->menuBuilder->buildMenu();
     }
 
     public function getAdminMenuJson($jsonPrettyPrint = false): string
     {
-        return $this->menuBuilder->getMenuJson($jsonPrettyPrint);
+        $menu = $this->menuBuilder->buildMenu();
+
+        $options = $jsonPrettyPrint ? JSON_PRETTY_PRINT : 0;
+
+        return json_encode($menu, $options);
     }
 }

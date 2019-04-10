@@ -304,7 +304,7 @@ class BackendMenuBuilder
         return $result;
     }
 
-    public function getMenu(): array
+    public function buildMenu(): array
     {
         $menu = $this->createMenu()->getChildren();
 
