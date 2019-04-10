@@ -28,10 +28,8 @@ class InjectorTest extends TestCase
 
     /**
      * @dataProvider providerTarget
-     *
-     * @param string $constant
      */
-    public function testMap($constant): void
+    public function testMap(string $constant): void
     {
         $constant = constant('Bolt\Snippet\Target::' . $constant);
         $injector = new Injector();
@@ -41,10 +39,8 @@ class InjectorTest extends TestCase
 
     /**
      * @dataProvider providerTarget
-     *
-     * @param string $constant
      */
-    public function testInject($constant): void
+    public function testInject(string $constant): void
     {
         $expected = file_get_contents(__DIR__ . '/../../fixtures/Injector/result.' . $constant . '.html');
         $constant = constant('Bolt\Snippet\Target::' . $constant);
@@ -63,10 +59,8 @@ class InjectorTest extends TestCase
 
     /**
      * @dataProvider providerTarget
-     *
-     * @param string $constant
      */
-    public function testInjectInvalidLocation($constant): void
+    public function testInjectInvalidLocation(string $constant): void
     {
         $constant = constant('Bolt\Snippet\Target::' . $constant);
         $injector = new Injector();
@@ -85,10 +79,8 @@ class InjectorTest extends TestCase
 
     /**
      * @dataProvider providerTarget
-     *
-     * @param string $constant
      */
-    public function testInjectEmptyHtml($constant): void
+    public function testInjectEmptyHtml(string $constant): void
     {
         $constant = constant('Bolt\Snippet\Target::' . $constant);
         $injector = new Injector();
@@ -106,10 +98,8 @@ class InjectorTest extends TestCase
 
     /**
      * @dataProvider providerTarget
-     *
-     * @param string $constant
      */
-    public function testInjectTagSoup($constant): void
+    public function testInjectTagSoup(string $constant): void
     {
         $constant = constant('Bolt\Snippet\Target::' . $constant);
         $injector = new Injector();

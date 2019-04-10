@@ -58,7 +58,7 @@ class Zone
      */
     public static function get(Request $request): ?string
     {
-        return $request->attributes->get(static::KEY);
+        return $request->attributes->get(static::KEY) ?: static::NOWHERE;
     }
 
     /**
