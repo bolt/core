@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * @author Bob den Otter <bobdenotter@gmail.com>
- */
-
 namespace Bolt\EventSubscriber;
 
 use Bolt\Snippet\Zone;
