@@ -24,7 +24,10 @@ class TwigAwareController extends AbstractController
      */
     protected $twig;
 
-    public function __construct(Config $config, Environment $twig)
+    /**
+     * @required
+     */
+    public function setAutowire(Config $config, Environment $twig): void
     {
         $this->config = $config;
         $this->twig = $twig;

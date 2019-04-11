@@ -8,11 +8,9 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
 use Bolt\Utils\Str;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
+class TaxonomyFixtures extends BaseFixture
 {
     /**
      * @var DeepCollection
@@ -22,13 +20,6 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
     public function __construct(Config $config)
     {
         $this->config = $config->get('taxonomies');
-    }
-
-    public function getDependencies()
-    {
-        return [
-            UserFixtures::class,
-        ];
     }
 
     public function load(ObjectManager $manager): void
@@ -60,7 +51,7 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
         }
     }
 
-    private function getDefaultOptions()
+    private function getDefaultOptions(): array
     {
         $options = ['action', 'adult', 'adventure', 'alpha', 'animals', 'animation', 'anime', 'architecture', 'art',
             'astronomy', 'baby', 'batshitinsane', 'biography', 'biology', 'book', 'books', 'business',

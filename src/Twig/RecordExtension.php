@@ -6,12 +6,12 @@ namespace Bolt\Twig;
 
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Menu\FrontendMenuBuilder;
 use Bolt\Menu\MenuBuilder;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -27,20 +27,20 @@ class RecordExtension extends AbstractExtension
     /** @var MenuBuilder */
     private $menuBuilder;
 
-    /** @var TranslatorInterface */
-    private $translator;
-
     /** @var string */
-    private $menu = null;
+    private $sidebarMenu = null;
 
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
-    public function __construct(MenuBuilder $menuBuilder, TranslatorInterface $translator, TaxonomyRepository $taxonomyRepository)
+    /** @var FrontendMenuBuilder */
+    private $frontendMenuBuilder;
+
+    public function __construct(MenuBuilder $menuBuilder, TaxonomyRepository $taxonomyRepository, FrontendMenuBuilder $frontendMenuBuilder)
     {
         $this->menuBuilder = $menuBuilder;
-        $this->translator = $translator;
         $this->taxonomyRepository = $taxonomyRepository;
+        $this->frontendMenuBuilder = $frontendMenuBuilder;
     }
 
     /**
@@ -53,11 +53,10 @@ class RecordExtension extends AbstractExtension
 
         return [
             new TwigFunction('excerpt', [$this, 'excerpt'], $safe),
-            new TwigFunction('listtemplates', [$this, 'dummy']),
+            new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('menu', [$this, 'menu'], $env + $safe),
-            new TwigFunction('sidebarmenu', [$this, 'sidebarmenu']),
-            new TwigFunction('jsonlabels', [$this, 'jsonlabels']),
+            new TwigFunction('menu', [$this, 'getMenu'], $env + $safe),
+            new TwigFunction('sidebar_menu', [$this, 'getSidebarMenu']),
             new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
             new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),
@@ -65,17 +64,12 @@ class RecordExtension extends AbstractExtension
         ];
     }
 
-    public function dummy($input = null)
+    public function getListTemplates(): string
     {
-        return $input;
+        return 'list_templates placeholder';
     }
 
-    public function dummy_with_env(Environment $env, $input = null)
-    {
-        return $input;
-    }
-
-    public function pager(Environment $env, Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)
+    public function pager(Environment $twig, Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)
     {
         $context = [
             'records' => $records,
@@ -84,13 +78,18 @@ class RecordExtension extends AbstractExtension
             'theme' => $theme,
         ];
 
-        return $env->render($template, $context);
+        return $twig->render($template, $context);
     }
 
-    public function menu(Environment $env, string $template = '')
+    public function getMenu(Environment $twig, ?string $name = null, string $template = '_sub_menu.twig', string $class = '', bool $withsubmenus = true): string
     {
-        // @todo See Github issue https://github.com/bolt/four/issues/253
-        return '[menu placeholder]';
+        $context = [
+            'menu' => $this->frontendMenuBuilder->getMenu($name),
+            'class' => $class,
+            'withsubmenus' => $withsubmenus,
+        ];
+
+        return $twig->render($template, $context);
     }
 
     public static function excerpt(string $text, int $length = 100): string
@@ -98,18 +97,18 @@ class RecordExtension extends AbstractExtension
         return Excerpt::getExcerpt($text, $length);
     }
 
-    public function sidebarmenu($pretty = false)
+    public function getSidebarMenu($pretty = false): string
     {
-        if (! $this->menu) {
+        if (! $this->sidebarMenu) {
             $menuArray = $this->menuBuilder->getMenu();
             $options = $pretty ? JSON_PRETTY_PRINT : 0;
-            $this->menu = json_encode($menuArray, $options);
+            $this->sidebarMenu = json_encode($menuArray, $options);
         }
 
-        return $this->menu;
+        return $this->sidebarMenu;
     }
 
-    public function icon($record, $icon = 'question-circle')
+    public function icon(?Content $record = null, string $icon = 'question-circle'): string
     {
         if ($record instanceof Content) {
             $icon = $record->getIcon();
@@ -118,19 +117,6 @@ class RecordExtension extends AbstractExtension
         $icon = str_replace('fa-', '', $icon);
 
         return "<i class='fas mr-2 fa-${icon}'></i>";
-    }
-
-    public function jsonlabels(array $labels, bool $pretty = false): string
-    {
-        $result = [];
-        $options = $pretty ? JSON_PRETTY_PRINT : 0;
-
-        foreach ($labels as $label) {
-            $key = is_array($label) ? $label[0] : $label;
-            $result[$key] = $this->translator->trans(...(array) $label);
-        }
-
-        return json_encode($result, $options);
     }
 
     public function selectoptionsfromarray(Field $field): LaravelCollection

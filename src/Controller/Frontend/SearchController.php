@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
-use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 class SearchController extends TwigAwareController
 {
@@ -20,10 +20,8 @@ class SearchController extends TwigAwareController
      */
     private $templateChooser;
 
-    public function __construct(Config $config, Environment $twig, TemplateChooser $templateChooser)
+    public function __construct(TemplateChooser $templateChooser)
     {
-        parent::__construct($config, $twig);
-
         $this->templateChooser = $templateChooser;
     }
 
@@ -37,12 +35,24 @@ class SearchController extends TwigAwareController
     public function search(ContentRepository $contentRepository, Request $request): Response
     {
         $page = (int) $request->query->get('page', 1);
+        $searchTerm = $request->get('searchTerm', $request->get('search', $request->get('q', '')));
+        $amountPerPage = $this->config->get('general/listing_records');
 
         // @todo implement actual Search Engine
-        $records = $contentRepository->findForListing($page);
+        if (! empty($searchTerm)) {
+            $records = $contentRepository->searchNaive($searchTerm, $page, $amountPerPage);
+        } else {
+            $records = new Pagerfanta(new ArrayAdapter([]));
+        }
+
+        $context = [
+            'searchTerm' => $searchTerm,
+            'search' => $searchTerm, // Keep 'search' for Backwards Compatibility
+            'records' => $records,
+        ];
 
         $templates = $this->templateChooser->forSearch();
 
-        return $this->renderTemplate($templates, ['records' => $records]);
+        return $this->renderTemplate($templates, $context);
     }
 }

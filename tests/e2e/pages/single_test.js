@@ -20,6 +20,12 @@ class SingleTestPage extends BasePage {
     this.textarea_field = $('.text_textarea');
     this.html_field = $('.text_html');
     this.markdown_field = $('.text_markdown');
+
+    // Attributes for testing the multi-level menu
+    this.menu_item1 = $('ul.menu li a.item-1');
+    this.menu_item11 = $$('ul.menu li li a.item-1-1');
+    this.menu_item112 = $('ul.menu li li li a.item-1-1-2');
+    this.menu_item1122 = $('ul.menu li li li li a.item-1-1-2-2');
   }
 }
 

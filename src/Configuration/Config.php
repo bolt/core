@@ -9,6 +9,7 @@ use Bolt\Common\Arr;
 use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
+use Bolt\Configuration\Parser\MenuParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -103,13 +104,14 @@ class Config
         $contentTypes = new ContentTypesParser($config->get('general'));
         $config['contenttypes'] = $contentTypes->parse();
 
+        $menu = new MenuParser();
+        $config['menu'] = $menu->parse();
+
         // @todo Add these config files if needed, or refactor them out otherwise
-        //'menu' => $this->parseConfigYaml('menu.yml'),
-        //'routing' => $this->parseConfigYaml('routing.yml'),
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
 
-        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes);
+        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu);
 
         return [
             DeepCollection::deepMake($config),

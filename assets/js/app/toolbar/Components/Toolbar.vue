@@ -21,7 +21,7 @@
         </g>
       </svg>
       <ul class="toolbar--menu">
-        <li><a href="https://bolt.cm/" target="_blank">bolt.cm</a></li>
+        <li><a href="https://bolt.cm/" target="_blank">Visit Bolt.cm</a></li>
         <li>
           <a href="https://docs.bolt.cm/" target="_blank">{{
             labels['about.bolt_documentation']
@@ -38,21 +38,18 @@
       </ul>
     </div>
     <div class="toolbar--item is-site">
-      <i class="fas fa-globe-americas mr-2"></i>{{ siteName }}
-      <ul class="toolbar--menu">
-        <li>
-          <a href="/" target="_blank">{{ labels['action.visit_site'] }}</a>
-        </li>
-      </ul>
+      <a href="/" target="_blank">
+        <i class="fas fa-globe-americas mr-2"></i>{{ labels['action.visit_site'] }}: {{ siteName }}
+      </a>
     </div>
     <div class="toolbar--item is-profile">
       <i class="fas fa-user mr-2"></i>{{ labels['general.greeting'] }}
       <ul class="toolbar--menu">
         <li>
-          <a href="/bolt/profile-edit">{{ labels['action.edit_profile'] }}</a>
+          <a :href="backend_prefix + 'profile-edit'">{{ labels['action.edit_profile'] }}</a>
         </li>
         <li>
-          <a href="/bolt/logout">{{ labels['action.logout'] }}</a>
+          <a :href="backend_prefix + 'logout'">{{ labels['action.logout'] }}</a>
         </li>
       </ul>
     </div>
@@ -64,7 +61,7 @@ const tinycolor = require('tinycolor2');
 
 export default {
   name: 'Toolbar',
-  props: ['siteName', 'menu', 'labels'],
+  props: ['siteName', 'menu', 'labels', 'backend_prefix'],
   computed: {
     contrast() {
       const color = tinycolor(this.toolbarColor);
@@ -73,7 +70,7 @@ export default {
     createMenu() {
       return this.menu.filter(item => {
         return (
-          (item.contentType !== null && !item.singleton) ||
+          (!item.singleton && item.singular_name) ||
           (item.singleton && (item.submenu === null || item.submenu.length < 1))
         );
       });

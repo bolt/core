@@ -8,9 +8,7 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -19,7 +17,7 @@ use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Gedmo\Translatable\Entity\Translation;
 use Tightenco\Collect\Support\Collection;
 
-class ContentFixtures extends Fixture implements DependentFixtureInterface
+class ContentFixtures extends BaseFixture implements DependentFixtureInterface
 {
     /** @var Generator */
     private $faker;
@@ -62,10 +60,12 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         foreach ($this->config as $contentType) {
             $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
-            foreach (range(1, $amount) as $i) {
-                $ref = $i === 1 ? 'admin' : ['admin', 'henkie', 'jane_admin', 'tom_admin'][random_int(0, 3)];
-                /** @var User $author */
-                $author = $this->getReference($ref);
+            for ($i = 1; $i <= $amount; $i++) {
+                if ($i === 1) {
+                    $author = $this->getReference('user_admin');
+                } else {
+                    $author = $this->getRandomReference('user');
+                }
 
                 $content = new Content($contentType['slug'], $author);
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
@@ -99,6 +99,20 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                         foreach ($contentType['locales'] as $locale) {
                             $translationRepository->translate($field, 'value', $locale, $field->getValue());
                         }
+                    }
+                }
+
+                foreach ($contentType['taxonomy'] as $taxonomySlug) {
+                    if ($taxonomySlug === 'categories') {
+                        $taxonomyAmount = 2;
+                    } elseif ($taxonomySlug === 'tags') {
+                        $taxonomyAmount = 4;
+                    } else {
+                        $taxonomyAmount = 1;
+                    }
+
+                    foreach ($this->getRandomTaxonomies($taxonomySlug, $taxonomyAmount) as $taxonomy) {
+                        $content->addTaxonomy($taxonomy);
                     }
                 }
 
@@ -152,12 +166,13 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             'slug' => 'This is a record in the "Entries" ContentType',
         ];
         $records['blocks'][] = [
-            'title' => 'About',
+            'title' => 'About This Site',
+            'slug' => 'about',
         ];
         $records['blocks'][] = [
             'title' => 'Search',
+            'slug' => 'search',
         ];
-
         $records['tests'][] = [
             'selectfield' => 'bar',
             'multiselect' => 'Michelangelo',

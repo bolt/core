@@ -32,7 +32,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page = 1, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
+    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -48,7 +48,28 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        return $this->createPaginator($qb->getQuery(), $page, $contentType['listing_records']);
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+    }
+
+    public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    {
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a');
+
+        $qb->addSelect('t')
+            ->innerJoin('content.taxonomies', 't')
+            ->andWhere('t.type = :taxonomyslug')
+            ->setParameter('taxonomyslug', $taxonomyslug)
+            ->andWhere('t.slug = :slug')
+            ->setParameter('slug', $slug);
+
+        if ($onlyPublished) {
+            $qb->andWhere('content.status = :status')
+                ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
     public function findLatest(?ContentType $contentType = null, int $amount = 6): ?array
@@ -67,6 +88,37 @@ class ContentRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function searchNaive(string $searchTerm, int $page, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    {
+        // First, create a querybuilder to get the fields that match the Query
+        $qb = $this->getQueryBuilder()
+            ->select('partial content.{id}');
+
+        $qb->addSelect('f')
+            ->leftJoin('content.fields', 'f')
+            ->andWhere($qb->expr()->like('f.value', ':search'))
+            ->setParameter('search', '%' . $searchTerm . '%');
+
+        // These are the ID's of content we need.
+        $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
+
+        // Next, we'll get the full Content objects, based on ID's
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a')
+            ->orderBy('content.modifiedAt', 'DESC');
+
+        if ($onlyPublished) {
+            $qb->andWhere('content.status = :status')
+                ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        $qb->andWhere('content.id IN (:ids)')
+            ->setParameter('ids', $ids);
+
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+    }
+
     public function findOneBySlug(string $slug): ?Content
     {
         return $this->getQueryBuilder()
@@ -81,10 +133,10 @@ class ContentRepository extends ServiceEntityRepository
 //        ->setParameter('values',['red','yellow']);
     }
 
-    private function createPaginator(Query $query, int $page, int $max): Pagerfanta
+    private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
-        $paginator->setMaxPerPage($max);
+        $paginator->setMaxPerPage($amountPerPage);
         $paginator->setCurrentPage($page);
 
         return $paginator;

@@ -8,7 +8,7 @@
     <title>{{ block('title')|striptags }}</title>
     {% block stylesheets %}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Sans+Pro:300,400,600&amp;subset=latin-ext" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     {% set theme = 'theme-' ~ user.backendTheme|default('default') %}
     {{ encore_entry_link_tags('bolt') }}
     {{ encore_entry_link_tags(theme) }}
@@ -25,12 +25,23 @@
     <!-- Admin Toolbar -->
     <nav id="toolbar" class="admin__toolbar">
         {% set user_display_name = user.displayName|default('Unknown user') %}
-        {% set labels = jsonlabels(['about.bolt_documentation', 'action.visit_site', 'action.create_new', ['general.greeting', {'%name%': user_display_name}], 'action.logout', 'action.edit_profile']) %}
+
+        {# Setting the labels and their localisations that are used in the sidebar-menu. #}
+        {% set labels = {
+            'about.bolt_documentation': 'about.bolt_documentation'|trans,
+            'action.visit_site': 'action.visit_site'|trans,
+            'action.create_new': 'action.create_new'|trans,
+            'general.greeting': 'general.greeting'|trans({'%name%': user_display_name}),
+            'action.logout': 'action.logout'|trans,
+            'action.edit_profile': 'action.edit_profile'|trans
+        }|json_encode %}
+
         <admin-toolbar
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
-            :menu="{{ sidebarmenu() }}"
+            :menu="{{ sidebar_menu() }}"
             user="{{ user|default }}"
-            :labels="{{ labels|json_decode }}"
+            :labels="{{ labels }}"
+            :backend_prefix="{{ path('bolt_dashboard') }}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->
@@ -49,7 +60,7 @@
     <div class="admin__sidebar">
         <div id="sidebar">
             <admin-sidebar
-              :menu="{{ sidebarmenu() }}"
+              :menu="{{ sidebar_menu() }}"
               :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
               :about-link="{{ path('bolt_about')|json_encode }}"
             ></admin-sidebar >

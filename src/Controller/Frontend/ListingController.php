@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
-use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
@@ -13,7 +12,6 @@ use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
 class ListingController extends TwigAwareController
 {
@@ -22,10 +20,8 @@ class ListingController extends TwigAwareController
      */
     private $templateChooser;
 
-    public function __construct(Config $config, Environment $twig, TemplateChooser $templateChooser)
+    public function __construct(TemplateChooser $templateChooser)
     {
-        parent::__construct($config, $twig);
-
         $this->templateChooser = $templateChooser;
     }
 
@@ -38,12 +34,13 @@ class ListingController extends TwigAwareController
      */
     public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
     {
-        $page = (int) $request->query->get('page', 1);
-
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
 
+        $page = (int) $request->query->get('page', 1);
+        $amountPerPage = $contentType->get('listing_records');
+
         /** @var Content[] $records */
-        $records = $contentRepository->findForListing($page, $contentType);
+        $records = $contentRepository->findForListing($page, $amountPerPage, $contentType);
 
         $templates = $this->templateChooser->forListing($contentType);
 

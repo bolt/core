@@ -93,6 +93,13 @@
 
     {{ dump(record) }}
 
+    <hr>
+    <h2>Testing multi-level Menu</h2>
+
+    {{ menu('multi-level', template = 'partials/_sub_menu.twig') }}
+
+    <hr>
+
     {% include 'partials/_recordfooter.twig' with { 'record': record, 'extended': true } %}
 
 {% endblock main %}

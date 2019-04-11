@@ -52,6 +52,12 @@ class Taxonomy
      */
     private $sortorder = 0;
 
+    /**
+     * Set dynamically during view generation
+     * @var string
+     */
+    private $link;
+
     public function __construct(string $type, string $slug, ?string $name = null, int $sortorder = 0)
     {
         $this->setType($type);
@@ -140,6 +146,18 @@ class Taxonomy
     public function setSortorder(int $sortorder): self
     {
         $this->sortorder = $sortorder;
+
+        return $this;
+    }
+
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(string $link): self
+    {
+        $this->link = $link;
 
         return $this;
     }

@@ -69,18 +69,8 @@ e2e-wip:
 	cd tests/e2e && npm run kakunin -- --tags @wip && cd ../..
 
 e2e-install:
-	cd tests/e2e
-	npm install
-	node ./node_modules/protractor/bin/webdriver-manager update --gecko=false
-	cd step_definitions
-	ln -s ../node_modules/kakunin/dist/step_definitions/elements.js kakunin-elements.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/debug.js kakunin-debug.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/file.js kakunin-file.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/form.js kakunin-form.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/email.js kakunin-email.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/generators.js kakunin-generators.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-navigation.js
-	cd ../../..
+	cd tests/e2e && npm install
+	node ./tests/e2e/node_modules/protractor/bin/webdriver-manager update --gecko=false
 
 db-create:
 	bin/console doctrine:database:create
