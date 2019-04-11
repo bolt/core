@@ -17,12 +17,9 @@ import {
   Slug,
   Text,
   Textarea,
-  Editor
 } from './Components/Editor';
 
 import { Language } from './Components/General';
-
-// import Editor from 'vue-editor-js';
 
 new Vue({
   store,
@@ -40,6 +37,5 @@ new Vue({
     "editor-text": Text,
     "editor-textarea": Textarea,
     "general-language": Language,
-    "editor": Editor
   }
 });
