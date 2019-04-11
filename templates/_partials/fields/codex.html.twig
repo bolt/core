@@ -1,0 +1,17 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+
+voor:
+    <editor
+            autofocus
+            holder-id="codex-editor"
+            save-button-id="save-button"
+            :init-data="initData"
+            @save="save"
+            @ready="onReady"
+            @change="onChange"
+    />
+    :na
+
+{% endblock %}

@@ -331,35 +331,8 @@ tests:
         slug:
             type: slug
             uses: title
-        text_markup:
-            type: text
-            allow_html: true
-        text_plain:
-            type: text
-            allow_html: false
-        html_field:
-            type: html
-        image:
-            type: image
-            postfix: An image, actually _named_ image.
-        picture:
-            type: image
-            postfix: An image, named differently.
-        markdown_field:
-            type: markdown
-        textarea_field:
-            type: textarea
-        selectfield:
-            type: select
-            values:
-                foo: Foooo
-                bar: Bario
-                baz: BAzzazza
-        multiselect:
-            type: select
-            values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
-            multiple: true
-            postfix: "Select your favourite turtle(s)."
+        content:
+            type: codex
     taxonomy: [ groups, categories, tags, foobars ]
     record_template: test.twig
     listing_template: listing.twig
