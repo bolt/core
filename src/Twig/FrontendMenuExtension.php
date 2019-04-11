@@ -28,12 +28,12 @@ class FrontendMenuExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('menu', [$this, 'buildMenu'], $env + $safe),
-            new TwigFunction('menu_json', [$this, 'buildMenuJson']),
+            new TwigFunction('menu', [$this, 'getMenu'], $env + $safe),
+            new TwigFunction('menu_json', [$this, 'getMenuJson']),
         ];
     }
 
-    public function buildMenu(Environment $twig, ?string $name = null, string $template = '_sub_menu.twig', string $class = '', bool $withsubmenus = true): string
+    public function getMenu(Environment $twig, ?string $name = null, string $template = '_sub_menu.twig', string $class = '', bool $withsubmenus = true): string
     {
         $context = [
             'menu' => $this->menuBuilder->buildMenu($name),
@@ -44,7 +44,7 @@ class FrontendMenuExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
-    public function buildMenuJson(?string $name = null, bool $jsonPrettyPrint = false)
+    public function getMenuJson(?string $name = null, bool $jsonPrettyPrint = false)
     {
         $menu = $this->menuBuilder->buildMenu($name);
         $options = $jsonPrettyPrint ? JSON_PRETTY_PRINT : 0;
