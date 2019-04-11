@@ -193,7 +193,7 @@ class ContentEditController extends TwigAwareController
             'record' => $content,
             'locales' => $content->getLocales(),
             'currentlocale' => $this->getEditLocale($request, $content),
-            'form' => $form,
+            'form' => $form->createView(),
         ];
 
         return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);

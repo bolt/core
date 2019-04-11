@@ -21,8 +21,6 @@ class ContentLocalizationController extends TwigAwareController
      */
     public function locales(Request $request, Content $content): Response
     {
-        $content->getFields();
-
         return $this->renderTemplate('content/view_locales.html.twig', [
             'record' => $content,
         ]);

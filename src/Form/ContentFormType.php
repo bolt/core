@@ -7,8 +7,10 @@ namespace Bolt\Form;
 use Bolt\Content\ContentType;
 use Bolt\Content\FieldType;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
 use Bolt\Utils\Str;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -75,8 +77,9 @@ class ContentFormType extends AbstractType
                 'by_reference' => false,
             ]);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
-            $this->injectFields($event->getForm());
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder): void {
+            $fieldsData = $event->getData()->getFields();
+            $this->injectFields($event->getForm(), $builder, $fieldsData);
         });
     }
 
@@ -85,21 +88,32 @@ class ContentFormType extends AbstractType
         $this->contentDefinition = $contentType;
     }
 
-    public function injectFields(FormInterface $form): void
+    public function injectFields(FormInterface $form, FormBuilderInterface $builder, Collection $fieldsData): void
     {
-        foreach ($this->contentDefinition->get('fields') as $fieldDefinition) {
-            /** @var FieldType $fieldDefinition */
-            $fieldType = $this->resolveFieldFormType($fieldDefinition);
-            $required = $fieldDefinition->get('required') ?? true;
-            $requirements = $this->resolveRequirements($fieldDefinition);
+        foreach ($this->contentDefinition->get('fields') as $fieldName => $fieldDefinition) {
+            if ($fieldsData->containsKey($fieldName) === false) {
+                $fieldsData->set($fieldName, Field::factory($fieldDefinition, $fieldName));
+            }
+            /** @var FieldType $fieldType */
+            $fieldType = $fieldsData->get($fieldName)->getDefinition();
+            $fieldFormType = $this->resolveFieldFormType($fieldType);
+            $required = $fieldType->get('required') ?? true;
+            $requirements = $this->resolveRequirements($fieldType);
 
-            $form->get('fields')->add($fieldDefinition->get('name'), $fieldType, [
-                'required' => $required,
-                'constraints' => $requirements,
-                'compound' => true,
-                'field_definition' => $fieldDefinition,
-                'property_path' => 'value',
-            ]);
+            $form->get('fields')->add(
+                $builder->create($fieldName, $fieldFormType, [
+                    'required' => $required,
+                    'constraints' => $requirements,
+                    'compound' => true,
+                    'property_path' => "[{$fieldName}].value",
+                    'auto_initialize' => false,
+                    'attr' => [
+                        'field_definition' => $fieldDefinition
+                    ]
+                ])
+                ->addModelTransformer(new FieldValueModelTransformer())
+                ->getForm()
+            );
         }
     }
 
@@ -204,7 +218,7 @@ class ContentFormType extends AbstractType
         $otherGroupCache = [];
 
         foreach ($fields as $fieldView) {
-            $groupName = $fieldView->vars['field_definition']->get('group');
+            $groupName = $fieldView->vars['attr']['field_definition']->get('group');
             if ($groupName !== null) {
                 $groupKey = array_search($groupName, $groupKeysCache, true);
                 if ($groupKey === false) {
