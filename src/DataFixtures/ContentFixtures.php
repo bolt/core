@@ -37,7 +37,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
 
         $this->faker = Factory::create();
         $this->presetRecords = $this->getPresetRecords();
-
     }
 
     public function getDependencies()
