@@ -123,7 +123,6 @@ class ContentEditController extends TwigAwareController
         return $this->createForm(ContentFormType::class, $content, [
             'action' => $postUrl,
             'method' => Request::METHOD_POST,
-            'content_definition' => $content->getDefinition(),
         ]);
     }
 
@@ -166,7 +165,6 @@ class ContentEditController extends TwigAwareController
         return $this->createForm(ContentFormType::class, $content, [
             'action' => $postUrl,
             'method' => Request::METHOD_PUT,
-            'content_definition' => $content->getDefinition(),
         ]);
     }
 
@@ -200,7 +198,7 @@ class ContentEditController extends TwigAwareController
     }
 
     /**
-     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsaved", methods={"GET"}, requirements={"id": "\d+"})
+     * @Route("/viewsaved/{id}", name="bolt_content_viewsaved", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
     {
@@ -215,7 +213,7 @@ class ContentEditController extends TwigAwareController
     }
 
     /**
-     * @Route("/preview/{contentType}", name="bolt_content_edit_preview", methods={"POST"})
+     * @Route("/preview/{contentType}", name="bolt_content_preview", methods={"POST"})
      */
     public function preview(string $contentType, Request $request): Response
     {
@@ -223,7 +221,6 @@ class ContentEditController extends TwigAwareController
 
         $form = $this->createForm(ContentFormType::class, $content, [
             'method' => Request::METHOD_POST,
-            'content_definition' => $content->getDefinition(),
         ]);
         $form->handleRequest($request);
 

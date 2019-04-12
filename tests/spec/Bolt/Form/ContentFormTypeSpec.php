@@ -4,6 +4,7 @@ namespace spec\Bolt\Form;
 
 use Bolt\Content\ContentType;
 use Bolt\Content\FieldType;
+use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Form\ContentFormType;
 use Bolt\Form\FieldValueModelTransformer;
@@ -24,11 +25,6 @@ use Symfony\Component\Validator\Constraints;
  */
 class ContentFormTypeSpec extends ObjectBehavior
 {
-    function let()
-    {
-        $this->setContentDefinition($this->mockContentDefinition());
-    }
-
     private function mockContentDefinition(): ContentType
     {
         $field1 = new FieldType();
@@ -126,7 +122,7 @@ class ContentFormTypeSpec extends ObjectBehavior
         $groups[2]->children->shouldNotHaveKey(2);
     }
 
-    function it_injects_fields(FormInterface $form, FormInterface $fields, FormInterface $fieldForm, FormBuilderInterface $builder)
+    function it_injects_fields(FormInterface $form, FormInterface $fields, FormInterface $fieldForm, FormBuilderInterface $builder, Content $content)
     {
         $form->get('fields')->willReturn($fields);
 
@@ -210,6 +206,9 @@ class ContentFormTypeSpec extends ObjectBehavior
         $builder->getForm()->shouldBeCalledTimes(4)->willReturn($fieldForm);
         $fields->add($fieldForm)->shouldBeCalledTimes(4);
 
-        $this->injectFields($form, $builder, new ArrayCollection());
+        $content->getDefinition()->willReturn($this->mockContentDefinition());
+        $content->getFields()->willReturn(new ArrayCollection());
+
+        $this->injectFields($form, $builder, $content);
     }
 }

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Form;
 
-use Bolt\Content\ContentType;
 use Bolt\Content\FieldType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
 use Bolt\Utils\Str;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -29,15 +27,8 @@ class ContentFormType extends AbstractType
 {
     public const OHTER_GROUP_SLUG = '__other';
 
-    /**
-     * @var ContentType
-     */
-    private $contentDefinition;
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $this->setContentDefinition($options['content_definition']);
-
         $builder
             ->add('_edit_locale', ChoiceType::class, [
                 'mapped' => false,
@@ -78,19 +69,15 @@ class ContentFormType extends AbstractType
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder): void {
-            $contentFields = $event->getData()->getFields();
-            $this->injectFields($event->getForm(), $builder, $contentFields);
+            $content = $event->getData();
+            $this->injectFields($event->getForm(), $builder, $content);
         });
     }
 
-    public function setContentDefinition(ContentType $contentType): void
+    public function injectFields(FormInterface $form, FormBuilderInterface $builder, Content $content): void
     {
-        $this->contentDefinition = $contentType;
-    }
-
-    public function injectFields(FormInterface $form, FormBuilderInterface $builder, Collection $contentFields): void
-    {
-        foreach ($this->contentDefinition->get('fields') as $fieldName => $fieldDefinition) {
+        $contentFields = $content->getFields();
+        foreach ($content->getDefinition()->get('fields') as $fieldName => $fieldDefinition) {
             if ($contentFields->containsKey($fieldName) === false) {
                 $contentFields->set($fieldName, Field::factory($fieldDefinition, $fieldName));
             }
@@ -129,7 +116,6 @@ class ContentFormType extends AbstractType
                 );
             },
         ]);
-        $resolver->setRequired('content_definition');
     }
 
     private function resolveFieldFormType(FieldType $definition): ?string
