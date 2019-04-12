@@ -39,13 +39,9 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
 
-    Bolt\Menu\BackendMenuBuilder:
-        arguments: ["@knp_menu.factory"]
-        tags:
-            - { name: knp_menu.menu_builder, method: createSidebarMenu, alias: sidebar } # The alias is what is used to retrieve the menu
 
-    Twig\Extension\StringLoaderExtension: ~
-    Doctrine\ORM\Query\Expr: ~
+    Twig\Extension\StringLoaderExtension: ~ # @todo this one is autoloaded?
+    Doctrine\ORM\Query\Expr: ~ # @todo this one is autoloaded?
 
     # Needed for SetContent from bolt/bolt
     Bolt\Storage\Query\Query:
@@ -63,3 +59,13 @@ services:
         arguments: [ "%bolt.table_prefix%" ]
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata, lazy: true }
+
+    # menus
+    Bolt\Menu\BackendMenuBuilder:
+        arguments: ["@knp_menu.factory"]
+        tags:
+            - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin_menu } # The alias is what is used to retrieve the menu
+
+    Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenuBuilder'
+    Bolt\Menu\FrontendMenuBuilder: ~
+    Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenuBuilder'

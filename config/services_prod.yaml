@@ -1,0 +1,12 @@
+services:
+
+    # menus
+    Bolt\Menu\CachedBackendMenuBuilder:
+        decorates: Bolt\Menu\BackendMenuBuilder
+        autowire: true
+    Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\CachedBackendMenuBuilder'
+
+    Bolt\Menu\CachedFrontendMenuBuilder:
+        decorates: Bolt\Menu\FrontendMenuBuilder
+        autowire: true
+    Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\CachedFrontendMenuBuilder'

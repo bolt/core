@@ -4,42 +4,31 @@ declare(strict_types=1);
 
 namespace Bolt\Menu;
 
-use Bolt\Collection\DeepCollection;
 use Psr\SimpleCache\CacheInterface;
-use Symfony\Component\Stopwatch\Stopwatch;
 
-class CachedFrontendMenuBuilder
+class CachedFrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
     /** @var CacheInterface */
     private $cache;
 
-    /** @var FrontendMenuBuilder */
+    /** @var FrontendMenuBuilderInterface */
     private $menuBuilder;
 
-    /** @var Stopwatch */
-    private $stopwatch;
-
-    public function __construct(CacheInterface $cache, FrontendMenuBuilder $menuBuilder, Stopwatch $stopwatch)
+    public function __construct(FrontendMenuBuilderInterface $menuBuilder, CacheInterface $cache)
     {
         $this->cache = $cache;
         $this->menuBuilder = $menuBuilder;
-        $this->stopwatch = $stopwatch;
     }
 
-    public function buildMenu(?string $name = ''): ?DeepCollection
+    public function buildMenu(?string $name = null): array
     {
-        $key = 'frontendmenu_' . ($name ?: 'default');
+        $key = 'frontendmenu_' . ($name ?: 'main');
 
         if ($this->cache->has($key)) {
             $menu = $this->cache->get($key);
         } else {
-            $this->stopwatch->start('bolt.frontendMenu');
-
             $menu = $this->menuBuilder->buildMenu($name);
-
             $this->cache->set($key, $menu);
-
-            $this->stopwatch->stop('bolt.frontendMenu');
         }
 
         return $menu;

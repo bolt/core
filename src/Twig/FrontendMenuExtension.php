@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Menu\CachedFrontendMenuBuilder;
+use Bolt\Menu\FrontendMenuBuilderInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class FrontendMenuExtension extends AbstractExtension
 {
-    /** @var CachedFrontendMenuBuilder */
+    /** @var FrontendMenuBuilderInterface */
     private $menuBuilder;
 
-    public function __construct(CachedFrontendMenuBuilder $menuBuilder)
+    public function __construct(FrontendMenuBuilderInterface $menuBuilder)
     {
         $this->menuBuilder = $menuBuilder;
     }
@@ -28,12 +28,17 @@ class FrontendMenuExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('menu', [$this, 'getMenu'], $env + $safe),
-            new TwigFunction('menu_json', [$this, 'getMenuJson']),
+            new TwigFunction('menu', [$this, 'renderMenu'], $env + $safe),
+            new TwigFunction('menu_array', [$this, 'getMenu'], $env + $safe),
         ];
     }
 
-    public function getMenu(Environment $twig, ?string $name = null, string $template = '_sub_menu.twig', string $class = '', bool $withsubmenus = true): string
+    public function getMenu(Environment $twig, ?string $name = null): array
+    {
+        return $this->menuBuilder->buildMenu($name);
+    }
+
+    public function renderMenu(Environment $twig, ?string $name = null, string $template = '_sub_menu.twig', string $class = '', bool $withsubmenus = true): string
     {
         $context = [
             'menu' => $this->menuBuilder->buildMenu($name),
@@ -42,13 +47,5 @@ class FrontendMenuExtension extends AbstractExtension
         ];
 
         return $twig->render($template, $context);
-    }
-
-    public function getMenuJson(?string $name = null, bool $jsonPrettyPrint = false)
-    {
-        $menu = $this->menuBuilder->buildMenu($name);
-        $options = $jsonPrettyPrint ? JSON_PRETTY_PRINT : 0;
-
-        return json_encode($menu, $options);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration;
 
-use Exception;
+use Bolt\Exception\ConfigurationException;
 use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
@@ -44,10 +44,10 @@ class PathResolver
     }
 
     /**
-     * Constructor.
-     *
      * @param string $root  the root path which must be absolute
      * @param array  $paths initial path definitions
+     *
+     * @throws ConfigurationException
      */
     public function __construct(string $root, array $paths = [])
     {
@@ -61,7 +61,7 @@ class PathResolver
         $root = Path::canonicalize($root);
 
         if (Path::isRelative($root)) {
-            throw new \InvalidArgumentException('Root path must be absolute.');
+            throw new ConfigurationException('Root path must be absolute.');
         }
 
         $this->paths['root'] = $root;
@@ -69,11 +69,13 @@ class PathResolver
 
     /**
      * Define a path, or really an alias/variable.
+     *
+     * @throws ConfigurationException
      */
     public function define(string $name, string $path): void
     {
         if (mb_strpos($path, "%${name}%") !== false) {
-            throw new \InvalidArgumentException('Paths cannot reference themselves.');
+            throw new ConfigurationException('Paths cannot reference themselves.');
         }
 
         $this->paths[$name] = $path;
@@ -89,6 +91,8 @@ class PathResolver
      *  - `/tmp` - An absolute path will be returned as is.
      *
      * @param bool $absolute if the path is relative, resolve it against the root path
+     *
+     * @throws ConfigurationException
      */
     public function resolve(string $path, bool $absolute = true, $additional = null): string
     {
@@ -100,14 +104,14 @@ class PathResolver
             $alias = $match[1];
 
             if (! isset($this->paths[$alias])) {
-                throw new Exception("Failed to resolve path. Alias %${alias}% is not defined.");
+                throw new ConfigurationException("Failed to resolve path. Alias %${alias}% is not defined.");
             }
 
             // absolute if alias is at start of path
             $absolute = mb_strpos($path, "%${alias}%") === 0;
 
             if (isset($this->resolving[$alias])) {
-                throw new Exception('Failed to resolve path. Infinite recursion detected.');
+                throw new ConfigurationException('Failed to resolve path. Infinite recursion detected.');
             }
 
             $this->resolving[$alias] = true;

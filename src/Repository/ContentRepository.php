@@ -40,7 +40,7 @@ class ContentRepository extends ServiceEntityRepository
 
         if ($contentType) {
             $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contentType['slug']);
+                ->setParameter('ct', $contentType->getSlug());
         }
 
         if ($onlyPublished) {
@@ -72,7 +72,10 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
-    public function findLatest(?ContentType $contentType = null, int $amount = 6): ?array
+    /**
+     * @return Content[]
+     */
+    public function findLatest(?ContentType $contentType = null, int $amount = 6): array
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -81,7 +84,7 @@ class ContentRepository extends ServiceEntityRepository
 
         if ($contentType) {
             $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contentType['slug']);
+                ->setParameter('ct', $contentType->getSlug());
         }
 
         $qb->setMaxResults($amount);
@@ -95,7 +98,7 @@ class ContentRepository extends ServiceEntityRepository
             ->select('partial content.{id}');
 
         $qb->addSelect('f')
-            ->leftJoin('content.fields', 'f')
+            ->innerJoin('content.fields', 'f')
             ->andWhere($qb->expr()->like('f.value', ':search'))
             ->setParameter('search', '%' . $searchTerm . '%');
 
@@ -119,18 +122,25 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
+    public function findOneById(int $id): ?Content
+    {
+        return $this->find($id);
+    }
+
     public function findOneBySlug(string $slug): ?Content
     {
         return $this->getQueryBuilder()
-            ->innerJoin(\Bolt\Entity\Field\SlugField::class, 'field')
-            ->andWhere('field.value = :slug')
+            ->innerJoin('content.fields', 'field')
+            ->innerJoin(
+                \Bolt\Entity\Field\SlugField::class,
+                'slug',
+                'WITH',
+                'field.id = slug.id'
+            )
+            ->andWhere('slug.value = :slug')
             ->setParameter('slug', json_encode([$slug]))
             ->getQuery()
             ->getOneOrNullResult();
-
-//        ->join('m.PropertyEntity', 'p')
-//        ->where('p.value IN (:values)')
-//        ->setParameter('values',['red','yellow']);
     }
 
     private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
@@ -169,33 +179,4 @@ class ContentRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
-
-//    /**
-//     * @return Content[] Returns an array of Content objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Content
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
