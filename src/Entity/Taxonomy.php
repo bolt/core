@@ -54,6 +54,7 @@ class Taxonomy
 
     /**
      * Set dynamically during view generation
+     *
      * @var string
      */
     private $link;

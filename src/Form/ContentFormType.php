@@ -78,8 +78,8 @@ class ContentFormType extends AbstractType
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($builder): void {
-            $fieldsData = $event->getData()->getFields();
-            $this->injectFields($event->getForm(), $builder, $fieldsData);
+            $contentFields = $event->getData()->getFields();
+            $this->injectFields($event->getForm(), $builder, $contentFields);
         });
     }
 
@@ -88,31 +88,32 @@ class ContentFormType extends AbstractType
         $this->contentDefinition = $contentType;
     }
 
-    public function injectFields(FormInterface $form, FormBuilderInterface $builder, Collection $fieldsData): void
+    public function injectFields(FormInterface $form, FormBuilderInterface $builder, Collection $contentFields): void
     {
         foreach ($this->contentDefinition->get('fields') as $fieldName => $fieldDefinition) {
-            if ($fieldsData->containsKey($fieldName) === false) {
-                $fieldsData->set($fieldName, Field::factory($fieldDefinition, $fieldName));
+            if ($contentFields->containsKey($fieldName) === false) {
+                $contentFields->set($fieldName, Field::factory($fieldDefinition, $fieldName));
             }
             /** @var FieldType $fieldType */
-            $fieldType = $fieldsData->get($fieldName)->getDefinition();
+            $fieldType = $contentFields->get($fieldName)->getDefinition();
             $fieldFormType = $this->resolveFieldFormType($fieldType);
             $required = $fieldType->get('required') ?? true;
             $requirements = $this->resolveRequirements($fieldType);
 
             $form->get('fields')->add(
-                $builder->create($fieldName, $fieldFormType, [
-                    'required' => $required,
-                    'constraints' => $requirements,
-                    'compound' => true,
-                    'property_path' => "[{$fieldName}].value",
-                    'auto_initialize' => false,
-                    'attr' => [
-                        'field_definition' => $fieldDefinition
-                    ]
-                ])
-                ->addModelTransformer(new FieldValueModelTransformer())
-                ->getForm()
+                $builder
+                    ->create($fieldName, $fieldFormType, [
+                        'required' => $required,
+                        'constraints' => $requirements,
+                        'compound' => true,
+                        'property_path' => "[{$fieldName}].value",
+                        'auto_initialize' => false,
+                        'attr' => [
+                            'field_definition' => $fieldDefinition,
+                        ],
+                    ])
+                    ->addModelTransformer(new FieldValueModelTransformer())
+                    ->getForm()
             );
         }
     }

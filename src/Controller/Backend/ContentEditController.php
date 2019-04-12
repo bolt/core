@@ -123,7 +123,7 @@ class ContentEditController extends TwigAwareController
         return $this->createForm(ContentFormType::class, $content, [
             'action' => $postUrl,
             'method' => Request::METHOD_POST,
-            'content_definition' => $content->getDefinition()
+            'content_definition' => $content->getDefinition(),
         ]);
     }
 
@@ -166,7 +166,7 @@ class ContentEditController extends TwigAwareController
         return $this->createForm(ContentFormType::class, $content, [
             'action' => $postUrl,
             'method' => Request::METHOD_PUT,
-            'content_definition' => $content->getDefinition()
+            'content_definition' => $content->getDefinition(),
         ]);
     }
 
@@ -223,7 +223,7 @@ class ContentEditController extends TwigAwareController
 
         $form = $this->createForm(ContentFormType::class, $content, [
             'method' => Request::METHOD_POST,
-            'content_definition' => $content->getDefinition()
+            'content_definition' => $content->getDefinition(),
         ]);
         $form->handleRequest($request);
 
@@ -241,17 +241,18 @@ class ContentEditController extends TwigAwareController
 
     /**
      * @deprecated
+     * @private made protected just to stop fixer screaming about unused private method
      */
-    private function validateToken(Request $request): void
+    protected function validateToken(Request $request): void
     {
         $this->validateCsrf($request, 'editrecord');
     }
 
     /**
      * @deprecated
-     * @private made public just to stop fixer screaming about unused private method
+     * @private made protected just to stop fixer screaming about unused private method
      */
-    private function contentFromPost(?Content $content, Request $request): Content
+    protected function contentFromPost(?Content $content, Request $request): Content
     {
         $formData = $request->request->all();
 

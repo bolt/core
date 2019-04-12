@@ -4,12 +4,17 @@ namespace spec\Bolt\Form;
 
 use Bolt\Content\ContentType;
 use Bolt\Content\FieldType;
+use Bolt\Entity\Field;
 use Bolt\Form\ContentFormType;
+use Bolt\Form\FieldValueModelTransformer;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Validator\Constraints;
@@ -92,13 +97,13 @@ class ContentFormTypeSpec extends ObjectBehavior
         };
 
         $fieldView1 = new FormView();
-        $fieldView1->vars['field_definition'] = $getFieldDefinition('field1');
+        $fieldView1->vars['attr'] = ['field_definition' => $getFieldDefinition('field1')];
         $fieldView2 = new FormView();
-        $fieldView2->vars['field_definition'] = $getFieldDefinition('field2');
+        $fieldView2->vars['attr'] = ['field_definition' => $getFieldDefinition('field2')];
         $fieldView3 = new FormView();
-        $fieldView3->vars['field_definition'] = $getFieldDefinition('field3');
+        $fieldView3->vars['attr'] = ['field_definition' => $getFieldDefinition('field3')];
         $fieldView4 = new FormView();
-        $fieldView4->vars['field_definition'] = $getFieldDefinition('field4');
+        $fieldView4->vars['attr'] = ['field_definition' => $getFieldDefinition('field4')];
 
         $view->getWrappedObject()->children['fields'] = [$fieldView1, $fieldView2, $fieldView3, $fieldView4];
 
@@ -108,20 +113,20 @@ class ContentFormTypeSpec extends ObjectBehavior
         $groups->shouldBeAnInstanceOf(FormView::class);
 
         $groups[0]->vars['label']->shouldBe('group1');
-        $groups[0]->children[0]->vars['field_definition']['name']->shouldBe('field2');
+        $groups[0]->children[0]->vars['attr']['field_definition']['name']->shouldBe('field2');
         $groups[0]->children->shouldNotHaveKey(1);
 
         $groups[1]->vars['label']->shouldBe('group2');
-        $groups[1]->children[0]->vars['field_definition']['name']->shouldBe('field4');
+        $groups[1]->children[0]->vars['attr']['field_definition']['name']->shouldBe('field4');
         $groups[1]->children->shouldNotHaveKey(1);
 
         $groups[2]->vars['label']->shouldBe(ContentFormType::OHTER_GROUP_SLUG);
-        $groups[2]->children[0]->vars['field_definition']['name']->shouldBe('field1');
-        $groups[2]->children[1]->vars['field_definition']['name']->shouldBe('field3');
+        $groups[2]->children[0]->vars['attr']['field_definition']['name']->shouldBe('field1');
+        $groups[2]->children[1]->vars['attr']['field_definition']['name']->shouldBe('field3');
         $groups[2]->children->shouldNotHaveKey(2);
     }
 
-    function it_injects_fields(FormInterface $form, FormInterface $fields)
+    function it_injects_fields(FormInterface $form, FormInterface $fields, FormInterface $fieldForm, FormBuilderInterface $builder)
     {
         $form->get('fields')->willReturn($fields);
 
@@ -145,7 +150,7 @@ class ContentFormTypeSpec extends ObjectBehavior
             return true;
         };
 
-        $fields->add('field1', TextType::class, Argument::that(function (array $options) use ($validateArray) {
+        $builder->create('field1', TextType::class, Argument::that(function (array $options) use ($validateArray) {
             return $validateArray($options, [
                 'required' => true,
                 'constraints' => [
@@ -153,49 +158,58 @@ class ContentFormTypeSpec extends ObjectBehavior
                     Argument::type(Constraints\Regex::class),
                     Argument::type(Constraints\Length::class),
                 ],
-                'compound' => true,
-                'field_definition' => Argument::type(FieldType::class),
-                'property_path' => 'value'
+                'attr' => [
+                    'field_definition' => Argument::type(FieldType::class),
+                ],
+                'property_path' => '[field1].value'
             ]);
-        }))->shouldBeCalledOnce();
+        }))->shouldBeCalledOnce()->willReturn($builder);
 
-        $fields->add('field2', TextareaType::class, Argument::that(function (array $options) use ($validateArray) {
+        $builder->create('field2', TextareaType::class, Argument::that(function (array $options) use ($validateArray) {
             return $validateArray($options, [
                 'required' => false,
                 'constraints' => [
                     Argument::type(Constraints\Length::class),
                 ],
-                'compound' => true,
-                'field_definition' => Argument::type(FieldType::class),
-                'property_path' => 'value',
+                'attr' => [
+                    'field_definition' => Argument::type(FieldType::class),
+                ],
+                'property_path' => '[field2].value',
             ]);
-        }))->shouldBeCalledOnce();
+        }))->shouldBeCalledOnce()->willReturn($builder);
 
-        $fields->add('field3', null, Argument::that(function (array $options) use ($validateArray) {
+        $builder->create('field3', null, Argument::that(function (array $options) use ($validateArray) {
             return $validateArray($options, [
                 'required' => true,
                 'constraints' => [
                     Argument::type(Constraints\NotBlank::class),
                 ],
-                'compound' => true,
-                'field_definition' => Argument::type(FieldType::class),
-                'property_path' => 'value',
+                'attr' => [
+                    'field_definition' => Argument::type(FieldType::class),
+                ],
+                'property_path' => '[field3].value',
             ]);
-        }))->shouldBeCalledOnce();
+        }))->shouldBeCalledOnce()->willReturn($builder);
 
-        $fields->add('field4', ChoiceType::class, Argument::that(function (array $options) use ($validateArray) {
+        $builder->create('field4', ChoiceType::class, Argument::that(function (array $options) use ($validateArray) {
             return $validateArray($options, [
                 'required' => true,
                 'constraints' => [
                     Argument::type(Constraints\NotBlank::class),
                     Argument::type(Constraints\Count::class),
                 ],
-                'compound' => true,
-                'field_definition' => Argument::type(FieldType::class),
-                'property_path' => 'value',
+                'attr' => [
+                    'field_definition' => Argument::type(FieldType::class),
+                ],
+                'property_path' => '[field4].value',
             ]);
-        }))->shouldBeCalledOnce();
+        }))->shouldBeCalledOnce()->willReturn($builder);
 
-        $this->injectFields($form);
+        $builder->addModelTransformer(Argument::type(FieldValueModelTransformer::class))
+            ->shouldBeCalledTimes(4)->willReturn($builder);
+        $builder->getForm()->shouldBeCalledTimes(4)->willReturn($fieldForm);
+        $fields->add($fieldForm)->shouldBeCalledTimes(4);
+
+        $this->injectFields($form, $builder, new ArrayCollection());
     }
 }
