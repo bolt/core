@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Configuration\Areas;
+use Bolt\Configuration\Config;
 use Bolt\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -13,8 +15,9 @@ class UserFixtures extends BaseFixture
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(Config $config, Areas $areas, UserPasswordEncoderInterface $passwordEncoder)
     {
+        parent::__construct($config, $areas);
         $this->passwordEncoder = $passwordEncoder;
     }
 

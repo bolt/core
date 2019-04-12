@@ -4,12 +4,29 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Configuration\Areas;
+use Bolt\Configuration\Config;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Finder\Finder;
+use Tightenco\Collect\Support\Collection;
+use Webmozart\PathUtil\Path;
 
 abstract class BaseFixture extends Fixture
 {
     private $referencesIndex = [];
     private $taxonomyIndex = [];
+
+    /** @var Config */
+    protected $config;
+
+    /** @var Areas */
+    protected $areas;
+
+    public function __construct(Config $config, Areas $areas)
+    {
+        $this->config = $config;
+        $this->areas = $areas;
+    }
 
     protected function getRandomReference(string $entityName)
     {
@@ -52,5 +69,30 @@ abstract class BaseFixture extends Fixture
         }
 
         return $taxonomies;
+    }
+
+    protected function getImagesIndex($path): Collection
+    {
+        $finder = $this->findFiles($path);
+
+        $files = [];
+
+        foreach ($finder as $file) {
+            $files[$file->getFilename()] = $file;
+        }
+
+        return new Collection($files);
+    }
+
+    private function findFiles(string $base): Finder
+    {
+        $fullpath = Path::canonicalize($base);
+
+        $glob = '*.{jpg,png,gif,jpeg}';
+
+        $finder = new Finder();
+        $finder->in($fullpath)->depth('< 2')->sortByName()->name($glob)->files();
+
+        return $finder;
     }
 }

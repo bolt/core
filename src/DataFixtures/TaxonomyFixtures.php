@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
+use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
 use Bolt\Utils\Str;
@@ -12,14 +13,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class TaxonomyFixtures extends BaseFixture
 {
-    /**
-     * @var DeepCollection
-     */
-    private $config;
-
-    public function __construct(Config $config)
+    public function __construct(Config $config, Areas $areas)
     {
-        $this->config = $config->get('taxonomies');
+        parent::__construct($config, $areas);
     }
 
     public function load(ObjectManager $manager): void
@@ -32,7 +28,7 @@ class TaxonomyFixtures extends BaseFixture
     private function loadTaxonomies(ObjectManager $manager): void
     {
         $order = 1;
-        foreach ($this->config as $taxonomyDefinition) {
+        foreach ($this->config->get('taxonomies') as $taxonomyDefinition) {
             /** @var DeepCollection $taxonomyDefinition */
             $options = $taxonomyDefinition->isKeyEmpty('options') ? $this->getDefaultOptions() : $taxonomyDefinition['options'];
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
+use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
@@ -22,19 +23,23 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
     /** @var Generator */
     private $faker;
 
-    /** @var Collection */
-    private $config;
-
     private $lastTitle = null;
 
     /** @var array */
     private $presetRecords = [];
 
-    public function __construct(Config $config)
+    /** @var Collection */
+    private $imagesIndex;
+
+    public function __construct(Config $config, Areas $areas)
     {
+        parent::__construct($config, $areas);
+
         $this->faker = Factory::create();
         $this->presetRecords = $this->getPresetRecords();
-        $this->config = $config->get('contenttypes');
+
+        $path = $areas->get('files', 'basepath') . '/stock/';
+        $this->imagesIndex = $this->getImagesIndex($path);
     }
 
     public function getDependencies()
@@ -57,7 +62,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
         /** @var TranslationRepository $translationRepository */
         $translationRepository = $manager->getRepository(Translation::class);
 
-        foreach ($this->config as $contentType) {
+        foreach ($this->config->get('contenttypes') as $contentType) {
             $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
             for ($i = 1; $i <= $amount; $i++) {
@@ -139,9 +144,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
                 $data = [$this->faker->paragraphs(3, true)];
                 break;
             case 'image':
+            case 'file':
+                $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => 'kitten.jpg',
-                    'alt' => 'A cute kitten',
+                    'filename' => 'stock/' . $randomImage->getFilename(),
+                    'alt' => $this->faker->sentence(4, true),
+                    'title' => $this->faker->sentence(7, true),
                 ];
                 break;
             case 'slug':
