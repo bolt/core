@@ -9,7 +9,7 @@ use Bolt\Snippet\Zone;
 
 class CanonicalLinkWidget extends BaseWidget
 {
-    protected $name = 'Weather Widget';
+    protected $name = 'Canonical Link';
     protected $type = 'widget';
     protected $target = Target::NOWHERE;
     protected $zone = Zone::NOWHERE;

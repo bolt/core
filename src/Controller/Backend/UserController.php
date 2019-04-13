@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class UserController extends TwigAwareController
+class UserController extends TwigAwareController implements BackendControllerInterface
 {
     /**
      * @Route("/users", name="bolt_users")

@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ClearCacheController extends AbstractController
+class ClearCacheController extends AbstractController implements BackendControllerInterface
 {
     /** @var TranslatorInterface */
     private $translator;

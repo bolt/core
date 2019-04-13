@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\EventSubscriber;
 
+use Bolt\Controller\Backend\Async\AsyncControllerInterface;
+use Bolt\Controller\Backend\BackendControllerInterface;
+use Bolt\Controller\Frontend\FrontendControllerInterface;
 use Bolt\Snippet\Zone;
+use ReflectionClass;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -18,7 +22,7 @@ class ZoneSubscriber implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event): void
     {
         $request = $event->getRequest();
-        if (Zone::get($request)) {
+        if (Zone::get($request) !== Zone::NOWHERE) {
             return;
         }
 
@@ -30,7 +34,7 @@ class ZoneSubscriber implements EventSubscriberInterface
      */
     public function setZone(Request $request): string
     {
-        if (Zone::get($request)) {
+        if (Zone::get($request) !== Zone::NOWHERE) {
             return Zone::get($request);
         }
 
@@ -49,12 +53,20 @@ class ZoneSubscriber implements EventSubscriberInterface
             return Zone::ASYNC;
         }
 
-        $controller = $request->attributes->get('_controller');
+        $controller = explode('::', $request->attributes->get('_controller'));
 
-        if (mb_strpos($controller, 'Bolt\Controller\Backend') === 0) {
-            return Zone::BACKEND;
-        } elseif (mb_strpos($controller, 'Bolt\Controller\Frontend') === 0) {
-            return Zone::FRONTEND;
+        try {
+            $reflection = new ReflectionClass($controller[0]);
+
+            if ($reflection->implementsInterface(BackendControllerInterface::class)) {
+                return Zone::BACKEND;
+            } elseif ($reflection->implementsInterface(FrontendControllerInterface::class)) {
+                return Zone::FRONTEND;
+            } elseif ($reflection->implementsInterface(AsyncControllerInterface::class)) {
+                return Zone::ASYNC;
+            }
+        } catch (\ReflectionException $e) {
+            // Alas..
         }
 
         return Zone::NOWHERE;

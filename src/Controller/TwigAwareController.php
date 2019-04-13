@@ -24,9 +24,6 @@ class TwigAwareController extends AbstractController
     /** @var Snippets */
     private $snippets;
 
-    /** @var Manager */
-    private $snippetManager;
-
     /**
      * @required
      */

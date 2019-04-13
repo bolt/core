@@ -23,7 +23,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EditMediaController extends TwigAwareController
+class EditMediaController extends TwigAwareController implements BackendControllerInterface
 {
     use CsrfTrait;
 

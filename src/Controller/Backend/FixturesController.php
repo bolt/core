@@ -12,12 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class FixturesController extends TwigAwareController
+class FixturesController extends TwigAwareController implements BackendControllerInterface
 {
     /**
      * @Route("/fixtures", name="bolt_fixtures")
      */
-    public function omnisearch(): Response
+    public function fixtures(): Response
     {
         $twigVars = [
             'title' => 'Fixtures',
