@@ -12,8 +12,7 @@ cache:
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
-    - php: 7.1
+    - php: 7.2
       env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 7.2
     - php: 7.3
@@ -21,7 +20,7 @@ matrix:
       env: COMPOSER_FLAGS="--ignore-platform-reqs"
   allow_failures:
     - php: nightly
-    - php: 7.1
+    - php: 7.2
       env: COMPOSER_FLAGS="--prefer-lowest"
 
 before_install:

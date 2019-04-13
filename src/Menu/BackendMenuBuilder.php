@@ -199,14 +199,6 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->getChild('Maintenance')->addChild('Fixtures', [
-            'uri' => '',
-            'extras' => [
-                'name' => $t->trans('caption.fixtures_dummy_content'),
-                'icon' => 'fa-hat-wizard',
-            ],
-        ]);
-
         $menu->getChild('Maintenance')->addChild('Clear the cache', [
             'uri' => $this->urlGenerator->generate('bolt_clear_cache'),
             'extras' => [
@@ -223,7 +215,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->getChild('Maintenance')->addChild('Translations: Messages', [
+        $menu->getChild('Maintenance')->addChild('Translations', [
             'uri' => $this->urlGenerator->generate('translation_index'),
             'extras' => [
                 'name' => $t->trans('caption.translations'),

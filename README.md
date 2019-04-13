@@ -166,6 +166,8 @@ These are the translations used in Bolt. We rely on the community to expand on n
 translations, and keep them up to date. If you wish to participate, read the
 [instructions here][translations].
 
+Later you can download updated translations from Loco by using command `bin/console translation:sync`.
+
 
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
 [translations]: https://github.com/bolt/four/wiki/Contribute-on-translations

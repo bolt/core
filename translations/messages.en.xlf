@@ -927,6 +927,12 @@
         <target>Search</target>
       </segment>
     </unit>
+    <unit id="z0k8hRg" name="9fb3e6e">
+      <segment>
+        <source>9fb3e6e</source>
+        <target><![CDATA[This website is <a href='%url%' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
+      </segment>
+    </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
       <segment>
         <source>contenttypes.generic.overview</source>
@@ -957,18 +963,6 @@
         <target>Permalink</target>
       </segment>
     </unit>
-    <unit id="dQIY7_J" name="action.preview">
-      <segment>
-        <source>action.preview</source>
-        <target>Preview</target>
-      </segment>
-    </unit>
-    <unit id="ok6YulQ" name="action.view_saved">
-      <segment>
-        <source>action.view_saved</source>
-        <target>View (saved version) on site</target>
-      </segment>
-    </unit>
     <unit id="zsyp43M" name="label.displayname">
       <segment>
         <source>label.displayname</source>
@@ -987,13 +981,31 @@
         <target>The Kitchensink</target>
       </segment>
     </unit>
+    <unit id="wrUiAsV" name="general.phrase.search-results-for-variable">
+      <notes>
+        <note>parameters:</note>
+        <note> '%search%': consequatur</note>
+      </notes>
+      <segment>
+        <source>general.phrase.search-results-for-variable</source>
+        <target>Search results for '%search%'.</target>
+      </segment>
+    </unit>
     <unit id="2CfJ3WY" name="general.phrase.search-results-for">
+      <notes>
+        <note>parameters:</note>
+        <note> '%search%': ymnrubeyrvwearsytevsf</note>
+      </notes>
       <segment>
         <source>general.phrase.search-results-for</source>
         <target>Search results for '%search%'.</target>
       </segment>
     </unit>
     <unit id="V0VhH5g" name="general.phrase.no-search-results-for">
+      <notes>
+        <note>parameters:</note>
+        <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
+      </notes>
       <segment>
         <source>general.phrase.no-search-results-for</source>
         <target>No search results found for '%search%'.</target>
@@ -1015,6 +1027,24 @@
       <segment>
         <source>general.phrase.built-with-bolt</source>
         <target><![CDATA[This website is <a href='https://bolt.cm' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="5IxD63c" name="general.latest_bolt_news">
+      <segment>
+        <source>general.latest_bolt_news</source>
+        <target>Latest Bolt News</target>
+      </segment>
+    </unit>
+    <unit id="dQIY7_J" name="action.preview">
+      <segment>
+        <source>action.preview</source>
+        <target>Preview</target>
+      </segment>
+    </unit>
+    <unit id="ok6YulQ" name="action.view_saved">
+      <segment>
+        <source>action.view_saved</source>
+        <target>View (saved version) on site</target>
       </segment>
     </unit>
   </file>
