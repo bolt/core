@@ -22,6 +22,8 @@
 
 <div class="admin has-{{ block('container') }}">
 
+    {% set admin_menu_json = admin_menu()|json_encode %}
+
     <!-- Admin Toolbar -->
     <nav id="toolbar" class="admin__toolbar">
         {% set user_display_name = user.displayName|default('Unknown user') %}
@@ -38,7 +40,7 @@
 
         <admin-toolbar
             site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
-            :menu="{{ admin_menu_json() }}"
+            :menu="{{ admin_menu_json }}"
             user="{{ user|default }}"
             :labels="{{ labels }}"
             :backend_prefix="{{ path('bolt_dashboard') }}"
@@ -60,7 +62,7 @@
     <div class="admin__sidebar">
         <div id="sidebar">
             <admin-sidebar
-              :menu="{{ admin_menu_json() }}"
+              :menu="{{ admin_menu_json }}"
               :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
               :about-link="{{ path('bolt_about')|json_encode }}"
             ></admin-sidebar >

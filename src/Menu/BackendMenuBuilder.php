@@ -6,7 +6,6 @@ namespace Bolt\Menu;
 
 use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
-use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
 use Knp\Menu\FactoryInterface;
@@ -14,8 +13,10 @@ use Knp\Menu\ItemInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class BackendMenuBuilder
+class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
+    public const MAX_LATEST_RECORDS = 5;
+
     /** @var FactoryInterface */
     private $menuFactory;
 
@@ -50,7 +51,7 @@ class BackendMenuBuilder
         $this->contentExtension = $contentExtension;
     }
 
-    private function createMenu(): ItemInterface
+    private function createAdminMenu(): ItemInterface
     {
         $t = $this->translator;
 
@@ -70,21 +71,22 @@ class BackendMenuBuilder
             'icon' => 'fa-file',
         ]]);
 
+        /** @var ContentType[] $contentTypes */
         $contentTypes = $this->config->get('contenttypes');
 
         foreach ($contentTypes as $contentType) {
-            $menu->addChild($contentType['slug'], [
-                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contentType' => $contentType['slug']]),
+            $menu->addChild($contentType->getSlug(), [
+                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contentType' => $contentType->getSlug()]),
                 'extras' => [
                     'name' => $contentType['name'],
                     'singular_name' => $contentType['singular_name'],
-                    'slug' => $contentType['slug'],
+                    'slug' => $contentType->getSlug(),
                     'singular_slug' => $contentType['singular_slug'],
                     'icon' => $contentType['icon_many'],
-                    'link_new' => $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType['slug']]),
+                    'link_new' => $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType->getSlug()]),
                     'singleton' => $contentType['singleton'],
-                    'active' => $contentType['slug'] === 'pages' ? true : false,
-                    'submenu' => $this->getLatestRecords($contentType['slug']),
+                    'active' => $contentType->getSlug() === 'pages' ? true : false,
+                    'submenu' => $this->getLatestRecords($contentType),
                 ],
             ]);
         }
@@ -280,17 +282,12 @@ class BackendMenuBuilder
         return $menu;
     }
 
-    private function getLatestRecords($slug)
+    private function getLatestRecords(ContentType $contentType): array
     {
-        /** @var ContentType $ct */
-        $contentType = ContentType::factory($slug, $this->config->get('contenttypes'));
-
-        /** @var Content[] $records */
-        $records = $this->contentRepository->findLatest($contentType, 5);
+        $records = $this->contentRepository->findLatest($contentType, self::MAX_LATEST_RECORDS);
 
         $result = [];
 
-        /** @var Content $record */
         foreach ($records as $record) {
             $result[] = [
                 'id' => $record->getId(),
@@ -304,9 +301,9 @@ class BackendMenuBuilder
         return $result;
     }
 
-    public function buildMenu(): array
+    public function buildAdminMenu(): array
     {
-        $menu = $this->createMenu()->getChildren();
+        $menu = $this->createAdminMenu()->getChildren();
 
         $menuData = [];
 

@@ -5,37 +5,28 @@ declare(strict_types=1);
 namespace Bolt\Menu;
 
 use Psr\SimpleCache\CacheInterface;
-use Symfony\Component\Stopwatch\Stopwatch;
 
-class CachedBackendMenuBuilder
+class CachedBackendMenuBuilder implements BackendMenuBuilderInterface
 {
     /** @var CacheInterface */
     private $cache;
 
-    /** @var BackendMenuBuilder */
+    /** @var BackendMenuBuilderInterface */
     private $menuBuilder;
 
-    /** @var Stopwatch */
-    private $stopwatch;
-
-    public function __construct(CacheInterface $cache, BackendMenuBuilder $menuBuilder, Stopwatch $stopwatch)
+    public function __construct(BackendMenuBuilderInterface $menuBuilder, CacheInterface $cache)
     {
         $this->cache = $cache;
         $this->menuBuilder = $menuBuilder;
-        $this->stopwatch = $stopwatch;
     }
 
-    public function buildMenu(): array
+    public function buildAdminMenu(): array
     {
         if ($this->cache->has('backendmenu')) {
             $menu = $this->cache->get('backendmenu');
         } else {
-            $this->stopwatch->start('bolt.sidebarMenu');
-
-            $menu = $this->menuBuilder->buildMenu();
+            $menu = $this->menuBuilder->buildAdminMenu();
             $this->cache->set('backendmenu', $menu);
-
-            $this->stopwatch->stop('bolt.sidebarMenu');
         }
 
         return $menu;
