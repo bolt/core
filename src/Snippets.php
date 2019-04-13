@@ -29,11 +29,15 @@ class Snippets
     /** @var QueueProcessor */
     private $queueProcessor;
 
-    public function __construct(RequestStack $requestStack, QueueProcessor $queueProcessor)
+    /** @var Environment */
+    private $twig;
+
+    public function __construct(RequestStack $requestStack, QueueProcessor $queueProcessor, Environment $twig)
     {
         $this->queue = new Collection([]);
         $this->request = $requestStack->getCurrentRequest();
         $this->queueProcessor = $queueProcessor;
+        $this->twig = $twig;
     }
 
     /**
@@ -58,6 +62,7 @@ class Snippets
     public function registerWidget(BaseWidget $widget): void
     {
         $widget->setRequest($this->request);
+        $widget->setTwig($this->twig);
 
         $this->queue->push([
             'priority' => $widget->getPriority(),
@@ -68,23 +73,23 @@ class Snippets
         ]);
     }
 
-    public function getWidget(string $name, ?Environment $twig = null): string
+    public function getWidget(string $name): string
     {
         $widget = $this->queue->where('name', $name)->first();
 
         if ($widget) {
-            return $this->invoke($widget['callback'], $twig);
+            return $this->invoke($widget['callback']);
         }
     }
 
-    public function getWidgets(string $target, Environment $twig): string
+    public function getWidgets(string $target): string
     {
         $widgets = $this->queue->where('target', $target)->sortBy('priority');
 
         $output = '';
 
         foreach ($widgets as $widget) {
-            $output .= $this->invoke($widget['callback'], $twig);
+            $output .= $this->invoke($widget['callback']);
         }
 
         return $output;
@@ -93,14 +98,11 @@ class Snippets
     /**
      * @param BaseWidget|string|callable $callback
      */
-    public function invoke($callback, ?Environment $twig = null): string
+    public function invoke($callback): string
     {
         if (is_string($callback)) {
             return $callback;
         } elseif ($callback instanceof BaseWidget) {
-            if ($twig !== null) {
-                $callback->setTwig($twig);
-            }
             return $callback();
         }
 
@@ -121,8 +123,5 @@ class Snippets
         $this->registerSnippet('<meta name="generator" content="Bolt">', Target::END_OF_HEAD);
         $this->registerWidget(new CanonicalLinkWidget());
         $this->registerWidget(new BoltHeaderWidget());
-
-        // @todo Determine if a favicon is something we want in 2019, by default
-        // $this->registerWidget(new FaviconWidget());
     }
 }

@@ -30,25 +30,25 @@ class WidgetExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('countwidgets', [$this, 'dummy'], $safe + $env),
+            new TwigFunction('countwidgets', [$this, 'dummy'], $safe),
             new TwigFunction('listwidgets', [$this, 'dummy'], $safe),
-            new TwigFunction('haswidgets', [$this, 'dummy'], $safe + $env),
-            new TwigFunction('widgets', [$this, 'getWidgets'], $safe + $env),
-            new TwigFunction('widget', [$this, 'getWidget'], $safe + $env),
+            new TwigFunction('haswidgets', [$this, 'dummy'], $safe),
+            new TwigFunction('widgets', [$this, 'getWidgets'], $safe),
+            new TwigFunction('widget', [$this, 'getWidget'], $safe),
         ];
     }
 
-    public function getWidget(Environment $twig, string $name): string
+    public function getWidget(string $name): string
     {
-        return $this->snippets->getWidget($name, $twig);
+        return $this->snippets->getWidget($name);
     }
 
-    public function getWidgets(Environment $twig, string $target): string
+    public function getWidgets(string $target): string
     {
-        return $this->snippets->getWidgets($target, $twig);
+        return $this->snippets->getWidgets($target);
     }
 
-    public function dummy(Environment $twig, $input = null): string
+    public function dummy($input = null): string
     {
         // @todo See Github issue https://github.com/bolt/four/issues/135
         return '<!-- Widget "' . $input . '" -->';

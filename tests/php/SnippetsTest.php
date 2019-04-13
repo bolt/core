@@ -55,7 +55,7 @@ class SnippetsTest extends TestCase
         );
     }
 
-    public function testHeaderWidget(): void
+    public function testProcessHeaderWidget(): void
     {
         $queueprocessor = new QueueProcessor(new Injector());
         $requestStack = new RequestStack();
