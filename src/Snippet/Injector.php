@@ -60,7 +60,7 @@ class Injector
 
         if ($snippet['callback'] instanceof BaseWidget) {
             $snippet['callback']->setResponse($response);
-            $output = $snippet['callback']->invoke();
+            $output = $snippet['callback']();
         } else {
             $output = $snippet['callback'];
         }

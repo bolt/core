@@ -14,7 +14,7 @@ class BoltHeaderWidget extends BaseWidget
     protected $target = Target::NOWHERE;
     protected $zone = Zone::FRONTEND;
 
-    public function invoke(?string $template = null): string
+    public function __invoke(?string $template = null): string
     {
         $this->response->headers->set('X-Powered-By', 'Bolt', false);
 

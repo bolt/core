@@ -87,7 +87,7 @@ class BaseWidget
         return $this;
     }
 
-    public function invoke(?string $template = null): string
+    public function __invoke(?string $template = null): string
     {
         if ($template === null) {
             $template = $this->template;

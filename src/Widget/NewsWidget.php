@@ -19,7 +19,7 @@ class NewsWidget extends BaseWidget
     protected $priority = 150;
     protected $template = '@bolt/widgets/news.twig';
 
-    public function invoke(?string $template = null): string
+    public function __invoke(?string $template = null): string
     {
         $news = $this->getNews();
 
@@ -33,7 +33,7 @@ class NewsWidget extends BaseWidget
             'datefetched' => '2019-04-04 07:25:00',
         ];
 
-        return parent::invoke($template);
+        return parent::__invoke($template);
     }
 
     /**

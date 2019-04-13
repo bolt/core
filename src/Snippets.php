@@ -101,7 +101,7 @@ class Snippets
             if ($twig !== null) {
                 $callback->setTwig($twig);
             }
-            return $callback->invoke();
+            return $callback();
         }
 
         return '<!-- No callback -->';
