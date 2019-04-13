@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Configuration\Areas;
-use Bolt\Configuration\Config;
 use Bolt\Content\MediaFactory;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -21,12 +20,15 @@ class ImagesFixtures extends BaseFixture
     /** @var Collection */
     private $urls;
 
-    private const AMOUNT = 10;
-
     /** @var MediaFactory */
     private $mediaFactory;
 
-    public function __construct(Config $config, Areas $areas, MediaFactory $mediaFactory)
+    /** @var Areas */
+    private $areas;
+
+    private const AMOUNT = 10;
+
+    public function __construct(Areas $areas, MediaFactory $mediaFactory)
     {
         $this->urls = new Collection([
             'https://source.unsplash.com/1280x1024/?business,workspace,interior/',
@@ -35,9 +37,9 @@ class ImagesFixtures extends BaseFixture
             'https://source.unsplash.com/1280x1024/?technology/',
         ]);
 
-        parent::__construct($config, $areas);
         $this->faker = Factory::create();
         $this->mediaFactory = $mediaFactory;
+        $this->areas = $areas;
     }
 
     public function load(ObjectManager $manager): void

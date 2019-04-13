@@ -31,12 +31,18 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
     /** @var Collection */
     private $imagesIndex;
 
+    /** @var Config */
+    private $config;
+
+    /** @var Areas */
+    private $areas;
+
     public function __construct(Config $config, Areas $areas)
     {
-        parent::__construct($config, $areas);
-
         $this->faker = Factory::create();
         $this->presetRecords = $this->getPresetRecords();
+        $this->config = $config;
+        $this->areas = $areas;
     }
 
     public function getDependencies()

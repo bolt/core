@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
-use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
 use Bolt\Utils\Str;
@@ -13,9 +12,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class TaxonomyFixtures extends BaseFixture
 {
-    public function __construct(Config $config, Areas $areas)
+    /** @var Config */
+    private $config;
+
+    public function __construct(Config $config)
     {
-        parent::__construct($config, $areas);
+        $this->config = $config;
     }
 
     public function load(ObjectManager $manager): void
