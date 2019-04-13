@@ -178,8 +178,8 @@ Feature: Get content with API
   """
   {
      "@context": "/api/contexts/Content",
-     "@id": "/api/contents/1",
-     "@type": "Content",
+     "@id": "/api/contents",
+     "@type": "hydra:Collection",
      "id": 1,
      "contentType": @string@,
      "publishedAt": "@string@.isDateTime()",
