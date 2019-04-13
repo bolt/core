@@ -1047,5 +1047,11 @@
         <target>View (saved version) on site</target>
       </segment>
     </unit>
+    <unit id="SeTqePC" name="label.display_name">
+      <segment>
+        <source>label.display_name</source>
+        <target>Display Name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

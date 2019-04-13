@@ -12,6 +12,6 @@ translation:
     edit_in_place:
         enabled: false
     configs:
-        app:
+        bolt:
             dirs: ["%kernel.project_dir%/templates", "%kernel.project_dir%/src"]
             output_dir: "%kernel.project_dir%/translations"

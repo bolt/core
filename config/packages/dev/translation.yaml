@@ -3,7 +3,7 @@ translation:
     symfony_profiler:
         enabled: true
     configs:
-        app:
+        bolt:
             remote_storage: ["php_translation.adapter.loco"]
 
 # php_translation_adapter_loco_adapter
