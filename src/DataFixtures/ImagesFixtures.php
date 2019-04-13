@@ -11,27 +11,29 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 
 class ImagesFixtures extends BaseFixture
 {
     /** @var Generator */
     private $faker;
 
-    private $urls = [];
+    /** @var Collection */
+    private $urls;
 
-    public const AMOUNT = 10;
+    private const AMOUNT = 10;
 
     /** @var MediaFactory */
     private $mediaFactory;
 
     public function __construct(Config $config, Areas $areas, MediaFactory $mediaFactory)
     {
-        $this->urls = [
+        $this->urls = new Collection([
             'https://source.unsplash.com/1280x1024/?business,workspace,interior/',
             'https://source.unsplash.com/1280x1024/?cityscape,landscape,nature/',
             'https://source.unsplash.com/1280x1024/?animal,kitten,puppy,cute/',
             'https://source.unsplash.com/1280x1024/?technology/',
-        ];
+        ]);
 
         parent::__construct($config, $areas);
         $this->faker = Factory::create();
@@ -54,8 +56,8 @@ class ImagesFixtures extends BaseFixture
             mkdir($outputPath);
         }
 
-        for ($i = 1; $i <= $this::AMOUNT; $i++) {
-            $url = $this->urls[array_rand($this->urls)] . random_int(10000, 99999);
+        for ($i = 1; $i <= self::AMOUNT; $i++) {
+            $url = $this->urls->random() . random_int(10000, 99999);
             $filename = 'image_' . random_int(10000, 99999) . '.jpg';
 
             $client = new Client();
