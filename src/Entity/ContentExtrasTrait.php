@@ -40,35 +40,4 @@ trait ContentExtrasTrait
             'editLink' => $this->contentExtension->getEditLink($content),
         ];
     }
-
-    public function jsonSerialize(): array
-    {
-        /** @var Content $content */
-        $content = $this;
-
-        if ($this->getDefinition() === null) {
-            return [];
-        }
-
-        return [
-            'id' => $content->getId(),
-            'contentType' => $content->getContentType(),
-            'slug' => $content->getSlug(),
-            'author' => [
-                'id' => $content->getAuthor()->getId(),
-                'displayName' => $content->getAuthor()->getDisplayName(),
-                'username' => $content->getAuthor()->getUsername(),
-                'email' => $content->getAuthor()->getEmail(),
-            ],
-            'fields' => $content->getFieldValues(),
-            'taxonomies' => $content->getTaxonomyValues(),
-            'extras' => $this->getExtras(),
-            'status' => $content->getStatus(),
-            'icon' => $content->getIcon(),
-            'createdAt' => $content->getCreatedAt(),
-            'modifiedAt' => $content->getModifiedAt(),
-            'publishedAt' => $content->getPublishedAt(),
-            'depublishedAt' => $content->getDepublishedAt(),
-        ];
-    }
 }

@@ -30,7 +30,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * })
  * @ORM\HasLifecycleCallbacks
  */
-class Content implements \JsonSerializable
+class Content
 {
     use ContentLocalizeTrait;
     use ContentExtrasTrait;
