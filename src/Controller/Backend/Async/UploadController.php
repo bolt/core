@@ -55,10 +55,10 @@ class UploadController
             return new JsonResponse(['error' => ['message' => 'Invalid CSRF token']], Response::HTTP_FORBIDDEN);
         }
 
-        $area = $request->query->get('area', '');
+        $location = $request->query->get('location', '');
         $path = $request->query->get('path', '');
 
-        $target = $this->config->getPath($area, true, $path);
+        $target = $this->config->getPath($location, true, $path);
 
         $uploadHandler = new Handler($target, [
             Handler::OPTION_AUTOCONFIRM => true,
@@ -82,11 +82,11 @@ class UploadController
         });
 
         /** @var File $result */
-        $result = $uploadHandler->process($request->files->all());
+        $result = $uploadHandler->process($_FILES);
 
         if ($result->isValid()) {
             try {
-                $media = $this->mediaFactory->createFromFilename($area, $path, $result->__get('name'));
+                $media = $this->mediaFactory->createFromFilename($location, $path, $result->__get('name'));
                 $this->em->persist($media);
                 $this->em->flush();
 

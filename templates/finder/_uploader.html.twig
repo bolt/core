@@ -5,6 +5,7 @@
     <div class="card-header">{{ 'caption.file_uploader'|trans }}</div>
 
     <form action="{{ path('bolt_async_upload', {'location': location, 'path': path}) }}" method="POST" class="dropzone" style="width:200px; height:200px; border:1px dashed crimson">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('upload') }}">
         <div class="fallback">
             <input name="file" type="file" multiple />
         </div>
