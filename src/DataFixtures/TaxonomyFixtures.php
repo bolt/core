@@ -12,14 +12,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class TaxonomyFixtures extends BaseFixture
 {
-    /**
-     * @var DeepCollection
-     */
+    /** @var Config */
     private $config;
 
     public function __construct(Config $config)
     {
-        $this->config = $config->get('taxonomies');
+        $this->config = $config;
     }
 
     public function load(ObjectManager $manager): void
@@ -32,7 +30,7 @@ class TaxonomyFixtures extends BaseFixture
     private function loadTaxonomies(ObjectManager $manager): void
     {
         $order = 1;
-        foreach ($this->config as $taxonomyDefinition) {
+        foreach ($this->config->get('taxonomies') as $taxonomyDefinition) {
             /** @var DeepCollection $taxonomyDefinition */
             $options = $taxonomyDefinition->isKeyEmpty('options') ? $this->getDefaultOptions() : $taxonomyDefinition['options'];
 

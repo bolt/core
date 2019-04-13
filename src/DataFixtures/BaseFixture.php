@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Finder\Finder;
+use Tightenco\Collect\Support\Collection;
+use Webmozart\PathUtil\Path;
 
 abstract class BaseFixture extends Fixture
 {
@@ -52,5 +55,30 @@ abstract class BaseFixture extends Fixture
         }
 
         return $taxonomies;
+    }
+
+    protected function getImagesIndex($path): Collection
+    {
+        $finder = $this->findFiles($path);
+
+        $files = [];
+
+        foreach ($finder as $file) {
+            $files[$file->getFilename()] = $file;
+        }
+
+        return new Collection($files);
+    }
+
+    private function findFiles(string $base): Finder
+    {
+        $fullpath = Path::canonicalize($base);
+
+        $glob = '*.{jpg,png,gif,jpeg}';
+
+        $finder = new Finder();
+        $finder->in($fullpath)->depth('< 2')->sortByName()->name($glob)->files();
+
+        return $finder;
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
+use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
 use Bolt\Controller\UserTrait;
 use Bolt\Entity\Media;
@@ -15,6 +16,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Tightenco\Collect\Support\Collection;
+use Webmozart\PathUtil\Path;
 
 class MediaFactory
 {
@@ -31,8 +33,9 @@ class MediaFactory
 
     /** @var Collection */
     private $mediaTypes;
+    private $areas;
 
-    public function __construct(Config $config, MediaRepository $mediaRepository, TokenStorageInterface $tokenStorage)
+    public function __construct(Config $config, Areas $areas, MediaRepository $mediaRepository, TokenStorageInterface $tokenStorage)
     {
         $this->config = $config;
         $this->mediaRepository = $mediaRepository;
@@ -40,20 +43,23 @@ class MediaFactory
 
         $this->exif = Reader::factory(Reader::TYPE_NATIVE);
         $this->mediaTypes = $config->getMediaTypes();
+        $this->areas = $areas;
     }
 
     public function createOrUpdateMedia(SplFileInfo $file, string $area, ?string $title = null): Media
     {
+        $path = Path::makeRelative($file->getPath(). '/', $this->areas->get($area, 'basepath'));
+
         $media = $this->mediaRepository->findOneBy([
             'area' => $area,
-            'path' => $file->getRelativePath(),
+            'path' => $path,
             'filename' => $file->getFilename(),
         ]);
 
         if ($media === null) {
             $media = new Media();
             $media->setFilename($file->getFilename())
-                ->setPath($file->getRelativePath())
+                ->setPath($path)
                 ->setArea($area);
         }
 
