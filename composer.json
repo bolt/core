@@ -46,7 +46,6 @@
         "symfony/polyfill-php72": "^1.8",
         "symfony/security-bundle": "^4.2",
         "symfony/serializer": "^4.2",
-        "symfony/stopwatch": "^4.2",
         "symfony/swiftmailer-bundle": "^3.2",
         "symfony/translation": "^4.2",
         "symfony/twig-bundle": "^4.2",
@@ -86,6 +85,7 @@
         "symfony/debug-bundle": "^4.2",
         "symfony/dotenv": "^4.2",
         "symfony/maker-bundle": "^1.11",
+        "symfony/stopwatch": "^4.2",
         "symfony/web-profiler-bundle": "^4.2",
         "symfony/web-server-bundle": "^4.2",
         "symplify/easy-coding-standard": "^5.4.6"

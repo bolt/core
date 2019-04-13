@@ -22,31 +22,23 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
 
     public function testNonExistingMenu(): void
     {
-        $menu = $this->menuBuilder->getMenu('foo');
-
-        $this->assertNull($menu);
-    }
-
-    public function testExistingMenu(): void
-    {
-        $menu = $this->menuBuilder->getMenu();
-
-        $this->assertInstanceOf(DeepCollection::class, $menu);
+        $this->expectException(\RuntimeException::class);
+        $this->menuBuilder->buildMenu('foo');
     }
 
     public function testDefaultMenuIsFirst(): void
     {
-        $menu1 = $this->menuBuilder->getMenu();
-        $menu2 = $this->menuBuilder->getMenu('main');
+        $menu1 = $this->menuBuilder->buildMenu();
+        $menu2 = $this->menuBuilder->buildMenu('main');
 
         $this->assertSame($menu1, $menu2);
     }
 
     public function testFirstItem(): void
     {
-        $menu = $this->menuBuilder->getMenu('main');
+        $menu = $this->menuBuilder->buildMenu('main');
 
-        $firstItem = $menu->first();
+        $firstItem = DeepCollection::deepMake($menu)->first();
 
         $this->assertSame('Home', $firstItem->get('label'));
         $this->assertSame('This is the <b>first<b> menu item.', $firstItem->get('title'));
@@ -60,9 +52,9 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
 
     public function testLastItem(): void
     {
-        $menu = $this->menuBuilder->getMenu('main');
+        $menu = $this->menuBuilder->buildMenu('main');
 
-        $lastItem = $menu->last();
+        $lastItem = DeepCollection::deepMake($menu)->last();
 
         $this->assertSame('The Bolt site', $lastItem->get('label'));
         $this->assertSame('Visit the excellent Bolt website!', $lastItem->get('title'));
@@ -76,11 +68,10 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
 
     public function testHasSubMenu(): void
     {
-        $menu = $this->menuBuilder->getMenu('main');
+        $menu = $this->menuBuilder->buildMenu('main');
 
-        $submenu = $menu->get('1')->get('submenu');
+        $submenu = $menu[1]['submenu'];
 
-        $this->assertInstanceOf(DeepCollection::class, $submenu);
         $this->assertCount(4, $submenu);
     }
 }

@@ -6,24 +6,22 @@ namespace Bolt\Menu;
 
 use Bolt\Configuration\Config;
 use Bolt\Content\ContentType;
-use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class MenuBuilder
+class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
+    public const MAX_LATEST_RECORDS = 5;
+
     /** @var FactoryInterface */
     private $menuFactory;
 
     /** @var Config */
     private $config;
-
-    /** @var Stopwatch */
-    private $stopwatch;
 
     /** @var ContentRepository */
     private $contentRepository;
@@ -37,21 +35,24 @@ class MenuBuilder
     /** @var ContentExtension */
     private $contentExtension;
 
-    public function __construct(FactoryInterface $menuFactory, Config $config, Stopwatch $stopwatch, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ContentExtension $contentExtension)
-    {
+    public function __construct(
+        FactoryInterface $menuFactory,
+        Config $config,
+        ContentRepository $contentRepository,
+        UrlGeneratorInterface $urlGenerator,
+        TranslatorInterface $translator,
+        ContentExtension $contentExtension
+    ) {
         $this->menuFactory = $menuFactory;
         $this->config = $config;
-        $this->stopwatch = $stopwatch;
         $this->contentRepository = $contentRepository;
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->contentExtension = $contentExtension;
     }
 
-    public function createSidebarMenu()
+    private function createAdminMenu(): ItemInterface
     {
-        $this->stopwatch->start('bolt.sidebar');
-
         $t = $this->translator;
 
         $menu = $this->menuFactory->createItem('root');
@@ -70,21 +71,22 @@ class MenuBuilder
             'icon' => 'fa-file',
         ]]);
 
+        /** @var ContentType[] $contentTypes */
         $contentTypes = $this->config->get('contenttypes');
 
         foreach ($contentTypes as $contentType) {
-            $menu->addChild($contentType['slug'], [
-                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contentType' => $contentType['slug']]),
+            $menu->addChild($contentType->getSlug(), [
+                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contentType' => $contentType->getSlug()]),
                 'extras' => [
                     'name' => $contentType['name'],
                     'singular_name' => $contentType['singular_name'],
-                    'slug' => $contentType['slug'],
+                    'slug' => $contentType->getSlug(),
                     'singular_slug' => $contentType['singular_slug'],
                     'icon' => $contentType['icon_many'],
-                    'link_new' => $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType['slug']]),
+                    'link_new' => $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType->getSlug()]),
                     'singleton' => $contentType['singleton'],
-                    'active' => $contentType['slug'] === 'pages' ? true : false,
-                    'submenu' => $this->getLatestRecords($contentType['slug']),
+                    'active' => $contentType->getSlug() === 'pages' ? true : false,
+                    'submenu' => $this->getLatestRecords($contentType),
                 ],
             ]);
         }
@@ -277,25 +279,15 @@ class MenuBuilder
             ],
         ]);
 
-        $this->stopwatch->stop('bolt.sidebar');
-
         return $menu;
     }
 
-    private function getLatestRecords($slug)
+    private function getLatestRecords(ContentType $contentType): array
     {
-        /** @var ContentType $ct */
-        $contentType = ContentType::factory($slug, $this->config->get('contenttypes'));
-
-        /** @var Content[] $records */
-        $this->stopwatch->start('menuBuilder.findLatest');
-        $records = $this->contentRepository->findLatest($contentType, 5);
-        $this->stopwatch->stop('menuBuilder.findLatest');
+        $records = $this->contentRepository->findLatest($contentType, self::MAX_LATEST_RECORDS);
 
         $result = [];
 
-        $this->stopwatch->start('menuBuilder.parseLatest');
-        /** @var Content $record */
         foreach ($records as $record) {
             $result[] = [
                 'id' => $record->getId(),
@@ -305,14 +297,13 @@ class MenuBuilder
                 'icon' => $record->getIcon(),
             ];
         }
-        $this->stopwatch->stop('menuBuilder.parseLatest');
 
         return $result;
     }
 
-    public function getMenu()
+    public function buildAdminMenu(): array
     {
-        $menu = $this->createSidebarMenu()->getChildren();
+        $menu = $this->createAdminMenu()->getChildren();
 
         $menuData = [];
 

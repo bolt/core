@@ -8,10 +8,10 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
-use Bolt\Repository\FieldRepository;
+use Bolt\Twig\ContentExtension;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class FrontendMenuBuilder
+class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
     /** @var Config */
     private $config;
@@ -22,53 +22,55 @@ class FrontendMenuBuilder
     /** @var ContentRepository */
     private $contentRepository;
 
-    /** @var FieldRepository */
-    private $fieldRepository;
+    /** @var ContentExtension */
+    private $contentExtension;
 
     public function __construct(
         Config $config,
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
-        FieldRepository $fieldRepository
+        ContentExtension $contentExtension
     ) {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
-        $this->fieldRepository = $fieldRepository;
+        $this->contentExtension = $contentExtension;
     }
 
-    public function getMenu(?string $name = null): ?DeepCollection
+    public function buildMenu(?string $name = null): array
     {
         /** @var DeepCollection $menuConfig */
         $menuConfig = $this->config->get('menu');
 
         if ($name === null) {
-            $menu = $menuConfig->first();
+            $menu = $menuConfig->first()->toArray();
         } elseif ($name !== '' && isset($menuConfig[$name])) {
-            $menu = $menuConfig[$name];
+            $menu = $menuConfig[$name]->toArray();
         } else {
-            return null;
+            throw new \RuntimeException("Tried to build non-existing menu: {$name}");
         }
 
-        foreach ($menu as $item) {
-            $this->updateItem($item);
-        }
+        $menu = array_map(function ($item): array {
+            return $this->setUris($item);
+        }, $menu);
 
         return $menu;
     }
 
-    private function updateItem(DeepCollection $item): void
+    private function setUris(array $item): array
     {
-        $item['uri'] = $this->setUri($item['link']);
+        $item['uri'] = $this->generateUri($item['link']);
 
         if (is_iterable($item['submenu'])) {
-            foreach ($item['submenu'] as $sub) {
-                $this->updateItem($sub);
-            }
+            $item['submenu'] = array_map(function ($sub): array {
+                return $this->setUris($sub);
+            }, $item['submenu']);
         }
+
+        return $item;
     }
 
-    private function setUri(string $link = ''): string
+    private function generateUri(string $link = ''): string
     {
         $trimmedLink = trim($link, '/');
 
@@ -78,10 +80,10 @@ class FrontendMenuBuilder
         }
 
         // If it looks like `contenttype/slug`, get the Record.
-        if (mb_strpos($trimmedLink, '/') && mb_strpos($trimmedLink, 'http') === false) {
+        if (preg_match('/^[a-zA-Z\-\_]+\/[0-9a-zA-Z\-\_]+$/', $trimmedLink)) {
             $content = $this->getContent($trimmedLink);
             if ($content) {
-                return $content->getExtras()['link'];
+                return $this->contentExtension->getLink($content);
             }
         }
 
@@ -95,15 +97,11 @@ class FrontendMenuBuilder
 
         // First, try to get it if the id is numeric.
         if (is_numeric($parts[1])) {
-            return $this->contentRepository->findOneBy(['id' => (int) $parts[1]]);
+            return $this->contentRepository->findOneById((int) $parts[1]);
         }
 
         // Otherwise fetch it by getting it from the slug
-        $field = $this->fieldRepository->findOneBySlug($parts[1]);
-        if ($field === null) {
-            return null;
-        }
-
-        return $field->getContent();
+        // @todo it should check content type slug too
+        return $this->contentRepository->findOneBySlug($parts[1]);
     }
 }

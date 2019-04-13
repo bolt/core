@@ -8,15 +8,24 @@ use Tightenco\Collect\Support\Collection;
 
 class DeepCollection extends Collection
 {
-    public static function deepMake($items): Collection
+    /**
+     * @return static
+     */
+    public static function deepMake($items): self
     {
-        return parent::make($items)->map(function ($value) {
+        if ($items instanceof self) {
+            return $items;
+        }
+
+        $items = parent::make($items)->map(function ($value) {
             if (is_array($value) || $value instanceof \Traversable) {
                 return static::deepMake($value);
             }
 
             return $value;
         });
+
+        return $items;
     }
 
     public function isKeyEmpty($key): bool
