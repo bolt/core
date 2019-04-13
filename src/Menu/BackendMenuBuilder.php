@@ -114,7 +114,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $menu->getChild('Configuration')->addChild('Main configuration', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'area' => 'config',
+                'location' => 'config',
                 'file' => '/bolt/config.yaml',
             ]),
             'extras' => [
@@ -125,7 +125,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $menu->getChild('Configuration')->addChild('ContentTypes', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'area' => 'config',
+                'location' => 'config',
                 'file' => '/bolt/contenttypes.yaml',
             ]),
             'extras' => [
@@ -136,7 +136,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $menu->getChild('Configuration')->addChild('Taxonomies', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'area' => 'config',
+                'location' => 'config',
                 'file' => '/bolt/taxonomy.yaml',
             ]),
             'extras' => [
@@ -147,7 +147,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $menu->getChild('Configuration')->addChild('Menu set up', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'area' => 'config',
+                'location' => 'config',
                 'file' => '/bolt/menu.yaml',
             ]),
             'extras' => [
@@ -159,7 +159,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $menu->getChild('Configuration')->addChild('Routing set up', [
             'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'area' => 'config',
+                'location' => 'config',
                 'file' => '/routes.yaml',
             ]),
             'extras' => [
@@ -169,7 +169,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
         ]);
 
         $menu->getChild('Configuration')->addChild('All configuration files', [
-            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'config']),
+            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'config']),
             'extras' => [
                 'name' => $t->trans('caption.all_configuration_files'),
                 'icon' => 'fa-cogs',
@@ -264,7 +264,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
         ]]);
 
         $menu->getChild('File Management')->addChild('Uploaded files', [
-            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'files']),
+            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'files']),
             'extras' => [
                 'name' => $t->trans('caption.uploaded_files'),
                 'icon' => 'fa-archive',
@@ -272,7 +272,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
         ]);
 
         $menu->getChild('File Management')->addChild('View/edit Templates', [
-            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['area' => 'themes']),
+            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'themes']),
             'extras' => [
                 'name' => $t->trans('caption.view_edit_templates'),
                 'icon' => 'fa-scroll',

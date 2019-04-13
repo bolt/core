@@ -4,7 +4,7 @@
 <div class="card mb-4">
     <div class="card-header">{{ 'caption.file_uploader'|trans }}</div>
 
-    <form action="{{ path('bolt_async_upload', {'area': area, 'path': path}) }}" method="POST" class="dropzone" style="width:200px; height:200px; border:1px dashed crimson">
+    <form action="{{ path('bolt_async_upload', {'location': location, 'path': path}) }}" method="POST" class="dropzone" style="width:200px; height:200px; border:1px dashed crimson">
         <div class="fallback">
             <input name="file" type="file" multiple />
         </div>

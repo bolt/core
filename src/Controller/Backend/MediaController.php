@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Configuration\Areas;
+use Bolt\Configuration\FileLocations;
 use Bolt\Content\MediaFactory;
 use Bolt\Controller\TwigAwareController;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -22,13 +22,13 @@ class MediaController extends TwigAwareController
     /** @var ObjectManager */
     private $em;
 
-    /** @var Areas */
+    /** @var FileLocations */
     private $areas;
 
     /** @var MediaFactory */
     private $mediaFactory;
 
-    public function __construct(ObjectManager $em, Areas $areas, MediaFactory $mediaFactory)
+    public function __construct(ObjectManager $em, FileLocations $areas, MediaFactory $mediaFactory)
     {
         $this->em = $em;
         $this->areas = $areas;
@@ -40,7 +40,7 @@ class MediaController extends TwigAwareController
      */
     public function finder(string $area): Response
     {
-        $basepath = $this->areas->get($area, 'basepath');
+        $basepath = $this->areas->get($area)->getBasepath();
 
         $finder = $this->findFiles($basepath);
 
@@ -53,7 +53,7 @@ class MediaController extends TwigAwareController
 
         return $this->renderTemplate('@bolt/finder/finder.twig', [
             'path' => 'path',
-            'name' => $this->areas->get($area, 'name'),
+            'name' => $this->areas->get($area)->getName(),
             'area' => $area,
             'finder' => $finder,
             'parent' => 'parent',

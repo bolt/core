@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
-use Bolt\Configuration\Areas;
+use Bolt\Configuration\FileLocations;
 use Bolt\Configuration\Config;
 use Bolt\Controller\UserTrait;
 use Bolt\Entity\Media;
@@ -33,9 +33,9 @@ class MediaFactory
 
     /** @var Collection */
     private $mediaTypes;
-    private $areas;
+    private $fileLocations;
 
-    public function __construct(Config $config, Areas $areas, MediaRepository $mediaRepository, TokenStorageInterface $tokenStorage)
+    public function __construct(Config $config, FileLocations $fileLocations, MediaRepository $mediaRepository, TokenStorageInterface $tokenStorage)
     {
         $this->config = $config;
         $this->mediaRepository = $mediaRepository;
@@ -43,15 +43,15 @@ class MediaFactory
 
         $this->exif = Reader::factory(Reader::TYPE_NATIVE);
         $this->mediaTypes = $config->getMediaTypes();
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
     }
 
-    public function createOrUpdateMedia(SplFileInfo $file, string $area, ?string $title = null): Media
+    public function createOrUpdateMedia(SplFileInfo $file, string $fileLocation, ?string $title = null): Media
     {
-        $path = Path::makeRelative($file->getPath(). '/', $this->areas->get($area, 'basepath'));
+        $path = Path::makeRelative($file->getPath(). '/', $this->fileLocations->get($fileLocation)->getBasepath());
 
         $media = $this->mediaRepository->findOneBy([
-            'area' => $area,
+            'area' => $fileLocation,
             'path' => $path,
             'filename' => $file->getFilename(),
         ]);
@@ -60,7 +60,7 @@ class MediaFactory
             $media = new Media();
             $media->setFilename($file->getFilename())
                 ->setPath($path)
-                ->setArea($area);
+                ->setArea($fileLocation);
         }
 
         if ($this->mediaTypes->contains($file->getExtension()) === false) {

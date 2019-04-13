@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
-use Bolt\Configuration\Areas;
+use Bolt\Configuration\FileLocations;
 use Bolt\Content\MediaFactory;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -23,12 +23,12 @@ class ImagesFixtures extends BaseFixture
     /** @var MediaFactory */
     private $mediaFactory;
 
-    /** @var Areas */
+    /** @var FileLocations */
     private $areas;
 
     private const AMOUNT = 10;
 
-    public function __construct(Areas $areas, MediaFactory $mediaFactory)
+    public function __construct(FileLocations $areas, MediaFactory $mediaFactory)
     {
         $this->urls = new Collection([
             'https://source.unsplash.com/1280x1024/?business,workspace,interior/',
@@ -52,7 +52,7 @@ class ImagesFixtures extends BaseFixture
 
     private function fetchImages(): void
     {
-        $outputPath = $this->areas->get('files', 'basepath') . '/stock/';
+        $outputPath = $this->areas->get('files')->getBasepath() . '/stock/';
 
         if (! is_dir($outputPath)) {
             mkdir($outputPath);
@@ -70,7 +70,7 @@ class ImagesFixtures extends BaseFixture
 
     private function loadImages(ObjectManager $manager): void
     {
-        $path = $this->areas->get('files', 'basepath') . '/stock/';
+        $path = $this->areas->get('files')->getBasepath() . '/stock/';
 
         $index = $this->getImagesIndex($path);
 

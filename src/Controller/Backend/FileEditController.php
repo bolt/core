@@ -30,20 +30,20 @@ class FileEditController extends TwigAwareController
     }
 
     /**
-     * @Route("/file-edit/{area}", name="bolt_file_edit", methods={"GET"})
+     * @Route("/file-edit/{location}", name="bolt_file_edit", methods={"GET"})
      */
-    public function edit(string $area, Request $request): Response
+    public function edit(string $location, Request $request): Response
     {
         $file = $request->query->get('file');
         if (mb_strpos($file, '/') !== 0) {
             $file = '/' . $file;
         }
-        $basepath = $this->config->getPath($area);
+        $basepath = $this->config->getPath($location);
         $filename = Path::canonicalize($basepath . '/' . $file);
         $contents = file_get_contents($filename);
 
         $context = [
-            'area' => $area,
+            'area' => $location,
             'file' => $file,
             'contents' => $contents,
         ];
