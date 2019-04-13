@@ -167,8 +167,8 @@ translations, and keep them up to date. If you wish to participate, read the
 [instructions here][translations].
 
 Are are several translation-related commands:
-- `bin/console translation:download` - download translations from Loco (replaces all local ones)
-- `bin/console translation:sync bolt down` - download translations from Loco (replaces local changes if there is a conflict)
+- `bin/console translation:download` - downloads translations from Loco (replaces all local ones)
+- `bin/console translation:sync bolt down` - downloads translations from Loco (replaces local changes if there is a conflict)
 - `bin/console translation:sync bolt up` - sends updated translations to Loco
 
 
