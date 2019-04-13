@@ -43,7 +43,7 @@ class FileEditController extends TwigAwareController
         $contents = file_get_contents($filename);
 
         $context = [
-            'area' => $location,
+            'location' => $location,
             'file' => $file,
             'contents' => $contents,
         ];

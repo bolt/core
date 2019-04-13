@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Content;
 
-use Bolt\Configuration\FileLocations;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\FileLocations;
 use Bolt\Controller\UserTrait;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
