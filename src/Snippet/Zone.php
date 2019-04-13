@@ -56,7 +56,7 @@ class Zone
     /**
      * Get the current zone.
      */
-    public static function get(Request $request): ?string
+    public static function get(Request $request): string
     {
         return $request->attributes->get(static::KEY) ?: static::NOWHERE;
     }
