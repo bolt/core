@@ -17,7 +17,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class MediaController extends TwigAwareController implements BackendControllerInterface
+class MediaController extends TwigAwareController implements BackendZone
 {
     /** @var ObjectManager */
     private $em;

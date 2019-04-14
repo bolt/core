@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TaxonomyController extends TwigAwareController implements FrontendControllerInterface
+class TaxonomyController extends TwigAwareController implements FrontendZone
 {
     /**
      * @var TemplateChooser

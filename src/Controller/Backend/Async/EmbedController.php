@@ -18,7 +18,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EmbedController implements AsyncControllerInterface
+class EmbedController implements AsyncZone
 {
     use CsrfTrait;
 

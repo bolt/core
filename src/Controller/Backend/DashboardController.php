@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class DashboardController extends TwigAwareController implements BackendControllerInterface
+class DashboardController extends TwigAwareController implements BackendZone
 {
     /**
      * @Route("/", name="bolt_dashboard", methods={"GET"})

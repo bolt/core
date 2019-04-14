@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class FixturesController extends TwigAwareController implements BackendControllerInterface
+class FixturesController extends TwigAwareController implements BackendZone
 {
     /**
      * @Route("/fixtures", name="bolt_fixtures")

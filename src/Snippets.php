@@ -78,7 +78,7 @@ class Snippets
         $widget = $this->queue->where('name', $name)->first();
 
         if ($widget) {
-            return $this->invoke($widget['callback']);
+            return $this($widget['callback']);
         }
     }
 
@@ -89,7 +89,7 @@ class Snippets
         $output = '';
 
         foreach ($widgets as $widget) {
-            $output .= $this->invoke($widget['callback']);
+            $output .= $this($widget['callback']);
         }
 
         return $output;
@@ -98,7 +98,7 @@ class Snippets
     /**
      * @param BaseWidget|string|callable $callback
      */
-    public function invoke($callback): string
+    public function __invoke($callback): string
     {
         if (is_string($callback)) {
             return $callback;
