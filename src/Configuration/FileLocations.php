@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Configuration;
 
-final class FileLocations
+class FileLocations
 {
     /** @var array */
     private $locations = [];
