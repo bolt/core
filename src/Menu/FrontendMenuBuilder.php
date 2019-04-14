@@ -11,7 +11,7 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class FrontendMenuBuilder implements FrontendMenuBuilderInterface
+final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
     /** @var Config */
     private $config;
