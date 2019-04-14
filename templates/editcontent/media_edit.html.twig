@@ -8,10 +8,10 @@
 
 {% block main %}
 
-    <h2>{{ 'caption.filename'|trans }} » <strong>{{ media.area }}://{% if media.path %}{{ media.path }}/{% endif %}{{ media.filename }}</strong></h2>
+    <h2>{{ 'caption.filename'|trans }} » <strong>{{ media.location }}://{% if media.path %}{{ media.path }}/{% endif %}{{ media.filename }}</strong></h2>
 
     <div class="imageholder">
-        {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, location = media.area, path = media.path) %}
+        {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, location = media.location, path = media.path) %}
         <img id="main_image" src="{{ thumbnail }}">
     </div>
 
@@ -127,7 +127,7 @@
     {{ parent() }}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js"></script>
 
-    {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, location = media.area, path = media.path) %}
+    {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, location = media.location, path = media.path) %}
     <script>
         var img = document.createElement('img');
         img.setAttribute('src', '{{ thumbnail|raw }}');
