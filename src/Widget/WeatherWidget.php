@@ -6,7 +6,7 @@ namespace Bolt\Widget;
 
 use Bolt\Snippet\Target;
 
-class WeatherWidget extends BaseWidget
+class WeatherWidget extends BaseWidget implements TwigAware
 {
     protected $name = 'Weather Widget';
     protected $type = 'widget';

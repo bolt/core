@@ -12,6 +12,7 @@ use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
 use Bolt\Widget\NewsWidget;
 use Bolt\Widget\SnippetWidget;
+use Bolt\Widget\TwigAware;
 use Bolt\Widget\WeatherWidget;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -44,7 +45,10 @@ class Widgets
     public function registerWidget(BaseWidget $widget): void
     {
         $widget->setRequest($this->request);
-        $widget->setTwig($this->twig);
+
+        if ($widget instanceof TwigAware) {
+            $widget->setTwig($this->twig);
+        }
 
         $this->queue->push([
             'priority' => $widget->getPriority(),
@@ -60,7 +64,7 @@ class Widgets
         $widget = $this->queue->where('name', $name)->first();
 
         if ($widget) {
-            return $this($widget['callback']);
+            return $widget['callback']();
         }
     }
 
@@ -71,24 +75,10 @@ class Widgets
         $output = '';
 
         foreach ($widgets as $widget) {
-            $output .= $this($widget['callback']);
+            $output .= $widget['callback']();
         }
 
         return $output;
-    }
-
-    /**
-     * @param BaseWidget|string|callable $callback
-     */
-    public function __invoke($callback): string
-    {
-        if (is_string($callback)) {
-            return $callback;
-        } elseif ($callback instanceof BaseWidget) {
-            return $callback();
-        }
-
-        return '<!-- No callback -->';
     }
 
     public function processQueue(Response $response): Response

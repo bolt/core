@@ -93,7 +93,11 @@ class BaseWidget
             $template = $this->template;
         }
 
-        $output = $this->twig->render($template, $this->context);
+        if ($this instanceof TwigAware) {
+            $output = $this->twig->render($template, $this->context);
+        } else {
+            $output = $template;
+        }
 
         return sprintf(
             '<div id="widget-%s" name="%s">%s</div>',

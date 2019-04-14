@@ -77,9 +77,6 @@ class Target
 
     public const NOWHERE = 'nowhere';
 
-    /**
-     * Returns all possible target locations (which are constants).
-     */
     public function listAll(): array
     {
         $reflection = new ReflectionClass($this);
