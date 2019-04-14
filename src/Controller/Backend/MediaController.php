@@ -36,16 +36,16 @@ class MediaController extends TwigAwareController
     }
 
     /**
-     * @Route("/media/crawl/{area}", name="bolt_media_crawler", methods={"GET"})
+     * @Route("/media/crawl/{location}", name="bolt_media_crawler", methods={"GET"})
      */
-    public function finder(string $area): Response
+    public function finder(string $locationName): Response
     {
-        $basepath = $this->fileLocations->get($area)->getBasepath();
+        $basepath = $this->fileLocations->get($locationName)->getBasepath();
 
         $finder = $this->findFiles($basepath);
 
         foreach ($finder as $file) {
-            $media = $this->mediaFactory->createOrUpdateMedia($file, $area);
+            $media = $this->mediaFactory->createOrUpdateMedia($file, $locationName);
 
             $this->em->persist($media);
             $this->em->flush();
@@ -53,8 +53,8 @@ class MediaController extends TwigAwareController
 
         return $this->renderTemplate('@bolt/finder/finder.twig', [
             'path' => 'path',
-            'name' => $this->fileLocations->get($area)->getName(),
-            'area' => $area,
+            'name' => $this->fileLocations->get($locationName)->getName(),
+            'location' => $locationName,
             'finder' => $finder,
             'parent' => 'parent',
         ]);

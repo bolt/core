@@ -18,10 +18,10 @@ class FileLocations
         $this->initLocations();
     }
 
-    public function get(string $area): ?FileLocation
+    public function get(string $locationName): ?FileLocation
     {
-        if (array_key_exists($area, $this->locations)) {
-            return $this->locations[$area];
+        if (array_key_exists($locationName, $this->locations)) {
+            return $this->locations[$locationName];
         }
 
         return null;

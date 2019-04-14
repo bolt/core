@@ -35,14 +35,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
     private $config;
 
     /** @var FileLocations */
-    private $areas;
+    private $fileLocations;
 
-    public function __construct(Config $config, FileLocations $areas)
+    public function __construct(Config $config, FileLocations $fileLocations)
     {
         $this->faker = Factory::create();
         $this->presetRecords = $this->getPresetRecords();
         $this->config = $config;
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
     }
 
     public function getDependencies()
@@ -55,7 +55,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $path = $this->areas->get('files')->getBasepath() . '/stock/';
+        $path = $this->fileLocations->get('files')->getBasepath() . '/stock/';
         $this->imagesIndex = $this->getImagesIndex($path);
 
         $this->loadContent($manager);

@@ -109,11 +109,11 @@ class MediaFactory
         return in_array($media->getType(), ['gif', 'png', 'jpg', 'svg'], true);
     }
 
-    public function createFromFilename($area, $path, $filename): Media
+    public function createFromFilename(string $locationName, string $path, string $filename): Media
     {
-        $target = $this->config->getPath($area, true, [$path, $filename]);
+        $target = $this->config->getPath($locationName, true, [$path, $filename]);
         $file = new SplFileInfo($target, $path, $filename);
 
-        return $this->createOrUpdateMedia($file, $area);
+        return $this->createOrUpdateMedia($file, $locationName);
     }
 }

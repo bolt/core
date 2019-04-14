@@ -9,14 +9,14 @@ class FileLocation
     private $key;
     private $name;
     private $basepath;
-    private $show_all = false;
+    private $showAll = false;
 
-    public function __construct(string $key, string $name, string $basepath, bool $show_all)
+    public function __construct(string $key, string $name, string $basepath, bool $showAll)
     {
         $this->key = $key;
         $this->name = $name;
         $this->basepath = $basepath;
-        $this->show_all = $show_all;
+        $this->showAll = $showAll;
     }
 
     public function getKey(): string
@@ -36,6 +36,6 @@ class FileLocation
 
     public function isShowAll(): bool
     {
-        return $this->show_all;
+        return $this->showAll;
     }
 }

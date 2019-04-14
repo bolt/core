@@ -52,25 +52,25 @@ class FileEditController extends TwigAwareController
     }
 
     /**
-     * @Route("/file-edit/{area}", name="bolt_file-edit_post", methods={"POST"}, requirements={"file"=".+"})
+     * @Route("/file-edit/{location}", name="bolt_file-edit_post", methods={"POST"}, requirements={"file"=".+"})
      */
     public function save(Request $request, UrlGeneratorInterface $urlGenerator): Response
     {
         $this->validateCsrf($request, 'editfile');
 
         $file = $request->request->get('file');
-        $area = $request->request->get('area');
+        $locationName = $request->request->get('location');
         $contents = $request->request->get('editfile');
         $extension = Path::getExtension($file);
 
         $url = $urlGenerator->generate('bolt_file_edit', [
-            'area' => $area,
+            'location' => $locationName,
             'file' => $file,
         ]);
 
         if (in_array($extension, ['yml', 'yaml'], true) && ! $this->verifyYaml($contents)) {
             $context = [
-                'area' => $area,
+                'location' => $locationName,
                 'file' => $file,
                 'contents' => $contents,
             ];
@@ -78,7 +78,7 @@ class FileEditController extends TwigAwareController
             return $this->renderTemplate('@bolt/finder/editfile.html.twig', $context);
         }
 
-        $basepath = $this->config->getPath($area);
+        $basepath = $this->config->getPath($locationName);
         $filename = Path::canonicalize($basepath . '/' . $file);
 
         // @todo maybe replace file_put_contents with some more abstract Filesystem?
