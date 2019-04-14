@@ -12,7 +12,7 @@ use Tightenco\Collect\Support\Collection;
  */
 class QueueProcessor
 {
-    /** @var Injector */
+    /** @var HtmlInjector */
     protected $injector;
 
     /** @var array */
@@ -20,7 +20,7 @@ class QueueProcessor
 
     private $matchedCommentsCount = 0;
 
-    public function __construct(Injector $injector)
+    public function __construct(HtmlInjector $injector)
     {
         $this->injector = $injector;
     }

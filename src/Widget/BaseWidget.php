@@ -32,15 +32,13 @@ class BaseWidget
     /** @var Response */
     protected $response;
 
-    /** @var string */
+    /** @var ?string */
     protected $slug;
 
     public function setName(string $name): self
     {
-        $slugify = Slugify::create();
-
         $this->name = $name;
-        $this->slug = $slugify->slugify($this->name);
+        $this->slug = null;
 
         return $this;
     }
@@ -165,6 +163,11 @@ class BaseWidget
 
     public function getSlug(): string
     {
+        if ($this->slug === null) {
+            $slugify = Slugify::create();
+            $this->slug = $slugify->slugify($this->name);
+        }
+
         return $this->slug;
     }
 }

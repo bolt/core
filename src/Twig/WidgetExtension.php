@@ -14,11 +14,11 @@ use Twig\TwigFunction;
 class WidgetExtension extends AbstractExtension
 {
     /** @var Widgets */
-    private $snippets;
+    private $widgetRenderer;
 
-    public function __construct(Widgets $snippets)
+    public function __construct(Widgets $widgets)
     {
-        $this->snippets = $snippets;
+        $this->widgetRenderer = $widgets;
     }
     /**
      * {@inheritdoc}
@@ -38,12 +38,12 @@ class WidgetExtension extends AbstractExtension
 
     public function renderWidgetByName(string $name): string
     {
-        return $this->snippets->renderWidgetByName($name);
+        return $this->widgetRenderer->renderWidgetByName($name);
     }
 
     public function renderWidgetsForTarget(string $target): string
     {
-        return $this->snippets->renderWidgetsForTarget($target);
+        return $this->widgetRenderer->renderWidgetsForTarget($target);
     }
 
     public function dummy($input = null): string

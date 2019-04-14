@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Asset;
 
-use Bolt\Snippet\Injector;
+use Bolt\Snippet\HtmlInjector;
 use Bolt\Snippet\Target;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 
-class InjectorTest extends TestCase
+class HtmlInjectorTest extends TestCase
 {
     public function providerTarget()
     {
-        $constants = (new Collection(array_keys((new Target)->listAll())))
+        $list = (new Target())->listAll();
+        $constants = (new Collection(array_keys($list)))
             ->filter(function ($v) {
                 return mb_strpos($v, 'WIDGET') === false && mb_strpos($v, 'NOWHERE') === false;
             })
@@ -31,7 +32,7 @@ class InjectorTest extends TestCase
     public function testMap(string $constant): void
     {
         $constant = constant('Bolt\Snippet\Target::' . $constant);
-        $injector = new Injector();
+        $injector = new HtmlInjector();
 
         self::assertArrayHasKey($constant, $injector->getMap());
     }
@@ -43,7 +44,7 @@ class InjectorTest extends TestCase
     {
         $expected = file_get_contents(__DIR__ . '/../../fixtures/Injector/result.' . $constant . '.html');
         $constant = constant('Bolt\Snippet\Target::' . $constant);
-        $injector = new Injector();
+        $injector = new HtmlInjector();
 
         $snippet = [
             'callback' => 'koala',
@@ -61,8 +62,7 @@ class InjectorTest extends TestCase
      */
     public function testInjectInvalidLocation(string $constant): void
     {
-        $constant = constant('Bolt\Snippet\Target::' . $constant);
-        $injector = new Injector();
+        $injector = new HtmlInjector();
 
         $snippet = [
             'callback' => 'koala',
@@ -82,7 +82,7 @@ class InjectorTest extends TestCase
     public function testInjectEmptyHtml(string $constant): void
     {
         $constant = constant('Bolt\Snippet\Target::' . $constant);
-        $injector = new Injector();
+        $injector = new HtmlInjector();
 
         $snippet = [
             'callback' => 'koala',
@@ -101,7 +101,7 @@ class InjectorTest extends TestCase
     public function testInjectTagSoup(string $constant): void
     {
         $constant = constant('Bolt\Snippet\Target::' . $constant);
-        $injector = new Injector();
+        $injector = new HtmlInjector();
 
         $snippet = [
             'callback' => 'koala',

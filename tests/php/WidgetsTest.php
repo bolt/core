@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Bolt\Tests;
 
-use Bolt\Snippet\Injector;
+use Bolt\Snippet\HtmlInjector;
 use Bolt\Snippet\QueueProcessor;
 use Bolt\Snippet\Target;
 use Bolt\Snippet\Zone;
-use Bolt\Widgets;
 use Bolt\Widget\BoltHeaderWidget;
+use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\WeatherWidget;
+use Bolt\Widgets;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -22,7 +23,7 @@ class WidgetsTest extends TestCase
 {
     public function testProcessWidgetsInQueue(): void
     {
-        $queueprocessor = new QueueProcessor(new Injector());
+        $queueprocessor = new QueueProcessor(new HtmlInjector());
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
 
@@ -32,7 +33,11 @@ class WidgetsTest extends TestCase
         $widgets = new Widgets($requestStack, $queueprocessor, $twig);
         $response = new Response('<html><body>foo</body></html>');
 
-        $widgets->registerSnippet('*foo*', Target::END_OF_BODY, Zone::NOWHERE, 'test');
+        $snippet = (new SnippetWidget())
+            ->setSnippet('*foo*')
+            ->setTarget(Target::END_OF_BODY);
+
+        $widgets->registerWidget($snippet);
         $widgets->processQueue($response);
 
         $this->assertSame("<html><body>foo</body></html>*foo*\n", $response->getContent());
@@ -40,7 +45,7 @@ class WidgetsTest extends TestCase
 
     public function testRenderWidget(): void
     {
-        $queueprocessor = new QueueProcessor(new Injector());
+        $queueprocessor = new QueueProcessor(new HtmlInjector());
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
 
@@ -62,7 +67,7 @@ class WidgetsTest extends TestCase
 
     public function testProcessHeaderWidget(): void
     {
-        $queueprocessor = new QueueProcessor(new Injector());
+        $queueprocessor = new QueueProcessor(new HtmlInjector());
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
 

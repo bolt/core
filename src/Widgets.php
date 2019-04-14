@@ -11,6 +11,7 @@ use Bolt\Widget\BaseWidget;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
 use Bolt\Widget\NewsWidget;
+use Bolt\Widget\RequestAware;
 use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\TwigAware;
 use Bolt\Widget\WeatherWidget;
@@ -44,7 +45,9 @@ class Widgets
 
     public function registerWidget(BaseWidget $widget): void
     {
-        $widget->setRequest($this->request);
+        if ($widget instanceof RequestAware) {
+            $widget->setRequest($this->request);
+        }
 
         if ($widget instanceof TwigAware) {
             $widget->setTwig($this->twig);

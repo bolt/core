@@ -11,7 +11,7 @@ use Bolt\Version;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-class NewsWidget extends BaseWidget implements TwigAware
+class NewsWidget extends BaseWidget implements TwigAware, RequestAware
 {
     protected $name = 'News Widget';
     protected $type = 'widget';

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class for matching HTML elements and injecting text.
  */
-class Injector
+class HtmlInjector
 {
     /**
      * Get a map of function names to locations. We don't have unique callbacks

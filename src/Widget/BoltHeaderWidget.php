@@ -16,7 +16,7 @@ class BoltHeaderWidget extends BaseWidget
 
     public function __invoke(?string $template = null): string
     {
-        $this->response->headers->set('X-Powered-By', 'Bolt', false);
+        $this->getResponse()->headers->set('X-Powered-By', 'Bolt', false);
 
         return '';
     }
