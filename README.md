@@ -169,7 +169,7 @@ translations, and keep them up to date. If you wish to participate, read the
 Several translation-related Console commands are available:
 - `bin/console translation:download` - Download translations from Loco (replaces all local ones)
 - `bin/console translation:sync bolt down` - Download translations from Loco (replaces local changes if there is a conflict)
-- `bin/console translation:sync bolt up` - Sends updated translations to Loco
+- `bin/console translation:sync bolt up` - Send updated translations to Loco
 
 
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
