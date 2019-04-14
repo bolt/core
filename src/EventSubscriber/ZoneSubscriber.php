@@ -16,6 +16,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ZoneSubscriber implements EventSubscriberInterface
 {
+    const PRIORITY = 31;
+
     /**
      * Kernel request listener callback.
      */
@@ -78,7 +80,7 @@ class ZoneSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => [['onKernelRequest', 31]], // Right after route is matched
+            KernelEvents::REQUEST => [['onKernelRequest', self::PRIORITY]], // Right after route is matched
         ];
     }
 }

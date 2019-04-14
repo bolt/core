@@ -25,7 +25,11 @@ class SnippetsTest extends TestCase
         $queueprocessor = new QueueProcessor(new Injector());
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
-        $snippets = new Snippets($requestStack, $queueprocessor);
+
+        $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
+        $twig = new Environment($loader);
+
+        $snippets = new Snippets($requestStack, $queueprocessor, $twig);
         $response = new Response('<html><body>foo</body></html>');
 
         $snippets->registerSnippet('*foo*', Target::END_OF_BODY, Zone::NOWHERE, 'test');
@@ -39,10 +43,11 @@ class SnippetsTest extends TestCase
         $queueprocessor = new QueueProcessor(new Injector());
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
-        $snippets = new Snippets($requestStack, $queueprocessor);
 
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
+
+        $snippets = new Snippets($requestStack, $queueprocessor, $twig);
 
         $weatherWidget = new WeatherWidget();
         $weatherWidget->setTemplate('weather.twig');
@@ -51,7 +56,7 @@ class SnippetsTest extends TestCase
 
         $this->assertSame(
             '<div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>',
-            $snippets->renderWidgetByName('Weather Widget', $twig)
+            $snippets->renderWidgetByName('Weather Widget')
         );
     }
 
@@ -60,7 +65,12 @@ class SnippetsTest extends TestCase
         $queueprocessor = new QueueProcessor(new Injector());
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
-        $snippets = new Snippets($requestStack, $queueprocessor);
+
+        $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
+        $twig = new Environment($loader);
+
+        $snippets = new Snippets($requestStack, $queueprocessor, $twig);
+
         $response = new Response('<html><body>foo</body></html>');
 
         $headerWidget = new BoltHeaderWidget();

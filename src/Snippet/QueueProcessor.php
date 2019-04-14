@@ -23,7 +23,7 @@ class QueueProcessor
         $this->injector = $injector;
     }
 
-    public function process(Response $response, Collection $queue, string $zone): void
+    public function process(Response $response, Collection $queue, string $zone): Response
     {
         // First, gather all html <!-- comments -->, because they shouldn't be
         // considered for replacements. We use a callback, so we can fill our
@@ -42,6 +42,8 @@ class QueueProcessor
             $html = preg_replace(array_keys($this->matchedComments), $this->matchedComments, $response->getContent(), 1);
             $response->setContent($html);
         }
+
+        return $response;
     }
 
     /**

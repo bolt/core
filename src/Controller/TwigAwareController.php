@@ -78,7 +78,7 @@ class TwigAwareController extends AbstractController
         $response->setContent($content);
 
         // Process the snippet Queue on the Response
-        $this->snippets->processQueue($response);
+        $response = $this->snippets->processQueue($response);
 
         return $response;
     }

@@ -109,10 +109,12 @@ class Snippets
         return '<!-- No callback -->';
     }
 
-    public function processQueue(Response $response): void
+    public function processQueue(Response $response): Response
     {
         $zone = Zone::getFromRequest($this->request);
-        $this->queueProcessor->process($response, $this->queue, $zone);
+        $response = $this->queueProcessor->process($response, $this->queue, $zone);
+
+        return $response;
     }
 
     public function registerBoltSnippets(): void
