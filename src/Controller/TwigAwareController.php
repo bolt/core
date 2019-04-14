@@ -6,8 +6,8 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
-use Bolt\Snippets;
 use Bolt\Version;
+use Bolt\Widgets;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
@@ -21,19 +21,19 @@ class TwigAwareController extends AbstractController
     /** @var Environment */
     protected $twig;
 
-    /** @var Snippets */
-    private $snippets;
+    /** @var Widgets */
+    private $widgets;
 
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig, Snippets $snippets): void
+    public function setAutowire(Config $config, Environment $twig, Widgets $widgets): void
     {
         $this->config = $config;
         $this->twig = $twig;
-        $this->snippets = $snippets;
+        $this->widgets = $widgets;
 
-        $this->snippets->registerBoltSnippets();
+        $this->widgets->registerBoltWidgets();
     }
 
     /**
@@ -78,8 +78,6 @@ class TwigAwareController extends AbstractController
         $response->setContent($content);
 
         // Process the snippet Queue on the Response
-        $response = $this->snippets->processQueue($response);
-
-        return $response;
+        return $this->widgets->processQueue($response);
     }
 }

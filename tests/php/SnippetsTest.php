@@ -8,7 +8,7 @@ use Bolt\Snippet\Injector;
 use Bolt\Snippet\QueueProcessor;
 use Bolt\Snippet\Target;
 use Bolt\Snippet\Zone;
-use Bolt\Snippets;
+use Bolt\Widgets;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\WeatherWidget;
 use PHPUnit\Framework\TestCase;
@@ -29,7 +29,7 @@ class SnippetsTest extends TestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $snippets = new Snippets($requestStack, $queueprocessor, $twig);
+        $snippets = new Widgets($requestStack, $queueprocessor, $twig);
         $response = new Response('<html><body>foo</body></html>');
 
         $snippets->registerSnippet('*foo*', Target::END_OF_BODY, Zone::NOWHERE, 'test');
@@ -47,7 +47,7 @@ class SnippetsTest extends TestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $snippets = new Snippets($requestStack, $queueprocessor, $twig);
+        $snippets = new Widgets($requestStack, $queueprocessor, $twig);
 
         $weatherWidget = new WeatherWidget();
         $weatherWidget->setTemplate('weather.twig');
@@ -69,7 +69,7 @@ class SnippetsTest extends TestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $snippets = new Snippets($requestStack, $queueprocessor, $twig);
+        $snippets = new Widgets($requestStack, $queueprocessor, $twig);
 
         $response = new Response('<html><body>foo</body></html>');
 

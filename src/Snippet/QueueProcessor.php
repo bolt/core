@@ -18,6 +18,8 @@ class QueueProcessor
     /** @var array */
     private $matchedComments = [];
 
+    private $matchedCommentsCount = 0;
+
     public function __construct(Injector $injector)
     {
         $this->injector = $injector;
@@ -54,7 +56,7 @@ class QueueProcessor
      */
     public function pregCallback(array $c): string
     {
-        $key = '###bolt-comment-' . count((array) $this->matchedComments) . '###';
+        $key = '###bolt-comment-' . $this->matchedCommentsCount++ . '###';
         // Add it to the array of matched comments.
         $this->matchedComments['/' . $key . '/'] = $c[0];
 

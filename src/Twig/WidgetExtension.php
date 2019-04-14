@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Snippets;
+use Bolt\Widgets;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -13,10 +13,10 @@ use Twig\TwigFunction;
  */
 class WidgetExtension extends AbstractExtension
 {
-    /** @var Snippets */
+    /** @var Widgets */
     private $snippets;
 
-    public function __construct(Snippets $snippets)
+    public function __construct(Widgets $snippets)
     {
         $this->snippets = $snippets;
     }

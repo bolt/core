@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ZoneSubscriber implements EventSubscriberInterface
 {
-    const PRIORITY = 31;
+    public const PRIORITY = 31;
 
     /**
      * Kernel request listener callback.

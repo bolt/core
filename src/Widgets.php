@@ -11,6 +11,7 @@ use Bolt\Widget\BaseWidget;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
 use Bolt\Widget\NewsWidget;
+use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\WeatherWidget;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
-class Snippets
+class Widgets
 {
     /** @var Collection */
     private $queue;
@@ -38,25 +39,6 @@ class Snippets
         $this->request = $requestStack->getCurrentRequest();
         $this->queueProcessor = $queueProcessor;
         $this->twig = $twig;
-    }
-
-    /**
-     * @param BaseWidget|string|callable $callback
-     */
-    public function registerSnippet(
-        $callback,
-        string $target = Target::NOWHERE,
-        string $zone = Zone::FRONTEND,
-        string $name = 'nameless snippet',
-        int $priority = 100
-    ): void {
-        $this->queue->push([
-            'priority' => $priority,
-            'target' => $target,
-            'name' => $name,
-            'zone' => $zone,
-            'callback' => $callback,
-        ]);
     }
 
     public function registerWidget(BaseWidget $widget): void
@@ -112,18 +94,22 @@ class Snippets
     public function processQueue(Response $response): Response
     {
         $zone = Zone::getFromRequest($this->request);
-        $response = $this->queueProcessor->process($response, $this->queue, $zone);
-
-        return $response;
+        return $this->queueProcessor->process($response, $this->queue, $zone);
     }
 
-    public function registerBoltSnippets(): void
+    public function registerBoltWidgets(): void
     {
         $this->registerWidget(new WeatherWidget());
         $this->registerWidget(new NewsWidget());
-
-        $this->registerSnippet('<meta name="generator" content="Bolt">', Target::END_OF_HEAD);
         $this->registerWidget(new CanonicalLinkWidget());
         $this->registerWidget(new BoltHeaderWidget());
+
+        $metaTagSnippet = (new SnippetWidget())
+            ->setName('Meta Generator tag snippet')
+            ->setTarget(Target::END_OF_HEAD)
+            ->setZone(Zone::FRONTEND)
+            ->setSnippet('<meta name="generator" content="Bolt">');
+
+        $this->registerWidget($metaTagSnippet);
     }
 }
