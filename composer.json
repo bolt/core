@@ -14,26 +14,25 @@
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^1.8",
         "doctrine/doctrine-cache-bundle": "^1.3.1",
-        "doctrine/doctrine-migrations-bundle": "^1.3",
         "doctrine/orm": "^2.5.11",
         "easycorp/easy-log-handler": "^1.0.7",
         "embed/embed": "^3.3",
         "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4.10",
         "fzaninotto/faker": "^1.8",
+        "gedmo/doctrine-extensions": "^2.4.4",
         "guzzlehttp/guzzle": "^6.3",
         "knplabs/knp-menu-bundle": "^2.0",
         "league/glide-symfony": "^1.0",
         "miljar/php-exif": "^0.6.4",
         "nelmio/cors-bundle": "^1.5",
         "nesbot/carbon": "^1.34",
-        "php-translation/symfony-bundle": "^0.8",
         "phpdocumentor/reflection-docblock": "^4.2",
+        "php-translation/symfony-bundle": "^0.8",
         "sensio/framework-extra-bundle": "^5.1",
         "sensiolabs/security-checker": "^5.0",
         "siriusphp/upload": "^2.1",
         "stof/doctrine-extensions-bundle": "^1.3",
-        "gedmo/doctrine-extensions": "^2.4.4",
         "symfony/asset": "^4.2",
         "symfony/console": "^4.2",
         "symfony/dependency-injection": "^4.2",
@@ -60,24 +59,24 @@
         "white-october/pagerfanta-bundle": "^1.2"
     },
     "require-dev": {
-        "ext-pdo_sqlite": "*",
         "ext-curl": "*",
+        "ext-pdo_sqlite": "*",
         "behat/behat": "^3.5",
         "behat/mink": "dev-master@dev",
         "behat/mink-extension": "^2.3",
         "behat/mink-goutte-driver": "^1.2",
         "behatch/contexts": "^3.2",
-        "coduo/php-matcher": "dev-feature/array-universal-key@dev",
+        "coduo/php-matcher": "^3.1.2",
         "dama/doctrine-test-bundle": "^5.0",
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "lakion/mink-debug-extension": "^1.2",
         "php-http/httplug-pack": "^1.1",
-        "php-translation/loco-adapter": "^0.8.0",
+        "php-translation/loco-adapter": "^0.8",
         "phpspec/phpspec": "^5.1",
         "phpspec/prophecy": "^1.8",
         "phpstan/phpstan": "^0.11",
-        "phpstan/phpstan-doctrine": "^0.11.0",
-        "phpstan/phpstan-symfony": "^0.11.0",
+        "phpstan/phpstan-doctrine": "^0.11",
+        "phpstan/phpstan-symfony": "^0.11",
         "phpunit/phpunit": "^7.0",
         "roave/security-advisories": "dev-master@dev",
         "symfony/browser-kit": "^4.2",
@@ -88,11 +87,8 @@
         "symfony/stopwatch": "^4.2",
         "symfony/web-profiler-bundle": "^4.2",
         "symfony/web-server-bundle": "^4.2",
-        "symplify/easy-coding-standard": "^5.4.6"
+        "symplify/easy-coding-standard": "^5.4.14"
     },
-    "repositories": [
-        { "type": "vcs", "url": "https://github.com/jarjak/php-matcher", "no-api": true }
-    ],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "config": {
@@ -134,8 +130,7 @@
     },
     "conflict": {
         "symfony/symfony": "*",
-        "api-platform/core": "v2.4.0-beta.2",
-        "symplify/coding-standard": "5.4.13"
+        "api-platform/core": "v2.4.0-beta.2"
     },
     "extra": {
         "symfony": {

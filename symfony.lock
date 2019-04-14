@@ -113,15 +113,6 @@
             "src/DataFixtures/AppFixtures.php"
         ]
     },
-    "doctrine/doctrine-migrations-bundle": {
-        "version": "1.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.2",
-            "ref": "c1431086fec31f17fbcfe6d6d7e92059458facc1"
-        }
-    },
     "doctrine/event-manager": {
         "version": "v1.0.0"
     },
@@ -133,9 +124,6 @@
     },
     "doctrine/lexer": {
         "version": "v1.0.1"
-    },
-    "doctrine/migrations": {
-        "version": "v1.6.0"
     },
     "doctrine/orm": {
         "version": "v2.5.12"

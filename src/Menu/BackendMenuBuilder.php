@@ -223,7 +223,7 @@ class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->getChild('Maintenance')->addChild('Translations: Messages', [
+        $menu->getChild('Maintenance')->addChild('Translations', [
             'uri' => $this->urlGenerator->generate('translation_index'),
             'extras' => [
                 'name' => $t->trans('caption.translations'),

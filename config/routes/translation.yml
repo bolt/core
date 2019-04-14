@@ -1,0 +1,3 @@
+_translation_webui:
+    resource: "@TranslationBundle/Resources/config/routing_webui.yml"
+    prefix: '%bolt.backend_url%'
