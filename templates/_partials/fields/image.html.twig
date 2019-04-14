@@ -11,5 +11,6 @@
         :alt="'{{ field.get('alt') }}'"
         :media="'{{ field.get('media') }}'"
         :directory="'{{directory}}'"
+        :csrf_token="'{{ csrf_token('upload') }}'"
     ></editor-image>
 {% endblock %}

@@ -24,11 +24,11 @@ class ImagesFixtures extends BaseFixture
     private $mediaFactory;
 
     /** @var FileLocations */
-    private $areas;
+    private $fileLocations;
 
     private const AMOUNT = 10;
 
-    public function __construct(FileLocations $areas, MediaFactory $mediaFactory)
+    public function __construct(FileLocations $fileLocations, MediaFactory $mediaFactory)
     {
         $this->urls = new Collection([
             'https://source.unsplash.com/1280x1024/?business,workspace,interior/',
@@ -39,7 +39,7 @@ class ImagesFixtures extends BaseFixture
 
         $this->faker = Factory::create();
         $this->mediaFactory = $mediaFactory;
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
     }
 
     public function load(ObjectManager $manager): void
@@ -52,7 +52,7 @@ class ImagesFixtures extends BaseFixture
 
     private function fetchImages(): void
     {
-        $outputPath = $this->areas->get('files')->getBasepath() . '/stock/';
+        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/stock/';
 
         if (! is_dir($outputPath)) {
             mkdir($outputPath);
@@ -70,7 +70,7 @@ class ImagesFixtures extends BaseFixture
 
     private function loadImages(ObjectManager $manager): void
     {
-        $path = $this->areas->get('files')->getBasepath() . '/stock/';
+        $path = $this->fileLocations->get('files')->getBasepath() . '/stock/';
 
         $index = $this->getImagesIndex($path);
 

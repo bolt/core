@@ -24,21 +24,9 @@ class FileLocation
         return $this->key;
     }
 
-    public function setKey(string $key): self
-    {
-        $this->key = $key;
-        return $this;
-    }
-
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-        return $this;
     }
 
     public function getBasepath(): string
@@ -46,20 +34,8 @@ class FileLocation
         return $this->basepath;
     }
 
-    public function setBasepath(string $basepath): self
-    {
-        $this->basepath = $basepath;
-        return $this;
-    }
-
     public function isShowAll(): bool
     {
         return $this->show_all;
-    }
-
-    public function setShowAll(bool $show_all): self
-    {
-        $this->show_all = $show_all;
-        return $this;
     }
 }

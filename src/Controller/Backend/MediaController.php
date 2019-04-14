@@ -23,15 +23,15 @@ class MediaController extends TwigAwareController
     private $em;
 
     /** @var FileLocations */
-    private $areas;
+    private $fileLocations;
 
     /** @var MediaFactory */
     private $mediaFactory;
 
-    public function __construct(ObjectManager $em, FileLocations $areas, MediaFactory $mediaFactory)
+    public function __construct(ObjectManager $em, FileLocations $fileLocations, MediaFactory $mediaFactory)
     {
         $this->em = $em;
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
         $this->mediaFactory = $mediaFactory;
     }
 
@@ -40,7 +40,7 @@ class MediaController extends TwigAwareController
      */
     public function finder(string $area): Response
     {
-        $basepath = $this->areas->get($area)->getBasepath();
+        $basepath = $this->fileLocations->get($area)->getBasepath();
 
         $finder = $this->findFiles($basepath);
 
@@ -53,7 +53,7 @@ class MediaController extends TwigAwareController
 
         return $this->renderTemplate('@bolt/finder/finder.twig', [
             'path' => 'path',
-            'name' => $this->areas->get($area)->getName(),
+            'name' => $this->fileLocations->get($area)->getName(),
             'area' => $area,
             'finder' => $finder,
             'parent' => 'parent',

@@ -33,6 +33,8 @@ class MediaFactory
 
     /** @var Collection */
     private $mediaTypes;
+
+    /** @var FileLocations */
     private $fileLocations;
 
     public function __construct(Config $config, FileLocations $fileLocations, MediaRepository $mediaRepository, TokenStorageInterface $tokenStorage)
@@ -51,7 +53,7 @@ class MediaFactory
         $path = Path::makeRelative($file->getPath(). '/', $this->fileLocations->get($fileLocation)->getBasepath());
 
         $media = $this->mediaRepository->findOneBy([
-            'area' => $fileLocation,
+            'location' => $fileLocation,
             'path' => $path,
             'filename' => $file->getFilename(),
         ]);
@@ -60,7 +62,7 @@ class MediaFactory
             $media = new Media();
             $media->setFilename($file->getFilename())
                 ->setPath($path)
-                ->setArea($fileLocation);
+                ->setLocation($fileLocation);
         }
 
         if ($this->mediaTypes->contains($file->getExtension()) === false) {

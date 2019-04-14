@@ -82,7 +82,7 @@ class UploadController
         });
 
         /** @var File $result */
-        $result = $uploadHandler->process($_FILES);
+        $result = $uploadHandler->process($request->files->all());
 
         if ($result->isValid()) {
             try {
