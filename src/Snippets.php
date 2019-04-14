@@ -73,7 +73,7 @@ class Snippets
         ]);
     }
 
-    public function getWidget(string $name): string
+    public function renderWidgetByName(string $name): string
     {
         $widget = $this->queue->where('name', $name)->first();
 
@@ -82,7 +82,7 @@ class Snippets
         }
     }
 
-    public function getWidgets(string $target): string
+    public function renderWidgetsForTarget(string $target): string
     {
         $widgets = $this->queue->where('target', $target)->sortBy('priority');
 
@@ -111,7 +111,7 @@ class Snippets
 
     public function processQueue(Response $response): void
     {
-        $zone = Zone::get($this->request);
+        $zone = Zone::getFromRequest($this->request);
         $this->queueProcessor->process($response, $this->queue, $zone);
     }
 

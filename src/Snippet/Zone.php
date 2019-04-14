@@ -50,13 +50,13 @@ class Zone
      */
     public static function is(Request $request, string $value): bool
     {
-        return static::get($request) === $value;
+        return static::getFromRequest($request) === $value;
     }
 
     /**
      * Get the current zone.
      */
-    public static function get(Request $request): string
+    public static function getFromRequest(Request $request): string
     {
         return $request->attributes->get(static::KEY) ?: static::NOWHERE;
     }
@@ -64,7 +64,7 @@ class Zone
     /**
      * Set the current zone.
      */
-    public static function set(Request $request, string $value): void
+    public static function setToRequest(Request $request, string $value): void
     {
         $request->attributes->set(static::KEY, $value);
     }

@@ -29,7 +29,7 @@ class ZoneTest extends TestCase
     {
         $request = Request::createFromGlobals();
 
-        $this->assertSame('nowhere', Zone::get($request));
+        $this->assertSame('nowhere', Zone::getFromRequest($request));
     }
 
     /**
@@ -39,9 +39,9 @@ class ZoneTest extends TestCase
     {
         $request = Request::createFromGlobals();
 
-        Zone::set($request, $constant);
+        Zone::setToRequest($request, $constant);
 
-        $this->assertSame($constant, Zone::get($request));
+        $this->assertSame($constant, Zone::getFromRequest($request));
         $this->assertTrue(Zone::is($request, $constant));
     }
 }

@@ -22,7 +22,7 @@ class ZoneSubscriber implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event): void
     {
         $request = $event->getRequest();
-        if (Zone::get($request) !== Zone::NOWHERE) {
+        if (Zone::getFromRequest($request) !== Zone::NOWHERE) {
             return;
         }
 
@@ -34,12 +34,12 @@ class ZoneSubscriber implements EventSubscriberInterface
      */
     public function setZone(Request $request): string
     {
-        if (Zone::get($request) !== Zone::NOWHERE) {
-            return Zone::get($request);
+        if (Zone::getFromRequest($request) !== Zone::NOWHERE) {
+            return Zone::getFromRequest($request);
         }
 
         $zone = $this->determineZone($request);
-        Zone::set($request, $zone);
+        Zone::setToRequest($request, $zone);
 
         return $zone;
     }

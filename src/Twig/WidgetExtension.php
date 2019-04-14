@@ -28,22 +28,22 @@ class WidgetExtension extends AbstractExtension
         $safe = ['is_safe' => ['html']];
 
         return [
-            new TwigFunction('countwidgets', [$this, 'dummy'], $safe),
-            new TwigFunction('listwidgets', [$this, 'dummy'], $safe),
-            new TwigFunction('haswidgets', [$this, 'dummy'], $safe),
-            new TwigFunction('widgets', [$this, 'getWidgets'], $safe),
-            new TwigFunction('widget', [$this, 'getWidget'], $safe),
+            new TwigFunction('countwidgets', [$this, 'dummy']),
+            new TwigFunction('listwidgets', [$this, 'dummy']),
+            new TwigFunction('haswidgets', [$this, 'dummy']),
+            new TwigFunction('widgets', [$this, 'renderWidgetsForTarget'], $safe),
+            new TwigFunction('widget', [$this, 'renderWidgetByName'], $safe),
         ];
     }
 
-    public function getWidget(string $name): string
+    public function renderWidgetByName(string $name): string
     {
-        return $this->snippets->getWidget($name);
+        return $this->snippets->renderWidgetByName($name);
     }
 
-    public function getWidgets(string $target): string
+    public function renderWidgetsForTarget(string $target): string
     {
-        return $this->snippets->getWidgets($target);
+        return $this->snippets->renderWidgetsForTarget($target);
     }
 
     public function dummy($input = null): string

@@ -51,7 +51,7 @@ class SnippetsTest extends TestCase
 
         $this->assertSame(
             '<div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>',
-            $snippets->getWidget('Weather Widget', $twig)
+            $snippets->renderWidgetByName('Weather Widget', $twig)
         );
     }
 
