@@ -14,8 +14,7 @@ class InjectorTest extends TestCase
 {
     public function providerTarget()
     {
-        $o = new \ReflectionClass(Target::class);
-        $constants = (new Collection(array_keys($o->getConstants())))
+        $constants = (new Collection(array_keys((new Target)->listAll())))
             ->filter(function ($v) {
                 return mb_strpos($v, 'WIDGET') === false && mb_strpos($v, 'NOWHERE') === false;
             })

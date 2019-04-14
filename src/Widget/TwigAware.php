@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Widget;
 
 /**
@@ -9,5 +11,4 @@ namespace Bolt\Widget;
  */
 interface TwigAware
 {
-
 }

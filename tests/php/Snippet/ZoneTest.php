@@ -25,7 +25,7 @@ class ZoneTest extends TestCase
         return $constants->toArray();
     }
 
-    public function testGet(): void
+    public function testGetDefaultZone(): void
     {
         $request = Request::createFromGlobals();
 

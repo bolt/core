@@ -18,9 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 
-class SnippetsTest extends TestCase
+class WidgetsTest extends TestCase
 {
-    public function testSnippet(): void
+    public function testProcessWidgetsInQueue(): void
     {
         $queueprocessor = new QueueProcessor(new Injector());
         $requestStack = new RequestStack();
@@ -29,16 +29,16 @@ class SnippetsTest extends TestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $snippets = new Widgets($requestStack, $queueprocessor, $twig);
+        $widgets = new Widgets($requestStack, $queueprocessor, $twig);
         $response = new Response('<html><body>foo</body></html>');
 
-        $snippets->registerSnippet('*foo*', Target::END_OF_BODY, Zone::NOWHERE, 'test');
-        $snippets->processQueue($response);
+        $widgets->registerSnippet('*foo*', Target::END_OF_BODY, Zone::NOWHERE, 'test');
+        $widgets->processQueue($response);
 
         $this->assertSame("<html><body>foo</body></html>*foo*\n", $response->getContent());
     }
 
-    public function testWidget(): void
+    public function testRenderWidget(): void
     {
         $queueprocessor = new QueueProcessor(new Injector());
         $requestStack = new RequestStack();
@@ -47,16 +47,16 @@ class SnippetsTest extends TestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $snippets = new Widgets($requestStack, $queueprocessor, $twig);
+        $widgets = new Widgets($requestStack, $queueprocessor, $twig);
 
         $weatherWidget = new WeatherWidget();
         $weatherWidget->setTemplate('weather.twig');
 
-        $snippets->registerWidget($weatherWidget);
+        $widgets->registerWidget($weatherWidget);
 
         $this->assertSame(
             '<div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>',
-            $snippets->renderWidgetByName('Weather Widget')
+            $widgets->renderWidgetByName('Weather Widget')
         );
     }
 
@@ -69,15 +69,15 @@ class SnippetsTest extends TestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $snippets = new Widgets($requestStack, $queueprocessor, $twig);
+        $widgets = new Widgets($requestStack, $queueprocessor, $twig);
 
         $response = new Response('<html><body>foo</body></html>');
 
         $headerWidget = new BoltHeaderWidget();
         $headerWidget->setZone(Zone::NOWHERE);
 
-        $snippets->registerWidget($headerWidget);
-        $snippets->processQueue($response);
+        $widgets->registerWidget($headerWidget);
+        $widgets->processQueue($response);
 
         $this->assertSame('Bolt', $response->headers->get('X-Powered-By'));
     }

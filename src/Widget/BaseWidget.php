@@ -32,9 +32,15 @@ class BaseWidget
     /** @var Response */
     protected $response;
 
+    /** @var string */
+    protected $slug;
+
     public function setName(string $name): self
     {
+        $slugify = Slugify::create();
+
         $this->name = $name;
+        $this->slug = $slugify->slugify($this->name);
 
         return $this;
     }
@@ -159,8 +165,6 @@ class BaseWidget
 
     public function getSlug(): string
     {
-        $slugify = Slugify::create();
-
-        return $slugify->slugify($this->name);
+        return $this->slug;
     }
 }
