@@ -27,7 +27,7 @@ class FieldRepository extends ServiceEntityRepository
         return $qb ?: $this->createQueryBuilder('field');
     }
 
-    public function findOneBySlug($slug): ?Field
+    public function findOneBySlug(string $slug): ?Field
     {
         return $this->getQueryBuilder()
             ->andWhere('field.value = :slug')

@@ -138,7 +138,7 @@ class ContentRepository extends ServiceEntityRepository
                 'field.id = slug.id'
             )
             ->andWhere('slug.value = :slug')
-            ->setParameter('slug', json_encode([$slug]))
+            ->setParameter('slug', \GuzzleHttp\json_encode([$slug]))
             ->getQuery()
             ->getOneOrNullResult();
     }

@@ -92,7 +92,7 @@ class MediaFactory
             return;
         }
 
-        $size = getimagesize($file->getRealpath());
+        $size = @getimagesize($file->getRealpath());
 
         if ($size !== false) {
             $media->setWidth($size[0])
