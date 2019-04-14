@@ -166,10 +166,10 @@ These are the translations used in Bolt. We rely on the community to expand on n
 translations, and keep them up to date. If you wish to participate, read the
 [instructions here][translations].
 
-Are are several translation-related commands:
-- `bin/console translation:download` - downloads translations from Loco (replaces all local ones)
-- `bin/console translation:sync bolt down` - downloads translations from Loco (replaces local changes if there is a conflict)
-- `bin/console translation:sync bolt up` - sends updated translations to Loco
+Several translation-related Console commands are available:
+- `bin/console translation:download` - Download translations from Loco (replaces all local ones)
+- `bin/console translation:sync bolt down` - Download translations from Loco (replaces local changes if there is a conflict)
+- `bin/console translation:sync bolt up` - Sends updated translations to Loco
 
 
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
