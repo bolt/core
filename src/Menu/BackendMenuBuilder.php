@@ -13,7 +13,7 @@ use Knp\Menu\ItemInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class BackendMenuBuilder implements BackendMenuBuilderInterface
+final class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
     public const MAX_LATEST_RECORDS = 5;
 

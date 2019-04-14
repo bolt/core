@@ -6,7 +6,7 @@ namespace Bolt\Menu;
 
 use Symfony\Component\Stopwatch\Stopwatch;
 
-class StopwatchFrontendMenuBuilder implements FrontendMenuBuilderInterface
+final class StopwatchFrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
     /** @var FrontendMenuBuilderInterface */
     private $menuBuilder;

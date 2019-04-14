@@ -6,7 +6,7 @@ namespace Bolt\Menu;
 
 use Psr\SimpleCache\CacheInterface;
 
-class CachedFrontendMenuBuilder implements FrontendMenuBuilderInterface
+final class CachedFrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
     /** @var CacheInterface */
     private $cache;
