@@ -105,10 +105,10 @@ class Widgets
         $this->registerWidget(new BoltHeaderWidget());
 
         $metaTagSnippet = (new SnippetWidget())
+            ->setSnippet('<meta name="generator" content="Bolt">')
             ->setName('Meta Generator tag snippet')
             ->setTarget(Target::END_OF_HEAD)
-            ->setZone(Zone::FRONTEND)
-            ->setSnippet('<meta name="generator" content="Bolt">');
+            ->setZone(Zone::FRONTEND);
 
         $this->registerWidget($metaTagSnippet);
     }
