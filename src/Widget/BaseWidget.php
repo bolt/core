@@ -91,6 +91,11 @@ class BaseWidget
         return $this;
     }
 
+    public function getTwig(): Environment
+    {
+        return $this->twig;
+    }
+
     public function __invoke(?string $template = null): string
     {
         if ($template === null) {

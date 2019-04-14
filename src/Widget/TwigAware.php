@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Twig\Environment;
+
 /**
  * Interface TwigAware - Widgets that make use of a template to render their
  * contents need to implement this interface, in order to access the current
@@ -11,4 +13,7 @@ namespace Bolt\Widget;
  */
 interface TwigAware
 {
+    public function setTwig(Environment $twig): BaseWidget;
+
+    public function getTwig(): Environment;
 }

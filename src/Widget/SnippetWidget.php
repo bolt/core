@@ -16,6 +16,25 @@ class SnippetWidget extends BaseWidget
     protected $priority = 200;
     protected $snippet = '';
 
+    public function __construct(?string $snippet = null, ?string $name = null, ?string $target = null, ?string $zone = null)
+    {
+        if ($snippet !== null) {
+            $this->setName($snippet);
+        }
+
+        if ($name !== null) {
+            $this->setName($name);
+        }
+
+        if ($target !== null) {
+            $this->setName($target);
+        }
+
+        if ($zone !== null) {
+            $this->setName($zone);
+        }
+    }
+
     public function getSnippet(): string
     {
         return $this->snippet;

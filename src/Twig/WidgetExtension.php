@@ -16,9 +16,9 @@ class WidgetExtension extends AbstractExtension
     /** @var Widgets */
     private $widgetRenderer;
 
-    public function __construct(Widgets $widgets)
+    public function __construct(Widgets $widgetRenderer)
     {
-        $this->widgetRenderer = $widgets;
+        $this->widgetRenderer = $widgetRenderer;
     }
     /**
      * {@inheritdoc}

@@ -97,11 +97,12 @@ class Widgets
         $this->registerWidget(new CanonicalLinkWidget());
         $this->registerWidget(new BoltHeaderWidget());
 
-        $metaTagSnippet = (new SnippetWidget())
-            ->setSnippet('<meta name="generator" content="Bolt">')
-            ->setName('Meta Generator tag snippet')
-            ->setTarget(Target::END_OF_HEAD)
-            ->setZone(Zone::FRONTEND);
+        $metaTagSnippet = new SnippetWidget(
+            '<meta name="generator" content="Bolt">',
+            'Meta Generator tag snippet',
+            Target::END_OF_HEAD,
+            Zone::FRONTEND
+        );
 
         $this->registerWidget($metaTagSnippet);
     }
