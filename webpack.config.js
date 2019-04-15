@@ -13,9 +13,6 @@ Encore.addPlugin(
   .setManifestKeyPrefix('assets')
 
   .copyFiles({
-    from: './assets/static',
-  })
-  .copyFiles({
     from: './node_modules/flagpack/flags',
     to: 'icons/flags/[name].[ext]',
     pattern: /\.(svg)$/,
