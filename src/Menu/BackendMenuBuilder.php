@@ -62,13 +62,14 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             'extras' => [
                 'name' => $t->trans('caption.dashboard'),
                 'icon' => 'fa-tachometer-alt',
+                'type' => 'link',
             ],
         ]);
 
         $menu->addChild('Content', ['extras' => [
             'name' => $t->trans('caption.content'),
-            'type' => 'separator',
             'icon' => 'fa-file',
+            'type' => 'section',
         ]]);
 
         /** @var ContentType[] $contentTypes */
@@ -87,14 +88,15 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                     'singleton' => $contentType['singleton'],
                     'active' => $contentType->getSlug() === 'pages' ? true : false,
                     'submenu' => $this->getLatestRecords($contentType),
+                    'type' => 'content',
                 ],
             ]);
         }
 
         $menu->addChild('Settings', ['extras' => [
             'name' => $t->trans('caption.settings'),
-            'type' => 'separator',
             'icon' => 'fa-wrench',
+            'type' => 'section',
         ]]);
 
         // Configuration submenu
@@ -102,6 +104,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $menu->addChild('Configuration', ['extras' => [
             'name' => $t->trans('caption.configuration'),
             'icon' => 'fa-sliders-h',
+            'type' => 'service',
         ]]);
 
         $menu->getChild('Configuration')->addChild('Users &amp; Permissions', [
@@ -181,6 +184,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $menu->addChild('Maintenance', ['extras' => [
             'name' => $t->trans('caption.maintenance'),
             'icon' => 'fa-tools',
+            'type' => 'service',
         ]]);
 
         $menu->getChild('Maintenance')->addChild('Bolt API', [
@@ -261,6 +265,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $menu->addChild('File Management', ['extras' => [
             'name' => $t->trans('caption.file_management'),
             'icon' => 'fa-folder-open',
+            'type' => 'service',
         ]]);
 
         $menu->getChild('File Management')->addChild('Uploaded files', [
