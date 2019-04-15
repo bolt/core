@@ -1,6 +1,6 @@
 //** Theme | Default
 
-@import '../init/variables';
+/*@import '../init/variables';
 @import '../init/mixins';
 @import '_shared';
 
@@ -47,4 +47,41 @@ $bootstrap-colors: (
 .admin__sidebar {
   background: rgb(42,57,70);
   background: linear-gradient(-70deg, rgba(47,62,77,1) 50%, rgba(42,57,70,1) 50.5%);
+}*/
+
+$theme-colors: (
+  "primary": #497081,
+  "secondary": #2F3E4D,
+  "tertiary": #5b8394,
+  "forth": #7298a8
+);
+
+// Disable Tiramisu
+$enable-rounded: false;
+$enable-shadows: false;
+$enable-gradients: false;
+
+// CSS
+// -------------------
+
+// Toolbar
+.svg-brand {
+  width: 1.3rem; 
+  height: auto;
+  margin-top: -0.2rem;
+}
+
+// Sidebar
+.sidebar {
+  /*min-width: 250px;*/
+}
+
+.icon {
+  width: 1.3rem; 
+  height: auto;
+}
+
+.icon-big {
+  width: 1rem; 
+  height: auto;
 }
