@@ -51,7 +51,7 @@ $theme-colors: (
   "primary": #497081,
   "secondary": #2F3E4D,
   "tertiary": #5b8394,
-  "forth": #7298a8
+  "quaternary": #7298a8
 );
 
 // Disable Tiramisu
@@ -64,8 +64,8 @@ $enable-gradients: false;
 
 // Toolbar
 .svg-brand {
-  width: 1.3rem;
-  height: auto;
+  min-width: 20px;
+  min-height: 20px;
   background-image: url('../../static/brand/bolt4-icon.svg');
 }
 
