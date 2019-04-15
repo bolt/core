@@ -32,6 +32,7 @@
     "axios": "^0.18.0",
     "baguettebox.js": "^1.11.0",
     "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.18",
     "codemirror": "^5.45.0",
     "flagpack": "^1.0.3",
     "jquery": "^3.3.1",
