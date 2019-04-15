@@ -1,5 +1,4 @@
 import '@babel/polyfill';
-import 'bootstrap';
 import Axios from 'axios';
 
 Axios.defaults.headers.common = {
