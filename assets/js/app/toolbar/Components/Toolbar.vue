@@ -1,10 +1,8 @@
 <template>
-  <div
-    class="bg-primary text-light p-0 admin_toolbar"
-    :class="contrast ? 'is-light' : 'is-dark'"
+  <div class="bg-primary text-light"
     role="toolbar"
   >
- <b-navbar variant="primary">
+    <b-navbar variant="primary p-0">
       <div class="mr-auto">
         <b-dropdown variant="primary" no-caret>
           <template slot="button-content">
@@ -65,16 +63,11 @@
 </template>
 
 <script>
-const tinycolor = require('tinycolor2');
 
 export default {
   name: 'Toolbar',
   props: ['siteName', 'menu', 'labels', 'backend_prefix'],
   computed: {
-    contrast() {
-      const color = tinycolor(this.toolbarColor);
-      return color.isLight();
-    },
     createMenu() {
       return this.menu.filter(item => {
         return (

@@ -25,7 +25,7 @@
     {% set admin_menu_json = admin_menu()|json_encode %}
 
     <!-- Admin Toolbar -->
-    <nav id="toolbar" class="admin__toolbar">
+    <div id="toolbar">
         {% set user_display_name = user.displayName|default('Unknown user') %}
 
         {# Setting the labels and their localisations that are used in the sidebar-menu. #}
@@ -45,7 +45,7 @@
             :labels="{{ labels }}"
             :backend_prefix="{{ path('bolt_dashboard') }}"
         ></admin-toolbar>
-    </nav>
+    </div>
     <!-- End Admin Toolbar -->
 
     <!-- Admin Header -->

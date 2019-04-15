@@ -42,8 +42,6 @@ $bootstrap-colors: (
   "danger"
 );
 
-@import '_bootstrap';
-
 .admin__sidebar {
   background: rgb(42,57,70);
   background: linear-gradient(-70deg, rgba(47,62,77,1) 50%, rgba(42,57,70,1) 50.5%);
