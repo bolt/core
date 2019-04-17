@@ -7,7 +7,9 @@ namespace Bolt\Widget;
 use Bolt\Snippet\Target;
 use Bolt\Snippet\Zone;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
 
 class BaseWidget implements WidgetInterface
 {
@@ -26,6 +28,12 @@ class BaseWidget implements WidgetInterface
 
     /** @var ?string */
     protected $slug;
+
+    /** @var Request */
+    private $request;
+
+    /** @var Environment */
+    private $twig;
 
     public function setName(string $name): WidgetInterface
     {
@@ -82,7 +90,7 @@ class BaseWidget implements WidgetInterface
             $template = $this->template;
         }
 
-        if ($this->hasTrait(TwigAware::class)) {
+        if ($this instanceof TwigAware) {
             $output = $this->twig->render($template, $this->context);
         } else {
             $output = $template;
@@ -106,6 +114,30 @@ class BaseWidget implements WidgetInterface
     public function getTemplate(): string
     {
         return $this->template;
+    }
+
+    public function setTwig(Environment $twig): WidgetInterface
+    {
+        $this->twig = $twig;
+
+        return $this;
+    }
+
+    public function getTwig(): Environment
+    {
+        return $this->twig;
+    }
+
+    public function setRequest(Request $request): WidgetInterface
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    public function getRequest(): Request
+    {
+        return $this->request;
     }
 
     public function setResponse(?Response $response = null): WidgetInterface
@@ -142,31 +174,5 @@ class BaseWidget implements WidgetInterface
         }
 
         return $this->slug;
-    }
-
-    public function hasTrait(string $classname)
-    {
-        return in_array($classname, $this->getTraits(), true);
-    }
-
-    /**
-     * Get all `class_uses` traits from current class, as well as from its
-     * parent classes and traits.
-     */
-    private function getTraits(): array
-    {
-        $class = $this;
-        $traits = [];
-
-        do {
-            $traits = array_merge(class_uses($class), $traits);
-            $class = get_parent_class($class);
-        } while ($class);
-
-        foreach (array_keys($traits) as $trait) {
-            $traits = array_merge(class_uses($trait), $traits);
-        }
-
-        return array_unique($traits);
     }
 }

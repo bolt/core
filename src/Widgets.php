@@ -45,11 +45,10 @@ class Widgets
 
     public function registerWidget(WidgetInterface $widget): void
     {
-        if ($widget->hasTrait(RequestAware::class)) {
+        if ($widget instanceof RequestAware) {
             $widget->setRequest($this->request);
         }
-
-        if ($widget->hasTrait(TwigAware::class)) {
+        if ($widget instanceof TwigAware) {
             $widget->setTwig($this->twig);
         }
 
