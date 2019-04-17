@@ -7,7 +7,6 @@ namespace Bolt;
 use Bolt\Snippet\QueueProcessor;
 use Bolt\Snippet\Target;
 use Bolt\Snippet\Zone;
-use Bolt\Widget\BaseWidget;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
 use Bolt\Widget\NewsWidget;
@@ -15,6 +14,7 @@ use Bolt\Widget\RequestAware;
 use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\TwigAware;
 use Bolt\Widget\WeatherWidget;
+use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +43,7 @@ class Widgets
         $this->twig = $twig;
     }
 
-    public function registerWidget(BaseWidget $widget): void
+    public function registerWidget(WidgetInterface $widget): void
     {
         if ($widget instanceof RequestAware) {
             $widget->setRequest($this->request);

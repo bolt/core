@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class BaseWidget
+class BaseWidget implements WidgetInterface
 {
     protected $name = 'Nameless widget';
     protected $type = 'widget';
@@ -35,7 +35,7 @@ class BaseWidget
     /** @var ?string */
     protected $slug;
 
-    public function setName(string $name): self
+    public function setName(string $name): WidgetInterface
     {
         $this->name = $name;
         $this->slug = null;
@@ -48,7 +48,7 @@ class BaseWidget
         return $this->name;
     }
 
-    public function setType(string $type): self
+    public function setType(string $type): WidgetInterface
     {
         $this->type = $type;
 
@@ -60,7 +60,7 @@ class BaseWidget
         return $this->type;
     }
 
-    public function setTarget(string $target): self
+    public function setTarget(string $target): WidgetInterface
     {
         $this->target = $target;
 
@@ -72,7 +72,7 @@ class BaseWidget
         return $this->target;
     }
 
-    public function setPriority(int $priority): self
+    public function setPriority(int $priority): WidgetInterface
     {
         $this->priority = $priority;
 
@@ -84,7 +84,7 @@ class BaseWidget
         return $this->priority;
     }
 
-    public function setTwig(Environment $twig): self
+    public function setTwig(Environment $twig): WidgetInterface
     {
         $this->twig = $twig;
 
@@ -116,7 +116,7 @@ class BaseWidget
         );
     }
 
-    public function setTemplate(string $template): self
+    public function setTemplate(string $template): WidgetInterface
     {
         $this->template = $template;
 
@@ -128,7 +128,7 @@ class BaseWidget
         return $this->template;
     }
 
-    public function setRequest(Request $request): self
+    public function setRequest(Request $request): WidgetInterface
     {
         $this->request = $request;
 
@@ -140,7 +140,7 @@ class BaseWidget
         return $this->request;
     }
 
-    public function setResponse(?Response $response = null): self
+    public function setResponse(?Response $response = null): WidgetInterface
     {
         if ($response !== null) {
             $this->response = $response;
@@ -154,7 +154,7 @@ class BaseWidget
         return $this->response;
     }
 
-    public function setZone(string $zone): self
+    public function setZone(string $zone): WidgetInterface
     {
         $this->zone = $zone;
 

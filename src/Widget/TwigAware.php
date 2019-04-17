@@ -13,7 +13,7 @@ use Twig\Environment;
  */
 interface TwigAware
 {
-    public function setTwig(Environment $twig): BaseWidget;
+    public function setTwig(Environment $twig): WidgetInterface;
 
     public function getTwig(): Environment;
 }

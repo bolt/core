@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 interface RequestAware
 {
-    public function setRequest(Request $request): BaseWidget;
+    public function setRequest(Request $request): WidgetInterface;
 
     public function getRequest(): Request;
 }
