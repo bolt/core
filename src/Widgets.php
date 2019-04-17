@@ -49,7 +49,7 @@ class Widgets
             $widget->setRequest($this->request);
         }
 
-        if ($widget instanceof TwigAware) {
+        if ($widget->hasTrait(TwigAware::class)) {
             $widget->setTwig($this->twig);
         }
 

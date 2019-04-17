@@ -20,9 +20,6 @@ class BaseWidget implements WidgetInterface
     protected $priority = 0;
     protected $context = [];
 
-    /** @var Environment */
-    protected $twig;
-
     /** @var string */
     protected $template;
 
@@ -84,25 +81,13 @@ class BaseWidget implements WidgetInterface
         return $this->priority;
     }
 
-    public function setTwig(Environment $twig): WidgetInterface
-    {
-        $this->twig = $twig;
-
-        return $this;
-    }
-
-    public function getTwig(): Environment
-    {
-        return $this->twig;
-    }
-
     public function __invoke(?string $template = null): string
     {
         if ($template === null) {
             $template = $this->template;
         }
 
-        if ($this instanceof TwigAware) {
+        if ($this->hasTrait(TwigAware::class)) {
             $output = $this->twig->render($template, $this->context);
         } else {
             $output = $template;
@@ -174,5 +159,30 @@ class BaseWidget implements WidgetInterface
         }
 
         return $this->slug;
+    }
+
+    public function hasTrait(string $classname)
+    {
+        return in_array($classname, $this->getTraits());
+    }
+
+    /**
+     * Get all `class_uses` traits from current class, as well as from its
+     * parent classes and traits.
+     */
+    private function getTraits(): array
+    {
+        $class = $this;
+        $traits = [];
+
+        do {
+            $traits = array_merge(class_uses($class), $traits);
+        } while($class = get_parent_class($class));
+
+        foreach ($traits as $trait => $same) {
+            $traits = array_merge(class_uses($trait), $traits);
+        }
+
+        return array_unique($traits);
     }
 }

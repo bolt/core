@@ -26,17 +26,9 @@ interface WidgetInterface
 
     public function getPriority(): int;
 
-    public function setTwig(Environment $twig): self;
-
-    public function getTwig(): Environment;
-
     public function setTemplate(string $template): self;
 
     public function getTemplate(): string;
-
-    public function setRequest(Request $request): self;
-
-    public function getRequest(): Request;
 
     public function setResponse(?Response $response = null): self;
 

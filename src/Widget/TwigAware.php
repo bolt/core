@@ -11,9 +11,20 @@ use Twig\Environment;
  * contents need to implement this interface, in order to access the current
  * Twig\Environment and to render a Twig template.
  */
-interface TwigAware
+trait TwigAware
 {
-    public function setTwig(Environment $twig): WidgetInterface;
+    /** @var Environment */
+    protected $twig;
 
-    public function getTwig(): Environment;
+    public function setTwig(Environment $twig): WidgetInterface
+    {
+        $this->twig = $twig;
+
+        return $this;
+    }
+
+    public function getTwig(): Environment
+    {
+        return $this->twig;
+    }
 }
