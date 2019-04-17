@@ -16,9 +16,6 @@ class ImageController
     /** @var Config */
     private $config;
 
-    /**
-     * ImageController constructor.
-     */
     public function __construct(Config $config)
     {
         $this->config = $config;
@@ -29,10 +26,10 @@ class ImageController
      */
     public function image(string $filename, Request $request): StreamedResponse
     {
-        $area = $request->query->get('area', 'files');
+        $location = $request->query->get('location', 'files');
         $server = ServerFactory::create([
             'response' => new SymfonyResponseFactory(),
-            'source' => $this->config->getPath($area),
+            'source' => $this->config->getPath($location),
             'cache' => $this->config->getPath('cache', true, 'thumbnails'),
         ]);
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
-use Bolt\Configuration\Areas;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
@@ -34,15 +34,15 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
     /** @var Config */
     private $config;
 
-    /** @var Areas */
-    private $areas;
+    /** @var FileLocations */
+    private $fileLocations;
 
-    public function __construct(Config $config, Areas $areas)
+    public function __construct(Config $config, FileLocations $fileLocations)
     {
         $this->faker = Factory::create();
         $this->presetRecords = $this->getPresetRecords();
         $this->config = $config;
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
     }
 
     public function getDependencies()
@@ -55,7 +55,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $path = $this->areas->get('files', 'basepath') . '/stock/';
+        $path = $this->fileLocations->get('files')->getBasepath() . '/stock/';
         $this->imagesIndex = $this->getImagesIndex($path);
 
         $this->loadContent($manager);

@@ -8,11 +8,11 @@
 
 {% block main %}
 
-    <h2>{{ 'caption.path'|trans }}: {{ area }}{{ file }}</h2>
+    <h2>{{ 'caption.path'|trans }}: {{ location }}{{ file }}</h2>
 
     <form method="post">
         <input type="hidden" name="file" value="{{ file }}">
-        <input type="hidden" name="area" value="{{ area }}">
+        <input type="hidden" name="location" value="{{ location }}">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editfile') }}">
         <div class="form-group">
             <textarea name="editfile" id="editfile_textarea">{{ contents }}</textarea>

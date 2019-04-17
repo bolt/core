@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Configuration\Areas;
+use Bolt\Configuration\FileLocations;
 use Bolt\Content\MediaFactory;
 use Bolt\Controller\TwigAwareController;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -22,30 +22,30 @@ class MediaController extends TwigAwareController
     /** @var ObjectManager */
     private $em;
 
-    /** @var Areas */
-    private $areas;
+    /** @var FileLocations */
+    private $fileLocations;
 
     /** @var MediaFactory */
     private $mediaFactory;
 
-    public function __construct(ObjectManager $em, Areas $areas, MediaFactory $mediaFactory)
+    public function __construct(ObjectManager $em, FileLocations $fileLocations, MediaFactory $mediaFactory)
     {
         $this->em = $em;
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
         $this->mediaFactory = $mediaFactory;
     }
 
     /**
-     * @Route("/media/crawl/{area}", name="bolt_media_crawler", methods={"GET"})
+     * @Route("/media/crawl/{location}", name="bolt_media_crawler", methods={"GET"})
      */
-    public function finder(string $area): Response
+    public function finder(string $locationName): Response
     {
-        $basepath = $this->areas->get($area, 'basepath');
+        $basepath = $this->fileLocations->get($locationName)->getBasepath();
 
         $finder = $this->findFiles($basepath);
 
         foreach ($finder as $file) {
-            $media = $this->mediaFactory->createOrUpdateMedia($file, $area);
+            $media = $this->mediaFactory->createOrUpdateMedia($file, $locationName);
 
             $this->em->persist($media);
             $this->em->flush();
@@ -53,8 +53,8 @@ class MediaController extends TwigAwareController
 
         return $this->renderTemplate('@bolt/finder/finder.twig', [
             'path' => 'path',
-            'name' => $this->areas->get($area, 'name'),
-            'area' => $area,
+            'name' => $this->fileLocations->get($locationName)->getName(),
+            'location' => $locationName,
             'finder' => $finder,
             'parent' => 'parent',
         ]);

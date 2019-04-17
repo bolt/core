@@ -35,7 +35,7 @@
             <div class="row mb-2">
                 <div class="col-12" style="text-align: right;">
                     {% if field.get('filename') %}
-                    <a href="{{ field.get('filename')|thumbnail(width=1000, height=1000, area='files') }}" class="btn btn-secondary btn-small lightbox" style="color: #FFF;">
+                    <a href="{{ field.get('filename')|thumbnail(width=1000, height=1000) }}" class="btn btn-secondary btn-small lightbox" style="color: #FFF;">
                         view image
                     </a>
                     {%  endif %}

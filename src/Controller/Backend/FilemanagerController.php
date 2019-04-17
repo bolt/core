@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Str;
-use Bolt\Configuration\Areas;
+use Bolt\Configuration\FileLocations;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -21,34 +21,34 @@ use Webmozart\PathUtil\Path;
 class FilemanagerController extends TwigAwareController
 {
     /**
-     * @var Areas
+     * @var FileLocations
      */
-    private $areas;
+    private $fileLocations;
 
     /**
      * @var MediaRepository
      */
     private $mediaRepository;
 
-    public function __construct(Areas $areas, MediaRepository $mediaRepository)
+    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository)
     {
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
         $this->mediaRepository = $mediaRepository;
     }
 
     /**
-     * @Route("/filemanager/{area}", name="bolt_filemanager", methods={"GET"})
+     * @Route("/filemanager/{location}", name="bolt_filemanager", methods={"GET"})
      */
-    public function filemanager(string $area, Request $request): Response
+    public function filemanager(string $location, Request $request): Response
     {
         $path = $request->query->get('path', '');
         if (str::endsWith($path, '/') === false) {
             $path .= '/';
         }
 
-        $area = $this->areas->get($area);
+        $location = $this->fileLocations->get($location);
 
-        $finder = $this->findFiles($area->get('basepath'), $path);
+        $finder = $this->findFiles($location->getBasepath(), $path);
 
         $media = $this->mediaRepository->findAll();
 
@@ -56,12 +56,12 @@ class FilemanagerController extends TwigAwareController
 
         return $this->renderTemplate('finder/finder.html.twig', [
             'path' => $path,
-            'name' => $area->get('name'),
-            'area' => $area->get('key'),
+            'name' => $location->getName(),
+            'location' => $location->getKey(),
             'finder' => $finder,
             'parent' => $parent,
             'media' => $media,
-            'allfiles' => $area->get('show_all') ? $this->buildIndex($area->get('basepath')) : false,
+            'allfiles' => $location->isShowAll() ? $this->buildIndex($location->getBasepath()) : false,
         ]);
     }
 
