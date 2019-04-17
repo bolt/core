@@ -7,12 +7,23 @@ namespace Bolt\Widget;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Interface RequestAware - Widgets that make use of the Request to provide
- * their functionality need to implement this interface.
+ * Trait RequestAware - Widgets that make use of the Request to provide
+ * their functionality need to use this trait.
  */
-interface RequestAware
+trait RequestAware
 {
-    public function setRequest(Request $request): WidgetInterface;
+    /** @var Request */
+    protected $request;
 
-    public function getRequest(): Request;
+    public function setRequest(Request $request): WidgetInterface
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
 }

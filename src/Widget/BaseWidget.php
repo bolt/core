@@ -7,9 +7,7 @@ namespace Bolt\Widget;
 use Bolt\Snippet\Target;
 use Bolt\Snippet\Zone;
 use Cocur\Slugify\Slugify;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
 
 class BaseWidget implements WidgetInterface
 {
@@ -22,9 +20,6 @@ class BaseWidget implements WidgetInterface
 
     /** @var string */
     protected $template;
-
-    /** @var Request */
-    protected $request;
 
     /** @var Response */
     protected $response;
@@ -113,18 +108,6 @@ class BaseWidget implements WidgetInterface
         return $this->template;
     }
 
-    public function setRequest(Request $request): WidgetInterface
-    {
-        $this->request = $request;
-
-        return $this;
-    }
-
-    public function getRequest(): Request
-    {
-        return $this->request;
-    }
-
     public function setResponse(?Response $response = null): WidgetInterface
     {
         if ($response !== null) {
@@ -163,7 +146,7 @@ class BaseWidget implements WidgetInterface
 
     public function hasTrait(string $classname)
     {
-        return in_array($classname, $this->getTraits());
+        return in_array($classname, $this->getTraits(), true);
     }
 
     /**
@@ -177,9 +160,10 @@ class BaseWidget implements WidgetInterface
 
         do {
             $traits = array_merge(class_uses($class), $traits);
-        } while($class = get_parent_class($class));
+            $class = get_parent_class($class);
+        } while ($class);
 
-        foreach ($traits as $trait => $same) {
+        foreach (array_keys($traits) as $trait) {
             $traits = array_merge(class_uses($trait), $traits);
         }
 

@@ -45,7 +45,7 @@ class Widgets
 
     public function registerWidget(WidgetInterface $widget): void
     {
-        if ($widget instanceof RequestAware) {
+        if ($widget->hasTrait(RequestAware::class)) {
             $widget->setRequest($this->request);
         }
 
