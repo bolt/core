@@ -26,16 +26,19 @@ csclear:
 cscheck:
 	make csclear
 	vendor/bin/ecs check src
+	vendor/bin/ecs check tests/spec --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --config vendor/symplify/easy-coding-standard/config/common/phpunit.yml
+	vendor/bin/ecs check tests/php --config vendor/symplify/easy-coding-standard/config/common/strict.yml
 	make stancheck
 
 csfix:
 	make csclear
 	vendor/bin/ecs check src --fix
-	make stancheck
-
-csfix-tests:
-	make csclear
-	vendor/bin/ecs check tests/php --fix
+	vendor/bin/ecs check tests/spec --fix --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/phpunit.yml
+	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/strict.yml
 	make stancheck
 
 stancheck:
