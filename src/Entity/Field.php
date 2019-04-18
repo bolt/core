@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -12,6 +13,12 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
 
 /**
+ * @ApiResource(subresourceOperations={
+ *     "api_contents_fields_get_subresource"={
+ *         "method"="GET",
+ *         "normalization_context"={"groups"={"get_field"}}
+ *     }
+ * })
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(
  *  uniqueConstraints={
@@ -51,26 +58,24 @@ class Field implements Translatable
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"put"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("put")
+     * @Groups("get_field")
      */
     public $name;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"put"})
+     * @Groups("get_field")
      * @Gedmo\Translatable
      */
     protected $value = [];
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"put"})
      */
     private $sortorder = 0;
 
@@ -83,7 +88,6 @@ class Field implements Translatable
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups("public")
      */
     private $version;
 
@@ -95,11 +99,12 @@ class Field implements Translatable
 
     /**
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field")
-     * @Groups("public")
      */
     private $parent;
 
-    /** @var ?FieldType */
+    /**
+     * @var ?FieldType
+     */
     private $fieldTypeDefinition;
 
     public function __toString(): string
@@ -191,7 +196,7 @@ class Field implements Translatable
             $count = count($value);
             if ($count === 0) {
                 return null;
-            } elseif ($count === 1) {
+            } elseif ($count === 1 && array_keys($value)[0] === 0) {
                 return reset($value);
             }
         }

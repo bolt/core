@@ -6,6 +6,7 @@ namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Content\ContentType;
 use Bolt\Enum\Statuses;
@@ -58,7 +59,6 @@ class Content
      *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("put")
      */
     private $author;
 
@@ -66,7 +66,6 @@ class Content
      * @var string
      *
      * @ORM\Column(type="string", length=191)
-     * @Groups("put")
      */
     private $status;
 
@@ -81,7 +80,7 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"get_content", "put"})
+     * @Groups("get_content")
      */
     private $modifiedAt = null;
 
@@ -89,7 +88,7 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"get_content", "put"})
+     * @Groups("get_content")
      */
     private $publishedAt = null;
 
@@ -97,15 +96,15 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("put")
      */
     private $depublishedAt = null;
 
     /**
      * @var Collection|Field[]
      *
-     * @Groups({"put"})
+     * @ApiSubresource(maxDepth=1)
      * @MaxDepth(1)
+     *
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
@@ -125,7 +124,6 @@ class Content
 
     /**
      * @var Collection|Taxonomy[]
-     * @Groups({"put"})
      * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})

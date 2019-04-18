@@ -9,6 +9,9 @@ install:
 	npm install
 	npm run build
 
+update:
+	composer update && composer outdated
+
 server:
 	bin/console server:start 127.0.0.1:8088 -q || true
 
@@ -105,7 +108,7 @@ docker-assets-serve:
 	docker-compose run node sh -c "npm run serve"
 
 docker-update:
-	docker-compose exec -T php sh -c "composer update"
+	docker-compose exec -T php sh -c "composer update && composer outdated"
 
 docker-cache:
 	docker-compose exec -T php sh -c "bin/console cache:clear"
