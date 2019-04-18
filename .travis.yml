@@ -12,7 +12,7 @@ cache:
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
+    - php: 7.1.18
     - php: 7.1
       env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 7.2
