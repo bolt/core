@@ -21,7 +21,7 @@
             },
             options: [
                 {% for file in allfiles %}
-                { value: '{{ path('bolt_file_edit', {'area': 'config', 'file': file.filename}) }}', filename: '{{ file.filename }}', description: '{{ file.description }}'},
+                { value: '{{ path('bolt_file_edit', {'location': 'config', 'file': file.filename}) }}', filename: '{{ file.filename }}', description: '{{ file.description }}'},
                 {% endfor %}
             ],
             render: {

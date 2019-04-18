@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Content;
 
 use Bolt\Configuration\Config;
+use Bolt\Configuration\FileLocations;
 use Bolt\Controller\UserTrait;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
@@ -15,6 +16,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Tightenco\Collect\Support\Collection;
+use Webmozart\PathUtil\Path;
 
 class MediaFactory
 {
@@ -32,7 +34,10 @@ class MediaFactory
     /** @var Collection */
     private $mediaTypes;
 
-    public function __construct(Config $config, MediaRepository $mediaRepository, TokenStorageInterface $tokenStorage)
+    /** @var FileLocations */
+    private $fileLocations;
+
+    public function __construct(Config $config, FileLocations $fileLocations, MediaRepository $mediaRepository, TokenStorageInterface $tokenStorage)
     {
         $this->config = $config;
         $this->mediaRepository = $mediaRepository;
@@ -40,21 +45,24 @@ class MediaFactory
 
         $this->exif = Reader::factory(Reader::TYPE_NATIVE);
         $this->mediaTypes = $config->getMediaTypes();
+        $this->fileLocations = $fileLocations;
     }
 
-    public function createOrUpdateMedia(SplFileInfo $file, string $area, ?string $title = null): Media
+    public function createOrUpdateMedia(SplFileInfo $file, string $fileLocation, ?string $title = null): Media
     {
+        $path = Path::makeRelative($file->getPath(). '/', $this->fileLocations->get($fileLocation)->getBasepath());
+
         $media = $this->mediaRepository->findOneBy([
-            'area' => $area,
-            'path' => $file->getRelativePath(),
+            'location' => $fileLocation,
+            'path' => $path,
             'filename' => $file->getFilename(),
         ]);
 
         if ($media === null) {
             $media = new Media();
             $media->setFilename($file->getFilename())
-                ->setPath($file->getRelativePath())
-                ->setArea($area);
+                ->setPath($path)
+                ->setLocation($fileLocation);
         }
 
         if ($this->mediaTypes->contains($file->getExtension()) === false) {
@@ -86,7 +94,7 @@ class MediaFactory
             return;
         }
 
-        $size = getimagesize($file->getRealpath());
+        $size = @getimagesize($file->getRealpath());
 
         if ($size !== false) {
             $media->setWidth($size[0])
@@ -101,11 +109,11 @@ class MediaFactory
         return in_array($media->getType(), ['gif', 'png', 'jpg', 'svg'], true);
     }
 
-    public function createFromFilename($area, $path, $filename): Media
+    public function createFromFilename(string $locationName, string $path, string $filename): Media
     {
-        $target = $this->config->getPath($area, true, [$path, $filename]);
+        $target = $this->config->getPath($locationName, true, [$path, $filename]);
         $file = new SplFileInfo($target, $path, $filename);
 
-        return $this->createOrUpdateMedia($file, $area);
+        return $this->createOrUpdateMedia($file, $locationName);
     }
 }

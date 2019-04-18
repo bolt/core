@@ -9,17 +9,18 @@
 {% macro display_menu_item(item, loop, withsubmenus) %}
     {% from _self import display_menu_item %}
     {% spaceless %}
+    {% set with_submenu = withsubmenus and item.submenu is not empty %}
     <li class="index-{{ loop.index -}}
         {{ loop.first ? ' first' -}}
         {{ loop.last ? ' last' -}}
-        {{ (item.submenu and withsubmenus) ? ' has-submenu' -}}
+        {{ with_submenu ? ' has-submenu' -}}
         {{ item.current ? ' active' }}">
 
         <a href="{{ item.uri }}" title='{{ item.title }}' class='{{ item.class }}'>
             {{- item.label -}}
         </a>
 
-        {% if item.submenu and withsubmenus %}
+        {% if with_submenu %}
             <ul class="menu submenu vertical">
                 {% for submenu in item.submenu %}
                     {{ display_menu_item(submenu, loop, true) }}

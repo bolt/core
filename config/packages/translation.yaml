@@ -6,12 +6,12 @@ framework:
 
 # php_translation
 translation:
+    webui:
+        enabled: true
     locales: ['en', 'nl', 'es', 'fr', 'de', 'pl', 'it', 'pt_BR']
     edit_in_place:
         enabled: false
-        config_name: app
     configs:
-        app:
+        bolt:
             dirs: ["%kernel.project_dir%/templates", "%kernel.project_dir%/src"]
             output_dir: "%kernel.project_dir%/translations"
-

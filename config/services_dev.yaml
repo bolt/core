@@ -1,0 +1,12 @@
+services:
+
+    # menus
+    Bolt\Menu\StopwatchBackendMenuBuilder:
+        decorates: Bolt\Menu\BackendMenuBuilder
+        autowire: true
+    Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\StopwatchBackendMenuBuilder'
+
+    Bolt\Menu\StopwatchFrontendMenuBuilder:
+        decorates: Bolt\Menu\FrontendMenuBuilder
+        autowire: true
+    Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\StopwatchFrontendMenuBuilder'

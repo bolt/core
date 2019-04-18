@@ -89,6 +89,7 @@
 import noScroll from 'no-scroll';
 import baguetteBox from 'baguettebox.js';
 import field from '../../../mixins/value';
+import Axios from 'axios';
 
 export default {
   name: 'EditorImage',
@@ -102,6 +103,7 @@ export default {
     'title',
     'directory',
     'media',
+    'csrf_token',
   ],
   data: () => {
     return {
@@ -115,6 +117,9 @@ export default {
     fieldName() {
       return this.name + '[]';
     },
+    token() {
+      return this.csrf_token;
+    }
   },
   mounted() {
     this.previewImage = this.thumbnail;
@@ -166,7 +171,8 @@ export default {
         },
       };
       fd.append('image', file);
-      this.$axios
+      fd.append('_csrf_token', this.token);
+      Axios
         .post(this.directory, fd, config)
         .then(res => {
           this.filename = res.data;

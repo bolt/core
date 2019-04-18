@@ -4,10 +4,10 @@
     {% if config is defined %}
         {% set apikey = config.get('general/google_api_key')|default(null) %}
     {% endif %}
-    
+
     {% if apikey != null %}
       {{ apikey }}
-    {% else %}  
+    {% else %}
         null
     {% endif %}
 
@@ -45,7 +45,7 @@
                         <button type="button" class="btn btn-sm btn-default expand justify-content-end"><i class="fa fa-expand"></i></button>
                         <button type="button" class="btn btn-sm btn-default compress"><i class="fa fa-compress "></i></button>
                         <div class="mapholder" style="position: relative; overflow: hidden;">
-                            <a class="editor__image--preview-image" href="/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;area=files&amp;s=1e1ae532b569d01e17644e1c31b12fe9" style="background-image: url(&quot;/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;area=files&amp;s=1e1ae532b569d01e17644e1c31b12fe9&quot;);"></a>
+                            <a class="editor__image--preview-image" href="/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;s=1e1ae532b569d01e17644e1c31b12fe9" style="background-image: url(&quot;/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;s=1e1ae532b569d01e17644e1c31b12fe9&quot;);"></a>
                         </div>
                         <div class="input-group custom-control custom-checkbox">
                             <input checked="" class="custom-control-input" type="checkbox" id="customCheck1">

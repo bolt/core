@@ -46,7 +46,7 @@ class ImageExtension extends AbstractExtension
         ];
     }
 
-    public function thumbnail($image, $width = 320, $height = 240, $area = null, $path = null)
+    public function thumbnail($image, $width = 320, $height = 240, $location = null, $path = null)
     {
         if ($image instanceof ImageField) {
             $filename = $image->get('filename');
@@ -65,8 +65,8 @@ class ImageExtension extends AbstractExtension
             'h' => $height,
         ];
 
-        if ($area) {
-            $params['area'] = $area;
+        if ($location) {
+            $params['location'] = $location;
         }
         if ($path) {
             $params['path'] = $path;

@@ -6,6 +6,7 @@ namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
@@ -22,19 +23,26 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
     /** @var Generator */
     private $faker;
 
-    /** @var Collection */
-    private $config;
-
     private $lastTitle = null;
 
     /** @var array */
     private $presetRecords = [];
 
-    public function __construct(Config $config)
+    /** @var Collection */
+    private $imagesIndex;
+
+    /** @var Config */
+    private $config;
+
+    /** @var FileLocations */
+    private $fileLocations;
+
+    public function __construct(Config $config, FileLocations $fileLocations)
     {
         $this->faker = Factory::create();
         $this->presetRecords = $this->getPresetRecords();
-        $this->config = $config->get('contenttypes');
+        $this->config = $config;
+        $this->fileLocations = $fileLocations;
     }
 
     public function getDependencies()
@@ -47,6 +55,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
+        $path = $this->fileLocations->get('files')->getBasepath() . '/stock/';
+        $this->imagesIndex = $this->getImagesIndex($path);
+
         $this->loadContent($manager);
 
         $manager->flush();
@@ -57,7 +68,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
         /** @var TranslationRepository $translationRepository */
         $translationRepository = $manager->getRepository(Translation::class);
 
-        foreach ($this->config as $contentType) {
+        foreach ($this->config->get('contenttypes') as $contentType) {
             $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
             for ($i = 1; $i <= $amount; $i++) {
@@ -137,9 +148,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
                 $data = [$this->faker->paragraphs(3, true)];
                 break;
             case 'image':
+            case 'file':
+                $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => 'kitten.jpg',
-                    'alt' => 'A cute kitten',
+                    'filename' => 'stock/' . $randomImage->getFilename(),
+                    'alt' => $this->faker->sentence(4, true),
+                    'title' => $this->faker->sentence(7, true),
                 ];
                 break;
             case 'slug':

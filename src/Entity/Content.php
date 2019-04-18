@@ -34,7 +34,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  *
  * @Assert\Callback({"Bolt\Validator\ContentValidator", "validate"})
  */
-class Content implements \JsonSerializable
+class Content
 {
     use ContentLocalizeTrait;
     use ContentExtrasTrait;

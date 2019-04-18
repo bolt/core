@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Configuration\Areas;
+use Bolt\Configuration\FileLocations;
 use Bolt\Content\MediaFactory;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
@@ -33,8 +33,8 @@ class EditMediaController extends TwigAwareController
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var Areas */
-    private $areas;
+    /** @var FileLocations */
+    private $fileLocations;
 
     /** @var MediaFactory */
     private $mediaFactory;
@@ -42,13 +42,13 @@ class EditMediaController extends TwigAwareController
     public function __construct(
         ObjectManager $em,
         UrlGeneratorInterface $urlGenerator,
-        Areas $areas,
+        FileLocations $fileLocations,
         MediaFactory $mediaFactory,
         CsrfTokenManagerInterface $csrfTokenManager
     ) {
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
         $this->mediaFactory = $mediaFactory;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -95,8 +95,8 @@ class EditMediaController extends TwigAwareController
      */
     public function new(Request $request): RedirectResponse
     {
-        $area = $request->query->get('area');
-        $basepath = $this->areas->get($area, 'basepath');
+        $fileLocation = $request->query->get('location');
+        $basepath = $this->fileLocations->get($fileLocation)->getBasepath();
         $file = $request->query->get('file');
         $filename = $basepath . $file;
 
@@ -105,7 +105,7 @@ class EditMediaController extends TwigAwareController
 
         $file = new SplFileInfo($filename, $relPath, $relName);
 
-        $media = $this->mediaFactory->createOrUpdateMedia($file, $area);
+        $media = $this->mediaFactory->createOrUpdateMedia($file, $fileLocation);
 
         $this->em->persist($media);
         $this->em->flush();
