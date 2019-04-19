@@ -41,9 +41,6 @@ class Widgets
 
     public function registerWidget(WidgetInterface $widget): void
     {
-        if ($widget instanceof RequestAware) {
-            $widget->setRequest($this->requestStack->getCurrentRequest());
-        }
         if ($widget instanceof TwigAware) {
             $widget->setTwig($this->twig);
         }
@@ -58,6 +55,10 @@ class Widgets
         })->first();
 
         if ($widget) {
+            if ($widget instanceof RequestAware) {
+                $widget->setRequest($this->requestStack->getCurrentRequest());
+            }
+
             return $widget();
         }
     }
@@ -73,6 +74,10 @@ class Widgets
         $output = '';
 
         foreach ($widgets as $widget) {
+            if ($widget instanceof RequestAware) {
+                $widget->setRequest($this->requestStack->getCurrentRequest());
+            }
+
             $output .= $widget();
         }
 
