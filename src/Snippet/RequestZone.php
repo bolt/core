@@ -24,7 +24,7 @@ class RequestZone
     /**
      * Check if request is for frontend routes.
      */
-    public static function isFrontend(Request $request): bool
+    public static function isForFrontend(Request $request): bool
     {
         return static::is($request, static::FRONTEND);
     }
@@ -32,7 +32,7 @@ class RequestZone
     /**
      * Check if request is for backend routes.
      */
-    public static function isBackend(Request $request): bool
+    public static function isForBackend(Request $request): bool
     {
         return static::is($request, static::BACKEND);
     }
@@ -40,7 +40,7 @@ class RequestZone
     /**
      * Check if request is for asynchronous/AJAX routes.
      */
-    public static function isAsync(Request $request): bool
+    public static function isForAsync(Request $request): bool
     {
         return static::is($request, static::ASYNC);
     }
