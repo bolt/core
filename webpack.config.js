@@ -15,16 +15,11 @@ Encore.addPlugin(
   .copyFiles({
     from: './assets/static',
   })
-  .copyFiles({
-    from: './node_modules/flagpack/flags',
-    to: 'icons/flags/[name].[ext]',
-    pattern: /\.(svg)$/,
-  })
 
   .cleanupOutputBeforeBuild()
   .disableSingleRuntimeChunk()
   .enableSourceMaps(!Encore.isProduction())
-  .enableVersioning(Encore.isProduction())
+  .enableVersioning(false)
 
   .addEntry('bolt', './assets/js/bolt.js')
   .addStyleEntry('theme-default', './assets/scss/themes/default.scss')
