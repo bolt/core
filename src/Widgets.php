@@ -6,20 +6,17 @@ namespace Bolt;
 
 use Bolt\Snippet\QueueProcessor;
 use Bolt\Snippet\RequestZone;
-use Bolt\Snippet\Target;
-use Bolt\Widget\BoltHeaderWidget;
-use Bolt\Widget\CanonicalLinkWidget;
-use Bolt\Widget\NewsWidget;
 use Bolt\Widget\RequestAware;
-use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\TwigAware;
-use Bolt\Widget\WeatherWidget;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
+/**
+ * @todo Determine if we should split this up into smaller classes
+ */
 class Widgets
 {
     /** @var Collection */
@@ -86,22 +83,5 @@ class Widgets
     {
         $zone = RequestZone::getFromRequest($this->requestStack->getCurrentRequest());
         return $this->queueProcessor->process($response, $this->queue, $zone);
-    }
-
-    public function registerBoltWidgets(): void
-    {
-        $this->registerWidget(new WeatherWidget());
-        $this->registerWidget(new NewsWidget());
-        $this->registerWidget(new CanonicalLinkWidget());
-        $this->registerWidget(new BoltHeaderWidget());
-
-        $metaTagSnippet = new SnippetWidget(
-            '<meta name="generator" content="Bolt">',
-            'Meta Generator tag snippet',
-            Target::END_OF_HEAD,
-            RequestZone::FRONTEND
-        );
-
-        $this->registerWidget($metaTagSnippet);
     }
 }
