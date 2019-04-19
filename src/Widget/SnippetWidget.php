@@ -15,8 +15,12 @@ class SnippetWidget extends BaseWidget
     protected $zone = RequestZone::NOWHERE;
     protected $priority = 200;
 
-    public function __construct(?string $snippet = null, ?string $name = null, ?string $target = null, ?string $zone = null)
-    {
+    public function __construct(
+        ?string $snippet = null,
+        ?string $name = null,
+        string $target = Target::NOWHERE,
+        string $zone = RequestZone::NOWHERE
+    ) {
         $this->template = $snippet;
         $this->name = $name;
         $this->target = $target;
