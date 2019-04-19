@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Snippet;
 
 use Bolt\Common\Str;
+use Bolt\Widget\ResponseAware;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -58,7 +59,9 @@ class HtmlInjector
         $functionMap = $this->getMap();
         $target = $widget->getTarget();
 
-        $widget->setResponse($response);
+        if ($widget instanceof ResponseAware) {
+            $widget->setResponse($response);
+        }
 
         $output = $widget();
 

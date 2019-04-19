@@ -7,7 +7,7 @@ namespace Bolt\Widget;
 use Bolt\Snippet\RequestZone;
 use Bolt\Snippet\Target;
 
-class BoltHeaderWidget extends BaseWidget
+class BoltHeaderWidget extends BaseWidget implements ResponseAware
 {
     protected $name = 'Bolt Header Widget';
     protected $type = 'snippet';
