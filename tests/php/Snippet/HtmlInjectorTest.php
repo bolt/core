@@ -6,6 +6,7 @@ namespace Bolt\Tests\Asset;
 
 use Bolt\Snippet\HtmlInjector;
 use Bolt\Snippet\Target;
+use Bolt\Widget\SnippetWidget;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
@@ -46,10 +47,7 @@ class HtmlInjectorTest extends TestCase
         $constant = constant('Bolt\Snippet\Target::' . $constant);
         $injector = new HtmlInjector();
 
-        $snippet = [
-            'callback' => 'koala',
-            'target' => $constant,
-        ];
+        $snippet = new SnippetWidget('koala', '', $constant);
 
         $response = new Response($this->getHtml());
         $injector->inject($snippet, $response);
@@ -64,10 +62,7 @@ class HtmlInjectorTest extends TestCase
     {
         $injector = new HtmlInjector();
 
-        $snippet = [
-            'callback' => 'koala',
-            'target' => '',
-        ];
+        $snippet = new SnippetWidget('koala', '', $constant);
 
         $html = $this->getHtml();
         $response = new Response($html);
@@ -84,10 +79,7 @@ class HtmlInjectorTest extends TestCase
         $constant = constant('Bolt\Snippet\Target::' . $constant);
         $injector = new HtmlInjector();
 
-        $snippet = [
-            'callback' => 'koala',
-            'target' => $constant,
-        ];
+        $snippet = new SnippetWidget('koala', '', $constant);
 
         $response = new Response();
         $injector->inject($snippet, $response);
@@ -103,10 +95,7 @@ class HtmlInjectorTest extends TestCase
         $constant = constant('Bolt\Snippet\Target::' . $constant);
         $injector = new HtmlInjector();
 
-        $snippet = [
-            'callback' => 'koala',
-            'target' => $constant,
-        ];
+        $snippet = new SnippetWidget('koala', '', $constant);
 
         $response = new Response('<blink>');
         $injector->inject($snippet, $response);
