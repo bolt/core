@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Content;
+namespace Bolt\Configuration\Content;
 
 use Tightenco\Collect\Support\Collection;
 

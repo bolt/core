@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\EventSubscriber;
+namespace Bolt\Event\Subscriber;
 
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;

@@ -2,7 +2,7 @@
 
 namespace spec\Bolt\Twig;
 
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;

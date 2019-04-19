@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\EventSubscriber;
+namespace Bolt\Event\Subscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;

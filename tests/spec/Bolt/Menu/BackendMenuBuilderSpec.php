@@ -3,7 +3,7 @@
 namespace spec\Bolt\Menu;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Menu\BackendMenuBuilder;
 use Bolt\Repository\ContentRepository;

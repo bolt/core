@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Menu;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
 use Knp\Menu\FactoryInterface;
