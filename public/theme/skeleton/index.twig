@@ -2,7 +2,7 @@
 
 {% block main %}
 
-    {% if record is defined %}
+    {% if record|default %}
 
         <h1><a href="{{ record|link }}">{{ record|title }}</a></h1>
 
