@@ -26,33 +26,9 @@ use Twig\Markup;
  *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
- * @ORM\DiscriminatorMap({
- *     "generic" = "field",
- *     "block" = "Bolt\Entity\Field\BlockField",
- *     "checkbox" = "Bolt\Entity\Field\CheckboxField",
- *     "date" = "Bolt\Entity\Field\DateField",
- *     "embed" = "Bolt\Entity\Field\EmbedField",
- *     "file" = "Bolt\Entity\Field\FileField",
- *     "filelist" = "Bolt\Entity\Field\FilelistField",
- *     "float" = "Bolt\Entity\Field\FloatField",
- *     "geolocation" = "Bolt\Entity\Field\GeolocationField",
- *     "hidden" = "Bolt\Entity\Field\HiddenField",
- *     "html" = "Bolt\Entity\Field\HtmlField",
- *     "image" = "Bolt\Entity\Field\ImageField",
- *     "imagelist" = "Bolt\Entity\Field\ImagelistField",
- *     "integer" = "Bolt\Entity\Field\IntegerField",
- *     "markdown" = "Bolt\Entity\Field\MarkdownField",
- *     "number" = "Bolt\Entity\Field\NumberField",
- *     "repeater" = "Bolt\Entity\Field\RepeaterField",
- *     "select" = "Bolt\Entity\Field\SelectField",
- *     "slug" = "Bolt\Entity\Field\SlugField",
- *     "templateselect" = "Bolt\Entity\Field\TemplateselectField",
- *     "text" = "Bolt\Entity\Field\TextField",
- *     "textarea" = "Bolt\Entity\Field\TextareaField",
- *     "video" = "Bolt\Entity\Field\VideoField"
- * })
+ * @ORM\DiscriminatorMap({"generic" = "Field"})
  */
-class Field implements Translatable
+class Field implements Translatable, FieldInterface
 {
     /**
      * @ORM\Id()
@@ -169,11 +145,6 @@ class Field implements Translatable
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->getDefinition()->get('type');
-    }
-
     public function get($key)
     {
         return isset($this->value[$key]) ? $this->value[$key] : null;
@@ -281,5 +252,13 @@ class Field implements Translatable
         $this->parent = $parent;
 
         return $this;
+    }
+
+    /**
+     * @Groups("get_field")
+     */
+    public static function getType(): string
+    {
+        return 'generic';
     }
 }

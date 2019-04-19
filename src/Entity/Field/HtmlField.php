@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
+use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class HtmlField extends Field implements Excerptable
+class HtmlField extends Field implements Excerptable, FieldInterface
 {
+    public static function getType(): string
+    {
+        return 'html';
+    }
 }

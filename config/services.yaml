@@ -35,6 +35,10 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    Bolt\Event\Listener\FieldDiscriminatorListener:
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata }
+
     Bolt\Event\Listener\ContentFillListener:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
