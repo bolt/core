@@ -32,9 +32,9 @@ class QueueProcessor
         // $this->matchedComments array
         preg_replace_callback('/<!--(.*)-->/Uis', [$this, 'pregCallback'], $response->getContent());
 
-        foreach ($queue as $snippet) {
-            if ($snippet['zone'] === $zone) {
-                $this->injector->inject($snippet, $response);
+        foreach ($queue as $widget) {
+            if ($widget->getZone() === $zone) {
+                $this->injector->inject($widget, $response);
             }
             // unset($this->queue[$key]);
         }

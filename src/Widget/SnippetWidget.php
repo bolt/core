@@ -19,7 +19,7 @@ class SnippetWidget extends BaseWidget
     public function __construct(?string $snippet = null, ?string $name = null, ?string $target = null, ?string $zone = null)
     {
         if ($snippet !== null) {
-            $this->setName($snippet);
+            $this->setTemplate($snippet);
         }
 
         if ($name !== null) {
@@ -27,28 +27,16 @@ class SnippetWidget extends BaseWidget
         }
 
         if ($target !== null) {
-            $this->setName($target);
+            $this->setTarget($target);
         }
 
         if ($zone !== null) {
-            $this->setName($zone);
+            $this->setZone($zone);
         }
-    }
-
-    public function getSnippet(): string
-    {
-        return $this->snippet;
-    }
-
-    public function setSnippet(string $snippet): self
-    {
-        $this->snippet = $snippet;
-
-        return $this;
     }
 
     public function __invoke(?string $template = null): string
     {
-        return $this->getSnippet();
+        return $this->getTemplate();
     }
 }

@@ -52,32 +52,32 @@ class Widgets
             $widget->setTwig($this->twig);
         }
 
-        $this->queue->push([
-            'priority' => $widget->getPriority(),
-            'target' => $widget->getTarget(),
-            'name' => $widget->getName(),
-            'zone' => $widget->getZone(),
-            'callback' => $widget,
-        ]);
+        $this->queue->push($widget);
     }
 
     public function renderWidgetByName(string $name): string
     {
-        $widget = $this->queue->where('name', $name)->first();
+        $widget = $this->queue->filter(function(WidgetInterface $widget) use ($name) {
+            return $widget->getName() === $name;
+        })->first();
 
         if ($widget) {
-            return $widget['callback']();
+            return $widget();
         }
     }
 
     public function renderWidgetsForTarget(string $target): string
     {
-        $widgets = $this->queue->where('target', $target)->sortBy('priority');
+        $widgets = $this->queue->filter(function(WidgetInterface $widget) use ($target) {
+            return $widget->getTarget() === $target;
+        })->sortBy(function (WidgetInterface $widget) {
+            return $widget->getPriority();
+        });
 
         $output = '';
 
         foreach ($widgets as $widget) {
-            $output .= $widget['callback']();
+            $output .= $widget();
         }
 
         return $output;
