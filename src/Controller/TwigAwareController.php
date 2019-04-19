@@ -6,14 +6,7 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
-use Bolt\Snippet\RequestZone;
-use Bolt\Snippet\Target;
 use Bolt\Version;
-use Bolt\Widget\BoltHeaderWidget;
-use Bolt\Widget\CanonicalLinkWidget;
-use Bolt\Widget\NewsWidget;
-use Bolt\Widget\SnippetWidget;
-use Bolt\Widget\WeatherWidget;
 use Bolt\Widgets;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,8 +32,6 @@ class TwigAwareController extends AbstractController
         $this->config = $config;
         $this->twig = $twig;
         $this->widgets = $widgets;
-
-        $this->registerBoltWidgets();
     }
 
     /**
@@ -86,22 +77,5 @@ class TwigAwareController extends AbstractController
 
         // Process the snippet Queue on the Response
         return $this->widgets->processQueue($response);
-    }
-
-    public function registerBoltWidgets(): void
-    {
-        $this->widgets->registerWidget(new WeatherWidget());
-        $this->widgets->registerWidget(new NewsWidget());
-        $this->widgets->registerWidget(new CanonicalLinkWidget());
-        $this->widgets->registerWidget(new BoltHeaderWidget());
-
-        $metaTagSnippet = new SnippetWidget(
-            '<meta name="generator" content="Bolt">',
-            'Meta Generator tag snippet',
-            Target::END_OF_HEAD,
-            RequestZone::FRONTEND
-        );
-
-        $this->widgets->registerWidget($metaTagSnippet);
     }
 }
