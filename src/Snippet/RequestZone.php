@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Zone constants class to define which part of the Bolt site that a request is
  * relative to.
  */
-class Zone
+class RequestZone
 {
     public const KEY = 'zone';
 

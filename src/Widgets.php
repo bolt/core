@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt;
 
 use Bolt\Snippet\QueueProcessor;
+use Bolt\Snippet\RequestZone;
 use Bolt\Snippet\Target;
-use Bolt\Snippet\Zone;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
 use Bolt\Widget\NewsWidget;
@@ -84,7 +84,7 @@ class Widgets
 
     public function processQueue(Response $response): Response
     {
-        $zone = Zone::getFromRequest($this->requestStack->getCurrentRequest());
+        $zone = RequestZone::getFromRequest($this->requestStack->getCurrentRequest());
         return $this->queueProcessor->process($response, $this->queue, $zone);
     }
 
@@ -99,7 +99,7 @@ class Widgets
             '<meta name="generator" content="Bolt">',
             'Meta Generator tag snippet',
             Target::END_OF_HEAD,
-            Zone::FRONTEND
+            RequestZone::FRONTEND
         );
 
         $this->registerWidget($metaTagSnippet);

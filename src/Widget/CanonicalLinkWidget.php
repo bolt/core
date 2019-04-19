@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Bolt\Snippet\RequestZone;
 use Bolt\Snippet\Target;
-use Bolt\Snippet\Zone;
 
 class CanonicalLinkWidget extends BaseWidget
 {
     protected $name = 'Canonical Link';
     protected $type = 'widget';
     protected $target = Target::NOWHERE;
-    protected $zone = Zone::NOWHERE;
+    protected $zone = RequestZone::NOWHERE;
     protected $priority = 200;
 }

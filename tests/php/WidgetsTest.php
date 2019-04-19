@@ -7,7 +7,7 @@ namespace Bolt\Tests;
 use Bolt\Snippet\HtmlInjector;
 use Bolt\Snippet\QueueProcessor;
 use Bolt\Snippet\Target;
-use Bolt\Snippet\Zone;
+use Bolt\Snippet\RequestZone;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\WeatherWidget;
@@ -79,7 +79,7 @@ class WidgetsTest extends TestCase
         $response = new Response('<html><body>foo</body></html>');
 
         $headerWidget = new BoltHeaderWidget();
-        $headerWidget->setZone(Zone::NOWHERE);
+        $headerWidget->setZone(RequestZone::NOWHERE);
 
         $widgets->registerWidget($headerWidget);
         $widgets->processQueue($response);

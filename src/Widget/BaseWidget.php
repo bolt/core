@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Bolt\Snippet\RequestZone;
 use Bolt\Snippet\Target;
-use Bolt\Snippet\Zone;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ class BaseWidget implements WidgetInterface
     protected $name = 'Nameless widget';
     protected $type = 'widget';
     protected $target = Target::NOWHERE;
-    protected $zone = Zone::EVERYWHERE;
+    protected $zone = RequestZone::EVERYWHERE;
     protected $priority = 0;
     protected $context = [];
 
