@@ -10,12 +10,18 @@ interface WidgetInterface
 
     public function getType(): string;
 
+    /**
+     * @return string from Bolt\Snippet\Target constants enum
+     */
     public function getTarget(): string;
 
     public function getPriority(): int;
 
     public function getTemplate(): string;
 
+    /**
+     * @return string from Bolt\Snippet\RequestZone constants enum
+     */
     public function getZone(): string;
 
     public function getSlug(): string;

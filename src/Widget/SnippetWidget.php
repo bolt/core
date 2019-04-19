@@ -9,15 +9,15 @@ use Bolt\Snippet\Target;
 
 class SnippetWidget extends BaseWidget
 {
-    protected $name = 'Nameless Snippet';
-    protected $type = 'snippet';
-    protected $target = Target::NOWHERE;
-    protected $zone = RequestZone::NOWHERE;
-    protected $priority = 200;
+    protected $name;
+    protected $type;
+    protected $target;
+    protected $zone;
+    protected $priority;
 
     public function __construct(
-        ?string $snippet = null,
-        ?string $name = null,
+        string $snippet = '<!-- snippet -->',
+        string $name = 'Nameless Snippet',
         string $target = Target::NOWHERE,
         string $zone = RequestZone::NOWHERE
     ) {
