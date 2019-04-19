@@ -5,14 +5,20 @@ declare(strict_types=1);
 namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
+use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 use League\Glide\Urls\UrlBuilderFactory;
 
 /**
  * @ORM\Entity
  */
-class ImageField extends Field
+class ImageField extends Field implements FieldInterface
 {
+    public static function getType(): string
+    {
+        return 'image';
+    }
+
     public function __toString(): string
     {
         return $this->getPath();

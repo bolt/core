@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Tightenco\Collect\Support\Collection;
 

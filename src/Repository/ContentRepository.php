@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

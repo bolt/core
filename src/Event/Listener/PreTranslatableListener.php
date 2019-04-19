@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\EventListener;
+namespace Bolt\Event\Listener;
 
 use Bolt\Entity\Translatable;
 use Doctrine\Common\EventArgs;
