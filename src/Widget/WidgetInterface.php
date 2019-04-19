@@ -8,23 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 interface WidgetInterface
 {
-    public function setName(string $name): self;
-
     public function getName(): string;
-
-    public function setType(string $type): self;
 
     public function getType(): string;
 
-    public function setTarget(string $target): self;
-
     public function getTarget(): string;
 
-    public function setPriority(int $priority): self;
-
     public function getPriority(): int;
-
-    public function setTemplate(string $template): self;
 
     public function getTemplate(): string;
 
@@ -32,9 +22,9 @@ interface WidgetInterface
 
     public function getResponse(): ?Response;
 
-    public function setZone(string $zone): self;
-
     public function getZone(): string;
 
     public function getSlug(): string;
+
+    public function __invoke(?string $template = null): string;
 }

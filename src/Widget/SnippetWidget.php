@@ -14,25 +14,13 @@ class SnippetWidget extends BaseWidget
     protected $target = Target::NOWHERE;
     protected $zone = Zone::NOWHERE;
     protected $priority = 200;
-    protected $snippet = '';
 
     public function __construct(?string $snippet = null, ?string $name = null, ?string $target = null, ?string $zone = null)
     {
-        if ($snippet !== null) {
-            $this->setTemplate($snippet);
-        }
-
-        if ($name !== null) {
-            $this->setName($name);
-        }
-
-        if ($target !== null) {
-            $this->setTarget($target);
-        }
-
-        if ($zone !== null) {
-            $this->setZone($zone);
-        }
+        $this->template = $snippet;
+        $this->name = $name;
+        $this->target = $target;
+        $this->zone = $zone;
     }
 
     public function __invoke(?string $template = null): string

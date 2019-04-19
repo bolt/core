@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Snippet;
 
 use Bolt\Common\Str;
-use Bolt\Widget\BaseWidget;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -59,20 +58,14 @@ class HtmlInjector
         $functionMap = $this->getMap();
         $target = $widget->getTarget();
 
-        dump('snippet ' . (string) $widget->getName());
-
-        dump($widget);
-
         $widget->setResponse($response);
 
         $output = $widget();
 
-        dump($output);
-
         if (isset($functionMap[$target])) {
             $html = $this->{$functionMap[$target]}($output, $html);
         } else {
-            $html .= (string) $snippet['callback'] . "\n";
+            $html .= $output . "\n";
         }
 
         $response->setContent($html);

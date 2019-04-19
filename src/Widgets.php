@@ -15,7 +15,6 @@ use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\TwigAware;
 use Bolt\Widget\WeatherWidget;
 use Bolt\Widget\WidgetInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
@@ -26,8 +25,8 @@ class Widgets
     /** @var Collection */
     private $queue;
 
-    /** @var Request */
-    private $request;
+    /** @var RequestStack */
+    private $requestStack;
 
     /** @var QueueProcessor */
     private $queueProcessor;
@@ -38,7 +37,7 @@ class Widgets
     public function __construct(RequestStack $requestStack, QueueProcessor $queueProcessor, Environment $twig)
     {
         $this->queue = new Collection([]);
-        $this->request = $requestStack->getCurrentRequest();
+        $this->requestStack = $requestStack;
         $this->queueProcessor = $queueProcessor;
         $this->twig = $twig;
     }
@@ -46,7 +45,7 @@ class Widgets
     public function registerWidget(WidgetInterface $widget): void
     {
         if ($widget instanceof RequestAware) {
-            $widget->setRequest($this->request);
+            $widget->setRequest($this->requestStack->getCurrentRequest());
         }
         if ($widget instanceof TwigAware) {
             $widget->setTwig($this->twig);
@@ -57,7 +56,7 @@ class Widgets
 
     public function renderWidgetByName(string $name): string
     {
-        $widget = $this->queue->filter(function(WidgetInterface $widget) use ($name) {
+        $widget = $this->queue->filter(function (WidgetInterface $widget) use ($name) {
             return $widget->getName() === $name;
         })->first();
 
@@ -68,7 +67,7 @@ class Widgets
 
     public function renderWidgetsForTarget(string $target): string
     {
-        $widgets = $this->queue->filter(function(WidgetInterface $widget) use ($target) {
+        $widgets = $this->queue->filter(function (WidgetInterface $widget) use ($target) {
             return $widget->getTarget() === $target;
         })->sortBy(function (WidgetInterface $widget) {
             return $widget->getPriority();
@@ -85,7 +84,7 @@ class Widgets
 
     public function processQueue(Response $response): Response
     {
-        $zone = Zone::getFromRequest($this->request);
+        $zone = Zone::getFromRequest($this->requestStack->getCurrentRequest());
         return $this->queueProcessor->process($response, $this->queue, $zone);
     }
 
