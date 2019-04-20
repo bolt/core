@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface ResponseAware
 {
-    public function setResponse(?Response $response = null): WidgetInterface;
+    public function setResponse(Response $response): WidgetInterface;
 
     public function getResponse(): ?Response;
 }
