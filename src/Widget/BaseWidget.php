@@ -12,7 +12,9 @@ use Cocur\Slugify\Slugify;
  */
 abstract class BaseWidget implements WidgetInterface
 {
-    use TwigTrait, RequestTrait, ResponseTrait;
+    use TwigTrait;
+    use RequestTrait;
+    use ResponseTrait;
 
     /** @var string */
     protected $name;
