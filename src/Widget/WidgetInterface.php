@@ -26,5 +26,5 @@ interface WidgetInterface
 
     public function getSlug(): string;
 
-    public function __invoke(array $params = []): string;
+    public function __invoke(?string $template = null, array $params = []): string;
 }

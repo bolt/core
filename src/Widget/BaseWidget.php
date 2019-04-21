@@ -83,16 +83,16 @@ class BaseWidget implements WidgetInterface
         return $this->priority;
     }
 
-    public function __invoke(array $params = []): string
+    public function __invoke(?string $template = null, array $params = []): string
     {
-        if (array_key_exists('template', $params)) {
-            $this->template = $params['template'];
+        if ($template === null) {
+            $template = $this->template;
         }
 
         if ($this instanceof TwigAware) {
-            $output = $this->twig->render($this->template, $params);
+            $output = $this->twig->render($template, $params);
         } else {
-            $output = $this->template;
+            $output = $template;
         }
 
         return sprintf(

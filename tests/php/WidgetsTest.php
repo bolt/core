@@ -84,7 +84,7 @@ class WidgetsTest extends TestCase
 
         $this->assertSame(
             '<div id="widget-weather-widget" name="Weather Widget">[Hello, Bar!]</div>',
-            $widgets->renderWidgetByName('Weather Widget', ['foo' => 'Bar'])
+            $widgets->renderWidgetByName('Weather Widget', null, ['foo' => 'Bar'])
         );
     }
 
