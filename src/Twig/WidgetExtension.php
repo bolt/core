@@ -36,14 +36,14 @@ class WidgetExtension extends AbstractExtension
         ];
     }
 
-    public function renderWidgetByName(string $name): string
+    public function renderWidgetByName(string $name, array $params = []): string
     {
-        return $this->widgetRenderer->renderWidgetByName($name, func_get_args());
+        return $this->widgetRenderer->renderWidgetByName($name, $params);
     }
 
-    public function renderWidgetsForTarget(string $target): string
+    public function renderWidgetsForTarget(string $target, array $params = []): string
     {
-        return $this->widgetRenderer->renderWidgetsForTarget($target, func_get_args());
+        return $this->widgetRenderer->renderWidgetsForTarget($target, $params);
     }
 
     public function dummy($input = null): string
