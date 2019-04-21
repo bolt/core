@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Widget\Injector;
 
 use Bolt\Common\Str;
-use Bolt\Widget\ResponseAware;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Class for matching HTML elements and injecting text.
@@ -58,18 +56,9 @@ class HtmlInjector
 
     public function inject(WidgetInterface $widget, Response $response): void
     {
-        // Don't try to modify the response body for streamed responses. Stuff will break, if we do.
-        if ($response instanceof StreamedResponse) {
-            return;
-        }
-
         $html = $response->getContent();
         $functionMap = $this->getMap();
         $target = $widget->getTarget();
-
-        if ($widget instanceof ResponseAware) {
-            $widget->setResponse($response);
-        }
 
         $output = $widget();
 

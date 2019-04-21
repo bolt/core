@@ -18,7 +18,7 @@ class NewsWidget extends BaseWidget implements TwigAware, RequestAware
     protected $target = AdditionalTarget::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
     protected $priority = 150;
     protected $template = '@bolt/widgets/news.twig';
-    protected $zone = RequestZone::NOWHERE;
+    protected $zone = RequestZone::BACKEND;
 
     public function __invoke(array $params = []): string
     {

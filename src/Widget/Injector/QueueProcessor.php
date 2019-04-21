@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\Widget\Injector;
 
+use Bolt\Widget\RequestAware;
+use Bolt\Widget\ResponseAware;
+use Bolt\Widget\WidgetInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 
@@ -22,19 +26,14 @@ class QueueProcessor
         $this->injector = $injector;
     }
 
-    public function process(Response $response, Collection $queue, string $zone): Response
+    public function guardResponse(Response $response, callable $process): Response
     {
         // First, gather all html <!-- comments -->, because they shouldn't be
         // considered for replacements. We use a callback, so we can fill our
         // $this->matchedComments array
         preg_replace_callback('/<!--(.*)-->/Uis', [$this, 'pregCallback'], $response->getContent());
 
-        foreach ($queue as $widget) {
-            if ($widget->getZone() === $zone) {
-                $this->injector->inject($widget, $response);
-            }
-            // unset($this->queue[$key]);
-        }
+        $process($response);
 
         // Finally, replace back ###comment### with its original comment.
         if (! empty($this->matchedComments)) {
@@ -43,6 +42,22 @@ class QueueProcessor
         }
 
         return $response;
+    }
+
+    public function process(Response $response, Request $request, Collection $queue, string $zone): void
+    {
+        /** @var WidgetInterface $widget */
+        foreach ($queue as $widget) {
+            if ($widget->getZone() === $zone || $widget->getZone() === RequestZone::EVERYWHERE) {
+                if ($widget instanceof RequestAware) {
+                    $widget->setRequest($request);
+                }
+                if ($widget instanceof ResponseAware) {
+                    $widget->setResponse($response);
+                }
+                $this->injector->inject($widget, $response);
+            }
+        }
     }
 
     /**

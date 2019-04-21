@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RequestZone
 {
-    public const KEY = 'zone';
+    private const KEY = 'zone';
 
     public const FRONTEND = 'frontend';
     public const BACKEND = 'backend';

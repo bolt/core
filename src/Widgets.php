@@ -11,6 +11,7 @@ use Bolt\Widget\TwigAware;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
@@ -86,7 +87,24 @@ class Widgets
 
     public function processQueue(Response $response): Response
     {
-        $zone = RequestZone::getFromRequest($this->requestStack->getCurrentRequest());
-        return $this->queueProcessor->process($response, $this->queue, $zone);
+        // Don't try to modify the response body for streamed responses. Stuff will break, if we do.
+        if ($response instanceof StreamedResponse) {
+            return $response;
+        }
+
+        $request = $this->requestStack->getCurrentRequest();
+        $zone = RequestZone::getFromRequest($request);
+        if ($zone === RequestZone::NOWHERE) {
+            return $response;
+        }
+
+        $queue = $this->queue;
+
+        return $this->queueProcessor->guardResponse(
+            $response,
+            function (Response $response) use ($request, $queue, $zone): void {
+                $this->queueProcessor->process($response, $request, $queue, $zone);
+            }
+        );
     }
 }

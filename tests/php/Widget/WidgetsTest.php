@@ -25,7 +25,10 @@ class WidgetsTest extends StringTestCase
     {
         $queueProcessor = new QueueProcessor(new HtmlInjector());
         $requestStack = new RequestStack();
-        $requestStack->push(Request::createFromGlobals());
+
+        $request = Request::createFromGlobals();
+        RequestZone::setToRequest($request, RequestZone::BACKEND);
+        $requestStack->push($request);
 
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
@@ -35,6 +38,7 @@ class WidgetsTest extends StringTestCase
 
         $snippet = (new SnippetWidget())
             ->setTemplate('*foo*')
+            ->setZone(RequestZone::EVERYWHERE)
             ->setTarget(Target::END_OF_BODY);
 
         $widgets->registerWidget($snippet);
@@ -91,7 +95,7 @@ class WidgetsTest extends StringTestCase
     public function testProcessHeaderWidget(): void
     {
         $request = new Request();
-        $request->attributes->set(RequestZone::KEY, RequestZone::FRONTEND);
+        RequestZone::setToRequest($request, RequestZone::FRONTEND);
         $requestStack = new RequestStack();
         $requestStack->push($request);
 
@@ -113,7 +117,7 @@ class WidgetsTest extends StringTestCase
     public function testProcessWeatherWidgetInTarget(): void
     {
         $request = new Request();
-        $request->attributes->set(RequestZone::KEY, RequestZone::BACKEND);
+        RequestZone::setToRequest($request, RequestZone::BACKEND);
         $requestStack = new RequestStack();
         $requestStack->push($request);
 
@@ -143,7 +147,7 @@ class WidgetsTest extends StringTestCase
     public function testProcessWeatherWidgetInTarget2(): void
     {
         $request = new Request();
-        $request->attributes->set(RequestZone::KEY, RequestZone::BACKEND);
+        RequestZone::setToRequest($request, RequestZone::BACKEND);
         $requestStack = new RequestStack();
         $requestStack->push($request);
 
