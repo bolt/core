@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\MediaFactory;
 use Bolt\Controller\CsrfTrait;
+use Bolt\Factory\MediaFactory;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;

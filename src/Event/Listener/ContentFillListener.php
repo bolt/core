@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\EventListener;
+namespace Bolt\Event\Listener;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;

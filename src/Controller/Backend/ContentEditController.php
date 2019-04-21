@@ -11,7 +11,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
-use Bolt\EventListener\ContentFillListener;
+use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
 use Carbon\Carbon;

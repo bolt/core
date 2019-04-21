@@ -136,7 +136,7 @@ class Relation
     }
 
     /**
-     * @see: Bolt\EventListener\RelationFillListener
+     * @see: Bolt\Event\Listener\RelationFillListener
      */
     public function setDefinitionFromContentDefinition(): void
     {

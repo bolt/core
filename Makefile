@@ -9,6 +9,9 @@ install:
 	npm install
 	npm run build
 
+update:
+	composer update && composer outdated
+
 server:
 	bin/console server:start 127.0.0.1:8088 -q || true
 
@@ -26,16 +29,19 @@ csclear:
 cscheck:
 	make csclear
 	vendor/bin/ecs check src
+	vendor/bin/ecs check tests/spec --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --config vendor/symplify/easy-coding-standard/config/common/phpunit.yml
+	vendor/bin/ecs check tests/php --config vendor/symplify/easy-coding-standard/config/common/strict.yml
 	make stancheck
 
 csfix:
 	make csclear
 	vendor/bin/ecs check src --fix
-	make stancheck
-
-csfix-tests:
-	make csclear
-	vendor/bin/ecs check tests/php --fix
+	vendor/bin/ecs check tests/spec --fix --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/phpunit.yml
+	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/strict.yml
 	make stancheck
 
 stancheck:
@@ -105,7 +111,7 @@ docker-assets-serve:
 	docker-compose run node sh -c "npm run serve"
 
 docker-update:
-	docker-compose exec -T php sh -c "composer update"
+	docker-compose exec -T php sh -c "composer update && composer outdated"
 
 docker-cache:
 	docker-compose exec -T php sh -c "bin/console cache:clear"
