@@ -14,7 +14,7 @@ class BoltHeaderWidget extends BaseWidget implements ResponseAware
     protected $target = Target::NOWHERE;
     protected $zone = RequestZone::FRONTEND;
 
-    public function __invoke(?string $template = null, array $params = []): string
+    public function __invoke(array $params = []): string
     {
         $this->getResponse()->headers->set('X-Powered-By', 'Bolt', false);
 
