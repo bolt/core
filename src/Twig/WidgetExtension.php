@@ -38,12 +38,12 @@ class WidgetExtension extends AbstractExtension
 
     public function renderWidgetByName(string $name): string
     {
-        return $this->widgetRenderer->renderWidgetByName($name);
+        return $this->widgetRenderer->renderWidgetByName($name, func_get_args());
     }
 
     public function renderWidgetsForTarget(string $target): string
     {
-        return $this->widgetRenderer->renderWidgetsForTarget($target);
+        return $this->widgetRenderer->renderWidgetsForTarget($target, func_get_args());
     }
 
     public function dummy($input = null): string

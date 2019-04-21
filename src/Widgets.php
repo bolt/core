@@ -48,7 +48,7 @@ class Widgets
         $this->queue->push($widget);
     }
 
-    public function renderWidgetByName(string $name): string
+    public function renderWidgetByName(string $name, array $params = []): string
     {
         $widget = $this->queue->filter(function (WidgetInterface $widget) use ($name) {
             return $widget->getName() === $name;
@@ -59,11 +59,11 @@ class Widgets
                 $widget->setRequest($this->requestStack->getCurrentRequest());
             }
 
-            return $widget();
+            return $widget($params);
         }
     }
 
-    public function renderWidgetsForTarget(string $target): string
+    public function renderWidgetsForTarget(string $target, array $params = []): string
     {
         $widgets = $this->queue->filter(function (WidgetInterface $widget) use ($target) {
             return $widget->getTarget() === $target;
@@ -78,7 +78,7 @@ class Widgets
                 $widget->setRequest($this->requestStack->getCurrentRequest());
             }
 
-            $output .= $widget();
+            $output .= $widget($params);
         }
 
         return $output;

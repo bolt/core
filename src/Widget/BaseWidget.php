@@ -18,7 +18,6 @@ class BaseWidget implements WidgetInterface
     protected $target = Target::NOWHERE;
     protected $zone = RequestZone::EVERYWHERE;
     protected $priority = 0;
-    protected $context = [];
 
     /** @var string */
     protected $template;
@@ -84,16 +83,16 @@ class BaseWidget implements WidgetInterface
         return $this->priority;
     }
 
-    public function __invoke(?string $template = null): string
+    public function __invoke(array $params = []): string
     {
-        if ($template === null) {
-            $template = $this->template;
+        if (array_key_exists('template', $params)) {
+            $this->template = $params['template'];
         }
 
         if ($this instanceof TwigAware) {
-            $output = $this->twig->render($template, $this->context);
+            $output = $this->twig->render($this->template, $params);
         } else {
-            $output = $template;
+            $output = $this->template;
         }
 
         return sprintf(

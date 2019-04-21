@@ -19,13 +19,13 @@ class NewsWidget extends BaseWidget implements TwigAware, RequestAware
     protected $priority = 150;
     protected $template = '@bolt/widgets/news.twig';
 
-    public function __invoke(?string $template = null): string
+    public function __invoke(array $params = []): string
     {
         $news = $this->getNews();
 
         $currentItem = $news['information'];
 
-        $this->context = [
+        $context = [
             'title' => $currentItem['title'],
             'news' => $currentItem['teaser'],
             'link' => $currentItem['link'],
@@ -33,7 +33,7 @@ class NewsWidget extends BaseWidget implements TwigAware, RequestAware
             'datefetched' => '2019-04-04 07:25:00',
         ];
 
-        return parent::__invoke($template);
+        return parent::__invoke($context);
     }
 
     /**

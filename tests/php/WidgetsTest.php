@@ -65,6 +65,29 @@ class WidgetsTest extends TestCase
         );
     }
 
+
+    public function testRenderWidgetWithExtraParameters(): void
+    {
+        $queueprocessor = new QueueProcessor(new HtmlInjector());
+        $requestStack = new RequestStack();
+        $requestStack->push(Request::createFromGlobals());
+
+        $loader = new ArrayLoader(['weather.twig' => '[Hello, {{ foo }}!]']);
+        $twig = new Environment($loader);
+
+        $widgets = new Widgets($requestStack, $queueprocessor, $twig);
+
+        $weatherWidget = new WeatherWidget();
+        $weatherWidget->setTemplate('weather.twig');
+
+        $widgets->registerWidget($weatherWidget);
+
+        $this->assertSame(
+            '<div id="widget-weather-widget" name="Weather Widget">[Hello, Bar!]</div>',
+            $widgets->renderWidgetByName('Weather Widget', ['foo' => 'Bar'])
+        );
+    }
+
     public function testProcessHeaderWidget(): void
     {
         $queueprocessor = new QueueProcessor(new HtmlInjector());
