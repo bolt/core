@@ -81,91 +81,6 @@ class HtmlInjector
     }
 
     /**
-     * insert some HTML into the start of the head section of
-     * an HTML page, right after the <head> tag.
-     */
-    protected function headTagStart(string $snippet, string $rawHtml): string
-    {
-        $matches = $this->getMatches($rawHtml, '<head', true, false);
-
-        if ($matches) {
-            $replacement = sprintf("%s\n%s\t%s", $matches[0], $matches[1], $snippet);
-
-            return Str::replaceFirst($rawHtml, $matches[0], $replacement);
-        }
-
-        return $this->nowhere($snippet, $rawHtml);
-    }
-
-    /**
-     * insert some HTML into the head section of an HTML
-     * page, right before the </head> tag.
-     */
-    protected function headTagEnd(string $snippet, string $rawHtml): string
-    {
-        $matches = $this->getMatches($rawHtml, '</head', false, false);
-
-        if ($matches) {
-            $replacement = sprintf("%s\t%s\n%s", $matches[1], $snippet, $matches[0]);
-
-            return Str::replaceFirst($rawHtml, $matches[0], $replacement);
-        }
-
-        return $this->nowhere($snippet, $rawHtml);
-    }
-
-    /**
-     * insert some HTML into the start of the head section of
-     * an HTML page, right after the <body> tag.
-     */
-    protected function bodyTagStart(string $snippet, string $rawHtml): string
-    {
-        $matches = $this->getMatches($rawHtml, '<body', true, false);
-
-        if ($matches) {
-            $replacement = sprintf("%s\n%s\t%s", $matches[0], $matches[1], $snippet);
-
-            return Str::replaceFirst($rawHtml, $matches[0], $replacement);
-        }
-
-        return $this->nowhere($snippet, $rawHtml);
-    }
-
-    /**
-     * insert some HTML into the body section of an HTML
-     * page, right before the </body> tag.
-     */
-    protected function bodyTagEnd(string $snippet, string $rawHtml): string
-    {
-        $matches = $this->getMatches($rawHtml, '</body', false, false);
-
-        if ($matches) {
-            $replacement = sprintf("%s\t%s\n%s", $matches[1], $snippet, $matches[0]);
-
-            return Str::replaceFirst($rawHtml, $matches[0], $replacement);
-        }
-
-        return $this->nowhere($snippet, $rawHtml);
-    }
-
-    /**
-     * insert some HTML into the html section of an HTML
-     * page, right before the </html> tag.
-     */
-    protected function htmlTagEnd(string $snippet, string $rawHtml): string
-    {
-        $matches = $this->getMatches($rawHtml, '</html', false, false);
-
-        if ($matches) {
-            $replacement = sprintf("%s\t%s\n%s", $matches[1], $snippet, $matches[0]);
-
-            return Str::replaceFirst($rawHtml, $matches[0], $replacement);
-        }
-
-        return $this->nowhere($snippet, $rawHtml);
-    }
-
-    /**
      * insert some HTML into the very beginning of HTML / Content.
      */
     protected function beforeContent(string $snippet, string $rawHtml): string
@@ -182,130 +97,197 @@ class HtmlInjector
     }
 
     /**
-     * insert some HTML into the head section of an HTML page.
-     */
-    protected function metaTagsAfter(string $snippet, string $rawHtml): string
-    {
-        $matches = $this->getMatches($rawHtml, '<meta', true, true);
-
-        if ($matches) {
-            $last = count($matches[0]) - 1;
-            $replacement = sprintf("%s\n%s%s", $matches[0][$last], $matches[1][$last], $snippet);
-
-            return Str::replaceFirst($rawHtml, $matches[0][$last], $replacement);
-        }
-
-        return $this->headTagEnd($snippet, $rawHtml);
-    }
-
-    /**
-     * insert some HTML into the head section of an HTML page.
-     */
-    protected function cssTagsAfter(string $snippet, string $rawHtml): string
-    {
-        $matches = $this->getMatches($rawHtml, '<link', true, true);
-
-        if ($matches) {
-            $last = count($matches[0]) - 1;
-            $replacement = sprintf("%s\n%s%s", $matches[0][$last], $matches[1][$last], $snippet);
-
-            return Str::replaceFirst($rawHtml, $matches[0][$last], $replacement);
-        }
-
-        return $this->headTagEnd($snippet, $rawHtml);
-    }
-
-    /**
-     * insert some HTML before the first CSS include in the page.
-     */
-    protected function cssTagsBefore(string $snippet, string $rawHtml): string
-    {
-        $matches = $this->getMatches($rawHtml, '<link', true, false);
-
-        if ($matches) {
-            $replacement = sprintf("%s%s\n%s\t%s", $matches[1], $snippet, $matches[0], $matches[1]);
-
-            return Str::replaceFirst($rawHtml, $matches[0], $replacement);
-        }
-
-        return $this->nowhere($snippet, $rawHtml);
-    }
-
-    /**
-     * insert some HTML before the first javascript include in the page.
-     */
-    protected function jsTagsBefore(string $snippet, string $rawHtml): string
-    {
-        $matches = $this->getMatches($rawHtml, '<script', true, false);
-
-        if ($matches) {
-            $replacement = sprintf("%s%s\n%s\t%s", $matches[1], $snippet, $matches[0], $matches[1]);
-
-            return Str::replaceFirst($rawHtml, $matches[0], $replacement);
-        }
-
-        return $this->nowhere($snippet, $rawHtml);
-    }
-
-    /**
-     * insert some HTML after the last javascript include.
-     * First in the head section, but if there is no script in the head, place
-     * it anywhere.
-     */
-    protected function jsTagsAfter(string $snippet, string $rawHtml, $insidehead = false): string
-    {
-        if ($insidehead) {
-            $pos = mb_strpos($rawHtml, '</head>');
-            $context = mb_substr($rawHtml, 0, $pos);
-        } else {
-            $context = $rawHtml;
-        }
-
-        // This match tag is a unique case
-        $matches = $this->getMatches($context, '(.*)</script>', false, true);
-
-        if ($matches) {
-            // Attempt to insert it after the last <script> tag within context, matching indentation.
-            $last = count($matches[0]) - 1;
-            $replacement = sprintf("%s\n%s%s", $matches[0][$last], $matches[1][$last], $snippet);
-
-            return Str::replaceFirst($rawHtml, $matches[0][$last], $replacement);
-        } elseif ($insidehead) {
-            // Second attempt: entire document
-            return $this->jsTagsAfter($snippet, $rawHtml, false);
-        }
-
-        return $this->headTagEnd($snippet, $rawHtml);
-    }
-
-    /**
      * Nowhere, don't replace anything.
      */
-    public function nowhere(string $snippet, string $rawHtml): string
+    public static function nowhere(string $snippet, string $rawHtml): string
     {
         return $rawHtml;
     }
 
     /**
-     * Get a set of matches.
-     *
-     * @param string $rawHtml        The original HTML
-     * @param string $htmlTag        HTML tag fragment we're matching, e.g. '<head' or '</head'
-     * @param bool   $matchRemainder TRUE matches the remainder of the line, not just the tag - (.*)
-     * @param bool   $matchAll       TRUE returns all matched instances - preg_match_all()
+     * insert some HTML into the start of the head section of
+     * an HTML page, right after the <head> tag.
      */
-    private function getMatches(string $rawHtml, string $htmlTag, bool $matchRemainder, bool $matchAll): ?array
+    protected function headTagStart(string $snippet, string $rawHtml): string
     {
-        $matches = null;
-        $matchRemainder = $matchRemainder ? '(.*)' : '';
-        $regex = sprintf("~([ \t]*)%s%s~mi", $htmlTag, $matchRemainder);
+        return self::injectAfterTagStart($rawHtml, 'head', $snippet);
+    }
 
-        if ($matchAll && preg_match_all($regex, $rawHtml, $matches)) {
-            return $matches;
-        } elseif (! $matchAll && preg_match($regex, $rawHtml, $matches)) {
-            return $matches;
+    /**
+     * insert some HTML into the head section of an HTML
+     * page, right before the </head> tag.
+     */
+    protected function headTagEnd(string $snippet, string $rawHtml): string
+    {
+        return self::injectBeforeTagEnd($rawHtml, 'head', $snippet);
+    }
+
+    /**
+     * insert some HTML into the start of the head section of
+     * an HTML page, right after the <body> tag.
+     */
+    protected function bodyTagStart(string $snippet, string $rawHtml): string
+    {
+        return self::injectAfterTagStart($rawHtml, 'body', $snippet);
+    }
+
+    /**
+     * insert some HTML into the body section of an HTML
+     * page, right before the </body> tag.
+     */
+    protected function bodyTagEnd(string $snippet, string $rawHtml): string
+    {
+        return self::injectBeforeTagEnd($rawHtml, 'body', $snippet);
+    }
+
+    /**
+     * insert some HTML into the html section of an HTML
+     * page, right before the </html> tag.
+     */
+    protected function htmlTagEnd(string $snippet, string $rawHtml): string
+    {
+        return self::injectBeforeTagEnd($rawHtml, 'html', $snippet);
+    }
+
+    /**
+     * insert some HTML into the head section of an HTML page.
+     * If there is no Metatag anywhere, place it right before end of head.
+     */
+    protected function metaTagsAfter(string $snippet, string $rawHtml): string
+    {
+        $result = self::injectAfterTagEnd($rawHtml, 'meta', $snippet);
+        if ($result === $rawHtml) {
+            $result = self::injectBeforeTagEnd($rawHtml, 'head', $snippet);
+        }
+
+        return $result;
+    }
+
+    /**
+     * insert some HTML into the head section of an HTML page.
+     * If there is no CSS anywhere, place it right before end of head.
+     */
+    protected function cssTagsAfter(string $snippet, string $rawHtml): string
+    {
+        $result = self::injectAfterTagEnd($rawHtml, 'link', $snippet);
+        if ($result === $rawHtml) {
+            $result = self::injectAfterTagEnd($rawHtml, 'style', $snippet);
+        }
+        if ($result === $rawHtml) {
+            $result = self::injectBeforeTagEnd($rawHtml, 'head', $snippet);
+        }
+
+        return $result;
+    }
+
+    /**
+     * insert some HTML before the first CSS include in the page.
+     * If there is no CSS anywhere, place it right after start of head.
+     */
+    protected function cssTagsBefore(string $snippet, string $rawHtml): string
+    {
+        $result = self::injectBeforeTagStart($rawHtml, 'link', $snippet);
+        if ($result === $rawHtml) {
+            $result = self::injectBeforeTagStart($rawHtml, 'style', $snippet);
+        }
+        if ($result === $rawHtml) {
+            $result = self::injectAfterTagStart($rawHtml, 'head', $snippet);
+        }
+
+        return $result;
+    }
+
+    /**
+     * insert some HTML before the first javascript include in the page.
+     * If there is no JS anywhere, place it right after start of body.
+     */
+    protected function jsTagsBefore(string $snippet, string $rawHtml): string
+    {
+        $result = self::injectBeforeTagStart($rawHtml, 'script', $snippet);
+        if ($result === $rawHtml) {
+            $result = self::injectAfterTagStart($rawHtml, 'body', $snippet);
+        }
+
+        return $result;
+    }
+
+    /**
+     * insert some HTML after the last javascript include.
+     * If there is no JS anywhere, place it right before end of body.
+     */
+    protected function jsTagsAfter(string $snippet, string $rawHtml, $insidehead = false): string
+    {
+        $result = self::injectAfterTagEnd($rawHtml, 'script', $snippet);
+        if ($result === $rawHtml) {
+            $result = self::injectBeforeTagEnd($rawHtml, 'body', $snippet);
+        }
+
+        return $result;
+    }
+
+    private static function findTagStart(string $rawHtml, string $htmlTag): ?string
+    {
+        preg_match('~(<'.$htmlTag.'[^>]*?>)~mi', $rawHtml, $matches);
+
+        if (empty($matches)) {
+            return null;
+        }
+        return $matches[1];
+    }
+
+    private static function findTagEnd(string $rawHtml, string $htmlTag): ?string
+    {
+        preg_match_all('~((<'.$htmlTag.'[^>]*?>)|(</'.$htmlTag.'>))~mi', $rawHtml, $allMatches);
+
+        if (empty($allMatches)) {
+            return null;
+        }
+        foreach (array_reverse($allMatches[0]) as $match) {
+            if ($match !== '') {
+                return $match;
+            }
         }
 
         return null;
+    }
+
+    public static function injectBeforeTagStart(string $rawHtml, string $htmlTag, string $injection): string
+    {
+        $match = static::findTagStart($rawHtml, $htmlTag);
+        if ($match === null) {
+            return static::nowhere($injection, $rawHtml);
+        }
+
+        return Str::replaceFirst($rawHtml, $match, $injection.$match, true);
+    }
+
+    public static function injectAfterTagStart(string $rawHtml, string $htmlTag, string $injection): string
+    {
+        $match = static::findTagStart($rawHtml, $htmlTag);
+        if ($match === null) {
+            return static::nowhere($injection, $rawHtml);
+        }
+
+        return Str::replaceFirst($rawHtml, $match, $match.$injection, true);
+    }
+
+    public static function injectBeforeTagEnd(string $rawHtml, string $htmlTag, string $injection): string
+    {
+        $match = static::findTagEnd($rawHtml, $htmlTag);
+        if ($match === null) {
+            return static::nowhere($injection, $rawHtml);
+        }
+
+        return Str::replaceLast($rawHtml, $match, $injection.$match, true);
+    }
+
+    public static function injectAfterTagEnd(string $rawHtml, string $htmlTag, string $injection): string
+    {
+        $match = static::findTagEnd($rawHtml, $htmlTag);
+        if ($match === null) {
+            return static::nowhere($injection, $rawHtml);
+        }
+
+        return Str::replaceLast($rawHtml, $match, $match.$injection, true);
     }
 }

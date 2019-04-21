@@ -40,7 +40,7 @@ class WidgetsTest extends StringTestCase
         $widgets->registerWidget($snippet);
         $widgets->processQueue($response);
 
-        $this->assertSameStrings("<html><body>foo*foo*</body></html>", $response->getContent());
+        $this->assertSameHtml("<html><body>foo*foo*</body></html>", $response->getContent());
     }
 
     public function testRenderWidget(): void
@@ -59,7 +59,7 @@ class WidgetsTest extends StringTestCase
 
         $widgets->registerWidget($weatherWidget);
 
-        $this->assertSameStrings(
+        $this->assertSameHtml(
             '<div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>',
             $widgets->renderWidgetByName('Weather Widget')
         );
@@ -82,7 +82,7 @@ class WidgetsTest extends StringTestCase
 
         $widgets->registerWidget($weatherWidget);
 
-        $this->assertSameStrings(
+        $this->assertSameHtml(
             '<div id="widget-weather-widget" name="Weather Widget">[Hello, Bar!]</div>',
             $widgets->renderWidgetByName('Weather Widget', ['foo' => 'Bar'])
         );
@@ -107,7 +107,7 @@ class WidgetsTest extends StringTestCase
         $widgets->registerWidget($headerWidget);
         $widgets->processQueue($response);
 
-        $this->assertSameStrings('Bolt', $response->headers->get('X-Powered-By'));
+        $this->assertSameHtml('Bolt', $response->headers->get('X-Powered-By'));
     }
 
     public function testProcessWeatherWidgetInTarget(): void
@@ -134,8 +134,38 @@ class WidgetsTest extends StringTestCase
         $widgets->registerWidget($weather);
         $widgets->processQueue($response);
 
-        $this->assertSameStrings(
+        $this->assertSameHtml(
             '<html><body>foo<div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div></body></html>',
+            $response->getContent()
+        );
+    }
+
+    public function testProcessWeatherWidgetInTarget2(): void
+    {
+        $request = new Request();
+        $request->attributes->set(RequestZone::KEY, RequestZone::BACKEND);
+        $requestStack = new RequestStack();
+        $requestStack->push($request);
+
+        $queueProcessor = new QueueProcessor(new HtmlInjector());
+        $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
+        $twig = new Environment($loader);
+
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
+
+        $response = new Response('<html><body>foo</body></html>');
+
+        $weather = new WeatherWidget();
+
+        // overwrite things just to simplify test
+        $weather->setTarget(Target::START_OF_BODY);
+        $weather->setTemplate('weather.twig');
+
+        $widgets->registerWidget($weather);
+        $widgets->processQueue($response);
+
+        $this->assertSameHtml(
+            '<html><body><div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>foo</body></html>',
             $response->getContent()
         );
     }

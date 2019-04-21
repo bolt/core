@@ -75,7 +75,24 @@ class HtmlInjectorTest extends StringTestCase
         $response = new Response($this->getHtml());
         $injector->inject($snippet, $response);
 
-        self::assertSameStrings($expected, $response->getContent());
+        self::assertSameHtml($expected, $response->getContent());
+    }
+
+    /**
+     * @dataProvider providerTarget
+     */
+    public function testInjectNoSpaces(string $constant): void
+    {
+        $expected = file_get_contents(self::TEST_TEMPLATES_BASE_PATH . 'result.' . $constant . '.html');
+        $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
+        $injector = new HtmlInjector();
+
+        $snippet = new SnippetWidget('koala', '', $constant);
+
+        $response = new Response(preg_replace('/\s+/', '', $this->getHtml()));
+        $injector->inject($snippet, $response);
+
+        self::assertSameHtml($expected, $response->getContent());
     }
 
     /**
@@ -91,7 +108,7 @@ class HtmlInjectorTest extends StringTestCase
         $response = new Response($html);
         $injector->inject($snippet, $response);
 
-        self::assertSameStrings($html, $response->getContent());
+        self::assertSameHtml($html, $response->getContent());
     }
 
     /**
@@ -107,7 +124,7 @@ class HtmlInjectorTest extends StringTestCase
         $response = new Response();
         $injector->inject($snippet, $response);
 
-        self::assertSameStrings("", $response->getContent());
+        self::assertSameHtml("", $response->getContent());
     }
 
     /**
@@ -123,7 +140,7 @@ class HtmlInjectorTest extends StringTestCase
         $response = new Response();
         $injector->inject($snippet, $response);
 
-        self::assertSameStrings("koala", $response->getContent());
+        self::assertSameHtml("koala", $response->getContent());
     }
 
     protected function getHtml()
