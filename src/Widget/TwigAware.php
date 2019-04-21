@@ -16,8 +16,4 @@ interface TwigAware
     public function setTwig(Environment $twig): WidgetInterface;
 
     public function getTwig(): Environment;
-
-    public function getTemplate(): string;
-
-    public function setTemplate(string $template): WidgetInterface;
 }
