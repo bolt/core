@@ -8,8 +8,6 @@ interface WidgetInterface
 {
     public function getName(): string;
 
-    public function getType(): string;
-
     /**
      * @return string from Bolt\Snippet\Target constants enum
      */

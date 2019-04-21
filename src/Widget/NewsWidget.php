@@ -14,7 +14,6 @@ use GuzzleHttp\Exception\RequestException;
 class NewsWidget extends BaseWidget implements TwigAware, RequestAware
 {
     protected $name = 'News Widget';
-    protected $type = 'widget';
     protected $target = Target::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
     protected $priority = 150;
     protected $template = '@bolt/widgets/news.twig';

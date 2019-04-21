@@ -14,13 +14,12 @@ use Twig\Environment;
 class BaseWidget implements WidgetInterface
 {
     protected $name = 'Nameless widget';
-    protected $type = 'widget';
     protected $target = Target::NOWHERE;
     protected $zone = RequestZone::EVERYWHERE;
     protected $priority = 0;
 
     /** @var string */
-    protected $template = '';
+    protected $template;
 
     /** @var Response */
     protected $response;
@@ -45,18 +44,6 @@ class BaseWidget implements WidgetInterface
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function setType(string $type): WidgetInterface
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
     }
 
     public function setTarget(string $target): WidgetInterface
@@ -110,7 +97,7 @@ class BaseWidget implements WidgetInterface
         return $this;
     }
 
-    public function getTemplate(): string
+    public function getTemplate(): ?string
     {
         return $this->template;
     }

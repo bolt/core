@@ -10,7 +10,6 @@ use Bolt\Snippet\Target;
 class CanonicalLinkWidget extends BaseWidget
 {
     protected $name = 'Canonical Link';
-    protected $type = 'widget';
     protected $target = Target::NOWHERE;
     protected $zone = RequestZone::NOWHERE;
     protected $priority = 200;

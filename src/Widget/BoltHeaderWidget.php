@@ -10,7 +10,6 @@ use Bolt\Snippet\Target;
 class BoltHeaderWidget extends BaseWidget implements ResponseAware
 {
     protected $name = 'Bolt Header Widget';
-    protected $type = 'snippet';
     protected $target = Target::NOWHERE;
     protected $zone = RequestZone::FRONTEND;
 
