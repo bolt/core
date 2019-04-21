@@ -20,7 +20,7 @@ class BaseWidget implements WidgetInterface
     protected $priority = 0;
 
     /** @var string */
-    protected $template;
+    protected $template = '';
 
     /** @var Response */
     protected $response;
