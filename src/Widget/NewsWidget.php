@@ -6,7 +6,7 @@ namespace Bolt\Widget;
 
 use Bolt\Common\Exception\ParseException;
 use Bolt\Common\Json;
-use Bolt\Snippet\Target;
+use Bolt\Widget\Injector\Target;
 use Bolt\Version;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;

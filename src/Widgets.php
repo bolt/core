@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt;
 
-use Bolt\Snippet\QueueProcessor;
-use Bolt\Snippet\RequestZone;
+use Bolt\Widget\Injector\QueueProcessor;
+use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\RequestAware;
 use Bolt\Widget\TwigAware;
 use Bolt\Widget\WidgetInterface;

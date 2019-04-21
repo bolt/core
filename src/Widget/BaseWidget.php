@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
-use Bolt\Snippet\RequestZone;
-use Bolt\Snippet\Target;
+use Bolt\Widget\Injector\RequestZone;
+use Bolt\Widget\Injector\Target;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

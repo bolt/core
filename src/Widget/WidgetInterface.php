@@ -9,14 +9,14 @@ interface WidgetInterface
     public function getName(): string;
 
     /**
-     * @return string from Bolt\Snippet\Target constants enum
+     * @return string from Bolt\Widget\Injector\Target constants enum
      */
     public function getTarget(): string;
 
     public function getPriority(): int;
 
     /**
-     * @return string from Bolt\Snippet\RequestZone constants enum
+     * @return string from Bolt\Widget\Injector\RequestZone constants enum
      */
     public function getZone(): string;
 

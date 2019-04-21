@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Snippet;
+namespace Bolt\Widget\Injector;
 
 use Symfony\Component\HttpFoundation\Request;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Snippet;
 
-use Bolt\Snippet\RequestZone;
+use Bolt\Widget\Injector\RequestZone;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Tightenco\Collect\Support\Collection;

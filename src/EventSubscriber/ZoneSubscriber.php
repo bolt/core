@@ -7,7 +7,7 @@ namespace Bolt\EventSubscriber;
 use Bolt\Controller\Backend\Async\AsyncZone;
 use Bolt\Controller\Backend\BackendZone;
 use Bolt\Controller\Frontend\FrontendZone;
-use Bolt\Snippet\RequestZone;
+use Bolt\Widget\Injector\RequestZone;
 use ReflectionClass;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;

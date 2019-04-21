@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
-use Bolt\Snippet\Target;
+use Bolt\Widget\Injector\Target;
 
 class WeatherWidget extends BaseWidget implements TwigAware
 {

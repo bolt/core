@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Asset;
 
-use Bolt\Snippet\HtmlInjector;
-use Bolt\Snippet\Target;
+use Bolt\Widget\Injector\HtmlInjector;
+use Bolt\Widget\Injector\Target;
 use Bolt\Widget\SnippetWidget;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +32,7 @@ class HtmlInjectorTest extends TestCase
      */
     public function testMap(string $constant): void
     {
-        $constant = constant('Bolt\Snippet\Target::' . $constant);
+        $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
         $injector = new HtmlInjector();
 
         self::assertArrayHasKey($constant, $injector->getMap());
@@ -44,7 +44,7 @@ class HtmlInjectorTest extends TestCase
     public function testInject(string $constant): void
     {
         $expected = file_get_contents(__DIR__ . '/../../fixtures/Injector/result.' . $constant . '.html');
-        $constant = constant('Bolt\Snippet\Target::' . $constant);
+        $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
         $injector = new HtmlInjector();
 
         $snippet = new SnippetWidget('koala', '', $constant);
@@ -76,7 +76,7 @@ class HtmlInjectorTest extends TestCase
      */
     public function testInjectEmptyHtml(string $constant): void
     {
-        $constant = constant('Bolt\Snippet\Target::' . $constant);
+        $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
         $injector = new HtmlInjector();
 
         $snippet = new SnippetWidget('koala', '', $constant);
@@ -92,7 +92,7 @@ class HtmlInjectorTest extends TestCase
      */
     public function testInjectTagSoup(string $constant): void
     {
-        $constant = constant('Bolt\Snippet\Target::' . $constant);
+        $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
         $injector = new HtmlInjector();
 
         $snippet = new SnippetWidget('koala', '', $constant);

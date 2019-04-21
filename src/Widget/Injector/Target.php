@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Snippet;
+namespace Bolt\Widget\Injector;
 
 use ReflectionClass;
 
 /**
  * Bolt Snippet target location.
  *
- * This class categorizes all possible snippet locations in constants.
+ * This class categorizes all possible widget locations in constants.
  */
 class Target
 {

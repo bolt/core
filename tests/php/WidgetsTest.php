@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\Tests;
 
-use Bolt\Snippet\HtmlInjector;
-use Bolt\Snippet\QueueProcessor;
-use Bolt\Snippet\RequestZone;
-use Bolt\Snippet\Target;
+use Bolt\Widget\Injector\HtmlInjector;
+use Bolt\Widget\Injector\QueueProcessor;
+use Bolt\Widget\Injector\RequestZone;
+use Bolt\Widget\Injector\Target;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\WeatherWidget;
