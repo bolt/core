@@ -17,14 +17,10 @@ interface WidgetInterface
 
     public function getPriority(): int;
 
-    public function getTemplate(): string;
-
     /**
      * @return string from Bolt\Snippet\RequestZone constants enum
      */
     public function getZone(): string;
-
-    public function getSlug(): string;
 
     public function __invoke(array $params = []): string;
 }
