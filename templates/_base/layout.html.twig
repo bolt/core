@@ -39,7 +39,7 @@
         }|json_encode %}
 
         <admin-toolbar
-            site-name="{{ config.get('general/sitename') }}"
+            site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
             :menu="{{ admin_menu_json }}"
             user="{{ user|default }}"
             :labels="{{ labels }}"
