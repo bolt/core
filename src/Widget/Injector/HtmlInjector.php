@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Widget\Injector;
 
 use Bolt\Common\Str;
-use Bolt\Widget\Injector\Target;
 use Bolt\Widget\ResponseAware;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\Response;

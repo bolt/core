@@ -4,21 +4,29 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
-use Bolt\Widget\Injector\RequestZone;
-use Bolt\Widget\Injector\Target;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class BaseWidget implements WidgetInterface
+/**
+ * BaseWidget can be used as easy starter pack or for as a base for heavy widgets.
+ */
+abstract class BaseWidget implements WidgetInterface
 {
-    protected $name = 'Nameless widget';
-    protected $target = Target::NOWHERE;
-    protected $zone = RequestZone::EVERYWHERE;
+    /** @var string */
+    protected $name;
+
+    /** @var string from Target enum */
+    protected $target;
+
+    /** @var string from RequestZone */
+    protected $zone;
+
+    /** @var int */
     protected $priority = 0;
 
-    /** @var string */
+    /** @var string path to Twig template */
     protected $template;
 
     /** @var Response */
@@ -33,7 +41,7 @@ class BaseWidget implements WidgetInterface
     /** @var Environment */
     private $twig;
 
-    public function setName(string $name): WidgetInterface
+    public function setName(string $name): self
     {
         $this->name = $name;
         $this->slug = null;
@@ -46,7 +54,7 @@ class BaseWidget implements WidgetInterface
         return $this->name;
     }
 
-    public function setTarget(string $target): WidgetInterface
+    public function setTarget(string $target): self
     {
         $this->target = $target;
 
@@ -58,7 +66,7 @@ class BaseWidget implements WidgetInterface
         return $this->target;
     }
 
-    public function setPriority(int $priority): WidgetInterface
+    public function setPriority(int $priority): self
     {
         $this->priority = $priority;
 
@@ -77,7 +85,7 @@ class BaseWidget implements WidgetInterface
         }
 
         if ($this instanceof TwigAware) {
-            $output = $this->twig->render($this->getTemplate(), $params);
+            $output = $this->getTWig()->render($this->getTemplate(), $params);
         } else {
             $output = $this->getTemplate();
         }
@@ -90,19 +98,19 @@ class BaseWidget implements WidgetInterface
         );
     }
 
-    public function setTemplate(string $template): WidgetInterface
+    public function setTemplate(string $template): self
     {
         $this->template = $template;
 
         return $this;
     }
 
-    public function getTemplate(): ?string
+    public function getTemplate(): string
     {
         return $this->template;
     }
 
-    public function setTwig(Environment $twig): WidgetInterface
+    public function setTwig(Environment $twig): self
     {
         $this->twig = $twig;
 
@@ -114,7 +122,7 @@ class BaseWidget implements WidgetInterface
         return $this->twig;
     }
 
-    public function setRequest(Request $request): WidgetInterface
+    public function setRequest(Request $request): self
     {
         $this->request = $request;
 
@@ -126,21 +134,19 @@ class BaseWidget implements WidgetInterface
         return $this->request;
     }
 
-    public function setResponse(?Response $response = null): WidgetInterface
+    public function setResponse(Response $response): self
     {
-        if ($response !== null) {
-            $this->response = $response;
-        }
+        $this->response = $response;
 
         return $this;
     }
 
-    public function getResponse(): ?Response
+    public function getResponse(): Response
     {
         return $this->response;
     }
 
-    public function setZone(string $zone): WidgetInterface
+    public function setZone(string $zone): self
     {
         $this->zone = $zone;
 

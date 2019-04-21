@@ -23,14 +23,14 @@ class WidgetsTest extends TestCase
 {
     public function testProcessWidgetsInQueue(): void
     {
-        $queueprocessor = new QueueProcessor(new HtmlInjector());
+        $queueProcessor = new QueueProcessor(new HtmlInjector());
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
 
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $widgets = new Widgets($requestStack, $queueprocessor, $twig);
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
         $response = new Response('<html><body>foo</body></html>');
 
         $snippet = (new SnippetWidget())
@@ -45,14 +45,14 @@ class WidgetsTest extends TestCase
 
     public function testRenderWidget(): void
     {
-        $queueprocessor = new QueueProcessor(new HtmlInjector());
+        $queueProcessor = new QueueProcessor(new HtmlInjector());
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
 
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $widgets = new Widgets($requestStack, $queueprocessor, $twig);
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
 
         $weatherWidget = new WeatherWidget();
         $weatherWidget->setTemplate('weather.twig');
@@ -68,14 +68,14 @@ class WidgetsTest extends TestCase
 
     public function testRenderWidgetWithExtraParameters(): void
     {
-        $queueprocessor = new QueueProcessor(new HtmlInjector());
+        $queueProcessor = new QueueProcessor(new HtmlInjector());
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
 
         $loader = new ArrayLoader(['weather.twig' => '[Hello, {{ foo }}!]']);
         $twig = new Environment($loader);
 
-        $widgets = new Widgets($requestStack, $queueprocessor, $twig);
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
 
         $weatherWidget = new WeatherWidget();
         $weatherWidget->setTemplate('weather.twig');
@@ -90,19 +90,19 @@ class WidgetsTest extends TestCase
 
     public function testProcessHeaderWidget(): void
     {
-        $queueprocessor = new QueueProcessor(new HtmlInjector());
+        $request = new Request();
+        $request->attributes->set(RequestZone::KEY, RequestZone::FRONTEND);
         $requestStack = new RequestStack();
-        $requestStack->push(Request::createFromGlobals());
+        $requestStack->push($request);
 
-        $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
-        $twig = new Environment($loader);
+        $queueProcessor = new QueueProcessor(new HtmlInjector());
+        $twig = new Environment(new ArrayLoader());
 
-        $widgets = new Widgets($requestStack, $queueprocessor, $twig);
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
 
         $response = new Response('<html><body>foo</body></html>');
 
         $headerWidget = new BoltHeaderWidget();
-        $headerWidget->setZone(RequestZone::NOWHERE);
 
         $widgets->registerWidget($headerWidget);
         $widgets->processQueue($response);

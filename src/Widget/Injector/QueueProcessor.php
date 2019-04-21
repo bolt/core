@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Widget\Injector;
 
-use Bolt\Widget\Injector\HtmlInjector;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 

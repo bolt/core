@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\EventSubscriber;
 
-use Bolt\Widget\Injector\RequestZone;
-use Bolt\Widget\Injector\Target;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
+use Bolt\Widget\Injector\RequestZone;
+use Bolt\Widget\Injector\Target;
 use Bolt\Widget\NewsWidget;
 use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\WeatherWidget;

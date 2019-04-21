@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+/**
+ * Every widget must implement this interface.
+ */
 interface WidgetInterface
 {
     public function getName(): string;
