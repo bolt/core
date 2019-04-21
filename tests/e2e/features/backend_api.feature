@@ -1,4 +1,4 @@
-Feature: Visiting Dashboard
+Feature: Visiting API backend page
 
     Scenario: As an admin I want to see API page
         Given I am logged in as "admin"
