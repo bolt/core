@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 /**
- * BaseWidget can be used as easy starter pack or for as a base for heavy widgets.
+ * BaseWidget can be used as easy starter pack or as a base for your own widgets.
  */
 abstract class BaseWidget implements WidgetInterface
 {
