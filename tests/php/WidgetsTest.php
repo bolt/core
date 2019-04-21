@@ -109,4 +109,26 @@ class WidgetsTest extends TestCase
 
         $this->assertSame('Bolt', $response->headers->get('X-Powered-By'));
     }
+
+    public function testProcessWeatherWidget(): void
+    {
+        $request = new Request();
+        $request->attributes->set(RequestZone::KEY, RequestZone::BACKEND);
+        $requestStack = new RequestStack();
+        $requestStack->push($request);
+
+        $queueProcessor = new QueueProcessor(new HtmlInjector());
+        $twig = new Environment(new ArrayLoader());
+
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
+
+        $response = new Response('<html><body>foo</body></html>');
+
+        $weatherWidget = new WeatherWidget();
+
+        $widgets->registerWidget($weather);
+        $widgets->processQueue($response);
+
+        $this->assertContains('Bolt', $response->headers->get('X-Powered-By'));
+    }
 }

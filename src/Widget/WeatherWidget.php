@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
 
 class WeatherWidget extends BaseWidget implements TwigAware
@@ -12,4 +13,5 @@ class WeatherWidget extends BaseWidget implements TwigAware
     protected $target = Target::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
     protected $priority = 200;
     protected $template = '@bolt/widgets/weather.twig';
+    protected $zone = RequestZone::BACKEND;
 }

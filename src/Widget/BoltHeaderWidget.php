@@ -6,14 +6,10 @@ namespace Bolt\Widget;
 
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
-use Symfony\Component\HttpFoundation\Response;
 
 class BoltHeaderWidget implements WidgetInterface, ResponseAware
 {
-    /**
-     * @var Response
-     */
-    private $response;
+    use ResponseTrait;
 
     public function __invoke(array $params = []): string
     {
@@ -40,17 +36,5 @@ class BoltHeaderWidget implements WidgetInterface, ResponseAware
     public function getZone(): string
     {
         return RequestZone::FRONTEND;
-    }
-
-    public function setResponse(Response $response): self
-    {
-        $this->response = $response;
-
-        return $this;
-    }
-
-    public function getResponse(): Response
-    {
-        return $this->response;
     }
 }

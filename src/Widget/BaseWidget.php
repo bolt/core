@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Bolt\Widget\Exception\WidgetException;
 use Cocur\Slugify\Slugify;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
 
 /**
  * BaseWidget can be used as easy starter pack or as a base for your own widgets.
  */
 abstract class BaseWidget implements WidgetInterface
 {
+    use TwigTrait, RequestTrait, ResponseTrait;
+
     /** @var string */
     protected $name;
 
@@ -29,17 +29,8 @@ abstract class BaseWidget implements WidgetInterface
     /** @var string path to Twig template */
     protected $template;
 
-    /** @var Response */
-    protected $response;
-
     /** @var ?string */
     protected $slug;
-
-    /** @var Request */
-    private $request;
-
-    /** @var Environment */
-    private $twig;
 
     public function setName(string $name): self
     {
@@ -51,6 +42,9 @@ abstract class BaseWidget implements WidgetInterface
 
     public function getName(): string
     {
+        if ($this->name === null) {
+            throw new WidgetException('Widget of class '.self::class.' does not have a name!');
+        }
         return $this->name;
     }
 
@@ -63,6 +57,9 @@ abstract class BaseWidget implements WidgetInterface
 
     public function getTarget(): string
     {
+        if ($this->target === null) {
+            throw new WidgetException("Widget {$this->getName()} does not have Target set");
+        }
         return $this->target;
     }
 
@@ -75,6 +72,9 @@ abstract class BaseWidget implements WidgetInterface
 
     public function getPriority(): int
     {
+        if ($this->priority === null) {
+            throw new WidgetException("Widget {$this->getName()} does not have priority set");
+        }
         return $this->priority;
     }
 
@@ -107,43 +107,10 @@ abstract class BaseWidget implements WidgetInterface
 
     public function getTemplate(): string
     {
+        if ($this->template === null) {
+            throw new WidgetException("Widget {$this->getName()} does not have template set");
+        }
         return $this->template;
-    }
-
-    public function setTwig(Environment $twig): self
-    {
-        $this->twig = $twig;
-
-        return $this;
-    }
-
-    public function getTwig(): Environment
-    {
-        return $this->twig;
-    }
-
-    public function setRequest(Request $request): self
-    {
-        $this->request = $request;
-
-        return $this;
-    }
-
-    public function getRequest(): Request
-    {
-        return $this->request;
-    }
-
-    public function setResponse(Response $response): self
-    {
-        $this->response = $response;
-
-        return $this;
-    }
-
-    public function getResponse(): Response
-    {
-        return $this->response;
     }
 
     public function setZone(string $zone): self
@@ -155,14 +122,16 @@ abstract class BaseWidget implements WidgetInterface
 
     public function getZone(): string
     {
+        if ($this->zone === null) {
+            throw new WidgetException("Widget {$this->getName()} does not have Zone set");
+        }
         return $this->zone;
     }
 
     public function getSlug(): string
     {
         if ($this->slug === null) {
-            $slugify = Slugify::create();
-            $this->slug = $slugify->slugify($this->name);
+            $this->slug = Slugify::create()->slugify($this->getName());
         }
 
         return $this->slug;
