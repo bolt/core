@@ -46,9 +46,7 @@ class TwigAwareController extends AbstractController
      */
     protected function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
     {
-        // Set config and version.
-        $parameters['config'] = $parameters['config'] ?? $this->config;
-        $parameters['version'] = $parameters['version'] ?? Version::VERSION;
+        // Set User in global Twig environment
         $parameters['user'] = $parameters['user'] ?? $this->getUser();
 
         // Resolve string|array of templates into the first one that is found.
