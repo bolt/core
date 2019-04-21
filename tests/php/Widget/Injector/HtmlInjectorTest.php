@@ -2,23 +2,46 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Tests\Asset;
+namespace Bolt\Tests\Widget\Injector;
 
+use Bolt\Tests\StringTestCase;
 use Bolt\Widget\Injector\HtmlInjector;
 use Bolt\Widget\Injector\Target;
 use Bolt\Widget\SnippetWidget;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 
-class HtmlInjectorTest extends TestCase
+class HtmlInjectorTest extends StringTestCase
 {
+    private const TEST_TEMPLATES_BASE_PATH = __DIR__ . '/../../../fixtures/HtmlInjector/';
+
     public function providerTarget()
     {
         $list = (new Target())->listAll();
         $constants = (new Collection(array_keys($list)))
             ->filter(function ($v) {
-                return mb_strpos($v, 'WIDGET') === false && mb_strpos($v, 'NOWHERE') === false;
+                return mb_strpos($v, 'NOWHERE') === false
+                    && mb_strpos($v, 'BEFORE_HTML') === false
+                    && mb_strpos($v, 'AFTER_HTML') === false
+                    && mb_strpos($v, 'BEFORE_CONTENT') === false
+                    && mb_strpos($v, 'AFTER_CONTENT') === false;
+            })
+            ->map(function ($v) {
+                return [$v];
+            });
+
+        return $constants->toArray();
+    }
+
+    public function providerAlwaysWorkingTarget()
+    {
+        $list = (new Target())->listAll();
+        $constants = (new Collection(array_keys($list)))
+            ->filter(function ($v) {
+                return mb_strpos($v, 'BEFORE_HTML') !== false
+                || mb_strpos($v, 'AFTER_HTML') !== false
+                || mb_strpos($v, 'BEFORE_CONTENT') !== false
+                || mb_strpos($v, 'AFTER_CONTENT') !== false;
             })
             ->map(function ($v) {
                 return [$v];
@@ -43,7 +66,7 @@ class HtmlInjectorTest extends TestCase
      */
     public function testInject(string $constant): void
     {
-        $expected = file_get_contents(__DIR__ . '/../../fixtures/Injector/result.' . $constant . '.html');
+        $expected = file_get_contents(self::TEST_TEMPLATES_BASE_PATH . 'result.' . $constant . '.html');
         $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
         $injector = new HtmlInjector();
 
@@ -52,7 +75,7 @@ class HtmlInjectorTest extends TestCase
         $response = new Response($this->getHtml());
         $injector->inject($snippet, $response);
 
-        self::assertSame($expected, $response->getContent());
+        self::assertSameStrings($expected, $response->getContent());
     }
 
     /**
@@ -68,7 +91,7 @@ class HtmlInjectorTest extends TestCase
         $response = new Response($html);
         $injector->inject($snippet, $response);
 
-        self::assertSame($html . "koala\n", $response->getContent());
+        self::assertSameStrings($html, $response->getContent());
     }
 
     /**
@@ -84,27 +107,27 @@ class HtmlInjectorTest extends TestCase
         $response = new Response();
         $injector->inject($snippet, $response);
 
-        self::assertSame("koala\n", $response->getContent());
+        self::assertSameStrings("", $response->getContent());
     }
 
     /**
-     * @dataProvider providerTarget
+     * @dataProvider providerAlwaysWorkingTarget
      */
-    public function testInjectTagSoup(string $constant): void
+    public function testInjectEmptyHtmlAlwaysWorking(string $constant): void
     {
         $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
         $injector = new HtmlInjector();
 
         $snippet = new SnippetWidget('koala', '', $constant);
 
-        $response = new Response('<blink>');
+        $response = new Response();
         $injector->inject($snippet, $response);
 
-        self::assertSame("<blink>koala\n", $response->getContent());
+        self::assertSameStrings("koala", $response->getContent());
     }
 
     protected function getHtml()
     {
-        return file_get_contents(__DIR__ . '/../../fixtures/Injector/index.html');
+        return file_get_contents(self::TEST_TEMPLATES_BASE_PATH . 'index.html');
     }
 }

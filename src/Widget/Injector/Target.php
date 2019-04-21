@@ -11,6 +11,12 @@ use ReflectionClass;
  */
 class Target
 {
+    // works even without valid html
+    public const BEFORE_HTML = 'beforecontent';
+    public const AFTER_HTML = 'aftercontent';
+    public const BEFORE_CONTENT = 'beforecontent';
+    public const AFTER_CONTENT = 'aftercontent';
+
     // unpredictable
     public const BEFORE_CSS = 'beforecss';
     public const AFTER_CSS = 'aftercss';
@@ -24,7 +30,6 @@ class Target
     public const START_OF_BODY = 'startofbody';
     public const END_OF_BODY = 'endofbody';
     public const END_OF_HTML = 'endofhtml';
-    public const AFTER_HTML = 'afterhtml';
 
     // substructure
     public const BEFORE_HEAD_META = 'beforeheadmeta';

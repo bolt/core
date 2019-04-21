@@ -48,7 +48,9 @@ class HtmlInjector
             Target::AFTER_BODY_CSS => 'bodyTagEnd',   // same as end of body
 
             Target::END_OF_HTML => 'htmlTagEnd',
-            Target::AFTER_HTML => 'htmlTagEnd',
+
+            Target::BEFORE_CONTENT => 'beforeContent',
+            Target::AFTER_CONTENT => 'afterContent',
 
             Target::NOWHERE => 'nowhere',
         ];
@@ -73,15 +75,13 @@ class HtmlInjector
 
         if (isset($functionMap[$target])) {
             $html = $this->{$functionMap[$target]}($output, $html);
-        } else {
-            $html .= $output . "\n";
         }
 
         $response->setContent($html);
     }
 
     /**
-     * Helper function to insert some HTML into the start of the head section of
+     * insert some HTML into the start of the head section of
      * an HTML page, right after the <head> tag.
      */
     protected function headTagStart(string $snippet, string $rawHtml): string
@@ -94,11 +94,11 @@ class HtmlInjector
             return Str::replaceFirst($rawHtml, $matches[0], $replacement);
         }
 
-        return $this->tagSoup($snippet, $rawHtml);
+        return $this->nowhere($snippet, $rawHtml);
     }
 
     /**
-     * Helper function to insert some HTML into the head section of an HTML
+     * insert some HTML into the head section of an HTML
      * page, right before the </head> tag.
      */
     protected function headTagEnd(string $snippet, string $rawHtml): string
@@ -111,11 +111,11 @@ class HtmlInjector
             return Str::replaceFirst($rawHtml, $matches[0], $replacement);
         }
 
-        return $this->tagSoup($snippet, $rawHtml);
+        return $this->nowhere($snippet, $rawHtml);
     }
 
     /**
-     * Helper function to insert some HTML into the start of the head section of
+     * insert some HTML into the start of the head section of
      * an HTML page, right after the <body> tag.
      */
     protected function bodyTagStart(string $snippet, string $rawHtml): string
@@ -128,11 +128,11 @@ class HtmlInjector
             return Str::replaceFirst($rawHtml, $matches[0], $replacement);
         }
 
-        return $this->tagSoup($snippet, $rawHtml);
+        return $this->nowhere($snippet, $rawHtml);
     }
 
     /**
-     * Helper function to insert some HTML into the body section of an HTML
+     * insert some HTML into the body section of an HTML
      * page, right before the </body> tag.
      */
     protected function bodyTagEnd(string $snippet, string $rawHtml): string
@@ -145,11 +145,11 @@ class HtmlInjector
             return Str::replaceFirst($rawHtml, $matches[0], $replacement);
         }
 
-        return $this->tagSoup($snippet, $rawHtml);
+        return $this->nowhere($snippet, $rawHtml);
     }
 
     /**
-     * Helper function to insert some HTML into the html section of an HTML
+     * insert some HTML into the html section of an HTML
      * page, right before the </html> tag.
      */
     protected function htmlTagEnd(string $snippet, string $rawHtml): string
@@ -162,11 +162,27 @@ class HtmlInjector
             return Str::replaceFirst($rawHtml, $matches[0], $replacement);
         }
 
-        return $this->tagSoup($snippet, $rawHtml);
+        return $this->nowhere($snippet, $rawHtml);
     }
 
     /**
-     * Helper function to insert some HTML into the head section of an HTML page.
+     * insert some HTML into the very beginning of HTML / Content.
+     */
+    protected function beforeContent(string $snippet, string $rawHtml): string
+    {
+        return $snippet . $rawHtml;
+    }
+
+    /**
+     * insert some HTML into the very end of HTML / Content.
+     */
+    protected function afterContent(string $snippet, string $rawHtml): string
+    {
+        return $rawHtml . $snippet;
+    }
+
+    /**
+     * insert some HTML into the head section of an HTML page.
      */
     protected function metaTagsAfter(string $snippet, string $rawHtml): string
     {
@@ -183,7 +199,7 @@ class HtmlInjector
     }
 
     /**
-     * Helper function to insert some HTML into the head section of an HTML page.
+     * insert some HTML into the head section of an HTML page.
      */
     protected function cssTagsAfter(string $snippet, string $rawHtml): string
     {
@@ -200,7 +216,7 @@ class HtmlInjector
     }
 
     /**
-     * Helper function to insert some HTML before the first CSS include in the page.
+     * insert some HTML before the first CSS include in the page.
      */
     protected function cssTagsBefore(string $snippet, string $rawHtml): string
     {
@@ -212,11 +228,11 @@ class HtmlInjector
             return Str::replaceFirst($rawHtml, $matches[0], $replacement);
         }
 
-        return $this->tagSoup($snippet, $rawHtml);
+        return $this->nowhere($snippet, $rawHtml);
     }
 
     /**
-     * Helper function to insert some HTML before the first javascript include in the page.
+     * insert some HTML before the first javascript include in the page.
      */
     protected function jsTagsBefore(string $snippet, string $rawHtml): string
     {
@@ -228,11 +244,11 @@ class HtmlInjector
             return Str::replaceFirst($rawHtml, $matches[0], $replacement);
         }
 
-        return $this->tagSoup($snippet, $rawHtml);
+        return $this->nowhere($snippet, $rawHtml);
     }
 
     /**
-     * Helper function to insert some HTML after the last javascript include.
+     * insert some HTML after the last javascript include.
      * First in the head section, but if there is no script in the head, place
      * it anywhere.
      */
@@ -263,14 +279,6 @@ class HtmlInjector
     }
 
     /**
-     * Since we're serving tag soup, just append the tag to the HTML we're given.
-     */
-    private function tagSoup(string $snippet, string $rawHtml): string
-    {
-        return $rawHtml . $snippet . "\n";
-    }
-
-    /**
      * Nowhere, don't replace anything.
      */
     public function nowhere(string $snippet, string $rawHtml): string
@@ -290,7 +298,7 @@ class HtmlInjector
     {
         $matches = null;
         $matchRemainder = $matchRemainder ? '(.*)' : '';
-        $regex = sprintf("~^([ \t]*)%s%s~mi", $htmlTag, $matchRemainder);
+        $regex = sprintf("~([ \t]*)%s%s~mi", $htmlTag, $matchRemainder);
 
         if ($matchAll && preg_match_all($regex, $rawHtml, $matches)) {
             return $matches;
