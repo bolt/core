@@ -6,7 +6,6 @@ Feature: Frontend menu
         And there is element "menu_last" with text "The Bolt site"
         And there are "eq 4" "menu_sub" elements
 
-    @wip
     Scenario: As a user I want to see the multi-level in the frontend
         When I visit the "single_test" page with parameters:
             | slug | title-of-the-test |

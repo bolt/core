@@ -63,7 +63,7 @@
         <div id="sidebar">
             <admin-sidebar
               :menu="{{ admin_menu_json }}"
-              :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
+              :version="'{{ constant('Bolt\\Version::VERSION')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
               :about-link="{{ path('bolt_about')|json_encode }}"
             ></admin-sidebar >
         </div>
