@@ -7,16 +7,34 @@ namespace Bolt\Widget;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
 
-class BoltHeaderWidget extends BaseWidget implements ResponseAware
+class BoltHeaderWidget implements WidgetInterface, ResponseAware
 {
-    protected $name = 'Bolt Header Widget';
-    protected $target = Target::NOWHERE;
-    protected $zone = RequestZone::FRONTEND;
+    use ResponseTrait;
 
     public function __invoke(array $params = []): string
     {
         $this->getResponse()->headers->set('X-Powered-By', 'Bolt', false);
 
         return '';
+    }
+
+    public function getName(): string
+    {
+        return 'Bolt Header Widget';
+    }
+
+    public function getTarget(): string
+    {
+        return Target::NOWHERE;
+    }
+
+    public function getPriority(): int
+    {
+        return 0;
+    }
+
+    public function getZone(): string
+    {
+        return RequestZone::FRONTEND;
     }
 }

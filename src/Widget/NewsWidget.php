@@ -6,17 +6,19 @@ namespace Bolt\Widget;
 
 use Bolt\Common\Exception\ParseException;
 use Bolt\Common\Json;
-use Bolt\Widget\Injector\Target;
 use Bolt\Version;
+use Bolt\Widget\Injector\AdditionalTarget;
+use Bolt\Widget\Injector\RequestZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 class NewsWidget extends BaseWidget implements TwigAware, RequestAware
 {
     protected $name = 'News Widget';
-    protected $target = Target::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
+    protected $target = AdditionalTarget::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
     protected $priority = 150;
     protected $template = '@bolt/widgets/news.twig';
+    protected $zone = RequestZone::BACKEND;
 
     public function __invoke(array $params = []): string
     {

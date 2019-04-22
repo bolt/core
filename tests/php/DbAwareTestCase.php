@@ -27,7 +27,6 @@ class DbAwareTestCase extends WebTestCase
         self::runCommand('doctrine:database:drop --force');
         self::runCommand('doctrine:database:create');
         self::runCommand('doctrine:schema:create');
-        self::runCommand('doctrine:fixtures:load --no-interaction');
 
         $this->entityManager = static::createClient()->getContainer()
             ->get('doctrine')
@@ -36,7 +35,7 @@ class DbAwareTestCase extends WebTestCase
         parent::setUp();
     }
 
-    private static function runCommand($command)
+    protected static function runCommand($command)
     {
         $command = sprintf('%s --quiet', $command);
 
