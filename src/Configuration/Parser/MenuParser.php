@@ -11,7 +11,7 @@ class MenuParser extends BaseParser
     /** @var array */
     private $itemBase = [];
 
-    public function __construct()
+    public function __construct(string $filename = 'menu.yaml')
     {
         $this->itemBase = [
             'label' => '',
@@ -23,7 +23,7 @@ class MenuParser extends BaseParser
             'current' => false,
         ];
 
-        parent::__construct();
+        parent::__construct($filename);
     }
 
     /**
@@ -31,8 +31,7 @@ class MenuParser extends BaseParser
      */
     public function parse(): Collection
     {
-        // @todo Allow setting of file/path. See Github issue https://github.com/bolt/four/issues/379
-        $menuYaml = $this->parseConfigYaml('menu.yaml');
+        $menuYaml = $this->parseConfigYaml($this->filename);
 
         $menu = [];
 
@@ -50,7 +49,7 @@ class MenuParser extends BaseParser
         $menu = [];
 
         foreach ($items as $item) {
-            $item = array_merge($this->itemBase, $item);
+            $item = array_merge($this->itemBase, (array) $item);
 
             if (isset($item['submenu']) && is_array($item['submenu'])) {
                 $item['submenu'] = $this->parseItems($item['submenu']);
