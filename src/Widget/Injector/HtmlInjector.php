@@ -60,9 +60,8 @@ class HtmlInjector
         $functionMap = $this->getMap();
         $target = $widget->getTarget();
 
-        $output = $widget();
-
         if (isset($functionMap[$target])) {
+            $output = $widget();
             $html = $this->{$functionMap[$target]}($output, $html);
         }
 
