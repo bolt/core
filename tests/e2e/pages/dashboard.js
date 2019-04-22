@@ -10,6 +10,9 @@ class DashboardPage extends BasePage {
     this.header = $('.admin__header--title strong');
     this.records = $$('.listing__row');
     this.first_record = $('.listing__row');
+
+    // Test for widget
+    this.widget_title = $('#widget-news-widget h5');
   }
 }
 

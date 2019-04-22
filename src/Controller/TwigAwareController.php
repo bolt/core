@@ -13,14 +13,10 @@ use Twig\Environment;
 
 class TwigAwareController extends AbstractController
 {
-    /**
-     * @var Config
-     */
+    /** @var Config */
     protected $config;
 
-    /**
-     * @var Environment
-     */
+    /** @var Environment */
     protected $twig;
 
     /**
@@ -62,12 +58,13 @@ class TwigAwareController extends AbstractController
             $template = $this->twig->resolveTemplate($templates);
         }
 
+        // Render the template
         $content = $this->twig->render($template, $parameters);
 
+        // Make sure we have a Response
         if ($response === null) {
             $response = new Response();
         }
-
         $response->setContent($content);
 
         return $response;

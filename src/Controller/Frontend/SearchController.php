@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SearchController extends TwigAwareController
+class SearchController extends TwigAwareController implements FrontendZone
 {
     /**
      * @var TemplateChooser

@@ -21,7 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ProfileController extends TwigAwareController
+class ProfileController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 

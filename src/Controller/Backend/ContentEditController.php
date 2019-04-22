@@ -28,7 +28,7 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ContentEditController extends TwigAwareController
+class ContentEditController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 

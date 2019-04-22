@@ -10,7 +10,7 @@ use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomepageController extends TwigAwareController
+class HomepageController extends TwigAwareController implements FrontendZone
 {
     /**
      * @var TemplateChooser
