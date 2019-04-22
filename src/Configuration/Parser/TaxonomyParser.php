@@ -9,12 +9,17 @@ use Tightenco\Collect\Support\Collection;
 
 class TaxonomyParser extends BaseParser
 {
+    public function __construct(string $filename = 'taxonomy.yaml')
+    {
+        parent::__construct($filename);
+    }
+
     /**
      * Read and parse the taxonomy.yml configuration file.
      */
     public function parse(): Collection
     {
-        $taxonomies = $this->parseConfigYaml('taxonomy.yaml');
+        $taxonomies = $this->parseConfigYaml($this->getFilename());
 
         foreach ($taxonomies as $key => $taxonomy) {
             if (isset($taxonomy['name']) === false) {

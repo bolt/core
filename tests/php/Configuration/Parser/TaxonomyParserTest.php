@@ -21,15 +21,6 @@ class TaxonomyParserTest extends TestCase
         $this->assertInstanceOf(Collection::class, $config);
     }
 
-    public function testIgnoreNonsensicalFileParse(): void
-    {
-        $file = dirname(dirname(dirname(__DIR__))).'/fixtures/config/bogus.yaml';
-        $taxonomyParser = new TaxonomyParser($file);
-        $config = $taxonomyParser->parse();
-
-        $this->assertInstanceOf(Collection::class, $config);
-    }
-
     public function testBreakOnInvalidFileParse(): void
     {
         $file = dirname(dirname(dirname(__DIR__))).'/fixtures/config/broken.yaml';

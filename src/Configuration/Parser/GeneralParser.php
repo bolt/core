@@ -12,14 +12,19 @@ use Webmozart\PathUtil\Path;
 
 class GeneralParser extends BaseParser
 {
+    public function __construct(string $filename = 'config.yaml')
+    {
+        parent::__construct($filename);
+    }
+
     /**
      * Read and parse the config.yaml and config_local.yaml configuration files.
      */
     public function parse(): Collection
     {
         $defaultconfig = $this->getDefaultConfig();
-        $tempconfig = $this->parseConfigYaml('config.yaml');
-        $tempconfiglocal = $this->parseConfigYaml('config_local.yaml');
+        $tempconfig = $this->parseConfigYaml($this->getFilename());
+        $tempconfiglocal = $this->parseConfigYaml($this->getFilenameLocalOverrides(), true);
         $general = Arr::replaceRecursive($defaultconfig, Arr::replaceRecursive($tempconfig, $tempconfiglocal));
 
         // Make sure Bolt's mount point is OK:

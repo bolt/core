@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Configuration\PathResolver;
+use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
 use Tightenco\Collect\Support\Collection;
@@ -38,10 +39,21 @@ abstract class BaseParser
      * in our config folder. This way you can pass in either  an absolute
      * filename or simply 'menu.yaml'.
      */
-    protected function parseConfigYaml(string $filename): Collection
+    protected function parseConfigYaml(string $filename, $ignoreMissing = false): Collection
     {
-        if (! is_readable($filename)) {
-            $filename = $this->fileLocator->locate($filename, null, true);
+        try {
+            if (!is_readable($filename)) {
+                $filename = $this->fileLocator->locate($filename, null, true);
+            }
+        } catch (FileLocatorFileNotFoundException $e) {
+            if ($ignoreMissing) {
+                echo "[a]";
+                return new Collection([]);
+            }
+            echo "[b]";
+
+            // If not $ignoreMissing, we throw the exception regardless.
+            throw $e;
         }
 
         $yaml = Yaml::parseFile($filename);
@@ -57,6 +69,15 @@ abstract class BaseParser
     public function getFilenames(): array
     {
         return $this->filenames;
+    }
+
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    public function getFilenameLocalOverrides() {
+        return preg_replace('/([a-z0-9_-]+).(ya?ml)$/i', '$1_local.$2', $this->filename);
     }
 
     abstract public function parse(): Collection;

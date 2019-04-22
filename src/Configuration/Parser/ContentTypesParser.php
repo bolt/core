@@ -18,10 +18,10 @@ class ContentTypesParser extends BaseParser
      */
     private $generalConfig;
 
-    public function __construct(Collection $generalConfig)
+    public function __construct(Collection $generalConfig, string $filename = 'contenttypes.yaml')
     {
         $this->generalConfig = $generalConfig;
-        parent::__construct();
+        parent::__construct($filename);
     }
 
     /**
@@ -32,7 +32,7 @@ class ContentTypesParser extends BaseParser
     public function parse(): Collection
     {
         $contentTypes = [];
-        $tempContentTypes = $this->parseConfigYaml('contenttypes.yaml');
+        $tempContentTypes = $this->parseConfigYaml($this->getFilename());
         foreach ($tempContentTypes as $key => $contentType) {
             $contentType = $this->parseContentType($key, $contentType);
             $contentTypes[$key] = $contentType;

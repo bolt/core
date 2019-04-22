@@ -31,7 +31,7 @@ class MenuParser extends BaseParser
      */
     public function parse(): Collection
     {
-        $menuYaml = $this->parseConfigYaml($this->filename);
+        $menuYaml = $this->parseConfigYaml($this->getFilename());
 
         $menu = [];
 
