@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend\Async;
 
-use Bolt\Configuration\Config;
 use Bolt\Configuration\PathResolver;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Factory\MediaFactory;

@@ -177,8 +177,6 @@ class PathResolver
             $filename = '/' . $filename;
         }
         $basepath = $this->resolve($location);
-        $path = Path::canonicalize($basepath . '/' . $filename);
-
-        return $path;
+        return Path::canonicalize($basepath . '/' . $filename);
     }
 }

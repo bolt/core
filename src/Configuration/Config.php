@@ -20,9 +20,6 @@ class Config
     /** @var Collection */
     protected $data;
 
-    /** @var PathResolver */
-    private $pathResolver;
-
     /** @var Stopwatch */
     private $stopwatch;
 

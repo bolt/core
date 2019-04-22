@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller;
 
-use Bolt\Configuration\Config;
 use Bolt\Configuration\PathResolver;
 use League\Glide\Responses\SymfonyResponseFactory;
 use League\Glide\ServerFactory;

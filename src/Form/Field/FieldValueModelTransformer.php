@@ -35,7 +35,7 @@ class FieldValueModelTransformer implements DataTransformerInterface
         return $new;
     }
 
-    private function setFieldDefinition(FieldType $fieldDefinition)
+    public function setFieldDefinition(FieldType $fieldDefinition): void
     {
         $this->fieldDefinition = $fieldDefinition;
     }
@@ -46,9 +46,7 @@ class FieldValueModelTransformer implements DataTransformerInterface
     public function transform($value)
     {
         $value = Field::parseValue($value);
-        $value = $this->furtherTransform($value);
-
-        return $value;
+        return $this->furtherTransform($value);
     }
 
     private function furtherTransform($value)
@@ -58,7 +56,8 @@ class FieldValueModelTransformer implements DataTransformerInterface
                 return (bool) $value;
             case 'file':
             case 'image':
-                return new File(sprintf('%s/%s',
+                return new File(sprintf(
+                    '%s/%s',
                     $this->pathResolver->resolve('files'),
                     $value['filename']
                 ));
@@ -93,7 +92,7 @@ class FieldValueModelTransformer implements DataTransformerInterface
             case 'file':
             case 'image':
                 return [
-                    'filename' => $value->getPathname()
+                    'filename' => $value->getPathname(),
                 ];
             case 'date':
                 return $value->format('Y-m-d');

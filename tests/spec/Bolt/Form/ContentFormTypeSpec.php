@@ -2,14 +2,12 @@
 
 namespace spec\Bolt\Form;
 
-use Bolt\Content\ContentType;
-use Bolt\Content\FieldType;
+use Bolt\Configuration\Content\ContentType;
+use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Content;
-use Bolt\Entity\Field;
 use Bolt\Form\ContentFormType;
 use Bolt\Form\Field\FieldValueModelTransformer;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,6 +23,14 @@ use Symfony\Component\Validator\Constraints;
  */
 class ContentFormTypeSpec extends ObjectBehavior
 {
+    function let(FieldValueModelTransformer $fieldValueModelTransformer)
+    {
+        $fieldValueModelTransformer
+            ->forField(Argument::type(FieldType::class))
+            ->willReturn($fieldValueModelTransformer);
+        $this->beConstructedWith($fieldValueModelTransformer);
+    }
+
     private function mockContentDefinition(): ContentType
     {
         $field1 = new FieldType();
