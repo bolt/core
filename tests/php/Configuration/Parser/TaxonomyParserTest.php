@@ -40,29 +40,70 @@ class TaxonomyParserTest extends TestCase
         $taxonomyParser->parse();
     }
 
-//
-//    public function testHasMenu(): void
-//    {
-//        $menuParser = new MenuParser();
-//        $config = $menuParser->parse();
-//
-//        $this->assertCount(2, $config);
-//
-//        $this->assertArrayHasKey('main', $config);
-//        $this->assertCount(4, $config['main']);
-//
-//        $this->assertSame('Home', $config['main'][0]['label']);
-//        $this->assertSame('This is the <b>first<b> menu item.', $config['main'][0]['title']);
-//        $this->assertSame('homepage', $config['main'][0]['link']);
-//        $this->assertSame('homepage', $config['main'][0]['class']);
-//        $this->assertNull($config['main'][0]['submenu']);
-//        $this->assertSame('', $config['main'][0]['uri']);
-//        $this->assertFalse($config['main'][0]['current']);
-//        $this->assertArrayNotHasKey('foobar', $config['main'][0]);
-//
-//        $this->assertCount(4, $config['main'][1]['submenu']);
-//        $this->assertSame('Sub 1', $config['main'][1]['submenu'][0]['label']);
-//
-//        $this->assertArrayNotHasKey('foo', $config);
-//    }
+
+    public function testHasTaxonomies(): void
+    {
+        $taxonomyParser = new TaxonomyParser();
+        $config = $taxonomyParser->parse();
+
+        $this->assertCount(3, $config);
+
+        $this->assertArrayHasKey('tags', $config);
+        $this->assertCount(13, $config['tags']);
+
+        $this->assertSame('tags', $config['tags']['slug']);
+        $this->assertSame('tag', $config['tags']['singular_slug']);
+        $this->assertSame('tags', $config['tags']['behaves_like']);
+        $this->assertSame('Add some freeform tags. Start a new tag by typing a comma or space.', $config['tags']['postfix']);
+        $this->assertFalse($config['tags']['allow_spaces']);
+        $this->assertSame('Tags', $config['tags']['name']);
+        $this->assertSame('Tag', $config['tags']['singular_name']);
+        $this->assertFalse($config['tags']['has_sortorder']);
+        $this->assertTrue($config['tags']['allow_empty']);
+        $this->assertTrue($config['tags']['multiple']);
+        $this->assertEmpty($config['tags']['options']);
+        $this->assertTrue($config['tags']['tagcloud']);
+
+        $this->assertCount(8, $config['categories']['options']);
+
+        $this->assertArrayNotHasKey('foobar', $config['tags']);
+        $this->assertArrayNotHasKey('foo', $config);
+    }
+
+
+    public function testInferTaxonomyValues(): void
+    {
+        $file = dirname(dirname(dirname(__DIR__))).'/fixtures/config/minimal_taxonomy.yaml';
+        $taxonomyParser = new TaxonomyParser($file);
+        $config = $taxonomyParser->parse();
+
+        $this->assertCount(2, $config);
+
+        $this->assertArrayHasKey('foo', $config);
+        $this->assertCount(13, $config['foo']);
+
+        $this->assertSame('Bar', $config['foo']['name']);
+        $this->assertSame('bar', $config['foo']['slug']);
+        $this->assertSame('Bar', $config['foo']['singular_name']);
+        $this->assertSame('bar', $config['foo']['singular_slug']);
+        $this->assertFalse($config['foo']['has_sortorder']);
+        $this->assertFalse($config['foo']['allow_spaces']);
+        $this->assertSame('tags', $config['foo']['behaves_like']);
+        $this->assertSame('', $config['foo']['prefix']);
+        $this->assertSame('', $config['foo']['postfix']);
+        $this->assertTrue($config['foo']['allow_empty']);
+        $this->assertTrue($config['foo']['multiple']);
+        $this->assertEmpty($config['foo']['options']);
+        $this->assertTrue($config['foo']['tagcloud']);
+
+        $this->assertCount(13, $config['qux']);
+
+        $this->assertSame('Corge', $config['qux']['name']);
+        $this->assertSame('corge', $config['qux']['slug']);
+        $this->assertSame('Corge', $config['qux']['singular_name']);
+        $this->assertSame('corge', $config['qux']['singular_slug']);
+
+
+    }
+
 }

@@ -47,10 +47,8 @@ abstract class BaseParser
             }
         } catch (FileLocatorFileNotFoundException $e) {
             if ($ignoreMissing) {
-                echo "[a]";
                 return new Collection([]);
             }
-            echo "[b]";
 
             // If not $ignoreMissing, we throw the exception regardless.
             throw $e;
