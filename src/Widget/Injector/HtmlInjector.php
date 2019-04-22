@@ -59,7 +59,7 @@ class HtmlInjector
         $functionMap = $this->getMap();
         $target = $widget->getTarget();
 
-        if (!isset($functionMap[$target])) {
+        if (! isset($functionMap[$target])) {
             return;
         }
 
