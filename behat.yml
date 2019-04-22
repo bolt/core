@@ -1,6 +1,7 @@
 default:
 
   gherkin:
+    cache: "%paths.base%/var/cache/behat/behat_gherkin"
     filters:
       tags: ~@wip
 
@@ -13,6 +14,9 @@ default:
         comment: [ white, black ]
   calls:
     error_reporting: 16383 # E_ALL & ~E_USER_DREPRECATED
+
+  testers:
+    rerun_cache: "%paths.base%/var/cache/behat/behat_rerun"
 
   extensions:
     Lakion\Behat\MinkDebugExtension:

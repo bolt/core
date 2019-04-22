@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Configuration\FileLocations;
-use Bolt\Content\MediaFactory;
+use Bolt\Factory\MediaFactory;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;

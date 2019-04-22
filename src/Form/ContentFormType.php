@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Form;
 
-use Bolt\Content\FieldType;
+use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
+use Bolt\Form\Field\FieldTypeTransformer;
+use Bolt\Form\Field\FieldValueModelTransformer;
 use Bolt\Utils\Str;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -26,6 +28,16 @@ use Symfony\Component\Validator\Constraints;
 class ContentFormType extends AbstractType
 {
     public const OHTER_GROUP_SLUG = '__other';
+
+    /**
+     * @var FieldValueModelTransformer
+     */
+    private $fieldValueModelTransformer;
+
+    public function __construct(FieldValueModelTransformer $fieldValueModelTransformer)
+    {
+        $this->fieldValueModelTransformer = $fieldValueModelTransformer;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -83,7 +95,7 @@ class ContentFormType extends AbstractType
             }
             /** @var FieldType $fieldType */
             $fieldType = $contentFields->get($fieldName)->getDefinition();
-            $fieldFormType = $this->resolveFieldFormType($fieldType);
+            $fieldFormType = FieldTypeTransformer::fieldTypeToFormClass($fieldType);
             $required = $fieldType->get('required') ?? true;
             $requirements = $this->resolveRequirements($fieldType);
 
@@ -96,10 +108,10 @@ class ContentFormType extends AbstractType
                         'property_path' => "[{$fieldName}].value",
                         'auto_initialize' => false,
                         'attr' => [
-                            'field_definition' => $fieldDefinition,
+                            'field_definition' => $fieldType,
                         ],
                     ])
-                    ->addModelTransformer(new FieldValueModelTransformer())
+                    ->addModelTransformer($this->fieldValueModelTransformer->forField($fieldType))
                     ->getForm()
             );
         }
@@ -116,24 +128,6 @@ class ContentFormType extends AbstractType
                 );
             },
         ]);
-    }
-
-    private function resolveFieldFormType(FieldType $definition): ?string
-    {
-        $namespace = 'Symfony\\Component\\Form\\Extension\\Core\\Type\\';
-        $typeClass = $namespace.ucfirst($definition->get('type')).'Type';
-        if (class_exists($typeClass)) {
-            return $typeClass;
-        }
-
-        switch ($definition->get('type')) {
-            case 'select':
-                return ChoiceType::class;
-            // @todo add more explicit transformations from Bolt's type to Symfony's type
-        }
-
-        // if nothing found, let the Form Component guess the type
-        return null;
     }
 
     /**

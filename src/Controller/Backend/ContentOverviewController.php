@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ContentOverviewController extends TwigAwareController
+class ContentOverviewController extends TwigAwareController implements BackendZone
 {
     /**
      * @Route("/content/{contentType}", name="bolt_content_overview")

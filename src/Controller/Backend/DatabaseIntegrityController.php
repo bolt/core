@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class DatabaseIntegrityController extends TwigAwareController
+class DatabaseIntegrityController extends TwigAwareController implements BackendZone
 {
     /**
      * @Route("/database-check", name="bolt_database_check")

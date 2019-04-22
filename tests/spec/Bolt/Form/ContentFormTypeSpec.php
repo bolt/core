@@ -7,7 +7,7 @@ use Bolt\Content\FieldType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Form\ContentFormType;
-use Bolt\Form\FieldValueModelTransformer;
+use Bolt\Form\Field\FieldValueModelTransformer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use PhpSpec\ObjectBehavior;
@@ -201,7 +201,7 @@ class ContentFormTypeSpec extends ObjectBehavior
             ]);
         }))->shouldBeCalledOnce()->willReturn($builder);
 
-        $builder->addModelTransformer(Argument::type(FieldValueModelTransformer::class))
+        $builder->addModelTransformer(Argument::type(\Bolt\Form\Field\FieldValueModelTransformer::class))
             ->shouldBeCalledTimes(4)->willReturn($builder);
         $builder->getForm()->shouldBeCalledTimes(4)->willReturn($fieldForm);
         $fields->add($fieldForm)->shouldBeCalledTimes(4);

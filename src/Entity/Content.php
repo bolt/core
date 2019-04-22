@@ -6,8 +6,9 @@ namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Enum\Statuses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -62,7 +63,6 @@ class Content
      *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("put")
      * @Assert\NotNull
      */
     private $author;
@@ -71,7 +71,6 @@ class Content
      * @var string
      *
      * @ORM\Column(type="string", length=191)
-     * @Groups("put")
      * @Assert\Choice(callback={"Bolt\Enum\Statuses", "all"})
      */
     private $status;
@@ -88,7 +87,7 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"get_content", "put"})
+     * @Groups("get_content")
      */
     private $modifiedAt = null;
 
@@ -96,7 +95,7 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"get_content", "put"})
+     * @Groups("get_content")
      */
     private $publishedAt = null;
 
@@ -104,15 +103,15 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("put")
      */
     private $depublishedAt = null;
 
     /**
      * @var Collection|Field[]
      *
-     * @Groups({"put"})
+     * @ApiSubresource(maxDepth=1)
      * @MaxDepth(1)
+     *
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
@@ -133,7 +132,6 @@ class Content
 
     /**
      * @var Collection|Taxonomy[]
-     * @Groups({"put"})
      * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
@@ -164,7 +162,7 @@ class Content
     }
 
     /**
-     * @see \Bolt\EventListener\ContentFillListener
+     * @see \Bolt\Event\Listener\ContentFillListener
      */
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {

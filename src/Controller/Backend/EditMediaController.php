@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\FileLocations;
-use Bolt\Content\MediaFactory;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Media;
+use Bolt\Factory\MediaFactory;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\SplFileInfo;
@@ -23,7 +23,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EditMediaController extends TwigAwareController
+class EditMediaController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 

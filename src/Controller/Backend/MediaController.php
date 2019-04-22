@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\FileLocations;
-use Bolt\Content\MediaFactory;
 use Bolt\Controller\TwigAwareController;
+use Bolt\Factory\MediaFactory;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
@@ -17,7 +17,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class MediaController extends TwigAwareController
+class MediaController extends TwigAwareController implements BackendZone
 {
     /** @var ObjectManager */
     private $em;

@@ -62,22 +62,14 @@ services:
         'position_after_anonymous_constructs': 'same'
 
     PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
-    PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer:
-        order:
-            - 'use_trait'
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
         elements:
             - 'const'
             - 'method'
             - 'property'
-    PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer: ~
     PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer: ~
-    PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
     PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
     PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer: ~
-
-    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
-        spacing: 'one'
 
     PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer: ~
     PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer: ~

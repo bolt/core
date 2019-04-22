@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
+use Bolt\Entity\FieldInterface;
 use Bolt\Utils\Str;
 use Doctrine\ORM\Mapping as ORM;
 use Tightenco\Collect\Support\Collection;
@@ -12,8 +13,13 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @ORM\Entity
  */
-class SlugField extends Field
+class SlugField extends Field implements FieldInterface
 {
+    public static function getType(): string
+    {
+        return 'slug';
+    }
+
     public function setValue($value): parent
     {
         if (is_array($value)) {

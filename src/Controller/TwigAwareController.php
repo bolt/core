@@ -6,7 +6,6 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
-use Bolt\Version;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
@@ -14,14 +13,10 @@ use Twig\Environment;
 
 class TwigAwareController extends AbstractController
 {
-    /**
-     * @var Config
-     */
+    /** @var Config */
     protected $config;
 
-    /**
-     * @var Environment
-     */
+    /** @var Environment */
     protected $twig;
 
     /**
@@ -46,9 +41,7 @@ class TwigAwareController extends AbstractController
      */
     protected function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
     {
-        // Set config and version.
-        $parameters['config'] = $parameters['config'] ?? $this->config;
-        $parameters['version'] = $parameters['version'] ?? Version::VERSION;
+        // Set User in global Twig environment
         $parameters['user'] = $parameters['user'] ?? $this->getUser();
 
         // Resolve string|array of templates into the first one that is found.
@@ -65,12 +58,13 @@ class TwigAwareController extends AbstractController
             $template = $this->twig->resolveTemplate($templates);
         }
 
+        // Render the template
         $content = $this->twig->render($template, $parameters);
 
+        // Make sure we have a Response
         if ($response === null) {
             $response = new Response();
         }
-
         $response->setContent($content);
 
         return $response;

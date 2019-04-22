@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\MediaFactory;
+use Bolt\Configuration\PathResolver;
 use Bolt\Controller\CsrfTrait;
+use Bolt\Factory\MediaFactory;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -23,7 +24,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class UploadController
+class UploadController implements AsyncZone
 {
     use CsrfTrait;
 
@@ -33,14 +34,18 @@ class UploadController
     /** @var ObjectManager */
     private $em;
 
-    /** @var Config */
-    private $config;
+    /** @var PathResolver */
+    private $pathResolver;
 
-    public function __construct(MediaFactory $mediaFactory, ObjectManager $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager)
-    {
+    public function __construct(
+        MediaFactory $mediaFactory,
+        ObjectManager $em,
+        PathResolver $pathResolver,
+        CsrfTokenManagerInterface $csrfTokenManager
+    ) {
         $this->mediaFactory = $mediaFactory;
         $this->em = $em;
-        $this->config = $config;
+        $this->pathResolver = $pathResolver;
         $this->csrfTokenManager = $csrfTokenManager;
     }
 
@@ -58,7 +63,7 @@ class UploadController
         $locationName = $request->query->get('location', '');
         $path = $request->query->get('path', '');
 
-        $target = $this->config->getPath($locationName, true, $path);
+        $target = $this->pathResolver->resolve($locationName, true, $path);
 
         $uploadHandler = new Handler($target, [
             Handler::OPTION_AUTOCONFIRM => true,

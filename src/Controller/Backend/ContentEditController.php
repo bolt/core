@@ -11,7 +11,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
-use Bolt\EventListener\ContentFillListener;
+use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Form\ContentFormType;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
@@ -30,7 +30,7 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ContentEditController extends TwigAwareController
+class ContentEditController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 

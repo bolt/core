@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Enum\Statuses;
 use Bolt\Exception\ConfigurationException;
 use Bolt\Utils\Str;

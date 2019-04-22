@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use Bolt\Content\FieldType;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Bolt\Configuration\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -12,6 +13,12 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
 
 /**
+ * @ApiResource(subresourceOperations={
+ *     "api_contents_fields_get_subresource"={
+ *         "method"="GET",
+ *         "normalization_context"={"groups"={"get_field"}}
+ *     }
+ * })
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(
  *  uniqueConstraints={
@@ -19,60 +26,32 @@ use Twig\Markup;
  *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
- * @ORM\DiscriminatorMap({
- *     "generic" = "field",
- *     "block" = "Bolt\Entity\Field\BlockField",
- *     "checkbox" = "Bolt\Entity\Field\CheckboxField",
- *     "date" = "Bolt\Entity\Field\DateField",
- *     "embed" = "Bolt\Entity\Field\EmbedField",
- *     "file" = "Bolt\Entity\Field\FileField",
- *     "filelist" = "Bolt\Entity\Field\FilelistField",
- *     "float" = "Bolt\Entity\Field\FloatField",
- *     "geolocation" = "Bolt\Entity\Field\GeolocationField",
- *     "hidden" = "Bolt\Entity\Field\HiddenField",
- *     "html" = "Bolt\Entity\Field\HtmlField",
- *     "image" = "Bolt\Entity\Field\ImageField",
- *     "imagelist" = "Bolt\Entity\Field\ImagelistField",
- *     "integer" = "Bolt\Entity\Field\IntegerField",
- *     "markdown" = "Bolt\Entity\Field\MarkdownField",
- *     "number" = "Bolt\Entity\Field\NumberField",
- *     "repeater" = "Bolt\Entity\Field\RepeaterField",
- *     "select" = "Bolt\Entity\Field\SelectField",
- *     "slug" = "Bolt\Entity\Field\SlugField",
- *     "templateselect" = "Bolt\Entity\Field\TemplateselectField",
- *     "text" = "Bolt\Entity\Field\TextField",
- *     "textarea" = "Bolt\Entity\Field\TextareaField",
- *     "video" = "Bolt\Entity\Field\VideoField"
- * })
- *
- * @todo allow adding fields with extensions https://github.com/facile-it/doctrine-dynamic-discriminator-map
+ * @ORM\DiscriminatorMap({"generic" = "Field"})
  */
-class Field implements Translatable
+class Field implements Translatable, FieldInterface
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"put"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=191)
-     * @Groups("put")
+     * @Groups("get_field")
      */
     public $name;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"put"})
+     * @Groups("get_field")
      * @Gedmo\Translatable
      */
     protected $value = [];
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"put"})
      */
     private $sortorder = 0;
 
@@ -85,7 +64,6 @@ class Field implements Translatable
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups("public")
      */
     private $version;
 
@@ -97,11 +75,12 @@ class Field implements Translatable
 
     /**
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field")
-     * @Groups("public")
      */
     private $parent;
 
-    /** @var ?FieldType */
+    /**
+     * @var ?FieldType
+     */
     private $fieldTypeDefinition;
 
     public function __toString(): string
@@ -166,11 +145,6 @@ class Field implements Translatable
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->getDefinition()->get('type');
-    }
-
     public function get($key)
     {
         return isset($this->value[$key]) ? $this->value[$key] : null;
@@ -197,7 +171,7 @@ class Field implements Translatable
             $count = count($value);
             if ($count === 0) {
                 return null;
-            } elseif ($count === 1) {
+            } elseif ($count === 1 && array_keys($value)[0] === 0) {
                 return reset($value);
             }
         }
@@ -282,5 +256,13 @@ class Field implements Translatable
         $this->parent = $parent;
 
         return $this;
+    }
+
+    /**
+     * @Groups("get_field")
+     */
+    public static function getType(): string
+    {
+        return 'generic';
     }
 }

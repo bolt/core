@@ -39,7 +39,7 @@
         }|json_encode %}
 
         <admin-toolbar
-            site-name="{% if config is defined %}{{ config.get('general/sitename') }}{% endif %}"
+            site-name="{{ config.get('general/sitename') }}"
             :menu="{{ admin_menu_json }}"
             user="{{ user|default }}"
             :labels="{{ labels }}"
@@ -63,7 +63,7 @@
         <div id="sidebar">
             <admin-sidebar
               :menu="{{ admin_menu_json }}"
-              :version="'{{ version|default('unknown')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
+              :version="'{{ constant('Bolt\\Version::VERSION')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
               :about-link="{{ path('bolt_about')|json_encode }}"
             ></admin-sidebar >
         </div>

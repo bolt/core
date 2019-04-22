@@ -12,6 +12,7 @@ assets/vendor/
 node_modules/
 npm-debug.log
 yarn-error.log
+webpack_stats.json
 
 ### File-system cruft and temporary files
 __*
@@ -65,6 +66,7 @@ appveyor.yml
 /public/bundles/
 /vendor/
 ###< symfony/framework-bundle ###
+
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
