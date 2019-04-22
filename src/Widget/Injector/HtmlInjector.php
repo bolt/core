@@ -56,15 +56,14 @@ class HtmlInjector
 
     public function inject(WidgetInterface $widget, Response $response): void
     {
-        $html = $response->getContent();
         $functionMap = $this->getMap();
         $target = $widget->getTarget();
 
-        if (isset($functionMap[$target])) {
-            $output = $widget();
-            $html = $this->{$functionMap[$target]}($output, $html);
+        if (!isset($functionMap[$target])) {
+            return;
         }
 
+        $html = $this->{$functionMap[$target]}($widget(), $response->getContent());
         $response->setContent($html);
     }
 
