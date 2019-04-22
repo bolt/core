@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Configuration\Parser;
 
-use Bolt\Configuration\Parser\MenuParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;

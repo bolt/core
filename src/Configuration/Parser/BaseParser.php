@@ -42,7 +42,7 @@ abstract class BaseParser
     protected function parseConfigYaml(string $filename, $ignoreMissing = false): Collection
     {
         try {
-            if (!is_readable($filename)) {
+            if (! is_readable($filename)) {
                 $filename = $this->fileLocator->locate($filename, null, true);
             }
         } catch (FileLocatorFileNotFoundException $e) {
@@ -74,7 +74,8 @@ abstract class BaseParser
         return $this->filename;
     }
 
-    public function getFilenameLocalOverrides() {
+    public function getFilenameLocalOverrides()
+    {
         return preg_replace('/([a-z0-9_-]+).(ya?ml)$/i', '$1_local.$2', $this->filename);
     }
 
