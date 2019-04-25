@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Configuration\Parser;
 
-use Bolt\Configuration\Parser\MenuParser;
+use Bolt\Configuration\Parser\GeneralParser;
+use Bolt\Configuration\Parser\GeneralParser;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Tightenco\Collect\Support\Collection;
 
-class MenuParserTest extends TestCase
+class GeneralParserTest extends TestCase
 {
     public static function getBasePath(): string
     {
@@ -19,8 +20,8 @@ class MenuParserTest extends TestCase
 
     public function testCanParse(): void
     {
-        $menuParser = new MenuParser();
-        $config = $menuParser->parse();
+        $generalParser = new GeneralParser();
+        $config = $generalParser->parse();
 
         $this->assertInstanceOf(Collection::class, $config);
     }
@@ -28,8 +29,8 @@ class MenuParserTest extends TestCase
     public function testIgnoreNonsensicalFileParse(): void
     {
         $file = self::getBasePath() . 'bogus.yaml';
-        $menuParser = new MenuParser($file);
-        $config = $menuParser->parse();
+        $generalParser = new GeneralParser($file);
+        $config = $generalParser->parse();
 
         $this->assertInstanceOf(Collection::class, $config);
     }
@@ -37,27 +38,27 @@ class MenuParserTest extends TestCase
     public function testBreakOnInvalidFileParse(): void
     {
         $file = self::getBasePath() . 'broken.yaml';
-        $menuParser = new MenuParser($file);
+        $generalParser = new GeneralParser($file);
 
         $this->expectException(ParseException::class);
 
-        $menuParser->parse();
+        $generalParser->parse();
     }
 
     public function testBreakOnMissingFileParse(): void
     {
-        $menuParser = new MenuParser('foo.yml');
+        $generalParser = new GeneralParser('foo.yml');
 
         $this->expectException(FileLocatorFileNotFoundException::class);
 
-        $menuParser->parse();
+        $generalParser->parse();
     }
 
 
     public function testHasMenu(): void
     {
-        $menuParser = new MenuParser();
-        $config = $menuParser->parse();
+        $generalParser = new GeneralParser();
+        $config = $generalParser->parse();
 
         $this->assertCount(2, $config);
 
