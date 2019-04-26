@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Tests\Configuration\Parser;
 
 use Bolt\Configuration\Parser\GeneralParser;
-use Bolt\Configuration\Parser\GeneralParser;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -54,29 +53,37 @@ class GeneralParserTest extends TestCase
         $generalParser->parse();
     }
 
-
-    public function testHasMenu(): void
+    public function testHasConfig(): void
     {
         $generalParser = new GeneralParser();
         $config = $generalParser->parse();
 
-        $this->assertCount(2, $config);
+        // Something in the file
+        $this->assertSame('The amazing payoff goes here', $config['payoff']);
 
-        $this->assertArrayHasKey('main', $config);
-        $this->assertCount(4, $config['main']);
+        // Something inferred
+        $this->assertFalse($config['enforce_ssl']);
+    }
 
-        $this->assertSame('Home', $config['main'][0]['label']);
-        $this->assertSame('This is the <b>first<b> menu item.', $config['main'][0]['title']);
-        $this->assertSame('homepage', $config['main'][0]['link']);
-        $this->assertSame('homepage', $config['main'][0]['class']);
-        $this->assertNull($config['main'][0]['submenu']);
-        $this->assertSame('', $config['main'][0]['uri']);
-        $this->assertFalse($config['main'][0]['current']);
-        $this->assertArrayNotHasKey('foobar', $config['main'][0]);
+    public function testFilenames()
+    {
+        $file = self::getBasePath() . 'bogus.yaml';
+        $generalParser = new GeneralParser($file);
+        $config = $generalParser->parse();
 
-        $this->assertCount(4, $config['main'][1]['submenu']);
-        $this->assertSame('Sub 1', $config['main'][1]['submenu'][0]['label']);
+        $this->assertCount(2, $generalParser->getFilenames());
 
-        $this->assertArrayNotHasKey('foo', $config);
+        $this->assertSame($file, $generalParser->getFilename());
+        $this->assertSame(self::getBasePath() . 'bogus_local.yaml', $generalParser->getFilenameLocalOverrides());
+    }
+
+    public function testLocalOverridesParse(): void
+    {
+        $file = self::getBasePath() . 'bogus.yaml';
+        $generalParser = new GeneralParser($file);
+        $config = $generalParser->parse();
+
+        $this->assertSame('OverBar', $config['foo']);
+        $this->assertSame('pidom', $config['pom']);
     }
 }
