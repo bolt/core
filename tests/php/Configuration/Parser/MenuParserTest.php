@@ -5,18 +5,12 @@ declare(strict_types=1);
 namespace Bolt\Tests\Configuration\Parser;
 
 use Bolt\Configuration\Parser\MenuParser;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Tightenco\Collect\Support\Collection;
 
-class MenuParserTest extends TestCase
+class MenuParserTest extends ParserTestBase
 {
-    public static function getBasePath(): string
-    {
-        return dirname(dirname(dirname(__DIR__))) . '/fixtures/config/';
-    }
-
     public function testCanParse(): void
     {
         $menuParser = new MenuParser();

@@ -7,18 +7,12 @@ namespace Bolt\Tests\Configuration\Parser;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Exception\ConfigurationException;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Tightenco\Collect\Support\Collection;
 
-class ContentTypesParserTest extends TestCase
+class ContentTypesParserTest extends ParserTestBase
 {
-    public static function getBasePath(): string
-    {
-        return dirname(dirname(dirname(__DIR__))) . '/fixtures/config/';
-    }
-
     public function testCanParse(): void
     {
         $generalParser = new GeneralParser();
