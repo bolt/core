@@ -69,7 +69,7 @@ class ContentTypesParserTest extends TestCase
         $this->assertCount(6, $config);
 
         $this->assertArrayHasKey('homepage', $config);
-        $this->assertCount(21, $config['homepage']);
+        $this->assertCount(20, $config['homepage']);
 
         $this->assertSame('Homepage', $config['homepage']['name']);
         $this->assertSame('Homepage', $config['homepage']['singular_name']);
@@ -81,9 +81,55 @@ class ContentTypesParserTest extends TestCase
         $this->assertTrue($config['homepage']['viewless']);
         $this->assertTrue($config['homepage']['singleton']);
         $this->assertSame('published', $config['homepage']['default_status']);
-        $this->assertSame('homepage', $config['homepage']['tablename']);
         $this->assertSame('fa-home', $config['homepage']['icon_many']);
         $this->assertSame('fa-home', $config['homepage']['icon_one']);
         $this->assertFalse($config['homepage']['allow_numeric_slugs']);
+    }
+
+    public function testInferContentTypeValues(): void
+    {
+        $file = self::getBasePath() . 'minimal_contenttypes.yaml';
+
+        $generalParser = new GeneralParser();
+        $contentTypesParser = new ContentTypesParser($generalParser->parse(), $file);
+        $config = $contentTypesParser->parse();
+
+        $this->assertCount(2, $config);
+
+        $this->assertArrayHasKey('foo', $config);
+        $this->assertCount(20, $config['foo']);
+
+        $this->assertSame('Bars', $config['foo']['name']);
+        $this->assertSame('foo', $config['foo']['slug']);
+        $this->assertSame('Bar', $config['foo']['singular_name']);
+        $this->assertSame('bar', $config['foo']['singular_slug']);
+        $this->assertTrue($config['foo']['show_on_dashboard']);
+        $this->assertTrue($config['foo']['show_in_menu']);
+        $this->assertFalse($config['foo']['sort']);
+        $this->assertFalse($config['foo']['viewless']);
+        $this->assertSame('fa-file', $config['foo']['icon_one']);
+        $this->assertSame('fa-copy', $config['foo']['icon_many']);
+        $this->assertFalse($config['foo']['allow_numeric_slugs']);
+        $this->assertFalse($config['foo']['singleton']);
+
+        $this->assertSame('published', $config['foo']['default_status']);
+        $this->assertSame('bar', $config['foo']['singular_slug']);
+        $this->assertSame('bar', $config['foo']['singular_slug']);
+        $this->assertSame(6, $config['foo']['listing_records']);
+        $this->assertSame(10, $config['foo']['records_per_page']);
+
+        $this->assertIsIterable($config['foo']['fields']);
+        $this->assertIsIterable($config['foo']['locales']);
+        $this->assertIsIterable($config['foo']['groups']);
+        $this->assertIsIterable($config['foo']['taxonomy']);
+        $this->assertIsIterable($config['foo']['relations']);
+
+        $this->assertArrayHasKey('qux', $config);
+        $this->assertCount(20, $config['qux']);
+
+        $this->assertSame('Corges', $config['qux']['name']);
+        $this->assertSame('corges', $config['qux']['slug']);
+        $this->assertSame('Corge', $config['qux']['singular_name']);
+        $this->assertSame('corge', $config['qux']['singular_slug']);
     }
 }

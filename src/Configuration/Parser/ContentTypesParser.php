@@ -112,13 +112,6 @@ class ContentTypesParser extends BaseParser
             $contentType['icon_many'] = str_replace('fa:', 'fa-', $contentType['icon_many']);
         }
 
-        // Allow explicit setting of a Content Type's table name suffix. We default to slug if not present.
-        if (isset($contentType['tablename'])) {
-            $contentType['tablename'] = Str::slug($contentType['tablename'], '_');
-        } else {
-            $contentType['tablename'] = Str::slug($contentType['slug'], '_');
-        }
-
         if (! isset($contentType['allow_numeric_slugs'])) {
             $contentType['allow_numeric_slugs'] = false;
         }

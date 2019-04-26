@@ -12,6 +12,11 @@ use Tightenco\Collect\Support\Collection;
 
 class TaxonomyParserTest extends TestCase
 {
+    public static function getBasePath(): string
+    {
+        return dirname(dirname(dirname(__DIR__))) . '/fixtures/config/';
+    }
+
     public function testCanParse(): void
     {
         $taxonomyParser = new TaxonomyParser();
@@ -22,7 +27,7 @@ class TaxonomyParserTest extends TestCase
 
     public function testBreakOnInvalidFileParse(): void
     {
-        $file = dirname(dirname(dirname(__DIR__))).'/fixtures/config/broken.yaml';
+        $file = self::getBasePath() . 'broken.yaml';
         $taxonomyParser = new TaxonomyParser($file);
 
         $this->expectException(ParseException::class);
@@ -72,7 +77,7 @@ class TaxonomyParserTest extends TestCase
 
     public function testInferTaxonomyValues(): void
     {
-        $file = dirname(dirname(dirname(__DIR__))).'/fixtures/config/minimal_taxonomy.yaml';
+        $file = self::getBasePath() . 'minimal_taxonomy.yaml';
         $taxonomyParser = new TaxonomyParser($file);
         $config = $taxonomyParser->parse();
 
@@ -101,8 +106,5 @@ class TaxonomyParserTest extends TestCase
         $this->assertSame('corge', $config['qux']['slug']);
         $this->assertSame('Corge', $config['qux']['singular_name']);
         $this->assertSame('corge', $config['qux']['singular_slug']);
-
-
     }
-
 }
