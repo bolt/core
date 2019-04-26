@@ -6,7 +6,7 @@ namespace Bolt\Tests\Configuration\Parser;
 
 use PHPUnit\Framework\TestCase;
 
-class ParserTestBase extends TestCase
+abstract class ParserTestBase extends TestCase
 {
     public static function getBasePath(): string
     {
