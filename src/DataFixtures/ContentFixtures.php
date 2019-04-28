@@ -135,6 +135,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     }
                 }
 
+                $refKey = sprintf('content_%s_%s', $contentType['slug'], $content->getSlug());
+                $this->addReference($refKey, $content);
+
                 $manager->persist($content);
             }
         }

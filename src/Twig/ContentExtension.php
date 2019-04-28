@@ -198,7 +198,7 @@ class ContentExtension extends AbstractExtension
 
         return $this->urlGenerator->generate('record', [
             'slugOrId' => $content->getSlug() ?: $content->getId(),
-            'contentTypeSlug' => $content->getContentTypeSlug(),
+            'contentTypeSlug' => $content->getContentTypeSingularSlug(),
         ], $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH);
     }
 

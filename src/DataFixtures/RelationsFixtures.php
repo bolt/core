@@ -1,0 +1,72 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Bolt\DataFixtures;
+
+use Bolt\Configuration\Config;
+use Bolt\Entity\Content;
+use Bolt\Entity\Relation;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+
+class RelationsFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
+{
+    /** @var Config */
+    private $config;
+
+    public const AMOUNT = 8;
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
+
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+            TaxonomyFixtures::class,
+            ContentFixtures::class,
+        ];
+    }
+
+    public static function getGroups(): array
+    {
+        return ['with-images', 'without-images'];
+    }
+
+    public function load(ObjectManager $manager): void
+    {
+        $this->loadContent($manager);
+
+        $manager->flush();
+    }
+
+    private function loadContent(ObjectManager $manager): void
+    {
+        $contentTypes = $this->config->get('contenttypes');
+
+        foreach ($contentTypes as $contentType) {
+            foreach ($contentType['relations']->keys() as $contentTypeTo) {
+                for ($i = 1; $i <= self::AMOUNT; $i++) {
+                    $this->addRelation($contentType['slug'], $contentTypeTo, $manager);
+                }
+            }
+        }
+    }
+
+    private function addRelation($contentTypeFrom, $contentTypeTo, $manager): void
+    {
+        /** @var Content $contentFrom */
+        $contentFrom = $this->getRandomReference('content_' . $contentTypeFrom);
+
+        /** @var Content $contentTo */
+        $contentTo = $this->getRandomReference('content_' . $contentTypeTo);
+
+        $relation = new Relation($contentFrom, $contentTo);
+
+        $manager->persist($relation);
+    }
+}
