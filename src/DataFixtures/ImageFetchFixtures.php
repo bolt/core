@@ -19,7 +19,7 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     private $fileLocations;
 
     private const AMOUNT = 10;
-    private const MAX_AMOUNT = 40;
+    private const MAX_AMOUNT = 50;
 
     public function __construct(FileLocations $fileLocations)
     {

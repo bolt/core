@@ -16,7 +16,7 @@ class RelationsFixtures extends BaseFixture implements DependentFixtureInterface
     /** @var Config */
     private $config;
 
-    public const AMOUNT = 8;
+    public const AMOUNT = 15;
 
     public function __construct(Config $config)
     {
@@ -57,7 +57,7 @@ class RelationsFixtures extends BaseFixture implements DependentFixtureInterface
         }
     }
 
-    private function addRelation($contentTypeFrom, $contentTypeTo, $manager): void
+    private function addRelation(string $contentTypeFrom, string $contentTypeTo, ObjectManager $manager): void
     {
         /** @var Content $contentFrom */
         $contentFrom = $this->getRandomReference('content_' . $contentTypeFrom);
