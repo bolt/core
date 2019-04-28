@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Bolt\Tests\Configuration\Parser;
 
 use Bolt\Configuration\Parser\TaxonomyParser;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Tightenco\Collect\Support\Collection;
 
-class TaxonomyParserTest extends TestCase
+class TaxonomyParserTest extends ParserTestBase
 {
     public function testCanParse(): void
     {
@@ -22,7 +21,7 @@ class TaxonomyParserTest extends TestCase
 
     public function testBreakOnInvalidFileParse(): void
     {
-        $file = dirname(dirname(dirname(__DIR__))).'/fixtures/config/broken.yaml';
+        $file = self::getBasePath() . 'broken.yaml';
         $taxonomyParser = new TaxonomyParser($file);
 
         $this->expectException(ParseException::class);
@@ -72,7 +71,7 @@ class TaxonomyParserTest extends TestCase
 
     public function testInferTaxonomyValues(): void
     {
-        $file = dirname(dirname(dirname(__DIR__))).'/fixtures/config/minimal_taxonomy.yaml';
+        $file = self::getBasePath() . 'minimal_taxonomy.yaml';
         $taxonomyParser = new TaxonomyParser($file);
         $config = $taxonomyParser->parse();
 
@@ -101,8 +100,5 @@ class TaxonomyParserTest extends TestCase
         $this->assertSame('corge', $config['qux']['slug']);
         $this->assertSame('Corge', $config['qux']['singular_name']);
         $this->assertSame('corge', $config['qux']['singular_slug']);
-
-
     }
-
 }

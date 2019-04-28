@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Bolt\Tests\Configuration\Parser;
 
 use Bolt\Configuration\Parser\MenuParser;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Tightenco\Collect\Support\Collection;
 
-class MenuParserTest extends TestCase
+class MenuParserTest extends ParserTestBase
 {
     public function testCanParse(): void
     {
@@ -22,7 +21,7 @@ class MenuParserTest extends TestCase
 
     public function testIgnoreNonsensicalFileParse(): void
     {
-        $file = dirname(dirname(dirname(__DIR__))).'/fixtures/config/bogus.yaml';
+        $file = self::getBasePath() . 'bogus.yaml';
         $menuParser = new MenuParser($file);
         $config = $menuParser->parse();
 
@@ -31,7 +30,7 @@ class MenuParserTest extends TestCase
 
     public function testBreakOnInvalidFileParse(): void
     {
-        $file = dirname(dirname(dirname(__DIR__))).'/fixtures/config/broken.yaml';
+        $file = self::getBasePath() . 'broken.yaml';
         $menuParser = new MenuParser($file);
 
         $this->expectException(ParseException::class);
