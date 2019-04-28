@@ -5,24 +5,15 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Configuration\FileLocations;
-use Bolt\Factory\MediaFactory;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Factory;
-use Faker\Generator;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
 class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    /** @var Generator */
-    private $faker;
-
     /** @var Collection */
     private $urls;
-
-    /** @var MediaFactory */
-    private $mediaFactory;
 
     /** @var FileLocations */
     private $fileLocations;
@@ -30,7 +21,7 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     private const AMOUNT = 10;
     private const MAX_AMOUNT = 40;
 
-    public function __construct(FileLocations $fileLocations, MediaFactory $mediaFactory)
+    public function __construct(FileLocations $fileLocations)
     {
         $this->urls = new Collection([
             'https://source.unsplash.com/1280x1024/?business,workspace,interior/',
@@ -39,8 +30,6 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
             'https://source.unsplash.com/1280x1024/?technology/',
         ]);
 
-        $this->faker = Factory::create();
-        $this->mediaFactory = $mediaFactory;
         $this->fileLocations = $fileLocations;
     }
 
@@ -74,7 +63,6 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
             $client = new Client();
             $resource = fopen($outputPath . $filename, 'w');
             $client->request('GET', $url, ['sink' => $resource]);
-            echo ' image';
         }
     }
 }

@@ -14,12 +14,10 @@ class TaxonomyRepositoryTest extends DbAwareTestCase
 {
     protected function setUp(): void
     {
-        $this->markTestIncomplete("This test takes like forever to run so let's skip it until it will be finished");
-
         parent::setUp();
 
         // fixtures loading takes a lot of time, it would be better to load database dump for tests
-        self::runCommand('doctrine:fixtures:load --no-interaction');
+        self::runCommand('doctrine:fixtures:load --no-interaction --group=without-images');
     }
 
     public function testSearchByType(): void
