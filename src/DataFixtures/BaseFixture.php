@@ -14,6 +14,15 @@ abstract class BaseFixture extends Fixture
     private $referencesIndex = [];
     private $taxonomyIndex = [];
 
+    /**
+     * During unit-tests, the fixtures are ran multiple times. Flush the
+     * in-memory index, to prevent stale links to missing references.
+     */
+    protected function flushReferencesIndex(): void
+    {
+        $this->referencesIndex = [];
+    }
+
     protected function getRandomReference(string $entityName)
     {
         if (isset($this->referencesIndex[$entityName]) === false) {
