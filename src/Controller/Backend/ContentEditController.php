@@ -9,9 +9,12 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Relation;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
 use Bolt\Event\Listener\ContentFillListener;
+use Bolt\Repository\ContentRepository;
+use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
 use Carbon\Carbon;
@@ -32,33 +35,30 @@ class ContentEditController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
-    /**
-     * @var TaxonomyRepository
-     */
+    /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
-    /**
-     * @var ObjectManager
-     */
+    /** @var RelationRepository */
+    private $relationRepository;
+
+    /** @var ContentRepository */
+    private $contentRepository;
+
+    /** @var ObjectManager */
     private $em;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /**
-     * @var TemplateChooser
-     */
+    /** @var TemplateChooser */
     private $templateChooser;
-
-    /**
-     * @var ContentFillListener
-     */
+    /** @var ContentFillListener */
     private $contentFillListener;
 
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
+        RelationRepository $relationRepository,
+        ContentRepository $contentRepository,
         ObjectManager $em,
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
@@ -66,6 +66,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
         CsrfTokenManagerInterface $csrfTokenManager
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
+        $this->relationRepository = $relationRepository;
+        $this->contentRepository = $contentRepository;
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
         $this->contentFillListener = $contentFillListener;
@@ -203,6 +205,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
             }
         }
 
+        if (isset($formData['relationship'])) {
+            foreach ($formData['relationship'] as $relation) {
+                $this->updateRelation($content, $relation);
+            }
+        }
+
         return $content;
     }
 
@@ -256,6 +264,32 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $content->addTaxonomy($taxonomy);
         }
     }
+
+    private function updateRelation(Content $content, $relation): void
+    {
+        $relation = (new Collection(Json::findArray($relation)))->filter();
+
+        $currentRelations = $this->relationRepository->findRelations($content, null, true, null, false);
+
+        // Remove old ones
+        foreach ($currentRelations as $currentRelation) {
+            $this->em->remove($currentRelation);
+        }
+
+        // Then (re-) add selected ones
+        foreach ($relation as $id) {
+            $contentTo = $this->contentRepository->findOneBy(['id' => $id]);
+
+            if ($relation === null) {
+                continue; // Don't add relations to things that have gone missing
+            }
+
+            $relation = new Relation($content, $contentTo);
+
+            $this->em->persist($relation);
+        }
+    }
+
 
     private function getEditLocale(Request $request, Content $content): string
     {

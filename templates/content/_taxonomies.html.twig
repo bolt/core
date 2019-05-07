@@ -1,4 +1,3 @@
-<div class="tab-pane" id="relations" role="tabpanel" aria-labelledby="relations-tab">
 {% for taxonomy in record.definition.taxonomy %}
 
         {% set definition = config.get('taxonomies/' ~ taxonomy) %}
@@ -13,16 +12,14 @@
                 </label>
                 <div>
                     <editor-select
-                            :value="{{ value|json_encode }}"
+                            :value="{{ value }}"
                             :name="'taxonomy[{{ definition.slug }}]'"
                             :id="'taxonomy-{{ definition.slug }}'"
-                            :options="{{ options|json_encode }}"
+                            :options="{{ options }}"
                             :multiple="{{ definition.multiple ? 'true' : 'false' }}"
                             :taggable="{{ (definition.behaves_like == 'tags') ? 'true' : 'false' }}"
                             :allowempty={{ definition.allow_empty ? 'true' : 'false' }}
                     ></editor-select>
-
-                    {# (Current saved value: <code>{{ value|json_encode }}</code> ) #}
                 </div>
 
             </div>
@@ -30,5 +27,3 @@
         {% endif %}
 
 {% endfor %}
-
-</div>
