@@ -76,7 +76,6 @@ class RelationRepository extends SortableRepository
             ->join('r.toContent', 'cto')
             ->orderBy('r.position', 'DESC');
 
-
         if ($publishedOnly === true) {
             $qb->andWhere('cto.status = :status')
                 ->setParameter('status', Statuses::PUBLISHED, \PDO::PARAM_STR);

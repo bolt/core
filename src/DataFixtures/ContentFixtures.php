@@ -162,7 +162,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'file':
                 $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => 'stock/' . $randomImage->getFilename(),
+                    'filename' => $randomImage->getRelativePathname(),
                     'alt' => $this->faker->sentence(4, true),
                     'title' => $this->faker->sentence(7, true),
                 ];
