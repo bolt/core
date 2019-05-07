@@ -132,8 +132,8 @@ class RelatedExtension extends AbstractExtension
         /** @var Content $record */
         foreach ($content as $record) {
             $options[] = [
-                "key" => $record->getId(),
-                "value" => sprintf('%s (№ %s)', $record->getExtras()['title'], $record->getId())
+                'key' => $record->getId(),
+                'value' => sprintf('%s (№ %s)', $record->getExtras()['title'], $record->getId()),
             ];
         }
 
