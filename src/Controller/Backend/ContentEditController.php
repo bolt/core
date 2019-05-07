@@ -265,10 +265,9 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
     }
 
-    private function updateRelation(Content $content, $relation): void
+    private function updateRelation(Content $content, $newRelations): void
     {
-        $relation = (new Collection(Json::findArray($relation)))->filter();
-
+        $newRelations = (new Collection(Json::findArray($newRelations)))->filter();
         $currentRelations = $this->relationRepository->findRelations($content, null, true, null, false);
 
         // Remove old ones
@@ -277,10 +276,10 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
 
         // Then (re-) add selected ones
-        foreach ($relation as $id) {
+        foreach ($newRelations as $id) {
             $contentTo = $this->contentRepository->findOneBy(['id' => $id]);
 
-            if ($relation === null) {
+            if ($contentTo === null) {
                 continue; // Don't add relations to things that have gone missing
             }
 
@@ -289,7 +288,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $this->em->persist($relation);
         }
     }
-
 
     private function getEditLocale(Request $request, Content $content): string
     {
