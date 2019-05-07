@@ -19,7 +19,7 @@ class TaxonomyParser extends BaseParser
      */
     public function parse(): Collection
     {
-        $taxonomies = $this->parseConfigYaml($this->getFilename());
+        $taxonomies = $this->parseConfigYaml($this->getInitialFilename());
 
         foreach ($taxonomies as $key => $taxonomy) {
             if (isset($taxonomy['name']) === false) {

@@ -32,7 +32,7 @@ class ContentTypesParser extends BaseParser
     public function parse(): Collection
     {
         $contentTypes = [];
-        $tempContentTypes = $this->parseConfigYaml($this->getFilename());
+        $tempContentTypes = $this->parseConfigYaml($this->getInitialFilename());
         foreach ($tempContentTypes as $key => $contentType) {
             if (is_array($contentType)) {
                 $contentType = $this->parseContentType($key, $contentType);

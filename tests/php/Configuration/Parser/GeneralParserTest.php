@@ -65,9 +65,9 @@ class GeneralParserTest extends ParserTestBase
         $generalParser = new GeneralParser($file);
         $config = $generalParser->parse();
 
-        $this->assertCount(2, $generalParser->getFilenames());
+        $this->assertCount(2, $generalParser->getParsedFilenames());
 
-        $this->assertSame($file, $generalParser->getFilename());
+        $this->assertSame($file, $generalParser->getInitialFilename());
         $this->assertSame(self::getBasePath() . 'bogus_local.yaml', $generalParser->getFilenameLocalOverrides());
     }
 

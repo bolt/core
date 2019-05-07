@@ -23,7 +23,7 @@ class GeneralParser extends BaseParser
     public function parse(): Collection
     {
         $defaultconfig = $this->getDefaultConfig();
-        $tempconfig = $this->parseConfigYaml($this->getFilename());
+        $tempconfig = $this->parseConfigYaml($this->getInitialFilename());
         $tempconfiglocal = $this->parseConfigYaml($this->getFilenameLocalOverrides(), true);
         $general = Arr::replaceRecursive($defaultconfig, Arr::replaceRecursive($tempconfig, $tempconfiglocal));
 

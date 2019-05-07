@@ -18,18 +18,18 @@ abstract class BaseParser
     /** @var PathResolver */
     protected $pathResolver;
 
-    /** @var string[] */
-    protected $filenames = [];
-
     /** @var string */
-    protected $filename;
+    protected $initialFilename;
+
+    /** @var string[] */
+    protected $parsedFilenames = [];
 
     public function __construct(string $filename)
     {
         $configDirectories = [dirname(dirname(dirname(__DIR__))) . '/config/bolt'];
         $this->fileLocator = new FileLocator($configDirectories);
         $this->pathResolver = new PathResolver(dirname(dirname(dirname(__DIR__))), []);
-        $this->filename = $filename;
+        $this->initialFilename = $filename;
     }
 
     /**
@@ -39,7 +39,7 @@ abstract class BaseParser
      * in our config folder. This way you can pass in either  an absolute
      * filename or simply 'menu.yaml'.
      */
-    protected function parseConfigYaml(string $filename, $ignoreMissing = false): Collection
+    protected function parseConfigYaml(string $filename, bool $ignoreMissing = false): Collection
     {
         try {
             if (! is_readable($filename)) {
@@ -56,7 +56,7 @@ abstract class BaseParser
 
         $yaml = Yaml::parseFile($filename);
 
-        $this->filenames[] = $filename;
+        $this->parsedFilenames[] = $filename;
 
         // Unset the repeated nodes key after parse
         unset($yaml['__nodes']);
@@ -64,19 +64,19 @@ abstract class BaseParser
         return new Collection($yaml);
     }
 
-    public function getFilenames(): array
+    public function getParsedFilenames(): array
     {
-        return $this->filenames;
+        return $this->parsedFilenames;
     }
 
-    public function getFilename()
+    public function getInitialFilename()
     {
-        return $this->filename;
+        return $this->initialFilename;
     }
 
     public function getFilenameLocalOverrides()
     {
-        return preg_replace('/([a-z0-9_-]+).(ya?ml)$/i', '$1_local.$2', $this->filename);
+        return preg_replace('/([a-z0-9_-]+).(ya?ml)$/i', '$1_local.$2', $this->initialFilename);
     }
 
     abstract public function parse(): Collection;
