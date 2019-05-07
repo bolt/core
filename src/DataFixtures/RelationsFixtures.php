@@ -39,6 +39,8 @@ class RelationsFixtures extends BaseFixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
+        $this->flushReferencesIndex();
+
         $this->loadContent($manager);
 
         $manager->flush();
