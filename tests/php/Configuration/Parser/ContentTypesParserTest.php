@@ -13,6 +13,10 @@ use Tightenco\Collect\Support\Collection;
 
 class ContentTypesParserTest extends ParserTestBase
 {
+    const NUMBER_OF_CONTENT_TYPES_IN_MINIMAL_FILE = 3;
+
+    const AMOUNT_OF_ATTRIBUTES_IN_CONTENTTYPE = 20;
+
     public function testCanParse(): void
     {
         $generalParser = new GeneralParser();
@@ -30,7 +34,7 @@ class ContentTypesParserTest extends ParserTestBase
 
         $this->expectException(ConfigurationException::class);
 
-        $config = $contentTypesParser->parse();
+        $contentTypesParser->parse();
     }
 
     public function testBreakOnInvalidFileParse(): void
@@ -63,7 +67,7 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertCount(6, $config);
 
         $this->assertArrayHasKey('homepage', $config);
-        $this->assertCount(20, $config['homepage']);
+        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENTTYPE, $config['homepage']);
 
         $this->assertSame('Homepage', $config['homepage']['name']);
         $this->assertSame('Homepage', $config['homepage']['singular_name']);
@@ -82,16 +86,16 @@ class ContentTypesParserTest extends ParserTestBase
 
     public function testInferContentTypeValues(): void
     {
-        $file = self::getBasePath() . 'minimal_contenttypes.yaml';
+        $file = self::getBasePath() . 'minimal_content_types.yaml';
 
         $generalParser = new GeneralParser();
         $contentTypesParser = new ContentTypesParser($generalParser->parse(), $file);
         $config = $contentTypesParser->parse();
 
-        $this->assertCount(2, $config);
+        $this->assertCount(self::NUMBER_OF_CONTENT_TYPES_IN_MINIMAL_FILE, $config);
 
         $this->assertArrayHasKey('foo', $config);
-        $this->assertCount(20, $config['foo']);
+        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENTTYPE, $config['foo']);
 
         $this->assertSame('Bars', $config['foo']['name']);
         $this->assertSame('foo', $config['foo']['slug']);
@@ -119,11 +123,19 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertIsIterable($config['foo']['relations']);
 
         $this->assertArrayHasKey('qux', $config);
-        $this->assertCount(20, $config['qux']);
+        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENTTYPE, $config['qux']);
 
         $this->assertSame('Corges', $config['qux']['name']);
         $this->assertSame('corges', $config['qux']['slug']);
         $this->assertSame('Corge', $config['qux']['singular_name']);
         $this->assertSame('corge', $config['qux']['singular_slug']);
+
+        $this->assertArrayHasKey('grault', $config);
+        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENTTYPE, $config['grault']);
+
+        $this->assertSame('Grault', $config['grault']['name']);
+        $this->assertSame('grault', $config['grault']['slug']);
+        $this->assertSame('Waldo', $config['grault']['singular_name']);
+        $this->assertSame('waldo', $config['grault']['singular_slug']);
     }
 }
