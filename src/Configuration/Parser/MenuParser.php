@@ -11,7 +11,7 @@ class MenuParser extends BaseParser
     /** @var array */
     private $itemBase = [];
 
-    public function __construct(string $filename = 'menu.yaml')
+    public function __construct(string $initialFilename = 'menu.yaml')
     {
         $this->itemBase = [
             'label' => '',
@@ -23,7 +23,7 @@ class MenuParser extends BaseParser
             'current' => false,
         ];
 
-        parent::__construct($filename);
+        parent::__construct($initialFilename);
     }
 
     /**

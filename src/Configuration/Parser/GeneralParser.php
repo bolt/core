@@ -12,9 +12,9 @@ use Webmozart\PathUtil\Path;
 
 class GeneralParser extends BaseParser
 {
-    public function __construct(string $filename = 'config.yaml')
+    public function __construct(string $initialFilename = 'config.yaml')
     {
-        parent::__construct($filename);
+        parent::__construct($initialFilename);
     }
 
     /**
