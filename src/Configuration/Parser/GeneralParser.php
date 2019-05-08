@@ -12,14 +12,19 @@ use Webmozart\PathUtil\Path;
 
 class GeneralParser extends BaseParser
 {
+    public function __construct(string $initialFilename = 'config.yaml')
+    {
+        parent::__construct($initialFilename);
+    }
+
     /**
      * Read and parse the config.yaml and config_local.yaml configuration files.
      */
     public function parse(): Collection
     {
         $defaultconfig = $this->getDefaultConfig();
-        $tempconfig = $this->parseConfigYaml('config.yaml');
-        $tempconfiglocal = $this->parseConfigYaml('config_local.yaml');
+        $tempconfig = $this->parseConfigYaml($this->getInitialFilename());
+        $tempconfiglocal = $this->parseConfigYaml($this->getFilenameLocalOverrides(), true);
         $general = Arr::replaceRecursive($defaultconfig, Arr::replaceRecursive($tempconfig, $tempconfiglocal));
 
         // Make sure Bolt's mount point is OK:
@@ -61,27 +66,12 @@ class GeneralParser extends BaseParser
             'locale' => null,
             'records_per_page' => 10,
             'records_on_dashboard' => 5,
-            'systemlog' => [
-                'enabled' => true,
-            ],
-            'changelog' => [
-                'enabled' => false,
-            ],
-            'debuglog' => [
-                'enabled' => false,
-                'level' => 'DEBUG',
-                'filename' => 'bolt-debug.log',
-            ],
             'debug' => null,
             'debug_show_loggedoff' => false,
             'debug_error_level' => null,
             'production_error_level' => null,
-            'debug_enable_whoops' => false, /* @deprecated. Deprecated since 3.2, to be removed in 4.0 */
-            'debug_error_use_symfony' => false,
-            'debug_permission_audit_mode' => false,
-            'debug_trace_argument_limit' => 4,
             'strict_variables' => null,
-            'theme' => 'base-2016',
+            'theme' => 'base-2019',
             'listing_template' => 'listing.html.twig',
             'listing_records' => '5',
             'listing_sort' => 'datepublish DESC',
@@ -115,13 +105,7 @@ class GeneralParser extends BaseParser
                     'filebrowserWindowHeight' => 480,
                 ],
             ],
-            'liveeditor' => true,
             'canonical' => null,
-            'developer_notices' => false,
-            'cookies_use_remoteaddr' => true,
-            'cookies_use_browseragent' => false,
-            'cookies_use_httphost' => true,
-            'cookies_lifetime' => 14 * 24 * 3600,
             'enforce_ssl' => false,
             'thumbnails' => [
                 'default_thumbnail' => [160, 120],
@@ -133,7 +117,6 @@ class GeneralParser extends BaseParser
                 'only_aliases' => false,
             ],
             'accept_file_types' => explode(',', 'twig,html,js,css,scss,gif,jpg,jpeg,png,ico,zip,tgz,txt,md,doc,docx,pdf,epub,xls,xlsx,csv,ppt,pptx,mp3,ogg,wav,m4a,mp4,m4v,ogv,wmv,avi,webm,svg'),
-            'hash_strength' => 10,
             'branding' => [
                 'name' => 'Bolt',
                 'path' => '/bolt',

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Configuration\PathResolver;
+use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\Yaml\Yaml;
 use Tightenco\Collect\Support\Collection;
 
@@ -18,30 +18,45 @@ abstract class BaseParser
     /** @var PathResolver */
     protected $pathResolver;
 
-    /** @var string[] */
-    protected $filenames = [];
+    /** @var string */
+    protected $initialFilename;
 
-    public function __construct()
+    /** @var string[] */
+    protected $parsedFilenames = [];
+
+    public function __construct(string $initialFilename)
     {
         $configDirectories = [dirname(dirname(dirname(__DIR__))) . '/config/bolt'];
         $this->fileLocator = new FileLocator($configDirectories);
         $this->pathResolver = new PathResolver(dirname(dirname(dirname(__DIR__))), []);
+        $this->initialFilename = $initialFilename;
     }
 
     /**
      * Read and parse a YAML configuration file.
+     *
+     * If filename doesn't exist and/or isn't readable, we attempt to locate it
+     * in our config folder. This way you can pass in either  an absolute
+     * filename or simply 'menu.yaml'.
      */
-    protected function parseConfigYaml(string $filename): Collection
+    protected function parseConfigYaml(string $filename, bool $ignoreMissing = false): Collection
     {
         try {
-            $filename = $this->fileLocator->locate($filename, null, true);
-        } catch (FileNotFoundException $e) {
-            return new Collection();
+            if (! is_readable($filename)) {
+                $filename = $this->fileLocator->locate($filename, null, true);
+            }
+        } catch (FileLocatorFileNotFoundException $e) {
+            if ($ignoreMissing) {
+                return new Collection([]);
+            }
+
+            // If not $ignoreMissing, we throw the exception regardless.
+            throw $e;
         }
 
         $yaml = Yaml::parseFile($filename);
 
-        $this->filenames[] = $filename;
+        $this->parsedFilenames[] = $filename;
 
         // Unset the repeated nodes key after parse
         unset($yaml['__nodes']);
@@ -49,9 +64,19 @@ abstract class BaseParser
         return new Collection($yaml);
     }
 
-    public function getFilenames(): array
+    public function getParsedFilenames(): array
     {
-        return $this->filenames;
+        return $this->parsedFilenames;
+    }
+
+    public function getInitialFilename()
+    {
+        return $this->initialFilename;
+    }
+
+    public function getFilenameLocalOverrides()
+    {
+        return preg_replace('/([a-z0-9_-]+).(ya?ml)$/i', '$1_local.$2', $this->initialFilename);
     }
 
     abstract public function parse(): Collection;

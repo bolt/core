@@ -18,10 +18,10 @@ class ContentTypesParser extends BaseParser
      */
     private $generalConfig;
 
-    public function __construct(Collection $generalConfig)
+    public function __construct(Collection $generalConfig, string $filename = 'contenttypes.yaml')
     {
         $this->generalConfig = $generalConfig;
-        parent::__construct();
+        parent::__construct($filename);
     }
 
     /**
@@ -32,10 +32,12 @@ class ContentTypesParser extends BaseParser
     public function parse(): Collection
     {
         $contentTypes = [];
-        $tempContentTypes = $this->parseConfigYaml('contenttypes.yaml');
+        $tempContentTypes = $this->parseConfigYaml($this->getInitialFilename());
         foreach ($tempContentTypes as $key => $contentType) {
-            $contentType = $this->parseContentType($key, $contentType);
-            $contentTypes[$key] = $contentType;
+            if (is_array($contentType)) {
+                $contentType = $this->parseContentType($key, $contentType);
+                $contentTypes[$key] = $contentType;
+            }
         }
 
         return new Collection($contentTypes);
@@ -108,13 +110,6 @@ class ContentTypesParser extends BaseParser
             $contentType['icon_many'] = 'fa-copy';
         } else {
             $contentType['icon_many'] = str_replace('fa:', 'fa-', $contentType['icon_many']);
-        }
-
-        // Allow explicit setting of a Content Type's table name suffix. We default to slug if not present.
-        if (isset($contentType['tablename'])) {
-            $contentType['tablename'] = Str::slug($contentType['tablename'], '_');
-        } else {
-            $contentType['tablename'] = Str::slug($contentType['slug'], '_');
         }
 
         if (! isset($contentType['allow_numeric_slugs'])) {

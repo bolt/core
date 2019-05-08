@@ -5,19 +5,48 @@ declare(strict_types=1);
 namespace Bolt\Tests\Configuration\Parser;
 
 use Bolt\Configuration\Parser\MenuParser;
-use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Tightenco\Collect\Support\Collection;
 
-class MenuParserTest extends TestCase
+class MenuParserTest extends ParserTestBase
 {
     public function testCanParse(): void
     {
         $menuParser = new MenuParser();
         $config = $menuParser->parse();
 
-        // @todo Test breakage on corrupt files. See Github issue https://github.com/bolt/four/issues/379
         $this->assertInstanceOf(Collection::class, $config);
     }
+
+    public function testIgnoreNonsensicalFileParse(): void
+    {
+        $file = self::getBasePath() . 'bogus.yaml';
+        $menuParser = new MenuParser($file);
+        $config = $menuParser->parse();
+
+        $this->assertInstanceOf(Collection::class, $config);
+    }
+
+    public function testBreakOnInvalidFileParse(): void
+    {
+        $file = self::getBasePath() . 'broken.yaml';
+        $menuParser = new MenuParser($file);
+
+        $this->expectException(ParseException::class);
+
+        $menuParser->parse();
+    }
+
+    public function testBreakOnMissingFileParse(): void
+    {
+        $menuParser = new MenuParser('foo.yml');
+
+        $this->expectException(FileLocatorFileNotFoundException::class);
+
+        $menuParser->parse();
+    }
+
 
     public function testHasMenu(): void
     {

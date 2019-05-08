@@ -124,7 +124,7 @@ class Config
         $timestamps = [];
 
         foreach ($configs as $config) {
-            foreach ($config->getFilenames() as $file) {
+            foreach ($config->getParsedFilenames() as $file) {
                 $timestamps[$file] = filemtime($file);
             }
         }
