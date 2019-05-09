@@ -66,6 +66,7 @@ class Content
      * @var string
      *
      * @ORM\Column(type="string", length=191)
+     * @Groups("get_content")
      */
     private $status;
 

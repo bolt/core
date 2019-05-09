@@ -231,4 +231,13 @@ class ContentExtension extends AbstractExtension
 
         return new Collection($taxonomies);
     }
+
+    public function getIcon(Content $content): ?string
+    {
+        if ($content->getId() === null) {
+            return null;
+        }
+
+        return $content->getDefinition()['icon_one'];
+    }
 }
