@@ -74,6 +74,7 @@ class Content
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     * @Groups("get_content")
      */
     private $createdAt;
 
@@ -97,6 +98,7 @@ class Content
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("get_content")
      */
     private $depublishedAt = null;
 
