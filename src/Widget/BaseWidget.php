@@ -15,6 +15,7 @@ abstract class BaseWidget implements WidgetInterface
     use TwigTrait;
     use RequestTrait;
     use ResponseTrait;
+    use CacheTrait;
 
     /** @var string */
     protected $name;
@@ -33,6 +34,9 @@ abstract class BaseWidget implements WidgetInterface
 
     /** @var ?string */
     protected $slug;
+
+    /** @var int duration (in seconds) to cache output */
+    protected $cacheDuration = 600;
 
     public function setName(string $name): self
     {
@@ -137,5 +141,10 @@ abstract class BaseWidget implements WidgetInterface
         }
 
         return $this->slug;
+    }
+
+    public function getCacheDuration(): int
+    {
+        return $this->cacheDuration;
     }
 }
