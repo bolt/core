@@ -26,8 +26,7 @@ trait CacheTrait
             return $this->getFromCache();
         }
 
-        /** @var WidgetInterface $this */
-        $output = $this();
+        $output = $this->__invoke();
 
         $this->setToCache($output);
 
