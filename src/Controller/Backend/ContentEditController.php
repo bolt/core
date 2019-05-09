@@ -116,6 +116,22 @@ class ContentEditController extends TwigAwareController implements BackendZone
         $content = $this->contentFromPost($content, $request);
 
         $this->em->persist($content);
+        
+        // detach, flush and attach back relations due to bug in Sortable https://github.com/Atlantic18/DoctrineExtensions/issues/2013
+        $relationsCache = [];
+        foreach ($this->em->getUnitOfWork()->getIdentityMap() as $className => $objects) {
+            if ($className === Relation::class) {
+                foreach ($objects as $relation) {
+                    $this->em->detach($relation);
+                    $relationsCache[] = $relation;
+                }
+            }
+        }
+        $this->em->flush();
+        foreach ($relationsCache as $relation) {
+            $this->em->merge($relation);
+        }
+        //now flush relations separately
         $this->em->flush();
 
         $this->addFlash('success', 'content.updated_successfully');
