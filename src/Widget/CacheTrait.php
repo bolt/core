@@ -15,7 +15,7 @@ trait CacheTrait
     /** @var string */
     private $key;
 
-    public function setCacheInterface(CacheInterface $cache): void
+    public function setCache(CacheInterface $cache): void
     {
         $this->cache = $cache;
         $this->key = $this->createKey();
