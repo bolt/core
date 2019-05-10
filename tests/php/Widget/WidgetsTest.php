@@ -13,13 +13,13 @@ use Bolt\Widget\Injector\Target;
 use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\WeatherWidget;
 use Bolt\Widgets;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\TraceableAdapter;
+use Symfony\Component\Cache\Simple\Psr6Cache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Symfony\Component\Cache\Adapter\TraceableAdapter;
-use Symfony\Component\Cache\Simple\Psr6Cache;
 use Twig\Loader\ArrayLoader;
 
 class WidgetsTest extends StringTestCase

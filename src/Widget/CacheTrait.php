@@ -23,8 +23,8 @@ trait CacheTrait
 
     public function __invoke(array $params = []): string
     {
-        if (!$this->cache instanceof CacheInterface) {
-            throw new WidgetException('Widget of class '.self::class.' is not initialised properly. Make sure the Widget `implements CacheAware`.');
+        if (! $this->cache instanceof CacheInterface) {
+            throw new WidgetException('Widget of class ' . self::class . ' is not initialised properly. Make sure the Widget `implements CacheAware`.');
         }
 
         if ($this->isCached()) {
