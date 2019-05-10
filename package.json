@@ -27,7 +27,6 @@
     "url": "git://github.com/bolt/four.git"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
     "@vue/cli-service": "^3.7.0",
     "axios": "^0.18.0",
     "baguettebox.js": "^1.11.0",
@@ -35,7 +34,7 @@
     "codemirror": "^5.46.0",
     "flagpack": "^1.0.3",
     "jquery": "^3.4.1",
-    "luxon": "^1.13.0",
+    "luxon": "^1.13.2",
     "no-scroll": "^2.1.1",
     "popper.js": "^1.15.0",
     "register-service-worker": "^1.6.2",
@@ -51,7 +50,7 @@
     "vue-simplemde": "^0.5.1",
     "vue-trumbowyg": "^3.4.2",
     "vuedraggable": "^2.20.0",
-    "vuex": "^3.1.0"
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
