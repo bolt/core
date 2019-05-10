@@ -90,7 +90,7 @@ class Widgets
         }
 
         if ($widget instanceof CacheAware) {
-            $widget->setCacheInterface($this->cache);
+            $widget->setCache($this->cache);
         }
 
         // Call the magic `__invoke` method on the $widget object
