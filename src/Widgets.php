@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt;
 
+use Bolt\Widget\CacheAware;
 use Bolt\Widget\Injector\QueueProcessor;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\RequestAware;
 use Bolt\Widget\TwigAware;
 use Bolt\Widget\WidgetInterface;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -32,12 +34,16 @@ class Widgets
     /** @var Environment */
     private $twig;
 
-    public function __construct(RequestStack $requestStack, QueueProcessor $queueProcessor, Environment $twig)
+    /** @var CacheInterface */
+    private $cache;
+
+    public function __construct(RequestStack $requestStack, QueueProcessor $queueProcessor, Environment $twig, CacheInterface $cache)
     {
         $this->queue = new Collection([]);
         $this->requestStack = $requestStack;
         $this->queueProcessor = $queueProcessor;
         $this->twig = $twig;
+        $this->cache = $cache;
     }
 
     public function registerWidget(WidgetInterface $widget): void
@@ -56,11 +62,7 @@ class Widgets
         })->first();
 
         if ($widget) {
-            if ($widget instanceof RequestAware) {
-                $widget->setRequest($this->requestStack->getCurrentRequest());
-            }
-
-            return $widget($params);
+            return $this->invokeWidget($widget, $params);
         }
     }
 
@@ -75,14 +77,24 @@ class Widgets
         $output = '';
 
         foreach ($widgets as $widget) {
-            if ($widget instanceof RequestAware) {
-                $widget->setRequest($this->requestStack->getCurrentRequest());
-            }
-
-            $output .= $widget($params);
+            $output .= $this->invokeWidget($widget, $params);
         }
 
         return $output;
+    }
+
+    private function invokeWidget(WidgetInterface $widget, array $params = []): string
+    {
+        if ($widget instanceof RequestAware) {
+            $widget->setRequest($this->requestStack->getCurrentRequest());
+        }
+
+        if ($widget instanceof CacheAware) {
+            $widget->setCache($this->cache);
+        }
+
+        // Call the magic `__invoke` method on the $widget object
+        return $widget($params);
     }
 
     public function processQueue(Response $response): Response

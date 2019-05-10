@@ -13,6 +13,9 @@ use Bolt\Widget\Injector\Target;
 use Bolt\Widget\SnippetWidget;
 use Bolt\Widget\WeatherWidget;
 use Bolt\Widgets;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\TraceableAdapter;
+use Symfony\Component\Cache\Simple\Psr6Cache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +36,9 @@ class WidgetsTest extends StringTestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
+        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
         $response = new Response('<html><body>foo</body></html>');
 
         $snippet = (new SnippetWidget())
@@ -56,7 +61,9 @@ class WidgetsTest extends StringTestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
+        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
 
         $weatherWidget = new WeatherWidget();
         $weatherWidget->setTemplate('weather.twig');
@@ -79,7 +86,9 @@ class WidgetsTest extends StringTestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, {{ foo }}!]']);
         $twig = new Environment($loader);
 
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
+        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
 
         $weatherWidget = new WeatherWidget();
         $weatherWidget->setTemplate('weather.twig');
@@ -102,7 +111,9 @@ class WidgetsTest extends StringTestCase
         $queueProcessor = new QueueProcessor(new HtmlInjector());
         $twig = new Environment(new ArrayLoader());
 
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
+        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
 
         $response = new Response('<html><body>foo</body></html>');
 
@@ -125,7 +136,9 @@ class WidgetsTest extends StringTestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
+        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
 
         $response = new Response('<html><body>foo</body></html>');
 
@@ -155,7 +168,9 @@ class WidgetsTest extends StringTestCase
         $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
         $twig = new Environment($loader);
 
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig);
+        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+
+        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
 
         $response = new Response('<html><body>foo</body></html>');
 

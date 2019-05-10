@@ -27,7 +27,7 @@ class SnippetWidget extends BaseWidget
         $this->zone = $zone;
     }
 
-    public function __invoke(array $params = []): string
+    protected function run(array $params = []): string
     {
         return $this->getTemplate();
     }

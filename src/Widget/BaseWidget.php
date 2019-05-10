@@ -34,6 +34,9 @@ abstract class BaseWidget implements WidgetInterface
     /** @var ?string */
     protected $slug;
 
+    /** @var int duration (in seconds) to cache output */
+    protected $cacheDuration = 600;
+
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -80,7 +83,20 @@ abstract class BaseWidget implements WidgetInterface
         return $this->priority;
     }
 
+    /**
+     * Method to 'invoke' the widget. Simple wrapper around the 'run' method,
+     * which can be overridden in a custom Widget or trait
+     */
     public function __invoke(array $params = []): string
+    {
+        return $this->run($params);
+    }
+
+    /**
+     * Actual method that 'runs' the widget and returns the output. For reasons
+     * of extensibility: Do not call directly, but call `$widget()` to invoke.
+     */
+    protected function run(array $params = []): string
     {
         if (array_key_exists('template', $params)) {
             $this->setTemplate($params['template']);
@@ -137,5 +153,10 @@ abstract class BaseWidget implements WidgetInterface
         }
 
         return $this->slug;
+    }
+
+    public function getCacheDuration(): int
+    {
+        return $this->cacheDuration;
     }
 }

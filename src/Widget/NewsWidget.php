@@ -12,15 +12,18 @@ use Bolt\Widget\Injector\RequestZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-class NewsWidget extends BaseWidget implements TwigAware, RequestAware
+class NewsWidget extends BaseWidget implements TwigAware, RequestAware, CacheAware
 {
+    use CacheTrait;
+
     protected $name = 'News Widget';
     protected $target = AdditionalTarget::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
     protected $priority = 150;
     protected $template = '@bolt/widgets/news.twig';
     protected $zone = RequestZone::BACKEND;
+    protected $cacheDuration = 3600;
 
-    public function __invoke(array $params = []): string
+    protected function run(array $params = []): string
     {
         $news = $this->getNews();
 
@@ -34,7 +37,7 @@ class NewsWidget extends BaseWidget implements TwigAware, RequestAware
             'datefetched' => '2019-04-04 07:25:00',
         ];
 
-        return parent::__invoke($context);
+        return parent::run($context);
     }
 
     /**
