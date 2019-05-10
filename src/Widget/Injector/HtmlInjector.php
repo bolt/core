@@ -224,7 +224,7 @@ class HtmlInjector
 
     private static function findTagEnd(string $rawHtml, string $htmlTag): ?string
     {
-        preg_match_all('~((<'.$htmlTag.'[^>]*?>)|(</'.$htmlTag.'>))~mi', $rawHtml, $allMatches);
+        preg_match_all('~((<'.$htmlTag.'(\s[^>]*)?>)|(</'.$htmlTag.'>))~mi', $rawHtml, $allMatches);
 
         if (empty($allMatches)) {
             return null;
