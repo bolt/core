@@ -13,6 +13,4 @@ use Psr\SimpleCache\CacheInterface;
 interface CacheAware extends WidgetInterface
 {
     public function setCacheInterface(CacheInterface $config): void;
-
-    public function cachedInvoke(): string;
 }

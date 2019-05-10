@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Bolt\Widget\Exception\WidgetException;
 use Psr\SimpleCache\CacheInterface;
 
 trait CacheTrait
@@ -20,13 +21,17 @@ trait CacheTrait
         $this->key = $this->createKey();
     }
 
-    public function cachedInvoke(): string
+    public function __invoke(array $params = []): string
     {
+        if (!$this->cache instanceof CacheInterface) {
+            throw new WidgetException('Widget of class '.self::class.' is not initialised properly. Make sure the Widget `implements CacheAware`.');
+        }
+
         if ($this->isCached()) {
             return $this->getFromCache();
         }
 
-        $output = $this->__invoke();
+        $output = $this->run($params);
 
         $this->setToCache($output);
 
