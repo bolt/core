@@ -58,7 +58,8 @@ class JsonExtension extends AbstractExtension
 
     private function contentToArray(Content $content): array
     {
-        // we do it that way because in current API Platform version a Resource can't implement \JsonSerializable
+        // we do it that way because in current API Platform version a Resource
+        // can't implement \JsonSerializable
         return $this->normalizer->normalize($content, null, ['group' => [self::SERIALIZE_GROUP]]);
     }
 }

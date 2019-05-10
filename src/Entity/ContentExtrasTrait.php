@@ -38,6 +38,7 @@ trait ContentExtrasTrait
             'excerpt' => $this->contentExtension->getExcerpt($content),
             'link' => $this->contentExtension->getLink($content),
             'editLink' => $this->contentExtension->getEditLink($content),
+            'icon' => $this->getIcon(),
         ];
     }
 }
