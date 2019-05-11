@@ -127,43 +127,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return new RedirectResponse($url);
     }
 
-    /**
-     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsave", methods={"POST"}, requirements={"id": "\d+"})
-     */
-    public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
-    {
-        $this->validateToken($request);
-
-        $urlParams = [
-            'slugOrId' => $content->getId(),
-            'contentTypeSlug' => $content->getDefinition()->get('slug'),
-        ];
-
-        $url = $this->urlGenerator->generate('record', $urlParams);
-
-        return new RedirectResponse($url);
-    }
-
-    /**
-     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"}, requirements={"id": "\d+"})
-     */
-    public function preview(Request $request, ?Content $content = null): Response
-    {
-        $this->validateToken($request);
-
-        $content = $this->contentFromPost($content, $request);
-        $recordSlug = $content->getDefinition()->get('singular_slug');
-
-        $context = [
-            'record' => $content,
-            $recordSlug => $content,
-        ];
-
-        $templates = $this->templateChooser->forRecord($content);
-
-        return $this->renderTemplate($templates, $context);
-    }
-
     private function validateToken(Request $request): void
     {
         $this->validateCsrf($request, 'editrecord');

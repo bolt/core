@@ -20,7 +20,7 @@ $checkbox-row-width: 30px;
       align-items: center;
 
       &.is-details {
-        max-width: 40%;
+        max-width: 60%;
 
         strong {
           white-space: nowrap;
@@ -40,6 +40,15 @@ $checkbox-row-width: 30px;
 
       &.is-actions {
         flex: 0 0 auto;
+
+        .btn-group {
+          height: 1.8rem;
+          width: auto;
+        }
+
+        .btn-group + .btn-group {
+          margin: 0 0 0 0.4rem;
+        }
       }
     }
 
@@ -98,15 +107,25 @@ $checkbox-row-width: 30px;
 
     &.is-meta {
       flex: 0 0 25%;
+      max-width: 150px;
       margin-left: auto;
+      padding-bottom: 0;
     }
 
     &.is-actions {
       flex: 0 0 15%;
-      background: var(--shade-100);
-      display: flex;
-      align-items: center;
       border-radius: 0 $border-radius $border-radius 0;
+      align: right;
+
+      .btn-group {
+        height: 1.8rem;
+        width: 110px;
+      }
+
+      .btn-group + .btn-group {
+        margin-top: 0.4rem;
+      }
+
     }
   }
 
