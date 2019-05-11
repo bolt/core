@@ -34,12 +34,13 @@
       </div>
       <!-- end column -->
 
-      <!-- column meta -->
-      <row-meta :type="type" :size="size" :record="record"></row-meta>
+      <!-- column meta (commented out for now. @todo Decide if we want this or not? -->
+      <!-- <row-meta :type="type" :size="size" :record="record"></row-meta> -->
       <!-- end column -->
 
       <!-- column actions -->
       <row-actions
+        :type="type"
         :record="record"
         :size="size"
         @quickeditor="quickEditor = $event"
