@@ -1,16 +1,17 @@
 <div class="card mb-4">
     <div class="image card-img-top"
-         style="background-image: url(https://source.unsplash.com/400x240/?rain,sun,snow,storm,weather,sunny); height: 200px; padding-top: 60px;">
-        <center style='text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4); color: #FFF;'>
-            <span>Sunny, with occasional clouds</span><br>
-            <span style="font-size: 200%;"><i class="fas fa-sun"></i> 18 &deg; C</span><br>
-            <span>Den Haag, Netherlands</span>
+         style="background-image: url(https://source.unsplash.com/400x240/?{{ location.city|url_encode }},{{ location.region|url_encode }},{{ location.country|url_encode }}); height: 200px; padding-top: 60px;">
+        <center style='text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); color: #FFF;'>
+            <span style="font-size: 125%;">{{ weather.weather|first['description']|capitalize }} in {{ weather.name }}, {{ location.country }}</span><br>
+            <span style="font-size: 200%;">
+                <img src='http://openweathermap.org/img/w/{{ weather.weather|first['icon'] }}.png'>
+                {{ weather.main.temp|number_format(1) }} &deg; C</span><br>
         </center>
     </div>
     <div class="card-body">
         <a>
             <i class="fa fa-socks"></i>
-            This is a random widget
+            Current weather, by OpenWeatherMap
         </a>
     </div>
 </div>
