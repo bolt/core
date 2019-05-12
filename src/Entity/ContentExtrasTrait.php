@@ -42,6 +42,8 @@ trait ContentExtrasTrait
             'deleteLink' => $this->contentExtension->getDeleteLink($content),
             'duplicateLink' => $this->contentExtension->getDuplicateLink($content),
             'icon' => $this->getIcon(),
+            'name' => $this->getDefinition()->get('name'),
+            'singular_name' => $this->getDefinition()->get('singular_name'),
         ];
     }
 }

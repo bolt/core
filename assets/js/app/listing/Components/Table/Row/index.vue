@@ -29,13 +29,13 @@
 
       <!-- column details -->
       <div class="listing__row--item is-details">
-        <a :href="record.extras.editLink">{{ record.extras.title }}</a>
+        <a :href="record.extras.editLink" :title="record.fieldValues.slug">{{ record.extras.title | trim(62) }}</a>
         <span>{{ record.extras.excerpt }}</span>
       </div>
       <!-- end column -->
 
-      <!-- column meta (commented out for now. @todo Decide if we want this or not? -->
-      <!-- <row-meta :type="type" :size="size" :record="record"></row-meta> -->
+      <!-- column meta -->
+      <row-meta :type="type" :size="size" :record="record"></row-meta>
       <!-- end column -->
 
       <!-- column actions -->

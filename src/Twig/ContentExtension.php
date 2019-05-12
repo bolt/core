@@ -131,7 +131,7 @@ class ContentExtension extends AbstractExtension
     /**
      * @param string|array|null $focus
      */
-    public function getExcerpt(Content $content, int $length = 250, bool $includeTitle = true, $focus = null): string
+    public function getExcerpt(Content $content, int $length = 280, bool $includeTitle = true, $focus = null): string
     {
         $excerptParts = [];
 

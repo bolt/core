@@ -8,14 +8,14 @@
         <i class="fas mr-2" :class="record.extras.icon"></i>
         <template v-if="type === 'dashboard'"
           ><a :href="`/bolt/content/${record.contentType}`">
-            {{ record.contentType }}</a
+            {{ record.extras.singular_name }}</a
           >
         </template>
-        <template v-else>{{ record.contentType }}</template
+        <template v-else>{{ record.extras.singular_name }}</template
         >&nbsp;№ <strong>&nbsp;{{ record.id }}</strong>
       </li>
       <li>
-        <span class="status mr-2" :class="`is-${record.status}`"></span
+        <span class="status mr-2" :class="`is-${record.status}`" :title="record.status"></span
         >{{ record.publishedAt|date }}
       </li>
     </ul>

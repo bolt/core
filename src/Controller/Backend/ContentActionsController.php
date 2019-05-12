@@ -117,7 +117,7 @@ class ContentActionsController extends TwigAwareController implements BackendZon
      */
     public function duplicate(Request $request, Content $content): Response
     {
-
+        // @todo Make "Duplicate Content" controller #424
     }
 
     /**
@@ -125,7 +125,7 @@ class ContentActionsController extends TwigAwareController implements BackendZon
      */
     public function status(Request $request, Content $content): Response
     {
-
+        // @todo Make "Change Content status" controller #426
     }
 
     /**
@@ -133,7 +133,7 @@ class ContentActionsController extends TwigAwareController implements BackendZon
      */
     public function delete(Request $request, Content $content): Response
     {
-
+        // @todo Make "Delete Content" controller #425
     }
 
     private function validateToken(Request $request): void
