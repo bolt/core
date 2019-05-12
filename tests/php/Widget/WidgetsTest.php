@@ -83,21 +83,21 @@ class WidgetsTest extends StringTestCase
         $requestStack = new RequestStack();
         $requestStack->push(Request::createFromGlobals());
 
-        $loader = new ArrayLoader(['weather.twig' => '[Hello, {{ foo }}!]']);
+        $loader = new ArrayLoader(['dummy.twig' => '[Hello, {{ foo }}!]']);
         $twig = new Environment($loader);
 
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
 
         $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
 
-        $weatherWidget = new WeatherWidget();
-        $weatherWidget->setTemplate('weather.twig');
+        $widget = new DummyWidget();
+        $widget->setTemplate('dummy.twig');
 
-        $widgets->registerWidget($weatherWidget);
+        $widgets->registerWidget($widget);
 
         $this->assertSameHtml(
-            '<div id="widget-weather-widget" name="Weather Widget">[Hello, Bar!]</div>',
-            $widgets->renderWidgetByName('Weather Widget', ['foo' => 'Bar'])
+            '<div id="widget-dummy-widget" name="Dummy Widget">[Hello, Bar!]</div>',
+            $widgets->renderWidgetByName('Dummy Widget', ['foo' => 'Bar'])
         );
     }
 
