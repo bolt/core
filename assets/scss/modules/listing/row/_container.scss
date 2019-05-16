@@ -2,8 +2,12 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
   width: 100%;
+  z-index: 1000;
+
+  &:hover {
+    z-index: 1001;
+  }
 
   &.sortable-ghost {
     opacity: 0.1;

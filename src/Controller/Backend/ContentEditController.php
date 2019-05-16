@@ -164,6 +164,30 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $this->renderTemplate($templates, $context);
     }
 
+    /**
+     * @Route("/duplicate/{id}", name="bolt_content_duplicate", methods={"POST"}, requirements={"id": "\d+"})
+     */
+    public function duplicate(Request $request, Content $content): Response
+    {
+        // @todo Make "Duplicate Content" controller #424
+    }
+
+    /**
+     * @Route("/status/{id}", name="bolt_content_status", methods={"POST"}, requirements={"id": "\d+"})
+     */
+    public function status(Request $request, Content $content): Response
+    {
+        // @todo Make "Change Content status" controller #426
+    }
+
+    /**
+     * @Route("/delete/{id}", name="bolt_content_delete", methods={"POST"}, requirements={"id": "\d+"})
+     */
+    public function delete(Request $request, Content $content): Response
+    {
+        // @todo Make "Delete Content" controller #425
+    }
+
     private function validateToken(Request $request): void
     {
         $this->validateCsrf($request, 'editrecord');

@@ -131,7 +131,7 @@ class ContentExtension extends AbstractExtension
     /**
      * @param string|array|null $focus
      */
-    public function getExcerpt(Content $content, int $length = 150, bool $includeTitle = true, $focus = null): string
+    public function getExcerpt(Content $content, int $length = 280, bool $includeTitle = true, $focus = null): string
     {
         $excerptParts = [];
 
@@ -196,10 +196,12 @@ class ContentExtension extends AbstractExtension
             return null;
         }
 
-        return $this->urlGenerator->generate('record', [
+        $params = [
             'slugOrId' => $content->getSlug() ?: $content->getId(),
             'contentTypeSlug' => $content->getContentTypeSingularSlug(),
-        ], $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH);
+        ];
+
+        return $this->generateLink('record', $params, $absolute);
     }
 
     public function getEditLink(Content $content, bool $absolute = false): ?string
@@ -208,11 +210,41 @@ class ContentExtension extends AbstractExtension
             return null;
         }
 
+        return $this->generateLink('bolt_content_edit', ['id' => $content->getId()], $absolute);
+    }
+
+    public function getDeleteLink(Content $content, bool $absolute = false): ?string
+    {
+        if ($content->getId() === null) {
+            return null;
+        }
+
+        return $this->generateLink('bolt_content_delete', ['id' => $content->getId()], $absolute);
+    }
+
+    public function getDuplicateLink(Content $content, bool $absolute = false): ?string
+    {
+        if ($content->getId() === null) {
+            return null;
+        }
+
+        return $this->generateLink('bolt_content_duplicate', ['id' => $content->getId()], $absolute);
+    }
+
+    public function getStatusLink(Content $content, bool $absolute = false): ?string
+    {
+        if ($content->getId() === null) {
+            return null;
+        }
+
+        return $this->generateLink('bolt_content_status', ['id' => $content->getId()], $absolute);
+    }
+
+    private function generateLink(string $route, array $params, $absolute = false): string
+    {
         return $this->urlGenerator->generate(
-            'bolt_content_edit',
-            [
-                'id' => $content->getId(),
-            ],
+            $route,
+            $params,
             $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
         );
     }

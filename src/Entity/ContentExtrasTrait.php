@@ -38,7 +38,12 @@ trait ContentExtrasTrait
             'excerpt' => $this->contentExtension->getExcerpt($content),
             'link' => $this->contentExtension->getLink($content),
             'editLink' => $this->contentExtension->getEditLink($content),
+            'statusLink' => $this->contentExtension->getStatusLink($content),
+            'deleteLink' => $this->contentExtension->getDeleteLink($content),
+            'duplicateLink' => $this->contentExtension->getDuplicateLink($content),
             'icon' => $this->getIcon(),
+            'name' => $this->getDefinition()->get('name'),
+            'singular_name' => $this->getDefinition()->get('singular_name'),
         ];
     }
 }

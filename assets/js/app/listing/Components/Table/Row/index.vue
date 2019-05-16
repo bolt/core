@@ -29,7 +29,7 @@
 
       <!-- column details -->
       <div class="listing__row--item is-details">
-        <a :href="record.extras.editLink">{{ record.extras.title }}</a>
+        <a :href="record.extras.editLink" :title="record.fieldValues.slug">{{ record.extras.title | trim(62) }}</a>
         <span>{{ record.extras.excerpt }}</span>
       </div>
       <!-- end column -->
@@ -40,6 +40,7 @@
 
       <!-- column actions -->
       <row-actions
+        :type="type"
         :record="record"
         :size="size"
         @quickeditor="quickEditor = $event"

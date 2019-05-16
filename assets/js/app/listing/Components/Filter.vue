@@ -1,6 +1,8 @@
 <template>
   <nav class="listing__filter">
     <ul class="listing__filter--controls">
+
+      <!-- Check all checkbox -->
       <li v-if="type !== 'dashboard'">
         <div v-if="!sorting" class="custom-control custom-checkbox">
           <input
@@ -11,11 +13,13 @@
           />
           <label
             class="custom-control-label"
-            for="selectll"
+            for="selectAll"
             @click="enableSelectAll(!selectAll)"
           ></label>
         </div>
       </li>
+
+      <!-- Compact mode -->
       <li class="control--left">
         <button
           class="control--button"
@@ -32,6 +36,8 @@
           </svg>
         </button>
       </li>
+
+      <!-- Expanded mode -->
       <li>
         <button
           class="control--button"
@@ -47,6 +53,9 @@
           </svg>
         </button>
       </li>
+
+      <!-- Drag and drop -->
+      <!--
       <li v-if="type !== 'dashboard'">
         <button
           class="control--button"
@@ -56,6 +65,8 @@
           <i class="fas" :class="sorting ? 'fa-check-circle' : 'fa-sort'"></i>
         </button>
       </li>
+      -->
+
     </ul>
   </nav>
 </template>

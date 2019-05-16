@@ -25,7 +25,7 @@
   // focus
   &:focus,
   &.focus {
-    box-shadow: 0 0 0 $input-btn-focus-width var(--#{$color}-200);
+    box-shadow: none;
   }
 
   // disabled
@@ -42,7 +42,7 @@
     border-color: var(--#{$color}-600);
 
     &:focus {
-      box-shadow: 0 0 0 $input-btn-focus-width var(--#{$color}-200);
+      box-shadow: none;
     }
   }
 }
@@ -59,7 +59,7 @@
   // focus
   &:focus,
   &.focus {
-    box-shadow: 0 0 0 $btn-focus-width var(--#{$color}-200);
+    box-shadow: none;
   }
 
   // disabled
@@ -76,7 +76,7 @@
     border-color: var(--#{$color}-600);
 
     &:focus {
-      box-shadow: 0 0 0 $btn-focus-width var(--#{$color}-300);
+      box-shadow: none;
     }
   }
 }
