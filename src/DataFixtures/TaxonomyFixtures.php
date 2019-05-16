@@ -8,9 +8,10 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
 use Bolt\Utils\Str;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class TaxonomyFixtures extends BaseFixture
+class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
 {
     /** @var Config */
     private $config;
@@ -25,6 +26,11 @@ class TaxonomyFixtures extends BaseFixture
         $this->loadTaxonomies($manager);
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['with-images', 'without-images'];
     }
 
     private function loadTaxonomies(ObjectManager $manager): void

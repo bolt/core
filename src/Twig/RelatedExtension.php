@@ -51,9 +51,9 @@ class RelatedExtension extends AbstractExtension
     /**
      * @return array name => Content[]
      */
-    public function getAllRelatedContent(Content $content, bool $bidirectional = true, ?int $limit = null): array
+    public function getAllRelatedContent(Content $content, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
     {
-        $relations = $this->relationRepository->findRelations($content, null, $bidirectional, $limit);
+        $relations = $this->relationRepository->findRelations($content, null, $bidirectional, $limit, $publishedOnly);
 
         return (new Collection($relations))
             ->reduce(function (array $result, Relation $relation) use ($content): array {
@@ -71,11 +71,11 @@ class RelatedExtension extends AbstractExtension
     /**
      * @return Content[]
      */
-    public function getRelatedContent(Content $content, ?string $name = null, ?string $ct = null, bool $bidirectional = true, ?int $limit = null): array
+    public function getRelatedContent(Content $content, ?string $name = null, ?string $ct = null, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
     {
         $name = $name ?? $ct;
 
-        $relations = $this->relationRepository->findRelations($content, $name, $bidirectional, $limit);
+        $relations = $this->relationRepository->findRelations($content, $name, $bidirectional, $limit, $publishedOnly);
 
         return (new Collection($relations))
             ->map(function (Relation $relation) use ($content) {
@@ -85,11 +85,11 @@ class RelatedExtension extends AbstractExtension
             ->toArray();
     }
 
-    public function getFirstRelatedContent(Content $content, ?string $name = null, ?string $ct = null, bool $bidirectional = true): ?Content
+    public function getFirstRelatedContent(Content $content, ?string $name = null, ?string $ct = null, bool $bidirectional = true, bool $publishedOnly = true): ?Content
     {
         $name = $name ?? $ct;
 
-        $relation = $this->relationRepository->findFirstRelation($content, $name, $bidirectional);
+        $relation = $this->relationRepository->findFirstRelation($content, $name, $bidirectional, $publishedOnly);
 
         if ($relation === null) {
             return null;

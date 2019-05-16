@@ -22,7 +22,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     function it_gets_all_related_content(Content $content, RelationRepository $relationRepository, Relation $relation, Content $related)
     {
-        $relationRepository->findRelations($content, null, true, null)
+        $relationRepository->findRelations($content, null, true, null, true)
             ->shouldBeCalledOnce()
             ->willReturn([$relation, $relation]);
 
@@ -42,7 +42,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     function it_gets_related_content(Content $content, RelationRepository $relationRepository, Relation $relation, Content $related)
     {
-        $relationRepository->findRelations($content, self::TEST_CT_SLUG, true, null)
+        $relationRepository->findRelations($content, self::TEST_CT_SLUG, true, null, true)
             ->shouldBeCalledOnce()
             ->willReturn([$relation]);
 
@@ -58,7 +58,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     function it_gets_related_content_unidirectional_with_limit(Content $content, RelationRepository $relationRepository, Relation $relation, Content $related)
     {
-        $relationRepository->findRelations($content, self::TEST_CT_SLUG, false, 3)
+        $relationRepository->findRelations($content, self::TEST_CT_SLUG, false, 3, true)
             ->shouldBeCalledOnce()
             ->willReturn([$relation, $relation, $relation]);
 
@@ -67,7 +67,7 @@ class RelatedExtensionSpec extends ObjectBehavior
         $content->getId()->willReturn(self::ORIGIN_ID);
         $related->getId()->willReturn(self::RELATED_ID);
 
-        $result = $this->getRelatedContent($content, null, self::TEST_CT_SLUG, false, 3);
+        $result = $this->getRelatedContent($content, null, self::TEST_CT_SLUG, false, 3, true);
         $result->shouldBeArray();
         $result->shouldHaveCount(3);
         $result[0]->shouldBeAnInstanceOf(Content::class);
@@ -75,7 +75,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     function it_gets_first_related_content(Content $content, RelationRepository $relationRepository, Relation $relation, Content $related)
     {
-        $relationRepository->findFirstRelation($content, self::TEST_CT_SLUG, true, null)
+        $relationRepository->findFirstRelation($content, self::TEST_CT_SLUG, true, true)
             ->shouldBeCalledOnce()
             ->willReturn($relation);
 
@@ -90,7 +90,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     function it_couldnt_find_related_content(Content $content, RelationRepository $relationRepository)
     {
-        $relationRepository->findRelations($content, null, true, null)->willReturn([]);
+        $relationRepository->findRelations($content, null, true, null, true)->willReturn([]);
         $result = $this->getRelatedContent($content);
         $result->shouldBeArray();
         $result->shouldHaveCount(0);
@@ -98,7 +98,7 @@ class RelatedExtensionSpec extends ObjectBehavior
 
     function it_couldnt_find_first_related_content(Content $content, RelationRepository $relationRepository)
     {
-        $relationRepository->findFirstRelation($content, null, true)->willReturn(null);
+        $relationRepository->findFirstRelation($content, null, true, true)->willReturn(null);
         $result = $this->getFirstRelatedContent($content);
         $result->shouldBeNull();
     }

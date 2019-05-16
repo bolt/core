@@ -10,6 +10,7 @@ use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -18,7 +19,7 @@ use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Gedmo\Translatable\Entity\Translation;
 use Tightenco\Collect\Support\Collection;
 
-class ContentFixtures extends BaseFixture implements DependentFixtureInterface
+class ContentFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     /** @var Generator */
     private $faker;
@@ -53,9 +54,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
         ];
     }
 
+    public static function getGroups(): array
+    {
+        return ['with-images', 'without-images'];
+    }
+
     public function load(ObjectManager $manager): void
     {
-        $path = $this->fileLocations->get('files')->getBasepath() . '/stock/';
+        $path = $this->fileLocations->get('files')->getBasepath();
         $this->imagesIndex = $this->getImagesIndex($path);
 
         $this->loadContent($manager);
@@ -129,6 +135,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
                     }
                 }
 
+                $refKey = sprintf('content_%s_%s', $contentType['slug'], $content->getSlug());
+                $this->addReference($refKey, $content);
+
                 $manager->persist($content);
             }
         }
@@ -153,7 +162,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface
             case 'file':
                 $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => 'stock/' . $randomImage->getFilename(),
+                    'filename' => $randomImage->getRelativePathname(),
                     'alt' => $this->faker->sentence(4, true),
                     'title' => $this->faker->sentence(7, true),
                 ];

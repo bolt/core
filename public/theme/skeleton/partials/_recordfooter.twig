@@ -40,7 +40,7 @@
         <ul>
             {% for content_type, related_records in related_content_types %}
                 <li>
-                    <h4>Related {{ app.config.contenttypes[content_type].name }}</h4>
+                    <h4>Related {{ config.get('contenttypes/' ~ content_type ~ '/name') }}</h4>
                     <ul>
                         {% for related_record in related_records %}
                             <li><a href="{{ related_record|link }}">{{ related_record|title }}</a></li>

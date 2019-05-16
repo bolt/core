@@ -136,7 +136,7 @@ class ContentExtensionSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn(self::TEST_LINK);
         $content->getId()->shouldBeCalled()->willReturn(self::TEST_ID);
         $content->getSlug()->shouldBeCalled()->willReturn(self::TEST_SLUG);
-        $content->getContentTypeSlug()->shouldBeCalled()->willReturn(self::TEST_CT_SLUG);
+        $content->getContentTypeSingularSlug()->shouldBeCalled()->willReturn(self::TEST_CT_SLUG);
 
         $this->getLink($content)->shouldBe(self::TEST_LINK);
     }
@@ -153,7 +153,7 @@ class ContentExtensionSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn(self::TEST_FULL_LINK);
         $content->getId()->shouldBeCalled()->willReturn(self::TEST_ID);
         $content->getSlug()->shouldBeCalled()->willReturn(null);
-        $content->getContentTypeSlug()->shouldBeCalled()->willReturn(self::TEST_CT_SLUG);
+        $content->getContentTypeSingularSlug()->shouldBeCalled()->willReturn(self::TEST_CT_SLUG);
 
         $this->getLink($content, true)->shouldBe(self::TEST_FULL_LINK);
     }
