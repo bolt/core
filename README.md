@@ -14,8 +14,8 @@ Progress towards alpha / beta
 Follow the progress on Bolt 4, at the following locations
 
  - Github Repository: https://github.com/bolt/four
- - Bolt 4 roadmap: http://bit.ly/bolt4-roadmap
- - Planboard: http://bit.ly/bolt4-board (open for all, requires Github Auth)
+ - Bolt 4 roadmap: https://roadmap.bolt.cm
+ - Slack: https://boltcms.slack.com/messages/C0NJEK631 (open for all, requires Slack account)
 
 Install
 -------

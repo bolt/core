@@ -188,6 +188,15 @@ class Content
             throw new \RuntimeException('Content not fully initialized');
         }
 
+        return $this->getDefinition()->get('slug');
+    }
+
+    public function getContentTypeSingularSlug(): string
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
         return $this->getDefinition()->get('singular_slug');
     }
 

@@ -39,9 +39,7 @@ csfix:
 	make csclear
 	vendor/bin/ecs check src --fix
 	vendor/bin/ecs check tests/spec --fix --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
-	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
-	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/phpunit.yml
-	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/strict.yml
+	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml --config vendor/symplify/easy-coding-standard/config/common/phpunit.yml --config vendor/symplify/easy-coding-standard/config/common/strict.yml
 	make stancheck
 
 stancheck:

@@ -198,7 +198,7 @@ class ContentExtension extends AbstractExtension
 
         $params = [
             'slugOrId' => $content->getSlug() ?: $content->getId(),
-            'contentTypeSlug' => $content->getContentTypeSlug(),
+            'contentTypeSlug' => $content->getContentTypeSingularSlug(),
         ];
 
         return $this->generateLink('record', $params, $absolute);
