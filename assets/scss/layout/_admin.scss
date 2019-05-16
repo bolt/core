@@ -40,7 +40,7 @@ $admin-header-height: 70px;
     left: 0;
     height: $admin-toolbar-height;
     width: 100vw;
-    z-index: 1001;
+    z-index: $big-z-index + 100;
   }
 
   &__header {
