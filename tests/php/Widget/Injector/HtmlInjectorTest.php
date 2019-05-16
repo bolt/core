@@ -81,7 +81,7 @@ class HtmlInjectorTest extends StringTestCase
     /**
      * @dataProvider providerTarget
      */
-    public function testInjectNoSpaces(string $constant): void
+    public function testInjectNoLinebreaks(string $constant): void
     {
         $expected = file_get_contents(self::TEST_TEMPLATES_BASE_PATH . 'result.' . $constant . '.html');
         $constant = constant('Bolt\Widget\Injector\Target::' . $constant);
@@ -89,7 +89,7 @@ class HtmlInjectorTest extends StringTestCase
 
         $snippet = new SnippetWidget('koala', '', $constant);
 
-        $response = new Response(preg_replace('/\s+/', '', $this->getHtml()));
+        $response = new Response(preg_replace('/(\r|\n)+/', '', $this->getHtml()));
         $injector->inject($snippet, $response);
 
         self::assertSameHtml($expected, $response->getContent());
