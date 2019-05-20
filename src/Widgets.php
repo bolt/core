@@ -8,12 +8,14 @@ use Bolt\Widget\CacheAware;
 use Bolt\Widget\Injector\QueueProcessor;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\RequestAware;
+use Bolt\Widget\StopwatchAware;
 use Bolt\Widget\TwigAware;
 use Bolt\Widget\WidgetInterface;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
@@ -37,13 +39,22 @@ class Widgets
     /** @var CacheInterface */
     private $cache;
 
-    public function __construct(RequestStack $requestStack, QueueProcessor $queueProcessor, Environment $twig, CacheInterface $cache)
-    {
+    /** @var Stopwatch */
+    private $stopwatch;
+
+    public function __construct(
+        RequestStack $requestStack,
+        QueueProcessor $queueProcessor,
+        Environment $twig,
+        CacheInterface $cache,
+        Stopwatch $stopwatch
+) {
         $this->queue = new Collection([]);
         $this->requestStack = $requestStack;
         $this->queueProcessor = $queueProcessor;
         $this->twig = $twig;
         $this->cache = $cache;
+        $this->stopwatch = $stopwatch;
     }
 
     public function registerWidget(WidgetInterface $widget): void
@@ -85,6 +96,10 @@ class Widgets
 
     private function invokeWidget(WidgetInterface $widget, array $params = []): string
     {
+        if ($widget instanceof StopwatchAware) {
+            $widget->startStopwatch($this->stopwatch);
+        }
+
         if ($widget instanceof RequestAware) {
             $widget->setRequest($this->requestStack->getCurrentRequest());
         }
@@ -94,7 +109,13 @@ class Widgets
         }
 
         // Call the magic `__invoke` method on the $widget object
-        return $widget($params);
+        $renderedWidget = $widget($params);
+
+        if ($widget instanceof StopwatchAware) {
+            $widget->stopStopwatch();
+        }
+
+        return $renderedWidget;
     }
 
     public function processQueue(Response $response): Response

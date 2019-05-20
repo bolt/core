@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 trait ResponseTrait
 {
+    /** @var Response */
     private $response;
 
     public function setResponse(Response $response): self
