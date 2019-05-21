@@ -132,11 +132,12 @@ class Widgets
         }
 
         $queue = $this->queue;
+        $cache = $this->cache;
 
         return $this->queueProcessor->guardResponse(
             $response,
-            function (Response $response) use ($request, $queue, $zone): void {
-                $this->queueProcessor->process($response, $request, $queue, $zone);
+            function (Response $response) use ($request, $queue, $cache, $zone): void {
+                $this->queueProcessor->process($response, $request, $queue, $cache, $zone);
             }
         );
     }
