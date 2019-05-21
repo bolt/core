@@ -55,6 +55,6 @@ trait CacheTrait
 
     private function createKey()
     {
-        return sprintf('%s--%s-%s', $this->getSlug(), $this->getZone(), $this->getCacheDuration());
+        return sprintf('%s-%s-%s', $this->getSlug(), $this->getZone(), $this->getCacheDuration());
     }
 }
