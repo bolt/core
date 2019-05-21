@@ -19,26 +19,34 @@ use Symfony\Component\Cache\Simple\Psr6Cache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 
 class WidgetsTest extends StringTestCase
 {
-    public function testProcessWidgetsInQueue(): void
+    private function getWidgetsObject(array $templates = ['weather.twig' => '[Hello, weather!]'], $zone = RequestZone::BACKEND): Widgets
     {
         $queueProcessor = new QueueProcessor(new HtmlInjector());
         $requestStack = new RequestStack();
 
         $request = Request::createFromGlobals();
-        RequestZone::setToRequest($request, RequestZone::BACKEND);
+        RequestZone::setToRequest($request, $zone);
         $requestStack->push($request);
 
-        $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
+        $loader = new ArrayLoader($templates);
         $twig = new Environment($loader);
 
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+        $stopwatch = new Stopwatch();
 
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
+        return new Widgets($requestStack, $queueProcessor, $twig, $cache, $stopwatch);
+    }
+
+    public function testProcessWidgetsInQueue(): void
+    {
+        $widgets = $this->getWidgetsObject();
+
         $response = new Response('<html><body>foo</body></html>');
 
         $snippet = (new SnippetWidget())
@@ -54,16 +62,7 @@ class WidgetsTest extends StringTestCase
 
     public function testRenderWidget(): void
     {
-        $queueProcessor = new QueueProcessor(new HtmlInjector());
-        $requestStack = new RequestStack();
-        $requestStack->push(Request::createFromGlobals());
-
-        $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
-        $twig = new Environment($loader);
-
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
-
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
+        $widgets = $this->getWidgetsObject();
 
         $weatherWidget = new WeatherWidget();
         $weatherWidget->setTemplate('weather.twig');
@@ -79,16 +78,7 @@ class WidgetsTest extends StringTestCase
 
     public function testRenderWidgetWithExtraParameters(): void
     {
-        $queueProcessor = new QueueProcessor(new HtmlInjector());
-        $requestStack = new RequestStack();
-        $requestStack->push(Request::createFromGlobals());
-
-        $loader = new ArrayLoader(['dummy.twig' => '[Hello, {{ foo }}!]']);
-        $twig = new Environment($loader);
-
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
-
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
+        $widgets = $this->getWidgetsObject(['dummy.twig' => '[Hello, {{ foo }}!]']);
 
         $widget = new DummyWidget();
         $widget->setTemplate('dummy.twig');
@@ -103,17 +93,7 @@ class WidgetsTest extends StringTestCase
 
     public function testProcessHeaderWidget(): void
     {
-        $request = new Request();
-        RequestZone::setToRequest($request, RequestZone::FRONTEND);
-        $requestStack = new RequestStack();
-        $requestStack->push($request);
-
-        $queueProcessor = new QueueProcessor(new HtmlInjector());
-        $twig = new Environment(new ArrayLoader());
-
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
-
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
+        $widgets = $this->getWidgetsObject([], RequestZone::FRONTEND);
 
         $response = new Response('<html><body>foo</body></html>');
 
@@ -127,18 +107,7 @@ class WidgetsTest extends StringTestCase
 
     public function testProcessWeatherWidgetInTarget(): void
     {
-        $request = new Request();
-        RequestZone::setToRequest($request, RequestZone::BACKEND);
-        $requestStack = new RequestStack();
-        $requestStack->push($request);
-
-        $queueProcessor = new QueueProcessor(new HtmlInjector());
-        $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
-        $twig = new Environment($loader);
-
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
-
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
+        $widgets = $this->getWidgetsObject();
 
         $response = new Response('<html><body>foo</body></html>');
 
@@ -159,18 +128,7 @@ class WidgetsTest extends StringTestCase
 
     public function testProcessWeatherWidgetInTarget2(): void
     {
-        $request = new Request();
-        RequestZone::setToRequest($request, RequestZone::BACKEND);
-        $requestStack = new RequestStack();
-        $requestStack->push($request);
-
-        $queueProcessor = new QueueProcessor(new HtmlInjector());
-        $loader = new ArrayLoader(['weather.twig' => '[Hello, weather!]']);
-        $twig = new Environment($loader);
-
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
-
-        $widgets = new Widgets($requestStack, $queueProcessor, $twig, $cache);
+        $widgets = $this->getWidgetsObject();
 
         $response = new Response('<html><body>foo</body></html>');
 
