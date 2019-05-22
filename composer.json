@@ -20,7 +20,7 @@
         "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4.10",
         "fzaninotto/faker": "^1.8",
-        "gedmo/doctrine-extensions": "^2.4.4",
+        "gedmo/doctrine-extensions": "v2.4.x-dev",
         "guzzlehttp/guzzle": "^6.3",
         "knplabs/knp-menu-bundle": "^2.0",
         "league/glide-symfony": "^1.0",
@@ -123,6 +123,11 @@
         }
     },
     "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bobdenotter/DoctrineExtensions",
+            "no-api": true
+        },
         {
             "type": "vcs",
             "url": "https://github.com/jarjak/php-matcher",
