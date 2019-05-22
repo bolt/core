@@ -1,8 +1,8 @@
 {
     "name": "bolt/bolt",
-    "license": "MIT",
     "type": "library",
     "description": "Bolt 4 skeleton / prototype",
+    "license": "MIT",
     "require": {
         "php": ">=7.1.3",
         "ext-json": "*",
@@ -27,8 +27,8 @@
         "miljar/php-exif": "^0.6.4",
         "nelmio/cors-bundle": "^1.5",
         "nesbot/carbon": "^1.34",
-        "phpdocumentor/reflection-docblock": "^4.2",
         "php-translation/symfony-bundle": "^0.8",
+        "phpdocumentor/reflection-docblock": "^4.2",
         "sensio/framework-extra-bundle": "^5.1",
         "sensiolabs/security-checker": "^5.0",
         "siriusphp/upload": "^2.1",
@@ -57,6 +57,9 @@
         "webmozart/path-util": "^2.3",
         "webonyx/graphql-php": "^0.13",
         "white-october/pagerfanta-bundle": "^1.2"
+    },
+    "conflict": {
+        "symfony/symfony": "*"
     },
     "require-dev": {
         "ext-curl": "*",
@@ -89,11 +92,6 @@
         "symfony/web-server-bundle": "^4.2",
         "symplify/easy-coding-standard": "^5.4.14"
     },
-    "repositories": [
-        { "type": "vcs", "url": "https://github.com/jarjak/php-matcher", "no-api": true }
-    ],
-    "minimum-stability": "stable",
-    "prefer-stable": true,
     "config": {
         "platform": {
             "php": "7.1.3"
@@ -103,11 +101,19 @@
         },
         "sort-packages": true
     },
+    "extra": {
+        "symfony": {
+            "allow-contrib": true,
+            "require": "^4.2"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Bolt\\": "src/"
         },
-        "files": ["src/Entity/Translation.php"]
+        "files": [
+            "src/Entity/Translation.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -116,28 +122,28 @@
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/jarjak/php-matcher",
+            "no-api": true
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "scripts": {
-        "periodical-tasks": [
-            "security-checker security:check"
-        ],
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
-        },
         "post-install-cmd": [
             "@auto-scripts"
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "periodical-tasks": [
+            "security-checker security:check"
         ]
-    },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
-    "extra": {
-        "symfony": {
-            "allow-contrib": true,
-            "require": "^4.2"
-        }
     }
 }
