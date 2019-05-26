@@ -18,15 +18,15 @@
           <i class="fas fa-w fa-external-link-square-alt"></i>
           View on Site
         </a>
-        <a v-if="record.status !== 'published'" class="dropdown-item" :href="record.extras.statusLink + '?status=published'">
+        <a v-if="record.status !== 'published'" class="dropdown-item" :href="record.extras.statusLink + '&status=published'">
           <span class="status mr-1 is-published"></span>
           Change status to 'publish'
         </a>
-        <a v-if="record.status !== 'held'" class="dropdown-item" :href="record.extras.statusLink + '?status=held'">
+        <a v-if="record.status !== 'held'" class="dropdown-item" :href="record.extras.statusLink + '&status=held'">
           <span class="status mr-1 is-held"></span>
           Change status to 'held'
         </a>
-        <a v-if="record.status !== 'draft'" class="dropdown-item" :href="record.extras.statusLink + '?status=draft'">
+        <a v-if="record.status !== 'draft'" class="dropdown-item" :href="record.extras.statusLink + '&status=draft'">
           <span class="status mr-1 is-draft"></span>
           Change status to 'draft'
         </a>

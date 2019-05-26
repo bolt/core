@@ -11,6 +11,7 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -28,10 +29,14 @@ class ContentExtension extends AbstractExtension
      */
     private $contentRepository;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository)
+    /** @var CsrfTokenManagerInterface */
+    private $csrfTokenManager;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
+        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     /**
@@ -219,7 +224,12 @@ class ContentExtension extends AbstractExtension
             return null;
         }
 
-        return $this->generateLink('bolt_content_delete', ['id' => $content->getId()], $absolute);
+        $params = [
+            'id' => $content->getId(),
+            'token' => (string) $this->csrfTokenManager->getToken('delete'),
+        ];
+
+        return $this->generateLink('bolt_content_delete', $params, $absolute);
     }
 
     public function getDuplicateLink(Content $content, bool $absolute = false): ?string
@@ -237,7 +247,12 @@ class ContentExtension extends AbstractExtension
             return null;
         }
 
-        return $this->generateLink('bolt_content_status', ['id' => $content->getId()], $absolute);
+        $params = [
+            'id' => $content->getId(),
+            'token' => (string) $this->csrfTokenManager->getToken('status'),
+        ];
+
+        return $this->generateLink('bolt_content_status', $params, $absolute);
     }
 
     private function generateLink(string $route, array $params, $absolute = false): string

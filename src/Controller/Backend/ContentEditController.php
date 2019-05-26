@@ -109,7 +109,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
      */
     public function save(Request $request, ?Content $content = null): Response
     {
-        $this->validateToken($request);
+        $this->validateCsrf($request, 'editrecord');
 
         $content = $this->contentFromPost($content, $request);
 
@@ -132,7 +132,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
      */
     public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
     {
-        $this->validateToken($request);
+        $this->validateCsrf($request, 'editrecord');
 
         $urlParams = [
             'slugOrId' => $content->getId(),
@@ -149,7 +149,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
      */
     public function preview(Request $request, ?Content $content = null): Response
     {
-        $this->validateToken($request);
+        $this->validateCsrf($request, 'editrecord');
 
         $content = $this->contentFromPost($content, $request);
         $recordSlug = $content->getDefinition()->get('singular_slug');
@@ -165,32 +165,76 @@ class ContentEditController extends TwigAwareController implements BackendZone
     }
 
     /**
-     * @Route("/duplicate/{id}", name="bolt_content_duplicate", methods={"POST"}, requirements={"id": "\d+"})
+     * @Route("/duplicate/{id}", name="bolt_content_duplicate", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function duplicate(Request $request, Content $content): Response
     {
-        // @todo Make "Duplicate Content" controller #424
+        $content->setId(null);
+        $content->setCreatedAt(null);
+        $content->setAuthor($this->getUser());
+        $content->setModifiedAt(null);
+        $content->setDepublishedAt(null);
+        $content->setPublishedAt(null);
+
+        $twigvars = [
+            'record' => $content,
+            'locales' => $content->getLocales(),
+            'currentlocale' => $this->getEditLocale($request, $content),
+        ];
+
+        return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
     }
 
     /**
-     * @Route("/status/{id}", name="bolt_content_status", methods={"POST"}, requirements={"id": "\d+"})
+     * @Route("/duplicate/{id}", name="bolt_content_duplicate_post", methods={"POST"}, requirements={"id": "\d+"})
+     */
+    public function duplicateSave(Request $request, ?Content $content = null): Response
+    {
+        return $this->new($content->getContentType(), $request);
+    }
+
+    /**
+     * @Route("/status/{id}", name="bolt_content_status", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function status(Request $request, Content $content): Response
     {
-        // @todo Make "Change Content status" controller #426
+        if (! $this->isCsrfTokenValid('status', $request->get('token'))) {
+            $url = $this->urlGenerator->generate('bolt_dashboard');
+            return new RedirectResponse($url);
+        }
+
+        $content->setStatus($request->get('status'));
+
+        $this->em->persist($content);
+        $this->em->flush();
+
+        $this->addFlash('success', 'content.status_changed_successfully');
+
+        $params = ['contentType' => $content->getContentTypeSlug()];
+        $url = $this->urlGenerator->generate('bolt_content_overview', $params);
+
+        return new RedirectResponse($url);
     }
 
     /**
-     * @Route("/delete/{id}", name="bolt_content_delete", methods={"POST"}, requirements={"id": "\d+"})
+     * @Route("/delete/{id}", name="bolt_content_delete", methods={"GET"}, requirements={"id": "\d+"})
      */
     public function delete(Request $request, Content $content): Response
     {
-        // @todo Make "Delete Content" controller #425
-    }
+        if (! $this->isCsrfTokenValid('delete', $request->get('token'))) {
+            $url = $this->urlGenerator->generate('bolt_dashboard');
+            return new RedirectResponse($url);
+        }
 
-    private function validateToken(Request $request): void
-    {
-        $this->validateCsrf($request, 'editrecord');
+        $this->em->remove($content);
+        $this->em->flush();
+
+        $this->addFlash('success', 'content.deleted_successfully');
+
+        $params = ['contentType' => $content->getContentTypeSlug()];
+        $url = $this->urlGenerator->generate('bolt_content_overview', $params);
+
+        return new RedirectResponse($url);
     }
 
     private function contentFromPost(?Content $content, Request $request): Content

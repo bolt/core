@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * @mixin ContentExtension
@@ -29,9 +30,9 @@ class ContentExtensionSpec extends ObjectBehavior
     const TEST_CT_SLUG = 'ct-slug';
     const TEST_ID = 42;
 
-    function let(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository)
+    function let(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager)
     {
-        $this->beConstructedWith($urlGenerator, $contentRepository);
+        $this->beConstructedWith($urlGenerator, $contentRepository, $csrfTokenManager);
     }
 
     function it_gets_title(Content $content, TextField $field, ContentType $definition)
