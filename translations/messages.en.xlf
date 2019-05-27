@@ -1053,5 +1053,11 @@
         <target>Display Name</target>
       </segment>
     </unit>
+    <unit id="EvAqL__" name="caption.duplicate">
+      <segment>
+        <source>caption.duplicate</source>
+        <target>Duplicate</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

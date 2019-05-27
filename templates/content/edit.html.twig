@@ -8,7 +8,7 @@
 
 {% block title %}
     {{ icon(record) }}
-    {{ 'caption.edit'|trans }}
+    {{ (app.request.get('_route') == 'bolt_content_duplicate') ? 'caption.duplicate'|trans : 'caption.edit'|trans }}
     {{ record.definition.singular_name }}
     »
     <strong>{{ excerpt(record|title, 50)|default('New') }}</strong>
