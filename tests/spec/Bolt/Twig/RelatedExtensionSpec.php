@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace spec\Bolt\Twig;
 
+use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
+use Bolt\Repository\ContentRepository;
 use Bolt\Repository\RelationRepository;
 use PhpSpec\ObjectBehavior;
 
@@ -15,9 +17,9 @@ class RelatedExtensionSpec extends ObjectBehavior
     const RELATED_ID = 2;
     const TEST_CT_SLUG = 'ct-slug';
 
-    function let(RelationRepository $relationRepository)
+    function let(RelationRepository $relationRepository, ContentRepository $contentRepository, Config $config)
     {
-        $this->beConstructedWith($relationRepository);
+        $this->beConstructedWith($relationRepository, $contentRepository, $config);
     }
 
     function it_gets_all_related_content(Content $content, RelationRepository $relationRepository, Relation $relation, Content $related)

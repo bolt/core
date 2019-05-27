@@ -1,0 +1,26 @@
+
+{% for contentType, relation in record.definition.relations %}
+
+    {% set options = record|related_options(contentType) %}
+    {% set value = record|related_values(contentType) %}
+
+    <div class="form-group editor--group is-normal">
+        <label for="field-title">
+            {{ relation.label }}:
+        </label>
+        <div>
+            <editor-select
+                    :value="{{ value }}"
+                    :name="'relationship[{{ contentType }}]'"
+                    :id="'relationship-{{ contentType }}'"
+                    :options="{{ options }}"
+                    :multiple="{{ relation.multiple ? 'true' : 'false' }}"
+                    :taggable=false
+                    :allowempty=true
+            ></editor-select>
+        </div>
+
+    </div>
+
+{% endfor %}
+

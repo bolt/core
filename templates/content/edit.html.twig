@@ -19,6 +19,10 @@
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
 
+{#    {{ dump(record.definition.relations) }}#}
+
+{#    {{ dump(record|related_all(true, null, false)) }}#}
+
 {% endblock %}
 
 {% block main %}
@@ -34,9 +38,14 @@
 
         <div class="tab-content" id="nav-tabContent">
 
-            {% include '@bolt/content/_fields.html.twig' %}
+        {% include '@bolt/content/_fields.html.twig' %}
 
-            {% include '@bolt/content/_taxonomies.html.twig' %}
+            <div class="tab-pane" id="relations" role="tabpanel" aria-labelledby="relations-tab">
+
+                {% include '@bolt/content/_relationships.html.twig' %}
+
+                {% include '@bolt/content/_taxonomies.html.twig' %}
+            </div>
 
         </div>
 
