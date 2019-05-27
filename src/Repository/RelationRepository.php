@@ -36,6 +36,11 @@ class RelationRepository extends SortableRepository
      */
     public function findRelations(Content $from, ?string $name, bool $biDirectional = false, ?int $limit = null, bool $publishedOnly = true): array
     {
+        // Only get existing Relations from content that was persisted before
+        if ($from->getId() === null) {
+            return [];
+        }
+
         $result = $this->buildRelationQuery($from, $name, false, $publishedOnly)
             ->setMaxResults($limit)
             ->getQuery()
