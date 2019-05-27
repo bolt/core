@@ -9,13 +9,17 @@ use Bolt\Widget\Injector\RequestZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-class WeatherWidget extends BaseWidget implements TwigAware
+class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, StopwatchAware
 {
+    use CacheTrait;
+    use StopwatchTrait;
+
     protected $name = 'Weather Widget';
     protected $target = AdditionalTarget::WIDGET_BACK_DASHBOARD_ASIDE_TOP;
     protected $priority = 200;
     protected $template = '@bolt/widgets/weather.twig';
     protected $zone = RequestZone::BACKEND;
+    protected $cacheDuration = 3600;
 
     /** @var string Open API key, don't use more than once per second */
     public const KEY = '0acbdeea56dfafe244ac87707c5fdcb2';

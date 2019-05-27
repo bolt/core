@@ -12,9 +12,10 @@ use Bolt\Widget\Injector\RequestZone;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-class NewsWidget extends BaseWidget implements TwigAware, RequestAware, CacheAware
+class NewsWidget extends BaseWidget implements TwigAware, RequestAware, CacheAware, StopwatchAware
 {
     use CacheTrait;
+    use StopwatchTrait;
 
     protected $name = 'News Widget';
     protected $target = AdditionalTarget::WIDGET_BACK_DASHBOARD_ASIDE_TOP;

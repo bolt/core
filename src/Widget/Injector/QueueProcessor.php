@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Widget\Injector;
 
+use Bolt\Widget\CacheAware;
 use Bolt\Widget\RequestAware;
 use Bolt\Widget\ResponseAware;
 use Bolt\Widget\WidgetInterface;
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
@@ -44,7 +46,7 @@ class QueueProcessor
         return $response;
     }
 
-    public function process(Response $response, Request $request, Collection $queue, string $zone): void
+    public function process(Response $response, Request $request, Collection $queue, CacheInterface $cache, string $zone): void
     {
         /** @var WidgetInterface $widget */
         foreach ($queue as $widget) {
@@ -54,6 +56,9 @@ class QueueProcessor
                 }
                 if ($widget instanceof ResponseAware) {
                     $widget->setResponse($response);
+                }
+                if ($widget instanceof CacheAware) {
+                    $widget->setCache($cache);
                 }
                 $this->injector->inject($widget, $response);
             }

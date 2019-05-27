@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 trait RequestTrait
 {
+    /** @var Request */
     private $request;
 
     public function setRequest(Request $request): self
