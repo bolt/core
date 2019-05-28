@@ -1,6 +1,5 @@
 <template>
   <transition-group
-    name="quickeditor"
     tag="div"
     class="listing--container"
     :class="{ 'is-dashboard': type === 'dashboard' }"
@@ -14,10 +13,10 @@
 
     <!-- row -->
     <div
-      v-if="!quickEditor"
       key="row"
       class="listing__row"
       :class="`is-${size}`"
+      @mouseleave="leave"
     >
       <!-- column thumbnail -->
       <div
@@ -43,7 +42,6 @@
         :type="type"
         :record="record"
         :size="size"
-        @quickeditor="quickEditor = $event"
       ></row-actions>
       <!-- end column -->
 
@@ -52,13 +50,6 @@
       <!-- end column -->
     </div>
 
-    <!-- quick editor -->
-    <row-quick-editor
-      v-if="quickEditor"
-      key="quickeditor"
-      :size="size"
-      @quickeditor="quickEditor = $event"
-    ></row-quick-editor>
   </transition-group>
 </template>
 
@@ -68,7 +59,6 @@ import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
 import Sorting from './_Sorting';
-import QuickEditor from './_QuickEditor';
 
 export default {
   name: 'TableRow',
@@ -77,14 +67,14 @@ export default {
     'row-meta': Meta,
     'row-actions': Actions,
     'row-sorting': Sorting,
-    'row-quick-editor': QuickEditor,
   },
   mixins: [type],
   props: ['record'],
-  data: () => {
-    return {
-      quickEditor: false,
-    };
+  methods: {
+    leave(event) {
+      // When we 'leave' the row, make sure we close the dropdown.
+      $('.dropdown-toggle[aria-expanded="true"').dropdown('toggle');
+    },
   },
   computed: {
     size() {

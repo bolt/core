@@ -57,19 +57,8 @@
           <i class="fas fa-redo fa-w"></i>
           Last modified on: <strong>{{ record.modifiedAt|datetime }}</strong>
         </span>
-    </div>
-  </div>
-
-
       </div>
     </div>
-        <!-- <button
-          type="button"
-          class="listing--actions--quickedit"
-          @click="quickEditor()"
-        >
-          <i class="far fa-caret-square-down mr-1"></i>Quick Edit
-        </button> -->
   </div>
 </template>
 
@@ -77,10 +66,5 @@
 export default {
   name: 'Actions',
   props: ['type', 'record'],
-  methods: {
-    quickEditor() {
-      this.$emit('quickeditor', true);
-    },
-  },
 };
 </script>
