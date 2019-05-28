@@ -13,9 +13,6 @@ import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
 
-import bootbox from 'bootbox';
-window.bootbox = bootbox;
-
 import './filters';
 import './app';
 import '../scss/bolt.scss';
