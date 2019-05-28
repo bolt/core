@@ -7,6 +7,26 @@
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
 
+    <p>Content here. <a class="show-alert" href='/about'>Alert!</a></p>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+    $(document).on("click", ".show-alert", function (e) {
+        let thisHref = $(this).attr('href');
+
+        bootbox.confirm("This is the default confirm!", function(result) {
+            console.log(thisHref);
+            console.log('This was logged in the callback: ' + result);
+        });
+        
+        return false;
+    });
+    </script>
+
 {% endblock %}
 
 {% block main %}

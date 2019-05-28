@@ -42,6 +42,9 @@ $grid-breakpoints: (
   xl: 1200px
 );
 
+// Modal Dialog spacing
+$modal-dialog-margin-y-sm-up: 4rem;
+
 :root {
   @each $bp, $value in $grid-breakpoints {
     --breakpoint-#{$bp}: #{$value};
