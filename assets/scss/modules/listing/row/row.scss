@@ -173,17 +173,6 @@ $checkbox-row-width: 30px;
       }
     }
 
-    &--quickedit {
-      background: transparent;
-      border: 0;
-      color: var(--primary);
-      padding: 0;
-
-      &:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-    }
   }
 
   .dropdown-menu {
@@ -214,4 +203,3 @@ $checkbox-row-width: 30px;
 
 @import '_container';
 @import '_checkbox';
-@import '_quick-edit';
