@@ -1,9 +1,9 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-        <field-email
+        <editor-email
             :id="'{{ id }}'"
             :name="'{{ name }}'"
             :value="{{ value|json_encode }}"
-        ></field-email>
+        ></editor-email>
 {% endblock %}

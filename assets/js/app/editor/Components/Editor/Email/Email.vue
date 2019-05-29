@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'FieldEmail',
+  name: 'EditorEmail',
   props: ['value', 'name', 'id'],
 };
 </script>

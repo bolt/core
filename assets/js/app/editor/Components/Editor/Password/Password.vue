@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'FieldPassword',
+  name: 'EditorPassword',
   props: ['value', 'name', 'id'],
 
   methods: {
