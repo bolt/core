@@ -34,7 +34,7 @@
           <i class="far fa-w fa-copy"></i>
           Duplicate {{ record.extras.singular_name }}
         </a>
-        <a class="dropdown-item" :href="record.extras.deleteLink">
+        <a class="dropdown-item" :href="record.extras.deleteLink" data-confirmation="Are you sure you wish to delete this Content?">
           <i class="fas fa-w fa-trash"></i>
           Delete {{ record.extras.singular_name }}
         </a>
