@@ -98,6 +98,8 @@ class ProfileController extends TwigAwareController implements BackendZone
 
         $request->getSession()->set('_locale', $locale);
 
+        $this->addFlash('success', 'user.updated_profile');
+
         return new RedirectResponse($url);
     }
 
@@ -124,7 +126,7 @@ class ProfileController extends TwigAwareController implements BackendZone
         }
 
         // Validate password
-        if ($newPassword !== null && mb_strlen($newPassword) < 6) {
+        if (! empty($newPassword) && mb_strlen($newPassword) < 6) {
             $this->addFlash('danger', 'user.not_valid_password');
             return false;
         }

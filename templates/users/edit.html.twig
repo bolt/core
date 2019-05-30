@@ -4,14 +4,13 @@
  {{ 'title.edit_user'|trans }} » <strong>{{ display_name|default('Unknown') }}</strong>
 {% endblock %}
 
-{% block body_id 'user_edit' %}
-
 {% block vue_id 'editor' %}
 
 {% block main %}
 
     <div>
         <form method="post" id="editcontent" >
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('profileedit') }}">
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label' : 'label.username'|trans,
@@ -72,7 +71,7 @@
                 </select>
             </div>
 
-            <user-theme></user-theme>
+            {# <theme-select></theme-select> #}
 
             <button type="submit" class="btn btn-primary">
                 <i class="fa fa-save" aria-hidden="true"></i> {{ 'action.save'|trans }}

@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'UserTheme',
+  name: 'ThemeSelect',
 
   data: () => ({
     themes: [
