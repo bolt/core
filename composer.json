@@ -69,7 +69,7 @@
         "behat/mink-extension": "^2.3",
         "behat/mink-goutte-driver": "^1.2",
         "behatch/contexts": "^3.2",
-        "coduo/php-matcher": "^3.1.2",
+        "coduo/php-matcher": "dev-patch-2@dev",
         "dama/doctrine-test-bundle": "^5.0",
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "lakion/mink-debug-extension": "^1.2",
@@ -126,6 +126,11 @@
         {
             "type": "vcs",
             "url": "https://github.com/bobdenotter/DoctrineExtensions",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/jarjak/php-matcher",
             "no-api": true
         }
     ],
