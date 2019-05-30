@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Tests;
 
 use Doctrine\ORM\EntityManager;
-use Illuminate\Support\Facades\App;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\StringInput;
