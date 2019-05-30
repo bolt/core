@@ -126,7 +126,7 @@ class ProfileController extends TwigAwareController implements BackendZone
         }
 
         // Validate password
-        if (!empty($newPassword) && mb_strlen($newPassword) < 6) {
+        if (! empty($newPassword) && mb_strlen($newPassword) < 6) {
             $this->addFlash('danger', 'user.not_valid_password');
             return false;
         }
