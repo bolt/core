@@ -42,7 +42,7 @@ class DbAwareTestCase extends WebTestCase
         return self::getApplication()->run(new StringInput($command));
     }
 
-    private static function getApplication()
+    private static function getApplication(): Application
     {
         if (self::$application === null) {
             $client = static::createClient();
@@ -50,6 +50,10 @@ class DbAwareTestCase extends WebTestCase
             self::$application = new Application($client->getKernel());
             self::$application->setAutoExit(false);
         }
+
+        // Since Symfony 4.3.0, the `doRun` method no longer triggers `->boot()`, so we do it ourselves.
+        // @see: https://github.com/symfony/framework-bundle/commit/2c0499210e365bdfe81ae2c56a5a81c5ec687532
+        self::$application->getKernel()->boot();
 
         return self::$application;
     }
