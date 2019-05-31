@@ -24,6 +24,6 @@ trait ContentLocalizeTrait
 
     public function getDefaultLocale(): string
     {
-        return $this->getLocales()->first();
+        return (string) $this->getLocales()->first();
     }
 }
