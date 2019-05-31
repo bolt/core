@@ -20,7 +20,7 @@ class ContentType extends DeepCollection
             return new self($contentTypesConfig->get($name));
         }
 
-        return $contentTypesConfig
+        $contentType = $contentTypesConfig
             ->filter(function (Collection $contentTypeConfig) use ($name): bool {
                 return $contentTypeConfig['singular_slug'] === $name;
             })
@@ -28,6 +28,18 @@ class ContentType extends DeepCollection
                 return new self($contentTypeConfig);
             })
             ->first();
+
+        if ($contentType) {
+            return $contentType;
+        }
+
+        return new self([
+            'name' => $name,
+            'slug' => $name,
+            'singular_slug' => $name,
+            'singular_name' => $name,
+            'locales' => [],
+        ]);
     }
 
     public function getSlug(): string
