@@ -13,7 +13,7 @@ class TaxonomyParserTest extends ParserTestBase
 {
     public function testCanParse(): void
     {
-        $taxonomyParser = new TaxonomyParser();
+        $taxonomyParser = new TaxonomyParser($this->getProjectDir());
         $config = $taxonomyParser->parse();
 
         $this->assertInstanceOf(Collection::class, $config);
@@ -22,7 +22,7 @@ class TaxonomyParserTest extends ParserTestBase
     public function testBreakOnInvalidFileParse(): void
     {
         $file = self::getBasePath() . 'broken.yaml';
-        $taxonomyParser = new TaxonomyParser($file);
+        $taxonomyParser = new TaxonomyParser($this->getProjectDir(), $file);
 
         $this->expectException(ParseException::class);
 
@@ -31,7 +31,7 @@ class TaxonomyParserTest extends ParserTestBase
 
     public function testBreakOnMissingFileParse(): void
     {
-        $taxonomyParser = new TaxonomyParser('foo.yml');
+        $taxonomyParser = new TaxonomyParser($this->getProjectDir(), 'foo.yml');
 
         $this->expectException(FileLocatorFileNotFoundException::class);
 
@@ -41,7 +41,7 @@ class TaxonomyParserTest extends ParserTestBase
 
     public function testHasTaxonomies(): void
     {
-        $taxonomyParser = new TaxonomyParser();
+        $taxonomyParser = new TaxonomyParser($this->getProjectDir());
         $config = $taxonomyParser->parse();
 
         $this->assertCount(3, $config);
@@ -72,7 +72,7 @@ class TaxonomyParserTest extends ParserTestBase
     public function testInferTaxonomyValues(): void
     {
         $file = self::getBasePath() . 'minimal_taxonomy.yaml';
-        $taxonomyParser = new TaxonomyParser($file);
+        $taxonomyParser = new TaxonomyParser($this->getProjectDir(), $file);
         $config = $taxonomyParser->parse();
 
         $this->assertCount(2, $config);

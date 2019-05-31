@@ -13,7 +13,8 @@ class GeneralParserTest extends ParserTestBase
 {
     public function testCanParse(): void
     {
-        $generalParser = new GeneralParser();
+
+        $generalParser = new GeneralParser($this->getProjectDir());
         $config = $generalParser->parse();
 
         $this->assertInstanceOf(Collection::class, $config);
@@ -22,7 +23,7 @@ class GeneralParserTest extends ParserTestBase
     public function testIgnoreNonsensicalFileParse(): void
     {
         $file = self::getBasePath() . 'bogus.yaml';
-        $generalParser = new GeneralParser($file);
+        $generalParser = new GeneralParser($this->getProjectDir(), $file);
         $config = $generalParser->parse();
 
         $this->assertInstanceOf(Collection::class, $config);
@@ -31,7 +32,7 @@ class GeneralParserTest extends ParserTestBase
     public function testBreakOnInvalidFileParse(): void
     {
         $file = self::getBasePath() . 'broken.yaml';
-        $generalParser = new GeneralParser($file);
+        $generalParser = new GeneralParser($this->getProjectDir(), $file);
 
         $this->expectException(ParseException::class);
 
@@ -40,7 +41,7 @@ class GeneralParserTest extends ParserTestBase
 
     public function testBreakOnMissingFileParse(): void
     {
-        $generalParser = new GeneralParser('foo.yml');
+        $generalParser = new GeneralParser($this->getProjectDir(), 'foo.yml');
 
         $this->expectException(FileLocatorFileNotFoundException::class);
 
@@ -49,7 +50,7 @@ class GeneralParserTest extends ParserTestBase
 
     public function testHasConfig(): void
     {
-        $generalParser = new GeneralParser();
+        $generalParser = new GeneralParser($this->getProjectDir());
         $config = $generalParser->parse();
 
         // Something in the file
@@ -62,7 +63,7 @@ class GeneralParserTest extends ParserTestBase
     public function testFilenames()
     {
         $file = self::getBasePath() . 'bogus.yaml';
-        $generalParser = new GeneralParser($file);
+        $generalParser = new GeneralParser($this->getProjectDir(), $file);
         $config = $generalParser->parse();
 
         $this->assertCount(2, $generalParser->getParsedFilenames());
@@ -74,7 +75,7 @@ class GeneralParserTest extends ParserTestBase
     public function testLocalOverridesParse(): void
     {
         $file = self::getBasePath() . 'bogus.yaml';
-        $generalParser = new GeneralParser($file);
+        $generalParser = new GeneralParser($this->getProjectDir(), $file);
         $config = $generalParser->parse();
 
         $this->assertSame('OverBar', $config['foo']);
