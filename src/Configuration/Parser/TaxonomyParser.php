@@ -9,9 +9,9 @@ use Tightenco\Collect\Support\Collection;
 
 class TaxonomyParser extends BaseParser
 {
-    public function __construct(string $initialFilename = 'taxonomy.yaml')
+    public function __construct(string $projectDir, string $initialFilename = 'taxonomy.yaml')
     {
-        parent::__construct($initialFilename);
+        parent::__construct($projectDir, $initialFilename);
     }
 
     /**
