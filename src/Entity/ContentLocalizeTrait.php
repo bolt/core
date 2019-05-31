@@ -15,7 +15,7 @@ trait ContentLocalizeTrait
     {
         $locales = $this->getDefinition()->get('locales');
 
-        if ($locales->isEmpty()) {
+        if (empty($locales)) {
             return new Collection(['']);
         }
 
