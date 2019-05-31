@@ -215,6 +215,9 @@
     "knplabs/knp-menu-bundle": {
         "version": "v2.2.1"
     },
+    "kylekatarnls/update-helper": {
+        "version": "1.1.0"
+    },
     "lakion/mink-debug-extension": {
         "version": "v1.2.3"
     },
