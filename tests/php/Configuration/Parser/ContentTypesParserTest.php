@@ -19,8 +19,8 @@ class ContentTypesParserTest extends ParserTestBase
 
     public function testCanParse(): void
     {
-        $generalParser = new GeneralParser();
-        $contentTypesParser = new ContentTypesParser($generalParser->parse());
+        $generalParser = new GeneralParser($this->getProjectDir());
+        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse());
         $config = $contentTypesParser->parse();
 
         $this->assertInstanceOf(Collection::class, $config);
@@ -29,8 +29,8 @@ class ContentTypesParserTest extends ParserTestBase
     public function testIgnoreNonsensicalFileParse(): void
     {
         $file = self::getBasePath() . 'bogus.yaml';
-        $generalParser = new GeneralParser();
-        $contentTypesParser = new ContentTypesParser($generalParser->parse(), $file);
+        $generalParser = new GeneralParser($this->getProjectDir());
+        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
 
         $this->expectException(ConfigurationException::class);
 
@@ -40,8 +40,8 @@ class ContentTypesParserTest extends ParserTestBase
     public function testBreakOnInvalidFileParse(): void
     {
         $file = self::getBasePath() . 'broken.yaml';
-        $generalParser = new GeneralParser();
-        $contentTypesParser = new ContentTypesParser($generalParser->parse(), $file);
+        $generalParser = new GeneralParser($this->getProjectDir());
+        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
 
         $this->expectException(ParseException::class);
 
@@ -50,8 +50,8 @@ class ContentTypesParserTest extends ParserTestBase
 
     public function testBreakOnMissingFileParse(): void
     {
-        $generalParser = new GeneralParser();
-        $contentTypesParser = new ContentTypesParser($generalParser->parse(), 'foo.yml');
+        $generalParser = new GeneralParser($this->getProjectDir());
+        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), 'foo.yml');
 
         $this->expectException(FileLocatorFileNotFoundException::class);
 
@@ -60,8 +60,8 @@ class ContentTypesParserTest extends ParserTestBase
 
     public function testHasConfig(): void
     {
-        $generalParser = new GeneralParser();
-        $contentTypesParser = new ContentTypesParser($generalParser->parse());
+        $generalParser = new GeneralParser($this->getProjectDir());
+        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse());
         $config = $contentTypesParser->parse();
 
         $this->assertCount(6, $config);
@@ -88,8 +88,8 @@ class ContentTypesParserTest extends ParserTestBase
     {
         $file = self::getBasePath() . 'minimal_content_types.yaml';
 
-        $generalParser = new GeneralParser();
-        $contentTypesParser = new ContentTypesParser($generalParser->parse(), $file);
+        $generalParser = new GeneralParser($this->getProjectDir());
+        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
         $config = $contentTypesParser->parse();
 
         $this->assertCount(self::NUMBER_OF_CONTENT_TYPES_IN_MINIMAL_FILE, $config);

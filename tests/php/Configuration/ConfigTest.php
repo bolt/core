@@ -17,7 +17,7 @@ class ConfigTest extends TestCase
 
     public function testCanParse(): void
     {
-        $projectDir = dirname(__DIR__);
+        $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
         $config = new Config(new Stopwatch(), $projectDir, $cache);
 
@@ -26,7 +26,7 @@ class ConfigTest extends TestCase
 
     public function testConfigGet()
     {
-        $projectDir = dirname(__DIR__);
+        $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
         $config = new Config(new Stopwatch(), $projectDir, $cache);
 
@@ -35,7 +35,7 @@ class ConfigTest extends TestCase
 
     public function testConfigHas()
     {
-        $projectDir = dirname(__DIR__);
+        $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
         $config = new Config(new Stopwatch(), $projectDir, $cache);
 
@@ -45,7 +45,7 @@ class ConfigTest extends TestCase
 
     public function testConfigGetMediaTypes()
     {
-        $projectDir = dirname(__DIR__);
+        $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
         $config = new Config(new Stopwatch(), $projectDir, $cache);
 

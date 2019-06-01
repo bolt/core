@@ -13,15 +13,13 @@ use Tightenco\Collect\Support\Collection;
 
 class ContentTypesParser extends BaseParser
 {
-    /**
-     * @var Collection
-     */
+    /** @var Collection */
     private $generalConfig;
 
-    public function __construct(Collection $generalConfig, string $filename = 'contenttypes.yaml')
+    public function __construct(string $projectDir, Collection $generalConfig, string $filename = 'contenttypes.yaml')
     {
         $this->generalConfig = $generalConfig;
-        parent::__construct($filename);
+        parent::__construct($projectDir, $filename);
     }
 
     /**

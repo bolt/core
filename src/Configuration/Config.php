@@ -14,6 +14,7 @@ use Bolt\Configuration\Parser\TaxonomyParser;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Tightenco\Collect\Support\Collection;
+use Webmozart\PathUtil\Path;
 
 class Config
 {
@@ -92,19 +93,19 @@ class Config
      */
     private function parseConfig(): array
     {
-        $general = new GeneralParser();
+        $general = new GeneralParser($this->projectDir);
 
         $config = new Collection([
             'general' => $general->parse(),
         ]);
 
-        $taxonomy = new TaxonomyParser();
+        $taxonomy = new TaxonomyParser($this->projectDir);
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contentTypes = new ContentTypesParser($config->get('general'));
+        $contentTypes = new ContentTypesParser($this->projectDir, $config->get('general'));
         $config['contenttypes'] = $contentTypes->parse();
 
-        $menu = new MenuParser();
+        $menu = new MenuParser($this->projectDir);
         $config['menu'] = $menu->parse();
 
         // @todo Add these config files if needed, or refactor them out otherwise

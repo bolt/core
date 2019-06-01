@@ -13,7 +13,7 @@ class MenuParserTest extends ParserTestBase
 {
     public function testCanParse(): void
     {
-        $menuParser = new MenuParser();
+        $menuParser = new MenuParser($this->getProjectDir());
         $config = $menuParser->parse();
 
         $this->assertInstanceOf(Collection::class, $config);
@@ -22,7 +22,7 @@ class MenuParserTest extends ParserTestBase
     public function testIgnoreNonsensicalFileParse(): void
     {
         $file = self::getBasePath() . 'bogus.yaml';
-        $menuParser = new MenuParser($file);
+        $menuParser = new MenuParser($this->getProjectDir(), $file);
         $config = $menuParser->parse();
 
         $this->assertInstanceOf(Collection::class, $config);
@@ -31,7 +31,7 @@ class MenuParserTest extends ParserTestBase
     public function testBreakOnInvalidFileParse(): void
     {
         $file = self::getBasePath() . 'broken.yaml';
-        $menuParser = new MenuParser($file);
+        $menuParser = new MenuParser($this->getProjectDir(), $file);
 
         $this->expectException(ParseException::class);
 
@@ -40,7 +40,7 @@ class MenuParserTest extends ParserTestBase
 
     public function testBreakOnMissingFileParse(): void
     {
-        $menuParser = new MenuParser('foo.yml');
+        $menuParser = new MenuParser($this->getProjectDir(), 'foo.yml');
 
         $this->expectException(FileLocatorFileNotFoundException::class);
 
@@ -50,7 +50,7 @@ class MenuParserTest extends ParserTestBase
 
     public function testHasMenu(): void
     {
-        $menuParser = new MenuParser();
+        $menuParser = new MenuParser($this->getProjectDir());
         $config = $menuParser->parse();
 
         $this->assertCount(2, $config);
