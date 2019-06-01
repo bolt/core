@@ -10,6 +10,7 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
@@ -257,11 +258,19 @@ class ContentExtension extends AbstractExtension
 
     private function generateLink(string $route, array $params, $absolute = false): string
     {
-        return $this->urlGenerator->generate(
-            $route,
-            $params,
-            $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
-        );
+        try {
+            $link = $this->urlGenerator->generate(
+                $route,
+                $params,
+                $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
+            );
+        } catch (InvalidParameterException $e) {
+            // @todo More graceful logging, tell user that (probably) the ContentType went missing.
+            dump($e);
+            $link = '';
+        }
+
+        return $link;
     }
 
     public function getTaxonomies(Content $content): Collection
