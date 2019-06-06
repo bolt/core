@@ -24,7 +24,7 @@ class DashboardController extends TwigAwareController implements BackendZone
         /** @var Content $records */
         $records = $content->findLatest();
 
-        return $this->renderTemplate('@bolt/dashboard/dashboard.html.twig', [
+        return $this->renderTemplate('@bolt/pages/dashboard.html.twig', [
             'records' => $records,
         ]);
     }

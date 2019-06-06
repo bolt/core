@@ -47,6 +47,6 @@ class ClearCacheController extends AbstractController implements BackendZone
             'output' => $output->fetch(),
         ];
 
-        return $this->render('clearcache/clearcache.html.twig', $twigvars);
+        return $this->render('@bolt/pages/clearcache.html.twig', $twigvars);
     }
 }

@@ -54,7 +54,7 @@ class FilemanagerController extends TwigAwareController implements BackendZone
 
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';
 
-        return $this->renderTemplate('finder/finder.html.twig', [
+        return $this->renderTemplate('@bolt/finder/finder.html.twig', [
             'path' => $path,
             'name' => $location->getName(),
             'location' => $location->getKey(),

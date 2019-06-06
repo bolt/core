@@ -23,7 +23,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class EditMediaController extends TwigAwareController implements BackendZone
+class MediaEditController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
@@ -63,7 +63,7 @@ class EditMediaController extends TwigAwareController implements BackendZone
             'media' => $media,
         ];
 
-        return $this->renderTemplate('@bolt/editcontent/media_edit.html.twig', $context);
+        return $this->renderTemplate('@bolt/media/edit.html.twig', $context);
     }
 
     /**
