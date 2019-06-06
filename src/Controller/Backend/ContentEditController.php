@@ -284,21 +284,33 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
     private function updateField(Content $content, string $fieldName, $value, ?string $locale): void
     {
+        /** @var Field $field */
+        $field = null;
+
         if ($content->hasField($fieldName)) {
             $field = $content->getField($fieldName);
-            if ($field->getDefinition()->get('localize')) {
-                // load translated field
-                $field->setLocale($locale);
-                $this->em->refresh($field);
-            }
-        } else {
+        }
+
+        // If the Field exists, but it has the wrong type, we'll remove the existing one.
+        if (! $content->hasField($fieldName, true)) {
+            $content->removeField($field);
+            $this->em->remove($field);
+            $this->em->flush();
+            $field = null;
+        }
+
+        // Perhaps create a new Field..
+        if (! $field) {
             $fields = $content->getDefinition()->get('fields');
             $field = Field::factory($fields->get($fieldName), $fieldName);
             $field->setName($fieldName);
+
             $content->addField($field);
-            if ($field->getDefinition()->get('localize')) {
-                $field->setLocale($locale);
-            }
+        }
+
+        if ($field->getDefinition()->get('localize')) {
+            $field->setLocale($locale);
+            $this->em->refresh($field);
         }
 
         // If the value is an array that contains a string of JSON, parse it

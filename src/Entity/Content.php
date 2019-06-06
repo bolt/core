@@ -357,9 +357,23 @@ class Content
         return $this->fields[$fieldName];
     }
 
-    public function hasField(string $fieldName): bool
+    public function hasField(string $fieldName, $matchTypes = false): bool
     {
-        return isset($this->fields[$fieldName]);
+        // If the field doesn't exist, we can bail here
+        if (! isset($this->fields[$fieldName])) {
+            return false;
+        }
+
+        // If $matchTypes is `false`, we can state that we do have the field
+        if (! $matchTypes) {
+            return true;
+        }
+
+        // Otherwise, we need to ensure the types are the same
+        $fieldType = $this->fields[$fieldName]->getType();
+        $definitionType = $this->contentTypeDefinition->get('fields')->get($fieldName)['type'] ?: 'undefined';
+
+        return $fieldType === $definitionType;
     }
 
     public function hasFieldDefined(string $fieldName): bool
