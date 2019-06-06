@@ -48,7 +48,7 @@ locale: nl_NL
 # The default template file can be found in /app/theme_defaults/ and overridden
 # with this option using your own theme.
 #
-# Note: If youve changed the filename, and your changes do not show up on the
+# Note: If you've changed the filename, and your changes do not show up on the
 #       website, be sure to check for a config.yaml file in your themes folder.
 #       If a template is set there, it will override the setting here.
 maintenance_mode: false
@@ -78,7 +78,7 @@ cron_hour: 3
 # records (like `entries`). In the chosen homepage_template, you will have
 # `record` or `records` at your disposal, depending on the homepage setting.
 #
-# Note: If youve changed the filename, and your changes do not show up on
+# Note: If you've changed the filename, and your changes do not show up on
 #       the website, be sure to check for a theme.yml file in your themes
 #       folder. If a template is set there, it will override the setting here.
 homepage: homepage/1
@@ -96,7 +96,7 @@ notfound: [ not-found.twig, block/404-not-found ]
 # Can be overridden for each content type and for each record, if it has a
 # templateselect field.
 #
-# Note: If youve changed the filename, and your changes do not show up on the
+# Note: If you've changed the filename, and your changes do not show up on the
 #       website, be sure to check for a config.yaml file in your themes folder.
 #       If a template is set there, it will override the setting here.
 record_template: record.twig
@@ -111,7 +111,7 @@ record_template: record.twig
 #         If you need sorting on those, make sure you display all the records on one
 #         page.
 #
-# Note 2: If youve changed the filename, and your changes do not show up on the
+# Note 2: If you've changed the filename, and your changes do not show up on the
 #         website, be sure to check for a config.yaml file in your themes
 #         folder. If a template is set there, it will override the setting here.
 listing_template: listing.twig
@@ -126,7 +126,7 @@ taxonomy_sort: DESC
 # Template for showing the search results. If not defined, uses the settings for
 # listing_template and listing_records.
 #
-# Note: If youve changed the filename, and your changes do not show up on the
+# Note: If you've changed the filename, and your changes do not show up on the
 #       website, be sure to check for a config.yaml file in your themes folder.
 #       If a template is set there, it will override the setting here.
 search_results_template: search.twig
