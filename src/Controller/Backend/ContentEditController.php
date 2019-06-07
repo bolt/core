@@ -292,7 +292,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
 
         // If the Field exists, but it has the wrong type, we'll remove the existing one.
-        if (! $content->hasField($fieldName, true)) {
+        if (($field !== null) && ! $content->hasField($fieldName, true)) {
             $content->removeField($field);
             $this->em->remove($field);
             $this->em->flush();
