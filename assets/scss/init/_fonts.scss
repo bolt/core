@@ -1,0 +1,19 @@
+@font-face{
+  font-family: 'Source Sans Variable';
+  font-weight: 200 900;
+  font-style: normal;
+  font-stretch: normal;
+  src: url('../../../node_modules/source-sans-pro/VAR/SourceSansVariable-Roman.ttf.woff2') format('woff2'),
+  url('../../../node_modules/source-sans-pro/VAR/SourceSansVariable-Roman.ttf.woff') format('woff'),
+  url('../../../node_modules/source-sans-pro/VAR/SourceSansVariable-Roman.ttf') format('truetype');
+}
+
+@font-face{
+  font-family: 'Source Sans Variable';
+  font-weight: 200 900;
+  font-style: italic;
+  font-stretch: normal;
+  src: url('../../../node_modules/source-sans-pro/VAR/SourceSansVariable-Italic.ttf.woff2') format('woff2'),
+  url('../../../node_modules/source-sans-pro/VAR/SourceSansVariable-Italic.ttf.woff') format('woff'),
+  url('../../../node_modules/source-sans-pro/VAR/SourceSansVariable-Italic.ttf') format('truetype');
+}
