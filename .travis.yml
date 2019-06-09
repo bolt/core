@@ -66,8 +66,6 @@ script:
   # run PHP Unit / PHP Spec tests
   - ./vendor/bin/phpspec run
   - ./vendor/bin/phpunit
-  # run jest unit tests
-  - npm test
   # run API tests
   - ./vendor/bin/behat
   # run e2e tests with Kakunin
