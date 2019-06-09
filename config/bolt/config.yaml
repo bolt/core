@@ -134,7 +134,7 @@ search_results_records: 10
 
 # The default amount of records to show on overview pages. Can be overridden
 # for each content type.
-recordsperpage: 10
+records_per_page: 8
 
 # Settings for caching in parts of Bolt.
 # - config:        Caches the parsed .yml files from /app/config. Its updated

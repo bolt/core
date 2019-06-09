@@ -93,7 +93,6 @@ pages:
             type: templateselect
             filter: '*.twig'
     taxonomy: [ groups ]
-    recordsperpage: 5
 
 
 # Entries can be used for things like 'news' or 'blogpostings'. They have a
@@ -141,7 +140,7 @@ entries:
     listing_records: 6
     default_status: published
     sort: -publishedAt
-    records_per_page: 3
+    records_per_page: 10
     icon_many: "fa:file-alt"
     icon_one: "fa:file-alt"
 
@@ -292,7 +291,6 @@ blocks:
     icon_many: "fa:cubes"
     icon_one: "fa:cube"
 
-
 # This contenttype is here to use for (automated) tests.
 tests:
     name: Tests
@@ -338,7 +336,6 @@ tests:
     record_template: test.twig
     listing_template: listing.twig
     listing_records: 10
-
 
 # Possible field types:
 #
@@ -398,7 +395,7 @@ tests:
 #            extensions: [ gif, jpg, png ]
 #        <<: *template_defaults
 #    taxonomy: [ chapters ]
-#    recordsperpage: 10
+#    records_per_page: 10
 #
 # Alternatively, or additionally, you then can then create a ContentType with
 # default fields, and a 'select' field, and a different 'templateselect' option.
@@ -414,4 +411,4 @@ tests:
 #            type: templateselect
 #            filter: '*_xyz.twig'
 #    taxonomy: [ tags ]
-#    recordsperpage: 20
+#    records_per_page: 20
