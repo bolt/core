@@ -47,7 +47,6 @@
     "vue": "^2.6.10",
     "vue-flatpickr-component": "^8.1.2",
     "vue-multiselect": "^2.1.6",
-    "vue-notification": "^1.3.16",
     "vue-simplemde": "^0.5.2",
     "vue-trumbowyg": "^3.4.2",
     "vuedraggable": "^2.21.0",
