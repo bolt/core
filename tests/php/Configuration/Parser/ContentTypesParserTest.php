@@ -114,7 +114,7 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertSame('bar', $config['foo']['singular_slug']);
         $this->assertSame('bar', $config['foo']['singular_slug']);
         $this->assertSame(6, $config['foo']['listing_records']);
-        $this->assertSame(10, $config['foo']['records_per_page']);
+        $this->assertSame(8, $config['foo']['records_per_page']);
 
         $this->assertIsIterable($config['foo']['fields']);
         $this->assertIsIterable($config['foo']['locales']);

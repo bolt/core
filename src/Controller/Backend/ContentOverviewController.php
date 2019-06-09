@@ -25,7 +25,7 @@ class ContentOverviewController extends TwigAwareController implements BackendZo
         $contentType = ContentType::factory($contentType, $this->config->get('contenttypes'));
 
         $page = (int) $request->query->get('page', 1);
-        $amountPerPage = $contentType->get('listing_records');
+        $amountPerPage = $contentType->get('records_per_page', 10);
 
         $records = $contentRepository->findForListing($page, $amountPerPage, $contentType, false);
 
