@@ -2,9 +2,9 @@
 .admin__notifications {
   display: block;
   -webkit-backface-visibility: hidden;
-  z-index: 2000;
+  z-index: $big-z-index + 100;
   position: fixed;
-  bottom: $spacer * 2;
+  bottom: $spacer * 3;
   right: $spacer * 2;
 }
 
