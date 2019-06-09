@@ -3,7 +3,7 @@
     {% for type, messages in app.flashes %}
         {% for message in messages %}
             <!-- Then put toasts within -->
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="50000">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="6000">
                 <div class="alert-{{ type }} toast-header">
                     <strong class="mr-auto">Notification </strong>
                     <small>{{ type|trans }}</small>
