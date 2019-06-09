@@ -64,7 +64,6 @@ e2e:
 full-test:
 	make cscheck
 	make test
-	npm test
 	make behat
 	make e2e
 
@@ -165,7 +164,6 @@ docker-full-test:
 	make docker-cache
 	make docker-cscheck
 	make docker-test
-	npm test
 	make docker-behat
 	make e2e
 

@@ -1,6 +1,7 @@
-//** Bootstrap
+// Bolt Bootstrap defaults (see also overrides, below)
+@import '_defaults.scss';
 
-@import '_overrides.scss';
+//** Bootstrap
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
@@ -25,5 +26,9 @@
 @import "~bootstrap/scss/progress";
 @import "~bootstrap/scss/nav";
 @import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/toasts";
 @import "~bootstrap/scss/utilities";
 @import "~bootstrap/scss/print";
+
+// Bolt Bootstrap overrides
+@import '_overrides.scss';

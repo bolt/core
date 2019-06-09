@@ -1,52 +1,6 @@
-// Typography
-$font-family-base:              -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$headings-font-family:          'Source Sans Variable', sans-serif;
-
-$font-size-base:                0.85rem;
-
-$font-weight-light:             300;
-$font-weight-normal:            400;
-$font-weight-semibold:          600;
-$font-weight-bold:              700;
-$headings-font-weight:          600;
-
-// Links
-$link-color:                var(--primary);
-$link-hover-color:          var(--primary-600);
-
-// Form controls
-$border-radius:                         0.15rem;
-$component-active-bg:                   var(--primary);
-$input-focus-border-color:              var(--primary-400);
-$custom-control-indicator-active-bg:    var(--primary-400);
-$custom-range-thumb-active-bg:          var(--primary-400);
-
-$input-btn-focus-width:                 0.15rem;
-$input-btn-focus-box-shadow:            0 0 0 $input-btn-focus-width var(--primary-200);
-
-// Cards
-$card-border-width:                 0;
-$card-border-radius:                $border-radius;
-$card-border-color:                 transparent;
-$card-bg:                           var(--foreground);
-
-// Buttons
-$btn-font-weight: 500;
-
-// Grid
-$grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px
-);
-
-// Modal Dialog spacing
-$modal-dialog-margin-y-sm-up: 4rem;
-
-:root {
-  @each $bp, $value in $grid-breakpoints {
-    --breakpoint-#{$bp}: #{$value};
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    background-color: theme-color-level($color, $alert-bg-level) !important;
+    //@include alert-variant(theme-color-level($color, $alert-bg-level), theme-color-level($color, $alert-border-level), theme-color-level($color, $alert-color-level));
   }
 }
