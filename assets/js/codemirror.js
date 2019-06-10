@@ -1,8 +1,8 @@
 import Codemirror from 'codemirror';
 
-import 'codemirror/mode/javascript/javascript.js';
-import 'codemirror/mode/yaml/yaml.js';
-import 'codemirror/mode/htmlmixed/htmlmixed.js';
-import 'codemirror/mode/php/php.js';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/yaml/yaml';
+import 'codemirror/mode/htmlmixed/htmlmixed';
+import 'codemirror/mode/php/php';
 
 window.CodeMirror = Codemirror;
