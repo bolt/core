@@ -25,32 +25,12 @@
 
 {% endblock %}
 
-
-{% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/codemirror.min.css">
-<style>
-    .CodeMirror.cm-s-default {
-        border: 1px solid #DDD;
-        border-radius: 4px;
-        height: calc(100vh - 280px);
-        width: calc(100vw - 300px);
-    }
-</style>
-{% endblock %}
-
 {% block javascripts %}
 {{ parent() }}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/yaml/yaml.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/html/html.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/htmlmixed/htmlmixed.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/php/php.min.js"></script>
 <script>
 var myCodeMirror = CodeMirror.fromTextArea(editfile_textarea,{
     lineNumbers: true,
     mode: 'yaml'
 });
-
 </script>
 {% endblock %}

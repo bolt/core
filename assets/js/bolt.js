@@ -13,6 +13,7 @@ import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
 
+import './codemirror';
 import './filters';
 import './app';
 import '../scss/bolt.scss';
