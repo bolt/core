@@ -39,6 +39,7 @@
     "no-scroll": "^2.1.1",
     "popper.js": "^1.15.0",
     "register-service-worker": "^1.6.2",
+    "selectize": "^0.12.6",
     "simplemde": "^1.11.2",
     "stylelint-config-recommended-scss": "^3.3.0",
     "stylelint-scss": "^3.8.0",

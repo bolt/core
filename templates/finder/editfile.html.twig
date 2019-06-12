@@ -1,5 +1,20 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 
+{% set extension = file|split('.')|last %}
+{% set modes = {
+    'md': 'markdown',
+    'markdown': 'markdown',
+    'htm': 'html',
+    'html': 'html',
+    'yml': 'yaml',
+    'yaml': 'yaml',
+    'twig': 'twig',
+    'css': 'css',
+    'js': 'javascript',
+    'php': 'php'
+} %}
+{% set mode = modes[extension]|default('') %}
+
 {% block container "widecontent" %}
 
 {% block title %}
@@ -7,7 +22,6 @@
 {% endblock %}
 
 {% block main %}
-
     <h2>{{ 'caption.path'|trans }}: {{ location }}{{ file }}</h2>
 
     <form method="post">
@@ -28,9 +42,9 @@
 {% block javascripts %}
 {{ parent() }}
 <script>
-var myCodeMirror = CodeMirror.fromTextArea(editfile_textarea,{
+var myCodeMirror = CodeMirror.fromTextArea(editfile_textarea, {
     lineNumbers: true,
-    mode: 'yaml'
+    mode: '{{ mode }}'
 });
 </script>
 {% endblock %}
