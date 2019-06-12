@@ -18,11 +18,11 @@
 {% block container "widecontent" %}
 
 {% block title %}
-    {{ 'caption.edit_file'|trans }} » <strong>{{ file }}</strong>
+    {{ 'caption.edit_file'|trans }} » <strong>{{ file|split('/')|last}}</strong>
 {% endblock %}
 
 {% block main %}
-    <h2>{{ 'caption.path'|trans }}: {{ location }}{{ file }}</h2>
+    <h2>{{ 'caption.path'|trans }}: <code>{{ location }}{{ file }}</code></h2>
 
     <form method="post">
         <input type="hidden" name="file" value="{{ file }}">

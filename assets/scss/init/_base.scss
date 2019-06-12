@@ -20,6 +20,15 @@ strong {
   font-weight: $font-weight-semibold;
 }
 
+h2 code {
+  font-size: 85%;
+  font-weight: normal;
+}
+
+code {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
 .card {
   box-shadow: $card-box-shadow;
   background: #fff;
