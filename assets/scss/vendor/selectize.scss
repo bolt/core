@@ -1,0 +1,17 @@
+@import '~selectize/dist/css/selectize.css';
+
+.selectize.form-control {
+  border: 0;
+  background-color: transparent;
+}
+
+.selectize-dropdown [data-selectable].option {
+  max-height: 1.9rem;
+  line-height: 1.2rem;
+
+  small {
+    font-size: 90%;
+    color: #999;
+    font-style: italic;
+  }
+}

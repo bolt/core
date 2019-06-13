@@ -6,13 +6,7 @@ Axios.defaults.headers.common = {
   accept: 'application/vnd.api+json',
 };
 
-/**
- * Make jQuery available for modules/plugins that use it.
- */
-import $ from 'jquery';
-window.jQuery = $;
-window.$ = $;
-
+import './jquery';
 import './codemirror';
 import './filters';
 import './app';

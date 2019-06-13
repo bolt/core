@@ -8,6 +8,7 @@ use Bolt\Common\Str;
 use Bolt\Configuration\FileLocations;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
+use Bolt\Utils\Excerpt;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,7 +86,7 @@ class FilemanagerController extends TwigAwareController implements BackendZone
         $index = [];
 
         foreach ($finder as $file) {
-            $contents = current(explode("\n", $file->getContents()));
+            $contents = $this->getFileSummary($file->getContents());
             $index[] = [
                 'filename' => $file->getRelativePathname(),
                 'description' => $contents,
@@ -93,5 +94,11 @@ class FilemanagerController extends TwigAwareController implements BackendZone
         }
 
         return $index;
+    }
+
+    private function getFileSummary($contents)
+    {
+        $contents = str_replace(['<?php', '# ', "\n"], ['', '', " \n"], $contents);
+        return Excerpt::getExcerpt($contents, 300);
     }
 }
