@@ -207,7 +207,7 @@ class SelectQuery implements ContentQueryInterface
     {
         $query = $this->qb;
         if ($this->getWhereExpression()) {
-            $query->where($this->getWhereExpression());
+            $query->andWhere($this->getWhereExpression());
         }
         foreach ($this->getWhereParameters() as $key => $param) {
             $query->setParameter($key, $param, ParameterTypeInferer::inferType($param));
