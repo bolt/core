@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TextField extends Field implements Excerptable, FieldInterface
 {
-    public static function getType(): string
+    public function getType(): string
     {
         return 'text';
     }

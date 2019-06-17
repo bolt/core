@@ -14,7 +14,7 @@ use League\Glide\Urls\UrlBuilderFactory;
  */
 class ImageField extends Field implements FieldInterface
 {
-    public static function getType(): string
+    public function getType(): string
     {
         return 'image';
     }

@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MarkdownField extends Field implements Excerptable, FieldInterface
 {
-    public static function getType(): string
+    public function getType(): string
     {
         return 'markdown';
     }

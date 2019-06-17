@@ -60,8 +60,7 @@
         "white-october/pagerfanta-bundle": "^1.2"
     },
     "conflict": {
-        "symfony/symfony": "*",
-        "api-platform/core": "2.4.4"
+        "symfony/symfony": "*"
     },
     "require-dev": {
         "ext-curl": "*",
