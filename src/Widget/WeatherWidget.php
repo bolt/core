@@ -23,11 +23,7 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
 
     public function run(array $params = []): string
     {
-//        $location = $this->getLocation($ip);
-
-        $weather = $this->getWeather();
-
-        $context = ['weather' => $weather];
+        $context = ['weather' => $this->getWeather()];
 
         return parent::run($context);
     }
