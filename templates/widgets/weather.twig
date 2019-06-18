@@ -1,17 +1,18 @@
 <div class="card mb-4">
     <div class="image card-img-top"
-         style="background-image: url(https://source.unsplash.com/400x240/?{{ location.city|url_encode }},{{ location.region|url_encode }},{{ location.country|url_encode }}); height: 200px; padding-top: 60px;">
+         style="background-image: url(https://source.unsplash.com/400x240/?{{ weather.5|url_encode }}); height: 200px; padding-top: 60px;">
         <center style='text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); color: #FFF;'>
-            <span style="font-size: 125%;">{{ weather.weather|first['description']|capitalize }} in {{ weather.name }}, {{ location.country }}</span><br>
-            <span style="font-size: 200%;">
-                <img src='http://openweathermap.org/img/w/{{ weather.weather|first['icon'] }}.png'>
-                {{ weather.main.temp|number_format(1) }} &deg; C</span><br>
+            <span style="font-size: 200%;">{{ weather.0 }} {{ weather.1 }} {{ weather.3 }}</span><br>
+            <span style="font-size: 100%; margin-top: 0.5rem;">
+                {{ weather.5 }}<br>
+                {{ weather.6 }} / {{ weather.8 }} / {{ weather.2 }} / {{ weather.9 }}
+            </span>
         </center>
     </div>
     <div class="card-body">
         <a>
             <i class="fa fa-socks"></i>
-            Current weather, by OpenWeatherMap
+            Current weather by Wttr.in
         </a>
     </div>
 </div>

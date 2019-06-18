@@ -19,67 +19,26 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
     protected $priority = 200;
     protected $template = '@bolt/widgets/weather.twig';
     protected $zone = RequestZone::BACKEND;
-    protected $cacheDuration = 3600;
-
-    /** @var string Open API key, don't use more than once per second */
-    public const KEY = '0acbdeea56dfafe244ac87707c5fdcb2';
+    protected $cacheDuration = 0;
 
     public function run(array $params = []): string
     {
-        $ip = $this->getIP();
+//        $location = $this->getLocation($ip);
 
-        $location = $this->getLocation($ip);
+        $weather = $this->getWeather();
 
-        $weather = $this->getWeather($location);
-
-        $context = [
-            'location' => $location,
-            'weather' => $weather,
-        ];
+        $context = ['weather' => $weather];
 
         return parent::run($context);
     }
 
-    private function getIP(): string
+    private function getWeather(): array
     {
-        try {
-            $client = new Client(['base_uri' => 'http://checkip.dyndns.com/']);
-            $dnsResponse = $client->request('GET', '/')->getBody()->getContents();
-        } catch (RequestException $e) {
-            $dnsResponse = 'Just assume we are at 127.0.0.1';
-        }
-
-        preg_match('/(\d{1,3}\.){3}\d{1,3}/', $dnsResponse, $matches);
-
-        return $matches[0];
-    }
-
-    private function getLocation(string $ip): array
-    {
-        try {
-            $client = new Client(['base_uri' => "http://ipinfo.io/{$ip}"]);
-            $details = json_decode($client->request('GET', '/')->getBody()->getContents(), true);
-        } catch (RequestException $e) {
-            $details = [];
-        }
-
-        return $details;
-    }
-
-    private function getWeather(array $location): array
-    {
-        [$lat, $lon] = explode(',', $location['loc']);
-
-        $url = sprintf(
-            'https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=metric',
-            $lat,
-            $lon,
-            $this::KEY
-        );
+        $url = 'wttr.in/?format=%c|%C|%h|%t|%w|%l|%m|%M|%p|%P';
 
         try {
             $client = new Client();
-            $details = json_decode($client->request('GET', $url)->getBody()->getContents(), true);
+            $details = explode('|', trim($client->request('GET', $url)->getBody()->getContents()));
         } catch (RequestException $e) {
             $details = [];
         }
