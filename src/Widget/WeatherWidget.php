@@ -19,13 +19,17 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
     protected $priority = 200;
     protected $template = '@bolt/widgets/weather.twig';
     protected $zone = RequestZone::BACKEND;
-    protected $cacheDuration = 3600;
+    protected $cacheDuration = 1800;
 
-    public function run(array $params = []): string
+    public function run(array $params = []): ?string
     {
-        $context = ['weather' => $this->getWeather()];
+        $weather = $this->getWeather();
 
-        return parent::run($context);
+        if (empty($weather)) {
+            return null;
+        }
+
+        return parent::run(['weather' => $weather]);
     }
 
     private function getWeather(): array

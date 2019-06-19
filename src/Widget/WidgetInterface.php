@@ -23,5 +23,5 @@ interface WidgetInterface
      */
     public function getZone(): string;
 
-    public function __invoke(array $params = []): string;
+    public function __invoke(array $params = []): ?string;
 }
