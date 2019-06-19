@@ -11,11 +11,11 @@ class BoltHeaderWidget implements WidgetInterface, ResponseAware
 {
     use ResponseTrait;
 
-    public function __invoke(array $params = []): string
+    public function __invoke(array $params = []): ?string
     {
         $this->getResponse()->headers->set('X-Powered-By', 'Bolt', false);
 
-        return '';
+        return null;
     }
 
     public function getName(): string

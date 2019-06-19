@@ -94,7 +94,7 @@ class Widgets
         return $output;
     }
 
-    private function invokeWidget(WidgetInterface $widget, array $params = []): string
+    private function invokeWidget(WidgetInterface $widget, array $params = []): ?string
     {
         if ($widget instanceof StopwatchAware) {
             $widget->startStopwatch($this->stopwatch);

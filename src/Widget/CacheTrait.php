@@ -21,7 +21,7 @@ trait CacheTrait
         $this->key = $this->createKey();
     }
 
-    public function __invoke(array $params = []): string
+    public function __invoke(array $params = []): ?string
     {
         if (! $this->cache instanceof CacheInterface) {
             throw new WidgetException('Widget of class ' . self::class . ' is not initialised properly. Make sure the Widget `implements CacheAware`.');
@@ -33,7 +33,9 @@ trait CacheTrait
 
         $output = $this->run($params);
 
-        $this->setToCache($output);
+        if ($output !== null) {
+            $this->setToCache($output);
+        }
 
         return $output;
     }
