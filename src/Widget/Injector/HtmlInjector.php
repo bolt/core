@@ -66,7 +66,7 @@ class HtmlInjector
         // Invoke the (snippet)Widget
         $snippet = $widget();
 
-        // If the widget doesn't produce output, there's no need to inject it. 
+        // If the widget doesn't produce output, there's no need to inject it.
         if (empty($snippet)) {
             return;
         }
