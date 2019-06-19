@@ -93,6 +93,7 @@
   "scripts": {
     "start": "encore dev-server --port=8234 --progress --disable-host-check --verbose",
     "build": "encore production --progress",
+    "postbuild": "rm public/assets/fonts/*.ttf; rm public/assets/fonts/*.eot; rm public/assets/fonts/*.woff; rm public/assets/images/fa-*.svg;",
     "build:stats": "encore production --progress --json > webpack_stats.json",
     "serve": "encore dev --watch",
     "lint": "eslint --ext .js,.vue, assets",
