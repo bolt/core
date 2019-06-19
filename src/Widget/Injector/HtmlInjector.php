@@ -63,7 +63,15 @@ class HtmlInjector
             return;
         }
 
-        $html = $this->{$functionMap[$target]}($widget(), $response->getContent());
+        // Invoke the (snippet)Widget
+        $snippet = $widget();
+
+        // If the widget doesn't produce output, there's no need to inject it. 
+        if (empty($snippet)) {
+            return;
+        }
+
+        $html = $this->{$functionMap[$target]}($snippet, $response->getContent());
         $response->setContent($html);
     }
 
