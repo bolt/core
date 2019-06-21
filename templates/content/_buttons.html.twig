@@ -6,11 +6,8 @@
 {% if record.id %}
     &nbsp;
 
-    <button type="submit" class="btn btn-primary mb-3" form="editcontent"
-            formaction="{{ path('bolt_content_edit_preview', {'id': record.id }) }}" formtarget="_blank">
-        <i class="fas fa-external-link-square-alt mr-2"></i>
-        {{ 'action.preview'|trans }}
-    </button>
+    {# same button in macro. Not sure this will make anyone happy.. #}
+    {{ macro.button('action.preview', 'fa-external-link-square-alt', 'primary',  {'type': 'submit', 'form': 'editcontent', 'formtarget': '_blank', 'formaction': path('bolt_content_edit_preview', {'id': record.id }) }) }}
 
     {% if record.status == "published" %}
     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split mb-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

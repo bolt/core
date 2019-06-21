@@ -45,18 +45,26 @@
     <section class="buttons">
         <h1>Buttons</h1>
 
-            {{ macro.button('action.save', 'fa-save', 'primary', 'button', '') }}
-            {{ macro.button('action.save', 'fa-save', 'secondary', 'button', '') }}
-            {{ macro.button('action.save', 'fa-save', 'tertiary', 'button', '') }}
-            {{ macro.button('action.save', 'fa-save', 'success', 'button', '') }}
-            {{ macro.button('action.save', 'fa-save', 'danger', 'button', '') }}
-            {{ macro.button('action.save', 'fa-save', 'warning', 'button', '') }}
-            {{ macro.button('action.save', 'fa-save', 'info', 'button', '') }}
-            {{ macro.button('action.save', 'fa-save', 'light', 'button', '') }}
-            {{ macro.button('action.save', 'fa-save', 'dark', 'button', '') }}
-            {{ macro.button('action.save', 'fa-save', 'link', 'button', '') }}
+            {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'button'}) }}
+            {{ macro.button('action.save', 'fa-save', 'secondary', {'type': 'button'}) }}
+            {{ macro.button('action.save', 'fa-save', 'tertiary', {'type': 'button'}) }}
+            {{ macro.button('action.save', 'fa-save', 'success', {'type': 'button'}) }}
+            {{ macro.button('action.save', 'fa-save', 'danger', {'type': 'button'}) }}
+            {{ macro.button('action.save', 'fa-save', 'warning', {'type': 'button'}) }}
+            {{ macro.button('action.save', 'fa-save', 'light', {'type': 'button'}) }}
+            {{ macro.button('action.save', 'fa-save', 'link', {'type': 'button'}) }}
 
         <hr>
+        <h2>Disabled buttons </h2>
+            {{ macro.button('action.save', 'fa-save', 'primary', {disabled : 'disabled'}) }}
+            {{ macro.button('action.save', 'fa-save', 'secondary', {disabled : 'disabled'}) }}
+            {{ macro.button('action.save', 'fa-save', 'tertiary', {disabled : 'disabled'}) }}
+            {{ macro.button('action.save', 'fa-save', 'success', {disabled : 'disabled'}) }}
+            {{ macro.button('action.save', 'fa-save', 'danger', {disabled : 'disabled'}) }}
+            {{ macro.button('action.save', 'fa-save', 'warning', {disabled : 'disabled'}) }}
+            {{ macro.button('action.save', 'fa-save', 'light', {disabled : 'disabled'}) }}
+            {{ macro.button('action.save', 'fa-save', 'link', {disabled : 'disabled'}) }}
+
     </section>
 
 

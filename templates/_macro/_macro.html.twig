@@ -1,13 +1,13 @@
 {# Button Macro #}
-{% macro button(label, icon, class, type, form) %}{% spaceless %}
+{% macro button(label, icon, class, attr) %}{% spaceless %}
 
     {% set label = label|default('button')|trans %}
     {% set icon = icon|replace({'fa-': ''})|default('question-circle') %}
     {% set class = class|replace({'btn-': ''})|default('info') %}
-    {% set type = type|default('submit') %}
-    {% set form = form|default('') %}
+    {% set attr = attr|default([]) %}
 
-    <button type="{{ type }}" class="btn btn-{{ class }} mb-3" {% if form %}form="{{ form }}"{% endif %}>
+    <button class="btn btn-{{ class }} mb-3"
+    {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
         <i class="fas fa-{{ icon }} mr-2"></i>
         {{- label -}}
     </button>
