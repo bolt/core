@@ -65,7 +65,7 @@ class NewsWidget extends BaseWidget implements TwigAware, RequestAware, CacheAwa
                     'title' => 'Unable to fetch news!',
                     'teaser' => "<p>Unable to connect to ${source}</p>",
                     'link' => null,
-                    'datechanged' => '0000-01-01 00:00:00'
+                    'datechanged' => '0000-01-01 00:00:00',
                 ],
             ];
         }
