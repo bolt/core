@@ -21,10 +21,10 @@ class SelectField extends Field implements FieldInterface
     public function getValue(): ?array
     {
         if (empty($this->value)) {
-            $options = (array) $this->getDefinition()->get('values');
+            $options = $this->getDefinition()->get('values');
 
-            // Pick the first key from array, or the full value as string, like `entries/id,title`
-            $this->value = [key($options)];
+            // Pick the first key from Collection, or the full value as string, like `entries/id,title`
+            $this->value = [$options->keys()->first()];
         }
 
         return $this->value;
