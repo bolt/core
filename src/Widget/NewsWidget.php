@@ -28,14 +28,18 @@ class NewsWidget extends BaseWidget implements TwigAware, RequestAware, CacheAwa
     {
         $news = $this->getNews();
 
-        $currentItem = $news['information'];
+        if (isset($news['information'])) {
+            $currentItem = $news['information'];
+        } else {
+            $currentItem = $news['error'];
+        }
 
         $context = [
             'title' => $currentItem['title'],
             'news' => $currentItem['teaser'],
             'link' => $currentItem['link'],
             'datechanged' => $currentItem['datechanged'],
-            'datefetched' => '2019-04-04 07:25:00',
+            'datefetched' => date('Y-m-d H:i:s'),
         ];
 
         return parent::run($context);
@@ -60,6 +64,8 @@ class NewsWidget extends BaseWidget implements TwigAware, RequestAware, CacheAwa
                     'type' => 'error',
                     'title' => 'Unable to fetch news!',
                     'teaser' => "<p>Unable to connect to ${source}</p>",
+                    'link' => null,
+                    'datechanged' => '0000-01-01 00:00:00'
                 ],
             ];
         }
