@@ -14,11 +14,11 @@ use Twig\TwigFunction;
  */
 class HtmlExtension extends AbstractExtension
 {
-    private $parser;
+    private $markdown;
 
-    public function __construct(Markdown $parser)
+    public function __construct(Markdown $markdown)
     {
-        $this->parser = $parser;
+        $this->markdown = $markdown;
     }
 
     /**
@@ -50,6 +50,6 @@ class HtmlExtension extends AbstractExtension
      */
     public function markdown(string $content): string
     {
-        return $this->parser->toHtml($content);
+        return $this->markdown->parse($content);
     }
 }

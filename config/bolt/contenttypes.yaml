@@ -85,7 +85,7 @@ pages:
         content:
             type: html
             height: 300px
-            allowtwig: true
+            allow_twig: true
         checkbox:
             type: checkbox
             label: "This is a checkbox"
@@ -309,6 +309,12 @@ tests:
         text_plain:
             type: text
             allow_html: false
+        text_not_sanitised:
+            type: text
+            sanitise: false
+        text_sanitised:
+            type: text
+            sanitise: true
         html_field:
             type: html
         image:

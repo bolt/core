@@ -208,6 +208,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'textarea_field' => 'Textarea field with <em>simple</em> HTML in it.',
             'html_field' => 'HTML field with <em>simple</em> HTML in it.',
             'markdown_field' => 'Markdown field  with *simple* Markdown in it.',
+            'text_not_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
+            'text_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
         ];
 
         return $records;

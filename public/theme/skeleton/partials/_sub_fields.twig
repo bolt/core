@@ -14,8 +14,8 @@
    functionality: https://docs.bolt.cm/templating
 
    For more information on using blocks, see the Twig documentation at:
-    - https://twig.sensiolabs.org/doc/1.x/tags/block.html
-    - https://twig.sensiolabs.org/doc/1.x/functions/block.html
+    - https://twig.sensiolabs.org/doc/2.x/tags/block.html
+    - https://twig.sensiolabs.org/doc/2.x/functions/block.html
 #}
 {% use 'partials/_sub_field_blocks.twig' %}
 
@@ -39,44 +39,38 @@
         {% endif %}
     {% endspaceless -%}
 
-    {#{{ dump(record.fields) }}#}
-
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
-    {% for value in record.fields if (value.name not in omittedkeys) %}
+    {% for field in record.fields if (field.name not in omittedkeys) %}
 
-        {# Set the type #}
-        {% set fieldtype = value.definition.type %}
-
-        {# Is the field allowed to contain Twig functions? #}
-        {% set allowtwig = value.definition.allowtwig %}
+        {% set type = field.definition.type %}
 
         {# Fields that are considered 'common': 'html', 'markdown', 'textarea',
            'text', 'image', 'video' and 'imagelist' #}
-        {% if common|default(true) and (value.name not in exclude|default([])) %}
+        {% if common|default(true) and (type not in exclude|default([])) %}
 
             {{ block('common_fields') }}
 
         {% endif %}
 
-        {# The rest of the built-in fieldtypes #}
-        {% if extended|default(false) and (value.name not in exclude|default([])) %}
+        {# The rest of the built-in types #}
+        {% if extended|default(false) and (type not in exclude|default([])) %}
 
             {{ block('extended_fields') }}
 
         {% endif %}
 
         {# Finally, the repeaters and blocks #}
-        {#{% if (repeaters|default(false) == true and record.fieldtype(key) == "repeater") or#}
-              {#(blocks|default(false) == true and record.fieldtype(key) == "block") %}#}
+        {#{% if (repeaters|default(false) == true and record.type(key) == "repeater") or#}
+              {#(blocks|default(false) == true and record.type(key) == "block") %}#}
 
             {#{% if (global.request.get('_route') != "preview") %}#}
 
-                {#{% for repeater in value %}#}
+                {#{% for repeater in field %}#}
 
                     {#{% for key, repeaterfield in repeater %}#}
 
-                        {#{% set fieldtype = repeaterfield.fieldtype() %}#}
-                        {#{% set value = repeaterfield.value() %}#}
+                        {#{% set type = repeaterfield.type() %}#}
+                        {#{% set field = repeaterfield.field() %}#}
                         {#{{ block('common_fields') }}#}
                         {#{{ block('extended_fields') }}#}
 
@@ -104,9 +98,9 @@
            content type for the templatefields should know about the types of fields. #}
         {% set templatefields_field_types = attribute(record.contentType.templatefields.first, 'fields') %}
 
-        {% for key, value in record.templateFields if (key not in omittedkeys) %}
+        {% for key, field in record.templateFields if (key not in omittedkeys) %}
 
-            {% set fieldtype = attribute(attribute(templatefields_field_types, key), 'type')  %}
+            {% set type = attribute(attribute(templatefields_field_types, key), 'type')  %}
             {{ block('common_fields') }}
             {{ block('extended_fields') }}
 
