@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class NumberField extends Field implements FieldInterface
 {
-    public static function getType(): string
+    public function getType(): string
     {
         return 'number';
     }

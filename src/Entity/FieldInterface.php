@@ -9,5 +9,5 @@ namespace Bolt\Entity;
  */
 interface FieldInterface
 {
-    public static function getType(): string;
+    public function getType(): string;
 }

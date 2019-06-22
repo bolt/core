@@ -19,7 +19,7 @@ Feature: Get content fields with API
      "@context": "/api/contexts/Field",
      "@id": "/api/contents/1/fields",
      "@type": "hydra:Collection",
-     "hydra:member": "@array@.repeat({\"name\": \"@string@\", \"type\": \"@string@\", \"value\": \"@array@\"})",
+     "hydra:member": "@array@.repeat({\"@id\": \"@string@\", \"@type\": \"@string@\", \"name\": \"@string@\", \"type\": \"@string@\", \"value\": \"@array@\"})",
      "hydra:totalItems": @integer@
   }
   """

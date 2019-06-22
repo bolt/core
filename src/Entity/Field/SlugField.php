@@ -15,7 +15,7 @@ use Tightenco\Collect\Support\Collection;
  */
 class SlugField extends Field implements FieldInterface
 {
-    public static function getType(): string
+    public function getType(): string
     {
         return 'slug';
     }

@@ -263,7 +263,7 @@ class Field implements Translatable, FieldInterface
     /**
      * @Groups("get_field")
      */
-    public static function getType(): string
+    public function getType(): string
     {
         return 'generic';
     }

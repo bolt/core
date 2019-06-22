@@ -14,7 +14,7 @@ use Tightenco\Collect\Support\Collection;
  */
 class SelectField extends Field implements FieldInterface
 {
-    public static function getType(): string
+    public function getType(): string
     {
         return 'select';
     }
