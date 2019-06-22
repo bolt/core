@@ -72,7 +72,7 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertSame('Homepage', $config['homepage']['name']);
         $this->assertSame('Homepage', $config['homepage']['singular_name']);
         $this->assertCount(6, $config['homepage']['fields']);
-        $this->assertCount(9, $config['homepage']['fields']['title']);
+        $this->assertCount(11, $config['homepage']['fields']['title']);
         $this->assertSame('Title', $config['homepage']['fields']['title']['label']);
         $this->assertSame('text', $config['homepage']['fields']['title']['type']);
         $this->assertTrue($config['homepage']['fields']['title']['localize']);
