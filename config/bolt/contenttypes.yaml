@@ -309,6 +309,12 @@ tests:
         text_plain:
             type: text
             allow_html: false
+        text_not_sanitised:
+            type: text
+            sanitise: false
+        text_sanitised:
+            type: text
+            sanitise: true
         html_field:
             type: html
         image:

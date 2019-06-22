@@ -215,7 +215,7 @@ class ContentTypesParser extends BaseParser
                 $hasGroups = true;
             }
 
-            if (isset($field['allow_twig']) === false) {
+            if (isset($field['allow_html']) === false) {
                 $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
             }
 
