@@ -71,9 +71,6 @@ class DetailController extends TwigAwareController implements FrontendZone
             $recordSlug => $record,
         ];
 
-        dump($record);
-        dump($record->getFieldValues());
-
         $templates = $this->templateChooser->forRecord($record);
 
         return $this->renderTemplate($templates, $context);
