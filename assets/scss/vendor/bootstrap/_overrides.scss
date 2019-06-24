@@ -1,30 +1,25 @@
-$theme-colors:
-      (
-              "primary":    $primary,
-              "secondary":  $secondary,
-              "tertiary": $tertiary,
-              "success":    $success,
-              "info":       $info,
-              "warning":    $warning,
-              "danger":     $danger,
-              "light":      $light,
-              "dark":       $dark,
-              "boltblue":  $bolt-blue,
+$theme-colors: (
+  "primary":   $primary,
+  "secondary": $secondary,
+  "tertiary":  $tertiary,
+  "success":   $success,
+  "info":      $info,
+  "warning":   $warning,
+  "danger":    $danger,
+  "light":     $light,
+  "dark":      $dark,
+  "boltblue":  $bolt-blue,
 );
 
 @each $color, $value in $theme-colors {
   .alert-#{$color} {
     background-color: theme-color-level($color, $alert-bg-level) !important;
   }
-}
 
-@each $color, $value in $theme-colors {
   .btn-#{$color} {
     @include button-variant($value, $value);
   }
-}
 
-@each $color, $value in $theme-colors {
   .btn-outline-#{$color} {
     @include button-outline-variant($value);
   }

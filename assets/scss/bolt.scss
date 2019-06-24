@@ -1,5 +1,4 @@
-// Bootstrap needs to go first, then the 'init', and then the rest of the
-// items in ./vendor
+
 @import './init/init';
 @import './vendor/vendor';
 @import './layout/layout';
