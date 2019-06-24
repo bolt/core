@@ -4,51 +4,48 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Configuration\Areas;
-use Bolt\Configuration\Config;
-use Bolt\Content\MediaFactory;
+use Bolt\Configuration\FileLocations;
 use Bolt\Controller\TwigAwareController;
+use Bolt\Factory\MediaFactory;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class MediaController extends TwigAwareController
+class MediaController extends TwigAwareController implements BackendZone
 {
     /** @var ObjectManager */
     private $em;
 
-    /** @var Areas */
-    private $areas;
+    /** @var FileLocations */
+    private $fileLocations;
 
     /** @var MediaFactory */
     private $mediaFactory;
 
-    public function __construct(Config $config, Environment $twig, ObjectManager $em, Areas $areas, MediaFactory $mediaFactory)
+    public function __construct(ObjectManager $em, FileLocations $fileLocations, MediaFactory $mediaFactory)
     {
         $this->em = $em;
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
         $this->mediaFactory = $mediaFactory;
-        parent::__construct($config, $twig);
     }
 
     /**
-     * @Route("/media/crawl/{area}", name="bolt_media_crawler", methods={"GET"})
+     * @Route("/media/crawl/{location}", name="bolt_media_crawler", methods={"GET"})
      */
-    public function finder(string $area): Response
+    public function finder(string $locationName): Response
     {
-        $basepath = $this->areas->get($area, 'basepath');
+        $basepath = $this->fileLocations->get($locationName)->getBasepath();
 
         $finder = $this->findFiles($basepath);
 
         foreach ($finder as $file) {
-            $media = $this->mediaFactory->createOrUpdateMedia($file, $area);
+            $media = $this->mediaFactory->createOrUpdateMedia($file, $locationName);
 
             $this->em->persist($media);
             $this->em->flush();
@@ -56,8 +53,8 @@ class MediaController extends TwigAwareController
 
         return $this->renderTemplate('@bolt/finder/finder.twig', [
             'path' => 'path',
-            'name' => $this->areas->get($area, 'name'),
-            'area' => $area,
+            'name' => $this->fileLocations->get($locationName)->getName(),
+            'location' => $locationName,
             'finder' => $finder,
             'parent' => 'parent',
         ]);

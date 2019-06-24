@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -32,7 +32,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page = 1, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
+    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -40,7 +40,7 @@ class ContentRepository extends ServiceEntityRepository
 
         if ($contentType) {
             $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contentType['slug']);
+                ->setParameter('ct', $contentType->getSlug());
         }
 
         if ($onlyPublished) {
@@ -48,7 +48,28 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        return $this->createPaginator($qb->getQuery(), $page, $contentType['listing_records']);
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+    }
+
+    public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    {
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a');
+
+        $qb->addSelect('t')
+            ->innerJoin('content.taxonomies', 't')
+            ->andWhere('t.type = :taxonomyslug')
+            ->setParameter('taxonomyslug', $taxonomyslug)
+            ->andWhere('t.slug = :slug')
+            ->setParameter('slug', $slug);
+
+        if ($onlyPublished) {
+            $qb->andWhere('content.status = :status')
+                ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
     public function findLatest(?ContentType $contentType = null, ?int $amount = null): ?array
@@ -60,7 +81,7 @@ class ContentRepository extends ServiceEntityRepository
 
         if ($contentType) {
             $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contentType['slug']);
+                ->setParameter('ct', $contentType->getSlug());
         }
 
         if ($amount !== null) {
@@ -69,24 +90,62 @@ class ContentRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function searchNaive(string $searchTerm, int $page, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    {
+        // First, create a querybuilder to get the fields that match the Query
+        $qb = $this->getQueryBuilder()
+            ->select('partial content.{id}');
+
+        $qb->addSelect('f')
+            ->innerJoin('content.fields', 'f')
+            ->andWhere($qb->expr()->like('f.value', ':search'))
+            ->setParameter('search', '%' . $searchTerm . '%');
+
+        // These are the ID's of content we need.
+        $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
+
+        // Next, we'll get the full Content objects, based on ID's
+        $qb = $this->getQueryBuilder()
+            ->addSelect('a')
+            ->innerJoin('content.author', 'a')
+            ->orderBy('content.modifiedAt', 'DESC');
+
+        if ($onlyPublished) {
+            $qb->andWhere('content.status = :status')
+                ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        $qb->andWhere('content.id IN (:ids)')
+            ->setParameter('ids', $ids);
+
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+    }
+
+    public function findOneById(int $id): ?Content
+    {
+        return $this->find($id);
+    }
+
     public function findOneBySlug(string $slug): ?Content
     {
         return $this->getQueryBuilder()
-            ->innerJoin(\Bolt\Entity\Field\SlugField::class, 'field')
-            ->andWhere('field.value = :slug')
-            ->setParameter('slug', json_encode([$slug]))
+            ->innerJoin('content.fields', 'field')
+            ->innerJoin(
+                \Bolt\Entity\Field\SlugField::class,
+                'slug',
+                'WITH',
+                'field.id = slug.id'
+            )
+            ->andWhere('slug.value = :slug')
+            ->setParameter('slug', \GuzzleHttp\json_encode([$slug]))
             ->getQuery()
             ->getOneOrNullResult();
-
-//        ->join('m.PropertyEntity', 'p')
-//        ->where('p.value IN (:values)')
-//        ->setParameter('values',['red','yellow']);
     }
 
-    private function createPaginator(Query $query, int $page, int $max): Pagerfanta
+    private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
-        $paginator->setMaxPerPage($max);
+        $paginator->setMaxPerPage($amountPerPage);
         $paginator->setCurrentPage($page);
 
         return $paginator;
@@ -119,33 +178,4 @@ class ContentRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
-
-//    /**
-//     * @return Content[] Returns an array of Content objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Content
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

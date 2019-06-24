@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ContentOverviewController extends TwigAwareController
+class ContentOverviewController extends TwigAwareController implements BackendZone
 {
     /**
      * @Route("/content/{contentType}", name="bolt_content_overview")
@@ -25,8 +25,9 @@ class ContentOverviewController extends TwigAwareController
         $contentType = ContentType::factory($contentType, $this->config->get('contenttypes'));
 
         $page = (int) $request->query->get('page', 1);
+        $amountPerPage = $contentType->get('records_per_page', 10);
 
-        $records = $contentRepository->findForListing($page, $contentType, false);
+        $records = $contentRepository->findForListing($page, $amountPerPage, $contentType, false);
 
         return $this->renderTemplate('@bolt/content/listing.html.twig', [
             'records' => $records,

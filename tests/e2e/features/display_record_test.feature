@@ -17,3 +17,6 @@ Feature: Test field output
         And there is element "html_field" with text "HTML field with simple HTML in it."
         And there is element "markdown_field" with text "Markdown field with simple Markdown in it."
         And there is element "textarea_field" with text "Textarea field with <em>simple</em> HTML in it."
+
+        And there is element "text_sanitise_a" with text "Text field with <strong>markup</strong>, including <script>console.log('hoi')</script>. The end."
+        And there is element "text_sanitise_b" with text "Text field with <strong>markup</strong>, including . The end."

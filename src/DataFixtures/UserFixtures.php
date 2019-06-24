@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends BaseFixture implements FixtureGroupInterface
 {
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
@@ -26,6 +26,11 @@ class UserFixtures extends Fixture
         $manager->flush();
     }
 
+    public static function getGroups(): array
+    {
+        return ['with-images', 'without-images'];
+    }
+
     private function loadUsers(ObjectManager $manager): void
     {
         foreach ($this->getUserData() as $userData) {
@@ -39,7 +44,7 @@ class UserFixtures extends Fixture
             $user->setBackendTheme('default');
 
             $manager->persist($user);
-            $this->addReference($userData['username'], $user);
+            $this->addReference('user_' . $userData['username'], $user);
         }
 
         $manager->flush();

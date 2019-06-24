@@ -4,31 +4,26 @@
    ternary operators: http://twig.sensiolabs.org/doc/templates.html#other-operators
 #}
 
-{# Make sure the setting for the submenus is defined. #}
-{% if withsubmenus is not defined %}
-    {% set withsubmenus = true %}
-{% endif %}
-
 {# The 'recursive' macro, for inserting one menu item. If it has a submenu, it
    invokes itself to insert the items of the submenus. #}
-{% macro display_menu_item(item, loop, extraclass, withsubmenus) %}
+{% macro display_menu_item(item, loop, withsubmenus) %}
     {% from _self import display_menu_item %}
     {% spaceless %}
+    {% set with_submenu = withsubmenus and item.submenu is not empty %}
     <li class="index-{{ loop.index -}}
-        {{ item.path|default('') == 'homepage' ? ' menu-text' -}}
         {{ loop.first ? ' first' -}}
         {{ loop.last ? ' last' -}}
-        {{ (item.submenu|default(false) and withsubmenus) ? ' is-dropdown-submenu-parent' -}}
-        {{ item|current ? ' active' }}">
+        {{ with_submenu ? ' has-submenu' -}}
+        {{ item.current ? ' active' }}">
 
-        <a href="{{ item.link }}" title='{{ item.title|default('')|escape }}' class='{{ item.class|default('') }}'>
-            {{- item.label|default('-') -}}
+        <a href="{{ item.uri }}" title='{{ item.title }}' class='{{ item.class }}'>
+            {{- item.label -}}
         </a>
 
-        {% if item.submenu is defined and withsubmenus %}
+        {% if with_submenu %}
             <ul class="menu submenu vertical">
                 {% for submenu in item.submenu %}
-                    {{ display_menu_item(submenu, loop) }}
+                    {{ display_menu_item(submenu, loop, true) }}
                 {% endfor %}
             </ul>
         {% endif %}
@@ -40,10 +35,10 @@
 {% from _self import display_menu_item %}
 
 {# The main menu loop: Iterates over the items, calling `display_menu_item` #}
-<ul  class="menu {{ class|default('') }}">
+<ul class="menu {{ class }}">
 {% for item in menu %}
     {% if item.label is defined %}
-        {{ display_menu_item(item, loop, '', withsubmenus) }}
+        {{ display_menu_item(item, loop, withsubmenus) }}
     {% endif %}
 {% endfor %}
 </ul>

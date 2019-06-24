@@ -10,14 +10,14 @@
     <h4>{{ __('Search') }}</h4>
 
     <form method="get" action="{{ path('search') }}" id="searchform-inline" enctype="text/plain">
-        <input type="search" value="{{ search|default() }}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="search" >
+        <input type="search" value="{{ searchTerm|default() }}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="searchTerm" >
         <button type="submit">{{ __('general.phrase.search') }}</button>
     </form>
 
     <hr>
 
     <p>
-        {{ __("This website is <a href='%url%' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.",{'%url%':'http://bolt.cm'}) }}
+        {{ __('general.phrase.built-with-bolt') }}
     </p>
 
     {{ widgets('footer') }}

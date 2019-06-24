@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
-use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
@@ -18,12 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Twig\Environment;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ProfileController extends TwigAwareController
+class ProfileController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
@@ -46,15 +44,12 @@ class ProfileController extends TwigAwareController
         UrlGeneratorInterface $urlGenerator,
         ObjectManager $em,
         UserPasswordEncoderInterface $passwordEncoder,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        Config $config,
-        Environment $twig
+        CsrfTokenManagerInterface $csrfTokenManager
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
-        parent::__construct($config, $twig);
     }
 
     /**
@@ -103,6 +98,8 @@ class ProfileController extends TwigAwareController
 
         $request->getSession()->set('_locale', $locale);
 
+        $this->addFlash('success', 'user.updated_profile');
+
         return new RedirectResponse($url);
     }
 
@@ -129,7 +126,7 @@ class ProfileController extends TwigAwareController
         }
 
         // Validate password
-        if ($newPassword !== null && mb_strlen($newPassword) < 6) {
+        if (! empty($newPassword) && mb_strlen($newPassword) < 6) {
             $this->addFlash('danger', 'user.not_valid_password');
             return false;
         }

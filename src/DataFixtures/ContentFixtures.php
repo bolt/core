@@ -6,12 +6,11 @@ namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
-use Bolt\Storage\Query\Definition\FieldDefinition;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -20,24 +19,31 @@ use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Gedmo\Translatable\Entity\Translation;
 use Tightenco\Collect\Support\Collection;
 
-class ContentFixtures extends Fixture implements DependentFixtureInterface
+class ContentFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     /** @var Generator */
     private $faker;
-
-    /** @var Collection */
-    private $config;
 
     private $lastTitle = null;
 
     /** @var array */
     private $presetRecords = [];
 
-    public function __construct(Config $config)
+    /** @var Collection */
+    private $imagesIndex;
+
+    /** @var Config */
+    private $config;
+
+    /** @var FileLocations */
+    private $fileLocations;
+
+    public function __construct(Config $config, FileLocations $fileLocations)
     {
         $this->faker = Factory::create();
         $this->presetRecords = $this->getPresetRecords();
-        $this->config = $config->get('contenttypes');
+        $this->config = $config;
+        $this->fileLocations = $fileLocations;
     }
 
     public function getDependencies()
@@ -48,8 +54,16 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
+    public static function getGroups(): array
+    {
+        return ['with-images', 'without-images'];
+    }
+
     public function load(ObjectManager $manager): void
     {
+        $path = $this->fileLocations->get('files')->getBasepath();
+        $this->imagesIndex = $this->getImagesIndex($path);
+
         $this->loadContent($manager);
 
         $manager->flush();
@@ -60,13 +74,15 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
         /** @var TranslationRepository $translationRepository */
         $translationRepository = $manager->getRepository(Translation::class);
 
-        foreach ($this->config as $contentType) {
+        foreach ($this->config->get('contenttypes') as $contentType) {
             $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
-            foreach (range(1, $amount) as $i) {
-                $ref = $i === 1 ? 'admin' : ['admin', 'henkie', 'jane_admin', 'tom_admin'][random_int(0, 3)];
-                /** @var User $author */
-                $author = $this->getReference($ref);
+            for ($i = 1; $i <= $amount; $i++) {
+                if ($i === 1) {
+                    $author = $this->getReference('user_admin');
+                } else {
+                    $author = $this->getRandomReference('user');
+                }
 
                 $content = new Content();
                 $content->setContentType($contentType['slug']);
@@ -90,13 +106,9 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                     $field->setName($name);
 
                     if (isset($preset[$name])) {
-                        [$value, $type] = $this->getValuesforFieldType($preset[$name], $fieldType);
-                        $field->setValue($value);
-                        $field->setFieldType($type);
+                        $field->setValue($preset[$name]);
                     } else {
-                        [$value, $type] = $this->getValuesforFieldType($name, $fieldType);
-                        $field->setValue($value);
-                        $field->setFieldType($type);
+                        $field->setValue($this->getValuesforFieldType($name, $fieldType));
                     }
                     $field->setSortorder($sortorder++ * 5);
 
@@ -108,6 +120,23 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
                         }
                     }
                 }
+
+                foreach ($contentType['taxonomy'] as $taxonomySlug) {
+                    if ($taxonomySlug === 'categories') {
+                        $taxonomyAmount = 2;
+                    } elseif ($taxonomySlug === 'tags') {
+                        $taxonomyAmount = 4;
+                    } else {
+                        $taxonomyAmount = 1;
+                    }
+
+                    foreach ($this->getRandomTaxonomies($taxonomySlug, $taxonomyAmount) as $taxonomy) {
+                        $content->addTaxonomy($taxonomy);
+                    }
+                }
+
+                $refKey = sprintf('content_%s_%s', $contentType['slug'], $content->getSlug());
+                $this->addReference($refKey, $content);
 
                 $manager->persist($content);
             }
@@ -127,68 +156,32 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             case 'html':
             case 'textarea':
             case 'markdown':
-                $data = $this->faker->paragraphs(3, true);
-                $fieldType = 'string';
+                $data = [$this->faker->paragraphs(3, true)];
                 break;
             case 'image':
-                $data = \GuzzleHttp\json_encode([
-                    'filename' => 'kitten.jpg',
-                    'alt' => 'A cute kitten',
-                ]);
-                $fieldType = 'array';
+            case 'file':
+                $randomImage = $this->imagesIndex->random();
+                $data = [
+                    'filename' => $randomImage->getRelativePathname(),
+                    'alt' => $this->faker->sentence(4, true),
+                    'title' => $this->faker->sentence(7, true),
+                ];
                 break;
             case 'slug':
-                $data = $this->lastTitle ?? $this->faker->sentence(3, true);
-                $fieldType = 'string';
-                break;
-            case 'checkbox':
-                $data = (string) $this->faker->numberBetween(0, 1);
-                $fieldType = 'string';
+                $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
                 break;
             case 'text':
-                $data = $this->faker->sentence(6, true);
-                $fieldType = 'string';
-                break;
-            case 'number':
-                $data = (string) $this->faker->numberBetween(0, 10000);
-                $fieldType = 'string';
-                break;
-            case 'repeater':
-                $repeater = [];
-                /** @var DeepCollection $field */
-                $subFields = $field['fields']->toArray();
-                for ($i = 0; $i < random_int(1, 4); $i++) {
-                    foreach ($subFields as $key => $subField) {
-                        if (in_array($subField['type'], array_keys(FieldDefinition::SUB_FIELDS), true)) {
-                            foreach (FieldDefinition::SUB_FIELDS[$subField['type']] as $subFieldValue) {
-                                $repeater[$i][$key][$subFieldValue] = $this->faker->sentence(3);
-                            }
-                        } else {
-                            $repeater[$i][$key] = $this->faker->sentence(4);
-                        }
-                    }
-                }
-                $data = \GuzzleHttp\json_encode($repeater);
-                $fieldType = 'array';
-                break;
-            case 'select':
-                $select = [];
-                for ($i = 0; $i < random_int(1, 4); $i++) {
-                    $select[$i] = $this->faker->sentence(2);
-                }
-                $data = \GuzzleHttp\json_encode($select);
-                $fieldType = 'array';
+                $data = [$this->faker->sentence(6, true)];
                 break;
             default:
-                $data = $this->faker->sentence(6, true);
-                $fieldType = 'string';
+                $data = [$this->faker->sentence(6, true)];
         }
 
         if ($name === 'title' || $name === 'heading') {
             $this->lastTitle = $data;
         }
 
-        return [$data, $fieldType];
+        return $data;
     }
 
     private function getPresetRecords(): array
@@ -198,12 +191,13 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             'slug' => 'This is a record in the "Entries" ContentType',
         ];
         $records['blocks'][] = [
-            'title' => 'About',
+            'title' => 'About This Site',
+            'slug' => 'about',
         ];
         $records['blocks'][] = [
             'title' => 'Search',
+            'slug' => 'search',
         ];
-
         $records['tests'][] = [
             'selectfield' => 'bar',
             'multiselect' => 'Michelangelo',
@@ -214,6 +208,8 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             'textarea_field' => 'Textarea field with <em>simple</em> HTML in it.',
             'html_field' => 'HTML field with <em>simple</em> HTML in it.',
             'markdown_field' => 'Markdown field  with *simple* Markdown in it.',
+            'text_not_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
+            'text_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
         ];
 
         return $records;

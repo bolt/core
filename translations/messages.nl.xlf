@@ -78,6 +78,15 @@
         <target>Gebruikersnaam</target>
       </segment>
     </unit>
+    <unit id="80JoLd0" name="title.login">
+      <notes>
+        <note>templates/security/login.twig:4</note>
+      </notes>
+      <segment>
+        <source>title.login</source>
+        <target>Login</target>
+      </segment>
+    </unit>
     <unit id="9pvowqn" name="label.password">
       <notes>
         <note>templates/security/login.twig:70</note>
@@ -170,6 +179,15 @@
       <segment>
         <source>field.copyright</source>
         <target>Copyright</target>
+      </segment>
+    </unit>
+    <unit id="IaF1MjB" name="label.rememberme">
+      <notes>
+        <note>templates/security/login.twig:80</note>
+      </notes>
+      <segment>
+        <source>label.rememberme</source>
+        <target>Onthoud me?</target>
       </segment>
     </unit>
     <unit id="k.JymqB" name="about.visit_bolt">
@@ -564,6 +582,12 @@
         <target>Installatie-controle</target>
       </segment>
     </unit>
+    <unit id="pNPctrH" name="form.select_language">
+      <segment>
+        <source>form.select_language</source>
+        <target>Kies een taal</target>
+      </segment>
+    </unit>
     <unit id="9lJhqvA" name="field.locale">
       <segment>
         <source>field.locale</source>
@@ -586,6 +610,36 @@
       <segment>
         <source>field.author</source>
         <target>Auteur</target>
+      </segment>
+    </unit>
+    <unit id="wGlnx8X" name="general.phrase.search">
+      <segment>
+        <source>general.phrase.search</source>
+        <target>Zoek</target>
+      </segment>
+    </unit>
+    <unit id="ScJmuqq" name="Search">
+      <segment>
+        <source>Search</source>
+        <target>Zoek</target>
+      </segment>
+    </unit>
+    <unit id="2MMvCKK" name="label.cache_cleared">
+      <segment>
+        <source>label.cache_cleared</source>
+        <target>De Cache is leeggemaakt!</target>
+      </segment>
+    </unit>
+    <unit id="Pily_qo" name="general.phrase.read-more">
+      <segment>
+        <source>general.phrase.read-more</source>
+        <target>Lees meer</target>
+      </segment>
+    </unit>
+    <unit id="5IxD63c" name="general.latest_bolt_news">
+      <segment>
+        <source>general.latest_bolt_news</source>
+        <target>Het laatste Bolt nieuws</target>
       </segment>
     </unit>
   </file>

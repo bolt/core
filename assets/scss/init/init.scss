@@ -3,3 +3,11 @@
 @import '_variables';
 @import '_mixins';
 @import '_base';
+
+// Source Sans Variable
+@import '_fonts';
+
+// Font Awesome
+@import '../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css';
+@import '../../node_modules/@fortawesome/fontawesome-free/css/regular.css';
+@import '../../node_modules/@fortawesome/fontawesome-free/css/solid.css';

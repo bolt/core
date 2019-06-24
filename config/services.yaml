@@ -6,8 +6,9 @@ parameters:
     app_locales: en|nl|nl_NL|nl_BE|es|fr|de|pl|it|pt_BR
     app.notifications.email_sender: anonymous@example.com
     doctrine.orm.entity_manager.class: Bolt\Doctrine\TranslatableEntityManager
-    stof_doctrine_extensions.listener.translatable.class: Bolt\EventListener\PreTranslatableListener
+    stof_doctrine_extensions.listener.translatable.class: Bolt\Event\Listener\PreTranslatableListener
     bolt.table_prefix: bolt_
+    bolt.backend_url: /bolt
 
 services:
     # default configuration for services in *this* file
@@ -26,7 +27,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     Bolt\:
         resource: '../src/*'
-        exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{Entity,Exception,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -34,14 +35,13 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    Bolt\EventListener\ContentFillListener:
+    Bolt\Event\Listener\FieldDiscriminatorListener:
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata }
+
+    Bolt\Event\Listener\ContentFillListener:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
-
-    Bolt\Menu\MenuBuilder:
-        arguments: ["@knp_menu.factory"]
-        tags:
-            - { name: knp_menu.menu_builder, method: createSidebarMenu, alias: sidebar } # The alias is what is used to retrieve the menu
 
     Twig\Extension\StringLoaderExtension: ~
     Doctrine\ORM\Query\Expr: ~
@@ -50,3 +50,13 @@ services:
         arguments: [ "%bolt.table_prefix%" ]
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata, lazy: true }
+
+    # menus
+    Bolt\Menu\BackendMenuBuilder:
+        arguments: ["@knp_menu.factory"]
+        tags:
+            - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin_menu } # The alias is what is used to retrieve the menu
+
+    Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenuBuilder'
+    Bolt\Menu\FrontendMenuBuilder: ~
+    Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenuBuilder'

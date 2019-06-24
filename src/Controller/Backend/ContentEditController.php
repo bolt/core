@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
-use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Relation;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
-use Bolt\EventListener\ContentFillListener;
+use Bolt\Event\Listener\ContentFillListener;
+use Bolt\Repository\ContentRepository;
+use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
 use Carbon\Carbon;
@@ -25,57 +27,52 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
-use Twig\Environment;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ContentEditController extends TwigAwareController
+class ContentEditController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
-    /**
-     * @var TaxonomyRepository
-     */
+    /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
-    /**
-     * @var ObjectManager
-     */
+    /** @var RelationRepository */
+    private $relationRepository;
+
+    /** @var ContentRepository */
+    private $contentRepository;
+
+    /** @var ObjectManager */
     private $em;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /**
-     * @var TemplateChooser
-     */
+    /** @var TemplateChooser */
     private $templateChooser;
-
-    /**
-     * @var ContentFillListener
-     */
+    /** @var ContentFillListener */
     private $contentFillListener;
 
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
+        RelationRepository $relationRepository,
+        ContentRepository $contentRepository,
         ObjectManager $em,
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
         TemplateChooser $templateChooser,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        Config $config,
-        Environment $twig
+        CsrfTokenManagerInterface $csrfTokenManager
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
+        $this->relationRepository = $relationRepository;
+        $this->contentRepository = $contentRepository;
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
         $this->contentFillListener = $contentFillListener;
         $this->templateChooser = $templateChooser;
         $this->csrfTokenManager = $csrfTokenManager;
-        parent::__construct($config, $twig);
     }
 
     /**
@@ -114,7 +111,7 @@ class ContentEditController extends TwigAwareController
      */
     public function save(Request $request, ?Content $content = null): Response
     {
-        $this->validateToken($request);
+        $this->validateCsrf($request, 'editrecord');
 
         $content = $this->contentFromPost($content, $request);
 
@@ -137,7 +134,7 @@ class ContentEditController extends TwigAwareController
      */
     public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
     {
-        $this->validateToken($request);
+        $this->validateCsrf($request, 'editrecord');
 
         $urlParams = [
             'slugOrId' => $content->getId(),
@@ -154,7 +151,7 @@ class ContentEditController extends TwigAwareController
      */
     public function preview(Request $request, ?Content $content = null): Response
     {
-        $this->validateToken($request);
+        $this->validateCsrf($request, 'editrecord');
 
         $content = $this->contentFromPost($content, $request);
         $recordSlug = $content->getDefinition()->get('singular_slug');
@@ -169,9 +166,77 @@ class ContentEditController extends TwigAwareController
         return $this->renderTemplate($templates, $context);
     }
 
-    private function validateToken(Request $request): void
+    /**
+     * @Route("/duplicate/{id}", name="bolt_content_duplicate", methods={"GET"}, requirements={"id": "\d+"})
+     */
+    public function duplicate(Request $request, Content $content): Response
     {
-        $this->validateCsrf($request, 'editrecord');
+        $content->setId(null);
+        $content->setCreatedAt(null);
+        $content->setAuthor($this->getUser());
+        $content->setModifiedAt(null);
+        $content->setDepublishedAt(null);
+        $content->setPublishedAt(null);
+
+        $twigvars = [
+            'record' => $content,
+            'locales' => $content->getLocales(),
+            'currentlocale' => $this->getEditLocale($request, $content),
+        ];
+
+        return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
+    }
+
+    /**
+     * @Route("/duplicate/{id}", name="bolt_content_duplicate_post", methods={"POST"}, requirements={"id": "\d+"})
+     */
+    public function duplicateSave(Request $request, ?Content $content = null): Response
+    {
+        return $this->new($content->getContentType(), $request);
+    }
+
+    /**
+     * @Route("/status/{id}", name="bolt_content_status", methods={"GET"}, requirements={"id": "\d+"})
+     */
+    public function status(Request $request, Content $content): Response
+    {
+        if (! $this->isCsrfTokenValid('status', $request->get('token'))) {
+            $url = $this->urlGenerator->generate('bolt_dashboard');
+            return new RedirectResponse($url);
+        }
+
+        $content->setStatus($request->get('status'));
+
+        $this->em->persist($content);
+        $this->em->flush();
+
+        $this->addFlash('success', 'content.status_changed_successfully');
+
+        $params = ['contentType' => $content->getContentTypeSlug()];
+        $url = $this->urlGenerator->generate('bolt_content_overview', $params);
+
+        return new RedirectResponse($url);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="bolt_content_delete", methods={"GET"}, requirements={"id": "\d+"})
+     */
+    public function delete(Request $request, Content $content): Response
+    {
+        if (! $this->isCsrfTokenValid('delete', $request->get('token'))) {
+            $url = $this->urlGenerator->generate('bolt_dashboard');
+            return new RedirectResponse($url);
+        }
+
+        $this->em->remove($content);
+        $this->em->flush();
+
+        $this->addFlash('success', 'content.deleted_successfully');
+
+        $params = ['contentType' => $content->getContentTypeSlug()];
+        $url = $this->urlGenerator->generate('bolt_content_overview', $params);
+
+        return new RedirectResponse($url);
     }
 
     private function contentFromPost(?Content $content, Request $request): Content
@@ -208,26 +273,44 @@ class ContentEditController extends TwigAwareController
             }
         }
 
+        if (isset($formData['relationship'])) {
+            foreach ($formData['relationship'] as $relation) {
+                $this->updateRelation($content, $relation);
+            }
+        }
+
         return $content;
     }
 
     private function updateField(Content $content, string $fieldName, $value, ?string $locale): void
     {
+        /** @var Field $field */
+        $field = null;
+
         if ($content->hasField($fieldName)) {
             $field = $content->getField($fieldName);
-            if ($field->getDefinition()->get('localize')) {
-                // load translated field
-                $field->setLocale($locale);
-                $this->em->refresh($field);
-            }
-        } else {
+        }
+
+        // If the Field exists, but it has the wrong type, we'll remove the existing one.
+        if (($field !== null) && ! $content->hasField($fieldName, true)) {
+            $content->removeField($field);
+            $this->em->remove($field);
+            $this->em->flush();
+            $field = null;
+        }
+
+        // Perhaps create a new Field..
+        if (! $field) {
             $fields = $content->getDefinition()->get('fields');
             $field = Field::factory($fields->get($fieldName), $fieldName);
             $field->setName($fieldName);
+
             $content->addField($field);
-            if ($field->getDefinition()->get('localize')) {
-                $field->setLocale($locale);
-            }
+        }
+
+        if ($field->getDefinition()->get('localize')) {
+            $field->setLocale($locale);
+            $this->em->refresh($field);
         }
 
         // If the value is an array that contains a string of JSON, parse it
@@ -259,6 +342,30 @@ class ContentEditController extends TwigAwareController
             }
 
             $content->addTaxonomy($taxonomy);
+        }
+    }
+
+    private function updateRelation(Content $content, $newRelations): void
+    {
+        $newRelations = (new Collection(Json::findArray($newRelations)))->filter();
+        $currentRelations = $this->relationRepository->findRelations($content, null, true, null, false);
+
+        // Remove old ones
+        foreach ($currentRelations as $currentRelation) {
+            $this->em->remove($currentRelation);
+        }
+
+        // Then (re-) add selected ones
+        foreach ($newRelations as $id) {
+            $contentTo = $this->contentRepository->findOneBy(['id' => $id]);
+
+            if ($contentTo === null) {
+                continue; // Don't add relations to things that have gone missing
+            }
+
+            $relation = new Relation($content, $contentTo);
+
+            $this->em->persist($relation);
         }
     }
 

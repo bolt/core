@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Configuration\Config;
-use Bolt\Content\MediaFactory;
 use Bolt\Controller\CsrfTrait;
+use Bolt\Factory\MediaFactory;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -23,7 +23,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class UploadController
+class UploadController implements AsyncZone
 {
     use CsrfTrait;
 
@@ -55,10 +55,10 @@ class UploadController
             return new JsonResponse(['error' => ['message' => 'Invalid CSRF token']], Response::HTTP_FORBIDDEN);
         }
 
-        $area = $request->query->get('area', '');
+        $locationName = $request->query->get('location', '');
         $path = $request->query->get('path', '');
 
-        $target = $this->config->getPath($area, true, $path);
+        $target = $this->config->getPath($locationName, true, $path);
 
         $uploadHandler = new Handler($target, [
             Handler::OPTION_AUTOCONFIRM => true,
@@ -81,12 +81,14 @@ class UploadController
             return $this->sanitiseFilename($name);
         });
 
+        // @todo Refactor file upload handler. See issue https://github.com/bolt/four/issues/402
+
         /** @var File $result */
-        $result = $uploadHandler->process($request->files->all());
+        $result = $uploadHandler->process($_FILES);
 
         if ($result->isValid()) {
             try {
-                $media = $this->mediaFactory->createFromFilename($area, $path, $result->__get('name'));
+                $media = $this->mediaFactory->createFromFilename($locationName, $path, $result->__get('name'));
                 $this->em->persist($media);
                 $this->em->flush();
 

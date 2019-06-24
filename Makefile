@@ -9,6 +9,9 @@ install:
 	npm install
 	npm run build
 
+update:
+	composer update && composer outdated
+
 server:
 	bin/console server:start 127.0.0.1:8088 -q || true
 
@@ -26,16 +29,17 @@ csclear:
 cscheck:
 	make csclear
 	vendor/bin/ecs check src
+	vendor/bin/ecs check tests/spec --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --config vendor/symplify/easy-coding-standard/config/common/phpunit.yml
+	vendor/bin/ecs check tests/php --config vendor/symplify/easy-coding-standard/config/common/strict.yml
 	make stancheck
 
 csfix:
 	make csclear
 	vendor/bin/ecs check src --fix
-	make stancheck
-
-csfix-tests:
-	make csclear
-	vendor/bin/ecs check tests/php --fix
+	vendor/bin/ecs check tests/spec --fix --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml
+	vendor/bin/ecs check tests/php --fix --config vendor/symplify/easy-coding-standard/config/common/namespaces.yml --config vendor/symplify/easy-coding-standard/config/common/phpunit.yml --config vendor/symplify/easy-coding-standard/config/common/strict.yml
 	make stancheck
 
 stancheck:
@@ -60,7 +64,6 @@ e2e:
 full-test:
 	make cscheck
 	make test
-	npm test
 	make behat
 	make e2e
 
@@ -69,18 +72,8 @@ e2e-wip:
 	cd tests/e2e && npm run kakunin -- --tags @wip && cd ../..
 
 e2e-install:
-	cd tests/e2e
-	npm install
-	node ./node_modules/protractor/bin/webdriver-manager update --gecko=false
-	cd step_definitions
-	ln -s ../node_modules/kakunin/dist/step_definitions/elements.js kakunin-elements.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/debug.js kakunin-debug.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/file.js kakunin-file.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/form.js kakunin-form.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/email.js kakunin-email.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/generators.js kakunin-generators.js
-	ln -s ../node_modules/kakunin/dist/step_definitions/navigation.js kakunin-navigation.js
-	cd ../../..
+	cd tests/e2e && npm install
+	node ./tests/e2e/node_modules/protractor/bin/webdriver-manager update --gecko=false
 
 db-create:
 	bin/console doctrine:database:create
@@ -115,7 +108,7 @@ docker-assets-serve:
 	docker-compose run node sh -c "npm run serve"
 
 docker-update:
-	docker-compose exec -T php sh -c "composer update"
+	docker-compose exec -T php sh -c "composer update && composer outdated"
 
 docker-cache:
 	docker-compose exec -T php sh -c "bin/console cache:clear"
@@ -171,7 +164,6 @@ docker-full-test:
 	make docker-cache
 	make docker-cscheck
 	make docker-test
-	npm test
 	make docker-behat
 	make e2e
 

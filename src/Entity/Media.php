@@ -22,7 +22,7 @@ class Media
     /**
      * @ORM\Column(type="string", length=191)
      */
-    private $area;
+    private $location;
 
     /**
      * @ORM\Column(type="text", length=1000)
@@ -113,14 +113,14 @@ class Media
         return $this;
     }
 
-    public function getArea(): ?string
+    public function getLocation(): ?string
     {
-        return $this->area;
+        return $this->location;
     }
 
-    public function setArea(string $area): self
+    public function setLocation(string $location): self
     {
-        $this->area = $area;
+        $this->location = $location;
 
         return $this;
     }
@@ -281,8 +281,10 @@ class Media
         return $this->author;
     }
 
-    public function setAuthor(?User $author): void
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
     }
 }

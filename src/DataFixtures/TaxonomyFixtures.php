@@ -8,27 +8,17 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
 use Bolt\Utils\Str;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
+class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    /**
-     * @var DeepCollection
-     */
+    /** @var Config */
     private $config;
 
     public function __construct(Config $config)
     {
-        $this->config = $config->get('taxonomies');
-    }
-
-    public function getDependencies()
-    {
-        return [
-            UserFixtures::class,
-        ];
+        $this->config = $config;
     }
 
     public function load(ObjectManager $manager): void
@@ -38,10 +28,15 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+    public static function getGroups(): array
+    {
+        return ['with-images', 'without-images'];
+    }
+
     private function loadTaxonomies(ObjectManager $manager): void
     {
         $order = 1;
-        foreach ($this->config as $taxonomyDefinition) {
+        foreach ($this->config->get('taxonomies') as $taxonomyDefinition) {
             /** @var DeepCollection $taxonomyDefinition */
             $options = $taxonomyDefinition->isKeyEmpty('options') ? $this->getDefaultOptions() : $taxonomyDefinition['options'];
 
@@ -60,7 +55,7 @@ class TaxonomyFixtures extends Fixture implements DependentFixtureInterface
         }
     }
 
-    private function getDefaultOptions()
+    private function getDefaultOptions(): array
     {
         $options = ['action', 'adult', 'adventure', 'alpha', 'animals', 'animation', 'anime', 'architecture', 'art',
             'astronomy', 'baby', 'batshitinsane', 'biography', 'biology', 'book', 'books', 'business',

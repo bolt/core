@@ -41,7 +41,7 @@
 
   &.open {
     display: inline-block;
-    z-index: 99999;
+    z-index: $big-z-index + 100;
   }
 
   &.animate.open {
@@ -59,7 +59,7 @@
     top: calc(100% + 2px);
 
     &.open {
-      z-index: 999;
+      z-index: $big-z-index;
       display: block;
     }
   }

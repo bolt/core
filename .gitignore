@@ -12,6 +12,7 @@ assets/vendor/
 node_modules/
 npm-debug.log
 yarn-error.log
+webpack_stats.json
 
 ### File-system cruft and temporary files
 __*
@@ -21,6 +22,7 @@ __*
 *.lock
 !symfony.lock
 *lock.json
+!/package-lock.json
 .buildpath
 
 ### Platfom-specific files
@@ -65,6 +67,7 @@ appveyor.yml
 /public/bundles/
 /vendor/
 ###< symfony/framework-bundle ###
+
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###

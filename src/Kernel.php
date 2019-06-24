@@ -124,7 +124,7 @@ class Kernel extends BaseKernel
      */
     private function setContentTypeRequirements(ContainerBuilder $container): void
     {
-        $ContentTypesParser = new ContentTypesParser(new Collection());
+        $ContentTypesParser = new ContentTypesParser($this->getProjectDir(), new Collection());
         $contentTypes = $ContentTypesParser->parse();
 
         $pluralslugs = $contentTypes->pluck('slug')->implode('|');
@@ -142,7 +142,7 @@ class Kernel extends BaseKernel
      */
     private function setTaxonomyRequirements(ContainerBuilder $container): void
     {
-        $taxonomyParser = new TaxonomyParser();
+        $taxonomyParser = new TaxonomyParser($this->getProjectDir());
         $taxonomies = $taxonomyParser->parse();
 
         $pluralslugs = $taxonomies->pluck('slug')->implode('|');

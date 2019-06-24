@@ -14,8 +14,8 @@ Progress towards alpha / beta
 Follow the progress on Bolt 4, at the following locations
 
  - Github Repository: https://github.com/bolt/four
- - Bolt 4 roadmap: http://bit.ly/bolt4-roadmap
- - Planboard: http://bit.ly/bolt4-board (open for all, requires Github Auth)
+ - Bolt 4 roadmap: https://roadmap.bolt.cm
+ - Slack: https://boltcms.slack.com/messages/C0NJEK631 (open for all, requires Slack account)
 
 Install
 -------
@@ -24,7 +24,7 @@ To install Bolt 4 (for now):
 
   - Check out the git repo
   - Then:
-  
+
   ```bash
 composer install
 npm install && npm run build
@@ -48,7 +48,7 @@ make docker-install
 
 Actually, just add `docker-` prefix to any Make command and that's it!
 
-In your browser, go to `http://0.0.0.0:8088/` for the frontend, and to 
+In your browser, go to `http://0.0.0.0:8088/` for the frontend, and to
 `http://0.0.0.0:8088/bolt` for the Admin Panel.
 
 Set up Database
@@ -107,7 +107,7 @@ See the other options by running `npm run`.
 Code Style / Static Analysis
 ----------------------------
 
-Run the following commands with `make`, to perform Code Style checking and 
+Run the following commands with `make`, to perform Code Style checking and
 automatic fixing:
 
  - `make cscheck`: Run ECS and PHPStan
@@ -141,11 +141,6 @@ To run PHP unit tests:
 make test
 ```
 
-To run JS unit tests:
-```
-npm test
-```
-
 To run E2E tests:
 ```
 make e2e
@@ -155,7 +150,7 @@ Fixing IDE issues
 ----
 
 - PHPStorm does not see `@bolt` Twig namespace.
-  
+
   The namespace needs to be added manually in Twig Plugin settings, pointing to `templates` folder.
 
 
@@ -165,6 +160,11 @@ Translations
 These are the translations used in Bolt. We rely on the community to expand on new
 translations, and keep them up to date. If you wish to participate, read the
 [instructions here][translations].
+
+Several translation-related Console commands are available:
+- `bin/console translation:download` - Download translations from Loco (replaces all local ones)
+- `bin/console translation:sync bolt down` - Download translations from Loco (replaces local changes if there is a conflict)
+- `bin/console translation:sync bolt up` - Send updated translations to Loco
 
 
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html

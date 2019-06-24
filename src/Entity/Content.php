@@ -6,8 +6,9 @@ namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Enum\Statuses;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -30,7 +31,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * })
  * @ORM\HasLifecycleCallbacks
  */
-class Content implements \JsonSerializable
+class Content
 {
     use ContentLocalizeTrait;
     use ContentExtrasTrait;
@@ -58,7 +59,6 @@ class Content implements \JsonSerializable
      *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("put")
      */
     private $author;
 
@@ -66,7 +66,7 @@ class Content implements \JsonSerializable
      * @var string
      *
      * @ORM\Column(type="string", length=191)
-     * @Groups("put")
+     * @Groups("get_content")
      */
     private $status;
 
@@ -74,6 +74,7 @@ class Content implements \JsonSerializable
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     * @Groups("get_content")
      */
     private $createdAt;
 
@@ -81,7 +82,7 @@ class Content implements \JsonSerializable
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"get_content", "put"})
+     * @Groups("get_content")
      */
     private $modifiedAt = null;
 
@@ -89,7 +90,7 @@ class Content implements \JsonSerializable
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"get_content", "put"})
+     * @Groups("get_content")
      */
     private $publishedAt = null;
 
@@ -97,15 +98,16 @@ class Content implements \JsonSerializable
      * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("put")
+     * @Groups("get_content")
      */
     private $depublishedAt = null;
 
     /**
      * @var Collection|Field[]
      *
-     * @Groups({"put"})
+     * @ApiSubresource(maxDepth=1)
      * @MaxDepth(1)
+     *
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
@@ -125,7 +127,6 @@ class Content implements \JsonSerializable
 
     /**
      * @var Collection|Taxonomy[]
-     * @Groups({"put"})
      * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
@@ -148,13 +149,18 @@ class Content implements \JsonSerializable
         return sprintf('New %s', $contentName);
     }
 
+    public function setId(?int $id = null): void
+    {
+        $this->id = $id;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @see \Bolt\EventListener\ContentFillListener
+     * @see \Bolt\Event\Listener\ContentFillListener
      */
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
@@ -182,6 +188,15 @@ class Content implements \JsonSerializable
     }
 
     public function getContentTypeSlug(): string
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
+        return $this->getDefinition()->get('slug');
+    }
+
+    public function getContentTypeSingularSlug(): string
     {
         if ($this->getDefinition() === null) {
             throw new \RuntimeException('Content not fully initialized');
@@ -236,12 +251,12 @@ class Content implements \JsonSerializable
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
+    public function setCreatedAt(?\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -342,9 +357,23 @@ class Content implements \JsonSerializable
         return $this->fields[$fieldName];
     }
 
-    public function hasField(string $fieldName): bool
+    public function hasField(string $fieldName, $matchTypes = false): bool
     {
-        return isset($this->fields[$fieldName]);
+        // If the field doesn't exist, we can bail here
+        if (! isset($this->fields[$fieldName])) {
+            return false;
+        }
+
+        // If $matchTypes is `false`, we can state that we do have the field
+        if (! $matchTypes) {
+            return true;
+        }
+
+        // Otherwise, we need to ensure the types are the same
+        $fieldType = $this->fields[$fieldName]->getType();
+        $definitionType = $this->contentTypeDefinition->get('fields')->get($fieldName)['type'] ?: 'undefined';
+
+        return $fieldType === $definitionType;
     }
 
     public function hasFieldDefined(string $fieldName): bool

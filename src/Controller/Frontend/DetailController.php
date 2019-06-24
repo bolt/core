@@ -12,7 +12,6 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Storage\Query\Builder\ContentBuilder;
 use Bolt\Storage\Query\Builder\Filter\GraphFilter;
 use Bolt\Storage\Query\Builder\GraphBuilder;
-use Bolt\Storage\Query\Generator\SimpleGraphGenerator;
 use Bolt\Storage\Query\Query;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,9 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 
-class DetailController extends TwigAwareController
+class DetailController extends TwigAwareController implements FrontendZone
 {
     /**
      * @var TemplateChooser
@@ -140,8 +138,10 @@ class DetailController extends TwigAwareController
      *     name="record",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
+     *
+     * @param string|int $slugOrId
      */
-    public function record($slugOrId): Response
+    public function record($slugOrId, ?string $contentTypeSlug = null): Response
     {
         // @todo should we check content type?
         if (is_numeric($slugOrId)) {
@@ -165,9 +165,6 @@ class DetailController extends TwigAwareController
             'record' => $record,
             $recordSlug => $record,
         ];
-
-        dump($record);
-        dump($record->getFieldValues());
 
         $templates = $this->templateChooser->forRecord($record);
 

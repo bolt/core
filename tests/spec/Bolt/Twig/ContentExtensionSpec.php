@@ -2,7 +2,7 @@
 
 namespace spec\Bolt\Twig;
 
-use Bolt\Content\ContentType;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * @mixin ContentExtension
@@ -29,9 +30,9 @@ class ContentExtensionSpec extends ObjectBehavior
     const TEST_CT_SLUG = 'ct-slug';
     const TEST_ID = 42;
 
-    function let(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository)
+    function let(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager)
     {
-        $this->beConstructedWith($urlGenerator, $contentRepository);
+        $this->beConstructedWith($urlGenerator, $contentRepository, $csrfTokenManager);
     }
 
     function it_gets_title(Content $content, TextField $field, ContentType $definition)
@@ -136,7 +137,7 @@ class ContentExtensionSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn(self::TEST_LINK);
         $content->getId()->shouldBeCalled()->willReturn(self::TEST_ID);
         $content->getSlug()->shouldBeCalled()->willReturn(self::TEST_SLUG);
-        $content->getContentTypeSlug()->shouldBeCalled()->willReturn(self::TEST_CT_SLUG);
+        $content->getContentTypeSingularSlug()->shouldBeCalled()->willReturn(self::TEST_CT_SLUG);
 
         $this->getLink($content)->shouldBe(self::TEST_LINK);
     }
@@ -153,7 +154,7 @@ class ContentExtensionSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn(self::TEST_FULL_LINK);
         $content->getId()->shouldBeCalled()->willReturn(self::TEST_ID);
         $content->getSlug()->shouldBeCalled()->willReturn(null);
-        $content->getContentTypeSlug()->shouldBeCalled()->willReturn(self::TEST_CT_SLUG);
+        $content->getContentTypeSingularSlug()->shouldBeCalled()->willReturn(self::TEST_CT_SLUG);
 
         $this->getLink($content, true)->shouldBe(self::TEST_FULL_LINK);
     }

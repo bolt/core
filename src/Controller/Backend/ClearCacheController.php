@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ClearCacheController extends AbstractController
+class ClearCacheController extends AbstractController implements BackendZone
 {
     /** @var TranslatorInterface */
     private $translator;
@@ -47,6 +47,6 @@ class ClearCacheController extends AbstractController
             'output' => $output->fetch(),
         ];
 
-        return $this->render('clearcache/clearcache.html.twig', $twigvars);
+        return $this->render('@bolt/pages/clearcache.html.twig', $twigvars);
     }
 }

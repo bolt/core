@@ -38,37 +38,12 @@ trait ContentExtrasTrait
             'excerpt' => $this->contentExtension->getExcerpt($content),
             'link' => $this->contentExtension->getLink($content),
             'editLink' => $this->contentExtension->getEditLink($content),
-        ];
-    }
-
-    public function jsonSerialize(): array
-    {
-        /** @var Content $content */
-        $content = $this;
-
-        if ($this->getDefinition() === null) {
-            return [];
-        }
-
-        return [
-            'id' => $content->getId(),
-            'contentType' => $content->getContentType(),
-            'slug' => $content->getSlug(),
-            'author' => [
-                'id' => $content->getAuthor()->getId(),
-                'displayName' => $content->getAuthor()->getDisplayName(),
-                'username' => $content->getAuthor()->getUsername(),
-                'email' => $content->getAuthor()->getEmail(),
-            ],
-            'fields' => $content->getFieldValues(),
-            'taxonomies' => $content->getTaxonomyValues(),
-            'extras' => $this->getExtras(),
-            'status' => $content->getStatus(),
-            'icon' => $content->getIcon(),
-            'createdAt' => $content->getCreatedAt(),
-            'modifiedAt' => $content->getModifiedAt(),
-            'publishedAt' => $content->getPublishedAt(),
-            'depublishedAt' => $content->getDepublishedAt(),
+            'statusLink' => $this->contentExtension->getStatusLink($content),
+            'deleteLink' => $this->contentExtension->getDeleteLink($content),
+            'duplicateLink' => $this->contentExtension->getDuplicateLink($content),
+            'icon' => $this->getIcon(),
+            'name' => $this->getDefinition()->get('name'),
+            'singular_name' => $this->getDefinition()->get('singular_name'),
         ];
     }
 }

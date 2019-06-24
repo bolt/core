@@ -5,66 +5,64 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Str;
-use Bolt\Configuration\Areas;
-use Bolt\Configuration\Config;
+use Bolt\Configuration\FileLocations;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
+use Bolt\Utils\Excerpt;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
 use Webmozart\PathUtil\Path;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class FilemanagerController extends TwigAwareController
+class FilemanagerController extends TwigAwareController implements BackendZone
 {
     /**
-     * @var Areas
+     * @var FileLocations
      */
-    private $areas;
+    private $fileLocations;
 
     /**
      * @var MediaRepository
      */
     private $mediaRepository;
 
-    public function __construct(Areas $areas, MediaRepository $mediaRepository, Config $config, Environment $twig)
+    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository)
     {
-        $this->areas = $areas;
+        $this->fileLocations = $fileLocations;
         $this->mediaRepository = $mediaRepository;
-        parent::__construct($config, $twig);
     }
 
     /**
-     * @Route("/filemanager/{area}", name="bolt_filemanager", methods={"GET"})
+     * @Route("/filemanager/{location}", name="bolt_filemanager", methods={"GET"})
      */
-    public function filemanager(string $area, Request $request): Response
+    public function filemanager(string $location, Request $request): Response
     {
         $path = $request->query->get('path', '');
         if (str::endsWith($path, '/') === false) {
             $path .= '/';
         }
 
-        $area = $this->areas->get($area);
+        $location = $this->fileLocations->get($location);
 
-        $finder = $this->findFiles($area->get('basepath'), $path);
+        $finder = $this->findFiles($location->getBasepath(), $path);
 
         $media = $this->mediaRepository->findAll();
 
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';
 
-        return $this->renderTemplate('finder/finder.html.twig', [
+        return $this->renderTemplate('@bolt/finder/finder.html.twig', [
             'path' => $path,
-            'name' => $area->get('name'),
-            'area' => $area->get('key'),
+            'name' => $location->getName(),
+            'location' => $location->getKey(),
             'finder' => $finder,
             'parent' => $parent,
             'media' => $media,
-            'allfiles' => $area->get('show_all') ? $this->buildIndex($area->get('basepath')) : false,
+            'allfiles' => $location->isShowAll() ? $this->buildIndex($location->getBasepath()) : false,
         ]);
     }
 
@@ -88,7 +86,7 @@ class FilemanagerController extends TwigAwareController
         $index = [];
 
         foreach ($finder as $file) {
-            $contents = current(explode("\n", $file->getContents()));
+            $contents = $this->getFileSummary($file->getContents());
             $index[] = [
                 'filename' => $file->getRelativePathname(),
                 'description' => $contents,
@@ -96,5 +94,11 @@ class FilemanagerController extends TwigAwareController
         }
 
         return $index;
+    }
+
+    private function getFileSummary($contents)
+    {
+        $contents = str_replace(['<?php', '# ', "\n"], ['', '', " \n"], $contents);
+        return Excerpt::getExcerpt($contents, 300);
     }
 }

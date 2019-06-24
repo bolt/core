@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt;
 
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Tightenco\Collect\Support\Collection;
 
@@ -78,7 +79,7 @@ class TemplateChooser
         return $templates->unique()->filter()->toArray();
     }
 
-    public function forListing(?Collection $contentType = null): array
+    public function forListing(ContentType $contentType): array
     {
         $templates = new Collection();
 
@@ -89,8 +90,8 @@ class TemplateChooser
 
         // Second candidate: a template with the same filename as the name of
         // the content type.
-        $templates->push($contentType['slug'] . '.html.twig');
-        $templates->push($contentType['slug'] . '.twig');
+        $templates->push($contentType->getSlug() . '.html.twig');
+        $templates->push($contentType->getSlug() . '.twig');
 
         // Third candidate: Theme-specific config.yml file.
         $templates->push($this->config->get('theme/listing_template'));

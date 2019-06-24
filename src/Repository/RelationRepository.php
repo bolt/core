@@ -6,6 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
+use Bolt\Enum\Statuses;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Sortable\Entity\Repository\SortableRepository;
@@ -33,15 +34,20 @@ class RelationRepository extends SortableRepository
     /**
      * @var Relation[]
      */
-    public function findRelations(Content $from, ?string $name, bool $biDirectional = false, ?int $limit = null): array
+    public function findRelations(Content $from, ?string $name, bool $biDirectional = false, ?int $limit = null, bool $publishedOnly = true): array
     {
-        $result = $this->buildRelationQuery($from, $name)
+        // Only get existing Relations from content that was persisted before
+        if ($from->getId() === null) {
+            return [];
+        }
+
+        $result = $this->buildRelationQuery($from, $name, false, $publishedOnly)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
 
         if (empty($result) === true && $biDirectional === true) {
-            $result = $this->buildRelationQuery($from, $name, true)
+            $result = $this->buildRelationQuery($from, $name, true, $publishedOnly)
                 ->setMaxResults($limit)
                 ->getQuery()
                 ->getResult();
@@ -50,15 +56,15 @@ class RelationRepository extends SortableRepository
         return $result;
     }
 
-    public function findFirstRelation(Content $from, ?string $name, bool $biDirectional = false): ?Relation
+    public function findFirstRelation(Content $from, ?string $name, bool $biDirectional = false, bool $publishedOnly = true): ?Relation
     {
-        $result = $this->buildRelationQuery($from, $name)
+        $result = $this->buildRelationQuery($from, $name, false, $publishedOnly)
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
 
         if ($result === null && $biDirectional === true) {
-            $result = $this->buildRelationQuery($from, $name, true)
+            $result = $this->buildRelationQuery($from, $name, true, $publishedOnly)
                 ->setMaxResults(1)
                 ->getQuery()
                 ->getOneOrNullResult();
@@ -67,13 +73,18 @@ class RelationRepository extends SortableRepository
         return $result;
     }
 
-    private function buildRelationQuery(Content $from, ?string $name, bool $reversed = false): QueryBuilder
+    private function buildRelationQuery(Content $from, ?string $name, bool $reversed = false, bool $publishedOnly = true): QueryBuilder
     {
         $qb = $this->createQueryBuilder('r')
             ->select('r, cfrom, cto')
             ->join('r.fromContent', 'cfrom')
             ->join('r.toContent', 'cto')
             ->orderBy('r.position', 'DESC');
+
+        if ($publishedOnly === true) {
+            $qb->andWhere('cto.status = :status')
+                ->setParameter('status', Statuses::PUBLISHED, \PDO::PARAM_STR);
+        }
 
         if ($name !== null) {
             $qb->andWhere('r.name = :name')

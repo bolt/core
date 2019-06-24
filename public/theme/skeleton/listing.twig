@@ -9,7 +9,7 @@
            'all records tagged with kittens'. #}
 
         {# If used for listing a taxonomy, we add a heading.: #}
-        {% if taxonomytype is defined %}
+        {% if taxonomy|default %}
             <h1>
                 {{ __('general.phrase.overview-for') }}
                 {% if taxonomy.options[slug] is defined %}

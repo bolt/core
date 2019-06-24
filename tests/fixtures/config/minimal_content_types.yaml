@@ -1,0 +1,16 @@
+# Minimal ContentTypes
+
+foo:
+  name: Bars
+  singular_name: Bar
+  fields: []
+
+qux:
+  slug: corges
+  singular_slug: corge
+  fields: []
+
+# Infer fields, and determine both the `slug` and `name` get inferred from the key
+grault:
+  singular_name: Waldo
+  fields: []

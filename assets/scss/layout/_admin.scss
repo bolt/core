@@ -1,5 +1,7 @@
 //** Layout | Admin
 
+// Note: Override for "Wide content" is below
+
 $admin-toolbar-height: 36px;
 $admin-sidebar-width: 200px;
 $admin-aside-width: 320px;
@@ -40,7 +42,7 @@ $admin-header-height: 70px;
     left: 0;
     height: $admin-toolbar-height;
     width: 100vw;
-    z-index: 1001;
+    z-index: $big-z-index + 40;
   }
 
   &__header {
@@ -51,6 +53,10 @@ $admin-header-height: 70px;
 
     .container {
       padding: 0;
+
+      @include media-breakpoint-up(xl) {
+        max-width: 1240px;
+      }
     }
   }
 
@@ -98,5 +104,15 @@ $admin-header-height: 70px;
       grid-area: aside;
       width: $admin-aside-width;
     }
+  }
+}
+
+.widecontent {
+
+  .admin__body--container {
+    display: grid;
+    grid-template-columns: auto 0;
+    grid-template-areas: "main";
+    padding: $spacer * 2;
   }
 }

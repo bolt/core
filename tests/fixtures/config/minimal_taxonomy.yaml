@@ -1,0 +1,7 @@
+# Minimal Taxonomy
+
+foo:
+  name: Bar
+
+qux:
+  slug: corge

@@ -8,7 +8,6 @@ $checkbox-row-width: 30px;
   border-radius: $border-radius;
   margin-bottom: $spacer / 1.25;
   min-height: 50px;
-  z-index: 100;
   display: flex;
   flex: auto;
   justify-content: space-between;
@@ -20,7 +19,7 @@ $checkbox-row-width: 30px;
       align-items: center;
 
       &.is-details {
-        max-width: 40%;
+        max-width: 60%;
 
         strong {
           white-space: nowrap;
@@ -34,12 +33,21 @@ $checkbox-row-width: 30px;
       }
 
       &.is-meta {
-        flex: 0 0 24%;
+        flex: 0 0 auto;
         margin-left: auto;
       }
 
       &.is-actions {
         flex: 0 0 auto;
+
+        .btn-group {
+          height: 1.8rem;
+          width: auto;
+        }
+
+        .btn-group + .btn-group {
+          margin: 0 0 0 0.4rem;
+        }
       }
     }
 
@@ -92,29 +100,30 @@ $checkbox-row-width: 30px;
 
       span {
         color: var(--shade);
-        font-style: italic;
       }
     }
 
     &.is-meta {
-      flex: 0 0 25%;
+      flex: 0 0 20%;
       margin-left: auto;
+      padding-bottom: 0;
+      min-width: 130px;
     }
 
     &.is-actions {
-      flex: 0 0 15%;
-      background: var(--shade-100);
-      display: flex;
-      align-items: center;
+      flex: 0 0 14%;
       border-radius: 0 $border-radius $border-radius 0;
+      align: right;
+      min-width: 120px;
     }
   }
 
   &--list {
     padding: 0;
-    margin: 0;
+    margin: 1px 0 0;
     list-style: none;
-    font-size: 90%;
+    font-size: 0.8rem;
+    line-height: 1.4;
     letter-spacing: $letter-spacing;
 
     li {
@@ -163,17 +172,19 @@ $checkbox-row-width: 30px;
       }
     }
 
-    &--quickedit {
-      background: transparent;
-      border: 0;
-      color: var(--primary);
-      padding: 0;
+  }
 
-      &:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-    }
+  .dropdown-menu {
+    padding: 3px 0;
+  }
+
+  .dropdown-item {
+    padding: 3px 0.75rem;
+  }
+
+  .dropdown-item-text {
+    padding: 3px 0.75rem;
+    color: var(--shade);
   }
 }
 
@@ -191,4 +202,3 @@ $checkbox-row-width: 30px;
 
 @import '_container';
 @import '_checkbox';
-@import '_quick-edit';

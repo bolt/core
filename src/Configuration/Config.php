@@ -9,10 +9,12 @@ use Bolt\Common\Arr;
 use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
+use Bolt\Configuration\Parser\MenuParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Tightenco\Collect\Support\Collection;
+use Webmozart\PathUtil\Path;
 
 class Config
 {
@@ -91,25 +93,26 @@ class Config
      */
     private function parseConfig(): array
     {
-        $general = new GeneralParser();
+        $general = new GeneralParser($this->projectDir);
 
         $config = new Collection([
             'general' => $general->parse(),
         ]);
 
-        $taxonomy = new TaxonomyParser();
+        $taxonomy = new TaxonomyParser($this->projectDir);
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contentTypes = new ContentTypesParser($config->get('general'));
+        $contentTypes = new ContentTypesParser($this->projectDir, $config->get('general'));
         $config['contenttypes'] = $contentTypes->parse();
 
+        $menu = new MenuParser($this->projectDir);
+        $config['menu'] = $menu->parse();
+
         // @todo Add these config files if needed, or refactor them out otherwise
-        //'menu' => $this->parseConfigYaml('menu.yml'),
-        //'routing' => $this->parseConfigYaml('routing.yml'),
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
 
-        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes);
+        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu);
 
         return [
             DeepCollection::deepMake($config),
@@ -122,7 +125,7 @@ class Config
         $timestamps = [];
 
         foreach ($configs as $config) {
-            foreach ($config->getFilenames() as $file) {
+            foreach ($config->getParsedFilenames() as $file) {
                 $timestamps[$file] = filemtime($file);
             }
         }
@@ -141,7 +144,7 @@ class Config
      * For example:
      * $var = $config->get('general/wysiwyg/ck/contentsCss');
      *
-     * @param string|array|bool $default
+     * @param string|array|bool|int $default
      */
     public function get(string $path, $default = null)
     {

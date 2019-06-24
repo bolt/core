@@ -2,7 +2,7 @@
 
 .admin__sidebar {
   position: relative;
-  z-index: 1000;
+  z-index: $big-z-index + 10;
   background: var(--admin-sidebar);
   color: var(--admin-sidebar-text);
   height: 100%;

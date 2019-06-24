@@ -1,0 +1,16 @@
+@import '~codemirror/lib/codemirror.css';
+
+
+
+.CodeMirror.cm-s-default {
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  padding: 0;
+  height: calc(100vh - 300px);
+  line-height: 1.4rem;
+  font-family: $font-family-monospace;
+}
+
+.CodeMirror.cm-s-paper {
+  font-family: $font-family-base;
+}

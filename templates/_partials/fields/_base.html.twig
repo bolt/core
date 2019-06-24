@@ -44,8 +44,8 @@
 {# Set the value #}
 {% if not value|default %}
     {% set value = field.value|default('') %}
-    {% if value is iterable %}
-        {% set value = field.__toString() %}
+    {% if value is iterable and field.definition.type != "select" %}
+        {% set value = value|first %}
     {% endif %}
 {% endif %}
 

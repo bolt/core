@@ -62,22 +62,14 @@ services:
         'position_after_anonymous_constructs': 'same'
 
     PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
-    PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer:
-        order:
-            - 'use_trait'
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
         elements:
             - 'const'
             - 'method'
             - 'property'
-    PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer: ~
     PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer: ~
-    PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
     PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
     PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer: ~
-
-    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
-        spacing: 'one'
 
     PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer: ~
     PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer: ~
@@ -93,16 +85,16 @@ services:
 
 parameters:
     cache_directory: var/cache/ecs
-    exclude_checkers:
-        - 'PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer'
-        - 'PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer'
-        - 'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer'
-        - 'PhpCsFixer\Fixer\Operator\ConcatSpaceFixer'
-        - 'PhpCsFixer\Fixer\Operator\IncrementStyleFixer'
-        - 'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer'
-        - 'PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer'
-        - 'PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer'
-        - 'PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer'
-        - 'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff'
-        - 'Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff' #to be removed before beta release
-        - 'Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff' #to be removed before beta release
+    skip:
+        PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer: ~
+        PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~
+        PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: ~
+        PhpCsFixer\Fixer\Operator\ConcatSpaceFixer: ~
+        PhpCsFixer\Fixer\Operator\IncrementStyleFixer: ~
+        PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
+        PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer: ~
+        PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer: ~
+        PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff: ~
+        Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: ~ #to be removed before beta release
+        Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~ #to be removed before beta release

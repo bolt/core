@@ -23,3 +23,23 @@
     background: var(--status-timed);
   }
 }
+
+.badge {
+  color: #FFF !important;
+
+  &.is-published {
+    background: var(--status-published);
+  }
+
+  &.is-held {
+    background: var(--status-held);
+  }
+
+  &.is-draft {
+    background: var(--status-draft);
+  }
+
+  &.is-timed {
+    background: var(--status-timed);
+  }
+}

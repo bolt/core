@@ -5,36 +5,37 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Enum\Statuses;
+use Bolt\Exception\ConfigurationException;
 use Bolt\Utils\Str;
-use Exception;
 use Tightenco\Collect\Support\Collection;
 
 class ContentTypesParser extends BaseParser
 {
-    /**
-     * @var Collection
-     */
+    /** @var Collection */
     private $generalConfig;
 
-    public function __construct(Collection $generalConfig)
+    public function __construct(string $projectDir, Collection $generalConfig, string $filename = 'contenttypes.yaml')
     {
         $this->generalConfig = $generalConfig;
-        parent::__construct();
+        parent::__construct($projectDir, $filename);
     }
 
     /**
      * Read and parse the contenttypes.yml configuration file.
      *
-     * @throws Exception
+     * @throws ConfigurationException
      */
     public function parse(): Collection
     {
         $contentTypes = [];
-        $tempContentTypes = $this->parseConfigYaml('contenttypes.yaml');
+        $tempContentTypes = $this->parseConfigYaml($this->getInitialFilename());
         foreach ($tempContentTypes as $key => $contentType) {
-            $contentType = $this->parseContentType($key, $contentType);
-            $contentTypes[$key] = $contentType;
+            if (is_array($contentType)) {
+                $contentType = $this->parseContentType($key, $contentType);
+                $contentTypes[$key] = $contentType;
+            }
         }
 
         return new Collection($contentTypes);
@@ -44,11 +45,10 @@ class ContentTypesParser extends BaseParser
      * Parse a single Content Type configuration array.
      *
      * @param string $key
-     * @param array  $contentType
      *
-     * @throws \Exception
+     * @throws ConfigurationException
      */
-    protected function parseContentType($key, $contentType): array
+    protected function parseContentType($key, array $contentType): ContentType
     {
         // If the slug isn't set, and the 'key' isn't numeric, use that as the slug.
         if (! isset($contentType['slug']) && ! is_numeric($key)) {
@@ -59,17 +59,17 @@ class ContentTypesParser extends BaseParser
         // neither 'singular_name' nor 'singular_slug' is set.
         if (! isset($contentType['name']) && ! isset($contentType['slug'])) {
             $error = sprintf("In content type <code>%s</code>, neither 'name' nor 'slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
-            throw new Exception($error);
+            throw new ConfigurationException($error);
         }
         if (! isset($contentType['singular_name']) && ! isset($contentType['singular_slug'])) {
             $error = sprintf("In content type <code>%s</code>, neither 'singular_name' nor 'singular_slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
-            throw new Exception($error);
+            throw new ConfigurationException($error);
         }
 
         // Content types without fields make no sense.
         if (! isset($contentType['fields'])) {
             $error = sprintf("In content type <code>%s</code>, no 'fields' are set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
-            throw new Exception($error);
+            throw new ConfigurationException($error);
         }
 
         if (! isset($contentType['slug'])) {
@@ -108,13 +108,6 @@ class ContentTypesParser extends BaseParser
             $contentType['icon_many'] = 'fa-copy';
         } else {
             $contentType['icon_many'] = str_replace('fa:', 'fa-', $contentType['icon_many']);
-        }
-
-        // Allow explicit setting of a Content Type's table name suffix. We default to slug if not present.
-        if (isset($contentType['tablename'])) {
-            $contentType['tablename'] = Str::slug($contentType['tablename'], '_');
-        } else {
-            $contentType['tablename'] = Str::slug($contentType['slug'], '_');
         }
 
         if (! isset($contentType['allow_numeric_slugs'])) {
@@ -169,13 +162,13 @@ class ContentTypesParser extends BaseParser
             $contentType['groups'][] = 'Relations';
         }
 
-        return $contentType;
+        return ContentType::deepMake($contentType);
     }
 
     /**
      * Parse a Content Type's field and determine the grouping.
      *
-     * @throws Exception
+     * @throws ConfigurationException
      */
     protected function parseFieldsAndGroups(array $fields): array
     {
@@ -190,7 +183,7 @@ class ContentTypesParser extends BaseParser
             if (! isset($field['type']) || empty($field['type'])) {
                 $error = sprintf('Field "%s" has no "type" set.', $key);
 
-                throw new \Exception($error);
+                throw new ConfigurationException($error);
             }
 
             // If field is a "file" type, make sure the 'extensions' are set, and it's an array.
@@ -224,6 +217,14 @@ class ContentTypesParser extends BaseParser
 
             if (isset($field['allow_html']) === false) {
                 $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
+            }
+
+            if (isset($field['allow_twig']) === false) {
+                $field['allow_twig'] = false;
+            }
+
+            if (isset($field['sanitise']) === false) {
+                $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
             }
 
             // Make sure we have these keys and every field has a group set.

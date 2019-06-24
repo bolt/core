@@ -15,7 +15,7 @@ trait ContentLocalizeTrait
     {
         $locales = $this->getDefinition()->get('locales');
 
-        if ($locales->isEmpty()) {
+        if (empty($locales)) {
             return new Collection(['']);
         }
 
@@ -24,6 +24,6 @@ trait ContentLocalizeTrait
 
     public function getDefaultLocale(): string
     {
-        return $this->getLocales()->first();
+        return (string) $this->getLocales()->first();
     }
 }

@@ -10,7 +10,9 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -28,10 +30,14 @@ class ContentExtension extends AbstractExtension
      */
     private $contentRepository;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository)
+    /** @var CsrfTokenManagerInterface */
+    private $csrfTokenManager;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
+        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     /**
@@ -49,6 +55,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('next', [$this, 'getNextContent']),
             new TwigFilter('link', [$this, 'getLink'], $safe),
             new TwigFilter('edit_link', [$this, 'getEditLink'], $safe),
+            new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
         ];
     }
 
@@ -130,7 +137,7 @@ class ContentExtension extends AbstractExtension
     /**
      * @param string|array|null $focus
      */
-    public function getExcerpt(Content $content, int $length = 150, bool $includeTitle = true, $focus = null): string
+    public function getExcerpt(Content $content, int $length = 280, bool $includeTitle = true, $focus = null): string
     {
         $excerptParts = [];
 
@@ -195,10 +202,12 @@ class ContentExtension extends AbstractExtension
             return null;
         }
 
-        return $this->urlGenerator->generate('record', [
+        $params = [
             'slugOrId' => $content->getSlug() ?: $content->getId(),
-            'contentTypeSlug' => $content->getContentTypeSlug(),
-        ], $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH);
+            'contentTypeSlug' => $content->getContentTypeSingularSlug(),
+        ];
+
+        return $this->generateLink('record', $params, $absolute);
     }
 
     public function getEditLink(Content $content, bool $absolute = false): ?string
@@ -207,12 +216,75 @@ class ContentExtension extends AbstractExtension
             return null;
         }
 
-        return $this->urlGenerator->generate(
-            'bolt_content_edit',
-            [
-                'id' => $content->getId(),
-            ],
-            $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
-        );
+        return $this->generateLink('bolt_content_edit', ['id' => $content->getId()], $absolute);
+    }
+
+    public function getDeleteLink(Content $content, bool $absolute = false): ?string
+    {
+        if ($content->getId() === null) {
+            return null;
+        }
+
+        $params = [
+            'id' => $content->getId(),
+            'token' => (string) $this->csrfTokenManager->getToken('delete'),
+        ];
+
+        return $this->generateLink('bolt_content_delete', $params, $absolute);
+    }
+
+    public function getDuplicateLink(Content $content, bool $absolute = false): ?string
+    {
+        if ($content->getId() === null) {
+            return null;
+        }
+
+        return $this->generateLink('bolt_content_duplicate', ['id' => $content->getId()], $absolute);
+    }
+
+    public function getStatusLink(Content $content, bool $absolute = false): ?string
+    {
+        if ($content->getId() === null) {
+            return null;
+        }
+
+        $params = [
+            'id' => $content->getId(),
+            'token' => (string) $this->csrfTokenManager->getToken('status'),
+        ];
+
+        return $this->generateLink('bolt_content_status', $params, $absolute);
+    }
+
+    private function generateLink(string $route, array $params, $absolute = false): string
+    {
+        try {
+            $link = $this->urlGenerator->generate(
+                $route,
+                $params,
+                $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
+            );
+        } catch (InvalidParameterException $e) {
+            // @todo More graceful logging, tell user that (probably) the ContentType went missing.
+            dump($e);
+            $link = '';
+        }
+
+        return $link;
+    }
+
+    public function getTaxonomies(Content $content): Collection
+    {
+        $taxonomies = [];
+        foreach ($content->getTaxonomies() as $taxonomy) {
+            $link = $this->urlGenerator->generate('taxonomy', [
+                'taxonomyslug' => $taxonomy->getType(),
+                'slug' => $taxonomy->getSlug(),
+            ]);
+            $taxonomy->setLink($link);
+            $taxonomies[$taxonomy->getType()][$taxonomy->getSlug()] = $taxonomy;
+        }
+
+        return new Collection($taxonomies);
     }
 }
