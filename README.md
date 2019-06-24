@@ -17,6 +17,9 @@ Follow the progress on Bolt 4, at the following locations
  - Bolt 4 roadmap: https://roadmap.bolt.cm
  - Slack: https://boltcms.slack.com/messages/C0NJEK631 (open for all, requires Slack account)
 
+
+To set up a running environment of Bolt 4 please perform the following steps 1 to 4:
+
 1 Install
 ---------
 
@@ -94,6 +97,7 @@ You can log on, using the default user & pass:
  - user: `admin`
  - pass: `admin%1`
 
+
 How to build assets
 -------------------
 
@@ -103,6 +107,7 @@ To set up initially, run `npm install` to get the required dependencies /
   - Run `npm run start`
 
 See the other options by running `npm run`.
+
 
 Code Style checking / Static Analysis
 ----------------------------
