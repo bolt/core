@@ -150,6 +150,12 @@
         <target>Save changes</target>
       </segment>
     </unit>
+    <unit id="" name="action.do_something">
+      <segment>
+        <source>action.do_something</source>
+        <target>Do Something</target>
+      </segment>
+    </unit>
     <unit id="etGJjTo" name="action.edit_user">
       <notes>
         <note>templates/users/change_password.twig:26</note>
