@@ -24,3 +24,24 @@ $theme-colors: (
     @include button-outline-variant($value);
   }
 }
+
+//set disabled buttons to grey
+
+.btn {
+  &.disabled,
+  &:disabled {
+    opacity: $btn-disabled-opacity;
+    @include box-shadow(none);
+    background: $disabled;
+    color: darken($disabled, 30%);
+    border: $btn-border-width solid transparent;
+  }
+}
+
+.btn-link {
+  &:disabled,
+  &.disabled {
+    color: darken($disabled, 30%);
+    background: transparent;
+  }
+}

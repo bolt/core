@@ -1,14 +1,15 @@
-{# Button Macro #}
-{% macro button(label, icon, class, attr) %}{% spaceless %}
+{# Button Macro with defaults #}
 
-    {% set label = label|default('button')|trans %}
-    {% set icon = icon|replace({'fa-': ''})|default('question-circle') %}
-    {% set class = class|replace({'btn-': ''})|default('info') %}
-    {% set attr = attr|default([]) %}
+{% macro button(label = 'Button', icon = 'question-circle', class = 'tertiary', attr = []) %}{% spaceless %}
+
+    {% set label = label|trans %}
+    {% set icon = icon|replace({'fa-': ''}) %}
+    {% set class = class|replace({'btn-': ''}) %}
+    {% set attr = attr %}
 
     <button class="btn btn-{{ class }} mb-3"
     {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
-        <i class="fas fa-{{ icon }} mr-2"></i>
+        <i class="fas fa-fw fa-{{ icon }} mr-2"></i>
         {{- label -}}
     </button>
 
