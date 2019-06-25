@@ -33,6 +33,9 @@ $headings-font-weight:          600;
 $link-color:                var(--primary);
 $link-hover-color:          var(--primary-600);
 
+//buttons
+$btn-disabled-opacity:                  1;
+
 // Form controls
 $border-radius:                         0.15rem;
 $component-active-bg:                   var(--primary);
@@ -55,13 +58,14 @@ $btn-font-weight: 500;
 
 $primary: #1863AF;
 $secondary: #5DA1AC;
-$tertiary: #E5C870;
+$tertiary: #56696D;
 $success: #61A31F;
 $info: #17A2B8;
 $warning: #FFC107;
 $danger: #DB2427;
 $light: #E8E8E8;
 $dark: #333;
+$disabled: #C8C8C8;
 
 // Grid
 $grid-breakpoints: (

@@ -50,26 +50,50 @@
 
         {% set icons = ['fa-heart', 'fa-wind', 'fa-beer', 'fa-book', 'fa-dove', 'fa-calendar', 'fa-clock', 'fa-code', 'fa-compress', 'fa-exclamation-circle', 'fa-exclamation-triangle', 'fa-expand', 'fa-external-link-square-alt', 'fa-file', 'fa-folder', 'fa-folder-open', 'fa-github', 'fa-image', 'fa-language', 'fa-lock', 'fa-newspaper', 'fa-ring', 'fa-save', 'fa-sign-in-alt', 'fa-socks', 'fa-tachometer-alt', 'fa-tags'] %}
 
+        <label>Default</label>
+        <p>
+        {{ macro.button() }}
+        {{ macro.button('Button', 'fa-question-circle', 'tertiary',  {'disabled': 'disabled' }) }}
+        </p>
+
         <label>Primary, Secondary, Tertiary</label>
         <p>
-        {{ macro.button('action.do_something', random(icons), 'primary', 'button', '') }}
-        {{ macro.button('action.do_something', random(icons), 'secondary', 'button', '') }}
-        {{ macro.button('action.do_something', random(icons), 'tertiary', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'primary',  {'type': 'button'}) }}
+        {{ macro.button('action.do_something', random(icons), 'secondary',  {'type': 'button'}) }}
+        {{ macro.button('action.do_something', random(icons), 'tertiary',  {'type': 'button'}) }}
         </p>
 
-        <label>Success, Warning, Danger</label>
         <p>
-        {{ macro.button('action.do_something', random(icons), 'success', 'button', '') }}
-        {{ macro.button('action.do_something', random(icons), 'warning', 'button', '') }}
-        {{ macro.button('action.do_something', random(icons), 'danger', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'primary',  {'type': 'button', 'disabled': 'disabled' }) }}
+        {{ macro.button('action.do_something', random(icons), 'secondary',  {'type': 'button', 'disabled': 'disabled' }) }}
+        {{ macro.button('action.do_something', random(icons), 'tertiary',  {'type': 'button', 'disabled': 'disabled' }) }}
         </p>
 
-        <label>Light, Dark, Link and "Boltblue"</label>
+
+        <label>Info, Success, Warning, Danger</label>
         <p>
-        {{ macro.button('action.do_something', random(icons), 'light', 'button', '') }}
-        {{ macro.button('action.do_something', random(icons), 'dark', 'button', '') }}
-        {{ macro.button('action.do_something', random(icons), 'link', 'button', '') }}
-        {{ macro.button('action.do_something', random(icons), 'boltblue', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'success',  {'type': 'button'}) }}
+        {{ macro.button('action.do_something', random(icons), 'warning',  {'type': 'button'}) }}
+        {{ macro.button('action.do_something', random(icons), 'danger',  {'type': 'button'}) }}
+        </p>
+
+         <p>
+        {{ macro.button('action.do_something', random(icons), 'success',  {'type': 'button', 'disabled': 'disabled' }) }}
+        {{ macro.button('action.do_something', random(icons), 'warning',  {'type': 'button', 'disabled': 'disabled' }) }}
+        {{ macro.button('action.do_something', random(icons), 'danger',  {'type': 'button', 'disabled': 'disabled' }) }}
+        </p>
+
+
+        <label>Link and "Boltblue"</label>
+        <p>
+        {{ macro.button('action.do_something', random(icons), 'link',  {'type': 'button'}) }}
+        {{ macro.button('action.do_something', random(icons), 'boltblue',  {'type': 'button'}) }}
+        </p>
+
+        <p>
+        {{ macro.button('action.do_something', random(icons), 'link',  {'type': 'button', 'disabled': 'disabled' }) }}
+        {{ macro.button('action.do_something', random(icons), 'boltblue',  {'type': 'button', 'disabled': 'disabled' }) }}
+        </p>
 
         <hr>
     </section>
