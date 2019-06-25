@@ -28,7 +28,9 @@ class FieldType extends Collection
             'placeholder' => '',
             'sort' => '',
             'default' => '',
-            'allowtwig' => false,
+            'allow_twig' => false,
+            'allow_html' => false,
+            'sanitise' => false,
         ]);
     }
 

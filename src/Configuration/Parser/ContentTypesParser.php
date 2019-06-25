@@ -219,6 +219,14 @@ class ContentTypesParser extends BaseParser
                 $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
             }
 
+            if (isset($field['allow_twig']) === false) {
+                $field['allow_twig'] = false;
+            }
+
+            if (isset($field['sanitise']) === false) {
+                $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
+            }
+
             // Make sure we have these keys and every field has a group set.
             $field = array_replace(
                 [

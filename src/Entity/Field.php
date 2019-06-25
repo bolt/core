@@ -6,6 +6,7 @@ namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Configuration\Content\FieldType;
+use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -182,6 +183,11 @@ class Field implements Translatable, FieldInterface
     {
         $value = $this->getParsedValue();
 
+        if (is_string($value) && $this->getDefinition()->get('sanitise')) {
+            $sanitiser = new Sanitiser();
+            $value = $sanitiser->clean($value);
+        }
+
         if (is_string($value) && $this->getDefinition()->get('allow_html')) {
             $value = new Markup($value, 'UTF-8');
         }
@@ -257,7 +263,7 @@ class Field implements Translatable, FieldInterface
     /**
      * @Groups("get_field")
      */
-    public static function getType(): string
+    public function getType(): string
     {
         return 'generic';
     }

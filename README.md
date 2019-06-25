@@ -17,13 +17,16 @@ Follow the progress on Bolt 4, at the following locations
  - Bolt 4 roadmap: https://roadmap.bolt.cm
  - Slack: https://boltcms.slack.com/messages/C0NJEK631 (open for all, requires Slack account)
 
-Install
--------
+
+To set up a running environment of Bolt 4 please perform the following steps 1 to 4:
+
+1 Install
+---------
 
 To install Bolt 4 (for now):
 
-  - Check out the git repo
-  - Then:
+  - Check out this git repository
+  - Then run:
 
   ```bash
 composer install
@@ -34,13 +37,12 @@ Alternatively, run `make install`, on a UNIX-like system.
 
 It's on the roadmap for Beta 1 to provide a `composer create-project` install.
 
-Use with Docker
----------------
+### Or install with Docker
 
 To install Bolt 4 with Docker (for now, on a UNIX-like system):
 
   - Check out the git repo
-  - Then:
+  - Then run:
 
   ```bash
 make docker-install
@@ -48,15 +50,15 @@ make docker-install
 
 Actually, just add `docker-` prefix to any Make command and that's it!
 
-In your browser, go to `http://0.0.0.0:8088/` for the frontend, and to
+When installed with Docker, in your browser go to `http://0.0.0.0:8088/` for the frontend, and to
 `http://0.0.0.0:8088/bolt` for the Admin Panel.
 
-Set up Database
----------------
+2 Set up Database
+-----------------
 
-  - Configure the database connection in `.env`. Or stick with the default
-    SQLite. It ought to work out of the box.
-  - Then:
+  - Configure the database connection in `.env` or stick with the default
+    SQLite, which should work out of the box.
+  - Then run:
 
 ```bash
 bin/console doctrine:database:create
@@ -66,12 +68,12 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-create`, on a UNIX-like system.
 
-Re-set the Database
--------------------
+3 Re-set the Database
+---------------------
 
-This is a prototype in flux. Shit will break, and you might want to reset it to
-the "factory settings". To Re-set a database to the latest, with fresh
-dummy-content use this:
+This is a Bolt prototype in flux, so stuff can break, and you might want to reset the database to
+the "factory settings". To re-set a database to the latest, with fresh
+dummy-content run the following:
 
 ```
 bin/console doctrine:schema:drop --force
@@ -81,10 +83,11 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-reset`, on a UNIX-like system.
 
-Run the prototype
------------------
+4 Run the prototype
+-------------------
 
   - Run `bin/console server:start`
+  (if running `bin/console server:start`does not work because you don't have the pcntl extension, run `bin/console server:run`)
 
 In your browser, go to `http://127.0.0.1:8000/` for the frontend, and to
 `http://127.0.0.1:8000/bolt` for the Admin Panel.
@@ -94,8 +97,9 @@ You can log on, using the default user & pass:
  - user: `admin`
  - pass: `admin%1`
 
-Build assets
-------------
+
+How to build assets
+-------------------
 
 To set up initially, run `npm install` to get the required dependencies /
 `node_modules`. Then:
@@ -104,7 +108,8 @@ To set up initially, run `npm install` to get the required dependencies /
 
 See the other options by running `npm run`.
 
-Code Style / Static Analysis
+
+Code Style checking / Static Analysis
 ----------------------------
 
 Run the following commands with `make`, to perform Code Style checking and
@@ -128,7 +133,7 @@ vendor/bin/phpstan.bat analyse -c phpstan.neon src
 ```
 
 Testing
----
+-------
 
 Bolt uses several testing frameworks for [different test layers][fowler]:
 - unit: PHPSpec, PHPUnit, Jest
@@ -147,7 +152,7 @@ make e2e
 ```
 
 Fixing IDE issues
-----
+-----------------
 
 - PHPStorm does not see `@bolt` Twig namespace.
 

@@ -10,6 +10,6 @@
 
 @each $color, $value in $bootstrap-colors {
   .btn-outline-#{$color} {
-    @include button-outline-css-variable($color);
+    @include button-outline-css-variable($value);
   }
 }

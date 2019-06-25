@@ -62,6 +62,19 @@
         <div class="box text_textarea">{{ record.textarea_field }}</div><br>
     </p>
 
+    <h2>Testing output with `sanitise`</h2>
+
+    <p>
+        Default output with <code>sanitise: {{ record.field('text_not_sanitised').definition.sanitise ? 'true' : 'false' }}</code>:<br>
+    <div class="box text_sanitise_a">{{ record.text_not_sanitised }}</div><br>
+
+    Default output with <code>sanitise: {{ record.field('text_sanitised').definition.sanitise ? 'true' : 'false' }}</code>:<br>
+    <div class="box text_sanitise_b">{{ record.text_sanitised }}</div><br>
+
+    </p>
+
+    <hr>
+
     <h2>Testing output for images</h2>
 
     {% if record.image %}

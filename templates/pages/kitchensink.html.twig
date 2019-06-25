@@ -1,0 +1,120 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{% block title %} <strong>{{ title }}</strong>
+    {% if subtitle|default() %}» {{ subtitle }} {% endif %}
+{% endblock title %}
+
+{% block main %}
+
+    <h2>{{ title }}</h2>
+
+    <div id="listing">
+        {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': 'dashboard' } %}
+    </div>
+
+    {% if subtitle|default() %}
+        <h3>{{ subtitle }}</h3>
+    {% endif %}
+
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Torquatus, is qui consul
+        cum Cn. <strong>Tum ille timide</strong> vel potius verecunde: Facio, inquit. Quae sequuntur igitur?
+        Sunt enim prima <em>elementa naturae</em>, quibus auctis vírtutis quasi germen efficitur.
+        Omnis enim est natura diligens sui. Duo Reges: constructio interrete.
+        <code>Quid, de quo nulla dissensio est?</code> Sed nunc, quod agimus;
+    </p>
+
+    <div class="alert alert-primary" role="alert">
+        A simple primary alert—check it out!
+    </div>
+    <div class="alert alert-secondary" role="alert">
+        A simple secondary alert—check it out!
+    </div>
+    <div class="alert alert-success" role="alert">
+        A simple success alert—check it out!
+    </div>
+    <div class="alert alert-danger" role="alert">
+        A simple danger alert—check it out!
+    </div>
+    <div class="alert alert-warning" role="alert">
+        A simple warning alert—check it out!
+    </div>
+    <div class="alert alert-info" role="alert">
+        A simple info alert—check it out!
+    </div>
+
+    <section class="buttons">
+        <h1>Buttons</h1>
+
+        {% set icons = ['fa-heart', 'fa-wind', 'fa-beer', 'fa-book', 'fa-dove', 'fa-calendar', 'fa-clock', 'fa-code', 'fa-compress', 'fa-exclamation-circle', 'fa-exclamation-triangle', 'fa-expand', 'fa-external-link-square-alt', 'fa-file', 'fa-folder', 'fa-folder-open', 'fa-github', 'fa-image', 'fa-language', 'fa-lock', 'fa-newspaper', 'fa-ring', 'fa-save', 'fa-sign-in-alt', 'fa-socks', 'fa-tachometer-alt', 'fa-tags'] %}
+
+        <label>Primary, Secondary, Tertiary</label>
+        <p>
+        {{ macro.button('action.do_something', random(icons), 'primary', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'secondary', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'tertiary', 'button', '') }}
+        </p>
+
+        <label>Success, Warning, Danger</label>
+        <p>
+        {{ macro.button('action.do_something', random(icons), 'success', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'warning', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'danger', 'button', '') }}
+        </p>
+
+        <label>Light, Dark, Link and "Boltblue"</label>
+        <p>
+        {{ macro.button('action.do_something', random(icons), 'light', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'dark', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'link', 'button', '') }}
+        {{ macro.button('action.do_something', random(icons), 'boltblue', 'button', '') }}
+
+        <hr>
+    </section>
+
+
+    <section class="fields">
+        <h1>Fields</h1>
+
+        <form method="post" id="editor">
+
+            {# a field with _no_ options, all defaults/fallbacks #}
+            {% include '@bolt/_partials/fields/generic.html.twig' %}
+
+            {# a field with passed in options #}
+            {% include '@bolt/_partials/fields/generic.html.twig' with {
+                'name': 'foo',
+                'id': 'bar',
+                'value': "FooBar",
+                'label': 'A dummy Field',
+                'placeholder': 'Just a dummy field'
+            } %}
+
+            {# fields from a contenttype #}
+            {% setcontent record = 'homepage' returnsingle %}
+            {% for key, fieldDefinition in record.definition.fields.slice(0,3) %}
+
+                {% set field = record.field(key) %}
+
+                {% include [
+                    '@bolt/_partials/fields/' ~ field.definition.type ~ '.html.twig',
+                    '@bolt/_partials/fields/generic.html.twig'
+                    ] with { 'field' : field } %}
+
+            {% endfor %}
+
+            {# @todo Add more fields #}
+        </form>
+
+        <hr>
+    </section>
+
+{% endblock main %}
+
+{% block aside %}
+
+    {{ widgets('dashboard_aside_top') }}
+
+{% endblock %}

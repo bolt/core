@@ -7,13 +7,14 @@ namespace Bolt\Entity\Field;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
  */
 class SelectField extends Field implements FieldInterface
 {
-    public static function getType(): string
+    public function getType(): string
     {
         return 'select';
     }
@@ -21,12 +22,14 @@ class SelectField extends Field implements FieldInterface
     public function getValue(): ?array
     {
         if (empty($this->value)) {
-            $options = (array) $this->getDefinition()->get('values');
+            $this->value = $this->getDefinition()->get('values');
 
-            // Pick the first key from array, or the full value as string, like `entries/id,title`
-            $this->value = [key($options)];
+            // Pick the first key from Collection, or the full value as string, like `entries/id,title`
+            if ($this->value instanceof Collection) {
+                $this->value = $this->value->keys()->first();
+            }
         }
 
-        return $this->value;
+        return (array) $this->value;
     }
 }
