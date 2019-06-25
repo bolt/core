@@ -1089,12 +1089,6 @@
         <target>File updated succesfully!</target>
       </segment>
     </unit>
-    <unit id="XCmpWav" name="newPassword">
-      <segment>
-        <source>newPassword</source>
-        <target>New Passowrd</target>
-      </segment>
-    </unit>
     <unit id="eq5YMQf" name="9fb3e6e">
       <segment>
         <source>This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
