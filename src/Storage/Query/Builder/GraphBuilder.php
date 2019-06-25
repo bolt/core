@@ -23,7 +23,7 @@ class GraphBuilder implements GraphBuilderInterface
 
     public function getQuery(): string
     {
-        $query = 'query {%s}';
+        $query = 'query { %s }';
         $queries = [];
         /** @var GraphBuilderInterface $content */
         foreach ($this->contents as $content) {

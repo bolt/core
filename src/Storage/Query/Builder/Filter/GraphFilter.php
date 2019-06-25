@@ -16,9 +16,9 @@ class GraphFilter
         $this->searchValue = $searchValue;
     }
 
-    public static function createSimpleFilter(string $field, $searchValue): self
+    public static function createSimpleFilter(string $field, $value): self
     {
-        return new self($field, $searchValue);
+        return new self($field, $value);
     }
 
     public static function createOrFilter(...$graphFilters): self
@@ -36,12 +36,16 @@ class GraphFilter
         switch ($this->field) {
             case 'AND':
             case 'OR':
-                $value = join(',', $this->searchValue);
-                return sprintf('{%s:[%s]}', $this->field, $value);
+                $searchValues = array_map(function($element) {
+                    return sprintf('{%s}', $element);
+                }, $this->searchValue);
+                return sprintf('{%s:[%s]}', $this->field, join(',', $searchValues));
                 break;
             default:
                 $value = $this->getPreparedValue($this->searchValue);
-                return sprintf('{%s:%s}', $this->field, $value);
+//                return sprintf('{%s:%s}', $this->field, $value);
+//                Temporary solution
+                return sprintf('%s_contains:%s', $this->field, $value);
                 break;
         }
     }

@@ -3,6 +3,7 @@
 namespace Bolt\Storage\Query\Builder;
 
 use Bolt\Storage\Query\Builder\Filter\GraphFilter;
+use Exception;
 
 class ContentBuilder implements GraphBuilderInterface
 {
@@ -89,7 +90,7 @@ class ContentBuilder implements GraphBuilderInterface
         $conditions = [];
 
         if ($this->firstRecords !== 0 && $this->lastRecords !== 0) {
-            throw new \Exception();
+            throw new Exception();
         }
 
         if ($this->firstRecords > 0) {
@@ -107,7 +108,16 @@ class ContentBuilder implements GraphBuilderInterface
         }
 
         if (empty($this->filters) === false) {
-            $conditions[] = sprintf('filter: {%s}', join(',', $this->filters));
+            $filterCount = count($this->filters);
+            switch ($filterCount) {
+                case 1:
+                    $conditions[] = sprintf('filter: %s', join(',', $this->filters));
+                    break;
+                default:
+                    $conditions[] = sprintf('filter: {%s}', join(',', $this->filters));
+                    break;
+            }
+
         }
 
         return join(',', $conditions);

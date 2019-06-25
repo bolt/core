@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
-use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
@@ -39,23 +38,16 @@ class DetailController extends TwigAwareController implements FrontendZone
 
     private $query;
 
-    private $simpleGraphGenerator;
-
     public function __construct(
-        Config $config,
-        Environment $twig,
         TemplateChooser $templateChooser,
         ContentRepository $contentRepository,
         FieldRepository $fieldRepository,
-        Query $query,
-        SimpleGraphGenerator $simpleGraphGenerator
+        Query $query
     ) {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
         $this->fieldRepository = $fieldRepository;
         $this->query = $query;
-        $this->simpleGraphGenerator = $simpleGraphGenerator;
-        parent::__construct($config, $twig);
     }
 
     /**
@@ -82,41 +74,59 @@ class DetailController extends TwigAwareController implements FrontendZone
         if (preg_match('#[a-zA-Z0-9_]+(\/[a-zA-Z0-9_\-]+)?#', $query)) {
             $graphBuilder = new GraphBuilder();
             [$contentType, $searchValue] = explode('/', $query);
-//            $query = $graphBuilder->selectContent($contentType)
-//                ->selectFields('slug', 'title')
-//                ->getQuery();
+
+            // EXAMPLE 1
+            //        $query = '
+            //        query {
+            //            content (filter:{slug_contains: "quo", OR:[{title_contains: "quo"}, {heading_contains: "quo"}]}) {
+            //                title
+            //                slug
+            //            }
+            //        }
+            //        ';
+            $query = $graphBuilder->addContent(
+                ContentBuilder::create($contentType)
+                    ->selectFields('slug', 'title')
+                    ->addFilter(
+                        GraphFilter::createOrFilter(
+                            GraphFilter::createSimpleFilter('slug', 'quo'),
+                            GraphFilter::createSimpleFilter('title', 'quo')
+                        )
+                    )
+            )
+            ->getQuery();
+
+            // EXAMPLE 2
+            $query = $graphBuilder->addContent(
+                ContentBuilder::create($contentType)
+                    ->selectFields('slug', 'title')
+                    ->addFilter(GraphFilter::createSimpleFilter('slug', $searchValue))
+            )
+                ->getQuery();
 
             return $this->query->getContent($query);
         }
 
-//        $query = '
-//        query {
-//            content (filter:{slug_contains: "quo", OR:[{title_contains: "quo"}, {heading_contains: "quo"}]}) {
-//                title
-//                slug
-//            }
-//        }
-//        ';
-
-//        $query1 = '
-//            query {
-//                homepage {
-//                    slug
-//                    title
-//                }
-//                showcases {
-//                    slug
-//                    title
-//                }
-//            }
-//        ';
+        // EXAMPLE 3
+        //        $query1 = '
+        //            query {
+        //                homepage {
+        //                    slug
+        //                    title
+        //                }
+        //                showcases {
+        //                    slug
+        //                    title
+        //                }
+        //            }
+        //        ';
         $graphBuilder = new GraphBuilder();
 
         $query = $graphBuilder->addContent(
             ContentBuilder::create('homepage')
-            ->selectFields('slug', 'title'),
+                ->selectFields('slug', 'title'),
             ContentBuilder::create('showcases')
-            ->selectFields('slug', 'title')
+                ->selectFields('slug', 'title')
         )->getQuery();
 
         return $this->query->getContent($query);
