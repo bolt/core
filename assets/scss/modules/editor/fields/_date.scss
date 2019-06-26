@@ -1,8 +1,11 @@
 //** Fields | Date
 
 .editor--date {
-  &.form-control:disabled,
   &.form-control[readonly] {
     background-color: var(--foreground);
+  }
+
+  &.form-control:disabled {
+    background-color: $input-disabled-bg;
   }
 }
