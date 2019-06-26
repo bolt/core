@@ -41,3 +41,9 @@ code {
 .custom-select {
   -webkit-appearance: none;
 }
+
+input[readonly], input:disabled, button:disabled, input.flatpickr-input[disabled] {
+  cursor: not-allowed;
+  background-color: $input-disabled-bg;
+  color: $input-disabled-color;
+}
