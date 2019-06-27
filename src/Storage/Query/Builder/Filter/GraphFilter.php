@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Storage\Query\Builder\Filter;
-
 
 class GraphFilter
 {
@@ -36,22 +36,22 @@ class GraphFilter
         switch ($this->field) {
             case 'AND':
             case 'OR':
-                $searchValues = array_map(function($element) {
+                $searchValues = array_map(function ($element) {
                     return sprintf('{%s}', $element);
                 }, $this->searchValue);
-                return sprintf('{%s:[%s]}', $this->field, join(',', $searchValues));
+                return sprintf('{%s:[%s]}', $this->field, implode(',', $searchValues));
                 break;
             default:
                 $value = $this->getPreparedValue($this->searchValue);
 //                return sprintf('{%s:%s}', $this->field, $value);
 //                Temporary solution
-                return sprintf('%s_contains:%s', $this->field, $value);
+                return sprintf('%s~contains:%s', $this->field, $value);
                 break;
         }
     }
 
     private function getPreparedValue($value): string
     {
-        return is_numeric($value) ? "$value" : '"'.$value.'"';
+        return is_numeric($value) ? "${value}" : '"'.$value.'"';
     }
 }

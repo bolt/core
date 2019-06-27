@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Builder;
 
 use Bolt\Storage\Query\Builder\Filter\GraphFilter;
@@ -13,7 +15,7 @@ class ContentBuilder implements GraphBuilderInterface
 
     private $lastRecords = 0;
 
-    private $limit;
+    private $limit = 10;
 
     private $order = [];
 
@@ -77,7 +79,7 @@ class ContentBuilder implements GraphBuilderInterface
 
     public function getQuery(): string
     {
-        $fields = join(' ', $this->fields);
+        $fields = implode(' ', $this->fields);
         if (empty($this->filters)) {
             return sprintf('%s { %s }', $this->contentName, $fields);
         }
@@ -111,15 +113,18 @@ class ContentBuilder implements GraphBuilderInterface
             $filterCount = count($this->filters);
             switch ($filterCount) {
                 case 1:
-                    $conditions[] = sprintf('filter: %s', join(',', $this->filters));
+                    $conditions[] = sprintf('filter: %s', implode(',', $this->filters));
                     break;
                 default:
-                    $conditions[] = sprintf('filter: {%s}', join(',', $this->filters));
+                    $conditions[] = sprintf('filter: {%s}', implode(',', $this->filters));
                     break;
             }
-
         }
 
-        return join(',', $conditions);
+        if ($this->limit !== 10) {
+            $conditions[] = sprintf('limit: %d', $this->limit);
+        }
+
+        return implode(',', $conditions);
     }
 }

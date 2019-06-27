@@ -10,6 +10,7 @@ use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
+use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -150,13 +151,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType(string $name, DeepCollection $field): array
+    private function getValuesforFieldType(string $name, DeepCollection $field)
     {
         switch ($field['type']) {
             case 'html':
             case 'textarea':
             case 'markdown':
-                $data = [$this->faker->paragraphs(3, true)];
+                $data = $this->faker->paragraphs(3, true);
                 break;
             case 'image':
             case 'file':
@@ -168,13 +169,19 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 ];
                 break;
             case 'slug':
-                $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
+                $data = ( new Slugify())
+                    ->slugify(
+                        $this->lastTitle ?? $this->faker->sentence(3, true)
+                    );
                 break;
             case 'text':
-                $data = [$this->faker->sentence(6, true)];
+                $data = $this->faker->sentence(6, true);
+                break;
+            case 'checkbox':
+                $data = random_int(0, 1);
                 break;
             default:
-                $data = [$this->faker->sentence(6, true)];
+                $data = $this->faker->sentence(6, true);
         }
 
         if ($name === 'title' || $name === 'heading') {

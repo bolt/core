@@ -9,7 +9,6 @@ use Bolt\Entity\Field;
 use Bolt\Storage\Query\Criteria\ContentCriteria;
 use Bolt\Storage\Query\Criteria\PublishedCriteria;
 use Bolt\Storage\Query\Expression\FilterExpressionBuilder;
-use Bolt\Storage\Query\Helper\Query;
 use Bolt\Storage\Query\Scope\ScopeEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
@@ -63,7 +62,7 @@ class QueryFieldResolver
             $parameters = $this->filterExpressionBuilder->getParametersValues();
             $aliasCounter = $this->filterExpressionBuilder->getAliasCounter();
 
-            for ($i=2;$i<=$aliasCounter;$i++) {
+            for ($i = 2; $i <= $aliasCounter; $i++) {
                 $alias = 'bf'.$i;
                 $qb->innerJoin(
                     Field::class,
@@ -99,18 +98,25 @@ class QueryFieldResolver
     private function getPreparedResults(array $results, array $fields): array
     {
         $preparedResults = [];
+        $returnAllFields = in_array('*', array_keys($fields), true);
         /** @var Content $result */
         foreach ($results as $resultKey => $result) {
             $arrayResult = $result->jsonSerialize();
-            foreach (array_keys($fields) as $key) {
-                if (array_key_exists($key, $arrayResult['fields'])) {
-                    $preparedResults[$resultKey][$key] = $arrayResult['fields'][$key];
+            if ($returnAllFields) {
+                foreach (array_keys($arrayResult['fields']) as $contentField) {
+                    $preparedResults[$resultKey][$contentField] = $arrayResult['fields'][$contentField];
                 }
+            } else {
+                foreach (array_keys($fields) as $key) {
+                    if (array_key_exists($key, $arrayResult['fields'])) {
+                        $preparedResults[$resultKey][$key] = $arrayResult['fields'][$key];
+                    }
+                }
+                foreach (array_keys($arrayResult) as $contentField) {
+                    $preparedResults[$resultKey][$contentField] = $arrayResult[$contentField];
+                }
+                $preparedResults[$resultKey] = new \ArrayObject($preparedResults[$resultKey]);
             }
-            foreach (array_keys($arrayResult) as $contentField) {
-                $preparedResults[$resultKey][$contentField] = $arrayResult[$contentField];
-            }
-            $preparedResults[$resultKey] = new \ArrayObject($preparedResults[$resultKey]);
         }
 
         return $preparedResults;

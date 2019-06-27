@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Builder;
 
 class GraphBuilder implements GraphBuilderInterface
@@ -11,7 +13,7 @@ class GraphBuilder implements GraphBuilderInterface
 
     public static function createQuery(): self
     {
-        return new self;
+        return new self();
     }
 
     public function addContent(...$contentBuilders): self
@@ -30,6 +32,6 @@ class GraphBuilder implements GraphBuilderInterface
             $queries[] = $content->getQuery();
         }
 
-        return sprintf($query, join(' ', $queries));
+        return sprintf($query, implode(' ', $queries));
     }
 }

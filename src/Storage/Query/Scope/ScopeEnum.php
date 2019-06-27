@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Storage\Query\Scope;
 
 class ScopeEnum
 {
-    const FRONT = 'front';
-    const DEFAULT = 'default';
+    public const FRONT = 'front';
+    public const DEFAULT = 'default';
 }

@@ -28,6 +28,7 @@ class FilterExpressionBuilder
     {
         $expressions = [];
         foreach ($filters as $filterName => $filterOptions) {
+            $filterName = str_replace('~', '_', $filterName);
             if (in_array($filterName, $this->nestedFilterParams, true)) {
                 $this->generateNestedExpr($expressions, $filterName, $filterOptions);
             } else {
@@ -59,8 +60,8 @@ class FilterExpressionBuilder
             case self::ORX:
                 $orExpressions = [];
                 foreach ($filterOptions as $filterKeyValue) {
-                    $filterField = key($filterKeyValue);
-                    $filterValue = $filterKeyValue[$filterField];
+                    $filterValue = $filterKeyValue[key($filterKeyValue)];
+                    $filterField = str_replace('~', '_', key($filterKeyValue));
                     if (in_array($filterField, $this->nestedFilterParams, true)) {
                         $this->generateNestedExpr($orExpressions, $filterName, reset($filterOptions));
                     } else {
@@ -74,8 +75,8 @@ class FilterExpressionBuilder
             case self::ANDX:
                 $andExpressions = [];
                 foreach ($filterOptions as $filterKeyValue) {
-                    $filterField = key($filterKeyValue);
-                    $filterValue = $filterKeyValue[$filterField];
+                    $filterValue = $filterKeyValue[key($filterKeyValue)];
+                    $filterField = str_replace('~', '_', key($filterKeyValue));
                     if (in_array($filterField, $this->nestedFilterParams, true)) {
                         $this->generateNestedExpr($andExpressions, $filterName, $filterOptions);
                     } else {
@@ -144,7 +145,7 @@ class FilterExpressionBuilder
         $exploded = explode('_', $fieldName);
 
         if (count($exploded) === 2) {
-            return [$exploded[0], '_'.$exploded[1]];
+            return [$exploded[0], '~'.$exploded[1]];
         }
 
         return [$fieldName, null];

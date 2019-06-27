@@ -76,30 +76,30 @@ class DetailController extends TwigAwareController implements FrontendZone
             [$contentType, $searchValue] = explode('/', $query);
 
             // EXAMPLE 1
-            //        $query = '
-            //        query {
-            //            content (filter:{slug_contains: "quo", OR:[{title_contains: "quo"}, {heading_contains: "quo"}]}) {
-            //                title
-            //                slug
-            //            }
-            //        }
-            //        ';
+//                    $query = '
+//                    query {
+//                        content (filter:{slug_contains: "quo", OR:[{title~contains: "quo"}, {heading~contains: "quo"}]}) {
+//                            title
+//                            slug
+//                        }
+//                    }
+//                    ';
             $query = $graphBuilder->addContent(
                 ContentBuilder::create($contentType)
-                    ->selectFields('slug', 'title')
-                    ->addFilter(
-                        GraphFilter::createOrFilter(
-                            GraphFilter::createSimpleFilter('slug', 'quo'),
-                            GraphFilter::createSimpleFilter('title', 'quo')
-                        )
-                    )
+                    ->selectFields('*')
+                //                    ->addFilter(
+                //                        GraphFilter::createOrFilter(
+                //                            GraphFilter::createSimpleFilter('slug', 'rer'),
+                //                            GraphFilter::createSimpleFilter('heading', 'rer')
+                //                        )
+                //                    )
             )
-            ->getQuery();
+                ->getQuery();
 
             // EXAMPLE 2
             $query = $graphBuilder->addContent(
                 ContentBuilder::create($contentType)
-                    ->selectFields('slug', 'title')
+                    ->selectFields('slug', 'heading')
                     ->addFilter(GraphFilter::createSimpleFilter('slug', $searchValue))
             )
                 ->getQuery();
@@ -108,18 +108,18 @@ class DetailController extends TwigAwareController implements FrontendZone
         }
 
         // EXAMPLE 3
-        //        $query1 = '
-        //            query {
-        //                homepage {
-        //                    slug
-        //                    title
-        //                }
-        //                showcases {
-        //                    slug
-        //                    title
-        //                }
-        //            }
-        //        ';
+//                $query1 = '
+//                    query {
+//                        homepage {
+//                            slug
+//                            title
+//                        }
+//                        showcases {
+//                            slug
+//                            title
+//                        }
+//                    }
+//                ';
         $graphBuilder = new GraphBuilder();
 
         $query = $graphBuilder->addContent(

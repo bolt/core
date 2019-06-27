@@ -57,9 +57,9 @@ class QueryType extends ObjectType
                     'random' => [
                         'type' => Type::int(),
                     ],
-//                    'order' => [
-//                        'type' => new OrderType(),
-//                    ],
+                    //                    'order' => [
+                    //                        'type' => new OrderType(),
+                    //                    ],
                     'filter' => [
                         'type' => Type::getNullableType(new InputObjectType([
                             'name' => 'ContentFilterInput_' . Uuid::uuid4()->toString(),

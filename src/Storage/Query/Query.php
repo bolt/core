@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query;
 
+use Bolt\Configuration\Config;
+use Bolt\Storage\Query\Definition\FieldDefinition;
+use Bolt\Storage\Query\GraphQL\GraphQL;
 use Bolt\Storage\Query\Parser\ContentFieldParser;
 use Bolt\Storage\Query\Resolver\QueryFieldResolver;
 use Bolt\Storage\Query\Scope\ScopeEnum;
 use Bolt\Storage\Query\Types\QueryType;
-use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -18,10 +20,16 @@ class Query
 
     private $queryFieldResolver;
 
-    public function __construct(ContentFieldParser $contentFieldParser, QueryFieldResolver $queryFieldResolver)
-    {
+    private $config;
+
+    public function __construct(
+        ContentFieldParser $contentFieldParser,
+        QueryFieldResolver $queryFieldResolver,
+        Config $config
+    ) {
         $this->contentFieldParser = $contentFieldParser;
         $this->queryFieldResolver = $queryFieldResolver;
+        $this->config = $config;
     }
 
     public function getContent(string $textQuery): JsonResponse
@@ -33,7 +41,7 @@ class Query
                 ScopeEnum::DEFAULT
             ),
         ]);
-        $result = GraphQL::executeQuery($schema, $textQuery);
+        $result = GraphQL::executeQuery($schema, $this->prepareTextQuery($textQuery));
 
         return new JsonResponse($result->toArray());
     }
@@ -47,8 +55,64 @@ class Query
                 ScopeEnum::FRONT
             ),
         ]);
-        $result = GraphQL::executeQuery($schema, $textQuery);
+        $result = GraphQL::executeQuery($schema, $this->prepareTextQuery($textQuery));
 
         return new JsonResponse($result->toArray());
+    }
+
+    private function prepareTextQuery(string $textQuery): string
+    {
+        preg_match_all('/^\s*(query)?\s*{([a-zA-Z0-9_\s{}\*]+)}\s*$/', $textQuery, $matches);
+        $trimmed = preg_replace('/\s{2,}/', ' ', trim(reset($matches[2])));
+        preg_match_all('/([a-zA-Z0-9_]+)\s{\s*([a-zA-Z0-9_\s\*]+)\s*}/', $trimmed, $matches);
+
+        $contents = $matches[1];
+        $fields = $matches[2];
+
+        foreach ($contents as $index => $content) {
+            $arrayFields = array_filter(explode(' ', $fields[$index]));
+            if (in_array('*', $arrayFields, true) && count($fields) === 1) {
+                $textQuery = preg_replace(
+                    '/\*/',
+                    $this->prepareFields(
+                        $this->config->get(
+                            sprintf(
+                                'contenttypes/%s/fields',
+                                $content
+                            )
+                        )->toArray()
+                    ),
+                    $textQuery,
+                    1
+                );
+            }
+        }
+
+        return $textQuery;
+    }
+
+    private function prepareFields(array $fields): string
+    {
+        $preparedFields = [];
+
+        foreach ($fields as $fieldName => $fieldDefinition) {
+            if (isset(FieldDefinition::SUB_FIELDS[$fieldDefinition['type']])) {
+                $preparedFields[] = sprintf(
+                    '%s { %s }',
+                    $fieldName,
+                    implode(
+                        ' ',
+                        FieldDefinition::SUB_FIELDS[$fieldDefinition['type']]
+                    )
+                );
+            } else {
+                $preparedFields[] = $fieldName;
+            }
+        }
+
+        return implode(
+            ' ',
+            $preparedFields
+        );
     }
 }

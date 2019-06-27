@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Bolt\Common\Json;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,11 +46,11 @@ class Field implements Translatable, FieldInterface
     public $name;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="field_value")
      * @Groups("get_field")
      * @Gedmo\Translatable
      */
-    protected $value = [];
+    protected $value;
 
     /**
      * @ORM\Column(type="integer")
@@ -86,7 +87,11 @@ class Field implements Translatable, FieldInterface
 
     public function __toString(): string
     {
-        return implode(', ', $this->getValue());
+        if (is_array($this->getValue())) {
+            return implode(', ', $this->getValue());
+        }
+
+        return $this->getValue();
     }
 
     public static function factory(LaravelCollection $definition, string $name = ''): self
@@ -151,7 +156,7 @@ class Field implements Translatable, FieldInterface
         return isset($this->value[$key]) ? $this->value[$key] : null;
     }
 
-    public function getValue(): ?array
+    public function getValue()
     {
         return $this->value;
     }
@@ -159,21 +164,11 @@ class Field implements Translatable, FieldInterface
     /**
      * like getValue() but returns single value for single value fields
      *
-     * @return array|mixed|null
+     * @return array|string|null
      */
     public function getParsedValue()
     {
-        $value = $this->getValue();
-        if (is_iterable($value)) {
-            $count = count($value);
-            if ($count === 0) {
-                return null;
-            } elseif ($count === 1 && array_keys($value)[0] === 0) {
-                return reset($value);
-            }
-        }
-
-        return $value;
+        return $this->getValue();
     }
 
     /**
@@ -195,9 +190,13 @@ class Field implements Translatable, FieldInterface
         return $value;
     }
 
-    public function setValue($value): self
+    public function setValue($value)
     {
-        $this->value = (array) $value;
+        if (is_array($value)) {
+            $this->value = Json::dump($value);
+        } else {
+            $this->value = (string) $value;
+        }
 
         return $this;
     }
