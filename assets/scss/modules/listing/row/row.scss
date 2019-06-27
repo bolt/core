@@ -92,7 +92,7 @@ $checkbox-row-width: 30px;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3;
       line-height: 1.3rem;
-      max-height: 4.5rem;
+      max-height: 4.75rem;
 
       a {
         font-weight: bold;
@@ -132,10 +132,6 @@ $checkbox-row-width: 30px;
       margin-bottom: $spacer / 4;
       color: var(--shade);
       text-transform: capitalize;
-    }
-
-    i {
-      color: theme-color('secondary');
     }
   }
 
