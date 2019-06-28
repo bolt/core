@@ -1,0 +1,7 @@
+
+// Hidden warning button- acts like tertiary, hover is like danger.
+// Uses 'button-variant' mixin from core bootstrap with fixed colors.
+
+.btn-hidden-danger {
+    @include button-variant($tertiary, $tertiary, darken($danger, 7.5%), darken($danger, 10%), darken($danger, 10%), darken($danger, 12.5%));
+}
