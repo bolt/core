@@ -25,8 +25,9 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
     {
         $weather = $this->getWeather();
 
-        if (empty($weather)) {
-            return null;
+        if (count($weather)<=1) {
+            // weather is not empty when it reurns an error!
+           return null;
         }
 
         return parent::run(['weather' => $weather]);
