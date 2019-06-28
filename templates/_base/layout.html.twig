@@ -47,10 +47,9 @@
 
     <!-- Admin Header -->
     <header class="admin__header">
-        <div class="container">
-            <nav class="admin__header--topbar">
-              <h1 class="admin__header--title">{{ block('title') }}</h1>
-            </nav>
+        <div class="admin__header--topbar">
+            <h1 class="admin__header--title">{{ block('title') }}</h1>
+            <button class="admin-sidebar-toggler btn btn-md"><span class="sr-only">Toggle </span>menu</button>
         </div>
     </header>
     <!-- End Admin Header -->
@@ -69,8 +68,7 @@
 
     <!-- Admin Main -->
     <div class="admin__body {% block container %}{% endblock %}">
-        <div class="container">
-
+       
             {% block topsection %}
                 {# insert stuff here that should _not_ be part of the
                    Vue components, like `{{ dump() }}` statements #}
@@ -90,7 +88,6 @@
                     {{ include('@bolt/_partials/_flash_messages.html.twig') }}
                 </div>
             </div>
-        </div>
     </div>
     <!-- End Admin Main -->
 

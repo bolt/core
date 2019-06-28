@@ -7,8 +7,10 @@
     height: 100%;
     width: 100%;
     display: flex;
-    font-size: 90%;
-    padding: 0 1rem 0 0;
+    padding: 0;
+    @include media-breakpoint-up(lg) {
+      padding-right: 1rem;
+    }
 
     &.is-dark {
       color: var(--admin-toolbar-text-light);
@@ -17,7 +19,7 @@
         color: var(--admin-toolbar-text-light);
       }
 
-      .toolbar--item.is-brand svg g {
+      .toolbar-item__brand svg g {
         fill: var(--admin-toolbar-text-light);
       }
     }
@@ -29,50 +31,41 @@
         color: var(--admin-toolbar-text-dark);
       }
 
-      .toolbar--item.is-brand svg g {
+      .toolbar-item__brand svg g {
         fill: var(--admin-toolbar-text-dark);
       }
     }
   }
 
-  .toolbar--item {
+  .toolbar-item {
     position: relative;
     height: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 $spacer;
-    opacity: 0.75;
-
-    i {
-      font-size: 120%;
-    }
+    padding: $spacer*0.8125 $spacer;
+    font-size: 0.875rem;
 
     a:hover {
       text-decoration: none;
     }
 
-    &.is-brand {
+    &__brand {
       svg {
         height: $admin-toolbar-height / 1.5;
         width: auto;
       }
     }
 
-    &.is-new,
-    &.is-profile {
-      .toolbar--menu {
-        left: auto;
-        right: 0;
-      }
-    }
-
-    &.is-new {
+    &__profile {
       margin-left: auto;
     }
 
-    &.is-profile {
-      padding: 0 $spacer;
+    &__new {
+      display: none;
+      @media screen and (min-width: 440px) {
+        display: flex;
+      }
     }
 
     &:hover {
@@ -80,14 +73,14 @@
 
       @include darken(--admin-toolbar, 0.2);
 
-      > .toolbar--menu {
+      > .toolbar-menu {
         visibility: visible;
         height: auto;
       }
     }
   }
 
-  .toolbar--menu {
+  .toolbar-menu {
     @include darken(--admin-toolbar, 0.2);
 
     font-weight: $font-weight-normal;
@@ -113,6 +106,12 @@
           text-decoration: none;
         }
       }
+    }
+  }
+  .toolbar-item__profile {
+    .toolbar-menu {
+      left: auto;
+      right: 0;
     }
   }
 }

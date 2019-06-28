@@ -2,8 +2,9 @@
 
 // Note: Override for "Wide content" is below
 
-$admin-toolbar-height: 36px;
+$admin-toolbar-height: 40px;
 $admin-sidebar-width: 200px;
+$admin-sidebar-width-wide: 250px;
 $admin-aside-width: 320px;
 $admin-header-height: 70px;
 
@@ -13,28 +14,6 @@ $admin-header-height: 70px;
   margin-top: $admin-toolbar-height;
   min-height: inherit;
 
-  // Flexbox Fallback
-  display: flex;
-  flex-wrap: wrap;
-
-  // Grid
-  /* stylelint-disable declaration-block-no-duplicate-properties */
-  display: grid;
-  /* stylelint-enable */
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: $admin-sidebar-width 1fr;
-  grid-template-areas:
-    "sidebar header"
-    "sidebar body";
-  // Slim Sidebar
-  &.is-slim {
-    grid-template-columns: $admin-sidebar-width / 3 1fr;
-
-    &__sidebar {
-      flex: 0 0 $admin-sidebar-width / 3;
-    }
-  }
-
   &__toolbar {
     -webkit-backface-visibility: hidden;
     position: fixed;
@@ -42,77 +21,82 @@ $admin-header-height: 70px;
     left: 0;
     height: $admin-toolbar-height;
     width: 100vw;
-    z-index: $big-z-index + 40;
+    z-index: 5;
   }
 
   &__header {
-    display: flex;
-    grid-area: header;
-    position: relative;
-    padding: 1.5rem 0 0 0;
-
-    .container {
-      padding: 0;
-
-      @include media-breakpoint-up(xl) {
-        max-width: 1240px;
-      }
+    padding: 0;
+    @include media-breakpoint-up(lg) {
+      margin-left: $admin-sidebar-width;
+    }
+    @include media-breakpoint-up(wd) {
+      margin-left: $admin-sidebar-width-wide;
+      max-width: 100rem;
     }
   }
 
   &__sidebar {
-    flex: 0 0 $admin-sidebar-width;
-    grid-area: sidebar;
-  }
-
-  &__body {
-    flex: 1;
-    grid-area: body;
-    padding-top: 0;
-
-    &.is-wide {
-      .admin__body--container {
-        grid-template-columns: auto;
-        grid-template-areas:
-          "main"
-          "aside";
+    position: absolute;
+    z-index: 2;
+    top: $admin-toolbar-height;
+    left: 0;
+    transition: all 200ms;
+    width: auto;
+    // the sidebar comes into view on larger screens
+    @include media-breakpoint-up(lg) {
+      left: 0;
+      width: $admin-sidebar-width;
+    }
+    @include media-breakpoint-up(wd) {
+      width: $admin-sidebar-width-wide;
+    }
+    &--is-collapsed {
+      left: -100%;
+      // the sidebar comes into view on larger screens, even on initially on smaller screens collapsed sidebar
+      @include media-breakpoint-up(lg) {
+        left: 0;
       }
     }
-
-    > .container {
-      padding: 0;
-
-      @include media-breakpoint-up(xl) {
-        max-width: 1240px;
-      }
+    &--is-expanded {
+      left: 0;
+    }
+  }
+  
+  &__body {
+    padding-top: 0;
+    position: relative;
+    z-index: 1;
+    @include media-breakpoint-up(lg) {
+      margin-left: $admin-sidebar-width;
+    }
+    @include media-breakpoint-up(wd) {
+      margin-left: $admin-sidebar-width-wide;
+      max-width: 100rem;
     }
 
     &--container {
+      padding: $spacer;
       display: grid;
-      grid-template-columns: auto $admin-aside-width;
-      grid-template-areas: "main    aside";
-      padding: $spacer * 2;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      grid-column-gap: 1.25rem;
+      @include media-breakpoint-up(wd) {
+        grid-column-gap: 1.5rem;
+        padding: $spacer $spacer*1.5;
+      }
+      * {
+        grid-column: 1/-1;
+      }
     }
-
     &--main {
-      grid-area: main;
-      min-width: 0;
-      padding-right: $spacer * 2;
+      @include media-breakpoint-up(xl) {
+        grid-column: 1/9;
+      }
     }
-
     &--aside {
-      grid-area: aside;
-      width: $admin-aside-width;
+      @include media-breakpoint-up(xl) {
+        grid-column: 9/13;
+      }
     }
-  }
-}
-
-.widecontent {
-
-  .admin__body--container {
-    display: grid;
-    grid-template-columns: auto 0;
-    grid-template-areas: "main";
-    padding: $spacer * 2;
   }
 }

@@ -1,7 +1,7 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-{% block title %} <strong>{{ title }}</strong>
+{% block title %}{{ title }}
     {% if subtitle|default() %}» {{ subtitle }} {% endif %}
 {% endblock title %}
 

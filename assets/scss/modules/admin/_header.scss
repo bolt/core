@@ -15,6 +15,29 @@
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    padding: 0 $spacer * 2;
+    padding: $spacer;
+    position: relative;
+  }
+  &--togglebar {
+    padding: $spacer;
+    position: relative;
+  }
+}
+
+.admin-sidebar-toggler {
+  position: absolute;
+  z-index: 4;
+  width: auto;
+  top: 1.625rem;
+  right: 1rem;
+  border: 1px solid var(--primary);
+  padding: 0.25rem 0.625rem;
+  color: $white;
+  background-color: var(--primary);
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+  &:hover, &:active, &:focus {
+    background-color: var(--background);
   }
 }
