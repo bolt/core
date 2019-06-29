@@ -84,6 +84,11 @@ $grid-breakpoints: (
 // Modal Dialog spacing
 $modal-dialog-margin-y-sm-up: 4rem;
 
+// This number determines of a button has white or black text (a11y)
+// 150: about equal to 3.0 color contrast ( WCAG2 for bold and texts above 18pts).
+// 117: for 4.5 color contrast (WCAG2 for normal text) (see ~bootstrap/_functions.scss for use in function)
+$yiq-contrasted-threshold:  150;
+
 
 .admin__sidebar {
   background: rgb(42,57,70);
