@@ -104,17 +104,15 @@ $checkbox-row-width: 30px;
     }
 
     &.is-meta {
-      flex: 0 0 20%;
+      flex: 0 0 17%;
       margin-left: auto;
       padding-bottom: 0;
-      min-width: 130px;
     }
 
     &.is-actions {
       flex: 0 0 14%;
       border-radius: 0 $border-radius $border-radius 0;
       align: right;
-      min-width: 120px;
     }
   }
 

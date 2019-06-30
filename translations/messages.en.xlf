@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl-NL" trgLang="en">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en-US-POSIX" trgLang="en">
   <file id="messages.en">
     <unit id="tbB2gib" name="not_available">
       <notes>
@@ -163,6 +163,12 @@
       <segment>
         <source>action.edit_user</source>
         <target>Edit user</target>
+      </segment>
+    </unit>
+    <unit id="ovKkXwU" name="action.edit">
+      <segment>
+        <source>action.edit</source>
+        <target>Edit</target>
       </segment>
     </unit>
     <unit id="LDhDPrF" name="label.username">
