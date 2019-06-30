@@ -1,0 +1,26 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{% set menu = [] %}
+{% for item in admin_menu() %}
+    {% if item.slug == slug %}
+        {% set menu = item %}
+    {% endif %}
+{% endfor %}
+
+{% block title %} <strong>{{ menu.name }}</strong>
+{% endblock title %}
+
+{% block main %}
+
+    <p>
+    {% for sub in menu.submenu %}
+        {{ macro.buttonlink(sub.name, sub.editLink, sub.icon, 'light', {'style': 'width: 20em;'}) }} <br>
+    {% endfor %}
+    </p>
+
+{% endblock main %}
+
+{% block aside %}
+
+{% endblock %}
