@@ -6,6 +6,7 @@ namespace Bolt\Command;
 
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
+use Bolt\Utils\Str;
 use Bolt\Utils\Validator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -44,8 +45,7 @@ class AddUserCommand extends Command
     protected static $defaultName = 'app:add-user';
 
     /**
-     * @var SymfonyStyle
-     */
+    /** @var SymfonyStyle */
     private $io;
 
     private $entityManager;
@@ -132,7 +132,7 @@ class AddUserCommand extends Command
         if ($password !== null) {
             $this->io->text(' > <info>Password</info>: ' . str_repeat('*', mb_strlen($password)));
         } else {
-            $password = $this->io->askHidden('Password (your type will be hidden)', [$this->validator, 'validatePassword']);
+            $password = $this->io->ask('Password', Str::generatePassword(), [$this->validator, 'validatePassword']);
             $input->setArgument('password', $password);
         }
 

@@ -165,6 +165,12 @@
         <target>Edit user</target>
       </segment>
     </unit>
+    <unit id="ovKkXwU" name="action.edit">
+      <segment>
+        <source>action.edit</source>
+        <target>Edit</target>
+      </segment>
+    </unit>
     <unit id="LDhDPrF" name="label.username">
       <notes>
         <note>templates/security/login.twig:66</note>

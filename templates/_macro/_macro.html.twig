@@ -22,9 +22,9 @@
     {% set class = class|replace({'btn-': ''}) %}
     {% set attr = attr %}
 
-    <a href="{{ link }}" class="btn btn-{{ class }} mb-3"
+    <a href="{{ link }}" class="btn btn-{{ class }} mb-3 text-nowrap"
         {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
-        <i class="fas fa-fw fa-{{ icon }} mr-2"></i>
+        <i class="fas fa-fw fa-{{ icon }} mr-1"></i>
         {{- label -}}
     </a>
 

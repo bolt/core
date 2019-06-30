@@ -94,4 +94,24 @@ class Str extends \Bolt\Common\Str
 
         return self::$slugifySafeInstances[$key];
     }
+
+    public static function generatePassword($length = 12)
+    {
+        // The "pool" of potential characters contains special characters, but
+        // with less frequency than 'a-z' and '0-9'.
+        $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' .
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' .
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' .
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' .
+            '-=~!@#$%^&*()_+,./<>?;:[]{}\|';
+
+        $str = '';
+        $max = mb_strlen($chars) - 1;
+
+        for ($i = 0; $i < $length; $i++) {
+            $str .= $chars[random_int(0, $max)];
+        }
+
+        return $str;
+    }
 }
