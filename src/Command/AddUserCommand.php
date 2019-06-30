@@ -44,7 +44,6 @@ class AddUserCommand extends Command
     // so it will be instantiated only when the command is actually called.
     protected static $defaultName = 'app:add-user';
 
-    /**
     /** @var SymfonyStyle */
     private $io;
 

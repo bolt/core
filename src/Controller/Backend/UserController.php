@@ -23,7 +23,6 @@ class UserController extends TwigAwareController implements BackendZone
         $this->users = $users;
     }
 
-
     /**
      * @Route("/users", name="bolt_users")
      */
@@ -34,7 +33,7 @@ class UserController extends TwigAwareController implements BackendZone
         $twigVars = [
             'title' => 'Users & Permissions',
             'subtitle' => 'To edit users and their permissions',
-            'users' => $users
+            'users' => $users,
         ];
 
         return $this->renderTemplate('@bolt/users/listing.html.twig', $twigVars);
