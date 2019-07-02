@@ -34,7 +34,7 @@
             <td>{{ user.lastseenAt|default('-') }}</td>
             <td>{{ user.lastIp|default('12.34.56.78') }}</td>
             <td>
-                {{ macro.buttonlink('action.edit', '/foo', 'edit', 'secondary') }}
+                {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': user.id}), 'edit', 'secondary') }}
             </td>
         </tr>
     {% endfor %}

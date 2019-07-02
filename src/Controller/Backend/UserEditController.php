@@ -21,7 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ProfileController extends TwigAwareController implements BackendZone
+class UserEditController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
@@ -53,24 +53,26 @@ class ProfileController extends TwigAwareController implements BackendZone
     }
 
     /**
-     * @Route("/profile-edit", methods={"GET"}, name="bolt_profile_edit")
+     * @Route("/user-edit/{id}", methods={"GET"}, name="bolt_user_edit", requirements={"id": "\d+"})
      */
-    public function edit(): Response
+    public function edit(User $user): Response
     {
-        $user = $this->getUser();
+        $roles = $this->getParameter('security.role_hierarchy.roles');
 
-        return $this->renderTemplate('@bolt/users/profile.html.twig', [
+        dump($roles);
+
+        return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
             'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
+     * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
      */
-    public function save(Request $request): Response
+    public function save(User $user): Response
     {
-        $this->validateCsrf($request, 'profileedit');
+        $this->validateCsrf($request, 'useredit');
 
         $user = $this->getUser();
         $displayName = $user->getDisplayName();
