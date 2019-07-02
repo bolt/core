@@ -64,17 +64,17 @@ class UserEditController extends TwigAwareController implements BackendZone
         return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
             'user' => $user,
+            'roles' => $roles,
         ]);
     }
 
     /**
      * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
      */
-    public function save(User $user): Response
+    public function save(User $user, Request $request): Response
     {
         $this->validateCsrf($request, 'useredit');
 
-        $user = $this->getUser();
         $displayName = $user->getDisplayName();
         $url = $this->urlGenerator->generate('bolt_profile_edit');
         $locale = Json::findScalar($request->get('locale'));
@@ -83,7 +83,8 @@ class UserEditController extends TwigAwareController implements BackendZone
         $user->setDisplayName($request->get('displayName'));
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
-        $user->setbackendTheme($request->get('user')['backendTheme']);
+        $user->setRoles($request->get('roles'));
+        $user->setbackendTheme($request->get('backendTheme'));
 
         if ($this->validateUser($user, $newPassword) === false) {
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
