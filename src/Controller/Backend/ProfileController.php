@@ -81,7 +81,7 @@ class ProfileController extends TwigAwareController implements BackendZone
         $user->setDisplayName($request->get('displayName'));
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
-        $user->setbackendTheme($request->get('user')['backendTheme']);
+        $user->setbackendTheme($request->get('backendTheme'));
 
         if ($this->validateUser($user, $newPassword) === false) {
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
