@@ -195,6 +195,7 @@
 .admin {
   &.is-slim {
     .admin__sidebar {
+      width: $admin-sidebar-width / 3;
       .admin__sidebar--separator,
       .admin__sidebar--footer {
         display: none;
