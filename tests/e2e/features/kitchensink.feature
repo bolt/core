@@ -7,7 +7,7 @@ Feature: Visiting the Kitchensink
         And there is element "title" with text "Kitchensink"
         And there is element "subtitle" with text "different things"
 
-        And there are "equal 18" "buttons" elements
+        And there are "equal 20" "buttons" elements
 
         And there is element "field" with text "FooBar"
 

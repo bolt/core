@@ -8,9 +8,24 @@
     {% set attr = attr %}
 
     <button class="btn btn-{{ class }} mb-3"
-    {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
+        {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
         <i class="fas fa-fw fa-{{ icon }} mr-2"></i>
         {{- label -}}
     </button>
+
+{% endspaceless %}{% endmacro %}
+
+{% macro buttonlink(label = 'Button', link = '', icon = 'question-circle', class = 'tertiary', attr = []) %}{% spaceless %}
+
+    {% set label = label|trans %}
+    {% set icon = icon|replace({'fa-': ''}) %}
+    {% set class = class|replace({'btn-': ''}) %}
+    {% set attr = attr %}
+
+    <a href="{{ link }}" class="btn btn-{{ class }} mb-3"
+        {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
+        <i class="fas fa-fw fa-{{ icon }} mr-2"></i>
+        {{- label -}}
+    </a>
 
 {% endspaceless %}{% endmacro %}

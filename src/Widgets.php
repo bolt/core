@@ -73,7 +73,7 @@ class Widgets
         })->first();
 
         if ($widget) {
-            return $this->invokeWidget($widget, $params);
+            return (string) $this->invokeWidget($widget, $params);
         }
     }
 

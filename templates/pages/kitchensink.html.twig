@@ -70,17 +70,19 @@
         </p>
 
 
-        <label>Info, Success, Warning, Danger</label>
+        <label>Success, Warning, Danger, Hidden danger</label>
         <p>
         {{ macro.button('action.do_something', random(icons), 'success',  {'type': 'button'}) }}
         {{ macro.button('action.do_something', random(icons), 'warning',  {'type': 'button'}) }}
         {{ macro.button('action.do_something', random(icons), 'danger',  {'type': 'button'}) }}
+        {{ macro.button('action.do_something', random(icons), 'hidden-danger',  {'type': 'button'}) }}
         </p>
 
          <p>
         {{ macro.button('action.do_something', random(icons), 'success',  {'type': 'button', 'disabled': 'disabled' }) }}
         {{ macro.button('action.do_something', random(icons), 'warning',  {'type': 'button', 'disabled': 'disabled' }) }}
         {{ macro.button('action.do_something', random(icons), 'danger',  {'type': 'button', 'disabled': 'disabled' }) }}
+        {{ macro.button('action.do_something', random(icons), 'hidden-danger',  {'type': 'button', 'disabled': 'disabled' }) }}
         </p>
 
 

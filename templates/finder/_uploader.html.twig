@@ -1,16 +1,13 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js" integrity="sha256-awEOL+kdrMJU/HUksRrTVHc6GA25FvDEIJ4KaEsFfG4=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/basic.css" integrity="sha256-NI6EfwSJhhs7gXBPbwLXD00msI29Bku3GDJT8gYW+gc=" crossorigin="anonymous" />
-
 <div class="card mb-4">
     <div class="card-header">{{ 'caption.file_uploader'|trans }}</div>
 
-    <form action="{{ path('bolt_async_upload', {'location': location, 'path': path}) }}" method="POST" class="dropzone" style="width:200px; height:200px; border:1px dashed crimson">
+    <form action="{{ path('bolt_async_upload', {'location': location, 'path': path}) }}" method="POST" class="dropzone editor__image--dropzone">
+        <i class="fas fa-upload"></i>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('upload') }}">
         <div class="fallback">
             <input name="file" type="file" multiple />
         </div>
     </form>
-
 </div>
 
 
