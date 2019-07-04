@@ -1,12 +1,14 @@
 //** Admin | Sidebar
 
 .admin__sidebar {
-  position: relative;
-  z-index: $big-z-index + 10;
   background: var(--admin-sidebar);
   color: var(--admin-sidebar-text);
   height: 100%;
-  // box-shadow: 0 0 40px 0 rgba(0,0,0, 0.07);
+
+  a {
+    font-size: 0.9375rem;
+  }
+
   &--separator {
     padding: 0 $spacer;
     margin: $spacer / 2 0;
@@ -28,12 +30,11 @@
   &--link {
     position: relative;
     width: 100%;
-    padding: $spacer / 1.75 $spacer;
+    padding: $spacer/1.75 $spacer*1.5 $spacer/1.75 $spacer;
     display: block;
     font-weight: $font-weight-semibold;
     letter-spacing: $letter-spacing;
     color: var(--admin-sidebar-text);
-    font-size: 95%;
 
     &:hover {
       @include darken(--admin-sidebar, 0.02);
@@ -98,6 +99,12 @@
       padding: 0;
       list-style: none;
       visibility: hidden;
+      
+      // display only on larger screens
+      display: none;
+      @media (min-width: 768px) { 
+        display: block;
+      }
 
       li {
         &.link--create {
@@ -188,6 +195,7 @@
 .admin {
   &.is-slim {
     .admin__sidebar {
+      width: $admin-sidebar-width / 3;
       .admin__sidebar--separator,
       .admin__sidebar--footer {
         display: none;

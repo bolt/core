@@ -14,7 +14,7 @@ $big-z-index: 1000;
 $font-family-base:              -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $headings-font-family:          'Source Sans Variable', sans-serif;
 
-$font-size-base:                0.9rem;
+$font-size-base:                1rem;
 
 $h1-font-size:                $font-size-base * 2.5;
 $h2-font-size:                $font-size-base * 2;
@@ -78,7 +78,8 @@ $grid-breakpoints: (
         sm: 576px,
         md: 768px,
         lg: 992px,
-        xl: 1200px
+        xl: 1200px,
+        wd: 1400px
 );
 
 // Modal Dialog spacing
@@ -88,12 +89,6 @@ $modal-dialog-margin-y-sm-up: 4rem;
 // 150: about equal to 3.0 color contrast ( WCAG2 for bold and texts above 18pts).
 // 117: for 4.5 color contrast (WCAG2 for normal text) (see ~bootstrap/_functions.scss for use in function)
 $yiq-contrasted-threshold:  150;
-
-
-.admin__sidebar {
-  background: rgb(42,57,70);
-  background: linear-gradient(-70deg, rgba(47,62,77,1) 50%, rgba(42,57,70,1) 50.5%);
-}
 
 :root {
   --background: #f3f5f7;
