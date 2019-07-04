@@ -36,11 +36,16 @@ class WeatherWidget extends BaseWidget implements TwigAware, CacheAware, Stopwat
     {
         $url = 'wttr.in/?format=%c|%C|%h|%t|%w|%l|%m|%M|%p|%P';
 
+        $details = [];
+
         try {
             $client = new Client();
-            $details = explode('|', trim($client->request('GET', $url)->getBody()->getContents()));
+            $result = $client->request('GET', $url)->getBody()->getContents();
+            if (mb_substr_count($result, '|') === 9) {
+                $details = explode('|', trim($result));
+            }
         } catch (RequestException $e) {
-            $details = [];
+            // Do nothing, fall through to empty array
         }
 
         return $details;

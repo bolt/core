@@ -99,10 +99,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         // Configuration submenu
 
-        $menu->addChild('Configuration', ['extras' => [
-            'name' => $t->trans('caption.configuration'),
-            'icon' => 'fa-sliders-h',
-        ]]);
+        $menu->addChild('Configuration', [
+            'uri' => $this->urlGenerator->generate('bolt_menupage', [
+                'slug' => 'configuration',
+            ]),
+            'extras' => [
+                'name' => $t->trans('caption.configuration'),
+                'icon' => 'fa-sliders-h',
+                'slug' => 'configuration',
+            ],
+        ]);
 
         $menu->getChild('Configuration')->addChild('Users &amp; Permissions', [
             'uri' => $this->urlGenerator->generate('bolt_users'),
@@ -178,10 +184,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         // Maintenance submenu
 
-        $menu->addChild('Maintenance', ['extras' => [
-            'name' => $t->trans('caption.maintenance'),
-            'icon' => 'fa-tools',
-        ]]);
+        $menu->addChild('Maintenance', [
+            'uri' => $this->urlGenerator->generate('bolt_menupage', [
+                'slug' => 'maintenance',
+            ]),
+            'extras' => [
+                'name' => $t->trans('caption.maintenance'),
+                'icon' => 'fa-tools',
+                'slug' => 'maintenance',
+            ],
+        ]);
 
         $menu->getChild('Maintenance')->addChild('Bolt API', [
             'uri' => $this->urlGenerator->generate('api_entrypoint'),
@@ -258,10 +270,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         // File Management submenu
 
-        $menu->addChild('File Management', ['extras' => [
-            'name' => $t->trans('caption.file_management'),
-            'icon' => 'fa-folder-open',
-        ]]);
+        $menu->addChild('File Management', [
+            'uri' => $this->urlGenerator->generate('bolt_menupage', [
+                'slug' => 'filemanagement',
+            ]),
+            'extras' => [
+                'name' => $t->trans('caption.file_management'),
+                'icon' => 'fa-folder-open',
+                'slug' => 'filemanagement',
+            ],
+        ]);
 
         $menu->getChild('File Management')->addChild('Uploaded files', [
             'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'files']),
