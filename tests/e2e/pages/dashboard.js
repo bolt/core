@@ -6,8 +6,8 @@ class DashboardPage extends BasePage {
 
     this.url = '/bolt/';
 
-    this.profile_text = $('#toolbar .is-profile');
-    this.header = $('.admin__header--title strong');
+    this.profile_text = $('#toolbar .toolbar-item__profile');
+    this.header = $('.admin__header--title');
     this.records = $$('.listing__row');
     this.first_record = $('.listing__row');
 
