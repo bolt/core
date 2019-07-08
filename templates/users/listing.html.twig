@@ -40,5 +40,8 @@
     {% endfor %}
     </table>
 
-    {{ dump(users) }}
+    <p class="buttons">
+        {{ macro.buttonlink('action.add_user', path('bolt_user_edit', {'id': 0}), 'user-plus', 'secondary') }}
+    </p>
+
 {% endblock %}

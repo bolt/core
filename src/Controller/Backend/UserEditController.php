@@ -55,11 +55,13 @@ class UserEditController extends TwigAwareController implements BackendZone
     /**
      * @Route("/user-edit/{id}", methods={"GET"}, name="bolt_user_edit", requirements={"id": "\d+"})
      */
-    public function edit(User $user): Response
+    public function edit(?User $user): Response
     {
         $roles = $this->getParameter('security.role_hierarchy.roles');
 
-        dump($roles);
+        if (!$user instanceof User) {
+            $user = User::factory();
+        }
 
         return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
@@ -71,19 +73,24 @@ class UserEditController extends TwigAwareController implements BackendZone
     /**
      * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
      */
-    public function save(User $user, Request $request): Response
+    public function save(?User $user, Request $request): Response
     {
         $this->validateCsrf($request, 'useredit');
 
+        if (!$user instanceof User) {
+            $user = User::factory();
+        }
+
         $displayName = $user->getDisplayName();
-        $url = $this->urlGenerator->generate('bolt_profile_edit');
+        $url = $this->urlGenerator->generate('bolt_users');
         $locale = Json::findScalar($request->get('locale'));
+        $roles = (array) Json::findScalar($request->get('roles'));
         $newPassword = $request->get('password');
 
         $user->setDisplayName($request->get('displayName'));
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
-        $user->setRoles($request->get('roles'));
+        $user->setRoles($roles);
         $user->setbackendTheme($request->get('backendTheme'));
 
         if ($this->validateUser($user, $newPassword) === false) {
@@ -98,8 +105,6 @@ class UserEditController extends TwigAwareController implements BackendZone
         }
 
         $this->em->flush();
-
-        $request->getSession()->set('_locale', $locale);
 
         $this->addFlash('success', 'user.updated_profile');
 
