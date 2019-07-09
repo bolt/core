@@ -8,6 +8,7 @@ use Bolt\Common\Json;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
+use Bolt\Utils\Str;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -61,12 +62,16 @@ class UserEditController extends TwigAwareController implements BackendZone
 
         if (!$user instanceof User) {
             $user = User::factory();
+            $suggestedPassword = Str::generatePassword();
+        } else {
+            $suggestedPassword = '';
         }
 
         return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
             'user' => $user,
             'roles' => $roles,
+            'suggestedPassword' => $suggestedPassword
         ]);
     }
 
@@ -85,13 +90,17 @@ class UserEditController extends TwigAwareController implements BackendZone
         $url = $this->urlGenerator->generate('bolt_users');
         $locale = Json::findScalar($request->get('locale'));
         $roles = (array) Json::findScalar($request->get('roles'));
-        $newPassword = $request->get('password');
 
+        if (empty($user->getUsername())) {
+            $user->setUsername($request->get('username'));
+        }
         $user->setDisplayName($request->get('displayName'));
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
         $user->setRoles($roles);
         $user->setbackendTheme($request->get('backendTheme'));
+
+        $newPassword = $request->get('password');
 
         if ($this->validateUser($user, $newPassword) === false) {
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
@@ -100,10 +109,11 @@ class UserEditController extends TwigAwareController implements BackendZone
             ]);
         }
 
-        if ($newPassword !== null) {
+        if ($request->get('password') !== null) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 
+        $this->em->persist($user);
         $this->em->flush();
 
         $this->addFlash('success', 'user.updated_profile');

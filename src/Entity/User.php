@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Bolt\Common\Json;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -135,7 +136,9 @@ class User implements UserInterface, \Serializable
 
     public function setUsername(string $username): void
     {
-        $this->username = $username;
+        $slugify = new Slugify();
+        $cleanUsername = $slugify->slugify($username);
+        $this->username = $cleanUsername;
     }
 
     public function getEmail(): string

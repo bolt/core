@@ -1,4 +1,9 @@
 {# Button Macro with defaults #}
+{% macro icon(icon = 'question-circle') %}{% spaceless %}
+    {% set icon = icon|replace({'fa-': ''}) %}
+
+    <i class="fas fa-fw fa-{{ icon }}"></i>
+{% endspaceless %}{% endmacro %}
 
 {% macro button(label = 'Button', icon = 'question-circle', class = 'tertiary', attr = []) %}{% spaceless %}
 

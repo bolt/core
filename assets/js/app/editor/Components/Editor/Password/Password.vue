@@ -10,7 +10,7 @@
         autocomplete="new-password"
       />
 
-      <i class="input-group-text fas fa-eye" @click="togglePassword"></i>
+      <i class="input-group-text fas fa-eye" @click="togglePassword" ref="visibilityToggle"></i>
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@
 <script>
 export default {
   name: 'EditorPassword',
-  props: ['value', 'name', 'id'],
+  props: ['value', 'name', 'id', 'hidden'],
 
   methods: {
     togglePassword(event) {
@@ -34,6 +34,14 @@ export default {
         iconElement.classList.replace('fa-eye-slash', 'fa-eye');
       }
     },
+  },
+
+  mounted: function() {
+    // this.val = this.$options.filters.strip(this.value);
+    console.log('joe!', this.value, this.hidden, this.$refs);
+    if (!this.hidden) {
+      this.$refs.visibilityToggle.click()
+    }
   },
 };
 </script>

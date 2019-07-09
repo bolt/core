@@ -1101,5 +1101,35 @@
         <target><![CDATA[This website is <a href='%url%' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
       </segment>
     </unit>
+    <unit id="3zlZmRK" name="action.add_user">
+      <segment>
+        <source>action.add_user</source>
+        <target>Add User</target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment>
+        <source>success</source>
+        <target>Success!</target>
+      </segment>
+    </unit>
+    <unit id="YDH.7uR" name="user.updated_profile">
+      <segment>
+        <source>user.updated_profile</source>
+        <target>Updated User Profile</target>
+      </segment>
+    </unit>
+    <unit id="iD6CNOO" name="label.roles">
+      <segment>
+        <source>label.roles</source>
+        <target>Roles</target>
+      </segment>
+    </unit>
+    <unit id="7whLbH8" name="user.new_user">
+      <segment>
+        <source>user.new_user</source>
+        <target>New User</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

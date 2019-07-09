@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
+use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -16,8 +17,12 @@ class AuthenticationController extends TwigAwareController implements BackendZon
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        $slugify = new Slugify();
+
         // last username entered by the user (if any)
-        $last_username = $authenticationUtils->getLastUsername();
+        $last_username = $slugify->slugify($authenticationUtils->getLastUsername());
+
+        dump($last_username);
 
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
