@@ -1116,7 +1116,7 @@
     <unit id="YDH.7uR" name="user.updated_profile">
       <segment>
         <source>user.updated_profile</source>
-        <target>Updated User Profile</target>
+        <target>User Profile has been updated!</target>
       </segment>
     </unit>
     <unit id="iD6CNOO" name="label.roles">
