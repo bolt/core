@@ -60,7 +60,7 @@ class UserEditController extends TwigAwareController implements BackendZone
     {
         $roles = $this->getParameter('security.role_hierarchy.roles');
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             $user = User::factory();
             $suggestedPassword = Str::generatePassword();
         } else {
@@ -71,7 +71,7 @@ class UserEditController extends TwigAwareController implements BackendZone
             'display_name' => $user->getDisplayName(),
             'user' => $user,
             'roles' => $roles,
-            'suggestedPassword' => $suggestedPassword
+            'suggestedPassword' => $suggestedPassword,
         ]);
     }
 
@@ -82,7 +82,7 @@ class UserEditController extends TwigAwareController implements BackendZone
     {
         $this->validateCsrf($request, 'useredit');
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             $user = User::factory();
         }
 
