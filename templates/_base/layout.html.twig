@@ -1,3 +1,7 @@
+{# Check if aside has value and set hasAside variable #}
+{% set asideblock = block('aside') %}
+{% set hasAside = asideblock|trim is not empty ? true : false %}
+
 <!DOCTYPE html>
 <html id="{% block html_id %}{% endblock %}">
 
@@ -69,25 +73,28 @@
     <!-- Admin Main -->
     <div class="admin__body {% block container %}{% endblock %}">
        
-            {% block topsection %}
-                {# insert stuff here that should _not_ be part of the
-                   Vue components, like `{{ dump() }}` statements #}
-            {% endblock %}
+        {% block topsection %}
+            {# insert stuff here that should _not_ be part of the
+                Vue components, like `{{ dump() }}` statements #}
+        {% endblock %}
 
-            <div class="admin__body--container" id="{% block vue_id %}{% endblock %}">
-                <main class="admin__body--main">
-                    {% block main %}
-                    {% endblock %}
-                </main>
-                <aside class="admin__body--aside">
-                    {% block aside %}
-
-                    {% endblock %}
-                </aside>
-                <div class="admin__notifications">
-                    {{ include('@bolt/_partials/_flash_messages.html.twig') }}
-                </div>
-            </div>
+        <div class="admin__body--container{% if hasAside %} admin__body--container--has-sidebar{% endif%}" id="{% block vue_id %}{% endblock %}">
+            <main class="admin__body--main">
+                {% block main %}
+                {% endblock %}
+            </main>
+            
+            {% if hasAside %}
+            <aside class="admin__body--aside">
+                {% block aside %}
+                {% endblock %}
+            </aside>
+            {% endif %}
+        </div>
+        
+        <div class="admin__notifications">
+            {{ include('@bolt/_partials/_flash_messages.html.twig') }}
+        </div>
     </div>
     <!-- End Admin Main -->
 
