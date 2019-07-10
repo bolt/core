@@ -16,7 +16,9 @@ trait ImageTrait
 
         $image = $this->getImage();
 
+        $output->writeln('');
         $output->write($image);
+        $output->writeln('');
     }
 
     public function getImage(): string
