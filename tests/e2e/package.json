@@ -1,14 +1,12 @@
 {
   "name": "e2e",
-  "description": "Bolt E2E tests",
+  "description": "Bolt end-to-end (E2E) tests",
   "private": true,
   "scripts": {
     "kakunin": "cross-env NODE_ENV=prod kakunin"
   },
   "dependencies": {
     "cross-env": "^5.2.0",
-    "kakunin": "^2.5",
-    "protractor": "^5.4.2",
-    "webdriver-manager": "^13.0.0"
+    "kakunin": "^2.6"
   }
 }
