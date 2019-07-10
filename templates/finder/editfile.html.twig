@@ -15,9 +15,6 @@
 } %}
 {% set mode = modes[extension]|default('') %}
 
-{% block container %}
-{% endblock %}
-
 {% block title %}
     {{ 'caption.edit_file'|trans }} » <strong>{{ file|split('/')|last}}</strong>
 {% endblock %}
