@@ -29,8 +29,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class ListUsersCommand extends Command
 {
-    // a good practice is to use the 'app:' prefix to group all your custom application commands
-    protected static $defaultName = 'app:list-users';
+    protected static $defaultName = 'bolt:list-users';
 
     private $mailer;
     private $emailSender;
