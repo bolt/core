@@ -76,13 +76,24 @@ $admin-header-height: 70px;
 
     &--container {
       padding: $spacer;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: auto;
-      grid-column-gap: 1.25rem;
+      @include media-breakpoint-up(xl) {
+        display: grid;
+        //grid with autofit to make columns expand full width if other column(s) not present
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: auto;
+        grid-column-gap: 1.25rem;
+      }
       @include media-breakpoint-up(wd) {
         grid-column-gap: 1.5rem;
         padding: $spacer $spacer*1.5;
+      }
+      &--has-sidebar {
+        // grid-template-columns: 3fr 1fr;
+        .admin__body--main {
+          @include media-breakpoint-up(xl) {
+          grid-column: 1/9;
+          }
+        }
       }
       * {
         grid-column: 1/-1;
@@ -90,13 +101,19 @@ $admin-header-height: 70px;
     }
     &--main {
       @include media-breakpoint-up(xl) {
-        grid-column: 1/9;
+        grid-column: 1/13;
       }
     }
     &--aside {
       @include media-breakpoint-up(xl) {
         grid-column: 9/13;
+        // max-width: 300px;
+      }
+      @include media-breakpoint-up(xw) {
+        grid-column: 9/12;
       }
     }
   }
 }
+
+

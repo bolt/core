@@ -83,9 +83,11 @@ final class Version
         return $version[0];
     }
 
-    /**
-     * @deprecated since 3.0, to be removed in 4.0.
-     */
+    public static function fullName(): string
+    {
+        return static::VERSION;
+    }
+
     public static function name(): ?string
     {
         if (mb_strpos(static::VERSION, ' ') === false) {
