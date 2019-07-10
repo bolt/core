@@ -55,36 +55,51 @@ class UserEditController extends TwigAwareController implements BackendZone
     /**
      * @Route("/user-edit/{id}", methods={"GET"}, name="bolt_user_edit", requirements={"id": "\d+"})
      */
-    public function edit(User $user): Response
+    public function edit(?User $user): Response
     {
         $roles = $this->getParameter('security.role_hierarchy.roles');
 
-        dump($roles);
+        if (! $user instanceof User) {
+            $user = User::factory();
+            $suggestedPassword = Str::generatePassword();
+        } else {
+            $suggestedPassword = '';
+        }
 
         return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
             'user' => $user,
             'roles' => $roles,
+            'suggestedPassword' => $suggestedPassword,
         ]);
     }
 
     /**
      * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
      */
-    public function save(User $user, Request $request): Response
+    public function save(?User $user, Request $request): Response
     {
         $this->validateCsrf($request, 'useredit');
 
-        $displayName = $user->getDisplayName();
-        $url = $this->urlGenerator->generate('bolt_profile_edit');
-        $locale = Json::findScalar($request->get('locale'));
-        $newPassword = $request->get('password');
+        if (! $user instanceof User) {
+            $user = User::factory();
+        }
 
+        $displayName = $user->getDisplayName();
+        $url = $this->urlGenerator->generate('bolt_users');
+        $locale = Json::findScalar($request->get('locale'));
+        $roles = (array) Json::findScalar($request->get('roles'));
+
+        if (empty($user->getUsername())) {
+            $user->setUsername($request->get('username'));
+        }
         $user->setDisplayName($request->get('displayName'));
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
-        $user->setRoles($request->get('roles'));
+        $user->setRoles($roles);
         $user->setbackendTheme($request->get('backendTheme'));
+
+        $newPassword = $request->get('password');
 
         if ($this->validateUser($user, $newPassword) === false) {
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
@@ -93,13 +108,12 @@ class UserEditController extends TwigAwareController implements BackendZone
             ]);
         }
 
-        if ($newPassword !== null) {
+        if ($request->get('password') !== null) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 
+        $this->em->persist($user);
         $this->em->flush();
-
-        $request->getSession()->set('_locale', $locale);
 
         $this->addFlash('success', 'user.updated_profile');
 

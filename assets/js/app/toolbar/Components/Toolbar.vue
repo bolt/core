@@ -4,7 +4,7 @@
     :class="contrast ? 'is-light' : 'is-dark'"
     role="toolbar"
   >
-    <div class="toolbar--item is-brand">
+    <div class="toolbar-item toolbar-item__brand">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 91 79">
         <g fill-rule="evenodd">
           <path
@@ -20,7 +20,7 @@
           />
         </g>
       </svg>
-      <ul class="toolbar--menu">
+      <ul class="toolbar-menu">
         <li><a href="https://bolt.cm/" target="_blank">Visit Bolt.cm</a></li>
         <li>
           <a href="https://docs.bolt.cm/" target="_blank">{{
@@ -29,22 +29,22 @@
         </li>
       </ul>
     </div>
-    <div class="toolbar--item is-new">
+    <div class="toolbar-item toolbar-item__site">
+      <a href="/" target="_blank">
+        <i class="fas fa-globe-americas mr-2"></i>{{ labels['action.visit_site'] }}
+      </a>
+    </div>
+    <div class="toolbar-item toolbar-item__new">
       <i class="fas fa-magic mr-2"></i>{{ labels['action.create_new'] }}
-      <ul class="toolbar--menu">
+      <ul class="toolbar-menu">
         <li v-for="(item, index) in createMenu" :key="index">
           <a :href="item.link_new">{{ item.singular_name }}</a>
         </li>
       </ul>
     </div>
-    <div class="toolbar--item is-site">
-      <a href="/" target="_blank">
-        <i class="fas fa-globe-americas mr-2"></i>{{ labels['action.visit_site'] }}: {{ siteName }}
-      </a>
-    </div>
-    <div class="toolbar--item is-profile">
+    <div class="toolbar-item toolbar-item__profile">
       <i class="fas fa-user mr-2"></i>{{ labels['general.greeting'] }}
-      <ul class="toolbar--menu">
+      <ul class="toolbar-menu">
         <li>
           <a :href="backend_prefix + 'profile-edit'">{{ labels['action.edit_profile'] }}</a>
         </li>
