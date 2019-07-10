@@ -29,8 +29,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class ListUsersCommand extends Command
 {
-    // a good practice is to use the 'app:' prefix to group all your custom application commands
-    protected static $defaultName = 'app:list-users';
+    protected static $defaultName = 'bolt:list-users';
 
     private $mailer;
     private $emailSender;
@@ -84,7 +83,7 @@ HELP
     {
         $maxResults = $input->getOption('max-results');
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
-        $allUsers = $this->users->findBy([], ['id' => 'DESC'], $maxResults);
+        $allUsers = $this->users->findBy([], ['username' => 'ASC'], $maxResults);
 
         // Doctrine query returns an array of objects and we need an array of plain arrays
         $usersAsPlainArrays = array_map(function (User $user) {

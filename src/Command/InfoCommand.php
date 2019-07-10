@@ -14,8 +14,7 @@ class InfoCommand extends Command
 {
     use ImageTrait;
 
-    // a good practice is to use the 'app:' prefix to group all your custom application commands
-    protected static $defaultName = 'info';
+    protected static $defaultName = 'bolt:info';
 
     /**
      * {@inheritdoc}

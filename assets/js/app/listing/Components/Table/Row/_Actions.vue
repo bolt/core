@@ -1,7 +1,7 @@
 <template>
   <div class="listing__row--item is-actions">
     <div class="btn-group">
-      <a :href="record.extras.editLink" class="btn btn-secondary btn-block btn-sm">
+      <a :href="record.extras.editLink" class="btn btn-secondary btn-block btn-sm text-nowrap">
         <i class="far fa-edit mr-1"></i> Edit
       </a>
       <button

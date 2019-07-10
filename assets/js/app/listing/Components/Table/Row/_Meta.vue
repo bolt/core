@@ -1,6 +1,6 @@
 <template>
   <div class="listing__row--item is-meta">
-    <ul class="listing__row--list">
+    <ul class="listing__row--list text-nowrap">
       <li v-if="size === 'normal'">
         <i class="fas fa-user mr-2"></i> {{ record.authorName }}
       </li>

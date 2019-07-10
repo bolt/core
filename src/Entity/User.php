@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Bolt\Common\Json;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -93,6 +95,20 @@ class User implements UserInterface, \Serializable
     {
     }
 
+    /**
+     * @return User
+     */
+    public static function factory(string $displayName = '', string $username = '', string $email = ''): self
+    {
+        $user = new self();
+
+        $user->setDisplayName($displayName);
+        $user->setUsername($username);
+        $user->setEmail($email);
+
+        return $user;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -120,7 +136,9 @@ class User implements UserInterface, \Serializable
 
     public function setUsername(string $username): void
     {
-        $this->username = $username;
+        $slugify = new Slugify();
+        $cleanUsername = $slugify->slugify($username);
+        $this->username = $cleanUsername;
     }
 
     public function getEmail(): string
@@ -236,7 +254,7 @@ class User implements UserInterface, \Serializable
 
     public function setLocale(?string $locale): self
     {
-        $this->locale = $locale;
+        $this->locale = Json::findScalar($locale);
 
         return $this;
     }

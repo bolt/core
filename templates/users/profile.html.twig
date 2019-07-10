@@ -1,9 +1,7 @@
 {% extends '@bolt/_base/layout.html.twig' %}
-{% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% block title %}
-    {{ macro.icon('user') }}
-    {{ 'title.edit_user'|trans }} » <strong>{{ display_name|default(__('user.new_user')) }}</strong>
+ {{ 'title.edit_user'|trans }} » <strong>{{ display_name|default('Unknown') }}</strong>
 {% endblock %}
 
 {% block vue_id 'editor' %}
@@ -12,13 +10,13 @@
 
     <div>
         <form method="post" id="editcontent" >
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('useredit') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('profileedit') }}">
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label' : 'label.username'|trans,
                 'name' : 'username',
                 'value' : user.username,
-                'disabled' : user.username is empty ? 'false' : 'true',
+                'disabled' : true,
             } %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
@@ -30,9 +28,9 @@
 
             {% include '@bolt/_partials/fields/password.html.twig' with {
                 'label': 'label.password'|trans,
+                'label_class': 'required',
                 'name': 'password',
-                'value': suggestedPassword,
-                'hidden': 'false',
+                'value': '',
             } %}
 
             {% include '@bolt/_partials/fields/email.html.twig' with {
@@ -42,6 +40,7 @@
                 'name': 'email',
                 'class': 'form-control',
             } %}
+
 
             {% set localeOptions = [] %}
 
@@ -61,22 +60,11 @@
                 'options' : localeOptions,
             } %}
 
-            {% set roleOptions = [] %}
-
-            {% for roleName, roleHierarchy in roles %}
-                {% set roleOptions = roleOptions|merge([
-                    {
-                        'key': roleName,
-                        'value': roleName ~ ' (' ~ roleHierarchy|join(', ')|lower ~ ')'
-                    }
-                ]) %}
-            {% endfor %}
-
             {% include '@bolt/_partials/fields/select.html.twig' with {
                 'label' : 'label.roles'|trans,
                 'name' : 'roles',
                 'value' : user.roles,
-                'options' : roleOptions,
+                'options' : [],
             } %}
 
             {# TODO: include form field with '@bolt/_partials/fields/select.html.twig' #}

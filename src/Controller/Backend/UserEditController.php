@@ -8,6 +8,7 @@ use Bolt\Common\Json;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
+use Bolt\Utils\Str;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,7 +22,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class ProfileController extends TwigAwareController implements BackendZone
+class UserEditController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
@@ -53,35 +54,53 @@ class ProfileController extends TwigAwareController implements BackendZone
     }
 
     /**
-     * @Route("/profile-edit", methods={"GET"}, name="bolt_profile_edit")
+     * @Route("/user-edit/{id}", methods={"GET"}, name="bolt_user_edit", requirements={"id": "\d+"})
      */
-    public function edit(): Response
+    public function edit(?User $user): Response
     {
-        $user = $this->getUser();
+        $roles = $this->getParameter('security.role_hierarchy.roles');
 
-        return $this->renderTemplate('@bolt/users/profile.html.twig', [
+        if (! $user instanceof User) {
+            $user = User::factory();
+            $suggestedPassword = Str::generatePassword();
+        } else {
+            $suggestedPassword = '';
+        }
+
+        return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
             'user' => $user,
+            'roles' => $roles,
+            'suggestedPassword' => $suggestedPassword,
         ]);
     }
 
     /**
-     * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
+     * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
      */
-    public function save(Request $request): Response
+    public function save(?User $user, Request $request): Response
     {
-        $this->validateCsrf($request, 'profileedit');
+        $this->validateCsrf($request, 'useredit');
 
-        $user = $this->getUser();
+        if (! $user instanceof User) {
+            $user = User::factory();
+        }
+
         $displayName = $user->getDisplayName();
-        $url = $this->urlGenerator->generate('bolt_profile_edit');
+        $url = $this->urlGenerator->generate('bolt_users');
         $locale = Json::findScalar($request->get('locale'));
-        $newPassword = $request->get('password');
+        $roles = (array) Json::findScalar($request->get('roles'));
 
+        if (empty($user->getUsername())) {
+            $user->setUsername($request->get('username'));
+        }
         $user->setDisplayName($request->get('displayName'));
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
+        $user->setRoles($roles);
         $user->setbackendTheme($request->get('backendTheme'));
+
+        $newPassword = $request->get('password');
 
         if ($this->validateUser($user, $newPassword) === false) {
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
@@ -90,13 +109,12 @@ class ProfileController extends TwigAwareController implements BackendZone
             ]);
         }
 
-        if ($newPassword !== null) {
+        if ($request->get('password') !== null) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 
+        $this->em->persist($user);
         $this->em->flush();
-
-        $request->getSession()->set('_locale', $locale);
 
         $this->addFlash('success', 'user.updated_profile');
 

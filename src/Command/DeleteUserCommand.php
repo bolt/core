@@ -34,7 +34,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class DeleteUserCommand extends Command
 {
-    protected static $defaultName = 'app:delete-user';
+    protected static $defaultName = 'bolt:delete-user';
 
     /** @var SymfonyStyle */
     private $io;

@@ -1,0 +1,47 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{% block title %}
+    {{ macro.icon('users') }} {{ title }}
+{% endblock %}
+
+{% block container "widecontent" %}
+
+{% block main %}
+    <h2>{{ subtitle }}</h2>
+
+    <table class="table" style="min-width: 100%; width: auto;">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="text-nowrap">Display name</th>
+            <th scope="col" class="text-nowrap">Username</th>
+            <th scope="col" class="text-nowrap">Email</th>
+            <th scope="col" class="text-nowrap">Roles</th>
+            <th scope="col" class="text-nowrap">Last seen</th>
+            <th scope="col" class="text-nowrap">Last IP</th>
+            <th scope="col" class="text-nowrap">Actions</th>
+
+        </tr>
+        </thead>
+    {% for user in users %}
+        <tr>
+            <th scope="row">{{ user.id }}</td>
+            <td>{{ user.displayName }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td><code>{{ user.roles|join('</code>, <code>') }}</code></td>
+            <td>{{ user.lastseenAt|default('-') }}</td>
+            <td>{{ user.lastIp|default('12.34.56.78') }}</td>
+            <td>
+                {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': user.id}), 'edit', 'secondary') }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <p class="buttons">
+        {{ macro.buttonlink('action.add_user', path('bolt_user_edit', {'id': 0}), 'user-plus', 'secondary') }}
+    </p>
+
+{% endblock %}
