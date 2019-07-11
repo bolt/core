@@ -61,7 +61,7 @@ $admin-header-height: 70px;
       left: 0;
     }
   }
-  
+
   &__body {
     padding-top: 0;
     position: relative;
@@ -81,11 +81,11 @@ $admin-header-height: 70px;
         //grid with autofit to make columns expand full width if other column(s) not present
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: auto;
-        grid-column-gap: 1.25rem;
+        grid-column-gap: 1.8125rem;
       }
       @include media-breakpoint-up(wd) {
-        grid-column-gap: 1.5rem;
-        padding: $spacer $spacer*1.5;
+        grid-column-gap: 1.8125rem;
+        padding: $spacer $spacer*1.825;
       }
       &--has-sidebar {
         // grid-template-columns: 3fr 1fr;
@@ -108,9 +108,6 @@ $admin-header-height: 70px;
       @include media-breakpoint-up(xl) {
         grid-column: 9/13;
         // max-width: 300px;
-      }
-      @include media-breakpoint-up(xw) {
-        grid-column: 9/12;
       }
     }
   }

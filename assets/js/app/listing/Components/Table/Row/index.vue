@@ -18,6 +18,17 @@
       :class="`is-${size}`"
       @mouseleave="leave"
     >
+      <!-- column details -->
+      <div class="listing__row--item is-details">
+        <a class="listing__row--item-title" :href="record.extras.editLink" :title="record.fieldValues.slug">{{ record.extras.title | trim(62) }}</a>
+        <span class="listing__row--item-title-excerpt">{{ record.extras.excerpt }}</span>
+      </div>
+      <!-- end column -->
+
+      <!-- column meta -->
+      <row-meta :type="type" :size="size" :record="record"></row-meta>
+      <!-- end column -->
+
       <!-- column thumbnail -->
       <div
         v-if="size === 'normal' && record.extras.image !== null"
@@ -26,16 +37,9 @@
       ></div>
       <!-- end column -->
 
-      <!-- column details -->
-      <div class="listing__row--item is-details">
-        <a :href="record.extras.editLink" :title="record.fieldValues.slug">{{ record.extras.title | trim(62) }}</a>
+      <div class="listing__row--item is-excerpt">
         <span>{{ record.extras.excerpt }}</span>
       </div>
-      <!-- end column -->
-
-      <!-- column meta -->
-      <row-meta :type="type" :size="size" :record="record"></row-meta>
-      <!-- end column -->
 
       <!-- column actions -->
       <row-actions
