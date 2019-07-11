@@ -61,6 +61,7 @@ appveyor.yml
 !/config/packages/local/_import_dev.yaml
 /config/routes/local
 !/config/routes/local/_import_dev.yaml
+.php-version
 
 ###> symfony/framework-bundle ###
 /.env
