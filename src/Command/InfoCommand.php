@@ -40,7 +40,7 @@ HELP
 
         $this->outputImage($output);
 
-        $io->title('🍀 Bolt ');
+        $io->title('⚙️  Bolt');
 
         $output->writeln('Bolt version: <info>' . Version::fullName() .  '</info>.');
         $output->writeln('');
