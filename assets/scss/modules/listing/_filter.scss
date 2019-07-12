@@ -42,7 +42,8 @@
     }
 
     .custom-control {
-      margin-left: $spacer / 4;
+      margin-left: $spacer*0.5;
+      margin-top: $spacer*0.25;
     }
 
     .control--button {

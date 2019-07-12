@@ -11,10 +11,10 @@ $bolt-saturated: #003E7C; // Very saturated. Use with care
 $big-z-index: 1000;
 
 // Typography
-$font-family-base:              -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$headings-font-family:          'Source Sans Variable', sans-serif;
+$font-family-base:            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$headings-font-family:        'Source Sans Variable', sans-serif;
 
-$font-size-base:                1rem;
+$font-size-base:              1rem;
 
 $h1-font-size:                $font-size-base * 2.5;
 $h2-font-size:                $font-size-base * 2;
@@ -54,7 +54,7 @@ $card-border-width:                 0;
 $card-border-radius:                $border-radius;
 $card-border-color:                 transparent;
 $card-bg:                           var(--foreground);
-$card-box-shadow:                   0 7.5px 15px -5px rgba(0, 0, 0, 0.07);
+$card-box-shadow:                   0 7.5px 15px -5px rgba(0, 0, 0, 0.03);
 
 // Buttons
 $btn-font-weight: 500;
@@ -71,13 +71,15 @@ $light: #E0E0E0;
 $dark: #333;
 $disabled: #C8C8C8;
 
+$spacer: 1rem;
+
 // Grid
 $grid-breakpoints: (
-        xs: 0,
+        xs: 480px,
         sm: 576px,
         md: 768px,
         lg: 992px,
-        xl: 1200px,
+        xl: 1280px,
         wd: 1400px,
         xw: 1750px
 );
@@ -95,6 +97,7 @@ $yiq-contrasted-threshold:  150;
   --foreground: #FFF;
   --primary: #255687;
   --shade: #666;
+  --shade-light: #ddd;
   --status-published: #08b883;
   --status-draft: #1078da;
   --status-held: #dd2443;
@@ -115,4 +118,10 @@ $yiq-contrasted-threshold:  150;
   }
 }
 
+// Variables for admin, toolbar and admin sidebar
+$admin-toolbar-height: 40px;
+$admin-sidebar-width: 200px;
+$admin-sidebar-width-wide: 250px;
+$admin-aside-width: 320px;
+$admin-header-height: 70px;
 

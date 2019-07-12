@@ -51,6 +51,11 @@
     }
 
     &__brand {
+      
+      padding: $spacer*0.8125;
+      .is-slim & {
+        padding: $spacer*0.8125 $spacer*1.125;
+      }
       svg {
         height: $admin-toolbar-height / 1.5;
         width: auto;

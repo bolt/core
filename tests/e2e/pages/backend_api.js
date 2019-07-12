@@ -6,7 +6,7 @@ class BackendApiPage extends BasePage {
 
     this.url = '/bolt/api';
 
-    this.header = $('.admin__header--title strong');
+    this.header = $('.admin__header--title');
   }
 }
 

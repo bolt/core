@@ -8,6 +8,7 @@
 
     span,
     a {
+      font-size: 0.9375rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -16,7 +17,7 @@
       box-shadow: $card-box-shadow;
       padding: $spacer / 2;
       margin-right: $spacer / 3;
-      min-width: 25px;
+      min-width: 34px;
       letter-spacing: $letter-spacing;
 
       &.disabled {

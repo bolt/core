@@ -1,13 +1,13 @@
 .listing--container {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   width: 100%;
-  z-index: $big-z-index;
+  // z-index: $big-z-index;
 
   // We raise the z-index by 1, to make sure the "Edit" dropdown is on top
   &:hover {
-    z-index: $big-z-index + 1;
+    // z-index: $big-z-index + 1;
   }
 
   &.sortable-ghost {

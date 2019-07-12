@@ -1,19 +1,19 @@
 <template>
-  <div class="listing__row--item is-actions">
+  <div class="listing__row--item is-actions edit-actions">
     <div class="btn-group">
       <a :href="record.extras.editLink" class="btn btn-secondary btn-block btn-sm text-nowrap">
         <i class="far fa-edit mr-1"></i> Edit
       </a>
       <button
         type="button"
-        class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+        class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
       >
         <span class="sr-only">Toggle Dropdown</span>
       </button>
-      <div class="dropdown-menu dropdown-menu-right" style="width: 320px;">
+      <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
         <a v-if="record.status === 'published'"  class="dropdown-item" :href="record.extras.link" target="_blank">
           <i class="fas fa-w fa-external-link-square-alt"></i>
           View on Site
