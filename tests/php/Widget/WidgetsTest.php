@@ -70,7 +70,7 @@ class WidgetsTest extends StringTestCase
         $widgets->registerWidget($weatherWidget);
 
         $this->assertSameHtml(
-            '<div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>',
+            '<div class="widget" id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>',
             $widgets->renderWidgetByName('Weather Widget')
         );
     }
@@ -86,7 +86,7 @@ class WidgetsTest extends StringTestCase
         $widgets->registerWidget($widget);
 
         $this->assertSameHtml(
-            '<div id="widget-dummy-widget" name="Dummy Widget">[Hello, Bar!]</div>',
+            '<div class="widget" id="widget-dummy-widget" name="Dummy Widget">[Hello, Bar!]</div>',
             $widgets->renderWidgetByName('Dummy Widget', ['foo' => 'Bar'])
         );
     }
@@ -121,7 +121,7 @@ class WidgetsTest extends StringTestCase
         $widgets->processQueue($response);
 
         $this->assertSameHtml(
-            '<html><body>foo<div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div></body></html>',
+            '<html><body>foo<div class="widget" id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div></body></html>',
             $response->getContent()
         );
     }
@@ -142,7 +142,7 @@ class WidgetsTest extends StringTestCase
         $widgets->processQueue($response);
 
         $this->assertSameHtml(
-            '<html><body><div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>foo</body></html>',
+            '<html><body><div class="widget" id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>foo</body></html>',
             $response->getContent()
         );
     }
