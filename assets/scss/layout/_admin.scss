@@ -30,7 +30,7 @@
   &__sidebar {
     position: absolute;
     z-index: 2;
-    top: $admin-toolbar-height;
+    top: 0;
     left: 0;
     transition: all 200ms;
     width: auto;

@@ -2,9 +2,9 @@
 
 {% block title %}
     {% if contentType %}
-        <i class='fas mr-2 {{contentType.icon_one}}'></i> <strong>{{ contentType.name }}</strong>
+        <i class='fas mr-2 {{contentType.icon_one}}'></i> {{ contentType.name }}
     {% else %}
-        <strong>{{ 'title.contentlisting'|trans }}</strong>
+        {{ 'title.contentlisting'|trans }}
     {% endif %}
 {% endblock %}
 

@@ -1,7 +1,7 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 
 {% block title %}
- {{ 'title.edit_user'|trans }} » <strong>{{ display_name|default('Unknown') }}</strong>
+ {{ 'title.edit_user'|trans }} » {{ display_name|default('Unknown') }}
 {% endblock %}
 
 {% block vue_id 'editor' %}

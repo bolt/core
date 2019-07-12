@@ -1,15 +1,19 @@
 //** Init | Base
 
+html {
+  height: 100%;
+}
+
 html,
 body {
   margin: 0;
-  height: 100vh;
   color: var(--body);
   background: var(--background);
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100%;
+  position:relative;
 }
 
 label {

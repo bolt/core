@@ -5,14 +5,11 @@
     font-weight: $font-weight-normal;
     font-size: $h1-font-size;
     color: var(--admin-sidebar);
-    @include media-breakpoint-up(md) {
-
-    }
-    @include media-breakpoint-up(lg) {
-
-    }
     i {
       color: var(--boltblue);
+      font-size: 2.125rem;
+      top: -3px;
+      position: relative;
     }
   }
 
@@ -21,8 +18,11 @@
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    padding: $spacer $spacer*1.8125;
+    padding: $spacer;
     position: relative;
+    @include media-breakpoint-up(wd) {
+      padding: $spacer $spacer*1.8125;
+    }
   }
   &--togglebar {
     padding: $spacer;
@@ -37,7 +37,7 @@
   top: 1.625rem;
   right: 1rem;
   border: 1px solid var(--primary);
-  padding: 0.25rem 0.625rem;
+  padding: $spacer*0.4 $spacer;
   color: $white;
   background-color: var(--primary);
   @include media-breakpoint-up(lg) {

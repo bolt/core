@@ -4,15 +4,14 @@
   background: var(--admin-sidebar);
   color: var(--admin-sidebar-text);
   height: 100%;
-  padding-top: 0.625rem;
-
+  padding-top: 1.625rem;
   a {
     font-size: 0.9375rem;
   }
 
   &--separator {
     padding: 0 $spacer;
-    margin: $spacer / 2 0;
+    margin: $spacer*1.625 0 0;
     opacity: 0.5;
     font-weight: $font-weight-bold;
     text-transform: uppercase;
@@ -25,7 +24,7 @@
     padding: 0;
     width: 100%;
     list-style: none;
-    margin-top: $spacer;
+
   }
 
   &--link {
@@ -85,6 +84,7 @@
       height: 100%;
       display: flex;
       align-items: center;
+      margin-right: 0;
     }
 
     .link--menu {
@@ -183,11 +183,13 @@
     font-weight: $font-weight-bold;
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
-
+    @include media-breakpoint-up(md) {
+      width: $admin-sidebar-width-wide;
+    }
     a {
       color: var(--admin-sidebar-text);
       opacity: 0.75;
-
+      font-size: 0.875rem;
       &:hover {
         color: inherit;
       }
@@ -211,7 +213,7 @@
         padding: $spacer / 1.25 $spacer / 2;
 
         .link--icon {
-          font-size: 130%;
+          font-size: 150%;
           margin: 0;
           width: auto;
         }
@@ -224,6 +226,11 @@
       .admin__sidebar--slim {
         width: $admin-sidebar-width / 3;
         bottom: $spacer / 2;
+      }
+    }
+    .admin__header, .admin__body {
+      @include media-breakpoint-up(lg) {
+        margin-left: $admin-sidebar-width / 3;
       }
     }
   }
