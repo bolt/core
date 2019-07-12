@@ -45,11 +45,11 @@ HELP
             Version::fullName(),
             Version::codeName(),
             Version::installType()
-            );
+        );
 
         $io->text([
             $message,
-            ''
+            '',
         ]);
 
         return null;
