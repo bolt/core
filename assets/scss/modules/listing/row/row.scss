@@ -281,6 +281,11 @@ $checkbox-row-width: 34px;
   }
 }
 
+.edit-actions {
+  &__dropdown {
+    font-size: 0.9375rem;
+  }
+}
 .card-enter-active,
 .card-leave-active {
   transition: all 0.25s;
