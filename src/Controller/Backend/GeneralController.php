@@ -7,6 +7,7 @@ namespace Bolt\Controller\Backend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
+use Bolt\Version;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +22,11 @@ class GeneralController extends TwigAwareController implements BackendZone
      */
     public function about(): Response
     {
-        return $this->renderTemplate('@bolt/pages/about.html.twig');
+        $twigVars = [
+            'installType' => Version::installType(),
+        ];
+
+        return $this->renderTemplate('@bolt/pages/about.html.twig', $twigVars);
     }
 
     /**

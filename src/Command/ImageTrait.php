@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 trait ImageTrait
 {
-    public function outputImage(OutputInterface $output): void
+    public function outputImage(SymfonyStyle $io): void
     {
         if (getenv('TERM_PROGRAM') !== 'iTerm.app') {
+            $io->title('⚙️  Bolt');
             return;
         }
 
         $image = $this->getImage();
 
-        $output->writeln('');
-        $output->write($image);
-        $output->writeln('');
+        $io->text(['', $image, '']);
     }
 
     public function getImage(): string

@@ -38,14 +38,19 @@ HELP
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->outputImage($output);
+        $this->outputImage($io);
 
-        $io->title('⚙️  Bolt');
+        $message = sprintf(
+            'Bolt version: <info>%s</info>, <comment>%s (%s)</comment>.',
+            Version::fullName(),
+            Version::codeName(),
+            Version::installType()
+        );
 
-        $output->writeln('Bolt version: <info>' . Version::fullName() .  '</info>.');
-        $output->writeln('');
-        $output->writeln('Visit the <href=https://boltcms.io>Bolt homepage</>.');
-        $output->writeln('');
+        $io->text([
+            $message,
+            '',
+        ]);
 
         return null;
     }
