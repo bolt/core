@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="listing-records"></div>
 </template>
 
 <script>

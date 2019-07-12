@@ -1,6 +1,6 @@
 //** Listing | Row
 
-$checkbox-row-width: 30px;
+$checkbox-row-width: 34px;
 
 .listing__row {
   box-shadow: $card-box-shadow;
@@ -13,7 +13,7 @@ $checkbox-row-width: 30px;
   flex-wrap: wrap;
   //justify-content: space-between;
   position: relative;
-  padding: $spacer/1.5;
+  padding: $spacer*0.5 $spacer*2 $spacer*0.5 $spacer*0.625;
 
   @include media-breakpoint-up(md) {
     flex-wrap: wrap;
@@ -112,8 +112,8 @@ $checkbox-row-width: 30px;
 
       @include media-breakpoint-up(md) {
         order: 2;
-        flex: 1 0 370px;
-        padding: $spacer/2.5 $spacer/2;
+        flex: 1 0 360px;
+        padding: $spacer*0.4 $spacer*2 $spacer*0.5 $spacer*0.625;
         margin-bottom: 0;
       }
 
@@ -176,9 +176,10 @@ $checkbox-row-width: 30px;
         flex: 1 0 100%;
       }
       @include media-breakpoint-up(md) {
-        flex: 0 0 125px;
+        flex: 0 0 130px;
+        max-width: 130px;
         order: 3;
-        padding: $spacer/2.5 $spacer/2;
+        padding: $spacer*0.5;
       }
     }
 
@@ -198,7 +199,7 @@ $checkbox-row-width: 30px;
       @include media-breakpoint-up(md) {
         flex: 0 0 110px;
         order: 4;
-        padding: $spacer/2.125 $spacer/2;
+        padding: $spacer*0.625;
         align-items: flex-start;
       }
     }

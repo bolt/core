@@ -15,8 +15,7 @@
             {{ record.extras.singular_name }}</a
           >
         </template>
-        <template v-else>{{ record.extras.singular_name }}</template
-        >&nbsp;№ <strong>&nbsp;{{ record.id }}</strong>
+        <template v-else>{{ record.extras.singular_name }}</template>&nbsp;№ {{ record.id }}
       </li>
     </ul>
   </div>
