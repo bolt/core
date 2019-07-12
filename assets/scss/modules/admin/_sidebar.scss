@@ -4,6 +4,7 @@
   background: var(--admin-sidebar);
   color: var(--admin-sidebar-text);
   height: 100%;
+  padding-top: 0.625rem;
 
   a {
     font-size: 0.9375rem;
@@ -154,7 +155,9 @@
     position: fixed;
     left: 0;
     bottom: 40px;
-
+    @include media-breakpoint-up(md) {
+      width: $admin-sidebar-width-wide;
+    }
     &:hover,
     &:focus {
       outline: none;

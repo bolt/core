@@ -4,7 +4,13 @@
   &--title {
     font-weight: $font-weight-normal;
     font-size: $h1-font-size;
+    color: var(--admin-sidebar);
+    @include media-breakpoint-up(md) {
 
+    }
+    @include media-breakpoint-up(lg) {
+
+    }
     i {
       color: var(--boltblue);
     }

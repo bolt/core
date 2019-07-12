@@ -1,13 +1,5 @@
 //** Layout | Admin
 
-// Note: Override for "Wide content" is below
-
-$admin-toolbar-height: 40px;
-$admin-sidebar-width: 200px;
-$admin-sidebar-width-wide: 250px;
-$admin-aside-width: 320px;
-$admin-header-height: 70px;
-
 // Main Layout Grid
 
 .admin {
@@ -116,4 +108,8 @@ $admin-header-height: 70px;
 
 .fa, .fas, .far, .fal, .fab {
   margin-right: 0.25em;
+}
+
+.card-body {
+  padding: $spacer $spacer*1.5;
 }

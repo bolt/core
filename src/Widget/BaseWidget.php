@@ -109,7 +109,7 @@ abstract class BaseWidget implements WidgetInterface
         }
 
         return sprintf(
-            '<div id="widget-%s" name="%s">%s</div>',
+            '<div class="widget" id="widget__%s" name="%s">%s</div>',
             $this->getSlug(),
             $this->getName(),
             $output
