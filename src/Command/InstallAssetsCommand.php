@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -37,8 +38,10 @@ class InstallAssetsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var Application $app */
+        $app = $this->getApplication();
         /** @var KernelInterface $kernel */
-        $kernel = $this->getApplication()->getKernel();
+        $kernel = $app->getKernel();
 
         $projectDir = $this->getProjectDirectory($kernel->getContainer());
         $publicDir = $this->getPublicDirectory($kernel->getContainer());
@@ -58,17 +61,16 @@ class InstallAssetsCommand extends Command
         $exitCode = 0;
 
         foreach ($dirs as $originDir => $targetDir) {
+            $message = basename($targetDir);
+
             try {
                 $this->filesystem->remove($targetDir);
-
-                $message = basename($targetDir);
-
                 $this->hardCopy($originDir, $targetDir);
 
-                $rows[] = [sprintf('<fg=green;options=bold>%s</>', \DIRECTORY_SEPARATOR === '\\' ? 'OK' : "\xE2\x9C\x94" /* HEAVY CHECK MARK (U+2714) */), $message, 'copied'];
+                $rows[] = [sprintf('<fg=green;options=bold>%s</>', "\xE2\x9C\x94"), $message, 'copied'];
             } catch (\Throwable $e) {
                 $exitCode = 1;
-                $rows[] = [sprintf('<fg=red;options=bold>%s</>', \DIRECTORY_SEPARATOR === '\\' ? \ERROR::class : "\xE2\x9C\x98" /* HEAVY BALLOT X (U+2718) */), $message, $e->getMessage()];
+                $rows[] = [sprintf('<fg=red;options=bold>%s</>', "\xE2\x9C\x98"), $message, $e->getMessage()];
             }
         }
 

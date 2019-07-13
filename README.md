@@ -1,15 +1,15 @@
-Bolt 4.0.0 prototype
-====================
+Bolt 4 - beta
+=============
 
-> Cleanse this world with flame
-> End this, cleanse this
-> **Rebuild and start again**
-> Obliterate what makes us weak
+> Cleanse this world with flame  
+> End this, cleanse this  
+> **Rebuild and start again**  
+> Obliterate what makes us weak  
 
 -- Hatebreed - [Destroy Everything][hatebreed]
 
-Progress towards alpha / beta
------------------------------
+Progress towards beta / stable 
+------------------------------
 
 Follow the progress on Bolt 4, at the following locations
 
@@ -23,7 +23,11 @@ To set up a running environment of Bolt 4 please perform the following steps 1 t
 1 Install
 ---------
 
-To install Bolt 4 (for now):
+If you want to check out Bolt, the `composer create project` is recommended. See here: 
+https://github.com/bolt/standard-project/ .
+This repository should be used to work _on_ Bolt. Not _with_ Bolt.
+
+To install a development version of Bolt 4:
 
   - Check out this git repository
   - Then run:
@@ -34,8 +38,6 @@ npm install && npm run build
   ```
 
 Alternatively, run `make install`, on a UNIX-like system.
-
-It's on the roadmap for Beta 1 to provide a `composer create-project` install.
 
 ### Or install with Docker
 
@@ -86,7 +88,9 @@ Alternatively, run `make db-reset`, on a UNIX-like system.
 4 Run the prototype
 -------------------
 
-  - Run `bin/console server:start`
+  - Using the Symfony CLI tool, just run `symfony server:start`. 
+
+  - Alternatively, run `bin/console server:start`
   (if running `bin/console server:start`does not work because you don't have the pcntl extension, run `bin/console server:run`)
 
 In your browser, go to `http://127.0.0.1:8000/` for the frontend, and to
@@ -167,9 +171,10 @@ translations, and keep them up to date. If you wish to participate, read the
 [instructions here][translations].
 
 Several translation-related Console commands are available:
-- `bin/console translation:download` - Download translations from Loco (replaces all local ones)
-- `bin/console translation:sync bolt down` - Download translations from Loco (replaces local changes if there is a conflict)
-- `bin/console translation:sync bolt up` - Send updated translations to Loco
+
+ - `bin/console translation:download` - Download translations from Loco (replaces all local ones)
+ - `bin/console translation:sync bolt down` - Download translations from Loco (replaces local changes if there is a conflict)
+ - `bin/console translation:sync bolt up` - Send updated translations to Loco
 
 
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
