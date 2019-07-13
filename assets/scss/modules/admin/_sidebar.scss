@@ -4,6 +4,7 @@
   background: var(--admin-sidebar);
   color: var(--admin-sidebar-text);
   height: 100%;
+
   padding-top: 1.625rem;
   a {
     font-size: 0.9375rem;
@@ -100,10 +101,10 @@
       padding: 0;
       list-style: none;
       visibility: hidden;
-      
+
       // display only on larger screens
       display: none;
-      @media (min-width: 768px) { 
+      @media (min-width: 768px) {
         display: block;
       }
 

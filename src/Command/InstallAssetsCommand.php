@@ -1,19 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class InstallAssetsCommand extends Command
@@ -29,13 +26,11 @@ class InstallAssetsCommand extends Command
         $this->filesystem = $filesystem;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setDescription('Copy built assets and translation files into the project root')
-        ;
+            ->setDescription('Copy built assets and translation files into the project root');
     }
-
 
     /**
      * {@inheritdoc}
@@ -63,7 +58,6 @@ class InstallAssetsCommand extends Command
         $exitCode = 0;
 
         foreach ($dirs as $originDir => $targetDir) {
-
             try {
                 $this->filesystem->remove($targetDir);
 
@@ -71,11 +65,10 @@ class InstallAssetsCommand extends Command
 
                 $this->hardCopy($originDir, $targetDir);
 
-                $rows[] = [sprintf('<fg=green;options=bold>%s</>', '\\' === \DIRECTORY_SEPARATOR ? 'OK' : "\xE2\x9C\x94" /* HEAVY CHECK MARK (U+2714) */), $message, 'copied'];
-
-            } catch (\Exception $e) {
+                $rows[] = [sprintf('<fg=green;options=bold>%s</>', \DIRECTORY_SEPARATOR === '\\' ? 'OK' : "\xE2\x9C\x94" /* HEAVY CHECK MARK (U+2714) */), $message, 'copied'];
+            } catch (\Throwable $e) {
                 $exitCode = 1;
-                $rows[] = [sprintf('<fg=red;options=bold>%s</>', '\\' === \DIRECTORY_SEPARATOR ? 'ERROR' : "\xE2\x9C\x98" /* HEAVY BALLOT X (U+2718) */), $message, $e->getMessage()];
+                $rows[] = [sprintf('<fg=red;options=bold>%s</>', \DIRECTORY_SEPARATOR === '\\' ? \ERROR::class : "\xE2\x9C\x98" /* HEAVY BALLOT X (U+2718) */), $message, $e->getMessage()];
             }
         }
 
@@ -83,7 +76,7 @@ class InstallAssetsCommand extends Command
             $io->table(['', 'Bundle', 'Method / Error'], $rows);
         }
 
-        if (0 !== $exitCode) {
+        if ($exitCode !== 0) {
             $io->error('Some errors occurred while installing assets.');
         } else {
             $io->success($rows ? 'All assets were successfully installed.' : 'No assets were provided by any bundle.');
@@ -103,12 +96,8 @@ class InstallAssetsCommand extends Command
         $this->filesystem->mirror($originDir, $targetDir, Finder::create()->ignoreDotFiles(false)->in($originDir));
     }
 
-
-
     private function getProjectDirectory(ContainerInterface $container): string
     {
-        $defaultPublicDir = 'public';
-
         if ($container->hasParameter('kernel.project_dir')) {
             return $container->getParameter('kernel.project_dir');
         }
@@ -120,13 +109,13 @@ class InstallAssetsCommand extends Command
     {
         $defaultPublicDir = 'public';
 
-        if (!$container->hasParameter('kernel.project_dir')) {
+        if (! $container->hasParameter('kernel.project_dir')) {
             return $defaultPublicDir;
         }
 
         $composerFilePath = $container->getParameter('kernel.project_dir').'/composer.json';
 
-        if (!file_exists($composerFilePath)) {
+        if (! file_exists($composerFilePath)) {
             return $defaultPublicDir;
         }
 
