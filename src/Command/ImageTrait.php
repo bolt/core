@@ -25,7 +25,7 @@ trait ImageTrait
         $filename = dirname(dirname(__DIR__)) . '/assets/static/logos/bolt_logo_cli.png';
         $imageFile = base64_encode(file_get_contents($filename));
 
-        return $this->unicodeString('\u001B]1337;File=inline=1;width=auto;height=auto;preserveAspectRatio=1:' . $imageFile . '\u0007');
+        return $this->unicodeString('\u001B]1337;File=inline=1;width=40;height=auto;preserveAspectRatio=1:' . $imageFile . '\u0007');
     }
 
     private function unicodeString(string $str, ?string $encoding = null): string

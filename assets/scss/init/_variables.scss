@@ -16,11 +16,12 @@ $headings-font-family:        'Source Sans Variable', sans-serif;
 
 $font-size-base:              1rem;
 
-$h1-font-size:                $font-size-base * 2.5;
-$h2-font-size:                $font-size-base * 2;
-$h3-font-size:                $font-size-base * 1.75;
-$h4-font-size:                $font-size-base * 1.5;
-$h5-font-size:                $font-size-base * 1.25;
+// Minor Third progression for header font sizes
+$h1-font-size:                $font-size-base * 2.07;
+$h2-font-size:                $font-size-base * 1.728;
+$h3-font-size:                $font-size-base * 1.44;
+$h4-font-size:                $font-size-base * 1.2;
+$h5-font-size:                $font-size-base;
 $h6-font-size:                $font-size-base;
 
 $font-weight-light:             300;
@@ -58,6 +59,9 @@ $card-box-shadow:                   0 7.5px 15px -5px rgba(0, 0, 0, 0.03);
 
 // Buttons
 $btn-font-weight: 500;
+$btn-font-size-lg: 16px;
+$btn-font-size: 14px;
+$btn-font-size-sm: 13px;
 $btn-padding-x: 0.6rem;
 
 $primary: #1863AF;
@@ -75,6 +79,7 @@ $spacer: 1rem;
 
 // Grid
 $grid-breakpoints: (
+        xxs: 0,
         xs: 480px,
         sm: 576px,
         md: 768px,
@@ -83,6 +88,8 @@ $grid-breakpoints: (
         wd: 1400px,
         xw: 1750px
 );
+
+$column-gap: 3rem;
 
 // Modal Dialog spacing
 $modal-dialog-margin-y-sm-up: 4rem;

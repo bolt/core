@@ -30,7 +30,7 @@
   &__sidebar {
     position: absolute;
     z-index: 2;
-    top: 0;
+    top: $admin-toolbar-height;
     left: 0;
     transition: all 200ms;
     width: auto;
@@ -73,11 +73,11 @@
         //grid with autofit to make columns expand full width if other column(s) not present
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: auto;
-        grid-column-gap: 1.8125rem;
+        grid-column-gap: $column-gap;
       }
       @include media-breakpoint-up(wd) {
-        grid-column-gap: 1.8125rem;
-        padding: $spacer $spacer*1.825;
+        grid-column-gap: $column-gap;
+        padding: $spacer $spacer*2 $spacer $column-gap;
       }
       &--has-sidebar {
         // grid-template-columns: 3fr 1fr;

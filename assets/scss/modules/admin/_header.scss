@@ -21,7 +21,7 @@
     padding: $spacer;
     position: relative;
     @include media-breakpoint-up(wd) {
-      padding: $spacer $spacer*1.8125;
+      padding: $spacer*3 $column-gap $spacer;
     }
   }
   &--togglebar {

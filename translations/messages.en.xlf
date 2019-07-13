@@ -1131,5 +1131,11 @@
         <target>New User</target>
       </segment>
     </unit>
+    <unit id="TtmWqX3" name="action.view">
+      <segment>
+        <source>action.view</source>
+        <target>View</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

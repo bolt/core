@@ -1,8 +1,8 @@
 {
   "name": "bolt",
-  "version": "4.0.0-alpha.2",
-  "homepage": "https://bolt.cm",
-  "author": "Bob den Otter <bob@twokings.nl> (https://bolt.cm)",
+  "version": "4.0.0-beta.1",
+  "homepage": "https://boltcms.io",
+  "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
   "license": "MIT",
   "description": "Bolt 4 npm/javascript packages",
   "keywords": [
@@ -36,7 +36,7 @@
     "dropzone": "^5.5.1",
     "flagpack": "^1.0.3",
     "jquery": "^3.4.1",
-    "luxon": "^1.16.1",
+    "luxon": "^1.17.1",
     "no-scroll": "^2.1.1",
     "popper.js": "^1.15.0",
     "register-service-worker": "^1.6.2",
