@@ -49,7 +49,7 @@
     "vue": "^2.6.10",
     "vue-flatpickr-component": "^8.1.2",
     "vue-multiselect": "^2.1.6",
-    "vue-simplemde": "^1.0.0",
+    "vue-simplemde": "^0.5.2",
     "vue-trumbowyg": "^3.4.2",
     "vuedraggable": "^2.23.0",
     "vuex": "^3.1.1"
