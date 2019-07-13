@@ -135,10 +135,12 @@
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "bin/console bolt:info"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "bin/console bolt:info"
         ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
