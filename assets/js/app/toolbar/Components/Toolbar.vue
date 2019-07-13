@@ -6,7 +6,7 @@
   >
     <div class="toolbar-item toolbar-item__brand">
 
-      <img src="/assets/logos/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="28" />
+      <img src="/assets/images/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="28" />
 
       <ul class="toolbar-menu">
         <li><a href="https://bolt.cm/" target="_blank">Visit Bolt.cm</a></li>

@@ -22,7 +22,7 @@ trait ImageTrait
 
     public function getImage(): string
     {
-        $filename = dirname(dirname(__DIR__)) . '/assets/static/logos/bolt_logo_cli.png';
+        $filename = dirname(dirname(__DIR__)) . '/assets/static/images/bolt_logo_cli.png';
         $imageFile = base64_encode(file_get_contents($filename));
 
         return $this->unicodeString('\u001B]1337;File=inline=1;width=40;height=auto;preserveAspectRatio=1:' . $imageFile . '\u0007');
