@@ -86,7 +86,11 @@
   }
 
   .toolbar-menu {
-    @include darken(--admin-toolbar, 0.2);
+    background: var(--admin-sidebar-menu);
+    border-radius: 0 $border-radius $border-radius 0;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--shade);
 
     font-weight: $font-weight-normal;
     font-size: 100%;
@@ -104,10 +108,11 @@
       a {
         padding: $spacer / 2;
         display: block;
+        color: var(--shade);
 
         &:hover {
-          @include darken(--admin-toolbar, 0.3);
-
+          @include darken(--admin-sidebar, 0.02);
+          color: var(--admin-sidebar-icon);
           text-decoration: none;
         }
       }
