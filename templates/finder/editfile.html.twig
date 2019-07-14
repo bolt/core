@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block main %}
-    <h2>{{ 'caption.path'|trans }}: <code>{{ location }}{{ file }}</code></h2>
+    <h3>{{ 'caption.path'|trans }}: <code>{{ location }}{{ file }}</code></h3>
 
     <form method="post">
         <input type="hidden" name="file" value="{{ file }}">
@@ -40,9 +40,10 @@
 {% block javascripts %}
 {{ parent() }}
 <script>
-var myCodeMirror = CodeMirror.fromTextArea(editfile_textarea, {
-    lineNumbers: true,
-    mode: '{{ mode }}'
-});
+    var editfile_textarea = document.getElementById('editfile_textarea');
+    var myCodeMirror = CodeMirror.fromTextArea(editfile_textarea, {
+        lineNumbers: true,
+        mode: '{{ mode }}'
+    });
 </script>
 {% endblock %}
