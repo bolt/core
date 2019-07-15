@@ -94,6 +94,7 @@
     &--main {
       @include media-breakpoint-up(xl) {
         grid-column: 1/13;
+        width: 100%;
       }
     }
     &--aside {
