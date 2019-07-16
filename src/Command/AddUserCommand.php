@@ -47,9 +47,16 @@ class AddUserCommand extends Command
     /** @var SymfonyStyle */
     private $io;
 
+    /** @var EntityManagerInterface */
     private $entityManager;
+
+    /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
+
+    /** @var Validator */
     private $validator;
+
+    /** @var UserRepository */
     private $users;
 
     public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, Validator $validator, UserRepository $users)
@@ -107,7 +114,7 @@ class AddUserCommand extends Command
             return;
         }
 
-        $this->io->title('Add User Command Interactive Wizard');
+        $this->io->title('Add Bolt User Command');
         $this->io->text([
             'If you prefer to not use this interactive wizard, provide the',
             'arguments required by this command as follows:',

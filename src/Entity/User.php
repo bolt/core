@@ -136,7 +136,7 @@ class User implements UserInterface, \Serializable
 
     public function setUsername(string $username): void
     {
-        $slugify = new Slugify();
+        $slugify = new Slugify(['separator' => '_']);
         $cleanUsername = $slugify->slugify($username);
         $this->username = $cleanUsername;
     }
