@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Webmozart\PathUtil\Path;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class FilemanagerController extends TwigAwareController implements BackendZone
 {
