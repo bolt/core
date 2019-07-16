@@ -5,7 +5,7 @@ security:
         ROLE_USER: []
 
     encoders:
-        Bolt\Entity\User: bcrypt
+        Bolt\Entity\User: auto
 
     providers:
         database_users:
