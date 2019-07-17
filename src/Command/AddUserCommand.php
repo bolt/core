@@ -119,7 +119,7 @@ class AddUserCommand extends Command
             'If you prefer to not use this interactive wizard, provide the',
             'arguments required by this command as follows:',
             '',
-            ' $ php bin/console app:add-user username password email@example.com',
+            ' $ php bin/console bolt:add-user username password email@example.com DisplayName',
             '',
             'Now we\'ll ask you for the value of all the missing command arguments.',
         ]);
@@ -185,6 +185,8 @@ class AddUserCommand extends Command
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setRoles([$isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER']);
+        $user->setLocale('en');
+        $user->setBackendTheme('default');
 
         // See https://symfony.com/doc/current/book/security.html#security-encoding-password
         $encodedPassword = $this->passwordEncoder->encodePassword($user, $plainPassword);
