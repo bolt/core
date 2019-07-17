@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Entity\User;
+use Bolt\Repository\UserRepository;
 use Bolt\Utils\Str;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends BaseFixture implements FixtureGroupInterface
@@ -16,20 +16,28 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
+    /** @var UserRepository */
+    private $users;
+
     private $append = false;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    /** @var array */
+    private $allUsers = [];
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, UserRepository $users)
     {
         $this->passwordEncoder = $passwordEncoder;
 
         // If ran with `--append` we append users, and use random passwords for them
-        if (in_array('--append', $_SERVER['argv'])) {
+        if (in_array('--append', $_SERVER['argv'], true)) {
             $this->append = true;
         }
+        $this->users = $users;
     }
 
     public function load(ObjectManager $manager): void
     {
+        $this->getCurrentUsers();
         $this->loadUsers($manager);
 
         $manager->flush();
@@ -43,6 +51,13 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
     private function loadUsers(ObjectManager $manager): void
     {
         foreach ($this->getUserData() as $userData) {
+            /** @var User $allUser */
+            foreach ($this->allUsers as $allUser) {
+                if (($allUser->getUsername() === $userData['username']) || ($allUser->getEmail() === $userData['username'])) {
+                    continue 2;
+                }
+            }
+
             $user = new User();
             $user->setDisplayName($userData['displayname']);
             $user->setUsername($userData['username']);
@@ -57,6 +72,16 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
         }
 
         $manager->flush();
+    }
+
+    private function getCurrentUsers(): void
+    {
+        $this->allUsers = $this->users->findBy([], ['username' => 'ASC'], 100);
+
+        /** @var User $user */
+        foreach ($this->allUsers as $user) {
+            $this->addReference('user_' . $user->getUsername(), $user);
+        }
     }
 
     private function getUserData(): array
