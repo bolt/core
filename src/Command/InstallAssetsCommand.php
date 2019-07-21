@@ -45,12 +45,21 @@ class InstallAssetsCommand extends Command
 
         $projectDir = $this->getProjectDirectory($kernel->getContainer());
         $publicDir = $this->getPublicDirectory($kernel->getContainer());
-        $baseDir = dirname(dirname(__DIR__));
 
-        $dirs = [
-            $baseDir . '/public/assets' => $publicDir .'/assets/',
-            $baseDir . '/translations' => $projectDir . '/translations/',
-        ];
+        // Determine if we can use ../bolt-assets or not.
+        if (file_exists(dirname(dirname(dirname(__DIR__))) . '/bolt-assets')) {
+            $baseDir = dirname(dirname(dirname(__DIR__))) . '/bolt-assets';
+            $dirs = [
+                $baseDir . '/assets' => $publicDir .'/assets/',
+                $baseDir . '/translations' => $projectDir . '/translations/',
+            ];
+        } else {
+            $baseDir = dirname(dirname(__DIR__));
+            $dirs = [
+                $baseDir . '/public/assets' => $publicDir .'/assets/',
+                $baseDir . '/translations' => $projectDir . '/translations/',
+            ];
+        }
 
         $io = new SymfonyStyle($input, $output);
         $io->newLine();
