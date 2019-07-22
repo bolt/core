@@ -35,5 +35,7 @@ class SetupCommand extends Command
         $command = $this->getApplication()->find('doctrine:fixtures:load');
         $commandInput = new ArrayInput(['--append' => true]);
         $command->run($commandInput, $output);
+
+        return null;
     }
 }
