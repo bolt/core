@@ -20,7 +20,6 @@
 </head>
 
 <body id="{% block body_id %}{% endblock %}">
-
 <div class="admin has-{{ block('container') }}">
 
     {% set admin_menu_json = admin_menu()|json_encode %}
@@ -72,7 +71,7 @@
 
     <!-- Admin Main -->
     <div class="admin__body {% block container %}{% endblock %}">
-       
+
         {% block topsection %}
             {# insert stuff here that should _not_ be part of the
                 Vue components, like `{{ dump() }}` statements #}

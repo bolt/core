@@ -81,8 +81,18 @@ class TwigAwareController extends AbstractController
 
     private function setThemePackage(): void
     {
+        // get the default package, and re-add as `bolt`
+        $boltPackage = $this->packages->getPackage();
+        $this->packages->addPackage('bolt', $boltPackage);
+
+        // set `theme` package, and also as 'default'
         $themePath = '/theme/' . $this->config->get('general/theme');
         $themePackage = new PathPackage($themePath, new EmptyVersionStrategy());
+        $this->packages->setDefaultPackage($themePackage);
         $this->packages->addPackage('theme', $themePackage);
+
+        // set `public` package
+        $publicPackage = new PathPackage('/', new EmptyVersionStrategy());
+        $this->packages->addPackage('public', $publicPackage);
     }
 }
