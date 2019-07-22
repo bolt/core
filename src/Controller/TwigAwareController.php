@@ -7,6 +7,9 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\Asset\PathPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
@@ -19,13 +22,17 @@ class TwigAwareController extends AbstractController
     /** @var Environment */
     protected $twig;
 
+    /** @var Packages */
+    protected $packages;
+
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig): void
+    public function setAutowire(Config $config, Environment $twig, Packages $packages): void
     {
         $this->config = $config;
         $this->twig = $twig;
+        $this->packages = $packages;
     }
 
     /**
@@ -43,6 +50,8 @@ class TwigAwareController extends AbstractController
     {
         // Set User in global Twig environment
         $parameters['user'] = $parameters['user'] ?? $this->getUser();
+
+        $this->setThemePackage();
 
         // Resolve string|array of templates into the first one that is found.
         if (is_array($template)) {
@@ -68,5 +77,12 @@ class TwigAwareController extends AbstractController
         $response->setContent($content);
 
         return $response;
+    }
+
+    private function setThemePackage(): void
+    {
+        $themePath = '/theme/' . $this->config->get('general/theme');
+        $themePackage = new PathPackage($themePath, new EmptyVersionStrategy());
+        $this->packages->addPackage('theme', $themePackage);
     }
 }
