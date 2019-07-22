@@ -32,7 +32,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
+    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true, string $sortBy = '')
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -48,7 +48,20 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+        if ($sortBy) {
+            $qb->addSelect('f')
+            ->innerJoin('content.fields', 'f')
+            ->andWhere('f.name = :title')
+            ->setParameter('title', 'title')
+            ->orderBy('f.value');
+        }
+        dump($qb->getDQL());
+        dump($qb->getQuery()->getSQL());
+        // dump($this->createPaginator($qb->getQuery(), $page, $amountPerPage));
+        // die();
+
+        return $qb->getQuery()->getResult();
+        // return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
     public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta

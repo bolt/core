@@ -27,7 +27,17 @@ class ContentOverviewController extends TwigAwareController implements BackendZo
         $page = (int) $request->query->get('page', 1);
         $amountPerPage = $contentType->get('records_per_page', 10);
 
-        $records = $contentRepository->findForListing($page, $amountPerPage, $contentType, false);
+        if($request->query->get('sort')){
+            $sortBy = $request->query->get('sort');
+            dump($sortBy);
+            // die();
+            $records = $contentRepository->findForListing($page, $amountPerPage, $contentType, false, $sortBy);
+
+            dump($request->query->get('sort'));
+            // die();
+        }else {
+            $records = $contentRepository->findForListing($page, $amountPerPage, $contentType, false);
+        }
 
         return $this->renderTemplate('@bolt/content/listing.html.twig', [
             'records' => $records,
