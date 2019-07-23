@@ -94,5 +94,9 @@ class TwigAwareController extends AbstractController
         // set `public` package
         $publicPackage = new PathPackage('/', new EmptyVersionStrategy());
         $this->packages->addPackage('public', $publicPackage);
+
+        // set `files` package
+        $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
+        $this->packages->addPackage('files', $filesPackage);
     }
 }

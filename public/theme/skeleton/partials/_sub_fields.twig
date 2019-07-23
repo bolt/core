@@ -37,6 +37,15 @@
         {% if exclude|default is iterable %}
             {% set omittedkeys = omittedkeys|merge(exclude) %}
         {% endif %}
+
+        {# We also skip over the fields that are explicitly excluded. #}
+        {% if magicimage|default %}
+            {% set omittedkeys = omittedkeys|merge([magicimage]) %}
+        {% endif %}
+
+
+        {{ dump(omittedkeys) }}
+
     {% endspaceless -%}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
@@ -60,6 +69,7 @@
         {% endif %}
 
         {# Finally, the repeaters and blocks #}
+        {# @todo Fix this, see https://github.com/bolt/four/issues/176 #}
         {#{% if (repeaters|default(false) == true and record.type(key) == "repeater") or#}
               {#(blocks|default(false) == true and record.type(key) == "block") %}#}
 
