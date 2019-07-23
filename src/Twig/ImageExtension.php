@@ -162,6 +162,4 @@ class ImageExtension extends AbstractExtension
 
         return htmlentities($alt, ENT_QUOTES);
     }
-
-
 }

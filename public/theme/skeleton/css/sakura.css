@@ -82,7 +82,9 @@ blockquote {
   border-left: 3px solid #2c8898; }
 
 img {
-  max-width: 100%; }
+  max-width: 100%;
+  display: block;
+}
 
 /* Pre and Code */
 pre {
@@ -214,3 +216,13 @@ label, legend, fieldset {
   color: #abcfd6;
 }
 
+/* Bolt Image holder */
+section.imageholder {
+  margin: 0.5rem 0;
+}
+
+section.imageholder small {
+  display: block;
+  text-align: center;
+  font-size: 1.6rem;
+}

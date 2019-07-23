@@ -135,10 +135,7 @@ class ContentExtension extends AbstractExtension
         return null;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getImageName(Content $content)
+    public function getImageName(Content $content): ?string
     {
         foreach ($content->getFields() as $field) {
             if ($field instanceof ImageField) {

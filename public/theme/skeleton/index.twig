@@ -11,7 +11,10 @@
 
         {{ record|excerpt }}
 
-        {{ popup(record|image, 1200, 500) }}
+        <section class="imageholder">
+            {{ popup(record|image, 1200, 500) }}
+            <small>{{ record|image.alt }}</small>
+        </section>
 
         {{ record.content }}
 
