@@ -19,7 +19,9 @@ Feature: Get content with API
           "image": {
              "filename": @string@,
              "alt": @string@,
-             "path": @string@
+             "title": @string@,
+             "path": @string@,
+             "media": @string@
           },
           "@*@": "@*@"
        },
@@ -50,9 +52,11 @@ Feature: Get content with API
         "title": @string@,
         "slug": @string@,
         "image": {
-           "filename": @string@,
-           "alt": @string@,
-           "path": @string@
+             "filename": @string@,
+             "alt": @string@,
+             "title": @string@,
+             "path": @string@,
+             "media": @string@
         },
        "@*@": "@*@"
      },
@@ -90,7 +94,9 @@ Feature: Get content with API
               "image": {
                  "filename": @string@,
                  "alt": @string@,
-                 "path": @string@
+                 "title": @string@,
+                 "path": @string@,
+                 "media": @string@
               },
               "@*@": "@*@"
            },
@@ -143,7 +149,9 @@ Feature: Get content with API
               "image": {
                  "filename": @string@,
                  "alt": @string@,
-                 "path": @string@
+                 "title": @string@,
+                 "path": @string@,
+                 "media": @string@
               },
               "@*@": "@*@"
            },
@@ -188,11 +196,13 @@ Feature: Get content with API
         "title": @string@,
         "slug": @string@,
         "image": {
-           "filename": @string@,
-           "alt": @string@,
-           "path": @string@
+            "filename": @string@,
+            "alt": @string@,
+            "title": @string@,
+            "path": @string@,
+            "media": @string@
         },
-       "@*@": "@*@"
+        "@*@": "@*@"
      },
      "taxonomyValues": @array@,
      "extras": {
