@@ -8,20 +8,14 @@
         <h1 class="heading">{{ record|title }}</h1>
     {% endif %}
 
-    <hr>
-
-    {% if record.image %}
-        <a href="{{ image(record.image) }}">
-            <img src="{{ thumbnail(record.image, 400, 260) }}">
-        </a>
-
-        <hr>
+    {% if record|image %}
+        {{ popup(record|image, 1024, 768) }}
     {% endif %}
 
     {# Output all fields, in the order as defined in the content type.
        To change the generated html and configure the options, see:
        https://docs.bolt.cm/templating #}
-    {% with { 'record': record, 'common': true, 'extended': true, 'repeaters': true, 'blocks': true } %}
+    {% with { 'record': record, 'common': true, 'extended': true, 'repeaters': true, 'blocks': true, 'magicimage': record|imagename } %}
         {{ block('sub_fields', 'partials/_sub_fields.twig') }}
     {% endwith %}
 
