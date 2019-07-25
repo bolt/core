@@ -15,6 +15,20 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
  */
 class ImageField extends Field implements FieldInterface
 {
+    /** @var array */
+    private $fieldBase = [];
+
+    public function __construct()
+    {
+        $this->fieldBase = [
+            'filename' => '',
+            'alt' => '',
+            'title' => '',
+            'path' => '',
+            'media' => '',
+        ];
+    }
+
     public function getType(): string
     {
         return 'image';
@@ -27,7 +41,7 @@ class ImageField extends Field implements FieldInterface
 
     public function getValue(): array
     {
-        $value = parent::getValue() ?: [];
+        $value = array_merge($this->fieldBase, (array) parent::getValue() ?: []);
 
         // Remove cruft field getting stored as JSON.
         unset($value[0]);
