@@ -11,7 +11,7 @@
         :alt='{{ field.get('alt')|json_encode }}'
         :media='{{ field.get('media')|json_encode }}'
         :directory='{{ directory|json_encode }}'
-        :csrf_token='{{ csrf_token('upload') }}'
+        :csrf_token='{{ csrf_token('upload')|json_encode }}'
     ></editor-image>
 
 {% endblock %}
