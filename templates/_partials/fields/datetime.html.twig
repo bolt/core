@@ -14,10 +14,10 @@
     {% endif %}
 
     <editor-datetime
-        :value="'{{ value }}'"
-        :name="'{{ name }}'"
-        :readonly="'{{ readonly }}'"
-        :form="'{{ form }}'"
+        :value='{{ value|json_encode }}'
+        :name='{{ name|json_encode }}'
+        :readonly='{{ readonly|json_encode }}'
+        :form='{{ form|json_encode }}'
     ></editor-datetime>
 {% endblock %}
 

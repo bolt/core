@@ -24,10 +24,10 @@
     {#<pre><code>{{ value|json_encode }}</code></pre>#}
     <editor-select
         :value="{{ value|json_encode }}"
-        :name="'{{ name }}'"
-        :id="'{{ id }}'"
+        :name='{{ name|json_encode }}'
+        :id='{{ id|json_encode }}'
         :options="{{ options|json_encode }}"
-        :form="'{{ form }}'"
+        :form='{{ form|json_encode }}'
         :multiple="{{ multiple }}"
         :allowempty="{{ allowempty }}"
     ></editor-select>

@@ -3,6 +3,6 @@
 {% block field %}
     <editor-html
         :value="{{ value|json_encode }}"
-        :name="'{{ name }}'"
+        :name='{{ name|json_encode }}'
     ></editor-html>
 {% endblock %}
