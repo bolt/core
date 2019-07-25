@@ -201,6 +201,8 @@ showcases:
             type: checkbox
             label: "This is a checkbox"
             group: other
+        email:
+            type: email
         datetime:
             type: date
             mode: datetime

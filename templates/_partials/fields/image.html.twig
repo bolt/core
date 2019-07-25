@@ -4,13 +4,14 @@
     {% set setPath = field.definition.get('upload')|default('') %}
     {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
     <editor-image
-        :name="'{{ name }}'"
-        :filename="'{{ field.get('filename') }}'"
-        :thumbnail="'{{ field|thumbnail(width=1200, height=1200) }}'"
-        :title="'{{ field.get('title') }}'"
-        :alt="'{{ field.get('alt') }}'"
-        :media="'{{ field.get('media') }}'"
-        :directory="'{{directory}}'"
-        :csrf_token="'{{ csrf_token('upload') }}'"
+        :name='{{ name|json_encode }}'
+        :filename='{{ field.get('filename')|json_encode }}'
+        :thumbnail='{{ field|thumbnail(width=400, height=300)|json_encode }}'
+        :title='{{ field.get('title')|json_encode }}'
+        :alt='{{ field.get('alt')|json_encode }}'
+        :media='{{ field.get('media')|json_encode }}'
+        :directory='{{ directory|json_encode }}'
+        :csrf_token='{{ csrf_token('upload')|json_encode }}'
     ></editor-image>
+
 {% endblock %}

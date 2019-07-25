@@ -19,12 +19,12 @@
   {% endif %}
 
   <editor-date
-    :value="'{{ value }}'"
-    name="{{ name }}"
-    :disabled="'{{ disabled }}'"
-    form="{{ form }}"
-    mode="{{ mode }}"
-    locale="{{user.locale}}"
+    :value='{{ value|json_encode }}'
+    name='{{ name }}'
+    :disabled='{{ disabled|json_encode }}'
+    form='{{ form }}'
+    mode='{{ mode }}'
+    locale='{{user.locale}}'
   ></editor-date>
   
 {% endblock %}

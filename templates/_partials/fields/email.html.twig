@@ -2,8 +2,8 @@
 
 {% block field %}
         <editor-email
-            :id="'{{ id }}'"
-            :name="'{{ name }}'"
+            :id='{{ id|json_encode }}'
+            :name='{{ name|json_encode }}'
             :value="{{ value|json_encode }}"
         ></editor-email>
 {% endblock %}

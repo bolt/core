@@ -10,6 +10,7 @@
 
     {% if record|image %}
         {{ popup(record|image, 1024, 768) }}
+        {{ dump(record|image) }}
     {% endif %}
 
     {# Output all fields, in the order as defined in the content type.
