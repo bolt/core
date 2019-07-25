@@ -7,7 +7,8 @@ namespace Bolt\Entity\Field;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
-use League\Glide\Urls\UrlBuilderFactory;
+use Symfony\Component\Asset\PathPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 /**
  * @ORM\Entity
@@ -28,26 +29,19 @@ class ImageField extends Field implements FieldInterface
     {
         $value = parent::getValue() ?: [];
 
+        // Remove cruft field getting stored as JSON.
+        unset($value[0]);
+
         // Generate a URL
         $value['path'] = $this->getPath();
-
-        // @todo temp fix for https://github.com/bolt/four/issues/318
-        unset($value['media']);
-        unset($value['title']);
-        unset($value[0]);
 
         return $value;
     }
 
     public function getPath(): string
     {
-        $urlBuilder = UrlBuilderFactory::create('/thumbs/');
+        $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
 
-        // @todo those dimensions shouldn't be hardcoded here
-        return $urlBuilder->getUrl($this->get('filename'), [
-            'w' => 240,
-            'h' => 160,
-            'area' => 'files',
-        ]);
+        return $filesPackage->getUrl($this->get('filename'));
     }
 }
