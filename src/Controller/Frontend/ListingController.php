@@ -44,7 +44,13 @@ class ListingController extends TwigAwareController implements FrontendZone
 
         $templates = $this->templateChooser->forListing($contentType);
 
-        return $this->renderTemplate($templates, ['records' => $records]);
+        $twigVars = [
+            'records' => $records,
+            $contentType->getSlug() => $records,
+            'contenttype' => $contentType,
+        ];
+
+        return $this->renderTemplate($templates, $twigVars);
     }
 
     /**
