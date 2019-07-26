@@ -20,9 +20,9 @@
         {{ block('sub_fields', 'partials/_sub_fields.twig') }}
     {% endwith %}
 
-    {# Uncomment this if you wish to dump the entire record to the client, for debugging purposes.
+    {# Comment this if you don't wish to dump the entire record to the client, for debugging purposes. #}
     {{ dump(record) }}
-    #}
+
 
     {% include 'partials/_recordfooter.twig' with { 'record': record, 'extended': true } %}
 

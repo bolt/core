@@ -24,7 +24,7 @@
     {%- spaceless %}
         {# Set up the array of fieldnames that should be iterated. We do this by looping
            over _all_ the fields, and skipping those in the 'omittedkeys' array. #}
-        {% set omittedkeys = [ 'id', 'slug', 'image', 'datecreated', 'datechanged', 'datepublish',
+        {% set omittedkeys = [ 'id', 'slug', 'datecreated', 'datechanged', 'datepublish',
         'datedepublish', 'username', 'status', 'ownerid', 'templatefields' ] %}
 
         {# Skip over the fields that are used in the slug, unless explicitly told not to,
@@ -37,12 +37,6 @@
         {% if exclude|default is iterable %}
             {% set omittedkeys = omittedkeys|merge(exclude) %}
         {% endif %}
-
-        {# We also skip over the fields that are explicitly excluded. #}
-        {% if magicimage|default %}
-            {% set omittedkeys = omittedkeys|merge([magicimage]) %}
-        {% endif %}
-
     {% endspaceless -%}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
