@@ -21,7 +21,7 @@
   }
 
   &--menu {
-    margin: 0;
+    margin: 0 0 2rem 0;
     padding: 0;
     width: 100%;
     list-style: none;
@@ -151,16 +151,15 @@
     background: transparent;
     border: 0;
     text-align: center;
-    color: var(--admin-sidebar-icon);
+    color: var(--shade-light);
     font-size: $font-size-lg;
-    position: fixed;
-    left: 0;
-    bottom: 40px;
+    position: relative;
     @include media-breakpoint-up(md) {
       width: $admin-sidebar-width-wide;
     }
     &:hover,
     &:focus {
+      color: var(--admin-sidebar-icon);
       outline: none;
       cursor: pointer;
     }
@@ -168,22 +167,18 @@
 
   &--footer {
     -webkit-backface-visibility: hidden;
-
-    background: transparent;
-
     color: var(--admin-sidebar-text);
     position: fixed;
     bottom: 0;
     left: 0;
-    height: 40px;
+    z-index: 1;
+    min-height: 40px;
     width: $admin-sidebar-width;
     padding: 0 $spacer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: $font-weight-bold;
-    font-size: $small-font-size;
-    letter-spacing: $letter-spacing;
+    background-color: var(--admin-sidebar);
     @include media-breakpoint-up(md) {
       width: $admin-sidebar-width-wide;
     }
@@ -202,7 +197,10 @@
   &.is-slim {
     .admin__sidebar {
       width: $admin-sidebar-width / 3;
-      .admin__sidebar--separator,
+      .admin__sidebar--separator {
+        visibility: hidden;
+        margin: 0;
+      }
       .admin__sidebar--footer {
         display: none;
       }
@@ -214,7 +212,7 @@
         padding: $spacer / 1.25 $spacer / 2;
 
         .link--icon {
-          font-size: 150%;
+          font-size: 140%;
           margin: 0;
           width: auto;
         }
