@@ -130,9 +130,9 @@ class ImageExtension extends AbstractExtension
     /**
      * @param ImageField|array|string $image
      */
-    private function getFilename($image): string
+    private function getFilename($image): ?string
     {
-        $filename = '';
+        $filename = null;
 
         if ($image instanceof ImageField) {
             $filename = $image->get('filename');

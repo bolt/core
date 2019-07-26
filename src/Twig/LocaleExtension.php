@@ -446,7 +446,7 @@ class LocaleExtension extends AbstractExtension
     public function localedatetime($dateTime, string $format = '%B %e, %Y %H:%M', ?string $locale = '0'): string
     {
         if (! $dateTime instanceof \DateTime) {
-            $dateTime = new \DateTime($dateTime);
+            $dateTime = new \DateTime((string) $dateTime);
         }
 
         // Check for Windows to find and replace the %e modifier correctly
