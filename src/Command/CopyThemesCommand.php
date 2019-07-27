@@ -14,9 +14,9 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class InstallAssetsCommand extends Command
+class CopyThemesCommand extends Command
 {
-    protected static $defaultName = 'bolt:install-assets';
+    protected static $defaultName = 'bolt:copy-themes';
 
     private $filesystem;
 
@@ -30,7 +30,7 @@ class InstallAssetsCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Copy built assets and translation files into the project root');
+            ->setDescription('Copy theme files into the public/themes folder');
     }
 
     /**
@@ -43,27 +43,24 @@ class InstallAssetsCommand extends Command
         /** @var KernelInterface $kernel */
         $kernel = $app->getKernel();
 
-        $projectDir = $this->getProjectDirectory($kernel->getContainer());
         $publicDir = $this->getPublicDirectory($kernel->getContainer());
 
+        $io = new SymfonyStyle($input, $output);
+
         // Determine if we can use ../bolt-assets or not.
-        if (file_exists(dirname(dirname(dirname(__DIR__))) . '/bolt-assets')) {
-            $baseDir = dirname(dirname(dirname(__DIR__))) . '/bolt-assets';
+        if (file_exists(dirname(dirname(dirname(__DIR__))) . '/themes')) {
+            $baseDir = dirname(dirname(dirname(__DIR__))) . '/themes';
             $dirs = [
-                $baseDir . '/assets' => $publicDir .'/assets/',
-                $baseDir . '/translations' => $projectDir . '/translations/',
+                $baseDir . '/base-2018' => $publicDir .'/theme/base-2018',
+                $baseDir . '/skeleton' => $publicDir .'/theme/skeleton',
             ];
         } else {
-            $baseDir = dirname(dirname(__DIR__));
-            $dirs = [
-                $baseDir . '/public/assets' => $publicDir .'/assets/',
-                $baseDir . '/translations' => $projectDir . '/translations/',
-            ];
+            $io->error('Run \'composer require bolt/themes\' before using this command.');
+            return 1;
         }
 
-        $io = new SymfonyStyle($input, $output);
         $io->newLine();
-        $io->text('Installing Bolt assets as <info>hard copies</info>.');
+        $io->text('Installing Bolt themes as <info>hard copies</info>.');
         $io->newLine();
 
         $rows = [];
@@ -84,13 +81,13 @@ class InstallAssetsCommand extends Command
         }
 
         if ($rows) {
-            $io->table(['', 'Bundle', 'Method / Error'], $rows);
+            $io->table(['', 'Theme', 'Method / Error'], $rows);
         }
 
         if ($exitCode !== 0) {
-            $io->error('Some errors occurred while installing assets.');
+            $io->error('Some errors occurred while installing themes.');
         } else {
-            $io->success($rows ? 'All assets were successfully installed.' : 'No assets were provided by any bundle.');
+            $io->success($rows ? 'All themes were successfully installed.' : 'No themes were provided by any bundle.');
         }
 
         return $exitCode;
