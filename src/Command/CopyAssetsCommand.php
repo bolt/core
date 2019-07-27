@@ -14,9 +14,9 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-class InstallAssetsCommand extends Command
+class CopyAssetsCommand extends Command
 {
-    protected static $defaultName = 'bolt:install-assets';
+    protected static $defaultName = 'bolt:copy-assets';
 
     private $filesystem;
 
@@ -84,7 +84,7 @@ class InstallAssetsCommand extends Command
         }
 
         if ($rows) {
-            $io->table(['', 'Bundle', 'Method / Error'], $rows);
+            $io->table(['', 'Folder', 'Method / Error'], $rows);
         }
 
         if ($exitCode !== 0) {
