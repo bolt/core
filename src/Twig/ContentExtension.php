@@ -66,7 +66,7 @@ class ContentExtension extends AbstractExtension
     public function getFunctions()
     {
         $safe = ['is_safe' => ['html']];
-        
+
         return [
             new TwigFunction('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFunction('previous_record', [$this, 'getPreviousContent']),
