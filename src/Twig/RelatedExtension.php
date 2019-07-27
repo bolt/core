@@ -10,6 +10,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\RelationRepository;
+use Bolt\Utils\Excerpt;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -135,7 +136,7 @@ class RelatedExtension extends AbstractExtension
                 'key' => $record->getId(),
                 'value' => sprintf(
                     '%s (№ %s, %s)',
-                    RecordExtension::excerpt($record->getExtras()['title'], 50),
+                    Excerpt::getExcerpt($record->getExtras()['title'], 50),
                     $record->getId(),
                     $record->getStatus()
                 ),

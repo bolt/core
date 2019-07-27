@@ -7,7 +7,6 @@ namespace Bolt\Twig;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Repository\TaxonomyRepository;
-use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
@@ -39,7 +38,6 @@ class RecordExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('excerpt', [$this, 'excerpt'], $safe),
             new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
             new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
@@ -64,11 +62,6 @@ class RecordExtension extends AbstractExtension
         ];
 
         return $twig->render($template, $context);
-    }
-
-    public static function excerpt(string $text, int $length = 100): string
-    {
-        return Excerpt::getExcerpt($text, $length);
     }
 
     public function icon(?Content $record = null, string $icon = 'question-circle'): string
