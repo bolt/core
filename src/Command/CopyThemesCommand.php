@@ -45,6 +45,8 @@ class CopyThemesCommand extends Command
 
         $publicDir = $this->getPublicDirectory($kernel->getContainer());
 
+        $io = new SymfonyStyle($input, $output);
+
         // Determine if we can use ../bolt-assets or not.
         if (file_exists(dirname(dirname(dirname(__DIR__))) . '/themes')) {
             $baseDir = dirname(dirname(dirname(__DIR__))) . '/themes';
@@ -53,11 +55,10 @@ class CopyThemesCommand extends Command
                 $baseDir . '/skeleton' => $publicDir .'/theme/skeleton',
             ];
         } else {
-            $io->error('Run \'composer require bolt/themes\' before using thie command.');
+            $io->error('Run \'composer require bolt/themes\' before using this command.');
             return 1;
         }
 
-        $io = new SymfonyStyle($input, $output);
         $io->newLine();
         $io->text('Installing Bolt themes as <info>hard copies</info>.');
         $io->newLine();
