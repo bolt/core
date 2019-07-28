@@ -11,14 +11,15 @@
 {% endblock %}
 
 {% block main %}
-<div class="card">
 
-    <div class="card-header">
-        <i class="fa fa-lock" aria-hidden="true"></i>
-        Bolt &raquo; Login
+<div>
+
+    <div>
+        <img src="{{ asset('assets/images/bolt_logo_login.svg', 'public') }}" class="logo" alt="Bolt CMS logo">
+        <h1>{{ config.get('general/sitename') }}</h1>
     </div>
 
-    <div class="card-body">
+    <div class="card">
 
         {% if error %}
             <div class="alert alert-danger">
@@ -51,9 +52,44 @@
                 {{ 'action.log_in'|trans }}
             </button>
         </div>
-    </form>
-</div>
 
+        <div class="card-body">
+
+            {% if error %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            <form action="{{ path('bolt_login') }}" method="post" class="" id="login-form">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                {% include '@bolt/_partials/fields/text.html.twig' with {
+                    'label' : 'label.fullname'|trans,
+                    'name' : 'username',
+                    'value' : last_username,
+                    'disabled' : false,
+                } %}
+                {% include '@bolt/_partials/fields/password.html.twig' with {
+                    'label': 'label.password'|trans,
+                    'label_class': 'required',
+                    'name': 'password',
+                    'value': '',
+                    'hidden': 'true'
+                } %}
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" name="_remember_me" id="_remember_me">
+                    <label class="form-check-label" for="_remember_me">{{ 'label.rememberme'|trans }}</label>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                    {{ 'action.log_in'|trans }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
 {% endblock %}
 
 
