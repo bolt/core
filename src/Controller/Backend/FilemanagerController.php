@@ -47,6 +47,8 @@ class FilemanagerController extends TwigAwareController implements BackendZone
             $path .= '/';
         }
 
+        $view = $request->query->get('view', 'list');
+
         $location = $this->fileLocations->get($location);
 
         $finder = $this->findFiles($location->getBasepath(), $path);
@@ -63,6 +65,7 @@ class FilemanagerController extends TwigAwareController implements BackendZone
             'parent' => $parent,
             'media' => $media,
             'allfiles' => $location->isShowAll() ? $this->buildIndex($location->getBasepath()) : false,
+            'view' => $view
         ]);
     }
 

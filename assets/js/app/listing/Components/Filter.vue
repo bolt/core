@@ -26,14 +26,7 @@
           :class="{ 'is-selected': size === 'small' }"
           @click="changeSize('small')"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 55">
-            <g fill-rule="nonzero">
-              <rect width="70" height="10" rx="3" />
-              <rect width="70" height="10" rx="3" transform="translate(0 15)" />
-              <rect width="70" height="10" rx="3" transform="translate(0 30)" />
-              <rect width="70" height="10" rx="3" transform="translate(0 45)" />
-            </g>
-          </svg>
+          <i class="fas fa-align-justify fa-fw"></i> Compact
         </button>
       </li>
 
@@ -44,13 +37,7 @@
           :class="{ 'is-selected': size === 'normal' }"
           @click="changeSize('normal')"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 55">
-            <g fill-rule="nonzero">
-              <rect width="70" height="15" rx="3" />
-              <rect width="70" height="15" rx="3" transform="translate(0 20)" />
-              <rect width="70" height="15" rx="3" transform="translate(0 40)" />
-            </g>
-          </svg>
+          <i class="fas fa-grip-lines fa-fw"></i> Expanded
         </button>
       </li>
 

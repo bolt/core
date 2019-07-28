@@ -1,41 +1,52 @@
 
-<table class="table table-striped" style="background-color: #FFF;">
-    <thead class="thead-light">
-    <tr>
-        <th></th>
-        <th>{{ 'directoryname'|trans }}</th>
-        <th>{{ 'actions'|trans }}</th>
-    </tr>
-    </thead>
 
-    {% if path != '/' %}
-        <tr>
-            <td><i class="fas fa-folder-open"></i></td>
-            <td>
-                <b>
-                    <a href="{{ path('bolt_filemanager', {'location': location, 'path': parent }) }}">
-                        ../
-                    </a>
-                </b>
-            </td>
-            <td>
-            </td>
-        </tr>
-    {% endif %}
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-folder"></i>
+        {{ 'caption.folders'|trans }}
+    </div>
+    <div class="card-body" style="padding: 0.5rem 0.5rem 0">
 
-    {% for directory in finder.directories() %}
-        <tr>
-            <td><i class="fas fa-folder"></i></td>
-            <td>
-                <b>
-                    {% set dirname = path ~ directory.getRelativePathname() %}
-                    <a href="{{ path('bolt_filemanager', {'location': location, 'path': dirname }) }}">
-                        {{ directory.getRelativePathname }}/
-                    </a>
-                </b>
-            </td>
-            <td>
-            </td>
-        </tr>
-    {% endfor %}
-</table>
+        <table class="table table-striped" style="background-color: #FFF;">
+            <thead class="thead-light">
+            <tr>
+                <th></th>
+                <th>{{ 'directoryname'|trans }}</th>
+                <th>{{ 'actions'|trans }}</th>
+            </tr>
+            </thead>
+
+            {% if path != '/' %}
+                <tr>
+                    <td><i class="fas fa-folder-open"></i></td>
+                    <td>
+                        <b>
+                            <a href="{{ path('bolt_filemanager', {'location': location, 'path': parent }) }}">
+                                ../
+                            </a>
+                        </b>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% for directory in finder.directories() %}
+                <tr>
+                    <td><i class="fas fa-folder"></i></td>
+                    <td>
+                        <b>
+                            {% set dirname = path ~ directory.getRelativePathname() %}
+                            <a href="{{ path('bolt_filemanager', {'location': location, 'path': dirname }) }}">
+                                {{ directory.getRelativePathname }}/
+                            </a>
+                        </b>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>

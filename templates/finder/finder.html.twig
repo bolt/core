@@ -10,9 +10,11 @@
 
     {% include '@bolt/finder/_quickselect.html.twig' %}
 
-    {% include '@bolt/finder/_folders.html.twig' %}
-
-    {% include '@bolt/finder/_files.html.twig' %}
+    {% if view == 'list' %}
+        {% include '@bolt/finder/_files_list.html.twig' %}
+    {% else %}
+        {% include '@bolt/finder/_files_cards.html.twig' %}
+    {% endif %}
 
 {% endblock %}
 
@@ -21,9 +23,15 @@
 <div class="card mb-4">
     <div class="card-header">{{ 'caption.meta_information'|trans }}</div>
     <div class="card-body">
-
+        View: {{ view|default('none') }}
+        <div class="btn-group">
+            <a href="?view=list" class="btn btn-secondary"><i class="fas fa-list fa-fw"></i> List</a>
+            <a href="?view=cards" class="btn btn-secondary ml-1"><i class="fas fa-th fa-fw"></i>Cards</a>
+        </div>
     </div>
 </div>
+
+    {% include '@bolt/finder/_folders.html.twig' %}
 
     {% include '@bolt/finder/_uploader.html.twig' %}
 
@@ -31,10 +39,4 @@
 
 {% block stylesheets %}
    {{ parent() }}
-
-   <style>
-        .filepond--root {
-            margin-bottom: 0 !important;
-        }
-    </style>
 {% endblock %}
