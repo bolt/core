@@ -1,10 +1,5 @@
-
-
-    {% set imageformats = ['gif', 'jpg', 'jpeg', 'png', 'svg'] %}
-
 <div class="row">
     {% for file in finder.files() %}
-{#        {{ dump(file) }}#}
 
         {% set extension = file.extension() %}
         {% set filename = path ~ file.getRelativePathname() %}
@@ -27,18 +22,20 @@
 
         {% endif %}
 
-    <div class="col-sm-3 pr-0 pb-3">
+    <div class="col-6 col-sm-4 col-xl-3 pr-0 pb-3">
         <div class="card">
             {%- if thumbnail -%}
                 <a href="{{ filename|thumbnail(width = 1000, height = 1000, location = location) }}" class="lightbox">
                     <img src="{{ thumbnail }}" class="card-img-top">
                 </a>
+            {% else %}
+                <img src="{{ asset('assets/images/placeholder.png', 'public') }}" class="card-img-top">
             {%- endif -%}
 
-            <div class="card-body">
-                <i class="fas {{ icon }}"></i>&nbsp;<a href="{{ link }}">{{ file.getRelativePathname|excerpt(12) }}</a>
+            <div class="card-body p-2">
+                <a href="{{ link }}" style="font-size: 85%;">{{ file.getRelativePathname|excerpt(15) }}</a>
 
-                <div class="btn-group">
+                <div class="btn-group float-right">
                     <button
                             type="button"
                             class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"
@@ -46,20 +43,32 @@
                             aria-haspopup="true"
                             aria-expanded="false"
                     >
+                        <i class="fas fa-question-circle"></i>
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
+
                     <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
+
+                        <a class="dropdown-item" href="{{ link }}" target="_blank">
+                            <i class="fas fa-w fa-edit"></i>
+                            {% if extension in imageformats %}
+                                Edit image information
+                            {% else %}
+                                Edit file in editor
+                            {% endif %}
+                        </a>
+
                         <a class="dropdown-item" href="{{ asset(file.filename, 'files') }}" target="_blank">
                             <i class="fas fa-w fa-external-link-square-alt"></i>
                             View original
                         </a>
                         <a class="dropdown-item" href="#">
                             <i class="far fa-w fa-copy"></i>
-                            Duplicate {{ file.getRelativePathname }}
+                            Duplicate {{ file.getRelativePathname|excerpt(22) }}
                         </a>
                         <a class="dropdown-item" href="#" data-confirmation="Are you sure you wish to delete this Content?">
                             <i class="fas fa-w fa-trash"></i>
-                            Delete {{ file.getRelativePathname }}
+                            Delete {{ file.getRelativePathname|excerpt(22) }}
                         </a>
 
                         <div class="dropdown-divider"></div>
@@ -84,23 +93,20 @@
                         {% endif %}
 
                         <span class="dropdown-item-text">
-                            <i class="far fa-calendar-alt fa-w"></i>
-                            Published on: <strong>{-{ file.publishedAt|localedatetime }}</strong>
+                            <i class="fas fa-asterisk fa-w"></i>
+                            Filesize: {{ file.getSize() }}&nbsp;bytes
                         </span>
+
                         <span class="dropdown-item-text">
-          <i class="fas fa-redo fa-w"></i>
-          Last modified on: <strong>{-{ file.modifiedAt|localedatetime }}</strong>
-        </span>
+                            <i class="far fa-calendar-alt fa-w"></i>
+                            Created on: <strong>{{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}</strong>
+                        </span>
+
                     </div>
                 </div>
 
             </div>
-            <div class="card-body">
 
-                {{ file.getSize() }}&nbsp;bytes
-                {% if dimensions %}<br><small style="color: #888;">{{ dimensions }}</small>{% endif %}
-                {{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}
-            </div>
         </div>
     </div>
 

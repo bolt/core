@@ -10,9 +10,6 @@
         <th>{{ 'actions'|trans }}</th>
     </tr>
     </thead>
-
-    {% set imageformats = ['gif', 'jpg', 'jpeg', 'png', 'svg'] %}
-
     {% for file in finder.files() %}
 
         {% set extension = file.extension() %}
@@ -24,7 +21,7 @@
         {% set dimensions = '' %}
 
         {% if extension in imageformats %}
-            {% set thumbnail = filename|thumbnail(width = 100, height = 72, location = location) %}
+            {% set thumbnail = filename|thumbnail(width = 100, height = 72, location = location, fit = 'crop') %}
             {% set icon = 'fa-image' %}
             {% set link = path('bolt_media_new', {'location': location, 'file': filename}) %}
 

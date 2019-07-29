@@ -16,7 +16,7 @@ class Html
      *
      * @return string Trimmed string
      */
-    public static function trimText(string $str, int $desiredLength, bool $hellip = true, int $cutOffCap = 10): string
+    public static function trimText(string $str, int $desiredLength, bool $hellip = true, int $cutOffCap = 3): string
     {
         if ($hellip) {
             $ellipseStr = ' …';
