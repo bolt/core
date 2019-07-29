@@ -74,7 +74,7 @@ class ImageExtension extends AbstractExtension
         $thumbnail = $this->thumbnail($image, $width, $height);
         $alt = $this->getAlt($image);
 
-        return sprintf('<a href="%s" class="bolt-popup"><img src="%s" alt="%s" %s %s></a>', $link, $thumbnail, $alt, (string) $width, (string) $height);
+        return sprintf('<a href="%s" class="bolt-popup"><img src="%s" alt="%s"></a>', $link, $thumbnail, $alt);
     }
 
     /**
@@ -130,9 +130,9 @@ class ImageExtension extends AbstractExtension
     /**
      * @param ImageField|array|string $image
      */
-    private function getFilename($image): string
+    private function getFilename($image): ?string
     {
-        $filename = '';
+        $filename = null;
 
         if ($image instanceof ImageField) {
             $filename = $image->get('filename');

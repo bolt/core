@@ -65,7 +65,10 @@ class ContentExtension extends AbstractExtension
      */
     public function getFunctions()
     {
+        $safe = ['is_safe' => ['html']];
+
         return [
+            new TwigFunction('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFunction('previous_record', [$this, 'getPreviousContent']),
             new TwigFunction('next_record', [$this, 'getNextContent']),
         ];
@@ -149,8 +152,12 @@ class ContentExtension extends AbstractExtension
     /**
      * @param string|array|null $focus
      */
-    public function getExcerpt(Content $content, int $length = 280, bool $includeTitle = true, $focus = null): string
+    public function getExcerpt($content, int $length = 280, bool $includeTitle = true, $focus = null): string
     {
+        if (is_string($content)) {
+            return Excerpt::getExcerpt($content, $length);
+        }
+
         $excerptParts = [];
 
         if ($includeTitle) {

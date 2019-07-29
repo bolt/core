@@ -1,12 +1,8 @@
 <template>
-  <div>
-    <button class="admin__sidebar--slim" @click="slimSidebar(!slim)">
-      <i class="fas fa-arrows-alt-h"></i>
-    </button>
-    <footer class="admin__sidebar--footer">
-      <a :href="aboutLink">Bolt {{ version }}</a>
-    </footer>
-  </div>
+  <button class="admin__sidebar--slim" @click="slimSidebar(!slim)">
+    <i class="fas fa-exchange-alt"></i>
+    <span class="sr-only">Toggle sidebar width</span>
+  </button>
 </template>
 
 <script>
