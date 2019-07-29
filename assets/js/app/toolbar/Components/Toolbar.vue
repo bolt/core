@@ -4,55 +4,64 @@
     :class="contrast ? 'is-light' : 'is-dark'"
     role="toolbar"
   >
-    <div class="toolbar-item toolbar-item__brand">
 
-      <img src="/assets/images/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="28" />
-
-      <ul class="toolbar-menu">
-        <li>
-          <a href="https://bolt.cm/" target="_blank">
-            <i class="fas fa-globe-americas fa-fw"></i>
-            Visit Bolt.cm
-          </a>
-        </li>
-        <li>
-          <a href="https://docs.bolt.cm/" target="_blank">
-            <i class="fas fa-globe-americas fa-fw"></i>
-            {{ labels['about.bolt_documentation'] }}
-          </a>
-        </li>
-      </ul>
+    <div class="toolbar-item btn-group toolbar-item__brand">
+      <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn brand__dropdown-toggler dropdown-toggle"><img src="/assets/images/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="28" /></button>
+      <div class="new-item__dropdown dropdown-menu">
+        <ul class="toolbar-menu">
+          <li>
+            <a href="https://bolt.cm/" target="_blank">
+              <i class="fas fa-globe-americas fa-fw"></i>
+              Visit Bolt.cm
+            </a>
+          </li>
+          <li>
+            <a href="https://docs.bolt.cm/" target="_blank">
+              <i class="fas fa-globe-americas fa-fw"></i>
+              {{ labels['about.bolt_documentation'] }}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
+
     <div class="toolbar-item toolbar-item__site">
       <a href="/" target="_blank">
-        <i class="fas fa-sign-out-alt mr-2"></i>{{ labels['action.view_site'] }}
+        <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }}
       </a>
     </div>
-    <div class="toolbar-item toolbar-item__new">
-      <i class="fas fa-magic mr-2"></i>{{ labels['action.create_new'] }} …
-      <ul class="toolbar-menu">
-        <li v-for="(item, index) in createMenu" :key="index">
-          <a :href="item.link_new"><i :class="`fa fa-fw ${item.icon}`"></i> {{ item.singular_name }}</a>
-        </li>
-      </ul>
+
+    <div class="toolbar-item btn-group toolbar-item__new">
+      <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn new-item__dropdown-toggler dropdown-toggle"><i class="fas fa-magic"></i>{{ labels['action.create_new'] }}…</button>
+      <div class="new-item__dropdown dropdown-menu">
+        <ul>
+          <li v-for="(item, index) in createMenu" :key="index">
+            <a :href="item.link_new"><i :class="`fa fa-fw ${item.icon}`"></i> {{ item.singular_name }}</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="toolbar-item toolbar-item__profile">
-      <i class="fas fa-user mr-2"></i>{{ labels['general.greeting'] }}
-      <ul class="toolbar-menu">
-        <li>
-          <a :href="backend_prefix + 'profile-edit'">
-            <i class="fas fa-user-edit fa-fw"></i>
-            {{ labels['action.edit_profile'] }}
-          </a>
-        </li>
-        <li>
-          <a :href="backend_prefix + 'logout'">
-            <i class="fas fa-sign-out-alt fa-fw"></i>
-            {{ labels['action.logout'] }}
-          </a>
-        </li>
+
+    <div class="toolbar-item btn-group toolbar-item__profile">
+      <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn user profile__dropdown-toggler dropdown-toggle"><i class="fas fa-user"></i>{{ labels['general.greeting'] }}</button>
+      <div class="profile__dropdown dropdown-menu dropdown-menu-right">
+        <ul>
+          <li>
+            <a :href="backend_prefix + 'profile-edit'">
+              <i class="fas fa-user-edit fa-fw"></i>
+              {{ labels['action.edit_profile'] }}
+            </a>
+          </li>
+          <li>
+            <a :href="backend_prefix + 'logout'">
+              <i class="fas fa-sign-out-alt fa-fw"></i>
+              {{ labels['action.logout'] }}
+            </a>
+          </li>
       </ul>
+      </div>
     </div>
+
   </div>
 </template>
 

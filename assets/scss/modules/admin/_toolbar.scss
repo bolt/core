@@ -43,22 +43,75 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: $spacer*0.8125 $spacer;
     font-size: 0.875rem;
+    padding: 0;
+    a {
+      font-size: 0.9375rem;
+      padding: $spacer*0.625;
+      display: block;
+      color: var(--foreground);
 
-    a:hover {
-      text-decoration: none;
+      &:hover, &:active, &:focus {
+        @include darken(--admin-sidebar, 0.02);
+        color: var(--admin-sidebar-icon);
+        text-decoration: none;
+      }
     }
 
-    &__brand {
-      
-      padding: $spacer*0.8125;
-      .is-slim & {
-        padding: $spacer*0.8125 $spacer*1.125;
+    &:hover {
+      .dropdown-menu {
+        display: block;
       }
-      svg {
-        height: $admin-toolbar-height / 1.5;
-        width: auto;
+    }
+
+    i, .fas {
+      margin-right: 0.45rem;
+    }
+
+    .dropdown-menu {
+      margin: 0;
+      padding: 0;
+      min-width: 220px;
+      top: calc(100% - 1px);
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      a {
+        color: var(--shade);
+          &:hover, &:active, &:focus {
+          @include darken(--admin-sidebar, 0.02);
+          color: var(--admin-sidebar-icon);
+          text-decoration: none;
+        }
+      }
+      i, .fas {
+        margin-right: 0.25rem;
+      }
+    }
+
+    .dropdown-toggle {
+      color: var(--foreground);
+      height: 100%;
+      padding: 0.625rem 1rem;
+      &:hover, &:active, &:focus {
+        @include darken(--admin-sidebar, 0.02);
+      }
+    }
+
+    &__brand {      
+      .is-slim & {
+        
+      }
+      svg, img {
+        margin-right: 0.25rem;
+      }
+      .dropdown-toggle {
+        padding: 0 1rem;
+        &:after {
+          vertical-align: middle;
+        }
       }
     }
 
@@ -66,62 +119,63 @@
       margin-left: auto;
     }
 
-    &__new {
-      display: none;
-      @media screen and (min-width: 440px) {
-        display: flex;
+    &__site a {
+      height: 100%;
+      padding: 0.625rem 1rem;
+      i, .fas {
+        margin-right: 0.25rem;
       }
     }
 
-    &:hover {
-      opacity: 1;
+    // &:hover {
+    //   opacity: 1;
 
-      @include darken(--admin-toolbar, 0.2);
+    //   @include darken(--admin-toolbar, 0.2);
 
-      > .toolbar-menu {
-        visibility: visible;
-        height: auto;
-      }
-    }
+    //   > .toolbar-menu {
+    //     visibility: visible;
+    //     height: auto;
+    //   }
+    // }
   }
 
-  .toolbar-menu {
-    background: var(--admin-sidebar-menu);
-    border-radius: 0 $border-radius $border-radius 0;
-    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    color: var(--shade);
+  // .toolbar-menu {
+  //   background: var(--admin-sidebar-menu);
+  //   border-radius: 0 $border-radius $border-radius 0;
+  //   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+  //   border: 1px solid rgba(0, 0, 0, 0.1);
+  //   color: var(--shade);
 
-    font-weight: $font-weight-normal;
-    font-size: 100%;
-    visibility: hidden;
-    height: 0;
-    list-style: none;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: $admin-sidebar-width;
-    margin: 0;
-    padding: 0;
+  //   font-weight: $font-weight-normal;
+  //   font-size: 100%;
+  //   visibility: hidden;
+  //   height: 0;
+  //   list-style: none;
+  //   position: absolute;
+  //   left: 0;
+  //   top: 100%;
+  //   width: $admin-sidebar-width;
+  //   margin: 0;
+  //   padding: 0;
 
-    li {
-      a {
-        padding: $spacer / 2;
-        display: block;
-        color: var(--shade);
+  //   li {
+  //     a {
+  //       padding: $spacer / 2;
+  //       display: block;
+  //       color: var(--shade);
 
-        &:hover {
-          @include darken(--admin-sidebar, 0.02);
-          color: var(--admin-sidebar-icon);
-          text-decoration: none;
-        }
-      }
-    }
-  }
-  .toolbar-item__profile {
-    .toolbar-menu {
-      left: auto;
-      right: 0;
-    }
-  }
+  //       &:hover {
+  //         @include darken(--admin-sidebar, 0.02);
+  //         color: var(--admin-sidebar-icon);
+  //         text-decoration: none;
+  //       }
+  //     }
+  //   }
+  // }
+  // .toolbar-item__profile {
+  //   .toolbar-menu {
+  //     left: auto;
+  //     right: 0;
+  //   }
+  // }
 }
