@@ -2,7 +2,13 @@
 
 {% block title %}
     {% if contentType %}
-        <i class='fas mr-2 {{contentType.icon_one}}'></i> {{ contentType.name }}
+        <span class="admin__header--title__prefix">
+            {# get this in proper with translations and label resouces #}
+            Overview for
+            »
+        </span>
+        <i class='fas {{contentType.icon_one}}'></i>
+        {{ contentType.name }}
     {% else %}
         {{ 'title.contentlisting'|trans }}
     {% endif %}

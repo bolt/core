@@ -1,7 +1,11 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 
 {% block title %}
-  <i class='fas mr-2 fa-tachometer-alt'></i>{{ 'caption.dashboard'|trans }}
+  <span class="admin__header--title__prefix">
+      Bolt content management »
+  </span>
+  <i class='fas mr-2 fa-tachometer-alt'></i>
+  {{ 'caption.dashboard'|trans }}
 {% endblock title %}
 
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}

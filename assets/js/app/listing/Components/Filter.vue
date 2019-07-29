@@ -26,6 +26,7 @@
           :class="{ 'is-selected': size === 'small' }"
           @click="changeSize('small')"
         >
+          <span class="sr-only">Enable compact view mode</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 55">
             <g fill-rule="nonzero">
               <rect width="70" height="10" rx="3" />
@@ -44,6 +45,7 @@
           :class="{ 'is-selected': size === 'normal' }"
           @click="changeSize('normal')"
         >
+          <span class="sr-only">Enable standard view mode</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 55">
             <g fill-rule="nonzero">
               <rect width="70" height="15" rx="3" />

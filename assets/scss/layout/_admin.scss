@@ -5,7 +5,9 @@
 .admin {
   margin-top: $admin-toolbar-height;
   min-height: inherit;
-
+  @include media-breakpoint-up(md) {
+    margin-top: $admin-toolbar-height-wide;
+  }
   &__toolbar {
     -webkit-backface-visibility: hidden;
     position: fixed;
@@ -14,6 +16,9 @@
     height: $admin-toolbar-height;
     width: 100vw;
     z-index: 5;
+    @include media-breakpoint-up(md) {
+      height: $admin-toolbar-height-wide;
+    }
   }
 
   &__header {
@@ -34,10 +39,17 @@
     left: 0;
     transition: all 200ms;
     width: auto;
+    min-width: 224px;
+    box-shadow: 5px 0px 15px rgba(40, 40, 40, 0.2);
+    @include media-breakpoint-up(md) {
+      top: $admin-toolbar-height-wide;
+    }
     // the sidebar comes into view on larger screens
     @include media-breakpoint-up(lg) {
       left: 0;
       width: $admin-sidebar-width;
+      min-width: auto;
+      box-shadow: 0 0 0 rgba(255,255,255,100%);
     }
     @include media-breakpoint-up(wd) {
       width: $admin-sidebar-width-wide;
@@ -67,17 +79,23 @@
     }
 
     &--container {
-      padding: $spacer;
+      padding: $spacer * 0.625;
+      @include media-breakpoint-up(sm) {
+        padding: $spacer * 1;
+      }
+      @include media-breakpoint-up(md) {
+        padding: $spacer * 1.25;
+      }
       @include media-breakpoint-up(xl) {
         display: grid;
         //grid with autofit to make columns expand full width if other column(s) not present
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: auto;
-        grid-column-gap: $column-gap;
+        grid-column-gap: 1.5rem;
       }
       @include media-breakpoint-up(wd) {
-        grid-column-gap: $column-gap;
-        padding: $spacer $spacer*2 $spacer $column-gap;
+        grid-column-gap: 1.8125rem;
+        padding: $spacer $spacer*2 $spacer $spacer*1.5;
       }
       &--has-sidebar {
         // grid-template-columns: 3fr 1fr;
@@ -87,7 +105,7 @@
           }
         }
       }
-      * {
+      > * {
         grid-column: 1/-1;
       }
     }

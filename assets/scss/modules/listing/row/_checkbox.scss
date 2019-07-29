@@ -25,8 +25,8 @@
 
       &::before,
       &::after {
-        left: $spacer*0.5;
-        top: 0.625rem;
+        left: $spacer*0.45;
+        top: $spacer*0.6;
       }
     }
   }

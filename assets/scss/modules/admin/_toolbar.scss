@@ -44,8 +44,10 @@
     align-items: center;
     justify-content: center;
     padding: $spacer*0.8125 $spacer;
-    font-size: 0.875rem;
-
+    font-size: 0.75rem;
+    @include media-breakpoint-up(md) {
+      font-size: 0.875rem;
+    }
     a:hover {
       text-decoration: none;
     }
