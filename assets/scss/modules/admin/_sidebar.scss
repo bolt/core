@@ -179,7 +179,7 @@
     align-items: center;
     justify-content: center;
     background-color: var(--admin-sidebar);
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(wd) {
       width: $admin-sidebar-width-wide;
     }
     a {
