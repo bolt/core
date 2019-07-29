@@ -61,6 +61,7 @@
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
       padding: $spacer / 2;
+      font-size: 0.9rem;
 
       &:hover {
         cursor: pointer;
@@ -70,33 +71,15 @@
       &:focus {
         outline: none;
         box-shadow: $input-btn-focus-box-shadow;
-
-        svg,
-        g {
-          fill: theme-color('secondary');
-        }
       }
 
       &.is-selected {
-        background: var(--primary);
-
-        svg g {
-          fill: var(--foreground);
-        }
+        background: $disabled;
       }
 
       &.is-active {
         background: var(--primary);
         color: var(--foreground);
-      }
-
-      svg {
-        width: 18px;
-        height: 18px;
-
-        g {
-          fill: var(--shade);
-        }
       }
     }
   }
