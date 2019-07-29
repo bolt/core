@@ -89,9 +89,11 @@ $grid-breakpoints: (
         xw: 1750px
 );
 
+// sbonardt: if this is for grid-column of main grid layout, that's set back to 1.5rem. Do not change column-gap of main grid as this breaks the whole feel!
 $column-gap: 3rem;
 
 // Modal Dialog spacing
+// sbonardt: if this is such a specific usage thing, why make it a sass variable?
 $modal-dialog-margin-y-sm-up: 4rem;
 
 // This number determines of a button has white or black text (a11y)
@@ -127,6 +129,7 @@ $yiq-contrasted-threshold:  150;
 
 // Variables for admin, toolbar and admin sidebar
 $admin-toolbar-height: 40px;
+$admin-toolbar-height-wide: 50px;
 $admin-sidebar-width: 200px;
 $admin-sidebar-width-wide: 250px;
 $admin-aside-width: 320px;

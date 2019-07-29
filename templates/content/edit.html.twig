@@ -7,10 +7,12 @@
 {% endfor %}
 
 {% block title %}
+    <span class="admin__header--title__prefix">
+        {{ (app.request.get('_route') == 'bolt_content_duplicate') ? 'caption.duplicate'|trans : 'caption.edit'|trans }}
+        {{ record.definition.singular_name }}
+        »
+    </span>
     {{ icon(record) }}
-    {{ (app.request.get('_route') == 'bolt_content_duplicate') ? 'caption.duplicate'|trans : 'caption.edit'|trans }}
-    {{ record.definition.singular_name }}
-    »
     {{ excerpt(record|title, 50)|default('New') }}
 {% endblock %}
 

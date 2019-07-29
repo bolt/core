@@ -1,6 +1,6 @@
 //** Listing | Row
 
-$checkbox-row-width: 34px;
+$checkbox-row-width: 32px;
 
 .listing__row {
   box-shadow: $card-box-shadow;
@@ -13,7 +13,7 @@ $checkbox-row-width: 34px;
   flex-wrap: wrap;
   //justify-content: space-between;
   position: relative;
-  padding: $spacer*0.5 $spacer*2 $spacer*0.5 $spacer*0.625;
+  padding: $spacer*0.625;
 
   @include media-breakpoint-up(md) {
     flex-wrap: wrap;
@@ -225,9 +225,17 @@ $checkbox-row-width: 34px;
         top: 0.125rem;
         display: inline-block;
         font-size: 0.8125rem;
+        width: 0.75rem;
+        height: 0.75rem;
+        @include media-breakpoint-up(md) {
+          margin-right: 0.35rem;
+        }
       }
       .status {
-        margin-right: 0.25rem;
+        margin-right: 0.3rem;
+        @include media-breakpoint-up(md) {
+          margin-right: 0.625rem;
+        }
       }
     }
   }

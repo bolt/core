@@ -4,8 +4,10 @@
   background: var(--admin-sidebar);
   color: var(--admin-sidebar-text);
   height: 100%;
-
   padding-top: 1.625rem;
+  @include media-breakpoint-up(lg) {
+    padding-top: 2.25rem;
+  }
   a {
     font-size: 0.9375rem;
   }
@@ -18,6 +20,9 @@
     text-transform: uppercase;
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
+    @include media-breakpoint-up(lg) {
+      margin-top: $spacer*2.25;
+    }
   }
 
   &--menu {
@@ -104,7 +109,7 @@
 
       // display only on larger screens
       display: none;
-      @media (min-width: 768px) {
+      @include media-breakpoint-up(lg) {
         display: block;
       }
 
@@ -232,5 +237,20 @@
         margin-left: $admin-sidebar-width / 3;
       }
     }
+  }
+}
+
+
+.sidebar {
+
+}
+
+.sidebar--sticky {
+  position: sticky;
+  top: 60px;
+  // reset this as sticky does not work together with display block on hover li's of the sidebar menu, above in this file
+  @include media-breakpoint-up(lg) {
+    position: static;
+    top: 0;
   }
 }
