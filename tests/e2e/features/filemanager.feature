@@ -13,7 +13,7 @@ Feature: Filemanager
             | area | files |
 
         Then there is element "header" with text "Content files"
-        And there is element "title" with text "Path: files/"
+        And there is element "path" with text "Path: files/"
 
         # @todo Add tests for uploading files, and verifying that they're there
         
