@@ -95,7 +95,7 @@ class ImageExtension extends AbstractExtension
         return sprintf('<img src="%s" alt="%s" %s %s>', $link, $alt, (string) $width, (string) $height);
     }
 
-    public function thumbnail($image, int $width = 320, int $height = 240, ?string $location = null, ?string $path = null)
+    public function thumbnail($image, int $width = 320, int $height = 240, ?string $location = null, ?string $path = null, ?string $fit = null)
     {
         $filename = $this->getFilename($image);
 
@@ -113,6 +113,9 @@ class ImageExtension extends AbstractExtension
         }
         if ($path) {
             $params['path'] = $path;
+        }
+        if ($fit) {
+            $params['fit'] = $fit;
         }
 
         // Create an instance of the URL builder

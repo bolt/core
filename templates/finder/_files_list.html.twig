@@ -10,9 +10,6 @@
         <th>{{ 'actions'|trans }}</th>
     </tr>
     </thead>
-
-    {% set imageformats = ['gif', 'jpg', 'jpeg', 'png', 'svg'] %}
-
     {% for file in finder.files() %}
 
         {% set extension = file.extension() %}
@@ -24,7 +21,7 @@
         {% set dimensions = '' %}
 
         {% if extension in imageformats %}
-            {% set thumbnail = filename|thumbnail(width = 100, height = 72, location = location) %}
+            {% set thumbnail = filename|thumbnail(width = 100, height = 72, location = location, fit = 'crop') %}
             {% set icon = 'fa-image' %}
             {% set link = path('bolt_media_new', {'location': location, 'file': filename}) %}
 
@@ -47,7 +44,7 @@
             </td>
             <td class="listing-thumb" style="padding: 0.2em;">
                 {%- if thumbnail -%}
-                    <a href="{{ filename|thumbnail(width = 1000, height = 1000, location = location) }}" class="lightbox">
+                    <a href="{{ filename|thumbnail(width = 1000, height = 1000, location = location, fit = 'crop') }}" class="lightbox">
                     <img src="{{ thumbnail }}" width="100" height="72">
                     </a>
                 {%- else -%}
@@ -65,5 +62,11 @@
                 &nbsp;
             </td>
         </tr>
+    {% else %}
+    <tr>
+        <td colspan="6">
+            <p><strong>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</strong></p>
+        </td>
+    </tr>
     {% endfor %}
 </table>
