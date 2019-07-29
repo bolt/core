@@ -7,7 +7,7 @@ Feature: Filemanager
             | area | themes |
 
         Then there is element "header" with text "Theme files"
-        And there is element "title" with text "Path: themes/"
+        And there is element "path" with text "Path: themes/"
 
         When I visit the "filemanager" page with parameters:
             | area | files |

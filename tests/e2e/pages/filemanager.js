@@ -7,7 +7,7 @@ class FilemanagerPage extends BasePage {
     this.url = '/bolt/filemanager/:area';
 
     this.header = $('.admin__header--title');
-    this.title = $('h2');
+    this.path = $('p.path');
 
   }
 }

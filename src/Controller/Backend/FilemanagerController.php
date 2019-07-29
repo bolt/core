@@ -13,7 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmozart\PathUtil\Path;
@@ -50,12 +49,11 @@ class FilemanagerController extends TwigAwareController implements BackendZone
         }
 
         if ($request->query->get('view')) {
-            $view = ($request->query->get('view') === 'cards') ? 'cards' : 'list';
+            $view = $request->query->get('view') === 'cards' ? 'cards' : 'list';
             $this->session->set('filemanager_view', $view);
         } else {
             $view = $this->session->get('filemanager_view', 'list');
         }
-
 
         $location = $this->fileLocations->get($location);
 
@@ -73,7 +71,7 @@ class FilemanagerController extends TwigAwareController implements BackendZone
             'parent' => $parent,
             'media' => $media,
             'allfiles' => $location->isShowAll() ? $this->buildIndex($location->getBasepath()) : false,
-            'view' => $view
+            'view' => $view,
         ]);
     }
 
