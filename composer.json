@@ -119,18 +119,6 @@
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/bobdenotter/DoctrineExtensions",
-            "no-api": true
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/jarjak/php-matcher",
-            "no-api": true
-        }
-    ],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
