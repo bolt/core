@@ -28,7 +28,7 @@
       singular="{{ contentType.singular_name }}"
     ></listing-select-box>
 
-    {% set filterOptions = {'id': "Id", 'Author': 'Author', 'status': 'Status', 'createdAt': 'Created date', 'modifiedAt': 'Modified date', 'publishedAt': 'Published date', 'depublishedAt': 'Depublished date'} %}
+    {% set filterOptions = {'id': "Id", 'title': 'Title', 'Author': 'Author', 'status': 'Status', 'createdAt': 'Created date', 'modifiedAt': 'Modified date', 'publishedAt': 'Published date', 'depublishedAt': 'Depublished date'} %}
     {% set sortBy = app.request.get('sort')|default() %}
 
     <div class="card">
