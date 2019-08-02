@@ -30,6 +30,7 @@
 
     {% set filterOptions = {'id': "Id", 'title': 'Title', 'Author': 'Author', 'status': 'Status', 'createdAt': 'Created date', 'modifiedAt': 'Modified date', 'publishedAt': 'Published date', 'depublishedAt': 'Depublished date'} %}
     {% set sortBy = app.request.get('sort')|default() %}
+    {% set filterValue = app.request.get('filter')|default() %}
 
     <div class="card">
         <div class="card-header">
@@ -50,6 +51,10 @@
                                 </option>
                             {% endfor %}
                         </select>
+                    </p>
+                    <p>
+                        <strong>Title</strong>:
+                        <input class="form-control" type="text" name="filter" value="{{ filterValue }}" placeholder="Keyword ..."></input>
                     </p>
                 </div>
                 <div class="form-group">
