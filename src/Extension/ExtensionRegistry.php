@@ -6,7 +6,7 @@ namespace Bolt\Extension;
 
 class ExtensionRegistry
 {
-    /** @var ExtensionInterface[] **/
+    /** @var ExtensionInterface[] * */
     protected $extensions = [];
 
     public function add(ExtensionInterface $extension): void

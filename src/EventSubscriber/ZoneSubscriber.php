@@ -11,7 +11,7 @@ use Bolt\Widget\Injector\RequestZone;
 use ReflectionClass;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class ZoneSubscriber implements EventSubscriberInterface
@@ -21,7 +21,7 @@ class ZoneSubscriber implements EventSubscriberInterface
     /**
      * Kernel request listener callback.
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
         if (RequestZone::getFromRequest($request) !== RequestZone::NOWHERE) {

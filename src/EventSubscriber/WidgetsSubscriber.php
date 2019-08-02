@@ -14,7 +14,7 @@ use Bolt\Widget\WeatherWidget;
 use Bolt\Widgets;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class WidgetsSubscriber implements EventSubscriberInterface
@@ -32,7 +32,7 @@ class WidgetsSubscriber implements EventSubscriberInterface
     /**
      * Kernel request listener callback.
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         $this->widgets->registerWidget(new WeatherWidget());
         $this->widgets->registerWidget(new NewsWidget());

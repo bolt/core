@@ -10,16 +10,16 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class ExtensionCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(ExtensionRegistry::class)) {
+        if (! $container->has(ExtensionRegistry::class)) {
             return;
         }
 
         $repository = $container->findDefinition(ExtensionRegistry::class);
         // The important bit: grab all classes that were tagged with our specified CONTAINER_TAG, and shove them into our Repository
         foreach ($container->findTaggedServiceIds(ExtensionInterface::CONTAINER_TAG) as $id => $tags) {
-            /** @see ExtensionRegistry::add() */
+            /* @see ExtensionRegistry::add() */
             $repository->addMethodCall('add', [new Reference($id)]);
         }
     }
