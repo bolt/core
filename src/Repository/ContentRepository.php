@@ -22,6 +22,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class ContentRepository extends ServiceEntityRepository
 {
+    private $contentColumns = ['id', 'author', 'contentType', 'status', 'createdAt', 'modifiedAt', 'publishedAt', 'depublishedAt'];
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Content::class);
@@ -48,20 +50,16 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        if ($sortBy) {
+        if ($sortBy && \in_array($sortBy, $this->contentColumns)) {
+            $qb->orderBy('content.' . $sortBy);
+        } elseif ($sortBy == 'title') {
             $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')
             ->andWhere('f.name = :title')
             ->setParameter('title', 'title')
             ->orderBy('f.value');
         }
-        dump($qb->getDQL());
-        dump($qb->getQuery()->getSQL());
-        // dump($this->createPaginator($qb->getQuery(), $page, $amountPerPage));
-        // die();
-
-        return $qb->getQuery()->getResult();
-        // return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
     public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
@@ -158,10 +156,10 @@ class ContentRepository extends ServiceEntityRepository
 
     private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
     {
-        $paginator = new Pagerfanta(new DoctrineORMAdapter($query));
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
         $paginator->setCurrentPage($page);
-
+dump($paginator->count());
         return $paginator;
     }
 
