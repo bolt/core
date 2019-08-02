@@ -10,5 +10,7 @@ interface ExtensionInterface
 
     public function getName(): string;
 
+    public function getClass(): string;
+
     public function initialize(): void;
 }

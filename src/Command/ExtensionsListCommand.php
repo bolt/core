@@ -36,17 +36,17 @@ class ExtensionsListCommand extends Command
 
         $rows = [];
 
-        foreach($extensions as $extension) {
-            dump($extension);
-            $extension->initialize();
+        foreach ($extensions as $extension) {
+            $rows[] = [$extension->getClass(), $extension->getName()];
         }
 
         $io = new SymfonyStyle($input, $output);
 
-//        $io->table(['', 'Bundle', 'Method / Error'], $rows);
-
-
-        $io->success('Done');
+        if (! empty($rows)) {
+            $io->table(['Class', 'Extension name'], $rows);
+        } else {
+            $io->caution('No installed extensions could be found');
+        }
 
         return 0;
     }
