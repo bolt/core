@@ -58,7 +58,10 @@
                     </p>
                 </div>
                 <div class="form-group">
-                    <button type="submit">Filter</button>
+                    <button class="btn btn-tertiary" type="submit">Filter</button>
+                    {% if sortBy is not empty or filterValue is not empty %}
+                        <a class="btn btn-danger" href="?"><i class="fa fa-close"></i> Clear sort/filter</a>
+                    {% endif %}
                 </div>
             </form>
         </div>
