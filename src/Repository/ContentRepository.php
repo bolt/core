@@ -34,7 +34,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true, string $sortBy = '')
+    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true, string $sortBy = '', string $filter = '')
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -58,7 +58,15 @@ class ContentRepository extends ServiceEntityRepository
             ->andWhere('f.name = :title')
             ->setParameter('title', 'title')
             ->orderBy('f.value');
+        } elseif ($filter) {
+            $qb->addSelect('f')
+            ->innerJoin('content.fields', 'f')
+            ->andWhere('f.name = :title')
+            ->andWhere($qb->expr()->like('f.value', ':filterValue'))
+            ->setParameter('title', 'title')
+            ->setParameter('filterValue', '%' . $filter . '%');
         }
+        dump($qb->getQuery()->getSQL());
          return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
