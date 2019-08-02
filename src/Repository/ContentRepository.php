@@ -67,7 +67,6 @@ class ContentRepository extends ServiceEntityRepository
             $qb->andWhere($qb->expr()->like('f.value', ':filterValue'))
             ->setParameter('filterValue', '%' . $filter . '%');
         }
-        dump($qb->getQuery()->getSQL());
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
@@ -168,7 +167,6 @@ class ContentRepository extends ServiceEntityRepository
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
         $paginator->setCurrentPage($page);
-dump($paginator->count());
         return $paginator;
     }
 
