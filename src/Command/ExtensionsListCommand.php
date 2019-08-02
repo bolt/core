@@ -30,12 +30,24 @@ class ExtensionsListCommand extends Command
             ->setDescription('List extensions');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
+        $extensions = $this->extensionRegistry->getExtensions();
+
+        $rows = [];
+
+        foreach($extensions as $extension) {
+            dump($extension);
+            $extension->initialize();
+        }
+
         $io = new SymfonyStyle($input, $output);
 
-        dump($this->extensionRegistry->getExtensions());
+//        $io->table(['', 'Bundle', 'Method / Error'], $rows);
+
 
         $io->success('Done');
+
+        return 0;
     }
 }

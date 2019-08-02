@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\EventSubscriber;
+namespace Bolt\Event\Subscriber;
 
 use Bolt\Controller\Backend\Async\AsyncZone;
 use Bolt\Controller\Backend\BackendZone;

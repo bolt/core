@@ -6,21 +6,20 @@ namespace Bolt\Extension;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 
 class ExtensionCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if (! $container->has(ExtensionRegistry::class)) {
+        if ($container->has(ExtensionRegistry::class) === false) {
             return;
         }
 
         $repository = $container->findDefinition(ExtensionRegistry::class);
         // The important bit: grab all classes that were tagged with our specified CONTAINER_TAG, and shove them into our Repository
-        foreach ($container->findTaggedServiceIds(ExtensionInterface::CONTAINER_TAG) as $id => $tags) {
+        foreach (array_keys($container->findTaggedServiceIds(ExtensionInterface::CONTAINER_TAG)) as $id) {
             /* @see ExtensionRegistry::add() */
-            $repository->addMethodCall('add', [new Reference($id)]);
+            $repository->addMethodCall('add', [$id]);
         }
     }
 }
