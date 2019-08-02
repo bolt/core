@@ -50,24 +50,25 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
+        if (!empty($sortBy) || !empty($filter)) {
+            $qb->addSelect('f')
+            ->innerJoin('content.fields', 'f');
+        }
+
         if ($sortBy && \in_array($sortBy, $this->contentColumns)) {
             $qb->orderBy('content.' . $sortBy);
-        } elseif ($sortBy == 'title') {
-            $qb->addSelect('f')
-            ->innerJoin('content.fields', 'f')
-            ->andWhere('f.name = :title')
-            ->setParameter('title', 'title')
+        } elseif (!empty($sortBy)) {
+            $qb->andWhere('f.name = :fieldname')
+            ->setParameter('fieldname', $sortBy)
             ->orderBy('f.value');
-        } elseif ($filter) {
-            $qb->addSelect('f')
-            ->innerJoin('content.fields', 'f')
-            ->andWhere('f.name = :title')
-            ->andWhere($qb->expr()->like('f.value', ':filterValue'))
-            ->setParameter('title', 'title')
+        }
+
+        if ($filter) {
+            $qb->andWhere($qb->expr()->like('f.value', ':filterValue'))
             ->setParameter('filterValue', '%' . $filter . '%');
         }
         dump($qb->getQuery()->getSQL());
-         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
     public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta

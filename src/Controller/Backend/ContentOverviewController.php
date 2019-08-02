@@ -27,11 +27,17 @@ class ContentOverviewController extends TwigAwareController implements BackendZo
         $page = (int) $request->query->get('page', 1);
         $amountPerPage = $contentType->get('records_per_page', 10);
 
-        if($request->query->get('sort')){
+        if ($request->query->get('sort') && $request->query->get('filter')){
+            $sortBy = $request->query->get('sort');
+            $filter = $request->query->get('filter');
+
+            $records = $contentRepository->findForListing($page, $amountPerPage, $contentType, false, $sortBy, $filter);
+        }
+        elseif ($request->query->get('sort')){
             $sortBy = $request->query->get('sort');
             dump($sortBy);
             // die();
-            $records = $contentRepository->findForListing($page, $amountPerPage, $contentType, false, $sortBy);
+            $records = $contentRepository->findForListing($page, $amountPerPage, $contentType, false, $sortBy, '');
 
             dump($request->query->get('sort'));
             // die();
