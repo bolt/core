@@ -10,13 +10,12 @@ use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
 use Bolt\Widget\NewsWidget;
 use Bolt\Widget\SnippetWidget;
-use Bolt\Widget\WeatherWidget;
 use Bolt\Widgets;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class WidgetsSubscriber implements EventSubscriberInterface
+class WidgetSubscriber implements EventSubscriberInterface
 {
     public const PRIORITY = 100;
 
@@ -33,7 +32,6 @@ class WidgetsSubscriber implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-        $this->widgets->registerWidget(new WeatherWidget());
         $this->widgets->registerWidget(new NewsWidget());
         $this->widgets->registerWidget(new CanonicalLinkWidget());
         $this->widgets->registerWidget(new BoltHeaderWidget());

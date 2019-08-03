@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Extension;
 
+use Bolt\Widgets;
+
 class ExtensionRegistry
 {
     /** @var ExtensionInterface[] * */
@@ -28,10 +30,11 @@ class ExtensionRegistry
         return $this->extensions;
     }
 
-    public function initializeAll(): void
+    public function initializeAll(Widgets $widgets): void
     {
         foreach ($this->getExtensionClasses() as $extensionClass) {
             $extension = new $extensionClass();
+            $extension->injectObjects($widgets);
             $extension->initialize();
 
             $this->extensions[$extensionClass] = $extension;
