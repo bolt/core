@@ -9,6 +9,7 @@
         "ext-mbstring": "*",
         "ext-pdo": "*",
         "api-platform/core": "^2.4",
+        "bobdenotter/weatherwidget": "dev-master",
         "bolt/common": "^2.0.2",
         "cocur/slugify": "^3.2",
         "composer/composer": "^1.9",

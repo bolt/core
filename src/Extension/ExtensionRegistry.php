@@ -23,7 +23,7 @@ class ExtensionRegistry
 
     private function addComposerPackages(): void
     {
-        if (! method_exists(Types, 'boltExtension')) {
+        if (! method_exists(Types::class, 'boltExtension')) {
             return;
         }
 

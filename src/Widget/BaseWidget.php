@@ -142,11 +142,14 @@ abstract class BaseWidget implements WidgetInterface
         return $this->template;
     }
 
-    public function getTemplateFolder(): string
+    public function getTemplateFolder(): ?string
     {
         if ($this->templateFolder === null) {
             $reflection = new \ReflectionClass($this);
-            $this->templateFolder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+            $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+            if (realpath($folder)) {
+                $this->templateFolder = realpath($folder);
+            }
         }
 
         return $this->templateFolder;
