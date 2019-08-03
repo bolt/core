@@ -23,6 +23,10 @@ class ExtensionRegistry
 
     private function addComposerPackages(): void
     {
+        if (! method_exists(Types, 'boltExtension')) {
+            return;
+        }
+
         $packages = Types::boltExtension();
 
         /** @var PackageInterface $package */
