@@ -72,7 +72,7 @@
         "behat/mink-goutte-driver": "^1.2",
         "behatch/contexts": "^3.2",
         "bobdenotter/weatherwidget": "dev-master",
-        "bolt/newswidget": "^1.0",
+        "bolt/newswidget": "^1.0.1",
         "coduo/php-matcher": "^3.2",
         "dama/doctrine-test-bundle": "^5.0",
         "doctrine/doctrine-fixtures-bundle": "^3.1",
