@@ -160,7 +160,9 @@ abstract class BaseWidget implements WidgetInterface
         /** @var NativeFilesystemLoader $twigLoaders */
         $twigLoaders = $this->getTwig()->getLoader();
 
-        $twigLoaders->addPath($this->getTemplateFolder(), $this->getSlug());
+        if ($twigLoaders instanceof NativeFilesystemLoader) {
+            $twigLoaders->addPath($this->getTemplateFolder(), $this->getSlug());
+        }
     }
 
     public function setZone(string $zone): self
