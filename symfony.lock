@@ -38,6 +38,9 @@
     "bolt/common": {
         "version": "v1.1.0"
     },
+    "bolt/newswidget": {
+        "version": "1.0.0"
+    },
     "clue/stream-filter": {
         "version": "v1.4.0"
     },
