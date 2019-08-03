@@ -32,6 +32,9 @@
     "behatch/contexts": {
         "version": "3.2.0"
     },
+    "bobdenotter/weatherwidget": {
+        "version": "dev-master"
+    },
     "bolt/common": {
         "version": "v1.1.0"
     },
@@ -50,8 +53,14 @@
     "composer/ca-bundle": {
         "version": "1.0.8"
     },
+    "composer/composer": {
+        "version": "1.9.0"
+    },
     "composer/semver": {
         "version": "1.4.2"
+    },
+    "composer/spdx-licenses": {
+        "version": "1.5.2"
     },
     "composer/xdebug-handler": {
         "version": "1.1.0"
@@ -133,6 +142,9 @@
     },
     "doctrine/reflection": {
         "version": "v1.0.0"
+    },
+    "drupol/composer-packages": {
+        "version": "1.0.0"
     },
     "egulias/email-validator": {
         "version": "2.1.2"
@@ -493,6 +505,9 @@
     },
     "seld/jsonlint": {
         "version": "1.7.1"
+    },
+    "seld/phar-utils": {
+        "version": "1.0.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "4.0",

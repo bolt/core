@@ -18,8 +18,8 @@ class ExtensionCompilerPass implements CompilerPassInterface
         $repository = $container->findDefinition(ExtensionRegistry::class);
         // The important bit: grab all classes that were tagged with our specified CONTAINER_TAG, and shove them into our Repository
         foreach (array_keys($container->findTaggedServiceIds(ExtensionInterface::CONTAINER_TAG)) as $id) {
-            /* @see ExtensionRegistry::add() */
-            $repository->addMethodCall('add', [$id]);
+            /* @see ExtensionRegistry::addCompilerPass() */
+            $repository->addMethodCall('addCompilerPass', [$id]);
         }
     }
 }
