@@ -6,6 +6,8 @@ namespace Bolt\Widget;
 
 use Bolt\Widget\Exception\WidgetException;
 use Cocur\Slugify\Slugify;
+use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
+use Twig\Error\LoaderError;
 
 /**
  * BaseWidget can be used as easy starter pack or as a base for your own widgets.
@@ -28,8 +30,11 @@ abstract class BaseWidget implements WidgetInterface
     /** @var int */
     protected $priority = 0;
 
-    /** @var string path to Twig template */
+    /** @var string filename of Twig template */
     protected $template;
+
+    /** @var string path to Twig templates folder */
+    protected $templateFolder;
 
     /** @var ?string */
     protected $slug;
@@ -103,7 +108,13 @@ abstract class BaseWidget implements WidgetInterface
         }
 
         if ($this instanceof TwigAware) {
-            $output = $this->getTWig()->render($this->getTemplate(), $params);
+            $this->addTwigLoader();
+            try {
+                $output = $this->getTwig()->render($this->getTemplate(), $params);
+            } catch (LoaderError $e) {
+                $output = sprintf("<mark><strong>Could not render extension '%s'.</strong></mark><br>", $this->getName());
+                $output .= sprintf('<mark><code>%s</code></mark>', $e->getMessage());
+            }
         } else {
             $output = $this->getTemplate();
         }
@@ -129,6 +140,29 @@ abstract class BaseWidget implements WidgetInterface
             throw new WidgetException("Widget {$this->getName()} does not have template set");
         }
         return $this->template;
+    }
+
+    public function getTemplateFolder(): ?string
+    {
+        if ($this->templateFolder === null) {
+            $reflection = new \ReflectionClass($this);
+            $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+            if (realpath($folder)) {
+                $this->templateFolder = realpath($folder);
+            }
+        }
+
+        return $this->templateFolder;
+    }
+
+    private function addTwigLoader(): void
+    {
+        /** @var NativeFilesystemLoader $twigLoaders */
+        $twigLoaders = $this->getTwig()->getLoader();
+
+        if ($twigLoaders instanceof NativeFilesystemLoader) {
+            $twigLoaders->addPath($this->getTemplateFolder(), $this->getSlug());
+        }
     }
 
     public function setZone(string $zone): self

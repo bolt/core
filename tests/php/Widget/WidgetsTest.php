@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Widget;
 
+use BobdenOtter\WeatherWidget\WeatherWidget;
 use Bolt\Tests\StringTestCase;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\Injector\HtmlInjector;
@@ -11,7 +12,6 @@ use Bolt\Widget\Injector\QueueProcessor;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
 use Bolt\Widget\SnippetWidget;
-use Bolt\Widget\WeatherWidget;
 use Bolt\Widgets;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\TraceableAdapter;
