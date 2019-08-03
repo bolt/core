@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Bolt\EventSubscriber;
+namespace Bolt\Event\Subscriber;
 
 use Bolt\Widgets;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class ProcessWidgetsQueueSubscriber implements EventSubscriberInterface
@@ -24,7 +24,7 @@ class ProcessWidgetsQueueSubscriber implements EventSubscriberInterface
     /**
      * Kernel response listener callback.
      */
-    public function onKernelResponse(FilterResponseEvent $event): void
+    public function onKernelResponse(ResponseEvent $event): void
     {
         $response = $event->getResponse();
 
