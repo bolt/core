@@ -195,19 +195,19 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
+        $menu->getChild('Maintenance')->addChild('Extensions', [
+            'uri' => $this->urlGenerator->generate('bolt_extensions'),
+            'extras' => [
+                'name' => $t->trans('caption.extensions'),
+                'icon' => 'fa-plug',
+            ],
+        ]);
+
         $menu->getChild('Maintenance')->addChild('Bolt API', [
             'uri' => $this->urlGenerator->generate('api_entrypoint'),
             'extras' => [
                 'name' => $t->trans('caption.api'),
                 'icon' => 'fa-code',
-            ],
-        ]);
-
-        $menu->getChild('Maintenance')->addChild('Check database', [
-            'uri' => '',
-            'extras' => [
-                'name' => $t->trans('caption.check_database'),
-                'icon' => 'fa-database',
             ],
         ]);
 
@@ -240,14 +240,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             'extras' => [
                 'name' => $t->trans('caption.translations'),
                 'icon' => 'fa-language',
-            ],
-        ]);
-
-        $menu->getChild('Maintenance')->addChild('Extensions', [
-            'uri' => '',
-            'extras' => [
-                'name' => $t->trans('caption.extensions'),
-                'icon' => 'fa-plug',
             ],
         ]);
 

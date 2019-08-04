@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Event\Subscriber;
 
+use Bolt\Configuration\Config;
 use Bolt\Extension\ExtensionRegistry;
 use Bolt\Widgets;
 use Symfony\Component\Console\ConsoleEvents;
@@ -22,10 +23,14 @@ class ExtensionSubscriber implements EventSubscriberInterface
     /** @var Widgets */
     private $widgets;
 
-    public function __construct(ExtensionRegistry $extensionRegistry, Widgets $widgets)
+    /** @var Config */
+    private $config;
+
+    public function __construct(ExtensionRegistry $extensionRegistry, Widgets $widgets, Config $config)
     {
         $this->extensionRegistry = $extensionRegistry;
         $this->widgets = $widgets;
+        $this->config = $config;
     }
 
     /**
@@ -33,7 +38,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
      */
     public function onKernelResponse(ControllerEvent $event): void
     {
-        $this->extensionRegistry->initializeAll($this->widgets);
+        $this->extensionRegistry->initializeAll($this->widgets, $this->config);
     }
 
     /**
@@ -41,7 +46,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
      */
     public function onConsoleResponse(ConsoleCommandEvent $event): void
     {
-        $this->extensionRegistry->initializeAll($this->widgets);
+        $this->extensionRegistry->initializeAll($this->widgets, $this->config);
     }
 
     /**
