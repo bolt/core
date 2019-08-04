@@ -8,11 +8,11 @@ use Bolt\Configuration\Config;
 use Bolt\Event\Subscriber\ExtensionSubscriber;
 use Bolt\Widgets;
 use Cocur\Slugify\Slugify;
+use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Parser;
-use Symfony\Component\Yaml\Yaml;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
 use Twig\NodeVisitor\NodeVisitorInterface;
@@ -29,11 +29,12 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
     /** @var Widgets */
     protected $widgets;
 
+    /** @var Collection */
     protected $config;
 
     /** @var Config */
     protected $boltConfig;
-    
+
     /**
      * Returns the descriptive name of the Extension
      */
@@ -50,29 +51,29 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
         return static::class;
     }
 
-    public function getConfig()
+    public function getConfig(): Collection
     {
         if ($this->config === null) {
             $this->initializeConfig();
         }
-        
+
         return $this->config;
     }
 
-    private function initializeConfig()
+    private function initializeConfig(): void
     {
         $config = [];
 
         $filenames = $this->getConfigFilenames();
 
-        if (!is_readable($filenames['main']) && is_readable($this->getDefaultConfigFilename())) {
+        if (! is_readable($filenames['main']) && is_readable($this->getDefaultConfigFilename())) {
             $filesystem = new Filesystem();
             $filesystem->copy($this->getDefaultConfigFilename(), $filenames['main']);
         }
 
         $yamlParser = new Parser();
 
-        foreach($filenames as $filename) {
+        foreach ($filenames as $filename) {
             if (is_readable($filename)) {
                 $config = array_merge($config, $yamlParser->parseFile($filename));
             }
@@ -81,27 +82,23 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
         $this->config = new Collection($config);
     }
 
-    private function getConfigFilenames()
+    private function getConfigFilenames(): array
     {
         $slugify = new Slugify();
         $base = $slugify->slugify(str_replace('Extension', '', $this->getClass()));
         $path = $this->boltConfig->getPath('extensions_config');
 
-        $filenames = [
+        return [
             'main' => sprintf('%s%s%s.yaml', $path, DIRECTORY_SEPARATOR, $base),
             'local' => sprintf('%s%s%s_local.yaml', $path, DIRECTORY_SEPARATOR, $base),
         ];
-
-        return $filenames;
     }
 
     public function hasConfigFilenames(): array
     {
         $result = [];
 
-        $filenames = $this->getConfigFilenames();
-
-        foreach($this->getConfigFilenames() as $filename) {
+        foreach ($this->getConfigFilenames() as $filename) {
             if (is_readable($filename)) {
                 $result[] = basename(dirname($filename)) . DIRECTORY_SEPARATOR . basename($filename);
             }
@@ -110,20 +107,20 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
         return $result;
     }
 
-    private function getDefaultConfigFilename()
+    private function getDefaultConfigFilename(): string
     {
         $reflection = new \ReflectionClass($this);
-        $filename = sprintf('%s%s%s%s%s',
-            dirname(dirname($reflection->getFilename())) ,
+
+        return sprintf(
+            '%s%s%s%s%s',
+            dirname(dirname($reflection->getFilename())),
             DIRECTORY_SEPARATOR,
             'config',
             DIRECTORY_SEPARATOR,
             'config.yaml'
         );
-
-        return $filename;
     }
-    
+
     /**
      * Called when initialising the Extension. Use this to register widgets or
      * do other tasks after boot.
@@ -145,7 +142,7 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
         $this->boltConfig = $boltConfig;
     }
 
-    public function getComposerPackage()
+    public function getComposerPackage(): ?CompletePackage
     {
         $className = $this->getClass();
 
@@ -212,7 +209,7 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
      *
      * @return array<array> First array of unary operators, second array of binary operators
      */
-    public function getOperators()
+    public function getOperators(): array
     {
         return [];
     }
