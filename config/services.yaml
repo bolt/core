@@ -3,7 +3,7 @@
 parameters:
     locale: 'en'
     # This parameter defines the codes of the locales (languages) enabled in the application
-    app_locales: en|nl|nl_NL|nl_BE|es|fr|de|pl|it|pt_BR
+    app_locales: en|nl|nl_NL|nl_BE|es|fr|de|pl|it|hu|pt_BR
     app.notifications.email_sender: anonymous@example.com
     doctrine.orm.entity_manager.class: Bolt\Doctrine\TranslatableEntityManager
     stof_doctrine_extensions.listener.translatable.class: Bolt\Event\Listener\PreTranslatableListener

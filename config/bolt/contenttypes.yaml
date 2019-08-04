@@ -41,7 +41,7 @@ homepage:
             group: meta
     viewless: true
     taxonomy: [ categories, tags, foobars ]
-    locales: ['en', 'nl', 'pt_BR', 'es']
+    locales: ['en', 'nl', 'pt_BR', 'es', 'hu']
     singleton: true
     default_status: published
     icon_many: "fa:home"
