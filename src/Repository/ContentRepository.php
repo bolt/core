@@ -50,22 +50,22 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        if (!empty($sortBy) || !empty($filter)) {
+        if (! empty($sortBy) || ! empty($filter)) {
             $qb->addSelect('f')
-            ->innerJoin('content.fields', 'f');
+                ->innerJoin('content.fields', 'f');
         }
 
-        if ($sortBy && \in_array($sortBy, $this->contentColumns)) {
+        if ($sortBy && \in_array($sortBy, $this->contentColumns, true)) {
             $qb->orderBy('content.' . $sortBy);
-        } elseif (!empty($sortBy)) {
+        } elseif (! empty($sortBy)) {
             $qb->andWhere('f.name = :fieldname')
-            ->setParameter('fieldname', $sortBy)
-            ->orderBy('f.value');
+                ->setParameter('fieldname', $sortBy)
+                ->orderBy('f.value');
         }
 
         if ($filter) {
             $qb->andWhere($qb->expr()->like('f.value', ':filterValue'))
-            ->setParameter('filterValue', '%' . $filter . '%');
+                ->setParameter('filterValue', '%' . $filter . '%');
         }
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
