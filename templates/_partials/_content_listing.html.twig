@@ -3,6 +3,7 @@
     <listing-records
       type="{{ type }}"
       :data="{{ records|json_records }}"
+      :labels="{{ { 'actions__view_on_site': 'content_listing.actions.view_on_site'|trans }|json_encode }}"
     >
     </listing-records>
     <!-- end listing records -->

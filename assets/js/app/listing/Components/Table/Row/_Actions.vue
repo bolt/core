@@ -16,7 +16,7 @@
       <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
         <a v-if="record.status === 'published'"  class="dropdown-item" :href="record.extras.link" target="_blank">
           <i class="fas fa-w fa-external-link-square-alt"></i>
-          View on Site
+          {{ label('view_on_site') }}
         </a>
         <a v-if="record.status !== 'published'" class="dropdown-item" :href="record.extras.statusLink + '&status=published'">
           <span class="status mr-1 is-published"></span>
@@ -66,5 +66,10 @@
 export default {
   name: 'Actions',
   props: ['type', 'record'],
+  methods: {
+    label(lbl) {
+        return 'View on sssite';
+    },
+  }
 };
 </script>
