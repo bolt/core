@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
 
 class BoltHeaderWidget implements WidgetInterface, ResponseAware
 {
     use ResponseTrait;
+
+    /** @var ExtensionInterface */
+    protected $extension;
 
     public function __invoke(array $params = []): ?string
     {
@@ -36,5 +40,10 @@ class BoltHeaderWidget implements WidgetInterface, ResponseAware
     public function getZone(): string
     {
         return RequestZone::FRONTEND;
+    }
+
+    public function injectExtension(ExtensionInterface $extension): void
+    {
+        $this->extension = $extension;
     }
 }

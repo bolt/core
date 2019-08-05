@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Exception\WidgetException;
 use Cocur\Slugify\Slugify;
 use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
@@ -26,6 +27,9 @@ abstract class BaseWidget implements WidgetInterface
 
     /** @var string from RequestZone */
     protected $zone;
+
+    /** @var ExtensionInterface */
+    protected $extension;
 
     /** @var int */
     protected $priority = 0;
@@ -88,6 +92,11 @@ abstract class BaseWidget implements WidgetInterface
         return $this->priority;
     }
 
+    public function injectExtension(ExtensionInterface $extension): void
+    {
+        $this->extension = $extension;
+    }
+
     /**
      * Method to 'invoke' the widget. Simple wrapper around the 'run' method,
      * which can be overridden in a custom Widget or trait
@@ -107,13 +116,18 @@ abstract class BaseWidget implements WidgetInterface
             $this->setTemplate($params['template']);
         }
 
+        // Extension is set, and needs to be available in the template
+        $params['extension'] = $this->extension;
+
         if ($this instanceof TwigAware) {
             $this->addTwigLoader();
             try {
                 $output = $this->getTwig()->render($this->getTemplate(), $params);
             } catch (LoaderError $e) {
-                $output = sprintf("<mark><strong>Could not render extension '%s'.</strong></mark><br>", $this->getName());
-                $output .= sprintf('<mark><code>%s</code></mark>', $e->getMessage());
+                $output = "<div style='border: 1px solid #666; background-color: #FCF8E3; padding: 0.5rem;'><mark><strong>";
+                $output .= sprintf("Could not render extension '%s'.</strong></mark><br>", $this->getName());
+                $output .= sprintf('<code>%s</code><br>', $e->getMessage());
+                $output .= sprintf('Did you mean to use <code>@%s/%s</code> instead?</mark></div>', $this->getSlug(), basename($this->getTemplate()));
             }
         } else {
             $output = $this->getTemplate();

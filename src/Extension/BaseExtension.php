@@ -6,6 +6,7 @@ namespace Bolt\Extension;
 
 use Bolt\Configuration\Config;
 use Bolt\Event\Subscriber\ExtensionSubscriber;
+use Bolt\Widget\WidgetInterface;
 use Bolt\Widgets;
 use Cocur\Slugify\Slugify;
 use Composer\Package\CompletePackage;
@@ -14,17 +15,13 @@ use ComposerPackages\Packages;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Parser;
 use Tightenco\Collect\Support\Collection;
+use Twig\Environment;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
-use Twig\NodeVisitor\NodeVisitorInterface;
-use Twig\TokenParser\TokenParserInterface;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
-use Twig\TwigTest;
 
 /**
  * BaseWidget can be used as easy starter pack or as a base for your own extensions.
  */
-abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterface
+abstract class BaseExtension implements ExtensionInterface
 {
     /** @var Widgets */
     protected $widgets;
@@ -34,6 +31,9 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
 
     /** @var Config */
     protected $boltConfig;
+
+    /** @var Environment */
+    protected $twig;
 
     /**
      * Returns the descriptive name of the Extension
@@ -136,12 +136,35 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
      *
      * @see ExtensionSubscriber
      */
-    public function injectObjects(Widgets $widgets, Config $boltConfig): void
+    public function injectObjects(Widgets $widgets, Config $boltConfig, Environment $twig): void
     {
         $this->widgets = $widgets;
         $this->boltConfig = $boltConfig;
+        $this->twig = $twig;
     }
 
+    /**
+     * Shortcut method to register a widget and inject the extension into it
+     */
+    public function registerWidget(WidgetInterface $widget): void
+    {
+        $widget->injectExtension($this);
+
+        $this->widgets->registerWidget($widget);
+    }
+
+    /**
+     * Shortcut method to register a TwigExtension.
+     */
+    public function registerTwigExtension(TwigExtensionInterface $extension): void
+    {
+        $this->twig->addExtension($extension);
+    }
+
+    /**
+     * Get the ComposerPackage, that contains information about the package,
+     * version, etc.
+     */
     public function getComposerPackage(): ?CompletePackage
     {
         $className = $this->getClass();
@@ -152,65 +175,5 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
         $package = Packages::find($finder);
 
         return $package->current();
-    }
-
-    /**
-     * Twig: Returns the token parser instances to add to the existing list.
-     *
-     * @return TokenParserInterface[]
-     */
-    public function getTokenParsers(): array
-    {
-        return [];
-    }
-
-    /**
-     * Twig: Returns the node visitor instances to add to the existing list.
-     *
-     * @return NodeVisitorInterface[]
-     */
-    public function getNodeVisitors(): array
-    {
-        return [];
-    }
-
-    /**
-     * Twig: Returns a list of filters to add to the existing list.
-     *
-     * @return TwigFilter[]
-     */
-    public function getFilters(): array
-    {
-        return [];
-    }
-
-    /**
-     * Twig: Returns a list of tests to add to the existing list.
-     *
-     * @return TwigTest[]
-     */
-    public function getTests(): array
-    {
-        return [];
-    }
-
-    /**
-     * Twig: Returns a list of functions to add to the existing list.
-     *
-     * @return TwigFunction[]
-     */
-    public function getFunctions(): array
-    {
-        return [];
-    }
-
-    /**
-     * Twig: Returns a list of operators to add to the existing list.
-     *
-     * @return array<array> First array of unary operators, second array of binary operators
-     */
-    public function getOperators(): array
-    {
-        return [];
     }
 }
