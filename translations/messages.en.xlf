@@ -835,6 +835,14 @@
         <source>admin_sidebar.toggler</source>
         <target>Toggle sidebar width</target>
       </trans-unit>
+      <trans-unit id="jXAelLe" resname="admin_sidebar_toggler.toggle">
+        <source>admin_sidebar_toggler.toggle</source>
+        <target>Toggle menu</target>
+      </trans-unit>
+      <trans-unit id="BINgtmK" resname="editor_date.toggle">
+        <source>editor_date.toggle</source>
+        <target>Toggle</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

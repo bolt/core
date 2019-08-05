@@ -20,7 +20,7 @@
           data-toggle
         >
           <i class="fa fa-calendar">
-            <span aria-hidden="true" class="sr-only">Toggle</span>
+            <span aria-hidden="true" class="sr-only">{{ labels.toggle }}</span>
           </i>
         </button>
       </div>
@@ -67,6 +67,10 @@ export default {
     locale: {
       type: String,
       default: 'en',
+    },
+    // eslint-disable-next-line vue/require-default-prop
+    labels: {
+      type: Array,
     },
   },
 
