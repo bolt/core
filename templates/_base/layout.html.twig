@@ -65,6 +65,7 @@
               :menu="{{ admin_menu_json }}"
               :version="'{{ constant('Bolt\\Version::VERSION')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
               :about-link="{{ path('bolt_about')|json_encode }}"
+              :labels="{{ { 'toggler': 'admin_sidebar.toggler'|trans }|json_encode }}"
             ></admin-sidebar >
         </div>
     </div>

@@ -831,6 +831,10 @@
         <source>image.placeholder_title</source>
         <target>Title</target>
       </trans-unit>
+      <trans-unit id="Gabafxx" resname="admin_sidebar.toggler">
+        <source>admin_sidebar.toggler</source>
+        <target>Toggle sidebar width</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

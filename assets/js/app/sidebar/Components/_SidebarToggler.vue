@@ -1,14 +1,14 @@
 <template>
   <button class="admin__sidebar--slim" @click="slimSidebar(!slim)">
     <i class="fas fa-exchange-alt"></i>
-    <span class="sr-only">Toggle sidebar width</span>
+    <span class="sr-only">{{ labels.toggler }}</span>
   </button>
 </template>
 
 <script>
 export default {
   name: 'SidebarFooter',
-  props: ['version', 'aboutLink'],
+  props: ['version', 'aboutLink', 'labels'],
   computed: {
     slim() {
       return this.$store.getters['general/slimSidebar'];
