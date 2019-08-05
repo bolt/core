@@ -867,6 +867,10 @@
         <source>file.label_alt</source>
         <target>Alt</target>
       </trans-unit>
+      <trans-unit id="M.3olSc" resname="filelist.remark">
+        <source>filelist.remark</source>
+        <target><![CDATA[Note: This field is practically the same as the <code>imagelist</code>-field.]]></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
