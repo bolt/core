@@ -34,7 +34,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true, string $sortBy = '', string $filter = '')
+    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true, string $sortBy = '', string $filter = ''): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
