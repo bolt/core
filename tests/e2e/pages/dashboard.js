@@ -12,7 +12,7 @@ class DashboardPage extends BasePage {
     this.first_record = $('.listing__row');
 
     // Test for widget
-    this.widget_title = $('#widget-news-widget h5');
+    this.widget_title = $('#widget-news-widget .card-header');
   }
 }
 

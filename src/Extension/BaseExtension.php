@@ -158,6 +158,10 @@ abstract class BaseExtension implements ExtensionInterface
      */
     public function registerTwigExtension(TwigExtensionInterface $extension): void
     {
+        if ($this->twig->hasExtension(\get_class($extension))) {
+            return;
+        }
+
         $this->twig->addExtension($extension);
     }
 
