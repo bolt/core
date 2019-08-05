@@ -1,8 +1,15 @@
+{% set sortBy = app.request.get('sort')|default() %}
+{% set routeParams = { 'contentType': contentType.slug|default() } %}
+
+{% if sortBy %}
+    {% set routeParams = routeParams|merge({'sortBy': sortBy}) %}
+{% endif %}
+
 {% if records.haveToPaginate|default() %}
     <div class="pagination">
       {{ pagerfanta(records, {
         routeName: 'bolt_content_overview',
-        routeParams: { 'contentType': contentType.slug|default() }
+        routeParams: routeParams
       }) }}
     </div>
 {% endif %}
