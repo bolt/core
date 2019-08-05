@@ -4,8 +4,16 @@ declare(strict_types=1);
 
 namespace Bolt\Extension;
 
+use Bolt\Configuration\Config;
 use Bolt\Event\Subscriber\ExtensionSubscriber;
 use Bolt\Widgets;
+use Cocur\Slugify\Slugify;
+use Composer\Package\CompletePackage;
+use Composer\Package\PackageInterface;
+use ComposerPackages\Packages;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Yaml\Parser;
+use Tightenco\Collect\Support\Collection;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
 use Twig\NodeVisitor\NodeVisitorInterface;
 use Twig\TokenParser\TokenParserInterface;
@@ -20,6 +28,12 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
 {
     /** @var Widgets */
     protected $widgets;
+
+    /** @var Collection */
+    protected $config;
+
+    /** @var Config */
+    protected $boltConfig;
 
     /**
      * Returns the descriptive name of the Extension
@@ -37,6 +51,76 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
         return static::class;
     }
 
+    public function getConfig(): Collection
+    {
+        if ($this->config === null) {
+            $this->initializeConfig();
+        }
+
+        return $this->config;
+    }
+
+    private function initializeConfig(): void
+    {
+        $config = [];
+
+        $filenames = $this->getConfigFilenames();
+
+        if (! is_readable($filenames['main']) && is_readable($this->getDefaultConfigFilename())) {
+            $filesystem = new Filesystem();
+            $filesystem->copy($this->getDefaultConfigFilename(), $filenames['main']);
+        }
+
+        $yamlParser = new Parser();
+
+        foreach ($filenames as $filename) {
+            if (is_readable($filename)) {
+                $config = array_merge($config, $yamlParser->parseFile($filename));
+            }
+        }
+
+        $this->config = new Collection($config);
+    }
+
+    private function getConfigFilenames(): array
+    {
+        $slugify = new Slugify();
+        $base = $slugify->slugify(str_replace('Extension', '', $this->getClass()));
+        $path = $this->boltConfig->getPath('extensions_config');
+
+        return [
+            'main' => sprintf('%s%s%s.yaml', $path, DIRECTORY_SEPARATOR, $base),
+            'local' => sprintf('%s%s%s_local.yaml', $path, DIRECTORY_SEPARATOR, $base),
+        ];
+    }
+
+    public function hasConfigFilenames(): array
+    {
+        $result = [];
+
+        foreach ($this->getConfigFilenames() as $filename) {
+            if (is_readable($filename)) {
+                $result[] = basename(dirname($filename)) . DIRECTORY_SEPARATOR . basename($filename);
+            }
+        }
+
+        return $result;
+    }
+
+    private function getDefaultConfigFilename(): string
+    {
+        $reflection = new \ReflectionClass($this);
+
+        return sprintf(
+            '%s%s%s%s%s',
+            dirname(dirname($reflection->getFilename())),
+            DIRECTORY_SEPARATOR,
+            'config',
+            DIRECTORY_SEPARATOR,
+            'config.yaml'
+        );
+    }
+
     /**
      * Called when initialising the Extension. Use this to register widgets or
      * do other tasks after boot.
@@ -52,9 +136,22 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
      *
      * @see ExtensionSubscriber
      */
-    public function injectObjects(Widgets $widgets): void
+    public function injectObjects(Widgets $widgets, Config $boltConfig): void
     {
         $this->widgets = $widgets;
+        $this->boltConfig = $boltConfig;
+    }
+
+    public function getComposerPackage(): ?CompletePackage
+    {
+        $className = $this->getClass();
+
+        $finder = static function (PackageInterface $package) use ($className) {
+            return array_key_exists('entrypoint', $package->getExtra()) && ($className === $package->getExtra()['entrypoint']);
+        };
+        $package = Packages::find($finder);
+
+        return $package->current();
     }
 
     /**
@@ -112,7 +209,7 @@ abstract class BaseExtension implements ExtensionInterface, TwigExtensionInterfa
      *
      * @return array<array> First array of unary operators, second array of binary operators
      */
-    public function getOperators()
+    public function getOperators(): array
     {
         return [];
     }

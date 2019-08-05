@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Extension;
 
+use Bolt\Configuration\Config;
 use Bolt\Widgets;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Types;
@@ -61,13 +62,13 @@ class ExtensionRegistry
         return $this->extensions;
     }
 
-    public function initializeAll(Widgets $widgets): void
+    public function initializeAll(Widgets $widgets, Config $config): void
     {
         $this->addComposerPackages();
 
         foreach ($this->getExtensionClasses() as $extensionClass) {
             $extension = new $extensionClass();
-            $extension->injectObjects($widgets);
+            $extension->injectObjects($widgets, $config);
             $extension->initialize();
 
             $this->extensions[$extensionClass] = $extension;

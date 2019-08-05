@@ -1,0 +1,68 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+
+{% block title %} {{ 'caption.extensions'|trans }} {% endblock title %}
+
+{% block main %}
+
+{% for extension in extensions %}
+    {% set package = extension.composerPackage() %}
+    {% set config = extension.hasConfigFilenames()|first %}
+
+    <div class="card my-2">
+        <div class="card-header">
+            {{ extension.name }}
+        </div>
+        <div class="card-body">
+
+            {% if package %}
+
+                <dl class="row">
+                    <dt class="col-sm-3">Description:</dt>
+                    <dd class="col-sm-9">{{ package.description }}</dd>
+                    <dt class="col-sm-3">Author:</dt>
+                    <dd class="col-sm-9">{% for author in package.authors %}{{ author.name }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+                    <dt class="col-sm-3">Package / Class name:  </dt>
+                    <dd class="col-sm-9"><code>{{ package.prettyName }}</code> - <code>{{ extension.class }}</code></dd>
+                    <dt class="col-sm-3">Version: </dt>
+                    <dd class="col-sm-9">{{ package.prettyVersion }}</dd>
+                </dl>
+
+            {% else %}
+
+                <dl class="row">
+                    <dt class="col-sm-3">Description:</dt>
+                    <dd class="col-sm-9">This is a local package, not installed through Composer</dd>
+                    <dt class="col-sm-3">Class name:  </dt>
+                    <dd class="col-sm-9"><code>{{ extension.class }}</code></dd>
+                </dl>
+
+            {% endif %}
+
+            <div class="w-100">
+                {% if config %}
+                    {% set link = path('bolt_file_edit', {'location': 'config', 'file': config }) %}
+                <a class="btn btn-secondary btn-small" href="{{ link }}">
+                    <i class="fa fa-edit"></i> Configuration
+                </a>
+                {% endif %}
+                {% if package.sourceUrl|default() %}
+                <a class="btn btn-tertiary btn-small" href="{{ package.sourceUrl }}" target="_blank">
+                    <i class="fa fa-external-link-square-alt"></i> Source
+                </a>
+                {% endif %}
+                {% if package|default() %}
+                    <a class="btn btn-hidden-danger btn-small ml-1 float-right" href="" data-confirmation="Not yet implemented. Sorry!">
+                        <i class="fas fa-trash-alt"></i> Remove extension
+                    </a>
+                {% endif %}
+
+                <a class="btn btn-tertiary btn-small float-right" href="" data-confirmation="Not yet implemented. Sorry!">
+                    <i class="fas fa-ban"></i> Disable extension
+                </a>
+            </div>
+
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock main %}

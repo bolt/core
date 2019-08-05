@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Extension;
 
+use Bolt\Configuration\Config;
 use Bolt\Widgets;
 
 interface ExtensionInterface
@@ -14,7 +15,7 @@ interface ExtensionInterface
 
     public function getClass(): string;
 
-    public function injectObjects(Widgets $widgets): void;
+    public function injectObjects(Widgets $widgets, Config $config): void;
 
     public function initialize(): void;
 }
