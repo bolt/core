@@ -778,6 +778,7 @@
       <trans-unit id="kHkjS5U" resname="listing_table.actions.last_modified_on">
         <source>listing_table.actions.last_modified_on</source>
         <target>Last modified on</target>
+      </trans-unit>
       <trans-unit id="BdhsE_X" resname="listing_select_box.card_header.selected">
         <source>listing_select_box.card_header.selected</source>
         <target>Selected</target>
@@ -789,6 +790,34 @@
       <trans-unit id="D8vDkhK" resname="listing_select_box.card_body.remark">
         <source>listing_select_box.card_body.remark</source>
         <target>(these can be used with something like axios to bulk modify/delete)</target>
+      </trans-unit>
+      <trans-unit id="kHeY93_" resname="editor_embed.content_url">
+        <source>editor_embed.content_url</source>
+        <target>URL of content to embed</target>
+      </trans-unit>
+      <trans-unit id="VoIdmBa" resname="editor_embed.placeholder_content_url">
+        <source>editor_embed.placeholder_content_url</source>
+        <target>URL of content on Facebook, Twitter, Soundcloud, Youtube, Vimeo…</target>
+      </trans-unit>
+      <trans-unit id="1.Eb1GS" resname="editor_embed.label_height">
+        <source>editor_embed.label_height</source>
+        <target>Height</target>
+      </trans-unit>
+      <trans-unit id="eWLSFJs" resname="editor_embed.label_pixel">
+        <source>editor_embed.label_pixel</source>
+        <target>pixel</target>
+      </trans-unit>
+      <trans-unit id="EAtXrAm" resname="editor_embed.label_matched_embed">
+        <source>editor_embed.label_matched_embed</source>
+        <target>Matched Embed</target>
+      </trans-unit>
+      <trans-unit id="zATju4V" resname="editor_embed.label_preview">
+        <source>editor_embed.label_preview</source>
+        <target>Preview</target>
+      </trans-unit>
+      <trans-unit id="9SQ0oaR" resname="editor_embed.label_size">
+        <source>editor_embed.label_size</source>
+        <target>Size</target>
       </trans-unit>
     </body>
   </file>
