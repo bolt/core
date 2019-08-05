@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <button class="btn btn-tertiary" type="submit">Filter</button>
                     {% if sortBy is not empty or filterValue is not empty %}
-                        <a class="btn btn-danger" href="?"><i class="fa fa-close"></i> Clear sort/filter</a>
+                        <a class="btn btn-danger" href="{{ path('bolt_content_overview', {'contentType': contentType.slug}) }}"><i class="fa fa-close"></i> Clear sort/filter</a>
                     {% endif %}
                 </div>
             </form>
