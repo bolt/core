@@ -19,7 +19,7 @@
             :name="name + '[filename]'"
             type="text"
             class="form-control"
-            placeholder="filename"
+            :placeholder="labels.placeholder_filename"
             :value="filename"
           />
         </div>
@@ -28,7 +28,7 @@
             :name="name + '[alt]'"
             type="text"
             class="form-control"
-            placeholder="alt text"
+            :placeholder="labels.placeholder_alt_text"
             :value="alt"
           />
         </div>
@@ -37,7 +37,7 @@
             :name="name + '[title]'"
             type="text"
             class="form-control"
-            placeholder="title"
+            :placeholder="labels.placeholder_title"
             :value="title"
           />
         </div>

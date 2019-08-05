@@ -819,6 +819,18 @@
         <source>editor_embed.label_size</source>
         <target>Size</target>
       </trans-unit>
+      <trans-unit id="oOuVKRv" resname="image.placeholder_filename">
+        <source>image.placeholder_filename</source>
+        <target>Filename</target>
+      </trans-unit>
+      <trans-unit id="BWubOnS" resname="image.placeholder_alt_text">
+        <source>image.placeholder_alt_text</source>
+        <target>ALt text</target>
+      </trans-unit>
+      <trans-unit id="VPV0lFM" resname="image.placeholder_title">
+        <source>image.placeholder_title</source>
+        <target>Title</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
