@@ -37,12 +37,42 @@
       }}"
     ></listing-select-box>
 
+    {% set filterOptions = {'id': "Id", 'title': 'Title', 'Author': 'Author', 'status': 'Status', 'createdAt': 'Created date', 'modifiedAt': 'Modified date', 'publishedAt': 'Published date', 'depublishedAt': 'Depublished date'} %}
+    {% set sortBy = app.request.get('sort')|default() %}
+    {% set filterValue = app.request.get('filter')|default() %}
+
     <div class="card">
         <div class="card-header">
             {{ 'title.contentlisting'|trans }}
         </div>
         <div class="card-body">
-            (filtering options go here)
+            <form>
+                <div class="form-group">
+                    <p>
+                        <strong>Sort by</strong>:
+                        <select name="sort" class="form-control">
+                                <option value="" disabled {% if sortBy is empty %}selected{% endif %}>
+                                    Select item
+                                </option>
+                            {% for key, filterOption in filterOptions %}
+                                <option value="{{ key }}" {% if sortBy == key %}selected{% endif %}>
+                                    {{ filterOption }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    <p>
+                        <strong>Title</strong>:
+                        <input class="form-control" type="text" name="filter" value="{{ filterValue }}" placeholder="Keyword ..."></input>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-tertiary" type="submit">Filter</button>
+                    {% if sortBy is not empty or filterValue is not empty %}
+                        <a class="btn btn-danger" href="{{ path('bolt_content_overview', {'contentType': contentType.slug}) }}"><i class="fa fa-close"></i> Clear sort/filter</a>
+                    {% endif %}
+                </div>
+            </form>
         </div>
     </div>
 

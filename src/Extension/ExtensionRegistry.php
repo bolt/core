@@ -24,14 +24,7 @@ class ExtensionRegistry
 
     private function addComposerPackages(): void
     {
-        // We do a try/catch here, instead of using `method_exists`. This is
-        // because PHPStan is being a smart-ass, and takes the state of the
-        // generated `Types` class into account. And that's exactly the point.
-        try {
-            $packages = Types::boltExtension();
-        } catch (\Throwable $e) {
-            $packages = [];
-        }
+        $packages = Types::get('bolt-extension');
 
         /** @var PackageInterface $package */
         foreach ($packages as $package) {
