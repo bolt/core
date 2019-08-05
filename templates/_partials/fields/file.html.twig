@@ -6,29 +6,34 @@
 
             <div class="row mb-2">
                 <div class="col-3">
-                    <label>Filename</label>
+                    <label>{{ 'file.label_filename'|trans }}</label>
                 </div>
                 <div class="col-9">
-                    <input name="{{ name }}[filename]" id="{{ id }}-filename" placeholder="filename.jpg" type="text" value="{{ field.get('filename') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+                    <input class="form-control {{ class }}" name="{{ name }}[filename]" id="{{ id }}-filename"
+                           placeholder="filename.jpg" type="text" value="{{ field.get('filename') }}"
+                           {{ attributes|default()|raw }}>
                 </div>
 
             </div>
 
             <div class="row mb-2">
                 <div class="col-3">
-                    <label>Alt</label>
+                    <label>{{ 'file.label_alt'|trans }}</label>
                 </div>
                 <div class="col-9">
-                    <input name="{{ name }}[alt]" placeholder="…" type="text" value="{{ field.get('alt') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+                    <input class="form-control {{ class }}" name="{{ name }}[alt]" placeholder="…" type="text"
+                           value="{{ field.get('alt') }}" {{ attributes|default()|raw }}>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col-3">
-                    <label>Title</label>
+                    <label>{{ 'file.label_title'|trans }}</label>
                 </div>
                 <div class="col-9">
-                    <input name="{{ name }}[alt]" placeholder="{{ placeholder|default('The title of this image') }}" type="text" value="{{ field.get('title') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+                    <input  class="form-control {{ class }}" name="{{ name }}[alt]"
+                            placeholder="{{ placeholder|default('The title of this image') }}" type="text"
+                            value="{{ field.get('title') }}" {{ attributes|default()|raw }}>
                 </div>
             </div>
 
@@ -36,10 +41,11 @@
                 <div class="col-12" style="text-align: right;">
                     {% if field.get('filename') %}
                     <a href="{{ field.get('filename')|thumbnail(width=1000, height=1000) }}" class="btn btn-secondary btn-small lightbox" style="color: #FFF;">
-                        view image
+                        {{ 'file.button_view'|trans }}
                     </a>
                     {%  endif %}
-                    <a href="" onclick="document.querySelector('.filepond--drop-label label').click(); return false;" class="btn btn-secondary btn-small" style="color: #FFF;">Upload an image</a>
+                    <a class="btn btn-secondary btn-small" href="" onclick="document.querySelector('.filepond--drop-label label').click(); return false;"
+                       style="color: #FFF;">{{ 'file.button_upload'|trans }}</a>
                 </div>
             </div>
 
@@ -50,6 +56,6 @@
 
     </div>
 
-    <mark>Note: This field is practically the same as the <code>image</code>-field.</mark>
+    <mark>{{ 'file.remark'|trans }}</mark>
 
 {% endblock %}

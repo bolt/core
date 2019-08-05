@@ -843,6 +843,30 @@
         <source>editor_date.toggle</source>
         <target>Toggle</target>
       </trans-unit>
+      <trans-unit id="VQ2t655" resname="file.label_filename">
+        <source>file.label_filename</source>
+        <target>Filename</target>
+      </trans-unit>
+      <trans-unit id="tvpSmD7" resname="file.label_title">
+        <source>file.label_title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="hXT_hI." resname="file.button_view">
+        <source>file.button_view</source>
+        <target>View image</target>
+      </trans-unit>
+      <trans-unit id="QKIqqOw" resname="file.button_upload">
+        <source>file.button_upload</source>
+        <target>Upload an image</target>
+      </trans-unit>
+      <trans-unit id="4_JdYp1" resname="file.remark">
+        <source>file.remark</source>
+        <target><![CDATA[Note: This field is practically the same as the <code>image</code>-field.]]></target>
+      </trans-unit>
+      <trans-unit id="TJDc9vQ" resname="file.label_alt">
+        <source>file.label_alt</source>
+        <target>Alt</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
