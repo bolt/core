@@ -33,8 +33,14 @@
       plural="{{ contentType.name }}"
       singular="{{ contentType.singular_name }}"
       labels="{{
-        { }|json_encode
-      }}"
+        { 'card_header':
+            {   'selected': 'listing_select_box.card_header.selected'|trans   },
+          'card_body':
+            {
+                'records_passed': 'listing_select_box.card_body.records_passed'|trans,
+                'remark': 'listing_select_box.card_body.remark'|trans,
+            }
+        }|json_encode }}"
     ></listing-select-box>
 
     {% set filterOptions = {'id': "Id", 'title': 'Title', 'Author': 'Author', 'status': 'Status', 'createdAt': 'Created date', 'modifiedAt': 'Modified date', 'publishedAt': 'Published date', 'depublishedAt': 'Depublished date'} %}

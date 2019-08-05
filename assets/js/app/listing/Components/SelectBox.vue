@@ -5,15 +5,12 @@
         <span class="badge is-primary mr-1">{{ selectedCount }}</span>
         <template v-if="selectedCount === 1">{{ singular }}</template>
         <template v-else>{{ plural }}</template>
-        Selected
+        {{ labels.card_header.selected }}
       </div>
       <div class="card-body">
-        <h4>selected record ids passed</h4>
+        <h4>{{ labels.card_body.records_passed }}</h4>
         <p>
-          <em
-            >(these can be used with something like axios to bulk
-            modify/delete)</em
-          >
+          <em>{{ labels.card_body.remark }}</em>
         </p>
         <pre>
 <code>{{selected}}</code>

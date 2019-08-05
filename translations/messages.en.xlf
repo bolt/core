@@ -695,6 +695,10 @@
         <source>action.add_user</source>
         <target>Add User</target>
       </trans-unit>
+      <trans-unit id="ruQIhH0" resname="success">
+        <source>success</source>
+        <target>Success!</target>
+      </trans-unit>
       <trans-unit id="YDH.7uR" resname="user.updated_profile">
         <source>user.updated_profile</source>
         <target>User Profile has been updated!</target>
@@ -774,6 +778,17 @@
       <trans-unit id="kHkjS5U" resname="listing_table.actions.last_modified_on">
         <source>listing_table.actions.last_modified_on</source>
         <target>Last modified on</target>
+      <trans-unit id="BdhsE_X" resname="listing_select_box.card_header.selected">
+        <source>listing_select_box.card_header.selected</source>
+        <target>Selected</target>
+      </trans-unit>
+      <trans-unit id="jBpmj90" resname="listing_select_box.card_body.records_passed">
+        <source>listing_select_box.card_body.records_passed</source>
+        <target>selected record ids passed</target>
+      </trans-unit>
+      <trans-unit id="D8vDkhK" resname="listing_select_box.card_body.remark">
+        <source>listing_select_box.card_body.remark</source>
+        <target>(these can be used with something like axios to bulk modify/delete)</target>
       </trans-unit>
     </body>
   </file>
