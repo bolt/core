@@ -44,12 +44,12 @@
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group mr-2" role="group">
             <button type="button" class="btn btn-secondary" @click="selectFile">
-              <i class="fas fa-fw fa-upload"></i> Upload
+              <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
             </button>
           </div>
           <div class="btn-group mr-2" role="group">
             <button type="button" class="btn btn-secondary">
-              <i class="fas fa-fw fa-th"></i> From Library
+              <i class="fas fa-fw fa-th"></i> {{ labels.button_from_library }}
             </button>
           </div>
         </div>
@@ -104,6 +104,7 @@ export default {
     'directory',
     'media',
     'csrf_token',
+    'labels',
   ],
   data: () => {
     return {

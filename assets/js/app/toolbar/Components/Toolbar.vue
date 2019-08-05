@@ -12,7 +12,7 @@
           <li>
             <a href="https://bolt.cm/" target="_blank">
               <i class="fas fa-globe-americas fa-fw"></i>
-              Visit Bolt.cm
+              {{ labels['about.visit_bolt'] }}
             </a>
           </li>
           <li>
