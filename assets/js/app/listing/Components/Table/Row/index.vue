@@ -46,6 +46,7 @@
         :type="type"
         :record="record"
         :size="size"
+        :labels="labels['actions']"
       ></row-actions>
       <!-- end column -->
 
@@ -73,19 +74,19 @@ export default {
     'row-sorting': Sorting,
   },
   mixins: [type],
-  props: ['record'],
-  methods: {
-    leave(event) {
-      // When we 'leave' the row, make sure we close the dropdown.
-      $('.dropdown-toggle[aria-expanded="true"').dropdown('toggle');
-    },
-  },
+  props: ['record', 'labels'],
   computed: {
     size() {
       return this.$store.getters['general/getRowSize'];
     },
     sorting() {
       return this.$store.getters['general/getSorting'];
+    },
+  },
+  methods: {
+    leave(event) {
+      // When we 'leave' the row, make sure we close the dropdown.
+      $('.dropdown-toggle[aria-expanded="true"').dropdown('toggle');
     },
   },
 };

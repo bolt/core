@@ -32,6 +32,9 @@
     <listing-select-box
       plural="{{ contentType.name }}"
       singular="{{ contentType.singular_name }}"
+      labels="{{
+        { }|json_encode
+      }}"
     ></listing-select-box>
 
     <div class="card">

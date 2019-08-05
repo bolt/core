@@ -695,10 +695,6 @@
         <source>action.add_user</source>
         <target>Add User</target>
       </trans-unit>
-      <trans-unit id="ruQIhH0" resname="success">
-        <source>success</source>
-        <target>Success!</target>
-      </trans-unit>
       <trans-unit id="YDH.7uR" resname="user.updated_profile">
         <source>user.updated_profile</source>
         <target>User Profile has been updated!</target>
@@ -738,6 +734,46 @@
       <trans-unit id="vIVO1lU" resname="image.button_from_library">
         <source>image.button_from_library</source>
         <target>From library</target>
+      </trans-unit>
+      <trans-unit id="L0TE0M9" resname="listing_table.actions.view_on_site">
+        <source>listing_table.actions.view_on_site</source>
+        <target>View on Site</target>
+      </trans-unit>
+      <trans-unit id="PoauAuK" resname="listing_table.actions.status_to_publish">
+        <source>listing_table.actions.status_to_publish</source>
+        <target>Change status to 'publish'</target>
+      </trans-unit>
+      <trans-unit id="ZJxfdD6" resname="listing_table.actions.status_to_held">
+        <source>listing_table.actions.status_to_held</source>
+        <target>Change status to 'held'</target>
+      </trans-unit>
+      <trans-unit id="apyOs0o" resname="listing_table.actions.status_to_draft">
+        <source>listing_table.actions.status_to_draft</source>
+        <target>Change status to 'draft'</target>
+      </trans-unit>
+      <trans-unit id="5H60Xq6" resname="listing_table.actions.duplicate">
+        <source>listing_table.actions.duplicate</source>
+        <target>Duplicate</target>
+      </trans-unit>
+      <trans-unit id="hR8ri.m" resname="listing_table.actions.delete">
+        <source>listing_table.actions.delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="5zbX1vo" resname="listing_table.actions.slug">
+        <source>listing_table.actions.slug</source>
+        <target>Slug</target>
+      </trans-unit>
+      <trans-unit id="wKDOBOC" resname="listing_table.actions.created_on">
+        <source>listing_table.actions.created_on</source>
+        <target>Created on</target>
+      </trans-unit>
+      <trans-unit id="tVX01Xl" resname="listing_table.actions.published_on">
+        <source>listing_table.actions.published_on</source>
+        <target>Published on</target>
+      </trans-unit>
+      <trans-unit id="kHkjS5U" resname="listing_table.actions.last_modified_on">
+        <source>listing_table.actions.last_modified_on</source>
+        <target>Last modified on</target>
       </trans-unit>
     </body>
   </file>

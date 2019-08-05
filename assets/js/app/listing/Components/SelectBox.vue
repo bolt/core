@@ -30,7 +30,7 @@
 <script>
 export default {
   name: 'ListingSelectedBox',
-  props: ['singular', 'plural'],
+  props: ['singular', 'plural', 'labels'],
   computed: {
     selectedCount() {
       return this.$store.getters['selecting/selectedCount'];
