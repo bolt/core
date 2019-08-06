@@ -1065,7 +1065,7 @@
       </trans-unit>
       <trans-unit id="beqzCkE" resname="login.header_login">
         <source>login.header_login</source>
-        <target>Bolt &raquo; Login</target>
+        <target>Bolt » Login</target>
       </trans-unit>
     </body>
   </file>
