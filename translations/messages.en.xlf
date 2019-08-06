@@ -911,6 +911,10 @@
         <source>repeater.remark</source>
         <target>Note: The Repeater / Block field is basically a wrapper for other fields.</target>
       </trans-unit>
+      <trans-unit id="z2AgHGp" resname="flash_messages.notification">
+        <source>flash_messages.notification</source>
+        <target>__flash_messages.notification</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
