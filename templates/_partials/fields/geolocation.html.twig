@@ -12,36 +12,36 @@
     {% endif %}
 
     <div class="form-group editor--group">
-        <label for="field-geolocation">Geolocation:</label>
+        <label for="field-geolocation">{{ 'geolocation.label_geolocation'|trans }}</label>
         <div class="editor__geolocation">
             <div class="row">
                 <div class="col-8">
                     <div class="form-group">
-                        <label>Address lookup</label>
-                        <input class="form-control address" name="geolocation[address]" placeholder="Street, ZIP code, city or other location …" type="text" value="">
+                        <label>{{ 'geolocation.label_address'|trans }}</label>
+                        <input class="form-control address" name="geolocation[address]" placeholder="{{ 'geolocation.placeholder_address'|trans }}" type="text" value="">
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <div class="form-inline">
                                 <div class="col-6">
-                                    <label class="justify-content-start">Latitude</label>
+                                    <label class="justify-content-start">{{ 'geolocation.label_lat'|trans }}</label>
                                     <input class="form-control" name="geolocation[latitude]" readonly="" step="any" type="number" value="">
                                 </div>
                                 <div class="col-6">
-                                    <label class="justify-content-start">Longitude</label>
+                                    <label class="justify-content-start">{{ 'geolocation.label_long'|trans }}</label>
                                     <input class="form-control" name="geolocation[longitude]" readonly="" step="any" type="number" value="">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Matched address</label>
+                        <label>{{ 'geolocation.label_address_matched'|trans }}</label>
                         <input class="form-control" name="geolocation[formatted_address]" placeholder="—" readonly="" type="text" value="">
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <label class="header">Marker placement</label>
+                        <label class="header">{{ 'geolocation.label_marker'|trans }}</label>
                         <button type="button" class="btn btn-sm btn-default expand justify-content-end"><i class="fa fa-expand"></i></button>
                         <button type="button" class="btn btn-sm btn-default compress"><i class="fa fa-compress "></i></button>
                         <div class="mapholder" style="position: relative; overflow: hidden;">
@@ -49,7 +49,7 @@
                         </div>
                         <div class="input-group custom-control custom-checkbox">
                             <input checked="" class="custom-control-input" type="checkbox" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1">Snap to nearest address</label>
+                            <label class="custom-control-label" for="customCheck1">{{ 'geolocation.label_control'|trans }}</label>
                         </div>
                     </div>
                 </div>

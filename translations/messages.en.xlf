@@ -871,6 +871,38 @@
         <source>filelist.remark</source>
         <target><![CDATA[Note: This field is practically the same as the <code>imagelist</code>-field.]]></target>
       </trans-unit>
+      <trans-unit id="zg5Dum5" resname="geolocation.label_geolocation">
+        <source>geolocation.label_geolocation</source>
+        <target>Geolocation:</target>
+      </trans-unit>
+      <trans-unit id="Com0pbc" resname="geolocation.label_address">
+        <source>geolocation.label_address</source>
+        <target>Address lookup</target>
+      </trans-unit>
+      <trans-unit id="3o0LPHj" resname="geolocation.placeholder_address">
+        <source>geolocation.placeholder_address</source>
+        <target>Street, ZIP code, city or other location…</target>
+      </trans-unit>
+      <trans-unit id="CC5QTmy" resname="geolocation.label_lat">
+        <source>geolocation.label_lat</source>
+        <target>Latitude</target>
+      </trans-unit>
+      <trans-unit id="MJ5WYEM" resname="geolocation.label_address_matched">
+        <source>geolocation.label_address_matched</source>
+        <target>Matched address</target>
+      </trans-unit>
+      <trans-unit id="WJGjWG8" resname="geolocation.label_marker">
+        <source>geolocation.label_marker</source>
+        <target>Marker placement</target>
+      </trans-unit>
+      <trans-unit id="SaP3OOf" resname="geolocation.label_control">
+        <source>geolocation.label_control</source>
+        <target>Snap to nearest address</target>
+      </trans-unit>
+      <trans-unit id="AHaenW3" resname="geolocation.label_long">
+        <source>geolocation.label_long</source>
+        <target>Longitude</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
