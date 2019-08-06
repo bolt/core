@@ -947,6 +947,18 @@
         <source>listing.button_clear</source>
         <target>Clear sort/filter</target>
       </trans-unit>
+      <trans-unit id="37kJiIe" resname="view_locales.badge_default">
+        <source>view_locales.badge_default</source>
+        <target>Default</target>
+      </trans-unit>
+      <trans-unit id="JTRCo_U" resname="view_locales.badge_ok">
+        <source>view_locales.badge_ok</source>
+        <target>OK</target>
+      </trans-unit>
+      <trans-unit id="ufFUPp7" resname="view_locales.badge_missing">
+        <source>view_locales.badge_missing</source>
+        <target>Missing</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
