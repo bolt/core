@@ -1003,6 +1003,10 @@
         <source>files_cards.label_created_on</source>
         <target>Created on:</target>
       </trans-unit>
+      <trans-unit id=".fL0AbE" resname="files_list.remark">
+        <source>files_list.remark</source>
+        <target>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
