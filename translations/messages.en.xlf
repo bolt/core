@@ -1007,6 +1007,10 @@
         <source>files_list.remark</source>
         <target>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</target>
       </trans-unit>
+      <trans-unit id="v6cfPyt" resname="quickselect.title_select">
+        <source>quickselect.title_select</source>
+        <target>Select a file:</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
