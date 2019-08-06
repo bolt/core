@@ -1067,6 +1067,18 @@
         <source>login.header_login</source>
         <target>Bolt » Login</target>
       </trans-unit>
+      <trans-unit id="7JK6jNv" resname="extensions.message_not_implemented">
+        <source>extensions.message_not_implemented</source>
+        <target>Not yet implemented. Sorry!</target>
+      </trans-unit>
+      <trans-unit id="Hlf9c1s" resname="listing.title_overview">
+        <source>listing.title_overview</source>
+        <target>Overview for »</target>
+      </trans-unit>
+      <trans-unit id="8JeahIj" resname="files_cards.message_no_files">
+        <source>files_cards.message_no_files</source>
+        <target>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
