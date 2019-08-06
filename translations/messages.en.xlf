@@ -1011,6 +1011,14 @@
         <source>quickselect.title_select</source>
         <target>Select a file:</target>
       </trans-unit>
+      <trans-unit id="m3tNvJb" resname="finder.button_list">
+        <source>finder.button_list</source>
+        <target>List</target>
+      </trans-unit>
+      <trans-unit id="tRLgeoX" resname="finder.button_cards">
+        <source>finder.button_cards</source>
+        <target>Cards</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
