@@ -913,7 +913,11 @@
       </trans-unit>
       <trans-unit id="z2AgHGp" resname="flash_messages.notification">
         <source>flash_messages.notification</source>
-        <target>__flash_messages.notification</target>
+        <target>Notification</target>
+      </trans-unit>
+      <trans-unit id="qQKx1lR" resname="buttons.button_toggle">
+        <source>buttons.button_toggle</source>
+        <target>Toggle Dropdown</target>
       </trans-unit>
     </body>
   </file>

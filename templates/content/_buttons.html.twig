@@ -10,7 +10,7 @@
 
     {% if record.status == "published" %}
     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split mb-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="sr-only">Toggle Dropdown</span>
+        <span class="sr-only">{{ 'buttons.button_toggle'|trans }}</span>
     </button>
     <button type="submit" class="btn btn-light dropdown-menu dropdown-menu-right" form="editcontent"
             formaction="{{ path('bolt_content_edit_viewsave', {'id': record.id }) }}" formtarget="_blank" style="white-space: nowrap; padding-right: 1rem;">
