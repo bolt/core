@@ -8,7 +8,10 @@
     <!-- end listing records -->
 
     <!-- listing filter -->
-    <listing-filter></listing-filter>
+    <listing-filter :labels="{{ {
+        'button_compact': 'listing_filter.button_compact'|trans,
+        'button_expanded': 'listing_filter.button_expanded'|trans,
+    }|json_encode }}"></listing-filter>
     <!-- end listing filter -->
 
     <listing-table

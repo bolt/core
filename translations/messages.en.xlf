@@ -1079,6 +1079,14 @@
         <source>files_cards.message_no_files</source>
         <target>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</target>
       </trans-unit>
+      <trans-unit id="pcq1NGk" resname="listing_filter.button_compact">
+        <source>listing_filter.button_compact</source>
+        <target>Compact</target>
+      </trans-unit>
+      <trans-unit id="xIztVmp" resname="listing_filter.button_expanded">
+        <source>listing_filter.button_expanded</source>
+        <target>Expanded</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
