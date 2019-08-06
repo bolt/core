@@ -17,22 +17,22 @@
             {% if package %}
 
                 <dl class="row">
-                    <dt class="col-sm-3">Description:</dt>
+                    <dt class="col-sm-3">{{ 'extensions.title_desc'|trans }}</dt>
                     <dd class="col-sm-9">{{ package.description }}</dd>
-                    <dt class="col-sm-3">Author:</dt>
+                    <dt class="col-sm-3">{{ 'extensions.title_author'|trans }}</dt>
                     <dd class="col-sm-9">{% for author in package.authors %}{{ author.name }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
-                    <dt class="col-sm-3">Package / Class name:  </dt>
+                    <dt class="col-sm-3">{{ 'extensions.title_package'|trans }}</dt>
                     <dd class="col-sm-9"><code>{{ package.prettyName }}</code> - <code>{{ extension.class }}</code></dd>
-                    <dt class="col-sm-3">Version: </dt>
+                    <dt class="col-sm-3">{{ 'extensions.title_version'|trans }}</dt>
                     <dd class="col-sm-9">{{ package.prettyVersion }}</dd>
                 </dl>
 
             {% else %}
 
                 <dl class="row">
-                    <dt class="col-sm-3">Description:</dt>
-                    <dd class="col-sm-9">This is a local package, not installed through Composer</dd>
-                    <dt class="col-sm-3">Class name:  </dt>
+                    <dt class="col-sm-3">{{ 'extensions.title_desc'|trans }}</dt>
+                    <dd class="col-sm-9">{{ 'extensions.info_not_installed'|trans }}</dd>
+                    <dt class="col-sm-3">{{ 'extensions.title_class'|trans }}</dt>
                     <dd class="col-sm-9"><code>{{ extension.class }}</code></dd>
                 </dl>
 
@@ -42,22 +42,22 @@
                 {% if config %}
                     {% set link = path('bolt_file_edit', {'location': 'config', 'file': config }) %}
                 <a class="btn btn-secondary btn-small" href="{{ link }}">
-                    <i class="fa fa-edit"></i> Configuration
+                    <i class="fa fa-edit"></i>{{ 'extensions.button_configuration'|trans }}
                 </a>
                 {% endif %}
                 {% if package.sourceUrl|default() %}
                 <a class="btn btn-tertiary btn-small" href="{{ package.sourceUrl }}" target="_blank">
-                    <i class="fa fa-external-link-square-alt"></i> Source
+                    <i class="fa fa-external-link-square-alt"></i>{{ 'extensions.button_source'|trans }}
                 </a>
                 {% endif %}
                 {% if package|default() %}
                     <a class="btn btn-hidden-danger btn-small ml-1 float-right" href="" data-confirmation="Not yet implemented. Sorry!">
-                        <i class="fas fa-trash-alt"></i> Remove extension
+                        <i class="fas fa-trash-alt"></i>{{ 'extensions.button_remove'|trans }}
                     </a>
                 {% endif %}
 
                 <a class="btn btn-tertiary btn-small float-right" href="" data-confirmation="Not yet implemented. Sorry!">
-                    <i class="fas fa-ban"></i> Disable extension
+                    <i class="fas fa-ban"></i>{{ 'extensions.button_disable'|trans }}
                 </a>
             </div>
 

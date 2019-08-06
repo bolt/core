@@ -1019,6 +1019,50 @@
         <source>finder.button_cards</source>
         <target>Cards</target>
       </trans-unit>
+      <trans-unit id="2RYT2e3" resname="dashboard.title_boltcms">
+        <source>dashboard.title_boltcms</source>
+        <target>Bolt content management »</target>
+      </trans-unit>
+      <trans-unit id="nrWBJNm" resname="extensions.title_desc">
+        <source>extensions.title_desc</source>
+        <target>Description:</target>
+      </trans-unit>
+      <trans-unit id="7raDJAR" resname="extensions.title_author">
+        <source>extensions.title_author</source>
+        <target>Author:</target>
+      </trans-unit>
+      <trans-unit id="UP8pNGy" resname="extensions.title_package">
+        <source>extensions.title_package</source>
+        <target>Package / Class name:</target>
+      </trans-unit>
+      <trans-unit id="QFQ1uTC" resname="extensions.title_version">
+        <source>extensions.title_version</source>
+        <target>Version:</target>
+      </trans-unit>
+      <trans-unit id="piuatxC" resname="extensions.info_not_installed">
+        <source>extensions.info_not_installed</source>
+        <target>This is a local package, not installed through Composer</target>
+      </trans-unit>
+      <trans-unit id="3j1gEmk" resname="extensions.title_class">
+        <source>extensions.title_class</source>
+        <target>Class name:</target>
+      </trans-unit>
+      <trans-unit id="mjhFljb" resname="extensions.button_configuration">
+        <source>extensions.button_configuration</source>
+        <target>Configuration</target>
+      </trans-unit>
+      <trans-unit id="r3ryNTG" resname="extensions.button_source">
+        <source>extensions.button_source</source>
+        <target>Source</target>
+      </trans-unit>
+      <trans-unit id="qc3rFkZ" resname="extensions.button_remove">
+        <source>extensions.button_remove</source>
+        <target>Remove extension</target>
+      </trans-unit>
+      <trans-unit id="SLZyVzU" resname="extensions.button_disable">
+        <source>extensions.button_disable</source>
+        <target>Disable extension</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
