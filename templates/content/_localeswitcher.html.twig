@@ -9,7 +9,7 @@
                     :locales="{{ contentlocales(locales) }}"
             ></general-language>
 
-            <a href="{{ path('bolt_content_edit_locales', {'id': record.id}) }}" class="btn btn-light btn-small">
+            <a class="btn btn-light btn-small" href="{{ path('bolt_content_edit_locales', {'id': record.id}) }}">
                 {{ 'localeswitcher.button_info'|trans }}
             </a>
 

@@ -46,14 +46,23 @@
                 <div class="col-4">
                     <div class="form-group">
                         <label class="header">{{ 'geolocation.label_marker'|trans }}</label>
-                        <button type="button" class="btn btn-sm btn-default expand justify-content-end"><i class="fa fa-expand"></i></button>
-                        <button type="button" class="btn btn-sm btn-default compress"><i class="fa fa-compress "></i></button>
+                        <button class="btn btn-sm btn-default expand justify-content-end" type="button">
+                            <i class="fa fa-expand"></i>
+                        </button>
+                        <button class="btn btn-sm btn-default compress" type="button">
+                            <i class="fa fa-compress "></i>
+                        </button>
                         <div class="mapholder" style="position: relative; overflow: hidden;">
-                            <a class="editor__image--preview-image" href="/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;s=1e1ae532b569d01e17644e1c31b12fe9" style="background-image: url(&quot;/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;s=1e1ae532b569d01e17644e1c31b12fe9&quot;);"></a>
+                            <a class="editor__image--preview-image"
+                               href="/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;s=1e1ae532b569d01e17644e1c31b12fe9"
+                               style="background-image: url(&quot;/thumbs/kitten.jpg?w=1200&amp;h=1200&amp;s=1e1ae532b569d01e17644e1c31b12fe9&quot;);">
+                            </a>
                         </div>
                         <div class="input-group custom-control custom-checkbox">
-                            <input checked="" class="custom-control-input" type="checkbox" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1">{{ 'geolocation.label_control'|trans }}</label>
+                            <input class="custom-control-input" checked="" id="customCheck1" type="checkbox">
+                            <label class="custom-control-label" for="customCheck1">
+                                {{ 'geolocation.label_control'|trans }}
+                            </label>
                         </div>
                     </div>
                 </div>

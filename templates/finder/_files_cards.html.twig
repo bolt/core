@@ -25,11 +25,11 @@
     <div class="col-6 col-sm-4 col-xl-3 pr-0 pb-3">
         <div class="card">
             {%- if thumbnail -%}
-                <a href="{{ filename|thumbnail(width = 1000, height = 1000, location = location) }}" class="lightbox">
-                    <img src="{{ thumbnail }}" class="card-img-top">
+                <a class="lightbox" href="{{ filename|thumbnail(width = 1000, height = 1000, location = location) }}">
+                    <img class="card-img-top" src="{{ thumbnail }}">
                 </a>
             {% else %}
-                <img src="{{ asset('assets/images/placeholder.png', 'public') }}" class="card-img-top">
+                <img class="card-img-top" src="{{ asset('assets/images/placeholder.png', 'public') }}">
             {%- endif -%}
 
             <div class="card-body p-2">
@@ -37,11 +37,11 @@
 
                 <div class="btn-group float-right">
                     <button
-                            type="button"
                             class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
                             aria-expanded="false"
+                            aria-haspopup="true"
+                            data-toggle="dropdown"
+                            type="button"
                     >
                         <i class="fas fa-question-circle"></i>
                         <span class="sr-only">{{ 'files_cards.button_toggle'|trans }}</span>
@@ -75,7 +75,8 @@
 
                         <span class="dropdown-item-text">
                             <i class="fas fa-link fa-w"></i>
-                            {{ 'files_cards.label_filename'|trans }} <code :title="file.fieldValues.slug">{{ file.getRelativePathname }}</code>
+                            {{ 'files_cards.label_filename'|trans }}
+                            <code :title="file.fieldValues.slug">{{ file.getRelativePathname }}</code>
                         </span>
 
                         {% if title %}
@@ -99,7 +100,8 @@
 
                         <span class="dropdown-item-text">
                             <i class="far fa-calendar-alt fa-w"></i>
-                            {{ 'files_cards.label_created_on'|trans }} <strong>{{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}</strong>
+                            {{ 'files_cards.label_created_on'|trans }}
+                            <strong>{{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}</strong>
                         </span>
 
                     </div>
@@ -111,7 +113,7 @@
     </div>
     {% else %}
     <div class="col-12">
-        <p><strong>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</strong></p>
+        <p><strong>{{ 'files_cards.message_no_files'|trans }}</strong></p>
     </div>
     {% endfor %}
 </div>

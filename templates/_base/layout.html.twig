@@ -25,7 +25,7 @@
     {% set admin_menu_json = admin_menu()|json_encode %}
 
     <!-- Admin Toolbar -->
-    <nav id="toolbar" class="admin__toolbar">
+    <nav class="admin__toolbar" id="toolbar">
         {% set user_display_name = user.displayName|default('Unknown user') %}
 
         {# Setting the labels and their localisations that are used in the sidebar-menu. #}
@@ -62,7 +62,7 @@
 
     <!-- Admin Sidebar -->
     <div class="admin__sidebar">
-        <div id="sidebar" class="sidebar sidebar--sticky">
+        <div class="sidebar sidebar--sticky" id="sidebar">
             <admin-sidebar
               :menu="{{ admin_menu_json }}"
               :version="'{{ constant('Bolt\\Version::VERSION')|replace({'alpha': 'α', 'beta': 'β'}) }}'"

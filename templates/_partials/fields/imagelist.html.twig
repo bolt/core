@@ -2,7 +2,8 @@
 
 {% block field %}
     {% for image in value %}
-    <input name="{{ name }}" placeholder="…" type="text" value="{{ image }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+    <input class="form-control {{ class }}" name="{{ name }}" placeholder="…" type="text" value="{{ image }}"
+           {{ attributes|default()|raw }}>
     {% endfor %}
     <mark>{{ 'imagelist.remark'|trans|raw }}</mark>
 

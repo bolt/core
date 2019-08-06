@@ -44,7 +44,8 @@
             </td>
             <td class="listing-thumb" style="padding: 0.2em;">
                 {%- if thumbnail -%}
-                    <a href="{{ filename|thumbnail(width = 1000, height = 1000, location = location, fit = 'crop') }}" class="lightbox">
+                    <a class="lightbox"
+                       href="{{ filename|thumbnail(width = 1000, height = 1000, location = location, fit = 'crop') }}">
                     <img src="{{ thumbnail }}" width="100" height="72">
                     </a>
                 {%- else -%}
