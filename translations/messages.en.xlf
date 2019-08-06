@@ -903,6 +903,14 @@
         <source>geolocation.label_long</source>
         <target>Longitude</target>
       </trans-unit>
+      <trans-unit id="TkryUve" resname="imagelist.remark">
+        <source>imagelist.remark</source>
+        <target><![CDATA[Note: This field is practically the same as the <code>filelist</code>-field.]]></target>
+      </trans-unit>
+      <trans-unit id="Swom5xM" resname="repeater.remark">
+        <source>repeater.remark</source>
+        <target>Note: The Repeater / Block field is basically a wrapper for other fields.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

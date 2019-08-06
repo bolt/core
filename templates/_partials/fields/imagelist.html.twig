@@ -4,6 +4,6 @@
     {% for image in value %}
     <input name="{{ name }}" placeholder="…" type="text" value="{{ image }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
     {% endfor %}
-    <mark>Note: This field is practically the same as the <code>filelist</code>-field.</mark>
+    <mark>{{ 'imagelist.remark'|trans|raw }}</mark>
 
 {% endblock %}
