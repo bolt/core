@@ -959,6 +959,50 @@
         <source>view_locales.badge_missing</source>
         <target>Missing</target>
       </trans-unit>
+      <trans-unit id="QQvRJe." resname="files_cards.button_toggle">
+        <source>files_cards.button_toggle</source>
+        <target>Toggle Dropdown</target>
+      </trans-unit>
+      <trans-unit id="gtC_ujD" resname="files_cards.action_edit_image_info">
+        <source>files_cards.action_edit_image_info</source>
+        <target>Edit image information</target>
+      </trans-unit>
+      <trans-unit id="5LXvJfE" resname="files_cards.action_edit_file">
+        <source>files_cards.action_edit_file</source>
+        <target>Edit file in editor</target>
+      </trans-unit>
+      <trans-unit id="H1pgP94" resname="files_cards.action_view_original">
+        <source>files_cards.action_view_original</source>
+        <target>View original</target>
+      </trans-unit>
+      <trans-unit id="ZoY6ADX" resname="files_cards.action_duplicate">
+        <source>files_cards.action_duplicate</source>
+        <target>Duplicate</target>
+      </trans-unit>
+      <trans-unit id="JjU6ZQP" resname="files_cards.action_delete">
+        <source>files_cards.action_delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="3jdNwuk" resname="files_cards.label_filename">
+        <source>files_cards.label_filename</source>
+        <target>Filename:</target>
+      </trans-unit>
+      <trans-unit id="Y90_Pn1" resname="files_cards.label_title">
+        <source>files_cards.label_title</source>
+        <target>Title:</target>
+      </trans-unit>
+      <trans-unit id="EdCfIKX" resname="files_cards.label_dimensions">
+        <source>files_cards.label_dimensions</source>
+        <target>Dimensions:</target>
+      </trans-unit>
+      <trans-unit id="eQBhceV" resname="files_cards.label_filesize">
+        <source>files_cards.label_filesize</source>
+        <target>Filesize:</target>
+      </trans-unit>
+      <trans-unit id="uiCjlwk" resname="files_cards.label_created_on">
+        <source>files_cards.label_created_on</source>
+        <target>Created on:</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
