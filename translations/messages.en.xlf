@@ -919,6 +919,34 @@
         <source>buttons.button_toggle</source>
         <target>Toggle Dropdown</target>
       </trans-unit>
+      <trans-unit id="ypPzS03" resname="localeswitcher.button_info">
+        <source>localeswitcher.button_info</source>
+        <target>See Localization info</target>
+      </trans-unit>
+      <trans-unit id="wQ0WYAT" resname="listing.title_sortby">
+        <source>listing.title_sortby</source>
+        <target>Sort by</target>
+      </trans-unit>
+      <trans-unit id="ZGv90X8" resname="listing.option_select_item">
+        <source>listing.option_select_item</source>
+        <target>Select item</target>
+      </trans-unit>
+      <trans-unit id="TIyjgb6" resname="listing.title_title">
+        <source>listing.title_title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="pn22p7q" resname="listing.placeholder_filter">
+        <source>listing.placeholder_filter</source>
+        <target>Keyword…</target>
+      </trans-unit>
+      <trans-unit id="ni4zApC" resname="listing.button_filter">
+        <source>listing.button_filter</source>
+        <target>Filter</target>
+      </trans-unit>
+      <trans-unit id="doNsgm0" resname="listing.button_clear">
+        <source>listing.button_clear</source>
+        <target>Clear sort/filter</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
