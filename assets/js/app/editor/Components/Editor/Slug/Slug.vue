@@ -6,20 +6,20 @@
       </div>
       <input
         v-model="val"
+        class="form-control"
         :name="name"
         placeholder="…"
         type="text"
-        class="form-control"
         :class="fieldClass"
         :readonly="!edit"
       />
       <div class="input-group-append">
         <button
           type="button"
+          class="btn dropdown-toggle"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-          class="btn dropdown-toggle"
           :class="[{ 'btn-primary': edit }, { 'btn-secondary': !edit }]"
         >
           <i class="fas fa-fw" :class="`fa-${icon}`"></i> {{ buttonText }}

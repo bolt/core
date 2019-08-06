@@ -3,12 +3,12 @@
     <div class="input-group">
       <flat-pickr
         v-model="val"
-        :config="config"
         class="form-control editor--date"
-        placeholder="Select date"
-        :name="name"
-        :form="form"
+        :config="config"
         :disabled="disabled == 1"
+        :form="form"
+        :name="name"
+        placeholder="Select date"
       >
       </flat-pickr>
       <div class="input-group-append">
@@ -20,7 +20,7 @@
           data-toggle
         >
           <i class="fa fa-calendar">
-            <span aria-hidden="true" class="sr-only">{{ labels.toggle }}</span>
+            <span class="sr-only" aria-hidden="true">{{ labels.toggle }}</span>
           </i>
         </button>
       </div>

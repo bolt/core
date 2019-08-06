@@ -20,7 +20,13 @@
     >
       <!-- column details -->
       <div class="listing__row--item is-details">
-        <a class="listing__row--item-title" :href="record.extras.editLink" :title="record.fieldValues.slug">{{ record.extras.title | trim(62) }}</a>
+        <a
+          class="listing__row--item-title"
+          :href="record.extras.editLink"
+          :title="record.fieldValues.slug"
+        >
+          {{ record.extras.title | trim(62) }}
+        </a>
         <span class="listing__row--item-title-excerpt">{{ record.extras.excerpt }}</span>
       </div>
       <!-- end column -->
@@ -54,7 +60,6 @@
       <row-sorting></row-sorting>
       <!-- end column -->
     </div>
-
   </transition-group>
 </template>
 
