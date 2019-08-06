@@ -2,9 +2,9 @@
 
 {% block field %}
     {% for file in value %}
-        <input name="{{ name }}" placeholder="…" type="text" value="{{ file }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+        <input class="form-control {{ class }}" name="{{ name }}" placeholder="…" type="text" value="{{ file }}"
+            {{ attributes|default()|raw }}>
     {% endfor %}
 
     <mark>{{ 'filelist.remark'|trans|raw }}</mark>
-
 {% endblock %}

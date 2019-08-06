@@ -40,11 +40,13 @@
             <div class="row mb-2">
                 <div class="col-12" style="text-align: right;">
                     {% if field.get('filename') %}
-                    <a href="{{ field.get('filename')|thumbnail(width=1000, height=1000) }}" class="btn btn-secondary btn-small lightbox" style="color: #FFF;">
+                    <a href="{{ field.get('filename')|thumbnail(width=1000, height=1000) }}"
+                       class="btn btn-secondary btn-small lightbox" style="color: #FFF;">
                         {{ 'file.button_view'|trans }}
                     </a>
                     {%  endif %}
-                    <a class="btn btn-secondary btn-small" href="" onclick="document.querySelector('.filepond--drop-label label').click(); return false;"
+                    <a class="btn btn-secondary btn-small" href=""
+                       onclick="document.querySelector('.filepond--drop-label label').click(); return false;"
                        style="color: #FFF;">{{ 'file.button_upload'|trans }}</a>
                 </div>
             </div>

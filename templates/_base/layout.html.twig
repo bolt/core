@@ -53,7 +53,9 @@
     <header class="admin__header">
         <div class="admin__header--topbar">
             <h1 class="admin__header--title">{{ block('title') }}</h1>
-            <button class="admin-sidebar-toggler btn btn-md"><span class="sr-only">{{ 'admin_sidebar_toggler.toggle'|trans }}</span></button>
+            <button class="admin-sidebar-toggler btn btn-md">
+                <span class="sr-only">{{ 'admin_sidebar_toggler.toggle'|trans }}</span>
+            </button>
         </div>
     </header>
     <!-- End Admin Header -->
@@ -79,12 +81,13 @@
                 Vue components, like `{{ dump() }}` statements #}
         {% endblock %}
 
-        <div class="admin__body--container{% if hasAside %} admin__body--container--has-sidebar{% endif%}" id="{% block vue_id %}{% endblock %}">
+        <div class="admin__body--container{% if hasAside %} admin__body--container--has-sidebar{% endif%}"
+             id="{% block vue_id %}{% endblock %}">
             <main class="admin__body--main">
                 {% block main %}
                 {% endblock %}
             </main>
-            
+
             {% if hasAside %}
             <aside class="admin__body--aside">
                 {% block aside %}
@@ -92,7 +95,7 @@
             </aside>
             {% endif %}
         </div>
-        
+
         <div class="admin__notifications">
             {{ include('@bolt/_partials/_flash_messages.html.twig') }}
         </div>
