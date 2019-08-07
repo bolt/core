@@ -8,9 +8,6 @@
   @include media-breakpoint-up(lg) {
     padding-top: 1.625rem;
   }
-  a {
-    font-size: 0.9375rem;
-  }
 
   &--separator {
     padding: 0 $spacer;
@@ -41,9 +38,9 @@
     font-weight: $font-weight-semibold;
     letter-spacing: $letter-spacing;
     color: var(--admin-sidebar-text);
-
+    font-size: 0.9375rem;
     &:hover {
-      @include darken(--admin-sidebar, 0.02);
+      @include darken(--admin-sidebar, 0.25);
 
       color: var(--admin-sidebar-icon);
       text-decoration: none;
@@ -120,7 +117,6 @@
           a {
             font-weight: $font-weight-bold;
             letter-spacing: $letter-spacing;
-            padding: $spacer;
           }
         }
 
@@ -133,7 +129,7 @@
           letter-spacing: initial;
 
           &:hover {
-            @include darken(--admin-sidebar-menu, 0.2);
+            @include darken(--admin-sidebar-menu, 0.1);
 
             color: var(--admin-sidebar-menu-text);
             text-decoration: none;
