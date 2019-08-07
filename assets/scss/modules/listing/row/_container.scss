@@ -23,4 +23,10 @@
   .listing__row {
     width: calc(100% - #{$checkbox-row-width});
   }
+
+  &:last-child {
+    .listing__row, .listing--checkbox {
+      margin-bottom: 0.25rem;
+    }
+  }
 }

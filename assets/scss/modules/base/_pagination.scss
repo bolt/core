@@ -8,20 +8,24 @@
 
     span,
     a {
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--foreground);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
-      padding: $spacer / 2;
-      margin-right: $spacer / 3;
+      padding: $spacer*0.4 $spacer*0.5;
+      margin-right: $spacer*0.5;
       min-width: 34px;
       letter-spacing: $letter-spacing;
+      border: 1px solid var(--foreground-border);
+      &:last-child {
+        margin-right: 0;
+      }
 
       &.disabled {
-        color: var(--shade-400);
+        color: $disabled;
 
         &:hover {
           background: var(--foreground);
@@ -40,7 +44,7 @@
 
       &:hover {
         text-decoration: none;
-        background: var(--shade-100);
+        background: var(--background);
       }
 
       &:focus {

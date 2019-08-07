@@ -4,17 +4,13 @@
   display: flex;
   justify-content: space-between;
   min-height: 40px;
-  background-color: #fff;
-  padding: 0.5rem 0.625rem 0.5rem 0.5rem;
+  //background-color: #fff;
+  padding: 0.5rem 0 0.5rem 0;
   border-radius: $border-radius;
   overflow: hidden;
 
-  &:first-of-type {
-    margin-bottom: $spacer;
-  }
-
   &:last-of-type {
-    margin-top: $spacer;
+    margin-bottom: $spacer;
   }
 
   .pagination {
@@ -33,7 +29,6 @@
     justify-content: flex-end;
 
     li {
-      display: inline-flex;
       margin-right: $spacer / 3;
 
       &:last-child {
@@ -45,8 +40,17 @@
       }
     }
 
-    .custom-control {
-      margin-top: $spacer*0.25;
+    .custom-checkbox {
+      padding: 0.625rem;
+      width: 32px;
+      height: 34px;
+      border: 1px solid var(--foreground-border);
+      .custom-control-label {
+        &:before, &:after {
+          top: -0.125rem;
+          left: -.8125rem;
+        }
+      }
     }
 
     .control--button {
@@ -60,8 +64,10 @@
       background: var(--foreground);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
-      padding: $spacer / 2;
-      font-size: 0.9rem;
+      padding: $spacer*0.4 $spacer*0.5;
+      font-size: 0.875rem;
+      min-height: 2.125rem;
+      border: 1px solid var(--foreground-border);
 
       &:hover {
         cursor: pointer;
@@ -74,12 +80,16 @@
       }
 
       &.is-selected {
-        background: $disabled;
+        background-color: rgb(247, 247, 247);
       }
 
       &.is-active {
         background: var(--primary);
         color: var(--foreground);
+      }
+
+      .fas {
+        margin-right: 0;
       }
     }
   }

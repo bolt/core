@@ -1,4 +1,5 @@
 <template>
+  <div class="listing__records">
   <draggable v-model="records" :options="draggableOptions">
     <transition-group>
       <table-row
@@ -8,6 +9,7 @@
       ></table-row>
     </transition-group>
   </draggable>
+  </div>
 </template>
 
 <script>

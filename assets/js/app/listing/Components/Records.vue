@@ -1,5 +1,6 @@
 <template>
-  <div class="listing-records"></div>
+  <div class="listing-records">
+  </div>
 </template>
 
 <script>

@@ -26,7 +26,7 @@
           :class="{ 'is-selected': size === 'small' }"
           @click="changeSize('small')"
         >
-          <i class="fas fa-align-justify fa-fw"></i> Compact
+          <i class="fas fa-align-justify fa-fw"></i><span class="sr-only">Compact view mode</span>
         </button>
       </li>
 
@@ -37,7 +37,7 @@
           :class="{ 'is-selected': size === 'normal' }"
           @click="changeSize('normal')"
         >
-          <i class="fas fa-grip-lines fa-fw"></i> Expanded
+          <i class="fas fa-grip-lines fa-fw"></i><span class="sr-only">Expanded view mode</span>
         </button>
       </li>
 
