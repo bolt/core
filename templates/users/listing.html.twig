@@ -2,13 +2,13 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% block title %}
-    {{ macro.icon('users') }} {{ title }}
+    {{ macro.icon('users') }} {{ title|trans }}
 {% endblock %}
 
 {% block container "widecontent" %}
 
 {% block main %}
-    <h2>{{ subtitle }}</h2>
+    <h2>{{ subtitle|trans }}</h2>
 
     <table class="table" style="min-width: 100%; width: auto;">
         <thead>

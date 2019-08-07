@@ -9,6 +9,7 @@ use Bolt\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * @Security("is_granted('ROLE_ADMIN')")
@@ -31,8 +32,8 @@ class UserController extends TwigAwareController implements BackendZone
         $users = $this->users->findBy([], ['username' => 'ASC'], 1000);
 
         $twigVars = [
-            'title' => 'Users & Permissions',
-            'subtitle' => 'To edit users and their permissions',
+            'title' => 'controller.user.title',
+            'subtitle' => 'controller.user.subtitle',
             'users' => $users,
         ];
 

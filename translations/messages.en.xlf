@@ -1095,6 +1095,46 @@
         <source>listing_table.actions.button_edit</source>
         <target>Edit</target>
       </trans-unit>
+      <trans-unit id="Iy4HXCU" resname="controller.user.title">
+        <source>controller.user.title</source>
+        <target><![CDATA[Users & Permissions]]></target>
+      </trans-unit>
+      <trans-unit id="HBwIQ9b" resname="controller.user.subtitle">
+        <source>controller.user.subtitle</source>
+        <target>To edit users and their permissions</target>
+      </trans-unit>
+      <trans-unit id="rkVeKe_" resname="controller.authentication.reset_title">
+        <source>controller.authentication.reset_title</source>
+        <target>Reset Password</target>
+      </trans-unit>
+      <trans-unit id="lN_rF8O" resname="controller.authentication.reset_subtitle">
+        <source>controller.authentication.reset_subtitle</source>
+        <target>To reset your password, if you've misplaced it</target>
+      </trans-unit>
+      <trans-unit id="0Gyf5xr" resname="controller.database.check_title">
+        <source>controller.database.check_title</source>
+        <target>Database Check</target>
+      </trans-unit>
+      <trans-unit id="SeDwjX6" resname="controller.database.check_subtitle">
+        <source>controller.database.check_subtitle</source>
+        <target>To check the Database</target>
+      </trans-unit>
+      <trans-unit id="nJnALPG" resname="controller.database.update_title">
+        <source>controller.database.update_title</source>
+        <target>Database Update</target>
+      </trans-unit>
+      <trans-unit id="nRE74_i" resname="controller.database.update_subtitle">
+        <source>controller.database.update_subtitle</source>
+        <target>To update the Database</target>
+      </trans-unit>
+      <trans-unit id="a3UNsKw" resname="controller.omnisearch.title">
+        <source>controller.omnisearch.title</source>
+        <target>Omnisearch</target>
+      </trans-unit>
+      <trans-unit id="4N41oTU" resname="controller.omnisearch.subtitle">
+        <source>controller.omnisearch.subtitle</source>
+        <target>To search, in an omni-like fashion</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

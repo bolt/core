@@ -1103,6 +1103,46 @@
         <source>listing_table.actions.button_edit</source>
         <target>Szerkesztés</target>
       </trans-unit>
+      <trans-unit id="Iy4HXCU" resname="controller.user.title">
+        <source>controller.user.title</source>
+        <target>Felhasznlók és engedélyek</target>
+      </trans-unit>
+      <trans-unit id="HBwIQ9b" resname="controller.user.subtitle">
+        <source>controller.user.subtitle</source>
+        <target>Felhasználók és engedélyeik szerkesztése</target>
+      </trans-unit>
+      <trans-unit id="rkVeKe_" resname="controller.authentication.reset_title">
+        <source>controller.authentication.reset_title</source>
+        <target>Jelszó visszaállítása</target>
+      </trans-unit>
+      <trans-unit id="lN_rF8O" resname="controller.authentication.reset_subtitle">
+        <source>controller.authentication.reset_subtitle</source>
+        <target>Jelszó visszaállítása amennyiben elfelejtetted</target>
+      </trans-unit>
+      <trans-unit id="0Gyf5xr" resname="controller.database.check_title">
+        <source>controller.database.check_title</source>
+        <target>Adatbázis ellenőrzése</target>
+      </trans-unit>
+      <trans-unit id="SeDwjX6" resname="controller.database.check_subtitle">
+        <source>controller.database.check_subtitle</source>
+        <target>Az adatbázis vizsgálata</target>
+      </trans-unit>
+      <trans-unit id="nJnALPG" resname="controller.database.update_title">
+        <source>controller.database.update_title</source>
+        <target>Adatbázis frissítés</target>
+      </trans-unit>
+      <trans-unit id="nRE74_i" resname="controller.database.update_subtitle">
+        <source>controller.database.update_subtitle</source>
+        <target>Változás esetén történő frissítés</target>
+      </trans-unit>
+      <trans-unit id="a3UNsKw" resname="controller.omnisearch.title">
+        <source>controller.omnisearch.title</source>
+        <target>Omnisearch</target>
+      </trans-unit>
+      <trans-unit id="4N41oTU" resname="controller.omnisearch.subtitle">
+        <source>controller.omnisearch.subtitle</source>
+        <target>Keresés mélytartalomban, részletekben</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
