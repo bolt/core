@@ -1135,6 +1135,34 @@
         <source>controller.omnisearch.subtitle</source>
         <target>To search, in an omni-like fashion</target>
       </trans-unit>
+      <trans-unit id="7cXqH5s" resname="listing.title_display_name">
+        <source>listing.title_display_name</source>
+        <target>Display name</target>
+      </trans-unit>
+      <trans-unit id="Ay7xZ2h" resname="listing.title_username">
+        <source>listing.title_username</source>
+        <target>Username</target>
+      </trans-unit>
+      <trans-unit id="RN1tdtJ" resname="listing.title_email">
+        <source>listing.title_email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="0pjZ.GV" resname="listing.title_roles">
+        <source>listing.title_roles</source>
+        <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="hXEFV1n" resname="listing.title_last_seen">
+        <source>listing.title_last_seen</source>
+        <target>Last seen</target>
+      </trans-unit>
+      <trans-unit id="pn7kE17" resname="listing.title_last_ip">
+        <source>listing.title_last_ip</source>
+        <target>Last IP</target>
+      </trans-unit>
+      <trans-unit id="GZ65uOC" resname="listing.title_actions">
+        <source>listing.title_actions</source>
+        <target>Actions</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

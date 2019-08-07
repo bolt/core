@@ -101,7 +101,7 @@
       </trans-unit>
       <trans-unit id="ovKkXwU" resname="action.edit">
         <source>action.edit</source>
-        <target>Edit</target>
+        <target>Szerkesztés</target>
       </trans-unit>
       <trans-unit id="LDhDPrF" resname="label.username">
         <source>label.username</source>
@@ -1142,6 +1142,34 @@
       <trans-unit id="4N41oTU" resname="controller.omnisearch.subtitle">
         <source>controller.omnisearch.subtitle</source>
         <target>Keresés mélytartalomban, részletekben</target>
+      </trans-unit>
+      <trans-unit id="7cXqH5s" resname="listing.title_display_name">
+        <source>listing.title_display_name</source>
+        <target>Megjelenített név</target>
+      </trans-unit>
+      <trans-unit id="Ay7xZ2h" resname="listing.title_username">
+        <source>listing.title_username</source>
+        <target>Felhasználónév</target>
+      </trans-unit>
+      <trans-unit id="RN1tdtJ" resname="listing.title_email">
+        <source>listing.title_email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="0pjZ.GV" resname="listing.title_roles">
+        <source>listing.title_roles</source>
+        <target>Szerepkörök</target>
+      </trans-unit>
+      <trans-unit id="hXEFV1n" resname="listing.title_last_seen">
+        <source>listing.title_last_seen</source>
+        <target>Utolsó bejelentkezés</target>
+      </trans-unit>
+      <trans-unit id="pn7kE17" resname="listing.title_last_ip">
+        <source>listing.title_last_ip</source>
+        <target>Utolsó IP</target>
+      </trans-unit>
+      <trans-unit id="GZ65uOC" resname="listing.title_actions">
+        <source>listing.title_actions</source>
+        <target>Műveletek</target>
       </trans-unit>
     </body>
   </file>
