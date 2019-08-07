@@ -7,6 +7,9 @@
     top: $admin-toolbar-height;
     z-index: 2;
   }
+  @include media-breakpoint-up(md) {
+    top: $admin-toolbar-height-wide;
+  }
   //resets sticky as we don't use it above this breakpoint for now
   @include media-breakpoint-up(lg) {
     position: static;
@@ -19,8 +22,19 @@
     color: var(--admin-sidebar);
     margin-top: $spacer;
     position: relative;
+    // max width set for menu button breathing room
+    max-width: 80%;
     @include media-breakpoint-up(sm) {
-      margin-top: $spacer*1.8125;
+      margin-top: $spacer*1.25;
+      // max width set for menu button breathing room
+      max-width: 85%;
+    }
+    @include media-breakpoint-up(md) {
+      // max width set for menu button breathing room
+      max-width: 88%;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: none;
     }
     i {
       color: var(--boltblue);
@@ -49,7 +63,7 @@
       padding: $spacer*1.25 $spacer*1.25 0;
     }
     @include media-breakpoint-up(wd) {
-      padding: $spacer*1.25 $spacer * 1.8125 1rem;
+      padding: $spacer*1.25 $spacer*2 1rem;
     }
   }
   &--togglebar {
@@ -62,7 +76,7 @@
   position: absolute;
   z-index: 4;
   width: auto;
-  top: 0.625rem;
+  top: 1.25rem;
   right: 0.625rem;
   border: 1px solid var(--primary);
   padding: $spacer*0.4 $spacer*1.1;
