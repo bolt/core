@@ -792,19 +792,19 @@
     <unit id="XNTbZW6" name="action.visit_site">
       <segment>
         <source>action.visit_site</source>
-        <target>Visit site</target>
+        <target>Visit website</target>
       </segment>
     </unit>
     <unit id="KfVJho2" name="action.create_new">
       <segment>
         <source>action.create_new</source>
-        <target>Create new</target>
+        <target>Create a new</target>
       </segment>
     </unit>
     <unit id="b_RPpcB" name="general.greeting">
       <segment>
         <source>general.greeting</source>
-        <target>Hey, %name%!</target>
+        <target>%name%</target>
       </segment>
     </unit>
     <unit id="bmdn3u9" name="action.logout">

@@ -1,11 +1,10 @@
 //** Base | Pagination
 
 .pagination {
-  margin-left: auto;
-
+  margin: 0 auto;
+  
   nav {
     display: flex;
-
     span,
     a {
       font-size: 0.875rem;

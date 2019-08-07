@@ -6,4 +6,4 @@ Feature: Logging in
         | password | admin%1 |
         And I click the "login_button" element
         Then the "dashboard" page is displayed
-        And there is element "profile_text" with text "Hey, Admin!"
+        And there is element "profile_text" with text "Admin"
