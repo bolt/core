@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="hu" target-language="en" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -1086,6 +1086,14 @@
       <trans-unit id="xIztVmp" resname="listing_filter.button_expanded">
         <source>listing_filter.button_expanded</source>
         <target>Expanded</target>
+      </trans-unit>
+      <trans-unit id="73A2bWM" resname="finder.label_view">
+        <source>finder.label_view</source>
+        <target>View:</target>
+      </trans-unit>
+      <trans-unit id="Em.C0bV" resname="listing_table.actions.button_edit">
+        <source>listing_table.actions.button_edit</source>
+        <target>Edit</target>
       </trans-unit>
     </body>
   </file>
