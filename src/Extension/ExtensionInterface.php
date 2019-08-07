@@ -6,6 +6,7 @@ namespace Bolt\Extension;
 
 use Bolt\Configuration\Config;
 use Bolt\Widgets;
+use Twig\Environment;
 
 interface ExtensionInterface
 {
@@ -15,7 +16,7 @@ interface ExtensionInterface
 
     public function getClass(): string;
 
-    public function injectObjects(Widgets $widgets, Config $config): void;
+    public function injectObjects(Widgets $widgets, Config $config, Environment $twig): void;
 
     public function initialize(): void;
 }

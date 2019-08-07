@@ -1,4 +1,7 @@
 {
+    "acmecorp/reference-extension": {
+        "version": "1.0.0"
+    },
     "api-platform/core": {
         "version": "2.1",
         "recipe": {

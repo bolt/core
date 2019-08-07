@@ -24,7 +24,7 @@ class HtmlExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $safe = ['is_safe' => ['html']];
 
@@ -36,7 +36,7 @@ class HtmlExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         $safe = ['is_safe' => ['html']];
 

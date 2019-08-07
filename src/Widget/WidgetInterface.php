@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Bolt\Extension\ExtensionInterface;
+
 /**
  * Every widget must implement this interface.
  */
@@ -24,4 +26,6 @@ interface WidgetInterface
     public function getZone(): string;
 
     public function __invoke(array $params = []): ?string;
+
+    public function injectExtension(ExtensionInterface $extension): void;
 }

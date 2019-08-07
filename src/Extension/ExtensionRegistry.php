@@ -8,10 +8,11 @@ use Bolt\Configuration\Config;
 use Bolt\Widgets;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Types;
+use Twig\Environment;
 
 class ExtensionRegistry
 {
-    /** @var ExtensionInterface[] * */
+    /** @var ExtensionInterface[] */
     protected $extensions = [];
 
     /** @var array */
@@ -55,13 +56,13 @@ class ExtensionRegistry
         return $this->extensions;
     }
 
-    public function initializeAll(Widgets $widgets, Config $config): void
+    public function initializeAll(Widgets $widgets, Config $config, Environment $twig): void
     {
         $this->addComposerPackages();
 
         foreach ($this->getExtensionClasses() as $extensionClass) {
             $extension = new $extensionClass();
-            $extension->injectObjects($widgets, $config);
+            $extension->injectObjects($widgets, $config, $twig);
             $extension->initialize();
 
             $this->extensions[$extensionClass] = $extension;
