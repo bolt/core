@@ -25,7 +25,7 @@
     <div class="card-body">
         <p class="path">{{ 'caption.path'|trans }}: <code>{{ location }}{{ path }}</code></p>
 
-        View:
+        {{ 'finder.label_view'|trans }}
         <div class="btn-group">
             <a class="btn btn-secondary"
                href="{{ path('bolt_filemanager', {'location': location, 'path': path, 'view': 'list' }) }}">

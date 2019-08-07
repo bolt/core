@@ -5,7 +5,7 @@
         class="btn btn-secondary btn-block btn-sm text-nowrap"
         :href="record.extras.editLink"
       >
-        <i class="far fa-edit mr-1"></i> Edit
+        <i class="far fa-edit mr-1"></i> {{ labels.button_edit }}
       </a>
       <button
         type="button"
