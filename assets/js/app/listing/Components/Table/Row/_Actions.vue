@@ -70,7 +70,7 @@ export default {
   name: 'Actions',
   props: ['type', 'record', 'labels'],
   created() {
-    console.log(this.labels);
+    // console.log(this.labels);
   },
 };
 </script>
