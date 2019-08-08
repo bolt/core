@@ -1171,6 +1171,14 @@
         <source>listing.title_actions</source>
         <target>Műveletek</target>
       </trans-unit>
+      <trans-unit id="fkXL.k6" resname="user.not_valid_email">
+        <source>user.not_valid_email</source>
+        <target>Érvénytelen email cím</target>
+      </trans-unit>
+      <trans-unit id="HjWW.NS" resname="user.not_valid_password">
+        <source>user.not_valid_password</source>
+        <target>Érvénytelen jelszó</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

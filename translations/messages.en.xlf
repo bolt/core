@@ -1163,6 +1163,14 @@
         <source>listing.title_actions</source>
         <target>Actions</target>
       </trans-unit>
+      <trans-unit id="fkXL.k6" resname="user.not_valid_email">
+        <source>user.not_valid_email</source>
+        <target>Invalid email</target>
+      </trans-unit>
+      <trans-unit id="HjWW.NS" resname="user.not_valid_password">
+        <source>user.not_valid_password</source>
+        <target>Invalid password</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
