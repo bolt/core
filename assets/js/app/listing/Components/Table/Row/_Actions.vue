@@ -1,8 +1,11 @@
 <template>
   <div class="listing__row--item is-actions edit-actions">
     <div class="btn-group">
-      <a :href="record.extras.editLink" class="btn btn-secondary btn-block btn-sm text-nowrap">
-        <i class="far fa-edit mr-1"></i> Edit
+      <a
+        class="btn btn-secondary btn-block btn-sm text-nowrap"
+        :href="record.extras.editLink"
+      >
+        <i class="far fa-edit mr-1"></i> {{ labels.button_edit }}
       </a>
       <button
         type="button"
@@ -16,46 +19,46 @@
       <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
         <a v-if="record.status === 'published'"  class="dropdown-item" :href="record.extras.link" target="_blank">
           <i class="fas fa-w fa-external-link-square-alt"></i>
-          View on Site
+          {{ labels.view_on_site }}
         </a>
         <a v-if="record.status !== 'published'" class="dropdown-item" :href="record.extras.statusLink + '&status=published'">
           <span class="status mr-1 is-published"></span>
-          Change status to 'publish'
+          {{ labels.status_to_publish }}
         </a>
         <a v-if="record.status !== 'held'" class="dropdown-item" :href="record.extras.statusLink + '&status=held'">
           <span class="status mr-1 is-held"></span>
-          Change status to 'held'
+          {{ labels.status_to_held }}
         </a>
         <a v-if="record.status !== 'draft'" class="dropdown-item" :href="record.extras.statusLink + '&status=draft'">
           <span class="status mr-1 is-draft"></span>
-          Change status to 'draft'
+          {{ labels.status_to_draft }}
         </a>
         <a class="dropdown-item" :href="record.extras.duplicateLink">
           <i class="far fa-w fa-copy"></i>
-          Duplicate {{ record.extras.singular_name }}
+          {{ labels.duplicate }} {{ record.extras.singular_name }}
         </a>
         <a class="dropdown-item" :href="record.extras.deleteLink" data-confirmation="Are you sure you wish to delete this Content?">
           <i class="fas fa-w fa-trash"></i>
-          Delete {{ record.extras.singular_name }}
+          {{ labels.delete }} {{ record.extras.singular_name }}
         </a>
 
         <div class="dropdown-divider"></div>
 
         <span class="dropdown-item-text">
           <i class="fas fa-link fa-w"></i>
-          Slug: <code :title="record.fieldValues.slug">{{ record.fieldValues.slug|trim(24) }}</code>
+          {{ labels.slug }}: <code :title="record.fieldValues.slug">{{ record.fieldValues.slug|trim(24) }}</code>
         </span>
         <span class="dropdown-item-text">
           <i class="fas fa-asterisk fa-w"></i>
-          Created on: <strong>{{ record.createdAt|datetime }}</strong>
+          {{ labels.created_on }}: <strong>{{ record.createdAt|datetime }}</strong>
         </span>
         <span class="dropdown-item-text">
           <i class="far fa-calendar-alt fa-w"></i>
-          Published on: <strong>{{ record.publishedAt|datetime }}</strong>
+          {{ labels.published_on }}: <strong>{{ record.publishedAt|datetime }}</strong>
         </span>
         <span class="dropdown-item-text">
           <i class="fas fa-redo fa-w"></i>
-          Last modified on: <strong>{{ record.modifiedAt|datetime }}</strong>
+          {{ labels.last_modified_on }}: <strong>{{ record.modifiedAt|datetime }}</strong>
         </span>
       </div>
     </div>
@@ -65,6 +68,9 @@
 <script>
 export default {
   name: 'Actions',
-  props: ['type', 'record'],
+  props: ['type', 'record', 'labels'],
+  created() {
+    console.log(this.labels);
+  },
 };
 </script>

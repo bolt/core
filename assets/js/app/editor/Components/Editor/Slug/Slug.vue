@@ -6,20 +6,20 @@
       </div>
       <input
         v-model="val"
+        class="form-control"
         :name="name"
         placeholder="…"
         type="text"
-        class="form-control"
         :class="fieldClass"
         :readonly="!edit"
       />
       <div class="input-group-append">
         <button
           type="button"
+          class="btn dropdown-toggle"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-          class="btn dropdown-toggle"
           :class="[{ 'btn-primary': edit }, { 'btn-secondary': !edit }]"
         >
           <i class="fas fa-fw" :class="`fa-${icon}`"></i> {{ buttonText }}
@@ -27,14 +27,14 @@
         <div class="dropdown-menu">
           <a class="dropdown-item" @click="editSlug">
             <template v-if="!edit">
-              <i class="fas fa-pencil-alt fa-fw"></i> Edit
+              <i class="fas fa-pencil-alt fa-fw"></i> {{ labels.button_edit }}
             </template>
             <template v-else>
-              <i class="fas fa-lock fa-fw"></i> Lock
+              <i class="fas fa-lock fa-fw"></i> {{ labels.button_locked }}
             </template>
           </a>
           <a class="dropdown-item" @click="generateSlug()">
-            <i class="fas fa-link fa-fw"></i> Generate from: {{ generate }}
+            <i class="fas fa-link fa-fw"></i> {{ labels.generate_from }} {{ generate }}
           </a>
         </div>
       </div>
@@ -48,7 +48,7 @@ import field from '../../../mixins/value';
 export default {
   name: 'EditorSlug',
   mixins: [field],
-  props: ['value', 'label', 'name', 'prefix', 'fieldClass', 'generate'],
+  props: ['value', 'label', 'name', 'prefix', 'fieldClass', 'generate', 'labels'],
   data: () => {
     return {
       edit: false,
@@ -66,19 +66,20 @@ export default {
       }
     }, 0);
     this.$root.$on('slugify-from-title', () => this.generateSlug());
+    this.buttonText = this.$props.labels.button_locked;
   },
   methods: {
     editSlug() {
       this.$root.$emit('generate-from-title', false);
       if (!this.edit) {
         this.edit = true;
-        this.buttonText = 'Edit';
+        this.buttonText = this.$props.labels.button_edit;
         this.icon = 'pencil-alt';
       } else {
         const slug = this.$options.filters.slugify(this.val);
         this.val = slug;
         this.edit = false;
-        this.buttonText = 'Locked';
+        this.buttonText = this.$props.labels.button_locked;
         this.icon = 'lock';
       }
     },
@@ -91,7 +92,7 @@ export default {
       this.$root.$emit('generate-from-title', true);
 
       this.edit = false;
-      this.buttonText = 'Locked';
+      this.buttonText = this.$props.labels.button_locked;
       this.icon = 'lock';
     },
   },

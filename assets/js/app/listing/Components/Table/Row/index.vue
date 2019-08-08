@@ -20,7 +20,13 @@
     >
       <!-- column details -->
       <div class="listing__row--item is-details">
-        <a class="listing__row--item-title" :href="record.extras.editLink" :title="record.fieldValues.slug">{{ record.extras.title | trim(62) }}</a>
+        <a
+          class="listing__row--item-title"
+          :href="record.extras.editLink"
+          :title="record.fieldValues.slug"
+        >
+          {{ record.extras.title | trim(62) }}
+        </a>
         <span class="listing__row--item-title-excerpt">{{ record.extras.excerpt }}</span>
       </div>
       <!-- end column -->
@@ -46,6 +52,7 @@
         :type="type"
         :record="record"
         :size="size"
+        :labels="labels['actions']"
       ></row-actions>
       <!-- end column -->
 
@@ -53,7 +60,6 @@
       <row-sorting></row-sorting>
       <!-- end column -->
     </div>
-
   </transition-group>
 </template>
 
@@ -73,19 +79,19 @@ export default {
     'row-sorting': Sorting,
   },
   mixins: [type],
-  props: ['record'],
-  methods: {
-    leave(event) {
-      // When we 'leave' the row, make sure we close the dropdown.
-      $('.dropdown-toggle[aria-expanded="true"').dropdown('toggle');
-    },
-  },
+  props: ['record', 'labels'],
   computed: {
     size() {
       return this.$store.getters['general/getRowSize'];
     },
     sorting() {
       return this.$store.getters['general/getSorting'];
+    },
+  },
+  methods: {
+    leave(event) {
+      // When we 'leave' the row, make sure we close the dropdown.
+      $('.dropdown-toggle[aria-expanded="true"').dropdown('toggle');
     },
   },
 };

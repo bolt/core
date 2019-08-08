@@ -4,15 +4,26 @@
     :class="contrast ? 'is-light' : 'is-dark'"
     role="toolbar"
   >
-
     <div class="toolbar-item btn-group toolbar-item__brand">
-      <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn brand__dropdown-toggler dropdown-toggle"><img src="/assets/images/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="28" /></button>
+      <button
+        class="btn brand__dropdown-toggler dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <img
+          src="/assets/images/bolt_logo_dashboard.svg"
+          alt="⚙️ Bolt"
+          height="28"
+        />
+      </button>
       <div class="new-item__dropdown dropdown-menu">
         <ul class="toolbar-menu">
           <li>
             <a href="https://bolt.cm/" target="_blank">
               <i class="fas fa-globe-americas fa-fw"></i>
-              Visit Bolt.cm
+              {{ labels['about.visit_bolt'] }}
             </a>
           </li>
           <li>
@@ -32,7 +43,15 @@
     </div>
 
     <div class="toolbar-item btn-group toolbar-item__new">
-      <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn new-item__dropdown-toggler dropdown-toggle"><i class="fas fa-magic"></i>{{ labels['action.create_new'] }}…</button>
+      <button
+        class="btn new-item__dropdown-toggler dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="fas fa-magic"></i>{{ labels['action.create_new'] }}…
+      </button>
       <div class="new-item__dropdown dropdown-menu">
         <ul>
           <li v-for="(item, index) in createMenu" :key="index">
@@ -43,7 +62,15 @@
     </div>
 
     <div class="toolbar-item btn-group toolbar-item__profile">
-      <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn user profile__dropdown-toggler dropdown-toggle"><i class="fas fa-user"></i>{{ labels['general.greeting'] }}</button>
+      <button
+        class="btn user profile__dropdown-toggler dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="fas fa-user"></i>{{ labels['general.greeting'] }}
+      </button>
       <div class="profile__dropdown dropdown-menu dropdown-menu-right">
         <ul>
           <li>

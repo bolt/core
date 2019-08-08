@@ -3,14 +3,18 @@
     <div class="input-group-prepend">
       <input
         :id="id"
+        class="form-control"
         type="password"
         :name="name"
         :value="value"
-        class="form-control"
         autocomplete="new-password"
       />
 
-      <i class="input-group-text fas fa-eye" @click="togglePassword" ref="visibilityToggle"></i>
+      <i
+        ref="visibilityToggle"
+        class="input-group-text fas fa-eye"
+        @click="togglePassword"
+      ></i>
     </div>
   </div>
 </template>
@@ -19,6 +23,14 @@
 export default {
   name: 'EditorPassword',
   props: ['value', 'name', 'id', 'hidden'],
+
+  mounted: function() {
+    // this.val = this.$options.filters.strip(this.value);
+    console.log('joe!', this.value, this.hidden, this.$refs);
+    if (!this.hidden) {
+      this.$refs.visibilityToggle.click()
+    }
+  },
 
   methods: {
     togglePassword(event) {
@@ -34,14 +46,6 @@ export default {
         iconElement.classList.replace('fa-eye-slash', 'fa-eye');
       }
     },
-  },
-
-  mounted: function() {
-    // this.val = this.$options.filters.strip(this.value);
-    console.log('joe!', this.value, this.hidden, this.$refs);
-    if (!this.hidden) {
-      this.$refs.visibilityToggle.click()
-    }
   },
 };
 </script>

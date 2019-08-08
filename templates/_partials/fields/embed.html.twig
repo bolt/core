@@ -12,5 +12,14 @@
         :authorurl='{{ field.get('authorurl')|json_encode }}'
         :html='{{ field.get('html')|json_encode }}'
         :thumbnail='{{ field.get('thumbnail')|json_encode }}'
+        :labels="{{ {
+            'content_url': 'editor_embed.content_url'|trans,
+            'placeholder_content_url': 'editor_embed.placeholder_content_url'|trans,
+            'label_height': 'editor_embed.label_height'|trans,
+            'label_pixel': 'editor_embed.label_pixel'|trans,
+            'label_matched_embed': 'editor_embed.label_matched_embed'|trans,
+            'label_preview': 'editor_embed.label_preview'|trans,
+            'label_size': 'editor_embed.label_size'|trans,
+        }|json_encode }}"
     ></editor-embed>
 {% endblock %}

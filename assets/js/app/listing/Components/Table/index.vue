@@ -5,6 +5,7 @@
         v-for="record in records"
         :key="record.id"
         :record="record"
+        :labels="labels"
       ></table-row>
     </transition-group>
   </draggable>
@@ -20,6 +21,7 @@ export default {
     draggable: draggable,
     'table-row': Row,
   },
+  props: ['labels'],
   data: () => {
     return {
       draggableOptions: {

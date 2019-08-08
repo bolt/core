@@ -16,40 +16,40 @@
         <div class="input-group mb-3">
           <input :name="name + '[media]'" type="hidden" :value="media" />
           <input
+            class="form-control"
             :name="name + '[filename]'"
             type="text"
-            class="form-control"
-            placeholder="filename"
+            :placeholder="labels.placeholder_filename"
             :value="filename"
           />
         </div>
         <div class="input-group mb-3">
           <input
+            class="form-control"
             :name="name + '[alt]'"
             type="text"
-            class="form-control"
-            placeholder="alt text"
+            :placeholder="labels.placeholder_alt_text"
             :value="alt"
           />
         </div>
         <div class="input-group mb-3">
           <input
+            class="form-control"
             :name="name + '[title]'"
             type="text"
-            class="form-control"
-            placeholder="title"
+            :placeholder="labels.placeholder_title"
             :value="title"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group mr-2" role="group">
-            <button type="button" class="btn btn-secondary" @click="selectFile">
-              <i class="fas fa-fw fa-upload"></i> Upload
+            <button class="btn btn-secondary" type="button" @click="selectFile">
+              <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
             </button>
           </div>
           <div class="btn-group mr-2" role="group">
-            <button type="button" class="btn btn-secondary">
-              <i class="fas fa-fw fa-th"></i> From Library
+            <button class="btn btn-secondary" type="button">
+              <i class="fas fa-fw fa-th"></i> {{ labels.button_from_library }}
             </button>
           </div>
         </div>
@@ -67,29 +67,28 @@
       <div class="col-4">
         <div class="editor__image--preview">
           <a
-            :href="previewImage"
             class="editor__image--preview-image"
-            :style="`background-image: url('${previewImage}')`"
-          >
+            :href="previewImage"
+            :style="`background-image: url('${previewImage}')`">
           </a>
         </div>
       </div>
     </div>
     <input
       ref="selectFile"
+      class="editor__image--upload"
       :name="fieldName"
       type="file"
-      class="editor__image--upload"
       @change="uploadFile($event.target.files[0])"
     />
   </div>
 </template>
 
 <script>
-import noScroll from 'no-scroll';
-import baguetteBox from 'baguettebox.js';
-import field from '../../../mixins/value';
-import Axios from 'axios';
+  import noScroll from 'no-scroll';
+  import baguetteBox from 'baguettebox.js';
+  import field from '../../../mixins/value';
+  import Axios from 'axios';
 
 export default {
   name: 'EditorImage',
@@ -104,6 +103,7 @@ export default {
     'directory',
     'media',
     'csrf_token',
+    'labels',
   ],
   data: () => {
     return {
@@ -172,8 +172,7 @@ export default {
       };
       fd.append('image', file);
       fd.append('_csrf_token', this.token);
-      Axios
-        .post(this.directory, fd, config)
+      Axios.post(this.directory, fd, config)
         .then(res => {
           this.filename = res.data;
           this.previewImage = `/thumbs/${res.data}?${thumbnailParams}`;
