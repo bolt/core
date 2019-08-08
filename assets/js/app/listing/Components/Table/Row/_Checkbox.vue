@@ -4,8 +4,8 @@
       <input
         :id="`row-${id}`"
         v-model="selected"
-        type="checkbox"
         class="custom-control-input"
+        type="checkbox"
       />
       <label
         class="custom-control-label"

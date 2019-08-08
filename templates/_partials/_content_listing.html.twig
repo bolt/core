@@ -8,10 +8,31 @@
     <!-- end listing records -->
 
     <!-- listing filter -->
-    <listing-filter></listing-filter>
+    <listing-filter :labels="{{ {
+        'button_compact': 'listing_filter.button_compact'|trans,
+        'button_expanded': 'listing_filter.button_expanded'|trans,
+    }|json_encode }}"></listing-filter>
     <!-- end listing filter -->
 
-    <listing-table ></listing-table>
+    <listing-table
+    :labels="{{
+    { 'actions':
+        {
+            'view_on_site': 'listing_table.actions.view_on_site'|trans,
+            'status_to_publish': 'listing_table.actions.status_to_publish'|trans,
+            'status_to_held': 'listing_table.actions.status_to_held'|trans,
+            'status_to_draft': 'listing_table.actions.status_to_draft'|trans,
+            'status_to_publish': 'listing_table.actions.status_to_publish'|trans,
+            'duplicate': 'listing_table.actions.duplicate'|trans,
+            'delete': 'listing_table.actions.delete'|trans,
+            'slug': 'listing_table.actions.slug'|trans,
+            'created_on': 'listing_table.actions.created_on'|trans,
+            'published_on': 'listing_table.actions.published_on'|trans,
+            'last_modified_on': 'listing_table.actions.last_modified_on'|trans,
+            'button_edit': 'listing_table.actions.button_edit'|trans,
+        }
+    }|json_encode }}"
+    ></listing-table>
 
     <nav class="listing__filter">
       {% include '@bolt/_partials/_pager.html.twig' with { 'records': records } %}

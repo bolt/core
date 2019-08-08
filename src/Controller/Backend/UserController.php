@@ -31,8 +31,8 @@ class UserController extends TwigAwareController implements BackendZone
         $users = $this->users->findBy([], ['username' => 'ASC'], 1000);
 
         $twigVars = [
-            'title' => 'Users & Permissions',
-            'subtitle' => 'To edit users and their permissions',
+            'title' => 'controller.user.title',
+            'subtitle' => 'controller.user.subtitle',
             'users' => $users,
         ];
 

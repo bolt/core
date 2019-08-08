@@ -15,7 +15,8 @@
     <div>
 
         <div>
-            <img src="{{ asset('assets/images/bolt_logo_login.svg', 'public') }}" class="logo" alt="Bolt CMS logo">
+            <img class="logo" alt="Bolt CMS logo"
+                 src="{{ asset('assets/images/bolt_logo_login.svg', 'public') }}">
             <h1>{{ config.get('general/sitename') }}</h1>
         </div>
 
@@ -23,7 +24,7 @@
 
             <div class="card-header">
                 <i class="fa fa-lock" aria-hidden="true"></i>
-                Bolt &raquo; Login
+                {{ 'login.header_login'|trans }}
             </div>
 
             <div class="card-body">
@@ -54,7 +55,7 @@
                         <input type="checkbox" class="form-check-input" name="_remember_me" id="_remember_me">
                         <label class="form-check-label" for="_remember_me">{{ 'label.rememberme'|trans }}</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">
+                    <button class="btn btn-primary" type="submit">
                         <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
                         {{ 'action.log_in'|trans }}
                     </button>

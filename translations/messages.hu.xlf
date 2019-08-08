@@ -1,74 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="hu" target-language="nl" datatype="plaintext" original="file.ext">
+  <file source-language="hu" target-language="hu" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
       <trans-unit id="tbB2gib" resname="not_available">
         <source>not_available</source>
-        <target>Niet beschikbaar</target>
+        <target>Nem elérhető</target>
         <note>templates/debug/source_code.twig:26</note>
       </trans-unit>
       <trans-unit id="DF34uM2" resname="http_error.name">
         <source>http_error.name</source>
-        <target>Fout %status_code%</target>
+        <target>Hiba %status_code%</target>
         <note>templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
       </trans-unit>
+      <trans-unit id="e3w.2Rf" resname="http_error.description">
+        <source>http_error.description</source>
+        <target>Ismeretlen (HTTP %status_code%) hiba miatt a kérés nem teljesíthető</target>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
+      </trans-unit>
+      <trans-unit id="ru5FEGk" resname="http_error.suggestion">
+        <source>http_error.suggestion</source>
+        <target><![CDATA[Néhány perc múlva próbáld újra vagy <a href="%url%">vissza a kezdőoldalra</a>.]]></target>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
+      </trans-unit>
+      <trans-unit id="Qn5rwdU" resname="http_error_403.description">
+        <source>http_error_403.description</source>
+        <target>Nincs jogosultságod a hozzáféréshez.</target>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
+      </trans-unit>
+      <trans-unit id="zDeeh7L" resname="http_error_403.suggestion">
+        <source>http_error_403.suggestion</source>
+        <target>Fordulj a rendszergazdához vagy üzemeltetőhöz engedélyért.</target>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
+      </trans-unit>
+      <trans-unit id="_W1eNz2" resname="http_error_404.description">
+        <source>http_error_404.description</source>
+        <target>A hivatkozott oldal nem található.</target>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
+      </trans-unit>
+      <trans-unit id="MWNS5dg" resname="http_error_404.suggestion">
+        <source>http_error_404.suggestion</source>
+        <target><![CDATA[Ellenőrizd az esetleges elírást az URL-ben vagy <a href="%url%">vissza a kezdőoldalra</a>.]]></target>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
+      </trans-unit>
+      <trans-unit id="ZYXSW95" resname="http_error_500.description">
+        <source>http_error_500.description</source>
+        <target>Hiba a szerveren.</target>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
+      </trans-unit>
+      <trans-unit id="VVs_J1c" resname="http_error_500.suggestion">
+        <source>http_error_500.suggestion</source>
+        <target><![CDATA[Próbáld újratölteni pár perc múlva vagy <a href="%url%">vissza a kezdőoldalra</a>.]]></target>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
+      </trans-unit>
+      <trans-unit id="9RwuNlf" resname="title.source_code">
+        <source>title.source_code</source>
+        <target>Az oldal előállításához használt forráskód</target>
+        <note>templates/debug/source_code.twig:17</note>
+      </trans-unit>
+      <trans-unit id="jaB3QjG" resname="title.controller_code">
+        <source>title.controller_code</source>
+        <target>Kontroller kód</target>
+        <note>templates/debug/source_code.twig:22</note>
+        <note>templates/debug/source_code.twig:25</note>
+      </trans-unit>
       <trans-unit id="2bH7SjO" resname="title.twig_template_code">
         <source>title.twig_template_code</source>
-        <target>Twig template broncode</target>
+        <target>Twig sablon kód</target>
         <note>templates/debug/source_code.twig:29</note>
       </trans-unit>
       <trans-unit id="1sstKF9" resname="title.edit_user">
         <source>title.edit_user</source>
-        <target>Bewerk gebruiker</target>
+        <target>Felhasználó szerkesztés</target>
         <note>templates/users/edit.twig:4</note>
       </trans-unit>
       <trans-unit id="QbohvW1" resname="action.show_code">
         <source>action.show_code</source>
-        <target>Toon broncode</target>
+        <target>Kód megtekintése</target>
         <note>templates/debug/source_code.twig:7</note>
       </trans-unit>
       <trans-unit id="HLtdhYw" resname="action.save">
         <source>action.save</source>
-        <target>Wijzigingen opslaan</target>
+        <target>Mentés</target>
         <note>templates/users/change_password.twig:18</note>
         <note>templates/users/edit.twig:15</note>
       </trans-unit>
+      <trans-unit id="a2vzLi7" resname="action.do_something">
+        <source>action.do_something</source>
+        <target>Katt ide...</target>
+      </trans-unit>
       <trans-unit id="etGJjTo" resname="action.edit_user">
         <source>action.edit_user</source>
-        <target>Bewerk gebruiker</target>
+        <target>Felhasználó szerkesztése</target>
         <note>templates/users/change_password.twig:26</note>
+      </trans-unit>
+      <trans-unit id="ovKkXwU" resname="action.edit">
+        <source>action.edit</source>
+        <target>Szerkesztés</target>
       </trans-unit>
       <trans-unit id="LDhDPrF" resname="label.username">
         <source>label.username</source>
-        <target>Gebruikersnaam</target>
+        <target>Felhasználónév</target>
         <note>templates/security/login.twig:66</note>
         <note>src/Form/UserType.php:31</note>
       </trans-unit>
+      <trans-unit id="VgeTgE2" resname="help.show_code">
+        <source>help.show_code</source>
+        <target><![CDATA[Az oldal előállításához használt <strong>Kontroller</strong> és <strong>sablon</strong> kódját a gombra kattintva tekintheted meg.]]></target>
+        <note>templates/debug/source_code.twig:3</note>
+      </trans-unit>
+      <trans-unit id="wtG.cxy" resname="info.change_password">
+        <source>info.change_password</source>
+        <target>A jelszó megváltoztatása után az alkalmazásból ki kell lépni.</target>
+        <note>templates/users/change_password.twig:12</note>
+      </trans-unit>
       <trans-unit id="80JoLd0" resname="title.login">
         <source>title.login</source>
-        <target>Login</target>
+        <target>Bejelentkezés</target>
         <note>templates/security/login.twig:4</note>
       </trans-unit>
       <trans-unit id="9pvowqn" resname="label.password">
         <source>label.password</source>
-        <target>Wachtwoord</target>
+        <target>Jelszó</target>
         <note>templates/security/login.twig:70</note>
         <note>templates/security/login.twig:75</note>
       </trans-unit>
       <trans-unit id="gLN0C81" resname="action.log_in">
         <source>action.log_in</source>
-        <target>Log in</target>
+        <target>Bejelentkezés</target>
         <note>templates/security/login.twig:84</note>
+      </trans-unit>
+      <trans-unit id="vJwSCBO" resname="title.contentlisting">
+        <source>title.contentlisting</source>
+        <target>Tartalom</target>
+        <note>templates/content/listing.twig:9</note>
       </trans-unit>
       <trans-unit id="CX_oSFd" resname="action.change_password">
         <source>action.change_password</source>
-        <target>Wijzig wachtwoord</target>
+        <target>Jelszó változtatás</target>
         <note>templates/users/edit.twig:24</note>
       </trans-unit>
       <trans-unit id="SNELzJ2" resname="field.id">
@@ -79,71 +153,136 @@
       </trans-unit>
       <trans-unit id="FuCyk5C" resname="field.status">
         <source>field.status</source>
-        <target>Status</target>
+        <target>Státusz</target>
         <note>templates/editcontent/edit.twig:76</note>
       </trans-unit>
       <trans-unit id="O9wtVOp" resname="field.createdAt">
         <source>field.createdAt</source>
-        <target>Aangemaakt op</target>
+        <target>Létrehozva</target>
         <note>templates/editcontent/edit.twig:86</note>
         <note>templates/editcontent/media_edit.twig:128</note>
       </trans-unit>
       <trans-unit id="eVkSIKu" resname="field.modifiedAt">
         <source>field.modifiedAt</source>
-        <target>Bewerkt op</target>
+        <target>Módosítva</target>
         <note>templates/editcontent/edit.twig:94</note>
         <note>templates/editcontent/media_edit.twig:135</note>
       </trans-unit>
       <trans-unit id="3gdi1dy" resname="field.publishedAt">
         <source>field.publishedAt</source>
-        <target>Gepubliceerd op</target>
+        <target>Publikáva</target>
         <note>templates/editcontent/edit.twig:102</note>
       </trans-unit>
       <trans-unit id="eN7IfEL" resname="field.depublishedAt">
         <source>field.depublishedAt</source>
-        <target>Gedepubliceerd op</target>
+        <target>Visszavonva</target>
         <note>templates/editcontent/edit.twig:110</note>
+      </trans-unit>
+      <trans-unit id="VKhfRZB" resname="field.title">
+        <source>field.title</source>
+        <target>Cím</target>
+        <note>templates/editcontent/media_edit.twig:47</note>
+      </trans-unit>
+      <trans-unit id="7_wwX8J" resname="field.description">
+        <source>field.description</source>
+        <target>Leírás</target>
+        <note>templates/editcontent/media_edit.twig:53</note>
       </trans-unit>
       <trans-unit id="hjDmcPC" resname="field.copyright">
         <source>field.copyright</source>
         <target>Copyright</target>
         <note>templates/editcontent/media_edit.twig:59</note>
       </trans-unit>
+      <trans-unit id="v0sitU8" resname="field.originalFilename">
+        <source>field.originalFilename</source>
+        <target>Eredeti fájlnév</target>
+        <note>templates/editcontent/media_edit.twig:66</note>
+      </trans-unit>
+      <trans-unit id="vlRe8Tx" resname="field.width">
+        <source>field.width</source>
+        <target>szélesség</target>
+        <note>templates/editcontent/media_edit.twig:105</note>
+      </trans-unit>
+      <trans-unit id="CZbXbM_" resname="field.height">
+        <source>field.height</source>
+        <target>magasság</target>
+        <note>templates/editcontent/media_edit.twig:112</note>
+      </trans-unit>
+      <trans-unit id="Sz_u.OS" resname="field.filesize">
+        <source>field.filesize</source>
+        <target>Fájlméret</target>
+        <note>templates/editcontent/media_edit.twig:119</note>
+      </trans-unit>
+      <trans-unit id="RMPnq6o" resname="label.username_or_email">
+        <source>label.username_or_email</source>
+        <target>Felhasználónév vagy email</target>
+        <note>templates/security/login.twig:61</note>
+      </trans-unit>
       <trans-unit id="IaF1MjB" resname="label.rememberme">
         <source>label.rememberme</source>
-        <target>Onthoud me?</target>
+        <target>Emlékezz rám</target>
         <note>templates/security/login.twig:80</note>
       </trans-unit>
       <trans-unit id="k.JymqB" resname="about.visit_bolt">
         <source>about.visit_bolt</source>
-        <target>Bezoek Bolt.cm</target>
-        <note>templates/pages/about.twig:25</note>
+        <target>Bolt.cm megnyitása</target>
+        <note>templates/pages/about.twig:33</note>
       </trans-unit>
       <trans-unit id="UZFanGF" resname="about.bolt_documentation">
         <source>about.bolt_documentation</source>
-        <target>Bolt documentatie</target>
+        <target>Bolt dokumentációja</target>
         <note>templates/pages/about.twig:28</note>
       </trans-unit>
       <trans-unit id="FO7zDub" resname="about.bolt_on_github">
         <source>about.bolt_on_github</source>
-        <target>Bolt op Github</target>
+        <target>Bolt a Githubon</target>
         <note>templates/pages/about.twig:31</note>
       </trans-unit>
       <trans-unit id="_9fS00R" resname="about.used_libraries">
         <source>about.used_libraries</source>
-        <target>Gebruikte Libraries / Componenten</target>
+        <target>A felhasznált modulok / komponensek</target>
         <note>templates/pages/about.twig:35</note>
+      </trans-unit>
+      <trans-unit id="tgLgLDQ" resname="about.list_of_used_libraries">
+        <source>about.list_of_used_libraries</source>
+        <target>Alábbiakban a Bolt által használt szoftver összetevők.</target>
+        <note>templates/pages/about.twig:37</note>
       </trans-unit>
       <trans-unit id="aYnbvsn" resname="label.fullname">
         <source>label.fullname</source>
-        <target>Volledige naam</target>
+        <target>Teljes név</target>
         <note>src/Form/UserType.php:35</note>
         <note>new</note>
       </trans-unit>
       <trans-unit id="D2N6_cP" resname="label.email">
         <source>label.email</source>
-        <target>E-mail</target>
+        <target>Email cím</target>
         <note>src/Form/UserType.php:38</note>
+        <note>new</note>
+      </trans-unit>
+      <trans-unit id="OBmPOoB" resname="user.updated_successfully">
+        <source>user.updated_successfully</source>
+        <target>Sikeres frissítés</target>
+        <note>src/Controller/Backend/UserController.php:33</note>
+        <note>new</note>
+      </trans-unit>
+      <trans-unit id="3hkt.eH" resname="content.updated_successfully">
+        <source>content.updated_successfully</source>
+        <target>Sikeres média tartalom frissítés</target>
+        <note>src/Controller/Backend/EditMediaController.php:126</note>
+        <note>src/Controller/Backend/EditRecordController.php:86</note>
+        <note>new</note>
+      </trans-unit>
+      <trans-unit id="IB0mNQh" resname="content.created_successfully">
+        <source>content.created_successfully</source>
+        <target>Sikeres média tartalom létrehozás</target>
+        <note>src/Controller/Backend/EditMediaController.php:157</note>
+        <note>new</note>
+      </trans-unit>
+      <trans-unit id="b1jqjUC" resname="editfile.could_not_write">
+        <source>editfile.could_not_write</source>
+        <target>A média tartalom nem hozható létre</target>
+        <note>src/Controller/Backend/EditFileController.php:101</note>
         <note>new</note>
       </trans-unit>
       <trans-unit id="mEDsKHk" resname="label.locale">
@@ -152,7 +291,7 @@
       </trans-unit>
       <trans-unit id="98Q5SA2" resname="label.backend_theme">
         <source>label.backend_theme</source>
-        <target>Backend thema</target>
+        <target>Admin téma</target>
       </trans-unit>
       <trans-unit id="Z84BVRW" resname="English (en)">
         <source>English (en)</source>
@@ -188,95 +327,107 @@
       </trans-unit>
       <trans-unit id="Oiwdkpg" resname="The Default theme">
         <source>The Default theme</source>
-        <target>Het standaard thema</target>
+        <target>Az alapértelmezett téma</target>
       </trans-unit>
       <trans-unit id="C389Knp" resname="The Default Dark theme">
         <source>The Default Dark theme</source>
-        <target>De standaard Dark Theme</target>
+        <target>Az alapértelmezett sötét téma</target>
       </trans-unit>
       <trans-unit id="kouGbMq" resname="WoordPers: Kinda looks like that other CMS">
         <source>WoordPers: Kinda looks like that other CMS</source>
-        <target>WoordPers: Lijkt een beetje op dat andere CMS</target>
+        <target>WoordPers: Olyan mint az a másik CMS</target>
       </trans-unit>
       <trans-unit id="7aLIA3c" resname="caption.dashboard">
         <source>caption.dashboard</source>
-        <target>Dashboard</target>
+        <target>Vezérlőpanel</target>
+      </trans-unit>
+      <trans-unit id="xuNRuUu" resname="caption.translations: messages">
+        <source>caption.translations: messages</source>
+        <target>caption.translations: üzenetek</target>
       </trans-unit>
       <trans-unit id="K6TmK4B" resname="caption.clear_cache">
         <source>caption.clear_cache</source>
-        <target>Leeg de cache</target>
+        <target>Gyorsítótár törlése</target>
       </trans-unit>
       <trans-unit id="RRQ1EJ3" resname="caption.check_database">
         <source>caption.check_database</source>
-        <target>Controleer Database</target>
+        <target>Adatbázis ellenőrzés</target>
+      </trans-unit>
+      <trans-unit id="cIiIXu_" resname="caption.routing set up">
+        <source>caption.routing set up</source>
+        <target>Útvonal beállítások</target>
       </trans-unit>
       <trans-unit id="2RUXD4A" resname="caption.menu_setup">
         <source>caption.menu_setup</source>
-        <target>Menu instellingen</target>
+        <target>Menü beállítás</target>
       </trans-unit>
       <trans-unit id="drK.0GZ" resname="caption.taxonomies">
         <source>caption.taxonomies</source>
-        <target>Taxonomieën</target>
+        <target>Taxonómiák</target>
       </trans-unit>
       <trans-unit id="_w7J5rZ" resname="caption.contenttypes">
         <source>caption.contenttypes</source>
-        <target>Contenttypen</target>
+        <target>Tartalomtípusok</target>
       </trans-unit>
       <trans-unit id="kXNBV9S" resname="caption.main_configuration">
         <source>caption.main_configuration</source>
-        <target>hoofdconfiguratie</target>
+        <target>Általános beállítások</target>
       </trans-unit>
       <trans-unit id="ipmA6Ah" resname="caption.users_permissions">
         <source>caption.users_permissions</source>
-        <target><![CDATA[Gebruikers & permissies]]></target>
+        <target>Felhasznlók és jogosultságok</target>
       </trans-unit>
       <trans-unit id="zOLL.7E" resname="caption.configuration">
         <source>caption.configuration</source>
-        <target>Configuratie</target>
+        <target>Konfiguráció</target>
       </trans-unit>
       <trans-unit id="ZO.uqIZ" resname="caption.settings">
         <source>caption.settings</source>
-        <target>Instellingen</target>
+        <target>Beállítások</target>
       </trans-unit>
       <trans-unit id="1xlE8ex" resname="caption.content">
         <source>caption.content</source>
-        <target>Content</target>
+        <target>Tartalom</target>
       </trans-unit>
       <trans-unit id="l4yt0BE" resname="caption.file_management">
         <source>caption.file_management</source>
-        <target>Bestandsbeheer</target>
+        <target>Fájlkezelés</target>
       </trans-unit>
       <trans-unit id="mfvtHPQ" resname="caption.extensions">
         <source>caption.extensions</source>
-        <target>Extensies</target>
+        <target>Bővítmények</target>
       </trans-unit>
       <trans-unit id="K4D568R" resname="caption.view_edit_templates">
         <source>caption.view_edit_templates</source>
-        <target><![CDATA[Bekijk & bewerk templates]]></target>
+        <target>Sablonok kezelése</target>
       </trans-unit>
       <trans-unit id="bq6bSf4" resname="caption.uploaded_files">
         <source>caption.uploaded_files</source>
-        <target>Geüploade bestanden</target>
+        <target>Feltöltött fájlok</target>
       </trans-unit>
       <trans-unit id="wBKDkwl" resname="caption.routing_setup">
         <source>caption.routing_setup</source>
-        <target>Routing instellingen</target>
+        <target>Útvonal beállítások</target>
       </trans-unit>
       <trans-unit id="dd5MzCM" resname="caption.translations">
         <source>caption.translations</source>
-        <target>Vertalingen / Labels</target>
+        <target>Fordítások / Cimkék</target>
       </trans-unit>
       <trans-unit id="wLaDaK5" resname="caption.about_bolt">
         <source>caption.about_bolt</source>
-        <target>Over Bolt</target>
+        <target>A Bolt</target>
       </trans-unit>
       <trans-unit id="xN1kSQQ" resname="caption.bolt_payoff">
         <source>caption.bolt_payoff</source>
-        <target>Weldoordacht, lichtgewicht en eenvoudig CMS</target>
+        <target>Az ésszerű és egyszerű CMS</target>
+      </trans-unit>
+      <trans-unit id="mo_k9.1" resname="general.dashboard">
+        <source>general.dashboard</source>
+        <target>Vezérlőpanel</target>
       </trans-unit>
       <trans-unit id="HK7XTUX" resname="caption.edit">
         <source>caption.edit</source>
-        <target>Bewerk</target>
+        <target>Szerkesztés</target>
       </trans-unit>
       <trans-unit id="dbyz2hj" resname="caption.finder">
         <source>caption.finder</source>
@@ -284,67 +435,79 @@
       </trans-unit>
       <trans-unit id="QZYjRy0" resname="caption.file_uploader">
         <source>caption.file_uploader</source>
-        <target>Bestandsuploader</target>
+        <target>Fájl feltöltő</target>
       </trans-unit>
       <trans-unit id="LaDIuZA" resname="caption.meta_information">
         <source>caption.meta_information</source>
-        <target>Meta informatie</target>
+        <target>Meta információk</target>
       </trans-unit>
       <trans-unit id="DodjLNR" resname="date">
         <source>date</source>
-        <target>Datum</target>
+        <target>Dátum</target>
       </trans-unit>
       <trans-unit id="zNy_hG8" resname="size">
         <source>size</source>
-        <target>Formaat</target>
+        <target>Méret</target>
       </trans-unit>
       <trans-unit id="gPYflhh" resname="thumbnail">
         <source>thumbnail</source>
-        <target>Thumbnail</target>
+        <target>Nézőkép</target>
       </trans-unit>
       <trans-unit id="_XSgfqS" resname="filename">
         <source>filename</source>
-        <target>Bestandsnaam</target>
+        <target>Fájlnév</target>
       </trans-unit>
       <trans-unit id="Kw3N1AA" resname="actions">
         <source>actions</source>
-        <target>Acties</target>
+        <target>Események</target>
       </trans-unit>
       <trans-unit id="KHvGNGW" resname="directoryname">
         <source>directoryname</source>
-        <target>Directorynaam</target>
+        <target>Könyvtárnév</target>
+      </trans-unit>
+      <trans-unit id="ZV7_x5F" resname="action.go">
+        <source>action.go</source>
+        <target>Hajrá</target>
       </trans-unit>
       <trans-unit id="C15MbYY" resname="form.quick_select_file">
         <source>form.quick_select_file</source>
-        <target>Selecteer een bestand om snel te bewerken…</target>
+        <target>Fájl választás…</target>
+      </trans-unit>
+      <trans-unit id="gFcV5nW" resname="label.quick_select">
+        <source>label.quick_select</source>
+        <target>Gyorskezelő</target>
       </trans-unit>
       <trans-unit id="FSroufa" resname="caption.path">
         <source>caption.path</source>
-        <target>Pad</target>
+        <target>Útvonal</target>
+      </trans-unit>
+      <trans-unit id="y5otxEK" resname="caption.filename">
+        <source>caption.filename</source>
+        <target>Fájlnév</target>
       </trans-unit>
       <trans-unit id="XNTbZW6" resname="action.visit_site">
         <source>action.visit_site</source>
-        <target>Bekijk site</target>
+        <target>Oldal megtekintése</target>
       </trans-unit>
       <trans-unit id="KfVJho2" resname="action.create_new">
         <source>action.create_new</source>
-        <target>Maak nieuwe</target>
+        <target>Új...</target>
       </trans-unit>
       <trans-unit id="b_RPpcB" resname="general.greeting">
         <source>general.greeting</source>
-        <target>Hoi, %name%</target>
+        <target>Szia %name%!</target>
       </trans-unit>
       <trans-unit id="bmdn3u9" resname="action.logout">
         <source>action.logout</source>
-        <target>Uitloggen</target>
+        <target>Kijelentkezés</target>
       </trans-unit>
       <trans-unit id="zOfpTLD" resname="action.edit_profile">
         <source>action.edit_profile</source>
-        <target>Bewerk profiel</target>
+        <target>Profil szerkesztés</target>
       </trans-unit>
       <trans-unit id="N_0yRcH" resname="action.close_alert">
         <source>action.close_alert</source>
-        <target>Sluit</target>
+        <target>Bezárás</target>
       </trans-unit>
       <trans-unit id="Dvu2HQx" resname="caption.api">
         <source>caption.api</source>
@@ -352,295 +515,445 @@
       </trans-unit>
       <trans-unit id="i4cbdta" resname="caption.all_configuration_files">
         <source>caption.all_configuration_files</source>
-        <target>Alle configuratie bestanden</target>
+        <target>Minden konfigurációs fájl</target>
       </trans-unit>
       <trans-unit id="OpKTKAL" resname="caption.maintenance">
         <source>caption.maintenance</source>
-        <target>Onderhoud</target>
+        <target>Karbantartás</target>
       </trans-unit>
       <trans-unit id="hGJoUs5" resname="caption.fixtures_dummy_content">
         <source>caption.fixtures_dummy_content</source>
-        <target>Fixtures (loze inhoud)</target>
+        <target>Kitöltés (Minta tartalom)</target>
       </trans-unit>
       <trans-unit id="P1FHg3Q" resname="caption.edit_file">
         <source>caption.edit_file</source>
-        <target>Bewerk Bestand</target>
+        <target>Fájl szerkesztés</target>
       </trans-unit>
       <trans-unit id="_ef0RBR" resname="caption.installation_checks">
         <source>caption.installation_checks</source>
-        <target>Installatie-controle</target>
+        <target>Ellenőrzés</target>
       </trans-unit>
       <trans-unit id="pNPctrH" resname="form.select_language">
         <source>form.select_language</source>
-        <target>Kies een taal</target>
+        <target>Nyelv kiválasztás</target>
       </trans-unit>
       <trans-unit id="9lJhqvA" resname="field.locale">
         <source>field.locale</source>
-        <target>Locale</target>
+        <target>Lokalizáció</target>
       </trans-unit>
       <trans-unit id="8zEzq8N" resname="field.current_locale">
         <source>field.current_locale</source>
-        <target>Huidige locale</target>
+        <target>Aktuális lokalizáció</target>
       </trans-unit>
       <trans-unit id="ahZvOJz" resname="field.switch_to_locale">
         <source>field.switch_to_locale</source>
-        <target>Wissel naar locale</target>
+        <target>Lokalizáció megváltoztatása</target>
       </trans-unit>
       <trans-unit id="aQX4Emy" resname="field.author">
         <source>field.author</source>
-        <target>Auteur</target>
+        <target>Szerző</target>
+      </trans-unit>
+      <trans-unit id="UNBaDz." resname="general.phrase.edit">
+        <source>general.phrase.edit</source>
+        <target>Szerkesztés</target>
+      </trans-unit>
+      <trans-unit id="t2TNwOq" resname="Unknown">
+        <source>Unknown</source>
+        <target>Ismeretlen</target>
+      </trans-unit>
+      <trans-unit id="A_d5KPt" resname="general.phrase.written-by-on">
+        <source>general.phrase.written-by-on</source>
+        <target>%name% készítette %date%-n.</target>
+      </trans-unit>
+      <trans-unit id="TVU.FCV" resname="general.phrase.missing-about-page">
+        <source>general.phrase.missing-about-page</source>
+        <target>A "Rólunk" oldal hiányzik</target>
+      </trans-unit>
+      <trans-unit id="7iq8jIG" resname="general.phrase.missing-about-page-block">
+        <source>general.phrase.missing-about-page-block</source>
+        <target>A "Rólunk" blokk hiányzik</target>
+      </trans-unit>
+      <trans-unit id="AGegYAN" resname="contenttypes.generic.recent">
+        <source>contenttypes.generic.recent</source>
+        <target>Legutóbbi %contenttypes%</target>
+      </trans-unit>
+      <trans-unit id="gB.9hTu" resname="general.phrase.search-ellipsis">
+        <source>general.phrase.search-ellipsis</source>
+        <target>…</target>
       </trans-unit>
       <trans-unit id="wGlnx8X" resname="general.phrase.search">
         <source>general.phrase.search</source>
-        <target>Zoek</target>
+        <target>Keresés</target>
+      </trans-unit>
+      <trans-unit id="z0k8hRg" resname="9fb3e6e">
+        <source>9fb3e6e</source>
+        <target><![CDATA[Ez a weboldal <a href='%url%' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
+      </trans-unit>
+      <trans-unit id="wNEwZy_" resname="contenttypes.generic.overview">
+        <source>contenttypes.generic.overview</source>
+        <target>%contenttypes% áttekintő</target>
+      </trans-unit>
+      <trans-unit id="skuzBpI" resname="contenttypes.generic.no-recent">
+        <source>contenttypes.generic.no-recent</source>
+        <target>Nincs aktuális %contenttype%</target>
+      </trans-unit>
+      <trans-unit id="ma9mBv_" resname="Menu">
+        <source>Menu</source>
+        <target>Menü</target>
       </trans-unit>
       <trans-unit id="ScJmuqq" resname="Search">
         <source>Search</source>
-        <target>Zoek</target>
+        <target>Keresés</target>
+      </trans-unit>
+      <trans-unit id="k.xuYv2" resname="general.phrase.permalink">
+        <source>general.phrase.permalink</source>
+        <target>Permalink</target>
+      </trans-unit>
+      <trans-unit id="zsyp43M" resname="label.displayname">
+        <source>label.displayname</source>
+        <target>Név</target>
       </trans-unit>
       <trans-unit id="2MMvCKK" resname="label.cache_cleared">
         <source>label.cache_cleared</source>
-        <target>De Cache is leeggemaakt!</target>
+        <target>A gyorsítótár törölve!</target>
+      </trans-unit>
+      <trans-unit id="Wou02nK" resname="caption.kitchensink">
+        <source>caption.kitchensink</source>
+        <target>Eszközkészlet</target>
+      </trans-unit>
+      <trans-unit id="wrUiAsV" resname="general.phrase.search-results-for-variable">
+        <source>general.phrase.search-results-for-variable</source>
+        <target>'%search%' találatok.</target>
+        <note>parameters:</note>
+        <note> '%search%': találatok</note>
+      </trans-unit>
+      <trans-unit id="2CfJ3WY" resname="general.phrase.search-results-for">
+        <source>general.phrase.search-results-for</source>
+        <target>'%search%' találatok.</target>
+        <note>parameters:</note>
+        <note> '%search%': ymnrubeyrvwearsytevsf</note>
+      </trans-unit>
+      <trans-unit id="V0VhH5g" resname="general.phrase.no-search-results-for">
+        <source>general.phrase.no-search-results-for</source>
+        <target>Nincsenek '%search%' találatok.</target>
+        <note>parameters:</note>
+        <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
+      </trans-unit>
+      <trans-unit id="_KyvT9o" resname="general.phrase.no-search-term-provided">
+        <source>general.phrase.no-search-term-provided</source>
+        <target>Kérlek adj meg érvényes kifejezést.</target>
       </trans-unit>
       <trans-unit id="Pily_qo" resname="general.phrase.read-more">
         <source>general.phrase.read-more</source>
-        <target>Lees meer</target>
+        <target>Tovább</target>
+      </trans-unit>
+      <trans-unit id="psOa_9x" resname="general.phrase.built-with-bolt">
+        <source>general.phrase.built-with-bolt</source>
+        <target><![CDATA[Ez a weboldal <a href='%url%' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
       </trans-unit>
       <trans-unit id="5IxD63c" resname="general.latest_bolt_news">
         <source>general.latest_bolt_news</source>
-        <target>Het laatste Bolt nieuws</target>
+        <target>Legfrissebb Bolt hírek</target>
       </trans-unit>
-      <trans-unit id="tgLgLDQ" resname="about.list_of_used_libraries">
-        <source>about.list_of_used_libraries</source>
-        <target>__about.list_of_used_libraries</target>
+      <trans-unit id="dQIY7_J" resname="action.preview">
+        <source>action.preview</source>
+        <target>Előnézet</target>
+      </trans-unit>
+      <trans-unit id="ok6YulQ" resname="action.view_saved">
+        <source>action.view_saved</source>
+        <target>Mentett változat megtekintése</target>
+      </trans-unit>
+      <trans-unit id="SeTqePC" resname="label.display_name">
+        <source>label.display_name</source>
+        <target>Név</target>
+      </trans-unit>
+      <trans-unit id="EvAqL__" resname="caption.duplicate">
+        <source>caption.duplicate</source>
+        <target>Duplikáció</target>
+      </trans-unit>
+      <trans-unit id="pGkejkU" resname="label.current_password">
+        <source>label.current_password</source>
+        <target>Aktuális jelszó</target>
+      </trans-unit>
+      <trans-unit id="iiWFLaI" resname="label.new_password">
+        <source>label.new_password</source>
+        <target>Új jelszó</target>
+      </trans-unit>
+      <trans-unit id="Ucl9Jfc" resname="label.new_password_confirm">
+        <source>label.new_password_confirm</source>
+        <target>Új jelszó (ismét)</target>
+      </trans-unit>
+      <trans-unit id="Iyry5.g" resname="editfile.updated_successfully">
+        <source>editfile.updated_successfully</source>
+        <target>Sikeres frissítés!</target>
+      </trans-unit>
+      <trans-unit id="eq5YMQf" resname="This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.">
+        <source>This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
+        <target><![CDATA[Ez a weboldal <a href='%url%' target='_blank' title='Az ésszerű és egyszerű, Bolt CMS'>-sel készült</a>.]]></target>
+      </trans-unit>
+      <trans-unit id="3zlZmRK" resname="action.add_user">
+        <source>action.add_user</source>
+        <target>Felhasználó hozzáadása</target>
+      </trans-unit>
+      <trans-unit id="ruQIhH0" resname="success">
+        <source>success</source>
+        <target>Siker!</target>
+      </trans-unit>
+      <trans-unit id="YDH.7uR" resname="user.updated_profile">
+        <source>user.updated_profile</source>
+        <target>A felhasználói profil frissítve!</target>
+      </trans-unit>
+      <trans-unit id="iD6CNOO" resname="label.roles">
+        <source>label.roles</source>
+        <target>Szerepkörök</target>
+      </trans-unit>
+      <trans-unit id="7whLbH8" resname="user.new_user">
+        <source>user.new_user</source>
+        <target>Új felhasználói</target>
+      </trans-unit>
+      <trans-unit id="TtmWqX3" resname="action.view">
+        <source>action.view</source>
+        <target>Megtekintés:</target>
+      </trans-unit>
+      <trans-unit id="PE1dkX_" resname="Uploaded files">
+        <source>Uploaded files</source>
+        <target>Feltöltött fájlok</target>
+      </trans-unit>
+      <trans-unit id="I2ykiIZ" resname="caption.folders">
+        <source>caption.folders</source>
+        <target>Mappák</target>
+      </trans-unit>
+      <trans-unit id="cu3W5DR" resname="image.upload">
+        <source>image.upload</source>
+        <target>Feltöltés</target>
       </trans-unit>
       <trans-unit id="2RYT2e3" resname="dashboard.title_boltcms">
         <source>dashboard.title_boltcms</source>
-        <target>__dashboard.title_boltcms</target>
+        <target>Bolt tartalomkezelő »</target>
       </trans-unit>
       <trans-unit id="nrWBJNm" resname="extensions.title_desc">
         <source>extensions.title_desc</source>
-        <target>__extensions.title_desc</target>
+        <target>Meghatározás:</target>
       </trans-unit>
       <trans-unit id="7raDJAR" resname="extensions.title_author">
         <source>extensions.title_author</source>
-        <target>__extensions.title_author</target>
+        <target>Szerző:</target>
       </trans-unit>
       <trans-unit id="UP8pNGy" resname="extensions.title_package">
         <source>extensions.title_package</source>
-        <target>__extensions.title_package</target>
+        <target>Csomag / Osztály név:</target>
       </trans-unit>
       <trans-unit id="QFQ1uTC" resname="extensions.title_version">
         <source>extensions.title_version</source>
-        <target>__extensions.title_version</target>
+        <target>Verzió:</target>
       </trans-unit>
       <trans-unit id="piuatxC" resname="extensions.info_not_installed">
         <source>extensions.info_not_installed</source>
-        <target>__extensions.info_not_installed</target>
+        <target>Ez a csomag lokális, nem Composerrel lett telepítve</target>
       </trans-unit>
       <trans-unit id="3j1gEmk" resname="extensions.title_class">
         <source>extensions.title_class</source>
-        <target>__extensions.title_class</target>
+        <target>Osztálynév:</target>
       </trans-unit>
       <trans-unit id="mjhFljb" resname="extensions.button_configuration">
         <source>extensions.button_configuration</source>
-        <target>__extensions.button_configuration</target>
+        <target>Konfiguráció</target>
       </trans-unit>
       <trans-unit id="r3ryNTG" resname="extensions.button_source">
         <source>extensions.button_source</source>
-        <target>__extensions.button_source</target>
+        <target>Forrás</target>
       </trans-unit>
       <trans-unit id="7JK6jNv" resname="extensions.message_not_implemented">
         <source>extensions.message_not_implemented</source>
-        <target>__extensions.message_not_implemented</target>
+        <target>Sajnos még nincs implementálva!</target>
       </trans-unit>
       <trans-unit id="qc3rFkZ" resname="extensions.button_remove">
         <source>extensions.button_remove</source>
-        <target>__extensions.button_remove</target>
+        <target>Bővítmény törlése</target>
       </trans-unit>
       <trans-unit id="SLZyVzU" resname="extensions.button_disable">
         <source>extensions.button_disable</source>
-        <target>__extensions.button_disable</target>
+        <target>Bővítmény tiltása</target>
       </trans-unit>
       <trans-unit id="z2AgHGp" resname="flash_messages.notification">
         <source>flash_messages.notification</source>
-        <target>__flash_messages.notification</target>
+        <target>Értesítés</target>
       </trans-unit>
       <trans-unit id="pcq1NGk" resname="listing_filter.button_compact">
         <source>listing_filter.button_compact</source>
-        <target>__listing_filter.button_compact</target>
+        <target>Összezár</target>
       </trans-unit>
       <trans-unit id="xIztVmp" resname="listing_filter.button_expanded">
         <source>listing_filter.button_expanded</source>
-        <target>__listing_filter.button_expanded</target>
+        <target>Kinyit</target>
       </trans-unit>
       <trans-unit id="L0TE0M9" resname="listing_table.actions.view_on_site">
         <source>listing_table.actions.view_on_site</source>
-        <target>__listing_table.actions.view_on_site</target>
+        <target>Megtekintés az Oldalon</target>
       </trans-unit>
       <trans-unit id="PoauAuK" resname="listing_table.actions.status_to_publish">
         <source>listing_table.actions.status_to_publish</source>
-        <target>__listing_table.actions.status_to_publish</target>
+        <target>'publikált' státusz beállítása</target>
       </trans-unit>
       <trans-unit id="ZJxfdD6" resname="listing_table.actions.status_to_held">
         <source>listing_table.actions.status_to_held</source>
-        <target>__listing_table.actions.status_to_held</target>
+        <target>'visszavont' státusz beállítása</target>
       </trans-unit>
       <trans-unit id="apyOs0o" resname="listing_table.actions.status_to_draft">
         <source>listing_table.actions.status_to_draft</source>
-        <target>__listing_table.actions.status_to_draft</target>
+        <target>'vázlat' státusz beállítása</target>
       </trans-unit>
       <trans-unit id="5H60Xq6" resname="listing_table.actions.duplicate">
         <source>listing_table.actions.duplicate</source>
-        <target>__listing_table.actions.duplicate</target>
+        <target>Duplikálás</target>
       </trans-unit>
       <trans-unit id="hR8ri.m" resname="listing_table.actions.delete">
         <source>listing_table.actions.delete</source>
-        <target>__listing_table.actions.delete</target>
+        <target>Törlés</target>
       </trans-unit>
       <trans-unit id="5zbX1vo" resname="listing_table.actions.slug">
         <source>listing_table.actions.slug</source>
-        <target>__listing_table.actions.slug</target>
+        <target>Slug</target>
       </trans-unit>
       <trans-unit id="wKDOBOC" resname="listing_table.actions.created_on">
         <source>listing_table.actions.created_on</source>
-        <target>__listing_table.actions.created_on</target>
+        <target>Létrehozva: </target>
       </trans-unit>
       <trans-unit id="tVX01Xl" resname="listing_table.actions.published_on">
         <source>listing_table.actions.published_on</source>
-        <target>__listing_table.actions.published_on</target>
+        <target>Publikálva: </target>
       </trans-unit>
       <trans-unit id="kHkjS5U" resname="listing_table.actions.last_modified_on">
         <source>listing_table.actions.last_modified_on</source>
-        <target>__listing_table.actions.last_modified_on</target>
+        <target>Módosítva: </target>
       </trans-unit>
       <trans-unit id="zg5Dum5" resname="geolocation.label_geolocation">
         <source>geolocation.label_geolocation</source>
-        <target>__geolocation.label_geolocation</target>
+        <target>Geolokáció</target>
       </trans-unit>
       <trans-unit id="Com0pbc" resname="geolocation.label_address">
         <source>geolocation.label_address</source>
-        <target>__geolocation.label_address</target>
+        <target>Cím keresés</target>
       </trans-unit>
       <trans-unit id="3o0LPHj" resname="geolocation.placeholder_address">
         <source>geolocation.placeholder_address</source>
-        <target>__geolocation.placeholder_address</target>
+        <target>Utca, irányítószám, város vagy helyszín…</target>
       </trans-unit>
       <trans-unit id="CC5QTmy" resname="geolocation.label_lat">
         <source>geolocation.label_lat</source>
-        <target>__geolocation.label_lat</target>
+        <target>Szélesség</target>
       </trans-unit>
       <trans-unit id="AHaenW3" resname="geolocation.label_long">
         <source>geolocation.label_long</source>
-        <target>__geolocation.label_long</target>
+        <target>Hosszúság</target>
       </trans-unit>
       <trans-unit id="MJ5WYEM" resname="geolocation.label_address_matched">
         <source>geolocation.label_address_matched</source>
-        <target>__geolocation.label_address_matched</target>
+        <target>A pontos cím</target>
       </trans-unit>
       <trans-unit id="WJGjWG8" resname="geolocation.label_marker">
         <source>geolocation.label_marker</source>
-        <target>__geolocation.label_marker</target>
+        <target>Megjelölés</target>
       </trans-unit>
       <trans-unit id="SaP3OOf" resname="geolocation.label_control">
         <source>geolocation.label_control</source>
-        <target>__geolocation.label_control</target>
+        <target>A legközelebbi címhez igazítás</target>
       </trans-unit>
       <trans-unit id="VQ2t655" resname="file.label_filename">
         <source>file.label_filename</source>
-        <target>__file.label_filename</target>
+        <target>Fájlnév</target>
       </trans-unit>
       <trans-unit id="TJDc9vQ" resname="file.label_alt">
         <source>file.label_alt</source>
-        <target>__file.label_alt</target>
+        <target>Alt</target>
       </trans-unit>
       <trans-unit id="tvpSmD7" resname="file.label_title">
         <source>file.label_title</source>
-        <target>__file.label_title</target>
+        <target>Cím</target>
       </trans-unit>
       <trans-unit id="hXT_hI." resname="file.button_view">
         <source>file.button_view</source>
-        <target>__file.button_view</target>
+        <target>Kép megtekintés</target>
       </trans-unit>
       <trans-unit id="QKIqqOw" resname="file.button_upload">
         <source>file.button_upload</source>
-        <target>__file.button_upload</target>
+        <target>Feltöltés</target>
       </trans-unit>
       <trans-unit id="4_JdYp1" resname="file.remark">
         <source>file.remark</source>
-        <target>__file.remark</target>
+        <target><![CDATA[Mejegyzés: Ez a mező ugyanaz mint az <code>image</code> mező.]]></target>
       </trans-unit>
       <trans-unit id="kHeY93_" resname="editor_embed.content_url">
         <source>editor_embed.content_url</source>
-        <target>__editor_embed.content_url</target>
+        <target>A beágyazott tartalom URL</target>
       </trans-unit>
       <trans-unit id="VoIdmBa" resname="editor_embed.placeholder_content_url">
         <source>editor_embed.placeholder_content_url</source>
-        <target>__editor_embed.placeholder_content_url</target>
+        <target>Facebook, Twitter, Soundcloud, Youtube, stb. tartalom URL-je</target>
       </trans-unit>
       <trans-unit id="1.Eb1GS" resname="editor_embed.label_height">
         <source>editor_embed.label_height</source>
-        <target>__editor_embed.label_height</target>
+        <target>Magasság</target>
       </trans-unit>
       <trans-unit id="eWLSFJs" resname="editor_embed.label_pixel">
         <source>editor_embed.label_pixel</source>
-        <target>__editor_embed.label_pixel</target>
+        <target>képpont</target>
       </trans-unit>
       <trans-unit id="EAtXrAm" resname="editor_embed.label_matched_embed">
         <source>editor_embed.label_matched_embed</source>
-        <target>__editor_embed.label_matched_embed</target>
+        <target>Egyező beágyazás</target>
       </trans-unit>
       <trans-unit id="zATju4V" resname="editor_embed.label_preview">
         <source>editor_embed.label_preview</source>
-        <target>__editor_embed.label_preview</target>
+        <target>Előnézet</target>
       </trans-unit>
       <trans-unit id="9SQ0oaR" resname="editor_embed.label_size">
         <source>editor_embed.label_size</source>
-        <target>__editor_embed.label_size</target>
+        <target>Méret</target>
       </trans-unit>
       <trans-unit id="BINgtmK" resname="editor_date.toggle">
         <source>editor_date.toggle</source>
-        <target>__editor_date.toggle</target>
+        <target>Átváltás</target>
       </trans-unit>
       <trans-unit id="Swom5xM" resname="repeater.remark">
         <source>repeater.remark</source>
-        <target>__repeater.remark</target>
+        <target>Megjegyzés: A 'Repeter v. Block' mezők alapvetően más mezőket foglalnak magukba.</target>
       </trans-unit>
       <trans-unit id="M.3olSc" resname="filelist.remark">
         <source>filelist.remark</source>
-        <target>__filelist.remark</target>
+        <target><![CDATA[Megjegyzés: Ez a mező ugyanaz mint az <code>imagelist</code> mező.]]></target>
       </trans-unit>
       <trans-unit id="vptPhch" resname="image.button_upload">
         <source>image.button_upload</source>
-        <target>__image.button_upload</target>
+        <target>Kép feltöltése</target>
       </trans-unit>
       <trans-unit id="vIVO1lU" resname="image.button_from_library">
         <source>image.button_from_library</source>
-        <target>__image.button_from_library</target>
+        <target>Képtárból</target>
       </trans-unit>
       <trans-unit id="oOuVKRv" resname="image.placeholder_filename">
         <source>image.placeholder_filename</source>
-        <target>__image.placeholder_filename</target>
+        <target>Filename</target>
       </trans-unit>
       <trans-unit id="BWubOnS" resname="image.placeholder_alt_text">
         <source>image.placeholder_alt_text</source>
-        <target>__image.placeholder_alt_text</target>
+        <target>Alt text</target>
       </trans-unit>
       <trans-unit id="VPV0lFM" resname="image.placeholder_title">
         <source>image.placeholder_title</source>
-        <target>__image.placeholder_title</target>
+        <target>Cím</target>
       </trans-unit>
       <trans-unit id="kaK5Wdr" resname="slug.button_locked">
         <source>slug.button_locked</source>
-        <target>__slug.button_locked</target>
+        <target>Zárolt</target>
       </trans-unit>
       <trans-unit id="qcDEz5O" resname="slug.button_edit">
         <source>slug.button_edit</source>
-        <target>__slug.button_edit</target>
+        <target>Szerkesztés</target>
       </trans-unit>
       <trans-unit id="raO5QSf" resname="slug.generate_from">
         <source>slug.generate_from</source>
-        <target>__slug.generate_from</target>
+        <target>Generálás…</target>
       </trans-unit>
       <trans-unit id="TkryUve" resname="imagelist.remark">
         <source>imagelist.remark</source>
@@ -652,239 +965,175 @@
       </trans-unit>
       <trans-unit id=".fL0AbE" resname="files_list.remark">
         <source>files_list.remark</source>
-        <target>__files_list.remark</target>
-      </trans-unit>
-      <trans-unit id="I2ykiIZ" resname="caption.folders">
-        <source>caption.folders</source>
-        <target>__caption.folders</target>
+        <target><![CDATA[Megjegyzés: Ez a mező megegyezik a <code>filelist</code> mezővel.]]></target>
       </trans-unit>
       <trans-unit id="m3tNvJb" resname="finder.button_list">
         <source>finder.button_list</source>
-        <target>__finder.button_list</target>
+        <target>Lista</target>
       </trans-unit>
       <trans-unit id="tRLgeoX" resname="finder.button_cards">
         <source>finder.button_cards</source>
-        <target>__finder.button_cards</target>
+        <target>Mátrix</target>
       </trans-unit>
       <trans-unit id="QQvRJe." resname="files_cards.button_toggle">
         <source>files_cards.button_toggle</source>
-        <target>__files_cards.button_toggle</target>
+        <target>Legördülő átkapcsolása</target>
       </trans-unit>
       <trans-unit id="gtC_ujD" resname="files_cards.action_edit_image_info">
         <source>files_cards.action_edit_image_info</source>
-        <target>__files_cards.action_edit_image_info</target>
+        <target>Kép infó szerkesztés</target>
       </trans-unit>
       <trans-unit id="5LXvJfE" resname="files_cards.action_edit_file">
         <source>files_cards.action_edit_file</source>
-        <target>__files_cards.action_edit_file</target>
+        <target>Fájl szerkesztése editorban</target>
       </trans-unit>
       <trans-unit id="H1pgP94" resname="files_cards.action_view_original">
         <source>files_cards.action_view_original</source>
-        <target>__files_cards.action_view_original</target>
+        <target>Eredeti megtekintése</target>
       </trans-unit>
       <trans-unit id="ZoY6ADX" resname="files_cards.action_duplicate">
         <source>files_cards.action_duplicate</source>
-        <target>__files_cards.action_duplicate</target>
+        <target>Duplikáció</target>
       </trans-unit>
       <trans-unit id="JjU6ZQP" resname="files_cards.action_delete">
         <source>files_cards.action_delete</source>
-        <target>__files_cards.action_delete</target>
+        <target>Törlés</target>
       </trans-unit>
       <trans-unit id="3jdNwuk" resname="files_cards.label_filename">
         <source>files_cards.label_filename</source>
-        <target>__files_cards.label_filename</target>
+        <target>Fájlnév:</target>
       </trans-unit>
       <trans-unit id="Y90_Pn1" resname="files_cards.label_title">
         <source>files_cards.label_title</source>
-        <target>__files_cards.label_title</target>
+        <target>Cím:</target>
       </trans-unit>
       <trans-unit id="EdCfIKX" resname="files_cards.label_dimensions">
         <source>files_cards.label_dimensions</source>
-        <target>__files_cards.label_dimensions</target>
+        <target>Dimenziók:</target>
       </trans-unit>
       <trans-unit id="eQBhceV" resname="files_cards.label_filesize">
         <source>files_cards.label_filesize</source>
-        <target>__files_cards.label_filesize</target>
+        <target>Méret:</target>
       </trans-unit>
       <trans-unit id="uiCjlwk" resname="files_cards.label_created_on">
         <source>files_cards.label_created_on</source>
-        <target>__files_cards.label_created_on</target>
+        <target>Létrehozva:</target>
       </trans-unit>
       <trans-unit id="8JeahIj" resname="files_cards.message_no_files">
         <source>files_cards.message_no_files</source>
-        <target>__files_cards.message_no_files</target>
+        <target>Nincs fájl ebben a mappában. Jobboldalon válassz ki egy mappát!</target>
       </trans-unit>
       <trans-unit id="beqzCkE" resname="login.header_login">
         <source>login.header_login</source>
-        <target>__login.header_login</target>
+        <target>Bejelentkezés</target>
       </trans-unit>
       <trans-unit id="37kJiIe" resname="view_locales.badge_default">
         <source>view_locales.badge_default</source>
-        <target>__view_locales.badge_default</target>
+        <target>Alapértelmezett</target>
       </trans-unit>
       <trans-unit id="JTRCo_U" resname="view_locales.badge_ok">
         <source>view_locales.badge_ok</source>
-        <target>__view_locales.badge_ok</target>
+        <target>OK</target>
       </trans-unit>
       <trans-unit id="ufFUPp7" resname="view_locales.badge_missing">
         <source>view_locales.badge_missing</source>
-        <target>__view_locales.badge_missing</target>
-      </trans-unit>
-      <trans-unit id="UNBaDz." resname="general.phrase.edit">
-        <source>general.phrase.edit</source>
-        <target>__general.phrase.edit</target>
+        <target>Hiányzó</target>
       </trans-unit>
       <trans-unit id="ypPzS03" resname="localeswitcher.button_info">
         <source>localeswitcher.button_info</source>
-        <target>__localeswitcher.button_info</target>
-      </trans-unit>
-      <trans-unit id="EvAqL__" resname="caption.duplicate">
-        <source>caption.duplicate</source>
-        <target>__caption.duplicate</target>
+        <target>Lokalizáció megtekintése</target>
       </trans-unit>
       <trans-unit id="qQKx1lR" resname="buttons.button_toggle">
         <source>buttons.button_toggle</source>
-        <target>__buttons.button_toggle</target>
-      </trans-unit>
-      <trans-unit id="ok6YulQ" resname="action.view_saved">
-        <source>action.view_saved</source>
-        <target>__action.view_saved</target>
+        <target>Átkapcsolás</target>
       </trans-unit>
       <trans-unit id="Hlf9c1s" resname="listing.title_overview">
         <source>listing.title_overview</source>
-        <target>__listing.title_overview</target>
-      </trans-unit>
-      <trans-unit id="vJwSCBO" resname="title.contentlisting">
-        <source>title.contentlisting</source>
-        <target>__title.contentlisting</target>
+        <target>Áttekintő »</target>
       </trans-unit>
       <trans-unit id="BdhsE_X" resname="listing_select_box.card_header.selected">
         <source>listing_select_box.card_header.selected</source>
-        <target>__listing_select_box.card_header.selected</target>
+        <target>Kijelölve</target>
       </trans-unit>
       <trans-unit id="jBpmj90" resname="listing_select_box.card_body.records_passed">
         <source>listing_select_box.card_body.records_passed</source>
-        <target>__listing_select_box.card_body.records_passed</target>
+        <target>a kijelölt rekord ID-ken végrehajtva</target>
       </trans-unit>
       <trans-unit id="D8vDkhK" resname="listing_select_box.card_body.remark">
         <source>listing_select_box.card_body.remark</source>
-        <target>__listing_select_box.card_body.remark</target>
+        <target>(ezek egyfajta "Axion" tömeges törlés/módosítással dolgozhatók fel)</target>
       </trans-unit>
       <trans-unit id="wQ0WYAT" resname="listing.title_sortby">
         <source>listing.title_sortby</source>
-        <target>__listing.title_sortby</target>
+        <target>Rendezés</target>
       </trans-unit>
       <trans-unit id="ZGv90X8" resname="listing.option_select_item">
         <source>listing.option_select_item</source>
-        <target>__listing.option_select_item</target>
+        <target>Elem kiválasztás</target>
       </trans-unit>
       <trans-unit id="TIyjgb6" resname="listing.title_title">
         <source>listing.title_title</source>
-        <target>__listing.title_title</target>
+        <target>Cím</target>
       </trans-unit>
       <trans-unit id="pn22p7q" resname="listing.placeholder_filter">
         <source>listing.placeholder_filter</source>
-        <target>__listing.placeholder_filter</target>
+        <target>Kulcsszó…</target>
       </trans-unit>
       <trans-unit id="ni4zApC" resname="listing.button_filter">
         <source>listing.button_filter</source>
-        <target>__listing.button_filter</target>
+        <target>Szűrő</target>
       </trans-unit>
       <trans-unit id="doNsgm0" resname="listing.button_clear">
         <source>listing.button_clear</source>
-        <target>__listing.button_clear</target>
-      </trans-unit>
-      <trans-unit id="SeTqePC" resname="label.display_name">
-        <source>label.display_name</source>
-        <target>__label.display_name</target>
-      </trans-unit>
-      <trans-unit id="iD6CNOO" resname="label.roles">
-        <source>label.roles</source>
-        <target>__label.roles</target>
-      </trans-unit>
-      <trans-unit id="TtmWqX3" resname="action.view">
-        <source>action.view</source>
-        <target>__action.view</target>
+        <target>Szűrés/Rendezés törlése</target>
       </trans-unit>
       <trans-unit id="jXAelLe" resname="admin_sidebar_toggler.toggle">
         <source>admin_sidebar_toggler.toggle</source>
-        <target>__admin_sidebar_toggler.toggle</target>
+        <target>Menü átkapcsolás</target>
       </trans-unit>
       <trans-unit id="Gabafxx" resname="admin_sidebar.toggler">
         <source>admin_sidebar.toggler</source>
-        <target>__admin_sidebar.toggler</target>
-      </trans-unit>
-      <trans-unit id="y5otxEK" resname="caption.filename">
-        <source>caption.filename</source>
-        <target>__caption.filename</target>
-      </trans-unit>
-      <trans-unit id="VKhfRZB" resname="field.title">
-        <source>field.title</source>
-        <target>__field.title</target>
-      </trans-unit>
-      <trans-unit id="7_wwX8J" resname="field.description">
-        <source>field.description</source>
-        <target>__field.description</target>
-      </trans-unit>
-      <trans-unit id="v0sitU8" resname="field.originalFilename">
-        <source>field.originalFilename</source>
-        <target>__field.originalFilename</target>
-      </trans-unit>
-      <trans-unit id="vlRe8Tx" resname="field.width">
-        <source>field.width</source>
-        <target>__field.width</target>
-      </trans-unit>
-      <trans-unit id="CZbXbM_" resname="field.height">
-        <source>field.height</source>
-        <target>__field.height</target>
-      </trans-unit>
-      <trans-unit id="Sz_u.OS" resname="field.filesize">
-        <source>field.filesize</source>
-        <target>__field.filesize</target>
-      </trans-unit>
-      <trans-unit id="Wou02nK" resname="caption.kitchensink">
-        <source>caption.kitchensink</source>
-        <target>__caption.kitchensink</target>
+        <target>Oldalpanel szélesség átkapcsolás</target>
       </trans-unit>
       <trans-unit id="73A2bWM" resname="finder.label_view">
         <source>finder.label_view</source>
-        <target>__finder.label_view</target>
+        <target>Elrendezés:</target>
       </trans-unit>
       <trans-unit id="Em.C0bV" resname="listing_table.actions.button_edit">
         <source>listing_table.actions.button_edit</source>
-        <target>__listing_table.actions.button_edit</target>
+        <target>Szerkesztés</target>
       </trans-unit>
       <trans-unit id="Iy4HXCU" resname="controller.user.title">
         <source>controller.user.title</source>
-        <target><![CDATA[Users & Permissions]]></target>
+        <target>Felhasznlók és engedélyek</target>
       </trans-unit>
       <trans-unit id="HBwIQ9b" resname="controller.user.subtitle">
         <source>controller.user.subtitle</source>
-        <target>To edit users and their permissions</target>
+        <target>Felhasználók és engedélyeik szerkesztése</target>
       </trans-unit>
       <trans-unit id="rkVeKe_" resname="controller.authentication.reset_title">
         <source>controller.authentication.reset_title</source>
-        <target>Reset Password</target>
+        <target>Jelszó visszaállítása</target>
       </trans-unit>
       <trans-unit id="lN_rF8O" resname="controller.authentication.reset_subtitle">
         <source>controller.authentication.reset_subtitle</source>
-        <target>To reset your password, if you've misplaced it</target>
+        <target>Jelszó visszaállítása amennyiben elfelejtetted</target>
       </trans-unit>
       <trans-unit id="0Gyf5xr" resname="controller.database.check_title">
         <source>controller.database.check_title</source>
-        <target>Database Check</target>
+        <target>Adatbázis ellenőrzése</target>
       </trans-unit>
       <trans-unit id="SeDwjX6" resname="controller.database.check_subtitle">
         <source>controller.database.check_subtitle</source>
-        <target>To check the Database</target>
+        <target>Az adatbázis vizsgálata</target>
       </trans-unit>
       <trans-unit id="nJnALPG" resname="controller.database.update_title">
         <source>controller.database.update_title</source>
-        <target>Database Update</target>
+        <target>Adatbázis frissítés</target>
       </trans-unit>
       <trans-unit id="nRE74_i" resname="controller.database.update_subtitle">
         <source>controller.database.update_subtitle</source>
-        <target>To update the Database</target>
+        <target>Változás esetén történő frissítés</target>
       </trans-unit>
       <trans-unit id="a3UNsKw" resname="controller.omnisearch.title">
         <source>controller.omnisearch.title</source>
@@ -892,35 +1141,35 @@
       </trans-unit>
       <trans-unit id="4N41oTU" resname="controller.omnisearch.subtitle">
         <source>controller.omnisearch.subtitle</source>
-        <target>To search, in an omni-like fashion</target>
+        <target>Keresés mélytartalomban, részletekben</target>
       </trans-unit>
       <trans-unit id="7cXqH5s" resname="listing.title_display_name">
         <source>listing.title_display_name</source>
-        <target>__listing.title_display_name</target>
+        <target>Megjelenített név</target>
       </trans-unit>
       <trans-unit id="Ay7xZ2h" resname="listing.title_username">
         <source>listing.title_username</source>
-        <target>__listing.title_username</target>
+        <target>Felhasználónév</target>
       </trans-unit>
       <trans-unit id="RN1tdtJ" resname="listing.title_email">
         <source>listing.title_email</source>
-        <target>__listing.title_email</target>
+        <target>Email</target>
       </trans-unit>
       <trans-unit id="0pjZ.GV" resname="listing.title_roles">
         <source>listing.title_roles</source>
-        <target>__listing.title_roles</target>
+        <target>Szerepkörök</target>
       </trans-unit>
       <trans-unit id="hXEFV1n" resname="listing.title_last_seen">
         <source>listing.title_last_seen</source>
-        <target>__listing.title_last_seen</target>
+        <target>Utolsó bejelentkezés</target>
       </trans-unit>
       <trans-unit id="pn7kE17" resname="listing.title_last_ip">
         <source>listing.title_last_ip</source>
-        <target>__listing.title_last_ip</target>
+        <target>Utolsó IP</target>
       </trans-unit>
       <trans-unit id="GZ65uOC" resname="listing.title_actions">
         <source>listing.title_actions</source>
-        <target>__listing.title_actions</target>
+        <target>Műveletek</target>
       </trans-unit>
     </body>
   </file>

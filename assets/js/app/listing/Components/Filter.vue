@@ -8,8 +8,8 @@
           <input
             id="selectAll"
             v-model="selectAll"
-            type="checkbox"
             class="custom-control-input"
+            type="checkbox"
           />
           <label
             class="custom-control-label"
@@ -26,7 +26,8 @@
           :class="{ 'is-selected': size === 'small' }"
           @click="changeSize('small')"
         >
-          <i class="fas fa-align-justify fa-fw"></i><span class="sr-only">Compact view mode</span>
+          <i class="fas fa-align-justify fa-fw"></i>
+          <span class="sr-only">{{ labels.button_compact }}</span>
         </button>
       </li>
 
@@ -37,7 +38,8 @@
           :class="{ 'is-selected': size === 'normal' }"
           @click="changeSize('normal')"
         >
-          <i class="fas fa-grip-lines fa-fw"></i><span class="sr-only">Expanded view mode</span>
+          <i class="fas fa-grip-lines fa-fw"></i>
+          <span class="sr-only">{{ labels.button_expanded }}</span>
         </button>
       </li>
 
@@ -64,6 +66,7 @@ import type from '../mixins/type';
 export default {
   name: 'ListingFilter',
   mixins: [type],
+  props: ['labels'],
   computed: {
     size() {
       return this.$store.getters['general/getRowSize'];
