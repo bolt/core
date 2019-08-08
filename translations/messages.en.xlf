@@ -488,22 +488,16 @@
       <trans-unit id="XNTbZW6" resname="action.visit_site">
         <source>action.visit_site</source>
         <target>Visit website</target>
-      </segment>
-    </unit>
-    <unit id="KfVJho2" name="action.create_new">
-      <segment>
+      </trans-unit>
+      <trans-unit id="KfVJho2" resname="action.create_new">
         <source>action.create_new</source>
         <target>Create a new</target>
-      </segment>
-    </unit>
-    <unit id="b_RPpcB" name="general.greeting">
-      <segment>
+      </trans-unit>
+      <trans-unit id="b_RPpcB" resname="general.greeting">
         <source>general.greeting</source>
-        <target>%name%</target>
-      </segment>
-    </unit>
-    <unit id="bmdn3u9" name="action.logout">
-      <segment>
+        <target>Hey, %name%!</target>
+      </trans-unit>
+      <trans-unit id="bmdn3u9" resname="action.logout">
         <source>action.logout</source>
         <target>Logout</target>
       </trans-unit>
@@ -631,19 +625,19 @@
         <source>general.phrase.search-results-for-variable</source>
         <target>Search results for '%search%'.</target>
         <note>parameters:</note>
-        <note> '%search%': consequatur</note>
+        <note> '%search%': consequatur</note>
       </trans-unit>
       <trans-unit id="2CfJ3WY" resname="general.phrase.search-results-for">
         <source>general.phrase.search-results-for</source>
         <target>Search results for '%search%'.</target>
         <note>parameters:</note>
-        <note> '%search%': ymnrubeyrvwearsytevsf</note>
+        <note> '%search%': ymnrubeyrvwearsytevsf</note>
       </trans-unit>
       <trans-unit id="V0VhH5g" resname="general.phrase.no-search-results-for">
         <source>general.phrase.no-search-results-for</source>
         <target>No search results found for '%search%'.</target>
         <note>parameters:</note>
-        <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
+        <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
       </trans-unit>
       <trans-unit id="_KyvT9o" resname="general.phrase.no-search-term-provided">
         <source>general.phrase.no-search-term-provided</source>
