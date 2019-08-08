@@ -1,11 +1,11 @@
 <template>
   <div>
     <input
+      class="form-control"
       :id="id"
-      type="email"
       :name="name"
       :value="value"
-      class="form-control"
+      type="email"
     />
   </div>
 </template>

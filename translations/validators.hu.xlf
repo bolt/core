@@ -1,419 +1,424 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="hu" target-language="nl" datatype="plaintext" original="file.ext">
+  <file source-language="hu" target-language="hu" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
       <trans-unit id="zh5oKD9" resname="This value should be false.">
         <source>This value should be false.</source>
-        <target>Deze waarde moet onwaar zijn.</target>
+        <target>Ennek az értéknek hamisnak kell lennie.</target>
       </trans-unit>
       <trans-unit id="NN2_iru" resname="This value should be true.">
         <source>This value should be true.</source>
-        <target>Deze waarde moet waar zijn.</target>
+        <target>Ennek az értéknek igaznak kell lennie.</target>
       </trans-unit>
       <trans-unit id="OjM_kpf" resname="This value should be of type {{ type }}.">
         <source>This value should be of type {{ type }}.</source>
-        <target>Deze waarde moet van het type {{ type }} zijn.</target>
+        <target>Ennek az értéknek {{ type }} típusúnak kell lennie.</target>
       </trans-unit>
       <trans-unit id="f0P5pBD" resname="This value should be blank.">
         <source>This value should be blank.</source>
-        <target>Deze waarde moet leeg zijn.</target>
+        <target>Ennek az értéknek üresnek kell lennie.</target>
       </trans-unit>
       <trans-unit id="ih.4TRN" resname="The value you selected is not a valid choice.">
         <source>The value you selected is not a valid choice.</source>
-        <target>De geselecteerde waarde is geen geldige optie.</target>
+        <target>A választott érték érvénytelen.</target>
       </trans-unit>
       <trans-unit id="u81CkP8" resname="You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.">
         <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
-        <target>Selecteer ten minste {{ limit }} optie.|Selecteer ten minste {{ limit }} opties.</target>
+        <target>Legalább {{ limit }} értéket kell kiválasztani.|Legalább {{ limit }} értéket kell kiválasztani.</target>
       </trans-unit>
       <trans-unit id="nIvOQ_o" resname="You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.">
         <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
-        <target>Selecteer maximaal {{ limit }} optie.|Selecteer maximaal {{ limit }} opties.</target>
+        <target>Legfeljebb {{ limit }} értéket lehet kiválasztani.|Legfeljebb {{ limit }} értéket lehet kiválasztani.</target>
       </trans-unit>
       <trans-unit id="87zjiHi" resname="One or more of the given values is invalid.">
         <source>One or more of the given values is invalid.</source>
-        <target>Eén of meer van de ingegeven waarden zijn ongeldig.</target>
+        <target>A megadott értékek közül legalább egy érvénytelen.</target>
       </trans-unit>
       <trans-unit id="3NeQftv" resname="This field was not expected.">
         <source>This field was not expected.</source>
-        <target>Dit veld werd niet verwacht.</target>
+        <target>Nem várt mező.</target>
       </trans-unit>
       <trans-unit id="SwMV4zp" resname="This field is missing.">
         <source>This field is missing.</source>
-        <target>Dit veld ontbreekt.</target>
+        <target>Ez a mező hiányzik.</target>
       </trans-unit>
       <trans-unit id="LO2vFKN" resname="This value is not a valid date.">
         <source>This value is not a valid date.</source>
-        <target>Deze waarde is geen geldige datum.</target>
+        <target>Ez az érték nem egy érvényes dátum.</target>
       </trans-unit>
       <trans-unit id="86dU_nv" resname="This value is not a valid datetime.">
         <source>This value is not a valid datetime.</source>
-        <target>Deze waarde is geen geldige datum en tijd.</target>
+        <target>Ez az érték nem egy érvényes időpont.</target>
       </trans-unit>
       <trans-unit id="PSvNXdi" resname="This value is not a valid email address.">
         <source>This value is not a valid email address.</source>
-        <target>Deze waarde is geen geldig e-mailadres.</target>
+        <target>Ez az érték nem egy érvényes e-mail cím.</target>
       </trans-unit>
       <trans-unit id="3KeHbZy" resname="The file could not be found.">
         <source>The file could not be found.</source>
-        <target>Het bestand kon niet gevonden worden.</target>
+        <target>A fájl nem található.</target>
       </trans-unit>
       <trans-unit id="KtJhQZo" resname="The file is not readable.">
         <source>The file is not readable.</source>
-        <target>Het bestand is niet leesbaar.</target>
+        <target>A fájl nem olvasható.</target>
       </trans-unit>
       <trans-unit id="JocOVM2" resname="The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.">
         <source>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>Het bestand is te groot ({{ size }} {{ suffix }}). Toegestane maximum grootte is {{ limit }} {{ suffix }}.</target>
+        <target>A fájl túl nagy ({{ size }} {{ suffix }}). A legnagyobb megengedett méret {{ limit }} {{ suffix }}.</target>
       </trans-unit>
       <trans-unit id="YW21SPH" resname="The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.">
         <source>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</source>
-        <target>Het mime type van het bestand is ongeldig ({{ type }}). Toegestane mime types zijn {{ types }}.</target>
+        <target>A fájl MIME típusa érvénytelen ({{ type }}). Az engedélyezett MIME típusok: {{ types }}.</target>
       </trans-unit>
       <trans-unit id="NubOmrs" resname="This value should be {{ limit }} or less.">
         <source>This value should be {{ limit }} or less.</source>
-        <target>Deze waarde moet {{ limit }} of minder zijn.</target>
+        <target>Ez az érték legfeljebb {{ limit }} lehet.</target>
       </trans-unit>
       <trans-unit id="HX7TOFm" resname="This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.">
         <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
-        <target>Deze waarde is te lang. Hij mag maximaal {{ limit }} teken bevatten.|Deze waarde is te lang. Hij mag maximaal {{ limit }} tekens bevatten.</target>
+        <target>Ez az érték túl hosszú. Legfeljebb {{ limit }} karaktert tartalmazhat.|Ez az érték túl hosszú. Legfeljebb {{ limit }} karaktert tartalmazhat.</target>
       </trans-unit>
       <trans-unit id="qgR8M_U" resname="This value should be {{ limit }} or more.">
         <source>This value should be {{ limit }} or more.</source>
-        <target>Deze waarde moet {{ limit }} of meer zijn.</target>
+        <target>Ez az érték legalább {{ limit }} kell, hogy legyen.</target>
       </trans-unit>
       <trans-unit id="ekfrU.c" resname="This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.">
         <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
-        <target>Deze waarde is te kort. Hij moet tenminste {{ limit }} teken bevatten.|Deze waarde is te kort. Hij moet tenminste {{ limit }} tekens bevatten.</target>
+        <target>Ez az érték túl rövid. Legalább {{ limit }} karaktert kell tartalmaznia.|Ez az érték túl rövid. Legalább {{ limit }} karaktert kell tartalmaznia.</target>
       </trans-unit>
       <trans-unit id="1KV4L.t" resname="This value should not be blank.">
         <source>This value should not be blank.</source>
-        <target>Deze waarde mag niet leeg zijn.</target>
+        <target>Ez az érték nem lehet üres.</target>
       </trans-unit>
       <trans-unit id="2G4Vepm" resname="This value should not be null.">
         <source>This value should not be null.</source>
-        <target>Deze waarde mag niet null zijn.</target>
+        <target>Ez az érték nem lehet null.</target>
       </trans-unit>
       <trans-unit id="yDc3m6E" resname="This value should be null.">
         <source>This value should be null.</source>
-        <target>Deze waarde moet null zijn.</target>
+        <target>Ennek az értéknek nullnak kell lennie.</target>
       </trans-unit>
       <trans-unit id="zKzWejA" resname="This value is not valid.">
         <source>This value is not valid.</source>
-        <target>Deze waarde is niet geldig.</target>
+        <target>Ez az érték nem érvényes.</target>
       </trans-unit>
       <trans-unit id="HSuBZpQ" resname="This value is not a valid time.">
         <source>This value is not a valid time.</source>
-        <target>Deze waarde is geen geldige tijd.</target>
+        <target>Ez az érték nem egy érvényes időpont.</target>
       </trans-unit>
       <trans-unit id="snWc_QT" resname="This value is not a valid URL.">
         <source>This value is not a valid URL.</source>
-        <target>Deze waarde is geen geldige URL.</target>
+        <target>Ez az érték nem egy érvényes URL.</target>
       </trans-unit>
       <trans-unit id="jpaLsb2" resname="The two values should be equal.">
         <source>The two values should be equal.</source>
-        <target>De twee waarden moeten gelijk zijn.</target>
+        <target>A két értéknek azonosnak kell lennie.</target>
       </trans-unit>
       <trans-unit id="fIlB1B_" resname="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
-        <target>Het bestand is te groot. Toegestane maximum grootte is {{ limit }} {{ suffix }}.</target>
+        <target>A fájl túl nagy. A megengedett maximális méret: {{ limit }} {{ suffix }}.</target>
       </trans-unit>
       <trans-unit id="tW7o0t9" resname="The file is too large.">
         <source>The file is too large.</source>
-        <target>Het bestand is te groot.</target>
+        <target>A fájl túl nagy.</target>
       </trans-unit>
       <trans-unit id=".exF5Ww" resname="The file could not be uploaded.">
         <source>The file could not be uploaded.</source>
-        <target>Het bestand kon niet worden geüpload.</target>
+        <target>A fájl nem tölthető fel.</target>
       </trans-unit>
       <trans-unit id="d7sS5yw" resname="This value should be a valid number.">
         <source>This value should be a valid number.</source>
-        <target>Deze waarde moet een geldig getal zijn.</target>
+        <target>Ennek az értéknek érvényes számnak kell lennie.</target>
       </trans-unit>
       <trans-unit id="BS2Ez6i" resname="This file is not a valid image.">
         <source>This file is not a valid image.</source>
-        <target>Dit bestand is geen geldige afbeelding.</target>
+        <target>Ez a fájl nem egy érvényes kép.</target>
       </trans-unit>
       <trans-unit id="ydcT9kU" resname="This is not a valid IP address.">
         <source>This is not a valid IP address.</source>
-        <target>Dit is geen geldig IP-adres.</target>
+        <target>Ez az érték nem egy érvényes IP cím.</target>
       </trans-unit>
       <trans-unit id="lDOGNFX" resname="This value is not a valid language.">
         <source>This value is not a valid language.</source>
-        <target>Deze waarde is geen geldige taal.</target>
+        <target>Ez az érték nem egy érvényes nyelv.</target>
       </trans-unit>
       <trans-unit id="y9IdYkA" resname="This value is not a valid locale.">
         <source>This value is not a valid locale.</source>
-        <target>Deze waarde is geen geldige locale.</target>
+        <target>Ez az érték nem egy érvényes területi beállítás.</target>
       </trans-unit>
       <trans-unit id="1YC0pOd" resname="This value is not a valid country.">
         <source>This value is not a valid country.</source>
-        <target>Deze waarde is geen geldig land.</target>
+        <target>Ez az érték nem egy érvényes ország.</target>
       </trans-unit>
       <trans-unit id="B5ebaMp" resname="This value is already used.">
         <source>This value is already used.</source>
-        <target>Deze waarde wordt al gebruikt.</target>
+        <target>Ez az érték már használatban van.</target>
       </trans-unit>
       <trans-unit id="L6097a6" resname="The size of the image could not be detected.">
         <source>The size of the image could not be detected.</source>
-        <target>De grootte van de afbeelding kon niet bepaald worden.</target>
+        <target>A kép méretét nem lehet megállapítani.</target>
       </trans-unit>
       <trans-unit id="zVtJJEa" resname="The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.">
         <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
-        <target>De afbeelding is te breed ({{ width }}px). De maximaal toegestane breedte is {{ max_width }}px.</target>
+        <target>A kép szélessége túl nagy ({{ width }}px). A megengedett legnagyobb szélesség {{ max_width }}px.</target>
       </trans-unit>
       <trans-unit id="s8LFQGC" resname="The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.">
         <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
-        <target>De afbeelding is niet breed genoeg ({{ width }}px). De minimaal verwachte breedte is {{ min_width }}px.</target>
+        <target>A kép szélessége túl kicsi ({{ width }}px). Az elvárt legkisebb szélesség {{ min_width }}px.</target>
       </trans-unit>
       <trans-unit id="Z.NgqFj" resname="The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.">
         <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
-        <target>De afbeelding is te hoog ({{ height }}px). De maximaal toegestane hoogte is {{ max_height }}px.</target>
+        <target>A kép magassága túl nagy ({{ height }}px). A megengedett legnagyobb magasság {{ max_height }}px.</target>
       </trans-unit>
       <trans-unit id="AW1lWVM" resname="The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.">
         <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
-        <target>De afbeelding is niet hoog genoeg ({{ height }}px). De minimaal verwachte hoogte is {{ min_height }}px.</target>
+        <target>A kép magassága túl kicsi ({{ height }}px). Az elvárt legkisebb magasság {{ min_height }}px.</target>
       </trans-unit>
       <trans-unit id="PSdMNab" resname="This value should be the user's current password.">
         <source>This value should be the user's current password.</source>
-        <target>Deze waarde moet het huidige wachtwoord van de gebruiker zijn.</target>
+        <target>Ez az érték a felhasználó jelenlegi jelszavával kell megegyezzen.</target>
       </trans-unit>
       <trans-unit id="gYImVyV" resname="This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.">
         <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
-        <target>Deze waarde moet exact {{ limit }} teken lang zijn.|Deze waarde moet exact {{ limit }} tekens lang zijn.</target>
+        <target>Ennek az értéknek pontosan {{ limit }} karaktert kell tartalmaznia.|Ennek az értéknek pontosan {{ limit }} karaktert kell tartalmaznia.</target>
       </trans-unit>
       <trans-unit id="xJ2Bcr_" resname="The file was only partially uploaded.">
         <source>The file was only partially uploaded.</source>
-        <target>Het bestand is slechts gedeeltelijk geüpload.</target>
+        <target>A fájl csak részben lett feltöltve.</target>
       </trans-unit>
       <trans-unit id="HzkJDtF" resname="No file was uploaded.">
         <source>No file was uploaded.</source>
-        <target>Er is geen bestand geüpload.</target>
+        <target>Nem lett fájl feltöltve.</target>
       </trans-unit>
       <trans-unit id="mHfEaB3" resname="No temporary folder was configured in php.ini.">
         <source>No temporary folder was configured in php.ini.</source>
-        <target>Er is geen tijdelijke map geconfigureerd in php.ini, of de gespecificeerde map bestaat niet.</target>
+        <target>Nincs ideiglenes könyvtár beállítva a php.ini-ben.</target>
       </trans-unit>
       <trans-unit id="y9K3BGb" resname="Cannot write temporary file to disk.">
         <source>Cannot write temporary file to disk.</source>
-        <target>Kan het tijdelijke bestand niet wegschrijven op disk.</target>
+        <target>Az ideiglenes fájl nem írható a lemezre.</target>
       </trans-unit>
       <trans-unit id="kx3yHIM" resname="A PHP extension caused the upload to fail.">
         <source>A PHP extension caused the upload to fail.</source>
-        <target>De upload is mislukt vanwege een PHP-extensie.</target>
+        <target>Egy PHP bővítmény miatt a feltöltés nem sikerült.</target>
       </trans-unit>
       <trans-unit id="gTJYRl6" resname="This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.">
         <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
-        <target>Deze collectie moet {{ limit }} element of meer bevatten.|Deze collectie moet {{ limit }} elementen of meer bevatten.</target>
+        <target>Ennek a gyűjteménynek legalább {{ limit }} elemet kell tartalmaznia.|Ennek a gyűjteménynek legalább {{ limit }} elemet kell tartalmaznia.</target>
       </trans-unit>
       <trans-unit id="FFn3lVn" resname="This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.">
         <source>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</source>
-        <target>Deze collectie moet {{ limit }} element of minder bevatten.|Deze collectie moet {{ limit }} elementen of minder bevatten.</target>
+        <target>Ez a gyűjtemény legfeljebb {{ limit }} elemet tartalmazhat.|Ez a gyűjtemény legfeljebb {{ limit }} elemet tartalmazhat.</target>
       </trans-unit>
       <trans-unit id="bSdilZv" resname="This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.">
         <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
-        <target>Deze collectie moet exact {{ limit }} element bevatten.|Deze collectie moet exact {{ limit }} elementen bevatten.</target>
+        <target>Ennek a gyűjteménynek pontosan {{ limit }} elemet kell tartalmaznia.|Ennek a gyűjteménynek pontosan {{ limit }} elemet kell tartalmaznia.</target>
       </trans-unit>
       <trans-unit id="MAzmID7" resname="Invalid card number.">
         <source>Invalid card number.</source>
-        <target>Ongeldig creditcardnummer.</target>
+        <target>Érvénytelen kártyaszám.</target>
       </trans-unit>
       <trans-unit id="c3REGK3" resname="Unsupported card type or invalid card number.">
         <source>Unsupported card type or invalid card number.</source>
-        <target>Niet-ondersteund type creditcard of ongeldig nummer.</target>
+        <target>Nem támogatott kártyatípus vagy érvénytelen kártyaszám.</target>
       </trans-unit>
       <trans-unit id="XSVzcbV" resname="This is not a valid International Bank Account Number (IBAN).">
         <source>This is not a valid International Bank Account Number (IBAN).</source>
-        <target>Dit is geen geldig internationaal bankrekeningnummer (IBAN).</target>
+        <target>Érvénytelen nemzetközi bankszámlaszám (IBAN).</target>
       </trans-unit>
       <trans-unit id="yHirwNr" resname="This value is not a valid ISBN-10.">
         <source>This value is not a valid ISBN-10.</source>
-        <target>Deze waarde is geen geldige ISBN-10.</target>
+        <target>Ez az érték nem egy érvényes ISBN-10.</target>
       </trans-unit>
       <trans-unit id="c_q0_ua" resname="This value is not a valid ISBN-13.">
         <source>This value is not a valid ISBN-13.</source>
-        <target>Deze waarde is geen geldige ISBN-13.</target>
+        <target>Ez az érték nem egy érvényes ISBN-13.</target>
       </trans-unit>
       <trans-unit id="M4FlD6n" resname="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
         <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
-        <target>Deze waarde is geen geldige ISBN-10 of ISBN-13 waarde.</target>
+        <target>Ez az érték nem egy érvényes ISBN-10 vagy ISBN-13.</target>
       </trans-unit>
       <trans-unit id="cuct0Ow" resname="This value is not a valid ISSN.">
         <source>This value is not a valid ISSN.</source>
-        <target>Deze waarde is geen geldige ISSN waarde.</target>
+        <target>Ez az érték nem egy érvényes ISSN.</target>
       </trans-unit>
       <trans-unit id="JBLs1a1" resname="This value is not a valid currency.">
         <source>This value is not a valid currency.</source>
-        <target>Deze waarde is geen geldige valuta.</target>
+        <target>Ez az érték nem egy érvényes pénznem.</target>
       </trans-unit>
       <trans-unit id="c.WxzFW" resname="This value should be equal to {{ compared_value }}.">
         <source>This value should be equal to {{ compared_value }}.</source>
-        <target>Deze waarde moet gelijk zijn aan {{ compared_value }}.</target>
+        <target>Ez az érték legyen {{ compared_value }}.</target>
       </trans-unit>
       <trans-unit id="_jdjkwq" resname="This value should be greater than {{ compared_value }}.">
         <source>This value should be greater than {{ compared_value }}.</source>
-        <target>Deze waarde moet groter zijn dan {{ compared_value }}.</target>
+        <target>Ez az érték nagyobb legyen, mint {{ compared_value }}.</target>
       </trans-unit>
       <trans-unit id="o8A8a0H" resname="This value should be greater than or equal to {{ compared_value }}.">
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
-        <target>Deze waarde moet groter dan of gelijk aan {{ compared_value }} zijn.</target>
+        <target>Ez az érték nagyobb vagy egyenlő legyen, mint {{ compared_value }}.</target>
       </trans-unit>
       <trans-unit id="bOF1fpm" resname="This value should be identical to {{ compared_value_type }} {{ compared_value }}.">
         <source>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</source>
-        <target>Deze waarde moet identiek zijn aan {{ compared_value_type }} {{ compared_value }}.</target>
+        <target>Ez az érték ugyanolyan legyen, mint {{ compared_value_type }} {{ compared_value }}.</target>
       </trans-unit>
       <trans-unit id="jG0QFKw" resname="This value should be less than {{ compared_value }}.">
         <source>This value should be less than {{ compared_value }}.</source>
-        <target>Deze waarde moet minder zijn dan {{ compared_value }}.</target>
+        <target>Ez az érték kisebb legyen, mint {{ compared_value }}.</target>
       </trans-unit>
       <trans-unit id="9lWrKmm" resname="This value should be less than or equal to {{ compared_value }}.">
         <source>This value should be less than or equal to {{ compared_value }}.</source>
-        <target>Deze waarde moet minder dan of gelijk aan {{ compared_value }} zijn.</target>
+        <target>Ez az érték kisebb vagy egyenlő legyen, mint {{ compared_value }}.</target>
       </trans-unit>
       <trans-unit id="ftTwGs." resname="This value should not be equal to {{ compared_value }}.">
         <source>This value should not be equal to {{ compared_value }}.</source>
-        <target>Deze waarde mag niet gelijk zijn aan {{ compared_value }}.</target>
+        <target>Ez az érték ne legyen {{ compared_value }}.</target>
       </trans-unit>
       <trans-unit id="Bi22JLt" resname="This value should not be identical to {{ compared_value_type }} {{ compared_value }}.">
         <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
-        <target>Deze waarde mag niet identiek zijn aan {{ compared_value_type }} {{ compared_value }}.</target>
+        <target>Ez az érték ne legyen ugyanolyan, mint {{ compared_value_type }} {{ compared_value }}.</target>
       </trans-unit>
       <trans-unit id="VczCWzQ" resname="The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.">
         <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
-        <target>De afbeeldingsverhouding is te groot ({{ ratio }}). Maximale verhouding is {{ max_ratio }}.</target>
+        <target>A képarány túl nagy ({{ ratio }}). A megengedett legnagyobb képarány {{ max_ratio }}.</target>
       </trans-unit>
       <trans-unit id="v57PXhq" resname="The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.">
         <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
-        <target>De afbeeldingsverhouding is te klein ({{ ratio }}). Minimale verhouding is {{ min_ratio }}.</target>
+        <target>A képarány túl kicsi ({{ ratio }}). A megengedett legkisebb képarány {{ min_ratio }}.</target>
       </trans-unit>
       <trans-unit id="rpajj.a" resname="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
-        <target>De afbeelding is vierkant ({{ width }}x{{ height }}px). Vierkante afbeeldingen zijn niet toegestaan.</target>
+        <target>A kép négyzet alakú ({{ width }}x{{ height }}px). A négyzet alakú képek nem engedélyezettek.</target>
       </trans-unit>
       <trans-unit id="G_lu2qW" resname="The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.">
         <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
-        <target>De afbeelding is liggend ({{ width }}x{{ height }}px). Liggende afbeeldingen zijn niet toegestaan.</target>
+        <target>A kép fekvő tájolású ({{ width }}x{{ height }}px). A fekvő tájolású képek nem engedélyezettek.</target>
       </trans-unit>
       <trans-unit id="sFyGx4B" resname="The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.">
         <source>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</source>
-        <target>De afbeelding is staand ({{ width }}x{{ height }}px). Staande afbeeldingen zijn niet toegestaan.</target>
+        <target>A kép álló tájolású ({{ width }}x{{ height }}px). Az álló tájolású képek nem engedélyezettek.</target>
       </trans-unit>
       <trans-unit id="jZgqcpL" resname="An empty file is not allowed.">
         <source>An empty file is not allowed.</source>
-        <target>Lege bestanden zijn niet toegestaan.</target>
+        <target>Üres fájl nem megengedett.</target>
       </trans-unit>
       <trans-unit id="bcfVezI" resname="The host could not be resolved.">
         <source>The host could not be resolved.</source>
-        <target>De hostnaam kon niet worden bepaald.</target>
+        <target>Az állomásnevet nem lehet feloldani.</target>
       </trans-unit>
       <trans-unit id="NtzKvgt" resname="This value does not match the expected {{ charset }} charset.">
         <source>This value does not match the expected {{ charset }} charset.</source>
-        <target>Deze waarde is niet in de verwachte tekencodering {{ charset }}.</target>
+        <target>Ez az érték nem az elvárt {{ charset }} karakterkódolást használja.</target>
       </trans-unit>
       <trans-unit id="Wi2y9.N" resname="This is not a valid Business Identifier Code (BIC).">
         <source>This is not a valid Business Identifier Code (BIC).</source>
-        <target>Dit is geen geldige bedrijfsidentificatiecode (BIC/SWIFT).</target>
+        <target>Érvénytelen nemzetközi bankazonosító kód (BIC/SWIFT).</target>
       </trans-unit>
       <trans-unit id="VKDowX6" resname="Error">
         <source>Error</source>
-        <target>Fout</target>
+        <target>Hiba</target>
       </trans-unit>
       <trans-unit id="8zqt0Ik" resname="This is not a valid UUID.">
         <source>This is not a valid UUID.</source>
-        <target>Dit is geen geldige UUID.</target>
+        <target>Érvénytelen egyedi azonosító (UUID).</target>
       </trans-unit>
       <trans-unit id="ru.4wkH" resname="This value should be a multiple of {{ compared_value }}.">
         <source>This value should be a multiple of {{ compared_value }}.</source>
-        <target>Deze waarde zou een meervoud van {{ compared_value }} moeten zijn.</target>
+        <target>Ennek az értéknek oszthatónak kell lennie a következővel: {{ compared_value }}</target>
       </trans-unit>
       <trans-unit id="M3vyK6s" resname="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
         <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
-        <target>Deze bedrijfsidentificatiecode (BIC) is niet gekoppeld aan IBAN {{ iban }}.</target>
+        <target>Ez a Bankazonosító kód (BIC) nem kapcsolódik az IBAN kódhoz ({{ iban }}).</target>
       </trans-unit>
       <trans-unit id="2v2xpAh" resname="This value should be valid JSON.">
         <source>This value should be valid JSON.</source>
-        <target>Deze waarde moet geldige JSON zijn.</target>
-      </trans-unit>
-      <trans-unit id="9CWVEGq" resname="This collection should contain only unique elements.">
-        <source>This collection should contain only unique elements.</source>
-        <target>Deze collectie moet alleen unieke elementen bevatten.</target>
+        <target>Ez az érték érvényes JSON kell, hogy legyen.</target>
       </trans-unit>
       <trans-unit id="WdvZfq." resname="This value should be positive.">
         <source>This value should be positive.</source>
-        <target>Deze waarde moet positief zijn.</target>
+        <target>Ennek az értéknek pozitívnak kell lennie.</target>
       </trans-unit>
       <trans-unit id="ubHMK2q" resname="This value should be either positive or zero.">
         <source>This value should be either positive or zero.</source>
-        <target>Deze waarde moet positief of gelijk aan nul zijn.</target>
+        <target>Ennek az értéknek pozitívnak vagy nullának kell lennie.</target>
       </trans-unit>
       <trans-unit id="IwNTzo_" resname="This value should be negative.">
         <source>This value should be negative.</source>
-        <target>Deze waarde moet negatief zijn.</target>
+        <target>Ennek az értéknek negatívnak kell lennie.</target>
       </trans-unit>
       <trans-unit id="0GfwMfP" resname="This value should be either negative or zero.">
         <source>This value should be either negative or zero.</source>
-        <target>Deze waarde moet negatief of gelijk aan nul zijn.</target>
+        <target>Ennek az értéknek negatívnak vagy nullának kell lennie.</target>
+      </trans-unit>
+      <trans-unit id="9CWVEGq" resname="This collection should contain only unique elements.">
+        <source>This collection should contain only unique elements.</source>
+        <target>Ez a gyűjtemény csak egyedi elemeket tartalmazhat.</target>
       </trans-unit>
       <trans-unit id="fs3qQZR" resname="This value is not a valid timezone.">
         <source>This value is not a valid timezone.</source>
-        <target>Deze waarde is geen geldige tijdzone.</target>
+        <target>Ez az érték nem egy érvényes időzóna.</target>
       </trans-unit>
       <trans-unit id="40dnsod" resname="This password has been leaked in a data breach, it must not be used. Please use another password.">
         <source>This password has been leaked in a data breach, it must not be used. Please use another password.</source>
-        <target>Dit wachtwoord is gelekt vanwege een data-inbreuk, het moet niet worden gebruikt. Kies een ander wachtwoord.</target>
+        <target>Ez a jelszó korábban egy adatvédelmi incidens során illetéktelenek kezébe került, így nem használható. Kérjük, használjon másik jelszót.</target>
       </trans-unit>
       <trans-unit id="VvxxWas" resname="This value should be between {{ min }} and {{ max }}.">
         <source>This value should be between {{ min }} and {{ max }}.</source>
-        <target>Deze waarde moet zich tussen {{ min }} en {{ max }} bevinden.</target>
+        <target>Ennek az értéknek {{ min }} és {{ max }} között kell lennie.</target>
       </trans-unit>
       <trans-unit id=".SEaaBa" resname="This form should not contain extra fields.">
         <source>This form should not contain extra fields.</source>
-        <target>Dit formulier mag geen extra velden bevatten.</target>
+        <target>Ez a mezőcsoport nem tartalmazhat extra mezőket.</target>
       </trans-unit>
       <trans-unit id="WPnLAh9" resname="The uploaded file was too large. Please try to upload a smaller file.">
         <source>The uploaded file was too large. Please try to upload a smaller file.</source>
-        <target>Het geüploade bestand is te groot. Probeer een kleiner bestand te uploaden.</target>
+        <target>A feltöltött fájl túl nagy. Kérem, próbáljon egy kisebb fájlt feltölteni.</target>
       </trans-unit>
       <trans-unit id="fvxWW3V" resname="The CSRF token is invalid. Please try to resubmit the form.">
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
-        <target>De CSRF-token is ongeldig. Probeer het formulier opnieuw te versturen.</target>
+        <target>Érvénytelen CSRF token. Kérem, próbálja újra elküldeni az űrlapot.</target>
       </trans-unit>
       <trans-unit id="TG1D5NO" resname="post.blank_summary">
         <source>post.blank_summary</source>
-        <target>Geef uw bericht een samenvatting.</target>
+        <target>Írj hozzá egy összefoglaló részt!</target>
         <note priority="1">obsolete</note>
       </trans-unit>
       <trans-unit id="BZOzjk." resname="post.blank_content">
         <source>post.blank_content</source>
-        <target>Uw bericht heeft nog geen inhoud.</target>
+        <target>A posztnak tartalmaznia kell valami tartalmat!</target>
         <note priority="1">obsolete</note>
       </trans-unit>
       <trans-unit id="S6M.YWY" resname="post.too_short_content">
         <source>post.too_short_content</source>
-        <target>Bericht inhoud is te kort (minimaal {{ limit }} karakters)</target>
+        <target>A poszt túl rövid! (minimum {{ limit }} karakter)</target>
+        <note priority="1">obsolete</note>
+      </trans-unit>
+      <trans-unit id="niM7JYj" resname="post.too_many_tags">
+        <source>post.too_many_tags</source>
+        <target>Túl sok cimke (maximum {{ limit }} cimke lehet)</target>
         <note priority="1">obsolete</note>
       </trans-unit>
       <trans-unit id="ARUoKOV" resname="comment.blank">
         <source>comment.blank</source>
-        <target>Vul alstublieft een reactie in.</target>
+        <target>Kérlek ne hagyd üresen a kommentet!</target>
         <note priority="1">obsolete</note>
       </trans-unit>
       <trans-unit id="J.L_ppQ" resname="comment.too_short">
         <source>comment.too_short</source>
-        <target>Reactie is te kort (minimaal {{ limit }} karakters)</target>
+        <target>A komment túl rövid! (minimum {{ limit }} karakter)</target>
         <note priority="1">obsolete</note>
       </trans-unit>
       <trans-unit id=".bkQKXb" resname="comment.too_long">
         <source>comment.too_long</source>
-        <target>Reactie is te lang (maximaal {{ limit }} karakters)</target>
+        <target>A komment túl hosszú! (maximum {{ limit }} karakter lehet)</target>
         <note priority="1">obsolete</note>
       </trans-unit>
       <trans-unit id="cTT8h4_" resname="comment.is_spam">
         <source>comment.is_spam</source>
-        <target>De inhoud van deze reactie wordt als spam gemarkeerd.</target>
+        <target>A komment tartalma spamnek tűnik.</target>
         <note priority="1">obsolete</note>
       </trans-unit>
     </body>

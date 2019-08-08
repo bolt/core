@@ -20,8 +20,8 @@ class OmnisearchController extends TwigAwareController implements BackendZone
     public function omnisearch(): Response
     {
         $twigVars = [
-            'title' => 'Omnisearch',
-            'subtitle' => 'To search, in an omni-like fashion',
+            'title' => 'controller.omnisearch.title',
+            'subtitle' => 'controller.omnisearch.subtitle',
         ];
 
         return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);

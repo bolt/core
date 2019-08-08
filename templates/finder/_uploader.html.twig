@@ -1,7 +1,9 @@
 <div class="card mb-4">
     <div class="card-header">{{ 'caption.file_uploader'|trans }}</div>
 
-    <form action="{{ path('bolt_async_upload', {'location': location, 'path': path}) }}" method="POST" class="dropzone editor__image--dropzone">
+    <form class="dropzone editor__image--dropzone"
+          action="{{ path('bolt_async_upload', {'location': location, 'path': path}) }}"
+          method="POST">
         <i class="fas fa-upload"></i>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('upload') }}">
         <div class="fallback">

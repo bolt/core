@@ -25,10 +25,16 @@
     <div class="card-body">
         <p class="path">{{ 'caption.path'|trans }}: <code>{{ location }}{{ path }}</code></p>
 
-        View:
+        {{ 'finder.label_view'|trans }}
         <div class="btn-group">
-            <a href="{{ path('bolt_filemanager', {'location': location, 'path': path, 'view': 'list' }) }}" class="btn btn-secondary"><i class="fas fa-list fa-fw"></i> List</a>
-            <a href="{{ path('bolt_filemanager', {'location': location, 'path': path, 'view': 'cards' }) }}" class="btn btn-secondary ml-1"><i class="fas fa-th fa-fw"></i>Cards</a>
+            <a class="btn btn-secondary"
+               href="{{ path('bolt_filemanager', {'location': location, 'path': path, 'view': 'list' }) }}">
+                <i class="fas fa-list fa-fw"></i>{{ 'finder.button_list'|trans }}
+            </a>
+            <a class="btn btn-secondary ml-1"
+               href="{{ path('bolt_filemanager', {'location': location, 'path': path, 'view': 'cards' }) }}">
+                <i class="fas fa-th fa-fw"></i>{{ 'finder.button_cards'|trans }}
+            </a>
         </div>
     </div>
 </div>

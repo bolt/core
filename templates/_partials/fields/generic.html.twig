@@ -1,5 +1,6 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    <input name="{{ name }}" placeholder="{{ placeholder }}" type="text" value="{{ value|join(", ") }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
+    <input class="form-control {{ class }}" name="{{ name }}" placeholder="{{ placeholder }}"
+           type="text" value="{{ value|join(", ") }}" {{ attributes|default()|raw }}>
 {% endblock %}

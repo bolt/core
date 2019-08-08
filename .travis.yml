@@ -31,7 +31,7 @@ before_install:
 
 install:
   - COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
-  - nvm install 8.2
+  - nvm install 12.5
   - npm install
   - cd tests/e2e && npm install && node ./node_modules/protractor/bin/webdriver-manager update --gecko=false && cd ../..
 

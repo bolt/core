@@ -52,8 +52,8 @@ class AuthenticationController extends TwigAwareController implements BackendZon
     public function resetPassword(): Response
     {
         $twigVars = [
-            'title' => 'Reset Password',
-            'subtitle' => 'To reset your password, if you\'ve misplaced it',
+            'title' => 'controller.authentication.reset_title',
+            'subtitle' => 'controller.authentication.reset_subtitle',
         ];
 
         return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);

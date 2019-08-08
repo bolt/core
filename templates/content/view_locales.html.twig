@@ -36,11 +36,11 @@
                 {% for locale in locales %}
                     <td>
                         {% if not field.definition.localize and not loop.first %}
-                            <span class="badge badge-info">Default</span>
+                            <span class="badge badge-info">{{ 'view_locales.badge_default'|trans }}</span>
                         {% elseif localizedValues[locale]|default and localizedValues[locale].value is not empty %}
-                            <span class="badge badge-success">OK</span>
+                            <span class="badge badge-success">{{ 'view_locales.badge_ok'|trans }}</span>
                         {% else %}
-                            <span class="badge badge-warning">Missing</span>
+                            <span class="badge badge-warning">{{ 'view_locales.badge_missing'|trans }}</span>
                         {% endif %}
                     </td>
                 {% endfor %}
@@ -51,7 +51,8 @@
             <td>&nbsp;</td>
             {% for locale in locales %}
                 <td>
-                    <a href="{{ path('bolt_content_edit', {'id': record.id, 'edit_locale': locale}) }}" class="btn btn-secondary btn-sm">
+                    <a class="btn btn-secondary btn-sm"
+                       href="{{ path('bolt_content_edit', {'id': record.id, 'edit_locale': locale}) }}">
                         {{ 'general.phrase.edit'|trans }}
                     </a>
                 </td>
