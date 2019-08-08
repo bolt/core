@@ -87,6 +87,7 @@ class ProfileController extends TwigAwareController implements BackendZone
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
                 'user' => $user,
+                'suggestedPassword' => sprintf('%s_1234', $user->getUsername()),
             ]);
         }
 
