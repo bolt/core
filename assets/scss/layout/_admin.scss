@@ -15,7 +15,7 @@
     height: $admin-toolbar-height;
     width: 100vw;
     z-index: 5;
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(sm) {
       height: $admin-toolbar-height-wide;
     }
   }
@@ -93,8 +93,8 @@
         grid-column-gap: 1.5rem;
       }
       @include media-breakpoint-up(wd) {
-        grid-column-gap: 1.8125rem;
-        padding: $spacer $spacer*2 $spacer $spacer*1.5;
+        grid-column-gap: 2rem;
+        padding: $spacer $spacer*2 $spacer $spacer*2;
       }
       &--has-sidebar {
         // grid-template-columns: 3fr 1fr;

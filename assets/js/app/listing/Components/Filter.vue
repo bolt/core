@@ -27,7 +27,7 @@
           @click="changeSize('small')"
         >
           <i class="fas fa-align-justify fa-fw"></i>
-          {{ labels.button_compact }}
+          <span class="sr-only">{{ labels.button_compact }}</span>
         </button>
       </li>
 
@@ -39,7 +39,7 @@
           @click="changeSize('normal')"
         >
           <i class="fas fa-grip-lines fa-fw"></i>
-          {{ labels.button_expanded }}
+          <span class="sr-only">{{ labels.button_expanded }}</span>
         </button>
       </li>
 

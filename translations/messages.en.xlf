@@ -487,17 +487,23 @@
       </trans-unit>
       <trans-unit id="XNTbZW6" resname="action.visit_site">
         <source>action.visit_site</source>
-        <target>Visit site</target>
-      </trans-unit>
-      <trans-unit id="KfVJho2" resname="action.create_new">
+        <target>Visit website</target>
+      </segment>
+    </unit>
+    <unit id="KfVJho2" name="action.create_new">
+      <segment>
         <source>action.create_new</source>
-        <target>Create new</target>
-      </trans-unit>
-      <trans-unit id="b_RPpcB" resname="general.greeting">
+        <target>Create a new</target>
+      </segment>
+    </unit>
+    <unit id="b_RPpcB" name="general.greeting">
+      <segment>
         <source>general.greeting</source>
-        <target>Hey, %name%!</target>
-      </trans-unit>
-      <trans-unit id="bmdn3u9" resname="action.logout">
+        <target>%name%</target>
+      </segment>
+    </unit>
+    <unit id="bmdn3u9" name="action.logout">
+      <segment>
         <source>action.logout</source>
         <target>Logout</target>
       </trans-unit>

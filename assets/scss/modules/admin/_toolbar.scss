@@ -104,6 +104,12 @@
     }
 
     &__brand {      
+      @include media-breakpoint-up(lg) {
+        flex: 0 1 $admin-sidebar-width;
+      }
+      @include media-breakpoint-up(wd) {
+        flex: 0 1 $admin-sidebar-width-wide;
+      }
       .is-slim & {
         
       }
@@ -119,8 +125,23 @@
           overflow: auto;
           padding: 0 1rem;
         }
+        @include media-breakpoint-up(lg) {
+          text-align: left;
+        }
         &:after {
           vertical-align: middle;
+        }
+      }
+      .dropdown-menu {
+        @include media-breakpoint-up(wd) {
+          min-width: 251px;
+        }
+      }
+
+      &__new {
+        .fas {
+          position: relative;
+          top: -1px;
         }
       }
 
@@ -139,6 +160,14 @@
       a {
         height: 100%;
         padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+        white-space: nowrap;
+        @include media-breakpoint-up(sm) {
+          padding: 0.85rem 1rem;
+        }
+        @include media-breakpoint-up(md) {
+          font-size: 0.9375rem;
+        }
       }
       i, .fas {
         margin-right: 0.25rem;
