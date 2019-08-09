@@ -4,6 +4,7 @@
     <sidebar-toggler
       :version="version"
       :about-link="aboutLink"
+      :labels="labels"
     ></sidebar-toggler>
     <footer class="admin__sidebar--footer">
       <a :href="aboutLink"
@@ -23,7 +24,7 @@ export default {
     'sidebar-menu': Menu,
     'sidebar-toggler': SidebarToggler,
   },
-  props: ['menu', 'version', 'aboutLink'],
+  props: ['menu', 'version', 'aboutLink', 'labels'],
   created() {
     const slim = JSON.parse(localStorage.getItem('slim-sidebar'));
 
