@@ -2,8 +2,10 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% block title %}
-    {{ macro.icon('user') }}
-    {{ 'title.edit_user'|trans }} » {{ display_name|default(__('user.new_user')) }}
+    <span class="admin__header--title__prefix">
+      {{ 'title.edit_user'|trans }}
+    </span>
+    {{ macro.icon('user') }} {{ display_name|default(__('user.new_user')) }}
 {% endblock %}
 
 {% block vue_id 'editor' %}

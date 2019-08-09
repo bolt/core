@@ -8,6 +8,7 @@ use Bolt\Common\Json;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
+use Bolt\Utils\Str;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,19 +26,13 @@ class ProfileController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /**
-     * @var ObjectManager
-     */
+    /*** @var ObjectManager */
     private $em;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
+    /*** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
     public function __construct(
@@ -87,11 +82,11 @@ class ProfileController extends TwigAwareController implements BackendZone
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
                 'user' => $user,
-                'suggestedPassword' => sprintf('%s_1234', $user->getUsername()),
+                'suggestedPassword' => Str::generatePassword(),
             ]);
         }
 
-        if ($newPassword !== null) {
+        if (! empty($newPassword)) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 
