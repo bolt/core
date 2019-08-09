@@ -63,7 +63,7 @@
 
             {% set roleOptions = [] %}
 
-            {% for roleName, roleHierarchy in roles %}
+            {% for roleName, roleHierarchy in roles ?? [] %}
                 {% set roleOptions = roleOptions|merge([
                     {
                         'key': roleName,
