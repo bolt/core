@@ -1,426 +1,641 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="hu" target-language="en" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="zh5oKD9" resname="This value should be false.">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="validators.en">
+    <unit id="zh5oKD9" name="This value should be false.">
+      <segment>
         <source>This value should be false.</source>
         <target>This value should be false.</target>
-      </trans-unit>
-      <trans-unit id="NN2_iru" resname="This value should be true.">
+      </segment>
+    </unit>
+    <unit id="NN2_iru" name="This value should be true.">
+      <segment>
         <source>This value should be true.</source>
         <target>This value should be true.</target>
-      </trans-unit>
-      <trans-unit id="OjM_kpf" resname="This value should be of type {{ type }}.">
+      </segment>
+    </unit>
+    <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
+      <segment>
         <source>This value should be of type {{ type }}.</source>
         <target>This value should be of type {{ type }}.</target>
-      </trans-unit>
-      <trans-unit id="f0P5pBD" resname="This value should be blank.">
+      </segment>
+    </unit>
+    <unit id="f0P5pBD" name="This value should be blank.">
+      <segment>
         <source>This value should be blank.</source>
         <target>This value should be blank.</target>
-      </trans-unit>
-      <trans-unit id="ih.4TRN" resname="The value you selected is not a valid choice.">
+      </segment>
+    </unit>
+    <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
+      <segment>
         <source>The value you selected is not a valid choice.</source>
         <target>The value you selected is not a valid choice.</target>
-      </trans-unit>
-      <trans-unit id="u81CkP8" resname="You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.">
+      </segment>
+    </unit>
+    <unit id="u81CkP8" name="0d999f2">
+      <segment>
         <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
         <target>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</target>
-      </trans-unit>
-      <trans-unit id="nIvOQ_o" resname="You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.">
+      </segment>
+    </unit>
+    <unit id="nIvOQ_o" name="0824486">
+      <segment>
         <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
         <target>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</target>
-      </trans-unit>
-      <trans-unit id="87zjiHi" resname="One or more of the given values is invalid.">
+      </segment>
+    </unit>
+    <unit id="87zjiHi" name="One or more of the given values is invalid.">
+      <segment>
         <source>One or more of the given values is invalid.</source>
         <target>One or more of the given values is invalid.</target>
-      </trans-unit>
-      <trans-unit id="3NeQftv" resname="This field was not expected.">
+      </segment>
+    </unit>
+    <unit id="3NeQftv" name="This field was not expected.">
+      <segment>
         <source>This field was not expected.</source>
         <target>This field was not expected.</target>
-      </trans-unit>
-      <trans-unit id="SwMV4zp" resname="This field is missing.">
+      </segment>
+    </unit>
+    <unit id="SwMV4zp" name="This field is missing.">
+      <segment>
         <source>This field is missing.</source>
         <target>This field is missing.</target>
-      </trans-unit>
-      <trans-unit id="LO2vFKN" resname="This value is not a valid date.">
+      </segment>
+    </unit>
+    <unit id="LO2vFKN" name="This value is not a valid date.">
+      <segment>
         <source>This value is not a valid date.</source>
         <target>This value is not a valid date.</target>
-      </trans-unit>
-      <trans-unit id="86dU_nv" resname="This value is not a valid datetime.">
+      </segment>
+    </unit>
+    <unit id="86dU_nv" name="This value is not a valid datetime.">
+      <segment>
         <source>This value is not a valid datetime.</source>
         <target>This value is not a valid datetime.</target>
-      </trans-unit>
-      <trans-unit id="PSvNXdi" resname="This value is not a valid email address.">
+      </segment>
+    </unit>
+    <unit id="PSvNXdi" name="This value is not a valid email address.">
+      <segment>
         <source>This value is not a valid email address.</source>
         <target>This value is not a valid email address.</target>
-      </trans-unit>
-      <trans-unit id="3KeHbZy" resname="The file could not be found.">
+      </segment>
+    </unit>
+    <unit id="3KeHbZy" name="The file could not be found.">
+      <segment>
         <source>The file could not be found.</source>
         <target>The file could not be found.</target>
-      </trans-unit>
-      <trans-unit id="KtJhQZo" resname="The file is not readable.">
+      </segment>
+    </unit>
+    <unit id="KtJhQZo" name="The file is not readable.">
+      <segment>
         <source>The file is not readable.</source>
         <target>The file is not readable.</target>
-      </trans-unit>
-      <trans-unit id="JocOVM2" resname="The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.">
+      </segment>
+    </unit>
+    <unit id="JocOVM2" name="1ad411a">
+      <segment>
         <source>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</source>
         <target>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</target>
-      </trans-unit>
-      <trans-unit id="YW21SPH" resname="The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.">
+      </segment>
+    </unit>
+    <unit id="YW21SPH" name="30a318d">
+      <segment>
         <source>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</source>
         <target>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</target>
-      </trans-unit>
-      <trans-unit id="NubOmrs" resname="This value should be {{ limit }} or less.">
+      </segment>
+    </unit>
+    <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
+      <segment>
         <source>This value should be {{ limit }} or less.</source>
         <target>This value should be {{ limit }} or less.</target>
-      </trans-unit>
-      <trans-unit id="HX7TOFm" resname="This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.">
+      </segment>
+    </unit>
+    <unit id="HX7TOFm" name="0e0c1e1">
+      <segment>
         <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
         <target>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</target>
-      </trans-unit>
-      <trans-unit id="qgR8M_U" resname="This value should be {{ limit }} or more.">
+      </segment>
+    </unit>
+    <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
+      <segment>
         <source>This value should be {{ limit }} or more.</source>
         <target>This value should be {{ limit }} or more.</target>
-      </trans-unit>
-      <trans-unit id="ekfrU.c" resname="This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.">
+      </segment>
+    </unit>
+    <unit id="ekfrU.c" name="5188ff9">
+      <segment>
         <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
         <target>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</target>
-      </trans-unit>
-      <trans-unit id="1KV4L.t" resname="This value should not be blank.">
+      </segment>
+    </unit>
+    <unit id="1KV4L.t" name="This value should not be blank.">
+      <segment>
         <source>This value should not be blank.</source>
         <target>This value should not be blank.</target>
-      </trans-unit>
-      <trans-unit id="2G4Vepm" resname="This value should not be null.">
+      </segment>
+    </unit>
+    <unit id="2G4Vepm" name="This value should not be null.">
+      <segment>
         <source>This value should not be null.</source>
         <target>This value should not be null.</target>
-      </trans-unit>
-      <trans-unit id="yDc3m6E" resname="This value should be null.">
+      </segment>
+    </unit>
+    <unit id="yDc3m6E" name="This value should be null.">
+      <segment>
         <source>This value should be null.</source>
         <target>This value should be null.</target>
-      </trans-unit>
-      <trans-unit id="zKzWejA" resname="This value is not valid.">
+      </segment>
+    </unit>
+    <unit id="zKzWejA" name="This value is not valid.">
+      <segment>
         <source>This value is not valid.</source>
         <target>This value is not valid.</target>
-      </trans-unit>
-      <trans-unit id="HSuBZpQ" resname="This value is not a valid time.">
+      </segment>
+    </unit>
+    <unit id="HSuBZpQ" name="This value is not a valid time.">
+      <segment>
         <source>This value is not a valid time.</source>
         <target>This value is not a valid time.</target>
-      </trans-unit>
-      <trans-unit id="snWc_QT" resname="This value is not a valid URL.">
+      </segment>
+    </unit>
+    <unit id="snWc_QT" name="This value is not a valid URL.">
+      <segment>
         <source>This value is not a valid URL.</source>
         <target>This value is not a valid URL.</target>
-      </trans-unit>
-      <trans-unit id="jpaLsb2" resname="The two values should be equal.">
+      </segment>
+    </unit>
+    <unit id="jpaLsb2" name="The two values should be equal.">
+      <segment>
         <source>The two values should be equal.</source>
         <target>The two values should be equal.</target>
-      </trans-unit>
-      <trans-unit id="fIlB1B_" resname="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      </segment>
+    </unit>
+    <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      <segment>
         <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
         <target>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</target>
-      </trans-unit>
-      <trans-unit id="tW7o0t9" resname="The file is too large.">
+      </segment>
+    </unit>
+    <unit id="tW7o0t9" name="The file is too large.">
+      <segment>
         <source>The file is too large.</source>
         <target>The file is too large.</target>
-      </trans-unit>
-      <trans-unit id=".exF5Ww" resname="The file could not be uploaded.">
+      </segment>
+    </unit>
+    <unit id=".exF5Ww" name="The file could not be uploaded.">
+      <segment>
         <source>The file could not be uploaded.</source>
         <target>The file could not be uploaded.</target>
-      </trans-unit>
-      <trans-unit id="d7sS5yw" resname="This value should be a valid number.">
+      </segment>
+    </unit>
+    <unit id="d7sS5yw" name="This value should be a valid number.">
+      <segment>
         <source>This value should be a valid number.</source>
         <target>This value should be a valid number.</target>
-      </trans-unit>
-      <trans-unit id="BS2Ez6i" resname="This file is not a valid image.">
+      </segment>
+    </unit>
+    <unit id="BS2Ez6i" name="This file is not a valid image.">
+      <segment>
         <source>This file is not a valid image.</source>
         <target>This file is not a valid image.</target>
-      </trans-unit>
-      <trans-unit id="ydcT9kU" resname="This is not a valid IP address.">
+      </segment>
+    </unit>
+    <unit id="ydcT9kU" name="This is not a valid IP address.">
+      <segment>
         <source>This is not a valid IP address.</source>
         <target>This is not a valid IP address.</target>
-      </trans-unit>
-      <trans-unit id="lDOGNFX" resname="This value is not a valid language.">
+      </segment>
+    </unit>
+    <unit id="lDOGNFX" name="This value is not a valid language.">
+      <segment>
         <source>This value is not a valid language.</source>
         <target>This value is not a valid language.</target>
-      </trans-unit>
-      <trans-unit id="y9IdYkA" resname="This value is not a valid locale.">
+      </segment>
+    </unit>
+    <unit id="y9IdYkA" name="This value is not a valid locale.">
+      <segment>
         <source>This value is not a valid locale.</source>
         <target>This value is not a valid locale.</target>
-      </trans-unit>
-      <trans-unit id="1YC0pOd" resname="This value is not a valid country.">
+      </segment>
+    </unit>
+    <unit id="1YC0pOd" name="This value is not a valid country.">
+      <segment>
         <source>This value is not a valid country.</source>
         <target>This value is not a valid country.</target>
-      </trans-unit>
-      <trans-unit id="B5ebaMp" resname="This value is already used.">
+      </segment>
+    </unit>
+    <unit id="B5ebaMp" name="This value is already used.">
+      <segment>
         <source>This value is already used.</source>
         <target>This value is already used.</target>
-      </trans-unit>
-      <trans-unit id="L6097a6" resname="The size of the image could not be detected.">
+      </segment>
+    </unit>
+    <unit id="L6097a6" name="The size of the image could not be detected.">
+      <segment>
         <source>The size of the image could not be detected.</source>
         <target>The size of the image could not be detected.</target>
-      </trans-unit>
-      <trans-unit id="zVtJJEa" resname="The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.">
+      </segment>
+    </unit>
+    <unit id="zVtJJEa" name="266051e">
+      <segment>
         <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
         <target>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</target>
-      </trans-unit>
-      <trans-unit id="s8LFQGC" resname="The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.">
+      </segment>
+    </unit>
+    <unit id="s8LFQGC" name="c1c23f9">
+      <segment>
         <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
         <target>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</target>
-      </trans-unit>
-      <trans-unit id="Z.NgqFj" resname="The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.">
+      </segment>
+    </unit>
+    <unit id="Z.NgqFj" name="9a128f7">
+      <segment>
         <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
         <target>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</target>
-      </trans-unit>
-      <trans-unit id="AW1lWVM" resname="The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.">
+      </segment>
+    </unit>
+    <unit id="AW1lWVM" name="8a4cd70">
+      <segment>
         <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
         <target>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</target>
-      </trans-unit>
-      <trans-unit id="PSdMNab" resname="This value should be the user's current password.">
+      </segment>
+    </unit>
+    <unit id="PSdMNab" name="This value should be the user's current password.">
+      <segment>
         <source>This value should be the user's current password.</source>
         <target>This value should be the user's current password.</target>
-      </trans-unit>
-      <trans-unit id="gYImVyV" resname="This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.">
+      </segment>
+    </unit>
+    <unit id="gYImVyV" name="fd389d6">
+      <segment>
         <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
         <target>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</target>
-      </trans-unit>
-      <trans-unit id="xJ2Bcr_" resname="The file was only partially uploaded.">
+      </segment>
+    </unit>
+    <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
+      <segment>
         <source>The file was only partially uploaded.</source>
         <target>The file was only partially uploaded.</target>
-      </trans-unit>
-      <trans-unit id="HzkJDtF" resname="No file was uploaded.">
+      </segment>
+    </unit>
+    <unit id="HzkJDtF" name="No file was uploaded.">
+      <segment>
         <source>No file was uploaded.</source>
         <target>No file was uploaded.</target>
-      </trans-unit>
-      <trans-unit id="mHfEaB3" resname="No temporary folder was configured in php.ini.">
+      </segment>
+    </unit>
+    <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
+      <segment>
         <source>No temporary folder was configured in php.ini.</source>
         <target>No temporary folder was configured in php.ini, or the configured folder does not exist.</target>
-      </trans-unit>
-      <trans-unit id="y9K3BGb" resname="Cannot write temporary file to disk.">
+      </segment>
+    </unit>
+    <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
+      <segment>
         <source>Cannot write temporary file to disk.</source>
         <target>Cannot write temporary file to disk.</target>
-      </trans-unit>
-      <trans-unit id="kx3yHIM" resname="A PHP extension caused the upload to fail.">
+      </segment>
+    </unit>
+    <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
+      <segment>
         <source>A PHP extension caused the upload to fail.</source>
         <target>A PHP extension caused the upload to fail.</target>
-      </trans-unit>
-      <trans-unit id="gTJYRl6" resname="This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.">
+      </segment>
+    </unit>
+    <unit id="gTJYRl6" name="b54c218">
+      <segment>
         <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
         <target>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</target>
-      </trans-unit>
-      <trans-unit id="FFn3lVn" resname="This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.">
+      </segment>
+    </unit>
+    <unit id="FFn3lVn" name="949632c">
+      <segment>
         <source>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</source>
         <target>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</target>
-      </trans-unit>
-      <trans-unit id="bSdilZv" resname="This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.">
+      </segment>
+    </unit>
+    <unit id="bSdilZv" name="e0582dc">
+      <segment>
         <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
         <target>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</target>
-      </trans-unit>
-      <trans-unit id="MAzmID7" resname="Invalid card number.">
+      </segment>
+    </unit>
+    <unit id="MAzmID7" name="Invalid card number.">
+      <segment>
         <source>Invalid card number.</source>
         <target>Invalid card number.</target>
-      </trans-unit>
-      <trans-unit id="c3REGK3" resname="Unsupported card type or invalid card number.">
+      </segment>
+    </unit>
+    <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
+      <segment>
         <source>Unsupported card type or invalid card number.</source>
         <target>Unsupported card type or invalid card number.</target>
-      </trans-unit>
-      <trans-unit id="XSVzcbV" resname="This is not a valid International Bank Account Number (IBAN).">
+      </segment>
+    </unit>
+    <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
+      <segment>
         <source>This is not a valid International Bank Account Number (IBAN).</source>
         <target>This is not a valid International Bank Account Number (IBAN).</target>
-      </trans-unit>
-      <trans-unit id="yHirwNr" resname="This value is not a valid ISBN-10.">
+      </segment>
+    </unit>
+    <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
+      <segment>
         <source>This value is not a valid ISBN-10.</source>
         <target>This value is not a valid ISBN-10.</target>
-      </trans-unit>
-      <trans-unit id="c_q0_ua" resname="This value is not a valid ISBN-13.">
+      </segment>
+    </unit>
+    <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
+      <segment>
         <source>This value is not a valid ISBN-13.</source>
         <target>This value is not a valid ISBN-13.</target>
-      </trans-unit>
-      <trans-unit id="M4FlD6n" resname="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      </segment>
+    </unit>
+    <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      <segment>
         <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
         <target>This value is neither a valid ISBN-10 nor a valid ISBN-13.</target>
-      </trans-unit>
-      <trans-unit id="cuct0Ow" resname="This value is not a valid ISSN.">
+      </segment>
+    </unit>
+    <unit id="cuct0Ow" name="This value is not a valid ISSN.">
+      <segment>
         <source>This value is not a valid ISSN.</source>
         <target>This value is not a valid ISSN.</target>
-      </trans-unit>
-      <trans-unit id="JBLs1a1" resname="This value is not a valid currency.">
+      </segment>
+    </unit>
+    <unit id="JBLs1a1" name="This value is not a valid currency.">
+      <segment>
         <source>This value is not a valid currency.</source>
         <target>This value is not a valid currency.</target>
-      </trans-unit>
-      <trans-unit id="c.WxzFW" resname="This value should be equal to {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
+      <segment>
         <source>This value should be equal to {{ compared_value }}.</source>
         <target>This value should be equal to {{ compared_value }}.</target>
-      </trans-unit>
-      <trans-unit id="_jdjkwq" resname="This value should be greater than {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
+      <segment>
         <source>This value should be greater than {{ compared_value }}.</source>
         <target>This value should be greater than {{ compared_value }}.</target>
-      </trans-unit>
-      <trans-unit id="o8A8a0H" resname="This value should be greater than or equal to {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
+      <segment>
         <source>This value should be greater than or equal to {{ compared_value }}.</source>
         <target>This value should be greater than or equal to {{ compared_value }}.</target>
-      </trans-unit>
-      <trans-unit id="bOF1fpm" resname="This value should be identical to {{ compared_value_type }} {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="bOF1fpm" name="9670078">
+      <segment>
         <source>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</source>
         <target>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</target>
-      </trans-unit>
-      <trans-unit id="jG0QFKw" resname="This value should be less than {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
+      <segment>
         <source>This value should be less than {{ compared_value }}.</source>
         <target>This value should be less than {{ compared_value }}.</target>
-      </trans-unit>
-      <trans-unit id="9lWrKmm" resname="This value should be less than or equal to {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
+      <segment>
         <source>This value should be less than or equal to {{ compared_value }}.</source>
         <target>This value should be less than or equal to {{ compared_value }}.</target>
-      </trans-unit>
-      <trans-unit id="ftTwGs." resname="This value should not be equal to {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
+      <segment>
         <source>This value should not be equal to {{ compared_value }}.</source>
         <target>This value should not be equal to {{ compared_value }}.</target>
-      </trans-unit>
-      <trans-unit id="Bi22JLt" resname="This value should not be identical to {{ compared_value_type }} {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="Bi22JLt" name="0eedf91">
+      <segment>
         <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
         <target>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</target>
-      </trans-unit>
-      <trans-unit id="VczCWzQ" resname="The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.">
+      </segment>
+    </unit>
+    <unit id="VczCWzQ" name="9c3ad0f">
+      <segment>
         <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
         <target>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</target>
-      </trans-unit>
-      <trans-unit id="v57PXhq" resname="The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.">
+      </segment>
+    </unit>
+    <unit id="v57PXhq" name="4376d45">
+      <segment>
         <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
         <target>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</target>
-      </trans-unit>
-      <trans-unit id="rpajj.a" resname="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      </segment>
+    </unit>
+    <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      <segment>
         <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
         <target>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</target>
-      </trans-unit>
-      <trans-unit id="G_lu2qW" resname="The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.">
+      </segment>
+    </unit>
+    <unit id="G_lu2qW" name="1dc128a">
+      <segment>
         <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
         <target>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</target>
-      </trans-unit>
-      <trans-unit id="sFyGx4B" resname="The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.">
+      </segment>
+    </unit>
+    <unit id="sFyGx4B" name="9e27714">
+      <segment>
         <source>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</source>
         <target>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</target>
-      </trans-unit>
-      <trans-unit id="jZgqcpL" resname="An empty file is not allowed.">
+      </segment>
+    </unit>
+    <unit id="jZgqcpL" name="An empty file is not allowed.">
+      <segment>
         <source>An empty file is not allowed.</source>
         <target>An empty file is not allowed.</target>
-      </trans-unit>
-      <trans-unit id="bcfVezI" resname="The host could not be resolved.">
+      </segment>
+    </unit>
+    <unit id="bcfVezI" name="The host could not be resolved.">
+      <segment>
         <source>The host could not be resolved.</source>
         <target>The host could not be resolved.</target>
-      </trans-unit>
-      <trans-unit id="NtzKvgt" resname="This value does not match the expected {{ charset }} charset.">
+      </segment>
+    </unit>
+    <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
+      <segment>
         <source>This value does not match the expected {{ charset }} charset.</source>
         <target>This value does not match the expected {{ charset }} charset.</target>
-      </trans-unit>
-      <trans-unit id="Wi2y9.N" resname="This is not a valid Business Identifier Code (BIC).">
+      </segment>
+    </unit>
+    <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
+      <segment>
         <source>This is not a valid Business Identifier Code (BIC).</source>
         <target>This is not a valid Business Identifier Code (BIC).</target>
-      </trans-unit>
-      <trans-unit id="VKDowX6" resname="Error">
+      </segment>
+    </unit>
+    <unit id="VKDowX6" name="Error">
+      <segment>
         <source>Error</source>
         <target>Error</target>
-      </trans-unit>
-      <trans-unit id="8zqt0Ik" resname="This is not a valid UUID.">
+      </segment>
+    </unit>
+    <unit id="8zqt0Ik" name="This is not a valid UUID.">
+      <segment>
         <source>This is not a valid UUID.</source>
         <target>This is not a valid UUID.</target>
-      </trans-unit>
-      <trans-unit id="ru.4wkH" resname="This value should be a multiple of {{ compared_value }}.">
+      </segment>
+    </unit>
+    <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
+      <segment>
         <source>This value should be a multiple of {{ compared_value }}.</source>
         <target>This value should be a multiple of {{ compared_value }}.</target>
-      </trans-unit>
-      <trans-unit id="M3vyK6s" resname="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      </segment>
+    </unit>
+    <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      <segment>
         <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
         <target>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</target>
-      </trans-unit>
-      <trans-unit id="2v2xpAh" resname="This value should be valid JSON.">
+      </segment>
+    </unit>
+    <unit id="2v2xpAh" name="This value should be valid JSON.">
+      <segment>
         <source>This value should be valid JSON.</source>
         <target>This value should be valid JSON.</target>
-      </trans-unit>
-      <trans-unit id="9CWVEGq" resname="This collection should contain only unique elements.">
+      </segment>
+    </unit>
+    <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <segment>
         <source>This collection should contain only unique elements.</source>
         <target>This collection should contain only unique elements.</target>
-      </trans-unit>
-      <trans-unit id="WdvZfq." resname="This value should be positive.">
+      </segment>
+    </unit>
+    <unit id="WdvZfq." name="This value should be positive.">
+      <segment>
         <source>This value should be positive.</source>
         <target>This value should be positive.</target>
-      </trans-unit>
-      <trans-unit id="ubHMK2q" resname="This value should be either positive or zero.">
+      </segment>
+    </unit>
+    <unit id="ubHMK2q" name="This value should be either positive or zero.">
+      <segment>
         <source>This value should be either positive or zero.</source>
         <target>This value should be either positive or zero.</target>
-      </trans-unit>
-      <trans-unit id="IwNTzo_" resname="This value should be negative.">
+      </segment>
+    </unit>
+    <unit id="IwNTzo_" name="This value should be negative.">
+      <segment>
         <source>This value should be negative.</source>
         <target>This value should be negative.</target>
-      </trans-unit>
-      <trans-unit id="0GfwMfP" resname="This value should be either negative or zero.">
+      </segment>
+    </unit>
+    <unit id="0GfwMfP" name="This value should be either negative or zero.">
+      <segment>
         <source>This value should be either negative or zero.</source>
         <target>This value should be either negative or zero.</target>
-      </trans-unit>
-      <trans-unit id="fs3qQZR" resname="This value is not a valid timezone.">
+      </segment>
+    </unit>
+    <unit id="fs3qQZR" name="This value is not a valid timezone.">
+      <segment>
         <source>This value is not a valid timezone.</source>
         <target>This value is not a valid timezone.</target>
-      </trans-unit>
-      <trans-unit id="40dnsod" resname="This password has been leaked in a data breach, it must not be used. Please use another password.">
+      </segment>
+    </unit>
+    <unit id="40dnsod" name="7e27e92">
+      <segment>
         <source>This password has been leaked in a data breach, it must not be used. Please use another password.</source>
         <target>This password has been leaked in a data breach, it must not be used. Please use another password.</target>
-      </trans-unit>
-      <trans-unit id="VvxxWas" resname="This value should be between {{ min }} and {{ max }}.">
+      </segment>
+    </unit>
+    <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
+      <segment>
         <source>This value should be between {{ min }} and {{ max }}.</source>
         <target>This value should be between {{ min }} and {{ max }}.</target>
-      </trans-unit>
-      <trans-unit id=".SEaaBa" resname="This form should not contain extra fields.">
+      </segment>
+    </unit>
+    <unit id=".SEaaBa" name="This form should not contain extra fields.">
+      <segment>
         <source>This form should not contain extra fields.</source>
         <target>This form should not contain extra fields.</target>
-      </trans-unit>
-      <trans-unit id="WPnLAh9" resname="The uploaded file was too large. Please try to upload a smaller file.">
+      </segment>
+    </unit>
+    <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
+      <segment>
         <source>The uploaded file was too large. Please try to upload a smaller file.</source>
         <target>The uploaded file was too large. Please try to upload a smaller file.</target>
-      </trans-unit>
-      <trans-unit id="fvxWW3V" resname="The CSRF token is invalid. Please try to resubmit the form.">
+      </segment>
+    </unit>
+    <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
+      <segment>
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
         <target>The CSRF token is invalid. Please try to resubmit the form.</target>
-      </trans-unit>
-      <trans-unit id="TG1D5NO" resname="post.blank_summary">
+      </segment>
+    </unit>
+    <unit id="TG1D5NO" name="post.blank_summary">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
         <source>post.blank_summary</source>
         <target>Give your post a summary!</target>
+      </segment>
+    </unit>
+    <unit id="BZOzjk." name="post.blank_content">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="BZOzjk." resname="post.blank_content">
+      </notes>
+      <segment>
         <source>post.blank_content</source>
         <target>Your post should have some content!</target>
+      </segment>
+    </unit>
+    <unit id="S6M.YWY" name="post.too_short_content">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="S6M.YWY" resname="post.too_short_content">
+      </notes>
+      <segment>
         <source>post.too_short_content</source>
         <target>Post content is too short ({{ limit }} characters minimum)</target>
+      </segment>
+    </unit>
+    <unit id="niM7JYj" name="post.too_many_tags">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="niM7JYj" resname="post.too_many_tags">
+      </notes>
+      <segment>
         <source>post.too_many_tags</source>
         <target>Too many tags (add {{ limit }} tags or less)</target>
+      </segment>
+    </unit>
+    <unit id="ARUoKOV" name="comment.blank">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="ARUoKOV" resname="comment.blank">
+      </notes>
+      <segment>
         <source>comment.blank</source>
         <target>Please don't leave your comment blank!</target>
+      </segment>
+    </unit>
+    <unit id="J.L_ppQ" name="comment.too_short">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="J.L_ppQ" resname="comment.too_short">
+      </notes>
+      <segment>
         <source>comment.too_short</source>
         <target>Comment is too short ({{ limit }} characters minimum)</target>
+      </segment>
+    </unit>
+    <unit id=".bkQKXb" name="comment.too_long">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id=".bkQKXb" resname="comment.too_long">
+      </notes>
+      <segment>
         <source>comment.too_long</source>
         <target>Comment is too long ({{ limit }} characters maximum)</target>
+      </segment>
+    </unit>
+    <unit id="cTT8h4_" name="comment.is_spam">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="cTT8h4_" resname="comment.is_spam">
+      </notes>
+      <segment>
         <source>comment.is_spam</source>
         <target>The content of this comment is considered spam.</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-    </body>
+      </segment>
+    </unit>
   </file>
 </xliff>
