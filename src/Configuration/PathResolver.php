@@ -49,7 +49,7 @@ class PathResolver
      *
      * @throws ConfigurationException
      */
-    public function __construct(string $root, array $paths = [])
+    public function __construct(string $root, array $paths = [], string $themeName = '')
     {
         if (empty($paths)) {
             $paths = $this->defaultPaths();
@@ -65,6 +65,8 @@ class PathResolver
         }
 
         $this->paths['root'] = $root;
+	
+        $this->paths['theme'] = '%themes%/' . $themeName;
     }
 
     /**

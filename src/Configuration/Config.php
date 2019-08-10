@@ -41,7 +41,7 @@ class Config
         $this->data = $this->getConfig();
 
         // @todo PathResolver shouldn't be part of Config. Refactor to separate class
-        $this->pathResolver = new PathResolver($projectDir, []);
+        $this->pathResolver = new PathResolver($projectDir, [], $this->get('general/theme'));
     }
 
     private function getConfig(): Collection
