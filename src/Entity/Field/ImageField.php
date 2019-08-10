@@ -9,6 +9,7 @@ use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @ORM\Entity
@@ -48,6 +49,11 @@ class ImageField extends Field implements FieldInterface
 
         // Generate a URL
         $value['path'] = $this->getPath();
+
+        // @todo This needs to be injected, not created on the fly.
+        $package = new PathPackage('/files/', new EmptyVersionStrategy());
+        $request = Request::createFromGlobals();
+        $value['url'] = $request->getUriForPath($package->getUrl($this->getPath()));
 
         return $value;
     }
