@@ -645,7 +645,7 @@
     <unit id="tgLgLDQ" name="about.list_of_used_libraries">
       <segment>
         <source>about.list_of_used_libraries</source>
-        <target>__about.list_of_used_libraries</target>
+        <target>Hieronder staat een lijst met een deel van de gebruikte Libraries / Componenten in Bolt.</target>
       </segment>
     </unit>
     <unit id="2RYT2e3" name="dashboard.title_boltcms">
@@ -801,43 +801,43 @@
     <unit id="zg5Dum5" name="geolocation.label_geolocation">
       <segment>
         <source>geolocation.label_geolocation</source>
-        <target>__geolocation.label_geolocation</target>
+        <target>Geolocatie</target>
       </segment>
     </unit>
     <unit id="Com0pbc" name="geolocation.label_address">
       <segment>
         <source>geolocation.label_address</source>
-        <target>__geolocation.label_address</target>
+        <target>Adres</target>
       </segment>
     </unit>
     <unit id="3o0LPHj" name="geolocation.placeholder_address">
       <segment>
         <source>geolocation.placeholder_address</source>
-        <target>__geolocation.placeholder_address</target>
+        <target>Adres …</target>
       </segment>
     </unit>
     <unit id="CC5QTmy" name="geolocation.label_lat">
       <segment>
         <source>geolocation.label_lat</source>
-        <target>__geolocation.label_lat</target>
+        <target>Lat</target>
       </segment>
     </unit>
     <unit id="AHaenW3" name="geolocation.label_long">
       <segment>
         <source>geolocation.label_long</source>
-        <target>__geolocation.label_long</target>
+        <target>Lon</target>
       </segment>
     </unit>
     <unit id="MJ5WYEM" name="geolocation.label_address_matched">
       <segment>
         <source>geolocation.label_address_matched</source>
-        <target>__geolocation.label_address_matched</target>
+        <target>Gevonden adres</target>
       </segment>
     </unit>
     <unit id="WJGjWG8" name="geolocation.label_marker">
       <segment>
         <source>geolocation.label_marker</source>
-        <target>__geolocation.label_marker</target>
+        <target>Marker</target>
       </segment>
     </unit>
     <unit id="SaP3OOf" name="geolocation.label_control">
@@ -849,31 +849,31 @@
     <unit id="VQ2t655" name="file.label_filename">
       <segment>
         <source>file.label_filename</source>
-        <target>__file.label_filename</target>
+        <target>Bestandsnaam</target>
       </segment>
     </unit>
     <unit id="TJDc9vQ" name="file.label_alt">
       <segment>
         <source>file.label_alt</source>
-        <target>__file.label_alt</target>
+        <target>Alt</target>
       </segment>
     </unit>
     <unit id="tvpSmD7" name="file.label_title">
       <segment>
         <source>file.label_title</source>
-        <target>__file.label_title</target>
+        <target>Title</target>
       </segment>
     </unit>
     <unit id="hXT_hI." name="file.button_view">
       <segment>
         <source>file.button_view</source>
-        <target>__file.button_view</target>
+        <target>Bekijk</target>
       </segment>
     </unit>
     <unit id="QKIqqOw" name="file.button_upload">
       <segment>
         <source>file.button_upload</source>
-        <target>__file.button_upload</target>
+        <target>Upload</target>
       </segment>
     </unit>
     <unit id="4_JdYp1" name="file.remark">
@@ -885,43 +885,43 @@
     <unit id="kHeY93_" name="editor_embed.content_url">
       <segment>
         <source>editor_embed.content_url</source>
-        <target>__editor_embed.content_url</target>
+        <target>Content URL</target>
       </segment>
     </unit>
     <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
       <segment>
         <source>editor_embed.placeholder_content_url</source>
-        <target>__editor_embed.placeholder_content_url</target>
+        <target>Url van de content …</target>
       </segment>
     </unit>
     <unit id="1.Eb1GS" name="editor_embed.label_height">
       <segment>
         <source>editor_embed.label_height</source>
-        <target>__editor_embed.label_height</target>
+        <target>Hoogte</target>
       </segment>
     </unit>
     <unit id="eWLSFJs" name="editor_embed.label_pixel">
       <segment>
         <source>editor_embed.label_pixel</source>
-        <target>__editor_embed.label_pixel</target>
+        <target>pixels</target>
       </segment>
     </unit>
     <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
       <segment>
         <source>editor_embed.label_matched_embed</source>
-        <target>__editor_embed.label_matched_embed</target>
+        <target>Gevonden Embed</target>
       </segment>
     </unit>
     <unit id="zATju4V" name="editor_embed.label_preview">
       <segment>
         <source>editor_embed.label_preview</source>
-        <target>__editor_embed.label_preview</target>
+        <target>Voorvertoning</target>
       </segment>
     </unit>
     <unit id="9SQ0oaR" name="editor_embed.label_size">
       <segment>
         <source>editor_embed.label_size</source>
-        <target>__editor_embed.label_size</target>
+        <target>Grootte</target>
       </segment>
     </unit>
     <unit id="BINgtmK" name="editor_date.toggle">
@@ -945,31 +945,31 @@
     <unit id="vptPhch" name="image.button_upload">
       <segment>
         <source>image.button_upload</source>
-        <target>__image.button_upload</target>
+        <target>Upload</target>
       </segment>
     </unit>
     <unit id="vIVO1lU" name="image.button_from_library">
       <segment>
         <source>image.button_from_library</source>
-        <target>__image.button_from_library</target>
+        <target>Uit bibliotheek</target>
       </segment>
     </unit>
     <unit id="oOuVKRv" name="image.placeholder_filename">
       <segment>
         <source>image.placeholder_filename</source>
-        <target>__image.placeholder_filename</target>
+        <target>Bestandsnaam</target>
       </segment>
     </unit>
     <unit id="BWubOnS" name="image.placeholder_alt_text">
       <segment>
         <source>image.placeholder_alt_text</source>
-        <target>__image.placeholder_alt_text</target>
+        <target>Alt</target>
       </segment>
     </unit>
     <unit id="VPV0lFM" name="image.placeholder_title">
       <segment>
         <source>image.placeholder_title</source>
-        <target>__image.placeholder_title</target>
+        <target>Titel</target>
       </segment>
     </unit>
     <unit id="kaK5Wdr" name="slug.button_locked">
@@ -1029,79 +1029,79 @@
     <unit id="QQvRJe." name="files_cards.button_toggle">
       <segment>
         <source>files_cards.button_toggle</source>
-        <target>__files_cards.button_toggle</target>
+        <target>Wissel</target>
       </segment>
     </unit>
     <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
       <segment>
         <source>files_cards.action_edit_image_info</source>
-        <target>__files_cards.action_edit_image_info</target>
+        <target>Bewerk info</target>
       </segment>
     </unit>
     <unit id="5LXvJfE" name="files_cards.action_edit_file">
       <segment>
         <source>files_cards.action_edit_file</source>
-        <target>__files_cards.action_edit_file</target>
+        <target>Bewerk bestand</target>
       </segment>
     </unit>
     <unit id="H1pgP94" name="files_cards.action_view_original">
       <segment>
         <source>files_cards.action_view_original</source>
-        <target>__files_cards.action_view_original</target>
+        <target>Bekijk origineel</target>
       </segment>
     </unit>
     <unit id="ZoY6ADX" name="files_cards.action_duplicate">
       <segment>
         <source>files_cards.action_duplicate</source>
-        <target>__files_cards.action_duplicate</target>
+        <target>Dupliceer</target>
       </segment>
     </unit>
     <unit id="JjU6ZQP" name="files_cards.action_delete">
       <segment>
         <source>files_cards.action_delete</source>
-        <target>__files_cards.action_delete</target>
+        <target>Verwijder</target>
       </segment>
     </unit>
     <unit id="3jdNwuk" name="files_cards.label_filename">
       <segment>
         <source>files_cards.label_filename</source>
-        <target>__files_cards.label_filename</target>
+        <target>Bestandsnaam</target>
       </segment>
     </unit>
     <unit id="Y90_Pn1" name="files_cards.label_title">
       <segment>
         <source>files_cards.label_title</source>
-        <target>__files_cards.label_title</target>
+        <target>Titel</target>
       </segment>
     </unit>
     <unit id="EdCfIKX" name="files_cards.label_dimensions">
       <segment>
         <source>files_cards.label_dimensions</source>
-        <target>__files_cards.label_dimensions</target>
+        <target>Afmetingen</target>
       </segment>
     </unit>
     <unit id="eQBhceV" name="files_cards.label_filesize">
       <segment>
         <source>files_cards.label_filesize</source>
-        <target>__files_cards.label_filesize</target>
+        <target>Bestandsgrootte</target>
       </segment>
     </unit>
     <unit id="uiCjlwk" name="files_cards.label_created_on">
       <segment>
         <source>files_cards.label_created_on</source>
-        <target>__files_cards.label_created_on</target>
+        <target>Aangemaakt op</target>
       </segment>
     </unit>
     <unit id="8JeahIj" name="files_cards.message_no_files">
       <segment>
         <source>files_cards.message_no_files</source>
-        <target>__files_cards.message_no_files</target>
+        <target>Aantal bestanden</target>
       </segment>
     </unit>
     <unit id="beqzCkE" name="login.header_login">
       <segment>
         <source>login.header_login</source>
-        <target>__login.header_login</target>
+        <target>Login</target>
       </segment>
     </unit>
     <unit id="37kJiIe" name="view_locales.badge_default">
@@ -1113,13 +1113,13 @@
     <unit id="JTRCo_U" name="view_locales.badge_ok">
       <segment>
         <source>view_locales.badge_ok</source>
-        <target>__view_locales.badge_ok</target>
+        <target>OK</target>
       </segment>
     </unit>
     <unit id="ufFUPp7" name="view_locales.badge_missing">
       <segment>
         <source>view_locales.badge_missing</source>
-        <target>__view_locales.badge_missing</target>
+        <target>Ontbreekt</target>
       </segment>
     </unit>
     <unit id="UNBaDz." name="general.phrase.edit">
@@ -1131,13 +1131,13 @@
     <unit id="ypPzS03" name="localeswitcher.button_info">
       <segment>
         <source>localeswitcher.button_info</source>
-        <target>__localeswitcher.button_info</target>
+        <target>Info</target>
       </segment>
     </unit>
     <unit id="EvAqL__" name="caption.duplicate">
       <segment>
         <source>caption.duplicate</source>
-        <target>__caption.duplicate</target>
+        <target>Dupliceer</target>
       </segment>
     </unit>
     <unit id="qQKx1lR" name="buttons.button_toggle">
@@ -1215,7 +1215,7 @@
     <unit id="doNsgm0" name="listing.button_clear">
       <segment>
         <source>listing.button_clear</source>
-        <target>__listing.button_clear</target>
+        <target>Leegmaken</target>
       </segment>
     </unit>
     <unit id="SeTqePC" name="label.display_name">
@@ -1227,13 +1227,13 @@
     <unit id="iD6CNOO" name="label.roles">
       <segment>
         <source>label.roles</source>
-        <target>__label.roles</target>
+        <target>Rollen</target>
       </segment>
     </unit>
     <unit id="TtmWqX3" name="action.view">
       <segment>
         <source>action.view</source>
-        <target>bekijk</target>
+        <target>Bekijk</target>
       </segment>
     </unit>
     <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
@@ -1251,43 +1251,43 @@
     <unit id="y5otxEK" name="caption.filename">
       <segment>
         <source>caption.filename</source>
-        <target>__caption.filename</target>
+        <target>Bestandsnaam</target>
       </segment>
     </unit>
     <unit id="VKhfRZB" name="field.title">
       <segment>
         <source>field.title</source>
-        <target>__field.title</target>
+        <target>Titel</target>
       </segment>
     </unit>
     <unit id="7_wwX8J" name="field.description">
       <segment>
         <source>field.description</source>
-        <target>__field.description</target>
+        <target>Beschrijving</target>
       </segment>
     </unit>
     <unit id="v0sitU8" name="field.originalFilename">
       <segment>
         <source>field.originalFilename</source>
-        <target>__field.originalFilename</target>
+        <target>Originele Bestandsnaam</target>
       </segment>
     </unit>
     <unit id="vlRe8Tx" name="field.width">
       <segment>
         <source>field.width</source>
-        <target>__field.width</target>
+        <target>Breedte</target>
       </segment>
     </unit>
     <unit id="CZbXbM_" name="field.height">
       <segment>
         <source>field.height</source>
-        <target>__field.height</target>
+        <target>Hoogte</target>
       </segment>
     </unit>
     <unit id="Sz_u.OS" name="field.filesize">
       <segment>
         <source>field.filesize</source>
-        <target>__field.filesize</target>
+        <target>Bestandsgrootte</target>
       </segment>
     </unit>
     <unit id="Wou02nK" name="caption.kitchensink">

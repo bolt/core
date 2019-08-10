@@ -21,8 +21,8 @@ final class Version
      *   Stable      — 3.0.0
      *   Development — 3.1.0 alpha 1
      */
-    public const VERSION = '4.0.0 beta 1';
-    public const CODENAME = 'First hush-hush beta release';
+    public const VERSION = '4.0.0 beta 2';
+    public const CODENAME = 'The second beta release';
 
     /**
      * Whether this release is a stable one.
