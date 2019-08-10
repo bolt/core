@@ -1,935 +1,1486 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="hu" target-language="nl" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="tbB2gib" resname="not_available">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="nl">
+  <file id="messages.nl">
+    <unit id="tbB2gib" name="not_available">
+      <notes>
+        <note>templates/debug/source_code.twig:26</note>
+      </notes>
+      <segment>
         <source>not_available</source>
         <target>Niet beschikbaar</target>
-        <note>templates/debug/source_code.twig:26</note>
-      </trans-unit>
-      <trans-unit id="DF34uM2" resname="http_error.name">
-        <source>http_error.name</source>
-        <target>Fout %status_code%</target>
+      </segment>
+    </unit>
+    <unit id="DF34uM2" name="http_error.name">
+      <notes>
         <note>templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
-      </trans-unit>
-      <trans-unit id="2bH7SjO" resname="title.twig_template_code">
+      </notes>
+      <segment>
+        <source>http_error.name</source>
+        <target>Fout %status_code%</target>
+      </segment>
+    </unit>
+    <unit id="2bH7SjO" name="title.twig_template_code">
+      <notes>
+        <note>templates/debug/source_code.twig:29</note>
+      </notes>
+      <segment>
         <source>title.twig_template_code</source>
         <target>Twig template broncode</target>
-        <note>templates/debug/source_code.twig:29</note>
-      </trans-unit>
-      <trans-unit id="1sstKF9" resname="title.edit_user">
+      </segment>
+    </unit>
+    <unit id="1sstKF9" name="title.edit_user">
+      <notes>
+        <note>templates/users/edit.twig:4</note>
+      </notes>
+      <segment>
         <source>title.edit_user</source>
         <target>Bewerk gebruiker</target>
-        <note>templates/users/edit.twig:4</note>
-      </trans-unit>
-      <trans-unit id="QbohvW1" resname="action.show_code">
+      </segment>
+    </unit>
+    <unit id="QbohvW1" name="action.show_code">
+      <notes>
+        <note>templates/debug/source_code.twig:7</note>
+      </notes>
+      <segment>
         <source>action.show_code</source>
         <target>Toon broncode</target>
-        <note>templates/debug/source_code.twig:7</note>
-      </trans-unit>
-      <trans-unit id="HLtdhYw" resname="action.save">
-        <source>action.save</source>
-        <target>Wijzigingen opslaan</target>
+      </segment>
+    </unit>
+    <unit id="HLtdhYw" name="action.save">
+      <notes>
         <note>templates/users/change_password.twig:18</note>
         <note>templates/users/edit.twig:15</note>
-      </trans-unit>
-      <trans-unit id="etGJjTo" resname="action.edit_user">
+      </notes>
+      <segment>
+        <source>action.save</source>
+        <target>Wijzigingen opslaan</target>
+      </segment>
+    </unit>
+    <unit id="etGJjTo" name="action.edit_user">
+      <notes>
+        <note>templates/users/change_password.twig:26</note>
+      </notes>
+      <segment>
         <source>action.edit_user</source>
         <target>Bewerk gebruiker</target>
-        <note>templates/users/change_password.twig:26</note>
-      </trans-unit>
-      <trans-unit id="LDhDPrF" resname="label.username">
-        <source>label.username</source>
-        <target>Gebruikersnaam</target>
+      </segment>
+    </unit>
+    <unit id="LDhDPrF" name="label.username">
+      <notes>
         <note>templates/security/login.twig:66</note>
         <note>src/Form/UserType.php:31</note>
-      </trans-unit>
-      <trans-unit id="80JoLd0" resname="title.login">
+      </notes>
+      <segment>
+        <source>label.username</source>
+        <target>Gebruikersnaam</target>
+      </segment>
+    </unit>
+    <unit id="80JoLd0" name="title.login">
+      <notes>
+        <note>templates/security/login.twig:4</note>
+      </notes>
+      <segment>
         <source>title.login</source>
         <target>Login</target>
-        <note>templates/security/login.twig:4</note>
-      </trans-unit>
-      <trans-unit id="9pvowqn" resname="label.password">
-        <source>label.password</source>
-        <target>Wachtwoord</target>
+      </segment>
+    </unit>
+    <unit id="9pvowqn" name="label.password">
+      <notes>
         <note>templates/security/login.twig:70</note>
         <note>templates/security/login.twig:75</note>
-      </trans-unit>
-      <trans-unit id="gLN0C81" resname="action.log_in">
+      </notes>
+      <segment>
+        <source>label.password</source>
+        <target>Wachtwoord</target>
+      </segment>
+    </unit>
+    <unit id="gLN0C81" name="action.log_in">
+      <notes>
+        <note>templates/security/login.twig:84</note>
+      </notes>
+      <segment>
         <source>action.log_in</source>
         <target>Log in</target>
-        <note>templates/security/login.twig:84</note>
-      </trans-unit>
-      <trans-unit id="CX_oSFd" resname="action.change_password">
+      </segment>
+    </unit>
+    <unit id="CX_oSFd" name="action.change_password">
+      <notes>
+        <note>templates/users/edit.twig:24</note>
+      </notes>
+      <segment>
         <source>action.change_password</source>
         <target>Wijzig wachtwoord</target>
-        <note>templates/users/edit.twig:24</note>
-      </trans-unit>
-      <trans-unit id="SNELzJ2" resname="field.id">
-        <source>field.id</source>
-        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="SNELzJ2" name="field.id">
+      <notes>
         <note>templates/editcontent/edit.twig:118</note>
         <note>templates/editcontent/media_edit.twig:98</note>
-      </trans-unit>
-      <trans-unit id="FuCyk5C" resname="field.status">
+      </notes>
+      <segment>
+        <source>field.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="FuCyk5C" name="field.status">
+      <notes>
+        <note>templates/editcontent/edit.twig:76</note>
+      </notes>
+      <segment>
         <source>field.status</source>
         <target>Status</target>
-        <note>templates/editcontent/edit.twig:76</note>
-      </trans-unit>
-      <trans-unit id="O9wtVOp" resname="field.createdAt">
-        <source>field.createdAt</source>
-        <target>Aangemaakt op</target>
+      </segment>
+    </unit>
+    <unit id="O9wtVOp" name="field.createdAt">
+      <notes>
         <note>templates/editcontent/edit.twig:86</note>
         <note>templates/editcontent/media_edit.twig:128</note>
-      </trans-unit>
-      <trans-unit id="eVkSIKu" resname="field.modifiedAt">
-        <source>field.modifiedAt</source>
-        <target>Bewerkt op</target>
+      </notes>
+      <segment>
+        <source>field.createdAt</source>
+        <target>Aangemaakt op</target>
+      </segment>
+    </unit>
+    <unit id="eVkSIKu" name="field.modifiedAt">
+      <notes>
         <note>templates/editcontent/edit.twig:94</note>
         <note>templates/editcontent/media_edit.twig:135</note>
-      </trans-unit>
-      <trans-unit id="3gdi1dy" resname="field.publishedAt">
+      </notes>
+      <segment>
+        <source>field.modifiedAt</source>
+        <target>Bewerkt op</target>
+      </segment>
+    </unit>
+    <unit id="3gdi1dy" name="field.publishedAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:102</note>
+      </notes>
+      <segment>
         <source>field.publishedAt</source>
         <target>Gepubliceerd op</target>
-        <note>templates/editcontent/edit.twig:102</note>
-      </trans-unit>
-      <trans-unit id="eN7IfEL" resname="field.depublishedAt">
+      </segment>
+    </unit>
+    <unit id="eN7IfEL" name="field.depublishedAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:110</note>
+      </notes>
+      <segment>
         <source>field.depublishedAt</source>
         <target>Gedepubliceerd op</target>
-        <note>templates/editcontent/edit.twig:110</note>
-      </trans-unit>
-      <trans-unit id="hjDmcPC" resname="field.copyright">
+      </segment>
+    </unit>
+    <unit id="hjDmcPC" name="field.copyright">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:59</note>
+      </notes>
+      <segment>
         <source>field.copyright</source>
         <target>Copyright</target>
-        <note>templates/editcontent/media_edit.twig:59</note>
-      </trans-unit>
-      <trans-unit id="IaF1MjB" resname="label.rememberme">
+      </segment>
+    </unit>
+    <unit id="IaF1MjB" name="label.rememberme">
+      <notes>
+        <note>templates/security/login.twig:80</note>
+      </notes>
+      <segment>
         <source>label.rememberme</source>
         <target>Onthoud me?</target>
-        <note>templates/security/login.twig:80</note>
-      </trans-unit>
-      <trans-unit id="k.JymqB" resname="about.visit_bolt">
+      </segment>
+    </unit>
+    <unit id="k.JymqB" name="about.visit_bolt">
+      <notes>
+        <note>templates/pages/about.twig:25</note>
+      </notes>
+      <segment>
         <source>about.visit_bolt</source>
         <target>Bezoek Bolt.cm</target>
-        <note>templates/pages/about.twig:25</note>
-      </trans-unit>
-      <trans-unit id="UZFanGF" resname="about.bolt_documentation">
+      </segment>
+    </unit>
+    <unit id="UZFanGF" name="about.bolt_documentation">
+      <notes>
+        <note>templates/pages/about.twig:28</note>
+      </notes>
+      <segment>
         <source>about.bolt_documentation</source>
         <target>Bolt documentatie</target>
-        <note>templates/pages/about.twig:28</note>
-      </trans-unit>
-      <trans-unit id="FO7zDub" resname="about.bolt_on_github">
+      </segment>
+    </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <notes>
+        <note>templates/pages/about.twig:31</note>
+      </notes>
+      <segment>
         <source>about.bolt_on_github</source>
         <target>Bolt op Github</target>
-        <note>templates/pages/about.twig:31</note>
-      </trans-unit>
-      <trans-unit id="_9fS00R" resname="about.used_libraries">
+      </segment>
+    </unit>
+    <unit id="_9fS00R" name="about.used_libraries">
+      <notes>
+        <note>templates/pages/about.twig:35</note>
+      </notes>
+      <segment>
         <source>about.used_libraries</source>
         <target>Gebruikte Libraries / Componenten</target>
-        <note>templates/pages/about.twig:35</note>
-      </trans-unit>
-      <trans-unit id="aYnbvsn" resname="label.fullname">
-        <source>label.fullname</source>
-        <target>Volledige naam</target>
+      </segment>
+    </unit>
+    <unit id="aYnbvsn" name="label.fullname">
+      <notes>
         <note>src/Form/UserType.php:35</note>
         <note>new</note>
-      </trans-unit>
-      <trans-unit id="D2N6_cP" resname="label.email">
-        <source>label.email</source>
-        <target>E-mail</target>
+      </notes>
+      <segment>
+        <source>label.fullname</source>
+        <target>Volledige naam</target>
+      </segment>
+    </unit>
+    <unit id="D2N6_cP" name="label.email">
+      <notes>
         <note>src/Form/UserType.php:38</note>
         <note>new</note>
-      </trans-unit>
-      <trans-unit id="mEDsKHk" resname="label.locale">
+      </notes>
+      <segment>
+        <source>label.email</source>
+        <target>E-mail</target>
+      </segment>
+    </unit>
+    <unit id="mEDsKHk" name="label.locale">
+      <segment>
         <source>label.locale</source>
         <target>Locale</target>
-      </trans-unit>
-      <trans-unit id="98Q5SA2" resname="label.backend_theme">
+      </segment>
+    </unit>
+    <unit id="98Q5SA2" name="label.backend_theme">
+      <segment>
         <source>label.backend_theme</source>
         <target>Backend thema</target>
-      </trans-unit>
-      <trans-unit id="Z84BVRW" resname="English (en)">
+      </segment>
+    </unit>
+    <unit id="Z84BVRW" name="English (en)">
+      <segment>
         <source>English (en)</source>
         <target>English (en)</target>
-      </trans-unit>
-      <trans-unit id="eG9ABZd" resname="Nederlands (dutch, nl)">
+      </segment>
+    </unit>
+    <unit id="eG9ABZd" name="Nederlands (dutch, nl)">
+      <segment>
         <source>Nederlands (dutch, nl)</source>
         <target>Nederlands (dutch, nl)</target>
-      </trans-unit>
-      <trans-unit id="57LcBXV" resname="Español (Spanish, es)">
+      </segment>
+    </unit>
+    <unit id="57LcBXV" name="Español (Spanish, es)">
+      <segment>
         <source>Español (Spanish, es)</source>
         <target>Español (Spanish, es)</target>
-      </trans-unit>
-      <trans-unit id="e7RdvJ0" resname="français (French, fr)">
+      </segment>
+    </unit>
+    <unit id="e7RdvJ0" name="français (French, fr)">
+      <segment>
         <source>français (French, fr)</source>
         <target>français (French, fr)</target>
-      </trans-unit>
-      <trans-unit id="U1vrep2" resname="Deutsch (German, de)">
+      </segment>
+    </unit>
+    <unit id="U1vrep2" name="Deutsch (German, de)">
+      <segment>
         <source>Deutsch (German, de)</source>
         <target>Deutsch (German, de)</target>
-      </trans-unit>
-      <trans-unit id="EsWjyMS" resname="Język Polski (Polish, pl)">
+      </segment>
+    </unit>
+    <unit id="EsWjyMS" name="Język Polski (Polish, pl)">
+      <segment>
         <source>Język Polski (Polish, pl)</source>
         <target>Język Polski (Polish, pl)</target>
-      </trans-unit>
-      <trans-unit id="fbEbOrT" resname="Brasilian Portuguese (Brasilian Portuguese, pt_BR)">
+      </segment>
+    </unit>
+    <unit id="fbEbOrT" name="Brasilian Portuguese (Brasilian Portuguese, pt_BR)">
+      <segment>
         <source>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</source>
         <target>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</target>
-      </trans-unit>
-      <trans-unit id="pBUPCm9" resname="Italiano (Italian, it)">
+      </segment>
+    </unit>
+    <unit id="pBUPCm9" name="Italiano (Italian, it)">
+      <segment>
         <source>Italiano (Italian, it)</source>
         <target>Italiano (Italian, it)</target>
-      </trans-unit>
-      <trans-unit id="Oiwdkpg" resname="The Default theme">
+      </segment>
+    </unit>
+    <unit id="Oiwdkpg" name="The Default theme">
+      <segment>
         <source>The Default theme</source>
         <target>Het standaard thema</target>
-      </trans-unit>
-      <trans-unit id="C389Knp" resname="The Default Dark theme">
+      </segment>
+    </unit>
+    <unit id="C389Knp" name="The Default Dark theme">
+      <segment>
         <source>The Default Dark theme</source>
         <target>De standaard Dark Theme</target>
-      </trans-unit>
-      <trans-unit id="kouGbMq" resname="WoordPers: Kinda looks like that other CMS">
+      </segment>
+    </unit>
+    <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
+      <segment>
         <source>WoordPers: Kinda looks like that other CMS</source>
         <target>WoordPers: Lijkt een beetje op dat andere CMS</target>
-      </trans-unit>
-      <trans-unit id="7aLIA3c" resname="caption.dashboard">
+      </segment>
+    </unit>
+    <unit id="7aLIA3c" name="caption.dashboard">
+      <segment>
         <source>caption.dashboard</source>
         <target>Dashboard</target>
-      </trans-unit>
-      <trans-unit id="K6TmK4B" resname="caption.clear_cache">
+      </segment>
+    </unit>
+    <unit id="K6TmK4B" name="caption.clear_cache">
+      <segment>
         <source>caption.clear_cache</source>
         <target>Leeg de cache</target>
-      </trans-unit>
-      <trans-unit id="RRQ1EJ3" resname="caption.check_database">
+      </segment>
+    </unit>
+    <unit id="RRQ1EJ3" name="caption.check_database">
+      <segment>
         <source>caption.check_database</source>
         <target>Controleer Database</target>
-      </trans-unit>
-      <trans-unit id="2RUXD4A" resname="caption.menu_setup">
+      </segment>
+    </unit>
+    <unit id="2RUXD4A" name="caption.menu_setup">
+      <segment>
         <source>caption.menu_setup</source>
         <target>Menu instellingen</target>
-      </trans-unit>
-      <trans-unit id="drK.0GZ" resname="caption.taxonomies">
+      </segment>
+    </unit>
+    <unit id="drK.0GZ" name="caption.taxonomies">
+      <segment>
         <source>caption.taxonomies</source>
         <target>Taxonomieën</target>
-      </trans-unit>
-      <trans-unit id="_w7J5rZ" resname="caption.contenttypes">
+      </segment>
+    </unit>
+    <unit id="_w7J5rZ" name="caption.contenttypes">
+      <segment>
         <source>caption.contenttypes</source>
         <target>Contenttypen</target>
-      </trans-unit>
-      <trans-unit id="kXNBV9S" resname="caption.main_configuration">
+      </segment>
+    </unit>
+    <unit id="kXNBV9S" name="caption.main_configuration">
+      <segment>
         <source>caption.main_configuration</source>
         <target>hoofdconfiguratie</target>
-      </trans-unit>
-      <trans-unit id="ipmA6Ah" resname="caption.users_permissions">
+      </segment>
+    </unit>
+    <unit id="ipmA6Ah" name="caption.users_permissions">
+      <segment>
         <source>caption.users_permissions</source>
         <target><![CDATA[Gebruikers & permissies]]></target>
-      </trans-unit>
-      <trans-unit id="zOLL.7E" resname="caption.configuration">
+      </segment>
+    </unit>
+    <unit id="zOLL.7E" name="caption.configuration">
+      <segment>
         <source>caption.configuration</source>
         <target>Configuratie</target>
-      </trans-unit>
-      <trans-unit id="ZO.uqIZ" resname="caption.settings">
+      </segment>
+    </unit>
+    <unit id="ZO.uqIZ" name="caption.settings">
+      <segment>
         <source>caption.settings</source>
         <target>Instellingen</target>
-      </trans-unit>
-      <trans-unit id="1xlE8ex" resname="caption.content">
+      </segment>
+    </unit>
+    <unit id="1xlE8ex" name="caption.content">
+      <segment>
         <source>caption.content</source>
         <target>Content</target>
-      </trans-unit>
-      <trans-unit id="l4yt0BE" resname="caption.file_management">
+      </segment>
+    </unit>
+    <unit id="l4yt0BE" name="caption.file_management">
+      <segment>
         <source>caption.file_management</source>
         <target>Bestandsbeheer</target>
-      </trans-unit>
-      <trans-unit id="mfvtHPQ" resname="caption.extensions">
+      </segment>
+    </unit>
+    <unit id="mfvtHPQ" name="caption.extensions">
+      <segment>
         <source>caption.extensions</source>
         <target>Extensies</target>
-      </trans-unit>
-      <trans-unit id="K4D568R" resname="caption.view_edit_templates">
+      </segment>
+    </unit>
+    <unit id="K4D568R" name="caption.view_edit_templates">
+      <segment>
         <source>caption.view_edit_templates</source>
         <target><![CDATA[Bekijk & bewerk templates]]></target>
-      </trans-unit>
-      <trans-unit id="bq6bSf4" resname="caption.uploaded_files">
+      </segment>
+    </unit>
+    <unit id="bq6bSf4" name="caption.uploaded_files">
+      <segment>
         <source>caption.uploaded_files</source>
         <target>Geüploade bestanden</target>
-      </trans-unit>
-      <trans-unit id="wBKDkwl" resname="caption.routing_setup">
+      </segment>
+    </unit>
+    <unit id="wBKDkwl" name="caption.routing_setup">
+      <segment>
         <source>caption.routing_setup</source>
         <target>Routing instellingen</target>
-      </trans-unit>
-      <trans-unit id="dd5MzCM" resname="caption.translations">
+      </segment>
+    </unit>
+    <unit id="dd5MzCM" name="caption.translations">
+      <segment>
         <source>caption.translations</source>
         <target>Vertalingen / Labels</target>
-      </trans-unit>
-      <trans-unit id="wLaDaK5" resname="caption.about_bolt">
+      </segment>
+    </unit>
+    <unit id="wLaDaK5" name="caption.about_bolt">
+      <segment>
         <source>caption.about_bolt</source>
         <target>Over Bolt</target>
-      </trans-unit>
-      <trans-unit id="xN1kSQQ" resname="caption.bolt_payoff">
+      </segment>
+    </unit>
+    <unit id="xN1kSQQ" name="caption.bolt_payoff">
+      <segment>
         <source>caption.bolt_payoff</source>
         <target>Weldoordacht, lichtgewicht en eenvoudig CMS</target>
-      </trans-unit>
-      <trans-unit id="HK7XTUX" resname="caption.edit">
+      </segment>
+    </unit>
+    <unit id="HK7XTUX" name="caption.edit">
+      <segment>
         <source>caption.edit</source>
         <target>Bewerk</target>
-      </trans-unit>
-      <trans-unit id="dbyz2hj" resname="caption.finder">
+      </segment>
+    </unit>
+    <unit id="dbyz2hj" name="caption.finder">
+      <segment>
         <source>caption.finder</source>
         <target>Finder</target>
-      </trans-unit>
-      <trans-unit id="QZYjRy0" resname="caption.file_uploader">
+      </segment>
+    </unit>
+    <unit id="QZYjRy0" name="caption.file_uploader">
+      <segment>
         <source>caption.file_uploader</source>
         <target>Bestandsuploader</target>
-      </trans-unit>
-      <trans-unit id="LaDIuZA" resname="caption.meta_information">
+      </segment>
+    </unit>
+    <unit id="LaDIuZA" name="caption.meta_information">
+      <segment>
         <source>caption.meta_information</source>
         <target>Meta informatie</target>
-      </trans-unit>
-      <trans-unit id="DodjLNR" resname="date">
+      </segment>
+    </unit>
+    <unit id="DodjLNR" name="date">
+      <segment>
         <source>date</source>
         <target>Datum</target>
-      </trans-unit>
-      <trans-unit id="zNy_hG8" resname="size">
+      </segment>
+    </unit>
+    <unit id="zNy_hG8" name="size">
+      <segment>
         <source>size</source>
         <target>Formaat</target>
-      </trans-unit>
-      <trans-unit id="gPYflhh" resname="thumbnail">
+      </segment>
+    </unit>
+    <unit id="gPYflhh" name="thumbnail">
+      <segment>
         <source>thumbnail</source>
         <target>Thumbnail</target>
-      </trans-unit>
-      <trans-unit id="_XSgfqS" resname="filename">
+      </segment>
+    </unit>
+    <unit id="_XSgfqS" name="filename">
+      <segment>
         <source>filename</source>
         <target>Bestandsnaam</target>
-      </trans-unit>
-      <trans-unit id="Kw3N1AA" resname="actions">
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <segment>
         <source>actions</source>
         <target>Acties</target>
-      </trans-unit>
-      <trans-unit id="KHvGNGW" resname="directoryname">
+      </segment>
+    </unit>
+    <unit id="KHvGNGW" name="directoryname">
+      <segment>
         <source>directoryname</source>
         <target>Directorynaam</target>
-      </trans-unit>
-      <trans-unit id="C15MbYY" resname="form.quick_select_file">
+      </segment>
+    </unit>
+    <unit id="C15MbYY" name="form.quick_select_file">
+      <segment>
         <source>form.quick_select_file</source>
         <target>Selecteer een bestand om snel te bewerken…</target>
-      </trans-unit>
-      <trans-unit id="FSroufa" resname="caption.path">
+      </segment>
+    </unit>
+    <unit id="FSroufa" name="caption.path">
+      <segment>
         <source>caption.path</source>
         <target>Pad</target>
-      </trans-unit>
-      <trans-unit id="XNTbZW6" resname="action.visit_site">
+      </segment>
+    </unit>
+    <unit id="XNTbZW6" name="action.visit_site">
+      <segment>
         <source>action.visit_site</source>
         <target>Bekijk site</target>
-      </trans-unit>
-      <trans-unit id="KfVJho2" resname="action.create_new">
+      </segment>
+    </unit>
+    <unit id="KfVJho2" name="action.create_new">
+      <segment>
         <source>action.create_new</source>
         <target>Maak nieuwe</target>
-      </trans-unit>
-      <trans-unit id="b_RPpcB" resname="general.greeting">
+      </segment>
+    </unit>
+    <unit id="b_RPpcB" name="general.greeting">
+      <segment>
         <source>general.greeting</source>
         <target>Hoi, %name%</target>
-      </trans-unit>
-      <trans-unit id="bmdn3u9" resname="action.logout">
+      </segment>
+    </unit>
+    <unit id="bmdn3u9" name="action.logout">
+      <segment>
         <source>action.logout</source>
         <target>Uitloggen</target>
-      </trans-unit>
-      <trans-unit id="zOfpTLD" resname="action.edit_profile">
+      </segment>
+    </unit>
+    <unit id="zOfpTLD" name="action.edit_profile">
+      <segment>
         <source>action.edit_profile</source>
         <target>Bewerk profiel</target>
-      </trans-unit>
-      <trans-unit id="N_0yRcH" resname="action.close_alert">
+      </segment>
+    </unit>
+    <unit id="N_0yRcH" name="action.close_alert">
+      <segment>
         <source>action.close_alert</source>
         <target>Sluit</target>
-      </trans-unit>
-      <trans-unit id="Dvu2HQx" resname="caption.api">
+      </segment>
+    </unit>
+    <unit id="Dvu2HQx" name="caption.api">
+      <segment>
         <source>caption.api</source>
         <target>API</target>
-      </trans-unit>
-      <trans-unit id="i4cbdta" resname="caption.all_configuration_files">
+      </segment>
+    </unit>
+    <unit id="i4cbdta" name="caption.all_configuration_files">
+      <segment>
         <source>caption.all_configuration_files</source>
         <target>Alle configuratie bestanden</target>
-      </trans-unit>
-      <trans-unit id="OpKTKAL" resname="caption.maintenance">
+      </segment>
+    </unit>
+    <unit id="OpKTKAL" name="caption.maintenance">
+      <segment>
         <source>caption.maintenance</source>
         <target>Onderhoud</target>
-      </trans-unit>
-      <trans-unit id="hGJoUs5" resname="caption.fixtures_dummy_content">
+      </segment>
+    </unit>
+    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
+      <segment>
         <source>caption.fixtures_dummy_content</source>
         <target>Fixtures (loze inhoud)</target>
-      </trans-unit>
-      <trans-unit id="P1FHg3Q" resname="caption.edit_file">
+      </segment>
+    </unit>
+    <unit id="P1FHg3Q" name="caption.edit_file">
+      <segment>
         <source>caption.edit_file</source>
         <target>Bewerk Bestand</target>
-      </trans-unit>
-      <trans-unit id="_ef0RBR" resname="caption.installation_checks">
+      </segment>
+    </unit>
+    <unit id="_ef0RBR" name="caption.installation_checks">
+      <segment>
         <source>caption.installation_checks</source>
         <target>Installatie-controle</target>
-      </trans-unit>
-      <trans-unit id="pNPctrH" resname="form.select_language">
+      </segment>
+    </unit>
+    <unit id="pNPctrH" name="form.select_language">
+      <segment>
         <source>form.select_language</source>
         <target>Kies een taal</target>
-      </trans-unit>
-      <trans-unit id="9lJhqvA" resname="field.locale">
+      </segment>
+    </unit>
+    <unit id="9lJhqvA" name="field.locale">
+      <segment>
         <source>field.locale</source>
         <target>Locale</target>
-      </trans-unit>
-      <trans-unit id="8zEzq8N" resname="field.current_locale">
+      </segment>
+    </unit>
+    <unit id="8zEzq8N" name="field.current_locale">
+      <segment>
         <source>field.current_locale</source>
         <target>Huidige locale</target>
-      </trans-unit>
-      <trans-unit id="ahZvOJz" resname="field.switch_to_locale">
+      </segment>
+    </unit>
+    <unit id="ahZvOJz" name="field.switch_to_locale">
+      <segment>
         <source>field.switch_to_locale</source>
         <target>Wissel naar locale</target>
-      </trans-unit>
-      <trans-unit id="aQX4Emy" resname="field.author">
+      </segment>
+    </unit>
+    <unit id="aQX4Emy" name="field.author">
+      <segment>
         <source>field.author</source>
         <target>Auteur</target>
-      </trans-unit>
-      <trans-unit id="wGlnx8X" resname="general.phrase.search">
+      </segment>
+    </unit>
+    <unit id="wGlnx8X" name="general.phrase.search">
+      <segment>
         <source>general.phrase.search</source>
         <target>Zoek</target>
-      </trans-unit>
-      <trans-unit id="ScJmuqq" resname="Search">
+      </segment>
+    </unit>
+    <unit id="ScJmuqq" name="Search">
+      <segment>
         <source>Search</source>
         <target>Zoek</target>
-      </trans-unit>
-      <trans-unit id="2MMvCKK" resname="label.cache_cleared">
+      </segment>
+    </unit>
+    <unit id="2MMvCKK" name="label.cache_cleared">
+      <segment>
         <source>label.cache_cleared</source>
         <target>De Cache is leeggemaakt!</target>
-      </trans-unit>
-      <trans-unit id="Pily_qo" resname="general.phrase.read-more">
+      </segment>
+    </unit>
+    <unit id="Pily_qo" name="general.phrase.read-more">
+      <segment>
         <source>general.phrase.read-more</source>
         <target>Lees meer</target>
-      </trans-unit>
-      <trans-unit id="5IxD63c" resname="general.latest_bolt_news">
+      </segment>
+    </unit>
+    <unit id="5IxD63c" name="general.latest_bolt_news">
+      <segment>
         <source>general.latest_bolt_news</source>
         <target>Het laatste Bolt nieuws</target>
-      </trans-unit>
-      <trans-unit id="tgLgLDQ" resname="about.list_of_used_libraries">
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <segment>
         <source>about.list_of_used_libraries</source>
         <target>__about.list_of_used_libraries</target>
-      </trans-unit>
-      <trans-unit id="2RYT2e3" resname="dashboard.title_boltcms">
+      </segment>
+    </unit>
+    <unit id="2RYT2e3" name="dashboard.title_boltcms">
+      <segment>
         <source>dashboard.title_boltcms</source>
-        <target>__dashboard.title_boltcms</target>
-      </trans-unit>
-      <trans-unit id="nrWBJNm" resname="extensions.title_desc">
+        <target>Bolt content management »</target>
+      </segment>
+    </unit>
+    <unit id="nrWBJNm" name="extensions.title_desc">
+      <segment>
         <source>extensions.title_desc</source>
-        <target>__extensions.title_desc</target>
-      </trans-unit>
-      <trans-unit id="7raDJAR" resname="extensions.title_author">
+        <target>Beschrijving:</target>
+      </segment>
+    </unit>
+    <unit id="7raDJAR" name="extensions.title_author">
+      <segment>
         <source>extensions.title_author</source>
-        <target>__extensions.title_author</target>
-      </trans-unit>
-      <trans-unit id="UP8pNGy" resname="extensions.title_package">
+        <target>Auteur:</target>
+      </segment>
+    </unit>
+    <unit id="UP8pNGy" name="extensions.title_package">
+      <segment>
         <source>extensions.title_package</source>
-        <target>__extensions.title_package</target>
-      </trans-unit>
-      <trans-unit id="QFQ1uTC" resname="extensions.title_version">
+        <target>Package / Class naam:</target>
+      </segment>
+    </unit>
+    <unit id="QFQ1uTC" name="extensions.title_version">
+      <segment>
         <source>extensions.title_version</source>
-        <target>__extensions.title_version</target>
-      </trans-unit>
-      <trans-unit id="piuatxC" resname="extensions.info_not_installed">
+        <target>Versie:</target>
+      </segment>
+    </unit>
+    <unit id="piuatxC" name="extensions.info_not_installed">
+      <segment>
         <source>extensions.info_not_installed</source>
-        <target>__extensions.info_not_installed</target>
-      </trans-unit>
-      <trans-unit id="3j1gEmk" resname="extensions.title_class">
+        <target>Dit is een lokale package, niet geïnstalleerd met Composer</target>
+      </segment>
+    </unit>
+    <unit id="3j1gEmk" name="extensions.title_class">
+      <segment>
         <source>extensions.title_class</source>
-        <target>__extensions.title_class</target>
-      </trans-unit>
-      <trans-unit id="mjhFljb" resname="extensions.button_configuration">
+        <target>Titel:</target>
+      </segment>
+    </unit>
+    <unit id="mjhFljb" name="extensions.button_configuration">
+      <segment>
         <source>extensions.button_configuration</source>
-        <target>__extensions.button_configuration</target>
-      </trans-unit>
-      <trans-unit id="r3ryNTG" resname="extensions.button_source">
+        <target>Configuratie</target>
+      </segment>
+    </unit>
+    <unit id="r3ryNTG" name="extensions.button_source">
+      <segment>
         <source>extensions.button_source</source>
-        <target>__extensions.button_source</target>
-      </trans-unit>
-      <trans-unit id="7JK6jNv" resname="extensions.message_not_implemented">
+        <target>Broncode</target>
+      </segment>
+    </unit>
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
+      <segment>
         <source>extensions.message_not_implemented</source>
-        <target>__extensions.message_not_implemented</target>
-      </trans-unit>
-      <trans-unit id="qc3rFkZ" resname="extensions.button_remove">
+        <target>Nog niet geïmplementeerd, sorry!</target>
+      </segment>
+    </unit>
+    <unit id="qc3rFkZ" name="extensions.button_remove">
+      <segment>
         <source>extensions.button_remove</source>
-        <target>__extensions.button_remove</target>
-      </trans-unit>
-      <trans-unit id="SLZyVzU" resname="extensions.button_disable">
+        <target>Verwijder</target>
+      </segment>
+    </unit>
+    <unit id="SLZyVzU" name="extensions.button_disable">
+      <segment>
         <source>extensions.button_disable</source>
-        <target>__extensions.button_disable</target>
-      </trans-unit>
-      <trans-unit id="z2AgHGp" resname="flash_messages.notification">
+        <target>Uitschakelen</target>
+      </segment>
+    </unit>
+    <unit id="z2AgHGp" name="flash_messages.notification">
+      <segment>
         <source>flash_messages.notification</source>
-        <target>__flash_messages.notification</target>
-      </trans-unit>
-      <trans-unit id="pcq1NGk" resname="listing_filter.button_compact">
+        <target>Notificatie</target>
+      </segment>
+    </unit>
+    <unit id="pcq1NGk" name="listing_filter.button_compact">
+      <segment>
         <source>listing_filter.button_compact</source>
-        <target>__listing_filter.button_compact</target>
-      </trans-unit>
-      <trans-unit id="xIztVmp" resname="listing_filter.button_expanded">
+        <target>compact</target>
+      </segment>
+    </unit>
+    <unit id="xIztVmp" name="listing_filter.button_expanded">
+      <segment>
         <source>listing_filter.button_expanded</source>
-        <target>__listing_filter.button_expanded</target>
-      </trans-unit>
-      <trans-unit id="L0TE0M9" resname="listing_table.actions.view_on_site">
+        <target>uitgebreid</target>
+      </segment>
+    </unit>
+    <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
+      <segment>
         <source>listing_table.actions.view_on_site</source>
-        <target>__listing_table.actions.view_on_site</target>
-      </trans-unit>
-      <trans-unit id="PoauAuK" resname="listing_table.actions.status_to_publish">
+        <target>bekijk op site</target>
+      </segment>
+    </unit>
+    <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
+      <segment>
         <source>listing_table.actions.status_to_publish</source>
-        <target>__listing_table.actions.status_to_publish</target>
-      </trans-unit>
-      <trans-unit id="ZJxfdD6" resname="listing_table.actions.status_to_held">
+        <target>Pas status aan naar 'gepubliceerd'</target>
+      </segment>
+    </unit>
+    <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
+      <segment>
         <source>listing_table.actions.status_to_held</source>
-        <target>__listing_table.actions.status_to_held</target>
-      </trans-unit>
-      <trans-unit id="apyOs0o" resname="listing_table.actions.status_to_draft">
+        <target>Pas status aan naar 'vasthouden'</target>
+      </segment>
+    </unit>
+    <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
+      <segment>
         <source>listing_table.actions.status_to_draft</source>
-        <target>__listing_table.actions.status_to_draft</target>
-      </trans-unit>
-      <trans-unit id="5H60Xq6" resname="listing_table.actions.duplicate">
+        <target>Pas status aan naar 'klad'</target>
+      </segment>
+    </unit>
+    <unit id="5H60Xq6" name="listing_table.actions.duplicate">
+      <segment>
         <source>listing_table.actions.duplicate</source>
-        <target>__listing_table.actions.duplicate</target>
-      </trans-unit>
-      <trans-unit id="hR8ri.m" resname="listing_table.actions.delete">
+        <target>dupliceer</target>
+      </segment>
+    </unit>
+    <unit id="hR8ri.m" name="listing_table.actions.delete">
+      <segment>
         <source>listing_table.actions.delete</source>
-        <target>__listing_table.actions.delete</target>
-      </trans-unit>
-      <trans-unit id="5zbX1vo" resname="listing_table.actions.slug">
+        <target>verwijder</target>
+      </segment>
+    </unit>
+    <unit id="5zbX1vo" name="listing_table.actions.slug">
+      <segment>
         <source>listing_table.actions.slug</source>
-        <target>__listing_table.actions.slug</target>
-      </trans-unit>
-      <trans-unit id="wKDOBOC" resname="listing_table.actions.created_on">
+        <target>slug</target>
+      </segment>
+    </unit>
+    <unit id="wKDOBOC" name="listing_table.actions.created_on">
+      <segment>
         <source>listing_table.actions.created_on</source>
-        <target>__listing_table.actions.created_on</target>
-      </trans-unit>
-      <trans-unit id="tVX01Xl" resname="listing_table.actions.published_on">
+        <target>Aangemaakt op</target>
+      </segment>
+    </unit>
+    <unit id="tVX01Xl" name="listing_table.actions.published_on">
+      <segment>
         <source>listing_table.actions.published_on</source>
-        <target>__listing_table.actions.published_on</target>
-      </trans-unit>
-      <trans-unit id="kHkjS5U" resname="listing_table.actions.last_modified_on">
+        <target>Gepubliceerd op</target>
+      </segment>
+    </unit>
+    <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
+      <segment>
         <source>listing_table.actions.last_modified_on</source>
-        <target>__listing_table.actions.last_modified_on</target>
-      </trans-unit>
-      <trans-unit id="zg5Dum5" resname="geolocation.label_geolocation">
+        <target>Laatst gewijzigd op</target>
+      </segment>
+    </unit>
+    <unit id="zg5Dum5" name="geolocation.label_geolocation">
+      <segment>
         <source>geolocation.label_geolocation</source>
         <target>__geolocation.label_geolocation</target>
-      </trans-unit>
-      <trans-unit id="Com0pbc" resname="geolocation.label_address">
+      </segment>
+    </unit>
+    <unit id="Com0pbc" name="geolocation.label_address">
+      <segment>
         <source>geolocation.label_address</source>
         <target>__geolocation.label_address</target>
-      </trans-unit>
-      <trans-unit id="3o0LPHj" resname="geolocation.placeholder_address">
+      </segment>
+    </unit>
+    <unit id="3o0LPHj" name="geolocation.placeholder_address">
+      <segment>
         <source>geolocation.placeholder_address</source>
         <target>__geolocation.placeholder_address</target>
-      </trans-unit>
-      <trans-unit id="CC5QTmy" resname="geolocation.label_lat">
+      </segment>
+    </unit>
+    <unit id="CC5QTmy" name="geolocation.label_lat">
+      <segment>
         <source>geolocation.label_lat</source>
         <target>__geolocation.label_lat</target>
-      </trans-unit>
-      <trans-unit id="AHaenW3" resname="geolocation.label_long">
+      </segment>
+    </unit>
+    <unit id="AHaenW3" name="geolocation.label_long">
+      <segment>
         <source>geolocation.label_long</source>
         <target>__geolocation.label_long</target>
-      </trans-unit>
-      <trans-unit id="MJ5WYEM" resname="geolocation.label_address_matched">
+      </segment>
+    </unit>
+    <unit id="MJ5WYEM" name="geolocation.label_address_matched">
+      <segment>
         <source>geolocation.label_address_matched</source>
         <target>__geolocation.label_address_matched</target>
-      </trans-unit>
-      <trans-unit id="WJGjWG8" resname="geolocation.label_marker">
+      </segment>
+    </unit>
+    <unit id="WJGjWG8" name="geolocation.label_marker">
+      <segment>
         <source>geolocation.label_marker</source>
         <target>__geolocation.label_marker</target>
-      </trans-unit>
-      <trans-unit id="SaP3OOf" resname="geolocation.label_control">
+      </segment>
+    </unit>
+    <unit id="SaP3OOf" name="geolocation.label_control">
+      <segment>
         <source>geolocation.label_control</source>
         <target>__geolocation.label_control</target>
-      </trans-unit>
-      <trans-unit id="VQ2t655" resname="file.label_filename">
+      </segment>
+    </unit>
+    <unit id="VQ2t655" name="file.label_filename">
+      <segment>
         <source>file.label_filename</source>
         <target>__file.label_filename</target>
-      </trans-unit>
-      <trans-unit id="TJDc9vQ" resname="file.label_alt">
+      </segment>
+    </unit>
+    <unit id="TJDc9vQ" name="file.label_alt">
+      <segment>
         <source>file.label_alt</source>
         <target>__file.label_alt</target>
-      </trans-unit>
-      <trans-unit id="tvpSmD7" resname="file.label_title">
+      </segment>
+    </unit>
+    <unit id="tvpSmD7" name="file.label_title">
+      <segment>
         <source>file.label_title</source>
         <target>__file.label_title</target>
-      </trans-unit>
-      <trans-unit id="hXT_hI." resname="file.button_view">
+      </segment>
+    </unit>
+    <unit id="hXT_hI." name="file.button_view">
+      <segment>
         <source>file.button_view</source>
         <target>__file.button_view</target>
-      </trans-unit>
-      <trans-unit id="QKIqqOw" resname="file.button_upload">
+      </segment>
+    </unit>
+    <unit id="QKIqqOw" name="file.button_upload">
+      <segment>
         <source>file.button_upload</source>
         <target>__file.button_upload</target>
-      </trans-unit>
-      <trans-unit id="4_JdYp1" resname="file.remark">
+      </segment>
+    </unit>
+    <unit id="4_JdYp1" name="file.remark">
+      <segment>
         <source>file.remark</source>
         <target>__file.remark</target>
-      </trans-unit>
-      <trans-unit id="kHeY93_" resname="editor_embed.content_url">
+      </segment>
+    </unit>
+    <unit id="kHeY93_" name="editor_embed.content_url">
+      <segment>
         <source>editor_embed.content_url</source>
         <target>__editor_embed.content_url</target>
-      </trans-unit>
-      <trans-unit id="VoIdmBa" resname="editor_embed.placeholder_content_url">
+      </segment>
+    </unit>
+    <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
+      <segment>
         <source>editor_embed.placeholder_content_url</source>
         <target>__editor_embed.placeholder_content_url</target>
-      </trans-unit>
-      <trans-unit id="1.Eb1GS" resname="editor_embed.label_height">
+      </segment>
+    </unit>
+    <unit id="1.Eb1GS" name="editor_embed.label_height">
+      <segment>
         <source>editor_embed.label_height</source>
         <target>__editor_embed.label_height</target>
-      </trans-unit>
-      <trans-unit id="eWLSFJs" resname="editor_embed.label_pixel">
+      </segment>
+    </unit>
+    <unit id="eWLSFJs" name="editor_embed.label_pixel">
+      <segment>
         <source>editor_embed.label_pixel</source>
         <target>__editor_embed.label_pixel</target>
-      </trans-unit>
-      <trans-unit id="EAtXrAm" resname="editor_embed.label_matched_embed">
+      </segment>
+    </unit>
+    <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
+      <segment>
         <source>editor_embed.label_matched_embed</source>
         <target>__editor_embed.label_matched_embed</target>
-      </trans-unit>
-      <trans-unit id="zATju4V" resname="editor_embed.label_preview">
+      </segment>
+    </unit>
+    <unit id="zATju4V" name="editor_embed.label_preview">
+      <segment>
         <source>editor_embed.label_preview</source>
         <target>__editor_embed.label_preview</target>
-      </trans-unit>
-      <trans-unit id="9SQ0oaR" resname="editor_embed.label_size">
+      </segment>
+    </unit>
+    <unit id="9SQ0oaR" name="editor_embed.label_size">
+      <segment>
         <source>editor_embed.label_size</source>
         <target>__editor_embed.label_size</target>
-      </trans-unit>
-      <trans-unit id="BINgtmK" resname="editor_date.toggle">
+      </segment>
+    </unit>
+    <unit id="BINgtmK" name="editor_date.toggle">
+      <segment>
         <source>editor_date.toggle</source>
-        <target>__editor_date.toggle</target>
-      </trans-unit>
-      <trans-unit id="Swom5xM" resname="repeater.remark">
+        <target>Wissel</target>
+      </segment>
+    </unit>
+    <unit id="Swom5xM" name="repeater.remark">
+      <segment>
         <source>repeater.remark</source>
         <target>__repeater.remark</target>
-      </trans-unit>
-      <trans-unit id="M.3olSc" resname="filelist.remark">
+      </segment>
+    </unit>
+    <unit id="M.3olSc" name="filelist.remark">
+      <segment>
         <source>filelist.remark</source>
         <target>__filelist.remark</target>
-      </trans-unit>
-      <trans-unit id="vptPhch" resname="image.button_upload">
+      </segment>
+    </unit>
+    <unit id="vptPhch" name="image.button_upload">
+      <segment>
         <source>image.button_upload</source>
         <target>__image.button_upload</target>
-      </trans-unit>
-      <trans-unit id="vIVO1lU" resname="image.button_from_library">
+      </segment>
+    </unit>
+    <unit id="vIVO1lU" name="image.button_from_library">
+      <segment>
         <source>image.button_from_library</source>
         <target>__image.button_from_library</target>
-      </trans-unit>
-      <trans-unit id="oOuVKRv" resname="image.placeholder_filename">
+      </segment>
+    </unit>
+    <unit id="oOuVKRv" name="image.placeholder_filename">
+      <segment>
         <source>image.placeholder_filename</source>
         <target>__image.placeholder_filename</target>
-      </trans-unit>
-      <trans-unit id="BWubOnS" resname="image.placeholder_alt_text">
+      </segment>
+    </unit>
+    <unit id="BWubOnS" name="image.placeholder_alt_text">
+      <segment>
         <source>image.placeholder_alt_text</source>
         <target>__image.placeholder_alt_text</target>
-      </trans-unit>
-      <trans-unit id="VPV0lFM" resname="image.placeholder_title">
+      </segment>
+    </unit>
+    <unit id="VPV0lFM" name="image.placeholder_title">
+      <segment>
         <source>image.placeholder_title</source>
         <target>__image.placeholder_title</target>
-      </trans-unit>
-      <trans-unit id="kaK5Wdr" resname="slug.button_locked">
+      </segment>
+    </unit>
+    <unit id="kaK5Wdr" name="slug.button_locked">
+      <segment>
         <source>slug.button_locked</source>
-        <target>__slug.button_locked</target>
-      </trans-unit>
-      <trans-unit id="qcDEz5O" resname="slug.button_edit">
+        <target>Op slot</target>
+      </segment>
+    </unit>
+    <unit id="qcDEz5O" name="slug.button_edit">
+      <segment>
         <source>slug.button_edit</source>
-        <target>__slug.button_edit</target>
-      </trans-unit>
-      <trans-unit id="raO5QSf" resname="slug.generate_from">
+        <target>Bewerk</target>
+      </segment>
+    </unit>
+    <unit id="raO5QSf" name="slug.generate_from">
+      <segment>
         <source>slug.generate_from</source>
-        <target>__slug.generate_from</target>
-      </trans-unit>
-      <trans-unit id="TkryUve" resname="imagelist.remark">
+        <target>Baseer op</target>
+      </segment>
+    </unit>
+    <unit id="TkryUve" name="imagelist.remark">
+      <segment>
         <source>imagelist.remark</source>
         <target>__imagelist.remark</target>
-      </trans-unit>
-      <trans-unit id="v6cfPyt" resname="quickselect.title_select">
+      </segment>
+    </unit>
+    <unit id="v6cfPyt" name="quickselect.title_select">
+      <segment>
         <source>quickselect.title_select</source>
-        <target>__quickselect.title_select</target>
-      </trans-unit>
-      <trans-unit id=".fL0AbE" resname="files_list.remark">
+        <target>Selecteer</target>
+      </segment>
+    </unit>
+    <unit id=".fL0AbE" name="files_list.remark">
+      <segment>
         <source>files_list.remark</source>
         <target>__files_list.remark</target>
-      </trans-unit>
-      <trans-unit id="I2ykiIZ" resname="caption.folders">
+      </segment>
+    </unit>
+    <unit id="I2ykiIZ" name="caption.folders">
+      <segment>
         <source>caption.folders</source>
-        <target>__caption.folders</target>
-      </trans-unit>
-      <trans-unit id="m3tNvJb" resname="finder.button_list">
+        <target>Mappen</target>
+      </segment>
+    </unit>
+    <unit id="m3tNvJb" name="finder.button_list">
+      <segment>
         <source>finder.button_list</source>
-        <target>__finder.button_list</target>
-      </trans-unit>
-      <trans-unit id="tRLgeoX" resname="finder.button_cards">
+        <target>Lijst</target>
+      </segment>
+    </unit>
+    <unit id="tRLgeoX" name="finder.button_cards">
+      <segment>
         <source>finder.button_cards</source>
-        <target>__finder.button_cards</target>
-      </trans-unit>
-      <trans-unit id="QQvRJe." resname="files_cards.button_toggle">
+        <target>Kaarten</target>
+      </segment>
+    </unit>
+    <unit id="QQvRJe." name="files_cards.button_toggle">
+      <segment>
         <source>files_cards.button_toggle</source>
         <target>__files_cards.button_toggle</target>
-      </trans-unit>
-      <trans-unit id="gtC_ujD" resname="files_cards.action_edit_image_info">
+      </segment>
+    </unit>
+    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
+      <segment>
         <source>files_cards.action_edit_image_info</source>
         <target>__files_cards.action_edit_image_info</target>
-      </trans-unit>
-      <trans-unit id="5LXvJfE" resname="files_cards.action_edit_file">
+      </segment>
+    </unit>
+    <unit id="5LXvJfE" name="files_cards.action_edit_file">
+      <segment>
         <source>files_cards.action_edit_file</source>
         <target>__files_cards.action_edit_file</target>
-      </trans-unit>
-      <trans-unit id="H1pgP94" resname="files_cards.action_view_original">
+      </segment>
+    </unit>
+    <unit id="H1pgP94" name="files_cards.action_view_original">
+      <segment>
         <source>files_cards.action_view_original</source>
         <target>__files_cards.action_view_original</target>
-      </trans-unit>
-      <trans-unit id="ZoY6ADX" resname="files_cards.action_duplicate">
+      </segment>
+    </unit>
+    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
+      <segment>
         <source>files_cards.action_duplicate</source>
         <target>__files_cards.action_duplicate</target>
-      </trans-unit>
-      <trans-unit id="JjU6ZQP" resname="files_cards.action_delete">
+      </segment>
+    </unit>
+    <unit id="JjU6ZQP" name="files_cards.action_delete">
+      <segment>
         <source>files_cards.action_delete</source>
         <target>__files_cards.action_delete</target>
-      </trans-unit>
-      <trans-unit id="3jdNwuk" resname="files_cards.label_filename">
+      </segment>
+    </unit>
+    <unit id="3jdNwuk" name="files_cards.label_filename">
+      <segment>
         <source>files_cards.label_filename</source>
         <target>__files_cards.label_filename</target>
-      </trans-unit>
-      <trans-unit id="Y90_Pn1" resname="files_cards.label_title">
+      </segment>
+    </unit>
+    <unit id="Y90_Pn1" name="files_cards.label_title">
+      <segment>
         <source>files_cards.label_title</source>
         <target>__files_cards.label_title</target>
-      </trans-unit>
-      <trans-unit id="EdCfIKX" resname="files_cards.label_dimensions">
+      </segment>
+    </unit>
+    <unit id="EdCfIKX" name="files_cards.label_dimensions">
+      <segment>
         <source>files_cards.label_dimensions</source>
         <target>__files_cards.label_dimensions</target>
-      </trans-unit>
-      <trans-unit id="eQBhceV" resname="files_cards.label_filesize">
+      </segment>
+    </unit>
+    <unit id="eQBhceV" name="files_cards.label_filesize">
+      <segment>
         <source>files_cards.label_filesize</source>
         <target>__files_cards.label_filesize</target>
-      </trans-unit>
-      <trans-unit id="uiCjlwk" resname="files_cards.label_created_on">
+      </segment>
+    </unit>
+    <unit id="uiCjlwk" name="files_cards.label_created_on">
+      <segment>
         <source>files_cards.label_created_on</source>
         <target>__files_cards.label_created_on</target>
-      </trans-unit>
-      <trans-unit id="8JeahIj" resname="files_cards.message_no_files">
+      </segment>
+    </unit>
+    <unit id="8JeahIj" name="files_cards.message_no_files">
+      <segment>
         <source>files_cards.message_no_files</source>
         <target>__files_cards.message_no_files</target>
-      </trans-unit>
-      <trans-unit id="beqzCkE" resname="login.header_login">
+      </segment>
+    </unit>
+    <unit id="beqzCkE" name="login.header_login">
+      <segment>
         <source>login.header_login</source>
         <target>__login.header_login</target>
-      </trans-unit>
-      <trans-unit id="37kJiIe" resname="view_locales.badge_default">
+      </segment>
+    </unit>
+    <unit id="37kJiIe" name="view_locales.badge_default">
+      <segment>
         <source>view_locales.badge_default</source>
         <target>__view_locales.badge_default</target>
-      </trans-unit>
-      <trans-unit id="JTRCo_U" resname="view_locales.badge_ok">
+      </segment>
+    </unit>
+    <unit id="JTRCo_U" name="view_locales.badge_ok">
+      <segment>
         <source>view_locales.badge_ok</source>
         <target>__view_locales.badge_ok</target>
-      </trans-unit>
-      <trans-unit id="ufFUPp7" resname="view_locales.badge_missing">
+      </segment>
+    </unit>
+    <unit id="ufFUPp7" name="view_locales.badge_missing">
+      <segment>
         <source>view_locales.badge_missing</source>
         <target>__view_locales.badge_missing</target>
-      </trans-unit>
-      <trans-unit id="UNBaDz." resname="general.phrase.edit">
+      </segment>
+    </unit>
+    <unit id="UNBaDz." name="general.phrase.edit">
+      <segment>
         <source>general.phrase.edit</source>
-        <target>__general.phrase.edit</target>
-      </trans-unit>
-      <trans-unit id="ypPzS03" resname="localeswitcher.button_info">
+        <target>Bewerk</target>
+      </segment>
+    </unit>
+    <unit id="ypPzS03" name="localeswitcher.button_info">
+      <segment>
         <source>localeswitcher.button_info</source>
         <target>__localeswitcher.button_info</target>
-      </trans-unit>
-      <trans-unit id="EvAqL__" resname="caption.duplicate">
+      </segment>
+    </unit>
+    <unit id="EvAqL__" name="caption.duplicate">
+      <segment>
         <source>caption.duplicate</source>
         <target>__caption.duplicate</target>
-      </trans-unit>
-      <trans-unit id="qQKx1lR" resname="buttons.button_toggle">
+      </segment>
+    </unit>
+    <unit id="qQKx1lR" name="buttons.button_toggle">
+      <segment>
         <source>buttons.button_toggle</source>
-        <target>__buttons.button_toggle</target>
-      </trans-unit>
-      <trans-unit id="ok6YulQ" resname="action.view_saved">
+        <target>Wissel</target>
+      </segment>
+    </unit>
+    <unit id="ok6YulQ" name="action.view_saved">
+      <segment>
         <source>action.view_saved</source>
-        <target>__action.view_saved</target>
-      </trans-unit>
-      <trans-unit id="Hlf9c1s" resname="listing.title_overview">
+        <target>Bekijk opgeslagen</target>
+      </segment>
+    </unit>
+    <unit id="Hlf9c1s" name="listing.title_overview">
+      <segment>
         <source>listing.title_overview</source>
-        <target>__listing.title_overview</target>
-      </trans-unit>
-      <trans-unit id="vJwSCBO" resname="title.contentlisting">
+        <target>Overzicht voor »</target>
+      </segment>
+    </unit>
+    <unit id="vJwSCBO" name="title.contentlisting">
+      <segment>
         <source>title.contentlisting</source>
-        <target>__title.contentlisting</target>
-      </trans-unit>
-      <trans-unit id="BdhsE_X" resname="listing_select_box.card_header.selected">
+        <target>Lijst van content</target>
+      </segment>
+    </unit>
+    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
+      <segment>
         <source>listing_select_box.card_header.selected</source>
-        <target>__listing_select_box.card_header.selected</target>
-      </trans-unit>
-      <trans-unit id="jBpmj90" resname="listing_select_box.card_body.records_passed">
+        <target>Geselecteerd</target>
+      </segment>
+    </unit>
+    <unit id="jBpmj90" name="listing_select_box.card_body.records_passed">
+      <segment>
         <source>listing_select_box.card_body.records_passed</source>
-        <target>__listing_select_box.card_body.records_passed</target>
-      </trans-unit>
-      <trans-unit id="D8vDkhK" resname="listing_select_box.card_body.remark">
+        <target>Doorgegeven gekozen IDs</target>
+      </segment>
+    </unit>
+    <unit id="D8vDkhK" name="listing_select_box.card_body.remark">
+      <segment>
         <source>listing_select_box.card_body.remark</source>
-        <target>__listing_select_box.card_body.remark</target>
-      </trans-unit>
-      <trans-unit id="wQ0WYAT" resname="listing.title_sortby">
+        <target>(these can be used with something like axios to bulk modify/delete)</target>
+      </segment>
+    </unit>
+    <unit id="wQ0WYAT" name="listing.title_sortby">
+      <segment>
         <source>listing.title_sortby</source>
-        <target>__listing.title_sortby</target>
-      </trans-unit>
-      <trans-unit id="ZGv90X8" resname="listing.option_select_item">
+        <target>Sorteer op</target>
+      </segment>
+    </unit>
+    <unit id="ZGv90X8" name="listing.option_select_item">
+      <segment>
         <source>listing.option_select_item</source>
-        <target>__listing.option_select_item</target>
-      </trans-unit>
-      <trans-unit id="TIyjgb6" resname="listing.title_title">
+        <target>Kies item</target>
+      </segment>
+    </unit>
+    <unit id="TIyjgb6" name="listing.title_title">
+      <segment>
         <source>listing.title_title</source>
-        <target>__listing.title_title</target>
-      </trans-unit>
-      <trans-unit id="pn22p7q" resname="listing.placeholder_filter">
+        <target>Titel</target>
+      </segment>
+    </unit>
+    <unit id="pn22p7q" name="listing.placeholder_filter">
+      <segment>
         <source>listing.placeholder_filter</source>
-        <target>__listing.placeholder_filter</target>
-      </trans-unit>
-      <trans-unit id="ni4zApC" resname="listing.button_filter">
+        <target>Trefwoord …</target>
+      </segment>
+    </unit>
+    <unit id="ni4zApC" name="listing.button_filter">
+      <segment>
         <source>listing.button_filter</source>
-        <target>__listing.button_filter</target>
-      </trans-unit>
-      <trans-unit id="doNsgm0" resname="listing.button_clear">
+        <target>Filter</target>
+      </segment>
+    </unit>
+    <unit id="doNsgm0" name="listing.button_clear">
+      <segment>
         <source>listing.button_clear</source>
         <target>__listing.button_clear</target>
-      </trans-unit>
-      <trans-unit id="SeTqePC" resname="label.display_name">
+      </segment>
+    </unit>
+    <unit id="SeTqePC" name="label.display_name">
+      <segment>
         <source>label.display_name</source>
-        <target>__label.display_name</target>
-      </trans-unit>
-      <trans-unit id="iD6CNOO" resname="label.roles">
+        <target>Toon naam als</target>
+      </segment>
+    </unit>
+    <unit id="iD6CNOO" name="label.roles">
+      <segment>
         <source>label.roles</source>
         <target>__label.roles</target>
-      </trans-unit>
-      <trans-unit id="TtmWqX3" resname="action.view">
+      </segment>
+    </unit>
+    <unit id="TtmWqX3" name="action.view">
+      <segment>
         <source>action.view</source>
-        <target>__action.view</target>
-      </trans-unit>
-      <trans-unit id="jXAelLe" resname="admin_sidebar_toggler.toggle">
+        <target>bekijk</target>
+      </segment>
+    </unit>
+    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+      <segment>
         <source>admin_sidebar_toggler.toggle</source>
-        <target>__admin_sidebar_toggler.toggle</target>
-      </trans-unit>
-      <trans-unit id="Gabafxx" resname="admin_sidebar.toggler">
+        <target>Klap zijbalk uit of in</target>
+      </segment>
+    </unit>
+    <unit id="Gabafxx" name="admin_sidebar.toggler">
+      <segment>
         <source>admin_sidebar.toggler</source>
-        <target>__admin_sidebar.toggler</target>
-      </trans-unit>
-      <trans-unit id="y5otxEK" resname="caption.filename">
+        <target>Wissel breedte zijbalk</target>
+      </segment>
+    </unit>
+    <unit id="y5otxEK" name="caption.filename">
+      <segment>
         <source>caption.filename</source>
         <target>__caption.filename</target>
-      </trans-unit>
-      <trans-unit id="VKhfRZB" resname="field.title">
+      </segment>
+    </unit>
+    <unit id="VKhfRZB" name="field.title">
+      <segment>
         <source>field.title</source>
         <target>__field.title</target>
-      </trans-unit>
-      <trans-unit id="7_wwX8J" resname="field.description">
+      </segment>
+    </unit>
+    <unit id="7_wwX8J" name="field.description">
+      <segment>
         <source>field.description</source>
         <target>__field.description</target>
-      </trans-unit>
-      <trans-unit id="v0sitU8" resname="field.originalFilename">
+      </segment>
+    </unit>
+    <unit id="v0sitU8" name="field.originalFilename">
+      <segment>
         <source>field.originalFilename</source>
         <target>__field.originalFilename</target>
-      </trans-unit>
-      <trans-unit id="vlRe8Tx" resname="field.width">
+      </segment>
+    </unit>
+    <unit id="vlRe8Tx" name="field.width">
+      <segment>
         <source>field.width</source>
         <target>__field.width</target>
-      </trans-unit>
-      <trans-unit id="CZbXbM_" resname="field.height">
+      </segment>
+    </unit>
+    <unit id="CZbXbM_" name="field.height">
+      <segment>
         <source>field.height</source>
         <target>__field.height</target>
-      </trans-unit>
-      <trans-unit id="Sz_u.OS" resname="field.filesize">
+      </segment>
+    </unit>
+    <unit id="Sz_u.OS" name="field.filesize">
+      <segment>
         <source>field.filesize</source>
         <target>__field.filesize</target>
-      </trans-unit>
-      <trans-unit id="Wou02nK" resname="caption.kitchensink">
+      </segment>
+    </unit>
+    <unit id="Wou02nK" name="caption.kitchensink">
+      <segment>
         <source>caption.kitchensink</source>
-        <target>__caption.kitchensink</target>
-      </trans-unit>
-      <trans-unit id="73A2bWM" resname="finder.label_view">
+        <target>Kitchensink</target>
+      </segment>
+    </unit>
+    <unit id="73A2bWM" name="finder.label_view">
+      <segment>
         <source>finder.label_view</source>
-        <target>__finder.label_view</target>
-      </trans-unit>
-      <trans-unit id="Em.C0bV" resname="listing_table.actions.button_edit">
+        <target>Bekijk</target>
+      </segment>
+    </unit>
+    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+      <segment>
         <source>listing_table.actions.button_edit</source>
-        <target>__listing_table.actions.button_edit</target>
-      </trans-unit>
-      <trans-unit id="Iy4HXCU" resname="controller.user.title">
+        <target>Bewerk</target>
+      </segment>
+    </unit>
+    <unit id="Iy4HXCU" name="controller.user.title">
+      <segment>
         <source>controller.user.title</source>
         <target><![CDATA[Users & Permissions]]></target>
-      </trans-unit>
-      <trans-unit id="HBwIQ9b" resname="controller.user.subtitle">
+      </segment>
+    </unit>
+    <unit id="HBwIQ9b" name="controller.user.subtitle">
+      <segment>
         <source>controller.user.subtitle</source>
         <target>To edit users and their permissions</target>
-      </trans-unit>
-      <trans-unit id="rkVeKe_" resname="controller.authentication.reset_title">
+      </segment>
+    </unit>
+    <unit id="rkVeKe_" name="controller.authentication.reset_title">
+      <segment>
         <source>controller.authentication.reset_title</source>
         <target>Reset Password</target>
-      </trans-unit>
-      <trans-unit id="lN_rF8O" resname="controller.authentication.reset_subtitle">
+      </segment>
+    </unit>
+    <unit id="lN_rF8O" name="controller.authentication.reset_subtitle">
+      <segment>
         <source>controller.authentication.reset_subtitle</source>
         <target>To reset your password, if you've misplaced it</target>
-      </trans-unit>
-      <trans-unit id="0Gyf5xr" resname="controller.database.check_title">
+      </segment>
+    </unit>
+    <unit id="0Gyf5xr" name="controller.database.check_title">
+      <segment>
         <source>controller.database.check_title</source>
         <target>Database Check</target>
-      </trans-unit>
-      <trans-unit id="SeDwjX6" resname="controller.database.check_subtitle">
+      </segment>
+    </unit>
+    <unit id="SeDwjX6" name="controller.database.check_subtitle">
+      <segment>
         <source>controller.database.check_subtitle</source>
         <target>To check the Database</target>
-      </trans-unit>
-      <trans-unit id="nJnALPG" resname="controller.database.update_title">
+      </segment>
+    </unit>
+    <unit id="nJnALPG" name="controller.database.update_title">
+      <segment>
         <source>controller.database.update_title</source>
         <target>Database Update</target>
-      </trans-unit>
-      <trans-unit id="nRE74_i" resname="controller.database.update_subtitle">
+      </segment>
+    </unit>
+    <unit id="nRE74_i" name="controller.database.update_subtitle">
+      <segment>
         <source>controller.database.update_subtitle</source>
         <target>To update the Database</target>
-      </trans-unit>
-      <trans-unit id="a3UNsKw" resname="controller.omnisearch.title">
+      </segment>
+    </unit>
+    <unit id="a3UNsKw" name="controller.omnisearch.title">
+      <segment>
         <source>controller.omnisearch.title</source>
         <target>Omnisearch</target>
-      </trans-unit>
-      <trans-unit id="4N41oTU" resname="controller.omnisearch.subtitle">
+      </segment>
+    </unit>
+    <unit id="4N41oTU" name="controller.omnisearch.subtitle">
+      <segment>
         <source>controller.omnisearch.subtitle</source>
         <target>To search, in an omni-like fashion</target>
-      </trans-unit>
-      <trans-unit id="7cXqH5s" resname="listing.title_display_name">
+      </segment>
+    </unit>
+    <unit id="7cXqH5s" name="listing.title_display_name">
+      <segment>
         <source>listing.title_display_name</source>
-        <target>__listing.title_display_name</target>
-      </trans-unit>
-      <trans-unit id="Ay7xZ2h" resname="listing.title_username">
+        <target>Toon naam als</target>
+      </segment>
+    </unit>
+    <unit id="Ay7xZ2h" name="listing.title_username">
+      <segment>
         <source>listing.title_username</source>
-        <target>__listing.title_username</target>
-      </trans-unit>
-      <trans-unit id="RN1tdtJ" resname="listing.title_email">
+        <target>Gebruikersnaam</target>
+      </segment>
+    </unit>
+    <unit id="RN1tdtJ" name="listing.title_email">
+      <segment>
         <source>listing.title_email</source>
-        <target>__listing.title_email</target>
-      </trans-unit>
-      <trans-unit id="0pjZ.GV" resname="listing.title_roles">
+        <target>E-mail</target>
+      </segment>
+    </unit>
+    <unit id="0pjZ.GV" name="listing.title_roles">
+      <segment>
         <source>listing.title_roles</source>
-        <target>__listing.title_roles</target>
-      </trans-unit>
-      <trans-unit id="hXEFV1n" resname="listing.title_last_seen">
+        <target>Rollen</target>
+      </segment>
+    </unit>
+    <unit id="hXEFV1n" name="listing.title_last_seen">
+      <segment>
         <source>listing.title_last_seen</source>
-        <target>__listing.title_last_seen</target>
-      </trans-unit>
-      <trans-unit id="pn7kE17" resname="listing.title_last_ip">
+        <target>Laatst gezien</target>
+      </segment>
+    </unit>
+    <unit id="pn7kE17" name="listing.title_last_ip">
+      <segment>
         <source>listing.title_last_ip</source>
-        <target>__listing.title_last_ip</target>
-      </trans-unit>
-      <trans-unit id="GZ65uOC" resname="listing.title_actions">
+        <target>Recentste IP</target>
+      </segment>
+    </unit>
+    <unit id="GZ65uOC" name="listing.title_actions">
+      <segment>
         <source>listing.title_actions</source>
-        <target>__listing.title_actions</target>
-      </trans-unit>
-      <trans-unit id="fkXL.k6" resname="user.not_valid_email">
+        <target>Acties</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
         <source>user.not_valid_email</source>
         <target>Invalid email</target>
-      </trans-unit>
-      <trans-unit id="HjWW.NS" resname="user.not_valid_password">
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
         <source>user.not_valid_password</source>
         <target>Invalid password</target>
-      </trans-unit>
-    </body>
+      </segment>
+    </unit>
+    <unit id="t2TNwOq" name="Unknown">
+      <segment>
+        <source>Unknown</source>
+        <target>Onbekend</target>
+      </segment>
+    </unit>
+    <unit id="A_d5KPt" name="general.phrase.written-by-on">
+      <segment>
+        <source>general.phrase.written-by-on</source>
+        <target>Geschreven door %name% op %date%.</target>
+      </segment>
+    </unit>
+    <unit id="AGegYAN" name="contenttypes.generic.recent">
+      <segment>
+        <source>contenttypes.generic.recent</source>
+        <target>Recente %contenttypes%</target>
+      </segment>
+    </unit>
+    <unit id="wNEwZy_" name="contenttypes.generic.overview">
+      <segment>
+        <source>contenttypes.generic.overview</source>
+        <target>Overzicht van %contenttypes%</target>
+      </segment>
+    </unit>
+    <unit id="ma9mBv_" name="Menu">
+      <segment>
+        <source>Menu</source>
+        <target>Menu</target>
+      </segment>
+    </unit>
+    <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
+      <segment>
+        <source>general.phrase.search-ellipsis</source>
+        <target>…</target>
+      </segment>
+    </unit>
+    <unit id="psOa_9x" name="general.phrase.built-with-bolt">
+      <segment>
+        <source>general.phrase.built-with-bolt</source>
+        <target><![CDATA[Deze website is <a href='https://bolt.cm' target='_blank' title='Weldoordacht, lichtgewicht en eenvoudig CMS'>Gebouwd met Bolt</a>. ]]></target>
+      </segment>
+    </unit>
+    <unit id="odDw0du" name="action.search">
+      <segment>
+        <source>action.search</source>
+        <target>action.search</target>
+      </segment>
+    </unit>
+    <unit id="TpGxDI3" name="user.unknown_user">
+      <segment>
+        <source>user.unknown_user</source>
+        <target>Onbekende gebruiker</target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment>
+        <source>success</source>
+        <target>Succes!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
