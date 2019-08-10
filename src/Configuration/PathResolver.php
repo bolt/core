@@ -65,7 +65,7 @@ class PathResolver
         }
 
         $this->paths['root'] = $root;
-	
+
         $this->paths['theme'] = '%themes%/' . $themeName;
     }
 

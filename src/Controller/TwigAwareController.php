@@ -7,6 +7,7 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
@@ -52,6 +53,7 @@ class TwigAwareController extends AbstractController
         $parameters['user'] = $parameters['user'] ?? $this->getUser();
 
         $this->setThemePackage();
+        $this->setTwigLoader();
 
         // Resolve string|array of templates into the first one that is found.
         if (is_array($template)) {
@@ -77,6 +79,16 @@ class TwigAwareController extends AbstractController
         $response->setContent($content);
 
         return $response;
+    }
+
+    private function setTwigLoader(): void
+    {
+        /** @var NativeFilesystemLoader $twigLoaders */
+        $twigLoaders = $this->twig->getLoader();
+
+        if ($twigLoaders instanceof NativeFilesystemLoader) {
+            $twigLoaders->addPath($this->config->getPath('theme'), '__main__');
+        }
     }
 
     private function setThemePackage(): void
