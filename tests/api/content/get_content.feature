@@ -22,6 +22,7 @@ Feature: Get content with API
              "title": @string@,
              "path": @string@,
              "media": @string@
+             "url": @string@
           },
           "@*@": "@*@"
        },
