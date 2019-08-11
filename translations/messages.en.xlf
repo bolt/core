@@ -1815,5 +1815,17 @@
         <target>Unknown user</target>
       </segment>
     </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <segment>
+        <source>label.predominant_colors__in_image</source>
+        <target>Predominant colors in image</target>
+      </segment>
+    </unit>
+    <unit id="8RPjZ5w" name="general.phrase.overview-for">
+      <segment>
+        <source>general.phrase.overview-for</source>
+        <target>Overview for '%slug%'</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
