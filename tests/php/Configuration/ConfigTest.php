@@ -30,7 +30,7 @@ class ConfigTest extends TestCase
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
         $config = new Config(new Stopwatch(), $projectDir, $cache);
 
-        $this->assertSame('Bolt Four Website', $config->get('general/sitename'));
+        $this->assertSame('Bolt Core Git Clone', $config->get('general/sitename'));
     }
 
     public function testConfigHas()
