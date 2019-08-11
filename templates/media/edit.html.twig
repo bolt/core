@@ -1,14 +1,16 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 
 {% block title %}
-    {{ 'caption.edit'|trans }} » <strong>{{ excerpt(media.title|default('New'), 30) }}</strong>
+    <span class="admin__header--title__prefix">
+    {{ 'caption.edit'|trans }} »
+    </span>
+    <i class="far fa-image"></i>
+    {{ excerpt(media.title|default(media.filename), 30) }}
 {% endblock %}
 
 {% block vue_id 'editor' %}
 
 {% block main %}
-
-    <h2>{{ 'caption.filename'|trans }} » <strong>{{ media.location }}://{% if media.path %}{{ media.path }}/{% endif %}{{ media.filename }}</strong></h2>
 
     <div class="imageholder">
         {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, location = media.location, path = media.path) %}
@@ -20,6 +22,15 @@
 
 <form method="post" id="editcontent">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('media_edit') }}">
+
+    {% include '@bolt/_partials/fields/text.html.twig' with {
+        'label': 'caption.filename'|trans,
+        'name': 'filename',
+        'value': media.location ~ '://' ~ (media.path ? media.path ~ '/') ~ media.filename,
+        'disabled' : true,
+        'attributes': 'readonly'
+    }  %}
+
 
     {% include '@bolt/_partials/fields/text.html.twig' with {
         'label': 'field.title'|trans,
@@ -75,6 +86,7 @@
                 'label': 'field.id'|trans,
                 'name': 'id',
                 'value': media.id,
+                'disabled' : true,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
@@ -82,6 +94,7 @@
                 'label': 'field.width'|trans,
                 'name': 'width',
                 'value': media.width,
+                'disabled' : true,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
@@ -89,6 +102,7 @@
                 'label': 'field.height'|trans,
                 'name': 'height',
                 'value': media.height,
+                'disabled' : true,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
@@ -96,22 +110,28 @@
                 'label': 'field.filesize'|trans,
                 'name': 'filesize',
                 'value': media.filesize,
+                'disabled' : true,
                 'attributes': 'readonly form="editcontent"',
             }  %}
 
             {#<input type="text" name="author" value="{{ media.author }}">#}
 
-    {% include '@bolt/_partials/fields/datetime.html.twig' with {
+    {% include '@bolt/_partials/fields/date.html.twig' with {
         'label': 'field.createdAt'|trans,
         'name': 'createdAt',
         'value': media.createdAt,
+        'disabled' : true,
+        'mode' : 'datetime',
+        'disabled' : true,
         'attributes': 'readonly form="editcontent"',
     } %}
 
-    {% include '@bolt/_partials/fields/datetime.html.twig' with {
+    {% include '@bolt/_partials/fields/date.html.twig' with {
         'label': 'field.modifiedAt'|trans,
         'name': 'modifiedAt',
         'value': media.modifiedAt,
+        'mode' : 'datetime',
+        'disabled' : true,
         'attributes': 'readonly form="editcontent"',
     } %}
 

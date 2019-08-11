@@ -15,9 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends TwigAwareController implements FrontendZone
 {
-    /**
-     * @var TemplateChooser
-     */
+    /** @var TemplateChooser */
     private $templateChooser;
 
     public function __construct(TemplateChooser $templateChooser)

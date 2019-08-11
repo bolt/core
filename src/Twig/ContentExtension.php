@@ -20,14 +20,10 @@ use Twig\TwigFunction;
 
 class ContentExtension extends AbstractExtension
 {
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /**
-     * @var ContentRepository
-     */
+    /** @var ContentRepository */
     private $contentRepository;
 
     /** @var CsrfTokenManagerInterface */

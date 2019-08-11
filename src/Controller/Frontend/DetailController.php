@@ -15,19 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DetailController extends TwigAwareController implements FrontendZone
 {
-    /**
-     * @var TemplateChooser
-     */
+    /** @var TemplateChooser */
     private $templateChooser;
 
-    /**
-     * @var ContentRepository
-     */
+    /** @var ContentRepository */
     private $contentRepository;
 
-    /**
-     * @var FieldRepository
-     */
+    /** @var FieldRepository */
     private $fieldRepository;
 
     public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, FieldRepository $fieldRepository)

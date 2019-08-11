@@ -14,14 +14,10 @@ use Twig\TwigFunction;
 
 class TranslatableExtension extends AbstractExtension
 {
-    /**
-     * @var EntityManagerInterface
-     */
+    /** @var EntityManagerInterface */
     private $em;
 
-    /**
-     * @var TranslationRepository
-     */
+    /** @var TranslationRepository */
     private $translationRepository;
 
     public function __construct(EntityManagerInterface $em)

@@ -339,7 +339,7 @@
       </trans-unit>
       <trans-unit id="7aLIA3c" resname="caption.dashboard">
         <source>caption.dashboard</source>
-        <target>Vezérlőpanel</target>
+        <target>Botl Vezérlőpanel</target>
       </trans-unit>
       <trans-unit id="xuNRuUu" resname="caption.translations: messages">
         <source>caption.translations: messages</source>
@@ -420,10 +420,6 @@
       <trans-unit id="xN1kSQQ" resname="caption.bolt_payoff">
         <source>caption.bolt_payoff</source>
         <target>Az ésszerű és egyszerű CMS</target>
-      </trans-unit>
-      <trans-unit id="mo_k9.1" resname="general.dashboard">
-        <source>general.dashboard</source>
-        <target>Vezérlőpanel</target>
       </trans-unit>
       <trans-unit id="HK7XTUX" resname="caption.edit">
         <source>caption.edit</source>
@@ -726,10 +722,6 @@
       <trans-unit id="cu3W5DR" resname="image.upload">
         <source>image.upload</source>
         <target>Feltöltés</target>
-      </trans-unit>
-      <trans-unit id="2RYT2e3" resname="dashboard.title_boltcms">
-        <source>dashboard.title_boltcms</source>
-        <target>Bolt tartalomkezelő »</target>
       </trans-unit>
       <trans-unit id="nrWBJNm" resname="extensions.title_desc">
         <source>extensions.title_desc</source>

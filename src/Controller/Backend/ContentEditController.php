@@ -52,6 +52,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
     /** @var TemplateChooser */
     private $templateChooser;
+
     /** @var ContentFillListener */
     private $contentFillListener;
 

@@ -17,9 +17,7 @@ use Doctrine\ORM\ORMException;
  */
 class FieldDiscriminatorListener
 {
-    /**
-     * @var MappingDriver
-     */
+    /** @var MappingDriver */
     private $mappingDriver;
 
     /**

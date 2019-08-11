@@ -56,7 +56,7 @@
       </notes>
       <segment>
         <source>action.save</source>
-        <target>Wijzigingen opslaan</target>
+        <target>Opslaan</target>
       </segment>
     </unit>
     <unit id="etGJjTo" name="action.edit_user">
@@ -327,7 +327,7 @@
     <unit id="7aLIA3c" name="caption.dashboard">
       <segment>
         <source>caption.dashboard</source>
-        <target>Dashboard</target>
+        <target>Bolt Dashboard</target>
       </segment>
     </unit>
     <unit id="K6TmK4B" name="caption.clear_cache">
@@ -646,12 +646,6 @@
       <segment>
         <source>about.list_of_used_libraries</source>
         <target>Hieronder staat een lijst met een deel van de gebruikte Libraries / Componenten in Bolt.</target>
-      </segment>
-    </unit>
-    <unit id="2RYT2e3" name="dashboard.title_boltcms">
-      <segment>
-        <source>dashboard.title_boltcms</source>
-        <target>Bolt content management »</target>
       </segment>
     </unit>
     <unit id="nrWBJNm" name="extensions.title_desc">
@@ -1480,6 +1474,12 @@
       <segment>
         <source>success</source>
         <target>Succes!</target>
+      </segment>
+    </unit>
+    <unit id="dQIY7_J" name="action.preview">
+      <segment>
+        <source>action.preview</source>
+        <target>Voorvertoning</target>
       </segment>
     </unit>
   </file>

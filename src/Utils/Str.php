@@ -15,9 +15,7 @@ class Str extends \Bolt\Common\Str
      */
     private static $slugifyInstance = null;
 
-    /**
-     * @var Slugify[]
-     */
+    /** @var Slugify[] */
     private static $slugifySafeInstances = [];
 
     /**
