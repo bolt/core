@@ -1827,5 +1827,17 @@
         <target>Overview for '%slug%'</target>
       </segment>
     </unit>
+    <unit id="6mze9DI" name="general.phrase.related-content">
+      <segment>
+        <source>general.phrase.related-content</source>
+        <target>Related content</target>
+      </segment>
+    </unit>
+    <unit id="odDw0du" name="action.search">
+      <segment>
+        <source>action.search</source>
+        <target>Search</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
