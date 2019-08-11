@@ -93,8 +93,8 @@
         grid-column-gap: 1.5rem;
       }
       @include media-breakpoint-up(wd) {
-        grid-column-gap: 2rem;
-        padding: $spacer $spacer*2 $spacer $spacer*2;
+        grid-column-gap: 3.5rem;
+        padding: $spacer $spacer*2 $spacer $spacer*3.5;
       }
       &--has-sidebar {
         // grid-template-columns: 3fr 1fr;

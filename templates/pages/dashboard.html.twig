@@ -2,10 +2,10 @@
 
 {% block title %}
   <span class="admin__header--title__prefix">
-      {{ 'dashboard.title_boltcms'|trans }}
+      {{ 'caption.dashboard'|trans }} »
   </span>
   <i class='fas mr-2 fa-tachometer-alt'></i>
-  {{ 'caption.dashboard'|trans }}
+  {{ config.get('general/sitename') }}
 {% endblock title %}
 
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}

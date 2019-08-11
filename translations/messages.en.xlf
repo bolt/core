@@ -570,7 +570,7 @@
     <unit id="7aLIA3c" name="caption.dashboard">
       <segment>
         <source>caption.dashboard</source>
-        <target>Dashboard</target>
+        <target>Bolt Dashboard</target>
       </segment>
     </unit>
     <unit id="xuNRuUu" name="caption.translations: messages">
@@ -691,12 +691,6 @@
       <segment>
         <source>caption.bolt_payoff</source>
         <target><![CDATA[Sophisticated, lightweight & simple CMS]]></target>
-      </segment>
-    </unit>
-    <unit id="mo_k9.1" name="general.dashboard">
-      <segment>
-        <source>general.dashboard</source>
-        <target>general.dashboard</target>
       </segment>
     </unit>
     <unit id="HK7XTUX" name="caption.edit">
@@ -1591,12 +1585,6 @@
       <segment>
         <source>finder.button_cards</source>
         <target>Cards</target>
-      </segment>
-    </unit>
-    <unit id="2RYT2e3" name="dashboard.title_boltcms">
-      <segment>
-        <source>dashboard.title_boltcms</source>
-        <target>Bolt content management »</target>
       </segment>
     </unit>
     <unit id="nrWBJNm" name="extensions.title_desc">

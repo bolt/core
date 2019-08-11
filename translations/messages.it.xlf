@@ -570,7 +570,7 @@
     <unit id="7aLIA3c" name="caption.dashboard">
       <segment>
         <source>caption.dashboard</source>
-        <target>Dashboard</target>
+        <target>Bolt Dashboard</target>
       </segment>
     </unit>
     <unit id="xuNRuUu" name="caption.translations: messages">
@@ -691,12 +691,6 @@
       <segment state="translated">
         <source>caption.bolt_payoff</source>
         <target><![CDATA[Un CMS sofisticato, semplice e leggero]]></target>
-      </segment>
-    </unit>
-    <unit id="mo_k9.1" name="general.dashboard">
-      <segment>
-        <source>general.dashboard</source>
-        <target>general.dashboard</target>
       </segment>
     </unit>
     <unit id="HK7XTUX" name="caption.edit">

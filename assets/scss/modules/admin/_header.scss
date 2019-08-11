@@ -20,12 +20,12 @@
     font-size: 1.825rem;
     font-size: $h1-font-size;
     color: var(--admin-sidebar);
-    margin-top: $spacer;
+    margin-top: 0.7rem;
     position: relative;
     // max width set for menu button breathing room
     max-width: 80%;
     @include media-breakpoint-up(sm) {
-      margin-top: $spacer*1.25;
+      margin-top: 0.7rem;
       // max width set for menu button breathing room
       max-width: 85%;
     }
@@ -44,8 +44,9 @@
     }
     &__prefix {
       font-weight: $font-weight-normal;
-      font-size: 1rem;
+      font-size: 1.1rem;
       display: block;
+      line-height: 2rem;
     }
   }
 
@@ -63,7 +64,7 @@
       padding: $spacer*1.25 $spacer*1.25 0;
     }
     @include media-breakpoint-up(wd) {
-      padding: $spacer*1.25 $spacer*2 1rem;
+      padding: $spacer*1.25 $spacer*2 1rem $spacer*3.5;
     }
   }
   &--togglebar {

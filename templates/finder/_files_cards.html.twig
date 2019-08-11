@@ -8,6 +8,7 @@
         {% set thumbnail = '' %}
         {% set title = '' %}
         {% set dimensions = '' %}
+        {% set original = asset((path != '/' ? path|trim('/') ~ '/') ~ file.filename, 'files') %}
 
         {% if extension in imageformats %}
             {% set thumbnail = filename|thumbnail(width = 400, height = 300, location = location, fit = 'crop') %}
@@ -19,7 +20,6 @@
                 {% set dimensions = image.width ~ ' × ' ~ image.height ~ 'px' %}
                 {% set link = path('bolt_media_edit', {'id': image.id}) %}
             {% endfor %}
-
         {% endif %}
 
     <div class="col-6 col-sm-4 col-xl-3 pr-0 pb-3">
@@ -48,7 +48,6 @@
                     </button>
 
                     <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
-
                         <a class="dropdown-item" href="{{ link }}" target="_blank">
                             <i class="fas fa-w fa-edit"></i>
                             {% if extension in imageformats %}
@@ -58,7 +57,7 @@
                             {% endif %}
                         </a>
 
-                        <a class="dropdown-item" href="{{ asset(file.filename, 'files') }}" target="_blank">
+                        <a class="dropdown-item" href="{{ original }}" target="_blank">
                             <i class="fas fa-w fa-external-link-square-alt"></i>
                             {{ 'files_cards.action_view_original'|trans }}
                         </a>
