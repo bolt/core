@@ -72,15 +72,16 @@
     <div class="card-body">
 
         <form>
-            <div class="form-group">
+            <span class="form-group">
             <button type="submit" class="btn btn-success mb-3" form="editcontent">
                 <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
             </button>
 
-            <ul class="ui divided selection list" id="swatcheslist">
-            </ul>
+            <p>{{ 'label.predominant_colors__in_image'|trans }}:
+                <ul class="ui divided selection list" id="swatcheslist">
+                </ul>
+            </p>
 
-            </div>
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.id'|trans,
@@ -157,14 +158,16 @@
             var swatches = vibrant.swatches();
             for (var swatch in swatches) {
                 if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+                    // <li>Vibrant <span class="badge badge-secondary" style="background-color: #94ad49">#94ad49</span></li>
+
                     var elem = document.createElement('li');
-                    var label = document.createElement('div');
+                    var badge = document.createElement('span');
                     var labelNode = document.createTextNode(swatches[swatch].getHex());
                     var referenceNode = document.getElementById('swatcheslist');
-                    label.className = "ui horizontal label";
-                    label.setAttribute('style', 'background-color: ' + swatches[swatch].getHex());
-                    elem.appendChild(label).appendChild(labelNode);
+                    badge.className = "badge badge-secondary ml-2";
+                    badge.setAttribute('style', 'background-color: ' + swatches[swatch].getHex());
                     elem.appendChild(document.createTextNode(swatch));
+                    elem.appendChild(badge).appendChild(labelNode);
                     referenceNode.append(elem);
                 }
             }

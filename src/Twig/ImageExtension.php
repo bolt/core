@@ -137,6 +137,10 @@ class ImageExtension extends AbstractExtension
     {
         $filename = null;
 
+        if ($image instanceof Content) {
+            $image = $this->getImageFromContent($image);
+        }
+
         if ($image instanceof ImageField) {
             $filename = $image->get('filename');
         } elseif (is_array($image)) {
@@ -155,6 +159,10 @@ class ImageExtension extends AbstractExtension
     {
         $alt = '';
 
+        if ($image instanceof Content) {
+            $image = $this->getImageFromContent($image);
+        }
+
         if ($image instanceof ImageField) {
             $alt = $image->get('alt');
         } elseif (is_array($image)) {
@@ -164,5 +172,16 @@ class ImageExtension extends AbstractExtension
         }
 
         return htmlentities($alt, ENT_QUOTES);
+    }
+
+    private function getImageFromContent(Content $content)
+    {
+        foreach ($content->getFields() as $field) {
+            if ($field instanceof ImageField) {
+                return $field->getValue();
+            }
+        }
+
+        return null;
     }
 }
