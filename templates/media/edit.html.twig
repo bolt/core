@@ -72,16 +72,16 @@
     <div class="card-body">
 
         <form>
-            <span class="form-group">
-            <button type="submit" class="btn btn-success mb-3" form="editcontent">
-                <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
-            </button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success mb-3" form="editcontent">
+                    <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
+                </button>
 
-            <p>{{ 'label.predominant_colors__in_image'|trans }}:
-                <ul class="ui divided selection list" id="swatcheslist">
-                </ul>
-            </p>
-
+                <p>{{ 'label.predominant_colors__in_image'|trans }}:
+                    <ul class="ui divided selection list" id="swatcheslist">
+                    </ul>
+                </p>
+            </div>
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.id'|trans,
