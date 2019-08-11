@@ -1482,5 +1482,11 @@
         <target>Voorvertoning</target>
       </segment>
     </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <segment>
+        <source>label.predominant_colors__in_image</source>
+        <target>Overheersende kleuren in afbeelding</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
