@@ -131,11 +131,15 @@ class ImageExtension extends AbstractExtension
     }
 
     /**
-     * @param ImageField|array|string $image
+     * @param ImageField|Content|array|string $image
      */
     private function getFilename($image): ?string
     {
         $filename = null;
+
+        if ($image instanceof Content) {
+            $image = $this->getImageFromContent($image);
+        }
 
         if ($image instanceof ImageField) {
             $filename = $image->get('filename');
@@ -149,11 +153,15 @@ class ImageExtension extends AbstractExtension
     }
 
     /**
-     * @param ImageField|array|string $image
+     * @param ImageField|Content|array|string $image
      */
     private function getAlt($image): string
     {
         $alt = '';
+
+        if ($image instanceof Content) {
+            $image = $this->getImageFromContent($image);
+        }
 
         if ($image instanceof ImageField) {
             $alt = $image->get('alt');
@@ -164,5 +172,16 @@ class ImageExtension extends AbstractExtension
         }
 
         return htmlentities($alt, ENT_QUOTES);
+    }
+
+    private function getImageFromContent(Content $content): ?ImageField
+    {
+        foreach ($content->getFields() as $field) {
+            if ($field instanceof ImageField) {
+                return $field;
+            }
+        }
+
+        return null;
     }
 }

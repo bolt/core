@@ -1815,5 +1815,11 @@
         <target>Unknown user</target>
       </segment>
     </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <segment>
+        <source>label.predominant_colors__in_image</source>
+        <target>Predominant colors in image</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
