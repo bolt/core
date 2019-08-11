@@ -13,9 +13,7 @@ class JsonExtension extends AbstractExtension
 {
     private const SERIALIZE_GROUP = 'get_content';
 
-    /**
-     * @var NormalizerInterface
-     */
+    /** @var NormalizerInterface */
     private $normalizer;
 
     public function __construct(NormalizerInterface $normalizer)

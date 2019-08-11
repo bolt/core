@@ -11,9 +11,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 trait CsrfTrait
 {
-    /**
-     * @var CsrfTokenManagerInterface
-     */
+    /** @var CsrfTokenManagerInterface */
     protected $csrfTokenManager;
 
     protected function validateCsrf(Request $request, string $tokenId): void

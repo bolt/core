@@ -26,19 +26,13 @@ class UserEditController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $em;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
+    /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
     public function __construct(

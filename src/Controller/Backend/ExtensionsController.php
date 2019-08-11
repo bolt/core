@@ -22,6 +22,7 @@ class ExtensionsController extends AbstractController implements BackendZone
     {
         $this->extensionRegistry = $extensionRegistry;
     }
+
     /**
      * @Route("/extensions", name="bolt_extensions")
      */
