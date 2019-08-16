@@ -47,7 +47,7 @@ class CopyThemesCommand extends Command
 
         $io = new SymfonyStyle($input, $output);
 
-        // Determine if we can use ../bolt-assets or not.
+        // Determine if we can use ../themes or not.
         if (file_exists(dirname(dirname(dirname(__DIR__))) . '/themes')) {
             $baseDir = dirname(dirname(dirname(__DIR__))) . '/themes';
             $dirs = [
