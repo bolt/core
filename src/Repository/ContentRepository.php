@@ -64,8 +64,20 @@ class ContentRepository extends ServiceEntityRepository
         }
 
         if ($filter) {
-            $qb->andWhere($qb->expr()->like('f.value', ':filterValue'))
+            // First, create a querybuilder to get the fields that match the Query
+            $filterQB = $this->getQueryBuilder()
+                ->select('partial content.{id}');
+
+            $filterQB->addSelect('f')
+                ->innerJoin('content.fields', 'f')
+                ->andWhere($filterQB->expr()->like('f.value', ':filterValue'))
                 ->setParameter('filterValue', '%' . $filter . '%');
+
+            // These are the ID's of content we need.
+            $ids = array_column($filterQB->getQuery()->getArrayResult(), 'id');
+
+            $qb->andWhere('content.id IN (:ids)')
+                ->setParameter('ids', $ids);
         }
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
