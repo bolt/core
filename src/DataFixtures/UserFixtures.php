@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Common\Str;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
-use Bolt\Utils\Str;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;

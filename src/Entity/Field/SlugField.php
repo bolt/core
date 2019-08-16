@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
+use Bolt\Common\Str;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
-use Bolt\Utils\Str;
 use Doctrine\ORM\Mapping as ORM;
 use Tightenco\Collect\Support\Collection;
 

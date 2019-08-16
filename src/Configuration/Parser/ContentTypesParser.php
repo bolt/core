@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
+use Bolt\Common\Str;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Enum\Statuses;
 use Bolt\Exception\ConfigurationException;
-use Bolt\Utils\Str;
 use Tightenco\Collect\Support\Collection;
 
 class ContentTypesParser extends BaseParser
