@@ -293,7 +293,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.0",
-            "ref": "5e29a795c9996269c4cea2e87eeb3052c33cf98e"
+            "ref": "0cd4d2d0e7f646fda75f9944f747a56e6ed13d4c"
         },
         "files": [
             "config/packages/nyholm_psr7.yaml"
@@ -327,7 +327,7 @@
         "version": "1.9.0"
     },
     "php-http/curl-client": {
-        "version": "v1.7.1"
+        "version": "2.0.0"
     },
     "php-http/discovery": {
         "version": "1.6.0"
@@ -338,17 +338,20 @@
     "php-http/httplug-bundle": {
         "version": "1.6",
         "recipe": {
-            "repo": "github.com/symfony/recipes",
+            "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "1.6",
             "ref": "4655962c64e2de96c418caf576c57215711c7877"
-        }
+        },
+        "files": [
+            "config/packages/httplug.yaml"
+        ]
     },
     "php-http/httplug-pack": {
-        "version": "1.1.0"
+        "version": "1.2.0"
     },
     "php-http/logger-plugin": {
-        "version": "v1.0.0"
+        "version": "1.1.0"
     },
     "php-http/message": {
         "version": "1.7.2"
@@ -363,7 +366,7 @@
         "version": "v1.0.0"
     },
     "php-http/stopwatch-plugin": {
-        "version": "1.1.0"
+        "version": "1.2.0"
     },
     "php-translation/common": {
         "version": "1.0.0"
@@ -667,6 +670,12 @@
             "version": "3.3",
             "ref": "bcd70105a1e87e41f31af2ae84aaf948c8bfb189"
         }
+    },
+    "symfony/http-client": {
+        "version": "v4.3.3"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v1.1.5"
     },
     "symfony/http-foundation": {
         "version": "v3.4.0-beta2"

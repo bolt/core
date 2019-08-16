@@ -1,7 +1,7 @@
 {
     "name": "bolt/core",
     "type": "library",
-    "description": "Bolt 4 Core",
+    "description": "🧿 Bolt 4 Core",
     "license": "MIT",
     "require": {
         "php": ">=7.1.3",
@@ -9,7 +9,7 @@
         "ext-mbstring": "*",
         "ext-pdo": "*",
         "api-platform/core": "^2.4",
-        "bolt/common": "^2.0.2",
+        "bolt/common": "^2.1.0",
         "cocur/slugify": "^3.2",
         "composer/composer": "^1.9",
         "doctrine/annotations": "^1.6",
@@ -22,7 +22,6 @@
         "ezyang/htmlpurifier": "^4.10",
         "fzaninotto/faker": "^1.8",
         "gedmo/doctrine-extensions": "v2.4.x-dev",
-        "guzzlehttp/guzzle": "^6.3",
         "knplabs/knp-menu-bundle": "^2.2",
         "league/glide-symfony": "^1.0",
         "miljar/php-exif": "^0.6.4",
@@ -42,6 +41,7 @@
         "symfony/flex": "^1.2",
         "symfony/form": "^4.3",
         "symfony/framework-bundle": "^4.3",
+        "symfony/http-client": "^4.3",
         "symfony/monolog-bridge": "^4.3",
         "symfony/monolog-bundle": "^3.3",
         "symfony/polyfill-php72": "^1.11",
@@ -129,11 +129,11 @@
     "scripts": {
         "post-install-cmd": [
             "@auto-scripts",
-            "bin/console bolt:info"
+            "php bin/console bolt:info"
         ],
         "post-update-cmd": [
             "@auto-scripts",
-            "bin/console bolt:info"
+            "php bin/console bolt:info"
         ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
