@@ -5,6 +5,10 @@
 {% for key, fielddefinition in record.definition.fields %}
     {% set alltypes = alltypes|merge([fielddefinition.type]) %}
 {% endfor %}
+{% set displayTitle = record|title|default(record.id ?
+    __('caption.untitled_contenttype', {'%contenttype%': record.definition.singular_name}) :
+    __('caption.new_contenttype', {'%contenttype%': record.definition.singular_name}) ) %}
+
 
 {% block title %}
     <span class="admin__header--title__prefix">
@@ -13,7 +17,7 @@
         »
     </span>
     {{ icon(record) }}
-    {{ excerpt(record|title, 50)|default('New') }}
+    {{ displayTitle|excerpt(50) }}
 {% endblock %}
 
 {% block vue_id 'editor' %}
@@ -21,9 +25,7 @@
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
 
-{#    {{ dump(record.definition.relations) }}#}
-
-{#    {{ dump(record|related_all(true, null, false)) }}#}
+{#    {{ dump(record) }}#}
 
 {% endblock %}
 

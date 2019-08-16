@@ -1839,5 +1839,17 @@
         <target>Search</target>
       </segment>
     </unit>
+    <unit id="QoeqyPT" name="caption.new_contenttype">
+      <segment>
+        <source>caption.new_contenttype</source>
+        <target>New %contenttype%</target>
+      </segment>
+    </unit>
+    <unit id="n.jOrkg" name="caption.untitled_contenttype">
+      <segment>
+        <source>caption.untitled_contenttype</source>
+        <target>Untitled %contenttype%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
