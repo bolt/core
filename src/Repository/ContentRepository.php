@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
+use Bolt\Common\Json;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
@@ -157,7 +158,7 @@ class ContentRepository extends ServiceEntityRepository
                 'field.id = slug.id'
             )
             ->andWhere('slug.value = :slug')
-            ->setParameter('slug', \GuzzleHttp\json_encode([$slug]))
+            ->setParameter('slug', Json::json_encode([$slug]))
             ->getQuery()
             ->getOneOrNullResult();
     }

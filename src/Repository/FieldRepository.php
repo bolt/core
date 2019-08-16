@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
+use Bolt\Common\Json;
 use Bolt\Entity\Field;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -31,7 +32,7 @@ class FieldRepository extends ServiceEntityRepository
     {
         return $this->getQueryBuilder()
             ->andWhere('field.value = :slug')
-            ->setParameter('slug', \GuzzleHttp\json_encode([$slug]))
+            ->setParameter('slug', Json::json_encode([$slug]))
             ->getQuery()
             ->getOneOrNullResult();
     }

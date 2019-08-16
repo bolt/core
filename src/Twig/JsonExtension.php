@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Common\Json;
 use Bolt\Entity\Content;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Twig\Extension\AbstractExtension;
@@ -34,7 +35,7 @@ class JsonExtension extends AbstractExtension
 
     public function jsonRecords($records): string
     {
-        return \GuzzleHttp\json_encode($this->normalizeRecords($records));
+        return Json::json_encode($this->normalizeRecords($records));
     }
 
     public function normalizeRecords($records): array
