@@ -46,9 +46,9 @@ class CopyAssetsCommand extends Command
         $projectDir = $this->getProjectDirectory($kernel->getContainer());
         $publicDir = $this->getPublicDirectory($kernel->getContainer());
 
-        // Determine if we can use ../bolt-assets or not.
-        if (file_exists(dirname(dirname(dirname(__DIR__))) . '/bolt-assets')) {
-            $baseDir = dirname(dirname(dirname(__DIR__))) . '/bolt-assets';
+        // Determine if we can use ../assets or not.
+        if (file_exists(dirname(dirname(dirname(__DIR__))) . '/assets')) {
+            $baseDir = dirname(dirname(dirname(__DIR__))) . '/assets';
             $dirs = [
                 $baseDir . '/assets' => $publicDir .'/assets/',
                 $baseDir . '/translations' => $projectDir . '/translations/',
