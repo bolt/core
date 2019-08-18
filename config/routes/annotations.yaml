@@ -1,7 +1,0 @@
-
-# All routes, used by Bolt: Control Panel, Async and Thumbs, unless overridden
-# in `../routing.yml` or another location
-controllers:
-    resource: '../src/Controller/'
-    type: annotation
-

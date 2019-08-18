@@ -14,24 +14,12 @@
 frontend:
   resource: '../src/Controller/Frontend/'
   prefix: /
+  type: annotation
 
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a LOWER priority than the default routes.
 
-api_entrypoint:
-  path: '%bolt.backend_url%/api'
-  controller: api_platform.swagger.action.ui
 
-# ------------------------------------------------------------------------------
-# These are the routes defining the Bolt Control Panel ("backend"). It's common
-# to modify the `prefix` so the Control Panel can be accessed at a custom URL.
-control_panel_async:
-  resource: '../src/Controller/Backend/Async'
-  prefix: '%bolt.backend_url%/async'
-
-control_panel:
-  resource: '../src/Controller/Backend/'
-  prefix: '%bolt.backend_url%'
 
 # ------------------------------------------------------------------------------
 # Examples:
