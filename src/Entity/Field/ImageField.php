@@ -28,7 +28,7 @@ class ImageField extends Field implements FieldInterface
             'path' => '',
             'media' => '',
             'thumbnail' => '',
-            'fieldname' => ''
+            'fieldname' => '',
         ];
     }
 
