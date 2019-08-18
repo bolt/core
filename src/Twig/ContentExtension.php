@@ -45,13 +45,12 @@ class ContentExtension extends AbstractExtension
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
-            new TwigFilter('image', [$this, 'getImage'], $safe),
-            new TwigFilter('imagename', [$this, 'getImageName']),
+            new TwigFilter('image', [$this, 'getImage']),
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
             new TwigFilter('next', [$this, 'getNextContent']),
-            new TwigFilter('link', [$this, 'getLink'], $safe),
-            new TwigFilter('edit_link', [$this, 'getEditLink'], $safe),
+            new TwigFilter('link', [$this, 'getLink']),
+            new TwigFilter('edit_link', [$this, 'getEditLink']),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
         ];
     }
@@ -128,17 +127,6 @@ class ContentExtension extends AbstractExtension
         foreach ($content->getFields() as $field) {
             if ($field instanceof ImageField) {
                 return $onlyPath ? $field->getPath() : $field->getValue();
-            }
-        }
-
-        return null;
-    }
-
-    public function getImageName(Content $content): ?string
-    {
-        foreach ($content->getFields() as $field) {
-            if ($field instanceof ImageField) {
-                return $field->getName();
             }
         }
 

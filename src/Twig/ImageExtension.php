@@ -54,7 +54,6 @@ class ImageExtension extends AbstractExtension
             new TwigFunction('popup', [$this, 'popup'], ['is_safe' => ['html']]),
             new TwigFunction('showimage', [$this, 'showImage'], ['is_safe' => ['html']]),
             new TwigFunction('thumbnail', [$this, 'thumbnail'], ['is_safe' => ['html']]),
-            new TwigFunction('magicimagename', [$this, 'magicImageName']),
         ];
     }
 
@@ -123,11 +122,6 @@ class ImageExtension extends AbstractExtension
 
         // Generate a URL
         return $urlBuilder->getUrl($filename, $params);
-    }
-
-    public function magicImageName(Content $record): ?string
-    {
-        $record->getExtras()['imagename'];
     }
 
     /**
