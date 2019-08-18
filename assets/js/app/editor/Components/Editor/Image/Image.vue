@@ -145,7 +145,6 @@ export default {
       let thisField = this;
       Axios.get(this.filelist)
         .then(res => {
-          console.log(res);
           bootbox.prompt({
             title: "Select a file",
             inputType: 'select',
