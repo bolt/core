@@ -3,6 +3,7 @@
 {% block field %}
     {% set setPath = field.definition.get('upload')|default('') %}
     {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
+    {% set filelist = path('bolt_async_filelisting', {'location': location|default('files') }) %}
     {% set labels = {
         'button_upload': 'image.button_upload'|trans,
         'button_from_library': 'image.button_from_library'|trans,
@@ -18,6 +19,7 @@
         :alt='{{ field.get('alt')|json_encode }}'
         :media='{{ field.get('media')|json_encode }}'
         :directory='{{ directory|json_encode }}'
+        :filelist='{{ filelist|json_encode }}'
         :csrf_token='{{ csrf_token('upload')|json_encode }}'
         :labels='{{ labels }}'
     ></editor-image>
