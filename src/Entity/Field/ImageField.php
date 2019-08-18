@@ -27,6 +27,8 @@ class ImageField extends Field implements FieldInterface
             'title' => '',
             'path' => '',
             'media' => '',
+            'thumbnail' => '',
+            'fieldname' => ''
         ];
     }
 
@@ -51,9 +53,13 @@ class ImageField extends Field implements FieldInterface
         $value['path'] = $this->getPath();
 
         // @todo This needs to be injected, not created on the fly.
-        $package = new PathPackage('/files/', new EmptyVersionStrategy());
         $request = Request::createFromGlobals();
-        $value['url'] = $request->getUriForPath($package->getUrl($this->getPath()));
+        $value['url'] = $request->getUriForPath($this->getPath());
+
+        $thumbPackage = new PathPackage('/thumbs/', new EmptyVersionStrategy());
+        $value['thumbnail'] = $thumbPackage->getUrl($this->get('filename')) . '?w=400&h=400&fit=crop';
+
+        $value['fieldname'] = $this->getName();
 
         return $value;
     }
