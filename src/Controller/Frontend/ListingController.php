@@ -29,6 +29,11 @@ class ListingController extends TwigAwareController implements FrontendZone
      *     name="listing",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
      *     methods={"GET"})
+     * @Route(
+     *     "/{_locale}/{contentTypeSlug}",
+     *     name="listing_locale",
+     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
+     *     methods={"GET"})
      */
     public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
     {

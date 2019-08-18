@@ -22,6 +22,7 @@ class HomepageController extends TwigAwareController implements FrontendZone
 
     /**
      * @Route("/", methods={"GET"}, name="homepage")
+     * @Route("/{_locale}/", methods={"GET"}, name="homepage_locale", requirements={"_locale": "%app_locales%"})
      */
     public function homepage(ContentRepository $contentRepository): Response
     {

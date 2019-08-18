@@ -25,10 +25,7 @@ class SearchController extends TwigAwareController implements FrontendZone
 
     /**
      * @Route("/search", methods={"GET", "POST"}, name="search")
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @Route("/{_locale}/search", methods={"GET", "POST"}, name="search_locale")
      */
     public function search(ContentRepository $contentRepository, Request $request): Response
     {
