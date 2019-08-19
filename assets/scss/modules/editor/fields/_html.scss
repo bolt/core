@@ -7,3 +7,23 @@
 .trumbowyg-box {
   margin: 0;
 }
+
+.trumbowyg-fullscreen {
+  position: fixed;
+  top: $admin-toolbar-height;
+  left: $admin-sidebar-width;
+  margin: 0;
+  padding: 0;
+  z-index: 99999;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  @include media-breakpoint-up(wd) {
+    left: $admin-sidebar-width-wide;
+  }
+}
+
+.is-slim .trumbowyg-fullscreen {
+  left: $admin-sidebar-width / 3;
+}
