@@ -8,19 +8,26 @@
     {% endif %}
 {% endfor %}
 
-{% block title %} {{ menu.name }}
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'caption.redirection_page'|trans }}
+{% endblock shoulder %}
+
+{% block title %}
+    {{ macro.icon('map-signs') }}
+    {{ menu.name }}
 {% endblock title %}
 
 {% block main %}
 
     <p>
     {% for sub in menu.submenu %}
-        {{ macro.buttonlink(sub.name, sub.editLink, sub.icon, 'light', {'style': 'width: 20em;'}) }} <br>
+        {{ macro.buttonlink(sub.name, sub.editLink, sub.icon, 'light', {'style': 'width: 20em; text-align: left;'}, false) }} <br>
     {% endfor %}
     </p>
 
 {% endblock main %}
 
 {% block aside %}
-
+    &nbsp;
 {% endblock %}

@@ -25,7 +25,8 @@ strong {
   font-weight: $font-weight-semibold;
 }
 
-h2 code {
+h1 code,
+h2 code{
   font-size: 85%;
   font-weight: normal;
 }

@@ -15,15 +15,15 @@
         {% set extension = file.extension() %}
         {% set filename = path ~ file.getRelativePathname() %}
         {% set icon = 'fa-file' %}
-        {% set link = path('bolt_file_edit', {'location': location, 'file': filename }) %}
+        {% set link = path('bolt_file_edit', {'location': location.key, 'file': filename }) %}
         {% set thumbnail = '' %}
         {% set title = '' %}
         {% set dimensions = '' %}
 
         {% if extension in imageformats %}
-            {% set thumbnail = filename|thumbnail(width = 100, height = 72, location = location, fit = 'crop') %}
+            {% set thumbnail = filename|thumbnail(width = 100, height = 72, location = location.key, fit = 'crop') %}
             {% set icon = 'fa-image' %}
-            {% set link = path('bolt_media_new', {'location': location, 'file': filename}) %}
+            {% set link = path('bolt_media_new', {'location': location.key, 'file': filename}) %}
 
             {% for image in media|default([]) if image.filename in filename %}
                 {% set title = image.title %}
@@ -45,7 +45,7 @@
             <td class="listing-thumb" style="padding: 0.2em;">
                 {%- if thumbnail -%}
                     <a class="lightbox"
-                       href="{{ filename|thumbnail(width = 1000, height = 1000, location = location, fit = 'crop') }}">
+                       href="{{ filename|thumbnail(width = 1000, height = 1000, location = location.key, fit = 'crop') }}">
                     <img src="{{ thumbnail }}" width="100" height="72">
                     </a>
                 {%- else -%}

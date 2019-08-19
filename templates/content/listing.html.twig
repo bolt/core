@@ -1,16 +1,14 @@
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'listing.title_overview'|trans }}
+{% endblock shoulder %}
 
 {% block title %}
-    {% if contentType %}
-        <span class="admin__header--title__prefix">
-            {# get this in proper with translations and label resouces #}
-            {{ 'listing.title_overview'|trans }}
-        </span>
-        <i class='fas {{contentType.icon_one}}'></i>
-        {{ contentType.name }}
-    {% else %}
-        {{ 'title.contentlisting'|trans }}
-    {% endif %}
+    {{ macro.icon(contentType.icon_one) }}
+    {{ contentType.name }}
 {% endblock %}
 
 {% block vue_id 'listing' %}

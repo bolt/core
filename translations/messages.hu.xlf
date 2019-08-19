@@ -425,10 +425,6 @@
         <source>caption.edit</source>
         <target>Szerkesztés</target>
       </trans-unit>
-      <trans-unit id="dbyz2hj" resname="caption.finder">
-        <source>caption.finder</source>
-        <target>Finder</target>
-      </trans-unit>
       <trans-unit id="QZYjRy0" resname="caption.file_uploader">
         <source>caption.file_uploader</source>
         <target>Fájl feltöltő</target>
@@ -1041,7 +1037,7 @@
       </trans-unit>
       <trans-unit id="Hlf9c1s" resname="listing.title_overview">
         <source>listing.title_overview</source>
-        <target>Áttekintő »</target>
+        <target>Áttekintő</target>
       </trans-unit>
       <trans-unit id="BdhsE_X" resname="listing_select_box.card_header.selected">
         <source>listing_select_box.card_header.selected</source>

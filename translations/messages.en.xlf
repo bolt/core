@@ -699,12 +699,6 @@
         <target>Edit</target>
       </segment>
     </unit>
-    <unit id="dbyz2hj" name="caption.finder">
-      <segment>
-        <source>caption.finder</source>
-        <target>Finder</target>
-      </segment>
-    </unit>
     <unit id="QZYjRy0" name="caption.file_uploader">
       <segment>
         <source>caption.file_uploader</source>
@@ -1296,13 +1290,13 @@
     <unit id="BWubOnS" name="image.placeholder_alt_text">
       <segment>
         <source>image.placeholder_alt_text</source>
-        <target>ALt text</target>
+        <target>Alt attribute</target>
       </segment>
     </unit>
     <unit id="VPV0lFM" name="image.placeholder_title">
       <segment>
         <source>image.placeholder_title</source>
-        <target>Title</target>
+        <target>Title attribute</target>
       </segment>
     </unit>
     <unit id="Gabafxx" name="admin_sidebar.toggler">
@@ -1662,7 +1656,7 @@
     <unit id="Hlf9c1s" name="listing.title_overview">
       <segment>
         <source>listing.title_overview</source>
-        <target>Overview for »</target>
+        <target>Overview for</target>
       </segment>
     </unit>
     <unit id="8JeahIj" name="files_cards.message_no_files">
@@ -1849,6 +1843,24 @@
       <segment>
         <source>caption.untitled_contenttype</source>
         <target>Untitled %contenttype%</target>
+      </segment>
+    </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <segment>
+        <source>title.edit_user_profile</source>
+        <target>Edit user profile</target>
+      </segment>
+    </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <segment>
+        <source>caption.redirection_page</source>
+        <target>Redirection page</target>
+      </segment>
+    </unit>
+    <unit id="TtIlBDd" name="caption.edit_image">
+      <segment>
+        <source>caption.edit_image</source>
+        <target>Edit Image</target>
       </segment>
     </unit>
   </file>
