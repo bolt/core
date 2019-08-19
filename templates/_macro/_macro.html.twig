@@ -20,9 +20,11 @@
 
 {% endspaceless %}{% endmacro %}
 
-{% macro buttonlink(label = 'Button', link = '', icon = 'question-circle', class = 'tertiary', attr = []) %}{% spaceless %}
+{% macro buttonlink(label = 'Button', link = '', icon = 'question-circle', class = 'tertiary', attr = [], translate = true) %}{% spaceless %}
 
-    {% set label = label|trans %}
+    {% if translate %}
+        {% set label = label|trans %}
+    {% endif %}
     {% set icon = icon|replace({'fa-': ''}) %}
     {% set class = class|replace({'btn-': ''}) %}
     {% set attr = attr %}

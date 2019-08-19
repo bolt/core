@@ -39,7 +39,7 @@
                 <form action="{{ path('bolt_login') }}" method="post" class="" id="login-form">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
                     {% include '@bolt/_partials/fields/text.html.twig' with {
-                        'label' : 'label.fullname'|trans,
+                        'label' : 'label.username_or_email'|trans,
                         'name' : 'username',
                         'value' : last_username,
                         'disabled' : false,

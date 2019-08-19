@@ -1,13 +1,19 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-{% block title %} {{ title }}
-    {% if subtitle|default() %}» {{ subtitle }} {% endif %}
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ subtitle }}
+{% endblock shoulder %}
+
+{% block title %}
+    {{ macro.icon('bath') }}
+    {{ title }}
 {% endblock title %}
 
 {% block main %}
 
-    <h2>{{ title }}</h2>
+    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
 
     <div id="listing">
         {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': 'dashboard' } %}

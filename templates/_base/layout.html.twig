@@ -1,9 +1,7 @@
 {# Check if aside has value and set hasAside variable #}
-{% set asideblock = block('aside') %}
-{% set hasAside = asideblock|trim is not empty ? true : false %}
-
+{% set hasAside = block('aside')|trim is not empty ? true : false %}
 <!DOCTYPE html>
-<html id="{% block html_id %}{% endblock %}">
+<html {% if block('html_id') %}id="{% block html_id %}{% endblock %}"{% endif %}>
 
 <head>
     <meta charset="utf-8">
@@ -19,8 +17,8 @@
     {% endblock %}
 </head>
 
-<body id="{% block body_id %}{% endblock %}">
-<div class="admin has-{{ block('container') }}">
+<body>
+<div class="admin">
 
     {% set admin_menu_json = admin_menu()|json_encode %}
 
@@ -52,10 +50,20 @@
     <!-- Admin Header -->
     <header class="admin__header">
         <div class="admin__header--topbar">
-            <h1 class="admin__header--title">{{ block('title') }}</h1>
+
+            <h1 class="admin__header--title">
+                {% if block('shoulder') %}
+                <span class="admin__header--title__prefix">
+                    {% block shoulder %}{% endblock shoulder %} »
+                </span>
+                {% endif %}
+                {{ block('title') }}
+            </h1>
+
             <button class="admin-sidebar-toggler btn btn-md">
                 <span class="sr-only">{{ 'admin_sidebar_toggler.toggle'|trans }}</span>
             </button>
+
         </div>
     </header>
     <!-- End Admin Header -->
@@ -74,7 +82,7 @@
     <!-- End Admin Sidebar -->
 
     <!-- Admin Main -->
-    <div class="admin__body {% block container %}{% endblock %}">
+    <div class="admin__body">
 
         {% block topsection %}
             {# insert stuff here that should _not_ be part of the

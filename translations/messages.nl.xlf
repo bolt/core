@@ -1488,5 +1488,11 @@
         <target>Overheersende kleuren in afbeelding</target>
       </segment>
     </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <segment>
+        <source>caption.redirection_page</source>
+        <target>Doorverwijzingspagina</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

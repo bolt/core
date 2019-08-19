@@ -1,14 +1,16 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ title|trans }}
+{% endblock shoulder %}
+
 {% block title %}
-    {{ macro.icon('users') }} {{ title|trans }}
+    {{ macro.icon('users') }} {{ subtitle|trans }}
 {% endblock %}
 
-{% block container "widecontent" %}
-
 {% block main %}
-    <h2>{{ subtitle|trans }}</h2>
 
     <table class="table" style="min-width: 100%; width: auto;">
         <thead>
@@ -44,4 +46,10 @@
         {{ macro.buttonlink('action.add_user', path('bolt_user_edit', {'id': 0}), 'user-plus', 'secondary') }}
     </p>
 
+{% endblock %}
+
+
+{# The 'aside' section is the right sidebar of the page. If omitted, 'main' will take up the full width. #}
+{% block aside %}
+    {{ widgets('users_aside_top') }}
 {% endblock %}

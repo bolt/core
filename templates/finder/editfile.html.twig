@@ -1,4 +1,5 @@
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% set extension = file|split('.')|last %}
 {% set modes = {
@@ -15,13 +16,17 @@
 } %}
 {% set mode = modes[extension]|default('') %}
 
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'caption.edit_file'|trans }}
+{% endblock shoulder %}
+
 {% block title %}
-    {{ 'caption.edit_file'|trans }} » <strong>{{ file|split('/')|last}}</strong>
+    {{ macro.icon('file-code') }}
+    {{ 'caption.path'|trans }}: <code>{{ location }}/<strong>{{ file|split('/')|last}}</strong></code>
 {% endblock %}
 
 {% block main %}
-    <h3>{{ 'caption.path'|trans }}: <code>{{ location }}{{ file }}</code></h3>
-
     <form method="post">
         <input type="hidden" name="file" value="{{ file }}">
         <input type="hidden" name="location" value="{{ location }}">
@@ -30,7 +35,7 @@
             <textarea name="editfile" id="editfile_textarea">{{ contents }}</textarea>
         </div>
         <div class="form-group">
-            <button class="btn btn-primary" name="save" type="submit">{{ 'action.save'|trans }}</button>
+            <button class="btn btn-primary" name="save" type="submit">{{ macro.icon('save') }}{{ 'action.save'|trans }}</button>
         </div>
     </div>
     </form>

@@ -1,6 +1,10 @@
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-{% block title %} {{ 'caption.clear_cache'|trans }} {% endblock title %}
+{% block title %}
+    {{ macro.icon('trash') }}
+    {{ 'caption.clear_cache'|trans }}
+{% endblock title %}
 
 {% block main %}
 

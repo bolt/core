@@ -1851,5 +1851,17 @@
         <target>Untitled %contenttype%</target>
       </segment>
     </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <segment>
+        <source>title.edit_user_profile</source>
+        <target>Edit user profile</target>
+      </segment>
+    </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <segment>
+        <source>caption.redirection_page</source>
+        <target>Redirection page</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
