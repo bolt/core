@@ -35,7 +35,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true, string $sortBy = '', string $filter = ''): Pagerfanta
+    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true, string $sortBy = '', string $filter = '', string $taxonomy = ''): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -56,17 +56,50 @@ class ContentRepository extends ServiceEntityRepository
                 ->innerJoin('content.fields', 'f');
         }
 
+        if ($taxonomy) {
+            $qb->addSelect('t')
+                ->innerJoin('content.taxonomies', 't')
+                ->andWhere('slug', ':taxonomySlug')
+                ->setParameter('taxonomySlug', $taxonomy);
+        }
+
         if ($sortBy && \in_array($sortBy, $this->contentColumns, true)) {
             $qb->orderBy('content.' . $sortBy);
         } elseif (! empty($sortBy)) {
-            $qb->andWhere('f.name = :fieldname')
+            // First, create a querybuilder to get the fields that match the Query
+            $sortByQB = $this->getQueryBuilder()
+                ->select('partial content.{id}');
+
+            $sortByQB->addSelect('f')
+                ->innerJoin('content.fields', 'f')
+                ->andWhere('f.name = :fieldname')
+                ->setParameter('fieldname', $sortBy);
+
+            // These are the ID's of content we need.
+            $ids = array_column($sortByQB->getQuery()->getArrayResult(), 'id');
+
+            $qb->andWhere('content.id IN (:ids)')
+                ->setParameter('ids', $ids)
+                ->andWhere('f.name = :fieldname')
                 ->setParameter('fieldname', $sortBy)
-                ->orderBy('f.value');
+                ->addOrderBy('f.value');
         }
 
         if ($filter) {
-            $qb->andWhere($qb->expr()->like('f.value', ':filterValue'))
+            // First, create a querybuilder to get the fields that match the Query
+            $filterQB = $this->getQueryBuilder()
+                ->select('partial content.{id}');
+
+            $filterQB->addSelect('f')
+                ->innerJoin('content.fields', 'f')
+                ->andWhere($filterQB->expr()->like('f.value', ':filterValue'))
                 ->setParameter('filterValue', '%' . $filter . '%');
+
+            // These are the ID's of content we need.
+            $ids = array_column($filterQB->getQuery()->getArrayResult(), 'id');
+
+            $qb->andWhere('content.id IN (:ids)')
+                ->setParameter('ids', $ids);
         }
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
