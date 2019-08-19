@@ -100,7 +100,6 @@ class ContentRepository extends ServiceEntityRepository
             $qb->andWhere('content.id IN (:ids)')
                 ->setParameter('ids', $ids);
         }
-        dump($qb->getQuery()->getArrayResult());
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
