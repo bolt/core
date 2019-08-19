@@ -55,7 +55,7 @@ class ContentRepository extends ServiceEntityRepository
                 ->innerJoin('content.fields', 'f');
         }
 
-        if($taxonomy) {
+        if ($taxonomy) {
             $qb->addSelect('t')
                 ->innerJoin('content.taxonomies', 't')
                 ->andWhere('slug', ':taxonomySlug')
