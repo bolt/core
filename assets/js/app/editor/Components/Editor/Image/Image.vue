@@ -43,12 +43,12 @@
         </div>
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group mr-2" role="group">
-            <button class="btn btn-secondary" type="button" @click="selectFile">
+            <button class="btn btn-secondary" type="button" @click="selectUploadFile">
               <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
             </button>
           </div>
           <div class="btn-group mr-2" role="group">
-            <button class="btn btn-secondary" type="button">
+            <button class="btn btn-secondary" type="button" @click="selectServerFile">
               <i class="fas fa-fw fa-th"></i> {{ labels.button_from_library }}
             </button>
           </div>
@@ -85,10 +85,11 @@
 </template>
 
 <script>
-  import noScroll from 'no-scroll';
-  import baguetteBox from 'baguettebox.js';
-  import field from '../../../mixins/value';
-  import Axios from 'axios';
+import noScroll from 'no-scroll';
+import baguetteBox from 'baguettebox.js';
+import field from '../../../mixins/value';
+import Axios from 'axios';
+import bootbox from 'bootbox';
 
 export default {
   name: 'EditorImage',
@@ -104,6 +105,7 @@ export default {
     'media',
     'csrf_token',
     'labels',
+    'filelist',
   ],
   data: () => {
     return {
@@ -135,8 +137,29 @@ export default {
     });
   },
   methods: {
-    selectFile() {
+    selectUploadFile() {
       this.$refs.selectFile.click();
+    },
+    selectServerFile() {
+      const thumbnailParams = this.thumbnail.split('?').pop();
+      let thisField = this;
+      Axios.get(this.filelist)
+        .then(res => {
+          bootbox.prompt({
+            title: "Select a file",
+            inputType: 'select',
+            inputOptions: res.data,
+            callback: function (result) {
+              if (result) {
+                thisField.filename = result;
+                thisField.previewImage = `/thumbs/${result}?${thumbnailParams}`;
+              }
+            }
+          });
+        })
+        .catch(err => {
+          console.warn(err);
+        });
     },
     onDragEnter(e) {
       e.preventDefault();
