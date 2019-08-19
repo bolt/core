@@ -1,10 +1,13 @@
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'caption.about_bolt'|trans }}
+{% endblock shoulder %}
 
 {% block title %}
-    <span class="admin__header--title__prefix">
-        {{ 'caption.about_bolt'|trans }} »
-    </span>
-    <i class='fas fa-award'></i>
+    {{ macro.icon('award') }}
     {{ 'caption.bolt_payoff'|trans }}
 {% endblock title %}
 

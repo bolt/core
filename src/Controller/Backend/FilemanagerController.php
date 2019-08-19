@@ -65,8 +65,9 @@ class FilemanagerController extends TwigAwareController implements BackendZone
 
         return $this->renderTemplate('@bolt/finder/finder.html.twig', [
             'path' => $path,
-            'name' => $location->getName(),
-            'location' => $location->getKey(),
+            'location' => $location,
+            //            'name' => $location->getName(),
+            //            'location' => $location->getKey(),
             'finder' => $finder,
             'parent' => $parent,
             'media' => $media,

@@ -21,7 +21,7 @@
                     <td><i class="fas fa-folder-open"></i></td>
                     <td>
                         <b>
-                            <a href="{{ path('bolt_filemanager', {'location': location, 'path': parent }) }}">
+                            <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': parent }) }}">
                                 ../
                             </a>
                         </b>
@@ -37,7 +37,7 @@
                     <td>
                         <b>
                             {% set dirname = path ~ directory.getRelativePathname() %}
-                            <a href="{{ path('bolt_filemanager', {'location': location, 'path': dirname }) }}">
+                            <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': dirname }) }}">
                                 {{ directory.getRelativePathname }}/
                             </a>
                         </b>

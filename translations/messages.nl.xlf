@@ -444,12 +444,6 @@
         <target>Bewerk</target>
       </segment>
     </unit>
-    <unit id="dbyz2hj" name="caption.finder">
-      <segment>
-        <source>caption.finder</source>
-        <target>Finder</target>
-      </segment>
-    </unit>
     <unit id="QZYjRy0" name="caption.file_uploader">
       <segment>
         <source>caption.file_uploader</source>
@@ -957,13 +951,13 @@
     <unit id="BWubOnS" name="image.placeholder_alt_text">
       <segment>
         <source>image.placeholder_alt_text</source>
-        <target>Alt</target>
+        <target>Alt attribuut</target>
       </segment>
     </unit>
     <unit id="VPV0lFM" name="image.placeholder_title">
       <segment>
         <source>image.placeholder_title</source>
-        <target>Titel</target>
+        <target>Titel attribuut</target>
       </segment>
     </unit>
     <unit id="kaK5Wdr" name="slug.button_locked">
@@ -1149,7 +1143,7 @@
     <unit id="Hlf9c1s" name="listing.title_overview">
       <segment>
         <source>listing.title_overview</source>
-        <target>Overzicht voor »</target>
+        <target>Overzicht voor</target>
       </segment>
     </unit>
     <unit id="vJwSCBO" name="title.contentlisting">

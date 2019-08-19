@@ -9,13 +9,13 @@
     __('caption.untitled_contenttype', {'%contenttype%': record.definition.singular_name}) :
     __('caption.new_contenttype', {'%contenttype%': record.definition.singular_name}) ) %}
 
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ (app.request.get('_route') == 'bolt_content_duplicate') ? 'caption.duplicate'|trans : 'caption.edit'|trans }}
+    {{ record.definition.singular_name }}
+{% endblock shoulder %}
 
 {% block title %}
-    <span class="admin__header--title__prefix">
-        {{ (app.request.get('_route') == 'bolt_content_duplicate') ? 'caption.duplicate'|trans : 'caption.edit'|trans }}
-        {{ record.definition.singular_name }}
-        »
-    </span>
     {{ icon(record) }}
     {{ displayTitle|excerpt(50) }}
 {% endblock %}

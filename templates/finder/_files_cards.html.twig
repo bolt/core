@@ -4,16 +4,16 @@
         {% set extension = file.extension() %}
         {% set filename = path ~ file.getRelativePathname() %}
         {% set icon = 'fa-file' %}
-        {% set link = path('bolt_file_edit', {'location': location, 'file': filename }) %}
+        {% set link = path('bolt_file_edit', {'location': location.key, 'file': filename }) %}
         {% set thumbnail = '' %}
         {% set title = '' %}
         {% set dimensions = '' %}
         {% set original = asset((path != '/' ? path|trim('/') ~ '/') ~ file.filename, 'files') %}
 
         {% if extension in imageformats %}
-            {% set thumbnail = filename|thumbnail(width = 400, height = 300, location = location, fit = 'crop') %}
+            {% set thumbnail = filename|thumbnail(width = 400, height = 300, location = location.key, fit = 'crop') %}
             {% set icon = 'fa-image' %}
-            {% set link = path('bolt_media_new', {'location': location, 'file': filename}) %}
+            {% set link = path('bolt_media_new', {'location': location.key, 'file': filename}) %}
 
             {% for image in media|default([]) if image.filename in filename %}
                 {% set title = image.title %}
@@ -25,7 +25,7 @@
     <div class="col-6 col-sm-4 col-xl-3 pr-0 pb-3">
         <div class="card">
             {%- if thumbnail -%}
-                <a class="lightbox" href="{{ filename|thumbnail(width = 1000, height = 1000, location = location) }}">
+                <a class="lightbox" href="{{ filename|thumbnail(width = 1000, height = 1000, location = location.key) }}">
                     <img class="card-img-top" src="{{ thumbnail }}">
                 </a>
             {% else %}
