@@ -4,7 +4,7 @@ Feature: Visiting the Kitchensink
         When I visit the "kitchensink" page
         Then there is element "header" with text "Kitchensink"
         And there is element "header" with text "different things"
-        And there is element "title" with text "Kitchensink"
+        And there is element "title" with text "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
         And there is element "subtitle" with text "different things"
 
         And there are "equal 20" "buttons" elements
