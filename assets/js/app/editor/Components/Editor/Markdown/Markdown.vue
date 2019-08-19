@@ -1,21 +1,21 @@
 <template>
   <div>
-    <markdown-editor
+    <vue-simplemde
       :id="name"
       v-model="val"
       :name="name"
       :configs="config"
-    ></markdown-editor>
+    ></vue-simplemde>
   </div>
 </template>
 
 <script>
-import markdownEditor from 'vue-simplemde/src/markdown-editor';
+import VueSimplemde from 'vue-simplemde';
 
 export default {
   name: 'EditorMarkdown',
   components: {
-    markdownEditor,
+    VueSimplemde,
   },
   props: ['value', 'label', 'name'],
   data: () => {
