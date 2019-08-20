@@ -45,10 +45,12 @@
       width: 32px;
       height: 34px;
       border: 1px solid var(--foreground-border);
+
       .custom-control-label {
-        &:before, &:after {
+        &::before,
+        &::after {
           top: -0.125rem;
-          left: -.8125rem;
+          left: -0.8125rem;
         }
       }
     }
@@ -56,7 +58,6 @@
     .control--button {
       transition: $transition-base;
       color: var(--shade);
-      border: 0;
       display: flex;
       align-items: center;
       justify-content: center;
