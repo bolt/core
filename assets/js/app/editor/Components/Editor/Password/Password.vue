@@ -28,7 +28,7 @@ export default {
     // this.val = this.$options.filters.strip(this.value);
     console.log('joe!', this.value, this.hidden, this.$refs);
     if (!this.hidden) {
-      this.$refs.visibilityToggle.click()
+      this.$refs.visibilityToggle.click();
     }
   },
 

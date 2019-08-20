@@ -27,7 +27,9 @@
         >
           {{ record.extras.title | trim(62) }}
         </a>
-        <span class="listing__row--item-title-excerpt">{{ record.extras.excerpt }}</span>
+        <span class="listing__row--item-title-excerpt">{{
+          record.extras.excerpt
+        }}</span>
       </div>
       <!-- end column -->
 
@@ -69,6 +71,7 @@ import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
 import Sorting from './_Sorting';
+import $ from 'jquery';
 
 export default {
   name: 'TableRow',
@@ -89,9 +92,9 @@ export default {
     },
   },
   methods: {
-    leave(event) {
+    leave() {
       // When we 'leave' the row, make sure we close the dropdown.
-      $('.dropdown-toggle[aria-expanded="true"').dropdown('toggle');
+      $('.dropdown-toggle[aria-expanded="true"]').dropdown('toggle');
     },
   },
 };

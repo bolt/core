@@ -55,7 +55,10 @@
       <div class="new-item__dropdown dropdown-menu">
         <ul>
           <li v-for="(item, index) in createMenu" :key="index">
-            <a :href="item.link_new"><i :class="`fa fa-fw ${item.icon}`"></i> {{ item.singular_name }}</a>
+            <a :href="item.link_new"
+              ><i :class="`fa fa-fw ${item.icon}`"></i>
+              {{ item.singular_name }}</a
+            >
           </li>
         </ul>
       </div>
@@ -85,10 +88,9 @@
               {{ labels['action.logout'] }}
             </a>
           </li>
-      </ul>
+        </ul>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -97,7 +99,7 @@ const tinycolor = require('tinycolor2');
 
 export default {
   name: 'Toolbar',
-  props: ['siteName', 'menu', 'labels', 'backend_prefix'],
+  props: ['siteName', 'menu', 'labels', 'backendPrefix'],
   computed: {
     contrast() {
       const color = tinycolor(this.toolbarColor);

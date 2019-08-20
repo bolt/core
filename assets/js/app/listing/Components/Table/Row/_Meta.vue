@@ -2,8 +2,12 @@
   <div class="listing__row--item is-meta">
     <ul class="listing__row--list text-nowrap">
       <li>
-        <span class="status" :class="`is-${record.status}`" :title="record.status"></span
-        >{{ record.publishedAt|date }}
+        <span
+          class="status"
+          :class="`is-${record.status}`"
+          :title="record.status"
+        ></span
+        >{{ record.publishedAt | date }}
       </li>
       <li v-if="size === 'normal'">
         <i class="fas fa-user"></i> {{ record.authorName }}
@@ -15,7 +19,8 @@
             {{ record.extras.singular_name }}</a
           >
         </template>
-        <template v-else>{{ record.extras.singular_name }}</template>&nbsp;№ {{ record.id }}
+        <template v-else>{{ record.extras.singular_name }}</template
+        >&nbsp;№ {{ record.id }}
       </li>
     </ul>
   </div>

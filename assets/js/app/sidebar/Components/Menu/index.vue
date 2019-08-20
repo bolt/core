@@ -15,7 +15,7 @@
       <a
         v-else
         class="admin__sidebar--link"
-        :class="{'has-menu': item.submenu !== null}"
+        :class="{ 'has-menu': item.submenu !== null }"
         :href="item.link"
       >
         <i class="fas mr-2 link--icon" :class="item.icon"></i

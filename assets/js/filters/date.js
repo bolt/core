@@ -9,6 +9,8 @@ Vue.filter('date', string => {
 
 Vue.filter('datetime', string => {
   if (string) {
-    return DateTime.fromISO(String(string)).toLocaleString(DateTime.DATETIME_MED);
+    return DateTime.fromISO(String(string)).toLocaleString(
+      DateTime.DATETIME_MED,
+    );
   }
 });

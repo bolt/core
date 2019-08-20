@@ -10,6 +10,6 @@ new Vue({
   name: 'BoltLogin',
   components: {
     'editor-text': Text,
-    'editor-password': Password
+    'editor-password': Password,
   },
 });

@@ -1,7 +1,6 @@
 <template>
   <nav class="listing__filter">
     <ul class="listing__filter--controls">
-
       <!-- Check all checkbox -->
       <li v-if="type !== 'dashboard'">
         <div v-if="!sorting" class="custom-control custom-checkbox">
@@ -55,7 +54,6 @@
         </button>
       </li>
       -->
-
     </ul>
   </nav>
 </template>
