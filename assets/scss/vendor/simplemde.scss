@@ -4,7 +4,7 @@
   z-index: 10000;
   background: #F0F3F6;
   position: fixed;
-  top: $admin-toolbar-height;
+  top: $admin-toolbar-height-wide - 11px;
   left: $admin-sidebar-width;
   margin: 0;
   right: 0;
@@ -14,7 +14,7 @@
 }
 
 .CodeMirror-fullscreen {
-  top: $admin-toolbar-height + 50px;
+  top: $admin-toolbar-height-wide + 39px;
   padding: 0;
   bottom: 0;
   width: auto;

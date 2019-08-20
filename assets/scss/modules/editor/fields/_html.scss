@@ -10,7 +10,7 @@
 
 .trumbowyg-fullscreen {
   position: fixed;
-  top: $admin-toolbar-height;
+  top: $admin-toolbar-height-wide  + 1px;
   left: $admin-sidebar-width;
   margin: 0;
   padding: 0;
