@@ -5,6 +5,7 @@
   color: var(--admin-sidebar-text);
   height: 100%;
   padding-top: 1.625rem;
+
   @include media-breakpoint-up(lg) {
     padding-top: 1.625rem;
   }
@@ -17,6 +18,7 @@
     text-transform: uppercase;
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
+
     @include media-breakpoint-up(lg) {
       margin-top: $spacer*2.25;
     }
@@ -27,7 +29,6 @@
     padding: 0;
     width: 100%;
     list-style: none;
-
   }
 
   &--link {
@@ -39,6 +40,7 @@
     letter-spacing: $letter-spacing;
     color: var(--admin-sidebar-text);
     font-size: 0.9375rem;
+
     &:hover {
       @include darken(--admin-sidebar, 0.25);
 
@@ -106,6 +108,7 @@
 
       // display only on larger screens
       display: none;
+
       @include media-breakpoint-up(lg) {
         display: block;
       }
@@ -155,9 +158,11 @@
     color: var(--shade-light);
     font-size: $font-size-lg;
     position: relative;
+
     @include media-breakpoint-up(md) {
       width: $admin-sidebar-width-wide;
     }
+
     &:hover,
     &:focus {
       color: var(--admin-sidebar-icon);
@@ -180,13 +185,16 @@
     align-items: center;
     justify-content: center;
     background-color: var(--admin-sidebar);
+
     @include media-breakpoint-up(wd) {
       width: $admin-sidebar-width-wide;
     }
+
     a {
       color: var(--admin-sidebar-text);
       opacity: 0.75;
       font-size: 0.875rem;
+
       &:hover {
         color: inherit;
       }
@@ -198,10 +206,12 @@
   &.is-slim {
     .admin__sidebar {
       width: $admin-sidebar-width / 3;
+
       .admin__sidebar--separator {
         visibility: hidden;
         margin: 0;
       }
+
       .admin__sidebar--footer {
         display: none;
       }
@@ -228,17 +238,14 @@
         bottom: $spacer / 2;
       }
     }
-    .admin__header, .admin__body {
+
+    .admin__header,
+    .admin__body {
       @include media-breakpoint-up(lg) {
         margin-left: $admin-sidebar-width / 3;
       }
     }
   }
-}
-
-
-.sidebar {
-
 }
 
 .sidebar--sticky {

@@ -70,3 +70,6 @@ script:
   - ./vendor/bin/behat
   # run e2e tests with Kakunin
   - cd tests/e2e && npm run kakunin && cd ../..
+  # run StyleLint on SCSS
+  - npm run stylelint
+

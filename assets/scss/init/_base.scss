@@ -26,7 +26,7 @@ strong {
 }
 
 h1 code,
-h2 code{
+h2 code {
   font-size: 85%;
   font-weight: normal;
 }
@@ -38,7 +38,7 @@ code {
 .card {
   box-shadow: $card-box-shadow;
   background: #fff;
-  border: 1px solid #E8E8E8 !important;
+  border: 1px solid #e8e8e8 !important;
 
   .card-header {
     font-weight: $font-weight-bold;
@@ -49,7 +49,10 @@ code {
   -webkit-appearance: none;
 }
 
-input[readonly], input:disabled, button:disabled, input.flatpickr-input[disabled] {
+input[readonly],
+input:disabled,
+button:disabled,
+input.flatpickr-input[disabled] {
   cursor: not-allowed;
   background-color: $input-disabled-bg;
   color: $input-disabled-color;

@@ -45,14 +45,18 @@
     justify-content: center;
     font-size: 0.875rem;
     padding: 0;
+
     a {
       font-size: 0.9375rem;
       padding: $spacer*0.625;
       display: block;
       color: var(--foreground);
 
-      &:hover, &:active, &:focus {
+      &:hover,
+      &:active,
+      &:focus {
         @include darken(--admin-sidebar, 0.02);
+
         color: var(--admin-sidebar-icon);
         text-decoration: none;
       }
@@ -64,7 +68,8 @@
       }
     }
 
-    i, .fas {
+    i,
+    .fas {
       margin-right: 0.45rem;
     }
 
@@ -73,20 +78,28 @@
       padding: 0;
       min-width: 220px;
       top: calc(100% - 1px);
+
       ul {
         list-style: none;
         padding: 0;
         margin: 0;
       }
+
       a {
         color: var(--shade);
-          &:hover, &:active, &:focus {
+
+        &:hover,
+        &:active,
+        &:focus {
           @include darken(--admin-sidebar, 0.02);
+
           color: var(--admin-sidebar-icon);
           text-decoration: none;
         }
       }
-      i, .fas {
+
+      i,
+      .fas {
         margin-right: 0.25rem;
       }
     }
@@ -95,43 +108,52 @@
       color: var(--foreground);
       height: 100%;
       padding: 0.625rem;
+
       @include media-breakpoint-up(sm) {
         padding: 0.625rem 1rem;
       }
-      &:hover, &:active, &:focus {
+
+      &:hover,
+      &:active,
+      &:focus {
         @include darken(--admin-sidebar, 0.02);
       }
     }
 
-    &__brand {      
+    &__brand {
       @include media-breakpoint-up(lg) {
         flex: 0 1 $admin-sidebar-width;
       }
+
       @include media-breakpoint-up(wd) {
         flex: 0 1 $admin-sidebar-width-wide;
       }
-      .is-slim & {
-        
-      }
-      svg, img {
+
+      svg,
+      img {
         margin-right: 0.25rem;
       }
+
       .dropdown-toggle {
         padding: 0 0.8125rem;
         width: 45px;
         overflow: hidden;
+
         @include media-breakpoint-up(sm) {
           width: auto;
           overflow: auto;
           padding: 0 1rem;
         }
+
         @include media-breakpoint-up(lg) {
           text-align: left;
         }
-        &:after {
+
+        &::after {
           vertical-align: middle;
         }
       }
+
       .dropdown-menu {
         @include media-breakpoint-up(wd) {
           min-width: 251px;
@@ -144,7 +166,6 @@
           top: -1px;
         }
       }
-
     }
 
     &__profile {
@@ -154,25 +175,30 @@
 
     &__site {
       display: none;
+
       @include media-breakpoint-up(sm) {
         display: block;
       }
+
       a {
         height: 100%;
         padding: 0.625rem 1rem;
         font-size: 0.875rem;
         white-space: nowrap;
+
         @include media-breakpoint-up(sm) {
           padding: 0.85rem 1rem;
         }
+
         @include media-breakpoint-up(md) {
           font-size: 0.9375rem;
         }
       }
-      i, .fas {
+
+      i,
+      .fas {
         margin-right: 0.25rem;
       }
     }
   }
-
 }
