@@ -53,7 +53,6 @@ script:
   - ./vendor/bin/phpstan analyse -c phpstan.neon src
   # run StyleLint on SCSS
   - npm run stylelint
-  - ./node_modules/.bin/stylelint 'assets/scss/'
   # this checks that the YAML config files contain no syntax errors
   - ./bin/console lint:yaml config
   # this checks that the Twig template files contain no syntax errors
