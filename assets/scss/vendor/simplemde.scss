@@ -2,12 +2,13 @@
 .editor-toolbar.fullscreen,
 .editor-preview-side {
   z-index: 10000;
-  background: #F0F3F6;
+  background: #f0f3f6;
   position: fixed;
   top: $admin-toolbar-height-wide - 11px;
   left: $admin-sidebar-width;
   margin: 0;
   right: 0;
+
   @include media-breakpoint-up(wd) {
     left: $admin-sidebar-width-wide;
   }
@@ -27,7 +28,6 @@
 .is-slim .editor-preview-side {
   left: $admin-sidebar-width / 3;
 }
-
 
 .editor-toolbar {
   background-color: $input-disabled-bg;

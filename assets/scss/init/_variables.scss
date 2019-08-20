@@ -2,11 +2,11 @@
 
 $body-bg: var(--background);
 
-$letter-spacing: 0px;
+$letter-spacing: 0;
 
 $bolt-blue: #255687; // Nice and bright, pretty light
-$bolt-bluegray: #2F3E4D; // Nice dark and desaturated
-$bolt-saturated: #003E7C; // Very saturated. Use with care
+$bolt-bluegray: #2f3e4d; // Nice dark and desaturated
+$bolt-saturated: #003e7c; // Very saturated. Use with care
 
 $big-z-index: 1000;
 
@@ -44,7 +44,7 @@ $input-focus-border-color:              var(--primary-400);
 $custom-control-indicator-active-bg:    var(--primary-400);
 $custom-range-thumb-active-bg:          var(--primary-400);
 
-$input-disabled-bg:                     #F0F3F6;
+$input-disabled-bg:                     #f0f3f6;
 $input-disabled-color:                  #777;
 
 $input-btn-focus-width:                 0.15rem;
@@ -64,29 +64,29 @@ $btn-font-size: 14px;
 $btn-font-size-sm: 13px;
 $btn-padding-x: 0.6rem;
 
-$primary: #1863AF;
-$secondary: #5DA1AC;
-$tertiary: #56696D;
-$success: #61A31F;
-$info: #17A2B8;
-$warning: #FFC107;
-$danger: #DB2427;
-$light: #E0E0E0;
+$primary: #1863af;
+$secondary: #5da1ac;
+$tertiary: #56696d;
+$success: #61a31f;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #db2427;
+$light: #e0e0e0;
 $dark: #333;
-$disabled: #C8C8C8;
+$disabled: #c8c8c8;
 
 $spacer: 1rem;
 
 // Grid
 $grid-breakpoints: (
-        xxs: 0,
-        xs: 480px,
-        sm: 576px,
-        md: 768px,
-        lg: 992px,
-        xl: 1280px,
-        wd: 1400px,
-        xw: 1750px
+  xxs: 0,
+  xs: 480px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1280px,
+  wd: 1400px,
+  xw: 1750px
 );
 
 // sbonardt: if this is for grid-column of main grid layout, that's set back to 1.5rem. Do not change column-gap of main grid as this breaks the whole feel!
@@ -103,7 +103,7 @@ $yiq-contrasted-threshold:  150;
 
 :root {
   --background: #f3f5f7;
-  --foreground: #FFF;
+  --foreground: #fff;
   --foreground-border: #e8e8e8;
   --primary: #255687;
   --shade: #666;
@@ -112,17 +112,15 @@ $yiq-contrasted-threshold:  150;
   --status-draft: #1078da;
   --status-held: #dd2443;
   --status-timed: #741ce6;
-  --admin-sidebar: #2F3E4D;
-  --admin-sidebar-text: #EEE;
-  --admin-sidebar-icon: #FFF;
-  --admin-sidebar-menu: #FFF;
+  --admin-sidebar: #2f3e4d;
+  --admin-sidebar-text: #eee;
+  --admin-sidebar-icon: #fff;
+  --admin-sidebar-menu: #fff;
   --admin-sidebar-menu-text: #666;
-  --admin-toolbar: #4C6E91;
+  --admin-toolbar: #4c6e91;
   --admin-toolbar-text-light: #fff;
   --admin-toolbar-text-dark: #0c223b;
-}
 
-:root {
   @each $bp, $value in $grid-breakpoints {
     --breakpoint-#{$bp}: #{$value};
   }
@@ -135,4 +133,3 @@ $admin-sidebar-width: 200px;
 $admin-sidebar-width-wide: 250px;
 $admin-aside-width: 320px;
 $admin-header-height: 70px;
-

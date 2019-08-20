@@ -3,6 +3,7 @@
   width: $checkbox-row-width;
   user-select: none;
   margin-bottom: $spacer*0.8;
+
   .custom-control {
     position: relative;
     height: 100%;
@@ -10,12 +11,13 @@
     border: 1px solid var(--foreground);
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
-    position: relative;
     background-color: var(--foreground);
+
     @include media-breakpoint-up(md) {
       // border: 1px solid var(--shade-light);
       // border-right: 1px solid var(--shade-light);
     }
+
     .custom-control-label {
       position: absolute;
       left: 0;

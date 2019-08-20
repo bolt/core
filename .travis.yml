@@ -53,6 +53,8 @@ script:
   - ./vendor/bin/phpstan analyse -c phpstan.neon src
   # run EsLint on Javascript files
   - npm run lint
+  # run StyleLint on SCSS
+  - npm run stylelint
   # this checks that the YAML config files contain no syntax errors
   - ./bin/console lint:yaml config
   # this checks that the Twig template files contain no syntax errors
@@ -72,3 +74,5 @@ script:
   - ./vendor/bin/behat
   # run e2e tests with Kakunin
   - cd tests/e2e && npm run kakunin && cd ../..
+
+

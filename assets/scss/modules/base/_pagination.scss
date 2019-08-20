@@ -2,9 +2,10 @@
 
 .pagination {
   margin: 0 auto;
-  
+
   nav {
     display: flex;
+
     span,
     a {
       font-size: 0.875rem;
@@ -19,6 +20,7 @@
       min-width: 34px;
       letter-spacing: $letter-spacing;
       border: 1px solid var(--foreground-border);
+
       &:last-child {
         margin-right: 0;
       }

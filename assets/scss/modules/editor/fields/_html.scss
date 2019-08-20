@@ -19,6 +19,7 @@
   bottom: 0;
   width: auto;
   height: auto;
+
   @include media-breakpoint-up(wd) {
     left: $admin-sidebar-width-wide;
   }
