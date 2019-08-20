@@ -34,7 +34,8 @@
             </template>
           </a>
           <a class="dropdown-item" @click="generateSlug()">
-            <i class="fas fa-link fa-fw"></i> {{ labels.generate_from }} {{ generate }}
+            <i class="fas fa-link fa-fw"></i> {{ labels.generate_from }}
+            {{ generate }}
           </a>
         </div>
       </div>
@@ -48,7 +49,15 @@ import field from '../../../mixins/value';
 export default {
   name: 'EditorSlug',
   mixins: [field],
-  props: ['value', 'label', 'name', 'prefix', 'fieldClass', 'generate', 'labels'],
+  props: [
+    'value',
+    'label',
+    'name',
+    'prefix',
+    'fieldClass',
+    'generate',
+    'labels',
+  ],
   data: () => {
     return {
       edit: false,

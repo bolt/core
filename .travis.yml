@@ -51,6 +51,8 @@ script:
   # this checks that the source code follows the Bolt Code Syntax rules
   - ./vendor/bin/ecs check src
   - ./vendor/bin/phpstan analyse -c phpstan.neon src
+  # run EsLint on Javascript files
+  - npm run lint
   # run StyleLint on SCSS
   - npm run stylelint
   # this checks that the YAML config files contain no syntax errors

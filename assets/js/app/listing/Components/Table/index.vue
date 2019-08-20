@@ -1,15 +1,15 @@
 <template>
   <div class="listing__records">
-  <draggable v-model="records" :options="draggableOptions">
-    <transition-group>
-      <table-row
-        v-for="record in records"
-        :key="record.id"
-        :record="record"
-        :labels="labels"
-      ></table-row>
-    </transition-group>
-  </draggable>
+    <draggable v-model="records" :options="draggableOptions">
+      <transition-group>
+        <table-row
+          v-for="record in records"
+          :key="record.id"
+          :record="record"
+          :labels="labels"
+        ></table-row>
+      </transition-group>
+    </draggable>
   </div>
 </template>
 

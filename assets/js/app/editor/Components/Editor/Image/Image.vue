@@ -43,12 +43,20 @@
         </div>
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group mr-2" role="group">
-            <button class="btn btn-secondary" type="button" @click="selectUploadFile">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              @click="selectUploadFile"
+            >
               <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
             </button>
           </div>
           <div class="btn-group mr-2" role="group">
-            <button class="btn btn-secondary" type="button" @click="selectServerFile">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              @click="selectServerFile"
+            >
               <i class="fas fa-fw fa-th"></i> {{ labels.button_from_library }}
             </button>
           </div>
@@ -69,7 +77,8 @@
           <a
             class="editor__image--preview-image"
             :href="previewImage"
-            :style="`background-image: url('${previewImage}')`">
+            :style="`background-image: url('${previewImage}')`"
+          >
           </a>
         </div>
       </div>
@@ -103,7 +112,7 @@ export default {
     'title',
     'directory',
     'media',
-    'csrf_token',
+    'csrfToken',
     'labels',
     'filelist',
   ],
@@ -121,7 +130,7 @@ export default {
     },
     token() {
       return this.csrf_token;
-    }
+    },
   },
   mounted() {
     this.previewImage = this.thumbnail;
@@ -146,15 +155,15 @@ export default {
       Axios.get(this.filelist)
         .then(res => {
           bootbox.prompt({
-            title: "Select a file",
+            title: 'Select a file',
             inputType: 'select',
             inputOptions: res.data,
-            callback: function (result) {
+            callback: function(result) {
               if (result) {
                 thisField.filename = result;
                 thisField.previewImage = `/thumbs/${result}?${thumbnailParams}`;
               }
-            }
+            },
           });
         })
         .catch(err => {

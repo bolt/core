@@ -1,8 +1,8 @@
 <template>
   <div>
     <input
-      class="form-control"
       :id="id"
+      class="form-control"
       :name="name"
       :value="value"
       type="email"
