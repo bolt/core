@@ -1,6 +1,10 @@
 <template>
   <div class="listing__records">
-    <draggable v-model="records" :options="draggableOptions">
+    <draggable
+      v-model="records"
+      handle=".listing__row--move"
+      force-fallback="true"
+    >
       <transition-group>
         <table-row
           v-for="record in records"
@@ -24,14 +28,6 @@ export default {
     'table-row': Row,
   },
   props: ['labels'],
-  data: () => {
-    return {
-      draggableOptions: {
-        handle: '.listing__row--move',
-        forceFallback: true,
-      },
-    };
-  },
   computed: {
     records: {
       get() {

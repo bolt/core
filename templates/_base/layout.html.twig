@@ -39,9 +39,8 @@
         <admin-toolbar
             site-name="{{ config.get('general/sitename') }}"
             :menu="{{ admin_menu_json }}"
-            user="{{ user|default }}"
             :labels="{{ labels }}"
-            :backend_prefix="{{ path('bolt_dashboard') }}"
+            :backend-prefix="{{ path('bolt_dashboard') }}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->
