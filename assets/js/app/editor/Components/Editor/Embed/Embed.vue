@@ -67,7 +67,7 @@
               class="author_url"
               :name="name + '[authorurl]'"
               type="hidden"
-              :value="author_url"
+              :value="authorurl"
             />
             <input
               class="html"

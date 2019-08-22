@@ -77,13 +77,13 @@
       <div class="profile__dropdown dropdown-menu dropdown-menu-right">
         <ul>
           <li>
-            <a :href="backend_prefix + 'profile-edit'">
+            <a :href="backendPrefix + 'profile-edit'">
               <i class="fas fa-user-edit fa-fw"></i>
               {{ labels['action.edit_profile'] }}
             </a>
           </li>
           <li>
-            <a :href="backend_prefix + 'logout'">
+            <a :href="backendPrefix + 'logout'">
               <i class="fas fa-sign-out-alt fa-fw"></i>
               {{ labels['action.logout'] }}
             </a>

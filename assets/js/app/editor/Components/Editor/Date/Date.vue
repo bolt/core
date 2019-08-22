@@ -5,7 +5,7 @@
         v-model="val"
         class="form-control editor--date"
         :config="config"
-        :disabled="disabled == 1"
+        :disabled="disabled"
         :form="form"
         :name="name"
         placeholder="Select date"
@@ -14,9 +14,9 @@
       <div class="input-group-append">
         <button
           class="btn btn-secondary"
-          :class="{ 'btn-outline-secondary': disabled == 1 }"
+          :class="{ 'btn-outline-secondary': disabled }"
           type="button"
-          :disabled="disabled == 1"
+          :disabled="disabled"
           data-toggle
         >
           <i class="fa fa-calendar">
@@ -52,7 +52,7 @@ export default {
       required: true,
     },
     disabled: {
-      type: String,
+      type: Boolean,
       required: true,
     },
     mode: {
@@ -68,9 +68,9 @@ export default {
       type: String,
       default: 'en',
     },
-    // eslint-disable-next-line vue/require-default-prop
     labels: {
-      type: Array,
+      type: String,
+      default: '',
     },
   },
 
