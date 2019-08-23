@@ -7,7 +7,10 @@ namespace Bolt\Utils;
 use Bolt\Configuration\Config;
 use peterkahl\flagMaster\flagMaster;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Intl\Countries;
+use Symfony\Component\Intl\Exception\MissingResourceException;
 use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Locales;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
@@ -26,12 +29,16 @@ class LocaleHelper
     /** @var Config */
     private $config;
 
+    /** @var Collection */
+    private $codetoCountry;
+
     public function __construct(string $locales, UrlGeneratorInterface $urlGenerator, Config $config)
     {
         $this->localeCodes = new Collection(explode('|', $locales));
         $this->urlGenerator = $urlGenerator;
 
         $this->flagCodes = $this->getFlagCodes();
+        $this->codetoCountry = $this->getCodetoCountry();
         $this->config = $config;
     }
 
@@ -119,13 +126,21 @@ class LocaleHelper
 
         $flag = $this->getFlagCode($localeCode);
 
-        return new Collection([
+        $locale = [
             'code' => $localeCode,
-            'name' => Intl::getLocaleBundle()->getLocaleName($localeCode),
-            'localizedname' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode),
             'flag' => $flag,
             'emoji' => flagMaster::emojiFlag($flag),
-        ]);
+        ];
+
+        try {
+            $locale['name'] = Locales::getName($localeCode);
+            $locale['localizedname'] = Locales::getName($localeCode, $localeCode);
+        } catch (MissingResourceException $e) {
+            $locale['name'] = 'unknown';
+            $locale['localizedname'] = 'unknown';
+        }
+
+        return new Collection($locale);
     }
 
     private function getFlagCode($localeCode): string
@@ -137,22 +152,166 @@ class LocaleHelper
             return $this->flagCodeFormatter($splitCode[1]);
         }
 
-        // for codes like `nl`
-        if ($this->flagCodes->get(mb_strtoupper($splitCode[0]))) {
-            return $this->flagCodeFormatter($splitCode[0]);
-        }
-
-        return $this->flagCodeFormatter('blank');
+        return $this->flagCodeFormatter($splitCode[0]);
     }
 
+    /**
+     * Note: We're aware "Languages are not Flags", but if we _do_ want a
+     * visual presentation there's no better alternative that we're aware of.
+     */
     private function flagCodeFormatter($flag): string
     {
-        if ($flag === 'en') {
-            return 'gb';
+        $flag = mb_strtolower($flag);
+
+        if ($this->codetoCountry->has($flag)) {
+            return $this->codetoCountry->get($flag);
         }
 
-        return mb_strtolower($flag);
+        return $flag;
     }
+
+    /**
+     * ISO 639-1 > ISO 3166-1-alpha-2
+     *
+     * @see https://github.com/lipis/flag-icon-css/issues/510
+     */
+    private function getCodetoCountry(): Collection
+    {
+        return new Collection([
+            "aa" => "dj",
+            "af" => "za",
+            "ak" => "gh",
+            "sq" => "al",
+            "am" => "et",
+            "ar" => "aa",
+            "hy" => "am",
+            "ay" => "wh",
+            "az" => "az",
+            "bm" => "ml",
+            "be" => "by",
+            "bn" => "bd",
+            "bi" => "vu",
+            "bs" => "ba",
+            "bg" => "bg",
+            "my" => "mm",
+            "ca" => "ad",
+            "zh" => "cn",
+            "hr" => "hr",
+            "cs" => "cz",
+            "da" => "dk",
+            "dv" => "mv",
+            "nl" => "nl",
+            "dz" => "bt",
+            "en" => "gb",
+            "et" => "ee",
+            "ee" => "ew",
+            "fj" => "fj",
+            "fil" => "ph",
+            "fi" => "fi",
+            "fr" => "fr",
+            "ff" => "ff",
+            "gaa" => "gh",
+            "ka" => "ge",
+            "de" => "de",
+            "el" => "gr",
+            "gn" => "gx",
+            "gu" => "in",
+            "ht" => "ht",
+            "ha" => "ha",
+            "he" => "il",
+            "hi" => "in",
+            "ho" => "pg",
+            "hu" => "hu",
+            "is" => "is",
+            "ig" => "ng",
+            "id" => "id",
+            "ga" => "ie",
+            "it" => "it",
+            "ja" => "jp",
+            "kr" => "ne",
+            "kk" => "kz",
+            "km" => "kh",
+            "kmb" => "ao",
+            "rw" => "rw",
+            "kg" => "cg",
+            "ko" => "kr",
+            "kj" => "ao",
+            "ku" => "iq",
+            "ky" => "kg",
+            "lo" => "la",
+            "la" => "va",
+            "lv" => "lv",
+            "ln" => "cg",
+            "lt" => "lt",
+            "lu" => "cd",
+            "lb" => "lu",
+            "mk" => "mk",
+            "mg" => "mg",
+            "ms" => "my",
+            "mt" => "mt",
+            "mi" => "nz",
+            "mh" => "mh",
+            "mn" => "mn",
+            "mos" => "bf",
+            "ne" => "np",
+            "nd" => "zw",
+            "nso" => "za",
+            "no" => "no",
+            "nb" => "no",
+            "nn" => "no",
+            "ny" => "mw",
+            "pap" => "aw",
+            "ps" => "af",
+            "fa" => "ir",
+            "pl" => "pl",
+            "pt" => "pt",
+            "pa" => "in",
+            "qu" => "wh",
+            "ro" => "ro",
+            "rm" => "ch",
+            "rn" => "bi",
+            "ru" => "ru",
+            "sg" => "cf",
+            "sr" => "rs",
+            "srr" => "sn",
+            "sn" => "zw",
+            "si" => "lk",
+            "sk" => "sk",
+            "sl" => "si",
+            "so" => "so",
+            "snk" => "sn",
+            "nr" => "za",
+            "st" => "ls",
+            "es" => "es",
+            "sw" => "sw",
+            "ss" => "sz",
+            "sv" => "se",
+            "tl" => "ph",
+            "tg" => "tj",
+            "ta" => "lk",
+            "te" => "in",
+            "tet" => "tl",
+            "th" => "th",
+            "ti" => "er",
+            "tpi" => "pg",
+            "ts" => "za",
+            "tn" => "bw",
+            "tr" => "tr",
+            "tk" => "tm",
+            "uk" => "ua",
+            "umb" => "ao",
+            "ur" => "pk",
+            "uz" => "uz",
+            "ve" => "za",
+            "vi" => "vn",
+            "cy" => "gb",
+            "wo" => "sn",
+            "xh" => "za",
+            "yo" => "yo",
+            "zu" => "za",
+        ]);
+    }
+
 
     private function getFlagCodes(): Collection
     {
