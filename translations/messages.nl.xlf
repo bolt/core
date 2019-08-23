@@ -1488,5 +1488,11 @@
         <target>Doorverwijzingspagina</target>
       </segment>
     </unit>
+    <unit id="MClSUET" name="general.phrase.select_language">
+      <segment>
+        <source>general.phrase.select_language</source>
+        <target>Kies taal</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

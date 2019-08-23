@@ -55,20 +55,4 @@ class ListingController extends TwigAwareController implements FrontendZone
 
         return $this->renderTemplate($templates, $twigVars);
     }
-
-    /**
-     * Route alias for Bolt 3 backwards compatibility
-     *
-     * @deprecated since 4.0
-     *
-     * @Route(
-     *     "/{contenttypeslug}",
-     *     name="contentlisting",
-     *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
-     */
-    public function contentListing(ContentRepository $contentRepository, Request $request, string $contenttypeslug): Response
-    {
-        return $this->listing($contentRepository, $request, $contenttypeslug);
-    }
 }

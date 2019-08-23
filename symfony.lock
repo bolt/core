@@ -314,6 +314,9 @@
     "paragonie/random_compat": {
         "version": "v2.0.11"
     },
+    "peterkahl/country-code-to-emoji-flag": {
+        "version": "v0.9.1"
+    },
     "phar-io/manifest": {
         "version": "1.0.3"
     },

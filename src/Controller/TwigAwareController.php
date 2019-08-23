@@ -14,6 +14,7 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class TwigAwareController extends AbstractController
 {
@@ -86,8 +87,8 @@ class TwigAwareController extends AbstractController
         /** @var NativeFilesystemLoader $twigLoaders */
         $twigLoaders = $this->twig->getLoader();
 
-        if ($twigLoaders instanceof NativeFilesystemLoader) {
-            $twigLoaders->addPath($this->config->getPath('theme'), '__main__');
+        if ($twigLoaders instanceof FilesystemLoader) {
+            $twigLoaders->prependPath($this->config->getPath('theme'), '__main__');
         }
     }
 

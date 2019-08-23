@@ -41,7 +41,6 @@
 
     </div>
 
-
     {# The next section iterates over all of the content types, and prints a list
         of the five latest records of each of them. The 'magic' happens in the
         setcontent tag.. ct.slug ~ "/latest/3" concatenates the slug of the
@@ -64,7 +63,6 @@
             {% endfor %}
         </ul>
         <p><a href="{{ path('listing', {'contentTypeSlug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }} &raquo;</a></p>
-
 
     {% endfor %}
 
