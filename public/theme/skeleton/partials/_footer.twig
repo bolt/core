@@ -16,6 +16,12 @@
 
     <hr>
 
+    <h4>{{ __('general.phrase.select_language') }}</h4>
+
+    {% include 'helpers/languageselect.html.twig' with {'type': 'select'} %}
+
+    <hr>
+
     <p>
         {{ __('general.phrase.built-with-bolt') }}
     </p>

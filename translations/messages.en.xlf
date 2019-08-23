@@ -1863,5 +1863,11 @@
         <target>Edit Image</target>
       </segment>
     </unit>
+    <unit id="MClSUET" name="general.phrase.select_language">
+      <segment>
+        <source>general.phrase.select_language</source>
+        <target>Select Language</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
