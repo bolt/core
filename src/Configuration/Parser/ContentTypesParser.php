@@ -34,7 +34,10 @@ class ContentTypesParser extends BaseParser
         foreach ($tempContentTypes as $key => $contentType) {
             if (is_array($contentType)) {
                 $contentType = $this->parseContentType($key, $contentType);
-                $contentTypes[$key] = $contentType;
+
+                if ($contentType) {
+                    $contentTypes[$contentType->getSlug()] = $contentType;
+                }
             }
         }
 
@@ -48,11 +51,11 @@ class ContentTypesParser extends BaseParser
      *
      * @throws ConfigurationException
      */
-    protected function parseContentType($key, array $contentType): ContentType
+    protected function parseContentType($key, array $contentType): ?ContentType
     {
-        // If the slug isn't set, and the 'key' isn't numeric, use that as the slug.
-        if (! isset($contentType['slug']) && ! is_numeric($key)) {
-            $contentType['slug'] = Str::slug($key);
+        // If the key starts with `__`, we ignore it.
+        if (substr($key, 0, 2 ) === "__") {
+            return null;
         }
 
         // If neither 'name' nor 'slug' is set, we need to warn the user. Same goes for when
