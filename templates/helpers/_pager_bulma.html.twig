@@ -1,0 +1,43 @@
+{#
+Predefined variables:
+
+ - `records`: The records to iterate over
+ - `route`: The name of the route, to use in `{{ path() }}`
+ - `routeParams`: Parameters to pass in to `{{ path() }}` to create the correct url
+ - `surround`: The amount of items to show around the 'current' one. "3" by default.
+ - `class`: The main CSS class to apply to the pager. "pagination" by default
+
+#}
+{% if records.haveToPaginate|default() %}
+
+    <nav class="pagination {{ class != 'pagination' ? class }}" role="navigation" aria-label="pagination">
+
+        {% if records.hasPreviousPage %}
+            {% set p = routeParams|merge({page: records.previousPage}) %}
+            <a href="{{ path(route, p) }}" class="pagination-previous">Previous</a>
+        {% else %}
+            <a class="pagination-previous" disabled>Previous</a>
+        {% endif %}
+
+        {% if records.hasNextPage %}
+            {% set p = routeParams|merge({page: records.nextPage}) %}
+            <a href="{{ path(route, p) }}" class="pagination-next">Next page</a>
+        {% else %}
+            <a class="pagination-next" disabled>Next page</a>
+        {% endif %}
+
+        <ul class="pagination-list">
+            {% for i in 1 .. records.nbPages %}
+                <li>
+                {% if i == records.currentPage %}
+                    <a class="pagination-link is-current" aria-label="Page {{ i }}" aria-current="page">{{ i }}</a>
+                {% else %}
+                    {% set p = routeParams|merge({page: i}) %}
+                    <a href="{{ path(route, p) }}" class="pagination-link" aria-label="Goto page {{ i }}">{{ i }}</a>
+                {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+{% endif %}

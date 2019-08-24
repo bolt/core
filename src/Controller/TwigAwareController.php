@@ -53,6 +53,11 @@ class TwigAwareController extends AbstractController
         // Set User in global Twig environment
         $parameters['user'] = $parameters['user'] ?? $this->getUser();
 
+        // if theme.yaml was loaded, set it as global.
+        if ($this->config->has('theme')) {
+            $parameters['theme'] = $this->config->get('theme');
+        }
+
         $this->setThemePackage();
         $this->setTwigLoader();
 

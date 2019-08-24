@@ -1,0 +1,38 @@
+{#
+Predefined variables:
+
+ - `records`: The records to iterate over
+ - `route`: The name of the route, to use in `{{ path() }}`
+ - `routeParams`: Parameters to pass in to `{{ path() }}` to create the correct url
+ - `surround`: The amount of items to show around the 'current' one. "3" by default.
+ - `class`: The main CSS class to apply to the pager. "pagination" by default
+
+#}
+{% if records.haveToPaginate|default() %}
+    <ul class="{{ class }}">
+        <li>
+            {% if records.hasPreviousPage %}
+                {% set p = routeParams|merge({page: records.previousPage}) %}
+                <a href="{{ path(route, p) }}">Previous</a>
+            {% else %}
+                <a disabled>Previous</a>
+            {% endif %}
+        </li>
+
+        {% for i in 1 .. records.nbPages %}
+        <li>
+            {% set p = routeParams|merge({page: i}) %}
+            <a href="{{ path(route, p) }}" {{ (i == records.currentPage) ? 'class="current"' }}>{{ i }}</a>
+        </li>
+        {% endfor %}
+
+        <li>
+        {% if records.hasNextPage %}
+            {% set p = routeParams|merge({page: records.nextPage}) %}
+            <a href="{{ path(route, p) }}">Next page</a>
+        {% else %}
+            <a disabled>Next page</a>
+        {% endif %}
+        </li>
+    </ul>
+{% endif %}
