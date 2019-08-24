@@ -59,7 +59,11 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 
     private function setUris(array $item): array
     {
-        [$item['title'], $item['uri']] = $this->generateUri($item['link']);
+        [$title, $item['uri']] = $this->generateUri($item['link']);
+
+        if (empty($item['title'])) {
+            $item['title'] = $title;
+        }
 
         if (is_iterable($item['submenu'])) {
             $item['submenu'] = array_map(function ($sub): array {
