@@ -1,43 +1,43 @@
+{#
+Predefined variables:
+
+ - `records`: The records to iterate over
+ - `route`: The name of the route, to use in `{{ path() }}`
+ - `routeParams`: Parameters to pass in to `{{ path() }}` to create the correct url
+ - `surround`: The amount of items to show around the 'current' one. "3" by default.
+ - `class`: The main CSS class to apply to the pager. "pagination" by default
+
+#}
 {% if records.haveToPaginate|default() %}
 
-    {% set route = 'listing' %}
-    {% set routeParams = app.request.get('_route_params') %}
+    <nav class="pagination {{ class != 'pagination' ? class }}" role="navigation" aria-label="pagination">
 
+        {% if records.hasPreviousPage %}
+            {% set p = routeParams|merge({page: records.previousPage}) %}
+            <a href="{{ path(route, p) }}" class="pagination-previous">Previous</a>
+        {% else %}
+            <a class="pagination-previous" disabled>Previous</a>
+        {% endif %}
 
-    {# The Pagerfanta function allows you to configure what is paginated,
-       the theme (template) to use for it, as well as a number of other options.
-       See: https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle #}
+        {% if records.hasNextPage %}
+            {% set p = routeParams|merge({page: records.nextPage}) %}
+            <a href="{{ path(route, p) }}" class="pagination-next">Next page</a>
+        {% else %}
+            <a class="pagination-next" disabled>Next page</a>
+        {% endif %}
 
-    <div class="{{ class }}">
-        {{ pagerfanta(records, theme, {
-            'proximity': surround
-        }) }}
-    </div>
-
-    <div class="navigation text-center">
-        <ul class="pagination">
-            {% if records.hasPreviousPage %}
-                {% set p = routeParams|merge({page: records.previousPage}) %}
-                <li class="prev"><a href="{{ path(route, p) }}" rel="previous"><i class="fa fw fa-long-arrow-left"></i> Previous</a></li>
-            {% else %}
-                <li class="prev disabled"><span><i class="fa fw fa-arrow-left"></i> Previous</span></li>
-            {% endif %}
-
+        <ul class="pagination-list">
             {% for i in 1 .. records.nbPages %}
+                <li>
                 {% if i == records.currentPage %}
-                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    <a class="pagination-link is-current" aria-label="Page {{ i }}" aria-current="page">{{ i }}</a>
                 {% else %}
                     {% set p = routeParams|merge({page: i}) %}
-                    <li><a href="{{ path(route, p) }}">{{ i }}</a></li>
+                    <a href="{{ path(route, p) }}" class="pagination-link" aria-label="Goto page {{ i }}">{{ i }}</a>
                 {% endif %}
+                </li>
             {% endfor %}
-
-            {% if records.hasNextPage %}
-                {% set p = routeParams|merge({page: records.nextPage}) %}
-                <li class="prev"><a href="{{ path(route, p) }}" rel="next">Next <i class="fa fw fa-arrow-right"></i></a></li>
-            {% else %}
-                <li class="next disabled"><span>Next <i class="fa fw fa-arrow-right"></i></span></li>
-            {% endif %}
         </ul>
-    </div>
+    </nav>
+
 {% endif %}

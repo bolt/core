@@ -11,6 +11,7 @@ use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\MenuParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
+use Bolt\Configuration\Parser\ThemeParser;
 use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Tightenco\Collect\Support\Collection;
@@ -108,11 +109,18 @@ class Config
         $menu = new MenuParser($this->projectDir);
         $config['menu'] = $menu->parse();
 
+        // If we're parsing the config, we'll also need to pre-initialise
+        // the PathResolver, because we need to know the theme path.
+        $this->pathResolver = new PathResolver($this->projectDir, [], $config->get('general')->get('theme'));
+
+        $theme = new ThemeParser($this->projectDir, $this->getPath('theme'));
+        $config['theme'] = $theme->parse();
+
         // @todo Add these config files if needed, or refactor them out otherwise
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
 
-        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu);
+        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu, $theme);
 
         return [
             DeepCollection::deepMake($config),

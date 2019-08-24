@@ -1,9 +1,11 @@
 {# Sub-block for 'text' field such as 'text', 'textarea', or 'html' #}
 {% block text_field %}
     <div data-bolt-field="{{ field.name }}">
+        <{{tag}}>
         {%- autoescape false -%}
             {{ field.twigValue() }}
         {%- endautoescape -%}
+        </{{tag}}>
     </div>
 {% endblock %}
 
@@ -31,7 +33,7 @@
     {# HTML, Textarea, Text fields #}
     {% if type in ['html', 'textarea', 'text'] %}
         {% set tag = (field.name in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'p' %}
-        <{{tag}}>{{ block('text_field') }}</{{tag}}>
+        {{ block('text_field') }}
     {% endif %}
 
     {# Markdown fields #}

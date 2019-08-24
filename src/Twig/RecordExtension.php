@@ -9,6 +9,8 @@ use Bolt\Entity\Field;
 use Bolt\Repository\TaxonomyRepository;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -24,9 +26,13 @@ class RecordExtension extends AbstractExtension
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
-    public function __construct(TaxonomyRepository $taxonomyRepository)
+    /** @var Request */
+    private $request;
+
+    public function __construct(TaxonomyRepository $taxonomyRepository, RequestStack $requestStack)
     {
         $this->taxonomyRepository = $taxonomyRepository;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -52,13 +58,14 @@ class RecordExtension extends AbstractExtension
         return 'list_templates placeholder';
     }
 
-    public function pager(Environment $twig, Pagerfanta $records, string $template = '_sub_pager.twig', string $class = 'pagination', string $theme = 'default', int $surround = 3)
+    public function pager(Environment $twig, Pagerfanta $records, string $template = 'helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
     {
         $context = [
             'records' => $records,
             'surround' => $surround,
             'class' => $class,
-            'theme' => $theme,
+            'route' => $this->request->get('_route'),
+            'routeParams' => $this->request->get('_route_params'),
         ];
 
         return $twig->render($template, $context);

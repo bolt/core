@@ -59,7 +59,7 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 
     private function setUris(array $item): array
     {
-        $item['uri'] = $this->generateUri($item['link']);
+        [$item['title'], $item['uri']] = $this->generateUri($item['link']);
 
         if (is_iterable($item['submenu'])) {
             $item['submenu'] = array_map(function ($sub): array {
@@ -70,25 +70,25 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
         return $item;
     }
 
-    private function generateUri(string $link = ''): string
+    private function generateUri(string $link = ''): array
     {
         $trimmedLink = trim($link, '/');
 
         // Special case for "Homepage"
         if ($trimmedLink === 'homepage') {
-            return $this->urlGenerator->generate('homepage');
+            return ['Home', $this->urlGenerator->generate('homepage')];
         }
 
         // If it looks like `contenttype/slug`, get the Record.
         if (preg_match('/^[a-zA-Z\-\_]+\/[0-9a-zA-Z\-\_]+$/', $trimmedLink)) {
             $content = $this->getContent($trimmedLink);
             if ($content) {
-                return $this->contentExtension->getLink($content);
+                return [$this->contentExtension->getTitle($content), $this->contentExtension->getLink($content)];
             }
         }
 
         // Otherwise trust the user. ¯\_(ツ)_/¯
-        return $link;
+        return ['', $link];
     }
 
     private function getContent(string $link): ?Content
