@@ -54,7 +54,7 @@ class ContentTypesParser extends BaseParser
     protected function parseContentType($key, array $contentType): ?ContentType
     {
         // If the key starts with `__`, we ignore it.
-        if (substr($key, 0, 2 ) === "__") {
+        if (mb_substr($key, 0, 2) === '__') {
             return null;
         }
 

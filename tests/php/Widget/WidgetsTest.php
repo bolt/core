@@ -57,7 +57,7 @@ class WidgetsTest extends StringTestCase
         $widgets->registerWidget($snippet);
         $widgets->processQueue($response);
 
-        $this->assertSameHtml("<html><body>foo*foo*</body></html>", $response->getContent());
+        $this->assertSameHtml('<html><body>foo*foo*</body></html>', $response->getContent());
     }
 
     public function testRenderWidget(): void
@@ -74,7 +74,6 @@ class WidgetsTest extends StringTestCase
             $widgets->renderWidgetByName('Weather Widget')
         );
     }
-
 
     public function testRenderWidgetWithExtraParameters(): void
     {
