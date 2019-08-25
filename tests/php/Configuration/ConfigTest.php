@@ -14,7 +14,6 @@ use Tightenco\Collect\Support\Collection;
 
 class ConfigTest extends TestCase
 {
-
     public function testCanParse(): void
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
@@ -24,7 +23,7 @@ class ConfigTest extends TestCase
         $this->assertInstanceOf(Config::class, $config);
     }
 
-    public function testConfigGet()
+    public function testConfigGet(): void
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
@@ -33,7 +32,7 @@ class ConfigTest extends TestCase
         $this->assertSame('Bolt Core Git Clone', $config->get('general/sitename'));
     }
 
-    public function testConfigHas()
+    public function testConfigHas(): void
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
@@ -43,7 +42,7 @@ class ConfigTest extends TestCase
         $this->assertFalse($config->has('general/payoffXXXXX'));
     }
 
-    public function testConfigGetMediaTypes()
+    public function testConfigGetMediaTypes(): void
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));

@@ -47,7 +47,6 @@ class MenuParserTest extends ParserTestBase
         $menuParser->parse();
     }
 
-
     public function testHasMenu(): void
     {
         $menuParser = new MenuParser($this->getProjectDir());

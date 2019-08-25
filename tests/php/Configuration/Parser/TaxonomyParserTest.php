@@ -38,7 +38,6 @@ class TaxonomyParserTest extends ParserTestBase
         $taxonomyParser->parse();
     }
 
-
     public function testHasTaxonomies(): void
     {
         $taxonomyParser = new TaxonomyParser($this->getProjectDir());
@@ -67,7 +66,6 @@ class TaxonomyParserTest extends ParserTestBase
         $this->assertArrayNotHasKey('foobar', $config['tags']);
         $this->assertArrayNotHasKey('foo', $config);
     }
-
 
     public function testInferTaxonomyValues(): void
     {

@@ -1,0 +1,4 @@
+# Attempt to infer both the `slug` and `name`, and break
+grault:
+  singular_name: Waldo
+  fields: []

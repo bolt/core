@@ -124,7 +124,7 @@ class HtmlInjectorTest extends StringTestCase
         $response = new Response();
         $injector->inject($snippet, $response);
 
-        self::assertSameHtml("", $response->getContent());
+        self::assertSameHtml('', $response->getContent());
     }
 
     /**
@@ -140,7 +140,7 @@ class HtmlInjectorTest extends StringTestCase
         $response = new Response();
         $injector->inject($snippet, $response);
 
-        self::assertSameHtml("koala", $response->getContent());
+        self::assertSameHtml('koala', $response->getContent());
     }
 
     protected function getHtml()
