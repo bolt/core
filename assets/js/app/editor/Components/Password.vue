@@ -26,7 +26,6 @@ export default {
 
   mounted: function() {
     // this.val = this.$options.filters.strip(this.value);
-    console.log('joe!', this.value, this.hidden, this.$refs);
     if (!this.hidden) {
       this.$refs.visibilityToggle.click();
     }

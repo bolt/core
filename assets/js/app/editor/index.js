@@ -6,20 +6,20 @@ import store from './store';
 /**
  * Components
  */
-import Text from './Components/Editor/Text/Text';
-import Slug from './Components/Editor/Slug/Slug';
-import Date from './Components/Editor/Date/Date';
-import Select from './Components/Editor/Select/Select';
-import Number from './Components/Editor/Number/Number';
-import Html from './Components/Editor/Html/Html';
-import Markdown from './Components/Editor/Markdown/Markdown';
-import Textarea from './Components/Editor/Textarea/Textarea';
-import Embed from './Components/Editor/Embed/Embed';
-import Image from './Components/Editor/Image/Image';
-import Email from './Components/Editor/Email/Email';
-import Password from './Components/Editor/Password/Password';
-import ThemeSelect from './Components/Editor/ThemeSelect/ThemeSelect';
-import Language from './Components/Editor/Language/Language';
+import Text from './Components/Text';
+import Slug from './Components/Slug';
+import Date from './Components/Date';
+import Select from './Components/Select';
+import Number from './Components/Number';
+import Html from './Components/Html';
+import Markdown from './Components/Markdown';
+import Textarea from './Components/Textarea';
+import Embed from './Components/Embed';
+import Image from './Components/Image';
+import Email from './Components/Email';
+import Password from './Components/Password';
+import ThemeSelect from './Components/ThemeSelect';
+import Language from './Components/Language';
 
 new Vue({
   store,

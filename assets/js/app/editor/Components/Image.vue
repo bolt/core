@@ -96,7 +96,7 @@
 <script>
 import noScroll from 'no-scroll';
 import baguetteBox from 'baguettebox.js';
-import field from '../../../mixins/value';
+import field from '../mixins/value';
 import Axios from 'axios';
 import bootbox from 'bootbox';
 

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import val from '../../../mixins/value';
+import val from '../mixins/value';
 
 export default {
   name: 'EditorNumber',
