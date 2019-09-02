@@ -11,6 +11,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Relation;
 use Bolt\Entity\Taxonomy;
+use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Repository\ContentRepository;
@@ -82,7 +83,11 @@ class ContentEditController extends TwigAwareController implements BackendZone
     public function new(string $contentType, Request $request): Response
     {
         $content = new Content();
-        $content->setAuthor($this->getUser());
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $content->setAuthor($user);
         $content->setContentType($contentType);
         $this->contentFillListener->fillContent($content);
 
@@ -172,9 +177,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
      */
     public function duplicate(Request $request, Content $content): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
         $content->setId(null);
         $content->setCreatedAt(null);
-        $content->setAuthor($this->getUser());
+        $content->setAuthor($user);
         $content->setModifiedAt(null);
         $content->setDepublishedAt(null);
         $content->setPublishedAt(null);
@@ -246,9 +254,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         $locale = $this->getPostedLocale($formData);
 
+        /** @var User $user */
+        $user = $this->getUser();
+
         if ($content === null) {
             $content = new Content();
-            $content->setAuthor($this->getUser());
+            $content->setAuthor($user);
             $content->setContentType($request->attributes->get('id'));
         }
         $this->contentFillListener->fillContent($content);

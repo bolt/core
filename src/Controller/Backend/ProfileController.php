@@ -67,6 +67,7 @@ class ProfileController extends TwigAwareController implements BackendZone
     {
         $this->validateCsrf($request, 'profileedit');
 
+        /** @var User $user */
         $user = $this->getUser();
         $displayName = $user->getDisplayName();
         $url = $this->urlGenerator->generate('bolt_profile_edit');
