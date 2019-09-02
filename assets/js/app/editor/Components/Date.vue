@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import value from '../../../mixins/value';
+import value from '../mixins/value';
 import flatPickr from 'vue-flatpickr-component';
 
 export default {

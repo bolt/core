@@ -102,7 +102,7 @@
 <script>
 import _ from 'lodash';
 import baguetteBox from 'baguettebox.js';
-import field from '../../../mixins/value';
+import field from '../mixins/value';
 
 export default {
   name: 'EditorEmbed',
