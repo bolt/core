@@ -158,15 +158,22 @@ abstract class BaseWidget implements WidgetInterface
 
     public function getTemplateFolder(): ?string
     {
-        if ($this->templateFolder === null) {
-            $reflection = new \ReflectionClass($this);
-            $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
-            if (realpath($folder)) {
-                $this->templateFolder = realpath($folder);
-            }
+        if ($this->templateFolder !== null) {
+            return $this->templateFolder;
         }
 
-        return $this->templateFolder;
+        $reflection = new \ReflectionClass($this);
+
+        $folder = dirname($reflection->getFilename()) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+        $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+
+        return null;
     }
 
     private function addTwigLoader(): void
