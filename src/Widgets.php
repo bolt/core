@@ -33,6 +33,9 @@ class Widgets
     /** @var QueueProcessor */
     private $queueProcessor;
 
+    /** @var array */
+    private $rendered = [];
+
     /** @var Environment */
     private $twig;
 
@@ -48,7 +51,7 @@ class Widgets
         Environment $twig,
         CacheInterface $cache,
         Stopwatch $stopwatch
-) {
+    ) {
         $this->queue = new Collection([]);
         $this->requestStack = $requestStack;
         $this->queueProcessor = $queueProcessor;
@@ -96,6 +99,10 @@ class Widgets
 
     private function invokeWidget(WidgetInterface $widget, array $params = []): ?string
     {
+        if ($this->isRendered($widget)) {
+            return $this->getRendered($widget);
+        }
+
         if ($widget instanceof StopwatchAware) {
             $widget->startStopwatch($this->stopwatch);
         }
@@ -109,13 +116,15 @@ class Widgets
         }
 
         // Call the magic `__invoke` method on the $widget object
-        $renderedWidget = $widget($params);
+        $output = $widget($params);
 
         if ($widget instanceof StopwatchAware) {
             $widget->stopStopwatch();
         }
 
-        return $renderedWidget;
+        $this->setRendered($widget, $output);
+
+        return $output;
     }
 
     public function processQueue(Response $response): Response
@@ -140,5 +149,24 @@ class Widgets
                 $this->queueProcessor->process($response, $request, $queue, $cache, $zone);
             }
         );
+    }
+
+    private function isRendered(WidgetInterface $widget): bool
+    {
+        return array_key_exists($widget->getName(), $this->rendered);
+    }
+
+    private function getRendered(WidgetInterface $widget): ?string
+    {
+        if (! $this->isRendered($widget)) {
+            return null;
+        }
+
+        return $this->rendered[$widget->getName()];
+    }
+
+    private function setRendered(WidgetInterface $widget, string $output): void
+    {
+        $this->rendered[$widget->getName()] = $output;
     }
 }
