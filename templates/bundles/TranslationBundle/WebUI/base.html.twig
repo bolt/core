@@ -29,8 +29,12 @@
     </div>
 </nav>
 
-{% block body %}{% endblock %}
+{% block _translation_bundle_body %}{% endblock %}
 
+{% endblock %}
+
+{% block _translation_bundle_js %}
+    <script type="text/javascript" src="{{ asset("bundles/translation/js/webui.js") }}"></script>
 {% endblock %}
 
 {% block javascripts %}
