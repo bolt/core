@@ -55,7 +55,7 @@
         "symfony/var-dumper": "^4.3",
         "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "^4.3",
-        "tightenco/collect": "^5.8",
+        "tightenco/collect": "^6.0",
         "twig/extensions": "^1.5",
         "webmozart/path-util": "^2.3",
         "webonyx/graphql-php": "^0.13",
