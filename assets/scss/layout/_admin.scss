@@ -112,7 +112,7 @@ body {
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: auto;
         grid-column-gap: 2rem;
-        padding: $spacer $spacer*1.5 $spacer $spacer*2.5
+        padding: $spacer $spacer*1.5 $spacer $spacer*2.5;
       }
 
       @include media-breakpoint-up(wd) {

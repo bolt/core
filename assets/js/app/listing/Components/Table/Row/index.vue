@@ -18,12 +18,12 @@
       :class="`is-${size}`"
       @mouseleave="leave"
     >
-
       <!-- column thumbnail -->
       <div
-              v-if="size === 'normal' && record.extras.image !== null"
               class="listing__row--item is-thumbnail"
-              :style="`background-image: url('${record.extras.image.thumbnail}')`"
+        v-if="size === 'normal' && record.extras.image !== null"
+        class="listing__row--item is-thumbnail"
+        :style="`background-image: url('${record.extras.image.thumbnail}')`"
       ></div>
       <!-- end column -->
 
@@ -59,10 +59,6 @@
         :labels="labels['actions']"
       ></row-actions>
       <!-- end column -->
-
-      <!-- column sorting -->
-      <!-- <row-sorting></row-sorting> -->
-      <!-- end column -->
     </div>
   </transition-group>
 </template>
@@ -72,7 +68,6 @@ import type from '../../../mixins/type';
 import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
-import Sorting from './_Sorting';
 import $ from 'jquery';
 
 export default {
@@ -81,7 +76,6 @@ export default {
     'row-checkbox': Checkbox,
     'row-meta': Meta,
     'row-actions': Actions,
-    'row-sorting': Sorting,
   },
   mixins: [type],
   props: ['record', 'labels'],
