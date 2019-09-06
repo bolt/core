@@ -115,9 +115,10 @@ $checkbox-row-width: 32px;
 
       @include media-breakpoint-up(md) {
         order: 2;
-        flex: 1 0 360px;
-        padding: $spacer*0.4 $spacer*2 $spacer*0.5 $spacer*0.625;
+        flex: 1 0 290px;
+        padding: $spacer*0.4 $spacer $spacer*0.5 $spacer*0.625;
         margin-bottom: 0;
+        line-height: 1.5rem;
       }
 
       a {
@@ -223,9 +224,15 @@ $checkbox-row-width: 32px;
     flex-wrap: wrap;
     padding: 0;
     list-style: none;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
+    line-height: 1.6;
     letter-spacing: $letter-spacing;
     margin-bottom: 0;
+
+    @include media-breakpoint-up(wd) {
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
 
     li {
       //display: flex;

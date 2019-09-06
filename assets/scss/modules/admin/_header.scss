@@ -70,7 +70,7 @@
     }
 
     @include media-breakpoint-up(md) {
-      padding: $spacer*1.25 $spacer*1.25 0;
+      padding: $spacer*1.25 $spacer*1.25 0 $spacer*2.5;
     }
 
     @include media-breakpoint-up(wd) {
