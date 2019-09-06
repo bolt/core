@@ -8,9 +8,6 @@
     width: 100%;
     display: flex;
     padding: 0;
-    // @include media-breakpoint-up(lg) {
-    //   padding-right: 1rem;
-    // }
 
     &.is-dark {
       color: var(--admin-toolbar-text-light);

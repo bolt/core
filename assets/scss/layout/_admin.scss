@@ -1,5 +1,12 @@
 //** Layout | Admin
 
+// Override for body font-size on large screens
+body {
+  @include media-breakpoint-up(wd) {
+    font-size: $font-size-largescreen;
+  }
+}
+
 // Main Layout Grid
 .admin {
   margin-top: $admin-toolbar-height;
@@ -104,7 +111,8 @@
         //grid with autofit to make columns expand full width if other column(s) not present
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: auto;
-        grid-column-gap: 1.5rem;
+        grid-column-gap: 2rem;
+        padding: $spacer $spacer*1.5 $spacer $spacer*2.5
       }
 
       @include media-breakpoint-up(wd) {

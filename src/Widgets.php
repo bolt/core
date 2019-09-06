@@ -165,7 +165,7 @@ class Widgets
         return $this->rendered[$widget->getName()];
     }
 
-    private function setRendered(WidgetInterface $widget, string $output): void
+    private function setRendered(WidgetInterface $widget, ?string $output): void
     {
         $this->rendered[$widget->getName()] = $output;
     }

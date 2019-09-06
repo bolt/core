@@ -14,7 +14,9 @@ $big-z-index: 1000;
 $font-family-base:            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $headings-font-family:        'Source Sans Variable', sans-serif;
 
-$font-size-base:              1rem;
+$font-size-base:              0.9rem;
+$font-size-largescreen:       1rem;
+$line-height-base:            1.5;
 
 // Minor Third progression for header font sizes
 $h1-font-size:                $font-size-base * 2.07;
@@ -82,19 +84,12 @@ $grid-breakpoints: (
   xxs: 0,
   xs: 480px,
   sm: 576px,
-  md: 768px,
+  md: 760px,
   lg: 992px,
-  xl: 1280px,
+  xl: 1272px,
   wd: 1400px,
   xw: 1750px
 );
-
-// sbonardt: if this is for grid-column of main grid layout, that's set back to 1.5rem. Do not change column-gap of main grid as this breaks the whole feel!
-$column-gap: 3rem;
-
-// Modal Dialog spacing
-// sbonardt: if this is such a specific usage thing, why make it a sass variable?
-$modal-dialog-margin-y-sm-up: 4rem;
 
 // This number determines of a button has white or black text (a11y)
 // 150: about equal to 3.0 color contrast ( WCAG2 for bold and texts above 18pts).
