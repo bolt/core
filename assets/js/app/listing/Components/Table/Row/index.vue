@@ -20,7 +20,6 @@
     >
       <!-- column thumbnail -->
       <div
-              class="listing__row--item is-thumbnail"
         v-if="size === 'normal' && record.extras.image !== null"
         class="listing__row--item is-thumbnail"
         :style="`background-image: url('${record.extras.image.thumbnail}')`"
