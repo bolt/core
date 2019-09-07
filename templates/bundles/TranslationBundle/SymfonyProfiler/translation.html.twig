@@ -179,11 +179,11 @@
                     {{ message.translation }}
                 </td>
                 <td width="155px">
-                    {% spaceless %}
+                    {% apply spaceless %}
                         <a class="edit btn btn-sm" href="javascript:void(0);" onclick='getEditForm("{{ key }}")'>Edit</a>
                         |
                         <a class="sync btn btn-sm" href="javascript:void(0);" onclick='syncMessage("{{ key }}")'>Sync</a>
-                    {% endspaceless %}
+                    {% endapply %}
                 </td>
             </tr>
         {% endfor %}

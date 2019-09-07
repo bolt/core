@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Widget;
 
 use Bolt\Widget\Exception\WidgetException;
-use Psr\SimpleCache\CacheInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 trait CacheTrait
 {
@@ -27,32 +28,13 @@ trait CacheTrait
             throw new WidgetException('Widget of class ' . self::class . ' is not initialised properly. Make sure the Widget `implements CacheAware`.');
         }
 
-        if ($this->isCached()) {
-            return $this->getFromCache();
-        }
-
-        $output = $this->run($params);
-
-        if ($output !== null) {
-            $this->setToCache($output);
-        }
-
-        return $output;
-    }
-
-    private function setToCache(string $output): void
-    {
-        $this->cache->set($this->key, $output, $this->getCacheDuration());
-    }
-
-    private function getFromCache(): string
-    {
-        return $this->cache->get($this->key);
-    }
-
-    private function isCached(): bool
-    {
-        return $this->cache->has($this->key);
+        return $this->cache->get(
+            $this->key,
+            function (ItemInterface $item) use ($params) {
+                $item->expiresAfter($this->getCacheDuration());
+                return $this->run($params);
+            }
+        );
     }
 
     private function createKey()

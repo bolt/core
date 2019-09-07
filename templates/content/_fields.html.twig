@@ -1,8 +1,8 @@
-{% for group in groups if group != 'Relations' %}
+{% for group in groups|filter(group => group != 'Relations') %}
 
     <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{ group|slug }}" role="tabpanel"
          aria-labelledby="{{ group|slug }}-tab">
-        {% for key, fielddefinition in record.definition.fields if fielddefinition.group == group %}
+        {% for key, fielddefinition in record.definition.fields|filter(fielddefinition => fielddefinition.group == group) %}
             {% if record.hasField(key) %}
                 {% set field = record.getField(key)|translated(currentlocale) %}
             {% else %}

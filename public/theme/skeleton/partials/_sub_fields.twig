@@ -40,7 +40,7 @@
     {% endspaceless -%}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
-    {% for field in record.fields if (field.name not in omittedkeys) %}
+    {% for field in record.fields|filter(field => field.name not in omittedkeys) %}
 
         {% set type = field.definition.type %}
 

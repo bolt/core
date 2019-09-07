@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Menu;
 
-use Psr\SimpleCache\CacheInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 final class CachedFrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
@@ -24,13 +24,8 @@ final class CachedFrontendMenuBuilder implements FrontendMenuBuilderInterface
     {
         $key = 'frontendmenu_' . ($name ?: 'main');
 
-        if ($this->cache->has($key)) {
-            $menu = $this->cache->get($key);
-        } else {
-            $menu = $this->menuBuilder->buildMenu($name);
-            $this->cache->set($key, $menu);
-        }
-
-        return $menu;
+        return $this->cache->get($key, function () use ($name) {
+            return $this->menuBuilder->buildMenu($name);
+        });
     }
 }
