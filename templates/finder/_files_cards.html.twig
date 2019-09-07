@@ -15,7 +15,7 @@
             {% set icon = 'fa-image' %}
             {% set link = path('bolt_media_new', {'location': location.key, 'file': filename}) %}
 
-            {% for image in media|default([]) if image.filename in filename %}
+            {% for image in media|default([])|filter((image, filename) => image.filename in filename) %}
                 {% set title = image.title %}
                 {% set dimensions = image.width ~ ' × ' ~ image.height ~ 'px' %}
                 {% set link = path('bolt_media_edit', {'id': image.id}) %}

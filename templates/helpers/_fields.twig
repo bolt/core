@@ -40,7 +40,7 @@
     {% endapply -%}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
-    {% for field in record.fields if (field.name not in omittedkeys) %}
+    {% for field in record.fields|filter(field => field.name not in omittedkeys) %}
 
         {% set type = field.definition.type %}
 
@@ -67,7 +67,7 @@
            content type for the templatefields should know about the types of fields. #}
         {% set templatefields_field_types = attribute(record.contentType.templatefields.first, 'fields') %}
 
-        {% for key, field in record.templateFields if (key not in omittedkeys) %}
+        {% for key, field in record.templateFields|filter(key => key not in omittedkeys) %}
 
             {% set type = attribute(attribute(templatefields_field_types, key), 'type')  %}
             {{ block('common_fields') }}
