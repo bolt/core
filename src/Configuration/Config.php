@@ -12,10 +12,9 @@ use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\MenuParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Configuration\Parser\ThemeParser;
-use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Contracts\Cache\CacheInterface;
 use Tightenco\Collect\Support\Collection;
-use Webmozart\PathUtil\Path;
 
 class Config
 {
@@ -49,11 +48,14 @@ class Config
     {
         $this->stopwatch->start('bolt.parseconfig');
 
-        if ($this->validCache()) {
-            $data = $this->getCache();
-        } else {
-            [$data, $timestamps] = $this->parseConfig();
-            $this->setCache($data, $timestamps);
+        [$data, $timestamps] = $this->getCache();
+
+        // Verify if timestamps are unchanged. If not, invalidate cache.
+        foreach ($timestamps as $filename => $timestamp) {
+            if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
+                $this->cache->delete('config_cache');
+                [$data] = $this->getCache();
+            }
         }
 
         $this->stopwatch->stop('bolt.parseconfig');
@@ -61,32 +63,11 @@ class Config
         return $data;
     }
 
-    private function validCache(): bool
+    private function getCache(): array
     {
-        if (! $this->cache->has('config_cache') || ! $this->cache->has('config_timestamps')) {
-            return false;
-        }
-
-        $timestamps = $this->cache->get('config_timestamps');
-
-        foreach ($timestamps as $filename => $timestamp) {
-            if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private function getCache(): Collection
-    {
-        return $this->cache->get('config_cache');
-    }
-
-    private function setCache(Collection $data, array $timestamps): void
-    {
-        $this->cache->set('config_cache', $data);
-        $this->cache->set('config_timestamps', $timestamps);
+        return $this->cache->get('config_cache', function () {
+            return $this->parseConfig();
+        });
     }
 
     /**
