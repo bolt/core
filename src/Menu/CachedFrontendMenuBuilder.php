@@ -27,7 +27,5 @@ final class CachedFrontendMenuBuilder implements FrontendMenuBuilderInterface
         return $this->cache->get($key, function () use ($name) {
             return $this->menuBuilder->buildMenu($name);
         });
-
-        return $menu;
     }
 }
