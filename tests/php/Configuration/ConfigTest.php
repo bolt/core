@@ -8,7 +8,6 @@ use Bolt\Configuration\Config;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\TraceableAdapter;
-use Symfony\Component\Cache\Simple\Psr6Cache;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Tightenco\Collect\Support\Collection;
 
@@ -17,7 +16,7 @@ class ConfigTest extends TestCase
     public function testCanParse(): void
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+        $cache = new TraceableAdapter(new FilesystemAdapter());
         $config = new Config(new Stopwatch(), $projectDir, $cache);
 
         $this->assertInstanceOf(Config::class, $config);
@@ -26,7 +25,7 @@ class ConfigTest extends TestCase
     public function testConfigGet(): void
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+        $cache = new TraceableAdapter(new FilesystemAdapter());
         $config = new Config(new Stopwatch(), $projectDir, $cache);
 
         $this->assertSame('Bolt Core Git Clone', $config->get('general/sitename'));
@@ -35,7 +34,7 @@ class ConfigTest extends TestCase
     public function testConfigHas(): void
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+        $cache = new TraceableAdapter(new FilesystemAdapter());
         $config = new Config(new Stopwatch(), $projectDir, $cache);
 
         $this->assertTrue($config->has('general/payoff'));
@@ -45,7 +44,7 @@ class ConfigTest extends TestCase
     public function testConfigGetMediaTypes(): void
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+        $cache = new TraceableAdapter(new FilesystemAdapter());
         $config = new Config(new Stopwatch(), $projectDir, $cache);
 
         /** @var Collection $mediaTypes */

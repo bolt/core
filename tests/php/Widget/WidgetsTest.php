@@ -15,7 +15,6 @@ use Bolt\Widget\SnippetWidget;
 use Bolt\Widgets;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\TraceableAdapter;
-use Symfony\Component\Cache\Simple\Psr6Cache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +36,7 @@ class WidgetsTest extends StringTestCase
         $loader = new ArrayLoader($templates);
         $twig = new Environment($loader);
 
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+        $cache = new TraceableAdapter(new FilesystemAdapter());
         $stopwatch = new Stopwatch();
 
         return new Widgets($requestStack, $queueProcessor, $twig, $cache, $stopwatch);
