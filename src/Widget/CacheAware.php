@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
-use Psr\SimpleCache\CacheInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 /**
  * Interface CacheAware - Widgets that make use of caching need to implement
