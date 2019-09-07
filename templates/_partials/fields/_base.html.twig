@@ -1,4 +1,4 @@
-{%- spaceless -%}
+{%- apply spaceless -%}
 
 {# This template fragment is used to "extend" the different fields, used in
    Bolt's backend. Most of the values get passed in, either through a `Field`,
@@ -79,7 +79,7 @@
     {% set postfix = '<span id="' ~ id ~ '_postfix" class="form--helper">' ~ postfix ~ '</span>' %}
 {% endif %}
 
-{%- endspaceless -%}
+{%- endapply -%}
 
 
 <!-- field " {{ type }} {{ variant }} {{ label }} {{ name }} -->

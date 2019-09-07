@@ -8,7 +8,7 @@
    invokes itself to insert the items of the submenus. #}
 {% macro display_menu_item(item, loop, withsubmenus) %}
     {% from _self import display_menu_item %}
-    {% spaceless %}
+    {% apply spaceless %}
     {% set with_submenu = withsubmenus and item.submenu is not empty %}
     <li class="index-{{ loop.index -}}
         {{ loop.first ? ' first' -}}
@@ -28,7 +28,7 @@
             </ul>
         {% endif %}
     </li>
-    {% endspaceless %}
+    {% endapply %}
 {% endmacro %}
 
 {# Make the macro available for use #}

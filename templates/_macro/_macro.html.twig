@@ -1,11 +1,11 @@
 {# Button Macro with defaults #}
-{% macro icon(icon = 'question-circle') %}{% spaceless %}
+{% macro icon(icon = 'question-circle') %}{% apply spaceless %}
     {% set icon = icon|replace({'fa-': ''}) %}
 
     <i class="fas fa-fw fa-{{ icon }}"></i>
-{% endspaceless %}{% endmacro %}
+{% endapply %}{% endmacro %}
 
-{% macro button(label = 'Button', icon = 'question-circle', class = 'tertiary', attr = []) %}{% spaceless %}
+{% macro button(label = 'Button', icon = 'question-circle', class = 'tertiary', attr = []) %}{% apply spaceless %}
 
     {% set label = label|trans %}
     {% set icon = icon|replace({'fa-': ''}) %}
@@ -18,9 +18,9 @@
         {{- label -}}
     </button>
 
-{% endspaceless %}{% endmacro %}
+{% endapply %}{% endmacro %}
 
-{% macro buttonlink(label = 'Button', link = '', icon = 'question-circle', class = 'tertiary', attr = [], translate = true) %}{% spaceless %}
+{% macro buttonlink(label = 'Button', link = '', icon = 'question-circle', class = 'tertiary', attr = [], translate = true) %}{% apply spaceless %}
 
     {% if translate %}
         {% set label = label|trans %}
@@ -35,4 +35,4 @@
         {{- label -}}
     </a>
 
-{% endspaceless %}{% endmacro %}
+{% endapply %}{% endmacro %}
