@@ -141,7 +141,6 @@ class Config
 
         // Basic getenv parser, for values like `%env(FOO_BAR)%`
         if (is_string($value) && preg_match('/%env\(([A-Z0-9_]+)\)%/', $value, $matches)) {
-            dump($matches);
             if (getenv($matches[1])) {
                 $value = getenv($matches[1]);
             }
