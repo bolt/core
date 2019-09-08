@@ -1,10 +1,4 @@
 doctrine:
-    dbal:
-        driver: 'pdo_mysql'
-        charset: utf8mb4
-        server_version: 5.6
-        url: '%env(DATABASE_URL)%'
-
     orm:
         metadata_cache_driver:
             type: service
