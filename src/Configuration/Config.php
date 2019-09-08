@@ -137,7 +137,17 @@ class Config
      */
     public function get(string $path, $default = null)
     {
-        return Arr::get($this->data, $path, $default);
+        $value = Arr::get($this->data, $path, $default);
+
+        // Basic getenv parser, for values like `%env(FOO_BAR)%`
+        if (is_string($value) && preg_match('/%env\(([A-Z0-9_]+)\)%/', $value, $matches)) {
+            dump($matches);
+            if (getenv($matches[1])) {
+                $value = getenv($matches[1]);
+            }
+        }
+
+        return $value;
     }
 
     public function has(string $path): bool
