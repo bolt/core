@@ -46,7 +46,7 @@ services:
     Twig\Extension\StringLoaderExtension: ~
     Doctrine\ORM\Query\Expr: ~
 
-    # Needed for SetContent from bolt/bolt
+    # Needed for SetContent from bolt/core
     Bolt\Storage\Query\Query:
         calls:
             -
