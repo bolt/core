@@ -37,7 +37,8 @@
                 'label': 'label.password'|trans,
                 'name': 'password',
                 'value': suggestedPassword,
-                'hidden': 'false',
+                'hidden': 'true',
+                'postfix': suggestedPassword ? __('password.suggested', {'%password%': suggestedPassword })
             } %}
 
             {% include '@bolt/_partials/fields/email.html.twig' with {

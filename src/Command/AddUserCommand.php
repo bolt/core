@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -138,7 +139,11 @@ class AddUserCommand extends Command
         if ($password !== null) {
             $this->io->text(' > <info>Password</info>: ' . str_repeat('*', mb_strlen($password)));
         } else {
-            $password = $this->io->ask('Password', Str::generatePassword(), [$this->validator, 'validatePassword']);
+            $passwordQuestion = new Question('Password', Str::generatePassword());
+            $passwordQuestion->setHidden(true);
+            $passwordQuestion->setValidator([$this->validator, 'validatePassword']);
+
+            $password = $this->io->askQuestion($passwordQuestion);
             $input->setArgument('password', $password);
         }
 

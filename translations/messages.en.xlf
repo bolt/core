@@ -1869,5 +1869,11 @@
         <target>Select Language</target>
       </segment>
     </unit>
+    <unit id="hiE9jap" name="password.suggested">
+      <segment>
+        <source>password.suggested</source>
+        <target><![CDATA[Suggested secure password: <code>%password%</code>]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
