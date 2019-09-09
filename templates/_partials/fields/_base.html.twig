@@ -58,7 +58,9 @@
 {% if not label|default %}
     {% set label = field.definition.label|default(field.name|default('unnamed')|ucwords) %}
 {% endif %}
-{% set label = label|trim(':') ~ ':' %}
+{% if type != 'checkbox' %}
+    {% set label = label|trim(':') ~ ':' %}
+{% endif %}
 
 {# Set the placeholder #}
 {% if not placeholder|default %}
