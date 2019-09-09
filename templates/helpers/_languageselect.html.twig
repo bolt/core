@@ -13,8 +13,15 @@ The current locale is in the Request object, which is an instance of `Symfony\Co
 
 #}
 
+{# Make sure type is either 'list' or 'select' #}
+{% if type|default('list') != 'list' %}{% set type = 'select' %}{% endif %}
+
+{# Set `class` and `style` variables #}
+{% set class = 'class="languageselect_' ~ type ~ (class is defined ? ' ' ~ class) ~ '"' %}
+{% set style = (style is defined ? ' style="' ~ style ~ '"') %}
+
 {% if type == 'list' %}
-    <ul class="languageselect_list">
+    <ul {{ class|raw }} {{ style|raw }}>
         {% for locale in locales() %}
             <li class="{{ locale.current ? 'current': '' }}">
                 <a href="{{ locale.link }}">{{ locale.emoji }} {{ locale.localizedname }} </a>
@@ -24,7 +31,7 @@ The current locale is in the Request object, which is an instance of `Symfony\Co
 {% endif %}
 
 {% if type == 'select' %}
-    <select name="languageselect_list" type="select" class="languageselect_select"
+    <select name="languageselect_list" type="select" {{ class|raw }} {{ style|raw }}
             onchange="if( this.options[this.selectedIndex].value != '' ) location.href=this.options[this.selectedIndex].value;">
         {% for locale in locales() %}
             <option value="{{ locale.link }}" {{ locale.current ? 'selected="selected"': '' }}>
