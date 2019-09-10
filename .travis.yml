@@ -18,11 +18,11 @@ matrix:
       env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 7.2
     - php: 7.3
-    - php: 7.4
+    - php: 7.4snapshot
     - php: nightly
       env: COMPOSER_FLAGS="--ignore-platform-reqs"
   allow_failures:
-    - php: 7.4
+    - php: 7.4snapshot
     - php: nightly
     - php: 7.1.18
       env: COMPOSER_FLAGS="--prefer-lowest"
