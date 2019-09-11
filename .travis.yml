@@ -35,6 +35,8 @@ install:
   - COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
   - nvm install 12.5
   - npm ci
+  - mkdir -p ./var/log/e2e-reports/report/features/
+  - touch ./var/log/e2e-reports/report/features/.gitkeep
   - cd tests/e2e && npm ci && node ./node_modules/protractor/bin/webdriver-manager update --gecko=false && cd ../..
 
 before_script:
