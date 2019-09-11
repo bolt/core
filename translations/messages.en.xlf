@@ -1875,5 +1875,41 @@
         <target><![CDATA[Suggested secure password: <code>%password%</code>]]></target>
       </segment>
     </unit>
+    <unit id="fLOd6Zd" name="field.cropX">
+      <segment>
+        <source>field.cropX</source>
+        <target>Crop X</target>
+      </segment>
+    </unit>
+    <unit id="Sd_AbmV" name="field.cropXPostfix">
+      <segment>
+        <source>field.cropXPostfix</source>
+        <target>Position of crop on X-axis, range 0-100. </target>
+      </segment>
+    </unit>
+    <unit id="BQBmQHT" name="field.cropYPostfix">
+      <segment>
+        <source>field.cropYPostfix</source>
+        <target>Position of crop on X-axis, range 0-100. </target>
+      </segment>
+    </unit>
+    <unit id="hi98HIj" name="field.cropY">
+      <segment>
+        <source>field.cropY</source>
+        <target>Crop Y</target>
+      </segment>
+    </unit>
+    <unit id="PHOpD5y" name="field.cropZoom">
+      <segment>
+        <source>field.cropZoom</source>
+        <target>Crop zoomfactor</target>
+      </segment>
+    </unit>
+    <unit id="tn6Z8wY" name="field.cropZoomPostfix">
+      <segment>
+        <source>field.cropZoomPostfix</source>
+        <target>Zoom-level of crop, range 1-10. </target>
+      </segment>
+    </unit>
   </file>
 </xliff>
