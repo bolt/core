@@ -78,7 +78,10 @@ class MediaEditController extends TwigAwareController implements BackendZone
         $media->setTitle($post['title'])
             ->setDescription($post['description'])
             ->setCopyright($post['copyright'])
-            ->setOriginalFilename($post['originalFilename']);
+            ->setOriginalFilename($post['originalFilename'])
+            ->setCropX((int) $post['cropX'])
+            ->setCropY((int) $post['cropY'])
+            ->setCropZoom((float) $post['cropZoom']);
 
         $this->em->persist($media);
         $this->em->flush();
