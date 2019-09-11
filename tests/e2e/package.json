@@ -6,7 +6,7 @@
     "kakunin": "cross-env NODE_ENV=prod kakunin"
   },
   "dependencies": {
-    "cross-env": "^5.2.0",
+    "cross-env": "^5.2.1",
     "kakunin": "^2.6"
   }
 }
