@@ -7,8 +7,7 @@
     - The first section initializes the variables and settings, both from the
       ContentType definitions as well as passed in variables.
     - The last section is where the actual looping is done, and the relevant
-      {{ block() }} function is called, for the 'ContentType fields',
-      'repeater fields', 'block fields' and 'template fields' in turn.
+      {{ block() }} function is called, for the 'ContentType fields' in turn.
 
    Read the relevant section in the documentation on usage of this
    functionality: https://docs.bolt.cm/templating
@@ -22,6 +21,7 @@
 {% block sub_fields %}
     {# SECTION 1: INITIALIZATION #}
     {%- apply spaceless %}
+
         {# Set up the array of fieldnames that should be iterated. We do this by looping
            over _all_ the fields, and skipping those in the 'omittedkeys' array. #}
         {% set omittedkeys = [ 'id', 'slug', 'datecreated', 'datechanged', 'datepublish',
@@ -61,19 +61,4 @@
 
     {% endfor %}
 
-    {# We do the same for the templatefields, if set and not empty. #}
-    {% if record.hasField('templateFields') %}
-        {# Note: This needs to be expanded upon!! For better detection the 'virtual'
-           content type for the templatefields should know about the types of fields. #}
-        {% set templatefields_field_types = attribute(record.contentType.templatefields.first, 'fields') %}
-
-        {% for key, field in record.templateFields|filter(key => key not in omittedkeys) %}
-
-            {% set type = attribute(attribute(templatefields_field_types, key), 'type')  %}
-            {{ block('common_fields') }}
-            {{ block('extended_fields') }}
-
-        {% endfor %}
-
-    {% endif %}
 {% endblock sub_fields %}
