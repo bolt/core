@@ -12,8 +12,8 @@ use Cocur\Slugify\Slugify;
 use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
@@ -36,9 +36,6 @@ abstract class BaseExtension implements ExtensionInterface
 
     /** @var Environment */
     protected $twig;
-
-    /** @var HttpKernel */
-    protected $kernel;
 
     /** @var EventDispatcherInterface */
     private $dispatcher;
@@ -176,7 +173,10 @@ abstract class BaseExtension implements ExtensionInterface
 
     public function registerListener($event, $callback): void
     {
-        $this->dispatcher->addListener($event, $callback);
+        /** @var EventDispatcher $dp */
+        $dp = $this->dispatcher;
+
+        $dp->addListener($event, $callback);
     }
 
     /**
