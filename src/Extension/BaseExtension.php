@@ -13,7 +13,9 @@ use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Yaml\Parser;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
@@ -34,6 +36,12 @@ abstract class BaseExtension implements ExtensionInterface
 
     /** @var Environment */
     protected $twig;
+
+    /** @var HttpKernel */
+    protected $kernel;
+
+    /** @var EventDispatcherInterface */
+    private $dispatcher;
 
     /**
      * Returns the descriptive name of the Extension
@@ -132,15 +140,16 @@ abstract class BaseExtension implements ExtensionInterface
 
     /**
      * Injects commonly used objects into the extension, for use by the
-     * extension. Called from the listener
+     * extension. Called from the listener.
      *
      * @see ExtensionSubscriber
      */
-    public function injectObjects(Widgets $widgets, Config $boltConfig, Environment $twig): void
+    public function injectObjects(Widgets $widgets, Config $boltConfig, Environment $twig, EventDispatcherInterface $dispatcher): void
     {
         $this->widgets = $widgets;
         $this->boltConfig = $boltConfig;
         $this->twig = $twig;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -163,6 +172,11 @@ abstract class BaseExtension implements ExtensionInterface
         }
 
         $this->twig->addExtension($extension);
+    }
+
+    public function registerListener($event, $callback): void
+    {
+        $this->dispatcher->addListener($event, $callback);
     }
 
     /**

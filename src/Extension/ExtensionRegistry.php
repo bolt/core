@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Widgets;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Types;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
 class ExtensionRegistry
@@ -18,6 +19,9 @@ class ExtensionRegistry
     /** @var array */
     protected $extensionClasses = [];
 
+    /**
+     * @see ExtensionCompilerPass::process()
+     */
     public function addCompilerPass(string $extensionClass): void
     {
         $this->extensionClasses[] = $extensionClass;
@@ -56,13 +60,13 @@ class ExtensionRegistry
         return $this->extensions;
     }
 
-    public function initializeAll(Widgets $widgets, Config $config, Environment $twig): void
+    public function initializeAll(Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher): void
     {
         $this->addComposerPackages();
 
         foreach ($this->getExtensionClasses() as $extensionClass) {
             $extension = new $extensionClass();
-            $extension->injectObjects($widgets, $config, $twig);
+            $extension->injectObjects($widgets, $config, $twig, $dispatcher);
             $extension->initialize();
 
             $this->extensions[$extensionClass] = $extension;

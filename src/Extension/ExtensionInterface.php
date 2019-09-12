@@ -6,6 +6,7 @@ namespace Bolt\Extension;
 
 use Bolt\Configuration\Config;
 use Bolt\Widgets;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
 interface ExtensionInterface
@@ -16,7 +17,7 @@ interface ExtensionInterface
 
     public function getClass(): string;
 
-    public function injectObjects(Widgets $widgets, Config $config, Environment $twig): void;
+    public function injectObjects(Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher): void;
 
     public function initialize(): void;
 }
