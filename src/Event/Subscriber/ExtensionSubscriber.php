@@ -12,6 +12,7 @@ use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
 class ExtensionSubscriber implements EventSubscriberInterface
@@ -30,12 +31,16 @@ class ExtensionSubscriber implements EventSubscriberInterface
     /** @var Environment */
     private $twig;
 
-    public function __construct(ExtensionRegistry $extensionRegistry, Widgets $widgets, Config $config, Environment $twig)
+    /** @var EventDispatcherInterface */
+    private $dispatcher;
+
+    public function __construct(ExtensionRegistry $extensionRegistry, Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher)
     {
         $this->extensionRegistry = $extensionRegistry;
         $this->widgets = $widgets;
         $this->config = $config;
         $this->twig = $twig;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -43,7 +48,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
      */
     public function onKernelResponse(ControllerEvent $event): void
     {
-        $this->extensionRegistry->initializeAll($this->widgets, $this->config, $this->twig);
+        $this->extensionRegistry->initializeAll($this->widgets, $this->config, $this->twig, $this->dispatcher);
     }
 
     /**
@@ -51,7 +56,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
      */
     public function onConsoleResponse(ConsoleCommandEvent $event): void
     {
-        $this->extensionRegistry->initializeAll($this->widgets, $this->config, $this->twig);
+        $this->extensionRegistry->initializeAll($this->widgets, $this->config, $this->twig, $this->dispatcher);
     }
 
     /**
