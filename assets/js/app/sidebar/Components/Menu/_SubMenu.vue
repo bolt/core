@@ -16,7 +16,8 @@
       <a :href="subitem.editLink">
         <i class="fas fa-fw mr-2" :class="subitem.icon"></i>
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="subitem.name"></span>
+        <span v-if="subitem.name" v-html="subitem.name"></span>
+        <span v-else><em>(Untitled)</em></span>
       </a>
     </li>
   </ul>
