@@ -12,4 +12,10 @@
 
 .CodeMirror.cm-s-paper {
   font-family: $font-family-base;
+  padding: 0 10px;
+}
+
+.CodeMirror-scroll {
+  padding-top: 13px;
+  padding-bottom: 0;
 }
