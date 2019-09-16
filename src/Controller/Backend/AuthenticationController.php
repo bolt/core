@@ -26,7 +26,7 @@ class AuthenticationController extends TwigAwareController implements BackendZon
         dump($last_username);
         // erna
 
-      // last authentication error (if any)
+        // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
 
         return $this->renderTemplate('@bolt/security/login.html.twig', [

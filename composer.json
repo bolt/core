@@ -67,7 +67,6 @@
     "require-dev": {
         "ext-curl": "*",
         "ext-pdo_sqlite": "*",
-        "acmecorp/reference-extension": "^1.0",
         "behat/behat": "^3.5",
         "behat/mink": "dev-master@dev",
         "behat/mink-extension": "^2.3",

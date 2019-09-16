@@ -1,7 +1,4 @@
 {
-    "acmecorp/reference-extension": {
-        "version": "1.0.0"
-    },
     "antishov/doctrine-extensions-bundle": {
         "version": "v1.4.0"
     },
@@ -304,9 +301,6 @@
     },
     "ocramius/package-versions": {
         "version": "1.1.3"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.1.1"
     },
     "openlss/lib-array2xml": {
         "version": "0.0.10"
@@ -913,11 +907,5 @@
     },
     "willdurand/negotiation": {
         "version": "v2.3.1"
-    },
-    "zendframework/zend-code": {
-        "version": "3.3.0"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.0"
     }
 }
