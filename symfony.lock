@@ -1,4 +1,7 @@
 {
+    "acmecorp/reference-extension": {
+        "version": "1.0.3"
+    },
     "antishov/doctrine-extensions-bundle": {
         "version": "v1.4.0"
     },
