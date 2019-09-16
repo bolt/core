@@ -49,7 +49,7 @@ before_script:
   - ./bin/console server:start 127.0.0.1:8088
   # test if web server works
   - sleep 3
-  - wget --save-headers --output-document - "http://127.0.0.1:8088/bolt/login"
+  - wget - "http://127.0.0.1:8088/bolt/login"
 
 script:
   # this checks that the source code follows the Bolt Code Syntax rules
