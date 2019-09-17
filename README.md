@@ -17,15 +17,14 @@ Follow the progress on Bolt 4, at the following locations
  - Bolt 4 roadmap: https://roadmap.bolt.cm
  - Slack: https://boltcms.slack.com/messages/C0NJEK631 (open for all, requires Slack account)
 
+**If you want to check out Bolt, the `composer create-project` method is
+recommended. See here: https://github.com/bolt/project/ . This
+repository should be used to work _on_ Bolt. Not _with_ Bolt.**
 
 To set up a running environment of Bolt 4 please perform the following steps 1 to 4:
 
 1 Install
 ---------
-
-If you want to check out Bolt, the `composer create project` is recommended. See here: 
-https://github.com/bolt/standard-project/ .
-This repository should be used to work _on_ Bolt. Not _with_ Bolt.
 
 To install a development version of Bolt 4:
 
