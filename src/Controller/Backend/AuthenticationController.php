@@ -22,10 +22,6 @@ class AuthenticationController extends TwigAwareController implements BackendZon
         // last username entered by the user (if any)
         $last_username = $slugify->slugify($authenticationUtils->getLastUsername());
 
-        // ervoor
-        dump($last_username);
-        // erna
-
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
 
