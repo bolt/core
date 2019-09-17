@@ -20,4 +20,27 @@ class UserRepository extends ServiceEntityRepository
         $user = $this->findOneBy(['username' => $username]);
         return $user instanceof User ? $user : null;
     }
+
+    public function findOneByCredentials(string $username): ?User
+    {
+        $qb = $this->createQueryBuilder('user');
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            $qb->andWhere(
+                $qb->expr()->eq(
+                    $qb->expr()->lower('user.email'),
+                    $qb->expr()->lower(':username')
+                )
+            );
+        } else {
+            $qb->andWhere(
+                $qb->expr()->eq(
+                    $qb->expr()->lower('user.username'),
+                    $qb->expr()->lower(':username')
+                )
+            );
+        }
+        $qb->setParameter('username', $username);
+        $user = $qb->getQuery()->getOneOrNullResult();
+        return $user instanceof User ? $user : null;
+    }
 }
