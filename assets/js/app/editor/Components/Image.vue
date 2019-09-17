@@ -129,7 +129,7 @@ export default {
       return this.name + '[]';
     },
     token() {
-      return this.csrf_token;
+      return this.csrfToken;
     },
   },
   mounted() {

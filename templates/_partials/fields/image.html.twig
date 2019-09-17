@@ -20,7 +20,7 @@
         :media='{{ field.get('media')|json_encode }}'
         :directory='{{ directory|json_encode }}'
         :filelist='{{ filelist|json_encode }}'
-        :csrf_token='{{ csrf_token('upload')|json_encode }}'
+        :csrf-token='{{ csrf_token('upload')|json_encode }}'
         :labels='{{ labels }}'
     ></editor-image>
 

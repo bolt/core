@@ -4,7 +4,7 @@
     <div class="card-header">{{ 'caption.file_uploader'|trans }}</div>
 
     <form class="dropzone editor__image--dropzone"
-          action="{{ path('bolt_async_upload', {'location': location, 'path': path}) }}"
+          action="{{ path('bolt_async_upload', {'location': location.key, 'path': path}) }}"
           method="POST">
         {{ macro.icon('upload') }}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('upload') }}">
