@@ -41,7 +41,7 @@ class LoginFormAuthenticatorSpec extends ObjectBehavior
 
     public function it_gets_user(CsrfTokenManagerInterface $csrfTokenManager, UserProviderInterface $userProvider, UserRepository $userRepository, User $user): void
     {
-        $userRepository->findOneByUsername(self::TEST_TOKEN['username'])->shouldBeCalledOnce()->wilLReturn($user);
+        $userRepository->findOneByCredentials(self::TEST_TOKEN['username'])->shouldBeCalledOnce()->wilLReturn($user);
         $csrfTokenManager->isTokenValid(Argument::type(CsrfToken::class))->willReturn(true);
         $this->getUser(self::TEST_TOKEN, $userProvider)->shouldBeAnInstanceOf(User::class);
     }

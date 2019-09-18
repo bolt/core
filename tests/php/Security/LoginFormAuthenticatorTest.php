@@ -37,7 +37,7 @@ class LoginFormAuthenticatorTest extends TestCase
     public function testGetUser(): void
     {
         $userRepository = $this->createConfiguredMock(UserRepository::class, [
-            'findOneByUsername' => $this->createMock(User::class),
+            'findOneByCredentials' => $this->createMock(User::class),
         ]);
         $csrfTokenManager = $this->createConfiguredMock(CsrfTokenManagerInterface::class, [
             'isTokenValid' => true,
