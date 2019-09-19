@@ -103,7 +103,7 @@ class UserEditController extends TwigAwareController implements BackendZone
             ]);
         }
 
-        if ($request->get('password') !== null) {
+        if (! empty($newPassword)) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 
