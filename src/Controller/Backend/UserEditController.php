@@ -63,7 +63,7 @@ class UserEditController extends TwigAwareController implements BackendZone
 
         return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
-            'user' => $user,
+            'userEdit' => $user,
             'roles' => $roles,
             'suggestedPassword' => $suggestedPassword,
         ]);
@@ -99,7 +99,7 @@ class UserEditController extends TwigAwareController implements BackendZone
         if ($this->validateUser($user, $newPassword) === false) {
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
-                'user' => $user,
+                'userEdit' => $user,
             ]);
         }
 
