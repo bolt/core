@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Query;
 
-use Bolt\Common\Json;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
@@ -304,7 +303,7 @@ class SelectQuery implements ContentQueryInterface
             $keyParam = 'field_' . $index;
 
             $originalLeftExpression = 'content.' . $key;
-            $newLeftExpression = $fieldsAlias . '.value';
+            $newLeftExpression = sprintf("JSON_EXTRACT(%s.value, '$[0]')", $fieldsAlias);
             $where = $filter->getExpression();
             $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
 
@@ -326,7 +325,7 @@ class SelectQuery implements ContentQueryInterface
                 )
                 ->setParameter($keyParam, $key);
             foreach ($filter->getParameters() as $key => $value) {
-                $this->qb->setParameter($key, Json::json_encode([$value]));
+                $this->qb->setParameter($key, $value);
             }
         }
     }

@@ -482,6 +482,9 @@
     "roave/security-advisories": {
         "version": "dev-master"
     },
+    "scienta/doctrine-json-functions": {
+        "version": "4.0.2"
+    },
     "sebastian/code-unit-reverse-lookup": {
         "version": "1.0.1"
     },
