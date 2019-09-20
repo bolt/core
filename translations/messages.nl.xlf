@@ -609,13 +609,7 @@
     <unit id="wGlnx8X" name="general.phrase.search">
       <segment>
         <source>general.phrase.search</source>
-        <target>Zoek</target>
-      </segment>
-    </unit>
-    <unit id="ScJmuqq" name="Search">
-      <segment>
-        <source>Search</source>
-        <target>Zoek</target>
+        <target>Zoeken</target>
       </segment>
     </unit>
     <unit id="2MMvCKK" name="label.cache_cleared">
@@ -1455,7 +1449,7 @@
     <unit id="odDw0du" name="action.search">
       <segment>
         <source>action.search</source>
-        <target>action.search</target>
+        <target>Zoek</target>
       </segment>
     </unit>
     <unit id="TpGxDI3" name="user.unknown_user">
