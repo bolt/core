@@ -28,9 +28,9 @@
 </template>
 
 <script>
-  import ProgressBar from './ProgressBar';
+import ProgressBar from './ProgressBar';
 
-  export default {
+export default {
   name: 'EditorPassword',
 
   components: {
