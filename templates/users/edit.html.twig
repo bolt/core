@@ -20,31 +20,36 @@
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('useredit') }}">
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
+                'id' : 'username',
                 'label' : 'label.username'|trans,
                 'name' : 'username',
-                'value' : user.username,
-                'disabled' : user.username is empty ? 'false' : 'true',
+                'value' : userEdit.username,
+                'disabled' : userEdit.username is empty ? 'false' : 'true',
             } %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
+                'id' : 'display_name',
                 'label' : 'label.display_name'|trans,
                 'name' : 'displayName',
-                'value' : user.displayName,
+                'value' : userEdit.displayName,
                 'disabled' : false,
             } %}
 
             {% include '@bolt/_partials/fields/password.html.twig' with {
+                'id' : 'password',
                 'label': 'label.password'|trans,
                 'name': 'password',
                 'value': suggestedPassword,
                 'hidden': 'true',
+                'strength': 'true',
                 'postfix': suggestedPassword ? __('password.suggested', {'%password%': suggestedPassword })
             } %}
 
             {% include '@bolt/_partials/fields/email.html.twig' with {
+                'id' : 'email',
                 'label': 'label.email'|trans,
                 'label_class': 'required',
-                'value': user.email,
+                'value': userEdit.email,
                 'name': 'email',
                 'class': 'form-control',
             } %}
@@ -61,9 +66,10 @@
             {% endfor %}
 
             {% include '@bolt/_partials/fields/select.html.twig' with {
+                'id' : 'locale',
                 'label' : 'label.locale'|trans,
                 'name' : 'locale',
-                'value' : user.locale,
+                'value' : userEdit.locale,
                 'options' : localeOptions,
             } %}
 
@@ -79,9 +85,10 @@
             {% endfor %}
 
             {% include '@bolt/_partials/fields/select.html.twig' with {
+                'id' : 'roles',
                 'label' : 'label.roles'|trans,
                 'name' : 'roles',
-                'value' : user.roles,
+                'value' : userEdit.roles,
                 'options' : roleOptions,
             } %}
 
@@ -105,4 +112,9 @@
 
         </form>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('zxcvbn') }}
+    {{ parent() }}
 {% endblock %}

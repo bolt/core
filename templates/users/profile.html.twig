@@ -20,6 +20,7 @@
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('profileedit') }}">
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
+                'id' : 'username',
                 'label' : 'label.username'|trans,
                 'name' : 'username',
                 'value' : user.username,
@@ -27,6 +28,7 @@
             } %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
+                'id' : 'display_name',
                 'label' : 'label.display_name'|trans,
                 'name' : 'displayName',
                 'value' : user.displayName,
@@ -34,13 +36,16 @@
             } %}
 
             {% include '@bolt/_partials/fields/password.html.twig' with {
+                'id' : 'password',
                 'label': 'label.password'|trans,
                 'label_class': 'required',
                 'name': 'password',
+                'strength': 'true',
                 'value': '',
             } %}
 
             {% include '@bolt/_partials/fields/email.html.twig' with {
+                'id' : 'email',
                 'label': 'label.email'|trans,
                 'label_class': 'required',
                 'value': user.email,
@@ -60,6 +65,7 @@
             {% endfor %}
 
             {% include '@bolt/_partials/fields/select.html.twig' with {
+                'id' : 'locale',
                 'label' : 'label.locale'|trans,
                 'name' : 'locale',
                 'value' : user.locale,
@@ -96,4 +102,9 @@
 
         </form>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('zxcvbn') }}
+    {{ parent() }}
 {% endblock %}
