@@ -39,3 +39,6 @@ doctrine:
                 prefix: Gedmo\Translator\Entity
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
                 is_bundle: false
+        dql:
+            string_functions:
+                JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract

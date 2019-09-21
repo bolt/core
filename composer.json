@@ -32,6 +32,7 @@
         "php-translation/symfony-bundle": "^0.9",
         "phpdocumentor/reflection-docblock": "^4.3",
         "psr/simple-cache": "^1.0",
+        "scienta/doctrine-json-functions": "^4.0",
         "sensio/framework-extra-bundle": "^5.4",
         "sensiolabs/security-checker": "^5.0",
         "siriusphp/upload": "^2.1",
