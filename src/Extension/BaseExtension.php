@@ -12,6 +12,7 @@ use Cocur\Slugify\Slugify;
 use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Parser;
@@ -38,7 +39,9 @@ abstract class BaseExtension implements ExtensionInterface
     protected $twig;
 
     /** @var EventDispatcherInterface */
-    private $dispatcher;
+    private $eventDispatcher;
+    /** @var ObjectManager */
+    protected $objectManager;
 
     /**
      * Returns the descriptive name of the Extension
@@ -87,7 +90,7 @@ abstract class BaseExtension implements ExtensionInterface
         $this->config = new Collection($config);
     }
 
-    private function getConfigFilenames(): array
+    public function getConfigFilenames(): array
     {
         $slugify = new Slugify();
         $base = $slugify->slugify(str_replace('Extension', '', $this->getClass()));
@@ -141,12 +144,13 @@ abstract class BaseExtension implements ExtensionInterface
      *
      * @see ExtensionSubscriber
      */
-    public function injectObjects(Widgets $widgets, Config $boltConfig, Environment $twig, EventDispatcherInterface $dispatcher): void
+    public function injectObjects(array $objects): void
     {
-        $this->widgets = $widgets;
-        $this->boltConfig = $boltConfig;
-        $this->twig = $twig;
-        $this->dispatcher = $dispatcher;
+        $this->widgets = $objects['widgets'];
+        $this->boltConfig = $objects['config'];
+        $this->twig = $objects['twig'];
+        $this->eventDispatcher = $objects['dispatcher'];
+        $this->objectManager = $objects['manager'];
     }
 
     /**
@@ -174,7 +178,7 @@ abstract class BaseExtension implements ExtensionInterface
     public function registerListener($event, $callback): void
     {
         /** @var EventDispatcher $dp */
-        $dp = $this->dispatcher;
+        $dp = $this->eventDispatcher;
 
         $dp->addListener($event, $callback);
     }

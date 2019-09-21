@@ -7,6 +7,7 @@ namespace Bolt\Event\Subscriber;
 use Bolt\Configuration\Config;
 use Bolt\Extension\ExtensionRegistry;
 use Bolt\Widgets;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -22,25 +23,20 @@ class ExtensionSubscriber implements EventSubscriberInterface
     /** @var ExtensionRegistry */
     private $extensionRegistry;
 
-    /** @var Widgets */
-    private $widgets;
+    /** @var array */
+    private $objects = [];
 
-    /** @var Config */
-    private $config;
-
-    /** @var Environment */
-    private $twig;
-
-    /** @var EventDispatcherInterface */
-    private $dispatcher;
-
-    public function __construct(ExtensionRegistry $extensionRegistry, Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher)
+    public function __construct(ExtensionRegistry $extensionRegistry, Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher, ObjectManager $objectManager)
     {
         $this->extensionRegistry = $extensionRegistry;
-        $this->widgets = $widgets;
-        $this->config = $config;
-        $this->twig = $twig;
-        $this->dispatcher = $dispatcher;
+
+        $this->objects = [
+            'widgets' => $widgets,
+            'config' => $config,
+            'twig' => $twig,
+            'dispatcher' => $dispatcher,
+            'manager' => $objectManager,
+        ];
     }
 
     /**
@@ -48,7 +44,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
      */
     public function onKernelResponse(ControllerEvent $event): void
     {
-        $this->extensionRegistry->initializeAll($this->widgets, $this->config, $this->twig, $this->dispatcher);
+        $this->extensionRegistry->initializeAll($this->objects);
     }
 
     /**
@@ -56,7 +52,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
      */
     public function onConsoleResponse(ConsoleCommandEvent $event): void
     {
-        $this->extensionRegistry->initializeAll($this->widgets, $this->config, $this->twig, $this->dispatcher);
+        $this->extensionRegistry->initializeAll($this->objects);
     }
 
     /**
