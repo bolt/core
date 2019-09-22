@@ -40,7 +40,7 @@ abstract class BaseExtension implements ExtensionInterface
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
-    
+
     /** @var ObjectManager */
     protected $objectManager;
 
