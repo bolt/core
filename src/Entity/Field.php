@@ -86,7 +86,13 @@ class Field implements Translatable, FieldInterface
 
     public function __toString(): string
     {
-        return implode(', ', $this->getValue());
+        $value = '';
+        $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($this->getValue()));
+        foreach ($iterator as $iteratorValue) {
+            $value .= $iteratorValue .', ';
+        }
+
+        return $value;
     }
 
     public static function factory(LaravelCollection $definition, string $name = ''): self

@@ -168,4 +168,9 @@ class Config
     {
         return new Collection($this->get('general/accept_media_types'));
     }
+
+    public function getContentType(string $name): ?Collection
+    {
+        return $this->get('contenttypes/' . $name);
+    }
 }

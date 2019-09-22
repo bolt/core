@@ -119,6 +119,12 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['singleton'])) {
             $contentType['singleton'] = false;
         }
+        if (! isset($contentType['record_template'])) {
+            $contentType['record_template'] = $contentType['singular_slug'] . '.twig';
+        }
+        if (! isset($contentType['listing_template'])) {
+            $contentType['listing_template'] = $contentType['slug'] . '.twig';
+        }
 
         if ($contentType['singleton']) {
             $contentType['listing_records'] = 1;

@@ -299,13 +299,19 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $result = [];
 
         foreach ($records as $record) {
-            $result[] = [
-                'id' => $record->getId(),
-                'name' => $this->contentExtension->getTitle($record),
-                'link' => $this->contentExtension->getLink($record),
-                'editLink' => $this->contentExtension->getEditLink($record),
-                'icon' => $record->getIcon(),
-            ];
+            try {
+                $additionalResult = [
+                    'id' => $record->getId(),
+                    'name' => $this->contentExtension->getTitle($record),
+                    'link' => $this->contentExtension->getLink($record),
+                    'editLink' => $this->contentExtension->getEditLink($record),
+                    'icon' => $record->getIcon(),
+                ];
+
+                $result[] = $additionalResult;
+            } catch (\RuntimeException $exception) {
+                // When a record is not initialised (yet), don't break, but fail gracefully.
+            }
         }
 
         return $result;

@@ -103,7 +103,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
                     $field = Field::factory($fieldType, $name);
-                    $field->setName($name);
 
                     if (isset($preset[$name])) {
                         $field->setValue($preset[$name]);

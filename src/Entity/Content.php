@@ -133,11 +133,16 @@ class Content
      */
     private $taxonomies;
 
-    public function __construct()
+    public function __construct(?ContentType $contentTypeDefinition = null)
     {
         $this->createdAt = new \DateTime();
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
+
+        if ($contentTypeDefinition) {
+            $this->setContentType($contentTypeDefinition->getSlug());
+            $this->setDefinition($contentTypeDefinition);
+        }
     }
 
     public function __toString(): string
@@ -165,6 +170,11 @@ class Content
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
+    }
+
+    public function setDefinition(ContentType $contentType): void
+    {
+        $this->contentTypeDefinition = $contentType;
     }
 
     public function getDefinition(): ?ContentType
@@ -348,6 +358,17 @@ class Content
         return $this->getField($fieldName)->getParsedValue();
     }
 
+    public function setFieldValue(string $fieldName, $value): void
+    {
+        if (! $this->hasField($fieldName)) {
+            $this->addFieldByName($fieldName);
+        }
+
+        $field = $this->getField($fieldName);
+
+        $field->setValue($value);
+    }
+
     public function getField(string $fieldName): Field
     {
         if ($this->hasField($fieldName) === false) {
@@ -391,6 +412,15 @@ class Content
         $field->setContent($this);
 
         return $this;
+    }
+
+    public function addFieldByName(string $fieldName): void
+    {
+        $definition = $this->contentTypeDefinition->get('fields')->get($fieldName);
+
+        $field = Field::factory($definition, $fieldName);
+
+        $this->addField($field);
     }
 
     public function removeField(Field $field): self
