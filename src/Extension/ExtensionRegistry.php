@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Extension;
 
-use Bolt\Configuration\Config;
-use Bolt\Widgets;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Types;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Twig\Environment;
 
 class ExtensionRegistry
 {
@@ -60,13 +56,27 @@ class ExtensionRegistry
         return $this->extensions;
     }
 
-    public function initializeAll(Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher): void
+    public function getExtensionNames(): array
+    {
+        return array_keys($this->extensions);
+    }
+
+    public function getExtension(string $name): ?ExtensionInterface
+    {
+        if (isset($this->extensions[$name])) {
+            return $this->extensions[$name];
+        }
+
+        return null;
+    }
+
+    public function initializeAll(array $objects): void
     {
         $this->addComposerPackages();
 
         foreach ($this->getExtensionClasses() as $extensionClass) {
             $extension = new $extensionClass();
-            $extension->injectObjects($widgets, $config, $twig, $dispatcher);
+            $extension->injectObjects($objects);
             $extension->initialize();
 
             $this->extensions[$extensionClass] = $extension;
