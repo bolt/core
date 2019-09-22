@@ -192,6 +192,18 @@ class ContentRepository extends ServiceEntityRepository
             )
             ->andWhere('slug.value = :slug')
             ->setParameter('slug', Json::json_encode([$slug]))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findOneByFieldValue(string $fieldName, $value): ?Content
+    {
+        return $this->getQueryBuilder()
+            ->innerJoin('content.fields', 'field')
+            ->andWhere('field.value = :value')
+            ->setParameter('value', Json::json_encode([$value]))
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
