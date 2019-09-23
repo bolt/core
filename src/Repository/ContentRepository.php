@@ -63,9 +63,14 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('taxonomySlug', $taxonomy);
         }
 
-        if ($sortBy && \in_array($sortBy, $this->contentColumns, true)) {
-            $qb->orderBy('content.' . $sortBy);
-        } elseif (! empty($sortBy)) {
+        [ $order, $direction, $sortByField ] = $this->createSortBy($sortBy, $contentType);
+
+
+        if (!$sortByField) {
+            $qb->orderBy('content.' . $order, $direction);
+        } else {
+            // @todo Make sorting on a Field work as expected.
+            dump('This is not correct');
             // First, create a querybuilder to get the fields that match the Query
             $sortByQB = $this->getQueryBuilder()
                 ->select('partial content.{id}');
@@ -73,16 +78,14 @@ class ContentRepository extends ServiceEntityRepository
             $sortByQB->addSelect('f')
                 ->innerJoin('content.fields', 'f')
                 ->andWhere('f.name = :fieldname')
-                ->setParameter('fieldname', $sortBy);
+                ->setParameter('fieldname', $order)
+                ->addOrderBy('f.name', $direction);
 
             // These are the ID's of content we need.
             $ids = array_column($sortByQB->getQuery()->getArrayResult(), 'id');
 
             $qb->andWhere('content.id IN (:ids)')
-                ->setParameter('ids', $ids)
-                ->andWhere('f.name = :fieldname')
-                ->setParameter('fieldname', $sortBy)
-                ->addOrderBy('f.value');
+                ->setParameter('ids', $ids);
         }
 
         if ($filter) {
@@ -101,7 +104,43 @@ class ContentRepository extends ServiceEntityRepository
             $qb->andWhere('content.id IN (:ids)')
                 ->setParameter('ids', $ids);
         }
+
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
+    }
+
+    /**
+     * Cobble together the sorting order, and whether or not it's a column in `content` or `fields`.
+     *
+     * @param string $order
+     * @param ContentType $contentType
+     * @return array
+     */
+    private function createSortBy(string $order = '', ContentType $contentType): array
+    {
+        dump($this->contentColumns);
+
+        if (empty($order)) {
+            $order = $contentType->get('sort');
+        }
+
+        if (strpos($order, '-') === 0) {
+            $direction = 'DESC';
+            $order = substr($order, 1);
+        } elseif (strpos($order, ' DESC') !== false) {
+            $direction = 'DESC';
+            $order = str_replace(' DESC', '', $order);
+        } else {
+            $order = str_replace(' ASC', '', $order);
+            $direction = 'ASC';
+        }
+
+        if (\in_array($order, $this->contentColumns, true)) {
+            $sortByField = false;
+        } else {
+            $sortByField = true;
+        }
+
+        return [ $order, $direction, $sortByField ];
     }
 
     public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
