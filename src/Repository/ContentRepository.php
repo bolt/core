@@ -65,8 +65,7 @@ class ContentRepository extends ServiceEntityRepository
 
         [ $order, $direction, $sortByField ] = $this->createSortBy($sortBy, $contentType);
 
-
-        if (!$sortByField) {
+        if (! $sortByField) {
             $qb->orderBy('content.' . $order, $direction);
         } else {
             // @todo Make sorting on a Field work as expected.
@@ -110,23 +109,17 @@ class ContentRepository extends ServiceEntityRepository
 
     /**
      * Cobble together the sorting order, and whether or not it's a column in `content` or `fields`.
-     *
-     * @param string $order
-     * @param ContentType $contentType
-     * @return array
      */
-    private function createSortBy(string $order = '', ContentType $contentType): array
+    private function createSortBy(string $order, ContentType $contentType): array
     {
-        dump($this->contentColumns);
-
         if (empty($order)) {
             $order = $contentType->get('sort');
         }
 
-        if (strpos($order, '-') === 0) {
+        if (mb_strpos($order, '-') === 0) {
             $direction = 'DESC';
-            $order = substr($order, 1);
-        } elseif (strpos($order, ' DESC') !== false) {
+            $order = mb_substr($order, 1);
+        } elseif (mb_strpos($order, ' DESC') !== false) {
             $direction = 'DESC';
             $order = str_replace(' DESC', '', $order);
         } else {
@@ -140,7 +133,7 @@ class ContentRepository extends ServiceEntityRepository
             $sortByField = true;
         }
 
-        return [ $order, $direction, $sortByField ];
+        return [$order, $direction, $sortByField];
     }
 
     public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
