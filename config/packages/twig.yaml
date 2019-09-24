@@ -2,8 +2,8 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: true
     form_themes:
-        - 'form/layout.twig'
-        - 'form/fields.twig'
+        - '@bolt/form/layout.html.twig'
+        - '@bolt/form/fields.html.twig'
     paths:
         # Since the name of the theme folder is dynamic, we shouldn't set it here, but dynamically
         # See TwigAwareController::setTwigLoader()
