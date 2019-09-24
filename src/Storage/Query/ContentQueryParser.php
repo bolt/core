@@ -193,7 +193,8 @@ class ContentQueryParser
      */
     protected function parseDirectives(): void
     {
-        $this->directives = [];
+        // If the user doesn't pass in a limit, we'll get 20. Don't break the site by fetching _all_.
+        $this->directives = ['limit' => 20];
 
         if (! $this->params) {
             return;

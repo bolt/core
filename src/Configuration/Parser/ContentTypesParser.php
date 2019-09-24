@@ -94,7 +94,7 @@ class ContentTypesParser extends BaseParser
             $contentType['show_in_menu'] = true;
         }
         if (! isset($contentType['sort'])) {
-            $contentType['sort'] = false;
+            $contentType['sort'] = 'id';
         }
         if (! isset($contentType['default_status'])) {
             $contentType['default_status'] = Statuses::PUBLISHED;
