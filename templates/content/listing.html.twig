@@ -106,4 +106,28 @@
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            {{ 'title.contentType'|trans }} {{ contentType.name }}
+        </div>
+        <div class="card-body">
+
+        <ul class="px-2">
+            <li>Name: <code>{{ contentType.name }}</code> (singular: <code>{{ contentType.singular_name }}</code>)</li>
+            <li>Slug: <code>{{ contentType.slug }}</code> (singular: <code>{{ contentType.singular_slug }}</code>)</li>
+            <li>Record template: <code>{{ contentType.record_template }}</code></li>
+            <li>Listing template: <code>{{ contentType.listing_template }}</code> ({{ contentType.listing_records }} records)</li>
+            {% if contentType.locales %}
+                <li>Locales:
+                    {% for locale in contentType.locales %}
+                        {{ flag(locale) }}
+                        {%- if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </li>
+            {% endif %}
+        </ul>
+
+        </div>
+    </div>
+
 {% endblock %}

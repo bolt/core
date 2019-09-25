@@ -1,0 +1,18 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{% block title %}
+    {{ macro.icon(icon|default('question-circle')) }}
+    {{ title|default('Untitled Page') }}
+{% endblock title %}
+
+{% block main %}
+
+    {% if not main|default() and not mainMarkdown|default() %}
+        Content goes here. Please pass in `main` or `mainMarkdown` to see output.
+    {% endif %}
+
+    {{ main|default() }}
+    {{ mainMarkdown|default()|markdown }}
+
+{% endblock main %}

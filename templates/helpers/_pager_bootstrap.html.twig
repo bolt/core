@@ -14,18 +14,19 @@ Predefined variables:
 
 {% block item %}
     {% if path is defined %}
-        <li>
-            <a href="{{ path }}">{{ label|default('…') }}</a>
+        <li class="page-item">
+            <a href="{{ path }}" class="page-link" >{{ label|default('…') }}</a>
         </li>
     {% elseif enabled is defined and enabled == false %}
-        <li>
-            <a disabled>{{ label|default('…') }}</a>
+        <li class="page-item">
+            <a disabled class="page-link" >{{ label|default('…') }}</a>
         </li>
     {% endif %}
 {% endblock item %}
 
 {% if records.haveToPaginate|default() %}
-    <ul class="{{ class }}">
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
 
         {# Previous Button #}
         {% set p = routeParams|merge({page: records.hasPreviousPage ? records.previousPage : 1 }) %}
@@ -63,9 +64,11 @@ Predefined variables:
             {% endwith %}
         {% endif %}
 
+        {# Next Button #}
         {% set p = routeParams|merge({page: records.hasNextPage ? records.nextPage : records.nbPages }) %}
         {% with {'path': path(route, p), 'label': 'Next', 'enabled': records.hasNextPage } %}
             {{ block('item') }}
         {% endwith %}
     </ul>
+</nav>
 {% endif %}
