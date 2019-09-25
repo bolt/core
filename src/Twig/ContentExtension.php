@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
+use Twig\Markup;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
@@ -134,12 +135,13 @@ class ContentExtension extends AbstractExtension
     }
 
     /**
-     * @param string|array|null $focus
+     * @param string|Markup|Content $content
+     * @param string|array|null     $focus
      */
     public function getExcerpt($content, int $length = 280, bool $includeTitle = true, $focus = null): string
     {
-        if (is_string($content)) {
-            return Excerpt::getExcerpt($content, $length);
+        if (is_string($content) || $content instanceof Markup) {
+            return Excerpt::getExcerpt((string) $content, $length);
         }
 
         $excerptParts = [];
