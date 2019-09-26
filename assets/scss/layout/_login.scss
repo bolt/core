@@ -1,7 +1,11 @@
 html#login {
-  background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.4)), url(https://source.unsplash.com/daily);
-  background-position: center;
-  background-size: cover;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(37, 86, 135, 0.5));
+
+  &.with-background {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(37, 86, 135, 0.5)), url(https://source.unsplash.com/daily);
+    background-position: center;
+    background-size: cover;
+  }
 
   body {
     background: transparent;

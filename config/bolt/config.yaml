@@ -1,7 +1,6 @@
 # Note: Database setup is best done in ENV variables. See the file `.env`
 # in the project root. 
 
-
 # The name of the website
 sitename: A sample site in CONFIG
 payoff: The amazing payoff goes here
@@ -53,6 +52,9 @@ maintenance_template: maintenance_default.twig
 #
 # Default: 3 (3 am)
 cron_hour: 3
+
+# You can set a preference to omit background images on the login screen.
+omit_backgrounds: true
 
 # If your site is reachable under different urls (say, both blog.example.org/
 # as well as example.org/), its a good idea to set one of these as the
