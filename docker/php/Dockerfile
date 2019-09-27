@@ -1,5 +1,5 @@
 # https://github.com/docker-library/php/blob/master/7.3/stretch/fpm/Dockerfile
-FROM php:7.3-fpm
+FROM php:7.3-fpm-stretch
 
 ENV PATH /path/to/bin/folder:$PATH
 ENV PHP_MEMORYLIMIT 2048M
