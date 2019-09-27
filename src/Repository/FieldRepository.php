@@ -33,23 +33,8 @@ class FieldRepository extends ServiceEntityRepository
         return $this->getQueryBuilder()
             ->andWhere('field.value = :slug')
             ->setParameter('slug', Json::json_encode([$slug]))
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
-
-//    /**
-//     * @return Field[] Returns an array of Field objects
-//     */
-    /*
-    public function findByExampleField($value): ?Field
-    {
-        return $this->createQueryBuilder('field')
-            ->andWhere('field.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('field.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-     */
 }

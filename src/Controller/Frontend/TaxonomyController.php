@@ -44,7 +44,7 @@ class TaxonomyController extends TwigAwareController implements FrontendZone
         $taxonomy = $this->config->get('taxonomies/'. $taxonomyslug);
 
         /** @var Content[] $records */
-        $records = $contentRepository->findForTaxonomy($page, $taxonomyslug, $slug, $amountPerPage);
+        $records = $contentRepository->findForTaxonomy($page, $taxonomy, $slug, $amountPerPage);
 
         $templates = $this->templateChooser->forTaxonomy($taxonomyslug);
 
