@@ -15,6 +15,7 @@ use ComposerPackages\Packages;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
@@ -27,22 +28,25 @@ use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
 abstract class BaseExtension implements ExtensionInterface
 {
     /** @var Widgets */
-    protected $widgets;
+    private $widgets;
 
     /** @var Collection */
-    protected $config;
+    private $config;
 
     /** @var Config */
-    protected $boltConfig;
+    private $boltConfig;
 
     /** @var Environment */
-    protected $twig;
+    private $twig;
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /** @var ObjectManager */
-    protected $objectManager;
+    private $objectManager;
+
+    /** @var Stopwatch */
+    private $stopwatch;
 
     /**
      * Returns the descriptive name of the Extension
@@ -152,6 +156,7 @@ abstract class BaseExtension implements ExtensionInterface
         $this->twig = $objects['twig'];
         $this->eventDispatcher = $objects['dispatcher'];
         $this->objectManager = $objects['manager'];
+        $this->stopwatch = $objects['stopwatch'];
     }
 
     /**
@@ -198,5 +203,35 @@ abstract class BaseExtension implements ExtensionInterface
         $package = Packages::find($finder);
 
         return $package->current();
+    }
+
+    public function getWidgets(): Widgets
+    {
+        return $this->widgets;
+    }
+
+    public function getBoltConfig(): Config
+    {
+        return $this->boltConfig;
+    }
+
+    public function getTwig(): Environment
+    {
+        return $this->twig;
+    }
+
+    public function getEventDispatcher(): EventDispatcherInterface
+    {
+        return $this->eventDispatcher;
+    }
+
+    public function getObjectManager(): ObjectManager
+    {
+        return $this->objectManager;
+    }
+
+    public function getStopwatch(): Stopwatch
+    {
+        return $this->stopwatch;
     }
 }

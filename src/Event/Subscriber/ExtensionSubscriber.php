@@ -13,6 +13,7 @@ use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
@@ -26,7 +27,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
     /** @var array */
     private $objects = [];
 
-    public function __construct(ExtensionRegistry $extensionRegistry, Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher, ObjectManager $objectManager)
+    public function __construct(ExtensionRegistry $extensionRegistry, Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher, ObjectManager $objectManager, Stopwatch $stopwatch)
     {
         $this->extensionRegistry = $extensionRegistry;
 
@@ -36,6 +37,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
             'twig' => $twig,
             'dispatcher' => $dispatcher,
             'manager' => $objectManager,
+            'stopwatch' => $stopwatch,
         ];
     }
 

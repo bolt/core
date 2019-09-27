@@ -14,6 +14,7 @@ use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * @method Content|null find($id, $lockMode = null, $lockVersion = null)
@@ -110,10 +111,10 @@ class ContentRepository extends ServiceEntityRepository
     /**
      * Cobble together the sorting order, and whether or not it's a column in `content` or `fields`.
      */
-    private function createSortBy(string $order, ContentType $contentType): array
+    private function createSortBy(string $order, Collection $contentType): array
     {
         if (empty($order)) {
-            $order = $contentType->get('sort');
+            $order = $contentType->get('sort', '');
         }
 
         if (mb_strpos($order, '-') === 0) {
@@ -136,7 +137,7 @@ class ContentRepository extends ServiceEntityRepository
         return [$order, $direction, $sortByField];
     }
 
-    public function findForTaxonomy(int $page, string $taxonomyslug, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    public function findForTaxonomy(int $page, Collection $taxonomy, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -145,13 +146,19 @@ class ContentRepository extends ServiceEntityRepository
         $qb->addSelect('t')
             ->innerJoin('content.taxonomies', 't')
             ->andWhere('t.type = :taxonomyslug')
-            ->setParameter('taxonomyslug', $taxonomyslug)
+            ->setParameter('taxonomyslug', $taxonomy->get('slug'))
             ->andWhere('t.slug = :slug')
             ->setParameter('slug', $slug);
 
         if ($onlyPublished) {
             $qb->andWhere('content.status = :status')
                 ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        [ $order, $direction, $sortByField ] = $this->createSortBy('', $taxonomy);
+
+        if (! $sortByField) {
+            $qb->orderBy('content.' . $order, $direction);
         }
 
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
