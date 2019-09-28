@@ -1911,5 +1911,11 @@
         <target>Zoom-level of crop, range 1-10. </target>
       </segment>
     </unit>
+    <unit id="n.3JZvX" name="title.contentType">
+      <segment>
+        <source>title.contentType</source>
+        <target>Content Type</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

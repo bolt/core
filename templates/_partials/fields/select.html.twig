@@ -9,7 +9,7 @@
  #}
 
 {% if options is not defined %}
-    {% set options = selectoptionsfromarray(field) %}
+    {% set options = selectOptions(field) %}
 {% endif %}
 
 {% set multiple = field.definition.get('multiple')|default ? 'true' : 'false' %}
