@@ -126,7 +126,7 @@ class CopyAssetsCommand extends Command
 
         $composerFilePath = $container->getParameter('kernel.project_dir').'/composer.json';
 
-        if (! file_exists($composerFilePath)) {
+        if (! is_readable($composerFilePath)) {
             return $defaultPublicDir;
         }
 
