@@ -22,7 +22,7 @@
       v-if="strength"
       ref="progressBar"
       max="4"
-      height="2px"
+      height="4px"
     ></progress-bar>
   </div>
 </template>

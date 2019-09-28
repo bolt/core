@@ -106,12 +106,23 @@
             <theme-select></theme-select>
             #}
 
-            <button class="btn btn-primary" type="submit">
-                <i class="fa fa-save" aria-hidden="true"></i> {{ 'action.save'|trans }}
-            </button>
+            {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'editcontent'}) }}
 
         </form>
     </div>
+{% endblock %}
+
+{% block aside %}
+    <div id="metadata">
+        <form class="ui form">
+            <div class="card mb-3">
+                <div class="card-body">
+                    {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'editcontent'}) }}
+                </div>
+            </div>
+        </form>
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
