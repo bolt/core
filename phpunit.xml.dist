@@ -19,11 +19,6 @@
         <!-- ###+ doctrine/doctrine-bundle ### -->
         <env name="DATABASE_URL" value="sqlite::memory:" force="true"/>
         <!-- ###- doctrine/doctrine-bundle ### -->
-
-        <!-- ###+ symfony/swiftmailer-bundle ### -->
-        <env name="MAILER_URL" value="null://localhost"/>
-        <!-- ###- symfony/swiftmailer-bundle ### -->
-
         <!-- ###+ nelmio/cors-bundle ### -->
         <env name="CORS_ALLOW_ORIGIN" value="^https?://localhost(:[0-9]+)?$"/>
         <!-- ###- nelmio/cors-bundle ### -->
@@ -31,6 +26,13 @@
         <!-- ###+ php-translation/loco-adapter ### -->
         <env name="LOCO_PROJECT_API_KEY" value=""/>
         <!-- ###- php-translation/loco-adapter ### -->
+
+        <!-- ###+ symfony/swiftmailer-bundle ### -->
+        <!-- For Gmail as a transport, use: "gmail://username:password@localhost" -->
+        <!-- For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode=" -->
+        <!-- Delivery is disabled by default via "null://localhost" -->
+        <env name="MAILER_URL" value="null://localhost"/>
+        <!-- ###- symfony/swiftmailer-bundle ### -->
     </php>
 
     <testsuites>
