@@ -1,5 +1,5 @@
-# https://github.com/docker-library/php/blob/master/7.3/stretch/fpm/Dockerfile
-FROM php:7.3-fpm
+# https://github.com/docker-library/php/blob/master/7.3/buster/fpm/Dockerfile
+FROM php:7.3-fpm-buster
 
 ENV PATH /path/to/bin/folder:$PATH
 ENV PHP_MEMORYLIMIT 2048M
@@ -33,7 +33,7 @@ RUN extBuildDeps=" \
             zip unzip \
             acl \
             iproute2 \
-            ttf-freefont \
+            fonts-freefont-ttf \
             fontconfig \
             dbus \
             openssh-client \
