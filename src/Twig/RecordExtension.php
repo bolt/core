@@ -97,14 +97,10 @@ class RecordExtension extends AbstractExtension
     {
         $values = $field->getDefinition()->get('values');
 
-
         if (is_array($values)) {
             return $this->selectOptionsArray($field);
-        } else {
-            return $this->selectOptionsContentType($field);
         }
-
-
+        return $this->selectOptionsContentType($field);
     }
 
     private function selectOptionsArray(Field $field): LaravelCollection
@@ -172,18 +168,7 @@ class RecordExtension extends AbstractExtension
         }
 
         return new LaravelCollection($options);
-
-        foreach ($values as $key => $value) {
-            $options[] = [
-                'key' => $key,
-                'value' => $value,
-                'selected' => in_array($key, $currentValues, true),
-            ];
-        }
-
-        return new LaravelCollection($options);
     }
-
 
     public function taxonomyoptions($taxonomy): LaravelCollection
     {
