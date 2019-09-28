@@ -156,7 +156,7 @@
         "version": "1.0.0"
     },
     "egulias/email-validator": {
-        "version": "2.1.2"
+        "version": "2.1.11"
     },
     "embed/embed": {
         "version": "v3.3.9"
@@ -564,7 +564,7 @@
         }
     },
     "swiftmailer/swiftmailer": {
-        "version": "v6.0.2"
+        "version": "v6.2.1"
     },
     "symfony/apache-pack": {
         "version": "1.0",
@@ -726,7 +726,7 @@
         "version": "v1.8.0"
     },
     "symfony/polyfill-iconv": {
-        "version": "v1.10.0"
+        "version": "v1.12.0"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.6.0"
@@ -800,8 +800,13 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "2.5",
-            "ref": "8daf8ede72274989fb0dc66b83cb4bc1693afbb9"
-        }
+            "ref": "429afc6c6778a1fdddb52a4f708cd94ff2c9960f"
+        },
+        "files": [
+            "config/packages/dev/swiftmailer.yaml",
+            "config/packages/swiftmailer.yaml",
+            "config/packages/test/swiftmailer.yaml"
+        ]
     },
     "symfony/translation": {
         "version": "3.3",
