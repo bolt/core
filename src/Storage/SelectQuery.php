@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query;
+namespace Bolt\Storage;
 
 use Bolt\Common\Json;
 use Doctrine\DBAL\Platforms\MariaDb1027Platform;
@@ -28,18 +28,25 @@ class SelectQuery implements ContentQueryInterface
 {
     /** @var QueryBuilder */
     protected $qb;
+
     /** @var QueryParameterParser */
     protected $parser;
+
     /** @var string */
     protected $contentType;
+
     /** @var array */
     protected $params = [];
+
     /** @var Filter[] */
     protected $filters = [];
+
     /** @var array */
     protected $replacements = [];
+
     /** @var bool */
     protected $singleFetchMode = false;
+
     /** @var array */
     protected $coreFields = [
         'id',
@@ -49,12 +56,15 @@ class SelectQuery implements ContentQueryInterface
         'depublishedAt',
         'status',
     ];
+
     /** @var array */
     protected $referenceFields = [
         'author',
     ];
+
     /** @var array */
     private $referenceJoins = [];
+
     /** @var array */
     private $fieldJoins = [];
 

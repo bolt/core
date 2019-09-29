@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Handler;
+namespace Bolt\Storage\Handler;
 
 use Bolt\Entity\Content;
-use Bolt\Storage\Query\ContentQueryParser;
+use Bolt\Storage\ContentQueryParser;
 
 /**
  * Handler to fetch a single record if an identifier is set in the query.

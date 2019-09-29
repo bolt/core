@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Directive;
+namespace Bolt\Storage\Directive;
 
-use Bolt\Storage\Query\QueryInterface;
+use Bolt\Storage\QueryInterface;
 
 /**
  *  Directive that allows running of a callback on query.

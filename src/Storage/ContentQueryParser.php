@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query;
+namespace Bolt\Storage;
 
 use Bolt\Entity\Content;
 use Bolt\Events\QueryEvent;
 use Bolt\Events\QueryEvents;
 use Bolt\Repository\ContentRepository;
-use Bolt\Storage\Query\Directive\GetQueryDirective;
-use Bolt\Storage\Query\Directive\HydrateDirective;
-use Bolt\Storage\Query\Directive\LimitDirective;
-use Bolt\Storage\Query\Directive\OffsetDirective;
-use Bolt\Storage\Query\Directive\OrderDirective;
-use Bolt\Storage\Query\Directive\PagingDirective;
-use Bolt\Storage\Query\Directive\PrintQueryDirective;
-use Bolt\Storage\Query\Directive\ReturnSingleDirective;
-use Bolt\Storage\Query\Handler\FirstQueryHandler;
-use Bolt\Storage\Query\Handler\IdentifiedSelectHandler;
-use Bolt\Storage\Query\Handler\LatestQueryHandler;
-use Bolt\Storage\Query\Handler\SelectQueryHandler;
+use Bolt\Storage\Directive\GetQueryDirective;
+use Bolt\Storage\Directive\HydrateDirective;
+use Bolt\Storage\Directive\LimitDirective;
+use Bolt\Storage\Directive\OffsetDirective;
+use Bolt\Storage\Directive\OrderDirective;
+use Bolt\Storage\Directive\PagingDirective;
+use Bolt\Storage\Directive\PrintQueryDirective;
+use Bolt\Storage\Directive\ReturnSingleDirective;
+use Bolt\Storage\Handler\FirstQueryHandler;
+use Bolt\Storage\Handler\IdentifiedSelectHandler;
+use Bolt\Storage\Handler\LatestQueryHandler;
+use Bolt\Storage\Handler\SelectQueryHandler;
 
 /**
  *  Handler class to convert the DSL for content queries into an

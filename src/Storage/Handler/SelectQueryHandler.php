@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Handler;
+namespace Bolt\Storage\Handler;
 
 use Bolt\Entity\Content;
-use Bolt\Storage\Query\ContentQueryParser;
-use Bolt\Storage\Query\QueryResultset;
-use Bolt\Storage\Query\SelectQuery;
+use Bolt\Storage\ContentQueryParser;
+use Bolt\Storage\QueryResultset;
+use Bolt\Storage\SelectQuery;
 
 /**
  *  Handler class to perform select query and return a resultset.

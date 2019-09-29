@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query;
+namespace Bolt\Storage;
 
 use Doctrine\ORM\Query\Expr;
 
@@ -313,7 +313,7 @@ class QueryParameterParser
      * of the Queue along with the built in defaults.
      *
      * Note: the callback should either return nothing or an instance of
-     * \Bolt\Storage\Query\Filter
+     * \Bolt\Storage\Filter
      */
     public function addFilterHandler(callable $handler): void
     {

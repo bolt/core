@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Handler;
+namespace Bolt\Storage\Handler;
 
-use Bolt\Storage\Query\ContentQueryParser;
-use Bolt\Storage\Query\QueryResultset;
+use Bolt\Storage\ContentQueryParser;
+use Bolt\Storage\QueryResultset;
 
 /**
  *  Handler to modify query based on activation of 'first' modifier.
