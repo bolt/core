@@ -97,7 +97,7 @@ class RecordExtension extends AbstractExtension
     {
         $values = $field->getDefinition()->get('values');
 
-        if (is_array($values)) {
+        if (is_iterable($values)) {
             return $this->selectOptionsArray($field);
         }
         return $this->selectOptionsContentType($field);
@@ -135,6 +135,7 @@ class RecordExtension extends AbstractExtension
 
     private function selectOptionsContentType(Field $field): LaravelCollection
     {
+        dump($field->getDefinition()->get('values'));
         [ $contentTypeSlug, $fieldNames ] = explode('/', $field->getDefinition()->get('values'));
 
         // @todo Actually do something with these, instead of using a default.
