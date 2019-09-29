@@ -12,7 +12,7 @@
 
 
     <h1>Two </h1>
-    {% setcontent pages = "pages,entries" %}
+    {% setcontent pages = "pages" %}
     {{ dump(pages) }}
     {% for page in pages %}
         <li>{{ page.contenttype }} {{ page.id }} . {{ page|title }}</li>

@@ -353,6 +353,19 @@ class SelectQuery implements ContentQueryInterface
         }
     }
 
+    public function setContentTypeFilter(array $contentTypes)
+    {
+        $this->setContentType(current($contentTypes));
+        
+        $where = [];
+        foreach ($contentTypes as $key => $contentType) {
+            $where[] = 'content.contentType = :ct' . $key;
+            $this->qb->setParameter('ct' . $key, str_replace('-', '_', $contentType));
+        }
+
+        $this->qb->andWhere(implode(' OR ', $where));
+    }
+
     private function useJsonFunctions(): bool
     {
         $platform = $this->qb->getEntityManager()->getConnection()->getDatabasePlatform();

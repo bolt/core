@@ -21,18 +21,17 @@ class SelectQueryHandler
      */
     public function __invoke(ContentQueryParser $contentQuery)
     {
+        $repo = $contentQuery->getContentRepository();
+        $qb = $repo->getQueryBuilder();
+
         /** @var SelectQuery $selectQuery */
         $selectQuery = $contentQuery->getService('select');
         $selectQuery->setSingleFetchMode(false);
 
-        $repo = $contentQuery->getContentRepository();
-
-        $qb = $repo->getQueryBuilder();
         $selectQuery->setQueryBuilder($qb);
-//        $selectQuery->setContentType('foobar');
-        // $query->setAlias('content')
-
+        $selectQuery->setContentTypeFilter($contentQuery->getContentTypes());
         $selectQuery->setParameters($contentQuery->getParameters());
+
         $contentQuery->runScopes($selectQuery);
         $contentQuery->runDirectives($selectQuery);
 
@@ -43,16 +42,6 @@ class SelectQueryHandler
         // joins are required.
         $selectQuery->doReferenceJoins();
         $selectQuery->doFieldJoins();
-
-        dump($contentQuery->getContentTypes());
-
-        $where = [];
-        foreach ($contentQuery->getContentTypes() as $key => $contentType) {
-            $where[] = 'content.contentType = :ct' . $key;
-            $qb->setParameter('ct' . $key, str_replace('-', '_', $contentType));
-        }
-
-        $qb->andWhere(implode(' OR ', $where));
 
         if ($selectQuery->getSingleFetchMode()) {
             return $qb
