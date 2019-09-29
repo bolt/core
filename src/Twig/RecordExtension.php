@@ -141,8 +141,6 @@ class RecordExtension extends AbstractExtension
         // @todo Actually do something with these, instead of using a default.
         $fieldNames = explode(',', $fieldNames);
 
-        $currentValues = $field->getValue();
-
         $options = [];
 
         if ($field->getDefinition()->get('required', false)) {

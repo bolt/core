@@ -49,10 +49,8 @@ class JsonExtension extends AbstractExtension
 
         if (is_array($records)) {
             $normalizedRecords = $records;
-        } elseif (is_iterable($records)) {
-            $normalizedRecords = iterator_to_array($records);
         } else {
-            throw new \InvalidArgumentException();
+            $normalizedRecords = iterator_to_array($records);
         }
 
         return array_map([$this, 'contentToArray'], $normalizedRecords);
