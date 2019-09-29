@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
@@ -23,16 +26,24 @@ use Twig\TwigFunction;
  */
 class RecordExtension extends AbstractExtension
 {
+    /** @var ContentRepository */
+    private $contentRepository;
+
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
     /** @var Request */
     private $request;
 
-    public function __construct(TaxonomyRepository $taxonomyRepository, RequestStack $requestStack)
+    /** @var Config */
+    private $config;
+
+    public function __construct(ContentRepository $contentRepository, TaxonomyRepository $taxonomyRepository, RequestStack $requestStack, Config $config)
     {
+        $this->contentRepository = $contentRepository;
         $this->taxonomyRepository = $taxonomyRepository;
         $this->request = $requestStack->getCurrentRequest();
+        $this->config = $config;
     }
 
     /**
@@ -46,7 +57,7 @@ class RecordExtension extends AbstractExtension
         return [
             new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('selectoptionsfromarray', [$this, 'selectoptionsfromarray']),
+            new TwigFunction('selectOptions', [$this, 'selectOptions']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
             new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
@@ -82,7 +93,17 @@ class RecordExtension extends AbstractExtension
         return "<i class='fas mr-2 fa-${icon}'></i>";
     }
 
-    public function selectoptionsfromarray(Field $field): LaravelCollection
+    public function selectOptions(Field $field): LaravelCollection
+    {
+        $values = $field->getDefinition()->get('values');
+
+        if (is_iterable($values)) {
+            return $this->selectOptionsArray($field);
+        }
+        return $this->selectOptionsContentType($field);
+    }
+
+    private function selectOptionsArray(Field $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -106,6 +127,44 @@ class RecordExtension extends AbstractExtension
                 'key' => $key,
                 'value' => $value,
                 'selected' => in_array($key, $currentValues, true),
+            ];
+        }
+
+        return new LaravelCollection($options);
+    }
+
+    private function selectOptionsContentType(Field $field): LaravelCollection
+    {
+        dump($field->getDefinition()->get('values'));
+        [ $contentTypeSlug, $fieldNames ] = explode('/', $field->getDefinition()->get('values'));
+
+        // @todo Actually do something with these, instead of using a default.
+        $fieldNames = explode(',', $fieldNames);
+
+        $currentValues = $field->getValue();
+
+        $options = [];
+
+        if ($field->getDefinition()->get('required', false)) {
+            $options[] = [
+                'key' => '',
+                'value' => '',
+                'selected' => false,
+            ];
+        }
+
+        $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+
+        $maxAmount = $this->config->get('maximum_listing_select', 1000);
+
+        /** @var Content[] $records */
+        $records = $this->contentRepository->findForListing(1, $maxAmount, $contentType);
+
+        foreach ($records as $record) {
+            $options[] = [
+                'key' => $record->getId(),
+                'value' => sprintf('%s. %s (%s)', $record->getId(), $record->getExtras()['title'], $record->getStatus()),
+                'selected' => in_array($record->getId(), $currentValues, true),
             ];
         }
 

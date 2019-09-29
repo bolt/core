@@ -114,6 +114,10 @@ listing_template: listing.twig
 listing_records: 6
 listing_sort: datepublish DESC
 
+# Maximum amount of items to show in a `<select>` for picking a record. For
+# example in `type: select`.
+maximum_listing_select: 1000
+
 # Because of limitations on how the underlying database queries work, there are
 # only two options for sorting on taxonomies. ASC for roughly "oldest first"
 # and DESC for roughly newest first.
