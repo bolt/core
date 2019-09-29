@@ -20,6 +20,7 @@ use Bolt\Storage\Handler\FirstQueryHandler;
 use Bolt\Storage\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Handler\LatestQueryHandler;
 use Bolt\Storage\Handler\SelectQueryHandler;
+use Pagerfanta\Pagerfanta;
 
 /**
  *  Handler class to convert the DSL for content queries into an
@@ -32,26 +33,37 @@ class ContentQueryParser
 {
     /** @var ContentRepository */
     protected $repo;
+
     /** @var string */
     protected $query;
+
     /** @var array */
     protected $params = [];
+
     /** @var array */
     protected $contentTypes = [];
+
     /** @var string */
     protected $operation;
+
     /** @var string */
     protected $identifier;
+
     /** @var array */
     protected $operations = ['search', 'latest', 'first'];
+
     /** @var array */
     protected $directives = [];
+
     /** @var callable[] */
     protected $directiveHandlers = [];
+
     /** @var callable[] */
     protected $handlers = [];
+
     /** @var QueryInterface[] */
     protected $services = [];
+
     /** @var QueryScopeInterface */
     protected $scope;
 
@@ -400,7 +412,7 @@ class ContentQueryParser
     /**
      * Runs the query and fetches the results.
      *
-     * @return QueryResultset|Content|null
+     * @return Pagerfanta|Content|null
      */
     public function fetch()
     {

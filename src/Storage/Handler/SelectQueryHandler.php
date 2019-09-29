@@ -6,8 +6,10 @@ namespace Bolt\Storage\Handler;
 
 use Bolt\Entity\Content;
 use Bolt\Storage\ContentQueryParser;
-use Bolt\Storage\QueryResultset;
 use Bolt\Storage\SelectQuery;
+use Doctrine\ORM\Query;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  *  Handler class to perform select query and return a resultset.
@@ -15,63 +17,60 @@ use Bolt\Storage\SelectQuery;
 class SelectQueryHandler
 {
     /**
-     * @return Content|QueryResultSet|null
+     * @return Content|Pagerfanta|null
      */
     public function __invoke(ContentQueryParser $contentQuery)
     {
-        $set = new QueryResultset();
         /** @var SelectQuery $selectQuery */
         $selectQuery = $contentQuery->getService('select');
         $selectQuery->setSingleFetchMode(false);
 
-        foreach ($contentQuery->getContentTypes() as $contentType) {
-            $contentType = str_replace('-', '_', $contentType);
+        $repo = $contentQuery->getContentRepository();
 
-            $repo = $contentQuery->getContentRepository();
-            $qb = $repo->getQueryBuilder();
-            $selectQuery->setQueryBuilder($qb);
-            $selectQuery->setContentType('content');
-            // $query->setAlias('content')
+        $qb = $repo->getQueryBuilder();
+        $selectQuery->setQueryBuilder($qb);
+//        $selectQuery->setContentType('foobar');
+        // $query->setAlias('content')
 
-            $selectQuery->setParameters($contentQuery->getParameters());
-            $contentQuery->runScopes($selectQuery);
-            $contentQuery->runDirectives($selectQuery);
+        $selectQuery->setParameters($contentQuery->getParameters());
+        $contentQuery->runScopes($selectQuery);
+        $contentQuery->runDirectives($selectQuery);
 
-            // This is required. Not entirely sure why.
-            $selectQuery->build();
+        // This is required. Not entirely sure why.
+        $selectQuery->build();
 
-            // Bolt4 introduces an extra table for field values, so additional
-            // joins are required.
-            $selectQuery->doReferenceJoins();
-            $selectQuery->doFieldJoins();
+        // Bolt4 introduces an extra table for field values, so additional
+        // joins are required.
+        $selectQuery->doReferenceJoins();
+        $selectQuery->doFieldJoins();
 
-            $selectQuery
-                ->getQueryBuilder()
-                ->andWhere('content.contentType = :ct')
-                ->setParameter('ct', $contentType);
+        dump($contentQuery->getContentTypes());
 
-            $query = $selectQuery
-                ->getQueryBuilder()
-                ->getQuery();
-
-            $set->setOriginalQuery($contentType, $query);
-
-            $result = $query
-                ->getResult();
-
-            if ($result) {
-                $set->add($result, $contentType);
-            }
+        $where = [];
+        foreach ($contentQuery->getContentTypes() as $key => $contentType) {
+            $where[] = 'content.contentType = :ct' . $key;
+            $qb->setParameter('ct' . $key, str_replace('-', '_', $contentType));
         }
+
+        $qb->andWhere(implode(' OR ', $where));
 
         if ($selectQuery->getSingleFetchMode()) {
-            if ($set->count() === 0) {
-                return null;
-            }
-
-            return $set->current();
+            return $qb
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getOneOrNullResult();
         }
 
-        return $set;
+        $query = $qb->getQuery();
+
+        return $this->createPaginator($query, 1, 4);
+    }
+
+    private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
+    {
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
+        $paginator->setMaxPerPage($amountPerPage);
+        $paginator->setCurrentPage($page);
+        return $paginator;
     }
 }
