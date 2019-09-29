@@ -2,11 +2,48 @@
 
 {% block main %}
 
-        {# This template is used for 'listings': Generic pages that list a number of
-           records from a certain content type. These records are available as an array
-           called 'records'. In the for-loop below, we iterate over the records that
-           are on this page. It can be used for overview pages like 'all entries', or
-           'all records tagged with kittens'. #}
+    <h1>One </h1>
+    {% for page in records %}
+        <li>{{ page.id }} . {{ page|title }}</li>
+    {% endfor %}
+
+    {# If there are more records than will fit on one page, the pager is shown. #}
+    {{ pager(records, template = 'partials/_sub_pager.twig') }}
+
+
+    <h1>Two </h1>
+    {% setcontent pages = "pages,entries" %}
+    {{ dump(pages) }}
+    {% for page in pages %}
+        <li>{{ page.contenttype }} {{ page.id }} . {{ page|title }}</li>
+    {% endfor %}
+
+    {# If there are more records than will fit on one page, the pager is shown. #}
+    {{ pager(pages, template = 'partials/_sub_pager.twig') }}
+
+    <h1>Three </h1>
+    {% setcontent pagethis = "entries" where {'id': 31} returnsingle %}
+    {{ dump(pagethis) }}
+
+    <h1>Four </h1>
+    {% setcontent entries = "entries/latest/4"  %}
+    {{ dump(entries) }}
+    {% for page in pages %}
+        <li>{{ page.contenttype }} {{ page.id }} . {{ page|title }}</li>
+    {% endfor %}
+
+
+    {#    {% for page in pages %}#}
+{#        <li>{{ pagethis.contenttype }} {{ pagethis.id }} . {{ pagethis|title }}</li>#}
+{#    {% endfor %}#}
+
+
+
+    {# This template is used for 'listings': Generic pages that list a number of
+       records from a certain content type. These records are available as an array
+       called 'records'. In the for-loop below, we iterate over the records that
+       are on this page. It can be used for overview pages like 'all entries', or
+       'all records tagged with kittens'. #}
 
         {# If used for listing a taxonomy, we add a heading #}
         {% if taxonomy is defined %}

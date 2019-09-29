@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Entity\Content;
+use Pagerfanta\Pagerfanta;
 
 class Query
 {
@@ -40,7 +41,7 @@ class Query
      * Used by the twig command {% setcontent %} but also directly.
      * For reference refer to @link https://docs.bolt.cm/templating/content-fetching
      *
-     * @return QueryResultset|Content|null
+     * @return Pagerfanta|Content|null
      */
     public function getContent(string $textQuery, array $parameters = [])
     {
@@ -51,7 +52,7 @@ class Query
     }
 
     /**
-     * @return QueryResultset|Content|null
+     * @return Pagerfanta|Content|null
      */
     public function getContentByScope(string $scopeName, string $textQuery, array $parameters = [])
     {
