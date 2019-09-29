@@ -19,7 +19,7 @@ final class ArrayExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $safe = ['is_safe' => ['html']];
 
@@ -31,7 +31,7 @@ final class ArrayExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('order', [$this, 'order']),

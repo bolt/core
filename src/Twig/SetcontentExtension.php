@@ -26,7 +26,7 @@ class SetcontentExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new SetcontentTokenParser(),

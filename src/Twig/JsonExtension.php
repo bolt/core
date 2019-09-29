@@ -38,6 +38,9 @@ class JsonExtension extends AbstractExtension
         return Json::json_encode($this->normalizeRecords($records));
     }
 
+    /**
+     * @param Content|array|\Traversable $records
+     */
     public function normalizeRecords($records): array
     {
         if ($records instanceof Content) {

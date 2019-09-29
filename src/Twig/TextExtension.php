@@ -16,7 +16,7 @@ class TextExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('safestring', [$this, 'safeString']),
@@ -25,7 +25,7 @@ class TextExtension extends AbstractExtension
         ];
     }
 
-    public function safeString($str, $strict = false, $extrachars = '')
+    public function safeString($str, $strict = false, $extrachars = ''): string
     {
         return Str::makeSafe($str, $strict, $extrachars);
     }

@@ -10,6 +10,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
@@ -135,7 +136,6 @@ class RecordExtension extends AbstractExtension
 
     private function selectOptionsContentType(Field $field): LaravelCollection
     {
-        dump($field->getDefinition()->get('values'));
         [ $contentTypeSlug, $fieldNames ] = explode('/', $field->getDefinition()->get('values'));
 
         // @todo Actually do something with these, instead of using a default.
@@ -163,15 +163,19 @@ class RecordExtension extends AbstractExtension
         foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
-                'value' => sprintf('%s. %s (%s)', $record->getId(), $record->getExtras()['title'], $record->getStatus()),
-                'selected' => in_array($record->getId(), $currentValues, true),
+                'value' => sprintf(
+                    '%s (№ %s, %s)',
+                    Excerpt::getExcerpt($record->getExtras()['title'], 50),
+                    $record->getId(),
+                    $record->getStatus()
+                ),
             ];
         }
 
         return new LaravelCollection($options);
     }
 
-    public function taxonomyoptions($taxonomy): LaravelCollection
+    public function taxonomyoptions(LaravelCollection $taxonomy): LaravelCollection
     {
         $options = [];
 
@@ -192,7 +196,7 @@ class RecordExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    public function taxonomyvalues(Collection $current, $taxonomy): LaravelCollection
+    public function taxonomyvalues(Collection $current, LaravelCollection $taxonomy): LaravelCollection
     {
         $values = [];
 
