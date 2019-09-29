@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Directive;
+namespace Bolt\Storage\Directive;
 
-use Bolt\Storage\Query\SelectQuery;
+use Bolt\Storage\SelectQuery;
 
 /**
  *  Directive to add a limit modifier to the query.

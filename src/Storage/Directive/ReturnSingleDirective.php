@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Directive;
+namespace Bolt\Storage\Directive;
 
-use Bolt\Storage\Query\QueryInterface;
-use Bolt\Storage\Query\SelectQuery;
+use Bolt\Storage\QueryInterface;
+use Bolt\Storage\SelectQuery;
 
 /**
  *  Directive to specify that a single object, rather than an array should be returned.

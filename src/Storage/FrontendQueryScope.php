@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query;
+namespace Bolt\Storage;
 
 use Bolt\Configuration\Config;
 use Bolt\Enum\Statuses;
-use Bolt\Storage\Query\Directive\OrderDirective;
+use Bolt\Storage\Directive\OrderDirective;
 
 /**
  * This class takes an overall config array as input and parses into values
