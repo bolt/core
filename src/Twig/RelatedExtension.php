@@ -37,7 +37,7 @@ class RelatedExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('related', [$this, 'getRelatedContent']),
@@ -51,7 +51,7 @@ class RelatedExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('related_content', [$this, 'getRelatedContent']),
@@ -123,7 +123,7 @@ class RelatedExtension extends AbstractExtension
         return null;
     }
 
-    public function getRelatedOptions(Content $source, string $contentType)
+    public function getRelatedOptions(string $contentType): Collection
     {
         $contentType = ContentType::factory($contentType, $this->config->get('contenttypes'));
         $content = $this->contentRepository->findForListing(1, 1000, $contentType, false);
@@ -146,7 +146,7 @@ class RelatedExtension extends AbstractExtension
         return new Collection($options);
     }
 
-    public function getRelatedValues(Content $source, string $contentType)
+    public function getRelatedValues(Content $source, string $contentType): Collection
     {
         if ($source->getId() === null) {
             return new Collection([]);

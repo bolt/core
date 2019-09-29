@@ -38,6 +38,9 @@ class JsonExtension extends AbstractExtension
         return Json::json_encode($this->normalizeRecords($records));
     }
 
+    /**
+     * @param Content|array|\Traversable $records
+     */
     public function normalizeRecords($records): array
     {
         if ($records instanceof Content) {
@@ -46,10 +49,8 @@ class JsonExtension extends AbstractExtension
 
         if (is_array($records)) {
             $normalizedRecords = $records;
-        } elseif (is_iterable($records)) {
-            $normalizedRecords = iterator_to_array($records);
         } else {
-            throw new \InvalidArgumentException();
+            $normalizedRecords = iterator_to_array($records);
         }
 
         return array_map([$this, 'contentToArray'], $normalizedRecords);
