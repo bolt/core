@@ -13,6 +13,7 @@ use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
@@ -59,15 +60,11 @@ class RecordExtension extends AbstractExtension
             new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
             new TwigFunction('selectOptions', [$this, 'selectOptions']),
+            new TwigFunction('listTemplates', [$this, 'getListTemplates']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
             new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
         ];
-    }
-
-    public function getListTemplates(): string
-    {
-        return 'list_templates placeholder';
     }
 
     public function pager(Environment $twig, Pagerfanta $records, string $template = 'helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
@@ -167,6 +164,45 @@ class RecordExtension extends AbstractExtension
                     $record->getId(),
                     $record->getStatus()
                 ),
+            ];
+        }
+
+        return new LaravelCollection($options);
+    }
+
+    public function getListTemplates(Field $field): LaravelCollection
+    {
+        $definition = $field->getDefinition();
+        $current = current($field->getValue());
+
+        $finder = new Finder();
+        $finder
+            ->files()
+            ->in($this->config->getPath('theme'))
+            ->name($definition->get('filter', '*.twig'))
+            ->path($definition->get('path'));
+
+        $options = [[
+            'key' => '',
+            'value' => '(choose a template)',
+            'selected' => false,
+        ]];
+
+        foreach ($finder as $file) {
+            $options[] = [
+                'key' => $file->getRelativePathname(),
+                'value' => $file->getRelativePathname(),
+            ];
+
+            if ($current === $file->getRelativePathname()) {
+                $current = false;
+            }
+        }
+
+        if ($current !== false) {
+            $options[] = [
+                'key' => $current,
+                'value' => $current . ' (file seems to be missing)',
             ];
         }
 
