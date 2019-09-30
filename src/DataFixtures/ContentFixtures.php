@@ -174,7 +174,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = [$this->faker->sentence(6, true)];
                 break;
             case 'email':
-                $data = [$this->faker->email()];
+                $data = [$this->faker->email];
                 break;
             case 'templateselect':
                 $data = [];

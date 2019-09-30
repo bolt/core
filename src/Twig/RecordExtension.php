@@ -170,7 +170,6 @@ class RecordExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-
     public function getListTemplates(Field $field): LaravelCollection
     {
         $definition = $field->getDefinition();
@@ -195,7 +194,7 @@ class RecordExtension extends AbstractExtension
                 'value' => $file->getRelativePathname(),
             ];
 
-            if ($current == $file->getRelativePathname()) {
+            if ($current === $file->getRelativePathname()) {
                 $current = false;
             }
         }
@@ -209,7 +208,6 @@ class RecordExtension extends AbstractExtension
 
         return new LaravelCollection($options);
     }
-
 
     public function taxonomyoptions(LaravelCollection $taxonomy): LaravelCollection
     {
