@@ -217,6 +217,10 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'text_not_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
             'text_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
         ];
+        $records['pages'][] = [
+            'heading' => 'This is a page',
+            'slug' => 'this-is-a-page',
+        ];
 
         // Only add this fixture if the file exists: It does in the "Git Clone", but not in the
         // "Composer create-project".
@@ -235,7 +239,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     private function getPreset(string $slug): array
     {
         if (isset($this->presetRecords[$slug]) && ! empty($this->presetRecords[$slug])) {
-            $preset = array_pop($this->presetRecords[$slug]);
+            $preset = array_shift($this->presetRecords[$slug]);
         } else {
             $preset = [];
         }
