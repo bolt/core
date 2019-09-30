@@ -16,14 +16,19 @@ class QueryParameterParser
 {
     /** @var string */
     public $alias;
+
     /** @var string */
     protected $key;
+
     /** @var mixed */
     protected $value;
+
     /** @var Expr */
     protected $expr;
+
     /** @var array */
     protected $valueMatchers = [];
+
     /** @var Filter[] */
     protected $filterHandlers = [];
 

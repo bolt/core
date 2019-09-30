@@ -33,7 +33,6 @@ class SelectQueryHandler
         $selectQuery->setParameters($contentQuery->getParameters());
 
         $contentQuery->runScopes($selectQuery);
-        $contentQuery->runDirectives($selectQuery);
 
         // This is required. Not entirely sure why.
         $selectQuery->build();
@@ -42,6 +41,8 @@ class SelectQueryHandler
         // joins are required.
         $selectQuery->doReferenceJoins();
         $selectQuery->doFieldJoins();
+
+        $contentQuery->runDirectives($selectQuery);
 
         if ($selectQuery->getSingleFetchMode()) {
             return $qb
@@ -52,7 +53,9 @@ class SelectQueryHandler
 
         $query = $qb->getQuery();
 
-        return $this->createPaginator($query, 1, 4);
+        $pagerSize = (int) $contentQuery->getDirective('limit');
+
+        return $this->createPaginator($query, 1, $pagerSize);
     }
 
     private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta

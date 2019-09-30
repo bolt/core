@@ -93,7 +93,7 @@ pages:
             type: templateselect
             filter: '*.twig'
     taxonomy: [ groups ]
-
+    listing_records: 6
 
 # Entries can be used for things like 'news' or 'blogpostings'. They have a
 # 'teaser', which can be used for a short blurb on listing-pages, allowing

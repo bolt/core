@@ -353,10 +353,10 @@ class SelectQuery implements ContentQueryInterface
         }
     }
 
-    public function setContentTypeFilter(array $contentTypes)
+    public function setContentTypeFilter(array $contentTypes): void
     {
         $this->setContentType(current($contentTypes));
-        
+
         $where = [];
         foreach ($contentTypes as $key => $contentType) {
             $where[] = 'content.contentType = :ct' . $key;
