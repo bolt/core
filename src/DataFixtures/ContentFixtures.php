@@ -173,6 +173,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'text':
                 $data = [$this->faker->sentence(6, true)];
                 break;
+            case 'email':
+                $data = [$this->faker->email()];
+                break;
+            case 'templateselect':
+                $data = [];
+                break;
             default:
                 $data = [$this->faker->sentence(6, true)];
         }
@@ -211,6 +217,17 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'text_not_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
             'text_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
         ];
+
+        // Only add this fixture if the file exists: It does in the "Git Clone", but not in the
+        // "Composer create-project".
+        $file = dirname(dirname(__DIR__)) . '/public/theme/skeleton/custom/setcontent_1.twig';
+        if (file_exists($file)) {
+            $records['pages'][] = [
+                'heading' => 'Setcontent test page',
+                'slug' => 'Setcontent test page',
+                'template' => 'custom/setcontent_1.twig',
+            ];
+        }
 
         return $records;
     }

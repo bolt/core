@@ -1,0 +1,25 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{# On top of the attributes that get set/defined in `_base.html.twig`,
+   The Select fields has three additional attributes:
+
+     - options: The actual options that are available in the select
+     - multiple: A boolean to set whether or not we allow multiple selections
+     - allowempty: A boolean to set whether or not we allow clearing the selection
+ #}
+
+{% set options = listTemplates(field) %}
+{% set multiple = 'false' %}
+{% set allowempty = 'true' %}
+
+{% block field %}
+    <editor-select
+        :value="{{ field.value|json_encode }}"
+        :name='{{ name|json_encode }}'
+        :id='{{ id|json_encode }}'
+        :options="{{ options|json_encode }}"
+        :form='{{ form|json_encode }}'
+        :multiple="{{ multiple }}"
+        :allowempty="{{ allowempty }}"
+    ></editor-select>
+{% endblock %}

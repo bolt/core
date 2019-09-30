@@ -1,0 +1,26 @@
+{% extends 'partials/_master.twig' %}
+
+{% block main %}
+
+    <h1>One </h1>
+    {% setcontent entries = "entries/latest/4"  %}
+    {{ dump(entries) }}
+    {% for entry in entries %}
+        <li>{{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}</li>
+    {% endfor %}
+
+    <h1>Two </h1>
+    {% setcontent pages = "pages" %}
+    {{ dump(pages) }}
+    {% for page in pages %}
+        <li>{{ page.contenttype }} {{ page.id }} . {{ page|title }}</li>
+    {% endfor %}
+
+    {# If there are more records than will fit on one page, the pager is shown. #}
+    {{ pager(pages, template = 'partials/_sub_pager.twig') }}
+
+    <h1>Three </h1>
+    {% setcontent pagethis = "entries" where {'id': 31} returnsingle %}
+    {{ dump(pagethis) }}
+
+{% endblock main %}
