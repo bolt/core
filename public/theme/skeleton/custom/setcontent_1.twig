@@ -1,11 +1,11 @@
 {% extends 'partials/_master.twig' %}
 
 {% macro isbigger(a, b) %}
-    {% if a >= b %}== yes =={% else %}== no =={% endif %}
+    {% if a >= b %}[yes]{% else %}[no]{% endif %}
 {% endmacro %}
 
 {% macro issmaller(a, b) %}
-    {% if a <= b or (b == null) %}== yes =={% else %}== no =={% endif %}
+    {% if a <= b or (b == null) %}[yes]{% else %}[no]{% endif %}
 {% endmacro %}
 
 {% block main %}
