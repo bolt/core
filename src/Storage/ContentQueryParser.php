@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Entity\Content;
-use Bolt\Events\QueryEvent;
-use Bolt\Events\QueryEvents;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Directive\GetQueryDirective;
 use Bolt\Storage\Directive\LimitDirective;
@@ -393,8 +391,7 @@ class ContentQueryParser
     public function fetch()
     {
         $this->parse();
-        // $parseEvent = new QueryEvent($this);
-        // $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::PARSE, $parseEvent);
+
         return call_user_func($this->handlers[$this->getOperation()], $this);
     }
 

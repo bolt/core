@@ -316,8 +316,8 @@ class SelectQuery implements ContentQueryInterface
 
             $originalLeftExpression = 'content.' . $key;
 
-            // Because Mysql 5.6 and Sqlite handle values in JSON differently, we
-            // need to adapt the query.
+            // Because Mysql 5.6 and Sqlite handle values in JSON differently,
+            // we need to adapt the query.
             if (UseJsonFunctions::check($this->qb)) {
                 $newLeftExpression = sprintf("JSON_EXTRACT(%s.value, '$[0]')", $fieldsAlias);
             } else {
