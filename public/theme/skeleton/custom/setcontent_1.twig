@@ -13,7 +13,8 @@
     <section id="one">
         <h1>One</h1>
         {% setcontent entries = "entries/latest/4" printquery  %}
-        {{ dump(entries) }}
+        Results: <span id="results-one">{{ entries|length > 5 ? 'yes' }}</span>
+        <ul>
         {% for entry in entries %}
             <li>
                 {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
@@ -21,15 +22,17 @@
             </li>
             {% set last = entry.id %}
         {% endfor %}
-    <section>
+        </ul>
+    </section>
 
     {# If there are more records than will fit on one page, the pager is shown.#}
     {{ pager(entries, template = 'partials/_sub_pager.twig') }}
 
     <section id="two">
         <h1>Two</h1>
-        {% setcontent pages = "pages" limit 2 %}
-        {{ dump(pages) }}
+        {% setcontent pages = "pages" limit 20 %}
+        Results: <span id="results-two">{{ entries|length > 5 ? 'yes' }}</span>
+        <ul>
         {% for page in pages %}
             <li>
                 {{ page.contenttype }} {{ page.id }} . {{ page|title }}
@@ -37,6 +40,7 @@
             </li>
             {% set last = page.id %}
         {% endfor %}
+        </ul>
     </section>
 
 
@@ -54,6 +58,8 @@
     <section id="four">
         <h1>Four</h1>
         {% setcontent pages = "pages" orderby 'heading' %}
+        Results: <span id="results-four">{{ pages|length > 5 ? 'yes' }}</span>
+        <ul>
         {% for page in pages %}
             <li>
                 {{ page.contenttype }} {{ page.id }} . {{ page.heading }}
@@ -61,11 +67,14 @@
             </li>
             {% set last = page.heading %}
         {% endfor %}
+        </ul>
     </section>
 
     <section id="five">
         <h1>Five</h1>
         {% setcontent entries = "entries" limit "3"  %}
+        Results: <span id="results-five">{{ entries|length > 5 ? 'yes' }}</span>
+        <ul>
         {% for entry in entries %}
             <li>
                 {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
@@ -73,19 +82,21 @@
             </li>
             {% set last = entry.id %}
         {% endfor %}
+        </ul>
     <section>
 
     <section id="six">
         <h1>Six</h1>
         {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat%' } printquery  %}
-        {{ dump(entries) }}
+        Results: <span id="results-six">{{ entries|length > 2 ? 'yes' }}</span>
+        <ul>
         {% for entry in entries %}
             <li>
                 {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
-                <span class="s{{ loop.index }}">{{ _self.issmaller(entry.id, last|default()) }}</span>
             </li>
             {% set last = entry.id %}
         {% endfor %}
+        </ul>
     <section>
 
 {% endblock main %}
