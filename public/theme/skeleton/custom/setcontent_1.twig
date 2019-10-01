@@ -88,7 +88,7 @@
     <section id="six">
         <h1>Six</h1>
         {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat%' } printquery  %}
-        Results: <span id="results-six">{{ entries|length > 2 ? 'yes' }}</span>
+        Results: <span id="results-six">{{ entries|length > 0 ? 'yes' }}</span>
         <ul>
         {% for entry in entries %}
             <li>
