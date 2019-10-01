@@ -15,7 +15,7 @@ Follow the progress on Bolt 4, at the following locations
 
  - Github Repository: https://github.com/bolt/four
  - Bolt 4 roadmap: https://roadmap.bolt.cm
- - Slack: https://boltcms.slack.com/messages/C0NJEK631 (open for all, requires Slack account)
+ - Slack: https://slack.bolt.cm (open for all, requires Slack account)
 
 **If you want to check out Bolt, the `composer create-project` method is
 recommended. See here: https://github.com/bolt/project/ . This
