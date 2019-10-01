@@ -77,7 +77,7 @@
 
     <section id="six">
         <h1>Six</h1>
-        {% setcontent entries = "entries" where {'title': '%consequatur%' } printquery  %}
+        {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat%' } printquery  %}
         {{ dump(entries) }}
         {% for entry in entries %}
             <li>
