@@ -30,7 +30,7 @@
 
     <section id="two">
         <h1>Two</h1>
-        {% setcontent pages = "pages" limit 20 %}
+        {% setcontent pages = "pages, entries" limit 4 %}
         Results: <span id="results-two">{{ entries|length > 5 ? 'yes' }}</span>
         <ul>
         {% for page in pages %}

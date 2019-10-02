@@ -10,6 +10,7 @@ use Bolt\Storage\SelectQuery;
 use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  *  Handler class to perform select query and return a resultset.
@@ -53,16 +54,24 @@ class SelectQueryHandler
 
         $query = $qb->getQuery();
 
-        $pagerSize = (int) $contentQuery->getDirective('limit');
+        $amountPerPage = (int) $contentQuery->getDirective('limit');
 
-        return $this->createPaginator($query, 1, $pagerSize);
+        return $this->createPaginator($query, $amountPerPage);
     }
 
-    private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
+    private function createPaginator(Query $query, int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
-        $paginator->setCurrentPage($page);
+
+        $request = Request::createFromGlobals();
+        $page = (int) $request->get('page', 1);
+
+        // If we have multiple pagers on page, we shouldn't allow one of the
+        // pagers to go over the maximum, thereby throwing an exception. In this
+        // case, this specific pager show stay on the last page.
+        $paginator->setCurrentPage(min($page, $paginator->getNbPages()));
+
         return $paginator;
     }
 }
