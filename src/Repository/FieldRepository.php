@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Repository;
 
 use Bolt\Common\Json;
+use Bolt\Doctrine\UseJsonFunctions;
 use Bolt\Entity\Field;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -30,9 +31,20 @@ class FieldRepository extends ServiceEntityRepository
 
     public function findOneBySlug(string $slug): ?Field
     {
-        return $this->getQueryBuilder()
-            ->andWhere('field.value = :slug')
-            ->setParameter('slug', Json::json_encode([$slug]))
+        $qb = $this->getQueryBuilder();
+
+        // Because Mysql 5.6 and Sqlite handle values in JSON differently, we
+        // need to adapt the query.
+        if (UseJsonFunctions::check($qb)) {
+            $where = "JSON_EXTRACT(field.value, '$[0]')";
+        } else {
+            $where = 'field.value';
+            $slug = Json::json_encode([$slug]);
+        }
+
+        return $qb
+            ->andWhere($where . ' = :slug')
+            ->setParameter('slug', $slug)
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();

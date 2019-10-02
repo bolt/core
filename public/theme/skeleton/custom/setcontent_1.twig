@@ -1,26 +1,102 @@
 {% extends 'partials/_master.twig' %}
 
+{% macro isbigger(a, b) %}
+    {% if a >= b %}[yes]{% else %}[no]{% endif %}
+{% endmacro %}
+
+{% macro issmaller(a, b) %}
+    {% if a <= b or (b == null) %}[yes]{% else %}[no]{% endif %}
+{% endmacro %}
+
 {% block main %}
 
-    <h1>One </h1>
-    {% setcontent entries = "entries/latest/4"  %}
-    {{ dump(entries) }}
-    {% for entry in entries %}
-        <li>{{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}</li>
-    {% endfor %}
+    <section id="one">
+        <h1>One</h1>
+        {% setcontent entries = "entries/latest/4" printquery  %}
+        Results: <span id="results-one">{{ entries|length > 5 ? 'yes' }}</span>
+        <ul>
+        {% for entry in entries %}
+            <li>
+                {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
+                <span class="s{{ loop.index }}">{{ _self.issmaller(entry.id, last|default()) }}</span>
+            </li>
+            {% set last = entry.id %}
+        {% endfor %}
+        </ul>
+    </section>
 
-    <h1>Two </h1>
-    {% setcontent pages = "pages" %}
-    {{ dump(pages) }}
-    {% for page in pages %}
-        <li>{{ page.contenttype }} {{ page.id }} . {{ page|title }}</li>
-    {% endfor %}
+    {# If there are more records than will fit on one page, the pager is shown.#}
+    {{ pager(entries, template = 'partials/_sub_pager.twig') }}
 
-    {# If there are more records than will fit on one page, the pager is shown. #}
+    <section id="two">
+        <h1>Two</h1>
+        {% setcontent pages = "pages, entries" limit 4 %}
+        Results: <span id="results-two">{{ entries|length > 5 ? 'yes' }}</span>
+        <ul>
+        {% for page in pages %}
+            <li>
+                {{ page.contenttype }} {{ page.id }} . {{ page|title }}
+                <span class="s{{ loop.index }}">{{ _self.isbigger(page.id, last|default()) }}<span></span>
+            </li>
+            {% set last = page.id %}
+        {% endfor %}
+        </ul>
+    </section>
+
+
+    {# If there are more records than will fit on one page, the pager is shown.#}
     {{ pager(pages, template = 'partials/_sub_pager.twig') }}
 
-    <h1>Three </h1>
-    {% setcontent pagethis = "entries" where {'id': 31} returnsingle %}
-    {{ dump(pagethis) }}
+    <section id="three">
+        <h1>Three</h1>
+        {% setcontent pagetwo = "pages" where {'id': 2 } returnsingle %}
+            <span class="s1">{{ pagetwo.id }}</span>
+            <span class="s2">{{ pagetwo.status }}</span>
+        {{ dump(pagetwo) }}
+    </section>
+
+    <section id="four">
+        <h1>Four</h1>
+        {% setcontent pages = "pages" orderby 'heading' %}
+        Results: <span id="results-four">{{ pages|length > 5 ? 'yes' }}</span>
+        <ul>
+        {% for page in pages %}
+            <li>
+                {{ page.contenttype }} {{ page.id }} . {{ page.heading }}
+                <span class="s{{ loop.index }}">{{ _self.isbigger(page.heading, last|default()) }}<span></span>
+            </li>
+            {% set last = page.heading %}
+        {% endfor %}
+        </ul>
+    </section>
+
+    <section id="five">
+        <h1>Five</h1>
+        {% setcontent entries = "entries" limit "3"  %}
+        Results: <span id="results-five">{{ entries|length > 5 ? 'yes' }}</span>
+        <ul>
+        {% for entry in entries %}
+            <li>
+                {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }} ( {{ entry.publishedAt|date('Y-m-d') }} )
+                <span class="s{{ loop.index }}">{{ _self.issmaller(entry.publishedAt, last|default()) }}</span>
+            </li>
+            {% set last = entry.publishedAt %}
+        {% endfor %}
+        </ul>
+    <section>
+
+    <section id="six">
+        <h1>Six</h1>
+        {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat%' } printquery  %}
+        Results: <span id="results-six">{{ entries|length > 0 ? 'yes' }}</span>
+        <ul>
+        {% for entry in entries %}
+            <li>
+                {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
+            </li>
+            {% set last = entry.id %}
+        {% endfor %}
+        </ul>
+    <section>
 
 {% endblock main %}

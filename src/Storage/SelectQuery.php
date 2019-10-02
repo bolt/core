@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Common\Json;
-use Doctrine\DBAL\Platforms\MariaDb1027Platform;
-use Doctrine\DBAL\Platforms\MySQL57Platform;
-use Doctrine\DBAL\Platforms\MySQL80Platform;
-use Doctrine\DBAL\Platforms\SqlitePlatform;
+use Bolt\Doctrine\UseJsonFunctions;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
@@ -318,11 +315,15 @@ class SelectQuery implements ContentQueryInterface
             $keyParam = 'field_' . $index;
 
             $originalLeftExpression = 'content.' . $key;
-            if ($this->useJsonFunctions()) {
+
+            // Because Mysql 5.6 and Sqlite handle values in JSON differently,
+            // we need to adapt the query.
+            if (UseJsonFunctions::check($this->qb)) {
                 $newLeftExpression = sprintf("JSON_EXTRACT(%s.value, '$[0]')", $fieldsAlias);
             } else {
                 $newLeftExpression = sprintf('%s.value', $fieldsAlias);
             }
+
             $where = $filter->getExpression();
             $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
 
@@ -344,7 +345,7 @@ class SelectQuery implements ContentQueryInterface
                 )
                 ->setParameter($keyParam, $key);
             foreach ($filter->getParameters() as $key => $value) {
-                if ($this->useJsonFunctions()) {
+                if (UseJsonFunctions::check($this->qb)) {
                     $this->qb->setParameter($key, $value);
                 } else {
                     $this->qb->setParameter($key, Json::json_encode([$value]));
@@ -353,19 +354,16 @@ class SelectQuery implements ContentQueryInterface
         }
     }
 
-    private function useJsonFunctions(): bool
+    public function setContentTypeFilter(array $contentTypes): void
     {
-        $platform = $this->qb->getEntityManager()->getConnection()->getDatabasePlatform();
+        $this->setContentType(current($contentTypes));
 
-        if ($platform instanceof SqlitePlatform) {
-            // @todo We need to determine somehow if SQLite was loaded with the JSON1 extension.
-            return false;
+        $where = [];
+        foreach ($contentTypes as $key => $contentType) {
+            $where[] = 'content.contentType = :ct' . $key;
+            $this->qb->setParameter('ct' . $key, str_replace('-', '_', $contentType));
         }
 
-        if ($platform instanceof MySQL57Platform || $platform instanceof MySQL80Platform || $platform instanceof MariaDb1027Platform) {
-            return true;
-        }
-
-        return false;
+        $this->qb->andWhere(implode(' OR ', $where));
     }
 }

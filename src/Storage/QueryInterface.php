@@ -17,7 +17,7 @@ interface QueryInterface
     /**
      * Builds the query and returns an instance of QueryBuilder.
      */
-    public function build(): QueryBuilder;
+    public function build();
 
     /**
      * Returns the current instance of QueryBuilder.

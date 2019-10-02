@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Entity\Content;
-use Bolt\Events\QueryEvent;
-use Bolt\Events\QueryEvents;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Directive\GetQueryDirective;
-use Bolt\Storage\Directive\HydrateDirective;
 use Bolt\Storage\Directive\LimitDirective;
 use Bolt\Storage\Directive\OffsetDirective;
 use Bolt\Storage\Directive\OrderDirective;
-use Bolt\Storage\Directive\PagingDirective;
 use Bolt\Storage\Directive\PrintQueryDirective;
 use Bolt\Storage\Directive\ReturnSingleDirective;
 use Bolt\Storage\Handler\FirstQueryHandler;
 use Bolt\Storage\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Handler\LatestQueryHandler;
 use Bolt\Storage\Handler\SelectQueryHandler;
+use Pagerfanta\Pagerfanta;
 
 /**
  *  Handler class to convert the DSL for content queries into an
@@ -32,26 +29,37 @@ class ContentQueryParser
 {
     /** @var ContentRepository */
     protected $repo;
+
     /** @var string */
     protected $query;
+
     /** @var array */
     protected $params = [];
+
     /** @var array */
     protected $contentTypes = [];
+
     /** @var string */
     protected $operation;
+
     /** @var string */
     protected $identifier;
+
     /** @var array */
     protected $operations = ['search', 'latest', 'first'];
+
     /** @var array */
     protected $directives = [];
+
     /** @var callable[] */
     protected $directiveHandlers = [];
+
     /** @var callable[] */
     protected $handlers = [];
+
     /** @var QueryInterface[] */
     protected $services = [];
+
     /** @var QueryScopeInterface */
     protected $scope;
 
@@ -80,11 +88,9 @@ class ContentQueryParser
         $this->addHandler('namedselect', new IdentifiedSelectHandler());
 
         $this->addDirectiveHandler('getquery', new GetQueryDirective());
-        $this->addDirectiveHandler('hydrate', new HydrateDirective());
         $this->addDirectiveHandler('limit', new LimitDirective());
         $this->addDirectiveHandler('order', new OrderDirective());
         $this->addDirectiveHandler('page', new OffsetDirective());
-        $this->addDirectiveHandler('paging', new PagingDirective());
         $this->addDirectiveHandler('printquery', new PrintQueryDirective());
         $this->addDirectiveHandler('returnsingle', new ReturnSingleDirective());
     }
@@ -273,9 +279,9 @@ class ContentQueryParser
     /**
      * Returns a directive from the parsed list.
      *
-     * @param string $key
+     * @param string|int|bool|null $key
      */
-    public function getDirective($key): ?string
+    public function getDirective($key)
     {
         if (array_key_exists($key, $this->directives)) {
             return $this->directives[$key];
@@ -287,40 +293,33 @@ class ContentQueryParser
     /**
      * Sets a directive for the named key.
      *
-     * @param string      $key
-     * @param string|bool $value
+     * @param string|int|bool $value
      */
-    public function setDirective($key, $value): void
+    public function setDirective(string $key, $value): void
     {
         $this->directives[$key] = $value;
     }
 
     /**
      * Returns the handler for the named directive.
-     *
-     * @param string $check
      */
-    public function getDirectiveHandler($check): callable
+    public function getDirectiveHandler(string $key): callable
     {
-        return $this->directiveHandlers[$check];
+        return $this->directiveHandlers[$key];
     }
 
     /**
      * Returns boolean for existence of handler.
-     *
-     * @param string $check
      */
-    public function hasDirectiveHandler($check): bool
+    public function hasDirectiveHandler(string $key): bool
     {
-        return array_key_exists($check, $this->directiveHandlers);
+        return array_key_exists($key, $this->directiveHandlers);
     }
 
     /**
      * Adds a handler for the named directive.
-     *
-     * @param string $key
      */
-    public function addDirectiveHandler($key, ?callable $callback = null): void
+    public function addDirectiveHandler(string $key, ?callable $callback = null): void
     {
         if (! array_key_exists($key, $this->directiveHandlers)) {
             $this->directiveHandlers[$key] = $callback;
@@ -329,10 +328,8 @@ class ContentQueryParser
 
     /**
      * Adds a handler AND operation for the named operation.
-     *
-     * @param string $operation
      */
-    public function addHandler($operation, callable $callback): void
+    public function addHandler(string $operation, callable $callback): void
     {
         $this->handlers[$operation] = $callback;
         $this->addOperation($operation);
@@ -340,31 +337,24 @@ class ContentQueryParser
 
     /**
      * Returns a handler for the named operation.
-     *
-     * @param string $operation
      */
-    public function getHandler($operation): callable
+    public function getHandler(string $operation): callable
     {
         return $this->handlers[$operation];
     }
 
     /**
      * Adds a service for the named operation.
-     *
-     * @param string         $operation
-     * @param QueryInterface $service
      */
-    public function addService($operation, $service): void
+    public function addService(string $operation, QueryInterface $service): void
     {
         $this->services[$operation] = $service;
     }
 
     /**
      * Returns a service for the named operation.
-     *
-     * @param string $operation
      */
-    public function getService($operation): QueryInterface
+    public function getService(string $operation): QueryInterface
     {
         return $this->services[$operation];
     }
@@ -379,20 +369,16 @@ class ContentQueryParser
 
     /**
      * Helper method to check if parameters are set for a specific key.
-     *
-     * @param string $param
      */
-    public function hasParameter($param): bool
+    public function hasParameter(string $param): bool
     {
         return array_key_exists($param, $this->params);
     }
 
     /**
      * Returns a single named parameter.
-     *
-     * @param string $param
      */
-    public function getParameter($param): array
+    public function getParameter(string $param): array
     {
         return $this->params[$param];
     }
@@ -400,13 +386,12 @@ class ContentQueryParser
     /**
      * Runs the query and fetches the results.
      *
-     * @return QueryResultset|Content|null
+     * @return Pagerfanta|Content|null
      */
     public function fetch()
     {
         $this->parse();
-        // $parseEvent = new QueryEvent($this);
-        // $this->getEntityManager()->getEventManager()->dispatch(QueryEvents::PARSE, $parseEvent);
+
         return call_user_func($this->handlers[$this->getOperation()], $this);
     }
 
@@ -423,7 +408,7 @@ class ContentQueryParser
      *
      * @param string $operation name of operation to parse for
      */
-    public function addOperation($operation): void
+    public function addOperation(string $operation): void
     {
         if (! in_array($operation, $this->operations, true)) {
             $this->operations[] = $operation;
@@ -435,7 +420,7 @@ class ContentQueryParser
      *
      * @param string $operation name of operation to remove
      */
-    public function removeOperation($operation): void
+    public function removeOperation(string $operation): void
     {
         if (in_array($operation, $this->operations, true)) {
             $key = array_search($operation, $this->operations, true);

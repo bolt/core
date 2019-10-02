@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Directive;
 
-use Bolt\Storage\QueryInterface;
 use Bolt\Storage\SelectQuery;
 
 /**
@@ -12,11 +11,8 @@ use Bolt\Storage\SelectQuery;
  */
 class ReturnSingleDirective
 {
-    public function __invoke(QueryInterface $query): void
+    public function __invoke(SelectQuery $query): void
     {
-        $query->getQueryBuilder()->setMaxResults(1);
-        if ($query instanceof SelectQuery) {
-            $query->setSingleFetchMode(true);
-        }
+        $query->setSingleFetchMode(true);
     }
 }

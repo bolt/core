@@ -180,6 +180,7 @@ class ContentRepository extends ServiceEntityRepository
         }
 
         $qb->setMaxResults($amount);
+
         return $qb->getQuery()->getResult();
     }
 

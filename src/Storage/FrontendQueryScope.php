@@ -18,6 +18,7 @@ class FrontendQueryScope implements QueryScopeInterface
 {
     /** @var Config */
     protected $config;
+
     /** @var array */
     protected $orderBys = [];
 
@@ -33,13 +34,15 @@ class FrontendQueryScope implements QueryScopeInterface
     /**
      * Get the default order setting for a given content type.
      */
-    public function getOrder(string $contentType): array
+    public function getOrder(ContentQueryInterface $query): string
     {
+        $contentType = $query->getContentType();
+
         if (isset($this->orderBys[$contentType])) {
             return $this->orderBys[$contentType];
         }
 
-        return [];
+        return 'id';
     }
 
     /**
@@ -48,6 +51,7 @@ class FrontendQueryScope implements QueryScopeInterface
     protected function parseContentTypes(): void
     {
         $contentTypes = $this->config->get('contenttypes');
+
         foreach ($contentTypes as $type => $values) {
             $sort = $values['sort'] ?? '-publishedAt';
             $this->orderBys[$type] = $sort;
@@ -59,12 +63,9 @@ class FrontendQueryScope implements QueryScopeInterface
 
     public function onQueryExecute(ContentQueryInterface $query): void
     {
-        $ct = $query->getContentType();
-
-        // Setup default ordering of queries on a per-contenttype basis
-        if (empty($query->getQueryBuilder()->getParameter('orderBy')) && isset($this->orderBys[$ct])) {
+        if (empty($query->getQueryBuilder()->getParameter('orderBy'))) {
             $handler = new OrderDirective();
-            $handler($query, $this->orderBys[$ct]);
+            $handler($query, $this->getOrder($query));
         }
 
         // Setup status to only published unless otherwise specified
