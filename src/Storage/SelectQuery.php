@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Common\Json;
-use Bolt\Doctrine\UseJsonFunctions;
+use Bolt\Doctrine\Version;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
@@ -318,7 +318,7 @@ class SelectQuery implements ContentQueryInterface
 
             // Because Mysql 5.6 and Sqlite handle values in JSON differently,
             // we need to adapt the query.
-            if (UseJsonFunctions::check($this->qb)) {
+            if (Version::useJsonFunction($this->qb)) {
                 $newLeftExpression = sprintf("JSON_EXTRACT(%s.value, '$[0]')", $fieldsAlias);
             } else {
                 $newLeftExpression = sprintf('%s.value', $fieldsAlias);
@@ -345,7 +345,7 @@ class SelectQuery implements ContentQueryInterface
                 )
                 ->setParameter($keyParam, $key);
             foreach ($filter->getParameters() as $key => $value) {
-                if (UseJsonFunctions::check($this->qb)) {
+                if (Version::useJsonFunction($this->qb)) {
                     $this->qb->setParameter($key, $value);
                 } else {
                     $this->qb->setParameter($key, Json::json_encode([$value]));

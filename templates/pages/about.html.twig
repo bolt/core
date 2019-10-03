@@ -13,9 +13,12 @@
 
 {% block main %}
 
-    <h2>Bolt {{ constant('Bolt\\Version::VERSION') }}</h2>
+    <h2>Bolt {{ constant('Bolt\\Version::VERSION') }}<small> - {{ constant('Bolt\\Version::CODENAME') }}</small></h2>
 
-    <h3>{{ constant('Bolt\\Version::CODENAME') }} <small><em>({{ installType }})</em></small></h3>
+    <ul>
+        <li>Install type: <code>{{ installType }}</code></li>
+        <li>Database: <code>{{ platform.driver_name }} {{ platform.server_version }} <small> - {{ platform.connection_status }}</small> </code></li>
+    </ul>
 
     <p>
         Bolt is a CMS that strives to be simple, fast, straightforward and enjoyable to use. Both for

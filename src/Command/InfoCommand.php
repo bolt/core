@@ -16,6 +16,16 @@ class InfoCommand extends Command
 
     protected static $defaultName = 'bolt:info';
 
+    /** @var \Bolt\Doctrine\Version */
+    private $doctrineVersion;
+
+    public function __construct(\Bolt\Doctrine\Version $doctrineVersion)
+    {
+        $this->doctrineVersion = $doctrineVersion;
+
+        parent::__construct();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -41,16 +51,19 @@ HELP
         $this->outputImage($io);
 
         $message = sprintf(
-            'Bolt version: <info>%s</info>, <comment>%s (%s)</comment>.',
-            Version::fullName(),
-            Version::codeName(),
-            Version::installType()
+            'Bolt version: <comment>%s</comment>', Version::VERSION
         );
 
-        $io->text([
-            $message,
-            '',
+        $io->text([$message, '']);
+
+        $platform = $this->doctrineVersion->getPlatform();
+
+        $io->listing([
+            sprintf('Install type: <info>%s</info>', Version::installType()),
+            sprintf('Database: <info>%s %s</info> - <comment>%s</comment>', $platform['driver_name'], $platform['server_version'], $platform['connection_status']),
         ]);
+
+        $io->text('');
 
         return null;
     }
