@@ -30,11 +30,9 @@ class GeneralController extends TwigAwareController implements BackendZone
      */
     public function about(): Response
     {
-        $platform = $this->doctrineVersion->getPlatform();
-
         $twigVars = [
             'installType' => Version::installType(),
-            'platform' => $platform,
+            'platform' => $this->doctrineVersion->getPlatform(),
         ];
 
         return $this->renderTemplate('@bolt/pages/about.html.twig', $twigVars);
