@@ -96,14 +96,14 @@ body {
     }
 
     &--container {
-      padding: $spacer * 0.625;
+      padding: $spacer*0.625; //do not just change this as it's tied to the main grid and other paddings/gutters
 
       @include media-breakpoint-up(sm) {
-        padding: $spacer * 1;
+        padding: $spacer*1; //do not just change this as it's tied to the main grid and other paddings/gutters
       }
 
       @include media-breakpoint-up(md) {
-        padding: $spacer * 1.25;
+        padding: $spacer*1.25; //do not just change this as it's tied to the main grid and other paddings/gutters
       }
 
       @include media-breakpoint-up(xl) {
@@ -112,12 +112,12 @@ body {
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: auto;
         grid-column-gap: 2rem;
-        padding: $spacer $spacer*1.5 $spacer $spacer*2.5;
+        padding: $spacer $spacer*2 $spacer $spacer*2; //do not just change this as it's tied to the main grid and other paddings/gutters
       }
 
-      @include media-breakpoint-up(wd) {
-        grid-column-gap: 3.5rem;
-        padding: $spacer $spacer*2 $spacer $spacer*3.5;
+      @include media-breakpoint-up(xw) {
+        grid-column-gap: 3rem;
+        padding: $spacer $spacer*3 $spacer $spacer*3; //do not just change this as it's tied to the main grid and other paddings/gutters
       }
 
       &--has-sidebar {
