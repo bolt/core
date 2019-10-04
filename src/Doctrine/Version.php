@@ -49,10 +49,16 @@ class Version
 
         [$client_version] = explode(' - ', $wrapped->getAttribute(\PDO::ATTR_CLIENT_VERSION));
 
+        try {
+            $status = $wrapped->getAttribute(\PDO::ATTR_CONNECTION_STATUS);
+        } catch (\PDOException $e) {
+            $status = '';
+        }
+
         return [
             'client_version' => $client_version,
             'driver_name' => $wrapped->getAttribute(\PDO::ATTR_DRIVER_NAME),
-            'connection_status' => $wrapped->getAttribute(\PDO::ATTR_CONNECTION_STATUS),
+            'connection_status' => $status,
             'server_version' => $wrapped->getAttribute(\PDO::ATTR_SERVER_VERSION),
         ];
     }
