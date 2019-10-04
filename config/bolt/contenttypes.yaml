@@ -292,6 +292,7 @@ blocks:
     searchable: false
     icon_many: "fa:cubes"
     icon_one: "fa:cube"
+    sort: title
 
 # This contenttype is here to use for (automated) tests.
 tests:

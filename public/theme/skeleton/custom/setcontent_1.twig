@@ -99,4 +99,17 @@
         </ul>
     <section>
 
+    <section id="seven">
+        <h1>Seven</h1>
+        {% setcontent blocks = "blocks" order "title" printquery  %}
+        Results: <span id="results-six">{{ blocks|length > 0 ? 'yes' }}</span>
+        <ul>
+            {% for block in blocks %}
+                <li>
+                    {{ block.contenttype }} {{ block.id }} . {{ block|title }}
+                </li>
+            {% endfor %}
+        </ul>
+    <section>
+
 {% endblock main %}

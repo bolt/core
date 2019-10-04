@@ -33,24 +33,15 @@ class OrderDirective
         $query->getQueryBuilder()->resetDQLPart('orderBy');
 
         $separatedOrders = $this->getOrderBys($order);
-        $index = 1;
+
         foreach ($separatedOrders as $order) {
-            $order = trim($order);
-            if (mb_strpos($order, '-') === 0) {
-                $direction = 'DESC';
-                $order = mb_substr($order, 1);
-            } elseif (mb_strpos($order, ' DESC') !== false) {
-                $direction = 'DESC';
-                $order = str_replace(' DESC', '', $order);
-            } else {
-                $direction = null;
-            }
+            [ $order, $direction ] = $this->createSortBy($order);
 
             if (in_array($order, $this->coreFields, true)) {
                 $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
             } else {
-                $fieldsAlias = 'fields_order_' . $index;
-                $fieldAlias = 'order_' . $index;
+                $fieldsAlias = 'fields_order_' .  $query->getIndex();
+                $fieldAlias = 'order_' . $query->getIndex();
                 $query
                     ->getQueryBuilder()
                     ->leftJoin('content.fields', $fieldsAlias)
@@ -58,9 +49,28 @@ class OrderDirective
                     ->addOrderBy($fieldsAlias . '.value', $direction)
                     ->setParameter($fieldAlias, $order);
 
-                ++$index;
+                $query->incrementIndex();
             }
         }
+    }
+
+    /**
+     * Cobble together the sorting order, and whether or not it's a column in `content` or `fields`.
+     */
+    private function createSortBy(string $order): array
+    {
+        if (mb_strpos($order, '-') === 0) {
+            $direction = 'DESC';
+            $order = mb_substr($order, 1);
+        } elseif (mb_strpos($order, ' DESC') !== false) {
+            $direction = 'DESC';
+            $order = str_replace(' DESC', '', $order);
+        } else {
+            $order = str_replace(' ASC', '', $order);
+            $direction = 'ASC';
+        }
+
+        return [$order, $direction];
     }
 
     protected function getOrderBys(string $order): array

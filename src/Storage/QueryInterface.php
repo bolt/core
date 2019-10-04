@@ -25,4 +25,8 @@ interface QueryInterface
     public function getQueryBuilder(): QueryBuilder;
 
     public function __toString(): string;
+
+    public function getIndex(): int;
+
+    public function incrementIndex(): void;
 }

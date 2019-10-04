@@ -44,6 +44,9 @@ class SelectQuery implements ContentQueryInterface
     /** @var bool */
     protected $singleFetchMode = false;
 
+    /** @var int */
+    protected $index = 1;
+
     /** @var array */
     protected $coreFields = [
         'id',
@@ -365,5 +368,15 @@ class SelectQuery implements ContentQueryInterface
         }
 
         $this->qb->andWhere(implode(' OR ', $where));
+    }
+
+    public function getIndex(): int
+    {
+        return $this->index;
+    }
+
+    public function incrementIndex(): void
+    {
+        $this->index++;
     }
 }
