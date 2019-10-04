@@ -1221,7 +1221,7 @@
     <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
       <segment>
         <source>admin_sidebar_toggler.toggle</source>
-        <target>Klap zijbalk uit of in</target>
+        <target><![CDATA[<span class='sr-only'>Klap </span>menu<span class='sr-only'> in of uit</span>]]></target>
       </segment>
     </unit>
     <unit id="Gabafxx" name="admin_sidebar.toggler">
