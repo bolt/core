@@ -50,9 +50,7 @@ HELP
 
         $this->outputImage($io);
 
-        $message = sprintf(
-            'Bolt version: <comment>%s</comment>', Version::VERSION
-        );
+        $message = sprintf('Bolt version: <comment>%s</comment>', Version::VERSION);
 
         $io->text([$message, '']);
 
