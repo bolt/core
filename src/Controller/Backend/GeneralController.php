@@ -17,6 +17,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class GeneralController extends TwigAwareController implements BackendZone
 {
+    /** @var \Bolt\Doctrine\Version */
+    private $doctrineVersion;
+
+    public function __construct(\Bolt\Doctrine\Version $doctrineVersion)
+    {
+        $this->doctrineVersion = $doctrineVersion;
+    }
+
     /**
      * @Route("/about", name="bolt_about")
      */
@@ -24,6 +32,7 @@ class GeneralController extends TwigAwareController implements BackendZone
     {
         $twigVars = [
             'installType' => Version::installType(),
+            'platform' => $this->doctrineVersion->getPlatform(),
         ];
 
         return $this->renderTemplate('@bolt/pages/about.html.twig', $twigVars);
