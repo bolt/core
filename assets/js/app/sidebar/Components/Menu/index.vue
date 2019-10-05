@@ -40,7 +40,7 @@ export default {
   props: ['menu'],
   methods: {
     singleton(item) {
-      if (item.submenu !== null) {
+      if (item.submenu.lenght && item.submenu !== null) {
         return item.submenu[0].editLink;
       } else {
         return item.link_new;
