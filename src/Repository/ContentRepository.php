@@ -234,7 +234,7 @@ class ContentRepository extends ServiceEntityRepository
             $slug = Json::json_encode([$slug]);
         }
 
-        return $qb()
+        return $qb
             ->innerJoin('content.fields', 'field')
             ->innerJoin(
                 \Bolt\Entity\Field\SlugField::class,
