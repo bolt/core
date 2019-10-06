@@ -231,7 +231,7 @@ class ContentRepository extends ServiceEntityRepository
             $where = "JSON_EXTRACT(slug.value, '$[0]')";
         } else {
             $where = 'slug.value';
-            $value = Json::json_encode([$slug]);
+            $slug = Json::json_encode([$slug]);
         }
 
         return $qb()
@@ -243,7 +243,7 @@ class ContentRepository extends ServiceEntityRepository
                 'field.id = slug.id'
             )
             ->andWhere($where . ' = :slug')
-            ->setParameter('slug', $value)
+            ->setParameter('slug', $slug)
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
