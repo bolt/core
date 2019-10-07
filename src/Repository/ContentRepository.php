@@ -6,6 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Common\Json;
 use Bolt\Configuration\Content\ContentType;
+use Bolt\Doctrine\Version;
 use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -222,7 +223,18 @@ class ContentRepository extends ServiceEntityRepository
 
     public function findOneBySlug(string $slug): ?Content
     {
-        return $this->getQueryBuilder()
+        $qb = $this->getQueryBuilder();
+
+        // Because Mysql 5.6 and Sqlite handle values in JSON differently, we
+        // need to adapt the query.
+        if (Version::useJsonFunction($qb)) {
+            $where = "JSON_EXTRACT(slug.value, '$[0]')";
+        } else {
+            $where = 'slug.value';
+            $slug = Json::json_encode([$slug]);
+        }
+
+        return $qb
             ->innerJoin('content.fields', 'field')
             ->innerJoin(
                 \Bolt\Entity\Field\SlugField::class,
@@ -230,8 +242,8 @@ class ContentRepository extends ServiceEntityRepository
                 'WITH',
                 'field.id = slug.id'
             )
-            ->andWhere('slug.value = :slug')
-            ->setParameter('slug', Json::json_encode([$slug]))
+            ->andWhere($where . ' = :slug')
+            ->setParameter('slug', $slug)
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
@@ -239,10 +251,21 @@ class ContentRepository extends ServiceEntityRepository
 
     public function findOneByFieldValue(string $fieldName, $value): ?Content
     {
-        return $this->getQueryBuilder()
+        $qb = $this->getQueryBuilder();
+
+        // Because Mysql 5.6 and Sqlite handle values in JSON differently, we
+        // need to adapt the query.
+        if (Version::useJsonFunction($qb)) {
+            $where = "JSON_EXTRACT(field.value, '$[0]')";
+        } else {
+            $where = 'field.value';
+            $value = Json::json_encode([$value]);
+        }
+
+        return $qb
             ->innerJoin('content.fields', 'field')
-            ->andWhere('field.value = :value')
-            ->setParameter('value', Json::json_encode([$value]))
+            ->andWhere($where . ' = :value')
+            ->setParameter('value', $value)
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
