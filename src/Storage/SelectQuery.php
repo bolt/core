@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage;
 
-use Bolt\Common\Json;
-use Bolt\Doctrine\Version;
+use Bolt\Doctrine\JsonHelper;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
@@ -319,13 +318,7 @@ class SelectQuery implements ContentQueryInterface
 
             $originalLeftExpression = 'content.' . $key;
 
-            // Because Mysql 5.6 and Sqlite handle values in JSON differently,
-            // we need to adapt the query.
-            if (Version::useJsonFunction($this->qb)) {
-                $newLeftExpression = sprintf("JSON_EXTRACT(%s.value, '$[0]')", $fieldsAlias);
-            } else {
-                $newLeftExpression = sprintf('%s.value', $fieldsAlias);
-            }
+            [$newLeftExpression, $value] = JsonHelper::wrapJsonFunction($fieldsAlias . '.value', '', $this->qb);
 
             $where = $filter->getExpression();
             $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
@@ -347,12 +340,11 @@ class SelectQuery implements ContentQueryInterface
                     )
                 )
                 ->setParameter($keyParam, $key);
+
             foreach ($filter->getParameters() as $key => $value) {
-                if (Version::useJsonFunction($this->qb)) {
-                    $this->qb->setParameter($key, $value);
-                } else {
-                    $this->qb->setParameter($key, Json::json_encode([$value]));
-                }
+                [$newLeftExpression, $value] = JsonHelper::wrapJsonFunction('', $value, $this->qb);
+
+                $this->qb->setParameter($key, $value);
             }
         }
     }
