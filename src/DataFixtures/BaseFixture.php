@@ -90,4 +90,9 @@ abstract class BaseFixture extends Fixture
 
         return $finder;
     }
+
+    protected function getOption(string $name): bool
+    {
+        return in_array($name, $_SERVER['argv'], true);
+    }
 }

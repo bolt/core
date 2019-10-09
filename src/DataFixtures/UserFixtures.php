@@ -29,7 +29,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
         $this->passwordEncoder = $passwordEncoder;
 
         // If ran with `--append` we append users, and use random passwords for them
-        if (in_array('--append', $_SERVER['argv'], true)) {
+        if ($this->getOption('--append')) {
             $this->append = true;
         }
         $this->users = $users;
