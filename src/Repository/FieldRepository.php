@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
-use Bolt\Common\Json;
-use Bolt\Doctrine\Version;
+use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Field;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -33,14 +32,7 @@ class FieldRepository extends ServiceEntityRepository
     {
         $qb = $this->getQueryBuilder();
 
-        // Because Mysql 5.6 and Sqlite handle values in JSON differently, we
-        // need to adapt the query.
-        if (Version::useJsonFunction($qb)) {
-            $where = "JSON_EXTRACT(field.value, '$[0]')";
-        } else {
-            $where = 'field.value';
-            $slug = Json::json_encode([$slug]);
-        }
+        [$where, $slug] = JsonHelper::wrapJsonFunction('field.value', $slug, $qb);
 
         return $qb
             ->andWhere($where . ' = :slug')

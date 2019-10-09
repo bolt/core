@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
-use Bolt\Common\Json;
 use Bolt\Configuration\Content\ContentType;
-use Bolt\Doctrine\Version;
+use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -225,14 +224,7 @@ class ContentRepository extends ServiceEntityRepository
     {
         $qb = $this->getQueryBuilder();
 
-        // Because Mysql 5.6 and Sqlite handle values in JSON differently, we
-        // need to adapt the query.
-        if (Version::useJsonFunction($qb)) {
-            $where = "JSON_EXTRACT(slug.value, '$[0]')";
-        } else {
-            $where = 'slug.value';
-            $slug = Json::json_encode([$slug]);
-        }
+        [$where, $slug] = JsonHelper::wrapJsonFunction('slug.value', $slug, $qb);
 
         return $qb
             ->innerJoin('content.fields', 'field')
@@ -253,14 +245,7 @@ class ContentRepository extends ServiceEntityRepository
     {
         $qb = $this->getQueryBuilder();
 
-        // Because Mysql 5.6 and Sqlite handle values in JSON differently, we
-        // need to adapt the query.
-        if (Version::useJsonFunction($qb)) {
-            $where = "JSON_EXTRACT(field.value, '$[0]')";
-        } else {
-            $where = 'field.value';
-            $value = Json::json_encode([$value]);
-        }
+        [$where, $value] = JsonHelper::wrapJsonFunction('field.value', $value, $qb);
 
         return $qb
             ->innerJoin('content.fields', 'field')
