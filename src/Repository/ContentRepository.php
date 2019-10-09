@@ -167,7 +167,7 @@ class ContentRepository extends ServiceEntityRepository
     /**
      * @return Content[]
      */
-    public function findLatest(?ContentType $contentType = null, int $amount = 6): array
+    public function findLatest(?ContentType $contentType = null, int $page = 1, int $amount = 6): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -181,7 +181,7 @@ class ContentRepository extends ServiceEntityRepository
 
         $qb->setMaxResults($amount);
 
-        return $qb->getQuery()->getResult();
+        return $this->createPaginator($qb->getQuery(), $page, $amount);
     }
 
     public function searchNaive(string $searchTerm, int $page, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
