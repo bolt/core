@@ -1,6 +1,15 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
+
+{% set whereValues = {'status': '!unknown'} %}
+{% set sortBy = app.request.get('sortBy')|default() %}
+{% set taxonomy = app.request.get('taxonomy')|default() %}
+{% set filterValue = app.request.get('filter')|default() %}
+{% if filterValue %}
+    {% set whereValues = whereValues|merge({'anyField': '%' ~ filterValue ~ '%' }) %}
+{% endif %}
+
 {# The 'title' and 'shoulder' blocks are the main heading of the page. #}
 {% block shoulder %}
     {{ 'listing.title_overview'|trans }}
@@ -16,9 +25,15 @@
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
 
+    {{ dump(sortBy) }}
+    {{ dump(contentType) }}
+    {{ dump(whereValues) }}
 {% endblock %}
 
 {% block main %}
+
+    {% setcontent records = 'blocks' orderby sortBy printquery where whereValues limit contentType.records_per_page %}
+
     <div>
         {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': contentType.slug } %}
     </div>
@@ -44,9 +59,7 @@
         'id': "Id", 'title': 'Title', 'Author': 'Author', 'status': 'Status', 'createdAt': 'Created date',
         'modifiedAt': 'Modified date', 'publishedAt': 'Published date', 'depublishedAt': 'Depublished date'
     } %}
-    {% set sortBy = app.request.get('sort')|default() %}
-    {% set taxonomy = app.request.get('taxonomy')|default() %}
-    {% set filterValue = app.request.get('filter')|default() %}
+
     <div class="card">
         <div class="card-header">
             {{ 'title.contentlisting'|trans }}
