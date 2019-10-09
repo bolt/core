@@ -319,7 +319,7 @@ class SelectQuery implements ContentQueryInterface
 
             $originalLeftExpression = 'content.' . $key;
 
-            [$newLeftExpression, $dummyValue] = JsonHelper::wrapJsonFunction($fieldsAlias . '.value', '', $this->qb);
+            $newLeftExpression = JsonHelper::wrapJsonFunction($fieldsAlias . '.value', null, $this->qb);
 
             $where = $filter->getExpression();
             $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
@@ -334,7 +334,7 @@ class SelectQuery implements ContentQueryInterface
 
             // Unless the field to which the 'where' applies is `anyColumn`, we
             // Make certain it's narrowed down to that fieldname
-            if ($key != 'anyField') {
+            if ($key !== 'anyField') {
                 $innerQuery->andWhere($fieldsAlias . '.name = :' . $keyParam);
                 $this->qb->setParameter($keyParam, $key);
             }
@@ -343,7 +343,7 @@ class SelectQuery implements ContentQueryInterface
                 ->andWhere($this->qb->expr()->in('content.id', $innerQuery->getDQL()));
 
             foreach ($filter->getParameters() as $key => $value) {
-                [$dummyKey, $value] = JsonHelper::wrapJsonFunction('', $value, $this->qb);
+                $value = JsonHelper::wrapJsonFunction(null, $value, $this->qb);
                 $this->qb->setParameter($key, $value);
             }
         }

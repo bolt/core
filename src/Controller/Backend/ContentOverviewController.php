@@ -6,9 +6,7 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
-use Bolt\Repository\ContentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

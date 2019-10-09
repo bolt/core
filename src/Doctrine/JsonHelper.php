@@ -41,15 +41,27 @@ class JsonHelper
      *
      * Sqlite, Mysql 5.6 -> [ 'foo', '["bar"]' ]
      * Mysql 5.7 -> [ "JSON_EXTRACT(foo, '$[0]')", 'bar' ]
+     *
+     * @return string|array
      */
-    public static function wrapJsonFunction(string $where, string $slug, QueryBuilder $qb): array
+    public static function wrapJsonFunction(?string $where = null, ?string $slug = null, QueryBuilder $qb)
     {
         if (self::useJsonFunction($qb)) {
-            $where = 'JSON_EXTRACT(' . $where . ", '$[0]')";
+            $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";
+            $resultSlug = $slug;
         } else {
-            $slug = Json::json_encode([$slug]);
+            $resultWhere = $where;
+            $resultSlug = Json::json_encode([$slug]);
         }
 
-        return [$where, $slug];
+        if ($where === null) {
+            return $resultSlug;
+        }
+
+        if ($slug === null) {
+            return $resultWhere;
+        }
+
+        return [$resultWhere, $resultSlug];
     }
 }
