@@ -24,6 +24,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var Generator */
     private $faker;
 
+    /** @var string */
     private $lastTitle = null;
 
     /** @var array */
@@ -75,6 +76,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $translationRepository = $manager->getRepository(Translation::class);
 
         foreach ($this->config->get('contenttypes') as $contentType) {
+            // Only add Singletons on first run, not when appending
+            if ($this->getOption('--append') && $contentType['singleton']) {
+                continue;
+            }
+
             $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
             for ($i = 1; $i <= $amount; $i++) {
@@ -238,7 +244,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function getPreset(string $slug): array
     {
-        if (isset($this->presetRecords[$slug]) && ! empty($this->presetRecords[$slug])) {
+        if (isset($this->presetRecords[$slug]) && ! empty($this->presetRecords[$slug]) && ! $this->getOption('--append')) {
             $preset = array_shift($this->presetRecords[$slug]);
         } else {
             $preset = [];

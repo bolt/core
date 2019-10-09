@@ -23,6 +23,10 @@ class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
+        if ($this->getOption('--append')) {
+            return;
+        }
+
         $this->loadTaxonomies($manager);
 
         $manager->flush();
