@@ -1,5 +1,4 @@
 Feature: Setcontent
-@wip
     Scenario: As a user I want to see the results of Setcontent
         When I visit the "setcontent" page
 

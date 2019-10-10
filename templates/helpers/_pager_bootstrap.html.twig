@@ -15,7 +15,7 @@ Predefined variables:
 {% block item %}
     {% if path is defined %}
         <a href="{{ path(route, p) }}" class="{{ class }}"
-        {%- if rel|default() %}rel="{{ rel }}"{% endif -%}
+        {%- if rel|default() %} rel="{{ rel }}"{% endif -%}
         >{{ label|default('…') }}</a>
     {% elseif enabled is defined and enabled == false %}
         <a class="{{ class }}" disabled>{{ label|default('…') }}</a>
