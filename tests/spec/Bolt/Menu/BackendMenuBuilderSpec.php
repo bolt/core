@@ -10,6 +10,8 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -61,9 +63,9 @@ class BackendMenuBuilderSpec extends ObjectBehavior
         $contentExtension->getEditLink($content)
             ->shouldBeCalled()
             ->willReturn('/bolt/edit-by-slug/'.self::TEST_SLUG);
-        $contentRepository->findLatest($contentType, BackendMenuBuilder::MAX_LATEST_RECORDS)
-            ->shouldBeCalled()
-            ->willReturn([$content]);
+        $contentRepository->findLatest($contentType, 1, BackendMenuBuilder::MAX_LATEST_RECORDS)
+            ->shouldBeCalled();
+//            ->willReturn(new Pagerfanta(new ArrayAdapter([])));
 
         $contentType->getSlug()->willReturn(self::TEST_SLUG);
         $contentType->offsetGet(Argument::type('string'))->shouldBeCalled();

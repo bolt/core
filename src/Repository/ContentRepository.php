@@ -164,9 +164,6 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
-    /**
-     * @return Content[]
-     */
     public function findLatest(?ContentType $contentType = null, int $page = 1, int $amount = 6): Pagerfanta
     {
         $qb = $this->getQueryBuilder()

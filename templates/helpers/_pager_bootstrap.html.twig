@@ -14,7 +14,9 @@ Predefined variables:
 
 {% block item %}
     {% if path is defined %}
-        <a href="{{ path(route, p) }}" class="{{ class }}">{{ label|default('…') }}</a>
+        <a href="{{ path(route, p) }}" class="{{ class }}"
+        {%- if rel|default() %}rel="{{ rel }}"{% endif -%}
+        >{{ label|default('…') }}</a>
     {% elseif enabled is defined and enabled == false %}
         <a class="{{ class }}" disabled>{{ label|default('…') }}</a>
     {% endif %}
@@ -26,7 +28,7 @@ Predefined variables:
 
         {# Previous Button #}
         {% set p = routeParams|merge({page: records.hasPreviousPage ? records.previousPage : 1 }) %}
-        {% with {'path': path(route, p), 'label': 'Previous', 'enabled': records.hasPreviousPage, 'class': 'pagination-previous' } %}
+        {% with {'path': path(route, p), 'label': 'Previous', 'enabled': records.hasPreviousPage, 'class': 'pagination-previous', 'rel': 'previous' } %}
             {{ block('item') }}
         {% endwith %}
 
@@ -63,7 +65,7 @@ Predefined variables:
 
         {# Next Button #}
         {% set p = routeParams|merge({page: records.hasNextPage ? records.nextPage : records.nbPages }) %}
-        {% with {'path': path(route, p), 'label': 'Next', 'enabled': records.hasNextPage, 'class': 'pagination-next' } %}
+        {% with {'path': path(route, p), 'label': 'Next', 'enabled': records.hasNextPage, 'class': 'pagination-next', 'rel': 'next' } %}
             {{ block('item') }}
         {% endwith %}
 
