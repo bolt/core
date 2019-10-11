@@ -5,6 +5,10 @@
 {% set whereValues = {'status': '!unknown'} %}
 {% set sortBy = app.request.get('sortBy')|default() %}
 {% set taxonomy = app.request.get('taxonomy')|default() %}
+{% if taxonomy %}
+    {% set taxonomy = taxonomy|split('=') %}
+    {% set whereValues = whereValues|merge({ (taxonomy[0]): (taxonomy[1]) }) %}
+{% endif %}
 {% set filterValue = app.request.get('filter')|default() %}
 {% if filterValue %}
     {% set whereValues = whereValues|merge({'anyField': '%' ~ filterValue ~ '%' }) %}
@@ -24,12 +28,12 @@
 
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
-
+    {{ dump(whereValues) }}
 {% endblock %}
 
 {% block main %}
 
-    {% setcontent records = (contentType.slug) orderby (sortBy) where (whereValues) limit (contentType.records_per_page) %}
+    {% setcontent records = (contentType.slug) orderby (sortBy) where (whereValues) limit (contentType.records_per_page) printquery %}
 
     <div>
         {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': contentType.slug } %}
@@ -87,11 +91,15 @@
                                 </option>
                                 {% for taxonomy in contentType.get('taxonomy') %}
                                     {% set taxonomyDefinition = config.get('taxonomies/' ~ taxonomy) %}
-                                    {% for key, taxonomyValue in taxonomyDefinition.options %}
-                                        <option value="{{ key }}" {% if taxonomy == key %}selected{% endif %}>
-                                            {{ taxonomyValue }}
-                                        </option>
-                                    {% endfor %}
+                                    {% if taxonomyDefinition.behaves_like != 'tags' %}
+                                        <optgroup label="{{ taxonomyDefinition.singular_name }}">
+                                        {% for key, taxonomyValue in taxonomyDefinition.options %}
+                                            <option value="{{ taxonomyDefinition.slug }}={{ key }}" {% if taxonomy == key %}selected{% endif %}>
+                                                {{ taxonomyValue }}
+                                            </option>
+                                        {% endfor %}
+                                        </optgroup>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </p>
