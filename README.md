@@ -175,7 +175,22 @@ Several translation-related Console commands are available:
  - `bin/console translation:sync bolt down` - Download translations from Loco (replaces local changes if there is a conflict)
  - `bin/console translation:sync bolt up` - Send updated translations to Loco
 
+Development
+--------
 
+The ongoing Bolt development takes place under the care of:
+
+ - [Two Kings &ndash; Artisinal Web Development](https://twokings.nl)
+ - [The Software House &ndash; Web and Mobile Development](https://tsh.io/)
+
+Sponsors: 
+
+ - [Webforward, Richard Leishman](https://www.webfwd.co.uk/)
+ - → You and/or your company's name on this list? 
+ [Become a sponsor](https://github.com/users/bobdenotter/sponsorship).
+ 
+---
+ 
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
 [translations]: https://github.com/bolt/four/wiki/Contribute-on-translations
 [hatebreed]: https://www.youtube.com/watch?v=DBwgX8yBqsw
