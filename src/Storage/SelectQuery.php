@@ -312,9 +312,7 @@ class SelectQuery implements ContentQueryInterface
     {
         $em = $this->qb->getEntityManager();
 
-
         foreach ($this->fieldJoins as $key => $filter) {
-
             $index = $this->getAndIncrementIndex();
             $contentAlias = 'content_' . $index;
             $fieldsAlias = 'fields_' . $index;
@@ -350,9 +348,6 @@ class SelectQuery implements ContentQueryInterface
                 $this->qb->setParameter($key, $value);
             }
         }
-
-        dump($this->qb->getParameters());
-
     }
 
     public function setContentTypeFilter(array $contentTypes): void
@@ -380,8 +375,6 @@ class SelectQuery implements ContentQueryInterface
 
     public function getAndIncrementIndex()
     {
-        return rand(1000, 9999);
-
         $this->incrementIndex();
 
         return $this->getIndex();

@@ -13,32 +13,36 @@ Predefined variables:
 {% set end = min(records.currentPage + surround, records.nbPages) %}
 
 {% block item %}
-    {% if path is defined %}
-        <a href="{{ path(route, p) }}" class="{{ class }}"
-        {%- if rel|default() %} rel="{{ rel }}"{% endif -%}
-        >{{ label|default('…') }}</a>
-    {% elseif enabled is defined and enabled == false %}
-        <a class="{{ class }}" disabled>{{ label|default('…') }}</a>
+    {% if path is defined and (enabled is not defined or enabled != false) %}
+        <li class="page-item {{ class }}">
+            <a href="{{ path(route, p) }}" class="page-link" {%- if rel|default() %} rel="{{ rel }}"{% endif -%}>
+                {{ label|default('…') }}
+            </a>
+        </li>
+    {% elseif label is defined %}
+        <li class="page-item disabled">
+            <a class="page-link {{ class }}" disabled>{{ label|default('…') }}</a>
+        </li>
     {% endif %}
 {% endblock item %}
 
 {% if records.haveToPaginate|default() %}
-<div class="pagination {{ class != 'pagination' ? class }}">
-    <nav role="navigation" aria-label="pagination">
-
+    <ul class="pagination {{ class != 'pagination' ? class }}" >
         {# Previous Button #}
         {% set p = routeParams|merge({page: records.hasPreviousPage ? records.previousPage : 1 }) %}
-        {% with {'path': path(route, p), 'label': 'Previous', 'enabled': records.hasPreviousPage, 'class': 'pagination-previous', 'rel': 'previous' } %}
+        {% with {'path': path(route, p), 'label': 'Previous', 'enabled': records.hasPreviousPage, 'rel': 'previous' } %}
             {{ block('item') }}
         {% endwith %}
 
         {# If we didn't start at the beginning, add a link to the first. #}
         {% if start > 1 %}
             {% set p = routeParams|merge({page: 1}) %}
-            {% with {'path': path(route, p), 'label': 1, class: 'pagination-link' } %}
+            {% with {'path': path(route, p), 'label': 1 } %}
                 {{ block('item') }}
             {% endwith %}
-            {% with { 'label': '…', 'enabled': false, class: 'pagination-link' } %}
+        {% endif %}
+        {% if start > 2 %}
+            {% with { 'label': '…', 'enabled': false } %}
                 {{ block('item') }}
             {% endwith %}
         {% endif %}
@@ -46,17 +50,19 @@ Predefined variables:
         {# Iterate over the items. #}
         {% for i in start .. end %}
             {% set p = routeParams|merge({page: i}) %}
-            {% set class = 'pagination-link' ~ (i == records.currentPage ? ' is-current') %}
+            {% set class = (i == records.currentPage ? ' active') %}
             {% with {'path': path(route, p), 'label': i, 'class': class } %}
                 {{ block('item') }}
             {% endwith %}
         {% endfor %}
 
         {# If we didn't finish with the last, add a link to the end #}
-        {% if end < records.nbPages %}
+        {% if (end + 1) < records.nbPages %}
             {% with { 'label': '…', 'enabled': false  } %}
                 {{ block('item') }}
             {% endwith %}
+        {% endif %}
+        {% if end < records.nbPages %}
             {% set p = routeParams|merge({page: records.nbPages}) %}
             {% with {'path': path(route, p), 'label': records.nbPages } %}
                 {{ block('item') }}
@@ -65,10 +71,9 @@ Predefined variables:
 
         {# Next Button #}
         {% set p = routeParams|merge({page: records.hasNextPage ? records.nextPage : records.nbPages }) %}
-        {% with {'path': path(route, p), 'label': 'Next', 'enabled': records.hasNextPage, 'class': 'pagination-next', 'rel': 'next' } %}
+        {% with {'path': path(route, p), 'label': 'Next', 'enabled': records.hasNextPage, 'rel': 'next' } %}
             {{ block('item') }}
         {% endwith %}
-
-    </nav>
-</div>
+    </ul>
+{#</div>#}
 {% endif %}
