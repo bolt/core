@@ -189,7 +189,6 @@ Sponsors:
  - → You and/or your company's name on this list? 
  [Become a sponsor](https://github.com/users/bobdenotter/sponsorship).
  
----
  
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
 [translations]: https://github.com/bolt/four/wiki/Contribute-on-translations
