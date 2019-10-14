@@ -67,14 +67,19 @@ class RecordExtension extends AbstractExtension
         ];
     }
 
-    public function pager(Environment $twig, Pagerfanta $records, string $template = 'helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
+    public function pager(Environment $twig, Pagerfanta $records, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
     {
+        $params = array_merge(
+            $this->request->get('_route_params'),
+            $this->request->query->all()
+        );
+
         $context = [
             'records' => $records,
             'surround' => $surround,
             'class' => $class,
             'route' => $this->request->get('_route'),
-            'routeParams' => $this->request->get('_route_params'),
+            'routeParams' => $params,
         ];
 
         return $twig->render($template, $context);

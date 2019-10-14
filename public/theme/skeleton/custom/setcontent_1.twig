@@ -112,4 +112,20 @@
         </ul>
     <section>
 
+    {# @todo: This doesn't work yet
+    <section id="eight">
+        <h1>Eight</h1>
+        {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat% || %porro%' } printquery  %}
+        Results: <span id="results-six">{{ entries|length > 0 ? 'yes' }}</span>
+        <ul>
+            {% for entry in entries %}
+                <li>
+                    {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
+                </li>
+                {% set last = entry.id %}
+            {% endfor %}
+        </ul>
+        <section>
+    #}
+
 {% endblock main %}

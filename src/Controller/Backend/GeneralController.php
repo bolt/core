@@ -44,7 +44,7 @@ class GeneralController extends TwigAwareController implements BackendZone
     public function kitchensink(ContentRepository $content): Response
     {
         /** @var Content $records */
-        $records = $content->findLatest(null, 4);
+        $records = $content->findLatest(null, 1, 4);
 
         $this->addFlash('success', '<strong>Well done!</strong> You successfully read this important alert message.');
         $this->addFlash('info', '<strong>Heads up!</strong> This alert needs your attention, but it\'s not super important.');

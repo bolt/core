@@ -310,40 +310,41 @@ class SelectQuery implements ContentQueryInterface
      */
     public function doFieldJoins(): void
     {
-        $index = 1;
+        $em = $this->qb->getEntityManager();
+
         foreach ($this->fieldJoins as $key => $filter) {
+            $index = $this->getAndIncrementIndex();
             $contentAlias = 'content_' . $index;
             $fieldsAlias = 'fields_' . $index;
             $keyParam = 'field_' . $index;
 
             $originalLeftExpression = 'content.' . $key;
 
-            [$newLeftExpression, $value] = JsonHelper::wrapJsonFunction($fieldsAlias . '.value', '', $this->qb);
+            $newLeftExpression = JsonHelper::wrapJsonFunction($fieldsAlias . '.value', null, $this->qb);
 
             $where = $filter->getExpression();
             $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
 
-            $em = $this->qb->getEntityManager();
+            // Create the subselect to filter on the value of fields
+            $innerQuery = $em
+                ->createQueryBuilder()
+                ->select($contentAlias . '.id')
+                ->from(\Bolt\Entity\Content::class, $contentAlias)
+                ->innerJoin($contentAlias . '.fields', $fieldsAlias)
+                ->andWhere($where);
+
+            // Unless the field to which the 'where' applies is `anyColumn`, we
+            // Make certain it's narrowed down to that fieldname
+            if ($key !== 'anyField') {
+                $innerQuery->andWhere($fieldsAlias . '.name = :' . $keyParam);
+                $this->qb->setParameter($keyParam, $key);
+            }
 
             $this->qb
-                ->andWhere(
-                    $this->qb->expr()->in(
-                        'content.id',
-                        $em
-                            ->createQueryBuilder()
-                            ->select($contentAlias . '.id')
-                            ->from(\Bolt\Entity\Content::class, $contentAlias)
-                            ->innerJoin($contentAlias . '.fields', $fieldsAlias)
-                            ->andWhere($fieldsAlias . '.name = :' . $keyParam)
-                            ->andWhere($where)
-                            ->getDQL()
-                    )
-                )
-                ->setParameter($keyParam, $key);
+                ->andWhere($this->qb->expr()->in('content.id', $innerQuery->getDQL()));
 
             foreach ($filter->getParameters() as $key => $value) {
-                [$newLeftExpression, $value] = JsonHelper::wrapJsonFunction('', $value, $this->qb);
-
+                $value = JsonHelper::wrapJsonFunction(null, $value, $this->qb);
                 $this->qb->setParameter($key, $value);
             }
         }
@@ -370,5 +371,12 @@ class SelectQuery implements ContentQueryInterface
     public function incrementIndex(): void
     {
         $this->index++;
+    }
+
+    public function getAndIncrementIndex()
+    {
+        $this->incrementIndex();
+
+        return $this->getIndex();
     }
 }

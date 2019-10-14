@@ -1917,5 +1917,17 @@
         <target>Content Type</target>
       </segment>
     </unit>
+    <unit id="TSkqRw3" name="listing.title_taxonomy">
+      <segment>
+        <source>listing.title_taxonomy</source>
+        <target>Taxonomy</target>
+      </segment>
+    </unit>
+    <unit id="Hr2E9Oa" name="listing_table.no_results">
+      <segment>
+        <source>listing_table.no_results</source>
+        <target>No results found. Broaden the filtering criteria, or add some more content.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

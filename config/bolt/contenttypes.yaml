@@ -293,6 +293,8 @@ blocks:
     icon_many: "fa:cubes"
     icon_one: "fa:cube"
     sort: title
+    records_per_page: 12
+
 
 # This contenttype is here to use for (automated) tests.
 tests:

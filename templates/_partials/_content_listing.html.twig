@@ -1,4 +1,5 @@
-{% if records %}
+{% if records|length %}
+
     <!-- listing records -->
     <listing-records
       type="{{ type }}"
@@ -34,11 +35,13 @@
     }|json_encode }}"
     ></listing-table>
 
-    <nav class="listing__filter">
-      {% include '@bolt/_partials/_pager.html.twig' with { 'records': records } %}
-    </nav>
+    {{ pager(records, template = '@bolt/helpers/_pager_bootstrap.html.twig', class="justify-content-center") }}
+
 {% else %}
 
-    (no content)
+    <div class="alert alert-warning" role="alert">
+        {{ __('listing_table.no_results') }}
+    </div>
+
 
 {% endif %}

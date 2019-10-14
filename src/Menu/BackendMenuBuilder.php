@@ -294,7 +294,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
     private function getLatestRecords(ContentType $contentType): array
     {
-        $records = $this->contentRepository->findLatest($contentType, self::MAX_LATEST_RECORDS);
+        $records = $this->contentRepository->findLatest($contentType, 1, self::MAX_LATEST_RECORDS);
 
         $result = [];
 

@@ -1,6 +1,19 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
+
+{% set whereValues = {'status': '!unknown'} %}
+{% set sortBy = app.request.get('sortBy')|default() %}
+{% set taxonomy = app.request.get('taxonomy')|default() %}
+{% if taxonomy %}
+    {% set taxonomy = taxonomy|split('=') %}
+    {% set whereValues = whereValues|merge({ (taxonomy[0]): (taxonomy[1]) }) %}
+{% endif %}
+{% set filterValue = app.request.get('filter')|default() %}
+{% if filterValue %}
+    {% set whereValues = whereValues|merge({'anyField': '%' ~ filterValue ~ '%' }) %}
+{% endif %}
+
 {# The 'title' and 'shoulder' blocks are the main heading of the page. #}
 {% block shoulder %}
     {{ 'listing.title_overview'|trans }}
@@ -15,10 +28,13 @@
 
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
-
+    {{ dump(whereValues) }}
 {% endblock %}
 
 {% block main %}
+
+    {% setcontent records = (contentType.slug) orderby (sortBy) where (whereValues) limit (contentType.records_per_page) printquery %}
+
     <div>
         {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': contentType.slug } %}
     </div>
@@ -44,9 +60,7 @@
         'id': "Id", 'title': 'Title', 'Author': 'Author', 'status': 'Status', 'createdAt': 'Created date',
         'modifiedAt': 'Modified date', 'publishedAt': 'Published date', 'depublishedAt': 'Depublished date'
     } %}
-    {% set sortBy = app.request.get('sort')|default() %}
-    {% set taxonomy = app.request.get('taxonomy')|default() %}
-    {% set filterValue = app.request.get('filter')|default() %}
+
     <div class="card">
         <div class="card-header">
             {{ 'title.contentlisting'|trans }}
@@ -54,38 +68,42 @@
         <div class="card-body">
             <form>
                 <div class="form-group">
-{# Needs more work #}
-{#                    <p>#}
-{#                        <strong>{{ 'listing.title_sortby'|trans }}</strong>:#}
-{#                        <select class="form-control" name="sort">#}
-{#                                <option value="" disabled {% if sortBy is empty %}selected{% endif %}>#}
-{#                                    {{ 'listing.option_select_item'|trans }}#}
-{#                                </option>#}
-{#                            {% for key, filterOption in filterOptions %}#}
-{#                                <option value="{{ key }}" {% if sortBy == key %}selected{% endif %}>#}
-{#                                    {{ filterOption }}#}
-{#                                </option>#}
-{#                            {% endfor %}#}
-{#                        </select>#}
-{#                    </p>#}
-{#                    {% if contentType.get('taxonomy') %}#}
-{#                        <p>#}
-{#                            <strong>{{ 'listing.title_taxonomy'|trans }}</strong>:#}
-{#                            <select class="form-control" name="taxonomy">#}
-{#                                <option value="" disabled {% if sortBy is empty %}selected{% endif %}>#}
-{#                                    {{ 'listing.option_select_item'|trans }}#}
-{#                                </option>#}
-{#                                {% for taxonomy in contentType.get('taxonomy') %}#}
-{#                                    {% set taxonomyDefinition = config.get('taxonomies/' ~ taxonomy) %}#}
-{#                                    {% for key, taxonomyValue in taxonomyDefinition.options %}#}
-{#                                        <option value="{{ key }}" {% if taxonomy == key %}selected{% endif %}>#}
-{#                                            {{ taxonomyValue }}#}
-{#                                        </option>#}
-{#                                    {% endfor %}#}
-{#                                {% endfor %}#}
-{#                            </select>#}
-{#                        </p>#}
-{#                    {% endif %}#}
+
+                    <p>
+                        <strong>{{ 'listing.title_sortby'|trans }}</strong>:
+                        <select class="form-control" name="sortBy">
+                                <option value="" disabled {% if sortBy is empty %}selected{% endif %}>
+                                    {{ 'listing.option_select_item'|trans }}
+                                </option>
+                            {% for key, filterOption in filterOptions %}
+                                <option value="{{ key }}" {% if sortBy == key %}selected{% endif %}>
+                                    {{ filterOption }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    {% if contentType.get('taxonomy') %}
+                        <p>
+                            <strong>{{ 'listing.title_taxonomy'|trans }}</strong>:
+                            <select class="form-control" name="taxonomy">
+                                <option value="" disabled {% if sortBy is empty %}selected{% endif %}>
+                                    {{ 'listing.option_select_item'|trans }}
+                                </option>
+                                {% for taxonomy in contentType.get('taxonomy') %}
+                                    {% set taxonomyDefinition = config.get('taxonomies/' ~ taxonomy) %}
+                                    {% if taxonomyDefinition.behaves_like != 'tags' %}
+                                        <optgroup label="{{ taxonomyDefinition.singular_name }}">
+                                        {% for key, taxonomyValue in taxonomyDefinition.options %}
+                                            <option value="{{ taxonomyDefinition.slug }}={{ key }}" {% if taxonomy == key %}selected{% endif %}>
+                                                {{ taxonomyValue }}
+                                            </option>
+                                        {% endfor %}
+                                        </optgroup>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </p>
+                    {% endif %}
                     <p>
                         <strong>{{ 'listing.title_title'|trans }}</strong>:
                         <input class="form-control" type="text" name="filter" value="{{ filterValue }}"
