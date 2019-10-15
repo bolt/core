@@ -12,5 +12,5 @@ namespace Bolt\Storage;
  */
 interface QueryScopeInterface
 {
-    public function onQueryExecute(ContentQueryInterface $query);
+    public function onQueryExecute(QueryInterface $query);
 }

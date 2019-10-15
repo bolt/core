@@ -29,4 +29,19 @@ interface QueryInterface
     public function getIndex(): int;
 
     public function incrementIndex(): void;
+
+    /**
+     * Returns the content type this query is executing on.
+     */
+    public function getContentType(): string;
+
+    /**
+     * Returns the value of a parameter by key name.
+     */
+    public function getParameter(string $key);
+
+    /**
+     * Sets the value of a parameter by key name.
+     */
+    public function setParameter(string $key, $value): void;
 }

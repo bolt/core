@@ -237,7 +237,7 @@ class ContentQueryParser
         $this->scope = $scope;
     }
 
-    public function runScopes(ContentQueryInterface $query): void
+    public function runScopes(QueryInterface $query): void
     {
         if ($this->scope !== null) {
             $this->scope->onQueryExecute($query);
