@@ -34,7 +34,7 @@ class FrontendQueryScope implements QueryScopeInterface
     /**
      * Get the default order setting for a given content type.
      */
-    public function getOrder(ContentQueryInterface $query): string
+    public function getOrder(QueryInterface $query): string
     {
         $contentType = $query->getContentType();
 
@@ -61,7 +61,7 @@ class FrontendQueryScope implements QueryScopeInterface
         }
     }
 
-    public function onQueryExecute(ContentQueryInterface $query): void
+    public function onQueryExecute(QueryInterface $query): void
     {
         if (empty($query->getQueryBuilder()->getParameter('orderBy'))) {
             $handler = new OrderDirective();

@@ -20,7 +20,7 @@ use Doctrine\ORM\QueryBuilder;
  *
  *  @author Ross Riley <riley.ross@gmail.com>
  */
-class SelectQuery implements ContentQueryInterface
+class SelectQuery implements QueryInterface
 {
     /** @var QueryBuilder */
     protected $qb;
