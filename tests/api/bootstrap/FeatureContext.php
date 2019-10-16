@@ -228,10 +228,12 @@ class FeatureContext extends MinkContext implements Context
     }
 
     /**
-     * @When /^wait (\d+) seconds?$/
+     * @Given /^I am logged in as "([^"]*)"$/
      */
-    public function waitSeconds($seconds)
-    {
-        $this->getSession()->wait(1000*$seconds);
+    public function iAmAuthenticatedAs($username) {
+        $this->visit('/bolt/login');
+        $this->fillField('username', $username);
+        $this->fillField('password', "admin%1");
+        $this->pressButton('Log in');
     }
 }
