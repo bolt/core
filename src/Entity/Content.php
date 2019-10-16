@@ -289,7 +289,7 @@ class Content
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function updateModifiedAt()
+    public function updateModifiedAt(): void
     {
         $this->setModifiedAt(new \DateTime());
     }
