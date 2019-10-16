@@ -68,11 +68,10 @@ behat: ## to run behat tests
 
 behat-js: ## to run behat tests
 	make server
-	PATH=$PATH:$(pwd)/vendor/bin
-	vendor/bin/selenium-server-standalone > /dev/null &
+	java -jar selenium-server-standalone-3.141.59.jar > /dev/null &
 	sleep 2s
 	vendor/bin/behat --tags=javascript
-	kill -9 $(lsof -ti tcp:4444)
+	kill -9 $(lsof -t -i:4444)
 
 behat-rerun: ## to rerun behat tests
 	make server
