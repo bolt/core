@@ -8,7 +8,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         wget https://chromedriver.storage.googleapis.com/77.0.3865.40/chromedriver_mac64.zip -P ./bin
         unzip ./bin/chromedriver_mac64.zip -d ./bin
         rm ./bin/chromedriver_mac64.zip
-        java -jar -Dwebdriver.chrome.driver="/bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar
+        java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar
+
 elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
         echo "windows";
 else
