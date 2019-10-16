@@ -126,7 +126,9 @@ class RelatedExtension extends AbstractExtension
     public function getRelatedOptions(string $contentType): Collection
     {
         $contentType = ContentType::factory($contentType, $this->config->get('contenttypes'));
-        $content = $this->contentRepository->findForListing(1, 1000, $contentType, false);
+        $maxAmount = $this->config->get('maximum_listing_select', 1000);
+
+        $content = $this->contentRepository->findForListing(1, $maxAmount, $contentType, false);
 
         $options = [];
 
