@@ -45,4 +45,4 @@ default:
       contexts:
         - Behatch\Context\JsonContext
         - Context\FeatureContext
-      paths: [ "%paths.base%/tests/api"]
+      paths: [ "%paths.base%/tests/api", "%paths.base%/tests/behat"]
