@@ -15,5 +15,12 @@ Feature: Filemanager
         Then there is element "header" with text "Content files"
         And there is element "path" with text "Path: files/"
 
+    Scenario: As an Admin I want to upload files in the "Files" section
+        Given I am logged in as "admin"
+
+        When I visit the "filemanager" page with parameters:
+            | area | files |
+        And I fill the form
+        Then there is element "svg" with height "55px"
         # @todo Add tests for uploading files, and verifying that they're there
         

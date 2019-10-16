@@ -226,4 +226,12 @@ class FeatureContext extends MinkContext implements Context
 
         return $client;
     }
+
+    /**
+     * @When /^wait (\d+) seconds?$/
+     */
+    public function waitSeconds($seconds)
+    {
+        $this->getSession()->wait(1000*$seconds);
+    }
 }
