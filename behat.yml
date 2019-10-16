@@ -30,7 +30,11 @@ default:
       selenium2: ~
       sessions:
         default:
-          selenium2: ~
+          selenium2:
+            capabilities:
+              extra_capabilities:
+                chromeOptions:
+                  w3c: false
 
     Behatch\Extension: ~
 
