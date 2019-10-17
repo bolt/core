@@ -13,7 +13,7 @@
     {{ include('_partials/favicon.html.twig') }}
 </head>
 
-<body>
+<body{% if block('body_class') %} class="{% block body_class %}{% endblock %}"{% endif %}>
 
         {% block main %}
         {% endblock %}
