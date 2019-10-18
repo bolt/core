@@ -236,4 +236,12 @@ class FeatureContext extends MinkContext implements Context
         $this->fillField('password', "admin%1");
         $this->pressButton('Log in');
     }
+
+    /**
+     * @Given /^I wait (\d+) seconds?$/
+     */
+    public function iWaitSeconds($seconds)
+    {
+        $this->getSession()->wait(1000*$seconds);
+    }
 }
