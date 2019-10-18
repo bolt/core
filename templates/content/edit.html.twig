@@ -68,19 +68,21 @@
     <div id="metadata">
         <form class="ui form">
 
+            {% include '@bolt/content/_localeswitcher.html.twig' %}
+
             <div class="card mb-3">
               <div class="card-body">
                   {% include '@bolt/content/_buttons.html.twig' %}
               </div>
             </div>
 
-            {% include '@bolt/content/_localeswitcher.html.twig' %}
-
             <div class="card">
                 <div class="card-body">
                     {% include '@bolt/content/_fields_aside.html.twig' %}
+                    {% include '@bolt/content/_fields_aside_summary.html.twig' %}
                 </div>
             </div>
+
         </form>
     </div>
 

@@ -5,12 +5,25 @@
     {% set disabled = false %}
 {% endif %}
 
+{# check if we only want the value: valueonly #}
+{% if valueonly is not defined %}
+    {% set valueonly = false %}
+{% endif %}
+
 {% block field %}
-    <editor-text
-        :id='{{ id|json_encode }}'
-        :value="{{ value|json_encode }}"
-        :name='{{ name|json_encode }}'
-        :type='{{ class|json_encode }}'
-        :disabled='{{ disabled|json_encode }}'
-    ></editor-text>
+    {% if not valueonly %}
+        <editor-text
+            :id='{{ id|json_encode }}'
+            :value="{{ value|json_encode }}"
+            :name='{{ name|json_encode }}'
+            :type='{{ class|json_encode }}'
+            :disabled='{{ disabled|json_encode }}'
+        ></editor-text>
+    {% else %}
+        <span
+            :id='{{ id|json_encode }}'
+            :name='{{ name|json_encode }}'
+            class=""
+        >{{ value|json_encode }}</span>
+    {% endif %}
 {% endblock %}

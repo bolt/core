@@ -1,55 +1,34 @@
-{% include '@bolt/_partials/fields/select.html.twig' with {
-    'label' : 'field.status'|trans,
-    'name' : 'status',
-    'value' : [record.status],
-    'options' : record.statusoptions,
-    'form' : 'editcontent',
-    'allowempty' : false
-} %}
+<div class="form-fieldsgroup form-fieldsgroup__editable-fields">
 
-{% include '@bolt/_partials/fields/date.html.twig' with {
-    'label' : 'field.createdAt'|trans,
-    'name' : 'createdAt',
-    'value' : record.createdAt,
-    'disabled' : true,
-    'mode' : 'datetime',
-    'form' : 'editcontent'
-} %}
+    {% include '@bolt/_partials/fields/select.html.twig' with {
+        'label' : 'field.status'|trans,
+        'name' : 'status',
+        'value' : [record.status],
+        'options' : record.statusoptions,
+        'form' : 'editcontent',
+        'allowempty' : false
+    } %}
 
-{% include '@bolt/_partials/fields/date.html.twig' with {
-    'label' : 'field.modifiedAt'|trans,
-    'name' : 'modifiedAt',
-    'value' : record.modifiedAt,
-    'disabled' : true,
-    'mode' : 'datetime',
-    'form' : 'editcontent'
-} %}
+    {% include '@bolt/_partials/fields/date.html.twig' with {
+        'label' : 'field.publishedAt'|trans,
+        'name' : 'publishedAt',
+        'value' : record.publishedAt,
+        'mode' : 'datetime',
+        'form' : 'editcontent'
+    } %}
 
-{% include '@bolt/_partials/fields/date.html.twig' with {
-    'label' : 'field.publishedAt'|trans,
-    'name' : 'publishedAt',
-    'value' : record.publishedAt,
-    'mode' : 'datetime',
-    'form' : 'editcontent'
-} %}
+    {% include '@bolt/_partials/fields/date.html.twig' with {
+        'label' : 'field.depublishedAt'|trans,
+        'name' : 'depublishedAt',
+        'mode' : 'datetime',
+        'form' : 'editcontent'
+    } %}
 
-{% include '@bolt/_partials/fields/date.html.twig' with {
-    'label' : 'field.depublishedAt'|trans,
-    'name' : 'depublishedAt',
-    'mode' : 'datetime',
-    'form' : 'editcontent'
-} %}
+    {% include '@bolt/_partials/fields/text.html.twig' with {
+        'label' : 'field.author'|trans,
+        'name' : 'author',
+        'value' : record.author.displayName,
+        'disabled' : true
+    } %}
 
-{% include '@bolt/_partials/fields/text.html.twig' with {
-    'label' : 'field.author'|trans,
-    'name' : 'author',
-    'value' : record.author.displayName,
-    'disabled' : true
-} %}
-
-{% include '@bolt/_partials/fields/text.html.twig' with {
-    'label' : 'field.id'|trans,
-    'name' : 'id',
-    'value' : record.id,
-    'disabled' : true
-} %}
+</div>
