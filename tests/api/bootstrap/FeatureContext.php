@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Exception\ExpectationException;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Driver\BrowserKitDriver;
@@ -244,4 +245,18 @@ class FeatureContext extends MinkContext implements Context
     {
         $this->getSession()->wait(1000*$seconds);
     }
+
+    /**
+     * @Given /^I should see at least (\d+) "([^"]*)" elements$/
+     */
+    public function iShouldSeeAtLeastElements($number, $element)
+    {
+        $foundElements = $this->getSession()->getPage()->findAll('css', $element);
+        if(intval($number) > count($foundElements)){
+            $message = sprintf('%d %s found on the page, but should be not less than %d.', count($foundElements), $element, $number);
+
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
 }
