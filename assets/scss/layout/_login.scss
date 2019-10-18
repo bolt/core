@@ -1,5 +1,4 @@
 .page--login {
-
   > div {
     max-width: 25rem;
     margin: 0 auto;
@@ -14,20 +13,17 @@
       padding-top: 7rem;
     }
   }
-
   h1 {
     text-align: center;
     margin: 2rem 0;
     font-size: 1.25rem;
   }
-
   body {
     background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
   .login__login-form {
     .card-body {
       padding: 1rem;
@@ -36,7 +32,6 @@
       font-weight: 400;
     }
   }
-
   .login__logo {
     padding: 0 2rem;
     img {
@@ -44,7 +39,6 @@
       display: block;
     }
   }
-
   &.with-background {
     background-image: url(https://source.unsplash.com/daily);
     background-position: center;
@@ -54,5 +48,4 @@
       text-shadow: 0px 1px 1px var(--shade);
     }
   }
-
 }
