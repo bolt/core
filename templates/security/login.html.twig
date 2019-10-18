@@ -4,11 +4,11 @@
     {{ 'title.login'|trans }}
 {% endblock %}
 
-{% block html_id 'login' %}
+{% block html_id %}{% endblock %}
 
-{% block html_class %}
-    {% if not config.get('general/omit_backgrounds') %}with-background{% endif %}
-{% endblock %}
+{% block html_class %}{% endblock %}
+
+{% block body_class %}page--login{% if not config.get('general/omit_backgrounds') %} with-background{% endif %}{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -16,14 +16,17 @@
 
 {% block main %}
     <div>
-
-        <div>
+        <div class="login__logo">
             <img class="logo" alt="Bolt CMS logo"
-                 src="{{ asset('assets/images/bolt_logo_login.svg', 'public') }}">
+                {% if not config.get('general/omit_backgrounds') %}
+                 src="{{ asset('assets/images/bolt_logo_loginpage--bg.svg', 'public') }}">
+                {% else %}
+                 src="{{ asset('assets/images/bolt_logo_loginpage.svg', 'public') }}">
+                 {% endif %}
             <h1>{{ config.get('general/sitename') }}</h1>
         </div>
 
-        <div class="card">
+        <div class="card login__login-form">
 
             <div class="card-header">
                 <i class="fa fa-lock" aria-hidden="true"></i>
