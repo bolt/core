@@ -1458,7 +1458,7 @@
     <unit id="pn22p7q" name="listing.placeholder_filter">
       <segment>
         <source>listing.placeholder_filter</source>
-        <target>Keyword…</target>
+        <target>Keyword to filter on…</target>
       </segment>
     </unit>
     <unit id="ni4zApC" name="listing.button_filter">
@@ -1927,6 +1927,12 @@
       <segment>
         <source>listing_table.no_results</source>
         <target>No results found. Broaden the filtering criteria, or add some more content.</target>
+      </segment>
+    </unit>
+    <unit id="hp554Ds" name="listing.option_select_sortby">
+      <segment>
+        <source>listing.option_select_sortby</source>
+        <target>Select Field to sort by…</target>
       </segment>
     </unit>
   </file>

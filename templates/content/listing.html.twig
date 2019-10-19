@@ -28,12 +28,12 @@
 
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
-    {{ dump(whereValues) }}
+
 {% endblock %}
 
 {% block main %}
 
-    {% setcontent records = (contentType.slug) orderby (sortBy) where (whereValues) limit (contentType.records_per_page) printquery %}
+    {% setcontent records = (contentType.slug) orderby (sortBy) where (whereValues) limit (contentType.records_per_page) %}
 
     <div>
         {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': contentType.slug } %}
@@ -45,7 +45,7 @@
     <listing-select-box
       plural="{{ contentType.name }}"
       singular="{{ contentType.singular_name }}"
-      labels="{{
+      :labels="{{
         { 'card_header':
             {   'selected': 'listing_select_box.card_header.selected'|trans   },
           'card_body':
@@ -72,21 +72,25 @@
                     <p>
                         <strong>{{ 'listing.title_sortby'|trans }}</strong>:
                         <select class="form-control" name="sortBy">
-                                <option value="" disabled {% if sortBy is empty %}selected{% endif %}>
-                                    {{ 'listing.option_select_item'|trans }}
+                                <option value="" {% if sortBy is empty %}selected{% endif %}>
+                                    {{ 'listing.option_select_sortby'|trans }}
                                 </option>
                             {% for key, filterOption in filterOptions %}
                                 <option value="{{ key }}" {% if sortBy == key %}selected{% endif %}>
                                     {{ filterOption }}
                                 </option>
+                                <option value="-{{ key }}" {% if sortBy == key %}selected{% endif %}>
+                                    -{{ filterOption }}
+                                </option>
                             {% endfor %}
                         </select>
                     </p>
+                    {#
                     {% if contentType.get('taxonomy') %}
                         <p>
                             <strong>{{ 'listing.title_taxonomy'|trans }}</strong>:
                             <select class="form-control" name="taxonomy">
-                                <option value="" disabled {% if sortBy is empty %}selected{% endif %}>
+                                <option value="" {% if sortBy is empty %}selected{% endif %}>
                                     {{ 'listing.option_select_item'|trans }}
                                 </option>
                                 {% for taxonomy in contentType.get('taxonomy') %}
@@ -104,6 +108,7 @@
                             </select>
                         </p>
                     {% endif %}
+                    #}
                     <p>
                         <strong>{{ 'listing.title_title'|trans }}</strong>:
                         <input class="form-control" type="text" name="filter" value="{{ filterValue }}"
@@ -111,13 +116,10 @@
                     </p>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-tertiary" type="submit">{{ 'listing.button_filter'|trans }}</button>
+                    {{ macro.button('listing.button_filter', 'filter', 'tertiary', {'type': 'submit'}) }}
+
                     {% if sortBy is not empty or filterValue is not empty %}
-                        <a class="btn btn-danger"
-                           href="{{ path('bolt_content_overview', {'contentType': contentType.slug}) }}">
-                            <i class="fa fa-close"></i>
-                            {{ 'listing.button_clear'|trans }}
-                        </a>
+                        {{ macro.buttonlink('listing.button_clear', path('bolt_content_overview', {'contentType': contentType.slug}),  'times', 'tertiary') }}
                     {% endif %}
                 </div>
             </form>
