@@ -154,11 +154,10 @@ class RecordExtension extends AbstractExtension
         }
 
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
-
         $maxAmount = $this->config->get('maximum_listing_select', 1000);
 
         /** @var Content[] $records */
-        $records = $this->contentRepository->findForListing(1, $maxAmount, $contentType);
+        $records = $this->contentRepository->findForListing(1, $maxAmount, $contentType, false);
 
         foreach ($records as $record) {
             $options[] = [

@@ -285,6 +285,15 @@ class Content
         return $this;
     }
 
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updateModifiedAt(): void
+    {
+        $this->setModifiedAt(new \DateTime());
+    }
+
     public function getPublishedAt(): ?\DateTime
     {
         return $this->publishedAt;

@@ -36,7 +36,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true, string $sortBy = '', string $filter = '', string $taxonomy = ''): Pagerfanta
+    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
@@ -52,25 +52,14 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        if (! empty($sortBy) || ! empty($filter)) {
-            $qb->addSelect('f')
-                ->innerJoin('content.fields', 'f');
-        }
-
-        if ($taxonomy) {
-            $qb->addSelect('t')
-                ->innerJoin('content.taxonomies', 't')
-                ->andWhere('slug', ':taxonomySlug')
-                ->setParameter('taxonomySlug', $taxonomy);
-        }
-
-        [ $order, $direction, $sortByField ] = $this->createSortBy($sortBy, $contentType);
+        [ $order, $direction, $sortByField ] = $this->createSortBy($contentType);
 
         if (! $sortByField) {
             $qb->orderBy('content.' . $order, $direction);
         } else {
             // @todo Make sorting on a Field work as expected.
             dump('This is not correct');
+
             // First, create a querybuilder to get the fields that match the Query
             $sortByQB = $this->getQueryBuilder()
                 ->select('partial content.{id}');
@@ -88,53 +77,7 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('ids', $ids);
         }
 
-        if ($filter) {
-            // First, create a querybuilder to get the fields that match the Query
-            $filterQB = $this->getQueryBuilder()
-                ->select('partial content.{id}');
-
-            $filterQB->addSelect('f')
-                ->innerJoin('content.fields', 'f')
-                ->andWhere($filterQB->expr()->like('f.value', ':filterValue'))
-                ->setParameter('filterValue', '%' . $filter . '%');
-
-            // These are the ID's of content we need.
-            $ids = array_column($filterQB->getQuery()->getArrayResult(), 'id');
-
-            $qb->andWhere('content.id IN (:ids)')
-                ->setParameter('ids', $ids);
-        }
-
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
-    }
-
-    /**
-     * Cobble together the sorting order, and whether or not it's a column in `content` or `fields`.
-     */
-    private function createSortBy(string $order, Collection $contentType): array
-    {
-        if (empty($order)) {
-            $order = $contentType->get('sort', '');
-        }
-
-        if (mb_strpos($order, '-') === 0) {
-            $direction = 'DESC';
-            $order = mb_substr($order, 1);
-        } elseif (mb_strpos($order, ' DESC') !== false) {
-            $direction = 'DESC';
-            $order = str_replace(' DESC', '', $order);
-        } else {
-            $order = str_replace(' ASC', '', $order);
-            $direction = 'ASC';
-        }
-
-        if (\in_array($order, $this->contentColumns, true)) {
-            $sortByField = false;
-        } else {
-            $sortByField = true;
-        }
-
-        return [$order, $direction, $sortByField];
     }
 
     public function findForTaxonomy(int $page, Collection $taxonomy, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
@@ -155,7 +98,7 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
-        [ $order, $direction, $sortByField ] = $this->createSortBy('', $taxonomy);
+        [ $order, $direction, $sortByField ] = $this->createSortBy($taxonomy);
 
         if (! $sortByField) {
             $qb->orderBy('content.' . $order, $direction);
@@ -175,6 +118,8 @@ class ContentRepository extends ServiceEntityRepository
             $qb->where('content.contentType = :ct')
                 ->setParameter('ct', $contentType->getSlug());
         }
+
+        $qb->orderBy('content.modifiedAt', 'DESC');
 
         $qb->setMaxResults($amount);
 
@@ -287,5 +232,32 @@ class ContentRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * Cobble together the sorting order, and whether or not it's a column in `content` or `fields`.
+     */
+    private function createSortBy(Collection $contentType): array
+    {
+        $order = $contentType->get('sort', '');
+
+        if (mb_strpos($order, '-') === 0) {
+            $direction = 'DESC';
+            $order = mb_substr($order, 1);
+        } elseif (mb_strpos($order, ' DESC') !== false) {
+            $direction = 'DESC';
+            $order = str_replace(' DESC', '', $order);
+        } else {
+            $order = str_replace(' ASC', '', $order);
+            $direction = 'ASC';
+        }
+
+        if (\in_array($order, $this->contentColumns, true)) {
+            $sortByField = false;
+        } else {
+            $sortByField = true;
+        }
+
+        return [$order, $direction, $sortByField];
     }
 }
