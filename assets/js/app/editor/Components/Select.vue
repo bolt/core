@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :id="`multiselect-${id}`">
     <multiselect
       v-model="selected"
       track-by="key"
@@ -14,6 +14,7 @@
       tag-placeholder="Add this as new tag"
       tag-position="bottom"
       @tag="addTag"
+      :class="Foobar"
     >
       <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>
@@ -27,7 +28,7 @@
     <input
       :id="id"
       type="hidden"
-      :name="fieldName"
+      :name="name"
       :form="form"
       :value="sanitized"
     />

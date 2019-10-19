@@ -1,5 +1,5 @@
 Feature: Edit record
-
+@wip
     Scenario: As an Admin I want to change title of a record
         Given I am logged in as "admin"
 

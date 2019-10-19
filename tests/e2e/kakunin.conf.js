@@ -1,6 +1,6 @@
 module.exports = {
-    "browserWidth": 1600,
-    "browserHeight": 900,
+    "browserWidth": 1290,
+    "browserHeight": 800,
     "timeout": 60,
     "intervalEmail": 5,
     "maxEmailRepeats": 5,
