@@ -21,7 +21,9 @@ final class ArrayExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
 
         return [
             new TwigFunction('unique', [$this, 'unique'], $safe),

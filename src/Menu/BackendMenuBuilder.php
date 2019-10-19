@@ -65,11 +65,13 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->addChild('Content', ['extras' => [
-            'name' => $t->trans('caption.content'),
-            'type' => 'separator',
-            'icon' => 'fa-file',
-        ]]);
+        $menu->addChild('Content', [
+            'extras' => [
+                'name' => $t->trans('caption.content'),
+                'type' => 'separator',
+                'icon' => 'fa-file',
+            ],
+        ]);
 
         /** @var ContentType[] $contentTypes */
         $contentTypes = $this->config->get('contenttypes');
@@ -91,11 +93,13 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ]);
         }
 
-        $menu->addChild('Settings', ['extras' => [
-            'name' => $t->trans('caption.settings'),
-            'type' => 'separator',
-            'icon' => 'fa-wrench',
-        ]]);
+        $menu->addChild('Settings', [
+            'extras' => [
+                'name' => $t->trans('caption.settings'),
+                'type' => 'separator',
+                'icon' => 'fa-wrench',
+            ],
+        ]);
 
         // Configuration submenu
 

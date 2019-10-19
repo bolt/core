@@ -41,8 +41,10 @@ use Symfony\Component\Stopwatch\Stopwatch;
  */
 class AddUserCommand extends Command
 {
-    // to make your command lazily loaded, configure the $defaultName static property,
-    // so it will be instantiated only when the command is actually called.
+    /**
+     * to make your command lazily loaded, configure the $defaultName static property,
+     * so it will be instantiated only when the command is actually called.
+     */
     protected static $defaultName = 'bolt:add-user';
 
     /** @var SymfonyStyle */

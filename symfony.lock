@@ -203,12 +203,6 @@
     "guzzlehttp/psr7": {
         "version": "1.4.2"
     },
-    "illuminate/contracts": {
-        "version": "v5.8.8"
-    },
-    "illuminate/support": {
-        "version": "v5.8.8"
-    },
     "intervention/image": {
         "version": "2.4.2"
     },
@@ -280,6 +274,9 @@
     },
     "nette/robot-loader": {
         "version": "v3.1.0"
+    },
+    "nette/schema": {
+        "version": "v1.0.0"
     },
     "nette/utils": {
         "version": "v2.5.3"
@@ -547,9 +544,6 @@
     },
     "siriusphp/validation": {
         "version": "2.2.2"
-    },
-    "slam/php-cs-fixer-extensions": {
-        "version": "v1.17.0"
     },
     "slevomat/coding-standard": {
         "version": "4.8.6"
@@ -873,9 +867,6 @@
     },
     "symfony/yaml": {
         "version": "v3.4.0-beta2"
-    },
-    "symplify/better-phpdoc-parser": {
-        "version": "v5.2.3"
     },
     "symplify/coding-standard": {
         "version": "v5.2.3"

@@ -60,6 +60,8 @@ class JsonExtension extends AbstractExtension
     {
         // we do it that way because in current API Platform version a Resource
         // can't implement \JsonSerializable
-        return $this->normalizer->normalize($content, null, ['group' => [self::SERIALIZE_GROUP]]);
+        return $this->normalizer->normalize($content, null, [
+            'group' => [self::SERIALIZE_GROUP],
+        ]);
     }
 }

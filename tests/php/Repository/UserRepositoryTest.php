@@ -17,7 +17,7 @@ class UserRepositoryTest extends DbAwareTestCase
         self::runCommand('doctrine:fixtures:load --no-interaction --group=without-images');
     }
 
-    public function testFindOneByUsername()
+    public function testFindOneByUsername(): void
     {
         $admin = $this->getEm()->getRepository(User::class)->findOneByUsername('admin');
         $this->assertInstanceOf(User::class, $admin);
@@ -26,7 +26,7 @@ class UserRepositoryTest extends DbAwareTestCase
         $this->assertNull($administrator);
     }
 
-    public function testFindOneByCredentials()
+    public function testFindOneByCredentials(): void
     {
         $admin = $this->getEm()->getRepository(User::class)->findOneByCredentials('admin');
         $this->assertInstanceOf(User::class, $admin);

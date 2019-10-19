@@ -53,7 +53,9 @@ class RecordExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
         $env = ['needs_environment' => true];
 
         return [

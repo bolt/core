@@ -35,7 +35,11 @@ class EmbedController implements AsyncZone
         try {
             $this->validateCsrf($request, 'editrecord');
         } catch (InvalidCsrfTokenException $e) {
-            return new JsonResponse(['error' => ['message' => 'Invalid CSRF token']], Response::HTTP_FORBIDDEN);
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Invalid CSRF token',
+                ],
+            ], Response::HTTP_FORBIDDEN);
         }
 
         try {
@@ -47,7 +51,11 @@ class EmbedController implements AsyncZone
                 $oembed->getBag()->getAll()
             );
         } catch (InvalidUrlException $e) {
-            return new JsonResponse(['error' => ['message' => $e->getMessage()]], Response::HTTP_BAD_REQUEST);
+            return new JsonResponse([
+                'error' => [
+                    'message' => $e->getMessage(),
+                ],
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 }
