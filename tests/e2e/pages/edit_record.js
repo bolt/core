@@ -8,11 +8,11 @@ class EditRecordPage extends BasePage {
 
     this.title_field = $('#field-title');
 
-    this.status_select = $('#metadata > form > div:nth-child(2) > div > div:nth-child(1) > div > div > div.multiselect__select');
-    this.status_published = $('#metadata > form > div:nth-child(2) > div > div:nth-child(1) > div > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span');
+    this.status_select = $('#multiselect-field-status div.multiselect__select');
+    this.status_published = $('#multiselect-field-status div.multiselect__content-wrapper > ul > li:nth-child(1) > span');
 
-    this.lang_select = $('#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__select');
-    this.lang_nl = $('#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span');
+    this.lang_select = $('#multiselect-localeswitcher div.multiselect__select');
+    this.lang_nl = $('#multiselect-localeswitcher div.multiselect__content-wrapper > ul > li:nth-child(2) > span');
 
     this.tab_media = $('#media-tab');
     this.embed_field = $('[name="fields[embed][url]"]');
