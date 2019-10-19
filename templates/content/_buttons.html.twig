@@ -1,9 +1,11 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-{{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent'}) }}
+<div class="record-actions">
 
-<div class="btn-group">
-{% if record.id %}
+    {{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent'}) }}
+
+    {% if record.id %}
+    <div class="btn-group">
 
     {{ macro.button(
         'action.preview',
@@ -17,18 +19,21 @@
     }}
 
     {% if record.status == "published" %}
-    <button class="btn btn-primary dropdown-toggle dropdown-toggle-split mb-3" aria-expanded="false" aria-haspopup="true"
-            data-toggle="dropdown" type="button">
-        <span class="sr-only">{{ 'buttons.button_toggle'|trans }}</span>
-    </button>
-    <button class="btn btn-light dropdown-menu dropdown-menu-right"
-            form="editcontent"
-            formaction="{{ path('bolt_content_edit_viewsave', {'id': record.id }) }}"
-            formtarget="_blank" style="white-space: nowrap; padding-right: 1rem;"
-            type="submit">
-        <i class="fas fa-external-link-square-alt mr-2 ml-2"></i>
-        {{ 'action.view_saved'|trans }}
-    </button>
+        <button class="btn btn-primary dropdown-toggle dropdown-toggle-split mb-3" aria-expanded="false" aria-haspopup="true"
+                data-toggle="dropdown" type="button">
+            <span class="sr-only">{{ 'buttons.button_toggle'|trans }}</span>
+        </button>
+        <button class="btn btn-light dropdown-menu dropdown-menu-right"
+                form="editcontent"
+                formaction="{{ path('bolt_content_edit_viewsave', {'id': record.id }) }}"
+                formtarget="_blank" style="white-space: nowrap; padding-right: 1rem;"
+                type="submit">
+            <i class="fas fa-external-link-square-alt mr-2 ml-2"></i>
+            {{ 'action.view_saved'|trans }}
+        </button>
     {% endif %}
-</div>
+    
+    </div>
 {% endif %}
+
+</div>
