@@ -42,7 +42,9 @@ class ContentExtension extends AbstractExtension
      */
     public function getFilters(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
@@ -61,7 +63,9 @@ class ContentExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
 
         return [
             new TwigFunction('excerpt', [$this, 'getExcerpt'], $safe),

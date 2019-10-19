@@ -38,9 +38,15 @@ class ImageExtension extends AbstractExtension
         // Note: we do _not_ include 'image' here, because it would clash with the
         // magic "Image" extras.
         return [
-            new TwigFilter('popup', [$this, 'popup'], ['is_safe' => ['html']]),
-            new TwigFilter('showimage', [$this, 'showImage'], ['is_safe' => ['html']]),
-            new TwigFilter('thumbnail', [$this, 'thumbnail'], ['is_safe' => ['html']]),
+            new TwigFilter('popup', [$this, 'popup'], [
+                'is_safe' => ['html'],
+            ]),
+            new TwigFilter('showimage', [$this, 'showImage'], [
+                'is_safe' => ['html'],
+            ]),
+            new TwigFilter('thumbnail', [$this, 'thumbnail'], [
+                'is_safe' => ['html'],
+            ]),
         ];
     }
 
@@ -50,10 +56,18 @@ class ImageExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('image', [$this, 'image'], ['is_safe' => ['html']]),
-            new TwigFunction('popup', [$this, 'popup'], ['is_safe' => ['html']]),
-            new TwigFunction('showimage', [$this, 'showImage'], ['is_safe' => ['html']]),
-            new TwigFunction('thumbnail', [$this, 'thumbnail'], ['is_safe' => ['html']]),
+            new TwigFunction('image', [$this, 'image'], [
+                'is_safe' => ['html'],
+            ]),
+            new TwigFunction('popup', [$this, 'popup'], [
+                'is_safe' => ['html'],
+            ]),
+            new TwigFunction('showimage', [$this, 'showImage'], [
+                'is_safe' => ['html'],
+            ]),
+            new TwigFunction('thumbnail', [$this, 'thumbnail'], [
+                'is_safe' => ['html'],
+            ]),
         ];
     }
 

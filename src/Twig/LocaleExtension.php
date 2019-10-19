@@ -31,7 +31,9 @@ class LocaleExtension extends AbstractExtension
      */
     public function getFilters(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
 
         return [
             new TwigFilter('localedatetime', [$this, 'localedatetime'], $safe),
@@ -43,12 +45,18 @@ class LocaleExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('__', [$this, 'translate'], ['is_safe' => ['html']]),
-            new TwigFunction('htmllang', [$this, 'dummy'], ['is_safe' => ['html']]),
+            new TwigFunction('__', [$this, 'translate'], [
+                'is_safe' => ['html'],
+            ]),
+            new TwigFunction('htmllang', [$this, 'dummy'], [
+                'is_safe' => ['html'],
+            ]),
             new TwigFunction('locales', [$this, 'getLocales'], $env),
             new TwigFunction('locale', [$this, 'getLocale']),
             new TwigFunction('flag', [$this, 'flag'], $safe),

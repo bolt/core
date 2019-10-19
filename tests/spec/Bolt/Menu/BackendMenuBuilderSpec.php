@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Bolt\Menu;
 
 use Bolt\Configuration\Config;
@@ -22,18 +24,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class BackendMenuBuilderSpec extends ObjectBehavior
 {
-    const TEST_TITLE = 'Test title';
-    const TEST_SLUG = 'test-title';
+    public const TEST_TITLE = 'Test title';
+    public const TEST_SLUG = 'test-title';
 
-    function let(
+    public function let(
         FactoryInterface $menuFactory,
         Config $config,
         ContentRepository $contentRepository,
         UrlGeneratorInterface $urlGenerator,
         TranslatorInterface $translator,
         ContentExtension $contentExtension
-    ) {
-
+    ): void {
         $this->beConstructedWith(
             $menuFactory,
             $config,
@@ -44,7 +45,7 @@ class BackendMenuBuilderSpec extends ObjectBehavior
         );
     }
 
-    function it_builds_admin_menu(
+    public function it_builds_admin_menu(
         ContentExtension $contentExtension,
         Content $content,
         ContentRepository $contentRepository,
@@ -53,10 +54,9 @@ class BackendMenuBuilderSpec extends ObjectBehavior
         FactoryInterface $menuFactory,
         ItemInterface $item,
         ItemInterface $subitem
-    ) {
-
+    ): void {
         // Seriously, what kind of weird-ass Voodoo shit is this PHPSpec?
-        /**
+        /*
         $contentExtension->getTitle($content)
             ->shouldBeCalled()
             ->willReturn(self::TEST_TITLE);

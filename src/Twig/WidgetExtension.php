@@ -25,7 +25,9 @@ class WidgetExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
 
         return [
             new TwigFunction('countwidgets', [$this, 'countWidgets']),

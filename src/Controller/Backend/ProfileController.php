@@ -29,10 +29,10 @@ class ProfileController extends TwigAwareController implements BackendZone
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /*** @var ObjectManager */
+    /** @var ObjectManager */
     private $em;
 
-    /*** @var UserPasswordEncoderInterface */
+    /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
     public function __construct(

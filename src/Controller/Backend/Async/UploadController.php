@@ -52,7 +52,11 @@ class UploadController implements AsyncZone
         try {
             $this->validateCsrf($request, 'upload');
         } catch (InvalidCsrfTokenException $e) {
-            return new JsonResponse(['error' => ['message' => 'Invalid CSRF token']], Response::HTTP_FORBIDDEN);
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Invalid CSRF token',
+                ],
+            ], Response::HTTP_FORBIDDEN);
         }
 
         $locationName = $request->query->get('location', '');
@@ -67,7 +71,9 @@ class UploadController implements AsyncZone
 
         $uploadHandler->addRule(
             'extension',
-            ['allowed' => ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg']],
+            [
+                'allowed' => ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'],
+            ],
             '{label} should be a valid image (jpg, jpeg, png, webp or svg)',
             'Image'
         );
@@ -103,7 +109,11 @@ class UploadController implements AsyncZone
         // image was not moved to the container, where are error messages
         $messages = $result->getMessages();
 
-        return new JsonResponse(['error' => ['message' => implode(', ', $messages)]], Response::HTTP_BAD_REQUEST);
+        return new JsonResponse([
+            'error' => [
+                'message' => implode(', ', $messages),
+            ],
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     private function sanitiseFilename(string $filename): string

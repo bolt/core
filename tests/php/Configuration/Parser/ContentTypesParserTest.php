@@ -92,7 +92,7 @@ class ContentTypesParserTest extends ParserTestBase
         $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
 
         $this->expectException(ConfigurationException::class);
-        $config = $contentTypesParser->parse();
+        $contentTypesParser->parse();
     }
 
     public function testInferContentTypeValues(): void
