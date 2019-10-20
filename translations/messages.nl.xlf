@@ -1554,5 +1554,35 @@
         <target>ContentType</target>
       </segment>
     </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <segment>
+        <source>title.edit_user_profile</source>
+        <target>Bewerk gebruikersprofiel</target>
+      </segment>
+    </unit>
+    <unit id="YDH.7uR" name="user.updated_profile">
+      <segment>
+        <source>user.updated_profile</source>
+        <target>Gebruikersprofiel is bijgewerkt!</target>
+      </segment>
+    </unit>
+    <unit id="n.jOrkg" name="caption.untitled_contenttype">
+      <segment>
+        <source>caption.untitled_contenttype</source>
+        <target>%contenttype% zonder titel</target>
+      </segment>
+    </unit>
+    <unit id="SDVQEir" name="title.save_changes">
+      <segment>
+        <source>title.save_changes</source>
+        <target>Opslaan</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <segment>
+        <source>title.options</source>
+        <target>Opties</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

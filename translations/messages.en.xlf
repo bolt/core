@@ -1935,5 +1935,17 @@
         <target>Select Field to sort by…</target>
       </segment>
     </unit>
+    <unit id="SDVQEir" name="title.save_changes">
+      <segment>
+        <source>title.save_changes</source>
+        <target>Save Changes</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <segment>
+        <source>title.options</source>
+        <target>Options</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

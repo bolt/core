@@ -61,7 +61,7 @@
         'modifiedAt': 'Modified date', 'publishedAt': 'Published date', 'depublishedAt': 'Depublished date'
     } %}
 
-    <div class="card">
+    <div class="card mb-3">
         <div class="card-header">
             {{ 'title.contentlisting'|trans }}
         </div>
@@ -137,7 +137,7 @@
             <li>Slug: <code>{{ contentType.slug }}</code> (singular: <code>{{ contentType.singular_slug }}</code>)</li>
             <li>Record template: <code>{{ contentType.record_template }}</code></li>
             <li>Listing template: <code>{{ contentType.listing_template }}</code> ({{ contentType.listing_records }} records)</li>
-            {% if contentType.locales %}
+            {% if contentType.locales is not empty %}
                 <li>Locales:
                     {% for locale in contentType.locales %}
                         {{ flag(locale) }}
