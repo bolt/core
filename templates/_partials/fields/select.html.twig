@@ -21,6 +21,7 @@
 {% endif %}
 
 {% block field %}
+    {% dump(options) %}
     <editor-select
         :value="{{ value|json_encode }}"
         :name='{{ name|json_encode }}'
