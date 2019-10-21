@@ -23,8 +23,10 @@ class SelectField extends Field implements FieldInterface
     public function setValue($value): Field
     {
         try {
-            $this->value = (array) Json::json_decode($value);
-        } catch (\TypeError $exception) {
+            if (is_string($value)) {
+                $value = json_decode($value, false);
+            }
+        } finally {
             $this->value = (array) $value;
         }
 
