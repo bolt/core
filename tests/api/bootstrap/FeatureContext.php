@@ -270,13 +270,14 @@ class FeatureContext extends MinkContext implements Context
     }
 
     /**
-     * @When I scroll :elementId into view
+     * @When I scroll element with class :elementId into view
      */
-    public function scrollIntoView($elementId) {
+    public function scrollIntoView($elementClass) {
         $function = <<<JS
 (function(){
-  var elem = document.getElementsByClassName("$elementId")[0];
-  elem.scrollIntoView(true);
+  var elem = document.getElementsByClassName("$elementClass")[0];
+  elem.scrollIntoView(false);
+  window.scrollBy(0, 100);
 })()
 JS;
         try {

@@ -1,14 +1,11 @@
 Feature:
-
-  @testme
   @javascript
   Scenario: As an Admin I want to change title of a record
     Given I am logged in as "admin"
     When I am on "/bolt/edit/30"
 
     When I fill in "field-title" with "Changed title"
-    And I scroll "btn-success" into view
-    And I wait 5 seconds
+    And I scroll element with class "btn-success" into view
     And I press "Save changes"
 
     When I am on "/bolt/edit/30"
