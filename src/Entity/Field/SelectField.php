@@ -19,6 +19,19 @@ class SelectField extends Field implements FieldInterface
         return 'select';
     }
 
+    public function setValue($value): Field
+    {
+        try {
+            if (is_string($value)) {
+                $value = json_decode($value, false);
+            }
+        } finally {
+            $this->value = (array) $value;
+        }
+
+        return $this;
+    }
+
     public function getValue(): ?array
     {
         if (empty($this->value)) {
