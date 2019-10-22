@@ -1,6 +1,5 @@
 Feature:
 
-  @testme
   @javascript
   Scenario: As a user I want to see how fields are escaped
 
