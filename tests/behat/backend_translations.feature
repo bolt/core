@@ -1,6 +1,5 @@
 Feature: Visiting Translations page
 
-  @testme
   @javascript
   Scenario: As an admin I want to see Translations page
     Given I am logged in as "admin"
