@@ -270,22 +270,11 @@ class FeatureContext extends MinkContext implements Context
     }
 
     /**
-     * @When I scroll element with class :elementId into view
+     * @When I scroll :element into view
      */
-    public function scrollIntoView($elementClass) {
-        $function = <<<JS
-(function(){
-  var elem = document.getElementsByClassName("$elementClass")[0];
-  elem.scrollIntoView(false);
-  window.scrollBy(0, 100);
-})()
-JS;
-        try {
-            $this->getSession()->executeScript($function);
-        }
-        catch(Exception $e) {
-            throw new \Exception("ScrollIntoView failed");
-        }
+    public function iScrollElementIntoView($element){
+        $this->getSession()->getPage()->find('css', $element)->focus();
+        $this->getSession()->executeScript("$(':focus')[0].scrollIntoView(true);window.scrollBy(0,-100);");
     }
 
 }
