@@ -239,7 +239,7 @@ class FeatureContext extends MinkContext implements Context
     }
 
     /**
-     * @Given /^I wait (\d+) seconds?$/
+     * @Given /^I wait (\d+) seconds$/
      */
     public function iWaitSeconds($seconds)
     {
@@ -277,4 +277,11 @@ class FeatureContext extends MinkContext implements Context
         $this->getSession()->executeScript("$(':focus')[0].scrollIntoView(true);window.scrollBy(0,-100);");
     }
 
+    /**
+     * iSwitchToTheWindow
+     * @When /^(?:|I )switch to (?:window|tab) "(?P<nb>\d+)"$/
+     */
+    public function iSwitchToTheWindow($id=0){
+        $this->getSession()->switchToWindow($this->getSession()->getWindowNames()[$id]);
+    }
 }

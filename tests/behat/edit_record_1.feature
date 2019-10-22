@@ -40,3 +40,16 @@ Feature:
 
     When I am on "/page/1?locale=nl"
     Then I should see "Changed title NL"
+
+  @javascript
+  Scenario: As an Admin I want to be able to make use of the embed field
+    Given I am logged in as "admin"
+    When I am on "/bolt/edit/44"
+    Then I follow "Media"
+
+    Then I fill in "fields[embed][url]" with "https://www.youtube.com/watch?v=x4IDM3ltTYo"
+    And I wait 3 seconds
+    Then the "fields[embed][title]" field should contain "Silversun Pickups - Nightlight (Official Video)"
+    And the "fields[embed][authorname]" field should contain "Silversun Pickups"
+    And the "fields[embed][width]" field should contain "480"
+    And the "fields[embed][height]" field should contain "270"
