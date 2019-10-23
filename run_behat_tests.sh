@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
+
         echo "linux";
 elif [[ "$OSTYPE" == "darwin"* ]]; then
         wget http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -P ./bin
