@@ -33,6 +33,7 @@ Feature: Edit record
     Then the "field-title" field should contain "Changed title NL"
 
     When I am on "/bolt/edit/1?edit_locale=nl&_locale=nl"
+    And I wait for ".admin__header--title"
     Then the "field-title" field should contain "Changed title NL"
 
     When I am on "/bolt/edit/1?edit_locale=en&_locale=nl"
