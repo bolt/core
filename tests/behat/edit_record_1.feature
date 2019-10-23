@@ -20,8 +20,8 @@ Feature: Edit record
     And I scroll ".btn-success" into view
     And I press "Save changes"
 
-
     And I scroll "#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__select" into view
+    And I wait 1 second
     Then I click "#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__select"
     And I click "#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
 

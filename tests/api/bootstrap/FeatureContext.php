@@ -239,7 +239,7 @@ class FeatureContext extends MinkContext implements Context
     }
 
     /**
-     * @Given /^I wait (\d+) seconds$/
+     * @Given /^I wait (\d+) second(?:|s)$/
      */
     public function iWaitSeconds($seconds)
     {
