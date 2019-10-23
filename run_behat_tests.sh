@@ -17,7 +17,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar
 
 elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
-        echo "windows";
+        echo "Sorry, can't handle windows.";
 else
         echo "Don't know how to handle this platform, sorry";
 fi
