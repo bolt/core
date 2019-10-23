@@ -11,6 +11,7 @@ Feature: Edit record
     When I am on "/bolt/edit/30"
     Then I should see "Changed title" in the ".admin__header--title" element
 
+  @testme
   @javascript
   Scenario: As an Admin I want to change title of a record in another language
     Given I am logged in as "admin"
