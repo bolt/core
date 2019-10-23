@@ -11,7 +11,6 @@ Feature: Edit record
     When I am on "/bolt/edit/30"
     Then I should see "Changed title" in the ".admin__header--title" element
 
-  @testme
   @javascript
   Scenario: As an Admin I want to change title of a record in another language
     Given I am logged in as "admin"
@@ -22,9 +21,7 @@ Feature: Edit record
     And I press "Save changes"
 
     And I scroll "#multiselect-localeswitcher div.multiselect__select" into view
-    And I wait 1 second
-    Then I click "#multiselect-localeswitcher div.multiselect__select"
-    And I click "#multiselect-localeswitcher div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
+    Then I click "#multiselect-localeswitcher div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
 
     When I fill in "field-title" with "Changed title NL"
     And I scroll ".btn-success" into view
