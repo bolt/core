@@ -37,7 +37,6 @@ install:
   - npm ci
   - mkdir -p ./var/log/e2e-reports/report/features/
   - touch ./var/log/e2e-reports/report/features/.gitkeep
-  - cd tests/e2e && npm ci && node ./node_modules/protractor/bin/webdriver-manager update --gecko=false && cd ../..
 
 before_script:
   # build assets
@@ -75,9 +74,8 @@ script:
   - ./vendor/bin/phpspec run
   - ./vendor/bin/phpunit
   # run API tests
-  #- ./vendor/bin/behat
-  # run e2e tests with Kakunin
-  #- cd tests/e2e && npm run kakunin && cd ../..
+  - make behat-api
+  # run JS e2e tests
   - ./run_behat_tests.sh && make behat-js
 
 

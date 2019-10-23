@@ -1,9 +1,9 @@
 DC_RUN ?= docker-compose run --rm
 
 .PHONY: help install build-assets copy-assets server server-stop cache csclear cscheck csfix csfix-tests stancheck test \
-behat e2e full-test db-create db-update db-reset docker-install docker-install-deps docker-start docker-assets-serve \
+behat full-test db-create db-update db-reset docker-install docker-install-deps docker-start docker-assets-serve \
 docker-update docker-cache docker-csclear docker-cscheck docker-csfix docker-stancheck docker-db-create docker-db-reset \
-docker-db-update docker-npm-fix-env docker-test docker-server-stop docker-behat docker-behat-rerun docker-full-test \
+docker-db-update docker-npm-fix-env docker-test docker-server-stop docker-behat docker-full-test \
 docker-command docker-console
 
 default: help
@@ -60,40 +60,25 @@ test: ## to run phpunit tests
 	vendor/bin/phpspec run
 	vendor/bin/phpunit
 
-behat: ## to run behat tests
+behat-api: ## to run behat API tests
 	make server
-	vendor/bin/behat -v
+	vendor/bin/behat --tags=api
 
-behat-js: ## to run behat tests
+behat-js: ## to run behat JS tests
 	make server
-	echo "hi"
 	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar > /dev/null &
-	echo "bye"
 	sleep 2s
 	vendor/bin/behat --tags=javascript
 	kill -9 $(lsof -t -i:4444)
 
-behat-rerun: ## to rerun behat tests
-	make server
-	vendor/bin/behat -v --rerun
-
-e2e: ## to run kakunin tests
-	make server
-	cd tests/e2e && npm run kakunin && cd ../..
+make behat:
+	make behat-api
+	make behat-js
 
 full-test: ## to run full tests
 	make cscheck
 	make test
 	make behat
-	make e2e
-
-e2e-wip:
-	make server
-	cd tests/e2e && npm run kakunin -- --tags @wip && cd ../..
-
-e2e-install:
-	cd tests/e2e && npm install
-	node ./tests/e2e/node_modules/protractor/bin/webdriver-manager update --gecko=false
 
 db-create: ## to create database and load fixtures
 	bin/console doctrine:database:create
@@ -180,15 +165,12 @@ docker-server-stop: ## to stop server with docker
 docker-behat: ## to run behat tests with docker
 	docker-compose exec -T php vendor/bin/behat -v
 
-docker-behat-rerun: ## to rerun behat tests with docker
-	docker-compose exec -T php vendor/bin/behat -v --rerun
-
 docker-full-test: ## to run all test with docker
 	make docker-cache
 	make docker-cscheck
 	make docker-test
 	make docker-behat
-	make e2e
+	make behat
 
 docker-command: ## to run commmand shell in php container
 	docker-compose exec -T php sh -c "$(c)"
