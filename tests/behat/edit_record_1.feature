@@ -20,10 +20,9 @@ Feature: Edit record
     And I scroll ".btn-success" into view
     And I press "Save changes"
 
-    And I scroll "#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__select" into view
-    And I wait 1 second
-    Then I click "#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__select"
-    And I click "#metadata > form > div:nth-child(2) > div > div > div > div.multiselect__content-wrapper > ul > li:nth-child(2)"
+    And I scroll "#multiselect-localeswitcher div.multiselect__select" into view
+    Then I click "#multiselect-localeswitcher div.multiselect__select"
+    And I click "#multiselect-localeswitcher div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
 
     When I fill in "field-title" with "Changed title NL"
     And I scroll ".btn-success" into view
