@@ -30,6 +30,7 @@ Feature: Edit record
     And I press "Save changes"
 
     When I am on "/bolt/edit/1?edit_locale=nl"
+    And I wait for ".admin__header--title"
     Then the "field-title" field should contain "Changed title NL"
 
     When I am on "/bolt/edit/1?edit_locale=nl&_locale=nl"
@@ -37,6 +38,7 @@ Feature: Edit record
     Then the "field-title" field should contain "Changed title NL"
 
     When I am on "/bolt/edit/1?edit_locale=en&_locale=nl"
+    And I wait for ".admin__header--title"
     Then the "field-title" field should contain "Changed title EN"
 
     When I am on "/page/1?locale=nl"
