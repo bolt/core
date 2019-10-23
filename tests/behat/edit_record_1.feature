@@ -21,6 +21,7 @@ Feature: Edit record
     And I press "Save changes"
 
     And I scroll "#multiselect-localeswitcher div.multiselect__select" into view
+    And I wait 1 second
     Then I click "#multiselect-localeswitcher div.multiselect__select"
     And I click "#multiselect-localeswitcher div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
 
