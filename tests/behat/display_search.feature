@@ -1,4 +1,4 @@
-Feature:
+Feature: Display search functionality
   @javascript
   Scenario: As a user I want to display search results
     When I am on the homepage

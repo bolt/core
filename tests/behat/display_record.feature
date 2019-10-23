@@ -1,4 +1,4 @@
-Feature:
+Feature: Display single record
   @javascript
   Scenario: As a user I want to display a single record
     When I am on "/page/1"

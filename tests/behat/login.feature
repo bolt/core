@@ -1,4 +1,4 @@
-Feature:
+Feature: Logging in
   @javascript
   Scenario: As an admin I want to log in to Dashboard
     Given I am on "/bolt/login"

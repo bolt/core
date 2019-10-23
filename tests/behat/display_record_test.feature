@@ -1,4 +1,4 @@
-Feature:
+Feature: Test field output
 
   @javascript
   Scenario: As a user I want to see how fields are escaped

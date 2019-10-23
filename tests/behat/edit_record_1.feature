@@ -1,4 +1,4 @@
-Feature:
+Feature: Edit record
   @javascript
   Scenario: As an Admin I want to change title of a record
     Given I am logged in as "admin"

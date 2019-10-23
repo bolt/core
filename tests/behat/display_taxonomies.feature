@@ -1,4 +1,4 @@
-Feature:
+Feature: Display taxonomies
   @javascript
   Scenario: As a user I want to see taxonomies on a single record
     When I am on "/page/this-is-a-record-in-the-entries-contenttype"
