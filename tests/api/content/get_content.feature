@@ -1,5 +1,5 @@
 Feature: Get content with API
-
+  @api
   Scenario: As a user I fetch all contents
     When I send a GET request to "/api/contents.json"
     Then the response status code should be 200
@@ -39,7 +39,7 @@ Feature: Get content with API
     @...@
   ]
   """
-
+  @api
   Scenario: As a user I fetch single content
     When I send a GET request to "/api/contents/1.json"
     Then the response status code should be 200
