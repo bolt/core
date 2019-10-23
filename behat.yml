@@ -32,12 +32,12 @@ default:
         default:
           selenium2:
             capabilities:
+              chrome:
+                switches:
+                  - "--headless"
+                  - "--disable-gpu"
               extra_capabilities:
                 chromeOptions:
-                  args:
-                    - "--headless"
-                    - "--disable-gpu"
-                    - "--window-size=1920,1080"
                   w3c: false
 
 
