@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
+        wget http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -P ./bin
 
-        echo "linux";
+        wget https://chromedriver.storage.googleapis.com/77.0.3865.40/chromedriver_linux64.zip -P ./bin
+        unzip ./bin/chromedriver_linux64.zip -d ./bin
+        rm ./bin/chromedriver_linux64.zip
+        java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar
+
 elif [[ "$OSTYPE" == "darwin"* ]]; then
         wget http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -P ./bin
 
