@@ -60,15 +60,13 @@ test: ## to run phpunit tests
 	vendor/bin/phpspec run
 	vendor/bin/phpunit
 
-behat: ## to run behat tests
+behat-api: ## to run behat tests
 	make server
-	vendor/bin/behat -v
+	vendor/bin/behat --tags=api
 
 behat-js: ## to run behat tests
 	make server
-	echo "hi"
 	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar > /dev/null &
-	echo "bye"
 	sleep 2s
 	vendor/bin/behat --tags=javascript
 	kill -9 $(lsof -t -i:4444)

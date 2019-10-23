@@ -75,9 +75,8 @@ script:
   - ./vendor/bin/phpspec run
   - ./vendor/bin/phpunit
   # run API tests
-  #- ./vendor/bin/behat
-  # run e2e tests with Kakunin
-  #- cd tests/e2e && npm run kakunin && cd ../..
+  - make behat-api
+  # run JS e2e tests
   - ./run_behat_tests.sh && make behat-js
 
 
