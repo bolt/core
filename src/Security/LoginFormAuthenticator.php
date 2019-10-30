@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Security;
 
-use Bolt\Entity\User;
-use Bolt\Exception\DisabledUserLoginAttemptException;
 use Bolt\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
