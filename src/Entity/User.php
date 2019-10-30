@@ -92,9 +92,9 @@ class User implements UserInterface, \Serializable
     private $backendTheme;
 
     /**
-     * @ORM\Column(type="boolean", options={"default" : false})
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=false)
      */
-    private $disabled;
+    private $disabled=false;
 
     public function __construct()
     {

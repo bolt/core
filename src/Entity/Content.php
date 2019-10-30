@@ -58,7 +58,7 @@ class Content
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="set null")
      */
     private $author;
 

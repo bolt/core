@@ -93,7 +93,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         ));
     }
 
-    public function checkPostAuth(UserInterface $user)
+    public function checkPreAuth(UserInterface $user)
     {
         if (!$user instanceof User) {
             return;
