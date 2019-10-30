@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Bolt\Security;
 
 use Bolt\Controller\TwigAwareController;
+use Bolt\Exception\DisabledUserLoginAttemptException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
 use Symfony\Component\Routing\RouterInterface;
 

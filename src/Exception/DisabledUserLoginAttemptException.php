@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Bolt\Security;
+namespace Bolt\Exception;
 
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
