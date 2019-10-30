@@ -38,7 +38,6 @@
             <td>
                 {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary') }}
                 {% if user.id != iteratedUser.id %}
-                    <p>Disabled: {{  iteratedUser.disabled }}</p>
                     {% if iteratedUser.disabled %}
                         {{ macro.buttonlink('action.enable', path('bolt_user_disable', {'id': iteratedUser.id}), 'thumbs-up', 'secondary') }}
                     {% else %}

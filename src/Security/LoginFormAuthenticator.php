@@ -92,15 +92,4 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             $this->router->generate('bolt_dashboard')
         ));
     }
-
-    public function checkPreAuth(UserInterface $user)
-    {
-        if (!$user instanceof User) {
-            return;
-        }
-
-        if ($user->isDisabled()) {
-           throw new DisabledUserLoginAttemptException();
-        }
-    }
 }
