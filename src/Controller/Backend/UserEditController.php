@@ -70,6 +70,42 @@ class UserEditController extends TwigAwareController implements BackendZone
     }
 
     /**
+     * @Route("/user-disable/{id}", methods={"POST", "GET"}, name="bolt_user_disable", requirements={"id": "\d+"})
+     */
+    public function disable(?User $user, Request $request): Response
+    {
+        if($user->isDisabled()){
+           $user->enable();
+        $this->addFlash('success', 'user.enabled_successfully');
+        }else{
+            $user->disable();
+            $this->addFlash('success', 'user.disabled_successfully');
+        }
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $url = $this->urlGenerator->generate('bolt_users');
+
+        return new RedirectResponse($url);
+    }
+
+    /**
+     * @Route("/user-delete/{id}", methods={"POST", "GET"}, name="bolt_user_delete", requirements={"id": "\d+"})
+     */
+    public function delete(?User $user, Request $request): Response
+    {
+        #$this->validateCsrf($request, 'useredit');
+
+        $this->em->remove($user);
+        $this->em->flush();
+
+        $url = $this->urlGenerator->generate('bolt_users');
+        $this->addFlash('success', 'user.updated_profile');
+        return new RedirectResponse($url);
+    }
+
+    /**
      * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
      */
     public function save(?User $user, Request $request): Response

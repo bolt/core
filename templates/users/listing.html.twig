@@ -26,17 +26,25 @@
 
         </tr>
         </thead>
-    {% for user in users %}
+    {% for iteratedUser in users %}
         <tr>
-            <th scope="row">{{ user.id }}</td>
-            <td>{{ user.displayName }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-            <td><code>{{ user.roles|join('</code>, <code>') }}</code></td>
-            <td>{{ user.lastseenAt|default('-') }}</td>
-            <td>{{ user.lastIp|default('12.34.56.78') }}</td>
+            <th scope="row">{{ iteratedUser.id }}</th>
+            <td>{{ iteratedUser.displayName }}</td>
+            <td>{{ iteratedUser.username }}</td>
+            <td>{{ iteratedUser.email }}</td>
+            <td><code>{{ iteratedUser.roles|join('</code>, <code>') }}</code></td>
+            <td>{{ iteratedUser.lastseenAt|default('-') }}</td>
+            <td>{{ iteratedUser.lastIp|default('12.34.56.78') }}</td>
             <td>
-                {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': user.id}), 'edit', 'secondary') }}
+                {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary') }}
+                {% if user.id != iteratedUser.id %}
+                    {% if iteratedUser.disabled %}
+                        {{ macro.buttonlink('action.enable', path('bolt_user_disable', {'id': iteratedUser.id}), 'thumbs-up', 'secondary') }}
+                    {% else %}
+                        {{ macro.buttonlink('action.disable', path('bolt_user_disable', {'id': iteratedUser.id}), 'ban', 'secondary') }}
+                    {% endif %}
+                    {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id}), 'trash', 'danger') }}
+                {%  endif %}
             </td>
         </tr>
     {% endfor %}

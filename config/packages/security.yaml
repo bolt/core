@@ -34,6 +34,8 @@ security:
                 secret: '%kernel.secret%'
                 lifetime: 2592000
 
+            access_denied_handler: Bolt\Security\AccessDeniedHandler
+
     access_control:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
