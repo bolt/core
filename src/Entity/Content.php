@@ -449,8 +449,9 @@ class Content
      */
     public function getAuthorName(): ?string
     {
-        if(!$this->getAuthor() == null)
+        if (! $this->getAuthor() === null) {
             return $this->getAuthor()->getDisplayName();
+        }
         return null;
     }
 

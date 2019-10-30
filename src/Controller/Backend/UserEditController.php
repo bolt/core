@@ -74,10 +74,10 @@ class UserEditController extends TwigAwareController implements BackendZone
      */
     public function disable(?User $user, Request $request): Response
     {
-        if($user->isDisabled()){
-           $user->enable();
+        if ($user->isDisabled()) {
+            $user->enable();
             $this->addFlash('success', 'user.enabled_successfully');
-        }else{
+        } else {
             $user->disable();
             $this->addFlash('success', 'user.disabled_successfully');
         }
@@ -96,14 +96,14 @@ class UserEditController extends TwigAwareController implements BackendZone
     public function delete(?User $user, Request $request): Response
     {
         $this->em->remove($user);
-        $contentArray = $this->getDoctrine()->getManager()->getRepository('Bolt\Entity\Content')->findBy(['author' => $user]);
-        foreach($contentArray as $content){
+        $contentArray = $this->getDoctrine()->getManager()->getRepository(\Bolt\Entity\Content::class)->findBy(['author' => $user]);
+        foreach ($contentArray as $content) {
             $content->setAuthor(null);
             $this->em->persist($content);
         }
 
-        $mediaArray = $this->getDoctrine()->getManager()->getRepository('Bolt\Entity\Media')->findBy(['author'=> $user]);
-        foreach($mediaArray as $media){
+        $mediaArray = $this->getDoctrine()->getManager()->getRepository(\Bolt\Entity\Media::class)->findBy(['author' => $user]);
+        foreach ($mediaArray as $media) {
             $media->setAuthor(null);
             $this->em->persist($media);
         }

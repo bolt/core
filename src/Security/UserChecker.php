@@ -1,6 +1,8 @@
 <?php
-namespace Bolt\Security;
 
+declare(strict_types=1);
+
+namespace Bolt\Security;
 
 use Bolt\Entity\User;
 use Bolt\Exception\DisabledUserLoginAttemptException;
@@ -10,9 +12,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserChecker implements UserCheckerInterface
 {
-    public function checkPostAuth(UserInterface $user)
+    public function checkPostAuth(UserInterface $user): void
     {
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return;
         }
         if ($user->isDisabled()) {
@@ -25,7 +27,7 @@ class UserChecker implements UserCheckerInterface
      *
      * @throws AccountStatusException
      */
-    public function checkPreAuth(UserInterface $user)
+    public function checkPreAuth(UserInterface $user): void
     {
     }
 }

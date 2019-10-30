@@ -94,7 +94,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="boolean", options={"default" : false}, nullable=false)
      */
-    private $disabled=false;
+    private $disabled = false;
 
     public function __construct()
     {
