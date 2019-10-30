@@ -28,25 +28,15 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
     public function handle(Request $request, AccessDeniedException $accessDeniedException)
     {
-
-        $userRoles = $this->security->getUser()->getRoles();
-
-        $this->logger->critical("CURRENT USER ROLES: " . implode (", ", $this->security->getUser()->getRoles()));
-
         if(in_array("ROLE_USER", $userRoles)){
-            $this->logger->critical("THE CURRENT USER IS A ROLE_USER TYPE OF USER.");
+            //TODO: This catches the case when a ROLE_USER tries to login to the backend. Currently throws AccessDenied.
             return;
+        }else if(in_array("ROLE_EDITOR", $userRoles)  or in_array("ROLE_ADMIN", $userRoles)) {
+            $authenticationError = new DisabledUserLoginAttemptException();
+            $request->getSession()->set(Security::AUTHENTICATION_ERROR, $authenticationError);
+            $url = $this->router->generate('bolt_login');
+
+            return new RedirectResponse($url);
         }
-
-
-        #dump($accessDeniedException);
-        #$this->logger->critical("LOGGER ACCESS DENIED EXCEPTION CRITICAL MESSAGE:" . $accessDeniedException->getMessage());
-        #$this->logger->critical("CURRENT USER ROLES: " . implode (", ", $this->security->getUser()->getRoles()));
-
-        $authenticationError = new DisabledUserLoginAttemptException();
-        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $authenticationError);
-        $url = $this->router->generate('bolt_login');
-
-        return new RedirectResponse($url);
     }
 }
