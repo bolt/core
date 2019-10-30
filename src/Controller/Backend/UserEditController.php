@@ -76,7 +76,7 @@ class UserEditController extends TwigAwareController implements BackendZone
     {
         if($user->isDisabled()){
            $user->enable();
-        $this->addFlash('success', 'user.enabled_successfully');
+            $this->addFlash('success', 'user.enabled_successfully');
         }else{
             $user->disable();
             $this->addFlash('success', 'user.disabled_successfully');
@@ -95,8 +95,6 @@ class UserEditController extends TwigAwareController implements BackendZone
      */
     public function delete(?User $user, Request $request): Response
     {
-        #$this->validateCsrf($request, 'useredit');
-
         $this->em->remove($user);
         $contentArray = $this->getDoctrine()->getManager()->getRepository('Bolt\Entity\Content')->findBy(['author' => $user]);
         foreach($contentArray as $content){
