@@ -98,6 +98,12 @@ class UserEditController extends TwigAwareController implements BackendZone
         #$this->validateCsrf($request, 'useredit');
 
         $this->em->remove($user);
+        $contentArray = $this->getDoctrine()->getManager()->getRepository('Bolt\Entity\Content')->findBy(['author' => $user]);
+        foreach($contentArray as $content){
+            $content->setAuthor(null);
+            $this->em->persist($content);
+        }
+
         $this->em->flush();
 
         $url = $this->urlGenerator->generate('bolt_users');

@@ -233,7 +233,7 @@ class Content
         return $this->getDefinition()->get('icon_one') ?: $this->getDefinition()->get('icon_many');
     }
 
-    public function getAuthor(): User
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
@@ -447,9 +447,11 @@ class Content
     /**
      * @Groups("get_content")
      */
-    public function getAuthorName(): string
+    public function getAuthorName(): ?string
     {
-        return $this->getAuthor()->getDisplayName();
+        if(!$this->getAuthor() == null)
+            return $this->getAuthor()->getDisplayName();
+        return null;
     }
 
     public function getStatuses(): array

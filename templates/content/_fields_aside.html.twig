@@ -27,7 +27,7 @@
     {% include '@bolt/_partials/fields/text.html.twig' with {
         'label' : 'field.author'|trans,
         'name' : 'author',
-        'value' : record.author.displayName,
+        'value' : record.author.displayName|default('undefined'),
         'disabled' : true
     } %}
 
