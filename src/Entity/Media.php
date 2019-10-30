@@ -73,7 +73,7 @@ class Media
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User")
-     * @ORM\JoinColumn(nullable=true, onDelete="set null")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
 

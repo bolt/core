@@ -104,6 +104,12 @@ class UserEditController extends TwigAwareController implements BackendZone
             $this->em->persist($content);
         }
 
+        $mediaArray = $this->getDoctrine()->getManager()->getRepository('Bolt\Entity\Media')->findBy(['author'=> $user]);
+        foreach($mediaArray as $media){
+            $media->setAuthor(null);
+            $this->em->persist($media);
+        }
+
         $this->em->flush();
 
         $url = $this->urlGenerator->generate('bolt_users');
