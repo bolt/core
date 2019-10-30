@@ -91,5 +91,11 @@
         <target>Account is locked.</target>
       </segment>
     </unit>
+    <unit id="w7KhJ8F" name="User is disabled.">
+      <segment>
+        <source>User is disabled.</source>
+        <target>User is disabled.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
