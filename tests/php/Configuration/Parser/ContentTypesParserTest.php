@@ -17,6 +17,8 @@ class ContentTypesParserTest extends ParserTestBase
 
     public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 22;
 
+    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 12;
+
     public function testCanParse(): void
     {
         $generalParser = new GeneralParser($this->getProjectDir());
@@ -72,7 +74,8 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertSame('Homepage', $config['homepage']['name']);
         $this->assertSame('Homepage', $config['homepage']['singular_name']);
         $this->assertCount(6, $config['homepage']['fields']);
-        $this->assertCount(11, $config['homepage']['fields']['title']);
+        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_FIELD, $config['homepage']['fields']['title']);
+        $this->assertArrayNotHasKey('key', $config['homepage']['fields']['title']);
         $this->assertSame('Title', $config['homepage']['fields']['title']['label']);
         $this->assertSame('text', $config['homepage']['fields']['title']['type']);
         $this->assertTrue($config['homepage']['fields']['title']['localize']);
