@@ -63,14 +63,15 @@
 
     {# Special case for 'select' fields: if it's a multiple select, the field is an array. #}
     {% if type == "select" and field is not empty %}
-        <p><strong>{{ field.definition.label|default(field.name) }}: </strong>
+
+        <p><strong>{{ field|label }}: </strong>
             {{ dump(field) }}
         </p>
     {% endif %}
 
     {# Checkbox fields #}
     {% if type == "checkbox" %}
-        <p><strong>{{ field.definition.label|default(field.name) }}</strong>: {{ field ? "checked" : "not checked" }}</p>
+        <p><strong>{{ field|label }}</strong>: {{ field ? "checked" : "not checked" }}</p>
     {% endif %}
 
     {# Imagelist fields #}
@@ -81,7 +82,7 @@
     {# No special case defined for this type of field. We just output them, if it's
        a simple scalar, and 'dump' them otherwise. #}
     {% if type in [ 'filelist', 'datetime', 'date', 'integer', 'float' ] and field is not empty  %}
-        <p><strong>{{ field.definition.label|default(field.name) }}: </strong>
+        <p><strong>{{ field|label }}: </strong>
         {% if field is iterable %}
             {{ dump(field) }}
         {% else %}

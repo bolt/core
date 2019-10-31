@@ -7,10 +7,22 @@ namespace Bolt\Twig;
 use Bolt\Entity\Field;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class FieldExtension extends AbstractExtension
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('label', [$this, 'getLabel']),
+            new TwigFilter('type', [$this, 'getType']),
+        ];
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -25,5 +37,15 @@ class FieldExtension extends AbstractExtension
         }
 
         return Field::factory($definition, $name);
+    }
+
+    public function getLabel(Field $field): string
+    {
+        return $field->getDefinition()->get('label');
+    }
+
+    public function getType(Field $field): string
+    {
+        return $field->getDefinition()->get('type');
     }
 }

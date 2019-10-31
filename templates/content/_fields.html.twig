@@ -7,7 +7,7 @@
                 {% set field = record.getField(key)|translated(currentlocale) %}
             {% else %}
                 {% set field = field_factory(key, fielddefinition) %}
-            {%  endif %}
+            {% endif %}
 
             {% include [
                 '@bolt/_partials/fields/' ~ fielddefinition.type ~ '.html.twig',

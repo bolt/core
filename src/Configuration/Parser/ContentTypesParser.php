@@ -187,7 +187,8 @@ class ContentTypesParser extends BaseParser
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
-            unset($fields[$key]);
+            $field['slug'] = $key;
+
             $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
             if (! isset($field['type']) || empty($field['type'])) {
                 $error = sprintf('Field "%s" has no "type" set.', $key);
@@ -224,6 +225,10 @@ class ContentTypesParser extends BaseParser
                 $hasGroups = true;
             }
 
+            if (empty($field['label'])) {
+                $field['label'] = ucwords($key);
+            }
+
             if (isset($field['allow_html']) === false) {
                 $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
             }
@@ -242,7 +247,6 @@ class ContentTypesParser extends BaseParser
                     'class' => '',
                     'default' => '',
                     'group' => $currentGroup,
-                    'label' => '',
                     'variant' => '',
                     'localize' => false,
                 ],

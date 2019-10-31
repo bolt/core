@@ -1,9 +1,15 @@
-{% if type != 'checkbox' %}
-  <label for="{{ id }}">
-      {% if localize %}
-        <i class="fas fa-language"></i>
-      {% endif %}
-      {{ label }}
-  </label>
-{% endif %}
+{%- if type != 'checkbox' -%}
+    <label for="{{ id }}">
 
+        {%- if localize -%}
+          <i class="fas fa-language"></i>
+        {%- endif -%}
+
+        {{- label -}}
+
+        {%- if type != 'checkbox' -%}
+            {{- ':' -}}
+        {%- endif -%}
+
+    </label>
+{%- endif -%}

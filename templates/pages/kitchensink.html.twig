@@ -131,9 +131,9 @@
                 {% set field = record.field(key) %}
 
                 {% include [
-                    '@bolt/_partials/fields/' ~ field.definition.type ~ '.html.twig',
+                    '@bolt/_partials/fields/' ~ field|type ~ '.html.twig',
                     '@bolt/_partials/fields/generic.html.twig'
-                    ] with { 'field' : field } %}
+                    ] with { 'field': field } %}
 
             {% endfor %}
 

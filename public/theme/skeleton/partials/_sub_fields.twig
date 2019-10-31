@@ -42,7 +42,7 @@
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
     {% for field in record.fields|filter(field => field.name not in omittedkeys) %}
 
-        {% set type = field.definition.type %}
+        {% set type = field|type %}
 
         {# Fields that are considered 'common': 'html', 'markdown', 'textarea',
            'text', 'image', 'video' and 'imagelist' #}
