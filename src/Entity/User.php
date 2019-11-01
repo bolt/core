@@ -91,6 +91,11 @@ class User implements UserInterface, \Serializable
      */
     private $backendTheme;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=false)
+     */
+    private $disabled = false;
+
     public function __construct()
     {
     }
@@ -159,6 +164,21 @@ class User implements UserInterface, \Serializable
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    public function enable(): void
+    {
+        $this->disabled = false;
+    }
+
+    public function disable(): void
+    {
+        $this->disabled = true;
+    }
+
+    public function isDisabled(): bool
+    {
+        return $this->disabled;
     }
 
     /**

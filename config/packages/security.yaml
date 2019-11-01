@@ -21,6 +21,7 @@ security:
         main:
             pattern: ^/
             anonymous: true
+            user_checker: Bolt\Security\UserChecker
 
             guard:
                 authenticators:

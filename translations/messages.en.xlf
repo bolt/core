@@ -1947,5 +1947,35 @@
         <target>Options</target>
       </segment>
     </unit>
+    <unit id="hTKWQ6g" name="action.delete">
+      <segment>
+        <source>action.delete</source>
+        <target>Delete</target>
+      </segment>
+    </unit>
+    <unit id="ezqx.4H" name="action.enable">
+      <segment>
+        <source>action.enable</source>
+        <target>Enable</target>
+      </segment>
+    </unit>
+    <unit id="ryXZRAu" name="action.disable">
+      <segment>
+        <source>action.disable</source>
+        <target>Disable</target>
+      </segment>
+    </unit>
+    <unit id="29MN3Ip" name="user.enabled_successfully">
+      <segment>
+        <source>user.enabled_successfully</source>
+        <target>User has been enabled successfully!</target>
+      </segment>
+    </unit>
+    <unit id="nj8qBZ5" name="user.disabled_successfully">
+      <segment>
+        <source>user.disabled_successfully</source>
+        <target>User has been disabled successfully!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
