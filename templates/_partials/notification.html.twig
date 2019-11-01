@@ -1,0 +1,107 @@
+<style>
+
+    .bolt__notification--default {
+        background-color: #e2e3e5 !important;
+        border-color: #d6d8db !important;
+    }
+
+    .bolt__notification--default h1, .bolt__notification--default p, .bolt__notification--default code {
+        color: #555 !important;
+    }
+
+    .bolt__notification--warning {
+        background: #fff3d4 !important;
+        border-left-color: #A46A1F !important;
+    }
+
+    .bolt__notification--warning h1 {
+        color: #A46A1F !important;
+    }
+
+    .bolt__notification--success {
+        background-color: #d4edda !important;
+        border-color: #171 !important;
+    }
+
+    .bolt__notification--success h1 {
+        color: #171 !important;
+    }
+
+    .bolt__notification--danger {
+        background-color: #f8d7da !important;
+        border-color: #721c24 !important;
+    }
+
+    .bolt__notification--danger h1 {
+        color: #721c24 !important;
+    }
+
+    .bolt__notification--info {
+        background-color: #d1ecf1 !important;
+        border-color: #0C5460 !important;
+    }
+
+    .bolt__notification--info h1 {
+        color: #0C5460 !important;
+    }
+
+    .bolt__notification {
+        border: none;
+        border-left-width: 5px !important;
+        border-left-style: solid !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+        font-size: 16px !important;
+        padding: 1rem !important;
+        margin: 1rem 0 !important;
+        line-height: 2.4rem !important;
+        font-weight: normal !important;
+    }
+
+    .bolt__notification h1, .bolt__notification p, .bolt__notification code {
+        letter-spacing: 0 !important;
+        margin: 0.5rem 0 !important;
+        padding: 0 !important;
+        background-color: transparent !important;
+    }
+
+    .bolt__notification h1 {
+        font-size: 133% !important;
+        margin: 0.5rem 0 1.5rem !important;
+        font-weight: bold !important;
+    }
+
+    .bolt__notification p {
+        font-size: 100% !important;
+    }
+
+    .bolt__notification li {
+        font-size: 85% !important;
+        line-height: 1.5rem !important;
+    }
+
+
+    .bolt__notification code {
+        font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace, serif !important;
+    }
+
+    .bolt__notification strong {
+        font-weight: bold !important;
+    }
+
+
+</style>
+<div class="bolt__notification bolt__notification--{{ type|default('secondary') }}">
+    <h1> {{ subject|markdown|striptags('<em><i><code>')|raw }}</h1>
+    {{ body|markdown|raw }}
+    <ul>
+    {% for frame in backtrace|slice(2) %}
+        <li>
+            <code>{%- if frame.type is not empty -%}
+                    <abbr title="{{ frame.class }}">
+                    {{- frame.class|split('\\')|last()|excerpt(24) -}}</abbr>{{- frame.type -}}
+            {%- endif -%}
+            <strong>{{- frame.function -}}()</strong></code> - line {{ frame.line }}
+            </li>
+    {% endfor %}
+    </ul>
+</div>
