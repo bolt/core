@@ -16,7 +16,7 @@
     {# Output all fields, in the order as defined in the content type.
        To change the generated html and configure the options, see:
        https://docs.bolt.cm/templating #}
-    {% with { 'record': record, 'exclude': [record|image.fieldname|default()] } %}
+    {% with { 'record': record, 'exclude': [record|image.fieldname|default()], 'extended': true } %}
         {{ block('sub_fields', 'partials/_sub_fields.twig') }}
     {% endwith %}
 

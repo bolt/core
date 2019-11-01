@@ -24,8 +24,8 @@
 
         {# Set up the array of fieldnames that should be iterated. We do this by looping
            over _all_ the fields, and skipping those in the 'omittedkeys' array. #}
-        {% set omittedkeys = [ 'id', 'slug', 'datecreated', 'datechanged', 'datepublish',
-            'datedepublish', 'username', 'status', 'ownerid', 'templatefields' ] %}
+        {% set omittedkeys = ['id', 'slug', 'datecreated', 'datechanged', 'datepublish',
+            'datedepublish', 'username', 'status', 'ownerid', 'templatefields'] %}
 
         {# Skip over the fields that are used in the slug, unless explicitly told not to,
            using the `skip_uses` parameter. #}
@@ -42,7 +42,7 @@
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
     {% for field in record.fields|filter(field => field.name not in omittedkeys) %}
 
-        {% set type = field.definition.type %}
+        {% set type = field|type %}
 
         {# Fields that are considered 'common': 'html', 'markdown', 'textarea',
            'text', 'image', 'video' and 'imagelist' #}

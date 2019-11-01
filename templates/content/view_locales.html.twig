@@ -29,8 +29,8 @@
         {% for name, field in record.fields %}
             <tr>
                 <td>
-                    <b>{{ field.definition.label|default(field.name) }}</b><br>
-                    Type: {{ field.definition.type }}<br>
+                    <b>{{ field|label }}</b><br>
+                    Type: {{ field|type }}<br>
                 </td>
                 {% set localizedValues = find_translations(field) %}
                 {% for locale in locales %}

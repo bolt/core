@@ -45,4 +45,15 @@ class SelectField extends Field implements FieldInterface
 
         return (array) $this->value;
     }
+
+    public function isContentSelect(): bool
+    {
+        $values = $this->getDefinition()->get('values');
+
+        if (is_string($values) && mb_strpos($values, '/') !== false) {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -44,7 +44,7 @@
 {# Set the value #}
 {% if not value|default %}
     {% set value = field.value|default('') %}
-    {% if value is iterable and field.definition.type != "select" %}
+    {% if value is iterable and field|type != "select" %}
         {% set value = value|first %}
     {% endif %}
 {% endif %}
@@ -57,9 +57,6 @@
 {# Set the label #}
 {% if not label|default %}
     {% set label = field.definition.label|default(field.name|default('unnamed')|ucwords) %}
-{% endif %}
-{% if type != 'checkbox' %}
-    {% set label = label|trim(':') ~ ':' %}
 {% endif %}
 
 {# Set the placeholder #}
@@ -83,9 +80,8 @@
 
 {%- endapply -%}
 
-
-<!-- field " {{ type }} {{ variant }} {{ label }} {{ name }} -->
-<div class="form-group editor--group is-{{variant}}">
+<!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
+<div class="form-group editor--group is-{{ variant }}">
 
 {{ prefix|raw }}
 {% block label %}
