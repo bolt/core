@@ -10,6 +10,7 @@ use Bolt\Widgets;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -27,7 +28,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
     /** @var array */
     private $objects = [];
 
-    public function __construct(ExtensionRegistry $extensionRegistry, Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher, ObjectManager $objectManager, Stopwatch $stopwatch)
+    public function __construct(ContainerInterface $container, ExtensionRegistry $extensionRegistry, Widgets $widgets, Config $config, Environment $twig, EventDispatcherInterface $dispatcher, ObjectManager $objectManager, Stopwatch $stopwatch)
     {
         $this->extensionRegistry = $extensionRegistry;
 
@@ -38,6 +39,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
             'dispatcher' => $dispatcher,
             'manager' => $objectManager,
             'stopwatch' => $stopwatch,
+            'container' => $container,
         ];
     }
 
