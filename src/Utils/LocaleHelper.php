@@ -40,9 +40,9 @@ class LocaleHelper
         $this->config = $config;
     }
 
-    public function getLocales(Environment $twig, Collection $localeCodes = null, bool $all = false): Collection
+    public function getLocales(Environment $twig, ?Collection $localeCodes = null, bool $all = false): Collection
     {
-        if($localeCodes == null) {
+        if ($localeCodes === null) {
             if ($all) {
                 $localeCodes = $this->localeCodes;
             } else {

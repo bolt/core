@@ -85,12 +85,8 @@ class LocaleExtension extends AbstractExtension
      * Takes the list of codes of the locales (languages) enabled in the
      * application and returns an array with the name of each locale written
      * in its own language (e.g. English, Français, Español, etc.).
-     * @param Environment $twig
-     * @param Collection|null $localeCodes
-     * @param bool $all
-     * @return Collection
      */
-    public function getLocales(Environment $twig, Collection $localeCodes = null, bool $all = false): Collection
+    public function getLocales(Environment $twig, ?Collection $localeCodes = null, bool $all = false): Collection
     {
         return $this->localeHelper->getLocales($twig, $localeCodes, $all);
     }
