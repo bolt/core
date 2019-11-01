@@ -40,12 +40,14 @@ class LocaleHelper
         $this->config = $config;
     }
 
-    public function getLocales(Environment $twig, bool $all = false): Collection
+    public function getLocales(Environment $twig, Collection $localeCodes = null, bool $all = false): Collection
     {
-        if ($all) {
-            $localeCodes = $this->localeCodes;
-        } else {
-            $localeCodes = $this->getContentLocales();
+        if($localeCodes == null) {
+            if ($all) {
+                $localeCodes = $this->localeCodes;
+            } else {
+                $localeCodes = $this->getContentLocales();
+            }
         }
         // Get the route and route params, to set the new localized link
         $globals = $twig->getGlobals();
