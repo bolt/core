@@ -86,9 +86,9 @@ class LocaleExtension extends AbstractExtension
      * application and returns an array with the name of each locale written
      * in its own language (e.g. English, Français, Español, etc.).
      */
-    public function getLocales(Environment $twig, bool $all = false): Collection
+    public function getLocales(Environment $twig, ?Collection $localeCodes = null, bool $all = false): Collection
     {
-        return $this->localeHelper->getLocales($twig, $all);
+        return $this->localeHelper->getLocales($twig, $localeCodes, $all);
     }
 
     /**
