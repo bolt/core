@@ -13,6 +13,7 @@ use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -47,6 +48,9 @@ abstract class BaseExtension implements ExtensionInterface
 
     /** @var Stopwatch */
     private $stopwatch;
+
+    /** @var ContainerInterface */
+    private $container;
 
     /**
      * Returns the descriptive name of the Extension
@@ -85,7 +89,7 @@ abstract class BaseExtension implements ExtensionInterface
         }
 
         $yamlParser = new Parser();
-
+//dump($filenames);die();
         foreach ($filenames as $filename) {
             if (is_readable($filename)) {
                 $config = array_merge($config, $yamlParser->parseFile($filename));
@@ -157,6 +161,7 @@ abstract class BaseExtension implements ExtensionInterface
         $this->eventDispatcher = $objects['dispatcher'];
         $this->objectManager = $objects['manager'];
         $this->stopwatch = $objects['stopwatch'];
+        $this->container = $objects['container'];
     }
 
     /**
@@ -233,5 +238,13 @@ abstract class BaseExtension implements ExtensionInterface
     public function getStopwatch(): Stopwatch
     {
         return $this->stopwatch;
+    }
+
+    /**
+     * @return ContainerInterface
+     */
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
     }
 }
