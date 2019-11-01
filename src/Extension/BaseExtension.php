@@ -89,7 +89,7 @@ abstract class BaseExtension implements ExtensionInterface
         }
 
         $yamlParser = new Parser();
-//dump($filenames);die();
+        //dump($filenames);die();
         foreach ($filenames as $filename) {
             if (is_readable($filename)) {
                 $config = array_merge($config, $yamlParser->parseFile($filename));
@@ -240,9 +240,6 @@ abstract class BaseExtension implements ExtensionInterface
         return $this->stopwatch;
     }
 
-    /**
-     * @return ContainerInterface
-     */
     public function getContainer(): ContainerInterface
     {
         return $this->container;
