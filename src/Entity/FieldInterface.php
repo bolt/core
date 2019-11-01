@@ -10,4 +10,6 @@ namespace Bolt\Entity;
 interface FieldInterface
 {
     public function getType(): string;
+
+    public function isContentSelect(): bool;
 }
