@@ -224,6 +224,7 @@ abstract class BaseExtension implements ExtensionInterface
      * happy to hear from your ideas.
      *
      * @return object|null
+     *
      * @throws \ReflectionException
      */
     public function getService(string $name)
@@ -247,15 +248,14 @@ abstract class BaseExtension implements ExtensionInterface
         return null;
     }
 
-
     public function getWidgets(): Widgets
     {
-        return $this->getService('Bolt\Widgets');
+        return $this->getService(\Bolt\Widgets::class);
     }
 
     public function getBoltConfig(): Config
     {
-        return $this->getService('Bolt\Configuration\Config');
+        return $this->getService(\Bolt\Configuration\Config::class);
     }
 
     public function getTwig(): Environment
