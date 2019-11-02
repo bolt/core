@@ -155,7 +155,11 @@ abstract class BaseExtension implements ExtensionInterface
     {
         $widget->injectExtension($this);
 
-        $this->getWidgets()->registerWidget($widget);
+        $widgets = $this->getWidgets();
+
+        if ($widgets) {
+            $widgets->registerWidget($widget);
+        }
     }
 
     /**
