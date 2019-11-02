@@ -101,7 +101,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $preset = $this->getPreset($contentType['slug']);
 
                 if ($i === 1 || ! empty($preset)) {
-                    $content->setStatus(isset($preset['status']) ? $preset['status'] : Statuses::PUBLISHED );
+                    $content->setStatus($preset['status'] ?? Statuses::PUBLISHED);
                 } else {
                     $content->setStatus($this->getRandomStatus());
                 }
