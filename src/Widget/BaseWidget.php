@@ -97,6 +97,11 @@ abstract class BaseWidget implements WidgetInterface
         $this->extension = $extension;
     }
 
+    public function getExtension()
+    {
+        return $this->extension;
+    }
+
     /**
      * Method to 'invoke' the widget. Simple wrapper around the 'run' method,
      * which can be overridden in a custom Widget or trait
