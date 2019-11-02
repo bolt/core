@@ -16,6 +16,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -28,26 +29,14 @@ use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
  */
 abstract class BaseExtension implements ExtensionInterface
 {
-    /** @var Widgets */
-    private $widgets;
-
     /** @var Collection */
     private $config;
-
-    /** @var Config */
-    private $boltConfig;
-
-    /** @var Environment */
-    private $twig;
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /** @var ObjectManager */
     private $objectManager;
-
-    /** @var Stopwatch */
-    private $stopwatch;
 
     /** @var ContainerInterface */
     private $container;
@@ -89,7 +78,7 @@ abstract class BaseExtension implements ExtensionInterface
         }
 
         $yamlParser = new Parser();
-        //dump($filenames);die();
+
         foreach ($filenames as $filename) {
             if (is_readable($filename)) {
                 $config = array_merge($config, $yamlParser->parseFile($filename));
@@ -103,7 +92,7 @@ abstract class BaseExtension implements ExtensionInterface
     {
         $slugify = new Slugify();
         $base = $slugify->slugify(str_replace('Extension', '', $this->getClass()));
-        $path = $this->boltConfig->getPath('extensions_config');
+        $path = $this->getBoltConfig()->getPath('extensions_config');
 
         return [
             'main' => sprintf('%s%s%s.yaml', $path, DIRECTORY_SEPARATOR, $base),
@@ -155,12 +144,7 @@ abstract class BaseExtension implements ExtensionInterface
      */
     public function injectObjects(array $objects): void
     {
-        $this->widgets = $objects['widgets'];
-        $this->boltConfig = $objects['config'];
-        $this->twig = $objects['twig'];
-        $this->eventDispatcher = $objects['dispatcher'];
         $this->objectManager = $objects['manager'];
-        $this->stopwatch = $objects['stopwatch'];
         $this->container = $objects['container'];
     }
 
@@ -171,7 +155,11 @@ abstract class BaseExtension implements ExtensionInterface
     {
         $widget->injectExtension($this);
 
-        $this->widgets->registerWidget($widget);
+        $widgets = $this->getWidgets();
+
+        if ($widgets) {
+            $widgets->registerWidget($widget);
+        }
     }
 
     /**
@@ -179,11 +167,11 @@ abstract class BaseExtension implements ExtensionInterface
      */
     public function registerTwigExtension(TwigExtensionInterface $extension): void
     {
-        if ($this->twig->hasExtension(\get_class($extension))) {
+        if ($this->getTwig()->hasExtension(\get_class($extension))) {
             return;
         }
 
-        $this->twig->addExtension($extension);
+        $this->getTwig()->addExtension($extension);
     }
 
     public function registerListener($event, $callback): void
@@ -210,24 +198,64 @@ abstract class BaseExtension implements ExtensionInterface
         return $package->current();
     }
 
-    public function getWidgets(): Widgets
+    /**
+     * This bit of code allows us to get services from the container, even if
+     * they are not marked public. We need to be able to do this, because we
+     * can't anticipate which services an extension's author will want to get,
+     * and neither should we want to make them all public. So, we resort to
+     * this, regardless of them being private / public. With great power comes
+     * great responsibility.
+     *
+     * Note: We wouldn't have to do this, if we could Autowire services in our
+     * own code. If you have good ideas on how to accomplish that, we'd be
+     * happy to hear from your ideas.
+     *
+     * @throws \ReflectionException
+     */
+    public function getService(string $name)
     {
-        return $this->widgets;
+        $container = $this->getContainer();
+
+        if ($container->has($name)) {
+            return $container->get($name);
+        }
+
+        $reflectedContainer = new \ReflectionClass($container);
+        $reflectionProperty = $reflectedContainer->getProperty('privates');
+        $reflectionProperty->setAccessible(true);
+
+        $privateServices = $reflectionProperty->getValue($container);
+
+        if (array_key_exists($name, $privateServices)) {
+            return $privateServices[$name];
+        }
+
+        return null;
+    }
+
+    public function getWidgets(): ?Widgets
+    {
+        return $this->getService(\Bolt\Widgets::class);
     }
 
     public function getBoltConfig(): Config
     {
-        return $this->boltConfig;
+        return $this->getService(\Bolt\Configuration\Config::class);
     }
 
     public function getTwig(): Environment
     {
-        return $this->twig;
+        return $this->getService('twig');
+    }
+
+    public function getSession(): Session
+    {
+        return $this->getService('session');
     }
 
     public function getEventDispatcher(): EventDispatcherInterface
     {
-        return $this->eventDispatcher;
+        return $this->getService('event_dispatcher');
     }
 
     public function getObjectManager(): ObjectManager
@@ -237,7 +265,7 @@ abstract class BaseExtension implements ExtensionInterface
 
     public function getStopwatch(): Stopwatch
     {
-        return $this->stopwatch;
+        return $this->getService('debug.stopwatch');
     }
 
     public function getContainer(): ContainerInterface

@@ -27,7 +27,7 @@ class ExtensionsListCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('List extensions');
+            ->setDescription('List installed Extensions');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): ?int
@@ -43,6 +43,7 @@ class ExtensionsListCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         if (! empty($rows)) {
+            $io->text('Currently installed extensions:');
             $io->table(['Class', 'Extension name'], $rows);
         } else {
             $io->caution('No installed extensions could be found');
