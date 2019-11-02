@@ -229,7 +229,7 @@ abstract class BaseExtension implements ExtensionInterface
         return null;
     }
 
-    public function getWidgets(): Widgets
+    public function getWidgets(): ?Widgets
     {
         return $this->getService(\Bolt\Widgets::class);
     }
