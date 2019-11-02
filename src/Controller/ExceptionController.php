@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailController;
 use Bolt\Controller\Frontend\TemplateController;
+use Symfony\Bundle\TwigBundle\Controller\ExceptionController as SymfonyExceptionController;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
-use Symfony\Bundle\TwigBundle\Controller\ExceptionController as SymfonyExceptionController;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 
@@ -35,11 +36,15 @@ class ExceptionController extends SymfonyExceptionController
         parent::__construct($twig, $debug);
     }
 
-    public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null): Response
+    /**
+     * Show an exception. Mainly used for custom 404 pages, otherwise falls back
+     * to Symfony's error handling
+     */
+    public function showAction(Request $request, FlattenException $exception, ?DebugLoggerInterface $logger = null): Response
     {
         $code = $exception->getStatusCode();
 
-        if ($code == 404) {
+        if ($code === 404) {
             $this->twig->addGlobal('exception', $exception);
 
             return $this->showNotFound();
@@ -64,21 +69,17 @@ class ExceptionController extends SymfonyExceptionController
 
     private function attemptToRender(string $item): ?Response
     {
-        dump($item);
-
         // First, see if it's a contenttype/slug pair:
         [$contentType, $slug] = explode('/', $item . '/');
 
-        if (!empty($contentType) && ! empty($slug)) {
-
+        if (! empty($contentType) && ! empty($slug)) {
             // We wrap it in a try/catch, because we wouldn't want to
             // trigger a 404 within a 404 now, would we?
             try {
-                return $this->detailController->record($slug, $contentType);
+                return $this->detailController->record($slug, $contentType, false);
             } catch (NotFoundHttpException $e) {
                 // Just continue to the next one.
             }
-
         }
 
         // Then, let's see if it's a template we can render.
@@ -90,6 +91,4 @@ class ExceptionController extends SymfonyExceptionController
 
         return null;
     }
-
-
 }

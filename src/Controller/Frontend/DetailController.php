@@ -45,7 +45,7 @@ class DetailController extends TwigAwareController implements FrontendZone
      *
      * @param string|int $slugOrId
      */
-    public function record($slugOrId, ?string $contentTypeSlug = null): Response
+    public function record($slugOrId, ?string $contentTypeSlug = null, bool $requirePublished = true): Response
     {
         // @todo should we check content type?
         if (is_numeric($slugOrId)) {
@@ -59,7 +59,8 @@ class DetailController extends TwigAwareController implements FrontendZone
             $record = $field->getContent();
         }
 
-        if ($record->getStatus() !== Statuses::PUBLISHED) {
+        // If the content is not 'published' we throw a 404, unless we've overridden it.
+        if (($record->getStatus() !== Statuses::PUBLISHED) && $requirePublished) {
             throw new NotFoundHttpException('Content is not published');
         }
 
