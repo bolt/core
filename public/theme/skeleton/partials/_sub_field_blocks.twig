@@ -74,6 +74,8 @@
                 <ul>
                     {% for record in selectedRecords %}
                         <li><a href="{{ record|link }}">{{ record|title }}</a></li>
+                    {% else %}
+                        <li><em>(nothing selected)</em></li>
                     {% endfor %}
                 </ul>
 
