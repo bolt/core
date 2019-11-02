@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
-use Bolt\Extension\ExtensionRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,18 +14,14 @@ class ExtensionsServicesCommand extends Command
 {
     protected static $defaultName = 'extensions:services';
 
-    /** @var ExtensionRegistry */
-    private $extensionRegistry;
-
     /** @var ContainerInterface */
     private $container;
 
-    public function __construct(ExtensionRegistry $extensionRegistry, ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
-        $this->extensionRegistry = $extensionRegistry;
+        $this->container = $container;
 
         parent::__construct();
-        $this->container = $container;
     }
 
     protected function configure(): void

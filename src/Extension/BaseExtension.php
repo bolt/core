@@ -29,26 +29,14 @@ use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
  */
 abstract class BaseExtension implements ExtensionInterface
 {
-    /** @var Widgets */
-    private $widgets;
-
     /** @var Collection */
     private $config;
-
-    /** @var Config */
-    private $boltConfig;
-
-    /** @var Environment */
-    private $twig;
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     /** @var ObjectManager */
     private $objectManager;
-
-    /** @var Stopwatch */
-    private $stopwatch;
 
     /** @var ContainerInterface */
     private $container;
@@ -90,7 +78,7 @@ abstract class BaseExtension implements ExtensionInterface
         }
 
         $yamlParser = new Parser();
-        //dump($filenames);die();
+
         foreach ($filenames as $filename) {
             if (is_readable($filename)) {
                 $config = array_merge($config, $yamlParser->parseFile($filename));
@@ -104,7 +92,7 @@ abstract class BaseExtension implements ExtensionInterface
     {
         $slugify = new Slugify();
         $base = $slugify->slugify(str_replace('Extension', '', $this->getClass()));
-        $path = $this->boltConfig->getPath('extensions_config');
+        $path = $this->getBoltConfig()->getPath('extensions_config');
 
         return [
             'main' => sprintf('%s%s%s.yaml', $path, DIRECTORY_SEPARATOR, $base),
@@ -156,12 +144,7 @@ abstract class BaseExtension implements ExtensionInterface
      */
     public function injectObjects(array $objects): void
     {
-        $this->widgets = $objects['widgets'];
-        $this->boltConfig = $objects['config'];
-        $this->twig = $objects['twig'];
-        $this->eventDispatcher = $objects['dispatcher'];
         $this->objectManager = $objects['manager'];
-        $this->stopwatch = $objects['stopwatch'];
         $this->container = $objects['container'];
     }
 
@@ -172,7 +155,7 @@ abstract class BaseExtension implements ExtensionInterface
     {
         $widget->injectExtension($this);
 
-        $this->widgets->registerWidget($widget);
+        $this->getWidgets()->registerWidget($widget);
     }
 
     /**
@@ -180,11 +163,11 @@ abstract class BaseExtension implements ExtensionInterface
      */
     public function registerTwigExtension(TwigExtensionInterface $extension): void
     {
-        if ($this->twig->hasExtension(\get_class($extension))) {
+        if ($this->getTwig()->hasExtension(\get_class($extension))) {
             return;
         }
 
-        $this->twig->addExtension($extension);
+        $this->getTwig()->addExtension($extension);
     }
 
     public function registerListener($event, $callback): void
@@ -222,8 +205,6 @@ abstract class BaseExtension implements ExtensionInterface
      * Note: We wouldn't have to do this, if we could Autowire services in our
      * own code. If you have good ideas on how to accomplish that, we'd be
      * happy to hear from your ideas.
-     *
-     * @return object|null
      *
      * @throws \ReflectionException
      */
