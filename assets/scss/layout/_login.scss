@@ -50,7 +50,7 @@
   }
 
   &.with-background {
-    background-image: url(https://source.unsplash.com/daily);
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url(https://source.unsplash.com/daily);
     background-position: center;
     background-size: cover;
 
