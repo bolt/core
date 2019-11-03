@@ -54,11 +54,17 @@ class LocaleHelper
 
         /** @var Request $request */
         $request = $globals['app']->getRequest();
+        $locales = new Collection();
+
         $route = $request->attributes->get('_route');
         $routeParams = $request->attributes->get('_route_params');
         $currentLocale = $request->getLocale();
 
-        $locales = new Collection();
+        // For edge-cases like '404', the `_route` is null, so we bail.
+        if ($route === null) {
+            return $locales;
+        }
+
         foreach ($localeCodes as $localeCode) {
             $locale = $this->localeInfo($localeCode);
 
