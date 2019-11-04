@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Extension;
 
+use Bolt\Event\Subscriber\ExtensionSubscriber;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Types;
 
@@ -70,14 +71,27 @@ class ExtensionRegistry
         return null;
     }
 
-    public function initializeAll(array $objects): void
+    /**
+     * Runs once, invoked from the ExtensionSubscriber, to bootstrap all
+     * extensions by injecting the container and running their initialize method
+     *
+     * @see ExtensionSubscriber::onKernelResponse()
+     */
+    public function initializeAll(array $objects, bool $runCli = false): void
     {
         $this->addComposerPackages();
 
         foreach ($this->getExtensionClasses() as $extensionClass) {
             $extension = new $extensionClass();
             $extension->injectObjects($objects);
-            $extension->initialize();
+
+            if (! $runCli) {
+                // If we're not running on the CLI. Assumably in a browser…
+                $extension->initialize();
+            } elseif (method_exists($extension, 'initializeCli')) {
+                // We're running on the CLI
+                $extension->initializeCli();
+            }
 
             $this->extensions[$extensionClass] = $extension;
         }
