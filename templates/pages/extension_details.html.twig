@@ -1,0 +1,85 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{% block title %}
+    {{ macro.icon('plug') }}
+    {{ 'caption.extensions'|trans }}
+{% endblock title %}
+
+{% block main %}
+        {% set package = extension.composerPackage() %}
+        {% set config = extension.config() %}{# Note: we do this, because then we trigger copying the dist file, if needed #}
+        {% set configFile = extension.hasConfigFilenames()|first %}
+        {% set configLink = path('bolt_file_edit', {'location': 'config', 'file': configFile }) %}
+
+        <div class="card my-2">
+            <div class="card-header">
+                {{ extension.name }}<br>
+            </div>
+
+            <div class="card-body">
+
+                {% if package %}
+                    <dl class="row">
+                        <dt class="col-sm-3">{{ 'extensions.title_desc'|trans }}</dt>
+                        <dd class="col-sm-9">{{ package.description }}</dd>
+                        <dt class="col-sm-3">{{ 'extensions.title_author'|trans }}</dt>
+                        <dd class="col-sm-9">{% for author in package.authors %}{{ author.name }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+                        <dt class="col-sm-3">{{ 'extensions.title_package'|trans }}</dt>
+                        <dd class="col-sm-9"><code>{{ package.prettyName }}</code> - <code>{{ extension.class }}</code></dd>
+                        {% if configFile %}
+                            <dt class="col-sm-3">{{ 'extensions.title_version'|trans }} </dt>
+                            <dd class="col-sm-9"><code><a href="{{ configLink }}">{{ configFile }}</a></code></dd>
+                        {% endif %}
+                        <dt class="col-sm-3">Version: </dt>
+                        <dd class="col-sm-9">{{ package.prettyVersion }}</dd>
+                        <dt class="col-sm-3">Dependencies: </dt>
+                        <dd class="col-sm-9">
+                            {% if extension.dependencies is empty %}
+                                <i>No known dependencies</i>
+                            {% else %}
+                                {% for dependency in dependencies %}
+                                    {{ dependency }} <br>
+                                {% endfor %}
+                            {% endif %}
+                        </dd>
+                    </dl>
+
+                {% else %}
+
+                    <dl class="row">
+                        <dt class="col-sm-3">{{ 'extensions.title_desc'|trans }}</dt>
+                        <dd class="col-sm-9">{{ 'extensions.info_not_installed'|trans }}</dd>
+                        <dt class="col-sm-3">{{ 'extensions.title_class'|trans }}</dt>
+                        <dd class="col-sm-9"><code>{{ extension.class }}</code></dd>
+                    </dl>
+
+                {% endif %}
+
+                <div class="w-100">
+                    {% if configFile %}
+                        <a class="btn btn-secondary btn-small" href="{{ configLink }}">
+                            <i class="fa fa-edit"></i>{{ 'extensions.button_configuration'|trans }}
+                        </a>
+                    {% endif %}
+                    {% if package.sourceUrl|default() %}
+                        <a class="btn btn-tertiary btn-small" href="{{ package.sourceUrl }}" target="_blank">
+                            <i class="fa fa-external-link-square-alt"></i>{{ 'extensions.button_source'|trans }}
+                        </a>
+                    {% endif %}
+                    {% if package|default() %}
+                        <a class="btn btn-hidden-danger btn-small ml-1 float-right" href=""
+                           data-confirmation="{{ 'extensions.message_not_implemented'|trans }}">
+                            <i class="fas fa-trash-alt"></i>{{ 'extensions.button_remove'|trans }}
+                        </a>
+                    {% endif %}
+
+                    <a class="btn btn-tertiary btn-small float-right" href=""
+                       data-confirmation="{{ 'extensions.message_not_implemented'|trans }}">
+                        <i class="fas fa-ban"></i>{{ 'extensions.button_disable'|trans }}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+{% endblock main %}
