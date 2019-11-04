@@ -50,7 +50,7 @@ class ExtensionsServicesCommand extends Command
 
         $privateServices = $reflectionProperty->getValue($this->container);
 
-        $io->text('Publicly accessible Services:');
+        $io->text('Publicly accessible Services <info>(' . count($rows) . ')</info>:');
         $io->table(['Service ID', 'Class name / Alias'], $rows);
 
         $rows = [];
@@ -59,7 +59,7 @@ class ExtensionsServicesCommand extends Command
             $rows[] = [$id, get_class($name)];
         }
 
-        $io->text('Private Services:');
+        $io->text('Private Services <info>(' . count($rows) . ')</info>:');
         $io->table(['Service ID', 'Class name / Alias'], $rows);
 
         return 0;

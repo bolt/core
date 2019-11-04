@@ -46,7 +46,7 @@ class ExtensionSubscriber implements EventSubscriberInterface
      */
     public function onConsoleResponse(ConsoleCommandEvent $event): void
     {
-        $this->extensionRegistry->initializeAll($this->objects);
+        $this->extensionRegistry->initializeAll($this->objects, true);
     }
 
     /**
