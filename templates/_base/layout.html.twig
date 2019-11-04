@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ block('title')|striptags }}</title>
     {% block stylesheets %}
-    {% set theme = 'theme-' ~ user.backendTheme|default('default') %}
+    {% set theme = 'theme-' ~ app.user.backendTheme|default('default') %}
     {{ encore_entry_link_tags('bolt') }}
     {{ encore_entry_link_tags(theme) }}
     {% endblock %}
