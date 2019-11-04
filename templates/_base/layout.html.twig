@@ -23,7 +23,7 @@
 
     <!-- Admin Toolbar -->
     <nav class="admin__toolbar" id="toolbar">
-        {% set user_display_name = user.displayName|default('Unknown user') %}
+        {% set user_display_name = app.user.displayName|default('Unknown user') %}
 
         {# Setting the labels and their localisations that are used in the sidebar-menu. #}
         {% set labels = {
