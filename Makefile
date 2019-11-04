@@ -1,6 +1,6 @@
 DC_RUN ?= docker-compose run --rm
 
-.PHONY: help install build-assets copy-assets server server-stop cache csclear cscheck csfix csfix-tests stancheck test \
+.PHONY: help install server server-stop cache csclear cscheck csfix csfix-tests stancheck test \
 behat full-test db-create db-update db-reset docker-install docker-install-deps docker-start docker-assets-serve \
 docker-update docker-cache docker-csclear docker-cscheck docker-csfix docker-stancheck docker-db-create docker-db-reset \
 docker-db-update docker-npm-fix-env docker-test docker-server-stop docker-behat docker-full-test \
@@ -16,7 +16,7 @@ start: ## to run the install scripts and start the server
 	make db-create
 	make server
 
-install: ## to install all project
+install: ## to install all project dependencies (Composer and NPM)
 	cp -n .env.dist .env || true
 	composer install
 	npm install
