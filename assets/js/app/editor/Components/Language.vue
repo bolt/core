@@ -58,7 +58,7 @@ export default {
 
   methods: {
     switchLocale() {
-      const locale = this.locale.link;
+      const locale = this.locale.link + location.hash;
       return (window.location.href = locale);
     },
   },
