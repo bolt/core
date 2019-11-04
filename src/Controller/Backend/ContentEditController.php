@@ -322,7 +322,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);
-            
+
             if ($this->em->contains($field)) {
                 $this->em->refresh($field);
             }
