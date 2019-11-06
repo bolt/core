@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Security;
 
+use Bolt\Entity\User;
 use Bolt\Entity\UserAuthToken;
 use Bolt\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -91,6 +92,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         $user = $token->getUser();
+
+        if (! $user instanceof User) {
+            return null;
+        }
 
         if ($user->getUserAuthToken()) {
             $this->em->remove($user->getUserAuthToken());
