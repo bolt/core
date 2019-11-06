@@ -7,8 +7,6 @@ namespace Bolt\Security;
 use Bolt\Entity\UserAuthToken;
 use Bolt\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -92,20 +90,18 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-
         $user = $token->getUser();
 
-        if($user->getUserAuthToken())
-        {
+        if ($user->getUserAuthToken()) {
             $this->em->remove($user->getUserAuthToken());
             $this->em->flush();
         }
-        
+
         $user->setLastseenAt(new \DateTime());
         $user->setLastIp($request->getClientIp());
         $useragent = $request->headers->get('User-Agent');
         $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
-        $expirationTime = (new \DateTime())->modify("+".$sessionLifetime." second");
+        $expirationTime = (new \DateTime())->modify('+'.$sessionLifetime.' second');
         $userAuthToken = UserAuthToken::factory($user, $useragent, $expirationTime);
         $user->setUserAuthToken($userAuthToken);
 

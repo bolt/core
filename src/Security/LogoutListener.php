@@ -1,7 +1,8 @@
 <?php
 
-namespace Bolt\Security;
+declare(strict_types=1);
 
+namespace Bolt\Security;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +19,10 @@ class LogoutListener implements LogoutHandlerInterface
         $this->em = $em;
     }
 
-    public function logout(Request $request, Response $response, TokenInterface $token)
+    public function logout(Request $request, Response $response, TokenInterface $token): void
     {
         $user = $token->getUser();
         $this->em->remove($user->getUserAuthToken());
         $this->em->flush();
     }
-
 }

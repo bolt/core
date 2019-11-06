@@ -306,7 +306,7 @@ class User implements UserInterface, \Serializable
         $this->userAuthToken = $userAuthToken;
 
         // set (or unset) the owning side of the relation if necessary
-        $newUser = null === $userAuthToken ? null : $this;
+        $newUser = $userAuthToken === null ? null : $this;
         if ($userAuthToken->getUser() !== $newUser) {
             $userAuthToken->setUser($newUser);
         }
