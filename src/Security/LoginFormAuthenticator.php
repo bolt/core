@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Security;
 
+use Bolt\Entity\UserAuthToken;
 use Bolt\Repository\UserRepository;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -32,12 +36,16 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
-    public function __construct(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    /** @var ObjectManager */
+    private $em;
+
+    public function __construct(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, ObjectManager $em)
     {
         $this->userRepository = $userRepository;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->em = $em;
     }
 
     protected function getLoginUrl()
@@ -84,6 +92,26 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+
+        $user = $token->getUser();
+
+        if($user->getUserAuthToken())
+        {
+            $this->em->remove($user->getUserAuthToken());
+            $this->em->flush();
+        }
+        
+        $user->setLastseenAt(new \DateTime());
+        $user->setLastIp($request->getClientIp());
+        $useragent = $request->headers->get('User-Agent');
+        $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
+        $expirationTime = (new \DateTime())->modify("+".$sessionLifetime." second");
+        $userAuthToken = UserAuthToken::factory($user, $useragent, $expirationTime);
+        $user->setUserAuthToken($userAuthToken);
+
+        $this->em->persist($user);
+        $this->em->flush();
+
         return new RedirectResponse($request->getSession()->get(
             '_security.'.$providerKey.'.target_path',
             $this->router->generate('bolt_dashboard')
