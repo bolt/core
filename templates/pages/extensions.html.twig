@@ -13,6 +13,7 @@
     {% set config = extension.config() %}{# Note: we do this, because then we trigger copying the dist file, if needed #}
     {% set configFile = extension.hasConfigFilenames()|first %}
     {% set configLink = path('bolt_file_edit', {'location': 'config', 'file': configFile }) %}
+    {% set detailsLink = path('bolt_extensions_view', {'name': extension.class}) %}
 
     <div class="card my-2">
         <div class="card-header">
@@ -49,6 +50,9 @@
             {% endif %}
 
             <div class="w-100">
+                <a class="btn btn-secondary btn-small" href="{{ detailsLink }}">
+                    <i class="fa fa-search-plus"></i>{{ 'extensions.button_detailed_view'|trans }}
+                </a>
                 {% if configFile %}
                 <a class="btn btn-secondary btn-small" href="{{ configLink }}">
                     <i class="fa fa-edit"></i>{{ 'extensions.button_configuration'|trans }}

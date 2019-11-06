@@ -40,11 +40,6 @@ class ExtensionsController extends AbstractController implements BackendZone
     {
         $extensions = $this->extensionRegistry->getExtensions();
 
-        foreach ($extensions as $extension){
-            $extension->dependencies = iterator_to_array($this->dependenciesManager->get("acmecorp/reference-extension"));
-            $extension->dependencies = iterator_to_array(Dependencies::boltCommon());
-        }
-
         $twigvars = [
             'extensions' => $extensions,
         ];
