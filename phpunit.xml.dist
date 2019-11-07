@@ -1,49 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.1/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="config/bootstrap.php"
 >
     <php>
-        <ini name="error_reporting" value="-1" force="true"/>
-        <env name="KERNEL_CLASS" value="Bolt\Kernel"/>
-        <env name="APP_ENV" value="test" force="true"/>
-        <env name="APP_DEBUG" value="1" force="true"/>
-        <env name="APP_SECRET" value="5a79a1c866efef9ca1800f971d689f3e"/>
-        <env name="SYMFONY_PHPUNIT_VERSION" value="7.1"/>
-        <!-- define your env variables for the test env here -->
-
-        <!-- ###+ doctrine/doctrine-bundle ### -->
-        <env name="DATABASE_URL" value="sqlite::memory:" force="true"/>
-        <!-- ###- doctrine/doctrine-bundle ### -->
-        <!-- ###+ nelmio/cors-bundle ### -->
-        <env name="CORS_ALLOW_ORIGIN" value="^https?://localhost(:[0-9]+)?$"/>
-        <!-- ###- nelmio/cors-bundle ### -->
-
-        <!-- ###+ php-translation/loco-adapter ### -->
-        <env name="LOCO_PROJECT_API_KEY" value=""/>
-        <!-- ###- php-translation/loco-adapter ### -->
-
-        <!-- ###+ symfony/swiftmailer-bundle ### -->
-        <!-- For Gmail as a transport, use: "gmail://username:password@localhost" -->
-        <!-- For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode=" -->
-        <!-- Delivery is disabled by default via "null://localhost" -->
-        <env name="MAILER_URL" value="null://localhost"/>
-        <!-- ###- symfony/swiftmailer-bundle ### -->
+        <ini name="error_reporting" value="-1" />
+        <server name="APP_ENV" value="test" force="true" />
+        <server name="SHELL_VERBOSITY" value="-1" />
     </php>
 
     <testsuites>
-        <testsuite name="Bolt Test Suite">
-            <directory>tests/php/</directory>
+        <testsuite name="Project Test Suite">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
-    <listeners>
-        <!-- it begins a database transaction before every testcase and rolls it back after
-             the test finished, so tests can manipulate the database without affecting other tests -->
-        <listener class="\DAMA\DoctrineTestBundle\PHPUnit\PHPUnitListener" />
-    </listeners>
+    <filter>
+        <whitelist>
+            <directory>src</directory>
+        </whitelist>
+    </filter>
 </phpunit>

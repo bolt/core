@@ -1,16 +1,4 @@
 twig:
+    default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
-    strict_variables: true
-    form_themes:
-        - '@bolt/form/layout.html.twig'
-        - '@bolt/form/fields.html.twig'
-    paths:
-        # Since the name of the theme folder is dynamic, we shouldn't set it here, but dynamically
-        # See TwigAwareController::setTwigLoader()
-        # '%kernel.project_dir%/public/theme/%bolt.theme%': ''
-        '%kernel.project_dir%/templates/': 'bolt'
-    globals:
-        'config': '@Bolt\Configuration\Config'
-
-    # Override Symfony's error pages (so we can show custom 404's)
-    exception_controller: Bolt\Controller\ExceptionController::showAction
+    strict_variables: '%kernel.debug%'

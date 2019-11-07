@@ -1,16 +1,7 @@
 api_platform:
-    enable_swagger_ui: false # route redirected manually to /bolt/api
-    graphql:
-        graphiql:
-            enabled: true
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
-    formats:
-        jsonld:   ['application/ld+json']
-        json:     ['application/json']
-        jsonapi:  ['application/vnd.api+json']
-        html:     ['text/html']
-    collection:
-            pagination:
-                client_items_per_page: true
-                items_per_page_parameter_name: 'pageSize'
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]

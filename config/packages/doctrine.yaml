@@ -1,44 +1,26 @@
-parameters:
-    # Adds a fallback DATABASE_URL if the env var is not set. This allows you
-    # to run cache:warmup even if your environment variables are not available
-    # yet. You should not need to change this value.
-    env(DATABASE_DRIVER): 'pdo_sqlite'
-    env(DATABASE_URL): ''
-
 doctrine:
     dbal:
+        # configure these for your database server
+        # use postgresql for PostgreSQL
+        # use sqlite for SQLite
+        driver: 'mysql'
+        server_version: '5.7'
+
+        # only needed for MySQL
         charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+
         url: '%env(resolve:DATABASE_URL)%'
-
-        # For SQLite
-        # driver: 'pdo_sqlite'
-        # server_version: '3.15'
-
-        # For MySQL
-        # driver: 'pdo_mysql'
-        # server_version: 5.7	
-
     orm:
-        auto_generate_proxy_classes: '%kernel.debug%'
+        auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
-            Bolt:
+            App:
                 is_bundle: false
                 type: annotation
                 dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'Bolt\Entity'
+                prefix: 'App\Entity'
                 alias: App
-            gedmo_translatable:
-                type: annotation
-                prefix: Gedmo\Translatable\Entity
-                dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity/MappedSuperclass"
-                is_bundle: false
-            gedmo_translator:
-                type: annotation
-                prefix: Gedmo\Translator\Entity
-                dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
-                is_bundle: false
-        dql:
-            string_functions:
-                JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract

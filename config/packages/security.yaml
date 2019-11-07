@@ -1,43 +1,22 @@
 security:
-    role_hierarchy:
-        ROLE_ADMIN: [ROLE_EDITOR, ROLE_USER]
-        ROLE_EDITOR: [ROLE_USER]
-        ROLE_USER: []
-
-    encoders:
-        Bolt\Entity\User: auto
-
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        database_users:
-            entity:
-                class: Bolt\Entity\User
-                property: username
-
+        in_memory: { memory: null }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
         main:
-            pattern: ^/
             anonymous: true
-            user_checker: Bolt\Security\UserChecker
 
-            guard:
-                authenticators:
-                    - Bolt\Security\LoginFormAuthenticator
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
 
-            logout:
-                path: bolt_logout
-                target: bolt_login
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
 
-            remember_me:
-                secret: '%kernel.secret%'
-                lifetime: 2592000
-
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
     access_control:
-        # this is a catch-all for the admin area
-        # additional security lives in the controllers
-        - { path: '^%bolt.backend_url%/(login|resetpassword)$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^%bolt.backend_url%', roles: ROLE_ADMIN }
-        - { path: '^/(%app_locales%)%bolt.backend_url%', roles: ROLE_ADMIN }
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
