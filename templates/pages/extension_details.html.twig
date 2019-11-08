@@ -38,7 +38,7 @@
                             {% if extension.dependencies is empty %}
                                 <i>No known dependencies</i>
                             {% else %}
-                                {% for dependency in dependencies %}
+                                {% for dependency in extension.dependencies %}
                                     {{ dependency }} <br>
                                 {% endfor %}
                             {% endif %}
