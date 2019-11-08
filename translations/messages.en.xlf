@@ -1776,7 +1776,7 @@
     <unit id="hXEFV1n" name="listing.title_last_seen">
       <segment>
         <source>listing.title_last_seen</source>
-        <target>Last seen</target>
+        <target>Last registered</target>
       </segment>
     </unit>
     <unit id="pn7kE17" name="listing.title_last_ip">
