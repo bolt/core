@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use UAParser\Parser;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -104,10 +105,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         $user->setLastseenAt(new \DateTime());
         $user->setLastIp($request->getClientIp());
-        $useragent = $request->headers->get('User-Agent');
+        $parsedUserAgent = Parser::create()->parse($request->headers->get('User-Agent'))->toString();
         $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
         $expirationTime = (new \DateTime())->modify('+'.$sessionLifetime.' second');
-        $userAuthToken = UserAuthToken::factory($user, $useragent, $expirationTime);
+        $userAuthToken = UserAuthToken::factory($user, $parsedUserAgent, $expirationTime);
         $user->setUserAuthToken($userAuthToken);
 
         $this->em->persist($user);
