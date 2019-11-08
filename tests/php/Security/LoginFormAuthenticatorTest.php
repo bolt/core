@@ -65,7 +65,7 @@ class LoginFormAuthenticatorTest extends TestCase
             $router ?? $this->createMock(RouterInterface::class),
             $csrfTokenManager ?? $this->createMock(CsrfTokenManagerInterface::class),
             $userPasswordEncoder ?? $this->createMock(UserPasswordEncoderInterface::class),
-            $em ?? $this->createMock((ObjectManager::class))
+            $em ?? $this->createMock(ObjectManager::class)
         );
     }
 }
