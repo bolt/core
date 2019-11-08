@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { DateTime } from 'luxon';
 
 $(document).ready(function() {
   // add a js class to indicate we have JS enabled. Might need a change to either modernizr or somethng comparable
@@ -46,5 +47,12 @@ $(document).ready(function() {
     const hash = $(this).attr('href');
     newUrl = url.split('#')[0] + hash;
     history.replaceState(null, null, newUrl);
+  });
+
+  /*
+   ** Convert all ISO dates with class .datetime-relative to relative time
+   */
+  $('.datetime-relative').each(function() {
+    $(this).text(DateTime.fromISO($(this).text()).toRelativeCalendar());
   });
 });

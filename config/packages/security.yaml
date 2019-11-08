@@ -28,6 +28,7 @@ security:
                     - Bolt\Security\LoginFormAuthenticator
 
             logout:
+                handler: Bolt\Security\LogoutListener
                 path: bolt_logout
                 target: bolt_login
 

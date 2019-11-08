@@ -7,6 +7,7 @@ namespace spec\Bolt\Security;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
 use Bolt\Security\LoginFormAuthenticator;
+use Doctrine\ORM\EntityManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,9 +28,9 @@ class LoginFormAuthenticatorSpec extends ObjectBehavior
         'username' => 'test',
     ];
 
-    public function let(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $userPasswordEncoder): void
+    public function let(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $userPasswordEncoder, EntityManager $em): void
     {
-        $this->beConstructedWith($userRepository, $router, $csrfTokenManager, $userPasswordEncoder);
+        $this->beConstructedWith($userRepository, $router, $csrfTokenManager, $userPasswordEncoder, $em);
     }
 
     public function it_gets_login_url(RouterInterface $router, Request $request): void

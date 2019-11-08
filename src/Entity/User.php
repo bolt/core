@@ -96,6 +96,11 @@ class User implements UserInterface, \Serializable
      */
     private $disabled = false;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $userAuthToken;
+
     public function __construct()
     {
     }
@@ -287,6 +292,24 @@ class User implements UserInterface, \Serializable
     public function setBackendTheme(?string $backendTheme): self
     {
         $this->backendTheme = $backendTheme;
+
+        return $this;
+    }
+
+    public function getUserAuthToken(): ?UserAuthToken
+    {
+        return $this->userAuthToken;
+    }
+
+    public function setUserAuthToken(?UserAuthToken $userAuthToken): self
+    {
+        $this->userAuthToken = $userAuthToken;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = $userAuthToken === null ? null : $this;
+        if ($userAuthToken->getUser() !== $newUser) {
+            $userAuthToken->setUser($newUser);
+        }
 
         return $this;
     }
