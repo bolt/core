@@ -74,14 +74,14 @@ class UploadController implements AsyncZone
             [
                 'allowed' => ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'pdf'],
             ],
-            '{label} should be a valid image (jpg, jpeg, png, webp or svg)',
-            'Image'
+            '{label} should be a valid file (jpg, jpeg, png, webp, svg or pdf)',
+            'Upload file'
         );
         $uploadHandler->addRule(
             'size',
             ['max' => '20M'],
             '{label} should have less than {max}',
-            'Image'
+            'Upload file'
         );
         $uploadHandler->setSanitizerCallback(function ($name) {
             return $this->sanitiseFilename($name);
