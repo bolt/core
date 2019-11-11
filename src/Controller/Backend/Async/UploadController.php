@@ -69,12 +69,13 @@ class UploadController implements AsyncZone
             Handler::OPTION_OVERWRITE => true,
         ]);
 
+        $acceptedFileTypes = array_merge($this->config->getMediaTypes()->toArray(), $this->config->getFileTypes()->toArray());
         $uploadHandler->addRule(
             'extension',
             [
-                'allowed' => array_merge($this->config->getMediaTypes()->toArray(), $this->config->getFileTypes()->toArray()),
+                'allowed' => $acceptedFileTypes,
             ],
-            '{label} should be a valid file (jpg, jpeg, png, webp, svg or pdf)',
+            '{label} should be a valid file (' . implode(',', $acceptedFileTypes) . ')',
             'Upload file'
         );
         $uploadHandler->addRule(

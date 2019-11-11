@@ -120,7 +120,7 @@ export default {
       return this.csrfToken;
     },
     acceptedExtensions() {
-      return this.extensions.map(ext => "." + ext).join();
+      return this.extensions.map(ext => '.' + ext).join();
     },
   },
   methods: {
