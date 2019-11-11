@@ -20,6 +20,7 @@ import Email from './Components/Email';
 import Password from './Components/Password';
 import ThemeSelect from './Components/ThemeSelect';
 import Language from './Components/Language';
+import File from './Components/File';
 
 new Vue({
   store,
@@ -32,6 +33,7 @@ new Vue({
     'editor-password': Password,
     'editor-html': Html,
     'editor-image': Image,
+    'editor-file': File,
     'editor-markdown': Markdown,
     'editor-number': Number,
     'editor-select': Select,

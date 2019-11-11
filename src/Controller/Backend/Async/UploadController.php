@@ -69,19 +69,20 @@ class UploadController implements AsyncZone
             Handler::OPTION_OVERWRITE => true,
         ]);
 
+        $acceptedFileTypes = array_merge($this->config->getMediaTypes()->toArray(), $this->config->getFileTypes()->toArray());
         $uploadHandler->addRule(
             'extension',
             [
-                'allowed' => ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'],
+                'allowed' => $acceptedFileTypes,
             ],
-            '{label} should be a valid image (jpg, jpeg, png, webp or svg)',
-            'Image'
+            '{label} should be a valid file (' . implode(',', $acceptedFileTypes) . ')',
+            'Upload file'
         );
         $uploadHandler->addRule(
             'size',
             ['max' => '20M'],
             '{label} should have less than {max}',
-            'Image'
+            'Upload file'
         );
         $uploadHandler->setSanitizerCallback(function ($name) {
             return $this->sanitiseFilename($name);

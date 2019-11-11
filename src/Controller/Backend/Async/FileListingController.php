@@ -31,7 +31,7 @@ class FileListingController implements AsyncZone
     public function index(Request $request): JsonResponse
     {
         $locationName = $request->query->get('location', 'files');
-        $type = $request->query->get('type', 'images');
+        $type = $request->query->get('type', '');
 
         $path = $this->config->getPath($locationName, true);
 
