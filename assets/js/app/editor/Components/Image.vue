@@ -116,7 +116,7 @@ export default {
     'csrfToken',
     'labels',
     'filelist',
-    'extensions'
+    'extensions',
   ],
   data: () => {
     return {
@@ -134,7 +134,7 @@ export default {
       return this.csrfToken;
     },
     acceptedExtensions() {
-      return this.extensions.map(ext => "." + ext).join();
+      return this.extensions.map(ext => '.' + ext).join();
     },
   },
   mounted() {
