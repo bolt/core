@@ -173,4 +173,9 @@ class Config
     {
         return $this->get('contenttypes/' . $name);
     }
+
+    public function getFileTypes(): Collection
+    {
+        return new Collection($this->get('general/accept_file_types'));
+    }
 }
