@@ -1,63 +1,26 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    <div class="row" style="margin-right: 0;">
-        <div class="col-8">
-
-            <div class="row mb-2">
-                <div class="col-3">
-                    <label>{{ 'file.label_filename'|trans }}</label>
-                </div>
-                <div class="col-9">
-                    <input class="form-control {{ class }}" name="{{ name }}[filename]" id="{{ id }}-filename"
-                           placeholder="filename.jpg" type="text" value="{{ field.get('filename') }}"
-                           {{ attributes|default()|raw }}>
-                </div>
-
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-3">
-                    <label>{{ 'file.label_alt'|trans }}</label>
-                </div>
-                <div class="col-9">
-                    <input class="form-control {{ class }}" name="{{ name }}[alt]" placeholder="…" type="text"
-                           value="{{ field.get('alt') }}" {{ attributes|default()|raw }}>
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-3">
-                    <label>{{ 'file.label_title'|trans }}</label>
-                </div>
-                <div class="col-9">
-                    <input  class="form-control {{ class }}" name="{{ name }}[alt]"
-                            placeholder="{{ placeholder|default('The title of this image') }}" type="text"
-                            value="{{ field.get('title') }}" {{ attributes|default()|raw }}>
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-12" style="text-align: right;">
-                    {% if field.get('filename') %}
-                    <a href="{{ field.get('filename')|thumbnail(width=1000, height=1000) }}"
-                       class="btn btn-secondary btn-small lightbox" style="color: #FFF;">
-                        {{ 'file.button_view'|trans }}
-                    </a>
-                    {%  endif %}
-                    <a class="btn btn-secondary btn-small" href=""
-                       onclick="document.querySelector('.filepond--drop-label label').click(); return false;"
-                       style="color: #FFF;">{{ 'file.button_upload'|trans }}</a>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-4" id="{{ id }}-uploader" style="padding: 0; min-height: 180px;">
-            {# <file-pond name="filepond[]" ref="pond" accepted-file-types="image/jpeg, image/png" server="/async/upload"></file-pond> #}
-        </div>
-
-    </div>
-
-    <mark>{{ 'file.remark'|trans|raw }}</mark>
-
+    {% set setPath = field.definition.get('upload')|default('') %}
+    {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
+    {% set filelist = path('bolt_async_filelisting', {'location': location|default('files') }) %}
+    {% set labels = {
+        'button_upload': 'image.button_upload'|trans,
+        'button_from_library': 'image.button_from_library'|trans,
+        'placeholder_filename': 'image.placeholder_filename'|trans,
+        'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
+        'placeholder_title': 'image.placeholder_title'|trans,
+    }|json_encode %}
+    <editor-file
+            :name='{{ name|json_encode }}'
+            :filename='{{ field.get('filename')|json_encode }}'
+            :thumbnail='{{ field|thumbnail(width=400, height=300)|json_encode }}'
+            :title='{{ field.get('title')|json_encode }}'
+            :alt='{{ field.get('alt')|json_encode }}'
+            :media='{{ field.get('media')|json_encode }}'
+            :directory='{{ directory|json_encode }}'
+            :filelist='{{ filelist|json_encode }}'
+            :csrf-token='{{ csrf_token('upload')|json_encode }}'
+            :labels='{{ labels }}'
+    ></editor-file>
 {% endblock %}
