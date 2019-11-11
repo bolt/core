@@ -78,6 +78,7 @@
       class="editor__file--upload"
       :name="fieldName"
       type="file"
+      :accept="acceptedExtensions"
       @change="uploadFile($event.target.files[0])"
     />
   </div>
@@ -102,6 +103,7 @@ export default {
     'csrfToken',
     'labels',
     'filelist',
+    'extensions',
   ],
   data: () => {
     return {
@@ -116,6 +118,9 @@ export default {
     },
     token() {
       return this.csrfToken;
+    },
+    acceptedExtensions() {
+      return this.extensions.map(ext => "." + ext).join();
     },
   },
   methods: {
