@@ -134,7 +134,7 @@ export default {
           bootbox.prompt({
             title: 'Select a file',
             inputType: 'select',
-            inputOptions: res.data,
+            inputOptions: this.filterServerFiles(res.data),
             callback: function(result) {
               if (result) {
                 thisField.filename = result;
@@ -189,6 +189,13 @@ export default {
           console.warn(err);
           this.progress = 0;
         });
+    },
+    filterServerFiles(files) {
+      let self = this;
+      return files.filter(function(file) {
+        let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
+        return self.extensions.includes(ext);
+      });
     },
   },
 };
