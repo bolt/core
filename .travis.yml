@@ -12,10 +12,6 @@ cache:
 matrix:
   fast_finish: true
   include:
-    # Pinned to 7.1.18, because Travis defaults to 7.1.6, which has broken SSL/TLS. See: https://github.com/travis-ci/travis-ci/issues/6339
-    - php: 7.1.18
-    - php: 7.1.18
-      env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 7.2
     - php: 7.3
     - php: 7.4snapshot
@@ -24,8 +20,6 @@ matrix:
   allow_failures:
     - php: 7.4snapshot
     - php: nightly
-    - php: 7.1.18
-      env: COMPOSER_FLAGS="--prefer-lowest"
 
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
