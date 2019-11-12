@@ -24,10 +24,6 @@ class DbAwareTestCase extends WebTestCase
 
     protected function setUp(): void
     {
-        self::runCommand('doctrine:database:drop --force');
-        self::runCommand('doctrine:database:create');
-        self::runCommand('doctrine:schema:create');
-
         $this->entityManager = static::createClient()->getContainer()
             ->get('doctrine')
             ->getManager();
@@ -49,6 +45,7 @@ class DbAwareTestCase extends WebTestCase
 
             self::$application = new Application($client->getKernel());
             self::$application->setAutoExit(false);
+            self::$application->setCatchExceptions(false);
         }
 
         // Since Symfony 4.3.0, the `doRun` method no longer triggers `->boot()`, so we do it ourselves.
@@ -60,8 +57,6 @@ class DbAwareTestCase extends WebTestCase
 
     protected function tearDown(): void
     {
-        self::runCommand('doctrine:database:drop --force');
-
         parent::tearDown();
 
         $this->entityManager->close();
