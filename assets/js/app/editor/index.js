@@ -16,6 +16,7 @@ import Markdown from './Components/Markdown';
 import Textarea from './Components/Textarea';
 import Embed from './Components/Embed';
 import Image from './Components/Image';
+import Imagelist from './Components/Imagelist';
 import Email from './Components/Email';
 import Password from './Components/Password';
 import ThemeSelect from './Components/ThemeSelect';
@@ -33,6 +34,7 @@ new Vue({
     'editor-password': Password,
     'editor-html': Html,
     'editor-image': Image,
+    'editor-imagelist': Imagelist,
     'editor-file': File,
     'editor-markdown': Markdown,
     'editor-number': Number,
