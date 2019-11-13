@@ -30,7 +30,6 @@ import Image from './Image';
 export default {
   name: 'EditorImage',
   components: { 'editor-image': Image },
-  //mixins: [field],
   props: [
     'images',
     'directory',
