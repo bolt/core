@@ -162,6 +162,7 @@ export default {
   },
   methods: {
     removeImage(){
+      this.previewImage = null;
       this.$emit('clicked', this);
     },
     selectUploadFile() {

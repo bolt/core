@@ -46,8 +46,13 @@
             onRemoveImage(elem){
                 this.images = this.images.filter(function(image){
                     let fieldNumber = elem.fieldName.match(/\d+/)[0];
-                    return image.fieldname !== fieldNumber;
+                    return image.fieldname !== fieldNumber && typeof image.fieldname !== 'undefined';
                 });
+
+                if(this.images.length == 0){
+                    this.addImage();
+                }
+
                 this.$forceUpdate();
             },
             fieldName(index){
