@@ -13,6 +13,7 @@
                           :labels=labels
                           :removable=true
                           :name="fieldName(index)"
+                          :extensions=extensions
                           @clicked="onRemoveImage"
             ></editor-image>
         </div>
@@ -38,7 +39,8 @@
             'name',
             'filelist',
             'csrfToken',
-            'labels'
+            'labels',
+            'extensions'
         ],
         methods: {
             onRemoveImage(elem){
@@ -60,6 +62,7 @@
                     csrfToken: this.csrfToken,
                     labels: this.labels,
                     thumbnail: "",
+                    extensions: this.extensions,
                 };
                 this.images.push(imageField);
                 this.$forceUpdate();

@@ -13,6 +13,7 @@
       'placeholder_title': 'image.placeholder_title'|trans,
       'button_remove': 'image.button_remove'|trans,
    }|json_encode %}
+   {% set extensions = field.definition.get('extensions')|default('') %}
 
    <editor-imagelist
            :images='{{ field.value|json_encode }}'
@@ -21,6 +22,7 @@
            :filelist='{{ filelist|json_encode }}'
            :csrf-token='{{ csrf_token('upload')|json_encode }}'
            :labels='{{ labels }}'
+           :extensions='{{  extensions|json_encode }}'
    ></editor-imagelist>
 
 {% endblock %}
