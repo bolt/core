@@ -1995,5 +1995,11 @@
         <target>Browser / platform</target>
       </segment>
     </unit>
+    <unit id="FqVh1Hv" name="image.button_remove">
+      <segment>
+        <source>image.button_remove</source>
+        <target>Remove</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

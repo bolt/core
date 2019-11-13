@@ -60,6 +60,15 @@
               <i class="fas fa-fw fa-th"></i> {{ labels.button_from_library }}
             </button>
           </div>
+          <div v-if="removable == true" class="btn-group mr-2" role="group">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              @click="removeImage"
+            >
+              <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
+            </button>
+          </div>
         </div>
         <div v-if="progress > 0" class="progress mt-3">
           <div
@@ -117,6 +126,7 @@ export default {
     'labels',
     'filelist',
     'extensions',
+    'removable',
   ],
   data: () => {
     return {
@@ -151,6 +161,10 @@ export default {
     });
   },
   methods: {
+    removeImage() {
+      this.previewImage = null;
+      this.$emit('clicked', this);
+    },
     selectUploadFile() {
       this.$refs.selectFile.click();
     },
