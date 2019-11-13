@@ -24,11 +24,11 @@ class ImagelistField extends Field implements FieldInterface
 
         $result = [];
 
-        foreach($images as $key => $image){
+        foreach ($images as $key => $image) {
             $imageField = new ImageField();
-            $imageField->setName((string)$key);
+            $imageField->setName((string) $key);
             $imageField->setValue($image);
-            array_push($result, $imageField->getValue($image));
+            array_push($result, $imageField->getValue());
         }
 
         return $result;

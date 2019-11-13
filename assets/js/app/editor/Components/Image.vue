@@ -126,7 +126,7 @@ export default {
     'labels',
     'filelist',
     'extensions',
-    'removable'
+    'removable',
   ],
   data: () => {
     return {
@@ -161,7 +161,7 @@ export default {
     });
   },
   methods: {
-    removeImage(){
+    removeImage() {
       this.previewImage = null;
       this.$emit('clicked', this);
     },
