@@ -205,6 +205,7 @@ export default {
       e.preventDefault();
       e.stopPropagation();
       this.isDragging = false;
+      this.dragCount = 0;
       const image = e.dataTransfer.files[0];
       return this.uploadFile(image);
     },
