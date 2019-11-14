@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div v-for="(child, index) in this.containerImages" :key="index" v-bind:key="index">
-      <editor-image v-if="child.hidden !== true"
+    <div v-for="(child, index) in this.containerImages" :key="index">
+      <editor-image
+        v-if="child.hidden !== true"
         :filename="child.filename"
         :thumbnail="child.thumbnail"
         :title="child.title"
@@ -40,21 +41,21 @@ export default {
     'labels',
     'extensions',
   ],
-  data: function(){
+  data: function() {
     return {
-      containerImages: this.images
+      containerImages: this.images,
     };
   },
   methods: {
-    getActiveImageFields(){
-      return this.containerImages.filter(function(image){
+    getActiveImageFields() {
+      return this.containerImages.filter(function(image) {
         return image.hidden !== true;
       });
     },
-    getFieldNumberFromElement(elem){
+    getFieldNumberFromElement(elem) {
       return elem.fieldName.match(/\d+/)[0];
     },
-    onUpdateImage(elem){
+    onUpdateImage(elem) {
       let fieldNumber = this.getFieldNumberFromElement(elem);
       this.containerImages[fieldNumber] = elem;
     },
