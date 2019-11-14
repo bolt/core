@@ -61,13 +61,13 @@ export default {
     },
     onRemoveImage(elem) {
       let fieldNumber = this.getFieldNumberFromElement(elem);
-      this.containerImages[fieldNumber].hidden = true;
+      let updatedImage = this.containerImages[fieldNumber];
+      updatedImage.hidden = true;
+      this.$set(this.containerImages, fieldNumber, updatedImage)
 
       if (this.getActiveImageFields().length === 0) {
         this.addImage();
       }
-
-      this.$forceUpdate();
     },
     fieldName(index) {
       return this.name + '[' + index + ']';
@@ -85,7 +85,6 @@ export default {
       };
 
       this.containerImages.push(imageField);
-      this.$forceUpdate();
     },
   },
 };
