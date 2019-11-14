@@ -46,6 +46,11 @@ export default {
     };
   },
   methods: {
+    getActiveImageFields(){
+      return this.containerImages.filter(function(image){
+        return image.hidden !== true;
+      });
+    },
     getFieldNumberFromElement(elem){
       return elem.fieldName.match(/\d+/)[0];
     },
@@ -57,7 +62,7 @@ export default {
       let fieldNumber = this.getFieldNumberFromElement(elem);
       this.containerImages[fieldNumber].hidden = true;
 
-      if (this.containerImages.length == 0) {
+      if (this.getActiveImageFields().length === 0) {
         this.addImage();
       }
 
