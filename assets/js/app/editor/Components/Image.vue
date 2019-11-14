@@ -151,6 +151,7 @@ export default {
     this.previewImage = this.thumbnail;
   },
   updated() {
+    this.$emit('updated', this);
     baguetteBox.run('.editor__image--preview', {
       afterShow: () => {
         noScroll.on();

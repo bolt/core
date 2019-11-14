@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-for="(child, index) in images" :key="index">
-      <editor-image
+    <div v-for="(child, index) in this.containerImages" :key="index" v-bind:key="index">
+      <editor-image v-if="child.hidden !== true"
         :filename="child.filename"
         :thumbnail="child.thumbnail"
         :title="child.title"
@@ -15,6 +15,7 @@
         :name="fieldName(index)"
         :extensions="extensions"
         @clicked="onRemoveImage"
+        @updated="onUpdateImage"
       ></editor-image>
     </div>
 
@@ -39,17 +40,24 @@ export default {
     'labels',
     'extensions',
   ],
+  data: function(){
+    return {
+      containerImages: this.images
+    };
+  },
   methods: {
+    getFieldNumberFromElement(elem){
+      return elem.fieldName.match(/\d+/)[0];
+    },
+    onUpdateImage(elem){
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+      this.containerImages[fieldNumber] = elem;
+    },
     onRemoveImage(elem) {
-      this.images = this.images.filter(function(image) {
-        let fieldNumber = elem.fieldName.match(/\d+/)[0];
-        return (
-          image.fieldname !== fieldNumber &&
-          typeof image.fieldname !== 'undefined'
-        );
-      });
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+      this.containerImages[fieldNumber].hidden = true;
 
-      if (this.images.length == 0) {
+      if (this.containerImages.length == 0) {
         this.addImage();
       }
 
@@ -69,7 +77,8 @@ export default {
         thumbnail: '',
         extensions: this.extensions,
       };
-      this.images.push(imageField);
+
+      this.containerImages.push(imageField);
       this.$forceUpdate();
     },
   },
