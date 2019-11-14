@@ -63,7 +63,7 @@ export default {
       let fieldNumber = this.getFieldNumberFromElement(elem);
       let updatedImage = this.containerImages[fieldNumber];
       updatedImage.hidden = true;
-      this.$set(this.containerImages, fieldNumber, updatedImage)
+      this.$set(this.containerImages, fieldNumber, updatedImage);
 
       if (this.getActiveImageFields().length === 0) {
         this.addImage();
