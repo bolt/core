@@ -2,19 +2,19 @@
   <div :id="`multiselect-${id}`">
     <multiselect
       v-model="selected"
-      track-by="key"
-      label="value"
-      :options="options"
-      :show-labels="false"
+      :allow-empty="allowempty"
+      :class="Foobar"
       :limit="1000"
       :multiple="multiple"
-      :taggable="taggable"
+      :options="options"
       :searchable="taggable"
-      :allow-empty="allowempty"
+      :show-labels="false"
+      :taggable="taggable"
+      label="value"
       tag-placeholder="Add this as new tag"
       tag-position="bottom"
+      track-by="key"
       @tag="addTag"
-      :class="Foobar"
     >
       <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>

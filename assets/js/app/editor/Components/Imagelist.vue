@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-for="(child, index) in this.containerImages" :key="index" class="form-fieldsgroup">
+    <div
+      v-for="(child, index) in containerImages"
+      :key="index"
+      class="form-fieldsgroup"
+    >
       <editor-image
         v-if="child.hidden !== true"
         :filename="child.filename"

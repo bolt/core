@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group" id="multiselect-localeswitcher">
+  <div id="multiselect-localeswitcher" class="form-group">
     <label>{{ label }}</label>
     <multiselect
       v-model="locale"
