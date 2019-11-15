@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div v-for="(child, index) in images" :key="index">
+    <div v-for="(child, index) in this.containerImages" :key="index">
       <editor-image
+        v-if="child.hidden !== true"
         :filename="child.filename"
         :thumbnail="child.thumbnail"
         :title="child.title"
@@ -15,6 +16,7 @@
         :name="fieldName(index)"
         :extensions="extensions"
         @clicked="onRemoveImage"
+        @updated="onUpdateImage"
       ></editor-image>
     </div>
 
@@ -39,21 +41,33 @@ export default {
     'labels',
     'extensions',
   ],
+  data: function() {
+    return {
+      containerImages: this.images,
+    };
+  },
   methods: {
-    onRemoveImage(elem) {
-      this.images = this.images.filter(function(image) {
-        let fieldNumber = elem.fieldName.match(/\d+/)[0];
-        return (
-          image.fieldname !== fieldNumber &&
-          typeof image.fieldname !== 'undefined'
-        );
+    getActiveImageFields() {
+      return this.containerImages.filter(function(image) {
+        return image.hidden !== true;
       });
+    },
+    getFieldNumberFromElement(elem) {
+      return elem.fieldName.match(/\d+/)[0];
+    },
+    onUpdateImage(elem) {
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+      this.containerImages[fieldNumber] = elem;
+    },
+    onRemoveImage(elem) {
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+      let updatedImage = this.containerImages[fieldNumber];
+      updatedImage.hidden = true;
+      this.$set(this.containerImages, fieldNumber, updatedImage);
 
-      if (this.images.length == 0) {
+      if (this.getActiveImageFields().length === 0) {
         this.addImage();
       }
-
-      this.$forceUpdate();
     },
     fieldName(index) {
       return this.name + '[' + index + ']';
@@ -69,8 +83,8 @@ export default {
         thumbnail: '',
         extensions: this.extensions,
       };
-      this.images.push(imageField);
-      this.$forceUpdate();
+
+      this.containerImages.push(imageField);
     },
   },
 };

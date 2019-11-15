@@ -151,6 +151,7 @@ export default {
     this.previewImage = this.thumbnail;
   },
   updated() {
+    this.$emit('updated', this);
     baguetteBox.run('.editor__image--preview', {
       afterShow: () => {
         noScroll.on();
@@ -204,6 +205,7 @@ export default {
       e.preventDefault();
       e.stopPropagation();
       this.isDragging = false;
+      this.dragCount = 0;
       const image = e.dataTransfer.files[0];
       return this.uploadFile(image);
     },
