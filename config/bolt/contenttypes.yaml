@@ -282,6 +282,9 @@ blocks:
         content:
             type: html
             height: 150px
+        imagelist:
+            type: imagelist
+            group: Imagelist
     relations:
         pages:
             multiple: false
