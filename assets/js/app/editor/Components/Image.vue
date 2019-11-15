@@ -12,7 +12,7 @@
       </div>
     </transition>
     <div class="row">
-      <div class="col-8">
+      <div class="col-9">
         <div class="input-group mb-3">
           <input :name="name + '[media]'" type="hidden" :value="media" />
           <input
@@ -30,15 +30,6 @@
             type="text"
             :placeholder="labels.placeholder_alt_text"
             :value="alt"
-          />
-        </div>
-        <div class="input-group mb-3">
-          <input
-            class="form-control"
-            :name="name + '[title]'"
-            type="text"
-            :placeholder="labels.placeholder_title"
-            :value="title"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -81,7 +72,7 @@
           ></div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <div class="editor__image--preview">
           <a
             class="editor__image--preview-image"
@@ -119,7 +110,6 @@ export default {
     'name',
     'thumbnail',
     'alt',
-    'title',
     'directory',
     'media',
     'csrfToken',
