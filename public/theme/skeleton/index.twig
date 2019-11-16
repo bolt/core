@@ -13,7 +13,7 @@
 
         <section class="imageholder">
             {{ popup(record|image, 1200, 500) }}
-            <small>{{ record|image.title|default(record|image.title)|default('title-less image') }}</small>
+            <small>{{ record|image.alt|default('Image without description') }}</small>
         </section>
 
         {{ record.content }}
