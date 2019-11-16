@@ -121,32 +121,28 @@
                 'label': 'field.id'|trans,
                 'name': 'id',
                 'value': media.id,
-                'disabled' : true,
-                'attributes': 'readonly form="editcontent"',
+                'valueonly' : true,
             }  %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.width'|trans,
                 'name': 'width',
-                'value': media.width,
-                'disabled' : true,
-                'attributes': 'readonly form="editcontent"',
+                'value': media.width ~ ' pixels',
+                'valueonly' : true,
             }  %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.height'|trans,
                 'name': 'height',
-                'value': media.height,
-                'disabled' : true,
-                'attributes': 'readonly form="editcontent"',
+                'value': media.height ~ ' pixels',
+                'valueonly' : true,
             }  %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.filesize'|trans,
                 'name': 'filesize',
-                'value': media.filesize,
-                'disabled' : true,
-                'attributes': 'readonly form="editcontent"',
+                'value': media.filesize ~ ' bytes',
+                'valueonly' : true,
             }  %}
 
             {#<input type="text" name="author" value="{{ media.author }}">#}
@@ -155,19 +151,15 @@
         'label': 'field.createdAt'|trans,
         'name': 'createdAt',
         'value': media.createdAt,
-        'disabled' : true,
-        'mode' : 'datetime',
-        'disabled' : true,
-        'attributes': 'readonly form="editcontent"',
+        'valueonly' : true,
+
     } %}
 
     {% include '@bolt/_partials/fields/date.html.twig' with {
         'label': 'field.modifiedAt'|trans,
         'name': 'modifiedAt',
         'value': media.modifiedAt,
-        'mode' : 'datetime',
-        'disabled' : true,
-        'attributes': 'readonly form="editcontent"',
+        'valueonly' : true,
     } %}
 
         </form>

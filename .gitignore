@@ -15,8 +15,8 @@ yarn-error.log
 webpack_stats.json
 
 ### Behat / Front-end testing files
-bin/chromedriver
-bin/selenium-server-standalone*.jar
+bin/chromedriver*
+bin/selenium-server-standalone*
 
 ### File-system cruft and temporary files
 __*
