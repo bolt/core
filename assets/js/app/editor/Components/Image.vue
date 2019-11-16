@@ -53,7 +53,7 @@
           </div>
           <div v-if="removable == true" class="btn-group mr-2" role="group">
             <button
-              class="btn btn-secondary"
+              class="btn btn-hidden-danger"
               type="button"
               @click="removeImage"
             >
@@ -63,7 +63,7 @@
 
           <div v-if="filename" class="btn-group mr-2" role="group">
             <a
-              class="btn btn-info"
+              class="btn btn-tertiary"
               :href="attributesLink + '?file=' + filename"
               target="_blank"
             >
