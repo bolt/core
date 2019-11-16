@@ -2001,5 +2001,11 @@
         <target>Remove</target>
       </segment>
     </unit>
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
+      <segment>
+        <source>image.button_edit_attributes</source>
+        <target>Edit attributes</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

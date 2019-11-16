@@ -98,12 +98,12 @@ class MediaEditController extends TwigAwareController implements BackendZone
      */
     public function new(Request $request): RedirectResponse
     {
-        $fileLocation = $request->query->get('location');
+        $fileLocation = $request->query->get('location', 'files');
         $basepath = $this->fileLocations->get($fileLocation)->getBasepath();
-        $file = $request->query->get('file');
+        $file = '/' . $request->query->get('file');
         $filename = $basepath . $file;
 
-        $relPath = Path::getDirectory($file);
+        $relPath = Path::getDirectory('/' . $file);
         $relName = Path::getFilename($file);
 
         $file = new SplFileInfo($filename, $relPath, $relName);

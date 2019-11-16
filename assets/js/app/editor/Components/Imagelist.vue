@@ -11,6 +11,7 @@
         :thumbnail="child.thumbnail"
         :title="child.title"
         :alt="child.alt"
+        :attributes-link="attributesLink"
         :media="child.media"
         :directory="directory"
         :filelist="filelist"
@@ -44,6 +45,7 @@ export default {
     'csrfToken',
     'labels',
     'extensions',
+    'attributesLink',
   ],
   data: function() {
     return {

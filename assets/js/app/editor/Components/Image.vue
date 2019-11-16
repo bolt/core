@@ -60,6 +60,17 @@
               <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
             </button>
           </div>
+
+          <div v-if="filename" class="btn-group mr-2" role="group">
+            <a
+              class="btn btn-info"
+              :href="attributesLink + '?file=' + filename"
+              target="_blank"
+            >
+              <i class="fas fa-fw fa-info-circle"></i>
+              {{ labels.button_edit_attributes }}
+            </a>
+          </div>
         </div>
         <div v-if="progress > 0" class="progress mt-3">
           <div
@@ -117,6 +128,7 @@ export default {
     'filelist',
     'extensions',
     'removable',
+    'attributesLink',
   ],
   data: () => {
     return {

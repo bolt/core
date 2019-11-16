@@ -278,6 +278,8 @@ blocks:
         slug:
             type: slug
             uses: [ title ]
+        imagelist:
+            type: imagelist
         content:
             type: html
             height: 150px
