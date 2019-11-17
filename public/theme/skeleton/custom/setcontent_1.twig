@@ -26,7 +26,7 @@
     </section>
 
     {# If there are more records than will fit on one page, the pager is shown.#}
-    {{ pager(entries, template = 'partials/_sub_pager.twig') }}
+    {{ pager(entries, template = 'helpers/_pager_basic.html.twig') }}
 
     <section id="two">
         <h1>Two</h1>
@@ -45,7 +45,7 @@
 
 
     {# If there are more records than will fit on one page, the pager is shown.#}
-    {{ pager(pages, template = 'partials/_sub_pager.twig') }}
+    {{ pager(pages, template = 'helpers/_pager_basic.html.twig') }}
 
     <section id="three">
         <h1>Three</h1>
