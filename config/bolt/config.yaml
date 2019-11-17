@@ -32,20 +32,10 @@ locale: en
 
 # Set maintenance mode on or off.
 #
-# While in maintenance mode, only users of level editor or higher can access the
-# site.
-#
-# All other visitors are presented with a notice that the site is currently
-# offline.
-#
-# The default template file can be found in /app/theme_defaults/ and overridden
-# with this option using your own theme.
-#
-# Note: If you've changed the filename, and your changes do not show up on the
-#       website, be sure to check for a config.yaml file in your themes folder.
-#       If a template is set there, it will override the setting here.
+# The default for the Maintenance mode (503) page. Can be an (array of) template
+# names or identifiers for records, which will be tried until a match is found.
 maintenance_mode: false
-maintenance_template: maintenance_default.twig
+maintenance: [ blocks/503-maintenance-mode, 'helpers/page_503.html.twig' ]
 
 # The hour of the day for the internal cron task scheduler to run daily, weekly,
 # monthly and yearly jobs.
@@ -82,8 +72,6 @@ homepage_template: index.twig
 
 # The default content for the 404 page. Can be an (array of) template names or
 # identifiers for records, which will be tried until a match is found.
-#
-# Note: The record specified in this parameter must be set to published.
 notfound: [ blocks/404-not-found, 'helpers/page_404.html.twig' ]
 
 # The default template and amount of records to use for listing-pages on the

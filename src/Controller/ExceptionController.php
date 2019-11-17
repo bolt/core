@@ -44,17 +44,23 @@ class ExceptionController extends SymfonyExceptionController
     {
         $code = $exception->getStatusCode();
 
-        if ($code === 404) {
+        if ($code === Response::HTTP_NOT_FOUND) {
             $this->twig->addGlobal('exception', $exception);
 
             return $this->showNotFound();
+        }
+
+        if ($code === Response::HTTP_SERVICE_UNAVAILABLE) {
+            $this->twig->addGlobal('exception', $exception);
+
+            return $this->showMaintenance();
         }
 
         // If not a 404, we'll let Symfony handle it as usual.
         return parent::showAction($request, $exception, $logger);
     }
 
-    private function showNotFound()
+    private function showNotFound(): Response
     {
         foreach ($this->config->get('general/notfound') as $item) {
             $output = $this->attemptToRender($item);
@@ -64,7 +70,20 @@ class ExceptionController extends SymfonyExceptionController
             }
         }
 
-        return new Response('Oh no');
+        return new Response('404: Not found (and there was no proper page configured to display)');
+    }
+
+    private function showMaintenance(): Response
+    {
+        foreach ($this->config->get('general/maintenance') as $item) {
+            $output = $this->attemptToRender($item);
+
+            if ($output instanceof Response) {
+                return $output;
+            }
+        }
+
+        return new Response('503: Maintenance mode (and there was no proper page configured to display)');
     }
 
     private function attemptToRender(string $item): ?Response
