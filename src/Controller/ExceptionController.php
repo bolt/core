@@ -60,6 +60,7 @@ class ExceptionController extends SymfonyExceptionController
         return parent::showAction($request, $exception, $logger);
     }
 
+    private function showNotFound(): Response
     {
         foreach ($this->config->get('general/notfound') as $item) {
             $output = $this->attemptToRender($item);
