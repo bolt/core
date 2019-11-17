@@ -20,10 +20,10 @@
 
             <h2><a href="{{ record|link }}">{{ record|title }}</a></h2>
 
-            {% if record|image is not empty %}
-                <a href="{{ record|image }}">
-                    <img src="{{ thumbnail(record|image, 400, 260) }}" alt="{{ (record|image).alt|default(record|title) }}">
-                </a>
+                {% if record|image %}
+                    <a href="{{ record|image }}">
+                        <img src="{{ record|thumbnail(480, 320) }}" alt="{{ record|image.alt|default() }}" />
+                    </a>
             {% endif %}
 
             <p>{{ record|excerpt(300, false, search|default('')) }}</p>
@@ -49,6 +49,6 @@
     {% endfor %}
 
     {# If there are more records than will fit on one page, the pager is shown. #}
-    {{ pager(records, template = 'partials/_sub_pager.twig') }}
+        {{ pager(records, template = 'helpers/_pager_basic.html.twig') }}
 
 {% endblock main %}

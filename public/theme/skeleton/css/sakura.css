@@ -171,7 +171,8 @@ label, legend, fieldset {
 .callout {
   border: 1px solid rgba(0, 0, 0, 0.4);
   background-color: rgba(0, 0, 0, 0.1);
-  padding: 1em;
+  padding: 0 1rem 1rem;
+  margin: 1rem 0;
 }
 
 .meta {
@@ -183,8 +184,7 @@ label, legend, fieldset {
 .pagination {
 }
 
-.pagination a,
-.pagination span {
+.pagination li {
   display: inline-block;
   background: #f4f9fa;
   border: 1px solid #96c4cc;
@@ -216,13 +216,16 @@ label, legend, fieldset {
   color: #abcfd6;
 }
 
-/* Bolt Image holder */
-section.imageholder {
-  margin: 0.5rem 0;
+/* Image holder */
+div.imageholder {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  margin: 1rem 0;
 }
 
-section.imageholder small {
+div.imageholder small {
   display: block;
   text-align: center;
   font-size: 1.6rem;
+  margin-top: 0.5rem;
 }

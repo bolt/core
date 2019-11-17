@@ -11,10 +11,7 @@
 
         {{ record|excerpt }}
 
-        <section class="imageholder">
-            {{ popup(record|image, 1200, 500) }}
-            <small>{{ record|image.alt|default('Image without description') }}</small>
-        </section>
+        {% include 'partials/_image.twig' with ({'image': record|image}) %}
 
         {{ record.content }}
 
