@@ -15,6 +15,7 @@ use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Repository\ContentRepository;
+use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
@@ -45,6 +46,9 @@ class ContentEditController extends TwigAwareController implements BackendZone
     /** @var ContentRepository */
     private $contentRepository;
 
+    /** @var MediaRepository */
+    private $mediaRepository;
+
     /** @var ObjectManager */
     private $em;
 
@@ -61,6 +65,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         TaxonomyRepository $taxonomyRepository,
         RelationRepository $relationRepository,
         ContentRepository $contentRepository,
+        MediaRepository $mediaRepository,
         ObjectManager $em,
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
@@ -70,6 +75,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
         $this->contentRepository = $contentRepository;
+        $this->mediaRepository = $mediaRepository;
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
         $this->contentFillListener = $contentFillListener;
@@ -320,6 +326,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $content->addField($field);
         }
 
+        // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);
 
@@ -334,6 +341,11 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
 
         $field->setValue($value);
+
+        // If the Field is MediaAware, link it to an existing Media Entity
+        if ($field instanceof Field\MediaAware) {
+            $field->setLinkedMedia($this->mediaRepository);
+        }
     }
 
     private function updateTaxonomy(Content $content, string $key, $taxonomy): void
