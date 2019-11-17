@@ -8,16 +8,13 @@
         <h1 class="heading">{{ record|title }}</h1>
     {% endif %}
 
-    {% if record|image %}
-        {{ popup(record|image, 1024, 768) }}
-        {{ dump(record|image) }}
-    {% endif %}
+    {% include 'partials/_image.twig' with ({'image': record|image}) %}
 
     {# Output all fields, in the order as defined in the content type.
        To change the generated html and configure the options, see:
        https://docs.bolt.cm/templating #}
-    {% with { 'record': record, 'exclude': [record|image.fieldname|default()], 'extended': true } %}
-        {{ block('sub_fields', 'partials/_sub_fields.twig') }}
+    {% with { 'record': record, 'exclude': [record|image.fieldname|default()] } %}
+        {{ block('sub_fields', 'helpers/_fields.twig') }}
     {% endwith %}
 
     {# Comment this if you don't wish to dump the entire record to the client, for debugging purposes. #}

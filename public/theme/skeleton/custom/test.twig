@@ -101,7 +101,7 @@
        To change the generated html and configure the options, see:
        https://docs.bolt.cm/templating #}
     {% with { 'record': record, 'common': true, 'extended': true, 'repeaters': true, 'blocks': true } %}
-        {{ block('sub_fields', 'partials/_sub_fields.twig') }}
+        {{ block('sub_fields', 'helpers/_fields.twig') }}
     {% endwith %}
 
     {{ dump(record) }}
