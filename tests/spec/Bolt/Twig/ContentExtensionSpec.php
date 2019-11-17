@@ -75,13 +75,12 @@ class ContentExtensionSpec extends ObjectBehavior
 
     public function it_gets_image(Content $content, ImageField $field, Field $otherField): void
     {
-        $field->getValue()->shouldBeCalled()->willReturn(['path' => self::TEST_IMAGE]);
         $content->getFields()->shouldBeCalled()->willReturn(new ArrayCollection([
             $otherField->getWrappedObject(),
             $field->getWrappedObject(),
         ]));
 
-        $this->getImage($content)->shouldBe(['path' => self::TEST_IMAGE]);
+        $this->getImage($content)->shouldBe($field);
     }
 
     public function it_gets_image_path(Content $content, ImageField $field, Field $otherField): void

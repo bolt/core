@@ -6,6 +6,7 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @ORM\Entity
  */
-class ImageField extends Field implements FieldInterface
+class ImageField extends Field implements FieldInterface, MediaAware
 {
     /** @var array */
     private $fieldBase = [];
@@ -68,5 +69,19 @@ class ImageField extends Field implements FieldInterface
         $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
 
         return $filesPackage->getUrl($this->get('filename'));
+    }
+
+    public function getLinkedMedia(): void
+    {
+        // @todo Method getLinkedMedia() needs to be implemented
+    }
+
+    public function setLinkedMedia(MediaRepository $mediaRepository): void
+    {
+        $media = $mediaRepository->findOneByFullFilename($this->get('filename'));
+
+        if ($media) {
+            $this->set('media', $media->getId());
+        }
     }
 }

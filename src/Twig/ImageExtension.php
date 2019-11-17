@@ -7,8 +7,9 @@ namespace Bolt\Twig;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\ImageField;
+use Bolt\Entity\Media;
+use Bolt\Repository\MediaRepository;
 use League\Glide\Urls\UrlBuilderFactory;
-use Symfony\Component\Asset\Packages;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -20,14 +21,18 @@ class ImageExtension extends AbstractExtension
 
     private $secret = '';
 
-    /** @var Packages */
-    private $packages;
+    /** @var MediaRepository */
+    private $mediaRepository;
 
-    public function __construct(Config $config, Packages $packages)
+    /** @var Notifications */
+    private $notifications;
+
+    public function __construct(Config $config, MediaRepository $mediaRepository, Notifications $notifications)
     {
         $this->config = $config;
         $this->secret = $this->config->get('general/secret');
-        $this->packages = $packages;
+        $this->mediaRepository = $mediaRepository;
+        $this->notifications = $notifications;
     }
 
     /**
@@ -35,18 +40,15 @@ class ImageExtension extends AbstractExtension
      */
     public function getFilters(): array
     {
-        // Note: we do _not_ include 'image' here, because it would clash with the
-        // magic "Image" extras.
+        $safe = [
+            'is_safe' => ['html'],
+        ];
+
         return [
-            new TwigFilter('popup', [$this, 'popup'], [
-                'is_safe' => ['html'],
-            ]),
-            new TwigFilter('showimage', [$this, 'showImage'], [
-                'is_safe' => ['html'],
-            ]),
-            new TwigFilter('thumbnail', [$this, 'thumbnail'], [
-                'is_safe' => ['html'],
-            ]),
+            new TwigFilter('popup', [$this, 'popup'], $safe),
+            new TwigFilter('showimage', [$this, 'showImage'], $safe),
+            new TwigFilter('thumbnail', [$this, 'thumbnail'], $safe),
+            new TwigFilter('media', [$this, 'media']),
         ];
     }
 
@@ -55,35 +57,21 @@ class ImageExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        return [
-            new TwigFunction('image', [$this, 'image'], [
-                'is_safe' => ['html'],
-            ]),
-            new TwigFunction('popup', [$this, 'popup'], [
-                'is_safe' => ['html'],
-            ]),
-            new TwigFunction('showimage', [$this, 'showImage'], [
-                'is_safe' => ['html'],
-            ]),
-            new TwigFunction('thumbnail', [$this, 'thumbnail'], [
-                'is_safe' => ['html'],
-            ]),
+        $safe = [
+            'is_safe' => ['html'],
         ];
-    }
 
-    /**
-     * @param ImageField|array|string $image
-     */
-    public function image($image): string
-    {
-        $filename = $this->getFilename($image);
-
-        return $this->packages->getUrl($filename, 'files');
+        return [
+            new TwigFunction('popup', [$this, 'popup'], $safe),
+            new TwigFunction('showimage', [$this, 'showImage'], $safe),
+            new TwigFunction('thumbnail', [$this, 'thumbnail'], $safe),
+            new TwigFunction('media', [$this, 'media']),
+        ];
     }
 
     public function popup($image, int $width = 320, int $height = 240): string
     {
-        $link = $this->image($image);
+        $link = $this->getFilename($image);
         $thumbnail = $this->thumbnail($image, $width, $height);
         $alt = $this->getAlt($image);
 
@@ -95,7 +83,7 @@ class ImageExtension extends AbstractExtension
      */
     public function showImage($image, ?int $width = null, ?int $height = null): string
     {
-        $link = $this->image($image);
+        $link = $this->getFilename($image);
         $alt = $this->getAlt($image);
 
         if ($width) {
@@ -139,6 +127,25 @@ class ImageExtension extends AbstractExtension
 
         // Generate a URL
         return $urlBuilder->getUrl($filename, $params);
+    }
+
+    /**
+     * @param ImageField|array|string $image
+     */
+    public function media($image): ?Media
+    {
+        if (is_array($image) && array_key_exists('media', $image)) {
+            $id = $image['media'];
+        } elseif ($image instanceof ImageField) {
+            $id = $image->get('media');
+        } else {
+            return $this->notifications->warning(
+                'Incorrect usage of `media`-filter',
+                'The `media`-filter can only be applied to an `ImageField`, or an array that has a key named `media` which holds an id.'
+            );
+        }
+
+        return $this->mediaRepository->findOneBy(['id' => $id]);
     }
 
     /**

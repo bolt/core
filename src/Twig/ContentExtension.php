@@ -125,13 +125,13 @@ class ContentExtension extends AbstractExtension
     }
 
     /**
-     * @return array|string|null
+     * @return ImageField|string|null
      */
     public function getImage(Content $content, bool $onlyPath = false)
     {
         foreach ($content->getFields() as $field) {
             if ($field instanceof ImageField) {
-                return $onlyPath ? $field->getPath() : $field->getValue();
+                return $onlyPath ? $field->getPath() : $field;
             }
         }
 

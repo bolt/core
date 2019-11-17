@@ -201,6 +201,13 @@ class Field implements Translatable, FieldInterface
         return $value;
     }
 
+    public function set(string $key, $value): self
+    {
+        $this->value[$key] = $value;
+
+        return $this;
+    }
+
     public function setValue($value): self
     {
         $this->value = (array) $value;
