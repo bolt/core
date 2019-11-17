@@ -188,7 +188,6 @@ showcases:
             type: video
         image:
             type: image
-            attrib: title # Note: retrieve this in your template with {{ record.values.image.title }}
             extensions: [ gif, jpg, png ]
             placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
         imagelist:
@@ -279,6 +278,8 @@ blocks:
         slug:
             type: slug
             uses: [ title ]
+        imagelist:
+            type: imagelist
         content:
             type: html
             height: 150px

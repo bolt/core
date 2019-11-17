@@ -12,7 +12,7 @@
       </div>
     </transition>
     <div class="row">
-      <div class="col-8">
+      <div class="col-9">
         <div class="input-group mb-3">
           <input :name="name + '[media]'" type="hidden" :value="media" />
           <input
@@ -30,15 +30,6 @@
             type="text"
             :placeholder="labels.placeholder_alt_text"
             :value="alt"
-          />
-        </div>
-        <div class="input-group mb-3">
-          <input
-            class="form-control"
-            :name="name + '[title]'"
-            type="text"
-            :placeholder="labels.placeholder_title"
-            :value="title"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -62,12 +53,23 @@
           </div>
           <div v-if="removable == true" class="btn-group mr-2" role="group">
             <button
-              class="btn btn-secondary"
+              class="btn btn-hidden-danger"
               type="button"
               @click="removeImage"
             >
               <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
             </button>
+          </div>
+
+          <div v-if="filename" class="btn-group mr-2" role="group">
+            <a
+              class="btn btn-tertiary"
+              :href="attributesLink + '?file=' + filename"
+              target="_blank"
+            >
+              <i class="fas fa-fw fa-info-circle"></i>
+              {{ labels.button_edit_attributes }}
+            </a>
           </div>
         </div>
         <div v-if="progress > 0" class="progress mt-3">
@@ -81,7 +83,7 @@
           ></div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <div class="editor__image--preview">
           <a
             class="editor__image--preview-image"
@@ -119,7 +121,6 @@ export default {
     'name',
     'thumbnail',
     'alt',
-    'title',
     'directory',
     'media',
     'csrfToken',
@@ -127,6 +128,7 @@ export default {
     'filelist',
     'extensions',
     'removable',
+    'attributesLink',
   ],
   data: () => {
     return {

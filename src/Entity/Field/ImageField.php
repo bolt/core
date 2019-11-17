@@ -24,7 +24,6 @@ class ImageField extends Field implements FieldInterface
         $this->fieldBase = [
             'filename' => '',
             'alt' => '',
-            'title' => '',
             'path' => '',
             'media' => '',
             'thumbnail' => '',

@@ -1,12 +1,17 @@
 <template>
   <div>
-    <div v-for="(child, index) in this.containerImages" :key="index">
+    <div
+      v-for="(child, index) in containerImages"
+      :key="index"
+      class="form-fieldsgroup"
+    >
       <editor-image
         v-if="child.hidden !== true"
         :filename="child.filename"
         :thumbnail="child.thumbnail"
         :title="child.title"
         :alt="child.alt"
+        :attributes-link="attributesLink"
         :media="child.media"
         :directory="directory"
         :filelist="filelist"
@@ -40,6 +45,7 @@ export default {
     'csrfToken',
     'labels',
     'extensions',
+    'attributesLink',
   ],
   data: function() {
     return {

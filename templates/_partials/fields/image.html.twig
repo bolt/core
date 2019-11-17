@@ -9,14 +9,13 @@
         'button_from_library': 'image.button_from_library'|trans,
         'placeholder_filename': 'image.placeholder_filename'|trans,
         'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
-        'placeholder_title': 'image.placeholder_title'|trans,
+        'button_edit_attributes': 'image.button_edit_attributes'|trans,
     }|json_encode %}
     {% set extensions = field.definition.get('extensions')|default('') %}
     <editor-image
         :name='{{ name|json_encode }}'
         :filename='{{ field.get('filename')|json_encode }}'
         :thumbnail='{{ field|thumbnail(width=400, height=300)|json_encode }}'
-        :title='{{ field.get('title')|json_encode }}'
         :alt='{{ field.get('alt')|json_encode }}'
         :media='{{ field.get('media')|json_encode }}'
         :directory='{{ directory|json_encode }}'
@@ -24,5 +23,6 @@
         :csrf-token='{{ csrf_token('upload')|json_encode }}'
         :labels='{{ labels }}'
         :extensions='{{ extensions|json_encode }}'
+        :attributes-link='{{ path('bolt_media_new')|json_encode }}'
     ></editor-image>
 {% endblock %}

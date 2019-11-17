@@ -23,6 +23,12 @@
 {# Set type #}
 {% set type = field.type|default %}
 
+{% if type in ['imagelist', 'filelist', 'collection'] %}
+    {% set fieldset = true %}
+{% else %}
+    {% set fieldset = false %}
+{% endif %}
+
 {# Set variant #}
 {% set variant = field.definition.variant|default('normal') %}
 
@@ -81,7 +87,7 @@
 {%- endapply -%}
 
 <!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
-<div class="form-group editor--group is-{{ variant }}">
+<div class="form-group {{ fieldset ? 'form-fieldset' }} is-{{ variant }}">
 
 {{ prefix|raw }}
 {% block label %}
