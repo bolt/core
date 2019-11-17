@@ -346,7 +346,7 @@ tests:
             multiple: true
             postfix: "Select your favourite turtle(s)."
     taxonomy: [ groups, categories, tags, foobars ]
-    record_template: test.twig
+    record_template: custom/test.twig
     listing_template: listing.twig
     listing_records: 10
 
