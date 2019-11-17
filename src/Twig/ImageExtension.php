@@ -10,7 +10,6 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
 use League\Glide\Urls\UrlBuilderFactory;
-use Symfony\Component\Asset\Packages;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -22,20 +21,16 @@ class ImageExtension extends AbstractExtension
 
     private $secret = '';
 
-    /** @var Packages */
-    private $packages;
-
     /** @var MediaRepository */
     private $mediaRepository;
 
     /** @var Notifications */
     private $notifications;
 
-    public function __construct(Config $config, Packages $packages, MediaRepository $mediaRepository, Notifications $notifications)
+    public function __construct(Config $config, MediaRepository $mediaRepository, Notifications $notifications)
     {
         $this->config = $config;
         $this->secret = $this->config->get('general/secret');
-        $this->packages = $packages;
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
     }
@@ -150,9 +145,7 @@ class ImageExtension extends AbstractExtension
             );
         }
 
-        $media = $this->mediaRepository->findOneBy(['id' => $id]);
-
-        return $media;
+        return $this->mediaRepository->findOneBy(['id' => $id]);
     }
 
     /**

@@ -71,12 +71,12 @@ class ImageField extends Field implements FieldInterface, MediaAware
         return $filesPackage->getUrl($this->get('filename'));
     }
 
-    public function getLinkedMedia()
+    public function getLinkedMedia(): void
     {
-        dump($this);
+        // @todo Method getLinkedMedia() needs to be implemented
     }
 
-    public function setLinkedMedia(MediaRepository $mediaRepository)
+    public function setLinkedMedia(MediaRepository $mediaRepository): void
     {
         $media = $mediaRepository->findOneByFullFilename($this->get('filename'));
 
@@ -84,5 +84,4 @@ class ImageField extends Field implements FieldInterface, MediaAware
             $this->set('media', $media->getId());
         }
     }
-
 }

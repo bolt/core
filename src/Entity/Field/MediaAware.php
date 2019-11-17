@@ -11,7 +11,7 @@ use Bolt\Repository\MediaRepository;
  */
 interface MediaAware
 {
-    public function getLinkedMedia();
+    public function getLinkedMedia(): void;
 
-    public function setLinkedMedia(MediaRepository $mediaRepository);
+    public function setLinkedMedia(MediaRepository $mediaRepository): void;
 }
