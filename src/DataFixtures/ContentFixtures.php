@@ -215,6 +215,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'slug' => '404-not-found',
             'status' => Statuses::HELD,
         ];
+        $records['blocks'][] = [
+            'title' => '503 Service Unavailable (Maintenance Mode)',
+            'slug' => '503-maintenance mode',
+            'status' => Statuses::HELD,
+        ];
         $records['tests'][] = [
             'selectfield' => 'bar',
             'multiselect' => 'Michelangelo',
