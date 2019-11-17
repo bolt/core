@@ -1,4 +1,4 @@
-{% extends '../partials/_master.twig' %}
+{% extends 'partials/_master.twig' %}
 
 {% block main %}
 
@@ -101,7 +101,7 @@
        To change the generated html and configure the options, see:
        https://docs.bolt.cm/templating #}
     {% with { 'record': record, 'common': true, 'extended': true, 'repeaters': true, 'blocks': true } %}
-        {{ block('sub_fields', 'partials/_sub_fields.twig') }}
+        {{ block('sub_fields', 'helpers/_fields.twig') }}
     {% endwith %}
 
     {{ dump(record) }}
@@ -113,6 +113,6 @@
 
     <hr>
 
-    {% include '../partials/_recordfooter.twig' with { 'record': record, 'extended': true } %}
+    {% include 'partials/_recordfooter.twig' with { 'record': record, 'extended': true } %}
 
 {% endblock main %}
