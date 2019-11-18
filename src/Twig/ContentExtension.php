@@ -127,7 +127,7 @@ class ContentExtension extends AbstractExtension
     /**
      * @return ImageField|array|null
      */
-    public function getImage(Content $content, bool $onlyValues = true)
+    public function getImage(Content $content, bool $onlyValues = false)
     {
         foreach ($content->getFields() as $field) {
             if ($field instanceof ImageField) {

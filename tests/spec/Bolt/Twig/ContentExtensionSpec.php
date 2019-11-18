@@ -80,7 +80,7 @@ class ContentExtensionSpec extends ObjectBehavior
             $field->getWrappedObject(),
         ]));
 
-        $this->getImage($content, false)->shouldBe($field);
+        $this->getImage($content)->shouldBe($field);
     }
 
     public function it_gets_image_path(Content $content, ImageField $field, Field $otherField): void
@@ -91,7 +91,7 @@ class ContentExtensionSpec extends ObjectBehavior
             $field->getWrappedObject(),
         ]));
 
-        $this->getImage($content)->shouldBe(self::TEST_IMAGE);
+        $this->getImage($content, true)->shouldBe(self::TEST_IMAGE);
     }
 
     public function it_gets_excerpt(Content $content, Excerptable $field, TextField $titleField, Field $otherField, ContentType $definition): void

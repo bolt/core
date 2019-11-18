@@ -1,6 +1,6 @@
 {% if image %}
     <div class="imageholder">
         {{ popup(image, 1368, 1026) }}
-        <small>{{ image.alt }}</small>
+        <small>{{ image.get('alt') }}</small>
     </div>
 {% endif %}
