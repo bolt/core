@@ -24,7 +24,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class ContentExtensionSpec extends ObjectBehavior
 {
     public const TEST_TITLE = 'test title';
-    public const TEST_IMAGE = 'kitten.jpg';
+    public const TEST_IMAGE = [];
     public const TEST_EXCERPT = 'test excerpt';
     public const TEST_LINK = 'test/link';
     public const TEST_FULL_LINK = 'http://localhost/test/link';
@@ -80,18 +80,18 @@ class ContentExtensionSpec extends ObjectBehavior
             $field->getWrappedObject(),
         ]));
 
-        $this->getImage($content)->shouldBe($field);
+        $this->getImage($content, false)->shouldBe($field);
     }
 
     public function it_gets_image_path(Content $content, ImageField $field, Field $otherField): void
     {
-        $field->getPath()->shouldBeCalled()->willReturn(self::TEST_IMAGE);
+        $field->getValue()->shouldBeCalled()->willReturn(self::TEST_IMAGE);
         $content->getFields()->shouldBeCalled()->willReturn(new ArrayCollection([
             $otherField->getWrappedObject(),
             $field->getWrappedObject(),
         ]));
 
-        $this->getImage($content, true)->shouldBe(self::TEST_IMAGE);
+        $this->getImage($content)->shouldBe(self::TEST_IMAGE);
     }
 
     public function it_gets_excerpt(Content $content, Excerptable $field, TextField $titleField, Field $otherField, ContentType $definition): void
