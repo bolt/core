@@ -24,7 +24,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class ContentExtensionSpec extends ObjectBehavior
 {
     public const TEST_TITLE = 'test title';
-    public const TEST_IMAGE = 'kitten.jpg';
+    public const TEST_IMAGE = [];
     public const TEST_EXCERPT = 'test excerpt';
     public const TEST_LINK = 'test/link';
     public const TEST_FULL_LINK = 'http://localhost/test/link';
@@ -85,7 +85,7 @@ class ContentExtensionSpec extends ObjectBehavior
 
     public function it_gets_image_path(Content $content, ImageField $field, Field $otherField): void
     {
-        $field->getPath()->shouldBeCalled()->willReturn(self::TEST_IMAGE);
+        $field->getValue()->shouldBeCalled()->willReturn(self::TEST_IMAGE);
         $content->getFields()->shouldBeCalled()->willReturn(new ArrayCollection([
             $otherField->getWrappedObject(),
             $field->getWrappedObject(),
