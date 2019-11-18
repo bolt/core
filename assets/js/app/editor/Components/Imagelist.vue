@@ -17,11 +17,13 @@
         :filelist="filelist"
         :csrf-token="csrfToken"
         :labels="labels"
-        :removable="true"
+        :in-imagelist="true"
         :name="fieldName(index)"
         :extensions="extensions"
-        @clicked="onRemoveImage"
+        @remove="onRemoveImage"
         @updated="onUpdateImage"
+        @moveImageUp="onMoveImageUp"
+        @moveImageDown="onMoveImageDown"
       ></editor-image>
     </div>
 
@@ -61,6 +63,41 @@ export default {
     getFieldNumberFromElement(elem) {
       return elem.fieldName.match(/\d+/)[0];
     },
+    onMoveImageUp(elem){
+      console.log("Moving up");
+
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+      let imageToMoveUp = this.containerImages[fieldNumber];
+      let imageToMoveDown = this.containerImages[fieldNumber-1];
+
+      let newContainerImages = Object.assign({}, this.containerImages);
+
+      newContainerImages[fieldNumber] = imageToMoveDown;
+      newContainerImages[fieldNumber-1] = imageToMoveUp;
+
+      this.$set(this.containerImages, newContainerImages);
+
+      this.$forceUpdate();
+
+      //this.$set(this.containerImages, fieldNumber, imageToMoveDown);
+      //this.$set(this.containerImages, fieldNumber-1, imageToMoveUp);
+
+      /*
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+      let tmp = this.containerImages[fieldNumber];
+
+      this.containerImages[fieldNumber] = this.containerImages[fieldNumber-1];
+      this.containerImages[fieldNumber-1] = tmp;
+      //swap(this.containerImages, fieldNumber, fieldNumber-1);
+
+      //this.$set(this.containerImages, fieldNumber-1, tmp);
+
+       */
+
+    },
+    onMoveImageDown(elem){
+      console.log("Want to move image down");
+    },
     onUpdateImage(elem) {
       let fieldNumber = this.getFieldNumberFromElement(elem);
       this.containerImages[fieldNumber] = elem;
@@ -80,7 +117,7 @@ export default {
     },
     addImage() {
       let imageField = {
-        removable: true,
+        inImagelist: true,
         directory: this.directory,
         name: this.name,
         filelist: this.filelist,

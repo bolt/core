@@ -2005,6 +2005,16 @@
       <segment>
         <source>image.button_edit_attributes</source>
         <target>Edit attributes</target>
+    <unit id="s14vS9S" name="image.button_move_up">
+      <segment>
+        <source>image.button_move_up</source>
+        <target>Move up</target>
+      </segment>
+    </unit>
+    <unit id="xoOPAPl" name="image.button_move_down">
+      <segment>
+        <source>image.button_move_down</source>
+        <target>Move down</target>
       </segment>
     </unit>
   </file>
