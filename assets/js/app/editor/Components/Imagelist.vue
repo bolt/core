@@ -63,24 +63,34 @@ export default {
     getFieldNumberFromElement(elem) {
       return parseInt(elem.fieldName.match(/\d+/)[0]);
     },
-    onMoveImageDown(elem){
+    onMoveImageDown(elem) {
       let fieldNumber = this.getFieldNumberFromElement(elem);
 
-      if(fieldNumber < this.containerImages.length - 1) {
+      if (fieldNumber < this.containerImages.length - 1) {
         let imageToMoveDown = this.containerImages[fieldNumber];
-        let imageToMoveUp = this.containerImages[fieldNumber+1];
+        let imageToMoveUp = this.containerImages[fieldNumber + 1];
 
-        this.containerImages.splice(fieldNumber, 2, imageToMoveUp, imageToMoveDown);
+        this.containerImages.splice(
+          fieldNumber,
+          2,
+          imageToMoveUp,
+          imageToMoveDown,
+        );
       }
     },
-    onMoveImageUp(elem){
+    onMoveImageUp(elem) {
       let fieldNumber = this.getFieldNumberFromElement(elem);
 
-      if(fieldNumber > 0) {
+      if (fieldNumber > 0) {
         let imageToMoveUp = this.containerImages[fieldNumber];
         let imageToMoveDown = this.containerImages[fieldNumber - 1];
 
-        this.containerImages.splice(fieldNumber - 1, 2, imageToMoveUp, imageToMoveDown);
+        this.containerImages.splice(
+          fieldNumber - 1,
+          2,
+          imageToMoveUp,
+          imageToMoveDown,
+        );
       }
     },
     onUpdateImage(elem) {

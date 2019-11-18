@@ -53,20 +53,22 @@
           </div>
           <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
             <button
-                    class="btn btn-secondary"
-                    type="button"
-                    @click="onMoveImageUp"
+              class="btn btn-secondary"
+              type="button"
+              @click="onMoveImageUp"
             >
-              <i class="fas fa-fw fa-chevron-up"></i> {{ labels.button_move_up }}
+              <i class="fas fa-fw fa-chevron-up"></i>
+              {{ labels.button_move_up }}
             </button>
           </div>
           <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
             <button
-                    class="btn btn-secondary"
-                    type="button"
-                    @click="onMoveImageDown"
+              class="btn btn-secondary"
+              type="button"
+              @click="onMoveImageDown"
             >
-              <i class="fas fa-fw fa-chevron-down"></i> {{ labels.button_move_down }}
+              <i class="fas fa-fw fa-chevron-down"></i>
+              {{ labels.button_move_down }}
             </button>
           </div>
           <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
@@ -184,10 +186,10 @@ export default {
     });
   },
   methods: {
-    onMoveImageDown(){
+    onMoveImageDown() {
       this.$emit('moveImageDown', this);
     },
-    onMoveImageUp(){
+    onMoveImageUp() {
       this.$emit('moveImageUp', this);
     },
     onRemoveImage() {
