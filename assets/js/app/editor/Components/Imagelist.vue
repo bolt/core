@@ -61,42 +61,27 @@ export default {
       });
     },
     getFieldNumberFromElement(elem) {
-      return elem.fieldName.match(/\d+/)[0];
-    },
-    onMoveImageUp(elem){
-      console.log("Moving up");
-
-      let fieldNumber = this.getFieldNumberFromElement(elem);
-      let imageToMoveUp = this.containerImages[fieldNumber];
-      let imageToMoveDown = this.containerImages[fieldNumber-1];
-
-      let newContainerImages = Object.assign({}, this.containerImages);
-
-      newContainerImages[fieldNumber] = imageToMoveDown;
-      newContainerImages[fieldNumber-1] = imageToMoveUp;
-
-      this.$set(this.containerImages, newContainerImages);
-
-      this.$forceUpdate();
-
-      //this.$set(this.containerImages, fieldNumber, imageToMoveDown);
-      //this.$set(this.containerImages, fieldNumber-1, imageToMoveUp);
-
-      /*
-      let fieldNumber = this.getFieldNumberFromElement(elem);
-      let tmp = this.containerImages[fieldNumber];
-
-      this.containerImages[fieldNumber] = this.containerImages[fieldNumber-1];
-      this.containerImages[fieldNumber-1] = tmp;
-      //swap(this.containerImages, fieldNumber, fieldNumber-1);
-
-      //this.$set(this.containerImages, fieldNumber-1, tmp);
-
-       */
-
+      return parseInt(elem.fieldName.match(/\d+/)[0]);
     },
     onMoveImageDown(elem){
-      console.log("Want to move image down");
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+
+      if(fieldNumber < this.containerImages.length - 1) {
+        let imageToMoveDown = this.containerImages[fieldNumber];
+        let imageToMoveUp = this.containerImages[fieldNumber+1];
+
+        this.containerImages.splice(fieldNumber, 2, imageToMoveUp, imageToMoveDown);
+      }
+    },
+    onMoveImageUp(elem){
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+
+      if(fieldNumber > 0) {
+        let imageToMoveUp = this.containerImages[fieldNumber];
+        let imageToMoveDown = this.containerImages[fieldNumber - 1];
+
+        this.containerImages.splice(fieldNumber - 1, 2, imageToMoveUp, imageToMoveDown);
+      }
     },
     onUpdateImage(elem) {
       let fieldNumber = this.getFieldNumberFromElement(elem);

@@ -173,6 +173,7 @@ export default {
   },
   updated() {
     this.$emit('updated', this);
+    this.previewImage = this.thumbnail;
     baguetteBox.run('.editor__image--preview', {
       afterShow: () => {
         noScroll.on();
@@ -208,7 +209,7 @@ export default {
             callback: function(result) {
               if (result) {
                 thisField.filename = result;
-                thisField.previewImage = `/thumbs/${result}?${thumbnailParams}`;
+                thisField.thumbnail = `/thumbs/${result}?${thumbnailParams}`;
               }
             },
           });
@@ -255,7 +256,7 @@ export default {
       Axios.post(this.directory, fd, config)
         .then(res => {
           this.filename = res.data;
-          this.previewImage = `/thumbs/${res.data}?${thumbnailParams}`;
+          this.thumbnail = `/thumbs/${res.data}?${thumbnailParams}`;
           this.progress = 0;
         })
         .catch(err => {
