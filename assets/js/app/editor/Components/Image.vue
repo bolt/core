@@ -51,11 +51,31 @@
               <i class="fas fa-fw fa-th"></i> {{ labels.button_from_library }}
             </button>
           </div>
-          <div v-if="removable == true" class="btn-group mr-2" role="group">
+          <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              @click="onMoveImageUp"
+            >
+              <i class="fas fa-fw fa-chevron-up"></i>
+              {{ labels.button_move_up }}
+            </button>
+          </div>
+          <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              @click="onMoveImageDown"
+            >
+              <i class="fas fa-fw fa-chevron-down"></i>
+              {{ labels.button_move_down }}
+            </button>
+          </div>
+          <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
             <button
               class="btn btn-hidden-danger"
               type="button"
-              @click="removeImage"
+              @click="onRemoveImage"
             >
               <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
             </button>
@@ -129,6 +149,7 @@ export default {
     'extensions',
     'removable',
     'attributesLink',
+    'inImagelist',
   ],
   data: () => {
     return {
@@ -154,6 +175,7 @@ export default {
   },
   updated() {
     this.$emit('updated', this);
+    this.previewImage = this.thumbnail;
     baguetteBox.run('.editor__image--preview', {
       afterShow: () => {
         noScroll.on();
@@ -164,9 +186,15 @@ export default {
     });
   },
   methods: {
-    removeImage() {
+    onMoveImageDown() {
+      this.$emit('moveImageDown', this);
+    },
+    onMoveImageUp() {
+      this.$emit('moveImageUp', this);
+    },
+    onRemoveImage() {
       this.previewImage = null;
-      this.$emit('clicked', this);
+      this.$emit('remove', this);
     },
     selectUploadFile() {
       this.$refs.selectFile.click();
@@ -183,7 +211,7 @@ export default {
             callback: function(result) {
               if (result) {
                 thisField.filename = result;
-                thisField.previewImage = `/thumbs/${result}?${thumbnailParams}`;
+                thisField.thumbnail = `/thumbs/${result}?${thumbnailParams}`;
               }
             },
           });
@@ -230,7 +258,7 @@ export default {
       Axios.post(this.directory, fd, config)
         .then(res => {
           this.filename = res.data;
-          this.previewImage = `/thumbs/${res.data}?${thumbnailParams}`;
+          this.thumbnail = `/thumbs/${res.data}?${thumbnailParams}`;
           this.progress = 0;
         })
         .catch(err => {

@@ -17,11 +17,13 @@
         :filelist="filelist"
         :csrf-token="csrfToken"
         :labels="labels"
-        :removable="true"
+        :in-imagelist="true"
         :name="fieldName(index)"
         :extensions="extensions"
-        @clicked="onRemoveImage"
+        @remove="onRemoveImage"
         @updated="onUpdateImage"
+        @moveImageUp="onMoveImageUp"
+        @moveImageDown="onMoveImageDown"
       ></editor-image>
     </div>
 
@@ -59,7 +61,37 @@ export default {
       });
     },
     getFieldNumberFromElement(elem) {
-      return elem.fieldName.match(/\d+/)[0];
+      return parseInt(elem.fieldName.match(/\d+/)[0]);
+    },
+    onMoveImageDown(elem) {
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+
+      if (fieldNumber < this.containerImages.length - 1) {
+        let imageToMoveDown = this.containerImages[fieldNumber];
+        let imageToMoveUp = this.containerImages[fieldNumber + 1];
+
+        this.containerImages.splice(
+          fieldNumber,
+          2,
+          imageToMoveUp,
+          imageToMoveDown,
+        );
+      }
+    },
+    onMoveImageUp(elem) {
+      let fieldNumber = this.getFieldNumberFromElement(elem);
+
+      if (fieldNumber > 0) {
+        let imageToMoveUp = this.containerImages[fieldNumber];
+        let imageToMoveDown = this.containerImages[fieldNumber - 1];
+
+        this.containerImages.splice(
+          fieldNumber - 1,
+          2,
+          imageToMoveUp,
+          imageToMoveDown,
+        );
+      }
     },
     onUpdateImage(elem) {
       let fieldNumber = this.getFieldNumberFromElement(elem);
@@ -80,7 +112,7 @@ export default {
     },
     addImage() {
       let imageField = {
-        removable: true,
+        inImagelist: true,
         directory: this.directory,
         name: this.name,
         filelist: this.filelist,
