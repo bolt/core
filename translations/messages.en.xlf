@@ -2005,6 +2005,8 @@
       <segment>
         <source>image.button_edit_attributes</source>
         <target>Edit attributes</target>
+       </segment>
+    </unit>
     <unit id="s14vS9S" name="image.button_move_up">
       <segment>
         <source>image.button_move_up</source>
