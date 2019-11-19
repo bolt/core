@@ -1584,5 +1584,23 @@
         <target>Opties</target>
       </segment>
     </unit>
+    <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
+      <segment>
+        <source>general.phrase.no-search-term-provided</source>
+        <target>Geef een zoekterm op om relevante resultaten te tonen.</target>
+      </segment>
+    </unit>
+    <unit id="2CfJ3WY" name="general.phrase.search-results-for">
+      <segment>
+        <source>general.phrase.search-results-for</source>
+        <target>Zoekresultaten voor %search%.</target>
+      </segment>
+    </unit>
+    <unit id="V0VhH5g" name="general.phrase.no-search-results-for">
+      <segment>
+        <source>general.phrase.no-search-results-for</source>
+        <target>Geen zoekresultaten voor '%search%'.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
