@@ -95,6 +95,17 @@ class Field implements Translatable, FieldInterface
         return implode(', ', $value);
     }
 
+    public function __call(string $key = '', array $arguments = [])
+    {
+        $value = $this->getValue();
+
+        if (is_array($value) && array_key_exists($key, $value)) {
+            return $value[$key];
+        }
+
+        return null;
+    }
+
     public static function factory(LaravelCollection $definition, string $name = ''): self
     {
         $type = $definition['type'];
