@@ -20,25 +20,17 @@
             :name="name + '[filename]'"
             type="text"
             :placeholder="labels.placeholder_filename"
-            :value="filename"
+            :value="filenameData"
           />
         </div>
         <div class="input-group mb-3">
           <input
-            class="form-control"
-            :name="name + '[alt]'"
-            type="text"
-            :placeholder="labels.placeholder_alt_text"
-            :value="alt"
-          />
-        </div>
-        <div class="input-group mb-3">
-          <input
+            v-model="titleData"
             class="form-control"
             :name="name + '[title]'"
             type="text"
             :placeholder="labels.placeholder_title"
-            :value="title"
+
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -60,37 +52,38 @@
               <i class="fas fa-fw fa-th"></i> {{ labels.button_from_library }}
             </button>
           </div>
-        </div>
-        <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
-          <button
-                  class="btn btn-secondary"
-                  type="button"
-                  :disabled="isFirstInFilelist"
-                  @click="onMoveFileUp"
-          >
-            <i class="fas fa-fw fa-chevron-up"></i>
-            {{ labels.button_move_up }}
-          </button>
-        </div>
-        <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
-          <button
-                  class="btn btn-secondary"
-                  type="button"
-                  :disabled="isLastInFilelist"
-                  @click="onMoveFileDown"
-          >
-            <i class="fas fa-fw fa-chevron-down"></i>
-            {{ labels.button_move_down }}
-          </button>
-        </div>
-        <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
-          <button
-                  class="btn btn-hidden-danger"
-                  type="button"
-                  @click="onRemoveFile"
-          >
-            <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
-          </button>
+
+          <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
+            <button
+                    class="btn btn-secondary"
+                    type="button"
+                    :disabled="isFirstInFilelist"
+                    @click="onMoveFileUp"
+            >
+              <i class="fas fa-fw fa-chevron-up"></i>
+              {{ labels.button_move_up }}
+            </button>
+          </div>
+          <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
+            <button
+                    class="btn btn-secondary"
+                    type="button"
+                    :disabled="isLastInFilelist"
+                    @click="onMoveFileDown"
+            >
+              <i class="fas fa-fw fa-chevron-down"></i>
+              {{ labels.button_move_down }}
+            </button>
+          </div>
+          <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
+            <button
+                    class="btn btn-hidden-danger"
+                    type="button"
+                    @click="onRemoveFile"
+            >
+              <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
+            </button>
+          </div>
         </div>
         <div v-if="progress > 0" class="progress mt-3">
           <div
@@ -127,7 +120,6 @@ export default {
     'label',
     'filename',
     'name',
-    'alt',
     'title',
     'directory',
     'media',
@@ -139,11 +131,13 @@ export default {
     'isFirstInFilelist',
     'isLastInFilelist',
   ],
-  data: () => {
+  data(){
     return {
       isDragging: false,
       dragCount: 0,
       progress: 0,
+      filenameData: this.filename,
+      titleData: this.title,
     };
   },
   computed: {
@@ -170,9 +164,6 @@ export default {
     selectUploadFile() {
       this.$refs.selectFile.click();
     },
-    selectUploadFile() {
-      this.$refs.selectFile.click();
-    },
     selectServerFile() {
       let thisField = this;
       Axios.get(this.filelist)
@@ -183,7 +174,7 @@ export default {
             inputOptions: this.filterServerFiles(res.data),
             callback: function(result) {
               if (result) {
-                thisField.filename = result;
+                thisField.filenameData = result;
               }
             },
           });
@@ -207,6 +198,7 @@ export default {
       e.preventDefault();
       e.stopPropagation();
       this.isDragging = false;
+      this.dragCount = 0;
       const file = e.dataTransfer.files[0];
       return this.uploadFile(file);
     },
@@ -225,10 +217,9 @@ export default {
       };
       fd.append('file', file);
       fd.append('_csrf_token', this.token);
-
       Axios.post(this.directory, fd, config)
         .then(res => {
-          this.filename = res.data;
+          this.filenameData = res.data;
           this.progress = 0;
         })
         .catch(err => {

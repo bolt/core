@@ -2,7 +2,7 @@
     <div>
         <div
                 v-for="(child, index) in containerFiles"
-                :key="index"
+                :key="child.id"
                 class="form-fieldsgroup"
         >
             <editor-file
@@ -10,7 +10,6 @@
                     :filename="child.filename"
                     :thumbnail="child.thumbnail"
                     :title="child.title"
-                    :alt="child.alt"
                     :attributes-link="attributesLink"
                     :media="child.media"
                     :directory="directory"
@@ -20,7 +19,6 @@
                     :in-filelist="true"
                     :name="fieldName(index)"
                     :extensions="extensions"
-                    :filelist-position="index"
                     :is-first-in-filelist="isFirstInFilelist(index)"
                     :is-last-in-filelist="isLastInFilelist(index)"
                     @remove="onRemoveFile"
@@ -53,8 +51,16 @@
             'attributesLink',
         ],
         data: function() {
+            let counter = 0;
+            let containerFiles = this.files;
+            containerFiles.forEach(function(file, index, theContainerFilesArray){
+                theContainerFilesArray[index].id = index;
+                counter++;
+            });
+
             return {
-                containerFiles: this.files,
+                counter,
+                containerFiles,
             };
         },
         methods: {
@@ -129,8 +135,10 @@
                     labels: this.labels,
                     thumbnail: '',
                     extensions: this.extensions,
+                    id: this.counter,
                 };
 
+                this.counter++;
                 this.containerFiles.push(fileField);
             },
         },
