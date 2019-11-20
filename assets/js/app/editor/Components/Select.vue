@@ -3,7 +3,6 @@
     <multiselect
       v-model="selected"
       :allow-empty="allowempty"
-      :class="Foobar"
       :limit="1000"
       :multiple="multiple"
       :options="options"
