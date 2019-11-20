@@ -25,11 +25,11 @@
         </div>
         <div class="input-group mb-3">
           <input
+            v-model="alt"
             class="form-control"
             :name="name + '[alt]'"
             type="text"
             :placeholder="labels.placeholder_alt_text"
-            v-model="alt"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
