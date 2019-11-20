@@ -29,7 +29,7 @@
             :name="name + '[alt]'"
             type="text"
             :placeholder="labels.placeholder_alt_text"
-            :value="alt"
+            v-model="alt"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
