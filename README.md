@@ -142,7 +142,7 @@ Bolt uses several testing frameworks for [different test layers][fowler]:
 - unit: PHPSpec, PHPUnit, Jest
 - integration (of Symfony services): PHPUnit with KernelTestCase
 - functional (API Contracts): Behat
-- acceptance (UI, end-to-end): Kakunin
+- acceptance (UI, end-to-end): Behat/Mink
 
 To run PHP unit tests:
 ```
@@ -150,8 +150,9 @@ make test
 ```
 
 To run E2E tests:
+- Follow the Behat tests [installation guide](tests/behat/README.md), then:
 ```
-make e2e
+make behat-js
 ```
 
 Fixing IDE issues
