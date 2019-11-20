@@ -6,7 +6,6 @@
                 class="form-fieldsgroup"
         >
             <editor-file
-                    v-if="child.hidden !== true"
                     :filename="child.filename"
                     :thumbnail="child.thumbnail"
                     :title="child.title"
@@ -22,14 +21,13 @@
                     :is-first-in-filelist="isFirstInFilelist(index)"
                     :is-last-in-filelist="isLastInFilelist(index)"
                     @remove="onRemoveFile"
-                    @updated="onUpdateFile"
                     @moveFileUp="onMoveFileUp"
                     @moveFileDown="onMoveFileDown"
             ></editor-file>
         </div>
 
         <button class="btn btn-secondary" type="button" @click="addFile">
-            Add file here
+            {{ labels.add_new_file }}
         </button>
     </div>
 </template>
@@ -68,12 +66,7 @@
                 return index === 0;
             },
             isLastInFilelist(index) {
-                return index === this.getActiveFileFields().length - 1;
-            },
-            getActiveFileFields() {
-                return this.containerFiles.filter(function(file) {
-                    return file.hidden !== true;
-                });
+                return index === this.containerFiles.length - 1;
             },
             getFieldNumberFromElement(elem) {
                 return parseInt(elem.fieldName.match(/\d+/)[0]);
@@ -108,17 +101,10 @@
                     );
                 }
             },
-            onUpdateFile(elem) {
-                let fieldNumber = this.getFieldNumberFromElement(elem);
-                this.containerFiles[fieldNumber] = elem;
-            },
             onRemoveFile(elem) {
                 let fieldNumber = this.getFieldNumberFromElement(elem);
-                let updatedFile = this.containerFiles[fieldNumber];
-                updatedFile.hidden = true;
-                this.$set(this.containerFiles, fieldNumber, updatedFile);
-
-                if (this.getActiveFileFields().length === 0) {
+                this.containerFiles.splice(fieldNumber, 1);
+                if (this.containerFiles.length === 0) {
                     this.addFile();
                 }
             },
