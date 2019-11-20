@@ -25,11 +25,11 @@
         </div>
         <div class="input-group mb-3">
           <input
+            v-model="alt"
             class="form-control"
             :name="name + '[alt]'"
             type="text"
             :placeholder="labels.placeholder_alt_text"
-            :value="alt"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -55,6 +55,7 @@
             <button
               class="btn btn-secondary"
               type="button"
+              :disabled="isFirstInImagelist"
               @click="onMoveImageUp"
             >
               <i class="fas fa-fw fa-chevron-up"></i>
@@ -65,6 +66,7 @@
             <button
               class="btn btn-secondary"
               type="button"
+              :disabled="isLastInImagelist"
               @click="onMoveImageDown"
             >
               <i class="fas fa-fw fa-chevron-down"></i>
@@ -150,6 +152,8 @@ export default {
     'removable',
     'attributesLink',
     'inImagelist',
+    'isFirstInImagelist',
+    'isLastInImagelist',
   ],
   data: () => {
     return {

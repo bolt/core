@@ -20,6 +20,9 @@
         :in-imagelist="true"
         :name="fieldName(index)"
         :extensions="extensions"
+        :imagelist-position="index"
+        :is-first-in-imagelist="isFirstInImagelist(index)"
+        :is-last-in-imagelist="isLastInImagelist(index)"
         @remove="onRemoveImage"
         @updated="onUpdateImage"
         @moveImageUp="onMoveImageUp"
@@ -55,6 +58,12 @@ export default {
     };
   },
   methods: {
+    isFirstInImagelist(index) {
+      return index === 0;
+    },
+    isLastInImagelist(index) {
+      return index === this.getActiveImageFields().length - 1;
+    },
     getActiveImageFields() {
       return this.containerImages.filter(function(image) {
         return image.hidden !== true;
