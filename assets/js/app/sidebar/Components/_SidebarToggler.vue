@@ -11,7 +11,9 @@ export default {
   props: ['version', 'aboutLink', 'labels'],
   computed: {
     slim() {
-      return this.$store.getters['general/slimSidebar'];
+      return this.$store.getters['general/slimSidebar']
+        ? this.$store.getters['general/slimSidebar']
+        : false;
     },
   },
   watch: {
