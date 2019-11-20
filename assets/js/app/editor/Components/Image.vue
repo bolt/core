@@ -55,6 +55,7 @@
             <button
               class="btn btn-secondary"
               type="button"
+              :disabled="isFirstInImagelist"
               @click="onMoveImageUp"
             >
               <i class="fas fa-fw fa-chevron-up"></i>
@@ -65,6 +66,7 @@
             <button
               class="btn btn-secondary"
               type="button"
+              :disabled="isLastInImagelist"
               @click="onMoveImageDown"
             >
               <i class="fas fa-fw fa-chevron-down"></i>
@@ -150,6 +152,8 @@ export default {
     'removable',
     'attributesLink',
     'inImagelist',
+    'isFirstInImagelist',
+    'isLastInImagelist',
   ],
   data: () => {
     return {
