@@ -150,8 +150,9 @@ make test
 ```
 
 To run E2E tests:
+- Follow the Behat tests [installation guide](tests/behat/README.md), then:
 ```
-make e2e
+make behat-js
 ```
 
 Fixing IDE issues
