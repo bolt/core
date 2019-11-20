@@ -31,7 +31,7 @@
               class="form-control col-2 offset-1"
               :name="name + '[width]'"
               type="number"
-              :value="width"
+              :value="widthData"
             />
             ×
             <label for="embed-height-size" class="sr-only">{{
@@ -41,7 +41,7 @@
               class="form-control col-2"
               :name="name + '[height]'"
               type="number"
-              :value="height"
+              :value="heightData"
             />
             <label>{{ labels.label_pixel }}</label>
           </div>
@@ -53,7 +53,7 @@
               readonly=""
               title="Title"
               type="text"
-              :value="title"
+              :value="titleData"
             />
             <input
               class="form-control author_name"
@@ -61,25 +61,25 @@
               readonly=""
               title="Author"
               type="text"
-              :value="authorname"
+              :value="authornameData"
             />
             <input
               class="author_url"
               :name="name + '[authorurl]'"
               type="hidden"
-              :value="authorurl"
+              :value="authorurlData"
             />
             <input
               class="html"
               :name="name + '[html]'"
               type="hidden"
-              :value="html"
+              :value="htmlData"
             />
             <input
               class="thumbnail_url"
               :name="name + '[thumbnail]'"
               type="hidden"
-              :value="thumbnail"
+              :value="thumbnailData"
             />
           </div>
         </div>
@@ -123,14 +123,14 @@ export default {
   ],
   data: () => {
     return {
-      authorurl: null,
-      authorname: null,
-      height: null,
-      html: null,
-      thumbnail: null,
-      title: null,
-      url: null,
-      width: null,
+      authorurlData: null,
+      authornameData: null,
+      heightData: null,
+      htmlData: null,
+      thumbnailData: null,
+      titleData: null,
+      urlData: null,
+      widthData: null,
     };
   },
   watch: {
@@ -170,14 +170,14 @@ export default {
       fetch(this.embedapi, { method: 'POST', body: body })
         .then(response => response.json())
         .then(json => {
-          this.authorurl = json.author_url;
-          this.authorname = json.author_name;
-          this.height = json.height;
-          this.html = json.html;
-          this.thumbnail = json.thumbnail_url;
-          this.title = json.title;
+          this.authorurlData = json.author_url;
+          this.authornameData = json.author_name;
+          this.heightData = json.height;
+          this.htmlData = json.html;
+          this.thumbnailData = json.thumbnail_url;
+          this.titleData = json.title;
           //this.url          = json.url;
-          this.width = json.width;
+          this.widthData = json.width;
           this.previewImage = json.thumbnail_url;
         })
         .catch(err => {
