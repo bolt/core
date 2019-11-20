@@ -30,7 +30,6 @@
             :name="name + '[title]'"
             type="text"
             :placeholder="labels.placeholder_title"
-
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -55,10 +54,10 @@
 
           <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
             <button
-                    class="btn btn-secondary"
-                    type="button"
-                    :disabled="isFirstInFilelist"
-                    @click="onMoveFileUp"
+              class="btn btn-secondary"
+              type="button"
+              :disabled="isFirstInFilelist"
+              @click="onMoveFileUp"
             >
               <i class="fas fa-fw fa-chevron-up"></i>
               {{ labels.button_move_up }}
@@ -66,10 +65,10 @@
           </div>
           <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
             <button
-                    class="btn btn-secondary"
-                    type="button"
-                    :disabled="isLastInFilelist"
-                    @click="onMoveFileDown"
+              class="btn btn-secondary"
+              type="button"
+              :disabled="isLastInFilelist"
+              @click="onMoveFileDown"
             >
               <i class="fas fa-fw fa-chevron-down"></i>
               {{ labels.button_move_down }}
@@ -77,9 +76,9 @@
           </div>
           <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
             <button
-                    class="btn btn-hidden-danger"
-                    type="button"
-                    @click="onRemoveFile"
+              class="btn btn-hidden-danger"
+              type="button"
+              @click="onRemoveFile"
             >
               <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
             </button>
@@ -131,7 +130,7 @@ export default {
     'isFirstInFilelist',
     'isLastInFilelist',
   ],
-  data(){
+  data() {
     return {
       isDragging: false,
       dragCount: 0,
