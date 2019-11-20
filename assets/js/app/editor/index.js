@@ -22,6 +22,7 @@ import Password from './Components/Password';
 import ThemeSelect from './Components/ThemeSelect';
 import Language from './Components/Language';
 import File from './Components/File';
+import Filelist from './Components/Filelist';
 
 new Vue({
   store,
@@ -36,6 +37,7 @@ new Vue({
     'editor-image': Image,
     'editor-imagelist': Imagelist,
     'editor-file': File,
+    'editor-filelist': Filelist,
     'editor-markdown': Markdown,
     'editor-number': Number,
     'editor-select': Select,

@@ -61,6 +61,37 @@
             </button>
           </div>
         </div>
+        <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
+          <button
+                  class="btn btn-secondary"
+                  type="button"
+                  :disabled="isFirstInFilelist"
+                  @click="onMoveFileUp"
+          >
+            <i class="fas fa-fw fa-chevron-up"></i>
+            {{ labels.button_move_up }}
+          </button>
+        </div>
+        <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
+          <button
+                  class="btn btn-secondary"
+                  type="button"
+                  :disabled="isLastInFilelist"
+                  @click="onMoveFileDown"
+          >
+            <i class="fas fa-fw fa-chevron-down"></i>
+            {{ labels.button_move_down }}
+          </button>
+        </div>
+        <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
+          <button
+                  class="btn btn-hidden-danger"
+                  type="button"
+                  @click="onRemoveFile"
+          >
+            <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
+          </button>
+        </div>
         <div v-if="progress > 0" class="progress mt-3">
           <div
             class="progress-bar progress-bar-striped progress-bar-animated"
@@ -104,6 +135,9 @@ export default {
     'labels',
     'filelist',
     'extensions',
+    'inFilelist',
+    'isFirstInFilelist',
+    'isLastInFilelist',
   ],
   data: () => {
     return {
@@ -124,6 +158,18 @@ export default {
     },
   },
   methods: {
+    onMoveFileDown() {
+      this.$emit('moveFileDown', this);
+    },
+    onMoveFileUp() {
+      this.$emit('moveFileUp', this);
+    },
+    onRemoveFile() {
+      this.$emit('remove', this);
+    },
+    selectUploadFile() {
+      this.$refs.selectFile.click();
+    },
     selectUploadFile() {
       this.$refs.selectFile.click();
     },
