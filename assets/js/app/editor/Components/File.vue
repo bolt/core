@@ -89,10 +89,10 @@
           <div
             class="progress-bar progress-bar-striped progress-bar-animated"
             role="progressbar"
-            :aria-valuenow="progress"
+            :aria-valuenow="progressData"
             aria-valuemin="0"
             aria-valuemax="100"
-            :style="`width: ${progress}%`"
+            :style="`width: ${progressData}%`"
           ></div>
         </div>
       </div>
@@ -138,6 +138,7 @@ export default {
       progress: 0,
       filenameData: this.filename,
       titleData: this.title,
+      progressData: this.progress,
     };
   },
   computed: {
@@ -209,7 +210,7 @@ export default {
           const percentCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total,
           );
-          this.progress = percentCompleted;
+          this.progressData = percentCompleted;
         },
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -220,11 +221,11 @@ export default {
       Axios.post(this.directory, fd, config)
         .then(res => {
           this.filenameData = res.data;
-          this.progress = 0;
+          this.progressData = 0;
         })
         .catch(err => {
           console.warn(err);
-          this.progress = 0;
+          this.progressData = 0;
         });
     },
     filterServerFiles(files) {
