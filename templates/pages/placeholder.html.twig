@@ -1,13 +1,13 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-{% block title %} <strong>{{ title }}</strong>
-    {% if subtitle|default() %}» {{ subtitle }} {% endif %}
+{% block title %}{{ title|trans }}
+    {% if subtitle|default() %}» {{ subtitle|trans }} {% endif %}
 {% endblock title %}
 
 {% block main %}
 
-    <h2>{{ title }}</h2>
+    <h2>{{ title|trans }}</h2>
 
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Torquatus, is qui consul

@@ -28,7 +28,7 @@ Vue.filter('trim', (string, length) => {
     length = 50;
   }
 
-  return string.length > length ?
-      string.substring(0, length - 1) + "…" :
-      string;
+  return string.length > length
+    ? string.substring(0, length - 1) + '…'
+    : string;
 });

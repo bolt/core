@@ -14,6 +14,10 @@ npm-debug.log
 yarn-error.log
 webpack_stats.json
 
+### Behat / Front-end testing files
+bin/chromedriver*
+bin/selenium-server-standalone*
+
 ### File-system cruft and temporary files
 __*
 ._*
@@ -22,7 +26,7 @@ __*
 *.lock
 !symfony.lock
 *lock.json
-!/package-lock.json
+!package-lock.json
 .buildpath
 
 ### Platfom-specific files
@@ -61,6 +65,7 @@ appveyor.yml
 !/config/packages/local/_import_dev.yaml
 /config/routes/local
 !/config/routes/local/_import_dev.yaml
+.php-version
 
 ###> symfony/framework-bundle ###
 /.env

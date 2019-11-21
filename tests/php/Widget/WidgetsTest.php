@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Tests\Widget;
 
+use AcmeCorp\ReferenceExtension\ReferenceWidget;
 use Bolt\Tests\StringTestCase;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\Injector\HtmlInjector;
@@ -11,11 +12,9 @@ use Bolt\Widget\Injector\QueueProcessor;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
 use Bolt\Widget\SnippetWidget;
-use Bolt\Widget\WeatherWidget;
 use Bolt\Widgets;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\TraceableAdapter;
-use Symfony\Component\Cache\Simple\Psr6Cache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +24,7 @@ use Twig\Loader\ArrayLoader;
 
 class WidgetsTest extends StringTestCase
 {
-    private function getWidgetsObject(array $templates = ['weather.twig' => '[Hello, weather!]'], $zone = RequestZone::BACKEND): Widgets
+    private function getWidgetsObject(array $templates = ['reference.twig' => '[Hello, reference!]'], $zone = RequestZone::BACKEND): Widgets
     {
         $queueProcessor = new QueueProcessor(new HtmlInjector());
         $requestStack = new RequestStack();
@@ -37,7 +36,7 @@ class WidgetsTest extends StringTestCase
         $loader = new ArrayLoader($templates);
         $twig = new Environment($loader);
 
-        $cache = new Psr6Cache(new TraceableAdapter(new FilesystemAdapter()));
+        $cache = new TraceableAdapter(new FilesystemAdapter());
         $stopwatch = new Stopwatch();
 
         return new Widgets($requestStack, $queueProcessor, $twig, $cache, $stopwatch);
@@ -57,24 +56,23 @@ class WidgetsTest extends StringTestCase
         $widgets->registerWidget($snippet);
         $widgets->processQueue($response);
 
-        $this->assertSameHtml("<html><body>foo*foo*</body></html>", $response->getContent());
+        $this->assertSameHtml('<html><body>foo*foo*</body></html>', $response->getContent());
     }
 
     public function testRenderWidget(): void
     {
         $widgets = $this->getWidgetsObject();
 
-        $weatherWidget = new WeatherWidget();
-        $weatherWidget->setTemplate('weather.twig');
+        $referenceWidget = new ReferenceWidget();
+        $referenceWidget->setTemplate('reference.twig');
 
-        $widgets->registerWidget($weatherWidget);
+        $widgets->registerWidget($referenceWidget);
 
         $this->assertSameHtml(
-            '<div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>',
-            $widgets->renderWidgetByName('Weather Widget')
+            '<div class="widget" id="widget-acmecorp-referencewidget" name="Acme CorpReferenceWidget">[Hello, reference!]</div>',
+            $widgets->renderWidgetByName('AcmeCorp ReferenceWidget')
         );
     }
-
 
     public function testRenderWidgetWithExtraParameters(): void
     {
@@ -86,7 +84,7 @@ class WidgetsTest extends StringTestCase
         $widgets->registerWidget($widget);
 
         $this->assertSameHtml(
-            '<div id="widget-dummy-widget" name="Dummy Widget">[Hello, Bar!]</div>',
+            '<div class="widget" id="widget-dummy-widget" name="Dummy Widget">[Hello, Bar!]</div>',
             $widgets->renderWidgetByName('Dummy Widget', ['foo' => 'Bar'])
         );
     }
@@ -105,44 +103,44 @@ class WidgetsTest extends StringTestCase
         $this->assertSameHtml('Bolt', $response->headers->get('X-Powered-By'));
     }
 
-    public function testProcessWeatherWidgetInTarget(): void
+    public function testProcessReferenceWidgetInTarget(): void
     {
         $widgets = $this->getWidgetsObject();
 
         $response = new Response('<html><body>foo</body></html>');
 
-        $weather = new WeatherWidget();
+        $referenceWidget = new ReferenceWidget();
 
         // overwrite things just to simplify test
-        $weather->setTarget(Target::END_OF_BODY);
-        $weather->setTemplate('weather.twig');
+        $referenceWidget->setTarget(Target::END_OF_BODY);
+        $referenceWidget->setTemplate('reference.twig');
 
-        $widgets->registerWidget($weather);
+        $widgets->registerWidget($referenceWidget);
         $widgets->processQueue($response);
 
         $this->assertSameHtml(
-            '<html><body>foo<div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div></body></html>',
+            '<html><body>foo<div class="widget" id="widget-acmecorp-referencewidget" name="AcmeCorp ReferenceWidget">[Hello, reference!]</div></body></html>',
             $response->getContent()
         );
     }
 
-    public function testProcessWeatherWidgetInTarget2(): void
+    public function testProcessReferenceWidgetInTarget2(): void
     {
         $widgets = $this->getWidgetsObject();
 
         $response = new Response('<html><body>foo</body></html>');
 
-        $weather = new WeatherWidget();
+        $reference = new ReferenceWidget();
 
         // overwrite things just to simplify test
-        $weather->setTarget(Target::START_OF_BODY);
-        $weather->setTemplate('weather.twig');
+        $reference->setTarget(Target::START_OF_BODY);
+        $reference->setTemplate('reference.twig');
 
-        $widgets->registerWidget($weather);
+        $widgets->registerWidget($reference);
         $widgets->processQueue($response);
 
         $this->assertSameHtml(
-            '<html><body><div id="widget-weather-widget" name="Weather Widget">[Hello, weather!]</div>foo</body></html>',
+            '<html><body><div class="widget" id="widget-acmecorp-referencewidget" name="Acme CorpReferenceWidget">[Hello, reference!]</div>foo</body></html>',
             $response->getContent()
         );
     }

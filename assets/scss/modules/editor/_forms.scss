@@ -1,0 +1,29 @@
+.form-fieldsgroup {
+  margin-bottom: 1.5rem;
+}
+
+.form-fieldsgroup__summary-fields {
+  margin-bottom: 1rem;
+  color: var(--shade);
+  font-size: 0.9375rem;
+
+  label {
+    margin-bottom: 0;
+    margin-right: 0.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0.25rem;
+  }
+}
+
+.summary-fields {
+  padding-left: 1rem;
+}
+
+.form-fieldset {
+  border-left: 0.5rem solid #ddd;
+  padding-left: 1rem;
+}

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Menu;
 
-use Psr\SimpleCache\CacheInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 final class CachedBackendMenuBuilder implements BackendMenuBuilderInterface
 {
@@ -22,13 +22,8 @@ final class CachedBackendMenuBuilder implements BackendMenuBuilderInterface
 
     public function buildAdminMenu(): array
     {
-        if ($this->cache->has('backendmenu')) {
-            $menu = $this->cache->get('backendmenu');
-        } else {
-            $menu = $this->menuBuilder->buildAdminMenu();
-            $this->cache->set('backendmenu', $menu);
-        }
-
-        return $menu;
+        return $this->cache->get('backendmenu', function () {
+            return $this->menuBuilder->buildAdminMenu();
+        });
     }
 }

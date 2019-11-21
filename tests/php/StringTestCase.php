@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class StringTestCase extends TestCase
 {
-    public static function assertSameHtml(string $expected, string $actual)
+    public static function assertSameHtml(string $expected, string $actual): void
     {
         self::assertSame(
             preg_replace('/\s+/', '', $expected),

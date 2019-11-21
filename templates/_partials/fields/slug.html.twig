@@ -2,10 +2,15 @@
 
 {% block field %}
     <editor-slug
-        :value="'{{ value }}'"
-        :name="'{{ name }}'"
-        :prefix="'{{ field.slugPrefix  }}'"
-        :field-class="'{{ class }}'"
-        :generate="'{{ field.slugUseFields|join(', ') }}'"
+        :value='{{ value|json_encode }}'
+        :name='{{ name|json_encode }}'
+        :prefix='{{ field.slugPrefix|json_encode }}'
+        :field-class='{{ class|json_encode }}'
+        :generate='{{ field.slugUseFields|join(', ')|json_encode }}'
+        :labels='{{ {
+            'button_locked': 'slug.button_locked'|trans,
+            'button_edit': 'slug.button_edit'|trans,
+            'generate_from': 'slug.generate_from'|trans,
+        }|json_encode }}'
     ></editor-slug>
 {% endblock %}

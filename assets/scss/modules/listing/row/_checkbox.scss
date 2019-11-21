@@ -2,11 +2,21 @@
 .listing--checkbox {
   width: $checkbox-row-width;
   user-select: none;
+  margin-bottom: $spacer*0.8;
 
   .custom-control {
     position: relative;
-    height: calc(100% - #{$spacer} / 1.25);
+    height: 100%;
     padding: 0;
+    border: 1px solid var(--foreground);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: var(--foreground);
+
+    @include media-breakpoint-up(md) {
+      // border: 1px solid var(--shade-light);
+      // border-right: 1px solid var(--shade-light);
+    }
 
     .custom-control-label {
       position: absolute;
@@ -17,9 +27,8 @@
 
       &::before,
       &::after {
-        left: $spacer / 4;
-        top: 50%;
-        transform: translateY(-50%);
+        left: $spacer*0.45;
+        top: $spacer*0.6;
       }
     }
   }

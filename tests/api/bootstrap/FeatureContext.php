@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Exception\ExpectationException;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Driver\BrowserKitDriver;
@@ -225,5 +226,62 @@ class FeatureContext extends MinkContext implements Context
         $client->setServerParameter('HTTP_HOST', self::HTTP_HOST);
 
         return $client;
+    }
+
+    /**
+     * @Given /^I am logged in as "([^"]*)"$/
+     */
+    public function iAmAuthenticatedAs($username) {
+        $this->visit('/bolt/login');
+        $this->fillField('username', $username);
+        $this->fillField('password', "admin%1");
+        $this->pressButton('Log in');
+    }
+
+    /**
+     * @Given /^I wait (\d+) second(?:|s)$/
+     */
+    public function iWaitSeconds($seconds)
+    {
+        $this->getSession()->wait(1000*$seconds);
+    }
+
+    /**
+     * @Given /^I should see at least (\d+) "([^"]*)" elements$/
+     */
+    public function iShouldSeeAtLeastElements($number, $element)
+    {
+        $foundElements = $this->getSession()->getPage()->findAll('css', $element);
+        if(intval($number) > count($foundElements)){
+            $message = sprintf('%d %s found on the page, but should be not less than %d.', count($foundElements), $element, $number);
+
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
+     * @When /^I click "([^"]*)"$/
+     */
+    public function iClick($element)
+    {
+        $foundElement = $this->getSession()->getPage()->find('css', $element);
+
+        $foundElement->click();
+    }
+
+    /**
+     * @When I scroll :element into view
+     */
+    public function iScrollElementIntoView($element){
+        $this->getSession()->getPage()->find('css', $element)->focus();
+        $this->getSession()->executeScript("$(':focus')[0].scrollIntoView(true);window.scrollBy(0,-100);");
+    }
+
+    /**
+     * iSwitchToTheWindow
+     * @When /^(?:|I )switch to (?:window|tab) "(?P<nb>\d+)"$/
+     */
+    public function iSwitchToTheWindow($id=0){
+        $this->getSession()->switchToWindow($this->getSession()->getWindowNames()[$id]);
     }
 }

@@ -1,11 +1,27 @@
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+
+{% set whereValues = {'status': '!unknown'} %}
+{% set sortBy = app.request.get('sortBy')|default() %}
+{% set taxonomy = app.request.get('taxonomy')|default() %}
+{% if taxonomy %}
+    {% set taxonomy = taxonomy|split('=') %}
+    {% set whereValues = whereValues|merge({ (taxonomy[0]): (taxonomy[1]) }) %}
+{% endif %}
+{% set filterValue = app.request.get('filter')|default() %}
+{% if filterValue %}
+    {% set whereValues = whereValues|merge({'anyField': '%' ~ filterValue ~ '%' }) %}
+{% endif %}
+
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'listing.title_overview'|trans }}
+{% endblock shoulder %}
 
 {% block title %}
-    {% if contentType %}
-        <i class='fas mr-2 {{contentType.icon_one}}'></i> <strong>{{ contentType.name }}</strong>
-    {% else %}
-        <strong>{{ 'title.contentlisting'|trans }}</strong>
-    {% endif %}
+    {{ macro.icon(contentType.icon_one) }}
+    {{ contentType.name }}
 {% endblock %}
 
 {% block vue_id 'listing' %}
@@ -16,6 +32,9 @@
 {% endblock %}
 
 {% block main %}
+
+    {% setcontent records = (contentType.slug) orderby (sortBy) where (whereValues) limit (contentType.records_per_page) %}
+
     <div>
         {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': contentType.slug } %}
     </div>
@@ -26,14 +45,108 @@
     <listing-select-box
       plural="{{ contentType.name }}"
       singular="{{ contentType.singular_name }}"
+      :labels="{{
+        { 'card_header':
+            {   'selected': 'listing_select_box.card_header.selected'|trans   },
+          'card_body':
+            {
+                'records_passed': 'listing_select_box.card_body.records_passed'|trans,
+                'remark': 'listing_select_box.card_body.remark'|trans,
+            }
+        }|json_encode }}"
     ></listing-select-box>
 
-    <div class="card">
+    {% set filterOptions = {
+        'id': "Id", 'title': 'Title', 'Author': 'Author', 'status': 'Status', 'createdAt': 'Created date',
+        'modifiedAt': 'Modified date', 'publishedAt': 'Published date', 'depublishedAt': 'Depublished date'
+    } %}
+
+    <div class="card mb-3">
         <div class="card-header">
             {{ 'title.contentlisting'|trans }}
         </div>
         <div class="card-body">
-            (filtering options go here)
+            <form>
+                <div class="form-group">
+
+                    <p>
+                        <strong>{{ 'listing.title_sortby'|trans }}</strong>:
+                        <select class="form-control" name="sortBy">
+                                <option value="" {% if sortBy is empty %}selected{% endif %}>
+                                    {{ 'listing.option_select_sortby'|trans }}
+                                </option>
+                            {% for key, filterOption in filterOptions %}
+                                <option value="{{ key }}" {% if sortBy == key %}selected{% endif %}>
+                                    {{ filterOption }}
+                                </option>
+                                <option value="-{{ key }}" {% if sortBy == key %}selected{% endif %}>
+                                    -{{ filterOption }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </p>
+                    {#
+                    {% if contentType.get('taxonomy') %}
+                        <p>
+                            <strong>{{ 'listing.title_taxonomy'|trans }}</strong>:
+                            <select class="form-control" name="taxonomy">
+                                <option value="" {% if sortBy is empty %}selected{% endif %}>
+                                    {{ 'listing.option_select_item'|trans }}
+                                </option>
+                                {% for taxonomy in contentType.get('taxonomy') %}
+                                    {% set taxonomyDefinition = config.get('taxonomies/' ~ taxonomy) %}
+                                    {% if taxonomyDefinition.behaves_like != 'tags' %}
+                                        <optgroup label="{{ taxonomyDefinition.singular_name }}">
+                                        {% for key, taxonomyValue in taxonomyDefinition.options %}
+                                            <option value="{{ taxonomyDefinition.slug }}={{ key }}" {% if taxonomy == key %}selected{% endif %}>
+                                                {{ taxonomyValue }}
+                                            </option>
+                                        {% endfor %}
+                                        </optgroup>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </p>
+                    {% endif %}
+                    #}
+                    <p>
+                        <strong>{{ 'listing.title_title'|trans }}</strong>:
+                        <input class="form-control" type="text" name="filter" value="{{ filterValue }}"
+                               placeholder="{{ 'listing.placeholder_filter'|trans }}"/>
+                    </p>
+                </div>
+                <div class="form-group">
+                    {{ macro.button('listing.button_filter', 'filter', 'tertiary', {'type': 'submit'}) }}
+
+                    {% if sortBy is not empty or filterValue is not empty %}
+                        {{ macro.buttonlink('listing.button_clear', path('bolt_content_overview', {'contentType': contentType.slug}),  'times', 'tertiary') }}
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            {{ 'title.contentType'|trans }} {{ contentType.name }}
+        </div>
+        <div class="card-body">
+
+        <ul class="px-2">
+            <li>Name: <code>{{ contentType.name }}</code> (singular: <code>{{ contentType.singular_name }}</code>)</li>
+            <li>Slug: <code>{{ contentType.slug }}</code> (singular: <code>{{ contentType.singular_slug }}</code>)</li>
+            <li>Record template: <code>{{ contentType.record_template }}</code></li>
+            <li>Listing template: <code>{{ contentType.listing_template }}</code> ({{ contentType.listing_records }} records)</li>
+            {% if contentType.locales is not empty %}
+                <li>Locales:
+                    {% for locale in contentType.locales %}
+                        {{ flag(locale) }}
+                        {%- if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </li>
+            {% endif %}
+        </ul>
+
         </div>
     </div>
 

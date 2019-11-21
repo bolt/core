@@ -1,0 +1,33 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{% set menu = [] %}
+{% for item in admin_menu() %}
+    {% if item.slug == slug %}
+        {% set menu = item %}
+    {% endif %}
+{% endfor %}
+
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'caption.redirection_page'|trans }}
+{% endblock shoulder %}
+
+{% block title %}
+    {{ macro.icon('map-signs') }}
+    {{ menu.name }}
+{% endblock title %}
+
+{% block main %}
+
+    <p>
+    {% for sub in menu.submenu %}
+        {{ macro.buttonlink(sub.name, sub.editLink, sub.icon, 'light', {'style': 'width: 20em; text-align: left;'}, false) }} <br>
+    {% endfor %}
+    </p>
+
+{% endblock main %}
+
+{% block aside %}
+    &nbsp;
+{% endblock %}

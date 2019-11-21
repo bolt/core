@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use Bolt\Common\Json;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -89,8 +91,32 @@ class User implements UserInterface, \Serializable
      */
     private $backendTheme;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false}, nullable=false)
+     */
+    private $disabled = false;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $userAuthToken;
+
     public function __construct()
     {
+    }
+
+    /**
+     * @return User
+     */
+    public static function factory(string $displayName = '', string $username = '', string $email = ''): self
+    {
+        $user = new self();
+
+        $user->setDisplayName($displayName);
+        $user->setUsername($username);
+        $user->setEmail($email);
+
+        return $user;
     }
 
     public function getId(): int
@@ -120,7 +146,9 @@ class User implements UserInterface, \Serializable
 
     public function setUsername(string $username): void
     {
-        $this->username = $username;
+        $slugify = new Slugify(['separator' => '_']);
+        $cleanUsername = $slugify->slugify($username);
+        $this->username = $cleanUsername;
     }
 
     public function getEmail(): string
@@ -141,6 +169,21 @@ class User implements UserInterface, \Serializable
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    public function enable(): void
+    {
+        $this->disabled = false;
+    }
+
+    public function disable(): void
+    {
+        $this->disabled = true;
+    }
+
+    public function isDisabled(): bool
+    {
+        return $this->disabled;
     }
 
     /**
@@ -236,7 +279,7 @@ class User implements UserInterface, \Serializable
 
     public function setLocale(?string $locale): self
     {
-        $this->locale = $locale;
+        $this->locale = Json::findScalar($locale);
 
         return $this;
     }
@@ -249,6 +292,24 @@ class User implements UserInterface, \Serializable
     public function setBackendTheme(?string $backendTheme): self
     {
         $this->backendTheme = $backendTheme;
+
+        return $this;
+    }
+
+    public function getUserAuthToken(): ?UserAuthToken
+    {
+        return $this->userAuthToken;
+    }
+
+    public function setUserAuthToken(?UserAuthToken $userAuthToken): self
+    {
+        $this->userAuthToken = $userAuthToken;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = $userAuthToken === null ? null : $this;
+        if ($userAuthToken->getUser() !== $newUser) {
+            $userAuthToken->setUser($newUser);
+        }
 
         return $this;
     }

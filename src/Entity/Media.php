@@ -50,15 +50,30 @@ class Media
     private $height;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $filesize;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cropX;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cropY;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $cropZoom;
 
     /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
 
@@ -284,6 +299,42 @@ class Media
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getCropX()
+    {
+        return $this->cropX;
+    }
+
+    public function setCropX(int $cropX): self
+    {
+        $this->cropX = $cropX;
+
+        return $this;
+    }
+
+    public function getCropY()
+    {
+        return $this->cropY;
+    }
+
+    public function setCropY(int $cropY): self
+    {
+        $this->cropY = $cropY;
+
+        return $this;
+    }
+
+    public function getCropZoom()
+    {
+        return $this->cropZoom;
+    }
+
+    public function setCropZoom(float $cropZoom): self
+    {
+        $this->cropZoom = $cropZoom;
 
         return $this;
     }

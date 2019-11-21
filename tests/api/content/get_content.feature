@@ -1,5 +1,5 @@
 Feature: Get content with API
-
+  @api
   Scenario: As a user I fetch all contents
     When I send a GET request to "/api/contents.json"
     Then the response status code should be 200
@@ -19,7 +19,12 @@ Feature: Get content with API
           "image": {
              "filename": @string@,
              "alt": @string@,
-             "path": @string@
+             "title": @string@,
+             "path": @string@,
+             "media": @string@,
+             "url": @string@,
+             "thumbnail": @string@,
+             "fieldname": @string@
           },
           "@*@": "@*@"
        },
@@ -34,7 +39,7 @@ Feature: Get content with API
     @...@
   ]
   """
-
+  @api
   Scenario: As a user I fetch single content
     When I send a GET request to "/api/contents/1.json"
     Then the response status code should be 200
@@ -50,9 +55,14 @@ Feature: Get content with API
         "title": @string@,
         "slug": @string@,
         "image": {
-           "filename": @string@,
-           "alt": @string@,
-           "path": @string@
+             "filename": @string@,
+             "alt": @string@,
+             "title": @string@,
+             "path": @string@,
+             "media": @string@,
+             "url": @string@,
+             "thumbnail": @string@,
+             "fieldname": @string@
         },
        "@*@": "@*@"
      },
@@ -90,7 +100,12 @@ Feature: Get content with API
               "image": {
                  "filename": @string@,
                  "alt": @string@,
-                 "path": @string@
+                 "title": @string@,
+                 "path": @string@,
+                 "media": @string@,
+                 "url": @string@,
+                 "thumbnail": @string@,
+                 "fieldname": @string@
               },
               "@*@": "@*@"
            },
@@ -143,7 +158,12 @@ Feature: Get content with API
               "image": {
                  "filename": @string@,
                  "alt": @string@,
-                 "path": @string@
+                 "title": @string@,
+                 "path": @string@,
+                 "media": @string@,
+                 "url": @string@,
+                 "thumbnail": @string@,
+                 "fieldname": @string@
               },
               "@*@": "@*@"
            },
@@ -188,11 +208,16 @@ Feature: Get content with API
         "title": @string@,
         "slug": @string@,
         "image": {
-           "filename": @string@,
-           "alt": @string@,
-           "path": @string@
+            "filename": @string@,
+            "alt": @string@,
+            "title": @string@,
+            "path": @string@,
+            "media": @string@,
+            "url": @string@,
+            "thumbnail": @string@,
+            "fieldname": @string@
         },
-       "@*@": "@*@"
+        "@*@": "@*@"
      },
      "taxonomyValues": @array@,
      "extras": {

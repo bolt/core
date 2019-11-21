@@ -14,9 +14,9 @@
       </a>
       <a
         v-else
-        :href="item.link"
         class="admin__sidebar--link"
-        :class="{'has-menu': item.submenu !== null}"
+        :class="{ 'has-menu': item.submenu !== null }"
+        :href="item.link"
       >
         <i class="fas mr-2 link--icon" :class="item.icon"></i
         ><span class="link--text">{{ item.name }}</span>
@@ -40,7 +40,7 @@ export default {
   props: ['menu'],
   methods: {
     singleton(item) {
-      if (item.submenu !== null) {
+      if (item.submenu.length && item.submenu !== null) {
         return item.submenu[0].editLink;
       } else {
         return item.link_new;

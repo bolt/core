@@ -22,14 +22,22 @@
       <div
         v-if="size === 'normal' && record.extras.image !== null"
         class="listing__row--item is-thumbnail"
-        :style="`background-image: url(${record.extras.image.path})`"
+        :style="`background-image: url('${record.extras.image.thumbnail}')`"
       ></div>
       <!-- end column -->
 
       <!-- column details -->
       <div class="listing__row--item is-details">
-        <a :href="record.extras.editLink" :title="record.fieldValues.slug">{{ record.extras.title | trim(62) }}</a>
-        <span>{{ record.extras.excerpt }}</span>
+        <a
+          class="listing__row--item-title"
+          :href="record.extras.editLink"
+          :title="record.fieldValues.slug"
+        >
+          {{ record.extras.title | trim(62) }}
+        </a>
+        <span class="listing__row--item-title-excerpt">{{
+          record.extras.excerpt
+        }}</span>
       </div>
       <!-- end column -->
 
@@ -37,19 +45,20 @@
       <row-meta :type="type" :size="size" :record="record"></row-meta>
       <!-- end column -->
 
+      <!-- excerpt for small screens -->
+      <div class="listing__row--item is-excerpt">
+        <span>{{ record.extras.excerpt }}</span>
+      </div>
+
       <!-- column actions -->
       <row-actions
         :type="type"
         :record="record"
         :size="size"
+        :labels="labels['actions']"
       ></row-actions>
       <!-- end column -->
-
-      <!-- column sorting -->
-      <row-sorting></row-sorting>
-      <!-- end column -->
     </div>
-
   </transition-group>
 </template>
 
@@ -58,7 +67,7 @@ import type from '../../../mixins/type';
 import Checkbox from './_Checkbox';
 import Meta from './_Meta';
 import Actions from './_Actions';
-import Sorting from './_Sorting';
+import $ from 'jquery';
 
 export default {
   name: 'TableRow',
@@ -66,22 +75,21 @@ export default {
     'row-checkbox': Checkbox,
     'row-meta': Meta,
     'row-actions': Actions,
-    'row-sorting': Sorting,
   },
   mixins: [type],
-  props: ['record'],
-  methods: {
-    leave(event) {
-      // When we 'leave' the row, make sure we close the dropdown.
-      $('.dropdown-toggle[aria-expanded="true"').dropdown('toggle');
-    },
-  },
+  props: ['record', 'labels'],
   computed: {
     size() {
       return this.$store.getters['general/getRowSize'];
     },
     sorting() {
       return this.$store.getters['general/getSorting'];
+    },
+  },
+  methods: {
+    leave() {
+      // When we 'leave' the row, make sure we close the dropdown.
+      $('.dropdown-toggle[aria-expanded="true"]').dropdown('toggle');
     },
   },
 };

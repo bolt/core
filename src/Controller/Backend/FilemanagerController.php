@@ -13,28 +13,29 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Webmozart\PathUtil\Path;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class FilemanagerController extends TwigAwareController implements BackendZone
 {
-    /**
-     * @var FileLocations
-     */
+    /** @var FileLocations */
     private $fileLocations;
 
-    /**
-     * @var MediaRepository
-     */
+    /** @var MediaRepository */
     private $mediaRepository;
 
-    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository)
+    /** @var SessionInterface */
+    private $session;
+
+    public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository, SessionInterface $session)
     {
         $this->fileLocations = $fileLocations;
         $this->mediaRepository = $mediaRepository;
+        $this->session = $session;
     }
 
     /**
@@ -47,6 +48,13 @@ class FilemanagerController extends TwigAwareController implements BackendZone
             $path .= '/';
         }
 
+        if ($request->query->get('view')) {
+            $view = $request->query->get('view') === 'cards' ? 'cards' : 'list';
+            $this->session->set('filemanager_view', $view);
+        } else {
+            $view = $this->session->get('filemanager_view', 'list');
+        }
+
         $location = $this->fileLocations->get($location);
 
         $finder = $this->findFiles($location->getBasepath(), $path);
@@ -57,12 +65,12 @@ class FilemanagerController extends TwigAwareController implements BackendZone
 
         return $this->renderTemplate('@bolt/finder/finder.html.twig', [
             'path' => $path,
-            'name' => $location->getName(),
-            'location' => $location->getKey(),
+            'location' => $location,
             'finder' => $finder,
             'parent' => $parent,
             'media' => $media,
             'allfiles' => $location->isShowAll() ? $this->buildIndex($location->getBasepath()) : false,
+            'view' => $view,
         ]);
     }
 

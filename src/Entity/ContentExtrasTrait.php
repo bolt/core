@@ -34,7 +34,7 @@ trait ContentExtrasTrait
 
         return [
             'title' => $this->contentExtension->getTitle($content),
-            'image' => $this->contentExtension->getImage($content),
+            'image' => $this->contentExtension->getImage($content, true),
             'excerpt' => $this->contentExtension->getExcerpt($content),
             'link' => $this->contentExtension->getLink($content),
             'editLink' => $this->contentExtension->getEditLink($content),

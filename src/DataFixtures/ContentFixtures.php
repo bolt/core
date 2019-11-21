@@ -25,6 +25,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var Generator */
     private $faker;
 
+    /** @var string */
     private $lastTitle = null;
 
     /** @var array */
@@ -76,6 +77,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $translationRepository = $manager->getRepository(Translation::class);
 
         foreach ($this->config->get('contenttypes') as $contentType) {
+            // Only add Singletons on first run, not when appending
+            if ($this->getOption('--append') && $contentType['singleton']) {
+                continue;
+            }
+
             $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
             for ($i = 1; $i <= $amount; $i++) {
@@ -96,7 +102,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $preset = $this->getPreset($contentType['slug']);
 
                 if ($i === 1 || ! empty($preset)) {
-                    $content->setStatus(Statuses::PUBLISHED);
+                    $content->setStatus($preset['status'] ?? Statuses::PUBLISHED);
                 } else {
                     $content->setStatus($this->getRandomStatus());
                 }
@@ -104,7 +110,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
                     $field = Field::factory($fieldType, $name);
-                    $field->setName($name);
 
                     if (isset($preset[$name])) {
                         $field->setValue($preset[$name]);
@@ -166,6 +171,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     'filename' => $randomImage->getRelativePathname(),
                     'alt' => $this->faker->sentence(4, true),
                     'title' => $this->faker->sentence(7, true),
+                    'media' => '',
                 ];
                 break;
             case 'slug':
@@ -179,6 +185,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 break;
             case 'checkbox':
                 $data = random_int(0, 1);
+                break;
+            case 'email':
+                $data = [$this->faker->email];
+                break;
+            case 'templateselect':
+                $data = [];
                 break;
             default:
                 $data = $this->faker->sentence(6, true);
@@ -205,6 +217,16 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'title' => 'Search',
             'slug' => 'search',
         ];
+        $records['blocks'][] = [
+            'title' => '404 Page not found',
+            'slug' => '404-not-found',
+            'status' => Statuses::HELD,
+        ];
+        $records['blocks'][] = [
+            'title' => '503 Service Unavailable (Maintenance Mode)',
+            'slug' => '503-maintenance mode',
+            'status' => Statuses::HELD,
+        ];
         $records['tests'][] = [
             'selectfield' => 'bar',
             'multiselect' => 'Michelangelo',
@@ -218,14 +240,29 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'text_not_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
             'text_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
         ];
+        $records['pages'][] = [
+            'heading' => 'This is a page',
+            'slug' => 'this-is-a-page',
+        ];
+
+        // Only add this fixture if the file exists: It does in the "Git Clone", but not in the
+        // "Composer create-project".
+        $file = dirname(dirname(__DIR__)) . '/public/theme/skeleton/custom/setcontent_1.twig';
+        if (file_exists($file)) {
+            $records['pages'][] = [
+                'heading' => 'Setcontent test page',
+                'slug' => 'Setcontent test page',
+                'template' => 'custom/setcontent_1.twig',
+            ];
+        }
 
         return $records;
     }
 
     private function getPreset(string $slug): array
     {
-        if (isset($this->presetRecords[$slug]) && ! empty($this->presetRecords[$slug])) {
-            $preset = array_pop($this->presetRecords[$slug]);
+        if (isset($this->presetRecords[$slug]) && ! empty($this->presetRecords[$slug]) && ! $this->getOption('--append')) {
+            $preset = array_shift($this->presetRecords[$slug]);
         } else {
             $preset = [];
         }

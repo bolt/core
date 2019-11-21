@@ -17,15 +17,28 @@
   {% if mode is not defined %}
       {% set mode = define.mode|default(false) %}
   {% endif %}
+  {# check if we only want the value: valueonly #}
+  {% if valueonly is not defined %}
+      {% set valueonly = false %}
+  {% endif %}
 
+  {% if not valueonly %}
   <editor-date
-    :value="'{{ value }}'"
-    name="{{ name }}"
-    :disabled="'{{ disabled }}'"
-    form="{{ form }}"
-    mode="{{ mode }}"
-    locale="{{user.locale}}"
+    :value='{{ value|json_encode }}'
+    name='{{ name }}'
+    :disabled='{{ disabled|json_encode }}'
+    form='{{ form }}'
+    mode='{{ mode }}'
+    locale='{{user.locale}}'
+    labels='{{ { 'toggle': 'editor_date.toggle'|trans }|json_encode }}'
   ></editor-date>
+  {% else %}
+    <span
+        :id='{{ id|json_encode }}'
+        :name='{{ name|json_encode }}'
+        class=""
+    >{{ value|date(format='F d, Y - g:ia')}}</span>
+  {% endif %}
   
 {% endblock %}
 

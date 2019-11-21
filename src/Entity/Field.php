@@ -266,4 +266,13 @@ class Field implements Translatable, FieldInterface
     {
         return 'generic';
     }
+
+    /**
+     * Used in SelectField, to distinguish between selects for "a list of items"
+     * and "select from a list of Content"
+     */
+    public function isContentSelect(): bool
+    {
+        return false;
+    }
 }

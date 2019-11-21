@@ -1,13 +1,20 @@
 <template>
-  <draggable v-model="records" :options="draggableOptions">
-    <transition-group>
-      <table-row
-        v-for="record in records"
-        :key="record.id"
-        :record="record"
-      ></table-row>
-    </transition-group>
-  </draggable>
+  <div class="listing__records">
+    <draggable
+      v-model="records"
+      handle=".listing__row--move"
+      force-fallback="true"
+    >
+      <transition-group>
+        <table-row
+          v-for="record in records"
+          :key="record.id"
+          :record="record"
+          :labels="labels"
+        ></table-row>
+      </transition-group>
+    </draggable>
+  </div>
 </template>
 
 <script>
@@ -20,14 +27,7 @@ export default {
     draggable: draggable,
     'table-row': Row,
   },
-  data: () => {
-    return {
-      draggableOptions: {
-        handle: '.listing__row--move',
-        forceFallback: true,
-      },
-    };
-  },
+  props: ['labels'],
   computed: {
     records: {
       get() {

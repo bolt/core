@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
+use Bolt\Common\Str;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
 use Bolt\Utils\Validator;
@@ -14,6 +15,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -39,18 +41,25 @@ use Symfony\Component\Stopwatch\Stopwatch;
  */
 class AddUserCommand extends Command
 {
-    // to make your command lazily loaded, configure the $defaultName static property,
-    // so it will be instantiated only when the command is actually called.
-    protected static $defaultName = 'app:add-user';
-
     /**
-     * @var SymfonyStyle
+     * to make your command lazily loaded, configure the $defaultName static property,
+     * so it will be instantiated only when the command is actually called.
      */
+    protected static $defaultName = 'bolt:add-user';
+
+    /** @var SymfonyStyle */
     private $io;
 
+    /** @var EntityManagerInterface */
     private $entityManager;
+
+    /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
+
+    /** @var Validator */
     private $validator;
+
+    /** @var UserRepository */
     private $users;
 
     public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, Validator $validator, UserRepository $users)
@@ -108,12 +117,12 @@ class AddUserCommand extends Command
             return;
         }
 
-        $this->io->title('Add User Command Interactive Wizard');
+        $this->io->title('Add Bolt User Command');
         $this->io->text([
             'If you prefer to not use this interactive wizard, provide the',
             'arguments required by this command as follows:',
             '',
-            ' $ php bin/console app:add-user username password email@example.com',
+            ' $ php bin/console bolt:add-user username password email@example.com DisplayName',
             '',
             'Now we\'ll ask you for the value of all the missing command arguments.',
         ]);
@@ -132,7 +141,11 @@ class AddUserCommand extends Command
         if ($password !== null) {
             $this->io->text(' > <info>Password</info>: ' . str_repeat('*', mb_strlen($password)));
         } else {
-            $password = $this->io->askHidden('Password (your type will be hidden)', [$this->validator, 'validatePassword']);
+            $passwordQuestion = new Question('Password', Str::generatePassword());
+            $passwordQuestion->setHidden(true);
+            $passwordQuestion->setValidator([$this->validator, 'validatePassword']);
+
+            $password = $this->io->askQuestion($passwordQuestion);
             $input->setArgument('password', $password);
         }
 
@@ -179,6 +192,8 @@ class AddUserCommand extends Command
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setRoles([$isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER']);
+        $user->setLocale('en');
+        $user->setBackendTheme('default');
 
         // See https://symfony.com/doc/current/book/security.html#security-encoding-password
         $encodedPassword = $this->passwordEncoder->encodePassword($user, $plainPassword);

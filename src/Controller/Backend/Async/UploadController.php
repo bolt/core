@@ -21,7 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class UploadController implements AsyncZone
 {
@@ -52,7 +52,11 @@ class UploadController implements AsyncZone
         try {
             $this->validateCsrf($request, 'upload');
         } catch (InvalidCsrfTokenException $e) {
-            return new JsonResponse(['error' => ['message' => 'Invalid CSRF token']], Response::HTTP_FORBIDDEN);
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Invalid CSRF token',
+                ],
+            ], Response::HTTP_FORBIDDEN);
         }
 
         $locationName = $request->query->get('location', '');
@@ -65,17 +69,20 @@ class UploadController implements AsyncZone
             Handler::OPTION_OVERWRITE => true,
         ]);
 
+        $acceptedFileTypes = array_merge($this->config->getMediaTypes()->toArray(), $this->config->getFileTypes()->toArray());
         $uploadHandler->addRule(
             'extension',
-            ['allowed' => 'jpg', 'jpeg', 'png'],
-            '{label} should be a valid image (jpg, jpeg, png)',
-            'Profile picture'
+            [
+                'allowed' => $acceptedFileTypes,
+            ],
+            '{label} should be a valid file (' . implode(',', $acceptedFileTypes) . ')',
+            'Upload file'
         );
         $uploadHandler->addRule(
             'size',
             ['max' => '20M'],
             '{label} should have less than {max}',
-            'Profile picture'
+            'Upload file'
         );
         $uploadHandler->setSanitizerCallback(function ($name) {
             return $this->sanitiseFilename($name);
@@ -103,7 +110,11 @@ class UploadController implements AsyncZone
         // image was not moved to the container, where are error messages
         $messages = $result->getMessages();
 
-        return new JsonResponse(['error' => ['message' => implode(', ', $messages)]], Response::HTTP_BAD_REQUEST);
+        return new JsonResponse([
+            'error' => [
+                'message' => implode(', ', $messages),
+            ],
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     private function sanitiseFilename(string $filename): string

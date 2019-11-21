@@ -1,15 +1,14 @@
 <template>
   <nav class="listing__filter">
     <ul class="listing__filter--controls">
-
       <!-- Check all checkbox -->
       <li v-if="type !== 'dashboard'">
         <div v-if="!sorting" class="custom-control custom-checkbox">
           <input
             id="selectAll"
             v-model="selectAll"
-            type="checkbox"
             class="custom-control-input"
+            type="checkbox"
           />
           <label
             class="custom-control-label"
@@ -26,14 +25,8 @@
           :class="{ 'is-selected': size === 'small' }"
           @click="changeSize('small')"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 55">
-            <g fill-rule="nonzero">
-              <rect width="70" height="10" rx="3" />
-              <rect width="70" height="10" rx="3" transform="translate(0 15)" />
-              <rect width="70" height="10" rx="3" transform="translate(0 30)" />
-              <rect width="70" height="10" rx="3" transform="translate(0 45)" />
-            </g>
-          </svg>
+          <i class="fas fa-align-justify fa-fw"></i>
+          <span class="sr-only">{{ labels.button_compact }}</span>
         </button>
       </li>
 
@@ -44,13 +37,8 @@
           :class="{ 'is-selected': size === 'normal' }"
           @click="changeSize('normal')"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 55">
-            <g fill-rule="nonzero">
-              <rect width="70" height="15" rx="3" />
-              <rect width="70" height="15" rx="3" transform="translate(0 20)" />
-              <rect width="70" height="15" rx="3" transform="translate(0 40)" />
-            </g>
-          </svg>
+          <i class="fas fa-grip-lines fa-fw"></i>
+          <span class="sr-only">{{ labels.button_expanded }}</span>
         </button>
       </li>
 
@@ -66,7 +54,6 @@
         </button>
       </li>
       -->
-
     </ul>
   </nav>
 </template>
@@ -77,6 +64,7 @@ import type from '../mixins/type';
 export default {
   name: 'ListingFilter',
   mixins: [type],
+  props: ['labels'],
   computed: {
     size() {
       return this.$store.getters['general/getRowSize'];

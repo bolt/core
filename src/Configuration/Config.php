@@ -11,10 +11,10 @@ use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\MenuParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
-use Psr\SimpleCache\CacheInterface;
+use Bolt\Configuration\Parser\ThemeParser;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Contracts\Cache\CacheInterface;
 use Tightenco\Collect\Support\Collection;
-use Webmozart\PathUtil\Path;
 
 class Config
 {
@@ -41,18 +41,21 @@ class Config
         $this->data = $this->getConfig();
 
         // @todo PathResolver shouldn't be part of Config. Refactor to separate class
-        $this->pathResolver = new PathResolver($projectDir, []);
+        $this->pathResolver = new PathResolver($projectDir, [], $this->get('general/theme'));
     }
 
     private function getConfig(): Collection
     {
         $this->stopwatch->start('bolt.parseconfig');
 
-        if ($this->validCache()) {
-            $data = $this->getCache();
-        } else {
-            [$data, $timestamps] = $this->parseConfig();
-            $this->setCache($data, $timestamps);
+        [$data, $timestamps] = $this->getCache();
+
+        // Verify if timestamps are unchanged. If not, invalidate cache.
+        foreach ($timestamps as $filename => $timestamp) {
+            if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
+                $this->cache->delete('config_cache');
+                [$data] = $this->getCache();
+            }
         }
 
         $this->stopwatch->stop('bolt.parseconfig');
@@ -60,32 +63,11 @@ class Config
         return $data;
     }
 
-    private function validCache(): bool
+    private function getCache(): array
     {
-        if (! $this->cache->has('config_cache') || ! $this->cache->has('config_timestamps')) {
-            return false;
-        }
-
-        $timestamps = $this->cache->get('config_timestamps');
-
-        foreach ($timestamps as $filename => $timestamp) {
-            if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private function getCache(): Collection
-    {
-        return $this->cache->get('config_cache');
-    }
-
-    private function setCache(Collection $data, array $timestamps): void
-    {
-        $this->cache->set('config_cache', $data);
-        $this->cache->set('config_timestamps', $timestamps);
+        return $this->cache->get('config_cache', function () {
+            return $this->parseConfig();
+        });
     }
 
     /**
@@ -108,11 +90,18 @@ class Config
         $menu = new MenuParser($this->projectDir);
         $config['menu'] = $menu->parse();
 
+        // If we're parsing the config, we'll also need to pre-initialise
+        // the PathResolver, because we need to know the theme path.
+        $this->pathResolver = new PathResolver($this->projectDir, [], $config->get('general')->get('theme'));
+
+        $theme = new ThemeParser($this->projectDir, $this->getPath('theme'));
+        $config['theme'] = $theme->parse();
+
         // @todo Add these config files if needed, or refactor them out otherwise
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
 
-        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu);
+        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu, $theme);
 
         return [
             DeepCollection::deepMake($config),
@@ -148,7 +137,16 @@ class Config
      */
     public function get(string $path, $default = null)
     {
-        return Arr::get($this->data, $path, $default);
+        $value = Arr::get($this->data, $path, $default);
+
+        // Basic getenv parser, for values like `%env(FOO_BAR)%`
+        if (is_string($value) && preg_match('/%env\(([A-Z0-9_]+)\)%/', $value, $matches)) {
+            if (getenv($matches[1])) {
+                $value = getenv($matches[1]);
+            }
+        }
+
+        return $value;
     }
 
     public function has(string $path): bool
@@ -169,5 +167,15 @@ class Config
     public function getMediaTypes(): Collection
     {
         return new Collection($this->get('general/accept_media_types'));
+    }
+
+    public function getContentType(string $name): ?Collection
+    {
+        return $this->get('contenttypes/' . $name);
+    }
+
+    public function getFileTypes(): Collection
+    {
+        return new Collection($this->get('general/accept_file_types'));
     }
 }

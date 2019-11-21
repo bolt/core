@@ -1,13 +1,19 @@
 {% extends '@bolt/_base/layout.html.twig' %}
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-{% block title %} <strong>{{ title }}</strong>
-    {% if subtitle|default() %}» {{ subtitle }} {% endif %}
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ subtitle }}
+{% endblock shoulder %}
+
+{% block title %}
+    {{ macro.icon('bath') }}
+    {{ title }}
 {% endblock title %}
 
 {% block main %}
 
-    <h2>{{ title }}</h2>
+    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
 
     <div id="listing">
         {% include '@bolt/_partials/_content_listing.html.twig' with {'records': records, 'type': 'dashboard' } %}
@@ -70,17 +76,19 @@
         </p>
 
 
-        <label>Info, Success, Warning, Danger</label>
+        <label>Success, Warning, Danger, Hidden danger</label>
         <p>
         {{ macro.button('action.do_something', random(icons), 'success',  {'type': 'button'}) }}
         {{ macro.button('action.do_something', random(icons), 'warning',  {'type': 'button'}) }}
         {{ macro.button('action.do_something', random(icons), 'danger',  {'type': 'button'}) }}
+        {{ macro.button('action.do_something', random(icons), 'hidden-danger',  {'type': 'button'}) }}
         </p>
 
          <p>
         {{ macro.button('action.do_something', random(icons), 'success',  {'type': 'button', 'disabled': 'disabled' }) }}
         {{ macro.button('action.do_something', random(icons), 'warning',  {'type': 'button', 'disabled': 'disabled' }) }}
         {{ macro.button('action.do_something', random(icons), 'danger',  {'type': 'button', 'disabled': 'disabled' }) }}
+        {{ macro.button('action.do_something', random(icons), 'hidden-danger',  {'type': 'button', 'disabled': 'disabled' }) }}
         </p>
 
 
@@ -123,9 +131,9 @@
                 {% set field = record.field(key) %}
 
                 {% include [
-                    '@bolt/_partials/fields/' ~ field.definition.type ~ '.html.twig',
+                    '@bolt/_partials/fields/' ~ field|type ~ '.html.twig',
                     '@bolt/_partials/fields/generic.html.twig'
-                    ] with { 'field' : field } %}
+                    ] with { 'field': field } %}
 
             {% endfor %}
 

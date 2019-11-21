@@ -1,0 +1,19 @@
+{% if record|taxonomies %}
+    <p>
+    {% for type, taxonomies in record|taxonomies %}
+        <em>
+            {% if taxonomies|length < 2 %}
+                {{ config.get('taxonomies')[type].singular_name }}:
+            {% else %}
+                {{ config.get('taxonomies')[type].name }}:
+            {% endif %}
+        </em>
+        {% for taxonomy in taxonomies %}
+            <a href="{{ taxonomy.link }}" class="taxonomy-{{ type }}">{{ taxonomy.name }}</a>{% if not loop.last %}, {% endif %}
+        {% else %}
+            {{ __('general.phrase.none') }}
+        {% endfor %}
+        {% if not loop.last %} - {% endif %}
+    {% endfor %}
+    </p>
+{% endif %}

@@ -2,64 +2,53 @@
 
 {% block main %}
 
-        {# This template is used for 'listings': Generic pages that list a number of
-           records from a certain content type. These records are available as an array
-           called 'records'. In the for-loop below, we iterate over the records that
-           are on this page. It can be used for overview pages like 'all entries', or
-           'all records tagged with kittens'. #}
+    {# This template is used for 'listings': Generic pages that list a number of
+       records from a certain content type. These records are available as an array
+       called 'records'. In the for-loop below, we iterate over the records that
+       are on this page. It can be used for overview pages like 'all entries', or
+       'all records tagged with kittens'. #}
 
-        {# If used for listing a taxonomy, we add a heading.: #}
-        {% if taxonomy|default %}
-            <h1>
-                {{ __('general.phrase.overview-for') }}
-                {% if taxonomy.options[slug] is defined %}
-                    {{ taxonomy.options[slug] }}
-                {% else %}
-                    {{ slug }}
-                {% endif %}
-            </h1>
-            {# Taxonomies are fetched unordered by design except if 'has_sortorder'
-               is set to true. This way we keep 'grouping' intact in the listing. #}
-            {% if not taxonomy.has_sortorder %}
-                {# If we specified an order in config.yml, sort them here, accordingly: #}
-                {% set records = records|order(config.get('general/listing_sort')) %}
+    {# If used for listing a taxonomy, we add a heading #}
+    {% if taxonomy is defined %}
+        <h1>
+            {{ __('general.phrase.overview-for', {'%slug%': taxonomy.options[slug]|default(slug) }) }}
+        </h1>
+    {% endif %}
+
+    {% for record in records %}
+        <article>
+
+            <h2><a href="{{ record|link }}">{{ record|title }}</a></h2>
+
+                {% if record|image %}
+                    <a href="{{ record|image }}">
+                        <img src="{{ record|thumbnail(480, 320) }}" alt="{{ record|image.alt|default() }}" />
+                    </a>
             {% endif %}
+
+            <p>{{ record|excerpt(300, false, search|default('')) }}</p>
+
+            {% include 'partials/_recordfooter.twig' with { 'record': record } %}
+
+        </article>
+
+        {% if not loop.last %}
+            <hr>
         {% endif %}
 
-        {% for record in records %}
-            <article>
+    {% else %}
+        <article>
 
-                <h2><a href="{{ record|link }}">{{ record|title }}</a></h2>
+            <h2>{{ __('general.phrase.no-content-found') }}</h2>
 
-                {% if record|image is not empty %}
-                    <a href="{{ image(record|image) }}">
-                        <img src="{{ thumbnail(record|image, 400, 260) }}" alt="{{ (record|image).alt|default(record|title) }}">
-                    </a>
-                {% endif %}
+            <p>
+                {{ __("Unfortunately, no content could be found. Try another page, or go to the <a href=\"%paths_root%\">homepage</a>.", {'%paths_root%': path('homepage')} ) }}
+            </p>
 
-                <p>{{ record|excerpt(300, false, search|default('')) }}</p>
+        </article>
+    {% endfor %}
 
-                {% include 'partials/_recordfooter.twig' with { 'record': record } %}
-
-            </article>
-
-            {% if not loop.last %}
-                <hr>
-            {% endif %}
-
-        {% else %}
-            <article>
-
-                <h2>{{ __('general.phrase.no-content-found') }}</h2>
-
-                <p>
-                    {{ __("Unfortunately, no content could be found. Try another page, or go to the <a href=\"%paths_root%\">homepage</a>.", {'%paths_root%': path('homepage')} ) }}
-                </p>
-
-            </article>
-        {% endfor %}
-
-        {# If there are more records than will fit on one page, the pager is shown. #}
-        {{ pager(records, template = 'partials/_sub_pager.twig') }}
+    {# If there are more records than will fit on one page, the pager is shown. #}
+        {{ pager(records, template = 'helpers/_pager_basic.html.twig') }}
 
 {% endblock main %}

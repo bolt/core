@@ -1,0 +1,10 @@
+# Random yaml, to test parsing a nonsense file.
+
+foo: bar
+
+what:
+  - is
+  - going
+  - on
+  - here?
+

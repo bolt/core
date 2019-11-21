@@ -21,7 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class MediaEditController extends TwigAwareController implements BackendZone
 {
@@ -78,7 +78,10 @@ class MediaEditController extends TwigAwareController implements BackendZone
         $media->setTitle($post['title'])
             ->setDescription($post['description'])
             ->setCopyright($post['copyright'])
-            ->setOriginalFilename($post['originalFilename']);
+            ->setOriginalFilename($post['originalFilename'])
+            ->setCropX((int) $post['cropX'])
+            ->setCropY((int) $post['cropY'])
+            ->setCropZoom((float) $post['cropZoom']);
 
         $this->em->persist($media);
         $this->em->flush();
@@ -95,12 +98,12 @@ class MediaEditController extends TwigAwareController implements BackendZone
      */
     public function new(Request $request): RedirectResponse
     {
-        $fileLocation = $request->query->get('location');
+        $fileLocation = $request->query->get('location', 'files');
         $basepath = $this->fileLocations->get($fileLocation)->getBasepath();
-        $file = $request->query->get('file');
+        $file = '/' . $request->query->get('file');
         $filename = $basepath . $file;
 
-        $relPath = Path::getDirectory($file);
+        $relPath = Path::getDirectory('/' . $file);
         $relName = Path::getFilename($file);
 
         $file = new SplFileInfo($filename, $relPath, $relName);

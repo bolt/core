@@ -15,9 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListingController extends TwigAwareController implements FrontendZone
 {
-    /**
-     * @var TemplateChooser
-     */
+    /** @var TemplateChooser */
     private $templateChooser;
 
     public function __construct(TemplateChooser $templateChooser)
@@ -30,6 +28,11 @@ class ListingController extends TwigAwareController implements FrontendZone
      *     "/{contentTypeSlug}",
      *     name="listing",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
+     *     methods={"GET"})
+     * @Route(
+     *     "/{_locale}/{contentTypeSlug}",
+     *     name="listing_locale",
+     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
      *     methods={"GET"})
      */
     public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
@@ -44,22 +47,12 @@ class ListingController extends TwigAwareController implements FrontendZone
 
         $templates = $this->templateChooser->forListing($contentType);
 
-        return $this->renderTemplate($templates, ['records' => $records]);
-    }
+        $twigVars = [
+            'records' => $records,
+            $contentType->getSlug() => $records,
+            'contenttype' => $contentType,
+        ];
 
-    /**
-     * Route alias for Bolt 3 backwards compatibility
-     *
-     * @deprecated since 4.0
-     *
-     * @Route(
-     *     "/{contenttypeslug}",
-     *     name="contentlisting",
-     *     requirements={"contenttypeslug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
-     */
-    public function contentListing(ContentRepository $contentRepository, Request $request, string $contenttypeslug): Response
-    {
-        return $this->listing($contentRepository, $request, $contenttypeslug);
+        return $this->renderTemplate($templates, $twigVars);
     }
 }

@@ -24,9 +24,11 @@ class HtmlExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
 
         return [
             new TwigFunction('markdown', [$this, 'markdown'], $safe),
@@ -36,9 +38,11 @@ class HtmlExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFilters()
+    public function getFilters(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
 
         return [
             new TwigFilter('markdown', [$this, 'markdown'], $safe),

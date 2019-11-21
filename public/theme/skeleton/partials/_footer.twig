@@ -7,12 +7,18 @@
 
     <hr>
 
-    <h4>{{ __('Search') }}</h4>
+    <h4>{{ __('general.phrase.search') }}</h4>
 
     <form method="get" action="{{ path('search') }}" id="searchform-inline" enctype="text/plain">
         <input type="search" value="{{ searchTerm|default() }}" placeholder="{{ __('general.phrase.search-ellipsis') }}" name="searchTerm" >
-        <button type="submit">{{ __('general.phrase.search') }}</button>
+        <button type="submit">{{ __('action.search') }}</button>
     </form>
+
+    <hr>
+
+    <h4>{{ __('general.phrase.select_language') }}</h4>
+
+    {% include 'helpers/_languageselect.html.twig' with {'type': 'select'} %}
 
     <hr>
 

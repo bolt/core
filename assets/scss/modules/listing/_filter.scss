@@ -3,20 +3,14 @@
 .listing__filter {
   display: flex;
   justify-content: space-between;
-  height: 35px;
-
-  &:first-of-type {
-    margin-bottom: $spacer;
-  }
+  min-height: 40px;
+  //background-color: #fff;
+  padding: 0.5rem 0 0.5rem 0;
+  border-radius: $border-radius;
+  overflow: hidden;
 
   &:last-of-type {
-    margin-top: $spacer;
-  }
-
-  .pagination {
-    nav {
-      height: 100%;
-    }
+    margin-bottom: $spacer;
   }
 
   &--controls {
@@ -29,7 +23,6 @@
     justify-content: flex-end;
 
     li {
-      display: inline-flex;
       margin-right: $spacer / 3;
 
       &:last-child {
@@ -41,14 +34,24 @@
       }
     }
 
-    .custom-control {
-      margin-left: $spacer / 4;
+    .custom-checkbox {
+      padding: 0.625rem;
+      width: 32px;
+      height: 34px;
+      border: 1px solid var(--foreground-border);
+
+      .custom-control-label {
+        &::before,
+        &::after {
+          top: -0.125rem;
+          left: -0.8125rem;
+        }
+      }
     }
 
     .control--button {
       transition: $transition-base;
       color: var(--shade);
-      border: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -56,7 +59,10 @@
       background: var(--foreground);
       border-radius: $border-radius;
       box-shadow: $card-box-shadow;
-      padding: $spacer / 2;
+      padding: $spacer*0.4 $spacer*0.5;
+      font-size: 0.875rem;
+      min-height: 2.125rem;
+      border: 1px solid var(--foreground-border);
 
       &:hover {
         cursor: pointer;
@@ -66,19 +72,10 @@
       &:focus {
         outline: none;
         box-shadow: $input-btn-focus-box-shadow;
-
-        svg,
-        g {
-          fill: theme-color('secondary');
-        }
       }
 
       &.is-selected {
-        background: var(--primary);
-
-        svg g {
-          fill: var(--foreground);
-        }
+        background-color: rgb(247, 247, 247);
       }
 
       &.is-active {
@@ -86,13 +83,8 @@
         color: var(--foreground);
       }
 
-      svg {
-        width: 18px;
-        height: 18px;
-
-        g {
-          fill: var(--shade);
-        }
+      .fas {
+        margin-right: 0;
       }
     }
   }

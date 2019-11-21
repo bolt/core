@@ -7,8 +7,10 @@ namespace Bolt\DataFixtures;
 use Bolt\Configuration\FileLocations;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\HttpClient\HttpClient;
 
 class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 {
@@ -56,13 +58,24 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
             mkdir($outputPath);
         }
 
+        $output = new ConsoleOutput();
+        $progressBar = new ProgressBar($output, self::AMOUNT);
+
+        $progressBar->start();
+
         for ($i = 1; $i <= self::AMOUNT; $i++) {
             $url = $this->urls->random() . random_int(10000, 99999);
             $filename = 'image_' . random_int(10000, 99999) . '.jpg';
 
-            $client = new Client();
+            $client = HttpClient::create();
             $resource = fopen($outputPath . $filename, 'w');
-            $client->request('GET', $url, ['sink' => $resource]);
+            fwrite($resource, $client->request('GET', $url)->getContent());
+            fclose($resource);
+
+            $progressBar->advance();
         }
+
+        $progressBar->finish();
+        $output->writeln('');
     }
 }

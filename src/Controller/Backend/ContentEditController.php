@@ -11,9 +11,11 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Relation;
 use Bolt\Entity\Taxonomy;
+use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Repository\ContentRepository;
+use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
@@ -29,7 +31,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class ContentEditController extends TwigAwareController implements BackendZone
 {
@@ -44,6 +46,9 @@ class ContentEditController extends TwigAwareController implements BackendZone
     /** @var ContentRepository */
     private $contentRepository;
 
+    /** @var MediaRepository */
+    private $mediaRepository;
+
     /** @var ObjectManager */
     private $em;
 
@@ -52,6 +57,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
     /** @var TemplateChooser */
     private $templateChooser;
+
     /** @var ContentFillListener */
     private $contentFillListener;
 
@@ -59,6 +65,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         TaxonomyRepository $taxonomyRepository,
         RelationRepository $relationRepository,
         ContentRepository $contentRepository,
+        MediaRepository $mediaRepository,
         ObjectManager $em,
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
@@ -68,6 +75,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
         $this->contentRepository = $contentRepository;
+        $this->mediaRepository = $mediaRepository;
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
         $this->contentFillListener = $contentFillListener;
@@ -81,7 +89,11 @@ class ContentEditController extends TwigAwareController implements BackendZone
     public function new(string $contentType, Request $request): Response
     {
         $content = new Content();
-        $content->setAuthor($this->getUser());
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $content->setAuthor($user);
         $content->setContentType($contentType);
         $this->contentFillListener->fillContent($content);
 
@@ -171,9 +183,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
      */
     public function duplicate(Request $request, Content $content): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+
         $content->setId(null);
         $content->setCreatedAt(null);
-        $content->setAuthor($this->getUser());
+        $content->setAuthor($user);
         $content->setModifiedAt(null);
         $content->setDepublishedAt(null);
         $content->setPublishedAt(null);
@@ -245,9 +260,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         $locale = $this->getPostedLocale($formData);
 
+        /** @var User $user */
+        $user = $this->getUser();
+
         if ($content === null) {
             $content = new Content();
-            $content->setAuthor($this->getUser());
+            $content->setAuthor($user);
             $content->setContentType($request->attributes->get('id'));
         }
         $this->contentFillListener->fillContent($content);
@@ -308,9 +326,13 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $content->addField($field);
         }
 
+        // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);
-            $this->em->refresh($field);
+
+            if ($this->em->contains($field)) {
+                $this->em->refresh($field);
+            }
         }
 
         // If the value is an array that contains a string of JSON, parse it
@@ -319,6 +341,11 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
 
         $field->setValue($value);
+
+        // If the Field is MediaAware, link it to an existing Media Entity
+        if ($field instanceof Field\MediaAware) {
+            $field->setLinkedMedia($this->mediaRepository);
+        }
     }
 
     private function updateTaxonomy(Content $content, string $key, $taxonomy): void

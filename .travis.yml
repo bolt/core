@@ -1,5 +1,5 @@
 language: php
-dist: trusty
+dist: xenial
 sudo: false
 
 addons:
@@ -12,18 +12,14 @@ cache:
 matrix:
   fast_finish: true
   include:
-    # Pinned to 7.1.18, because Travis defaults to 7.1.6, which has broken SSL/TLS. See: https://github.com/travis-ci/travis-ci/issues/6339
-    - php: 7.1.18
-    - php: 7.1.18
-      env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 7.2
     - php: 7.3
+    - php: 7.4snapshot
     - php: nightly
       env: COMPOSER_FLAGS="--ignore-platform-reqs"
   allow_failures:
+    - php: 7.4snapshot
     - php: nightly
-    - php: 7.1.18
-      env: COMPOSER_FLAGS="--prefer-lowest"
 
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
@@ -31,9 +27,10 @@ before_install:
 
 install:
   - COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
-  - nvm install 8.2
-  - npm install
-  - cd tests/e2e && npm install && node ./node_modules/protractor/bin/webdriver-manager update --gecko=false && cd ../..
+  - nvm install 12.5
+  - npm ci
+  - mkdir -p ./var/log/e2e-reports/report/features/
+  - touch ./var/log/e2e-reports/report/features/.gitkeep
 
 before_script:
   # build assets
@@ -41,7 +38,7 @@ before_script:
   # prepare web server for e2e tests
   - ./bin/console doctrine:database:create
   - ./bin/console doctrine:schema:create
-  - ./bin/console doctrine:fixtures:load -n
+  - ./bin/console doctrine:fixtures:load --group=without-images -n
   - ./bin/console server:start 127.0.0.1:8088
   # test if web server works
   - sleep 3
@@ -51,6 +48,10 @@ script:
   # this checks that the source code follows the Bolt Code Syntax rules
   - ./vendor/bin/ecs check src
   - ./vendor/bin/phpstan analyse -c phpstan.neon src
+  # run EsLint on Javascript files
+  - npm run lint
+  # run StyleLint on SCSS
+  - npm run stylelint
   # this checks that the YAML config files contain no syntax errors
   - ./bin/console lint:yaml config
   # this checks that the Twig template files contain no syntax errors
@@ -67,6 +68,6 @@ script:
   - ./vendor/bin/phpspec run
   - ./vendor/bin/phpunit
   # run API tests
-  - ./vendor/bin/behat
-  # run e2e tests with Kakunin
-  - cd tests/e2e && npm run kakunin && cd ../..
+  - make behat-api
+  # run JS e2e tests
+  - ./run_behat_tests.sh && make behat-js

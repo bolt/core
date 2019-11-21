@@ -1,4 +1,5 @@
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% set extension = file|split('.')|last %}
 {% set modes = {
@@ -15,15 +16,17 @@
 } %}
 {% set mode = modes[extension]|default('') %}
 
-{% block container "widecontent" %}
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'caption.edit_file'|trans }}
+{% endblock shoulder %}
 
 {% block title %}
-    {{ 'caption.edit_file'|trans }} » <strong>{{ file|split('/')|last}}</strong>
+    {{ macro.icon('file-code') }}
+    {{ 'caption.path'|trans }}: <code>{{ location }}/<strong>{{ file|split('/')|last}}</strong></code>
 {% endblock %}
 
 {% block main %}
-    <h2>{{ 'caption.path'|trans }}: <code>{{ location }}{{ file }}</code></h2>
-
     <form method="post">
         <input type="hidden" name="file" value="{{ file }}">
         <input type="hidden" name="location" value="{{ location }}">
@@ -32,7 +35,7 @@
             <textarea name="editfile" id="editfile_textarea">{{ contents }}</textarea>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" name="save">{{ 'action.save'|trans }}</button>
+            <button class="btn btn-primary" name="save" type="submit">{{ macro.icon('save') }}{{ 'action.save'|trans }}</button>
         </div>
     </div>
     </form>
@@ -42,9 +45,10 @@
 {% block javascripts %}
 {{ parent() }}
 <script>
-var myCodeMirror = CodeMirror.fromTextArea(editfile_textarea, {
-    lineNumbers: true,
-    mode: '{{ mode }}'
-});
+    var editfile_textarea = document.getElementById('editfile_textarea');
+    var myCodeMirror = CodeMirror.fromTextArea(editfile_textarea, {
+        lineNumbers: true,
+        mode: '{{ mode }}'
+    });
 </script>
 {% endblock %}

@@ -1,12 +1,24 @@
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'caption.about_bolt'|trans }}
+{% endblock shoulder %}
 
 {% block title %}
-    {{ 'caption.about_bolt'|trans }} » {{ 'caption.bolt_payoff'|trans }}
+    {{ macro.icon('award') }}
+    {{ 'caption.bolt_payoff'|trans }}
 {% endblock title %}
 
 {% block main %}
 
-    <h2>Bolt {{ constant('Bolt\\Version::VERSION') }}</h2>
+    <h2>Bolt {{ constant('Bolt\\Version::VERSION') }}<small> - {{ constant('Bolt\\Version::CODENAME') }}</small></h2>
+
+    <ul>
+        <li>Install type: <code>{{ installType }}</code></li>
+        <li>Database: <code>{{ platform.driver_name }} {{ platform.server_version }} <small> - {{ platform.connection_status }}</small> </code></li>
+    </ul>
 
     <p>
         Bolt is a CMS that strives to be simple, fast, straightforward and enjoyable to use. Both for
@@ -18,6 +30,13 @@
         <li><a href="https://twokings.nl/" target="_blank">Two Kings</a> &ndash; Artisinal Web Development.</li>
         <li><a href="https://tsh.io/" target="_blank">The Software House</a> &ndash; Web and Mobile Development.</li>
     </ul>
+
+    <p>Sponsors:</p>
+    <ul>
+        <li><a href="https://www.webfwd.co.uk/" target="_blank">Webforward, Richard Leishman</a> </li>
+        <li><small>→ You and/or your company's name on this list? <a href="https://github.com/users/bobdenotter/sponsorship">Become a sponsor</a>.</small></li>
+    </ul>
+
     <p>
         All parts of Bolt are free to use under the open-source MIT license. The full licensing text can be
         found here, in the included <a href="https://docs.bolt.cm/other/license">LICENSE.md</a>.
@@ -31,7 +50,7 @@
             <i class="fa fa-book"></i> {{ 'about.bolt_documentation'|trans }}
         </a>
         <a href="https://github.com/bolt" class="btn btn-secondary" target="_blank">
-            <i class="fab fa-github-alt"></i> {{ 'about.bolt_on_github'|trans }}
+            <i class="fa fa-external-link-square-alt"></i> {{ 'about.bolt_on_github'|trans }}
         </a>
     </p>
 
@@ -42,7 +61,7 @@
     <ul>
         <li>The awesome <a href="https://symfony.com/" target="_blank">Symfony 4, PHP framework</a> and a lot of the
             <a href="https://symfony.com/components" target="_blank">Symfony components</a>.</li>
-        <li>The <a href="https://www.doctrine-project.org" target="_blank">Doctrine</a> for database access, abstraction and object mapping.</li>
+        <li>The <a href="https://www.doctrine-project.org" target="_blank">Doctrine</a> library for database access, abstraction and object mapping.</li>
         <li><a href="https://twig.sensiolabs.org/" target="_blank">Twig</a> - flexible, fast, and secure template engine</a>.</li>
         <li><a href="https://getbootstrap.com/" target="_blank">Bootstrap 4</a> and
             <a href="https://fontawesome.com/" target="_blank">Font Awesome</a>.</li>
@@ -55,7 +74,6 @@
         <li><a href="http://www.phpspec.net/en/stable/" target="_blank">phpspec</a>.</li>
         <li><a href="http://behat.org/en/latest/" target="_blank">Behat</a>.</li>
         <li><a href="https://github.com/coduo/php-matcher" target="_blank">PHP Matcher</a>.</li>
-        <li><a href="https://kakunin.io" target="_blank">Kakunin</a>.</li>
         <li><a href="https://github.com/phpstan/phpstan" target="_blank">PHP Stan</a>.</li>
         <li><a href="https://github.com/Symplify/EasyCodingStandard" target="_blank">Easy Coding Standard</a>.</li>
         <li><a href="https://blackfire.io/" target="_blank">Blackfire</a>.</li>

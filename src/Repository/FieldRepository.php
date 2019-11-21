@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
+use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Field;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -29,26 +30,15 @@ class FieldRepository extends ServiceEntityRepository
 
     public function findOneBySlug(string $slug): ?Field
     {
-        return $this->getQueryBuilder()
-            ->andWhere('field.value = :slug')
-            ->setParameter('slug', \GuzzleHttp\json_encode([$slug]))
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
+        $qb = $this->getQueryBuilder();
 
-//    /**
-//     * @return Field[] Returns an array of Field objects
-//     */
-    /*
-    public function findByExampleField($value): ?Field
-    {
-        return $this->createQueryBuilder('field')
-            ->andWhere('field.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('field.id', 'ASC')
-            ->setMaxResults(10)
+        [$where, $slug] = JsonHelper::wrapJsonFunction('field.value', $slug, $qb);
+
+        return $qb
+            ->andWhere($where . ' = :slug')
+            ->setParameter('slug', $slug)
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
-     */
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl-NL" trgLang="nl">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="nl" trgLang="nl">
   <file id="messages.nl">
     <unit id="tbB2gib" name="not_available">
       <notes>
@@ -56,7 +56,7 @@
       </notes>
       <segment>
         <source>action.save</source>
-        <target>Wijzigingen opslaan</target>
+        <target>Opslaan</target>
       </segment>
     </unit>
     <unit id="etGJjTo" name="action.edit_user">
@@ -327,7 +327,7 @@
     <unit id="7aLIA3c" name="caption.dashboard">
       <segment>
         <source>caption.dashboard</source>
-        <target>Dashboard</target>
+        <target>Bolt Dashboard</target>
       </segment>
     </unit>
     <unit id="K6TmK4B" name="caption.clear_cache">
@@ -442,12 +442,6 @@
       <segment>
         <source>caption.edit</source>
         <target>Bewerk</target>
-      </segment>
-    </unit>
-    <unit id="dbyz2hj" name="caption.finder">
-      <segment>
-        <source>caption.finder</source>
-        <target>Finder</target>
       </segment>
     </unit>
     <unit id="QZYjRy0" name="caption.file_uploader">
@@ -615,13 +609,7 @@
     <unit id="wGlnx8X" name="general.phrase.search">
       <segment>
         <source>general.phrase.search</source>
-        <target>Zoek</target>
-      </segment>
-    </unit>
-    <unit id="ScJmuqq" name="Search">
-      <segment>
-        <source>Search</source>
-        <target>Zoek</target>
+        <target>Zoeken</target>
       </segment>
     </unit>
     <unit id="2MMvCKK" name="label.cache_cleared">
@@ -640,6 +628,978 @@
       <segment>
         <source>general.latest_bolt_news</source>
         <target>Het laatste Bolt nieuws</target>
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <segment>
+        <source>about.list_of_used_libraries</source>
+        <target>Hieronder staat een lijst met een deel van de gebruikte Libraries / Componenten in Bolt.</target>
+      </segment>
+    </unit>
+    <unit id="nrWBJNm" name="extensions.title_desc">
+      <segment>
+        <source>extensions.title_desc</source>
+        <target>Beschrijving:</target>
+      </segment>
+    </unit>
+    <unit id="7raDJAR" name="extensions.title_author">
+      <segment>
+        <source>extensions.title_author</source>
+        <target>Auteur:</target>
+      </segment>
+    </unit>
+    <unit id="UP8pNGy" name="extensions.title_package">
+      <segment>
+        <source>extensions.title_package</source>
+        <target>Package / Class naam:</target>
+      </segment>
+    </unit>
+    <unit id="QFQ1uTC" name="extensions.title_version">
+      <segment>
+        <source>extensions.title_version</source>
+        <target>Versie:</target>
+      </segment>
+    </unit>
+    <unit id="piuatxC" name="extensions.info_not_installed">
+      <segment>
+        <source>extensions.info_not_installed</source>
+        <target>Dit is een lokale package, niet geïnstalleerd met Composer</target>
+      </segment>
+    </unit>
+    <unit id="3j1gEmk" name="extensions.title_class">
+      <segment>
+        <source>extensions.title_class</source>
+        <target>Titel:</target>
+      </segment>
+    </unit>
+    <unit id="mjhFljb" name="extensions.button_configuration">
+      <segment>
+        <source>extensions.button_configuration</source>
+        <target>Configuratie</target>
+      </segment>
+    </unit>
+    <unit id="r3ryNTG" name="extensions.button_source">
+      <segment>
+        <source>extensions.button_source</source>
+        <target>Broncode</target>
+      </segment>
+    </unit>
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
+      <segment>
+        <source>extensions.message_not_implemented</source>
+        <target>Nog niet geïmplementeerd, sorry!</target>
+      </segment>
+    </unit>
+    <unit id="qc3rFkZ" name="extensions.button_remove">
+      <segment>
+        <source>extensions.button_remove</source>
+        <target>Verwijder</target>
+      </segment>
+    </unit>
+    <unit id="SLZyVzU" name="extensions.button_disable">
+      <segment>
+        <source>extensions.button_disable</source>
+        <target>Uitschakelen</target>
+      </segment>
+    </unit>
+    <unit id="z2AgHGp" name="flash_messages.notification">
+      <segment>
+        <source>flash_messages.notification</source>
+        <target>Notificatie</target>
+      </segment>
+    </unit>
+    <unit id="pcq1NGk" name="listing_filter.button_compact">
+      <segment>
+        <source>listing_filter.button_compact</source>
+        <target>compact</target>
+      </segment>
+    </unit>
+    <unit id="xIztVmp" name="listing_filter.button_expanded">
+      <segment>
+        <source>listing_filter.button_expanded</source>
+        <target>uitgebreid</target>
+      </segment>
+    </unit>
+    <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
+      <segment>
+        <source>listing_table.actions.view_on_site</source>
+        <target>bekijk op site</target>
+      </segment>
+    </unit>
+    <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
+      <segment>
+        <source>listing_table.actions.status_to_publish</source>
+        <target>Pas status aan naar 'gepubliceerd'</target>
+      </segment>
+    </unit>
+    <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
+      <segment>
+        <source>listing_table.actions.status_to_held</source>
+        <target>Pas status aan naar 'vasthouden'</target>
+      </segment>
+    </unit>
+    <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
+      <segment>
+        <source>listing_table.actions.status_to_draft</source>
+        <target>Pas status aan naar 'klad'</target>
+      </segment>
+    </unit>
+    <unit id="5H60Xq6" name="listing_table.actions.duplicate">
+      <segment>
+        <source>listing_table.actions.duplicate</source>
+        <target>dupliceer</target>
+      </segment>
+    </unit>
+    <unit id="hR8ri.m" name="listing_table.actions.delete">
+      <segment>
+        <source>listing_table.actions.delete</source>
+        <target>verwijder</target>
+      </segment>
+    </unit>
+    <unit id="5zbX1vo" name="listing_table.actions.slug">
+      <segment>
+        <source>listing_table.actions.slug</source>
+        <target>slug</target>
+      </segment>
+    </unit>
+    <unit id="wKDOBOC" name="listing_table.actions.created_on">
+      <segment>
+        <source>listing_table.actions.created_on</source>
+        <target>Aangemaakt op</target>
+      </segment>
+    </unit>
+    <unit id="tVX01Xl" name="listing_table.actions.published_on">
+      <segment>
+        <source>listing_table.actions.published_on</source>
+        <target>Gepubliceerd op</target>
+      </segment>
+    </unit>
+    <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
+      <segment>
+        <source>listing_table.actions.last_modified_on</source>
+        <target>Laatst gewijzigd op</target>
+      </segment>
+    </unit>
+    <unit id="zg5Dum5" name="geolocation.label_geolocation">
+      <segment>
+        <source>geolocation.label_geolocation</source>
+        <target>Geolocatie</target>
+      </segment>
+    </unit>
+    <unit id="Com0pbc" name="geolocation.label_address">
+      <segment>
+        <source>geolocation.label_address</source>
+        <target>Adres</target>
+      </segment>
+    </unit>
+    <unit id="3o0LPHj" name="geolocation.placeholder_address">
+      <segment>
+        <source>geolocation.placeholder_address</source>
+        <target>Adres …</target>
+      </segment>
+    </unit>
+    <unit id="CC5QTmy" name="geolocation.label_lat">
+      <segment>
+        <source>geolocation.label_lat</source>
+        <target>Lat</target>
+      </segment>
+    </unit>
+    <unit id="AHaenW3" name="geolocation.label_long">
+      <segment>
+        <source>geolocation.label_long</source>
+        <target>Lon</target>
+      </segment>
+    </unit>
+    <unit id="MJ5WYEM" name="geolocation.label_address_matched">
+      <segment>
+        <source>geolocation.label_address_matched</source>
+        <target>Gevonden adres</target>
+      </segment>
+    </unit>
+    <unit id="WJGjWG8" name="geolocation.label_marker">
+      <segment>
+        <source>geolocation.label_marker</source>
+        <target>Marker</target>
+      </segment>
+    </unit>
+    <unit id="SaP3OOf" name="geolocation.label_control">
+      <segment>
+        <source>geolocation.label_control</source>
+        <target>__geolocation.label_control</target>
+      </segment>
+    </unit>
+    <unit id="VQ2t655" name="file.label_filename">
+      <segment>
+        <source>file.label_filename</source>
+        <target>Bestandsnaam</target>
+      </segment>
+    </unit>
+    <unit id="TJDc9vQ" name="file.label_alt">
+      <segment>
+        <source>file.label_alt</source>
+        <target>Alt</target>
+      </segment>
+    </unit>
+    <unit id="tvpSmD7" name="file.label_title">
+      <segment>
+        <source>file.label_title</source>
+        <target>Title</target>
+      </segment>
+    </unit>
+    <unit id="hXT_hI." name="file.button_view">
+      <segment>
+        <source>file.button_view</source>
+        <target>Bekijk</target>
+      </segment>
+    </unit>
+    <unit id="QKIqqOw" name="file.button_upload">
+      <segment>
+        <source>file.button_upload</source>
+        <target>Upload</target>
+      </segment>
+    </unit>
+    <unit id="4_JdYp1" name="file.remark">
+      <segment>
+        <source>file.remark</source>
+        <target>__file.remark</target>
+      </segment>
+    </unit>
+    <unit id="kHeY93_" name="editor_embed.content_url">
+      <segment>
+        <source>editor_embed.content_url</source>
+        <target>Content URL</target>
+      </segment>
+    </unit>
+    <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
+      <segment>
+        <source>editor_embed.placeholder_content_url</source>
+        <target>Url van de content …</target>
+      </segment>
+    </unit>
+    <unit id="1.Eb1GS" name="editor_embed.label_height">
+      <segment>
+        <source>editor_embed.label_height</source>
+        <target>Hoogte</target>
+      </segment>
+    </unit>
+    <unit id="eWLSFJs" name="editor_embed.label_pixel">
+      <segment>
+        <source>editor_embed.label_pixel</source>
+        <target>pixels</target>
+      </segment>
+    </unit>
+    <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
+      <segment>
+        <source>editor_embed.label_matched_embed</source>
+        <target>Gevonden Embed</target>
+      </segment>
+    </unit>
+    <unit id="zATju4V" name="editor_embed.label_preview">
+      <segment>
+        <source>editor_embed.label_preview</source>
+        <target>Voorvertoning</target>
+      </segment>
+    </unit>
+    <unit id="9SQ0oaR" name="editor_embed.label_size">
+      <segment>
+        <source>editor_embed.label_size</source>
+        <target>Grootte</target>
+      </segment>
+    </unit>
+    <unit id="BINgtmK" name="editor_date.toggle">
+      <segment>
+        <source>editor_date.toggle</source>
+        <target>Wissel</target>
+      </segment>
+    </unit>
+    <unit id="Swom5xM" name="repeater.remark">
+      <segment>
+        <source>repeater.remark</source>
+        <target>__repeater.remark</target>
+      </segment>
+    </unit>
+    <unit id="M.3olSc" name="filelist.remark">
+      <segment>
+        <source>filelist.remark</source>
+        <target>__filelist.remark</target>
+      </segment>
+    </unit>
+    <unit id="vptPhch" name="image.button_upload">
+      <segment>
+        <source>image.button_upload</source>
+        <target>Upload</target>
+      </segment>
+    </unit>
+    <unit id="vIVO1lU" name="image.button_from_library">
+      <segment>
+        <source>image.button_from_library</source>
+        <target>Uit bibliotheek</target>
+      </segment>
+    </unit>
+    <unit id="oOuVKRv" name="image.placeholder_filename">
+      <segment>
+        <source>image.placeholder_filename</source>
+        <target>Bestandsnaam</target>
+      </segment>
+    </unit>
+    <unit id="BWubOnS" name="image.placeholder_alt_text">
+      <segment>
+        <source>image.placeholder_alt_text</source>
+        <target>Alt attribuut</target>
+      </segment>
+    </unit>
+    <unit id="VPV0lFM" name="image.placeholder_title">
+      <segment>
+        <source>image.placeholder_title</source>
+        <target>Titel attribuut</target>
+      </segment>
+    </unit>
+    <unit id="kaK5Wdr" name="slug.button_locked">
+      <segment>
+        <source>slug.button_locked</source>
+        <target>Op slot</target>
+      </segment>
+    </unit>
+    <unit id="qcDEz5O" name="slug.button_edit">
+      <segment>
+        <source>slug.button_edit</source>
+        <target>Bewerk</target>
+      </segment>
+    </unit>
+    <unit id="raO5QSf" name="slug.generate_from">
+      <segment>
+        <source>slug.generate_from</source>
+        <target>Baseer op</target>
+      </segment>
+    </unit>
+    <unit id="TkryUve" name="imagelist.remark">
+      <segment>
+        <source>imagelist.remark</source>
+        <target>__imagelist.remark</target>
+      </segment>
+    </unit>
+    <unit id="v6cfPyt" name="quickselect.title_select">
+      <segment>
+        <source>quickselect.title_select</source>
+        <target>Selecteer</target>
+      </segment>
+    </unit>
+    <unit id=".fL0AbE" name="files_list.remark">
+      <segment>
+        <source>files_list.remark</source>
+        <target>__files_list.remark</target>
+      </segment>
+    </unit>
+    <unit id="I2ykiIZ" name="caption.folders">
+      <segment>
+        <source>caption.folders</source>
+        <target>Mappen</target>
+      </segment>
+    </unit>
+    <unit id="m3tNvJb" name="finder.button_list">
+      <segment>
+        <source>finder.button_list</source>
+        <target>Lijst</target>
+      </segment>
+    </unit>
+    <unit id="tRLgeoX" name="finder.button_cards">
+      <segment>
+        <source>finder.button_cards</source>
+        <target>Kaarten</target>
+      </segment>
+    </unit>
+    <unit id="QQvRJe." name="files_cards.button_toggle">
+      <segment>
+        <source>files_cards.button_toggle</source>
+        <target>Wissel</target>
+      </segment>
+    </unit>
+    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
+      <segment>
+        <source>files_cards.action_edit_image_info</source>
+        <target>Bewerk info</target>
+      </segment>
+    </unit>
+    <unit id="5LXvJfE" name="files_cards.action_edit_file">
+      <segment>
+        <source>files_cards.action_edit_file</source>
+        <target>Bewerk bestand</target>
+      </segment>
+    </unit>
+    <unit id="H1pgP94" name="files_cards.action_view_original">
+      <segment>
+        <source>files_cards.action_view_original</source>
+        <target>Bekijk origineel</target>
+      </segment>
+    </unit>
+    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
+      <segment>
+        <source>files_cards.action_duplicate</source>
+        <target>Dupliceer</target>
+      </segment>
+    </unit>
+    <unit id="JjU6ZQP" name="files_cards.action_delete">
+      <segment>
+        <source>files_cards.action_delete</source>
+        <target>Verwijder</target>
+      </segment>
+    </unit>
+    <unit id="3jdNwuk" name="files_cards.label_filename">
+      <segment>
+        <source>files_cards.label_filename</source>
+        <target>Bestandsnaam</target>
+      </segment>
+    </unit>
+    <unit id="Y90_Pn1" name="files_cards.label_title">
+      <segment>
+        <source>files_cards.label_title</source>
+        <target>Titel</target>
+      </segment>
+    </unit>
+    <unit id="EdCfIKX" name="files_cards.label_dimensions">
+      <segment>
+        <source>files_cards.label_dimensions</source>
+        <target>Afmetingen</target>
+      </segment>
+    </unit>
+    <unit id="eQBhceV" name="files_cards.label_filesize">
+      <segment>
+        <source>files_cards.label_filesize</source>
+        <target>Bestandsgrootte</target>
+      </segment>
+    </unit>
+    <unit id="uiCjlwk" name="files_cards.label_created_on">
+      <segment>
+        <source>files_cards.label_created_on</source>
+        <target>Aangemaakt op</target>
+      </segment>
+    </unit>
+    <unit id="8JeahIj" name="files_cards.message_no_files">
+      <segment>
+        <source>files_cards.message_no_files</source>
+        <target>Aantal bestanden</target>
+      </segment>
+    </unit>
+    <unit id="beqzCkE" name="login.header_login">
+      <segment>
+        <source>login.header_login</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="37kJiIe" name="view_locales.badge_default">
+      <segment>
+        <source>view_locales.badge_default</source>
+        <target>__view_locales.badge_default</target>
+      </segment>
+    </unit>
+    <unit id="JTRCo_U" name="view_locales.badge_ok">
+      <segment>
+        <source>view_locales.badge_ok</source>
+        <target>OK</target>
+      </segment>
+    </unit>
+    <unit id="ufFUPp7" name="view_locales.badge_missing">
+      <segment>
+        <source>view_locales.badge_missing</source>
+        <target>Ontbreekt</target>
+      </segment>
+    </unit>
+    <unit id="UNBaDz." name="general.phrase.edit">
+      <segment>
+        <source>general.phrase.edit</source>
+        <target>Bewerk</target>
+      </segment>
+    </unit>
+    <unit id="ypPzS03" name="localeswitcher.button_info">
+      <segment>
+        <source>localeswitcher.button_info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="EvAqL__" name="caption.duplicate">
+      <segment>
+        <source>caption.duplicate</source>
+        <target>Dupliceer</target>
+      </segment>
+    </unit>
+    <unit id="qQKx1lR" name="buttons.button_toggle">
+      <segment>
+        <source>buttons.button_toggle</source>
+        <target>Wissel</target>
+      </segment>
+    </unit>
+    <unit id="ok6YulQ" name="action.view_saved">
+      <segment>
+        <source>action.view_saved</source>
+        <target>Bekijk opgeslagen</target>
+      </segment>
+    </unit>
+    <unit id="Hlf9c1s" name="listing.title_overview">
+      <segment>
+        <source>listing.title_overview</source>
+        <target>Overzicht voor</target>
+      </segment>
+    </unit>
+    <unit id="vJwSCBO" name="title.contentlisting">
+      <segment>
+        <source>title.contentlisting</source>
+        <target>Lijst van content</target>
+      </segment>
+    </unit>
+    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
+      <segment>
+        <source>listing_select_box.card_header.selected</source>
+        <target>Geselecteerd</target>
+      </segment>
+    </unit>
+    <unit id="jBpmj90" name="listing_select_box.card_body.records_passed">
+      <segment>
+        <source>listing_select_box.card_body.records_passed</source>
+        <target>Doorgegeven gekozen IDs</target>
+      </segment>
+    </unit>
+    <unit id="D8vDkhK" name="listing_select_box.card_body.remark">
+      <segment>
+        <source>listing_select_box.card_body.remark</source>
+        <target>(these can be used with something like axios to bulk modify/delete)</target>
+      </segment>
+    </unit>
+    <unit id="wQ0WYAT" name="listing.title_sortby">
+      <segment>
+        <source>listing.title_sortby</source>
+        <target>Sorteer op</target>
+      </segment>
+    </unit>
+    <unit id="ZGv90X8" name="listing.option_select_item">
+      <segment>
+        <source>listing.option_select_item</source>
+        <target>Kies item</target>
+      </segment>
+    </unit>
+    <unit id="TIyjgb6" name="listing.title_title">
+      <segment>
+        <source>listing.title_title</source>
+        <target>Titel</target>
+      </segment>
+    </unit>
+    <unit id="pn22p7q" name="listing.placeholder_filter">
+      <segment>
+        <source>listing.placeholder_filter</source>
+        <target>Trefwoord om op te filteren…</target>
+      </segment>
+    </unit>
+    <unit id="ni4zApC" name="listing.button_filter">
+      <segment>
+        <source>listing.button_filter</source>
+        <target>Filter</target>
+      </segment>
+    </unit>
+    <unit id="doNsgm0" name="listing.button_clear">
+      <segment>
+        <source>listing.button_clear</source>
+        <target>Leegmaken</target>
+      </segment>
+    </unit>
+    <unit id="SeTqePC" name="label.display_name">
+      <segment>
+        <source>label.display_name</source>
+        <target>Toon naam als</target>
+      </segment>
+    </unit>
+    <unit id="iD6CNOO" name="label.roles">
+      <segment>
+        <source>label.roles</source>
+        <target>Rollen</target>
+      </segment>
+    </unit>
+    <unit id="TtmWqX3" name="action.view">
+      <segment>
+        <source>action.view</source>
+        <target>Bekijk</target>
+      </segment>
+    </unit>
+    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+      <segment>
+        <source>admin_sidebar_toggler.toggle</source>
+        <target><![CDATA[<span class='sr-only'>Klap </span>menu<span class='sr-only'> in of uit</span>]]></target>
+      </segment>
+    </unit>
+    <unit id="Gabafxx" name="admin_sidebar.toggler">
+      <segment>
+        <source>admin_sidebar.toggler</source>
+        <target>Wissel breedte zijbalk</target>
+      </segment>
+    </unit>
+    <unit id="y5otxEK" name="caption.filename">
+      <segment>
+        <source>caption.filename</source>
+        <target>Bestandsnaam</target>
+      </segment>
+    </unit>
+    <unit id="VKhfRZB" name="field.title">
+      <segment>
+        <source>field.title</source>
+        <target>Titel</target>
+      </segment>
+    </unit>
+    <unit id="7_wwX8J" name="field.description">
+      <segment>
+        <source>field.description</source>
+        <target>Beschrijving</target>
+      </segment>
+    </unit>
+    <unit id="v0sitU8" name="field.originalFilename">
+      <segment>
+        <source>field.originalFilename</source>
+        <target>Originele Bestandsnaam</target>
+      </segment>
+    </unit>
+    <unit id="vlRe8Tx" name="field.width">
+      <segment>
+        <source>field.width</source>
+        <target>Breedte</target>
+      </segment>
+    </unit>
+    <unit id="CZbXbM_" name="field.height">
+      <segment>
+        <source>field.height</source>
+        <target>Hoogte</target>
+      </segment>
+    </unit>
+    <unit id="Sz_u.OS" name="field.filesize">
+      <segment>
+        <source>field.filesize</source>
+        <target>Bestandsgrootte</target>
+      </segment>
+    </unit>
+    <unit id="Wou02nK" name="caption.kitchensink">
+      <segment>
+        <source>caption.kitchensink</source>
+        <target>Kitchensink</target>
+      </segment>
+    </unit>
+    <unit id="73A2bWM" name="finder.label_view">
+      <segment>
+        <source>finder.label_view</source>
+        <target>Bekijk</target>
+      </segment>
+    </unit>
+    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+      <segment>
+        <source>listing_table.actions.button_edit</source>
+        <target>Bewerk</target>
+      </segment>
+    </unit>
+    <unit id="Iy4HXCU" name="controller.user.title">
+      <segment>
+        <source>controller.user.title</source>
+        <target><![CDATA[Users & Permissions]]></target>
+      </segment>
+    </unit>
+    <unit id="HBwIQ9b" name="controller.user.subtitle">
+      <segment>
+        <source>controller.user.subtitle</source>
+        <target>To edit users and their permissions</target>
+      </segment>
+    </unit>
+    <unit id="rkVeKe_" name="controller.authentication.reset_title">
+      <segment>
+        <source>controller.authentication.reset_title</source>
+        <target>Reset Password</target>
+      </segment>
+    </unit>
+    <unit id="lN_rF8O" name="controller.authentication.reset_subtitle">
+      <segment>
+        <source>controller.authentication.reset_subtitle</source>
+        <target>To reset your password, if you've misplaced it</target>
+      </segment>
+    </unit>
+    <unit id="0Gyf5xr" name="controller.database.check_title">
+      <segment>
+        <source>controller.database.check_title</source>
+        <target>Database Check</target>
+      </segment>
+    </unit>
+    <unit id="SeDwjX6" name="controller.database.check_subtitle">
+      <segment>
+        <source>controller.database.check_subtitle</source>
+        <target>To check the Database</target>
+      </segment>
+    </unit>
+    <unit id="nJnALPG" name="controller.database.update_title">
+      <segment>
+        <source>controller.database.update_title</source>
+        <target>Database Update</target>
+      </segment>
+    </unit>
+    <unit id="nRE74_i" name="controller.database.update_subtitle">
+      <segment>
+        <source>controller.database.update_subtitle</source>
+        <target>To update the Database</target>
+      </segment>
+    </unit>
+    <unit id="a3UNsKw" name="controller.omnisearch.title">
+      <segment>
+        <source>controller.omnisearch.title</source>
+        <target>Omnisearch</target>
+      </segment>
+    </unit>
+    <unit id="4N41oTU" name="controller.omnisearch.subtitle">
+      <segment>
+        <source>controller.omnisearch.subtitle</source>
+        <target>To search, in an omni-like fashion</target>
+      </segment>
+    </unit>
+    <unit id="7cXqH5s" name="listing.title_display_name">
+      <segment>
+        <source>listing.title_display_name</source>
+        <target>Toon naam als</target>
+      </segment>
+    </unit>
+    <unit id="Ay7xZ2h" name="listing.title_username">
+      <segment>
+        <source>listing.title_username</source>
+        <target>Gebruikersnaam</target>
+      </segment>
+    </unit>
+    <unit id="RN1tdtJ" name="listing.title_email">
+      <segment>
+        <source>listing.title_email</source>
+        <target>E-mail</target>
+      </segment>
+    </unit>
+    <unit id="0pjZ.GV" name="listing.title_roles">
+      <segment>
+        <source>listing.title_roles</source>
+        <target>Rollen</target>
+      </segment>
+    </unit>
+    <unit id="hXEFV1n" name="listing.title_last_seen">
+      <segment>
+        <source>listing.title_last_seen</source>
+        <target>Laatst gezien</target>
+      </segment>
+    </unit>
+    <unit id="pn7kE17" name="listing.title_last_ip">
+      <segment>
+        <source>listing.title_last_ip</source>
+        <target>Recentste IP</target>
+      </segment>
+    </unit>
+    <unit id="GZ65uOC" name="listing.title_actions">
+      <segment>
+        <source>listing.title_actions</source>
+        <target>Acties</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>Invalid email</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Invalid password</target>
+      </segment>
+    </unit>
+    <unit id="t2TNwOq" name="Unknown">
+      <segment>
+        <source>Unknown</source>
+        <target>Onbekend</target>
+      </segment>
+    </unit>
+    <unit id="A_d5KPt" name="general.phrase.written-by-on">
+      <segment>
+        <source>general.phrase.written-by-on</source>
+        <target>Geschreven door %name% op %date%.</target>
+      </segment>
+    </unit>
+    <unit id="AGegYAN" name="contenttypes.generic.recent">
+      <segment>
+        <source>contenttypes.generic.recent</source>
+        <target>Recente %contenttypes%</target>
+      </segment>
+    </unit>
+    <unit id="wNEwZy_" name="contenttypes.generic.overview">
+      <segment>
+        <source>contenttypes.generic.overview</source>
+        <target>Overzicht van %contenttypes%</target>
+      </segment>
+    </unit>
+    <unit id="ma9mBv_" name="Menu">
+      <segment>
+        <source>Menu</source>
+        <target>Menu</target>
+      </segment>
+    </unit>
+    <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
+      <segment>
+        <source>general.phrase.search-ellipsis</source>
+        <target>…</target>
+      </segment>
+    </unit>
+    <unit id="psOa_9x" name="general.phrase.built-with-bolt">
+      <segment>
+        <source>general.phrase.built-with-bolt</source>
+        <target><![CDATA[Deze website is <a href='https://bolt.cm' target='_blank' title='Weldoordacht, lichtgewicht en eenvoudig CMS'>Gebouwd met Bolt</a>. ]]></target>
+      </segment>
+    </unit>
+    <unit id="odDw0du" name="action.search">
+      <segment>
+        <source>action.search</source>
+        <target>Zoek</target>
+      </segment>
+    </unit>
+    <unit id="TpGxDI3" name="user.unknown_user">
+      <segment>
+        <source>user.unknown_user</source>
+        <target>Onbekende gebruiker</target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment>
+        <source>success</source>
+        <target>Succes!</target>
+      </segment>
+    </unit>
+    <unit id="dQIY7_J" name="action.preview">
+      <segment>
+        <source>action.preview</source>
+        <target>Voorvertoning</target>
+      </segment>
+    </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <segment>
+        <source>label.predominant_colors__in_image</source>
+        <target>Overheersende kleuren in afbeelding</target>
+      </segment>
+    </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <segment>
+        <source>caption.redirection_page</source>
+        <target>Doorverwijzingspagina</target>
+      </segment>
+    </unit>
+    <unit id="MClSUET" name="general.phrase.select_language">
+      <segment>
+        <source>general.phrase.select_language</source>
+        <target>Kies taal</target>
+      </segment>
+    </unit>
+    <unit id="7whLbH8" name="user.new_user">
+      <segment>
+        <source>user.new_user</source>
+        <target>Nieuwe gebruiker</target>
+      </segment>
+    </unit>
+    <unit id="hiE9jap" name="password.suggested">
+      <segment>
+        <source>password.suggested</source>
+        <target><![CDATA[Voorgesteld sterk wachtwoord: <code>%password%</code>]]></target>
+      </segment>
+    </unit>
+    <unit id="TtIlBDd" name="caption.edit_image">
+      <segment>
+        <source>caption.edit_image</source>
+        <target>Bewerk afbeelding</target>
+      </segment>
+    </unit>
+    <unit id="fLOd6Zd" name="field.cropX">
+      <segment>
+        <source>field.cropX</source>
+        <target>Uitsnede X</target>
+      </segment>
+    </unit>
+    <unit id="hi98HIj" name="field.cropY">
+      <segment>
+        <source>field.cropY</source>
+        <target>Uitsnede Y</target>
+      </segment>
+    </unit>
+    <unit id="PHOpD5y" name="field.cropZoom">
+      <segment>
+        <source>field.cropZoom</source>
+        <target>Zoomfactor uitsnede</target>
+      </segment>
+    </unit>
+    <unit id="BQBmQHT" name="field.cropYPostfix">
+      <segment>
+        <source>field.cropYPostfix</source>
+        <target>Positie van uitsnede op de Y-as, van 0-100. </target>
+      </segment>
+    </unit>
+    <unit id="Sd_AbmV" name="field.cropXPostfix">
+      <segment>
+        <source>field.cropXPostfix</source>
+        <target>Positie van uitsnede op de X-as, van 0-100. </target>
+      </segment>
+    </unit>
+    <unit id="tn6Z8wY" name="field.cropZoomPostfix">
+      <segment>
+        <source>field.cropZoomPostfix</source>
+        <target>Zoom-niveau van uitsnede, van 1-10.</target>
+      </segment>
+    </unit>
+    <unit id="hp554Ds" name="listing.option_select_sortby">
+      <segment>
+        <source>listing.option_select_sortby</source>
+        <target>Kies Veldnaam om te sorteren…</target>
+      </segment>
+    </unit>
+    <unit id="n.3JZvX" name="title.contentType">
+      <segment>
+        <source>title.contentType</source>
+        <target>ContentType</target>
+      </segment>
+    </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <segment>
+        <source>title.edit_user_profile</source>
+        <target>Bewerk gebruikersprofiel</target>
+      </segment>
+    </unit>
+    <unit id="YDH.7uR" name="user.updated_profile">
+      <segment>
+        <source>user.updated_profile</source>
+        <target>Gebruikersprofiel is bijgewerkt!</target>
+      </segment>
+    </unit>
+    <unit id="n.jOrkg" name="caption.untitled_contenttype">
+      <segment>
+        <source>caption.untitled_contenttype</source>
+        <target>%contenttype% zonder titel</target>
+      </segment>
+    </unit>
+    <unit id="SDVQEir" name="title.save_changes">
+      <segment>
+        <source>title.save_changes</source>
+        <target>Opslaan</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <segment>
+        <source>title.options</source>
+        <target>Opties</target>
+      </segment>
+    </unit>
+    <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
+      <segment>
+        <source>general.phrase.no-search-term-provided</source>
+        <target>Geef een zoekterm op om relevante resultaten te tonen.</target>
+      </segment>
+    </unit>
+    <unit id="2CfJ3WY" name="general.phrase.search-results-for">
+      <segment>
+        <source>general.phrase.search-results-for</source>
+        <target>Zoekresultaten voor %search%.</target>
+      </segment>
+    </unit>
+    <unit id="V0VhH5g" name="general.phrase.no-search-results-for">
+      <segment>
+        <source>general.phrase.no-search-results-for</source>
+        <target>Geen zoekresultaten voor '%search%'.</target>
       </segment>
     </unit>
   </file>

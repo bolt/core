@@ -1,14 +1,19 @@
 {% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'caption.edit_image'|trans }}
+{% endblock shoulder %}
 
 {% block title %}
-    {{ 'caption.edit'|trans }} » <strong>{{ excerpt(media.title|default('New'), 30) }}</strong>
+    {{ macro.icon('image') }}
+    {{ excerpt(media.title|default(media.filename), 30) }}
 {% endblock %}
 
 {% block vue_id 'editor' %}
 
 {% block main %}
-
-    <h2>{{ 'caption.filename'|trans }} » <strong>{{ media.location }}://{% if media.path %}{{ media.path }}/{% endif %}{{ media.filename }}</strong></h2>
 
     <div class="imageholder">
         {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, location = media.location, path = media.path) %}
@@ -20,6 +25,15 @@
 
 <form method="post" id="editcontent">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('media_edit') }}">
+
+    {% include '@bolt/_partials/fields/text.html.twig' with {
+        'label': 'caption.filename'|trans,
+        'name': 'filename',
+        'value': media.location ~ '://' ~ (media.path ? media.path ~ '/') ~ media.filename,
+        'disabled' : true,
+        'attributes': 'readonly'
+    }  %}
+
 
     {% include '@bolt/_partials/fields/text.html.twig' with {
         'label': 'field.title'|trans,
@@ -46,8 +60,39 @@
         'value': media.originalFilename
     }  %}
 
+    <div class="media my-4">
+        {% set crop = 'crop-' ~ media.cropX|default(50) ~ '-' ~ media.cropy|default(50) ~ '-' ~ media.cropZoom|default(1.3)  %}
+        {% set thumbnail = thumbnail(image = media.filename, width = 300, height = 300, location = media.location, path = media.path, fit = crop) %}
+        <img class="mr-3" src="{{ thumbnail }}" alt="Cropping example">
 
-    <input type="submit" class="btn btn-primary" value="Save">
+        <div>
+        {% include '@bolt/_partials/fields/text.html.twig' with {
+            'label': 'field.cropX'|trans,
+            'name': 'cropX',
+            'value': media.cropX|default(50),
+            'postfix': 'field.cropXPostfix'|trans
+        }  %}
+
+        {% include '@bolt/_partials/fields/text.html.twig' with {
+            'label': 'field.cropY'|trans,
+            'name': 'cropY',
+            'value': media.cropY|default(50),
+            'postfix': 'field.cropYPostfix'|trans
+        }  %}
+
+        {% include '@bolt/_partials/fields/text.html.twig' with {
+            'label': 'field.cropZoom'|trans,
+            'name': 'cropZoom',
+            'value': media.cropZoom|default(1.3),
+            'postfix': 'field.cropZoomPostfix'|trans
+        }  %}
+        </div>
+
+
+    </div>
+
+
+    {{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent'}) }}
 
 </form>
 
@@ -62,57 +107,59 @@
 
         <form>
             <div class="form-group">
-            <button type="submit" class="btn btn-success mb-3" form="editcontent">
-                <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
-            </button>
+                <button type="submit" class="btn btn-success mb-3" form="editcontent">
+                    <i class="fas fa-save mr-2"></i> {{ 'action.save'|trans }}
+                </button>
 
-            <ul class="ui divided selection list" id="swatcheslist">
-            </ul>
-
+                <p>{{ 'label.predominant_colors__in_image'|trans }}:
+                    <span id="swatcheslist">
+                    </span>
+                </p>
             </div>
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.id'|trans,
                 'name': 'id',
                 'value': media.id,
-                'attributes': 'readonly form="editcontent"',
+                'valueonly' : true,
             }  %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.width'|trans,
                 'name': 'width',
-                'value': media.width,
-                'attributes': 'readonly form="editcontent"',
+                'value': media.width ~ ' pixels',
+                'valueonly' : true,
             }  %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.height'|trans,
                 'name': 'height',
-                'value': media.height,
-                'attributes': 'readonly form="editcontent"',
+                'value': media.height ~ ' pixels',
+                'valueonly' : true,
             }  %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
                 'label': 'field.filesize'|trans,
                 'name': 'filesize',
-                'value': media.filesize,
-                'attributes': 'readonly form="editcontent"',
+                'value': media.filesize ~ ' bytes',
+                'valueonly' : true,
             }  %}
 
             {#<input type="text" name="author" value="{{ media.author }}">#}
 
-    {% include '@bolt/_partials/fields/datetime.html.twig' with {
+    {% include '@bolt/_partials/fields/date.html.twig' with {
         'label': 'field.createdAt'|trans,
         'name': 'createdAt',
         'value': media.createdAt,
-        'attributes': 'readonly form="editcontent"',
+        'valueonly' : true,
+
     } %}
 
-    {% include '@bolt/_partials/fields/datetime.html.twig' with {
+    {% include '@bolt/_partials/fields/date.html.twig' with {
         'label': 'field.modifiedAt'|trans,
         'name': 'modifiedAt',
         'value': media.modifiedAt,
-        'attributes': 'readonly form="editcontent"',
+        'valueonly' : true,
     } %}
 
         </form>
@@ -137,15 +184,15 @@
             var swatches = vibrant.swatches();
             for (var swatch in swatches) {
                 if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
-                    var elem = document.createElement('li');
-                    var label = document.createElement('div');
-                    var labelNode = document.createTextNode(swatches[swatch].getHex());
+                    // <span class="…" style="… background-color: #cfdeed">LightVibrant / #cfdeed</span>
+
+                    var badge = document.createElement('span');
+                    var labelNode = document.createTextNode(swatch + ' / ' + swatches[swatch].getHex());
                     var referenceNode = document.getElementById('swatcheslist');
-                    label.className = "ui horizontal label";
-                    label.setAttribute('style', 'background-color: ' + swatches[swatch].getHex());
-                    elem.appendChild(label).appendChild(labelNode);
-                    elem.appendChild(document.createTextNode(swatch));
-                    referenceNode.append(elem);
+                    badge.className = "badge badge-secondary my-2 py-2";
+                    badge.setAttribute('style', 'display: block; text-shadow: 1px 1px 3px #000; background-color: ' + swatches[swatch].getHex());
+                    badge.appendChild(labelNode);
+                    referenceNode.append(badge);
                 }
             }
         });

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
+use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -16,8 +17,10 @@ class AuthenticationController extends TwigAwareController implements BackendZon
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        $slugify = new Slugify();
+
         // last username entered by the user (if any)
-        $last_username = $authenticationUtils->getLastUsername();
+        $last_username = $slugify->slugify($authenticationUtils->getLastUsername());
 
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -47,8 +50,8 @@ class AuthenticationController extends TwigAwareController implements BackendZon
     public function resetPassword(): Response
     {
         $twigVars = [
-            'title' => 'Reset Password',
-            'subtitle' => 'To reset your password, if you\'ve misplaced it',
+            'title' => 'controller.authentication.reset_title',
+            'subtitle' => 'controller.authentication.reset_subtitle',
         ];
 
         return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);

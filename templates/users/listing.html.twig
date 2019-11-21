@@ -1,0 +1,92 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ title|trans }}
+{% endblock shoulder %}
+
+{% block title %}
+    {{ macro.icon('users') }} {{ subtitle|trans }}
+{% endblock %}
+
+{% block main %}
+
+    <table class="table" style="min-width: 100%; width: auto;">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_display_name'|trans }}</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_username'|trans }}</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_email'|trans }}</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_roles'|trans }}</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_last_seen'|trans }}</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_last_ip'|trans }}</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_actions'|trans }}</th>
+
+        </tr>
+        </thead>
+    {% for iteratedUser in users %}
+        <tr>
+            <th scope="row">{{ iteratedUser.id }}</th>
+            <td>{{ iteratedUser.displayName }}</td>
+            <td>{{ iteratedUser.username }}</td>
+            <td>{{ iteratedUser.email }}</td>
+            <td><code>{{ iteratedUser.roles|join('</code>, <code>') }}</code></td>
+            <td class="datetime-relative">{{ iteratedUser.lastseenAt|date("c")|default('-') }}</td>
+            <td>{{ iteratedUser.lastIp|default('12.34.56.78') }}</td>
+            <td>
+                {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary') }}
+                {% if user.id != iteratedUser.id %}
+                    {% if iteratedUser.disabled %}
+                        {{ macro.buttonlink('action.enable', path('bolt_user_disable', {'id': iteratedUser.id}), 'thumbs-up', 'secondary') }}
+                    {% else %}
+                        {{ macro.buttonlink('action.disable', path('bolt_user_disable', {'id': iteratedUser.id}), 'ban', 'secondary') }}
+                    {% endif %}
+                    {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id}), 'trash', 'danger') }}
+                {%  endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <p class="buttons">
+        {{ macro.buttonlink('action.add_user', path('bolt_user_edit', {'id': 0}), 'user-plus', 'secondary') }}
+    </p>
+
+    <h3>Current sessions</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" class="text-nowrap">{{ 'listing.title_username'|trans }}</th>
+                <th scope="col" class="text-nowrap">{{ 'listing.title_last_seen'|trans }}</th>
+                <th scope="col" class="text-nowrap">{{ 'listing.title_session_expires'|trans }}</th>
+                <th scope="col" class="text-nowrap">{{ 'listing.title_ip_address'|trans }}</th>
+                <th scope="col" class="text-nowrap">{{ 'listing.title_browser'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for iteratedUser in users %}
+                {% if iteratedUser.getUserAuthToken %}
+                    {% set authtoken = iteratedUser.getUserAuthToken %}
+                    <tr>
+                        <td class="text-nowrap">{{ iteratedUser.id }}</td>
+                        <td class="text-nowrap">{{ iteratedUser.username }}</td>
+                        <td class="text-nowrap datetime-relative">{{ iteratedUser.lastseenAt|date("c") }}</td>
+                        <td class="datetime-relative">{{ authtoken.validity|date("c") }}</td>
+                        <td class="text-nowrap">{{ iteratedUser.lastIp|default('12.34.56.78') }}</td>
+                        <td>{{ authtoken.useragent|default('-') }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+{# The 'aside' section is the right sidebar of the page. If omitted, 'main' will take up the full width. #}
+{% block aside %}
+    {{ widgets('users_aside_top') }}
+{% endblock %}

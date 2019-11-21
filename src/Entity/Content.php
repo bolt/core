@@ -59,7 +59,7 @@ class Content implements JsonSerializable
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\User", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
 
@@ -134,11 +134,16 @@ class Content implements JsonSerializable
      */
     private $taxonomies;
 
-    public function __construct()
+    public function __construct(?ContentType $contentTypeDefinition = null)
     {
         $this->createdAt = new \DateTime();
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
+
+        if ($contentTypeDefinition) {
+            $this->setContentType($contentTypeDefinition->getSlug());
+            $this->setDefinition($contentTypeDefinition);
+        }
     }
 
     public function __toString(): string
@@ -166,6 +171,11 @@ class Content implements JsonSerializable
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
+    }
+
+    public function setDefinition(ContentType $contentType): void
+    {
+        $this->contentTypeDefinition = $contentType;
     }
 
     public function getDefinition(): ?ContentType
@@ -224,7 +234,7 @@ class Content implements JsonSerializable
         return $this->getDefinition()->get('icon_one') ?: $this->getDefinition()->get('icon_many');
     }
 
-    public function getAuthor(): User
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
@@ -274,6 +284,15 @@ class Content implements JsonSerializable
         $this->modifiedAt = $modifiedAt;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updateModifiedAt(): void
+    {
+        $this->setModifiedAt(new \DateTime());
     }
 
     public function getPublishedAt(): ?\DateTime
@@ -349,6 +368,17 @@ class Content implements JsonSerializable
         return $this->getField($fieldName)->getParsedValue();
     }
 
+    public function setFieldValue(string $fieldName, $value): void
+    {
+        if (! $this->hasField($fieldName)) {
+            $this->addFieldByName($fieldName);
+        }
+
+        $field = $this->getField($fieldName);
+
+        $field->setValue($value);
+    }
+
     public function getField(string $fieldName): Field
     {
         if ($this->hasField($fieldName) === false) {
@@ -394,6 +424,15 @@ class Content implements JsonSerializable
         return $this;
     }
 
+    public function addFieldByName(string $fieldName): void
+    {
+        $definition = $this->contentTypeDefinition->get('fields')->get($fieldName);
+
+        $field = Field::factory($definition, $fieldName);
+
+        $this->addField($field);
+    }
+
     public function removeField(Field $field): self
     {
         unset($this->fields[$field->getName()]);
@@ -409,9 +448,12 @@ class Content implements JsonSerializable
     /**
      * @Groups("get_content")
      */
-    public function getAuthorName(): string
+    public function getAuthorName(): ?string
     {
-        return $this->getAuthor()->getDisplayName();
+        if ($this->getAuthor() !== null) {
+            return $this->getAuthor()->getDisplayName();
+        }
+        return null;
     }
 
     public function getStatuses(): array

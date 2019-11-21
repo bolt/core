@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class DatabaseIntegrityController extends TwigAwareController implements BackendZone
 {
@@ -20,8 +20,8 @@ class DatabaseIntegrityController extends TwigAwareController implements Backend
     public function check(): Response
     {
         $twigVars = [
-            'title' => 'Database Check',
-            'subtitle' => 'To check the Database',
+            'title' => 'controller.database.check_title',
+            'subtitle' => 'controller.database.check_subtitle',
         ];
 
         return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
@@ -33,8 +33,8 @@ class DatabaseIntegrityController extends TwigAwareController implements Backend
     public function update(): Response
     {
         $twigVars = [
-            'title' => 'Database Update',
-            'subtitle' => 'To update the Database',
+            'title' => 'controller.database.update_title',
+            'subtitle' => 'controller.database.update_title',
         ];
 
         return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);

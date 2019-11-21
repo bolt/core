@@ -10,13 +10,15 @@ class FileLocation
     private $name;
     private $basepath;
     private $showAll = false;
+    private $icon;
 
-    public function __construct(string $key, string $name, string $basepath, bool $showAll)
+    public function __construct(string $key, string $name, string $basepath, bool $showAll, string $icon)
     {
         $this->key = $key;
         $this->name = $name;
         $this->basepath = $basepath;
         $this->showAll = $showAll;
+        $this->icon = $icon;
     }
 
     public function getKey(): string
@@ -27,6 +29,11 @@ class FileLocation
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getIcon(): string
+    {
+        return $this->icon;
     }
 
     public function getBasepath(): string

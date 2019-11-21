@@ -1,9 +1,8 @@
 {% extends '@bolt/_base/layout.html.twig' %}
-
-{% block container "widecontent" %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% block title %}
-    Edit Translations
+    {{ macro.icon('language') }} Edit Translations
 {% endblock %}
 
 {% block main %}
@@ -30,8 +29,12 @@
     </div>
 </nav>
 
-{% block body %}{% endblock %}
+{% block _translation_bundle_body %}{% endblock %}
 
+{% endblock %}
+
+{% block _translation_bundle_js %}
+    <script type="text/javascript" src="{{ asset("bundles/translation/js/webui.js") }}"></script>
 {% endblock %}
 
 {% block javascripts %}

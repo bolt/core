@@ -1,0 +1,64 @@
+{#
+   Default output for fields.
+
+   This file is contains the 'sub_fields' Twig block tag.
+
+   The 'sub_fields' Twig block is split into two parts:
+    - The first section initializes the variables and settings, both from the
+      ContentType definitions as well as passed in variables.
+    - The last section is where the actual looping is done, and the relevant
+      {{ block() }} function is called, for the 'ContentType fields' in turn.
+
+   Read the relevant section in the documentation on usage of this
+   functionality: https://docs.bolt.cm/templating
+
+   For more information on using blocks, see the Twig documentation at:
+    - https://twig.sensiolabs.org/doc/2.x/tags/block.html
+    - https://twig.sensiolabs.org/doc/2.x/functions/block.html
+#}
+{% use 'helpers/_field_blocks.twig' %}
+
+{% block sub_fields %}
+    {# SECTION 1: INITIALIZATION #}
+    {%- apply spaceless %}
+
+        {# Set up the array of fieldnames that should be iterated. We do this by looping
+           over _all_ the fields, and skipping those in the 'omittedkeys' array. #}
+        {% set omittedkeys = ['id', 'slug', 'datecreated', 'datechanged', 'datepublish',
+            'datedepublish', 'username', 'status', 'ownerid', 'templatefields'] %}
+
+        {# Skip over the fields that are used in the slug, unless explicitly told not to,
+           using the `skip_uses` parameter. #}
+        {% if (record.contentType.fields.slug.uses|default(null) is iterable) and skip_uses|default(true) %}
+            {% set omittedkeys = omittedkeys|merge(record.contentType.fields.slug.uses) %}
+        {% endif %}
+
+        {# We also skip over the fields that are explicitly excluded. #}
+        {% if exclude|default is iterable %}
+            {% set omittedkeys = omittedkeys|merge(exclude) %}
+        {% endif %}
+    {% endapply -%}
+
+    {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
+    {% for field in record.fields|filter(field => field.name not in omittedkeys) %}
+
+        {% set type = field|type %}
+
+        {# Fields that are considered 'common': 'html', 'markdown', 'textarea',
+           'text', 'image', 'video' and 'imagelist' #}
+        {% if common|default(true) and (type not in exclude|default([])) %}
+
+            {{ block('common_fields') }}
+
+        {% endif %}
+
+        {# The rest of the built-in types #}
+        {% if extended|default(false) and (type not in exclude|default([])) %}
+
+            {{ block('extended_fields') }}
+
+        {% endif %}
+
+    {% endfor %}
+
+{% endblock sub_fields %}

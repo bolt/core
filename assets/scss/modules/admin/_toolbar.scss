@@ -7,8 +7,7 @@
     height: 100%;
     width: 100%;
     display: flex;
-    font-size: 90%;
-    padding: 0 1rem 0 0;
+    padding: 0;
 
     &.is-dark {
       color: var(--admin-toolbar-text-light);
@@ -17,7 +16,7 @@
         color: var(--admin-toolbar-text-light);
       }
 
-      .toolbar--item.is-brand svg g {
+      .toolbar-item__brand svg g {
         fill: var(--admin-toolbar-text-light);
       }
     }
@@ -29,89 +28,173 @@
         color: var(--admin-toolbar-text-dark);
       }
 
-      .toolbar--item.is-brand svg g {
+      .toolbar-item__brand svg g {
         fill: var(--admin-toolbar-text-dark);
       }
     }
   }
 
-  .toolbar--item {
+  .toolbar-item {
     position: relative;
     height: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 $spacer;
-    opacity: 0.75;
+    font-size: 0.875rem;
+    padding: 0;
 
-    i {
-      font-size: 120%;
-    }
+    a {
+      font-size: 0.9375rem;
+      padding: $spacer*0.625;
+      display: block;
+      color: var(--foreground);
 
-    a:hover {
-      text-decoration: none;
-    }
+      &:hover,
+      &:active,
+      &:focus {
+        @include darken(--admin-sidebar, 0.02);
 
-    &.is-brand {
-      svg {
-        height: $admin-toolbar-height / 1.5;
-        width: auto;
+        color: var(--admin-sidebar-icon);
+        text-decoration: none;
       }
-    }
-
-    &.is-new,
-    &.is-profile {
-      .toolbar--menu {
-        left: auto;
-        right: 0;
-      }
-    }
-
-    &.is-new {
-      margin-left: auto;
-    }
-
-    &.is-profile {
-      padding: 0 $spacer;
     }
 
     &:hover {
-      opacity: 1;
-
-      @include darken(--admin-toolbar, 0.2);
-
-      > .toolbar--menu {
-        visibility: visible;
-        height: auto;
+      .dropdown-menu {
+        display: block;
       }
     }
-  }
 
-  .toolbar--menu {
-    @include darken(--admin-toolbar, 0.2);
+    i,
+    .fas {
+      margin-right: 0.45rem;
+    }
 
-    font-weight: $font-weight-normal;
-    font-size: 100%;
-    visibility: hidden;
-    height: 0;
-    list-style: none;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: $admin-sidebar-width;
-    margin: 0;
-    padding: 0;
+    .dropdown-menu {
+      margin: 0;
+      padding: 0;
+      min-width: 220px;
+      top: calc(100% - 1px);
 
-    li {
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
       a {
-        padding: $spacer / 2;
-        display: block;
+        color: var(--shade);
 
-        &:hover {
-          @include darken(--admin-toolbar, 0.3);
+        &:hover,
+        &:active,
+        &:focus {
+          @include darken(--admin-sidebar, 0.02);
 
+          color: var(--admin-sidebar-icon);
           text-decoration: none;
         }
+      }
+
+      i,
+      .fas {
+        margin-right: 0.25rem;
+      }
+    }
+
+    .dropdown-toggle {
+      color: var(--foreground);
+      height: 100%;
+      padding: 0.625rem;
+
+      @include media-breakpoint-up(sm) {
+        padding: 0.625rem 1rem;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        @include darken(--admin-sidebar, 0.02);
+      }
+    }
+
+    &__brand {
+      @include media-breakpoint-up(lg) {
+        flex: 0 1 $admin-sidebar-width;
+      }
+
+      @include media-breakpoint-up(wd) {
+        flex: 0 1 $admin-sidebar-width-wide;
+      }
+
+      svg,
+      img {
+        margin-right: 0.25rem;
+      }
+
+      .dropdown-toggle {
+        padding: 0 0.8125rem;
+        width: 45px;
+        overflow: hidden;
+
+        @include media-breakpoint-up(sm) {
+          width: auto;
+          overflow: auto;
+          padding: 0 1rem;
+        }
+
+        @include media-breakpoint-up(lg) {
+          text-align: left;
+        }
+
+        &::after {
+          vertical-align: middle;
+        }
+      }
+
+      .dropdown-menu {
+        @include media-breakpoint-up(wd) {
+          min-width: 251px;
+        }
+      }
+
+      &__new {
+        .fas {
+          position: relative;
+          top: -1px;
+        }
+      }
+    }
+
+    &__profile {
+      margin-left: auto;
+      padding-right: 1rem;
+    }
+
+    &__site {
+      display: none;
+
+      @include media-breakpoint-up(sm) {
+        display: block;
+      }
+
+      a {
+        height: 100%;
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+        white-space: nowrap;
+
+        @include media-breakpoint-up(sm) {
+          padding: 0.85rem 1rem;
+        }
+
+        @include media-breakpoint-up(md) {
+          font-size: 0.9375rem;
+        }
+      }
+
+      i,
+      .fas {
+        margin-right: 0.25rem;
       }
     }
   }

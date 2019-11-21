@@ -6,5 +6,6 @@
         <p>{{ config.get('general/payoff') }}</p>
     {% endif %}
 
+    {% include 'helpers/_languageselect.html.twig' with {'type': 'select'} %}
     <hr>
 </header>

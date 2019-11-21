@@ -21,7 +21,8 @@ final class Version
      *   Stable      — 3.0.0
      *   Development — 3.1.0 alpha 1
      */
-    public const VERSION = '4.0.0 alpha 3';
+    public const VERSION = '4.0.0 beta 4';
+    public const CODENAME = 'The fourth Beta release';
 
     /**
      * Whether this release is a stable one.
@@ -83,9 +84,16 @@ final class Version
         return $version[0];
     }
 
-    /**
-     * @deprecated since 3.0, to be removed in 4.0.
-     */
+    public static function fullName(): string
+    {
+        return static::VERSION;
+    }
+
+    public static function codeName(): string
+    {
+        return static::CODENAME;
+    }
+
     public static function name(): ?string
     {
         if (mb_strpos(static::VERSION, ' ') === false) {
@@ -93,6 +101,27 @@ final class Version
         }
 
         return explode(' ', static::VERSION)[1];
+    }
+
+    /**
+     * Determine the "install type": Whether we're currently running a direct
+     * git clone, a composer install project, or a packaged distribution.
+     */
+    public static function installType(): string
+    {
+        $type = 'Git clone';
+
+        // If we're currently in a `vendor` folder, we're not a direct Git clone
+        if (in_array('vendor', explode(DIRECTORY_SEPARATOR, __DIR__), true)) {
+            $type = 'Composer install';
+
+            // If the `tests/` folder is removed, it's probably a "packaged distro", like `.tgz` or `.zip`
+            if (! file_exists(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'tests')) {
+                $type = 'Packaged distribution';
+            }
+        }
+
+        return $type;
     }
 
     /**

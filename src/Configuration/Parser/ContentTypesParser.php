@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
+use Bolt\Common\Str;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Enum\Statuses;
 use Bolt\Exception\ConfigurationException;
-use Bolt\Utils\Str;
 use Tightenco\Collect\Support\Collection;
 
 class ContentTypesParser extends BaseParser
@@ -34,7 +34,10 @@ class ContentTypesParser extends BaseParser
         foreach ($tempContentTypes as $key => $contentType) {
             if (is_array($contentType)) {
                 $contentType = $this->parseContentType($key, $contentType);
-                $contentTypes[$key] = $contentType;
+
+                if ($contentType) {
+                    $contentTypes[$contentType->getSlug()] = $contentType;
+                }
             }
         }
 
@@ -48,11 +51,11 @@ class ContentTypesParser extends BaseParser
      *
      * @throws ConfigurationException
      */
-    protected function parseContentType($key, array $contentType): ContentType
+    protected function parseContentType($key, array $contentType): ?ContentType
     {
-        // If the slug isn't set, and the 'key' isn't numeric, use that as the slug.
-        if (! isset($contentType['slug']) && ! is_numeric($key)) {
-            $contentType['slug'] = Str::slug($key);
+        // If the key starts with `__`, we ignore it.
+        if (mb_substr($key, 0, 2) === '__') {
+            return null;
         }
 
         // If neither 'name' nor 'slug' is set, we need to warn the user. Same goes for when
@@ -91,7 +94,7 @@ class ContentTypesParser extends BaseParser
             $contentType['show_in_menu'] = true;
         }
         if (! isset($contentType['sort'])) {
-            $contentType['sort'] = false;
+            $contentType['sort'] = 'id';
         }
         if (! isset($contentType['default_status'])) {
             $contentType['default_status'] = Statuses::PUBLISHED;
@@ -115,6 +118,12 @@ class ContentTypesParser extends BaseParser
         }
         if (! isset($contentType['singleton'])) {
             $contentType['singleton'] = false;
+        }
+        if (! isset($contentType['record_template'])) {
+            $contentType['record_template'] = $contentType['singular_slug'] . '.twig';
+        }
+        if (! isset($contentType['listing_template'])) {
+            $contentType['listing_template'] = $contentType['slug'] . '.twig';
         }
 
         if ($contentType['singleton']) {
@@ -178,7 +187,8 @@ class ContentTypesParser extends BaseParser
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
-            unset($fields[$key]);
+            $field['slug'] = $key;
+
             $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
             if (! isset($field['type']) || empty($field['type'])) {
                 $error = sprintf('Field "%s" has no "type" set.', $key);
@@ -215,6 +225,10 @@ class ContentTypesParser extends BaseParser
                 $hasGroups = true;
             }
 
+            if (empty($field['label'])) {
+                $field['label'] = ucwords($key);
+            }
+
             if (isset($field['allow_html']) === false) {
                 $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
             }
@@ -233,7 +247,6 @@ class ContentTypesParser extends BaseParser
                     'class' => '',
                     'default' => '',
                     'group' => $currentGroup,
-                    'label' => '',
                     'variant' => '',
                     'localize' => false,
                 ],

@@ -1,0 +1,30 @@
+<div class="form-fieldsgroup form-fieldsgroup__summary-fields">
+    <ul class="summary-fields">
+        <li>
+        {% include '@bolt/_partials/fields/date.html.twig' with {
+            'label' : 'field.createdAt'|trans,
+            'name' : 'createdAt',
+            'value' : record.createdAt,
+            'valueonly' : true
+        } %}
+        </li>
+
+        <li>
+        {% include '@bolt/_partials/fields/date.html.twig' with {
+            'label' : 'field.modifiedAt'|trans,
+            'name' : 'modifiedAt',
+            'value' : record.modifiedAt,
+            'valueonly' : true
+        } %}
+        </li>
+
+        <li>
+        {% include '@bolt/_partials/fields/text.html.twig' with {
+            'label' : 'field.id'|trans,
+            'name' : 'id',
+            'value' : record.id,
+            'valueonly' : true
+        } %}
+        </li>
+    </ul>
+</div>

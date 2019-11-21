@@ -8,7 +8,7 @@ framework:
 translation:
     webui:
         enabled: true
-    locales: ['en', 'nl', 'es', 'fr', 'de', 'pl', 'it', 'pt_BR']
+    locales: ['en', 'nl', 'es', 'fr', 'de', 'pl', 'it', 'hu', 'pt_BR', 'is', 'jp', 'nb', 'dk', 'pl']
     edit_in_place:
         enabled: false
     configs:

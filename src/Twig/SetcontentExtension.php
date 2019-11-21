@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Storage\Query\Query;
+use Bolt\Storage\Query;
 use Bolt\Twig\TokenParser\SetcontentTokenParser;
 use Twig\Extension\AbstractExtension;
 
@@ -26,7 +26,7 @@ class SetcontentExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new SetcontentTokenParser(),

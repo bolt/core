@@ -1,9 +1,0 @@
-{% if records.haveToPaginate|default() %}
-    <div class="pagination">
-      {{ pagerfanta(records, {
-        routeName: 'bolt_content_overview',
-        routeParams: { 'contentType': contentType.slug|default() }
-      }) }}
-    </div>
-{% endif %}
-

@@ -31,7 +31,9 @@ $theme-colors: (
   &.disabled,
   &:disabled {
     opacity: $btn-disabled-opacity;
+
     @include box-shadow(none);
+
     background: $disabled;
     color: darken($disabled, 30%);
     border: $btn-border-width solid transparent;
@@ -44,4 +46,8 @@ $theme-colors: (
     color: darken($disabled, 30%);
     background: transparent;
   }
+}
+
+.card-header {
+  padding: 0.8125rem 1.25rem;
 }

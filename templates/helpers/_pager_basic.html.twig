@@ -1,0 +1,71 @@
+{#
+Predefined variables:
+
+ - `records`: The records to iterate over
+ - `route`: The name of the route, to use in `{{ path() }}`
+ - `routeParams`: Parameters to pass in to `{{ path() }}` to create the correct url
+ - `surround`: The amount of items to show around the 'current' one. "3" by default.
+ - `class`: The main CSS class to apply to the pager. "pagination" by default
+
+#}
+
+{% set start = max(records.currentPage - surround, 1) %}
+{% set end = min(records.currentPage + surround, records.nbPages) %}
+
+{% block item %}
+    {% if path is defined %}
+        <li>
+            <a href="{{ path }}">{{ label|default('…') }}</a>
+        </li>
+    {% elseif enabled is defined and enabled == false %}
+        <li>
+            <a disabled>{{ label|default('…') }}</a>
+        </li>
+    {% endif %}
+{% endblock item %}
+
+{% if records.haveToPaginate|default() %}
+    <ul class="{{ class }}">
+
+        {# Previous Button #}
+        {% set p = routeParams|merge({page: records.hasPreviousPage ? records.previousPage : 1 }) %}
+        {% with {'path': path(route, p), 'label': 'Previous', 'enabled': records.hasPreviousPage  } %}
+            {{ block('item') }}
+        {% endwith %}
+
+        {# If we didn't start at the beginning, add a link to the first. #}
+        {% if start > 1 %}
+            {% set p = routeParams|merge({page: 1}) %}
+            {% with {'path': path(route, p), 'label': 1 } %}
+                {{ block('item') }}
+            {% endwith %}
+            {% with { 'label': '…', 'enabled': false  } %}
+                {{ block('item') }}
+            {% endwith %}
+        {% endif %}
+
+        {# Iterate over the items. #}
+        {% for i in start .. end %}
+            {% set p = routeParams|merge({page: i}) %}
+            {% with {'path': path(route, p), 'label': i } %}
+                {{ block('item') }}
+            {% endwith %}
+        {% endfor %}
+
+        {# If we didn't finish with the last, add a link to the end #}
+        {% if end < records.nbPages %}
+            {% with { 'label': '…', 'enabled': false  } %}
+                {{ block('item') }}
+            {% endwith %}
+            {% set p = routeParams|merge({page: records.nbPages}) %}
+            {% with {'path': path(route, p), 'label': records.nbPages } %}
+                {{ block('item') }}
+            {% endwith %}
+        {% endif %}
+
+        {% set p = routeParams|merge({page: records.hasNextPage ? records.nextPage : records.nbPages }) %}
+        {% with {'path': path(route, p), 'label': 'Next', 'enabled': records.hasNextPage } %}
+            {{ block('item') }}
+        {% endwith %}
+    </ul>
+{% endif %}

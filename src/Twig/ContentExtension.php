@@ -15,19 +15,16 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
+use Twig\Markup;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class ContentExtension extends AbstractExtension
 {
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /**
-     * @var ContentRepository
-     */
+    /** @var ContentRepository */
     private $contentRepository;
 
     /** @var CsrfTokenManagerInterface */
@@ -43,18 +40,20 @@ class ContentExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFilters()
+    public function getFilters(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
-            new TwigFilter('image', [$this, 'getImage'], $safe),
+            new TwigFilter('image', [$this, 'getImage']),
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
             new TwigFilter('next', [$this, 'getNextContent']),
-            new TwigFilter('link', [$this, 'getLink'], $safe),
-            new TwigFilter('edit_link', [$this, 'getEditLink'], $safe),
+            new TwigFilter('link', [$this, 'getLink']),
+            new TwigFilter('edit_link', [$this, 'getEditLink']),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
         ];
     }
@@ -62,9 +61,14 @@ class ContentExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
+        $safe = [
+            'is_safe' => ['html'],
+        ];
+
         return [
+            new TwigFunction('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFunction('previous_record', [$this, 'getPreviousContent']),
             new TwigFunction('next_record', [$this, 'getNextContent']),
         ];
@@ -121,13 +125,13 @@ class ContentExtension extends AbstractExtension
     }
 
     /**
-     * @return array|string|null
+     * @return ImageField|array|null
      */
-    public function getImage(Content $content, bool $onlyPath = false)
+    public function getImage(Content $content, bool $onlyValues = false)
     {
         foreach ($content->getFields() as $field) {
             if ($field instanceof ImageField) {
-                return $onlyPath ? $field->getPath() : $field->getValue();
+                return $onlyValues ? $field->getValue() : $field;
             }
         }
 
@@ -135,10 +139,15 @@ class ContentExtension extends AbstractExtension
     }
 
     /**
-     * @param string|array|null $focus
+     * @param string|Markup|Content $content
+     * @param string|array|null     $focus
      */
-    public function getExcerpt(Content $content, int $length = 280, bool $includeTitle = true, $focus = null): string
+    public function getExcerpt($content, int $length = 280, bool $includeTitle = true, $focus = null): string
     {
+        if (is_string($content) || $content instanceof Markup) {
+            return Excerpt::getExcerpt((string) $content, $length);
+        }
+
         $excerptParts = [];
 
         if ($includeTitle) {

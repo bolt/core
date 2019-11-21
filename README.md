@@ -1,29 +1,32 @@
-Bolt 4.0.0 prototype
-====================
+Bolt 4 - beta
+=============
 
-> Cleanse this world with flame
-> End this, cleanse this
-> **Rebuild and start again**
-> Obliterate what makes us weak
+> Cleanse this world with flame  
+> End this, cleanse this  
+> **Rebuild and start again**  
+> Obliterate what makes us weak  
 
 -- Hatebreed - [Destroy Everything][hatebreed]
 
-Progress towards alpha / beta
------------------------------
+Progress towards beta / stable 
+------------------------------
 
 Follow the progress on Bolt 4, at the following locations
 
  - Github Repository: https://github.com/bolt/four
  - Bolt 4 roadmap: https://roadmap.bolt.cm
- - Slack: https://boltcms.slack.com/messages/C0NJEK631 (open for all, requires Slack account)
+ - Slack: https://slack.bolt.cm (open for all, requires Slack account)
 
+**If you want to check out Bolt, the `composer create-project` method is
+recommended. See here: https://github.com/bolt/project/ . This
+repository should be used to work _on_ Bolt. Not _with_ Bolt.**
 
 To set up a running environment of Bolt 4 please perform the following steps 1 to 4:
 
 1 Install
 ---------
 
-To install Bolt 4 (for now):
+To install a development version of Bolt 4:
 
   - Check out this git repository
   - Then run:
@@ -34,8 +37,6 @@ npm install && npm run build
   ```
 
 Alternatively, run `make install`, on a UNIX-like system.
-
-It's on the roadmap for Beta 1 to provide a `composer create-project` install.
 
 ### Or install with Docker
 
@@ -86,7 +87,9 @@ Alternatively, run `make db-reset`, on a UNIX-like system.
 4 Run the prototype
 -------------------
 
-  - Run `bin/console server:start`
+  - Using the Symfony CLI tool, just run `symfony server:start`. 
+
+  - Alternatively, run `bin/console server:start`
   (if running `bin/console server:start`does not work because you don't have the pcntl extension, run `bin/console server:run`)
 
 In your browser, go to `http://127.0.0.1:8000/` for the frontend, and to
@@ -139,7 +142,7 @@ Bolt uses several testing frameworks for [different test layers][fowler]:
 - unit: PHPSpec, PHPUnit, Jest
 - integration (of Symfony services): PHPUnit with KernelTestCase
 - functional (API Contracts): Behat
-- acceptance (UI, end-to-end): Kakunin
+- acceptance (UI, end-to-end): Behat/Mink
 
 To run PHP unit tests:
 ```
@@ -147,8 +150,9 @@ make test
 ```
 
 To run E2E tests:
+- Follow the Behat tests [installation guide](tests/behat/README.md), then:
 ```
-make e2e
+make behat-js
 ```
 
 Fixing IDE issues
@@ -167,11 +171,26 @@ translations, and keep them up to date. If you wish to participate, read the
 [instructions here][translations].
 
 Several translation-related Console commands are available:
-- `bin/console translation:download` - Download translations from Loco (replaces all local ones)
-- `bin/console translation:sync bolt down` - Download translations from Loco (replaces local changes if there is a conflict)
-- `bin/console translation:sync bolt up` - Send updated translations to Loco
 
+ - `bin/console translation:download` - Download translations from Loco (replaces all local ones)
+ - `bin/console translation:sync bolt down` - Download translations from Loco (replaces local changes if there is a conflict)
+ - `bin/console translation:sync bolt up` - Send updated translations to Loco
 
+Development
+--------
+
+The ongoing Bolt development takes place under the care of:
+
+ - [Two Kings &ndash; Artisinal Web Development](https://twokings.nl)
+ - [The Software House &ndash; Web and Mobile Development](https://tsh.io/)
+
+Sponsors: 
+
+ - [Webforward, Richard Leishman](https://www.webfwd.co.uk/)
+ - → You and/or your company's name on this list? 
+ [Become a sponsor](https://github.com/users/bobdenotter/sponsorship).
+ 
+ 
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
 [translations]: https://github.com/bolt/four/wiki/Contribute-on-translations
 [hatebreed]: https://www.youtube.com/watch?v=DBwgX8yBqsw

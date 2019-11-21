@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Webmozart\PathUtil\Path;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class MediaController extends TwigAwareController implements BackendZone
 {

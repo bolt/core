@@ -5,13 +5,19 @@
 {% for key, fielddefinition in record.definition.fields %}
     {% set alltypes = alltypes|merge([fielddefinition.type]) %}
 {% endfor %}
+{% set displayTitle = record|title|default(record.id ?
+    __('caption.untitled_contenttype', {'%contenttype%': record.definition.singular_name}) :
+    __('caption.new_contenttype', {'%contenttype%': record.definition.singular_name}) ) %}
+
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ (app.request.get('_route') == 'bolt_content_duplicate') ? 'caption.duplicate'|trans : 'caption.edit'|trans }}
+    {{ record.definition.singular_name }}
+{% endblock shoulder %}
 
 {% block title %}
     {{ icon(record) }}
-    {{ (app.request.get('_route') == 'bolt_content_duplicate') ? 'caption.duplicate'|trans : 'caption.edit'|trans }}
-    {{ record.definition.singular_name }}
-    »
-    <strong>{{ excerpt(record|title, 50)|default('New') }}</strong>
+    {{ displayTitle|excerpt(50) }}
 {% endblock %}
 
 {% block vue_id 'editor' %}
@@ -19,9 +25,7 @@
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
 {% block topsection %}
 
-{#    {{ dump(record.definition.relations) }}#}
-
-{#    {{ dump(record|related_all(true, null, false)) }}#}
+{#    {{ dump(record) }}#}
 
 {% endblock %}
 
@@ -31,6 +35,9 @@
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
         <input type="hidden" name="_edit_locale" value="{{ currentlocale }}">
+        {# To prevent confusion in browsers about which submit to use when pressing 'enter', we
+        provide this _input_ here. All browsers will use this as a default. See #454 on Github. #}
+        <input type="submit" form="editcontent" style="display: none;" value="__('action.save')">
 
         {% set groups = record.definition.groups %}
 
@@ -49,6 +56,7 @@
 
         </div>
 
+        <hr>
         {% include '@bolt/content/_buttons.html.twig' %}
 
     </form>
@@ -61,18 +69,26 @@
         <form class="ui form">
 
             <div class="card mb-3">
-              <div class="card-body">
+                <div class="card-header">
+                    {{ 'title.save_changes'|trans }}
+                </div>
+                <div class="card-body">
                   {% include '@bolt/content/_buttons.html.twig' %}
-              </div>
+                </div>
             </div>
 
             {% include '@bolt/content/_localeswitcher.html.twig' %}
 
             <div class="card">
+                <div class="card-header">
+                    {{ 'title.options'|trans }}
+                </div>
                 <div class="card-body">
                     {% include '@bolt/content/_fields_aside.html.twig' %}
+                    {% include '@bolt/content/_fields_aside_summary.html.twig' %}
                 </div>
             </div>
+
         </form>
     </div>
 

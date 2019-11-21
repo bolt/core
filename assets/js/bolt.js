@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+import 'dropzone';
 import 'bootstrap';
 import Axios from 'axios';
 

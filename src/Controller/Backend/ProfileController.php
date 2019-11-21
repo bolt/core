@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
+use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
@@ -19,25 +20,19 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class ProfileController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /**
-     * @var ObjectManager
-     */
+    /** @var ObjectManager */
     private $em;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
+    /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
     public function __construct(
@@ -55,11 +50,11 @@ class ProfileController extends TwigAwareController implements BackendZone
     /**
      * @Route("/profile-edit", methods={"GET"}, name="bolt_profile_edit")
      */
-    public function edit(Request $request): Response
+    public function edit(): Response
     {
         $user = $this->getUser();
 
-        return $this->renderTemplate('@bolt/users/edit.html.twig', [
+        return $this->renderTemplate('@bolt/users/profile.html.twig', [
             'display_name' => $user->getDisplayName(),
             'user' => $user,
         ]);
@@ -72,6 +67,7 @@ class ProfileController extends TwigAwareController implements BackendZone
     {
         $this->validateCsrf($request, 'profileedit');
 
+        /** @var User $user */
         $user = $this->getUser();
         $displayName = $user->getDisplayName();
         $url = $this->urlGenerator->generate('bolt_profile_edit');
@@ -81,16 +77,17 @@ class ProfileController extends TwigAwareController implements BackendZone
         $user->setDisplayName($request->get('displayName'));
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
-        $user->setbackendTheme($request->get('user')['backendTheme']);
+        $user->setbackendTheme($request->get('backendTheme'));
 
         if ($this->validateUser($user, $newPassword) === false) {
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
                 'user' => $user,
+                'suggestedPassword' => Str::generatePassword(),
             ]);
         }
 
-        if ($newPassword !== null) {
+        if (! empty($newPassword)) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 

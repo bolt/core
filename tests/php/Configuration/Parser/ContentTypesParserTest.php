@@ -13,9 +13,11 @@ use Tightenco\Collect\Support\Collection;
 
 class ContentTypesParserTest extends ParserTestBase
 {
-    const NUMBER_OF_CONTENT_TYPES_IN_MINIMAL_FILE = 3;
+    public const NUMBER_OF_CONTENT_TYPES_IN_MINIMAL_FILE = 2;
 
-    const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 20;
+    public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 22;
+
+    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 12;
 
     public function testCanParse(): void
     {
@@ -72,7 +74,8 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertSame('Homepage', $config['homepage']['name']);
         $this->assertSame('Homepage', $config['homepage']['singular_name']);
         $this->assertCount(6, $config['homepage']['fields']);
-        $this->assertCount(11, $config['homepage']['fields']['title']);
+        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_FIELD, $config['homepage']['fields']['title']);
+        $this->assertArrayNotHasKey('key', $config['homepage']['fields']['title']);
         $this->assertSame('Title', $config['homepage']['fields']['title']['label']);
         $this->assertSame('text', $config['homepage']['fields']['title']['type']);
         $this->assertTrue($config['homepage']['fields']['title']['localize']);
@@ -84,58 +87,62 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertFalse($config['homepage']['allow_numeric_slugs']);
     }
 
+    public function testBrokenContentTypeValues(): void
+    {
+        $file = self::getBasePath() . 'broken_content_types.yaml';
+
+        $generalParser = new GeneralParser($this->getProjectDir());
+        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
+
+        $this->expectException(ConfigurationException::class);
+        $contentTypesParser->parse();
+    }
+
     public function testInferContentTypeValues(): void
     {
         $file = self::getBasePath() . 'minimal_content_types.yaml';
 
         $generalParser = new GeneralParser($this->getProjectDir());
         $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
+
         $config = $contentTypesParser->parse();
 
         $this->assertCount(self::NUMBER_OF_CONTENT_TYPES_IN_MINIMAL_FILE, $config);
 
-        $this->assertArrayHasKey('foo', $config);
-        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE, $config['foo']);
+        $this->assertArrayHasKey('bars', $config);
+        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE, $config['bars']);
 
-        $this->assertSame('Bars', $config['foo']['name']);
-        $this->assertSame('foo', $config['foo']['slug']);
-        $this->assertSame('Bar', $config['foo']['singular_name']);
-        $this->assertSame('bar', $config['foo']['singular_slug']);
-        $this->assertTrue($config['foo']['show_on_dashboard']);
-        $this->assertTrue($config['foo']['show_in_menu']);
-        $this->assertFalse($config['foo']['sort']);
-        $this->assertFalse($config['foo']['viewless']);
-        $this->assertSame('fa-file', $config['foo']['icon_one']);
-        $this->assertSame('fa-copy', $config['foo']['icon_many']);
-        $this->assertFalse($config['foo']['allow_numeric_slugs']);
-        $this->assertFalse($config['foo']['singleton']);
+        $this->assertSame('Bars', $config['bars']['name']);
+        $this->assertSame('bars', $config['bars']['slug']);
+        $this->assertSame('Bar', $config['bars']['singular_name']);
+        $this->assertSame('bar', $config['bars']['singular_slug']);
+        $this->assertTrue($config['bars']['show_on_dashboard']);
+        $this->assertTrue($config['bars']['show_in_menu']);
+        $this->assertSame('id', $config['bars']['sort']);
+        $this->assertFalse($config['bars']['viewless']);
+        $this->assertSame('fa-file', $config['bars']['icon_one']);
+        $this->assertSame('fa-copy', $config['bars']['icon_many']);
+        $this->assertFalse($config['bars']['allow_numeric_slugs']);
+        $this->assertFalse($config['bars']['singleton']);
 
-        $this->assertSame('published', $config['foo']['default_status']);
-        $this->assertSame('bar', $config['foo']['singular_slug']);
-        $this->assertSame('bar', $config['foo']['singular_slug']);
-        $this->assertSame(6, $config['foo']['listing_records']);
-        $this->assertSame(8, $config['foo']['records_per_page']);
+        $this->assertSame('published', $config['bars']['default_status']);
+        $this->assertSame('bar', $config['bars']['singular_slug']);
+        $this->assertSame('bar', $config['bars']['singular_slug']);
+        $this->assertSame(6, $config['bars']['listing_records']);
+        $this->assertSame(8, $config['bars']['records_per_page']);
 
-        $this->assertIsIterable($config['foo']['fields']);
-        $this->assertIsIterable($config['foo']['locales']);
-        $this->assertIsIterable($config['foo']['groups']);
-        $this->assertIsIterable($config['foo']['taxonomy']);
-        $this->assertIsIterable($config['foo']['relations']);
+        $this->assertIsIterable($config['bars']['fields']);
+        $this->assertIsIterable($config['bars']['locales']);
+        $this->assertIsIterable($config['bars']['groups']);
+        $this->assertIsIterable($config['bars']['taxonomy']);
+        $this->assertIsIterable($config['bars']['relations']);
 
-        $this->assertArrayHasKey('qux', $config);
-        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE, $config['qux']);
+        $this->assertArrayHasKey('corges', $config);
+        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE, $config['corges']);
 
-        $this->assertSame('Corges', $config['qux']['name']);
-        $this->assertSame('corges', $config['qux']['slug']);
-        $this->assertSame('Corge', $config['qux']['singular_name']);
-        $this->assertSame('corge', $config['qux']['singular_slug']);
-
-        $this->assertArrayHasKey('grault', $config);
-        $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE, $config['grault']);
-
-        $this->assertSame('Grault', $config['grault']['name']);
-        $this->assertSame('grault', $config['grault']['slug']);
-        $this->assertSame('Waldo', $config['grault']['singular_name']);
-        $this->assertSame('waldo', $config['grault']['singular_slug']);
+        $this->assertSame('Corges', $config['corges']['name']);
+        $this->assertSame('corges', $config['corges']['slug']);
+        $this->assertSame('Corge', $config['corges']['singular_name']);
+        $this->assertSame('corge', $config['corges']['singular_slug']);
     }
 }

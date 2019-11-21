@@ -1,55 +1,28 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    <div class="row" style="margin-right: 0;">
-        <div class="col-8">
-
-            <div class="row mb-2">
-                <div class="col-3">
-                    <label>Filename</label>
-                </div>
-                <div class="col-9">
-                    <input name="{{ name }}[filename]" id="{{ id }}-filename" placeholder="filename.jpg" type="text" value="{{ field.get('filename') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
-                </div>
-
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-3">
-                    <label>Alt</label>
-                </div>
-                <div class="col-9">
-                    <input name="{{ name }}[alt]" placeholder="…" type="text" value="{{ field.get('alt') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-3">
-                    <label>Title</label>
-                </div>
-                <div class="col-9">
-                    <input name="{{ name }}[alt]" placeholder="{{ placeholder|default('The title of this image') }}" type="text" value="{{ field.get('title') }}" class="form-control {{ class }}" {{ attributes|default()|raw }}>
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-12" style="text-align: right;">
-                    {% if field.get('filename') %}
-                    <a href="{{ field.get('filename')|thumbnail(width=1000, height=1000) }}" class="btn btn-secondary btn-small lightbox" style="color: #FFF;">
-                        view image
-                    </a>
-                    {%  endif %}
-                    <a href="" onclick="document.querySelector('.filepond--drop-label label').click(); return false;" class="btn btn-secondary btn-small" style="color: #FFF;">Upload an image</a>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-4" id="{{ id }}-uploader" style="padding: 0; min-height: 180px;">
-            {# <file-pond name="filepond[]" ref="pond" accepted-file-types="image/jpeg, image/png" server="/async/upload"></file-pond> #}
-        </div>
-
-    </div>
-
-    <mark>Note: This field is practically the same as the <code>image</code>-field.</mark>
-
+    {% set setPath = field.definition.get('upload')|default('') %}
+    {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
+    {% set filelist = path('bolt_async_filelisting', {'location': location|default('files') }) %}
+    {% set labels = {
+        'button_upload': 'image.button_upload'|trans,
+        'button_from_library': 'image.button_from_library'|trans,
+        'placeholder_filename': 'image.placeholder_filename'|trans,
+        'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
+        'placeholder_title': 'image.placeholder_title'|trans,
+    }|json_encode %}
+    {% set extensions = field.definition.get('extensions')|default('') %}
+    <editor-file
+            :name='{{ name|json_encode }}'
+            :filename='{{ field.get('filename')|json_encode }}'
+            :thumbnail='{{ field|thumbnail(width=400, height=300)|json_encode }}'
+            :title='{{ field.get('title')|json_encode }}'
+            :alt='{{ field.get('alt')|json_encode }}'
+            :media='{{ field.get('media')|json_encode }}'
+            :directory='{{ directory|json_encode }}'
+            :filelist='{{ filelist|json_encode }}'
+            :csrf-token='{{ csrf_token('upload')|json_encode }}'
+            :labels='{{ labels }}'
+            :extensions='{{ extensions|json_encode }}'
+    ></editor-file>
 {% endblock %}

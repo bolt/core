@@ -1,15 +1,20 @@
 //** Init | Base
 
+html {
+  height: 100%;
+}
+
 html,
 body {
   margin: 0;
-  height: 100vh;
   color: var(--body);
   background: var(--background);
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 label {
@@ -20,6 +25,7 @@ strong {
   font-weight: $font-weight-semibold;
 }
 
+h1 code,
 h2 code {
   font-size: 85%;
   font-weight: normal;
@@ -32,6 +38,7 @@ code {
 .card {
   box-shadow: $card-box-shadow;
   background: #fff;
+  border: 1px solid #e8e8e8 !important;
 
   .card-header {
     font-weight: $font-weight-bold;
@@ -42,7 +49,10 @@ code {
   -webkit-appearance: none;
 }
 
-input[readonly], input:disabled, button:disabled, input.flatpickr-input[disabled] {
+input[readonly],
+input:disabled,
+button:disabled,
+input.flatpickr-input[disabled] {
   cursor: not-allowed;
   background-color: $input-disabled-bg;
   color: $input-disabled-color;

@@ -32,12 +32,13 @@
 
                 <h2><a href="{{ record|link }}">{{ record|title }}</a></h2>
 
-                {% if record|image is not empty %}
-                    <a href="{{ image(record|image) }}">
+                {% if record|image %}
+                    <a href="{{ record|image }}">
                         <img src="{{ thumbnail(record|image, 400, 260) }}" alt="{{ (record|image).alt|default(record|title) }}">
                     </a>
                 {% endif %}
 
+                {# display something introduction-like.. #}
                 <p>{{ record|excerpt(300, false, search|default('')) }}</p>
 
             </article>
@@ -48,19 +49,17 @@
 
         {% else %}
 
-            {% if searchTerm is not empty %}
-                <p class="search-results-description">
+            <p class="search-results-description">
+                {% if searchTerm is not empty %}
                     {{ __('general.phrase.no-search-results-for', { '%search%': searchTerm|escape }) }}
-                </p>
-            {% else %}
-                <p class="search-results-description">
+                {% else %}
                     {{ __('general.phrase.no-search-term-provided') }}
-                </p>
-            {% endif %}
+                {% endif %}
+            </p>
 
         {% endfor %}
 
         {# If there are more records than will fit on one page, the pager is shown. #}
-        {{ pager(records, template = 'partials/_sub_pager.twig') }}
+        {{ pager(records, template = 'helpers/_pager_basic.html.twig') }}
 
 {% endblock main %}

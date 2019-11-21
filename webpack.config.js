@@ -22,6 +22,7 @@ Encore.addPlugin(
   .enableVersioning(false)
 
   .addEntry('bolt', './assets/js/bolt.js')
+  .addEntry('zxcvbn', './assets/js/zxcvbn.js')
   .addStyleEntry('theme-default', './assets/scss/themes/default.scss')
   .addStyleEntry('theme-light', './assets/scss/themes/light.scss')
   .addStyleEntry('theme-dark', './assets/scss/themes/dark.scss')

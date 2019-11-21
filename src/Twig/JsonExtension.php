@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Common\Json;
 use Bolt\Entity\Content;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Twig\Extension\AbstractExtension;
@@ -13,9 +14,7 @@ class JsonExtension extends AbstractExtension
 {
     private const SERIALIZE_GROUP = 'get_content';
 
-    /**
-     * @var NormalizerInterface
-     */
+    /** @var NormalizerInterface */
     private $normalizer;
 
     public function __construct(NormalizerInterface $normalizer)
@@ -36,9 +35,12 @@ class JsonExtension extends AbstractExtension
 
     public function jsonRecords($records): string
     {
-        return \GuzzleHttp\json_encode($this->normalizeRecords($records));
+        return Json::json_encode($this->normalizeRecords($records));
     }
 
+    /**
+     * @param Content|array|\Traversable $records
+     */
     public function normalizeRecords($records): array
     {
         if ($records instanceof Content) {
@@ -47,10 +49,8 @@ class JsonExtension extends AbstractExtension
 
         if (is_array($records)) {
             $normalizedRecords = $records;
-        } elseif (is_iterable($records)) {
-            $normalizedRecords = iterator_to_array($records);
         } else {
-            throw new \InvalidArgumentException();
+            $normalizedRecords = iterator_to_array($records);
         }
 
         return array_map([$this, 'contentToArray'], $normalizedRecords);
@@ -60,6 +60,8 @@ class JsonExtension extends AbstractExtension
     {
         // we do it that way because in current API Platform version a Resource
         // can't implement \JsonSerializable
-        return $this->normalizer->normalize($content, null, ['group' => [self::SERIALIZE_GROUP]]);
+        return $this->normalizer->normalize($content, null, [
+            'group' => [self::SERIALIZE_GROUP],
+        ]);
     }
 }

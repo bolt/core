@@ -25,12 +25,14 @@ class WidgetExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $safe = ['is_safe' => ['html']];
+        $safe = [
+            'is_safe' => ['html'],
+        ];
 
         return [
-            new TwigFunction('countwidgets', [$this, 'dummy']),
-            new TwigFunction('listwidgets', [$this, 'dummy']),
-            new TwigFunction('haswidgets', [$this, 'dummy']),
+            new TwigFunction('countwidgets', [$this, 'countWidgets']),
+            new TwigFunction('listwidgets', [$this, 'listWidgets']),
+            new TwigFunction('haswidgets', [$this, 'hasWidgets']),
             new TwigFunction('widgets', [$this, 'renderWidgetsForTarget'], $safe),
             new TwigFunction('widget', [$this, 'renderWidgetByName'], $safe),
         ];
@@ -46,9 +48,21 @@ class WidgetExtension extends AbstractExtension
         return $this->widgetRenderer->renderWidgetsForTarget($target, $params);
     }
 
-    public function dummy($input = null): string
+    public function hasWidgets($input = null): bool
     {
         // @todo See Github issue https://github.com/bolt/four/issues/135
-        return '<!-- Widget "' . $input . '" -->';
+        return false;
+    }
+
+    public function listwidgets($input = null): array
+    {
+        // @todo See Github issue https://github.com/bolt/four/issues/135
+        return [];
+    }
+
+    public function countwidgets($input = null): int
+    {
+        // @todo See Github issue https://github.com/bolt/four/issues/135
+        return count($this->listwidgets($input));
     }
 }

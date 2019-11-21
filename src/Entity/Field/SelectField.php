@@ -19,6 +19,19 @@ class SelectField extends Field implements FieldInterface
         return 'select';
     }
 
+    public function setValue($value): Field
+    {
+        try {
+            if (is_string($value)) {
+                $value = json_decode($value, false);
+            }
+        } finally {
+            $this->value = (array) $value;
+        }
+
+        return $this;
+    }
+
     public function getValue(): ?array
     {
         if (empty($this->value)) {
@@ -31,5 +44,16 @@ class SelectField extends Field implements FieldInterface
         }
 
         return (array) $this->value;
+    }
+
+    public function isContentSelect(): bool
+    {
+        $values = $this->getDefinition()->get('values');
+
+        if (is_string($values) && mb_strpos($values, '/') !== false) {
+            return true;
+        }
+
+        return false;
     }
 }

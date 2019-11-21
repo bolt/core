@@ -12,20 +12,12 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class ClearCacheController extends AbstractController implements BackendZone
 {
-    /** @var TranslatorInterface */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
     /**
      * @Route("/clearcache", name="bolt_clear_cache")
      */
@@ -41,7 +33,7 @@ class ClearCacheController extends AbstractController implements BackendZone
         $output = new BufferedOutput();
 
         $application->run($input, $output);
-        $this->addFlash('success', $this->translator->trans('label.cache_cleared'));
+        $this->addFlash('success', 'label.cache_cleared');
 
         $twigvars = [
             'output' => $output->fetch(),

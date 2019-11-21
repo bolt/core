@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import Password from '../editor/Components/Editor/Password/Password';
-import Text from '../editor/Components/Editor/Text/Text';
+import Password from '../editor/Components/Password';
+import Text from '../editor/Components/Text';
 
 Vue.component('field-password', Password);
 Vue.component('editor-text', Text);
@@ -10,6 +10,6 @@ new Vue({
   name: 'BoltLogin',
   components: {
     'editor-text': Text,
-    'editor-password': Password
+    'editor-password': Password,
   },
 });

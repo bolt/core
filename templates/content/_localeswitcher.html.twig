@@ -1,17 +1,20 @@
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
 {% if record.id and currentlocale %}
     <div class="card mb-3">
+        <div class="card-header">
+            {{ 'field.current_locale'|trans }}:
+            {{ flag(currentlocale) }}<b>{{ currentlocale }}</b>
+        </div>
         <div class="card-body">
-            <p>{{ 'field.current_locale'|trans }}:
-                {{ flag(currentlocale) }}<b>{{ currentlocale }}</b>.</p>
+
             <general-language
                     label="{{ 'field.switch_to_locale'|trans }}"
                     current="{{ currentlocale }}"
-                    :locales="{{ contentlocales(locales) }}"
+                    :locales="{{ locales(locales) }}"
             ></general-language>
 
-            <a href="{{ path('bolt_content_edit_locales', {'id': record.id}) }}" class="btn btn-light btn-small">
-                See Localization info
-            </a>
+            {{ macro.buttonlink('localeswitcher.button_info', path('bolt_content_edit_locales', {'id': record.id}),  'language', 'tertiary') }}
 
         </div>
     </div>

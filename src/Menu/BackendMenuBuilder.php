@@ -65,11 +65,13 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->addChild('Content', ['extras' => [
-            'name' => $t->trans('caption.content'),
-            'type' => 'separator',
-            'icon' => 'fa-file',
-        ]]);
+        $menu->addChild('Content', [
+            'extras' => [
+                'name' => $t->trans('caption.content'),
+                'type' => 'separator',
+                'icon' => 'fa-file',
+            ],
+        ]);
 
         /** @var ContentType[] $contentTypes */
         $contentTypes = $this->config->get('contenttypes');
@@ -91,18 +93,26 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ]);
         }
 
-        $menu->addChild('Settings', ['extras' => [
-            'name' => $t->trans('caption.settings'),
-            'type' => 'separator',
-            'icon' => 'fa-wrench',
-        ]]);
+        $menu->addChild('Settings', [
+            'extras' => [
+                'name' => $t->trans('caption.settings'),
+                'type' => 'separator',
+                'icon' => 'fa-wrench',
+            ],
+        ]);
 
         // Configuration submenu
 
-        $menu->addChild('Configuration', ['extras' => [
-            'name' => $t->trans('caption.configuration'),
-            'icon' => 'fa-sliders-h',
-        ]]);
+        $menu->addChild('Configuration', [
+            'uri' => $this->urlGenerator->generate('bolt_menupage', [
+                'slug' => 'configuration',
+            ]),
+            'extras' => [
+                'name' => $t->trans('caption.configuration'),
+                'icon' => 'fa-sliders-h',
+                'slug' => 'configuration',
+            ],
+        ]);
 
         $menu->getChild('Configuration')->addChild('Users &amp; Permissions', [
             'uri' => $this->urlGenerator->generate('bolt_users'),
@@ -178,24 +188,30 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         // Maintenance submenu
 
-        $menu->addChild('Maintenance', ['extras' => [
-            'name' => $t->trans('caption.maintenance'),
-            'icon' => 'fa-tools',
-        ]]);
+        $menu->addChild('Maintenance', [
+            'uri' => $this->urlGenerator->generate('bolt_menupage', [
+                'slug' => 'maintenance',
+            ]),
+            'extras' => [
+                'name' => $t->trans('caption.maintenance'),
+                'icon' => 'fa-tools',
+                'slug' => 'maintenance',
+            ],
+        ]);
+
+        $menu->getChild('Maintenance')->addChild('Extensions', [
+            'uri' => $this->urlGenerator->generate('bolt_extensions'),
+            'extras' => [
+                'name' => $t->trans('caption.extensions'),
+                'icon' => 'fa-plug',
+            ],
+        ]);
 
         $menu->getChild('Maintenance')->addChild('Bolt API', [
             'uri' => $this->urlGenerator->generate('api_entrypoint'),
             'extras' => [
                 'name' => $t->trans('caption.api'),
                 'icon' => 'fa-code',
-            ],
-        ]);
-
-        $menu->getChild('Maintenance')->addChild('Check database', [
-            'uri' => '',
-            'extras' => [
-                'name' => $t->trans('caption.check_database'),
-                'icon' => 'fa-database',
             ],
         ]);
 
@@ -231,14 +247,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->getChild('Maintenance')->addChild('Extensions', [
-            'uri' => '',
-            'extras' => [
-                'name' => $t->trans('caption.extensions'),
-                'icon' => 'fa-plug',
-            ],
-        ]);
-
         // @todo When we're close to stable release, make this less prominent
         $menu->getChild('Maintenance')->addChild('The Kitchensink', [
             'uri' => $this->urlGenerator->generate('bolt_kitchensink'),
@@ -258,10 +266,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         // File Management submenu
 
-        $menu->addChild('File Management', ['extras' => [
-            'name' => $t->trans('caption.file_management'),
-            'icon' => 'fa-folder-open',
-        ]]);
+        $menu->addChild('File Management', [
+            'uri' => $this->urlGenerator->generate('bolt_menupage', [
+                'slug' => 'filemanagement',
+            ]),
+            'extras' => [
+                'name' => $t->trans('caption.file_management'),
+                'icon' => 'fa-folder-open',
+                'slug' => 'filemanagement',
+            ],
+        ]);
 
         $menu->getChild('File Management')->addChild('Uploaded files', [
             'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'files']),
@@ -284,18 +298,24 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
     private function getLatestRecords(ContentType $contentType): array
     {
-        $records = $this->contentRepository->findLatest($contentType, self::MAX_LATEST_RECORDS);
+        $records = $this->contentRepository->findLatest($contentType, 1, self::MAX_LATEST_RECORDS);
 
         $result = [];
 
         foreach ($records as $record) {
-            $result[] = [
-                'id' => $record->getId(),
-                'name' => $this->contentExtension->getTitle($record),
-                'link' => $this->contentExtension->getLink($record),
-                'editLink' => $this->contentExtension->getEditLink($record),
-                'icon' => $record->getIcon(),
-            ];
+            try {
+                $additionalResult = [
+                    'id' => $record->getId(),
+                    'name' => $this->contentExtension->getTitle($record),
+                    'link' => $this->contentExtension->getLink($record),
+                    'editLink' => $this->contentExtension->getEditLink($record),
+                    'icon' => $record->getIcon(),
+                ];
+
+                $result[] = $additionalResult;
+            } catch (\RuntimeException $exception) {
+                // When a record is not initialised (yet), don't break, but fail gracefully.
+            }
         }
 
         return $result;

@@ -30,9 +30,9 @@ class FileLocations
     private function initLocations(): void
     {
         $this->locations = [
-            'config' => new FileLocation('config', 'Configuration files', $this->config->getPath('config'), true),
-            'files' => new FileLocation('files', 'Content files', $this->config->getPath('files'), false),
-            'themes' => new FileLocation('themes', 'Theme files', $this->config->getPath('themes'), false),
+            'config' => new FileLocation('config', 'Configuration files', $this->config->getPath('config'), true, 'cog'),
+            'files' => new FileLocation('files', 'Content files', $this->config->getPath('files'), false, 'archive'),
+            'themes' => new FileLocation('themes', 'Theme files', $this->config->getPath('themes'), false, 'scroll'),
         ];
     }
 }

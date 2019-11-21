@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class EmbedController implements AsyncZone
 {
@@ -35,7 +35,11 @@ class EmbedController implements AsyncZone
         try {
             $this->validateCsrf($request, 'editrecord');
         } catch (InvalidCsrfTokenException $e) {
-            return new JsonResponse(['error' => ['message' => 'Invalid CSRF token']], Response::HTTP_FORBIDDEN);
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Invalid CSRF token',
+                ],
+            ], Response::HTTP_FORBIDDEN);
         }
 
         try {
@@ -47,7 +51,11 @@ class EmbedController implements AsyncZone
                 $oembed->getBag()->getAll()
             );
         } catch (InvalidUrlException $e) {
-            return new JsonResponse(['error' => ['message' => $e->getMessage()]], Response::HTTP_BAD_REQUEST);
+            return new JsonResponse([
+                'error' => [
+                    'message' => $e->getMessage(),
+                ],
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 }

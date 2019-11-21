@@ -11,7 +11,7 @@
 
         {{ record|excerpt }}
 
-        {{ popup(record|image, 1200, 500) }}
+        {% include 'partials/_image.twig' with ({'image': record|image}) %}
 
         {{ record.content }}
 

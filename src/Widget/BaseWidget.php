@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Widget;
 
+use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Exception\WidgetException;
 use Cocur\Slugify\Slugify;
+use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
+use Twig\Error\LoaderError;
 
 /**
  * BaseWidget can be used as easy starter pack or as a base for your own widgets.
@@ -25,11 +28,17 @@ abstract class BaseWidget implements WidgetInterface
     /** @var string from RequestZone */
     protected $zone;
 
+    /** @var ExtensionInterface */
+    protected $extension;
+
     /** @var int */
     protected $priority = 0;
 
-    /** @var string path to Twig template */
+    /** @var string filename of Twig template */
     protected $template;
+
+    /** @var string path to Twig templates folder */
+    protected $templateFolder;
 
     /** @var ?string */
     protected $slug;
@@ -83,6 +92,16 @@ abstract class BaseWidget implements WidgetInterface
         return $this->priority;
     }
 
+    public function injectExtension(ExtensionInterface $extension): void
+    {
+        $this->extension = $extension;
+    }
+
+    public function getExtension()
+    {
+        return $this->extension;
+    }
+
     /**
      * Method to 'invoke' the widget. Simple wrapper around the 'run' method,
      * which can be overridden in a custom Widget or trait
@@ -102,14 +121,25 @@ abstract class BaseWidget implements WidgetInterface
             $this->setTemplate($params['template']);
         }
 
+        // Extension is set, and needs to be available in the template
+        $params['extension'] = $this->extension;
+
         if ($this instanceof TwigAware) {
-            $output = $this->getTWig()->render($this->getTemplate(), $params);
+            $this->addTwigLoader();
+            try {
+                $output = $this->getTwig()->render($this->getTemplate(), $params);
+            } catch (LoaderError $e) {
+                $output = "<div style='border: 1px solid #666; background-color: #FCF8E3; padding: 0.5rem;'><mark><strong>";
+                $output .= sprintf("Could not render extension '%s'.</strong></mark><br>", $this->getName());
+                $output .= sprintf('<code>%s</code><br>', $e->getMessage());
+                $output .= sprintf('Did you mean to use <code>@%s/%s</code> instead?</mark></div>', $this->getSlug(), basename($this->getTemplate()));
+            }
         } else {
             $output = $this->getTemplate();
         }
 
         return sprintf(
-            '<div id="widget-%s" name="%s">%s</div>',
+            '<div class="widget" id="widget-%s" name="%s">%s</div>',
             $this->getSlug(),
             $this->getName(),
             $output
@@ -129,6 +159,36 @@ abstract class BaseWidget implements WidgetInterface
             throw new WidgetException("Widget {$this->getName()} does not have template set");
         }
         return $this->template;
+    }
+
+    public function getTemplateFolder(): ?string
+    {
+        if ($this->templateFolder !== null) {
+            return $this->templateFolder;
+        }
+
+        $reflection = new \ReflectionClass($this);
+
+        $folder = dirname($reflection->getFilename()) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+        $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+
+        return null;
+    }
+
+    private function addTwigLoader(): void
+    {
+        /** @var NativeFilesystemLoader $twigLoaders */
+        $twigLoaders = $this->getTwig()->getLoader();
+
+        if ($twigLoaders instanceof NativeFilesystemLoader) {
+            $twigLoaders->addPath($this->getTemplateFolder(), $this->getSlug());
+        }
     }
 
     public function setZone(string $zone): self

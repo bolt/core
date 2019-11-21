@@ -13,7 +13,6 @@ class GeneralParserTest extends ParserTestBase
 {
     public function testCanParse(): void
     {
-
         $generalParser = new GeneralParser($this->getProjectDir());
         $config = $generalParser->parse();
 
@@ -60,11 +59,11 @@ class GeneralParserTest extends ParserTestBase
         $this->assertFalse($config['enforce_ssl']);
     }
 
-    public function testFilenames()
+    public function testFilenames(): void
     {
         $file = self::getBasePath() . 'bogus.yaml';
         $generalParser = new GeneralParser($this->getProjectDir(), $file);
-        $config = $generalParser->parse();
+        $generalParser->parse();
 
         $this->assertCount(2, $generalParser->getParsedFilenames());
 

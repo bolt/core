@@ -1,0 +1,118 @@
+<div class="row">
+    {% for file in finder.files() %}
+
+        {% set extension = file.extension() %}
+        {% set filename = path ~ file.getRelativePathname() %}
+        {% set icon = 'fa-file' %}
+        {% set link = path('bolt_file_edit', {'location': location.key, 'file': filename }) %}
+        {% set thumbnail = '' %}
+        {% set title = '' %}
+        {% set dimensions = '' %}
+        {% set original = asset((path != '/' ? path|trim('/') ~ '/') ~ file.filename, 'files') %}
+
+        {% if extension in imageformats %}
+            {% set thumbnail = filename|thumbnail(width = 400, height = 300, location = location.key, fit = 'crop') %}
+            {% set icon = 'fa-image' %}
+            {% set link = path('bolt_media_new', {'location': location.key, 'file': filename}) %}
+
+            {% for image in media|default([])|filter((image, filename) => image.filename in filename) %}
+                {% set title = image.title %}
+                {% set dimensions = image.width ~ ' × ' ~ image.height ~ 'px' %}
+                {% set link = path('bolt_media_edit', {'id': image.id}) %}
+            {% endfor %}
+        {% endif %}
+
+    <div class="col-6 col-sm-4 col-xl-3 pr-0 pb-3">
+        <div class="card">
+            {%- if thumbnail -%}
+                <a class="lightbox" href="{{ filename|thumbnail(width = 1000, height = 1000, location = location.key) }}">
+                    <img class="card-img-top" src="{{ thumbnail }}">
+                </a>
+            {% else %}
+                <img class="card-img-top" src="{{ asset('assets/images/placeholder.png', 'public') }}">
+            {%- endif -%}
+
+            <div class="card-body p-2">
+                <a href="{{ link }}" style="font-size: 85%;">{{ file.getRelativePathname|excerpt(15) }}</a>
+
+                <div class="btn-group float-right">
+                    <button
+                            class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                            data-toggle="dropdown"
+                            type="button"
+                    >
+                        <i class="fas fa-question-circle"></i>
+                        <span class="sr-only">{{ 'files_cards.button_toggle'|trans }}</span>
+                    </button>
+
+                    <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
+                        <a class="dropdown-item" href="{{ link }}" target="_blank">
+                            <i class="fas fa-w fa-edit"></i>
+                            {% if extension in imageformats %}
+                                {{ 'files_cards.action_edit_image_info'|trans }}
+                            {% else %}
+                                {{ 'files_cards.action_edit_file'|trans }}
+                            {% endif %}
+                        </a>
+
+                        <a class="dropdown-item" href="{{ original }}" target="_blank">
+                            <i class="fas fa-w fa-external-link-square-alt"></i>
+                            {{ 'files_cards.action_view_original'|trans }}
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="far fa-w fa-copy"></i>
+                            {{ 'files_cards.action_duplicate'|trans }} {{ file.getRelativePathname|excerpt(22) }}
+                        </a>
+                        <a class="dropdown-item" href="#" data-confirmation="Are you sure you wish to delete this Content?">
+                            <i class="fas fa-w fa-trash"></i>
+                            {{ 'files_cards.action_delete'|trans }} {{ file.getRelativePathname|excerpt(22) }}
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <span class="dropdown-item-text">
+                            <i class="fas fa-link fa-w"></i>
+                            {{ 'files_cards.label_filename'|trans }}
+                            <code :title="file.fieldValues.slug">{{ file.getRelativePathname }}</code>
+                        </span>
+
+                        {% if title %}
+                            <span class="dropdown-item-text">
+                            <i class="fas fa-asterisk fa-w"></i>
+                            {{ 'files_cards.label_title'|trans }} {{ title }}
+                        </span>
+                        {% endif %}
+
+                        {% if dimensions %}
+                            <span class="dropdown-item-text">
+                            <i class="fas fa-asterisk fa-w"></i>
+                            {{ 'files_cards.label_dimensions'|trans }} {{ dimensions }}
+                        </span>
+                        {% endif %}
+
+                        <span class="dropdown-item-text">
+                            <i class="fas fa-asterisk fa-w"></i>
+                            {{ 'files_cards.label_filesize'|trans }} {{ file.getSize() }}&nbsp;bytes
+                        </span>
+
+                        <span class="dropdown-item-text">
+                            <i class="far fa-calendar-alt fa-w"></i>
+                            {{ 'files_cards.label_created_on'|trans }}
+                            <strong>{{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}</strong>
+                        </span>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <p><strong>{{ 'files_cards.message_no_files'|trans }}</strong></p>
+    </div>
+    {% endfor %}
+</div>

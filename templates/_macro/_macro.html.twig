@@ -1,6 +1,11 @@
 {# Button Macro with defaults #}
+{% macro icon(icon = 'question-circle') %}{% apply spaceless %}
+    {% set icon = icon|replace({'fa-': ''}) %}
 
-{% macro button(label = 'Button', icon = 'question-circle', class = 'tertiary', attr = []) %}{% spaceless %}
+    <i class="fas fa-fw fa-{{ icon }}"></i>
+{% endapply %}{% endmacro %}
+
+{% macro button(label = 'Button', icon = 'question-circle', class = 'tertiary', attr = []) %}{% apply spaceless %}
 
     {% set label = label|trans %}
     {% set icon = icon|replace({'fa-': ''}) %}
@@ -8,9 +13,26 @@
     {% set attr = attr %}
 
     <button class="btn btn-{{ class }} mb-3"
-    {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
+        {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
         <i class="fas fa-fw fa-{{ icon }} mr-2"></i>
         {{- label -}}
     </button>
 
-{% endspaceless %}{% endmacro %}
+{% endapply %}{% endmacro %}
+
+{% macro buttonlink(label = 'Button', link = '', icon = 'question-circle', class = 'tertiary', attr = [], translate = true) %}{% apply spaceless %}
+
+    {% if translate %}
+        {% set label = label|trans %}
+    {% endif %}
+    {% set icon = icon|replace({'fa-': ''}) %}
+    {% set class = class|replace({'btn-': ''}) %}
+    {% set attr = attr %}
+
+    <a href="{{ link }}" class="btn btn-{{ class }} mb-3 text-nowrap"
+        {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
+        <i class="fas fa-fw fa-{{ icon }} mr-1"></i>
+        {{- label -}}
+    </a>
+
+{% endapply %}{% endmacro %}

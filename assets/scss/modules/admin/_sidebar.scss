@@ -1,42 +1,52 @@
 //** Admin | Sidebar
 
 .admin__sidebar {
-  position: relative;
-  z-index: $big-z-index + 10;
   background: var(--admin-sidebar);
   color: var(--admin-sidebar-text);
   height: 100%;
-  // box-shadow: 0 0 40px 0 rgba(0,0,0, 0.07);
+  padding-top: 1.625rem;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 1.625rem;
+  }
+
   &--separator {
     padding: 0 $spacer;
-    margin: $spacer / 2 0;
+    margin: $spacer*1.625 0 0;
     opacity: 0.5;
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
+
+    @include media-breakpoint-up(lg) {
+      margin-top: $spacer*2.25;
+    }
   }
 
   &--menu {
-    margin: 0;
+    margin: 0 0 2rem 0;
     padding: 0;
     width: 100%;
     list-style: none;
-    margin-top: $spacer;
   }
 
   &--link {
     position: relative;
     width: 100%;
-    padding: $spacer / 1.75 $spacer;
+    padding: $spacer/1.75 $spacer*1.5 $spacer/1.75 $spacer;
     display: block;
     font-weight: $font-weight-semibold;
     letter-spacing: $letter-spacing;
     color: var(--admin-sidebar-text);
-    font-size: 95%;
+    font-size: 0.85rem;
+
+    @include media-breakpoint-up(wd) {
+      font-size: 0.9375rem;
+    }
 
     &:hover {
-      @include darken(--admin-sidebar, 0.02);
+      @include darken(--admin-sidebar, 0.25);
 
       color: var(--admin-sidebar-icon);
       text-decoration: none;
@@ -83,6 +93,7 @@
       height: 100%;
       display: flex;
       align-items: center;
+      margin-right: 0;
     }
 
     .link--menu {
@@ -99,6 +110,13 @@
       list-style: none;
       visibility: hidden;
 
+      // display only on larger screens
+      display: none;
+
+      @include media-breakpoint-up(lg) {
+        display: block;
+      }
+
       li {
         &.link--create {
           border-bottom: dashed 1px rgba(0, 0, 0, 0.1);
@@ -106,7 +124,6 @@
           a {
             font-weight: $font-weight-bold;
             letter-spacing: $letter-spacing;
-            padding: $spacer;
           }
         }
 
@@ -119,7 +136,7 @@
           letter-spacing: initial;
 
           &:hover {
-            @include darken(--admin-sidebar-menu, 0.2);
+            @include darken(--admin-sidebar-menu, 0.1);
 
             color: var(--admin-sidebar-menu-text);
             text-decoration: none;
@@ -142,14 +159,17 @@
     background: transparent;
     border: 0;
     text-align: center;
-    color: var(--admin-sidebar-icon);
+    color: var(--shade-light);
     font-size: $font-size-lg;
-    position: fixed;
-    left: 0;
-    bottom: 40px;
+    position: relative;
+
+    @include media-breakpoint-up(md) {
+      width: $admin-sidebar-width-wide;
+    }
 
     &:hover,
     &:focus {
+      color: var(--admin-sidebar-icon);
       outline: none;
       cursor: pointer;
     }
@@ -157,26 +177,27 @@
 
   &--footer {
     -webkit-backface-visibility: hidden;
-
-    background: transparent;
-
     color: var(--admin-sidebar-text);
     position: fixed;
     bottom: 0;
     left: 0;
-    height: 40px;
+    z-index: 1;
+    min-height: 40px;
     width: $admin-sidebar-width;
     padding: 0 $spacer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: $font-weight-bold;
-    font-size: $small-font-size;
-    letter-spacing: $letter-spacing;
+    background-color: var(--admin-sidebar);
+
+    @include media-breakpoint-up(wd) {
+      width: $admin-sidebar-width-wide;
+    }
 
     a {
       color: var(--admin-sidebar-text);
       opacity: 0.75;
+      font-size: 0.875rem;
 
       &:hover {
         color: inherit;
@@ -188,7 +209,13 @@
 .admin {
   &.is-slim {
     .admin__sidebar {
-      .admin__sidebar--separator,
+      width: $admin-sidebar-width / 3;
+
+      .admin__sidebar--separator {
+        visibility: hidden;
+        margin: 0;
+      }
+
       .admin__sidebar--footer {
         display: none;
       }
@@ -200,7 +227,7 @@
         padding: $spacer / 1.25 $spacer / 2;
 
         .link--icon {
-          font-size: 130%;
+          font-size: 140%;
           margin: 0;
           width: auto;
         }
@@ -215,5 +242,22 @@
         bottom: $spacer / 2;
       }
     }
+
+    .admin__header,
+    .admin__body {
+      @include media-breakpoint-up(lg) {
+        margin-left: $admin-sidebar-width / 3;
+      }
+    }
+  }
+}
+
+.sidebar--sticky {
+  position: sticky;
+  top: 60px;
+  // reset this as sticky does not work together with display block on hover li's of the sidebar menu, above in this file
+  @include media-breakpoint-up(lg) {
+    position: static;
+    top: 0;
   }
 }

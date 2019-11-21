@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Bolt\Twig;
 
 use Bolt\Configuration\Content\ContentType;
@@ -21,21 +23,21 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class ContentExtensionSpec extends ObjectBehavior
 {
-    const TEST_TITLE = 'test title';
-    const TEST_IMAGE = 'kitten.jpg';
-    const TEST_EXCERPT = 'test excerpt';
-    const TEST_LINK = 'test/link';
-    const TEST_FULL_LINK = 'http://localhost/test/link';
-    const TEST_SLUG = 'test-slug';
-    const TEST_CT_SLUG = 'ct-slug';
-    const TEST_ID = 42;
+    public const TEST_TITLE = 'test title';
+    public const TEST_IMAGE = [];
+    public const TEST_EXCERPT = 'test excerpt';
+    public const TEST_LINK = 'test/link';
+    public const TEST_FULL_LINK = 'http://localhost/test/link';
+    public const TEST_SLUG = 'test-slug';
+    public const TEST_CT_SLUG = 'ct-slug';
+    public const TEST_ID = 42;
 
-    function let(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager)
+    public function let(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager): void
     {
         $this->beConstructedWith($urlGenerator, $contentRepository, $csrfTokenManager);
     }
 
-    function it_gets_title(Content $content, TextField $field, ContentType $definition)
+    public function it_gets_title(Content $content, TextField $field, ContentType $definition): void
     {
         $definition->has('title_format')->shouldBeCalled()->willReturn(false);
         $content->getDefinition()->willReturn($definition);
@@ -46,7 +48,7 @@ class ContentExtensionSpec extends ObjectBehavior
         $this->getTitle($content)->shouldBe(self::TEST_TITLE);
     }
 
-    function it_gets_title_from_other_title_field(Content $content, TextField $field, ContentType $definition)
+    public function it_gets_title_from_other_title_field(Content $content, TextField $field, ContentType $definition): void
     {
         $definition->has('title_format')->shouldBeCalled()->willReturn(false);
         $content->getDefinition()->willReturn($definition);
@@ -58,7 +60,7 @@ class ContentExtensionSpec extends ObjectBehavior
         $this->getTitle($content)->shouldBe(self::TEST_TITLE);
     }
 
-    function it_gets_title_without_title_field(Content $content, TextField $field, ContentType $definition)
+    public function it_gets_title_without_title_field(Content $content, TextField $field, ContentType $definition): void
     {
         $definition->has('title_format')->shouldBeCalled()->willReturn(true);
         $definition->get('title_format')->shouldBeCalled()->willReturn(['other_text_field']);
@@ -71,29 +73,28 @@ class ContentExtensionSpec extends ObjectBehavior
         $this->getTitle($content)->shouldBe(self::TEST_TITLE);
     }
 
-    function it_gets_image(Content $content, ImageField $field, Field $otherField)
+    public function it_gets_image(Content $content, ImageField $field, Field $otherField): void
     {
-        $field->getValue()->shouldBeCalled()->willReturn(['path' => self::TEST_IMAGE]);
         $content->getFields()->shouldBeCalled()->willReturn(new ArrayCollection([
             $otherField->getWrappedObject(),
-            $field->getWrappedObject()
+            $field->getWrappedObject(),
         ]));
 
-        $this->getImage($content)->shouldBe(['path' => self::TEST_IMAGE]);
+        $this->getImage($content)->shouldBe($field);
     }
 
-    function it_gets_image_path(Content $content, ImageField $field, Field $otherField)
+    public function it_gets_image_path(Content $content, ImageField $field, Field $otherField): void
     {
-        $field->getPath()->shouldBeCalled()->willReturn(self::TEST_IMAGE);
+        $field->getValue()->shouldBeCalled()->willReturn(self::TEST_IMAGE);
         $content->getFields()->shouldBeCalled()->willReturn(new ArrayCollection([
             $otherField->getWrappedObject(),
-            $field->getWrappedObject()
+            $field->getWrappedObject(),
         ]));
 
         $this->getImage($content, true)->shouldBe(self::TEST_IMAGE);
     }
 
-    function it_gets_excerpt(Content $content, Excerptable $field, TextField $titleField, Field $otherField, ContentType $definition)
+    public function it_gets_excerpt(Content $content, Excerptable $field, TextField $titleField, Field $otherField, ContentType $definition): void
     {
         $definition->has('title_format')->shouldBeCalled()->willReturn(false);
         $content->getDefinition()->willReturn($definition);
@@ -107,25 +108,25 @@ class ContentExtensionSpec extends ObjectBehavior
         $content->getFields()->shouldBeCalled()->willReturn(new ArrayCollection([
             $otherField->getWrappedObject(),
             $titleField->getWrappedObject(),
-            $field->getWrappedObject()
+            $field->getWrappedObject(),
         ]));
 
         $this->getExcerpt($content)->shouldBe(self::TEST_TITLE . '. ' . self::TEST_EXCERPT);
     }
 
-    function it_gets_excerpt_without_excerptable_field(Content $content, Field $otherField, ContentType $definition)
+    public function it_gets_excerpt_without_excerptable_field(Content $content, Field $otherField, ContentType $definition): void
     {
         $definition->has('title_format')->shouldBeCalled()->willReturn(false);
         $content->getDefinition()->willReturn($definition);
         $content->hasField(Argument::type('string'))->shouldBeCalled()->willReturn(false);
         $content->getFields()->shouldBeCalled()->willReturn(new ArrayCollection([
-            $otherField->getWrappedObject()
+            $otherField->getWrappedObject(),
         ]));
 
         $this->getExcerpt($content)->shouldBe('');
     }
 
-    function it_gets_link(Content $content, UrlGeneratorInterface $urlGenerator)
+    public function it_gets_link(Content $content, UrlGeneratorInterface $urlGenerator): void
     {
         $urlGenerator->generate(
             'record',
@@ -142,7 +143,7 @@ class ContentExtensionSpec extends ObjectBehavior
         $this->getLink($content)->shouldBe(self::TEST_LINK);
     }
 
-    function it_gets_absolute_link(Content $content, UrlGeneratorInterface $urlGenerator)
+    public function it_gets_absolute_link(Content $content, UrlGeneratorInterface $urlGenerator): void
     {
         $urlGenerator->generate(
             'record',
@@ -159,13 +160,13 @@ class ContentExtensionSpec extends ObjectBehavior
         $this->getLink($content, true)->shouldBe(self::TEST_FULL_LINK);
     }
 
-    function it_doesnt_get_link_if_no_id(Content $content)
+    public function it_doesnt_get_link_if_no_id(Content $content): void
     {
         $content->getId()->shouldBeCalled()->willReturn(null);
         $this->getLink($content)->shouldBe(null);
     }
 
-    function it_gets_edit_link(Content $content, UrlGeneratorInterface $urlGenerator)
+    public function it_gets_edit_link(Content $content, UrlGeneratorInterface $urlGenerator): void
     {
         $urlGenerator->generate(
             'bolt_content_edit',
@@ -177,7 +178,7 @@ class ContentExtensionSpec extends ObjectBehavior
         $this->getEditLink($content)->shouldBe(self::TEST_LINK);
     }
 
-    function it_gets_absolute_edit_link(Content $content, UrlGeneratorInterface $urlGenerator)
+    public function it_gets_absolute_edit_link(Content $content, UrlGeneratorInterface $urlGenerator): void
     {
         $urlGenerator->generate(
             'bolt_content_edit',
@@ -189,13 +190,13 @@ class ContentExtensionSpec extends ObjectBehavior
         $this->getEditLink($content, true)->shouldBe(self::TEST_FULL_LINK);
     }
 
-    function it_doesnt_get_edit_link_if_no_id(Content $content)
+    public function it_doesnt_get_edit_link_if_no_id(Content $content): void
     {
         $content->getId()->shouldBeCalled()->willReturn(null);
         $this->getEditLink($content)->shouldBe(null);
     }
 
-    function it_gets_previous_content(Content $content, Content $previousContent, ContentRepository $contentRepository)
+    public function it_gets_previous_content(Content $content, Content $previousContent, ContentRepository $contentRepository): void
     {
         $contentRepository->findAdjacentBy(
             'id',
@@ -209,7 +210,7 @@ class ContentExtensionSpec extends ObjectBehavior
         $this->getPreviousContent($content)->shouldBe($previousContent);
     }
 
-    function it_gets_next_content(Content $content, Content $nextContent, ContentRepository $contentRepository)
+    public function it_gets_next_content(Content $content, Content $nextContent, ContentRepository $contentRepository): void
     {
         $contentRepository->findAdjacentBy(
             'id',

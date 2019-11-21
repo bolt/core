@@ -41,7 +41,7 @@ homepage:
             group: meta
     viewless: true
     taxonomy: [ categories, tags, foobars ]
-    locales: ['en', 'nl', 'pt_BR', 'es']
+    locales: ['en', 'nl', 'ja', 'nb']
     singleton: true
     default_status: published
     icon_many: "fa:home"
@@ -93,7 +93,8 @@ pages:
             type: templateselect
             filter: '*.twig'
     taxonomy: [ groups ]
-
+    listing_records: 6
+    locales: ['en', 'nl', 'ja', 'nb']
 
 # Entries can be used for things like 'news' or 'blogpostings'. They have a
 # 'teaser', which can be used for a short blurb on listing-pages, allowing
@@ -187,7 +188,6 @@ showcases:
             type: video
         image:
             type: image
-            attrib: title # Note: retrieve this in your template with {{ record.values.image.title }}
             extensions: [ gif, jpg, png ]
             placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
         imagelist:
@@ -201,6 +201,8 @@ showcases:
             type: checkbox
             label: "This is a checkbox"
             group: other
+        email:
+            type: email
         datetime:
             type: date
             mode: datetime
@@ -276,6 +278,8 @@ blocks:
         slug:
             type: slug
             uses: [ title ]
+        imagelist:
+            type: imagelist
         content:
             type: html
             height: 150px
@@ -290,6 +294,9 @@ blocks:
     searchable: false
     icon_many: "fa:cubes"
     icon_one: "fa:cube"
+    sort: title
+    records_per_page: 12
+
 
 # This contenttype is here to use for (automated) tests.
 tests:
@@ -339,7 +346,7 @@ tests:
             multiple: true
             postfix: "Select your favourite turtle(s)."
     taxonomy: [ groups, categories, tags, foobars ]
-    record_template: test.twig
+    record_template: custom/test.twig
     listing_template: listing.twig
     listing_records: 10
 

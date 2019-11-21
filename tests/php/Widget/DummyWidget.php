@@ -16,5 +16,4 @@ class DummyWidget extends BaseWidget implements TwigAware
     protected $priority = 200;
     protected $template = '@bolt/widgets/weather.twig';
     protected $zone = RequestZone::BACKEND;
-
 }

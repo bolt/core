@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
-use Bolt\Utils\Str;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -23,6 +23,10 @@ class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
+        if ($this->getOption('--append')) {
+            return;
+        }
+
         $this->loadTaxonomies($manager);
 
         $manager->flush();

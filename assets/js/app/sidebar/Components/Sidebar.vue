@@ -1,21 +1,30 @@
 <template>
   <nav class="admin__sidebar--nav">
-    <div><sidebar-menu :menu="menu"></sidebar-menu></div>
-    <sidebar-footer :version="version" :about-link="aboutLink"></sidebar-footer>
+    <sidebar-menu :menu="menu"></sidebar-menu>
+    <sidebar-toggler
+      :version="version"
+      :about-link="aboutLink"
+      :labels="labels"
+    ></sidebar-toggler>
+    <footer class="admin__sidebar--footer">
+      <a :href="aboutLink"
+        >Bolt v<span class="sr-only">ersion </span>{{ version }}</a
+      >
+    </footer>
   </nav>
 </template>
 
 <script>
 import Menu from './Menu';
-import Footer from './_Footer';
+import SidebarToggler from './_SidebarToggler';
 
 export default {
   name: 'Sidebar',
   components: {
     'sidebar-menu': Menu,
-    'sidebar-footer': Footer,
+    'sidebar-toggler': SidebarToggler,
   },
-  props: ['menu', 'version', 'aboutLink'],
+  props: ['menu', 'version', 'aboutLink', 'labels'],
   created() {
     const slim = JSON.parse(localStorage.getItem('slim-sidebar'));
 

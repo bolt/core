@@ -1,0 +1,42 @@
+{#
+
+All locales are available through the `locales()` helper twig functions, which returns a Collection.
+`locales()` returns all locales configured in the ContentTypes. Alternatively you can fetch all
+locales available in Bolt, using `locales(all = true)`
+
+{{ dump(locales()) }}
+{% set locales = locales() %}
+
+The current locale is in the Request object, which is an instance of `Symfony\Component\HttpFoundation\Request`
+
+{{ dump(app.request.getLocale()) }}
+
+#}
+
+{# Make sure type is either 'list' or 'select' #}
+{% if type|default('list') != 'list' %}{% set type = 'select' %}{% endif %}
+
+{# Set `class` and `style` variables #}
+{% set class = 'class="languageselect_' ~ type ~ (class is defined ? ' ' ~ class) ~ '"' %}
+{% set style = (style is defined ? ' style="' ~ style ~ '"') %}
+
+{% if type == 'list' %}
+    <ul {{ class|raw }} {{ style|raw }}>
+        {% for locale in locales() %}
+            <li class="{{ locale.current ? 'current': '' }}">
+                <a href="{{ locale.link }}">{{ locale.emoji }} {{ locale.localizedname }} </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if type == 'select' %}
+    <select name="languageselect_list" type="select" {{ class|raw }} {{ style|raw }}
+            onchange="if( this.options[this.selectedIndex].value != '' ) location.href=this.options[this.selectedIndex].value;">
+        {% for locale in locales() %}
+            <option value="{{ locale.link }}" {{ locale.current ? 'selected="selected"': '' }}>
+                {{ locale.emoji }} {{ locale.localizedname }}
+            </option>
+        {% endfor %}
+    </select>
+{% endif %}

@@ -2,25 +2,28 @@
 
 $body-bg: var(--background);
 
-$letter-spacing: 0px;
+$letter-spacing: 0;
 
 $bolt-blue: #255687; // Nice and bright, pretty light
-$bolt-bluegray: #2F3E4D; // Nice dark and desaturated
-$bolt-saturated: #003E7C; // Very saturated. Use with care
+$bolt-bluegray: #2f3e4d; // Nice dark and desaturated
+$bolt-saturated: #003e7c; // Very saturated. Use with care
 
 $big-z-index: 1000;
 
 // Typography
-$font-family-base:              -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$headings-font-family:          'Source Sans Variable', sans-serif;
+$font-family-base:            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$headings-font-family:        'Source Sans Variable', sans-serif;
 
-$font-size-base:                0.9rem;
+$font-size-base:              0.9rem;
+$font-size-largescreen:       1rem;
+$line-height-base:            1.5;
 
-$h1-font-size:                $font-size-base * 2.5;
-$h2-font-size:                $font-size-base * 2;
-$h3-font-size:                $font-size-base * 1.75;
-$h4-font-size:                $font-size-base * 1.5;
-$h5-font-size:                $font-size-base * 1.25;
+// Minor Third progression for header font sizes
+$h1-font-size:                $font-size-base * 2.07;
+$h2-font-size:                $font-size-base * 1.728;
+$h3-font-size:                $font-size-base * 1.44;
+$h4-font-size:                $font-size-base * 1.2;
+$h5-font-size:                $font-size-base;
 $h6-font-size:                $font-size-base;
 
 $font-weight-light:             300;
@@ -43,9 +46,8 @@ $input-focus-border-color:              var(--primary-400);
 $custom-control-indicator-active-bg:    var(--primary-400);
 $custom-range-thumb-active-bg:          var(--primary-400);
 
-$input-disabled-bg:                     #F0F3F6;
+$input-disabled-bg:                     #f0f3f6;
 $input-disabled-color:                  #777;
-
 
 $input-btn-focus-width:                 0.15rem;
 $input-btn-focus-box-shadow:            0 0 0 $input-btn-focus-width var(--primary-200);
@@ -55,64 +57,74 @@ $card-border-width:                 0;
 $card-border-radius:                $border-radius;
 $card-border-color:                 transparent;
 $card-bg:                           var(--foreground);
-$card-box-shadow:                   0 7.5px 15px -5px rgba(0, 0, 0, 0.07);
+$card-box-shadow:                   0 7.5px 15px -5px rgba(0, 0, 0, 0.03);
 
 // Buttons
 $btn-font-weight: 500;
+$btn-font-size-lg: 16px;
+$btn-font-size: 14px;
+$btn-font-size-sm: 13px;
 $btn-padding-x: 0.6rem;
 
-$primary: #1863AF;
-$secondary: #5DA1AC;
-$tertiary: #56696D;
-$success: #61A31F;
-$info: #17A2B8;
-$warning: #FFC107;
-$danger: #DB2427;
-$light: #E8E8E8;
+$primary: #1863af;
+$secondary: #5da1ac;
+$tertiary: #7a9196;
+$success: #61a31f;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #db2427;
+$light: #e0e0e0;
 $dark: #333;
-$disabled: #C8C8C8;
+$disabled: #c8c8c8;
+
+$spacer: 1rem;
 
 // Grid
 $grid-breakpoints: (
-        xs: 0,
-        sm: 576px,
-        md: 768px,
-        lg: 992px,
-        xl: 1200px
+  xxs: 0,
+  xs: 480px,
+  sm: 576px,
+  md: 760px,
+  lg: 992px,
+  xl: 1272px,
+  wd: 1400px,
+  xw: 1750px
 );
 
-// Modal Dialog spacing
-$modal-dialog-margin-y-sm-up: 4rem;
-
-
-.admin__sidebar {
-  background: rgb(42,57,70);
-  background: linear-gradient(-70deg, rgba(47,62,77,1) 50%, rgba(42,57,70,1) 50.5%);
-}
+// This number determines of a button has white or black text (a11y)
+// 150: about equal to 3.0 color contrast ( WCAG2 for bold and texts above 18pts).
+// 117: for 4.5 color contrast (WCAG2 for normal text) (see ~bootstrap/_functions.scss for use in function)
+$yiq-contrasted-threshold:  150;
 
 :root {
   --background: #f3f5f7;
-  --foreground: #FFF;
+  --foreground: #fff;
+  --foreground-border: #e8e8e8;
   --primary: #255687;
   --shade: #666;
+  --shade-light: #ddd;
   --status-published: #08b883;
   --status-draft: #1078da;
   --status-held: #dd2443;
   --status-timed: #741ce6;
-  --admin-sidebar: #2F3E4D;
-  --admin-sidebar-text: #EEE;
-  --admin-sidebar-icon: #FFF;
-  --admin-sidebar-menu: #f0f3f5;
+  --admin-sidebar: #2f3e4d;
+  --admin-sidebar-text: #eee;
+  --admin-sidebar-icon: #fff;
+  --admin-sidebar-menu: #fff;
   --admin-sidebar-menu-text: #666;
-  --admin-toolbar: #4C6E91;
+  --admin-toolbar: #4c6e91;
   --admin-toolbar-text-light: #fff;
   --admin-toolbar-text-dark: #0c223b;
-}
 
-:root {
   @each $bp, $value in $grid-breakpoints {
     --breakpoint-#{$bp}: #{$value};
   }
 }
 
-
+// Variables for admin, toolbar and admin sidebar
+$admin-toolbar-height: 40px;
+$admin-toolbar-height-wide: 50px;
+$admin-sidebar-width: 200px;
+$admin-sidebar-width-wide: 250px;
+$admin-aside-width: 320px;
+$admin-header-height: 70px;

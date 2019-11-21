@@ -6,6 +6,8 @@ namespace Bolt;
 
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
+use Bolt\Extension\ExtensionCompilerPass;
+use Bolt\Extension\ExtensionInterface;
 use Doctrine\ORM\Query;
 use Gedmo\Translatable\Query\TreeWalker\TranslationWalker;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -58,6 +60,16 @@ class Kernel extends BaseKernel
                 Query::HINT_CUSTOM_OUTPUT_WALKER,
                 TranslationWalker::class
             );
+    }
+
+    public function build(ContainerBuilder $container): void
+    {
+        $container
+            ->registerForAutoconfiguration(ExtensionInterface::class)
+            ->addTag(ExtensionInterface::CONTAINER_TAG);
+
+        // Process all our implementors through our CompilerPass
+        $container->addCompilerPass(new ExtensionCompilerPass());
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
