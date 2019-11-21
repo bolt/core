@@ -30,7 +30,7 @@ class ExtensionsListCommand extends Command
             ->setDescription('List installed Extensions');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $extensions = $this->extensionRegistry->getExtensions();
 

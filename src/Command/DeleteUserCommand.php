@@ -102,7 +102,7 @@ HELP
         $input->setArgument('username', $username);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $username = $this->validator->validateUsername($input->getArgument('username'));
 
@@ -122,6 +122,6 @@ HELP
 
         $this->io->success(sprintf('User "%s" (ID: %d, email: %s) was successfully deleted.', $user->getUsername(), $userId, $user->getEmail()));
 
-        return null;
+        return 0;
     }
 }

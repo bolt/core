@@ -19,7 +19,7 @@ class SetupCommand extends Command
         $this->setDescription('Run Bolt setup / installation commands');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $exitCode = 0;
         $io = new SymfonyStyle($input, $output);
@@ -48,6 +48,6 @@ class SetupCommand extends Command
             $io->success('Bolt was set up successfully! Start a web server, and open your Bolt site in a browser.');
         }
 
-        return null;
+        return 0;
     }
 }
