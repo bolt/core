@@ -84,7 +84,7 @@
               <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
             </button>
           </div>
-          <div v-if="filename" class="btn-group mr-2" role="group">
+          <div v-if="filenameData" class="btn-group mr-2" role="group">
             <a
               class="btn btn-tertiary"
               :href="attributesLink + '?file=' + filename"
