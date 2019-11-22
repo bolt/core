@@ -36,7 +36,7 @@ class CopyAssetsCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var Application $app */
         $app = $this->getApplication();
