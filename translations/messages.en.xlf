@@ -2005,7 +2005,7 @@
       <segment>
         <source>image.button_edit_attributes</source>
         <target>Edit attributes</target>
-       </segment>
+      </segment>
     </unit>
     <unit id="s14vS9S" name="image.button_move_up">
       <segment>
@@ -2023,6 +2023,12 @@
       <segment>
         <source>image.add_new_image</source>
         <target>Add new image</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <segment>
+        <source>file.add_new_file</source>
+        <target>Add new file</target>
       </segment>
     </unit>
   </file>
