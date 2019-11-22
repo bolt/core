@@ -74,9 +74,6 @@
     "composer/xdebug-handler": {
         "version": "1.1.0"
     },
-    "container-interop/container-interop": {
-        "version": "1.2.0"
-    },
     "dama/doctrine-test-bundle": {
         "version": "4.0",
         "recipe": {
