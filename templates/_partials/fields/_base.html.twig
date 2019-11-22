@@ -71,7 +71,12 @@
 {% endif %}
 
 {# Set the locale #}
+    {# @todo Don't forget to fix this! #}
+    {% set localize = false %}
+{#
 {% set localize = field.definition.localize|default %}
+#}
+
 
 {# Set the prefix and postfix attributes #}
 {% set prefix = prefix|default(field.definition.prefix|default) %}

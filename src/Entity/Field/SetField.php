@@ -20,24 +20,28 @@ class SetField extends Field implements FieldInterface
 
     public function getValue(): array
     {
-        $data = parent::getValue() ?: [];
+//        $key => this->getHash();
+        $fieldDefinitions = $this->getDefinition()->get('fields');
 
         $result = [];
 
-        foreach($data as $key => $field){
-            $collection = collect($field);
-            $generatedField = parent::factory($collection);
-            $generatedField->setName((string) $key);
-            //$field['value']['type'] = $generatedField->getType();
-            $generatedField->setValue($field['value']);
-
-            $output = [];
-            $output['type'] = $generatedField->getType();
-            $output['value'] = $generatedField->getValue();
-            array_push($result, $output);
+        foreach($fieldDefinitions as $fieldName => $fieldDefinition) {
+            if($this->getContent()->hasField($fieldName)) {
+                $field = $this->getContent()->getField($fieldName);
+            }else{
+                $field = parent::factory($fieldDefinition);
+                $field->setName($fieldName);
+            }
+            $result[$fieldName] = $field;
         }
 
         dump($result);
+
         return $result;
+    }
+
+    private function getHash()
+    {
+
     }
 }
