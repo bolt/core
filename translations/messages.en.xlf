@@ -2019,5 +2019,11 @@
         <target>Move down</target>
       </segment>
     </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <segment>
+        <source>image.add_new_image</source>
+        <target>Add new image</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

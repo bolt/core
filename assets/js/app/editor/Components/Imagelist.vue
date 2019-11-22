@@ -29,7 +29,7 @@
     </div>
 
     <button class="btn btn-secondary" type="button" @click="addImage">
-      Add image here
+      {{ labels.add_new_image }}
     </button>
   </div>
 </template>
