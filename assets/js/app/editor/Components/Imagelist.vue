@@ -2,7 +2,7 @@
   <div>
     <div
       v-for="(child, index) in containerImages"
-      :key="index"
+      :key="child.id"
       class="form-fieldsgroup"
     >
       <editor-image
@@ -20,18 +20,16 @@
         :in-imagelist="true"
         :name="fieldName(index)"
         :extensions="extensions"
-        :imagelist-position="index"
         :is-first-in-imagelist="isFirstInImagelist(index)"
         :is-last-in-imagelist="isLastInImagelist(index)"
         @remove="onRemoveImage"
-        @updated="onUpdateImage"
         @moveImageUp="onMoveImageUp"
         @moveImageDown="onMoveImageDown"
       ></editor-image>
     </div>
 
     <button class="btn btn-secondary" type="button" @click="addImage">
-      Add image here
+      {{ labels.add_new_image }}
     </button>
   </div>
 </template>
@@ -53,7 +51,15 @@ export default {
     'attributesLink',
   ],
   data: function() {
+    let counter = 0;
+    let containerImages = this.images;
+    containerImages.forEach(function(file, index, theContainerImagesArray) {
+      theContainerImagesArray[index].id = index;
+      counter++;
+    });
+
     return {
+      counter,
       containerImages: this.images,
     };
   },
@@ -102,10 +108,6 @@ export default {
         );
       }
     },
-    onUpdateImage(elem) {
-      let fieldNumber = this.getFieldNumberFromElement(elem);
-      this.containerImages[fieldNumber] = elem;
-    },
     onRemoveImage(elem) {
       let fieldNumber = this.getFieldNumberFromElement(elem);
       let updatedImage = this.containerImages[fieldNumber];
@@ -129,8 +131,10 @@ export default {
         labels: this.labels,
         thumbnail: '',
         extensions: this.extensions,
+        id: this.counter,
       };
 
+      this.counter++;
       this.containerImages.push(imageField);
     },
   },
