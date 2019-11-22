@@ -147,5 +147,8 @@
         "periodical-tasks": [
             "security-checker security:check"
         ]
+    },
+    "replace": {
+        "container-interop/container-interop": "*"
     }
 }
