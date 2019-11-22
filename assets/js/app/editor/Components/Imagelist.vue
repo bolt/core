@@ -20,7 +20,6 @@
         :in-imagelist="true"
         :name="fieldName(index)"
         :extensions="extensions"
-        :imagelist-position="index"
         :is-first-in-imagelist="isFirstInImagelist(index)"
         :is-last-in-imagelist="isLastInImagelist(index)"
         @remove="onRemoveImage"

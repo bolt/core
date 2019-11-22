@@ -20,12 +20,13 @@
             :name="name + '[filename]'"
             type="text"
             :placeholder="labels.placeholder_filename"
-            :value="filename"
+            :value="filenameData"
+            disabled="true"
           />
         </div>
         <div class="input-group mb-3">
           <input
-            v-model="alt"
+            v-model="altData"
             class="form-control"
             :name="name + '[alt]'"
             type="text"
@@ -83,10 +84,10 @@
             </button>
           </div>
 
-          <div v-if="filename" class="btn-group mr-2" role="group">
+          <div v-if="filenameData" class="btn-group mr-2" role="group">
             <a
               class="btn btn-tertiary"
-              :href="attributesLink + '?file=' + filename"
+              :href="attributesLink + '?file=' + filenameData"
               target="_blank"
             >
               <i class="fas fa-fw fa-info-circle"></i>
@@ -149,18 +150,20 @@ export default {
     'labels',
     'filelist',
     'extensions',
-    'removable',
     'attributesLink',
     'inImagelist',
     'isFirstInImagelist',
     'isLastInImagelist',
   ],
-  data: () => {
+  data() {
     return {
       previewImage: null,
       isDragging: false,
       dragCount: 0,
       progress: 0,
+      filenameData: this.filename,
+      thumbnailData: this.thumbnail,
+      altData: this.data,
     };
   },
   computed: {
@@ -175,11 +178,11 @@ export default {
     },
   },
   mounted() {
-    this.previewImage = this.thumbnail;
+    this.previewImage = this.thumbnailData;
   },
   updated() {
     this.$emit('updated', this);
-    this.previewImage = this.thumbnail;
+    this.previewImage = this.thumbnailData;
     baguetteBox.run('.editor__image--preview', {
       afterShow: () => {
         noScroll.on();
@@ -204,7 +207,7 @@ export default {
       this.$refs.selectFile.click();
     },
     selectServerFile() {
-      const thumbnailParams = this.thumbnail.split('?').pop();
+      const thumbnailParams = this.thumbnailData.split('?').pop();
       let thisField = this;
       Axios.get(this.filelist)
         .then(res => {
@@ -214,8 +217,8 @@ export default {
             inputOptions: this.filterServerFiles(res.data),
             callback: function(result) {
               if (result) {
-                thisField.filename = result;
-                thisField.thumbnail = `/thumbs/${result}?${thumbnailParams}`;
+                thisField.filenameData = result;
+                thisField.thumbnailData = `/thumbs/${result}?${thumbnailParams}`;
               }
             },
           });
@@ -244,7 +247,7 @@ export default {
       return this.uploadFile(image);
     },
     uploadFile(file) {
-      const thumbnailParams = this.thumbnail.split('?').pop();
+      const thumbnailParams = this.thumbnailData.split('?').pop();
       const fd = new FormData();
       const config = {
         onUploadProgress: progressEvent => {
@@ -261,8 +264,8 @@ export default {
       fd.append('_csrf_token', this.token);
       Axios.post(this.directory, fd, config)
         .then(res => {
-          this.filename = res.data;
-          this.thumbnail = `/thumbs/${res.data}?${thumbnailParams}`;
+          this.filenameData = res.data;
+          this.thumbnailData = `/thumbs/${res.data}?${thumbnailParams}`;
           this.progress = 0;
         })
         .catch(err => {
