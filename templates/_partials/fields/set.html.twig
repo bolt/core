@@ -1,0 +1,17 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+   <p>This is the set field.</p>
+
+    {% dump(field) %}
+
+    {% for singleField in field.value %}
+
+        {% if singleField.type =='text' %}
+        {{ include('@bolt/_partials/fields/text.html.twig', {'field': singleField.value.0 }) }}
+
+        <p>Submitting: {{ dump(singleField.value.0) }}</p>
+
+        {%  endif %}
+    {% endfor %}
+{% endblock %}
