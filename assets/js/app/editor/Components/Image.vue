@@ -21,7 +21,7 @@
             type="text"
             :placeholder="labels.placeholder_filename"
             :value="filenameData"
-            disabled="true"
+            readonly="readonly"
           />
         </div>
         <div class="input-group mb-3">
