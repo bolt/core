@@ -181,7 +181,6 @@ export default {
     this.previewImage = this.thumbnailData;
   },
   updated() {
-    this.$emit('updated', this);
     this.previewImage = this.thumbnailData;
     baguetteBox.run('.editor__image--preview', {
       afterShow: () => {
