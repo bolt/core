@@ -1,10 +1,31 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    {% for file in value %}
-        <input class="form-control {{ class }}" name="{{ name }}" placeholder="…" type="text" value="{{ file }}"
-            {{ attributes|default()|raw }}>
-    {% endfor %}
+    {% set setPath = field.definition.get('upload')|default('') %}
+    {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
+    {% set filelist = path('bolt_async_filelisting', {'location': location|default('files') }) %}
+    {% set labels = {
+        'button_upload': 'image.button_upload'|trans,
+        'button_from_library': 'image.button_from_library'|trans,
+        'placeholder_filename': 'image.placeholder_filename'|trans,
+        'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
+        'placeholder_title': 'image.placeholder_title'|trans,
+        'button_remove': 'image.button_remove'|trans,
+        'button_move_up': 'image.button_move_up'|trans,
+        'button_move_down': 'image.button_move_down'|trans,
+        'add_new_file': 'file.add_new_file'|trans,
+        'button_edit_attributes': 'image.button_edit_attributes'|trans,
+    }|json_encode %}
+    {% set extensions = field.definition.get('extensions')|default('') %}
 
-    <mark>{{ 'filelist.remark'|trans|raw }}</mark>
+    <editor-filelist
+            :files='{{ field.value|json_encode }}'
+            :name='{{ name|json_encode }}'
+            :directory='{{ directory|json_encode }}'
+            :filelist='{{ filelist|json_encode }}'
+            :csrf-token='{{ csrf_token('upload')|json_encode }}'
+            :labels='{{ labels }}'
+            :extensions='{{  extensions|json_encode }}'
+            :attributes-link='{{ path('bolt_media_new')|json_encode }}'
+    ></editor-filelist>
 {% endblock %}
