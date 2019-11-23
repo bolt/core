@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Extension;
 
 use Bolt\Configuration\Config;
-use Bolt\Controller\Frontend\TemplateController;
 use Bolt\Event\Subscriber\ExtensionSubscriber;
 use Bolt\Widget\WidgetInterface;
 use Bolt\Widgets;
@@ -14,19 +13,18 @@ use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
-
+use Twig\Loader\FilesystemLoader;
 
 /**
  * BaseWidget can be used as easy starter pack or as a base for your own extensions.
@@ -45,12 +43,27 @@ abstract class BaseExtension implements ExtensionInterface
     /** @var ContainerInterface */
     private $container;
 
+    /** @var string */
+    private $slug;
+
     /**
      * Returns the descriptive name of the Extension
      */
     public function getName(): string
     {
         return 'BaseExtension';
+    }
+
+    /**
+     * Returns the slugified name of the Extension
+     */
+    public function getSlug(): string
+    {
+        if ($this->slug === null) {
+            $this->slug = Slugify::create()->slugify($this->getName());
+        }
+
+        return $this->slug;
     }
 
     /**
@@ -178,6 +191,48 @@ abstract class BaseExtension implements ExtensionInterface
         $this->getTwig()->addExtension($extension);
     }
 
+    /**
+     * Shortcut method to add a namespace to the current Twig Environment.
+     */
+    public function addTwigNamespace(string $namespace = '', string $foldername = ''): void
+    {
+        if (empty($namespace)) {
+            $namespace = $this->getSlug();
+        }
+
+        if (empty($foldername)) {
+            $foldername = $this->getTemplateFolder();
+        }
+
+        if (! realpath($foldername)) {
+            return;
+        }
+
+        /** @var NativeFilesystemLoader $twigLoaders */
+        $twigLoaders = $this->getTwig()->getLoader();
+
+        if ($twigLoaders instanceof FilesystemLoader) {
+            $twigLoaders->prependPath($foldername, $namespace);
+        }
+    }
+
+    private function getTemplateFolder(): ?string
+    {
+        $reflection = new \ReflectionClass($this);
+
+        $folder = dirname($reflection->getFilename()) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+
+        $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+
+        return null;
+    }
+
     public function addListener($event, $callback): void
     {
         /** @var EventDispatcher $dp */
@@ -209,7 +264,6 @@ abstract class BaseExtension implements ExtensionInterface
     {
         $this->addListener($event, $callback);
     }
-
 
     /**
      * Get the ComposerPackage, that contains information about the package,

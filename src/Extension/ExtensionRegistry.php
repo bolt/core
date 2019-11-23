@@ -122,5 +122,4 @@ class ExtensionRegistry
 
         return $routes;
     }
-
 }

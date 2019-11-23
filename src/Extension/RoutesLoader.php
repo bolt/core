@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Extension;
 
 use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 class RoutesLoader extends Loader
 {
-
     /** @var ExtensionRegistry */
     private $registry;
 
@@ -17,7 +17,7 @@ class RoutesLoader extends Loader
         $this->registry = $registry;
     }
 
-    public function load($resource, $type = null)
+    public function load($resource, $type = null): RouteCollection
     {
         $routeCollection = new RouteCollection();
 
@@ -28,7 +28,7 @@ class RoutesLoader extends Loader
         return $routeCollection;
     }
 
-    public function supports($resource, $type = null)
+    public function supports($resource, $type = null): bool
     {
         return $type === 'bolt_extensions';
     }
