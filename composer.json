@@ -100,7 +100,7 @@
         "symfony/stopwatch": "^4.4",
         "symfony/web-profiler-bundle": "^4.4",
         "symfony/web-server-bundle": "^4.4",
-        "symplify/easy-coding-standard": "^6.1.0"
+        "symplify/easy-coding-standard": "^7.0.2"
     },
     "config": {
         "preferred-install": {
