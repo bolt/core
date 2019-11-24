@@ -188,11 +188,6 @@ class ContentTypesParser extends BaseParser
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
-            // Convert array into FieldType
-            $field = new FieldType($field);
-
-            $field['slug'] = $key;
-
             $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
             if (! isset($field['type']) || empty($field['type'])) {
                 $error = sprintf('Field "%s" has no "type" set.', $key);
@@ -233,10 +228,6 @@ class ContentTypesParser extends BaseParser
                 $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
             }
 
-            if (isset($field['allow_twig']) === false) {
-                $field['allow_twig'] = false;
-            }
-
             if (isset($field['sanitise']) === false) {
                 $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
             }
@@ -247,8 +238,9 @@ class ContentTypesParser extends BaseParser
                 $currentGroup = $field['group'];
             }
 
+            // Convert array into FieldType
+            $fields[$key] = new FieldType($field, $key);
             $groups[$currentGroup] = $currentGroup;
-            $fields[$key] = $field;
 
             // Repeating fields checks
             if ($field['type'] === 'repeater') {
