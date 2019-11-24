@@ -877,6 +877,12 @@
     "symplify/package-builder": {
         "version": "v5.2.3"
     },
+    "symplify/set-config-resolver": {
+        "version": "v7.0.2"
+    },
+    "symplify/smart-file-system": {
+        "version": "v7.0.2"
+    },
     "theseer/tokenizer": {
         "version": "1.1.0"
     },
