@@ -236,23 +236,13 @@ class ContentTypesParser extends BaseParser
                 $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
             }
 
-            // Make sure we have these keys and every field has a group set.
-            $field = array_replace(
-                [
-                    'class' => '',
-                    'default' => '',
-                    'group' => $currentGroup,
-                    'variant' => '',
-                    'localize' => false,
-                ],
-                $field
-            );
+            if (empty($field['group'])) {
+                $field['group'] = $currentGroup;
+            } else {
+                $currentGroup = $field['group'];
+            }
 
-            // Collect group data for rendering.
-            // Make sure that once you started with group all following have that group, too.
-            $currentGroup = $field['group'];
-            $groups[$currentGroup] = 1;
-
+            $groups[$currentGroup] = $currentGroup;
             $fields[$key] = $field;
 
             // Repeating fields checks
@@ -269,7 +259,7 @@ class ContentTypesParser extends BaseParser
             $fields['slug']['uses'] = (array) $fields['slug']['uses'];
         }
 
-        return [$fields, array_keys($groups)];
+        return [$fields, $groups];
     }
 
     /**

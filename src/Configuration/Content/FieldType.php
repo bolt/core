@@ -31,6 +31,7 @@ class FieldType extends Collection
             'allow_twig' => false,
             'allow_html' => false,
             'sanitise' => false,
+            'localize' => false,
         ]);
     }
 
