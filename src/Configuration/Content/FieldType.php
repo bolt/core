@@ -8,18 +8,21 @@ use Tightenco\Collect\Support\Collection;
 
 class FieldType extends Collection
 {
-    public function __construct($items = [], $slug = '')
+    public function __construct($items, ?string $slug = null)
     {
+        if ($slug) {
+            $items['slug'] = $slug;
+        }
+
         parent::__construct(
             static::defaults()->merge($items)
         );
-
-        $items['slug'] = $slug;
     }
 
     private static function defaults(): Collection
     {
         return new Collection([
+            'slug' => '',
             'type' => '',
             'class' => '',
             'group' => '',
