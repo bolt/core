@@ -181,9 +181,8 @@ class ContentTypesParser extends BaseParser
      */
     protected function parseFieldsAndGroups(array $fields): array
     {
-        $currentGroup = 'ungrouped';
+        $currentGroup = 'content'; // Default group name, if none was specified
         $groups = [];
-        $hasGroups = false;
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
@@ -219,10 +218,6 @@ class ContentTypesParser extends BaseParser
             // e.g.: [ 'yes', 'no' ] => { 'yes': 'yes', 'no': 'no' }
             if ($field['type'] === 'select' && isset($field['values']) && Arr::isIndexed($field['values'])) {
                 $field['values'] = array_combine($field['values'], $field['values']);
-            }
-
-            if (! empty($field['group'])) {
-                $hasGroups = true;
             }
 
             if (empty($field['label'])) {
@@ -274,7 +269,7 @@ class ContentTypesParser extends BaseParser
             $fields['slug']['uses'] = (array) $fields['slug']['uses'];
         }
 
-        return [$fields, $hasGroups ? array_keys($groups) : []];
+        return [$fields, array_keys($groups)];
     }
 
     /**
