@@ -270,12 +270,12 @@ class ContentTypesParser extends BaseParser
     /**
      * Basic validation of repeater fields.
      */
-    private function parseFieldRepeaters(FieldType $repeater): FieldType
+    private function parseFieldRepeaters(FieldType $repeater): ?FieldType
     {
         $blacklist = ['repeater', 'slug', 'templatefield'];
 
         if (! isset($repeater['fields']) || ! is_array($repeater['fields'])) {
-            return $repeater;
+            return null;
         }
 
         foreach ($repeater['fields'] as $repeaterKey => $repeaterField) {
