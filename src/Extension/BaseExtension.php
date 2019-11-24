@@ -13,6 +13,7 @@ use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
@@ -23,6 +24,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * BaseWidget can be used as easy starter pack or as a base for your own extensions.
@@ -41,12 +43,27 @@ abstract class BaseExtension implements ExtensionInterface
     /** @var ContainerInterface */
     private $container;
 
+    /** @var string */
+    private $slug;
+
     /**
      * Returns the descriptive name of the Extension
      */
     public function getName(): string
     {
         return 'BaseExtension';
+    }
+
+    /**
+     * Returns the slugified name of the Extension
+     */
+    public function getSlug(): string
+    {
+        if ($this->slug === null) {
+            $this->slug = Slugify::create()->slugify($this->getName());
+        }
+
+        return $this->slug;
     }
 
     /**
@@ -151,7 +168,7 @@ abstract class BaseExtension implements ExtensionInterface
     /**
      * Shortcut method to register a widget and inject the extension into it
      */
-    public function registerWidget(WidgetInterface $widget): void
+    public function addWidget(WidgetInterface $widget): void
     {
         $widget->injectExtension($this);
 
@@ -165,7 +182,7 @@ abstract class BaseExtension implements ExtensionInterface
     /**
      * Shortcut method to register a TwigExtension.
      */
-    public function registerTwigExtension(TwigExtensionInterface $extension): void
+    public function addTwigExtension(TwigExtensionInterface $extension): void
     {
         if ($this->getTwig()->hasExtension(\get_class($extension))) {
             return;
@@ -174,12 +191,78 @@ abstract class BaseExtension implements ExtensionInterface
         $this->getTwig()->addExtension($extension);
     }
 
-    public function registerListener($event, $callback): void
+    /**
+     * Shortcut method to add a namespace to the current Twig Environment.
+     */
+    public function addTwigNamespace(string $namespace = '', string $foldername = ''): void
+    {
+        if (empty($namespace)) {
+            $namespace = $this->getSlug();
+        }
+
+        if (empty($foldername)) {
+            $foldername = $this->getTemplateFolder();
+        }
+
+        if (! realpath($foldername)) {
+            return;
+        }
+
+        /** @var NativeFilesystemLoader $twigLoaders */
+        $twigLoaders = $this->getTwig()->getLoader();
+
+        if ($twigLoaders instanceof FilesystemLoader) {
+            $twigLoaders->prependPath($foldername, $namespace);
+        }
+    }
+
+    private function getTemplateFolder(): ?string
+    {
+        $reflection = new \ReflectionClass($this);
+
+        $folder = dirname($reflection->getFilename()) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+
+        $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+
+        return null;
+    }
+
+    public function addListener($event, $callback): void
     {
         /** @var EventDispatcher $dp */
         $dp = $this->eventDispatcher;
 
         $dp->addListener($event, $callback);
+    }
+
+    /**
+     * @deprecated
+     */
+    public function registerWidget(WidgetInterface $widget): void
+    {
+        $this->addWidget($widget);
+    }
+
+    /**
+     * @deprecated
+     */
+    public function registerTwigExtension(TwigExtensionInterface $extension): void
+    {
+        $this->addTwigExtension($extension);
+    }
+
+    /**
+     * @deprecated
+     */
+    public function registerListener($event, $callback): void
+    {
+        $this->addListener($event, $callback);
     }
 
     /**

@@ -79,3 +79,5 @@ services:
         arguments:
             $debug: '%kernel.debug%'
 
+    Bolt\Extension\RoutesLoader:
+        tags: [routing.loader]
