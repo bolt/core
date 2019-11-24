@@ -7,6 +7,8 @@ namespace Bolt\Configuration\Parser;
 use Bolt\Common\Arr;
 use Bolt\Common\Str;
 use Bolt\Configuration\Content\ContentType;
+use Bolt\Configuration\Content\FieldType;
+use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
 use Bolt\Exception\ConfigurationException;
 use Tightenco\Collect\Support\Collection;
@@ -186,6 +188,9 @@ class ContentTypesParser extends BaseParser
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
+            // Convert array into FieldType
+            $field = new FieldType($field);
+
             $field['slug'] = $key;
 
             $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
@@ -265,12 +270,12 @@ class ContentTypesParser extends BaseParser
     /**
      * Basic validation of repeater fields.
      */
-    private function parseFieldRepeaters(array $repeater): array
+    private function parseFieldRepeaters(FieldType $repeater): FieldType
     {
         $blacklist = ['repeater', 'slug', 'templatefield'];
 
         if (! isset($repeater['fields']) || ! is_array($repeater['fields'])) {
-            return [];
+            return $repeater;
         }
 
         foreach ($repeater['fields'] as $repeaterKey => $repeaterField) {
