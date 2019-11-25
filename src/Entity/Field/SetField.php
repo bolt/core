@@ -29,13 +29,13 @@ class SetField extends Field implements FieldInterface
         $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
 
-        foreach($fieldDefinitions as $fieldName => $fieldDefinition) {
-            $currentSetFieldName = $this->getName() . ":" . $hash . ":". $fieldName;
+        foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
+            $currentSetFieldName = $this->getName() . ':' . $hash . ':'. $fieldName;
 
-            if($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
+            if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
                 $field = $this->getContent()->getField($currentSetFieldName);
                 $field->setLabel($fieldName);
-            }else{
+            } else {
                 $field = parent::factory($fieldDefinition, '', $fieldName);
                 $field->setName($currentSetFieldName);
             }

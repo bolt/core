@@ -321,12 +321,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
         if (! $field) {
             $fields = $content->getDefinition()->get('fields');
 
-            if(strpos($fieldName, ':') !== false){
+            if (mb_strpos($fieldName, ':') !== false) {
                 //if this is a SetField
-                list($setFieldName, $setFieldHash, $setFieldChildFieldName) = explode(":", $fieldName);
+                [$setFieldName,, $setFieldChildFieldName] = explode(':', $fieldName);
                 $setField = Field::factory($fields->get($setFieldName));
                 $field = Field::factory($setField->getDefinition()->get('fields')->get($setFieldChildFieldName), $fieldName, $setFieldChildFieldName);
-            }else {
+            } else {
                 $field = Field::factory($fields->get($fieldName), $fieldName);
             }
 
