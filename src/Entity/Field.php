@@ -121,11 +121,11 @@ class Field implements Translatable, FieldInterface
             $field->setName($name);
         }
 
+        $field->setDefinition($type, $definition);
+
         if ($label !== '') {
             $field->setLabel($label);
         }
-
-        $field->setDefinition($type, $definition);
 
         return $field;
     }
