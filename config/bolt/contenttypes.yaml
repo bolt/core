@@ -229,9 +229,8 @@ showcases:
             postfix: "Select an entry"
             autocomplete: true
             sort: title
-        dummyset:
+        set:
             type: set
-            name: set 2
             group: Sets
             fields:
                 title:
