@@ -11,26 +11,20 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class SetField extends Field implements FieldInterface
+class CollectionField extends Field implements FieldInterface
 {
     public function getType(): string
     {
-        return 'set';
-    }
-
-    private function getHash(): string
-    {
-        return empty($this->value) ? uniqid() : $this->value[0];
+        return 'collection';
     }
 
     public function getValue(): array
     {
-        $hash = $this->getHash();
         $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-            $currentSetFieldName = $fieldName;
+            $currentSetFieldName = $this->getName() . ':' . $fieldName;
 
             if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
                 $field = $this->getContent()->getField($currentSetFieldName);
@@ -42,8 +36,7 @@ class SetField extends Field implements FieldInterface
             $result[$currentSetFieldName] = $field;
         }
 
-        $result['hash'] = $hash;
-
+        dump($result);
         return $result;
     }
 }

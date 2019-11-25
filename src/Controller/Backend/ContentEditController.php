@@ -281,7 +281,16 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['fields'])) {
             foreach ($formData['fields'] as $fieldName => $fieldValue) {
-                $this->updateField($content, $fieldName, $fieldValue, $locale);
+                $field = $this->getFieldToUpdate($content, $fieldName);
+                $this->updateField($field, $fieldValue, $locale);
+            }
+        }
+
+        if(isset($formData['sets'])) {
+            foreach($formData['sets'] as $setType => $setsByType){
+                foreach($setsByType as $set) {
+                    $this->updateSet($content, $setType, $set, $locale);
+                }
             }
         }
 
@@ -300,7 +309,17 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function updateField(Content $content, string $fieldName, $value, ?string $locale): void
+    private function updateSet(?Content $content, string $setType, array $set, ?string $locale)
+    {
+        $setField = $content->getDefinition()->get('fields')->get($setType);
+
+        foreach($set as $setFieldChildName => $setFieldChildValue){
+            $setFieldChildField = Field::factory($setField->get('fields')->get($setFieldChildName), $setFieldChildName, $setFieldChildValue);
+            $this->updateField($setFieldChildField, $setFieldChildValue, $locale);
+        }
+    }
+
+    private function getFieldToUpdate(Content $content, string $fieldName): Field
     {
         /** @var Field $field */
         $field = null;
@@ -320,20 +339,17 @@ class ContentEditController extends TwigAwareController implements BackendZone
         // Perhaps create a new Field..
         if (! $field) {
             $fields = $content->getDefinition()->get('fields');
-
-            if (mb_strpos($fieldName, ':') !== false) {
-                //if this is a SetField
-                [$setFieldName,, $setFieldChildFieldName] = explode(':', $fieldName);
-                $setField = Field::factory($fields->get($setFieldName));
-                $field = Field::factory($setField->getDefinition()->get('fields')->get($setFieldChildFieldName), $fieldName, $setFieldChildFieldName);
-            } else {
-                $field = Field::factory($fields->get($fieldName), $fieldName);
-            }
+            $field = Field::factory($fields->get($fieldName), $fieldName);
 
             $field->setName($fieldName);
             $content->addField($field);
         }
 
+        return $field;
+    }
+
+    private function updateField(Field $field, $value, ?string $locale): void
+    {
         // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);

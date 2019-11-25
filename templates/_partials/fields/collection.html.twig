@@ -1,0 +1,8 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+   {% for fieldName, singleField in field.value %}
+      {% dump(singleField) %}
+      {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField} only %}
+   {% endfor %}
+{% endblock %}
