@@ -320,9 +320,17 @@ class ContentEditController extends TwigAwareController implements BackendZone
         // Perhaps create a new Field..
         if (! $field) {
             $fields = $content->getDefinition()->get('fields');
-            $field = Field::factory($fields->get($fieldName), $fieldName);
-            $field->setName($fieldName);
 
+            if(strpos($fieldName, ':') !== false){
+                //if this is a SetField
+                list($setFieldName, $setFieldHash, $setFieldChildFieldName) = explode(":", $fieldName);
+                $setField = Field::factory($fields->get($setFieldName));
+                $field = Field::factory($setField->getDefinition()->get('fields')->get($setFieldChildFieldName), $fieldName, $setFieldChildFieldName);
+            }else {
+                $field = Field::factory($fields->get($fieldName), $fieldName);
+            }
+
+            $field->setName($fieldName);
             $content->addField($field);
         }
 

@@ -18,30 +18,32 @@ class SetField extends Field implements FieldInterface
         return 'set';
     }
 
+    private function getHash(): string
+    {
+        return empty($this->value) ? uniqid() : $this->value[0];
+    }
+
     public function getValue(): array
     {
-//        $key => this->getHash();
+        $hash = $this->getHash();
         $fieldDefinitions = $this->getDefinition()->get('fields');
-
         $result = [];
 
         foreach($fieldDefinitions as $fieldName => $fieldDefinition) {
-            if($this->getContent()->hasField($fieldName)) {
-                $field = $this->getContent()->getField($fieldName);
+            $currentSetFieldName = $this->getName() . ":" . $hash . ":". $fieldName;
+
+            if($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
+                $field = $this->getContent()->getField($currentSetFieldName);
+                $field->setLabel($fieldName);
             }else{
-                $field = parent::factory($fieldDefinition);
-                $field->setName($fieldName);
+                $field = parent::factory($fieldDefinition, '', $fieldName);
+                $field->setName($currentSetFieldName);
             }
-            $result[$fieldName] = $field;
+            $result[$currentSetFieldName] = $field;
         }
 
-        dump($result);
+        $result['hash'] = $hash;
 
         return $result;
-    }
-
-    private function getHash()
-    {
-
     }
 }
