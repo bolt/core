@@ -20,7 +20,7 @@ The current locale is in the Request object, which is an instance of `Symfony\Co
 {% set class = 'class="languageselect_' ~ type ~ (class is defined ? ' ' ~ class) ~ '"' %}
 {% set style = (style is defined ? ' style="' ~ style ~ '"') %}
 
-{% if type == 'list' %}
+{% if type == 'list' and locales()|length %}
     <ul {{ class|raw }} {{ style|raw }}>
         {% for locale in locales() %}
             <li class="{{ locale.current ? 'current': '' }}">
@@ -30,7 +30,7 @@ The current locale is in the Request object, which is an instance of `Symfony\Co
     </ul>
 {% endif %}
 
-{% if type == 'select' %}
+{% if type == 'select' and locales()|length %}
     <select name="languageselect_list" type="select" {{ class|raw }} {{ style|raw }}
             onchange="if( this.options[this.selectedIndex].value != '' ) location.href=this.options[this.selectedIndex].value;">
         {% for locale in locales() %}
