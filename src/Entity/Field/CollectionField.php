@@ -18,25 +18,36 @@ class CollectionField extends Field implements FieldInterface
         return 'collection';
     }
 
+    private function getCollectionFieldValue(): string
+    {
+        return $this->value[0];
+    }
+
     public function getValue(): array
     {
         $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
 
-        foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-            $currentSetFieldName = $this->getName() . ':' . $fieldName;
+        $thisFieldValue = $this->getCollectionFieldValue();
 
-            if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
-                $field = $this->getContent()->getField($currentSetFieldName);
-                $field->setLabel($fieldName);
+        foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
+            $databaseFieldName = $thisFieldValue . "::" . $fieldName;
+
+            if ($this->getContent() && $this->getContent()->getField($this->getName())) {
+                $setField = new SetField();
+                $setField->setName((string) $databaseFieldName);
+                $setField->setContent($this->getContent());
+                $setField->setValue($thisFieldValue);
+                $setField->setDefinition('fields', $fieldDefinition);
+
+                $field = $setField;
             } else {
                 $field = parent::factory($fieldDefinition, '', $fieldName);
-                $field->setName($currentSetFieldName);
+                $field->setName($fieldName);
             }
-            $result[$currentSetFieldName] = $field;
+            $result[$fieldName] = $field;
         }
 
-        dump($result);
         return $result;
     }
 }
