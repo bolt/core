@@ -289,7 +289,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         if(isset($formData['sets'])) {
             foreach($formData['sets'] as $setType => $setsByType){
                 foreach($setsByType as $setHash => $set) {
-                    $this->updateSet($content, $setType, $setHash, $set, $locale);
+                    $this->updateSet($content, $setType, $set, $locale);
                 }
             }
         }
@@ -309,7 +309,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function updateSet(?Content $content, string $setType, string $setHash, array $set, ?string $locale)
+    private function updateSet(?Content $content, string $setType, array $set, ?string $locale)
     {
         $setField = $content->getDefinition()->get('fields')->get($setType);
         foreach($set as $setFieldChildName => $setFieldChildValue){
@@ -318,7 +318,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
                 $setFieldChildField = $content->getField($setFieldChildName);
             } else {
                 $childDefinitionName = explode("::", $setFieldChildName)[1];
-                $setFieldChildField = Field::factory($setField->get('fields')->get($childDefinitionName), $setFieldChildName, $setFieldChildValue);
+                $setFieldChildField = Field::factory($setField->get('fields')
+                    ->get($childDefinitionName), $setFieldChildName, $setFieldChildValue);
+            }
+
+            if(!$content->hasField($setFieldChildName)){
+                $content->addField($setFieldChildField);
             }
 
             $this->updateField($setFieldChildField, $setFieldChildValue, $locale);

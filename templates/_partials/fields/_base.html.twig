@@ -34,11 +34,7 @@
 
 {# Set the name #}
 {% if not name|default %}
-    {% if fieldset_type is defined %}
-        {%  set name = fieldset_type ~ 's[' ~ field.name|default('unnamed') ~ ']' %}
-    {% else %}
-        {%  set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
-    {% endif %}
+    {%  set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
 {% endif %}
 
 {# Set the id #}
