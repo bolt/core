@@ -23,6 +23,7 @@ import ThemeSelect from './Components/ThemeSelect';
 import Language from './Components/Language';
 import File from './Components/File';
 import Filelist from './Components/Filelist';
+import Collection from './Components/Collection';
 
 new Vue({
   store,
@@ -44,6 +45,7 @@ new Vue({
     'editor-slug': Slug,
     'editor-text': Text,
     'editor-textarea': Textarea,
+    'editor-collection': Collection,
     'general-language': Language,
     'theme-select': ThemeSelect,
   },
