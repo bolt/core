@@ -287,22 +287,22 @@ class ContentEditController extends TwigAwareController implements BackendZone
             }
         }
 
-        if(isset($formData['sets'])) {
-            foreach($formData['sets'] as $setType => $setsByType){
-                foreach($setsByType as $setHash => $set) {
+        if (isset($formData['sets'])) {
+            foreach ($formData['sets'] as $setType => $setsByType) {
+                foreach ($setsByType as $setHash => $set) {
                     $setDefinition = $content->getDefinition()->get('fields')->get($setType);
                     $this->updateSet($content, $setDefinition, $set, $locale);
                 }
             }
         }
 
-        if(isset($formData['collections'])) {
-            foreach($formData['collections'] as $collection => $collectionItems){
-                foreach($collectionItems as $collectionItemName => $collectionItemValue){
+        if (isset($formData['collections'])) {
+            foreach ($formData['collections'] as $collection => $collectionItems) {
+                foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
                     $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
-                     foreach($collectionItemValue as $setHash => $set){
-                        $this->updateSet($content, $setDefinition, $set, $locale);
-                     }
+                    foreach ($collectionItemValue as $setHash) {
+                        $this->updateSet($content, $setDefinition, $collectionItemValue[$setHash], $locale);
+                    }
                 }
             }
         }
@@ -322,19 +322,18 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function updateSet(?Content $content, ContentType $setDefinition, array $set, ?string $locale)
+    private function updateSet(?Content $content, ContentType $setDefinition, array $set, ?string $locale): void
     {
-        foreach($set as $setFieldChildName => $setFieldChildValue){
-
-            if($content->hasField($setFieldChildName)){
+        foreach ($set as $setFieldChildName => $setFieldChildValue) {
+            if ($content->hasField($setFieldChildName)) {
                 $setFieldChildField = $content->getField($setFieldChildName);
             } else {
-                $childDefinitionName = explode("::", $setFieldChildName)[1];
+                $childDefinitionName = explode('::', $setFieldChildName)[1];
                 $setFieldChildField = Field::factory($setDefinition->get('fields')
                     ->get($childDefinitionName), $setFieldChildName, $setFieldChildValue);
             }
 
-            if(!$content->hasField($setFieldChildName)){
+            if (! $content->hasField($setFieldChildName)) {
                 $content->addField($setFieldChildField);
             }
 
