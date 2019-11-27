@@ -5,10 +5,14 @@
    {% set hash = field.value.hash %}
    {% for fieldName, singleField in field.value %}
       {% if fieldName == 'hash' %}
-         <input type="hidden" value="{{ singleField }}" name="{{ name }}">
+         {#<input type="" value="{{ singleField }}" name="{{ name }}"> #}
       {% else %}
-         {% set fieldName = 'sets[' ~ field.name ~ ']' ~ '[' ~ hash ~ ']' ~ '[' ~ singleField.name ~ ']'%}
-         {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField, 'name': fieldName} only %}
+         {% if fieldset_type is defined %}
+            {% set fieldName = name ~ '[' ~ hash ~ ']' ~ '[' ~ singleField.name ~ ']'%}
+            {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField, 'name': fieldName } only %}
+         {% else %}
+            {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField,  'fieldset_type': field.type } only %}
+         {% endif %}
       {% endif %}
    {% endfor %}
 {% endblock %}

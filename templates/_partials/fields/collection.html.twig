@@ -2,7 +2,6 @@
 
 {% block field %}
    {% for fieldName, singleField in field.value %}
-      {% dump(singleField) %}
-      {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField} only %}
+      {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField, 'fieldset_type': field.type } only %}
    {% endfor %}
 {% endblock %}
