@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
@@ -289,7 +290,19 @@ class ContentEditController extends TwigAwareController implements BackendZone
         if(isset($formData['sets'])) {
             foreach($formData['sets'] as $setType => $setsByType){
                 foreach($setsByType as $setHash => $set) {
-                    $this->updateSet($content, $setType, $set, $locale);
+                    $setDefinition = $content->getDefinition()->get('fields')->get($setType);
+                    $this->updateSet($content, $setDefinition, $set, $locale);
+                }
+            }
+        }
+
+        if(isset($formData['collections'])) {
+            foreach($formData['collections'] as $collection => $collectionItems){
+                foreach($collectionItems as $collectionItemName => $collectionItemValue){
+                    $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
+                     foreach($collectionItemValue as $setHash => $set){
+                        $this->updateSet($content, $setDefinition, $set, $locale);
+                     }
                 }
             }
         }
@@ -309,16 +322,15 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function updateSet(?Content $content, string $setType, array $set, ?string $locale)
+    private function updateSet(?Content $content, ContentType $setDefinition, array $set, ?string $locale)
     {
-        $setField = $content->getDefinition()->get('fields')->get($setType);
         foreach($set as $setFieldChildName => $setFieldChildValue){
 
             if($content->hasField($setFieldChildName)){
                 $setFieldChildField = $content->getField($setFieldChildName);
             } else {
                 $childDefinitionName = explode("::", $setFieldChildName)[1];
-                $setFieldChildField = Field::factory($setField->get('fields')
+                $setFieldChildField = Field::factory($setDefinition->get('fields')
                     ->get($childDefinitionName), $setFieldChildName, $setFieldChildValue);
             }
 

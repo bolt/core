@@ -5,7 +5,8 @@
    {% set hash = field.value.hash %}
    {% for fieldName, singleField in field.value %}
       {% if fieldName == 'hash' %}
-         <input type="" value="{{ singleField }}" name="{{ name }}">
+         {# <input type="" value="{{ singleField }}" name="fields[{{ field.name }}]"> #}
+         {# TODO: Fix this above #}
       {% else %}
          {% if in_collection is defined %}
             {% set setItemName = name ~ '[' ~ hash ~ ']' ~ '[' ~ singleField.name ~ ']'%}

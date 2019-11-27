@@ -1,8 +1,8 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-   {% for fieldName, singleField in field.value %}
-      {% set collectionItemName = 'collections[' ~ fieldName ~ ']' %}
-      {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField, 'in_collection': true, 'name': collectionItemName } only %}
+   {% for item_definition_name, item_field in field.value %}
+      {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_definition_name ~ ']' %}
+      {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
    {% endfor %}
 {% endblock %}
