@@ -242,7 +242,7 @@ class Field implements Translatable, FieldInterface
         return $this;
     }
 
-    public function setLocale(string $locale): void
+    public function setLocale(?string $locale): void
     {
         $this->locale = $locale;
     }
