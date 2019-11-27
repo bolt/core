@@ -39,6 +39,7 @@ class CollectionField extends Field implements FieldInterface
                 $setField->setContent($this->getContent());
                 $setField->setValue($thisFieldValue);
                 $setField->setDefinition('fields', $fieldDefinition);
+                $setField->setName($fieldName);
 
                 $field = $setField;
             } else {
