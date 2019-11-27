@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
@@ -281,7 +282,28 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['fields'])) {
             foreach ($formData['fields'] as $fieldName => $fieldValue) {
-                $this->updateField($content, $fieldName, $fieldValue, $locale);
+                $field = $this->getFieldToUpdate($content, $fieldName);
+                $this->updateField($field, $fieldValue, $locale);
+            }
+        }
+
+        if (isset($formData['sets'])) {
+            foreach ($formData['sets'] as $setType => $setsByType) {
+                foreach ($setsByType as $setHash => $set) {
+                    $setDefinition = $content->getDefinition()->get('fields')->get($setType);
+                    $this->updateSet($content, $setDefinition, $set, $locale);
+                }
+            }
+        }
+
+        if (isset($formData['collections'])) {
+            foreach ($formData['collections'] as $collection => $collectionItems) {
+                foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
+                    $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
+                    foreach ($collectionItemValue as $setHash) {
+                        $this->updateSet($content, $setDefinition, $collectionItemValue[$setHash], $locale);
+                    }
+                }
             }
         }
 
@@ -300,7 +322,26 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function updateField(Content $content, string $fieldName, $value, ?string $locale): void
+    private function updateSet(?Content $content, ContentType $setDefinition, array $set, ?string $locale): void
+    {
+        foreach ($set as $setFieldChildName => $setFieldChildValue) {
+            if ($content->hasField($setFieldChildName)) {
+                $setFieldChildField = $content->getField($setFieldChildName);
+            } else {
+                $childDefinitionName = explode('::', $setFieldChildName)[1];
+                $setFieldChildField = Field::factory($setDefinition->get('fields')
+                    ->get($childDefinitionName), $setFieldChildName, $setFieldChildValue);
+            }
+
+            if (! $content->hasField($setFieldChildName)) {
+                $content->addField($setFieldChildField);
+            }
+
+            $this->updateField($setFieldChildField, $setFieldChildValue, $locale);
+        }
+    }
+
+    private function getFieldToUpdate(Content $content, string $fieldName): Field
     {
         /** @var Field $field */
         $field = null;
@@ -320,20 +361,17 @@ class ContentEditController extends TwigAwareController implements BackendZone
         // Perhaps create a new Field..
         if (! $field) {
             $fields = $content->getDefinition()->get('fields');
-
-            if (mb_strpos($fieldName, ':') !== false) {
-                //if this is a SetField
-                [$setFieldName,, $setFieldChildFieldName] = explode(':', $fieldName);
-                $setField = Field::factory($fields->get($setFieldName));
-                $field = Field::factory($setField->getDefinition()->get('fields')->get($setFieldChildFieldName), $fieldName, $setFieldChildFieldName);
-            } else {
-                $field = Field::factory($fields->get($fieldName), $fieldName);
-            }
+            $field = Field::factory($fields->get($fieldName), $fieldName);
 
             $field->setName($fieldName);
             $content->addField($field);
         }
 
+        return $field;
+    }
+
+    private function updateField(Field $field, $value, ?string $locale): void
+    {
         // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);
