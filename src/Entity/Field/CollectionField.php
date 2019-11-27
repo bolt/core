@@ -18,9 +18,9 @@ class CollectionField extends Field implements FieldInterface
         return 'collection';
     }
 
-    private function getCollectionFieldValue(): string
+    private function getCollectionFieldValues(): array
     {
-        return $this->value[0];
+        return $this->value;
     }
 
     public function getValue(): array
@@ -28,25 +28,28 @@ class CollectionField extends Field implements FieldInterface
         $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
 
-        $thisFieldValue = $this->getCollectionFieldValue();
+        $thisFieldValues = $this->getCollectionFieldValues();
 
-        foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-            $databaseFieldName = $thisFieldValue . "::" . $fieldName;
+        foreach($thisFieldValues as $thisFieldValue) {
+            foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
 
-            if ($this->getContent() && $this->getContent()->getField($this->getName())) {
-                $setField = new SetField();
-                $setField->setName((string) $databaseFieldName);
-                $setField->setContent($this->getContent());
-                $setField->setValue($thisFieldValue);
-                $setField->setDefinition('fields', $fieldDefinition);
-                $setField->setName($fieldName);
+                $databaseFieldName = $thisFieldValue . "::" . $fieldName;
 
-                $field = $setField;
-            } else {
-                $field = parent::factory($fieldDefinition, '', $fieldName);
-                $field->setName($fieldName);
+                if ($this->getContent() && $this->getContent()->getField($this->getName())) {
+                    $field = new SetField();
+                    $field->setName((string)$databaseFieldName);
+                    $field->setContent($this->getContent());
+                    $field->setValue($thisFieldValue);
+                    $field->setDefinition('fields', $fieldDefinition);
+                    $field->setName($fieldName);
+                } else {
+                    $field = parent::factory($fieldDefinition, '', $fieldName);
+                    $field->setName($fieldName);
+                }
+
+                $result[$databaseFieldName] = $field;
+
             }
-            $result[$fieldName] = $field;
         }
 
         return $result;

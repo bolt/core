@@ -2,7 +2,7 @@
 
 {% block field %}
    {% for item_definition_name, item_field in field.value %}
-      {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_definition_name ~ ']' %}
-      {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
+       {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
+       {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
    {% endfor %}
 {% endblock %}
