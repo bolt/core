@@ -8,18 +8,10 @@
        {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
    {% endfor %}
    #}
-    
-    {% set values_array = [] %}
-    {% for item_definition_name, item_field in field.value %}
-        {% dump(item_field) %}
-        {% set values_array = values_array|merge({(item_definition_name): item_field}) %}
-    {% endfor %}
 
-    {% dump(values_array) %}
-    {% dump(values_array|json_encode(constant('JSON_PRETTY_PRINT'))) %}
 
     <editor-collection
             :id="{{ id|json_encode }}"
-            :values="{{ values_array|json_encode }}"
+            :values="{{ field.value|json_encode }}"
     ></editor-collection>
 {% endblock %}

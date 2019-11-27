@@ -12,7 +12,7 @@
 
 <script>
     export default {
-        name: 'EditorCollection',
+        name: 'EditorSet',
         props: ['values', 'id'],
 
         data() {
@@ -21,9 +21,9 @@
                 theContainerFieldsArray[index] = JSON.parse(field);
             });
 
-          return {
-              valuesData: containerFields,
-          }
+            return {
+                valuesData: containerFields,
+            }
         },
         mounted(){
             this.valuesData.forEach(function(value){

@@ -50,6 +50,6 @@ class CollectionField extends Field implements FieldInterface
             }
         }
 
-        return $result;
+        return array_values($result);
     }
 }
