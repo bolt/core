@@ -1,0 +1,11 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+   {% for fieldName, singleField in field.value %}
+      {% if fieldName == 'hash' %}
+         <input type="hidden" value="{{ singleField }}" name="{{ name }}">
+      {% else %}
+      {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField} only %}
+      {% endif %}
+   {% endfor %}
+{% endblock %}

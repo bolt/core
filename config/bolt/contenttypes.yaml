@@ -229,18 +229,13 @@ showcases:
             postfix: "Select an entry"
             autocomplete: true
             sort: title
-        repeater:
-            type: repeater
-            group: repeater
-            limit: 3
-            prefix: "This allows you to create multiple sets of fields. Use the add button at the bottom to create a new empty set."
+        set:
+            type: set
+            group: Sets
             fields:
-                repeattitle:
+                title:
                     type: text
-                repeatimage:
-                    type: image
-                    extensions: [ gif, jpg, png ]
-                repeatcontent:
+                html:
                     type: html
     relations:
         entries:

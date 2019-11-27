@@ -106,7 +106,7 @@ class Field implements Translatable, FieldInterface
         return null;
     }
 
-    public static function factory(LaravelCollection $definition, string $name = ''): self
+    public static function factory(LaravelCollection $definition, string $name = '', string $label = ''): self
     {
         $type = $definition['type'];
 
@@ -122,6 +122,10 @@ class Field implements Translatable, FieldInterface
         }
 
         $field->setDefinition($type, $definition);
+
+        if ($label !== '') {
+            $field->setLabel($label);
+        }
 
         return $field;
     }
@@ -280,6 +284,13 @@ class Field implements Translatable, FieldInterface
     public function setParent(?self $parent): self
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function setLabel(string $label): self
+    {
+        $this->getDefinition()->put('label', $label);
 
         return $this;
     }
