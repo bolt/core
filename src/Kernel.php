@@ -40,7 +40,7 @@ class Kernel extends BaseKernel
     {
         return \dirname(__DIR__);
     }
-    
+
     public function registerBundles(): iterable
     {
         $contents = require $this->getProjectDir() . '/config/bundles.php';
