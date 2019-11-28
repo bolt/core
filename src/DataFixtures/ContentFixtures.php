@@ -211,6 +211,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'number':
                 $data = [$this->faker->numberBetween(-100, 1000)];
                 break;
+            case 'data':
+                $data = [];
+                for ($i = 1; $i < 5; $i++) {
+                    $data[$this->faker->sentence(1)] = $this->faker->sentence(4, true);
+                }
+                break;
             default:
                 $data = [$this->faker->sentence(6, true)];
         }
