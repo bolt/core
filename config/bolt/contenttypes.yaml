@@ -179,13 +179,11 @@ showcases:
         markdown:
             type: markdown
             postfix: "This field gets parsed as <a href='https://help.github.com/articles/markdown-basics'>Markdown</a>, when rendered on the site."
-        geolocation:
-            type: geolocation
-            group: Media
+        email:
+            type: email
         embed:
             type: embed
-        video:
-            type: video
+            group: Media
         image:
             type: image
             extensions: [ gif, jpg, png ]
@@ -194,15 +192,13 @@ showcases:
             type: imagelist
         file:
             type: file
-            group: files
+            group: Files
         filelist:
             type: filelist
         checkbox:
             type: checkbox
             label: "This is a checkbox"
-            group: other
-        email:
-            type: email
+            group: Other
         datetime:
             type: date
             mode: datetime
@@ -229,6 +225,16 @@ showcases:
             postfix: "Select an entry"
             autocomplete: true
             sort: title
+        hiddenfield:
+            type: hidden
+            group: internal
+        datafield:
+            type: data
+        geolocation:
+            type: geolocation
+            group: Unfinished
+        video:
+            type: video
         set:
             type: set
             group: Sets
