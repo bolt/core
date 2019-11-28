@@ -94,7 +94,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 continue;
             }
 
-            $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 1);
+            $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
 
             for ($i = 1; $i <= $amount; $i++) {
                 if ($i === 1) {
