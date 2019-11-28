@@ -12,11 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class HiddenField extends Field implements FieldInterface
+class DataField extends Field implements FieldInterface
 {
     public function getType(): string
     {
-        return 'hidden';
+        return 'data';
     }
 
     public function setValue($value): Field
