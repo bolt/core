@@ -13,6 +13,7 @@
         "bolt/common": "^2.1.0",
         "cocur/slugify": "^3.2",
         "composer/composer": "^1.9",
+        "davidbadura/faker-markdown-generator": "^1.0",
         "doctrine/doctrine-bundle": "^1.12",
         "doctrine/doctrine-cache-bundle": "^1.3.1",
         "doctrine/orm": "^2.7",

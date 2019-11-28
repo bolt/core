@@ -10,6 +10,8 @@ use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
+use Bolt\Utils\Markdown;
+use DavidBadura\FakerMarkdownGenerator\FakerProvider;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -39,12 +41,23 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var FileLocations */
     private $fileLocations;
 
-    public function __construct(Config $config, FileLocations $fileLocations)
+    /** @var Markdown */
+    private $markdown;
+
+    /** @var FakerProvider */
+    private $markdownFaker;
+
+    public function __construct(Config $config, FileLocations $fileLocations, Markdown $markdown)
     {
         $this->faker = Factory::create();
+
+        /* Note: don't use `$faker->addProvider`, because it'll make PHPStan throw a hissy fit. */
+        $this->markdownFaker = new FakerProvider($this->faker);
+
         $this->presetRecords = $this->getPresetRecords();
         $this->config = $config;
         $this->fileLocations = $fileLocations;
+        $this->markdown = $markdown;
     }
 
     public function getDependencies()
@@ -81,7 +94,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 continue;
             }
 
-            $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 3);
+            $amount = $contentType['singleton'] ? 1 : (int) ($contentType['listing_records'] * 1);
 
             for ($i = 1; $i <= $amount; $i++) {
                 if ($i === 1) {
@@ -159,8 +172,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     {
         switch ($field['type']) {
             case 'html':
-            case 'textarea':
+                $markdown = $this->markdownFaker->markdown();
+                $data = [$this->markdown->parse($markdown)];
+                break;
             case 'markdown':
+                $data = [$this->markdownFaker->markdown()];
+                break;
+            case 'textarea':
                 $data = [$this->faker->paragraphs(3, true)];
                 break;
             case 'image':
@@ -177,13 +195,21 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
                 break;
             case 'text':
-                $data = [$this->faker->sentence(6, true)];
+                $words = in_array($field['slug'], ['title', 'heading'], true) ? 2 : 7;
+                $data = [$this->faker->sentence($words, true)];
                 break;
             case 'email':
                 $data = [$this->faker->email];
                 break;
             case 'templateselect':
                 $data = [];
+                break;
+            case 'date':
+            case 'datetime':
+                $data = [$this->faker->dateTime()->format('c')];
+                break;
+            case 'number':
+                $data = [$this->faker->numberBetween(-100, 1000)];
                 break;
             default:
                 $data = [$this->faker->sentence(6, true)];
