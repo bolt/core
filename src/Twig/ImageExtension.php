@@ -101,7 +101,7 @@ class ImageExtension extends AbstractExtension
      */
     public function thumbnail($image, int $width = 320, int $height = 240, ?string $location = null, ?string $path = null, ?string $fit = null)
     {
-        $filename = $this->getFilename($image);
+        $filename = $this->getFilename($image, true);
 
         if (empty($filename)) {
             return '';
@@ -151,7 +151,7 @@ class ImageExtension extends AbstractExtension
     /**
      * @param ImageField|Content|array|string $image
      */
-    private function getFilename($image): ?string
+    private function getFilename($image, bool $relative = false): ?string
     {
         $filename = null;
 
@@ -159,12 +159,12 @@ class ImageExtension extends AbstractExtension
             $image = $this->getImageFromContent($image);
         }
 
-        if ($image instanceof ImageField) {
-            $filename = $image->get('filename');
-        } elseif (is_array($image)) {
+        if (is_array($image)) {
             $filename = $image['filename'];
-        } elseif (is_string($image)) {
-            $filename = $image;
+        } elseif ($relative && ($image instanceof ImageField)) {
+            $filename = $image->get('filename');
+        } else {
+            $filename = (string) $image;
         }
 
         return $filename;
