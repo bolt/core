@@ -24,6 +24,7 @@ import Language from './Components/Language';
 import File from './Components/File';
 import Filelist from './Components/Filelist';
 import Collection from './Components/Collection';
+import Set from './Components/Set'
 
 new Vue({
   store,
@@ -46,6 +47,7 @@ new Vue({
     'editor-text': Text,
     'editor-textarea': Textarea,
     'editor-collection': Collection,
+    'editor-set': Set,
     'general-language': Language,
     'theme-select': ThemeSelect,
   },

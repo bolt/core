@@ -1,34 +1,47 @@
 <template>
     <div>
-        <input
-                :id="id"
-                class="form-control"
-                :name="name"
-                :value="values"
-                type="email"
-        />
+        <div ref="container">
+        </div>
     </div>
 </template>
 
 <script>
+    import Text from './Text';
+    import Vue from 'vue';
     export default {
         name: 'EditorSet',
-        props: ['values', 'id'],
+        props: ['setData', 'id', 'setName'],
 
         data() {
-            let containerFields  = this.values;
-            containerFields.forEach(function(field, index, theContainerFieldsArray) {
-                theContainerFieldsArray[index] = JSON.parse(field);
-            });
-
             return {
-                valuesData: containerFields,
+                fields: this.setData.fields,
+                hash: this.setData.hash
             }
         },
         mounted(){
-            this.valuesData.forEach(function(value){
-                console.log(value[value.hash + '::title_value']);
+            console.log(this.fields);
+            let thisComponent = this;
+            this.fields.forEach(function(field){
+                thisComponent.createTextField(field);
             });
+        },
+        methods: {
+            generateFieldName(fieldName){
+                return this.setName + '[' + this.hash + '][' + fieldName + ']';
+            },
+            createTextField(field) {
+                const TextClass = Vue.extend(Text);
+
+                const textField = new TextClass({
+                    propsData: {
+                        value: field._value[0],
+                        name: this.generateFieldName(field.name),
+                    }
+                }).$mount();
+
+                this.$refs.container.appendChild(textField.$el);
+
+            }
         }
     };
 </script>

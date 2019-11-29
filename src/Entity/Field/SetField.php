@@ -28,6 +28,7 @@ class SetField extends Field implements FieldInterface, \JsonSerializable
         $hash = $this->getHash();
         $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
+        $i = 0;
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
             $currentSetFieldName = $hash . '::' . $fieldName;
@@ -40,12 +41,13 @@ class SetField extends Field implements FieldInterface, \JsonSerializable
                 $field->setName($currentSetFieldName);
             }
 
-            $result[$currentSetFieldName] = $field;
+            $result['fields'][$i] = $field;
 
             if ($jsonify) {
-                $result[$currentSetFieldName . '_value'] = $field->getValue();
-                $result[$currentSetFieldName . '_type'] = $field->getType();
+                $result['fields'][$i]->_value = $field->getValue();
+                $result['fields'][$i]->_type = $field->getType();
             }
+            $i++;
         }
 
         $result['hash'] = $hash;
