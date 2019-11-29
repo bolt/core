@@ -185,7 +185,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
                 break;
             case 'text':
-                $words = in_array($field['slug'], ['title', 'heading'], true) ? 2 : 7;
+                $words = in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
                 $data = [$this->faker->sentence($words, true)];
                 break;
             case 'email':
