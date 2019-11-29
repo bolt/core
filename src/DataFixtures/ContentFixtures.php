@@ -10,8 +10,7 @@ use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
-use Bolt\Utils\Markdown;
-use DavidBadura\FakerMarkdownGenerator\FakerProvider;
+use Bolt\Utils\FakeContent;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -41,23 +40,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var FileLocations */
     private $fileLocations;
 
-    /** @var Markdown */
-    private $markdown;
-
-    /** @var FakerProvider */
-    private $markdownFaker;
-
-    public function __construct(Config $config, FileLocations $fileLocations, Markdown $markdown)
+    public function __construct(Config $config, FileLocations $fileLocations)
     {
         $this->faker = Factory::create();
-
-        /* Note: don't use `$faker->addProvider`, because it'll make PHPStan throw a hissy fit. */
-        $this->markdownFaker = new FakerProvider($this->faker);
 
         $this->presetRecords = $this->getPresetRecords();
         $this->config = $config;
         $this->fileLocations = $fileLocations;
-        $this->markdown = $markdown;
     }
 
     public function getDependencies()
@@ -126,7 +115,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     if (isset($preset[$name])) {
                         $field->setValue($preset[$name]);
                     } else {
-                        $field->setValue($this->getValuesforFieldType($name, $fieldType));
+                        $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
                     }
                     $field->setSortorder($sortorder++ * 5);
 
@@ -168,15 +157,16 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType(string $name, DeepCollection $field): array
+    private function getValuesforFieldType(string $name, DeepCollection $field, bool $singleton): array
     {
+        $nb = $singleton ? 8 : 4;
+
         switch ($field['type']) {
             case 'html':
-                $markdown = $this->markdownFaker->markdown();
-                $data = [$this->markdown->parse($markdown)];
+                $data = [FakeContent::generateHTML($nb)];
                 break;
             case 'markdown':
-                $data = [$this->markdownFaker->markdown()];
+                $data = [FakeContent::generateMarkdown($nb)];
                 break;
             case 'textarea':
                 $data = [$this->faker->paragraphs(3, true)];
@@ -195,7 +185,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
                 break;
             case 'text':
-                $words = in_array($field['slug'], ['title', 'heading'], true) ? 2 : 7;
+                $words = in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
                 $data = [$this->faker->sentence($words, true)];
                 break;
             case 'email':
