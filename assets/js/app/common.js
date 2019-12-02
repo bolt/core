@@ -55,4 +55,11 @@ $(document).ready(function() {
   $('.datetime-relative').each(function() {
     $(this).text(DateTime.fromISO($(this).text()).toRelativeCalendar());
   });
+
+  $('.onRemoveSet').on('click', function(e){
+    e.preventDefault();
+    $(this).parent().remove();
+  });
 });
+
+

@@ -1,15 +1,15 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
+      {% if in_collection is defined %}
+         {% set setName = name %}
+      {% else %}
+         {% set setName = 'sets[' ~ field.name ~ ']'%}
+      {% endif %}
 
-   {% if in_collection is defined %}
-      {% set setName = name %}
-   {% else %}
-      {% set setName = 'sets[' ~ field.name ~ ']'%}
-   {% endif %}
-
-   {% for fieldItem in field.value.fields %}
-      {% set setItemName = setName ~ '[' ~ field.value.hash ~ ']' ~ '[' ~ fieldItem.name ~ ']'%}
-      {% include '@bolt/_partials/fields/' ~ fieldItem.type ~ '.html.twig' with {'field' : fieldItem, 'name' : setItemName} only %}
-   {% endfor %}
+      {% for fieldItem in field.value.fields %}
+        {% set setItemName = setName ~ '[' ~ field.value.hash ~ ']' ~ '[' ~ fieldItem.name ~ ']'%}
+             {% include '@bolt/_partials/fields/' ~ fieldItem.type ~ '.html.twig' with {'field' : fieldItem, 'name' : setItemName} only %}
+          {% endfor %}
+        <button class='onRemoveSet'>Remove set</button>
 {% endblock %}

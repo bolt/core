@@ -1,8 +1,24 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-   {% for item_definition_name, item_field in field.value %}
+   {% set set_hashes = [] %}
+   {% for item_field in field.value.fields %}
        {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
        {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
+       {% set set_hashes = set_hashes|merge([item_field.value.hash]) %}
    {% endfor %}
+
+    {% set templated_fields = [] %}
+    {% for item_field in field.value.templates %}
+        {% set templated_field %}
+            {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true} only %}
+        {% endset %}
+        {% set templated_fields = templated_fields|merge({(item_field.name):templated_field}) %}
+    {% endfor %}
+
+    <editor-collection
+        :set-hashes='{{ set_hashes | json_encode }}'
+        :templates='{{ templated_fields | json_encode }}'
+    ></editor-collection>
+
 {% endblock %}

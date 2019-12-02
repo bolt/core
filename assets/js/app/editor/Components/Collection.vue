@@ -1,34 +1,30 @@
 <template>
     <div>
-        <input
-                :id="id"
-                class="form-control"
-                :name="name"
-                :value="values"
-                type="email"
-        />
+        <div v-for="element in elements">
+            <div :is="element"></div>
+        </div>
+
+        <button class="btn btn-secondary" type="button" @click="addSet">
+            Add set
+        </button>
     </div>
 </template>
 
 <script>
+    import Vue from 'vue';
     export default {
         name: 'EditorCollection',
-        props: ['values', 'id'],
-
-        data() {
-            let containerFields  = this.values;
-            containerFields.forEach(function(field, index, theContainerFieldsArray) {
-                theContainerFieldsArray[index] = JSON.parse(field);
-            });
-
-          return {
-              valuesData: containerFields,
-          }
+        props: ['id', 'templates'],
+        data(){
+            return {
+              elements: [],
+            }
         },
-        mounted(){
-            this.valuesData.forEach(function(value){
-                console.log(value[value.hash + '::title_value']);
-            });
+        methods: {
+            addSet(){
+              let res = Vue.compile(this.templates.author);
+              this.elements.push(res);
+            },
         }
     };
 </script>
