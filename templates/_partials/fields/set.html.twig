@@ -2,39 +2,15 @@
 
 {% block field %}
 
-
-
-   {% dump(field.value) %}
-
    {% if in_collection is defined %}
       {% set setName = name %}
    {% else %}
       {% set setName = 'sets[' ~ field.name ~ ']'%}
    {% endif %}
 
-   <editor-set
-         :id="{{ id|json_encode }}"
-         :set-data="{{ field.jsonSerialize }}"
-         :set-name="{{ setName|json_encode }}"
-      ></editor-set>
-
-
-
-   {#
-   {% set hash = field.value.hash %}
-   {% for fieldName, singleField in field.value %}
-      {% if fieldName == 'hash' %}
-         <input type="" value="{{ singleField }}" name="fields[{{ field.name }}]">
-         {# TODO: Fix this above
-      {% else %}
-         {% if in_collection is defined %}
-            {% set setItemName = name ~ '[' ~ hash ~ ']' ~ '[' ~ singleField.name ~ ']'%}
-         {% else %}
-            {% set setItemName = 'sets[' ~ field.name ~ '][' ~ hash ~ ']' ~ '[' ~ singleField.name ~ ']'%}
-         {% endif %}
-
-         {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField, 'name': setItemName } only %}
-      {% endif %}
+   {% for fieldItem in field.value.fields %}
+      {% dump(fieldItem) %}
+      {% set setItemName = 'sets[' ~ field.name ~ '][' ~ field.value.hash ~ ']' ~ '[' ~ fieldItem.name ~ ']'%}
+      {% include '@bolt/_partials/fields/' ~ fieldItem.type ~ '.html.twig' with {'field' : fieldItem, 'name' : setItemName} only %}
    {% endfor %}
-   #}
 {% endblock %}

@@ -42,11 +42,6 @@ class SetField extends Field implements FieldInterface, \JsonSerializable
             }
 
             $result['fields'][$i] = $field;
-
-            if ($jsonify) {
-                $result['fields'][$i]->_value = $field->getValue();
-                $result['fields'][$i]->_type = $field->getType();
-            }
             $i++;
         }
 
