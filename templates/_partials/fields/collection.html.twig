@@ -1,17 +1,8 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-
-    {#
    {% for item_definition_name, item_field in field.value %}
        {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
        {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
    {% endfor %}
-   #}
-
-
-    <editor-collection
-            :id="{{ id|json_encode }}"
-            :values="{{ field.value|json_encode }}"
-    ></editor-collection>
 {% endblock %}
