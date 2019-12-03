@@ -56,12 +56,13 @@ trait ConfigTrait
     public function getConfigFilenames(): array
     {
         $slugify = new Slugify();
-        $base = $slugify->slugify(str_replace('Extension', '', $this->getClass()));
+        $baseClassPath = mb_substr($this->getClass(), 0, mb_strrpos($this->getClass(), '\\'));
+        $baseName = $slugify->slugify($baseClassPath);
         $path = $this->getBoltConfig()->getPath('extensions_config');
 
         return [
-            'main' => sprintf('%s%s%s.yaml', $path, DIRECTORY_SEPARATOR, $base),
-            'local' => sprintf('%s%s%s_local.yaml', $path, DIRECTORY_SEPARATOR, $base),
+            'main' => sprintf('%s%s%s.yaml', $path, DIRECTORY_SEPARATOR, $baseName),
+            'local' => sprintf('%s%s%s_local.yaml', $path, DIRECTORY_SEPARATOR, $baseName),
         ];
     }
 
