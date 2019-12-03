@@ -26,7 +26,7 @@ class Canonical
     /** @var string */
     private $host = null;
 
-    /** @var string */
+    /** @var int */
     private $port = null;
 
     /** @var string */
@@ -63,7 +63,7 @@ class Canonical
         $this->setPort($configUrl['port'] ?? null);
     }
 
-    public function get(): string
+    public function get(): ?string
     {
         // Ensure request has been matched
         if (! $this->request->attributes->get('_route')) {
@@ -92,6 +92,11 @@ class Canonical
         return $this->urlGenerator;
     }
 
+    public function getScheme(): string
+    {
+        return $this->scheme;
+    }
+
     /**
      * Override the scheme
      */
@@ -100,22 +105,11 @@ class Canonical
         $this->scheme = trim($scheme, ':/');
     }
 
-    public function getScheme(): string
-    {
-        return $this->scheme;
-    }
-
-    /**
-     * @return string
-     */
     public function getPort(): ?int
     {
         return $this->port;
     }
 
-    /**
-     * @param string $port
-     */
     public function setPort(?int $port): void
     {
         $this->port = $port;
