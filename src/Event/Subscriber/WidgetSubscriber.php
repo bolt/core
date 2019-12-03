@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Event\Subscriber;
 
+use Bolt\Canonical;
 use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
 use Bolt\Widget\Injector\RequestZone;
@@ -21,9 +22,13 @@ class WidgetSubscriber implements EventSubscriberInterface
     /** @var Widgets */
     private $widgets;
 
-    public function __construct(Widgets $widgets)
+    /** @var Canonical */
+    private $canonical;
+
+    public function __construct(Widgets $widgets, Canonical $canonical)
     {
         $this->widgets = $widgets;
+        $this->canonical = $canonical;
     }
 
     /**
@@ -31,7 +36,7 @@ class WidgetSubscriber implements EventSubscriberInterface
      */
     public function onKernelRequest(RequestEvent $event): void
     {
-        $this->widgets->registerWidget(new CanonicalLinkWidget());
+        $this->widgets->registerWidget(new CanonicalLinkWidget($this->canonical));
         $this->widgets->registerWidget(new BoltHeaderWidget());
 
         $metaTagSnippet = new SnippetWidget(

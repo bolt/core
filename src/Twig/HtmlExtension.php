@@ -60,7 +60,7 @@ class HtmlExtension extends AbstractExtension
     {
         return $this->canonical->get();
     }
-    
+
     /**
      * Transforms the given Markdown content into HTML content.
      */
