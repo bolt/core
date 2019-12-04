@@ -24,7 +24,6 @@ import Language from './Components/Language';
 import File from './Components/File';
 import Filelist from './Components/Filelist';
 import Collection from './Components/Collection';
-import Set from './Components/Set'
 
 Vue.component('editor-date', Date);
 Vue.component('editor-embed', Embed);
