@@ -32,7 +32,6 @@ class CollectionField extends Field implements FieldInterface
 
         $i = 0;
         foreach ($thisFieldValues as $thisFieldValue) {
-            $databaseFieldName = $this->getName() . '::' . $thisFieldValue['field_name'];
             $field = new SetField();
             $field->setContent($this->getContent());
             $field->setValue($thisFieldValue['field_reference']);

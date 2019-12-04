@@ -32,10 +32,10 @@ export default {
 
     let templateSelectOptions = [];
 
-    this.templates.forEach(function(template, index){
+    this.templates.forEach(function(template) {
       templateSelectOptions.push({
-        'key': template.label,
-        'value': template.label,
+        key: template.label,
+        value: template.label,
       });
     });
 
@@ -46,9 +46,9 @@ export default {
     };
   },
   computed: {
-    initialSelectValue(){
-      return this.templateSelectOptions[0].key
-    }
+    initialSelectValue() {
+      return this.templateSelectOptions[0].key;
+    },
   },
   methods: {
     addCollectionItem() {
@@ -60,15 +60,16 @@ export default {
       );
       let res = Vue.compile(html);
       this.elements.push(res);
-
     },
-    getSelectedTemplate(){
+    getSelectedTemplate() {
       let selectValue = this.$refs.templateSelect.selected;
-      if(Array.isArray(selectValue)){
+      if (Array.isArray(selectValue)) {
         selectValue = selectValue[0];
       }
 
-      return this.templates.find(template => template.label === selectValue.key);
+      return this.templates.find(
+        template => template.label === selectValue.key,
+      );
     },
   },
 };
