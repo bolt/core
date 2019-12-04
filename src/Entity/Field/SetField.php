@@ -39,10 +39,10 @@ class SetField extends Field implements FieldInterface, \JsonSerializable
 
             if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
                 $field = $this->getContent()->getField($currentSetFieldName);
-                $field->setLabel($fieldName);
+                $field->setName($fieldName);
             } else {
                 $field = parent::factory($fieldDefinition, '', $fieldName);
-                $field->setName($currentSetFieldName);
+                $field->setName($fieldName);
             }
 
             $result['fields'][$i] = $field;

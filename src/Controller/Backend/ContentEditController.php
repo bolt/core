@@ -289,9 +289,9 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['sets'])) {
             foreach ($formData['sets'] as $setType => $setsByType) {
-                foreach ($setsByType as $setHash => $set) {
+                foreach ($setsByType as $hash => $set) {
                     $setDefinition = $content->getDefinition()->get('fields')->get($setType);
-                    $this->updateSet($content, $setDefinition, $set, $locale);
+                    $this->updateSet($content, $setDefinition, $hash, $set, $locale);
                 }
             }
         }
@@ -301,7 +301,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                 foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
                     $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
                     foreach($collectionItemValue as $hash => $set){
-                        $this->updateSet($content, $setDefinition, $set, $locale);
+                        $this->updateSet($content, $setDefinition, $hash, $set, $locale);
                     }
                 }
             }
@@ -322,18 +322,19 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function updateSet(?Content $content, ContentType $setDefinition, array $set, ?string $locale): void
+    private function updateSet(?Content $content, ContentType $setDefinition, string $hash, array $set, ?string $locale): void
     {
         foreach ($set as $setFieldChildName => $setFieldChildValue) {
-            if ($content->hasField($setFieldChildName)) {
-                $setFieldChildField = $content->getField($setFieldChildName);
+            $setFieldChildDBName = $hash . "::" . $setFieldChildName;
+            if ($content->hasField($setFieldChildDBName)) {
+                $setFieldChildField = $content->getField($setFieldChildDBName);
             } else {
-                $childDefinitionName = explode('::', $setFieldChildName)[1];
                 $setFieldChildField = Field::factory($setDefinition->get('fields')
-                    ->get($childDefinitionName), $setFieldChildName, $setFieldChildValue);
+                    ->get($setFieldChildName), $setFieldChildDBName, $setFieldChildValue);
             }
 
-            if (! $content->hasField($setFieldChildName)) {
+            if (! $content->hasField($setFieldChildDBName)) {
+
                 $content->addField($setFieldChildField);
             }
 
