@@ -16,10 +16,15 @@
 
     export default {
         name: 'EditorCollection',
-        props: ['id', 'templates'],
+        props: ['id', 'templates', 'existingFields'],
         data() {
+            let elements = [];
+            this.existingFields.forEach(function(field){
+                elements.push(Vue.compile(field.html));
+            });
+
             return {
-                elements: [],
+                elements: elements,
             }
         },
         methods: {
