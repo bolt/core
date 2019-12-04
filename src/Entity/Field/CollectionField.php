@@ -30,6 +30,7 @@ class CollectionField extends Field implements FieldInterface
 
         $thisFieldValues = $this->getCollectionFieldValues();
 
+        $i = 0;
         foreach ($thisFieldValues as $thisFieldValue) {
             $databaseFieldName = $this->getName() . '::' . $thisFieldValue['field_name'];
             $field = new SetField();
@@ -38,7 +39,8 @@ class CollectionField extends Field implements FieldInterface
             $field->setDefinition('fields', $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
             $field->setName($thisFieldValue['field_name']);
 
-            $result['fields'][$databaseFieldName] = $field;
+            $result['fields'][$i] = $field;
+            $i++;
         }
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {

@@ -9,7 +9,7 @@
       :value="initialSelectValue"
       :name="templateSelectName"
       :options="templateSelectOptions"
-      :allowempty="true"
+      :allowempty="false"
     ></editor-select>
     <button class="btn btn-secondary" type="button" @click="addCollectionItem">
       {{ labels.add_collection_item }}
@@ -52,8 +52,7 @@ export default {
   },
   methods: {
     addCollectionItem() {
-      let selectedTemplate = this.$refs.templateSelect.selected.key;
-      let template = this.templates.find(template => template.label === selectedTemplate);
+      let template = this.getSelectedTemplate();
 
       let html = template.html.replace(
         new RegExp(template.hash, 'g'),
@@ -61,6 +60,15 @@ export default {
       );
       let res = Vue.compile(html);
       this.elements.push(res);
+
+    },
+    getSelectedTemplate(){
+      let selectValue = this.$refs.templateSelect.selected;
+      if(Array.isArray(selectValue)){
+        selectValue = selectValue[0];
+      }
+
+      return this.templates.find(template => template.label === selectValue.key);
     },
   },
 };
