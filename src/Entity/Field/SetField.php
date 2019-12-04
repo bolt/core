@@ -20,10 +20,10 @@ class SetField extends Field implements FieldInterface
 
     private function getHash(): string
     {
-        if(empty($this->value)){
+        if (empty($this->value)) {
             $this->value = [uniqid()];
         }
-        
+
         return $this->value[0];
     }
 
@@ -53,5 +53,4 @@ class SetField extends Field implements FieldInterface
 
         return $result;
     }
-
 }

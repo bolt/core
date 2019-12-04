@@ -302,23 +302,24 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
                 foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
                     $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
-                    foreach($collectionItemValue as $hash => $set){
+                    foreach ($collectionItemValue as $hash => $set) {
                         $this->updateSet($content, $setDefinition, $hash, $set, $locale);
                         $setsInCollection[] = $hash;
                     }
                 }
 
-                if($content->hasField($collection)){
+                if ($content->hasField($collection)) {
                     $collectionField = $content->getField($collection);
-                }else {
+                } else {
                     $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
                 }
 
                 $collectionField->setName($collection);
                 $collectionField->setValue($setsInCollection);
 
-                if(! $content->hasField($collectionField->getName()))
+                if (! $content->hasField($collectionField->getName())) {
                     $content->addField($collectionField);
+                }
             }
         }
 
@@ -340,7 +341,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
     private function updateSet(?Content $content, ContentType $setDefinition, string $hash, array $set, ?string $locale): void
     {
         foreach ($set as $setFieldChildName => $setFieldChildValue) {
-            $setFieldChildDBName = $hash . "::" . $setFieldChildName;
+            $setFieldChildDBName = $hash . '::' . $setFieldChildName;
             if ($content->hasField($setFieldChildDBName)) {
                 $setFieldChildField = $content->getField($setFieldChildDBName);
             } else {
@@ -349,7 +350,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
             }
 
             if (! $content->hasField($setFieldChildDBName)) {
-
                 $content->addField($setFieldChildField);
             }
 

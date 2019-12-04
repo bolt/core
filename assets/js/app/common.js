@@ -59,8 +59,10 @@ $(document).ready(function() {
   /*
    ** Event listener to remove elements on click
    */
-  $(document).on('click', '.action-remove-set', function(e){
+  $(document).on('click', '.action-remove-set', function(e) {
     e.preventDefault();
-    $(this).parent().remove();
+    $(this)
+      .parent()
+      .remove();
   });
 });
