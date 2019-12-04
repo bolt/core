@@ -1,6 +1,10 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
+    {% set labels = {
+        'add_collection_item': 'collection.add_item'|trans
+    } %}
+
     {% set existing_fields = [] %}
     {% if field.value.fields is defined %}
         {% for item_field in field.value.fields %}
@@ -24,6 +28,7 @@
     <editor-collection
             :existing-fields='{{ existing_fields | json_encode }}'
             :templates='{{ templated_fields | json_encode }}'
+            :labels='{{ labels | json_encode }}'
     ></editor-collection>
 
 {% endblock %}

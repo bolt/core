@@ -5,7 +5,7 @@
         </div>
 
         <button class="btn btn-secondary" type="button" @click="addSet">
-            Add set
+            {{ this.labels.add_collection_item }}
         </button>
     </div>
 </template>
@@ -16,7 +16,7 @@
 
     export default {
         name: 'EditorCollection',
-        props: ['id', 'templates', 'existingFields'],
+        props: ['id', 'templates', 'existingFields', 'labels'],
         data() {
             let elements = [];
             this.existingFields.forEach(function(field){

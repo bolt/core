@@ -13,6 +13,6 @@
           {% endfor %}
 
       {% if in_collection is defined %}
-        <button class='action-remove-set'>Remove set</button>
+        <button class='action-remove-set btn btn-hidden-danger' >{{ 'collection.remove_item'|trans}}</button>
       {% endif %}
 {% endblock %}
