@@ -17,7 +17,7 @@
         {% set templated_field %}
             {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName} only %}
         {% endset %}
-        {% set templated_fields = templated_fields|merge({(item_field.name):templated_field}) %}
+        {% set templated_fields = templated_fields|merge({(item_field.name):{'html': templated_field, 'hash': item_field.hash}}) %}
     {% endfor %}
 
     <editor-collection

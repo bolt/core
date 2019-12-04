@@ -20,7 +20,11 @@ class SetField extends Field implements FieldInterface, \JsonSerializable
 
     private function getHash(): string
     {
-        return empty($this->value) ? uniqid() : $this->value[0];
+        if(empty($this->value)){
+            $this->value = [uniqid()];
+        }
+        
+        return $this->value[0];
     }
 
     public function getValue($jsonify = false): array

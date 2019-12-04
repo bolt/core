@@ -12,18 +12,21 @@
 
 <script>
     import Vue from 'vue';
+    var uniqid = require('locutus/php/misc/uniqid');
+
     export default {
         name: 'EditorCollection',
         props: ['id', 'templates'],
-        data(){
+        data() {
             return {
-              elements: [],
+                elements: [],
             }
         },
         methods: {
-            addSet(){
-              let res = Vue.compile(this.templates.author);
-              this.elements.push(res);
+            addSet() {
+                let html = this.templates.author.html.replace(new RegExp(this.templates.author.hash, "g"), uniqid());
+                let res = Vue.compile(html);
+                this.elements.push(res);
             },
         }
     };
