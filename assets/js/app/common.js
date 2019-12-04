@@ -56,10 +56,11 @@ $(document).ready(function() {
     $(this).text(DateTime.fromISO($(this).text()).toRelativeCalendar());
   });
 
+  /*
+   ** Event listener to remove elements on click
+   */
   $(document).on('click', '.action-remove-set', function(e){
     e.preventDefault();
     $(this).parent().remove();
   });
 });
-
-

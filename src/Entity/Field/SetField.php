@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class SetField extends Field implements FieldInterface, \JsonSerializable
+class SetField extends Field implements FieldInterface
 {
     public function getType(): string
     {
@@ -27,7 +27,7 @@ class SetField extends Field implements FieldInterface, \JsonSerializable
         return $this->value[0];
     }
 
-    public function getValue($jsonify = false): array
+    public function getValue(): array
     {
         $hash = $this->getHash();
         $fieldDefinitions = $this->getDefinition()->get('fields');
@@ -54,10 +54,4 @@ class SetField extends Field implements FieldInterface, \JsonSerializable
         return $result;
     }
 
-    public function jsonSerialize()
-    {
-        $value = $this->getValue(true);
-
-        return json_encode($value);
-    }
 }
