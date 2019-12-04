@@ -56,7 +56,7 @@ $(document).ready(function() {
     $(this).text(DateTime.fromISO($(this).text()).toRelativeCalendar());
   });
 
-  $('.onRemoveSet').on('click', function(e){
+  $(document).on('click', '.action-remove-set', function(e){
     e.preventDefault();
     $(this).parent().remove();
   });

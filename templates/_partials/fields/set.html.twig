@@ -11,5 +11,8 @@
         {% set setItemName = setName ~ '[' ~ field.value.hash ~ ']' ~ '[' ~ fieldItem.name ~ ']'%}
              {% include '@bolt/_partials/fields/' ~ fieldItem.type ~ '.html.twig' with {'field' : fieldItem, 'name' : setItemName} only %}
           {% endfor %}
-        <button class='onRemoveSet'>Remove set</button>
+
+      {% if in_collection is defined %}
+        <button class='action-remove-set'>Remove set</button>
+      {% endif %}
 {% endblock %}
