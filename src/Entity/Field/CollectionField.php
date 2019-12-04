@@ -46,12 +46,14 @@ class CollectionField extends Field implements FieldInterface
                     $field->setName($fieldName);
                 }
 
-                $templateField = parent::factory($fieldDefinition, '', $fieldName);
-                $templateField->setName($fieldName);
-                $result['templates'][$fieldName] = $templateField;
-
                 $result['fields'][$databaseFieldName] = $field;
             }
+        }
+
+        foreach ($fieldDefinitions as $fieldName => $fieldDefinition){
+            $templateField = parent::factory($fieldDefinition, '', $fieldName);
+            $templateField->setName($fieldName);
+            $result['templates'][$fieldName] = $templateField;
         }
 
         return $result;

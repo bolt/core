@@ -1,24 +1,28 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-   {% set set_hashes = [] %}
-   {% for item_field in field.value.fields %}
-       {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
-       {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
-       {% set set_hashes = set_hashes|merge([item_field.value.hash]) %}
-   {% endfor %}
+    {% set set_hashes = [] %}
+    {% if field.value.fields is defined %}
+
+        {% for item_field in field.value.fields %}
+            {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
+            {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
+            {% set set_hashes = set_hashes|merge([item_field.value.hash]) %}
+        {% endfor %}
+    {% endif %}
 
     {% set templated_fields = [] %}
     {% for item_field in field.value.templates %}
+        {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
         {% set templated_field %}
-            {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true} only %}
+            {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName} only %}
         {% endset %}
         {% set templated_fields = templated_fields|merge({(item_field.name):templated_field}) %}
     {% endfor %}
 
     <editor-collection
-        :set-hashes='{{ set_hashes | json_encode }}'
-        :templates='{{ templated_fields | json_encode }}'
+            :set-hashes='{{ set_hashes | json_encode }}'
+            :templates='{{ templated_fields | json_encode }}'
     ></editor-collection>
 
 {% endblock %}
