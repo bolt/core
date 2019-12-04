@@ -300,6 +300,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
             foreach ($formData['collections'] as $collection => $collectionItems) {
                 $setsInCollection = [];
 
+                //update all fields of the collection and collect their field_name and field_reference
                 foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
                     $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
                     foreach ($collectionItemValue as $hash => $set) {
@@ -311,12 +312,14 @@ class ContentEditController extends TwigAwareController implements BackendZone
                     }
                 }
 
+                //create the collection field itself
                 if ($content->hasField($collection)) {
                     $collectionField = $content->getField($collection);
                 } else {
                     $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
                 }
 
+                //fill in the collection field value with the collected field_name and field_reference
                 $collectionField->setName($collection);
                 $collectionField->setValue($setsInCollection);
 

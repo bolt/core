@@ -5,6 +5,7 @@
         'add_collection_item': 'collection.add_item'|trans
     } %}
 
+    {# get the html for all collection field already in the database #}
     {% set existing_fields = [] %}
     {% if field.value.fields is defined %}
         {% for item_field in field.value.fields %}
@@ -16,6 +17,7 @@
         {% endfor %}
     {% endif %}
 
+    {# get the html template for the collection fields defined in the field definition #}
     {% set templated_fields = [] %}
     {% for item_field in field.value.templates %}
         {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
