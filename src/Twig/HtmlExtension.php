@@ -56,9 +56,9 @@ class HtmlExtension extends AbstractExtension
         ];
     }
 
-    public function canonical()
+    public function canonical(?string $route = null, array $params = [])
     {
-        return $this->canonical->get();
+        return $this->canonical->get($route, $params);
     }
 
     /**

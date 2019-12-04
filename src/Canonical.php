@@ -63,11 +63,15 @@ class Canonical
         $this->setPort($configUrl['port'] ?? null);
     }
 
-    public function get(): ?string
+    public function get(?string $route = null, array $params = []): ?string
     {
         // Ensure request has been matched
         if (! $this->request->attributes->get('_route')) {
             return null;
+        }
+
+        if ($route) {
+            $this->setPath($route, $params);
         }
 
         return sprintf(
