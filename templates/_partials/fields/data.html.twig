@@ -1,0 +1,13 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% set postfix = "<strong>Note:</strong> This Field contains internal data, likely added / maintained programmatically. You cannot edit this data." %}
+{% set value = field.value|json_encode %}
+
+{% block field %}
+<div class="editor--data">
+<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}" />
+<pre>
+{{ field.value|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</pre>
+</div>
+{% endblock %}

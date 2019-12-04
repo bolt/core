@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller;
 
+use Bolt\Canonical;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,14 +28,18 @@ class TwigAwareController extends AbstractController
     /** @var Packages */
     protected $packages;
 
+    /** @var Canonical */
+    protected $canonical;
+
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig, Packages $packages): void
+    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical): void
     {
         $this->config = $config;
         $this->twig = $twig;
         $this->packages = $packages;
+        $this->canonical = $canonical;
     }
 
     /**

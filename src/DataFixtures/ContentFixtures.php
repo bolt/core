@@ -10,6 +10,7 @@ use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
+use Bolt\Utils\FakeContent;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -42,6 +43,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     public function __construct(Config $config, FileLocations $fileLocations)
     {
         $this->faker = Factory::create();
+
         $this->presetRecords = $this->getPresetRecords();
         $this->config = $config;
         $this->fileLocations = $fileLocations;
@@ -113,7 +115,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     if (isset($preset[$name])) {
                         $field->setValue($preset[$name]);
                     } else {
-                        $field->setValue($this->getValuesforFieldType($name, $fieldType));
+                        $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
                     }
                     $field->setSortorder($sortorder++ * 5);
 
@@ -155,12 +157,18 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType(string $name, DeepCollection $field): array
+    private function getValuesforFieldType(string $name, DeepCollection $field, bool $singleton): array
     {
+        $nb = $singleton ? 8 : 4;
+
         switch ($field['type']) {
             case 'html':
-            case 'textarea':
+                $data = [FakeContent::generateHTML($nb)];
+                break;
             case 'markdown':
+                $data = [FakeContent::generateMarkdown($nb)];
+                break;
+            case 'textarea':
                 $data = [$this->faker->paragraphs(3, true)];
                 break;
             case 'image':
@@ -177,13 +185,27 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
                 break;
             case 'text':
-                $data = [$this->faker->sentence(6, true)];
+                $words = in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
+                $data = [$this->faker->sentence($words, true)];
                 break;
             case 'email':
                 $data = [$this->faker->email];
                 break;
             case 'templateselect':
                 $data = [];
+                break;
+            case 'date':
+            case 'datetime':
+                $data = [$this->faker->dateTime()->format('c')];
+                break;
+            case 'number':
+                $data = [$this->faker->numberBetween(-100, 1000)];
+                break;
+            case 'data':
+                $data = [];
+                for ($i = 1; $i < 5; $i++) {
+                    $data[$this->faker->sentence(1)] = $this->faker->sentence(4, true);
+                }
                 break;
             default:
                 $data = [$this->faker->sentence(6, true)];
