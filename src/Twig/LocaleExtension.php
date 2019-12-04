@@ -51,21 +51,19 @@ class LocaleExtension extends AbstractExtension
         $env = ['needs_environment' => true];
 
         return [
-            new TwigFunction('__', [$this, 'translate'], [
-                'is_safe' => ['html'],
-            ]),
-            new TwigFunction('htmllang', [$this, 'dummy'], [
-                'is_safe' => ['html'],
-            ]),
+            new TwigFunction('__', [$this, 'translate'], $safe),
+            new TwigFunction('htmllang', [$this, 'getHtmlLang'], $env),
             new TwigFunction('locales', [$this, 'getLocales'], $env),
             new TwigFunction('locale', [$this, 'getLocale']),
             new TwigFunction('flag', [$this, 'flag'], $safe),
         ];
     }
 
-    public function dummy($input = null)
+    public function getHtmlLang(Environment $twig)
     {
-        return $input;
+        $locales = $this->localeHelper->getLocales($twig);
+
+        return $locales->firstWhere('current', true)->get('code');
     }
 
     public function translate(string $id, array $parameters = [], $domain = null, $locale = null): string
