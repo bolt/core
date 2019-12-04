@@ -59,11 +59,15 @@ class LocaleExtension extends AbstractExtension
         ];
     }
 
-    public function getHtmlLang(Environment $twig)
+    public function getHtmlLang(Environment $twig): string
     {
-        $locales = $this->localeHelper->getLocales($twig);
+        $current = $this->localeHelper->getLocales($twig)->firstWhere('current', true);
 
-        return $locales->firstWhere('current', true)->get('code');
+        if ($current) {
+            return $current->get('code');
+        }
+
+        return '';
     }
 
     public function translate(string $id, array $parameters = [], $domain = null, $locale = null): string
