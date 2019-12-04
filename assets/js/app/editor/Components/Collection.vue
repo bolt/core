@@ -4,7 +4,14 @@
       <div :is="element"></div>
     </div>
 
-    <button class="btn btn-secondary" type="button" @click="addSet">
+    <editor-select
+      ref="templateSelect"
+      :value="initialSelectValue"
+      :name="templateSelectName"
+      :options="templateSelectOptions"
+      :allowempty="true"
+    ></editor-select>
+    <button class="btn btn-secondary" type="button" @click="addCollectionItem">
       {{ labels.add_collection_item }}
     </button>
   </div>
@@ -23,14 +30,33 @@ export default {
       elements.push(Vue.compile(field.html));
     });
 
+    let templateSelectOptions = [];
+
+    this.templates.forEach(function(template, index){
+      templateSelectOptions.push({
+        'key': template.label,
+        'value': template.label,
+      });
+    });
+
     return {
       elements: elements,
+      templateSelectName: 'templateSelect' + this.id,
+      templateSelectOptions: templateSelectOptions,
     };
   },
+  computed: {
+    initialSelectValue(){
+      return this.templateSelectOptions[0].key
+    }
+  },
   methods: {
-    addSet() {
-      let html = this.templates.author.html.replace(
-        new RegExp(this.templates.author.hash, 'g'),
+    addCollectionItem() {
+      let selectedTemplate = this.$refs.templateSelect.selected.key;
+      let template = this.templates.find(template => template.label === selectedTemplate);
+
+      let html = template.html.replace(
+        new RegExp(template.hash, 'g'),
         uniqid(),
       );
       let res = Vue.compile(html);
