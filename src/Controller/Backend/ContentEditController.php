@@ -298,12 +298,27 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['collections'])) {
             foreach ($formData['collections'] as $collection => $collectionItems) {
+                $setsInCollection = [];
+
                 foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
                     $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
                     foreach($collectionItemValue as $hash => $set){
                         $this->updateSet($content, $setDefinition, $hash, $set, $locale);
+                        $setsInCollection[] = $hash;
                     }
                 }
+
+                if($content->hasField($collection)){
+                    $collectionField = $content->getField($collection);
+                }else {
+                    $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
+                }
+
+                $collectionField->setName($collection);
+                $collectionField->setValue($setsInCollection);
+
+                if(! $content->hasField($collectionField->getName()))
+                    $content->addField($collectionField);
             }
         }
 
