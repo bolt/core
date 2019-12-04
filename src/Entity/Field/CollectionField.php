@@ -31,23 +31,14 @@ class CollectionField extends Field implements FieldInterface
         $thisFieldValues = $this->getCollectionFieldValues();
 
         foreach ($thisFieldValues as $thisFieldValue) {
-            foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-                $databaseFieldName = $thisFieldValue . '::' . $fieldName;
+            $databaseFieldName = $this->getName() . '::' . $thisFieldValue['field_name'];
+            $field = new SetField();
+            $field->setContent($this->getContent());
+            $field->setValue($thisFieldValue['field_reference']);
+            $field->setDefinition('fields', $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
+            $field->setName($thisFieldValue['field_name']);
 
-                if ($this->getContent() && $this->getContent()->hasField($this->getName())) {
-                    $field = new SetField();
-                    $field->setName((string) $databaseFieldName);
-                    $field->setContent($this->getContent());
-                    $field->setValue($thisFieldValue);
-                    $field->setDefinition('fields', $fieldDefinition);
-                    $field->setName($fieldName);
-                } else {
-                    $field = parent::factory($fieldDefinition, '', $fieldName);
-                    $field->setName($fieldName);
-                }
-
-                $result['fields'][$databaseFieldName] = $field;
-            }
+            $result['fields'][$databaseFieldName] = $field;
         }
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {

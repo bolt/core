@@ -304,7 +304,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                     $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
                     foreach ($collectionItemValue as $hash => $set) {
                         $this->updateSet($content, $setDefinition, $hash, $set, $locale);
-                        $setsInCollection[] = $hash;
+                        $setsInCollection[] = ['field_name' => $collectionItemName,  'field_reference' => $hash];
                     }
                 }
 
