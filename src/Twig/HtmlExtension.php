@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Canonical;
 use Bolt\Utils\Markdown;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -14,11 +15,16 @@ use Twig\TwigFunction;
  */
 class HtmlExtension extends AbstractExtension
 {
+    /** @var Markdown */
     private $markdown;
 
-    public function __construct(Markdown $markdown)
+    /** @var Canonical */
+    private $canonical;
+
+    public function __construct(Markdown $markdown, Canonical $canonical)
     {
         $this->markdown = $markdown;
+        $this->canonical = $canonical;
     }
 
     /**
@@ -31,6 +37,7 @@ class HtmlExtension extends AbstractExtension
         ];
 
         return [
+            new TwigFunction('canonical', [$this, 'canonical']),
             new TwigFunction('markdown', [$this, 'markdown'], $safe),
         ];
     }
@@ -47,6 +54,11 @@ class HtmlExtension extends AbstractExtension
         return [
             new TwigFilter('markdown', [$this, 'markdown'], $safe),
         ];
+    }
+
+    public function canonical()
+    {
+        return $this->canonical->get();
     }
 
     /**

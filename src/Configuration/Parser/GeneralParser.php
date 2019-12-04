@@ -105,7 +105,6 @@ class GeneralParser extends BaseParser
                     'filebrowserWindowHeight' => 480,
                 ],
             ],
-            'canonical' => null,
             'enforce_ssl' => false,
             'thumbnails' => [
                 'default_thumbnail' => [160, 120],
