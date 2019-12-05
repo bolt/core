@@ -64,47 +64,47 @@ export default {
      ** This is a jQuery event listener, because Vue cannot handle an event emitted by a non-vue element.
      ** The collection items are not Vue elements in order to initialise them correctly within their twig template.
      */
-    $(document).on('click', vueThis.selector.remove, function(e) {
+    window.$(document).on('click', vueThis.selector.remove, function(e) {
       e.preventDefault();
-      let collectionContainer = $(this).closest(
-        vueThis.selector.collectionContainer,
-      );
+      let collectionContainer = window
+        .$(this)
+        .closest(vueThis.selector.collectionContainer);
       vueThis.getCollectionItemFromPressedButton(this).remove();
       vueThis.setAllButtonsStates(collectionContainer);
     });
 
-    $(document).on('click', vueThis.selector.moveUp, function(e) {
+    window.$(document).on('click', vueThis.selector.moveUp, function(e) {
       e.preventDefault();
       let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
       let prevCollectionitem = vueThis.getPreviousCollectionItem(
         thisCollectionItem,
       );
-      $(thisCollectionItem).after(prevCollectionitem);
+      window.$(thisCollectionItem).after(prevCollectionitem);
 
       vueThis.setButtonsState(thisCollectionItem);
       vueThis.setButtonsState(prevCollectionitem);
     });
 
-    $(document).on('click', vueThis.selector.moveDown, function(e) {
+    window.$(document).on('click', vueThis.selector.moveDown, function(e) {
       e.preventDefault();
       let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
       let nextCollectionItem = vueThis.getNextCollectionItem(
         thisCollectionItem,
       );
-      $(thisCollectionItem).before(nextCollectionItem);
+      window.$(thisCollectionItem).before(nextCollectionItem);
 
       vueThis.setButtonsState(thisCollectionItem);
       vueThis.setButtonsState(nextCollectionItem);
     });
   },
   updated() {
-    this.setAllButtonsStates($(this.$refs.collectionContainer));
+    this.setAllButtonsStates(window.$(this.$refs.collectionContainer));
   },
   methods: {
     setAllButtonsStates(collectionContainer) {
       let vueThis = this;
       collectionContainer.children(vueThis.selector.item).each(function() {
-        vueThis.setButtonsState($(this));
+        vueThis.setButtonsState(window.$(this));
       });
     },
     setButtonsState(item) {
@@ -145,7 +145,8 @@ export default {
         : item.next('.collection-item');
     },
     getCollectionItemFromPressedButton(button) {
-      return $(button)
+      return window
+        .$(button)
         .closest('.collection-item')
         .last();
     },
