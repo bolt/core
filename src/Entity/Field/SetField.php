@@ -7,7 +7,6 @@ namespace Bolt\Entity\Field;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
@@ -43,7 +42,7 @@ class SetField extends Field implements FieldInterface
             } else {
                 $field = parent::factory($fieldDefinition);
             }
-            
+
             $field->setName($fieldName);
             $result['fields'][$i] = $field;
             $i++;
