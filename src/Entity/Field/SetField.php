@@ -39,11 +39,11 @@ class SetField extends Field implements FieldInterface
             $currentSetFieldName = $hash . '::' . $fieldName;
             if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
                 $field = $this->getContent()->getField($currentSetFieldName);
+                $field->setDefinition($fieldName, $fieldDefinition);
             } else {
                 $field = parent::factory($fieldDefinition);
             }
-            $field->setDefinition($fieldName, new Collection($fieldDefinition));
-
+            
             $field->setName($fieldName);
             $result['fields'][$i] = $field;
             $i++;
