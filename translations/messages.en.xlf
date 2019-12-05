@@ -2043,5 +2043,17 @@
         <target>Add item</target>
       </segment>
     </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <segment>
+        <source>collection.move_item_up</source>
+        <target>Move up</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <segment>
+        <source>collection.move_item_down</source>
+        <target>Move down</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
