@@ -20,7 +20,11 @@ class SetField extends Field implements FieldInterface
 
     private function getHash(): string
     {
-        return empty($this->value) ? uniqid() : $this->value[0];
+        if (empty($this->value)) {
+            $this->value = [uniqid()];
+        }
+
+        return $this->value[0];
     }
 
     public function getValue(): array
@@ -28,18 +32,19 @@ class SetField extends Field implements FieldInterface
         $hash = $this->getHash();
         $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
+        $i = 0;
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
             $currentSetFieldName = $hash . '::' . $fieldName;
-
             if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
                 $field = $this->getContent()->getField($currentSetFieldName);
-                $field->setLabel($fieldName);
             } else {
                 $field = parent::factory($fieldDefinition, '', $fieldName);
-                $field->setName($currentSetFieldName);
             }
-            $result[$currentSetFieldName] = $field;
+
+            $field->setName($fieldName);
+            $result['fields'][$i] = $field;
+            $i++;
         }
 
         $result['hash'] = $hash;

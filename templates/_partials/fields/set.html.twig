@@ -1,19 +1,18 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-   {% set hash = field.value.hash %}
-   {% for fieldName, singleField in field.value %}
-      {% if fieldName == 'hash' %}
-         <input type="" value="{{ singleField }}" name="fields[{{ field.name }}]">
-         {# TODO: Fix this above #}
+      {% if in_collection is defined %}
+         {% set setName = name %}
       {% else %}
-         {% if in_collection is defined %}
-            {% set setItemName = name ~ '[' ~ hash ~ ']' ~ '[' ~ singleField.name ~ ']'%}
-         {% else %}
-            {% set setItemName = 'sets[' ~ field.name ~ '][' ~ hash ~ ']' ~ '[' ~ singleField.name ~ ']'%}
-         {% endif %}
-
-         {% include '@bolt/_partials/fields/' ~ singleField.type ~ '.html.twig' with {'field': singleField, 'name': setItemName } only %}
+         {% set setName = 'sets[' ~ field.name ~ ']'%}
       {% endif %}
-   {% endfor %}
+
+      {% for fieldItem in field.value.fields %}
+        {% set setItemName = setName ~ '[' ~ field.value.hash ~ ']' ~ '[' ~ fieldItem.name ~ ']'%}
+             {% include '@bolt/_partials/fields/' ~ fieldItem.type ~ '.html.twig' with {'field' : fieldItem, 'name' : setItemName} only %}
+          {% endfor %}
+
+      {% if in_collection is defined %}
+        <button class='action-remove-collection-item btn btn-hidden-danger' >{{ 'collection.remove_item'|trans}}</button>
+      {% endif %}
 {% endblock %}

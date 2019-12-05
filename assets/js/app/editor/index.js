@@ -23,28 +23,30 @@ import ThemeSelect from './Components/ThemeSelect';
 import Language from './Components/Language';
 import File from './Components/File';
 import Filelist from './Components/Filelist';
+import Collection from './Components/Collection';
+
+Vue.component('editor-date', Date);
+Vue.component('editor-embed', Embed);
+Vue.component('editor-remail', Email);
+Vue.component('editor-password', Password);
+Vue.component('editor-html', Html);
+Vue.component('editor-image', Image);
+Vue.component('editor-imagelist', Imagelist);
+Vue.component('editor-file', File);
+Vue.component('editor-filelist', Filelist);
+Vue.component('editor-markdown', Markdown);
+Vue.component('editor-number', Number);
+Vue.component('editor-select', Select);
+Vue.component('editor-slug', Slug);
+Vue.component('editor-text', Text);
+Vue.component('editor-textarea', Textarea);
+Vue.component('editor-collection', Collection);
+Vue.component('editor-set', Set);
+Vue.component('general-language', Language);
+Vue.component('theme-select', ThemeSelect);
 
 new Vue({
   store,
   el: '#editor',
   name: 'BoltEditor',
-  components: {
-    'editor-date': Date,
-    'editor-embed': Embed,
-    'editor-email': Email,
-    'editor-password': Password,
-    'editor-html': Html,
-    'editor-image': Image,
-    'editor-imagelist': Imagelist,
-    'editor-file': File,
-    'editor-filelist': Filelist,
-    'editor-markdown': Markdown,
-    'editor-number': Number,
-    'editor-select': Select,
-    'editor-slug': Slug,
-    'editor-text': Text,
-    'editor-textarea': Textarea,
-    'general-language': Language,
-    'theme-select': ThemeSelect,
-  },
 });
