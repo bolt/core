@@ -28,10 +28,10 @@
                         <dt class="col-sm-3">{{ 'extensions.title_package'|trans }}</dt>
                         <dd class="col-sm-9"><code>{{ package.prettyName }}</code> - <code>{{ extension.class }}</code></dd>
                         {% if configFile %}
-                            <dt class="col-sm-3">{{ 'extensions.title_version'|trans }} </dt>
+                            <dt class="col-sm-3">{{ 'extensions.title_configuration'|trans }} </dt>
                             <dd class="col-sm-9"><code><a href="{{ configLink }}">{{ configFile }}</a></code></dd>
                         {% endif %}
-                        <dt class="col-sm-3">Version: </dt>
+                        <dt class="col-sm-3">{{ 'extensions.title_version'|trans }}</dt>
                         <dd class="col-sm-9">{{ package.prettyVersion }}</dd>
                         <dt class="col-sm-3">Dependencies: </dt>
                         <dd class="col-sm-9">
@@ -39,7 +39,7 @@
                                 <i>No known dependencies</i>
                             {% else %}
                                 {% for dependency in extension.dependencies %}
-                                    {{ dependency }} <br>
+                                    {{ dependency.name }}: {{ dependency.version }} <br>
                                 {% endfor %}
                             {% endif %}
                         </dd>

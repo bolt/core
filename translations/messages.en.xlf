@@ -2061,5 +2061,11 @@
         <target>View details</target>
       </segment>
     </unit>
+    <unit id="hgNZLwW" name="extensions.title_configuration">
+      <segment>
+        <source>extensions.title_configuration</source>
+        <target>Configuration file</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -9,6 +9,7 @@ use Composer\Package\Package;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Dependencies;
 use ComposerPackages\Packages;
+use ComposerPackages\Versions;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,11 +55,21 @@ class ExtensionsController extends AbstractController implements BackendZone
     {
         $name = str_replace("/", "\\", $name);
         $extension = $this->extensionRegistry->getExtension($name);
-        $extension->dependencies = iterator_to_array($this->dependenciesManager->get($extension->getComposerPackage()->getName()));
+        $dependencies = iterator_to_array($this->dependenciesManager->get($extension->getComposerPackage()->getName()));
+        $extension->dependencies = [];
+
+        foreach($dependencies as $dependency){
+            $extDependency['name'] = $dependency;
+            $extDependency['version'] = Versions::get($dependency);
+            $extension->dependencies[] = $extDependency;
+        }
+
 
         $twigvars = [
             'extension' => $extension,
         ];
+
+        dump($extension);
 
         return $this->render('@bolt/pages/extension_details.html.twig', $twigvars);
     }
