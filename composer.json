@@ -93,14 +93,14 @@
         "php-translation/loco-adapter": "^0.8",
         "phpspec/phpspec": "^5.1",
         "phpspec/prophecy": "^1.10",
-        "phpstan/phpstan": "^0.11",
-        "phpstan/phpstan-doctrine": "^0.11",
-        "phpstan/phpstan-symfony": "^0.11",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-doctrine": "^0.12",
+        "phpstan/phpstan-symfony": "^0.12",
         "phpunit/phpunit": "^7.5",
         "roave/security-advisories": "dev-master@dev",
         "symfony/browser-kit": "^4.4",
         "symfony/css-selector": "^4.4",
-        "symplify/easy-coding-standard": "^7.0.2"
+        "symplify/easy-coding-standard": "^7.2"
     },
     "config": {
         "preferred-install": {
