@@ -12,6 +12,7 @@ use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
@@ -30,11 +31,15 @@ class ContentExtension extends AbstractExtension
     /** @var CsrfTokenManagerInterface */
     private $csrfTokenManager;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager)
+    /** @var Security */
+    private $security;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager, Security $security)
     {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->security = $security;
     }
 
     /**
@@ -221,7 +226,7 @@ class ContentExtension extends AbstractExtension
 
     public function getEditLink(Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null) {
+        if ($content->getId() === null || ! $this->security->getUser()) {
             return null;
         }
 
@@ -230,7 +235,7 @@ class ContentExtension extends AbstractExtension
 
     public function getDeleteLink(Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null) {
+        if ($content->getId() === null || ! $this->security->getUser()) {
             return null;
         }
 
@@ -244,7 +249,7 @@ class ContentExtension extends AbstractExtension
 
     public function getDuplicateLink(Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null) {
+        if ($content->getId() === null || ! $this->security->getUser()) {
             return null;
         }
 
@@ -253,7 +258,7 @@ class ContentExtension extends AbstractExtension
 
     public function getStatusLink(Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null) {
+        if ($content->getId() === null || ! $this->security->getUser()) {
             return null;
         }
 

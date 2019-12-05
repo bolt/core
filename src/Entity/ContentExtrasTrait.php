@@ -32,7 +32,7 @@ trait ContentExtrasTrait
         /** @var Content $content */
         $content = $this;
 
-        return [
+        return array_filter([
             'title' => $this->contentExtension->getTitle($content),
             'image' => $this->contentExtension->getImage($content, true),
             'excerpt' => $this->contentExtension->getExcerpt($content),
@@ -44,6 +44,6 @@ trait ContentExtrasTrait
             'icon' => $this->getIcon(),
             'name' => $this->getDefinition()->get('name'),
             'singular_name' => $this->getDefinition()->get('singular_name'),
-        ];
+        ]);
     }
 }
