@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Expression;
+namespace Bolt\Storage\Expression;
 
-use Bolt\Storage\Query\Conditional\Types;
+use Bolt\Storage\Conditional\Types;
 use Doctrine\ORM\Query\Expr;
 use Ramsey\Uuid\Uuid;
 

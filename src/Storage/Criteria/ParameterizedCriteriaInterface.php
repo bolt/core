@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Criteria;
+namespace Bolt\Storage\Criteria;
 
 use Doctrine\Common\Collections\Criteria;
 

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Resolver;
+namespace Bolt\Storage\Resolver;
 
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Bolt\Storage\Query\Criteria\ContentCriteria;
-use Bolt\Storage\Query\Criteria\PublishedCriteria;
-use Bolt\Storage\Query\Expression\FilterExpressionBuilder;
-use Bolt\Storage\Query\Scope\ScopeEnum;
+use Bolt\Storage\Criteria\ContentCriteria;
+use Bolt\Storage\Criteria\PublishedCriteria;
+use Bolt\Storage\Expression\FilterExpressionBuilder;
+use Bolt\Storage\Scope\ScopeEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
 use GraphQL\Type\Definition\ResolveInfo;

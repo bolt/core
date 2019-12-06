@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Definition;
+namespace Bolt\Storage\Definition;
 
 class FieldDefinition
 {

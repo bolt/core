@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query;
+namespace Bolt\Storage;
 
 use Bolt\Configuration\Config;
-use Bolt\Storage\Query\Definition\FieldDefinition;
-use Bolt\Storage\Query\GraphQL\GraphQL;
-use Bolt\Storage\Query\Parser\ContentFieldParser;
-use Bolt\Storage\Query\Resolver\QueryFieldResolver;
-use Bolt\Storage\Query\Scope\ScopeEnum;
-use Bolt\Storage\Query\Types\QueryType;
+use Bolt\Storage\Definition\FieldDefinition;
+use Bolt\Storage\GraphQL\GraphQL;
+use Bolt\Storage\Parser\ContentFieldParser;
+use Bolt\Storage\Resolver\QueryFieldResolver;
+use Bolt\Storage\Scope\ScopeEnum;
+use Bolt\Storage\Types\QueryType;
 use GraphQL\Type\Schema;
 use Symfony\Component\HttpFoundation\JsonResponse;
 

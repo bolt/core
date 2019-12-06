@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Definition;
+namespace Bolt\Storage\Definition;
 
-use Bolt\Storage\Query\Types\AuthorType;
-use Bolt\Storage\Query\Types\DateType;
+use Bolt\Storage\Types\AuthorType;
+use Bolt\Storage\Types\DateType;
 use GraphQL\Type\Definition\Type;
 
 class ContentFieldsDefinition

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Parser;
+namespace Bolt\Storage\Parser;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
-use Bolt\Storage\Query\Conditional\Types;
-use Bolt\Storage\Query\Definition\ContentFieldsDefinition;
-use Bolt\Storage\Query\Types\ImageType;
-use Bolt\Storage\Query\Types\RepeaterType;
+use Bolt\Storage\Conditional\Types;
+use Bolt\Storage\Definition\ContentFieldsDefinition;
+use Bolt\Storage\Types\ImageType;
+use Bolt\Storage\Types\RepeaterType;
 use GraphQL\Type\Definition\IDType;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\IntType;

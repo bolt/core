@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Types;
+namespace Bolt\Storage\Types;
 
 use GraphQL\Type\Definition\ObjectType;
 

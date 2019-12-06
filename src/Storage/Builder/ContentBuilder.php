@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Builder;
+namespace Bolt\Storage\Builder;
 
-use Bolt\Storage\Query\Builder\Filter\GraphFilter;
+use Bolt\Storage\Builder\Filter\GraphFilter;
 use Exception;
 
 class ContentBuilder implements GraphBuilderInterface

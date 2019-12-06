@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Builder\Filter;
+namespace Bolt\Storage\Builder\Filter;
 
 class GraphFilter
 {

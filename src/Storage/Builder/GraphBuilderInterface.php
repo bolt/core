@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Builder;
+namespace Bolt\Storage\Builder;
 
 interface GraphBuilderInterface
 {

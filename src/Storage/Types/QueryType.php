@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Storage\Query\Types;
+namespace Bolt\Storage\Types;
 
-use Bolt\Storage\Query\Parser\ContentFieldParser;
-use Bolt\Storage\Query\Resolver\QueryFieldResolver;
+use Bolt\Storage\Parser\ContentFieldParser;
+use Bolt\Storage\Resolver\QueryFieldResolver;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
