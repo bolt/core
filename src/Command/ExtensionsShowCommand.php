@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
+use Bolt\Extension\ExtensionInterface;
 use Bolt\Extension\ExtensionRegistry;
 use ComposerPackages\Dependencies;
 use ComposerPackages\Versions;
@@ -42,9 +43,11 @@ class ExtensionsShowCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $extensionName = $input->getArgument('name');
+
+        /** @var ExtensionInterface $extension */
         $extension = $this->extensionRegistry->getExtension($extensionName);
 
-        if ($extension === null) {
+        if ($extension instanceof ExtensionInterface) {
             $io->caution('No such extension.');
             return 0;
         }

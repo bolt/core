@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Extension\BaseExtension;
 use Bolt\Extension\ExtensionRegistry;
 use ComposerPackages\Dependencies;
 use ComposerPackages\Versions;
@@ -51,6 +52,8 @@ class ExtensionsController extends AbstractController implements BackendZone
     public function viewExtension($name): Response
     {
         $name = str_replace('/', '\\', $name);
+
+        /** @var BaseExtension $extension */
         $extension = $this->extensionRegistry->getExtension($name);
         $dependenciesNames = iterator_to_array($this->dependenciesManager->get($extension->getComposerPackage()->getName()));
         $dependencies = [];
