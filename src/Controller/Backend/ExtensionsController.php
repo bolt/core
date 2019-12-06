@@ -52,17 +52,18 @@ class ExtensionsController extends AbstractController implements BackendZone
     {
         $name = str_replace('/', '\\', $name);
         $extension = $this->extensionRegistry->getExtension($name);
-        $dependencies = iterator_to_array($this->dependenciesManager->get($extension->getComposerPackage()->getName()));
-        $extension->dependencies = [];
+        $dependenciesNames = iterator_to_array($this->dependenciesManager->get($extension->getComposerPackage()->getName()));
+        $dependencies = [];
 
-        foreach ($dependencies as $dependency) {
+        foreach ($dependenciesNames as $dependency) {
             $extDependency['name'] = $dependency;
             $extDependency['version'] = Versions::get($dependency);
-            $extension->dependencies[] = $extDependency;
+            $dependencies[] = $extDependency;
         }
 
         $twigvars = [
             'extension' => $extension,
+            'dependencies' => $dependencies,
         ];
 
         return $this->render('@bolt/pages/extension_details.html.twig', $twigvars);

@@ -23,7 +23,6 @@ class ExtensionsShowCommand extends Command
     /** @var Dependencies */
     private $dependenciesManager;
 
-
     public function __construct(ExtensionRegistry $extensionRegistry)
     {
         $this->extensionRegistry = $extensionRegistry;
@@ -45,7 +44,7 @@ class ExtensionsShowCommand extends Command
         $extensionName = $input->getArgument('name');
         $extension = $this->extensionRegistry->getExtension($extensionName);
 
-        if($extension === null){
+        if ($extension === null) {
             $io->caution('No such extension.');
             return 0;
         }
@@ -63,7 +62,7 @@ class ExtensionsShowCommand extends Command
         $io->table(['Class', 'Extension name'], [[$extension->getClass(), $extension->getName()]]);
 
         $io->text('Dependencies:');
-        if(! empty($dependencies)) {
+        if (! empty($dependencies)) {
             $io->table(['Dependency', 'Version'], $dependencies);
         } else {
             $io->text('No known dependencies');
