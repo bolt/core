@@ -47,6 +47,7 @@
         class="btn new-item__dropdown-toggler dropdown-toggle"
         type="button"
         data-toggle="dropdown"
+        data-display="static"
         aria-haspopup="true"
         aria-expanded="false"
       >
@@ -69,6 +70,7 @@
         class="btn user profile__dropdown-toggler dropdown-toggle"
         type="button"
         data-toggle="dropdown"
+        data-display="static"
         aria-haspopup="true"
         aria-expanded="false"
       >
