@@ -59,10 +59,13 @@
         "twig/extensions": "^1.5",
         "ua-parser/uap-php": "^3.9",
         "webmozart/path-util": "^2.3",
-        "webonyx/graphql-php": "^0.13",
+        "webonyx/graphql-php": "master as 0.13",
         "white-october/pagerfanta-bundle": "^1.2",
         "ramsey/uuid": "^3.8"
     },
+    "repositories": [
+        { "type": "vcs", "url": "https://github.com/stryxx/graphql-php" }
+    ],
     "conflict": {
         "symfony/symfony": "*"
     },
@@ -130,7 +133,7 @@
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [

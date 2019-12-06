@@ -32,6 +32,25 @@
     "behat/mink-goutte-driver": {
         "version": "v1.2.1"
     },
+    "behat/mink-selenium2-driver": {
+        "version": "v1.3.1"
+    },
+    "behat/symfony2-extension": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.1",
+            "ref": "158be9d4b4c2127d9ec741c97e3cb1b6610b5294"
+        },
+        "files": [
+            "./behat.yml.dist",
+            "./config/bootstrap.php",
+            "./features/bootstrap/FeatureContext.php",
+            "./features/bootstrap/bootstrap.php",
+            "./features/demo.feature"
+        ]
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -202,6 +221,9 @@
     },
     "guzzlehttp/psr7": {
         "version": "1.4.2"
+    },
+    "instaclick/php-webdriver": {
+        "version": "1.4.6"
     },
     "intervention/image": {
         "version": "2.4.2"
@@ -628,6 +650,9 @@
     },
     "symfony/dotenv": {
         "version": "v3.4.0-beta2"
+    },
+    "symfony/error-handler": {
+        "version": "v4.4.0"
     },
     "symfony/event-dispatcher": {
         "version": "v3.4.0-beta2"
