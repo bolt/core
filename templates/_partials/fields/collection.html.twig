@@ -1,0 +1,36 @@
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% block field %}
+    {% set labels = {
+        'add_collection_item': 'collection.add_item'|trans
+    } %}
+
+    {# get the html for all collection field already in the database #}
+    {% set existing_fields = [] %}
+    {% if field.value.fields is defined %}
+        {% for item_field in field.value.fields %}
+            {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
+            {% set existing_field %}
+                {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
+            {% endset %}
+            {% set existing_fields = existing_fields|merge([{'html': existing_field, 'hash': item_field.hash}]) %}
+        {% endfor %}
+    {% endif %}
+
+    {# get the html template for the collection fields defined in the field definition #}
+    {% set templated_fields = [] %}
+    {% for item_field in field.value.templates %}
+        {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
+        {% set templated_field %}
+            {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName} only %}
+        {% endset %}
+        {% set templated_fields = templated_fields|merge([{'label': item_field.definition.label, 'html': templated_field, 'hash': item_field.hash}]) %}
+    {% endfor %}
+
+    <editor-collection
+            :existing-fields='{{ existing_fields | json_encode }}'
+            :templates='{{ templated_fields | json_encode }}'
+            :labels='{{ labels | json_encode }}'
+    ></editor-collection>
+
+{% endblock %}

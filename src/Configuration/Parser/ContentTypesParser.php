@@ -7,6 +7,8 @@ namespace Bolt\Configuration\Parser;
 use Bolt\Common\Arr;
 use Bolt\Common\Str;
 use Bolt\Configuration\Content\ContentType;
+use Bolt\Configuration\Content\FieldType;
+use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
 use Bolt\Exception\ConfigurationException;
 use Tightenco\Collect\Support\Collection;
@@ -181,14 +183,11 @@ class ContentTypesParser extends BaseParser
      */
     protected function parseFieldsAndGroups(array $fields): array
     {
-        $currentGroup = 'ungrouped';
+        $currentGroup = 'content'; // Default group name, if none was specified
         $groups = [];
-        $hasGroups = false;
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
-            $field['slug'] = $key;
-
             $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
             if (! isset($field['type']) || empty($field['type'])) {
                 $error = sprintf('Field "%s" has no "type" set.', $key);
@@ -221,10 +220,6 @@ class ContentTypesParser extends BaseParser
                 $field['values'] = array_combine($field['values'], $field['values']);
             }
 
-            if (! empty($field['group'])) {
-                $hasGroups = true;
-            }
-
             if (empty($field['label'])) {
                 $field['label'] = ucwords($key);
             }
@@ -233,32 +228,19 @@ class ContentTypesParser extends BaseParser
                 $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
             }
 
-            if (isset($field['allow_twig']) === false) {
-                $field['allow_twig'] = false;
-            }
-
             if (isset($field['sanitise']) === false) {
                 $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
             }
 
-            // Make sure we have these keys and every field has a group set.
-            $field = array_replace(
-                [
-                    'class' => '',
-                    'default' => '',
-                    'group' => $currentGroup,
-                    'variant' => '',
-                    'localize' => false,
-                ],
-                $field
-            );
+            if (empty($field['group'])) {
+                $field['group'] = $currentGroup;
+            } else {
+                $currentGroup = $field['group'];
+            }
 
-            // Collect group data for rendering.
-            // Make sure that once you started with group all following have that group, too.
-            $currentGroup = $field['group'];
-            $groups[$currentGroup] = 1;
-
-            $fields[$key] = $field;
+            // Convert array into FieldType
+            $fields[$key] = new FieldType($field, $key);
+            $groups[$currentGroup] = $currentGroup;
 
             // Repeating fields checks
             if ($field['type'] === 'repeater') {
@@ -274,18 +256,18 @@ class ContentTypesParser extends BaseParser
             $fields['slug']['uses'] = (array) $fields['slug']['uses'];
         }
 
-        return [$fields, $hasGroups ? array_keys($groups) : []];
+        return [$fields, $groups];
     }
 
     /**
      * Basic validation of repeater fields.
      */
-    private function parseFieldRepeaters(array $repeater): array
+    private function parseFieldRepeaters(FieldType $repeater): ?FieldType
     {
         $blacklist = ['repeater', 'slug', 'templatefield'];
 
         if (! isset($repeater['fields']) || ! is_array($repeater['fields'])) {
-            return [];
+            return null;
         }
 
         foreach ($repeater['fields'] as $repeaterKey => $repeaterField) {

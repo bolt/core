@@ -1,0 +1,5 @@
+{%  set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
+{% set id = 'field-' ~ field.name|default(name)|default('unnamed') %}
+{% set value = field.value|json_encode %}
+
+<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}" />

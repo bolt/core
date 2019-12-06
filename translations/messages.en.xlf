@@ -2005,7 +2005,7 @@
       <segment>
         <source>image.button_edit_attributes</source>
         <target>Edit attributes</target>
-       </segment>
+      </segment>
     </unit>
     <unit id="s14vS9S" name="image.button_move_up">
       <segment>
@@ -2017,6 +2017,30 @@
       <segment>
         <source>image.button_move_down</source>
         <target>Move down</target>
+      </segment>
+    </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <segment>
+        <source>image.add_new_image</source>
+        <target>Add new image</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <segment>
+        <source>file.add_new_file</source>
+        <target>Add new file</target>
+      </segment>
+    </unit>
+    <unit id=".t1ICS7" name="collection.remove_item">
+      <segment>
+        <source>collection.remove_item</source>
+        <target>Remove item</target>
+      </segment>
+    </unit>
+    <unit id="0C9.Vmh" name="collection.add_item">
+      <segment>
+        <source>collection.add_item</source>
+        <target>Add item</target>
       </segment>
     </unit>
   </file>

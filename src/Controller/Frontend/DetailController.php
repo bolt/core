@@ -169,11 +169,17 @@ class DetailController extends TwigAwareController implements FrontendZone
             throw new NotFoundHttpException('Content is not published');
         }
 
-        $recordSlug = $record->getDefinition()->get('singular_slug');
+        $singularSlug = $record->getContentTypeSingularSlug();
+
+        // Update the canonical, with the correct path
+        $this->canonical->setPath(null, [
+            'contentTypeSlug' => $record->getContentTypeSingularSlug(),
+            'slugOrId' => $record->getSlug(),
+        ]);
 
         $context = [
             'record' => $record,
-            $recordSlug => $record,
+            $singularSlug => $record,
         ];
 
         $templates = $this->templateChooser->forRecord($record);

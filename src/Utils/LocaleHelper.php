@@ -86,7 +86,7 @@ class LocaleHelper
             $locales = array_merge($locales, $contentType->get('locales')->all());
         }
 
-        return $locales;
+        return array_unique($locales);
     }
 
     private function getLink(string $route, array $routeParams, Collection $locale): string

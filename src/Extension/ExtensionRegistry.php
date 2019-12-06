@@ -96,4 +96,30 @@ class ExtensionRegistry
             $this->extensions[$extensionClass] = $extension;
         }
     }
+
+    /**
+     * This method calls the `getRoutes()` method for all registered extension,
+     * and compiles an array of routes. This is used in
+     * Bolt\Extension\RoutesLoader::load() to add all these routes to the
+     * (cached) routing.
+     * The reason why we're not iterating over `$this->extensions` is that when
+     * this method is called, they are not instantiated yet.
+     */
+    public function getAllRoutes(): array
+    {
+        $routes = [];
+
+        $this->addComposerPackages();
+
+        foreach ($this->getExtensionClasses() as $extensionClass) {
+            $extension = new $extensionClass();
+
+            if (method_exists($extension, 'getRoutes')) {
+                $extRoutes = $extension->getRoutes();
+                $routes = array_merge($routes, $extRoutes);
+            }
+        }
+
+        return $routes;
+    }
 }

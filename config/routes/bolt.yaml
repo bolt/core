@@ -18,3 +18,8 @@ control_panel_async:
 controllers:
     resource: '../src/Controller/ImageController.php'
     type: annotation
+
+# Routes added by Extensions get added here, by Bolt\Extension\RoutesLoader
+extensions:
+    resource: .
+    type: bolt_extensions

@@ -4,42 +4,28 @@ declare(strict_types=1);
 
 namespace Bolt\Extension;
 
-use Bolt\Configuration\Config;
-use Bolt\Event\Subscriber\ExtensionSubscriber;
 use Bolt\Widget\WidgetInterface;
 use Bolt\Widgets;
 use Cocur\Slugify\Slugify;
 use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Component\Yaml\Parser;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * BaseWidget can be used as easy starter pack or as a base for your own extensions.
  */
 abstract class BaseExtension implements ExtensionInterface
 {
-    /** @var Collection */
-    private $config;
+    use ServicesTrait;
+    use ConfigTrait;
 
-    /** @var EventDispatcherInterface */
-    private $eventDispatcher;
-
-    /** @var ObjectManager */
-    private $objectManager;
-
-    /** @var ContainerInterface */
-    private $container;
+    /** @var string */
+    private $slug;
 
     /**
      * Returns the descriptive name of the Extension
@@ -50,81 +36,15 @@ abstract class BaseExtension implements ExtensionInterface
     }
 
     /**
-     * Returns the classname of the Extension
+     * Returns the slugified name of the Extension
      */
-    public function getClass(): string
+    public function getSlug(): string
     {
-        return static::class;
-    }
-
-    public function getConfig(): Collection
-    {
-        if ($this->config === null) {
-            $this->initializeConfig();
+        if ($this->slug === null) {
+            $this->slug = Slugify::create()->slugify($this->getName());
         }
 
-        return $this->config;
-    }
-
-    private function initializeConfig(): void
-    {
-        $config = [];
-
-        $filenames = $this->getConfigFilenames();
-
-        if (! is_readable($filenames['main']) && is_readable($this->getDefaultConfigFilename())) {
-            $filesystem = new Filesystem();
-            $filesystem->copy($this->getDefaultConfigFilename(), $filenames['main']);
-        }
-
-        $yamlParser = new Parser();
-
-        foreach ($filenames as $filename) {
-            if (is_readable($filename)) {
-                $config = array_merge($config, $yamlParser->parseFile($filename));
-            }
-        }
-
-        $this->config = new Collection($config);
-    }
-
-    public function getConfigFilenames(): array
-    {
-        $slugify = new Slugify();
-        $base = $slugify->slugify(str_replace('Extension', '', $this->getClass()));
-        $path = $this->getBoltConfig()->getPath('extensions_config');
-
-        return [
-            'main' => sprintf('%s%s%s.yaml', $path, DIRECTORY_SEPARATOR, $base),
-            'local' => sprintf('%s%s%s_local.yaml', $path, DIRECTORY_SEPARATOR, $base),
-        ];
-    }
-
-    public function hasConfigFilenames(): array
-    {
-        $result = [];
-
-        foreach ($this->getConfigFilenames() as $filename) {
-            if (is_readable($filename)) {
-                $result[] = basename(dirname($filename)) . DIRECTORY_SEPARATOR . basename($filename);
-            }
-        }
-
-        return $result;
-    }
-
-    private function getDefaultConfigFilename(): string
-    {
-        $reflection = new \ReflectionClass($this);
-
-        return sprintf(
-            '%s%s%s%s%s',
-            dirname(dirname($reflection->getFilename())),
-            DIRECTORY_SEPARATOR,
-            'config',
-            DIRECTORY_SEPARATOR,
-            'config.yaml'
-        );
+        return $this->slug;
     }
 
     /**
@@ -137,21 +57,9 @@ abstract class BaseExtension implements ExtensionInterface
     }
 
     /**
-     * Injects commonly used objects into the extension, for use by the
-     * extension. Called from the listener.
-     *
-     * @see ExtensionSubscriber
-     */
-    public function injectObjects(array $objects): void
-    {
-        $this->objectManager = $objects['manager'];
-        $this->container = $objects['container'];
-    }
-
-    /**
      * Shortcut method to register a widget and inject the extension into it
      */
-    public function registerWidget(WidgetInterface $widget): void
+    public function addWidget(WidgetInterface $widget): void
     {
         $widget->injectExtension($this);
 
@@ -165,7 +73,7 @@ abstract class BaseExtension implements ExtensionInterface
     /**
      * Shortcut method to register a TwigExtension.
      */
-    public function registerTwigExtension(TwigExtensionInterface $extension): void
+    public function addTwigExtension(TwigExtensionInterface $extension): void
     {
         if ($this->getTwig()->hasExtension(\get_class($extension))) {
             return;
@@ -174,12 +82,78 @@ abstract class BaseExtension implements ExtensionInterface
         $this->getTwig()->addExtension($extension);
     }
 
-    public function registerListener($event, $callback): void
+    /**
+     * Shortcut method to add a namespace to the current Twig Environment.
+     */
+    public function addTwigNamespace(string $namespace = '', string $foldername = ''): void
+    {
+        if (empty($namespace)) {
+            $namespace = $this->getSlug();
+        }
+
+        if (empty($foldername)) {
+            $foldername = $this->getTemplateFolder();
+        }
+
+        if (! realpath($foldername)) {
+            return;
+        }
+
+        /** @var NativeFilesystemLoader $twigLoaders */
+        $twigLoaders = $this->getTwig()->getLoader();
+
+        if ($twigLoaders instanceof FilesystemLoader) {
+            $twigLoaders->prependPath($foldername, $namespace);
+        }
+    }
+
+    private function getTemplateFolder(): ?string
+    {
+        $reflection = new \ReflectionClass($this);
+
+        $folder = dirname($reflection->getFilename()) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+
+        $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+
+        return null;
+    }
+
+    public function addListener($event, $callback): void
     {
         /** @var EventDispatcher $dp */
-        $dp = $this->eventDispatcher;
+        $dp = $this->getEventDispatcher();
 
         $dp->addListener($event, $callback);
+    }
+
+    /**
+     * @deprecated
+     */
+    public function registerWidget(WidgetInterface $widget): void
+    {
+        $this->addWidget($widget);
+    }
+
+    /**
+     * @deprecated
+     */
+    public function registerTwigExtension(TwigExtensionInterface $extension): void
+    {
+        $this->addTwigExtension($extension);
+    }
+
+    /**
+     * @deprecated
+     */
+    public function registerListener($event, $callback): void
+    {
+        $this->addListener($event, $callback);
     }
 
     /**
@@ -196,80 +170,5 @@ abstract class BaseExtension implements ExtensionInterface
         $package = Packages::find($finder);
 
         return $package->current();
-    }
-
-    /**
-     * This bit of code allows us to get services from the container, even if
-     * they are not marked public. We need to be able to do this, because we
-     * can't anticipate which services an extension's author will want to get,
-     * and neither should we want to make them all public. So, we resort to
-     * this, regardless of them being private / public. With great power comes
-     * great responsibility.
-     *
-     * Note: We wouldn't have to do this, if we could Autowire services in our
-     * own code. If you have good ideas on how to accomplish that, we'd be
-     * happy to hear from your ideas.
-     *
-     * @throws \ReflectionException
-     */
-    public function getService(string $name)
-    {
-        $container = $this->getContainer();
-
-        if ($container->has($name)) {
-            return $container->get($name);
-        }
-
-        $reflectedContainer = new \ReflectionClass($container);
-        $reflectionProperty = $reflectedContainer->getProperty('privates');
-        $reflectionProperty->setAccessible(true);
-
-        $privateServices = $reflectionProperty->getValue($container);
-
-        if (array_key_exists($name, $privateServices)) {
-            return $privateServices[$name];
-        }
-
-        return null;
-    }
-
-    public function getWidgets(): ?Widgets
-    {
-        return $this->getService(\Bolt\Widgets::class);
-    }
-
-    public function getBoltConfig(): Config
-    {
-        return $this->getService(\Bolt\Configuration\Config::class);
-    }
-
-    public function getTwig(): Environment
-    {
-        return $this->getService('twig');
-    }
-
-    public function getSession(): Session
-    {
-        return $this->getService('session');
-    }
-
-    public function getEventDispatcher(): EventDispatcherInterface
-    {
-        return $this->getService('event_dispatcher');
-    }
-
-    public function getObjectManager(): ObjectManager
-    {
-        return $this->objectManager;
-    }
-
-    public function getStopwatch(): Stopwatch
-    {
-        return $this->getService('debug.stopwatch');
-    }
-
-    public function getContainer(): ContainerInterface
-    {
-        return $this->container;
     }
 }

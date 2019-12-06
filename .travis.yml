@@ -64,8 +64,7 @@ script:
   # - composer validate --strict # temporarily disabled bue to bug in api platform 2.4.0-beta.2
   # this checks that Doctrine's mapping configurations are valid
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-  # run PHP Unit / PHP Spec tests
-  - ./vendor/bin/phpspec run
+  # run PHP Unit
   - ./vendor/bin/phpunit
   # run API tests
   - make behat-api

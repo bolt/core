@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
@@ -281,7 +282,50 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['fields'])) {
             foreach ($formData['fields'] as $fieldName => $fieldValue) {
-                $this->updateField($content, $fieldName, $fieldValue, $locale);
+                $field = $this->getFieldToUpdate($content, $fieldName);
+                $this->updateField($field, $fieldValue, $locale);
+            }
+        }
+
+        if (isset($formData['sets'])) {
+            foreach ($formData['sets'] as $setType => $setsByType) {
+                foreach ($setsByType as $hash => $set) {
+                    $setDefinition = $content->getDefinition()->get('fields')->get($setType);
+                    $this->updateSet($content, $setDefinition, $hash, $set, $locale);
+                }
+            }
+        }
+
+        if (isset($formData['collections'])) {
+            foreach ($formData['collections'] as $collection => $collectionItems) {
+                $setsInCollection = [];
+
+                //update all fields of the collection and collect their field_name and field_reference
+                foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
+                    $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
+                    foreach ($collectionItemValue as $hash => $set) {
+                        $this->updateSet($content, $setDefinition, $hash, $set, $locale);
+                        $setsInCollection[] = [
+                            'field_name' => $collectionItemName,
+                            'field_reference' => $hash,
+                        ];
+                    }
+                }
+
+                //create the collection field itself
+                if ($content->hasField($collection)) {
+                    $collectionField = $content->getField($collection);
+                } else {
+                    $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
+                }
+
+                //fill in the collection field value with the collected field_name and field_reference
+                $collectionField->setName($collection);
+                $collectionField->setValue($setsInCollection);
+
+                if (! $content->hasField($collectionField->getName())) {
+                    $content->addField($collectionField);
+                }
             }
         }
 
@@ -300,7 +344,26 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function updateField(Content $content, string $fieldName, $value, ?string $locale): void
+    private function updateSet(?Content $content, ContentType $setDefinition, string $hash, array $set, ?string $locale): void
+    {
+        foreach ($set as $setFieldChildName => $setFieldChildValue) {
+            $setFieldChildDBName = $hash . '::' . $setFieldChildName;
+            if ($content->hasField($setFieldChildDBName)) {
+                $setFieldChildField = $content->getField($setFieldChildDBName);
+            } else {
+                $setFieldChildField = Field::factory($setDefinition->get('fields')
+                    ->get($setFieldChildName), $setFieldChildDBName, $setFieldChildValue);
+            }
+
+            if (! $content->hasField($setFieldChildDBName)) {
+                $content->addField($setFieldChildField);
+            }
+
+            $this->updateField($setFieldChildField, $setFieldChildValue, $locale);
+        }
+    }
+
+    private function getFieldToUpdate(Content $content, string $fieldName): Field
     {
         /** @var Field $field */
         $field = null;
@@ -321,11 +384,16 @@ class ContentEditController extends TwigAwareController implements BackendZone
         if (! $field) {
             $fields = $content->getDefinition()->get('fields');
             $field = Field::factory($fields->get($fieldName), $fieldName);
-            $field->setName($fieldName);
 
+            $field->setName($fieldName);
             $content->addField($field);
         }
 
+        return $field;
+    }
+
+    private function updateField(Field $field, $value, ?string $locale): void
+    {
         // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);

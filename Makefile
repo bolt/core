@@ -1,5 +1,7 @@
 DC_RUN ?= docker-compose run --rm
 
+COMPOSER ?= COMPOSER_MEMORY_LIMIT=-1 composer
+
 .PHONY: help install server server-stop cache csclear cscheck csfix csfix-tests stancheck test \
 behat full-test db-create db-update db-reset docker-install docker-install-deps docker-start docker-assets-serve \
 docker-update docker-cache docker-csclear docker-cscheck docker-csfix docker-stancheck docker-db-create docker-db-reset \
@@ -18,12 +20,12 @@ start: ## to run the install scripts and start the server
 
 install: ## to install all project dependencies (Composer and NPM)
 	cp -n .env.dist .env || true
-	composer install
+	$(COMPOSER) install
 	npm install
 	npm run build
 
 update:
-	composer update && composer outdated
+	$(COMPOSER) update && $(COMPOSER) outdated
 
 server: ## to start server
 	bin/console server:start 127.0.0.1:8088 -q || true
