@@ -1890,7 +1890,7 @@
     <unit id="BQBmQHT" name="field.cropYPostfix">
       <segment>
         <source>field.cropYPostfix</source>
-        <target>Position of crop on X-axis, range 0-100. </target>
+        <target>Position of crop on Y-axis, range 0-100. </target>
       </segment>
     </unit>
     <unit id="hi98HIj" name="field.cropY">
