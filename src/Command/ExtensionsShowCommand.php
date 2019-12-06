@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Extension\ExtensionRegistry;
+use ComposerPackages\Dependencies;
+use ComposerPackages\Versions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,13 +20,14 @@ class ExtensionsShowCommand extends Command
     /** @var ExtensionRegistry */
     private $extensionRegistry;
 
-    private $extensionName;
+    /** @var Dependencies */
+    private $dependenciesManager;
 
-    public function __construct(ExtensionRegistry $extensionRegistry, string $extensionName = null)
+
+    public function __construct(ExtensionRegistry $extensionRegistry)
     {
         $this->extensionRegistry = $extensionRegistry;
-        $this->extensionName = $extensionName;
-
+        $this->dependenciesManager = new Dependencies();
         parent::__construct();
     }
 
@@ -32,32 +35,39 @@ class ExtensionsShowCommand extends Command
     {
         $this
             ->setDescription('Show details for an extension')
-            ->addArgument('name', $this->extensionName ? InputArgument::REQUIRED : InputArgument::OPTIONAL, 'Extension name');
+            ->addArgument('name', InputArgument::REQUIRED, 'Extension name');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
-        $extensions = $this->extensionRegistry->getExtensions();
-
         $io = new SymfonyStyle($input, $output);
 
-        $io->text("Argument: " . $this->extensionName);
+        $extensionName = $input->getArgument('name');
+        $extension = $this->extensionRegistry->getExtension($extensionName);
 
-        /*
-        $rows = [];
-
-        foreach ($extensions as $extension) {
-            $rows[] = [$extension->getClass(), $extension->getName()];
+        if($extension === null){
+            $io->caution('No such extension.');
+            return 0;
         }
 
-        $io = new SymfonyStyle($input, $output);
+        $dependencyNames = iterator_to_array($this->dependenciesManager->get($extension->getComposerPackage()->getName()));
 
-        if (! empty($rows)) {
-            $io->table(['Class', 'Extension name'], $rows);
+        $dependencies = [];
+        foreach ($dependencyNames as $dependency) {
+            $extDependency['name'] = $dependency;
+            $extDependency['version'] = Versions::get($dependency);
+            $dependencies[] = $extDependency;
+        }
+
+        $io->text('Details for:');
+        $io->table(['Class', 'Extension name'], [[$extension->getClass(), $extension->getName()]]);
+
+        $io->text('Dependencies:');
+        if(! empty($dependencies)) {
+            $io->table(['Dependency', 'Version'], $dependencies);
         } else {
-            $io->caution('No installed extensions could be found');
+            $io->text('No known dependencies');
         }
-        */
 
         return 0;
     }
