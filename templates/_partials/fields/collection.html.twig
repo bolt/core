@@ -11,7 +11,8 @@
         {% for item_field in field.value.fields %}
             {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
             {% set existing_field %}
-                {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName } only %}
+                {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with
+                    {'field': item_field, 'in_collection': true, 'is_first': loop.index0 == 0, 'is_last': loop.index == field.value.fields|length, 'name': collectionItemName } only %}
             {% endset %}
             {% set existing_fields = existing_fields|merge([{'html': existing_field, 'hash': item_field.hash}]) %}
         {% endfor %}
