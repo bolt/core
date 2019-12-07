@@ -46,7 +46,6 @@ class ImageController
             $filename = sprintf('%s/%s', $request->query->get('path'), $filename);
         }
 
-        /** @var StreamedResponse $response */
         return $server->getImageResponse($filename, $request->query->all());
     }
 }

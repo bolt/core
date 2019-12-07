@@ -14,7 +14,7 @@ class DeepCollection extends Collection
     public static function deepMake($items): self
     {
         if ($items instanceof self) {
-            return $items;
+            return parent::make($items);
         }
 
         $items = parent::make($items)->map(function ($value) {
