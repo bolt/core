@@ -2073,5 +2073,17 @@
         <target>Drop files here to upload</target>
       </segment>
     </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <segment>
+        <source>pager.next</source>
+        <target>Next</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment>
+        <source>pager.previous</source>
+        <target>Previous</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

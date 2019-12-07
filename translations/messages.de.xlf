@@ -1081,5 +1081,17 @@
         <target>Legen Sie Dateien hier ab um Sie hochzuladen</target>
       </segment>
     </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment>
+        <source>pager.previous</source>
+        <target>Zurück</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <segment>
+        <source>pager.next</source>
+        <target>Vor</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
