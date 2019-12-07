@@ -2067,5 +2067,11 @@
         <target>Configuration file</target>
       </segment>
     </unit>
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
+      <segment>
+        <source>caption.file_upload.upload_text</source>
+        <target>Drop files here to upload</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
