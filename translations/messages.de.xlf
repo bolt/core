@@ -1075,5 +1075,23 @@
         <target>Keine Dateien im Ordner vorhanden, bitte wähle auf der rechten Seite ein  	Verzeichnis aus!</target>
       </segment>
     </unit>
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
+      <segment>
+        <source>caption.file_upload.upload_text</source>
+        <target>Legen Sie Dateien hier ab um Sie hochzuladen</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment>
+        <source>pager.previous</source>
+        <target>Zurück</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <segment>
+        <source>pager.next</source>
+        <target>Vor</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

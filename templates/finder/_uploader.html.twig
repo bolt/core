@@ -8,6 +8,7 @@
           method="POST">
         {{ macro.icon('upload') }}
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('upload') }}">
+        <div class="dz-default dz-message"><span>{{ 'caption.file_upload.upload_text'|trans }}</span></div>
         <div class="fallback">
             <input name="file" type="file" multiple />
         </div>
