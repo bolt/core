@@ -30,7 +30,7 @@ Predefined variables:
     <ul class="pagination {{ class != 'pagination' ? class }}" >
         {# Previous Button #}
         {% set p = routeParams|merge({page: records.hasPreviousPage ? records.previousPage : 1 }) %}
-        {% with {'path': path(route, p), 'label': 'pager.previous'|trans, 'enabled': records.hasPreviousPage, 'rel': 'pager.previous'|trans } %}
+        {% with {'path': path(route, p), 'label': 'pager.previous'|trans, 'enabled': records.hasPreviousPage, 'rel': 'previous' } %}
             {{ block('item') }}
         {% endwith %}
 
@@ -71,7 +71,7 @@ Predefined variables:
 
         {# Next Button #}
         {% set p = routeParams|merge({page: records.hasNextPage ? records.nextPage : records.nbPages }) %}
-        {% with {'path': path(route, p), 'label': 'pager.next'|trans, 'enabled': records.hasNextPage, 'rel': 'pager.next'|trans } %}
+        {% with {'path': path(route, p), 'label': 'pager.next'|trans, 'enabled': records.hasNextPage, 'rel': 'next' } %}
             {{ block('item') }}
         {% endwith %}
     </ul>
