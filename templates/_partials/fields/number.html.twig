@@ -8,7 +8,7 @@
   {% endif %}
 
   {# set step #}
-  {% if field.definition['step'] is defined %}
+  {% if not step|default and field.definition['step'] is defined %}
     {% set step = field.definition.step %}
   {% else %}
     {# default step values #}
