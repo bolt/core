@@ -1,10 +1,1097 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-    </body>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+  <file id="messages.de">
+    <unit id="HLtdhYw" name="action.save">
+      <segment>
+        <source>action.save</source>
+        <target>Speichern</target>
+      </segment>
+    </unit>
+    <unit id="TpGxDI3" name="user.unknown_user">
+      <segment>
+        <source>user.unknown_user</source>
+        <target>Unbekannter Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="7aLIA3c" name="caption.dashboard">
+      <segment>
+        <source>caption.dashboard</source>
+        <target>Bolt Dashboard</target>
+      </segment>
+    </unit>
+    <unit id="1xlE8ex" name="caption.content">
+      <segment>
+        <source>caption.content</source>
+        <target>Inhalte</target>
+      </segment>
+    </unit>
+    <unit id="ZO.uqIZ" name="caption.settings">
+      <segment>
+        <source>caption.settings</source>
+        <target>Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="drK.0GZ" name="caption.taxonomies">
+      <segment>
+        <source>caption.taxonomies</source>
+        <target>Taxonomien</target>
+      </segment>
+    </unit>
+    <unit id="_w7J5rZ" name="caption.contenttypes">
+      <segment>
+        <source>caption.contenttypes</source>
+        <target>Inhaltstypen</target>
+      </segment>
+    </unit>
+    <unit id="kXNBV9S" name="caption.main_configuration">
+      <segment>
+        <source>caption.main_configuration</source>
+        <target>Hauptkonfiguration</target>
+      </segment>
+    </unit>
+    <unit id="ipmA6Ah" name="caption.users_permissions">
+      <segment>
+        <source>caption.users_permissions</source>
+        <target><![CDATA[Benutzer & Rechte]]></target>
+      </segment>
+    </unit>
+    <unit id="zOLL.7E" name="caption.configuration">
+      <segment>
+        <source>caption.configuration</source>
+        <target>Konfiguration</target>
+      </segment>
+    </unit>
+    <unit id="2RUXD4A" name="caption.menu_setup">
+      <segment>
+        <source>caption.menu_setup</source>
+        <target>Menü</target>
+      </segment>
+    </unit>
+    <unit id="wBKDkwl" name="caption.routing_setup">
+      <segment>
+        <source>caption.routing_setup</source>
+        <target>Routen</target>
+      </segment>
+    </unit>
+    <unit id="i4cbdta" name="caption.all_configuration_files">
+      <segment>
+        <source>caption.all_configuration_files</source>
+        <target>Konfigurationsdateien</target>
+      </segment>
+    </unit>
+    <unit id="OpKTKAL" name="caption.maintenance">
+      <segment>
+        <source>caption.maintenance</source>
+        <target>Wartung</target>
+      </segment>
+    </unit>
+    <unit id="mfvtHPQ" name="caption.extensions">
+      <segment>
+        <source>caption.extensions</source>
+        <target>Erweiterungen</target>
+      </segment>
+    </unit>
+    <unit id="Dvu2HQx" name="caption.api">
+      <segment>
+        <source>caption.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
+    <unit id="wLaDaK5" name="caption.about_bolt">
+      <segment>
+        <source>caption.about_bolt</source>
+        <target>Über Bolt</target>
+      </segment>
+    </unit>
+    <unit id="dd5MzCM" name="caption.translations">
+      <segment>
+        <source>caption.translations</source>
+        <target>Übersetzungen</target>
+      </segment>
+    </unit>
+    <unit id="_ef0RBR" name="caption.installation_checks">
+      <segment>
+        <source>caption.installation_checks</source>
+        <target>Installation prüfen</target>
+      </segment>
+    </unit>
+    <unit id="K6TmK4B" name="caption.clear_cache">
+      <segment>
+        <source>caption.clear_cache</source>
+        <target>Cache leeren</target>
+      </segment>
+    </unit>
+    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
+      <segment>
+        <source>caption.fixtures_dummy_content</source>
+        <target>Beispielinhalte</target>
+      </segment>
+    </unit>
+    <unit id="bmdn3u9" name="action.logout">
+      <segment>
+        <source>action.logout</source>
+        <target>Ausloggen</target>
+      </segment>
+    </unit>
+    <unit id="b_RPpcB" name="general.greeting">
+      <segment>
+        <source>general.greeting</source>
+        <target>Hallo, %name%!</target>
+      </segment>
+    </unit>
+    <unit id="KfVJho2" name="action.create_new">
+      <segment>
+        <source>action.create_new</source>
+        <target>Anlegen</target>
+      </segment>
+    </unit>
+    <unit id="UZFanGF" name="about.bolt_documentation">
+      <segment>
+        <source>about.bolt_documentation</source>
+        <target>Bolt Dokumentation</target>
+      </segment>
+    </unit>
+    <unit id="bq6bSf4" name="caption.uploaded_files">
+      <segment>
+        <source>caption.uploaded_files</source>
+        <target>Hochgeladene Dateien</target>
+      </segment>
+    </unit>
+    <unit id="l4yt0BE" name="caption.file_management">
+      <segment>
+        <source>caption.file_management</source>
+        <target>Dateiverwaltung</target>
+      </segment>
+    </unit>
+    <unit id="N_0yRcH" name="action.close_alert">
+      <segment>
+        <source>action.close_alert</source>
+        <target>Schließen</target>
+      </segment>
+    </unit>
+    <unit id="mEDsKHk" name="label.locale">
+      <segment>
+        <source>label.locale</source>
+        <target>Sprache</target>
+      </segment>
+    </unit>
+    <unit id="D2N6_cP" name="label.email">
+      <segment>
+        <source>label.email</source>
+        <target>E-Mail-Adresse</target>
+      </segment>
+    </unit>
+    <unit id="9pvowqn" name="label.password">
+      <segment>
+        <source>label.password</source>
+        <target>Passwort</target>
+      </segment>
+    </unit>
+    <unit id="SeTqePC" name="label.display_name">
+      <segment>
+        <source>label.display_name</source>
+        <target>Anzeigename</target>
+      </segment>
+    </unit>
+    <unit id="LDhDPrF" name="label.username">
+      <segment>
+        <source>label.username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="Gabafxx" name="admin_sidebar.toggler">
+      <segment>
+        <source>admin_sidebar.toggler</source>
+        <target>Menü umschalten</target>
+      </segment>
+    </unit>
+    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+      <segment>
+        <source>admin_sidebar_toggler.toggle</source>
+        <target>admin_sidebar_toggler.toggle</target>
+      </segment>
+    </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <segment>
+        <source>title.edit_user_profile</source>
+        <target>Benutzerprofil bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="k.JymqB" name="about.visit_bolt">
+      <segment>
+        <source>about.visit_bolt</source>
+        <target>Besucht Bolt.cm</target>
+      </segment>
+    </unit>
+    <unit id="zOfpTLD" name="action.edit_profile">
+      <segment>
+        <source>action.edit_profile</source>
+        <target>Profil bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="K4D568R" name="caption.view_edit_templates">
+      <segment>
+        <source>caption.view_edit_templates</source>
+        <target>Templates verwalten</target>
+      </segment>
+    </unit>
+    <unit id="TtmWqX3" name="action.view">
+      <segment>
+        <source>action.view</source>
+        <target>Ansehen</target>
+      </segment>
+    </unit>
+    <unit id="SDVQEir" name="title.save_changes">
+      <segment>
+        <source>title.save_changes</source>
+        <target>Änderungen speichern</target>
+      </segment>
+    </unit>
+    <unit id="dQIY7_J" name="action.preview">
+      <segment>
+        <source>action.preview</source>
+        <target>Vorschau</target>
+      </segment>
+    </unit>
+    <unit id="qQKx1lR" name="buttons.button_toggle">
+      <segment>
+        <source>buttons.button_toggle</source>
+        <target>Dropdown anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="ok6YulQ" name="action.view_saved">
+      <segment>
+        <source>action.view_saved</source>
+        <target>Gespeicherte Version anschauen</target>
+      </segment>
+    </unit>
+    <unit id="8zEzq8N" name="field.current_locale">
+      <segment>
+        <source>field.current_locale</source>
+        <target>Aktuelle Sprache</target>
+      </segment>
+    </unit>
+    <unit id="ahZvOJz" name="field.switch_to_locale">
+      <segment>
+        <source>field.switch_to_locale</source>
+        <target>Sprache wechseln zu</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <segment>
+        <source>title.options</source>
+        <target>Optionen</target>
+      </segment>
+    </unit>
+    <unit id="FuCyk5C" name="field.status">
+      <segment>
+        <source>field.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="3gdi1dy" name="field.publishedAt">
+      <segment>
+        <source>field.publishedAt</source>
+        <target>Veröffentlicht am</target>
+      </segment>
+    </unit>
+    <unit id="SNELzJ2" name="field.id">
+      <segment>
+        <source>field.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="eVkSIKu" name="field.modifiedAt">
+      <segment>
+        <source>field.modifiedAt</source>
+        <target>Bearbeitet am</target>
+      </segment>
+    </unit>
+    <unit id="O9wtVOp" name="field.createdAt">
+      <segment>
+        <source>field.createdAt</source>
+        <target>Erstellt am</target>
+      </segment>
+    </unit>
+    <unit id="aQX4Emy" name="field.author">
+      <segment>
+        <source>field.author</source>
+        <target>Autor</target>
+      </segment>
+    </unit>
+    <unit id="eN7IfEL" name="field.depublishedAt">
+      <segment>
+        <source>field.depublishedAt</source>
+        <target>Veröffentlichung zurückziehen am</target>
+      </segment>
+    </unit>
+    <unit id="HK7XTUX" name="caption.edit">
+      <segment>
+        <source>caption.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="vptPhch" name="image.button_upload">
+      <segment>
+        <source>image.button_upload</source>
+        <target>Hochladen</target>
+      </segment>
+    </unit>
+    <unit id="vIVO1lU" name="image.button_from_library">
+      <segment>
+        <source>image.button_from_library</source>
+        <target>Aus der Bibliothek</target>
+      </segment>
+    </unit>
+    <unit id="oOuVKRv" name="image.placeholder_filename">
+      <segment>
+        <source>image.placeholder_filename</source>
+        <target>Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="BWubOnS" name="image.placeholder_alt_text">
+      <segment>
+        <source>image.placeholder_alt_text</source>
+        <target>Alternativer Text</target>
+      </segment>
+    </unit>
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
+      <segment>
+        <source>image.button_edit_attributes</source>
+        <target>Attribute bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="odDw0du" name="action.search">
+      <segment>
+        <source>action.search</source>
+        <target>Suchen</target>
+      </segment>
+    </unit>
+    <unit id="Pily_qo" name="general.phrase.read-more">
+      <segment>
+        <source>general.phrase.read-more</source>
+        <target>Mehr anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="wNEwZy_" name="contenttypes.generic.overview">
+      <segment>
+        <source>contenttypes.generic.overview</source>
+        <target>Seitenübersicht</target>
+      </segment>
+    </unit>
+    <unit id="psOa_9x" name="general.phrase.built-with-bolt">
+      <segment>
+        <source>general.phrase.built-with-bolt</source>
+        <target><![CDATA[Diese Webseite wurde erstellt mit <a href='https://bolt.cm' target='_blank' title='Sophisticated, lightweight & simple CMS'>Bolt</a>. ]]></target>
+      </segment>
+    </unit>
+    <unit id="AGegYAN" name="contenttypes.generic.recent">
+      <segment>
+        <source>contenttypes.generic.recent</source>
+        <target>Neuste Seiten</target>
+      </segment>
+    </unit>
+    <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
+      <segment>
+        <source>general.phrase.search-ellipsis</source>
+        <target>...</target>
+      </segment>
+    </unit>
+    <unit id="kaK5Wdr" name="slug.button_locked">
+      <segment>
+        <source>slug.button_locked</source>
+        <target>Deaktiviert</target>
+      </segment>
+    </unit>
+    <unit id="qcDEz5O" name="slug.button_edit">
+      <segment>
+        <source>slug.button_edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="Wou02nK" name="caption.kitchensink">
+      <segment>
+        <source>caption.kitchensink</source>
+        <target>Testumgebung</target>
+      </segment>
+    </unit>
+    <unit id="xIztVmp" name="listing_filter.button_expanded">
+      <segment>
+        <source>listing_filter.button_expanded</source>
+        <target>Detailansicht</target>
+      </segment>
+    </unit>
+    <unit id="pcq1NGk" name="listing_filter.button_compact">
+      <segment>
+        <source>listing_filter.button_compact</source>
+        <target>Kompakteansicht</target>
+      </segment>
+    </unit>
+    <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
+      <segment>
+        <source>listing_table.actions.view_on_site</source>
+        <target>Anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
+      <segment>
+        <source>listing_table.actions.status_to_publish</source>
+        <target>Veröffentlichen</target>
+      </segment>
+    </unit>
+    <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
+      <segment>
+        <source>listing_table.actions.status_to_held</source>
+        <target>Festhalten</target>
+      </segment>
+    </unit>
+    <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
+      <segment>
+        <source>listing_table.actions.status_to_draft</source>
+        <target>Als Vorlage markieren</target>
+      </segment>
+    </unit>
+    <unit id="5H60Xq6" name="listing_table.actions.duplicate">
+      <segment>
+        <source>listing_table.actions.duplicate</source>
+        <target>Duplizieren</target>
+      </segment>
+    </unit>
+    <unit id="hR8ri.m" name="listing_table.actions.delete">
+      <segment>
+        <source>listing_table.actions.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="5zbX1vo" name="listing_table.actions.slug">
+      <segment>
+        <source>listing_table.actions.slug</source>
+        <target>Slug</target>
+      </segment>
+    </unit>
+    <unit id="wKDOBOC" name="listing_table.actions.created_on">
+      <segment>
+        <source>listing_table.actions.created_on</source>
+        <target>Erstellt am</target>
+      </segment>
+    </unit>
+    <unit id="tVX01Xl" name="listing_table.actions.published_on">
+      <segment>
+        <source>listing_table.actions.published_on</source>
+        <target>Veröffentlicht am</target>
+      </segment>
+    </unit>
+    <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
+      <segment>
+        <source>listing_table.actions.last_modified_on</source>
+        <target>Zuletzt bearbeitet am</target>
+      </segment>
+    </unit>
+    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+      <segment>
+        <source>listing_table.actions.button_edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="a2vzLi7" name="action.do_something">
+      <segment>
+        <source>action.do_something</source>
+        <target>Beispieltext</target>
+      </segment>
+    </unit>
+    <unit id="z2AgHGp" name="flash_messages.notification">
+      <segment>
+        <source>flash_messages.notification</source>
+        <target>Benachrichtigung</target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment>
+        <source>success</source>
+        <target>Erfolg!</target>
+      </segment>
+    </unit>
+    <unit id="cH6rDCP" name="Button">
+      <segment>
+        <source>Button</source>
+        <target>Button</target>
+      </segment>
+    </unit>
+    <unit id="1LzKCXS" name="&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.">
+      <segment>
+        <source>&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.</source>
+        <target><![CDATA[<strong>Gut gemacht!</strong> Sie haben diese wichtige Meldung erfolgreich gelesen. ]]></target>
+      </segment>
+    </unit>
+    <unit id="ibSB.pZ" name="57d589f">
+      <segment>
+        <source>&lt;strong&gt;Heads up!&lt;/strong&gt; This alert needs your attention, but it's not super important.</source>
+        <target><![CDATA[<strong>Kopf hoch!</strong> Diese Warnung benötigt Ihre Aufmerksamkeit, ist aber nicht besonders wichtig.]]></target>
+      </segment>
+    </unit>
+    <unit id="Bicbr0l" name="info">
+      <segment>
+        <source>info</source>
+        <target>Information</target>
+      </segment>
+    </unit>
+    <unit id="S9k1S7Z" name="warning">
+      <segment>
+        <source>warning</source>
+        <target>Warnung</target>
+      </segment>
+    </unit>
+    <unit id="JYILFeM" name="&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.">
+      <segment>
+        <source>&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.</source>
+        <target><![CDATA[<strong>Warnung!</strong> Pass auf, etwas stimmt nicht.]]></target>
+      </segment>
+    </unit>
+    <unit id="Ej.WZqo" name="danger">
+      <segment>
+        <source>danger</source>
+        <target>Achtung</target>
+      </segment>
+    </unit>
+    <unit id="OGd6iOm" name="&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.">
+      <segment>
+        <source>&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.</source>
+        <target><![CDATA[<strong>Ohje!</strong> Ändere ein paar Dinge und versuche es erneut.]]></target>
+      </segment>
+    </unit>
+    <unit id="ypPzS03" name="localeswitcher.button_info">
+      <segment>
+        <source>localeswitcher.button_info</source>
+        <target>Übersetzungsstatus</target>
+      </segment>
+    </unit>
+    <unit id="raO5QSf" name="slug.generate_from">
+      <segment>
+        <source>slug.generate_from</source>
+        <target>Erzeugt aus:</target>
+      </segment>
+    </unit>
+    <unit id="BINgtmK" name="editor_date.toggle">
+      <segment>
+        <source>editor_date.toggle</source>
+        <target>Umschalten</target>
+      </segment>
+    </unit>
+    <unit id="n.jOrkg" name="caption.untitled_contenttype">
+      <segment>
+        <source>caption.untitled_contenttype</source>
+        <target>Unbenannte(r) %contenttype%</target>
+      </segment>
+    </unit>
+    <unit id="QoeqyPT" name="caption.new_contenttype">
+      <segment>
+        <source>caption.new_contenttype</source>
+        <target>%contenttype% anlegen</target>
+      </segment>
+    </unit>
+    <unit id="Iy4HXCU" name="controller.user.title">
+      <segment>
+        <source>controller.user.title</source>
+        <target><![CDATA[Benutzer & Rechte]]></target>
+      </segment>
+    </unit>
+    <unit id="7cXqH5s" name="listing.title_display_name">
+      <segment>
+        <source>listing.title_display_name</source>
+        <target>Anzeigename</target>
+      </segment>
+    </unit>
+    <unit id="Ay7xZ2h" name="listing.title_username">
+      <segment>
+        <source>listing.title_username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="RN1tdtJ" name="listing.title_email">
+      <segment>
+        <source>listing.title_email</source>
+        <target>E-Mail-Adresse</target>
+      </segment>
+    </unit>
+    <unit id="0pjZ.GV" name="listing.title_roles">
+      <segment>
+        <source>listing.title_roles</source>
+        <target>Rollen</target>
+      </segment>
+    </unit>
+    <unit id="hXEFV1n" name="listing.title_last_seen">
+      <segment>
+        <source>listing.title_last_seen</source>
+        <target>Zuletzt gesehen</target>
+      </segment>
+    </unit>
+    <unit id="pn7kE17" name="listing.title_last_ip">
+      <segment>
+        <source>listing.title_last_ip</source>
+        <target>Letzte Ip</target>
+      </segment>
+    </unit>
+    <unit id="GZ65uOC" name="listing.title_actions">
+      <segment>
+        <source>listing.title_actions</source>
+        <target>Optionen</target>
+      </segment>
+    </unit>
+    <unit id="ovKkXwU" name="action.edit">
+      <segment>
+        <source>action.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="ryXZRAu" name="action.disable">
+      <segment>
+        <source>action.disable</source>
+        <target>Deaktivieren</target>
+      </segment>
+    </unit>
+    <unit id="hTKWQ6g" name="action.delete">
+      <segment>
+        <source>action.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="3zlZmRK" name="action.add_user">
+      <segment>
+        <source>action.add_user</source>
+        <target>Benutzer hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="Npkio79" name="listing.title_session_expires">
+      <segment>
+        <source>listing.title_session_expires</source>
+        <target>Session endet</target>
+      </segment>
+    </unit>
+    <unit id="mmUDcto" name="listing.title_ip_address">
+      <segment>
+        <source>listing.title_ip_address</source>
+        <target>IP-Adresse</target>
+      </segment>
+    </unit>
+    <unit id="x9qAwrz" name="listing.title_browser">
+      <segment>
+        <source>listing.title_browser</source>
+        <target>Browser / Betriebssystem</target>
+      </segment>
+    </unit>
+    <unit id="HBwIQ9b" name="controller.user.subtitle">
+      <segment>
+        <source>controller.user.subtitle</source>
+        <target>Benutzer und Rechte bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="7whLbH8" name="user.new_user">
+      <segment>
+        <source>user.new_user</source>
+        <target>Neuen Benutzer anlegen</target>
+      </segment>
+    </unit>
+    <unit id="1sstKF9" name="title.edit_user">
+      <segment>
+        <source>title.edit_user</source>
+        <target>Benutzer bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="iD6CNOO" name="label.roles">
+      <segment>
+        <source>label.roles</source>
+        <target>Rollen</target>
+      </segment>
+    </unit>
+    <unit id="FSroufa" name="caption.path">
+      <segment>
+        <source>caption.path</source>
+        <target>Pfad</target>
+      </segment>
+    </unit>
+    <unit id="P1FHg3Q" name="caption.edit_file">
+      <segment>
+        <source>caption.edit_file</source>
+        <target>Datei bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="m3tNvJb" name="finder.button_list">
+      <segment>
+        <source>finder.button_list</source>
+        <target>Listenansicht</target>
+      </segment>
+    </unit>
+    <unit id="tRLgeoX" name="finder.button_cards">
+      <segment>
+        <source>finder.button_cards</source>
+        <target>Kartenansicht</target>
+      </segment>
+    </unit>
+    <unit id="KHvGNGW" name="directoryname">
+      <segment>
+        <source>directoryname</source>
+        <target>Verzeichnisname</target>
+      </segment>
+    </unit>
+    <unit id="QZYjRy0" name="caption.file_uploader">
+      <segment>
+        <source>caption.file_uploader</source>
+        <target>Datei hochladen</target>
+      </segment>
+    </unit>
+    <unit id="v6cfPyt" name="quickselect.title_select">
+      <segment>
+        <source>quickselect.title_select</source>
+        <target>Datei auswählen</target>
+      </segment>
+    </unit>
+    <unit id="JjU6ZQP" name="files_cards.action_delete">
+      <segment>
+        <source>files_cards.action_delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
+      <segment>
+        <source>files_cards.action_duplicate</source>
+        <target>Duplizieren</target>
+      </segment>
+    </unit>
+    <unit id="H1pgP94" name="files_cards.action_view_original">
+      <segment>
+        <source>files_cards.action_view_original</source>
+        <target>Original ansehen</target>
+      </segment>
+    </unit>
+    <unit id="5LXvJfE" name="files_cards.action_edit_file">
+      <segment>
+        <source>files_cards.action_edit_file</source>
+        <target>Datei im Editor bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="3jdNwuk" name="files_cards.label_filename">
+      <segment>
+        <source>files_cards.label_filename</source>
+        <target>Dateiname:</target>
+      </segment>
+    </unit>
+    <unit id="eQBhceV" name="files_cards.label_filesize">
+      <segment>
+        <source>files_cards.label_filesize</source>
+        <target>Dateigröße:</target>
+      </segment>
+    </unit>
+    <unit id="uiCjlwk" name="files_cards.label_created_on">
+      <segment>
+        <source>files_cards.label_created_on</source>
+        <target>Erstellt am:</target>
+      </segment>
+    </unit>
+    <unit id="LaDIuZA" name="caption.meta_information">
+      <segment>
+        <source>caption.meta_information</source>
+        <target>Metadaten</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <segment>
+        <source>actions</source>
+        <target>Optionen</target>
+      </segment>
+    </unit>
+    <unit id="I2ykiIZ" name="caption.folders">
+      <segment>
+        <source>caption.folders</source>
+        <target>Ordner</target>
+      </segment>
+    </unit>
+    <unit id="QQvRJe." name="files_cards.button_toggle">
+      <segment>
+        <source>files_cards.button_toggle</source>
+        <target>Dropdown umschalten</target>
+      </segment>
+    </unit>
+    <unit id="C15MbYY" name="form.quick_select_file">
+      <segment>
+        <source>form.quick_select_file</source>
+        <target>Datei Schnellauswahl</target>
+      </segment>
+    </unit>
+    <unit id="73A2bWM" name="finder.label_view">
+      <segment>
+        <source>finder.label_view</source>
+        <target>Ansicht:</target>
+      </segment>
+    </unit>
+    <unit id="_XSgfqS" name="filename">
+      <segment>
+        <source>filename</source>
+        <target>Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="gPYflhh" name="thumbnail">
+      <segment>
+        <source>thumbnail</source>
+        <target>Vorschaubild</target>
+      </segment>
+    </unit>
+    <unit id="zNy_hG8" name="size">
+      <segment>
+        <source>size</source>
+        <target>Größe</target>
+      </segment>
+    </unit>
+    <unit id="DodjLNR" name="date">
+      <segment>
+        <source>date</source>
+        <target>Datum</target>
+      </segment>
+    </unit>
+    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
+      <segment>
+        <source>files_cards.action_edit_image_info</source>
+        <target>Bild Metadaten bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="vlRe8Tx" name="field.width">
+      <segment>
+        <source>field.width</source>
+        <target>Breite</target>
+      </segment>
+    </unit>
+    <unit id="CZbXbM_" name="field.height">
+      <segment>
+        <source>field.height</source>
+        <target>Höhe</target>
+      </segment>
+    </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <segment>
+        <source>label.predominant_colors__in_image</source>
+        <target>Vorherrschend Farben</target>
+      </segment>
+    </unit>
+    <unit id="Sz_u.OS" name="field.filesize">
+      <segment>
+        <source>field.filesize</source>
+        <target>Dateigröße</target>
+      </segment>
+    </unit>
+    <unit id="TtIlBDd" name="caption.edit_image">
+      <segment>
+        <source>caption.edit_image</source>
+        <target>Bild bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="y5otxEK" name="caption.filename">
+      <segment>
+        <source>caption.filename</source>
+        <target>Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="VKhfRZB" name="field.title">
+      <segment>
+        <source>field.title</source>
+        <target>Title</target>
+      </segment>
+    </unit>
+    <unit id="7_wwX8J" name="field.description">
+      <segment>
+        <source>field.description</source>
+        <target>Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="hjDmcPC" name="field.copyright">
+      <segment>
+        <source>field.copyright</source>
+        <target>Copyright</target>
+      </segment>
+    </unit>
+    <unit id="v0sitU8" name="field.originalFilename">
+      <segment>
+        <source>field.originalFilename</source>
+        <target>Originaler Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="fLOd6Zd" name="field.cropX">
+      <segment>
+        <source>field.cropX</source>
+        <target>Breite zuschneiden</target>
+      </segment>
+    </unit>
+    <unit id="hi98HIj" name="field.cropY">
+      <segment>
+        <source>field.cropY</source>
+        <target>Höhe zuschneiden</target>
+      </segment>
+    </unit>
+    <unit id="Sd_AbmV" name="field.cropXPostfix">
+      <segment>
+        <source>field.cropXPostfix</source>
+        <target>Mögliche Positionen der X-Achse sind 0-100.</target>
+      </segment>
+    </unit>
+    <unit id="BQBmQHT" name="field.cropYPostfix">
+      <segment>
+        <source>field.cropYPostfix</source>
+        <target>Mögliche Positionen der Y-Achse sind 0-100.</target>
+      </segment>
+    </unit>
+    <unit id="PHOpD5y" name="field.cropZoom">
+      <segment>
+        <source>field.cropZoom</source>
+        <target>Zoomfaktor</target>
+      </segment>
+    </unit>
+    <unit id="tn6Z8wY" name="field.cropZoomPostfix">
+      <segment>
+        <source>field.cropZoomPostfix</source>
+        <target>Möglicher Zoomfaktor ist 0-10.</target>
+      </segment>
+    </unit>
+    <unit id="IB0mNQh" name="content.created_successfully">
+      <segment>
+        <source>content.created_successfully</source>
+        <target>Mediendatei wurde erfolgreich erstellt!</target>
+      </segment>
+    </unit>
+    <unit id="nrWBJNm" name="extensions.title_desc">
+      <segment>
+        <source>extensions.title_desc</source>
+        <target>Beschreibung:</target>
+      </segment>
+    </unit>
+    <unit id="7raDJAR" name="extensions.title_author">
+      <segment>
+        <source>extensions.title_author</source>
+        <target>Autor:</target>
+      </segment>
+    </unit>
+    <unit id="UP8pNGy" name="extensions.title_package">
+      <segment>
+        <source>extensions.title_package</source>
+        <target>Package / Class name:</target>
+      </segment>
+    </unit>
+    <unit id="QFQ1uTC" name="extensions.title_version">
+      <segment>
+        <source>extensions.title_version</source>
+        <target>Version:</target>
+      </segment>
+    </unit>
+    <unit id="mjhFljb" name="extensions.button_configuration">
+      <segment>
+        <source>extensions.button_configuration</source>
+        <target>Konfiguration</target>
+      </segment>
+    </unit>
+    <unit id="r3ryNTG" name="extensions.button_source">
+      <segment>
+        <source>extensions.button_source</source>
+        <target>Source</target>
+      </segment>
+    </unit>
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
+      <segment>
+        <source>extensions.message_not_implemented</source>
+        <target>Entschuldigung! Noch nicht implementiert!</target>
+      </segment>
+    </unit>
+    <unit id="qc3rFkZ" name="extensions.button_remove">
+      <segment>
+        <source>extensions.button_remove</source>
+        <target>Erweiterung entfernen</target>
+      </segment>
+    </unit>
+    <unit id="SLZyVzU" name="extensions.button_disable">
+      <segment>
+        <source>extensions.button_disable</source>
+        <target>Erweiterung deaktivieren</target>
+      </segment>
+    </unit>
+    <unit id="2MMvCKK" name="label.cache_cleared">
+      <segment>
+        <source>label.cache_cleared</source>
+        <target>Der Cache wurde erfolgreich geleert!</target>
+      </segment>
+    </unit>
+    <unit id="5IxD63c" name="general.latest_bolt_news">
+      <segment>
+        <source>general.latest_bolt_news</source>
+        <target>Neuste Bolt Neuigkeiten</target>
+      </segment>
+    </unit>
+    <unit id="xN1kSQQ" name="caption.bolt_payoff">
+      <segment>
+        <source>caption.bolt_payoff</source>
+        <target>Anspruchsvolles, leichtes und einfaches CMS</target>
+      </segment>
+    </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <segment>
+        <source>about.bolt_on_github</source>
+        <target>Bolt auf GitHub</target>
+      </segment>
+    </unit>
+    <unit id="_9fS00R" name="about.used_libraries">
+      <segment>
+        <source>about.used_libraries</source>
+        <target>Benutzte Libraries</target>
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <segment>
+        <source>about.list_of_used_libraries</source>
+        <target>Unten aufgelistetet Libraries werden von Bolt verwendet.</target>
+      </segment>
+    </unit>
+    <unit id="ufFUPp7" name="view_locales.badge_missing">
+      <segment>
+        <source>view_locales.badge_missing</source>
+        <target>Fehlt</target>
+      </segment>
+    </unit>
+    <unit id="JTRCo_U" name="view_locales.badge_ok">
+      <segment>
+        <source>view_locales.badge_ok</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="37kJiIe" name="view_locales.badge_default">
+      <segment>
+        <source>view_locales.badge_default</source>
+        <target>Standart</target>
+      </segment>
+    </unit>
+    <unit id="UNBaDz." name="general.phrase.edit">
+      <segment>
+        <source>general.phrase.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id=".fL0AbE" name="files_list.remark">
+      <segment>
+        <source>files_list.remark</source>
+        <target>Keine Dateien im Ordner vorhanden, bitte wähle auf der rechten Seite ein  	Verzeichnis aus!</target>
+      </segment>
+    </unit>
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
+      <segment>
+        <source>caption.file_upload.upload_text</source>
+        <target>Legen Sie Dateien hier ab um Sie hochzuladen</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment>
+        <source>pager.previous</source>
+        <target>Zurück</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <segment>
+        <source>pager.next</source>
+        <target>Vor</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

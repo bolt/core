@@ -121,6 +121,7 @@
       ref="selectFile"
       class="editor__image--upload"
       :name="fieldName"
+      tabindex="-1"
       type="file"
       :accept="acceptedExtensions"
       @change="uploadFile($event.target.files[0])"

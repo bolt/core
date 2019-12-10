@@ -55,15 +55,4 @@ $(document).ready(function() {
   $('.datetime-relative').each(function() {
     $(this).text(DateTime.fromISO($(this).text()).toRelativeCalendar());
   });
-
-  /*
-   ** Event listener to remove elements on click
-   ** This is a generic listener, because Vue cannot handle an event emitted by a non-vue element.
-   */
-  $(document).on('click', '.action-remove-collection-item', function(e) {
-    e.preventDefault();
-    $(this)
-      .parent()
-      .remove();
-  });
 });

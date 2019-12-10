@@ -1890,7 +1890,7 @@
     <unit id="BQBmQHT" name="field.cropYPostfix">
       <segment>
         <source>field.cropYPostfix</source>
-        <target>Position of crop on X-axis, range 0-100. </target>
+        <target>Position of crop on Y-axis, range 0-100. </target>
       </segment>
     </unit>
     <unit id="hi98HIj" name="field.cropY">
@@ -2041,6 +2041,48 @@
       <segment>
         <source>collection.add_item</source>
         <target>Add item</target>
+      </segment>
+    </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <segment>
+        <source>collection.move_item_up</source>
+        <target>Move up</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <segment>
+        <source>collection.move_item_down</source>
+        <target>Move down</target>
+      </segment>
+    </unit>
+    <unit id="BFARQEU" name="extensions.button_detailed_view">
+      <segment>
+        <source>extensions.button_detailed_view</source>
+        <target>View details</target>
+      </segment>
+    </unit>
+    <unit id="hgNZLwW" name="extensions.title_configuration">
+      <segment>
+        <source>extensions.title_configuration</source>
+        <target>Configuration file</target>
+      </segment>
+    </unit>
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
+      <segment>
+        <source>caption.file_upload.upload_text</source>
+        <target>Drop files here to upload</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <segment>
+        <source>pager.next</source>
+        <target>Next</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment>
+        <source>pager.previous</source>
+        <target>Previous</target>
       </segment>
     </unit>
   </file>

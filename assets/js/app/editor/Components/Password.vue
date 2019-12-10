@@ -14,7 +14,7 @@
 
       <i
         ref="visibilityToggle"
-        class="input-group-text fas fa-eye"
+        class="input-group-text toggle-password fas fa-eye"
         @click="togglePassword"
       ></i>
     </div>
