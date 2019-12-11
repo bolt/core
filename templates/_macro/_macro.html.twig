@@ -36,3 +36,23 @@
     </a>
 
 {% endapply %}{% endmacro %}
+
+{% macro generate_collection_fields(collectionField, fields) %}{% apply spaceless %}
+    {% set fieldsHtml = [] %}
+    {% for item_field in fields %}
+        {% set collectionItemName = 'collections[' ~ collectionField.name ~ '][' ~ item_field.definition.name ~ ']' %}
+        {% if item_field.definition.type == 'set' %}
+            {% set hash = item_field.hash %}
+        {% else %}
+            {% set hash = loop.index0 %}
+            {% set collectionItemName = collectionItemName ~ '[' ~ hash ~ ']' %}
+        {% endif %}
+
+        {% set existing_field %}
+            {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with
+                {'field': item_field, 'in_collection': true, 'is_first': loop.index0 == 0, 'is_last': loop.index == fields|length, 'name': collectionItemName, 'collection_name': collectionField.name, 'hash': hash } only %}
+        {% endset %}
+        {% set fieldsHtml = fieldsHtml|merge([{'html': existing_field, 'hash': hash, 'label': item_field.definition.label}]) %}
+    {% endfor %}
+    {{ fieldsHtml|json_encode }}
+{% endapply %}{% endmacro %}
