@@ -9,7 +9,11 @@
     {% set existing_fields = [] %}
     {% if field.value.fields is defined %}
         {% for item_field in field.value.fields %}
-            {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
+            {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.definition.name ~ ']' %}
+            {% if item_field.definition.type != 'set' %}
+                {% set collectionItemName = collectionItemName ~ '[' ~ item_field.name ~ ']' %}
+            {% endif %}
+
             {% set existing_field %}
                 {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with
                     {'field': item_field, 'in_collection': true, 'is_first': loop.index0 == 0, 'is_last': loop.index == field.value.fields|length, 'name': collectionItemName } only %}

@@ -298,16 +298,23 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['collections'])) {
             foreach ($formData['collections'] as $collection => $collectionItems) {
-                $setsInCollection = [];
 
                 //update all fields of the collection and collect their field_name and field_reference
                 foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
-                    $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
-                    foreach ($collectionItemValue as $hash => $set) {
-                        $this->updateSet($content, $setDefinition, $hash, $set, $locale);
+
+                    $collectionItemDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
+                    foreach ($collectionItemValue as $hash => $fieldValue) {
+                        if($collectionItemDefinition['type'] == 'set') {
+                            $this->updateSet($content, $collectionItemDefinition, $hash, $fieldValue, $locale);
+                        } else {
+                            $field = $this->getFieldToUpdate($content, $hash, $collectionItemDefinition);
+                            $this->updateField($field, $fieldValue, $locale);
+                        }
+
                         $setsInCollection[] = [
                             'field_name' => $collectionItemName,
                             'field_reference' => $hash,
+                            'field_type' => $collectionItemDefinition['type']
                         ];
                     }
                 }
@@ -363,10 +370,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
     }
 
-    private function getFieldToUpdate(Content $content, string $fieldName): Field
+    private function getFieldToUpdate(Content $content, string $fieldName, $definition = ''): Field
     {
         /** @var Field $field */
         $field = null;
+
+        $definition = empty($definition) ? $content->getDefinition()->get('fields') : $definition;
 
         if ($content->hasField($fieldName)) {
             $field = $content->getField($fieldName);
@@ -382,8 +391,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         // Perhaps create a new Field..
         if (! $field) {
-            $fields = $content->getDefinition()->get('fields');
-            $field = Field::factory($fields->get($fieldName), $fieldName);
+            $field = Field::factory($definition, $fieldName);
 
             $field->setName($fieldName);
             $content->addField($field);

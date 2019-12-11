@@ -36,15 +36,11 @@ class CollectionField extends Field implements FieldInterface
                 $field = new SetField();
                 $field->setContent($this->getContent());
                 $field->setValue($thisFieldValue['field_reference']);
-                $field->setDefinition('fields', $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
+                $field->setDefinition($thisFieldValue['field_name'], $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
                 $field->setName($thisFieldValue['field_name']);
             } else {
-                if($this->getContent()->hasField($thisFieldValue['field_reference'])){
-                    $field = $this->getContent()->getField($thisFieldValue['field_reference']);
-                    $field->setName($thisFieldValue['field_name']);
-                } else {
-                    $field = parent::factory($this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
-                }
+                $field = $this->getContent()->getField($thisFieldValue['field_reference']);
+                $field->setDefinition($thisFieldValue['field_name'], $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
             }
 
             $result['fields'][$i] = $field;
