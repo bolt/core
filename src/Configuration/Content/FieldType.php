@@ -28,6 +28,7 @@ class FieldType extends Collection
             'group' => '',
             'label' => '',
             'variant' => '',
+            'mode' => '',
             'postfix' => '',
             'prefix' => '',
             'placeholder' => '',

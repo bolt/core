@@ -17,7 +17,7 @@ class ContentTypesParserTest extends ParserTestBase
 
     public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 22;
 
-    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 15;
+    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 16;
 
     public function testCanParse(): void
     {

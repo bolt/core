@@ -3,20 +3,24 @@
 {% block field %}
 
   {# set mode #}
-  {% if mode is not defined %}
-      {% set mode = define.mode|default('float') %}
-  {% endif %}
-  {# set step #}
-  {% if step is not defined and mode == 'integer' %}
-    {% set step = define.step|default(0.5) %}
-  {% elseif mode == 'integer' %}
-    {% set step = 1 %}
-  {% else %}
-    {% set step = 0 %}
+  {% if not mode|default %}
+    {% set mode = field.definition.mode|default('float') %}
   {% endif %}
 
-  {# @todo: Number_format 'fixes' it, so it won't break, but it's not a _good_ fix. #}
-  {% set value = value|number_format(32) %}
+  {# set step #}
+  {% if not step|default and field.definition['step'] is defined %}
+    {% set step = field.definition.step %}
+  {% elseif not step|default %}
+    {# default step values #}
+    {% if mode == 'float' %}
+      {% set step = 0.5 %}
+    {% elseif mode == 'integer' %}
+      {% set step = 1 %}
+    {% else %}
+      {# field mode unknown #}
+      {% set step = 1 %}
+    {% endif %}
+  {% endif %}
 
   <editor-number
     name="{{ name }}"
