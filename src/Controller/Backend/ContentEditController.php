@@ -299,23 +299,35 @@ class ContentEditController extends TwigAwareController implements BackendZone
         if (isset($formData['collections'])) {
             foreach ($formData['collections'] as $collection => $collectionItems) {
 
+                $fieldsInCollection = [];
+
                 //update all fields of the collection and collect their field_name and field_reference
                 foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
 
                     $collectionItemDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
-                    foreach ($collectionItemValue as $hash => $fieldValue) {
-                        if($collectionItemDefinition['type'] == 'set') {
+                    if($collectionItemDefinition['type'] == 'set'){
+                        // if this is a set field, create fields for each field within the set
+                        foreach ($collectionItemValue as $hash => $fieldValue) {
                             $this->updateSet($content, $collectionItemDefinition, $hash, $fieldValue, $locale);
-                        } else {
-                            $field = $this->getFieldToUpdate($content, $hash, $collectionItemDefinition);
-                            $this->updateField($field, $fieldValue, $locale);
-                        }
 
-                        $setsInCollection[] = [
-                            'field_name' => $collectionItemName,
-                            'field_reference' => $hash,
-                            'field_type' => $collectionItemDefinition['type']
-                        ];
+                            $fieldsInCollection[] = [
+                                'field_name' => $collectionItemName,
+                                'field_reference' => $hash,
+                                'field_type' => $collectionItemDefinition['type']
+                            ];
+                        }
+                    } else {
+                        // if this is any other field
+                        $field = $this->getFieldToUpdate($content, $collectionItemName, $collectionItemDefinition);
+                        $this->updateField($field, $collectionItemValue, $locale);
+
+                        foreach($collectionItemValue as $hash => $fieldValue) {
+                            $fieldsInCollection[] = [
+                                'field_name' => $collectionItemName,
+                                'field_reference' => $hash,
+                                'field_type' => $collectionItemDefinition['type']
+                            ];
+                        }
                     }
                 }
 
@@ -328,7 +340,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
                 //fill in the collection field value with the collected field_name and field_reference
                 $collectionField->setName($collection);
-                $collectionField->setValue($setsInCollection);
+                $collectionField->setValue($fieldsInCollection);
 
                 if (! $content->hasField($collectionField->getName())) {
                     $content->addField($collectionField);
@@ -370,12 +382,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
     }
 
-    private function getFieldToUpdate(Content $content, string $fieldName, $definition = ''): Field
+    private function getFieldToUpdate(Content $content, string $fieldName, $optionalDefinition = ''): Field
     {
         /** @var Field $field */
         $field = null;
 
-        $definition = empty($definition) ? $content->getDefinition()->get('fields') : $definition;
+        $definition = empty($optionalDefinition) ? $content->getDefinition()->get('fields')->get($fieldName) : $optionalDefinition;
 
         if ($content->hasField($fieldName)) {
             $field = $content->getField($fieldName);

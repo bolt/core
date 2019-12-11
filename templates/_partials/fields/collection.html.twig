@@ -11,7 +11,7 @@
         {% for item_field in field.value.fields %}
             {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.definition.name ~ ']' %}
             {% if item_field.definition.type != 'set' %}
-                {% set collectionItemName = collectionItemName ~ '[' ~ item_field.name ~ ']' %}
+                {% set collectionItemName = collectionItemName ~ '[' ~ loop.index0 ~ ']' %}
             {% endif %}
 
             {% set existing_field %}
@@ -26,10 +26,17 @@
     {% set templated_fields = [] %}
     {% for item_field in field.value.templates %}
         {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.name ~ ']' %}
+        {% if item_field.definition.type == 'set' %}
+            {% set hash = item_field.hash %}
+        {% else %}
+            {# non-set fields do not have hashes, so we create a 'dummy' hash for Vue to use #}
+            {% set hash = loop.index0 %}
+            {% set collectionItemName = collectionItemName ~ '[' ~ hash ~ ']' %}
+        {% endif %}
         {% set templated_field %}
             {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName} only %}
         {% endset %}
-        {% set templated_fields = templated_fields|merge([{'label': item_field.definition.label, 'html': templated_field, 'hash': item_field.hash}]) %}
+        {% set templated_fields = templated_fields|merge([{'label': item_field.definition.label, 'html': templated_field, 'hash': hash}]) %}
     {% endfor %}
 
     <editor-collection
