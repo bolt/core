@@ -10,7 +10,7 @@
   {# set step #}
   {% if not step|default and field.definition['step'] is defined %}
     {% set step = field.definition.step %}
-  {% elseif not step|defualt %}
+  {% elseif not step|default %}
     {# default step values #}
     {% if mode == 'float' %}
       {% set step = 0.5 %}
