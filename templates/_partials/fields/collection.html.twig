@@ -10,13 +10,17 @@
     {% if field.value.fields is defined %}
         {% for item_field in field.value.fields %}
             {% set collectionItemName = 'collections[' ~ field.name ~ '][' ~ item_field.definition.name ~ ']' %}
-            {% if item_field.definition.type != 'set' %}
+            {% if item_field.definition.type == 'set' %}
+                {% set hash = item_field.hash %}
+            {% else %}
+                {% dump(loop.index0) %}
+                {% set hash = loop.index0 %}
                 {% set collectionItemName = collectionItemName ~ '[' ~ loop.index0 ~ ']' %}
             {% endif %}
 
             {% set existing_field %}
                 {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with
-                    {'field': item_field, 'in_collection': true, 'is_first': loop.index0 == 0, 'is_last': loop.index == field.value.fields|length, 'name': collectionItemName } only %}
+                    {'field': item_field, 'in_collection': true, 'is_first': loop.index0 == 0, 'is_last': loop.index == field.value.fields|length, 'name': collectionItemName, 'collection_name': field.name, 'hash': hash } only %}
             {% endset %}
             {% set existing_fields = existing_fields|merge([{'html': existing_field, 'hash': item_field.hash}]) %}
         {% endfor %}
@@ -34,7 +38,8 @@
             {% set collectionItemName = collectionItemName ~ '[' ~ hash ~ ']' %}
         {% endif %}
         {% set templated_field %}
-            {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with {'field': item_field, 'in_collection': true, 'name': collectionItemName} only %}
+            {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with
+                {'field': item_field, 'in_collection': true, 'name': collectionItemName, 'collection_name': field.name, 'hash': hash} only %}
         {% endset %}
         {% set templated_fields = templated_fields|merge([{'label': item_field.definition.label, 'html': templated_field, 'hash': hash}]) %}
     {% endfor %}
