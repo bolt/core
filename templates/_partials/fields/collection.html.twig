@@ -13,7 +13,6 @@
             {% if item_field.definition.type == 'set' %}
                 {% set hash = item_field.hash %}
             {% else %}
-                {% dump(loop.index0) %}
                 {% set hash = loop.index0 %}
                 {% set collectionItemName = collectionItemName ~ '[' ~ loop.index0 ~ ']' %}
             {% endif %}

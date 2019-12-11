@@ -32,7 +32,7 @@ class CollectionField extends Field implements FieldInterface
 
         $i = 0;
         foreach ($thisFieldValues as $thisFieldValue) {
-            if($thisFieldValue['field_type'] == 'set') {
+            if ($thisFieldValue['field_type'] === 'set') {
                 $field = new SetField();
                 $field->setContent($this->getContent());
                 $field->setValue($thisFieldValue['field_reference']);
