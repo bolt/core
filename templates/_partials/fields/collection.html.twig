@@ -7,7 +7,7 @@
     } %}
 
     {# get the html for all collection field already in the database #}
-    {% set existing_fields = "" %}
+    {% set existing_fields = []|json_encode %}
     {% if field.value.fields is defined %}
         {% set existing_fields %}{{ macro.generate_collection_fields(field, field.value.fields) }}{% endset %}
     {% endif %}
