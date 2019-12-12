@@ -298,16 +298,35 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['collections'])) {
             foreach ($formData['collections'] as $collection => $collectionItems) {
-                $setsInCollection = [];
+                $fieldsInCollection = [];
+                $orderArray = array_flip($collectionItems['order']);
 
                 //update all fields of the collection and collect their field_name and field_reference
                 foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
-                    $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
-                    foreach ($collectionItemValue as $hash => $set) {
-                        $this->updateSet($content, $setDefinition, $hash, $set, $locale);
-                        $setsInCollection[] = [
+                    if ($collectionItemName === 'order') {
+                        continue;
+                    }
+
+                    $collectionItemDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
+                    if ($collectionItemDefinition['type'] === 'set') {
+                        // if this is a set field, create fields for each field within the set
+                        foreach ($collectionItemValue as $hash => $fieldValue) {
+                            $this->updateSet($content, $collectionItemDefinition, $hash, $fieldValue, $locale);
+                        }
+                    } else {
+                        // if this is any other field
+                        $field = $this->getFieldToUpdate($content, $collectionItemName, $collectionItemDefinition);
+                        $this->updateField($field, $collectionItemValue, $locale);
+                    }
+
+                    //iterate over all submitted fields within the collection, get the correct index/order, to persist references
+                    //in the collection value
+                    foreach ($collectionItemValue as $hash => $fieldValue) {
+                        $index = $orderArray[$hash];
+                        $fieldsInCollection[$index] = [
                             'field_name' => $collectionItemName,
                             'field_reference' => $hash,
+                            'field_type' => $collectionItemDefinition['type'],
                         ];
                     }
                 }
@@ -319,9 +338,11 @@ class ContentEditController extends TwigAwareController implements BackendZone
                     $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
                 }
 
-                //fill in the collection field value with the collected field_name and field_reference
+                //sort the array keys (1,3,2) ascending (1,2,3)
+                ksort($fieldsInCollection);
+
                 $collectionField->setName($collection);
-                $collectionField->setValue($setsInCollection);
+                $collectionField->setValue($fieldsInCollection);
 
                 if (! $content->hasField($collectionField->getName())) {
                     $content->addField($collectionField);
@@ -363,10 +384,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
     }
 
-    private function getFieldToUpdate(Content $content, string $fieldName): Field
+    private function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
     {
         /** @var Field $field */
         $field = null;
+
+        $definition = empty($fieldDefinition) ? $content->getDefinition()->get('fields')->get($fieldName) : $fieldDefinition;
 
         if ($content->hasField($fieldName)) {
             $field = $content->getField($fieldName);
@@ -382,8 +405,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         // Perhaps create a new Field..
         if (! $field) {
-            $fields = $content->getDefinition()->get('fields');
-            $field = Field::factory($fields->get($fieldName), $fieldName);
+            $field = Field::factory($definition, $fieldName);
 
             $field->setName($fieldName);
             $content->addField($field);

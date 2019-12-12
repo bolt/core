@@ -96,5 +96,24 @@
 {% block field %}
 
 {% endblock %}
+
 {{ postfix|raw }}
+
+{% if in_collection is defined %}
+    <input type="hidden" name="collections[{{ collection_name }}][order][]" value="{{ hash }}">
+
+    <button class='action-move-up-collection-item btn btn-secondary' {% if is_first is defined and is_first %} disabled {% endif %}>
+        <i class="fas fa-fw fa-chevron-up"></i>
+        {{ 'collection.move_item_up'|trans }}
+    </button>
+    <button class='action-move-down-collection-item btn btn-secondary' {% if is_last is defined and is_last %} disabled {% endif %}>
+        <i class="fas fa-fw fa-chevron-down"></i>
+        {{ 'collection.move_item_down'|trans }}
+    </button>
+    <button class='action-remove-collection-item btn btn-hidden-danger'>
+        <i class="fas fa-fw fa-times"></i>
+        {{ 'collection.remove_item'|trans }}
+    </button>
+{% endif %}
 </div>
+
