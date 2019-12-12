@@ -89,6 +89,26 @@ Feature: Users & Permissions
     And I should not see "test_user@example.org"
 
   @javascript
+  Scenario: Edit user
+    Given I am logged in as "admin"
+    And I am on "/bolt/users"
+    #edit on tom_admin
+    When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(8) > a:nth-child(1)"
+    Then I should be on "/bolt/user-edit/4"
+
+    When I fill in the following:
+      | username | tom_admin_changed |
+      | displayName | Tom Doe CHANGED |
+      | email | tom_admin_changed@example.org |
+    And I scroll "#editcontent > button" into view
+    And I press "Save changes"
+
+    Then I should be on "/bolt/users"
+    And I should see "tom_admin_changed"
+    And I should see "Tom Doe CHANGED"
+    And I should see "tom_admin_changed@example.org"
+
+  @javascript
   Scenario: View current sessions
     Given I am logged in as "admin"
     When I am on "/bolt/users"
