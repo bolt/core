@@ -27,7 +27,7 @@ import Collection from './Components/Collection';
 
 Vue.component('editor-date', Date);
 Vue.component('editor-embed', Embed);
-Vue.component('editor-remail', Email);
+Vue.component('editor-email', Email);
 Vue.component('editor-password', Password);
 Vue.component('editor-html', Html);
 Vue.component('editor-image', Image);
