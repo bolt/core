@@ -384,12 +384,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
     }
 
-    private function getFieldToUpdate(Content $content, string $fieldName, $optionalDefinition = ''): Field
+    private function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
     {
         /** @var Field $field */
         $field = null;
 
-        $definition = empty($optionalDefinition) ? $content->getDefinition()->get('fields')->get($fieldName) : $optionalDefinition;
+        $definition = empty($fieldDefinition) ? $content->getDefinition()->get('fields')->get($fieldName) : $fieldDefinition;
 
         if ($content->hasField($fieldName)) {
             $field = $content->getField($fieldName);
