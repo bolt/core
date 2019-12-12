@@ -284,4 +284,29 @@ class FeatureContext extends MinkContext implements Context
     public function iSwitchToTheWindow($id=0){
         $this->getSession()->switchToWindow($this->getSession()->getWindowNames()[$id]);
     }
+
+    /**
+     * @Then /^I should see (\d+) "([^"]*)" elements in the "([^"]*)" element$/
+     */
+    public function iShouldSeeElementsInTheElement($number, $element, $parent)
+    {
+        $foundElements = $this->getSession()->getPage()->find('css', $parent)->findAll('css', $element);
+        if(intval($number) !== count($foundElements)){
+            $message = sprintf('%d %s found on the page, but should be not less than %d.', count($foundElements), $element, $number);
+
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
+     * @Then /^the "([^"]*)" button should be disabled$/
+     */
+    public function theButtonShouldBeDisabled($button)
+    {
+        $foundButton = $this->getSession()->getPage()->find('css', $button);
+        if(! $foundButton->getAttribute('disabled')) {
+            $message = sprintf('%s expected to be disabled, but disabled attribute is %s', $button, $foundButton->getAttribute('disabled'));
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
 }
