@@ -87,3 +87,21 @@ Feature: Users & Permissions
     And I should see 5 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And I should not see "test_user"
     And I should not see "test_user@example.org"
+
+  @javascript
+  Scenario: View current sessions
+    Given I am logged in as "admin"
+    When I am on "/bolt/users"
+    Then I should see "Current sessions"
+    And the columns schema of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(4)" table should match:
+      | columns |
+      | # |
+      | Username |
+      | Last registered |
+      | Session expires |
+      | IP address |
+      | Browser / platform |
+    And I should see 1 row in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(4)" table
+    And the data in the 1st row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(4)" table should match:
+      | col1 | col2 | col3 | col4 | col5 |
+      | 1 | admin | today | in 14 days | 127.0.0.1 |
