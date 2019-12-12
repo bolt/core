@@ -54,6 +54,7 @@ class CollectionField extends Field implements FieldInterface
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
             $templateField = parent::factory($fieldDefinition, '', $fieldName);
+            $templateField->setDefinition($fieldName, $this->getDefinition()->get('fields')[$fieldName]);
             $templateField->setName($fieldName);
             $result['templates'][$fieldName] = $templateField;
         }

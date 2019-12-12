@@ -44,15 +44,18 @@
         {% if item_field.definition.type == 'set' %}
             {% set hash = item_field.hash %}
         {% else %}
+            {# non-set fields do not have hashes, so we create a 'dummy' hash from the current loop index. #}
             {% set hash = loop.index0 %}
             {% set collectionItemName = collectionItemName ~ '[' ~ hash ~ ']' %}
         {% endif %}
 
-        {% set existing_field %}
+        {% set new_field %}
             {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with
                 {'field': item_field, 'in_collection': true, 'is_first': loop.index0 == 0, 'is_last': loop.index == fields|length, 'name': collectionItemName, 'collection_name': collectionField.name, 'hash': hash } only %}
         {% endset %}
-        {% set fieldsHtml = fieldsHtml|merge([{'html': existing_field, 'hash': hash, 'label': item_field.definition.label}]) %}
+        {# set the label manually as set in _base.html.twig, to pass to Collection.vue for templates #}
+        {% set label = item_field.definition.label|default(item_field.name|default('unnamed')|ucwords) %}
+        {% set fieldsHtml = fieldsHtml|merge([{'html': new_field, 'hash': hash, 'label': label}]) %}
     {% endfor %}
     {{ fieldsHtml|json_encode }}
 {% endapply %}{% endmacro %}

@@ -4,16 +4,19 @@
       <div :is="element"></div>
     </div>
 
-    <editor-select
-      ref="templateSelect"
-      :value="initialSelectValue"
-      :name="templateSelectName"
-      :options="templateSelectOptions"
-      :allowempty="false"
-    ></editor-select>
-    <button class="btn btn-secondary" type="button" @click="addCollectionItem">
-      {{ labels.add_collection_item }}
-    </button>
+    <div class="d-flex">
+      <editor-select
+        class="flex-grow-1 mr-2"
+        ref="templateSelect"
+        :value="initialSelectValue"
+        :name="templateSelectName"
+        :options="templateSelectOptions"
+        :allowempty="false"
+      ></editor-select>
+      <button class="btn btn-secondary" type="button" @click="addCollectionItem">
+        {{ labels.add_collection_item }}
+      </button>
+    </div>
   </div>
 </template>
 

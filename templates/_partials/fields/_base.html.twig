@@ -97,6 +97,7 @@
 
 {% endblock %}
 
+{{ postfix|raw }}
 
 {% if in_collection is defined %}
     <input type="hidden" name="collections[{{ collection_name }}][order][]" value="{{ hash }}">
@@ -114,5 +115,5 @@
         {{ 'collection.remove_item'|trans }}
     </button>
 {% endif %}
-{{ postfix|raw }}
 </div>
+
