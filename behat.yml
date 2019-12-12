@@ -49,5 +49,6 @@ default:
         tags: "~@wip"
       contexts:
         - Behatch\Context\JsonContext
+        - Behatch\Context\TableContext
         - Context\FeatureContext
       paths: [ "%paths.base%/tests/api", "%paths.base%/tests/behat"]
