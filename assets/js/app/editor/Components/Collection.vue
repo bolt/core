@@ -6,14 +6,18 @@
 
     <div class="d-flex">
       <editor-select
-        class="flex-grow-1 mr-2"
         ref="templateSelect"
+        class="flex-grow-1 mr-2"
         :value="initialSelectValue"
         :name="templateSelectName"
         :options="templateSelectOptions"
         :allowempty="false"
       ></editor-select>
-      <button class="btn btn-secondary" type="button" @click="addCollectionItem">
+      <button
+        class="btn btn-secondary"
+        type="button"
+        @click="addCollectionItem"
+      >
         {{ labels.add_collection_item }}
       </button>
     </div>

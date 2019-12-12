@@ -298,19 +298,17 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['collections'])) {
             foreach ($formData['collections'] as $collection => $collectionItems) {
-
                 $fieldsInCollection = [];
                 $orderArray = array_flip($collectionItems['order']);
 
                 //update all fields of the collection and collect their field_name and field_reference
                 foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
-
-                    if($collectionItemName == 'order') {
+                    if ($collectionItemName === 'order') {
                         continue;
                     }
 
                     $collectionItemDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
-                    if($collectionItemDefinition['type'] == 'set'){
+                    if ($collectionItemDefinition['type'] === 'set') {
                         // if this is a set field, create fields for each field within the set
                         foreach ($collectionItemValue as $hash => $fieldValue) {
                             $this->updateSet($content, $collectionItemDefinition, $hash, $fieldValue, $locale);
@@ -323,12 +321,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
                     //iterate over all submitted fields within the collection, get the correct index/order, to persist references
                     //in the collection value
-                    foreach($collectionItemValue as $hash => $fieldValue){
+                    foreach ($collectionItemValue as $hash => $fieldValue) {
                         $index = $orderArray[$hash];
                         $fieldsInCollection[$index] = [
                             'field_name' => $collectionItemName,
                             'field_reference' => $hash,
-                            'field_type' => $collectionItemDefinition['type']
+                            'field_type' => $collectionItemDefinition['type'],
                         ];
                     }
                 }
