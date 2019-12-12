@@ -66,3 +66,24 @@ Feature: Users & Permissions
       | displayName | Test user |
       | password | test%1 |
       | email | test_user@example.org |
+    And I scroll "#multiselect-locale > div > div.multiselect__select" into view
+    And I click "#multiselect-locale > div > div.multiselect__select"
+    And I click "#multiselect-locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)"
+    And I scroll "#multiselect-roles > div > div.multiselect__select" into view
+    And I click "#multiselect-roles > div > div.multiselect__select"
+    And I click "#multiselect-roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span"
+
+    When I press "Save changes"
+
+    Then I should be on "/bolt/users"
+    And I should see 6 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
+    And the data in the 5th row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table should match:
+      | col2 | col3 | col4 | col5 | col6 | col7 |
+      | Test user | test_user | test_user@example.org | ROLE_ADMIN | today | 12.34.56.78 |
+
+    #delete button for new user
+    When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(8) > a.btn.btn-danger.mb-3.text-nowrap"
+    Then I should be on "/bolt/users"
+    And I should see 5 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
+    And I should not see "test_user"
+    And I should not see "test_user@example.org"
