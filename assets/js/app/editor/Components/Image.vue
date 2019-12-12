@@ -223,7 +223,7 @@ export default {
               }
             },
           });
-          $('.bootbox-input').attr('name', 'bootbox-input');
+          window.$('.bootbox-input').attr('name', 'bootbox-input');
         })
         .catch(err => {
           console.warn(err);
