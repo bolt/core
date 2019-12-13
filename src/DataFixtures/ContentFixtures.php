@@ -151,11 +151,16 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     $hash = uniqid();
                     $collectionFieldName = $fieldType['name'] . "::" . $collectionItemName;
                     $collectionField = $this->loadField($content, $collectionFieldName, $collectionItemFieldType, $contentType, $preset, $translationRepository);
-                    //collection item fields have a different value than fields of the same type outside of a collection
-                    $correctItemValue = [
-                      $hash => $collectionField->getValue()[0]
-                    ];
-                    $collectionField->setValue($correctItemValue);
+
+                    if($collectionItemFieldType['type'] === 'set') {
+                        $hash = $collectionField->getHash();
+                    } else {
+                        //collection item fields have a different value than fields of the same type outside of a collection
+                        $correctItemValue = [
+                            $hash => $collectionField->getValue()[0]
+                        ];
+                        $collectionField->setValue($correctItemValue);
+                    }
 
                     $collectionFields[] = [
                         'field_name' => $collectionItemName,
