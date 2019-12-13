@@ -135,6 +135,52 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         }
     }
 
+    private function loadCollectionField(Content $content, Field $field, $fieldType, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
+    {
+        $collectionItems = $field->getDefinition()->get('fields');
+        $collectionFields = [];
+        foreach($collectionItems as $collectionItemName => $collectionItemFieldType){
+            $hash = uniqid();
+            $collectionFieldName = $fieldType['name'] . "::" . $collectionItemName;
+            $collectionField = $this->loadField($content, $collectionFieldName, $collectionItemFieldType, $contentType, $preset, $translationRepository);
+
+            if($collectionItemFieldType['type'] === 'set') {
+                $hash = $collectionField->getHash();
+            } else {
+                //collection item fields have a different value than fields of the same type outside of a collection
+                $correctItemValue = [
+                    $hash => $collectionField->getValue()[0]
+                ];
+                $collectionField->setValue($correctItemValue);
+            }
+
+            $collectionFields[] = [
+                'field_name' => $collectionItemName,
+                'field_type' => $collectionItemFieldType['type'],
+                'field_reference' => $hash,
+            ];
+        }
+
+        $field->setValue($collectionFields);
+
+        return $field;
+    }
+
+    private function loadSetField(Content $content, Field $field, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
+    {
+        $setItems = $field->getDefinition()->get('fields');
+        $hash = uniqid();
+
+        foreach($setItems as $setItemName => $setItemFieldType){
+            $setFieldName = $hash . "::" . $setItemName;
+            $this->loadField($content, $setFieldName, $setItemFieldType, $contentType, $preset, $translationRepository);
+        }
+
+        $field->setValue($hash);
+
+        return $field;
+    }
+
     private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
     {
         $sortorder = 1;
@@ -145,41 +191,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $field->setValue($preset[$name]);
         } else {
             if($fieldType['type'] == 'collection'){
-                $collectionItems = $field->getDefinition()->get('fields');
-                $collectionFields = [];
-                foreach($collectionItems as $collectionItemName => $collectionItemFieldType){
-                    $hash = uniqid();
-                    $collectionFieldName = $fieldType['name'] . "::" . $collectionItemName;
-                    $collectionField = $this->loadField($content, $collectionFieldName, $collectionItemFieldType, $contentType, $preset, $translationRepository);
-
-                    if($collectionItemFieldType['type'] === 'set') {
-                        $hash = $collectionField->getHash();
-                    } else {
-                        //collection item fields have a different value than fields of the same type outside of a collection
-                        $correctItemValue = [
-                            $hash => $collectionField->getValue()[0]
-                        ];
-                        $collectionField->setValue($correctItemValue);
-                    }
-
-                    $collectionFields[] = [
-                        'field_name' => $collectionItemName,
-                        'field_type' => $collectionItemFieldType['type'],
-                        'field_reference' => $hash,
-                    ];
-                }
-
-                $field->setValue($collectionFields);
+                $field = $this->loadCollectionField($content, $field, $fieldType, $contentType, $preset, $translationRepository);
             }else if($fieldType['type'] =='set'){
-                $setItems = $field->getDefinition()->get('fields');
-                $hash = uniqid();
-
-                foreach($setItems as $setItemName => $setItemFieldType){
-                   $setFieldName = $hash . "::" . $setItemName;
-                   $this->loadField($content, $setFieldName, $setItemFieldType, $contentType, $preset, $translationRepository);
-                }
-
-                $field->setValue($hash);
+                $field = $this->loadSetField($content, $field, $contentType, $preset, $translationRepository);
             }else{
                 $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
             }
