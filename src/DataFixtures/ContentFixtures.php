@@ -199,13 +199,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $field = $this->loadCollectionField($content, $field, $fieldType, $contentType, $preset, $translationRepository);
             } elseif ($fieldType['type'] === 'set') {
                 $field = $this->loadSetField($content, $field, $contentType, $preset, $translationRepository);
+                $ignoreField = true;
             } else {
                 $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
             }
         }
         $field->setSortorder($sortorder++ * 5);
 
-        $content->addField($field);
+        if(!isset($ignoreField)) $content->addField($field);
 
         if (isset($fieldType['localize']) && $fieldType['localize']) {
             foreach ($contentType['locales'] as $locale) {
