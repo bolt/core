@@ -315,7 +315,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
                         }
                     } else {
                         // if this is any other field
-                        $field = $this->getFieldToUpdate($content, $collectionItemName, $collectionItemDefinition);
+                        $fieldDBname = $collection . '::' . $collectionItemName;
+                        $field = $this->getFieldToUpdate($content, $fieldDBname, $collectionItemDefinition);
                         $this->updateField($field, $collectionItemValue, $locale);
                     }
 
