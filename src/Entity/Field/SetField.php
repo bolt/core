@@ -18,7 +18,7 @@ class SetField extends Field implements FieldInterface
         return 'set';
     }
 
-    private function getHash(): string
+    public function getHash(): string
     {
         if (empty($this->value)) {
             $this->value = [uniqid()];

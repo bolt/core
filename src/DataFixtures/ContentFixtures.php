@@ -6,9 +6,11 @@ namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
 use Bolt\Utils\FakeContent;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -108,24 +110,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     $content->setStatus($this->getRandomStatus());
                 }
 
-                $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    $field = Field::factory($fieldType, $name);
-
-                    if (isset($preset[$name])) {
-                        $field->setValue($preset[$name]);
-                    } else {
-                        $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
-                    }
-                    $field->setSortorder($sortorder++ * 5);
-
-                    $content->addField($field);
-
-                    if ($fieldType['localize']) {
-                        foreach ($contentType['locales'] as $locale) {
-                            $translationRepository->translate($field, 'value', $locale, $field->getValue());
-                        }
-                    }
+                    $this->loadField($content, $name, $fieldType, $contentType, $preset, $translationRepository);
                 }
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
@@ -148,6 +134,86 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $manager->persist($content);
             }
         }
+    }
+
+    private function loadCollectionField(Content $content, Field $field, $fieldType, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
+    {
+        $collectionItems = $field->getDefinition()->get('fields');
+        $collectionFields = [];
+        foreach ($collectionItems as $collectionItemName => $collectionItemFieldType) {
+            $hash = uniqid();
+            $collectionFieldName = $fieldType['name'] . '::' . $collectionItemName;
+
+            $collectionField = $this->loadField($content, $collectionFieldName, $collectionItemFieldType, $contentType, $preset, $translationRepository);
+
+            if ($collectionItemFieldType['type'] === 'set') {
+                /** @var SetField $thisField */
+                $thisField = $collectionField;
+
+                $hash = $thisField->getHash();
+            } else {
+                //collection item fields have a different value than fields of the same type outside of a collection
+                $correctItemValue = [
+                    $hash => $collectionField->getValue()[0],
+                ];
+                $collectionField->setValue($correctItemValue);
+            }
+
+            $collectionFields[] = [
+                'field_name' => $collectionItemName,
+                'field_type' => $collectionItemFieldType['type'],
+                'field_reference' => $hash,
+            ];
+        }
+
+        $field->setValue($collectionFields);
+
+        return $field;
+    }
+
+    private function loadSetField(Content $content, Field $field, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
+    {
+        $setItems = $field->getDefinition()->get('fields');
+        $hash = uniqid();
+
+        foreach ($setItems as $setItemName => $setItemFieldType) {
+            $setFieldName = $hash . '::' . $setItemName;
+            $this->loadField($content, $setFieldName, $setItemFieldType, $contentType, $preset, $translationRepository);
+        }
+
+        $field->setValue($hash);
+
+        return $field;
+    }
+
+    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
+    {
+        $sortorder = 1;
+
+        $field = Field::factory($fieldType, $name);
+
+        if (isset($preset[$name])) {
+            $field->setValue($preset[$name]);
+        } else {
+            if ($fieldType['type'] === 'collection') {
+                $field = $this->loadCollectionField($content, $field, $fieldType, $contentType, $preset, $translationRepository);
+            } elseif ($fieldType['type'] === 'set') {
+                $field = $this->loadSetField($content, $field, $contentType, $preset, $translationRepository);
+            } else {
+                $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
+            }
+        }
+        $field->setSortorder($sortorder++ * 5);
+
+        $content->addField($field);
+
+        if (isset($fieldType['localize']) && $fieldType['localize']) {
+            foreach ($contentType['locales'] as $locale) {
+                $translationRepository->translate($field, 'value', $locale, $field->getValue());
+            }
+        }
+
+        return $field;
     }
 
     private function getRandomStatus(): string
@@ -185,7 +251,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
                 break;
             case 'text':
-                $words = in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
+                $words = isset($field['slug']) && in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
                 $data = [$this->faker->sentence($words, true)];
                 break;
             case 'email':
