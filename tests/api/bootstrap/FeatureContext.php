@@ -325,4 +325,34 @@ class FeatureContext extends MinkContext implements Context
             throw new ExpectationException($message, $this->getSession()->getDriver());
         }
     }
+
+    /**
+     * @When /^I fill "([^"]*)" element with "([^"]*)"$/
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function iFillWith($element, $value)
+    {
+        $this->assertSession()->elementExists('css', $element);
+        $foundElement = $this->getSession()->getPage()->find('css', $element);
+        $foundElement->setValue($value);
+    }
+
+    /**
+     * @Given /^the field with css "([^"]*)" should contain "([^"]*)"$/
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     * @throws ExpectationException
+     */
+    public function theFieldWithCssShouldContain($element, $value)
+    {
+        $this->assertSession()->elementExists('css', $element);
+        $foundElement = $this->getSession()->getPage()->find('css', $element);
+
+        $actual = $foundElement->getValue();
+        $regex = '/^'.preg_quote($value, '/').'$/ui';
+
+        if(! (bool) preg_match($regex, $actual)){
+            $message = sprintf('The field "%s" value is "%s", but "%s" expected.', $foundElement, $actual, $value);
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
 }
