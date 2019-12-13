@@ -206,7 +206,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         }
         $field->setSortorder($sortorder++ * 5);
 
-        if(!isset($ignoreField)) $content->addField($field);
+        if (! isset($ignoreField)) {
+            $content->addField($field);
+        }
 
         if (isset($fieldType['localize']) && $fieldType['localize']) {
             foreach ($contentType['locales'] as $locale) {
