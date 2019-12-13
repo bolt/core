@@ -32,8 +32,10 @@ class SetField extends Field implements FieldInterface
         $hash = $this->getHash();
         $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
-        $i = 0;
 
+        if(! is_array($fieldDefinitions)) return $result;
+
+        $i = 0;
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
             $currentSetFieldName = $hash . '::' . $fieldName;
             if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
