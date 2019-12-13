@@ -6,6 +6,7 @@ namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
@@ -108,24 +109,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     $content->setStatus($this->getRandomStatus());
                 }
 
-                $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    $field = Field::factory($fieldType, $name);
-
-                    if (isset($preset[$name])) {
-                        $field->setValue($preset[$name]);
-                    } else {
-                        $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
-                    }
-                    $field->setSortorder($sortorder++ * 5);
-
-                    $content->addField($field);
-
-                    if ($fieldType['localize']) {
-                        foreach ($contentType['locales'] as $locale) {
-                            $translationRepository->translate($field, 'value', $locale, $field->getValue());
-                        }
-                    }
+                    $this->loadField($content, $name, $fieldType, $contentType, $preset, $translationRepository);
                 }
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
@@ -148,6 +133,41 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $manager->persist($content);
             }
         }
+    }
+
+    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
+    {
+        $sortorder = 1;
+
+        $field = Field::factory($fieldType, $name);
+
+        if (isset($preset[$name])) {
+            $field->setValue($preset[$name]);
+        } else {
+            if($fieldType['type'] == 'collection'){
+                $collectionItems = $field->getDefinition()->get('fields');
+                $collectionFields = [];
+                foreach($collectionItems as $collectionItemName => $collectionItemFieldType){
+                    dump($collectionItemFieldType);
+                    $collectionFieldName = uniqid() . "::" . $collectionItemName;
+                    $collectionFields[] =
+                        $this->loadField($content, $collectionFieldName, $collectionItemFieldType, $contentType, $preset, $translationRepository);
+                }
+            }else {
+                $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
+            }
+        }
+        $field->setSortorder($sortorder++ * 5);
+
+        $content->addField($field);
+
+        if (isset($fieldType['localize']) && $fieldType['localize']) {
+            foreach ($contentType['locales'] as $locale) {
+                $translationRepository->translate($field, 'value', $locale, $field->getValue());
+            }
+        }
+
+        return $field;
     }
 
     private function getRandomStatus(): string
