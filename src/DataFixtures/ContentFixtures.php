@@ -10,6 +10,7 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
 use Bolt\Utils\FakeContent;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -139,17 +140,21 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     {
         $collectionItems = $field->getDefinition()->get('fields');
         $collectionFields = [];
-        foreach($collectionItems as $collectionItemName => $collectionItemFieldType){
+        foreach ($collectionItems as $collectionItemName => $collectionItemFieldType) {
             $hash = uniqid();
-            $collectionFieldName = $fieldType['name'] . "::" . $collectionItemName;
+            $collectionFieldName = $fieldType['name'] . '::' . $collectionItemName;
+
             $collectionField = $this->loadField($content, $collectionFieldName, $collectionItemFieldType, $contentType, $preset, $translationRepository);
 
-            if($collectionItemFieldType['type'] === 'set') {
-                $hash = $collectionField->getHash();
+            if ($collectionItemFieldType['type'] === 'set') {
+                /** @var SetField $thisField */
+                $thisField = $collectionField;
+
+                $hash = $thisField->getHash();
             } else {
                 //collection item fields have a different value than fields of the same type outside of a collection
                 $correctItemValue = [
-                    $hash => $collectionField->getValue()[0]
+                    $hash => $collectionField->getValue()[0],
                 ];
                 $collectionField->setValue($correctItemValue);
             }
@@ -171,8 +176,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         $setItems = $field->getDefinition()->get('fields');
         $hash = uniqid();
 
-        foreach($setItems as $setItemName => $setItemFieldType){
-            $setFieldName = $hash . "::" . $setItemName;
+        foreach ($setItems as $setItemName => $setItemFieldType) {
+            $setFieldName = $hash . '::' . $setItemName;
             $this->loadField($content, $setFieldName, $setItemFieldType, $contentType, $preset, $translationRepository);
         }
 
@@ -190,11 +195,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         if (isset($preset[$name])) {
             $field->setValue($preset[$name]);
         } else {
-            if($fieldType['type'] == 'collection'){
+            if ($fieldType['type'] === 'collection') {
                 $field = $this->loadCollectionField($content, $field, $fieldType, $contentType, $preset, $translationRepository);
-            }else if($fieldType['type'] =='set'){
+            } elseif ($fieldType['type'] === 'set') {
                 $field = $this->loadSetField($content, $field, $contentType, $preset, $translationRepository);
-            }else{
+            } else {
                 $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
             }
         }
