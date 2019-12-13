@@ -66,9 +66,9 @@ Feature: Edit record
     And I scroll "#media > div.form-group.form-fieldset.is-normal > div > div > div > div.row > div.col-9 > div.btn-toolbar > div:nth-child(2) > button" into view
     When I click "#media > div.form-group.form-fieldset.is-normal > div > div > div > div.row > div.col-9 > div.btn-toolbar > div:nth-child(2) > button"
     And I wait 1 second
-    And I select "dog.jpeg" from "bootbox-input"
+    And I select "kitten.jpg" from "bootbox-input"
     And I press "OK"
-    Then the "fields[imagelist][0][filename]" field should contain "dog.jpeg"
+    Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
     And I wait 1 second
 
     When I press "Add new image"
@@ -86,11 +86,11 @@ Feature: Edit record
     #click first Move down
     When I click "#media > div.form-group.form-fieldset.is-normal > div > div:nth-child(1) > div > div.row > div.col-9 > div.btn-toolbar > div:nth-child(4) > button"
     Then the "fields[imagelist][0][filename]" field should contain "joey.jpg"
-    And the "fields[imagelist][1][filename]" field should contain "dog.jpeg"
+    And the "fields[imagelist][1][filename]" field should contain "kitten.jpg"
 
     #click second Move up
     When I click "#media > div.form-group.form-fieldset.is-normal > div > div:nth-child(2) > div > div.row > div.col-9 > div.btn-toolbar > div:nth-child(3) > button"
-    Then the "fields[imagelist][0][filename]" field should contain "dog.jpeg"
+    Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
     And the "fields[imagelist][1][filename]" field should contain "joey.jpg"
 
     #first Move up
