@@ -165,7 +165,17 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 $field->setValue($collectionFields);
-            }else {
+            }else if($fieldType['type'] =='set'){
+                $setItems = $field->getDefinition()->get('fields');
+                $hash = uniqid();
+
+                foreach($setItems as $setItemName => $setItemFieldType){
+                   $setFieldName = $hash . "::" . $setItemName;
+                   $this->loadField($content, $setFieldName, $setItemFieldType, $contentType, $preset, $translationRepository);
+                }
+
+                $field->setValue($hash);
+            }else{
                 $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
             }
         }
@@ -217,7 +227,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
                 break;
             case 'text':
-                $words = in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
+                $words = isset($field['slug']) && in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
                 $data = [$this->faker->sentence($words, true)];
                 break;
             case 'email':
