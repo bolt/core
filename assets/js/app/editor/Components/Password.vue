@@ -21,7 +21,7 @@
     <progress-bar
       v-if="strength"
       ref="progressBar"
-      max="4"
+      :max="4"
       height="4px"
     ></progress-bar>
   </div>
