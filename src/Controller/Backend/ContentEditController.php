@@ -385,14 +385,14 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $this->updateField($setFieldChildField, $setFieldChildValue, $locale);
         }
 
-       if($content->hasField($setName)){
-           $field = $content->getField($setName);
-           $field->setValue($hash);
-       } else {
-           $field = Field::factory($setDefinition, $setName);
-           $field->setValue($hash);
-           $content->addField($field);
-       }
+        if ($content->hasField($setName)) {
+            $field = $content->getField($setName);
+            $field->setValue($hash);
+        } else {
+            $field = Field::factory($setDefinition, $setName);
+            $field->setValue($hash);
+            $content->addField($field);
+        }
     }
 
     private function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
