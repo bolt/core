@@ -39,11 +39,13 @@ class CollectionField extends Field implements FieldInterface
                 $field->setDefinition($thisFieldValue['field_name'], $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
                 $field->setName($thisFieldValue['field_name']);
             } else {
-                $field = $this->getContent()->getField($thisFieldValue['field_name']);
+                $fieldDBname = $this->getName() . "::" . $thisFieldValue['field_name'];
+                $field = $this->getContent()->getField($fieldDBname);
 //              The field value persists ALL the values for the same type collection items (e.g. all 'ages') in an array
 //              To display the value for the current item, we set the value for the specific key only
 //              As $this->getValue() is called multiple times, clone the object to ensure $field->setValue() is called once per instance
                 $field = clone $field;
+                $field->setName($thisFieldValue['field_name']);
                 $field->setValue($field->getValue()[$thisFieldValue['field_reference']]);
                 $field->setDefinition($thisFieldValue['field_name'], $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
             }
