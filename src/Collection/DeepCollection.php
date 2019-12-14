@@ -8,13 +8,10 @@ use Tightenco\Collect\Support\Collection;
 
 class DeepCollection extends Collection
 {
-    /**
-     * @return static
-     */
     public static function deepMake($items): self
     {
         if ($items instanceof self) {
-            return parent::make($items);
+            return $items;
         }
 
         $items = parent::make($items)->map(function ($value) {
