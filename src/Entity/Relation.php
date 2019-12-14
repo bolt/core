@@ -38,7 +38,7 @@ class Relation
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
      *
      * @var Content
      * @Groups("get_relation")
@@ -47,7 +47,7 @@ class Relation
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
      *
      * @var Content
      * @Groups("get_relation")
