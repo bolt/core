@@ -34,6 +34,11 @@ class SetField extends Field implements FieldInterface
         $result = [];
         $i = 0;
 
+        // If there's no current $fieldDefinitions, we can return early
+        if (! is_iterable($fieldDefinitions)) {
+            return $result;
+        }
+
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
             $currentSetFieldName = $hash . '::' . $fieldName;
             if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
