@@ -72,23 +72,23 @@ class DetailController extends TwigAwareController implements FrontendZone
             // EXAMPLE 1
 //                    $query = '
 //                    query {
-//                        content (filter:{slug_contains: "quo", OR:[{title~contains: "quo"}, {heading~contains: "quo"}]}) {
+//                        content (filter:{slug~contains: "quo", OR:[{title~contains: "quo"}, {heading~contains: "quo"}]}) {
 //                            title
 //                            slug
 //                        }
 //                    }
 //                    ';
-            $query = $graphBuilder->addContent(
-                ContentBuilder::create($contentType)
-                    ->selectFields('*')
+//            $query = $graphBuilder->addContent(
+//                ContentBuilder::create($contentType)
+//                    ->selectFields('*')
                 //                    ->addFilter(
                 //                        GraphFilter::createOrFilter(
                 //                            GraphFilter::createSimpleFilter('slug', 'rer'),
                 //                            GraphFilter::createSimpleFilter('heading', 'rer')
                 //                        )
                 //                    )
-            )
-                ->getQuery();
+//            )
+//                ->getQuery();
 
             // EXAMPLE 2
             $query = $graphBuilder->addContent(

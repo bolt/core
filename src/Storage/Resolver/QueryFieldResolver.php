@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Resolver;
 
+use ArrayObject;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Storage\Criteria\ContentCriteria;
@@ -115,7 +116,7 @@ class QueryFieldResolver
                 foreach (array_keys($arrayResult) as $contentField) {
                     $preparedResults[$resultKey][$contentField] = $arrayResult[$contentField];
                 }
-                $preparedResults[$resultKey] = new \ArrayObject($preparedResults[$resultKey]);
+                $preparedResults[$resultKey] = new ArrayObject($preparedResults[$resultKey]);
             }
         }
 

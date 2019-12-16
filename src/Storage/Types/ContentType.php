@@ -19,7 +19,6 @@ class ContentType extends ObjectType
                 ]);
             },
         ];
-
         parent::__construct($config);
     }
 }

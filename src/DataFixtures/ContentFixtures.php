@@ -116,7 +116,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     if (isset($preset[$name])) {
                         $field->setValue($preset[$name]);
                     } else {
-                        $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
+                        $field->setValue($this->getValuesForFieldType($name, $fieldType, $contentType['singleton']));
                     }
                     $field->setSortorder($sortorder++ * 5);
 
@@ -158,7 +158,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType(string $name, DeepCollection $field, bool $singleton): array
+    private function getValuesForFieldType(string $name, DeepCollection $field, bool $singleton)
     {
         $nb = $singleton ? 8 : 4;
 
@@ -170,7 +170,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = FakeContent::generateMarkdown($nb);
                 break;
             case 'textarea':
-                $data = [$this->faker->paragraphs(3, true)];
+                $data = $this->faker->paragraphs(3, true);
                 break;
             case 'image':
             case 'file':
@@ -190,7 +190,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 break;
             case 'text':
                 $words = in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
-                $data = $this->faker->sentence(6, true);
+                $data = $this->faker->sentence($words, true);
                 break;
             case 'checkbox':
                 $data = random_int(0, 1);
@@ -203,10 +203,10 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 break;
             case 'date':
             case 'datetime':
-                $data = [$this->faker->dateTime()->format('c')];
+                $data = $this->faker->dateTime()->format('c');
                 break;
             case 'number':
-                $data = [$this->faker->numberBetween(-100, 1000)];
+                $data = $this->faker->numberBetween(-100, 1000);
                 break;
             case 'data':
                 $data = [];

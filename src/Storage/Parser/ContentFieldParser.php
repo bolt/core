@@ -8,6 +8,7 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Storage\Conditional\Types;
 use Bolt\Storage\Definition\ContentFieldsDefinition;
+use Bolt\Storage\Types\ImageListType;
 use Bolt\Storage\Types\ImageType;
 use Bolt\Storage\Types\RepeaterType;
 use GraphQL\Type\Definition\IDType;
@@ -91,6 +92,10 @@ class ContentFieldParser
     private function getTypeForField(string $contentType, DeepCollection $fieldConfiguration): Type
     {
         switch ($fieldConfiguration['type']) {
+            case 'imagelist':
+            return Type::listOf(
+                new ImageListType()
+            );
             case 'text':
             case 'slug':
             case 'textarea':
@@ -99,7 +104,6 @@ class ContentFieldParser
             case 'file':
             case 'video':
             case 'filelist':
-            case 'imagelist':
             case 'embed':
             case 'geolocation':
             case 'markdown':

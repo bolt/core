@@ -43,9 +43,9 @@ class GraphFilter
                 break;
             default:
                 $value = $this->getPreparedValue($this->searchValue);
-//                return sprintf('{%s:%s}', $this->field, $value);
+                return sprintf('{%s:%s}', $this->field, $value);
 //                Temporary solution
-                return sprintf('%s~contains:%s', $this->field, $value);
+//                return sprintf('{%s~contains: %s}', $this->field, $value);
                 break;
         }
     }

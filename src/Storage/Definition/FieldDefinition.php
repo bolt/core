@@ -10,6 +10,9 @@ class FieldDefinition
         'image' => [
             'filename', 'alt', 'path',
         ],
+        'imagelist' => [
+            'filename', 'alt', 'path', 'media', 'thumbnail', 'fieldname', 'url',
+        ],
         'user' => [
             'id', 'displayName', 'username', 'email',
         ],

@@ -57,7 +57,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
             new TwigFilter('next', [$this, 'getNextContent']),
-            new TwigFilter('link', [$this, 'getLink']),
+            new TwigFilter('link', [$this, 'getLink'], $safe),
             new TwigFilter('edit_link', [$this, 'getEditLink']),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
         ];
@@ -210,8 +210,18 @@ class ContentExtension extends AbstractExtension
         return $this->contentRepository->findAdjacentBy($byColumn, $direction, $content->getId(), $contentType);
     }
 
-    public function getLink(Content $content, bool $absolute = false): ?string
+    public function getLink($content, ?string $contentType = null, bool $absolute = false): ?string
     {
+        if (is_array($content)) {
+            $params = [
+                'slugOrId' => $content['slug'],
+                'contentTypeSlug' => $contentType,
+            ];
+
+            return $this->generateLink('record', $params, $absolute);
+        }
+
+        /** @var Content $content */
         if ($content->getId() === null) {
             return null;
         }
@@ -224,8 +234,15 @@ class ContentExtension extends AbstractExtension
         return $this->generateLink('record', $params, $absolute);
     }
 
-    public function getEditLink(Content $content, bool $absolute = false): ?string
+    /**
+     * @param Content|array $content
+     */
+    public function getEditLink($content, bool $absolute = false): ?string
     {
+        if (is_array($content)) {
+            return $this->generateLink('bolt_content_edit_by_slug', ['slug' => $content['slug']], $absolute);
+        }
+
         if ($content->getId() === null || ! $this->security->getUser()) {
             return null;
         }

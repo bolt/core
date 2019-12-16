@@ -621,9 +621,6 @@
             "ref": "5ec5bb098bc693cd92f03390dd488ea0847cfcc7"
         }
     },
-    "symfony/contracts": {
-        "version": "v1.0.0"
-    },
     "symfony/css-selector": {
         "version": "v3.4.0-beta2"
     },

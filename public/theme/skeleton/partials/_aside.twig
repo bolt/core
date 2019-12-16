@@ -19,7 +19,7 @@
             {{ block.content }}
 
             {% set edit_link = block|edit_link %}
-            {% set content_link = block|link %}
+            {% set content_link = block | link('block') %}
             {% if content_link or edit_link %}
                 <p>
                 {%- if content_link %}
@@ -50,23 +50,23 @@
         Lastly, "path('listing', {'contentTypeSlug': ct.slug})" will output something like '/pages',
         effectively creating a working link to that contenttpye's listing page. #}
 
-    {% for ct in config.get('contenttypes') if not ct.viewless|default(false) %}
+{#    {% for ct in config.get('contenttypes') if not ct.viewless|default(false) %}#}
 
-        {% setcontent records = ct.slug ~ "/latest/3" %}
+{#        {% setcontent records = ct.slug ~ "/latest/3" %}#}
 
-        <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.name}) }}</h5>
-        <ul>
-            {% for record in records %}
-                <li><a href="{{ record|link }}">{{ record|title }}</a></li>
-            {% else %}
-                <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>
-            {% endfor %}
-        </ul>
-        <p><a href="{{ path('listing', {'contentTypeSlug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }} &raquo;</a></p>
+{#        <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.name}) }}</h5>#}
+{#        <ul>#}
+{#            {% for record in records %}#}
+{#                <li><a href="{{ record|link }}">{{ record|title }}</a></li>#}
+{#            {% else %}#}
+{#                <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#        <p><a href="{{ path('listing', {'contentTypeSlug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }} &raquo;</a></p>#}
 
-    {% endfor %}
+{#    {% endfor %}#}
 
-    {{ widgets('aside_bottom') }}
+{#    {{ widgets('aside_bottom') }}#}
 
 </aside>
 <!-- End Sidebar -->

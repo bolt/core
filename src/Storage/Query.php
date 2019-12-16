@@ -5,21 +5,35 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Configuration\Config;
+use Bolt\Entity\Content;
+use Bolt\Storage\Builder\ContentBuilder;
+use Bolt\Storage\Builder\Filter\GraphFilter;
+use Bolt\Storage\Builder\GraphBuilder;
 use Bolt\Storage\Definition\FieldDefinition;
-use Bolt\Storage\GraphQL\GraphQL;
 use Bolt\Storage\Parser\ContentFieldParser;
 use Bolt\Storage\Resolver\QueryFieldResolver;
 use Bolt\Storage\Scope\ScopeEnum;
 use Bolt\Storage\Types\QueryType;
+use GraphQL\GraphQL;
 use GraphQL\Type\Schema;
+use ReflectionClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class Query
 {
+    /**
+     * @var ContentFieldParser
+     */
     private $contentFieldParser;
 
+    /**
+     * @var QueryFieldResolver
+     */
     private $queryFieldResolver;
 
+    /**
+     * @var Config
+     */
     private $config;
 
     public function __construct(
@@ -46,7 +60,7 @@ class Query
         return new JsonResponse($result->toArray());
     }
 
-    public function getContentForTwig(string $textQuery): JsonResponse
+    public function getContentForTwig(string $textQuery): array
     {
         $schema = new Schema([
             'query' => new QueryType(
@@ -55,16 +69,37 @@ class Query
                 ScopeEnum::FRONT
             ),
         ]);
-        $result = GraphQL::executeQuery($schema, $this->prepareTextQuery($textQuery));
+        $textQuery = $this->prepareTextQuery($textQuery);
+        $result = GraphQL::executeQuery($schema, $textQuery);
 
-        return new JsonResponse($result->toArray());
+        $content = reset($result->toArray()['data']);
+
+        return reset($content);
     }
 
     private function prepareTextQuery(string $textQuery): string
     {
         preg_match_all('/^\s*(query)?\s*{([a-zA-Z0-9_\s{}\*]+)}\s*$/', $textQuery, $matches);
-        $trimmed = preg_replace('/\s{2,}/', ' ', trim(reset($matches[2])));
+
+        $trimmed = $textQuery;
+        if (empty($matches[2]) === false) {
+            $trimmed = preg_replace('/\s{2,}/', ' ', trim(reset($matches[2])));
+        }
         preg_match_all('/([a-zA-Z0-9_]+)\s{\s*([a-zA-Z0-9_\s\*]+)\s*}/', $trimmed, $matches);
+
+        if (empty($matches[0]) && preg_match('#[a-zA-Z0-9_]+(\/[a-zA-Z0-9_\-]+)?#', $textQuery)) {
+            $graphBuilder = new GraphBuilder();
+            [$contentType, $searchValue] = explode('/', $textQuery);
+
+            $allFields = $this->getAllFields($contentType);
+            $textQuery = $graphBuilder->addContent(
+                ContentBuilder::create($contentType)
+                    ->selectFields($allFields)
+                    ->addFilter(GraphFilter::createSimpleFilter('slug', $searchValue))
+            )->getQuery();
+
+            preg_match_all('/([a-zA-Z0-9_]+)\s{\s*([a-zA-Z0-9_\s\*]+)\s*}/', $textQuery, $matches);
+        }
 
         $contents = $matches[1];
         $fields = $matches[2];
@@ -114,5 +149,17 @@ class Query
             ' ',
             $preparedFields
         );
+    }
+
+    private function getAllFields(string $contentType): string
+    {
+        $fields = $this->config->get(
+            sprintf(
+                'contenttypes/%s/fields',
+                $contentType
+            )
+        )->toArray();
+
+        return $this->prepareFields($fields);
     }
 }
