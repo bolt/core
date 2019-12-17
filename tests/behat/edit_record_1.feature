@@ -125,40 +125,44 @@ Feature: Edit record
     And I should see an ".trumbowyg-editor" element
     And I should see "Textarea:" in the "#collections > div > div > div:nth-child(2) > div > label" element
     And the ".action-move-up-collection-item" button should be disabled
-    And the ".action-move-down-collection-item" button should be disabled
+    And the ".action-move-down-collection-item" button should be enabled
 
-    When I click "#multiselect-undefined > div > div.multiselect__select"
+    When I scroll "#multiselect-undefined > div > div.multiselect__select" into view
+    And I click "#multiselect-undefined > div > div.multiselect__select"
     And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span"
     And I press "Add item"
 
-    Then I should see 2 ".collection-item" elements
-    And I should see an "input#field-title" element
-    And I should see "Set:" in the "#collections > div > div > div:nth-child(2) > div > label" element
+    Then I should see 4 ".collection-item" elements
+    And I should see an "#collections > div > div > div:nth-child(4) > div > div > div #field-title" element
+    And I should see "Set:" in the "#collections > div > div > div:nth-child(4) > div > label" element
 
-    When I fill "#collections > div > div > div:nth-child(1) > div > div > textarea" element with "Bye, Bolt"
-    And I fill "#collections > div > div > div:nth-child(2) > div > div > div > #field-title" element with "Hey, Bolt"
+    When I fill "#collections > div > div > div:nth-child(3) > div > div > textarea" element with "Bye, Bolt"
+    And I fill "#collections > div > div > div:nth-child(4) > div > div > div > #field-title" element with "Hey, Bolt"
 
     #First move down
-    And I scroll "#collections > div > div > div:nth-child(1) > div > button.action-move-down-collection-item.btn.btn-secondary" into view
-    And I click "#collections > div > div > div:nth-child(1) > div > button.action-move-down-collection-item.btn.btn-secondary"
+    And I scroll "#collections > div > div > div:nth-child(3) > div > button.action-move-down-collection-item.btn.btn-secondary" into view
+    And I click "#collections > div > div > div:nth-child(3) > div > button.action-move-down-collection-item.btn.btn-secondary"
 
-    Then I should see "Set:" in the "#collections > div > div > div:nth-child(1)" element
-    And I should see "Textarea:" in the "#collections > div > div > div:nth-child(2)" element
+    Then I should see "Set:" in the "#collections > div > div > div:nth-child(3)" element
+    And I should see "Textarea:" in the "#collections > div > div > div:nth-child(4)" element
 
-    When I press "Save changes"
+    When I scroll "#editcontent > div.record-actions > button" into view
+    And I press "Save changes"
     Then I should be on "/bolt/edit/43#collections"
 
-    And the field with css "#collections > div > div > div:nth-child(1) > div > div > div > #field-title" should contain "Hey, Bolt"
-    And the field with css "#collections > div > div > div:nth-child(2) > div > div > textarea" should contain "Bye, Bolt"
+    And the field with css "#collections > div > div > div:nth-child(3) > div > div > div > #field-title" should contain "Hey, Bolt"
+    And the field with css "#collections > div > div > div:nth-child(4) > div > div > textarea" should contain "Bye, Bolt"
 
     #remove both
-    When I click "#collections > div > div > div:nth-child(1) > div > button.action-remove-collection-item.btn.btn-hidden-danger"
-    And I click "#collections > div > div > div:nth-child(1) > div > button.action-remove-collection-item.btn.btn-hidden-danger"
+    When I scroll "#collections > div > div > div:nth-child(3) > div > button.action-remove-collection-item.btn.btn-hidden-danger" into view
+    And I click "#collections > div > div > div:nth-child(3) > div > button.action-remove-collection-item.btn.btn-hidden-danger"
+    And I click "#collections > div > div > div:nth-child(3) > div > button.action-remove-collection-item.btn.btn-hidden-danger"
 
-    Then I should see 0 ".collection-item" elements
+    Then I should see 2 ".collection-item" elements
 
-    When I press "Save changes"
+    When I scroll "#editcontent > div.record-actions > button" into view
+    And I press "Save changes"
 
-    Then I should see 0 ".collection-item" elements
+    Then I should see 2 ".collection-item" elements
     And I should not see "Hey, Bolt"
     And I should not see "Bye, Bolt"

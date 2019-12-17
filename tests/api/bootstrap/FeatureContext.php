@@ -290,7 +290,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iScrollElementIntoView($element){
         $this->getSession()->getPage()->find('css', $element)->focus();
-        $this->getSession()->executeScript("$(':focus')[0].scrollIntoView(true);window.scrollBy(0,-100);");
+        $this->getSession()->executeScript("$(':focus')[0].scrollIntoView(true);window.scrollBy(0,-50);");
     }
 
     /**
@@ -322,6 +322,18 @@ class FeatureContext extends MinkContext implements Context
         $foundButton = $this->getSession()->getPage()->find('css', $button);
         if(! $foundButton->getAttribute('disabled')) {
             $message = sprintf('%s expected to be disabled, but disabled attribute is %s', $button, $foundButton->getAttribute('disabled'));
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
+     * @Then /^the "([^"]*)" button should be enabled$/
+     */
+    public function theButtonShouldBeEnabled($button)
+    {
+        $foundButton = $this->getSession()->getPage()->find('css', $button);
+        if ($foundButton->getAttribute('disabled')) {
+            $message = sprintf('%s expected to be enabled, but disabled attribute is %s', $button, $foundButton->getAttribute('disabled'));
             throw new ExpectationException($message, $this->getSession()->getDriver());
         }
     }
