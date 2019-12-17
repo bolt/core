@@ -75,7 +75,7 @@ Feature: Users & Permissions
     And I scroll "#multiselect-roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span" into view
     And I click "#multiselect-roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span"
 
-    When I scroll "#editcontent > div.record-actions > button" into view
+    When I scroll "#editcontent > button" into view
     And I press "Save changes"
 
     Then I should be on "/bolt/users"
