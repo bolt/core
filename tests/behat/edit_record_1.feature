@@ -123,7 +123,7 @@ Feature: Edit record
 
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
-    And I should see "Textarea:" in the "#collections > div > div > div.collection-item > div > label" element
+    And I should see "Textarea:" in the "#collections > div > div > div:nth-child(2) > div > label" element
     And the ".action-move-up-collection-item" button should be disabled
     And the ".action-move-down-collection-item" button should be disabled
 
