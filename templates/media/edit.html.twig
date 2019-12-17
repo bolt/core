@@ -172,31 +172,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js"></script>
-
-    {% set thumbnail = thumbnail(image = media.filename, width = 900, height = 500, location = media.location, path = media.path) %}
-    <script>
-        var img = document.createElement('img');
-        img.setAttribute('src', '{{ thumbnail|raw }}');
-
-        img.addEventListener('load', function() {
-            var vibrant = new Vibrant(img);
-            var swatches = vibrant.swatches();
-            for (var swatch in swatches) {
-                if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
-                    // <span class="…" style="… background-color: #cfdeed">LightVibrant / #cfdeed</span>
-
-                    var badge = document.createElement('span');
-                    var labelNode = document.createTextNode(swatch + ' / ' + swatches[swatch].getHex());
-                    var referenceNode = document.getElementById('swatcheslist');
-                    badge.className = "badge badge-secondary my-2 py-2";
-                    badge.setAttribute('style', 'display: block; text-shadow: 1px 1px 3px #000; background-color: ' + swatches[swatch].getHex());
-                    badge.appendChild(labelNode);
-                    referenceNode.append(badge);
-                }
-            }
-        });
-
-    </script>
-
+    {{ encore_entry_script_tags('vibrant') }}
 {% endblock javascripts %}
