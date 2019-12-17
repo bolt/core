@@ -78,9 +78,9 @@ Feature: Users & Permissions
 
     Then I should be on "/bolt/users"
     And I should see 6 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
-    And the data in the 5th row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table should match:
-      | col2 | col3 | col4 | col5 | col6 | col7 |
-      | Test user | test_user | test_user@example.org | ROLE_ADMIN | today | 12.34.56.78 |
+    And I should see "test_user" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" element
+    And I should see "test_user@example.org" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" element
+    And I should see "Test user" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" element
 
     #delete button for new user
     When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(8) > a.btn.btn-danger.mb-3.text-nowrap"
