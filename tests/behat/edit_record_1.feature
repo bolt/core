@@ -133,7 +133,7 @@ Feature: Edit record
     And I press "Add item"
 
     Then I should see 4 ".collection-item" elements
-    And I should see an "#collections .collection-item:nth-of-type(4)" element
+    And I should see an "#collections .collection-item:nth-of-type(4) #field-title" element
     And I should see "Set:" in the "#collections .collection-item:nth-of-type(4) label" element
 
     When I fill "#collections .collection-item:nth-of-type(3) textarea" element with "Bye, Bolt"

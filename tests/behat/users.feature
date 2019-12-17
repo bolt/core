@@ -72,6 +72,7 @@ Feature: Users & Permissions
     And I click "#multiselect-locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)"
     And I scroll "#multiselect-roles > div > div.multiselect__select" into view
     And I click "#multiselect-roles > div > div.multiselect__select"
+    And I scroll "#multiselect-roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span" into view
     And I click "#multiselect-roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span"
 
     When I press "Save changes"
