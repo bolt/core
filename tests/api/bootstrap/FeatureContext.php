@@ -280,7 +280,6 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iClick($element)
     {
-        $this->iScrollElementIntoView($element);
         $foundElement = $this->getSession()->getPage()->find('css', $element);
 
         $foundElement->click();
