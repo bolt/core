@@ -49,7 +49,7 @@ Feature: Edit record
     Then I follow "Media"
 
     Then I fill in "fields[embed][url]" with "https://www.youtube.com/watch?v=x4IDM3ltTYo"
-    And I wait 3 seconds
+    And I wait 4 seconds
     Then the "fields[embed][title]" field should contain "Silversun Pickups - Nightlight (Official Video)"
     And the "fields[embed][authorname]" field should contain "Silversun Pickups"
     And the "fields[embed][width]" field should contain "480"
