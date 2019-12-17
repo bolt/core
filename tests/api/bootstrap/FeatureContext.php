@@ -367,4 +367,20 @@ class FeatureContext extends MinkContext implements Context
             throw new ExpectationException($message, $this->getSession()->getDriver());
         }
     }
+
+    /**
+     * @Then /^I should ne on url matching "([^"]*)"$/
+     * @throws ExpectationException
+     */
+    public function iShouldNeOnUrlMatching($pattern)
+    {
+        $base = $this->getMinkParameter('base_url');
+        $regex = "/" . preg_quote($base, "/") . substr($pattern, 2) . '/';
+        $actual = $this->getSession()->getCurrentUrl();
+
+        if(! (bool) preg_match($regex, $actual)){
+            $message = sprintf('The actual url "%s" does not match the regex %s', $actual, $regex);
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
 }
