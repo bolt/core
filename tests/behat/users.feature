@@ -68,6 +68,7 @@ Feature: Users & Permissions
       | email | test_user@example.org |
     And I scroll "#multiselect-locale > div > div.multiselect__select" into view
     And I click "#multiselect-locale > div > div.multiselect__select"
+    And I scroll "#multiselect-locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)" into view
     And I click "#multiselect-locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)"
     And I scroll "#multiselect-roles > div > div.multiselect__select" into view
     And I click "#multiselect-roles > div > div.multiselect__select"
