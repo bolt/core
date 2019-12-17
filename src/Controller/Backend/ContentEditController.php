@@ -291,7 +291,15 @@ class ContentEditController extends TwigAwareController implements BackendZone
             foreach ($formData['sets'] as $setName => $set) {
                 foreach ($set as $hash => $setFields) {
                     $setDefinition = $content->getDefinition()->get('fields')->get($setName);
-                    $this->updateSet($content, $setName, $setDefinition, $hash, $setFields, $locale);
+                    $this->updateSetItems($content, $setDefinition, $hash, $setFields, $locale);
+                    if ($content->hasField($setName)) {
+                        $field = $content->getField($setName);
+                        $field->setValue($hash);
+                    } else {
+                        $field = Field::factory($setDefinition, $setName);
+                        $field->setValue($hash);
+                        $content->addField($field);
+                    }
                 }
             }
         }
@@ -311,8 +319,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                     if ($collectionItemDefinition['type'] === 'set') {
                         // if this is a set field, create fields for each field within the set
                         foreach ($collectionItemValue as $hash => $fieldValue) {
-                            $fieldDBname = $collection . '::' . $collectionItemName;
-                            $this->updateSet($content, $fieldDBname, $collectionItemDefinition, $hash, $fieldValue, $locale);
+                            $this->updateSetItems($content, $collectionItemDefinition, $hash, $fieldValue, $locale);
                         }
                     } else {
                         // if this is any other field
@@ -367,7 +374,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function updateSet(?Content $content, string $setName, ContentType $setDefinition, string $hash, array $setFields, ?string $locale): void
+    private function updateSetItems(?Content $content, ContentType $setDefinition, string $hash, array $setFields, ?string $locale): void
     {
         foreach ($setFields as $setFieldChildName => $setFieldChildValue) {
             $setFieldChildDBName = $hash . '::' . $setFieldChildName;
@@ -383,15 +390,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
             }
 
             $this->updateField($setFieldChildField, $setFieldChildValue, $locale);
-        }
-
-        if ($content->hasField($setName)) {
-            $field = $content->getField($setName);
-            $field->setValue($hash);
-        } else {
-            $field = Field::factory($setDefinition, $setName);
-            $field->setValue($hash);
-            $content->addField($field);
         }
     }
 
