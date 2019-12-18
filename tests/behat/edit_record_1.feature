@@ -178,6 +178,32 @@ Feature: Edit record
     And the "fields[filelist][0][filename]" field should contain ""
 
   @javascript
+  Scenario: As an Admin I want to fill in a Set
+    Given I am logged in as "admin"
+    And I am on "/bolt/edit/43"
+    Then I should see "Sets" in the ".editor__tabbar" element
+
+    When I follow "Sets"
+    Then I should be on "/bolt/edit/43#sets"
+    And I should see "Set" in the "#sets label[for='field-set']" element
+
+    And I should see "Title" in the "#sets label[for='field-title']" element
+    And I should see an "#sets > div > div:nth-child(2) > div > input" element
+
+    And I should see "Textarea" in the "#sets label[for='field-textarea']" element
+    And I should see an "#sets > div > div:nth-child(3) > div > textarea" element
+
+    And I fill "#sets > div > div:nth-child(2) > div > input" element with "Foo"
+    And I fill "#sets > div > div:nth-child(3) > div > textarea" element with "Bar"
+
+    And I scroll "#editcontent > div.record-actions > button" into view
+    And I press "Save changes"
+
+    Then I should be on "/bolt/edit/43#sets"
+    And the field with css "#sets > div > div:nth-child(2) > div > input" should contain "Foo"
+    And the field with css "#sets > div > div:nth-child(3) > div > textarea" should contain "Bar"
+
+  @javascript
   Scenario: As an Admin I want to fill in a Collection
     Given I am logged in as "admin"
     And I am on "/bolt/edit/43"
