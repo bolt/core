@@ -128,5 +128,5 @@ Feature: Users & Permissions
       | Browser / platform |
     And I should see 1 row in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(4)" table
     And the data in the 1st row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(4)" table should match:
-      | col1 | col2 | col3 | col4 | col5 |
-      | 1 | admin | today | in 13 days | 127.0.0.1 |
+      | col1 | col2 | col4 | col5 |
+      | 1 | admin | in 13 days | 127.0.0.1 |
