@@ -3,7 +3,8 @@ DC_RUN ?= docker-compose run --rm
 COMPOSER ?= COMPOSER_MEMORY_LIMIT=-1 composer
 
 .PHONY: help install server server-stop cache csclear cscheck csfix csfix-tests stancheck test \
-behat full-test db-create db-update db-reset docker-install docker-install-deps docker-start docker-assets-serve \
+behat behat-js behat-js-quiet behat-api behat-api-quiet full-test db-create db-update db-reset \
+docker-install docker-install-deps docker-start docker-assets-serve \
 docker-update docker-cache docker-csclear docker-cscheck docker-csfix docker-stancheck docker-db-create docker-db-reset \
 docker-db-update docker-npm-fix-env docker-test docker-server-stop docker-behat docker-full-test \
 docker-command docker-console
@@ -66,6 +67,10 @@ behat-api: ## to run behat API tests
 	make server
 	vendor/bin/behat --tags=api
 
+behat-api-quiet: ## to run behat API tests quietly
+	make server
+	vendor/bin/behat --tags=api --format=progress
+
 behat-js: ## to run behat JS tests
 	make server
 	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar > /dev/null &
@@ -73,9 +78,9 @@ behat-js: ## to run behat JS tests
 	vendor/bin/behat --tags=javascript
 	kill -9 $(lsof -t -i:4444)
 
-behat-js-quiet:
+behat-js-quiet: ## to run behat JS tests quietly
 	make server
-	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar > /dev/null &
+	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" -Djava.awt.headless=true ./bin/selenium-server-standalone-3.141.59.jar > /dev/null &
 	sleep 2s
 	vendor/bin/behat --tags=javascript --format=progress
 	kill -9 $(lsof -t -i:4444)
