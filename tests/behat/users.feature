@@ -19,8 +19,8 @@ Feature: Users & Permissions
       | Actions |
     And I should see 5 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And the data in the 1st row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table should match:
-      | col1 | col2 | col3 | col4 | col5 | col6 | col7 | col8 |
-      | 1 | Admin | admin | admin@example.org | ROLE_ADMIN | today | 127.0.0.1 | Edit |
+      | col1 | col2 | col3 | col4 | col5 | col7 | col8 |
+      | 1 | Admin | admin | admin@example.org | ROLE_ADMIN | 127.0.0.1 | Edit |
 
   @javascript
   Scenario: Disable/enable user
