@@ -190,6 +190,7 @@ export default {
               }
             },
           });
+          window.$('.bootbox-input').attr('name', 'bootbox-input');
         })
         .catch(err => {
           console.warn(err);

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="editor-filelist">
     <div
       v-for="(child, index) in containerFiles"
       :key="child.id"
