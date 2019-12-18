@@ -241,8 +241,8 @@ showcases:
             fields:
                 title:
                     type: text
-                html:
-                    type: html
+                textarea:
+                    type: textarea
         collection:
             type: collection
             group: Collections

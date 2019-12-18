@@ -67,6 +67,6 @@ script:
   # run PHP Unit
   - ./vendor/bin/phpunit
   # run API tests
-  - make behat-api
+  - make behat-api-quiet
   # run JS e2e tests
-  - ./run_behat_tests.sh && make behat-js
+  - ./run_behat_tests.sh && make behat-js-quiet

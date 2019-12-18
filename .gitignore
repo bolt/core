@@ -3,9 +3,6 @@ composer.phar
 ### Built Assets and uploads ###
 /public/assets/
 /public/files/*
-!/public/files/hal.jpg
-!/public/files/kitten.jpg
-!/public/files/vlinders.jpg
 
 ### NPM and frontend assets building cruft
 assets/vendor/

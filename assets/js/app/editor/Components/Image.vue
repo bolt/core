@@ -214,6 +214,7 @@ export default {
           bootbox.prompt({
             title: 'Select a file',
             inputType: 'select',
+            name: 'image-selector',
             inputOptions: this.filterServerFiles(res.data),
             callback: function(result) {
               if (result) {
@@ -222,6 +223,7 @@ export default {
               }
             },
           });
+          window.$('.bootbox-input').attr('name', 'bootbox-input');
         })
         .catch(err => {
           console.warn(err);

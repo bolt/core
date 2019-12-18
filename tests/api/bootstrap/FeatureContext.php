@@ -232,10 +232,26 @@ class FeatureContext extends MinkContext implements Context
      * @Given /^I am logged in as "([^"]*)"$/
      */
     public function iAmAuthenticatedAs($username) {
+       $this->iAmLoggedInAsWithPassword($username, 'admin%1');
+    }
+
+    /**
+     * @Given /^I am logged in as "([^"]*)" with password "([^"]*)"$/
+     */
+    public function iAmLoggedInAsWithPassword($username, $password)
+    {
         $this->visit('/bolt/login');
         $this->fillField('username', $username);
-        $this->fillField('password', "admin%1");
+        $this->fillField('password', $password);
         $this->pressButton('Log in');
+    }
+
+    /**
+     * @Then /^I logout$/
+     */
+    public function iLogout()
+    {
+        $this->visit('/bolt/logout');
     }
 
     /**
@@ -274,7 +290,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iScrollElementIntoView($element){
         $this->getSession()->getPage()->find('css', $element)->focus();
-        $this->getSession()->executeScript("$(':focus')[0].scrollIntoView(true);window.scrollBy(0,-100);");
+        $this->getSession()->executeScript("$(':focus')[0].scrollIntoView(true);window.scrollBy(0,-50);");
     }
 
     /**
@@ -284,4 +300,88 @@ class FeatureContext extends MinkContext implements Context
     public function iSwitchToTheWindow($id=0){
         $this->getSession()->switchToWindow($this->getSession()->getWindowNames()[$id]);
     }
+
+    /**
+     * @Then /^I should see (\d+) "([^"]*)" elements in the "([^"]*)" element$/
+     */
+    public function iShouldSeeElementsInTheElement($number, $element, $parent)
+    {
+        $foundElements = $this->getSession()->getPage()->find('css', $parent)->findAll('css', $element);
+        if(intval($number) !== count($foundElements)){
+            $message = sprintf('%d %s found on the page, but should be not less than %d.', count($foundElements), $element, $number);
+
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
+     * @Then /^the "([^"]*)" button should be disabled$/
+     */
+    public function theButtonShouldBeDisabled($button)
+    {
+        $foundButton = $this->getSession()->getPage()->find('css', $button);
+        if(! $foundButton->getAttribute('disabled')) {
+            $message = sprintf('%s expected to be disabled, but disabled attribute is %s', $button, $foundButton->getAttribute('disabled'));
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
+     * @Then /^the "([^"]*)" button should be enabled$/
+     */
+    public function theButtonShouldBeEnabled($button)
+    {
+        $foundButton = $this->getSession()->getPage()->find('css', $button);
+        if ($foundButton->getAttribute('disabled')) {
+            $message = sprintf('%s expected to be enabled, but disabled attribute is %s', $button, $foundButton->getAttribute('disabled'));
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
+     * @When /^I fill "([^"]*)" element with "([^"]*)"$/
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     */
+    public function iFillWith($element, $value)
+    {
+        $this->assertSession()->elementExists('css', $element);
+        $foundElement = $this->getSession()->getPage()->find('css', $element);
+        $foundElement->setValue($value);
+    }
+
+    /**
+     * @Given /^the field with css "([^"]*)" should contain "([^"]*)"$/
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     * @throws ExpectationException
+     */
+    public function theFieldWithCssShouldContain($element, $value)
+    {
+        $this->assertSession()->elementExists('css', $element);
+        $foundElement = $this->getSession()->getPage()->find('css', $element);
+
+        $actual = $foundElement->getValue();
+        $regex = '/^'.preg_quote($value, '/').'$/ui';
+
+        if(! (bool) preg_match($regex, $actual)){
+            $message = sprintf('The field "%s" value is "%s", but "%s" expected.', $foundElement, $actual, $value);
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
+     * @Then /^I should ne on url matching "([^"]*)"$/
+     * @throws ExpectationException
+     */
+    public function iShouldNeOnUrlMatching($pattern)
+    {
+        $base = $this->getMinkParameter('base_url');
+        $regex = "/" . preg_quote($base, "/") . substr($pattern, 2) . '/';
+        $actual = $this->getSession()->getCurrentUrl();
+
+        if(! (bool) preg_match($regex, $actual)){
+            $message = sprintf('The actual url "%s" does not match the regex %s', $actual, $regex);
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+    
 }
