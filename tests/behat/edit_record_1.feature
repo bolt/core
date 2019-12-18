@@ -251,6 +251,19 @@ Feature: Edit record
     Then I should see 1 ".row" elements in the ".editor-filelist" element
     And the "fields[filelist][0][filename]" field should contain "bolt4.pdf"
 
+    When I scroll "#editcontent > div.record-actions > button" into view
+    And I press "Save changes"
+    Then I should be on "/bolt/edit/42#files"
+    And the "fields[filelist][0][filename]" field should contain "bolt4.pdf"
+
+    #Remove only element
+    When I click "#files > div.form-group.form-fieldset.is-normal > div > div > div > div.row > div > div.btn-toolbar > div:nth-child(5) > button"
+    And I scroll "#editcontent > div.record-actions > button" into view
+    And I press "Save changes"
+
+    Then I should see 1 ".row" elements in the ".editor-filelist" element
+    And the "fields[filelist][0][filename]" field should contain ""
+
   @javascript
   Scenario: As an Admin I want to fill in a Collection
     Given I am logged in as "admin"
