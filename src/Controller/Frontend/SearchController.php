@@ -7,6 +7,7 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
+use Bolt\Utils\Sanitiser;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +19,13 @@ class SearchController extends TwigAwareController implements FrontendZone
     /** @var TemplateChooser */
     private $templateChooser;
 
-    public function __construct(TemplateChooser $templateChooser)
+    /** @var Sanitiser */
+    private $sanitiser;
+
+    public function __construct(TemplateChooser $templateChooser, Sanitiser $sanitiser)
     {
         $this->templateChooser = $templateChooser;
+        $this->sanitiser = $sanitiser;
     }
 
     /**
@@ -31,6 +36,7 @@ class SearchController extends TwigAwareController implements FrontendZone
     {
         $page = (int) $request->query->get('page', 1);
         $searchTerm = $request->get('searchTerm', $request->get('search', $request->get('q', '')));
+        $searchTerm = $this->sanitiser->clean($searchTerm);
         $amountPerPage = $this->config->get('general/listing_records');
 
         // @todo implement actual Search Engine
