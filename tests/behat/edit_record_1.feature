@@ -129,6 +129,7 @@ Feature: Edit record
 
     When I scroll "#multiselect-undefined > div > div.multiselect__select" into view
     And I click "#multiselect-undefined > div > div.multiselect__select"
+    And I scroll "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1)" into view
     And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1)"
     And I press "Add item"
 
