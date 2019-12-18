@@ -103,6 +103,19 @@ Feature: Edit record
     Then I should see 1 ".row" elements in the ".editor-imagelist" element
     And the "fields[imagelist][1][filename]" field should contain "joey.jpg"
 
+    When I scroll "#editcontent > div.record-actions > button" into view
+    And I press "Save changes"
+    Then I should be on "/bolt/edit/42#media"
+    And the "fields[imagelist][0][filename]" field should contain "joey.jpg"
+
+    #Remove only element
+    When I click "#media > div.form-group.form-fieldset.is-normal > div > div > div > div.row > div > div.btn-toolbar > div:nth-child(5) > button"
+    And I scroll "#editcontent > div.record-actions > button" into view
+    And I press "Save changes"
+
+    Then I should see 1 ".row" elements in the ".editor-imagelist" element
+    And the "fields[imagelist][0][filename]" field should contain ""
+
   @javascript
   Scenario: As an Admin I want to fill in a filelist
     Given I am logged in as "admin"
