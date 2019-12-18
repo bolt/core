@@ -137,7 +137,7 @@ Feature: Edit record
     #And I should see "Set:" in the "#collections .collection-item:nth-of-type(4) label" element
 
     When I fill "#collections .collection-item:nth-of-type(3) textarea" element with "Bye, Bolt"
-    And I fill "#collections .collection-item:nth-of-type(4) #field-title" element with "Hey, Bolt"
+    And I fill "#collections .collection-item:nth-of-type(4) input[type='text']" element with "Hey, Bolt"
 
     #First move down
     And I scroll "#collections .collection-item:nth-of-type(3) button.action-move-down-collection-item.btn.btn-secondary" into view
@@ -150,7 +150,7 @@ Feature: Edit record
     And I press "Save changes"
     Then I should be on "/bolt/edit/43#collections"
 
-    And the field with css "#collections .collection-item:nth-of-type(3) #field-title" should contain "Hey, Bolt"
+    And the field with css "#collections .collection-item:nth-of-type(3) input[type='text']" should contain "Hey, Bolt"
     And the field with css "#collections .collection-item:nth-of-type(4) textarea" should contain "Bye, Bolt"
 
     #remove both
