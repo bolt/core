@@ -2040,7 +2040,7 @@
     <unit id="0C9.Vmh" name="collection.add_item">
       <segment>
         <source>collection.add_item</source>
-        <target>Add item</target>
+        <target>Add item to %name%</target>
       </segment>
     </unit>
     <unit id="ApPu4P_" name="collection.move_item_up">

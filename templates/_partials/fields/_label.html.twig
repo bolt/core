@@ -1,15 +1,14 @@
-{%- if type != 'checkbox' -%}
+{%- if type not in ['checkbox', 'collection'] -%}
     <label for="{{ id }}">
 
         {%- if localize -%}
           <i class="fas fa-language"></i>
         {%- endif -%}
 
-        {{- label -}}
+        {% if in_collection is defined %}
+            <span style="font-weight: normal;">{{ collection_label }} &raquo;</span>
+        {% endif %}
 
-        {%- if type != 'checkbox' -%}
-            {{- ':' -}}
-        {%- endif -%}
-
+        {{- label -}}:
     </label>
 {%- endif -%}
