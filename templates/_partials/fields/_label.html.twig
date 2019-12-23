@@ -1,5 +1,5 @@
-{%- if type not in ['checkbox', 'collection'] -%}
-    <label for="{{ id }}">
+{%- if type != 'checkbox' -%}
+    <label for="{{ id }}" {% if type == 'collection' %}class="sr-only"{% endif %}>
 
         {%- if localize -%}
           <i class="fas fa-language"></i>
