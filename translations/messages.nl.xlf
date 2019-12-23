@@ -1602,5 +1602,29 @@
         <target>Geen zoekresultaten voor '%search%'.</target>
       </segment>
     </unit>
+    <unit id="0C9.Vmh" name="collection.add_item">
+      <segment>
+        <source>collection.add_item</source>
+        <target>Voeg toe aan %name%</target>
+      </segment>
+    </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <segment>
+        <source>collection.move_item_up</source>
+        <target>Omhoog</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <segment>
+        <source>collection.move_item_down</source>
+        <target>Omlaag</target>
+      </segment>
+    </unit>
+    <unit id=".t1ICS7" name="collection.remove_item">
+      <segment>
+        <source>collection.remove_item</source>
+        <target>Verwijder</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

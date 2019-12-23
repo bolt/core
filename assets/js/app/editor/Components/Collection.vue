@@ -18,6 +18,7 @@
         type="button"
         @click="addCollectionItem"
       >
+        <i class="fas fa-fw fa-plus"></i>
         {{ labels.add_collection_item }}
       </button>
     </div>

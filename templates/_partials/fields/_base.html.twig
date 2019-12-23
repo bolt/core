@@ -23,11 +23,8 @@
 {# Set type #}
 {% set type = field.type|default %}
 
-{% if type in ['imagelist', 'filelist', 'collection'] %}
-    {% set fieldset = true %}
-{% else %}
-    {% set fieldset = false %}
-{% endif %}
+{% set type_collection = (type in ['collection']) %}
+{% set type_set = (type in ['imagelist', 'filelist', 'set']) %}
 
 {# Set variant #}
 {% set variant = field.definition.variant|default('normal') %}
@@ -87,11 +84,12 @@
 {%- endapply -%}
 
 <!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
-<div class="form-group {{ fieldset ? 'form-fieldset' }} is-{{ variant }}">
+<div class="form-group {{ type_set ? 'form-set' }} {{ type_collection ? 'form-collection' }} is-{{ variant }}">
 
 {{ prefix|raw }}
 {% block label %}
     {% include '@bolt/_partials/fields/_label.html.twig' %}
+    {% include '@bolt/_partials/fields/_collection_buttons.html.twig' %}
 {% endblock %}
 {% block field %}
 
@@ -99,21 +97,5 @@
 
 {{ postfix|raw }}
 
-{% if in_collection is defined %}
-    <input type="hidden" name="collections[{{ collection_name }}][order][]" value="{{ hash }}">
-
-    <button class='action-move-up-collection-item btn btn-secondary' {% if is_first is defined and is_first %} disabled {% endif %}>
-        <i class="fas fa-fw fa-chevron-up"></i>
-        {{ 'collection.move_item_up'|trans }}
-    </button>
-    <button class='action-move-down-collection-item btn btn-secondary' {% if is_last is defined and is_last %} disabled {% endif %}>
-        <i class="fas fa-fw fa-chevron-down"></i>
-        {{ 'collection.move_item_down'|trans }}
-    </button>
-    <button class='action-remove-collection-item btn btn-hidden-danger'>
-        <i class="fas fa-fw fa-times"></i>
-        {{ 'collection.remove_item'|trans }}
-    </button>
-{% endif %}
 </div>
 

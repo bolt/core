@@ -3,7 +3,7 @@
 
 {% block field %}
     {% set labels = {
-        'add_collection_item': 'collection.add_item'|trans
+        'add_collection_item': 'collection.add_item'|trans({'%name%': field.definition.label}),
     } %}
 
     {# get the html for all collection field already in the database #}
