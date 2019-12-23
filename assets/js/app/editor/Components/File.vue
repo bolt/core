@@ -43,16 +43,21 @@
               <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
             </button>
 
-            <button class="btn btn-sm btn-secondary  dropdown-toggle dropdown-toggle-split" aria-expanded="false" aria-haspopup="true"
-                    data-toggle="dropdown" type="button">
-            </button>
+            <button
+              class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+              aria-expanded="false"
+              aria-haspopup="true"
+              data-toggle="dropdown"
+              type="button"
+            ></button>
 
             <button
               class="btn btn-sm btn-secondary dropdown-menu dropdown-menu-right"
               type="button"
               @click="selectServerFile"
             >
-              <i class="fas fa-fw fa-th mr-2 ml-2"></i> {{ labels.button_from_library }}
+              <i class="fas fa-fw fa-th mr-2 ml-2"></i>
+              {{ labels.button_from_library }}
             </button>
           </div>
 
