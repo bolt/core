@@ -118,7 +118,7 @@ Feature: Edit record
     Then I should see 1 ".row" elements in the ".editor__imagelist" element
     And the "fields[imagelist][0][filename]" field should contain ""
 
-  @javascript
+  @javascript-disabled
   Scenario: As an Admin I want to fill in a filelist
     Given I am logged in as "admin"
     And I am on "/bolt/edit/42"
