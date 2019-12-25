@@ -26,7 +26,8 @@
       ></editor-file>
     </div>
 
-    <button class="btn btn-secondary" type="button" @click="addFile">
+    <button class="btn btn-tertiary" type="button" @click="addFile">
+      <i class="fas fa-fw fa-plus"></i>
       {{ labels.add_new_file }}
     </button>
   </div>
