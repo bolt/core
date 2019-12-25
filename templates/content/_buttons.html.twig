@@ -23,14 +23,16 @@
                 data-toggle="dropdown" type="button">
             <span class="sr-only">{{ 'buttons.button_toggle'|trans }}</span>
         </button>
-        <button class="btn btn-light dropdown-menu dropdown-menu-right"
-                form="editcontent"
-                formaction="{{ path('bolt_content_edit_viewsave', {'id': record.id }) }}"
-                formtarget="_blank" style="white-space: nowrap; padding-right: 1rem;"
-                type="submit">
-            <i class="fas fa-external-link-square-alt mr-2 ml-2"></i>
-            {{ 'action.view_saved'|trans }}
-        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <button class="btn"
+                    form="editcontent"
+                    formaction="{{ path('bolt_content_edit_viewsave', {'id': record.id }) }}"
+                    formtarget="_blank" style="white-space: nowrap; padding-right: 1rem;"
+                    type="submit">
+                <i class="fas fa-external-link-square-alt mr-2 ml-2"></i>
+                {{ 'action.view_saved'|trans }}
+            </button>
+        </div>
     {% endif %}
     
     </div>

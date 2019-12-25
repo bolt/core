@@ -36,7 +36,7 @@
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group mr-2" role="group">
             <button
-              class="btn btn-sm btn-secondary"
+              class="btn btn-sm btn-tertiary"
               type="button"
               @click="selectUploadFile"
             >
@@ -44,32 +44,32 @@
             </button>
 
             <button
-              class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
+              class="btn btn-sm btn-tertiary dropdown-toggle dropdown-toggle-split"
               aria-expanded="false"
               aria-haspopup="true"
               data-toggle="dropdown"
               type="button"
             ></button>
 
-            <button
-              class="btn btn-sm btn-secondary dropdown-menu dropdown-menu-right"
-              type="button"
-              @click="selectServerFile"
-            >
-              <i class="fas fa-fw fa-th mr-2 ml-2"></i>
-              {{ labels.button_from_library }}
-            </button>
-          </div>
-
-          <div v-if="filenameData" class="btn-group mr-2" role="group">
-            <a
-              class="btn btn-sm btn-secondary"
-              :href="attributesLink + '?file=' + filenameData"
-              target="_blank"
-            >
-              <i class="fas fa-fw fa-info-circle"></i>
-              {{ labels.button_edit_attributes }}
-            </a>
+            <div class="dropdown-menu">
+              <button
+                class="btn dropdown-item"
+                type="button"
+                @click="selectServerFile"
+              >
+                <i class="fas fa-fw fa-th"></i>
+                {{ labels.button_from_library }}
+              </button>
+              <a
+                      v-if="filenameData"
+                      class="dropdown-item"
+                      :href="attributesLink + '?file=' + filenameData"
+                      target="_blank"
+              >
+                <i class="fas fa-fw fa-info-circle"></i>
+                {{ labels.button_edit_attributes }}
+              </a>
+            </div>
           </div>
 
           <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
