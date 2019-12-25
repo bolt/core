@@ -7,16 +7,16 @@
 }
 
 $theme-colors: (
-        "primary":   $primary,
-        "secondary": $secondary,
-        "tertiary":  $tertiary,
-        "success":   $success,
-        "info":      $info,
-        "warning":   $warning,
-        "danger":    $danger,
-        "light":     $light,
-        "dark":      $dark,
-        "boltblue":  $bolt-blue,
+  "primary":   $primary,
+  "secondary": $secondary,
+  "tertiary":  $tertiary,
+  "success":   $success,
+  "info":      $info,
+  "warning":   $warning,
+  "danger":    $danger,
+  "light":     $light,
+  "dark":      $dark,
+  "boltblue":  $bolt-blue,
 );
 
 @each $color, $value in $theme-colors {

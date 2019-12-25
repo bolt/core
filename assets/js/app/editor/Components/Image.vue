@@ -61,10 +61,10 @@
                 {{ labels.button_from_library }}
               </button>
               <a
-                      v-if="filenameData"
-                      class="dropdown-item"
-                      :href="attributesLink + '?file=' + filenameData"
-                      target="_blank"
+                v-if="filenameData"
+                class="dropdown-item"
+                :href="attributesLink + '?file=' + filenameData"
+                target="_blank"
               >
                 <i class="fas fa-fw fa-info-circle"></i>
                 {{ labels.button_edit_attributes }}
