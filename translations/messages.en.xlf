@@ -2085,5 +2085,17 @@
         <target>Previous</target>
       </segment>
     </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <segment>
+        <source>image.button_up</source>
+        <target>Up</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <segment>
+        <source>image.button_down</source>
+        <target>Down</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

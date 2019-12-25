@@ -1,5 +1,5 @@
 <template>
-  <div class="editor-imagelist">
+  <div class="editor__imagelist">
     <div
       v-for="(child, index) in containerImages"
       :key="child.id"

@@ -84,7 +84,10 @@
 {%- endapply -%}
 
 <!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
-<div class="form-group {{ type_set ? 'form-set' }} {{ type_collection ? 'form-collection' }} is-{{ variant }}">
+<div
+    class="form-group {{ type_set ? 'form-set' }} {{ type_collection ? 'form-collection' }} is-{{ variant }}"
+    id="field-{{ type }}-{{ field.name|default('unnamed') }}"
+>
 
 {{ prefix|raw }}
 {% block label %}
