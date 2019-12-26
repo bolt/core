@@ -18,17 +18,28 @@ class ImagelistField extends Field implements FieldInterface
         return 'imagelist';
     }
 
+    /**
+     * Returns the value, as is in the database. Useful for processing, like
+     * editing in the backend, where the results are to be serialised
+     */
+    public function getRawValue(): array
+    {
+        return (array) parent::getValue() ?: [];
+    }
+
+    /**
+     * Returns the result, where the contained fields are "hydrated" as actual
+     * Image Fields. For example, for iterating in the frontend.
+     */
     public function getValue(): array
     {
-        $images = (array) parent::getValue() ?: [];
-
         $result = [];
 
-        foreach ($images as $key => $image) {
+        foreach ($this->getRawValue() as $key => $image) {
             $imageField = new ImageField();
             $imageField->setName((string) $key);
             $imageField->setValue($image);
-            array_push($result, $imageField->getValue());
+            array_push($result, $imageField);
         }
 
         return $result;

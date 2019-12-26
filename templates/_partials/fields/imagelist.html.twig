@@ -19,8 +19,9 @@
    }|json_encode %}
    {% set extensions = field.definition.get('extensions')|default('') %}
 
-   <editor-imagelist
-       :images='{{ field.value|json_encode }}'
+    {% dump(field.rawvalue) %}
+    <editor-imagelist
+       :images='{{ field.rawvalue|json_encode }}'
        :name='{{ name|json_encode }}'
        :directory='{{ directory|json_encode }}'
        :filelist='{{ filelist|json_encode }}'

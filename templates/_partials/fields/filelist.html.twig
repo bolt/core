@@ -18,8 +18,10 @@
     }|json_encode %}
     {% set extensions = field.definition.get('extensions')|default('') %}
 
+    {% dump(field.rawvalue) %}
+
     <editor-filelist
-            :files='{{ field.value|json_encode }}'
+            :files='{{ field.rawvalue|json_encode }}'
             :name='{{ name|json_encode }}'
             :directory='{{ directory|json_encode }}'
             :filelist='{{ filelist|json_encode }}'

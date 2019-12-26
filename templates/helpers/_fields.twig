@@ -59,6 +59,18 @@
 
         {% endif %}
 
+        {# Finally, the collections, filelists and imagelists #}
+        {{ dump(type) }}
+        {% if type in ['collection', 'filelist', 'imagelist'] %}
+
+            {{ dump(field.value) }}
+            {{ dump(field.getValue()) }}
+            {% for subfield in field %}
+            {{ dump(subfield) }}
+            {% endfor %}
+        {% endif %}
+
+
     {% endfor %}
 
 {% endblock sub_fields %}

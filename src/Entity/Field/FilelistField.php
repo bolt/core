@@ -18,16 +18,30 @@ class FilelistField extends Field implements FieldInterface
         return 'filelist';
     }
 
+    /**
+     * Returns the value, as is in the database. Useful for processing, like
+     * editing in the backend, where the results are to be serialised
+     */
+    public function getRawValue(): array
+    {
+        return (array) parent::getValue() ?: [];
+    }
+
+    /**
+     * Returns the result, where the contained fields are "hydrated" as actual
+     * File Fields. For example, for iterating in the frontend.
+     */
     public function getValue(): array
     {
-        $files = (array) parent::getValue() ?: [];
         $result = [];
-        foreach ($files as $key => $file) {
+
+        foreach ($this->getRawValue() as $key => $file) {
             $fileField = new FileField();
             $fileField->setName((string) $key);
             $fileField->setValue($file);
-            array_push($result, $fileField->getValue());
+            array_push($result, $fileField);
         }
+
         return $result;
     }
 }
