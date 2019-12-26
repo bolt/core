@@ -171,7 +171,7 @@ export default {
       progress: 0,
       filenameData: this.filename,
       thumbnailData: this.thumbnail,
-      altData: this.data,
+      altData: this.alt,
     };
   },
   computed: {
