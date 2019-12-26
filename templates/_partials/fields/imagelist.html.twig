@@ -1,7 +1,6 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-
    {% set setPath = field.definition.get('upload')|default('') %}
    {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
    {% set filelist = path('bolt_async_filelisting', {'location': location|default('files'), 'type': 'images' }) %}
@@ -19,16 +18,15 @@
    }|json_encode %}
    {% set extensions = field.definition.get('extensions')|default('') %}
 
-    {% dump(field.rawvalue) %}
     <editor-imagelist
-       :images='{{ field.rawvalue|json_encode }}'
-       :name='{{ name|json_encode }}'
-       :directory='{{ directory|json_encode }}'
-       :filelist='{{ filelist|json_encode }}'
-       :csrf-token='{{ csrf_token('upload')|json_encode }}'
-       :labels='{{ labels }}'
-       :extensions='{{  extensions|json_encode }}'
-       :attributes-link='{{ path('bolt_media_new')|json_encode }}'
+        :images='{{ field.jsonvalue }}'
+        :name='{{ name|json_encode }}'
+        :directory='{{ directory|json_encode }}'
+        :filelist='{{ filelist|json_encode }}'
+        :csrf-token='{{ csrf_token('upload')|json_encode }}'
+        :labels='{{ labels }}'
+        :extensions='{{  extensions|json_encode }}'
+        :attributes-link='{{ path('bolt_media_new')|json_encode }}'
    ></editor-imagelist>
 
 {% endblock %}

@@ -28,8 +28,8 @@ class ImagelistField extends Field implements FieldInterface
     }
 
     /**
-     * Returns the result, where the contained fields are "hydrated" as actual
-     * Image Fields. For example, for iterating in the frontend.
+     * Returns the value, where the contained fields are "hydrated" as actual
+     * Image Fields. For example, for iterating in the frontend
      */
     public function getValue(): array
     {
@@ -43,5 +43,16 @@ class ImagelistField extends Field implements FieldInterface
         }
 
         return $result;
+    }
+
+    /**
+     * Returns the value, where the contained Image fields are seperately
+     * casted to arrays, including the "extras"
+     */
+    public function getJsonValue()
+    {
+        return json_encode(array_map(function (ImageField $i) {
+            return $i->getValue();
+        }, $this->getValue()));
     }
 }
