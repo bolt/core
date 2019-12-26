@@ -8,6 +8,9 @@ use Tightenco\Collect\Support\Collection;
 
 class FieldType extends Collection
 {
+    /**
+     * @param array|Collection $items
+     */
     public function __construct($items, ?string $slug = null)
     {
         if ($slug) {
@@ -46,8 +49,12 @@ class FieldType extends Collection
         return new self($contentType->get('fields')->get($name, []));
     }
 
-    public static function mock(string $name, Collection $definition): self
+    public static function mock(string $name, ?Collection $definition = null): self
     {
+        if (! $definition) {
+            $definition = new Collection();
+        }
+
         $definition['name'] = $name;
 
         return new self($definition);
