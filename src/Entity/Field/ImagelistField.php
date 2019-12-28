@@ -44,4 +44,29 @@ class ImagelistField extends Field implements FieldInterface
 
         return $result;
     }
+
+    public function getTempValue(): array
+    {
+        $result = [];
+
+        foreach ($this->getRawValue() as $key => $image) {
+            $imageField = new ImageField();
+            $imageField->setName((string) $key);
+            $imageField->setValue($image);
+            array_push($result, $imageField);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns the value, where the contained Image fields are seperately
+     * casted to arrays, including the "extras"
+     */
+    public function getJsonValue()
+    {
+        return json_encode(array_map(function (ImageField $i) {
+            return $i->getValue();
+        }, $this->getTempValue()));
+    }
 }
