@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it-IT">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
   <file id="messages.it">
     <unit id="tbB2gib" name="not_available">
       <notes>
         <note>templates/debug/source_code.twig:26</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>not_available</source>
         <target>Non disponibile</target>
       </segment>
@@ -17,7 +17,7 @@
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
         <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error.name</source>
         <target>Errore %status_code%</target>
       </segment>
@@ -26,7 +26,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error.description</source>
         <target>Si è verificato un errore sconosciuto (HTTP %status_code%) che ha impedito il completamento della vostra richiesta.</target>
       </segment>
@@ -35,7 +35,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error.suggestion</source>
         <target><![CDATA[Ricaricare la pagina fra qualche minuto oppure <a href="%url%">tornare all'homepage</a>.]]></target>
       </segment>
@@ -44,7 +44,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_403.description</source>
         <target>Non si dispone dei permessi per accedere a questa risorsa.</target>
       </segment>
@@ -53,7 +53,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_403.suggestion</source>
         <target>Rivolgersi all'amministratore di sistema per ottenere l'accesso a questa risorsa.</target>
       </segment>
@@ -62,7 +62,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_404.description</source>
         <target>Impossibile trovare la pagina richiesta.</target>
       </segment>
@@ -71,7 +71,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_404.suggestion</source>
         <target><![CDATA[Controllare l'esattezza dell'URL oppure <a href="%url%">tornare all'homepage</a>.]]></target>
       </segment>
@@ -80,7 +80,7 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_500.description</source>
         <target>Si è verificato un errore di sistema.</target>
       </segment>
@@ -89,16 +89,16 @@
       <notes>
         <note>templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>http_error_500.suggestion</source>
-        <target>Ricaricare la pagina fra qualche minuto oppure &lt;a href="%url%"&gt;tornare all'homepage&lt;/a&gt;.</target>
+        <target><![CDATA[Ricaricare la pagina fra qualche minuto oppure <a href="%url%">tornare all'homepage</a>.]]></target>
       </segment>
     </unit>
     <unit id="9RwuNlf" name="title.source_code">
       <notes>
         <note>templates/debug/source_code.twig:17</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.source_code</source>
         <target>Codice sorgente della pagina</target>
       </segment>
@@ -108,7 +108,7 @@
         <note>templates/debug/source_code.twig:22</note>
         <note>templates/debug/source_code.twig:25</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.controller_code</source>
         <target>Codice del Controller</target>
       </segment>
@@ -117,7 +117,7 @@
       <notes>
         <note>templates/debug/source_code.twig:29</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.twig_template_code</source>
         <target>Codice del template Twig</target>
       </segment>
@@ -126,7 +126,7 @@
       <notes>
         <note>templates/users/edit.twig:4</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.edit_user</source>
         <target>Modifica Utente</target>
       </segment>
@@ -135,7 +135,7 @@
       <notes>
         <note>templates/debug/source_code.twig:7</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.show_code</source>
         <target>Mostra sorgente</target>
       </segment>
@@ -145,13 +145,13 @@
         <note>templates/users/change_password.twig:18</note>
         <note>templates/users/edit.twig:15</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.save</source>
         <target>Salva le modifiche</target>
       </segment>
     </unit>
     <unit id="a2vzLi7" name="action.do_something">
-      <segment state="translated">
+      <segment>
         <source>action.do_something</source>
         <target>Fai qualcosa</target>
       </segment>
@@ -160,13 +160,13 @@
       <notes>
         <note>templates/users/change_password.twig:26</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.edit_user</source>
         <target>Modifica Utente</target>
       </segment>
     </unit>
     <unit id="ovKkXwU" name="action.edit">
-      <segment state="translated">
+      <segment>
         <source>action.edit</source>
         <target>Modifica</target>
       </segment>
@@ -185,16 +185,16 @@
       <notes>
         <note>templates/debug/source_code.twig:3</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>help.show_code</source>
-        <target><![CDATA[Premere questo pulsante per mostrare il codice sorgente del <strong>Controller</strong> e del <strong>template</strong> utilizzati in questa pagina. ]]></target>
+        <target><![CDATA[Premere questo pulsante per mostrare il codice sorgente del <strong>Controller</strong> e del <strong>template</strong> utilizzati in questa pagina.]]></target>
       </segment>
     </unit>
     <unit id="wtG.cxy" name="info.change_password">
       <notes>
         <note>templates/users/change_password.twig:12</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>info.change_password</source>
         <target>Dopo la modifica della password dovrete effettuare nuovamente il login.</target>
       </segment>
@@ -222,7 +222,7 @@
       <notes>
         <note>templates/security/login.twig:84</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.log_in</source>
         <target>Login</target>
       </segment>
@@ -231,7 +231,7 @@
       <notes>
         <note>templates/content/listing.twig:9</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>title.contentlisting</source>
         <target>Lista dei contenuti</target>
       </segment>
@@ -240,7 +240,7 @@
       <notes>
         <note>templates/users/edit.twig:24</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>action.change_password</source>
         <target>Cambia la password</target>
       </segment>
@@ -259,7 +259,7 @@
       <notes>
         <note>templates/editcontent/edit.twig:76</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.status</source>
         <target>Stato</target>
       </segment>
@@ -269,7 +269,7 @@
         <note>templates/editcontent/edit.twig:86</note>
         <note>templates/editcontent/media_edit.twig:128</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.createdAt</source>
         <target>Creato il</target>
       </segment>
@@ -279,7 +279,7 @@
         <note>templates/editcontent/edit.twig:94</note>
         <note>templates/editcontent/media_edit.twig:135</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.modifiedAt</source>
         <target>Modificato il</target>
       </segment>
@@ -288,7 +288,7 @@
       <notes>
         <note>templates/editcontent/edit.twig:102</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.publishedAt</source>
         <target>Pubblicato il</target>
       </segment>
@@ -297,7 +297,7 @@
       <notes>
         <note>templates/editcontent/edit.twig:110</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.depublishedAt</source>
         <target>Ritirato il</target>
       </segment>
@@ -306,7 +306,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:47</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.title</source>
         <target>Titolo</target>
       </segment>
@@ -315,7 +315,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:53</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.description</source>
         <target>Descrizione</target>
       </segment>
@@ -333,7 +333,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:66</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.originalFilename</source>
         <target>Nome originale del file</target>
       </segment>
@@ -342,7 +342,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:105</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.width</source>
         <target>larghezza</target>
       </segment>
@@ -351,7 +351,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:112</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.height</source>
         <target>altezza</target>
       </segment>
@@ -360,7 +360,7 @@
       <notes>
         <note>templates/editcontent/media_edit.twig:119</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>field.filesize</source>
         <target>Dimensioni del file</target>
       </segment>
@@ -369,7 +369,7 @@
       <notes>
         <note>templates/security/login.twig:61</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.username_or_email</source>
         <target>Username o Email</target>
       </segment>
@@ -378,7 +378,7 @@
       <notes>
         <note>templates/security/login.twig:80</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.rememberme</source>
         <target>Ricordati di me</target>
       </segment>
@@ -387,7 +387,7 @@
       <notes>
         <note>templates/pages/about.twig:25</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.visit_bolt</source>
         <target>Visita Bolt.cm</target>
       </segment>
@@ -396,7 +396,7 @@
       <notes>
         <note>templates/pages/about.twig:28</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.bolt_documentation</source>
         <target>Documentazione di Bolt</target>
       </segment>
@@ -405,7 +405,7 @@
       <notes>
         <note>templates/pages/about.twig:31</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.bolt_on_github</source>
         <target>Bolt su Github</target>
       </segment>
@@ -414,7 +414,7 @@
       <notes>
         <note>templates/pages/about.twig:35</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.used_libraries</source>
         <target>Librerie / Componenti utilizzati</target>
       </segment>
@@ -423,7 +423,7 @@
       <notes>
         <note>templates/pages/about.twig:37</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>about.list_of_used_libraries</source>
         <target>Di seguito l'elenco delle librerie di terze parti utilizzate da Bolt.</target>
       </segment>
@@ -433,7 +433,7 @@
         <note>src/Form/UserType.php:35</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.fullname</source>
         <target>Nome completo</target>
       </segment>
@@ -443,7 +443,7 @@
         <note>src/Form/UserType.php:38</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label.email</source>
         <target>Indirizzo Email</target>
       </segment>
@@ -453,7 +453,7 @@
         <note>src/Controller/Backend/UserController.php:33</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>user.updated_successfully</source>
         <target>Modificato con successo</target>
       </segment>
@@ -464,7 +464,7 @@
         <note>src/Controller/Backend/EditRecordController.php:86</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>content.updated_successfully</source>
         <target>Oggetto Media modificato con successo</target>
       </segment>
@@ -474,7 +474,7 @@
         <note>src/Controller/Backend/EditMediaController.php:157</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>content.created_successfully</source>
         <target>Oggetto Media creato con successo</target>
       </segment>
@@ -484,7 +484,7 @@
         <note>src/Controller/Backend/EditFileController.php:101</note>
         <note>new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>editfile.could_not_write</source>
         <target>Impossibile salvare l'oggetto Media</target>
       </segment>
@@ -496,7 +496,7 @@
       </segment>
     </unit>
     <unit id="98Q5SA2" name="label.backend_theme">
-      <segment state="translated">
+      <segment>
         <source>label.backend_theme</source>
         <target>Tema del Backend</target>
       </segment>
@@ -520,7 +520,7 @@
       </segment>
     </unit>
     <unit id="e7RdvJ0" name="français (French, fr)">
-      <segment state="translated">
+      <segment>
         <source>français (French, fr)</source>
         <target>Français (French, fr)</target>
       </segment>
@@ -550,19 +550,19 @@
       </segment>
     </unit>
     <unit id="Oiwdkpg" name="The Default theme">
-      <segment state="translated">
+      <segment>
         <source>The Default theme</source>
         <target>Il tema di default</target>
       </segment>
     </unit>
     <unit id="C389Knp" name="The Default Dark theme">
-      <segment state="translated">
+      <segment>
         <source>The Default Dark theme</source>
         <target>Il tema scuro di default</target>
       </segment>
     </unit>
     <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
-      <segment state="translated">
+      <segment>
         <source>WoordPers: Kinda looks like that other CMS</source>
         <target>WoordPers: sembra un po' come quell'altro CMS</target>
       </segment>
@@ -570,7 +570,7 @@
     <unit id="7aLIA3c" name="caption.dashboard">
       <segment>
         <source>caption.dashboard</source>
-        <target>Bolt Dashboard</target>
+        <target>Dashboard</target>
       </segment>
     </unit>
     <unit id="xuNRuUu" name="caption.translations: messages">
@@ -580,13 +580,13 @@
       </segment>
     </unit>
     <unit id="K6TmK4B" name="caption.clear_cache">
-      <segment state="translated">
+      <segment>
         <source>caption.clear_cache</source>
         <target>Cancella la cache</target>
       </segment>
     </unit>
     <unit id="RRQ1EJ3" name="caption.check_database">
-      <segment state="translated">
+      <segment>
         <source>caption.check_database</source>
         <target>Verifica del Database</target>
       </segment>
@@ -598,103 +598,103 @@
       </segment>
     </unit>
     <unit id="2RUXD4A" name="caption.menu_setup">
-      <segment state="translated">
+      <segment>
         <source>caption.menu_setup</source>
         <target>Impostazioni del Menu</target>
       </segment>
     </unit>
     <unit id="drK.0GZ" name="caption.taxonomies">
-      <segment state="translated">
+      <segment>
         <source>caption.taxonomies</source>
         <target>Tassonomie</target>
       </segment>
     </unit>
     <unit id="_w7J5rZ" name="caption.contenttypes">
-      <segment state="translated">
+      <segment>
         <source>caption.contenttypes</source>
         <target>Tipi di contenuto</target>
       </segment>
     </unit>
     <unit id="kXNBV9S" name="caption.main_configuration">
-      <segment state="translated">
+      <segment>
         <source>caption.main_configuration</source>
         <target>Configurazione principale</target>
       </segment>
     </unit>
     <unit id="ipmA6Ah" name="caption.users_permissions">
-      <segment state="translated">
+      <segment>
         <source>caption.users_permissions</source>
         <target><![CDATA[Utenti & Permessi]]></target>
       </segment>
     </unit>
     <unit id="zOLL.7E" name="caption.configuration">
-      <segment state="translated">
+      <segment>
         <source>caption.configuration</source>
         <target>Configurazione</target>
       </segment>
     </unit>
     <unit id="ZO.uqIZ" name="caption.settings">
-      <segment state="translated">
+      <segment>
         <source>caption.settings</source>
         <target>Impostazioni</target>
       </segment>
     </unit>
     <unit id="1xlE8ex" name="caption.content">
-      <segment state="translated">
+      <segment>
         <source>caption.content</source>
         <target>Contenuto</target>
       </segment>
     </unit>
     <unit id="l4yt0BE" name="caption.file_management">
-      <segment state="translated">
+      <segment>
         <source>caption.file_management</source>
         <target>Gestione File</target>
       </segment>
     </unit>
     <unit id="mfvtHPQ" name="caption.extensions">
-      <segment state="translated">
+      <segment>
         <source>caption.extensions</source>
         <target>Estensioni</target>
       </segment>
     </unit>
     <unit id="K4D568R" name="caption.view_edit_templates">
-      <segment state="translated">
+      <segment>
         <source>caption.view_edit_templates</source>
         <target><![CDATA[Visualizza & modifica templates]]></target>
       </segment>
     </unit>
     <unit id="bq6bSf4" name="caption.uploaded_files">
-      <segment state="translated">
+      <segment>
         <source>caption.uploaded_files</source>
         <target>Files caricati</target>
       </segment>
     </unit>
     <unit id="wBKDkwl" name="caption.routing_setup">
-      <segment state="translated">
+      <segment>
         <source>caption.routing_setup</source>
         <target>Impostazioni di Routing</target>
       </segment>
     </unit>
     <unit id="dd5MzCM" name="caption.translations">
-      <segment state="translated">
+      <segment>
         <source>caption.translations</source>
         <target>Traduzioni / Etichette</target>
       </segment>
     </unit>
     <unit id="wLaDaK5" name="caption.about_bolt">
-      <segment state="translated">
+      <segment>
         <source>caption.about_bolt</source>
         <target>Info su Bolt</target>
       </segment>
     </unit>
     <unit id="xN1kSQQ" name="caption.bolt_payoff">
-      <segment state="translated">
+      <segment>
         <source>caption.bolt_payoff</source>
-        <target><![CDATA[Un CMS sofisticato, semplice e leggero]]></target>
+        <target>Un CMS sofisticato, semplice e leggero</target>
       </segment>
     </unit>
     <unit id="HK7XTUX" name="caption.edit">
-      <segment state="translated">
+      <segment>
         <source>caption.edit</source>
         <target>Modifica</target>
       </segment>
@@ -706,25 +706,25 @@
       </segment>
     </unit>
     <unit id="QZYjRy0" name="caption.file_uploader">
-      <segment state="translated">
+      <segment>
         <source>caption.file_uploader</source>
         <target>Caricamento File</target>
       </segment>
     </unit>
     <unit id="LaDIuZA" name="caption.meta_information">
-      <segment state="translated">
+      <segment>
         <source>caption.meta_information</source>
         <target>Meta informazioni</target>
       </segment>
     </unit>
     <unit id="DodjLNR" name="date">
-      <segment state="translated">
+      <segment>
         <source>date</source>
         <target>Data</target>
       </segment>
     </unit>
     <unit id="zNy_hG8" name="size">
-      <segment state="translated">
+      <segment>
         <source>size</source>
         <target>Dimensioni</target>
       </segment>
@@ -736,61 +736,61 @@
       </segment>
     </unit>
     <unit id="_XSgfqS" name="filename">
-      <segment state="translated">
+      <segment>
         <source>filename</source>
         <target>Nome file</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
-      <segment state="translated">
+      <segment>
         <source>actions</source>
         <target>Azioni</target>
       </segment>
     </unit>
     <unit id="KHvGNGW" name="directoryname">
-      <segment state="translated">
+      <segment>
         <source>directoryname</source>
         <target>Nome Directory</target>
       </segment>
     </unit>
     <unit id="ZV7_x5F" name="action.go">
-      <segment state="translated">
+      <segment>
         <source>action.go</source>
         <target>Vai</target>
       </segment>
     </unit>
     <unit id="C15MbYY" name="form.quick_select_file">
-      <segment state="translated">
+      <segment>
         <source>form.quick_select_file</source>
         <target>Selezione veloce di un file da modificare…</target>
       </segment>
     </unit>
     <unit id="gFcV5nW" name="label.quick_select">
-      <segment state="translated">
+      <segment>
         <source>label.quick_select</source>
         <target>Selezione veloce</target>
       </segment>
     </unit>
     <unit id="FSroufa" name="caption.path">
-      <segment state="translated">
+      <segment>
         <source>caption.path</source>
         <target>Percorso</target>
       </segment>
     </unit>
     <unit id="y5otxEK" name="caption.filename">
-      <segment state="translated">
+      <segment>
         <source>caption.filename</source>
         <target>Nome File</target>
       </segment>
     </unit>
     <unit id="XNTbZW6" name="action.visit_site">
-      <segment state="translated">
+      <segment>
         <source>action.visit_site</source>
         <target>Visita il  sito</target>
       </segment>
     </unit>
     <unit id="KfVJho2" name="action.create_new">
-      <segment state="translated">
+      <segment>
         <source>action.create_new</source>
         <target>Crea nuovo</target>
       </segment>
@@ -808,13 +808,13 @@
       </segment>
     </unit>
     <unit id="zOfpTLD" name="action.edit_profile">
-      <segment state="translated">
+      <segment>
         <source>action.edit_profile</source>
         <target>Modifica Profilo</target>
       </segment>
     </unit>
     <unit id="N_0yRcH" name="action.close_alert">
-      <segment state="translated">
+      <segment>
         <source>action.close_alert</source>
         <target>chiudi</target>
       </segment>
@@ -826,37 +826,37 @@
       </segment>
     </unit>
     <unit id="i4cbdta" name="caption.all_configuration_files">
-      <segment state="translated">
+      <segment>
         <source>caption.all_configuration_files</source>
         <target>Tutti i files di configurazione</target>
       </segment>
     </unit>
     <unit id="OpKTKAL" name="caption.maintenance">
-      <segment state="translated">
+      <segment>
         <source>caption.maintenance</source>
         <target>Manutenzione</target>
       </segment>
     </unit>
     <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
-      <segment state="translated">
+      <segment>
         <source>caption.fixtures_dummy_content</source>
         <target>Fixtures (Contenti fittizi)</target>
       </segment>
     </unit>
     <unit id="P1FHg3Q" name="caption.edit_file">
-      <segment state="translated">
+      <segment>
         <source>caption.edit_file</source>
         <target>Modifica File</target>
       </segment>
     </unit>
     <unit id="_ef0RBR" name="caption.installation_checks">
-      <segment state="translated">
+      <segment>
         <source>caption.installation_checks</source>
         <target>Verifica dell'installazione</target>
       </segment>
     </unit>
     <unit id="pNPctrH" name="form.select_language">
-      <segment state="translated">
+      <segment>
         <source>form.select_language</source>
         <target>Seleziona Lingua</target>
       </segment>
@@ -868,55 +868,55 @@
       </segment>
     </unit>
     <unit id="8zEzq8N" name="field.current_locale">
-      <segment state="translated">
+      <segment>
         <source>field.current_locale</source>
         <target>Locale corrente</target>
       </segment>
     </unit>
     <unit id="ahZvOJz" name="field.switch_to_locale">
-      <segment state="translated">
+      <segment>
         <source>field.switch_to_locale</source>
         <target>Cambia locale</target>
       </segment>
     </unit>
     <unit id="aQX4Emy" name="field.author">
-      <segment state="translated">
+      <segment>
         <source>field.author</source>
         <target>Autore</target>
       </segment>
     </unit>
     <unit id="UNBaDz." name="general.phrase.edit">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.edit</source>
         <target>Modifica</target>
       </segment>
     </unit>
     <unit id="t2TNwOq" name="Unknown">
-      <segment state="translated">
+      <segment>
         <source>Unknown</source>
         <target>Sconosciuto</target>
       </segment>
     </unit>
     <unit id="A_d5KPt" name="general.phrase.written-by-on">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.written-by-on</source>
         <target>Scritto da %name% il %date%.</target>
       </segment>
     </unit>
     <unit id="TVU.FCV" name="general.phrase.missing-about-page">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.missing-about-page</source>
         <target>Manca la pagina "About"</target>
       </segment>
     </unit>
     <unit id="7iq8jIG" name="general.phrase.missing-about-page-block">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.missing-about-page-block</source>
         <target>Manca il blocco "About"</target>
       </segment>
     </unit>
     <unit id="AGegYAN" name="contenttypes.generic.recent">
-      <segment state="translated">
+      <segment>
         <source>contenttypes.generic.recent</source>
         <target>%contenttypes% recenti</target>
       </segment>
@@ -928,27 +928,27 @@
       </segment>
     </unit>
     <unit id="wGlnx8X" name="general.phrase.search">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.search</source>
         <target>Cerca</target>
       </segment>
     </unit>
     <unit id="z0k8hRg" name="9fb3e6e">
-      <segment state="translated">
+      <segment>
         <source>9fb3e6e</source>
         <target><![CDATA[Questo sito è <a href='%url%' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="wNEwZy_" name="contenttypes.generic.overview">
-      <segment state="translated">
+      <segment>
         <source>contenttypes.generic.overview</source>
         <target>Panoramica dei %contenttypes%</target>
       </segment>
     </unit>
     <unit id="skuzBpI" name="contenttypes.generic.no-recent">
-      <segment state="translated">
+      <segment>
         <source>contenttypes.generic.no-recent</source>
-        <target>Non è stato trovato alcun %contenttype% </target>
+        <target>Non è stato trovato alcun %contenttype%</target>
       </segment>
     </unit>
     <unit id="ma9mBv_" name="Menu">
@@ -958,7 +958,7 @@
       </segment>
     </unit>
     <unit id="ScJmuqq" name="Search">
-      <segment state="translated">
+      <segment>
         <source>Search</source>
         <target>Cerca</target>
       </segment>
@@ -976,13 +976,13 @@
       </segment>
     </unit>
     <unit id="2MMvCKK" name="label.cache_cleared">
-      <segment state="translated">
+      <segment>
         <source>label.cache_cleared</source>
         <target>La Cache è stata svuotata correttamente!</target>
       </segment>
     </unit>
     <unit id="Wou02nK" name="caption.kitchensink">
-      <segment state="translated">
+      <segment>
         <source>caption.kitchensink</source>
         <target>La Discarica</target>
       </segment>
@@ -992,7 +992,7 @@
         <note>parameters:</note>
         <note> '%search%': consequatur</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>general.phrase.search-results-for-variable</source>
         <target>Risultati della ricerca di '%search%'.</target>
       </segment>
@@ -1002,7 +1002,7 @@
         <note>parameters:</note>
         <note> '%search%': ymnrubeyrvwearsytevsf</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>general.phrase.search-results-for</source>
         <target>Risultati della ricerca di '%search%'.</target>
       </segment>
@@ -1012,117 +1012,123 @@
         <note>parameters:</note>
         <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>general.phrase.no-search-results-for</source>
         <target>Nessun risultato trovato per '%search%'.</target>
       </segment>
     </unit>
     <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.no-search-term-provided</source>
         <target>Inserire un termine di ricerca per ottenere risultati rilevanti.</target>
       </segment>
     </unit>
     <unit id="Pily_qo" name="general.phrase.read-more">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.read-more</source>
         <target>Altre informazioni</target>
       </segment>
     </unit>
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
-      <segment state="translated">
+      <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target>Questo sito è &lt;a href='%url%' target='_blank' title='CMS semplice e sofisticato'&gt;realizzato con Bolt&lt;/a&gt;.</target>
+        <target><![CDATA[Questo sito è <a href='%url%' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
-      <segment state="translated">
+      <segment>
         <source>general.latest_bolt_news</source>
         <target>Ultime notizie su Bolt</target>
       </segment>
     </unit>
     <unit id="dQIY7_J" name="action.preview">
-      <segment state="translated">
+      <segment>
         <source>action.preview</source>
         <target>Anteprima</target>
       </segment>
     </unit>
     <unit id="ok6YulQ" name="action.view_saved">
-      <segment state="translated">
+      <segment>
         <source>action.view_saved</source>
         <target>Mostra sul sito la versione salvata</target>
       </segment>
     </unit>
     <unit id="SeTqePC" name="label.display_name">
-      <segment state="translated">
+      <segment>
         <source>label.display_name</source>
         <target>Nome Display</target>
       </segment>
     </unit>
     <unit id="EvAqL__" name="caption.duplicate">
-      <segment state="translated">
+      <segment>
         <source>caption.duplicate</source>
         <target>Duplica</target>
       </segment>
     </unit>
     <unit id="pGkejkU" name="label.current_password">
-      <segment state="translated">
+      <segment>
         <source>label.current_password</source>
         <target>Password corrente</target>
       </segment>
     </unit>
     <unit id="iiWFLaI" name="label.new_password">
-      <segment state="translated">
+      <segment>
         <source>label.new_password</source>
         <target>Nuova Password</target>
       </segment>
     </unit>
     <unit id="Ucl9Jfc" name="label.new_password_confirm">
-      <segment state="translated">
+      <segment>
         <source>label.new_password_confirm</source>
         <target>Nuova Password (conferma)</target>
       </segment>
     </unit>
     <unit id="Iyry5.g" name="editfile.updated_successfully">
-      <segment state="translated">
+      <segment>
         <source>editfile.updated_successfully</source>
         <target>Il File è stato modificato con successo!</target>
       </segment>
     </unit>
     <unit id="eq5YMQf" name="9fb3e6e">
-      <segment state="translated">
+      <segment>
         <source>This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
-        <target>Questo sito è &lt;a href='%url%' target='_blank' title='CMS semplice e sofisticato'&gt;realizzato con Bolt&lt;/a&gt;.</target>
+        <target><![CDATA[Questo sito è <a href='%url%' target='_blank' title='CMS semplice e sofisticato'>realizzato con Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="3zlZmRK" name="action.add_user">
-      <segment state="translated">
+      <segment>
         <source>action.add_user</source>
         <target>Aggiungi Utente</target>
       </segment>
     </unit>
     <unit id="ruQIhH0" name="success">
-      <segment state="translated">
+      <segment>
         <source>success</source>
         <target>Successo!</target>
       </segment>
     </unit>
     <unit id="YDH.7uR" name="user.updated_profile">
-      <segment state="translated">
+      <segment>
         <source>user.updated_profile</source>
         <target>Il Profilo Utente è stato aggiornato!</target>
       </segment>
     </unit>
     <unit id="iD6CNOO" name="label.roles">
-      <segment state="translated">
+      <segment>
         <source>label.roles</source>
         <target>Ruoli</target>
       </segment>
     </unit>
     <unit id="7whLbH8" name="user.new_user">
-      <segment state="translated">
+      <segment>
         <source>user.new_user</source>
         <target>Nuovo Utente</target>
+      </segment>
+    </unit>
+    <unit id="mo_k9.1" name="general.dashboard">
+      <segment>
+        <source>general.dashboard</source>
+        <target>general.dashboard</target>
       </segment>
     </unit>
   </file>

@@ -387,7 +387,7 @@
     <unit id="1xlE8ex" name="caption.content">
       <segment>
         <source>caption.content</source>
-        <target>Content</target>
+        <target>Inhoud</target>
       </segment>
     </unit>
     <unit id="l4yt0BE" name="caption.file_management">
@@ -927,7 +927,7 @@
     <unit id="vptPhch" name="image.button_upload">
       <segment>
         <source>image.button_upload</source>
-        <target>Upload</target>
+        <target>Uploaden</target>
       </segment>
     </unit>
     <unit id="vIVO1lU" name="image.button_from_library">
@@ -1624,6 +1624,42 @@
       <segment>
         <source>collection.remove_item</source>
         <target>Verwijder</target>
+      </segment>
+    </unit>
+    <unit id="FqVh1Hv" name="image.button_remove">
+      <segment>
+        <source>image.button_remove</source>
+        <target>Verwijder</target>
+      </segment>
+    </unit>
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
+      <segment>
+        <source>image.button_edit_attributes</source>
+        <target>Bewerk attributen</target>
+      </segment>
+    </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <segment>
+        <source>image.button_up</source>
+        <target>Omhoog</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <segment>
+        <source>image.button_down</source>
+        <target>Omlaag</target>
+      </segment>
+    </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <segment>
+        <source>image.add_new_image</source>
+        <target>Voeg nieuwe afbeelding toe</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <segment>
+        <source>file.add_new_file</source>
+        <target>Voeg nieuw bestand toe</target>
       </segment>
     </unit>
   </file>
