@@ -12,6 +12,7 @@
         'button_edit_attributes': 'image.button_edit_attributes'|trans,
     }|json_encode %}
     {% set extensions = field.definition.get('extensions')|default('') %}
+
     <editor-image
         :name='{{ name|json_encode }}'
         :filename='{{ field.get('filename')|json_encode }}'

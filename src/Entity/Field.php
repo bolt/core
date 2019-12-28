@@ -137,7 +137,7 @@ class Field implements Translatable, FieldInterface
 
     public function getDefinition(): FieldType
     {
-        if ($this->fieldTypeDefinition === null && $this->getContent()) {
+        if ($this->fieldTypeDefinition === null) {
             $this->setDefinitionFromContentDefinition();
         }
 
@@ -146,8 +146,12 @@ class Field implements Translatable, FieldInterface
 
     private function setDefinitionFromContentDefinition(): void
     {
-        $contentTypeDefinition = $this->getContent()->getDefinition();
-        $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
+        if ($this->getContent()) {
+            $contentTypeDefinition = $this->getContent()->getDefinition();
+            $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
+        } else {
+            $this->fieldTypeDefinition = FieldType::mock($this->getName());
+        }
     }
 
     public function setDefinition($name, LaravelCollection $definition): void

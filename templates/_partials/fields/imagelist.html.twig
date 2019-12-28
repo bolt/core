@@ -20,7 +20,7 @@
    {% set extensions = field.definition.get('extensions')|default('') %}
 
    <editor-imagelist
-       :images='{{ field.value|json_encode }}'
+       :images='{{ field.jsonvalue }}'
        :name='{{ name|json_encode }}'
        :directory='{{ directory|json_encode }}'
        :filelist='{{ filelist|json_encode }}'

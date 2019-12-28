@@ -2097,5 +2097,11 @@
         <target>Down</target>
       </segment>
     </unit>
+    <unit id="fon6eNN" name="general.phrase.download">
+      <segment>
+        <source>general.phrase.download</source>
+        <target>Download</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
