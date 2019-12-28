@@ -59,7 +59,7 @@
         {% if type in ['collection', 'filelist', 'imagelist'] %}
 
             {% for field in field.value %}
-                {% set type = field.type %}
+                {% set type = field.type|default('foo') %}
 
                 {% if common|default(true) and (type not in exclude|default([])) %}
                     {{ block('common_fields') }}
