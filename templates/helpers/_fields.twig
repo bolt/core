@@ -56,16 +56,16 @@
         {% endif %}
 
         {# Finally, the collections, filelists and imagelists #}
-        {% if type in ['collection', 'filelist', 'imagelist'] %}
+        {% if type in ['collection', 'filelist', 'imagelist'] and (type not in exclude|default([])) %}
 
             {% for field in field.value %}
                 {% set type = field.type|default('foo') %}
 
-                {% if common|default(true) and (type not in exclude|default([])) %}
+                {% if common|default(true) %}
                     {{ block('common_fields') }}
                 {% endif %}
 
-                {% if extended|default(false) and (type not in exclude|default([])) %}
+                {% if extended|default(false) %}
                     {{ block('extended_fields') }}
                 {% endif %}
 
