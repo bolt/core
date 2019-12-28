@@ -39,20 +39,6 @@ class ImagelistField extends Field implements FieldInterface
             $imageField = new ImageField();
             $imageField->setName((string) $key);
             $imageField->setValue($image);
-            array_push($result, $imageField->getValue());
-        }
-
-        return $result;
-    }
-
-    public function getTempValue(): array
-    {
-        $result = [];
-
-        foreach ($this->getRawValue() as $key => $image) {
-            $imageField = new ImageField();
-            $imageField->setName((string) $key);
-            $imageField->setValue($image);
             array_push($result, $imageField);
         }
 
@@ -67,6 +53,6 @@ class ImagelistField extends Field implements FieldInterface
     {
         return json_encode(array_map(function (ImageField $i) {
             return $i->getValue();
-        }, $this->getTempValue()));
+        }, $this->getValue()));
     }
 }
