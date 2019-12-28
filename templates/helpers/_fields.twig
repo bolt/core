@@ -47,17 +47,32 @@
         {# Fields that are considered 'common': 'html', 'markdown', 'textarea',
            'text', 'image', 'video' and 'imagelist' #}
         {% if common|default(true) and (type not in exclude|default([])) %}
-
             {{ block('common_fields') }}
-
         {% endif %}
 
         {# The rest of the built-in types #}
         {% if extended|default(false) and (type not in exclude|default([])) %}
-
             {{ block('extended_fields') }}
-
         {% endif %}
+
+        {# Finally, the collections, filelists and imagelists #}
+        {% if type in ['collection', 'filelist', 'imagelist'] %}
+
+            {% for field in field.value %}
+                {% set type = field.type %}
+
+                {% if common|default(true) and (type not in exclude|default([])) %}
+                    {{ block('common_fields') }}
+                {% endif %}
+
+                {% if extended|default(false) and (type not in exclude|default([])) %}
+                    {{ block('extended_fields') }}
+                {% endif %}
+
+            {% endfor %}
+        {% endif %}
+
+
 
     {% endfor %}
 
