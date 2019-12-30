@@ -100,7 +100,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setModifiedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setPublishedAt($this->faker->dateTimeBetween('-1 year'));
-                $content->setDepublishedAt($this->faker->dateTimeBetween('-1 year'));
 
                 $preset = $this->getPreset($contentType['slug']);
 

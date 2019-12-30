@@ -5,10 +5,10 @@ parameters:
     # This parameter defines the codes of the locales (languages) enabled in the application
     app_locales: en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE
     app.notifications.email_sender: anonymous@example.com
-    doctrine.orm.entity_manager.class: Bolt\Doctrine\TranslatableEntityManager
-    stof_doctrine_extensions.listener.translatable.class: Bolt\Event\Listener\PreTranslatableListener
     bolt.table_prefix: bolt_
     bolt.backend_url: /bolt
+    doctrine.orm.entity_manager.class: Bolt\Doctrine\TranslatableEntityManager
+    stof_doctrine_extensions.listener.translatable.class: Bolt\Event\Listener\PreTranslatableListener
 
 services:
     # default configuration for services in *this* file
@@ -35,33 +35,30 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    Bolt\Event\Listener\FieldDiscriminatorListener:
-        tags:
-            - { name: doctrine.event_listener, event: loadClassMetadata }
-
-    Bolt\Event\Listener\ContentFillListener:
-        tags:
-            - { name: doctrine.event_listener, event: postLoad }
-
-    Twig\Extension\StringLoaderExtension: ~
-    Doctrine\ORM\Query\Expr: ~
-
-    # Needed for SetContent from bolt/core
-    Bolt\Storage\Query:
-        calls:
-            -
-                method: addScope
-                arguments: [ 'frontend', '@Bolt\Storage\FrontendQueryScope' ]
-    Bolt\Storage\ContentQueryParser:
-        calls:
-            -
-                method: addService
-                arguments: [ 'select', '@Bolt\Storage\SelectQuery' ]
+    # Override Symfony's error pages (so we can show custom 404's)
+    Bolt\Controller\ExceptionController:
+        public: true
+        arguments:
+            $debug: '%kernel.debug%'
 
     Bolt\Doctrine\TablePrefix:
         arguments: [ "%bolt.table_prefix%" ]
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata, lazy: true }
+
+    Bolt\Event\Listener\ContentFillListener:
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+
+    Bolt\Event\Listener\FieldDiscriminatorListener:
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata }
+
+    Bolt\Event\Subscriber\TimedPublishSubscriber:
+        arguments: [ "%bolt.table_prefix%" ]
+
+    Bolt\Extension\RoutesLoader:
+        tags: [routing.loader]
 
     # menus
     Bolt\Menu\BackendMenuBuilder:
@@ -73,11 +70,20 @@ services:
     Bolt\Menu\FrontendMenuBuilder: ~
     Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenuBuilder'
 
-    # Override Symfony's error pages (so we can show custom 404's)
-    Bolt\Controller\ExceptionController:
-        public: true
-        arguments:
-            $debug: '%kernel.debug%'
+    # Needed for SetContent from bolt/core
+    Bolt\Storage\ContentQueryParser:
+        calls:
+            -
+                method: addService
+                arguments: [ 'select', '@Bolt\Storage\SelectQuery' ]
 
-    Bolt\Extension\RoutesLoader:
-        tags: [routing.loader]
+    Bolt\Storage\Query:
+        calls:
+            -
+                method: addScope
+                arguments: [ 'frontend', '@Bolt\Storage\FrontendQueryScope' ]
+
+    Doctrine\ORM\Query\Expr: ~
+
+    Twig\Extension\StringLoaderExtension: ~
+
