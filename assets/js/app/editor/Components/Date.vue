@@ -24,11 +24,11 @@
           </i>
         </button>
         <button
-                class="btn btn-tertiary"
-                :class="{ 'btn-outline-secondary': disabled }"
-                type="button"
-                :disabled="disabled"
-                data-clear
+          class="btn btn-tertiary"
+          :class="{ 'btn-outline-secondary': disabled }"
+          type="button"
+          :disabled="disabled"
+          data-clear
         >
           <i class="fa fa-times">
             <span class="sr-only" aria-hidden="true">{{ labels.clear }}</span>
