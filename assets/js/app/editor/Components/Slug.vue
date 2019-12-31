@@ -16,7 +16,7 @@
       <div class="input-group-append">
         <button
           type="button"
-          class="btn dropdown-toggle"
+          class="btn btn-tertiary dropdown-toggle"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
