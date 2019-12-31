@@ -20,6 +20,7 @@
     {% include '@bolt/_partials/fields/date.html.twig' with {
         'label' : 'field.depublishedAt'|trans,
         'name' : 'depublishedAt',
+        'value' : record.depublishedAt,
         'mode' : 'datetime',
         'form' : 'editcontent'
     } %}

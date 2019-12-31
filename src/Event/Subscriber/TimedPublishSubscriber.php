@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Event\Subscriber;
 
+use Bolt\Common\Str;
+use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -15,9 +17,13 @@ class TimedPublishSubscriber implements EventSubscriberInterface
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    /** @var string */
+    private $prefix;
+
+    public function __construct(string $prefix, EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+        $this->prefix = Str::ensureEndsWith($prefix, '_');
     }
 
     /**
@@ -26,18 +32,16 @@ class TimedPublishSubscriber implements EventSubscriberInterface
     public function onKernelRequest(): void
     {
         $conn = $this->entityManager->getConnection();
+        $now = (new Carbon())->tz('UTC');
 
         // Publish timed Content records when 'publish_at' has passed.
-        $conn->executeUpdate(
-            'update bolt_content SET status = "published", published_at = :now  WHERE status = "timed" AND published_at < :now',
-            [':now' => date('Y-m-d H:i:s')]
-        );
+        // Note: Placeholders in DBAL don't work for tablenames.
+        $query = sprintf('update %scontent SET status = "published", published_at = :now  WHERE status = "timed" AND published_at < :now', $this->prefix);
+        $conn->executeUpdate($query, [':now' => $now]);
 
         // Depublish published Content records when 'depublish_at' has passed.
-        $conn->executeUpdate(
-            'update bolt_content SET status = "held", depublished_at = "1900-01-01 10:10:10" WHERE status = "published" AND depublished_at > :now',
-            [':now' => date('Y-m-d H:i:s')]
-        );
+        $query = sprintf('update %scontent SET status = "held", depublished_at = :now WHERE status = "published" AND depublished_at < :now', $this->prefix);
+        $conn->executeUpdate($query, [':now' => $now]);
     }
 
     /**

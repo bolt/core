@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Doctrine;
 
+use Bolt\Common\Str;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
@@ -13,7 +14,7 @@ class TablePrefix
 
     public function __construct(string $prefix)
     {
-        $this->prefix = $prefix;
+        $this->prefix = Str::ensureEndsWith($prefix, '_');
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void

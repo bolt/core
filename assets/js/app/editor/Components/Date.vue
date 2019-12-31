@@ -13,7 +13,7 @@
       </flat-pickr>
       <div class="input-group-append">
         <button
-          class="btn btn-secondary"
+          class="btn btn-tertiary"
           :class="{ 'btn-outline-secondary': disabled }"
           type="button"
           :disabled="disabled"
@@ -21,6 +21,17 @@
         >
           <i class="fa fa-calendar">
             <span class="sr-only" aria-hidden="true">{{ labels.toggle }}</span>
+          </i>
+        </button>
+        <button
+          class="btn btn-tertiary"
+          :class="{ 'btn-outline-secondary': disabled }"
+          type="button"
+          :disabled="disabled"
+          data-clear
+        >
+          <i class="fa fa-times">
+            <span class="sr-only" aria-hidden="true">{{ labels.clear }}</span>
           </i>
         </button>
       </div>

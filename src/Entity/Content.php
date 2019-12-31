@@ -263,7 +263,7 @@ class Content
 
     public function getCreatedAt(): ?\DateTime
     {
-        return $this->createdAt;
+        return $this->convertToLocalFromDatabase($this->createdAt);
     }
 
     public function setCreatedAt(?\DateTime $createdAt): self
@@ -275,7 +275,7 @@ class Content
 
     public function getModifiedAt(): ?\DateTime
     {
-        return $this->modifiedAt;
+        return $this->convertToLocalFromDatabase($this->modifiedAt);
     }
 
     public function setModifiedAt(?\DateTime $modifiedAt): self
@@ -296,7 +296,7 @@ class Content
 
     public function getPublishedAt(): ?\DateTime
     {
-        return $this->publishedAt;
+        return $this->convertToLocalFromDatabase($this->publishedAt);
     }
 
     public function setPublishedAt(?\DateTime $publishedAt): self
@@ -308,7 +308,7 @@ class Content
 
     public function getDepublishedAt(): ?\DateTime
     {
-        return $this->depublishedAt;
+        return $this->convertToLocalFromDatabase($this->depublishedAt);
     }
 
     public function setDepublishedAt(?\DateTime $depublishedAt): self
@@ -544,5 +544,22 @@ class Content
         }
 
         return $field->getTwigValue();
+    }
+
+    /**
+     * All date/timestamps are stored in the database in UTC. When retrieving
+     * them, we get the timestamp as-is in the DB with the current local
+     * timezone slapped onto it. This method converts it back to UTC, and
+     * then re-applies the current local timezone to it.
+     */
+    private function convertToLocalFromDatabase(?\DateTime $dateTime): ?\DateTime
+    {
+        if (! $dateTime) {
+            return null;
+        }
+
+        $dateTimeUTC = new \DateTime($dateTime->format('Y-m-d H:i:s'), new \DateTimeZone('UTC'));
+
+        return $dateTimeUTC->setTimezone($dateTime->getTimezone());
     }
 }

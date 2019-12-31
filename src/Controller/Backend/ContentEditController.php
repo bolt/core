@@ -277,8 +277,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $content->setStatus($status);
         }
 
-        $content->setPublishedAt(new Carbon($formData['publishedAt']));
-        $content->setDepublishedAt(new Carbon($formData['depublishedAt']));
+        $content->setPublishedAt(! empty($formData['publishedAt']) ? new Carbon($formData['publishedAt']) : null);
+        $content->setDepublishedAt(! empty($formData['depublishedAt']) ? new Carbon($formData['depublishedAt']) : null);
 
         if (isset($formData['fields'])) {
             foreach ($formData['fields'] as $fieldName => $fieldValue) {
