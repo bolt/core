@@ -387,7 +387,7 @@ class Content
         return $this->fields[$fieldName];
     }
 
-    public function hasField(string $fieldName, string $locale, $matchTypes = false): bool
+    public function hasField(string $fieldName, ?string $locale = null, $matchTypes = false): bool
     {
         // If the field doesn't exist, we can bail here
         if (! isset($this->fields[$fieldName])) {
@@ -401,7 +401,7 @@ class Content
 
         // We need to ensure the locales are the same
         $fieldLocale = $this->fields[$fieldName]->getLocale();
-        if($locale !== $fieldLocale) {
+        if($locale !== null && $locale !== $fieldLocale) {
             return false;
         }
 
