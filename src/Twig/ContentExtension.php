@@ -84,7 +84,7 @@ class ContentExtension extends AbstractExtension
         $titleParts = [];
 
         foreach ($this->guessTitleFields($content) as $fieldName) {
-            $titleParts[] = $content->getField($fieldName)->__toString();
+            $titleParts[] = $content->getField($fieldName, $content->getDefaultLocale())->__toString();
         }
 
         return trim(implode(' ', $titleParts));
@@ -106,7 +106,7 @@ class ContentExtension extends AbstractExtension
                         $name
                     ));
                 }
-                return $content->hasField($name);
+                return $content->hasField($name, $content->getDefaultLocale());
             });
 
             if ($namesCollection->isNotEmpty()) {
@@ -121,7 +121,7 @@ class ContentExtension extends AbstractExtension
         $names = array_merge($names, ['nombre', 'sujeto']); // Spanish
 
         foreach ($names as $name) {
-            if ($content->hasField($name)) {
+            if ($content->hasField($name, $content->getDefaultLocale())) {
                 return (array) $name;
             }
         }

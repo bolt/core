@@ -69,6 +69,7 @@ pages:
         subheading:
             type: text
             class: large
+            localize: true
         slug:
             type: slug
             uses: header

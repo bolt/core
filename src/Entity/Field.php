@@ -8,7 +8,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
@@ -29,7 +28,7 @@ use Twig\Markup;
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({"generic" = "Field"})
  */
-class Field implements Translatable, FieldInterface
+class Field implements FieldInterface, Translatable
 {
     /**
      * @ORM\Id()
@@ -47,7 +46,6 @@ class Field implements Translatable, FieldInterface
     /**
      * @ORM\Column(type="json")
      * @Groups("get_field")
-     * @Gedmo\Translatable
      */
     protected $value = [];
 
@@ -57,9 +55,7 @@ class Field implements Translatable, FieldInterface
     private $sortorder = 0;
 
     /**
-     * @Gedmo\Locale
-     *
-     * @var string|null
+     * @ORM\Column(type="string", nullable=true, length=2)
      */
     protected $locale;
 
