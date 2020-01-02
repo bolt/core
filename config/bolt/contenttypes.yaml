@@ -125,18 +125,6 @@ entries:
         body:
             type: html
             height: 300px
-        image:
-            type: image
-            group: media
-            upload: entries
-        video:
-            type: video
-    relations:
-        pages:
-          multiple: false
-          order: title
-          label: Select a page
-    taxonomy: [ categories, tags, groups ]
     record_template: entry.twig
     listing_template: listing.twig
     listing_records: 6
