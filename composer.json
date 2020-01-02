@@ -87,6 +87,7 @@
         "bolt/newswidget": "^1.1",
         "coduo/php-matcher": "^3.2",
         "dama/doctrine-test-bundle": "^6.2.0",
+        "doctrine/doctrine-migrations-bundle": "^2.1",
         "lakion/mink-debug-extension": "^1.2",
         "php-http/httplug-pack": "^1.2",
         "php-translation/loco-adapter": "^0.8",
