@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Entity;
 
@@ -60,175 +61,109 @@ class Log
     private $location;
 
     /**
-     * @return mixed
+     * @ORM\PrePersist
      */
-    public function getId()
+    public function onPrePersist(): void
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     * @return Log
-     */
-    public function setId($id)
+    public function setId(int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @param mixed $message
-     * @return Log
-     */
-    public function setMessage($message)
+    public function setMessage(string $message): self
     {
         $this->message = $message;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getContext()
+    public function getContext(): ?array
     {
         return $this->context;
     }
 
-    /**
-     * @param mixed $context
-     * @return Log
-     */
-    public function setContext($context)
+    public function setContext(?array $context): self
     {
         $this->context = $context;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLevel()
+    public function getLevel(): int
     {
         return $this->level;
     }
 
-    /**
-     * @param mixed $level
-     * @return Log
-     */
-    public function setLevel($level)
+    public function setLevel(int $level): self
     {
         $this->level = $level;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLevelName()
+    public function getLevelName(): string
     {
         return $this->levelName;
     }
 
-    /**
-     * @param mixed $levelName
-     * @return Log
-     */
-    public function setLevelName($levelName)
+    public function setLevelName(string $levelName): self
     {
         $this->levelName = $levelName;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getExtra()
+    public function getExtra(): ?array
     {
         return $this->extra;
     }
 
-    /**
-     * @param mixed $extra
-     * @return Log
-     */
-    public function setExtra($extra)
+    public function setExtra(?array $extra): self
     {
-        dump($extra);
         $this->extra = $extra;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @param mixed $createdAt
-     * @return Log
-     */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function getLocation()
+    public function getLocation(): ?array
     {
         return $this->location;
     }
 
-    /**
-     * @param mixed $location
-     * @return Log
-     */
-    public function setLocation($location)
+    public function setLocation(?array $location): self
     {
         $this->location = $location;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUser()
+    public function getUser(): ?array
     {
         return $this->user;
     }
 
-    /**
-     * @param mixed $user
-     * @return Log
-     */
-    public function setUser($user)
+    public function setUser(?array $user): self
     {
-        dump($user);
         $this->user = $user;
         return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        $this->createdAt = new \DateTime();
     }
 }

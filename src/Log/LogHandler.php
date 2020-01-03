@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Log;
-
 
 use Bolt\Entity\Log;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,10 +15,6 @@ class LogHandler extends AbstractProcessingHandler
      */
     protected $em;
 
-    /**
-     * MonologDBHandler constructor.
-     * @param EntityManagerInterface $em
-     */
     public function __construct(EntityManagerInterface $em)
     {
         parent::__construct();
@@ -27,9 +23,8 @@ class LogHandler extends AbstractProcessingHandler
 
     /**
      * Called when writing to our database
-     * @param array $record
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         $logEntry = new Log();
         $logEntry->setMessage($record['message']);
