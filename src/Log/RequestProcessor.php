@@ -6,7 +6,9 @@ namespace Bolt\Log;
 
 use Bolt\Entity\User;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Security;
+use Webmozart\PathUtil\Path;
 
 class RequestProcessor
 {
@@ -16,10 +18,14 @@ class RequestProcessor
     /** @var Security */
     private $security;
 
-    public function __construct(RequestStack $request, Security $security)
+    /** @var string */
+    private $projectDir;
+
+    public function __construct(RequestStack $request, Security $security, KernelInterface $kernel)
     {
         $this->request = $request;
         $this->security = $security;
+        $this->projectDir = $kernel->getProjectDir();
     }
 
     public function processRecord(array $record): array
@@ -40,7 +46,7 @@ class RequestProcessor
             'request' => $req->request->all(),
         ];
 
-        if ($user) {
+        if (! empty($user)) {
             $record['user'] = [
                 'id' => $user->getId(),
                 'username' => $user->getUsername(),
@@ -49,7 +55,7 @@ class RequestProcessor
         }
 
         $record['location'] = [
-            'file' => $trace[5]['file'],
+            'file' => '…/' . Path::makeRelative($trace[5]['file'], $this->projectDir),
             'line' => $trace[5]['line'],
             'class' => $trace[6]['class'],
             'type' => $trace[6]['type'],

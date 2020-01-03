@@ -7,6 +7,10 @@ namespace Bolt\Repository;
 use Bolt\Entity\Log;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * @method Log|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,32 +25,25 @@ class LogRepository extends ServiceEntityRepository
         parent::__construct($registry, Log::class);
     }
 
-    // /**
-    //  * @return Log[] Returns an array of Log objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getQueryBuilder(): QueryBuilder
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->createQueryBuilder('log');
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Log
+    public function findLatest(int $page = 1, int $amount = 6): Pagerfanta
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $qb = $this->getQueryBuilder()
+            ->orderBy('log.createdAt', 'DESC')
+            ->setMaxResults($amount);
+
+        return $this->createPaginator($qb->getQuery(), $page, $amount);
     }
-    */
+
+    private function createPaginator(Query $query, int $page, int $amountPerPage): Pagerfanta
+    {
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
+        $paginator->setMaxPerPage($amountPerPage);
+        $paginator->setCurrentPage($page);
+        return $paginator;
+    }
 }
