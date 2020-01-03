@@ -87,5 +87,10 @@ services:
 
     Doctrine\ORM\Query\Expr: ~
 
+    monolog.processor.request:
+        class: Bolt\Log\RequestProcessor
+        tags:
+            - { name: monolog.processor, method: processRecord, handler: db }
+
     Twig\Extension\StringLoaderExtension: ~
 

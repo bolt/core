@@ -1,4 +1,5 @@
 monolog:
+    channels: ['db']
     handlers:
         main:
             type: stream
@@ -17,3 +18,7 @@ monolog:
             type:   console
             process_psr_3_messages: false
             channels: ['!event', '!doctrine', '!console']
+        db:
+            channels: ['db']
+            type: service
+            id: Bolt\Log\LogHandler
