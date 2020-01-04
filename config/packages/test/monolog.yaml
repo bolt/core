@@ -1,0 +1,7 @@
+monolog:
+    channels: ['db']
+    handlers:
+        db:
+            channels: ['db']
+            type: service
+            id: Bolt\Log\LogHandler
