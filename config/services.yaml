@@ -69,7 +69,7 @@ services:
     Bolt\Menu\BackendMenuBuilderInterface: '@Bolt\Menu\BackendMenuBuilder'
 
     Bolt\Menu\FrontendMenuBuilder: ~
-    
+
     Bolt\Menu\FrontendMenuBuilderInterface: '@Bolt\Menu\FrontendMenuBuilder'
 
     # Needed for SetContent from bolt/core
