@@ -1,0 +1,97 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{% block title %}
+    {{ macro.icon('clipboard-list') }}
+    {{ 'caption.logviewer'|trans }}
+{% endblock title %}
+
+{# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
+{% block topsection %}
+
+{% endblock %}
+
+{# The 'main' section is the main contents of the page. Usually this is Vue-ified. #}
+{% block main %}
+
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">{{ __('label.id') }}</th>
+            <th scope="col">{{ __('label.level') }}</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">{{ __('label.message') }}</th>
+            <th scope="col"></th>
+            <th scope="col">{{ __('label.timestamp') }}</th>
+        </tr>
+
+    {% for item in items %}
+    <tr>
+        <th scope="row" class="text-nowrap">
+            № {{ item.id }}
+        </th>
+        <td>
+            {{ item.levelName }}
+        </td>
+        <td>
+            <div class="dropdown">
+                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ macro.icon('cog') }} {{ __('label.request') }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 400px; font-size: 80%;">
+                    <ul class="pl-4 pr-3 my-0">
+                        {% for key, line in item.extra %}
+                            <li><strong>{{ key }}:</strong> <code>{{ line|join(', ') }}</code></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="dropdown">
+                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ macro.icon('road') }} {{ __('label.trace') }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 500px; font-size: 80%;">
+                    <ul class="pl-4 pr-3 my-0">
+                        {% for key, line in item.location %}
+                            <li><strong>{{ key }}:</strong> <code>{{ line|join(', ') }}</code></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </td>
+        <td>
+            {{ item.message|replace(item.context|default([])) }}
+        </td>
+        <td>
+            {% if item.context is iterable %}
+            <div class="dropdown">
+                <button class="btn btn-tertiary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ macro.icon('project-diagram') }} {{ __('label.context') }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 500px; font-size: 80%;">
+                    <ul class="pl-4 pr-3 my-0">
+                        {% for key, line in item.context %}
+                            <li><strong>{{ key }}:</strong> <code>{{ line|join(', ') }}</code></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        </td>
+        <td class="text-nowrap">
+            {{ item.createdAt|date('Y-m-d H:i:s') }}<br>
+            {% if item.user %}
+                {{ __('label.user') }}: {{ item.user.username }}<small>(№ {{ item.user.id }})</small>
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    {{ pager(items, template = '@bolt/helpers/_pager_bootstrap.html.twig', class="justify-content-center") }}
+
+{% endblock %}

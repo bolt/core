@@ -6,6 +6,7 @@ namespace Bolt\Security;
 
 use Bolt\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -15,9 +16,13 @@ class LogoutListener implements LogoutHandlerInterface
 {
     private $em;
 
-    public function __construct(ObjectManager $em)
+    /** @var LoggerInterface */
+    private $logger;
+
+    public function __construct(ObjectManager $em, LoggerInterface $dbLogger)
     {
         $this->em = $em;
+        $this->logger = $dbLogger;
     }
 
     public function logout(Request $request, Response $response, TokenInterface $token): void
@@ -26,6 +31,13 @@ class LogoutListener implements LogoutHandlerInterface
         if (! $user instanceof User) {
             return;
         }
+
+        $userArr = [
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
+        ];
+        $this->logger->notice('User \'{username}\' logged out (manually)', $userArr);
+
         $this->em->remove($user->getUserAuthToken());
         $this->em->flush();
     }

@@ -8,6 +8,7 @@ use Bolt\Entity\User;
 use Bolt\Entity\UserAuthToken;
 use Bolt\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -39,13 +40,23 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /** @var ObjectManager */
     private $em;
 
-    public function __construct(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, ObjectManager $em)
-    {
+    /** @var LoggerInterface */
+    private $logger;
+
+    public function __construct(
+        UserRepository $userRepository,
+        RouterInterface $router,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        ObjectManager $em,
+        LoggerInterface $dbLogger
+) {
         $this->userRepository = $userRepository;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
+        $this->logger = $dbLogger;
     }
 
     protected function getLoginUrl()
@@ -113,6 +124,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         $this->em->persist($user);
         $this->em->flush();
+
+        $userArr = [
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
+        ];
+        $this->logger->notice('User \'{username}\' logged in (manually)', $userArr);
 
         return new RedirectResponse($request->getSession()->get(
             '_security.'.$providerKey.'.target_path',
