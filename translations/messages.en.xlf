@@ -2103,5 +2103,59 @@
         <target>Download</target>
       </segment>
     </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <segment>
+        <source>caption.logviewer</source>
+        <target>Log Viewer</target>
+      </segment>
+    </unit>
+    <unit id="FlGE3qB" name="label.request">
+      <segment>
+        <source>label.request</source>
+        <target>Request</target>
+      </segment>
+    </unit>
+    <unit id="l71Tprl" name="label.trace">
+      <segment>
+        <source>label.trace</source>
+        <target>Trace</target>
+      </segment>
+    </unit>
+    <unit id="29ZEo1r" name="label.context">
+      <segment>
+        <source>label.context</source>
+        <target>Context</target>
+      </segment>
+    </unit>
+    <unit id="txRonia" name="label.id">
+      <segment>
+        <source>label.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="IwLLxxx" name="label.level">
+      <segment>
+        <source>label.level</source>
+        <target>Level</target>
+      </segment>
+    </unit>
+    <unit id="51OQi14" name="label.message">
+      <segment>
+        <source>label.message</source>
+        <target>Message</target>
+      </segment>
+    </unit>
+    <unit id="S0f6iTL" name="label.timestamp">
+      <segment>
+        <source>label.timestamp</source>
+        <target>Timestamp</target>
+      </segment>
+    </unit>
+    <unit id="O2X4xZH" name="label.user">
+      <segment>
+        <source>label.user</source>
+        <target>User</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

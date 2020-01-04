@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
+use Bolt\Version;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -207,6 +208,14 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
+        $menu->getChild('Maintenance')->addChild('Log viewer', [
+            'uri' => $this->urlGenerator->generate('bolt_logviewer'),
+            'extras' => [
+                'name' => $t->trans('caption.logviewer'),
+                'icon' => 'fa-clipboard',
+            ],
+        ]);
+
         $menu->getChild('Maintenance')->addChild('Bolt API', [
             'uri' => $this->urlGenerator->generate('api_entrypoint'),
             'extras' => [
@@ -215,13 +224,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->getChild('Maintenance')->addChild('Fixtures', [
-            'uri' => '',
-            'extras' => [
-                'name' => $t->trans('caption.fixtures_dummy_content'),
-                'icon' => 'fa-hat-wizard',
-            ],
-        ]);
+        /*
+         * @todo Make fixtures work from the backend
+         */
+        // $menu->getChild('Maintenance')->addChild('Fixtures', [
+        //     'uri' => '',
+        //     'extras' => [
+        //         'name' => $t->trans('caption.fixtures_dummy_content'),
+        //         'icon' => 'fa-hat-wizard',
+        //     ],
+        // ]);
 
         $menu->getChild('Maintenance')->addChild('Clear the cache', [
             'uri' => $this->urlGenerator->generate('bolt_clear_cache'),
@@ -231,13 +243,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->getChild('Maintenance')->addChild('Installation checks', [
-            'uri' => '',
-            'extras' => [
-                'name' => $t->trans('caption.installation_checks'),
-                'icon' => 'fa-clipboard-check',
-            ],
-        ]);
+        /*
+         * @todo Make Installation checks work from the backend
+         */
+        // $menu->getChild('Maintenance')->addChild('Installation checks', [
+        //     'uri' => '',
+        //     'extras' => [
+        //         'name' => $t->trans('caption.installation_checks'),
+        //         'icon' => 'fa-clipboard-check',
+        //     ],
+        // ]);
 
         $menu->getChild('Maintenance')->addChild('Translations', [
             'uri' => $this->urlGenerator->generate('translation_index'),
@@ -247,14 +262,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        // @todo When we're close to stable release, make this less prominent
-        $menu->getChild('Maintenance')->addChild('The Kitchensink', [
-            'uri' => $this->urlGenerator->generate('bolt_kitchensink'),
-            'extras' => [
-                'name' => $t->trans('caption.kitchensink'),
-                'icon' => 'fa-bath',
-            ],
-        ]);
+        // Hide this menu item, unless we're on a "Git clone" install.
+        if (Version::installType() === 'Git clone') {
+            $menu->getChild('Maintenance')->addChild('The Kitchensink', [
+                'uri' => $this->urlGenerator->generate('bolt_kitchensink'),
+                'extras' => [
+                    'name' => $t->trans('caption.kitchensink'),
+                    'icon' => 'fa-bath',
+                ],
+            ]);
+        }
 
         $menu->getChild('Maintenance')->addChild('About Bolt', [
             'uri' => $this->urlGenerator->generate('bolt_about'),
