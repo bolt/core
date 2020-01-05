@@ -8,7 +8,7 @@ use Bolt\Entity\User;
 use Bolt\Log\LogHandler;
 use Bolt\Repository\UserRepository;
 use Bolt\Security\LoginFormAuthenticator;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;

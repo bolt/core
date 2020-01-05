@@ -7,7 +7,7 @@ namespace Bolt\Controller\Backend;
 use Bolt\Configuration\FileLocations;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Factory\MediaFactory;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +19,7 @@ use Webmozart\PathUtil\Path;
  */
 class MediaController extends TwigAwareController implements BackendZone
 {
-    /** @var ObjectManager */
+    /** @var EntityManagerInterface */
     private $em;
 
     /** @var FileLocations */
@@ -28,7 +28,7 @@ class MediaController extends TwigAwareController implements BackendZone
     /** @var MediaFactory */
     private $mediaFactory;
 
-    public function __construct(ObjectManager $em, FileLocations $fileLocations, MediaFactory $mediaFactory)
+    public function __construct(EntityManagerInterface $em, FileLocations $fileLocations, MediaFactory $mediaFactory)
     {
         $this->em = $em;
         $this->fileLocations = $fileLocations;
