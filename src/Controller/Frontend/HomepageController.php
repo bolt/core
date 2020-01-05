@@ -45,8 +45,6 @@ class HomepageController extends TwigAwareController implements FrontendZone
 
         $templates = $this->templateChooser->forHomepage();
 
-        $this->logger->notice('Huius, Lyco, oratione locuples, rebus ipsis ielunior. Quid autem habent admirationis, cum prope accesseris?!', ['foo' => 'bar']);
-
         return $this->renderTemplate($templates, ['record' => $record]);
     }
 }
