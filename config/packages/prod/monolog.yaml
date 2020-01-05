@@ -1,5 +1,4 @@
 monolog:
-    channels: ['db']
     handlers:
         main:
             type: fingers_crossed
@@ -14,7 +13,3 @@ monolog:
             type: console
             process_psr_3_messages: false
             channels: ['!event', '!doctrine']
-        db:
-            channels: ['db']
-            type: service
-            id: Bolt\Log\LogHandler
