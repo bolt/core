@@ -30,21 +30,23 @@ class RequestProcessor
 
     public function processRecord(array $record): array
     {
-        $req = $this->request->getCurrentRequest();
+        $request = $this->request->getCurrentRequest();
 
         /** @var User $user */
         $user = $this->security->getUser();
 
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 7);
 
-        $record['extra'] = [
-            'client_ip' => $req->getClientIp(),
-            'client_port' => $req->getPort(),
-            'uri' => $req->getUri(),
-            'query_string' => $req->getQueryString(),
-            'method' => $req->getMethod(),
-            'request' => $req->request->all(),
-        ];
+        if (! empty($request)) {
+            $record['extra'] = [
+                'client_ip' => $request->getClientIp(),
+                'client_port' => $request->getPort(),
+                'uri' => $request->getUri(),
+                'query_string' => $request->getQueryString(),
+                'method' => $request->getMethod(),
+                'request' => $request->request->all(),
+            ];
+        }
 
         if (! empty($user)) {
             $record['user'] = [
