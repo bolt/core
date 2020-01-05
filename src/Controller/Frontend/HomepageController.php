@@ -7,7 +7,6 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,13 +15,9 @@ class HomepageController extends TwigAwareController implements FrontendZone
     /** @var TemplateChooser */
     private $templateChooser;
 
-    /** @var LoggerInterface */
-    private $logger;
-
-    public function __construct(TemplateChooser $templateChooser, LoggerInterface $dbLogger)
+    public function __construct(TemplateChooser $templateChooser)
     {
         $this->templateChooser = $templateChooser;
-        $this->logger = $dbLogger;
     }
 
     /**
