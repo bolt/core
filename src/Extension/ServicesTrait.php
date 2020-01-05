@@ -93,7 +93,7 @@ trait ServicesTrait
         return $this->getService('event_dispatcher');
     }
 
-    public function getObjectManager(): ObjectManager
+    public function getObjectManager(): EntityManagerInterface
     {
         return $this->entityManager;
     }

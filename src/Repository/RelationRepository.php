@@ -9,8 +9,8 @@ use Bolt\Entity\Relation;
 use Bolt\Enum\Statuses;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use Gedmo\Sortable\Entity\Repository\SortableRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Gedmo\Sortable\Entity\Repository\SortableRepository;
 
 /**
  * @method Relation|null find($id, $lockMode = null, $lockVersion = null)
