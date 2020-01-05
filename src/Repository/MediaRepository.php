@@ -6,7 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Entity\Media;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -17,7 +17,7 @@ use Webmozart\PathUtil\Path;
  */
 class MediaRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Media::class);
     }

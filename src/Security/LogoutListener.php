@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Security;
 
 use Bolt\Entity\User;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +19,7 @@ class LogoutListener implements LogoutHandlerInterface
     /** @var LoggerInterface */
     private $logger;
 
-    public function __construct(ObjectManager $em, LoggerInterface $dbLogger)
+    public function __construct(EntityManagerInterface $em, LoggerInterface $dbLogger)
     {
         $this->em = $em;
         $this->logger = $dbLogger;

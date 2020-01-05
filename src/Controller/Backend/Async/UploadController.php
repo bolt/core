@@ -8,7 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Factory\MediaFactory;
 use Cocur\Slugify\Slugify;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sirius\Upload\Handler;
 use Sirius\Upload\Result\File;
@@ -30,13 +30,13 @@ class UploadController implements AsyncZone
     /** @var MediaFactory */
     private $mediaFactory;
 
-    /** @var ObjectManager */
+    /** @var EntityManagerInterface */
     private $em;
 
     /** @var Config */
     private $config;
 
-    public function __construct(MediaFactory $mediaFactory, ObjectManager $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager)
+    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->mediaFactory = $mediaFactory;
         $this->em = $em;

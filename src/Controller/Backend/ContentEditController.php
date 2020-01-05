@@ -21,7 +21,7 @@ use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
 use Carbon\Carbon;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,7 +50,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
     /** @var MediaRepository */
     private $mediaRepository;
 
-    /** @var ObjectManager */
+    /** @var EntityManagerInterface */
     private $em;
 
     /** @var UrlGeneratorInterface */
@@ -67,7 +67,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         RelationRepository $relationRepository,
         ContentRepository $contentRepository,
         MediaRepository $mediaRepository,
-        ObjectManager $em,
+        EntityManagerInterface $em,
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
         TemplateChooser $templateChooser,

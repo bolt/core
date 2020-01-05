@@ -9,7 +9,7 @@ use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +29,7 @@ class UserEditController extends TwigAwareController implements BackendZone
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var ObjectManager */
+    /** @var EntityManagerInterface */
     private $em;
 
     /** @var UserPasswordEncoderInterface */
@@ -37,7 +37,7 @@ class UserEditController extends TwigAwareController implements BackendZone
 
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
-        ObjectManager $em,
+        EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
         CsrfTokenManagerInterface $csrfTokenManager
     ) {

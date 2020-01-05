@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Bolt\Tests\Security;
 
 use Bolt\Entity\User;
-use Bolt\Log\LogHandler;
 use Bolt\Repository\UserRepository;
 use Bolt\Security\LoginFormAuthenticator;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +66,7 @@ class LoginFormAuthenticatorTest extends TestCase
             $router ?? $this->createMock(RouterInterface::class),
             $csrfTokenManager ?? $this->createMock(CsrfTokenManagerInterface::class),
             $userPasswordEncoder ?? $this->createMock(UserPasswordEncoderInterface::class),
-            $em ?? $this->createMock(ObjectManager::class),
+            $em ?? $this->createMock(EntityManagerInterface::class),
             $logger ?? $this->createMock(LoggerInterface::class)
         );
     }
