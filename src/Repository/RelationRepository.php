@@ -10,7 +10,7 @@ use Bolt\Enum\Statuses;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Sortable\Entity\Repository\SortableRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Relation|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,7 +20,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class RelationRepository extends SortableRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         $manager = $registry->getManagerForClass(Relation::class);
 
