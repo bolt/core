@@ -6,7 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 class UserRepository extends ServiceEntityRepository
 {
