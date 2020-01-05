@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Widgets;
 use Doctrine\Common\Persistence\ObjectManager;
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -101,6 +102,11 @@ trait ServicesTrait
     public function getStopwatch(): Stopwatch
     {
         return $this->getService('debug.stopwatch');
+    }
+
+    public function getLogger(): LoggerInterface
+    {
+        return $this->getService('monolog.logger.db');
     }
 
     public function getContainer(): ContainerInterface
