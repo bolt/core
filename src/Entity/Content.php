@@ -184,7 +184,7 @@ class Content
 
     public function getSlug(): ?string
     {
-        return $this->getFieldValue('slug', $this->getDefaultLocale());
+        return $this->getFieldValue('slug');
     }
 
     public function getContentType(): ?string
@@ -358,36 +358,36 @@ class Content
     /**
      * @return array|mixed|null
      */
-    public function getFieldValue(string $fieldName, string $locale)
+    public function getFieldValue(string $fieldName)
     {
-        if ($this->hasField($fieldName, $locale) === false) {
+        if ($this->hasField($fieldName) === false) {
             return null;
         }
 
-        return $this->getField($fieldName, $locale)->getParsedValue();
+        return $this->getField($fieldName)->getParsedValue();
     }
 
-    public function setFieldValue(string $fieldName, string $locale, $value): void
+    public function setFieldValue(string $fieldName, $value): void
     {
-        if (! $this->hasField($fieldName, $locale)) {
+        if (! $this->hasField($fieldName)) {
             $this->addFieldByName($fieldName);
         }
 
-        $field = $this->getField($fieldName, $locale);
+        $field = $this->getField($fieldName);
 
         $field->setValue($value);
     }
 
-    public function getField(string $fieldName, string $locale): Field
+    public function getField(string $fieldName): Field
     {
-        if ($this->hasField($fieldName, $locale) === false) {
+        if ($this->hasField($fieldName) === false) {
             throw new \InvalidArgumentException(sprintf("Content does not have '%s' field", $fieldName));
         }
 
         return $this->fields[$fieldName];
     }
 
-    public function hasField(string $fieldName, ?string $locale = null, $matchTypes = false): bool
+    public function hasField(string $fieldName, $matchTypes = false): bool
     {
         // If the field doesn't exist, we can bail here
         if (! isset($this->fields[$fieldName])) {
@@ -397,12 +397,6 @@ class Content
         // If $matchTypes is `false`, we can state that we do have the field
         if (! $matchTypes) {
             return true;
-        }
-
-        // We need to ensure the locales are the same
-        $fieldLocale = $this->fields[$fieldName]->getLocale();
-        if($locale !== null && $locale !== $fieldLocale) {
-            return false;
         }
 
         // Otherwise, we need to ensure the types are the same
@@ -419,8 +413,7 @@ class Content
 
     public function addField(Field $field): self
     {
-        $locale = $field->getLocale() ;
-        if ($this->hasField($field->getName(), $locale)) {
+        if ($this->hasField($field->getName())) {
             throw new \InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
         }
 

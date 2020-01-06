@@ -3,10 +3,10 @@
     <div class="tab-pane {% if loop.first %}show active{% endif %}" id="{{ group|slug }}" role="tabpanel"
          aria-labelledby="{{ group|slug }}-tab">
         {% for key, fielddefinition in record.definition.fields|filter(fielddefinition => fielddefinition.group == group) %}
-            {% if record.hasField(key, currentlocale) %}
-                {% set field = record.getField(key, currentlocale) %}
+            {% if record.hasField(key) %}
+                {% set field = record.getField(key) %}
             {% else %}
-                {% set field = field_factory(key, currentlocale, fielddefinition) %}
+                {% set field = field_factory(key, fielddefinition) %}
             {% endif %}
 
             {% include [
