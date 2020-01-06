@@ -218,7 +218,6 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function setValue($value): self
     {
-        dump($this->getLocale());
         $this->translate($this->getLocale(), false)->setValue($value);
         $this->mergeNewTranslations();
 
