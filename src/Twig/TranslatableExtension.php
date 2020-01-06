@@ -29,13 +29,13 @@ class TranslatableExtension extends AbstractExtension
 
     public function findTranslations(TranslatableInterface $entity, ?string $locale = null): array
     {
-        $translations = $entity->getTranslations();
+        $translations = $entity->getTranslations()->toArray();
 
         if ($locale) {
             return $translations[$locale] ?? null;
         }
 
-        return $translations->toArray();
+        return $translations;
     }
 
     public function findTranslated(TranslatableInterface $entity, string $locale): TranslatableInterface
