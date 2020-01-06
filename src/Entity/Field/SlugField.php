@@ -26,7 +26,7 @@ class SlugField extends Field implements FieldInterface
             $value = reset($value);
         }
         $value = Str::slug($value);
-        $this->value = [$value];
+        parent::setValue([$value]);
 
         return $this;
     }
