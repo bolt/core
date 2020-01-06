@@ -123,9 +123,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     }
                 }
 
-                $refKey = sprintf('content_%s_%s', $contentType['slug'], $content->getSlug());
-                $this->addReference($refKey, $content);
-
                 $manager->persist($content);
             }
         }
@@ -207,7 +204,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         if (isset($fieldType['localize']) && $fieldType['localize']) {
             foreach ($contentType['locales'] as $locale) {
-//                $translationRepository->translate($field, 'value', $locale, $field->getValue());
+                $field->translate($locale, false)->setValue($field->getValue());
             }
         }
 
