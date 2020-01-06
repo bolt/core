@@ -228,6 +228,9 @@
     "justinrainbow/json-schema": {
         "version": "5.2.8"
     },
+    "knplabs/doctrine-behaviors": {
+        "version": "v2.0.0"
+    },
     "knplabs/knp-menu": {
         "version": "2.3.0"
     },
@@ -492,6 +495,9 @@
     "ralouphie/getallheaders": {
         "version": "2.0.5"
     },
+    "ramsey/uuid": {
+        "version": "3.9.2"
+    },
     "roave/security-advisories": {
         "version": "dev-master"
     },
@@ -741,11 +747,17 @@
     "symfony/polyfill-iconv": {
         "version": "v1.12.0"
     },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.13.1"
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.6.0"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.10.0"
+    },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.13.1"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
@@ -806,6 +818,9 @@
     },
     "symfony/stopwatch": {
         "version": "v3.4.0-beta2"
+    },
+    "symfony/string": {
+        "version": "v5.0.2"
     },
     "symfony/swiftmailer-bundle": {
         "version": "2.5",

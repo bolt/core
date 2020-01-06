@@ -433,10 +433,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
         // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);
-
-            if ($this->em->contains($field)) {
-                $this->em->refresh($field);
-            }
         }
 
         // If the value is an array that contains a string of JSON, parse it
