@@ -128,19 +128,6 @@
             "src/DataFixtures/AppFixtures.php"
         ]
     },
-    "doctrine/doctrine-migrations-bundle": {
-        "version": "1.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.2",
-            "ref": "c1431086fec31f17fbcfe6d6d7e92059458facc1"
-        },
-        "files": [
-            "config/packages/doctrine_migrations.yaml",
-            "src/Migrations/.gitignore"
-        ]
-    },
     "doctrine/event-manager": {
         "version": "v1.0.0"
     },
@@ -152,9 +139,6 @@
     },
     "doctrine/lexer": {
         "version": "v1.0.1"
-    },
-    "doctrine/migrations": {
-        "version": "2.2.0"
     },
     "doctrine/orm": {
         "version": "v2.5.12"
@@ -311,9 +295,6 @@
     },
     "ocramius/package-versions": {
         "version": "1.1.3"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.2.3"
     },
     "openlss/lib-array2xml": {
         "version": "0.0.10"
@@ -944,10 +925,4 @@
     "willdurand/negotiation": {
         "version": "v2.3.1"
     },
-    "zendframework/zend-code": {
-        "version": "3.4.1"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.1"
-    }
 }
