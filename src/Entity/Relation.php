@@ -6,7 +6,6 @@ namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -55,14 +54,12 @@ class Relation
     private $toContent;
 
     /**
-     * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
      */
     private $position = 0;
 
     /**
      * @ORM\Column(name="`group`", type="string", length=191)
-     * @Gedmo\SortableGroup
      */
     private $group;
 
