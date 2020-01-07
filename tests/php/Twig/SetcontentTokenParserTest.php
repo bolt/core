@@ -69,8 +69,6 @@ class SetcontentTokenParserTest extends TokenParserTestCase
 
             new Token(Token::NAME_TYPE, 'returnsingle', 15),
 
-            new Token(Token::NAME_TYPE, 'nohydrate', 16),
-
             new Token(Token::BLOCK_END_TYPE, '', 98),
             new Token(Token::EOF_TYPE, '', 99),
         ];
