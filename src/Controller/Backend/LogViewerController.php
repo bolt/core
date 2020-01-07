@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
+use Bolt\Entity\Log;
 use Bolt\Repository\LogRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
