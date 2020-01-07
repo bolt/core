@@ -90,6 +90,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 $content = new Content();
+                $content->setDefinition($contentType);
                 $content->setContentType($contentType['slug']);
                 $content->setAuthor($author);
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));

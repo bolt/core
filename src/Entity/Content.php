@@ -378,16 +378,16 @@ class Content
         $field->setValue($value);
     }
 
-    public function getField(string $fieldName, string $locale): Field
+    public function getField(string $fieldName): Field
     {
-        if ($this->hasField($fieldName, $locale) === false) {
+        if ($this->hasField($fieldName) === false) {
             throw new \InvalidArgumentException(sprintf("Content does not have '%s' field", $fieldName));
         }
 
         return $this->fields[$fieldName];
     }
 
-    public function hasField(string $fieldName, string $locale, $matchTypes = false): bool
+    public function hasField(string $fieldName, $matchTypes = false): bool
     {
         // If the field doesn't exist, we can bail here
         if (! isset($this->fields[$fieldName])) {
@@ -397,12 +397,6 @@ class Content
         // If $matchTypes is `false`, we can state that we do have the field
         if (! $matchTypes) {
             return true;
-        }
-
-        // We need to ensure the locales are the same
-        $fieldLocale = $this->fields[$fieldName]->getLocale();
-        if($locale !== $fieldLocale) {
-            return false;
         }
 
         // Otherwise, we need to ensure the types are the same

@@ -282,7 +282,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['fields'])) {
             foreach ($formData['fields'] as $fieldName => $fieldValue) {
-                $field = $this->getFieldToUpdate($content, $fieldName, $locale);
+                $field = $this->getFieldToUpdate($content, $fieldName);
                 $this->updateField($field, $fieldValue, $locale);
             }
         }
@@ -292,8 +292,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
                 foreach ($set as $hash => $setFields) {
                     $setDefinition = $content->getDefinition()->get('fields')->get($setName);
                     $this->updateSetItems($content, $setDefinition, $hash, $setFields, $locale);
-                    if ($content->hasField($setName, $locale)) {
-                        $field = $content->getField($setName, $locale);
+                    if ($content->hasField($setName)) {
+                        $field = $content->getField($setName);
                         $field->setValue($hash);
                     } else {
                         $field = Field::factory($setDefinition, $setName);
@@ -325,7 +325,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                     } else {
                         // if this is any other field
                         $fieldDBname = $collection . '::' . $collectionItemName;
-                        $field = $this->getFieldToUpdate($content, $fieldDBname, $locale, $collectionItemDefinition);
+                        $field = $this->getFieldToUpdate($content, $fieldDBname, $collectionItemDefinition);
                         $this->updateField($field, $collectionItemValue, $locale);
                     }
 
@@ -342,8 +342,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
                 }
 
                 //create the collection field itself
-                if ($content->hasField($collection, $locale)) {
-                    $collectionField = $content->getField($collection, $locale);
+                if ($content->hasField($collection)) {
+                    $collectionField = $content->getField($collection);
                 } else {
                     $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
                 }
@@ -355,7 +355,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                 $collectionField->setValue($fieldsInCollection);
                 $collectionField->setLocale($locale);
 
-                if (! $content->hasField($collectionField->getName(), $locale)) {
+                if (! $content->hasField($collectionField->getName())) {
                     $content->addField($collectionField);
                 }
             }
@@ -381,7 +381,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         foreach ($setFields as $setFieldChildName => $setFieldChildValue) {
             $setFieldChildDBName = $hash . '::' . $setFieldChildName;
             if ($content->hasField($setFieldChildDBName, $locale)) {
-                $setFieldChildField = $content->getField($setFieldChildDBName, $locale);
+                $setFieldChildField = $content->getField($setFieldChildDBName);
             } else {
                 $setFieldChildField = Field::factory($setDefinition->get('fields')
                     ->get($setFieldChildName), $setFieldChildDBName, $setFieldChildValue);
@@ -397,19 +397,19 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
     }
 
-    private function getFieldToUpdate(Content $content, string $fieldName, string $locale, $fieldDefinition = ''): Field
+    private function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
     {
         /** @var Field $field */
         $field = null;
 
         $definition = empty($fieldDefinition) ? $content->getDefinition()->get('fields')->get($fieldName) : $fieldDefinition;
 
-        if ($content->hasField($fieldName, $locale)) {
-            $field = $content->getField($fieldName, $locale);
+        if ($content->hasField($fieldName)) {
+            $field = $content->getField($fieldName);
         }
 
         // If the Field exists, but it has the wrong type, we'll remove the existing one.
-        if (($field !== null) && ! $content->hasField($fieldName, $locale, true)) {
+        if (($field !== null) && ! $content->hasField($fieldName,true)) {
             $content->removeField($field);
             $this->em->remove($field);
             $this->em->flush();
@@ -421,7 +421,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $field = Field::factory($definition, $fieldName);
 
             $field->setName($fieldName);
-            $field->setLocale($locale);
             $content->addField($field);
         }
 
