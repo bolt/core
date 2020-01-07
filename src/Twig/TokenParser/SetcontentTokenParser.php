@@ -94,15 +94,6 @@ class SetcontentTokenParser extends AbstractTokenParser
                 );
             }
 
-            // nohydrate parameter
-            if ($this->parser->getStream()->test(Token::NAME_TYPE, 'nohydrate')) {
-                $this->parser->getStream()->next();
-                $arguments->addElement(
-                    new ConstantExpression(false, $lineno),
-                    new ConstantExpression('hydrate', $lineno)
-                );
-            }
-
             // Make sure we don't get stuck in a loop, if a token can't be parsed.
             ++$counter;
         } while (! $this->parser->getStream()->test(Token::BLOCK_END_TYPE) && ($counter < 10));
