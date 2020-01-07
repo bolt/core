@@ -17,6 +17,10 @@ parameters:
         -
             message: '#Unreachable statement - code above always terminates#'
             path: %currentWorkingDirectory%/src/*
+        -
+            message: '#Call to an undefined method Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface#'
+            path: %currentWorkingDirectory%/src/*
+
 
 
 includes:

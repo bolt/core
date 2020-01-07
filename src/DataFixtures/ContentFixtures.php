@@ -74,7 +74,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function loadContent(ObjectManager $manager): void
     {
-
         foreach ($this->config->get('contenttypes') as $contentType) {
             // Only add Singletons on first run, not when appending
             if ($this->getOption('--append') && $contentType['singleton']) {
@@ -91,6 +90,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 $content = new Content();
+                $content->setDefinition($contentType);
                 $content->setContentType($contentType['slug']);
                 $content->setAuthor($author);
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
@@ -207,7 +207,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         if (isset($fieldType['localize']) && $fieldType['localize']) {
             foreach ($contentType['locales'] as $locale) {
-//                $translationRepository->translate($field, 'value', $locale, $field->getValue());
+                $field->translate($locale, false)->setValue($field->getValue());
             }
         }
 

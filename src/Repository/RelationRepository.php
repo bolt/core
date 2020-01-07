@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Bolt\Repository;
 
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Bolt\Entity\Relation;
 use Bolt\Enum\Statuses;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Gedmo\Sortable\Entity\Repository\SortableRepository;
 
 /**
  * @method Relation|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,17 +18,11 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
  * @method Relation[]    findAll()
  * @method Relation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RelationRepository extends SortableRepository
+class RelationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        $manager = $registry->getManagerForClass(Relation::class);
-
-        if ($manager instanceof EntityManager) {
-            parent::__construct($manager, $manager->getClassMetadata(Relation::class));
-        } else {
-            throw new \RuntimeException();
-        }
+        parent::__construct($registry, Field::class);
     }
 
     /**

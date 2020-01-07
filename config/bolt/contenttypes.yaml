@@ -69,7 +69,6 @@ pages:
         subheading:
             type: text
             class: large
-            localize: true
         slug:
             type: slug
             uses: header
@@ -125,6 +124,18 @@ entries:
         body:
             type: html
             height: 300px
+        image:
+            type: image
+            group: media
+            upload: entries
+        video:
+            type: video
+    relations:
+        pages:
+            multiple: false
+            order: title
+            label: Select a page
+    taxonomy: [ categories, tags, groups ]
     record_template: entry.twig
     listing_template: listing.twig
     listing_records: 6
@@ -230,17 +241,6 @@ showcases:
             fields:
                 title:
                     type: text
-                textarea:
-                    type: textarea
-        collection:
-            type: collection
-            group: Collections
-            fields:
-                set:
-                    type: set
-                    fields:
-                        title:
-                            type: text
                 textarea:
                     type: textarea
     relations:

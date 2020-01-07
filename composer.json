@@ -8,7 +8,6 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
-        "antishov/doctrine-extensions-bundle": "^1.4",
         "api-platform/core": "^2.5",
         "bolt/common": "^2.1.0",
         "cocur/slugify": "^3.2",
@@ -22,6 +21,7 @@
         "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4.12",
         "fzaninotto/faker": "^1.9",
+        "knplabs/doctrine-behaviors": "^2.0",
         "knplabs/knp-menu-bundle": "^2.3",
         "league/glide-symfony": "^1.0",
         "miljar/php-exif": "^0.6.4",
@@ -116,10 +116,7 @@
     "autoload": {
         "psr-4": {
             "Bolt\\": "src/"
-        },
-        "files": [
-            "src/Entity/Translation.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -141,7 +138,9 @@
         ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "security-checker security:check": "script"
         },
         "periodical-tasks": [
             "security-checker security:check"
