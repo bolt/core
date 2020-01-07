@@ -298,6 +298,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                     } else {
                         $field = Field::factory($setDefinition, $setName);
                         $field->setValue($hash);
+                        $field->setLocale($locale);
                         $content->addField($field);
                     }
                 }
@@ -352,6 +353,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
                 $collectionField->setName($collection);
                 $collectionField->setValue($fieldsInCollection);
+                $collectionField->setLocale($locale);
 
                 if (! $content->hasField($collectionField->getName())) {
                     $content->addField($collectionField);
@@ -384,6 +386,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
                 $setFieldChildField = Field::factory($setDefinition->get('fields')
                     ->get($setFieldChildName), $setFieldChildDBName, $setFieldChildValue);
             }
+
+            $setFieldChildField->setLocale($locale);
 
             if (! $content->hasField($setFieldChildDBName)) {
                 $content->addField($setFieldChildField);
