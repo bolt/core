@@ -22,7 +22,7 @@ class RelationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Field::class);
+        parent::__construct($registry, Relation::class);
     }
 
     /**
