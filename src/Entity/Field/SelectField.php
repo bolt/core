@@ -26,7 +26,7 @@ class SelectField extends Field implements FieldInterface
                 $value = json_decode($value, false);
             }
         } finally {
-            $this->value = (array) $value;
+            parent::setValue((array) $value);
         }
 
         return $this;
@@ -34,16 +34,17 @@ class SelectField extends Field implements FieldInterface
 
     public function getValue(): ?array
     {
-        if (empty($this->value)) {
-            $this->value = $this->getDefinition()->get('values');
+        $value = parent::getValue();
+        if (empty($value)) {
+            $value = $this->getDefinition()->get('values');
 
             // Pick the first key from Collection, or the full value as string, like `entries/id,title`
-            if ($this->value instanceof Collection) {
-                $this->value = $this->value->keys()->first();
+            if ($value instanceof Collection) {
+                $value = $value->keys()->first();
             }
         }
 
-        return (array) $this->value;
+        return (array) $value;
     }
 
     public function isContentSelect(): bool
