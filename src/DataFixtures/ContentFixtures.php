@@ -271,6 +271,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     $data[$this->faker->sentence(1)] = $this->faker->sentence(4, true);
                 }
                 break;
+            case 'imagelist':
+                $data = [];
+                break;
+            case 'filelist':
+                $data = [];
+                break;
             default:
                 $data = [$this->faker->sentence(6, true)];
         }
