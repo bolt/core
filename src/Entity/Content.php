@@ -413,7 +413,7 @@ class Content
 
     public function addField(Field $field): self
     {
-        $locale = $field->getLocale() ;
+        $locale = $field->getLocale();
         if ($this->hasField($field->getName(), $locale)) {
             throw new \InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
         }

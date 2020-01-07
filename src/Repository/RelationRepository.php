@@ -11,7 +11,6 @@ use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method Relation|null find($id, $lockMode = null, $lockVersion = null)
