@@ -111,9 +111,6 @@ class SetcontentTokenParserTest extends TokenParserTestCase
 
             $this->assertSame('returnsingle', $nodes[6]['key']->getAttribute('value'));
             $this->assertTrue($nodes[6]['value']->getAttribute('value'));
-
-            $this->assertSame('hydrate', $nodes[7]['key']->getAttribute('value'));
-            $this->assertFalse($nodes[7]['value']->getAttribute('value'));
         }
 
         $loader = $this->getMockBuilder(LoaderInterface::class)->getMock();
