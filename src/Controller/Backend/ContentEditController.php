@@ -380,7 +380,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
     {
         foreach ($setFields as $setFieldChildName => $setFieldChildValue) {
             $setFieldChildDBName = $hash . '::' . $setFieldChildName;
-            if ($content->hasField($setFieldChildDBName, $locale)) {
+            if ($content->hasField($setFieldChildDBName)) {
                 $setFieldChildField = $content->getField($setFieldChildDBName);
             } else {
                 $setFieldChildField = Field::factory($setDefinition->get('fields')

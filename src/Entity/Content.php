@@ -184,7 +184,7 @@ class Content
 
     public function getSlug(): ?string
     {
-        return $this->getFieldValue('slug', $this->getDefaultLocale());
+        return $this->getFieldValue('slug');
     }
 
     public function getContentType(): ?string
@@ -358,22 +358,22 @@ class Content
     /**
      * @return array|mixed|null
      */
-    public function getFieldValue(string $fieldName, string $locale)
+    public function getFieldValue(string $fieldName)
     {
-        if ($this->hasField($fieldName, $locale) === false) {
+        if ($this->hasField($fieldName) === false) {
             return null;
         }
 
-        return $this->getField($fieldName, $locale)->getParsedValue();
+        return $this->getField($fieldName)->getParsedValue();
     }
 
-    public function setFieldValue(string $fieldName, string $locale, $value): void
+    public function setFieldValue(string $fieldName, $value): void
     {
-        if (! $this->hasField($fieldName, $locale)) {
+        if (! $this->hasField($fieldName)) {
             $this->addFieldByName($fieldName);
         }
 
-        $field = $this->getField($fieldName, $locale);
+        $field = $this->getField($fieldName);
 
         $field->setValue($value);
     }
@@ -413,8 +413,7 @@ class Content
 
     public function addField(Field $field): self
     {
-        $locale = $field->getLocale();
-        if ($this->hasField($field->getName(), $locale)) {
+        if ($this->hasField($field->getName())) {
             throw new \InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
         }
 
