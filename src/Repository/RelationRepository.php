@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Repository;
 
 use Bolt\Entity\Content;
-use Bolt\Entity\Field;
 use Bolt\Entity\Relation;
 use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
