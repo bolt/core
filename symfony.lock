@@ -254,26 +254,23 @@
     "nesbot/carbon": {
         "version": "1.34.0"
     },
-    "nette/bootstrap": {
-        "version": "v2.4.6"
+    "nette/application": {
+        "version": "v3.0.3"
     },
-    "nette/di": {
-        "version": "v2.4.14"
+    "nette/component-model": {
+        "version": "v3.0.0"
     },
     "nette/finder": {
         "version": "v2.4.2"
     },
-    "nette/neon": {
-        "version": "v2.4.3"
-    },
-    "nette/php-generator": {
-        "version": "v3.0.5"
+    "nette/http": {
+        "version": "v3.0.3"
     },
     "nette/robot-loader": {
         "version": "v3.1.0"
     },
-    "nette/schema": {
-        "version": "v1.0.0"
+    "nette/routing": {
+        "version": "v3.0.0"
     },
     "nette/utils": {
         "version": "v2.5.3"
@@ -870,6 +867,12 @@
     },
     "symfony/yaml": {
         "version": "v3.4.0-beta2"
+    },
+    "symplify/auto-bind-parameter": {
+        "version": "v7.2.0"
+    },
+    "symplify/autowire-array-parameter": {
+        "version": "v7.2.0"
     },
     "symplify/coding-standard": {
         "version": "v5.2.3"

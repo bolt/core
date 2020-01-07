@@ -8,9 +8,6 @@ use Tightenco\Collect\Support\Collection;
 
 class DeepCollection extends Collection
 {
-    /**
-     * @return static
-     */
     public static function deepMake($items): self
     {
         if ($items instanceof self) {

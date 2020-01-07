@@ -78,6 +78,8 @@ class Widgets
         if ($widget) {
             return (string) $this->invokeWidget($widget, $params);
         }
+
+        return '';
     }
 
     public function renderWidgetsForTarget(string $target, array $params = []): string

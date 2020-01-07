@@ -26,7 +26,8 @@ class JsonHelper
             return false;
         }
 
-        if ($platform instanceof MySQL57Platform || $platform instanceof MySQL80Platform || $platform instanceof MariaDb1027Platform) {
+        // MySQL80Platform is implicitly included with MySQL57Platform
+        if ($platform instanceof MySQL57Platform || $platform instanceof MariaDb1027Platform) {
             return true;
         }
 

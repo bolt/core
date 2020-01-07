@@ -173,6 +173,7 @@ class ContentTypesParser extends BaseParser
             $contentType['groups'][] = 'Relations';
         }
 
+        /** @var ContentType */
         return ContentType::deepMake($contentType);
     }
 
