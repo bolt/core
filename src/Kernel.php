@@ -8,7 +8,6 @@ use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
-use Doctrine\ORM\Query;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;

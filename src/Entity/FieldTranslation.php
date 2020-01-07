@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Nette\Utils\Strings;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -30,6 +28,11 @@ class FieldTranslation implements TranslationInterface
      * @Groups("get_field")
      */
     protected $value = [];
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getValue(): ?array
     {

@@ -74,7 +74,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function loadContent(ObjectManager $manager): void
     {
-
         foreach ($this->config->get('contenttypes') as $contentType) {
             // Only add Singletons on first run, not when appending
             if ($this->getOption('--append') && $contentType['singleton']) {

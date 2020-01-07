@@ -311,7 +311,7 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public static function getTranslationEntityClass(): string
     {
-        $explodedNamespace = explode('\\', __CLASS__);
+        $explodedNamespace = explode('\\', self::class);
         $entityClass = array_pop($explodedNamespace);
 
         return '\\' . implode('\\', $explodedNamespace) . '\\' . $entityClass . 'Translation';

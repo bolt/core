@@ -9,7 +9,6 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Relation;
 use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\RegistryInterface;
