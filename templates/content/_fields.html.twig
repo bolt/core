@@ -4,7 +4,7 @@
          aria-labelledby="{{ group|slug }}-tab">
         {% for key, fielddefinition in record.definition.fields|filter(fielddefinition => fielddefinition.group == group) %}
             {% if record.hasField(key) %}
-                {% set field = record.getField(key) %}
+                {% set field = record.getField(key)|translated(currentlocale) %}
             {% else %}
                 {% set field = field_factory(key, fielddefinition) %}
             {% endif %}
