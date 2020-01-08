@@ -134,7 +134,8 @@ class ContentRepository extends ServiceEntityRepository
 
         $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')
-            ->andWhere($qb->expr()->like('f.value', ':search'))
+            ->innerJoin('f.translations', 't')
+            ->andWhere($qb->expr()->like('t.value', ':search'))
             ->setParameter('search', '%' . $searchTerm . '%');
 
         // These are the ID's of content we need.
