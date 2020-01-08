@@ -316,11 +316,12 @@ class SelectQuery implements QueryInterface
             $index = $this->getAndIncrementIndex();
             $contentAlias = 'content_' . $index;
             $fieldsAlias = 'fields_' . $index;
+            $translationsAlias = 'translations_' . $index;
             $keyParam = 'field_' . $index;
 
             $originalLeftExpression = 'content.' . $key;
 
-            $newLeftExpression = JsonHelper::wrapJsonFunction($fieldsAlias . '.value', null, $this->qb);
+            $newLeftExpression = JsonHelper::wrapJsonFunction($translationsAlias . '.value', null, $this->qb);
 
             $where = $filter->getExpression();
             $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
@@ -331,6 +332,7 @@ class SelectQuery implements QueryInterface
                 ->select($contentAlias . '.id')
                 ->from(\Bolt\Entity\Content::class, $contentAlias)
                 ->innerJoin($contentAlias . '.fields', $fieldsAlias)
+                ->innerJoin($fieldsAlias . '.translations', $translationsAlias)
                 ->andWhere($where);
 
             // Unless the field to which the 'where' applies is `anyColumn`, we

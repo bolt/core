@@ -32,9 +32,11 @@ class FieldRepository extends ServiceEntityRepository
     {
         $qb = $this->getQueryBuilder();
 
-        [$where, $slug] = JsonHelper::wrapJsonFunction('field.value', $slug, $qb);
+        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $qb);
 
         return $qb
+            ->innerJoin('field.translations', 'translations')
+            ->addSelect('translations')
             ->andWhere($where . ' = :slug')
             ->setParameter('slug', $slug)
             ->setMaxResults(1)
