@@ -8,8 +8,6 @@ use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
-use Doctrine\ORM\Query;
-use Gedmo\Translatable\Query\TreeWalker\TranslationWalker;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -39,17 +37,6 @@ class Kernel extends BaseKernel
     public function boot(): void
     {
         parent::boot();
-
-        /*
-         * set TranslationWalker globally
-         */
-        $this->container
-            ->get('doctrine.orm.entity_manager')
-            ->getConfiguration()
-            ->setDefaultQueryHint(
-                Query::HINT_CUSTOM_OUTPUT_WALKER,
-                TranslationWalker::class
-            );
     }
 
     public function build(ContainerBuilder $container): void

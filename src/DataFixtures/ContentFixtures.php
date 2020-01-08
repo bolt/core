@@ -18,8 +18,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use Gedmo\Translatable\Entity\Repository\TranslationRepository;
-use Gedmo\Translatable\Entity\Translation;
 use Tightenco\Collect\Support\Collection;
 
 class ContentFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
@@ -76,9 +74,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function loadContent(ObjectManager $manager): void
     {
-        /** @var TranslationRepository $translationRepository */
-        $translationRepository = $manager->getRepository(Translation::class);
-
         foreach ($this->config->get('contenttypes') as $contentType) {
             // Only add Singletons on first run, not when appending
             if ($this->getOption('--append') && $contentType['singleton']) {
@@ -95,6 +90,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 $content = new Content();
+                $content->setDefinition($contentType);
                 $content->setContentType($contentType['slug']);
                 $content->setAuthor($author);
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
@@ -110,7 +106,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    $this->loadField($content, $name, $fieldType, $contentType, $preset, $translationRepository);
+                    $this->loadField($content, $name, $fieldType, $contentType, $preset);
                 }
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
@@ -135,7 +131,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         }
     }
 
-    private function loadCollectionField(Content $content, Field $field, $fieldType, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
+    private function loadCollectionField(Content $content, Field $field, $fieldType, ContentType $contentType, array $preset): Field
     {
         $collectionItems = $field->getDefinition()->get('fields');
         $collectionFields = [];
@@ -143,7 +139,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $hash = uniqid();
             $collectionFieldName = $fieldType['name'] . '::' . $collectionItemName;
 
-            $collectionField = $this->loadField($content, $collectionFieldName, $collectionItemFieldType, $contentType, $preset, $translationRepository);
+            $collectionField = $this->loadField($content, $collectionFieldName, $collectionItemFieldType, $contentType, $preset);
 
             if ($collectionItemFieldType['type'] === 'set') {
                 /** @var SetField $thisField */
@@ -170,14 +166,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $field;
     }
 
-    private function loadSetField(Content $content, Field $field, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
+    private function loadSetField(Content $content, Field $field, ContentType $contentType, array $preset): Field
     {
         $setItems = $field->getDefinition()->get('fields');
         $hash = uniqid();
 
         foreach ($setItems as $setItemName => $setItemFieldType) {
             $setFieldName = $hash . '::' . $setItemName;
-            $this->loadField($content, $setFieldName, $setItemFieldType, $contentType, $preset, $translationRepository);
+            $this->loadField($content, $setFieldName, $setItemFieldType, $contentType, $preset);
         }
 
         $field->setValue($hash);
@@ -185,7 +181,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $field;
     }
 
-    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset, TranslationRepository $translationRepository): Field
+    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset): Field
     {
         $sortorder = 1;
 
@@ -195,9 +191,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $field->setValue($preset[$name]);
         } else {
             if ($fieldType['type'] === 'collection') {
-                $field = $this->loadCollectionField($content, $field, $fieldType, $contentType, $preset, $translationRepository);
+                $field = $this->loadCollectionField($content, $field, $fieldType, $contentType, $preset);
             } elseif ($fieldType['type'] === 'set') {
-                $field = $this->loadSetField($content, $field, $contentType, $preset, $translationRepository);
+                $field = $this->loadSetField($content, $field, $contentType, $preset);
                 $ignoreField = true;
             } else {
                 $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
@@ -211,7 +207,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         if (isset($fieldType['localize']) && $fieldType['localize']) {
             foreach ($contentType['locales'] as $locale) {
-                $translationRepository->translate($field, 'value', $locale, $field->getValue());
+                $field->translate($locale, false)->setValue($field->getValue());
             }
         }
 
@@ -274,6 +270,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 for ($i = 1; $i < 5; $i++) {
                     $data[$this->faker->sentence(1)] = $this->faker->sentence(4, true);
                 }
+                break;
+            case 'imagelist':
+                $data = [];
+                break;
+            case 'filelist':
+                $data = [];
                 break;
             default:
                 $data = [$this->faker->sentence(6, true)];

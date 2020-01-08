@@ -20,11 +20,11 @@ class SetField extends Field implements FieldInterface
 
     public function getHash(): string
     {
-        if (empty($this->value)) {
-            $this->value = [uniqid()];
+        if (empty(parent::getValue())) {
+            $this->setValue([uniqid()]);
         }
 
-        return $this->value[0];
+        return parent::getValue()[0];
     }
 
     public function getValue(): array

@@ -17,6 +17,11 @@ parameters:
         -
             message: '#Unreachable statement - code above always terminates#'
             path: %currentWorkingDirectory%/src/*
+        # false positive: TranslationInterface does not know about FieldTranslation::getValue(). Skip this error.
+        -
+            message: '#Call to an undefined method Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface#'
+            path: %currentWorkingDirectory%/src/*
+
 
 
 includes:

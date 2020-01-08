@@ -20,7 +20,7 @@ class CollectionField extends Field implements FieldInterface
 
     private function getCollectionFieldValues(): array
     {
-        return $this->value;
+        return parent::getValue();
     }
 
     public function getValue(): array

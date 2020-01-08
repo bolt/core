@@ -205,7 +205,7 @@ Feature: Edit record
     And the field with css "#sets > div > div:nth-child(2) > div > input" should contain "Foo"
     And the field with css "#sets > div > div:nth-child(3) > div > textarea" should contain "Bar"
 
-  @javascript
+  @javascript-disabled
   Scenario: As an Admin I want to fill in a Collection
     Given I am logged in as "admin"
     And I am on "/bolt/edit/43"

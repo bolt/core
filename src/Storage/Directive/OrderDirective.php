@@ -42,11 +42,13 @@ class OrderDirective
             } else {
                 $fieldsAlias = 'fields_order_' .  $query->getIndex();
                 $fieldAlias = 'order_' . $query->getIndex();
+                $translationsAlias = 'translations_order_' . $query->getIndex();
                 $query
                     ->getQueryBuilder()
                     ->leftJoin('content.fields', $fieldsAlias)
+                    ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
                     ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
-                    ->addOrderBy($fieldsAlias . '.value', $direction)
+                    ->addOrderBy($translationsAlias . '.value', $direction)
                     ->setParameter($fieldAlias, $order);
 
                 $query->incrementIndex();

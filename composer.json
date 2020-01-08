@@ -8,7 +8,6 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-pdo": "*",
-        "antishov/doctrine-extensions-bundle": "^1.4",
         "api-platform/core": "^2.5",
         "bolt/common": "^2.1.0",
         "cocur/slugify": "^3.2",
@@ -22,7 +21,7 @@
         "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4.12",
         "fzaninotto/faker": "^1.9",
-        "gedmo/doctrine-extensions": "v2.4.x-dev",
+        "knplabs/doctrine-behaviors": "^2.0",
         "knplabs/knp-menu-bundle": "^2.3",
         "league/glide-symfony": "^1.0",
         "miljar/php-exif": "^0.6.4",
@@ -87,7 +86,7 @@
         "bobdenotter/weatherwidget": "^1.0",
         "bolt/newswidget": "^1.1",
         "coduo/php-matcher": "^3.2",
-        "dama/doctrine-test-bundle": "^6.3",
+        "dama/doctrine-test-bundle": "^6.2.0",
         "lakion/mink-debug-extension": "^1.2",
         "php-http/httplug-pack": "^1.2",
         "php-translation/loco-adapter": "^0.8",
@@ -117,10 +116,7 @@
     "autoload": {
         "psr-4": {
             "Bolt\\": "src/"
-        },
-        "files": [
-            "src/Entity/Translation.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

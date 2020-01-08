@@ -8,7 +8,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
@@ -29,8 +30,10 @@ use Twig\Markup;
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({"generic" = "Field"})
  */
-class Field implements Translatable, FieldInterface
+class Field implements FieldInterface, TranslatableInterface
 {
+    use TranslatableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -45,23 +48,9 @@ class Field implements Translatable, FieldInterface
     public $name;
 
     /**
-     * @ORM\Column(type="json")
-     * @Groups("get_field")
-     * @Gedmo\Translatable
-     */
-    protected $value = [];
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $sortorder = 0;
-
-    /**
-     * @Gedmo\Locale
-     *
-     * @var string|null
-     */
-    protected $locale;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -173,12 +162,15 @@ class Field implements Translatable, FieldInterface
 
     public function get($key)
     {
-        return isset($this->value[$key]) ? $this->value[$key] : null;
+        return $this->translate($this->getCurrentLocale())->get($key);
     }
 
+    /**
+     * @Groups("get_field")
+     */
     public function getValue(): ?array
     {
-        return $this->value;
+        return $this->translate($this->getCurrentLocale())->getValue();
     }
 
     /**
@@ -222,14 +214,15 @@ class Field implements Translatable, FieldInterface
 
     public function set(string $key, $value): self
     {
-        $this->value[$key] = $value;
+        $this->translate($this->getCurrentLocale())->set($key, $value);
 
         return $this;
     }
 
     public function setValue($value): self
     {
-        $this->value = (array) $value;
+        $this->translate($this->getLocale(), false)->setValue($value);
+        $this->mergeNewTranslations();
 
         return $this;
     }
@@ -248,12 +241,12 @@ class Field implements Translatable, FieldInterface
 
     public function setLocale(?string $locale): void
     {
-        $this->locale = $locale;
+        $this->setCurrentLocale($locale);
     }
 
     public function getLocale(): ?string
     {
-        return $this->locale;
+        return $this->getCurrentLocale();
     }
 
     public function getVersion(): ?int
@@ -314,5 +307,16 @@ class Field implements Translatable, FieldInterface
     public function isContentSelect(): bool
     {
         return false;
+    }
+
+    /**
+     * Used in TranslatableInterface, to locate the translation entity Bolt\Entity\FieldTranslation
+     */
+    public static function getTranslationEntityClass(): string
+    {
+        $explodedNamespace = explode('\\', self::class);
+        $entityClass = array_pop($explodedNamespace);
+
+        return '\\' . implode('\\', $explodedNamespace) . '\\' . $entityClass . 'Translation';
     }
 }
