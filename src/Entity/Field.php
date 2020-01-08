@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
 
@@ -166,18 +165,14 @@ class Field implements FieldInterface, TranslatableInterface
         return $this->translate($this->getCurrentLocale())->get($key);
     }
 
+    /**
+     * @Groups("get_field")
+     */
     public function getValue(): ?array
     {
         return $this->translate($this->getCurrentLocale())->getValue();
     }
 
-    /**
-     * like getValue() but returns single value for single value fields
-     *
-     * @return array|mixed|null
-     * @Groups("get_field")
-     * @SerializedName("value")
-     */
     public function getParsedValue()
     {
         $value = $this->getValue();
