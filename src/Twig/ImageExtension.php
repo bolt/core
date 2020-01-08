@@ -189,7 +189,7 @@ class ImageExtension extends AbstractExtension
             $alt = $image;
         }
 
-        return htmlentities($alt, ENT_QUOTES);
+        return htmlentities((string) $alt, ENT_QUOTES);
     }
 
     private function getImageFromContent(Content $content): ?ImageField

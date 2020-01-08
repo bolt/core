@@ -25,7 +25,7 @@ class CollectionField extends Field implements FieldInterface
 
     public function getValue(): array
     {
-        $fieldDefinitions = $this->getDefinition()->get('fields');
+        $fieldDefinitions = $this->getDefinition()->get('fields', []);
         $result = [];
 
         $thisFieldValues = $this->getCollectionFieldValues();
