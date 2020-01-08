@@ -387,6 +387,13 @@ class Content
         return $this->fields[$fieldName];
     }
 
+    public function getFieldsByParent(Field $parent): ArrayCollection
+    {
+        return $this->fields->filter(function(Field $field) use ($parent) {
+            return $field->getParent() === $parent;
+        });
+    }
+
     public function hasField(string $fieldName, $matchTypes = false): bool
     {
         // If the field doesn't exist, we can bail here
@@ -396,7 +403,8 @@ class Content
 
         // If $matchTypes is `false`, we can state that we do have the field
         if (! $matchTypes) {
-            return true;
+            // Only if the field is standalone (has no parent), we can say we have it.
+            return !$this->fields[$fieldName]->hasParent();
         }
 
         // Otherwise, we need to ensure the types are the same

@@ -29,32 +29,8 @@ class SetField extends Field implements FieldInterface
 
     public function getValue(): array
     {
-        $hash = $this->getHash();
-        $fieldDefinitions = $this->getDefinition()->get('fields');
-        $result = [];
-        $i = 0;
 
-        // If there's no current $fieldDefinitions, we can return early
-        if (! is_iterable($fieldDefinitions)) {
-            return $result;
-        }
-
-        foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-            $currentSetFieldName = $hash . '::' . $fieldName;
-            if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
-                $field = $this->getContent()->getField($currentSetFieldName);
-                $field->setDefinition($fieldName, $fieldDefinition);
-            } else {
-                $field = parent::factory($fieldDefinition);
-            }
-
-            $field->setName($fieldName);
-            $result['fields'][$i] = $field;
-            $i++;
-        }
-
-        $result['hash'] = $hash;
-
-        return $result;
+        $children = $this->getContent()->getFieldsByParent($this);
+        return $children->toArray();
     }
 }

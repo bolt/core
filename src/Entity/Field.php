@@ -273,6 +273,11 @@ class Field implements FieldInterface, TranslatableInterface
         return $this;
     }
 
+    public function hasParent(): bool
+    {
+        return $this->getParent() !== null;
+    }
+
     public function getParent(): ?self
     {
         return $this->parent;
