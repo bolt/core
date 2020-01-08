@@ -174,10 +174,10 @@ class Field implements FieldInterface, TranslatableInterface
     }
 
     /**
-    * like getValue() but returns single value for single value fields
-    *
-    * @return array|mixed|null
-    */
+     * like getValue() but returns single value for single value fields
+     *
+     * @return array|mixed|null
+     */
     public function getParsedValue()
     {
         $value = $this->getValue();
