@@ -7,7 +7,6 @@ namespace Bolt\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -25,7 +24,6 @@ class FieldTranslation implements TranslationInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("get_field")
      */
     protected $value = [];
 
