@@ -259,7 +259,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
     {
         $formData = $request->request->all();
 
-        $locale = $this->getPostedLocale($formData);
+        $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
 
         /** @var User $user */
         $user = $this->getUser();
