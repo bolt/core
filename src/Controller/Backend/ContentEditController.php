@@ -10,6 +10,7 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Field\SetField;
 use Bolt\Entity\Relation;
 use Bolt\Entity\Taxonomy;
 use Bolt\Entity\User;
@@ -288,17 +289,31 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
 
         if (isset($formData['sets'])) {
-            foreach ($formData['sets'] as $setName => $set) {
-                foreach ($set as $hash => $setFields) {
-                    $setDefinition = $content->getDefinition()->get('fields')->get($setName);
-                    $this->updateSetItems($content, $setDefinition, $hash, $setFields, $locale);
-                    if ($content->hasField($setName)) {
-                        $field = $content->getField($setName);
-                        $field->setValue($hash);
-                    } else {
-                        $field = Field::factory($setDefinition, $setName);
-                        $field->setValue($hash);
+            foreach ($formData['sets'] as $setName => $setItems) {
+                $setDefinition = $content->getDefinition()->get('fields')->get($setName);
+
+                if ($content->hasField($setName)) {
+                    $set = $content->getField($setName);
+                } else {
+                    $set = Field::factory($setDefinition, $setName);
+                    $set->setLocale($locale);
+                    $content->addField($set);
+                }
+
+                foreach($setItems as $name => $value)
+                {
+                    $dbName = SetField::getItemDbName($setName, $name);
+
+                    if ($content->hasField($dbName))
+                    {
+                        $field = $content->getField($dbName);
                         $field->setLocale($locale);
+                        $field->setValue($value);
+                    } else {
+                        $field = Field::factory($setDefinition->get('fields')->get($name), $dbName);
+                        $field->setValue($value);
+                        $field->setLocale($locale);
+                        $field->setParent($set);
                         $content->addField($field);
                     }
                 }
@@ -379,7 +394,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
     private function updateSetItems(?Content $content, ContentType $setDefinition, string $hash, array $setFields, ?string $locale): void
     {
         foreach ($setFields as $setFieldChildName => $setFieldChildValue) {
-            $setFieldChildDBName = $hash . '::' . $setFieldChildName;
             if ($content->hasField($setFieldChildDBName)) {
                 $setFieldChildField = $content->getField($setFieldChildDBName);
             } else {

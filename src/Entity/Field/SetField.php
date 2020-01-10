@@ -29,8 +29,34 @@ class SetField extends Field implements FieldInterface
 
     public function getValue(): array
     {
+        $result = [];
 
-        $children = $this->getContent()->getFieldsByParent($this);
-        return $children->toArray();
+        $fieldDefinitions = $this->getDefinition()->get('fields');
+
+        // If there's no current $fieldDefinitions, we can return early
+        if (! is_iterable($fieldDefinitions)) {
+            return $result;
+        }
+
+        foreach ($fieldDefinitions as $name => $definition) {
+            $itemDbName = $this::getItemDbName($this->getName(), $name);
+
+            if ($this->getContent() && $this->getContent()->hasField($itemDbName)) {
+                $field = $this->getContent()->getField($itemDbName);
+                $field->setDefinition($name, $definition);
+            } else {
+                $field = parent::factory($definition);
+            }
+
+            $field->setName($name);
+            $result[] = $field;
+        }
+
+        return $result;
+    }
+
+    public static function getItemDbName($setName, $itemName)
+    {
+        return $setName . '::' . $itemName;
     }
 }

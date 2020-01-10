@@ -404,7 +404,7 @@ class Content
         // If $matchTypes is `false`, we can state that we do have the field
         if (! $matchTypes) {
             // Only if the field is standalone (has no parent), we can say we have it.
-            return !$this->fields[$fieldName]->hasParent();
+            return true;
         }
 
         // Otherwise, we need to ensure the types are the same
