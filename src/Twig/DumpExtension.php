@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Twig\TokenParser\DumpTokenParser;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -16,10 +17,34 @@ use Twig\TwigFunction;
  */
 class DumpExtension extends AbstractExtension
 {
+    protected $env;
+
+    public function __construct(?string $env = null)
+    {
+        $this->env = $env;
+    }
+
     public function getFunctions(): array
     {
+        // In DEV and TEST, we let Symfony\Bundle\DebugBundle handle this
+        if (in_array($this->env, ['dev', 'test'], true)) {
+            return [];
+        }
+
         return [
             new TwigFunction('dump', [$this, 'dump']),
+        ];
+    }
+
+    public function getTokenParsers(): array
+    {
+        // In DEV and TEST, we let Symfony\Bundle\DebugBundle handle this
+        if (in_array($this->env, ['dev', 'test'], true)) {
+            return [];
+        }
+
+        return [
+            new DumpTokenParser(),
         ];
     }
 
