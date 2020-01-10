@@ -18,15 +18,6 @@ class SetField extends Field implements FieldInterface
         return 'set';
     }
 
-    public function getHash(): string
-    {
-        if (empty(parent::getValue())) {
-            $this->setValue([uniqid()]);
-        }
-
-        return parent::getValue()[0];
-    }
-
     public function getValue(): array
     {
         $result = [];
