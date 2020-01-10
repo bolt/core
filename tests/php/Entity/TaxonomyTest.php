@@ -5,12 +5,24 @@ declare(strict_types=1);
 namespace Bolt\Tests\Entity;
 
 use Bolt\Entity\Taxonomy;
+use Bolt\Repository\TaxonomyRepository;
+use Bolt\Tests\DbAwareTestCase;
 
-class TaxonomyTest extends \PHPUnit\Framework\TestCase
+class TaxonomyTest extends DbAwareTestCase
 {
-    public function testFactory(): void
+    /** @var TaxonomyRepository */
+    private $taxonomyRepository;
+
+    protected function setUp(): void
     {
-        $taxonomy = Taxonomy::factory('foo', 'bar', 'Bar');
+        parent::setUp();
+
+        $this->taxonomyRepository = $this->getEm()->getRepository(Taxonomy::class);
+    }
+
+        public function testFactory(): void
+    {
+        $taxonomy = $this->taxonomyRepository->factory('foo', 'bar', 'Bar');
 
         $this->assertSame('foo', $taxonomy->getType());
         $this->assertSame('bar', $taxonomy->getSlug());
@@ -19,7 +31,7 @@ class TaxonomyTest extends \PHPUnit\Framework\TestCase
 
     public function testFactoryWithSortOrder(): void
     {
-        $taxonomy = Taxonomy::factory('foo', 'Bår', 'Pømpidöm', 1000);
+        $taxonomy = $this->taxonomyRepository->factory('foo', 'Bår', 'Pømpidöm', 1000);
 
         $this->assertSame('foo', $taxonomy->getType());
         $this->assertSame('baar', $taxonomy->getSlug());
@@ -29,7 +41,7 @@ class TaxonomyTest extends \PHPUnit\Framework\TestCase
 
     public function testFactoryWithMinimalParameters(): void
     {
-        $taxonomy = Taxonomy::factory('foo', 'Døøp');
+        $taxonomy = $this->taxonomyRepository->factory('foo', 'Døøp');
 
         $this->assertSame('foo', $taxonomy->getType());
         $this->assertSame('doeoep', $taxonomy->getSlug());
@@ -39,7 +51,7 @@ class TaxonomyTest extends \PHPUnit\Framework\TestCase
 
     public function testSetSlug(): void
     {
-        $taxonomy = Taxonomy::factory('foo', 'bar', 'baz');
+        $taxonomy = $this->taxonomyRepository->factory('foo', 'bar', 'baz');
 
         $taxonomy->setSlug('Qüx');
 
@@ -48,7 +60,7 @@ class TaxonomyTest extends \PHPUnit\Framework\TestCase
 
     public function testSetName(): void
     {
-        $taxonomy = Taxonomy::factory('foo', 'bar', 'baz');
+        $taxonomy = $this->taxonomyRepository->factory('foo', 'bar', 'baz');
 
         $taxonomy->setName('Føø');
 
@@ -61,7 +73,7 @@ class TaxonomyTest extends \PHPUnit\Framework\TestCase
 
     public function testSetSortorder(): void
     {
-        $taxonomy = Taxonomy::factory('foo', 'bar', 'baz', 1000);
+        $taxonomy = $this->taxonomyRepository->factory('foo', 'bar', 'baz', 1000);
 
         $taxonomy->setSortorder(10);
 
