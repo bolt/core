@@ -7,8 +7,8 @@
         {% set setName = 'sets[' ~ field.name ~ ']' %}
     {% endif %}
 
-    {% for setItem in field.value %}
-        {% set setItemName = setName ~ '[' ~ setItem.name ~ ']' %}
-        {% include '@bolt/_partials/fields/' ~ setItem.type ~ '.html.twig' with {'field' : setItem, 'name' : setItemName} only %}
+    {% for setChild in field.value %}
+        {% set setChildName = setName ~ '[' ~ setChild.name ~ ']' %}
+        {% include '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig' with {'field' : setChild, 'name' : setChildName} only %}
     {% endfor %}
 {% endblock %}
