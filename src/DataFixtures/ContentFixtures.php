@@ -143,9 +143,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
             if ($collectionItemFieldType['type'] === 'set') {
                 /** @var SetField $thisField */
-                $thisField = $collectionField;
-
-                $hash = $thisField->getHash();
+//                $thisField = $collectionField;
             } else {
                 //collection item fields have a different value than fields of the same type outside of a collection
                 $correctItemValue = [
@@ -166,22 +164,20 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $field;
     }
 
-    private function loadSetField(Content $content, Field $field, ContentType $contentType, array $preset): Field
+    private function loadSetField(Content $content, Field $set, ContentType $contentType, array $preset): Field
     {
-        $setItems = $field->getDefinition()->get('fields');
-        $hash = uniqid();
+        $setChildren = $set->getDefinition()->get('fields');
 
-        foreach ($setItems as $setItemName => $setItemFieldType) {
-            $setFieldName = $hash . '::' . $setItemName;
-            $this->loadField($content, $setFieldName, $setItemFieldType, $contentType, $preset);
+        foreach ($setChildren as $setChild => $setChildType) {
+            $child = $this->loadField($content, $setChild, $setChildType, $contentType, $preset, false);
+            $child->setParent($set);
+            $content->addField($child);
         }
 
-        $field->setValue($hash);
-
-        return $field;
+        return $set;
     }
 
-    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset): Field
+    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset, bool $addToContent = true): Field
     {
         $sortorder = 1;
 
@@ -194,14 +190,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $field = $this->loadCollectionField($content, $field, $fieldType, $contentType, $preset);
             } elseif ($fieldType['type'] === 'set') {
                 $field = $this->loadSetField($content, $field, $contentType, $preset);
-                $ignoreField = true;
             } else {
                 $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
             }
         }
         $field->setSortorder($sortorder++ * 5);
 
-        if (! isset($ignoreField)) {
+        if ($addToContent) {
             $content->addField($field);
         }
 

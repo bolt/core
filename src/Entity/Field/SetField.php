@@ -6,8 +6,6 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,26 +44,16 @@ class SetField extends Field implements FieldInterface
         return $result;
     }
 
-    private function childrenFilter(): Collection
-    {
-        return $this->getContent()->getRawFields()->filter(function(Field $field)
-        {
-            return $field->getParent() === $this;
-        });
-    }
-
     public function getChild(string $fieldName): Field
     {
-        return $this->getContent()->getRawFields()->filter(function(Field $field) use ($fieldName)
-        {
+        return $this->getContent()->getRawFields()->filter(function (Field $field) use ($fieldName) {
             return $field->getParent() === $this && $field->getName() === $fieldName;
         })->first();
     }
 
     public function hasChild(string $fieldName): bool
     {
-        $query = $this->getContent()->getRawFields()->filter(function(Field $field) use ($fieldName)
-        {
+        $query = $this->getContent()->getRawFields()->filter(function (Field $field) use ($fieldName) {
             return $field->getParent() === $this && $field->getName() === $fieldName;
         });
 

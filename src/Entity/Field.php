@@ -64,7 +64,7 @@ class Field implements FieldInterface, TranslatableInterface
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field")
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field", cascade={"persist"})
      */
     private $parent;
 
@@ -275,7 +275,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function hasParent(): bool
     {
-        return ! is_null($this->parent);
+        return $this->parent !== null;
     }
 
     public function getParent(): ?self

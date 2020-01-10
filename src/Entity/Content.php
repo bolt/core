@@ -397,7 +397,6 @@ class Content
 
     public function hasField(string $fieldName, $matchTypes = false): bool
     {
-
         $query = $this->standaloneFieldFilter($fieldName);
 
         // If the field doesn't exist, we can bail here
@@ -424,7 +423,7 @@ class Content
 
     public function addField(Field $field): self
     {
-        if (!$field->hasParent() && $this->hasField($field->getName())) {
+        if (! $field->hasParent() && $this->hasField($field->getName())) {
             throw new \InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
         }
 
@@ -576,14 +575,14 @@ class Content
 
     private function standaloneFieldsFilter()
     {
-        return $this->fields->filter(function (Field $field){
-           return ! $field->hasParent();
+        return $this->fields->filter(function (Field $field) {
+            return ! $field->hasParent();
         });
     }
 
     private function standaloneFieldFilter(string $fieldName)
     {
-        return $this->fields->filter(function(Field $field) use ($fieldName){
+        return $this->fields->filter(function (Field $field) use ($fieldName) {
             return $field->getName() === $fieldName && ! $field->hasParent();
         });
     }
