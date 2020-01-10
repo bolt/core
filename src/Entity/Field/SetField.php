@@ -6,6 +6,7 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,8 +33,8 @@ class SetField extends Field implements FieldInterface
         foreach ($fieldDefinitions as $name => $definition) {
             $itemDbName = $this::getItemDbName($this->getName(), $name);
 
-            if ($this->getContent() && $this->getContent()->hasField($itemDbName)) {
-                $field = $this->getContent()->getField($itemDbName);
+            if ($this->getContent() && $this->hasChild($itemDbName)) {
+                $field = $this->getChild($itemDbName);
                 $field->setDefinition($name, $definition);
             } else {
                 $field = parent::factory($definition);
@@ -48,6 +49,32 @@ class SetField extends Field implements FieldInterface
 
     public static function getItemDbName($setName, $itemName)
     {
-        return $setName . '::' . $itemName;
+        return $itemName;
+    }
+
+    private function childrenFilter(): ArrayCollection
+    {
+        return $this->getContent()->getRawFields()->filter(function(Field $field)
+        {
+            return $field->getParent() === $this;
+        });
+    }
+
+    public function getChild(string $fieldName): Field
+    {
+        return $this->getContent()->getRawFields()->filter(function(Field $field) use ($fieldName)
+        {
+            return $field->getParent() === $this && $field->getName() === $fieldName;
+        })->first();
+    }
+
+    public function hasChild(string $fieldName): bool
+    {
+        $query = $this->getContent()->getRawFields()->filter(function(Field $field) use ($fieldName)
+        {
+            return $field->getParent() === $this && $field->getName() === $fieldName;
+        });
+
+        return ! $query->isEmpty();
     }
 }

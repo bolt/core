@@ -22,10 +22,6 @@ use Twig\Markup;
  *     }
  * })
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
- * @ORM\Table(
- *  uniqueConstraints={
- *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name"}),
- *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({"generic" = "Field"})
@@ -275,7 +271,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function hasParent(): bool
     {
-        return $this->getParent() !== null;
+        return ! is_null($this->parent);
     }
 
     public function getParent(): ?self

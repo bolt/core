@@ -111,7 +111,7 @@ class Content
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
-     *     indexBy="name",
+     *     indexBy="id",
      *     fetch="EAGER",
      *     orphanRemoval=true,
      *     cascade={"persist"}
@@ -321,9 +321,17 @@ class Content
     /**
      * @return Collection|Field[]
      */
-    public function getFields(): Collection
+    public function getRawFields(): Collection
     {
         return $this->fields;
+    }
+
+    /**
+     * @return Collection|Field[]
+     */
+    public function getFields(): Collection
+    {
+        return $this->standaloneFieldsFilter();
     }
 
     /**
@@ -384,20 +392,18 @@ class Content
             throw new \InvalidArgumentException(sprintf("Content does not have '%s' field", $fieldName));
         }
 
-        return $this->fields[$fieldName];
-    }
+        $query = $this->standaloneFieldFilter($fieldName);
 
-    public function getFieldsByParent(Field $parent): ArrayCollection
-    {
-        return $this->fields->filter(function(Field $field) use ($parent) {
-            return $field->getParent() === $parent;
-        });
+        return $query->first();
     }
 
     public function hasField(string $fieldName, $matchTypes = false): bool
     {
+
+        $query = $this->standaloneFieldFilter($fieldName);
+
         // If the field doesn't exist, we can bail here
-        if (! isset($this->fields[$fieldName])) {
+        if ($query->isEmpty()) {
             return false;
         }
 
@@ -407,7 +413,7 @@ class Content
         }
 
         // Otherwise, we need to ensure the types are the same
-        $fieldType = $this->fields[$fieldName]->getType();
+        $fieldType = $query->first()->getType();
         $definitionType = $this->contentTypeDefinition->get('fields')->get($fieldName)['type'] ?: 'undefined';
 
         return $fieldType === $definitionType;
@@ -424,7 +430,7 @@ class Content
             throw new \InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
         }
 
-        $this->fields[$field->getName()] = $field;
+        $this->fields[] = $field;
         $field->setContent($this);
 
         return $this;
@@ -441,7 +447,7 @@ class Content
 
     public function removeField(Field $field): self
     {
-        unset($this->fields[$field->getName()]);
+        $this->fields->removeElement($field);
 
         // set the owning side to null (unless already changed)
         if ($field->getContent() === $this) {
@@ -568,5 +574,19 @@ class Content
         $dateTimeUTC = new \DateTime($dateTime->format('Y-m-d H:i:s'), new \DateTimeZone('UTC'));
 
         return $dateTimeUTC->setTimezone($dateTime->getTimezone());
+    }
+
+    private function standaloneFieldsFilter()
+    {
+        return $this->fields->filter(function (Field $field){
+           return ! $field->hasParent();
+        });
+    }
+
+    private function standaloneFieldFilter(string $fieldName)
+    {
+        return $this->fields->filter(function(Field $field) use ($fieldName){
+            return $field->getName() === $fieldName && $field->hasParent() == false;
+        });
     }
 }
