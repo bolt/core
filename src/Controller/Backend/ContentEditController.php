@@ -11,7 +11,6 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Relation;
-use Bolt\Entity\Taxonomy;
 use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Event\Listener\ContentFillListener;
@@ -464,7 +463,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
             ]);
 
             if ($taxonomy === null) {
-                $taxonomy = Taxonomy::factory($key, $slug);
+                $taxonomy = $this->taxonomyRepository->factory($key, $slug);
             }
 
             $content->addTaxonomy($taxonomy);
