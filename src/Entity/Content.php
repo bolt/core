@@ -392,9 +392,7 @@ class Content
             throw new \InvalidArgumentException(sprintf("Content does not have '%s' field", $fieldName));
         }
 
-        $query = $this->standaloneFieldFilter($fieldName);
-
-        return $query->first();
+        return $this->standaloneFieldFilter($fieldName)->first();
     }
 
     public function hasField(string $fieldName, $matchTypes = false): bool

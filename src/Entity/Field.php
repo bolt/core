@@ -22,6 +22,10 @@ use Twig\Markup;
  *     }
  * })
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
+ * @ORM\Table(
+ *  uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name", "parent_id"}),
+ *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({"generic" = "Field"})

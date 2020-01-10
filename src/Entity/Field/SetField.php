@@ -7,6 +7,7 @@ namespace Bolt\Entity\Field;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,10 +32,8 @@ class SetField extends Field implements FieldInterface
         }
 
         foreach ($fieldDefinitions as $name => $definition) {
-            $itemDbName = $this::getItemDbName($this->getName(), $name);
-
-            if ($this->getContent() && $this->hasChild($itemDbName)) {
-                $field = $this->getChild($itemDbName);
+            if ($this->getContent() && $this->hasChild($name)) {
+                $field = $this->getChild($name);
                 $field->setDefinition($name, $definition);
             } else {
                 $field = parent::factory($definition);
@@ -47,12 +46,7 @@ class SetField extends Field implements FieldInterface
         return $result;
     }
 
-    public static function getItemDbName($setName, $itemName)
-    {
-        return $itemName;
-    }
-
-    private function childrenFilter(): ArrayCollection
+    private function childrenFilter(): Collection
     {
         return $this->getContent()->getRawFields()->filter(function(Field $field)
         {
