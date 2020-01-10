@@ -38,6 +38,11 @@ npm install && npm run build
 
 Alternatively, run `make install`, on a UNIX-like system.
 
+If you already have Bolt 4 installed and need to update dependencies run:
+```bash
+composer update
+```
+
 ### Or install with Docker
 
 To install Bolt 4 with Docker (for now, on a UNIX-like system):
