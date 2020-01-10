@@ -105,20 +105,6 @@ class User implements UserInterface, \Serializable
     {
     }
 
-    /**
-     * @return User
-     */
-    public static function factory(string $displayName = '', string $username = '', string $email = ''): self
-    {
-        $user = new self();
-
-        $user->setDisplayName($displayName);
-        $user->setUsername($username);
-        $user->setEmail($email);
-
-        return $user;
-    }
-
     public function getId(): int
     {
         return $this->id;

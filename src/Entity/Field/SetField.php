@@ -6,6 +6,7 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,7 +35,7 @@ class SetField extends Field implements FieldInterface
                 $field = $this->getChild($name);
                 $field->setDefinition($name, $definition);
             } else {
-                $field = parent::factory($definition);
+                $field = FieldRepository::factory($definition);
             }
 
             $field->setName($name);

@@ -73,15 +73,4 @@ class UserAuthToken
 
         return $this;
     }
-
-    public static function factory(User $user, string $useragent, \DateTime $validity): self
-    {
-        $userAuthToken = new self();
-
-        $userAuthToken->setUser($user);
-        $userAuthToken->setUseragent($useragent);
-        $userAuthToken->setValidity($validity);
-
-        return $userAuthToken;
-    }
 }

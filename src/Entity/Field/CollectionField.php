@@ -6,6 +6,7 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -54,7 +55,7 @@ class CollectionField extends Field implements FieldInterface
         }
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-            $templateField = parent::factory($fieldDefinition, '', $fieldName);
+            $templateField = FieldRepository::factory($fieldDefinition, '', $fieldName);
             $templateField->setDefinition($fieldName, $this->getDefinition()->get('fields')[$fieldName]);
             $templateField->setName($fieldName);
             $result['templates'][$fieldName] = $templateField;

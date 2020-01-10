@@ -10,6 +10,7 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Enum\Statuses;
+use Bolt\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -437,7 +438,7 @@ class Content
     {
         $definition = $this->contentTypeDefinition->get('fields')->get($fieldName);
 
-        $field = Field::factory($definition, $fieldName);
+        $field = FieldRepository::factory($definition, $fieldName);
 
         $this->addField($field);
     }

@@ -9,6 +9,7 @@ use Bolt\Entity\Field;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * @method Field|null find($id, $lockMode = null, $lockVersion = null)
@@ -42,5 +43,29 @@ class FieldRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public static function factory(Collection $definition, string $name = '', string $label = ''): Field
+    {
+        $type = $definition['type'];
+
+        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($type) . 'Field';
+        if (class_exists($classname)) {
+            $field = new $classname();
+        } else {
+            $field = new Field();
+        }
+
+        if ($name !== '') {
+            $field->setName($name);
+        }
+
+        $field->setDefinition($type, $definition);
+
+        if ($label !== '') {
+            $field->setLabel($label);
+        }
+
+        return $field;
     }
 }

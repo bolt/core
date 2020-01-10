@@ -95,30 +95,6 @@ class Field implements FieldInterface, TranslatableInterface
         return null;
     }
 
-    public static function factory(LaravelCollection $definition, string $name = '', string $label = ''): self
-    {
-        $type = $definition['type'];
-
-        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($type) . 'Field';
-        if (class_exists($classname)) {
-            $field = new $classname();
-        } else {
-            $field = new self();
-        }
-
-        if ($name !== '') {
-            $field->setName($name);
-        }
-
-        $field->setDefinition($type, $definition);
-
-        if ($label !== '') {
-            $field->setLabel($label);
-        }
-
-        return $field;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
