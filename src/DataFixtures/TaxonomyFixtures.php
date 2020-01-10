@@ -7,7 +7,7 @@ namespace Bolt\DataFixtures;
 use Bolt\Collection\DeepCollection;
 use Bolt\Common\Str;
 use Bolt\Configuration\Config;
-use Bolt\Entity\Taxonomy;
+use Bolt\Repository\TaxonomyRepository;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -16,9 +16,13 @@ class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
     /** @var Config */
     private $config;
 
-    public function __construct(Config $config)
+    /** @var TaxonomyRepository */
+    private $taxonomyRepository;
+
+    public function __construct(Config $config, TaxonomyRepository $taxonomyRepository)
     {
         $this->config = $config;
+        $this->taxonomyRepository = $taxonomyRepository;
     }
 
     public function load(ObjectManager $manager): void
@@ -45,7 +49,7 @@ class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
             $options = $taxonomyDefinition->isKeyEmpty('options') ? $this->getDefaultOptions() : $taxonomyDefinition['options'];
 
             foreach ($options as $key => $value) {
-                $taxonomy = Taxonomy::factory(
+                $taxonomy = $this->taxonomyRepository->factory(
                     $taxonomyDefinition['slug'],
                     $key,
                     $value,

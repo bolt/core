@@ -21,6 +21,27 @@ class TaxonomyRepository extends ServiceEntityRepository
         parent::__construct($registry, Taxonomy::class);
     }
 
+    public function factory(string $type, string $slug, ?string $name = null, int $sortorder = 0): Taxonomy
+    {
+        $taxonomy = $this->findOneBy([
+            'type' => $type,
+            'slug' => $slug,
+        ]);
+
+        if ($taxonomy) {
+            return $taxonomy;
+        }
+
+        $taxonomy = new Taxonomy();
+
+        $taxonomy->setType($type);
+        $taxonomy->setSlug($slug);
+        $taxonomy->setName($name ?: ucfirst($slug));
+        $taxonomy->setSortorder($sortorder);
+
+        return $taxonomy;
+    }
+
 //    /**
 //     * @return Taxonomy[] Returns an array of Taxonomy objects
 //     */
