@@ -7,6 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Repository\ContentRepository;
+use Bolt\Repository\FieldRepository;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -51,7 +52,7 @@ class FieldExtension extends AbstractExtension
             $definition = new Collection(['type' => 'generic']);
         }
 
-        return Field::factory($definition, $name);
+        return FieldRepository::factory($definition, $name);
     }
 
     public function getLabel(Field $field): string

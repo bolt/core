@@ -16,6 +16,7 @@ use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Repository\ContentRepository;
+use Bolt\Repository\FieldRepository;
 use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
@@ -296,7 +297,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                     $set = $content->getField($setName);
                 } else {
                     /** @var SetField $set */
-                    $set = Field::factory($setDefinition, $setName);
+                    $set = FieldRepository::factory($setDefinition, $setName);
                     $set->setLocale($locale);
                     $content->addField($set);
                 }
@@ -306,7 +307,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                         /** @var Field $field */
                         $field = $set->getChild($name);
                     } else {
-                        $field = Field::factory($setDefinition->get('fields')->get($name), $name);
+                        $field = FieldRepository::factory($setDefinition->get('fields')->get($name), $name);
                         $field->setParent($set);
                         $content->addField($field);
                     }
@@ -357,7 +358,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 //                if ($content->hasField($collection)) {
 //                    $collectionField = $content->getField($collection);
 //                } else {
-//                    $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
+//                    $collectionField = FieldRepository::factory($content->getDefinition()->get('fields')->get($collection));
 //                }
 //
 //                //sort the array keys (1,3,2) ascending (1,2,3)
@@ -409,7 +410,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         // Perhaps create a new Field..
         if (! $field) {
-            $field = Field::factory($definition, $fieldName);
+            $field = FieldRepository::factory($definition, $fieldName);
 
             $field->setName($fieldName);
             $content->addField($field);
