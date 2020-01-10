@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Security;
 
 use Bolt\Entity\User;
-use Bolt\Entity\UserAuthToken;
+use Bolt\Repository\UserAuthTokenRepository;
 use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -119,7 +119,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $parsedUserAgent = Parser::create()->parse($request->headers->get('User-Agent'))->toString();
         $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
         $expirationTime = (new \DateTime())->modify('+'.$sessionLifetime.' second');
-        $userAuthToken = UserAuthToken::factory($user, $parsedUserAgent, $expirationTime);
+        $userAuthToken = UserAuthTokenRepository::factory($user, $parsedUserAgent, $expirationTime);
         $user->setUserAuthToken($userAuthToken);
 
         $this->em->persist($user);
