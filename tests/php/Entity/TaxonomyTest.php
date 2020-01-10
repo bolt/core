@@ -20,7 +20,7 @@ class TaxonomyTest extends DbAwareTestCase
         $this->taxonomyRepository = $this->getEm()->getRepository(Taxonomy::class);
     }
 
-        public function testFactory(): void
+    public function testFactory(): void
     {
         $taxonomy = $this->taxonomyRepository->factory('foo', 'bar', 'Bar');
 

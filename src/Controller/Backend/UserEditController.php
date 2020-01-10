@@ -9,6 +9,7 @@ use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
+use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -55,7 +56,7 @@ class UserEditController extends TwigAwareController implements BackendZone
         $roles = $this->getParameter('security.role_hierarchy.roles');
 
         if (! $user instanceof User) {
-            $user = User::factory();
+            $user = UserRepository::factory();
             $suggestedPassword = Str::generatePassword();
         } else {
             $suggestedPassword = '';
@@ -123,7 +124,7 @@ class UserEditController extends TwigAwareController implements BackendZone
         $this->validateCsrf($request, 'useredit');
 
         if (! $user instanceof User) {
-            $user = User::factory();
+            $user = UserRepository::factory();
         }
 
         $displayName = $user->getDisplayName();

@@ -187,10 +187,7 @@ class AddUserCommand extends Command
         $this->validateUserData($username, $plainPassword, $email, $displayName);
 
         // create the user and encode its password
-        $user = new User();
-        $user->setDisplayName($displayName);
-        $user->setUsername($username);
-        $user->setEmail($email);
+        $user = UserRepository::factory($displayName, $username, $email);
         $user->setRoles([$isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER']);
         $user->setLocale('en');
         $user->setBackendTheme('default');
