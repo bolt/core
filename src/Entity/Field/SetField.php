@@ -18,43 +18,45 @@ class SetField extends Field implements FieldInterface
         return 'set';
     }
 
-    public function getHash(): string
-    {
-        if (empty(parent::getValue())) {
-            $this->setValue([uniqid()]);
-        }
-
-        return parent::getValue()[0];
-    }
-
     public function getValue(): array
     {
-        $hash = $this->getHash();
-        $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
-        $i = 0;
+
+        $fieldDefinitions = $this->getDefinition()->get('fields');
 
         // If there's no current $fieldDefinitions, we can return early
         if (! is_iterable($fieldDefinitions)) {
             return $result;
         }
 
-        foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-            $currentSetFieldName = $hash . '::' . $fieldName;
-            if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
-                $field = $this->getContent()->getField($currentSetFieldName);
-                $field->setDefinition($fieldName, $fieldDefinition);
+        foreach ($fieldDefinitions as $name => $definition) {
+            if ($this->getContent() && $this->hasChild($name)) {
+                $field = $this->getChild($name);
+                $field->setDefinition($name, $definition);
             } else {
-                $field = parent::factory($fieldDefinition);
+                $field = parent::factory($definition);
             }
 
-            $field->setName($fieldName);
-            $result['fields'][$i] = $field;
-            $i++;
+            $field->setName($name);
+            $result[] = $field;
         }
 
-        $result['hash'] = $hash;
-
         return $result;
+    }
+
+    public function getChild(string $fieldName): Field
+    {
+        return $this->getContent()->getRawFields()->filter(function (Field $field) use ($fieldName) {
+            return $field->getParent() === $this && $field->getName() === $fieldName;
+        })->first();
+    }
+
+    public function hasChild(string $fieldName): bool
+    {
+        $query = $this->getContent()->getRawFields()->filter(function (Field $field) use ($fieldName) {
+            return $field->getParent() === $this && $field->getName() === $fieldName;
+        });
+
+        return ! $query->isEmpty();
     }
 }

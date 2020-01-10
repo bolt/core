@@ -10,6 +10,7 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Field\SetField;
 use Bolt\Entity\Relation;
 use Bolt\Entity\Taxonomy;
 use Bolt\Entity\User;
@@ -288,78 +289,90 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
 
         if (isset($formData['sets'])) {
-            foreach ($formData['sets'] as $setName => $set) {
-                foreach ($set as $hash => $setFields) {
-                    $setDefinition = $content->getDefinition()->get('fields')->get($setName);
-                    $this->updateSetItems($content, $setDefinition, $hash, $setFields, $locale);
-                    if ($content->hasField($setName)) {
-                        $field = $content->getField($setName);
-                        $field->setValue($hash);
+            foreach ($formData['sets'] as $setName => $setItems) {
+                $setDefinition = $content->getDefinition()->get('fields')->get($setName);
+
+                if ($content->hasField($setName)) {
+                    /** @var SetField $set */
+                    $set = $content->getField($setName);
+                } else {
+                    /** @var SetField $set */
+                    $set = Field::factory($setDefinition, $setName);
+                    $set->setLocale($locale);
+                    $content->addField($set);
+                }
+
+                foreach ($setItems as $name => $value) {
+                    if ($set->hasChild($name)) {
+                        /** @var Field $field */
+                        $field = $set->getChild($name);
                     } else {
-                        $field = Field::factory($setDefinition, $setName);
-                        $field->setValue($hash);
-                        $field->setLocale($locale);
+                        $field = Field::factory($setDefinition->get('fields')->get($name), $name);
+                        $field->setParent($set);
                         $content->addField($field);
                     }
+
+                    $this->updateField($field, $value, $locale);
                 }
             }
         }
 
-        if (isset($formData['collections'])) {
-            foreach ($formData['collections'] as $collection => $collectionItems) {
-                $fieldsInCollection = [];
-                $orderArray = array_flip($collectionItems['order']);
-
-                //update all fields of the collection and collect their field_name and field_reference
-                foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
-                    if ($collectionItemName === 'order') {
-                        continue;
-                    }
-
-                    $collectionItemDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
-                    if ($collectionItemDefinition['type'] === 'set') {
-                        // if this is a set field, create fields for each field within the set
-                        foreach ($collectionItemValue as $hash => $fieldValue) {
-                            $this->updateSetItems($content, $collectionItemDefinition, $hash, $fieldValue, $locale);
-                        }
-                    } else {
-                        // if this is any other field
-                        $fieldDBname = $collection . '::' . $collectionItemName;
-                        $field = $this->getFieldToUpdate($content, $fieldDBname, $collectionItemDefinition);
-                        $this->updateField($field, $collectionItemValue, $locale);
-                    }
-
-                    //iterate over all submitted fields within the collection, get the correct index/order, to persist references
-                    //in the collection value
-                    foreach ($collectionItemValue as $hash => $fieldValue) {
-                        $index = $orderArray[$hash];
-                        $fieldsInCollection[$index] = [
-                            'field_name' => $collectionItemName,
-                            'field_reference' => $hash,
-                            'field_type' => $collectionItemDefinition['type'],
-                        ];
-                    }
-                }
-
-                //create the collection field itself
-                if ($content->hasField($collection)) {
-                    $collectionField = $content->getField($collection);
-                } else {
-                    $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
-                }
-
-                //sort the array keys (1,3,2) ascending (1,2,3)
-                ksort($fieldsInCollection);
-
-                $collectionField->setName($collection);
-                $collectionField->setValue($fieldsInCollection);
-                $collectionField->setLocale($locale);
-
-                if (! $content->hasField($collectionField->getName())) {
-                    $content->addField($collectionField);
-                }
-            }
-        }
+//        if (isset($formData['collections'])) {
+//            foreach ($formData['collections'] as $collection => $collectionItems) {
+//                $fieldsInCollection = [];
+//                $orderArray = array_flip($collectionItems['order']);
+//
+//                //update all fields of the collection and collect their field_name and field_reference
+//                foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
+//                    if ($collectionItemName === 'order') {
+//                        continue;
+//                    }
+//
+//                    $collectionItemDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
+//                    if ($collectionItemDefinition['type'] === 'set') {
+//                        // if this is a set field, create fields for each field within the set
+//                        foreach ($collectionItemValue as $hash => $fieldValue) {
+//                            continue;
+        ////                            $this->updateSetItems($content, $collectionItemDefinition, $hash, $fieldValue, $locale);
+//                        }
+//                    } else {
+//                        // if this is any other field
+//                        $fieldDBname = $collection . '::' . $collectionItemName;
+//                        $field = $this->getFieldToUpdate($content, $fieldDBname, $collectionItemDefinition);
+//                        $this->updateField($field, $collectionItemValue, $locale);
+//                    }
+//
+//                    //iterate over all submitted fields within the collection, get the correct index/order, to persist references
+//                    //in the collection value
+        ////                    foreach ($collectionItemValue as $hash => $fieldValue) {
+        ////                        $index = $orderArray[$hash];
+        ////                        $fieldsInCollection[$index] = [
+        ////                            'field_name' => $collectionItemName,
+        ////                            'field_reference' => $hash,
+        ////                            'field_type' => $collectionItemDefinition['type'],
+        ////                        ];
+        ////                    }
+//                }
+//
+//                //create the collection field itself
+//                if ($content->hasField($collection)) {
+//                    $collectionField = $content->getField($collection);
+//                } else {
+//                    $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
+//                }
+//
+//                //sort the array keys (1,3,2) ascending (1,2,3)
+//                ksort($fieldsInCollection);
+//
+//                $collectionField->setName($collection);
+//                $collectionField->setValue($fieldsInCollection);
+//                $collectionField->setLocale($locale);
+//
+//                if (! $content->hasField($collectionField->getName())) {
+//                    $content->addField($collectionField);
+//                }
+//            }
+//        }
 
         if (isset($formData['taxonomy'])) {
             foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
@@ -374,27 +387,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
 
         return $content;
-    }
-
-    private function updateSetItems(?Content $content, ContentType $setDefinition, string $hash, array $setFields, ?string $locale): void
-    {
-        foreach ($setFields as $setFieldChildName => $setFieldChildValue) {
-            $setFieldChildDBName = $hash . '::' . $setFieldChildName;
-            if ($content->hasField($setFieldChildDBName)) {
-                $setFieldChildField = $content->getField($setFieldChildDBName);
-            } else {
-                $setFieldChildField = Field::factory($setDefinition->get('fields')
-                    ->get($setFieldChildName), $setFieldChildDBName, $setFieldChildValue);
-            }
-
-            $setFieldChildField->setLocale($locale);
-
-            if (! $content->hasField($setFieldChildDBName)) {
-                $content->addField($setFieldChildField);
-            }
-
-            $this->updateField($setFieldChildField, $setFieldChildValue, $locale);
-        }
     }
 
     private function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field

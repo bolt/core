@@ -24,7 +24,7 @@ use Twig\Markup;
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\Table(
  *  uniqueConstraints={
- *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name"}),
+ *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name", "parent_id"}),
  *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
@@ -64,7 +64,7 @@ class Field implements FieldInterface, TranslatableInterface
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field")
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field", cascade={"persist"})
      */
     private $parent;
 
@@ -271,6 +271,11 @@ class Field implements FieldInterface, TranslatableInterface
         $this->content = $content;
 
         return $this;
+    }
+
+    public function hasParent(): bool
+    {
+        return $this->parent !== null;
     }
 
     public function getParent(): ?self
