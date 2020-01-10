@@ -12,6 +12,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
+use Bolt\Repository\FieldRepository;
 use Bolt\Utils\FakeContent;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -181,7 +182,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     {
         $sortorder = 1;
 
-        $field = Field::factory($fieldType, $name);
+        $field = FieldRepository::factory($fieldType, $name);
 
         if (isset($preset[$name])) {
             $field->setValue($preset[$name]);

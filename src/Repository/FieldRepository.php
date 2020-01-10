@@ -53,7 +53,7 @@ class FieldRepository extends ServiceEntityRepository
         if (class_exists($classname)) {
             $field = new $classname();
         } else {
-            $field = new self();
+            $field = new Field();
         }
 
         if ($name !== '') {
