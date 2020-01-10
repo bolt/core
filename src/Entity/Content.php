@@ -424,7 +424,7 @@ class Content
 
     public function addField(Field $field): self
     {
-        if ($this->hasField($field->getName())) {
+        if (!$field->hasParent() && $this->hasField($field->getName())) {
             throw new \InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
         }
 
@@ -584,7 +584,7 @@ class Content
     private function standaloneFieldFilter(string $fieldName)
     {
         return $this->fields->filter(function(Field $field) use ($fieldName){
-            return $field->getName() === $fieldName && $field->hasParent() == false;
+            return $field->getName() === $fieldName && ! $field->hasParent();
         });
     }
 }
