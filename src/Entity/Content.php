@@ -486,6 +486,11 @@ class Content
         return $options;
     }
 
+    public function hasTaxonomyDefined(string $taxonomyName): bool
+    {
+        return $this->contentTypeDefinition->get('taxonomy')->contains($taxonomyName);
+    }
+
     /**
      * @return Collection|Taxonomy[]
      */
@@ -586,5 +591,27 @@ class Content
         return $this->fields->filter(function (Field $field) use ($fieldName) {
             return $field->getName() === $fieldName && ! $field->hasParent();
         });
+    }
+
+    public function toArray(): array
+    {
+        $result = get_object_vars($this);
+
+        if ($this->author !== null) {
+            $result['author'] = [
+                'id' => $this->author->getId(),
+                'username' => $this->author->getUsername(),
+            ];
+        }
+
+        $result['fields'] = $this->getFieldValues();
+
+        $result['taxonomies'] = $this->getTaxonomyValues();
+        $result['relations'] = [];
+
+        unset($result['contentTypeDefinition']);
+        unset($result['contentExtension']);
+
+        return $result;
     }
 }
