@@ -2157,5 +2157,11 @@
         <target>User</target>
       </segment>
     </unit>
+    <unit id="3MuwWwe" name="listing.disabled">
+      <segment>
+        <source>listing.disabled</source>
+        <target>Disabled</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

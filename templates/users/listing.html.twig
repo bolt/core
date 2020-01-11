@@ -17,8 +17,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col" class="text-nowrap">{{ 'listing.title_display_name'|trans }}</th>
-            <th scope="col" class="text-nowrap">{{ 'listing.title_username'|trans }}</th>
-            <th scope="col" class="text-nowrap">{{ 'listing.title_email'|trans }}</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_username'|trans }} / {{ 'listing.title_email'|trans }}</th>
             <th scope="col" class="text-nowrap">{{ 'listing.title_roles'|trans }}</th>
             <th scope="col" class="text-nowrap">{{ 'listing.title_last_seen'|trans }}</th>
             <th scope="col" class="text-nowrap">{{ 'listing.title_last_ip'|trans }}</th>
@@ -29,21 +28,27 @@
     {% for iteratedUser in users %}
         <tr>
             <th scope="row">{{ iteratedUser.id }}</th>
-            <td>{{ iteratedUser.displayName }}</td>
-            <td>{{ iteratedUser.username }}</td>
-            <td>{{ iteratedUser.email }}</td>
-            <td><code>{{ iteratedUser.roles|join('</code>, <code>') }}</code></td>
-            <td class="datetime-relative">{{ iteratedUser.lastseenAt|date("c")|default('-') }}</td>
-            <td>{{ iteratedUser.lastIp|default('12.34.56.78') }}</td>
             <td>
-                {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary') }}
+                {{ iteratedUser.displayName }}
+                {% if iteratedUser.disabled %}<span class="badge badge-danger">{{ __('listing.disabled') }}</span>{% endif %}
+            </td>
+            <td>{{ iteratedUser.username }} / {{ iteratedUser.email }}</td>
+            <td><code>{{ iteratedUser.roles|join('</code>, <code>')|raw }}</code></td>
+            {% if iteratedUser.lastseenAt %}
+                <td class="datetime-relative">{{ iteratedUser.lastseenAt|date("c") }}</td>
+            {% else %}
+                <td>-</td>
+            {% endif %}
+            <td>{% if iteratedUser.lastIp %}<code>{{ iteratedUser.lastIp }}</code>{% else %}-{% endif %}</td>
+            <td>
+                {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary sm') }}
                 {% if user.id != iteratedUser.id %}
                     {% if iteratedUser.disabled %}
-                        {{ macro.buttonlink('action.enable', path('bolt_user_disable', {'id': iteratedUser.id}), 'thumbs-up', 'secondary') }}
+                        {{ macro.buttonlink('action.enable', path('bolt_user_disable', {'id': iteratedUser.id}), 'thumbs-up', 'secondary sm') }}
                     {% else %}
-                        {{ macro.buttonlink('action.disable', path('bolt_user_disable', {'id': iteratedUser.id}), 'ban', 'secondary') }}
+                        {{ macro.buttonlink('action.disable', path('bolt_user_disable', {'id': iteratedUser.id}), 'ban', 'secondary sm') }}
                     {% endif %}
-                    {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id}), 'trash', 'danger') }}
+                    {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id}), 'trash', 'danger sm') }}
                 {%  endif %}
             </td>
         </tr>
@@ -75,7 +80,7 @@
                         <td class="text-nowrap">{{ iteratedUser.username }}</td>
                         <td class="text-nowrap datetime-relative">{{ iteratedUser.lastseenAt|date("c") }}</td>
                         <td class="datetime-relative">{{ authtoken.validity|date("c") }}</td>
-                        <td class="text-nowrap">{{ iteratedUser.lastIp|default('12.34.56.78') }}</td>
+                        <td class="text-nowrap"><code>{{ iteratedUser.lastIp|default('-') }}</code></td>
                         <td>{{ authtoken.useragent|default('-') }}</td>
                     </tr>
                 {% endif %}
