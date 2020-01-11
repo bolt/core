@@ -95,9 +95,6 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['show_in_menu'])) {
             $contentType['show_in_menu'] = true;
         }
-        if (! isset($contentType['sort'])) {
-            $contentType['sort'] = 'id';
-        }
         if (! isset($contentType['default_status'])) {
             $contentType['default_status'] = Statuses::PUBLISHED;
         }
@@ -149,6 +146,8 @@ class ContentTypesParser extends BaseParser
         [$fields, $groups] = $this->parseFieldsAndGroups($contentType['fields']);
         $contentType['fields'] = $fields;
         $contentType['groups'] = $groups;
+
+        $contentType['sort'] = $this->determineSort($contentType);
 
         // Make sure taxonomy is an array.
         if (isset($contentType['taxonomy'])) {
@@ -278,5 +277,35 @@ class ContentTypesParser extends BaseParser
         }
 
         return $repeater;
+    }
+
+    private function determineSort(array $contentType): string
+    {
+        $sort = $contentType['sort'] ?? 'id';
+
+        $replacements = [
+            'created' => 'createdAt',
+            'createdat' => 'createdAt',
+            'datechanged' => 'modifiedAt',
+            'datecreated' => 'createdAt',
+            'datepublish' => 'publishedAt',
+            'modified' => 'modifiedAt',
+            'modifiedat' => 'modifiedAt',
+            'published' => 'publishedAt',
+            'publishedat' => 'publishedAt',
+            'Atat' => 'At',
+            'AtAt' => 'At',
+        ];
+
+        $sort = str_replace(array_keys($replacements), array_values($replacements), $sort);
+
+        $sortname = trim($sort, '-');
+
+        if (! in_array($sortname, array_keys($contentType['fields']), true) &&
+            ! in_array($sortname, ['createdAt', 'modifiedAt', 'publishedAt'], true)) {
+            $sort = 'id';
+        }
+
+        return $sort;
     }
 }
