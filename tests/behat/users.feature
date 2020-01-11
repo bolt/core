@@ -11,16 +11,15 @@ Feature: Users & Permissions
       | columns |
       | # |
       | Display name |
-      | Username |
-      | Email |
+      | Username / Email |
       | Roles |
       | Last registered |
       | Last IP |
       | Actions |
     And I should see 5 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And the data in the 1st row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table should match:
-      | col1 | col2 | col3 | col4 | col5 | col7 | col8 |
-      | 1 | Admin | admin | admin@example.org | ROLE_ADMIN | 127.0.0.1 | Edit |
+      | col1 | col2 | col3 | col4 | col6 | col7 |
+      | 1 | Admin | admin / admin@example.org | ROLE_ADMIN | 127.0.0.1 | Edit |
 
   @javascript
   Scenario: Disable/enable user
@@ -32,8 +31,8 @@ Feature: Users & Permissions
     And I am logged in as "admin"
     When I am on "/bolt/users"
     #disable button for given user
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(8) > a:nth-child(2)"
-    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(8) > a:nth-child(2)" element
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > a:nth-child(2)"
+    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > a:nth-child(2)" element
 
     Then I logout
     When I am logged in as "jane_admin" with password "jane%1"
@@ -42,8 +41,8 @@ Feature: Users & Permissions
 
     When I am logged in as "admin"
     And I am on "/bolt/users"
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(8) > a:nth-child(2)"
-    Then I should see "Disable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(8) > a:nth-child(2)" element
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > a:nth-child(2)"
+    Then I should see "Disable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > a:nth-child(2)" element
 
     Then I logout
     Then I am logged in as "jane_admin" with password "jane%1"
@@ -85,7 +84,7 @@ Feature: Users & Permissions
     And I should see "Test user" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" element
 
     #delete button for new user
-    When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(8) > a.btn.btn-danger.mb-3.text-nowrap"
+    When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(7) > a.btn.btn-danger.mb-3.text-nowrap"
     Then I should be on "/bolt/users"
     And I should see 5 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And I should not see "test_user"
@@ -98,7 +97,7 @@ Feature: Users & Permissions
     Given I am logged in as "admin"
     And I am on "/bolt/users"
     #edit on tom_admin
-    When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(8) > a:nth-child(1)"
+    When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(7) > a:nth-child(1)"
     Then I should ne on url matching "\/bolt\/user\-edit\/[0-9]+"
 
     When I fill in the following:
