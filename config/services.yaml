@@ -83,6 +83,9 @@ services:
                 method: addScope
                 arguments: [ 'frontend', '@Bolt\Storage\FrontendQueryScope' ]
 
+    Bolt\Twig\DumpExtension:
+        arguments: ["%kernel.environment%"]
+
     Doctrine\ORM\Query\Expr: ~
 
     monolog.processor.request:

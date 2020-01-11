@@ -21,7 +21,7 @@ class DumpExtension extends AbstractExtension
 
     public function __construct(?string $env = null)
     {
-        $this->env = $env;
+        $this->env = $env ?? 'dev';
     }
 
     public function getFunctions(): array
