@@ -373,7 +373,7 @@
         "version": "2.0.1"
     },
     "php": {
-        "version": "7.3"
+        "version": "7.2"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -1018,9 +1018,6 @@
     "symplify/coding-standard": {
         "version": "v7.0.2"
     },
-    "symplify/easy-coding-standard": {
-        "version": "v7.0.2"
-    },
     "symplify/package-builder": {
         "version": "v7.2.0"
     },
@@ -1035,18 +1032,6 @@
     },
     "tightenco/collect": {
         "version": "v6.9.0"
-    },
-    "twig/extensions": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "a86723ee8d8b2f9437c8ce60a5546a1c267da5ed"
-        },
-        "files": [
-            "config/packages/twig_extensions.yaml"
-        ]
     },
     "twig/twig": {
         "version": "v2.12.3"

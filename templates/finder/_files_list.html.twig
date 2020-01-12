@@ -10,6 +10,7 @@
         <th>{{ 'actions'|trans }}</th>
     </tr>
     </thead>
+
     {% for file in finder.files() %}
 
         {% set extension = file.extension() %}
@@ -21,14 +22,17 @@
         {% set dimensions = '' %}
 
         {% if extension in imageformats %}
+
             {% set thumbnail = filename|thumbnail(width = 100, height = 72, location = location.key, fit = 'crop') %}
             {% set icon = 'fa-image' %}
             {% set link = path('bolt_media_new', {'location': location.key, 'file': filename}) %}
 
-            {% for image in media|default([])|filter((image, filename) => image.filename in filename) %}
-                {% set title = image.title %}
-                {% set dimensions = image.width ~ ' × ' ~ image.height ~ 'px' %}
-                {% set link = path('bolt_media_edit', {'id': image.id}) %}
+            {% for image in media|default([]) %}
+                {% if image.filename in filename %}
+                    {% set title = image.title %}
+                    {% set dimensions = image.width ~ ' × ' ~ image.height ~ 'px' %}
+                    {% set link = path('bolt_media_edit', {'id': image.id}) %}
+                {% endif %}
             {% endfor %}
 
         {% endif %}
@@ -57,7 +61,7 @@
                 {% if dimensions %}<br><small style="color: #888;">{{ dimensions }}</small>{% endif %}
             </td>
             <td>
-                {{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}
+                <small style="color: #888;">{{ file.getCTime()|date('Y-m-d H:i:s') }}</small>
             </td>
             <td>
                 &nbsp;

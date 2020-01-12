@@ -15,11 +15,14 @@
             {% set icon = 'fa-image' %}
             {% set link = path('bolt_media_new', {'location': location.key, 'file': filename}) %}
 
-            {% for image in media|default([])|filter((image, filename) => image.filename in filename) %}
-                {% set title = image.title %}
-                {% set dimensions = image.width ~ ' × ' ~ image.height ~ 'px' %}
-                {% set link = path('bolt_media_edit', {'id': image.id}) %}
+            {% for image in media|default([]) %}
+                {% if image.filename in filename %}
+                    {% set title = image.title %}
+                    {% set dimensions = image.width ~ ' × ' ~ image.height ~ 'px' %}
+                    {% set link = path('bolt_media_edit', {'id': image.id}) %}
+                {% endif %}
             {% endfor %}
+
         {% endif %}
 
     <div class="col-6 col-sm-4 col-xl-3 pr-0 pb-3">
@@ -100,7 +103,7 @@
                         <span class="dropdown-item-text">
                             <i class="far fa-calendar-alt fa-w"></i>
                             {{ 'files_cards.label_created_on'|trans }}
-                            <strong>{{ file.getCTime()|localizeddate('short', 'short', null, 'UTC') }}</strong>
+                            <strong>{{ file.getCTime()|date('Y-m-d H:i:s') }}</strong>
                         </span>
 
                     </div>
