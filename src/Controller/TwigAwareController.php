@@ -46,7 +46,6 @@ class TwigAwareController extends AbstractController
      * Renders a view.
      *
      * @param string|array $template
-     *
      */
     protected function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
     {
