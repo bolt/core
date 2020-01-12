@@ -1284,7 +1284,7 @@
     <unit id="oOuVKRv" name="image.placeholder_filename">
       <segment>
         <source>image.placeholder_filename</source>
-        <target>Filename</target>
+        <target>Filename (upload a new file, or select an existing one)</target>
       </segment>
     </unit>
     <unit id="BWubOnS" name="image.placeholder_alt_text">
