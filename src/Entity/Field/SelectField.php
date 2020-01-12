@@ -47,6 +47,38 @@ class SelectField extends Field implements FieldInterface
         return (array) $value;
     }
 
+    public function getOptions()
+    {
+        return $this->getDefinition()->get('values');
+    }
+
+    public function getSelected()
+    {
+        // "ContentSelect" select, with ids of other content
+        if ($this->isContentSelect()) {
+            return new Collection(parent::getValue());
+        }
+
+        // "Normal" select, with options
+        return $this->getOptions()->intersectByKeys(array_flip(parent::getValue()));
+    }
+
+    public function getSelectedIds()
+    {
+        return implode(' || ', parent::getValue());
+    }
+
+    public function getContentType()
+    {
+        $values = $this->getDefinition()->get('values');
+
+        if (is_string($values) && mb_strpos($values, '/') !== false) {
+            return current(explode('/', $values));
+        }
+
+        return false;
+    }
+
     public function isContentSelect(): bool
     {
         $values = $this->getDefinition()->get('values');
