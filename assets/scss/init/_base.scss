@@ -58,3 +58,7 @@ input.flatpickr-input[disabled] {
   background-color: $input-disabled-bg;
   color: $input-disabled-color;
 }
+
+input::placeholder {
+  font-style: italic;
+}

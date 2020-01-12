@@ -939,7 +939,7 @@
     <unit id="oOuVKRv" name="image.placeholder_filename">
       <segment>
         <source>image.placeholder_filename</source>
-        <target>Bestandsnaam</target>
+        <target>Bestandsnaam (upload een nieuw bestand, of selecteer een bestaande)</target>
       </segment>
     </unit>
     <unit id="BWubOnS" name="image.placeholder_alt_text">
