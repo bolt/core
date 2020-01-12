@@ -60,7 +60,7 @@
 
             {# @todo Make set return _just_ the array of fields for `.value` and `getValue()`. See issue #822 #}
             {# note: For sets we need `field.value.fields`, hence the seemingly obtuse way to iterate over them #}
-            {% for field in field.value.fields|default(field.value) %}
+            {% for field in field.value %}
                 {% set type = field.type %}
                 {{ block('common_fields') }}
                 {{ block('extended_fields') }}
