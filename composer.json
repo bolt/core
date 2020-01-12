@@ -62,7 +62,7 @@
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "^4.4",
         "tightenco/collect": "^6.9",
-        "twig/extensions": "^1.5",
+        "twig/twig": "^3.0",
         "ua-parser/uap-php": "^3.9",
         "webmozart/path-util": "^2.3",
         "webonyx/graphql-php": "^0.13",

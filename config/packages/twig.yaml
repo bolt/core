@@ -1,6 +1,6 @@
 twig:
     debug: '%kernel.debug%'
-    strict_variables: true
+    strict_variables: '%kernel.debug%'
     form_themes:
         - '@bolt/form/layout.html.twig'
         - '@bolt/form/fields.html.twig'
