@@ -85,7 +85,7 @@
         "behatch/contexts": "^3.2",
         "bobdenotter/weatherwidget": "^1.0",
         "bolt/newswidget": "^1.1",
-        "coduo/php-matcher": "^3.2",
+        "coduo/php-matcher": "^4.0",
         "dama/doctrine-test-bundle": "^6.2.0",
         "lakion/mink-debug-extension": "^1.2",
         "php-http/httplug-pack": "^1.2",

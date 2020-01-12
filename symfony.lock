@@ -373,7 +373,7 @@
         "version": "2.0.1"
     },
     "php": {
-        "version": "7.3"
+        "version": "7.2"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -1016,9 +1016,6 @@
         "version": "v7.2.0"
     },
     "symplify/coding-standard": {
-        "version": "v7.0.2"
-    },
-    "symplify/easy-coding-standard": {
         "version": "v7.0.2"
     },
     "symplify/package-builder": {
