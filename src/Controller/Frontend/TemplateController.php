@@ -17,10 +17,6 @@ class TemplateController extends TwigAwareController implements FrontendZone
      * Note: This is _not_ assigned a Route by default. If it were, it's a potential security risk,
      * since a would-be attacker could try to access template files from both the theme and bolt
      * directly.
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function template(string $templateName): Response
     {
