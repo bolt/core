@@ -7,10 +7,6 @@ parameters:
     ignoreErrors:
         # false positive: `Parameter #1 $value of class Twig\Node\Expression\ConstantExpression constructor expects array, string given.`
         # class `ConstantExpression()` casts to array itself.
-        # @todo Check if this is still valid after update to Twig 3
-        -
-            message: '#value of class Twig\\Node\\Expression\\ConstantExpression constructor expects#'
-            path: %currentWorkingDirectory%/src/*
 
         # false positive: `Unreachable statement - code above always terminates.`
         # @todo Check if this is still needed after https://github.com/phpstan/phpstan/issues/2651 is fixed
