@@ -51,7 +51,7 @@
         {% endif %}
 
         {# The rest of the built-in types #}
-        {% if extended|default(false) and (type not in exclude|default([])) %}
+        {% if extended|default(true) and (type not in exclude|default([])) %}
             {{ block('extended_fields') }}
         {% endif %}
 

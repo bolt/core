@@ -61,9 +61,19 @@
 
     {# Special case for 'select' fields: if it's a multiple select, the field is an array. #}
     {% if type == "select" and field is not empty %}
-        <p><strong>{{ field|label }}: </strong>
-            {{ dump(field) }}
-        </p>
+        <p><strong>{{ field|label }}: </strong></p>
+            <ul>
+            {% if field.contentSelect %}
+                {% setcontent selected = field.contentType where {'id': field.selectedIds} %}
+                {% for record in selected %}
+                <li><a href="{{ record|link }}">{{ record|title }}</a></li>
+                {% endfor %}
+            {% else %}
+                {% for key, value in field.selected %}
+                    <li>{{ value }} <small>(key: <code>{{ key }}</code>)</small></li>
+                {% endfor %}
+            {% endif %}
+            </ul>
     {% endif %}
 
     {# Checkbox fields #}
