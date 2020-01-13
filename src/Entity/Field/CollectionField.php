@@ -6,21 +6,23 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\FieldParentInterface;
+use Bolt\Entity\FieldParentTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Sirius\Upload\Util\Arr;
 
 /**
  * @ORM\Entity
  */
-class CollectionField extends Field implements FieldInterface
+class CollectionField extends Field implements FieldInterface, FieldParentInterface
 {
+    use FieldParentTrait;
+
     public function getType(): string
     {
         return 'collection';
-    }
-
-    private function getCollectionFieldValues(): array
-    {
-        return parent::getValue();
     }
 
     public function getValue(): array
@@ -28,30 +30,7 @@ class CollectionField extends Field implements FieldInterface
         $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
 
-        $thisFieldValues = $this->getCollectionFieldValues();
-
-        $i = 0;
-        foreach ($thisFieldValues as $thisFieldValue) {
-            if ($thisFieldValue['field_type'] === 'set') {
-                $field = new SetField();
-                $field->setContent($this->getContent());
-                $field->setValue($thisFieldValue['field_reference']);
-                $field->setDefinition($thisFieldValue['field_name'], $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
-                $field->setName($thisFieldValue['field_name']);
-            } else {
-                $fieldDBname = $this->getName() . '::' . $thisFieldValue['field_name'];
-                $field = $this->getContent()->getField($fieldDBname);
-                //The field value persists ALL the values for the same type collection items (e.g. all 'ages') in an array
-                //To display the value for the current item, we set the value for the specific key only
-                //As $this->getValue() is called multiple times, clone the object to ensure $field->setValue() is called once per instance
-                $field = clone $field;
-                $field->setName($thisFieldValue['field_name']);
-                $field->setValue($field->getValue()[$thisFieldValue['field_reference']]);
-                $field->setDefinition($thisFieldValue['field_name'], $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
-            }
-            $result['fields'][$i] = $field;
-            $i++;
-        }
+        $result['fields'] = $this->getOrderedChildren();
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
             $templateField = parent::factory($fieldDefinition, '', $fieldName);
@@ -61,5 +40,25 @@ class CollectionField extends Field implements FieldInterface
         }
 
         return $result;
+    }
+
+    private function getOrderedChildren(): ArrayCollection
+    {
+        if(! $this->getContent())
+        {
+            return new ArrayCollection();
+        }
+
+        $query = $this->getContent()->getRawFields()->filter(function (Field $field) {
+            return $field->getParent() === $this;
+        });
+
+        $iterator = $query->getIterator();
+
+        $iterator->uasort(function (Field $first, Field $second){
+            return (int) $first->getSortorder() > (int) $second->getSortorder() ? 1 : -1;
+        });
+
+        return new ArrayCollection(iterator_to_array($iterator));
     }
 }
