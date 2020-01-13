@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
+use ArrayIterator;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Sirius\Upload\Util\Arr;
 
 /**
  * @ORM\Entity
@@ -42,8 +41,7 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 
     public function getValue(): array
     {
-        if(! $this->getContent())
-        {
+        if (! $this->getContent()) {
             return [];
         }
 
@@ -51,19 +49,19 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
             return $field->getParent() === $this;
         });
 
+        /** @var ArrayIterator $iterator */
         $iterator = $query->getIterator();
 
-        $iterator->uasort(function (Field $first, Field $second){
+        $iterator->uasort(function (Field $first, Field $second) {
             return (int) $first->getSortorder() > (int) $second->getSortorder() ? 1 : -1;
         });
 
         $fields = new ArrayCollection(iterator_to_array($iterator));
 
-        $fields->map(function (Field $field){
+        $fields->map(function (Field $field): void {
             $field->setDefinition($field->getName(), $this->getDefinition()->get('fields')[$field->getName()]);
         });
 
         return $fields->toArray();
-
     }
 }
