@@ -321,7 +321,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                         $field = $collection->getChild($name);
                         $field->setDefinition($name, $fieldDefinition);
                     } else {
-                        $field = Field::factory($fieldDefinition, $name);
+                        $field = FieldRepository::factory($fieldDefinition, $name);
                         $field->setParent($collection);
                         $content->addField($field);
                     }
@@ -396,7 +396,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                 if ($field->hasChild($name)) {
                     $child = $field->getChild($name);
                 } else {
-                    $child = Field::factory($field->getDefinition()->get('fields')->get($name), $name);
+                    $child = FieldRepository::factory($field->getDefinition()->get('fields')->get($name), $name);
                     $child->setParent($field);
                     $field->getContent()->addField($child);
                 }
