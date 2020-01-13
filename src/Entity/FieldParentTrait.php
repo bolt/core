@@ -26,4 +26,30 @@ trait FieldParentTrait
 
         return ! $query->isEmpty();
     }
+
+    public function hasChildren(): bool
+    {
+        $query = $this->getContent()->getRawFields()->filter(function (Field $field) {
+            return $field->getParent() === $this;
+        });
+
+        return ! $query->isEmpty();
+    }
+
+    public function getChildren(): array
+    {
+        return $this->getContent()->getRawFields()->filter(function (Field $field) {
+            return $field->getParent() === $this;
+        })->toArray();
+    }
+
+    public function setLocale(? string $locale): void
+    {
+        parent::setLocale($locale);
+        /** @var Field $child */
+        foreach($this->getChildren() as $child){
+            $child->setLocale($locale);
+        }
+    }
+
 }
