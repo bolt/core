@@ -25,28 +25,28 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         return 'collection';
     }
 
-    public function getValue(): array
+    public function getTemplates(): array
     {
         $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
-
-        $result['fields'] = $this->getOrderedChildren();
 
         foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
             $templateField = parent::factory($fieldDefinition, '', $fieldName);
             $templateField->setDefinition($fieldName, $this->getDefinition()->get('fields')[$fieldName]);
             $templateField->setName($fieldName);
-            $result['templates'][$fieldName] = $templateField;
+            $result[$fieldName] = $templateField;
         }
 
         return $result;
     }
 
-    private function getOrderedChildren(): ArrayCollection
+    public function getValue(): array
     {
+        $fieldDefinitions = $this->getDefinition()->get('fields');
+
         if(! $this->getContent())
         {
-            return new ArrayCollection();
+            return [];
         }
 
         $query = $this->getContent()->getRawFields()->filter(function (Field $field) {
@@ -59,6 +59,14 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
             return (int) $first->getSortorder() > (int) $second->getSortorder() ? 1 : -1;
         });
 
-        return new ArrayCollection(iterator_to_array($iterator));
+        $fields = new ArrayCollection(iterator_to_array($iterator));
+
+        $fields->map(function (Field $field){
+            $field->setDefinition($field->getName(), $this->getDefinition()->get('fields')[$field->getName()]);
+        });
+
+        return $fields->toArray();
+
     }
+
 }
