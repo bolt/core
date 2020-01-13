@@ -41,14 +41,9 @@
     {% set fieldsHtml = [] %}
     {% for item_field in fields %}
         {% set collectionItemName = 'collections[' ~ collectionField.name ~ '][' ~ item_field.definition.name ~ ']' %}
-        {% if item_field.definition.type == 'set' %}
-            {% set hash = item_field.hash %}
-        {% else %}
-            {# non-set fields do not have hashes, so we create a 'dummy' hash from the current loop index. #}
-            {% set hash = loop.index0 %}
-            {% set collectionItemName = collectionItemName ~ '[' ~ hash ~ ']' %}
-        {% endif %}
-
+        {# we create a 'dummy' hash from the current loop index, which is used to instantiate copies of collection item templates. #}
+        {% set hash = loop.index0 %}
+        {% set collectionItemName = collectionItemName ~ '[' ~ hash ~ ']' %}
         {% set new_field %}
             {% set context = {
                 'field': item_field,

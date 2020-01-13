@@ -42,8 +42,6 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 
     public function getValue(): array
     {
-        $fieldDefinitions = $this->getDefinition()->get('fields');
-
         if(! $this->getContent())
         {
             return [];
@@ -68,5 +66,4 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         return $fields->toArray();
 
     }
-
 }
