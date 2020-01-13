@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslationTrait;
 
 /**
