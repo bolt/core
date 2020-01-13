@@ -299,7 +299,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         if (isset($formData['collections'])) {
             foreach ($formData['collections'] as $collectionName => $collectionItems) {
-
                 $collectionDefinition = $content->getDefinition()->get('fields')->get($collectionName);
                 $orderArray = array_flip($collectionItems['order']);
 
@@ -318,7 +317,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
                     $fieldDefinition = $collection->getDefinition()->get('fields')->get($name);
 
-                    if($collection->hasChild($name)) {
+                    if ($collection->hasChild($name)) {
                         $field = $collection->getChild($name);
                         $field->setDefinition($name, $fieldDefinition);
                     } else {
@@ -391,8 +390,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $value = Json::findArray($value);
         }
 
-        if($field->getType() == 'set')
-        {
+        if ($field->getType() === 'set') {
             foreach ($value as $name => $svalue) {
                 /** @var SetField $field */
                 if ($field->hasChild($name)) {
@@ -410,7 +408,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
         } else {
             $field->setValue($value);
         }
-
 
         // If the Field is MediaAware, link it to an existing Media Entity
         if ($field instanceof Field\MediaAware) {

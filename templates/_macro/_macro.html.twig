@@ -42,6 +42,7 @@
     {% for item_field in fields %}
         {% set collectionItemName = 'collections[' ~ collectionField.name ~ '][' ~ item_field.definition.name ~ ']' %}
         {# we create a 'dummy' hash from the current loop index, which is used to instantiate copies of collection item templates. #}
+        {# The order is also submitted in an order field, so that collection items may be stored in the given order in the database. #}
         {% set hash = loop.index0 %}
         {% set collectionItemName = collectionItemName ~ '[' ~ hash ~ ']' %}
         {% set new_field %}
