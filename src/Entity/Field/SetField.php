@@ -8,6 +8,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
+use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
