@@ -6,14 +6,17 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
-use Bolt\Repository\FieldRepository;
+use Bolt\Entity\FieldParentInterface;
+use Bolt\Entity\FieldParentTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class SetField extends Field implements FieldInterface
+class SetField extends Field implements FieldInterface, FieldParentInterface
 {
+    use FieldParentTrait;
+
     public function getType(): string
     {
         return 'set';
@@ -43,21 +46,5 @@ class SetField extends Field implements FieldInterface
         }
 
         return $result;
-    }
-
-    public function getChild(string $fieldName): Field
-    {
-        return $this->getContent()->getRawFields()->filter(function (Field $field) use ($fieldName) {
-            return $field->getParent() === $this && $field->getName() === $fieldName;
-        })->first();
-    }
-
-    public function hasChild(string $fieldName): bool
-    {
-        $query = $this->getContent()->getRawFields()->filter(function (Field $field) use ($fieldName) {
-            return $field->getParent() === $this && $field->getName() === $fieldName;
-        });
-
-        return ! $query->isEmpty();
     }
 }
