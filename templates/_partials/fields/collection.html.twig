@@ -8,14 +8,14 @@
 
     {# get the html for all collection field already in the database #}
     {% set existing_fields = []|json_encode %}
-    {% if field.value.fields is defined %}
-        {% set existing_fields %}{{ macro.generate_collection_fields(field, field.value.fields) }}{% endset %}
+    {% if field.value is defined %}
+        {% set existing_fields %}{{ macro.generate_collection_fields(field, field.value) }}{% endset %}
     {% endif %}
 
     {# get the html template for the collection fields defined in the field definition #}
     {% set templated_fields = "" %}
-    {% if field.value.templates is defined %}
-        {% set templated_fields %}{{  macro.generate_collection_fields(field, field.value.templates) }}{% endset %}
+    {% if field.templates is defined %}
+        {% set templated_fields %}{{  macro.generate_collection_fields(field, field.templates) }}{% endset %}
     {% endif %}
 
     <editor-collection
