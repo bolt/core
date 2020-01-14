@@ -189,10 +189,11 @@ class ContentRepository extends ServiceEntityRepository
     {
         $qb = $this->getQueryBuilder();
 
-        [$where, $value] = JsonHelper::wrapJsonFunction('field.value', $value, $qb);
+        [$where, $value] = JsonHelper::wrapJsonFunction('translation.value', $value, $qb);
 
         return $qb
             ->innerJoin('content.fields', 'field')
+            ->innerJoin('field.translations', 'translation')
             ->andWhere($where . ' = :value')
             ->setParameter('value', $value)
             ->setMaxResults(1)
