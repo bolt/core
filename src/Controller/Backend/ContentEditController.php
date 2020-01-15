@@ -315,12 +315,10 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function removeFieldChildren(FieldParentInterface $field)
+    private function removeFieldChildren(FieldParentInterface $field): void
     {
-        foreach($field->getChildren() as $child)
-        {
-            if($child instanceof FieldParentInterface && $child->hasChildren())
-            {
+        foreach ($field->getChildren() as $child) {
+            if ($child instanceof FieldParentInterface && $child->hasChildren()) {
                 $this->removeFieldChildren($child);
             }
 
@@ -328,15 +326,14 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
     }
 
-    private function updateCollections(Content $content, array $formData, ?string $locale)
+    private function updateCollections(Content $content, array $formData, ?string $locale): void
     {
-        $collections = $content->getFields()->filter(function (Field $field){
+        $collections = $content->getFields()->filter(function (Field $field) {
             return $field->getType() === CollectionField::TYPE;
         });
 
         /** @var CollectionField $collection */
-        foreach($collections as $collection)
-        {
+        foreach ($collections as $collection) {
             $this->removeFieldChildren($collection);
         }
 
@@ -356,7 +353,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
                         continue;
                     }
 
-                    foreach($values as $hash => $value) {
+                    foreach ($values as $hash => $value) {
                         $order = $orderArray[$hash];
                         $fieldDefinition = $collection->getDefinition()->get('fields')->get($name);
                         $field = FieldRepository::factory($fieldDefinition, $name);
