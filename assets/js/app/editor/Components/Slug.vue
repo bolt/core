@@ -25,16 +25,16 @@
           <i class="fas fa-fw" :class="`fa-${icon}`"></i> {{ buttonText }}
         </button>
         <div class="dropdown-menu">
-            <template v-if="!edit">
-              <a class="dropdown-item" @click="editSlug">
-                <i class="fas fa-pencil-alt fa-fw"></i> {{ labels.button_edit }}
-              </a>
-            </template>
-            <template v-if="!locked">
-              <a class="dropdown-item" @click="lockSlug">
-                <i class="fas fa-lock fa-fw"></i> {{ labels.button_locked }}
-              </a>
-            </template>
+          <template v-if="!edit">
+            <a class="dropdown-item" @click="editSlug">
+              <i class="fas fa-pencil-alt fa-fw"></i> {{ labels.button_edit }}
+            </a>
+          </template>
+          <template v-if="!locked">
+            <a class="dropdown-item" @click="lockSlug">
+              <i class="fas fa-lock fa-fw"></i> {{ labels.button_locked }}
+            </a>
+          </template>
           <a class="dropdown-item" @click="generateSlug()">
             <i class="fas fa-link fa-fw"></i> {{ labels.generate_from }}
             {{ generate }}
@@ -73,7 +73,9 @@ export default {
       console.log('time, time, time');
       let title = '';
       this.generate.split(',').forEach(element => {
-        title = title + document.querySelector(`input[name='fields[${element}]']`).value;
+        title =
+          title +
+          document.querySelector(`input[name='fields[${element}]']`).value;
       });
       if (title.length <= 0) {
         this.icon = 'unlock';
@@ -82,7 +84,6 @@ export default {
       }
     }, 0);
     this.$root.$on('slugify-from-title', () => this.generateSlug());
-
   },
   methods: {
     editSlug() {
@@ -104,7 +105,10 @@ export default {
     generateSlug() {
       let title = '';
       this.generate.split(',').forEach(element => {
-        title = title + ' ' + document.querySelector(`input[name='fields[${element}]']`).value;
+        title =
+          title +
+          ' ' +
+          document.querySelector(`input[name='fields[${element}]']`).value;
       });
 
       const slug = this.$options.filters.slugify(title);
