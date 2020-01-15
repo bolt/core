@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DateField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'date';
-    }
+    public const TYPE = 'date';
 }

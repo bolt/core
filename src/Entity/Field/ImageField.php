@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ImageField extends Field implements FieldInterface, MediaAware
 {
+    public const TYPE = 'image';
+
     /** @var array */
     private $fieldBase = [];
 
@@ -30,11 +32,6 @@ class ImageField extends Field implements FieldInterface, MediaAware
             'thumbnail' => '',
             'fieldname' => '',
         ];
-    }
-
-    public function getType(): string
-    {
-        return 'image';
     }
 
     public function __toString(): string

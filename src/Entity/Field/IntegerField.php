@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class IntegerField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'integer';
-    }
+    public const TYPE = 'integer';
 }

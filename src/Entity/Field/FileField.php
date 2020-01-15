@@ -15,10 +15,7 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
  */
 class FileField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'file';
-    }
+    public const TYPE = 'file';
 
     public function __toString(): string
     {

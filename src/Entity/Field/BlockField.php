@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class BlockField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'block';
-    }
+    public const TYPE = 'block';
 }

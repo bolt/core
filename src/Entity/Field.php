@@ -22,10 +22,6 @@ use Twig\Markup;
  *     }
  * })
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
- * @ORM\Table(
- *  uniqueConstraints={
- *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name", "parent_id"}),
- *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({"generic" = "Field"})
@@ -33,6 +29,8 @@ use Twig\Markup;
 class Field implements FieldInterface, TranslatableInterface
 {
     use TranslatableTrait;
+
+    public const TYPE = 'generic';
 
     /**
      * @ORM\Id()
@@ -278,7 +276,7 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public function getType(): string
     {
-        return 'generic';
+        return static::TYPE;
     }
 
     /**

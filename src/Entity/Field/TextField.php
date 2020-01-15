@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TextField extends Field implements Excerptable, FieldInterface
 {
-    public function getType(): string
-    {
-        return 'text';
-    }
+    public const TYPE = 'text';
 }

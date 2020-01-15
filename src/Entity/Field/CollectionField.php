@@ -20,10 +20,7 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 {
     use FieldParentTrait;
 
-    public function getType(): string
-    {
-        return 'collection';
-    }
+    public const TYPE = 'collection';
 
     public function getTemplates(): array
     {

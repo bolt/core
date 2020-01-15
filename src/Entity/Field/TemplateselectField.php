@@ -14,10 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TemplateselectField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'templateselect';
-    }
+    public const TYPE = 'templateselect';
 
     public function setValue($value): Field
     {

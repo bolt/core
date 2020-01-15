@@ -14,10 +14,7 @@ use Tightenco\Collect\Support\Collection;
  */
 class SelectField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'select';
-    }
+    public const TYPE = 'select';
 
     public function setValue($value): Field
     {
