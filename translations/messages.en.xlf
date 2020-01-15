@@ -2163,5 +2163,11 @@
         <target>Disabled</target>
       </segment>
     </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <segment>
+        <source>slug.button_unlocked</source>
+        <target>Unlocked</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
