@@ -93,9 +93,12 @@ export default {
       }
     },
     generateSlug() {
-      const title = document.querySelector(
-        `input[name='fields[${this.generate}]']`,
-      ).value;
+      let title = '';
+
+      this.generate.split(',').forEach(element => {
+        title = title + ' ' + document.querySelector(`input[name='fields[${element}]']`).value;
+      });
+
       const slug = this.$options.filters.slugify(title);
       this.val = slug;
       this.$root.$emit('generate-from-title', true);

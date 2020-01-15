@@ -2,12 +2,13 @@
 
 {% block field %}
 {% set prefix = '/' ~ record.definition.singular_slug ~ '/' %}
+<br><code>{{ field.slugUseFields|join(', ')|json_encode }}</code>
     <editor-slug
         :value='{{ value|json_encode }}'
         :name='{{ name|json_encode }}'
         :prefix='{{ prefix|json_encode }}'
         :field-class='{{ class|json_encode }}'
-        :generate='{{ field.slugUseFields|join(', ')|json_encode }}'
+        :generate='{{ field.slugUseFields|join(',')|json_encode }}'
         :labels='{{ {
             'button_locked': 'slug.button_locked'|trans,
             'button_edit': 'slug.button_edit'|trans,
