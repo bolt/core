@@ -71,7 +71,7 @@ pages:
             class: large
         slug:
             type: slug
-            uses: header
+            uses: [ heading, subheading ]
         photo:
             type: image
             label: "Eén plaatje"
