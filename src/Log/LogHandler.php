@@ -26,6 +26,8 @@ class LogHandler extends AbstractProcessingHandler
      */
     protected function write(array $record): void
     {
+        unset($record['extra']['request']);
+
         $logEntry = new Log();
         $logEntry->setMessage($record['message']);
         $logEntry->setLevel($record['level']);
