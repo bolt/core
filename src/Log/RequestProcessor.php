@@ -44,7 +44,6 @@ class RequestProcessor
                 'uri' => $request->getUri(),
                 'query_string' => $request->getQueryString(),
                 'method' => $request->getMethod(),
-                'request' => $request->request->all(),
             ];
         }
 
