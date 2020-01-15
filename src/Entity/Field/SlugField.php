@@ -31,19 +31,6 @@ class SlugField extends Field implements FieldInterface
         return $this;
     }
 
-    public function getSlugPrefix(): string
-    {
-        // @todo https://github.com/bolt/four/issues/188 allow empty slug prefix
-        $content = $this->getContent();
-
-        if (! $content) {
-            //@todo remove this
-            return '/foobar/';
-        }
-
-        return sprintf('/%s/', $content->getDefinition()->get('singular_slug'));
-    }
-
     public function getSlugUseFields(): array
     {
         return Collection::wrap($this->getDefinition()->get('uses'))->toArray();

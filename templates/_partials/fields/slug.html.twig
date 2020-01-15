@@ -1,13 +1,15 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
+{% set prefix = '/' ~ record.definition.singular_slug ~ '/' %}
     <editor-slug
         :value='{{ value|json_encode }}'
         :name='{{ name|json_encode }}'
-        :prefix='{{ field.slugPrefix|json_encode }}'
+        :prefix='{{ prefix|json_encode }}'
         :field-class='{{ class|json_encode }}'
-        :generate='{{ field.slugUseFields|join(', ')|json_encode }}'
+        :generate='{{ field.slugUseFields|join(',')|json_encode }}'
         :labels='{{ {
+            'button_unlocked': 'slug.button_unlocked'|trans,
             'button_locked': 'slug.button_locked'|trans,
             'button_edit': 'slug.button_edit'|trans,
             'generate_from': 'slug.generate_from'|trans,
