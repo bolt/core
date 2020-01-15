@@ -70,7 +70,6 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      console.log('time, time, time');
       let title = '';
       this.generate.split(',').forEach(element => {
         title =
