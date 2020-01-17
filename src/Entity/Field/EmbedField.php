@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EmbedField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'embed';
-    }
+    public const TYPE = 'embed';
 }

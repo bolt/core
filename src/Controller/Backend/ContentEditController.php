@@ -12,6 +12,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\Field\SetField;
+use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\Relation;
 use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
@@ -22,6 +23,7 @@ use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
+use Bolt\Utils\TranslationsManager;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -297,41 +299,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
             }
         }
 
-        if (isset($formData['collections'])) {
-            foreach ($formData['collections'] as $collectionName => $collectionItems) {
-                $collectionDefinition = $content->getDefinition()->get('fields')->get($collectionName);
-                $orderArray = array_flip($collectionItems['order']);
-
-                /** @var CollectionField $collection */
-                $collection = $this->getFieldToUpdate($content, $collectionName, $collectionDefinition);
-
-                foreach ($collectionItems as $name => $collectionItemValue) {
-                    // order field is only used to determine the order in which fields are submitted
-                    if ($name === 'order') {
-                        continue;
-                    }
-
-                    $hash = array_key_first($collectionItemValue);
-                    $value = $collectionItemValue[$hash];
-                    $order = $orderArray[$hash];
-
-                    $fieldDefinition = $collection->getDefinition()->get('fields')->get($name);
-
-                    if ($collection->hasChild($name)) {
-                        $field = $collection->getChild($name);
-                        $field->setDefinition($name, $fieldDefinition);
-                    } else {
-                        $field = FieldRepository::factory($fieldDefinition, $name);
-                        $field->setParent($collection);
-                        $content->addField($field);
-                    }
-
-                    $field->setSortorder($order);
-
-                    $this->updateField($field, $value, $locale);
-                }
-            }
-        }
+        $this->updateCollections($content, $formData, $locale);
 
         if (isset($formData['taxonomy'])) {
             foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
@@ -346,6 +314,60 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
 
         return $content;
+    }
+
+    private function removeFieldChildren(FieldParentInterface $field): void
+    {
+        foreach ($field->getChildren() as $child) {
+            if ($child instanceof FieldParentInterface && $child->hasChildren()) {
+                $this->removeFieldChildren($child);
+            }
+
+            $this->em->remove($child);
+        }
+    }
+
+    private function updateCollections(Content $content, array $formData, ?string $locale): void
+    {
+        $collections = $content->getFields()->filter(function (Field $field) {
+            return $field->getType() === CollectionField::TYPE;
+        });
+
+        $keys = $formData['keys-collections'] ?? [];
+        $tm = new TranslationsManager($collections, $keys);
+
+        foreach ($collections as $collection) {
+            $this->removeFieldChildren($collection);
+        }
+
+        $this->em->flush();
+
+        if (isset($formData['collections'])) {
+            foreach ($formData['collections'] as $collectionName => $collectionItems) {
+                $collectionDefinition = $content->getDefinition()->get('fields')->get($collectionName);
+                $orderArray = array_flip($collectionItems['order']);
+
+                $collection = $this->getFieldToUpdate($content, $collectionName, $collectionDefinition);
+
+                foreach ($collectionItems as $name => $instances) {
+                    // order field is only used to determine the order in which fields are submitted
+                    if ($name === 'order') {
+                        continue;
+                    }
+
+                    foreach ($instances as $orderId => $value) {
+                        $order = $orderArray[$orderId];
+                        $fieldDefinition = $collection->getDefinition()->get('fields')->get($name);
+                        $field = FieldRepository::factory($fieldDefinition, $name);
+                        $field->setParent($collection);
+                        $field->setSortorder($order);
+                        $content->addField($field);
+                        $this->updateField($field, $value, $locale);
+                        $tm->applyTranslations($field, $collectionName, $orderId);
+                    }
+                }
+            }
+        }
     }
 
     private function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
@@ -390,7 +412,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $value = Json::findArray($value);
         }
 
-        if ($field->getType() === 'set') {
+        if ($field->getType() === SetField::TYPE) {
             foreach ($value as $name => $svalue) {
                 /** @var SetField $field */
                 if ($field->hasChild($name)) {

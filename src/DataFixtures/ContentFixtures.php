@@ -10,7 +10,6 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Bolt\Entity\Field\SetField;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\FakeContent;
@@ -135,32 +134,15 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     private function loadCollectionField(Content $content, Field $field, $fieldType, ContentType $contentType, array $preset): Field
     {
         $collectionItems = $field->getDefinition()->get('fields');
-        $collectionFields = [];
-        foreach ($collectionItems as $collectionItemName => $collectionItemFieldType) {
-            $hash = uniqid();
-            $collectionFieldName = $fieldType['name'] . '::' . $collectionItemName;
 
-            $collectionField = $this->loadField($content, $collectionFieldName, $collectionItemFieldType, $contentType, $preset);
-
-            if ($collectionItemFieldType['type'] === 'set') {
-                /** @var SetField $thisField */
-//                $thisField = $collectionField;
-            } else {
-                //collection item fields have a different value than fields of the same type outside of a collection
-                $correctItemValue = [
-                    $hash => $collectionField->getValue()[0],
-                ];
-                $collectionField->setValue($correctItemValue);
-            }
-
-            $collectionFields[] = [
-                'field_name' => $collectionItemName,
-                'field_type' => $collectionItemFieldType['type'],
-                'field_reference' => $hash,
-            ];
+        $i = 0;
+        foreach ($collectionItems as $name => $type) {
+            $child = $this->loadField($content, $name, $type, $contentType, $preset, false);
+            $child->setParent($field);
+            $child->setSortorder($i);
+            $content->addField($child);
+            ++$i;
         }
-
-        $field->setValue($collectionFields);
 
         return $field;
     }

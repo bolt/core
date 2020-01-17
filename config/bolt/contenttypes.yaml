@@ -243,6 +243,17 @@ showcases:
                     type: text
                 textarea:
                     type: textarea
+        collection:
+            type: collection
+            group: Collections
+            fields:
+                set:
+                    type: set
+                    fields:
+                        title:
+                            type: text
+                textarea:
+                    type: textarea
     relations:
         entries:
             multiple: false

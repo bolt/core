@@ -18,10 +18,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
 {
     use FieldParentTrait;
 
-    public function getType(): string
-    {
-        return 'set';
-    }
+    public const TYPE = 'set';
 
     public function getValue(): array
     {

@@ -13,10 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FilelistField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'filelist';
-    }
+    public const TYPE = 'filelist';
 
     /**
      * Returns the value, as is in the database. Useful for processing, like

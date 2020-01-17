@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TextareaField extends Field implements Excerptable, FieldInterface
 {
-    public function getType(): string
-    {
-        return 'textarea';
-    }
+    public const TYPE = 'textarea';
 }

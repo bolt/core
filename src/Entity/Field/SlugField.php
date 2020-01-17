@@ -15,10 +15,7 @@ use Tightenco\Collect\Support\Collection;
  */
 class SlugField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'slug';
-    }
+    public const TYPE = 'slug';
 
     public function setValue($value): parent
     {

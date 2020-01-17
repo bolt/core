@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CheckboxField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'checkbox';
-    }
+    public const TYPE = 'checkbox';
 }
