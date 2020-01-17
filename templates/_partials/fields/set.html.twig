@@ -1,14 +1,14 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    {% if in_collection is defined %}
-        {% set setName = name %}
-    {% else %}
-        {% set setName = 'sets[' ~ field.name ~ ']' %}
-    {% endif %}
-
     {% for setChild in field.value %}
-        {% set setChildName = setName ~ '[' ~ setChild.name ~ ']' %}
-        {% include '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig' with {'field' : setChild, 'name' : setChildName} only %}
+        {% if in_collection is defined %}
+            {% set setChildName = name ~ '[' ~ setChild.name ~ ']' %}
+            {% include '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig' with
+                {'field' : setChild, 'name' : setChildName, 'include_id': true} only %}
+        {% else %}
+            {% set setChildName = 'sets[' ~ field.name ~ ']' ~ '[' ~ setChild.name ~ ']' %}
+            {% include '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig' with {'field' : setChild, 'name' : setChildName} only %}
+        {% endif %}
     {% endfor %}
 {% endblock %}

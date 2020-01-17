@@ -97,7 +97,9 @@
 {% block field %}
 
 {% endblock %}
-
+{% if include_id is defined %}
+    {% include '@bolt/_partials/fields/_hidden_id_field.html.twig' %}
+{% endif %}
 {{ postfix|raw }}
 
 </div>

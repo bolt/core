@@ -23,6 +23,7 @@ use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
+use Bolt\Utils\TranslationsManager;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -315,6 +316,18 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
+    private function getFieldChildrenTranslations(array &$translations, FieldParentInterface $field): void
+    {
+        /** @var Field $child */
+        foreach ($field->getChildren() as $child) {
+            if ($child instanceof FieldParentInterface && $child->hasChildren()) {
+                $this->getFieldChildrenTranslations($translations, $child);
+            }
+
+            $translations[$child->getId()] = $child->getTranslations();
+        }
+    }
+
     private function removeFieldChildren(FieldParentInterface $field): void
     {
         foreach ($field->getChildren() as $child) {
@@ -332,10 +345,15 @@ class ContentEditController extends TwigAwareController implements BackendZone
             return $field->getType() === CollectionField::TYPE;
         });
 
+        $translations = [];
+
         /** @var CollectionField $collection */
         foreach ($collections as $collection) {
+            $this->getFieldChildrenTranslations($translations, $collection);
             $this->removeFieldChildren($collection);
         }
+
+        $tm = new TranslationsManager($translations, $formData['keys-collections']);
 
         $this->em->flush();
 
@@ -344,25 +362,26 @@ class ContentEditController extends TwigAwareController implements BackendZone
                 $collectionDefinition = $content->getDefinition()->get('fields')->get($collectionName);
                 $orderArray = array_flip($collectionItems['order']);
 
-                /** @var CollectionField $collection */
                 $collection = $this->getFieldToUpdate($content, $collectionName, $collectionDefinition);
 
-                foreach ($collectionItems as $name => $values) {
+                foreach ($collectionItems as $name => $instances) {
                     // order field is only used to determine the order in which fields are submitted
                     if ($name === 'order') {
                         continue;
                     }
 
-                    foreach ($values as $hash => $value) {
-                        $order = $orderArray[$hash];
+                    foreach ($instances as $orderId => $value) {
+                        $order = $orderArray[$orderId];
                         $fieldDefinition = $collection->getDefinition()->get('fields')->get($name);
                         $field = FieldRepository::factory($fieldDefinition, $name);
                         $field->setParent($collection);
                         $field->setSortorder($order);
                         $content->addField($field);
                         $this->updateField($field, $value, $locale);
+                        $tm->applyTranslations($field, $collectionName, $orderId);
                     }
                 }
+
             }
         }
     }

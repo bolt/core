@@ -54,8 +54,13 @@
                 'name': collectionItemName,
                 'collection_name': collectionField.name,
                 'collection_label': collectionField.definition.label,
-                'hash': hash
+                'hash': hash,
             } %}
+
+            {% if item_field.type != 'set' %}
+                {% set context = context|merge({'include_id': true}) %}
+            {% endif %}
+
             {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with context only %}
         {% endset %}
         {# set the label manually as set in _base.html.twig, to pass to Collection.vue for templates #}
