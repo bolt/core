@@ -188,63 +188,15 @@ class ContentTypesParser extends BaseParser
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
-            $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
-            if (! isset($field['type']) || empty($field['type'])) {
-                $error = sprintf('Field "%s" has no "type" set.', $key);
 
-                throw new ConfigurationException($error);
-            }
-
-            // If field is a "file" type, make sure the 'extensions' are set, and it's an array.
-            if ($field['type'] === 'file' || $field['type'] === 'filelist') {
-                if (empty($field['extensions'])) {
-                    $field['extensions'] = $acceptFileTypes;
-                }
-
-                $field['extensions'] = (array) $field['extensions'];
-            }
-
-            // If field is an "image" type, make sure the 'extensions' are set, and it's an array.
-            if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
-                if (empty($field['extensions'])) {
-                    $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg']);
-                    $field['extensions'] = $extensions->intersect($acceptFileTypes)->toArray();
-                }
-
-                $field['extensions'] = (array) $field['extensions'];
-            }
-
-            // Make indexed arrays into associative for select fields
-            // e.g.: [ 'yes', 'no' ] => { 'yes': 'yes', 'no': 'no' }
-            if ($field['type'] === 'select' && isset($field['values']) && Arr::isIndexed($field['values'])) {
-                $field['values'] = array_combine($field['values'], $field['values']);
-            }
-
-            if (empty($field['label'])) {
-                $field['label'] = ucwords($key);
-            }
-
-            if (isset($field['allow_html']) === false) {
-                $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
-            }
-
-            if (isset($field['sanitise']) === false) {
-                $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
-            }
-
-            if (empty($field['group'])) {
-                $field['group'] = $currentGroup;
-            } else {
-                $currentGroup = $field['group'];
-            }
-
+            $this->parseField($key, $field, $acceptFileTypes, $currentGroup);
             // Convert array into FieldType
             $fields[$key] = new FieldType($field, $key);
             $groups[$currentGroup] = $currentGroup;
 
             // Repeating fields checks
-            if ($field['type'] === 'repeater') {
-                $fields[$key] = $this->parseFieldRepeaters($fields[$key]);
+            if (isset($field['fields'])) {
+                $fields[$key] = $this->parseFieldRepeaters($fields[$key], $acceptFileTypes, $currentGroup);
                 if ($fields[$key] === null) {
                     unset($fields[$key]);
                 }
@@ -259,10 +211,64 @@ class ContentTypesParser extends BaseParser
         return [$fields, $groups];
     }
 
+    private function parseField($key, &$field, $acceptFileTypes, $currentGroup)
+    {
+        $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
+        if (! isset($field['type']) || empty($field['type'])) {
+            $error = sprintf('Field "%s" has no "type" set.', $key);
+
+            throw new ConfigurationException($error);
+        }
+
+        // If field is a "file" type, make sure the 'extensions' are set, and it's an array.
+        if ($field['type'] === 'file' || $field['type'] === 'filelist') {
+            if (empty($field['extensions'])) {
+                $field['extensions'] = $acceptFileTypes;
+            }
+
+            $field['extensions'] = (array) $field['extensions'];
+        }
+
+        // If field is an "image" type, make sure the 'extensions' are set, and it's an array.
+        if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
+            if (empty($field['extensions'])) {
+                $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg']);
+                $field['extensions'] = $extensions->intersect($acceptFileTypes)->toArray();
+            }
+
+            $field['extensions'] = (array) $field['extensions'];
+        }
+
+        // Make indexed arrays into associative for select fields
+        // e.g.: [ 'yes', 'no' ] => { 'yes': 'yes', 'no': 'no' }
+        if ($field['type'] === 'select' && isset($field['values']) && Arr::isIndexed($field['values'])) {
+            $field['values'] = array_combine($field['values'], $field['values']);
+        }
+
+        if (empty($field['label'])) {
+            $field['label'] = ucwords($key);
+        }
+
+        if (isset($field['allow_html']) === false) {
+            $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
+        }
+
+        if (isset($field['sanitise']) === false) {
+            $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
+        }
+
+        if (empty($field['group'])) {
+            $field['group'] = $currentGroup;
+        } else {
+            $currentGroup = $field['group'];
+        }
+    }
+
     /**
      * Basic validation of repeater fields.
+     * @throws ConfigurationException
      */
-    private function parseFieldRepeaters(FieldType $repeater): ?FieldType
+    private function parseFieldRepeaters(FieldType $repeater, $acceptFileTypes, $currentGroup): ?FieldType
     {
         $blacklist = ['repeater', 'slug', 'templatefield'];
 
@@ -270,11 +276,18 @@ class ContentTypesParser extends BaseParser
             return null;
         }
 
+        $parsedRepeaterFields= [];
+
         foreach ($repeater['fields'] as $repeaterKey => $repeaterField) {
             if (! isset($repeaterField['type']) || in_array($repeaterField['type'], $blacklist, true)) {
                 unset($repeater['fields'][$repeaterKey]);
+            } else {
+                $this->parseField($repeaterKey, $repeaterField, $acceptFileTypes, $currentGroup);
+                $parsedRepeaterFields[$repeaterKey] = $repeaterField;
             }
         }
+
+        $repeater['fields'] = $parsedRepeaterFields;
 
         return $repeater;
     }
