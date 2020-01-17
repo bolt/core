@@ -265,6 +265,7 @@ class ContentTypesParser extends BaseParser
 
     /**
      * Basic validation of repeater fields.
+     *
      * @throws ConfigurationException
      */
     private function parseFieldRepeaters(FieldType $repeater, $acceptFileTypes, $currentGroup): ?FieldType
