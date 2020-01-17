@@ -333,11 +333,10 @@ class ContentEditController extends TwigAwareController implements BackendZone
             return $field->getType() === CollectionField::TYPE;
         });
 
-        $keys = isset($formData['keys-collections']) ? $formData['keys-collections'] : [];
+        $keys = $formData['keys-collections'] ?? [];
         $tm = new TranslationsManager($collections, $keys);
 
-        foreach($collections as $collection)
-        {
+        foreach ($collections as $collection) {
             $this->removeFieldChildren($collection);
         }
 
@@ -367,7 +366,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
                         $tm->applyTranslations($field, $collectionName, $orderId);
                     }
                 }
-
             }
         }
     }
