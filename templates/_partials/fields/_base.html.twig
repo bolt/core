@@ -34,6 +34,12 @@
     {%  set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
 {% endif %}
 
+{# Set name[value] if id is needed #}
+{% if include_id is defined %}
+    {% set original_name = name %}
+    {% set name = name ~ '[value]' %}
+{% endif %}
+
 {# Set the id #}
 {% if not id|default %}
     {% set id = 'field-' ~ field.name|default(name)|default('unnamed') %}
