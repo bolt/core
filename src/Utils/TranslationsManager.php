@@ -105,7 +105,7 @@ class TranslationsManager
                 && array_key_exists($orderId, $this->keys[$collectionName][$field->getParent()->getName()])
                 && array_key_exists($field->getName(), $this->keys[$collectionName][$field->getParent()->getName()][$orderId])
                 && array_key_exists('value', $this->keys[$collectionName][$field->getParent()->getName()][$orderId][$field->getName()]))) {
-                // if $this->keys[$collectionName][$name][$order] does not exist, we can return.
+                // if $this->keys[$collectionName][$parentName][$order][$name] does not exist, we can return.
                 return false;
             }
 
