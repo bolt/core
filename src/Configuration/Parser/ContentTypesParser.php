@@ -188,7 +188,6 @@ class ContentTypesParser extends BaseParser
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
-
             $this->parseField($key, $field, $acceptFileTypes, $currentGroup);
             // Convert array into FieldType
             $fields[$key] = new FieldType($field, $key);
@@ -211,7 +210,7 @@ class ContentTypesParser extends BaseParser
         return [$fields, $groups];
     }
 
-    private function parseField($key, &$field, $acceptFileTypes, $currentGroup)
+    private function parseField($key, &$field, $acceptFileTypes, &$currentGroup): void
     {
         $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
         if (! isset($field['type']) || empty($field['type'])) {
@@ -271,20 +270,27 @@ class ContentTypesParser extends BaseParser
     private function parseFieldRepeaters(FieldType $repeater, $acceptFileTypes, $currentGroup): ?FieldType
     {
         $blacklist = ['repeater', 'slug', 'templatefield'];
+        $whitelist = ['collection', 'set'];
 
-        if (! isset($repeater['fields']) || ! is_array($repeater['fields'])) {
+        if (! isset($repeater['fields']) || ! is_array($repeater['fields']) || ! in_array($repeater['type'], $whitelist, true)) {
             return null;
         }
 
-        $parsedRepeaterFields= [];
+        $parsedRepeaterFields = [];
 
         foreach ($repeater['fields'] as $repeaterKey => $repeaterField) {
             if (! isset($repeaterField['type']) || in_array($repeaterField['type'], $blacklist, true)) {
                 unset($repeater['fields'][$repeaterKey]);
+            }
+
+            if (isset($repeaterField['fields'])) {
+                $repeaterField = new FieldType($repeaterField, $repeaterKey);
+                $this->parseFieldRepeaters($repeaterField, $acceptFileTypes, $currentGroup);
             } else {
                 $this->parseField($repeaterKey, $repeaterField, $acceptFileTypes, $currentGroup);
-                $parsedRepeaterFields[$repeaterKey] = $repeaterField;
             }
+
+            $parsedRepeaterFields[$repeaterKey] = $repeaterField;
         }
 
         $repeater['fields'] = $parsedRepeaterFields;
