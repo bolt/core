@@ -316,18 +316,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function getFieldChildrenTranslations(array &$translations, FieldParentInterface $field): void
-    {
-        /** @var Field $child */
-        foreach ($field->getChildren() as $child) {
-            if ($child instanceof FieldParentInterface && $child->hasChildren()) {
-                $this->getFieldChildrenTranslations($translations, $child);
-            }
-
-            $translations[$child->getId()] = $child->getTranslations();
-        }
-    }
-
     private function removeFieldChildren(FieldParentInterface $field): void
     {
         foreach ($field->getChildren() as $child) {
@@ -345,15 +333,13 @@ class ContentEditController extends TwigAwareController implements BackendZone
             return $field->getType() === CollectionField::TYPE;
         });
 
-        $translations = [];
+        $keys = isset($formData['keys-collections']) ? $formData['keys-collections'] : [];
+        $tm = new TranslationsManager($collections, $keys);
 
-        /** @var CollectionField $collection */
-        foreach ($collections as $collection) {
-            $this->getFieldChildrenTranslations($translations, $collection);
+        foreach($collections as $collection)
+        {
             $this->removeFieldChildren($collection);
         }
-
-        $tm = new TranslationsManager($translations, $formData['keys-collections']);
 
         $this->em->flush();
 

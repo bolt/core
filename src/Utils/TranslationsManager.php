@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Utils;
 
 use Bolt\Entity\Field;
+use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\FieldParentInterface;
 use Doctrine\Common\Collections\Collection;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
@@ -12,14 +13,18 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslationInterface;
 class TranslationsManager
 {
     /** @var Collection */
+    private $collections;
+
+    /** @var array */
     private $translations;
 
     /** @var Collection */
     private $keys;
 
-    public function __construct(array $translations, array $keys)
+    public function __construct(Collection $collections, array $keys)
     {
-        $this->translations = $translations;
+        $this->collections = $collections;
+        $this->translations = $this->populateTranslations();
         $this->keys = $keys;
     }
 
@@ -37,6 +42,30 @@ class TranslationsManager
                 $this->applyTranslations($child, $collectionName, $orderId);
             }
         }
+    }
+
+    private function getFieldChildrenTranslations(array &$translations, FieldParentInterface $field): void
+    {
+        /** @var Field $child */
+        foreach ($field->getChildren() as $child) {
+            if ($child instanceof FieldParentInterface && $child->hasChildren()) {
+                $this->getFieldChildrenTranslations($translations, $child);
+            }
+
+            $translations[$child->getId()] = $child->getTranslations();
+        }
+    }
+
+    private function populateTranslations(): array
+    {
+        $translations = [];
+
+        /** @var CollectionField $collection */
+        foreach ($this->collections as $collection) {
+            $this->getFieldChildrenTranslations($translations, $collection);
+        }
+
+        return $translations;
     }
 
     private function getTranslations(Field $field, string $collectionName, $orderId): Collection
@@ -64,6 +93,12 @@ class TranslationsManager
 
     private function hasTranslations(Field $field, string $collectionName, $orderId): bool
     {
+        if(empty($this->translations))
+        {
+            //if there are no translations, we can return early.
+            return false;
+        }
+
         if ($field instanceof FieldParentInterface) {
             //assume FieldParentInterface always has translations (in order to process children)
             return true;
