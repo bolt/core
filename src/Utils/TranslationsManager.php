@@ -18,8 +18,8 @@ class TranslationsManager
     /** @var array */
     private $translations = [];
 
-    /** @var Collection */
-    private $keys;
+    /** @var array */
+    private $keys = [];
 
     public function __construct(Collection $collections, array $keys)
     {
