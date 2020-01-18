@@ -67,7 +67,7 @@ class Kernel extends BaseKernel
 
         try {
             $loader->load($confDir . '/{services}_bolt' . self::CONFIG_EXTS, 'glob');
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             // Ignore errors. The file will be updated on next `cache:clear` or whenever
             // the container gets refreshed
         }

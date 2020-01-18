@@ -6,6 +6,7 @@ namespace Bolt\Extension;
 
 use Bolt\Common\Str;
 use Bolt\Event\Subscriber\ExtensionSubscriber;
+use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Types;
 use Symfony\Component\Yaml\Yaml;
@@ -167,7 +168,7 @@ class ExtensionRegistry
         file_put_contents($this->projectDir . '/config/services_bolt.yaml', $yaml);
     }
 
-    private function createService($package): array
+    private function createService(CompletePackage $package): array
     {
         $extra = $package->getExtra();
 
