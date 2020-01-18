@@ -21,7 +21,6 @@ Feature: Get content with API
           "image": {
              "filename": @string@,
              "alt": @string@,
-             "title": @string@,
              "path": @string@,
              "media": @string@,
              "url": @string@,
@@ -44,7 +43,6 @@ Feature: Get content with API
   ]
   """
 
-
   @api
   Scenario: As a user I fetch single content
     When I send a GET request to "/api/contents/1.json"
@@ -65,7 +63,6 @@ Feature: Get content with API
         "image": {
              "filename": @string@,
              "alt": @string@,
-             "title": @string@,
              "path": @string@,
              "media": @string@,
              "url": @string@,
@@ -113,7 +110,6 @@ Feature: Get content with API
               "image": {
                  "filename": @string@,
                  "alt": @string@,
-                 "title": @string@,
                  "path": @string@,
                  "media": @string@,
                  "url": @string@,
@@ -174,7 +170,6 @@ Feature: Get content with API
               "image": {
                  "filename": @string@,
                  "alt": @string@,
-                 "title": @string@,
                  "path": @string@,
                  "media": @string@,
                  "url": @string@,
@@ -231,7 +226,6 @@ Feature: Get content with API
         "image": {
             "filename": @string@,
             "alt": @string@,
-            "title": @string@,
             "path": @string@,
             "media": @string@,
             "url": @string@,
