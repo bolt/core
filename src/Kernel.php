@@ -64,6 +64,13 @@ class Kernel extends BaseKernel
         $loader->load($confDir . '/{packages}/' . $this->environment . '/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
+
+        try {
+            $loader->load($confDir . '/{services}_bolt' . self::CONFIG_EXTS, 'glob');
+        } catch (\Throwable $e) {
+            // Ignore errors. The file will be updated on next `cache:clear` or whenever
+            // the container gets refreshed
+        }
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes): void
