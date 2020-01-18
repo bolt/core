@@ -15,7 +15,7 @@
   {% endif %}
   {# set mode #}
   {% if mode is not defined %}
-      {% set mode = define.mode|default(false) %}
+      {% set mode = field.definition.mode|default(false) %}
   {% endif %}
   {# check if we only want the value: valueonly #}
   {% if valueonly is not defined %}
