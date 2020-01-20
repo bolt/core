@@ -55,7 +55,7 @@ Feature: Edit record
     And the "fields[embed][width]" field should contain "480"
     And the "fields[embed][height]" field should contain "270"
 
-  @javascript-disabled
+  @javascript
   Scenario: As an Admin I want to fill in an imagelist
     Given I am logged in as "admin"
     When I am on "/bolt/edit/42"
@@ -65,58 +65,48 @@ Feature: Edit record
     #From library button of imagelist
     When I scroll "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
     And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
-    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(3)"
-    And I wait 1 second
+    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar .dropdown-menu button"
+    And I wait for "Select a file" to appear
     And I select "kitten.jpg" from "bootbox-input"
     And I press "OK"
     Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
     And I wait 1 second
 
     When I press "Add new image"
-    Then I should see 2 ".row" elements in the ".editor__imagelist" element
+    Then I should see 5 ".row" elements in the ".editor__imagelist" element
 
-    #Second From library button of imagelist
-    When I scroll "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(2) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
-    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(2) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
-    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(2) .btn-toolbar > div:nth-child(1) > button:nth-child(3)"
-    And I wait 1 second
+    #New item From library button of imagelist
+    When I scroll "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
+    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
+    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar .dropdown-menu button"
+    And I wait for "Select a file" to appear
     And I select "joey.jpg" from "bootbox-input"
     And I press "OK"
-    Then the "fields[imagelist][1][filename]" field should contain "joey.jpg"
+    Then the "fields[imagelist][4][filename]" field should contain "joey.jpg"
     And I wait 1 second
 
     #click first Move down
-    When I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(2)"
-    Then the "fields[imagelist][0][filename]" field should contain "joey.jpg"
-    And the "fields[imagelist][1][filename]" field should contain "kitten.jpg"
+    When I scroll "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(2)" into view
+    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(2)"
+    Then the "fields[imagelist][1][filename]" field should contain "kitten.jpg"
 
     #click second Move up
     When I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(2) .btn-toolbar > div:nth-child(2) > button:nth-child(1)"
     Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
-    And the "fields[imagelist][1][filename]" field should contain "joey.jpg"
 
     #first Move up
     And the "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(1)" button should be disabled
     #last Move down
-    And the "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(2) .btn-toolbar > div:nth-child(2) > button:nth-child(2)" button should be disabled
+    And the "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(2) > button:nth-child(2)" button should be disabled
 
     #first Remove
-    When I click "#media > div.form-group.form-set.is-normal > div > div:nth-child(1) > div > div.row > div.col-9 > div.btn-toolbar > div:nth-child(5) > button"
-    Then I should see 1 ".row" elements in the ".editor__imagelist" element
-    And the "fields[imagelist][1][filename]" field should contain "joey.jpg"
+    When I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar .btn-hidden-danger"
+    Then I should see 4 ".row" elements in the ".editor__imagelist" element
 
     When I scroll "#editcontent > div.record-actions > button" into view
     And I press "Save changes"
     Then I should be on "/bolt/edit/42#media"
-    And the "fields[imagelist][0][filename]" field should contain "joey.jpg"
-
-    #Remove only element
-    When I click "#media > div.form-group.form-set.is-normal > div > div > div > div.row > div > div.btn-toolbar > div:nth-child(5) > button"
-    And I scroll "#editcontent > div.record-actions > button" into view
-    And I press "Save changes"
-
-    Then I should see 1 ".row" elements in the ".editor__imagelist" element
-    And the "fields[imagelist][0][filename]" field should contain ""
+    And I should see 4 ".row" elements in the ".editor__imagelist" element
 
   @javascript-disabled
   Scenario: As an Admin I want to fill in a filelist
