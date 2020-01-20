@@ -19,8 +19,7 @@ class SetupCommand extends Command
     {
         $this
             ->setDescription('Run Bolt setup / installation commands')
-            ->addOption('no-fixtures', null, InputOption::VALUE_NONE, 'If set, no data fixtures will be created. An empty database wil be initialised.')
-        ;
+            ->addOption('no-fixtures', null, InputOption::VALUE_NONE, 'If set, no data fixtures will be created. An empty database wil be initialised.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -41,7 +40,7 @@ class SetupCommand extends Command
         $exitCode += $command->run($commandInput, $output);
 
         $noFixtures = $input->getOption('no-fixtures');
-        if(! $noFixtures) {
+        if (! $noFixtures) {
             $command = $this->getApplication()->find('doctrine:fixtures:load');
             $commandInput = new ArrayInput(['--append' => true]);
             $exitCode += $command->run($commandInput, $output);
