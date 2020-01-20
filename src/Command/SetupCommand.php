@@ -19,7 +19,7 @@ class SetupCommand extends Command
     {
         $this
             ->setDescription('Run Bolt setup / installation commands')
-            ->addOption('no-fixtures', null, InputOption::VALUE_NONE, 'If set, no data fixtures will be created. An empty database wil be initialised.');
+            ->addOption('no-fixtures', 'nf', InputOption::VALUE_NONE, 'If set, no data fixtures will be created. An empty database wil be initialised.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
