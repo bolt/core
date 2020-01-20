@@ -108,66 +108,59 @@ Feature: Edit record
     Then I should be on "/bolt/edit/42#media"
     And I should see 4 ".row" elements in the ".editor__imagelist" element
 
-  @javascript-disabled
+  @javascript
   Scenario: As an Admin I want to fill in a filelist
     Given I am logged in as "admin"
     And I am on "/bolt/edit/42"
     When I follow "Files"
     Then I should see "Filelist" in the "label[for='field-filelist']" element
 
+
     #First From library button of filelist
-    When I scroll "#files > div.form-group.form-set.is-normal > div > div > div > div.row > div > div.btn-toolbar > div:nth-child(2) > button" into view
-    When I click "#files > div.form-group.form-set.is-normal > div > div > div > div.row > div > div.btn-toolbar > div:nth-child(2) > button"
-    And I wait 1 second
-    And I select "piglet.jpg" from "bootbox-input"
-    And I press "OK"
-    And I wait 1 second
-    Then the "fields[filelist][0][filename]" field should contain "piglet.jpg"
-
-    When I press "Add new file"
-    Then I should see 2 ".row" elements in the ".editor-filelist" element
-
-    #Second From library button of imagelist
-    When I scroll "#files > div.form-group.form-set.is-normal > div > div:nth-child(2) > div > div.row > div > div.btn-toolbar > div:nth-child(2) > button" into view
-    When I click "#files > div.form-group.form-set.is-normal > div > div:nth-child(2) > div > div.row > div > div.btn-toolbar > div:nth-child(2) > button"
-    And I wait 1 second
+    When I scroll "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
+    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
+    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar .dropdown-menu button"
+    And I wait for "Select a file" to appear
     And I select "bolt4.pdf" from "bootbox-input"
     And I press "OK"
+    Then the "fields[filelist][0][filename]" field should contain "bolt4.pdf"
     And I wait 1 second
-    Then the "fields[filelist][1][filename]" field should contain "bolt4.pdf"
+
+    When I press "Add new file"
+    Then I should see 5 ".row" elements in the ".editor-filelist" element
+
+    #New item From library button of filelist
+    When I scroll "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
+    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
+    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar .dropdown-menu button"
+    And I wait for "Select a file" to appear
+    And I select "joey.jpg" from "bootbox-input"
+    And I press "OK"
+    Then the "fields[filelist][4][filename]" field should contain "joey.jpg"
+    And I wait 1 second
 
     #click first Move down
-    When I click "#files > div.form-group.form-set.is-normal > div > div:nth-child(1) > div > div.row > div > div.btn-toolbar > div:nth-child(4) > button"
-    Then the "fields[filelist][0][filename]" field should contain "bolt4.pdf"
-    And the "fields[filelist][1][filename]" field should contain "piglet.jpg"
+    When I scroll "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(2)" into view
+    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(2)"
+    Then the "fields[filelist][1][filename]" field should contain "bolt4.pdf"
 
     #click second Move up
-    When I click "#files > div.form-group.form-set.is-normal > div > div:nth-child(2) > div > div.row > div > div.btn-toolbar > div:nth-child(3) > button"
-    Then the "fields[filelist][0][filename]" field should contain "piglet.jpg"
-    And the "fields[filelist][1][filename]" field should contain "bolt4.pdf"
+    When I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(2) .btn-toolbar > div:nth-child(2) > button:nth-child(1)"
+    Then the "fields[filelist][0][filename]" field should contain "bolt4.pdf"
 
     #first Move up
-    And the "#files > div.form-group.form-set.is-normal > div > div:nth-child(1) > div > div.row > div > div.btn-toolbar > div:nth-child(3) > button" button should be disabled
+    And the "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(1)" button should be disabled
     #last Move down
-    And the "#files > div.form-group.form-set.is-normal > div > div:nth-child(2) > div > div.row > div > div.btn-toolbar > div:nth-child(4) > button" button should be disabled
+    And the "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(2) > button:nth-child(2)" button should be disabled
 
     #first Remove
-    When I click "#files > div.form-group.form-set.is-normal > div > div:nth-child(1) > div > div.row > div > div.btn-toolbar > div:nth-child(5) > button"
-    Then I should see 1 ".row" elements in the ".editor-filelist" element
-    And the "fields[filelist][0][filename]" field should contain "bolt4.pdf"
+    When I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar .btn-hidden-danger"
+    Then I should see 4 ".row" elements in the ".editor-filelist" element
 
     When I scroll "#editcontent > div.record-actions > button" into view
     And I press "Save changes"
     Then I should be on "/bolt/edit/42#files"
-    And the "fields[filelist][0][filename]" field should contain "bolt4.pdf"
-
-    #Remove only element
-    When I click "#files > div.form-group.form-set.is-normal > div > div > div > div.row > div > div.btn-toolbar > div:nth-child(5) > button"
-    And I scroll "#editcontent > div.record-actions > button" into view
-    And I press "Save changes"
-
-    Then I should see 1 ".row" elements in the ".editor-filelist" element
-    And the "fields[filelist][0][filename]" field should contain ""
+    And I should see 4 ".row" elements in the ".editor-filelist" element
 
   @javascript
   Scenario: As an Admin I want to fill in a Set
