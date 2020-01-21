@@ -28,7 +28,6 @@ class FilterExpressionBuilder
     {
         $expressions = [];
         foreach ($filters as $filterName => $filterOptions) {
-            $filterName = str_replace('~', '_', $filterName);
             if (in_array($filterName, $this->nestedFilterParams, true)) {
                 $this->generateNestedExpr($expressions, $filterName, $filterOptions);
             } else {
@@ -60,8 +59,8 @@ class FilterExpressionBuilder
             case self::ORX:
                 $orExpressions = [];
                 foreach ($filterOptions as $filterKeyValue) {
-                    $filterValue = $filterKeyValue[key($filterKeyValue)];
-                    $filterField = str_replace('~', '_', key($filterKeyValue));
+                    $filterField = key($filterKeyValue);
+                    $filterValue = $filterKeyValue[$filterField];
                     if (in_array($filterField, $this->nestedFilterParams, true)) {
                         $this->generateNestedExpr($orExpressions, $filterName, reset($filterOptions));
                     } else {
@@ -75,8 +74,8 @@ class FilterExpressionBuilder
             case self::ANDX:
                 $andExpressions = [];
                 foreach ($filterOptions as $filterKeyValue) {
-                    $filterValue = $filterKeyValue[key($filterKeyValue)];
-                    $filterField = str_replace('~', '_', key($filterKeyValue));
+                    $filterField = key($filterKeyValue);
+                    $filterValue = $filterKeyValue[$filterField];
                     if (in_array($filterField, $this->nestedFilterParams, true)) {
                         $this->generateNestedExpr($andExpressions, $filterName, $filterOptions);
                     } else {
@@ -100,8 +99,8 @@ class FilterExpressionBuilder
 
         $this->parameterNames[$parameterName] = $fieldValue;
 
-        $andFieldExpressions[] = $expr->eq($alias.'.name', ':fieldName'.ucfirst($fieldName));
-        $this->parameterNames['fieldName'.ucfirst($fieldName)] = $field;
+        $andFieldExpressions[] = $expr->eq($alias.'.name', ':fieldName'.ucfirst($field));
+        $this->parameterNames['fieldName'.ucfirst($field)] = $field;
         switch ($operation) {
             case Types::CONTAINS:
                 $this->parameterNames[$parameterName] = '%'.$fieldValue.'%';
@@ -142,7 +141,7 @@ class FilterExpressionBuilder
 
     private function getFieldOperation(string $fieldName): array
     {
-        $exploded = explode('_', $fieldName);
+        $exploded = explode('~', $fieldName);
 
         if (count($exploded) === 2) {
             return [$exploded[0], '~'.$exploded[1]];
