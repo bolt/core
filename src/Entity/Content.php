@@ -559,7 +559,7 @@ class Content
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
 
-        return $field->getTwigValue();
+        return $field;
     }
 
     /**
