@@ -59,6 +59,10 @@ class DetailController extends TwigAwareController implements FrontendZone
             $record = $field->getContent();
         }
 
+        if (! $record) {
+            throw new NotFoundHttpException('Content not found');
+        }
+
         // If the content is not 'published' we throw a 404, unless we've overridden it.
         if (($record->getStatus() !== Statuses::PUBLISHED) && $requirePublished) {
             throw new NotFoundHttpException('Content is not published');

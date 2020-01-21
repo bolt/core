@@ -2169,5 +2169,17 @@
         <target>Unlocked</target>
       </segment>
     </unit>
+    <unit id="jz2qkbb" name="general.phrase.no-content-found">
+      <segment>
+        <source>general.phrase.no-content-found</source>
+        <target>No content found</target>
+      </segment>
+    </unit>
+    <unit id="FM8B.gO" name="general.phrase.empty-database">
+      <segment>
+        <source>general.phrase.empty-database</source>
+        <target>It looks like the database is empty. Write some content in the Bolt backend, or run the command to add some fixtures (dummy content). </target>
+      </segment>
+    </unit>
   </file>
 </xliff>
