@@ -73,18 +73,12 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function __toString(): string
     {
-        $value = [];
-        $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($this->getValue()));
-        foreach ($iterator as $iteratorValue) {
-            $value[] = $iteratorValue;
-        }
-
-        return implode(', ', $value);
+        return (string) $this->getTwigValue();
     }
 
     public function __call(string $key = '', array $arguments = [])
     {
-        $value = $this->getValue();
+        $value = $this->getTwigValue();
 
         if (is_array($value) && array_key_exists($key, $value)) {
             return $value[$key];
