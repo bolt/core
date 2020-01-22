@@ -71,7 +71,11 @@ class LocaleHelper
             return $locales;
         }
 
-        $content = $this->contentRepository->findOneBySlug($routeParams['slugOrId']);
+        if (isset($routeParams['id']) || is_numeric($routeParams['slugOrId'])) {
+            $content = $this->contentRepository->findOneById((int) $routeParams['id']);
+        } else {
+            $content = $this->contentRepository->findOneBySlug($routeParams['slugOrId']);
+        }
 
         foreach ($localeCodes as $localeCode) {
             $locale = $this->localeInfo($localeCode);
