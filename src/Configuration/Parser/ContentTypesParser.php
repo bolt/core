@@ -23,7 +23,7 @@ class ContentTypesParser extends BaseParser
 
     public function __construct(string $locales, string $projectDir, Collection $generalConfig, string $filename = 'contenttypes.yaml')
     {
-        $this->localeCodes = explode('|', $locales);
+        $this->localeCodes = empty($locales) ? [] : explode('|', $locales);
         $this->generalConfig = $generalConfig;
         parent::__construct($projectDir, $filename);
     }
