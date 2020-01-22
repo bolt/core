@@ -45,7 +45,6 @@ body {
 
   &__sidebar {
     position: absolute;
-    z-index: 2;
     top: $admin-toolbar-height;
     left: 0;
     transition: all 200ms;
