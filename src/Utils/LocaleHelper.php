@@ -73,17 +73,19 @@ class LocaleHelper
 
         if (isset($routeParams['id'])) {
             $content = $this->contentRepository->findOneById((int) $routeParams['id']);
-        } elseif (is_numeric($routeParams['slugOrId'])) {
+        } elseif (isset($routeParams['slugOrId']) && is_numeric($routeParams['slugOrId'])) {
             $content = $this->contentRepository->findOneById((int) $routeParams['slugOrId']);
-        } else {
+        } elseif (isset($routeParams['slugOrId'])) {
             $content = $this->contentRepository->findOneBySlug($routeParams['slugOrId']);
         }
 
         foreach ($localeCodes as $localeCode) {
             $locale = $this->localeInfo($localeCode);
 
-            $slug = $content->getSlug($localeCode);
-            $routeParams['slugOrId'] = $slug;
+            if (isset($content)) {
+                $slug = $content->getSlug($localeCode);
+                $routeParams['slugOrId'] = $slug;
+            }
 
             $locale->put('link', $this->getLink($route, $routeParams, $locale));
             $locale->put('current', $currentLocale === $localeCode);
