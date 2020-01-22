@@ -23,6 +23,6 @@ class ExtensionCompilerPass implements CompilerPassInterface
 
         // Remove our own `services_bolt.yml` file, so that it can be recreated
         $projectDir = $container->getParameter('kernel.project_dir');
-        unlink($projectDir . '/config/services_bolt.yaml');
+        @unlink($projectDir . '/config/services_bolt.yaml');
     }
 }
