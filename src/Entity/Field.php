@@ -130,7 +130,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function get($key)
     {
-        return $this->translate($this->getCurrentLocale())->get($key);
+        return $this->translate($this->getCurrentLocale(), false)->get($key);
     }
 
     /**
@@ -138,7 +138,7 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public function getValue(): ?array
     {
-        return $this->translate($this->getCurrentLocale())->getValue();
+        return $this->translate($this->getCurrentLocale(), false)->getValue();
     }
 
     /**
@@ -182,7 +182,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function set(string $key, $value): self
     {
-        $this->translate($this->getCurrentLocale())->set($key, $value);
+        $this->translate($this->getCurrentLocale(), false)->set($key, $value);
 
         return $this;
     }
