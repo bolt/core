@@ -36,10 +36,7 @@ class GraphFilter
         switch ($this->field) {
             case 'AND':
             case 'OR':
-                $searchValues = array_map(function ($element) {
-                    return sprintf('{%s}', $element);
-                }, $this->searchValue);
-                return sprintf('{%s:[%s]}', $this->field, implode(',', $searchValues));
+                return sprintf('{%s:[%s]}', $this->field, implode(',', $this->searchValue));
                 break;
             default:
                 $value = $this->getPreparedValue($this->searchValue);

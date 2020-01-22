@@ -14,7 +14,7 @@ class ContentBuilder implements GraphBuilderInterface
 
     private $firstRecords = 0;
 
-    private $lastRecords = 0;
+    private $latestRecords = 0;
 
     private $randomRecords = 0;
 
@@ -46,9 +46,9 @@ class ContentBuilder implements GraphBuilderInterface
         return $this;
     }
 
-    public function setLastRecords(int $lastRecords): self
+    public function setLatestRecords(int $latestRecords): self
     {
-        $this->lastRecords = $lastRecords;
+        $this->latestRecords = $latestRecords;
 
         return $this;
     }
@@ -101,7 +101,7 @@ class ContentBuilder implements GraphBuilderInterface
     {
         $conditions = [];
 
-        if ($this->firstRecords !== 0 && $this->lastRecords !== 0) {
+        if ($this->firstRecords !== 0 && $this->latestRecords !== 0) {
             throw new WrongConditionConnectionException();
         }
 
@@ -109,18 +109,18 @@ class ContentBuilder implements GraphBuilderInterface
             $conditions[] = sprintf('first: %d', $this->firstRecords);
         }
 
-        if ($this->lastRecords > 0) {
-            $conditions[] = sprintf('last: %d', $this->firstRecords);
-            $conditions[] = sprintf('order: ["%s", "%s"]', 'id', 'DESC');
+        if ($this->latestRecords > 0) {
+            $conditions[] = sprintf('latest: %d', $this->latestRecords);
+            $conditions[] = sprintf('order: {field: "%s", direction: "%s"}', 'id', 'DESC');
         }
 
         if ($this->randomRecords > 0) {
             $conditions[] = sprintf('random: %d', $this->randomRecords);
         }
 
-        if ($this->lastRecords === 0 && empty($this->order) === false) {
+        if ($this->latestRecords === 0 && empty($this->order) === false) {
             [$field, $order] = $this->order;
-            $conditions[] = sprintf('order: ["%s", "%s"]', $field, $order);
+            $conditions[] = sprintf('order: {field: "%s", direction: "%s"}', $field, $order);
         }
 
         if (empty($this->filters) === false) {
@@ -139,6 +139,6 @@ class ContentBuilder implements GraphBuilderInterface
             $conditions[] = sprintf('limit: %d', $this->limit);
         }
 
-        return implode(',', $conditions);
+        return implode(', ', $conditions);
     }
 }

@@ -64,7 +64,7 @@ class FilterExpressionBuilder
                     if (in_array($filterField, $this->nestedFilterParams, true)) {
                         $this->generateNestedExpr($orExpressions, $filterName, reset($filterOptions));
                     } else {
-                        $orExpressions[$filterField] = $this->getExpressionForField($filterField, $filterValue);
+                        $orExpressions[] = $this->getExpressionForField($filterField, $filterValue);
                     }
                     $this->aliasCounter++;
                 }
@@ -79,7 +79,7 @@ class FilterExpressionBuilder
                     if (in_array($filterField, $this->nestedFilterParams, true)) {
                         $this->generateNestedExpr($andExpressions, $filterName, $filterOptions);
                     } else {
-                        $andExpressions[$filterField] = $this->getExpressionForField($filterField, $filterValue);
+                        $andExpressions[] = $this->getExpressionForField($filterField, $filterValue);
                     }
                     $this->aliasCounter++;
                 }

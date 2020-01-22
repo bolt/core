@@ -47,7 +47,7 @@ class QueryType extends ObjectType
                     'first' => [
                         'type' => Type::int(),
                     ],
-                    'last' => [
+                    'latest' => [
                         'type' => Type::int(),
                     ],
                     'limit' => [
@@ -59,20 +59,16 @@ class QueryType extends ObjectType
                     ],
                     'order' => [
                         'type' => Type::getNullableType(new InputObjectType([
-                            'name' => 'Order',
+                            'name' => 'Order_' . Uuid::uuid4()->toString(),
                             'fields' => [
-                                'field' => new InputObjectType([
-                                    'name' => 'Order_' . Uuid::uuid4()->toString(),
-                                    'fields' => function () use ($fields) {
-                                        return $fields;
-                                    }
-                                ]),
-                                'order' => [
+                                'field' => [
                                     'type' => Type::string(),
-                                    'defaultValue' => 'ASC'
+                                ],
+                                'direction' => [
+                                    'type' => Type::string(),
                                 ]
-                            ]
-                        ])),
+                            ],
+                        ]))
                     ],
                     'filter' => [
                         'type' => Type::getNullableType(new InputObjectType([

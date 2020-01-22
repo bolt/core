@@ -31,7 +31,7 @@ class Query
         $this->queryParser = $queryParser;
     }
 
-    public function getContent(string $textQuery): JsonResponse
+    public function getContent(string $textQuery, array $whereArguments = []): JsonResponse
     {
         $schema = new Schema([
             'query' => new QueryType(
@@ -40,12 +40,12 @@ class Query
                 ScopeEnum::DEFAULT
             ),
         ]);
-        $result = GraphQL::executeQuery($schema, $this->queryParser->parseQuery($textQuery));
+        $result = GraphQL::executeQuery($schema, $this->queryParser->parseQuery($textQuery, $whereArguments));
 
         return new JsonResponse($result->toArray());
     }
 
-    public function getContentForTwig(string $textQuery): array
+    public function getContentForTwig(string $textQuery, array $whereArguments = []): array
     {
         $schema = new Schema([
             'query' => new QueryType(
@@ -54,9 +54,10 @@ class Query
                 ScopeEnum::FRONT
             ),
         ]);
-        $textQuery = $this->queryParser->parseQuery($textQuery);
+        $textQuery = $this->queryParser->parseQuery($textQuery, $whereArguments);
         $result = GraphQL::executeQuery($schema, $textQuery);
 
+        dump($textQuery, $result);die;
         $content = reset($result->toArray()['data']);
 
         if (empty($content)) {

@@ -73,8 +73,7 @@ class QueryFieldResolver
                 );
             }
 
-            $qb->where($expressions)
-                ->setParameters($parameters);
+            $qb->where($expressions)->setParameters($parameters);
         }
 
         if ($info->fieldName !== 'content') {
@@ -91,6 +90,21 @@ class QueryFieldResolver
 
         if (isset($args['random'])) {
             unset($args['limit']);
+        }
+
+        if (isset($args['first'])) {
+            $args['limit'] = $args['first'];
+            $qb->addOrderBy(sprintf('%s.createdAt', $contentTypeAlias), 'ASC');
+        }
+
+        if (isset($args['latest'])) {
+            $args['limit'] = $args['latest'];
+            if ($args['order']) {
+                $qb->addOrderBy(
+                    sprintf('%s.%s', $contentTypeAlias, $this->getFieldName($args['order']['field'])),
+                    $args['order']['direction'] ?? 'ASC'
+                );
+            }
         }
 
         if (isset($args['limit'])) {
@@ -132,5 +146,12 @@ class QueryFieldResolver
         }
 
         return $preparedResults;
+    }
+
+    private function getFieldName(string $fieldName): string
+    {
+        return preg_replace_callback('/_([a-z])/', function ($matches) {
+            return strtoupper($matches[1]);
+        }, $fieldName);
     }
 }

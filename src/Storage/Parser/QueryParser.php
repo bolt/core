@@ -5,6 +5,7 @@ namespace Bolt\Storage\Parser;
 use Bolt\Configuration\Config;
 use Bolt\Storage\Builder\ContentBuilder;
 use Bolt\Storage\Builder\Filter\GraphFilter;
+use Bolt\Storage\Builder\FilterFieldBuilder;
 use Bolt\Storage\Builder\GraphBuilder;
 use Bolt\Storage\Definition\FieldDefinition;
 use Bolt\Storage\Exception\UnsupportedQueryException;
@@ -24,7 +25,7 @@ class QueryParser
         $this->config = $config;
     }
 
-    public function parseQuery(string $query): string
+    public function parseQuery(string $query, array $whereArguments = []): string
     {
         $textQuery = $query;
         $contents = $fields = [];
@@ -37,7 +38,10 @@ class QueryParser
         }
 
         if ($this->isDeprecatedQuery($textQuery)) {
-            ['contents' => $contents, 'fields' => $fields] = $this->parseDeprecatedQuery($textQuery);
+            ['contents' => $contents, 'fields' => $fields] = $this->parseDeprecatedQuery(
+                $textQuery,
+                $whereArguments
+            );
         }
 
         foreach ($contents as $index => $content) {
@@ -89,7 +93,7 @@ class QueryParser
         ];
     }
 
-    private function parseDeprecatedQuery(string &$textQuery): array
+    private function parseDeprecatedQuery(string &$textQuery, array $whereArguments = []): array
     {
         $graphBuilder = new GraphBuilder();
         $contentType = $textQuery;
@@ -103,20 +107,93 @@ class QueryParser
         $allFields = $this->getAllFields($contentType);
         $content = ContentBuilder::create($contentType)->selectFields($allFields);
 
-        switch ($functionName) {
-            case 'random':
-                $content->setRandom($functionParameter);
-                break;
-            case 'first':
-                $content->setFirstRecords($functionParameter);
-                break;
-            case 'last':
-                $content->setLastRecords($functionParameter);
-                break;
+        if (empty($whereArguments)) {
+            switch ($functionName) {
+                case 'random':
+                    $content->setRandom($functionParameter);
+                    break;
+                case 'first':
+                    $content->setFirstRecords($functionParameter);
+                    break;
+                case 'latest':
+                    $content->setLatestRecords($functionParameter);
+                    break;
+            }
+
+            if ($searchValue !== null) {
+                $content->addFilter(GraphFilter::createSimpleFilter('slug', $searchValue));
+            }
         }
 
-        if ($searchValue !== null) {
-            $content->addFilter(GraphFilter::createSimpleFilter('slug', $searchValue));
+        foreach ($whereArguments as $field => $value) {
+            if ($this->is)
+
+            if ($this->isSingleValue($value)) {
+                [$operator, $value] = $this->parseValue($value);
+                switch ($operator) {
+                    case '%':
+                        $fieldForFilter = FilterFieldBuilder::contains($field);
+                        break;
+                    case '>':
+                        $fieldForFilter = FilterFieldBuilder::greaterThan($field);
+                        break;
+                    case '<':
+                        $fieldForFilter = FilterFieldBuilder::lessThan($field);
+                        break;
+                    case '>=':
+                        $fieldForFilter = FilterFieldBuilder::greaterThanEqual($field);
+                        break;
+                    case '<=':
+                        $fieldForFilter = FilterFieldBuilder::lessThanEqual($field);
+                        break;
+                    case '=':
+                    default:
+                        $fieldForFilter = $field;
+                        break;
+                }
+                $content->addFilter(GraphFilter::createSimpleFilter($fieldForFilter, $value));
+            } else {
+                [$operators, $values, $comparator] = $this->parseMultipleValue($value);
+                $fieldsForFilter = [];
+                foreach ($values as $id => $val) {
+                    switch ($operators[$id]) {
+                        case '%':
+                            $fieldsForFilter[] = FilterFieldBuilder::contains($field);
+                            break;
+                        case '>':
+                            $fieldsForFilter[] = FilterFieldBuilder::greaterThan($field);
+                            break;
+                        case '<':
+                            $fieldsForFilter[] = FilterFieldBuilder::lessThan($field);
+                            break;
+                        case '>=':
+                            $fieldsForFilter[] = FilterFieldBuilder::greaterThanEqual($field);
+                            break;
+                        case '<=':
+                            $fieldsForFilter[] = FilterFieldBuilder::lessThanEqual($field);
+                            break;
+                        case '=':
+                        default:
+                            $fieldsForFilter[] = $field;
+                            break;
+                    }
+                }
+
+                switch ($comparator) {
+                    case '&&':
+                        $content->addFilter(GraphFilter::createAndFilter(
+                            GraphFilter::createSimpleFilter($fieldsForFilter[0], $values[0]),
+                            GraphFilter::createSimpleFilter($fieldsForFilter[1], $values[1])
+                        ));
+                        break;
+                    case '||':
+                        $content->addFilter(GraphFilter::createOrFilter(
+                            GraphFilter::createSimpleFilter($fieldsForFilter[0], $values[0]),
+                            GraphFilter::createSimpleFilter($fieldsForFilter[1], $values[1])
+                        ));
+                        break;
+                }
+            }
         }
 
         $textQuery = $graphBuilder->addContent($content)->getQuery();
@@ -129,6 +206,29 @@ class QueryParser
             'contents' => $contents,
             'fields' => $fields,
         ];
+    }
+
+    private function isSingleValue(string $value): bool
+    {
+        return preg_match('/\|{2}|\&{2}/', $value) === 0;
+    }
+
+    private function parseValue(string $value): array
+    {
+        preg_match('/^([\<|\>\%]?=?)/', $value, $matches);
+
+        if (empty($matches[0])) {
+            return [null, $value];
+        }
+
+        return [$matches[0], mb_substr($value, mb_strlen($matches[0]))];
+    }
+
+    private function parseMultipleValue(string $value): array
+    {
+        preg_match('/^([\<|\>\%]?=?)(.[^\s|&]*)\s*(\|{2}|\&{2})\s*([\<|\>\%]?=?)(.*)$/', $value, $matches);
+
+        return [[$matches[1], $matches[4]], [$matches[2], $matches[5]], $matches[3]];
     }
 
     private function explodeQuery(string $textQuery): array
