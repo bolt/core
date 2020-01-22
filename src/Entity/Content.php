@@ -185,10 +185,8 @@ class Content
 
     public function getSlug($locale = null): ?string
     {
-
         $slug = null;
-        if($locale === null)
-        {
+        if ($locale === null) {
             // get slug with locale the slug already has
             $slug = $this->getFieldValue('slug');
         } else {
@@ -196,8 +194,7 @@ class Content
             $slug = $this->getField('slug')->setLocale($locale)->getParsedValue();
         }
 
-        if($slug === null)
-        {
+        if ($slug === null) {
             // if no slug exists for the current/requested locale, default back
             $slug = $this
                 ->getField('slug')

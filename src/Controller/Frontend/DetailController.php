@@ -7,7 +7,6 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
-use Bolt\Repository\FieldRepository;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,14 +20,10 @@ class DetailController extends TwigAwareController implements FrontendZone
     /** @var ContentRepository */
     private $contentRepository;
 
-    /** @var FieldRepository */
-    private $fieldRepository;
-
-    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, FieldRepository $fieldRepository)
+    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository)
     {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
-        $this->fieldRepository = $fieldRepository;
     }
 
     /**
