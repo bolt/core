@@ -7,7 +7,6 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
-use Bolt\Repository\FieldRepository;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,14 +20,10 @@ class DetailController extends TwigAwareController implements FrontendZone
     /** @var ContentRepository */
     private $contentRepository;
 
-    /** @var FieldRepository */
-    private $fieldRepository;
-
-    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, FieldRepository $fieldRepository)
+    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository)
     {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
-        $this->fieldRepository = $fieldRepository;
     }
 
     /**
@@ -51,12 +46,7 @@ class DetailController extends TwigAwareController implements FrontendZone
         if (is_numeric($slugOrId)) {
             $record = $this->contentRepository->findOneBy(['id' => (int) $slugOrId]);
         } else {
-            // @todo this should search only by slug or any other unique field
-            $field = $this->fieldRepository->findOneBySlug($slugOrId);
-            if ($field === null) {
-                throw new NotFoundHttpException('Content does not exist.');
-            }
-            $record = $field->getContent();
+            $record = $this->contentRepository->findOneBySlug($slugOrId);
         }
 
         if (! $record) {
