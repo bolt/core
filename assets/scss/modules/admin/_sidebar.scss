@@ -6,6 +6,10 @@
   height: 100%;
   padding-top: 1.625rem;
 
+  &:hover{
+    z-index: 2;
+  }
+
   @include media-breakpoint-up(lg) {
     padding-top: 1.625rem;
   }
