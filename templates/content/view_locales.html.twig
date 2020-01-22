@@ -34,13 +34,16 @@
                 </td>
                 {% set localizedValues = find_translations(field) %}
                 {% for locale in locales %}
+                    {% set translated = field|translated(locale) %}
                     <td>
-                        {% if not field.definition.localize and not loop.first %}
+                        {% if not field.definition.localize %}
                             <span class="badge badge-info">{{ 'view_locales.badge_default'|trans }}</span>
-                        {% elseif localizedValues[locale]|default and localizedValues[locale].value is not empty %}
-                            <span class="badge badge-success">{{ 'view_locales.badge_ok'|trans }}</span>
+                        {% elseif localizedValues[locale] is not defined %}
+                            <span class="badge badge-danger">{{ 'view_locales.badge_missing'|trans }}</span>
+                        {% elseif localizedValues[locale] is defined and translated.twigvalue is empty %}
+                            <span class="badge badge-warning">{{ 'view_locales.badge_empty'|trans }}</span>
                         {% else %}
-                            <span class="badge badge-warning">{{ 'view_locales.badge_missing'|trans }}</span>
+                            <span class="badge badge-success">{{ 'view_locales.badge_ok'|trans }}</span>
                         {% endif %}
                     </td>
                 {% endfor %}

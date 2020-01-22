@@ -130,7 +130,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function get($key)
     {
-        return $this->translate($this->getCurrentLocale())->get($key);
+        return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->get($key);
     }
 
     /**
@@ -138,7 +138,7 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public function getValue(): ?array
     {
-        return $this->translate($this->getCurrentLocale())->getValue();
+        return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->getValue();
     }
 
     /**
@@ -182,14 +182,14 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function set(string $key, $value): self
     {
-        $this->translate($this->getCurrentLocale())->set($key, $value);
+        $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->set($key, $value);
 
         return $this;
     }
 
     public function setValue($value): self
     {
-        $this->translate($this->getLocale(), false)->setValue($value);
+        $this->translate($this->getLocale(), ! $this->isTranslatable())->setValue($value);
         $this->mergeNewTranslations();
 
         return $this;
@@ -291,5 +291,10 @@ class Field implements FieldInterface, TranslatableInterface
         $entityClass = array_pop($explodedNamespace);
 
         return '\\' . implode('\\', $explodedNamespace) . '\\' . $entityClass . 'Translation';
+    }
+
+    private function isTranslatable(): bool
+    {
+        return $this->getDefinition()->get('localize') === true;
     }
 }
