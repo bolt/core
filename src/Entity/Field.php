@@ -207,9 +207,11 @@ class Field implements FieldInterface, TranslatableInterface
         return $this;
     }
 
-    public function setLocale(?string $locale): void
+    public function setLocale(?string $locale): self
     {
         $this->setCurrentLocale($locale);
+
+        return $this;
     }
 
     public function getLocale(): ?string

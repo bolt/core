@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Utils;
 
 use Bolt\Configuration\Config;
+use Bolt\Repository\ContentRepository;
 use peterkahl\flagMaster\flagMaster;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Exception\MissingResourceException;
@@ -30,7 +31,10 @@ class LocaleHelper
     /** @var Collection */
     private $codetoCountry;
 
-    public function __construct(string $locales, UrlGeneratorInterface $urlGenerator, Config $config)
+    /** @var ContentRepository */
+    private $contentRepository;
+
+    public function __construct(string $locales, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, Config $config)
     {
         $this->localeCodes = new Collection(explode('|', $locales));
         $this->urlGenerator = $urlGenerator;
@@ -38,6 +42,8 @@ class LocaleHelper
         $this->flagCodes = $this->getFlagCodes();
         $this->codetoCountry = $this->getCodetoCountry();
         $this->config = $config;
+
+        $this->contentRepository = $contentRepository;
     }
 
     public function getLocales(Environment $twig, ?Collection $localeCodes = null, bool $all = false): Collection
@@ -65,8 +71,13 @@ class LocaleHelper
             return $locales;
         }
 
+        $content = $this->contentRepository->findOneBySlug($routeParams['slugOrId']);
+
         foreach ($localeCodes as $localeCode) {
             $locale = $this->localeInfo($localeCode);
+
+            $slug = $content->getSlug($localeCode);
+            $routeParams['slugOrId'] = $slug;
 
             $locale->put('link', $this->getLink($route, $routeParams, $locale));
             $locale->put('current', $currentLocale === $localeCode);

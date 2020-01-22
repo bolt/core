@@ -43,12 +43,14 @@ trait FieldParentTrait
         })->toArray();
     }
 
-    public function setLocale(?string $locale): void
+    public function setLocale(?string $locale): Field
     {
         parent::setLocale($locale);
         /** @var Field $child */
         foreach ($this->getChildren() as $child) {
             $child->setLocale($locale);
         }
+
+        return $this;
     }
 }

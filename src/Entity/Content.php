@@ -183,9 +183,29 @@ class Content
         return $this->contentTypeDefinition;
     }
 
-    public function getSlug(): ?string
+    public function getSlug($locale = null): ?string
     {
-        return $this->getFieldValue('slug');
+
+        $slug = null;
+        if($locale === null)
+        {
+            // get slug with locale the slug already has
+            $slug = $this->getFieldValue('slug');
+        } else {
+            // get slug with the requested locale
+            $slug = $this->getField('slug')->setLocale($locale)->getParsedValue();
+        }
+
+        if($slug === null)
+        {
+            // if no slug exists for the current/requested locale, default back
+            $slug = $this
+                ->getField('slug')
+                ->setLocale($this->getField('slug')->getDefaultLocale())
+                ->getParsedValue();
+        }
+
+        return $slug;
     }
 
     public function getContentType(): ?string
