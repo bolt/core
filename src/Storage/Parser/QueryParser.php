@@ -7,6 +7,7 @@ use Bolt\Storage\Builder\ContentBuilder;
 use Bolt\Storage\Builder\Filter\GraphFilter;
 use Bolt\Storage\Builder\GraphBuilder;
 use Bolt\Storage\Definition\FieldDefinition;
+use Bolt\Storage\Exception\UnsupportedQueryException;
 
 class QueryParser
 {
@@ -91,15 +92,35 @@ class QueryParser
     private function parseDeprecatedQuery(string &$textQuery): array
     {
         $graphBuilder = new GraphBuilder();
-
-        [$contentType, $searchValue] = explode('/', $textQuery);
+        $contentType = $textQuery;
+        $searchValue = null;
+        $functionName = null;
+        $functionParameter = 0;
+        if (mb_strpos($textQuery, '/') !== false) {
+            [$contentType, $searchValue, $functionName, $functionParameter] = $this->explodeQuery($textQuery);
+        }
 
         $allFields = $this->getAllFields($contentType);
-        $textQuery = $graphBuilder->addContent(
-            ContentBuilder::create($contentType)
-                ->selectFields($allFields)
-                ->addFilter(GraphFilter::createSimpleFilter('slug', $searchValue))
-        )->getQuery();
+        $content = ContentBuilder::create($contentType)->selectFields($allFields);
+
+        switch ($functionName) {
+            case 'random':
+                $content->setRandom($functionParameter);
+                break;
+            case 'first':
+                $content->setFirstRecords($functionParameter);
+                break;
+            case 'last':
+                $content->setLastRecords($functionParameter);
+                break;
+        }
+
+        if ($searchValue !== null) {
+            $content->addFilter(GraphFilter::createSimpleFilter('slug', $searchValue));
+        }
+
+        $textQuery = $graphBuilder->addContent($content)->getQuery();
+
         preg_match_all(self::QUERY_CONTENT_PATTERN, $textQuery, $matches);
 
         [, $contents, $fields] = $matches;
@@ -108,6 +129,25 @@ class QueryParser
             'contents' => $contents,
             'fields' => $fields,
         ];
+    }
+
+    private function explodeQuery(string $textQuery): array
+    {
+        $elements = explode('/', $textQuery);
+        switch (count($elements)) {
+            case 2:
+                return [
+                    $elements[0], $elements[1], null, null
+                ];
+                break;
+            case 3:
+                return [
+                    $elements[0], null, $elements[1], $elements[2]
+                ];
+                break;
+        }
+
+        throw new UnsupportedQueryException($textQuery);
     }
 
     private function prepareFields(array $fields): string

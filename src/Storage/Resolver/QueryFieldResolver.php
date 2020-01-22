@@ -89,9 +89,20 @@ class QueryFieldResolver
             );
         }
 
-        $qb->setMaxResults($args['limit']);
+        if (isset($args['random'])) {
+            unset($args['limit']);
+        }
+
+        if (isset($args['limit'])) {
+            $qb->setMaxResults($args['limit']);
+        }
         $qb->groupBy(sprintf('%s.id', $contentTypeAlias));
         $results = $qb->getQuery()->execute();
+
+        if (isset($args['random'])) {
+            shuffle($results);
+            $results = array_slice($results, 0, $args['random']);
+        }
 
         return $this->getPreparedResults($results, $info->getFieldSelection());
     }

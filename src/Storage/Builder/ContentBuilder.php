@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage\Builder;
 
 use Bolt\Storage\Builder\Filter\GraphFilter;
+use Bolt\Storage\Exception\WrongConditionConnectionException;
 use Exception;
 
 class ContentBuilder implements GraphBuilderInterface
@@ -14,6 +15,8 @@ class ContentBuilder implements GraphBuilderInterface
     private $firstRecords = 0;
 
     private $lastRecords = 0;
+
+    private $randomRecords = 0;
 
     private $limit = 10;
 
@@ -50,6 +53,13 @@ class ContentBuilder implements GraphBuilderInterface
         return $this;
     }
 
+    public function setRandom(int $randomRecords): self
+    {
+        $this->randomRecords = $randomRecords;
+
+        return $this;
+    }
+
     public function setLimit(int $limit): self
     {
         $this->limit = $limit;
@@ -80,7 +90,7 @@ class ContentBuilder implements GraphBuilderInterface
     public function getQuery(): string
     {
         $fields = implode(' ', $this->fields);
-        if (empty($this->filters)) {
+        if (empty($this->getCondition())) {
             return sprintf('%s { %s }', $this->contentName, $fields);
         }
 
@@ -92,7 +102,7 @@ class ContentBuilder implements GraphBuilderInterface
         $conditions = [];
 
         if ($this->firstRecords !== 0 && $this->lastRecords !== 0) {
-            throw new Exception();
+            throw new WrongConditionConnectionException();
         }
 
         if ($this->firstRecords > 0) {
@@ -102,6 +112,10 @@ class ContentBuilder implements GraphBuilderInterface
         if ($this->lastRecords > 0) {
             $conditions[] = sprintf('last: %d', $this->firstRecords);
             $conditions[] = sprintf('order: ["%s", "%s"]', 'id', 'DESC');
+        }
+
+        if ($this->randomRecords > 0) {
+            $conditions[] = sprintf('random: %d', $this->randomRecords);
         }
 
         if ($this->lastRecords === 0 && empty($this->order) === false) {

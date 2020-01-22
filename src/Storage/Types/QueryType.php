@@ -57,9 +57,23 @@ class QueryType extends ObjectType
                     'random' => [
                         'type' => Type::int(),
                     ],
-                    //                    'order' => [
-                    //                        'type' => new OrderType(),
-                    //                    ],
+                    'order' => [
+                        'type' => Type::getNullableType(new InputObjectType([
+                            'name' => 'Order',
+                            'fields' => [
+                                'field' => new InputObjectType([
+                                    'name' => 'Order_' . Uuid::uuid4()->toString(),
+                                    'fields' => function () use ($fields) {
+                                        return $fields;
+                                    }
+                                ]),
+                                'order' => [
+                                    'type' => Type::string(),
+                                    'defaultValue' => 'ASC'
+                                ]
+                            ]
+                        ])),
+                    ],
                     'filter' => [
                         'type' => Type::getNullableType(new InputObjectType([
                             'name' => 'ContentFilterInput_' . Uuid::uuid4()->toString(),

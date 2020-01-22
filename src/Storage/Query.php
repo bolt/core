@@ -59,6 +59,12 @@ class Query
 
         $content = reset($result->toArray()['data']);
 
-        return reset($content);
+        if (empty($content)) {
+            return [];
+        }
+
+        $contentCount = count($content);
+
+        return $contentCount > 1 ? $content : reset($content);
     }
 }

@@ -11,6 +11,7 @@ use Bolt\Storage\Definition\ContentFieldsDefinition;
 use Bolt\Storage\Types\ImageListType;
 use Bolt\Storage\Types\ImageType;
 use Bolt\Storage\Types\RepeaterType;
+use DateTime;
 use GraphQL\Type\Definition\IDType;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\IntType;
@@ -159,7 +160,7 @@ class ContentFieldParser
                         $field.Types::GREATER_THAN_EQUAL => $type,
                     ];
                     break;
-                case $type instanceof \DateTime:
+                case $type instanceof DateTime:
                     $conditionalFields += [
                         $field.Types::CONTAINS => $type,
                         $field.Types::NOT_CONTAINS => $type,
