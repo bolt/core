@@ -107,6 +107,12 @@ class QueryFieldResolver
             }
         }
 
+        if (isset($args['order'])) {
+            $qb->andWhere('bf1.name = :orderFieldName')
+                ->setParameter('orderFieldName', $args['order']['field']);
+            $qb->addOrderBy('bf1.value', $args['order']['direction'] ?? 'ASC');
+        }
+
         if (isset($args['limit'])) {
             $qb->setMaxResults($args['limit']);
         }

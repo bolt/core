@@ -49,8 +49,9 @@
 {#        {% setcontent blocks = 'blocks' where {'title': '%quo'} %}#}
 {#        {% setcontent blocks = 'blocks' where {'title': '%quo || %omnis'} %}#}
 {#        {% setcontent blocks = 'blocks' where {'title ||| slug': '%quo ||| %omnis'} %}#}
-        {% setcontent showcases = 'showcases' where {'date': '<now'} %}
-        {{ dump(showcases) }}
+{#        {% setcontent showcases = 'showcases' where {'date': '<now'} %}#}
+{#        {% setcontent blocks = 'blocks' orderby '-title' returnsingle %}#}
+        {{ dump(blocks) }}
     </div>
     {# The next section iterates over all of the content types, and prints a list
         of the five latest records of each of them. The 'magic' happens in the

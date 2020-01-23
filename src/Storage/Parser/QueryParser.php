@@ -20,6 +20,8 @@ class QueryParser
     private const QUERY_CONTENT_PATTERN = '/([a-zA-Z0-9_]+)\s{\s*([a-zA-Z0-9_\s\*]+)\s*}/';
     private const DEPRECATED_QUERY_PATTERN = '/[a-zA-Z0-9_]+(\/[a-zA-Z0-9_\-]+)?/';
 
+    private const SELECTORS = ['limit', 'order'];
+
     private $config;
 
     public function __construct(Config $config)
@@ -27,7 +29,7 @@ class QueryParser
         $this->config = $config;
     }
 
-    public function parseQuery(string $query, array $whereArguments = []): string
+    public function parseQuery(string $query, array $arguments = []): string
     {
         $textQuery = $query;
         $contents = $fields = [];
@@ -42,7 +44,7 @@ class QueryParser
         if ($this->isDeprecatedQuery($textQuery)) {
             ['contents' => $contents, 'fields' => $fields] = $this->parseDeprecatedQuery(
                 $textQuery,
-                $whereArguments
+                $arguments
             );
         }
 
@@ -95,7 +97,7 @@ class QueryParser
         ];
     }
 
-    private function parseDeprecatedQuery(string &$textQuery, array $whereArguments = []): array
+    private function parseDeprecatedQuery(string &$textQuery, array $arguments = []): array
     {
         $graphBuilder = new GraphBuilder();
         $contentType = $textQuery;
@@ -109,7 +111,7 @@ class QueryParser
         $allFields = $this->getAllFields($contentType);
         $content = ContentBuilder::create($contentType)->selectFields($allFields);
 
-        if (empty($whereArguments)) {
+        if (empty($arguments)) {
             switch ($functionName) {
                 case 'random':
                     $content->setRandom($functionParameter);
@@ -127,8 +129,22 @@ class QueryParser
             }
         }
 
-        foreach ($whereArguments as $field => $value) {
-            if ($this->isDateSelector($value)) {
+        foreach ($arguments as $field => $value) {
+            if ($this->isStatementSelector($field)) {
+                switch ($field) {
+                    case 'limit':
+                        $content->setLimit($value);
+                        break;
+                    case 'order':
+                        $direction = 'ASC';
+                        if ($value[0] === '-') {
+                            $direction = 'DESC';
+                            $value = substr($value, 1);
+                        }
+                        $content->setOrder($value, $direction);
+                        break;
+                }
+            } elseif ($this->isDateSelector($value)) {
                 [$operator, $value] = $this->parseValue($value);
                 switch ($operator) {
                     case '%':
@@ -285,6 +301,11 @@ class QueryParser
             'contents' => $contents,
             'fields' => $fields,
         ];
+    }
+
+    private function isStatementSelector(string $key): bool
+    {
+        return in_array($key, self::SELECTORS);
     }
 
     private function isDateSelector(string $value): bool

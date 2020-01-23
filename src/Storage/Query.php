@@ -45,7 +45,7 @@ class Query
         return new JsonResponse($result->toArray());
     }
 
-    public function getContentForTwig(string $textQuery, array $whereArguments = []): array
+    public function getContentForTwig(string $textQuery, array $arguments = []): array
     {
         $schema = new Schema([
             'query' => new QueryType(
@@ -54,7 +54,11 @@ class Query
                 ScopeEnum::FRONT
             ),
         ]);
-        $textQuery = $this->queryParser->parseQuery($textQuery, $whereArguments);
+
+        $returnSingle = isset($arguments['returnsingle']);
+        unset($arguments['returnsingle']);
+
+        $textQuery = $this->queryParser->parseQuery($textQuery, $arguments);
         $result = GraphQL::executeQuery($schema, $textQuery);
 
         $content = reset($result->toArray()['data']);
@@ -63,8 +67,10 @@ class Query
             return [];
         }
 
-        $contentCount = count($content);
+        if ($returnSingle) {
+            return reset($content);
+        }
 
-        return $contentCount > 1 ? $content : reset($content);
+        return $content;
     }
 }
