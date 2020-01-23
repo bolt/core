@@ -8,6 +8,7 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Storage\Conditional\Types;
 use Bolt\Storage\Definition\ContentFieldsDefinition;
+use Bolt\Storage\Types\DateType;
 use Bolt\Storage\Types\ImageListType;
 use Bolt\Storage\Types\ImageType;
 use Bolt\Storage\Types\RepeaterType;
@@ -93,6 +94,9 @@ class ContentFieldParser
     private function getTypeForField(string $contentType, DeepCollection $fieldConfiguration): Type
     {
         switch ($fieldConfiguration['type']) {
+            case 'date':
+                return new DateType();
+                break;
             case 'imagelist':
             return Type::listOf(
                 new ImageListType()
@@ -108,7 +112,6 @@ class ContentFieldParser
             case 'embed':
             case 'geolocation':
             case 'markdown':
-            case 'date':
                 return Type::string();
                 break;
             case 'checkbox':
@@ -145,6 +148,16 @@ class ContentFieldParser
         $conditionalFields = [];
         foreach ($contentFields as $field => $type) {
             switch (true) {
+                case $type instanceof DateType:
+                    $conditionalFields += [
+                        $field.Types::CONTAINS => $type,
+                        $field.Types::NOT_CONTAINS => $type,
+                        $field.Types::LESS_THAN => $type,
+                        $field.Types::LESS_THAN_EQUAL => $type,
+                        $field.Types::GREATER_THAN => $type,
+                        $field.Types::GREATER_THAN_EQUAL => $type,
+                    ];
+                    break;
                 case $type instanceof StringType:
                     $conditionalFields += [
                         $field.Types::CONTAINS => $type,
@@ -154,16 +167,6 @@ class ContentFieldParser
                 case $type instanceof IntType:
                 case $type instanceof IDType:
                     $conditionalFields += [
-                        $field.Types::LESS_THAN => $type,
-                        $field.Types::LESS_THAN_EQUAL => $type,
-                        $field.Types::GREATER_THAN => $type,
-                        $field.Types::GREATER_THAN_EQUAL => $type,
-                    ];
-                    break;
-                case $type instanceof DateTime:
-                    $conditionalFields += [
-                        $field.Types::CONTAINS => $type,
-                        $field.Types::NOT_CONTAINS => $type,
                         $field.Types::LESS_THAN => $type,
                         $field.Types::LESS_THAN_EQUAL => $type,
                         $field.Types::GREATER_THAN => $type,

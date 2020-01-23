@@ -4,46 +4,14 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Types;
 
-use DateTime;
-use DateTimeInterface;
-use Exception;
-use GraphQL\Language\AST\StringValueNode;
-use GraphQL\Type\Definition\LeafType;
-use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\StringType;
 use Ramsey\Uuid\Uuid;
 
-class DateType extends ObjectType implements LeafType
+class DateType extends StringType
 {
-    public function __construct()
+    public function __construct(array $config = [])
     {
-        $config = [
-            'name' => 'Date_'.Uuid::uuid4()->toString(),
-            'type' => new \DateTime(),
-        ];
-
+        $this->name = 'Date_' . Uuid::uuid4()->toString();
         parent::__construct($config);
-    }
-
-    public function serialize($value)
-    {
-        if ($value instanceof DateTimeInterface) {
-            return $value->format(DateTime::W3C);
-        }
-
-        return null;
-    }
-
-    public function parseValue($value)
-    {
-        return $value;
-    }
-
-    public function parseLiteral($valueNode, ?array $variables = null)
-    {
-        if ($valueNode instanceof StringValueNode) {
-            return $valueNode->value;
-        }
-
-        throw new Exception();
     }
 }

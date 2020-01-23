@@ -10,6 +10,7 @@ use Bolt\Storage\Builder\GraphBuilder;
 use Bolt\Storage\Definition\FieldDefinition;
 use Bolt\Storage\Exception\KeyValueComparatorsException;
 use Bolt\Storage\Exception\UnsupportedQueryException;
+use DateTime;
 
 class QueryParser
 {
@@ -127,7 +128,37 @@ class QueryParser
         }
 
         foreach ($whereArguments as $field => $value) {
-            if ($this->isMultipleKeyValue($field, $value)) {
+            if ($this->isDateSelector($value)) {
+                [$operator, $value] = $this->parseValue($value);
+                switch ($operator) {
+                    case '%':
+                        $fieldForFilter = FilterFieldBuilder::contains($field);
+                        break;
+                    case '>':
+                        $fieldForFilter = FilterFieldBuilder::greaterThan($field);
+                        break;
+                    case '<':
+                        $fieldForFilter = FilterFieldBuilder::lessThan($field);
+                        break;
+                    case '>=':
+                        $fieldForFilter = FilterFieldBuilder::greaterThanEqual($field);
+                        break;
+                    case '<=':
+                        $fieldForFilter = FilterFieldBuilder::lessThanEqual($field);
+                        break;
+                    case '=':
+                    default:
+                        $fieldForFilter = $field;
+                        break;
+                }
+
+                $date = new DateTime($value);
+
+                $content->addFilter(
+                    GraphFilter::createSimpleFilter($fieldForFilter, $date->format('Y-m-d H:i:s'))
+                );
+
+            } else if ($this->isMultipleKeyValue($field, $value)) {
                 [$operators, $keyValues, $comparator] = $this->parseMultipleKeyValue($field, $value);
                 $fieldsForFilter = [];
                 $values = [];
@@ -254,6 +285,11 @@ class QueryParser
             'contents' => $contents,
             'fields' => $fields,
         ];
+    }
+
+    private function isDateSelector(string $value): bool
+    {
+        return strtotime($value) !== false;
     }
 
     private function isSingleValue(string $value): bool
