@@ -8,6 +8,7 @@ use Bolt\Storage\Builder\Filter\GraphFilter;
 use Bolt\Storage\Builder\FilterFieldBuilder;
 use Bolt\Storage\Builder\GraphBuilder;
 use Bolt\Storage\Definition\FieldDefinition;
+use Bolt\Storage\Exception\KeyValueComparatorsException;
 use Bolt\Storage\Exception\UnsupportedQueryException;
 
 class QueryParser
@@ -126,9 +127,56 @@ class QueryParser
         }
 
         foreach ($whereArguments as $field => $value) {
-            if ($this->is)
+            if ($this->isMultipleKeyValue($field, $value)) {
+                [$operators, $keyValues, $comparator] = $this->parseMultipleKeyValue($field, $value);
+                $fieldsForFilter = [];
+                $values = [];
+                foreach ($keyValues as $id => $keyValue) {
+                    $field = key($keyValue);
+                    $value = $keyValue[$field];
+                    switch ($operators[$id]) {
+                        case '%':
+                            $fieldsForFilter[] = FilterFieldBuilder::contains($field);
+                            $values[] = $value;
+                            break;
+                        case '>':
+                            $fieldsForFilter[] = FilterFieldBuilder::greaterThan($field);
+                            $values[] = $value;
+                            break;
+                        case '<':
+                            $fieldsForFilter[] = FilterFieldBuilder::lessThan($field);
+                            $values[] = $value;
+                            break;
+                        case '>=':
+                            $fieldsForFilter[] = FilterFieldBuilder::greaterThanEqual($field);
+                            $values[] = $value;
+                            break;
+                        case '<=':
+                            $fieldsForFilter[] = FilterFieldBuilder::lessThanEqual($field);
+                            $values[] = $value;
+                            break;
+                        case '=':
+                        default:
+                            $fieldsForFilter[] = $field;
+                            break;
+                    }
+                }
 
-            if ($this->isSingleValue($value)) {
+                switch ($comparator) {
+                    case '&&&':
+                        $content->addFilter(GraphFilter::createAndFilter(
+                            GraphFilter::createSimpleFilter($fieldsForFilter[0], $values[0]),
+                            GraphFilter::createSimpleFilter($fieldsForFilter[1], $values[1])
+                        ));
+                        break;
+                    case '|||':
+                        $content->addFilter(GraphFilter::createOrFilter(
+                            GraphFilter::createSimpleFilter($fieldsForFilter[0], $values[0]),
+                            GraphFilter::createSimpleFilter($fieldsForFilter[1], $values[1])
+                        ));
+                        break;
+                }
+            } else if ($this->isSingleValue($value)) {
                 [$operator, $value] = $this->parseValue($value);
                 switch ($operator) {
                     case '%':
@@ -213,6 +261,11 @@ class QueryParser
         return preg_match('/\|{2}|\&{2}/', $value) === 0;
     }
 
+    private function isMultipleKeyValue(string $key, string $value): bool
+    {
+        return preg_match('/\|{3}|\&{3}/', $key) && preg_match('/\|{3}|\&{3}/', $value);
+    }
+
     private function parseValue(string $value): array
     {
         preg_match('/^([\<|\>\%]?=?)/', $value, $matches);
@@ -227,8 +280,35 @@ class QueryParser
     private function parseMultipleValue(string $value): array
     {
         preg_match('/^([\<|\>\%]?=?)(.[^\s|&]*)\s*(\|{2}|\&{2})\s*([\<|\>\%]?=?)(.*)$/', $value, $matches);
+        [, $operatorFieldOne, $valueOne, $valueComparator, $operatorFieldTwo, $valueTwo] = $matches;
 
-        return [[$matches[1], $matches[4]], [$matches[2], $matches[5]], $matches[3]];
+        return [[$operatorFieldOne, $operatorFieldTwo], [$valueOne, $valueTwo], $valueComparator];
+    }
+
+    private function parseMultipleKeyValue(string $key, string $value): array
+    {
+        preg_match('/^(.[^\s|&]*)\s*(\|{3}|\&{3})\s*(.*)$/', $key, $keyMatches);
+        preg_match(
+            '/^([\<|\>\%]?=?)(.[^\s|&]*)\s*(\|{3}|\&{3})\s*([\<|\>\%]?=?)(.*)$/',
+            $value,
+            $valueMatches
+        );
+
+        [, $fieldOne, $keyComparator, $fieldTwo] = $keyMatches;
+        [, $operatorFieldOne, $valueOne, $valueComparator, $operatorFieldTwo, $valueTwo] = $valueMatches;
+
+        if ($keyComparator !== $valueComparator) {
+            throw new KeyValueComparatorsException();
+        }
+
+        return [
+            [$operatorFieldOne, $operatorFieldTwo],
+            [
+                [$fieldOne => $valueOne],
+                [$fieldTwo => $valueTwo],
+            ],
+            $keyComparator
+        ];
     }
 
     private function explodeQuery(string $textQuery): array

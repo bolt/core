@@ -57,7 +57,6 @@ class Query
         $textQuery = $this->queryParser->parseQuery($textQuery, $whereArguments);
         $result = GraphQL::executeQuery($schema, $textQuery);
 
-        dump($textQuery, $result);die;
         $content = reset($result->toArray()['data']);
 
         if (empty($content)) {
