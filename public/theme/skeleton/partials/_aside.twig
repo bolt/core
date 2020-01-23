@@ -9,51 +9,38 @@
     <div>
         {# The next section attempts to fill the panel in the sidebar with the contents of the
             'about'-block, if it exists. First, attempt to fetch the block by its slug #}
-{#        {% setcontent block = "blocks/about" %}#}
+        {% setcontent block = "blocks/about" %}
 
         {# check if we have a title. If so, we know we have content to display. Otherwise, we will
             output a default text, telling the user to create the 'blocks' in the backend. #}
-{#        {% if block.title is defined %}#}
+        {% if block.title is defined %}
 
-{#            <h5>{{ block.title }}</h5>#}
-{#            {{ block.content }}#}
+            <h5>{{ block.title }}</h5>
+            {{ block.content }}
 
-{#            {% set edit_link = block|edit_link %}#}
-{#            {% set content_link = block | link('block') %}#}
-{#            {% if content_link or edit_link %}#}
-{#                <p>#}
-{#                {%- if content_link %}#}
-{#                   <a href="{{ relative_path(content_link|e) }}">{{ __('general.phrase.read-more') }}</a>#}
-{#                {% endif -%}#}
-{#                {%- if edit_link %}#}
-{#                    / <a href="{{ edit_link }}">{{ __('general.phrase.edit') }}</a>#}
-{#                {% endif -%}#}
-{#                </p>#}
-{#            {% endif %}#}
+            {% set edit_link = block|edit_link %}
+            {% set content_link = block|link %}
+            {% if content_link or edit_link %}
+                <p>
+                {%- if content_link %}
+                   <a href="{{ relative_path(content_link|e) }}">{{ __('general.phrase.read-more') }}</a>
+                {% endif -%}
+                {%- if edit_link %}
+                    / <a href="{{ edit_link }}">{{ __('general.phrase.edit') }}</a>
+                {% endif -%}
+                </p>
+            {% endif %}
 
-{#        {% else %}#}
+        {% else %}
 
-{#            <h5>{{ __('general.phrase.missing-about-page') }}</h5>#}
+            <h5>{{ __('general.phrase.missing-about-page') }}</h5>
 
-{#            <p>{{ __('general.phrase.missing-about-page-block') }}</p>#}
+            <p>{{ __('general.phrase.missing-about-page-block') }}</p>
 
-{#        {% endif %}#}
-{#        #}
-{#        {% setcontent blocks = 'blocks/about' %}#}
-{#        {% setcontent blocks = 'blocks' %}#}
-{#        {% setcontent blocks = 'blocks/random/3' %}#}
-{#        {% setcontent blocks = 'blocks/first/3' %}#}
-{#        {% setcontent blocks = 'blocks/latest/3' %}#}
-{#        {% setcontent blocks = 'blocks' where {'title': 'Molestiae qui quo officia.'} %}#}
-{#        {% setcontent blocks = 'blocks' where {'title': '%quo'} %}#}
-{#        {% setcontent blocks = 'blocks' where {'title': '%quo'} %}#}
-{#        {% setcontent blocks = 'blocks' where {'title': '%quo || %omnis'} %}#}
-{#        {% setcontent blocks = 'blocks' where {'title ||| slug': '%quo ||| %omnis'} %}#}
-{#        {% setcontent showcases = 'showcases' where {'date': '<now'} %}#}
-{#        {% setcontent blocks = 'blocks' orderby '-title,slug,-datechanged' returnsingle %}#}
-        {% setcontent blocks = 'blocks' orderby '-title,slug'  %}
-        {{ dump(blocks) }}
+        {% endif %}
+
     </div>
+
     {# The next section iterates over all of the content types, and prints a list
         of the five latest records of each of them. The 'magic' happens in the
         setcontent tag.. ct.slug ~ "/latest/3" concatenates the slug of the
@@ -63,23 +50,23 @@
         Lastly, "path('listing', {'contentTypeSlug': ct.slug})" will output something like '/pages',
         effectively creating a working link to that contenttpye's listing page. #}
 
-{#    {% for ct in config.get('contenttypes') if not ct.viewless|default(false) %}#}
+    {% for ct in config.get('contenttypes')|filter(ct => not ct.viewless) %}
 
-{#        {% setcontent records = ct.slug ~ "/latest/3" %}#}
+        {% setcontent records = ct.slug ~ "/latest/3" %}
 
-{#        <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.name}) }}</h5>#}
-{#        <ul>#}
-{#            {% for record in records %}#}
-{#                <li><a href="{{ record|link }}">{{ record|title }}</a></li>#}
-{#            {% else %}#}
-{#                <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{#        <p><a href="{{ path('listing', {'contentTypeSlug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }} &raquo;</a></p>#}
+        <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.name}) }}</h5>
+        <ul>
+            {% for record in records %}
+                <li><a href="{{ record|link }}">{{ record|title }}</a></li>
+            {% else %}
+                <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>
+            {% endfor %}
+        </ul>
+        <p><a href="{{ path('listing', {'contentTypeSlug': ct.slug}) }}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.name}) }} &raquo;</a></p>
 
-{#    {% endfor %}#}
+    {% endfor %}
 
-{#    {{ widgets('aside_bottom') }}#}
+    {{ widgets('aside_bottom') }}
 
 </aside>
 <!-- End Sidebar -->

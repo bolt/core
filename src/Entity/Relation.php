@@ -6,7 +6,6 @@ namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -38,7 +37,7 @@ class Relation
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      *
      * @var Content
      * @Groups("get_relation")
@@ -47,7 +46,7 @@ class Relation
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", fetch="EAGER")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      *
      * @var Content
      * @Groups("get_relation")
@@ -55,14 +54,12 @@ class Relation
     private $toContent;
 
     /**
-     * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
      */
     private $position = 0;
 
     /**
      * @ORM\Column(name="`group`", type="string", length=191)
-     * @Gedmo\SortableGroup
      */
     private $group;
 

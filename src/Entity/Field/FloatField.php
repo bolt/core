@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FloatField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'float';
-    }
+    public const TYPE = 'float';
 }

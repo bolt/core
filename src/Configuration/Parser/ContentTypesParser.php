@@ -96,10 +96,7 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['show_in_menu'])) {
             $contentType['show_in_menu'] = true;
         }
-        if (! isset($contentType['sort'])) {
-            $contentType['sort'] = 'id';
-        }
-        if (! isset($contentType['default_status'])) {
+        if (! isset($contentType['default_status']) || ! in_array($contentType['default_status'], Statuses::all(), true)) {
             $contentType['default_status'] = Statuses::PUBLISHED;
         }
         if (! isset($contentType['viewless'])) {
@@ -151,6 +148,8 @@ class ContentTypesParser extends BaseParser
         $contentType['fields'] = $fields;
         $contentType['groups'] = $groups;
 
+        $contentType['sort'] = $this->determineSort($contentType);
+
         // Make sure taxonomy is an array.
         if (isset($contentType['taxonomy'])) {
             $contentType['taxonomy'] = (array) $contentType['taxonomy'];
@@ -174,6 +173,7 @@ class ContentTypesParser extends BaseParser
             $contentType['groups'][] = 'Relations';
         }
 
+        /** @var ContentType */
         return ContentType::deepMake($contentType);
     }
 
@@ -189,63 +189,14 @@ class ContentTypesParser extends BaseParser
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
         foreach ($fields as $key => $field) {
-            $key = str_replace('-', '_', mb_strtolower($key));
-            if (! isset($field['type']) || empty($field['type'])) {
-                $error = sprintf('Field "%s" has no "type" set.', $key);
-
-                throw new ConfigurationException($error);
-            }
-
-            // If field is a "file" type, make sure the 'extensions' are set, and it's an array.
-            if ($field['type'] === 'file' || $field['type'] === 'filelist') {
-                if (empty($field['extensions'])) {
-                    $field['extensions'] = $acceptFileTypes;
-                }
-
-                $field['extensions'] = (array) $field['extensions'];
-            }
-
-            // If field is an "image" type, make sure the 'extensions' are set, and it's an array.
-            if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
-                if (empty($field['extensions'])) {
-                    $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg']);
-                    $field['extensions'] = $extensions->intersect($acceptFileTypes)->toArray();
-                }
-
-                $field['extensions'] = (array) $field['extensions'];
-            }
-
-            // Make indexed arrays into associative for select fields
-            // e.g.: [ 'yes', 'no' ] => { 'yes': 'yes', 'no': 'no' }
-            if ($field['type'] === 'select' && isset($field['values']) && Arr::isIndexed($field['values'])) {
-                $field['values'] = array_combine($field['values'], $field['values']);
-            }
-
-            if (empty($field['label'])) {
-                $field['label'] = ucwords($key);
-            }
-
-            if (isset($field['allow_html']) === false) {
-                $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
-            }
-
-            if (isset($field['sanitise']) === false) {
-                $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
-            }
-
-            if (empty($field['group'])) {
-                $field['group'] = $currentGroup;
-            } else {
-                $currentGroup = $field['group'];
-            }
-
+            $this->parseField($key, $field, $acceptFileTypes, $currentGroup);
             // Convert array into FieldType
             $fields[$key] = new FieldType($field, $key);
             $groups[$currentGroup] = $currentGroup;
 
             // Repeating fields checks
-            if ($field['type'] === 'repeater') {
-                $fields[$key] = $this->parseFieldRepeaters($fields[$key]);
+            if (isset($field['fields'])) {
+                $fields[$key] = $this->parseFieldRepeaters($fields[$key], $acceptFileTypes, $currentGroup);
                 if ($fields[$key] === null) {
                     unset($fields[$key]);
                 }
@@ -260,23 +211,122 @@ class ContentTypesParser extends BaseParser
         return [$fields, $groups];
     }
 
+    private function parseField($key, &$field, $acceptFileTypes, &$currentGroup): void
+    {
+        $key = str_replace('-', '_', mb_strtolower(Str::makeSafe($key, true)));
+        if (! isset($field['type']) || empty($field['type'])) {
+            $error = sprintf('Field "%s" has no "type" set.', $key);
+
+            throw new ConfigurationException($error);
+        }
+
+        // If field is a "file" type, make sure the 'extensions' are set, and it's an array.
+        if ($field['type'] === 'file' || $field['type'] === 'filelist') {
+            if (empty($field['extensions'])) {
+                $field['extensions'] = $acceptFileTypes;
+            }
+
+            $field['extensions'] = (array) $field['extensions'];
+        }
+
+        // If field is an "image" type, make sure the 'extensions' are set, and it's an array.
+        if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
+            if (empty($field['extensions'])) {
+                $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg']);
+                $field['extensions'] = $extensions->intersect($acceptFileTypes)->toArray();
+            }
+
+            $field['extensions'] = (array) $field['extensions'];
+        }
+
+        // Make indexed arrays into associative for select fields
+        // e.g.: [ 'yes', 'no' ] => { 'yes': 'yes', 'no': 'no' }
+        if ($field['type'] === 'select' && isset($field['values']) && Arr::isIndexed($field['values'])) {
+            $field['values'] = array_combine($field['values'], $field['values']);
+        }
+
+        if (empty($field['label'])) {
+            $field['label'] = ucwords($key);
+        }
+
+        if (isset($field['allow_html']) === false) {
+            $field['allow_html'] = in_array($field['type'], ['html', 'markdown'], true);
+        }
+
+        if (isset($field['sanitise']) === false) {
+            $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
+        }
+
+        if (empty($field['group'])) {
+            $field['group'] = $currentGroup;
+        } else {
+            $currentGroup = $field['group'];
+        }
+    }
+
     /**
      * Basic validation of repeater fields.
+     *
+     * @throws ConfigurationException
      */
-    private function parseFieldRepeaters(FieldType $repeater): ?FieldType
+    private function parseFieldRepeaters(FieldType $repeater, $acceptFileTypes, $currentGroup): ?FieldType
     {
         $blacklist = ['repeater', 'slug', 'templatefield'];
+        $whitelist = ['collection', 'set'];
 
-        if (! isset($repeater['fields']) || ! is_array($repeater['fields'])) {
+        if (! isset($repeater['fields']) || ! is_array($repeater['fields']) || ! in_array($repeater['type'], $whitelist, true)) {
             return null;
         }
+
+        $parsedRepeaterFields = [];
 
         foreach ($repeater['fields'] as $repeaterKey => $repeaterField) {
             if (! isset($repeaterField['type']) || in_array($repeaterField['type'], $blacklist, true)) {
                 unset($repeater['fields'][$repeaterKey]);
             }
+
+            if (isset($repeaterField['fields'])) {
+                $repeaterField = new FieldType($repeaterField, $repeaterKey);
+                $this->parseFieldRepeaters($repeaterField, $acceptFileTypes, $currentGroup);
+            } else {
+                $this->parseField($repeaterKey, $repeaterField, $acceptFileTypes, $currentGroup);
+            }
+
+            $parsedRepeaterFields[$repeaterKey] = $repeaterField;
         }
 
+        $repeater['fields'] = $parsedRepeaterFields;
+
         return $repeater;
+    }
+
+    private function determineSort(array $contentType): string
+    {
+        $sort = $contentType['sort'] ?? 'id';
+
+        $replacements = [
+            'created' => 'createdAt',
+            'createdat' => 'createdAt',
+            'datechanged' => 'modifiedAt',
+            'datecreated' => 'createdAt',
+            'datepublish' => 'publishedAt',
+            'modified' => 'modifiedAt',
+            'modifiedat' => 'modifiedAt',
+            'published' => 'publishedAt',
+            'publishedat' => 'publishedAt',
+            'Atat' => 'At',
+            'AtAt' => 'At',
+        ];
+
+        $sort = str_replace(array_keys($replacements), array_values($replacements), $sort);
+
+        $sortname = trim($sort, '-');
+
+        if (! in_array($sortname, array_keys($contentType['fields']), true) &&
+            ! in_array($sortname, ['createdAt', 'modifiedAt', 'publishedAt'], true)) {
+            $sort = 'id';
+        }
+
+        return $sort;
     }
 }

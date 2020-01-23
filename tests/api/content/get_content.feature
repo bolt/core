@@ -1,4 +1,5 @@
 Feature: Get content with API
+
   @api
   Scenario: As a user I fetch all contents
     When I send a GET request to "/api/contents.json"
@@ -10,8 +11,9 @@ Feature: Get content with API
     {
        "id": @integer@,
        "contentType": @string@,
+       "createdAt": "@string@.isDateTime()",
+       "modifiedAt": "@string@.isDateTime()",
        "publishedAt": "@string@.isDateTime()",
-       "updatedAt": "@string@.isDateTime()",
        "authorName": @string@,
        "fieldValues": {
           "title": @string@,
@@ -19,7 +21,6 @@ Feature: Get content with API
           "image": {
              "filename": @string@,
              "alt": @string@,
-             "title": @string@,
              "path": @string@,
              "media": @string@,
              "url": @string@,
@@ -30,15 +31,18 @@ Feature: Get content with API
        },
        "taxonomyValues": @array@,
        "extras": {
-          "link": @string@,
-          "editLink": @string@,
-          "@*@": "@*@"
+         "link": @string@,
+         "title": @string@,
+         "name": @string@,
+         "singular_name": @string@,
+         "@*@": "@*@"
        },
        "@*@": "@*@"
     },
     @...@
   ]
   """
+
   @api
   Scenario: As a user I fetch single content
     When I send a GET request to "/api/contents/1.json"
@@ -49,6 +53,8 @@ Feature: Get content with API
   {
      "id": 1,
      "contentType": @string@,
+     "createdAt": "@string@.isDateTime()",
+     "modifiedAt": "@string@.isDateTime()",
      "publishedAt": "@string@.isDateTime()",
      "authorName": @string@,
      "fieldValues": {
@@ -57,7 +63,6 @@ Feature: Get content with API
         "image": {
              "filename": @string@,
              "alt": @string@,
-             "title": @string@,
              "path": @string@,
              "media": @string@,
              "url": @string@,
@@ -69,13 +74,16 @@ Feature: Get content with API
      "taxonomyValues": @array@,
      "extras": {
         "link": @string@,
-        "editLink": @string@,
+        "title": @string@,
+        "name": @string@,
+        "singular_name": @string@,
         "@*@": "@*@"
      },
      "@*@": "@*@"
   }
   """
 
+  @api
   Scenario: As a user I fetch contents in JSON+LD format
     When I send a GET request to "/api/contents.jsonld"
     Then the response status code should be 200
@@ -92,6 +100,8 @@ Feature: Get content with API
            "@type": "Content",
            "id": @integer@,
            "contentType": "homepage",
+           "createdAt": "@string@.isDateTime()",
+           "modifiedAt": "@string@.isDateTime()",
            "publishedAt": "@string@.isDateTime()",
            "authorName": @string@,
            "fieldValues": {
@@ -100,7 +110,6 @@ Feature: Get content with API
               "image": {
                  "filename": @string@,
                  "alt": @string@,
-                 "title": @string@,
                  "path": @string@,
                  "media": @string@,
                  "url": @string@,
@@ -111,9 +120,11 @@ Feature: Get content with API
            },
            "taxonomyValues": @array@,
            "extras": {
-              "link": @string@,
-              "editLink": @string@,
-              "@*@": "@*@"
+             "link": @string@,
+             "title": @string@,
+             "name": @string@,
+             "singular_name": @string@,
+             "@*@": "@*@"
            },
            "@*@": "@*@"
         },
@@ -136,6 +147,7 @@ Feature: Get content with API
   }
   """
 
+  @api
   Scenario: As a user I fetch homepage content in JSON+LD format
     When I send a GET request to "/api/contents.jsonld?contentType=homepage"
     Then the response status code should be 200
@@ -158,7 +170,6 @@ Feature: Get content with API
               "image": {
                  "filename": @string@,
                  "alt": @string@,
-                 "title": @string@,
                  "path": @string@,
                  "media": @string@,
                  "url": @string@,
@@ -169,9 +180,11 @@ Feature: Get content with API
            },
            "taxonomyValues": @array@,
            "extras": {
-              "link": @string@,
-              "editLink": @string@,
-              "@*@": "@*@"
+             "link": @string@,
+             "title": @string@,
+             "name": @string@,
+             "singular_name": @string@,
+             "@*@": "@*@"
            },
            "@*@": "@*@"
         }
@@ -190,6 +203,7 @@ Feature: Get content with API
   }
   """
 
+  @api
   Scenario: As a user I fetch single content in JSON+LD format
     When I send a GET request to "/api/contents/1.jsonld"
     Then the response status code should be 200
@@ -202,6 +216,8 @@ Feature: Get content with API
      "@type": "Content",
      "id": 1,
      "contentType": @string@,
+     "createdAt": "@string@.isDateTime()",
+     "modifiedAt": "@string@.isDateTime()",
      "publishedAt": "@string@.isDateTime()",
      "authorName": @string@,
      "fieldValues": {
@@ -210,7 +226,6 @@ Feature: Get content with API
         "image": {
             "filename": @string@,
             "alt": @string@,
-            "title": @string@,
             "path": @string@,
             "media": @string@,
             "url": @string@,
@@ -222,7 +237,9 @@ Feature: Get content with API
      "taxonomyValues": @array@,
      "extras": {
         "link": @string@,
-        "editLink": @string@,
+        "title": @string@,
+        "name": @string@,
+        "singular_name": @string@,
         "@*@": "@*@"
      },
      "@*@": "@*@"

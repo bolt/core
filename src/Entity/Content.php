@@ -10,6 +10,7 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Enum\Statuses;
+use Bolt\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -112,7 +113,7 @@ class Content implements JsonSerializable
      * @ORM\OneToMany(
      *     targetEntity="Bolt\Entity\Field",
      *     mappedBy="content",
-     *     indexBy="name",
+     *     indexBy="id",
      *     fetch="EAGER",
      *     orphanRemoval=true,
      *     cascade={"persist"}
@@ -183,9 +184,26 @@ class Content implements JsonSerializable
         return $this->contentTypeDefinition;
     }
 
-    public function getSlug(): ?string
+    public function getSlug($locale = null): ?string
     {
-        return $this->getFieldValue('slug');
+        $slug = null;
+        if ($locale === null) {
+            // get slug with locale the slug already has
+            $slug = $this->getFieldValue('slug');
+        } else {
+            // get slug with the requested locale
+            $slug = $this->getField('slug')->setLocale($locale)->getParsedValue();
+        }
+
+        if ($slug === null) {
+            // if no slug exists for the current/requested locale, default back
+            $slug = $this
+                ->getField('slug')
+                ->setLocale($this->getField('slug')->getDefaultLocale())
+                ->getParsedValue();
+        }
+
+        return $slug;
     }
 
     public function getContentType(): ?string
@@ -264,7 +282,7 @@ class Content implements JsonSerializable
 
     public function getCreatedAt(): ?\DateTime
     {
-        return $this->createdAt;
+        return $this->convertToLocalFromDatabase($this->createdAt);
     }
 
     public function setCreatedAt(?\DateTime $createdAt): self
@@ -276,7 +294,7 @@ class Content implements JsonSerializable
 
     public function getModifiedAt(): ?\DateTime
     {
-        return $this->modifiedAt;
+        return $this->convertToLocalFromDatabase($this->modifiedAt);
     }
 
     public function setModifiedAt(?\DateTime $modifiedAt): self
@@ -297,7 +315,7 @@ class Content implements JsonSerializable
 
     public function getPublishedAt(): ?\DateTime
     {
-        return $this->publishedAt;
+        return $this->convertToLocalFromDatabase($this->publishedAt);
     }
 
     public function setPublishedAt(?\DateTime $publishedAt): self
@@ -309,7 +327,7 @@ class Content implements JsonSerializable
 
     public function getDepublishedAt(): ?\DateTime
     {
-        return $this->depublishedAt;
+        return $this->convertToLocalFromDatabase($this->depublishedAt);
     }
 
     public function setDepublishedAt(?\DateTime $depublishedAt): self
@@ -322,9 +340,17 @@ class Content implements JsonSerializable
     /**
      * @return Collection|Field[]
      */
-    public function getFields(): Collection
+    public function getRawFields(): Collection
     {
         return $this->fields;
+    }
+
+    /**
+     * @return Collection|Field[]
+     */
+    public function getFields(): Collection
+    {
+        return $this->standaloneFieldsFilter();
     }
 
     /**
@@ -385,13 +411,15 @@ class Content implements JsonSerializable
             throw new \InvalidArgumentException(sprintf("Content does not have '%s' field", $fieldName));
         }
 
-        return $this->fields[$fieldName];
+        return $this->standaloneFieldFilter($fieldName)->first();
     }
 
     public function hasField(string $fieldName, $matchTypes = false): bool
     {
+        $query = $this->standaloneFieldFilter($fieldName);
+
         // If the field doesn't exist, we can bail here
-        if (! isset($this->fields[$fieldName])) {
+        if ($query->isEmpty()) {
             return false;
         }
 
@@ -401,7 +429,7 @@ class Content implements JsonSerializable
         }
 
         // Otherwise, we need to ensure the types are the same
-        $fieldType = $this->fields[$fieldName]->getType();
+        $fieldType = $query->first()->getType();
         $definitionType = $this->contentTypeDefinition->get('fields')->get($fieldName)['type'] ?: 'undefined';
 
         return $fieldType === $definitionType;
@@ -414,11 +442,11 @@ class Content implements JsonSerializable
 
     public function addField(Field $field): self
     {
-        if ($this->hasField($field->getName())) {
+        if (! $field->hasParent() && $this->hasField($field->getName())) {
             throw new \InvalidArgumentException(sprintf("Content already has '%s' field", $field->getName()));
         }
 
-        $this->fields[$field->getName()] = $field;
+        $this->fields[] = $field;
         $field->setContent($this);
 
         return $this;
@@ -428,14 +456,14 @@ class Content implements JsonSerializable
     {
         $definition = $this->contentTypeDefinition->get('fields')->get($fieldName);
 
-        $field = Field::factory($definition, $fieldName);
+        $field = FieldRepository::factory($definition, $fieldName);
 
         $this->addField($field);
     }
 
     public function removeField(Field $field): self
     {
-        unset($this->fields[$field->getName()]);
+        $this->fields->removeElement($field);
 
         // set the owning side to null (unless already changed)
         if ($field->getContent() === $this) {
@@ -474,6 +502,11 @@ class Content implements JsonSerializable
         }
 
         return $options;
+    }
+
+    public function hasTaxonomyDefined(string $taxonomyName): bool
+    {
+        return $this->contentTypeDefinition->get('taxonomy')->contains($taxonomyName);
     }
 
     /**
@@ -545,6 +578,59 @@ class Content implements JsonSerializable
         }
 
         return $field->getTwigValue();
+    }
+
+    /**
+     * All date/timestamps are stored in the database in UTC. When retrieving
+     * them, we get the timestamp as-is in the DB with the current local
+     * timezone slapped onto it. This method converts it back to UTC, and
+     * then re-applies the current local timezone to it.
+     */
+    private function convertToLocalFromDatabase(?\DateTime $dateTime): ?\DateTime
+    {
+        if (! $dateTime) {
+            return null;
+        }
+
+        $dateTimeUTC = new \DateTime($dateTime->format('Y-m-d H:i:s'), new \DateTimeZone('UTC'));
+
+        return $dateTimeUTC->setTimezone($dateTime->getTimezone());
+    }
+
+    private function standaloneFieldsFilter()
+    {
+        return $this->fields->filter(function (Field $field) {
+            return ! $field->hasParent();
+        });
+    }
+
+    private function standaloneFieldFilter(string $fieldName)
+    {
+        return $this->fields->filter(function (Field $field) use ($fieldName) {
+            return $field->getName() === $fieldName && ! $field->hasParent();
+        });
+    }
+
+    public function toArray(): array
+    {
+        $result = get_object_vars($this);
+
+        if ($this->author !== null) {
+            $result['author'] = [
+                'id' => $this->author->getId(),
+                'username' => $this->author->getUsername(),
+            ];
+        }
+
+        $result['fields'] = $this->getFieldValues();
+
+        $result['taxonomies'] = $this->getTaxonomyValues();
+        $result['relations'] = [];
+
+        unset($result['contentTypeDefinition']);
+        unset($result['contentExtension']);
+
+        return $result;
     }
 
     public function jsonSerialize(): array

@@ -62,21 +62,6 @@ class Taxonomy
         $this->content = new ArrayCollection();
     }
 
-    /**
-     * @return Taxonomy
-     */
-    public static function factory(string $type, string $slug, ?string $name = null, int $sortorder = 0): self
-    {
-        $taxonomy = new self();
-
-        $taxonomy->setType($type);
-        $taxonomy->setSlug($slug);
-        $taxonomy->setName($name ?: $slug);
-        $taxonomy->setSortorder($sortorder);
-
-        return $taxonomy;
-    }
-
     public function getId(): ?int
     {
         return $this->id;

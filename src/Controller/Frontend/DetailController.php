@@ -156,12 +156,11 @@ class DetailController extends TwigAwareController implements FrontendZone
         if (is_numeric($slugOrId)) {
             $record = $this->contentRepository->findOneBy(['id' => (int) $slugOrId]);
         } else {
-            // @todo this should search only by slug or any other unique field
-            $field = $this->fieldRepository->findOneBySlug($slugOrId);
-            if ($field === null) {
-                throw new NotFoundHttpException('Content does not exist.');
-            }
-            $record = $field->getContent();
+            $record = $this->contentRepository->findOneBySlug($slugOrId);
+        }
+
+        if (! $record) {
+            throw new NotFoundHttpException('Content not found');
         }
 
         // If the content is not 'published' we throw a 404, unless we've overridden it.

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="editor__imagelist">
     <div
       v-for="(child, index) in containerImages"
       :key="child.id"
@@ -28,7 +28,8 @@
       ></editor-image>
     </div>
 
-    <button class="btn btn-secondary" type="button" @click="addImage">
+    <button class="btn btn-tertiary" type="button" @click="addImage">
+      <i class="fas fa-fw fa-plus"></i>
       {{ labels.add_new_image }}
     </button>
   </div>

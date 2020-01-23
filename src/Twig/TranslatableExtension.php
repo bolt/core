@@ -4,31 +4,14 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Entity\Translatable;
-use Doctrine\ORM\EntityManagerInterface;
-use Gedmo\Translatable\Entity\Repository\TranslationRepository;
-use Gedmo\Translatable\Entity\Translation;
+use Bolt\Entity\Field;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class TranslatableExtension extends AbstractExtension
 {
-    /** @var EntityManagerInterface */
-    private $em;
-
-    /** @var TranslationRepository */
-    private $translationRepository;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-
-        /** @var TranslationRepository $translationRepository */
-        $translationRepository = $em->getRepository(Translation::class);
-        $this->translationRepository = $translationRepository;
-    }
-
     public function getFunctions(): array
     {
         return [
@@ -43,9 +26,10 @@ class TranslatableExtension extends AbstractExtension
         ];
     }
 
-    public function findTranslations(Translatable $entity, ?string $locale = null): array
+    public function findTranslations(TranslatableInterface $entity, ?string $locale = null): array
     {
-        $translations = $this->translationRepository->findTranslations($entity);
+        $translations = $entity->getTranslations()->toArray();
+
         if ($locale) {
             return $translations[$locale] ?? null;
         }
@@ -53,7 +37,7 @@ class TranslatableExtension extends AbstractExtension
         return $translations;
     }
 
-    public function findTranslated(Translatable $entity, string $locale): Translatable
+    public function findTranslated(Field $entity, string $locale): Field
     {
         if ($locale === '') {
             // nothing to translate
@@ -61,7 +45,6 @@ class TranslatableExtension extends AbstractExtension
         }
 
         $entity->setLocale($locale);
-        $this->em->refresh($entity);
 
         return $entity;
     }

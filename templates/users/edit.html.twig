@@ -56,11 +56,11 @@
 
             {% set localeOptions = [] %}
 
-            {% for locale in locales() %}
+            {% for locale in locales(all = true) %}
                 {% set localeOptions = localeOptions|merge([
                     {
                         'key': locale.code,
-                        'value': locale.name ~ ' (' ~ locale.localizedname ~ ', ' ~ locale.code ~ ')'
+                        'value': locale.emoji ~ ' ' ~ locale.name ~ ' (' ~ locale.localizedname ~ ', ' ~ locale.code ~ ')'
                     }
                 ]) %}
             {% endfor %}

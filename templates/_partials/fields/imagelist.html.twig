@@ -13,14 +13,14 @@
        'placeholder_title': 'image.placeholder_title'|trans,
        'button_remove': 'image.button_remove'|trans,
        'button_edit_attributes': 'image.button_edit_attributes'|trans,
-       'button_move_up': 'image.button_move_up'|trans,
-       'button_move_down': 'image.button_move_down'|trans,
+       'button_move_up': 'image.button_up'|trans,
+       'button_move_down': 'image.button_down'|trans,
        'add_new_image': 'image.add_new_image'|trans,
    }|json_encode %}
    {% set extensions = field.definition.get('extensions')|default('') %}
 
    <editor-imagelist
-       :images='{{ field.value|json_encode }}'
+       :images='{{ field.jsonvalue }}'
        :name='{{ name|json_encode }}'
        :directory='{{ directory|json_encode }}'
        :filelist='{{ filelist|json_encode }}'

@@ -14,10 +14,7 @@ use Tightenco\Collect\Support\Collection;
  */
 class SelectField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'select';
-    }
+    public const TYPE = 'select';
 
     public function setValue($value): Field
     {
@@ -26,7 +23,7 @@ class SelectField extends Field implements FieldInterface
                 $value = json_decode($value, false);
             }
         } finally {
-            $this->value = (array) $value;
+            parent::setValue((array) $value);
         }
 
         return $this;
@@ -34,16 +31,49 @@ class SelectField extends Field implements FieldInterface
 
     public function getValue(): ?array
     {
-        if (empty($this->value)) {
-            $this->value = $this->getDefinition()->get('values');
+        $value = parent::getValue();
+        if (empty($value)) {
+            $value = $this->getDefinition()->get('values');
 
             // Pick the first key from Collection, or the full value as string, like `entries/id,title`
-            if ($this->value instanceof Collection) {
-                $this->value = $this->value->keys()->first();
+            if ($value instanceof Collection) {
+                $value = $value->keys()->first();
             }
         }
 
-        return (array) $this->value;
+        return (array) $value;
+    }
+
+    public function getOptions()
+    {
+        return $this->getDefinition()->get('values');
+    }
+
+    public function getSelected()
+    {
+        // "ContentSelect" select, with ids of other content
+        if ($this->isContentSelect()) {
+            return new Collection(parent::getValue());
+        }
+
+        // "Normal" select, with options
+        return $this->getOptions()->intersectByKeys(array_flip(parent::getValue()));
+    }
+
+    public function getSelectedIds()
+    {
+        return implode(' || ', parent::getValue());
+    }
+
+    public function getContentType()
+    {
+        $values = $this->getDefinition()->get('values');
+
+        if (is_string($values) && mb_strpos($values, '/') !== false) {
+            return current(explode('/', $values));
+        }
+
+        return false;
     }
 
     public function isContentSelect(): bool

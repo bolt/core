@@ -9,7 +9,7 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Media;
 use Bolt\Factory\MediaFactory;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,7 +27,7 @@ class MediaEditController extends TwigAwareController implements BackendZone
 {
     use CsrfTrait;
 
-    /** @var ObjectManager */
+    /** @var EntityManagerInterface */
     private $em;
 
     /** @var UrlGeneratorInterface */
@@ -40,7 +40,7 @@ class MediaEditController extends TwigAwareController implements BackendZone
     private $mediaFactory;
 
     public function __construct(
-        ObjectManager $em,
+        EntityManagerInterface $em,
         UrlGeneratorInterface $urlGenerator,
         FileLocations $fileLocations,
         MediaFactory $mediaFactory,

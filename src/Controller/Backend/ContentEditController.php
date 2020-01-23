@@ -10,18 +10,22 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Field\CollectionField;
+use Bolt\Entity\Field\SetField;
+use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\Relation;
-use Bolt\Entity\Taxonomy;
 use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Repository\ContentRepository;
+use Bolt\Repository\FieldRepository;
 use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\TemplateChooser;
+use Bolt\Utils\TranslationsManager;
 use Carbon\Carbon;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,7 +54,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
     /** @var MediaRepository */
     private $mediaRepository;
 
-    /** @var ObjectManager */
+    /** @var EntityManagerInterface */
     private $em;
 
     /** @var UrlGeneratorInterface */
@@ -67,7 +71,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
         RelationRepository $relationRepository,
         ContentRepository $contentRepository,
         MediaRepository $mediaRepository,
-        ObjectManager $em,
+        EntityManagerInterface $em,
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
         TemplateChooser $templateChooser,
@@ -273,7 +277,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
     {
         $formData = $request->request->all();
 
-        $locale = $this->getPostedLocale($formData);
+        $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
 
         /** @var User $user */
         $user = $this->getUser();
@@ -291,8 +295,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $content->setStatus($status);
         }
 
-        $content->setPublishedAt(new Carbon($formData['publishedAt']));
-        $content->setDepublishedAt(new Carbon($formData['depublishedAt']));
+        $content->setPublishedAt(! empty($formData['publishedAt']) ? new Carbon($formData['publishedAt']) : null);
+        $content->setDepublishedAt(! empty($formData['depublishedAt']) ? new Carbon($formData['depublishedAt']) : null);
 
         if (isset($formData['fields'])) {
             foreach ($formData['fields'] as $fieldName => $fieldValue) {
@@ -302,46 +306,14 @@ class ContentEditController extends TwigAwareController implements BackendZone
         }
 
         if (isset($formData['sets'])) {
-            foreach ($formData['sets'] as $setType => $setsByType) {
-                foreach ($setsByType as $hash => $set) {
-                    $setDefinition = $content->getDefinition()->get('fields')->get($setType);
-                    $this->updateSet($content, $setDefinition, $hash, $set, $locale);
-                }
+            foreach ($formData['sets'] as $setName => $setItems) {
+                $setDefinition = $content->getDefinition()->get('fields')->get($setName);
+                $set = $this->getFieldToUpdate($content, $setName, $setDefinition);
+                $this->updateField($set, $setItems, $locale);
             }
         }
 
-        if (isset($formData['collections'])) {
-            foreach ($formData['collections'] as $collection => $collectionItems) {
-                $setsInCollection = [];
-
-                //update all fields of the collection and collect their field_name and field_reference
-                foreach ($collectionItems as $collectionItemName => $collectionItemValue) {
-                    $setDefinition = $content->getDefinition()->get('fields')->get($collection)->get('fields')->get($collectionItemName);
-                    foreach ($collectionItemValue as $hash => $set) {
-                        $this->updateSet($content, $setDefinition, $hash, $set, $locale);
-                        $setsInCollection[] = [
-                            'field_name' => $collectionItemName,
-                            'field_reference' => $hash,
-                        ];
-                    }
-                }
-
-                //create the collection field itself
-                if ($content->hasField($collection)) {
-                    $collectionField = $content->getField($collection);
-                } else {
-                    $collectionField = Field::factory($content->getDefinition()->get('fields')->get($collection));
-                }
-
-                //fill in the collection field value with the collected field_name and field_reference
-                $collectionField->setName($collection);
-                $collectionField->setValue($setsInCollection);
-
-                if (! $content->hasField($collectionField->getName())) {
-                    $content->addField($collectionField);
-                }
-            }
-        }
+        $this->updateCollections($content, $formData, $locale);
 
         if (isset($formData['taxonomy'])) {
             foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
@@ -358,29 +330,66 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function updateSet(?Content $content, ContentType $setDefinition, string $hash, array $set, ?string $locale): void
+    private function removeFieldChildren(FieldParentInterface $field): void
     {
-        foreach ($set as $setFieldChildName => $setFieldChildValue) {
-            $setFieldChildDBName = $hash . '::' . $setFieldChildName;
-            if ($content->hasField($setFieldChildDBName)) {
-                $setFieldChildField = $content->getField($setFieldChildDBName);
-            } else {
-                $setFieldChildField = Field::factory($setDefinition->get('fields')
-                    ->get($setFieldChildName), $setFieldChildDBName, $setFieldChildValue);
+        foreach ($field->getChildren() as $child) {
+            if ($child instanceof FieldParentInterface && $child->hasChildren()) {
+                $this->removeFieldChildren($child);
             }
 
-            if (! $content->hasField($setFieldChildDBName)) {
-                $content->addField($setFieldChildField);
-            }
-
-            $this->updateField($setFieldChildField, $setFieldChildValue, $locale);
+            $this->em->remove($child);
         }
     }
 
-    private function getFieldToUpdate(Content $content, string $fieldName): Field
+    private function updateCollections(Content $content, array $formData, ?string $locale): void
+    {
+        $collections = $content->getFields()->filter(function (Field $field) {
+            return $field->getType() === CollectionField::TYPE;
+        });
+
+        $keys = $formData['keys-collections'] ?? [];
+        $tm = new TranslationsManager($collections, $keys);
+
+        foreach ($collections as $collection) {
+            $this->removeFieldChildren($collection);
+        }
+
+        $this->em->flush();
+
+        if (isset($formData['collections'])) {
+            foreach ($formData['collections'] as $collectionName => $collectionItems) {
+                $collectionDefinition = $content->getDefinition()->get('fields')->get($collectionName);
+                $orderArray = array_flip($collectionItems['order']);
+
+                $collection = $this->getFieldToUpdate($content, $collectionName, $collectionDefinition);
+
+                foreach ($collectionItems as $name => $instances) {
+                    // order field is only used to determine the order in which fields are submitted
+                    if ($name === 'order') {
+                        continue;
+                    }
+
+                    foreach ($instances as $orderId => $value) {
+                        $order = $orderArray[$orderId];
+                        $fieldDefinition = $collection->getDefinition()->get('fields')->get($name);
+                        $field = FieldRepository::factory($fieldDefinition, $name);
+                        $field->setParent($collection);
+                        $field->setSortorder($order);
+                        $content->addField($field);
+                        $this->updateField($field, $value, $locale);
+                        $tm->applyTranslations($field, $collectionName, $orderId);
+                    }
+                }
+            }
+        }
+    }
+
+    private function getFieldToUpdate(Content $content, string $fieldName, $fieldDefinition = ''): Field
     {
         /** @var Field $field */
         $field = null;
+
+        $definition = empty($fieldDefinition) ? $content->getDefinition()->get('fields')->get($fieldName) : $fieldDefinition;
 
         if ($content->hasField($fieldName)) {
             $field = $content->getField($fieldName);
@@ -396,8 +405,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         // Perhaps create a new Field..
         if (! $field) {
-            $fields = $content->getDefinition()->get('fields');
-            $field = Field::factory($fields->get($fieldName), $fieldName);
+            $field = FieldRepository::factory($definition, $fieldName);
 
             $field->setName($fieldName);
             $content->addField($field);
@@ -411,10 +419,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
         // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);
-
-            if ($this->em->contains($field)) {
-                $this->em->refresh($field);
-            }
         }
 
         // If the value is an array that contains a string of JSON, parse it
@@ -422,7 +426,24 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $value = Json::findArray($value);
         }
 
-        $field->setValue($value);
+        if ($field->getType() === SetField::TYPE) {
+            foreach ($value as $name => $svalue) {
+                /** @var SetField $field */
+                if ($field->hasChild($name)) {
+                    $child = $field->getChild($name);
+                } else {
+                    $child = FieldRepository::factory($field->getDefinition()->get('fields')->get($name), $name);
+                    $child->setParent($field);
+                    $field->getContent()->addField($child);
+                }
+
+                $child->setDefinition($child->getName(), $field->getDefinition()->get('fields')->get($child->getName()));
+
+                $this->updateField($child, $svalue, $locale);
+            }
+        } else {
+            $field->setValue($value);
+        }
 
         // If the Field is MediaAware, link it to an existing Media Entity
         if ($field instanceof Field\MediaAware) {
@@ -447,7 +468,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
             ]);
 
             if ($taxonomy === null) {
-                $taxonomy = Taxonomy::factory($key, $slug);
+                $taxonomy = $this->taxonomyRepository->factory($key, $slug);
             }
 
             $content->addTaxonomy($taxonomy);

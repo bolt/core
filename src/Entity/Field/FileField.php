@@ -7,14 +7,25 @@ namespace Bolt\Entity\Field;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Asset\PathPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 /**
  * @ORM\Entity
  */
 class FileField extends Field implements FieldInterface
 {
-    public function getType(): string
+    public const TYPE = 'file';
+
+    public function __toString(): string
     {
-        return 'file';
+        return $this->getPath();
+    }
+
+    public function getPath(): string
+    {
+        $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
+
+        return $filesPackage->getUrl($this->get('filename'));
     }
 }

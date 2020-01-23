@@ -53,6 +53,6 @@ $(document).ready(function() {
    ** Convert all ISO dates with class .datetime-relative to relative time
    */
   $('.datetime-relative').each(function() {
-    $(this).text(DateTime.fromISO($(this).text()).toRelativeCalendar());
+    $(this).text(DateTime.fromISO($(this).text()).toRelative());
   });
 });

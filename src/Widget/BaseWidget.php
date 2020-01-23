@@ -7,8 +7,8 @@ namespace Bolt\Widget;
 use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Exception\WidgetException;
 use Cocur\Slugify\Slugify;
-use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
 use Twig\Error\LoaderError;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * BaseWidget can be used as easy starter pack or as a base for your own widgets.
@@ -183,10 +183,10 @@ abstract class BaseWidget implements WidgetInterface
 
     private function addTwigLoader(): void
     {
-        /** @var NativeFilesystemLoader $twigLoaders */
+        /** @var FilesystemLoader $twigLoaders */
         $twigLoaders = $this->getTwig()->getLoader();
 
-        if ($twigLoaders instanceof NativeFilesystemLoader) {
+        if ($twigLoaders instanceof FilesystemLoader) {
             $twigLoaders->addPath($this->getTemplateFolder(), $this->getSlug());
         }
     }

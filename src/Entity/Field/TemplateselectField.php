@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
+use Bolt\Common\Json;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,8 +14,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TemplateselectField extends Field implements FieldInterface
 {
-    public function getType(): string
+    public const TYPE = 'templateselect';
+
+    public function setValue($value): Field
     {
-        return 'templateselect';
+        if (Json::test($value)) {
+            $value = Json::json_decode($value);
+        }
+
+        return parent::setValue($value);
     }
 }

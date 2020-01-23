@@ -6,49 +6,42 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\FieldParentInterface;
+use Bolt\Entity\FieldParentTrait;
+use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class SetField extends Field implements FieldInterface
+class SetField extends Field implements FieldInterface, FieldParentInterface
 {
-    public function getType(): string
-    {
-        return 'set';
-    }
+    use FieldParentTrait;
 
-    private function getHash(): string
-    {
-        if (empty($this->value)) {
-            $this->value = [uniqid()];
-        }
-
-        return $this->value[0];
-    }
+    public const TYPE = 'set';
 
     public function getValue(): array
     {
-        $hash = $this->getHash();
-        $fieldDefinitions = $this->getDefinition()->get('fields');
         $result = [];
-        $i = 0;
 
-        foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-            $currentSetFieldName = $hash . '::' . $fieldName;
-            if ($this->getContent() && $this->getContent()->hasField($currentSetFieldName)) {
-                $field = $this->getContent()->getField($currentSetFieldName);
-                $field->setDefinition($fieldName, $fieldDefinition);
-            } else {
-                $field = parent::factory($fieldDefinition);
-            }
+        $fieldDefinitions = $this->getDefinition()->get('fields');
 
-            $field->setName($fieldName);
-            $result['fields'][$i] = $field;
-            $i++;
+        // If there's no current $fieldDefinitions, we can return early
+        if (! is_iterable($fieldDefinitions)) {
+            return $result;
         }
 
-        $result['hash'] = $hash;
+        foreach ($fieldDefinitions as $name => $definition) {
+            if ($this->getContent() && $this->hasChild($name)) {
+                $field = $this->getChild($name);
+                $field->setDefinition($name, $definition);
+            } else {
+                $field = FieldRepository::factory($definition);
+            }
+
+            $field->setName($name);
+            $result[] = $field;
+        }
 
         return $result;
     }

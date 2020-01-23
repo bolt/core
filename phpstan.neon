@@ -4,6 +4,20 @@ parameters:
     symfony:
         container_xml_path: '%rootDir%/../../../var/cache/dev/srcBolt_KernelDevDebugContainer.xml'
 
+    ignoreErrors:
+        # false positive: `Parameter #1 $value of class Twig\Node\Expression\ConstantExpression constructor expects array, string given.`
+        # class `ConstantExpression()` casts to array itself.
+
+        # false positive: `Unreachable statement - code above always terminates.`
+        # @todo Check if this is still needed after https://github.com/phpstan/phpstan/issues/2651 is fixed
+        -
+            message: '#Unreachable statement - code above always terminates#'
+            path: %currentWorkingDirectory%/src/*
+        # false positive: TranslationInterface does not know about FieldTranslation::getValue(). Skip this error.
+        -
+            message: '#Call to an undefined method Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface#'
+            path: %currentWorkingDirectory%/src/*
+
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon

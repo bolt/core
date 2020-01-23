@@ -40,22 +40,29 @@
     {% endapply -%}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
-    {% for field in record.fields|filter(field => field.name not in omittedkeys) %}
+    {% for name, definition in record.definition.fields|filter(definition => definition.slug not in omittedkeys) %}
 
+        {% set field = record.field(name) %}
         {% set type = field|type %}
 
-        {# Fields that are considered 'common': 'html', 'markdown', 'textarea',
-           'text', 'image', 'video' and 'imagelist' #}
+        {# Fields that are considered 'common': 'html', 'markdown', 'textarea', 'text', 'image', 'video' #}
         {% if common|default(true) and (type not in exclude|default([])) %}
-
             {{ block('common_fields') }}
-
         {% endif %}
 
         {# The rest of the built-in types #}
-        {% if extended|default(false) and (type not in exclude|default([])) %}
-
+        {% if extended|default(true) and (type not in exclude|default([])) %}
             {{ block('extended_fields') }}
+        {% endif %}
+
+        {# Finally, the collections, filelists and imagelists #}
+        {% if type in ['collection', 'filelist', 'imagelist', 'set'] and (type not in exclude|default([])) %}
+
+            {% for field in field.value %}
+                {% set type = field.type %}
+                {{ block('common_fields') }}
+                {{ block('extended_fields') }}
+            {% endfor %}
 
         {% endif %}
 

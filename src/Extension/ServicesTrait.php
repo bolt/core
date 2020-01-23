@@ -6,8 +6,9 @@ namespace Bolt\Extension;
 
 use Bolt\Configuration\Config;
 use Bolt\Widgets;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -15,8 +16,8 @@ use Twig\Environment;
 
 trait ServicesTrait
 {
-    /** @var ObjectManager */
-    protected $objectManager;
+    /** @var EntityManagerInterface */
+    protected $entityManager;
 
     /** @var ContainerInterface */
     protected $container;
@@ -29,7 +30,7 @@ trait ServicesTrait
      */
     public function injectObjects(array $objects): void
     {
-        $this->objectManager = $objects['manager'];
+        $this->entityManager = $objects['manager'];
         $this->container = $objects['container'];
     }
 
@@ -93,14 +94,19 @@ trait ServicesTrait
         return $this->getService('event_dispatcher');
     }
 
-    public function getObjectManager(): ObjectManager
+    public function getObjectManager(): EntityManagerInterface
     {
-        return $this->objectManager;
+        return $this->entityManager;
     }
 
     public function getStopwatch(): Stopwatch
     {
         return $this->getService('debug.stopwatch');
+    }
+
+    public function getLogger(): LoggerInterface
+    {
+        return $this->getService('monolog.logger.db');
     }
 
     public function getContainer(): ContainerInterface

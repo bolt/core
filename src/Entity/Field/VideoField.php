@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class VideoField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'video';
-    }
+    public const TYPE = 'video';
 }

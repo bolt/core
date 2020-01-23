@@ -6,10 +6,12 @@ namespace Bolt\DataFixtures;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
+use Bolt\Repository\FieldRepository;
 use Bolt\Utils\FakeContent;
 use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -17,8 +19,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
-use Gedmo\Translatable\Entity\Repository\TranslationRepository;
-use Gedmo\Translatable\Entity\Translation;
 use Tightenco\Collect\Support\Collection;
 
 class ContentFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
@@ -75,9 +75,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function loadContent(ObjectManager $manager): void
     {
-        /** @var TranslationRepository $translationRepository */
-        $translationRepository = $manager->getRepository(Translation::class);
-
         foreach ($this->config->get('contenttypes') as $contentType) {
             // Only add Singletons on first run, not when appending
             if ($this->getOption('--append') && $contentType['singleton']) {
@@ -94,12 +91,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 $content = new Content();
+                $content->setDefinition($contentType);
                 $content->setContentType($contentType['slug']);
                 $content->setAuthor($author);
                 $content->setCreatedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setModifiedAt($this->faker->dateTimeBetween('-1 year'));
                 $content->setPublishedAt($this->faker->dateTimeBetween('-1 year'));
-                $content->setDepublishedAt($this->faker->dateTimeBetween('-1 year'));
 
                 $preset = $this->getPreset($contentType['slug']);
 
@@ -109,7 +106,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     $content->setStatus($this->getRandomStatus());
                 }
 
-                $sortorder = 1;
                 foreach ($contentType['fields'] as $name => $fieldType) {
                     $field = Field::factory($fieldType, $name);
 
@@ -151,6 +147,67 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         }
     }
 
+    private function loadCollectionField(Content $content, Field $field, $fieldType, ContentType $contentType, array $preset): Field
+    {
+        $collectionItems = $field->getDefinition()->get('fields');
+
+        $i = 0;
+        foreach ($collectionItems as $name => $type) {
+            $child = $this->loadField($content, $name, $type, $contentType, $preset, false);
+            $child->setParent($field);
+            $child->setSortorder($i);
+            $content->addField($child);
+            ++$i;
+        }
+
+        return $field;
+    }
+
+    private function loadSetField(Content $content, Field $set, ContentType $contentType, array $preset): Field
+    {
+        $setChildren = $set->getDefinition()->get('fields');
+
+        foreach ($setChildren as $setChild => $setChildType) {
+            $child = $this->loadField($content, $setChild, $setChildType, $contentType, $preset, false);
+            $child->setParent($set);
+            $content->addField($child);
+        }
+
+        return $set;
+    }
+
+    private function loadField(Content $content, string $name, $fieldType, ContentType $contentType, array $preset, bool $addToContent = true): Field
+    {
+        $sortorder = 1;
+
+        $field = FieldRepository::factory($fieldType, $name);
+
+        if (isset($preset[$name])) {
+            $field->setValue($preset[$name]);
+        } else {
+            if ($fieldType['type'] === 'collection') {
+                $field = $this->loadCollectionField($content, $field, $fieldType, $contentType, $preset);
+            } elseif ($fieldType['type'] === 'set') {
+                $field = $this->loadSetField($content, $field, $contentType, $preset);
+            } else {
+                $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
+            }
+        }
+        $field->setSortorder($sortorder++ * 5);
+
+        if ($addToContent) {
+            $content->addField($field);
+        }
+
+        if (isset($fieldType['localize']) && $fieldType['localize']) {
+            foreach ($contentType['locales'] as $locale) {
+                $field->translate($locale, false)->setValue($field->getValue());
+            }
+        }
+
+        return $field;
+    }
+
     private function getRandomStatus(): string
     {
         $statuses = ['published', 'published', 'published', 'held', 'draft', 'timed'];
@@ -178,7 +235,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = [
                     'filename' => $randomImage->getRelativePathname(),
                     'alt' => $this->faker->sentence(4, true),
-                    'title' => $this->faker->sentence(7, true),
                     'media' => '',
                 ];
                 break;
@@ -212,6 +268,18 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = [];
                 for ($i = 1; $i < 5; $i++) {
                     $data[$this->faker->sentence(1)] = $this->faker->sentence(4, true);
+                }
+                break;
+            case 'imagelist':
+            case 'filelist':
+                $data = [];
+                for ($i = 1; $i < 5; $i++) {
+                    $randomImage = $this->imagesIndex->random();
+                    $data[] = [
+                        'filename' => $randomImage->getRelativePathname(),
+                        'alt' => $this->faker->sentence(4, true),
+                        'media' => '',
+                    ];
                 }
                 break;
             default:

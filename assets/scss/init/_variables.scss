@@ -37,7 +37,7 @@ $link-color:                var(--primary);
 $link-hover-color:          var(--primary-600);
 
 //buttons
-$btn-disabled-opacity:                  1;
+$btn-disabled-opacity:                  0.75;
 
 // Form controls
 $border-radius:                         0.15rem;
@@ -48,6 +48,7 @@ $custom-range-thumb-active-bg:          var(--primary-400);
 
 $input-disabled-bg:                     #f0f3f6;
 $input-disabled-color:                  #777;
+$input-placeholder-color:               #aaa;
 
 $input-btn-focus-width:                 0.15rem;
 $input-btn-focus-box-shadow:            0 0 0 $input-btn-focus-width var(--primary-200);
@@ -68,7 +69,7 @@ $btn-padding-x: 0.6rem;
 
 $primary: #1863af;
 $secondary: #5da1ac;
-$tertiary: #7a9196;
+$tertiary: #81969b;
 $success: #61a31f;
 $info: #17a2b8;
 $warning: #ffc107;

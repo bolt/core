@@ -387,7 +387,7 @@
     <unit id="1xlE8ex" name="caption.content">
       <segment>
         <source>caption.content</source>
-        <target>Content</target>
+        <target>Inhoud</target>
       </segment>
     </unit>
     <unit id="l4yt0BE" name="caption.file_management">
@@ -927,7 +927,7 @@
     <unit id="vptPhch" name="image.button_upload">
       <segment>
         <source>image.button_upload</source>
-        <target>Upload</target>
+        <target>Uploaden</target>
       </segment>
     </unit>
     <unit id="vIVO1lU" name="image.button_from_library">
@@ -939,7 +939,7 @@
     <unit id="oOuVKRv" name="image.placeholder_filename">
       <segment>
         <source>image.placeholder_filename</source>
-        <target>Bestandsnaam</target>
+        <target>Bestandsnaam (upload een nieuw bestand, of selecteer een bestaande)</target>
       </segment>
     </unit>
     <unit id="BWubOnS" name="image.placeholder_alt_text">
@@ -1600,6 +1600,126 @@
       <segment>
         <source>general.phrase.no-search-results-for</source>
         <target>Geen zoekresultaten voor '%search%'.</target>
+      </segment>
+    </unit>
+    <unit id="0C9.Vmh" name="collection.add_item">
+      <segment>
+        <source>collection.add_item</source>
+        <target>Voeg toe aan %name%</target>
+      </segment>
+    </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <segment>
+        <source>collection.move_item_up</source>
+        <target>Omhoog</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <segment>
+        <source>collection.move_item_down</source>
+        <target>Omlaag</target>
+      </segment>
+    </unit>
+    <unit id=".t1ICS7" name="collection.remove_item">
+      <segment>
+        <source>collection.remove_item</source>
+        <target>Verwijder</target>
+      </segment>
+    </unit>
+    <unit id="FqVh1Hv" name="image.button_remove">
+      <segment>
+        <source>image.button_remove</source>
+        <target>Verwijder</target>
+      </segment>
+    </unit>
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
+      <segment>
+        <source>image.button_edit_attributes</source>
+        <target>Bewerk attributen</target>
+      </segment>
+    </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <segment>
+        <source>image.button_up</source>
+        <target>Omhoog</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <segment>
+        <source>image.button_down</source>
+        <target>Omlaag</target>
+      </segment>
+    </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <segment>
+        <source>image.add_new_image</source>
+        <target>Voeg nieuwe afbeelding toe</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <segment>
+        <source>file.add_new_file</source>
+        <target>Voeg nieuw bestand toe</target>
+      </segment>
+    </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <segment>
+        <source>caption.logviewer</source>
+        <target>Logs bekijken</target>
+      </segment>
+    </unit>
+    <unit id="ovKkXwU" name="action.edit">
+      <segment>
+        <source>action.edit</source>
+        <target>Bewerk</target>
+      </segment>
+    </unit>
+    <unit id="ryXZRAu" name="action.disable">
+      <segment>
+        <source>action.disable</source>
+        <target>Uitschakelen</target>
+      </segment>
+    </unit>
+    <unit id="3MuwWwe" name="listing.disabled">
+      <segment>
+        <source>listing.disabled</source>
+        <target>Uitgeschakeld</target>
+      </segment>
+    </unit>
+    <unit id="hTKWQ6g" name="action.delete">
+      <segment>
+        <source>action.delete</source>
+        <target>Verwijder</target>
+      </segment>
+    </unit>
+    <unit id="ezqx.4H" name="action.enable">
+      <segment>
+        <source>action.enable</source>
+        <target>Inschakelen</target>
+      </segment>
+    </unit>
+    <unit id="3zlZmRK" name="action.add_user">
+      <segment>
+        <source>action.add_user</source>
+        <target>Toevoegen</target>
+      </segment>
+    </unit>
+    <unit id="x9qAwrz" name="listing.title_browser">
+      <segment>
+        <source>listing.title_browser</source>
+        <target>Browser / platform</target>
+      </segment>
+    </unit>
+    <unit id="mmUDcto" name="listing.title_ip_address">
+      <segment>
+        <source>listing.title_ip_address</source>
+        <target>IP-adres</target>
+      </segment>
+    </unit>
+    <unit id="Npkio79" name="listing.title_session_expires">
+      <segment>
+        <source>listing.title_session_expires</source>
+        <target>Sessie verloopt</target>
       </segment>
     </unit>
   </file>

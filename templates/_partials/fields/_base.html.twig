@@ -23,11 +23,8 @@
 {# Set type #}
 {% set type = field.type|default %}
 
-{% if type in ['imagelist', 'filelist', 'collection'] %}
-    {% set fieldset = true %}
-{% else %}
-    {% set fieldset = false %}
-{% endif %}
+{% set type_collection = (type in ['collection']) %}
+{% set type_set = (type in ['imagelist', 'filelist', 'set']) %}
 
 {# Set variant #}
 {% set variant = field.definition.variant|default('normal') %}
@@ -35,6 +32,12 @@
 {# Set the name #}
 {% if not name|default %}
     {%  set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
+{% endif %}
+
+{# Set name[value] if id is needed #}
+{% if include_id is defined %}
+    {% set original_name = name %}
+    {% set name = name ~ '[value]' %}
 {% endif %}
 
 {# Set the id #}
@@ -87,14 +90,23 @@
 {%- endapply -%}
 
 <!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
-<div class="form-group {{ fieldset ? 'form-fieldset' }} is-{{ variant }}">
+<div
+    class="form-group {{ type_set ? 'form-set' }} {{ type_collection ? 'form-collection' }} is-{{ variant }}"
+    id="field-{{ type }}-{{ field.name|default('unnamed') }}"
+>
 
 {{ prefix|raw }}
 {% block label %}
     {% include '@bolt/_partials/fields/_label.html.twig' %}
+    {% include '@bolt/_partials/fields/_collection_buttons.html.twig' %}
 {% endblock %}
 {% block field %}
 
 {% endblock %}
+{% if include_id is defined %}
+    {% include '@bolt/_partials/fields/_hidden_id_field.html.twig' %}
+{% endif %}
 {{ postfix|raw }}
+
 </div>
+

@@ -14,10 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class HiddenField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'hidden';
-    }
+    public const TYPE = 'hidden';
 
     public function setValue($value): Field
     {

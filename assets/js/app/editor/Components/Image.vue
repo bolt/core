@@ -36,25 +36,45 @@
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group mr-2" role="group">
             <button
-              class="btn btn-secondary"
+              class="btn btn-sm btn-tertiary"
               type="button"
               @click="selectUploadFile"
             >
               <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
             </button>
-          </div>
-          <div class="btn-group mr-2" role="group">
+
             <button
-              class="btn btn-secondary"
+              class="btn btn-sm btn-tertiary dropdown-toggle dropdown-toggle-split"
+              aria-expanded="false"
+              aria-haspopup="true"
+              data-toggle="dropdown"
               type="button"
-              @click="selectServerFile"
-            >
-              <i class="fas fa-fw fa-th"></i> {{ labels.button_from_library }}
-            </button>
+            ></button>
+
+            <div class="dropdown-menu">
+              <button
+                class="btn dropdown-item"
+                type="button"
+                @click="selectServerFile"
+              >
+                <i class="fas fa-fw fa-th"></i>
+                {{ labels.button_from_library }}
+              </button>
+              <a
+                v-if="filenameData"
+                class="dropdown-item"
+                :href="attributesLink + '?file=' + filenameData"
+                target="_blank"
+              >
+                <i class="fas fa-fw fa-info-circle"></i>
+                {{ labels.button_edit_attributes }}
+              </a>
+            </div>
           </div>
+
           <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
             <button
-              class="btn btn-secondary"
+              class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isFirstInImagelist"
               @click="onMoveImageUp"
@@ -62,10 +82,9 @@
               <i class="fas fa-fw fa-chevron-up"></i>
               {{ labels.button_move_up }}
             </button>
-          </div>
-          <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
+
             <button
-              class="btn btn-secondary"
+              class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isLastInImagelist"
               @click="onMoveImageDown"
@@ -73,26 +92,14 @@
               <i class="fas fa-fw fa-chevron-down"></i>
               {{ labels.button_move_down }}
             </button>
-          </div>
-          <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
+
             <button
-              class="btn btn-hidden-danger"
+              class="btn btn-sm btn-hidden-danger"
               type="button"
               @click="onRemoveImage"
             >
-              <i class="fas fa-fw fa-times"></i> {{ labels.button_remove }}
+              <i class="fas fa-fw fa-trash"></i> {{ labels.button_remove }}
             </button>
-          </div>
-
-          <div v-if="filenameData" class="btn-group mr-2" role="group">
-            <a
-              class="btn btn-tertiary"
-              :href="attributesLink + '?file=' + filenameData"
-              target="_blank"
-            >
-              <i class="fas fa-fw fa-info-circle"></i>
-              {{ labels.button_edit_attributes }}
-            </a>
           </div>
         </div>
         <div v-if="progress > 0" class="progress mt-3">
@@ -164,7 +171,7 @@ export default {
       progress: 0,
       filenameData: this.filename,
       thumbnailData: this.thumbnail,
-      altData: this.data,
+      altData: this.alt,
     };
   },
   computed: {
@@ -214,6 +221,7 @@ export default {
           bootbox.prompt({
             title: 'Select a file',
             inputType: 'select',
+            name: 'image-selector',
             inputOptions: this.filterServerFiles(res.data),
             callback: function(result) {
               if (result) {
@@ -222,6 +230,7 @@ export default {
               }
             },
           });
+          window.$('.bootbox-input').attr('name', 'bootbox-input');
         })
         .catch(err => {
           console.warn(err);

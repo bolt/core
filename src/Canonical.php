@@ -50,7 +50,7 @@ class Canonical
 
         $requestUrl = parse_url($this->request->getSchemeAndHttpHost());
 
-        $configCanonical = $this->config->get('general/canonical', $this->request->getSchemeAndHttpHost());
+        $configCanonical = (string) $this->config->get('general/canonical', $this->request->getSchemeAndHttpHost());
 
         if (mb_strpos($configCanonical, 'http') !== 0) {
             $configCanonical = $requestUrl['scheme'] . '://' . $configCanonical;

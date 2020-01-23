@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Security;
 
 use Bolt\Entity\User;
-use Bolt\Entity\UserAuthToken;
+use Bolt\Repository\UserAuthTokenRepository;
 use Bolt\Repository\UserRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -36,16 +37,26 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
-    /** @var ObjectManager */
+    /** @var EntityManagerInterface */
     private $em;
 
-    public function __construct(UserRepository $userRepository, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, ObjectManager $em)
-    {
+    /** @var LoggerInterface */
+    private $logger;
+
+    public function __construct(
+        UserRepository $userRepository,
+        RouterInterface $router,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        EntityManagerInterface $em,
+        LoggerInterface $dbLogger
+) {
         $this->userRepository = $userRepository;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
+        $this->logger = $dbLogger;
     }
 
     protected function getLoginUrl()
@@ -108,11 +119,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $parsedUserAgent = Parser::create()->parse($request->headers->get('User-Agent'))->toString();
         $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
         $expirationTime = (new \DateTime())->modify('+'.$sessionLifetime.' second');
-        $userAuthToken = UserAuthToken::factory($user, $parsedUserAgent, $expirationTime);
+        $userAuthToken = UserAuthTokenRepository::factory($user, $parsedUserAgent, $expirationTime);
         $user->setUserAuthToken($userAuthToken);
 
         $this->em->persist($user);
         $this->em->flush();
+
+        $userArr = [
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
+        ];
+        $this->logger->notice('User \'{username}\' logged in (manually)', $userArr);
 
         return new RedirectResponse($request->getSession()->get(
             '_security.'.$providerKey.'.target_path',

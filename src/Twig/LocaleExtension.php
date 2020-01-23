@@ -37,6 +37,7 @@ class LocaleExtension extends AbstractExtension
 
         return [
             new TwigFilter('localedatetime', [$this, 'localedatetime'], $safe),
+            new TwigFilter('localdate', [$this, 'localedatetime'], $safe),
         ];
     }
 
@@ -122,6 +123,7 @@ class LocaleExtension extends AbstractExtension
         // @see: http://php.net/strftime
         $os = mb_strtoupper(mb_substr(PHP_OS, 0, 3));
         $format = $os !== 'WIN' ? $format : preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
+        $timestamp = $dateTime->getTimestamp();
 
         // According to http://php.net/manual/en/function.setlocale.php manual
         // if the second parameter is "0", the locale setting is not affected,
@@ -138,7 +140,6 @@ class LocaleExtension extends AbstractExtension
 
             return $dateTime->format('Y-m-d H:i:s');
         }
-        $timestamp = $dateTime->getTimestamp();
 
         return strftime($format, $timestamp);
     }

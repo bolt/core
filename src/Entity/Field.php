@@ -9,7 +9,8 @@ use Bolt\Common\Json;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
@@ -22,22 +23,22 @@ use Twig\Markup;
  *     }
  * })
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
- * @ORM\Table(
- *  uniqueConstraints={
- *      @ORM\UniqueConstraint(name="content_field", columns={"content_id", "name"}),
- *  })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
  * @ORM\DiscriminatorMap({"generic" = "Field"})
  */
-class Field implements Translatable, FieldInterface
+class Field implements FieldInterface, TranslatableInterface
 {
+    use TranslatableTrait;
+
+    public const TYPE = 'generic';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $id = 0;
 
     /**
      * @ORM\Column(type="string", length=191)
@@ -58,13 +59,6 @@ class Field implements Translatable, FieldInterface
     private $sortorder = 0;
 
     /**
-     * @Gedmo\Locale
-     *
-     * @var string|null
-     */
-    protected $locale;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $version;
@@ -76,7 +70,7 @@ class Field implements Translatable, FieldInterface
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field")
+     * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field", cascade={"persist"})
      */
     private $parent;
 
@@ -94,30 +88,6 @@ class Field implements Translatable, FieldInterface
         return $this->getValue();
     }
 
-    public static function factory(LaravelCollection $definition, string $name = '', string $label = ''): self
-    {
-        $type = $definition['type'];
-
-        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($type) . 'Field';
-        if (class_exists($classname)) {
-            $field = new $classname();
-        } else {
-            $field = new self();
-        }
-
-        if ($name !== '') {
-            $field->setName($name);
-        }
-
-        $field->setDefinition($type, $definition);
-
-        if ($label !== '') {
-            $field->setLabel($label);
-        }
-
-        return $field;
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -125,7 +95,7 @@ class Field implements Translatable, FieldInterface
 
     public function getDefinition(): FieldType
     {
-        if ($this->fieldTypeDefinition === null && $this->getContent()) {
+        if ($this->fieldTypeDefinition === null) {
             $this->setDefinitionFromContentDefinition();
         }
 
@@ -134,8 +104,12 @@ class Field implements Translatable, FieldInterface
 
     private function setDefinitionFromContentDefinition(): void
     {
-        $contentTypeDefinition = $this->getContent()->getDefinition();
-        $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
+        if ($this->getContent()) {
+            $contentTypeDefinition = $this->getContent()->getDefinition();
+            $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
+        } else {
+            $this->fieldTypeDefinition = FieldType::mock($this->getName());
+        }
     }
 
     public function setDefinition($name, LaravelCollection $definition): void
@@ -157,12 +131,12 @@ class Field implements Translatable, FieldInterface
 
     public function get($key)
     {
-        return isset($this->value[$key]) ? $this->value[$key] : null;
+        return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->get($key);
     }
 
     public function getValue()
     {
-        return $this->value;
+        return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->getValue();
     }
 
     /**
@@ -217,14 +191,16 @@ class Field implements Translatable, FieldInterface
         return $this;
     }
 
-    public function setLocale(?string $locale): void
+    public function setLocale(?string $locale): self
     {
-        $this->locale = $locale;
+        $this->setCurrentLocale($locale);
+
+        return $this;
     }
 
     public function getLocale(): ?string
     {
-        return $this->locale;
+        return $this->getCurrentLocale();
     }
 
     public function getVersion(): ?int
@@ -251,6 +227,11 @@ class Field implements Translatable, FieldInterface
         return $this;
     }
 
+    public function hasParent(): bool
+    {
+        return $this->parent !== null;
+    }
+
     public function getParent(): ?self
     {
         return $this->parent;
@@ -275,7 +256,7 @@ class Field implements Translatable, FieldInterface
      */
     public function getType(): string
     {
-        return 'generic';
+        return static::TYPE;
     }
 
     /**
@@ -285,5 +266,21 @@ class Field implements Translatable, FieldInterface
     public function isContentSelect(): bool
     {
         return false;
+    }
+
+    /**
+     * Used in TranslatableInterface, to locate the translation entity Bolt\Entity\FieldTranslation
+     */
+    public static function getTranslationEntityClass(): string
+    {
+        $explodedNamespace = explode('\\', self::class);
+        $entityClass = array_pop($explodedNamespace);
+
+        return '\\' . implode('\\', $explodedNamespace) . '\\' . $entityClass . 'Translation';
+    }
+
+    private function isTranslatable(): bool
+    {
+        return $this->getDefinition()->get('localize') === true;
     }
 }

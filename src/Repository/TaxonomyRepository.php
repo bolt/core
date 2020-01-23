@@ -6,7 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Entity\Taxonomy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Taxonomy|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,9 +16,30 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class TaxonomyRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Taxonomy::class);
+    }
+
+    public function factory(string $type, string $slug, ?string $name = null, int $sortorder = 0): Taxonomy
+    {
+        $taxonomy = $this->findOneBy([
+            'type' => $type,
+            'slug' => $slug,
+        ]);
+
+        if ($taxonomy) {
+            return $taxonomy;
+        }
+
+        $taxonomy = new Taxonomy();
+
+        $taxonomy->setType($type);
+        $taxonomy->setSlug($slug);
+        $taxonomy->setName($name ?: ucfirst($slug));
+        $taxonomy->setSortorder($sortorder);
+
+        return $taxonomy;
     }
 
 //    /**

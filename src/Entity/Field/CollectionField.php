@@ -4,50 +4,62 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
+use ArrayIterator;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\FieldParentInterface;
+use Bolt\Entity\FieldParentTrait;
+use Bolt\Repository\FieldRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class CollectionField extends Field implements FieldInterface
+class CollectionField extends Field implements FieldInterface, FieldParentInterface
 {
-    public function getType(): string
-    {
-        return 'collection';
-    }
+    use FieldParentTrait;
 
-    private function getCollectionFieldValues(): array
+    public const TYPE = 'collection';
+
+    public function getTemplates(): array
     {
-        return $this->value;
+        $fieldDefinitions = $this->getDefinition()->get('fields', []);
+        $result = [];
+
+        foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
+            $templateField = FieldRepository::factory($fieldDefinition, '', $fieldName);
+            $templateField->setDefinition($fieldName, $this->getDefinition()->get('fields')[$fieldName]);
+            $templateField->setName($fieldName);
+            $result[$fieldName] = $templateField;
+        }
+
+        return $result;
     }
 
     public function getValue(): array
     {
-        $fieldDefinitions = $this->getDefinition()->get('fields');
-        $result = [];
-
-        $thisFieldValues = $this->getCollectionFieldValues();
-
-        $i = 0;
-        foreach ($thisFieldValues as $thisFieldValue) {
-            $field = new SetField();
-            $field->setContent($this->getContent());
-            $field->setValue($thisFieldValue['field_reference']);
-            $field->setDefinition('fields', $this->getDefinition()->get('fields')[$thisFieldValue['field_name']]);
-            $field->setName($thisFieldValue['field_name']);
-
-            $result['fields'][$i] = $field;
-            $i++;
+        if (! $this->getContent()) {
+            return [];
         }
 
-        foreach ($fieldDefinitions as $fieldName => $fieldDefinition) {
-            $templateField = parent::factory($fieldDefinition, '', $fieldName);
-            $templateField->setName($fieldName);
-            $result['templates'][$fieldName] = $templateField;
-        }
+        $query = $this->getContent()->getRawFields()->filter(function (Field $field) {
+            return $field->getParent() === $this;
+        });
 
-        return $result;
+        /** @var ArrayIterator $iterator */
+        $iterator = $query->getIterator();
+
+        $iterator->uasort(function (Field $first, Field $second) {
+            return (int) $first->getSortorder() > (int) $second->getSortorder() ? 1 : -1;
+        });
+
+        $fields = new ArrayCollection(iterator_to_array($iterator));
+
+        $fields->map(function (Field $field): void {
+            $field->setDefinition($field->getName(), $this->getDefinition()->get('fields')[$field->getName()]);
+        });
+
+        return $fields->toArray();
     }
 }

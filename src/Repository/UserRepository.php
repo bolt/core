@@ -6,7 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 class UserRepository extends ServiceEntityRepository
 {
@@ -42,5 +42,16 @@ class UserRepository extends ServiceEntityRepository
         $qb->setParameter('username', $username);
         $user = $qb->getQuery()->getOneOrNullResult();
         return $user instanceof User ? $user : null;
+    }
+
+    public static function factory(string $displayName = '', string $username = '', string $email = ''): User
+    {
+        $user = new User();
+
+        $user->setDisplayName($displayName);
+        $user->setUsername($username);
+        $user->setEmail($email);
+
+        return $user;
     }
 }

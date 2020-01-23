@@ -45,13 +45,7 @@ class TwigAwareController extends AbstractController
     /**
      * Renders a view.
      *
-     * @final
-     *
      * @param string|array $template
-     *
-     * @throws \Twig_Error_Loader  When none of the templates can be found
-     * @throws \Twig_Error_Syntax  When an error occurred during compilation
-     * @throws \Twig_Error_Runtime When an error occurred during rendering
      */
     protected function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
     {

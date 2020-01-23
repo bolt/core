@@ -1284,7 +1284,7 @@
     <unit id="oOuVKRv" name="image.placeholder_filename">
       <segment>
         <source>image.placeholder_filename</source>
-        <target>Filename</target>
+        <target>Filename (upload a new file, or select an existing one)</target>
       </segment>
     </unit>
     <unit id="BWubOnS" name="image.placeholder_alt_text">
@@ -2040,7 +2040,7 @@
     <unit id="0C9.Vmh" name="collection.add_item">
       <segment>
         <source>collection.add_item</source>
-        <target>Add item</target>
+        <target>Add item to %name%</target>
       </segment>
     </unit>
     <unit id="ApPu4P_" name="collection.move_item_up">
@@ -2083,6 +2083,108 @@
       <segment>
         <source>pager.previous</source>
         <target>Previous</target>
+      </segment>
+    </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <segment>
+        <source>image.button_up</source>
+        <target>Up</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <segment>
+        <source>image.button_down</source>
+        <target>Down</target>
+      </segment>
+    </unit>
+    <unit id="fon6eNN" name="general.phrase.download">
+      <segment>
+        <source>general.phrase.download</source>
+        <target>Download</target>
+      </segment>
+    </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <segment>
+        <source>caption.logviewer</source>
+        <target>Log Viewer</target>
+      </segment>
+    </unit>
+    <unit id="FlGE3qB" name="label.request">
+      <segment>
+        <source>label.request</source>
+        <target>Request</target>
+      </segment>
+    </unit>
+    <unit id="l71Tprl" name="label.trace">
+      <segment>
+        <source>label.trace</source>
+        <target>Trace</target>
+      </segment>
+    </unit>
+    <unit id="29ZEo1r" name="label.context">
+      <segment>
+        <source>label.context</source>
+        <target>Context</target>
+      </segment>
+    </unit>
+    <unit id="txRonia" name="label.id">
+      <segment>
+        <source>label.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="IwLLxxx" name="label.level">
+      <segment>
+        <source>label.level</source>
+        <target>Level</target>
+      </segment>
+    </unit>
+    <unit id="51OQi14" name="label.message">
+      <segment>
+        <source>label.message</source>
+        <target>Message</target>
+      </segment>
+    </unit>
+    <unit id="S0f6iTL" name="label.timestamp">
+      <segment>
+        <source>label.timestamp</source>
+        <target>Timestamp</target>
+      </segment>
+    </unit>
+    <unit id="O2X4xZH" name="label.user">
+      <segment>
+        <source>label.user</source>
+        <target>User</target>
+      </segment>
+    </unit>
+    <unit id="3MuwWwe" name="listing.disabled">
+      <segment>
+        <source>listing.disabled</source>
+        <target>Disabled</target>
+      </segment>
+    </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <segment>
+        <source>slug.button_unlocked</source>
+        <target>Unlocked</target>
+      </segment>
+    </unit>
+    <unit id="jz2qkbb" name="general.phrase.no-content-found">
+      <segment>
+        <source>general.phrase.no-content-found</source>
+        <target>No content found</target>
+      </segment>
+    </unit>
+    <unit id="FM8B.gO" name="general.phrase.empty-database">
+      <segment>
+        <source>general.phrase.empty-database</source>
+        <target>It looks like the database is empty. Write some content in the Bolt backend, or run the command to add some fixtures (dummy content). </target>
+      </segment>
+    </unit>    
+    <unit id="SGlj7K2" name="view_locales.badge_empty">
+      <segment>
+        <source>view_locales.badge_empty</source>
+        <target>Empty</target>
       </segment>
     </unit>
   </file>

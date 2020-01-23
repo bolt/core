@@ -13,8 +13,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class GeolocationField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'geolocation';
-    }
+    public const TYPE = 'geolocation';
 }

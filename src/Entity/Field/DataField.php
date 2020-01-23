@@ -14,10 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DataField extends Field implements FieldInterface
 {
-    public function getType(): string
-    {
-        return 'data';
-    }
+    public const TYPE = 'data';
 
     public function setValue($value): Field
     {

@@ -1,45 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="it" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="TG1D5NO" resname="post.blank_summary">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="validators.it">
+    <unit id="TG1D5NO" name="post.blank_summary">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
         <source>post.blank_summary</source>
         <target>Da' una descrizione al tuo post!</target>
+      </segment>
+    </unit>
+    <unit id="BZOzjk." name="post.blank_content">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="BZOzjk." resname="post.blank_content">
+      </notes>
+      <segment>
         <source>post.blank_content</source>
         <target>Da' un contenuto al tuo post!</target>
+      </segment>
+    </unit>
+    <unit id="S6M.YWY" name="post.too_short_content">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="S6M.YWY" resname="post.too_short_content">
+      </notes>
+      <segment>
         <source>post.too_short_content</source>
         <target>Il contenuto del post è troppo breve (minimo {{ limit }} caratteri)</target>
+      </segment>
+    </unit>
+    <unit id="ARUoKOV" name="comment.blank">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="ARUoKOV" resname="comment.blank">
+      </notes>
+      <segment>
         <source>comment.blank</source>
         <target>Per favore non lasciare in bianco il tuo commento!</target>
+      </segment>
+    </unit>
+    <unit id="J.L_ppQ" name="comment.too_short">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="J.L_ppQ" resname="comment.too_short">
+      </notes>
+      <segment>
         <source>comment.too_short</source>
         <target>Il commento è troppo breve (minimo {{ limit }} caratteri)</target>
+      </segment>
+    </unit>
+    <unit id=".bkQKXb" name="comment.too_long">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id=".bkQKXb" resname="comment.too_long">
+      </notes>
+      <segment>
         <source>comment.too_long</source>
         <target>Il commento è troppo lungo (massimo {{ limit }} caratteri)</target>
+      </segment>
+    </unit>
+    <unit id="cTT8h4_" name="comment.is_spam">
+      <notes>
         <note priority="1">obsolete</note>
-      </trans-unit>
-      <trans-unit id="cTT8h4_" resname="comment.is_spam">
+      </notes>
+      <segment>
         <source>comment.is_spam</source>
         <target>Il contenuto di questo commento è considerato come spam.</target>
-        <note priority="1">obsolete</note>
-      </trans-unit>
-    </body>
+      </segment>
+    </unit>
   </file>
 </xliff>

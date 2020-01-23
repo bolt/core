@@ -10,10 +10,9 @@ use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Bridge\Doctrine\RegistryInterface;
-
 /**
  * @method Content|null find($id, $lockMode = null, $lockVersion = null)
  * @method Content|null findOneBy(array $criteria, array $orderBy = null)
@@ -22,7 +21,9 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class ContentRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    private $contentColumns = ['id', 'author', 'contentType', 'status', 'createdAt', 'modifiedAt', 'publishedAt', 'depublishedAt'];
+
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Content::class);
     }
@@ -98,7 +99,8 @@ class ContentRepository extends ServiceEntityRepository
 
         $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')
-            ->andWhere($qb->expr()->like('f.value', ':search'))
+            ->innerJoin('f.translations', 't')
+            ->andWhere($qb->expr()->like('t.value', ':search'))
             ->setParameter('search', '%' . $searchTerm . '%');
 
         // These are the ID's of content we need.
@@ -128,7 +130,11 @@ class ContentRepository extends ServiceEntityRepository
 
     public function findOneBySlug(string $slug): ?Content
     {
-        return $this->getQueryBuilder()
+        $qb = $this->getQueryBuilder();
+
+        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $qb);
+
+        return $qb
             ->innerJoin('content.fields', 'field')
             ->innerJoin(
                 \Bolt\Entity\Field\SlugField::class,
@@ -136,8 +142,26 @@ class ContentRepository extends ServiceEntityRepository
                 'WITH',
                 'field.id = slug.id'
             )
-            ->andWhere('slug.value = :slug')
-            ->setParameter('slug', \GuzzleHttp\json_encode([$slug]))
+            ->innerJoin('field.translations', 'translations')
+            ->andWhere($where . ' = :slug')
+            ->setParameter('slug', $slug)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findOneByFieldValue(string $fieldName, $value): ?Content
+    {
+        $qb = $this->getQueryBuilder();
+
+        [$where, $value] = JsonHelper::wrapJsonFunction('translation.value', $value, $qb);
+
+        return $qb
+            ->innerJoin('content.fields', 'field')
+            ->innerJoin('field.translations', 'translation')
+            ->andWhere($where . ' = :value')
+            ->setParameter('value', $value)
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }

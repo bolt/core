@@ -16,7 +16,7 @@
       <div class="input-group-append">
         <button
           type="button"
-          class="btn dropdown-toggle"
+          class="btn btn-tertiary dropdown-toggle"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
@@ -25,14 +25,16 @@
           <i class="fas fa-fw" :class="`fa-${icon}`"></i> {{ buttonText }}
         </button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" @click="editSlug">
-            <template v-if="!edit">
+          <template v-if="!edit">
+            <a class="dropdown-item" @click="editSlug">
               <i class="fas fa-pencil-alt fa-fw"></i> {{ labels.button_edit }}
-            </template>
-            <template v-else>
+            </a>
+          </template>
+          <template v-if="!locked">
+            <a class="dropdown-item" @click="lockSlug">
               <i class="fas fa-lock fa-fw"></i> {{ labels.button_locked }}
-            </template>
-          </a>
+            </a>
+          </template>
           <a class="dropdown-item" @click="generateSlug()">
             <i class="fas fa-link fa-fw"></i> {{ labels.generate_from }}
             {{ generate }}
@@ -61,48 +63,61 @@ export default {
   data: () => {
     return {
       edit: false,
+      locked: false,
       buttonText: 'Locked',
       icon: 'lock',
     };
   },
   mounted() {
     setTimeout(() => {
-      const title = document.querySelector(
-        `input[name='fields[${this.generate}]']`,
-      ).value;
+      let title = '';
+      this.generate.split(',').forEach(element => {
+        title =
+          title +
+          document.querySelector(`input[name='fields[${element}]']`).value;
+      });
       if (title.length <= 0) {
+        this.icon = 'unlock';
+        this.buttonText = this.$props.labels.button_unlocked;
         this.$root.$emit('generate-from-title', true);
       }
     }, 0);
     this.$root.$on('slugify-from-title', () => this.generateSlug());
-    this.buttonText = this.$props.labels.button_locked;
   },
   methods: {
     editSlug() {
       this.$root.$emit('generate-from-title', false);
-      if (!this.edit) {
-        this.edit = true;
-        this.buttonText = this.$props.labels.button_edit;
-        this.icon = 'pencil-alt';
-      } else {
-        const slug = this.$options.filters.slugify(this.val);
-        this.val = slug;
-        this.edit = false;
-        this.buttonText = this.$props.labels.button_locked;
-        this.icon = 'lock';
-      }
+      this.edit = true;
+      this.locked = false;
+      this.buttonText = this.$props.labels.button_edit;
+      this.icon = 'pencil-alt';
+    },
+    lockSlug() {
+      this.$root.$emit('generate-from-title', false);
+      const slug = this.$options.filters.slugify(this.val);
+      this.val = slug;
+      this.edit = false;
+      this.locked = true;
+      this.buttonText = this.$props.labels.button_locked;
+      this.icon = 'lock';
     },
     generateSlug() {
-      const title = document.querySelector(
-        `input[name='fields[${this.generate}]']`,
-      ).value;
+      let title = '';
+      this.generate.split(',').forEach(element => {
+        title =
+          title +
+          ' ' +
+          document.querySelector(`input[name='fields[${element}]']`).value;
+      });
+
       const slug = this.$options.filters.slugify(title);
       this.val = slug;
       this.$root.$emit('generate-from-title', true);
 
       this.edit = false;
-      this.buttonText = this.$props.labels.button_locked;
-      this.icon = 'lock';
+      this.locked = false;
+      this.buttonText = this.$props.labels.button_unlocked;
+      this.icon = 'unlock';
     },
   },
 };

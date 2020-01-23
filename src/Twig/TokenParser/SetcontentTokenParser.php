@@ -7,11 +7,12 @@ namespace Bolt\Twig\TokenParser;
 use Bolt\Twig\Node\SetcontentNode;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Expression\ConstantExpression;
+use Twig\Node\Node;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
 /**
- * Twig {{ setcontent }} token parser.
+ * Twig {% setcontent %} token parser.
  *
  * @author Bob den Otter <bob@twokings.nl>
  * @author Xiao-Hu Tai <xiao@twokings.nl>
@@ -28,7 +29,7 @@ class SetcontentTokenParser extends AbstractTokenParser
     /**
      * {@inheritdoc}
      */
-    public function parse(Token $token)
+    public function parse(Token $token): Node
     {
         $lineno = $token->getLine();
 
@@ -94,15 +95,6 @@ class SetcontentTokenParser extends AbstractTokenParser
                 );
             }
 
-            // nohydrate parameter
-            if ($this->parser->getStream()->test(Token::NAME_TYPE, 'nohydrate')) {
-                $this->parser->getStream()->next();
-                $arguments->addElement(
-                    new ConstantExpression(false, $lineno),
-                    new ConstantExpression('hydrate', $lineno)
-                );
-            }
-
             // Make sure we don't get stuck in a loop, if a token can't be parsed.
             ++$counter;
         } while (! $this->parser->getStream()->test(Token::BLOCK_END_TYPE) && ($counter < 10));
@@ -115,7 +107,7 @@ class SetcontentTokenParser extends AbstractTokenParser
     /**
      * {@inheritdoc}
      */
-    public function getTag()
+    public function getTag(): string
     {
         return 'setcontent';
     }
