@@ -50,7 +50,8 @@
 {#        {% setcontent blocks = 'blocks' where {'title': '%quo || %omnis'} %}#}
 {#        {% setcontent blocks = 'blocks' where {'title ||| slug': '%quo ||| %omnis'} %}#}
 {#        {% setcontent showcases = 'showcases' where {'date': '<now'} %}#}
-{#        {% setcontent blocks = 'blocks' orderby '-title' returnsingle %}#}
+{#        {% setcontent blocks = 'blocks' orderby '-title,slug,-datechanged' returnsingle %}#}
+        {% setcontent blocks = 'blocks' orderby '-title,slug'  %}
         {{ dump(blocks) }}
     </div>
     {# The next section iterates over all of the content types, and prints a list

@@ -136,12 +136,26 @@ class QueryParser
                         $content->setLimit($value);
                         break;
                     case 'order':
-                        $direction = 'ASC';
-                        if ($value[0] === '-') {
-                            $direction = 'DESC';
-                            $value = substr($value, 1);
+                        if (mb_strpos($value, ',') !== false) {
+                            $orders = array_map(function($element) {
+                                return trim($element);
+                            }, explode(',', $value));
+                            foreach ($orders as $val) {
+                                $direction = 'ASC';
+                                if ($val[0] === '-') {
+                                    $direction = 'DESC';
+                                    $val = substr($val, 1);
+                                }
+                                $content->addOrder($val, $direction);
+                            }
+                        } else {
+                            $direction = 'ASC';
+                            if ($value[0] === '-') {
+                                $direction = 'DESC';
+                                $value = substr($value, 1);
+                            }
+                            $content->setOrder($value, $direction);
                         }
-                        $content->setOrder($value, $direction);
                         break;
                 }
             } elseif ($this->isDateSelector($value)) {

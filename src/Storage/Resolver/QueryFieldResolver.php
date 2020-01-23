@@ -108,9 +108,27 @@ class QueryFieldResolver
         }
 
         if (isset($args['order'])) {
-            $qb->andWhere('bf1.name = :orderFieldName')
-                ->setParameter('orderFieldName', $args['order']['field']);
-            $qb->addOrderBy('bf1.value', $args['order']['direction'] ?? 'ASC');
+            if (mb_strpos($args['order']['field'], ',') === false) {
+                $qb->andWhere('bf1.name = :orderFieldName')
+                    ->setParameter('orderFieldName', $args['order']['field']);
+                $qb->addOrderBy('bf1.value', $args['order']['direction'] ?? 'ASC');
+            } else {
+                $fields = explode(',', $args['order']['field']);
+                $directions = explode(',', $args['order']['direction']);
+                foreach ($fields as $key => $field) {
+                    $alias = 'bf'.substr(md5($key.time()), 0, 5);
+                    $qb->innerJoin(
+                        Field::class,
+                        $alias,
+                        Join::WITH,
+                        sprintf('%s.id = %s.content', $contentTypeAlias, $alias)
+                    );
+
+                    $qb->andWhere(sprintf('%s.name = :orderFieldName%d', $alias, $key))
+                        ->setParameter(sprintf('orderFieldName%d', $key), $field);
+                    $qb->addOrderBy(sprintf('%s.value', $alias), $directions[$key]);
+                }
+            }
         }
 
         if (isset($args['limit'])) {

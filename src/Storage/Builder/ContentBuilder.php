@@ -69,7 +69,14 @@ class ContentBuilder implements GraphBuilderInterface
 
     public function setOrder(string $fieldName, string $orderType = 'ASC'): self
     {
-        $this->order = [$fieldName, $orderType];
+        $this->order[] = [$fieldName, $orderType];
+
+        return $this;
+    }
+
+    public function addOrder(string $fieldName, string $orderType = 'ASC'): self
+    {
+        $this->order[] = [$fieldName, $orderType];
 
         return $this;
     }
@@ -119,8 +126,18 @@ class ContentBuilder implements GraphBuilderInterface
         }
 
         if ($this->latestRecords === 0 && empty($this->order) === false) {
-            [$field, $order] = $this->order;
-            $conditions[] = sprintf('order: {field: "%s", direction: "%s"}', $field, $order);
+            $fields = [];
+            $directions = [];
+            foreach ($this->order as $order) {
+                [$field, $direction] = $order;
+                $directions[] = $direction;
+                $fields[] = $field;
+            }
+            $conditions[] = sprintf(
+                'order: {field: "%s", direction: "%s"}',
+                implode(',', $fields),
+                implode(',', $directions)
+            );
         }
 
         if (empty($this->filters) === false) {
