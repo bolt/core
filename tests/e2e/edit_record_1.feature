@@ -5,7 +5,7 @@ Feature: Edit record
     When I am on "/bolt/edit/30"
 
     When I fill in "field-title" with "Changed title"
-    And I scroll ".btn-success" into view
+    And I scroll "Save changes" into view
     And I press "Save changes"
 
     When I am on "/bolt/edit/30"
@@ -17,14 +17,14 @@ Feature: Edit record
     When I am on "/bolt/edit/1"
 
     When I fill in "field-title" with "Changed title EN"
-    And I scroll ".btn-success" into view
+    And I scroll "Save changes" into view
     And I press "Save changes"
 
     And I scroll "#multiselect-localeswitcher div.multiselect__select" into view
     Then I click "#multiselect-localeswitcher div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
 
     When I fill in "field-title" with "Changed title NL"
-    And I scroll ".btn-success" into view
+    And I scroll "Save changes" into view
     And I press "Save changes"
 
     When I am on "/bolt/edit/1?edit_locale=nl"
@@ -56,16 +56,19 @@ Feature: Edit record
     And the "fields[embed][height]" field should contain "270"
 
   @javascript
+  @testme
   Scenario: As an Admin I want to fill in an imagelist
     Given I am logged in as "admin"
     When I am on "/bolt/edit/42"
+    Given I am logged in as "admin"
+    And I am on "/bolt/edit/42"
     Then I follow "Media"
     Then I should see "Imagelist" in the "label[for='field-imagelist']" element
 
     #From library button of imagelist
-    When I scroll "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
-    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
-    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar .dropdown-menu button"
+    When I scroll the 2nd "image-upload-dropdown" into view
+    And I press the 2nd "image-upload-dropdown" button
+    And I press the 2nd "From library" button
     And I wait until I see "Select a file"
     And I select "kitten.jpg" from "bootbox-input"
     And I press "OK"
@@ -75,35 +78,30 @@ Feature: Edit record
     When I press "Add new image"
     Then I should see 5 ".row" elements in the ".editor__imagelist" element
 
-    #New item From library button of imagelist
-    When I scroll "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
-    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
-    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar .dropdown-menu button"
+    When I scroll the 6th "image-upload-dropdown" into view
+    And I press the 6th "image-upload-dropdown" button
+    And I press the 6th "From library" button
     And I wait until I see "Select a file"
     And I select "joey.jpg" from "bootbox-input"
     And I press "OK"
-    Then the "fields[imagelist][4][filename]" field should contain "joey.jpg"
     And I wait 1 second
+    Then the "fields[imagelist][4][filename]" field should contain "joey.jpg"
 
-    #click first Move down
-    When I scroll "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(2)" into view
-    And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(2)"
+
+    When I scroll the 1st "Down" into view
+    And I press the 1st "Down" button
     Then the "fields[imagelist][1][filename]" field should contain "kitten.jpg"
 
-    #click second Move up
-    When I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(2) .btn-toolbar > div:nth-child(2) > button:nth-child(1)"
+    When I press the 2nd "Up" button
     Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
 
-    #first Move up
-    And the "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(1)" button should be disabled
-    #last Move down
-    And the "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(2) > button:nth-child(2)" button should be disabled
+    And the 1st "Up" button should be disabled
+    And the 5th "Down" button should be disabled
 
-    #first Remove
-    When I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar .btn-hidden-danger"
+    When I press the 1st "Remove" button
     Then I should see 4 ".row" elements in the ".editor__imagelist" element
 
-    When I scroll "#editcontent > div.record-actions > button" into view
+    When I scroll "Save changes" into view
     And I press "Save changes"
     Then I should be on "/bolt/edit/42#media"
     And I should see 4 ".row" elements in the ".editor__imagelist" element

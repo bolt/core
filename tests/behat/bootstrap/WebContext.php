@@ -16,6 +16,9 @@ use Behat\MinkExtension\Context\MinkContext;
  */
 class WebContext extends MinkContext implements Context
 {
+    private const NAMED_SELECTORS = ['id_or_name', 'link_or_button', 'field', 'select',
+        'checkbox', 'radio', 'file', 'optgroup', 'option', 'fieldset', 'table', 'content'];
+
     /**
      * @When I wait for :cssSelector
      * @param $cssSelector
@@ -70,6 +73,8 @@ class WebContext extends MinkContext implements Context
 
     /**
      * @Given /^I should see at least (\d+) "([^"]*)" elements$/
+     * @throws ElementNotFoundException
+     * @throws ExpectationException
      */
     public function iShouldSeeAtLeastElements($number, $element)
     {
@@ -83,6 +88,7 @@ class WebContext extends MinkContext implements Context
 
     /**
      * @When /^I click "([^"]*)"$/
+     * @throws ElementNotFoundException
      */
     public function iClick($element)
     {
@@ -90,7 +96,17 @@ class WebContext extends MinkContext implements Context
     }
 
     /**
+     * @When I scroll the :index :element into view
+     * @throws ElementNotFoundException
+     */
+    public function iScrollNumElementIntoView($index, $element){
+        $this->findAllElements($element)[$index-1]->focus();
+        $this->getSession()->executeScript("$(':focus')[0].scrollIntoView(true);window.scrollBy(0,-50);");
+    }
+
+    /**
      * @When I scroll :element into view
+     * @throws ElementNotFoundException
      */
     public function iScrollElementIntoView($element){
         $this->findElement($element)->focus();
@@ -107,6 +123,8 @@ class WebContext extends MinkContext implements Context
 
     /**
      * @Then /^I should see (\d+) "([^"]*)" elements in the "([^"]*)" element$/
+     * @throws ElementNotFoundException
+     * @throws ExpectationException
      */
     public function iShouldSeeElementsInTheElement($number, $element, $parent)
     {
@@ -120,11 +138,13 @@ class WebContext extends MinkContext implements Context
     }
 
     /**
-     * @Then /^the "([^"]*)" button should be disabled$/
+     * @Then /^the (\d+)(st|nd|rd|th) "([^"]*)" button should be disabled$/
+     * @throws ElementNotFoundException
+     * @throws ExpectationException
      */
-    public function theButtonShouldBeDisabled($button)
+    public function theButtonShouldBeDisabled($index, $tail, $button)
     {
-        $foundButton =$this->findElement($button);
+        $foundButton =$this->findAllElements($button)[$index-1];
         if(! $foundButton->getAttribute('disabled')) {
             $message = sprintf('%s expected to be disabled, but disabled attribute is %s', $button, $foundButton->getAttribute('disabled'));
             throw new ExpectationException($message, $this->getSession()->getDriver());
@@ -132,11 +152,13 @@ class WebContext extends MinkContext implements Context
     }
 
     /**
-     * @Then /^the "([^"]*)" button should be enabled$/
+     * @Then /^the :index "([^"]*)" button should be enabled$/
+     * @throws ElementNotFoundException
+     * @throws ExpectationException
      */
-    public function theButtonShouldBeEnabled($button)
+    public function theButtonShouldBeEnabled($index, $button)
     {
-        $foundButton = $this->findElement($button);
+        $foundButton = $this->findAllElements($button)[$index-1];
         if ($foundButton->getAttribute('disabled')) {
             $message = sprintf('%s expected to be enabled, but disabled attribute is %s', $button, $foundButton->getAttribute('disabled'));
             throw new ExpectationException($message, $this->getSession()->getDriver());
@@ -145,7 +167,7 @@ class WebContext extends MinkContext implements Context
 
     /**
      * @When /^I fill "([^"]*)" element with "([^"]*)"$/
-     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     * @throws ElementNotFoundException
      */
     public function iFillWith($element, $value)
     {
@@ -155,7 +177,7 @@ class WebContext extends MinkContext implements Context
 
     /**
      * @Given /^the field with css "([^"]*)" should contain "([^"]*)"$/
-     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     * @throws ElementNotFoundException
      * @throws ExpectationException
      */
     public function theFieldWithCssShouldContain($element, $value)
@@ -202,21 +224,26 @@ class WebContext extends MinkContext implements Context
         }, 10);
     private function findAllElements($selector, $parent = null)
     {
-        if($parent === null)
-        {
+        if ($parent === null) {
             $parent = $this->getSession()->getPage();
         }
-        // by default, look for named selector
 
-        try {
-            $elements = $parent->findAll('named', $selector);
-        } catch (\Exception $e) {
+        $elements = null;
+        // by default, look for named selector
+        // for documentation on this, check http://mink.behat.org/en/latest/guides/traversing-pages.html#named-selectors
+        foreach (self::NAMED_SELECTORS as $selector_type) {
+            $elements = $parent->findAll('named', [$selector_type, $selector]);
+            if (! empty($elements)) break;
+        }
+
+        if (empty($elements)) {
             // if not, try a css selector
-            try {
-                $elements = $parent->findAll('css', $selector);
-            } catch(\Exception $e) {
-                throw new  ElementNotFoundException($this->getSession()->getDriver(), null, 'named|css', $selector);
-            }
+            $elements = $parent->findAll('css', $selector);
+        }
+
+        if($elements === null)
+        {
+            throw new  ElementNotFoundException($this->getSession()->getDriver(), 'Element', 'named|css', $selector);
         }
 
         return $elements;
@@ -225,15 +252,20 @@ class WebContext extends MinkContext implements Context
     private function findElement($selector)
     {
         // by default, look for named selector
-        try {
-            $element = $this->getSession()->getPage()->find('named', $selector);
-        } catch (\Exception $e) {
+        // for documentation on this, check http://mink.behat.org/en/latest/guides/traversing-pages.html#named-selectors
+        foreach(self::NAMED_SELECTORS as $selector_type) {
+            $element = $this->getSession()->getPage()->find('named', [$selector_type, $selector]);
+            if($element != null) break;
+        }
+        if($element === null)
+        {
             // if not, try a css selector
-            try {
-                $element = $this->getSession()->getPage()->find('css', $selector);
-            } catch(\Exception $e) {
-                throw new  ElementNotFoundException($this->getSession()->getDriver(), null, 'named|css', $selector);
-            }
+            $element = $this->getSession()->getPage()->find('css', $selector);
+        }
+
+        if($element === null)
+        {
+            throw new  ElementNotFoundException($this->getSession()->getDriver(), 'Element', 'named|css', $selector);
         }
 
         return $element;
@@ -267,5 +299,13 @@ class WebContext extends MinkContext implements Context
                 $backtrace[1]['file'] ?? '' . ", line " . $backtrace[1]['line'] ?? ''
             );
         }
+    }
+
+    /**
+     * @Given /^the :index(st) "([^"]*)" button should be disabled$/
+     */
+    public function the1stButtonShouldBeDisabled($arg1)
+    {
+        throw new PendingException();
     }
 }

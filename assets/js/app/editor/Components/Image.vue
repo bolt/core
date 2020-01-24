@@ -48,6 +48,7 @@
               aria-expanded="false"
               aria-haspopup="true"
               data-toggle="dropdown"
+              name="image-upload-dropdown"
               type="button"
             ></button>
 
