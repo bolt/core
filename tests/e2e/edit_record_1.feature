@@ -56,7 +56,6 @@ Feature: Edit record
     And the "fields[embed][height]" field should contain "270"
 
   @javascript
-  @testme
   Scenario: As an Admin I want to fill in an imagelist
     Given I am logged in as "admin"
     When I am on "/bolt/edit/42"
@@ -65,7 +64,6 @@ Feature: Edit record
     Then I follow "Media"
     Then I should see "Imagelist" in the "label[for='field-imagelist']" element
 
-    #From library button of imagelist
     When I scroll the 2nd "image-upload-dropdown" into view
     And I press the 2nd "image-upload-dropdown" button
     And I press the 2nd "From library" button
@@ -87,7 +85,6 @@ Feature: Edit record
     And I wait 1 second
     Then the "fields[imagelist][4][filename]" field should contain "joey.jpg"
 
-
     When I scroll the 1st "Down" into view
     And I press the 1st "Down" button
     Then the "fields[imagelist][1][filename]" field should contain "kitten.jpg"
@@ -107,17 +104,18 @@ Feature: Edit record
     And I should see 4 ".row" elements in the ".editor__imagelist" element
 
   @javascript
+  @testme
   Scenario: As an Admin I want to fill in a filelist
+    Given I am logged in as "admin"
+    And I am on "/bolt/edit/42"
     Given I am logged in as "admin"
     And I am on "/bolt/edit/42"
     When I follow "Files"
     Then I should see "Filelist" in the "label[for='field-filelist']" element
 
-
-    #First From library button of filelist
-    When I scroll "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
-    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
-    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar .dropdown-menu button"
+    When I scroll the 2nd "file-upload-dropdown" into view
+    And I press the 2nd "file-upload-dropdown" button
+    And I press the 7th "From library" button
     And I wait until I see "Select a file"
     And I select "bolt4.pdf" from "bootbox-input"
     And I press "OK"
@@ -127,35 +125,30 @@ Feature: Edit record
     When I press "Add new file"
     Then I should see 5 ".row" elements in the ".editor-filelist" element
 
-    #New item From library button of filelist
-    When I scroll "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
-    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
-    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar .dropdown-menu button"
+    When I scroll the 6th "file-upload-dropdown" into view
+    And I press the 6th "file-upload-dropdown" button
+    And I press the 11th "From library" button
     And I wait until I see "Select a file"
     And I select "joey.jpg" from "bootbox-input"
     And I press "OK"
-    Then the "fields[filelist][4][filename]" field should contain "joey.jpg"
     And I wait 1 second
+    Then the "fields[filelist][4][filename]" field should contain "joey.jpg"
 
-    #click first Move down
-    When I scroll "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(2)" into view
-    And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(2)"
+    When I scroll the 5th "Down" into view
+    And I press the 5th "Down" button
+    And I wait 1 second
     Then the "fields[filelist][1][filename]" field should contain "bolt4.pdf"
 
-    #click second Move up
-    When I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(2) .btn-toolbar > div:nth-child(2) > button:nth-child(1)"
+    When I press the 6th "Up" button
     Then the "fields[filelist][0][filename]" field should contain "bolt4.pdf"
 
-    #first Move up
-    And the "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(2) > button:nth-child(1)" button should be disabled
-    #last Move down
-    And the "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(2) > button:nth-child(2)" button should be disabled
+    And the 5th "Up" button should be disabled
+    And the 9th "Down" button should be disabled
 
-    #first Remove
-    When I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar .btn-hidden-danger"
+    When I press the 5th "Remove" button
     Then I should see 4 ".row" elements in the ".editor-filelist" element
 
-    When I scroll "#editcontent > div.record-actions > button" into view
+    When I scroll "Save changes" into view
     And I press "Save changes"
     Then I should be on "/bolt/edit/42#files"
     And I should see 4 ".row" elements in the ".editor-filelist" element
