@@ -50,5 +50,6 @@ default:
       contexts:
         - Behatch\Context\JsonContext
         - Behatch\Context\TableContext
-        - Context\FeatureContext
+        - Context\ApiContext
+        - Context\WebContext
       paths: [ "%paths.base%/tests/api", "%paths.base%/tests/behat"]
