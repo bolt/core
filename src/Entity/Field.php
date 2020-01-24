@@ -136,7 +136,7 @@ class Field implements FieldInterface, TranslatableInterface
     /**
      * @Groups("get_field")
      */
-    public function getValue(): ?array
+    public function getValue()
     {
         return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->getValue();
     }
