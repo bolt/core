@@ -56,7 +56,6 @@ Feature: Edit record
     And the "fields[embed][height]" field should contain "270"
 
   @javascript
-  @testme
   Scenario: As an Admin I want to fill in an imagelist
     Given I am logged in as "admin"
     When I am on "/bolt/edit/42"

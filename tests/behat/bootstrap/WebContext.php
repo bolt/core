@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\WebAssert;
 use Behat\MinkExtension\Context\MinkContext;
@@ -23,7 +24,7 @@ class WebContext extends MinkContext implements Context
     public function iWaitFor($cssSelector)
     {
         $this->spin(function(WebContext $context) use ($cssSelector) {
-            return !is_null($context->getSession()->getPage()->find('css', $cssSelector));
+            return !is_null($this->findElement($cssSelector));
         });
     }
 
@@ -72,7 +73,7 @@ class WebContext extends MinkContext implements Context
      */
     public function iShouldSeeAtLeastElements($number, $element)
     {
-        $foundElements = $this->getSession()->getPage()->findAll('css', $element);
+        $foundElements = $this->findAllElements($element);
         if(intval($number) > count($foundElements)){
             $message = sprintf('%d %s found on the page, but should be not less than %d.', count($foundElements), $element, $number);
 
@@ -85,16 +86,14 @@ class WebContext extends MinkContext implements Context
      */
     public function iClick($element)
     {
-        $foundElement = $this->getSession()->getPage()->find('css', $element);
-
-        $foundElement->click();
+        $this->findElement($element)->click();
     }
 
     /**
      * @When I scroll :element into view
      */
     public function iScrollElementIntoView($element){
-        $this->getSession()->getPage()->find('css', $element)->focus();
+        $this->findElement($element)->focus();
         $this->getSession()->executeScript("$(':focus')[0].scrollIntoView(true);window.scrollBy(0,-50);");
     }
 
@@ -111,7 +110,8 @@ class WebContext extends MinkContext implements Context
      */
     public function iShouldSeeElementsInTheElement($number, $element, $parent)
     {
-        $foundElements = $this->getSession()->getPage()->find('css', $parent)->findAll('css', $element);
+        $parent = $this->findElement($parent);
+        $foundElements = $this->findAllElements($element, $parent);
         if(intval($number) !== count($foundElements)){
             $message = sprintf('%d %s found on the page, but should be not less than %d.', count($foundElements), $element, $number);
 
@@ -124,7 +124,7 @@ class WebContext extends MinkContext implements Context
      */
     public function theButtonShouldBeDisabled($button)
     {
-        $foundButton = $this->getSession()->getPage()->find('css', $button);
+        $foundButton =$this->findElement($button);
         if(! $foundButton->getAttribute('disabled')) {
             $message = sprintf('%s expected to be disabled, but disabled attribute is %s', $button, $foundButton->getAttribute('disabled'));
             throw new ExpectationException($message, $this->getSession()->getDriver());
@@ -136,7 +136,7 @@ class WebContext extends MinkContext implements Context
      */
     public function theButtonShouldBeEnabled($button)
     {
-        $foundButton = $this->getSession()->getPage()->find('css', $button);
+        $foundButton = $this->findElement($button);
         if ($foundButton->getAttribute('disabled')) {
             $message = sprintf('%s expected to be enabled, but disabled attribute is %s', $button, $foundButton->getAttribute('disabled'));
             throw new ExpectationException($message, $this->getSession()->getDriver());
@@ -149,8 +149,7 @@ class WebContext extends MinkContext implements Context
      */
     public function iFillWith($element, $value)
     {
-        $this->assertSession()->elementExists('css', $element);
-        $foundElement = $this->getSession()->getPage()->find('css', $element);
+        $foundElement = $this->findElement($element);
         $foundElement->setValue($value);
     }
 
@@ -161,8 +160,7 @@ class WebContext extends MinkContext implements Context
      */
     public function theFieldWithCssShouldContain($element, $value)
     {
-        $this->assertSession()->elementExists('css', $element);
-        $foundElement = $this->getSession()->getPage()->find('css', $element);
+        $foundElement = $this->findElement($element);
 
         $actual = $foundElement->getValue();
         $regex = '/^'.preg_quote($value, '/').'$/ui';
@@ -202,6 +200,43 @@ class WebContext extends MinkContext implements Context
             $this->assertFieldNotContains($field, $initial);
             return true;
         }, 10);
+    private function findAllElements($selector, $parent = null)
+    {
+        if($parent === null)
+        {
+            $parent = $this->getSession()->getPage();
+        }
+        // by default, look for named selector
+
+        try {
+            $elements = $parent->findAll('named', $selector);
+        } catch (\Exception $e) {
+            // if not, try a css selector
+            try {
+                $elements = $parent->findAll('css', $selector);
+            } catch(\Exception $e) {
+                throw new  ElementNotFoundException($this->getSession()->getDriver(), null, 'named|css', $selector);
+            }
+        }
+
+        return $elements;
+    }
+
+    private function findElement($selector)
+    {
+        // by default, look for named selector
+        try {
+            $element = $this->getSession()->getPage()->find('named', $selector);
+        } catch (\Exception $e) {
+            // if not, try a css selector
+            try {
+                $element = $this->getSession()->getPage()->find('css', $selector);
+            } catch(\Exception $e) {
+                throw new  ElementNotFoundException($this->getSession()->getDriver(), null, 'named|css', $selector);
+            }
+        }
+
+        return $element;
     }
 
     private function spin(callable $lambda, int $wait = 5): bool
