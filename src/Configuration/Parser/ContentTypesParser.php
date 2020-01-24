@@ -18,8 +18,12 @@ class ContentTypesParser extends BaseParser
     /** @var Collection */
     private $generalConfig;
 
-    public function __construct(string $projectDir, Collection $generalConfig, string $filename = 'contenttypes.yaml')
+    /** @var array */
+    private $localeCodes = [];
+
+    public function __construct(string $locales, string $projectDir, Collection $generalConfig, string $filename = 'contenttypes.yaml')
     {
+        $this->localeCodes = empty($locales) ? [] : explode('|', $locales);
         $this->generalConfig = $generalConfig;
         parent::__construct($projectDir, $filename);
     }
@@ -139,7 +143,13 @@ class ContentTypesParser extends BaseParser
 
         if (! isset($contentType['locales'])) {
             $contentType['locales'] = [];
-        } elseif (is_string($contentType['locales'])) {
+        } else {
+            $forbidden = array_diff((array) $contentType['locales'], $this->localeCodes);
+            if (! empty($this->localeCodes) && ! empty($forbidden)) {
+                $error = sprintf('The <code>%s</code> locale was requested, but permitted locales are <code>%s</code>. Please check your services.yaml app_locales setting.', implode(', ', $forbidden), implode(', ', $this->localeCodes));
+                throw new ConfigurationException($error);
+            }
+
             $contentType['locales'] = (array) $contentType['locales'];
         }
 
