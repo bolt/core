@@ -66,7 +66,7 @@ Feature: Edit record
     When I scroll "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
     And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
     And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(1) .btn-toolbar .dropdown-menu button"
-    And I wait for "Select a file" to appear
+    And I wait until I see "Select a file"
     And I select "kitten.jpg" from "bootbox-input"
     And I press "OK"
     Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
@@ -79,7 +79,7 @@ Feature: Edit record
     When I scroll "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
     And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
     And I click "#field-imagelist-imagelist .editor__imagelist .form-fieldsgroup:nth-child(5) .btn-toolbar .dropdown-menu button"
-    And I wait for "Select a file" to appear
+    And I wait until I see "Select a file"
     And I select "joey.jpg" from "bootbox-input"
     And I press "OK"
     Then the "fields[imagelist][4][filename]" field should contain "joey.jpg"
@@ -120,7 +120,7 @@ Feature: Edit record
     When I scroll "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
     And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
     And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(1) .btn-toolbar .dropdown-menu button"
-    And I wait for "Select a file" to appear
+    And I wait until I see "Select a file"
     And I select "bolt4.pdf" from "bootbox-input"
     And I press "OK"
     Then the "fields[filelist][0][filename]" field should contain "bolt4.pdf"
@@ -133,7 +133,7 @@ Feature: Edit record
     When I scroll "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(1)" into view
     And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar > div:nth-child(1) > button:nth-child(2)"
     And I click "#field-filelist-filelist .editor-filelist .form-fieldsgroup:nth-child(5) .btn-toolbar .dropdown-menu button"
-    And I wait for "Select a file" to appear
+    And I wait until I see "Select a file"
     And I select "joey.jpg" from "bootbox-input"
     And I press "OK"
     Then the "fields[filelist][4][filename]" field should contain "joey.jpg"

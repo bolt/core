@@ -50,6 +50,8 @@ default:
       contexts:
         - Behatch\Context\JsonContext
         - Behatch\Context\TableContext
+        - behatch:context:browser: #include Behatch\Context\BrowserContext and override default timeout
+            timeout: 5
         - Context\ApiContext
         - Context\WebContext
       paths: [ "%paths.base%/tests/api", "%paths.base%/tests/behat"]

@@ -28,20 +28,6 @@ class WebContext extends MinkContext implements Context
     }
 
     /**
-     * @When I wait for :text to appear
-     * @Then I should see :text appear
-     * @param $text
-     * @throws \Exception
-     */
-    public function iWaitForTextToAppear($text)
-    {
-        $this->spin(function(WebContext $context) use ($text) {
-            $context->assertPageContainsText($text);
-            return true;
-        });
-    }
-
-    /**
      * @When I wait for :text to disappear
      * @Then I should see :text disappear
      * @param $text
@@ -53,36 +39,6 @@ class WebContext extends MinkContext implements Context
             $context->assertPageNotContainsText($text);
             return true;
         });
-    }
-
-    private function spin(callable $lambda, int $wait = 5): bool
-    {
-        $exception = null;
-
-        for ($i = 0; $i < $wait; $i++)
-        {
-            try {
-                if ($result = $lambda($this)) {
-                    return true;
-                }
-            } catch (\Exception $e) {
-                // do nothing
-                $exception = $e;
-            }
-
-            sleep(1);
-        }
-
-        if ($exception) {
-            throw $exception;
-        } else {
-            $backtrace = debug_backtrace();
-
-            throw new \Exception(
-                "Timeout thrown by " . $backtrace[1]['class'] ?? '' . "::" . $backtrace[1]['function'] ?? '' . "()\n" .
-                $backtrace[1]['file'] ?? '' . ", line " . $backtrace[1]['line'] ?? ''
-            );
-        }
     }
 
     /**
@@ -109,14 +65,6 @@ class WebContext extends MinkContext implements Context
     public function iLogout()
     {
         $this->visit('/bolt/logout');
-    }
-
-    /**
-     * @Given /^I wait (\d+) second(?:|s)$/
-     */
-    public function iWaitSeconds($seconds)
-    {
-        $this->getSession()->wait(1000*$seconds);
     }
 
     /**
@@ -226,10 +174,10 @@ class WebContext extends MinkContext implements Context
     }
 
     /**
-     * @Then /^I should ne on url matching "([^"]*)"$/
+     * @Then /^I should be on url matching "([^"]*)"$/
      * @throws ExpectationException
      */
-    public function iShouldNeOnUrlMatching($pattern)
+    public function iShouldBeOnUrlMatching($pattern)
     {
         $base = $this->getMinkParameter('base_url');
         $regex = "/" . preg_quote($base, "/") . substr($pattern, 2) . '/';
@@ -256,4 +204,33 @@ class WebContext extends MinkContext implements Context
         }, 10);
     }
 
+    private function spin(callable $lambda, int $wait = 5): bool
+    {
+        $exception = null;
+
+        for ($i = 0; $i < $wait; $i++)
+        {
+            try {
+                if ($result = $lambda($this)) {
+                    return true;
+                }
+            } catch (\Exception $e) {
+                // do nothing
+                $exception = $e;
+            }
+
+            sleep(1);
+        }
+
+        if ($exception) {
+            throw $exception;
+        } else {
+            $backtrace = debug_backtrace();
+
+            throw new \Exception(
+                "Timeout thrown by " . $backtrace[1]['class'] ?? '' . "::" . $backtrace[1]['function'] ?? '' . "()\n" .
+                $backtrace[1]['file'] ?? '' . ", line " . $backtrace[1]['line'] ?? ''
+            );
+        }
+    }
 }
