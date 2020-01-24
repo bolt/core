@@ -121,7 +121,7 @@
     "autoload-dev": {
         "psr-4": {
             "Bolt\\Tests\\": "tests/php/",
-            "Context\\": "tests/api/bootstrap/",
+            "Context\\": "tests/behat/bootstrap/",
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
