@@ -14,7 +14,6 @@ use Bolt\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
@@ -33,7 +32,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * })
  * @ORM\HasLifecycleCallbacks
  */
-class Content implements JsonSerializable
+class Content
 {
     use ContentLocalizeTrait;
     use ContentExtrasTrait;
@@ -631,12 +630,5 @@ class Content implements JsonSerializable
         unset($result['contentExtension']);
 
         return $result;
-    }
-
-    public function jsonSerialize(): array
-    {
-        return [
-            'fields' => $this->getFieldValues(),
-        ];
     }
 }

@@ -151,7 +151,7 @@ docker-stancheck: ## to run phpstane with docker
 	docker-compose exec -T php sh -c "vendor/bin/phpstan analyse -c phpstan.neon src"
 
 docker-db-create: ## to create database and load fixtures with docker
-#	̣docker-compose exec -T php sh -c "bin/console doctrine:database:create"
+	̣docker-compose exec -T php sh -c "bin/console doctrine:database:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:schema:create"
 	docker-compose exec -T php sh -c "bin/console doctrine:fixtures:load -n"
 

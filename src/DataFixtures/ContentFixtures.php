@@ -175,7 +175,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             } elseif ($fieldType['type'] === 'set') {
                 $field = $this->loadSetField($content, $field, $contentType, $preset);
             } else {
-                $field->setValue($this->getValuesForFieldType($name, $fieldType, $contentType['singleton']));
+                $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
             }
         }
         $field->setSortorder($sortorder++ * 5);
@@ -200,7 +200,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesForFieldType(string $name, DeepCollection $field, bool $singleton)
+    private function getValuesforFieldType(string $name, DeepCollection $field, bool $singleton)
     {
         $nb = $singleton ? 8 : 4;
 
