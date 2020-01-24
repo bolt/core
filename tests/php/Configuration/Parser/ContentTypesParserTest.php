@@ -87,7 +87,7 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertSame('fa-home', $config['homepage']['icon_many']);
         $this->assertSame('fa-home', $config['homepage']['icon_one']);
         $this->assertFalse($config['homepage']['allow_numeric_slugs']);
-        $this->assertArrayHasKey('nl', $config['homepage']['locales']);
+        $this->assertContains('nl', $config['homepage']['locales']);
     }
 
     public function testBrokenContentTypeValues(): void
