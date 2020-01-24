@@ -42,7 +42,7 @@ Feature: Edit record
     When I am on "/page/1?locale=nl"
     Then I should see "Changed title NL"
 
-  @javascript
+  @javascript-disabled
   Scenario: As an Admin I want to be able to make use of the embed field
     Given I am logged in as "admin"
     When I am on "/bolt/edit/44"
