@@ -6,6 +6,7 @@ namespace Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Mink\Exception\ExpectationException;
+use Behat\Mink\WebAssert;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Driver\BrowserKitDriver;
@@ -383,5 +384,20 @@ class FeatureContext extends MinkContext implements Context
             throw new ExpectationException($message, $this->getSession()->getDriver());
         }
     }
-    
+
+    /**
+     * @Given /^I wait for "([^"]*)" field value to change$/
+     * @throws \Exception
+     */
+    public function iWaitForToBeFilledIn($field)
+    {
+        //@todo find a better way to init $web
+        $web = new WebAssert($this->getSession());
+        $initial = $web->fieldExists($field)->getValue();
+        $this->spin(function () use ($field, $initial, $web){
+            $this->assertFieldNotContains($field, $initial);
+            return true;
+        }, 10);
+    }
+
 }
