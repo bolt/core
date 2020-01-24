@@ -7,6 +7,7 @@ namespace Bolt\Storage\Resolver;
 use ArrayObject;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\FieldTranslation;
 use Bolt\Storage\Criteria\ContentCriteria;
 use Bolt\Storage\Criteria\PublishedCriteria;
 use Bolt\Storage\Expression\FilterExpressionBuilder;
@@ -14,6 +15,7 @@ use Bolt\Storage\Scope\ScopeEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Join;
 use GraphQL\Type\Definition\ResolveInfo;
+use Ramsey\Uuid\Uuid;
 
 class QueryFieldResolver
 {
@@ -50,26 +52,44 @@ class QueryFieldResolver
 
         $qb = $this->entityManager->createQueryBuilder();
         $qb->select($contentTypeAlias)
-            ->from(Field::class, 'bf1')
+            ->from(Field::class, 'bf')
             ->innerJoin(
                 Content::class,
                 $contentTypeAlias,
                 Join::WITH,
-                sprintf('%s.id = %s.content', $contentTypeAlias, 'bf1')
+                sprintf('%s.id = %s.content', $contentTypeAlias, 'bf')
+            )
+            ->innerJoin(
+                FieldTranslation::class,
+                'bft',
+                Join::WITH,
+                sprintf('%s.id = %s.translatable', 'bf', 'bft')
             );
 
         if (isset($args['filter'])) {
-            $expressions = $this->filterExpressionBuilder->build($args['filter']);
-            $parameters = $this->filterExpressionBuilder->getParametersValues();
-            $aliasCounter = $this->filterExpressionBuilder->getAliasCounter();
+            $parameters = [];
+            $expressions = [];
+            foreach ($args['filter'] as $filterName => $filterOptions) {
+                $alias = 'f_'.substr(Uuid::uuid4()->getHex(), 0, 5);
+                $translatableAlias = 'ft_'.substr(Uuid::uuid4()->getHex(), 0, 5);
+                $expressions = $this->filterExpressionBuilder->build(
+                    $filterName,
+                    $filterOptions,
+                    $parameters,
+                    $alias,
+                    $translatableAlias
+                );
 
-            for ($i = 2; $i <= $aliasCounter; $i++) {
-                $alias = 'bf'.$i;
                 $qb->innerJoin(
                     Field::class,
                     $alias,
                     Join::WITH,
                     sprintf('%s.id = %s.content', $contentTypeAlias, $alias)
+                )->innerJoin(
+                    FieldTranslation::class,
+                    $translatableAlias,
+                    Join::WITH,
+                    sprintf('%s.id = %s.translatable', $alias, $translatableAlias)
                 );
             }
 
@@ -107,11 +127,11 @@ class QueryFieldResolver
             }
         }
 
-        if (isset($args['order'])) {
+        if (isset($args['order']) && isset($args['first']) === false && isset($args['latest']) === false) {
             if (mb_strpos($args['order']['field'], ',') === false) {
-                $qb->andWhere('bf1.name = :orderFieldName')
+                $qb->andWhere('bf.name = :orderFieldName')
                     ->setParameter('orderFieldName', $args['order']['field']);
-                $qb->addOrderBy('bf1.value', $args['order']['direction'] ?? 'ASC');
+                $qb->addOrderBy('bft.value', $args['order']['direction'] ?? 'ASC');
             } else {
                 $fields = explode(',', $args['order']['field']);
                 $directions = explode(',', $args['order']['direction']);
@@ -134,6 +154,7 @@ class QueryFieldResolver
         if (isset($args['limit'])) {
             $qb->setMaxResults($args['limit']);
         }
+
         $qb->groupBy(sprintf('%s.id', $contentTypeAlias));
         $results = $qb->getQuery()->execute();
 

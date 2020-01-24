@@ -18,22 +18,33 @@ class FilterExpressionBuilder
         'OR', 'AND',
     ];
 
-    private $table = 'bf';
-
-    private $aliasCounter = 1;
-
     private $parameterNames = [];
 
-    public function build(array $filters)
-    {
+    public function build(
+        string $filterName,
+        $filterOptions,
+        array &$parameters,
+        string $alias,
+        string $translatableAlias
+    ): Expr\Andx {
         $expressions = [];
-        foreach ($filters as $filterName => $filterOptions) {
-            if (in_array($filterName, $this->nestedFilterParams, true)) {
-                $this->generateNestedExpr($expressions, $filterName, $filterOptions);
-            } else {
-                $expressions[$filterName] = $this->getExpressionForField($filterName, $filterOptions);
-            }
-            $this->aliasCounter++;
+        if (in_array($filterName, $this->nestedFilterParams, true)) {
+            $this->generateNestedExpr(
+                $expressions,
+                $filterName,
+                $filterOptions,
+                $parameters,
+                $alias,
+                $translatableAlias
+            );
+        } else {
+            $expressions[$filterName] = $this->getExpressionForField(
+                $filterName,
+                $filterOptions,
+                $parameters,
+                $alias,
+                $translatableAlias
+            );
         }
 
         return (new Expr())->andX(...array_values($expressions));
@@ -44,15 +55,13 @@ class FilterExpressionBuilder
         return $this->parameterNames;
     }
 
-    public function getAliasCounter(): int
-    {
-        return $this->aliasCounter;
-    }
-
     private function generateNestedExpr(
         array &$expressions,
         string $filterName,
-        array $filterOptions
+        $filterOptions,
+        array &$parameters,
+        string $alias,
+        string $translatableAlias
     ): void {
         $expr = new Expr();
         switch ($filterName) {
@@ -62,11 +71,23 @@ class FilterExpressionBuilder
                     $filterField = key($filterKeyValue);
                     $filterValue = $filterKeyValue[$filterField];
                     if (in_array($filterField, $this->nestedFilterParams, true)) {
-                        $this->generateNestedExpr($orExpressions, $filterName, reset($filterOptions));
+                        $this->generateNestedExpr(
+                            $orExpressions,
+                            $filterName,
+                            reset($filterOptions),
+                            $parameters,
+                            $alias,
+                            $translatableAlias
+                        );
                     } else {
-                        $orExpressions[] = $this->getExpressionForField($filterField, $filterValue);
+                        $orExpressions[] = $this->getExpressionForField(
+                            $filterField,
+                            $filterValue,
+                            $parameters,
+                            $alias,
+                            $translatableAlias
+                        );
                     }
-                    $this->aliasCounter++;
                 }
 
                 $expressions[] = $expr->orX(...array_values($orExpressions));
@@ -77,62 +98,80 @@ class FilterExpressionBuilder
                     $filterField = key($filterKeyValue);
                     $filterValue = $filterKeyValue[$filterField];
                     if (in_array($filterField, $this->nestedFilterParams, true)) {
-                        $this->generateNestedExpr($andExpressions, $filterName, $filterOptions);
+                        $this->generateNestedExpr(
+                            $andExpressions,
+                            $filterName,
+                            $filterOptions,
+                            $parameters,
+                            $alias,
+                            $translatableAlias
+                        );
                     } else {
-                        $andExpressions[] = $this->getExpressionForField($filterField, $filterValue);
+                        $andExpressions[] = $this->getExpressionForField(
+                            $filterField,
+                            $filterValue,
+                            $parameters,
+                            $alias,
+                            $translatableAlias
+                        );
                     }
-                    $this->aliasCounter++;
                 }
                 $expressions[] = $expr->andX(...array_values($andExpressions));
                 break;
         }
     }
 
-    private function getExpressionForField(string $fieldName, $fieldValue)
+    private function getExpressionForField(
+        string $fieldName,
+        $fieldValue,
+        array &$parameters,
+        string $alias,
+        string $translatableAlias
+    ): Expr\Andx
     {
         $expr = new Expr();
-        $alias = $this->table.$this->aliasCounter;
         $andFieldExpressions = [];
 
         [$field, $operation] = $this->getFieldOperation($fieldName);
         $parameterName = $this->getUniqueParameterName($field);
 
-        $this->parameterNames[$parameterName] = $fieldValue;
+        $parameters[$parameterName] = $fieldValue;
 
         $andFieldExpressions[] = $expr->eq($alias.'.name', ':fieldName'.ucfirst($field));
-        $this->parameterNames['fieldName'.ucfirst($field)] = $field;
+        $parameters['fieldName'.ucfirst($field)] = $field;
+
         switch ($operation) {
             case Types::CONTAINS:
                 $this->parameterNames[$parameterName] = '%'.$fieldValue.'%';
-                $andFieldExpressions[] = $expr->like($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->like($translatableAlias.'.value', $parameterName);
                 break;
             case Types::NOT_CONTAINS:
                 $this->parameterNames[$parameterName] = '%'.$fieldValue.'%';
-                $andFieldExpressions[] = $expr->notLike($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->notLike($translatableAlias.'.value', $parameterName);
                 break;
             case Types::NOT:
-                $andFieldExpressions[] = $expr->neq($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->neq($translatableAlias.'.value', $parameterName);
                 break;
             case Types::NOT_IN:
-                $andFieldExpressions[] = $expr->notIn($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->notIn($translatableAlias.'.value', $parameterName);
                 break;
             case Types::IN:
-                $andFieldExpressions[] = $expr->in($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->in($translatableAlias.'.value', $parameterName);
                 break;
             case Types::GREATER_THAN:
-                $andFieldExpressions[] = $expr->gt($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->gt($translatableAlias.'.value', $parameterName);
                 break;
             case Types::GREATER_THAN_EQUAL:
-                $andFieldExpressions[] = $expr->gte($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->gte($translatableAlias.'.value', $parameterName);
                 break;
             case Types::LESS_THAN:
-                $andFieldExpressions[] = $expr->lt($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->lt($translatableAlias.'.value', $parameterName);
                 break;
             case Types::LESS_THAN_EQUAL:
-                $andFieldExpressions[] = $expr->lte($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->lte($translatableAlias.'.value', $parameterName);
                 break;
             default:
-                $andFieldExpressions[] = $expr->eq($alias.'.value', $parameterName);
+                $andFieldExpressions[] = $expr->eq($translatableAlias.'.value', $parameterName);
                 break;
         }
 

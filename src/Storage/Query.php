@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage;
 
+use Bolt\Storage\Exception\QueryErrorException;
 use Bolt\Storage\Parser\ContentFieldParser;
 use Bolt\Storage\Parser\QueryParser;
 use Bolt\Storage\Resolver\QueryFieldResolver;
@@ -61,13 +62,17 @@ class Query
         $textQuery = $this->queryParser->parseQuery($textQuery, $arguments);
         $result = GraphQL::executeQuery($schema, $textQuery);
 
+        if (empty($result->errors) === false) {
+            throw new QueryErrorException($result->errors);
+        }
+
         $content = reset($result->toArray()['data']);
 
         if (empty($content)) {
             return [];
         }
 
-        if ($returnSingle) {
+        if ($returnSingle || (count($content) === 1 && isset($arguments['limit']) === false)) {
             return reset($content);
         }
 

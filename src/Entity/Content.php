@@ -631,4 +631,11 @@ class Content
 
         return $result;
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'fields' => $this->getFieldValues(),
+        ];
+    }
 }
