@@ -10,10 +10,10 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\FakeContent;
-use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -89,7 +89,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 } else {
                     $author = $this->getRandomReference('user');
                 }
-
+                /** @var User $author */
                 $content = new Content();
                 $content->setDefinition($contentType);
                 $content->setContentType($contentType['slug']);
@@ -107,22 +107,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
 
                 foreach ($contentType['fields'] as $name => $fieldType) {
-                    $field = Field::factory($fieldType, $name);
-
-                    if (isset($preset[$name])) {
-                        $field->setValue($preset[$name]);
-                    } else {
-                        $field->setValue($this->getValuesForFieldType($name, $fieldType, $contentType['singleton']));
-                    }
-                    $field->setSortorder($sortorder++ * 5);
-
-                    $content->addField($field);
-
-                    if ($fieldType['localize']) {
-                        foreach ($contentType['locales'] as $locale) {
-                            $translationRepository->translate($field, 'value', $locale, $field->getValue());
-                        }
-                    }
+                    $this->loadField($content, $name, $fieldType, $contentType, $preset);
                 }
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
@@ -190,7 +175,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             } elseif ($fieldType['type'] === 'set') {
                 $field = $this->loadSetField($content, $field, $contentType, $preset);
             } else {
-                $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
+                $field->setValue($this->getValuesForFieldType($name, $fieldType, $contentType['singleton']));
             }
         }
         $field->setSortorder($sortorder++ * 5);
@@ -239,20 +224,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 ];
                 break;
             case 'slug':
-                $data = ( new Slugify())
-                    ->slugify(
-                        $this->lastTitle ?? $this->faker->sentence(3, true)
-                    );
+                $data = $this->lastTitle ?? $this->faker->sentence(3, true);
                 break;
             case 'text':
-                $words = in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
+                $words = isset($field['slug']) && in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
                 $data = $this->faker->sentence($words, true);
                 break;
-            case 'checkbox':
-                $data = random_int(0, 1);
-                break;
             case 'email':
-                $data = [$this->faker->email];
+                $data = $this->faker->email;
                 break;
             case 'templateselect':
                 $data = [];

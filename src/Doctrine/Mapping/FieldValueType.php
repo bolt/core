@@ -35,7 +35,7 @@ class FieldValueType extends Type
         return (string) $value;
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if ($value === null) {
             return null;

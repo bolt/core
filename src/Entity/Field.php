@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Bolt\Common\Json;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
@@ -47,13 +46,6 @@ class Field implements FieldInterface, TranslatableInterface
     public $name;
 
     /**
-     * @ORM\Column(type="field_value")
-     * @Groups("get_field")
-     * @Gedmo\Translatable
-     */
-    protected $value;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $sortorder = 0;
@@ -81,11 +73,18 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function __toString(): string
     {
-        if (is_array($this->getValue())) {
-            return implode(', ', $this->getValue());
+        return (string) $this->getTwigValue();
+    }
+
+    public function __call(string $key = '', array $arguments = [])
+    {
+        $value = $this->getTwigValue();
+
+        if (is_array($value) && array_key_exists($key, $value)) {
+            return $value[$key];
         }
 
-        return $this->getValue();
+        return null;
     }
 
     public function getId(): ?int
@@ -134,6 +133,9 @@ class Field implements FieldInterface, TranslatableInterface
         return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->get($key);
     }
 
+    /**
+     * @Groups("get_field")
+     */
     public function getValue()
     {
         return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->getValue();
@@ -142,11 +144,21 @@ class Field implements FieldInterface, TranslatableInterface
     /**
      * like getValue() but returns single value for single value fields
      *
-     * @return array|string|null
+     * @return array|mixed|null
      */
     public function getParsedValue()
     {
-        return $this->getValue();
+        $value = $this->getValue();
+        if (is_iterable($value)) {
+            $count = count($value);
+            if ($count === 0) {
+                return null;
+            } elseif ($count === 1 && array_keys($value)[0] === 0) {
+                return reset($value);
+            }
+        }
+
+        return $value;
     }
 
     /**
@@ -168,13 +180,17 @@ class Field implements FieldInterface, TranslatableInterface
         return $value;
     }
 
-    public function setValue($value)
+    public function set(string $key, $value): self
     {
-        if (is_array($value)) {
-            $this->value = Json::dump($value);
-        } else {
-            $this->value = (string) $value;
-        }
+        $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->set($key, $value);
+
+        return $this;
+    }
+
+    public function setValue($value): self
+    {
+        $this->translate($this->getLocale(), ! $this->isTranslatable())->setValue($value);
+        $this->mergeNewTranslations();
 
         return $this;
     }
