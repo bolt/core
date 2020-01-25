@@ -22,7 +22,7 @@
       <div class="new-item__dropdown dropdown-menu">
         <ul class="toolbar-menu">
           <li>
-            <a href="https://bolt.cm/" target="_blank">
+            <a href="https://boltcms.io/" target="_blank">
               <i class="fas fa-globe-americas fa-fw"></i>
               {{ labels['about.visit_bolt'] }}
             </a>

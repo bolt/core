@@ -220,7 +220,7 @@
     <unit id="k.JymqB" name="about.visit_bolt">
       <segment>
         <source>about.visit_bolt</source>
-        <target>Besucht Bolt.cm</target>
+        <target>Besucht Boltcms.io</target>
       </segment>
     </unit>
     <unit id="zOfpTLD" name="action.edit_profile">
@@ -382,7 +382,7 @@
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
       <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Diese Webseite wurde erstellt mit <a href='https://bolt.cm' target='_blank' title='Sophisticated, lightweight & simple CMS'>Bolt</a>. ]]></target>
+        <target><![CDATA[Diese Webseite wurde erstellt mit <a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight & simple CMS'>Bolt</a>. ]]></target>
       </segment>
     </unit>
     <unit id="AGegYAN" name="contenttypes.generic.recent">

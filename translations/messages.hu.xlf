@@ -225,7 +225,7 @@
       </trans-unit>
       <trans-unit id="k.JymqB" resname="about.visit_bolt">
         <source>about.visit_bolt</source>
-        <target>Bolt.cm megnyitása</target>
+        <target>Boltcms.io megnyitása</target>
         <note>templates/pages/about.twig:33</note>
       </trans-unit>
       <trans-unit id="UZFanGF" resname="about.bolt_documentation">

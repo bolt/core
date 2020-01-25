@@ -389,7 +389,7 @@
       </notes>
       <segment>
         <source>about.visit_bolt</source>
-        <target>Visit Bolt.cm</target>
+        <target>Visit Boltcms.io</target>
       </segment>
     </unit>
     <unit id="UZFanGF" name="about.bolt_documentation">
@@ -1026,7 +1026,7 @@
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
       <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[This website is <a href='https://bolt.cm' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
+        <target><![CDATA[This website is <a href='https://boltcms.io' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
       </segment>
     </unit>
     <unit id="5IxD63c" name="general.latest_bolt_news">
@@ -2180,7 +2180,7 @@
         <source>general.phrase.empty-database</source>
         <target>It looks like the database is empty. Write some content in the Bolt backend, or run the command to add some fixtures (dummy content). </target>
       </segment>
-    </unit>    
+    </unit>
     <unit id="SGlj7K2" name="view_locales.badge_empty">
       <segment>
         <source>view_locales.badge_empty</source>
