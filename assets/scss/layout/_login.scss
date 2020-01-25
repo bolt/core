@@ -1,4 +1,6 @@
 .page--login {
+  background: linear-gradient(rgba(200, 200, 200, 0.6), rgba(200, 200, 200, 0.2));
+
   > div {
     max-width: 25rem;
     margin: 0 auto;
@@ -23,18 +25,11 @@
     font-size: 1.25rem;
   }
 
-  body {
-    background: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .card {
+    box-shadow: 0 7.5px 15px -5px rgba(0, 0, 0, 0.4);
   }
 
   .login__login-form {
-    .card-body {
-      padding: 1rem;
-    }
-
     .form-check-label {
       font-weight: 400;
     }
@@ -50,7 +45,8 @@
   }
 
   &.with-background {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url(https://source.unsplash.com/daily);
+    // Unsplash's daily picture is usually always pretty, but often too distracting: https://source.unsplash.com/daily
+    background: linear-gradient(rgba(128, 128, 128, 0.6), rgba(128, 128, 128, 0.2)), url(https://source.unsplash.com/1920x1080/?abstract);
     background-position: center;
     background-size: cover;
 

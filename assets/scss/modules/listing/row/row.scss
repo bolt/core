@@ -6,12 +6,9 @@ $checkbox-row-width: 32px;
   box-shadow: $card-box-shadow;
   background: var(--foreground);
   border-radius: $border-radius;
-  margin-bottom: $spacer / 1.25;
-  //min-height: 50px;
+  margin-bottom: 2px;
   display: flex;
-  //flex: auto;
   flex-wrap: wrap;
-  //justify-content: space-between;
   position: relative;
   padding: $spacer*0.625;
 
@@ -81,12 +78,12 @@ $checkbox-row-width: 32px;
         background-color: var(--shade-400);
         background-repeat: no-repeat;
         background-size: cover;
+        margin: 2px;
       }
 
       @include media-breakpoint-up(md) {
         order: 1;
         top: 0;
-        margin-bottom: 0;
         max-height: none;
       }
 
