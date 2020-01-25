@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Extension;
 
 use Bolt\Common\Str;
+use Composer\Package\PackageInterface;
+use ComposerPackages\Types;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Yaml;
@@ -43,6 +45,8 @@ class ExtensionCompilerPass implements CompilerPassInterface
             ],
         ];
 
+        $packages = $this->addComposerPackages($packages);
+
         foreach ($packages as $package) {
             [$name, $service] = $this->createService($package);
             if ($name) {
@@ -59,6 +63,10 @@ class ExtensionCompilerPass implements CompilerPassInterface
 
     private function createService(string $package): array
     {
+        if (! class_exists($package)) {
+            return [null, null];
+        }
+
         $reflection = new \ReflectionClass($package);
 
         $namespace = Str::removeLast($reflection->getName(), Str::splitLast($reflection->getName(), '\\'));
@@ -68,5 +76,21 @@ class ExtensionCompilerPass implements CompilerPassInterface
             'resource' => $path . '/*',
             'exclude' => $path . '/{Entity,Exception}',
         ]];
+    }
+
+    private function addComposerPackages(array $packages): array
+    {
+        $composerPackages = Types::get('bolt-extension');
+
+        /** @var PackageInterface $package */
+        foreach ($composerPackages as $package) {
+            $extra = $package->getExtra();
+
+            if (array_key_exists('entrypoint', $extra)) {
+                $packages[] = $extra['entrypoint'];
+            }
+        }
+
+        return array_unique($packages);
     }
 }
