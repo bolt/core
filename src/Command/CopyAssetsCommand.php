@@ -30,7 +30,7 @@ class CopyAssetsCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Copy built assets and translation files into the project root');
+            ->setDescription('Copy built asset files into the project root');
     }
 
     /**
@@ -43,7 +43,7 @@ class CopyAssetsCommand extends Command
         /** @var KernelInterface $kernel */
         $kernel = $app->getKernel();
 
-        $projectDir = $this->getProjectDirectory($kernel->getContainer());
+        // $projectDir = $this->getProjectDirectory($kernel->getContainer());
         $publicDir = $this->getPublicDirectory($kernel->getContainer());
 
         // Determine if we can use ../assets or not.
@@ -51,13 +51,13 @@ class CopyAssetsCommand extends Command
             $baseDir = dirname(dirname(dirname(__DIR__))) . '/assets';
             $dirs = [
                 $baseDir . '/assets' => $publicDir .'/assets/',
-                $baseDir . '/translations' => $projectDir . '/translations/',
+                // $baseDir . '/translations' => $projectDir . '/translations/',
             ];
         } else {
             $baseDir = dirname(dirname(__DIR__));
             $dirs = [
                 $baseDir . '/public/assets' => $publicDir .'/assets/',
-                $baseDir . '/translations' => $projectDir . '/translations/',
+                // $baseDir . '/translations' => $projectDir . '/translations/',
             ];
         }
 
