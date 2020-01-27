@@ -8,7 +8,10 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
 use Bolt\Storage\Conditional\Types;
 use Bolt\Storage\Definition\ContentFieldsDefinition;
+use Bolt\Storage\Types\DataType;
 use Bolt\Storage\Types\DateType;
+use Bolt\Storage\Types\FileListType;
+use Bolt\Storage\Types\FileType;
 use Bolt\Storage\Types\ImageListType;
 use Bolt\Storage\Types\ImageType;
 use Bolt\Storage\Types\RepeaterType;
@@ -98,17 +101,21 @@ class ContentFieldParser
                 return new DateType();
                 break;
             case 'imagelist':
-            return Type::listOf(
-                new ImageListType()
-            );
+                return Type::listOf(
+                    new ImageListType()
+                );
+            case 'file':
+                return new FileType();
+            case 'filelist':
+                return Type::listOf(
+                    new FileListType()
+                );
             case 'text':
             case 'slug':
             case 'textarea':
             case 'html':
             case 'templateselect':
-            case 'file':
             case 'video':
-            case 'filelist':
             case 'embed':
             case 'geolocation':
             case 'markdown':
@@ -125,7 +132,7 @@ class ContentFieldParser
 
                 break;
             case 'select':
-                return Type::listOf(Type::string());
+                return Type::getNullableType(Type::string());
                 break;
             case 'block':
             case 'repeater':
@@ -137,6 +144,11 @@ class ContentFieldParser
                 break;
             case 'image':
                 return new ImageType();
+                break;
+            case 'set':
+            case 'collection':
+            case 'data':
+                return new DataType();
                 break;
         }
 

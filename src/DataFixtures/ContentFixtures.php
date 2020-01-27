@@ -14,6 +14,7 @@ use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\FakeContent;
+use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -224,7 +225,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 ];
                 break;
             case 'slug':
-                $data = $this->lastTitle ?? $this->faker->sentence(3, true);
+                $data = (new Slugify())->slugify(
+                    $this->lastTitle ?? $this->faker->sentence(3, true)
+                );
                 break;
             case 'text':
                 $words = isset($field['slug']) && in_array($field['slug'], ['title', 'heading'], true) ? 3 : 7;
@@ -260,6 +263,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                         'media' => '',
                     ];
                 }
+                break;
+            case 'checkbox':
+                $data = (string) rand(0, 1);
                 break;
             default:
                 $data = $this->faker->sentence(6, true);

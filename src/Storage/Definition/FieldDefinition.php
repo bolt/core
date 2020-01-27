@@ -13,12 +13,14 @@ class FieldDefinition
         'imagelist' => [
             'filename', 'alt', 'path', 'media', 'thumbnail', 'fieldname', 'url',
         ],
+        'file' => [
+          'filename', 'alt', 'media',
+        ],
+        'filelist' => [
+            'filename', 'alt', 'media',
+        ],
         'user' => [
             'id', 'displayName', 'username', 'email',
         ],
-    ];
-
-    public const CUSTOM_FIELDS = [
-        'repeater', 'block',
     ];
 }
