@@ -52,6 +52,5 @@ default:
         - Behatch\Context\TableContext
         - behatch:context:browser: #include Behatch\Context\BrowserContext and override default timeout
             timeout: 5
-        - Context\ApiContext
-        - Context\WebContext
+        - Context\CommonContext
       paths: [ "%paths.base%/tests/api", "%paths.base%/tests/e2e"]

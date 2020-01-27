@@ -6,7 +6,6 @@ namespace Context;
 
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Driver\BrowserKitDriver;
-use Behat\MinkExtension\Context\RawMinkContext;
 use Coduo\PHPMatcher\Factory\SimpleFactory;
 use Goutte\Client;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -14,9 +13,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Defines application features from the specific context.
  */
-class ApiContext extends RawMinkContext
+trait ApiContext
 {
-    private const HTTP_HOST = '127.0.0.1:8088';
+    private $HTTP_HOST = '127.0.0.1:8088';
 
     /**
      * @When I send a :method request to :path
@@ -151,7 +150,7 @@ class ApiContext extends RawMinkContext
          * @var Client $client
          */
         $client = $driver->getClient();
-        $client->setServerParameter('HTTP_HOST', self::HTTP_HOST);
+        $client->setServerParameter('HTTP_HOST', $this->HTTP_HOST);
 
         return $client;
     }

@@ -9,14 +9,15 @@ use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\WebAssert;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\MinkExtension\Context\RawMinkContext;
 
 /**
  * Defines steps for web tests.
  * @todo: MinkContext should be extended just once. Take this out into a CommonContext.
  */
-class WebContext extends MinkContext implements Context
+trait WebContext
 {
-    private const NAMED_SELECTORS = ['id_or_name', 'link_or_button', 'field', 'select',
+    private $NAMED_SELECTORS = ['id_or_name', 'link_or_button', 'field', 'select',
         'checkbox', 'radio', 'file', 'optgroup', 'option', 'fieldset', 'table', 'content'];
 
     /**
@@ -81,8 +82,8 @@ class WebContext extends MinkContext implements Context
         $foundElements = $this->findAllElements($element);
         if(intval($number) > count($foundElements)){
             $message = sprintf('%d %s found on the page, but should be not less than %d.', count($foundElements), $element, $number);
-
             throw new ExpectationException($message, $this->getSession()->getDriver());
+
         }
     }
 
@@ -285,7 +286,7 @@ class WebContext extends MinkContext implements Context
         $elements = null;
         // by default, look for named selector
         // for documentation on this, check http://mink.behat.org/en/latest/guides/traversing-pages.html#named-selectors
-        foreach (self::NAMED_SELECTORS as $selector_type) {
+        foreach ($this->NAMED_SELECTORS as $selector_type) {
             $elements = $parent->findAll('named', [$selector_type, $selector]);
             if (! empty($elements)) break;
         }
@@ -307,7 +308,7 @@ class WebContext extends MinkContext implements Context
     {
         // by default, look for named selector
         // for documentation on this, check http://mink.behat.org/en/latest/guides/traversing-pages.html#named-selectors
-        foreach(self::NAMED_SELECTORS as $selector_type) {
+        foreach($this->NAMED_SELECTORS as $selector_type) {
             $element = $this->getSession()->getPage()->find('named', [$selector_type, $selector]);
             if($element != null) break;
         }
