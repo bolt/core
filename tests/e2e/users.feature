@@ -98,7 +98,7 @@ Feature: Users & Permissions
     And I am on "/bolt/users"
     #edit on tom_admin
     When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(7) > a:nth-child(1)"
-    Then I should ne on url matching "\/bolt\/user\-edit\/[0-9]+"
+    Then I should be on url matching "\/bolt\/user\-edit\/[0-9]+"
 
     When I fill in the following:
       | username | tom_admin_changed |
