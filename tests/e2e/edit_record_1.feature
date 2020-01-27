@@ -104,7 +104,6 @@ Feature: Edit record
     And I should see 4 ".row" elements in the ".editor__imagelist" element
 
   @javascript
-  @testme
   Scenario: As an Admin I want to fill in a filelist
     Given I am logged in as "admin"
     And I am on "/bolt/edit/42"
@@ -164,22 +163,23 @@ Feature: Edit record
     And I should see "Set" in the "#sets label[for='field-set']" element
 
     And I should see "Title" in the "#sets label[for='field-title']" element
-    And I should see an "#sets > div > div:nth-child(2) > div > input" element
+    And I should see exactly one "sets[set][title]" element
 
     And I should see "Textarea" in the "#sets label[for='field-textarea']" element
-    And I should see an "#sets > div > div:nth-child(3) > div > textarea" element
+    And I should see exactly one "sets[set][textarea]" element
 
-    And I fill "#sets > div > div:nth-child(2) > div > input" element with "Foo"
-    And I fill "#sets > div > div:nth-child(3) > div > textarea" element with "Bar"
+    And I fill "sets[set][title]" element with "Foo"
+    And I fill "sets[set][textarea]" element with "Bar"
 
-    And I scroll "#editcontent > div.record-actions > button" into view
+    And I scroll "Save changes" into view
     And I press "Save changes"
 
     Then I should be on "/bolt/edit/43#sets"
-    And the field with css "#sets > div > div:nth-child(2) > div > input" should contain "Foo"
-    And the field with css "#sets > div > div:nth-child(3) > div > textarea" should contain "Bar"
+    And the field "sets[set][title]" should contain "Foo"
+    And the field "sets[set][textarea]" should contain "Bar"
 
   @javascript
+  @testme
   Scenario: As an Admin I want to fill in a Collection
     Given I am logged in as "admin"
     And I am on "/bolt/edit/43"
@@ -191,54 +191,54 @@ Feature: Edit record
 
     #templates dropdown
     When I click "#multiselect-undefined > div > div.multiselect__select"
-    Then I should see "Set" in the "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span" element
-    And I should see "Textarea" in the "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span" element
+
+    Then I should see "Set" in the "#multiselect-undefined li:nth-child(1) > span" element
+    And I should see "Textarea" in the "#multiselect-undefined li:nth-child(2) > span" element
 
     When I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
     And I press "Add item"
 
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
-    And I should see "Textarea:" in the "#collections > div > div > div:nth-child(2) > div > label" element
-    And the ".action-move-up-collection-item" button should be disabled
-    And the ".action-move-down-collection-item" button should be enabled
+    And I should see "Textarea:" in the "#collections label[for='field-textarea']" element
 
-    When I scroll "#multiselect-undefined > div > div.multiselect__select" into view
+    And the 1st ".action-move-up-collection-item" button should be disabled
+    And the 2nd ".action-move-down-collection-item" button should be disabled
+
+    When I scroll "Add item to Collection" into view
     And I click "#multiselect-undefined > div > div.multiselect__select"
     And I scroll "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1)" into view
     And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1)"
     And I press "Add item"
 
     Then I should see 4 ".collection-item" elements
-    #And I should see an "#collections .collection-item:nth-of-type(4) #field-title" element
-    #And I should see "Set:" in the "#collections .collection-item:nth-of-type(4) label" element
 
-    When I fill "#collections .collection-item:nth-of-type(3) textarea" element with "Bye, Bolt"
-    And I fill "#collections .collection-item:nth-of-type(4) input[type='text']" element with "Hey, Bolt"
+    When I fill the 3rd "#collections textarea" element with "Bye, Bolt"
+    And I fill the 4th ".collection-item input[type='text']" element with "Hey, Bolt"
 
     #First move down
-    And I scroll "#collections .collection-item:nth-of-type(3) button.action-move-down-collection-item.btn.btn-secondary" into view
-    And I click "#collections .collection-item:nth-of-type(3) button.action-move-down-collection-item.btn.btn-secondary"
+    And I scroll the 1st "Move down" into view
+    And I press the 1st "Move down" button
 
     Then I should see "Set:" in the "#collections .collection-item:nth-of-type(3)" element
     And I should see "Textarea:" in the "#collections .collection-item:nth-of-type(4)" element
 
-    When I scroll "#editcontent > div.record-actions > button" into view
+    When I scroll "Save changes" into view
     And I press "Save changes"
     Then I should be on "/bolt/edit/43#collections"
 
-    And the field with css "#collections .collection-item:nth-of-type(3) input[type='text']" should contain "Hey, Bolt"
-    And the field with css "#collections .collection-item:nth-of-type(4) textarea" should contain "Bye, Bolt"
+    And the 3rd field ".collection-item input[type='text']" should contain "Hey, Bolt"
+    And the 4th field "#collections textarea" should contain "Bye, Bolt"
 
-    #remove both
-    When I scroll "#collections .collection-item:nth-of-type(3) button.action-remove-collection-item.btn.btn-hidden-danger" into view
-    And I click "#collections .collection-item:nth-of-type(3) button.action-remove-collection-item.btn.btn-hidden-danger"
+
+    When I scroll the 3rd "Remove item" into view
+    And I press the 3rd "Remove item" button
     #4th becomes 3rd on prev removal
-    And I click "#collections .collection-item:nth-of-type(3) button.action-remove-collection-item.btn.btn-hidden-danger"
+    And I press the 3rd "Remove item" button
 
     Then I should see 2 ".collection-item" elements
 
-    When I scroll "#editcontent > div.record-actions > button" into view
+    When I scroll "Save changes" into view
     And I press "Save changes"
 
     Then I should see 2 ".collection-item" elements

@@ -166,9 +166,19 @@ class WebContext extends MinkContext implements Context
     }
 
     /**
-     * @When /^I fill "([^"]*)" element with "([^"]*)"$/
+     * @When /^I fill the (\d+)(st|nd|rd|th) "([^"]*)" element with "([^"]*)"$/
      * @throws ElementNotFoundException
      */
+    public function iFillNthWith($index, $tail, $element, $value)
+    {
+        $foundElement = $this->findAllElements($element)[$index-1];
+        $foundElement->setValue($value);
+    }
+
+    /**
+        * @When /^I fill "([^"]*)" element with "([^"]*)"$/
+     * @throws ElementNotFoundException
+    */
     public function iFillWith($element, $value)
     {
         $foundElement = $this->findElement($element);
@@ -176,11 +186,29 @@ class WebContext extends MinkContext implements Context
     }
 
     /**
-     * @Given /^the field with css "([^"]*)" should contain "([^"]*)"$/
+     * @Given /^the (\d+)(st|nd|rd|th) field "([^"]*)" should contain "([^"]*)"$/
      * @throws ElementNotFoundException
      * @throws ExpectationException
      */
-    public function theFieldWithCssShouldContain($element, $value)
+    public function theNthFieldShouldContain($index, $tail, $element, $value)
+    {
+        $foundElement = $this->findAllElements($element)[$index-1];
+
+        $actual = $foundElement->getValue();
+        $regex = '/^'.preg_quote($value, '/').'$/ui';
+
+        if(! (bool) preg_match($regex, $actual)){
+            $message = sprintf('The field "%s" value is "%s", but "%s" expected.', $foundElement, $actual, $value);
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
+     * @Given /^the field "([^"]*)" should contain "([^"]*)"$/
+     * @throws ElementNotFoundException
+     * @throws ExpectationException
+     */
+    public function theFieldShouldContain($element, $value)
     {
         $foundElement = $this->findElement($element);
 
@@ -222,6 +250,32 @@ class WebContext extends MinkContext implements Context
             $this->assertFieldNotContains($field, $initial);
             return true;
         }, 10);
+    }
+    
+    /**   
+     * @Given /^I should see exactly one "([^"]*)" element$/
+     * @throws ElementNotFoundException
+     * @throws ExpectationException
+     */
+    public function iShouldSeeExactlyOneElement($selector)
+    {
+        $foundElements = $this->findAllElements($selector);
+        if(! count($foundElements) === 1){
+            $message = sprintf('%d %s found on the page, but should be one', count($foundElements), $selector);
+
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
+     * @Then /^(?:|I )should see "(?P<text>(?:[^"]|\\")*)" in the "(?P<element>[^"]*)" element$/
+     */
+    public function assertElementContainsText($element, $text)
+    {
+
+        $this->assertSession()->elementTextContains('css', $element, $this->fixStepArgument($text));
+    }
+
     private function findAllElements($selector, $parent = null)
     {
         if ($parent === null) {
@@ -299,13 +353,5 @@ class WebContext extends MinkContext implements Context
                 $backtrace[1]['file'] ?? '' . ", line " . $backtrace[1]['line'] ?? ''
             );
         }
-    }
-
-    /**
-     * @Given /^the :index(st) "([^"]*)" button should be disabled$/
-     */
-    public function the1stButtonShouldBeDisabled($arg1)
-    {
-        throw new PendingException();
     }
 }
