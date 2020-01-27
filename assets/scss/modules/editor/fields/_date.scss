@@ -21,3 +21,7 @@
 .flatpickr-calendar input[type=number] {
   -moz-appearance: textfield;
 }
+
+.flatpickr-month {
+  height: 34px !important; // 34px is latest flatpickr repo value
+}
