@@ -79,9 +79,6 @@
                                 <option value="{{ key }}" {% if sortBy == key %}selected{% endif %}>
                                     {{ filterOption }}
                                 </option>
-                                <option value="-{{ key }}" {% if sortBy == key %}selected{% endif %}>
-                                    -{{ filterOption }}
-                                </option>
                             {% endfor %}
                         </select>
                     </p>
