@@ -27,7 +27,7 @@ trait WebContext
      */
     public function iWaitFor($cssSelector)
     {
-        $this->spin(function(WebContext $context) use ($cssSelector) {
+        $this->spin(function(CommonContext $context) use ($cssSelector) {
             return !is_null($this->findElement($cssSelector));
         });
     }
@@ -40,7 +40,7 @@ trait WebContext
      */
     public function iWaitForTextToDisappear($text)
     {
-        $this->spin(function(WebContext $context) use ($text) {
+        $this->spin(function(CommonContext $context) use ($text) {
             $context->assertPageNotContainsText($text);
             return true;
         });
