@@ -9,3 +9,14 @@
     background-color: $input-disabled-bg;
   }
 }
+
+/* Remove up/down arrows on datetime picker: Chrome, Safari, Edge, Opera  */
+.flatpickr-calendar input[type=number]::-webkit-inner-spin-button,
+.flatpickr-calendar input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Remove up/down arrows on datetime picker: Firefox  */
+.flatpickr-calendar input[type=number] {
+  -moz-appearance:textfield;
+}
