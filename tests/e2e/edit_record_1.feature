@@ -179,7 +179,6 @@ Feature: Edit record
     And the field "sets[set][textarea]" should contain "Bar"
 
   @javascript
-  @testme
   Scenario: As an Admin I want to fill in a Collection
     Given I am logged in as "admin"
     And I am on "/bolt/edit/43"
@@ -203,7 +202,7 @@ Feature: Edit record
     And I should see "Textarea:" in the "#collections label[for='field-textarea']" element
 
     And the 1st ".action-move-up-collection-item" button should be disabled
-    And the 2nd ".action-move-down-collection-item" button should be disabled
+    And the 3rd ".action-move-down-collection-item" button should be disabled
 
     When I scroll "Add item to Collection" into view
     And I click "#multiselect-undefined > div > div.multiselect__select"
@@ -213,23 +212,21 @@ Feature: Edit record
 
     Then I should see 4 ".collection-item" elements
 
-    When I fill the 3rd "#collections textarea" element with "Bye, Bolt"
-    And I fill the 4th ".collection-item input[type='text']" element with "Hey, Bolt"
+    When I fill the 2nd "#collections textarea" element with "Bye, Bolt"
+    And I fill the 2nd ".collection-item input[type='text']" element with "Hey, Bolt"
 
-    #First move down
-    And I scroll the 1st "Move down" into view
-    And I press the 1st "Move down" button
+    And I scroll the 3rd "Move down" into view
+    And I press the 3rd "Move down" button
 
-    Then I should see "Set:" in the "#collections .collection-item:nth-of-type(3)" element
-    And I should see "Textarea:" in the "#collections .collection-item:nth-of-type(4)" element
+    Then I should see "Set:" in the 3rd "#collections .collection-item" element
+    And I should see "Textarea:" in the 3rd "#collections .collection-item label" element
 
     When I scroll "Save changes" into view
     And I press "Save changes"
     Then I should be on "/bolt/edit/43#collections"
 
-    And the 3rd field ".collection-item input[type='text']" should contain "Hey, Bolt"
-    And the 4th field "#collections textarea" should contain "Bye, Bolt"
-
+    And the field ".collection-item:nth-child(3) input[type='text']" should contain "Hey, Bolt"
+    And the field ".collection-item:nth-child(4) textarea" should contain "Bye, Bolt"
 
     When I scroll the 3rd "Remove item" into view
     And I press the 3rd "Remove item" button

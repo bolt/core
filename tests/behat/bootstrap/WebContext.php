@@ -269,11 +269,34 @@ trait WebContext
     }
 
     /**
+     * @Then /^(?:|I )should see "(?P<text>(?:[^"]|\\")*)" in the (\d+)(st|nd|rd|th) "(?P<element>[^"]*)" element$/
+     * @throws ElementNotFoundException
+     * @throws ExpectationException
+     */
+    public function assertNthElementContainsText($text, $index, $tail, $element)
+    {
+        $foundElement = $this->findAllElements($element)[$index-1];
+
+        // for this, see WebAssert.php
+        $actual = $foundElement->getHtml();
+        $regex = '/'.preg_quote($text, '/').'/ui';
+
+        if(! (bool) preg_match($regex, $actual))
+        {
+            $message = sprintf(
+                'The string "%s" was not found in the HTML of the %s.',
+                $text,
+                $element
+            );
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
+    /**
      * @Then /^(?:|I )should see "(?P<text>(?:[^"]|\\")*)" in the "(?P<element>[^"]*)" element$/
      */
     public function assertElementContainsText($element, $text)
     {
-
         $this->assertSession()->elementTextContains('css', $element, $this->fixStepArgument($text));
     }
 
