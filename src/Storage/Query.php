@@ -32,27 +32,25 @@ class Query
         $this->queryParser = $queryParser;
     }
 
-    public function getContent(string $textQuery, array $whereArguments = []): JsonResponse
+    public function getContent(string $textQuery, array $arguments = []): JsonResponse
     {
-        $schema = new Schema([
-            'query' => new QueryType(
-                $this->contentFieldParser,
-                $this->queryFieldResolver,
-                ScopeEnum::DEFAULT
-            ),
-        ]);
-        $result = GraphQL::executeQuery($schema, $this->queryParser->parseQuery($textQuery, $whereArguments));
+        $content = $this->getQLContent($textQuery, $arguments, ScopeEnum::DEFAULT);
 
-        return new JsonResponse($result->toArray());
+        return new JsonResponse($content);
     }
 
     public function getContentForTwig(string $textQuery, array $arguments = []): array
     {
+        return $this->getQLContent($textQuery, $arguments, ScopeEnum::FRONT);
+    }
+
+    private function getQLContent(string $textQuery, array $arguments, string $scope): array
+    {
         $schema = new Schema([
             'query' => new QueryType(
                 $this->contentFieldParser,
                 $this->queryFieldResolver,
-                ScopeEnum::FRONT
+                $scope
             ),
         ]);
 
@@ -66,16 +64,20 @@ class Query
             throw new QueryErrorException($result->errors);
         }
 
-        $content = reset($result->toArray()['data']);
+        if ($scope === ScopeEnum::FRONT) {
+            $content = reset($result->toArray()['data']);
 
-        if (empty($content)) {
-            return [];
+            if (empty($content)) {
+                return [];
+            }
+
+            if ($returnSingle || (count($content) === 1 && isset($arguments['limit']) === false)) {
+                return reset($content);
+            }
+
+            return $content;
         }
 
-        if ($returnSingle || (count($content) === 1 && isset($arguments['limit']) === false)) {
-            return reset($content);
-        }
-
-        return $content;
+        return $result->toArray();
     }
 }

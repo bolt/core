@@ -18,8 +18,6 @@ class FilterExpressionBuilder
         'OR', 'AND',
     ];
 
-    private $parameterNames = [];
-
     public function build(
         string $filterName,
         $filterOptions,
@@ -48,11 +46,6 @@ class FilterExpressionBuilder
         }
 
         return (new Expr())->andX(...array_values($expressions));
-    }
-
-    public function getParametersValues(): array
-    {
-        return $this->parameterNames;
     }
 
     private function generateNestedExpr(
@@ -142,11 +135,11 @@ class FilterExpressionBuilder
 
         switch ($operation) {
             case Types::CONTAINS:
-                $this->parameterNames[$parameterName] = '%'.$fieldValue.'%';
+                $parameters[$parameterName] = '%'.$fieldValue.'%';
                 $andFieldExpressions[] = $expr->like($translatableAlias.'.value', $parameterName);
                 break;
             case Types::NOT_CONTAINS:
-                $this->parameterNames[$parameterName] = '%'.$fieldValue.'%';
+                $parameters[$parameterName] = '%'.$fieldValue.'%';
                 $andFieldExpressions[] = $expr->notLike($translatableAlias.'.value', $parameterName);
                 break;
             case Types::NOT:

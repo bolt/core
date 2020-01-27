@@ -59,7 +59,7 @@ class QueryFieldResolver
                 Join::WITH,
                 sprintf('%s.id = %s.content', $contentTypeAlias, 'bf')
             )
-            ->innerJoin(
+            ->leftJoin(
                 FieldTranslation::class,
                 'bft',
                 Join::WITH,
@@ -85,7 +85,7 @@ class QueryFieldResolver
                     $alias,
                     Join::WITH,
                     sprintf('%s.id = %s.content', $contentTypeAlias, $alias)
-                )->innerJoin(
+                )->leftJoin(
                     FieldTranslation::class,
                     $translatableAlias,
                     Join::WITH,
@@ -137,16 +137,22 @@ class QueryFieldResolver
                 $directions = explode(',', $args['order']['direction']);
                 foreach ($fields as $key => $field) {
                     $alias = 'bf'.substr(md5($key.time()), 0, 5);
+                    $translatableAlias = 'bft'.substr(md5($key.time()), 0, 5);
                     $qb->innerJoin(
                         Field::class,
                         $alias,
                         Join::WITH,
                         sprintf('%s.id = %s.content', $contentTypeAlias, $alias)
+                    )->leftJoin(
+                        FieldTranslation::class,
+                        $translatableAlias,
+                        Join::WITH,
+                        sprintf('%s.id = %s.translatable', $alias, $translatableAlias)
                     );
 
                     $qb->andWhere(sprintf('%s.name = :orderFieldName%d', $alias, $key))
                         ->setParameter(sprintf('orderFieldName%d', $key), $field);
-                    $qb->addOrderBy(sprintf('%s.value', $alias), $directions[$key]);
+                    $qb->addOrderBy(sprintf('%s.value', $translatableAlias), $directions[$key]);
                 }
             }
         }

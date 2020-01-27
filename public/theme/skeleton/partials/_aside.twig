@@ -13,17 +13,14 @@
 {#        {% setcontent blocks = 'blocks/first/3' %}#}
 {#        {% setcontent blocks = 'blocks/latest/3' %}#}
 {#        {% setcontent blocks = 'blocks' where {'title': 'Error dolore corporis aspernatur.'} %}#}
-{# -------------- ponizej do sprawdzenia -------------- #}
 {#        {% setcontent blocks = 'blocks' where {'title': '%dolore'} %}#}
 {#        {% setcontent blocks = 'blocks' where {'title': '%quo'} %}#}
-{#        {% setcontent blocks = 'blocks' where {'title': '%quo || %omnis'} %}#}
-{#        {% setcontent blocks = 'blocks' where {'title ||| slug': '%quo ||| %omnis'} %}#}
+{#        {% setcontent blocks = 'blocks' where {'title': '%quo || %dolore'} %}#}
+{#        {% setcontent blocks = 'blocks' where {'title ||| slug': '%quo ||| %dolore'} %}#}
 {#        {% setcontent showcases = 'showcases' where {'date': '<now'} %}#}
-{#        {% setcontent blocks = 'blocks' orderby '-title,slug,-datechanged' returnsingle %}#}
-{#        {% setcontent blocks = 'blocks' orderby '-title,slug'  %}#}
+{#        {% setcontent blocks = 'blocks' orderby '-title,slug' %}#}
 
         {{ dump(blocks) }}
     </div>
-
 </aside>
 <!-- End Sidebar -->
