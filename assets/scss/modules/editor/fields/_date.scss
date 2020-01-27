@@ -16,7 +16,8 @@
   -webkit-appearance: none;
   margin: 0;
 }
+
 /* Remove up/down arrows on datetime picker: Firefox  */
 .flatpickr-calendar input[type=number] {
-  -moz-appearance:textfield;
+  -moz-appearance: textfield;
 }
