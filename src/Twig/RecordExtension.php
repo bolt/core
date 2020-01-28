@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
+use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\Excerpt;
@@ -176,7 +177,7 @@ class RecordExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    public function getListTemplates(Field $field): LaravelCollection
+    public function getListTemplates(TemplateselectField $field): LaravelCollection
     {
         $definition = $field->getDefinition();
         $current = current($field->getValue());
