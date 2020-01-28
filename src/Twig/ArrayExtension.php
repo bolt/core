@@ -7,7 +7,6 @@ namespace Bolt\Twig;
 use Bolt\Entity\Content;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 /**
  * Bolt specific Twig functions and filters that provide array manipulation.
@@ -16,18 +15,6 @@ use Twig\TwigFunction;
  */
 final class ArrayExtension extends AbstractExtension
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getFunctions(): array
-    {
-        $safe = [
-            'is_safe' => ['html'],
-        ];
-
-        return [];
-    }
-
     /**
      * {@inheritdoc}
      */
