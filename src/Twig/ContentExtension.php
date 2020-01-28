@@ -10,6 +10,8 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
@@ -34,12 +36,21 @@ class ContentExtension extends AbstractExtension
     /** @var Security */
     private $security;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager, Security $security)
-    {
+    /** @var Request */
+    private $request;
+
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        ContentRepository $contentRepository,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Security $security,
+        RequestStack $requestStack
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->security = $security;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -57,6 +68,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
             new TwigFilter('next', [$this, 'getNextContent']),
+            new TwigFilter('current', [$this, 'isCurrent']),
             new TwigFilter('link', [$this, 'getLink']),
             new TwigFilter('edit_link', [$this, 'getEditLink']),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
@@ -212,6 +224,18 @@ class ContentExtension extends AbstractExtension
         $contentType = $sameContentType ? $content->getContentType() : null;
 
         return $this->contentRepository->findAdjacentBy($byColumn, $direction, $content->getId(), $contentType);
+    }
+
+    public function isCurrent(Content $content): bool
+    {
+        $recordParams = [
+            'slugOrId' => $content->getSlug() ?: $content->getId(),
+            'contentTypeSlug' => $content->getContentTypeSingularSlug(),
+        ];
+
+        $routeParams = $this->request->get('_route_params');
+
+        return $recordParams === $routeParams;
     }
 
     public function getLink(Content $content, bool $canonical = false): ?string
