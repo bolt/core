@@ -25,9 +25,7 @@ final class ArrayExtension extends AbstractExtension
             'is_safe' => ['html'],
         ];
 
-        return [
-            new TwigFunction('unique', [$this, 'unique'], $safe),
-        ];
+        return [];
     }
 
     /**
@@ -39,27 +37,6 @@ final class ArrayExtension extends AbstractExtension
             new TwigFilter('order', [$this, 'order']),
             new TwigFilter('shuffle', [$this, 'shuffle']),
         ];
-    }
-
-    /**
-     * Takes two arrays and returns a compiled array of unique, sorted values.
-     */
-    public function unique(array $arr1, array $arr2): array
-    {
-        $merged = array_unique(array_merge($arr1, $arr2), SORT_REGULAR);
-        $compiled = [];
-
-        foreach ($merged as $key => $val) {
-            if (is_array($val)) {
-                if (array_values($val) === $val) {
-                    $compiled[$key] = $val;
-                }
-            } else {
-                $compiled[$val] = $val;
-            }
-        }
-
-        return $compiled;
     }
 
     /**
