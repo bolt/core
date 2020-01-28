@@ -2,7 +2,7 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% set menu = [] %}
-{% for item in admin_menu() %}
+{% for item in admin_menu_array() %}
     {% if item.slug == slug %}
         {% set menu = item %}
     {% endif %}

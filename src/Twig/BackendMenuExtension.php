@@ -24,11 +24,11 @@ class BackendMenuExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('admin_menu', [$this, 'getAdminMenu']),
+            new TwigFunction('admin_menu_array', [$this, 'getAdminMenuArray']),
         ];
     }
 
-    public function getAdminMenu(): array
+    public function getAdminMenuArray(): array
     {
         return $this->menuBuilder->buildAdminMenu();
     }
