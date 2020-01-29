@@ -21,10 +21,10 @@ Details
 
 | Question                      | Answer
 |----------------- | ------
-| Relevant Bolt Version | legacy / 3.5 / 3.6 / master
+| Relevant Bolt Version | legacy / 4.0 / 4.1 / master
 | Install type                   |  Zip or tar install / Composer install / GitHub checkout
 | BC Break                     | yes/no
-| PHP version                 | 5.5 / 5.6 / 7.0 / 7.1 / 7.2
+| PHP version                 | 7.2 / 7.3 / 7.4 |
 | Web server                  | Apache / Nginx / Built-in, version [ version ]
 | For UX/UI issues        | Browser name and version
 
