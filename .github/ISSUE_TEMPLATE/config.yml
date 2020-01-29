@@ -1,0 +1,17 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Bolt Ideas (Feature Requests)
+    url: https://testy.kampsite.co
+    about: 💡 Please submit your ideas and feature requests here
+  - name: ❓❗ Support Question
+    url: https://bolt.cm/community
+    about: Having trouble with Bolt? Join in our Slack community
+  - name: 📖 Documentation Issue
+    url: https://github.com/bolt/docs/issues
+    about: Please refer to our documentation repository for documentation issues
+  - name: 🖼 Base-2018 / Skeleton Theme Issue
+    url: https://github.com/bolt/themes/issues
+    about: Please refer to our themes repository for theme-realted issues
+  - name: 🔐 Security Issue
+    url: "mailto:security@bolt.cm"
+    about: ⚠️ Please do **not** disclose security-related issues publicly. If you have found a security issue in Bolt, please send the details to security@bolt.cm and don't disclose it publicly until we can provide a fix for it. If you wish, we'll credit you for finding verified issues, when we release the patched version.
