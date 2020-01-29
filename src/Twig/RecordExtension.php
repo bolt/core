@@ -62,7 +62,7 @@ class RecordExtension extends AbstractExtension
         return [
             new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('selectOptions', [$this, 'selectOptions']),
+            new TwigFunction('select_options', [$this, 'selectOptions']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
             new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
@@ -98,7 +98,7 @@ class RecordExtension extends AbstractExtension
         return "<i class='fas mr-2 fa-${icon}'></i>";
     }
 
-    public function selectOptions(Field $field): LaravelCollection
+    public function selectOptions(Field\SelectField $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
 
@@ -108,7 +108,7 @@ class RecordExtension extends AbstractExtension
         return $this->selectOptionsContentType($field);
     }
 
-    private function selectOptionsArray(Field $field): LaravelCollection
+    private function selectOptionsArray(Field\SelectField $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -138,7 +138,7 @@ class RecordExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    private function selectOptionsContentType(Field $field): LaravelCollection
+    private function selectOptionsContentType(Field\SelectField $field): LaravelCollection
     {
         [ $contentTypeSlug, $fieldNames ] = explode('/', $field->getDefinition()->get('values'));
 
