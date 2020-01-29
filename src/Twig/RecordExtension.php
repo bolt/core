@@ -62,7 +62,7 @@ class RecordExtension extends AbstractExtension
         return [
             new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('selectOptions', [$this, 'selectOptions']),
+            new TwigFunction('select_options', [$this, 'selectOptions']),
             new TwigFunction('listTemplates', [$this, 'getListTemplates']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
             new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),

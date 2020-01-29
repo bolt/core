@@ -9,7 +9,7 @@
  #}
 
 {% if options is not defined %}
-    {% set options = selectOptions(field) %}
+    {% set options = select_options(field) %}
 {% endif %}
 
 {% set multiple = field.definition.get('multiple')|default ? 'true' : 'false' %}
