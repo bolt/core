@@ -68,7 +68,7 @@ class FieldExtension extends AbstractExtension
     /**
      * @return array|Content|null
      */
-    public function getSelected(Field $field, $returnsingle = false, $returnarray = false)
+    public function getSelected(Field\SelectField $field, $returnsingle = false, $returnarray = false)
     {
         $definition = $field->getDefinition();
 
