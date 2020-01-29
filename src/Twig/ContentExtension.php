@@ -214,7 +214,7 @@ class ContentExtension extends AbstractExtension
         return $this->contentRepository->findAdjacentBy($byColumn, $direction, $content->getId(), $contentType);
     }
 
-    public function getLink(Content $content, bool $absolute = false): ?string
+    public function getLink(Content $content, bool $canonical = false): ?string
     {
         if ($content->getId() === null) {
             return null;
@@ -225,16 +225,16 @@ class ContentExtension extends AbstractExtension
             'contentTypeSlug' => $content->getContentTypeSingularSlug(),
         ];
 
-        return $this->generateLink('record', $params, $absolute);
+        return $this->generateLink('record', $params, $canonical);
     }
 
-    public function getEditLink(Content $content, bool $absolute = false): ?string
+    public function getEditLink(Content $content): ?string
     {
         if ($content->getId() === null || ! $this->security->getUser()) {
             return null;
         }
 
-        return $this->generateLink('bolt_content_edit', ['id' => $content->getId()], $absolute);
+        return $this->generateLink('bolt_content_edit', ['id' => $content->getId()]);
     }
 
     public function getDeleteLink(Content $content, bool $absolute = false): ?string
@@ -274,13 +274,13 @@ class ContentExtension extends AbstractExtension
         return $this->generateLink('bolt_content_status', $params, $absolute);
     }
 
-    private function generateLink(string $route, array $params, $absolute = false): string
+    private function generateLink(string $route, array $params, $canonical = false): string
     {
         try {
             $link = $this->urlGenerator->generate(
                 $route,
                 $params,
-                $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
+                $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
         } catch (InvalidParameterException $e) {
             // @todo More graceful logging, tell user that (probably) the ContentType went missing.
