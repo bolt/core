@@ -31,7 +31,7 @@
     {% endif %}
 
     {# Image fields #}
-    {% if type == "image" and field is not empty %}
+    {% if type == "image" and field.filename is not empty %}
         {{ field|showimage('684') }}
     {% endif %}
 
