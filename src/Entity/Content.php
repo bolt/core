@@ -359,7 +359,7 @@ class Content
     {
         $fieldValues = [];
         foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $field->getParsedValue();
+            $fieldValues[$field->getName()] = $field->getValue();
         }
 
         return $fieldValues;
