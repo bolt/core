@@ -121,7 +121,7 @@ export default {
     'url',
     'width',
     'labels',
-    'required'
+    'required',
   ],
   data: () => {
     return {

@@ -60,7 +60,7 @@ export default {
     'fieldClass',
     'generate',
     'labels',
-    'required'
+    'required',
   ],
   data: () => {
     return {
