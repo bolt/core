@@ -139,7 +139,7 @@ class ContentExtension extends AbstractExtension
         }
 
         foreach ($content->getFields() as $field) {
-            if ($field instanceof ImageField) {
+            if ($field instanceof ImageField && $field->get('filename')) {
                 return $onlyValues ? $field->getValue() : $field;
             }
         }
