@@ -2,5 +2,5 @@
 
 {% block field %}
     <input class="form-control {{ class }}" name="{{ name }}" placeholder="{{ placeholder }}"
-           type="text" value="{{ value|join(", ") }}" {{ attributes|default()|raw }}>
+           type="text" value="{{ value|join(", ") }}" {{ attributes|default()|raw }} {% if required == 1 %}required {% endif %}>
 {% endblock %}
