@@ -173,6 +173,7 @@ showcases:
             height: 150px
             prefix: This is the prefix for the WYSIWYG field.
             postfix: This is the postfix for the WYSIWYG field.
+            separator: true
         textarea:
             type: textarea
             postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."

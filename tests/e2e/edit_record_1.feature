@@ -241,3 +241,10 @@ Feature: Edit record
     Then I should see 2 ".collection-item" elements
     And I should not see "Hey, Bolt"
     And I should not see "Bye, Bolt"
+
+  @javascript
+  Scenario: As an Admin I want to see separated content (separator)
+    Given I am logged in as "admin"
+    And I am on "/bolt/edit/43"
+    
+    Then I should see 1 "hr" elements in the "#field-html-html" element

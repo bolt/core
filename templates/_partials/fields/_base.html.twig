@@ -34,6 +34,15 @@
     {%  set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
 {% endif %}
 
+{# Set the separator #}
+{% if not separator|default %}
+    {% if field.definition.separator|default %}
+        {% set separator = "<hr>" %}
+    {% else %}
+        {% set separator = "" %}
+    {% endif %}
+{% endif %}
+
 {# Set the id #}
 {% if not id|default %}
     {% set id = 'field-' ~ field.name|default(name)|default('unnamed') %}
@@ -102,5 +111,6 @@
 {% endif %}
 {{ postfix|raw }}
 
+{{ separator|raw }}
 </div>
 

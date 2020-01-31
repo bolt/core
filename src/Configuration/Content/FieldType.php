@@ -41,6 +41,7 @@ class FieldType extends Collection
             'allow_html' => false,
             'sanitise' => false,
             'localize' => false,
+            'separator' => false,
         ]);
     }
 
