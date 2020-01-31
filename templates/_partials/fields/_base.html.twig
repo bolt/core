@@ -62,6 +62,11 @@
     {% set label = field.definition.label|default(field.name|default('unnamed')|ucwords) %}
 {% endif %}
 
+{# Set the info #}
+{% if not info|default %}
+    {% set info = field.definition.info|default %}
+{% endif %}
+
 {# Set the placeholder #}
 {% if not placeholder|default %}
     {% set placeholder = field.definition.placeholder|default('') %}

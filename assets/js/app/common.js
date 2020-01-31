@@ -55,4 +55,9 @@ $(document).ready(function() {
   $('.datetime-relative').each(function() {
     $(this).text(DateTime.fromISO($(this).text()).toRelative());
   });
+
+  /*
+   ** Initialise all popover elements
+   */
+  $('[data-toggle="popover"]').popover();
 });
