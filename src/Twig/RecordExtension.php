@@ -189,7 +189,7 @@ class RecordExtension extends AbstractExtension
             ->path($definition->get('path'));
 
         $options = [];
-        
+
         if ($definition->get('required') === false) {
             $options = [[
                 'key' => '',
