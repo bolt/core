@@ -1,9 +1,9 @@
 //** Fields | Label
 
 .editor--label {
-  .required-label:after {
+  .required-label::after {
     content: "*";
-    color: #ff0000;
+    color: #f00;
   }
 }
 
