@@ -87,7 +87,7 @@ export default {
     required: {
       type: Number,
       required: true,
-    }
+    },
   },
 
   data: () => {

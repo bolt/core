@@ -80,7 +80,7 @@ export default {
       return _values.includes(item.key);
     });
 
-    if(filterSelectedItems.length === 0) {
+    if (filterSelectedItems.length === 0) {
       filterSelectedItems = [_options[0]];
     }
 
