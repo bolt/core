@@ -115,7 +115,7 @@ class RecordExtension extends AbstractExtension
 
         $options = [];
 
-        if ($field->getDefinition()->get('required', false)) {
+        if (! $field->getDefinition()->get('required', true)) {
             $options[] = [
                 'key' => '',
                 'value' => '',
