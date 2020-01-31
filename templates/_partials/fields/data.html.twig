@@ -2,10 +2,11 @@
 
 {% set postfix = "<strong>Note:</strong> This Field contains internal data, likely added / maintained programmatically. You cannot edit this data." %}
 {% set value = field.value|json_encode %}
+{% set required = field.definition.required ? 1 : 0 %}
 
 {% block field %}
 <div class="editor--data">
-<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}" />
+<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}" {% if required == 1 %}required {% endif %}/>
 <pre>
 {{ field.value|json_encode(constant('JSON_PRETTY_PRINT')) }}
 </pre>
