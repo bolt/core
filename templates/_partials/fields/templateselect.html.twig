@@ -10,7 +10,6 @@
 
 {% set options = list_templates(field) %}
 {% set multiple = 'false' %}
-{% set allowempty = 'true' %}
 
 {% block field %}
     <editor-select
@@ -20,6 +19,6 @@
         :options="{{ options|json_encode }}"
         :form='{{ form|json_encode }}'
         :multiple="{{ multiple }}"
-        :allowempty="{{ allowempty }}"
+        :required="{{ required|json_encode }}"
     ></editor-select>
 {% endblock %}
