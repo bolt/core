@@ -21,7 +21,8 @@
             type="text"
             :placeholder="labels.placeholder_filename"
             :value="filenameData"
-            readonly="readonly"
+            data-readonly="readonly"
+            :required="required == 1"
           />
         </div>
         <div class="input-group mb-3">
@@ -153,6 +154,7 @@ export default {
     'label',
     'filename',
     'name',
+    'required',
     'thumbnail',
     'alt',
     'directory',

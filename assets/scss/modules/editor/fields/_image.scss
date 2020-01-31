@@ -40,6 +40,10 @@
     }
   }
 
+  input[data-readonly] {
+    pointer-events: none;
+  }
+
   &--dropzone {
     width: 100%;
     height: 100%;

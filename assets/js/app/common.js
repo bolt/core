@@ -77,4 +77,12 @@ $(document).ready(function() {
       return false;
     });
   });
+
+  /*
+   ** Simulates disabled behavior for elements with data-readonly attribute.
+   * This is needed, because a disabled input cannot be required.
+   */
+  $("[data-readonly]").on('keydown paste', function(e){
+    e.preventDefault();
+  });
 });
