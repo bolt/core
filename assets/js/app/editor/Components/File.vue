@@ -21,7 +21,8 @@
             type="text"
             :placeholder="labels.placeholder_filename"
             :value="filenameData"
-            readonly="readonly"
+            data-readonly="readonly"
+            :required="required == 1"
           />
         </div>
         <div class="input-group mb-3">
@@ -31,6 +32,7 @@
             :name="name + '[title]'"
             type="text"
             :placeholder="labels.placeholder_title"
+            :required="required == 1"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -150,6 +152,7 @@ export default {
     'isFirstInFilelist',
     'isLastInFilelist',
     'attributesLink',
+    'required',
   ],
   data() {
     return {
