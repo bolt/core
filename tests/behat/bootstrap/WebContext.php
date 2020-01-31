@@ -300,6 +300,16 @@ trait WebContext
         $this->assertSession()->elementTextContains('css', $element, $this->fixStepArgument($text));
     }
 
+    /**
+     * @When /^I hover over the "([^"]*)" element$/
+     * @throws ElementNotFoundException
+     */
+    public function iHoverOverTheElement($selector)
+    {
+        $element = $this->findElement($selector);
+        $element->mouseOver();
+    }
+
     private function findAllElements($selector, $parent = null)
     {
         if ($parent === null) {

@@ -182,6 +182,7 @@ showcases:
             postfix: "This field gets parsed as <a href='https://help.github.com/articles/markdown-basics'>Markdown</a>, when rendered on the site."
         email:
             type: email
+            info: "This is an <i>info box</i> shown as a popover next to the field label."
         embed:
             type: embed
             group: Media

@@ -10,5 +10,9 @@
         {% endif %}
 
         {{- label -}}:
+
+        {% if info is not empty %}
+            <icon class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" title="{{ label }}" data-html="true" data-content="{{ info }}"></icon>
+        {% endif %}
     </label>
 {%- endif -%}
