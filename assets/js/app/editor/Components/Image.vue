@@ -73,8 +73,9 @@
             </div>
           </div>
 
-          <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
+          <div class="btn-group mr-2" role="group">
             <button
+              v-if="inImagelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isFirstInImagelist"
@@ -85,6 +86,7 @@
             </button>
 
             <button
+              v-if="inImagelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isLastInImagelist"
@@ -209,6 +211,9 @@ export default {
     },
     onRemoveImage() {
       this.previewImage = null;
+      this.filenameData = '';
+      this.thumbnailData = '';
+      this.altData = '';
       this.$emit('remove', this);
     },
     selectUploadFile() {
