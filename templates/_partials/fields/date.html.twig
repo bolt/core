@@ -31,12 +31,16 @@
     mode='{{ mode }}'
     locale='{{user.locale}}'
     labels='{{ { 'toggle': 'editor_date.toggle'|trans }|json_encode }}'
+    :required='{{ required|json_encode }}'
   ></editor-date>
   {% else %}
     <span
         :id='{{ id|json_encode }}'
         :name='{{ name|json_encode }}'
         class=""
+        {% if required == 1 %}
+        required
+        {% endif %}
     >{{ value|date(format='F d, Y - g:ia')}}</span>
   {% endif %}
   

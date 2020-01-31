@@ -13,6 +13,7 @@
                 :name="name + '[url]'"
                 :placeholder="labels.placeholder_content_url"
                 type="url"
+                :required="required == 1"
               />
               <span class="input-group-btn">
                 <button
@@ -120,6 +121,7 @@ export default {
     'url',
     'width',
     'labels',
+    'required'
   ],
   data: () => {
     return {

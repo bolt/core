@@ -85,4 +85,7 @@ $(document).ready(function() {
   $("[data-readonly]").on('keydown paste', function(e){
     e.preventDefault();
   });
+  /* Part of the code above, however make sure flatpickr is not readonly */
+  $('.editor--date').siblings().prop('readonly', false).attr('data-readonly', 'readonly');
+
 });
