@@ -355,11 +355,11 @@ class Content
     /**
      * @Groups("get_content")
      */
-    public function getFieldValues(): array
+    public function getFieldValues(bool $parsed = true): array
     {
         $fieldValues = [];
         foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $field->getParsedValue();
+            $fieldValues[$field->getName()] = $parsed ? $field->getParsedValue() : $field->getValue();
         }
 
         return $fieldValues;
@@ -621,7 +621,7 @@ class Content
             ];
         }
 
-        $result['fields'] = $this->getFieldValues();
+        $result['fields'] = $this->getFieldValues(false);
 
         $result['taxonomies'] = $this->getTaxonomyValues();
         $result['relations'] = [];
