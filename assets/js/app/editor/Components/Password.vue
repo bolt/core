@@ -8,6 +8,7 @@
         type="password"
         :name="name"
         :value="value"
+        :required="required == 1"
         autocomplete="new-password"
         @input="measureStrength"
       />
@@ -37,7 +38,7 @@ export default {
     ProgressBar,
   },
 
-  props: ['value', 'name', 'id', 'hidden', 'strength'],
+  props: ['value', 'name', 'id', 'hidden', 'strength', 'required'],
 
   mounted: function() {
     // this.val = this.$options.filters.strip(this.value);
