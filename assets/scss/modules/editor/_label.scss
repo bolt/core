@@ -16,6 +16,7 @@
   background-color: $popover-bg;
   background-clip: padding-box;
   border: $popover-border-width solid $popover-border-color;
+
   @include border-radius($popover-border-radius);
   @include box-shadow($popover-box-shadow);
 
@@ -139,17 +140,19 @@
   &[x-placement^="top"] {
     @extend .bs-popover-top;
   }
+
   &[x-placement^="right"] {
     @extend .bs-popover-right;
   }
+
   &[x-placement^="bottom"] {
     @extend .bs-popover-bottom;
   }
+
   &[x-placement^="left"] {
     @extend .bs-popover-left;
   }
 }
-
 
 // Offset the popover to account for the popover arrow
 .popover-header {
@@ -158,6 +161,7 @@
   color: $popover-header-color;
   background-color: $popover-header-bg;
   border-bottom: $popover-border-width solid darken($popover-header-bg, 5%);
+
   @include border-top-radius($popover-inner-border-radius);
 
   &:empty {
