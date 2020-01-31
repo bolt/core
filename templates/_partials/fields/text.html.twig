@@ -18,12 +18,14 @@
             :name='{{ name|json_encode }}'
             :type='{{ class|json_encode }}'
             :disabled='{{ disabled|json_encode }}'
+            :required='{{ required|json_encode }}'
         ></editor-text>
     {% else %}
         <span
             :id='{{ id|json_encode }}'
             :name='{{ name|json_encode }}'
             class=""
+            required="{{ required }}"
         >{{ value|json_encode }}</span>
     {% endif %}
 {% endblock %}

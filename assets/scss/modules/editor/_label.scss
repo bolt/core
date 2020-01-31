@@ -1,5 +1,12 @@
 //** Fields | Label
 
+.editor--label {
+  .required-label:after {
+    content: "*";
+    color: #ff0000;
+  }
+}
+
 //** See https://github.com/twbs/bootstrap/blob/master/scss/_popover.scss
 .popover {
   position: absolute;
