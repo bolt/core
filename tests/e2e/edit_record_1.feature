@@ -56,6 +56,19 @@ Feature: Edit record
     And the "fields[embed][height]" field should contain "270"
 
   @javascript
+  Scenario: As an Admin I want to see the field infobox
+    Given I am logged in as "admin"
+    When I am on "/bolt/edit/38"
+
+    Then I should see an "label[for='field-email']" element
+    And I should see 1 "icon" elements in the "label[for='field-email']" element
+
+    When I scroll "Email" into view
+    When I hover over the "label[for='field-email'] > icon" element
+    Then I should see "Email" in the ".popover-header" element
+    And I should see "This is an info box shown as a popover next to the field label." in the ".popover-body" element
+
+  @javascript
   Scenario: As an Admin I want to fill in an imagelist
     Given I am logged in as "admin"
     When I am on "/bolt/edit/42"
