@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
+use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
@@ -46,7 +48,8 @@ class DetailController extends TwigAwareController implements FrontendZone
         if (is_numeric($slugOrId)) {
             $record = $this->contentRepository->findOneBy(['id' => (int) $slugOrId]);
         } else {
-            $record = $this->contentRepository->findOneBySlug($slugOrId);
+            $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+            $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
         }
 
         if (! $record) {
