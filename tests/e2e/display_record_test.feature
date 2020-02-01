@@ -3,7 +3,7 @@ Feature: Test field output
   @javascript
   Scenario: As a user I want to see how fields are escaped
 
-    Given I am on "/page/title-of-the-test"
+    Given I am on "/test/title-of-the-test"
     Then I wait for ".title"
 
     And I should see "Text with markup allowed." in the ".text_markup_a" element
