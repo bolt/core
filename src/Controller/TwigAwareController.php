@@ -91,8 +91,14 @@ class TwigAwareController extends AbstractController
         /** @var NativeFilesystemLoader $twigLoaders */
         $twigLoaders = $this->twig->getLoader();
 
+        $path = $this->config->getPath('theme');
+
+        if ($this->config->get('theme/template_directory')) {
+            $path .= DIRECTORY_SEPARATOR . $this->config->get('theme/template_directory');
+        }
+
         if ($twigLoaders instanceof FilesystemLoader) {
-            $twigLoaders->prependPath($this->config->getPath('theme'), '__main__');
+            $twigLoaders->prependPath($path, '__main__');
         }
     }
 
