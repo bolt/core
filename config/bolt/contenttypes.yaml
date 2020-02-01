@@ -66,12 +66,16 @@ pages:
             type: text
             class: large
             group: content
+            localize: true
         subheading:
             type: text
             class: large
+            localize: true
         slug:
             type: slug
-            uses: [ heading, subheading ]
+            uses: [ heading ]
+            localize: true
+
         photo:
             type: image
             label: "Eén plaatje"

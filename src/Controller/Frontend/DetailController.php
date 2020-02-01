@@ -73,6 +73,10 @@ class DetailController extends TwigAwareController implements FrontendZone
             $singularSlug => $record,
         ];
 
+        // We add the record as a _global_ variable. This way we can use that
+        // later on, if we need to get the root record of a page.
+        $this->twig->addGlobal('record', $record);
+
         $templates = $this->templateChooser->forRecord($record);
 
         return $this->renderTemplate($templates, $context);

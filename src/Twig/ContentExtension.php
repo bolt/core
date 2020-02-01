@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
 use Twig\TwigFilter;
@@ -61,6 +62,7 @@ class ContentExtension extends AbstractExtension
         $safe = [
             'is_safe' => ['html'],
         ];
+        $env = ['needs_environment' => true];
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
@@ -68,7 +70,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
             new TwigFilter('next', [$this, 'getNextContent']),
-            new TwigFilter('current', [$this, 'isCurrent']),
+            new TwigFilter('current', [$this, 'isCurrent'], $env),
             new TwigFilter('link', [$this, 'getLink']),
             new TwigFilter('edit_link', [$this, 'getEditLink']),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
@@ -226,8 +228,16 @@ class ContentExtension extends AbstractExtension
         return $this->contentRepository->findAdjacentBy($byColumn, $direction, $content->getId(), $contentType);
     }
 
-    public function isCurrent(Content $content): bool
+    public function isCurrent(Environment $env, Content $content): bool
     {
+        // If we have a $record set in the Global Twig env, we can simply
+        // compare that to what's passed in.
+        if (array_key_exists('record', $env->getGlobals())) {
+            return $env->getGlobals()['record'] === $content;
+        }
+
+        // Otherwise, we'll have to compare 'slugOrId' and 'contentTypeSlug' as
+        // grabbed from the Request
         $recordParams = [
             'slugOrId' => $content->getSlug() ?: $content->getId(),
             'contentTypeSlug' => $content->getContentTypeSingularSlug(),
@@ -235,7 +245,10 @@ class ContentExtension extends AbstractExtension
 
         $routeParams = $this->request->get('_route_params');
 
-        return $recordParams === $routeParams;
+        return isset($routeParams['slugOrId']) &&
+            isset($routeParams['contentTypeSlug']) &&
+            $recordParams['slugOrId'] === $routeParams['slugOrId'] &&
+            $recordParams['contentTypeSlug'] === $routeParams['contentTypeSlug'];
     }
 
     public function getLink(Content $content, bool $canonical = false): ?string
