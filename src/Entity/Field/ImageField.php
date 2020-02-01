@@ -72,7 +72,7 @@ class ImageField extends Field implements FieldInterface, MediaAware
     public function getLinkedMedia(MediaRepository $mediaRepository): ?Media
     {
         if ($this->get('media')) {
-            return $this->mediaRepository->findOneBy(['id' => $this->get('media')]);
+            return $mediaRepository->findOneBy(['id' => $this->get('media')]);
         }
 
         if ($this->get('filename')) {
