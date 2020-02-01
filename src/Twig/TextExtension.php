@@ -22,6 +22,7 @@ class TextExtension extends AbstractExtension
             new TwigFilter('safestring', [$this, 'safeString']),
             new TwigFilter('slug', [$this, 'slug']),
             new TwigFilter('ucwords', [$this, 'ucwords']),
+            new TwigFilter('preg_replace', [$this, 'pregReplace']),
         ];
     }
 
@@ -42,5 +43,13 @@ class TextExtension extends AbstractExtension
         }
 
         return ucwords($string, $delimiters);
+    }
+
+    /**
+     * Perform a regular expression search and replace on the given string.
+     */
+    public function pregReplace(string $str, string $pattern, string $replacement = '', int $limit = -1): string
+    {
+        return preg_replace($pattern, $replacement, $str, $limit);
     }
 }
