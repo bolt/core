@@ -75,7 +75,6 @@ pages:
             type: slug
             uses: [ heading ]
             localize: true
-
         photo:
             type: image
             label: "Eén plaatje"
@@ -84,12 +83,15 @@ pages:
             type: textarea
             postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."
             height: 150px
+            localize: true
         marky:
             type: markdown
+            localize: true
         content:
             type: html
             height: 300px
             allow_twig: true
+            localize: true
         checkbox:
             type: checkbox
             label: "This is a checkbox"
