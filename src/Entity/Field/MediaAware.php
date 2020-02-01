@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
+use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
 
 /**
@@ -11,7 +12,7 @@ use Bolt\Repository\MediaRepository;
  */
 interface MediaAware
 {
-    public function getLinkedMedia(): void;
+    public function getLinkedMedia(MediaRepository $mediaRepository): ?Media;
 
     public function setLinkedMedia(MediaRepository $mediaRepository): void;
 }

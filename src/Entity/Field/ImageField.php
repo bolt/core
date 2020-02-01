@@ -6,6 +6,7 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Asset\PathPackage;
@@ -68,9 +69,17 @@ class ImageField extends Field implements FieldInterface, MediaAware
         return $filesPackage->getUrl($this->get('filename'));
     }
 
-    public function getLinkedMedia(): void
+    public function getLinkedMedia(MediaRepository $mediaRepository): ?Media
     {
-        // @todo Method getLinkedMedia() needs to be implemented
+        if ($this->get('media')) {
+            return $this->mediaRepository->findOneBy(['id' => $this->get('media')]);
+        }
+
+        if ($this->get('filename')) {
+            return $mediaRepository->findOneByFullFilename($this->get('filename'));
+        }
+
+        return null;
     }
 
     public function setLinkedMedia(MediaRepository $mediaRepository): void
