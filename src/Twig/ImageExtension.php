@@ -48,7 +48,7 @@ class ImageExtension extends AbstractExtension
             new TwigFilter('popup', [$this, 'popup'], $safe),
             new TwigFilter('showimage', [$this, 'showImage'], $safe),
             new TwigFilter('thumbnail', [$this, 'thumbnail'], $safe),
-            new TwigFilter('media', [$this, 'media']),
+            new TwigFilter('media', [$this, 'getMedia']),
         ];
     }
 
@@ -130,22 +130,22 @@ class ImageExtension extends AbstractExtension
     }
 
     /**
-     * @param ImageField|array|string $image
+     * @param ImageField|array $image
      */
-    public function media($image): ?Media
+    public function getMedia($image): ?Media
     {
         if (is_array($image) && array_key_exists('media', $image)) {
-            $id = $image['media'];
-        } elseif ($image instanceof ImageField) {
-            $id = $image->get('media');
-        } else {
-            return $this->notifications->warning(
-                'Incorrect usage of `media`-filter',
-                'The `media`-filter can only be applied to an `ImageField`, or an array that has a key named `media` which holds an id.'
-            );
+            return $this->mediaRepository->findOneBy(['id' => $image['media']]);
         }
 
-        return $this->mediaRepository->findOneBy(['id' => $id]);
+        if ($image instanceof ImageField) {
+            return $image->getLinkedMedia($this->mediaRepository);
+        }
+
+        return $this->notifications->warning(
+            'Incorrect usage of `media`-filter',
+            'The `media`-filter can only be applied to an `ImageField`, or an array that has a key named `media` which holds an id.'
+        );
     }
 
     /**
