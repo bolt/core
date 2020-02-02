@@ -19,7 +19,8 @@ class SetupCommand extends Command
     {
         $this
             ->setDescription('Run Bolt setup / installation commands')
-            ->addOption('no-fixtures', 'nf', InputOption::VALUE_NONE, 'If set, no data fixtures will be created. An empty database wil be initialised.');
+            ->addOption('no-fixtures', 'nf', InputOption::VALUE_NONE, 'If set, no data fixtures will be created and the user will not be prompted for it. An empty database wil be initialised.')
+            ->addOption('fixtures', 'f', InputOption::VALUE_NONE, 'If set, data fixtures will be created, without prompting the user for it.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -39,11 +40,13 @@ class SetupCommand extends Command
         $commandInput = new ArrayInput(['--admin' => true]);
         $exitCode += $command->run($commandInput, $output);
 
-        $noFixtures = $input->getOption('no-fixtures');
-        if (! $noFixtures) {
-            $command = $this->getApplication()->find('doctrine:fixtures:load');
-            $commandInput = new ArrayInput(['--append' => true]);
-            $exitCode += $command->run($commandInput, $output);
+        // Unless either `--no-fixtures` or `--fixtures` was set, we prompt the user for it.
+        if (! $input->getOption('no-fixtures')) {
+            if ($input->getOption('fixtures') || $io->confirm('Add fixtures (dummy content) to the Database?', true)) {
+                $command = $this->getApplication()->find('doctrine:fixtures:load');
+                $commandInput = new ArrayInput(['--append' => true]);
+                $exitCode += $command->run($commandInput, $output);
+            }
         }
 
         $io->newLine();
