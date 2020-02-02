@@ -31,17 +31,20 @@ class TextExtension extends AbstractExtension
         ];
     }
 
-    public function safeString($str, $strict = false, $extrachars = ''): string
+    public function safeString(string $str, bool $strict = false, string $extrachars = ''): string
     {
         return Str::makeSafe($str, $strict, $extrachars);
     }
 
-    public function plainText($str, $strict = false, $extrachars = ''): string
+    /**
+     * Returns a plaintext version of a string. Kinda like `|striptags` only with `is_safe => html`
+     */
+    public function plainText(string $str): string
     {
-        return $this->safeString($str, false, '§!@#$%^&*()_+-=[]{};\'\\:"|`~)');
+        return strip_tags($str);
     }
 
-    public function slug($str): string
+    public function slug(string $str): string
     {
         return Str::slug((string) $str);
     }
