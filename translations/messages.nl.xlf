@@ -912,12 +912,6 @@
         <target>Wissel</target>
       </segment>
     </unit>
-    <unit id="Swom5xM" name="repeater.remark">
-      <segment>
-        <source>repeater.remark</source>
-        <target>__repeater.remark</target>
-      </segment>
-    </unit>
     <unit id="M.3olSc" name="filelist.remark">
       <segment>
         <source>filelist.remark</source>

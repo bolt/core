@@ -1413,12 +1413,6 @@
         <target><![CDATA[Note: This field is practically the same as the <code>filelist</code>-field.]]></target>
       </segment>
     </unit>
-    <unit id="Swom5xM" name="repeater.remark">
-      <segment>
-        <source>repeater.remark</source>
-        <target>Note: The Repeater / Block field is basically a wrapper for other fields.</target>
-      </segment>
-    </unit>
     <unit id="z2AgHGp" name="flash_messages.notification">
       <segment>
         <source>flash_messages.notification</source>
