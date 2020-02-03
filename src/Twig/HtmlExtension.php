@@ -87,7 +87,7 @@ class HtmlExtension extends AbstractExtension
      */
     public function redirect(string $path)
     {
-        header("Location: " . $path);
+        header("Location: $path");
         exit();
     }
 }
