@@ -9,6 +9,7 @@
         :form="form"
         :name="name"
         placeholder="Select date"
+        :required="required == 1"
       >
       </flat-pickr>
       <div class="input-group-append">
@@ -82,6 +83,10 @@ export default {
     labels: {
       type: String,
       default: '',
+    },
+    required: {
+      type: Number,
+      required: true,
     },
   },
 

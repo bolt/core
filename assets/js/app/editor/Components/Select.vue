@@ -2,7 +2,7 @@
   <div :id="`multiselect-${id}`">
     <multiselect
       v-model="selected"
-      :allow-empty="allowempty"
+      :allow-empty="false"
       :limit="1000"
       :multiple="multiple"
       :options="options"
@@ -48,7 +48,7 @@ export default {
     'options',
     'multiple',
     'taggable',
-    'allowempty',
+    'required',
   ],
   data: () => {
     return {
@@ -79,6 +79,11 @@ export default {
     let filterSelectedItems = _options.filter(item => {
       return _values.includes(item.key);
     });
+
+    if (filterSelectedItems.length === 0) {
+      filterSelectedItems = [_options[0]];
+    }
+
     this.selected = filterSelectedItems;
   },
   methods: {

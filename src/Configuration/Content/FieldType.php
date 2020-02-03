@@ -43,6 +43,7 @@ class FieldType extends Collection
             'sanitise' => false,
             'localize' => false,
             'separator' => false,
+            'required' => false,
         ]);
     }
 

@@ -115,7 +115,7 @@ class RecordExtension extends AbstractExtension
 
         $options = [];
 
-        if ($field->getDefinition()->get('required', false)) {
+        if (! $field->getDefinition()->get('required', true)) {
             $options[] = [
                 'key' => '',
                 'value' => '',
@@ -188,11 +188,15 @@ class RecordExtension extends AbstractExtension
             ->name($definition->get('filter', '*.twig'))
             ->path($definition->get('path'));
 
-        $options = [[
-            'key' => '',
-            'value' => '(choose a template)',
-            'selected' => false,
-        ]];
+        $options = [];
+
+        if ($definition->get('required') === false) {
+            $options = [[
+                'key' => '',
+                'value' => '(choose a template)',
+                'selected' => false,
+            ]];
+        }
 
         foreach ($finder as $file) {
             $options[] = [

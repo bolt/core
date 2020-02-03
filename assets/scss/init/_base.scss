@@ -51,12 +51,14 @@ code {
 }
 
 input[readonly],
+input[data-readonly],
 input:disabled,
 button:disabled,
 input.flatpickr-input[disabled] {
   cursor: not-allowed;
   background-color: $input-disabled-bg;
   color: $input-disabled-color;
+  pointer-events: none;
 }
 
 input::placeholder {

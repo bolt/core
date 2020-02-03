@@ -23,6 +23,9 @@
 {# Set type #}
 {% set type = field.type|default %}
 
+{# Set reqiored #}
+{% set required = (field.definition.required|default) ? 1 : 0 %}
+
 {% set type_collection = (type in ['collection']) %}
 {% set type_set = (type in ['imagelist', 'filelist', 'set']) %}
 

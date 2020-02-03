@@ -7,6 +7,7 @@
       placeholder="…"
       type="number"
       :step="step"
+      :required="required == 1"
     />
   </div>
 </template>
@@ -17,6 +18,6 @@ import val from '../mixins/value';
 export default {
   name: 'EditorNumber',
   mixins: [val],
-  props: ['value', 'label', 'name', 'step', 'type', 'disabled'],
+  props: ['value', 'label', 'name', 'step', 'type', 'disabled', 'required'],
 };
 </script>

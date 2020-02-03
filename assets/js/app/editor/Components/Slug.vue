@@ -12,6 +12,7 @@
         type="text"
         :class="fieldClass"
         :readonly="!edit"
+        :required="required == 1"
       />
       <div class="input-group-append">
         <button
@@ -59,6 +60,7 @@ export default {
     'fieldClass',
     'generate',
     'labels',
+    'required',
   ],
   data: () => {
     return {

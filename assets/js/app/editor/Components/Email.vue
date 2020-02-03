@@ -6,6 +6,7 @@
       :name="name"
       :value="value"
       type="email"
+      :required="required == 1"
     />
   </div>
 </template>
@@ -13,6 +14,6 @@
 <script>
 export default {
   name: 'EditorEmail',
-  props: ['value', 'name', 'id'],
+  props: ['value', 'name', 'id', 'required'],
 };
 </script>

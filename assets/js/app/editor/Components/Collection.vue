@@ -162,8 +162,8 @@ export default {
       let template = this.getSelectedTemplate();
 
       let html = template.html.replace(
-        new RegExp(template.hash, 'g'),
-        uniqid(),
+        '[' + new RegExp(template.hash, 'g') + ']',
+        '[' + uniqid() + ']',
       );
       let res = Vue.compile(html);
       this.elements.push(res);
