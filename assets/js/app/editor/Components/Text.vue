@@ -21,7 +21,16 @@ import field from '../mixins/value';
 export default {
   name: 'EditorText',
   mixins: [field],
-  props: ['value', 'label', 'name', 'type', 'disabled', 'id', 'required', 'readonly'],
+  props: [
+    'value',
+    'label',
+    'name',
+    'type',
+    'disabled',
+    'id',
+    'required',
+    'readonly',
+  ],
   data: () => {
     return {
       generate: false,

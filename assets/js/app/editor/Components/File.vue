@@ -41,8 +41,8 @@
             <button
               class="btn btn-sm btn-tertiary"
               type="button"
-              @click="selectUploadFile"
               :disabled="readonly"
+              @click="selectUploadFile"
             >
               <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
             </button>
@@ -61,8 +61,8 @@
               <button
                 class="btn dropdown-item"
                 type="button"
-                @click="selectServerFile"
                 :readonly="readonly"
+                @click="selectServerFile"
               >
                 <i class="fas fa-fw fa-th"></i>
                 {{ labels.button_from_library }}
