@@ -157,7 +157,7 @@ Feature: Edit record
     And the 5th "Up" button should be disabled
     And the 9th "Down" button should be disabled
 
-    When I press the 6th "Remove" button
+    When I press the 7th "Remove" button
     Then I should see 4 ".row" elements in the ".editor-filelist" element
 
     When I scroll "Save changes" into view
