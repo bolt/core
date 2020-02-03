@@ -7,7 +7,6 @@ namespace Bolt\Twig;
 use Bolt\Canonical;
 use Bolt\Common\Str;
 use Bolt\Utils\Markdown;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -85,9 +84,9 @@ class HtmlExtension extends AbstractExtension
     /**
      * Simple redirect to given path
      */
-    public function redirect(string $path)
+    public function redirect(string $path): void
     {
-        header("Location: $path");
+        header("Location: ${path}");
         exit();
     }
 }
