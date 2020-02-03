@@ -75,8 +75,9 @@
             </div>
           </div>
 
-          <div v-if="inFilelist == true" class="btn-group mr-2" role="group">
+          <div class="btn-group mr-2" role="group">
             <button
+              v-if="inFilelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isFirstInFilelist"
@@ -87,6 +88,7 @@
             </button>
 
             <button
+              v-if="inFilelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isLastInFilelist"
@@ -182,6 +184,8 @@ export default {
       this.$emit('moveFileUp', this);
     },
     onRemoveFile() {
+      this.filenameData = '';
+      this.titleData = '';
       this.$emit('remove', this);
     },
     selectUploadFile() {
