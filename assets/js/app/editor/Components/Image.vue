@@ -25,7 +25,16 @@
             :required="required == 1"
           />
         </div>
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" v-if="titleData !== undefined">
+          <input
+            v-model="titleData"
+            class="form-control"
+            :name="name + '[title]'"
+            type="text"
+            :placeholder="labels.placeholder_title_text"
+          />
+        </div>
+        <div class="input-group mb-3" v-if="altData !== undefined">
           <input
             v-model="altData"
             class="form-control"
@@ -163,6 +172,7 @@ export default {
     'readonly',
     'thumbnail',
     'alt',
+    'title',
     'directory',
     'media',
     'csrfToken',
@@ -183,6 +193,7 @@ export default {
       filenameData: this.filename,
       thumbnailData: this.thumbnail,
       altData: this.alt,
+      titleData: this.title,
     };
   },
   computed: {
@@ -222,6 +233,7 @@ export default {
       this.filenameData = '';
       this.thumbnailData = '';
       this.altData = '';
+      this.titleData = '';
       this.$emit('remove', this);
     },
     selectUploadFile() {

@@ -2181,5 +2181,11 @@
         <target>Empty</target>
       </segment>
     </unit>
+    <unit id="q3wV85K" name="image.placeholder_title_text">
+      <segment>
+        <source>image.placeholder_title_text</source>
+        <target>Image title</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

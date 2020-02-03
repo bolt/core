@@ -23,15 +23,28 @@ class ImageField extends Field implements FieldInterface, MediaAware
     /** @var array */
     private $fieldBase = [];
 
+    /** @var array */
+    private $alt = [];
+
+    /** @var array */
+    private $title = [];
+
     public function __construct()
     {
         $this->fieldBase = [
             'filename' => '',
-            'alt' => '',
             'path' => '',
             'media' => '',
             'thumbnail' => '',
             'fieldname' => '',
+        ];
+
+        $this->alt = [
+            'alt' => '',
+        ];
+
+        $this->title = [
+            'title' => '',
         ];
     }
 
@@ -43,6 +56,16 @@ class ImageField extends Field implements FieldInterface, MediaAware
     public function getValue(): array
     {
         $value = array_merge($this->fieldBase, (array) parent::getValue() ?: []);
+
+        if($this->includeAlt())
+        {
+            $value = array_merge($this->alt, $value);
+        }
+
+        if($this->includeTitle())
+        {
+            $value = array_merge($this->title, $value);
+        }
 
         // Remove cruft field getting stored as JSON.
         unset($value[0]);
@@ -89,5 +112,15 @@ class ImageField extends Field implements FieldInterface, MediaAware
         if ($media) {
             $this->set('media', $media->getId());
         }
+    }
+
+    public function includeAlt(): bool
+    {
+        return $this->getDefinition()->has('attrib') && $this->getDefinition()->get('attrib')->contains('alt');
+    }
+
+    public function includeTitle(): bool
+    {
+        return $this->getDefinition()->has('attrib') && $this->getDefinition()->get('attrib')->contains('title');
     }
 }

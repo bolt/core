@@ -195,6 +195,7 @@ showcases:
         image:
             type: image
             extensions: [ gif, jpg, png ]
+            attrib: [ alt, title ]
             placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
         imagelist:
             type: imagelist

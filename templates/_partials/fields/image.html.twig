@@ -10,6 +10,7 @@
         'button_remove': 'image.button_remove'|trans,
         'placeholder_filename': 'image.placeholder_filename'|trans,
         'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
+        'placeholder_title_text': 'image.placeholder_title_text'|trans,
         'button_edit_attributes': 'image.button_edit_attributes'|trans,
     }|json_encode %}
     {% set extensions = field.definition.get('extensions')|default('') %}
@@ -18,7 +19,6 @@
         :name='{{ name|json_encode }}'
         :filename='{{ field.get('filename')|json_encode }}'
         :thumbnail='{{ field|thumbnail(width=400, height=300)|json_encode }}'
-        :alt='{{ field.get('alt')|json_encode }}'
         :media='{{ field.get('media')|json_encode }}'
         :directory='{{ directory|json_encode }}'
         :filelist='{{ filelist|json_encode }}'
