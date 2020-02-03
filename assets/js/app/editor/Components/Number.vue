@@ -19,6 +19,15 @@ import val from '../mixins/value';
 export default {
   name: 'EditorNumber',
   mixins: [val],
-  props: ['value', 'label', 'name', 'step', 'type', 'disabled', 'required', 'readonly'],
+  props: [
+    'value',
+    'label',
+    'name',
+    'step',
+    'type',
+    'disabled',
+    'required',
+    'readonly',
+  ],
 };
 </script>
