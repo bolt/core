@@ -25,7 +25,7 @@
             :required="required == 1"
           />
         </div>
-        <div class="input-group mb-3" v-if="titleData !== undefined">
+        <div v-if="titleData !== undefined" class="input-group mb-3">
           <input
             v-model="titleData"
             class="form-control"
@@ -34,7 +34,7 @@
             :placeholder="labels.placeholder_title_text"
           />
         </div>
-        <div class="input-group mb-3" v-if="altData !== undefined">
+        <div v-if="altData !== undefined" class="input-group mb-3">
           <input
             v-model="altData"
             class="form-control"

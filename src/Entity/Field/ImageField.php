@@ -57,13 +57,11 @@ class ImageField extends Field implements FieldInterface, MediaAware
     {
         $value = array_merge($this->fieldBase, (array) parent::getValue() ?: []);
 
-        if($this->includeAlt())
-        {
+        if ($this->includeAlt()) {
             $value = array_merge($this->alt, $value);
         }
 
-        if($this->includeTitle())
-        {
+        if ($this->includeTitle()) {
             $value = array_merge($this->title, $value);
         }
 
