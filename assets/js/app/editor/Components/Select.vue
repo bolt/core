@@ -9,6 +9,7 @@
       :searchable="taggable"
       :show-labels="false"
       :taggable="taggable"
+      :disabled="readonly"
       label="value"
       tag-placeholder="Add this as new tag"
       tag-position="bottom"
@@ -49,6 +50,7 @@ export default {
     'multiple',
     'taggable',
     'required',
+    'readonly',
   ],
   data: () => {
     return {

@@ -2,8 +2,8 @@
 
 {% block field %}
   {# check disabled #}
-  {% if disabled is not defined %}
-      {% set disabled = false %}
+  {% if readonly is not defined %}
+      {% set readonly = false %}
   {% endif %}
   {# Check form attribute #}
   {% if form is not defined %}
@@ -26,7 +26,7 @@
   <editor-date
     :value='{{ value|json_encode }}'
     name='{{ name }}'
-    :disabled='{{ disabled|json_encode }}'
+    :readonly='{{ readonly|json_encode }}'
     form='{{ form }}'
     mode='{{ mode }}'
     locale='{{user.locale}}'

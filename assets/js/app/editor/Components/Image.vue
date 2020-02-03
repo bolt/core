@@ -32,6 +32,7 @@
             :name="name + '[alt]'"
             type="text"
             :placeholder="labels.placeholder_alt_text"
+            :readonly="readonly"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -40,6 +41,7 @@
               class="btn btn-sm btn-tertiary"
               type="button"
               @click="selectUploadFile"
+              :disabled="readonly"
             >
               <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
             </button>
@@ -51,6 +53,7 @@
               data-toggle="dropdown"
               name="image-upload-dropdown"
               type="button"
+              :disabled="readonly"
             ></button>
 
             <div class="dropdown-menu">
@@ -58,6 +61,7 @@
                 class="btn dropdown-item"
                 type="button"
                 @click="selectServerFile"
+                :disabled="readonly"
               >
                 <i class="fas fa-fw fa-th"></i>
                 {{ labels.button_from_library }}
@@ -100,6 +104,7 @@
             <button
               class="btn btn-sm btn-hidden-danger"
               type="button"
+              :disabled="readonly"
               @click="onRemoveImage"
             >
               <i class="fas fa-fw fa-trash"></i> {{ labels.button_remove }}
@@ -155,6 +160,7 @@ export default {
     'filename',
     'name',
     'required',
+    'readonly',
     'thumbnail',
     'alt',
     'directory',
