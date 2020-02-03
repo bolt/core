@@ -261,3 +261,18 @@ Feature: Edit record
     And I am on "/bolt/edit/43"
     
     Then I should see 1 "hr" elements in the "#field-html-html" element
+
+  @javascript
+  Scenario: As an Admin, I want to reset an image field
+    Given I am logged in as "admin"
+    And I am on "/bolt/edit/40"
+
+    When I follow "Media"
+
+    Then I should see "Image" in the "label[for=field-image]" element
+    And the "fields[image][filename]" field should be filled in
+    And the "fields[image][alt]" field should be filled in
+
+    When I press the 1st "Remove" button
+    Then the "fields[image][filename]" field should contain ""
+    And the "fields[image][alt]" field should contain ""

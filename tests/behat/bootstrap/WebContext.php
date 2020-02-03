@@ -310,6 +310,24 @@ trait WebContext
         $element->mouseOver();
     }
 
+    /**
+     * @Given /^the "([^"]*)" field should be filled in$/
+     * @throws ExpectationException
+     */
+    public function theFieldShouldBeFilledIn($selector)
+    {
+        $actual = $this->findElement($selector)->getValue();
+        $notExpected = '';
+
+        $regex = '/^'.preg_quote($notExpected, '/').'$/ui';
+
+        $message = sprintf('The field "%s" value is "%s", but it should not be.', $selector, $actual);
+
+        if(preg_match($regex, $actual)) {
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+    }
+
     private function findAllElements($selector, $parent = null)
     {
         if ($parent === null) {
