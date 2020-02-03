@@ -7,6 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Canonical;
 use Bolt\Common\Str;
 use Bolt\Utils\Markdown;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -40,6 +41,7 @@ class HtmlExtension extends AbstractExtension
         return [
             new TwigFunction('canonical', [$this, 'canonical']),
             new TwigFunction('markdown', [$this, 'markdown'], $safe),
+            new TwigFunction('redirect', [$this, 'redirect']),
         ];
     }
 
@@ -78,5 +80,14 @@ class HtmlExtension extends AbstractExtension
     public function shy(string $str): string
     {
         return Str::shyphenate($str);
+    }
+
+    /**
+     * Simple redirect to given path
+     */
+    public function redirect(string $path)
+    {
+        header("Location: " . $path);
+        exit();
     }
 }
