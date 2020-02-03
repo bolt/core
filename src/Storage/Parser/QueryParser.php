@@ -10,6 +10,7 @@ use Bolt\Storage\Builder\GraphBuilder;
 use Bolt\Storage\Definition\FieldDefinition;
 use Bolt\Storage\Exception\KeyValueComparatorsException;
 use Bolt\Storage\Exception\UnsupportedQueryException;
+use Bolt\Storage\Exception\WrongSelectionFunctionException;
 use DateTime;
 
 class QueryParser
@@ -19,8 +20,6 @@ class QueryParser
     private const MULTIPLY_WHITESPACE_PATTERN = '/\s{2,}/';
     private const QUERY_CONTENT_PATTERN = '/([a-zA-Z0-9_]+)\s{\s*([a-zA-Z0-9_\s\*]+)\s*}/';
     private const DEPRECATED_QUERY_PATTERN = '/[a-zA-Z0-9_]+(\/[a-zA-Z0-9_\-]+)?/';
-
-    private const SELECTORS = ['limit', 'order'];
 
     private $config;
 
@@ -130,65 +129,7 @@ class QueryParser
         }
 
         foreach ($arguments as $field => $value) {
-            if ($this->isStatementSelector($field)) {
-                switch ($field) {
-                    case 'limit':
-                        $content->setLimit($value);
-                        break;
-                    case 'order':
-                        if (mb_strpos($value, ',') !== false) {
-                            $orders = array_map(function($element) {
-                                return trim($element);
-                            }, explode(',', $value));
-                            foreach ($orders as $val) {
-                                $direction = 'ASC';
-                                if ($val[0] === '-') {
-                                    $direction = 'DESC';
-                                    $val = substr($val, 1);
-                                }
-                                $content->addOrder($val, $direction);
-                            }
-                        } else {
-                            $direction = 'ASC';
-                            if ($value[0] === '-') {
-                                $direction = 'DESC';
-                                $value = substr($value, 1);
-                            }
-                            $content->setOrder($value, $direction);
-                        }
-                        break;
-                }
-            } elseif ($this->isDateSelector($value)) {
-                [$operator, $value] = $this->parseValue($value);
-                switch ($operator) {
-                    case '%':
-                        $fieldForFilter = FilterFieldBuilder::contains($field);
-                        break;
-                    case '>':
-                        $fieldForFilter = FilterFieldBuilder::greaterThan($field);
-                        break;
-                    case '<':
-                        $fieldForFilter = FilterFieldBuilder::lessThan($field);
-                        break;
-                    case '>=':
-                        $fieldForFilter = FilterFieldBuilder::greaterThanEqual($field);
-                        break;
-                    case '<=':
-                        $fieldForFilter = FilterFieldBuilder::lessThanEqual($field);
-                        break;
-                    case '=':
-                    default:
-                        $fieldForFilter = $field;
-                        break;
-                }
-
-                $date = new DateTime($value);
-
-                $content->addFilter(
-                    GraphFilter::createSimpleFilter($fieldForFilter, $date->format('Y-m-d H:i:s'))
-                );
-
-            } else if ($this->isMultipleKeyValue($field, $value)) {
+            if ($this->isMultipleKeyValue($field, $value)) {
                 [$operators, $keyValues, $comparator] = $this->parseMultipleKeyValue($field, $value);
                 $fieldsForFilter = [];
                 $values = [];
@@ -237,30 +178,6 @@ class QueryParser
                         ));
                         break;
                 }
-            } else if ($this->isSingleValue($value)) {
-                [$operator, $value] = $this->parseValue($value);
-                switch ($operator) {
-                    case '%':
-                        $fieldForFilter = FilterFieldBuilder::contains($field);
-                        break;
-                    case '>':
-                        $fieldForFilter = FilterFieldBuilder::greaterThan($field);
-                        break;
-                    case '<':
-                        $fieldForFilter = FilterFieldBuilder::lessThan($field);
-                        break;
-                    case '>=':
-                        $fieldForFilter = FilterFieldBuilder::greaterThanEqual($field);
-                        break;
-                    case '<=':
-                        $fieldForFilter = FilterFieldBuilder::lessThanEqual($field);
-                        break;
-                    case '=':
-                    default:
-                        $fieldForFilter = $field;
-                        break;
-                }
-                $content->addFilter(GraphFilter::createSimpleFilter($fieldForFilter, $value));
             } else {
                 [$operators, $values, $comparator] = $this->parseMultipleValue($value);
                 $fieldsForFilter = [];
@@ -335,17 +252,6 @@ class QueryParser
     private function isMultipleKeyValue(string $key, string $value): bool
     {
         return preg_match('/\|{3}|\&{3}/', $key) && preg_match('/\|{3}|\&{3}/', $value);
-    }
-
-    private function parseValue(string $value): array
-    {
-        preg_match('/^([\<|\>\%]?=?)/', $value, $matches);
-
-        if (empty($matches[0])) {
-            return [null, $value];
-        }
-
-        return [$matches[0], mb_substr($value, mb_strlen($matches[0]))];
     }
 
     private function parseMultipleValue(string $value): array
