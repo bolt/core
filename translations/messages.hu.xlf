@@ -903,10 +903,6 @@
         <source>editor_date.toggle</source>
         <target>Átváltás</target>
       </trans-unit>
-      <trans-unit id="Swom5xM" resname="repeater.remark">
-        <source>repeater.remark</source>
-        <target>Megjegyzés: A 'Repeter v. Block' mezők alapvetően más mezőket foglalnak magukba.</target>
-      </trans-unit>
       <trans-unit id="M.3olSc" resname="filelist.remark">
         <source>filelist.remark</source>
         <target><![CDATA[Megjegyzés: Ez a mező ugyanaz mint az <code>imagelist</code> mező.]]></target>
