@@ -7,7 +7,7 @@
            response, so we can handle it there, if present. #}
         <input type="hidden" name="{{ name }}" value="0">
         <input class="custom-control-input" id="{{ name }}" name="{{ name }}" type="checkbox"
-               value="1" {{ value ? 'checked' }}>
+               value="1" {{ value ? 'checked' }} {% if readonly %}readonly{% endif %}>
         <label class="custom-control-label" for="{{ name }}">{{ label }}</label>
     </div>
 {% endblock %}

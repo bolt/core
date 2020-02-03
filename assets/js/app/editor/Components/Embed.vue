@@ -14,6 +14,7 @@
                 :placeholder="labels.placeholder_content_url"
                 type="url"
                 :required="required == 1"
+                :readonly="readonly"
               />
               <span class="input-group-btn">
                 <button
@@ -33,6 +34,7 @@
               :name="name + '[width]'"
               type="number"
               :value="widthData"
+              :readonly="readonly"
             />
             ×
             <label for="embed-height-size" class="sr-only">{{
@@ -43,6 +45,7 @@
               :name="name + '[height]'"
               type="number"
               :value="heightData"
+              :readonly="readonly"
             />
             <label>{{ labels.label_pixel }}</label>
           </div>
@@ -122,6 +125,7 @@ export default {
     'width',
     'labels',
     'required',
+    'readonly',
   ],
   data: () => {
     return {
