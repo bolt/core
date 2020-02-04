@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Extension;
 
+use Composer\Package\CompletePackage;
+
 interface ExtensionInterface
 {
     public const CONTAINER_TAG = 'bolt.extension';
@@ -15,4 +17,6 @@ interface ExtensionInterface
     public function injectObjects(array $objects): void;
 
     public function initialize(): void;
+
+    public function getComposerPackage(): ?CompletePackage;
 }
