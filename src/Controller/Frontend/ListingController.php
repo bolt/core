@@ -50,7 +50,6 @@ class ListingController extends TwigAwareController implements FrontendZone
             ->setMaxPerPage($amountPerPage)
             ->setCurrentPage($page);
 
-        /** Content $records[] */
         $records = iterator_to_array($pager->getCurrentPageResults());
 
         $templates = $this->templateChooser->forListing($contentType);
