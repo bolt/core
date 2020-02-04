@@ -191,18 +191,26 @@ class ContentRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findOneByFieldValue(string $fieldName, $value): ?Content
+    public function findOneByFieldValue(string $fieldName, string $value, ?ContentType $contentType = null): ?Content
     {
         $qb = $this->getQueryBuilder();
 
         [$where, $value] = JsonHelper::wrapJsonFunction('translation.value', $value, $qb);
 
-        return $qb
+        $query = $qb
             ->innerJoin('content.fields', 'field')
             ->innerJoin('field.translations', 'translation')
             ->andWhere($where . ' = :value')
             ->setParameter('value', $value)
-            ->setMaxResults(1)
+            ->andWhere('field.name = :name')
+            ->setParameter('name', $fieldName);
+
+        if ($contentType) {
+            $query->andWhere('content.contentType = :ct')
+                ->setParameter('ct', $contentType->get('slug'));
+        }
+
+        return $query->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
