@@ -6,7 +6,6 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
-use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Query;
 use Bolt\TemplateChooser;
@@ -19,7 +18,7 @@ class ListingController extends TwigAwareController implements FrontendZone
     /** @var TemplateChooser */
     private $templateChooser;
 
-    /**@var Query */
+    /** @var Query */
     private $query;
 
     public function __construct(TemplateChooser $templateChooser, Query $query)
