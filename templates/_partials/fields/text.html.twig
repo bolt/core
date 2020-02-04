@@ -19,13 +19,15 @@
             :type='{{ class|json_encode }}'
             :disabled='{{ disabled|json_encode }}'
             :required='{{ required|json_encode }}'
+            :readonly='{{ readonly|json_encode }}'
         ></editor-text>
     {% else %}
         <span
             :id='{{ id|json_encode }}'
             :name='{{ name|json_encode }}'
             class=""
-            required="{{ required }}"
+            {% if required %} required {% endif %}
+            {% if readonly %} readonly {% endif %}
         >{{ value|json_encode }}</span>
     {% endif %}
 {% endblock %}

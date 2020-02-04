@@ -33,6 +33,7 @@
             type="text"
             :placeholder="labels.placeholder_title"
             :required="required == 1"
+            :readonly="readonly"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -40,6 +41,7 @@
             <button
               class="btn btn-sm btn-tertiary"
               type="button"
+              :disabled="readonly"
               @click="selectUploadFile"
             >
               <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
@@ -52,12 +54,14 @@
               data-toggle="dropdown"
               name="file-upload-dropdown"
               type="button"
+              :disabled="readonly"
             ></button>
 
             <div class="dropdown-menu">
               <button
                 class="btn dropdown-item"
                 type="button"
+                :readonly="readonly"
                 @click="selectServerFile"
               >
                 <i class="fas fa-fw fa-th"></i>
@@ -102,6 +106,7 @@
               class="btn btn-sm btn-hidden-danger"
               type="button"
               @click="onRemoveFile"
+              :disabled="readonly"
             >
               <i class="fas fa-fw fa-trash"></i> {{ labels.button_remove }}
             </button>
@@ -155,6 +160,7 @@ export default {
     'isLastInFilelist',
     'attributesLink',
     'required',
+    'readonly',
   ],
   data() {
     return {

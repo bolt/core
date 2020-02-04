@@ -44,6 +44,7 @@ class FieldType extends Collection
             'localize' => false,
             'separator' => false,
             'required' => false,
+            'readonly' => false,
         ]);
     }
 
