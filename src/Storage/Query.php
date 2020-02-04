@@ -60,8 +60,6 @@ class Query
         $textQuery = $this->queryParser->parseQuery($textQuery, $arguments);
         $result = GraphQL::executeQuery($schema, $textQuery);
 
-        dump($textQuery, $result);die;
-
         if (empty($result->errors) === false) {
             throw new QueryErrorException($result->errors);
         }
