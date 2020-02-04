@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Configuration\Config;
-use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\TemplateselectField;
-use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
-use Bolt\Storage\ContentQueryParser;
 use Bolt\Storage\Query;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
@@ -31,9 +28,6 @@ use Twig\TwigFunction;
  */
 class RecordExtension extends AbstractExtension
 {
-    /** @var ContentRepository */
-    private $contentRepository;
-
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
@@ -46,9 +40,8 @@ class RecordExtension extends AbstractExtension
     /** @var Query */
     private $query;
 
-    public function __construct(Query $query, ContentRepository $contentRepository, TaxonomyRepository $taxonomyRepository, RequestStack $requestStack, Config $config)
+    public function __construct(Query $query, TaxonomyRepository $taxonomyRepository, RequestStack $requestStack, Config $config)
     {
-        $this->contentRepository = $contentRepository;
         $this->taxonomyRepository = $taxonomyRepository;
         $this->request = $requestStack->getCurrentRequest();
         $this->config = $config;
@@ -162,7 +155,7 @@ class RecordExtension extends AbstractExtension
         }
 
         $maxAmount = $this->config->get('maximum_listing_select', 1000);
-        $orderBy = $field->getDefinition()->get('sort', "") ;
+        $orderBy = $field->getDefinition()->get('sort', '');
 
         $params = [
             'limit' => $maxAmount,
