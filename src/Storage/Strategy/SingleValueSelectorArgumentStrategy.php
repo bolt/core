@@ -10,6 +10,8 @@ class SingleValueSelectorArgumentStrategy implements ContentArgumentStrategyInte
 {
     use SingleValueParserTrait;
 
+    private const PATTERN = '/\|{2}|\&{2}/';
+
     public function extendsByArguments(ContentBuilder $content, string $field, string $value): void
     {
         [$operator, $value] = $this->parseValue($value);
@@ -17,13 +19,8 @@ class SingleValueSelectorArgumentStrategy implements ContentArgumentStrategyInte
         $content->addFilter(GraphFilter::createSimpleFilter($this->getFieldForFilter($operator, $value), $value));
     }
 
-    public function shouldBeCalled(): bool
+    public function shouldBeCalled(string $field, string $value): bool
     {
-        $arguments = func_get_args();
-        if (count($arguments) === 1) {
-            return preg_match('/\|{2}|\&{2}/', $arguments[0]) === 0;
-        }
-
-        return false;
+        return preg_match(self::PATTERN, $value) === 0;
     }
 }

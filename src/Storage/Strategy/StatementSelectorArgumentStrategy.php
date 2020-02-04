@@ -44,13 +44,8 @@ class StatementSelectorArgumentStrategy implements ContentArgumentStrategyInterf
         $content->setOrder($value, $direction);
     }
 
-    public function shouldBeCalled(): bool
+    public function shouldBeCalled(string $field, string $value): bool
     {
-        $arguments = func_get_args();
-        if (count($arguments) === 1) {
-            return in_array($arguments[0], self::SELECTORS);
-        }
-
-        return false;
+        return in_array($field, self::SELECTORS);
     }
 }

@@ -22,13 +22,8 @@ class DateSelectorArgumentStrategy implements ContentArgumentStrategyInterface
         );
     }
 
-    public function shouldBeCalled(): bool
+    public function shouldBeCalled(string $field, string $value): bool
     {
-        $arguments = func_get_args();
-        if (count($arguments) === 1) {
-            return strtotime($arguments[0]) !== false;
-        }
-
-        return false;
+        return strtotime($value) !== false;
     }
 }

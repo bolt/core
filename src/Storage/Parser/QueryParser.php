@@ -11,6 +11,7 @@ use Bolt\Storage\Definition\FieldDefinition;
 use Bolt\Storage\Exception\KeyValueComparatorsException;
 use Bolt\Storage\Exception\UnsupportedQueryException;
 use Bolt\Storage\Exception\WrongSelectionFunctionException;
+use Bolt\Storage\Strategy\ContentArgumentStrategyCollection;
 use DateTime;
 
 class QueryParser
@@ -23,9 +24,12 @@ class QueryParser
 
     private $config;
 
-    public function __construct(Config $config)
+    private $strategyCollection;
+
+    public function __construct(Config $config, ContentArgumentStrategyCollection $strategyCollection)
     {
         $this->config = $config;
+        $this->strategyCollection = $strategyCollection;
     }
 
     public function parseQuery(string $query, array $arguments = []): string
@@ -110,117 +114,12 @@ class QueryParser
         $allFields = $this->getAllFields($contentType);
         $content = ContentBuilder::create($contentType)->selectFields($allFields);
 
-        if (empty($arguments)) {
-            switch ($functionName) {
-                case 'random':
-                    $content->setRandom($functionParameter);
-                    break;
-                case 'first':
-                    $content->setFirstRecords($functionParameter);
-                    break;
-                case 'latest':
-                    $content->setLatestRecords($functionParameter);
-                    break;
-            }
-
-            if ($searchValue !== null) {
-                $content->addFilter(GraphFilter::createSimpleFilter('slug', $searchValue));
-            }
+        if ($searchValue !== null) {
+            $content->addFilter(GraphFilter::createSimpleFilter('slug', $searchValue));
         }
 
-        foreach ($arguments as $field => $value) {
-            if ($this->isMultipleKeyValue($field, $value)) {
-                [$operators, $keyValues, $comparator] = $this->parseMultipleKeyValue($field, $value);
-                $fieldsForFilter = [];
-                $values = [];
-                foreach ($keyValues as $id => $keyValue) {
-                    $field = key($keyValue);
-                    $value = $keyValue[$field];
-                    switch ($operators[$id]) {
-                        case '%':
-                            $fieldsForFilter[] = FilterFieldBuilder::contains($field);
-                            $values[] = $value;
-                            break;
-                        case '>':
-                            $fieldsForFilter[] = FilterFieldBuilder::greaterThan($field);
-                            $values[] = $value;
-                            break;
-                        case '<':
-                            $fieldsForFilter[] = FilterFieldBuilder::lessThan($field);
-                            $values[] = $value;
-                            break;
-                        case '>=':
-                            $fieldsForFilter[] = FilterFieldBuilder::greaterThanEqual($field);
-                            $values[] = $value;
-                            break;
-                        case '<=':
-                            $fieldsForFilter[] = FilterFieldBuilder::lessThanEqual($field);
-                            $values[] = $value;
-                            break;
-                        case '=':
-                        default:
-                            $fieldsForFilter[] = $field;
-                            break;
-                    }
-                }
-
-                switch ($comparator) {
-                    case '&&&':
-                        $content->addFilter(GraphFilter::createAndFilter(
-                            GraphFilter::createSimpleFilter($fieldsForFilter[0], $values[0]),
-                            GraphFilter::createSimpleFilter($fieldsForFilter[1], $values[1])
-                        ));
-                        break;
-                    case '|||':
-                        $content->addFilter(GraphFilter::createOrFilter(
-                            GraphFilter::createSimpleFilter($fieldsForFilter[0], $values[0]),
-                            GraphFilter::createSimpleFilter($fieldsForFilter[1], $values[1])
-                        ));
-                        break;
-                }
-            } else {
-                [$operators, $values, $comparator] = $this->parseMultipleValue($value);
-                $fieldsForFilter = [];
-                foreach ($values as $id => $val) {
-                    switch ($operators[$id]) {
-                        case '%':
-                            $fieldsForFilter[] = FilterFieldBuilder::contains($field);
-                            break;
-                        case '>':
-                            $fieldsForFilter[] = FilterFieldBuilder::greaterThan($field);
-                            break;
-                        case '<':
-                            $fieldsForFilter[] = FilterFieldBuilder::lessThan($field);
-                            break;
-                        case '>=':
-                            $fieldsForFilter[] = FilterFieldBuilder::greaterThanEqual($field);
-                            break;
-                        case '<=':
-                            $fieldsForFilter[] = FilterFieldBuilder::lessThanEqual($field);
-                            break;
-                        case '=':
-                        default:
-                            $fieldsForFilter[] = $field;
-                            break;
-                    }
-                }
-
-                switch ($comparator) {
-                    case '&&':
-                        $content->addFilter(GraphFilter::createAndFilter(
-                            GraphFilter::createSimpleFilter($fieldsForFilter[0], $values[0]),
-                            GraphFilter::createSimpleFilter($fieldsForFilter[1], $values[1])
-                        ));
-                        break;
-                    case '||':
-                        $content->addFilter(GraphFilter::createOrFilter(
-                            GraphFilter::createSimpleFilter($fieldsForFilter[0], $values[0]),
-                            GraphFilter::createSimpleFilter($fieldsForFilter[1], $values[1])
-                        ));
-                        break;
-                }
-            }
-        }
+        $this->extendsContentWithSelectionFunction($content, $arguments, $functionName, $functionParameter);
+        $this->extendsContentByArgument($content, $arguments);
 
         $textQuery = $graphBuilder->addContent($content)->getQuery();
 
@@ -234,58 +133,38 @@ class QueryParser
         ];
     }
 
-    private function isStatementSelector(string $key): bool
+    private function extendsContentByArgument(ContentBuilder $content, array $arguments): void
     {
-        return in_array($key, self::SELECTORS);
-    }
+        foreach ($arguments as $field => $value) {
+            $strategy = $this->strategyCollection->selectStrategy($field, $value);
 
-    private function isDateSelector(string $value): bool
-    {
-        return strtotime($value) !== false;
-    }
-
-    private function isSingleValue(string $value): bool
-    {
-        return preg_match('/\|{2}|\&{2}/', $value) === 0;
-    }
-
-    private function isMultipleKeyValue(string $key, string $value): bool
-    {
-        return preg_match('/\|{3}|\&{3}/', $key) && preg_match('/\|{3}|\&{3}/', $value);
-    }
-
-    private function parseMultipleValue(string $value): array
-    {
-        preg_match('/^([\<|\>\%]?=?)(.[^\s|&]*)\s*(\|{2}|\&{2})\s*([\<|\>\%]?=?)(.*)$/', $value, $matches);
-        [, $operatorFieldOne, $valueOne, $valueComparator, $operatorFieldTwo, $valueTwo] = $matches;
-
-        return [[$operatorFieldOne, $operatorFieldTwo], [$valueOne, $valueTwo], $valueComparator];
-    }
-
-    private function parseMultipleKeyValue(string $key, string $value): array
-    {
-        preg_match('/^(.[^\s|&]*)\s*(\|{3}|\&{3})\s*(.*)$/', $key, $keyMatches);
-        preg_match(
-            '/^([\<|\>\%]?=?)(.[^\s|&]*)\s*(\|{3}|\&{3})\s*([\<|\>\%]?=?)(.*)$/',
-            $value,
-            $valueMatches
-        );
-
-        [, $fieldOne, $keyComparator, $fieldTwo] = $keyMatches;
-        [, $operatorFieldOne, $valueOne, $valueComparator, $operatorFieldTwo, $valueTwo] = $valueMatches;
-
-        if ($keyComparator !== $valueComparator) {
-            throw new KeyValueComparatorsException();
+            if ($strategy !== null) {
+                $strategy->extendsByArguments($content, $field, $value);
+            }
         }
+    }
 
-        return [
-            [$operatorFieldOne, $operatorFieldTwo],
-            [
-                [$fieldOne => $valueOne],
-                [$fieldTwo => $valueTwo],
-            ],
-            $keyComparator
-        ];
+    private function extendsContentWithSelectionFunction(
+        ContentBuilder $content,
+        array $arguments,
+        string $functionName,
+        string $functionParameter
+    ): void {
+        if (empty($arguments)) {
+            switch ($functionName) {
+                case 'random':
+                    $content->setRandom($functionParameter);
+                    break;
+                case 'first':
+                    $content->setFirstRecords($functionParameter);
+                    break;
+                case 'latest':
+                    $content->setLatestRecords($functionParameter);
+                    break;
+                default:
+                    throw new WrongSelectionFunctionException($functionName);
+            }
+        }
     }
 
     private function explodeQuery(string $textQuery): array

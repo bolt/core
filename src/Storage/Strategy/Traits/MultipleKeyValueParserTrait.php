@@ -9,6 +9,14 @@ use Bolt\Storage\Exception\KeyValueComparatorsException;
 
 trait MultipleKeyValueParserTrait
 {
+    protected function parseMultipleValue(string $value): array
+    {
+        preg_match('/^([\<|\>\%]?=?)(.[^\s|&]*)\s*(\|{2}|\&{2})\s*([\<|\>\%]?=?)(.*)$/', $value, $matches);
+        [, $operatorFieldOne, $valueOne, $valueComparator, $operatorFieldTwo, $valueTwo] = $matches;
+
+        return [[$operatorFieldOne, $operatorFieldTwo], [$valueOne, $valueTwo], $valueComparator];
+    }
+
     protected function parseMultipleKeyValue(string $key, string $value): array
     {
         preg_match('/^(.[^\s|&]*)\s*(\|{3}|\&{3})\s*(.*)$/', $key, $keyMatches);
