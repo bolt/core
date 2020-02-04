@@ -6,8 +6,8 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
-use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
+use Bolt\Storage\Query;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +18,13 @@ class ListingController extends TwigAwareController implements FrontendZone
     /** @var TemplateChooser */
     private $templateChooser;
 
-    public function __construct(TemplateChooser $templateChooser)
+    /** @var Query */
+    private $query;
+
+    public function __construct(TemplateChooser $templateChooser, Query $query)
     {
         $this->templateChooser = $templateChooser;
+        $this->query = $query;
     }
 
     /**
@@ -38,12 +42,14 @@ class ListingController extends TwigAwareController implements FrontendZone
     public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
     {
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
-
         $page = (int) $request->query->get('page', 1);
         $amountPerPage = $contentType->get('listing_records');
 
-        /** @var Content[] $records */
-        $records = $contentRepository->findForListing($page, $amountPerPage, $contentType);
+        $pager = $this->query->getContent($contentTypeSlug)
+            ->setMaxPerPage($amountPerPage)
+            ->setCurrentPage($page);
+
+        $records = iterator_to_array($pager->getCurrentPageResults());
 
         $templates = $this->templateChooser->forListing($contentType);
 
