@@ -26,7 +26,12 @@
       ></editor-file>
     </div>
 
-    <button class="btn btn-tertiary" type="button" @click="addFile">
+    <button
+      class="btn btn-tertiary"
+      type="button"
+      :disabled="!allowMore"
+      @click="addFile"
+    >
       <i class="fas fa-fw fa-plus"></i>
       {{ labels.add_new_file }}
     </button>
@@ -48,6 +53,7 @@ export default {
     'labels',
     'extensions',
     'attributesLink',
+    'limit',
   ],
   data: function() {
     let counter = 0;
@@ -61,6 +67,11 @@ export default {
       counter,
       containerFiles,
     };
+  },
+  computed: {
+    allowMore: function() {
+      return this.containerFiles.length < this.limit;
+    },
   },
   methods: {
     isFirstInFilelist(index) {

@@ -153,11 +153,11 @@ trait WebContext
     }
 
     /**
-     * @Then /^the :index "([^"]*)" button should be enabled$/
+     * @Then /^the (\d+)(st|nd|rd|th) "([^"]*)" button should be enabled$/
      * @throws ElementNotFoundException
      * @throws ExpectationException
      */
-    public function theButtonShouldBeEnabled($index, $button)
+    public function theButtonShouldBeEnabled($index, $tail, $button)
     {
         $foundButton = $this->findAllElements($button)[$index-1];
         if ($foundButton->getAttribute('disabled')) {

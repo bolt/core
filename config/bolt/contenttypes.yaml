@@ -204,6 +204,7 @@ showcases:
             group: Files
         filelist:
             type: filelist
+            limit: 5
         checkbox:
             type: checkbox
             label: "This is a checkbox"
