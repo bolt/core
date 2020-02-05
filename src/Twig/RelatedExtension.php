@@ -10,6 +10,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\RelationRepository;
+use Bolt\Storage\Query;
 use Bolt\Utils\Excerpt;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
@@ -27,11 +28,15 @@ class RelatedExtension extends AbstractExtension
     /** @var Config */
     private $config;
 
-    public function __construct(RelationRepository $relationRepository, ContentRepository $contentRepository, Config $config)
+    /** @var Query */
+    private $query;
+
+    public function __construct(RelationRepository $relationRepository, ContentRepository $contentRepository, Config $config, Query $query)
     {
         $this->relationRepository = $relationRepository;
         $this->contentRepository = $contentRepository;
         $this->config = $config;
+        $this->query = $query;
     }
 
     /**
@@ -123,17 +128,20 @@ class RelatedExtension extends AbstractExtension
         return null;
     }
 
-    public function getRelatedOptions(string $contentType): Collection
+    public function getRelatedOptions(string $contentTypeSlug): Collection
     {
-        $contentType = ContentType::factory($contentType, $this->config->get('contenttypes'));
         $maxAmount = $this->config->get('maximum_listing_select', 1000);
 
-        $content = $this->contentRepository->findForListing(1, $maxAmount, $contentType, false);
+        $pager = $this->query->getContent($contentTypeSlug)
+            ->setMaxPerPage($maxAmount)
+            ->setCurrentPage(1);
+
+        $records = iterator_to_array($pager->getCurrentPageResults());
 
         $options = [];
 
         /** @var Content $record */
-        foreach ($content as $record) {
+        foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
                 'value' => sprintf(
