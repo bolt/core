@@ -7,7 +7,6 @@ namespace Bolt\Twig;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
-use Bolt\Repository\ContentRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Storage\Query;
 use Bolt\Utils\Excerpt;
@@ -21,19 +20,15 @@ class RelatedExtension extends AbstractExtension
     /** @var RelationRepository */
     private $relationRepository;
 
-    /** @var ContentRepository */
-    private $contentRepository;
-
     /** @var Config */
     private $config;
 
     /** @var Query */
     private $query;
 
-    public function __construct(RelationRepository $relationRepository, ContentRepository $contentRepository, Config $config, Query $query)
+    public function __construct(RelationRepository $relationRepository, Config $config, Query $query)
     {
         $this->relationRepository = $relationRepository;
-        $this->contentRepository = $contentRepository;
         $this->config = $config;
         $this->query = $query;
     }
