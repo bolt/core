@@ -61,10 +61,10 @@ Feature: Edit record
     When I am on "/bolt/edit/38"
 
     Then I should see an "label[for='field-email']" element
-    And I should see 1 "icon" elements in the "label[for='field-email']" element
+    And I should see 1 "i" elements in the "label[for='field-email']" element
 
     When I scroll "Email" into view
-    When I hover over the "label[for='field-email'] > icon" element
+    When I hover over the "label[for='field-email'] > i" element
     Then I should see "Email" in the ".popover-header" element
     And I should see "This is an info box shown as a popover next to the field label." in the ".popover-body" element
 
@@ -136,6 +136,7 @@ Feature: Edit record
 
     When I press "Add new file"
     Then I should see 5 ".row" elements in the ".editor-filelist" element
+    And the 1st "Add new file" button should be disabled
 
     When I scroll the 6th "file-upload-dropdown" into view
     And I press the 6th "file-upload-dropdown" button
@@ -159,6 +160,7 @@ Feature: Edit record
 
     When I press the 7th "Remove" button
     Then I should see 4 ".row" elements in the ".editor-filelist" element
+    And the 1st "Add new file" button should be enabled
 
     When I scroll "Save changes" into view
     And I press "Save changes"

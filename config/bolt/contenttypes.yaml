@@ -195,6 +195,7 @@ showcases:
         image:
             type: image
             extensions: [ gif, jpg, png ]
+            alt: true
             placeholder: https://source.unsplash.com/1280x768/?animal,koala,kitten,puppy,cute/__random__
         imagelist:
             type: imagelist
@@ -203,6 +204,7 @@ showcases:
             group: Files
         filelist:
             type: filelist
+            limit: 5
         checkbox:
             type: checkbox
             label: "This is a checkbox"
