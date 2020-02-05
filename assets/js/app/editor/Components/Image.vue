@@ -25,7 +25,7 @@
             :required="required == 1"
           />
         </div>
-        <div class="input-group mb-3">
+        <div v-if="altData !== undefined" class="input-group mb-3">
           <input
             v-model="altData"
             class="form-control"
