@@ -27,9 +27,19 @@ frontend:
 #contentlisting:
 #  path: /{contenttypeslug}
 #  defaults:
-#    _controller: Bolt\Controller\Frontend\Controller::contentListing
+#    _controller: Bolt\Controller\Frontend\ListingController::listing
 #  requirements:
 #    contenttypeslug: '%bolt.requirement.pluralcontenttypes%'
+
+# Use this route to display a record, based on the value of a field. for example,
+# URLs like `/number/12`, where the intent is to display the record from the
+# "entry" ContentType, where the "title" Field is equal to "12".
+entrybynumber:
+  path: /number/{value}
+  defaults:
+    _controller: Bolt\Controller\Frontend\DetailController::contentByFieldValue
+    contentTypeSlug: 'entries'
+    field: 'title'
 
 # ------------------------------------------------------------------------------
 # last of all, try to find content only by slug (SEO routes) before throwing 404

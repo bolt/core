@@ -6,6 +6,7 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
+use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
@@ -51,6 +52,31 @@ class DetailController extends TwigAwareController implements FrontendZone
             $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
         }
 
+        // Update the canonical, with the correct path
+        $this->canonical->setPath(null, [
+            'contentTypeSlug' => $record->getContentTypeSingularSlug(),
+            'slugOrId' => $record->getSlug(),
+        ]);
+
+        return $this->renderSingle($record, $requirePublished);
+    }
+
+    public function contentByFieldValue(string $contentTypeSlug, string $field, string $value): Response
+    {
+        $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+        $record = $this->contentRepository->findOneByFieldValue($field, $value, $contentType);
+
+        // Update the canonical, with the correct path
+        $this->canonical->setPath(null, [
+            'field' => $field,
+            'value' => $value,
+        ]);
+
+        return $this->renderSingle($record);
+    }
+
+    public function renderSingle(?Content $record, bool $requirePublished = true): Response
+    {
         if (! $record) {
             throw new NotFoundHttpException('Content not found');
         }
@@ -61,12 +87,6 @@ class DetailController extends TwigAwareController implements FrontendZone
         }
 
         $singularSlug = $record->getContentTypeSingularSlug();
-
-        // Update the canonical, with the correct path
-        $this->canonical->setPath(null, [
-            'contentTypeSlug' => $record->getContentTypeSingularSlug(),
-            'slugOrId' => $record->getSlug(),
-        ]);
 
         $context = [
             'record' => $record,
