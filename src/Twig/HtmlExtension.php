@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Canonical;
+use Bolt\Common\Str;
 use Bolt\Utils\Markdown;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -39,6 +40,7 @@ class HtmlExtension extends AbstractExtension
         return [
             new TwigFunction('canonical', [$this, 'canonical']),
             new TwigFunction('markdown', [$this, 'markdown'], $safe),
+            new TwigFunction('redirect', [$this, 'redirect']),
         ];
     }
 
@@ -53,6 +55,7 @@ class HtmlExtension extends AbstractExtension
 
         return [
             new TwigFilter('markdown', [$this, 'markdown'], $safe),
+            new TwigFilter('shy', [$this, 'shy'], $safe),
         ];
     }
 
@@ -67,5 +70,23 @@ class HtmlExtension extends AbstractExtension
     public function markdown(string $content): string
     {
         return $this->markdown->parse($content);
+    }
+
+    /**
+     * Add 'soft hyphens' &shy; to a string, so that it won't break layout in HTML when
+     * using strings without spaces or dashes.
+     */
+    public function shy(string $str): string
+    {
+        return Str::shyphenate($str);
+    }
+
+    /**
+     * Simple redirect to given path
+     */
+    public function redirect(string $path): void
+    {
+        header("Location: ${path}");
+        exit();
     }
 }

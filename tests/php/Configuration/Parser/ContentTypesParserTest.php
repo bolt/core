@@ -17,12 +17,14 @@ class ContentTypesParserTest extends ParserTestBase
 
     public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 22;
 
-    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 16;
+    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 20;
+
+    public const ALLOWED_LOCALES = 'en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE';
 
     public function testCanParse(): void
     {
         $generalParser = new GeneralParser($this->getProjectDir());
-        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse());
+        $contentTypesParser = new ContentTypesParser(self::ALLOWED_LOCALES, $this->getProjectDir(), $generalParser->parse());
         $config = $contentTypesParser->parse();
 
         $this->assertInstanceOf(Collection::class, $config);
@@ -32,7 +34,7 @@ class ContentTypesParserTest extends ParserTestBase
     {
         $file = self::getBasePath() . 'bogus.yaml';
         $generalParser = new GeneralParser($this->getProjectDir());
-        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
+        $contentTypesParser = new ContentTypesParser(self::ALLOWED_LOCALES, $this->getProjectDir(), $generalParser->parse(), $file);
 
         $this->expectException(ConfigurationException::class);
 
@@ -43,7 +45,7 @@ class ContentTypesParserTest extends ParserTestBase
     {
         $file = self::getBasePath() . 'broken.yaml';
         $generalParser = new GeneralParser($this->getProjectDir());
-        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
+        $contentTypesParser = new ContentTypesParser(self::ALLOWED_LOCALES, $this->getProjectDir(), $generalParser->parse(), $file);
 
         $this->expectException(ParseException::class);
 
@@ -53,7 +55,7 @@ class ContentTypesParserTest extends ParserTestBase
     public function testBreakOnMissingFileParse(): void
     {
         $generalParser = new GeneralParser($this->getProjectDir());
-        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), 'foo.yml');
+        $contentTypesParser = new ContentTypesParser(self::ALLOWED_LOCALES, $this->getProjectDir(), $generalParser->parse(), 'foo.yml');
 
         $this->expectException(FileLocatorFileNotFoundException::class);
 
@@ -63,7 +65,7 @@ class ContentTypesParserTest extends ParserTestBase
     public function testHasConfig(): void
     {
         $generalParser = new GeneralParser($this->getProjectDir());
-        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse());
+        $contentTypesParser = new ContentTypesParser(self::ALLOWED_LOCALES, $this->getProjectDir(), $generalParser->parse());
         $config = $contentTypesParser->parse();
 
         $this->assertCount(6, $config);
@@ -85,6 +87,7 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertSame('fa-home', $config['homepage']['icon_many']);
         $this->assertSame('fa-home', $config['homepage']['icon_one']);
         $this->assertFalse($config['homepage']['allow_numeric_slugs']);
+        $this->assertContains('nl', $config['homepage']['locales']);
     }
 
     public function testBrokenContentTypeValues(): void
@@ -92,7 +95,7 @@ class ContentTypesParserTest extends ParserTestBase
         $file = self::getBasePath() . 'broken_content_types.yaml';
 
         $generalParser = new GeneralParser($this->getProjectDir());
-        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
+        $contentTypesParser = new ContentTypesParser(self::ALLOWED_LOCALES, $this->getProjectDir(), $generalParser->parse(), $file);
 
         $this->expectException(ConfigurationException::class);
         $contentTypesParser->parse();
@@ -103,7 +106,7 @@ class ContentTypesParserTest extends ParserTestBase
         $file = self::getBasePath() . 'minimal_content_types.yaml';
 
         $generalParser = new GeneralParser($this->getProjectDir());
-        $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), $file);
+        $contentTypesParser = new ContentTypesParser(self::ALLOWED_LOCALES, $this->getProjectDir(), $generalParser->parse(), $file);
 
         $config = $contentTypesParser->parse();
 

@@ -26,6 +26,8 @@
     name="{{ name }}"
     value="{{ value }}"
     :step="{{ step }}"
+    :required="{{ required|json_encode }}"
+    :readonly="{{ readonly|json_encode }}"
   ></editor-number>
 
 {% endblock %}

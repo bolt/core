@@ -17,7 +17,7 @@ class ConfigTest extends TestCase
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new TraceableAdapter(new FilesystemAdapter());
-        $config = new Config(new Stopwatch(), $projectDir, $cache);
+        $config = new Config('', new Stopwatch(), $projectDir, $cache);
 
         $this->assertInstanceOf(Config::class, $config);
     }
@@ -26,7 +26,7 @@ class ConfigTest extends TestCase
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new TraceableAdapter(new FilesystemAdapter());
-        $config = new Config(new Stopwatch(), $projectDir, $cache);
+        $config = new Config('', new Stopwatch(), $projectDir, $cache);
 
         $this->assertSame('Bolt Core Git Clone', $config->get('general/sitename'));
     }
@@ -35,7 +35,7 @@ class ConfigTest extends TestCase
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new TraceableAdapter(new FilesystemAdapter());
-        $config = new Config(new Stopwatch(), $projectDir, $cache);
+        $config = new Config('', new Stopwatch(), $projectDir, $cache);
 
         $this->assertTrue($config->has('general/payoff'));
         $this->assertFalse($config->has('general/payoffXXXXX'));
@@ -45,7 +45,7 @@ class ConfigTest extends TestCase
     {
         $projectDir = dirname(dirname(dirname(__DIR__)));
         $cache = new TraceableAdapter(new FilesystemAdapter());
-        $config = new Config(new Stopwatch(), $projectDir, $cache);
+        $config = new Config('', new Stopwatch(), $projectDir, $cache);
 
         /** @var Collection $mediaTypes */
         $mediaTypes = $config->getMediaTypes();

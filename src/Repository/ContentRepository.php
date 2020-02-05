@@ -163,13 +163,13 @@ class ContentRepository extends ServiceEntityRepository
         return $this->find($id);
     }
 
-    public function findOneBySlug(string $slug): ?Content
+    public function findOneBySlug(string $slug, ?ContentType $contentType = null): ?Content
     {
         $qb = $this->getQueryBuilder();
 
         [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $qb);
 
-        return $qb
+        $query = $qb
             ->innerJoin('content.fields', 'field')
             ->innerJoin(
                 \Bolt\Entity\Field\SlugField::class,
@@ -179,8 +179,14 @@ class ContentRepository extends ServiceEntityRepository
             )
             ->innerJoin('field.translations', 'translations')
             ->andWhere($where . ' = :slug')
-            ->setParameter('slug', $slug)
-            ->setMaxResults(1)
+            ->setParameter('slug', $slug);
+
+        if ($contentType) {
+            $query->andWhere('content.contentType = :ct')
+                ->setParameter('ct', $contentType->get('slug'));
+        }
+
+        return $query->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }

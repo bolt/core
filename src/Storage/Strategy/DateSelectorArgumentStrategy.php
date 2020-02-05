@@ -18,7 +18,7 @@ class DateSelectorArgumentStrategy implements ContentArgumentStrategyInterface
         $date = new DateTime($value);
 
         $content->addFilter(
-            GraphFilter::createSimpleFilter($this->getFieldForFilter($operator, $value), $date->format('Y-m-d H:i:s'))
+            GraphFilter::createSimpleFilter($this->getFieldByOperator($operator, $value), $date->format('Y-m-d H:i:s'))
         );
     }
 

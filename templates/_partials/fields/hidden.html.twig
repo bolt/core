@@ -1,5 +1,10 @@
-{%  set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
+{% set name = 'fields[' ~ field.name|default('unnamed') ~ ']' %}
 {% set id = 'field-' ~ field.name|default(name)|default('unnamed') %}
 {% set value = field.value|json_encode %}
+{% set required = field.definition.required ? 1 : 0 %}
+{% set readonly = field.definition.readonly ? true : false %}
 
-<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}" />
+<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}"
+       {% if required == 1 %}required {% endif %}
+       {% if readonly %}readonly {% endif %}
+/>

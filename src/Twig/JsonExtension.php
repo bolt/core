@@ -9,6 +9,7 @@ use Bolt\Entity\Content;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\TwigTest;
 
 class JsonExtension extends AbstractExtension
 {
@@ -30,6 +31,16 @@ class JsonExtension extends AbstractExtension
         return [
             new TwigFilter('normalize_records', [$this, 'normalizeRecords']),
             new TwigFilter('json_records', [$this, 'jsonRecords']),
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTests()
+    {
+        return [
+            new TwigTest('json', [$this, 'testJson']),
         ];
     }
 
@@ -63,5 +74,13 @@ class JsonExtension extends AbstractExtension
         return $this->normalizer->normalize($content, null, [
             'group' => [self::SERIALIZE_GROUP],
         ]);
+    }
+
+    /**
+     * Test whether a passed string contains valid JSON.
+     */
+    public function testJson(string $string): bool
+    {
+        return Json::test($string);
     }
 }

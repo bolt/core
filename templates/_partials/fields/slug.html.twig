@@ -7,6 +7,8 @@
         :name='{{ name|json_encode }}'
         :prefix='{{ prefix|json_encode }}'
         :field-class='{{ class|json_encode }}'
+        :required='{{ required|json_encode }}'
+        :readonly='{{ readonly|json_encode }}'
         :generate='{{ field.slugUseFields|join(',')|json_encode }}'
         :labels='{{ {
             'button_unlocked': 'slug.button_unlocked'|trans,

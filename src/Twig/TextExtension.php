@@ -18,19 +18,33 @@ class TextExtension extends AbstractExtension
      */
     public function getFilters(): array
     {
+        $safe = [
+            'is_safe' => ['html'],
+        ];
+
         return [
-            new TwigFilter('safestring', [$this, 'safeString']),
+            new TwigFilter('safestring', [$this, 'safeString'], $safe),
+            new TwigFilter('plaintext', [$this, 'plainText'], $safe),
             new TwigFilter('slug', [$this, 'slug']),
             new TwigFilter('ucwords', [$this, 'ucwords']),
+            new TwigFilter('preg_replace', [$this, 'pregReplace']),
         ];
     }
 
-    public function safeString($str, $strict = false, $extrachars = ''): string
+    public function safeString(string $str, bool $strict = false, string $extrachars = ''): string
     {
         return Str::makeSafe($str, $strict, $extrachars);
     }
 
-    public function slug($str): string
+    /**
+     * Returns a plaintext version of a string. Kinda like `|striptags` only with `is_safe => html`
+     */
+    public function plainText(string $str): string
+    {
+        return strip_tags($str);
+    }
+
+    public function slug(string $str): string
     {
         return Str::slug((string) $str);
     }
@@ -42,5 +56,13 @@ class TextExtension extends AbstractExtension
         }
 
         return ucwords($string, $delimiters);
+    }
+
+    /**
+     * Perform a regular expression search and replace on the given string.
+     */
+    public function pregReplace(string $str, string $pattern, string $replacement = '', int $limit = -1): string
+    {
+        return preg_replace($pattern, $replacement, $str, $limit);
     }
 }

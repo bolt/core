@@ -21,17 +21,14 @@ class StatementSelectorArgumentStrategy implements ContentArgumentStrategyInterf
         }
 
         if ($field === 'order' && mb_strpos($value, ',') !== false) {
-            $orders = array_map(function($element) {
-                return trim($element);
-            }, explode(',', $value));
-            foreach ($orders as $val) {
+            array_map(function($element) use ($content) {
                 $direction = 'ASC';
-                if ($val[0] === '-') {
+                if ($element[0] === '-') {
                     $direction = 'DESC';
-                    $val = substr($val, 1);
+                    $element = substr($element, 1);
                 }
-                $content->addOrder($val, $direction);
-            }
+                $content->addOrder(trim($element), $direction);
+            }, explode(',', $value));
 
             return;
         }

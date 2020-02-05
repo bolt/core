@@ -33,8 +33,12 @@ class Config
     /** @var string */
     private $projectDir;
 
-    public function __construct(Stopwatch $stopwatch, string $projectDir, CacheInterface $cache)
+    /** @var string */
+    private $locales;
+
+    public function __construct(string $locales, Stopwatch $stopwatch, string $projectDir, CacheInterface $cache)
     {
+        $this->locales = $locales;
         $this->stopwatch = $stopwatch;
         $this->cache = $cache;
         $this->projectDir = $projectDir;
@@ -84,7 +88,7 @@ class Config
         $taxonomy = new TaxonomyParser($this->projectDir);
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contentTypes = new ContentTypesParser($this->projectDir, $config->get('general'));
+        $contentTypes = new ContentTypesParser($this->locales, $this->projectDir, $config->get('general'));
         $config['contenttypes'] = $contentTypes->parse();
 
         $menu = new MenuParser($this->projectDir);

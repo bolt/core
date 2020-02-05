@@ -73,14 +73,14 @@ behat-api-quiet: ## to run behat API tests quietly
 
 behat-js: ## to run behat JS tests
 	make server
-	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar > /dev/null &
+	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar >/dev/null 2>&1 &
 	sleep 2s
 	vendor/bin/behat --tags=javascript
 	kill -9 $(lsof -t -i:4444)
 
 behat-js-quiet: ## to run behat JS tests quietly
 	make server
-	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" -Djava.awt.headless=true ./bin/selenium-server-standalone-3.141.59.jar > /dev/null &
+	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" -Djava.awt.headless=true ./bin/selenium-server-standalone-3.141.59.jar >/dev/null 2>&1 &
 	sleep 2s
 	vendor/bin/behat --tags=javascript --format=progress
 	kill -9 $(lsof -t -i:4444)

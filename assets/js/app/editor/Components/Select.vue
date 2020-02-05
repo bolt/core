@@ -2,13 +2,14 @@
   <div :id="`multiselect-${id}`">
     <multiselect
       v-model="selected"
-      :allow-empty="allowempty"
+      :allow-empty="false"
       :limit="1000"
       :multiple="multiple"
       :options="options"
       :searchable="taggable"
       :show-labels="false"
       :taggable="taggable"
+      :disabled="readonly"
       label="value"
       tag-placeholder="Add this as new tag"
       tag-position="bottom"
@@ -48,7 +49,8 @@ export default {
     'options',
     'multiple',
     'taggable',
-    'allowempty',
+    'required',
+    'readonly',
   ],
   data: () => {
     return {
@@ -79,6 +81,11 @@ export default {
     let filterSelectedItems = _options.filter(item => {
       return _values.includes(item.key);
     });
+
+    if (filterSelectedItems.length === 0) {
+      filterSelectedItems = [_options[0]];
+    }
+
     this.selected = filterSelectedItems;
   },
   methods: {

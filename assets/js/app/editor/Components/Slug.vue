@@ -11,7 +11,8 @@
         placeholder="…"
         type="text"
         :class="fieldClass"
-        :readonly="!edit"
+        :readonly="readonly || !edit"
+        :required="required == 1"
       />
       <div class="input-group-append">
         <button
@@ -20,25 +21,26 @@
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
+          :disabled="readonly"
           :class="[{ 'btn-primary': edit }, { 'btn-secondary': !edit }]"
         >
           <i class="fas fa-fw" :class="`fa-${icon}`"></i> {{ buttonText }}
         </button>
         <div class="dropdown-menu">
           <template v-if="!edit">
-            <a class="dropdown-item" @click="editSlug">
+            <button class="dropdown-item" @click="editSlug">
               <i class="fas fa-pencil-alt fa-fw"></i> {{ labels.button_edit }}
-            </a>
+            </button>
           </template>
           <template v-if="!locked">
-            <a class="dropdown-item" @click="lockSlug">
+            <button class="dropdown-item" @click="lockSlug">
               <i class="fas fa-lock fa-fw"></i> {{ labels.button_locked }}
-            </a>
+            </button>
           </template>
-          <a class="dropdown-item" @click="generateSlug()">
+          <button class="dropdown-item" @click="generateSlug()">
             <i class="fas fa-link fa-fw"></i> {{ labels.generate_from }}
             {{ generate }}
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -59,6 +61,8 @@ export default {
     'fieldClass',
     'generate',
     'labels',
+    'required',
+    'readonly',
   ],
   data: () => {
     return {

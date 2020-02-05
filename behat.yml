@@ -6,7 +6,7 @@ default:
       tags: ~@wip
 
   autoload:
-    - "%paths.base%/tests/api/bootstrap"
+    - "%paths.base%/tests/behat/bootstrap"
 
   formatters:
     pretty:
@@ -50,5 +50,7 @@ default:
       contexts:
         - Behatch\Context\JsonContext
         - Behatch\Context\TableContext
-        - Context\FeatureContext
-      paths: [ "%paths.base%/tests/api", "%paths.base%/tests/behat"]
+        - behatch:context:browser: #include Behatch\Context\BrowserContext and override default timeout
+            timeout: 5
+        - Context\CommonContext
+      paths: [ "%paths.base%/tests/api", "%paths.base%/tests/e2e"]

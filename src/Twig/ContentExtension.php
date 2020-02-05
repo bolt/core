@@ -10,11 +10,14 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Tightenco\Collect\Support\Collection;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
 use Twig\TwigFilter;
@@ -34,12 +37,21 @@ class ContentExtension extends AbstractExtension
     /** @var Security */
     private $security;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, ContentRepository $contentRepository, CsrfTokenManagerInterface $csrfTokenManager, Security $security)
-    {
+    /** @var Request */
+    private $request;
+
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        ContentRepository $contentRepository,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        Security $security,
+        RequestStack $requestStack
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->security = $security;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -50,6 +62,7 @@ class ContentExtension extends AbstractExtension
         $safe = [
             'is_safe' => ['html'],
         ];
+        $env = ['needs_environment' => true];
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
@@ -57,6 +70,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
             new TwigFilter('next', [$this, 'getNextContent']),
+            new TwigFilter('current', [$this, 'isCurrent'], $env),
             new TwigFilter('link', [$this, 'getLink'], $safe),
             new TwigFilter('edit_link', [$this, 'getEditLink']),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
@@ -139,7 +153,7 @@ class ContentExtension extends AbstractExtension
         }
 
         foreach ($content->getFields() as $field) {
-            if ($field instanceof ImageField) {
+            if ($field instanceof ImageField && $field->get('filename')) {
                 return $onlyValues ? $field->getValue() : $field;
             }
         }
@@ -214,18 +228,31 @@ class ContentExtension extends AbstractExtension
         return $this->contentRepository->findAdjacentBy($byColumn, $direction, $content->getId(), $contentType);
     }
 
-    public function getLink($content, ?string $contentType = null, bool $absolute = false): ?string
+    public function isCurrent(Environment $env, Content $content): bool
     {
-        if (is_array($content)) {
-            $params = [
-                'slugOrId' => $content['slug'],
-                'contentTypeSlug' => $contentType,
-            ];
-
-            return $this->generateLink('record', $params, $absolute);
+        // If we have a $record set in the Global Twig env, we can simply
+        // compare that to what's passed in.
+        if (array_key_exists('record', $env->getGlobals())) {
+            return $env->getGlobals()['record'] === $content;
         }
 
-        /** @var Content $content */
+        // Otherwise, we'll have to compare 'slugOrId' and 'contentTypeSlug' as
+        // grabbed from the Request
+        $recordParams = [
+            'slugOrId' => $content->getSlug() ?: $content->getId(),
+            'contentTypeSlug' => $content->getContentTypeSingularSlug(),
+        ];
+
+        $routeParams = $this->request->get('_route_params');
+
+        return isset($routeParams['slugOrId']) &&
+            isset($routeParams['contentTypeSlug']) &&
+            $recordParams['slugOrId'] === $routeParams['slugOrId'] &&
+            $recordParams['contentTypeSlug'] === $routeParams['contentTypeSlug'];
+    }
+
+    public function getLink(Content $content, bool $canonical = false): ?string
+    {
         if ($content->getId() === null) {
             return null;
         }
@@ -235,23 +262,16 @@ class ContentExtension extends AbstractExtension
             'contentTypeSlug' => $content->getContentTypeSingularSlug(),
         ];
 
-        return $this->generateLink('record', $params, $absolute);
+        return $this->generateLink('record', $params, $canonical);
     }
 
-    /**
-     * @param Content|array $content
-     */
-    public function getEditLink($content, bool $absolute = false): ?string
+    public function getEditLink(Content $content): ?string
     {
-        if (is_array($content)) {
-            return $this->generateLink('bolt_content_edit_by_slug', ['slug' => $content['slug']], $absolute);
-        }
-
         if ($content->getId() === null || ! $this->security->getUser()) {
             return null;
         }
 
-        return $this->generateLink('bolt_content_edit', ['id' => $content->getId()], $absolute);
+        return $this->generateLink('bolt_content_edit', ['id' => $content->getId()]);
     }
 
     public function getDeleteLink(Content $content, bool $absolute = false): ?string
@@ -291,13 +311,13 @@ class ContentExtension extends AbstractExtension
         return $this->generateLink('bolt_content_status', $params, $absolute);
     }
 
-    private function generateLink(string $route, array $params, $absolute = false): string
+    private function generateLink(string $route, array $params, $canonical = false): string
     {
         try {
             $link = $this->urlGenerator->generate(
                 $route,
                 $params,
-                $absolute ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
+                $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
         } catch (InvalidParameterException $e) {
             // @todo More graceful logging, tell user that (probably) the ContentType went missing.

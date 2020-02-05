@@ -12,6 +12,8 @@
         :authorurl='{{ field.get('authorurl')|json_encode }}'
         :html='{{ field.get('html')|json_encode }}'
         :thumbnail='{{ field.get('thumbnail')|json_encode }}'
+        :required='{{ required|json_encode }}'
+        :readonly='{{ readonly|json_encode }}'
         :labels="{{ {
             'content_url': 'editor_embed.content_url'|trans,
             'placeholder_content_url': 'editor_embed.placeholder_content_url'|trans,

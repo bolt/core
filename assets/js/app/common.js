@@ -55,4 +55,39 @@ $(document).ready(function() {
   $('.datetime-relative').each(function() {
     $(this).text(DateTime.fromISO($(this).text()).toRelative());
   });
+
+  /*
+   ** Initialise all popover elements
+   */
+  $('[data-toggle="popover"]').popover();
+
+  /*
+   ** When a field from another group is invalid, show it.
+   */
+  $('#editor button[type="submit"]').click(function() {
+    $('input:invalid').each(function() {
+      // Find the tab-pane that this element is inside, and get the id
+      var $closest = $(this).closest('.tab-pane');
+      var id = $closest.attr('id');
+
+      // Find the link that corresponds to the pane and have it show
+      $('.nav a[href="#' + id + '"]').tab('show');
+
+      // Only want to do it once
+      return false;
+    });
+  });
+
+  /*
+   ** Simulates disabled behavior for elements with data-readonly attribute.
+   * This is needed, because a disabled input cannot be required.
+   */
+  $('[data-readonly]').on('keydown paste', function(e) {
+    e.preventDefault();
+  });
+  /* Part of the code above, however make sure flatpickr is not readonly */
+  $('.editor--date')
+    .siblings()
+    .prop('readonly', false)
+    .attr('data-readonly', 'readonly');
 });

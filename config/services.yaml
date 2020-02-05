@@ -82,20 +82,9 @@ services:
 
     Twig\Extension\StringLoaderExtension: ~
 
-    Bolt\Storage\Strategy\StatementSelectorArgumentStrategy:
-        tags: ['argument_strategy']
-
-    Bolt\Storage\Strategy\DateSelectorArgumentStrategy:
-        tags: ['argument_strategy']
-
-    Bolt\Storage\Strategy\SingleValueSelectorArgumentStrategy:
-        tags: ['argument_strategy']
-
-    Bolt\Storage\Strategy\MultipleValueSelectorArgumentStrategy:
-        tags: ['argument_strategy']
-
-    Bolt\Storage\Strategy\MultipleKeyValueSelectorArgumentStrategy:
-        tags: ['argument_strategy']
+    _instanceof:
+        Bolt\Storage\Builder\ContentBuilder\ContentArgumentStrategyInterface:
+            tags: ['argument_strategy']
 
     Bolt\Storage\Strategy\ContentArgumentStrategyCollection:
         arguments:

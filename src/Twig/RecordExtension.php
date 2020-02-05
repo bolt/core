@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Configuration\Config;
-use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
-use Bolt\Repository\ContentRepository;
+use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\Storage\Query;
 use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
@@ -28,9 +28,6 @@ use Twig\TwigFunction;
  */
 class RecordExtension extends AbstractExtension
 {
-    /** @var ContentRepository */
-    private $contentRepository;
-
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
@@ -40,12 +37,15 @@ class RecordExtension extends AbstractExtension
     /** @var Config */
     private $config;
 
-    public function __construct(ContentRepository $contentRepository, TaxonomyRepository $taxonomyRepository, RequestStack $requestStack, Config $config)
+    /** @var Query */
+    private $query;
+
+    public function __construct(Query $query, TaxonomyRepository $taxonomyRepository, RequestStack $requestStack, Config $config)
     {
-        $this->contentRepository = $contentRepository;
         $this->taxonomyRepository = $taxonomyRepository;
         $this->request = $requestStack->getCurrentRequest();
         $this->config = $config;
+        $this->query = $query;
     }
 
     /**
@@ -61,8 +61,7 @@ class RecordExtension extends AbstractExtension
         return [
             new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
-            new TwigFunction('selectOptions', [$this, 'selectOptions']),
-            new TwigFunction('listTemplates', [$this, 'getListTemplates']),
+            new TwigFunction('select_options', [$this, 'selectOptions']),
             new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
             new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
@@ -98,7 +97,7 @@ class RecordExtension extends AbstractExtension
         return "<i class='fas mr-2 fa-${icon}'></i>";
     }
 
-    public function selectOptions(Field $field): LaravelCollection
+    public function selectOptions(Field\SelectField $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
 
@@ -108,14 +107,14 @@ class RecordExtension extends AbstractExtension
         return $this->selectOptionsContentType($field);
     }
 
-    private function selectOptionsArray(Field $field): LaravelCollection
+    private function selectOptionsArray(Field\SelectField $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
 
         $options = [];
 
-        if ($field->getDefinition()->get('required', false)) {
+        if (! $field->getDefinition()->get('required', true)) {
             $options[] = [
                 'key' => '',
                 'value' => '',
@@ -138,7 +137,7 @@ class RecordExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    private function selectOptionsContentType(Field $field): LaravelCollection
+    private function selectOptionsContentType(Field\SelectField $field): LaravelCollection
     {
         [ $contentTypeSlug, $fieldNames ] = explode('/', $field->getDefinition()->get('values'));
 
@@ -155,11 +154,16 @@ class RecordExtension extends AbstractExtension
             ];
         }
 
-        $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
         $maxAmount = $this->config->get('maximum_listing_select', 1000);
+        $orderBy = $field->getDefinition()->get('sort', '');
+
+        $params = [
+            'limit' => $maxAmount,
+            'order' => $orderBy,
+        ];
 
         /** @var Content[] $records */
-        $records = $this->contentRepository->findForListing(1, $maxAmount, $contentType, false);
+        $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
 
         foreach ($records as $record) {
             $options[] = [
@@ -176,7 +180,7 @@ class RecordExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    public function getListTemplates(Field $field): LaravelCollection
+    public function getListTemplates(TemplateselectField $field): LaravelCollection
     {
         $definition = $field->getDefinition();
         $current = current($field->getValue());
@@ -188,11 +192,15 @@ class RecordExtension extends AbstractExtension
             ->name($definition->get('filter', '*.twig'))
             ->path($definition->get('path'));
 
-        $options = [[
-            'key' => '',
-            'value' => '(choose a template)',
-            'selected' => false,
-        ]];
+        $options = [];
+
+        if ($definition->get('required') === false) {
+            $options = [[
+                'key' => '',
+                'value' => '(choose a template)',
+                'selected' => false,
+            ]];
+        }
 
         foreach ($finder as $file) {
             $options[] = [

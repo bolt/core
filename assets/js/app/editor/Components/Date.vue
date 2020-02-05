@@ -5,18 +5,19 @@
         v-model="val"
         class="form-control editor--date"
         :config="config"
-        :disabled="disabled"
+        :disabled="readonly"
         :form="form"
         :name="name"
         placeholder="Select date"
+        :required="required == 1"
       >
       </flat-pickr>
       <div class="input-group-append">
         <button
           class="btn btn-tertiary"
-          :class="{ 'btn-outline-secondary': disabled }"
+          :class="{ 'btn-outline-secondary': readonly }"
           type="button"
-          :disabled="disabled"
+          :disabled="readonly"
           data-toggle
         >
           <i class="fa fa-calendar">
@@ -25,9 +26,9 @@
         </button>
         <button
           class="btn btn-tertiary"
-          :class="{ 'btn-outline-secondary': disabled }"
+          :class="{ 'btn-outline-secondary': readonly }"
           type="button"
-          :disabled="disabled"
+          :disabled="readonly"
           data-clear
         >
           <i class="fa fa-times">
@@ -62,7 +63,7 @@ export default {
       type: String,
       required: true,
     },
-    disabled: {
+    readonly: {
       type: Boolean,
       required: true,
     },
@@ -82,6 +83,10 @@ export default {
     labels: {
       type: String,
       default: '',
+    },
+    required: {
+      type: Number,
+      required: true,
     },
   },
 

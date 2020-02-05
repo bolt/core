@@ -9,6 +9,8 @@
       placeholder="…"
       type="text"
       :disabled="disabled == 1"
+      :required="required == 1"
+      :readonly="readonly == true"
     />
   </div>
 </template>
@@ -19,7 +21,16 @@ import field from '../mixins/value';
 export default {
   name: 'EditorText',
   mixins: [field],
-  props: ['value', 'label', 'name', 'type', 'disabled', 'id'],
+  props: [
+    'value',
+    'label',
+    'name',
+    'type',
+    'disabled',
+    'id',
+    'required',
+    'readonly',
+  ],
   data: () => {
     return {
       generate: false,

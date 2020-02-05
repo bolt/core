@@ -16,7 +16,7 @@ class SingleValueSelectorArgumentStrategy implements ContentArgumentStrategyInte
     {
         [$operator, $value] = $this->parseValue($value);
 
-        $content->addFilter(GraphFilter::createSimpleFilter($this->getFieldForFilter($operator, $value), $value));
+        $content->addFilter(GraphFilter::createSimpleFilter($this->getFieldByOperator($operator, $value), $value));
     }
 
     public function shouldBeCalled(string $field, string $value): bool

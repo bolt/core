@@ -73,9 +73,9 @@ class TranslationsManager
         }
 
         if ($field->hasParent()) {
-            $key = $this->keys[$collectionName][$field->getParent()->getName()][$orderId][$field->getName()]['value'];
+            $key = $this->keys[$collectionName][$field->getParent()->getName()][$orderId][$field->getName()];
         } else {
-            $key = $this->keys[$collectionName][$field->getName()][$orderId]['value'];
+            $key = $this->keys[$collectionName][$field->getName()][$orderId];
         }
 
         $translations = $this->translations[$key];
@@ -103,8 +103,7 @@ class TranslationsManager
             if (! (array_key_exists($collectionName, $this->keys)
                 && array_key_exists($field->getParent()->getName(), $this->keys[$collectionName])
                 && array_key_exists($orderId, $this->keys[$collectionName][$field->getParent()->getName()])
-                && array_key_exists($field->getName(), $this->keys[$collectionName][$field->getParent()->getName()][$orderId])
-                && array_key_exists('value', $this->keys[$collectionName][$field->getParent()->getName()][$orderId][$field->getName()]))) {
+                && array_key_exists($field->getName(), $this->keys[$collectionName][$field->getParent()->getName()][$orderId]))) {
                 // if $this->keys[$collectionName][$parentName][$order][$name] does not exist, we can return.
                 return false;
             }
@@ -123,12 +122,12 @@ class TranslationsManager
             $key = $this->keys[$collectionName][$field->getName()][$orderId];
         }
 
-        if (empty($key['value'] or ! is_numeric($key['value']))) {
+        if (empty($key or ! is_numeric($key))) {
             // if key['value'] is empty or is not numeric (id), we can return.
             return false;
         }
 
-        $value = (int) $key['value'];
+        $value = (int) $key;
 
         return array_key_exists($value, $this->translations);
     }

@@ -2,8 +2,8 @@
 
 {% block field %}
   {# check disabled #}
-  {% if disabled is not defined %}
-      {% set disabled = false %}
+  {% if readonly is not defined %}
+      {% set readonly = false %}
   {% endif %}
   {# Check form attribute #}
   {% if form is not defined %}
@@ -26,17 +26,21 @@
   <editor-date
     :value='{{ value|json_encode }}'
     name='{{ name }}'
-    :disabled='{{ disabled|json_encode }}'
+    :readonly='{{ readonly|json_encode }}'
     form='{{ form }}'
     mode='{{ mode }}'
     locale='{{user.locale}}'
     labels='{{ { 'toggle': 'editor_date.toggle'|trans }|json_encode }}'
+    :required='{{ required|json_encode }}'
   ></editor-date>
   {% else %}
     <span
         :id='{{ id|json_encode }}'
         :name='{{ name|json_encode }}'
         class=""
+        {% if required == 1 %}
+        required
+        {% endif %}
     >{{ value|date(format='F d, Y - g:ia')}}</span>
   {% endif %}
   

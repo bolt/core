@@ -166,12 +166,12 @@
     }
 
     &__profile {
-      margin-left: auto;
       padding-right: 1rem;
     }
 
     &__site {
       display: none;
+      margin-left: auto;
 
       @include media-breakpoint-up(sm) {
         display: block;

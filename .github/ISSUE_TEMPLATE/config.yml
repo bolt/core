@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💡 Bolt Ideas (Feature Requests)
+    url: https://testy.kampsite.co
+    about: Please submit your ideas and feature requests here
+  - name: ❓ Support Question
+    url: https://bolt.cm/community
+    about: Having trouble with Bolt? Join in our Slack community
+  - name: 📖 Documentation Issue
+    url: https://github.com/bolt/docs/issues
+    about: Please refer to our documentation repository for documentation issues
+  - name: 🖼 Base-2020 / Skeleton Theme Issue
+    url: https://github.com/bolt/themes/issues
+    about: Please refer to our themes repository for theme-realted issue

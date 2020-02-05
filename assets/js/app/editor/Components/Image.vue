@@ -21,7 +21,8 @@
             type="text"
             :placeholder="labels.placeholder_filename"
             :value="filenameData"
-            readonly="readonly"
+            data-readonly="readonly"
+            :required="required == 1"
           />
         </div>
         <div class="input-group mb-3">
@@ -31,6 +32,7 @@
             :name="name + '[alt]'"
             type="text"
             :placeholder="labels.placeholder_alt_text"
+            :readonly="readonly"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -38,6 +40,7 @@
             <button
               class="btn btn-sm btn-tertiary"
               type="button"
+              :disabled="readonly"
               @click="selectUploadFile"
             >
               <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
@@ -48,13 +51,16 @@
               aria-expanded="false"
               aria-haspopup="true"
               data-toggle="dropdown"
+              name="image-upload-dropdown"
               type="button"
+              :disabled="readonly"
             ></button>
 
             <div class="dropdown-menu">
               <button
                 class="btn dropdown-item"
                 type="button"
+                :disabled="readonly"
                 @click="selectServerFile"
               >
                 <i class="fas fa-fw fa-th"></i>
@@ -72,8 +78,9 @@
             </div>
           </div>
 
-          <div v-if="inImagelist == true" class="btn-group mr-2" role="group">
+          <div class="btn-group mr-2" role="group">
             <button
+              v-if="inImagelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isFirstInImagelist"
@@ -84,6 +91,7 @@
             </button>
 
             <button
+              v-if="inImagelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isLastInImagelist"
@@ -96,6 +104,7 @@
             <button
               class="btn btn-sm btn-hidden-danger"
               type="button"
+              :disabled="readonly"
               @click="onRemoveImage"
             >
               <i class="fas fa-fw fa-trash"></i> {{ labels.button_remove }}
@@ -150,6 +159,8 @@ export default {
     'label',
     'filename',
     'name',
+    'required',
+    'readonly',
     'thumbnail',
     'alt',
     'directory',
@@ -208,6 +219,9 @@ export default {
     },
     onRemoveImage() {
       this.previewImage = null;
+      this.filenameData = '';
+      this.thumbnailData = '';
+      this.altData = '';
       this.$emit('remove', this);
     },
     selectUploadFile() {

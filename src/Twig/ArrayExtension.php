@@ -7,7 +7,6 @@ namespace Bolt\Twig;
 use Bolt\Entity\Content;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 /**
  * Bolt specific Twig functions and filters that provide array manipulation.
@@ -19,47 +18,12 @@ final class ArrayExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions(): array
-    {
-        $safe = [
-            'is_safe' => ['html'],
-        ];
-
-        return [
-            new TwigFunction('unique', [$this, 'unique'], $safe),
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getFilters(): array
     {
         return [
             new TwigFilter('order', [$this, 'order']),
             new TwigFilter('shuffle', [$this, 'shuffle']),
         ];
-    }
-
-    /**
-     * Takes two arrays and returns a compiled array of unique, sorted values.
-     */
-    public function unique(array $arr1, array $arr2): array
-    {
-        $merged = array_unique(array_merge($arr1, $arr2), SORT_REGULAR);
-        $compiled = [];
-
-        foreach ($merged as $key => $val) {
-            if (is_array($val)) {
-                if (array_values($val) === $val) {
-                    $compiled[$key] = $val;
-                }
-            } else {
-                $compiled[$val] = $val;
-            }
-        }
-
-        return $compiled;
     }
 
     /**

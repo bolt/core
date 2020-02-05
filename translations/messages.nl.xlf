@@ -196,7 +196,7 @@
       </notes>
       <segment>
         <source>about.visit_bolt</source>
-        <target>Bezoek Bolt.cm</target>
+        <target>Bezoek Boltcms.io</target>
       </segment>
     </unit>
     <unit id="UZFanGF" name="about.bolt_documentation">
@@ -912,12 +912,6 @@
         <target>Wissel</target>
       </segment>
     </unit>
-    <unit id="Swom5xM" name="repeater.remark">
-      <segment>
-        <source>repeater.remark</source>
-        <target>__repeater.remark</target>
-      </segment>
-    </unit>
     <unit id="M.3olSc" name="filelist.remark">
       <segment>
         <source>filelist.remark</source>
@@ -1443,7 +1437,7 @@
     <unit id="psOa_9x" name="general.phrase.built-with-bolt">
       <segment>
         <source>general.phrase.built-with-bolt</source>
-        <target><![CDATA[Deze website is <a href='https://bolt.cm' target='_blank' title='Weldoordacht, lichtgewicht en eenvoudig CMS'>Gebouwd met Bolt</a>. ]]></target>
+        <target><![CDATA[Deze website is <a href='https://boltcms.io' target='_blank' title='Weldoordacht, lichtgewicht en eenvoudig CMS'>gemaakt met Bolt</a>. ]]></target>
       </segment>
     </unit>
     <unit id="odDw0du" name="action.search">
