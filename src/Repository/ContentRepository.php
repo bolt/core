@@ -36,50 +36,6 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
-    {
-        $qb = $this->getQueryBuilder()
-            ->addSelect('a')
-            ->innerJoin('content.author', 'a');
-
-        if ($contentType) {
-            $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contentType->getSlug());
-        }
-
-        if ($onlyPublished) {
-            $qb->andWhere('content.status = :status')
-                ->setParameter('status', Statuses::PUBLISHED);
-        }
-
-        [ $order, $direction, $sortByField ] = $this->createSortBy($contentType);
-
-        if (! $sortByField) {
-            $qb->orderBy('content.' . $order, $direction);
-        } else {
-            // @todo Make sorting on a Field work as expected.
-            dump('This is not correct');
-
-            // First, create a querybuilder to get the fields that match the Query
-            $sortByQB = $this->getQueryBuilder()
-                ->select('partial content.{id}');
-
-            $sortByQB->addSelect('f')
-                ->innerJoin('content.fields', 'f')
-                ->andWhere('f.name = :fieldname')
-                ->setParameter('fieldname', $order)
-                ->addOrderBy('f.name', $direction);
-
-            // These are the ID's of content we need.
-            $ids = array_column($sortByQB->getQuery()->getArrayResult(), 'id');
-
-            $qb->andWhere('content.id IN (:ids)')
-                ->setParameter('ids', $ids);
-        }
-
-        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
-    }
-
     public function findForTaxonomy(int $page, Collection $taxonomy, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
