@@ -19,7 +19,6 @@ class OrderDirective
         'modifiedAt',
         'publishedAt',
         'depublishedAt',
-        'author',
         'status',
     ];
 
@@ -39,6 +38,11 @@ class OrderDirective
 
             if (in_array($order, $this->coreFields, true)) {
                 $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
+            } elseif ($order === 'author') {
+                $query
+                    ->getQueryBuilder()
+                    ->leftJoin('content.author', 'user')
+                    ->addOrderBy('user.username', $direction);
             } else {
                 $fieldsAlias = 'fields_order_' .  $query->getIndex();
                 $fieldAlias = 'order_' . $query->getIndex();
