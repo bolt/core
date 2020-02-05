@@ -31,7 +31,7 @@ export default {
     'id',
     'required',
     'readonly',
-    'errormessage'
+    'errormessage',
   ],
   data: () => {
     return {

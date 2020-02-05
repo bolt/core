@@ -162,7 +162,7 @@ export default {
     'attributesLink',
     'required',
     'readonly',
-    'errormessage'
+    'errormessage',
   ],
   data() {
     return {

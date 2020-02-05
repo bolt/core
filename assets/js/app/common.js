@@ -115,9 +115,9 @@ $(document).ready(function() {
 
     siblings.each(function() {
       $(this)
-          .attr('data-errormessage', errormessage)
-          .on('invalid', handleInvalid)
-          .on('input', handleInput);
+        .attr('data-errormessage', errormessage)
+        .on('invalid', handleInvalid)
+        .on('input', handleInput);
     });
   });
   /* End of custom error message */
