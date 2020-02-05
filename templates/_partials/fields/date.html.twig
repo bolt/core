@@ -32,6 +32,7 @@
     locale='{{user.locale}}'
     labels='{{ { 'toggle': 'editor_date.toggle'|trans }|json_encode }}'
     :required='{{ required|json_encode }}'
+    :errormessage='{{ errormessage|json_encode }}'
   ></editor-date>
   {% else %}
     <span
