@@ -23,6 +23,7 @@
             :value="filenameData"
             data-readonly="readonly"
             :required="required == 1"
+            :data-errormessage="errormessage"
           />
         </div>
         <div class="input-group mb-3">
@@ -161,6 +162,7 @@ export default {
     'attributesLink',
     'required',
     'readonly',
+    'errormessage'
   ],
   data() {
     return {
