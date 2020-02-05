@@ -90,4 +90,16 @@ $(document).ready(function() {
     .siblings()
     .prop('readonly', false)
     .attr('data-readonly', 'readonly');
+
+  /*
+   ** Display the custom error message, if set.
+   */
+  $('[data-errormessage]').on('invalid', function(e){
+    const errormessage = $(e.target).attr('data-errormessage');
+    e.target.setCustomValidity(errormessage);
+  });
+  /* Remove custom validity every time input is changed. This is done because setCustomValidity does not reset */
+  $('[data-errormessage').on('input', function(e){
+    e.target.setCustomValidity('');
+  });
 });
