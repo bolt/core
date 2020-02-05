@@ -10,6 +10,7 @@
       :show-labels="false"
       :taggable="taggable"
       :disabled="readonly"
+      :data-errormessage="errormessage"
       label="value"
       tag-placeholder="Add this as new tag"
       tag-position="bottom"
@@ -51,6 +52,7 @@ export default {
     'taggable',
     'required',
     'readonly',
+    'errormessage',
   ],
   data: () => {
     return {
