@@ -6,7 +6,10 @@
 
 {% block field %}
 <div class="editor--data">
-<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}" {% if required == 1 %}required {% endif %}/>
+<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}"
+       {% if required == 1 %}required {% endif %}
+       {% if errormessage %}data-errormessage="{{ errormessage }}" {% endif %}
+/>
 <pre>
 {{ field.value|json_encode(constant('JSON_PRETTY_PRINT')) }}
 </pre>
