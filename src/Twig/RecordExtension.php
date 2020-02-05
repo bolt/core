@@ -139,10 +139,7 @@ class RecordExtension extends AbstractExtension
 
     private function selectOptionsContentType(Field\SelectField $field): LaravelCollection
     {
-        [ $contentTypeSlug, $fieldNames ] = explode('/', $field->getDefinition()->get('values'));
-
-        // @todo Actually do something with these, instead of using a default.
-        $fieldNames = explode(',', $fieldNames);
+        [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
 
         $options = [];
 
@@ -150,11 +147,10 @@ class RecordExtension extends AbstractExtension
             $options[] = [
                 'key' => '',
                 'value' => '',
-                'selected' => false,
             ];
         }
 
-        $maxAmount = $this->config->get('maximum_listing_select', 1000);
+        $maxAmount = $this->config->get('maximum_listing_select', $field->getDefinition('limit', 200));
         $orderBy = $field->getDefinition()->get('sort', '');
 
         $params = [
@@ -168,16 +164,43 @@ class RecordExtension extends AbstractExtension
         foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
-                'value' => sprintf(
-                    '%s (№ %s, %s)',
-                    Excerpt::getExcerpt($record->getExtras()['title'], 50),
-                    $record->getId(),
-                    $record->getStatus()
-                ),
+                'value' => $this->composeSelectValue($format, $record),
             ];
         }
 
         return new LaravelCollection($options);
+    }
+
+    private function composeSelectValue(string $format, Content $record): string
+    {
+        if (empty($format)) {
+            $format = '{title} (№ {id}, {status})';
+        }
+
+        return preg_replace_callback(
+            '/{([a-z]+)}/i',
+            function($match) use ($record) {
+
+                if ($match[1] == 'id') {
+                    return $record->getId();
+                }
+
+                if ($match[1] == 'status') {
+                    return $record->getStatus();
+                }
+
+                if ($record->hasField($match[1])) {
+                    return $record->getField($match[1]);
+                }
+
+                if (array_key_exists($match[1], $record->getExtras())) {
+                    return $record->getExtras()[$match[1]];
+                }
+
+                return '(unknown)';
+            },
+            $format
+        );
     }
 
     public function getListTemplates(TemplateselectField $field): LaravelCollection
