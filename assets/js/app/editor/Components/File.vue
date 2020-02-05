@@ -105,8 +105,8 @@
             <button
               class="btn btn-sm btn-hidden-danger"
               type="button"
-              @click="onRemoveFile"
               :disabled="readonly"
+              @click="onRemoveFile"
             >
               <i class="fas fa-fw fa-trash"></i> {{ labels.button_remove }}
             </button>
