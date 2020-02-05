@@ -1293,6 +1293,12 @@
         <target>Alt attribute</target>
       </segment>
     </unit>
+    <unit id="VPV0lFM" name="image.placeholder_title">
+      <segment>
+        <source>image.placeholder_title</source>
+        <target>Title attribute</target>
+      </segment>
+    </unit>
     <unit id="Gabafxx" name="admin_sidebar.toggler">
       <segment>
         <source>admin_sidebar.toggler</source>
@@ -2173,12 +2179,6 @@
       <segment>
         <source>view_locales.badge_empty</source>
         <target>Empty</target>
-      </segment>
-    </unit>
-    <unit id="q3wV85K" name="image.placeholder_title_text">
-      <segment>
-        <source>image.placeholder_title_text</source>
-        <target>Image title</target>
       </segment>
     </unit>
   </file>

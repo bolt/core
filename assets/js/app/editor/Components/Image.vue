@@ -222,7 +222,6 @@ export default {
       this.filenameData = '';
       this.thumbnailData = '';
       this.altData = '';
-      this.titleData = '';
       this.$emit('remove', this);
     },
     selectUploadFile() {

@@ -103,6 +103,6 @@ class ImageField extends Field implements FieldInterface, MediaAware
 
     public function includeAlt(): bool
     {
-        return $this->getDefinition()->has('alt') && $this->getDefinition()->get('alt') == true;
+        return $this->getDefinition()->has('alt') && $this->getDefinition()->get('alt') === true;
     }
 }
