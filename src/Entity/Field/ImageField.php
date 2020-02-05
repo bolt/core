@@ -26,9 +26,6 @@ class ImageField extends Field implements FieldInterface, MediaAware
     /** @var array */
     private $alt = [];
 
-    /** @var array */
-    private $title = [];
-
     public function __construct()
     {
         $this->fieldBase = [
@@ -41,10 +38,6 @@ class ImageField extends Field implements FieldInterface, MediaAware
 
         $this->alt = [
             'alt' => '',
-        ];
-
-        $this->title = [
-            'title' => '',
         ];
     }
 
@@ -59,10 +52,6 @@ class ImageField extends Field implements FieldInterface, MediaAware
 
         if ($this->includeAlt()) {
             $value = array_merge($this->alt, $value);
-        }
-
-        if ($this->includeTitle()) {
-            $value = array_merge($this->title, $value);
         }
 
         // Remove cruft field getting stored as JSON.
@@ -115,10 +104,5 @@ class ImageField extends Field implements FieldInterface, MediaAware
     public function includeAlt(): bool
     {
         return $this->getDefinition()->has('attrib') && $this->getDefinition()->get('attrib')->contains('alt');
-    }
-
-    public function includeTitle(): bool
-    {
-        return $this->getDefinition()->has('attrib') && $this->getDefinition()->get('attrib')->contains('title');
     }
 }

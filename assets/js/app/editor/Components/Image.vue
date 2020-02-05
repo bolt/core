@@ -25,15 +25,6 @@
             :required="required == 1"
           />
         </div>
-        <div v-if="titleData !== undefined" class="input-group mb-3">
-          <input
-            v-model="titleData"
-            class="form-control"
-            :name="name + '[title]'"
-            type="text"
-            :placeholder="labels.placeholder_title_text"
-          />
-        </div>
         <div v-if="altData !== undefined" class="input-group mb-3">
           <input
             v-model="altData"
@@ -172,7 +163,6 @@ export default {
     'readonly',
     'thumbnail',
     'alt',
-    'title',
     'directory',
     'media',
     'csrfToken',
@@ -193,7 +183,6 @@ export default {
       filenameData: this.filename,
       thumbnailData: this.thumbnail,
       altData: this.alt,
-      titleData: this.title,
     };
   },
   computed: {

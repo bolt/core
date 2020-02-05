@@ -1293,12 +1293,6 @@
         <target>Alt attribute</target>
       </segment>
     </unit>
-    <unit id="VPV0lFM" name="image.placeholder_title">
-      <segment>
-        <source>image.placeholder_title</source>
-        <target>Title attribute</target>
-      </segment>
-    </unit>
     <unit id="Gabafxx" name="admin_sidebar.toggler">
       <segment>
         <source>admin_sidebar.toggler</source>
