@@ -85,7 +85,7 @@ class ExtensionRegistry
             $extension = new $extensionClass();
             $extension->injectObjects($objects);
 
-            if (! $runCli) {
+            if (! $runCli && method_exists($extension, 'initialize')) {
                 // If we're not running on the CLI. Assumably in a browser…
                 $extension->initialize();
             } elseif (method_exists($extension, 'initializeCli')) {

@@ -47,7 +47,7 @@ class ExtensionsShowCommand extends Command
         /** @var ExtensionInterface $extension */
         $extension = $this->extensionRegistry->getExtension($extensionName);
 
-        if ($extension instanceof ExtensionInterface) {
+        if (! $extension instanceof ExtensionInterface) {
             $io->caution('No such extension.');
             return 0;
         }
