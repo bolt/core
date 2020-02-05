@@ -654,9 +654,6 @@
     "symfony/cache-contracts": {
         "version": "v2.0.1"
     },
-    "symfony/class-loader": {
-        "version": "v3.4.36"
-    },
     "symfony/config": {
         "version": "v4.4.2"
     },

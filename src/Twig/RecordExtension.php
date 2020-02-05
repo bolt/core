@@ -10,7 +10,6 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Storage\Query;
-use Bolt\Utils\Excerpt;
 use Doctrine\Common\Collections\Collection;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Finder\Finder;
@@ -179,13 +178,12 @@ class RecordExtension extends AbstractExtension
 
         return preg_replace_callback(
             '/{([a-z]+)}/i',
-            function($match) use ($record) {
-
-                if ($match[1] == 'id') {
+            function ($match) use ($record) {
+                if ($match[1] === 'id') {
                     return $record->getId();
                 }
 
-                if ($match[1] == 'status') {
+                if ($match[1] === 'status') {
                     return $record->getStatus();
                 }
 
