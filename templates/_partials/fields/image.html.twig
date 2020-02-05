@@ -28,5 +28,6 @@
         :attributes-link='{{ path('bolt_media_new')|json_encode }}'
         :required='{{ required|json_encode }}'
         :readonly='{{ readonly|json_encode }}'
+        :errormessage='{{ errormessage|json_encode }}'
     ></editor-image>
 {% endblock %}
