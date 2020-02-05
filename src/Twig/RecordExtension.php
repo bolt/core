@@ -149,7 +149,11 @@ class RecordExtension extends AbstractExtension
             ];
         }
 
-        $maxAmount = $this->config->get('maximum_listing_select', $field->getDefinition('limit', 200));
+        if (! empty($field->getDefinition()->get('limit'))) {
+            $maxAmount = $field->getDefinition()->get('limit');
+        } else {
+            $maxAmount = $this->config->get('maximum_listing_select', 200);
+        }
         $orderBy = $field->getDefinition()->get('sort', '');
 
         $params = [
