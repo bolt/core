@@ -10,6 +10,7 @@
         :name="name"
         placeholder="Select date"
         :required="required == 1"
+        :data-errormessage="errormessage"
       >
       </flat-pickr>
       <div class="input-group-append">
@@ -86,6 +87,9 @@ export default {
     },
     required: {
       type: Number,
+      required: true,
+    },
+    errormessage: {
       required: true,
     },
   },

@@ -4,8 +4,9 @@
     <editor-email
         :id='{{ id|json_encode }}'
         :name='{{ name|json_encode }}'
-        :value="{{ value|json_encode }}"
-        :required="{{ required|json_encode }}"
-        :readonly="{{ readonly|json_encode }}"
+        :value='{{ value|json_encode }}'
+        :required='{{ required|json_encode }}'
+        :readonly='{{ readonly|json_encode }}'
+        :errormessage='{{ errormessage|json_encode }}'
     ></editor-email>
 {% endblock %}

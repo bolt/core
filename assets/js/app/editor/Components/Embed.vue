@@ -15,6 +15,7 @@
                 type="url"
                 :required="required == 1"
                 :readonly="readonly"
+                :data-errormessage="errormessage"
               />
               <span class="input-group-btn">
                 <button
@@ -126,6 +127,7 @@ export default {
     'labels',
     'required',
     'readonly',
+    'errormessage',
   ],
   data: () => {
     return {

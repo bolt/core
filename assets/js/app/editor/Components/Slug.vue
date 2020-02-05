@@ -13,6 +13,7 @@
         :class="fieldClass"
         :readonly="readonly || !edit"
         :required="required == 1"
+        :data-errormessage="errormessage"
       />
       <div class="input-group-append">
         <button
@@ -63,6 +64,7 @@ export default {
     'labels',
     'required',
     'readonly',
+    'errormessage',
   ],
   data: () => {
     return {

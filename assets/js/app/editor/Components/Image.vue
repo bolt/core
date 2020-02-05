@@ -23,6 +23,7 @@
             :value="filenameData"
             data-readonly="readonly"
             :required="required == 1"
+            :data-errormessage="errormessage"
           />
         </div>
         <div v-if="altData !== undefined" class="input-group mb-3">
@@ -173,6 +174,7 @@ export default {
     'inImagelist',
     'isFirstInImagelist',
     'isLastInImagelist',
+    'errormessage',
   ],
   data() {
     return {
