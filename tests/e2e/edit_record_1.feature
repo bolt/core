@@ -136,6 +136,7 @@ Feature: Edit record
 
     When I press "Add new file"
     Then I should see 5 ".row" elements in the ".editor-filelist" element
+    And the 1st "Add new file" button should be disabled
 
     When I scroll the 6th "file-upload-dropdown" into view
     And I press the 6th "file-upload-dropdown" button
@@ -159,6 +160,7 @@ Feature: Edit record
 
     When I press the 7th "Remove" button
     Then I should see 4 ".row" elements in the ".editor-filelist" element
+    And the 1st "Add new file" button should be enabled
 
     When I scroll "Save changes" into view
     And I press "Save changes"
