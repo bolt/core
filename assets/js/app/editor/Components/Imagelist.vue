@@ -28,7 +28,12 @@
       ></editor-image>
     </div>
 
-    <button class="btn btn-tertiary" type="button" @click="addImage">
+    <button
+      class="btn btn-tertiary"
+      type="button"
+      :disabled="!allowMore"
+      @click="addImage"
+    >
       <i class="fas fa-fw fa-plus"></i>
       {{ labels.add_new_image }}
     </button>
@@ -50,6 +55,7 @@ export default {
     'labels',
     'extensions',
     'attributesLink',
+    'limit',
   ],
   data: function() {
     let counter = 0;
@@ -63,6 +69,11 @@ export default {
       counter,
       containerImages: this.images,
     };
+  },
+  computed: {
+    allowMore: function() {
+      return this.getActiveImageFields().length < this.limit;
+    },
   },
   methods: {
     isFirstInImagelist(index) {
