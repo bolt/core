@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Configuration\Config;
-use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\ContentRepository;
