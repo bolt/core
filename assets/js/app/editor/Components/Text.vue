@@ -11,6 +11,7 @@
       :disabled="disabled == 1"
       :required="required == 1"
       :readonly="readonly == true"
+      :data-errormessage="errormessage"
     />
   </div>
 </template>
@@ -30,6 +31,7 @@ export default {
     'id',
     'required',
     'readonly',
+    'errormessage'
   ],
   data: () => {
     return {
