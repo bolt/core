@@ -18,6 +18,7 @@
        'add_new_image': 'image.add_new_image'|trans,
    }|json_encode %}
    {% set extensions = field.definition.get('extensions')|default('') %}
+   {% set limit = field.definition.get('limit')|default(200) %}
 
    <editor-imagelist
        :images='{{ field.jsonvalue }}'
@@ -28,6 +29,7 @@
        :labels='{{ labels }}'
        :extensions='{{  extensions|json_encode }}'
        :attributes-link='{{ path('bolt_media_new')|json_encode }}'
+       :limit='{{ limit|json_encode }}'
    ></editor-imagelist>
 
 {% endblock %}
