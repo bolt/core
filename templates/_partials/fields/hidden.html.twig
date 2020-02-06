@@ -7,4 +7,5 @@
 <input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}"
        {% if required == 1 %}required {% endif %}
        {% if readonly %}readonly {% endif %}
+       {% if pattern %}pattern="{{ pattern }}" {% endif %}
 />
