@@ -25,21 +25,18 @@ class ContentOverviewController extends TwigAwareController implements BackendZo
         $contentTypeObject = ContentType::factory($contentType, $this->config->get('contenttypes'));
 
         $params = [
-            'status' => '!unknown'
+            'status' => '!unknown',
         ];
 
-        if($request->get('sortBy'))
-        {
+        if ($request->get('sortBy')) {
             $params['order'] = $request->get('sortBy');
         }
 
-        if($request->get('filter'))
-        {
+        if ($request->get('filter')) {
             $params['anyField'] = '%' . $request->get('filter') . '%';
         }
 
-        if($request->get('taxonomy'))
-        {
+        if ($request->get('taxonomy')) {
             $taxonomy = explode('=', $request->get('taxonomy'));
             $params[$taxonomy[0]] = $taxonomy[1];
         }
