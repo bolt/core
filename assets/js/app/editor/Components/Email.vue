@@ -16,6 +16,25 @@
 <script>
 export default {
   name: 'EditorEmail',
-  props: ['value', 'name', 'id', 'required', 'readonly', 'errormessage'],
+  props: {
+    value: {
+      type: String,
+    },
+    name: {
+      type: String
+    },
+    id: {
+      type: String,
+    },
+    required: {
+      type: Number,
+    },
+    readonly: {
+      type: Boolean,
+    },
+    errormessage: {
+      type: String | Boolean, //string if errormessage is set, and false otherwise
+    }
+  },
 };
 </script>
