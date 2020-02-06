@@ -10,6 +10,7 @@ homepage:
     fields:
         title:
             type: text
+            pattern: "[A-Za-z]{3}"
             class: large
             group: content
             localize: true

@@ -32,6 +32,9 @@
 {# Set error validation message #}
 {% set errormessage = field.definition.get('error')|default(false) %}
 
+{# Set pattern #}
+{% set pattern = field.definition.get('pattern')|default(false) %}
+
 {% set type_collection = (type in ['collection']) %}
 {% set type_set = (type in ['imagelist', 'filelist', 'set']) %}
 

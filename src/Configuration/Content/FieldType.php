@@ -46,6 +46,7 @@ class FieldType extends Collection
             'required' => false,
             'readonly' => false,
             'error' => false,
+            'pattern' => false,
         ]);
     }
 
