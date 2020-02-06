@@ -112,23 +112,22 @@ import field from '../mixins/value';
 export default {
   name: 'EditorEmbed',
   mixins: [field],
-  props: [
-    'embedapi',
-    'label',
-    'name',
-    'authorurl',
-    'authorname',
-    'height',
-    'html',
-    'thumbnail',
-    'title',
-    'url',
-    'width',
-    'labels',
-    'required',
-    'readonly',
-    'errormessage',
-  ],
+  props: {
+    embedapi: String,
+    name: String,
+    authorurl: String,
+    authorname: String,
+    height: Number | String, //String if not set
+    html: String,
+    thumbnail: String,
+    title: String,
+    url: String,
+    width: Number | String, //String if not set
+    labels: Object,
+    required: Number,
+    readonly: Boolean,
+    errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+  },
   data: () => {
     return {
       authorurlData: null,
