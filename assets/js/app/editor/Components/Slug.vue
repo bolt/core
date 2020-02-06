@@ -14,6 +14,7 @@
         :readonly="readonly || !edit"
         :required="required == 1"
         :data-errormessage="errormessage"
+        :pattern="pattern"
       />
       <div class="input-group-append">
         <button
@@ -64,6 +65,7 @@ export default {
     required: Number,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+    pattern: String | Boolean,
   },
   data: () => {
     return {
