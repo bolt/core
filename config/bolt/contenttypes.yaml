@@ -240,11 +240,6 @@ showcases:
             group: internal
         datafield:
             type: data
-        geolocation:
-            type: geolocation
-            group: Unfinished
-        video:
-            type: video
         set:
             type: set
             group: Sets
