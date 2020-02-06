@@ -3,6 +3,7 @@
 {% set value = field.value|json_encode %}
 {% set required = field.definition.required ? 1 : 0 %}
 {% set readonly = field.definition.readonly ? true : false %}
+{% set pattern = fie.d.definition.get('pattern')|default(false) %}
 
 <input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}"
        {% if required == 1 %}required {% endif %}
