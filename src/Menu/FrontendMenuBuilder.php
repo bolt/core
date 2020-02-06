@@ -93,7 +93,16 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
         }
 
         // Otherwise trust the user. ¯\_(ツ)_/¯
-        return ['', Str::ensureStartsWith($link, '/')];
+        return ['', $this->makeAbsoluteLink($link)];
+    }
+
+    private function makeAbsoluteLink(string $link): string
+    {
+        if (mb_strpos($link, '://') !== false || mb_substr($link, 0, 2) === '//') {
+            return $link;
+        }
+
+        return Str::ensureStartsWith($link, '/');
     }
 
     private function getContent(string $link): ?Content
