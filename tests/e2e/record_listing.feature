@@ -48,3 +48,9 @@ Feature: Record listing
     And I press "Filter"
     Then I should be on "/bolt/content/entries?sortBy=&filter="
     And I should see 10 ".listing--container" elements
+
+  @javascript
+  Scenario: As a user I want to see contenttype listing
+    When I am on "/pages"
+    Then I should see 6 "article" elements
+

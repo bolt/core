@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Menu;
 
 use Bolt\Collection\DeepCollection;
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
@@ -79,7 +80,7 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
         $trimmedLink = trim($link, '/');
 
         // Special case for "Homepage"
-        if ($trimmedLink === 'homepage') {
+        if ($trimmedLink === 'homepage' || $trimmedLink === $this->config->get('general/homepage')) {
             return ['Home', $this->urlGenerator->generate('homepage')];
         }
 
@@ -92,7 +93,16 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
         }
 
         // Otherwise trust the user. ¯\_(ツ)_/¯
-        return ['', $link];
+        return ['', $this->makeAbsoluteLink($link)];
+    }
+
+    private function makeAbsoluteLink(string $link): string
+    {
+        if (mb_strpos($link, '://') !== false || mb_substr($link, 0, 2) === '//') {
+            return $link;
+        }
+
+        return Str::ensureStartsWith($link, '/');
     }
 
     private function getContent(string $link): ?Content
