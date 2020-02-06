@@ -46,17 +46,17 @@ import Image from './Image';
 export default {
   name: 'EditorImage',
   components: { 'editor-image': Image },
-  props: [
-    'images',
-    'directory',
-    'name',
-    'filelist',
-    'csrfToken',
-    'labels',
-    'extensions',
-    'attributesLink',
-    'limit',
-  ],
+  props: {
+    images: Array,
+    directory: String,
+    name: String,
+    filelist: String,
+    csrfToken: String,
+    labels: Object,
+    extensions: Array,
+    attributesLink: String,
+    limit: Number,
+  },
   data: function() {
     let counter = 0;
     let containerImages = this.images;
