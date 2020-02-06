@@ -15,6 +15,7 @@
         :required='{{ required|json_encode }}'
         :readonly='{{ readonly|json_encode }}'
         :errormessage='{{ errormessage|json_encode }}'
+        :pattern='{{ pattern|json_encode }}'
         :labels="{{ {
             'content_url': 'editor_embed.content_url'|trans,
             'placeholder_content_url': 'editor_embed.placeholder_content_url'|trans,
