@@ -44,17 +44,17 @@ import File from './File';
 export default {
   name: 'EditorFile',
   components: { 'editor-file': File },
-  props: [
-    'files',
-    'directory',
-    'name',
-    'filelist',
-    'csrfToken',
-    'labels',
-    'extensions',
-    'attributesLink',
-    'limit',
-  ],
+  props: {
+    files: Array,
+    directory: String,
+    name: String,
+    filelist: String,
+    csrfToken: String,
+    labels: Object,
+    extensions: Array,
+    attributesLink: String,
+    limit: Number,
+  },
   data: function() {
     let counter = 0;
     let containerFiles = this.files;
