@@ -11,6 +11,7 @@
         :required="required == 1"
         :readonly="readonly"
         :data-errormessage="errormessage"
+        :pattern="pattern"
         autocomplete="new-password"
         @input="measureStrength"
       />
@@ -49,6 +50,7 @@ export default {
     required: Number,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+    pattern: String | Boolean,
   },
 
   mounted: function() {
