@@ -40,16 +40,16 @@ export default {
     ProgressBar,
   },
 
-  props: [
-    'value',
-    'name',
-    'id',
-    'hidden',
-    'strength',
-    'required',
-    'readonly',
-    'errormessage',
-  ],
+  props: {
+    value: String,
+    name: String,
+    id: String,
+    hidden: Boolean,
+    strength: Number,
+    required: Number,
+    readonly: Boolean,
+    errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+  },
 
   mounted: function() {
     // this.val = this.$options.filters.strip(this.value);
