@@ -20,16 +20,15 @@ import val from '../mixins/value';
 export default {
   name: 'EditorNumber',
   mixins: [val],
-  props: [
-    'value',
-    'label',
-    'name',
-    'step',
-    'type',
-    'disabled',
-    'required',
-    'readonly',
-    'errormessage',
-  ],
+  props: {
+    value: String,
+    name: String,
+    step: Number,
+    type: String,
+    disabled: Boolean,
+    required: Number,
+    readonly: Boolean,
+    errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+  },
 };
 </script>
