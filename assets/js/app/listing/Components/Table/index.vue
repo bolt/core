@@ -27,7 +27,9 @@ export default {
     draggable: draggable,
     'table-row': Row,
   },
-  props: ['labels'],
+  props: {
+    labels: Object,
+  },
   computed: {
     records: {
       get() {

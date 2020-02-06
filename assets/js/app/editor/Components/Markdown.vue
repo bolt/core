@@ -17,7 +17,10 @@ export default {
   components: {
     VueSimplemde,
   },
-  props: ['value', 'label', 'name'],
+  props: {
+    value: String,
+    name: String,
+  },
   data: () => {
     return {
       val: null,

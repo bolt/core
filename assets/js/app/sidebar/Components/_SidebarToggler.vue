@@ -8,7 +8,11 @@
 <script>
 export default {
   name: 'SidebarFooter',
-  props: ['version', 'aboutLink', 'labels'],
+  props: {
+    version: String,
+    aboutLink: String,
+    labels: Object,
+  },
   computed: {
     slim() {
       return this.$store.getters['general/slimSidebar']

@@ -98,7 +98,11 @@
 <script>
 export default {
   name: 'Actions',
-  props: ['type', 'record', 'labels'],
+  props: {
+    type: String,
+    record: Object,
+    labels: Object,
+  },
   created() {
     // console.log(this.labels);
   },

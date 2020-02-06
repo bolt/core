@@ -77,7 +77,10 @@ export default {
     'row-actions': Actions,
   },
   mixins: [type],
-  props: ['record', 'labels'],
+  props: {
+    record: Object,
+    labels: Object,
+  },
   computed: {
     size() {
       return this.$store.getters['general/getRowSize'];

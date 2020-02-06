@@ -90,6 +90,7 @@ export default {
       required: true,
     },
     errormessage: {
+      type: String | Boolean,
       required: true,
     },
   },

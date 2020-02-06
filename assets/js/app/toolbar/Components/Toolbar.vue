@@ -102,7 +102,12 @@ const tinycolor = require('tinycolor2');
 
 export default {
   name: 'Toolbar',
-  props: ['siteName', 'menu', 'labels', 'backendPrefix'],
+  props: {
+    siteName: String,
+    menu: Array,
+    labels: Object,
+    backendPrefix: RegExp,
+  },
   computed: {
     contrast() {
       const color = tinycolor(this.toolbarColor);

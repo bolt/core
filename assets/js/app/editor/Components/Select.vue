@@ -42,18 +42,18 @@ import Multiselect from 'vue-multiselect';
 export default {
   name: 'EditorSelect',
   components: { Multiselect },
-  props: [
-    'value',
-    'name',
-    'id',
-    'form',
-    'options',
-    'multiple',
-    'taggable',
-    'required',
-    'readonly',
-    'errormessage',
-  ],
+  props: {
+    value: Array | String,
+    name: String,
+    id: String,
+    form: String,
+    options: Array,
+    multiple: Boolean,
+    taggable: Boolean,
+    required: Number,
+    readonly: Boolean,
+    errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+  },
   data: () => {
     return {
       selected: [],

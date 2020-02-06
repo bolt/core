@@ -29,6 +29,10 @@
 <script>
 export default {
   name: 'MetaData',
-  props: ['type', 'size', 'record'],
+  props: {
+    type: String,
+    size: String,
+    record: Object,
+  },
 };
 </script>

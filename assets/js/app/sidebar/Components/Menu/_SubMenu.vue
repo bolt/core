@@ -26,6 +26,8 @@
 <script>
 export default {
   name: 'SubMenu',
-  props: ['item'],
+  props: {
+    item: Object,
+  },
 };
 </script>

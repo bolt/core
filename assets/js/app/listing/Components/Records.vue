@@ -5,7 +5,11 @@
 <script>
 export default {
   name: 'ListingRecords',
-  props: ['type', 'data', 'labels'],
+  props: {
+    type: String,
+    data: Array,
+    labels: Object,
+  },
   created() {
     this.$store.dispatch('general/setType', this.type);
     this.$store.dispatch('listing/setRecords', this.data);

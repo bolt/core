@@ -54,18 +54,17 @@ import field from '../mixins/value';
 export default {
   name: 'EditorSlug',
   mixins: [field],
-  props: [
-    'value',
-    'label',
-    'name',
-    'prefix',
-    'fieldClass',
-    'generate',
-    'labels',
-    'required',
-    'readonly',
-    'errormessage',
-  ],
+  props: {
+    value: String,
+    name: String,
+    prefix: String,
+    fieldClass: String,
+    generate: String,
+    labels: Object,
+    required: Number,
+    readonly: Boolean,
+    errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+  },
   data: () => {
     return {
       edit: false,

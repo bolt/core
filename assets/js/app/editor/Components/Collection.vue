@@ -32,7 +32,23 @@ var uniqid = require('locutus/php/misc/uniqid');
 
 export default {
   name: 'EditorCollection',
-  props: ['templates', 'existingFields', 'labels', 'limit'],
+  props: {
+    templates: {
+      type: Array,
+      required: true,
+    },
+    existingFields: {
+      type: Array,
+    },
+    labels: {
+      type: Object,
+      required: true,
+    },
+    limit: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     let elements = [];
     this.existingFields.forEach(function(field) {
