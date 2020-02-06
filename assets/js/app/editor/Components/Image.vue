@@ -34,6 +34,7 @@
             type="text"
             :placeholder="labels.placeholder_alt_text"
             :readonly="readonly"
+            :pattern="pattern"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -174,6 +175,7 @@ export default {
     isFirstInImagelist: Boolean,
     isLastInImagelist: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+    pattern: String | Boolean,
   },
   data() {
     return {
