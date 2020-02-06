@@ -64,7 +64,9 @@ import type from '../mixins/type';
 export default {
   name: 'ListingFilter',
   mixins: [type],
-  props: ['labels'],
+  props: {
+    labels: Object,
+  },
   computed: {
     size() {
       return this.$store.getters['general/getRowSize'];

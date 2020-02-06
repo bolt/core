@@ -47,7 +47,7 @@ export default {
     limit: {
       type: Number,
       required: true,
-    }
+    },
   },
   data() {
     let elements = [];

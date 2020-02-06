@@ -22,6 +22,6 @@ export default {
     name: String,
     required: Number,
     readonly: Boolean,
-  }
+  },
 };
 </script>

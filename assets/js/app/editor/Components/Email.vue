@@ -21,7 +21,7 @@ export default {
       type: String,
     },
     name: {
-      type: String
+      type: String,
     },
     id: {
       type: String,
@@ -34,7 +34,7 @@ export default {
     },
     errormessage: {
       type: String | Boolean, //string if errormessage is set, and false otherwise
-    }
+    },
   },
 };
 </script>
