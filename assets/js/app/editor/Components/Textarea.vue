@@ -17,6 +17,11 @@ import field from '../mixins/value';
 export default {
   name: 'EditorTextarea',
   mixins: [field],
-  props: ['value', 'label', 'name', 'required', 'readonly'],
+  props: {
+    value: String,
+    name: String,
+    required: Number,
+    readonly: Boolean,
+  }
 };
 </script>
