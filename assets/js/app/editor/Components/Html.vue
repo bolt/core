@@ -18,7 +18,11 @@ export default {
   components: {
     trumbowyg,
   },
-  props: ['value', 'label', 'name'],
+  props: {
+    value: String,
+    label: String,
+    name: String,
+  },
   data: () => {
     return {
       val: null,
