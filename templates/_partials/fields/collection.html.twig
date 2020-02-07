@@ -8,10 +8,7 @@
     {% set limit = field.definition.get('limit')|default(200) %}
 
     {# get the html for all collection field already in the database #}
-    {% set existing_fields = []|json_encode %}
-    {% if field.value is defined %}
-        {% set existing_fields %}{{ macro.generate_collection_fields(field, field.value, false) }}{% endset %}
-    {% endif %}
+    {% set existing_fields %}{{ macro.generate_collection_fields(field, value, false) }}{% endset %}
 
     {# get the html template for the collection fields defined in the field definition #}
     {% set templated_fields = "" %}

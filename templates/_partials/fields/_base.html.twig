@@ -71,7 +71,7 @@
         {% set value = field.defaultValue %}
     {% else %}
         {% set value = field.value|default('') %}
-            {% if value is iterable and field|type != "select" %}
+            {% if value is iterable and field|type != "select" and field|type != "collection" %}
                 {% set value = value|first %}
             {% endif %}
     {% endif %}
