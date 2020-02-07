@@ -142,6 +142,20 @@ class Field implements FieldInterface, TranslatableInterface
     }
 
     /**
+     * Returns the default value option
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        return $this->getDefinition()->get('default', null);
+    }
+
+    public function isNew(): bool
+    {
+        return $this->getId() === null;
+    }
+
+    /**
      * like getValue() but returns single value for single value fields
      *
      * @return array|mixed|null
