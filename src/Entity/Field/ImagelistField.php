@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -42,14 +43,37 @@ class ImagelistField extends Field implements FieldInterface
         return $result;
     }
 
+    public function getDefaultValue(): array
+    {
+        $result = [];
+
+        /** @var ContentType $image */
+        foreach(parent::getDefaultValue() as $key => $image) {
+            $image = $image->toArray();
+            $imageField = new ImageField();
+            $imageField->setName((string) $key);
+            $imageField->setValue($image);
+            $result[] = $imageField;
+        }
+
+        return $result;
+    }
+
     /**
      * Returns the value, where the contained Image fields are seperately
      * casted to arrays, including the "extras"
      */
     public function getJsonValue()
     {
+        if($this->isNew())
+        {
+            $values = $this->getDefaultValue();
+        } else {
+            $values = $this->getValue();
+        }
+
         return json_encode(array_map(function (ImageField $i) {
             return $i->getValue();
-        }, $this->getValue()));
+        }, $values));
     }
 }
