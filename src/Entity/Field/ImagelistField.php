@@ -47,13 +47,17 @@ class ImagelistField extends Field implements FieldInterface
     {
         $result = [];
 
-        /** @var ContentType $image */
-        foreach(parent::getDefaultValue() as $key => $image) {
-            $image = $image->toArray();
-            $imageField = new ImageField();
-            $imageField->setName((string) $key);
-            $imageField->setValue($image);
-            $result[] = $imageField;
+        $values = parent::getDefaultValue();
+
+        if($values !== null) {
+            /** @var ContentType $image */
+            foreach (parent::getDefaultValue() as $key => $image) {
+                $image = $image->toArray();
+                $imageField = new ImageField();
+                $imageField->setName((string)$key);
+                $imageField->setValue($image);
+                $result[] = $imageField;
+            }
         }
 
         return $result;
