@@ -381,7 +381,6 @@ tests:
 # html - text (65kb) - wysiwyg element.
 # textarea - varchar(32768) - Simple, plain < textarea > field.
 # markdown - varchar(32768) - wysiwyg element, which is parsed as Markdown text.
-# datetime - datetime - date and time selector widget.
 # date - datetime - date selector widget.
 # select - varchar(256) - select with predefined values
 # templateselect - varchar(256) - select with template filenames
@@ -417,7 +416,7 @@ tests:
 # Then, as an example, you could create a ContentType with default fields, with
 # an additional 'image' field.
 #
-#contenttype_abc:
+#contenttypeabc:
 #    name: ContentType Abc
 #    slug: contenttypeabc
 #    fields:
@@ -433,7 +432,7 @@ tests:
 # Alternatively, or additionally, you then can then create a ContentType with
 # default fields, and a 'select' field, and a different 'templateselect' option.
 #
-#contenttype_xyz:
+#contenttypexyz:
 #    name: ContentType Xyz
 #    slug: contenttypexyz
 #    fields:
