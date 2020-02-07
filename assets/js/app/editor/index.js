@@ -45,8 +45,12 @@ Vue.component('editor-set', Set);
 Vue.component('general-language', Language);
 Vue.component('theme-select', ThemeSelect);
 
-new Vue({
-  store,
-  el: '#editor',
-  name: 'BoltEditor',
-});
+const id = 'editor';
+
+if(document.getElementById(id)) {
+  new Vue({
+    store,
+    el: '#'+id,
+    name: 'BoltEditor',
+  });
+}
