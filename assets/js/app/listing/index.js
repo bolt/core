@@ -14,15 +14,18 @@ import SelectBox from './Components/SelectBox';
 /**
  * Register Components
  */
+const id = 'listing';
 
-new Vue({
-  store,
-  el: '#listing',
-  name: 'BoltListing',
-  components: {
-    'listing-records': Records,
-    'listing-filter': Filter,
-    'listing-table': Table,
-    'listing-select-box': SelectBox,
-  },
-});
+if (document.getElementById(id)) {
+  new Vue({
+    store,
+    el: '#' + id,
+    name: 'BoltListing',
+    components: {
+      'listing-records': Records,
+      'listing-filter': Filter,
+      'listing-table': Table,
+      'listing-select-box': SelectBox,
+    },
+  });
+}
