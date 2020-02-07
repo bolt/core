@@ -12,6 +12,7 @@
         :readonly="readonly"
         :data-errormessage="errormessage"
         :pattern="pattern"
+        :placeholder="placeholder"
         autocomplete="new-password"
         @input="measureStrength"
       />
@@ -51,6 +52,7 @@ export default {
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
+    placeholder: String | Boolean,
   },
 
   mounted: function() {

@@ -11,6 +11,7 @@
       :readonly="readonly"
       :data-errormessage="errormessage"
       :pattern="pattern"
+      :placeholder="placeholder"
     />
   </div>
 </template>
@@ -31,6 +32,7 @@ export default {
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
+    placeholder: String | Boolean,
   },
 };
 </script>

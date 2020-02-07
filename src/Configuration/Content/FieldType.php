@@ -34,7 +34,7 @@ class FieldType extends Collection
             'mode' => '',
             'postfix' => '',
             'prefix' => '',
-            'placeholder' => '',
+            'placeholder' => false,
             'sort' => '',
             'default' => null,
             'allow_twig' => false,

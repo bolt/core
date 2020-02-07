@@ -10,6 +10,7 @@
       :readonly="readonly"
       :data-errormessage="errormessage"
       :pattern="pattern"
+      :placeholder="placeholder"
     />
   </div>
 </template>
@@ -39,6 +40,7 @@ export default {
     pattern: {
       type: String | Boolean,
     },
+    placeholder: String | Boolean,
   },
 };
 </script>
