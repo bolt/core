@@ -130,8 +130,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function get($key)
     {
-        if($this->isNew() && $this->getDefaultValue() !== null)
-        {
+        if ($this->isNew() && $this->getDefaultValue() !== null) {
             return $this->getDefaultValue()->get($key);
         }
 
@@ -148,7 +147,6 @@ class Field implements FieldInterface, TranslatableInterface
 
     /**
      * Returns the default value option
-     * @return mixed
      */
     public function getDefaultValue()
     {

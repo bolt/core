@@ -49,12 +49,12 @@ class ImagelistField extends Field implements FieldInterface
 
         $values = parent::getDefaultValue();
 
-        if($values !== null) {
+        if ($values !== null) {
             /** @var ContentType $image */
             foreach (parent::getDefaultValue() as $key => $image) {
                 $image = $image->toArray();
                 $imageField = new ImageField();
-                $imageField->setName((string)$key);
+                $imageField->setName((string) $key);
                 $imageField->setValue($image);
                 $result[] = $imageField;
             }
@@ -69,8 +69,7 @@ class ImagelistField extends Field implements FieldInterface
      */
     public function getJsonValue()
     {
-        if($this->isNew())
-        {
+        if ($this->isNew()) {
             $values = $this->getDefaultValue();
         } else {
             $values = $this->getValue();

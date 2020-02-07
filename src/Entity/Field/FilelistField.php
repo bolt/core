@@ -49,12 +49,12 @@ class FilelistField extends Field implements FieldInterface
 
         $values = parent::getDefaultValue();
 
-        if($values !== null) {
+        if ($values !== null) {
             /** @var ContentType $file */
             foreach (parent::getDefaultValue() as $key => $file) {
                 $file = $file->toArray();
                 $fileField = new FileField();
-                $fileField->setName((string)$key);
+                $fileField->setName((string) $key);
                 $fileField->setValue($file);
                 $result[] = $fileField;
             }
@@ -69,8 +69,7 @@ class FilelistField extends Field implements FieldInterface
      */
     public function getJsonValue()
     {
-        if($this->isNew())
-        {
+        if ($this->isNew()) {
             $values = $this->getDefaultValue();
         } else {
             $values = $this->getValue();

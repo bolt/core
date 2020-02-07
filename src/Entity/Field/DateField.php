@@ -19,8 +19,7 @@ class DateField extends Field implements FieldInterface
     {
         $default = parent::getDefaultValue();
 
-        if($default !== null)
-        {
+        if ($default !== null) {
             // Flatpickr asks for milliseconds, strtotime returns unix timestmap in seconds
             return strtotime($default) * 1000;
         }
