@@ -53,7 +53,7 @@ class FilelistField extends Field implements FieldInterface
             /** @var ContentType $file */
             foreach (parent::getDefaultValue() as $key => $file) {
                 $file = $file->toArray();
-                $fileField = new ImageField();
+                $fileField = new FileField();
                 $fileField->setName((string)$key);
                 $fileField->setValue($file);
                 $result[] = $fileField;
