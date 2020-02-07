@@ -9,6 +9,7 @@
       :required="required == 1"
       :readonly="readonly"
       :data-errormessage="errormessage"
+      :pattern="pattern"
     />
   </div>
 </template>
@@ -34,6 +35,9 @@ export default {
     },
     errormessage: {
       type: String | Boolean, //string if errormessage is set, and false otherwise
+    },
+    pattern: {
+      type: String | Boolean,
     },
   },
 };

@@ -7,6 +7,8 @@
       rows="10"
       :required="required == 1"
       :readonly="readonly"
+      :data-errormessage="errormessage"
+      :pattern="pattern"
     ></textarea>
   </div>
 </template>
@@ -22,6 +24,8 @@ export default {
     name: String,
     required: Number,
     readonly: Boolean,
+    errormessage: String,
+    pattern: String | Boolean,
   },
 };
 </script>

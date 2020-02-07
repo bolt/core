@@ -11,6 +11,7 @@
         :readonly='{{ readonly|json_encode }}'
         :generate='{{ field.slugUseFields|join(',')|json_encode }}'
         :errormessage='{{ errormessage|json_encode }}'
+        :pattern='{{ pattern|json_encode }}'
         :labels='{{ {
             'button_unlocked': 'slug.button_unlocked'|trans,
             'button_locked': 'slug.button_locked'|trans,

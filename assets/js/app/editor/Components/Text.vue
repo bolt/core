@@ -12,6 +12,7 @@
       :required="required == 1"
       :readonly="readonly == true"
       :data-errormessage="errormessage"
+      :pattern="pattern"
     />
   </div>
 </template>
@@ -31,6 +32,7 @@ export default {
     required: Number,
     readonly: Boolean,
     errormessage: String | Boolean,
+    pattern: String | Boolean,
   },
   data: () => {
     return {

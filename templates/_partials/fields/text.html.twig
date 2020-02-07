@@ -21,6 +21,7 @@
             :required='{{ required|json_encode }}'
             :readonly='{{ readonly|json_encode }}'
             :errormessage='{{ errormessage|json_encode }}'
+            :pattern='{{ pattern|json_encode }}'
         ></editor-text>
     {% else %}
         <span

@@ -35,6 +35,7 @@
             :placeholder="labels.placeholder_title"
             :required="required == 1"
             :readonly="readonly"
+            :pattern="pattern"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -161,6 +162,7 @@ export default {
     required: Number,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+    pattern: String | Boolean,
   },
   data() {
     return {
