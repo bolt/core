@@ -6,7 +6,6 @@
       class="form-control"
       :class="getType"
       :name="name"
-      placeholder="…"
       type="text"
       :disabled="disabled == 1"
       :required="required == 1"

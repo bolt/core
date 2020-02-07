@@ -4,7 +4,6 @@
       v-model="val"
       :name="name"
       class="form-control"
-      placeholder="…"
       type="number"
       :step="step"
       :required="required == 1"

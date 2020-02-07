@@ -200,7 +200,7 @@ export default {
       return this.extensions.map(ext => '.' + ext).join();
     },
     getPlaceholder() {
-      if(this.placeholder){
+      if (this.placeholder) {
         return this.placeholder;
       }
 
