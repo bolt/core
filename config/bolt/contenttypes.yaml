@@ -232,7 +232,7 @@ showcases:
             postfix: "Select your favourite turtle(s)."
         selectentry:
             type: select
-            values: entries/id,title
+            values: entries/{title} (№ {id}, {status})
             postfix: "Select an entry"
             autocomplete: true
             sort: title
