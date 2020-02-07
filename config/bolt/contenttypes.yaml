@@ -325,6 +325,7 @@ tests:
             type: text
             class: large
             group: content
+            default: "Title of a test contenttype"
         slug:
             type: slug
             uses: title
@@ -345,6 +346,8 @@ tests:
         image:
             type: image
             postfix: An image, actually _named_ image.
+            default:
+                filename: "foal.jpg"
         picture:
             type: image
             postfix: An image, named differently.
