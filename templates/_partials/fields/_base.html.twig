@@ -67,7 +67,7 @@
 
 {# Set the value #}
 {% if not value|default %}
-    {% if field.isNew|default(true) and field.defaultValue|default(null) is not null %}
+    {% if field.isNew|default and field.defaultValue|default(null) is not null %}
         {% set value = field.defaultValue %}
     {% else %}
         {% set value = field.value|default('') %}

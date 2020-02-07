@@ -130,16 +130,16 @@ export default {
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
   },
-  data: () => {
+  data(){
     return {
-      authorurlData: null,
-      authornameData: null,
-      heightData: null,
-      htmlData: null,
-      thumbnailData: null,
-      titleData: null,
-      urlData: null,
-      widthData: null,
+      authorurlData: this.authorurl,
+      authornameData: this.authorname,
+      heightData: this.height,
+      htmlData: this.html,
+      thumbnailData: this.thumbnail,
+      titleData: this.title,
+      urlData: this.url,
+      widthData: this.width,
     };
   },
   watch: {

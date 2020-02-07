@@ -130,6 +130,11 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function get($key)
     {
+        if($this->isNew() && $this->getDefaultValue() !== null)
+        {
+            return $this->getDefaultValue()->get($key);
+        }
+
         return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->get($key);
     }
 
@@ -152,7 +157,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function isNew(): bool
     {
-        return $this->getId() === null;
+        return $this->getId() === 0;
     }
 
     /**
