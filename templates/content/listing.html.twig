@@ -132,6 +132,10 @@
         </div>
         <div class="card-body">
 
+        {% if contentType.description %}
+            <p>{{ contentType.description }}</p>
+        {% endif %}
+
         <ul class="px-2">
             <li>Name: <code>{{ contentType.name }}</code> (singular: <code>{{ contentType.singular_name }}</code>)</li>
             <li>Slug: <code>{{ contentType.slug }}</code> (singular: <code>{{ contentType.singular_slug }}</code>)</li>
