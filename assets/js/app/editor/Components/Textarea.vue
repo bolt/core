@@ -24,7 +24,7 @@ export default {
     name: String,
     required: Number,
     readonly: Boolean,
-    errormessage: String,
+    errormessage: String | Boolean,
     pattern: String | Boolean,
   },
 };
