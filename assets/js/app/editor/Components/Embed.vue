@@ -130,7 +130,7 @@ export default {
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
   },
-  data(){
+  data() {
     return {
       authorurlData: this.authorurl,
       authornameData: this.authorname,
@@ -155,7 +155,7 @@ export default {
   },
   created: function() {
     this.debouncedFetchEmbed = _.debounce(this.fetchEmbed, 500);
-    if(this.url) {
+    if (this.url) {
       this.debouncedFetchEmbed();
     }
     this.previewImage = this.thumbnail;
