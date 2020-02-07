@@ -155,6 +155,9 @@ export default {
   },
   created: function() {
     this.debouncedFetchEmbed = _.debounce(this.fetchEmbed, 500);
+    if(this.url) {
+      this.debouncedFetchEmbed();
+    }
     this.previewImage = this.thumbnail;
   },
   updated() {
