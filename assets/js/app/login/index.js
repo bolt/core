@@ -7,9 +7,9 @@ Vue.component('editor-text', Text);
 
 const id = 'login-form';
 
-if(document.getElementById(id)) {
+if (document.getElementById(id)) {
   new Vue({
-    el: '#'+id,
+    el: '#' + id,
     name: 'BoltLogin',
     components: {
       'editor-text': Text,

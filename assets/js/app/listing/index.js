@@ -16,10 +16,10 @@ import SelectBox from './Components/SelectBox';
  */
 const id = 'listing';
 
-if(document.getElementById(id)) {
+if (document.getElementById(id)) {
   new Vue({
     store,
-    el: '#'+id,
+    el: '#' + id,
     name: 'BoltListing',
     components: {
       'listing-records': Records,
