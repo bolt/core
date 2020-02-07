@@ -4,13 +4,13 @@
       v-model="val"
       :name="name"
       class="form-control"
-      placeholder="…"
       type="number"
       :step="step"
       :required="required == 1"
       :readonly="readonly"
       :data-errormessage="errormessage"
       :pattern="pattern"
+      :placeholder="placeholder"
     />
   </div>
 </template>
@@ -31,6 +31,7 @@ export default {
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
+    placeholder: String | Boolean,
   },
 };
 </script>

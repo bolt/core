@@ -21,7 +21,6 @@ homepage:
                 in the webbrowser, edit <code>sitename:</code> in the configuration file.
         image:
             type: image
-            placeholder: https://source.unsplash.com/1920x640/?cityscape,landscape,nature/__random__
         teaser:
             type: html
             localize: true
@@ -171,6 +170,7 @@ showcases:
             required: true
             pattern: ".{2,255}" # see: http://html5pattern.com/
             error: "The Title field is required, and must contain at least 2 characters"
+            placeholder: "Placeholder for the title"
             group: Text
         slug:
             type: slug

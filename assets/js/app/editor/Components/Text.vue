@@ -6,13 +6,13 @@
       class="form-control"
       :class="getType"
       :name="name"
-      placeholder="…"
       type="text"
       :disabled="disabled == 1"
       :required="required == 1"
       :readonly="readonly == true"
       :data-errormessage="errormessage"
       :pattern="pattern"
+      :placeholder="placeholder"
     />
   </div>
 </template>
@@ -33,6 +33,7 @@ export default {
     readonly: Boolean,
     errormessage: String | Boolean,
     pattern: String | Boolean,
+    placeholder: String | Boolean,
   },
   data: () => {
     return {

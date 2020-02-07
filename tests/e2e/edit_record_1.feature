@@ -265,6 +265,13 @@ Feature: Edit record
     Then I should see 1 "hr" elements in the "#field-html-html" element
 
   @javascript
+  Scenario: As an Admin I want to see placeholder on new content
+    Given I am logged in as "admin"
+    And I am on "/bolt/new/showcases"
+
+    Then the "fields[title]" field should have "placeholder='Placeholder for the title'" attribute
+
+  @javascript
   Scenario: As an Admin, I want to reset an image field
     Given I am logged in as "admin"
     And I am on "/bolt/edit/40"

@@ -32,10 +32,10 @@
             class="form-control"
             :name="name + '[title]'"
             type="text"
-            :placeholder="labels.placeholder_title"
             :required="required == 1"
             :readonly="readonly"
             :pattern="pattern"
+            :placeholder="getPlaceholder"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -164,6 +164,7 @@ export default {
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
+    placeholder: String | Boolean,
   },
   data() {
     return {
@@ -183,6 +184,13 @@ export default {
     },
     acceptedExtensions() {
       return this.extensions.map(ext => '.' + ext).join();
+    },
+    getPlaceholder() {
+      if (this.placeholder) {
+        return this.placeholder;
+      }
+
+      return this.labels.placeholder_title;
     },
   },
   methods: {

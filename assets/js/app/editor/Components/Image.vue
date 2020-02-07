@@ -32,9 +32,9 @@
             class="form-control"
             :name="name + '[alt]'"
             type="text"
-            :placeholder="labels.placeholder_alt_text"
             :readonly="readonly"
             :pattern="pattern"
+            :placeholder="getPlaceholder"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -176,6 +176,7 @@ export default {
     isLastInImagelist: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
+    placeholder: String | Boolean,
   },
   data() {
     return {
@@ -197,6 +198,13 @@ export default {
     },
     acceptedExtensions() {
       return this.extensions.map(ext => '.' + ext).join();
+    },
+    getPlaceholder() {
+      if (this.placeholder) {
+        return this.placeholder;
+      }
+
+      return this.labels.placeholder_alt_text;
     },
   },
   mounted() {

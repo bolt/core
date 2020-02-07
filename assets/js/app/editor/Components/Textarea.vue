@@ -9,6 +9,7 @@
       :readonly="readonly"
       :data-errormessage="errormessage"
       :pattern="pattern"
+      :placeholder="placeholder"
     ></textarea>
   </div>
 </template>
@@ -26,6 +27,7 @@ export default {
     readonly: Boolean,
     errormessage: String | Boolean,
     pattern: String | Boolean,
+    placeholder: String | Boolean,
   },
 };
 </script>
