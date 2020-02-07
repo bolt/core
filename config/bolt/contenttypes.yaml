@@ -387,7 +387,7 @@ tests:
 # templateselect - varchar(256) - select with template filenames
 # checkbox - integer - checkbox-field which is 1 (checked) or 0 (unchecked)
 # set - text (65kb) - Input type for sests. Group fields semantically into a combined set field.
-# Collection - text (65kb) - Input type for collections. Add multiple fields of different types. Useful for lists.
+# collection - text (65kb) - Input type for collections. Add multiple fields of different types. Useful for lists.
 
 # Using YAML repeated nodes
 #
