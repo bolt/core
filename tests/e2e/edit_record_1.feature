@@ -278,3 +278,22 @@ Feature: Edit record
     When I press the 1st "Remove" button
     Then the "fields[image][filename]" field should contain ""
     And the "fields[image][alt]" field should contain ""
+
+  @javascript
+  Scenario: As an Admin, I want to see default values on new content
+    Given I am logged in as "admin"
+    And I am on "/bolt"
+
+    When I hover over the "Tests" element
+    And I follow "New Test"
+
+    Then I should be on "/bolt/new/tests"
+
+    And the "fields[title]" field should contain "Title of a test contenttype"
+    And the "fields[image][filename]" field should contain "foal.jpg"
+
+    When I scroll "Save changes" into view
+    And I press "Save changes"
+
+    Then the "fields[title]" field should contain "Title of a test contenttype"
+    And the "fields[image][filename]" field should contain "foal.jpg"

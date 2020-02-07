@@ -148,6 +148,7 @@ export default {
   mixins: [field],
   props: {
     name: String,
+    filename: String,
     title: String,
     directory: String,
     media: String,

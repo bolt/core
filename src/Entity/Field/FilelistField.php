@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -42,14 +43,40 @@ class FilelistField extends Field implements FieldInterface
         return $result;
     }
 
+    public function getDefaultValue(): array
+    {
+        $result = [];
+
+        $values = parent::getDefaultValue();
+
+        if ($values !== null) {
+            /** @var ContentType $file */
+            foreach (parent::getDefaultValue() as $key => $file) {
+                $file = $file->toArray();
+                $fileField = new FileField();
+                $fileField->setName((string) $key);
+                $fileField->setValue($file);
+                $result[] = $fileField;
+            }
+        }
+
+        return $result;
+    }
+
     /**
      * Returns the value, where the contained Image fields are seperately
      * casted to arrays, including the "extras"
      */
     public function getJsonValue()
     {
+        if ($this->isNew()) {
+            $values = $this->getDefaultValue();
+        } else {
+            $values = $this->getValue();
+        }
+
         return json_encode(array_map(function (FileField $i) {
             return $i->getValue();
-        }, $this->getValue()));
+        }, $values));
     }
 }

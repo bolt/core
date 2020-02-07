@@ -130,6 +130,10 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function get($key)
     {
+        if ($this->isNew() && $this->getDefaultValue() !== null) {
+            return $this->getDefaultValue()->get($key);
+        }
+
         return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->get($key);
     }
 
@@ -139,6 +143,19 @@ class Field implements FieldInterface, TranslatableInterface
     public function getValue(): ?array
     {
         return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->getValue();
+    }
+
+    /**
+     * Returns the default value option
+     */
+    public function getDefaultValue()
+    {
+        return $this->getDefinition()->get('default', null);
+    }
+
+    public function isNew(): bool
+    {
+        return $this->getId() === 0;
     }
 
     /**

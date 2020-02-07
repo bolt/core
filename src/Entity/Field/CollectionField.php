@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity\Field;
 
 use ArrayIterator;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
@@ -61,5 +62,28 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         });
 
         return $fields->toArray();
+    }
+
+    public function getDefaultValue()
+    {
+        $default = parent::getDefaultValue();
+
+        if ($default === null) {
+            return [];
+        }
+
+        $result = [];
+
+        /** @var ContentType $type */
+        foreach ($default as $type => $type) {
+            $value = $type->toArray()['default'];
+            $name = $type->toArray()['field'];
+            $definition = $this->getDefinition()->get('fields')[$name];
+            $field = FieldRepository::factory($definition, $name);
+            $field->setValue($value);
+            $result[] = $field;
+        }
+
+        return $result;
     }
 }
