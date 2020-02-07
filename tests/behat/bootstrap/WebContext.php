@@ -10,6 +10,7 @@ use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\WebAssert;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\MinkExtension\Context\RawMinkContext;
+use SimpleXMLElement;
 
 /**
  * Defines steps for web tests.
@@ -326,6 +327,32 @@ trait WebContext
         if(preg_match($regex, $actual)) {
             throw new ExpectationException($message, $this->getSession()->getDriver());
         }
+    }
+
+    /**
+     * @Then /^the "([^"]*)" field should have "([^"]*)" attribute$/
+     * @throws ExpectationException
+     */
+    public function theFieldShouldHaveAttribute($selector, $attribute)
+    {
+        $element = $this->findElement($selector);
+
+        $atts_array = current((array) new SimpleXMLElement("<element $attribute />"));
+
+        $name = array_key_first($atts_array);
+        $value = $atts_array[$name];
+
+        if(! $element->hasAttribute($name))
+        {
+            $message = sprintf('The field "%s" has no attribute "%s"', $selector, $attribute);
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        } else if ($element->getAttribute($name) !== $value)
+        {
+            $message = sprintf('The field "%s" has attribute "%s" with value "%s", but "%s" expected',
+                $selector, $name, $element->getAttribute($name), $value);
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+
     }
 
     private function findAllElements($selector, $parent = null)
