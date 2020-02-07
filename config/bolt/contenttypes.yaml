@@ -163,6 +163,7 @@ showcases:
     slug: showcases
     singular_name: Showcase
     singular_slug: showcase
+    description: The 'Showcases' is not particularly useful in most cases, but it does a good job of showcasing most of the available fieldtypes.
     fields:
         title:
             type: text
