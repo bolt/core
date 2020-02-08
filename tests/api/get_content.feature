@@ -45,7 +45,7 @@ Feature: Get content with API
 
   @api
   Scenario: As a user I fetch single content
-    When I send a GET request to "/api/contents/1.json"
+    When I send a GET request to "/api/contents/2.json"
     Then the response status code should be 200
     And the response should be in JSON
     And the response should contain json:
