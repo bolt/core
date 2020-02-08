@@ -81,7 +81,6 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertSame('Title', $config['homepage']['fields']['title']['label']);
         $this->assertSame('text', $config['homepage']['fields']['title']['type']);
         $this->assertTrue($config['homepage']['fields']['title']['localize']);
-        $this->assertTrue($config['homepage']['viewless']);
         $this->assertTrue($config['homepage']['singleton']);
         $this->assertSame('published', $config['homepage']['default_status']);
         $this->assertSame('fa-home', $config['homepage']['icon_many']);
