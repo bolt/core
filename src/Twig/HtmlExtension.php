@@ -6,6 +6,7 @@ namespace Bolt\Twig;
 
 use Bolt\Canonical;
 use Bolt\Common\Str;
+use Bolt\Utils\Html;
 use Bolt\Utils\Markdown;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -41,6 +42,7 @@ class HtmlExtension extends AbstractExtension
             new TwigFunction('canonical', [$this, 'canonical']),
             new TwigFunction('markdown', [$this, 'markdown'], $safe),
             new TwigFunction('redirect', [$this, 'redirect']),
+            new TwigFunction('absolute_link', [$this, 'absoluteLink']),
         ];
     }
 
@@ -88,5 +90,15 @@ class HtmlExtension extends AbstractExtension
     {
         header("Location: ${path}");
         exit();
+    }
+
+    /**
+     * Use relative_path to create a proper link to either a relative page, or
+     * to an external source. In the below example, the editor can provide
+     * either page/about, or https://boltcms.io, and both will work
+     */
+    public function absoluteLink(string $link): string
+    {
+        return Html::makeAbsoluteLink($link);
     }
 }

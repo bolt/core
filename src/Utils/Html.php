@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Utils;
 
+use Bolt\Common\Str;
+
 class Html
 {
     /**
@@ -130,5 +132,14 @@ class Html
         $link .= strip_tags($providedby[1]) . '</a>';
 
         return $link;
+    }
+
+    public static function makeAbsoluteLink(string $link): string
+    {
+        if (mb_strpos($link, '://') !== false || mb_substr($link, 0, 2) === '//') {
+            return $link;
+        }
+
+        return Str::ensureStartsWith($link, '/');
     }
 }

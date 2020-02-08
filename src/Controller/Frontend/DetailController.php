@@ -54,8 +54,8 @@ class DetailController extends TwigAwareController implements FrontendZone
 
         // Update the canonical, with the correct path
         $this->canonical->setPath(null, [
-            'contentTypeSlug' => $record->getContentTypeSingularSlug(),
-            'slugOrId' => $record->getSlug(),
+            'contentTypeSlug' => $record ? $record->getContentTypeSingularSlug() : null,
+            'slugOrId' => $record ? $record->getSlug() : null,
         ]);
 
         return $this->renderSingle($record, $requirePublished);
@@ -84,6 +84,11 @@ class DetailController extends TwigAwareController implements FrontendZone
         // If the content is not 'published' we throw a 404, unless we've overridden it.
         if (($record->getStatus() !== Statuses::PUBLISHED) && $requirePublished) {
             throw new NotFoundHttpException('Content is not published');
+        }
+
+        // If the ContentType is 'viewless' we also throw a 404.
+        if (($record->getDefinition()->get('viewless') === true) && $requirePublished) {
+            throw new NotFoundHttpException('Content is not viewable');
         }
 
         $singularSlug = $record->getContentTypeSingularSlug();

@@ -40,7 +40,7 @@
     {% endapply -%}
 
     {# SECTION 2: LOOPING AND ITERATION - The actual looping is done here. #}
-    {% for name, definition in record.definition.fields|filter(definition => definition.slug not in omittedkeys) %}
+    {% for name, definition in record.definition.fields|filter((definition, name) => definition.slug not in omittedkeys and record.hasField(name)) %}
 
         {% set field = record.field(name) %}
         {% set type = field|type %}
