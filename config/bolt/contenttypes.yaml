@@ -38,7 +38,7 @@ homepage:
             type: slug
             uses: title
             group: meta
-    viewless: true
+    viewless: false
     taxonomy: [ categories, tags, foobars ]
     locales: ['en', 'nl', 'ja', 'nb']
     singleton: true
