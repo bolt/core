@@ -253,7 +253,7 @@ class ContentExtension extends AbstractExtension
 
     public function getLink(Content $content, bool $canonical = false): ?string
     {
-        if ($content->getId() === null) {
+        if ($content->getId() === null || $content->getDefinition()->get('viewless')) {
             return null;
         }
 

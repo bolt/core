@@ -14,7 +14,7 @@ class ContentType extends DeepCollection
         return $this->get($name);
     }
 
-    public static function factory(string $name, Collection $contentTypesConfig): self
+    public static function factory(?string $name, Collection $contentTypesConfig): self
     {
         if ($contentTypesConfig->has($name)) {
             return new self($contentTypesConfig->get($name));
