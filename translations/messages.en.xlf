@@ -2181,5 +2181,11 @@
         <target>Empty</target>
       </segment>
     </unit>
+    <unit id="WeJxw6Z" name="action.update_all">
+      <segment>
+        <source>action.update_all</source>
+        <target>Update all</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
