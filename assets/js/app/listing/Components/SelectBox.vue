@@ -5,7 +5,7 @@
         <span class="is-primary mr-1">{{ selectedCount }}</span>
         <template v-if="selectedCount === 1">{{ singular }}</template>
         <template v-else>{{ plural }}</template>
-        {{ labels.card_header.selected }}
+        {{ labels.selected }}
       </div>
       <div class="card-body">
         <div class="form-group">
@@ -27,11 +27,11 @@
           </multiselect>
         </div>
 
-        <form v-if="selectedAction !== null" :action="postUrl" method="post">
+        <form :action="postUrl" method="post">
           <input type="hidden" name="records" :value="selected" />
           <div class="form-group">
-            <button type="submit" class="btn btn-secondary">
-              {{ selectedAction.value }} all
+            <button type="submit" class="btn btn-secondary" :disabled="selectedAction === null">
+              {{ this.labels.update_all }}
             </button>
           </div>
         </form>
@@ -51,31 +51,31 @@ export default {
     plural: String,
     labels: Object,
   },
-  data: () => {
+  data() {
     return {
       selectedAction: null,
       options: [
         {
           key: 'status/published',
-          value: 'Publish',
+          value: this.labels.status_to_published,
           selected: false,
           class: 'status mr-1 is-published',
         },
         {
           key: 'status/draft',
-          value: 'Draft',
+          value: this.labels.status_to_draft,
           selected: false,
           class: 'status mr-1 is-draft',
         },
         {
           key: 'status/held',
-          value: 'Held',
+          value: this.labels.status_to_held,
           selected: false,
           class: 'status mr-1 is-held',
         },
         {
           key: 'delete',
-          value: 'Delete',
+          value: this.labels.delete,
           selected: false,
           class: 'fas fa-w fa-trash',
         },
