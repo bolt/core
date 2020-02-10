@@ -29,6 +29,7 @@
 
         <form :action="postUrl" method="post">
           <input type="hidden" name="records" :value="selected" />
+          <input type="hidden" name="_csrf_token" :value="csrftoken">
           <div class="form-group">
             <button type="submit" class="btn btn-secondary" :disabled="selectedAction === null">
               {{ this.labels.update_all }}
@@ -50,6 +51,7 @@ export default {
     singular: String,
     plural: String,
     labels: Object,
+    csrftoken: String,
   },
   data() {
     return {

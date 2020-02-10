@@ -37,7 +37,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
      */
     public function status(Request $request, string $status): Response
     {
-//        $this->validateCsrf($request, 'editrecord');
+        $this->validateCsrf($request, 'bulkedit');
         $formData = $request->request->get('records');
         $recordIds = array_map('intval', explode(',', $formData));
 
@@ -60,7 +60,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
      */
     public function delete(Request $request): Response
     {
-//        $this->validateCsrf($request, 'editrecord');
+        $this->validateCsrf($request, 'bulkedit');
         $formData = $request->request->get('records');
         $recordIds = array_map('intval', explode(',', $formData));
 
