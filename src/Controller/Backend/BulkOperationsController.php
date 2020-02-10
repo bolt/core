@@ -28,7 +28,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->csrfTokenManager = $csrfTokenManager;
     }
 
-    public function em():
+    public function em()
     {
         if ($this->em === null) {
             $this->em = $this->getDoctrine()->getManager();
