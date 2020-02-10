@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Tightenco\Collect\Support\Collection;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
 
@@ -134,7 +133,7 @@ class Field implements FieldInterface, TranslatableInterface
         $default = $this->getDefaultValue();
 
         if ($this->isNew() && $default !== null) {
-            if (! $default instanceof Collection) {
+            if (! $default instanceof LaravelCollection) {
                 throw new \RuntimeException('Default value of field ' . $this->getName() . ' is ' . gettype($default)
                     . ' but it should be an array.');
             }
