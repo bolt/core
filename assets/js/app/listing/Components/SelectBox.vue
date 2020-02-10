@@ -18,6 +18,12 @@
             track-by="key"
             :options="options"
           >
+            <template slot="option" slot-scope="props">
+              <span :class="props.option.class"></span>
+              <span>
+                {{ props.option.value }}
+              </span>
+            </template>
           </multiselect>
         </div>
 
@@ -52,8 +58,10 @@ export default {
     return {
       selectedAction: null,
       options: [
-        { key: "delete", value: "Delete", selected: false},
-        { key: "status/published", value: "Publish", selected: false},
+        { key: "status/published", value: "Publish", selected: false, class: "status mr-1 is-published"},
+        { key: "status/draft", value: "Draft", selected: false, class: "status mr-1 is-draft"},
+        { key: "status/held", value: "Held", selected: false, class: "status mr-1 is-held"},
+        { key: "delete", value: "Delete", selected: false, class: "fas fa-w fa-trash"},
       ]
     }
   },
