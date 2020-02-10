@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * @Security("is_granted('ROLE_ADMIN')")
@@ -20,10 +21,14 @@ class BulkOperationsController extends AbstractController implements BackendZone
 {
     use CsrfTrait;
 
-    /** @var \Doctrine\Persistence\ObjectManager */
     private $em = null;
 
-    public function em()
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $this->csrfTokenManager = $csrfTokenManager;
+    }
+
+    public function em():
     {
         if ($this->em === null) {
             $this->em = $this->getDoctrine()->getManager();
@@ -37,7 +42,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
      */
     public function status(Request $request, string $status): Response
     {
-        $this->validateCsrf($request, 'bulkedit');
+        $this->validateCsrf($request, 'batch');
         $formData = $request->request->get('records');
         $recordIds = array_map('intval', explode(',', $formData));
 
@@ -45,7 +50,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
         foreach ($records as $record) {
             $record->setStatus($status);
-            $this->em->persist($record);
+            $this->em()->persist($record);
         }
 
         $this->em()->flush();
@@ -60,7 +65,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
      */
     public function delete(Request $request): Response
     {
-        $this->validateCsrf($request, 'bulkedit');
+        $this->validateCsrf($request, 'batch');
         $formData = $request->request->get('records');
         $recordIds = array_map('intval', explode(',', $formData));
 
