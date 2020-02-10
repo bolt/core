@@ -27,14 +27,12 @@
           </multiselect>
         </div>
 
-        <form
-          v-if="selectedAction !== null"
-          :action="postUrl"
-          method="post"
-        >
-          <input type="hidden" name="records" :value="selected">
+        <form v-if="selectedAction !== null" :action="postUrl" method="post">
+          <input type="hidden" name="records" :value="selected" />
           <div class="form-group">
-            <button type="submit" class="btn btn-secondary">{{ selectedAction.value }} all</button>
+            <button type="submit" class="btn btn-secondary">
+              {{ selectedAction.value }} all
+            </button>
           </div>
         </form>
       </div>
@@ -44,7 +42,6 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
-
 
 export default {
   name: 'ListingSelectedBox',
@@ -58,20 +55,40 @@ export default {
     return {
       selectedAction: null,
       options: [
-        { key: "status/published", value: "Publish", selected: false, class: "status mr-1 is-published"},
-        { key: "status/draft", value: "Draft", selected: false, class: "status mr-1 is-draft"},
-        { key: "status/held", value: "Held", selected: false, class: "status mr-1 is-held"},
-        { key: "delete", value: "Delete", selected: false, class: "fas fa-w fa-trash"},
-      ]
-    }
+        {
+          key: 'status/published',
+          value: 'Publish',
+          selected: false,
+          class: 'status mr-1 is-published',
+        },
+        {
+          key: 'status/draft',
+          value: 'Draft',
+          selected: false,
+          class: 'status mr-1 is-draft',
+        },
+        {
+          key: 'status/held',
+          value: 'Held',
+          selected: false,
+          class: 'status mr-1 is-held',
+        },
+        {
+          key: 'delete',
+          value: 'Delete',
+          selected: false,
+          class: 'fas fa-w fa-trash',
+        },
+      ],
+    };
   },
   computed: {
     postUrl() {
       if (this.selectedAction) {
-        return "/bolt/bulk/" + this.selectedAction.key;
+        return '/bolt/bulk/' + this.selectedAction.key;
       }
 
-      return "";
+      return '';
     },
     selectedCount() {
       return this.$store.getters['selecting/selectedCount'];

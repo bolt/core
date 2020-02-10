@@ -6,11 +6,11 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\CsrfTrait;
 use Bolt\Entity\Content;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -20,16 +20,13 @@ class BulkOperationsController extends AbstractController implements BackendZone
 {
     use CsrfTrait;
 
-    /**
-     * @var \Doctrine\Persistence\ObjectManager
-     */
+    /** @var \Doctrine\Persistence\ObjectManager */
     private $em = null;
 
     public function em()
     {
-        if($this->em === null)
-        {
-            $this->em =  $this->getDoctrine()->getManager();
+        if ($this->em === null) {
+            $this->em = $this->getDoctrine()->getManager();
         }
 
         return $this->em;
@@ -46,8 +43,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
         $records = $this->findRecordsFromIds($recordIds);
 
-        foreach($records as  $record)
-        {
+        foreach ($records as $record) {
             $record->setStatus($status);
             $this->em->persist($record);
         }
@@ -70,8 +66,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
         $records = $this->findRecordsFromIds($recordIds);
 
-        foreach($records as $record)
-        {
+        foreach ($records as $record) {
             $this->em()->remove($record);
         }
 
@@ -86,11 +81,10 @@ class BulkOperationsController extends AbstractController implements BackendZone
     {
         $records = [];
 
-        foreach($ids as $id)
-        {
+        foreach ($ids as $id) {
             try {
                 $records[] = $this->em()->find(Content::class, $id);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
             }
         }
 
