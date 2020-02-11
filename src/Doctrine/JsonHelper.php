@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Doctrine;
 
 use Bolt\Common\Json;
+use Doctrine\DBAL\Driver\PDOConnection;
 use Doctrine\DBAL\Platforms\MariaDb1027Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\MySQL80Platform;
@@ -22,8 +23,7 @@ class JsonHelper
         $platform = $qb->getEntityManager()->getConnection()->getDatabasePlatform();
 
         if ($platform instanceof SqlitePlatform) {
-            // @todo We need to determine somehow if SQLite was loaded with the JSON1 extension.
-            return false;
+            return self::checkSqliteVersion($qb);
         }
 
         // MySQL80Platform is implicitly included with MySQL57Platform
@@ -64,5 +64,20 @@ class JsonHelper
         }
 
         return [$resultWhere, $resultSlug];
+    }
+
+    private static function checkSqliteVersion(QueryBuilder $qb): bool
+    {
+        /** @var PDOConnection $wrapped */
+        $wrapped = $qb->getEntityManager()->getConnection()->getWrappedConnection();
+
+        // If the wrapper doesn't have `getAttribute`, we bail…
+        if (! method_exists($wrapped, 'getAttribute')) {
+            return false;
+        }
+
+        [$client_version] = explode(' - ', $wrapped->getAttribute(\PDO::ATTR_CLIENT_VERSION));
+
+        return version_compare($client_version, '3.9.0') > 0;
     }
 }
