@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
 
@@ -21,6 +24,7 @@ use Twig\Markup;
  *         "normalization_context"={"groups"={"get_field"}}
  *     }
  * })
+ * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
@@ -146,7 +150,23 @@ class Field implements FieldInterface, TranslatableInterface
 
     /**
      * @Groups("get_field")
+     * @SerializedName("value")
      */
+    public function getApiValue()
+    {
+        $result = [];
+
+        foreach($this->getTranslations() as $translation)
+        {
+            $locale = $translation->getLocale();
+            $this->setCurrentLocale($locale);
+            $value = $this->getParsedValue();
+            $result[$locale] = $value;
+        }
+
+        return $result;
+    }
+
     public function getValue(): ?array
     {
         return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->getValue();
