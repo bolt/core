@@ -15,13 +15,15 @@ use Doctrine\ORM\QueryBuilder;
 class JsonHelper
 {
     /**
-     * We're guessing which versions of SQLite support JSON. So far, tests indicate:
+     * We're g̶u̶e̶s̶s̶i̶n̶g̶ doing empirical research on which versions of SQLite
+     * support JSON. So far, tests indicate:
      * - 3.20.1 - Not OK (Travis PHP 7.2)
+     * - 3.27.2 - OK (Bob's Raspberry Pi, running PHP 7.3.11 on Raspbian)
      * - 3.28.0 - OK (Travis PHP 7.3)
      * - 3.29.0 - OK (MacOS Mojave)
      * - 3.30.1 - OK (MacOS Catalina)
      */
-    public const SQLITE_WITH_JSON = '3.28.0';
+    public const SQLITE_WITH_JSON = '3.27.2';
 
     /**
      * Because Mysql 5.6 and Sqlite handle values in JSON differently, we
