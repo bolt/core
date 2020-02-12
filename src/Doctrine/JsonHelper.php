@@ -23,7 +23,8 @@ class JsonHelper
         $platform = $qb->getEntityManager()->getConnection()->getDatabasePlatform();
 
         if ($platform instanceof SqlitePlatform) {
-            return self::checkSqliteVersion($qb);
+//            dump(self::checkSqliteVersion($qb));
+            return false;
         }
 
         // MySQL80Platform is implicitly included with MySQL57Platform
