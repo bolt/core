@@ -71,5 +71,6 @@ script:
   - make behat-api-quiet
   # run JS e2e tests
   - ./run_behat_tests.sh && make behat-js-quiet
-  # Upload Behat screenshots to IMGUR
-  - ./vendor/bin/upload-screenshots "var/log/behat-reports/*.png"
+  # Upload Behat logs
+  - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
+
