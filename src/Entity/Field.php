@@ -154,10 +154,14 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public function getApiValue()
     {
+        if(! $this->isTranslatable())
+        {
+            return $this->getParsedValue();
+        }
+
         $result = [];
 
-        foreach($this->getTranslations() as $translation)
-        {
+        foreach ($this->getTranslations() as $translation) {
             $locale = $translation->getLocale();
             $this->setCurrentLocale($locale);
             $value = $this->getParsedValue();
