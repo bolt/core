@@ -154,8 +154,7 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public function getApiValue()
     {
-        if(! $this->isTranslatable())
-        {
+        if (! $this->isTranslatable()) {
             return $this->getParsedValue();
         }
 
