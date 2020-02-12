@@ -84,11 +84,7 @@ class Widgets
 
     public function renderWidgetsForTarget(string $target, array $params = []): string
     {
-        $widgets = $this->queue->filter(function (WidgetInterface $widget) use ($target) {
-            return $widget->getTarget() === $target;
-        })->sortBy(function (WidgetInterface $widget) {
-            return $widget->getPriority();
-        });
+        $widgets = $this->filteredWidgets($target);
 
         $output = '';
 
@@ -97,6 +93,20 @@ class Widgets
         }
 
         return $output;
+    }
+
+    public function listWidgetsForTarget(string $target): Collection
+    {
+        return $this->filteredWidgets($target);
+    }
+
+    private function filteredWidgets(string $target): Collection
+    {
+        return $this->queue->filter(function (WidgetInterface $widget) use ($target) {
+            return $widget->getTarget() === $target;
+        })->sortBy(function (WidgetInterface $widget) {
+            return $widget->getPriority();
+        });
     }
 
     private function invokeWidget(WidgetInterface $widget, array $params = []): ?string
