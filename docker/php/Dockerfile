@@ -1,7 +1,6 @@
 # https://github.com/docker-library/php/blob/master/7.3/buster/fpm/Dockerfile
 FROM php:7.3-fpm-buster
 
-ENV PATH /path/to/bin/folder:$PATH
 ENV PHP_MEMORYLIMIT 2048M
 ENV PHP_TIMEZONE Europe/Warsaw
 ENV PHP_MAXFILESIZE 100M
@@ -66,8 +65,7 @@ RUN extBuildDeps=" \
     sed -i s'/pm.min_spare_servers = 1/pm.min_spare_servers = 5/' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i s'/pm.max_spare_servers = 3/pm.max_spare_servers = 35/' /usr/local/etc/php-fpm.d/www.conf && \
     echo 'ForwardAgent yes' >> /etc/ssh/ssh_config  && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin —-filename=composer && \
-    mv /usr/local/bin/composer.phar /usr/local/bin/composer && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative && \
     composer clear-cache && \
     mkdir -p /root/.ssh/ && \
