@@ -34,8 +34,8 @@ class GeneralController extends TwigAwareController implements BackendZone
             'installType' => Version::installType(),
             'platform' => $this->doctrineVersion->getPlatform(),
             'php' => PHP_VERSION,
-            'os_name' => php_uname("s"),
-            'os_version' => php_uname("r"),
+            'os_name' => php_uname('s'),
+            'os_version' => php_uname('r'),
         ];
 
         return $this->renderTemplate('@bolt/pages/about.html.twig', $twigVars);
