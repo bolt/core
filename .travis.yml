@@ -27,6 +27,7 @@ before_install:
 
 install:
   - COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
+  - ./bin/console bolt:info
   - nvm install 12.5
   - npm ci
   - mkdir -p ./var/log/e2e-reports/report/features/
@@ -70,3 +71,6 @@ script:
   - make behat-api-quiet
   # run JS e2e tests
   - ./run_behat_tests.sh && make behat-js-quiet
+  # Upload Behat logs
+  - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
+

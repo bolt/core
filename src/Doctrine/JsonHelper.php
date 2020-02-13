@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Doctrine;
 
 use Bolt\Common\Json;
+use Doctrine\DBAL\Driver\PDOConnection;
 use Doctrine\DBAL\Platforms\MariaDb1027Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\MySQL80Platform;
@@ -14,6 +15,17 @@ use Doctrine\ORM\QueryBuilder;
 class JsonHelper
 {
     /**
+     * We're g̶u̶e̶s̶s̶i̶n̶g̶ doing empirical research on which versions of SQLite
+     * support JSON. So far, tests indicate:
+     * - 3.20.1 - Not OK (Travis PHP 7.2)
+     * - 3.27.2 - OK (Bob's Raspberry Pi, running PHP 7.3.11 on Raspbian)
+     * - 3.28.0 - OK (Travis PHP 7.3)
+     * - 3.29.0 - OK (MacOS Mojave)
+     * - 3.30.1 - OK (MacOS Catalina)
+     */
+    public const SQLITE_WITH_JSON = '3.27.2';
+
+    /**
      * Because Mysql 5.6 and Sqlite handle values in JSON differently, we
      * use this method to check if we can use JSON functions directly.
      */
@@ -22,8 +34,7 @@ class JsonHelper
         $platform = $qb->getEntityManager()->getConnection()->getDatabasePlatform();
 
         if ($platform instanceof SqlitePlatform) {
-            // @todo We need to determine somehow if SQLite was loaded with the JSON1 extension.
-            return false;
+            return self::checkSqliteVersion($qb);
         }
 
         // MySQL80Platform is implicitly included with MySQL57Platform
@@ -64,5 +75,20 @@ class JsonHelper
         }
 
         return [$resultWhere, $resultSlug];
+    }
+
+    private static function checkSqliteVersion(QueryBuilder $qb): bool
+    {
+        /** @var PDOConnection $wrapped */
+        $wrapped = $qb->getEntityManager()->getConnection()->getWrappedConnection();
+
+        // If the wrapper doesn't have `getAttribute`, we bail…
+        if (! method_exists($wrapped, 'getAttribute')) {
+            return false;
+        }
+
+        [$client_version] = explode(' - ', $wrapped->getAttribute(\PDO::ATTR_CLIENT_VERSION));
+
+        return version_compare($client_version, self::SQLITE_WITH_JSON) > 0;
     }
 }
