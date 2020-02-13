@@ -15,10 +15,14 @@
 
     <h2>Bolt {{ constant('Bolt\\Version::VERSION') }}<small> - {{ constant('Bolt\\Version::CODENAME') }}</small></h2>
 
+    <p><b>{{ 'about.system_info'|trans }}:</b></p>
     <ul>
         <li>Install type: <code>{{ installType }}</code></li>
         <li>Database: <code>{{ platform.driver_name }} {{ platform.server_version }} <small> - {{ platform.connection_status }}</small> </code></li>
+        <li>PHP version: <code>{{ php }}</code></li>
+        <li>Operating System: <code>{{ os_name }} - <small>{{ os_version }}</small></code></li>
     </ul>
+    <hr>
 
     <p>
         Bolt is a CMS that strives to be simple, fast, straightforward and enjoyable to use. Both for

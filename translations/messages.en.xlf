@@ -2187,5 +2187,11 @@
         <target>Update all</target>
       </segment>
     </unit>
+    <unit id="QVRwwK4" name="about.system_info">
+      <segment>
+        <source>about.system_info</source>
+        <target>System Information</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
