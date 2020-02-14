@@ -6,7 +6,7 @@
         <div v-if="!sorting" class="custom-control custom-checkbox">
           <input
             id="selectAll"
-            v-model="selectAll"
+            :value="selectAll"
             class="custom-control-input"
             type="checkbox"
           />

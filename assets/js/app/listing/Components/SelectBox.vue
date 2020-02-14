@@ -37,7 +37,7 @@
               class="btn btn-secondary"
               :disabled="selectedAction === null"
             >
-              {{ this.labels.update_all }}
+              {{ labels.update_all }}
             </button>
           </div>
         </form>
