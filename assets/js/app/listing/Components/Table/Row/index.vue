@@ -31,7 +31,7 @@
         <a
           class="listing__row--item-title"
           :href="record.extras.editLink"
-          :title="record.fieldValues.slug"
+          :title="slug"
         >
           {{ record.extras.title | trim(62) }}
         </a>
@@ -82,7 +82,17 @@ export default {
     labels: Object,
   },
   computed: {
+    slug() {
+      if (typeof this.record.fieldValues.slug === 'string') {
+        return this.record.fieldValues.slug;
+      }
+      // if slug has different locales, return the 0st one
+      return this.record.fieldValues.slug[
+        Object.keys(this.record.fieldValues.slug)[0]
+      ];
+    },
     size() {
+      console.log(this.record);
       return this.$store.getters['general/getRowSize'];
     },
     sorting() {
