@@ -54,3 +54,18 @@ Feature: Record listing
     When I am on "/pages"
     Then I should see 6 "article" elements
 
+  @javascript
+  Scenario: As an admin I want to see expanded and compact contenttype listing
+    Given I am logged in as "admin"
+    When I am on "/bolt/content/pages"
+    Then I should see an "button[title='Expanded']" element
+    And I should see an "button[title='Compact']" element
+
+    When I press "Compact"
+    And the ".listing__row--item.is-thumbnail" element should not be visible
+    And the ".listing__row--item-title-excerpt" element should not be visible
+    And I wait 3 seconds
+
+    When I press "Expanded"
+    And the ".listing__row--item.is-thumbnail" element should be visible
+    And the ".listing__row--item-title-excerpt" element should be visible

@@ -18,27 +18,29 @@
         </div>
       </li>
 
-      <!-- Compact mode -->
+      <!-- Expanded mode -->
       <li class="control--left">
         <button
           class="control--button"
-          :class="{ 'is-selected': size === 'small' }"
-          @click="changeSize('small')"
+          :class="{ 'is-selected': size === 'normal' }"
+          :title="labels.button_expanded"
+          @click="changeSize('normal')"
         >
           <i class="fas fa-align-justify fa-fw"></i>
-          <span class="sr-only">{{ labels.button_compact }}</span>
+          <span class="sr-only">{{ labels.button_expanded }}</span>
         </button>
       </li>
 
-      <!-- Expanded mode -->
+      <!-- Compact mode -->
       <li>
         <button
           class="control--button"
-          :class="{ 'is-selected': size === 'normal' }"
-          @click="changeSize('normal')"
+          :class="{ 'is-selected': size === 'small' }"
+          :title="labels.button_compact"
+          @click="changeSize('small')"
         >
           <i class="fas fa-grip-lines fa-fw"></i>
-          <span class="sr-only">{{ labels.button_expanded }}</span>
+          <span class="sr-only">{{ labels.button_compact }}</span>
         </button>
       </li>
 
