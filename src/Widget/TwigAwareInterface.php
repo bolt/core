@@ -7,11 +7,11 @@ namespace Bolt\Widget;
 use Twig\Environment;
 
 /**
- * Interface TwigAware - Widgets that make use of a template to render their
+ * Interface TwigAwareInterface - Widgets that make use of a template to render their
  * contents need to implement this interface, in order to access the current
  * Twig\Environment and to render a Twig template.
  */
-interface TwigAware extends WidgetInterface
+interface TwigAwareInterface extends WidgetInterface
 {
     public function setTwig(Environment $twig);
 

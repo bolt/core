@@ -9,7 +9,7 @@ use Bolt\Widget\Injector\QueueProcessor;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\RequestAwareInterface;
 use Bolt\Widget\StopwatchAwareInterface;
-use Bolt\Widget\TwigAware;
+use Bolt\Widget\TwigAwareInterface;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,7 +62,7 @@ class Widgets
 
     public function registerWidget(WidgetInterface $widget): void
     {
-        if ($widget instanceof TwigAware) {
+        if ($widget instanceof TwigAwareInterface) {
             $widget->setTwig($this->twig);
         }
 
