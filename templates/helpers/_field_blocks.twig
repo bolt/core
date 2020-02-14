@@ -81,9 +81,14 @@
         <p><strong>{{ field|label }}</strong>: {{ field ? "checked" : "not checked" }}</p>
     {% endif %}
 
+    {# Embed fields #}
+    {% if type == "embed" %}
+        {{ field.value.responsive_inline|raw }}
+    {% endif %}
+
     {# No special case defined for this type of field. We just output them, if it's
        a simple scalar, and 'dump' them otherwise. #}
-    {% if type in ['datetime', 'date', 'integer', 'float' ] and field is not empty  %}
+    {% if type in ['datetime', 'date', 'integer', 'float'] and field is not empty  %}
         <p><strong>{{ field|label }}: </strong>
             {% if field is iterable %}
                 {{ dump(field) }}
