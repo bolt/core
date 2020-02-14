@@ -7,9 +7,9 @@ namespace Bolt\Tests\Widget;
 use Bolt\Widget\BaseWidget;
 use Bolt\Widget\Injector\AdditionalTarget;
 use Bolt\Widget\Injector\RequestZone;
-use Bolt\Widget\TwigAware;
+use Bolt\Widget\TwigAwareInterface;
 
-class DummyWidget extends BaseWidget implements TwigAware
+class DummyWidget extends BaseWidget implements TwigAwareInterface
 {
     protected $name = 'Dummy Widget';
     protected $target = AdditionalTarget::WIDGET_BACK_DASHBOARD_ASIDE_TOP;

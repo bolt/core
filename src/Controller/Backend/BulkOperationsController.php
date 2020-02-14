@@ -17,7 +17,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class BulkOperationsController extends AbstractController implements BackendZone
+class BulkOperationsController extends AbstractController implements BackendZoneInterface
 {
     use CsrfTrait;
 

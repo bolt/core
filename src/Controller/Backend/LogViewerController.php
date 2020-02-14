@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class LogViewerController extends TwigAwareController implements BackendZone
+class LogViewerController extends TwigAwareController implements BackendZoneInterface
 {
     /**
      * @Route("/logviewer", name="bolt_logviewer", methods={"GET"})

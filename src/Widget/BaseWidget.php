@@ -125,7 +125,7 @@ abstract class BaseWidget implements WidgetInterface
         $params['extension'] = $this->extension;
         $params['widget'] = $this;
 
-        if ($this instanceof TwigAware) {
+        if ($this instanceof TwigAwareInterface) {
             $this->addTwigLoader();
             try {
                 $output = $this->getTwig()->render($this->getTemplate(), $params);

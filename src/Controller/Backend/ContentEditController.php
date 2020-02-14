@@ -38,7 +38,7 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class ContentEditController extends TwigAwareController implements BackendZone
+class ContentEditController extends TwigAwareController implements BackendZoneInterface
 {
     use CsrfTrait;
 
@@ -431,8 +431,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $field->setValue($value);
         }
 
-        // If the Field is MediaAware, link it to an existing Media Entity
-        if ($field instanceof Field\MediaAware) {
+        // If the Field is MediaAwareInterface, link it to an existing Media Entity
+        if ($field instanceof Field\MediaAwareInterface) {
             $field->setLinkedMedia($this->mediaRepository);
         }
     }

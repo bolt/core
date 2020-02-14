@@ -10,7 +10,7 @@ use Bolt\Repository\MediaRepository;
 /**
  * Field that has in excerpt must implement this interface
  */
-interface MediaAware
+interface MediaAwareInterface
 {
     public function getLinkedMedia(MediaRepository $mediaRepository): ?Media;
 

@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @ORM\Entity
  */
-class ImageField extends Field implements FieldInterface, MediaAware
+class ImageField extends Field implements FieldInterface, MediaAwareInterface
 {
     public const TYPE = 'image';
 

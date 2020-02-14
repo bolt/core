@@ -8,7 +8,7 @@ use Bolt\Extension\ExtensionInterface;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
 
-class BoltHeaderWidget implements WidgetInterface, ResponseAware
+class BoltHeaderWidget implements WidgetInterface, ResponseAwareInterface
 {
     use ResponseTrait;
 

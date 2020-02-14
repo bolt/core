@@ -7,10 +7,10 @@ namespace Bolt\Widget;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Interface RequestAware - Widgets that make use of the Request to provide
+ * Interface RequestAwareInterface - Widgets that make use of the Request to provide
  * their functionality need to implement this interface.
  */
-interface RequestAware extends WidgetInterface
+interface RequestAwareInterface extends WidgetInterface
 {
     public function setRequest(Request $request);
 

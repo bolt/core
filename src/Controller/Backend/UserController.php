@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class UserController extends TwigAwareController implements BackendZone
+class UserController extends TwigAwareController implements BackendZoneInterface
 {
     /** @var UserRepository */
     private $users;

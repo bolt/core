@@ -15,7 +15,7 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class FileListingController implements AsyncZone
+class FileListingController implements AsyncZoneInterface
 {
     /** @var Config */
     private $config;

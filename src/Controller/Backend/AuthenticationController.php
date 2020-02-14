@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class AuthenticationController extends TwigAwareController implements BackendZone
+class AuthenticationController extends TwigAwareController implements BackendZoneInterface
 {
     /**
      * @Route("/login", name="bolt_login")

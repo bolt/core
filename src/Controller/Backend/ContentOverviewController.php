@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class ContentOverviewController extends TwigAwareController implements BackendZone
+class ContentOverviewController extends TwigAwareController implements BackendZoneInterface
 {
     /**
      * @Route("/content/{contentType}", name="bolt_content_overview")
