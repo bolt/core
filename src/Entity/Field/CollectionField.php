@@ -13,6 +13,7 @@ use Bolt\Entity\FieldParentTrait;
 use Bolt\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
@@ -58,7 +59,8 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         $fields = new ArrayCollection(iterator_to_array($iterator));
 
         $fields->map(function (Field $field): void {
-            $field->setDefinition($field->getName(), $this->getDefinition()->get('fields')[$field->getName()]);
+            $definition = $this->getDefinition('fields')[$field->getName()] ?? new Collection();
+            $field->setDefinition($field->getName(),$definition);
         });
 
         return $fields->toArray();
