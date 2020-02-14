@@ -177,10 +177,10 @@ Feature: Edit record
     Then I should be on "/bolt/edit/43#sets"
     And I should see "Set" in the "#sets label[for='field-set']" element
 
-    And I should see "Title" in the "#sets label[for='field-title']" element
+    And I should see "Title" in the "#sets label[for='field-set-title']" element
     And I should see exactly one "sets[set][title]" element
 
-    And I should see "Textarea" in the "#sets label[for='field-textarea']" element
+    And I should see "Textarea" in the "#sets label[for='field-set-textarea']" element
     And I should see exactly one "sets[set][textarea]" element
 
     And I fill "sets[set][title]" element with "Foo"
