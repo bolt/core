@@ -7,7 +7,7 @@ namespace Bolt;
 use Bolt\Widget\CacheAwareInterface;
 use Bolt\Widget\Injector\QueueProcessor;
 use Bolt\Widget\Injector\RequestZone;
-use Bolt\Widget\RequestAware;
+use Bolt\Widget\RequestAwareInterface;
 use Bolt\Widget\StopwatchAware;
 use Bolt\Widget\TwigAware;
 use Bolt\Widget\WidgetInterface;
@@ -119,7 +119,7 @@ class Widgets
             $widget->startStopwatch($this->stopwatch);
         }
 
-        if ($widget instanceof RequestAware) {
+        if ($widget instanceof RequestAwareInterface) {
             $widget->setRequest($this->requestStack->getCurrentRequest());
         }
 

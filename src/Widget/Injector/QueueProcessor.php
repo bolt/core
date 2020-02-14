@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Widget\Injector;
 
 use Bolt\Widget\CacheAwareInterface;
-use Bolt\Widget\RequestAware;
+use Bolt\Widget\RequestAwareInterface;
 use Bolt\Widget\ResponseAware;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,7 +51,7 @@ class QueueProcessor
         /** @var WidgetInterface $widget */
         foreach ($queue as $widget) {
             if ($widget->getZone() === $zone || $widget->getZone() === RequestZone::EVERYWHERE) {
-                if ($widget instanceof RequestAware) {
+                if ($widget instanceof RequestAwareInterface) {
                     $widget->setRequest($request);
                 }
                 if ($widget instanceof ResponseAware) {
