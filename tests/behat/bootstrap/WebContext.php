@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\WebAssert;
@@ -92,7 +93,7 @@ trait WebContext
      * @When /^I click "([^"]*)"$/
      * @throws ElementNotFoundException
      */
-    public function iClick($element)
+    public function click($element)
     {
         $this->findElement($element)->click();
     }
@@ -382,7 +383,7 @@ trait WebContext
         return $elements;
     }
 
-    private function findElement($selector)
+    private function findElement($selector): NodeElement
     {
         // by default, look for named selector
         // for documentation on this, check http://mink.behat.org/en/latest/guides/traversing-pages.html#named-selectors
