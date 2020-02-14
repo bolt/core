@@ -8,7 +8,7 @@ use Bolt\Widget\CacheAwareInterface;
 use Bolt\Widget\Injector\QueueProcessor;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\RequestAwareInterface;
-use Bolt\Widget\StopwatchAware;
+use Bolt\Widget\StopwatchAwareInterface;
 use Bolt\Widget\TwigAware;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -115,7 +115,7 @@ class Widgets
             return $this->getRendered($widget);
         }
 
-        if ($widget instanceof StopwatchAware) {
+        if ($widget instanceof StopwatchAwareInterface) {
             $widget->startStopwatch($this->stopwatch);
         }
 
@@ -130,7 +130,7 @@ class Widgets
         // Call the magic `__invoke` method on the $widget object
         $output = $widget($params);
 
-        if ($widget instanceof StopwatchAware) {
+        if ($widget instanceof StopwatchAwareInterface) {
             $widget->stopStopwatch();
         }
 
