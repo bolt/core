@@ -8,7 +8,7 @@ use Bolt\Controller\TwigAwareController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TemplateController extends TwigAwareController implements FrontendZone
+class TemplateController extends TwigAwareController implements FrontendZoneInterface
 {
     /**
      * Render a template. Convenient for when we simply wish to render a template as-is. Used as a
