@@ -46,9 +46,11 @@
         {% set hash = compileTemplates == true ? "{{ hash }}" : loop.index %}
 
         {% set collectionItemName = collectionItemName ~ '[' ~ hash ~ ']' %}
+        {% set id = 'field-' ~ collectionField.name|default('unnamed') ~ '-' ~ item_field.name|default('unnamed') ~ '-' ~ hash %}
         {% set new_field %}
             {% set context = {
                 'field': item_field,
+                'id': id,
                 'in_collection': true,
                 'is_first': loop.index0 == 0,
                 'is_last': loop.index == fields|length,

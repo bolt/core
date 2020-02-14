@@ -177,10 +177,10 @@ Feature: Edit record
     Then I should be on "/bolt/edit/43#sets"
     And I should see "Set" in the "#sets label[for='field-set']" element
 
-    And I should see "Title" in the "#sets label[for='field-title']" element
+    And I should see "Title" in the "#sets label[for='field-set-title']" element
     And I should see exactly one "sets[set][title]" element
 
-    And I should see "Textarea" in the "#sets label[for='field-textarea']" element
+    And I should see "Textarea" in the "#sets label[for='field-set-textarea']" element
     And I should see exactly one "sets[set][textarea]" element
 
     And I fill "sets[set][title]" element with "Foo"
@@ -214,7 +214,7 @@ Feature: Edit record
 
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
-    And I should see "Textarea:" in the "#collections label[for='field-textarea']" element
+    And I should see "Textarea:" in the "#collections label[for='field-collection-textarea-2']" element
 
     And the 1st ".action-move-up-collection-item" button should be disabled
     And the 3rd ".action-move-down-collection-item" button should be disabled
