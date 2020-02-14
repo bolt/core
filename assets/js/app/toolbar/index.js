@@ -11,12 +11,15 @@ import Toolbar from './Components/Toolbar.vue';
 /**
  * Register Components
  */
+const id = 'toolbar';
 
-export default new Vue({
-  store,
-  el: '#toolbar',
-  name: 'BoltToolbar',
-  components: {
-    'admin-toolbar': Toolbar,
-  },
-});
+if (document.getElementById(id)) {
+  new Vue({
+    store,
+    el: '#' + id,
+    name: 'BoltToolbar',
+    components: {
+      'admin-toolbar': Toolbar,
+    },
+  });
+}
