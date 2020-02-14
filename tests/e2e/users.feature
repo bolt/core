@@ -13,7 +13,7 @@ Feature: Users & Permissions
       | Display name |
       | Username / Email |
       | Roles |
-      | Last registered |
+      | Session age |
       | Last IP |
       | Actions |
     And I should see 5 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
@@ -121,7 +121,7 @@ Feature: Users & Permissions
       | columns |
       | # |
       | Username |
-      | Last registered |
+      | Session age |
       | Session expires |
       | IP address |
       | Browser / platform |
