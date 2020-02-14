@@ -22,7 +22,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class ProfileController extends TwigAwareController implements BackendZone
+class ProfileController extends TwigAwareController implements BackendZoneInterface
 {
     use CsrfTrait;
 

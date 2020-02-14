@@ -20,7 +20,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class FilemanagerController extends TwigAwareController implements BackendZone
+class FilemanagerController extends TwigAwareController implements BackendZoneInterface
 {
     /** @var FileLocations */
     private $fileLocations;

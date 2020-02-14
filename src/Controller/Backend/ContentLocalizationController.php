@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class ContentLocalizationController extends TwigAwareController implements BackendZone
+class ContentLocalizationController extends TwigAwareController implements BackendZoneInterface
 {
     /**
      * @Route("/edit_locales/{id}", name="bolt_content_edit_locales", methods={"GET"})

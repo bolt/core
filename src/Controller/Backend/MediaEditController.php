@@ -23,7 +23,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class MediaEditController extends TwigAwareController implements BackendZone
+class MediaEditController extends TwigAwareController implements BackendZoneInterface
 {
     use CsrfTrait;
 

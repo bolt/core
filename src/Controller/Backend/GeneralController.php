@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class GeneralController extends TwigAwareController implements BackendZone
+class GeneralController extends TwigAwareController implements BackendZoneInterface
 {
     /** @var \Bolt\Doctrine\Version */
     private $doctrineVersion;

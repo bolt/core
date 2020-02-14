@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class ExtensionsController extends AbstractController implements BackendZone
+class ExtensionsController extends AbstractController implements BackendZoneInterface
 {
     /** @var ExtensionRegistry */
     private $extensionRegistry;
