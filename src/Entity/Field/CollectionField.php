@@ -59,8 +59,8 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         $fields = new ArrayCollection(iterator_to_array($iterator));
 
         $fields->map(function (Field $field): void {
-            $definition = $this->getDefinition('fields')[$field->getName()] ?? new Collection();
-            $field->setDefinition($field->getName(),$definition);
+            $definition = $this->getDefinition()->get('fields')[$field->getName()] ?? new Collection();
+            $field->setDefinition($field->getName(), $definition);
         });
 
         return $fields->toArray();
