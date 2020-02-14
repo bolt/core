@@ -7,10 +7,10 @@ namespace Bolt\Widget;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Interface ResponseAware - Widgets that make use of the Response to provide
+ * Interface ResponseAwareInterface - Widgets that make use of the Response to provide
  * their functionality need to implement this interface.
  */
-interface ResponseAware extends WidgetInterface
+interface ResponseAwareInterface extends WidgetInterface
 {
     public function setResponse(Response $response);
 

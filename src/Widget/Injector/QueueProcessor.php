@@ -6,7 +6,7 @@ namespace Bolt\Widget\Injector;
 
 use Bolt\Widget\CacheAwareInterface;
 use Bolt\Widget\RequestAwareInterface;
-use Bolt\Widget\ResponseAware;
+use Bolt\Widget\ResponseAwareInterface;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,7 +54,7 @@ class QueueProcessor
                 if ($widget instanceof RequestAwareInterface) {
                     $widget->setRequest($request);
                 }
-                if ($widget instanceof ResponseAware) {
+                if ($widget instanceof ResponseAwareInterface) {
                     $widget->setResponse($response);
                 }
                 if ($widget instanceof CacheAwareInterface) {
