@@ -23,7 +23,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class UploadController implements AsyncZone
+class UploadController implements AsyncZoneInterface
 {
     use CsrfTrait;
 
