@@ -92,7 +92,6 @@ export default {
       ];
     },
     size() {
-      console.log(this.record);
       return this.$store.getters['general/getRowSize'];
     },
     sorting() {
