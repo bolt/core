@@ -7,10 +7,10 @@ namespace Bolt\Widget;
 use Symfony\Contracts\Cache\CacheInterface;
 
 /**
- * Interface CacheAware - Widgets that make use of caching need to implement
+ * Interface CacheAwareInterface - Widgets that make use of caching need to implement
  * this interface, in order to have their contents cached.
  */
-interface CacheAware extends WidgetInterface
+interface CacheAwareInterface extends WidgetInterface
 {
     public function setCache(CacheInterface $config): void;
 }

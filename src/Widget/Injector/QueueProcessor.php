@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Widget\Injector;
 
-use Bolt\Widget\CacheAware;
+use Bolt\Widget\CacheAwareInterface;
 use Bolt\Widget\RequestAware;
 use Bolt\Widget\ResponseAware;
 use Bolt\Widget\WidgetInterface;
@@ -57,7 +57,7 @@ class QueueProcessor
                 if ($widget instanceof ResponseAware) {
                     $widget->setResponse($response);
                 }
-                if ($widget instanceof CacheAware) {
+                if ($widget instanceof CacheAwareInterface) {
                     $widget->setCache($cache);
                 }
                 $this->injector->inject($widget, $response);
