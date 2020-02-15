@@ -122,7 +122,7 @@ class TranslationsManager
             $key = $this->keys[$collectionName][$field->getName()][$orderId];
         }
 
-        if (empty($key or ! is_numeric($key))) {
+        if (empty($key) || ! is_numeric($key)) {
             // if key['value'] is empty or is not numeric (id), we can return.
             return false;
         }
