@@ -27,13 +27,13 @@ class TaxonomyController extends TwigAwareController implements FrontendZoneInte
      *     "/{taxonomyslug}/{slug}",
      *     name="taxonomy",
      *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"},
-     *     methods={"GET"}
+     *     methods={"GET|POST"}
      * )
      * @Route(
      *     "/{_locale}/{taxonomyslug}/{slug}",
      *     name="taxonomy_locale",
      *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%", "_locale": "%app_locales%"},
-     *     methods={"GET"}
+     *     methods={"GET|POST"}
      * )
      */
     public function listing(ContentRepository $contentRepository, Request $request, string $taxonomyslug, string $slug): Response
