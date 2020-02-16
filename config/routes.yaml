@@ -24,27 +24,32 @@ frontend:
 # ------------------------------------------------------------------------------
 # Examples:
 
-#contentlisting:
-#  path: /{contenttypeslug}
-#  defaults:
-#    _controller: Bolt\Controller\Frontend\ListingController::listing
-#  requirements:
-#    contenttypeslug: '%bolt.requirement.pluralcontenttypes%'
+# Use this route to display a record, based on the value of a field. For
+# example, URLs like `/number/12`, where the intent is to display the record
+# from the "entry" ContentType, where the "title" Field is equal to "12".
+#
+# entrybynumber:
+#   path: /number/{value}
+#   defaults:
+#     _controller: Bolt\Controller\Frontend\DetailController::contentByFieldValue
+#     contentTypeSlug: 'entries'
+#     field: 'title'
 
-# Use this route to display a record, based on the value of a field. for example,
-# URLs like `/number/12`, where the intent is to display the record from the
-# "entry" ContentType, where the "title" Field is equal to "12".
-entrybynumber:
-  path: /number/{value}
-  defaults:
-    _controller: Bolt\Controller\Frontend\DetailController::contentByFieldValue
-    contentTypeSlug: 'entries'
-    field: 'title'
+# The following route is already built-in. It's listed here to show an example
+# of how you can require a valid ContentType in the URL.
+#
+# contentlisting:
+#   path: /{contenttypeslug}
+#   defaults:
+#     _controller: Bolt\Controller\Frontend\ListingController::listing
+#   requirements:
+#     contenttypeslug: '%bolt.requirement.pluralcontenttypes%'
 
-# ------------------------------------------------------------------------------
-# last of all, try to find content only by slug (SEO routes) before throwing 404
-content_seo:
-   path: /{slugOrId}
-   methods: [GET]
-   defaults:
-     _controller: Bolt\Controller\Frontend\DetailController::record
+# Use this route to find content only by slug (Like, _very_ basic "SEO" routes)
+# before falling back to a 404 response
+#
+# content_seo:
+#   path: /{slugOrId}
+#   methods: [GET|POST]
+#   defaults:
+#     _controller: Bolt\Controller\Frontend\DetailController::record
