@@ -69,7 +69,7 @@ class ExtensionRegistry
         }
 
         foreach ($this->extensions as $key => $extension) {
-            if (strpos($key, $name) !== false) {
+            if (mb_strpos($key, $name) !== false) {
                 return $extension;
             }
         }
