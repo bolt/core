@@ -17,6 +17,8 @@ use Bolt\Storage\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Handler\LatestQueryHandler;
 use Bolt\Storage\Handler\SelectQueryHandler;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  *  Handler class to convert the DSL for content queries into an
@@ -63,12 +65,16 @@ class ContentQueryParser
     /** @var QueryScopeInterface */
     protected $scope;
 
+    /** @var RequestStack */
+    private $requestStack;
+
     /**
      * Constructor.
      */
-    public function __construct(ContentRepository $repo, ?QueryInterface $queryHandler = null)
+    public function __construct(RequestStack $requestStack, ContentRepository $repo, ?QueryInterface $queryHandler = null)
     {
         $this->repo = $repo;
+        $this->requestStack = $requestStack;
 
         if ($queryHandler !== null) {
             $this->addService('select', $queryHandler);
@@ -426,5 +432,10 @@ class ContentQueryParser
             $key = array_search($operation, $this->operations, true);
             unset($this->operations[$key]);
         }
+    }
+
+    public function getRequest(): Request
+    {
+        return $this->requestStack->getCurrentRequest();
     }
 }
