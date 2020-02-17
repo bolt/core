@@ -2,10 +2,9 @@ version: '3.4'
 services:
   php:
     build:
-      context: docker/php
-      dockerfile: Dockerfile
-      cache_from:
-        - php:7.3-fpm
+      context: .
+      dockerfile: docker/app/Dockerfile
+      target: bolt_php_dev
     env_file:
       - .env
     depends_on:
@@ -13,7 +12,6 @@ services:
       - blackfire
     volumes:
       - ./:/var/www/bolt
-    working_dir: /var/www/bolt
 
   database:
     image: mariadb:10
@@ -29,27 +27,27 @@ services:
       MYSQL_INITDB_SKIP_TZINFO: 0
 
   web:
-    image: nginx:alpine
+    build: 
+      context: .
+      dockerfile: docker/app/Dockerfile
+      target: nginx
     ports:
       - 8088:80
     depends_on:
       - php
     volumes:
-      - ./docker/nginx:/etc/nginx/conf.d
       - ./:/var/www/bolt
-      - ./var/log:/var/log/nginx
-    entrypoint:
-      - sh
-      - /etc/nginx/conf.d/entrypoint.sh
 
   node:
-    image: node:latest
+    build: 
+      context: .
+      dockerfile: docker/app/Dockerfile 
+      target: node
     volumes:
       - ./:/home/node/app
-    working_dir: /home/node/app
 
-  padm:
-    image: phpmyadmin/phpmyadmin
+  adminer:
+    image: adminer:latest
     ports:
       - 8099:80
     links:
