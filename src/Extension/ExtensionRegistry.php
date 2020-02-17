@@ -68,6 +68,12 @@ class ExtensionRegistry
             return $this->extensions[$name];
         }
 
+        foreach ($this->extensions as $key => $extension) {
+            if (mb_strpos($key, $name) !== false) {
+                return $extension;
+            }
+        }
+
         return null;
     }
 
