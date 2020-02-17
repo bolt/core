@@ -7,6 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
+use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
@@ -25,6 +26,8 @@ use Twig\TwigFunction;
 
 class ContentExtension extends AbstractExtension
 {
+    use LoggerTrait;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
@@ -320,8 +323,7 @@ class ContentExtension extends AbstractExtension
                 $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
         } catch (InvalidParameterException $e) {
-            // @todo More graceful logging, tell user that (probably) the ContentType went missing.
-            dump($e);
+            $this->logger->notice('Could not create URL for route \'' . $route .'\'. Perhaps the ContentType was changed or removed. Try clearing the cache');
             $link = '';
         }
 

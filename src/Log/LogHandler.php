@@ -10,9 +10,7 @@ use Monolog\Handler\AbstractProcessingHandler;
 
 class LogHandler extends AbstractProcessingHandler
 {
-    /**
-     * @var EntityManagerInterface
-     */
+    /** @var EntityManagerInterface */
     protected $em;
 
     public function __construct(EntityManagerInterface $em)
