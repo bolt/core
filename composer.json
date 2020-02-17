@@ -90,7 +90,7 @@
         "lakion/mink-debug-extension": "^1.2",
         "php-http/httplug-pack": "^1.2",
         "php-translation/loco-adapter": "^0.10",
-        "phpspec/phpspec": "^5.1",
+        "phpspec/phpspec": "^6.1.1",
         "phpspec/prophecy": "^1.10",
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-doctrine": "^0.12",
