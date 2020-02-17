@@ -10,6 +10,7 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
@@ -40,18 +41,23 @@ class ContentExtension extends AbstractExtension
     /** @var Request */
     private $request;
 
+    /** @var LoggerInterface */
+    private $logger;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
         CsrfTokenManagerInterface $csrfTokenManager,
         Security $security,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        LoggerInterface $dbLogger
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->security = $security;
         $this->request = $requestStack->getCurrentRequest();
+        $this->logger = $dbLogger;
     }
 
     /**
@@ -320,8 +326,7 @@ class ContentExtension extends AbstractExtension
                 $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
         } catch (InvalidParameterException $e) {
-            // @todo More graceful logging, tell user that (probably) the ContentType went missing.
-            dump($e);
+            $this->logger->notice('Could not create URL for route \'' . $route .'\'. Perhaps the ContentType was changed or removed. Try clearing the cache');
             $link = '';
         }
 
