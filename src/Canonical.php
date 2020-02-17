@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt;
 
 use Bolt\Configuration\Config;
-use Psr\Log\LoggerInterface;
+use Bolt\Log\LoggerTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Canonical
 {
+    use LoggerTrait;
+
     /** @var Config */
     private $config;
 
@@ -34,15 +36,11 @@ class Canonical
     /** @var string */
     private $path = null;
 
-    /** @var LoggerInterface */
-    private $logger;
-
-    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, LoggerInterface $dbLogger)
+    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack)
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->request = $requestStack->getCurrentRequest();
-        $this->logger = $dbLogger;
 
         $this->init();
     }
