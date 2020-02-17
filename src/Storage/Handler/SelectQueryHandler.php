@@ -11,7 +11,6 @@ use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  *  Handler class to perform select query and return a resultset.
@@ -66,7 +65,7 @@ class SelectQueryHandler
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
-        
+
         $page = (int) $request->get('page', 1);
 
         // If we have multiple pagers on page, we shouldn't allow one of the
