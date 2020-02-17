@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Security;
 
 use Bolt\Entity\User;
+use Bolt\Log\LoggerTrait;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -14,15 +14,13 @@ use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 
 class LogoutListener implements LogoutHandlerInterface
 {
+    use LoggerTrait;
+
     private $em;
 
-    /** @var LoggerInterface */
-    private $logger;
-
-    public function __construct(EntityManagerInterface $em, LoggerInterface $dbLogger)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->logger = $dbLogger;
     }
 
     public function logout(Request $request, Response $response, TokenInterface $token): void
