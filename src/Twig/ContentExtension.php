@@ -7,6 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
+use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
@@ -26,6 +27,8 @@ use Twig\TwigFunction;
 
 class ContentExtension extends AbstractExtension
 {
+    use LoggerTrait;
+
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
@@ -41,23 +44,18 @@ class ContentExtension extends AbstractExtension
     /** @var Request */
     private $request;
 
-    /** @var LoggerInterface */
-    private $logger;
-
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
         CsrfTokenManagerInterface $csrfTokenManager,
         Security $security,
-        RequestStack $requestStack,
-        LoggerInterface $dbLogger
+        RequestStack $requestStack
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->security = $security;
         $this->request = $requestStack->getCurrentRequest();
-        $this->logger = $dbLogger;
     }
 
     /**
