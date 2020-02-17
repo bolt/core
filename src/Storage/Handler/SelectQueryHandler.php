@@ -56,15 +56,16 @@ class SelectQueryHandler
 
         $amountPerPage = (int) $contentQuery->getDirective('limit');
 
-        return $this->createPaginator($query, $amountPerPage);
+        $request = $contentQuery->getRequest();
+
+        return $this->createPaginator($request, $query, $amountPerPage);
     }
 
-    private function createPaginator(Query $query, int $amountPerPage): Pagerfanta
+    private function createPaginator(Request $request, Query $query, int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
 
-        $request = Request::createFromGlobals();
         $page = (int) $request->get('page', 1);
 
         // If we have multiple pagers on page, we shouldn't allow one of the
