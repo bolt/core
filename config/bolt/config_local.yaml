@@ -25,5 +25,3 @@ compatibility:
 
 session:
     cookie_lifetime: 0
-
-cookies_lifetime: 1209600
