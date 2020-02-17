@@ -2,7 +2,7 @@
 # in the project root. 
 
 # The name of the website
-sitename: A sample site in CONFIG
+sitename: Bolt Core Git Clone
 payoff: The amazing payoff goes here
 
 secret: '%env(APP_SECRET)%'
