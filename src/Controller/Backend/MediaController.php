@@ -48,8 +48,9 @@ class MediaController extends TwigAwareController implements BackendZoneInterfac
             $media = $this->mediaFactory->createOrUpdateMedia($file, $locationName);
 
             $this->em->persist($media);
-            $this->em->flush();
         }
+
+        $this->em->flush();
 
         return $this->renderTemplate('@bolt/finder/finder.twig', [
             'path' => 'path',
