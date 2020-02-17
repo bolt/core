@@ -12,13 +12,21 @@ ARG PDO_DRIVERS=pdo_mysql
 
 WORKDIR /var/www/bolt
 
+<<<<<<< HEAD
 RUN set -eux ; \
+=======
+RUN set -eux ; \ 
+>>>>>>> 59cfecd5... dockefiles layer division
             apk add --no-cache --update git \
             bash \
             wget \
             zip \
             acl \
+<<<<<<< HEAD
             ttf-freefont \
+=======
+            ttf-freefont \ 
+>>>>>>> 59cfecd5... dockefiles layer division
             openssh-client  \
             fontconfig \
             dbus \
@@ -44,24 +52,18 @@ RUN set -eux ; \
             mkdir -p /root/.ssh/ && \
             ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer 
 
 COPY . .
 
-RUN set -eux; \
-        composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative  && \
-        composer install -vvv --profile --optimize-autoloader --classmap-authoritative && composer clear-cache
+RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative && composer install -vvv --profile --optimize-autoloader --classmap-authoritative --no-dev && composer clear-cache 
 
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 
 EXPOSE 9000
-
 COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
-
 RUN chmod 755 /usr/local/bin/entrypoint.sh
-
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
 CMD ["php-fpm"]
 
 FROM bolt_php AS bolt_php_dev
@@ -76,12 +78,11 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
 
 FROM node:latest as node
 
-WORKDIR /home/node/app
+WORKDIR /home/node/app 
 
-COPY  --from=bolt_php  /var/www/bolt  .
-
-RUN  npm install && npm run build
-
+COPY  --from=bolt_php  /var/www/bolt/vendor/bolt/core  ./vendor/bolt/core
+RUN cd ./vendor/bolt/core && npm install && npm run build && cd - 
+ 
 FROM nginx:alpine AS nginx
 
 WORKDIR /var/www/bolt
@@ -90,5 +91,4 @@ COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
 RUN mkdir -p public
 
-COPY --from=node  /home/node/app/public/assets public/assets
-
+COPY --from=node  /home/node/app/vendor/bolt/core/public/assets public/assets
