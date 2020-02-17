@@ -14,12 +14,7 @@ matrix:
   include:
     - php: 7.2
     - php: 7.3
-    - php: 7.4snapshot
-    - php: nightly
-      env: COMPOSER_FLAGS="--ignore-platform-reqs"
-  allow_failures:
-    - php: 7.4snapshot
-    - php: nightly
+    - php: 7.4
 
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
