@@ -193,7 +193,7 @@ export default {
           this.previewImage = json.thumbnail_url;
         })
         .catch(err => {
-          console.log(err);
+          console.warn(err);
         });
     },
   },
