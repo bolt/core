@@ -56,6 +56,11 @@ class Log
     private $user;
 
     /**
+     * @ORM\Column(type="content", type="integer", nullable=true)
+     */
+    private $content;
+
+    /**
      * @ORM\Column(name="location", type="array", nullable=true)
      */
     private $location;
@@ -164,6 +169,17 @@ class Log
     public function setUser(?array $user): self
     {
         $this->user = $user;
+        return $this;
+    }
+
+    public function getContent(): ?int
+    {
+        return $this->content;
+    }
+
+    public function setContent(int $content): self
+    {
+        $this->content = $content;
         return $this;
     }
 }
