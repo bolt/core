@@ -177,7 +177,7 @@ class Log
         return $this->content;
     }
 
-    public function setContent(integer $content): self
+    public function setContent(int $content): self
     {
         $this->content = $content;
         return $this;
