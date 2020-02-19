@@ -10,6 +10,8 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
+use Bolt\Utils\UserValidationHandler;
+use Bolt\Utils\UserValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -36,16 +38,21 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
+    /** @var UserValidationHandler */
+    private $userValidationHandler;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserValidationHandler $userValidationHandler
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->userValidationHandler = $userValidationHandler;
     }
 
     /**
@@ -140,18 +147,17 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $user->setLocale($locale);
         $user->setRoles($roles);
         $user->setbackendTheme($request->get('backendTheme'));
-
         $newPassword = $request->get('password');
+        empty($newPassword) ?: $user->setPassword($newPassword);
 
-        if ($this->validateUser($user, $newPassword) === false) {
+        $validator = new UserValidator($user);
+
+        if(! $validator->validate()) {
+            $this->userValidationHandler->handle($validator);
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
                 'userEdit' => $user,
             ]);
-        }
-
-        if (! empty($newPassword)) {
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 
         $this->em->persist($user);
@@ -160,36 +166,5 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->addFlash('success', 'user.updated_profile');
 
         return new RedirectResponse($url);
-    }
-
-    private function validateUser(User $user, ?string $newPassword): bool
-    {
-        // @todo Validation should be moved to a separate UserValidator
-
-        $usernameValidateOptions = [
-            'options' => [
-                'min_range' => 1,
-            ],
-        ];
-
-        // Validate username
-        if (! filter_var(mb_strlen($user->getDisplayName()), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
-            $this->addFlash('danger', 'user.not_valid_username');
-            return false;
-        }
-
-        // Validate email
-        if (! filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
-            $this->addFlash('danger', 'user.not_valid_email');
-            return false;
-        }
-
-        // Validate password
-        if (! empty($newPassword) && mb_strlen($newPassword) < 6) {
-            $this->addFlash('danger', 'user.not_valid_password');
-            return false;
-        }
-
-        return true;
     }
 }
