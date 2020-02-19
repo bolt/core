@@ -15,6 +15,7 @@
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-cache-bundle": "^1.4",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "doctrine/doctrine-migrations-bundle": "^2.1",
         "doctrine/orm": "^2.7",
         "drupol/composer-packages": "^1.1",
         "embed/embed": "^3.4",

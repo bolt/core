@@ -1,0 +1,8 @@
+doctrine_migrations:
+    dir_name: '%kernel.project_dir%/src/Migrations'
+
+    # Possible values: "BY_YEAR", "BY_YEAR_AND_MONTH", false
+    organize_migrations: false
+
+    # Run all migrations in a transaction.
+    all_or_nothing: false
