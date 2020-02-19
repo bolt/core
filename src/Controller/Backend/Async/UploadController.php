@@ -88,7 +88,7 @@ class UploadController implements AsyncZoneInterface
             return $this->sanitiseFilename($name);
         });
 
-        // @todo Refactor file upload handler. See issue https://github.com/bolt/four/issues/402
+        // @todo Refactor file upload handler. See issue https://github.com/bolt/core/issues/402
 
         /** @var File $result */
         $result = $uploadHandler->process($_FILES);
