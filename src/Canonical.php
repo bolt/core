@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt;
 
 use Bolt\Configuration\Config;
-use Bolt\Log\LoggerTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
@@ -13,8 +12,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Canonical
 {
-    use LoggerTrait;
-
     /** @var Config */
     private $config;
 
@@ -160,8 +157,8 @@ class Canonical
                 $params
             );
         } catch (InvalidParameterException $e) {
-            $this->logger->error($e->getMessage(), $params);
-            $this->path = '/';
+            // Just use the current URL /shrug
+            $this->request->getUri();
         }
     }
 }
