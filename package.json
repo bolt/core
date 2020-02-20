@@ -1,6 +1,6 @@
 {
   "name": "bolt",
-  "version": "4.0.0-beta.5",
+  "version": "4.0.0-rc.4",
   "homepage": "https://boltcms.io",
   "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "system"
   ],
   "bugs": {
-    "url": "https://github.com/bolt/four/issues"
+    "url": "https://github.com/bolt/core/issues"
   },
   "main": "webpack.config.js",
   "directories": {
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bolt/four.git"
+    "url": "git://github.com/bolt/core.git"
   },
   "dependencies": {
     "@vue/cli-service": "^3.12.1",

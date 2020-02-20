@@ -8,7 +8,7 @@ Bolt 4 - beta
 
 -- Hatebreed - [Destroy Everything][hatebreed]
 
-Progress towards beta / stable 
+Progress towards beta / stable
 ------------------------------
 
 Follow the progress on Bolt 4, at the following locations
@@ -92,7 +92,7 @@ Alternatively, run `make db-reset`, on a UNIX-like system.
 4 Run the prototype
 -------------------
 
-  - Using the Symfony CLI tool, just run `symfony server:start`. 
+  - Using the Symfony CLI tool, just run `symfony server:start`.
 
   - Alternatively, run `bin/console server:start`
   (if running `bin/console server:start`does not work because you don't have the pcntl extension, run `bin/console server:run`)
@@ -144,6 +144,7 @@ Testing
 -------
 
 Bolt uses several testing frameworks for [different test layers][fowler]:
+
 - unit: PHPSpec, PHPUnit, Jest
 - integration (of Symfony services): PHPUnit with KernelTestCase
 - functional (API Contracts): Behat
@@ -189,13 +190,12 @@ The ongoing Bolt development takes place under the care of:
  - [Two Kings &ndash; Artisinal Web Development](https://twokings.nl)
  - [The Software House &ndash; Web and Mobile Development](https://tsh.io/)
 
-Sponsors: 
+Sponsors:
 
  - [Webforward, Richard Leishman](https://www.webfwd.co.uk/)
- - → You and/or your company's name on this list? 
+ - → You and/or your company's name on this list?
  [Become a sponsor](https://github.com/users/bobdenotter/sponsorship).
- 
- 
+
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
-[translations]: https://github.com/bolt/four/wiki/Contribute-on-translations
+[translations]: https://github.com/bolt/core/wiki/Contribute-on-translations
 [hatebreed]: https://www.youtube.com/watch?v=DBwgX8yBqsw
