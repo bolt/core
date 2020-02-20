@@ -197,6 +197,10 @@ class ContentTypesParser extends BaseParser
         $groups = [];
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
+        if (! isset($fields['slug'])) {
+            $fields['slug'] = ['type' => 'slug'];
+        }
+
         foreach ($fields as $key => $field) {
             $this->parseField($key, $field, $acceptFileTypes, $currentGroup);
             // Convert array into FieldType
