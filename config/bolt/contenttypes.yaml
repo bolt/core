@@ -395,6 +395,7 @@ tests:
 # checkbox - integer - checkbox-field which is 1 (checked) or 0 (unchecked)
 # set - text (65kb) - Input type for sests. Group fields semantically into a combined set field.
 # collection - text (65kb) - Input type for collections. Add multiple fields of different types. Useful for lists.
+# data - text (65kb) - Read-only field, useful for storing (raw) data provided by an external source.
 
 # Using YAML repeated nodes
 #
