@@ -60,7 +60,7 @@ HELP
             $io->error($message);
         }
 
-        $io->success('Secret replaced successfully.');
+        $io->success('Secret replaced successfully!');
         return null;
     }
 }
