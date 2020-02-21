@@ -36,6 +36,10 @@ class SetupCommand extends Command
         $commandInput = new ArrayInput([]);
         $exitCode += $command->run($commandInput, $output);
 
+        $command = $this->getApplication()->find('bolt:reset-secret');
+        $commandInput = new ArrayInput([]);
+        $exitCode += $command->run($commandInput, $output);
+
         $command = $this->getApplication()->find('bolt:add-user');
         $commandInput = new ArrayInput(['--admin' => true]);
         $exitCode += $command->run($commandInput, $output);

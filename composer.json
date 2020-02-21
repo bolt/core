@@ -65,6 +65,7 @@
         "tightenco/collect": "^6.9",
         "twig/twig": "^3.0",
         "ua-parser/uap-php": "^3.9",
+        "webimpress/safe-writer": "^2.0",
         "webmozart/path-util": "^2.3",
         "webonyx/graphql-php": "^0.13",
         "white-october/pagerfanta-bundle": "^1.3"

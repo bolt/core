@@ -1028,6 +1028,9 @@
     "ua-parser/uap-php": {
         "version": "v3.9.2"
     },
+    "webimpress/safe-writer": {
+        "version": "2.0.0"
+    },
     "webmozart/assert": {
         "version": "1.6.0"
     },
