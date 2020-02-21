@@ -11,7 +11,7 @@ use Bolt\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @ORM\Entity
@@ -25,6 +25,9 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 
     /** @var array */
     private $alt = [];
+
+    /** @var RequestStack */
+    private $requestStack;
 
     public function __construct()
     {
@@ -60,8 +63,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
         // Generate a URL
         $value['path'] = $this->getPath();
 
-        // @todo This needs to be injected, not created on the fly.
-        $request = Request::createFromGlobals();
+        $request = $this->requestStack->getCurrentRequest();
         $value['url'] = $request->getUriForPath($this->getPath());
 
         $thumbPackage = new PathPackage('/thumbs/', new EmptyVersionStrategy());
@@ -104,5 +106,10 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
     public function includeAlt(): bool
     {
         return $this->getDefinition()->has('alt') && $this->getDefinition()->get('alt') === true;
+    }
+
+    public function setRequestStack(RequestStack $requestStack): void
+    {
+        $this->requestStack = $requestStack;
     }
 }

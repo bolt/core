@@ -52,6 +52,10 @@ services:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
 
+    Bolt\Event\Listener\ImageFieldFillListener:
+      tags:
+        - { name: doctrine.event_listener, event: postLoad }
+
     Bolt\Event\Subscriber\TimedPublishSubscriber:
         arguments: [ "%bolt.table_prefix%" ]
 
