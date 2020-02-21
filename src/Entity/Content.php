@@ -137,12 +137,14 @@ class Content
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
         $this->createdAt = new \DateTime();
+        $this->status = Statuses::DRAFT;
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
 
         if ($contentTypeDefinition) {
             $this->setContentType($contentTypeDefinition->getSlug());
             $this->setDefinition($contentTypeDefinition);
+            $this->setFieldValue('slug', '');
         }
     }
 
