@@ -123,7 +123,7 @@ class Excerpt
         // Highlight the words, using the `<mark>` tag.
         foreach ($words as $word) {
             if ($word) {
-                $relText = preg_replace('/\b(' . preg_quote($word, '/') . ')\b/i', '<mark>$1</mark>', $relText);
+                $relText = preg_replace('/(' . preg_quote($word, '/') . ')/i', '<mark>$1</mark>', $relText);
             }
         }
 
