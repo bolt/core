@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Extension;
 
 use Bolt\Configuration\Config;
+use Bolt\Storage\Query;
 use Bolt\Widgets;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
@@ -22,6 +23,9 @@ trait ServicesTrait
     /** @var ContainerInterface */
     protected $container;
 
+    /** @var Query */
+    protected $query;
+
     /**
      * Injects commonly used objects into the extension, for use by the
      * extension. Called from the listener.
@@ -32,6 +36,7 @@ trait ServicesTrait
     {
         $this->entityManager = $objects['manager'];
         $this->container = $objects['container'];
+        $this->query = $objects['query'];
     }
 
     /**
@@ -112,5 +117,10 @@ trait ServicesTrait
     public function getContainer(): ContainerInterface
     {
         return $this->container;
+    }
+
+    public function getQuery(): Query
+    {
+        return $this->query;
     }
 }
