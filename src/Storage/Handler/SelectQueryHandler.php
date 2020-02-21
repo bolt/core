@@ -61,12 +61,17 @@ class SelectQueryHandler
         return $this->createPaginator($request, $query, $amountPerPage);
     }
 
-    private function createPaginator(Request $request, Query $query, int $amountPerPage): Pagerfanta
+    private function createPaginator(?Request $request, Query $query, int $amountPerPage): Pagerfanta
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
 
-        $page = (int) $request->get('page', 1);
+        // If we don't have $request, we're likely not in a web context.
+        if ($request) {
+            $page = (int) $request->get('page', 1);
+        } else {
+            $page = 1;
+        }
 
         // If we have multiple pagers on page, we shouldn't allow one of the
         // pagers to go over the maximum, thereby throwing an exception. In this
