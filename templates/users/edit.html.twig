@@ -24,7 +24,7 @@
                 'label' : 'label.username'|trans,
                 'name' : 'username',
                 'value' : userEdit.username,
-                'disabled' : userEdit.username is empty ? 'false' : 'true',
+                'disabled' : userEdit.username is empty ? false : true,
             } %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
