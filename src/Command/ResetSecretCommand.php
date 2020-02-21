@@ -54,7 +54,7 @@ HELP
         $newContent = preg_replace($matchSecret, $newSecret, $content);
 
         try {
-            FileWriter::writeFIle($filepath, $newContent);
+            FileWriter::writeFile($filepath, $newContent);
         } catch (ExceptionInterface $e) {
             $message = sprintf('Failed to replace APP_SECRET. %s', $e->getMessage());
             $io->error($message);
