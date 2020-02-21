@@ -23,6 +23,7 @@ class ContentOverviewController extends TwigAwareController implements BackendZo
     public function overview(Request $request, Query $query, string $contentType = ''): Response
     {
         $contentTypeObject = ContentType::factory($contentType, $this->config->get('contenttypes'));
+        $page = (int) $request->query->get('page', 1);
 
         $params = [
             'status' => '!unknown',
@@ -42,7 +43,8 @@ class ContentOverviewController extends TwigAwareController implements BackendZo
         }
 
         $records = $query->getContentForTwig($contentType, $params)
-            ->setMaxPerPage($contentTypeObject->get('records_per_page'));
+            ->setMaxPerPage($contentTypeObject->get('records_per_page'))
+            ->setCurrentPage($page);
 
         return $this->renderTemplate('@bolt/content/listing.html.twig', [
             'contentType' => $contentTypeObject,
