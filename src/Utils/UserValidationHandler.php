@@ -20,7 +20,7 @@ class UserValidationHandler
         {
             if($error === UserValidator::DISPLAY_NAME_ERROR)
             {
-                $this->addFlash('danger', 'user.not_valid_username');
+                $this->addFlash('danger', 'user.not_valid_display_name');
             }
 
             if ($error === UserValidator::PASSWORD_ERROR)

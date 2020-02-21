@@ -70,7 +70,8 @@ class UserValidator
         ];
 
         // Validate username
-        if ($this->displayName !== null && ! filter_var(mb_strlen($this->displayName), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
+        if ($this->displayName !== null && ! filter_var(mb_strlen(trim($this->displayName)), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
+            dump("here");
             $this->validationErrors[] = self::DISPLAY_NAME_ERROR;
             $valid = false;
         }
