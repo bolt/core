@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Utils;
 
 use Bolt\Entity\User;
@@ -11,9 +13,9 @@ use Bolt\Entity\User;
  */
 class UserValidator
 {
-    const DISPLAY_NAME_ERROR = 1;
-    const PASSWORD_ERROR = 2;
-    const EMAIL_ERROR = 3;
+    public const DISPLAY_NAME_ERROR = 1;
+    public const PASSWORD_ERROR = 2;
+    public const EMAIL_ERROR = 3;
 
     /** @var string */
     private $password;
@@ -25,7 +27,7 @@ class UserValidator
     private $email;
 
     /** @var array */
-    private $validationErrors;
+    private $validationErrors = [];
 
     public function __construct(User $user)
     {
@@ -35,25 +37,16 @@ class UserValidator
         $this->validationErrors = [];
     }
 
-    /**
-     * @param string $password
-     */
     public function setPassword(string $password): void
     {
         $this->password = $password;
     }
 
-    /**
-     * @param string $displayName
-     */
     public function setDisplayName(string $displayName): void
     {
         $this->displayName = $displayName;
     }
 
-    /**
-     * @param string $email
-     */
     public function setEmail(string $email): void
     {
         $this->email = $email;
@@ -71,7 +64,6 @@ class UserValidator
 
         // Validate username
         if ($this->displayName !== null && ! filter_var(mb_strlen(trim($this->displayName)), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
-            dump("here");
             $this->validationErrors[] = self::DISPLAY_NAME_ERROR;
             $valid = false;
         }
@@ -98,7 +90,6 @@ class UserValidator
 
     public function hasPasswordError(): bool
     {
-        return in_array(UserValidator::PASSWORD_ERROR, $this->validationErrors);
+        return in_array(self::PASSWORD_ERROR, $this->validationErrors, true);
     }
-
 }

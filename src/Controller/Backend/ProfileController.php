@@ -88,14 +88,13 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
         $newPassword = $request->get('password');
 
         // Set the plain password to check for validation
-        if(! empty($newPassword))
-        {
+        if (! empty($newPassword)) {
             $user->setPassword($newPassword);
         }
 
         $validator = new UserValidator($user);
 
-        if(! $validator->validate()) {
+        if (! $validator->validate()) {
             $this->userValidationHandler->handle($validator);
 
             $suggestedPassword = $validator->hasPasswordError() ? Str::generatePassword() : null;
@@ -103,13 +102,12 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
                 'userEdit' => $user,
-                'suggestedPassword' => $suggestedPassword
+                'suggestedPassword' => $suggestedPassword,
             ]);
         }
 
         // Once validated, encode the password
-        if(! empty($newPassword))
-        {
+        if (! empty($newPassword)) {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 
