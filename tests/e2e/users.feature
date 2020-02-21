@@ -91,9 +91,7 @@ Feature: Users & Permissions
     And I should not see "test_user@example.org"
 
   @javascript
-  Scenario: Edit user
-    Given I am logged in as "admin"
-    And I am on "/bolt/users"
+  Scenario: Edit user successfully
     Given I am logged in as "admin"
     And I am on "/bolt/users"
     #edit on tom_admin
@@ -101,7 +99,6 @@ Feature: Users & Permissions
     Then I should be on url matching "\/bolt\/user\-edit\/[0-9]+"
 
     When I fill in the following:
-      | username | tom_admin_changed |
       | displayName | Tom Doe CHANGED |
       | email | tom_admin_changed@example.org |
     And I scroll "#editcontent > button" into view
@@ -111,6 +108,42 @@ Feature: Users & Permissions
     And I should see "tom_admin_changed"
     And I should see "Tom Doe CHANGED"
     And I should see "tom_admin_changed@example.org"
+
+  @javascript
+  Scenario: Edit user with whitespace display name
+    Given I am logged in as "admin"
+    And I am on "/bolt/users"
+    And I click the 2nd "Edit"
+
+    Then I should be on "/bolt/user-edit/2"
+
+    When I fill "displayName" element with "   "
+
+    And I scroll "Save changes" into view
+    And I press "Save changes"
+
+    Then I should be on "/bolt/user-edit/2"
+    And I should see "Notification" in the ".admin__notifications" element
+    And I should see "Invalid display name" in the ".admin__notifications" element
+
+  @javascript
+  Scenario: Edit user with incorrect display name, password and email
+    Given I am logged in as "admin"
+    And I am on "/bolt/user-edit/2"
+
+    When I fill in the following:
+      | displayName |     |
+      | password    | short |
+      | email       | smth@nth |
+
+    And I scroll "Save changes" into view
+    And I press "Save changes"
+
+    Then I should be on "/bolt/user-edit/2"
+    And I should see "Invalid display name"
+    And I should see "Invalid password. The password should contain at least 6 characters."
+    And I should see "Invalid email"
+    And I should see "Suggested secure password"
 
   @javascript
   Scenario: View current sessions
