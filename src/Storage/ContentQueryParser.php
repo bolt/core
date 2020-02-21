@@ -434,7 +434,7 @@ class ContentQueryParser
         }
     }
 
-    public function getRequest(): Request
+    public function getRequest(): ?Request
     {
         return $this->requestStack->getCurrentRequest();
     }
