@@ -148,7 +148,11 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $user->setRoles($roles);
         $user->setbackendTheme($request->get('backendTheme'));
         $newPassword = $request->get('password');
-        empty($newPassword) ?: $user->setPassword($newPassword);
+        // Set the plain password to check for validation
+        if(! empty($newPassword))
+        {
+            $user->setPassword($newPassword);
+        }
 
         $validator = new UserValidator($user);
 
@@ -162,6 +166,12 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
                 'userEdit' => $user,
                 'suggestedPassword' => $suggestedPassword
             ]);
+        }
+
+        // Once validated, encode the password
+        if(! empty($newPassword))
+        {
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 
         $this->em->persist($user);
