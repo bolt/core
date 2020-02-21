@@ -46,7 +46,7 @@ HELP
     {
         $io = new SymfonyStyle($input, $output);
 
-        $filepath = $this->projectDir . '/.env.dist';
+        $filepath = $this->projectDir . '/.env';
         $content = file_get_contents($filepath);
         $newSecret = 'APP_SECRET=' . bin2hex(random_bytes(16));
         $matchSecret = '/APP_SECRET=(.*)/';
