@@ -99,6 +99,15 @@ trait WebContext
     }
 
     /**
+     * @When /^I click the (\d+)(st|nd|rd|th) "([^"]*)"$/
+     * @throws ElementNotFoundException
+     */
+    public function clickNth($number, $tail, $element)
+    {
+        $this->findAllElements($element)[$number-1]->click();
+    }
+
+    /**
      * @When I scroll the :index :element into view
      * @throws ElementNotFoundException
      */

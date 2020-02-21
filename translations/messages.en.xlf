@@ -1794,7 +1794,7 @@
     <unit id="HjWW.NS" name="user.not_valid_password">
       <segment>
         <source>user.not_valid_password</source>
-        <target>Invalid password</target>
+        <target>Invalid password. The password should contain at least 6 characters.</target>
       </segment>
     </unit>
     <unit id="TpGxDI3" name="user.unknown_user">
@@ -2191,6 +2191,12 @@
       <segment>
         <source>about.system_info</source>
         <target>System Information</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>Invalid display name</target>
       </segment>
     </unit>
   </file>
