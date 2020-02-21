@@ -453,6 +453,10 @@ class Content
 
     public function addFieldByName(string $fieldName): void
     {
+        if (! $this->hasFieldDefined($fieldName)) {
+            throw new \Exception(sprintf("Can't set Field '%s' of '%s'. Make sure the Field is defined in the %s ContentType.", $fieldName, $this->getDefinition()->get('slug'), $this->getDefinition()->get('name')));
+        }
+
         $definition = $this->contentTypeDefinition->get('fields')->get($fieldName);
 
         $field = FieldRepository::factory($definition, $fieldName);
