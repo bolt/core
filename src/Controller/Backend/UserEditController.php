@@ -154,9 +154,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         if(! $validator->validate()) {
             $this->userValidationHandler->handle($validator);
+
+            $suggestedPassword = $validator->hasPasswordError() ? Str::generatePassword() : null;
+
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
                 'userEdit' => $user,
+                'suggestedPassword' => $suggestedPassword
             ]);
         }
 

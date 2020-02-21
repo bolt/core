@@ -95,4 +95,9 @@ class UserValidator
         return $this->validationErrors;
     }
 
+    public function hasPasswordError(): bool
+    {
+        return in_array(UserValidator::PASSWORD_ERROR, $this->validationErrors);
+    }
+
 }
