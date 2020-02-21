@@ -9,6 +9,8 @@ use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
+use Bolt\Utils\UserValidationHandler;
+use Bolt\Utils\UserValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -35,16 +37,21 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
+    /** @var UserValidationHandler */
+    private $userValidationHandler;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserValidationHandler $userValidationHandler
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->userValidationHandler = $userValidationHandler;
     }
 
     /**
@@ -78,16 +85,31 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
         $user->setbackendTheme($request->get('backendTheme'));
+        $newPassword = $request->get('password');
 
-        if ($this->validateUser($user, $newPassword) === false) {
+        // Set the plain password to check for validation
+        if(! empty($newPassword))
+        {
+            $user->setPassword($newPassword);
+        }
+
+        $validator = new UserValidator($user);
+
+        if(! $validator->validate()) {
+            $this->userValidationHandler->handle($validator);
+
+            $suggestedPassword = $validator->hasPasswordError() ? Str::generatePassword() : null;
+
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
-                'user' => $user,
-                'suggestedPassword' => Str::generatePassword(),
+                'userEdit' => $user,
+                'suggestedPassword' => $suggestedPassword
             ]);
         }
 
-        if (! empty($newPassword)) {
+        // Once validated, encode the password
+        if(! empty($newPassword))
+        {
             $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
         }
 
@@ -98,36 +120,5 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
         $this->addFlash('success', 'user.updated_profile');
 
         return new RedirectResponse($url);
-    }
-
-    private function validateUser(User $user, ?string $newPassword): bool
-    {
-        // @todo Validation should be moved to a separate UserValidator
-
-        $usernameValidateOptions = [
-            'options' => [
-                'min_range' => 1,
-            ],
-        ];
-
-        // Validate username
-        if (! filter_var(mb_strlen($user->getDisplayName()), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
-            $this->addFlash('danger', 'user.not_valid_username');
-            return false;
-        }
-
-        // Validate email
-        if (! filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
-            $this->addFlash('danger', 'user.not_valid_email');
-            return false;
-        }
-
-        // Validate password
-        if (! empty($newPassword) && mb_strlen($newPassword) < 6) {
-            $this->addFlash('danger', 'user.not_valid_password');
-            return false;
-        }
-
-        return true;
     }
 }
