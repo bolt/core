@@ -77,7 +77,13 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function __toString(): string
     {
-        return (string) $this->getTwigValue();
+        $value = $this->getTwigValue();
+
+        if (is_array($value)) {
+            $value = implode('', $value);
+        }
+
+        return (string) $value;
     }
 
     public function __call(string $key = '', array $arguments = [])

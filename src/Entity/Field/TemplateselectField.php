@@ -16,11 +16,6 @@ class TemplateselectField extends Field implements FieldInterface
 {
     public const TYPE = 'templateselect';
 
-    public function __toString(): string
-    {
-        return $this->getTwigValue();
-    }
-
     public function setValue($value): Field
     {
         if (Json::test($value)) {
