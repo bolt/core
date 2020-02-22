@@ -26,7 +26,7 @@ class PathResolver
     /**
      * Default paths for Bolt installation.
      */
-    public static function defaultPaths(): array
+    public static function defaultPaths(string $public): array
     {
         return [
             'site' => '.',
@@ -36,7 +36,7 @@ class PathResolver
             'database' => '%var%/database',
             'extensions' => '%site%/extensions',
             'extensions_config' => '%config%/extensions',
-            'web' => '%site%/public',
+            'web' => '%site%/' . $public,
             'files' => '%web%/files',
             'themes' => '%web%/theme',
             'bolt_assets' => '%web%/bolt-public',
@@ -44,16 +44,14 @@ class PathResolver
     }
 
     /**
-     * @param string $root  the root path which must be absolute
-     * @param array  $paths initial path definitions
+     * @param string $root the root path which must be absolute
      *
      * @throws ConfigurationException
      */
-    public function __construct(string $root, array $paths = [], string $themeName = '')
+    public function __construct(string $root, string $themeName = '', string $public = 'public')
     {
-        if (empty($paths)) {
-            $paths = $this->defaultPaths();
-        }
+        $paths = $this->defaultPaths($public);
+
         foreach ($paths as $name => $path) {
             $this->define($name, $path);
         }

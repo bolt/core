@@ -4,27 +4,31 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
-use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Bolt\Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class CopyThemesCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'bolt:copy-themes';
 
+    /** @var Filesystem */
     private $filesystem;
 
-    public function __construct(Filesystem $filesystem)
+    /** @var string */
+    private $publicDirectory;
+
+    public function __construct(Filesystem $filesystem, string $publicFolder, string $projectDir)
     {
         parent::__construct();
 
         $this->filesystem = $filesystem;
+        $this->publicDirectory = $projectDir . '/' . $publicFolder;
     }
 
     protected function configure(): void
@@ -38,12 +42,7 @@ class CopyThemesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var Application $app */
-        $app = $this->getApplication();
-        /** @var KernelInterface $kernel */
-        $kernel = $app->getKernel();
-
-        $publicDir = $this->getPublicDirectory($kernel->getContainer());
+        $publicDir = $this->getPublicDirectory();
 
         $io = new SymfonyStyle($input, $output);
 
@@ -55,6 +54,10 @@ class CopyThemesCommand extends Command
                 $baseDir . '/skeleton' => $publicDir .'/theme/skeleton',
             ];
         } else {
+            if (Version::installType() === 'Git clone') {
+                $io->error('This command only works with the \'Composer install\' install type.');
+                return 1;
+            }
             $io->error('Run \'composer require bolt/themes\' before using this command.');
             return 1;
         }
@@ -104,35 +107,8 @@ class CopyThemesCommand extends Command
         $this->filesystem->mirror($originDir, $targetDir, Finder::create()->ignoreDotFiles(false)->in($originDir));
     }
 
-    private function getProjectDirectory(ContainerInterface $container): string
+    private function getPublicDirectory(): string
     {
-        if ($container->hasParameter('kernel.project_dir')) {
-            return $container->getParameter('kernel.project_dir');
-        }
-
-        return dirname(dirname(dirname(dirname(dirname(__DIR__)))));
-    }
-
-    private function getPublicDirectory(ContainerInterface $container): string
-    {
-        $defaultPublicDir = 'public';
-
-        if (! $container->hasParameter('kernel.project_dir')) {
-            return $defaultPublicDir;
-        }
-
-        $composerFilePath = $container->getParameter('kernel.project_dir').'/composer.json';
-
-        if (! is_readable($composerFilePath)) {
-            return $defaultPublicDir;
-        }
-
-        $composerConfig = json_decode(file_get_contents($composerFilePath), true);
-
-        if (isset($composerConfig['extra']['public-dir'])) {
-            return $composerConfig['extra']['public-dir'];
-        }
-
-        return $this->getProjectDirectory($container) . '/' . $defaultPublicDir;
+        return $this->publicDirectory;
     }
 }

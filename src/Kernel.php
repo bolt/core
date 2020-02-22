@@ -84,6 +84,8 @@ class Kernel extends BaseKernel
 
     private function setBoltParameters(ContainerBuilder $container, string $confDir): void
     {
+        $container->setParameter('bolt.public_folder', $this->guesstimatePublicFolder());
+
         $fileLocator = new FileLocator([$confDir . '/bolt']);
         $fileName = $fileLocator->locate('config.yaml', null, true);
 
@@ -147,5 +149,19 @@ class Kernel extends BaseKernel
 
         $container->setParameter('bolt.requirement.pluraltaxonomies', $pluralslugs);
         $container->setParameter('bolt.requirement.taxonomies', $slugs);
+    }
+
+    private function guesstimatePublicFolder(): string
+    {
+        $projectDir = $this->getProjectDir();
+        $candidates = ['public', 'public_html', 'www', 'web', 'httpdocs', 'wwwroot', 'htdocs', 'http_public', 'private_html'];
+
+        foreach ($candidates as $candidate) {
+            if (is_dir($projectDir . '/' . $candidate)) {
+                return $candidate;
+            }
+        }
+
+        throw new \Exception('The Public Folder could not be determined. Expected folder `public`, `public_html`, `www`, `web`, `httpdocs`, `wwwroot`, `htdocs`, `http_public` or `private_html` to exist.');
     }
 }
