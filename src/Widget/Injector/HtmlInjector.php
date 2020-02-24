@@ -210,7 +210,7 @@ class HtmlInjector
      * insert some HTML after the last javascript include.
      * If there is no JS anywhere, place it right before end of body.
      */
-    protected function jsTagsAfter(string $snippet, string $rawHtml, $insidehead = false): string
+    protected function jsTagsAfter(string $snippet, string $rawHtml): string
     {
         $result = self::injectAfterTagEnd($rawHtml, 'script', $snippet);
         if ($result === $rawHtml) {
