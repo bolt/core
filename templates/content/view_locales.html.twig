@@ -20,12 +20,12 @@
     {% set locales = record.definition.locales %}
 
     <table class="table">
-        <tr>
+        <thead>
             <th>Field</th>
             {% for locale in locales %}
                 <th>{{ flag(locale) }}{{ locale }}</th>
             {% endfor %}
-        </tr>
+        </thead>
 
         {% for group in record.definition.groups %}
             {% for key, fielddefinition in record.definition.fields|filter(fielddefinition => fielddefinition.group == group) %}
