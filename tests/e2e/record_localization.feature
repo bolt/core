@@ -39,7 +39,7 @@ Feature: See localization info for a record
       | col1 | col2 | col3 | col4 | col5 |
       | Eén plaatje Type: image | Default | Default | Default | Default |
 
-    And I should see 5 "td a" elements
+    And I should see 4 "td a" elements
 
     When I click the 2nd "Edit"
     Then I should be on "/bolt/edit/2?edit_locale=nl"
