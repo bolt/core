@@ -163,6 +163,7 @@ Feature: Users & Permissions
     And I press "Save changes"
 
     Then I should see "Invalid display name"
+    And I logout
 
   @javascript
   Scenario: Edit my user to change display name
@@ -175,6 +176,7 @@ Feature: Users & Permissions
 
     Then I should see "User Profile has been updated!"
     And the field "displayName" should contain "Administrator"
+    And I logout
 
   @javascript
   Scenario: View current sessions
