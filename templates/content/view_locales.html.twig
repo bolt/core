@@ -26,28 +26,37 @@
                 <th>{{ flag(locale) }}{{ locale }}</th>
             {% endfor %}
         </tr>
-        {% for name, field in record.fields %}
-            <tr>
-                <td>
-                    <b>{{ field|label }}</b><br>
-                    Type: {{ field|type }}<br>
-                </td>
-                {% set localizedValues = find_translations(field) %}
-                {% for locale in locales %}
-                    {% set translated = field|translated(locale) %}
+
+        {% for group in record.definition.groups %}
+            {% for key, fielddefinition in record.definition.fields|filter(fielddefinition => fielddefinition.group == group) %}
+                {% if record.hasField(key) %}
+                    {% set field = record.getField(key) %}
+                {% else %}
+                    {% set field = field_factory(key, fielddefinition) %}
+                {% endif %}
+                <tr>
                     <td>
-                        {% if not field.definition.localize %}
-                            <span class="badge badge-info">{{ 'view_locales.badge_default'|trans }}</span>
-                        {% elseif localizedValues[locale] is not defined %}
-                            <span class="badge badge-danger">{{ 'view_locales.badge_missing'|trans }}</span>
-                        {% elseif localizedValues[locale] is defined and translated.twigvalue is empty %}
-                            <span class="badge badge-warning">{{ 'view_locales.badge_empty'|trans }}</span>
-                        {% else %}
-                            <span class="badge badge-success">{{ 'view_locales.badge_ok'|trans }}</span>
-                        {% endif %}
+                        <b>{{ field|label }}</b><br>
+                        Type: {{ field|type }}<br>
                     </td>
-                {% endfor %}
-            </tr>
+                    {% set localizedValues = find_translations(field) %}
+                    {% for locale in locales %}
+                        {% set translated = field|translated(locale) %}
+                        <td>
+                            {% if not field.definition.localize %}
+                                <span class="badge badge-info">{{ 'view_locales.badge_default'|trans }}</span>
+                            {% elseif localizedValues[locale] is not defined %}
+                                <span class="badge badge-danger">{{ 'view_locales.badge_missing'|trans }}</span>
+                            {% elseif localizedValues[locale] is defined and translated.twigvalue is empty %}
+                                <span class="badge badge-warning">{{ 'view_locales.badge_empty'|trans }}</span>
+                            {% else %}
+                                <span class="badge badge-success">{{ 'view_locales.badge_ok'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
         {% endfor %}
 
         <tr>
