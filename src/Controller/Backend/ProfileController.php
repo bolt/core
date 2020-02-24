@@ -99,7 +99,7 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
 
             $suggestedPassword = $validator->hasPasswordError() ? Str::generatePassword() : null;
 
-            return $this->renderTemplate('@bolt/users/edit.html.twig', [
+            return $this->renderTemplate('@bolt/users/profile.html.twig', [
                 'display_name' => $displayName,
                 'userEdit' => $user,
                 'suggestedPassword' => $suggestedPassword,
