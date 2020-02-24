@@ -232,7 +232,8 @@ export default {
       this.previewImage = null;
       this.filenameData = '';
       this.thumbnailData = '';
-      this.altData = '';
+      // only reset altData if alt should be displayed.
+      if (this.altData !== undefined) this.altData = '';
       this.$emit('remove', this);
     },
     selectUploadFile() {
