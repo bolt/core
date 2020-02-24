@@ -47,7 +47,7 @@ export default {
     name: String,
     id: String,
     hidden: Boolean,
-    strength: Number,
+    strength: Boolean,
     required: Number,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
