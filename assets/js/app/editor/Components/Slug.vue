@@ -30,16 +30,16 @@
         </button>
         <div class="dropdown-menu">
           <template v-if="!edit">
-            <button class="dropdown-item" @click="editSlug">
+            <button class="dropdown-item" type="button" @click="editSlug">
               <i class="fas fa-pencil-alt fa-fw"></i> {{ labels.button_edit }}
             </button>
           </template>
           <template v-if="!locked">
-            <button class="dropdown-item" @click="lockSlug">
+            <button class="dropdown-item" type="button" @click="lockSlug">
               <i class="fas fa-lock fa-fw"></i> {{ labels.button_locked }}
             </button>
           </template>
-          <button class="dropdown-item" @click="generateSlug()">
+          <button class="dropdown-item" type="button" @click="generateSlug">
             <i class="fas fa-link fa-fw"></i> {{ labels.generate_from }}
             {{ generate }}
           </button>
@@ -67,11 +67,11 @@ export default {
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
   },
-  data: () => {
+  data() {
     return {
       edit: false,
-      locked: false,
-      buttonText: 'Locked',
+      locked: true,
+      buttonText: this.$props.labels.button_locked,
       icon: 'lock',
     };
   },
