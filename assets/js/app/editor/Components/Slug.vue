@@ -30,16 +30,16 @@
         </button>
         <div class="dropdown-menu">
           <template v-if="!edit">
-            <button class="dropdown-item" @click="editSlug" type="button">
+            <button class="dropdown-item" type="button" @click="editSlug">
               <i class="fas fa-pencil-alt fa-fw"></i> {{ labels.button_edit }}
             </button>
           </template>
           <template v-if="!locked">
-            <button class="dropdown-item" @click="lockSlug" type="button">
+            <button class="dropdown-item" type="button" @click="lockSlug">
               <i class="fas fa-lock fa-fw"></i> {{ labels.button_locked }}
             </button>
           </template>
-          <button class="dropdown-item" @click="generateSlug" type="button">
+          <button class="dropdown-item" type="button" @click="generateSlug">
             <i class="fas fa-link fa-fw"></i> {{ labels.generate_from }}
             {{ generate }}
           </button>
