@@ -357,7 +357,7 @@ class Content
     /**
      * @Groups("get_content")
      */
-    public function getFieldValues(bool $parsed = true): array
+    public function getFieldValues(): array
     {
         $fieldValues = [];
         foreach ($this->getFields() as $field) {
