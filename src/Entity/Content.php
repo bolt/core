@@ -627,7 +627,7 @@ class Content
             ];
         }
 
-        $result['fields'] = $this->getFieldValues(false);
+        $result['fields'] = $this->getFieldValues();
 
         $result['taxonomies'] = $this->getTaxonomyValues();
         $result['relations'] = [];
