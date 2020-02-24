@@ -359,7 +359,7 @@ class SelectQuery implements QueryInterface
         $where = [];
         foreach ($contentTypes as $key => $contentType) {
             $where[] = 'content.contentType = :ct' . $key;
-            $this->qb->setParameter('ct' . $key, str_replace('-', '_', $contentType));
+            $this->qb->setParameter('ct' . $key, $contentType);
         }
 
         $this->qb->andWhere(implode(' OR ', $where));
