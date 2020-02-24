@@ -181,10 +181,10 @@ class Config
             return $this->get('contenttypes/' . $name);
         }
 
+        /** @var Collection $cts */
         $cts = $this->get('contenttypes');
 
         foreach (['singular_slug', 'name', 'singular_name'] as $key) {
-            /** @var Collection $cts */
             if ($cts->firstWhere($key, $name)) {
                 return $cts->firstWhere($key, $name);
             }
