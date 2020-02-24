@@ -44,6 +44,21 @@ class UserRepository extends ServiceEntityRepository
         return $user instanceof User ? $user : null;
     }
 
+    public function getFirstAdminUser(): ?User
+    {
+        $qb = $this->createQueryBuilder('user');
+        $qb
+            ->andWhere(
+                $qb->expr()->like('user.roles', ':admin')
+            )
+            ->setParameter('admin', '%ROLE_ADMIN%')
+            ->setMaxResults(1);
+
+        $user = $qb->getQuery()->getOneOrNullResult();
+
+        return $user instanceof User ? $user : null;
+    }
+
     public static function factory(string $displayName = '', string $username = '', string $email = ''): User
     {
         $user = new User();
