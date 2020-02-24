@@ -146,6 +146,37 @@ Feature: Users & Permissions
     And I should see "Suggested secure password"
 
   @javascript
+  Scenario: Edit my user with incorrect display name
+    Given I am logged in as "jane_admin" with password "jane%1"
+
+    When I hover over the "Hey, Jane Doe" element
+    Then I should see "Edit Profile"
+
+    When I click "Edit Profile"
+    Then I should be on "/bolt/profile-edit"
+
+    And I should see "Jane Doe" in the "h1" element
+    And the field "username" should contain "jane_admin"
+
+    When I fill "displayName" element with "  "
+    And I scroll "Save changes" into view
+    And I press "Save changes"
+
+    Then I should see "Invalid display name"
+
+  @javascript
+  Scenario: Edit my user to change display name
+    Given I am logged in as "jane_admin" with password "jane%1"
+    And I am on "/bolt/profile-edit"
+
+    When I fill "displayName" element with "Administrator"
+    And I scroll "Save changes" into view
+    And I press "Save changes"
+
+    Then I should see "User Profile has been updated!"
+    And the field "displayName" should contain "Administrator"
+
+  @javascript
   Scenario: View current sessions
     Given I am logged in as "admin"
     When I am on "/bolt/users"
@@ -162,3 +193,4 @@ Feature: Users & Permissions
     And the data in the 1st row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(4)" table should match:
       | col1 | col2 | col4 | col5 |
       | 1 | admin | in 13 days | 127.0.0.1 |
+
