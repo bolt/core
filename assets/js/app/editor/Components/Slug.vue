@@ -67,11 +67,11 @@ export default {
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
   },
-  data: () => {
+  data() {
     return {
       edit: false,
-      locked: false,
-      buttonText: 'Locked',
+      locked: true,
+      buttonText: this.$props.labels.button_locked,
       icon: 'lock',
     };
   },
