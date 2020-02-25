@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage;
 
+use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Directive\GetQueryDirective;
@@ -68,10 +69,13 @@ class ContentQueryParser
     /** @var RequestStack */
     private $requestStack;
 
+    /** @var Config */
+    private $config;
+
     /**
      * Constructor.
      */
-    public function __construct(RequestStack $requestStack, ContentRepository $repo, ?QueryInterface $queryHandler = null)
+    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, ?QueryInterface $queryHandler = null)
     {
         $this->repo = $repo;
         $this->requestStack = $requestStack;
@@ -81,6 +85,7 @@ class ContentQueryParser
         }
 
         $this->setupDefaults();
+        $this->config = $config;
     }
 
     /**
@@ -154,7 +159,7 @@ class ContentQueryParser
             $tok = strtok($delim);
         }
 
-        $this->contentTypes = $content;
+        $this->setContentTypes($content);
     }
 
     /**
@@ -256,6 +261,23 @@ class ContentQueryParser
     public function getContentRepository(): ContentRepository
     {
         return $this->repo;
+    }
+
+    public function setContentTypes(array $contentTypes): void
+    {
+        // Verify if we're attempting to get valid ContentTypes
+        foreach ($contentTypes as $key => $value) {
+            $configCT = $this->config->getContentType($value);
+
+            if (! $configCT) {
+                $message = sprintf("Tried to get content from ContentType '%s', but no ContentType by that name/slug exists.", $value);
+                throw new \Exception($message);
+            }
+
+            $contentTypes[$key] = $configCT->get('slug');
+        }
+
+        $this->contentTypes = $contentTypes;
     }
 
     /**

@@ -175,7 +175,22 @@ class Config
 
     public function getContentType(string $name): ?Collection
     {
-        return $this->get('contenttypes/' . $name);
+        $name = trim($name);
+
+        if ($this->has('contenttypes/' . $name)) {
+            return $this->get('contenttypes/' . $name);
+        }
+
+        /** @var Collection $cts */
+        $cts = $this->get('contenttypes');
+
+        foreach (['singular_slug', 'name', 'singular_name'] as $key) {
+            if ($cts->firstWhere($key, $name)) {
+                return $cts->firstWhere($key, $name);
+            }
+        }
+
+        return null;
     }
 
     public function getFileTypes(): Collection
