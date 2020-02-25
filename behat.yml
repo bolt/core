@@ -21,7 +21,7 @@ default:
   extensions:
     Lakion\Behat\MinkDebugExtension:
       directory: var/log/behat-reports
-      screenshot: false
+      screenshot: true
 
     Behat\MinkExtension:
       browser_name: chrome

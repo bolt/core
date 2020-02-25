@@ -12,6 +12,7 @@ Feature: Bulk content listing actions
     And the 1st "Update all" button should be disabled
 
   @javascript
+
   Scenario: As an Admin I want to change the status of several tests at once
     Given I am logged in as "admin"
     And I am on "/bolt/content/tests"
@@ -26,6 +27,7 @@ Feature: Bulk content listing actions
 
 #    When I click "Change status to 'draft'"
     When I click "aside .card-body .multiselect__content-wrapper > ul > li:nth-child(2)"
+    And I wait 0.1 second
     Then the 1st "Update all" button should be enabled
 
     When I press "Update all"
@@ -37,9 +39,10 @@ Feature: Bulk content listing actions
 
     When I click ".listing__filter .custom-checkbox"
     And I click "aside .card-body .multiselect__select"
+
 #    And I click "Change status to 'publish'"
     And I click "aside .card-body .multiselect__content-wrapper > ul > li:nth-child(1)"
-
+    And I wait 0.1 second
     Then the 1st "Update all" button should be enabled
 
     When I press "Update all"
