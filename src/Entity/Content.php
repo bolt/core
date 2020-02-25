@@ -175,9 +175,9 @@ class Content
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
 
         // Set default status and default values
-        if (!$this->getId()) {
+        if (! $this->getId()) {
             $this->setStatus($this->contentTypeDefinition->get('default_status'));
-            $this->contentTypeDefinition->get('fields')->each(function ($item, $name) {
+            $this->contentTypeDefinition->get('fields')->each(function (LaravelCollection $item, string $name): void {
                 if ($item->get('default')) {
                     $this->setFieldValue($name, $item->get('default'));
                 }
