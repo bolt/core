@@ -173,6 +173,18 @@ class Content
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
+
+        if ($this->getId()) {
+            return;
+        }
+
+        // Set default status and default values
+        $this->setStatus($this->contentTypeDefinition->get('default_status'));
+        $this->contentTypeDefinition->get('fields')->each(function (LaravelCollection $item, string $name): void {
+            if ($item->get('default')) {
+                $this->setFieldValue($name, $item->get('default'));
+            }
+        });
     }
 
     public function setDefinition(ContentType $contentType): void

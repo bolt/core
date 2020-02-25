@@ -42,7 +42,6 @@ homepage:
     taxonomy: [ categories, tags, foobars ]
     locales: ['en', 'nl', 'ja', 'nb']
     singleton: true
-    default_status: published
     icon_many: "fa:home"
     icon_one: "fa:home"
 
@@ -313,7 +312,6 @@ blocks:
             label: Select a page
     show_on_dashboard: true
     viewless: true
-    default_status: published
     searchable: false
     icon_many: "fa:cubes"
     icon_one: "fa:cube"
