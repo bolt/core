@@ -67,13 +67,9 @@
 
 {# Set the value #}
 {% if not value|default %}
-    {% if field.isNew|default and field.defaultValue|default(null) is not null %}
-        {% set value = field.defaultValue %}
-    {% else %}
-        {% set value = field.value|default('') %}
-            {% if value is iterable and field|type != "select" and field|type != "collection" %}
-                {% set value = value|first %}
-            {% endif %}
+    {% set value = field.value|default('') %}
+    {% if value is iterable and field|type != "select" and field|type != "collection" %}
+        {% set value = value|first %}
     {% endif %}
 {% endif %}
 
