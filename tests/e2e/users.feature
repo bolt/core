@@ -102,6 +102,7 @@ Feature: Users & Permissions
       | displayName | Tom Doe CHANGED |
       | email | tom_admin_changed@example.org |
     And I scroll "#editcontent > button" into view
+    And I wait 0.1 seconds
     And I press "Save changes"
 
     Then I should be on "/bolt/users"
