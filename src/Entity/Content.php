@@ -174,7 +174,7 @@ class Content
     {
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
 
-        if (! $this->getId()) {
+        if ($this->getId()) {
             return;
         }
 
