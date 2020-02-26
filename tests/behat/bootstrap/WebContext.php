@@ -261,7 +261,7 @@ trait WebContext
         $this->spin(function () use ($field, $initial, $web){
             $this->assertFieldNotContains($field, $initial);
             return true;
-        }, 10);
+        }, 20);
     }
     
     /**   
