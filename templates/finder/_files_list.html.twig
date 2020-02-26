@@ -20,6 +20,7 @@
         {% set thumbnail = '' %}
         {% set title = '' %}
         {% set dimensions = '' %}
+        {% set original = asset((path != '/' ? path|trim('/') ~ '/') ~ file.filename, 'files') %}
 
         {% if extension in imageformats %}
 
@@ -64,7 +65,7 @@
                 <small style="color: #888;">{{ file.getCTime()|date('Y-m-d H:i:s') }}</small>
             </td>
             <td>
-                &nbsp;
+                {% include '@bolt/finder/_files_actions.html.twig' %}
             </td>
         </tr>
     {% else %}
