@@ -2199,5 +2199,11 @@
         <target>Invalid display name</target>
       </segment>
     </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <segment>
+        <source>action.confirm_delete</source>
+        <target>Are you sure you wish to delete this content?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
