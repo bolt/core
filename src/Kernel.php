@@ -123,7 +123,7 @@ class Kernel extends BaseKernel
      */
     private function setContentTypeRequirements(ContainerBuilder $container): void
     {
-        $ContentTypesParser = new ContentTypesParser('en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE', $this->getProjectDir(), new Collection());
+        $ContentTypesParser = new ContentTypesParser(null, $this->getProjectDir(), new Collection());
         $contentTypes = $ContentTypesParser->parse();
 
         $pluralslugs = $contentTypes->pluck('slug')->implode('|');
