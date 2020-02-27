@@ -69,3 +69,30 @@ Feature: Record listing
     When I press "Expanded"
     And the ".listing__row--item.is-thumbnail" element should be visible
     And the ".listing__row--item-title-excerpt" element should be visible
+
+  @javascript
+  Scenario: As an admin I want to see the the last edited records in the sidebar
+    Given I am logged in as "admin"
+    And I am on "/bolt/edit/74"
+    And I scroll "Save changes" into view
+    And I press "Save changes"
+
+    When I hover over the "Tests" element
+    Then I should see 6 "li" in the 4th ".admin__sidebar--menu ul"
+    And I should see "New test" in the "#sidebar ul li:nth-child(8) ul > li:nth-child(1) > a" element
+    And I should see "Title of the test" in the "#sidebar ul li:nth-child(8) ul > li:nth-child(2) > a" element
+
+  @javascript
+  Scenario: As an admin I want to see the settings menu items
+    Given I am logged in as "admin"
+
+    Then I should see "Configuration" in the ".admin__sidebar--menu" element
+
+    When I hover over the "Configuration" element
+    Then I should see "Users & Permissions" in the "#sidebar ul > li:nth-child(10) li:nth-child(1)" element
+    Then I should see "Main Configuration" in the "#sidebar ul > li:nth-child(10) li:nth-child(2)" element
+    Then I should see "Content Types" in the "#sidebar ul > li:nth-child(10) li:nth-child(3)" element
+    Then I should see "Taxonomies" in the "#sidebar ul > li:nth-child(10) li:nth-child(4)" element
+    Then I should see "Menu set up" in the "#sidebar ul > li:nth-child(10) li:nth-child(5)" element
+    Then I should see "Routing Configuration" in the "#sidebar ul > li:nth-child(10) li:nth-child(6)" element
+    Then I should see "All Configuration Files" in the "#sidebar ul > li:nth-child(10) li:nth-child(7)" element
