@@ -21,7 +21,7 @@ class ContentTypesParser extends BaseParser
     /** @var array */
     private $localeCodes = [];
 
-    public function __construct(string $locales, string $projectDir, Collection $generalConfig, string $filename = 'contenttypes.yaml')
+    public function __construct(?string $locales = null, string $projectDir, Collection $generalConfig, string $filename = 'contenttypes.yaml')
     {
         $this->localeCodes = empty($locales) ? [] : explode('|', $locales);
         $this->generalConfig = $generalConfig;
