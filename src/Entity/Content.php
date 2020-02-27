@@ -407,13 +407,17 @@ class Content
         return $this->getField($fieldName)->getParsedValue();
     }
 
-    public function setFieldValue(string $fieldName, $value): void
+    public function setFieldValue(string $fieldName, $value, string $locale = null): void
     {
         if (! $this->hasField($fieldName)) {
             $this->addFieldByName($fieldName);
         }
 
         $field = $this->getField($fieldName);
+
+        if ($locale !== null) {
+            $field->setLocale($locale);
+        }
 
         $field->setValue($value);
     }
