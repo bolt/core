@@ -18,27 +18,27 @@
       :class="`is-${size}`"
       @mouseleave="leave"
     >
-      <!-- column thumbnail -->
-      <div
-        v-if="size === 'normal' && record.extras.image"
-        class="listing__row--item is-thumbnail"
-        :style="`background-image: url('${record.extras.image.thumbnail}')`"
-      ></div>
-      <!-- end column -->
-
-      <!-- column details -->
+      <!-- column details / excerpt -->
       <div class="listing__row--item is-details">
         <a
           class="listing__row--item-title"
           :href="record.extras.editLink"
           :title="slug"
         >
-          {{ record.extras.title | trim(62) }}
+          {{ record.extras.title | trim(62) | raw }}
         </a>
         <span class="listing__row--item-title-excerpt">{{
-          record.extras.excerpt
+          record.extras.excerpt | raw
         }}</span>
       </div>
+      <!-- end column -->
+
+      <!-- column thumbnail -->
+      <div
+        v-if="size === 'normal' && record.extras.image"
+        class="listing__row--item is-thumbnail"
+        :style="`background-image: url('${record.extras.image.thumbnail}')`"
+      ></div>
       <!-- end column -->
 
       <!-- column meta -->

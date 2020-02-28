@@ -78,11 +78,11 @@
     }
 
     @include media-breakpoint-up(wd) {
-      padding: $spacer*1.25 $spacer*2 1rem $spacer*2; //do not just change this as it's tied to the main grid and other paddings/gutters
+      padding: $spacer*1.25 $spacer*2 1rem $spacer*3; //do not just change this as it's tied to the main grid and other paddings/gutters
     }
 
     @include media-breakpoint-up(xw) {
-      padding: $spacer*1.25 $spacer*3 1rem $spacer*3; //do not just change this as it's tied to the main grid and other paddings/gutters
+      padding: $spacer*1.25 $spacer*3 1rem $spacer*4; //do not just change this as it's tied to the main grid and other paddings/gutters
     }
   }
 

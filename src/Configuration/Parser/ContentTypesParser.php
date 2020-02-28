@@ -315,7 +315,7 @@ class ContentTypesParser extends BaseParser
 
     private function determineSort(array $contentType): string
     {
-        $sort = $contentType['sort'] ?? 'id';
+        $sort = $contentType['sort'] ?? '-createdAt';
 
         $replacements = [
             'created' => 'createdAt',
@@ -336,8 +336,8 @@ class ContentTypesParser extends BaseParser
         $sortname = trim($sort, '-');
 
         if (! in_array($sortname, array_keys($contentType['fields']), true) &&
-            ! in_array($sortname, ['createdAt', 'modifiedAt', 'publishedAt'], true)) {
-            $sort = 'id';
+            ! in_array($sortname, ['createdAt', 'modifiedAt', 'publishedAt', 'id'], true)) {
+            $sort = '-createdAt';
         }
 
         return $sort;

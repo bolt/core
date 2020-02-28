@@ -31,6 +31,8 @@ class ContentOverviewController extends TwigAwareController implements BackendZo
 
         if ($request->get('sortBy')) {
             $params['order'] = $request->get('sortBy');
+        } else {
+            $params['order'] = $contentTypeObject->get('sort');
         }
 
         if ($request->get('filter')) {

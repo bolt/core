@@ -19,6 +19,14 @@ Vue.filter('strip', string => {
   }
 });
 
+Vue.filter('raw', string => {
+  if (string) {
+    let node = document.createElement("textarea");
+    node.innerHTML = string;
+    return node.value;
+  }
+});
+
 Vue.filter('uppercase', string => {
   if (string) return string.toUpperCase();
 });
