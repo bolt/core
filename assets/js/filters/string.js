@@ -21,7 +21,7 @@ Vue.filter('strip', string => {
 
 Vue.filter('raw', string => {
   if (string) {
-    let node = document.createElement("textarea");
+    let node = document.createElement('textarea');
     node.innerHTML = string;
     return node.value;
   }
