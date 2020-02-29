@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
@@ -44,10 +45,12 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
     /**
      * @Route("/kitchensink", name="bolt_kitchensink")
      */
-    public function kitchensink(ContentRepository $content): Response
+    public function kitchensink(ContentRepository $content, Config $config): Response
     {
+        $contentTypes = $config->get('contenttypes');
+
         /** @var Content $records */
-        $records = $content->findLatest(null, 1, 4);
+        $records = $content->findLatest($contentTypes, 1, 4);
 
         $this->addFlash('success', '<strong>Well done!</strong> You successfully read this important alert message.');
         $this->addFlash('info', '<strong>Heads up!</strong> This alert needs your attention, but it\'s not super important.');

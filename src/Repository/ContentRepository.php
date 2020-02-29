@@ -63,19 +63,21 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
-    public function findLatest(?ContentType $contentType = null, int $page = 1, int $amount = 6): Pagerfanta
+    public function findLatest(Collection $contentTypes, int $page = 1, int $amount = 6): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
             ->innerJoin('content.author', 'a')
             ->orderBy('content.modifiedAt', 'DESC');
 
-        if ($contentType) {
-            $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contentType->getSlug());
+        if ($contentTypes->has('slug')) {
+            $cts = [$contentTypes->get('slug')];
+        } else {
+            $cts = $contentTypes->pluck('slug')->all();
         }
 
-        $qb->orderBy('content.modifiedAt', 'DESC');
+        $qb->where('content.contentType IN (:cts)')
+            ->setParameter('cts', $cts);
 
         $qb->setMaxResults($amount);
 
