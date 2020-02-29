@@ -7,7 +7,7 @@
           :class="`is-${record.status}`"
           :title="record.status"
         ></span
-        >{{ record.publishedAt | date }}
+        >{{ record.publishedAt ? record.publishedAt : record.createdAt | date }}
       </li>
       <li v-if="size === 'normal'">
         <i class="fas fa-user"></i> {{ record.authorName }}
