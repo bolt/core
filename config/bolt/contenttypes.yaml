@@ -98,6 +98,7 @@ pages:
             filter: '*.twig'
     taxonomy: [ groups ]
     listing_records: 6
+    sort: id
     locales: ['en', 'nl', 'ja', 'nb']
 
 # Entries can be used for things like 'news' or 'blogpostings'. They have a
