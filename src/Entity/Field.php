@@ -348,7 +348,7 @@ class Field implements FieldInterface, TranslatableInterface
         return '\\' . implode('\\', $explodedNamespace) . '\\' . $entityClass . 'Translation';
     }
 
-    private function isTranslatable(): bool
+    protected function isTranslatable(): bool
     {
         return $this->getDefinition()->get('localize') === true;
     }
