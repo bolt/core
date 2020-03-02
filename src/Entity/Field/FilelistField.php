@@ -43,6 +43,24 @@ class FilelistField extends Field implements FieldInterface
         return $result;
     }
 
+    public function getApiValue()
+    {
+        if (! $this->isTranslatable()) {
+            return $this->getValue();
+        }
+
+        $result = [];
+
+        foreach ($this->getTranslations() as $translation) {
+            $locale = $translation->getLocale();
+            $this->setCurrentLocale($locale);
+            $value = $this->getValue();
+            $result[$locale] = $value;
+        }
+
+        return $result;
+    }
+
     public function getDefaultValue(): array
     {
         $result = [];
