@@ -54,7 +54,15 @@ class ImagelistField extends Field implements FieldInterface
         foreach ($this->getTranslations() as $translation) {
             $locale = $translation->getLocale();
             $this->setCurrentLocale($locale);
-            $value = $this->getValue();
+            $images = $this->getValue();
+            // $images is an array of ImageField.php
+            // In the API we need the actual value of those fields, not the object
+            $value = [];
+
+            foreach ($images as $image) {
+                $value[] = $image->getValue();
+            }
+
             $result[$locale] = $value;
         }
 
