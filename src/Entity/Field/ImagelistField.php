@@ -60,7 +60,7 @@ class ImagelistField extends Field implements FieldInterface
             $value = [];
 
             foreach ($images as $image) {
-                $value[] = $image->getValue();
+                $value[] = $image->getApiValue();
             }
 
             $result[$locale] = $value;

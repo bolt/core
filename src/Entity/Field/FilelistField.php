@@ -60,7 +60,7 @@ class FilelistField extends Field implements FieldInterface
             $value = [];
 
             foreach ($files as $file) {
-                $value[] = $file->getValue();
+                $value[] = $file->getApiValue();
             }
 
             $result[$locale] = $value;
