@@ -54,7 +54,15 @@ class FilelistField extends Field implements FieldInterface
         foreach ($this->getTranslations() as $translation) {
             $locale = $translation->getLocale();
             $this->setCurrentLocale($locale);
-            $value = $this->getValue();
+            $files = $this->getValue();
+            // $files is an array of FileField.php
+            // In the API we need the actual value of those fields, not the object
+            $value = [];
+
+            foreach ($files as $file) {
+                $value[] = $file->getApiValue();
+            }
+
             $result[$locale] = $value;
         }
 
