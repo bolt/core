@@ -274,7 +274,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function setDefaultLocaleFromContent(): self
     {
-        if($this->getContent() === null) {
+        if ($this->getContent() === null) {
             return $this;
         }
 
