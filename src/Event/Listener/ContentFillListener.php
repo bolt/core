@@ -70,17 +70,8 @@ class ContentFillListener
 
     private function setFieldsDefaultLocales(Content $entity): void
     {
-        $locales = $entity->getDefinition()->get('locales');
-
-        if ($locales->isEmpty()) {
-            return;
-        }
-
-        $defaultLocale = $entity->getDefinition()->get('locales')->first();
-
         foreach ($entity->getRawFields() as $field) {
-            $field->setDefaultLocale($defaultLocale);
-            $field->setLocale($field->getDefaultLocale());
+            $field->setDefaultLocaleFromContent();
         }
     }
 }
