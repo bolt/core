@@ -96,11 +96,17 @@ class ContentExtension extends AbstractExtension
         ];
     }
 
-    public function getTitle(Content $content): string
+    public function getTitle(Content $content, string $locale = ''): string
     {
         $titleParts = [];
 
         foreach ($this->guessTitleFields($content) as $fieldName) {
+            $field = $content->getField($fieldName);
+
+            if (! empty($locale)) {
+                $field->setCurrentLocale($locale);
+            }
+
             $titleParts[] = $content->getField($fieldName)->__toString();
         }
 
