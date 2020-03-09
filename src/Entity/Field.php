@@ -102,6 +102,9 @@ class Field implements FieldInterface, TranslatableInterface
         return $this->id;
     }
 
+    /**
+     * @Groups("get_field")
+     */
     public function getDefinition(): FieldType
     {
         if ($this->fieldTypeDefinition === null) {

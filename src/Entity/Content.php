@@ -192,6 +192,9 @@ class Content
         $this->contentTypeDefinition = $contentType;
     }
 
+    /**
+     * @Groups("get_content")
+     */
     public function getDefinition(): ?ContentType
     {
         return $this->contentTypeDefinition;
