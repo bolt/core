@@ -31,6 +31,7 @@ Feature: Get content with API
           },
           "@*@": "@*@"
        },
+       "definition": "@*@",
        "taxonomyValues": @array@,
        "extras": {
          "link": @string@,
@@ -75,6 +76,7 @@ Feature: Get content with API
         },
        "@*@": "@*@"
      },
+     "definition": "@*@",
      "taxonomyValues": @array@,
      "extras": {
         "link": @string@,
@@ -124,6 +126,7 @@ Feature: Get content with API
               },
               "@*@": "@*@"
            },
+           "definition": "@*@",
            "taxonomyValues": @array@,
            "extras": {
              "link": @string@,
@@ -229,6 +232,7 @@ Feature: Get content with API
      "modifiedAt": "@string@.isDateTime()",
      "publishedAt": "@string@.isDateTime()",
      "authorName": @string@,
+     "definition": "@*@",
      "fieldValues": {
         "title": {
             "en": @string@
