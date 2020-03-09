@@ -54,6 +54,7 @@ class ContentFillListener
     {
         $entity->setDefinitionFromContentTypesConfig($this->config->get('contenttypes'));
         $entity->setContentExtension($this->contentExtension);
+        $this->setFieldsDefaultLocales($entity);
     }
 
     private function guesstimateAuthor($contenttype): User
@@ -65,5 +66,21 @@ class ContentFillListener
         }
 
         return $user;
+    }
+
+    private function setFieldsDefaultLocales(Content $entity): void
+    {
+        $locales = $entity->getDefinition()->get('locales');
+
+        if ($locales->isEmpty()) {
+            return;
+        }
+
+        $defaultLocale = $entity->getDefinition()->get('locales')->first();
+
+        foreach ($entity->getRawFields() as $field) {
+            $field->setDefaultLocale($defaultLocale);
+            $field->setLocale($field->getDefaultLocale());
+        }
     }
 }
