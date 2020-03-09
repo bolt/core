@@ -287,6 +287,7 @@ class Field implements FieldInterface, TranslatableInterface
         $defaultLocale = $locales->first();
 
         $this->setDefaultLocale($defaultLocale);
+        $this->setLocale($this->getDefaultLocale());
 
         return $this;
     }
