@@ -590,4 +590,15 @@ class ContentExtension extends AbstractExtension
 
         return new LaravelCollection($values);
     }
+
+    public function icon(?Content $record = null, string $icon = 'question-circle'): string
+    {
+        if ($record instanceof Content) {
+            $icon = $record->getIcon();
+        }
+
+        $icon = str_replace('fa-', '', $icon);
+
+        return "<i class='fas mr-2 fa-${icon}'></i>";
+    }
 }
