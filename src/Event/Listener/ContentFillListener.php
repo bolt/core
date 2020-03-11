@@ -7,6 +7,7 @@ namespace Bolt\Event\Listener;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\User;
+use Bolt\Enum\Statuses;
 use Bolt\Repository\UserRepository;
 use Bolt\Twig\ContentExtension;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -37,6 +38,10 @@ class ContentFillListener
         if ($entity instanceof Content) {
             if ($entity->getAuthor() === null) {
                 $entity->setAuthor($this->guesstimateAuthor($entity->getContentTypeName()));
+            }
+
+            if ($entity->getPublishedAt() === null && $entity->getStatus() === Statuses::PUBLISHED) {
+                $entity->setPublishedAt(new \DateTime());
             }
         }
     }
