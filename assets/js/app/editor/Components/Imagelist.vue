@@ -74,6 +74,10 @@ export default {
   },
   computed: {
     allowMore: function() {
+      if (this.readonly) {
+        return false;
+      }
+
       return this.getActiveImageFields().length < this.limit;
     },
   },
