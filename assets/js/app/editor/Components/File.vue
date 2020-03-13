@@ -86,7 +86,7 @@
               v-if="inFilelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
-              :disabled="isFirstInFilelist"
+              :disabled="isFirstInFilelist || readonly"
               @click="onMoveFileUp"
             >
               <i class="fas fa-fw fa-chevron-up"></i>
@@ -97,7 +97,7 @@
               v-if="inFilelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
-              :disabled="isLastInFilelist"
+              :disabled="isLastInFilelist || readonly"
               @click="onMoveFileDown"
             >
               <i class="fas fa-fw fa-chevron-down"></i>
