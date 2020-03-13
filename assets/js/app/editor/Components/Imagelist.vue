@@ -22,6 +22,7 @@
         :extensions="extensions"
         :is-first-in-imagelist="isFirstInImagelist(index)"
         :is-last-in-imagelist="isLastInImagelist(index)"
+        :readonly="readonly"
         @remove="onRemoveImage"
         @moveImageUp="onMoveImageUp"
         @moveImageDown="onMoveImageDown"
@@ -56,6 +57,7 @@ export default {
     extensions: Array,
     attributesLink: String,
     limit: Number,
+    readonly: Boolean,
   },
   data: function() {
     let counter = 0;
@@ -72,6 +74,10 @@ export default {
   },
   computed: {
     allowMore: function() {
+      if (this.readonly) {
+        return false;
+      }
+
       return this.getActiveImageFields().length < this.limit;
     },
   },

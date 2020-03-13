@@ -85,7 +85,7 @@
               v-if="inImagelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
-              :disabled="isFirstInImagelist"
+              :disabled="isFirstInImagelist || readonly"
               @click="onMoveImageUp"
             >
               <i class="fas fa-fw fa-chevron-up"></i>
@@ -96,7 +96,7 @@
               v-if="inImagelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
-              :disabled="isLastInImagelist"
+              :disabled="isLastInImagelist || readonly"
               @click="onMoveImageDown"
             >
               <i class="fas fa-fw fa-chevron-down"></i>
