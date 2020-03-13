@@ -100,6 +100,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('link', [$this, 'getLink']),
             new TwigFilter('edit_link', [$this, 'getEditLink']),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
+            new TwigFilter('has_path', [$this, 'hasPath']),
         ];
     }
 
@@ -600,5 +601,27 @@ class ContentExtension extends AbstractExtension
         $icon = str_replace('fa-', '', $icon);
 
         return "<i class='fas mr-2 fa-${icon}'></i>";
+    }
+
+    public function hasPath(Content $record, string $path): bool
+    {
+        try {
+            $result = $this->query
+                ->getContent($path);
+
+            if ($result instanceof Content) {
+                return $record === $result;
+            }
+
+            $pager = $result
+                ->setMaxPerPage(1)
+                ->setCurrentPage(1);
+            $content = iterator_to_array($pager->getCurrentPageResults())[0];
+
+            return $record === $content;
+        } catch (\Throwable $e) {
+        }
+
+        return false;
     }
 }
