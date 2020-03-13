@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource(
@@ -19,6 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     @ORM\Index(name="name_idx", columns={"name"}),
  *     @ORM\Index(name="group_idx", columns={"group"})
  * })
+ * @ApiFilter(SearchFilter::class, strategy="partial")
  */
 class Relation
 {
