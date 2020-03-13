@@ -96,6 +96,29 @@ class ContentExtension extends AbstractExtension
         ];
     }
 
+    public function getAnyTitle(Content $content): string
+    {
+        $title = $this->getTitle($content);
+
+        if (! empty($title)) {
+            return $title;
+        }
+
+        if ($content->getDefinition()->has('locales')) {
+            $locales = $content->getDefinition()->get('locales');
+
+            foreach ($locales as $locale) {
+                $title = $this->getTitle($content, $locale);
+
+                if (! empty($title)) {
+                    return $title;
+                }
+            }
+        }
+
+        return '';
+    }
+
     public function getTitle(Content $content, string $locale = ''): string
     {
         $titleParts = [];
