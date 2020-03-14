@@ -34,7 +34,7 @@
         "scienta/doctrine-json-functions": "^4.1",
         "sensio/framework-extra-bundle": "^5.5",
         "sensiolabs/security-checker": "^6.0",
-        "siriusphp/upload": "^2.1",
+        "siriusphp/upload": "^3.0",
         "symfony/asset": "^4.4",
         "symfony/console": "^4.4",
         "symfony/debug-bundle": "^4.4",
