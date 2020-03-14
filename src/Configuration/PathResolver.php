@@ -39,6 +39,7 @@ class PathResolver
             'web' => '%site%/' . $public,
             'files' => '%web%/files',
             'themes' => '%web%/theme',
+            'thumbs' => '%web%/thumbs',
             'bolt_assets' => '%web%/bolt-public',
         ];
     }

@@ -54,6 +54,7 @@ DirectoryIndex index.php
     RewriteRule ^ - [L]
 
     # Rewrite all other queries to the front controller.
+    RewriteCond %{REQUEST_URI} !=/favicon.ico
     RewriteRule ^ %{ENV:BASE}/index.php [L]
 </IfModule>
 
