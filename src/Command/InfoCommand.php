@@ -58,9 +58,11 @@ HELP
 
         $connection = ! empty($platform['connection_status']) ? sprintf('- <comment>%s</comment>', $platform['connection_status']) : '';
 
+        $tableExists = $this->doctrineVersion->tableContentExists() ? '' : sprintf('- <error>Tables not initialised</error>');
+
         $io->listing([
             sprintf('Install type: <info>%s</info>', Version::installType()),
-            sprintf('Database: <info>%s %s</info> %s', $platform['driver_name'], $platform['server_version'], $connection),
+            sprintf('Database: <info>%s %s</info> %s %s', $platform['driver_name'], $platform['server_version'], $connection, $tableExists),
             sprintf('PHP version: <info>%s</info>', PHP_VERSION),
             sprintf('Operating System: <info>%s</info> - <comment>%s</comment>', php_uname('s'), php_uname('r')),
         ]);

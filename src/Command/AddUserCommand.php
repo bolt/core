@@ -141,7 +141,7 @@ class AddUserCommand extends Command
         if ($password !== null) {
             $this->io->text(' > <info>Password</info>: ' . str_repeat('*', mb_strlen($password)));
         } else {
-            $passwordQuestion = new Question('Password', Str::generatePassword());
+            $passwordQuestion = new Question('Password (input is hidden)', Str::generatePassword());
             $passwordQuestion->setHidden(true);
             $passwordQuestion->setValidator([$this->validator, 'validatePassword']);
 
