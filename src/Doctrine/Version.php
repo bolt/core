@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Doctrine;
 
+use Bolt\Common\Str;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOConnection;
 
@@ -12,9 +13,13 @@ class Version
     /** @var Connection */
     private $connection;
 
-    public function __construct(Connection $connection)
+    /** @var string */
+    private $tablePrefix;
+
+    public function __construct(Connection $connection, string $tablePrefix)
     {
         $this->connection = $connection;
+        $this->tablePrefix = Str::ensureEndsWith($tablePrefix, '_');
     }
 
     public function getPlatform(): array
@@ -36,5 +41,16 @@ class Version
             'connection_status' => $status,
             'server_version' => $wrapped->getAttribute(\PDO::ATTR_SERVER_VERSION),
         ];
+    }
+
+    public function tableContentExists(): bool
+    {
+        try {
+            $this->connection->executeQuery("SELECT 1 FROM " . $this->tablePrefix . "content LIMIT 1; ");
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }

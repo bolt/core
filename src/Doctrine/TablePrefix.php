@@ -10,11 +10,11 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class TablePrefix
 {
-    private $prefix;
+    private $tablePrefix;
 
-    public function __construct(string $prefix)
+    public function __construct(string $tablePrefix)
     {
-        $this->prefix = Str::ensureEndsWith($prefix, '_');
+        $this->tablePrefix = Str::ensureEndsWith($tablePrefix, '_');
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
@@ -23,14 +23,14 @@ class TablePrefix
 
         if (! $classMetadata->isInheritanceTypeSingleTable() || $classMetadata->getName() === $classMetadata->rootEntityName) {
             $classMetadata->setPrimaryTable([
-                'name' => $this->prefix . $classMetadata->getTableName(),
+                'name' => $this->tablePrefix . $classMetadata->getTableName(),
             ]);
         }
 
         foreach ($classMetadata->getAssociationMappings() as $fieldName => $mapping) {
             if ($mapping['type'] === ClassMetadataInfo::MANY_TO_MANY && $mapping['isOwningSide']) {
                 $mappedTableName = $mapping['joinTable']['name'];
-                $classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->prefix . $mappedTableName;
+                $classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $this->tablePrefix . $mappedTableName;
             }
         }
     }
