@@ -6,8 +6,8 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use League\Glide\Responses\SymfonyResponseFactory;
-use League\Glide\ServerFactory;
 use League\Glide\Server;
+use League\Glide\ServerFactory;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,9 +62,9 @@ class ImageController
         return isset($this->parameters['location']) ? $this->parameters['location'] : $this->request->query->get('location', 'files');
     }
 
-    private function getPath(string $path = null, bool $absolute = true, $additional = null): string
+    private function getPath(?string $path = null, bool $absolute = true, $additional = null): string
     {
-        if (!$path) {
+        if (! $path) {
             $path = $this->getLocation();
         }
 
@@ -108,7 +108,10 @@ class ImageController
         if (pathinfo($filename)['extension'] === 'svg') {
             $filepath = sprintf('%s%s%s', $this->getPath(), DIRECTORY_SEPARATOR, $filename);
 
-            return new Response(file_get_contents($filepath));
+            $response = new Response(file_get_contents($filepath));
+            $response->headers->set('Content-Type', 'image/svg+xml');
+
+            return $response;
         }
 
         if ($this->request->query->has('path')) {
@@ -124,15 +127,15 @@ class ImageController
 
         $this->parameters = [
             'w' => is_numeric($raw[0]) ? (int) $raw[0] : 400,
-            'h' => !empty($raw[1]) && is_numeric($raw[1]) ? (int) $raw[1] : 300,
+            'h' => ! empty($raw[1]) && is_numeric($raw[1]) ? (int) $raw[1] : 300,
         ];
 
         foreach ($raw as $rawParameter) {
-            if (strpos($rawParameter, '=') !== false) {
+            if (mb_strpos($rawParameter, '=') !== false) {
                 [$key, $value] = explode('=', $rawParameter);
 
                 // @todo Add more thumbnailing options here, perhaps.
-                if (in_array($key, $this->thumbnailOptions)) {
+                if (in_array($key, $this->thumbnailOptions, true)) {
                     $this->parameters[$key] = $value;
                 }
             }
