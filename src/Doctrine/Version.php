@@ -46,8 +46,8 @@ class Version
     public function tableContentExists(): bool
     {
         try {
-            $this->connection->executeQuery("SELECT 1 FROM " . $this->tablePrefix . "content LIMIT 1; ");
-        } catch (\Exception $e) {
+            $this->connection->executeQuery('SELECT 1 FROM ' . $this->tablePrefix . 'content LIMIT 1; ');
+        } catch (\Throwable $e) {
             return false;
         }
 
