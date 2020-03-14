@@ -10,6 +10,11 @@
     {% set valueonly = false %}
 {% endif %}
 
+{# check autofocus #}
+{% if autofocus is not defined %}
+    {% set autofocus = false %}
+{% endif %}
+
 {% block field %}
     {% if not valueonly %}
         <editor-text
@@ -23,6 +28,7 @@
             :errormessage='{{ errormessage|json_encode }}'
             :pattern='{{ pattern|json_encode }}'
             :placeholder='{{ placeholder|json_encode }}'
+            :autofocus='{{ autofocus|json_encode }}'
         ></editor-text>
     {% else %}
         <span

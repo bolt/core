@@ -13,6 +13,7 @@
       :data-errormessage="errormessage"
       :pattern="pattern"
       :placeholder="placeholder"
+      :autofocus="autofocus == true"
     />
   </div>
 </template>
@@ -34,6 +35,7 @@ export default {
     errormessage: String | Boolean,
     pattern: String | Boolean,
     placeholder: String | Boolean,
+    autofocus: Boolean,
   },
   data: () => {
     return {

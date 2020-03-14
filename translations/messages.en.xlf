@@ -2205,5 +2205,17 @@
         <target>Are you sure you wish to delete this content?</target>
       </segment>
     </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <segment>
+        <source>placeholder.username_or_email</source>
+        <target>your username or email</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <segment>
+        <source>placeholder.password</source>
+        <target>your password</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

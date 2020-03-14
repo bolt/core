@@ -49,6 +49,8 @@
                         'name' : 'username',
                         'value' : last_username,
                         'disabled' : false,
+                        'placeholder': 'placeholder.username_or_email'|trans,
+                        'autofocus': true,
                     } %}
                     {% include '@bolt/_partials/fields/password.html.twig' with {
                         'label': 'label.password'|trans,
@@ -57,6 +59,7 @@
                         'value': '',
                         'hidden': 'true',
                         'strength': false,
+                        'placeholder': 'placeholder.password'|trans,
                     } %}
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" name="_remember_me" id="_remember_me">
