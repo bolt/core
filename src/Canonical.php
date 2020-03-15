@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Canonical
@@ -156,7 +157,7 @@ class Canonical
                 $route,
                 $params
             );
-        } catch (InvalidParameterException $e) {
+        } catch (InvalidParameterException | MissingMandatoryParametersException $e) {
             // Just use the current URL /shrug
             $this->request->getUri();
         }

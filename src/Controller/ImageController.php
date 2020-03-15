@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller;
 
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use League\Glide\Responses\SymfonyResponseFactory;
 use League\Glide\Server;
@@ -11,6 +12,7 @@ use League\Glide\ServerFactory;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ImageController
@@ -39,6 +41,10 @@ class ImageController
      */
     public function thumbnail(string $paramString, string $filename, Request $request)
     {
+        if (! $this->isImage($filename)) {
+            throw new NotFoundHttpException('Thumbnail not found');
+        }
+
         $this->request = $request;
 
         $this->parseParameters($paramString);
@@ -87,7 +93,7 @@ class ImageController
     private function buildImage(string $filename): string
     {
         // In case we're trying to "thumbnail" an svg, just return the whole thing.
-        if (pathinfo($filename)['extension'] === 'svg') {
+        if ($this->isSvg($filename)) {
             $filepath = sprintf('%s%s%s', $this->getPath(), DIRECTORY_SEPARATOR, $filename);
 
             return file_get_contents($filepath);
@@ -105,7 +111,7 @@ class ImageController
     private function buildResponse(string $filename): Response
     {
         // In case we're trying to "thumbnail" an svg, just return the whole thing.
-        if (pathinfo($filename)['extension'] === 'svg') {
+        if ($this->isSvg($filename)) {
             $filepath = sprintf('%s%s%s', $this->getPath(), DIRECTORY_SEPARATOR, $filename);
 
             $response = new Response(file_get_contents($filepath));
@@ -141,4 +147,23 @@ class ImageController
             }
         }
     }
+
+    private function isSvg(string $filename): bool
+    {
+        $pathinfo = pathinfo($filename);
+
+
+        return (array_key_exists('extension', $pathinfo) && $pathinfo['extension'] === 'svg');
+    }
+
+    private function isImage(string $filename): bool
+    {
+        $pathinfo = pathinfo($filename);
+
+        $imageExtensions = ['gif', 'png', 'jpg', 'jpeg', 'svg', 'webp'];
+
+        return (array_key_exists('extension', $pathinfo) && in_array($pathinfo['extension'], $imageExtensions));
+    }
+
+
 }
