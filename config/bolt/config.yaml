@@ -136,7 +136,7 @@ records_per_page: 8
 # Note: If you change these values, you might need to clear the cache before
 #       they show up.
 thumbnails:
-    default_thumbnail: [ 160, 120 ]
+    default_thumbnail: [ 320, 240 ]
     default_image: [ 1000, 750 ]
     quality: 80
     cropping: crop

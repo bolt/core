@@ -8,6 +8,7 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
+use Bolt\Utils\ThumbnailHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
@@ -65,7 +66,10 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
         $value['url'] = $request->getUriForPath($this->getPath());
 
         $thumbPackage = new PathPackage('/thumbs/', new EmptyVersionStrategy());
-        $value['thumbnail'] = $thumbPackage->getUrl($this->get('filename')) . '?w=400&h=400&fit=crop';
+        $thumbnailHelper = new ThumbnailHelper();
+
+        $path = $thumbnailHelper->path($this->get('filename'), 400, 400);
+        $value['thumbnail'] = $thumbPackage->getUrl($path);
 
         $value['fieldname'] = $this->getName();
 

@@ -4,32 +4,31 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Common\Str;
-use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
+use Bolt\Utils\ThumbnailHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
 {
-    /** @var Config */
-    private $config;
-
     /** @var MediaRepository */
     private $mediaRepository;
 
     /** @var Notifications */
     private $notifications;
 
-    public function __construct(Config $config, MediaRepository $mediaRepository, Notifications $notifications)
+    /** @var ThumbnailHelper */
+    private $thumbnailHelper;
+
+    public function __construct(MediaRepository $mediaRepository, Notifications $notifications, ThumbnailHelper $thumbnailHelper)
     {
-        $this->config = $config;
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
+        $this->thumbnailHelper = $thumbnailHelper;
     }
 
     /**
@@ -96,31 +95,11 @@ class ImageExtension extends AbstractExtension
     /**
      * @param ImageField|array|string $image
      */
-    public function thumbnail($image, int $width = 320, int $height = 240, ?string $location = null, ?string $path = null, ?string $fit = null)
+    public function thumbnail($image, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null)
     {
-        $filename = Str::ensureStartsWith($this->getFilename($image, true), '/');
-        $paramString = $this->buildParams($width, $height, $location, $path, $fit);
+        $filename = $this->getFilename($image, true);
 
-        return sprintf('/thumbs/%s%s', $paramString, $filename);
-    }
-
-    private function buildParams(int $width, int $height, ?string $location = null, ?string $path = null, ?string $fit = null): string
-    {
-        $paramString = sprintf('%s×%s', $width, $height);
-
-        if ($fit) {
-            $paramString .= '×fit=' . $fit;
-        }
-
-        if ($location) {
-            $paramString .= '×location=' . $location;
-        }
-
-        if ($path) {
-            $paramString .= '×path=' . $path;
-        }
-
-        return $paramString;
+        return $this->thumbnailHelper->path($filename, $width, $height, $location, $path, $fit);
     }
 
     /**
