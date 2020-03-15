@@ -20,7 +20,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"get_content"}},
+ *     normalizationContext={"groups"={"get_content","get_definition"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
