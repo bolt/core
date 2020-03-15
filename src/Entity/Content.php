@@ -193,7 +193,7 @@ class Content
     }
 
     /**
-     * @Groups("get_content")
+     * @Groups("get_definition")
      */
     public function getDefinition(): ?ContentType
     {

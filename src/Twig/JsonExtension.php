@@ -15,6 +15,10 @@ class JsonExtension extends AbstractExtension
 {
     private const SERIALIZE_GROUP = 'get_content';
 
+    private const SERIALIZE_GROUP_DEFINITION = 'get_definition';
+
+    private $includeDefinition = true;
+
     /** @var NormalizerInterface */
     private $normalizer;
 
@@ -44,9 +48,11 @@ class JsonExtension extends AbstractExtension
         ];
     }
 
-    public function jsonRecords($records): string
+    public function jsonRecords($records, ?bool $includeDefinition = true, int $options = 0): string
     {
-        return Json::json_encode($this->normalizeRecords($records));
+        $this->includeDefinition = $includeDefinition;
+
+        return Json::json_encode($this->normalizeRecords($records), $options);
     }
 
     /**
@@ -69,10 +75,16 @@ class JsonExtension extends AbstractExtension
 
     private function contentToArray(Content $content): array
     {
+        $group = [self::SERIALIZE_GROUP];
+
+        if ($this->includeDefinition) {
+            $group[] = self::SERIALIZE_GROUP_DEFINITION;
+        }
+
         // we do it that way because in current API Platform version a Resource
         // can't implement \JsonSerializable
         return $this->normalizer->normalize($content, null, [
-            'group' => [self::SERIALIZE_GROUP],
+            'groups' => $group,
         ]);
     }
 
