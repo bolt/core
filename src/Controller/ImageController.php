@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller;
 
-use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use League\Glide\Responses\SymfonyResponseFactory;
 use League\Glide\Server;
@@ -152,8 +151,7 @@ class ImageController
     {
         $pathinfo = pathinfo($filename);
 
-
-        return (array_key_exists('extension', $pathinfo) && $pathinfo['extension'] === 'svg');
+        return array_key_exists('extension', $pathinfo) && $pathinfo['extension'] === 'svg';
     }
 
     private function isImage(string $filename): bool
@@ -162,8 +160,6 @@ class ImageController
 
         $imageExtensions = ['gif', 'png', 'jpg', 'jpeg', 'svg', 'webp'];
 
-        return (array_key_exists('extension', $pathinfo) && in_array($pathinfo['extension'], $imageExtensions));
+        return array_key_exists('extension', $pathinfo) && in_array($pathinfo['extension'], $imageExtensions, true);
     }
-
-
 }
