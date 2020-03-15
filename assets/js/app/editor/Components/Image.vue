@@ -240,7 +240,6 @@ export default {
       this.$refs.selectFile.click();
     },
     selectServerFile() {
-      const thumbnailParams = this.thumbnailData.split('?').pop();
       let thisField = this;
       Axios.get(this.filelist)
         .then(res => {
@@ -282,7 +281,6 @@ export default {
       return this.uploadFile(image);
     },
     uploadFile(file) {
-      const thumbnailParams = this.thumbnailData.split('?').pop();
       const fd = new FormData();
       const config = {
         onUploadProgress: progressEvent => {
