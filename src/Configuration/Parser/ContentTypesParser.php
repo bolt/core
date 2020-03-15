@@ -159,6 +159,15 @@ class ContentTypesParser extends BaseParser
 
         $contentType['sort'] = $this->determineSort($contentType);
 
+        // Make sure title_format is set
+        if (isset($contentType['title_format'])) {
+            $contentType['title_format'] = (array) $contentType['title_format'];
+        } elseif (isset($contentType['fields']['slug']['uses'])) {
+            $contentType['title_format'] = (array) $contentType['fields']['slug']['uses'];
+        } else {
+            $contentType['title_format'] = (array) key($contentType['fields']);
+        }
+
         // Make sure taxonomy is an array.
         if (isset($contentType['taxonomy'])) {
             $contentType['taxonomy'] = (array) $contentType['taxonomy'];

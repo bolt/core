@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage;
 
+use Bolt\Configuration\Config;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -44,4 +45,8 @@ interface QueryInterface
      * Sets the value of a parameter by key name.
      */
     public function setParameter(string $key, $value): void;
+
+    public function getCoreFields(): array;
+
+    public function getConfig(): Config;
 }
