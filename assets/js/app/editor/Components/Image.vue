@@ -240,7 +240,6 @@ export default {
       this.$refs.selectFile.click();
     },
     selectServerFile() {
-      const thumbnailParams = this.thumbnailData.split('?').pop();
       let thisField = this;
       Axios.get(this.filelist)
         .then(res => {
@@ -252,7 +251,7 @@ export default {
             callback: function(result) {
               if (result) {
                 thisField.filenameData = result;
-                thisField.thumbnailData = `/thumbs/${result}?${thumbnailParams}`;
+                thisField.thumbnailData = `/thumbs/400×300/${result}`;
               }
             },
           });
@@ -282,7 +281,6 @@ export default {
       return this.uploadFile(image);
     },
     uploadFile(file) {
-      const thumbnailParams = this.thumbnailData.split('?').pop();
       const fd = new FormData();
       const config = {
         onUploadProgress: progressEvent => {
@@ -300,7 +298,7 @@ export default {
       Axios.post(this.directory, fd, config)
         .then(res => {
           this.filenameData = res.data;
-          this.thumbnailData = `/thumbs/${res.data}?${thumbnailParams}`;
+          this.thumbnailData = `/thumbs/400×300/${res.data}`;
           this.progress = 0;
         })
         .catch(err => {
