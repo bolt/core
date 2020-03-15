@@ -43,8 +43,12 @@ class ThumbnailHelper
         return $paramString;
     }
 
-    public function path(string $filename, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null): string
+    public function path(?string $filename = null, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null): string
     {
+        if (! $filename) {
+            return '/assets/images/placeholder.png';
+        }
+
         $paramString = $this->parameters($width, $height, $location, $path, $fit);
         $filename = Str::ensureStartsWith($filename, '/');
 

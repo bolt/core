@@ -252,7 +252,7 @@ export default {
             callback: function(result) {
               if (result) {
                 thisField.filenameData = result;
-                thisField.thumbnailData = `/thumbs/${result}?${thumbnailParams}`;
+                thisField.thumbnailData = `/thumbs/400×300/${result}`;
               }
             },
           });
@@ -300,7 +300,7 @@ export default {
       Axios.post(this.directory, fd, config)
         .then(res => {
           this.filenameData = res.data;
-          this.thumbnailData = `/thumbs/${res.data}?${thumbnailParams}`;
+          this.thumbnailData = `/thumbs/400×300/${res.data}`;
           this.progress = 0;
         })
         .catch(err => {
