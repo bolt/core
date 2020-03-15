@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage;
 
+use Bolt\Configuration\Config;
 use Bolt\Doctrine\JsonHelper;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
@@ -67,13 +68,17 @@ class SelectQuery implements QueryInterface
     /** @var array */
     private $fieldJoins = [];
 
+    /** @var Config */
+    private $config;
+
     /**
      * Constructor.
      */
-    public function __construct(?QueryBuilder $qb = null, QueryParameterParser $parser)
+    public function __construct(?QueryBuilder $qb = null, QueryParameterParser $parser, Config $config)
     {
         $this->qb = $qb;
         $this->parser = $parser;
+        $this->config = $config;
     }
 
     /**
@@ -380,5 +385,15 @@ class SelectQuery implements QueryInterface
         $this->incrementIndex();
 
         return $this->getIndex();
+    }
+
+    public function getCoreFields(): array
+    {
+        return $this->coreFields;
+    }
+
+    public function getConfig(): Config
+    {
+        return $this->config;
     }
 }

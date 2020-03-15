@@ -13,15 +13,6 @@ use Bolt\Storage\QueryInterface;
  */
 class OrderDirective
 {
-    private $coreFields = [
-        'id',
-        'createdAt',
-        'modifiedAt',
-        'publishedAt',
-        'depublishedAt',
-        'status',
-    ];
-
     public function __invoke(QueryInterface $query, string $order): void
     {
         if ($order === '') {
@@ -36,7 +27,7 @@ class OrderDirective
         foreach ($separatedOrders as $order) {
             [ $order, $direction ] = $this->createSortBy($order);
 
-            if (in_array($order, $this->coreFields, true)) {
+            if (in_array($order, $query->getCoreFields(), true)) {
                 $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
             } elseif ($order === 'author') {
                 $query
@@ -44,6 +35,9 @@ class OrderDirective
                     ->leftJoin('content.author', 'user')
                     ->addOrderBy('user.username', $direction);
             } else {
+                if (! $this->isActualField($query, $order)) {
+                    dump("A query with ordering on a Field (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
+                }
                 $fieldsAlias = 'fields_order_' .  $query->getIndex();
                 $fieldAlias = 'order_' . $query->getIndex();
                 $translationsAlias = 'translations_order_' . $query->getIndex();
@@ -93,5 +87,12 @@ class OrderDirective
     protected function isMultiOrderQuery(string $order): bool
     {
         return mb_strpos($order, ',') !== false;
+    }
+
+    protected function isActualField(QueryInterface $query, string $name): bool
+    {
+        $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
+
+        return in_array($name, $contentType->get('fields')->keys()->all(), true);
     }
 }
