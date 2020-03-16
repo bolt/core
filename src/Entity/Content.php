@@ -20,7 +20,7 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"get_content"}},
+ *     normalizationContext={"groups"={"get_content","get_definition"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
@@ -193,7 +193,7 @@ class Content
     }
 
     /**
-     * @Groups("get_content")
+     * @Groups("get_definition")
      */
     public function getDefinition(): ?ContentType
     {
