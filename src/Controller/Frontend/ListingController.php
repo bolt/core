@@ -44,8 +44,9 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
         $page = (int) $request->query->get('page', 1);
         $amountPerPage = $contentType->get('listing_records');
+        $order = $contentType->get('sort');
 
-        $records = $this->query->getContent($contentTypeSlug, ['status' => 'published'])
+        $records = $this->query->getContent($contentTypeSlug, ['status' => 'published', 'order' => $order])
             ->setMaxPerPage($amountPerPage)
             ->setCurrentPage($page);
 
