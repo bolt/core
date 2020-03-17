@@ -70,8 +70,7 @@
         "white-october/pagerfanta-bundle": "^1.3"
     },
     "conflict": {
-        "symfony/symfony": "*",
-        "phpstan/phpstan": "0.12.15"
+        "symfony/symfony": "*"
     },
     "require-dev": {
         "ext-curl": "*",
