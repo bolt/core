@@ -6,7 +6,6 @@ namespace Bolt\Event\Subscriber;
 
 use Bolt\Common\Str;
 use Carbon\Carbon;
-use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -43,7 +42,7 @@ class TimedPublishSubscriber implements EventSubscriberInterface
         try {
             $conn->executeUpdate($queryPublish, [':now' => $now]);
             $conn->executeUpdate($queryDepublish, [':now' => $now]);
-        } catch (TableNotFoundException $e) {
+        } catch (\Throwable $e) {
             // Fail silently, output user-friendly exception elsewhere.
         }
     }
