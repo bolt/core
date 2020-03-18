@@ -128,7 +128,7 @@ class RelatedExtension extends AbstractExtension
 
         $contentType = $this->config->getContentType($contentTypeSlug);
 
-        if (!$order) {
+        if (! $order) {
             $order = $contentType->get('order');
         }
 
