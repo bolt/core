@@ -87,7 +87,7 @@ class ImageController
         $filePath = sprintf('%s%s%s%s%s', $this->getPath('thumbs'), DIRECTORY_SEPARATOR, $paramString, DIRECTORY_SEPARATOR, $filename);
         $fileMode = $this->config->get('general/filepermissions/folders', 0774);
         $folderMode = $this->config->get('general/filepermissions/files', 0664);
-        
+
         $filesystem->mkdir(dirname($filePath), $fileMode);
         $filesystem->dumpFile($filePath, $this->buildImage($filename));
         $filesystem->chmod($filePath, $folderMode);
