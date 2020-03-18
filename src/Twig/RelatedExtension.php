@@ -126,7 +126,10 @@ class RelatedExtension extends AbstractExtension
     {
         $maxAmount = $this->config->get('maximum_listing_select', 1000);
 
-        $pager = $this->query->getContent($contentTypeSlug)
+        $contentType = $this->config->getContentType($contentTypeSlug);
+        $order = $contentType->get('order');
+
+        $pager = $this->query->getContent($contentTypeSlug, ['order' => $order])
             ->setMaxPerPage($maxAmount)
             ->setCurrentPage(1);
 

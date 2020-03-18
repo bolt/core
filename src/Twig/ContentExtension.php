@@ -524,11 +524,11 @@ class ContentExtension extends AbstractExtension
         } else {
             $maxAmount = $this->config->get('maximum_listing_select', 200);
         }
-        $orderBy = $field->getDefinition()->get('sort', '');
+        $order = $field->getDefinition()->get('order', '');
 
         $params = [
             'limit' => $maxAmount,
-            'order' => $orderBy,
+            'order' => $order,
         ];
 
         /** @var Content[] $records */
