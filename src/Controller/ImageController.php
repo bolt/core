@@ -85,8 +85,13 @@ class ImageController
         $filePath = sprintf('%s%s%s%s%s', $this->getPath('thumbs'), DIRECTORY_SEPARATOR, $paramString, DIRECTORY_SEPARATOR, $filename);
 
         $filesystem = new Filesystem();
-        $filesystem->mkdir(dirname($filePath));
-        $filesystem->dumpFile($filePath, $this->buildImage($filename));
+
+        try {
+            $filesystem->mkdir(dirname($filePath));
+            $filesystem->dumpFile($filePath, $this->buildImage($filename));
+        } catch (\Throwable $e) {
+            // Fail silently, output user-friendly exception elsewhere.
+        }
     }
 
     private function buildImage(string $filename): string
