@@ -98,7 +98,7 @@ pages:
             filter: '*.twig'
     taxonomy: [ groups ]
     listing_records: 6
-    sort: id
+    order: id
     locales: ['en', 'nl', 'ja', 'nb']
 
 # Entries can be used for things like 'news' or 'blogpostings'. They have a
@@ -109,7 +109,7 @@ pages:
 # page from your news-item.
 # This ContentType defines 'categories' and 'tags' as taxonomies, allowing the
 # editor to use both to categorize a specific entry.
-# The 'sort' is set to '-datepublish', which means that newer entries will be
+# The 'order' is set to '-datepublish', which means that newer entries will be
 # shown above older entries.
 
 entries:
@@ -145,7 +145,7 @@ entries:
     listing_template: listing.twig
     listing_records: 6
     default_status: published
-    sort: -publishedAt
+    order: -publishedAt
     records_per_page: 10
     icon_many: "fa:file-alt"
     icon_one: "fa:file-alt"
@@ -316,7 +316,7 @@ blocks:
     searchable: false
     icon_many: "fa:cubes"
     icon_one: "fa:cube"
-    sort: title
+    order: title
     records_per_page: 12
 
 

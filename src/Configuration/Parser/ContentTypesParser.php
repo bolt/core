@@ -157,7 +157,7 @@ class ContentTypesParser extends BaseParser
         $contentType['fields'] = $fields;
         $contentType['groups'] = $groups;
 
-        $contentType['sort'] = $this->determineSort($contentType);
+        $contentType['order'] = $this->determineOrder($contentType);
 
         // Make sure title_format is set
         if (isset($contentType['title_format'])) {
@@ -322,9 +322,9 @@ class ContentTypesParser extends BaseParser
         return $repeater;
     }
 
-    private function determineSort(array $contentType): string
+    private function determineOrder(array $contentType): string
     {
-        $sort = $contentType['sort'] ?? '-createdAt';
+        $order = $contentType['order'] ?? $contentType['sort'] ?? '-createdAt';
 
         $replacements = [
             'created' => 'createdAt',
@@ -340,15 +340,15 @@ class ContentTypesParser extends BaseParser
             'AtAt' => 'At',
         ];
 
-        $sort = str_replace(array_keys($replacements), array_values($replacements), $sort);
+        $order = str_replace(array_keys($replacements), array_values($replacements), $order);
 
-        $sortname = trim($sort, '-');
+        $orderName = trim($order, '-');
 
-        if (! in_array($sortname, array_keys($contentType['fields']), true) &&
-            ! in_array($sortname, ['createdAt', 'modifiedAt', 'publishedAt', 'id'], true)) {
-            $sort = '-createdAt';
+        if (! in_array($orderName, array_keys($contentType['fields']), true) &&
+            ! in_array($orderName, ['createdAt', 'modifiedAt', 'publishedAt', 'id'], true)) {
+            $order = '-createdAt';
         }
 
-        return $sort;
+        return $order;
     }
 }
