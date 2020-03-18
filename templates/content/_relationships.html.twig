@@ -1,7 +1,7 @@
 
 {% for contentType, relation in record.definition.relations %}
 
-    {% set options = related_options(contentType) %}
+    {% set options = related_options(contentType, relation.order|default()) %}
     {% set value = record|related_values(contentType) %}
 
     <div class="form-group is-normal">

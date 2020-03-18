@@ -122,11 +122,17 @@ class RelatedExtension extends AbstractExtension
         return null;
     }
 
-    public function getRelatedOptions(string $contentTypeSlug): Collection
+    public function getRelatedOptions(string $contentTypeSlug, ?string $order = null): Collection
     {
         $maxAmount = $this->config->get('maximum_listing_select', 1000);
 
-        $pager = $this->query->getContent($contentTypeSlug)
+        $contentType = $this->config->getContentType($contentTypeSlug);
+
+        if (! $order) {
+            $order = $contentType->get('order');
+        }
+
+        $pager = $this->query->getContent($contentTypeSlug, ['order' => $order])
             ->setMaxPerPage($maxAmount)
             ->setCurrentPage(1);
 
