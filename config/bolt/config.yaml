@@ -143,6 +143,18 @@ thumbnails:
     save_files: true
     allow_upscale: false
 
+# File permissions for read/write/execute to set on folders and files that are
+# created. The exact permissions you should be setting depends on the system
+# user that PHP (and/or your webserver) is running as, and the user who owns the
+# actual folders/files.
+#
+# - If they are the same user, use `0744` for folders and `0644` for files.
+# - If they’re in the same group, use use 0774 for folders and `0664` for files.
+# - If you don't know, or you can't make it work otherwise, then use `0777` for folders and `0666` for files.
+filepermissions:
+    folders: 0774
+    files: 0664
+
 # Define the HTML tags and attributes that are allowed in cleaned HTML. This
 # is used for sanitizing HTML, to make sure there are no undesirable elements
 # left in the content that is shown to users. For example, tags like `<script>`

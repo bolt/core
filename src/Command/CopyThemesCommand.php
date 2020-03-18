@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
+use Bolt\Configuration\Config;
 use Bolt\Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,12 +24,16 @@ class CopyThemesCommand extends Command
     /** @var string */
     private $publicDirectory;
 
-    public function __construct(Filesystem $filesystem, string $publicFolder, string $projectDir)
+    /** @var Config */
+    private $config;
+
+    public function __construct(Filesystem $filesystem, string $publicFolder, string $projectDir, Config $config)
     {
         parent::__construct();
 
         $this->filesystem = $filesystem;
         $this->publicDirectory = $projectDir . '/' . $publicFolder;
+        $this->config = $config;
     }
 
     protected function configure(): void
@@ -101,7 +106,8 @@ class CopyThemesCommand extends Command
      */
     private function hardCopy(string $originDir, string $targetDir): void
     {
-        $this->filesystem->mkdir($targetDir, 0777);
+        $mode = $this->config->get('general/filepermissions/folders', 0774);
+        $this->filesystem->mkdir($targetDir, $mode);
 
         // We use a custom iterator to ignore VCS files
         $this->filesystem->mirror($originDir, $targetDir, Finder::create()->ignoreDotFiles(false)->in($originDir));
