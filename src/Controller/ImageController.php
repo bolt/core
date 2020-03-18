@@ -82,13 +82,16 @@ class ImageController
             return;
         }
 
-        $filePath = sprintf('%s%s%s%s%s', $this->getPath('thumbs'), DIRECTORY_SEPARATOR, $paramString, DIRECTORY_SEPARATOR, $filename);
-
         $filesystem = new Filesystem();
 
+        $filePath = sprintf('%s%s%s%s%s', $this->getPath('thumbs'), DIRECTORY_SEPARATOR, $paramString, DIRECTORY_SEPARATOR, $filename);
+        $folderMode = $this->config->get('general/filepermissions/folders', 0774);
+        $fileMode = $this->config->get('general/filepermissions/files', 0664);
+
         try {
-            $filesystem->mkdir(dirname($filePath));
+            $filesystem->mkdir(dirname($filePath), $folderMode);
             $filesystem->dumpFile($filePath, $this->buildImage($filename));
+            $filesystem->chmod($filePath, $fileMode);
         } catch (\Throwable $e) {
             // Fail silently, output user-friendly exception elsewhere.
         }
