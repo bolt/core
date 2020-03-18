@@ -120,7 +120,7 @@ class ContentTypesParserTest extends ParserTestBase
         $this->assertSame('bar', $config['bars']['singular_slug']);
         $this->assertTrue($config['bars']['show_on_dashboard']);
         $this->assertTrue($config['bars']['show_in_menu']);
-        $this->assertSame('-createdAt', $config['bars']['sort']);
+        $this->assertSame('-createdAt', $config['bars']['order']);
         $this->assertFalse($config['bars']['viewless']);
         $this->assertSame('fa-file', $config['bars']['icon_one']);
         $this->assertSame('fa-copy', $config['bars']['icon_many']);

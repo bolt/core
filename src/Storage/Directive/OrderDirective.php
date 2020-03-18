@@ -41,12 +41,15 @@ class OrderDirective
                 $fieldsAlias = 'fields_order_' .  $query->getIndex();
                 $fieldAlias = 'order_' . $query->getIndex();
                 $translationsAlias = 'translations_order_' . $query->getIndex();
+
+                // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
+                // results correctly. See also https://github.com/bolt/core/issues/1190
                 $query
                     ->getQueryBuilder()
                     ->leftJoin('content.fields', $fieldsAlias)
                     ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
                     ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
-                    ->addOrderBy($translationsAlias . '.value', $direction)
+                    ->addOrderBy('lower('.$translationsAlias . '.value)', $direction)
                     ->setParameter($fieldAlias, $order);
 
                 $query->incrementIndex();

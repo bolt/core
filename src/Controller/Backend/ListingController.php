@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class ContentOverviewController extends TwigAwareController implements BackendZoneInterface
+class ListingController extends TwigAwareController implements BackendZoneInterface
 {
     /**
      * @Route("/content/{contentType}", name="bolt_content_overview")
@@ -32,7 +32,7 @@ class ContentOverviewController extends TwigAwareController implements BackendZo
         if ($request->get('sortBy')) {
             $params['order'] = $request->get('sortBy');
         } else {
-            $params['order'] = $contentTypeObject->get('sort');
+            $params['order'] = $contentTypeObject->get('order');
         }
 
         if ($request->get('filter')) {
