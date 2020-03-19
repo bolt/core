@@ -148,11 +148,11 @@ thumbnails:
 # user that PHP (and/or your webserver) is running as, and the user who owns the
 # actual folders/files.
 #
-# - If they are the same user, use `0744` for folders and `0644` for files.
-# - If they’re in the same group, use use `0774` for folders and `0664` for files.
+# - If they are the same user, use `0755` for folders and `0644` for files.
+# - If they're in the same group, use use `0775` for folders and `0664` for files.
 # - If you don't know, or you can't make it work otherwise, then use `0777` for folders and `0666` for files.
 filepermissions:
-    folders: 0774
+    folders: 0775
     files: 0664
 
 # Define the HTML tags and attributes that are allowed in cleaned HTML. This
