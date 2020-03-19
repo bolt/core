@@ -235,7 +235,7 @@ showcases:
             values: entries/{title} (№ {id}, {status})
             postfix: "Select an entry"
             autocomplete: true
-            sort: title
+            order: -id
         hiddenfield:
             type: hidden
             group: internal
