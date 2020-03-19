@@ -201,11 +201,10 @@ class AddUserCommand extends Command
 
         if (! $isAdmin) {
             $this->io->success(sprintf('User was successfully created: %s (%s)', $user->getUsername(), $user->getEmail()));
-            $this->io->warning("Note: regular users CAN NOT log in to the Bolt backend. Create a user with the `--admin` flag instead, if this is what you intended.");
+            $this->io->warning('Note: regular users CAN NOT log in to the Bolt backend. Create a user with the `--admin` flag instead, if this is what you intended.');
         } else {
             $this->io->success(sprintf('Administrator user was successfully created: %s (%s)', $user->getUsername(), $user->getEmail()));
         }
-
 
         $event = $stopwatch->stop('add-user-command');
         if ($output->isVerbose()) {
