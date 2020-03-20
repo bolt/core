@@ -105,6 +105,15 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['viewless'])) {
             $contentType['viewless'] = false;
         }
+        if (! isset($contentType['searchable'])) {
+            $contentType['searchable'] = ! $contentType['viewless'];
+        }
+
+        // When Viewless it makes makes no sense to have it searchable
+        if ($contentType['viewless']) {
+            $contentType['searchable'] = false;
+        }
+
         if (! isset($contentType['icon_one'])) {
             $contentType['icon_one'] = 'fa-file';
         } else {

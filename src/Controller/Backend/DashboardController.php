@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Configuration\Config;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
@@ -21,11 +20,11 @@ class DashboardController extends TwigAwareController implements BackendZoneInte
     /**
      * @Route("/", name="bolt_dashboard", methods={"GET"})
      */
-    public function index(ContentRepository $content, Request $request, Config $config): Response
+    public function index(ContentRepository $content, Request $request): Response
     {
         $amount = (int) $this->config->get('general/records_per_page', 10);
         $page = (int) $request->get('page', 1);
-        $contentTypes = $config->get('contenttypes');
+        $contentTypes = $this->config->get('contenttypes')->where('show_on_dashboard', true);
 
         /** @var Content $records */
         $records = $content->findLatest($contentTypes, $page, $amount);

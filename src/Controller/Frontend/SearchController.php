@@ -37,11 +37,14 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
         $page = (int) $request->query->get('page', 1);
         $searchTerm = $request->get('searchTerm', $request->get('search', $request->get('q', '')));
         $searchTerm = $this->sanitiser->clean($searchTerm);
-        $amountPerPage = $this->config->get('general/listing_records');
+        $amountPerPage = (int) $this->config->get('general/listing_records');
+
+        // Just the ContentTypes that have `searchable: true`
+        $contentTypes = $this->config->get('contenttypes')->where('searchable', true)->keys()->all();
 
         // @todo implement actual Search Engine
         if (! empty($searchTerm)) {
-            $records = $contentRepository->searchNaive($searchTerm, $page, $amountPerPage);
+            $records = $contentRepository->searchNaive($searchTerm, $page, $amountPerPage, $contentTypes);
         } else {
             $records = new Pagerfanta(new ArrayAdapter([]));
         }
