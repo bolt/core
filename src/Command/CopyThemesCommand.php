@@ -106,7 +106,7 @@ class CopyThemesCommand extends Command
      */
     private function hardCopy(string $originDir, string $targetDir): void
     {
-        $mode = $this->config->get('general/filepermissions/folders', 0774);
+        $mode = $this->config->get('general/filepermissions/folders', 0775);
         $this->filesystem->mkdir($targetDir, $mode);
 
         // We use a custom iterator to ignore VCS files

@@ -85,7 +85,7 @@ class ImageController
         $filesystem = new Filesystem();
 
         $filePath = sprintf('%s%s%s%s%s', $this->getPath('thumbs'), DIRECTORY_SEPARATOR, $paramString, DIRECTORY_SEPARATOR, $filename);
-        $folderMode = $this->config->get('general/filepermissions/folders', 0774);
+        $folderMode = $this->config->get('general/filepermissions/folders', 0775);
         $fileMode = $this->config->get('general/filepermissions/files', 0664);
 
         try {
