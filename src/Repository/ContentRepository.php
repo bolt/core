@@ -84,7 +84,7 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page, $amount);
     }
 
-    public function searchNaive(string $searchTerm, int $page, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    public function searchNaive(string $searchTerm, int $page, int $amountPerPage, array $contentTypes = [], bool $onlyPublished = true): Pagerfanta
     {
         // First, create a querybuilder to get the fields that match the Query
         $qb = $this->getQueryBuilder()
@@ -108,6 +108,11 @@ class ContentRepository extends ServiceEntityRepository
         if ($onlyPublished) {
             $qb->andWhere('content.status = :status')
                 ->setParameter('status', Statuses::PUBLISHED);
+        }
+
+        if (! empty($contentTypes)) {
+            $qb->andWhere('content.contentType IN (:cts)')
+                ->setParameter('cts', $contentTypes);
         }
 
         $qb->andWhere('content.id IN (:ids)')
