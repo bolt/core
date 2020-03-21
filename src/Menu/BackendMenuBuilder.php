@@ -11,6 +11,7 @@ use Bolt\Twig\ContentExtension;
 use Bolt\Version;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
+use Knp\Menu\MenuItem;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -56,6 +57,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
     {
         $t = $this->translator;
 
+        /** @var MenuItem $menu */
         $menu = $this->menuFactory->createItem('root');
 
         $menu->addChild('Dashboard', [
@@ -74,25 +76,9 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        /** @var ContentType[] $contentTypes */
-        $contentTypes = $this->config->get('contenttypes');
+        $this->addContentItems($menu);
 
-        foreach ($contentTypes as $contentType) {
-            $menu->addChild($contentType->getSlug(), [
-                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contentType' => $contentType->getSlug()]),
-                'extras' => [
-                    'name' => $contentType['name'],
-                    'singular_name' => $contentType['singular_name'],
-                    'slug' => $contentType->getSlug(),
-                    'singular_slug' => $contentType['singular_slug'],
-                    'icon' => $contentType['icon_many'],
-                    'link_new' => $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType->getSlug()]),
-                    'singleton' => $contentType['singleton'],
-                    'active' => $contentType->getSlug() === 'pages' ? true : false,
-                    'submenu' => $this->getLatestRecords($contentType),
-                ],
-            ]);
-        }
+        $this->addContentOthers($menu);
 
         $menu->addChild('Settings', [
             'extras' => [
@@ -311,6 +297,61 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         ]);
 
         return $menu;
+    }
+
+    private function addContentItems(MenuItem $menu): void
+    {
+        /** @var ContentType[] $contentTypes */
+        $contentTypes = $this->config->get('contenttypes')->whereStrict('show_in_menu', true);
+
+        foreach ($contentTypes as $contentType) {
+            $menu->addChild($contentType->getSlug(), [
+                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contentType' => $contentType->getSlug()]),
+                'extras' => [
+                    'name' => $contentType['name'],
+                    'singular_name' => $contentType['singular_name'],
+                    'slug' => $contentType->getSlug(),
+                    'singular_slug' => $contentType['singular_slug'],
+                    'icon' => $contentType['icon_many'],
+                    'link_new' => $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType->getSlug()]),
+                    'singleton' => $contentType['singleton'],
+                    'active' => $contentType->getSlug() === 'pages' ? true : false,
+                    'submenu' => $this->getLatestRecords($contentType),
+                ],
+            ]);
+        }
+    }
+
+    private function addContentOthers(MenuItem $menu): void
+    {
+        $t = $this->translator;
+        /** @var ContentType[] $contentTypes */
+        $contentTypes = $this->config->get('contenttypes')->where('show_in_menu', '!==', true);
+
+        foreach ($contentTypes as $contentType) {
+            $label = $contentType->get('show_in_menu') ?: $t->trans('caption.other_content');
+
+            if (! $menu->getChild($label)) {
+                // Add the top level item
+                $menu->addChild($label, [
+                    'extras' => [
+                        'name' => $label,
+                        'icon' => $contentType->get('icon_many'),
+                        'slug' => $label,
+                    ],
+                ]);
+            }
+
+            // Add the children to it.
+            $menu->getChild($label)->addChild($contentType->get('slug'), [
+                'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contentType' => $contentType->getSlug()]),
+                'extras' => [
+                    'name' => $contentType->get('name'),
+                    'icon' => $contentType->get('icon_many'),
+                    'singleton' => $contentType->get('singleton'),
+                ],
+            ]);
+        }
     }
 
     private function getLatestRecords(ContentType $contentType): array

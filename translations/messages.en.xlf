@@ -2217,5 +2217,11 @@
         <target>your password</target>
       </segment>
     </unit>
+    <unit id="KshyLfh" name="caption.other_content">
+      <segment>
+        <source>caption.other_content</source>
+        <target>Other Content</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
