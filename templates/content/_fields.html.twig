@@ -9,10 +9,12 @@
                 {% set field = field_factory(key, fielddefinition) %}
             {% endif %}
 
-            {% include [
-                '@bolt/_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
-                '@bolt/_partials/fields/generic.html.twig'
-                ] with { 'field' : field } %}
+            {% if not field.definition.hidden %}
+                {% include [
+                    '@bolt/_partials/fields/' ~ fielddefinition.type ~ '.html.twig',
+                    '@bolt/_partials/fields/generic.html.twig'
+                    ] with { 'field' : field } %}
+            {% endif %}
 
         {% endfor %}
     </div>
