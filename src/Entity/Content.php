@@ -211,12 +211,17 @@ class Content
             $slug = $this->getField('slug')->setLocale($locale)->getParsedValue();
         }
 
-        if ($slug === null) {
-            // if no slug exists for the current/requested locale, default back
+        // if no slug exists for the current/requested locale, default fallback
+        if (! $slug) {
             $slug = $this
                 ->getField('slug')
                 ->setLocale($this->getField('slug')->getDefaultLocale())
                 ->getParsedValue();
+        }
+
+        // In case the ContentType has no slug defined, we've no other option than to use the id
+        if (! $slug) {
+            $slug = (string) $this->getId();
         }
 
         return $slug;

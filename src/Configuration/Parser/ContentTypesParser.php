@@ -215,8 +215,13 @@ class ContentTypesParser extends BaseParser
         $groups = [];
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 
+        // Even if there's no `slug` defined, we still want to have one. We mark
+        // it as 'hidden', so we don't show it when editing the Content
         if (! isset($fields['slug'])) {
-            $fields['slug'] = ['type' => 'slug'];
+            $fields['slug'] = [
+                'type' => 'slug',
+                'hidden' => true,
+            ];
         }
 
         foreach ($fields as $key => $field) {
