@@ -43,7 +43,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
     {
         $value = array_merge($this->getFieldBase(), (array) parent::getValue() ?: []);
 
-        // Remove cruft field getting stored as JSON.
+        // Remove cruft `0` field getting stored as JSON.
         unset($value[0]);
 
         $value['fieldname'] = $this->getName();
