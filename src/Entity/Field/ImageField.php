@@ -21,20 +21,6 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 {
     public const TYPE = 'image';
 
-    /** @var array */
-    private $fieldBase = [];
-
-    /** @var array */
-    private $alt = [];
-
-    public function __construct()
-    {
-
-        $this->alt = [
-            'alt' => '',
-        ];
-    }
-
     private function getFieldBase()
     {
         return [
@@ -60,6 +46,8 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
         // Remove cruft field getting stored as JSON.
         unset($value[0]);
 
+        $value['fieldname'] = $this->getName();
+
         // If the filename isn't set, we're done: return the array with placeholders
         if (! $value['filename']) {
             return $value;
@@ -78,9 +66,6 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
         $path = $thumbnailHelper->path($this->get('filename'), 400, 400);
         $value['thumbnail'] = $thumbPackage->getUrl($path);
 
-        $value['fieldname'] = $this->getName();
-
-        dd($value);
         return $value;
     }
 
