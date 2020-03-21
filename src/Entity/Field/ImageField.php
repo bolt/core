@@ -21,24 +21,16 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 {
     public const TYPE = 'image';
 
-    /** @var array */
-    private $fieldBase = [];
-
-    /** @var array */
-    private $alt = [];
-
-    public function __construct()
+    private function getFieldBase()
     {
-        $this->fieldBase = [
+        return [
             'filename' => '',
             'path' => '',
             'media' => '',
             'thumbnail' => '',
             'fieldname' => '',
-        ];
-
-        $this->alt = [
             'alt' => '',
+            'url' => '',
         ];
     }
 
@@ -49,14 +41,17 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 
     public function getValue(): array
     {
-        $value = array_merge($this->fieldBase, (array) parent::getValue() ?: []);
+        $value = array_merge($this->getFieldBase(), (array) parent::getValue() ?: []);
 
-        if ($this->includeAlt()) {
-            $value = array_merge($this->alt, $value);
-        }
-
-        // Remove cruft field getting stored as JSON.
+        // Remove cruft `0` field getting stored as JSON.
         unset($value[0]);
+
+        $value['fieldname'] = $this->getName();
+
+        // If the filename isn't set, we're done: return the array with placeholders
+        if (! $value['filename']) {
+            return $value;
+        }
 
         // Generate a URL
         $value['path'] = $this->getPath();
@@ -70,8 +65,6 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 
         $path = $thumbnailHelper->path($this->get('filename'), 400, 400);
         $value['thumbnail'] = $thumbPackage->getUrl($path);
-
-        $value['fieldname'] = $this->getName();
 
         return $value;
     }
