@@ -29,16 +29,22 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 
     public function __construct()
     {
-        $this->fieldBase = [
+
+        $this->alt = [
+            'alt' => '',
+        ];
+    }
+
+    private function getFieldBase()
+    {
+        return [
             'filename' => '',
             'path' => '',
             'media' => '',
             'thumbnail' => '',
             'fieldname' => '',
-        ];
-
-        $this->alt = [
             'alt' => '',
+            'url' => '',
         ];
     }
 
@@ -49,14 +55,15 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 
     public function getValue(): array
     {
-        $value = array_merge($this->fieldBase, (array) parent::getValue() ?: []);
-
-        if ($this->includeAlt()) {
-            $value = array_merge($this->alt, $value);
-        }
+        $value = array_merge($this->getFieldBase(), (array) parent::getValue() ?: []);
 
         // Remove cruft field getting stored as JSON.
         unset($value[0]);
+
+        // If the filename isn't set, we're done: return the array with placeholders
+        if (! $value['filename']) {
+            return $value;
+        }
 
         // Generate a URL
         $value['path'] = $this->getPath();
@@ -73,6 +80,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 
         $value['fieldname'] = $this->getName();
 
+        dd($value);
         return $value;
     }
 
