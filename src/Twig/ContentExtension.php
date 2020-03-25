@@ -14,6 +14,7 @@ use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Storage\Query;
+use Bolt\Utils\ComposeValueHelper;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
 use Pagerfanta\Pagerfanta;
@@ -537,42 +538,11 @@ class ContentExtension extends AbstractExtension
         foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
-                'value' => $this->composeSelectValue($format, $record),
+                'value' => ComposeValueHelper::get($record, $format),
             ];
         }
 
         return new LaravelCollection($options);
-    }
-
-    private function composeSelectValue(string $format, Content $record): string
-    {
-        if (empty($format)) {
-            $format = '{title} (№ {id}, {status})';
-        }
-
-        return preg_replace_callback(
-            '/{([a-z]+)}/i',
-            function ($match) use ($record) {
-                if ($match[1] === 'id') {
-                    return $record->getId();
-                }
-
-                if ($match[1] === 'status') {
-                    return $record->getStatus();
-                }
-
-                if ($record->hasField($match[1])) {
-                    return $record->getField($match[1]);
-                }
-
-                if (array_key_exists($match[1], $record->getExtras())) {
-                    return $record->getExtras()[$match[1]];
-                }
-
-                return '(unknown)';
-            },
-            $format
-        );
     }
 
     public function taxonomyoptions(LaravelCollection $taxonomy): LaravelCollection

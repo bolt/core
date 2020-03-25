@@ -265,7 +265,7 @@ showcases:
             multiple: false
             label: "Choose an entry"
             order: -id
-            format: "{{ item.title|escape }} (№ {{ item.id }})"
+            format: "{title} (№ {id}, {status})"
             postfix: "By selecting an Entry, you're creating a bi-directional relationship to that Entry."
         pages:
             multiple: true
