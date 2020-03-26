@@ -637,5 +637,35 @@
         <target>The content of this comment is considered spam.</target>
       </segment>
     </unit>
+    <unit id="LDy5h0B" name="user.duplicate_email">
+      <segment>
+        <source>user.duplicate_email</source>
+        <target>A user with {{ value }} email already exists.</target>
+      </segment>
+    </unit>
+    <unit id="D4OMpCY" name="user.duplicate_username">
+      <segment>
+        <source>user.duplicate_username</source>
+        <target>A user with {{ value }} username already exists.</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Invalid password. The password should contain at least 6 characters.</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>Invalid email</target>
+      </segment>
+    </unit>
+    <unit id="4eH4IFY" name="user.username_invalid_characters">
+      <segment>
+        <source>user.username_invalid_characters</source>
+        <target>The username must contain only lowercase latin characters, numbers and underscores.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
