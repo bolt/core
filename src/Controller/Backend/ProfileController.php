@@ -14,7 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
@@ -27,9 +26,6 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
 {
     use CsrfTrait;
 
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
-
     /** @var EntityManagerInterface */
     private $em;
 
@@ -37,12 +33,10 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
     private $passwordEncoder;
 
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
         CsrfTokenManagerInterface $csrfTokenManager
     ) {
-        $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;

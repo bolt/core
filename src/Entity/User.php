@@ -66,7 +66,7 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @var string
+     * @var string|null
      * @Assert\Length(min="6", minMessage="user.not_valid_password")
      */
     private $plainPassword;

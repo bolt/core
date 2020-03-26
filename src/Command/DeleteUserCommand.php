@@ -6,14 +6,15 @@ namespace Bolt\Command;
 
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
-use Bolt\Utils\Validator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * A console command that deletes users from the database.
@@ -42,7 +43,7 @@ class DeleteUserCommand extends Command
     private $validator;
     private $users;
 
-    public function __construct(EntityManagerInterface $em, Validator $validator, UserRepository $users)
+    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, UserRepository $users)
     {
         parent::__construct();
 
@@ -98,15 +99,21 @@ HELP
             '',
         ]);
 
-        $username = $this->io->ask('Username', null, [$this->validator, 'validateUsername']);
+        $username = $this->io->ask('Username', null, function (?string $username) {
+            $errors = $this->validator->validatePropertyValue(User::class, 'username', $username);
+            if ($errors->count() > 0) {
+                throw new InvalidArgumentException($errors->get(0)->getMessage());
+            }
+            return $username;
+        });
         $input->setArgument('username', $username);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $username = $this->validator->validateUsername($input->getArgument('username'));
+        $username = $input->getArgument('username');
 
-        $user = $this->users->findOneBy(['username' => $username]);
+        $user = $this->users->findOneBy(['username' => $input->getArgument('username')]);
 
         if (! $user instanceof User) {
             throw new RuntimeException(sprintf('User with username "%s" not found.', $username));
