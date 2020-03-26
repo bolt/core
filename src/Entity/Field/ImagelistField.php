@@ -45,11 +45,16 @@ class ImagelistField extends Field implements FieldInterface
 
     public function getApiValue()
     {
-        if (! $this->isTranslatable()) {
-            return $this->getValue();
-        }
-
         $result = [];
+
+        if (! $this->isTranslatable()) {
+            $images = $this->getValue();
+            foreach ($images as $image) {
+                $result[] = $image->getApiValue();
+            }
+
+            return $result;
+        }
 
         foreach ($this->getTranslations() as $translation) {
             $locale = $translation->getLocale();
