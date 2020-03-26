@@ -33,7 +33,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(normalizer="trim", message="user.not_valid_display_name")
      * @Groups({"get_content", "get_user"})
      */
     private $displayName;

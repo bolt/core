@@ -667,5 +667,11 @@
         <target>The username must contain only lowercase latin characters, numbers and underscores.</target>
       </segment>
     </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>Invalid display name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
