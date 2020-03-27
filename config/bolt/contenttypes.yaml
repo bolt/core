@@ -138,7 +138,7 @@ entries:
     relations:
         pages:
             multiple: false
-            order: title
+            order: heading
             label: Select a page
     taxonomy: [ categories, tags, groups ]
     record_template: entry.twig

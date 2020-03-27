@@ -264,6 +264,28 @@ class Content
         return $this->getDefinition()->get('singular_name') ?: $this->getContentTypeSlug();
     }
 
+    public function hasContentTypeLocales(): bool
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
+        return ! $this->getDefinition()->get('locales')->isEmpty();
+    }
+
+    public function getContentTypeDefaultLocale(): string
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
+        if (! $this->hasContentTypeLocales()) {
+            throw new \RuntimeException('Content does not have locales defined');
+        }
+
+        return $this->getDefinition()->get('locales')->first();
+    }
+
     public function getIcon(): ?string
     {
         if ($this->getDefinition() === null) {
