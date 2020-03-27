@@ -8,15 +8,19 @@ use Bolt\Entity\Content;
 
 class ComposeValueHelper
 {
-    public static function get(Content $record, string $format = ''): string
+    public static function get(Content $record, string $format = '', string $locale = ''): string
     {
         if (empty($format)) {
             $format = '{title} (№ {id}, {status})';
         }
 
+        if (empty($locale) && $record->hasContentTypeLocales()) {
+            $locale = $record->getContentTypeDefaultLocale();
+        }
+
         return preg_replace_callback(
-            '/{([a-z]+)}/i',
-            function ($match) use ($record) {
+            '/{([\w]+)}/i',
+            function ($match) use ($record, $locale) {
                 if ($match[1] === 'id') {
                     return $record->getId();
                 }
@@ -26,7 +30,12 @@ class ComposeValueHelper
                 }
 
                 if ($record->hasField($match[1])) {
-                    return $record->getField($match[1]);
+                    $field = $record->getField($match[1]);
+
+                    if ($field->isTranslatable()) {
+                        $field->setLocale($locale);
+                    }
+                    return $field;
                 }
 
                 if (array_key_exists($match[1], $record->getExtras())) {
