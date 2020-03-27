@@ -111,21 +111,21 @@ Feature: Users & Permissions
     And I should see "tom_admin_changed@example.org"
 
   @javascript
-  Scenario: Edit user with whitespace display name
+  Scenario: Edit user with exists email
     Given I am logged in as "admin"
     And I am on "/bolt/users"
     And I click the 2nd "Edit"
 
     Then I should be on "/bolt/user-edit/2"
 
-    When I fill "displayName" element with "   "
+    When I fill "email" element with "admin@example.org"
 
     And I scroll "Save changes" into view
     And I press "Save changes"
 
     Then I should be on "/bolt/user-edit/2"
     And I should see "Notification" in the ".admin__notifications" element
-    And I should see "Invalid display name" in the ".admin__notifications" element
+    And I should see "A user with \"admin@example.org\" email already exists." in the ".admin__notifications" element
 
   @javascript
   Scenario: Edit user with incorrect display name, password and email

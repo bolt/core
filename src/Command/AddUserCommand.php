@@ -7,9 +7,9 @@ namespace Bolt\Command;
 use Bolt\Common\Str;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
-use Bolt\Utils\Validator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,6 +19,8 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * A console command that creates users and stores them in the database.
@@ -56,20 +58,16 @@ class AddUserCommand extends Command
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
-    /** @var Validator */
+    /** @var ValidatorInterface */
     private $validator;
 
-    /** @var UserRepository */
-    private $users;
-
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, Validator $validator, UserRepository $users)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, ValidatorInterface $validator)
     {
         parent::__construct();
 
         $this->entityManager = $em;
         $this->passwordEncoder = $encoder;
         $this->validator = $validator;
-        $this->users = $users;
     }
 
     /**
@@ -132,7 +130,13 @@ class AddUserCommand extends Command
         if ($username !== null) {
             $this->io->text(' > <info>Username</info>: ' . $username);
         } else {
-            $username = $this->io->ask('Username', null, [$this->validator, 'validateUsername']);
+            $username = $this->io->ask('Username', null, function (?string $username) {
+                $errors = $this->validator->validatePropertyValue(User::class, 'username', $username);
+                if ($errors->count() > 0) {
+                    throw new InvalidArgumentException($errors->get(0)->getMessage());
+                }
+                return $username;
+            });
             $input->setArgument('username', $username);
         }
 
@@ -143,7 +147,13 @@ class AddUserCommand extends Command
         } else {
             $passwordQuestion = new Question('Password (input is hidden)', Str::generatePassword());
             $passwordQuestion->setHidden(true);
-            $passwordQuestion->setValidator([$this->validator, 'validatePassword']);
+            $passwordQuestion->setValidator(function (?string $password) {
+                $errors = $this->validator->validatePropertyValue(User::class, 'plainPassword', $password);
+                if ($errors->count() > 0) {
+                    throw new InvalidArgumentException($errors->get(0)->getMessage());
+                }
+                return $password;
+            });
 
             $password = $this->io->askQuestion($passwordQuestion);
             $input->setArgument('password', $password);
@@ -154,7 +164,13 @@ class AddUserCommand extends Command
         if ($email !== null) {
             $this->io->text(' > <info>Email</info>: ' . $email);
         } else {
-            $email = $this->io->ask('Email', null, [$this->validator, 'validateEmail']);
+            $email = $this->io->ask('Email', null, function (?string $email) {
+                $errors = $this->validator->validatePropertyValue(User::class, 'email', $email);
+                if ($errors->count() > 0) {
+                    throw new InvalidArgumentException($errors->get(0)->getMessage());
+                }
+                return $email;
+            });
             $input->setArgument('email', $email);
         }
 
@@ -163,7 +179,13 @@ class AddUserCommand extends Command
         if ($displayName !== null) {
             $this->io->text(' > <info>Display Name</info>: ' . $displayName);
         } else {
-            $displayName = $this->io->ask('Display Name', null, [$this->validator, 'validateDisplayName']);
+            $displayName = $this->io->ask('Display Name', null, function (?string $displayName) {
+                $errors = $this->validator->validatePropertyValue(User::class, 'displayName', $displayName);
+                if ($errors->count() > 0) {
+                    throw new InvalidArgumentException($errors->get(0)->getMessage());
+                }
+                return $displayName;
+            });
             $input->setArgument('display-name', $displayName);
         }
     }
@@ -183,18 +205,27 @@ class AddUserCommand extends Command
         $displayName = $input->getArgument('display-name');
         $isAdmin = $input->getOption('admin');
 
-        // make sure to validate the user data is correct
-        $this->validateUserData($username, $plainPassword, $email, $displayName);
-
         // create the user and encode its password
         $user = UserRepository::factory($displayName, $username, $email);
         $user->setRoles([$isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER']);
         $user->setLocale('en');
         $user->setBackendTheme('default');
+        $user->setPlainPassword($plainPassword);
+
+        $errors = $this->validator->validate($user);
+        if ($errors->count() > 0) {
+            $errorMessages = [];
+            /** @var ConstraintViolationInterface $error */
+            foreach ($errors as $error) {
+                $errorMessages[] = $error->getMessage();
+            }
+            throw new RuntimeException(implode(', ', $errorMessages));
+        }
 
         // See https://symfony.com/doc/current/book/security.html#security-encoding-password
-        $encodedPassword = $this->passwordEncoder->encodePassword($user, $plainPassword);
+        $encodedPassword = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($encodedPassword);
+        $user->eraseCredentials();
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
@@ -212,30 +243,6 @@ class AddUserCommand extends Command
         }
 
         return 0;
-    }
-
-    private function validateUserData(string $username, string $plainPassword, string $email, string $displayName): void
-    {
-        // first check if a user with the same username already exists.
-        $existingUser = $this->users->findOneBy(['username' => $username]);
-
-        if ($existingUser !== null) {
-            throw new RuntimeException(sprintf('There is already a user registered with the "%s" username.', $username));
-        }
-
-        // @todo Validation must be moved to a separate UserValidator
-
-        // validate password and email if is not this input means interactive.
-        $this->validator->validatePassword($plainPassword);
-        $this->validator->validateEmail($email);
-        $this->validator->validateDisplayName($displayName);
-
-        // check if a user with the same email already exists.
-        $existingEmail = $this->users->findOneBy(['email' => $email]);
-
-        if ($existingEmail !== null) {
-            throw new RuntimeException(sprintf('There is already a user registered with the "%s" email.', $email));
-        }
     }
 
     /**

@@ -7,12 +7,15 @@ namespace Bolt\Entity;
 use Bolt\Common\Json;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
+ * @UniqueEntity("email", message="user.duplicate_email")
+ * @UniqueEntity("username", message="user.duplicate_username")
  */
 class User implements UserInterface, \Serializable
 {
@@ -30,7 +33,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(normalizer="trim", message="user.not_valid_display_name")
      * @Groups({"get_content", "get_user"})
      */
     private $displayName;
@@ -41,6 +44,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", unique=true, length=191)
      * @Assert\NotBlank()
      * @Assert\Length(min=2, max=50)
+     * @Assert\Regex(pattern="/^[a-z0-9_]+$/", message="user.username_invalid_characters")
      * @Groups("get_user")
      */
     private $username;
@@ -49,7 +53,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true, length=191)
-     * @Assert\Email()
+     * @Assert\Email(message="user.not_valid_email")
      * @Groups("get_user")
      */
     private $email;
@@ -60,6 +64,12 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=191)
      */
     private $password;
+
+    /**
+     * @var string|null
+     * @Assert\Length(min="6", minMessage="user.not_valid_password")
+     */
+    private $plainPassword;
 
     /**
      * @var array
@@ -157,6 +167,17 @@ class User implements UserInterface, \Serializable
         $this->password = $password;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
+
     public function enable(): void
     {
         $this->disabled = false;
@@ -213,8 +234,7 @@ class User implements UserInterface, \Serializable
      */
     public function eraseCredentials(): void
     {
-        // if you had a plainPassword property, you'd nullify it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     /**

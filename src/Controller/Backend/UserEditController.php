@@ -10,8 +10,6 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
-use Bolt\Utils\UserValidationHandler;
-use Bolt\Utils\UserValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,6 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Security("is_granted('ROLE_ADMIN')")
@@ -38,21 +38,16 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
-    /** @var UserValidationHandler */
-    private $userValidationHandler;
-
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        UserValidationHandler $userValidationHandler
+        CsrfTokenManagerInterface $csrfTokenManager
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
-        $this->userValidationHandler = $userValidationHandler;
     }
 
     /**
@@ -126,7 +121,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
      */
-    public function save(?User $user, Request $request): Response
+    public function save(?User $user, Request $request, ValidatorInterface $validator): Response
     {
         $this->validateCsrf($request, 'useredit');
 
@@ -135,7 +130,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         $displayName = $user->getDisplayName();
-        $url = $this->urlGenerator->generate('bolt_users');
         $locale = Json::findScalar($request->get('locale'));
         $roles = (array) Json::findScalar($request->get('roles'));
 
@@ -150,15 +144,23 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $newPassword = $request->get('password');
         // Set the plain password to check for validation
         if (! empty($newPassword)) {
-            $user->setPassword($newPassword);
+            $user->setPlainPassword($newPassword);
         }
 
-        $validator = new UserValidator($user);
+        $errors = $validator->validate($user);
+        if ($errors->count() > 0) {
+            $hasPasswordError = false;
 
-        if (! $validator->validate()) {
-            $this->userValidationHandler->handle($validator);
+            /** @var ConstraintViolationInterface $error */
+            foreach ($errors as $error) {
+                $this->addFlash('danger', $error->getMessage());
 
-            $suggestedPassword = $validator->hasPasswordError() ? Str::generatePassword() : null;
+                if ($error->getPropertyPath() === 'plainPassword') {
+                    $hasPasswordError = true;
+                }
+            }
+
+            $suggestedPassword = $hasPasswordError ? Str::generatePassword() : null;
 
             return $this->renderTemplate('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
@@ -168,8 +170,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         // Once validated, encode the password
-        if (! empty($newPassword)) {
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
+        if ($user->getPlainPassword()) {
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()));
+            $user->eraseCredentials();
         }
 
         $this->em->persist($user);
@@ -177,6 +180,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         $this->addFlash('success', 'user.updated_profile');
 
-        return new RedirectResponse($url);
+        return $this->redirectToRoute('bolt_users');
     }
 }
