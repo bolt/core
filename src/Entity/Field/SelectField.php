@@ -32,7 +32,8 @@ class SelectField extends Field implements FieldInterface
     public function getValue(): ?array
     {
         $value = parent::getValue();
-        if (empty($value)) {
+
+        if (empty($value) && $this->getDefinition()->get('required')) {
             $value = $this->getDefinition()->get('values');
 
             // Pick the first key from Collection, or the full value as string, like `entries/id,title`

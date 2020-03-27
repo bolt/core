@@ -4,6 +4,8 @@
     {% set options = related_options(contentType, relation.order|default(), relation.format|default()) %}
     {% set value = record|related_values(contentType) %}
 
+{#    {{ dump(relation) }}#}
+
     <div class="form-group is-normal">
         <label for="field-title">
             {{ relation.label }}:
@@ -16,7 +18,7 @@
                     :options="{{ options }}"
                     :multiple="{{ relation.multiple ? 'true' : 'false' }}"
                     :taggable=false
-                    :allowempty=true
+                    :allowempty='true'
             ></editor-select>
         </div>
 

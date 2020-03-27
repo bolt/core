@@ -496,6 +496,8 @@ class ContentExtension extends AbstractExtension
             return new LaravelCollection($options);
         }
 
+        dump($currentValues);
+
         foreach ($values as $key => $value) {
             $options[] = [
                 'key' => $key,
@@ -548,6 +550,11 @@ class ContentExtension extends AbstractExtension
     public function taxonomyoptions(LaravelCollection $taxonomy): LaravelCollection
     {
         $options = [];
+
+        // We need to add this
+        if ($taxonomy['allow_empty'] === true) {
+            $options[] = ['key' => '', 'value' => ''];
+        }
 
         if ($taxonomy['behaves_like'] === 'tags') {
             $allTaxonomies = $this->taxonomyRepository->findBy(['type' => $taxonomy['slug']]);

@@ -50,7 +50,6 @@ export default {
     options: Array,
     multiple: Boolean,
     taggable: Boolean,
-    required: Number,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
   },
