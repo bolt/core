@@ -202,6 +202,11 @@ class Content
 
     public function getSlug($locale = null): ?string
     {
+        // In case the ContentType has no slug defined, we've no other option than to use the id
+        if (! $this->hasField('slug')) {
+            return (string) $this->getId();
+        }
+
         $slug = null;
         if ($locale === null) {
             // get slug with locale the slug already has
@@ -217,11 +222,6 @@ class Content
                 ->getField('slug')
                 ->setLocale($this->getField('slug')->getDefaultLocale())
                 ->getParsedValue();
-        }
-
-        // In case the ContentType has no slug defined, we've no other option than to use the id
-        if (! $slug) {
-            $slug = (string) $this->getId();
         }
 
         return $slug;
@@ -404,6 +404,11 @@ class Content
         $fieldValues = [];
         foreach ($this->getFields() as $field) {
             $fieldValues[$field->getName()] = $field->getApiValue();
+        }
+
+        // Make sure we have a 'slug', even if none is defined in the contentype
+        if (! array_key_exists('slug', $fieldValues)) {
+            $fieldValues['slug'] = $this->getSlug();
         }
 
         return $fieldValues;
