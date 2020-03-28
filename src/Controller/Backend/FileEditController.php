@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
+use Webimpress\SafeWriter\Exception\ExceptionInterface;
+use Webimpress\SafeWriter\FileWriter;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -38,6 +40,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         if (mb_strpos($file, '/') !== 0) {
             $file = '/' . $file;
         }
+
         $basepath = $this->config->getPath($location);
         $filename = Path::canonicalize($basepath . '/' . $file);
         $contents = file_get_contents($filename);
@@ -46,6 +49,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             'location' => $location,
             'file' => $file,
             'contents' => $contents,
+            'writable' => is_writable($filename),
         ];
 
         return $this->renderTemplate('@bolt/finder/editfile.html.twig', $context);
@@ -81,11 +85,11 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $basepath = $this->config->getPath($locationName);
         $filename = Path::canonicalize($basepath . '/' . $file);
 
-        // @todo maybe replace file_put_contents with some more abstract Filesystem?
-        if (file_put_contents($filename, $contents)) {
+        try {
+            FileWriter::writeFile($filename, $contents);
             $this->addFlash('success', 'editfile.updated_successfully');
-        } else {
-            $this->addFlash('warn', 'editfile.could_not_write');
+        } catch (ExceptionInterface $e) {
+            $this->addFlash('warning', 'editfile.could_not_write');
         }
 
         return new RedirectResponse($url);
