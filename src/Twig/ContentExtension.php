@@ -8,6 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
+use Bolt\Entity\Field\ImagelistField;
 use Bolt\Entity\Field\SelectField;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Log\LoggerTrait;
@@ -219,6 +220,13 @@ class ContentExtension extends AbstractExtension
         foreach ($content->getFields() as $field) {
             if ($field instanceof ImageField && $field->get('filename')) {
                 return $onlyValues ? $field->getValue() : $field;
+            }
+
+            if ($field instanceof ImagelistField) {
+                $firstImage = current($field->getValue());
+                if ($firstImage->get('filename')) {
+                    return $onlyValues ? $firstImage->getValue() : $firstImage;
+                }
             }
         }
 
