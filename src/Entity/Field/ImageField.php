@@ -55,10 +55,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 
         // Generate a URL
         $value['path'] = $this->getPath();
-
-        // @todo This needs to be injected, not created on the fly.
-        $request = Request::createFromGlobals();
-        $value['url'] = $request->getUriForPath($this->getPath());
+        $value['url'] = $this->getUrl();
 
         $thumbPackage = new PathPackage('/thumbs/', new EmptyVersionStrategy());
         $thumbnailHelper = new ThumbnailHelper();
@@ -69,11 +66,36 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
         return $value;
     }
 
-    public function getPath(): string
+    private function getPath(): string
     {
         $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
 
         return $filesPackage->getUrl($this->get('filename'));
+    }
+
+    private function getUrl(): string
+    {
+        $request = Request::createFromGlobals();
+
+        return sprintf(
+            '%s://%s%s',
+            $request->getScheme(),
+            $this->getHost($request),
+            $this->getPath()
+        );
+    }
+
+    private function getHost($request)
+    {
+        $host = $request->server->get('CANONICAL_HOST', $request->getHost());
+        $scheme = $request->getScheme();
+        $port = $request->getPort();
+
+        if (($scheme === 'http' && $port === 80) || ($scheme === 'https' && $port === 443)) {
+            return $host;
+        }
+
+        return $host . ':'.$port;
     }
 
     public function getLinkedMedia(MediaRepository $mediaRepository): ?Media
