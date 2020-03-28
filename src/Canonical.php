@@ -63,6 +63,9 @@ class Canonical
         $this->setScheme($configUrl['scheme']);
         $this->setHost($configUrl['host']);
         $this->setPort($configUrl['port'] ?? null);
+
+        $_SERVER['CANONICAL_HOST'] = $configUrl['host'];
+        $_SERVER['CANONICAL_SCHEME'] = $configUrl['scheme'];
     }
 
     public function get(?string $route = null, array $params = []): ?string
