@@ -56,7 +56,7 @@ class TaxonomyParserTest extends ParserTestBase
         $this->assertSame('Tags', $config['tags']['name']);
         $this->assertSame('Tag', $config['tags']['singular_name']);
         $this->assertFalse($config['tags']['has_sortorder']);
-        $this->assertTrue($config['tags']['required']);
+        $this->assertFalse($config['tags']['required']);
         $this->assertTrue($config['tags']['multiple']);
         $this->assertEmpty($config['tags']['options']);
         $this->assertTrue($config['tags']['tagcloud']);
@@ -87,7 +87,7 @@ class TaxonomyParserTest extends ParserTestBase
         $this->assertSame('tags', $config['foo']['behaves_like']);
         $this->assertSame('', $config['foo']['prefix']);
         $this->assertSame('', $config['foo']['postfix']);
-        $this->assertTrue($config['foo']['required']);
+        $this->assertFalse($config['foo']['required']);
         $this->assertTrue($config['foo']['multiple']);
         $this->assertEmpty($config['foo']['options']);
         $this->assertTrue($config['foo']['tagcloud']);
