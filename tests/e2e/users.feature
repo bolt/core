@@ -133,8 +133,8 @@ Feature: Users & Permissions
     And I am on "/bolt/user-edit/2"
 
     When I fill in the following:
-      | displayName |     |
-      | password    | short |
+      | displayName | x        |
+      | password    | short    |
       | email       | smth@nth |
 
     And I scroll "Save changes" into view

@@ -34,6 +34,7 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(type="string")
      * @Assert\NotBlank(normalizer="trim", message="user.not_valid_display_name")
+     * @Assert\Length(min=2, max=50, minMessage="user.not_valid_display_name")
      * @Groups({"get_content", "get_user"})
      */
     private $displayName;
