@@ -500,8 +500,6 @@ class ContentExtension extends AbstractExtension
             return new LaravelCollection($options);
         }
 
-        dump($currentValues);
-
         foreach ($values as $key => $value) {
             $options[] = [
                 'key' => $key,
