@@ -193,6 +193,26 @@ class Config
         return null;
     }
 
+    public function getTaxonomy(string $name): ?Collection
+    {
+        $name = trim($name);
+
+        if ($this->has('taxonomies/' . $name)) {
+            return $this->get('taxonomies/' . $name);
+        }
+
+        /** @var Collection $taxos */
+        $taxos = $this->get('taxonomies');
+
+        foreach (['singular_slug', 'name', 'singular_name'] as $key) {
+            if ($taxos->firstWhere($key, $name)) {
+                return $taxos->firstWhere($key, $name);
+            }
+        }
+
+        return null;
+    }
+
     public function getFileTypes(): Collection
     {
         return new Collection($this->get('general/accept_file_types'));
