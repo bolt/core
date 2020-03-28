@@ -122,7 +122,7 @@ class RelatedExtension extends AbstractExtension
         return null;
     }
 
-    public function getRelatedOptions(string $contentTypeSlug, ?string $order = null, string $format = '', bool $required = false): Collection
+    public function getRelatedOptions(string $contentTypeSlug, ?string $order = null, string $format = '', ?bool $required = false): Collection
     {
         $maxAmount = $this->config->get('maximum_listing_select', 1000);
 
