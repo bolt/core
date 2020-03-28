@@ -217,7 +217,7 @@ class Content
         }
 
         // if no slug exists for the current/requested locale, default fallback
-        if (! $slug) {
+        if (! $slug && $this->hasField('slug')) {
             $slug = $this
                 ->getField('slug')
                 ->setLocale($this->getField('slug')->getDefaultLocale())

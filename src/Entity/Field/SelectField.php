@@ -23,7 +23,10 @@ class SelectField extends Field implements FieldInterface
                 $value = json_decode($value, false);
             }
         } finally {
-            parent::setValue((array) $value);
+            // Array_filter filters out empty elements, but has the side effect
+            // of making the array associative. We use Array_values to ensure we
+            // have a sequential array.
+            parent::setValue(array_values(array_filter((array) $value)));
         }
 
         return $this;
@@ -32,7 +35,8 @@ class SelectField extends Field implements FieldInterface
     public function getValue(): ?array
     {
         $value = parent::getValue();
-        if (empty($value)) {
+
+        if (empty($value) && $this->getDefinition()->get('required')) {
             $value = $this->getDefinition()->get('values');
 
             // Pick the first key from Collection, or the full value as string, like `entries/id,title`
@@ -41,7 +45,7 @@ class SelectField extends Field implements FieldInterface
             }
         }
 
-        return (array) $value;
+        return array_filter((array) $value);
     }
 
     public function getOptions()

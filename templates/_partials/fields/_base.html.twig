@@ -24,7 +24,9 @@
 {% set type = field.type|default %}
 
 {# Set required #}
-{% set required = (field.definition.required|default) ? 1 : 0 %}
+{% if not required|default %}
+    {% set required = (field.definition.required|default) ? 1 : 0 %}
+{% endif %}
 
 {# Set readonly #}
 {% set readonly = (field.definition.readonly|default) ? true : false %}

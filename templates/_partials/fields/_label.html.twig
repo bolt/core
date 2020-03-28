@@ -1,7 +1,7 @@
-{%- if type != 'checkbox' -%}
-    <label for="{{ id }}" class="editor--label{% if type == 'collection' %} sr-only{% endif %}">
+{%- if type|default() != 'checkbox' -%}
+    <label for="{{ id }}" class="editor--label{% if type|default() == 'collection' %} sr-only{% endif %}">
 
-        {%- if localize -%}
+        {%- if localize|default() -%}
           <i class="fas fa-language"></i>
         {%- endif -%}
 
@@ -12,7 +12,7 @@
         {{- label -}}:
         {% if required %} <span class="required-label"></span> {% endif %}
 
-        {% if info is not empty %}
+        {% if info|default() %}
             <i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" title="{{ label }}" data-html="true" data-content="{{ info }}"></i>
         {% endif %}
     </label>

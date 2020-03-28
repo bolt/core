@@ -1,13 +1,17 @@
 
 {% for contentType, relation in record.definition.relations %}
 
-    {% set options = related_options(contentType, relation.order|default(), relation.format|default()) %}
+    {% set options = related_options(contentType, relation.order|default(), relation.format|default(), relation.required) %}
     {% set value = record|related_values(contentType) %}
 
     <div class="form-group is-normal">
-        <label for="field-title">
-            {{ relation.label }}:
-        </label>
+
+        {% include '@bolt/_partials/fields/_label.html.twig' with {
+            'id': 'relationship-' ~ contentType,
+            'label': relation.label,
+            'required': relation.required
+        } %}
+
         <div>
             <editor-select
                     :value="{{ value }}"
@@ -16,7 +20,7 @@
                     :options="{{ options }}"
                     :multiple="{{ relation.multiple ? 'true' : 'false' }}"
                     :taggable=false
-                    :allowempty=true
+                    :allowempty="{{ relation.required ? 'false' : 'true' }}"
             ></editor-select>
         </div>
 
