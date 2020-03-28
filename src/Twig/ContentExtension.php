@@ -474,6 +474,7 @@ class ContentExtension extends AbstractExtension
         if (is_iterable($values)) {
             return $this->selectOptionsArray($field);
         }
+
         return $this->selectOptionsContentType($field);
     }
 
@@ -515,7 +516,7 @@ class ContentExtension extends AbstractExtension
 
         $options = [];
 
-        if ($field->getDefinition()->get('required', false)) {
+        if (! $field->getDefinition()->get('required')) {
             $options[] = [
                 'key' => '',
                 'value' => '',
@@ -553,7 +554,10 @@ class ContentExtension extends AbstractExtension
 
         // We need to add this
         if ($taxonomy['allow_empty'] === true) {
-            $options[] = ['key' => '', 'value' => ''];
+            $options[] = [
+                'key' => '',
+                'value' => '',
+            ];
         }
 
         if ($taxonomy['behaves_like'] === 'tags') {
