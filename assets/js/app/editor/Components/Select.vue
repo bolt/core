@@ -2,7 +2,7 @@
   <div :id="`multiselect-${id}`">
     <multiselect
       v-model="selected"
-      :allow-empty="false"
+      :allow-empty="allowempty"
       :limit="1000"
       :multiple="multiple"
       :options="options"
@@ -49,6 +49,7 @@ export default {
     form: String,
     options: Array,
     multiple: Boolean,
+    allowempty: Boolean,
     taggable: Boolean,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise

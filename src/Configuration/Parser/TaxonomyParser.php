@@ -50,8 +50,8 @@ class TaxonomyParser extends BaseParser
                 $taxonomy['allow_spaces'] = false;
             }
 
-            if (isset($taxonomy['allow_empty']) === false) {
-                $taxonomy['allow_empty'] = true;
+            if (isset($taxonomy['required']) === false) {
+                $taxonomy['required'] = false;
             }
 
             if (isset($taxonomy['behaves_like']) === false) {

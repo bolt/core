@@ -122,8 +122,8 @@ class ContentExtension extends AbstractExtension
             new TwigFunction('list_templates', [$this, 'getListTemplates']),
             new TwigFunction('pager', [$this, 'pager'], $env + $safe),
             new TwigFunction('select_options', [$this, 'selectOptions']),
-            new TwigFunction('taxonomyoptions', [$this, 'taxonomyoptions']),
-            new TwigFunction('taxonomyvalues', [$this, 'taxonomyvalues']),
+            new TwigFunction('taxonomy_options', [$this, 'taxonomyOptions']),
+            new TwigFunction('taxonomy_values', [$this, 'taxonomyValues']),
             new TwigFunction('icon', [$this, 'icon'], $safe),
         ];
     }
@@ -485,6 +485,9 @@ class ContentExtension extends AbstractExtension
 
         $options = [];
 
+        // We need to add this as a 'dummy' option for when the user is allowed
+        // not to pick an option. This is needed, because otherwise the `select`
+        // would default to the one.
         if (! $field->getDefinition()->get('required', true)) {
             $options[] = [
                 'key' => '',
@@ -548,12 +551,14 @@ class ContentExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    public function taxonomyoptions(LaravelCollection $taxonomy): LaravelCollection
+    public function taxonomyOptions(LaravelCollection $taxonomy): LaravelCollection
     {
         $options = [];
 
-        // We need to add this
-        if ($taxonomy['allow_empty'] === true) {
+        // We need to add this as a 'dummy' option for when the user is allowed
+        // not to pick an option. This is needed, because otherwise the `select`
+        // would default to the first option.
+        if ($taxonomy['required'] === false) {
             $options[] = [
                 'key' => '',
                 'value' => '',
@@ -577,7 +582,7 @@ class ContentExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    public function taxonomyvalues(\Doctrine\Common\Collections\Collection $current, LaravelCollection $taxonomy): LaravelCollection
+    public function taxonomyValues(\Doctrine\Common\Collections\Collection $current, LaravelCollection $taxonomy): LaravelCollection
     {
         $values = [];
 
@@ -589,7 +594,7 @@ class ContentExtension extends AbstractExtension
             $values = $values[$taxonomy['slug']] ?? [];
         }
 
-        if (empty($values) && ! $taxonomy['allow_empty']) {
+        if (empty($values) && $taxonomy['required']) {
             $values[] = key($taxonomy['options']);
         }
 

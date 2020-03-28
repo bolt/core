@@ -122,7 +122,7 @@ class RelatedExtension extends AbstractExtension
         return null;
     }
 
-    public function getRelatedOptions(string $contentTypeSlug, ?string $order = null, string $format = ''): Collection
+    public function getRelatedOptions(string $contentTypeSlug, ?string $order = null, string $format = '', bool $required): Collection
     {
         $maxAmount = $this->config->get('maximum_listing_select', 1000);
 
@@ -139,6 +139,16 @@ class RelatedExtension extends AbstractExtension
         $records = iterator_to_array($pager->getCurrentPageResults());
 
         $options = [];
+
+        // We need to add this as a 'dummy' option for when the user is allowed
+        // not to pick an option. This is needed, because otherwise the `select`
+        // would default to the first one.
+        if ($required === false) {
+            $options[] = [
+                'key' => '',
+                'value' => '',
+            ];
+        }
 
         /** @var Content $record */
         foreach ($records as $record) {
