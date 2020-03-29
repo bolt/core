@@ -14,8 +14,6 @@ class PrintQueryDirective
 {
     public function __invoke(QueryInterface $query): void
     {
-//        dump($query->getQueryBuilder()->getQuery()->getSQL());
-
         $dql = $query->getQueryBuilder()->getDQL();
         $parameters = $query->getQueryBuilder()->getParameters();
 

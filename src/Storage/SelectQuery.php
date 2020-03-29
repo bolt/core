@@ -404,8 +404,6 @@ class SelectQuery implements QueryInterface
             $this->taxonomyFields[] = $taxo->get('slug');
             $this->taxonomyFields[] = $taxo->get('singular_slug');
         }
-
-        dump($this->taxonomyFields);
     }
 
     private function getTaxonomyFields(): array
