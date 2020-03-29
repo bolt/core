@@ -14,12 +14,31 @@ class PrintQueryDirective
 {
     public function __invoke(QueryInterface $query): void
     {
-        $output = sprintf('<code>%s</code>', $query->getQueryBuilder()->getDQL());
+//        dump($query->getQueryBuilder()->getQuery()->getSQL());
+
+        $dql = $query->getQueryBuilder()->getDQL();
+        $parameters = $query->getQueryBuilder()->getParameters();
+
+        $dql = strtr($dql, [
+            'INNER' => "\nINNER",
+            'WHERE' => "\nWHERE",
+            'ORDER' => "\nORDER",
+        ]);
+
+        /** @var Parameter $parameter */
+        foreach ($parameters as $parameter) {
+            $dql = str_replace(
+                ':' . $parameter->getName() . '',
+                '<b title="' . $parameter->getValue() . '">:' . $parameter->getName() . '</b>',
+                $dql
+            );
+        }
+
+        $output = sprintf('<code>%s</code>', $dql);
 
         $output .= '<ul>';
 
-        /** @var Parameter $parameter */
-        foreach ($query->getQueryBuilder()->getParameters() as $parameter) {
+        foreach ($parameters as $parameter) {
             $output .= sprintf(
                 '<li><code>%s</code>: <code>%s</code></li>',
                 $parameter->getName(),

@@ -58,12 +58,18 @@ class SelectQuery implements QueryInterface
     ];
 
     /** @var array */
+    protected $taxonomyFields = [];
+
+    /** @var array */
     protected $referenceFields = [
         'author',
     ];
 
     /** @var array */
     private $referenceJoins = [];
+
+    /** @var array */
+    private $taxonomyJoins = [];
 
     /** @var array */
     private $fieldJoins = [];
@@ -79,6 +85,8 @@ class SelectQuery implements QueryInterface
         $this->qb = $qb;
         $this->parser = $parser;
         $this->config = $config;
+
+        $this->setTaxonomyFields();
     }
 
     /**
@@ -139,6 +147,7 @@ class SelectQuery implements QueryInterface
         $expr = $this->qb->expr()->andX();
 
         $this->referenceJoins = [];
+        $this->taxonomyJoins = [];
         $this->fieldJoins = [];
 
         foreach ($this->filters as $filter) {
@@ -146,12 +155,19 @@ class SelectQuery implements QueryInterface
                 // todo: `|||` and `bolt_field` integration.
                 $expr = $expr->add($filter->getExpression());
             } elseif (in_array($filter->getKey(), $this->coreFields, true)) {
+                // For fields like `id`, `createdAt` and `status`, which are in the main `bolt_content` table
                 $expr = $expr->add($filter->getExpression());
             } elseif (in_array($filter->getKey(), $this->referenceFields, true)) {
+                // Special case for filtering on 'author'
                 $this->referenceJoins[$filter->getKey()] = $filter;
                 $expr = $expr->add($filter->getExpression());
+            } elseif (in_array($filter->getKey(), $this->getTaxonomyFields(), true)) {
+                // For when we're using a taxonomy type in the `where`
+                $this->taxonomyJoins[$filter->getKey()] = $filter;
+                $filterExpression = sprintf('taxonomies_%s.slug = :%s', $filter->getKey(), key($filter->getParameters()));
+                $expr = $expr->add($filterExpression);
             } else {
-                // This means the value is stored in the `bolt_field` table
+                // This means the name / value in the `where` is stored in the `bolt_field` table
                 $this->fieldJoins[$filter->getKey()] = $filter;
             }
         }
@@ -311,6 +327,16 @@ class SelectQuery implements QueryInterface
     }
 
     /**
+     * Allows key-value queries for `bolt_taxonomy` (slug) values.
+     */
+    public function doTaxonomyJoins(): void
+    {
+        foreach (array_keys($this->taxonomyJoins) as $key) {
+            $this->qb->join('content.taxonomies', 'taxonomies_' . $key);
+        }
+    }
+
+    /**
      * Allows key-value queries for `bolt_field` values.
      */
     public function doFieldJoins(): void
@@ -368,6 +394,23 @@ class SelectQuery implements QueryInterface
         }
 
         $this->qb->andWhere(implode(' OR ', $where));
+    }
+
+    private function setTaxonomyFields(): void
+    {
+        $taxos = $this->getConfig()->get('taxonomies');
+
+        foreach ($taxos as $taxo) {
+            $this->taxonomyFields[] = $taxo->get('slug');
+            $this->taxonomyFields[] = $taxo->get('singular_slug');
+        }
+
+        dump($this->taxonomyFields);
+    }
+
+    private function getTaxonomyFields(): array
+    {
+        return $this->taxonomyFields;
     }
 
     public function getIndex(): int
