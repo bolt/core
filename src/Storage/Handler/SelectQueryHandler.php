@@ -41,6 +41,7 @@ class SelectQueryHandler
         // Bolt4 introduces an extra table for field values, so additional
         // joins are required.
         $selectQuery->doReferenceJoins();
+        $selectQuery->doTaxonomyJoins();
         $selectQuery->doFieldJoins();
 
         $contentQuery->runDirectives($selectQuery);
