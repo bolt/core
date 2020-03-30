@@ -40,7 +40,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
             }
 
             $field->setName($name);
-            $result[] = $field;
+            $result[$name] = $field;
         }
 
         return $result;
