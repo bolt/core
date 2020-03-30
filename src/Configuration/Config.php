@@ -39,6 +39,8 @@ class Config
     {
         $this->container = new ContainerBuilder();
         $this->container->registerExtension(new BoltExtension());
+
+
         $this->locales = $locales;
         $this->stopwatch = $stopwatch;
         $this->cache = $cache;

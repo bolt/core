@@ -46,7 +46,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
 
    //     $packages = $this->addComposerPackages($packages);
 
-        foreach ($packages as $package) {
+    /*    foreach ($packages as $package) {
             [$name, $service] = $this->createService($package);
             if ($name) {
                 $services['services'][$name] = $service;
@@ -57,7 +57,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
         $yaml .= Yaml::dump($services, 3);
 
         $filename = $this->projectDir . '/config/services_bolt.yaml';
-        file_put_contents($filename, $yaml);
+        file_put_contents($filename, $yaml);*/
     }
 
     private function createService(string $package): array
