@@ -24,7 +24,7 @@
                   type="button"
                   @click="updateEmbed"
                 >
-                  <i class="fa fa-refresh"></i>
+                  <i class="fas fa-sync mr-0"></i>
                 </button>
 
                 <button
@@ -32,7 +32,7 @@
                   type="button"
                   @click="clearEmbed"
                 >
-                  <i class="fa fa-trash"></i>
+                  <i class="fas fa-trash mr-0"></i>
                 </button>
               </span>
             </div>
