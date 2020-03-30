@@ -45,4 +45,15 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
 
         return $result;
     }
+
+    public function getApiValue()
+    {
+        $result = [];
+
+        foreach ($this->getValue() as $key => $value) {
+            $result[$key] = $value->getApiValue();
+        }
+
+        return $result;
+    }
 }

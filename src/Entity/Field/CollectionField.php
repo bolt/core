@@ -66,6 +66,22 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         return $fields->toArray();
     }
 
+    public function getApiValue()
+    {
+        $fields = $this->getValue();
+        $result = [];
+
+        foreach ($fields as $field) {
+            $result[] = [
+                'name' => $field->getName(),
+                'type' => $field->getType(),
+                'value' => $field->getApiValue(),
+            ];
+        }
+
+        return $result;
+    }
+
     public function getDefaultValue()
     {
         $default = parent::getDefaultValue();
