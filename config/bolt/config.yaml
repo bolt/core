@@ -1,18 +1,19 @@
 # Note: Database setup is best done in ENV variables. See the file `.env`
-# in the project root. 
+# in the project root.
 
 # The name of the website
-sitename: A sample site in CONFIG
-payoff: The amazing payoff goes here
+bolt:
+    sitename: A sample site in CONFIG
+    payoff: The amazing payoff goes here
 
-secret: '%env(APP_SECRET)%'
+    secret: '%env(APP_SECRET)%'
 
 # The theme to use.
 #
 # Dont edit the provided templates directly, because they _will_ get updated
 # in next releases. If you wish to modify a default theme, copy its folder, and
 # change the name here accordingly.
-theme: skeleton
+    theme: skeleton
 #theme: bolt-tufte-theme
 
 # The locale that'll be used by the application. If no locale is set the
@@ -24,7 +25,7 @@ theme: skeleton
 #
 # This can be done as [nl_NL, Dutch_Netherlands] when specifying multiple
 # locales, ensure the first is a standard locale.
-locale: en
+    locale: en
 
 # Set the timezone to be used on the website. For a list of valid timezone
 # settings, see: http://php.net/manual/en/timezones.php
@@ -34,17 +35,17 @@ locale: en
 #
 # The default for the Maintenance mode (503) page. Can be an (array of) template
 # names or identifiers for records, which will be tried until a match is found.
-maintenance_mode: false
-maintenance: [ blocks/503-maintenance-mode, 'helpers/page_503.html.twig' ]
+    maintenance_mode: false
+    maintenance: [ blocks/503-maintenance-mode, 'helpers/page_503.html.twig' ]
 
 # The hour of the day for the internal cron task scheduler to run daily, weekly,
 # monthly and yearly jobs.
 #
 # Default: 3 (3 am)
-cron_hour: 3
+    cron_hour: 3
 
 # You can set a preference to omit background images on the login screen.
-omit_backgrounds: true
+    omit_backgrounds: true
 
 # If your site is reachable under different urls (say, both blog.example.org/
 # as well as example.org/), its a good idea to set one of these as the
@@ -67,12 +68,12 @@ omit_backgrounds: true
 # Note: If you've changed the filename, and your changes do not show up on
 #       the website, be sure to check for a theme.yml file in your themes
 #       folder. If a template is set there, it will override the setting here.
-homepage: homepage/1
-homepage_template: index.twig
+    homepage: homepage/1
+    homepage_template: index.twig
 
 # The default content for the 404 page. Can be an (array of) template names or
 # identifiers for records, which will be tried until a match is found.
-notfound: [ blocks/404-not-found, 'helpers/page_404.html.twig' ]
+    notfound: [ blocks/404-not-found, 'helpers/page_404.html.twig' ]
 
 # The default template and amount of records to use for listing-pages on the
 # site.
@@ -83,7 +84,7 @@ notfound: [ blocks/404-not-found, 'helpers/page_404.html.twig' ]
 # Note: If you've changed the filename, and your changes do not show up on the
 #       website, be sure to check for a config.yaml file in your themes folder.
 #       If a template is set there, it will override the setting here.
-record_template: record.twig
+    record_template: record.twig
 
 # The default template and amount of records to use for listing-pages on the
 # site.
@@ -98,18 +99,18 @@ record_template: record.twig
 # Note 2: If you've changed the filename, and your changes do not show up on the
 #         website, be sure to check for a config.yaml file in your themes
 #         folder. If a template is set there, it will override the setting here.
-listing_template: listing.twig
-listing_records: 6
-listing_sort: datepublish DESC
+    listing_template: listing.twig
+    listing_records: 6
+    listing_sort: datepublish DESC
 
 # Maximum amount of items to show in a `<select>` for picking a record. For
 # example in `type: select`.
-maximum_listing_select: 1000
+    maximum_listing_select: 1000
 
 # Because of limitations on how the underlying database queries work, there are
 # only two options for sorting on taxonomies. ASC for roughly "oldest first"
 # and DESC for roughly newest first.
-taxonomy_sort: DESC
+    taxonomy_sort: DESC
 
 # Template for showing the search results. If not defined, uses the settings for
 # listing_template and listing_records.
@@ -117,12 +118,12 @@ taxonomy_sort: DESC
 # Note: If you've changed the filename, and your changes do not show up on the
 #       website, be sure to check for a config.yaml file in your themes folder.
 #       If a template is set there, it will override the setting here.
-search_results_template: search.twig
-search_results_records: 10
+    search_results_template: search.twig
+    search_results_records: 10
 
 # The default amount of records to show on overview pages. Can be overridden
 # for each content type.
-records_per_page: 8
+    records_per_page: 8
 
 # Define the HTML tags and attributes that are allowed in cleaned HTML. This
 # is used for sanitizing HTML, to make sure there are no undesirable elements
@@ -131,19 +132,19 @@ records_per_page: 8
 # Note: enabling options in the `wysiwyg` settings will implicitly add items to
 # the allowed tags. For example, if you set `images: true`, the `<img>` tag
 # will be allowed, regardless of it being in the `allowed_tags` setting.
-htmlcleaner:
-    allowed_tags: [ div, span, p, br, hr, s, u, strong, em, i, b, li, ul, ol, mark, blockquote, pre, code, tt, h1, h2, h3, h4, h5, h6, dd, dl, dt, table, tbody, thead, tfoot, th, td, tr, a, img, address, abbr, iframe, caption, sub, super, figure, figcaption ]
-    allowed_attributes: [ id, class, style, name, value, href, src, alt, title, width, height, frameborder, allowfullscreen, scrolling, target, colspan, rowspan ]
+    htmlcleaner:
+        allowed_tags: [ div, span, p, br, hr, s, u, strong, em, i, b, li, ul, ol, mark, blockquote, pre, code, tt, h1, h2, h3, h4, h5, h6, dd, dl, dt, table, tbody, thead, tfoot, th, td, tr, a, img, address, abbr, iframe, caption, sub, super, figure, figcaption ]
+        allowed_attributes: [ id, class, style, name, value, href, src, alt, title, width, height, frameborder, allowfullscreen, scrolling, target, colspan, rowspan ]
 
 # Define the file types (extensions to be exact) that are acceptable for upload
 # in either file fields or through the files screen.
-accept_file_types: [ twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, tgz, txt, md, doc, docx, pdf, epub, xls, xlsx, ppt, pptx, mp3, ogg, wav, m4a, mp4, m4v, ogv, wmv, avi, webm, svg]
+    accept_file_types: [ twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, tgz, txt, md, doc, docx, pdf, epub, xls, xlsx, ppt, pptx, mp3, ogg, wav, m4a, mp4, m4v, ogv, wmv, avi, webm, svg]
 
 # Alternatively, if you wish to limit these, uncomment the following list
 # instead. It just includes file types / extensions that are harder to exploit.
 # accept_file_types: [ gif, jpg, jpeg, png, txt, md, pdf, epub, mp3, svg ]
 
-accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff ]
+    accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff ]
 
 # If you want to brand the Bolt backend for a client, you can change some key
 # variables here, that determine the name of the backend, and adds a primary
@@ -169,26 +170,26 @@ accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff ]
 # By default the most dangerous options are set to false. If you choose to
 # enable them for your editors, please instruct them thoroughly on their
 # responsibility not to break the layout.
-wysiwyg:
-    images: false            # Allow users to insert images in the content.
-    anchor: false            # Adds a button to create internal anchors to link to.
-    tables: false            # Adds a button to insert and modify tables in the content.
-    fontcolor: false         # Allow users to mess around with font coloring.
-    align: false             # Adds buttons for align left, align right, etc.
-    subsuper: false          # Adds buttons for subscript and superscript, using `<sub>` and `<sup>`.
-    embed: false             # Allows the user to insert embedded videos from Youtube, Vimeo, etc.
-    underline: false         # Adds a button to underline text, using the `<u>`-tag.
-    ruler: false             # Adds a button to add a horizontal ruler, using the `<hr>`-tag.
-    strike: false            # Adds a button to add stikethrough, using the `<s>`-tag.
-    blockquote: false        # Allows the user to insert blockquotes using the `<blockquote>`-tag.
-    codesnippet: false       # Allows the user to insert code snippets using `<pre><code>`-tags.
-    specialchar: false       # Adds a button to insert special chars like € or ™.
-    clipboard: false         # Adds buttons to undo and redo.
-    copypaste: false         # Adds buttons to cut, copy and paste.
-    ck:
-        autoParagraph: true  # If set to true, any pasted content is wrapped in `<p>`-tags for multiple line-breaks
-        disableNativeSpellChecker: true # If set to true it will stop browsers from underlining spelling mistakes
-        allowNbsp: false     # If set to false, the editor will strip out `&nbsp;` characters. If set to true, it will allow them. ¯\_(ツ)_/¯
+    wysiwyg:
+        images: false            # Allow users to insert images in the content.
+        anchor: false            # Adds a button to create internal anchors to link to.
+        tables: false            # Adds a button to insert and modify tables in the content.
+        fontcolor: false         # Allow users to mess around with font coloring.
+        align: false             # Adds buttons for align left, align right, etc.
+        subsuper: false          # Adds buttons for subscript and superscript, using `<sub>` and `<sup>`.
+        embed: false             # Allows the user to insert embedded videos from Youtube, Vimeo, etc.
+        underline: false         # Adds a button to underline text, using the `<u>`-tag.
+        ruler: false             # Adds a button to add a horizontal ruler, using the `<hr>`-tag.
+        strike: false            # Adds a button to add stikethrough, using the `<s>`-tag.
+        blockquote: false        # Allows the user to insert blockquotes using the `<blockquote>`-tag.
+        codesnippet: false       # Allows the user to insert code snippets using `<pre><code>`-tags.
+        specialchar: false       # Adds a button to insert special chars like € or ™.
+        clipboard: false         # Adds buttons to undo and redo.
+        copypaste: false         # Adds buttons to cut, copy and paste.
+        ck:
+            autoParagraph: true  # If set to true, any pasted content is wrapped in `<p>`-tags for multiple line-breaks
+            disableNativeSpellChecker: true # If set to true it will stop browsers from underlining spelling mistakes
+            allowNbsp: false     # If set to false, the editor will strip out `&nbsp;` characters. If set to true, it will allow them. ¯\_(ツ)_/¯
 
 # Enforcing the use of SSL. If set, all pages will enforce an SSL connection,
 # and redirect to HTTPS if you attempt to visit plain HTTP pages.

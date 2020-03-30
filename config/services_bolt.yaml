@@ -4,12 +4,3 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-    AcmeCorp\ReferenceExtension\:
-        resource: '../vendor/acmecorp/reference-extension/src/*'
-        exclude: '../vendor/acmecorp/reference-extension/src/{Entity,Exception}'
-    BobdenOtter\WeatherWidget\:
-        resource: '../vendor/bobdenotter/weatherwidget/src/*'
-        exclude: '../vendor/bobdenotter/weatherwidget/src/{Entity,Exception}'
-    Bolt\NewsWidget\:
-        resource: '../vendor/bolt/newswidget/src/*'
-        exclude: '../vendor/bolt/newswidget/src/{Entity,Exception}'

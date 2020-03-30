@@ -6,7 +6,6 @@ namespace Bolt\Extension;
 
 use Bolt\Event\Subscriber\ExtensionSubscriber;
 use Composer\Package\PackageInterface;
-use ComposerPackages\Types;
 
 class ExtensionRegistry
 {
@@ -79,7 +78,7 @@ class ExtensionRegistry
      */
     public function initializeAll(array $objects, bool $runCli = false): void
     {
-        $this->addComposerPackages();
+       // $this->addComposerPackages();
 
         foreach ($this->getExtensionClasses() as $extensionClass) {
             $extension = new $extensionClass();
@@ -109,7 +108,7 @@ class ExtensionRegistry
     {
         $routes = [];
 
-        $this->addComposerPackages();
+    //    $this->addComposerPackages();
 
         foreach ($this->getExtensionClasses() as $extensionClass) {
             $extension = new $extensionClass();

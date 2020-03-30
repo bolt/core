@@ -9,7 +9,6 @@ use Bolt\Widgets;
 use Cocur\Slugify\Slugify;
 use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
-use ComposerPackages\Packages;
 use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig\Environment;

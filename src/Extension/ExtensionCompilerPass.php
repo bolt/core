@@ -6,7 +6,6 @@ namespace Bolt\Extension;
 
 use Bolt\Common\Str;
 use Composer\Package\PackageInterface;
-use ComposerPackages\Types;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Yaml;
@@ -45,7 +44,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
             ],
         ];
 
-        $packages = $this->addComposerPackages($packages);
+   //     $packages = $this->addComposerPackages($packages);
 
         foreach ($packages as $package) {
             [$name, $service] = $this->createService($package);

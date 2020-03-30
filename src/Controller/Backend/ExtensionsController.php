@@ -6,8 +6,6 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Extension\BaseExtension;
 use Bolt\Extension\ExtensionRegistry;
-use ComposerPackages\Dependencies;
-use ComposerPackages\Versions;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

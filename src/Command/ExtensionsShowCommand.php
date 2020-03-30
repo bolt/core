@@ -6,8 +6,6 @@ namespace Bolt\Command;
 
 use Bolt\Extension\ExtensionInterface;
 use Bolt\Extension\ExtensionRegistry;
-use ComposerPackages\Dependencies;
-use ComposerPackages\Versions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
