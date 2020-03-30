@@ -12,13 +12,14 @@ use Bolt\Utils\ThumbnailHelper;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @ORM\Entity
  */
 class ImageField extends Field implements FieldInterface, MediaAwareInterface
 {
+    use FileExtrasTrait;
+
     public const TYPE = 'image';
 
     private function getFieldBase()
@@ -66,38 +67,6 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
         return $value;
     }
 
-    private function getPath(): string
-    {
-        $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
-
-        return $filesPackage->getUrl($this->get('filename'));
-    }
-
-    private function getUrl(): string
-    {
-        $request = Request::createFromGlobals();
-
-        return sprintf(
-            '%s://%s%s',
-            $request->getScheme(),
-            $this->getHost($request),
-            $this->getPath()
-        );
-    }
-
-    private function getHost($request)
-    {
-        $host = $request->server->get('CANONICAL_HOST', $request->getHost());
-        $scheme = $request->getScheme();
-        $port = $request->getPort();
-
-        if (($scheme === 'http' && $port === 80) || ($scheme === 'https' && $port === 443)) {
-            return $host;
-        }
-
-        return $host . ':'.$port;
-    }
-
     public function getLinkedMedia(MediaRepository $mediaRepository): ?Media
     {
         if ($this->get('media')) {
@@ -122,6 +91,8 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
 
     public function includeAlt(): bool
     {
+        // This method is used in image.html.twig to decide
+        // whether to display the alt field or not.
         if (! $this->getDefinition()->has('alt')) {
             return true;
         }
