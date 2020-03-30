@@ -8,7 +8,7 @@
             <label for="embed-url">{{ labels.content_url }}</label>
             <div class="input-group">
               <input
-                v-model="url"
+                v-model="urlData"
                 class="form-control"
                 :name="name + '[url]'"
                 :placeholder="labels.placeholder_content_url"
@@ -18,13 +18,21 @@
                 :data-errormessage="errormessage"
                 :pattern="pattern"
               />
-              <span class="input-group-btn">
+              <span class="input-group-append">
                 <button
-                  class="btn btn-default refresh"
+                  class="btn btn-tertiary refresh"
                   type="button"
-                  disabled=""
+                  @click="updateEmbed"
                 >
                   <i class="fa fa-refresh"></i>
+                </button>
+
+                <button
+                  class="btn btn-hidden-danger remove"
+                  type="button"
+                  @click="clearEmbed"
+                >
+                  <i class="fa fa-trash"></i>
                 </button>
               </span>
             </div>
@@ -143,11 +151,8 @@ export default {
     };
   },
   watch: {
-    url: function(newValue) {
-      if (!newValue) {
-        return;
-      }
-      this.debouncedFetchEmbed();
+    urlData: function() {
+      this.updateEmbed();
     },
   },
   mounted() {
@@ -155,8 +160,8 @@ export default {
   },
   created: function() {
     this.debouncedFetchEmbed = _.debounce(this.fetchEmbed, 500);
-    if (this.url) {
-      this.debouncedFetchEmbed();
+    if (this.urlData) {
+      this.updateEmbed();
     }
     this.previewImage = this.thumbnail;
   },
@@ -171,9 +176,15 @@ export default {
     });
   },
   methods: {
+    updateEmbed: function() {
+      this.debouncedFetchEmbed();
+    },
+    clearEmbed: function() {
+      this.urlData = '';
+    },
     fetchEmbed: function() {
       const body = new FormData();
-      body.append('url', this.url);
+      body.append('url', this.urlData);
       body.append(
         '_csrf_token',
         document.getElementsByName('_csrf_token')[0].value,
