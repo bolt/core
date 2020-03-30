@@ -169,4 +169,4 @@ class Kernel extends BaseKernel
 // Note: This is here to ease the upgrade from Knp/DoctrineBehaviors 2.0.1 to 2.0.2
 // @see https://github.com/KnpLabs/DoctrineBehaviors/pull/534
 // @deprecated since 4.0.0
-class_alias('Knp\DoctrineBehaviors\DoctrineBehaviorsBundle', 'Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle');
+class_alias(\Knp\DoctrineBehaviors\DoctrineBehaviorsBundle::class, 'Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle');
