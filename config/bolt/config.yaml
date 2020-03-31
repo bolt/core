@@ -187,10 +187,9 @@ bolt:
         clipboard: false         # Adds buttons to undo and redo.
         copypaste: false         # Adds buttons to cut, copy and paste.
         ck:
+            contentsCss:
+                - ['css/ckeditor-contents.css', 'bolt']
+                - ['css/ckeditor.css', 'bolt']
             autoParagraph: true  # If set to true, any pasted content is wrapped in `<p>`-tags for multiple line-breaks
             disableNativeSpellChecker: true # If set to true it will stop browsers from underlining spelling mistakes
             allowNbsp: false     # If set to false, the editor will strip out `&nbsp;` characters. If set to true, it will allow them. ¯\_(ツ)_/¯
-
-# Enforcing the use of SSL. If set, all pages will enforce an SSL connection,
-# and redirect to HTTPS if you attempt to visit plain HTTP pages.
-# enforce_ssl: true

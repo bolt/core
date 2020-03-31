@@ -7,14 +7,10 @@ use Bolt\Collection\DeepCollection;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
-use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\MenuParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Configuration\Parser\ThemeParser;
-use Bolt\DependenciesInjection\BoltExtension;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\CacheInterface;
 use Tightenco\Collect\Support\Collection;
@@ -33,65 +29,34 @@ class Config
     private $projectDir;
     /** @var string */
     private $locales;
+    private $parsedFilenames;
+    /**
+     * @var ContainerInterface
+     */
     private $container;
     
-    public function __construct(string $locales, Stopwatch $stopwatch, string $projectDir, CacheInterface $cache)
+    public function __construct(ContainerInterface $container)
     {
-        $this->container = new ContainerBuilder();
-        $this->container->registerExtension(new BoltExtension());
-
-
-        $this->locales = $locales;
-        $this->stopwatch = $stopwatch;
-        $this->cache = $cache;
-        $this->projectDir = $projectDir;
-        $this->data = $this->getConfig();
-        // @todo PathResolver shouldn't be part of Config. Refactor to separate class
-        $this->pathResolver = new PathResolver($projectDir, [], $this->get('general/theme'));
-    }
-    
-    private function getConfig(): Collection
-    {
-        $loader = new YamlFileLoader($this->container, new FileLocator(
-            $this->projectDir . '/config/bolt'
-        ));
-        $loader->load("config.yaml");
-        $this->container->compile();
-        die("ok");
-        $this->stopwatch->start('bolt.parseconfig');
-        [$data, $timestamps] = $this->getCache();
-        // Verify if timestamps are unchanged. If not, invalidate cache.
-        foreach ($timestamps as $filename => $timestamp) {
-            if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
-                $this->cache->delete('config_cache');
-                [$data] = $this->getCache();
-            }
-        }
-        $this->stopwatch->stop('bolt.parseconfig');
         
-        return $data;
+        $this->container = $container;
+    //    $this->parseConfig();
     }
     
-    private function getCache(): array
-    {
-        return $this->cache->get('config_cache', function() {
-            return $this->parseConfig();
-        });
-    }
+    
     
     /**
      * Load the configuration from the various YML files.
      */
     private function parseConfig(): array
     {
-        $general = new GeneralParser($this->projectDir);
-        $config = new Collection([
-            'general' => $general->parse(),
-        ]);
+        /* $general = new GeneralParser($this->projectDir);
+         $config = new Collection([
+             'general' => $general->parse(),
+         ]);*/
         $taxonomy = new TaxonomyParser($this->projectDir);
         $config['taxonomies'] = $taxonomy->parse();
-        $contentTypes = new ContentTypesParser($this->locales, $this->projectDir, $config->get('general'));
-        $config['contenttypes'] = $contentTypes->parse();
+        $contentTypes = new ContentTypesParser($this->locales, $this->projectDir, );
+        $this->container->setParameter('contenttypes',  $contentTypes->parse());
         $menu = new MenuParser($this->projectDir);
         $config['menu'] = $menu->parse();
         // If we're parsing the config, we'll also need to pre-initialise
@@ -105,16 +70,15 @@ class Config
         $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu, $theme);
         
         return [
-            DeepCollection::deepMake($config),
-            $timestamps,
         ];
     }
     
     private function getConfigFilesTimestamps(BaseParser ...$configs): array
     {
         $timestamps = [];
+        $this->parsedFilenames = $config->getParsedFilenames();
         foreach ($configs as $config) {
-            foreach ($config->getParsedFilenames() as $file) {
+            foreach ($this->parsedFilenames as $file) {
                 $timestamps[$file] = filemtime($file);
             }
         }
@@ -136,20 +100,16 @@ class Config
      */
     public function get(string $path, $default = null)
     {
-        $value = Arr::get($this->data, $path, $default);
-        // Basic getenv parser, for values like `%env(FOO_BAR)%`
-        if (is_string($value) && preg_match('/%env\(([A-Z0-9_]+)\)%/', $value, $matches)) {
-            if (getenv($matches[1])) {
-                $value = getenv($matches[1]);
-            }
+        if (!$this->container->hasParameter($path)) {
+            return $default;
         }
         
-        return $value;
+        return $this->container->getParameter($path);
     }
     
     public function has(string $path): bool
     {
-        return Arr::has($this->data, $path);
+      return  $this->container->hasParameter($path);
     }
     
     public function getPath(string $path, bool $absolute = true, $additional = null): string

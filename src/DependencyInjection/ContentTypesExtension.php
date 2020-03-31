@@ -1,15 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace Bolt\DependenciesInjection;
+namespace Bolt\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 
-class BoltExtension extends Extension
+class ContentTypesExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
-        $this->processConfiguration(new Configuration(), $configs);
+       
+        
+        $configuration = new ContentTypeConfiguration();
+        $this->processConfiguration($configuration, $configs);
     }
 }

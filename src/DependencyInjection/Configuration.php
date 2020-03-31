@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Bolt\DependenciesInjection;
+namespace Bolt\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -167,6 +167,7 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->end()
         ;
+        $this->buildPerformance($nodeRoot);
         $this->buildThumbnails($nodeRoot);
         $this->buildDatabase($nodeRoot);
         $this->buildWysiwyg($nodeRoot);
@@ -174,6 +175,30 @@ class Configuration implements ConfigurationInterface
         $this->buildBranding($nodeRoot);
         $this->buildHeaders($nodeRoot);
         return $treeBuilder;
+    }
+    
+    private function buildPerformance(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode->children()
+            ->arrayNode('performance')
+                ->children()
+                    ->arrayNode('http_cache')
+                        ->beforeNormalization()->castToArray()->end()
+                        ->children()
+                            ->arrayNode('options')
+                                ->beforeNormalization()->castToArray()->end()
+                        ->end()
+                        ->end()
+                        ->end()
+    
+                    ->arrayNode('timed_records')
+                        ->beforeNormalization()->castToArray()->end()
+                        ->children()
+                            ->integerNode('interval')->defaultValue(3600)->end()
+                            ->booleanNode('use_cron')->defaultFalse()->end()
+            ->end()
+            ;
+    
     }
     
     private function buildHeaders(ArrayNodeDefinition $rootNode)

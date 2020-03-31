@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Extension;
 
 use Bolt\Common\Str;
+use Bolt\DependencyInjection\BoltExtension;
 use Composer\Package\PackageInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -30,7 +31,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
         $registry->addMethodCall('addCompilerPass', [$packages]);
 
         // Rebuild our own `services_bolt.yml` file.
-        $this->buildServices($packages);
+     //   $this->buildServices($packages);
     }
 
     public function buildServices(array $packages): void
