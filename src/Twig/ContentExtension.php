@@ -94,6 +94,7 @@ class ContentExtension extends AbstractExtension
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
+            new TwigFilter('title_fields', [$this, 'guessTitleFields']),
             new TwigFilter('image', [$this, 'getImage']),
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
@@ -166,10 +167,12 @@ class ContentExtension extends AbstractExtension
             $titleParts[] = $content->getField($fieldName)->__toString();
         }
 
-        return trim(implode(' ', $titleParts));
+        $maxLength = 80; // Should we make this configurable, or is that overkill?
+
+        return Html::trimText(implode(' ', $titleParts), $maxLength);
     }
 
-    private function guessTitleFields(Content $content): array
+    public function guessTitleFields(Content $content): array
     {
         $definition = $content->getDefinition();
 
@@ -202,6 +205,12 @@ class ContentExtension extends AbstractExtension
         foreach ($names as $name) {
             if ($content->hasField($name)) {
                 return (array) $name;
+            }
+        }
+
+        foreach ($content->getFields() as $field) {
+            if ($field instanceof Excerptable) {
+                return (array) $field->getName();
             }
         }
 
