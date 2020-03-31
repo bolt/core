@@ -41,8 +41,14 @@
       :csrftoken="{{ csrf_token('batch')|json_encode }}"
     ></listing-select-box>
 
-    {% set titleField = contentType.title_format|first %}
-    {% set titleLabel = contentType.fields[titleField].label %}
+    {# Set `titleField` and `titleLabel`, but only if we have records #}
+    {% if records|first %}
+        {% set titleField = records|first|title_fields|first %}
+        {% set titleLabel = contentType.fields[titleField].label %}
+    {% else %}
+        {% set titleField = '-' %}
+        {% set titleLabel = '-' %}
+    {% endif %}
 
     {% set filterOptions = {
         'id': "Id", (titleField): titleLabel, 'author': 'Author', 'status': 'Status', 'createdAt': 'Created date',
