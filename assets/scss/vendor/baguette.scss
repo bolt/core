@@ -10,7 +10,6 @@
   z-index: 1000000;
   background-color: rgba(220, 220, 220, 0.35) !important;
   -webkit-backdrop-filter: blur(3px);
-  
   backdrop-filter: blur(3px);
 
   &::before {
@@ -54,7 +53,7 @@
       max-width: 100%;
       vertical-align: middle;
       box-shadow: $card-box-shadow;
-      filter: drop-shadow(2px 2px 12px rgba(0, 0, 0, .2));
+      filter: drop-shadow(2px 2px 12px rgba(0, 0, 0, 0.2));
     }
 
     figcaption {
