@@ -11,7 +11,6 @@ Feature: Get content fields with API
   """
 
   @api
-  @testme
   Scenario: As a user I fetch fields of content in JSON+LD format
     When I send a GET request to "/api/contents/1/fields.jsonld"
     Then the response status code should be 200
