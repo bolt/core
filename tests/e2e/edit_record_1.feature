@@ -92,8 +92,9 @@ Feature: Edit record
     And I wait until I see "Select a file"
     And I select "kitten.jpg" from "bootbox-input"
     And I press "OK"
-    Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
     And I wait 1 second
+    Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
+    And I fill "fields[imagelist][0][alt]" element with "Image of a kitten"
 
     When I press "Add new image"
     Then I should see 5 ".row" elements in the ".editor__imagelist" element
@@ -106,13 +107,16 @@ Feature: Edit record
     And I press "OK"
     And I wait 1 second
     Then the "fields[imagelist][4][filename]" field should contain "joey.jpg"
+    And I fill "fields[imagelist][4][alt]" element with "Image of a joey"
 
     When I scroll the 1st "Down" into view
     And I press the 1st "Down" button
     Then the "fields[imagelist][1][filename]" field should contain "kitten.jpg"
+    And the "fields[imagelist][1][alt]" field should contain "Image of a kitten"
 
     When I press the 2nd "Up" button
     Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
+    And the "fields[imagelist][0][alt]" field should contain "Image of a kitten"
 
     And the 1st "Up" button should be disabled
     And the 5th "Down" button should be disabled
