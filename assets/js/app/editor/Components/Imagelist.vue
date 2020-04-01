@@ -150,6 +150,7 @@ export default {
         thumbnail: '',
         extensions: this.extensions,
         id: this.counter,
+        alt: true,
       };
 
       this.counter++;
