@@ -165,8 +165,3 @@ class Kernel extends BaseKernel
         throw new \Exception('The Public Folder could not be determined. Expected folder `public`, `public_html`, `www`, `web`, `httpdocs`, `wwwroot`, `htdocs`, `http_public` or `private_html` to exist.');
     }
 }
-
-// Note: This is here to ease the upgrade from Knp/DoctrineBehaviors 2.0.1 to 2.0.2
-// @see https://github.com/KnpLabs/DoctrineBehaviors/pull/534
-// @deprecated since 4.0.0
-class_alias(\Knp\DoctrineBehaviors\DoctrineBehaviorsBundle::class, 'Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle');
