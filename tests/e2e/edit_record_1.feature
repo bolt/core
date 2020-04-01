@@ -56,6 +56,8 @@ Feature: Edit record
     And the "fields[embed][height]" field should contain "270"
 
     When I click ".editor__embed .remove"
+#   Add wait to make sure JS clears the fields before assert occurs
+    And I wait 1 second
     And the "fields[embed][url]" field should contain ""
     And the "fields[embed][title]" field should contain ""
     And the "fields[embed][authorname]" field should contain ""
