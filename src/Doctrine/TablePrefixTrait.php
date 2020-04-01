@@ -6,8 +6,8 @@
 namespace Bolt\Doctrine;
 
 use Bolt\Common\Str;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 trait TablePrefixTrait
 {

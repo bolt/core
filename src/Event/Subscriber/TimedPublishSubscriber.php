@@ -7,7 +7,7 @@ namespace Bolt\Event\Subscriber;
 use Bolt\Doctrine\TablePrefixTrait;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
