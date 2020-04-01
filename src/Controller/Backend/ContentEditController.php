@@ -164,7 +164,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     }
 
     /**
-     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"}, requirements={"id": "\d+"})
+     * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST", "GET"}, requirements={"id": "\d+"})
      */
     public function preview(Request $request, ?Content $content = null): Response
     {
