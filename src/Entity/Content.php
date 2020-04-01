@@ -22,7 +22,8 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
  * @ApiResource(
  *     normalizationContext={"groups"={"get_content","get_definition"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get"}
+ *     itemOperations={"get"},
+ *     graphql={"item_query"}
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")

@@ -18,14 +18,17 @@ use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
 
 /**
- * @ApiResource(subresourceOperations={
- *     "api_contents_fields_get_subresource"={
- *         "method"="GET",
- *         "normalization_context"={"groups"={"get_field"}}
+ * @ApiResource(
+ *     subresourceOperations={
+ *         "api_contents_fields_get_subresource"={
+ *             "method"="GET",
+ *              "normalization_context"={"groups"={"get_field"}}
+ *         },
  *     },
- * },
- * collectionOperations={"get"},
- * itemOperations={"get"})
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"},
+ *     graphql={"item_query"}
+ * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
