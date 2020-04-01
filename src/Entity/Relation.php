@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"get_relation"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get"},
- *     graphql={"item_query"}
+ *     graphql={"item_query", "collection_query"}
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\RelationRepository")
  * @ORM\Table(indexes={

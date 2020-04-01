@@ -27,7 +27,7 @@ use Twig\Markup;
  *     },
  *     collectionOperations={"get"},
  *     itemOperations={"get"},
- *     graphql={"item_query"}
+ *     graphql={"item_query", "collection_query"}
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
