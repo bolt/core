@@ -170,7 +170,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     {
         $this->validateCsrf($request, 'editrecord');
 
-        $content = $this->contentFromPost($content, $request);
+        $content = $this->contentFromPost($content, $request, true);
         $recordSlug = $content->getDefinition()->get('singular_slug');
 
         $context = [
@@ -259,10 +259,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return new RedirectResponse($url);
     }
 
-    private function contentFromPost(?Content $content, Request $request): Content
+    private function contentFromPost(?Content $content, Request $request, bool $forPreview = false): Content
     {
         $formData = $request->request->all();
-
         $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
 
         /** @var User $user */
@@ -299,7 +298,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             }
         }
 
-        $this->updateCollections($content, $formData, $locale);
+        $this->updateCollections($content, $formData, $locale, $forPreview);
 
         if (isset($formData['taxonomy'])) {
             foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
@@ -327,7 +326,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function updateCollections(Content $content, array $formData, ?string $locale): void
+    private function updateCollections(Content $content, array $formData, ?string $locale, bool $forPreview): void
     {
         $collections = $content->getFields()->filter(function (Field $field) {
             return $field->getType() === CollectionField::TYPE;
@@ -340,7 +339,11 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $this->removeFieldChildren($collection);
         }
 
-        $this->em->flush();
+        // We flush the entityManager here, because otherwise fields wouldn't persist properly. However, if we're
+        // "previewing" we most certainly do _not_ want to do this, because we'd effectively 'save' the Record.
+        if (! $forPreview) {
+            $this->em->flush();
+        }
 
         if (isset($formData['collections'])) {
             foreach ($formData['collections'] as $collectionName => $collectionItems) {
