@@ -170,7 +170,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     {
         $this->validateCsrf($request, 'editrecord');
 
-        $content = $this->contentFromPost($content, $request, true);
+        $content = $this->contentFromPost($content, $request);
         $recordSlug = $content->getDefinition()->get('singular_slug');
 
         $context = [
@@ -259,7 +259,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return new RedirectResponse($url);
     }
 
-    private function contentFromPost(?Content $content, Request $request, bool $forPreview = false): Content
+    private function contentFromPost(?Content $content, Request $request): Content
     {
         $formData = $request->request->all();
         $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
@@ -298,7 +298,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             }
         }
 
-        $this->updateCollections($content, $formData, $locale, $forPreview);
+        $this->updateCollections($content, $formData, $locale);
 
         if (isset($formData['taxonomy'])) {
             foreach ($formData['taxonomy'] as $fieldName => $taxonomy) {
@@ -315,19 +315,20 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $content;
     }
 
-    private function removeFieldChildren(Content $content, Field $field): void
+    private function removeFieldChildren(Content $content, FieldParentInterface $field): void
     {
         foreach ($field->getChildren() as $child) {
             if ($child instanceof FieldParentInterface && $child->hasChildren()) {
                 $this->removeFieldChildren($content, $child);
             }
 
+            /** @var Field $child */
             $content->removeField($child);
             $this->em->remove($child);
         }
     }
 
-    private function updateCollections(Content $content, array $formData, ?string $locale, bool $forPreview): void
+    private function updateCollections(Content $content, array $formData, ?string $locale): void
     {
         $collections = $content->getFields()->filter(function (Field $field) {
             return $field->getType() === CollectionField::TYPE;
