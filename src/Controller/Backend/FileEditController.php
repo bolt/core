@@ -9,8 +9,6 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Asset\PathPackage;
-use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -127,24 +125,20 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
         $filesystem = new Filesystem();
 
-        $locationName = $request->query->get('location', '');
-        $path = $request->query->get('path', '');
-
-        $filesPackage = new PathPackage($locationName, new EmptyVersionStrategy());
+        $locationName = $request->get('location', '');
+        $path = $request->get('path', '');
 
         $media = $this->mediaRepository->findOneByFullFilename($path, $locationName);
 
-        if ($media === null) {
-            $message = sprintf('No media found for requested %s/%s file.', $locationName, $path);
-            throw new \Exception(sprintf($message));
+        if ($media !== null) {
+            $this->em->remove($media);
+            $this->em->flush();
         }
 
-        $filePath = ltrim($filesPackage->getUrl($media->getFilenamePath()), '/');
+        $filePath = Path::canonicalize($locationName . '/' . $path);
 
         try {
             $filesystem->remove($filePath);
-            $this->em->remove($media);
-            $this->em->flush();
         } catch (\Throwable $e) {
             // something wrong happened, we don't need the uploaded files anymore
             throw $e;
