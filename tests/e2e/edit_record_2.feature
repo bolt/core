@@ -9,3 +9,7 @@ Feature: Preview record after editing
     And I press "Preview"
     And I switch to tab "1"
     Then I should see "Check preview" in the ".title" element
+
+    When I switch to tab "0"
+    And I reload the page
+    Then the "field-title" field should not contain "Check preview"
