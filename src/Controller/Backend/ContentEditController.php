@@ -147,23 +147,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     }
 
     /**
-     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsave", methods={"POST"}, requirements={"id": "\d+"})
-     */
-    public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
-    {
-        $this->validateCsrf($request, 'editrecord');
-
-        $urlParams = [
-            'slugOrId' => $content->getId(),
-            'contentTypeSlug' => $content->getDefinition()->get('slug'),
-        ];
-
-        $url = $this->urlGenerator->generate('record', $urlParams);
-
-        return new RedirectResponse($url);
-    }
-
-    /**
      * @Route("/preview/{id}", name="bolt_content_edit_preview", methods={"POST"}, requirements={"id": "\d+"})
      */
     public function preview(Request $request, ?Content $content = null): Response
