@@ -315,13 +315,14 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $content;
     }
 
-    private function removeFieldChildren(FieldParentInterface $field): void
+    private function removeFieldChildren(Content $content, Field $field): void
     {
         foreach ($field->getChildren() as $child) {
             if ($child instanceof FieldParentInterface && $child->hasChildren()) {
-                $this->removeFieldChildren($child);
+                $this->removeFieldChildren($content, $child);
             }
 
+            $content->removeField($child);
             $this->em->remove($child);
         }
     }
@@ -336,13 +337,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $tm = new TranslationsManager($collections, $keys);
 
         foreach ($collections as $collection) {
-            $this->removeFieldChildren($collection);
-        }
-
-        // We flush the entityManager here, because otherwise fields wouldn't persist properly. However, if we're
-        // "previewing" we most certainly do _not_ want to do this, because we'd effectively 'save' the Record.
-        if (! $forPreview) {
-            $this->em->flush();
+            $this->removeFieldChildren($content, $collection);
         }
 
         if (isset($formData['collections'])) {
