@@ -5,8 +5,12 @@ parameters:
     # This parameter defines the codes of the locales (languages) enabled in the application
     app_locales: en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE|is|ru
     app.notifications.email_sender: anonymous@example.com
-    app.table_prefix:
-        default: bolt_
+    # Default table prefix for Bolt database
+    app.table_prefix: bolt_
+    # Alternatively may define different table prefixes by entity managers configured in doctrine.yml
+    #    app.table_prefix:
+    #        default: bolt_
+    #        foo_manager: foo_
     bolt.backend_url: /bolt
 
 services:
