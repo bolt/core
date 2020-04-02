@@ -21,7 +21,7 @@
 
         {% if record.status == "published" %}
             <div>
-                <strong>View live</strong><br>
+                <strong>{{ 'action.view_saved'|trans }}</strong><br>
                 <a href="{{ record|link(true) }}" target="_blank">{{ record|link(true)|trim('https://', side='left') }}</a>
             </div>
         {% endif %}
