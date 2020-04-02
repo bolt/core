@@ -131,6 +131,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $media = $this->mediaRepository->findOneByFullFilename($path, $locationName);
 
         if ($media !== null) {
+            // If there is a media for the file, make sure to delete it.
             $this->em->remove($media);
             $this->em->flush();
         }
