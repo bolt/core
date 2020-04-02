@@ -2241,5 +2241,11 @@
         <target>Content</target>
       </segment>
     </unit>
+    <unit id="v7ZTnja" name="file.delete_success">
+      <segment>
+        <source>file.delete_success</source>
+        <target>File deleted successfully!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
