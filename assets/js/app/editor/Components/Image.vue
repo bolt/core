@@ -127,9 +127,10 @@
       <div class="col-3">
         <div class="editor__image--preview">
           <a
+            v-if="previewImage != ''"
             class="editor__image--preview-image"
             :href="previewImage"
-            :style="`background-image: url('${previewImage}')`"
+            :style="`background-image: url('${thumbnailImage}')`"
           >
           </a>
         </div>
@@ -181,11 +182,11 @@ export default {
   data() {
     return {
       previewImage: null,
+      thumbnailImage: null,
       isDragging: false,
       dragCount: 0,
       progress: 0,
       filenameData: this.filename,
-      thumbnailData: this.thumbnail,
       altData: this.alt,
     };
   },
@@ -208,10 +209,15 @@ export default {
     },
   },
   mounted() {
-    this.previewImage = this.thumbnailData;
+    this.previewImage = `/thumbs/1000×1000/` + this.filenameData;
+    this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
   },
   updated() {
-    this.previewImage = this.thumbnailData;
+    if (!this.filenameData) {
+      return;
+    }
+    this.previewImage = `/thumbs/1000×1000/` + this.filenameData;
+    this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
     baguetteBox.run('.editor__image--preview', {
       afterShow: () => {
         noScroll.on();
@@ -230,8 +236,8 @@ export default {
     },
     onRemoveImage() {
       this.previewImage = null;
-      this.filenameData = '';
-      this.thumbnailData = '';
+      this.filenameData = null;
+      this.thumbnailImage = null;
       // only reset altData if alt should be displayed.
       if (this.altData !== undefined) this.altData = '';
       this.$emit('remove', this);
@@ -252,6 +258,7 @@ export default {
               if (result) {
                 thisField.filenameData = result;
                 thisField.thumbnailData = `/thumbs/400×300/${result}`;
+                thisField.previewData = `/thumbs/1000×1000/${result}`;
               }
             },
           });
@@ -299,6 +306,7 @@ export default {
         .then(res => {
           this.filenameData = res.data;
           this.thumbnailData = `/thumbs/400×300/${res.data}`;
+          this.previewData = `/thumbs/1000×1000/${res.data}`;
           this.progress = 0;
         })
         .catch(err => {

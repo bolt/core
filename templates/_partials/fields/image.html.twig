@@ -17,7 +17,6 @@
     <editor-image
         :name='{{ name|json_encode }}'
         :filename='{{ field.get('filename')|json_encode }}'
-        :thumbnail='{{ field|thumbnail(width=400, height=300)|json_encode }}'
         :media='{{ field.get('media')|json_encode }}'
         :directory='{{ directory|json_encode }}'
         :filelist='{{ filelist|json_encode }}'
