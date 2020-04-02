@@ -2247,5 +2247,11 @@
         <target>File deleted successfully!</target>
       </segment>
     </unit>
+    <unit id="wHPoBzP" name="file.delete_confirm">
+      <segment>
+        <source>file.delete_confirm</source>
+        <target>Are you sure you wish to delete this file?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

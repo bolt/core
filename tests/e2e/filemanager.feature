@@ -9,3 +9,37 @@ Feature: Filemanager
 
     When I am on "/bolt/filemanager/files"
     Then I should see "Path: files/" in the ".path" element
+
+  @javascript
+  Scenario: As an Admin I want to delete a file from the "Files" section
+    Given I am logged in as "admin"
+    And I am on "/bolt/filemanager/files"
+
+    Then I should see "puppy.jpg" in the 9th ".admin__body--main tr" element
+
+    When I click the 8th ".edit-actions__dropdown-toggler"
+    And I follow "Delete puppy.jpg"
+
+    And I wait for ".modal-dialog"
+    Then I should see "Are you sure you wish to delete this file?"
+    When I press "OK"
+
+    Then I should see "File deleted successfully"
+    And I should not see "puppy.jpg"
+
+  @javascript
+  Scenario: As an Admin I want accidentally click delete file and want to cancel
+    Given I am logged in as "admin"
+    And I am on "/bolt/filemanager/files"
+
+    Then I should see "index.html" in the 4th ".admin__body--main tr" element
+
+    When I click the 3rd ".edit-actions__dropdown-toggler"
+    And I follow "Delete index.html"
+
+    And I wait for ".modal-dialog"
+    Then I should see "Are you sure you wish to delete this file?"
+    When I press "Cancel"
+
+    Then I should not see "File deleted successfully"
+    And I should see "index.html" in the 4th ".admin__body--main tr" element
