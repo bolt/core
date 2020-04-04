@@ -69,7 +69,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /** @var ContentFillListener */
     private $contentFillListener;
 
-    /** @var EventDispatcher */
+    /** @var EventDispatcherInterface */
     private $dispatcher;
 
     public function __construct(
