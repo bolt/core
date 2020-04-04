@@ -12,9 +12,9 @@ class TablePrefix
 {
     use TablePrefixTrait;
 
-    public function __construct($tablePrefixes, ManagerRegistry $managerRegistry)
+    public function __construct($tablePrefix, ManagerRegistry $managerRegistry)
     {
-        $this->setTablePrefixes($tablePrefixes, $managerRegistry);
+        $this->setTablePrefixes($tablePrefix, $managerRegistry);
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void
@@ -22,7 +22,7 @@ class TablePrefix
         if ($tablePrefix = $this->getTablePrefix($eventArgs->getEntityManager())) {
             $classMetadata = $eventArgs->getClassMetadata();
 
-            if (!$classMetadata->isInheritanceTypeSingleTable()
+            if (! $classMetadata->isInheritanceTypeSingleTable()
                 || $classMetadata->getName() === $classMetadata->rootEntityName) {
                 $classMetadata->setPrimaryTable(
                     [

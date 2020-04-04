@@ -6,7 +6,7 @@ parameters:
     app_locales: en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE|is|ru
     app.notifications.email_sender: anonymous@example.com
     # Default table prefix for Bolt database
-    app.table_prefix: bolt_
+    bolt.table_prefix: bolt_
     # Alternatively may define different table prefixes by entity managers configured in doctrine.yml
     #    app.table_prefix:
     #        default: bolt_
@@ -26,7 +26,7 @@ services:
             $emailSender: '%app.notifications.email_sender%'
             $projectDir: '%kernel.project_dir%'
             $publicFolder: '%bolt.public_folder%'
-            $tablePrefixes: '%app.table_prefix%'
+            $tablePrefix: '%bolt.table_prefix%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
