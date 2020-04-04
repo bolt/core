@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Event\Subscriber;
 
 use Bolt\Doctrine\TablePrefixTrait;
+use Bolt\Entity\Content;
 use Carbon\Carbon;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -17,28 +17,18 @@ class TimedPublishSubscriber implements EventSubscriberInterface
 
     public const PRIORITY = 30;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    /** @var object */
+    private $defaultConnection;
 
     /** @var string */
     private $tablePrefix;
 
-    public function __construct($tablePrefixes, ManagerRegistry $managerRegistry)
+    public function __construct($tablePrefix, ManagerRegistry $managerRegistry)
     {
-        $this->entityManager = $managerRegistry->getManager('default');
+        $this->defaultConnection = $managerRegistry->getConnection('default');
         $this->tablePrefix = $this
-            ->setTablePrefixes($tablePrefixes, $managerRegistry)
-            ->getTablePrefix($this->entityManager);
-    }
-
-    /**
-     * Return the events to subscribe to.
-     */
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::REQUEST => [['onKernelRequest', self::PRIORITY]], // Right after route is matched
-        ];
+            ->setTablePrefixes($tablePrefix, $managerRegistry)
+            ->getTablePrefix($managerRegistry->getManager('default'));
     }
 
     /**
@@ -46,7 +36,7 @@ class TimedPublishSubscriber implements EventSubscriberInterface
      */
     public function onKernelRequest(): void
     {
-        $conn = $this->entityManager->getConnection();
+        $conn = $this->defaultConnection;
         $now = (new Carbon())->tz('UTC');
 
         // Publish timed Content records when 'publish_at' has passed and Depublish published Content
@@ -66,5 +56,15 @@ class TimedPublishSubscriber implements EventSubscriberInterface
         } catch (\Throwable $e) {
             // Fail silently, output user-friendly exception elsewhere.
         }
+    }
+
+    /**
+     * Return the events to subscribe to.
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::REQUEST => [['onKernelRequest', self::PRIORITY]], // Right after route is matched
+        ];
     }
 }
