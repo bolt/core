@@ -233,7 +233,7 @@ class ContentExtension extends AbstractExtension
 
             if ($field instanceof ImagelistField) {
                 $firstImage = current($field->getValue());
-                if ($firstImage->get('filename')) {
+                if ($firstImage && $firstImage->get('filename')) {
                     return $onlyValues ? $firstImage->getValue() : $firstImage;
                 }
             }
