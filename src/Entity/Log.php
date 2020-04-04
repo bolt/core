@@ -71,6 +71,10 @@ class Log
     public function onPrePersist(): void
     {
         $this->createdAt = new \DateTime();
+
+        if (array_key_exists('content_id', $this->getContext())) {
+            $this->setContent($this->getContext()['content_id']);
+        }
     }
 
     public function getId(): int

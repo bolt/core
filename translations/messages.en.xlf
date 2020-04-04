@@ -2235,5 +2235,11 @@
         <target>This field is translatable</target>
       </segment>
     </unit>
+    <unit id="qqpGLJl" name="label.content">
+      <segment>
+        <source>label.content</source>
+        <target>Content</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
