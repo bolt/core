@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * @author Rix Beck <rix@neologik.hu>
  */
@@ -8,10 +11,15 @@ namespace Bolt\Doctrine;
 use Bolt\Common\Str;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
+use InvalidArgumentException;
 
 trait TablePrefixTrait
 {
+    /** @var string[] */
     private $tablePrefixes = [];
+
+    /** @var ManagerRegistry */
+    private $registry;
 
     protected function setTablePrefix(ObjectManager $manager, string $prefix)
     {
@@ -23,13 +31,15 @@ trait TablePrefixTrait
 
     protected function setTablePrefixes($tablePrefixes, ManagerRegistry $managerRegistry)
     {
-        $prefixes = (array)$tablePrefixes;
+        $prefixes = (array) $tablePrefixes;
         $this->registry = $managerRegistry;
 
-        foreach ($prefixes as $em => $tablePrefix) {
-            $manager = $managerRegistry->getManager(is_int($em) ? 'default' : $em);
-            if ($manager) {
-                $this->setTablePrefix($manager, $tablePrefix);
+        foreach ($prefixes as $em => $prefix) {
+            try {
+                $manager = $managerRegistry->getManager(is_int($em) ? 'default' : $em);
+                $this->setTablePrefix($manager, $prefix);
+            } catch (InvalidArgumentException $exception) {
+                throw new InvalidArgumentException(sprintf("'%s' entity manager not defined for table prefix '%s'", $em, $prefix));
             }
         }
 
