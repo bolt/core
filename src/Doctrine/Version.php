@@ -91,6 +91,11 @@ class Version
         /** @var PDOConnection $wrapped */
         $wrapped = $this->connection->getWrappedConnection();
 
+        // If the wrapper doesn't have `getAttribute`, we bail…
+        if (! method_exists($wrapped, 'getAttribute')) {
+            return false;
+        }
+        
         [$client_version] = explode(' - ', $wrapped->getAttribute(\PDO::ATTR_CLIENT_VERSION));
 
         return (version_compare($client_version, self::SQLITE_WITH_JSON) > 0) &&
