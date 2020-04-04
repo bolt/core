@@ -87,6 +87,10 @@
             {% else %}
                 -
             {% endif %}
+
+            {% if item.content %}
+               {{ __('label.content') }}: № {{ item.content }}
+            {% endif %}
         </td>
     </tr>
     {% endfor %}

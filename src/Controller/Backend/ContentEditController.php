@@ -16,6 +16,7 @@ use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\Relation;
 use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
+use Bolt\Event\ContentEvent;
 use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
@@ -27,12 +28,14 @@ use Bolt\Utils\TranslationsManager;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 
 /**
@@ -66,6 +69,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /** @var ContentFillListener */
     private $contentFillListener;
 
+    /** @var EventDispatcher */
+    private $dispatcher;
+
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
         RelationRepository $relationRepository,
@@ -75,7 +81,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
         TemplateChooser $templateChooser,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
@@ -86,6 +93,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->contentFillListener = $contentFillListener;
         $this->templateChooser = $templateChooser;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -114,6 +122,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
      */
     public function edit(Request $request, Content $content): Response
     {
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::ON_EDIT);
+
         $twigvars = [
             'record' => $content,
             'locales' => $content->getLocales(),
@@ -132,6 +143,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $content = $this->contentFromPost($content, $request);
 
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::PRE_SAVE);
+
         $this->em->persist($content);
         $this->em->flush();
 
@@ -142,6 +156,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             'edit_locale' => $this->getEditLocale($request, $content) ?: null,
         ];
         $url = $this->urlGenerator->generate('bolt_content_edit', $urlParams);
+
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::POST_SAVE);
 
         return new RedirectResponse($url);
     }
@@ -155,6 +172,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $content = $this->contentFromPost($content, $request);
         $recordSlug = $content->getDefinition()->get('singular_slug');
+
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::ON_PREVIEW);
 
         $context = [
             'record' => $content,
@@ -180,6 +200,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $content->setModifiedAt(null);
         $content->setDepublishedAt(null);
         $content->setPublishedAt(null);
+
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::ON_DUPLICATE);
 
         $twigvars = [
             'record' => $content,
@@ -209,6 +232,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
 
         $content->setStatus($request->get('status'));
+
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::PRE_STATUS_CHANGE);
 
         $this->em->persist($content);
         $this->em->flush();
