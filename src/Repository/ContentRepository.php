@@ -127,8 +127,9 @@ class ContentRepository extends ServiceEntityRepository
     public function findOneBySlug(string $slug, ?ContentType $contentType = null): ?Content
     {
         $qb = $this->getQueryBuilder();
+        $connection = $qb->getEntityManager()->getConnection();
 
-        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $qb);
+        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $connection);
 
         $query = $qb
             ->innerJoin('content.fields', 'field')
@@ -155,8 +156,9 @@ class ContentRepository extends ServiceEntityRepository
     public function findOneByFieldValue(string $fieldName, string $value, ?ContentType $contentType = null): ?Content
     {
         $qb = $this->getQueryBuilder();
+        $connection = $qb->getEntityManager()->getConnection();
 
-        [$where, $value] = JsonHelper::wrapJsonFunction('translation.value', $value, $qb);
+        [$where, $value] = JsonHelper::wrapJsonFunction('translation.value', $value, $connection);
 
         $query = $qb
             ->innerJoin('content.fields', 'field')

@@ -32,8 +32,9 @@ class FieldRepository extends ServiceEntityRepository
     public function findOneBySlug(string $slug): ?Field
     {
         $qb = $this->getQueryBuilder();
+        $connection = $qb->getEntityManager()->getConnection();
 
-        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $qb);
+        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $connection);
 
         return $qb
             ->innerJoin('field.translations', 'translations')

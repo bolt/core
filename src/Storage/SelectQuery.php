@@ -352,7 +352,7 @@ class SelectQuery implements QueryInterface
 
             $originalLeftExpression = 'content.' . $key;
 
-            $newLeftExpression = JsonHelper::wrapJsonFunction($translationsAlias . '.value', null, $this->qb);
+            $newLeftExpression = JsonHelper::wrapJsonFunction($translationsAlias . '.value', null, $em->getConnection());
 
             $where = $filter->getExpression();
             $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
@@ -377,7 +377,7 @@ class SelectQuery implements QueryInterface
                 ->andWhere($this->qb->expr()->in('content.id', $innerQuery->getDQL()));
 
             foreach ($filter->getParameters() as $key => $value) {
-                $value = JsonHelper::wrapJsonFunction(null, $value, $this->qb);
+                $value = JsonHelper::wrapJsonFunction(null, $value, $em->getConnection());
                 $this->qb->setParameter($key, $value);
             }
         }
