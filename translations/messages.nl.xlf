@@ -1083,7 +1083,7 @@
     <unit id="37kJiIe" name="view_locales.badge_default">
       <segment>
         <source>view_locales.badge_default</source>
-        <target>__view_locales.badge_default</target>
+        <target>Standaard</target>
       </segment>
     </unit>
     <unit id="JTRCo_U" name="view_locales.badge_ok">
@@ -1714,6 +1714,18 @@
       <segment>
         <source>listing.title_session_expires</source>
         <target>Sessie verloopt</target>
+      </segment>
+    </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <segment>
+        <source>label.translatable</source>
+        <target>Dit veld is vertaalbaar</target>
+      </segment>
+    </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <segment>
+        <source>slug.button_unlocked</source>
+        <target>Van slot</target>
       </segment>
     </unit>
   </file>

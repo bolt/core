@@ -2229,5 +2229,11 @@
         <target>Saving is disabled, because the target file is not writable.</target>
       </segment>
     </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <segment>
+        <source>label.translatable</source>
+        <target>This field is translatable</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
