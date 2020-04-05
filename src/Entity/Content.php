@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
+use Twig\Environment;
 
 /**
  * @ApiResource(
@@ -123,17 +124,18 @@ class Content
     private $fields;
 
     /**
-     * @var ContentType|null
-     */
-    private $contentTypeDefinition;
-
-    /**
      * @var Collection|Taxonomy[]
      * @MaxDepth(1)
      *
      * @ORM\ManyToMany(targetEntity="Bolt\Entity\Taxonomy", mappedBy="content", cascade={"persist"})
      */
     private $taxonomies;
+
+    /** @var ContentType|null */
+    private $contentTypeDefinition = null;
+
+    /** @var Environment */
+    private $twig = null;
 
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
@@ -186,6 +188,16 @@ class Content
                 $this->setFieldValue($name, $item->get('default'));
             }
         });
+    }
+
+    public function setTwig(Environment $twig): void
+    {
+        $this->twig = $twig;
+    }
+
+    public function getTwig(): ?Environment
+    {
+        return $this->twig;
     }
 
     public function setDefinition(ContentType $contentType): void

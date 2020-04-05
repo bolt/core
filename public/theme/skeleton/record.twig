@@ -10,6 +10,10 @@
 
     {% include 'partials/_image.twig' with ({'image': record|image}) %}
 
+{#    {{ record|allow_twig }}#}
+
+    {{ dump(record|title) }}
+
     {# Output all fields, in the order as defined in the content type.
        To change the generated html and configure the options, see:
        https://docs.bolt.cm/templating #}
