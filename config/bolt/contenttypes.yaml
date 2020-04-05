@@ -301,7 +301,6 @@ blocks:
         content:
             type: html
             height: 150px
-            allow_twig: true
         content_link:
             type: text
             label: Link
@@ -313,7 +312,7 @@ blocks:
             order: title
             label: Select a page
     show_on_dashboard: true
-    viewless: false
+    viewless: true
     searchable: false
     icon_many: "fa:cubes"
     icon_one: "fa:cube"
