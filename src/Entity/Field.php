@@ -9,7 +9,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Utils\Sanitiser;
-use Bolt\Widget\TwigTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
@@ -39,7 +38,6 @@ use Twig\Markup;
 class Field implements FieldInterface, TranslatableInterface
 {
     use TranslatableTrait;
-    use TwigTrait;
 
     public const TYPE = 'generic';
 
