@@ -234,11 +234,32 @@ class Field implements FieldInterface, TranslatableInterface
             $value = $sanitiser->clean($value);
         }
 
+        if (is_string($value) && $this->getDefinition()->get('allow_twig')) {
+            $twig = $this->getTwig();
+
+            if ($twig) {
+                $template = $twig->createTemplate($value);
+                $value = $template->render();
+            } else {
+                $value = sprintf(
+                    '<div style="background: #fff3d4 !important; border-left-color: #A46A1F !important; border-left-width: 5px !important; border-left-style: solid !important; font-size: 16px !important; padding: 1rem !important; margin: 1rem 0 !important; line-height: 2.4rem !important; font-weight: normal !important;">%s</div>',
+                    'Tried to render field <code>' . $this->getName() . '</code> as Twig, but the Twig Environment is not available. Add <code>{{ record|allow_twig }}</code> to your template, to allow Twig Rendering for this Record.'
+                );
+            }
+        }
+
         if (is_string($value) && $this->getDefinition()->get('allow_html')) {
             $value = new Markup($value, 'UTF-8');
         }
 
         return $value;
+    }
+
+    public function getTwig()
+    {
+        if ($this->getContent()->getTwig()) {
+            return $this->getContent()->getTwig();
+        }
     }
 
     public function set(string $key, $value): self
