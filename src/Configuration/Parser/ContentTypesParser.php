@@ -345,6 +345,10 @@ class ContentTypesParser extends BaseParser
     {
         $order = $contentType['order'] ?? $contentType['sort'] ?? '-createdAt';
 
+        if (is_iterable($order)) {
+            $order = implode(',', $order);
+        }
+
         $replacements = [
             'created' => 'createdAt',
             'createdat' => 'createdAt',
