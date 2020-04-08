@@ -1,5 +1,5 @@
 <template>
-  <div :id="`multiselect-${id}`">
+  <div :id="`multiselect-${id}`" :class="classname">
     <multiselect
       v-model="selected"
       :allow-empty="allowempty"
@@ -52,6 +52,7 @@ export default {
     allowempty: Boolean,
     taggable: Boolean,
     readonly: Boolean,
+    classname: String,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
   },
   data: () => {
