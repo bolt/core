@@ -309,7 +309,7 @@ class Field implements FieldInterface, TranslatableInterface
 
         $locales = $this->getContent()->getDefinition()->get('locales');
 
-        if ($locales->isEmpty()) {
+        if (empty($locales) || $locales->isEmpty()) {
             return $this;
         }
 
