@@ -51,11 +51,9 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
             throw new \RuntimeException("Tried to build non-existing menu: {$name}");
         }
 
-        $menu = array_map(function ($item): array {
+        return array_map(function ($item): array {
             return $this->setUris($item);
         }, $menu);
-
-        return $menu;
     }
 
     private function setUris(array $item): array
