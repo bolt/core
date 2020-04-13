@@ -19,7 +19,7 @@ Follow the progress on Bolt 4, at the following locations
 
 ---
 
-**If you want to check out Bolt, the `composer create-project` method is recommended. See here: https://github.com/bolt/project/ . This repository should be used to work _\_on\__ Bolt. Not _\_with\__ Bolt.**
+**If you want to check out Bolt, the `composer create-project` method is recommended. See here: https://github.com/bolt/project/ . This repository should be used to work _<ins>on</ins>_ Bolt. Not _<ins>with</ins>_ Bolt.**
 
 ---
 
