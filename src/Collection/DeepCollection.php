@@ -14,15 +14,13 @@ class DeepCollection extends Collection
             return $items;
         }
 
-        $items = parent::make($items)->map(function ($value) {
+        return parent::make($items)->map(function ($value) {
             if (is_array($value) || $value instanceof \Traversable) {
                 return static::deepMake($value);
             }
 
             return $value;
         });
-
-        return $items;
     }
 
     public function isKeyEmpty($key): bool
