@@ -16,7 +16,7 @@ trait CsrfTrait
 
     protected function validateCsrf(Request $request, string $tokenId): void
     {
-        $token = new CsrfToken($tokenId, $request->request->get('_csrf_token'));
+        $token = new CsrfToken($tokenId, $request->get('_csrf_token'));
 
         if (! $this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();

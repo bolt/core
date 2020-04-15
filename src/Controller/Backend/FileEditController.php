@@ -6,12 +6,17 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
+use Bolt\Repository\MediaRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Parser;
@@ -26,9 +31,17 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 {
     use CsrfTrait;
 
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    /** @var MediaRepository */
+    private $mediaRepository;
+
+    /** @var EntityManagerInterface */
+    private $em;
+
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, MediaRepository $mediaRepository, EntityManagerInterface $em)
     {
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->mediaRepository = $mediaRepository;
+        $this->em = $em;
     }
 
     /**
@@ -93,6 +106,47 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         }
 
         return new RedirectResponse($url);
+    }
+
+    /**
+     * @Route("/delete", name="bolt_file_delete", methods={"POST", "GET"})
+     */
+    public function handleDelete(Request $request): Response
+    {
+        try {
+            $this->validateCsrf($request, 'delete');
+        } catch (InvalidCsrfTokenException $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Invalid CSRF token',
+                ],
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        $filesystem = new Filesystem();
+
+        $locationName = $request->get('location', '');
+        $path = $request->get('path', '');
+
+        $media = $this->mediaRepository->findOneByFullFilename($path, $locationName);
+
+        if ($media !== null) {
+            // If there is a media for the file, make sure to delete it.
+            $this->em->remove($media);
+            $this->em->flush();
+        }
+
+        $filePath = Path::canonicalize($locationName . '/' . $path);
+
+        try {
+            $filesystem->remove($filePath);
+        } catch (\Throwable $e) {
+            // something wrong happened, we don't need the uploaded files anymore
+            throw $e;
+        }
+
+        $this->addFlash('success', 'file.delete_success');
+        return $this->redirectToRoute('bolt_filemanager', ['location' => $locationName]);
     }
 
     private function verifyYaml(string $yaml): bool
