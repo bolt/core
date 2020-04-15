@@ -57,12 +57,16 @@
 
     <div class="card mb-3">
         <div class="card-header">
-            {{ 'title.contentlisting'|trans }}
+            {{ 'title.contentlisting'|trans }} » {{ contentType.name }}
         </div>
         <div class="card-body">
+            <p>
+                <a class="btn btn-primary" href="#">
+                    {{ macro.icon('magic') }} {{ __('action.create_new') }} {{ contentType.singular_name }}
+                </a>
+            </p>
             <form>
                 <div class="form-group">
-
                     <p>
                         <strong>{{ 'listing.title_sortby'|trans }}</strong>:
                         <select class="form-control" name="sortBy">
@@ -104,7 +108,7 @@
                     {% endif %}
                     #}
                     <p>
-                        <strong>{{ 'listing.title_title'|trans }}</strong>:
+                        <strong>{{ 'listing.title_filterby'|trans }}</strong>:
                         <input class="form-control" type="text" name="filter" value="{{ filterValue }}"
                                placeholder="{{ 'listing.placeholder_filter'|trans }}"/>
                     </p>

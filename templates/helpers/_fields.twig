@@ -43,29 +43,29 @@
     {% for name, definition in record.definition.fields|filter((definition, name) => definition.slug not in omittedkeys and record.hasField(name)) %}
 
         {% set field = record.field(name) %}
-        {% set type = field|type %}
 
-        {# Fields that are considered 'common': 'html', 'markdown', 'textarea', 'text', 'image', 'video' #}
-        {% if common|default(true) and (type not in exclude|default([])) %}
-            {{ block('common_fields') }}
-        {% endif %}
-
-        {# The rest of the built-in types #}
-        {% if extended|default(true) and (type not in exclude|default([])) %}
-            {{ block('extended_fields') }}
-        {% endif %}
-
-        {# Finally, the collections, filelists and imagelists #}
-        {% if type in ['collection', 'filelist', 'imagelist', 'set'] and (type not in exclude|default([])) %}
-
-            {% for field in field.value %}
-                {% set type = field.type %}
-                {{ block('common_fields') }}
-                {{ block('extended_fields') }}
-            {% endfor %}
-
-        {% endif %}
+        {{ block('output_field') }}
 
     {% endfor %}
-
 {% endblock sub_fields %}
+
+{% block output_field %}
+    {% set type = field|type %}
+
+    {# Fields that are considered 'common': 'html', 'markdown', 'textarea', 'text', 'image', 'video' #}
+    {% if common|default(true) and (type not in exclude|default([])) %}
+        {{ block('common_fields') }}
+    {% endif %}
+
+    {# The rest of the built-in types #}
+    {% if extended|default(true) and (type not in exclude|default([])) %}
+        {{ block('extended_fields') }}
+    {% endif %}
+
+    {# Finally, recursively for the collections, sets, filelists and imagelists #}
+    {% if type in ['collection', 'filelist', 'imagelist', 'set'] and (type not in exclude|default([])) %}
+        {% for field in field.value %}
+            {{ block('output_field') }}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

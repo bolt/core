@@ -6,6 +6,7 @@ namespace Bolt\Twig;
 
 use Bolt\Common\Json;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -48,20 +49,20 @@ class JsonExtension extends AbstractExtension
         ];
     }
 
-    public function jsonRecords($records, ?bool $includeDefinition = true, int $options = 0): string
+    public function jsonRecords($records, ?bool $includeDefinition = true, int $options = 0, string $locale = ''): string
     {
         $this->includeDefinition = $includeDefinition;
 
-        return Json::json_encode($this->normalizeRecords($records), $options);
+        return Json::json_encode($this->normalizeRecords($records, $locale), $options);
     }
 
     /**
      * @param Content|array|\Traversable $records
      */
-    public function normalizeRecords($records): array
+    public function normalizeRecords($records, string $locale = ''): array
     {
         if ($records instanceof Content) {
-            return $this->contentToArray($records);
+            return $this->contentToArray($records, $locale);
         }
 
         if (is_array($records)) {
@@ -70,10 +71,12 @@ class JsonExtension extends AbstractExtension
             $normalizedRecords = iterator_to_array($records);
         }
 
-        return array_map([$this, 'contentToArray'], $normalizedRecords);
+        return array_map(function ($record) use ($locale) {
+            return $this->contentToArray($record, $locale);
+        }, $normalizedRecords);
     }
 
-    private function contentToArray(Content $content): array
+    private function contentToArray(Content $content, string $locale = ''): array
     {
         $group = [self::SERIALIZE_GROUP];
 
@@ -81,11 +84,26 @@ class JsonExtension extends AbstractExtension
             $group[] = self::SERIALIZE_GROUP_DEFINITION;
         }
 
-        // we do it that way because in current API Platform version a Resource
-        // can't implement \JsonSerializable
-        return $this->normalizer->normalize($content, null, [
+        if (! empty($locale)) {
+            // Set all translatable fields to the requested locale
+            array_map(function (Field $field) use ($locale): void {
+                if ($field->isTranslatable()) {
+                    $field->setLocale($locale);
+                }
+            }, $content->getRawFields()->toArray());
+        }
+
+        // Get extras with the correct locales before normalizer overrides them
+        // todo: Fix this :-)
+        $extras = $content->getExtras();
+
+        $result = $this->normalizer->normalize($content, null, [
             'groups' => $group,
         ]);
+
+        $result['extras'] = $extras;
+
+        return $result;
     }
 
     /**

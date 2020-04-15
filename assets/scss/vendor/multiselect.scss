@@ -23,14 +23,14 @@ $vue-multiselect-option-selected-highlight-bg : var(--primary) !default;
 
 $vue-multiselect-tag-color : $dark !default;
 $vue-multiselect-tag-bg : $light !default;
-$vue-multiselect-tag-font-size : $badge-font-size !default;
+$vue-multiselect-tag-font-size : 0.85rem !default;
 $vue-multiselect-tag-font-weight : normal !default;
-$vue-multiselect-tag-icon-size : 1.7rem !default;
+$vue-multiselect-tag-icon-size : 1.5rem !default;
 $vue-multiselect-tag-icon-color : $vue-multiselect-tag-color !default;
 $vue-multiselect-tag-icon-color-hover : white !default;
 $vue-multiselect-tag-icon-bg-hover : $danger !default;
-$vue-multiselect-tag-padding-x : 0.4rem !default;
-$vue-multiselect-tag-padding-y : 0.25rem !default;
+$vue-multiselect-tag-padding-x : 0.2rem !default;
+$vue-multiselect-tag-padding-y : 0.22rem !default;
 $vue-multiselect-tag-border-radius : $badge-border-radius !default;
 
 $vue-multiselect-arrow-color : $dark !default;
@@ -41,6 +41,11 @@ $vue-multiselect-spinner-size : 16px !default;
 $vue-multiselect-spinner-thickness : 2px !default;
 $vue-multiselect-spinner-margin : -$vue-multiselect-spinner-size/2 !default;
 $vue-multiselect-spinner-color : $dark !default;
+
+//** Overrides for Bolt **//
+.wide-options .multiselect__tag {
+  width: 100%;
+}
 
 // --------------------------------
 // Select field
@@ -187,7 +192,7 @@ fieldset[disabled] .multiselect {
   text-align: center;
   line-height: $vue-multiselect-tag-icon-size;
   transition: all 0.2s ease;
-  font-size: $vue-multiselect-tag-font-size;
+  font-size: 0.6rem;
   font-weight: $vue-multiselect-tag-font-weight;
 }
 
