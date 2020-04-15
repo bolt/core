@@ -9,7 +9,7 @@
                     {# If the field is translatable, we want the translated value in the current locale #}
                     {% set field = field|translated(currentlocale) %}
                 {% else %}
-                    {# Othewise, we want the value in the default locale, exlicitly in case it is something else #}
+                    {# Otherwise, we want the value in the default locale, explicitly in case it is something else #}
                     {% set field = field|translated(field.defaultLocale) %}
                 {% endif %}
             {% else %}
