@@ -277,6 +277,7 @@ showcases:
     searchable: true
     icon_many: "fa:gift"
     icon_one: "fa:gift"
+    order: [title, id]
 
 
 # The 'Blocks' ContentType is a so-called 'resource ContentType'. This means

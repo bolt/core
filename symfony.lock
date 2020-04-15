@@ -67,6 +67,9 @@
     "bolt/newswidget": {
         "version": "1.2.0"
     },
+    "brick/math": {
+        "version": "0.8.14"
+    },
     "clue/stream-filter": {
         "version": "v1.4.1"
     },
@@ -359,9 +362,6 @@
     "pagerfanta/pagerfanta": {
         "version": "v2.1.3"
     },
-    "paragonie/random_compat": {
-        "version": "v9.99.99"
-    },
     "peterkahl/country-code-to-emoji-flag": {
         "version": "v1.2"
     },
@@ -543,6 +543,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "ramsey/collection": {
+        "version": "1.0.1"
     },
     "ramsey/uuid": {
         "version": "3.9.3"

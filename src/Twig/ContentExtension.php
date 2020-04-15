@@ -104,6 +104,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('edit_link', [$this, 'getEditLink']),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
             new TwigFilter('has_path', [$this, 'hasPath']),
+            new TwigFilter('allow_twig', [$this, 'allowTwig'], $env),
         ];
     }
 
@@ -233,7 +234,7 @@ class ContentExtension extends AbstractExtension
 
             if ($field instanceof ImagelistField) {
                 $firstImage = current($field->getValue());
-                if ($firstImage->get('filename')) {
+                if ($firstImage && $firstImage->get('filename')) {
                     return $onlyValues ? $firstImage->getValue() : $firstImage;
                 }
             }
@@ -330,6 +331,11 @@ class ContentExtension extends AbstractExtension
             isset($routeParams['contentTypeSlug']) &&
             $recordParams['slugOrId'] === $routeParams['slugOrId'] &&
             $recordParams['contentTypeSlug'] === $routeParams['contentTypeSlug'];
+    }
+
+    public function allowTwig(Environment $env, Content $content): void
+    {
+        $content->setTwig($env);
     }
 
     public function getLink(Content $content, bool $canonical = false): ?string

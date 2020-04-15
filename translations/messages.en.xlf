@@ -2229,6 +2229,18 @@
         <target>Saving is disabled, because the target file is not writable.</target>
       </segment>
     </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <segment>
+        <source>label.translatable</source>
+        <target>This field is translatable</target>
+      </segment>
+    </unit>
+    <unit id="qqpGLJl" name="label.content">
+      <segment>
+        <source>label.content</source>
+        <target>Content</target>
+      </segment>
+    </unit>
     <unit id="v7ZTnja" name="file.delete_success">
       <segment>
         <source>file.delete_success</source>

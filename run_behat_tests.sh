@@ -3,14 +3,14 @@
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
         wget http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -P ./bin --quiet
 
-        wget https://chromedriver.storage.googleapis.com/79.0.3945.16/chromedriver_linux64.zip -P ./bin --quiet
+        wget https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_linux64.zip -P ./bin --quiet
         unzip ./bin/chromedriver_linux64.zip -d ./bin
         rm ./bin/chromedriver_linux64.zip
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
         wget http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar -P ./bin --quiet
 
-        wget https://chromedriver.storage.googleapis.com/79.0.3945.16/chromedriver_mac64.zip -P ./bin --quiet
+        wget https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_mac64.zip -P ./bin --quiet
         unzip ./bin/chromedriver_mac64.zip -d ./bin
         rm ./bin/chromedriver_mac64.zip
 
