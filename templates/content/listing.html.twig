@@ -61,7 +61,7 @@
         </div>
         <div class="card-body">
             <p>
-                <a class="btn btn-primary" href="#">
+                <a class="btn btn-primary" href="{{ path('bolt_content_new', { contentType: contentType.slug }) }}">
                     {{ macro.icon('magic') }} {{ __('action.create_new') }} {{ contentType.singular_name }}
                 </a>
             </p>
