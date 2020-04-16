@@ -165,7 +165,13 @@ class ContentExtension extends AbstractExtension
                 $field->setCurrentLocale($locale);
             }
 
-            $titleParts[] = $content->getField($fieldName)->__toString();
+            $value = $field->getParsedValue();
+
+            if (empty($value)) {
+                $value = $field->setLocale($field->getDefaultLocale())->getParsedValue();
+            }
+
+            $titleParts[] = $value;
         }
 
         $maxLength = 80; // Should we make this configurable, or is that overkill?
