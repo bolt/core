@@ -45,7 +45,7 @@ Feature: Bulk content listing actions
     And I wait 0.1 second
     Then the 1st "Apply to all" button should be enabled
 
-    When I press "Aply to all"
+    When I press "Apply to all"
 
     Then I should be on "/bolt/content/tests"
     And I should see 8 ".listing__records .is-meta .status.is-published" elements
