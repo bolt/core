@@ -186,7 +186,19 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function getValue(): ?array
     {
-        return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->getValue();
+        $value = $this->translate($this->getCurrentLocale(), false)->getValue();
+
+        // If the field is not translatable, return the value without fallback to defaultLocale
+        if ($this->isTranslatable()) {
+            return $value;
+        }
+
+        // If value is empty, get the defaultLocale as fallback.
+        if (empty($value)) {
+            $value = $this->translate($this->getDefaultLocale(), false)->getValue();
+        }
+
+        return $value;
     }
 
     /**
