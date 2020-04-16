@@ -90,6 +90,11 @@ services:
     Bolt\Twig\DumpExtension:
         arguments: ["%kernel.environment%"]
 
+    Bolt\Api\Extensions\ContentExtension:
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection }
+            - { name: api_platform.doctrine.orm.query_extension.item }
+
     Doctrine\ORM\Query\Expr: ~
 
     monolog.processor.request:
