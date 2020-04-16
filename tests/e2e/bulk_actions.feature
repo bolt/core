@@ -8,8 +8,8 @@ Feature: Bulk content listing actions
 
     Then I should see "8 Pages Selected" in the ".admin__body--aside .card-header" element
     And I should see "Select option" in the ".admin__body--aside .card-body .multiselect" element
-    And I should see "Update all"
-    And the 1st "Update all" button should be disabled
+    And I should see "Apply to all"
+    And the 1st "Apply to all" button should be disabled
 
   @javascript
 
@@ -28,9 +28,9 @@ Feature: Bulk content listing actions
 #    When I click "Change status to 'draft'"
     When I click "aside .card-body .multiselect__content-wrapper > ul > li:nth-child(2)"
     And I wait 0.1 second
-    Then the 1st "Update all" button should be enabled
+    Then the 1st "Apply to all" button should be enabled
 
-    When I press "Update all"
+    When I press "Apply to all"
 
     Then I should be on "/bolt/content/tests"
     And I should see 8 ".listing__records .is-meta .status.is-draft" elements
@@ -43,11 +43,12 @@ Feature: Bulk content listing actions
 #    And I click "Change status to 'publish'"
     And I click "aside .card-body .multiselect__content-wrapper > ul > li:nth-child(1)"
     And I wait 0.1 second
-    Then the 1st "Update all" button should be enabled
+    Then the 1st "Apply to all" button should be enabled
 
-    When I press "Update all"
+    When I press "Apply to all"
 
     Then I should be on "/bolt/content/tests"
     And I should see 8 ".listing__records .is-meta .status.is-published" elements
     And I should not see an ".listing__records .is-meta .status-is-draft" element
     And I should not see an ".listing__records .is-meta .status.is-held" element
+    And I should see "Status changed successfully"
