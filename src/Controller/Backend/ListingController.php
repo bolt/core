@@ -44,9 +44,18 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
             $params[$taxonomy[0]] = $taxonomy[1];
         }
 
-        $records = $query->getContentForTwig($contentType, $params)
-            ->setMaxPerPage($contentTypeObject->get('records_per_page'))
-            ->setCurrentPage($page);
+        $pager = $query->getContentForTwig($contentType, $params)
+            ->setMaxPerPage($contentTypeObject->get('records_per_page'));
+        $nbPages = $pager->getNbPages();
+
+        if ($page > $nbPages) {
+            return $this->redirectToRoute('bolt_content_overview', [
+                'contentType' => $contentType,
+                'page' => $nbPages,
+            ]);
+        }
+
+        $records = $pager->setCurrentPage($page);
 
         return $this->renderTemplate('@bolt/content/listing.html.twig', [
             'contentType' => $contentTypeObject,
