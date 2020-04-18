@@ -7,6 +7,7 @@ namespace Bolt;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
+use Bolt\Twig\ContentExtension;
 use Tightenco\Collect\Support\Collection;
 
 class TemplateChooser
@@ -14,9 +15,13 @@ class TemplateChooser
     /** @var Config */
     private $config;
 
-    public function __construct(Config $config)
+    /** @var ContentExtension */
+    private $contentExtension;
+
+    public function __construct(Config $config, ContentExtension $contentExtension)
     {
         $this->config = $config;
+        $this->contentExtension = $contentExtension;
     }
 
     public function forHomepage(?Content $content = null): array
@@ -49,6 +54,11 @@ class TemplateChooser
     {
         $templates = new Collection();
         $definition = $record->getDefinition();
+
+        // First candidate: Content record is the homepage
+        if ($this->contentExtension->isHomepage($record)) {
+            $templates = collect($this->forHomepage());
+        }
 
         // First candidate: Content record has a templateselect field, and it's set.
         foreach ($definition->get('fields') as $name => $field) {

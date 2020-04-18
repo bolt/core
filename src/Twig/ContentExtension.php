@@ -350,12 +350,28 @@ class ContentExtension extends AbstractExtension
             return null;
         }
 
+        if ($this->isHomepage($content)) {
+            return $this->generateLink('homepage', [], $canonical);
+        }
+
         $params = [
             'slugOrId' => $content->getSlug() ?: $content->getId(),
             'contentTypeSlug' => $content->getContentTypeSingularSlug(),
         ];
 
         return $this->generateLink('record', $params, $canonical);
+    }
+
+    public function isHomepage(Content $content): bool
+    {
+        $homepageSetting = explode('/', $this->config->get('general/homepage'));
+
+        if (empty($homepageSetting[1])) {
+            return false;
+        }
+
+        return ($homepageSetting[0] === $content->getContentTypeSingularSlug() || $homepageSetting[0] === $content->getContentTypeSlug()) &&
+            ($homepageSetting[1] === $content->getSlug() || $homepageSetting[1] === (string) $content->getId());
     }
 
     public function getEditLink(Content $content): ?string
