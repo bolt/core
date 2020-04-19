@@ -371,7 +371,6 @@ class ContentExtension extends AbstractExtension
         return $this->generateLink('record', $params, $canonical);
     }
 
-
     public function getEditLink(Content $content): ?string
     {
         if ($content->getId() === null || ! $this->security->getUser()) {

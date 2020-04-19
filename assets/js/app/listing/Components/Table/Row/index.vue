@@ -27,7 +27,12 @@
         >
           {{ record.extras.title | trim(62) | raw }}
         </a>
-        <span v-if="record.extras.feature" class="badge" :class="`badge-${record.extras.feature}`">{{ record.extras.feature }}</span>
+        <span
+          v-if="record.extras.feature"
+          class="badge"
+          :class="`badge-${record.extras.feature}`"
+          >{{ record.extras.feature }}</span
+        >
         <span class="listing__row--item-title-excerpt">{{
           record.extras.excerpt | raw
         }}</span>
