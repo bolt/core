@@ -11,6 +11,7 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
 use Bolt\Entity\Field\SelectField;
 use Bolt\Entity\Field\TemplateselectField;
+use Bolt\Enum\Statuses;
 use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
@@ -26,6 +27,7 @@ use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Environment;
@@ -62,6 +64,9 @@ class ContentExtension extends AbstractExtension
     /** @var TaxonomyRepository */
     private $taxonomyRepository;
 
+    /** @var TranslatorInterface */
+    private $translator;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
@@ -70,7 +75,8 @@ class ContentExtension extends AbstractExtension
         RequestStack $requestStack,
         Config $config,
         Query $query,
-        TaxonomyRepository $taxonomyRepository
+        TaxonomyRepository $taxonomyRepository,
+        TranslatorInterface $translator
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
@@ -80,6 +86,7 @@ class ContentExtension extends AbstractExtension
         $this->config = $config;
         $this->query = $query;
         $this->taxonomyRepository = $taxonomyRepository;
+        $this->translator = $translator;
     }
 
     /**
@@ -105,6 +112,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
             new TwigFilter('has_path', [$this, 'hasPath']),
             new TwigFilter('allow_twig', [$this, 'allowTwig'], $env),
+            new TwigFilter('status_options', [$this, 'statusOptions']),
         ];
     }
 
@@ -675,5 +683,20 @@ class ContentExtension extends AbstractExtension
         }
 
         return false;
+    }
+
+    public function statusOptions(Content $record)
+    {
+        $options = [];
+
+        foreach (Statuses::all() as $option) {
+            $options[] = [
+                'key' => $option,
+                'value' => $this->translator->trans('status.' . $option),
+                'selected' => $option === $record->getStatus(),
+            ];
+        }
+
+        return $options;
     }
 }

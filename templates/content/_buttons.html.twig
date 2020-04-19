@@ -17,9 +17,16 @@
                 }) }}
         </div>
 
-        {% if record.status == "published" %}
+        {% if status|default() %}
+        <p>
+            <strong>{{ __('label.current_status') }}:</strong>
+            <span class="status mx-1 is-{{ record.status}}"></span>{{ __('status.' ~ record.status) }}
+        </p>
+        {% endif %}
+
+        {% if record.status == "published" and record.definition.viewless != true %}
             <div class="form-fieldsgroup__summary-fields">
-                <a href="{{ record|link(true) }}"  target="_blank">{{ macro.icon('fa-sign-out-alt') }} {{ 'action.view_saved'|trans }}</a>
+                <a href="{{ record|link(true) }}" class="btn btn-tertiary" target="_blank">{{ macro.icon('fa-sign-out-alt') }} {{ __('action.view_saved') }}</a>
             </div>
         {% endif %}
 

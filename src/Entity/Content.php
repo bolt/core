@@ -559,21 +559,6 @@ class Content
         return Statuses::all();
     }
 
-    public function getStatusOptions(): array
-    {
-        $options = [];
-
-        foreach (Statuses::all() as $option) {
-            $options[] = [
-                'key' => $option,
-                'value' => ucwords($option),
-                'selected' => $option === $this->getStatus(),
-            ];
-        }
-
-        return $options;
-    }
-
     public function hasTaxonomyDefined(string $taxonomyName): bool
     {
         return $this->contentTypeDefinition->get('taxonomy')->contains($taxonomyName);
