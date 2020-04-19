@@ -1752,5 +1752,35 @@
         <target>Volgende</target>
       </segment>
     </unit>
+    <unit id=".I3mIHo" name="label.current_status">
+      <segment>
+        <source>label.current_status</source>
+        <target>Current status</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaQ" name="status.published">
+      <segment>
+        <source>status.published</source>
+        <target>Gepubliceerd</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaW" name="status.draft">
+      <segment>
+        <source>status.draft</source>
+        <target>In klad</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaE" name="status.timed">
+      <segment>
+        <source>status.timed</source>
+        <target>Ingepland</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaR" name="status.held">
+      <segment>
+        <source>status.held</source>
+        <target>Achtergehouden</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

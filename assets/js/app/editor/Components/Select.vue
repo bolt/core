@@ -19,11 +19,11 @@
     >
       <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-        {{ props.option.key }}
+        {{ props.option.value }}
       </template>
       <template v-if="name === 'status'" slot="option" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-        {{ props.option.key }}
+        {{ props.option.value }}
       </template>
     </multiselect>
     <input
