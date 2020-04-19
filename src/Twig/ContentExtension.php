@@ -113,6 +113,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('has_path', [$this, 'hasPath']),
             new TwigFilter('allow_twig', [$this, 'allowTwig'], $env),
             new TwigFilter('status_options', [$this, 'statusOptions']),
+            new TwigFilter('feature', [$this, 'getSpecialFeature']),
         ];
     }
 
@@ -368,18 +369,6 @@ class ContentExtension extends AbstractExtension
         ];
 
         return $this->generateLink('record', $params, $canonical);
-    }
-
-    public function isHomepage(Content $content): bool
-    {
-        $homepageSetting = explode('/', $this->config->get('general/homepage'));
-
-        if (empty($homepageSetting[1])) {
-            return false;
-        }
-
-        return ($homepageSetting[0] === $content->getContentTypeSingularSlug() || $homepageSetting[0] === $content->getContentTypeSlug()) &&
-            ($homepageSetting[1] === $content->getSlug() || $homepageSetting[1] === (string) $content->getId());
     }
 
     public function getEditLink(Content $content): ?string
@@ -698,5 +687,61 @@ class ContentExtension extends AbstractExtension
         }
 
         return $options;
+    }
+
+    public function getSpecialFeature(Content $record): string
+    {
+        if ($this->isHomepage($record)) {
+            return 'homepage';
+        }
+
+        if ($this->is404($record)) {
+            return '404';
+        }
+
+        if ($this->isMaintenance($record)) {
+            return 'maintenance';
+        }
+
+        return '';
+    }
+
+    public function isHomepage(Content $content): bool
+    {
+        return $this->isSpecialpage($content, 'homepage');
+    }
+
+    public function is404(Content $content): bool
+    {
+        return $this->isSpecialpage($content, 'notfound');
+    }
+
+    public function isMaintenance(Content $content): bool
+    {
+        return $this->isSpecialpage($content, 'maintenance');
+    }
+
+    private function isSpecialpage(Content $content, string $type): bool
+    {
+        $configSetting = $this->config->get('general/' . $type);
+
+        if (! is_iterable($configSetting)) {
+            $configSetting = (array) $configSetting;
+        }
+
+        foreach ($configSetting as $item) {
+            $item = explode('/', $item);
+
+            if (empty($item[1])) {
+                continue;
+            }
+
+            if (($item[0] === $content->getContentTypeSingularSlug() || $item[0] === $content->getContentTypeSlug()) &&
+                ($item[1] === $content->getSlug() || $item[1] === (string) $content->getId())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
