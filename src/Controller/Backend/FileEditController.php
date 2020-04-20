@@ -37,11 +37,15 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     /** @var EntityManagerInterface */
     private $em;
 
+    /** @var Filesystem */
+    private $filesystem;
+
     public function __construct(CsrfTokenManagerInterface $csrfTokenManager, MediaRepository $mediaRepository, EntityManagerInterface $em)
     {
         $this->csrfTokenManager = $csrfTokenManager;
         $this->mediaRepository = $mediaRepository;
         $this->em = $em;
+        $this->filesystem = new Filesystem();
     }
 
     /**
@@ -109,12 +113,12 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/delete", name="bolt_file_delete", methods={"POST", "GET"})
+     * @Route("/file-delete/", name="bolt_file_delete", methods={"POST", "GET"})
      */
     public function handleDelete(Request $request): Response
     {
         try {
-            $this->validateCsrf($request, 'delete');
+            $this->validateCsrf($request, 'file-delete');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [
@@ -122,8 +126,6 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
                 ],
             ], Response::HTTP_FORBIDDEN);
         }
-
-        $filesystem = new Filesystem();
 
         $locationName = $request->get('location', '');
         $path = $request->get('path', '');
@@ -139,7 +141,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $filePath = Path::canonicalize($locationName . '/' . $path);
 
         try {
-            $filesystem->remove($filePath);
+            $this->filesystem->remove($filePath);
         } catch (\Throwable $e) {
             // something wrong happened, we don't need the uploaded files anymore
             throw $e;
@@ -147,6 +149,57 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
         $this->addFlash('success', 'file.delete_success');
         return $this->redirectToRoute('bolt_filemanager', ['location' => $locationName]);
+    }
+
+    /**
+     * @Route("/file-duplicate/", name="bolt_file_duplicate", methods={"POST", "GET"})
+     */
+    public function handleDuplicate(Request $request): Response
+    {
+        try {
+            $this->validateCsrf($request, 'file-duplicate');
+        } catch (InvalidCsrfTokenException $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Invalid CSRF token',
+                ],
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        $locationName = $request->get('location', '');
+        $path = $request->get('path', '');
+
+        $originalFilepath = Path::canonicalize($locationName . '/' . $path);
+
+        $copyFilePath = $this->getCopyFilepath($originalFilepath);
+
+        try {
+            $this->filesystem->copy($originalFilepath, $copyFilePath);
+        } catch (\Throwable $e) {
+            // something wrong happened, we don't need the uploaded files anymore
+            throw $e;
+        }
+
+        $this->addFlash('success', 'file.delete_success');
+        return $this->redirectToRoute('bolt_filemanager', ['location' => $locationName]);
+    }
+
+    /**
+     * @return string Returns the copy file path. E.g. 'files/foal.jpg' -> 'files/foal (1).jpg'
+     */
+    private function getCopyFilepath(string $path): string
+    {
+        $copyPath = $path;
+
+        $i = 1;
+        while ($this->filesystem->exists($copyPath)) {
+            $pathinfo = pathinfo($path);
+            $basename = basename($pathinfo['basename'], '.' . $pathinfo['extension']) . ' (' . $i . ')';
+            $copyPath = Path::canonicalize($pathinfo['dirname'] . '/' . $basename . '.' . $pathinfo['extension']);
+            $i++;
+        }
+
+        return $copyPath;
     }
 
     private function verifyYaml(string $yaml): bool
