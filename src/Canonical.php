@@ -143,7 +143,7 @@ class Canonical
 
     public function getPath(): string
     {
-        $route = $this->getCanonicalRoute('record_locale');
+        $route = $this->getCanonicalRoute($this->request->attributes->get('_route'));
 
         if ($this->path === null) {
             $this->path = $this->urlGenerator->generate(
