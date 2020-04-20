@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouterInterface;
+use Tightenco\Collect\Support\Collection;
 
 class Canonical
 {
@@ -34,11 +37,15 @@ class Canonical
     /** @var string */
     private $path = null;
 
-    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack)
+    /** @var RouterInterface */
+    private $router;
+
+    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router)
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->request = $requestStack->getCurrentRequest();
+        $this->router = $router;
 
         $this->init();
     }
@@ -136,9 +143,11 @@ class Canonical
 
     public function getPath(): string
     {
+        $route = $this->getCanonicalRoute('record_locale');
+
         if ($this->path === null) {
             $this->path = $this->urlGenerator->generate(
-                $this->request->attributes->get('_route'),
+                $route,
                 $this->request->attributes->get('_route_params'),
                 UrlGeneratorInterface::ABSOLUTE_PATH
             );
@@ -152,7 +161,7 @@ class Canonical
         if (! $this->request->attributes->get('_route')) {
             return;
         } elseif (! $route) {
-            $route = $this->request->attributes->get('_route');
+            $route = $this->getCanonicalRoute($this->request->attributes->get('_route'));
         }
 
         try {
@@ -164,5 +173,24 @@ class Canonical
             // Just use the current URL /shrug
             $this->request->getUri();
         }
+    }
+
+    private function getCanonicalRoute(string $route): string
+    {
+        $routes = new Collection($this->router->getRouteCollection()->getIterator());
+        $currentController = $routes->get($route)->getDefault('_controller');
+
+        $routes = $routes->filter(function (Route $route) use ($currentController) {
+            return $route->getDefault('_controller') === $currentController;
+        });
+
+        // If more than one route matches the same action, get the canonical.
+        if ($routes->count() > 1) {
+            $routes = $routes->filter(function (Route $route) {
+                return $route->getDefault('canonical') === true;
+            });
+        }
+
+        return $routes->keys()->first();
     }
 }
