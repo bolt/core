@@ -33,7 +33,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
      *     "/{contentTypeSlug}/{slugOrId}",
      *     name="record",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET|POST"}),
+     *     methods={"GET|POST"})
      * @Route(
      *     "/{_locale}/{contentTypeSlug}/{slugOrId}",
      *     name="record_locale",
