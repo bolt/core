@@ -353,22 +353,27 @@ class ContentExtension extends AbstractExtension
         $content->setTwig($env);
     }
 
-    public function getLink(Content $content, bool $canonical = false): ?string
+    public function getLink(Content $content, bool $canonical = false, string $locale = ''): ?string
     {
         if ($content->getId() === null || $content->getDefinition()->get('viewless')) {
             return null;
         }
 
+        if (empty($locale)) {
+            $locale = $this->request->getLocale();
+        }
+
         if ($this->isHomepage($content)) {
-            return $this->generateLink('homepage', [], $canonical);
+            return $this->generateLink('homepage_locale', ['_locale' => $locale], $canonical);
         }
 
         $params = [
+            '_locale' => $locale,
             'slugOrId' => $content->getSlug() ?: $content->getId(),
             'contentTypeSlug' => $content->getContentTypeSingularSlug(),
         ];
 
-        return $this->generateLink('record', $params, $canonical);
+        return $this->generateLink('record_locale', $params, $canonical);
     }
 
     public function getEditLink(Content $content): ?string
