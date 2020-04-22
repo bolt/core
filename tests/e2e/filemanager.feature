@@ -43,3 +43,39 @@ Feature: Filemanager
 
     Then I should not see "File deleted successfully"
     And I should see "_a-sunrise.jpeg" in the 2nd ".admin__body--main tr" element
+
+  @javascript
+  @testme
+  Scenario: As an Admin I want to duplicate a file
+    Given I am logged in as "admin"
+    And I am on "/bolt/filemanager/files"
+
+    Then I should see "_a-sunrise.jpeg" in the 2nd ".admin__body--main tr" element
+    And I should not see "I should see _a-sunrise (1).jpeg"
+
+    When I click the 1st ".edit-actions__dropdown-toggler"
+    And I follow "Duplicate _a-sunrise.jpeg"
+
+    Then I should be on "/bolt/filemanager/files"
+    And I should see "_a-sunrise (1).jpeg"
+    And I should see "_a-sunrise.jpeg"
+
+    When I click the 2nd ".edit-actions__dropdown-toggler"
+    And I follow "Duplicate _a-sunrise.jpeg"
+
+    Then I should be on "/bolt/filemanager/files"
+    And I should see "_a-sunrise (2).jpeg"
+    And I should see "_a-sunrise (1).jpeg"
+    And I should see "_a-sunrise.jpeg"
+
+    # This is the end of the test. Below is cleanup.
+    Then I click the 2nd ".edit-actions__dropdown-toggler"
+    And I follow "Delete _a-sunrise (2).jpeg"
+    And I wait for ".modal-dialog"
+    And I press "OK"
+
+    Then I click the 1st ".edit-actions__dropdown-toggler"
+    And I follow "Delete _a-sunrise (1).jpeg"
+    And I wait for ".modal-dialog"
+    And I press "OK"
+
