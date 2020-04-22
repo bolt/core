@@ -72,6 +72,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $parent;
 
