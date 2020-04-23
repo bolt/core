@@ -26,8 +26,7 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
      *     "/{_locale}/",
      *     methods={"GET|POST"},
      *     name="homepage_locale",
-     *     requirements={"_locale": "%app_locales%"},
-     *     defaults={"canonical": true })
+     *     requirements={"_locale": "%app_locales%"})
      */
     public function homepage(ContentRepository $contentRepository): Response
     {
