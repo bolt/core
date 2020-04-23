@@ -40,12 +40,16 @@ class Canonical
     /** @var RouterInterface */
     private $router;
 
-    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router)
+    /** @var string */
+    private $defaultLocale;
+
+    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router, string $defaultLocale)
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->request = $requestStack->getCurrentRequest();
         $this->router = $router;
+        $this->defaultLocale = $defaultLocale;
 
         $this->init();
     }
@@ -143,12 +147,14 @@ class Canonical
 
     public function getPath(): string
     {
-        $route = $this->getCanonicalRoute($this->request->attributes->get('_route'));
-
         if ($this->path === null) {
+            $route = $this->request->attributes->get('_route');
+            $params = $this->request->attributes->get('_route_params');
+            $canonicalRoute = $this->getCanonicalRoute($route, $params);
+
             $this->path = $this->urlGenerator->generate(
-                $route,
-                $this->request->attributes->get('_route_params'),
+                $canonicalRoute,
+                $params,
                 UrlGeneratorInterface::ABSOLUTE_PATH
             );
         }
@@ -161,12 +167,14 @@ class Canonical
         if (! $this->request->attributes->get('_route')) {
             return;
         } elseif (! $route) {
-            $route = $this->getCanonicalRoute($this->request->attributes->get('_route'));
+            $route = $this->request->attributes->get('_route');
         }
+
+        $canonicalRoute = $this->getCanonicalRoute($route, $params);
 
         try {
             $this->path = $this->urlGenerator->generate(
-                $route,
+                $canonicalRoute,
                 $params
             );
         } catch (InvalidParameterException | MissingMandatoryParametersException $e) {
@@ -175,22 +183,28 @@ class Canonical
         }
     }
 
-    private function getCanonicalRoute(string $route): string
+    private function getCanonicalRoute(string $route, array &$params = []): string
     {
         $routes = new Collection($this->router->getRouteCollection()->getIterator());
         $currentController = $routes->get($route)->getDefault('_controller');
 
-        $routes = $routes->filter(function (Route $route) use ($currentController) {
+        $routes = collect($routes->filter(function (Route $route) use ($currentController) {
             return $route->getDefault('_controller') === $currentController;
-        });
+        })->keys());
 
         // If more than one route matches the same action, get the canonical.
-        if ($routes->count() > 1) {
-            $routes = $routes->filter(function (Route $route) {
-                return $route->getDefault('canonical') === true;
-            });
+        // If requested locale is default, get the first route which is not named *_locale
+        if (array_key_exists("_locale", $params) && $params['_locale'] == $this->defaultLocale) {
+            unset($params['_locale']);
+
+            return $routes->filter(function (string $name) {
+                return !fnmatch('*locale', $name);
+            })->first();
         }
 
-        return $routes->keys()->first();
+        // Otherwise, get the first route that is *_locale
+        return $routes->filter(function (string $name) {
+            return fnmatch('*locale', $name);
+        })->first();
     }
 }
