@@ -197,18 +197,19 @@ class Canonical
             return $routes->first();
         }
 
-        // If requested locale is default, get the first route which is not named *_locale
-        if (array_key_exists('_locale', $params) && $params['_locale'] === $this->defaultLocale) {
-            unset($params['_locale']);
-
+        // If no locale or locale is not default, get the first route which is named *_locale
+        if (array_key_exists('_locale', $params) && $params['_locale'] !== $this->defaultLocale) {
             return $routes->filter(function (string $name) {
-                return ! fnmatch('*locale', $name);
+                return fnmatch('*locale', $name);
             })->first();
         }
 
-        // Otherwise, get the first route that is *_locale
+        // Unset _locale so that it is not passed as query param to url.
+        unset($params['_locale']);
+
+        // Otherwise, get the first route that is not *_locale
         return $routes->filter(function (string $name) {
-            return fnmatch('*locale', $name);
+            return ! fnmatch('*locale', $name);
         })->first();
     }
 }
