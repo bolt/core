@@ -6,6 +6,8 @@ namespace Bolt\Menu;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class CachedBackendMenuBuilder implements BackendMenuBuilderInterface
 {
@@ -18,7 +20,7 @@ final class CachedBackendMenuBuilder implements BackendMenuBuilderInterface
     /** @var RequestStack */
     private $requestStack;
 
-    public function __construct(BackendMenuBuilderInterface $menuBuilder, CacheInterface $cache, RequestStack $requestStack)
+    public function __construct(BackendMenuBuilderInterface $menuBuilder, TagAwareCacheInterface $cache, RequestStack $requestStack)
     {
         $this->cache = $cache;
         $this->menuBuilder = $menuBuilder;
@@ -29,7 +31,9 @@ final class CachedBackendMenuBuilder implements BackendMenuBuilderInterface
     {
         $locale = $this->requestStack->getCurrentRequest()->getLocale();
         $cacheKey = 'backendmenu_' . $locale;
-        return $this->cache->get($cacheKey, function () {
+        return $this->cache->get($cacheKey, function (ItemInterface $item) {
+            $item->tag('backendmenu');
+
             return $this->menuBuilder->buildAdminMenu();
         });
     }
