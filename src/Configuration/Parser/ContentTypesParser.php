@@ -8,7 +8,6 @@ use Bolt\Common\Arr;
 use Bolt\Common\Str;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\Content\FieldType;
-use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
 use Bolt\Exception\ConfigurationException;
 use Tightenco\Collect\Support\Collection;
