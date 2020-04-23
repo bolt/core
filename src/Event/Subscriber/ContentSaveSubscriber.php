@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Bolt\Event\Subscriber;
 
-use Bolt\Configuration\Config;
 use Bolt\Event\ContentEvent;
 use Bolt\Log\LoggerTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class ContentSaveSubscriber implements EventSubscriberInterface
 {
@@ -16,26 +15,18 @@ class ContentSaveSubscriber implements EventSubscriberInterface
 
     public const PRIORITY = 100;
 
-    /** @var CacheInterface */
+    /** @var TagAwareCacheInterface */
     private $cache;
 
-    /** @var Config */
-    private $config;
-
-    public function __construct(CacheInterface $cache, Config $config)
+    public function __construct(TagAwareCacheInterface $cache)
     {
         $this->cache = $cache;
-        $this->config = $config;
     }
 
     public function postSave(ContentEvent $event): ContentEvent
     {
         // Make sure we flush the cache for the menu's
-        $menus = $this->config->get('menu')->keys()->all();
-        foreach ($menus as $menu) {
-            $this->cache->delete('frontendmenu_' . $menu);
-        }
-        $this->cache->delete('backendmenu');
+        $this->cache->invalidateTags(['backendmenu', 'frontendmenu']);
 
         // Saving an entry in the log.
         $context = [
