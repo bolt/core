@@ -52,12 +52,6 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
             $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
         }
 
-        // Update the canonical, with the correct path
-        $this->canonical->setPath(null, [
-            'contentTypeSlug' => $record ? $record->getContentTypeSingularSlug() : null,
-            'slugOrId' => $record ? $record->getSlug() : null,
-        ]);
-
         return $this->renderSingle($record, $requirePublished);
     }
 
