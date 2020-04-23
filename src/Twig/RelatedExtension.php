@@ -163,7 +163,7 @@ class RelatedExtension extends AbstractExtension
             return new Collection([]);
         }
 
-        $content = $this->getRelatedContent($source, $contentType, null, true, null, false);
+        $content = $this->getRelatedContent($source, $contentType,true, null, false);
 
         $values = [];
 
