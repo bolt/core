@@ -192,13 +192,17 @@ class Canonical
             return $route->getDefault('_controller') === $currentController;
         })->keys());
 
-        // If more than one route matches the same action, get the canonical.
+        // If only one route matched, return that.
+        if ($routes->count() === 1) {
+            return $routes->first();
+        }
+
         // If requested locale is default, get the first route which is not named *_locale
-        if (array_key_exists("_locale", $params) && $params['_locale'] == $this->defaultLocale) {
+        if (array_key_exists('_locale', $params) && $params['_locale'] === $this->defaultLocale) {
             unset($params['_locale']);
 
             return $routes->filter(function (string $name) {
-                return !fnmatch('*locale', $name);
+                return ! fnmatch('*locale', $name);
             })->first();
         }
 
