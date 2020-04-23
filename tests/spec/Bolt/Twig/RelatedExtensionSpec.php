@@ -34,7 +34,7 @@ class RelatedExtensionSpec extends ObjectBehavior
         $content->getId()->willReturn(self::ORIGIN_ID);
         $related->getId()->willReturn(self::RELATED_ID);
 
-        $result = $this->getAllRelatedContent($content);
+        $result = $this->getRelatedContentByType($content);
         $result->shouldBeArray();
         $result->shouldHaveCount(1);
         $result[self::TEST_CT_SLUG]->shouldBeArray();

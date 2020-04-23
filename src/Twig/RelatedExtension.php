@@ -40,7 +40,7 @@ class RelatedExtension extends AbstractExtension
     {
         return [
             new TwigFilter('related', [$this, 'getRelatedContent']),
-            new TwigFilter('related_all', [$this, 'getAllRelatedContent']),
+            new TwigFilter('related_by_type', [$this, 'getRelatedContentByType']),
             new TwigFilter('related_first', [$this, 'getFirstRelatedContent']),
             new TwigFilter('related_options', [$this, 'getRelatedOptions']),
             new TwigFilter('related_values', [$this, 'getRelatedValues']),
@@ -54,7 +54,7 @@ class RelatedExtension extends AbstractExtension
     {
         return [
             new TwigFunction('related_content', [$this, 'getRelatedContent']),
-            new TwigFunction('all_related_content', [$this, 'getAllRelatedContent']),
+            new TwigFunction('related_content_by_type', [$this, 'getRelatedContentByType']),
             new TwigFunction('first_related_content', [$this, 'getFirstRelatedContent']),
             new TwigFunction('related_options', [$this, 'getRelatedOptions']),
             new TwigFunction('related_values', [$this, 'getRelatedValues']),
@@ -64,7 +64,7 @@ class RelatedExtension extends AbstractExtension
     /**
      * @return array name => Content[]
      */
-    public function getAllRelatedContent(Content $content, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
+    public function getRelatedContentByType(Content $content, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
     {
         $relations = $this->relationRepository->findRelations($content, null, $bidirectional, $limit, $publishedOnly);
 
@@ -84,10 +84,8 @@ class RelatedExtension extends AbstractExtension
     /**
      * @return Content[]
      */
-    public function getRelatedContent(Content $content, ?string $name = null, ?string $ct = null, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
+    public function getRelatedContent(Content $content, ?string $name = null, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
     {
-        $name = $name ?? $ct;
-
         $relations = $this->relationRepository->findRelations($content, $name, $bidirectional, $limit, $publishedOnly);
 
         return (new Collection($relations))
@@ -98,10 +96,8 @@ class RelatedExtension extends AbstractExtension
             ->toArray();
     }
 
-    public function getFirstRelatedContent(Content $content, ?string $name = null, ?string $ct = null, bool $bidirectional = true, bool $publishedOnly = true): ?Content
+    public function getFirstRelatedContent(Content $content, ?string $name = null, bool $bidirectional = true, bool $publishedOnly = true): ?Content
     {
-        $name = $name ?? $ct;
-
         $relation = $this->relationRepository->findFirstRelation($content, $name, $bidirectional, $publishedOnly);
 
         if ($relation === null) {
