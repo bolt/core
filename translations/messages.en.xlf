@@ -466,7 +466,7 @@
       </notes>
       <segment>
         <source>content.updated_successfully</source>
-        <target>Media item updated successfully</target>
+        <target>Content updated successfully</target>
       </segment>
     </unit>
     <unit id="IB0mNQh" name="content.created_successfully">
