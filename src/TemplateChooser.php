@@ -60,30 +60,30 @@ class TemplateChooser
             $templates = collect($this->forHomepage());
         }
 
-        // First candidate: Content record has a templateselect field, and it's set.
+        // Second candidate: Content record has a templateselect field, and it's set.
         foreach ($definition->get('fields') as $name => $field) {
             if ($field['type'] === 'templateselect' && $record->hasField($name)) {
                 $templates->push((string) $record->getField($name));
             }
         }
 
-        // Second candidate: defined specifically in the content type.
+        // Third candidate: defined specifically in the content type.
         if ($definition->has('record_template')) {
             $templates->push($definition->get('record_template'));
         }
 
-        // Third candidate: a template with the same filename as the name of
+        // Fourth candidate: a template with the same filename as the name of
         // the content type.
         $templates->push($definition->get('singular_slug') . '.html.twig');
         $templates->push($definition->get('singular_slug') . '.twig');
 
-        // Fourth candidate: Theme-specific config.yml file.
+        // Fifth candidate: Theme-specific config.yml file.
         $templates->push($this->config->get('theme/record_template'));
 
-        // Fifth candidate: global config.yml
+        // Sixth candidate: global config.yml
         $templates->push($this->config->get('general/record_template'));
 
-        // Sixth candidate: fallback to 'record.html.twig'
+        // Seventh candidate: fallback to 'record.html.twig'
         $templates->push('record.html.twig');
 
         return $templates->unique()->filter()->toArray();
@@ -93,23 +93,28 @@ class TemplateChooser
     {
         $templates = new Collection();
 
-        // First candidate: defined specifically in the content type.
+        // First candidate: Content record is the homepage
+        if ($this->contentExtension->isHomepageListing($contentType)) {
+            $templates = collect($this->forHomepage());
+        }
+
+        // Second candidate: defined specifically in the content type.
         if (! empty($contentType['listing_template'])) {
             $templates->push($contentType['listing_template']);
         }
 
-        // Second candidate: a template with the same filename as the name of
+        // Third candidate: a template with the same filename as the name of
         // the content type.
         $templates->push($contentType->getSlug() . '.html.twig');
         $templates->push($contentType->getSlug() . '.twig');
 
-        // Third candidate: Theme-specific config.yml file.
+        // Fourth candidate: Theme-specific config.yml file.
         $templates->push($this->config->get('theme/listing_template'));
 
-        // Fourth candidate: Global config.yml
+        // Fifth candidate: Global config.yml
         $templates->push($this->config->get('general/listing_template'));
 
-        // Fifth candidate: fallback to 'listing.html.twig'
+        // Sixth candidate: fallback to 'listing.html.twig'
         $templates->push('listing.html.twig');
 
         return $templates->unique()->filter()->toArray();

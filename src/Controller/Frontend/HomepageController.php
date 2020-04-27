@@ -32,11 +32,19 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
     {
         $homepage = $this->config->get('theme/homepage') ?: $this->config->get('general/homepage');
         $params = explode('/', $homepage);
+        $contentType = $this->config->get('contenttypes/' . $params[0]);
+
+        // Perhaps we need a listing instead. If so, forward the Request there
+        if (! $contentType->get('singleton') && ! isset($params[1])) {
+            return $this->forward('Bolt\Controller\Frontend\ListingController::listing', [
+                'contentTypeSlug' => $homepage,
+            ]);
+        }
 
         // @todo Get $homepage content, using "setcontent"
         $record = $contentRepository->findOneBy([
-            'contentType' => $params[0],
-            'id' => $params[1],
+            'contentType' => $contentType->get('slug'),
+            'id' => $params[1] ?? 1,
         ]);
         if (! $record) {
             $record = $contentRepository->findOneBy(['contentType' => $params[0]]);

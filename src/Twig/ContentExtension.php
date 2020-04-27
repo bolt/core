@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
@@ -745,6 +746,17 @@ class ContentExtension extends AbstractExtension
                 ($item[1] === $content->getSlug() || $item[1] === (string) $content->getId())) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    public function isHomepageListing(ContentType $contentType): bool
+    {
+        $homepageSetting = $this->config->get('general/homepage');
+
+        if ($homepageSetting === $contentType->get('slug') || $homepageSetting === $contentType->get('singular_slug')) {
+            return true;
         }
 
         return false;
