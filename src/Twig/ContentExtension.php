@@ -738,11 +738,13 @@ class ContentExtension extends AbstractExtension
         foreach ($configSetting as $item) {
             $item = explode('/', $item);
 
-            if (empty($item[1])) {
+            // Discard candidate if contentTypes don't match
+            if ($item[0] !== $content->getContentTypeSingularSlug() && $item[0] !== $content->getContentTypeSlug()) {
                 continue;
             }
 
-            if (($item[0] === $content->getContentTypeSingularSlug() || $item[0] === $content->getContentTypeSlug()) &&
+            // Success if we either have no id/slug for a Singleton, or if the id/slug matches
+            if ((empty($item[1]) && $content->getDefinition()->get('singleton')) ||
                 ($item[1] === $content->getSlug() || $item[1] === (string) $content->getId())) {
                 return true;
             }
