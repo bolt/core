@@ -64,7 +64,7 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.5",
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "@symfony/webpack-encore": "^0.28.3",
+    "@symfony/webpack-encore": "^0.29.1",
     "@vue/test-utils": "^1.0.0-beta.33",
     "ajv-keywords": "^3.4.1",
     "autoprefixer": "^9.7.6",
