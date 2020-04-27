@@ -114,7 +114,7 @@ export default {
       return color.isLight();
     },
     createMenu() {
-      return this.menu.filter(item => {
+      return this.menu.filter((item) => {
         return (
           (!item.singleton && item.singular_name) ||
           (item.singleton && (item.submenu === null || item.submenu.length < 1))

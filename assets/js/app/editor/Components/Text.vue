@@ -59,7 +59,7 @@ export default {
     },
   },
   mounted() {
-    this.$root.$on('generate-from-title', data => (this.generate = data));
+    this.$root.$on('generate-from-title', (data) => (this.generate = data));
   },
 };
 </script>

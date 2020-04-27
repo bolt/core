@@ -78,7 +78,7 @@ export default {
   mounted() {
     setTimeout(() => {
       let title = '';
-      this.generate.split(',').forEach(element => {
+      this.generate.split(',').forEach((element) => {
         title =
           title +
           document.querySelector(`input[name='fields[${element}]']`).value;
@@ -110,7 +110,7 @@ export default {
     },
     generateSlug() {
       let title = '';
-      this.generate.split(',').forEach(element => {
+      this.generate.split(',').forEach((element) => {
         title =
           title +
           ' ' +

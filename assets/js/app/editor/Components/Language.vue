@@ -15,14 +15,14 @@
         <span class="fp mr-1" :class="props.option.flag"></span>
         <span>
           {{ props.option.name }}
-          <small style="white-space: nowrap">({{ props.option.code }})</small>
+          <small style="white-space: nowrap;">({{ props.option.code }})</small>
         </span>
       </template>
       <template slot="option" slot-scope="props">
         <span class="fp mr-1" :class="props.option.flag"></span>
         <span>
           {{ props.option.name }}
-          <small style="white-space: nowrap">({{ props.option.code }})</small>
+          <small style="white-space: nowrap;">({{ props.option.code }})</small>
         </span>
       </template>
     </multiselect>
@@ -48,7 +48,9 @@ export default {
 
   mounted() {
     if (this.current) {
-      let current = this.locales.filter(locale => locale.code === this.current);
+      let current = this.locales.filter(
+        (locale) => locale.code === this.current,
+      );
       if (current.length > 0) {
         this.locale = current[0];
       } else {

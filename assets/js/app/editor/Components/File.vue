@@ -183,7 +183,7 @@ export default {
       return this.csrfToken;
     },
     acceptedExtensions() {
-      return this.extensions.map(ext => '.' + ext).join();
+      return this.extensions.map((ext) => '.' + ext).join();
     },
     getPlaceholder() {
       if (this.placeholder) {
@@ -211,12 +211,12 @@ export default {
     selectServerFile() {
       let thisField = this;
       Axios.get(this.filelist)
-        .then(res => {
+        .then((res) => {
           bootbox.prompt({
             title: 'Select a file',
             inputType: 'select',
             inputOptions: this.filterServerFiles(res.data),
-            callback: function(result) {
+            callback: function (result) {
               if (result) {
                 thisField.filenameData = result;
               }
@@ -224,7 +224,7 @@ export default {
           });
           window.$('.bootbox-input').attr('name', 'bootbox-input');
         })
-        .catch(err => {
+        .catch((err) => {
           console.warn(err);
         });
     },
@@ -250,7 +250,7 @@ export default {
     uploadFile(file) {
       const fd = new FormData();
       const config = {
-        onUploadProgress: progressEvent => {
+        onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total,
           );
@@ -263,18 +263,18 @@ export default {
       fd.append('file', file);
       fd.append('_csrf_token', this.token);
       Axios.post(this.directory, fd, config)
-        .then(res => {
+        .then((res) => {
           this.filenameData = res.data;
           this.progress = 0;
         })
-        .catch(err => {
+        .catch((err) => {
           console.warn(err);
           this.progress = 0;
         });
     },
     filterServerFiles(files) {
       let self = this;
-      return files.filter(function(file) {
+      return files.filter(function (file) {
         let ext = /(?:\.([^.]+))?$/.exec(file.text)[1];
         return self.extensions.includes(ext);
       });

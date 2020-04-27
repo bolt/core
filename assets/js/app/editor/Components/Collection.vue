@@ -51,13 +51,13 @@ export default {
   },
   data() {
     let elements = [];
-    this.existingFields.forEach(function(field) {
+    this.existingFields.forEach(function (field) {
       elements.push(Vue.compile(field.html));
     });
 
     let templateSelectOptions = [];
 
-    this.templates.forEach(function(template) {
+    this.templates.forEach(function (template) {
       templateSelectOptions.push({
         key: template.label,
         value: template.label,
@@ -82,7 +82,7 @@ export default {
     initialSelectValue() {
       return this.templateSelectOptions[0].key;
     },
-    allowMore: function() {
+    allowMore: function () {
       return this.counter < this.limit;
     },
   },
@@ -93,7 +93,7 @@ export default {
      ** This is a jQuery event listener, because Vue cannot handle an event emitted by a non-vue element.
      ** The collection items are not Vue elements in order to initialise them correctly within their twig template.
      */
-    window.$(document).on('click', vueThis.selector.remove, function(e) {
+    window.$(document).on('click', vueThis.selector.remove, function (e) {
       e.preventDefault();
       let collectionContainer = window
         .$(this)
@@ -103,7 +103,7 @@ export default {
       vueThis.counter--;
     });
 
-    window.$(document).on('click', vueThis.selector.moveUp, function(e) {
+    window.$(document).on('click', vueThis.selector.moveUp, function (e) {
       e.preventDefault();
       let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
       let prevCollectionitem = vueThis.getPreviousCollectionItem(
@@ -115,7 +115,7 @@ export default {
       vueThis.setButtonsState(prevCollectionitem);
     });
 
-    window.$(document).on('click', vueThis.selector.moveDown, function(e) {
+    window.$(document).on('click', vueThis.selector.moveDown, function (e) {
       e.preventDefault();
       let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
       let nextCollectionItem = vueThis.getNextCollectionItem(
@@ -133,35 +133,23 @@ export default {
   methods: {
     setAllButtonsStates(collectionContainer) {
       let vueThis = this;
-      collectionContainer.children(vueThis.selector.item).each(function() {
+      collectionContainer.children(vueThis.selector.item).each(function () {
         vueThis.setButtonsState(window.$(this));
       });
     },
     setButtonsState(item) {
       //by default, enable
-      item
-        .find(this.selector.moveUp)
-        .first()
-        .removeAttr('disabled');
-      item
-        .find(this.selector.moveDown)
-        .first()
-        .removeAttr('disabled');
+      item.find(this.selector.moveUp).first().removeAttr('disabled');
+      item.find(this.selector.moveDown).first().removeAttr('disabled');
 
       if (!this.getPreviousCollectionItem(item)) {
         // first in collection
-        item
-          .find(this.selector.moveUp)
-          .first()
-          .attr('disabled', 'disabled');
+        item.find(this.selector.moveUp).first().attr('disabled', 'disabled');
       }
 
       if (!this.getNextCollectionItem(item)) {
         // last in collection
-        item
-          .find(this.selector.moveDown)
-          .first()
-          .attr('disabled', 'disabled');
+        item.find(this.selector.moveDown).first().attr('disabled', 'disabled');
       }
     },
     getPreviousCollectionItem(item) {
@@ -175,10 +163,7 @@ export default {
         : item.next('.collection-item');
     },
     getCollectionItemFromPressedButton(button) {
-      return window
-        .$(button)
-        .closest('.collection-item')
-        .last();
+      return window.$(button).closest('.collection-item').last();
     },
     addCollectionItem() {
       let template = this.getSelectedTemplate();
@@ -198,7 +183,7 @@ export default {
       }
 
       return this.templates.find(
-        template => template.label === selectValue.key,
+        (template) => template.label === selectValue.key,
       );
     },
   },

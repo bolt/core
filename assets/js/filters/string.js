@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-Vue.filter('slugify', string => {
+Vue.filter('slugify', (string) => {
   if (string) {
     return string
       .toString()
@@ -13,13 +13,13 @@ Vue.filter('slugify', string => {
   }
 });
 
-Vue.filter('strip', string => {
+Vue.filter('strip', (string) => {
   if (string) {
     return string.replace(/(^")|("$)/g, '');
   }
 });
 
-Vue.filter('raw', string => {
+Vue.filter('raw', (string) => {
   if (string) {
     let node = document.createElement('textarea');
     node.innerHTML = string;
@@ -27,7 +27,7 @@ Vue.filter('raw', string => {
   }
 });
 
-Vue.filter('uppercase', string => {
+Vue.filter('uppercase', (string) => {
   if (string) return string.toUpperCase();
 });
 

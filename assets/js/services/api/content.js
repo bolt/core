@@ -9,7 +9,7 @@ export function fetchRecords(type) {
   console.warn('remove above todo');
   return axios
     .get(`/api/contents.json?contentType=${type}&pageSize=5`)
-    .then(response => {
+    .then((response) => {
       localStorage.setItem(`records-${type}`, JSON.stringify(response.data));
       return response.data;
     });

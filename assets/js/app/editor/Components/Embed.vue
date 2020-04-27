@@ -151,14 +151,14 @@ export default {
     };
   },
   watch: {
-    urlData: function() {
+    urlData: function () {
       this.updateEmbed();
     },
   },
   mounted() {
     this.previewImage = this.thumbnail;
   },
-  created: function() {
+  created: function () {
     this.debouncedFetchEmbed = _.debounce(this.fetchEmbed, 500);
     if (this.urlData) {
       this.updateEmbed();
@@ -176,13 +176,13 @@ export default {
     });
   },
   methods: {
-    updateEmbed: function() {
+    updateEmbed: function () {
       this.debouncedFetchEmbed();
     },
-    clearEmbed: function() {
+    clearEmbed: function () {
       this.urlData = '';
     },
-    fetchEmbed: function() {
+    fetchEmbed: function () {
       const body = new FormData();
       body.append('url', this.urlData);
       body.append(
@@ -191,8 +191,8 @@ export default {
       );
 
       fetch(this.embedapi, { method: 'POST', body: body })
-        .then(response => response.json())
-        .then(json => {
+        .then((response) => response.json())
+        .then((json) => {
           this.authorurlData = json.author_url;
           this.authornameData = json.author_name;
           this.heightData = json.height;
@@ -203,7 +203,7 @@ export default {
           this.widthData = json.width;
           this.previewImage = json.thumbnail_url;
         })
-        .catch(err => {
+        .catch((err) => {
           console.warn(err);
         });
     },

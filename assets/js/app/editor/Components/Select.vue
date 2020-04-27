@@ -67,7 +67,7 @@ export default {
       if (this.selected === null) {
         return JSON.stringify([]);
       } else if (this.selected.map) {
-        filtered = this.selected.map(item => item.key);
+        filtered = this.selected.map((item) => item.key);
         return JSON.stringify(filtered);
       } else {
         return JSON.stringify([this.selected.key]);
@@ -81,7 +81,7 @@ export default {
     const _values = this.value;
     const _options = this.options;
 
-    let filterSelectedItems = _options.filter(item => {
+    let filterSelectedItems = _options.filter((item) => {
       return _values.includes(item.key);
     });
 

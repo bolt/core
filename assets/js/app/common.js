@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { DateTime } from 'luxon';
 
-$(document).ready(function() {
+$(document).ready(function () {
   // add a js class to indicate we have JS enabled. Might need a change to either modernizr or somethng comparable
   $('html').addClass('js');
 
@@ -13,7 +13,7 @@ $(document).ready(function() {
    */
   $('.admin__sidebar').addClass('admin__sidebar--is-collapsed');
 
-  $('.admin-sidebar-toggler').on('click', function() {
+  $('.admin-sidebar-toggler').on('click', function () {
     if ($('.admin__sidebar').hasClass('admin__sidebar--is-collapsed')) {
       $('.admin__sidebar')
         .addClass('admin__sidebar--is-expanded')
@@ -42,7 +42,7 @@ $(document).ready(function() {
     }, 50);
   }
 
-  $('a[data-toggle="pill"]').on('click', function() {
+  $('a[data-toggle="pill"]').on('click', function () {
     let newUrl;
     const hash = $(this).attr('href');
     newUrl = url.split('#')[0] + hash;
@@ -52,7 +52,7 @@ $(document).ready(function() {
   /*
    ** Convert all ISO dates with class .datetime-relative to relative time
    */
-  $('.datetime-relative').each(function() {
+  $('.datetime-relative').each(function () {
     $(this).text(DateTime.fromISO($(this).text()).toRelative());
   });
 
@@ -64,8 +64,8 @@ $(document).ready(function() {
   /*
    ** When a field from another group is invalid, show it.
    */
-  $('#editor button[type="submit"]').click(function() {
-    $('input:invalid').each(function() {
+  $('#editor button[type="submit"]').click(function () {
+    $('input:invalid').each(function () {
       // Find the tab-pane that this element is inside, and get the id
       var $closest = $(this).closest('.tab-pane');
       var id = $closest.attr('id');
@@ -82,7 +82,7 @@ $(document).ready(function() {
    ** Simulates disabled behavior for elements with data-readonly attribute.
    * This is needed, because a disabled input cannot be required.
    */
-  $('[data-readonly]').on('keydown paste', function(e) {
+  $('[data-readonly]').on('keydown paste', function (e) {
     e.preventDefault();
   });
   /* Part of the code above, however make sure flatpickr is not readonly */
@@ -109,11 +109,11 @@ $(document).ready(function() {
   $('[data-errormessage]').on('input', handleInput);
 
   /* Set the errormessage on the correct editor--date field */
-  $('.editor--date').each(function() {
+  $('.editor--date').each(function () {
     let siblings = $(this).siblings();
     const errormessage = $(this).attr('data-errormessage');
 
-    siblings.each(function() {
+    siblings.each(function () {
       $(this)
         .attr('data-errormessage', errormessage)
         .on('invalid', handleInvalid)

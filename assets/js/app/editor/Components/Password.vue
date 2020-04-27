@@ -55,7 +55,7 @@ export default {
     placeholder: String | Boolean,
   },
 
-  mounted: function() {
+  mounted: function () {
     // this.val = this.$options.filters.strip(this.value);
     if (!this.hidden) {
       this.$refs.visibilityToggle.click();
