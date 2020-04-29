@@ -17,3 +17,17 @@ Feature: Display single record
     Given I am on "/page/2"
     Then I wait for ".heading"
     And I should not see a ".title" element
+
+  @javascript
+  Scenario: As a user I want to see the correct canonical URL for a page
+    When I am on "/page/this-is-a-page"
+    Then the "link[rel='canonical']" field should have "href='http://127.0.0.1:8088/page/this-is-a-page'" attribute
+
+    When I am on "/page/2"
+    Then the "link[rel='canonical']" field should have "href='http://127.0.0.1:8088/page/this-is-a-page'" attribute
+
+    When I am on "/en/page/this-is-a-page"
+    Then the "link[rel='canonical']" field should have "href='http://127.0.0.1:8088/page/this-is-a-page'" attribute
+
+    When I am on "/nl/page/2"
+    Then the "link[rel='canonical']" field should have "href='http://127.0.0.1:8088/nl/page/this-is-a-page'" attribute

@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouterInterface;
+use Tightenco\Collect\Support\Collection;
 
 class Canonical
 {
@@ -34,11 +37,19 @@ class Canonical
     /** @var string */
     private $path = null;
 
-    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack)
+    /** @var RouterInterface */
+    private $router;
+
+    /** @var string */
+    private $defaultLocale;
+
+    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router, string $defaultLocale)
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->request = $requestStack->getCurrentRequest();
+        $this->router = $router;
+        $this->defaultLocale = $defaultLocale;
 
         $this->init();
     }
@@ -137,9 +148,13 @@ class Canonical
     public function getPath(): string
     {
         if ($this->path === null) {
+            $route = $this->request->attributes->get('_route');
+            $params = $this->request->attributes->get('_route_params');
+            $canonicalRoute = $this->getCanonicalRoute($route, $params);
+
             $this->path = $this->urlGenerator->generate(
-                $this->request->attributes->get('_route'),
-                $this->request->attributes->get('_route_params'),
+                $canonicalRoute,
+                $params,
                 UrlGeneratorInterface::ABSOLUTE_PATH
             );
         }
@@ -155,14 +170,46 @@ class Canonical
             $route = $this->request->attributes->get('_route');
         }
 
+        $canonicalRoute = $this->getCanonicalRoute($route, $params);
+
         try {
             $this->path = $this->urlGenerator->generate(
-                $route,
+                $canonicalRoute,
                 $params
             );
         } catch (InvalidParameterException | MissingMandatoryParametersException $e) {
             // Just use the current URL /shrug
             $this->request->getUri();
         }
+    }
+
+    private function getCanonicalRoute(string $route, array &$params = []): string
+    {
+        $routes = new Collection($this->router->getRouteCollection()->getIterator());
+        $currentController = $routes->get($route)->getDefault('_controller');
+
+        $routes = collect($routes->filter(function (Route $route) use ($currentController) {
+            return $route->getDefault('_controller') === $currentController;
+        })->keys());
+
+        // If only one route matched, return that.
+        if ($routes->count() === 1) {
+            return $routes->first();
+        }
+
+        // If no locale or locale is not default, get the first route which is named *_locale
+        if (array_key_exists('_locale', $params) && $params['_locale'] !== $this->defaultLocale) {
+            return $routes->filter(function (string $name) {
+                return fnmatch('*locale', $name);
+            })->first();
+        }
+
+        // Unset _locale so that it is not passed as query param to url.
+        unset($params['_locale']);
+
+        // Otherwise, get the first route that is not *_locale
+        return $routes->filter(function (string $name) {
+            return ! fnmatch('*locale', $name);
+        })->first();
     }
 }
