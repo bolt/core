@@ -10,6 +10,8 @@ use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,10 +24,14 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
     /** @var ContentRepository */
     private $contentRepository;
 
-    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository)
+    /** @var Request */
+    private $request;
+
+    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, RequestStack $requestStack)
     {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -56,6 +62,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         $this->canonical->setPath(null, [
             'contentTypeSlug' => $record ? $record->getContentTypeSingularSlug() : null,
             'slugOrId' => $record ? $record->getSlug() : null,
+            '_locale' => $this->request->getLocale(),
         ]);
 
         return $this->renderSingle($record, $requirePublished);
