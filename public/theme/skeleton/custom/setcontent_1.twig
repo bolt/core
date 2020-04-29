@@ -36,9 +36,9 @@
         {% for page in pages %}
             <li>
                 {{ page.contenttype }} {{ page.id }} . {{ page|title }}
-                <span class="s{{ loop.index }}">{{ _self.isbigger(page.id, last|default()) }}<span></span>
+                <span class="s{{ loop.index }}">{{ _self.isbigger(page.publishedAt, last|default()) }}<span></span>
             </li>
-            {% set last = page.id %}
+            {% set last = page.publishedAt %}
         {% endfor %}
         </ul>
     </section>
