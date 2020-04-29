@@ -58,16 +58,25 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
     {
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder->andWhere(sprintf('%s.status = :status', $rootAlias));
-        $queryBuilder->andWhere(sprintf('%s.contentType NOT IN (:cts)', $rootAlias));
         $queryBuilder->setParameter('status', Statuses::PUBLISHED);
-        $queryBuilder->setParameter('cts', $this->viewlessContentTypes);
+
+        //todo: Fix this when https://github.com/doctrine/orm/issues/3835 closed.
+        if (! empty($this->viewlessContentTypes)) {
+            $queryBuilder->andWhere(sprintf('%s.contentType NOT IN (:cts)', $rootAlias));
+            $queryBuilder->setParameter('cts', $this->viewlessContentTypes);
+        }
     }
 
     private function filterUnpublishedViewlessFields(QueryBuilder $queryBuilder): void
     {
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $queryBuilder->join($rootAlias . '.content', 'c', Join::WITH, 'c.status = :status AND c.contentType NOT IN (:cts)');
+        $queryBuilder->join($rootAlias . '.content', 'c', Join::WITH, 'c.status = :status');
         $queryBuilder->setParameter('status', Statuses::PUBLISHED);
-        $queryBuilder->setParameter('cts', $this->viewlessContentTypes);
+
+        //todo: Fix this when https://github.com/doctrine/orm/issues/3835 closed.
+        if (! empty($this->viewlessContentTypes)) {
+            $queryBuilder->andWhere('c.contentType NOT IN (:cts)');
+            $queryBuilder->setParameter('cts', $this->viewlessContentTypes);
+        }
     }
 }
