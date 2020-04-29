@@ -113,7 +113,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         $user->setLastseenAt(new \DateTime());
         $user->setLastIp($request->getClientIp());
-        /** @var Parser $parser */
+        /** @var Parser $uaParser */
         $uaParser = Parser::create();
         $parsedUserAgent = $uaParser->parse($request->headers->get('User-Agent'))->toString();
         $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
