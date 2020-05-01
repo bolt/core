@@ -2301,5 +2301,11 @@
         <target>Held</target>
       </segment>
     </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <segment>
+        <source>collection.confirm_delete</source>
+        <target>Are you sure you wish to delete this collection item?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

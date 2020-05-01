@@ -2,13 +2,22 @@ import bootbox from 'bootbox';
 import $ from 'jquery';
 
 $('*[data-confirmation]').on('click', function() {
-  let thisHref = $(this).attr('href');
-  let confirmation = $(this).data('confirmation');
-  bootbox.confirm(confirmation, function(result) {
-    if (result) {
-      window.location = thisHref;
-    }
-  });
+  const thisElem = $(this);
+  const thisHref = $(this).attr('href');
+  const confirmation = $(this).data('confirmation');
 
-  return false;
+  if (!thisElem.data('confirmed')) {
+    bootbox.confirm(confirmation, function(result) {
+      if (result && thisHref) {
+        window.location = thisHref;
+      }
+
+      if (result) {
+        thisElem.attr('data-confirmed', true);
+        thisElem.click();
+      }
+    });
+
+    return false;
+  }
 });
