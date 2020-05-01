@@ -45,7 +45,6 @@ Feature: Filemanager
     And I should see "_a-sunrise.jpeg" in the 2nd ".admin__body--main tr" element
 
   @javascript
-  @testme
   Scenario: As an Admin I want to duplicate a file
     Given I am logged in as "admin"
     And I am on "/bolt/filemanager/files"
