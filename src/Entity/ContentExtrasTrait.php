@@ -31,7 +31,7 @@ trait ContentExtrasTrait
         $content = $this;
 
         return array_filter([
-            'title' => $this->contentExtension->getAnyTitle($content),
+            'title' => $this->contentExtension->getAnyTitle($content, 80),
             'image' => $this->contentExtension->getImage($content, true),
             'excerpt' => $this->contentExtension->getExcerpt($content),
             'link' => $this->contentExtension->getLink($content),
