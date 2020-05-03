@@ -61,6 +61,7 @@ class Html
     public static function decorateTT($str): string
     {
         $str = htmlspecialchars($str, ENT_QUOTES);
+
         return preg_replace('/`([^`]*)`/', '<tt>\\1</tt>', $str);
     }
 

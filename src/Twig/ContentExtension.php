@@ -205,6 +205,7 @@ class ContentExtension extends AbstractExtension
                         $name
                     ));
                 }
+
                 return $content->hasField($name);
             });
 
@@ -297,6 +298,7 @@ class ContentExtension extends AbstractExtension
                 // add comma add end of string if it doesn't have sentence end
                 $part .= '.';
             }
+
             return $excerpt . $part . ' ';
         }, '');
 

@@ -124,6 +124,7 @@ class LocaleHelper
             case 'search_locale':
             case 'taxonomy_locale':
                 $routeParams['_locale'] = $locale->get('code');
+
                 break;
             default:
                 $routeParams['edit_locale'] = $locale->get('code');

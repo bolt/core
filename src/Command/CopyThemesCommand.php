@@ -61,9 +61,11 @@ class CopyThemesCommand extends Command
         } else {
             if (Version::installType() === 'Git clone') {
                 $io->error('This command only works with the \'Composer install\' install type.');
+
                 return 1;
             }
             $io->error('Run \'composer require bolt/themes\' before using this command.');
+
             return 1;
         }
 

@@ -12,6 +12,7 @@ trait ImageTrait
     {
         if (getenv('TERM_PROGRAM') !== 'iTerm.app') {
             $io->title('⚙️  Bolt');
+
             return;
         }
 

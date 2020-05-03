@@ -24,6 +24,7 @@ trait ResponseTrait
         if ($this->response === null) {
             throw new WidgetException("Widget {$this->getName()} does not have Response set");
         }
+
         return $this->response;
     }
 }

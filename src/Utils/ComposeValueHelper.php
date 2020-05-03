@@ -35,6 +35,7 @@ class ComposeValueHelper
                     if ($field->isTranslatable()) {
                         $field->setLocale($locale);
                     }
+
                     return $field;
                 }
 

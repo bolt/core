@@ -61,6 +61,7 @@ HELP
         }
 
         $io->success('Secret replaced successfully!');
+
         return null;
     }
 }

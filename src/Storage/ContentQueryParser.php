@@ -271,6 +271,7 @@ class ContentQueryParser
 
             if (! $configCT) {
                 $message = sprintf("Tried to get content from ContentType '%s', but no ContentType by that name/slug exists.", $value);
+
                 throw new \Exception($message);
             }
 

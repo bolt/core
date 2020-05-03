@@ -67,6 +67,7 @@ class Log
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -78,6 +79,7 @@ class Log
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
         return $this;
     }
 
@@ -89,6 +91,7 @@ class Log
     public function setContext(?array $context): self
     {
         $this->context = $context;
+
         return $this;
     }
 
@@ -100,6 +103,7 @@ class Log
     public function setLevel(int $level): self
     {
         $this->level = $level;
+
         return $this;
     }
 
@@ -111,6 +115,7 @@ class Log
     public function setLevelName(string $levelName): self
     {
         $this->levelName = $levelName;
+
         return $this;
     }
 
@@ -122,6 +127,7 @@ class Log
     public function setExtra(?array $extra): self
     {
         $this->extra = $extra;
+
         return $this;
     }
 
@@ -133,6 +139,7 @@ class Log
     public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -144,6 +151,7 @@ class Log
     public function setLocation(?array $location): self
     {
         $this->location = $location;
+
         return $this;
     }
 
@@ -155,6 +163,7 @@ class Log
     public function setUser(?array $user): self
     {
         $this->user = $user;
+
         return $this;
     }
 
@@ -166,6 +175,7 @@ class Log
     public function setContent(int $content): self
     {
         $this->content = $content;
+
         return $this;
     }
 }

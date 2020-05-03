@@ -227,6 +227,7 @@ class HtmlInjector
         if (empty($matches)) {
             return null;
         }
+
         return $matches[1];
     }
 

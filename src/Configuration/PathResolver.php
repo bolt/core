@@ -116,6 +116,7 @@ class PathResolver
             }
 
             $this->resolving[$alias] = true;
+
             try {
                 return $this->resolve($alias, $absolute);
             } finally {

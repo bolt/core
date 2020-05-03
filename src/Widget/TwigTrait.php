@@ -24,6 +24,7 @@ trait TwigTrait
         if ($this->twig === null) {
             throw new WidgetException("Widget {$this->getName()} does not have Twig set");
         }
+
         return $this->twig;
     }
 }

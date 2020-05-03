@@ -101,6 +101,7 @@ class UploadController implements AsyncZoneInterface
             } catch (\Throwable $e) {
                 // something wrong happened, we don't need the uploaded files anymore
                 $result->clear();
+
                 throw $e;
             }
         }

@@ -168,6 +168,7 @@ class User implements UserInterface, \Serializable
     public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
+
         return $this;
     }
 

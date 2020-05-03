@@ -34,6 +34,7 @@ class EmbedField extends Field implements FieldInterface
 
         $html = preg_replace("/width=(['\"])([0-9]+)(['\"])/i", '', $html);
         $html = preg_replace("/height=(['\"])([0-9]+)(['\"])/i", '', $html);
+
         return '<div class="embed-responsive">' . $html . '</div>';
     }
 

@@ -104,6 +104,7 @@ HELP
             if ($errors->count() > 0) {
                 throw new InvalidArgumentException($errors->get(0)->getMessage());
             }
+
             return $username;
         });
         $input->setArgument('username', $username);
