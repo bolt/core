@@ -26,7 +26,7 @@ class TablePrefix
                 || $classMetadata->getName() === $classMetadata->rootEntityName) {
                 $classMetadata->setPrimaryTable(
                     [
-                        'name' => $tablePrefix.$classMetadata->getTableName(),
+                        'name' => $tablePrefix . $classMetadata->getTableName(),
                     ]
                 );
             }
@@ -34,7 +34,7 @@ class TablePrefix
             foreach ($classMetadata->getAssociationMappings() as $fieldName => $mapping) {
                 if ($mapping['type'] === ClassMetadataInfo::MANY_TO_MANY && $mapping['isOwningSide']) {
                     $mappedTableName = $mapping['joinTable']['name'];
-                    $classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $tablePrefix.$mappedTableName;
+                    $classMetadata->associationMappings[$fieldName]['joinTable']['name'] = $tablePrefix . $mappedTableName;
                 }
             }
         }

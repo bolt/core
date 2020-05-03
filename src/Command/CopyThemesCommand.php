@@ -55,15 +55,17 @@ class CopyThemesCommand extends Command
         if (file_exists(dirname(dirname(dirname(__DIR__))) . '/themes')) {
             $baseDir = dirname(dirname(dirname(__DIR__))) . '/themes';
             $dirs = [
-                $baseDir . '/base-2018' => $publicDir .'/theme/base-2018',
-                $baseDir . '/skeleton' => $publicDir .'/theme/skeleton',
+                $baseDir . '/base-2018' => $publicDir . '/theme/base-2018',
+                $baseDir . '/skeleton' => $publicDir . '/theme/skeleton',
             ];
         } else {
             if (Version::installType() === 'Git clone') {
                 $io->error('This command only works with the \'Composer install\' install type.');
+
                 return 1;
             }
             $io->error('Run \'composer require bolt/themes\' before using this command.');
+
             return 1;
         }
 

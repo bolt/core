@@ -107,6 +107,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     private function getFileSummary($contents)
     {
         $contents = str_replace(['<?php', '# ', "\n"], ['', '', " \n"], $contents);
+
         return Excerpt::getExcerpt($contents, 300);
     }
 }

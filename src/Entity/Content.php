@@ -157,6 +157,7 @@ class Content
         if ($this->getId()) {
             return sprintf('%s #%d', $contentName, $this->getId());
         }
+
         return sprintf('New %s', $contentName);
     }
 
@@ -551,6 +552,7 @@ class Content
         if ($this->getAuthor() !== null) {
             return $this->getAuthor()->getDisplayName();
         }
+
         return null;
     }
 

@@ -54,14 +54,10 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public $name;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    /** @ORM\Column(type="integer") */
     private $sortorder = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    /** @ORM\Column(type="integer", nullable=true) */
     private $version;
 
     /**
@@ -76,9 +72,7 @@ class Field implements FieldInterface, TranslatableInterface
      */
     private $parent;
 
-    /**
-     * @var ?FieldType
-     */
+    /** @var ?FieldType */
     private $fieldTypeDefinition;
 
     public function __toString(): string

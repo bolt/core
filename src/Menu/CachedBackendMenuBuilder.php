@@ -31,6 +31,7 @@ final class CachedBackendMenuBuilder implements BackendMenuBuilderInterface
     {
         $locale = $this->requestStack->getCurrentRequest()->getLocale();
         $cacheKey = 'backendmenu_' . $locale;
+
         return $this->cache->get($cacheKey, function (ItemInterface $item) {
             $item->tag('backendmenu');
 

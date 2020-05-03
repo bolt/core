@@ -54,6 +54,7 @@ final class ArrayExtension extends AbstractExtension
             if ($check !== 0 || $orderOnSecondary !== '') {
                 return $check;
             }
+
             return self::orderHelper($a, $b, $orderOnSecondary, $orderAscendingSecondary);
         });
 
@@ -97,6 +98,7 @@ final class ArrayExtension extends AbstractExtension
         if ($orderAscending) {
             return $aVal <=> $bVal;
         }
+
         return $bVal <=> $aVal;
     }
 }

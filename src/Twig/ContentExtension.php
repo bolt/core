@@ -205,6 +205,7 @@ class ContentExtension extends AbstractExtension
                         $name
                     ));
                 }
+
                 return $content->hasField($name);
             });
 
@@ -297,6 +298,7 @@ class ContentExtension extends AbstractExtension
                 // add comma add end of string if it doesn't have sentence end
                 $part .= '.';
             }
+
             return $excerpt . $part . ' ';
         }, '');
 
@@ -432,7 +434,7 @@ class ContentExtension extends AbstractExtension
                 $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
         } catch (InvalidParameterException $e) {
-            $this->logger->notice('Could not create URL for route \'' . $route .'\'. Perhaps the ContentType was changed or removed. Try clearing the cache');
+            $this->logger->notice('Could not create URL for route \'' . $route . '\'. Perhaps the ContentType was changed or removed. Try clearing the cache');
             $link = '';
         }
 

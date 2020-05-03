@@ -20,6 +20,7 @@ class WidgetExtension extends AbstractExtension
     {
         $this->widgetRenderer = $widgetRenderer;
     }
+
     /**
      * {@inheritdoc}
      */

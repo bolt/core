@@ -20,6 +20,7 @@ class MaintenanceModeSubscriber implements EventSubscriberInterface
     {
         $this->config = $config;
     }
+
     public function onKernelController(ControllerEvent $event): void
     {
         $controller = $event->getController();

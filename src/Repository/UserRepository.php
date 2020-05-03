@@ -18,6 +18,7 @@ class UserRepository extends ServiceEntityRepository
     public function findOneByUsername(string $username): ?User
     {
         $user = $this->findOneBy(['username' => $username]);
+
         return $user instanceof User ? $user : null;
     }
 
@@ -41,6 +42,7 @@ class UserRepository extends ServiceEntityRepository
         }
         $qb->setParameter('username', $username);
         $user = $qb->getQuery()->getOneOrNullResult();
+
         return $user instanceof User ? $user : null;
     }
 

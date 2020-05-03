@@ -57,6 +57,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
         $this->addFlash('success', 'content.status_changed_successfully');
         $url = $request->headers->get('referer');
+
         return new RedirectResponse($url);
     }
 
@@ -79,6 +80,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
         $this->addFlash('success', 'content.deleted_successfully');
         $url = $request->headers->get('referer');
+
         return new RedirectResponse($url);
     }
 

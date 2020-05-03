@@ -183,6 +183,7 @@ class ContentRepository extends ServiceEntityRepository
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
         $paginator->setCurrentPage($page);
+
         return $paginator;
     }
 
@@ -190,10 +191,10 @@ class ContentRepository extends ServiceEntityRepository
     {
         if ($direction === 'next') {
             $order = 'ASC';
-            $whereClause = 'content.' . $column .' > :value';
+            $whereClause = 'content.' . $column . ' > :value';
         } else {
             $order = 'DESC';
-            $whereClause = 'content.' . $column .' < :value';
+            $whereClause = 'content.' . $column . ' < :value';
         }
 
         $qb = $this->getQueryBuilder()

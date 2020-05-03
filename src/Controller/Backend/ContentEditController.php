@@ -227,6 +227,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     {
         if (! $this->isCsrfTokenValid('status', $request->get('token'))) {
             $url = $this->urlGenerator->generate('bolt_dashboard');
+
             return new RedirectResponse($url);
         }
 
@@ -253,6 +254,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     {
         if (! $this->isCsrfTokenValid('delete', $request->get('token'))) {
             $url = $this->urlGenerator->generate('bolt_dashboard');
+
             return new RedirectResponse($url);
         }
 

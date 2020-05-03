@@ -49,6 +49,7 @@ class ExtensionsShowCommand extends Command
 
         if (! $extension instanceof ExtensionInterface) {
             $io->caution('No such extension.');
+
             return 0;
         }
 

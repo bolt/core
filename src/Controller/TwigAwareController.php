@@ -67,6 +67,7 @@ class TwigAwareController extends AbstractController
                     if ($element instanceof TemplateselectField) {
                         return $element->__toString();
                     }
+
                     return $element;
                 })
                 ->filter()

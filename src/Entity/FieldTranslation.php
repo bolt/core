@@ -21,9 +21,7 @@ class FieldTranslation implements TranslationInterface
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    /** @ORM\Column(type="json") */
     protected $value = [];
 
     public function getId(): ?int

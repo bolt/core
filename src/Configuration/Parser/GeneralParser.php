@@ -240,6 +240,7 @@ class GeneralParser extends BaseParser
             'servicename', 'service', 'pooled', 'instancename', 'server', // Oracle
             'persistent',                                                 // SQL Anywhere
         ];
+
         return $params->intersectByKeys($validKeys);
     }
 

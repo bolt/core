@@ -39,6 +39,6 @@ trait FileExtrasTrait
             return $host;
         }
 
-        return $host . ':'.$port;
+        return $host . ':' . $port;
     }
 }

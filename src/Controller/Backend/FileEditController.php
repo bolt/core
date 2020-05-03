@@ -148,6 +148,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         }
 
         $this->addFlash('success', 'file.delete_success');
+
         return $this->redirectToRoute('bolt_filemanager', ['location' => $locationName]);
     }
 
@@ -181,6 +182,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         }
 
         $this->addFlash('success', 'file.delete_success');
+
         return $this->redirectToRoute('bolt_filemanager', ['location' => $locationName]);
     }
 
@@ -205,6 +207,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     private function verifyYaml(string $yaml): bool
     {
         $yamlParser = new Parser();
+
         try {
             $yamlParser->parse($yaml);
         } catch (ParseException $e) {

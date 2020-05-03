@@ -77,6 +77,7 @@ class RelatedExtension extends AbstractExtension
                     }
                     $result[$relation->getName()][] = $relatedContent;
                 }
+
                 return $result;
             }, []);
     }

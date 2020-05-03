@@ -67,16 +67,19 @@ class ContentTypesParser extends BaseParser
         // neither 'singular_name' nor 'singular_slug' is set.
         if (! isset($contentType['name']) && ! isset($contentType['slug'])) {
             $error = sprintf("In content type <code>%s</code>, neither 'name' nor 'slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+
             throw new ConfigurationException($error);
         }
         if (! isset($contentType['singular_name']) && ! isset($contentType['singular_slug'])) {
             $error = sprintf("In content type <code>%s</code>, neither 'singular_name' nor 'singular_slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+
             throw new ConfigurationException($error);
         }
 
         // Content types without fields make no sense.
         if (! isset($contentType['fields'])) {
             $error = sprintf("In content type <code>%s</code>, no 'fields' are set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+
             throw new ConfigurationException($error);
         }
 
@@ -155,6 +158,7 @@ class ContentTypesParser extends BaseParser
             $forbidden = array_diff((array) $contentType['locales'], $this->localeCodes);
             if (! empty($this->localeCodes) && ! empty($forbidden)) {
                 $error = sprintf('The <code>%s</code> locale was requested, but permitted locales are <code>%s</code>. Please check your services.yaml app_locales setting.', implode(', ', $forbidden), implode(', ', $this->localeCodes));
+
                 throw new ConfigurationException($error);
             }
 

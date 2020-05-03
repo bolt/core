@@ -135,6 +135,7 @@ class AddUserCommand extends Command
                 if ($errors->count() > 0) {
                     throw new InvalidArgumentException($errors->get(0)->getMessage());
                 }
+
                 return $username;
             });
             $input->setArgument('username', $username);
@@ -152,6 +153,7 @@ class AddUserCommand extends Command
                 if ($errors->count() > 0) {
                     throw new InvalidArgumentException($errors->get(0)->getMessage());
                 }
+
                 return $password;
             });
 
@@ -169,6 +171,7 @@ class AddUserCommand extends Command
                 if ($errors->count() > 0) {
                     throw new InvalidArgumentException($errors->get(0)->getMessage());
                 }
+
                 return $email;
             });
             $input->setArgument('email', $email);
@@ -184,6 +187,7 @@ class AddUserCommand extends Command
                 if ($errors->count() > 0) {
                     throw new InvalidArgumentException($errors->get(0)->getMessage());
                 }
+
                 return $displayName;
             });
             $input->setArgument('display-name', $displayName);
@@ -219,6 +223,7 @@ class AddUserCommand extends Command
             foreach ($errors as $error) {
                 $errorMessages[] = $error->getMessage();
             }
+
             throw new RuntimeException(implode(', ', $errorMessages));
         }
 

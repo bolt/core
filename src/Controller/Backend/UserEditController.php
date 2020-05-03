@@ -115,6 +115,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         $url = $this->urlGenerator->generate('bolt_users');
         $this->addFlash('success', 'user.updated_profile');
+
         return new RedirectResponse($url);
     }
 

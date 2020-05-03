@@ -32,6 +32,7 @@ trait CacheTrait
             $this->key,
             function (ItemInterface $item) use ($params) {
                 $item->expiresAfter($this->getCacheDuration());
+
                 return $this->run($params);
             }
         );

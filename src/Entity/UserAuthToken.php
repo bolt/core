@@ -18,19 +18,13 @@ class UserAuthToken
      */
     private $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Bolt\Entity\User", inversedBy="userAuthToken", cascade={"persist"})
-     */
+    /** @ORM\OneToOne(targetEntity="Bolt\Entity\User", inversedBy="userAuthToken", cascade={"persist"}) */
     private $user;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    /** @ORM\Column(type="string", length=255) */
     private $useragent;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    /** @ORM\Column(type="datetime") */
     private $validity;
 
     public function getId(): ?int

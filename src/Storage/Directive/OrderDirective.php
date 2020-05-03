@@ -38,7 +38,7 @@ class OrderDirective
                 if (! $this->isActualField($query, $order)) {
                     dump("A query with ordering on a Field (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
                 }
-                $fieldsAlias = 'fields_order_' .  $query->getIndex();
+                $fieldsAlias = 'fields_order_' . $query->getIndex();
                 $fieldAlias = 'order_' . $query->getIndex();
                 $translationsAlias = 'translations_order_' . $query->getIndex();
 
@@ -49,7 +49,7 @@ class OrderDirective
                     ->leftJoin('content.fields', $fieldsAlias)
                     ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
                     ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
-                    ->addOrderBy('lower('.$translationsAlias . '.value)', $direction)
+                    ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction)
                     ->setParameter($fieldAlias, $order);
 
                 $query->incrementIndex();

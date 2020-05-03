@@ -222,17 +222,18 @@ class HtmlInjector
 
     private static function findTagStart(string $rawHtml, string $htmlTag): ?string
     {
-        preg_match('~(<'.$htmlTag.'[^>]*?>)~mi', $rawHtml, $matches);
+        preg_match('~(<' . $htmlTag . '[^>]*?>)~mi', $rawHtml, $matches);
 
         if (empty($matches)) {
             return null;
         }
+
         return $matches[1];
     }
 
     private static function findTagEnd(string $rawHtml, string $htmlTag): ?string
     {
-        preg_match_all('~((<'.$htmlTag.'(\s[^>]*)?>)|(</'.$htmlTag.'>))~mi', $rawHtml, $allMatches);
+        preg_match_all('~((<' . $htmlTag . '(\s[^>]*)?>)|(</' . $htmlTag . '>))~mi', $rawHtml, $allMatches);
 
         if (empty($allMatches)) {
             return null;
@@ -253,7 +254,7 @@ class HtmlInjector
             return static::nowhere($injection, $rawHtml);
         }
 
-        return Str::replaceFirst($rawHtml, $match, $injection.$match, true);
+        return Str::replaceFirst($rawHtml, $match, $injection . $match, true);
     }
 
     public static function injectAfterTagStart(string $rawHtml, string $htmlTag, string $injection): string
@@ -263,7 +264,7 @@ class HtmlInjector
             return static::nowhere($injection, $rawHtml);
         }
 
-        return Str::replaceFirst($rawHtml, $match, $match.$injection, true);
+        return Str::replaceFirst($rawHtml, $match, $match . $injection, true);
     }
 
     public static function injectBeforeTagEnd(string $rawHtml, string $htmlTag, string $injection): string
@@ -273,7 +274,7 @@ class HtmlInjector
             return static::nowhere($injection, $rawHtml);
         }
 
-        return Str::replaceLast($rawHtml, $match, $injection.$match, true);
+        return Str::replaceLast($rawHtml, $match, $injection . $match, true);
     }
 
     public static function injectAfterTagEnd(string $rawHtml, string $htmlTag, string $injection): string
@@ -283,6 +284,6 @@ class HtmlInjector
             return static::nowhere($injection, $rawHtml);
         }
 
-        return Str::replaceLast($rawHtml, $match, $match.$injection, true);
+        return Str::replaceLast($rawHtml, $match, $match . $injection, true);
     }
 }
