@@ -102,7 +102,7 @@ class ContentExtension extends AbstractExtension
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
-            new TwigFilter('title_fields', [$this, 'guessTitleFields']),
+            new TwigFilter('title_fields', [$this, 'TitleFields']),
             new TwigFilter('image', [$this, 'getImage']),
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
@@ -166,9 +166,20 @@ class ContentExtension extends AbstractExtension
 
     public function getTitle(Content $content, string $locale = '', int $length = 120): string
     {
+        if (ComposeValueHelper::isSuitable($content)) {
+            $title = ComposeValueHelper::get($content, $content->getDefinition()->get('title_format'));
+        } else {
+            $title = $this->getFieldBasedTitle($content);
+        }
+
+        return Html::trimText($title, $length);
+    }
+
+    private function getFieldBasedTitle(Content $content): string
+    {
         $titleParts = [];
 
-        foreach ($this->guessTitleFields($content) as $fieldName) {
+        foreach (ComposeValueHelper::guessTitleFields($content) as $fieldName) {
             $field = $content->getField($fieldName);
 
             if (! empty($locale)) {
@@ -184,53 +195,16 @@ class ContentExtension extends AbstractExtension
             $titleParts[] = $value;
         }
 
-        return Html::trimText(implode(' ', $titleParts), $length);
+        return implode(' ', $titleParts);
     }
 
-    public function guessTitleFields(Content $content): array
+    public function getTitleFields(Content $content): array
     {
-        $definition = $content->getDefinition();
-
-        // First, see if we have a "title format" in the Content Type.
-        if ($definition !== null && $definition->has('title_format')) {
-            $names = $definition->get('title_format');
-
-            $namesCollection = Collection::wrap($names)->filter(function (string $name) use ($content): bool {
-                if ($content->hasFieldDefined($name) === false) {
-                    throw new \RuntimeException(sprintf(
-                        "Content '%s' has field '%s' added to title_format config option, but the field is not present in Content's definition.",
-                        $content->getContentTypeName(),
-                        $name
-                    ));
-                }
-
-                return $content->hasField($name);
-            });
-
-            if ($namesCollection->isNotEmpty()) {
-                return $namesCollection->values()->toArray();
-            }
+        if (ComposeValueHelper::isSuitable($content)) {
+            return ComposeValueHelper::getFieldNames($content->getDefinition()->get('title_format'));
         }
 
-        // Alternatively, see if we have a field named 'title' or somesuch.
-        $names = ['title', 'name', 'caption', 'subject']; // English
-        $names = array_merge($names, ['titel', 'naam', 'kop', 'onderwerp']); // Dutch
-        $names = array_merge($names, ['nom', 'sujet']); // French
-        $names = array_merge($names, ['nombre', 'sujeto']); // Spanish
-
-        foreach ($names as $name) {
-            if ($content->hasField($name)) {
-                return (array) $name;
-            }
-        }
-
-        foreach ($content->getFields() as $field) {
-            if ($field instanceof Excerptable) {
-                return (array) $field->getName();
-            }
-        }
-
-        return [];
+        return ComposeValueHelper::guessTitleFields($content);
     }
 
     /**
@@ -279,7 +253,7 @@ class ContentExtension extends AbstractExtension
             }
         }
 
-        $skipFields = $this->guessTitleFields($content);
+        $skipFields = ComposeValueHelper::guessTitleFields($content);
 
         foreach ($content->getFields() as $field) {
             if ($field instanceof Excerptable && in_array($field->getName(), $skipFields, true) === false) {
