@@ -57,7 +57,7 @@ abstract class BaseWidget implements WidgetInterface
     public function getName(): string
     {
         if ($this->name === null) {
-            throw new WidgetException('Widget of class '.self::class.' does not have a name!');
+            throw new WidgetException('Widget of class ' . self::class . ' does not have a name!');
         }
         return $this->name;
     }

@@ -50,7 +50,7 @@ class MediaFactory
 
     public function createOrUpdateMedia(SplFileInfo $file, string $fileLocation, ?string $title = null): Media
     {
-        $path = Path::makeRelative($file->getPath(). '/', $this->fileLocations->get($fileLocation)->getBasepath());
+        $path = Path::makeRelative($file->getPath() . '/', $this->fileLocations->get($fileLocation)->getBasepath());
 
         $media = $this->mediaRepository->findOneBy([
             'location' => $fileLocation,

@@ -432,7 +432,7 @@ class ContentExtension extends AbstractExtension
                 $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
         } catch (InvalidParameterException $e) {
-            $this->logger->notice('Could not create URL for route \'' . $route .'\'. Perhaps the ContentType was changed or removed. Try clearing the cache');
+            $this->logger->notice('Could not create URL for route \'' . $route . '\'. Perhaps the ContentType was changed or removed. Try clearing the cache');
             $link = '';
         }
 

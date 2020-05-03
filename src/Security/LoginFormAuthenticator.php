@@ -117,7 +117,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $uaParser = Parser::create();
         $parsedUserAgent = $uaParser->parse($request->headers->get('User-Agent'))->toString();
         $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
-        $expirationTime = (new \DateTime())->modify('+'.$sessionLifetime.' second');
+        $expirationTime = (new \DateTime())->modify('+' . $sessionLifetime . ' second');
         $userAuthToken = UserAuthTokenRepository::factory($user, $parsedUserAgent, $expirationTime);
         $user->setUserAuthToken($userAuthToken);
 
@@ -131,7 +131,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->logger->notice('User \'{username}\' logged in (manually)', $userArr);
 
         return new RedirectResponse($request->getSession()->get(
-            '_security.'.$providerKey.'.target_path',
+            '_security.' . $providerKey . '.target_path',
             $this->router->generate('bolt_dashboard')
         ));
     }

@@ -22,6 +22,8 @@ services:
 
     # Spaces
     Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+        spacing: one
 
     # Comments
     Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer: ~
@@ -91,7 +93,6 @@ parameters:
         PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer: ~
         PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~
         PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: ~
-        PhpCsFixer\Fixer\Operator\ConcatSpaceFixer: ~
         PhpCsFixer\Fixer\Operator\IncrementStyleFixer: ~
         PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
         PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer: ~

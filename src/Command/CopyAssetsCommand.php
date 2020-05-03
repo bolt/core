@@ -52,13 +52,13 @@ class CopyAssetsCommand extends Command
         if (file_exists(dirname(dirname(dirname(__DIR__))) . '/assets')) {
             $baseDir = dirname(dirname(dirname(__DIR__))) . '/assets';
             $dirs = [
-                $baseDir . '/assets' => $publicDir .'/assets/',
+                $baseDir . '/assets' => $publicDir . '/assets/',
                 // $baseDir . '/translations' => $projectDir . '/translations/',
             ];
         } else {
             $baseDir = dirname(dirname(__DIR__));
             $dirs = [
-                $baseDir . '/public/assets' => $publicDir .'/assets/',
+                $baseDir . '/public/assets' => $publicDir . '/assets/',
                 // $baseDir . '/translations' => $projectDir . '/translations/',
             ];
         }
