@@ -16,7 +16,7 @@ class ComposeValueHelper
 
         if ($definition !== null && $definition->has($which)) {
             $format = $definition->get($which);
-            if (is_string($format) && strpos($format, '{') !== false) {
+            if (is_string($format) && mb_strpos($format, '{') !== false) {
                 return true;
             }
         }
@@ -67,12 +67,10 @@ class ComposeValueHelper
 
     public static function getFieldNames(string $format): array
     {
-        $res = preg_match_all('/{([\w]+)}/i', $format, $matches);
+        preg_match_all('/{([\w]+)}/i', $format, $matches);
 
-        dump($matches[1]);
         return $matches[1];
     }
-
 
     public static function guessTitleFields(Content $content): array
     {
@@ -80,9 +78,8 @@ class ComposeValueHelper
 
         // First, see if we have a "title format" in the Content Type.
         if ($definition !== null && $definition->has('title_format')) {
-
-            if (ComposeValueHelper::isSuitable($content)) {
-                $names = ComposeValueHelper::getFieldNames($definition->get('title_format'));
+            if (self::isSuitable($content)) {
+                $names = self::getFieldNames($definition->get('title_format'));
             } else {
                 $names = $definition->get('title_format');
             }
@@ -95,6 +92,7 @@ class ComposeValueHelper
                         $name
                     ));
                 }
+
                 return $content->hasField($name);
             });
 

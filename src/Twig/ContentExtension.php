@@ -102,7 +102,7 @@ class ContentExtension extends AbstractExtension
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
-            new TwigFilter('title_fields', [$this, 'TitleFields']),
+            new TwigFilter('title_fields', [$this, 'getTitleFields']),
             new TwigFilter('image', [$this, 'getImage']),
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
@@ -245,13 +245,13 @@ class ContentExtension extends AbstractExtension
         if (ComposeValueHelper::isSuitable($content, 'excerpt_format')) {
             $excerpt = ComposeValueHelper::get($content, $content->getDefinition()->get('excerpt_format'));
         } else {
-            $excerpt = $this->getFieldBasedExcerpt($content, $includeTitle);
+            $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
 
         return Excerpt::getExcerpt(rtrim($excerpt, '. '), $length, $focus);
     }
 
-    private function getFieldBasedExcerpt(Content $content, bool $includeTitle = false): string
+    private function getFieldBasedExcerpt(Content $content, int $length, bool $includeTitle = false): string
     {
         $excerptParts = [];
 
@@ -259,7 +259,6 @@ class ContentExtension extends AbstractExtension
             $title = $this->getTitle($content);
             if ($title !== '') {
                 $title = Html::trimText($title, $length);
-                $length -= mb_strlen($title);
                 $excerptParts[] = $title;
             }
         }
@@ -278,7 +277,7 @@ class ContentExtension extends AbstractExtension
         $specialChars = ['.', ',', '!', '?'];
         $excerpt = array_reduce($excerptParts, function (string $excerpt, string $part) use ($specialChars): string {
             if (in_array(mb_substr($part, -1), $specialChars, true) === false) {
-                // add comma add end of string if it doesn't have sentence end
+                // add period at end of string if it doesn't have sentence end
                 $part .= '.';
             }
 
