@@ -242,6 +242,17 @@ class ContentExtension extends AbstractExtension
             return Excerpt::getExcerpt((string) $content, $length);
         }
 
+        if (ComposeValueHelper::isSuitable($content, 'excerpt_format')) {
+            $excerpt = ComposeValueHelper::get($content, $content->getDefinition()->get('excerpt_format'));
+        } else {
+            $excerpt = $this->getFieldBasedExcerpt($content, $includeTitle);
+        }
+
+        return Excerpt::getExcerpt(rtrim($excerpt, '. '), $length, $focus);
+    }
+
+    private function getFieldBasedExcerpt(Content $content, bool $includeTitle = false): string
+    {
         $excerptParts = [];
 
         if ($includeTitle) {
@@ -274,7 +285,7 @@ class ContentExtension extends AbstractExtension
             return $excerpt . $part . ' ';
         }, '');
 
-        return Excerpt::getExcerpt(rtrim($excerpt, '. '), $length, $focus);
+        return rtrim($excerpt, '. ');
     }
 
     public function getPreviousContent(Content $content, string $byColumn = 'id', bool $sameContentType = true): ?Content

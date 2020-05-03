@@ -10,12 +10,12 @@ use Tightenco\Collect\Support\Collection;
 
 class ComposeValueHelper
 {
-    public static function isSuitable(Content $record): bool
+    public static function isSuitable(Content $record, string $which = 'title_format'): bool
     {
         $definition = $record->getDefinition();
 
-        if ($definition !== null && $definition->has('title_format')) {
-            $format = $definition->get('title_format');
+        if ($definition !== null && $definition->has($which)) {
+            $format = $definition->get($which);
             if (is_string($format) && strpos($format, '{') !== false) {
                 return true;
             }
