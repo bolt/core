@@ -90,11 +90,9 @@ services:
 parameters:
     cache_directory: var/cache/ecs
     skip:
-        PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer: ~
         PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~
         PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: ~
         PhpCsFixer\Fixer\Operator\IncrementStyleFixer: ~
-        PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
         PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer: ~
         PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer: ~
         PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer: ~
