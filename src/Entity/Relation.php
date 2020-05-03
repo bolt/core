@@ -57,14 +57,10 @@ class Relation
      */
     private $toContent;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    /** @ORM\Column(type="integer") */
     private $position = 0;
 
-    /**
-     * @ORM\Column(name="`group`", type="string", length=191)
-     */
+    /** @ORM\Column(name="`group`", type="string", length=191) */
     private $group;
 
     /**

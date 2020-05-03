@@ -79,6 +79,8 @@ services:
     PhpCsFixer\Fixer\FunctionNotation\PhpdocToReturnTypeFixer: ~
     PhpCsFixer\Fixer\Import\FullyQualifiedStrictTypesFixer: ~
     PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer:
+        property: single
 
     #please yoda no
     SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff: ~
@@ -98,3 +100,7 @@ parameters:
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff: ~
         Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: ~ #to be removed before beta release
         Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~ #to be removed before beta release
+
+        # Deprecated. Todo: Find replacement
+        Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer: ~
+        Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer: ~

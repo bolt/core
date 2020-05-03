@@ -19,54 +19,34 @@ class Media
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     */
+    /** @ORM\Column(type="string", length=191) */
     private $location;
 
-    /**
-     * @ORM\Column(type="text", length=1000)
-     */
+    /** @ORM\Column(type="text", length=1000) */
     private $path;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     */
+    /** @ORM\Column(type="string", length=191) */
     private $filename;
 
-    /**
-     * @ORM\Column(type="string", length=191)
-     */
+    /** @ORM\Column(type="string", length=191) */
     private $type;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    /** @ORM\Column(type="integer", nullable=true) */
     private $width;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    /** @ORM\Column(type="integer", nullable=true) */
     private $height;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    /** @ORM\Column(type="integer", nullable=true) */
     private $filesize;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    /** @ORM\Column(type="integer", nullable=true) */
     private $cropX;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    /** @ORM\Column(type="integer", nullable=true) */
     private $cropY;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
+    /** @ORM\Column(type="float", nullable=true) */
     private $cropZoom;
 
     /**
@@ -77,34 +57,22 @@ class Media
      */
     private $author;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    /** @ORM\Column(type="datetime") */
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    /** @ORM\Column(type="datetime") */
     private $modifiedAt;
 
-    /**
-     * @ORM\Column(type="string", length=191, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=191, nullable=true) */
     private $title;
 
-    /**
-     * @ORM\Column(type="string", length=1000, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=1000, nullable=true) */
     private $description;
 
-    /**
-     * @ORM\Column(type="string", length=1000, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=1000, nullable=true) */
     private $originalFilename;
 
-    /**
-     * @ORM\Column(type="string", length=191, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=191, nullable=true) */
     private $copyright;
 
     public function __construct()

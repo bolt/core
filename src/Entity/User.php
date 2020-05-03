@@ -86,9 +86,7 @@ class User implements UserInterface, \Serializable
      */
     private $lastseenAt;
 
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=100, nullable=true) */
     private $lastIp;
 
     /**
@@ -97,19 +95,13 @@ class User implements UserInterface, \Serializable
      */
     private $locale;
 
-    /**
-     * @ORM\Column(type="string", length=191, nullable=true)
-     */
+    /** @ORM\Column(type="string", length=191, nullable=true) */
     private $backendTheme;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default" : false}, nullable=false)
-     */
+    /** @ORM\Column(type="boolean", options={"default" : false}, nullable=false) */
     private $disabled = false;
 
-    /**
-     * @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"})
-     */
+    /** @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"}) */
     private $userAuthToken;
 
     public function __construct()

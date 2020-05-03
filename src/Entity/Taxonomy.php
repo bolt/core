@@ -23,9 +23,7 @@ class Taxonomy
      */
     private $id;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies")
-     */
+    /** @ORM\ManyToMany(targetEntity="Bolt\Entity\Content", inversedBy="taxonomies") */
     private $content;
 
     /**
@@ -52,9 +50,7 @@ class Taxonomy
      */
     private $sortorder = 0;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $link;
 
     public function __construct()

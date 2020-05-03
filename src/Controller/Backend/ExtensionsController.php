@@ -21,9 +21,7 @@ class ExtensionsController extends AbstractController implements BackendZoneInte
     /** @var ExtensionRegistry */
     private $extensionRegistry;
 
-    /**
-     * @var Dependencies
-     */
+    /** @var Dependencies */
     private $dependenciesManager;
 
     public function __construct(ExtensionRegistry $extensionRegistry)

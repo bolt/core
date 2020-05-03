@@ -51,7 +51,9 @@ class ExtensionRegistry
         return array_unique($this->extensionClasses);
     }
 
-    /** @return ExtensionInterface[] */
+    /**
+     * @return ExtensionInterface[]
+     */
     public function getExtensions(): array
     {
         return $this->extensions;

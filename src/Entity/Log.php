@@ -20,49 +20,31 @@ class Log
      */
     private $id;
 
-    /**
-     * @ORM\Column(name="message", type="text")
-     */
+    /** @ORM\Column(name="message", type="text") */
     private $message;
 
-    /**
-     * @ORM\Column(name="context", type="array", nullable=true)
-     */
+    /** @ORM\Column(name="context", type="array", nullable=true) */
     private $context;
 
-    /**
-     * @ORM\Column(name="level", type="smallint")
-     */
+    /** @ORM\Column(name="level", type="smallint") */
     private $level;
 
-    /**
-     * @ORM\Column(name="level_name", type="string", length=50)
-     */
+    /** @ORM\Column(name="level_name", type="string", length=50) */
     private $levelName;
 
-    /**
-     * @ORM\Column(name="created_at", type="datetime")
-     */
+    /** @ORM\Column(name="created_at", type="datetime") */
     private $createdAt;
 
-    /**
-     * @ORM\Column(name="extra", type="array", nullable=true)
-     */
+    /** @ORM\Column(name="extra", type="array", nullable=true) */
     private $extra;
 
-    /**
-     * @ORM\Column(name="user", type="array", nullable=true)
-     */
+    /** @ORM\Column(name="user", type="array", nullable=true) */
     private $user;
 
-    /**
-     * @ORM\Column(type="content", type="integer", nullable=true)
-     */
+    /** @ORM\Column(type="content", type="integer", nullable=true) */
     private $content;
 
-    /**
-     * @ORM\Column(name="location", type="array", nullable=true)
-     */
+    /** @ORM\Column(name="location", type="array", nullable=true) */
     private $location;
 
     /**
