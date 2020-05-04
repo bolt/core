@@ -178,7 +178,7 @@ class ContentTypesParser extends BaseParser
 
         // Make sure title_format is set
         if (isset($contentType['title_format'])) {
-            $contentType['title_format'] = (array) $contentType['title_format'];
+            $contentType['title_format'] = $contentType['title_format'];
         } elseif (isset($contentType['fields']['slug']['uses'])) {
             $contentType['title_format'] = (array) $contentType['fields']['slug']['uses'];
         } else {

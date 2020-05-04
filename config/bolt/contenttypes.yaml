@@ -58,7 +58,8 @@ homepage:
 pages:
     name: Pages
     singular_name: Page
-    title_format: [ heading, subheading ]
+    title_format: '{heading} - {subheading}'
+    excerpt_format: '📦 {teaser}'
     fields:
         heading:
             type: text
