@@ -116,7 +116,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     private function setDefinitionFromContentDefinition(): void
     {
-        if ($this->getContent()) {
+        if ($this->getContent() && $this->getContent()->getDefinition()) {
             $contentTypeDefinition = $this->getContent()->getDefinition();
             $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
         } else {

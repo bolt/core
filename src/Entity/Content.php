@@ -179,6 +179,7 @@ class Content
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
 
         if ($this->getId()) {
+            // Content is not new, so return.
             return;
         }
 
@@ -186,7 +187,12 @@ class Content
         $this->setStatus($this->contentTypeDefinition->get('default_status'));
         $this->contentTypeDefinition->get('fields')->each(function (LaravelCollection $item, string $name): void {
             if ($item->get('default')) {
-                $this->setFieldValue($name, $item->get('default'));
+                $field = FieldRepository::factory($item, $name);
+                $field->setValue($field->getDefaultValue());
+
+                if (!$this->hasField($field->getName())) {
+                    $this->addField($field);
+                }
             }
         });
     }

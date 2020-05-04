@@ -6,6 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Field;
+use Bolt\Entity\FieldParentInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -46,6 +47,17 @@ class FieldRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findAllByParent(FieldParentInterface $field): ?array
+    {
+        $qb = $this->getQueryBuilder();
+
+        return $qb
+            ->andWhere('field.parent = :parentId')
+            ->setParameter('parentId', $field->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
     public static function factory(Collection $definition, string $name = '', string $label = ''): Field
     {
         $type = $definition['type'];
@@ -61,7 +73,8 @@ class FieldRepository extends ServiceEntityRepository
             $field->setName($name);
         }
 
-        $field->setDefinition($type, $definition);
+        $nameOrType = empty($name) ? $type : $name;
+        $field->setDefinition($nameOrType, $definition);
 
         if ($label !== '') {
             $field->setLabel($label);

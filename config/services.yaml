@@ -56,6 +56,10 @@ services:
             - { name: doctrine.event_listener, event: postLoad }
             - { name: doctrine.event_listener, event: prePersist }
 
+    Bolt\Event\Listener\FieldFillListener:
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+
     Bolt\Event\Listener\FieldDiscriminatorListener:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }

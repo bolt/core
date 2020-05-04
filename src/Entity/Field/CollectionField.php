@@ -39,33 +39,6 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         return $result;
     }
 
-    public function getValue(): array
-    {
-        if (! $this->getContent()) {
-            return [];
-        }
-
-        $query = $this->getContent()->getRawFields()->filter(function (Field $field) {
-            return $field->getParent() === $this;
-        });
-
-        /** @var ArrayIterator $iterator */
-        $iterator = $query->getIterator();
-
-        $iterator->uasort(function (Field $first, Field $second) {
-            return (int) $first->getSortorder() > (int) $second->getSortorder() ? 1 : -1;
-        });
-
-        $fields = new ArrayCollection(iterator_to_array($iterator));
-
-        $fields->map(function (Field $field): void {
-            $definition = $this->getDefinition()->get('fields')[$field->getName()] ?? new Collection();
-            $field->setDefinition($field->getName(), $definition);
-        });
-
-        return $fields->toArray();
-    }
-
     public function getApiValue()
     {
         $fields = $this->getValue();
@@ -82,6 +55,25 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         return $result;
     }
 
+    public function setValue($fields): Field
+    {
+        if (! is_iterable($fields)) {
+            return $this;
+        }
+
+        $order = 1;
+        /** @var Field $field */
+        foreach($fields as $field) {
+            $field->setParent($this);
+            $field->setSortorder($order);
+            ++$order;
+        }
+
+        parent::setValue($fields);
+
+        return $this;
+    }
+
     public function getDefaultValue()
     {
         $default = parent::getDefaultValue();
@@ -93,7 +85,7 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         $result = [];
 
         /** @var ContentType $type */
-        foreach ($default as $type => $type) {
+        foreach ($default as $i => $type) {
             $value = $type->toArray()['default'];
             $name = $type->toArray()['field'];
             $definition = $this->getDefinition()->get('fields')[$name];
