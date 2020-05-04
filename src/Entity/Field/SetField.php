@@ -22,28 +22,43 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
 
     public function getValue(): array
     {
-        $result = [];
+        $value = parent::getValue();
 
-        $fieldDefinitions = $this->getDefinition()->get('fields');
+        if (empty($value)) {
+            // create new ones from the definition
+            $fieldDefinitions = $this->getDefinition()->get('fields');
 
-        // If there's no current $fieldDefinitions, we can return early
-        if (! is_iterable($fieldDefinitions)) {
-            return $result;
-        }
-
-        foreach ($fieldDefinitions as $name => $definition) {
-            if ($this->getContent() && $this->hasChild($name)) {
-                $field = $this->getChild($name);
-                $field->setDefinition($name, $definition);
-            } else {
-                $field = FieldRepository::factory($definition);
+            if (! is_iterable($fieldDefinitions)) {
+                return $value;
             }
 
-            $field->setName($name);
-            $result[$name] = $field;
+            foreach ($fieldDefinitions as $name => $definition) {
+                $field = FieldRepository::factory($definition);
+                $field->setName($name);
+                $value[$name] = $field;
+            }
         }
 
-        return $result;
+        return $value;
+    }
+
+    public function setValue($fields): Field
+    {
+        if (! is_iterable($fields)) {
+            return $this;
+        }
+
+        $value = [];
+
+        /** @var Field $field */
+        foreach ($fields as $field) {
+            $field->setParent($this);
+            $value[$field->getName()] = $field;
+        }
+
+        parent::setValue($value);
+
+        return $this;
     }
 
     public function getApiValue()
