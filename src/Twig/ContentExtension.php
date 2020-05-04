@@ -141,9 +141,9 @@ class ContentExtension extends AbstractExtension
         ];
     }
 
-    public function getAnyTitle(Content $content): string
+    public function getAnyTitle(Content $content, int $length = 120): string
     {
-        $title = $this->getTitle($content);
+        $title = $this->getTitle($content, '', $length);
 
         if (! empty($title)) {
             return $title;
@@ -153,7 +153,7 @@ class ContentExtension extends AbstractExtension
             $locales = $content->getDefinition()->get('locales');
 
             foreach ($locales as $locale) {
-                $title = $this->getTitle($content, $locale);
+                $title = $this->getTitle($content, $locale, $length);
 
                 if (! empty($title)) {
                     return $title;
@@ -164,7 +164,7 @@ class ContentExtension extends AbstractExtension
         return '';
     }
 
-    public function getTitle(Content $content, string $locale = ''): string
+    public function getTitle(Content $content, string $locale = '', int $length = 120): string
     {
         $titleParts = [];
 
@@ -184,9 +184,7 @@ class ContentExtension extends AbstractExtension
             $titleParts[] = $value;
         }
 
-        $maxLength = 80; // Should we make this configurable, or is that overkill?
-
-        return Html::trimText(implode(' ', $titleParts), $maxLength);
+        return Html::trimText(implode(' ', $titleParts), $length);
     }
 
     public function guessTitleFields(Content $content): array
