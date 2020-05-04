@@ -66,7 +66,7 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         foreach($fields as $field) {
             $field->setParent($this);
             $field->setSortorder($order);
-            ++$order;
+            $order += 5;
         }
 
         parent::setValue($fields);

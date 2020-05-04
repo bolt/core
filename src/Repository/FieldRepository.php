@@ -54,6 +54,7 @@ class FieldRepository extends ServiceEntityRepository
         return $qb
             ->andWhere('field.parent = :parentId')
             ->setParameter('parentId', $field->getId())
+            ->orderBy('field.sortorder', 'ASC')
             ->getQuery()
             ->getResult();
     }
