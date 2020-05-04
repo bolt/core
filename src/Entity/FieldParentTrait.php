@@ -13,15 +13,15 @@ trait FieldParentTrait
 
     public function getChild(string $fieldName): Field
     {
-        return $this->getContent()->getRawFields()->filter(function (Field $field) use ($fieldName) {
-            return $field->getParent() === $this && $field->getName() === $fieldName;
+        return collect(parent::getValue())->filter(function (Field $field) use ($fieldName) {
+            return $field->getName() === $fieldName;
         })->first();
     }
 
     public function hasChild(string $fieldName): bool
     {
-        $query = $this->getContent()->getRawFields()->filter(function (Field $field) use ($fieldName) {
-            return $field->getParent() === $this && $field->getName() === $fieldName;
+        $query = collect(parent::getValue())->filter(function (Field $field) use ($fieldName) {
+            return $field->getName() === $fieldName;
         });
 
         return ! $query->isEmpty();
@@ -29,7 +29,7 @@ trait FieldParentTrait
 
     public function hasChildren(): bool
     {
-        $query = $this->getContent()->getRawFields()->filter(function (Field $field) {
+        $query = collect(parent::getValue())->filter(function (Field $field) {
             return $field->getParent() === $this;
         });
 
@@ -38,9 +38,7 @@ trait FieldParentTrait
 
     public function getChildren(): array
     {
-        return $this->getContent()->getRawFields()->filter(function (Field $field) {
-            return $field->getParent() === $this;
-        })->toArray();
+        return parent::getValue();
     }
 
     public function setLocale(?string $locale): Field
