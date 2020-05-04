@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Event\Listener;
 
 use Bolt\Entity\Field;
@@ -12,6 +14,9 @@ class FieldFillListener
 {
     /** @var FieldRepository */
     private $fields;
+
+    /** @var ContentFillListener */
+    private $cfl;
 
     public function __construct(FieldRepository $fields, ContentFillListener $cfl)
     {

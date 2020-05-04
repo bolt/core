@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
-use ArrayIterator;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
 use Bolt\Repository\FieldRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
@@ -63,7 +60,7 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 
         $order = 1;
         /** @var Field $field */
-        foreach($fields as $field) {
+        foreach ($fields as $field) {
             $field->setParent($this);
             $field->setSortorder($order);
             $order += 5;
@@ -84,8 +81,9 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 
         $result = [];
 
-        /** @var ContentType $type */
-        foreach ($default as $i => $type) {
+        foreach ($default as $i) {
+            /** @var ContentType $type */
+            $type = $default[$i];
             $value = $type->toArray()['default'];
             $name = $type->toArray()['field'];
             $definition = $this->getDefinition()->get('fields')[$name];

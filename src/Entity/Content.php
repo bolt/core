@@ -190,7 +190,7 @@ class Content
                 $field = FieldRepository::factory($item, $name);
                 $field->setValue($field->getDefaultValue());
 
-                if (!$this->hasField($field->getName())) {
+                if (! $this->hasField($field->getName())) {
                     $this->addField($field);
                 }
             }

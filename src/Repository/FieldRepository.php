@@ -47,8 +47,12 @@ class FieldRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findAllByParent(FieldParentInterface $field): ?array
+    public function findAllByParent(Field $field): ?array
     {
+        if (! $field instanceof FieldParentInterface) {
+            return [];
+        }
+
         $qb = $this->getQueryBuilder();
 
         return $qb
