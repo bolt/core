@@ -6,6 +6,8 @@ namespace Bolt\Event\Listener;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
+use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\UserRepository;
@@ -29,6 +31,21 @@ class ContentFillListener
         $this->config = $config;
         $this->contentExtension = $contentExtension;
         $this->users = $users;
+    }
+
+    public function preUpdate(LifecycleEventArgs $args): void
+    {
+        $entity = $args->getEntity();
+        // FieldParentInterface fields do not store anything in them.
+        // But the setValue and getValue methods are still useful in runtime.
+        // So, let's clear their value.
+        if ($entity instanceof Content) {
+            $entity->getFields()->filter(function (Field $field) {
+                return $field instanceof FieldParentInterface;
+            })->map(function (Field $field): void {
+                $field->setValue([]);
+            });
+        }
     }
 
     public function prePersist(LifecycleEventArgs $args): void
