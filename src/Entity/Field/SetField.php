@@ -59,7 +59,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
         }
 
         // Sorts the fields in the order specified in the definition
-        $value = array_merge($definedFields, $value);
+        $value = array_merge(array_intersect($definedFields, $value), $value);
 
         parent::setValue($value);
 
