@@ -48,6 +48,8 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
             return $this;
         }
 
+        $definedFields = array_flip($this->getDefinition()->get('fields')->keys()->toArray());
+
         $value = [];
 
         /** @var Field $field */
@@ -55,6 +57,9 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
             $field->setParent($this);
             $value[$field->getName()] = $field;
         }
+
+        // Sorts the fields in the order specified in the definition
+        $value = array_merge($definedFields, $value);
 
         parent::setValue($value);
 
