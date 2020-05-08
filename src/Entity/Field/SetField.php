@@ -35,7 +35,6 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
             foreach ($fieldDefinitions as $name => $definition) {
                 $newFields[] = FieldRepository::factory($definition, $name);
             }
-
             $this->setValue($newFields);
         }
 
