@@ -22,24 +22,23 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
 
     public function getValue(): array
     {
-        $value = parent::getValue();
-
-        if (empty($value)) {
+        if (empty(parent::getValue())) {
             // create new ones from the definition
             $fieldDefinitions = $this->getDefinition()->get('fields');
 
             if (! is_iterable($fieldDefinitions)) {
-                return $value;
+                return [];
             }
 
+            $newFields = [];
             foreach ($fieldDefinitions as $name => $definition) {
-                $field = FieldRepository::factory($definition);
-                $field->setName($name);
-                $value[$name] = $field;
+                $newFields[] = FieldRepository::factory($definition, $name);
             }
+            
+            $this->setValue($newFields);
         }
 
-        return $value;
+        return parent::getValue();
     }
 
     public function setValue($fields): Field
@@ -59,7 +58,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
         }
 
         // Sorts the fields in the order specified in the definition
-        $value = array_merge(array_intersect($definedFields, $value), $value);
+        $value = array_merge(array_flip(array_intersect(array_keys($definedFields), array_keys($value))), $value);
 
         parent::setValue($value);
 
