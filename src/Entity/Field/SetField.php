@@ -89,4 +89,18 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
 
         return $result;
     }
+
+    public function getDefaultValue()
+    {
+        $defaultValues = parent::getDefaultValue();
+        $value = $this->getValue();
+
+        foreach ($defaultValues as $name => $default) {
+            if (array_key_exists($name, $value)) {
+                $value[$name]->setValue($default);
+            }
+        }
+
+        return $value;
+    }
 }
