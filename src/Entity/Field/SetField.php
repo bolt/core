@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
 
+use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
@@ -34,7 +35,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
             foreach ($fieldDefinitions as $name => $definition) {
                 $newFields[] = FieldRepository::factory($definition, $name);
             }
-            
+
             $this->setValue($newFields);
         }
 
@@ -63,6 +64,20 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
         parent::setValue($value);
 
         return $this;
+    }
+
+    public function setContent(?Content $content): Field
+    {
+        /** @var Field $child */
+        foreach ($this->getValue() as $child) {
+            if ($content !== null) {
+                $content->addField($child);
+            } else {
+                $child->setContent($content);
+            }
+        }
+
+        return parent::setContent($content);
     }
 
     public function getApiValue()
