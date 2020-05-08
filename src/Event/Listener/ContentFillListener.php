@@ -41,7 +41,11 @@ class ContentFillListener
         // So, let's clear their value.
         if ($entity instanceof Content) {
             $entity->getFields()->filter(function (Field $field) {
-                return $field instanceof FieldParentInterface;
+                // @todo: Allow sets to be cleared as well.
+                // Now they cannot be cleared, because the value
+                // can be used in a collection after preUpdate on
+                // the set is called.
+                return $field instanceof Field\CollectionField;
             })->map(function (Field $field): void {
                 $field->setValue([]);
             });

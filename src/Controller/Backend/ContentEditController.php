@@ -334,7 +334,12 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
             /** @var Field $child */
             $content->removeField($child);
-            $this->em->remove($child);
+
+            // Only attempt removal if the entity is already persisted (managed)
+            // by the entity manager
+            if ($this->em->contains($child)) {
+                $this->em->remove($child);
+            }
         }
     }
 
