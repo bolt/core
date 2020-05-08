@@ -47,9 +47,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
             return $this;
         }
 
-        $definedFields = $this->getDefinition()
-            ? array_flip($this->getDefinition()->get('fields')->keys()->toArray())
-            : [];
+        $definedFields = array_flip($this->getDefinition()->get('fields', [])->keys()->toArray());
 
         $value = [];
 
