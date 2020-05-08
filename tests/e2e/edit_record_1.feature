@@ -318,8 +318,32 @@ Feature: Edit record
     And the "fields[title]" field should contain "Title of a test contenttype"
     And the "fields[image][filename]" field should contain "foal.jpg"
 
+    And the "sets[set_field][title]" field should contain "This is the default title value"
+    And the "sets[set_field][year]" field should contain "2020"
+
+    And the "collections[collection_field][photo][1][filename]" field should contain "kitten.jpg"
+    And the "collections[collection_field][photo][1][alt]" field should contain "Cute kitten"
+
+    And the "collections[collection_field][paragraph][2]" field should contain "An image, followed by some content"
+
+    And the "collections[collection_field][photo][3][filename]" field should contain "joey.jpg"
+    And the "collections[collection_field][photo][3][alt]" field should contain "Photo of a foal"
+
     When I scroll "Save changes" into view
     And I press "Save changes"
 
     Then the "fields[title]" field should contain "Title of a test contenttype"
     And the "fields[image][filename]" field should contain "foal.jpg"
+
+    And the "sets[set_field][title]" field should contain "This is the default title value"
+    And the "sets[set_field][year]" field should contain "2020"
+
+    And the "collections[collection_field][photo][1][filename]" field should contain "kitten.jpg"
+    And the "collections[collection_field][photo][1][alt]" field should contain "Cute kitten"
+
+    And the "collections[collection_field][paragraph][2]" field should contain "An image, followed by some content"
+
+    And the "collections[collection_field][photo][3][filename]" field should contain "joey.jpg"
+    And the "collections[collection_field][photo][3][alt]" field should contain "Photo of a foal"
+
+
