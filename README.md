@@ -76,6 +76,10 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-create`, on a UNIX-like system.
 
+Note: if you're using SQLite, ensure that `var/db/` is readable and writable to 
+you, as well as to the webserver users. The same applies to the file 
+`var/data/bolt.sqlite` if it already exists.
+
 3 Re-set the Database
 ---------------------
 
