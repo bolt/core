@@ -57,7 +57,7 @@
 
     <div class="card mb-3">
         <div class="card-header">
-            {{ 'title.contentlisting'|trans }} » {{ contentType.name }}
+            {{ macro.icon('star') }} {{ 'title.contentlisting'|trans }} » {{ contentType.name }}
         </div>
         <div class="card-body">
             <p>
@@ -113,20 +113,19 @@
                                placeholder="{{ 'listing.placeholder_filter'|trans }}"/>
                     </p>
                 </div>
-                <div class="form-group">
-                    {{ macro.button('listing.button_filter', 'filter', 'tertiary', {'type': 'submit'}) }}
+
+                    {{ macro.button('listing.button_filter', 'filter', 'tertiary mb-0', {'type': 'submit'}) }}
 
                     {% if sortBy is not empty or filterValue is not empty %}
-                        {{ macro.buttonlink('listing.button_clear', path('bolt_content_overview', {'contentType': contentType.slug}),  'times', 'tertiary') }}
+                        {{ macro.buttonlink('listing.button_clear', path('bolt_content_overview', {'contentType': contentType.slug}),  'times', 'tertiary mb-0') }}
                     {% endif %}
-                </div>
             </form>
         </div>
     </div>
 
     <div class="card">
         <div class="card-header">
-            {{ 'title.contentType'|trans }} {{ contentType.name }}
+            {{ macro.icon(contentType.icon_one) }}  {{ 'title.contentType'|trans }} {{ contentType.name }}
         </div>
         <div class="card-body">
 

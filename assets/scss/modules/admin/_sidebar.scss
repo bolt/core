@@ -23,8 +23,8 @@
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
 
-    @include media-breakpoint-up(lg) {
-      margin-top: $spacer*2.25;
+    @include media-breakpoint-up(wd) {
+      margin: $spacer*2.25 0 0 $spacer;
     }
   }
 
@@ -47,6 +47,7 @@
 
     @include media-breakpoint-up(wd) {
       font-size: 0.9375rem;
+      padding: $spacer/1.75 $spacer*1.5 $spacer/1.75 $spacer*2;
     }
 
     &:hover {

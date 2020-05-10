@@ -261,6 +261,8 @@ showcases:
                             type: text
                 textarea:
                     type: textarea
+                imagelist:
+                    type: imagelist
     relations:
         entries:
             multiple: false

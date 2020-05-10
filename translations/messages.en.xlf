@@ -1044,7 +1044,7 @@
     <unit id="ok6YulQ" name="action.view_saved">
       <segment>
         <source>action.view_saved</source>
-        <target>View (saved version) on site</target>
+        <target>View saved version</target>
       </segment>
     </unit>
     <unit id="SeTqePC" name="label.display_name">
@@ -1929,10 +1929,10 @@
         <target>Select Field to sort by…</target>
       </segment>
     </unit>
-    <unit id="SDVQEir" name="title.save_changes">
+    <unit id="SDVQEir" name="title.primary_actions">
       <segment>
-        <source>title.save_changes</source>
-        <target>Save Changes</target>
+        <source>title.primary_actions</source>
+        <target>Primary Actions</target>
       </segment>
     </unit>
     <unit id="7616Os4" name="title.options">
@@ -2283,19 +2283,19 @@
         <target>Published</target>
       </segment>
     </unit>
-    <unit id="utGAKaW" name="status.draft">
+    <unit id="HJbHjee" name="status.draft">
       <segment>
         <source>status.draft</source>
         <target>Draft</target>
       </segment>
     </unit>
-    <unit id="utGAKaE" name="status.timed">
+    <unit id="h7dP3WY" name="status.timed">
       <segment>
         <source>status.timed</source>
         <target>Timed</target>
       </segment>
     </unit>
-    <unit id="utGAKaR" name="status.held">
+    <unit id="oxqDDuK" name="status.held">
       <segment>
         <source>status.held</source>
         <target>Held</target>
