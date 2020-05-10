@@ -15,20 +15,30 @@
   .form-group {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
   }
 }
 
 .summary-fields {
   padding-left: 1rem;
+
+  li {
+    margin: 0.5rem 0;
+  }
 }
 
 .form-collection {
   border-left: 0.35rem solid #ddd;
   padding-left: 1rem;
+  padding-bottom: 1rem;
 }
 
 .form-set {
   border-left: 0.25rem solid #d8d8d8;
   padding-left: 1rem;
+  padding-bottom: 0.1rem;
+}
+
+.form-control {
+  border: 1px solid var(--light-border);
 }
