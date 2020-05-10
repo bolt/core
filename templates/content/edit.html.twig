@@ -70,7 +70,7 @@
 
             <div class="card mb-3">
                 <div class="card-header">
-                    {{ 'title.save_changes'|trans }}
+                    {{ macro.icon('star') }} {{ 'title.primary_actions'|trans }}
                 </div>
                 <div class="card-body">
                   {% include '@bolt/content/_buttons.html.twig' with {'status': true}  %}
@@ -81,7 +81,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    {{ 'title.options'|trans }}
+                    {{ macro.icon('sliders-h') }} {{ 'title.options'|trans }}
                 </div>
                 <div class="card-body">
                     {% include '@bolt/content/_fields_aside.html.twig' %}

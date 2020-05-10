@@ -6,6 +6,8 @@
   position: relative;
   display: flex;
   width: 100%;
+  border: 1px solid var(--very-light-border);
+  margin-bottom: 4px;
 
   &.sortable-ghost {
     opacity: 0.1;
