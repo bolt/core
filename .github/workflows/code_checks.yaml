@@ -37,9 +37,8 @@ jobs:
       - name: Prepare environment
         run: |
           # build assets
-          npm run --silent build
+          npm run build
           # prepare web server for e2e tests
-          chmod 775 /var/data/bolt.sqlite
           ./bin/console doctrine:database:create
           ./bin/console doctrine:schema:create
           ./bin/console doctrine:fixtures:load --group=without-images -n
