@@ -48,8 +48,8 @@ jobs:
 
       - name: this checks that the source code follows the Bolt Code Syntax rules
         run: |
-          - ./vendor/bin/ecs check src
-          - ./vendor/bin/phpstan analyse -c phpstan.neon src
+          ./vendor/bin/ecs check src
+          ./vendor/bin/phpstan analyse -c phpstan.neon src
 
       - name: run EsLint on Javascript files
         run: npm run lint
