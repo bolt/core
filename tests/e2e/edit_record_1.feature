@@ -347,5 +347,3 @@ Feature: Edit record
 
     And the "collections[collection_field][photo][3][filename]" field should contain "joey.jpg"
     And the "collections[collection_field][photo][3][alt]" field should contain "Photo of a foal"
-
-
