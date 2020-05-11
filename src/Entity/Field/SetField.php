@@ -11,6 +11,7 @@ use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
@@ -47,7 +48,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
             return $this;
         }
 
-        $definedFields = array_flip($this->getDefinition()->get('fields', [])->keys()->toArray());
+        $definedFields = array_flip($this->getDefinition()->get('fields', new Collection())->keys()->toArray());
 
         $value = [];
 

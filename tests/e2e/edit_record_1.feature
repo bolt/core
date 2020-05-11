@@ -223,7 +223,8 @@ Feature: Edit record
     Then I should see "Set" in the "#multiselect-undefined li:nth-child(1) > span" element
     And I should see "Textarea" in the "#multiselect-undefined li:nth-child(2) > span" element
 
-    When I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
+    When I click "#multiselect-undefined > div > div.multiselect__select"
+    And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
     And I press "Add item"
 
     Then I should see an ".collection-item" element

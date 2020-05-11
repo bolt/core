@@ -151,11 +151,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     {
         $setChildren = $set->getDefinition()->get('fields');
 
+        $children = [];
         foreach ($setChildren as $setChild => $setChildType) {
             $child = $this->loadField($content, $setChild, $setChildType, $contentType, $preset, false);
-            $child->setParent($set);
-            $content->addField($child);
+            $children[] = $child;
         }
+
+        $set->setValue($children);
 
         return $set;
     }
