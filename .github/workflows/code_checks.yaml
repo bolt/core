@@ -2,7 +2,6 @@ name: Code checks & tests
 
 on:
   pull_request:
-  push:
 
 jobs:
   tests:
@@ -12,10 +11,14 @@ jobs:
     strategy:
       matrix:
         php: ['7.2', '7.3', '7.4']
+        node-version: ['12.5']
 
     steps:
       - uses: actions/checkout@v2
       - uses: nanasess/setup-chromedriver@master
+      - uses: actions/setup-node@v1
+        with:
+          - node-version: ${{ matrix.node-version }}
 
       - name: Initialise
         run: |
@@ -25,7 +28,6 @@ jobs:
         run: |
           COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
           ./bin/console bolt:info
-          nvm install 12.5
           npm ci
           mkdir -p ./var/log/e2e-reports/report/features/
           touch ./var/log/e2e-reports/report/features/.gitkeep
