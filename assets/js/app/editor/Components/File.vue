@@ -167,7 +167,6 @@ export default {
     placeholder: String | Boolean,
   },
   data() {
-    console.log(this.required);
     return {
       isDragging: false,
       dragCount: 0,
