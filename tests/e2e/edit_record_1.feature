@@ -217,7 +217,8 @@ Feature: Edit record
     And I should see "Collection:" in the "label[for='field-collection']" element
 
     #templates dropdown
-    When I click "#multiselect-undefined > div > div.multiselect__select"
+    When I scroll "#multiselect-undefined > div > div.multiselect__select" into view
+    And I click "#multiselect-undefined > div > div.multiselect__select"
 
     Then I should see "Set" in the "#multiselect-undefined li:nth-child(1) > span" element
     And I should see "Textarea" in the "#multiselect-undefined li:nth-child(2) > span" element
