@@ -6,7 +6,7 @@
       :name="name"
       :value="value"
       type="email"
-      :required="required == 1"
+      :required="required"
       :readonly="readonly"
       :data-errormessage="errormessage"
       :pattern="pattern"
@@ -29,7 +29,7 @@ export default {
       type: String,
     },
     required: {
-      type: Number,
+      type: Boolean,
     },
     readonly: {
       type: Boolean,

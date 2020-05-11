@@ -22,7 +22,7 @@
             :placeholder="labels.placeholder_filename"
             :value="filenameData"
             data-readonly="readonly"
-            :required="required == 1"
+            :required="required"
             :data-errormessage="errormessage"
           />
         </div>
@@ -32,7 +32,7 @@
             class="form-control"
             :name="name + '[title]'"
             type="text"
-            :required="required == 1"
+            :required="required"
             :readonly="readonly"
             :pattern="pattern"
             :placeholder="getPlaceholder"
@@ -160,13 +160,14 @@ export default {
     isFirstInFilelist: Boolean,
     isLastInFilelist: Boolean,
     attributesLink: String,
-    required: Number,
+    required: Boolean,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
     placeholder: String | Boolean,
   },
   data() {
+    console.log(this.required);
     return {
       isDragging: false,
       dragCount: 0,
