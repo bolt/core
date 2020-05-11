@@ -26,9 +26,9 @@ Feature: Test field output
     Given I am on "/test/title-of-the-test"
     Then I wait for ".title"
 
-    And I should see "stock/image_" in the "#attachment #filename" element
-    And I should see "/files/stock/image_" in the "#attachment #path" element
+    And I should see "joey.jpg" in the "#attachment #filename" element
+    And I should see "/files/joey.jpg" in the "#attachment #path" element
     And I should see "attachment" in the "#attachment #fieldname" element
     And I should see "http" in the "#attachment #url" element
     And I should see "://" in the "#attachment #url" element
-    And I should see "/files/stock/image_" in the "#attachment #url" element
+    And I should see "/files/joey.jpg" in the "#attachment #url" element

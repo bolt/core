@@ -338,6 +338,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'markdown_field' => 'Markdown field  with *simple* Markdown in it.',
             'text_not_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
             'text_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
+            'attachment' => [
+                'filename' => 'joey.jpg',
+                'title' => $this->faker->sentence(4, true),
+                'media' => '',
+            ],
         ];
         $records['pages'][] = [
             'heading' => 'This is a page',
