@@ -56,6 +56,6 @@ HELP
             $io->warning('Not all files in the Thumbnail cache could be cleared successfully. Remove them manually');
         }
 
-        return null;
+        return 0;
     }
 }
