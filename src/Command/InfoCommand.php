@@ -68,6 +68,6 @@ HELP
 
         $io->text('');
 
-        return null;
+        return 0;
     }
 }
