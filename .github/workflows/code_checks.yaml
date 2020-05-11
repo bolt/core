@@ -1,0 +1,74 @@
+name: Code checks & tests
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: ['7.2', '7.3', '7.4']
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: nanasess/setup-chromedriver@master
+
+      - name: Initialise
+        run: |
+          composer self-update -q
+
+      - name: Install dependencies
+        run: |
+          COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
+          ./bin/console bolt:info
+          nvm install 12.5
+          npm ci
+          mkdir -p ./var/log/e2e-reports/report/features/
+          touch ./var/log/e2e-reports/report/features/.gitkeep
+
+      - name: Prepare environment
+        run: |
+          # build assets
+          npm run build
+          # prepare web server for e2e tests
+          ./bin/console doctrine:database:create
+          ./bin/console doctrine:schema:create
+          ./bin/console doctrine:fixtures:load --group=without-images -n
+          ./bin/console server:start 127.0.0.1:8088
+          # test if web server works
+          sleep 3
+          wget "http://127.0.0.1:8088/bolt/login"
+
+      - name: Run checks and tests
+        run: |
+          # this checks that the source code follows the Bolt Code Syntax rules
+          - ./vendor/bin/ecs check src
+          - ./vendor/bin/phpstan analyse -c phpstan.neon src
+          # run EsLint on Javascript files
+          - npm run lint
+          # run StyleLint on SCSS
+          - npm run stylelint
+          # this checks that the YAML config files contain no syntax errors
+          - ./bin/console lint:yaml config
+          # this checks that the Twig template files contain no syntax errors
+          - ./bin/console lint:twig templates
+          # this checks that the XLIFF translations contain no syntax errors
+          - ./bin/console lint:xliff translations
+          # this checks that the application doesn't use dependencies with known security vulnerabilities
+          - ./bin/console security:check
+          # this checks that the composer.json and composer.lock files are valid
+          # - composer validate --strict # temporarily disabled bue to bug in api platform 2.4.0-beta.2
+          # this checks that Doctrine's mapping configurations are valid
+          - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+          # run PHP Unit
+          - ./vendor/bin/phpunit
+          # run API tests
+          - make behat-api-quiet
+          # run JS e2e tests
+          - ./run_behat_tests.sh && make behat-js-quiet
+          # Upload Behat logs
+          - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
