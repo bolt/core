@@ -76,7 +76,7 @@ jobs:
         run: ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
 
       - name: run PHP Unit
-        riun: ./vendor/bin/phpunit
+        run: ./vendor/bin/phpunit
 
       - name: run API tests
         run: make behat-api-quiet
