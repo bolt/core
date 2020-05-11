@@ -19,7 +19,7 @@ jobs:
 
       - name: Initialise
         run: |
-          composer self-update -q
+          sudo composer self-update -q
 
       - name: Install dependencies
         run: |
