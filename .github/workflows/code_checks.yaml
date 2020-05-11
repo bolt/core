@@ -38,6 +38,9 @@ jobs:
         run: |
           # build assets
           npm run build
+          ls -als
+          ls -als ./var/
+          ls -als ./var/data/
           # prepare web server for e2e tests
           ./bin/console doctrine:database:create
           ./bin/console doctrine:schema:create
