@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
+          sudo COMPOSER_MEMORY_LIMIT=-1 composer update --prefer-dist --no-progress
           ./bin/console bolt:info
           npm ci
           mkdir -p ./var/log/e2e-reports/report/features/
