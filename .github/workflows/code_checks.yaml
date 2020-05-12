@@ -84,7 +84,7 @@ jobs:
         run: make behat-api-quiet
 
       - name: run JS e2e tests
-        run: ./run_behat_tests.sh && make behat-js-quiet
+        run: ./run_behat_tests.sh && make behat-js
 
       - name: Upload Behat logs
         run: ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
