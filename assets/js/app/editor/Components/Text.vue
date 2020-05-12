@@ -7,9 +7,9 @@
       :class="getType"
       :name="name"
       type="text"
-      :disabled="disabled == 1"
-      :required="required == 1"
-      :readonly="readonly == true"
+      :disabled="disabled"
+      :required="required"
+      :readonly="readonly"
       :data-errormessage="errormessage"
       :pattern="pattern"
       :placeholder="placeholder"
@@ -30,7 +30,7 @@ export default {
     type: String,
     disabled: Boolean,
     id: String,
-    required: Number,
+    required: Boolean,
     readonly: Boolean,
     errormessage: String | Boolean,
     pattern: String | Boolean,

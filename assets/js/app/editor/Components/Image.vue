@@ -22,7 +22,7 @@
             :placeholder="labels.placeholder_filename"
             :value="filenameData"
             data-readonly="readonly"
-            :required="required == 1"
+            :required="required"
             :data-errormessage="errormessage"
           />
         </div>
@@ -161,7 +161,7 @@ export default {
   props: {
     filename: String,
     name: String,
-    required: Number,
+    required: Boolean,
     readonly: Boolean,
     thumbnail: String,
     alt: String,

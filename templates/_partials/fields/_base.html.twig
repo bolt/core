@@ -25,7 +25,7 @@
 
 {# Set required #}
 {% if not required|default %}
-    {% set required = (field.definition.required|default) ? 1 : 0 %}
+    {% set required = (field.definition.required|default) ? true : false %}
 {% endif %}
 
 {# Set readonly #}
