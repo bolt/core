@@ -357,6 +357,8 @@ tests:
         picture:
             type: image
             postfix: An image, named differently.
+        attachment:
+            type: file
         markdown_field:
             type: markdown
         textarea_field:
