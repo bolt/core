@@ -33,6 +33,11 @@ jobs:
           npm ci
           mkdir -p ./var/log/e2e-reports/report/features/
           touch ./var/log/e2e-reports/report/features/.gitkeep
+          # Install Chrome for e2e tests
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+
 
       - name: Prepare environment
         run: |
