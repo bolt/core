@@ -49,7 +49,7 @@ class FieldRepository extends ServiceEntityRepository
 
     public function findAllByParent(Field $field): ?array
     {
-        if (! $field instanceof FieldParentInterface) {
+        if (! $field instanceof FieldParentInterface || ! $field->getId()) {
             return [];
         }
 
