@@ -273,7 +273,6 @@ Feature: Edit record
     Then I should see 2 ".collection-item" elements
 
     When I scroll "Save changes" into view
-
     And I press "Save changes"
 
     Then I should see 2 ".collection-item" elements
