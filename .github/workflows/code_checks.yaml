@@ -4,12 +4,13 @@ on:
   pull_request:
 
 defaults:
-  runs-on: ubuntu-latest
-  strategy:
-    fail-fast: false # do not cancel 7.2 if 7.3 fails
-    matrix:
-      php: ['7.2', '7.3', '7.4']
-      node-version: ['12.5']
+  jobs:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # do not cancel 7.2 if 7.3 fails
+      matrix:
+        php: ['7.2', '7.3', '7.4']
+        node-version: ['12.5']
 jobs:
   setup:
     name: Setup
