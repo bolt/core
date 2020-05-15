@@ -3,15 +3,16 @@ name: Code checks & tests
 on:
   pull_request:
 
+defaults:
+  runs-on: ubuntu-latest
+  strategy:
+    fail-fast: false # do not cancel 7.2 if 7.3 fails
+    matrix:
+      php: ['7.2', '7.3', '7.4']
+      node-version: ['12.5']
 jobs:
   setup:
     name: Setup
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false # do not cancel 7.2 if 7.3 fails
-      matrix:
-        php: ['7.2', '7.3', '7.4']
-        node-version: ['12.5']
     steps:
       - uses: actions/checkout@v2
       - uses: nanasess/setup-chromedriver@master
