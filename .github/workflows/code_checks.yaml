@@ -4,16 +4,14 @@ on:
   pull_request:
 
 jobs:
-  tests:
-    name: Tests
+  setup:
+    name: Setup
     runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false # do not cancel 7.2 if 7.3 fails
       matrix:
         php: ['7.2', '7.3', '7.4']
         node-version: ['12.5']
-
     steps:
       - uses: actions/checkout@v2
       - uses: nanasess/setup-chromedriver@master
@@ -21,7 +19,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Initialise
+      - name: Update composer
         run: |
           sudo composer self-update -q
 
@@ -52,41 +50,66 @@ jobs:
           sleep 3
           wget "http://127.0.0.1:8088/bolt/login"
 
+  check_syntax_rules:
+    needs: setup
+    steps:
       - name: this checks that the source code follows the Bolt Code Syntax rules
         run: |
           ./vendor/bin/ecs check src
           ./vendor/bin/phpstan analyse -c phpstan.neon src
-
+  eslint_js:
+    needs: setup
+    steps:
       - name: run EsLint on Javascript files
         run: npm run lint
-
+  stylelint_scss:
+    needs: setup
+    steps:
       - name: run StyleLint on SCSS
         run: npm run stylelint
-
+  check_yaml:
+    needs: setup
+    steps:
       - name: this checks that the YAML config files contain no syntax errors
         run: ./bin/console lint:yaml config
-
+  check_twig:
+    needs: setup
+    steps:
       - name: this checks that the Twig template files contain no syntax errors
         run: ./bin/console lint:twig templates
-
+  check_translations:
+    needs: setup
+    steps:
       - name: this checks that the XLIFF translations contain no syntax errors
         run: ./bin/console lint:xliff translations
-
+  check_dependencies_security:
+    needs: setup
+    steps:
       - name: this checks that the application doesn't use dependencies with known security vulnerabilities
         run: ./bin/console security:check
-
+  check_composer_files:
+    needs: setup
+    steps:
       - name: this checks that the composer.json and composer.lock files are valid
         run: composer validate --strict # temporarily disabled due to bug in api platform 2.4.0-beta.2
-
+  check_doctrine:
+    needs: setup
+    steps:
       - name: this checks that Doctrine's mapping configurations are valid
         run: ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-
+  check_unit_tests:
+    needs: setup
+    steps:
       - name: run PHP Unit
         run: ./vendor/bin/phpunit
-
+  check_api:
+    needs: setup
+    steps:
       - name: run API tests
         run: make behat-api-quiet
-
+  check_e2e:
+    needs: setup
+    steps:
       - name: run JS e2e tests
         run: ./run_behat_tests.sh && make behat-js
 
