@@ -221,7 +221,7 @@ Feature: Edit record
     And I click "#multiselect-undefined > div > div.multiselect__select"
 
     Then I should see "Set" in the "#multiselect-undefined li:nth-child(1) > span" element
-    And I should see "Textarea" in the "#multiselect-undefined li:nth-child(2) > span" element
+    And the "#multiselect-undefined li:nth-child(2) > span" element should contain "Textarea"
 
     When I click "#multiselect-undefined > div > div.multiselect__select"
     And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
