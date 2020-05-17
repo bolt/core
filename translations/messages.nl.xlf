@@ -1566,10 +1566,10 @@
         <target>%contenttype% zonder titel</target>
       </segment>
     </unit>
-    <unit id="SDVQEir" name="title.save_changes">
+    <unit id="SDVQEir" name="title.primary_actions">
       <segment>
-        <source>title.save_changes</source>
-        <target>Opslaan</target>
+        <source>title.primary_actions</source>
+        <target>Voornaamste handelingen</target>
       </segment>
     </unit>
     <unit id="7616Os4" name="title.options">
@@ -1755,7 +1755,7 @@
     <unit id=".I3mIHo" name="label.current_status">
       <segment>
         <source>label.current_status</source>
-        <target>Current status</target>
+        <target>Huidige status</target>
       </segment>
     </unit>
     <unit id="utGAKaQ" name="status.published">
@@ -1764,22 +1764,28 @@
         <target>Gepubliceerd</target>
       </segment>
     </unit>
-    <unit id="utGAKaW" name="status.draft">
+    <unit id="HJbHjee" name="status.draft">
       <segment>
         <source>status.draft</source>
         <target>In klad</target>
       </segment>
     </unit>
-    <unit id="utGAKaE" name="status.timed">
+    <unit id="h7dP3WY" name="status.timed">
       <segment>
         <source>status.timed</source>
         <target>Ingepland</target>
       </segment>
     </unit>
-    <unit id="utGAKaR" name="status.held">
+    <unit id="oxqDDuK" name="status.held">
       <segment>
         <source>status.held</source>
         <target>Achtergehouden</target>
+      </segment>
+    </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <segment>
+        <source>action.confirm_delete</source>
+        <target>Weet je zeker dat je deze content wilt verwijderen?</target>
       </segment>
     </unit>
   </file>
