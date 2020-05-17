@@ -2,6 +2,47 @@
 Changelog
 ---------
 
+## 4.0.0-rc.19
+
+Released: 2020-05-17
+
+### 🐛 Bug fixes
+
+- Feature/set default (I-Valchev, [#1362](https://github.com/bolt/core/pull/1362))
+- Bugfix/collections default fix (I-Valchev, [#1353](https://github.com/bolt/core/pull/1353))
+
+### 📦 Additions and new features
+
+-  Improve `title_format` and add `excerpt_format` attribute in ContentTypes (bobdenotter, [#1352](https://github.com/bolt/core/pull/1352))
+- Add length attribute for `|title` filter (bobdenotter, [#1349](https://github.com/bolt/core/pull/1349))
+
+### 🛠️ Miscellaneous
+
+- Refactor required attribute to be bool, not int (I-Valchev, [#1368](https://github.com/bolt/core/pull/1368))
+- Return correct exit status for cache:thumbs, bolt:reset-secret and bolt:info (I-Valchev, [#1366](https://github.com/bolt/core/pull/1366))
+
+### 🤖 Tests
+
+- Files extras tests (I-Valchev, [#1367](https://github.com/bolt/core/pull/1367))
+
+### 📖 Documentation
+
+- Update README - Note about `var/data/bolt.sqlite` (bobdenotter, [#1364](https://github.com/bolt/core/pull/1364))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Composer dep updates (bobdenotter, [#1380](https://github.com/bolt/core/pull/1380))
+- Don't fail on 'Textarea' when it exists (I-Valchev, [#1377](https://github.com/bolt/core/pull/1377))
+- NPM Updates, fixing tests (bobdenotter, [#1376](https://github.com/bolt/core/pull/1376))
+- Updating some Easy Coding Standards settings (bobdenotter, [#1350](https://github.com/bolt/core/pull/1350))
+- Adding the new Changelog!  (bobdenotter, [#1348](https://github.com/bolt/core/pull/1348))
+- Update tests readme with up-to-date instructions (I-Valchev, [#1346](https://github.com/bolt/core/pull/1346))
+- Release 4.0.0-RC.18 (bobdenotter, [#1344](https://github.com/bolt/core/pull/1344))
+
+### 🎨 Design / User Interface
+
+- Tweaking a bunch of small things: Margins, paddings, minor UX thingies (I-Valchev, [#1369](https://github.com/bolt/core/pull/1369))
+
 ## 4.0.0-rc.18
 
 Released: 2020-05-01
