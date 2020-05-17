@@ -9,7 +9,7 @@
         :form="form"
         :name="name"
         placeholder="Select date"
-        :required="required == 1"
+        :required="required"
         :data-errormessage="errormessage"
       >
       </flat-pickr>
@@ -86,7 +86,7 @@ export default {
       default: '',
     },
     required: {
-      type: Number,
+      type: Boolean,
       required: true,
     },
     errormessage: {

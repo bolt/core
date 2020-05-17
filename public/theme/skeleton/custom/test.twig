@@ -96,6 +96,19 @@
         <hr>
     {% endif %}
 
+    <h2>Testing output for files</h2>
+
+    {% if record.attachment %}
+        <div id="attachment">
+            <p id="filename">Filename: {{ record.attachment.filename }}</p>
+            <p id="path">Path: {{ record.attachment.path }}</p>
+            <p id="fieldname">Fieldname: {{ record.attachment.fieldname }}</p>
+            <p id="url">URL: {{ record.attachment.url }}</p>
+            <p id="title">{{ record.attachment.title }}</p>
+            {{ dump(record.attachment) }}
+        </div>
+    {% endif %}
+
 
     {# Output all fields, in the order as defined in the content type.
        To change the generated html and configure the options, see:

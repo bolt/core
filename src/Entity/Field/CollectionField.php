@@ -79,9 +79,8 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 
         $result = [];
 
-        foreach ($default as $i) {
-            /** @var ContentType $type */
-            $type = $default[$i];
+        /** @var ContentType $type */
+        foreach ($default as $type) {
             $value = $type->toArray()['default'];
             $name = $type->toArray()['field'];
             $definition = $this->getDefinition()->get('fields')[$name];

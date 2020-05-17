@@ -221,9 +221,10 @@ Feature: Edit record
     And I click "#multiselect-undefined > div > div.multiselect__select"
 
     Then I should see "Set" in the "#multiselect-undefined li:nth-child(1) > span" element
-    And I should see "Textarea" in the "#multiselect-undefined li:nth-child(2) > span" element
+    And the "#multiselect-undefined li:nth-child(2) > span" element should contain "Textarea"
 
-    When I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
+    When I click "#multiselect-undefined > div > div.multiselect__select"
+    And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
     And I press "Add item"
 
     Then I should see an ".collection-item" element
@@ -319,8 +320,30 @@ Feature: Edit record
     And the "fields[title]" field should contain "Title of a test contenttype"
     And the "fields[image][filename]" field should contain "foal.jpg"
 
+    And the "sets[set_field][title]" field should contain "This is the default title value"
+    And the "sets[set_field][year]" field should contain "2020"
+
+    And the "collections[collection_field][photo][1][filename]" field should contain "kitten.jpg"
+    And the "collections[collection_field][photo][1][alt]" field should contain "Cute kitten"
+
+    And the "collections[collection_field][paragraph][2]" field should contain "An image, followed by some content"
+
+    And the "collections[collection_field][photo][3][filename]" field should contain "joey.jpg"
+    And the "collections[collection_field][photo][3][alt]" field should contain "Photo of a foal"
+
     When I scroll "Save changes" into view
     And I press "Save changes"
 
     Then the "fields[title]" field should contain "Title of a test contenttype"
     And the "fields[image][filename]" field should contain "foal.jpg"
+
+    And the "sets[set_field][title]" field should contain "This is the default title value"
+    And the "sets[set_field][year]" field should contain "2020"
+
+    And the "collections[collection_field][photo][1][filename]" field should contain "kitten.jpg"
+    And the "collections[collection_field][photo][1][alt]" field should contain "Cute kitten"
+
+    And the "collections[collection_field][paragraph][2]" field should contain "An image, followed by some content"
+
+    And the "collections[collection_field][photo][3][filename]" field should contain "joey.jpg"
+    And the "collections[collection_field][photo][3][alt]" field should contain "Photo of a foal"

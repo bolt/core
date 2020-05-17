@@ -12,7 +12,7 @@
         type="text"
         :class="fieldClass"
         :readonly="readonly || !edit"
-        :required="required == 1"
+        :required="required"
         :data-errormessage="errormessage"
         :pattern="pattern"
       />
@@ -62,7 +62,7 @@ export default {
     fieldClass: String,
     generate: String,
     labels: Object,
-    required: Number,
+    required: Boolean,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,

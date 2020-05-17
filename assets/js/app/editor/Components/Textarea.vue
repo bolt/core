@@ -5,7 +5,7 @@
       class="form-control field--textarea"
       :name="name"
       rows="10"
-      :required="required == 1"
+      :required="required"
       :readonly="readonly"
       :data-errormessage="errormessage"
       :pattern="pattern"
@@ -23,7 +23,7 @@ export default {
   props: {
     value: String,
     name: String,
-    required: Number,
+    required: Boolean,
     readonly: Boolean,
     errormessage: String | Boolean,
     pattern: String | Boolean,

@@ -334,7 +334,12 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
             /** @var Field $child */
             $content->removeField($child);
-            $this->em->remove($child);
+
+            // Only attempt removal if the entity is already persisted (managed)
+            // by the entity manager
+            if ($this->em->contains($child)) {
+                $this->em->remove($child);
+            }
         }
     }
 
@@ -421,19 +426,10 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $value = Json::findArray($value);
         }
 
-        if ($field->getType() === SetField::TYPE) {
+        if ($field instanceof SetField) {
             foreach ($value as $name => $svalue) {
-                /** @var SetField $field */
-                if ($field->hasChild($name)) {
-                    $child = $field->getChild($name);
-                } else {
-                    $child = FieldRepository::factory($field->getDefinition()->get('fields')->get($name), $name);
-                    $child->setParent($field);
-                    $field->getContent()->addField($child);
-                }
-
+                $child = $field->getChild($name);
                 $child->setDefinition($child->getName(), $field->getDefinition()->get('fields')->get($child->getName()));
-
                 $this->updateField($child, $svalue, $locale);
             }
         } else {

@@ -13,7 +13,7 @@
                 :name="name + '[url]'"
                 :placeholder="labels.placeholder_content_url"
                 type="url"
-                :required="required == 1"
+                :required="required"
                 :readonly="readonly"
                 :data-errormessage="errormessage"
                 :pattern="pattern"
@@ -133,7 +133,7 @@ export default {
     url: String,
     width: Number | String, //String if not set
     labels: Object,
-    required: Number,
+    required: Boolean,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,

@@ -6,7 +6,7 @@
       class="form-control"
       type="number"
       :step="step"
-      :required="required == 1"
+      :required="required"
       :readonly="readonly"
       :data-errormessage="errormessage"
       :pattern="pattern"
@@ -27,7 +27,7 @@ export default {
     step: Number,
     type: String,
     disabled: Boolean,
-    required: Number,
+    required: Boolean,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,

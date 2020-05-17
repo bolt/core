@@ -359,6 +359,8 @@ tests:
         picture:
             type: image
             postfix: An image, named differently.
+        attachment:
+            type: file
         markdown_field:
             type: markdown
         textarea_field:
@@ -374,6 +376,37 @@ tests:
             values: [ A-tuin, Donatello, Rafael, Leonardo, Michelangelo, Koopa, Squirtle ]
             multiple: true
             postfix: "Select your favourite turtle(s)."
+        set_field:
+            type: set
+            fields:
+                title:
+                    type: text
+                year:
+                    type: number
+            default:
+                title: "This is the default title value"
+                year: 2020
+        collection_field:
+            type: collection
+            fields:
+                photo:
+                    type: image
+                paragraph:
+                    type: text
+            default:
+                0:
+                    field: photo
+                    default:
+                        filename: "kitten.jpg"
+                        alt: "Cute kitten"
+                1:
+                    field: paragraph
+                    default: "An image, followed by some content"
+                2:
+                    field: photo
+                    default:
+                        filename: "joey.jpg"
+                        alt: "Photo of a foal"
     taxonomy: [ groups, categories, tags, foobars ]
     record_template: custom/test.twig
     listing_template: listing.twig
