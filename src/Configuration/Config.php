@@ -36,12 +36,17 @@ class Config
     /** @var string */
     private $locales;
 
-    public function __construct(string $locales, Stopwatch $stopwatch, string $projectDir, CacheInterface $cache, string $publicFolder)
+    /** @var string */
+    private $defaultLocale;
+
+    public function __construct(string $locales, string $defaultLocale, Stopwatch $stopwatch, string $projectDir, CacheInterface $cache, string $publicFolder)
     {
         $this->locales = $locales;
         $this->stopwatch = $stopwatch;
         $this->cache = $cache;
         $this->projectDir = $projectDir;
+        $this->defaultLocale = $defaultLocale;
+
         $this->data = $this->getConfig();
 
         // @todo PathResolver shouldn't be part of Config. Refactor to separate class
@@ -88,7 +93,7 @@ class Config
         $taxonomy = new TaxonomyParser($this->projectDir);
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contentTypes = new ContentTypesParser($this->locales, $this->projectDir, $config->get('general'));
+        $contentTypes = new ContentTypesParser($this->projectDir,  $config->get('general'), $this->defaultLocale, $this->locales);
         $config['contenttypes'] = $contentTypes->parse();
 
         $menu = new MenuParser($this->projectDir);

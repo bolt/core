@@ -85,6 +85,9 @@ class FieldRepository extends ServiceEntityRepository
             $field->setLabel($label);
         }
 
+        $field->setDefaultLocale($definition['default_locale']);
+        $field->setLocale($definition['default_locale']);
+
         return $field;
     }
 }

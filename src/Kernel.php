@@ -58,12 +58,14 @@ class Kernel extends BaseKernel
 
         $this->setBoltParameters($container, $confDir);
         $this->setContentTypeRequirements($container);
-        $this->setTaxonomyRequirements($container);
-
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{packages}/' . $this->environment . '/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
+
+        $this->setBoltParameters($container, $confDir);
+        $this->setContentTypeRequirements($container);
+        $this->setTaxonomyRequirements($container);
 
         try {
             $loader->load($confDir . '/{services}_bolt' . self::CONFIG_EXTS, 'glob');
@@ -123,7 +125,9 @@ class Kernel extends BaseKernel
      */
     private function setContentTypeRequirements(ContainerBuilder $container): void
     {
-        $ContentTypesParser = new ContentTypesParser(null, $this->getProjectDir(), new Collection());
+        /** @var string $defaultLocale */
+        $defaultLocale = $container->getParameter('locale');
+        $ContentTypesParser = new ContentTypesParser($this->getProjectDir(), new Collection(), $defaultLocale);
         $contentTypes = $ContentTypesParser->parse();
 
         $pluralslugs = $contentTypes->pluck('slug')->implode('|');
