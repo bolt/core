@@ -35,7 +35,11 @@
             <td>{{ iteratedUser.username }} / {{ iteratedUser.email }}</td>
             <td><code>{{ iteratedUser.roles|join('</code>, <code>')|raw }}</code></td>
             {% if iteratedUser.lastseenAt %}
-                <td class="datetime-relative">{{ iteratedUser.lastseenAt|date("c") }}</td>
+                <td>
+                    <abbr class="datetime-relative" title="{{ iteratedUser.lastseenAt|localedatetime('%A %B %e, %Y - %k:%M%p') }}">
+                        {{- iteratedUser.lastseenAt|date("c") -}}
+                    </abbr>
+                </td>
             {% else %}
                 <td>-</td>
             {% endif %}
@@ -78,8 +82,16 @@
                     <tr>
                         <td class="text-nowrap">{{ iteratedUser.id }}</td>
                         <td class="text-nowrap">{{ iteratedUser.username }}</td>
-                        <td class="text-nowrap datetime-relative">{{ iteratedUser.lastseenAt|date("c") }}</td>
-                        <td class="datetime-relative">{{ authtoken.validity|date("c") }}</td>
+                        <td>
+                            <abbr class="datetime-relative" title="{{ iteratedUser.lastseenAt|localedatetime('%A %B %e, %Y - %k:%M%p') }}">
+                                {{- iteratedUser.lastseenAt|date("c") -}}
+                            </abbr>
+                        </td>
+                        <td>
+                            <abbr class="datetime-relative" title="{{ authtoken.validity|localedatetime('%A %B %e, %Y - %k:%M%p') }}">
+                                {{- authtoken.validity|date("c") -}}
+                            </abbr>
+                        </td>
                         <td class="text-nowrap"><code>{{ iteratedUser.lastIp|default('-') }}</code></td>
                         <td>{{ authtoken.useragent|default('-') }}</td>
                     </tr>
