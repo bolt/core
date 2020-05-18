@@ -56,6 +56,7 @@ class FieldType extends Collection
     {
         $defaults = static::defaults();
         $fromContentType = new self($contentType->get('fields')->get($name, []));
+
         return new self($defaults->merge($fromContentType));
     }
 
