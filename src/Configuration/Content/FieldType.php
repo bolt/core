@@ -48,12 +48,15 @@ class FieldType extends Collection
             'error' => false,
             'pattern' => false,
             'hidden' => false,
+            'default_locale' => 'en',
         ]);
     }
 
     public static function factory(string $name, ContentType $contentType): self
     {
-        return new self($contentType->get('fields')->get($name, []));
+        $defaults = static::defaults();
+        $fromContentType = new self($contentType->get('fields')->get($name, []));
+        return new self($defaults->merge($fromContentType));
     }
 
     public static function mock(string $name, ?Collection $definition = null): self

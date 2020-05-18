@@ -93,7 +93,7 @@ class Config
         $taxonomy = new TaxonomyParser($this->projectDir);
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contentTypes = new ContentTypesParser($this->projectDir,  $config->get('general'), $this->defaultLocale, $this->locales);
+        $contentTypes = new ContentTypesParser($this->projectDir, $config->get('general'), $this->defaultLocale, $this->locales);
         $config['contenttypes'] = $contentTypes->parse();
 
         $menu = new MenuParser($this->projectDir);
