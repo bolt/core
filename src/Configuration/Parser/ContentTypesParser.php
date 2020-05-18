@@ -20,10 +20,14 @@ class ContentTypesParser extends BaseParser
     /** @var array */
     private $localeCodes = [];
 
-    public function __construct(?string $locales = null, string $projectDir, Collection $generalConfig, string $filename = 'contenttypes.yaml')
+    /** @var string defaultLocale */
+    private $defaultLocale;
+
+    public function __construct(string $projectDir, Collection $generalConfig, string $defaultLocale, ?string $locales = null, string $filename = 'contenttypes.yaml')
     {
         $this->localeCodes = empty($locales) ? [] : explode('|', $locales);
         $this->generalConfig = $generalConfig;
+        $this->defaultLocale = $defaultLocale;
         parent::__construct($projectDir, $filename);
     }
 
@@ -305,6 +309,11 @@ class ContentTypesParser extends BaseParser
             $field['group'] = $currentGroup;
         } else {
             $currentGroup = $field['group'];
+        }
+
+        // Initialise default_locale, if not explicit
+        if (! isset($field['default_locale'])) {
+            $field['default_locale'] = $this->defaultLocale;
         }
     }
 

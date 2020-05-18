@@ -520,7 +520,6 @@ class Content
 
         $this->fields[] = $field;
         $field->setContent($this);
-        $field->setDefaultLocaleFromContent();
 
         return $this;
     }
