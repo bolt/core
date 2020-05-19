@@ -44,6 +44,10 @@ class ContentTitleHelper
                     return $record->getStatus();
                 }
 
+                if ($match[1] === 'author') {
+                    return $record->getAuthor();
+                }
+
                 if ($record->hasField($match[1])) {
                     $field = $record->getField($match[1]);
 
@@ -52,10 +56,6 @@ class ContentTitleHelper
                     }
 
                     return $field;
-                }
-
-                if (array_key_exists($match[1], $record->getExtras())) {
-                    return $record->getExtras()[$match[1]];
                 }
 
                 return '(unknown)';
