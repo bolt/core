@@ -166,6 +166,10 @@ class ContentExtension extends AbstractExtension
 
     public function getTitle(Content $content, string $locale = '', int $length = 120): string
     {
+        if (empty($locale)) {
+            $locale = $this->request->getLocale();
+        }
+
         if (ContentHelper::isSuitable($content)) {
             $title = ContentHelper::get($content, $content->getDefinition()->get('title_format'), $locale);
         } else {
