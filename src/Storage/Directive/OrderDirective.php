@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage\Directive;
 
 use Bolt\Storage\QueryInterface;
+use Bolt\Utils\ContentTitleHelper;
 
 /**
  *  Directive to alter query based on 'order' parameter.
@@ -27,33 +28,52 @@ class OrderDirective
         foreach ($separatedOrders as $order) {
             [ $order, $direction ] = $this->createSortBy($order);
 
-            if (in_array($order, $query->getCoreFields(), true)) {
-                $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
-            } elseif ($order === 'author') {
-                $query
-                    ->getQueryBuilder()
-                    ->leftJoin('content.author', 'user')
-                    ->addOrderBy('user.username', $direction);
-            } else {
-                if (! $this->isActualField($query, $order)) {
-                    dump("A query with ordering on a Field (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
-                }
-                $fieldsAlias = 'fields_order_' . $query->getIndex();
-                $fieldAlias = 'order_' . $query->getIndex();
-                $translationsAlias = 'translations_order_' . $query->getIndex();
-
-                // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
-                // results correctly. See also https://github.com/bolt/core/issues/1190
-                $query
-                    ->getQueryBuilder()
-                    ->leftJoin('content.fields', $fieldsAlias)
-                    ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
-                    ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
-                    ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction)
-                    ->setParameter($fieldAlias, $order);
-
-                $query->incrementIndex();
+            if ($order === 'title' && $this->getTitleFormat($query) !== null) {
+                $order = ContentTitleHelper::getFieldNames($this->getTitleFormat($query));
             }
+
+            if (is_array($order)) {
+                foreach ($order as $orderitem) {
+                    $this->setOrderBy($query, $orderitem, $direction);
+                }
+            } else {
+                $this->setOrderBy($query, $order, $direction);
+            }
+        }
+    }
+
+    /**
+     * Set the query OrderBy directives
+     * given an order (e.g. 'heading', 'id') and direction (ASC|DESC)
+     */
+    private function setOrderBy(QueryInterface $query, string $order, string $direction): void
+    {
+        if (in_array($order, $query->getCoreFields(), true)) {
+            $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
+        } elseif ($order === 'author') {
+            $query
+                ->getQueryBuilder()
+                ->leftJoin('content.author', 'user')
+                ->addOrderBy('user.username', $direction);
+        } else {
+            if (! $this->isActualField($query, $order)) {
+                dump("A query with ordering on a Field (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
+            }
+            $fieldsAlias = 'fields_order_' . $query->getIndex();
+            $fieldAlias = 'order_' . $query->getIndex();
+            $translationsAlias = 'translations_order_' . $query->getIndex();
+
+            // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
+            // results correctly. See also https://github.com/bolt/core/issues/1190
+            $query
+                ->getQueryBuilder()
+                ->leftJoin('content.fields', $fieldsAlias)
+                ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
+                ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
+                ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction)
+                ->setParameter($fieldAlias, $order);
+
+            $query->incrementIndex();
         }
     }
 
@@ -97,5 +117,12 @@ class OrderDirective
         $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
 
         return in_array($name, $contentType->get('fields')->keys()->all(), true);
+    }
+
+    private function getTitleFormat(QueryInterface $query): ?string
+    {
+        $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
+
+        return $contentType->get('title_format', null);
     }
 }

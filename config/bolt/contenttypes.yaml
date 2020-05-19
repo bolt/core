@@ -163,6 +163,7 @@ showcases:
     slug: showcases
     singular_name: Showcase
     singular_slug: showcase
+    title_format: '{id}: {title}'
     description: The 'Showcases' is not particularly useful in most cases, but it does a good job of showcasing most of the available fieldtypes.
     fields:
         title:
@@ -326,6 +327,7 @@ blocks:
 tests:
     name: Tests
     singular_name: Test
+    title_format: "{id}: {title}"
     fields:
         title:
             type: text

@@ -13,11 +13,7 @@
 
     <marquee>This template is for testing only! This template is for testing only! This template is for testing only!</marquee>
 
-    {% if record.hasField('title') %}
-        <h1 class="title">{{ record.title }}</h1>
-    {% else %}
-        <h1 class="heading">{{ record|title }}</h1>
-    {% endif %}
+    <h1 class="title">{{ record|title }}</h1>
 
     <hr>
 
