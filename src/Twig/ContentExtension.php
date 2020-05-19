@@ -17,7 +17,7 @@ use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Storage\Query;
-use Bolt\Utils\ContentTitleHelper;
+use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
 use Pagerfanta\Pagerfanta;
@@ -166,10 +166,10 @@ class ContentExtension extends AbstractExtension
 
     public function getTitle(Content $content, string $locale = '', int $length = 120): string
     {
-        if (ContentTitleHelper::isSuitable($content)) {
-            $title = ContentTitleHelper::get($content, $content->getDefinition()->get('title_format'), $locale);
+        if (ContentHelper::isSuitable($content)) {
+            $title = ContentHelper::get($content, $content->getDefinition()->get('title_format'), $locale);
         } else {
-            $title = ContentTitleHelper::getFieldBasedTitle($content, $locale);
+            $title = ContentHelper::getFieldBasedTitle($content, $locale);
         }
 
         return Html::trimText($title, $length);
@@ -177,11 +177,11 @@ class ContentExtension extends AbstractExtension
 
     public function getTitleFields(Content $content): array
     {
-        if (ContentTitleHelper::isSuitable($content)) {
-            return ContentTitleHelper::getFieldNames($content->getDefinition()->get('title_format'));
+        if (ContentHelper::isSuitable($content)) {
+            return ContentHelper::getFieldNames($content->getDefinition()->get('title_format'));
         }
 
-        return ContentTitleHelper::guessTitleFields($content);
+        return ContentHelper::guessTitleFields($content);
     }
 
     /**
@@ -219,8 +219,8 @@ class ContentExtension extends AbstractExtension
             return Excerpt::getExcerpt((string) $content, $length);
         }
 
-        if (ContentTitleHelper::isSuitable($content, 'excerpt_format')) {
-            $excerpt = ContentTitleHelper::get($content, $content->getDefinition()->get('excerpt_format'));
+        if (ContentHelper::isSuitable($content, 'excerpt_format')) {
+            $excerpt = ContentHelper::get($content, $content->getDefinition()->get('excerpt_format'));
         } else {
             $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
@@ -551,7 +551,7 @@ class ContentExtension extends AbstractExtension
         foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
-                'value' => ContentTitleHelper::get($record, $format),
+                'value' => ContentHelper::get($record, $format),
             ];
         }
 

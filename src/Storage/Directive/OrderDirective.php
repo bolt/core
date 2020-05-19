@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage\Directive;
 
 use Bolt\Storage\QueryInterface;
-use Bolt\Utils\ContentTitleHelper;
+use Bolt\Utils\ContentHelper;
 
 /**
  *  Directive to alter query based on 'order' parameter.
@@ -29,7 +29,7 @@ class OrderDirective
             [ $order, $direction ] = $this->createSortBy($order);
 
             if ($order === 'title' && $this->getTitleFormat($query) !== null) {
-                $order = ContentTitleHelper::getFieldNames($this->getTitleFormat($query));
+                $order = ContentHelper::getFieldNames($this->getTitleFormat($query));
             }
 
             if (is_array($order)) {

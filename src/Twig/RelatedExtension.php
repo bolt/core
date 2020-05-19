@@ -9,7 +9,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Repository\RelationRepository;
 use Bolt\Storage\Query;
-use Bolt\Utils\ContentTitleHelper;
+use Bolt\Utils\ContentHelper;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -151,7 +151,7 @@ class RelatedExtension extends AbstractExtension
         foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
-                'value' => ContentTitleHelper::get($record, $format),
+                'value' => ContentHelper::get($record, $format),
             ];
         }
 

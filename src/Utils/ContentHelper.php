@@ -7,7 +7,7 @@ namespace Bolt\Utils;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
 
-class ContentTitleHelper
+class ContentHelper
 {
     public static function isSuitable(Content $record, string $which = 'title_format'): bool
     {
