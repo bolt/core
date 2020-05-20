@@ -34,7 +34,7 @@
         <hr>
         <div class="form-fieldsgroup__summary-fields">
         {% if record.status == "published" and record.definition.viewless != true %}
-            <a href="{{ record|link(true) }}" class="btn btn-tertiary btn-sm" target="_blank">{{ macro.icon('fa-sign-out-alt') }} {{ __('action.view_saved') }}</a>
+            <a href="{{ record|link(true, currentlocale) }}" class="btn btn-tertiary btn-sm" target="_blank">{{ macro.icon('fa-sign-out-alt') }} {{ __('action.view_saved') }}</a>
         {% endif %}
             <a href="{{ record.extras.deleteLink }}" class='action-remove-collection-item btn btn-sm btn-hidden-danger' data-confirmation="{{ 'action.confirm_delete'|trans }}">
 {{ macro.icon('trash') }}{{ 'action.delete'|trans }}
