@@ -88,7 +88,7 @@ behat-js-quiet: ## to run behat JS tests quietly
 	## If not already in path, add vendor/bin/ to it, where chromedriver executable can be found.
 	[ ":${PATH}:" != *":$(pwd)/vendor/bin:"* ] && PATH="$(pwd)/vendor/bin:${PATH}"
 	## run the selenium server. chromedriver executable must be in $PATH
-	vendor/bin/selenium-server-standalone /dev/null 2>&1 &
+	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
 	sleep 2s
 	vendor/bin/behat --tags=javascript --format=progress
 	kill -9 $(lsof -t -i:4444)
