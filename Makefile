@@ -87,6 +87,7 @@ behat-js-quiet: ## to run behat JS tests quietly
 	echo "Running Behat e2e tests. Make sure you have the latest version of Google Chrome installed"
 	## If not already in path, add vendor/bin/ to it, where chromedriver executable can be found.
 	[ ":${PATH}:" != *":$(pwd)/vendor/bin:"* ] && PATH="$(pwd)/vendor/bin:${PATH}"
+	echo $PATH
 	## run the selenium server. chromedriver executable must be in $PATH
 	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
 	sleep 2s
