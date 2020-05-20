@@ -3,7 +3,7 @@ DC_RUN ?= docker-compose run --rm
 COMPOSER ?= COMPOSER_MEMORY_LIMIT=-1 composer
 
 .PHONY: help install server server-stop cache csclear cscheck csfix csfix-tests stancheck test \
-behat behat-js behat-js-quiet behat-api behat-api-quiet full-test db-create db-update db-reset \
+behat behat-quiet behat-js behat-js-quiet behat-api behat-api-quiet full-test db-create db-update db-reset \
 docker-install docker-install-deps docker-start docker-assets-serve \
 docker-update docker-cache docker-csclear docker-cscheck docker-csfix docker-stancheck docker-db-create docker-db-reset \
 docker-db-update docker-npm-fix-env docker-test docker-server-stop docker-behat docker-full-test \
@@ -73,14 +73,22 @@ behat-api-quiet: ## to run behat API tests quietly
 
 behat-js: ## to run behat JS tests
 	make server
-	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" ./bin/selenium-server-standalone-3.141.59.jar >/dev/null 2>&1 &
+	echo "Running Behat e2e tests. Make sure you have the latest version of Google Chrome installed"
+    ## If not already in path, add vendor/bin/ to it, where chromedriver executable can be found.
+    [[ ":$PATH:" != *":$(pwd)/vendor/bin:"* ]] && PATH="$(pwd)/vendor/bin:${PATH}"
+    ## run the selenium server. chromedriver executable must be in $PATH
+    vendor/bin/selenium-server-standalone 2>&1 &
 	sleep 2s
 	vendor/bin/behat --tags=javascript
 	kill -9 $(lsof -t -i:4444)
 
 behat-js-quiet: ## to run behat JS tests quietly
 	make server
-	java -jar -Dwebdriver.chrome.driver="./bin/chromedriver" -Djava.awt.headless=true ./bin/selenium-server-standalone-3.141.59.jar >/dev/null 2>&1 &
+	echo "Running Behat e2e tests. Make sure you have the latest version of Google Chrome installed"
+    ## If not already in path, add vendor/bin/ to it, where chromedriver executable can be found.
+    [[ ":$PATH:" != *":$(pwd)/vendor/bin:"* ]] && PATH="$(pwd)/vendor/bin:${PATH}"
+    ## run the selenium server. chromedriver executable must be in $PATH
+	vendor/bin/selenium-server-standalone 2>&1 &
 	sleep 2s
 	vendor/bin/behat --tags=javascript --format=progress
 	kill -9 $(lsof -t -i:4444)
@@ -88,6 +96,10 @@ behat-js-quiet: ## to run behat JS tests quietly
 make behat:
 	make behat-api
 	make behat-js
+
+make behat-quiet:
+	make behat-api-quiet
+	make behat-js-quiet
 
 full-test: ## to run full tests
 	make cscheck
