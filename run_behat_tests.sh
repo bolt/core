@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-[[ ":${PATH}:" != *":$(pwd)/vendor/bin:"* ]] && PATH="$(pwd)/vendor/bin:${PATH}"
+echo "Adding chromedriver to PATH variable"
+PATH="$(pwd)/vendor/bin:${PATH}"
 
 echo $PATH
