@@ -7,11 +7,7 @@ Bolt uses [Behat](http://docs.behat.org/en/v2.5/guides/1.gherkin.html) for E2E t
 Installation
 ---
 Be sure that you have Java installed.
-
-Run under `core` folder:
-```
-./run_behat_tests.sh
-```
+Be sure that you have the latest stable Chrome version installed.
 
 Usage
 ---
