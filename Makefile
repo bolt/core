@@ -1,5 +1,7 @@
 DC_RUN ?= docker-compose run --rm
 
+SHELL = bash
+
 COMPOSER ?= COMPOSER_MEMORY_LIMIT=-1 composer
 
 .PHONY: help install server server-stop cache csclear cscheck csfix csfix-tests stancheck test \
