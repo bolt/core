@@ -17,7 +17,7 @@ use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Storage\Query;
-use Bolt\Utils\ComposeValueHelper;
+use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
 use Pagerfanta\Pagerfanta;
@@ -166,45 +166,26 @@ class ContentExtension extends AbstractExtension
 
     public function getTitle(Content $content, string $locale = '', int $length = 120): string
     {
-        if (ComposeValueHelper::isSuitable($content)) {
-            $title = ComposeValueHelper::get($content, $content->getDefinition()->get('title_format'));
+        if (empty($locale)) {
+            $locale = $this->request->getLocale();
+        }
+
+        if (ContentHelper::isSuitable($content)) {
+            $title = ContentHelper::get($content, $content->getDefinition()->get('title_format'), $locale);
         } else {
-            $title = $this->getFieldBasedTitle($content);
+            $title = ContentHelper::getFieldBasedTitle($content, $locale);
         }
 
         return Html::trimText($title, $length);
     }
 
-    private function getFieldBasedTitle(Content $content): string
-    {
-        $titleParts = [];
-
-        foreach (ComposeValueHelper::guessTitleFields($content) as $fieldName) {
-            $field = $content->getField($fieldName);
-
-            if (! empty($locale)) {
-                $field->setCurrentLocale($locale);
-            }
-
-            $value = $field->getParsedValue();
-
-            if (empty($value)) {
-                $value = $field->setLocale($field->getDefaultLocale())->getParsedValue();
-            }
-
-            $titleParts[] = $value;
-        }
-
-        return implode(' ', $titleParts);
-    }
-
     public function getTitleFields(Content $content): array
     {
-        if (ComposeValueHelper::isSuitable($content)) {
-            return ComposeValueHelper::getFieldNames($content->getDefinition()->get('title_format'));
+        if (ContentHelper::isSuitable($content)) {
+            return ContentHelper::getFieldNames($content->getDefinition()->get('title_format'));
         }
 
-        return ComposeValueHelper::guessTitleFields($content);
+        return ContentHelper::guessTitleFields($content);
     }
 
     /**
@@ -242,8 +223,8 @@ class ContentExtension extends AbstractExtension
             return Excerpt::getExcerpt((string) $content, $length);
         }
 
-        if (ComposeValueHelper::isSuitable($content, 'excerpt_format')) {
-            $excerpt = ComposeValueHelper::get($content, $content->getDefinition()->get('excerpt_format'));
+        if (ContentHelper::isSuitable($content, 'excerpt_format')) {
+            $excerpt = ContentHelper::get($content, $content->getDefinition()->get('excerpt_format'));
         } else {
             $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
@@ -263,7 +244,7 @@ class ContentExtension extends AbstractExtension
             }
         }
 
-        $skipFields = ComposeValueHelper::guessTitleFields($content);
+        $skipFields = $this->getTitleFields($content);
 
         foreach ($content->getFields() as $field) {
             if ($field instanceof Excerptable && in_array($field->getName(), $skipFields, true) === false) {
@@ -574,7 +555,7 @@ class ContentExtension extends AbstractExtension
         foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
-                'value' => ComposeValueHelper::get($record, $format),
+                'value' => ContentHelper::get($record, $format),
             ];
         }
 

@@ -6,15 +6,14 @@ namespace Bolt\Utils;
 
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
-use Tightenco\Collect\Support\Collection;
 
-class ComposeValueHelper
+class ContentHelper
 {
     public static function isSuitable(Content $record, string $which = 'title_format'): bool
     {
         $definition = $record->getDefinition();
 
-        if ($definition !== null && $definition->has($which)) {
+        if ($record->getId() && $definition !== null && $definition->has($which)) {
             $format = $definition->get($which);
             if (is_string($format) && mb_strpos($format, '{') !== false) {
                 return true;
@@ -45,6 +44,10 @@ class ComposeValueHelper
                     return $record->getStatus();
                 }
 
+                if ($match[1] === 'author') {
+                    return $record->getAuthor();
+                }
+
                 if ($record->hasField($match[1])) {
                     $field = $record->getField($match[1]);
 
@@ -53,10 +56,6 @@ class ComposeValueHelper
                     }
 
                     return $field;
-                }
-
-                if (array_key_exists($match[1], $record->getExtras())) {
-                    return $record->getExtras()[$match[1]];
                 }
 
                 return '(unknown)';
@@ -74,34 +73,7 @@ class ComposeValueHelper
 
     public static function guessTitleFields(Content $content): array
     {
-        $definition = $content->getDefinition();
-
-        // First, see if we have a "title format" in the Content Type.
-        if ($definition !== null && $definition->has('title_format')) {
-            if (self::isSuitable($content)) {
-                $names = self::getFieldNames($definition->get('title_format'));
-            } else {
-                $names = $definition->get('title_format');
-            }
-
-            $namesCollection = Collection::wrap($names)->filter(function (string $name) use ($content): bool {
-                if ($content->hasFieldDefined($name) === false) {
-                    throw new \RuntimeException(sprintf(
-                        "Content '%s' has field '%s' added to title_format config option, but the field is not present in Content's definition.",
-                        $content->getContentTypeName(),
-                        $name
-                    ));
-                }
-
-                return $content->hasField($name);
-            });
-
-            if ($namesCollection->isNotEmpty()) {
-                return $namesCollection->values()->toArray();
-            }
-        }
-
-        // Alternatively, see if we have a field named 'title' or somesuch.
+        // Check if we have a field named 'title' or somesuch.
         $names = ['title', 'name', 'caption', 'subject']; // English
         $names = array_merge($names, ['titel', 'naam', 'kop', 'onderwerp']); // Dutch
         $names = array_merge($names, ['nom', 'sujet']); // French
@@ -120,5 +92,28 @@ class ComposeValueHelper
         }
 
         return [];
+    }
+
+    public static function getFieldBasedTitle(Content $content, string $locale = ''): string
+    {
+        $titleParts = [];
+
+        foreach (self::guessTitleFields($content) as $fieldName) {
+            $field = $content->getField($fieldName);
+
+            if (! empty($locale)) {
+                $field->setCurrentLocale($locale);
+            }
+
+            $value = $field->getParsedValue();
+
+            if (empty($value)) {
+                $value = $field->setLocale($field->getDefaultLocale())->getParsedValue();
+            }
+
+            $titleParts[] = $value;
+        }
+
+        return implode(' ', $titleParts);
     }
 }

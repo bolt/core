@@ -1,6 +1,13 @@
 Feature: Test field output
 
   @javascript
+  Scenario: As a user I want to see how the record title is displayed
+    Given I am on "/test/title-of-the-test"
+    Then I wait for ".title"
+
+    And I should see "74: Title of the test" in the ".title" element
+
+  @javascript
   Scenario: As a user I want to see how fields are escaped
 
     Given I am on "/test/title-of-the-test"
