@@ -39,6 +39,7 @@ before_script:
   # test if web server works
   - sleep 3
   - wget "http://127.0.0.1:8088/bolt/login"
+  - export PATH=$PATH:$PWD/vendor/bin
 
 script:
   # this checks that the source code follows the Bolt Code Syntax rules
@@ -65,7 +66,7 @@ script:
   # run API tests
   - make behat-api-quiet
   # run JS e2e tests
-  - ./run_behat_tests.sh && make behat-js-quiet
+  - make behat-js-quiet
   # Upload Behat logs
   - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
 

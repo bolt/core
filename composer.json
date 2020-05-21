@@ -99,9 +99,11 @@
         "phpstan/phpstan-symfony": "^0.12",
         "phpunit/phpunit": "^7.5",
         "roave/security-advisories": "dev-master@dev",
+        "se/selenium-server-standalone": "^3.141",
         "symfony/browser-kit": "^4.4",
         "symfony/css-selector": "^4.4",
-        "symplify/easy-coding-standard": "^7.2"
+        "symplify/easy-coding-standard": "^7.2",
+        "vaimo/binary-chromedriver": "^5.0"
     },
     "config": {
         "preferred-install": {
