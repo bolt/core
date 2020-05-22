@@ -1,12 +1,13 @@
 const WebpackBar = require('webpackbar');
 const Encore = require('@symfony/webpack-encore');
 
-Encore.addPlugin(
-  new WebpackBar({
-    profile: Encore.isProduction(),
-    minimal: false,
-  }),
-)
+Encore
+  .addPlugin(
+    new WebpackBar({
+        profile: Encore.isProduction(),
+        minimal: false,
+    }),
+  )
 
   .setOutputPath('public/assets/')
   .setPublicPath('/assets')
@@ -33,6 +34,8 @@ Encore.addPlugin(
   .autoProvidejQuery()
   .enableVueLoader()
   .enableSassLoader()
-  .enablePostCssLoader();
+  .enablePostCssLoader()
+
+  .enableVueLoader(() => {}, { runtimeCompilerBuild: true });
 
 module.exports = Encore.getWebpackConfig();

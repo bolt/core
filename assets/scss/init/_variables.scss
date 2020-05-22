@@ -17,6 +17,7 @@ $headings-font-family:        'Source Sans Variable', sans-serif;
 $font-size-base:              0.9rem;
 $font-size-largescreen:       1rem;
 $line-height-base:            1.5;
+$small-font-size:             88%;
 
 // Minor Third progression for header font sizes
 $h1-font-size:                $font-size-base * 2.07;
@@ -101,6 +102,8 @@ $grid-breakpoints: (
 $yiq-contrasted-threshold:  150;
 
 :root {
+  --body: #222; // Note: this value isn't actually used. @todo Find out where it's coming from.
+  --body-dimmed: #555;
   --background: #fbfaf9;
   --foreground: #fff;
   --foreground-border: #e8e8e8;
