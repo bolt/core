@@ -1,9 +1,13 @@
 <template>
   <ul class="link--menu">
-    <li v-if="item.link_new !== null" class="link--create">
+    <li v-if="item.link_new !== null" class="link--actions">
       <a :href="item.link_new">
         <i class="fas fa-fw fa-magic mr-2"></i
         ><span>New {{ item.singular_name }}</span>
+      </a>
+      <a :href="item.link_listing">
+        <i class="fas fa-fw" :class="item.icon"></i>
+        <span>View {{ item.name }}</span>
       </a>
     </li>
     <!-- eslint-disable vue/no-use-v-if-with-v-for -->

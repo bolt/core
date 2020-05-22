@@ -123,12 +123,21 @@
       }
 
       li {
-        &.link--create {
-          border-bottom: dashed 1px rgba(0, 0, 0, 0.1);
+        &.link--actions {
+          display: flex;
+          align-content: space-around;
+          border-bottom: solid 1px rgba(0, 0, 0, 0.1);
 
           a {
             font-weight: $font-weight-bold;
             letter-spacing: $letter-spacing;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          a+a {
+            border-left: dashed 1px rgba(0, 0, 0, 0.1);
           }
         }
 
