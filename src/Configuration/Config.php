@@ -209,7 +209,7 @@ class Config
         /** @var Collection $taxos */
         $taxos = $this->get('taxonomies');
 
-        foreach (['singular_slug', 'name', 'singular_name'] as $key) {
+        foreach (['slug', 'singular_slug', 'name', 'singular_name'] as $key) {
             if ($taxos->firstWhere($key, $name)) {
                 return $taxos->firstWhere($key, $name);
             }
