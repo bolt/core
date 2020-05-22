@@ -10,6 +10,8 @@ use Bolt\Widgets;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -122,5 +124,13 @@ trait ServicesTrait
     public function getQuery(): Query
     {
         return $this->query;
+    }
+
+    public function getRequest(): Request
+    {
+        /** @var RequestStack $stack */
+        $stack = $this->getService('request_stack');
+
+        return $stack->getCurrentRequest();
     }
 }
