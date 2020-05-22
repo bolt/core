@@ -35,6 +35,15 @@ code {
   background-color: rgba(0, 0, 0, 0.075);
 }
 
+br + small {
+  padding-top: 0.5rem;
+  display: inline-block;
+}
+
+small {
+  color: var(--body-dimmed);
+}
+
 .card {
   box-shadow: $card-box-shadow;
   background: #fff;
@@ -51,6 +60,10 @@ code {
 
   .form-group {
     margin-bottom: 1rem;
+  }
+
+  a {
+    text-decoration: underline;
   }
 }
 
@@ -72,3 +85,4 @@ input.flatpickr-input[disabled] {
 input::placeholder {
   font-style: italic;
 }
+
