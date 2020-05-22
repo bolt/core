@@ -1,6 +1,10 @@
 {% if image %}
     <div class="imageholder">
-        {{ popup(image, 1368, 1026) }}
-        <small>{{ image.get('alt') }}</small>
+        <a href="{{ record|image }}">
+            <img src="{{ thumbnail(record, 1368, 1026) }}" alt="{{ (record|image).alt|default(record|title) }}">
+        </a>
+        {% if image.alt %}
+            <small>{{ image.alt }}</small>
+        {% endif %}
     </div>
 {% endif %}

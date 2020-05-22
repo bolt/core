@@ -34,7 +34,7 @@
 
                 {% if record|image %}
                     <a href="{{ record|image }}">
-                        <img src="{{ thumbnail(record|image, 400, 260) }}" alt="{{ (record|image).alt|default(record|title) }}">
+                        <img src="{{ thumbnail(record, 400, 260) }}" alt="{{ (record|image).alt|default(record|title) }}">
                     </a>
                 {% endif %}
 
