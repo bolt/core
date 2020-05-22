@@ -29,7 +29,7 @@ Feature: Preview record after editing
     And I scroll "Save changes" into view
     And I press "Save changes"
 
-    When I scroll ".form-fieldsgroup__summary-fields" into view
+    When I scroll ".record-actions" into view
     And I press "View saved version"
 
     Then I should not see "This is the title in the wrong locale"
