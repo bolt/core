@@ -20,12 +20,12 @@ Feature: Preview record after editing
     Given I am logged in as "admin"
     When I am on "/bolt/edit/2"
 
-    When I fill in "field-title" with "This is the title in the wrong locale"
+    When I fill in "field-heading" with "This is the title in the wrong locale"
     And I scroll "Save changes" into view
     And I press "Save changes"
 
     When I am on "/bolt/edit/2?edit_locale=nl"
-    And I fill in "field-title" with "This is the title in the correct locale"
+    And I fill in "field-heading" with "This is the title in the correct locale"
     And I scroll "Save changes" into view
     And I press "Save changes"
 
