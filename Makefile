@@ -82,7 +82,7 @@ behat-js: ## to run behat JS tests
 	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
 	sleep 2s
 	vendor/bin/behat --tags=javascript
-	# kill -9 $(lsof -t -i:4444)
+	# @todo: stop selenium server
 
 behat-js-quiet: ## to run behat JS tests quietly
 	make server
@@ -92,7 +92,7 @@ behat-js-quiet: ## to run behat JS tests quietly
 	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
 	sleep 2s
 	vendor/bin/behat --tags=javascript --format=progress
-	# kill -9 $(lsof -t -i:4444)
+	# @todo: stop selenium server
 
 behat:
 	make behat-api
