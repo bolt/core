@@ -28,6 +28,8 @@ Feature: Preview record after editing
     And I scroll "Save changes" into view
     And I press "Save changes"
 
+    Then I should be on "/bolt/edit/2?edit_locale=nl"
+    
     When I scroll ".record-actions" into view
     And I press "View saved version"
 
