@@ -221,7 +221,7 @@ class Field implements FieldInterface, TranslatableInterface
             $count = count($value);
             if ($count === 0) {
                 return null;
-            } elseif ($count === 1 && array_keys($value)[0] === 0) {
+            } elseif ($count === 1 && array_keys($value)[0] === 0 && ! $this instanceof ListFieldInterface) {
                 return reset($value);
             }
         }

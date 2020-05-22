@@ -7,12 +7,13 @@ namespace Bolt\Entity\Field;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\ListFieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class FilelistField extends Field implements FieldInterface
+class FilelistField extends Field implements FieldInterface, ListFieldInterface
 {
     public const TYPE = 'filelist';
 

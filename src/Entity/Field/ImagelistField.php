@@ -7,12 +7,13 @@ namespace Bolt\Entity\Field;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\ListFieldInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class ImagelistField extends Field implements FieldInterface
+class ImagelistField extends Field implements FieldInterface, ListFieldInterface
 {
     public const TYPE = 'imagelist';
 
@@ -37,7 +38,7 @@ class ImagelistField extends Field implements FieldInterface
             $imageField = new ImageField();
             $imageField->setName((string) $key);
             $imageField->setValue($image);
-            array_push($result, $imageField);
+            $result[] = $imageField;
         }
 
         return $result;
