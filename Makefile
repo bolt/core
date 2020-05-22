@@ -76,7 +76,7 @@ behat-api-quiet: ## to run behat API tests quietly
 behat-js: ## to run behat JS tests
 	make server
 	echo "Running Behat e2e tests. Make sure you have the latest version of Google Chrome installed"
-	./run_behat_tests.sh
+	. ./run_behat_tests.sh
 	## run the selenium server. chromedriver executable must be in $PATH
 	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
 	sleep 2s
@@ -86,7 +86,7 @@ behat-js: ## to run behat JS tests
 behat-js-quiet: ## to run behat JS tests quietly
 	make server
 	echo "Running Behat e2e tests. Make sure you have the latest version of Google Chrome installed"
-	./run_behat_tests.sh
+	. ./run_behat_tests.sh
 	## run the selenium server. chromedriver executable must be in $PATH
 	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
 	sleep 2s
