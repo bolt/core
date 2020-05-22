@@ -1,0 +1,3 @@
+# Settings for Bolt Configuration Notices
+
+local_domains: [ '.foo' ]

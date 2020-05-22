@@ -13,3 +13,6 @@ services:
     Bolt\NewsWidget\:
         resource: '../vendor/bolt/newswidget/src/*'
         exclude: '../vendor/bolt/newswidget/src/{Entity,Exception}'
+    BobdenOtter\ConfigurationNotices\:
+        resource: '../vendor/bobdenotter/configuration-notices/src/*'
+        exclude: '../vendor/bobdenotter/configuration-notices/src/{Entity,Exception}'
