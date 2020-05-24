@@ -13,10 +13,10 @@
 
         {# check if we have a title. If so, we know we have content to display. Otherwise, we will
             output a default text, telling the user to create the 'blocks' in the backend. #}
-        {% if block.title is defined %}
+        {% if block %}
 
             <h5>{{ block.title }}</h5>
-            {{ block.content }}
+            <p>{{ block.content|default(block|excerpt) }}</p>
 
             {% set edit_link = block|edit_link %}
             {% set content_link = block.content_link|default(block|link) %}
@@ -48,7 +48,7 @@
         The 'else' in the inner for-loop is only used if there are no 'records',
         so we can use it to print a helpful message.
         Lastly, "path('listing', {'contentTypeSlug': ct.slug})" will output something like '/pages',
-        effectively creating a working link to that contenttpye's listing page. #}
+        effectively creating a working link to that contenttype's listing page. #}
 
     {% for ct in config.get('contenttypes')|filter(ct => not ct.viewless) %}
 

@@ -6,6 +6,9 @@
         <p>{{ config.get('general/payoff') }}</p>
     {% endif %}
 
-    {% include 'helpers/_languageselect.html.twig' with {'type': 'select'} %}
-    <hr>
+    {{ menu(
+        name = 'main',
+        template = 'partials/_sub_menu_header.twig',
+        withsubmenus = false
+    ) }}
 </header>
