@@ -2,6 +2,41 @@
 Changelog
 ---------
 
+## 4.0.0-rc.20
+
+Released: 2020-05-24
+
+### 🐛 Bug fixes
+
+- View saved version in current edit locale (I-Valchev, [#1388](https://github.com/bolt/core/pull/1388))
+- Break slightly less when adding new contenttypes (bobdenotter, [#1386](https://github.com/bolt/core/pull/1386))
+- Format title works without breaking on new content. Sorting content by title uses format_title. (I-Valchev, [#1385](https://github.com/bolt/core/pull/1385))
+- Persist non-translatable field with correct default locale (I-Valchev, [#1384](https://github.com/bolt/core/pull/1384))
+
+### 📦 Additions and new features
+
+- Add Configuration Notices extension (bobdenotter, [#1391](https://github.com/bolt/core/pull/1391))
+
+### 🛠️ Miscellaneous
+
+- Display upload limits and better feedback on failure (bobdenotter, [#1404](https://github.com/bolt/core/pull/1404))
+- View content type button on hover (I-Valchev, [#1400](https://github.com/bolt/core/pull/1400))
+- Get taxonomy by slug (I-Valchev, [#1397](https://github.com/bolt/core/pull/1397))
+- Wrap list fields with 1 element in array (I-Valchev, [#1396](https://github.com/bolt/core/pull/1396))
+- Minor CSS changes, update Symfony Encore (bobdenotter, [#1392](https://github.com/bolt/core/pull/1392))
+- Users page uses abbr relative date (I-Valchev, [#1382](https://github.com/bolt/core/pull/1382))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Add todo to stop selenium server process (I-Valchev, [#1393](https://github.com/bolt/core/pull/1393))
+- Use selenium and chromedriver as composer dev dependencies (I-Valchev, [#1387](https://github.com/bolt/core/pull/1387))
+
+### 🎨 Design / User Interface
+
+- Updates for skeleton theme (bobdenotter, [#1403](https://github.com/bolt/core/pull/1403))
+- Working on Skeleton Theme (New.css instead of Sakura) (bobdenotter, [#1401](https://github.com/bolt/core/pull/1401))
+
+
 ## 4.0.0-rc.19
 
 Released: 2020-05-17
