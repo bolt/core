@@ -7,6 +7,7 @@ namespace Bolt\Controller\Backend\Async;
 use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Factory\MediaFactory;
+use Bolt\Twig\TextExtension;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -36,12 +37,16 @@ class UploadController implements AsyncZoneInterface
     /** @var Config */
     private $config;
 
-    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager)
+    /** @var TextExtension */
+    private $textExtension;
+
+    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager, TextExtension $textExtension)
     {
         $this->mediaFactory = $mediaFactory;
         $this->em = $em;
         $this->config = $config;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->textExtension = $textExtension;
     }
 
     /**
@@ -70,18 +75,19 @@ class UploadController implements AsyncZoneInterface
         ]);
 
         $acceptedFileTypes = array_merge($this->config->getMediaTypes()->toArray(), $this->config->getFileTypes()->toArray());
+        $maxSize = $this->config->getMaxUpload();
         $uploadHandler->addRule(
             'extension',
             [
                 'allowed' => $acceptedFileTypes,
             ],
-            '{label} should be a valid file (' . implode(',', $acceptedFileTypes) . ')',
+            'The file for field \'{label}\' was <u>not</u> uploaded. It should be a valid file type. Allowed are <code>' . implode('</code>, <code>', $acceptedFileTypes) . '.',
             'Upload file'
         );
         $uploadHandler->addRule(
             'size',
-            ['max' => '20M'],
-            '{label} should have less than {max}',
+            ['max' => $maxSize],
+            'The file for field \'{label}\' was <u>not</u> uploaded. The upload can have a maximum filesize of <b>' . $this->textExtension->formatBytes($maxSize) . '</b>.',
             'Upload file'
         );
         $uploadHandler->setSanitizerCallback(function ($name) {

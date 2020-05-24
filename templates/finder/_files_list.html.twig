@@ -58,7 +58,7 @@
                 {%- endif -%}
             </td>
             <td>
-                {{ file.getSize() }}&nbsp;bytes
+                {{ file.getSize()|format_bytes(1) }}
                 {% if dimensions %}<br><small style="color: #888;">{{ dimensions }}</small>{% endif %}
             </td>
             <td>

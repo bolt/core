@@ -1929,7 +1929,7 @@
         <target>Select Field to sort by…</target>
       </segment>
     </unit>
-    <unit id="SDVQEir" name="title.primary_actions">
+    <unit id="JEnqOi." name="title.primary_actions">
       <segment>
         <source>title.primary_actions</source>
         <target>Primary Actions</target>
@@ -2305,6 +2305,18 @@
       <segment>
         <source>collection.confirm_delete</source>
         <target>Are you sure you wish to delete this collection item?</target>
+      </segment>
+    </unit>
+    <unit id="YZJO3Ul" name="upload.allow_file_types">
+      <segment>
+        <source>upload.allow_file_types</source>
+        <target>File types allowed for upload: </target>
+      </segment>
+    </unit>
+    <unit id="noOf4ML" name="upload.max_size">
+      <segment>
+        <source>upload.max_size</source>
+        <target>Maximum upload size:</target>
       </segment>
     </unit>
   </file>

@@ -310,7 +310,8 @@ export default {
           this.progress = 0;
         })
         .catch(err => {
-          console.warn(err);
+          bootbox.alert(err.response.data.error.message);
+          console.warn(err.response.data.error.message);
           this.progress = 0;
         });
     },

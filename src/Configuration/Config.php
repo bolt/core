@@ -222,4 +222,45 @@ class Config
     {
         return new Collection($this->get('general/accept_file_types'));
     }
+
+    public function getMaxUpload(): int
+    {
+        return min(
+            $this->convertPHPSizeToBytes(ini_get('post_max_size')),
+            $this->convertPHPSizeToBytes(ini_get('upload_max_filesize')),
+            $this->convertPHPSizeToBytes($this->get('general/accept_upload_size', '8M'))
+        );
+    }
+
+    /**
+     * This function transforms the php.ini notation for numbers (like '2M') to an integer (2*1024*1024 in this case)
+     */
+    private function convertPHPSizeToBytes(string $size): int
+    {
+        $suffix = mb_strtoupper(mb_substr($size, -1));
+        if (! in_array($suffix, ['P', 'T', 'G', 'M', 'K'], true)) {
+            return (int) $size;
+        }
+        $value = (int) mb_substr($size, 0, -1);
+        switch ($suffix) {
+            case 'P':
+                $value *= 1024;
+                // no break
+            case 'T':
+                $value *= 1024;
+                // no break
+            case 'G':
+                $value *= 1024;
+                // no break
+            case 'M':
+                $value *= 1024;
+                // no break
+            case 'K':
+                $value *= 1024;
+
+                break;
+        }
+
+        return $value;
+    }
 }

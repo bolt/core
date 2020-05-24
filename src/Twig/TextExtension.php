@@ -28,6 +28,7 @@ class TextExtension extends AbstractExtension
             new TwigFilter('slug', [$this, 'slug']),
             new TwigFilter('ucwords', [$this, 'ucwords']),
             new TwigFilter('preg_replace', [$this, 'pregReplace']),
+            new TwigFilter('format_bytes', [$this, 'formatBytes']),
         ];
     }
 
@@ -64,5 +65,17 @@ class TextExtension extends AbstractExtension
     public function pregReplace(string $str, string $pattern, string $replacement = '', int $limit = -1): string
     {
         return preg_replace($pattern, $replacement, $str, $limit);
+    }
+
+    public function formatBytes(int $bytes, int $precision = 2): string
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+
+        $bytes /= pow(1024, $pow);
+
+        return round($bytes, $precision) . ' ' . $units[$pow];
     }
 }
