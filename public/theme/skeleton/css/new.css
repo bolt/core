@@ -434,7 +434,27 @@ img {
 }
 
 
-/* Additions for Bolt */
+/**
+ * Additions for Bolt
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: 3rem;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    text-decoration: none;
+}
+
 input, select, button {
     font-size: 1.03rem;
     padding: 0.2rem 1rem 0.2rem 1rem;
@@ -442,3 +462,86 @@ input, select, button {
     height: 2.2rem;
 }
 
+.callout {
+    border: 2px dashed rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+/* Image holder */
+div.imageholder {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    margin: 1rem 0;
+}
+
+div.imageholder img {
+    display: block;
+}
+
+div.imageholder small {
+    display: block;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+
+.meta {
+    color: #888;
+    font-size: 0.9em;
+}
+
+/* Default pagerfanta styles, for pagination */
+.pagination {
+    text-align: center;
+}
+
+.pagination li {
+    display: inline-block;
+    background: #f4f9fa;
+    border: 1px solid #96c4cc;
+    color: #2c8898;
+    padding: 0;
+}
+
+.pagination a {
+    text-decoration: none;
+    display: inline-block;
+    padding: .25em .6em;
+}
+
+.pagination a:hover {
+    background: #c0dbe0;
+    color: #982c61;
+}
+
+.pagination .dots {
+    border-width: 0;
+}
+
+.pagination .current {
+    background: #c0dbe0;
+    font-weight: bold;
+}
+
+.pagination .disabled {
+    border-color: #c0dbe0;
+    color: #abcfd6;
+}
+
+/* reset some styles for `samp` and `code`, because they mess with Symfony's `{{ dump() }}` */
+samp  {
+    background: inherit;
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+}
+
+code {
+    /* The main preformatted style. This is changed slightly across different cases. */
+    background: var(--nc-bg-2);
+    border: 0;
+    padding: 3px 3px;
+    font-size: 0.9rem;
+}

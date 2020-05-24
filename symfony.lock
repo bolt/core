@@ -58,6 +58,9 @@
     "behatch/contexts": {
         "version": "3.2.0"
     },
+    "bobdenotter/configuration-notices": {
+        "version": "1.0.2"
+    },
     "bobdenotter/weatherwidget": {
         "version": "1.1.0"
     },
