@@ -63,7 +63,7 @@
 
         <span class="dropdown-item-text">
                             <i class="fas fa-asterisk fa-w"></i>
-                            {{ 'files_cards.label_filesize'|trans }} {{ file.getSize() }}&nbsp;bytes
+                            {{ 'files_cards.label_filesize'|trans }} {{ file.getSize()|format_bytes(1) }}
                         </span>
 
         <span class="dropdown-item-text">
