@@ -2310,13 +2310,13 @@
     <unit id="YZJO3Ul" name="upload.allow_file_types">
       <segment>
         <source>upload.allow_file_types</source>
-        <target>File types allowed for upload: </target>
+        <target>File types allowed for upload</target>
       </segment>
     </unit>
     <unit id="noOf4ML" name="upload.max_size">
       <segment>
         <source>upload.max_size</source>
-        <target>Maximum upload size:</target>
+        <target>Maximum upload size</target>
       </segment>
     </unit>
   </file>
