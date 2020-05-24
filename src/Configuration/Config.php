@@ -241,22 +241,26 @@ class Config
         if (! in_array($suffix, ['P', 'T', 'G', 'M', 'K'], true)) {
             return (int) $size;
         }
-        $value = mb_substr($size, 0, -1);
+        $value = (int) mb_substr($size, 0, -1);
         switch ($suffix) {
             case 'P':
                 $value *= 1024;
+                // no break
             case 'T':
                 $value *= 1024;
+                // no break
             case 'G':
                 $value *= 1024;
+                // no break
             case 'M':
                 $value *= 1024;
+                // no break
             case 'K':
                 $value *= 1024;
 
                 break;
         }
 
-        return (int) $value;
+        return $value;
     }
 }
