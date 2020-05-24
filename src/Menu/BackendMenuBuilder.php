@@ -314,6 +314,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                     'singular_slug' => $contentType['singular_slug'],
                     'icon' => $contentType['icon_many'],
                     'link_new' => $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType->getSlug()]),
+                    'link_listing' => $contentType->getSlug(),
                     'singleton' => $contentType['singleton'],
                     'active' => $contentType->getSlug() === 'pages' ? true : false,
                     'submenu' => $this->getLatestRecords($contentType),

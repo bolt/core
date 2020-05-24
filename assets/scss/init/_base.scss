@@ -62,7 +62,7 @@ small {
     margin-bottom: 1rem;
   }
 
-  a {
+  a:not(.btn) {
     text-decoration: underline;
   }
 }
