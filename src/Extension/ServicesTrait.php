@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
 trait ServicesTrait
@@ -74,6 +75,25 @@ trait ServicesTrait
         }
 
         return null;
+    }
+
+    public function listServices(): Collection
+    {
+        $container = $this->getContainer();
+
+        $reflectedContainer = new \ReflectionClass($container);
+        $reflectionProperty = $reflectedContainer->getProperty('services');
+        $reflectionProperty->setAccessible(true);
+        $publicServices = $reflectionProperty->getValue($container);
+
+        $reflectionProperty = $reflectedContainer->getProperty('privates');
+        $reflectionProperty->setAccessible(true);
+        $privateServices = $reflectionProperty->getValue($container);
+
+        $services = array_merge(array_keys($publicServices), array_keys($privateServices));
+        sort($services);
+
+        return collect($services);
     }
 
     public function getWidgets(): ?Widgets
