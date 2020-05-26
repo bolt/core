@@ -77,7 +77,7 @@ trait ServicesTrait
         return null;
     }
 
-    public function listServices(): Collection
+    public function getAllServiceNames(): Collection
     {
         $container = $this->getContainer();
 
