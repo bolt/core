@@ -9,13 +9,14 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
+use Bolt\Entity\ListFieldInterface;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class CollectionField extends Field implements FieldInterface, FieldParentInterface
+class CollectionField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface
 {
     use FieldParentTrait;
 
