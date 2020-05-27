@@ -9,6 +9,8 @@ use Bolt\Configuration\FileLocations;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Bolt\Utils\Excerpt;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +32,8 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 
     /** @var SessionInterface */
     private $session;
+
+    private const PAGESIZE = 60;
 
     public function __construct(FileLocations $fileLocations, MediaRepository $mediaRepository, SessionInterface $session)
     {
@@ -58,17 +62,20 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $location = $this->fileLocations->get($location);
 
         $finder = $this->findFiles($location->getBasepath(), $path);
+        $folders = $this->findFolders($location->getBasepath(), $path);
 
-        $media = $this->mediaRepository->findAll();
+        $currentPage = (int) $request->query->get('page', 1);
+        $pager = $this->createPaginator($finder, $currentPage);
 
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';
 
         return $this->renderTemplate('@bolt/finder/finder.html.twig', [
             'path' => $path,
             'location' => $location,
-            'finder' => $finder,
+            'finder' => $pager,
+            'folders' => $folders,
             'parent' => $parent,
-            'media' => $media,
+            'media' => $this->mediaRepository->findAll(),
             'allfiles' => $location->isShowAll() ? $this->buildIndex($location->getBasepath()) : false,
             'view' => $view,
         ]);
@@ -79,9 +86,28 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $fullpath = Path::canonicalize($base . '/' . $path);
 
         $finder = new Finder();
-        $finder->in($fullpath)->depth('== 0')->sortByName();
+        $finder->in($fullpath)->depth('== 0')->files()->sortByName();
 
         return $finder;
+    }
+
+    private function findFolders(string $base, string $path): Finder
+    {
+        $fullpath = Path::canonicalize($base . '/' . $path);
+
+        $finder = new Finder();
+        $finder->in($fullpath)->depth('== 0')->directories()->sortByName();
+
+        return $finder;
+    }
+
+    private function createPaginator(Finder $finder, int $page): Pagerfanta
+    {
+        $paginator = new Pagerfanta(new ArrayAdapter(iterator_to_array($finder, true)));
+        $paginator->setMaxPerPage(self::PAGESIZE);
+        $paginator->setCurrentPage($page);
+
+        return $paginator;
     }
 
     private function buildIndex(string $base)

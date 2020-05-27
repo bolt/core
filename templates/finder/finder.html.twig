@@ -25,6 +25,8 @@
         {% include '@bolt/finder/_files_cards.html.twig' %}
     {% endif %}
 
+    {{ pager(finder, template = '@bolt/helpers/_pager_bootstrap.html.twig', class="justify-content-center") }}
+
 {% endblock %}
 
 {% block aside %}

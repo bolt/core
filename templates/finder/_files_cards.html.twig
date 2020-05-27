@@ -1,5 +1,5 @@
 <div class="row">
-    {% for file in finder.files() %}
+    {% for file in finder %}
 
         {% set extension = file.extension() %}
         {% set filename = path ~ file.getRelativePathname() %}
