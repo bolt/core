@@ -1554,7 +1554,7 @@
     <unit id=".fL0AbE" name="files_list.remark">
       <segment>
         <source>files_list.remark</source>
-        <target>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</target>
+        <target>No files are present in this folder. Select a folder to navigate to.</target>
       </segment>
     </unit>
     <unit id="v6cfPyt" name="quickselect.title_select">

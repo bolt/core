@@ -981,7 +981,7 @@
     <unit id=".fL0AbE" name="files_list.remark">
       <segment>
         <source>files_list.remark</source>
-        <target>__files_list.remark</target>
+        <target>Er staan geen bestanden in deze map. Kies een map om naar toe te navigeren.</target>
       </segment>
     </unit>
     <unit id="I2ykiIZ" name="caption.folders">
