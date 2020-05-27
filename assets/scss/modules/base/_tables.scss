@@ -1,14 +1,16 @@
 table.table-compact {
-
-  th:first-of-type, td:first-of-type {
+  th:first-of-type,
+  td:first-of-type {
     padding-left: 0.8rem;
   }
 
-  th:last-of-type, td:last-of-type {
+  th:last-of-type,
+  td:last-of-type {
     padding-right: 0.8rem;
   }
 
-  th, td {
+  th,
+  td {
     padding: 0.3rem;
   }
 }
