@@ -12,6 +12,7 @@
         "bolt/common": "^2.1.0",
         "cocur/slugify": "^4.0",
         "composer/composer": "^1.10",
+        "composer/package-versions-deprecated": "^1.8",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-cache-bundle": "^1.4",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
