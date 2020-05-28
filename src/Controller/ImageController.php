@@ -136,7 +136,7 @@ class ImageController
 
     private function parseParameters(string $paramString): void
     {
-        $raw = explode('×', $paramString);
+        $raw = explode('×', str_replace('x', '×', $paramString));
 
         $this->parameters = [
             'w' => is_numeric($raw[0]) ? (int) $raw[0] : 400,
