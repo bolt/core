@@ -1,11 +1,11 @@
 <template>
   <ul class="link--menu">
     <li v-if="item.link_new !== null" class="link--actions">
-      <a :href="item.link_new">
+      <a :href="item.link_new" data-patience="virtue">
         <i class="fas fa-fw fa-magic mr-2"></i
         ><span>New {{ item.singular_name }}</span>
       </a>
-      <a :href="item.link_listing">
+      <a :href="item.link_listing" data-patience="virtue">
         <i class="fas fa-fw" :class="item.icon"></i>
         <span>View {{ item.name }}</span>
       </a>
@@ -17,7 +17,7 @@
       :key="index"
     >
       <!-- eslint-enable -->
-      <a :href="subitem.editLink">
+      <a :href="subitem.editLink" data-patience="virtue">
         <i class="fas fa-fw mr-2" :class="subitem.icon"></i>
         <!-- eslint-disable-next-line vue/no-v-html -->
         <span v-if="subitem.name" v-html="subitem.name"></span>

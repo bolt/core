@@ -63,6 +63,7 @@
                 class="btn dropdown-item"
                 type="button"
                 :disabled="readonly"
+                data-patience="virtue"
                 @click="selectServerFile"
               >
                 <i class="fas fa-fw fa-th"></i>
@@ -76,6 +77,9 @@
               >
                 <i class="fas fa-fw fa-info-circle"></i>
                 {{ labels.button_edit_attributes }}
+                <small class="dim"
+                  ><i class="fas fa-external-link-square-alt"></i
+                ></small>
               </a>
             </div>
           </div>
@@ -263,9 +267,11 @@ export default {
             },
           });
           window.$('.bootbox-input').attr('name', 'bootbox-input');
+          window.reEnablePatientButtons();
         })
         .catch(err => {
           console.warn(err);
+          window.reEnablePatientButtons();
         });
     },
     onDragEnter(e) {
