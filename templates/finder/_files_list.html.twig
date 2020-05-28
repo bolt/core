@@ -1,5 +1,5 @@
 
-<table class="table table-striped" style="background-color: #FFF;">
+<table class="table table-striped table-compact" id="files-list" style="background-color: #FFF;">
     <thead class="thead-light">
     <tr>
         <th></th>
@@ -11,7 +11,7 @@
     </tr>
     </thead>
 
-    {% for file in finder.files() %}
+    {% for file in finder %}
 
         {% set extension = file.extension() %}
         {% set filename = path ~ file.getRelativePathname() %}
@@ -42,24 +42,25 @@
             <td>
                 <b>
                     <a href="{{ link }}">
-                        {{ file.getRelativePathname }}
+                        {{ file.getRelativePathname|shy }}
                     </a>
                 </b>
                 {% if title %}<br><small style="color: #888;">{{ title }}</small>{% endif %}
             </td>
-            <td class="listing-thumb" style="padding: 0.2em;">
+            <td class="listing-thumb">
                 {%- if thumbnail -%}
                     <a class="lightbox"
                        href="{{ filename|thumbnail(width = 1000, height = 1000, location = location.key, fit = 'crop') }}">
-                    <img src="{{ thumbnail }}" width="100" height="72">
+                    <img src="{{ thumbnail }}" loading="lazy" width="100" height="72">
                     </a>
                 {%- else -%}
                     &nbsp;
                 {%- endif -%}
             </td>
             <td>
-                {{ file.getSize()|format_bytes(1) }}
-                {% if dimensions %}<br><small style="color: #888;">{{ dimensions }}</small>{% endif %}
+                <small style="color: #888; white-space:nowrap;">{{ file.getSize()|format_bytes(1) }}
+                {% if dimensions %}<br>{{ dimensions }}{% endif %}
+                </small>
             </td>
             <td>
                 <small style="color: #888;">{{ file.getCTime()|date('Y-m-d H:i:s') }}</small>

@@ -15,6 +15,8 @@
 
     {% include '@bolt/finder/_quickselect.html.twig' %}
 
+    {% include '@bolt/finder/_folders.html.twig' %}
+
     {% set imageformats = ['gif', 'jpg', 'jpeg', 'png', 'svg'] %}
 
     {% if view == 'list' %}
@@ -22,6 +24,8 @@
     {% else %}
         {% include '@bolt/finder/_files_cards.html.twig' %}
     {% endif %}
+
+    {{ pager(finder, template = '@bolt/helpers/_pager_bootstrap.html.twig', class="justify-content-center") }}
 
 {% endblock %}
 
@@ -44,8 +48,6 @@
         </div>
     </div>
 </div>
-
-    {% include '@bolt/finder/_folders.html.twig' %}
 
     {% include '@bolt/finder/_uploader.html.twig' %}
 

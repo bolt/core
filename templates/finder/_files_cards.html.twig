@@ -1,5 +1,5 @@
-<div class="row">
-    {% for file in finder.files() %}
+<div class="row" id="files-cards">
+    {% for file in finder %}
 
         {% set extension = file.extension() %}
         {% set filename = path ~ file.getRelativePathname() %}
@@ -29,10 +29,10 @@
         <div class="card">
             {%- if thumbnail -%}
                 <a class="lightbox" href="{{ filename|thumbnail(width = 1000, height = 1000, location = location.key) }}">
-                    <img class="card-img-top" src="{{ thumbnail }}">
+                    <img class="card-img-top" src="{{ thumbnail }}" loading="lazy">
                 </a>
             {% else %}
-                <img class="card-img-top" src="{{ asset('assets/images/placeholder.png', 'public') }}">
+                <img class="card-img-top" src="{{ asset('assets/images/placeholder.png', 'public') }}" loading="lazy">
             {%- endif -%}
 
             <div class="card-body p-2">

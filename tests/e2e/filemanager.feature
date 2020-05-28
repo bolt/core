@@ -15,7 +15,7 @@ Feature: Filemanager
     Given I am logged in as "admin"
     And I am on "/bolt/filemanager/files"
 
-    Then I should see "_b-penguin.jpeg" in the 3rd ".admin__body--main tr" element
+    Then I should see "_b-penguin.jpeg" in the 3rd "#files-list tr" element
 
     When I click the 2nd ".edit-actions__dropdown-toggler"
     And I follow "Delete _b-penguin.jpeg"
@@ -32,7 +32,7 @@ Feature: Filemanager
     Given I am logged in as "admin"
     And I am on "/bolt/filemanager/files"
 
-    Then I should see "_a-sunrise.jpeg" in the 2nd ".admin__body--main tr" element
+    Then I should see "_a-sunrise.jpeg" in the 2nd "#files-list tr" element
 
     When I click the 1st ".edit-actions__dropdown-toggler"
     And I follow "Delete _a-sunrise.jpeg"
@@ -42,14 +42,14 @@ Feature: Filemanager
     When I press "Cancel"
 
     Then I should not see "File deleted successfully"
-    And I should see "_a-sunrise.jpeg" in the 2nd ".admin__body--main tr" element
+    And I should see "_a-sunrise.jpeg" in the 2nd "#files-list tr" element
 
   @javascript
   Scenario: As an Admin I want to duplicate a file
     Given I am logged in as "admin"
     And I am on "/bolt/filemanager/files"
 
-    Then I should see "_a-sunrise.jpeg" in the 2nd ".admin__body--main tr" element
+    Then I should see "_a-sunrise.jpeg" in the 2nd "#files-list tr" element
     And I should not see "I should see _a-sunrise (1).jpeg"
 
     When I click the 1st ".edit-actions__dropdown-toggler"
