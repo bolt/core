@@ -5,7 +5,8 @@ $('*[data-patience]').on('click', function() {
 
   // Bootstrap padding / margin like `mx-2` or `pt-3`
   const addedPadding = thisIcon.attr('class').match(/[mp][tblrxy]-[0-5]/i);
-  const newClass = 'fas fa-w fa-cog fa-spin ' + (addedPadding ? addedPadding : '');
+  const newClass =
+    'fas fa-w fa-cog fa-spin ' + (addedPadding ? addedPadding : '');
 
   $(this).attr('data-original-class', thisIcon.attr('class'));
   $(this).attr('disabled', true);
