@@ -58,6 +58,14 @@ class SelectQuery implements QueryInterface
     ];
 
     /** @var array */
+    protected $coreDateFields = [
+        'createdAt',
+        'modifiedAt',
+        'publishedAt',
+        'depublishedAt',
+    ];
+
+    /** @var array */
     protected $taxonomyFields = [];
 
     /** @var array */
@@ -188,35 +196,6 @@ class SelectQuery implements QueryInterface
         return $params;
     }
 
-    /**
-     * Gets all the parameters for a specific field name.
-     *
-     * @param string $fieldName
-     *
-     * @return array array of key=>value parameters
-     */
-    public function getWhereParametersFor($fieldName): array
-    {
-        return array_intersect_key(
-            $this->getWhereParameters(),
-            array_flip(preg_grep('/^' . $fieldName . '_\d+$/', array_keys($this->getWhereParameters())))
-        );
-    }
-
-    /**
-     * Sets all the parameters for a specific field name.
-     *
-     * @param string $key
-     */
-    public function setWhereParameter($key, $value): void
-    {
-        foreach ($this->filters as $filter) {
-            if ($filter->hasParameter($key)) {
-                $filter->setParameter($key, $value);
-            }
-        }
-    }
-
     public function addFilter(Filter $filter): void
     {
         $this->filters[] = $filter;
@@ -241,10 +220,18 @@ class SelectQuery implements QueryInterface
     public function build(): QueryBuilder
     {
         $query = $this->qb;
+
+        $dateFields = $this->getDateFields();
+
         if ($this->getWhereExpression()) {
             $query->andWhere($this->getWhereExpression());
         }
+
         foreach ($this->getWhereParameters() as $key => $param) {
+            $fieldName = current(explode('_', $key));
+            if (in_array($fieldName, $dateFields)) {
+                $param = date('c', strtotime($param));
+            }
             $query->setParameter($key, $param, ParameterTypeInferer::inferType($param));
         }
 
@@ -409,6 +396,17 @@ class SelectQuery implements QueryInterface
     private function getTaxonomyFields(): array
     {
         return $this->taxonomyFields;
+    }
+
+    private function getDateFields(): array
+    {
+        // Get all fields from the current contentType
+        $ctFields = $this->getConfig()->get('contenttypes/' . $this->getContentType())->get('fields');
+
+        // And get the keys of those that are `type: date` (including 'datetime')
+        $dateFields = $ctFields->where('type', 'date')->keys()->all();
+
+        return array_merge($dateFields, $this->coreDateFields);
     }
 
     public function getIndex(): int
