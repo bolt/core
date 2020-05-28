@@ -71,8 +71,9 @@ $checkbox-row-width: 32px;
         top: 0.25rem;
         display: block;
         flex: 0 0 20%;
-        max-width: 100px;
-        max-height: 70px;
+        max-width: 108px;
+        max-height: 86px;
+        overflow: hidden;
         border-radius: $border-radius 0 0 $border-radius;
         background-color: var(--shade-400);
         background-repeat: no-repeat;
@@ -83,7 +84,6 @@ $checkbox-row-width: 32px;
       @include media-breakpoint-up(md) {
         order: 2;
         top: 0;
-        max-height: none;
       }
 
       & ~ .is-excerpt {

@@ -43,8 +43,13 @@
       <div
         v-if="size === 'normal' && record.extras.image"
         class="listing__row--item is-thumbnail"
-        :style="`background-image: url('${record.extras.image.thumbnail}')`"
-      ></div>
+      >
+        <img
+          :src="record.extras.image.thumbnail"
+          style="width: 108px;"
+          loading="lazy"
+        />
+      </div>
       <!-- end column -->
 
       <!-- column meta -->
