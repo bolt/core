@@ -6,12 +6,13 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Countable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class FileField extends Field implements FieldInterface
+class FileField extends Field implements FieldInterface, Countable
 {
     use FileExtrasTrait;
 
@@ -51,5 +52,14 @@ class FileField extends Field implements FieldInterface
         $value['url'] = $this->getUrl();
 
         return $value;
+    }
+
+    /**
+     * Allows {% if image is empty %} in Twig
+     * See https://twig.symfony.com/doc/3.x/tests/empty.html
+     */
+    public function count()
+    {
+        return empty($this->getValue()['filename']);
     }
 }

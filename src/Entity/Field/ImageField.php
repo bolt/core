@@ -9,6 +9,7 @@ use Bolt\Entity\FieldInterface;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
 use Bolt\Utils\ThumbnailHelper;
+use Countable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
@@ -16,7 +17,7 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 /**
  * @ORM\Entity
  */
-class ImageField extends Field implements FieldInterface, MediaAwareInterface
+class ImageField extends Field implements FieldInterface, MediaAwareInterface, Countable
 {
     use FileExtrasTrait;
 
@@ -98,5 +99,14 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface
         }
 
         return $this->getDefinition()->get('alt') === true;
+    }
+
+    /**
+     * Allows {% if file is empty %} in Twig
+     * See https://twig.symfony.com/doc/3.x/tests/empty.html
+     */
+    public function count()
+    {
+        return empty($this->getValue()['filename']);
     }
 }
