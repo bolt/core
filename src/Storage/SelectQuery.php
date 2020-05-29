@@ -229,7 +229,7 @@ class SelectQuery implements QueryInterface
 
         foreach ($this->getWhereParameters() as $key => $param) {
             $fieldName = current(explode('_', $key));
-            if (in_array($fieldName, $dateFields)) {
+            if (in_array($fieldName, $dateFields, true)) {
                 $param = date('c', strtotime($param));
             }
             $query->setParameter($key, $param, ParameterTypeInferer::inferType($param));
