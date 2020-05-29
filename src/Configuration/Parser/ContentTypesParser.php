@@ -325,7 +325,7 @@ class ContentTypesParser extends BaseParser
      */
     private function parseFieldRepeaters(FieldType $repeater, $acceptFileTypes, $currentGroup): ?FieldType
     {
-        $blacklist = ['repeater', 'slug', 'templatefield'];
+        $blacklist = ['repeater', 'slug', 'templatefield', 'templateselect'];
         $whitelist = ['collection', 'set'];
 
         if (! isset($repeater['fields']) || ! is_array($repeater['fields']) || ! in_array($repeater['type'], $whitelist, true)) {
@@ -335,18 +335,16 @@ class ContentTypesParser extends BaseParser
         $parsedRepeaterFields = [];
 
         foreach ($repeater['fields'] as $repeaterKey => $repeaterField) {
-            if (! isset($repeaterField['type']) || in_array($repeaterField['type'], $blacklist, true)) {
-                unset($repeater['fields'][$repeaterKey]);
-            }
-
             if (isset($repeaterField['fields'])) {
                 $repeaterField = new FieldType($repeaterField, $repeaterKey);
                 $this->parseFieldRepeaters($repeaterField, $acceptFileTypes, $currentGroup);
-            } else {
-                $this->parseField($repeaterKey, $repeaterField, $acceptFileTypes, $currentGroup);
             }
 
-            $parsedRepeaterFields[$repeaterKey] = $repeaterField;
+            $this->parseField($repeaterKey, $repeaterField, $acceptFileTypes, $currentGroup);
+
+            if (isset($repeaterField['type']) && ! in_array($repeaterField['type'], $blacklist, true)) {
+                $parsedRepeaterFields[$repeaterKey] = $repeaterField;
+            }
         }
 
         $repeater['fields'] = $parsedRepeaterFields;
