@@ -71,6 +71,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /** @var EventDispatcherInterface */
     private $dispatcher;
 
+    /** @var string */
+    private $defaultLocale;
+
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
         RelationRepository $relationRepository,
@@ -81,7 +84,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         ContentFillListener $contentFillListener,
         TemplateChooser $templateChooser,
         CsrfTokenManagerInterface $csrfTokenManager,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        string $defaultLocale
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
@@ -93,6 +97,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->templateChooser = $templateChooser;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -419,6 +424,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);
+        } else {
+            $field->setLocale($this->defaultLocale);
         }
 
         // If the value is an array that contains a string of JSON, parse it
