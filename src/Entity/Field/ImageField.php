@@ -109,5 +109,4 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
     {
         return empty($this->getValue()['filename']);
     }
-
 }
