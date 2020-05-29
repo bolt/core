@@ -397,6 +397,7 @@ class ContentExtension extends AbstractExtension
     private function generateLink(string $route, array $params, $canonical = false): string
     {
         $canonicalRoute = $this->canonical->getCanonicalRoute($route, $params);
+
         try {
             $link = $this->urlGenerator->generate(
                 $canonicalRoute,
