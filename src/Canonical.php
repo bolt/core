@@ -183,7 +183,7 @@ class Canonical
         }
     }
 
-    private function getCanonicalRoute(string $route, array &$params = []): string
+    public function getCanonicalRoute(string $route, array &$params = []): string
     {
         $routes = new Collection($this->router->getRouteCollection()->getIterator());
         $currentController = $routes->get($route)->getDefault('_controller');

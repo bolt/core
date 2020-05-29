@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Canonical;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
@@ -68,6 +69,9 @@ class ContentExtension extends AbstractExtension
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var Canonical */
+    private $canonical;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
@@ -77,7 +81,8 @@ class ContentExtension extends AbstractExtension
         Config $config,
         Query $query,
         TaxonomyRepository $taxonomyRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Canonical $canonical
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
@@ -88,6 +93,7 @@ class ContentExtension extends AbstractExtension
         $this->query = $query;
         $this->taxonomyRepository = $taxonomyRepository;
         $this->translator = $translator;
+        $this->canonical = $canonical;
     }
 
     /**
@@ -390,9 +396,10 @@ class ContentExtension extends AbstractExtension
 
     private function generateLink(string $route, array $params, $canonical = false): string
     {
+        $canonicalRoute = $this->canonical->getCanonicalRoute($route, $params);
         try {
             $link = $this->urlGenerator->generate(
-                $route,
+                $canonicalRoute,
                 $params,
                 $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
