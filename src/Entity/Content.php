@@ -664,14 +664,23 @@ class Content
         return $dateTimeUTC->setTimezone($dateTime->getTimezone());
     }
 
-    private function standaloneFieldsFilter()
+    /**
+     * Get the current regular fields, with the fields that are not present in
+     * the definition anymore filtered out
+     */
+    private function standaloneFieldsFilter(): Collection
     {
-        return $this->fields->filter(function (Field $field) {
-            return ! $field->hasParent();
+        $keys = $this->getDefinition()->get('fields')->keys()->all();
+
+        return $this->fields->filter(function (Field $field) use ($keys) {
+            return ! $field->hasParent() && in_array($field->getName(), $keys, true);
         });
     }
 
-    private function standaloneFieldFilter(string $fieldName)
+    /**
+     * Get a regular field, not being part of a Collection
+     */
+    private function standaloneFieldFilter(string $fieldName): Collection
     {
         return $this->fields->filter(function (Field $field) use ($fieldName) {
             return $field->getName() === $fieldName && ! $field->hasParent();
