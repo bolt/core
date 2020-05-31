@@ -1,7 +1,8 @@
 import $ from 'jquery';
 
 $('*[data-patience]').on('click', function() {
-  const thisIcon = $(this).find('i');
+  const thisElement = $(this);
+  const thisIcon = thisElement.find('i');
 
   // Bootstrap padding / margin like `mx-2` or `pt-3`
   const addedPadding = thisIcon.attr('class').match(/[mp][tblrxy]-[0-5]/i);
@@ -9,8 +10,11 @@ $('*[data-patience]').on('click', function() {
     'fas fa-w fa-cog fa-spin ' + (addedPadding ? addedPadding : '');
 
   $(this).attr('data-original-class', thisIcon.attr('class'));
-  $(this).attr('disabled', true);
   thisIcon.attr('class', newClass);
+
+  window.setTimeout(function(){
+    thisElement.attr('disabled', true);
+  }, 50);
 });
 
 window.reEnablePatientButtons = function() {
