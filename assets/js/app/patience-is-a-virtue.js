@@ -12,7 +12,7 @@ $('*[data-patience]').on('click', function() {
   $(this).attr('data-original-class', thisIcon.attr('class'));
   thisIcon.attr('class', newClass);
 
-  window.setTimeout(function(){
+  window.setTimeout(function() {
     thisElement.attr('disabled', true);
   }, 50);
 });
