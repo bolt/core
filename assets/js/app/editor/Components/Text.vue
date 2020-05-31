@@ -2,7 +2,7 @@
   <div>
     <input
       :id="id"
-      v-model="val"
+      v-model="rawVal"
       class="form-control"
       :class="getType"
       :name="name"
