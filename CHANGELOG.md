@@ -2,6 +2,37 @@
 Changelog
 ---------
 
+## 4.0.0-rc.21
+
+Released: 2020-05-31
+
+### 🐛 Bug fixes
+
+- Don't show Fields that were removed from the ContentType definition (bobdenotter, [#1426](https://github.com/bolt/core/pull/1426))
+- Unescape Vue input fields (bobdenotter, [#1425](https://github.com/bolt/core/pull/1425))
+- Save non-localizable in correct default locale (I-Valchev, [#1424](https://github.com/bolt/core/pull/1424))
+- Forbid templateselect inside collection. Fix forbidden fields check. (I-Valchev, [#1423](https://github.com/bolt/core/pull/1423))
+- Pretty `record|link` when localization is enabled (I-Valchev, [#1421](https://github.com/bolt/core/pull/1421))
+- Allow for parsed dates like "Today" or "in 3 weeks" (bobdenotter, [#1418](https://github.com/bolt/core/pull/1418))
+- Update file listing screen: Lazy loading, paginator, other improvements (bobdenotter, [#1413](https://github.com/bolt/core/pull/1413))
+- Make sure you can iterate over collection with one field (I-Valchev, [#1412](https://github.com/bolt/core/pull/1412))
+- Allow `x` as well as `×` in thumbail URLs (bobdenotter, [#1411](https://github.com/bolt/core/pull/1411))
+
+### 📦 Additions and new features
+
+- Image and File fields support twig `is empty` test (I-Valchev, [#1419](https://github.com/bolt/core/pull/1419))
+
+### 🛠️ Miscellaneous
+
+- Adding spinners and disabling buttons to indicate the user might have to wait a few seconds (bobdenotter, [#1414](https://github.com/bolt/core/pull/1414))
+- Add `ListServices()` method to ServiceTrait (bobdenotter, [#1406](https://github.com/bolt/core/pull/1406))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Add `composer/package-versions-deprecated` (bobdenotter, [#1416](https://github.com/bolt/core/pull/1416))
+
+---
+
 ## 4.0.0-rc.20
 
 Released: 2020-05-24
