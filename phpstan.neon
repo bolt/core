@@ -6,7 +6,7 @@ parameters:
 
     ignoreErrors:
         # false positive: `Unreachable statement - code above always terminates.`
-        # @todo Check if this is still needed after https://github.com/phpstan/phpstan/issues/2651 is fixed
+        # Note: https://github.com/phpstan/phpstan/issues/2651 is marked as fixed, but the issue remains.
         -
             message: '#Unreachable statement - code above always terminates#'
             path: %currentWorkingDirectory%/src/*
