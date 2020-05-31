@@ -1,7 +1,7 @@
 <template>
   <div>
     <textarea
-      v-model="val"
+      v-model="rawVal"
       class="form-control field--textarea"
       :name="name"
       rows="10"
