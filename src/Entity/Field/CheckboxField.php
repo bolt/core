@@ -17,7 +17,6 @@ class CheckboxField extends Field implements FieldInterface, ScalarCastable
 
     public function getTwigValue()
     {
-        return (bool) current($this->getValue());
+        return current($this->getValue());
     }
-
 }
