@@ -78,7 +78,7 @@
 
     {# Checkbox fields #}
     {% if type == "checkbox" %}
-        <p><strong>{{ field|label }}</strong>: {{ field ? "checked" : "not checked" }}</p>
+        <p><strong>{{ field|label }}</strong>: {% if field.twigValue %} checked {% else %} not checked {% endif %}</p>
     {% endif %}
 
     {# Embed fields #}

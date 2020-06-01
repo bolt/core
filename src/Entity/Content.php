@@ -10,6 +10,7 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field\Excerptable;
+use Bolt\Entity\Field\ScalarCastable;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -640,7 +641,7 @@ class Content
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
 
-        if ($field instanceof Excerptable) {
+        if ($field instanceof Excerptable || $field instanceof ScalarCastable) {
             return $field->getTwigValue();
         }
 
