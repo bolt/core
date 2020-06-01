@@ -57,8 +57,9 @@ abstract class BaseWidget implements WidgetInterface
     public function getName(): string
     {
         if ($this->name === null) {
-            throw new WidgetException('Widget of class '.self::class.' does not have a name!');
+            throw new WidgetException('Widget of class ' . self::class . ' does not have a name!');
         }
+
         return $this->name;
     }
 
@@ -74,6 +75,7 @@ abstract class BaseWidget implements WidgetInterface
         if ($this->target === null) {
             throw new WidgetException("Widget {$this->getName()} does not have Target set");
         }
+
         return $this->target;
     }
 
@@ -89,6 +91,7 @@ abstract class BaseWidget implements WidgetInterface
         if ($this->priority === null) {
             throw new WidgetException("Widget {$this->getName()} does not have priority set");
         }
+
         return $this->priority;
     }
 
@@ -123,9 +126,11 @@ abstract class BaseWidget implements WidgetInterface
 
         // Extension is set, and needs to be available in the template
         $params['extension'] = $this->extension;
+        $params['widget'] = $this;
 
-        if ($this instanceof TwigAware) {
+        if ($this instanceof TwigAwareInterface) {
             $this->addTwigLoader();
+
             try {
                 $output = $this->getTwig()->render($this->getTemplate(), $params);
             } catch (LoaderError $e) {
@@ -158,6 +163,7 @@ abstract class BaseWidget implements WidgetInterface
         if ($this->template === null) {
             throw new WidgetException("Widget {$this->getName()} does not have template set");
         }
+
         return $this->template;
     }
 
@@ -203,6 +209,7 @@ abstract class BaseWidget implements WidgetInterface
         if ($this->zone === null) {
             throw new WidgetException("Widget {$this->getName()} does not have Zone set");
         }
+
         return $this->zone;
     }
 

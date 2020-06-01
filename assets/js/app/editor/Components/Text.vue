@@ -2,15 +2,18 @@
   <div>
     <input
       :id="id"
-      v-model="val"
+      v-model="rawVal"
       class="form-control"
       :class="getType"
       :name="name"
-      placeholder="…"
       type="text"
-      :disabled="disabled == 1"
-      :required="required == 1"
-      :readonly="readonly == true"
+      :disabled="disabled"
+      :required="required"
+      :readonly="readonly"
+      :data-errormessage="errormessage"
+      :pattern="pattern"
+      :placeholder="placeholder"
+      :autofocus="autofocus == true"
     />
   </div>
 </template>
@@ -21,16 +24,19 @@ import field from '../mixins/value';
 export default {
   name: 'EditorText',
   mixins: [field],
-  props: [
-    'value',
-    'label',
-    'name',
-    'type',
-    'disabled',
-    'id',
-    'required',
-    'readonly',
-  ],
+  props: {
+    value: String,
+    name: String,
+    type: String,
+    disabled: Boolean,
+    id: String,
+    required: Boolean,
+    readonly: Boolean,
+    errormessage: String | Boolean,
+    pattern: String | Boolean,
+    placeholder: String | Boolean,
+    autofocus: Boolean,
+  },
   data: () => {
     return {
       generate: false,

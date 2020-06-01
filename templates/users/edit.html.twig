@@ -24,7 +24,8 @@
                 'label' : 'label.username'|trans,
                 'name' : 'username',
                 'value' : userEdit.username,
-                'disabled' : userEdit.username is empty ? 'false' : 'true',
+                'disabled' : userEdit.username is empty ? false : true,
+                'required': true,
             } %}
 
             {% include '@bolt/_partials/fields/text.html.twig' with {
@@ -33,6 +34,7 @@
                 'name' : 'displayName',
                 'value' : userEdit.displayName,
                 'disabled' : false,
+                'required': true,
             } %}
 
             {% include '@bolt/_partials/fields/password.html.twig' with {
@@ -41,8 +43,9 @@
                 'name': 'password',
                 'value': suggestedPassword,
                 'hidden': 'true',
-                'strength': 'true',
-                'postfix': suggestedPassword ? __('password.suggested', {'%password%': suggestedPassword })
+                'strength': true,
+                'postfix': suggestedPassword ? __('password.suggested', {'%password%': suggestedPassword }),
+                'required': userEdit.username is empty ? true : false,
             } %}
 
             {% include '@bolt/_partials/fields/email.html.twig' with {
@@ -52,6 +55,7 @@
                 'value': userEdit.email,
                 'name': 'email',
                 'class': 'form-control',
+                'required': true,
             } %}
 
             {% set localeOptions = [] %}
@@ -71,6 +75,7 @@
                 'name' : 'locale',
                 'value' : userEdit.locale,
                 'options' : localeOptions,
+                'required': true,
             } %}
 
             {% set roleOptions = [] %}
@@ -90,6 +95,7 @@
                 'name' : 'roles',
                 'value' : userEdit.roles,
                 'options' : roleOptions,
+                'required': true,
             } %}
 
             {# TODO: include form field with '@bolt/_partials/fields/select.html.twig' #}

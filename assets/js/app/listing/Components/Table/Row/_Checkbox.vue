@@ -19,7 +19,9 @@
 <script>
 export default {
   name: 'Checkbox',
-  props: ['id'],
+  props: {
+    id: Number,
+  },
   data: () => {
     return {
       selected: false,

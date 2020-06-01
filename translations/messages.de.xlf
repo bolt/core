@@ -241,10 +241,10 @@
         <target>Ansehen</target>
       </segment>
     </unit>
-    <unit id="SDVQEir" name="title.save_changes">
+    <unit id="SDVQEir" name="title.primary_actions">
       <segment>
-        <source>title.save_changes</source>
-        <target>Änderungen speichern</target>
+        <source>title.primary_actions</source>
+        <target>Primäre Aktionen</target>
       </segment>
     </unit>
     <unit id="dQIY7_J" name="action.preview">
@@ -1072,7 +1072,7 @@
     <unit id=".fL0AbE" name="files_list.remark">
       <segment>
         <source>files_list.remark</source>
-        <target>Keine Dateien im Ordner vorhanden, bitte wähle auf der rechten Seite ein  	Verzeichnis aus!</target>
+        <target>Keine Dateien im Ordner vorhanden, bitte wähle ein Verzeichnis aus!</target>
       </segment>
     </unit>
     <unit id="283aB_E" name="caption.file_upload.upload_text">

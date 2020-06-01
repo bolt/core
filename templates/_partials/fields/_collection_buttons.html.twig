@@ -1,5 +1,5 @@
 {% if in_collection is defined %}
-    <div class="float-right" role="group" aria-label="Collection buttons" style="margin-top: -0.25rem; margin-bottom: 0.75rem;">
+    <div class="float-right" role="group" aria-label="Collection buttons" style="margin-top: -0.25rem">
     <input type="hidden" name="collections[{{ collection_name }}][order][]" value="{{ hash }}" />
 
     <button class='action-move-up-collection-item btn btn-secondary btn-sm' {% if is_first is defined and is_first %} disabled {% endif %}>
@@ -10,7 +10,7 @@
         <i class="fas fa-fw fa-chevron-down"></i>
         {{ 'collection.move_item_down'|trans }}
     </button>
-    <button class='action-remove-collection-item btn btn-hidden-danger btn-sm'>
+    <button class='action-remove-collection-item btn btn-hidden-danger btn-sm' data-confirmation="{{ 'collection.confirm_delete'|trans }}">
         <i class="fas fa-fw fa-trash"></i>
         {{ 'collection.remove_item'|trans }}
     </button>

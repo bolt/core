@@ -4,27 +4,35 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
-use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Bolt\Configuration\Config;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class CopyAssetsCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'bolt:copy-assets';
 
+    /** @var Filesystem */
     private $filesystem;
 
-    public function __construct(Filesystem $filesystem)
+    /** @var string */
+    private $publicDirectory;
+
+    /** @var Config */
+    private $config;
+
+    public function __construct(Filesystem $filesystem, string $publicFolder, string $projectDir, Config $config)
     {
         parent::__construct();
 
         $this->filesystem = $filesystem;
+        $this->publicDirectory = $projectDir . '/' . $publicFolder;
+        $this->config = $config;
     }
 
     protected function configure(): void
@@ -38,25 +46,19 @@ class CopyAssetsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var Application $app */
-        $app = $this->getApplication();
-        /** @var KernelInterface $kernel */
-        $kernel = $app->getKernel();
-
-        // $projectDir = $this->getProjectDirectory($kernel->getContainer());
-        $publicDir = $this->getPublicDirectory($kernel->getContainer());
+        $publicDir = $this->getPublicDirectory();
 
         // Determine if we can use ../assets or not.
         if (file_exists(dirname(dirname(dirname(__DIR__))) . '/assets')) {
             $baseDir = dirname(dirname(dirname(__DIR__))) . '/assets';
             $dirs = [
-                $baseDir . '/assets' => $publicDir .'/assets/',
+                $baseDir . '/assets' => $publicDir . '/assets/',
                 // $baseDir . '/translations' => $projectDir . '/translations/',
             ];
         } else {
             $baseDir = dirname(dirname(__DIR__));
             $dirs = [
-                $baseDir . '/public/assets' => $publicDir .'/assets/',
+                $baseDir . '/public/assets' => $publicDir . '/assets/',
                 // $baseDir . '/translations' => $projectDir . '/translations/',
             ];
         }
@@ -101,41 +103,15 @@ class CopyAssetsCommand extends Command
      */
     private function hardCopy(string $originDir, string $targetDir): void
     {
-        $this->filesystem->mkdir($targetDir, 0777);
+        $mode = $this->config->get('general/filepermissions/folders', 0775);
+        $this->filesystem->mkdir($targetDir, $mode);
 
         // We use a custom iterator to ignore VCS files
         $this->filesystem->mirror($originDir, $targetDir, Finder::create()->ignoreDotFiles(false)->in($originDir));
     }
 
-    private function getProjectDirectory(ContainerInterface $container): string
+    private function getPublicDirectory(): string
     {
-        if ($container->hasParameter('kernel.project_dir')) {
-            return $container->getParameter('kernel.project_dir');
-        }
-
-        return dirname(dirname(dirname(dirname(dirname(__DIR__)))));
-    }
-
-    private function getPublicDirectory(ContainerInterface $container): string
-    {
-        $defaultPublicDir = 'public';
-
-        if (! $container->hasParameter('kernel.project_dir')) {
-            return $defaultPublicDir;
-        }
-
-        $composerFilePath = $container->getParameter('kernel.project_dir').'/composer.json';
-
-        if (! is_readable($composerFilePath)) {
-            return $defaultPublicDir;
-        }
-
-        $composerConfig = json_decode(file_get_contents($composerFilePath), true);
-
-        if (isset($composerConfig['extra']['public-dir'])) {
-            return $composerConfig['extra']['public-dir'];
-        }
-
-        return $this->getProjectDirectory($container) . '/' . $defaultPublicDir;
+        return $this->publicDirectory;
     }
 }

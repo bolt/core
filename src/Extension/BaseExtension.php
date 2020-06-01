@@ -71,15 +71,10 @@ abstract class BaseExtension implements ExtensionInterface
     }
 
     /**
-     * Shortcut method to register a TwigExtension.
+     * @deprecated
      */
     public function addTwigExtension(TwigExtensionInterface $extension): void
     {
-        if ($this->getTwig()->hasExtension(\get_class($extension))) {
-            return;
-        }
-
-        $this->getTwig()->addExtension($extension);
     }
 
     /**
@@ -145,7 +140,6 @@ abstract class BaseExtension implements ExtensionInterface
      */
     public function registerTwigExtension(TwigExtensionInterface $extension): void
     {
-        $this->addTwigExtension($extension);
     }
 
     /**

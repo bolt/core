@@ -9,6 +9,7 @@ use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
+use Bolt\Utils\Html;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
@@ -50,11 +51,9 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
             throw new \RuntimeException("Tried to build non-existing menu: {$name}");
         }
 
-        $menu = array_map(function ($item): array {
+        return array_map(function ($item): array {
             return $this->setUris($item);
         }, $menu);
-
-        return $menu;
     }
 
     private function setUris(array $item): array
@@ -79,7 +78,7 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
         $trimmedLink = trim($link, '/');
 
         // Special case for "Homepage"
-        if ($trimmedLink === 'homepage') {
+        if ($trimmedLink === 'homepage' || $trimmedLink === $this->config->get('general/homepage')) {
             return ['Home', $this->urlGenerator->generate('homepage')];
         }
 
@@ -92,7 +91,7 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
         }
 
         // Otherwise trust the user. ¯\_(ツ)_/¯
-        return ['', $link];
+        return ['', Html::makeAbsoluteLink($link)];
     }
 
     private function getContent(string $link): ?Content

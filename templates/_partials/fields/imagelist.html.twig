@@ -1,5 +1,11 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
+{% set extensions = field.definition.get('extensions')|default('') %}
+{% set info %}
+    {{ 'upload.allow_file_types'|trans }}: <code>{{ extensions|join('</code>, <code>') }}</code><br>
+    {{ 'upload.max_size'|trans }}: {{ config.maxupload|format_bytes }}
+{% endset %}
+
 {% block field %}
 
    {% set setPath = field.definition.get('upload')|default('') %}
@@ -17,7 +23,7 @@
        'button_move_down': 'image.button_down'|trans,
        'add_new_image': 'image.add_new_image'|trans,
    }|json_encode %}
-   {% set extensions = field.definition.get('extensions')|default('') %}
+   {% set limit = field.definition.get('limit')|default(200) %}
 
    <editor-imagelist
        :images='{{ field.jsonvalue }}'
@@ -28,6 +34,8 @@
        :labels='{{ labels }}'
        :extensions='{{  extensions|json_encode }}'
        :attributes-link='{{ path('bolt_media_new')|json_encode }}'
+       :limit='{{ limit|json_encode }}'
+       :readonly='{{ readonly|json_encode }}'
    ></editor-imagelist>
 
 {% endblock %}

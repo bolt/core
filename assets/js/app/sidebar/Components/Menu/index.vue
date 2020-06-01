@@ -37,7 +37,9 @@ export default {
   components: {
     'sub-menu': SubMenu,
   },
-  props: ['menu'],
+  props: {
+    menu: Array,
+  },
   methods: {
     singleton(item) {
       if (item.submenu.length && item.submenu !== null) {

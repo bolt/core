@@ -55,14 +55,19 @@ HELP
         $io->text([$message, '']);
 
         $platform = $this->doctrineVersion->getPlatform();
+        $connection = ! empty($platform['connection_status']) ? sprintf(' - <comment>%s</comment>', $platform['connection_status']) : '';
+        $tableExists = $this->doctrineVersion->tableContentExists() ? '' : sprintf(' - <error>Tables not initialised</error>');
+        $withJson = $this->doctrineVersion->hasJson() ? 'with JSON' : 'without JSON';
 
         $io->listing([
             sprintf('Install type: <info>%s</info>', Version::installType()),
-            sprintf('Database: <info>%s %s</info> - <comment>%s</comment>', $platform['driver_name'], $platform['server_version'], $platform['connection_status']),
+            sprintf('Database: <info>%s %s</info>%s%s <info>(%s)</info>', $platform['driver_name'], $platform['server_version'], $connection, $tableExists, $withJson),
+            sprintf('PHP version: <info>%s</info>', PHP_VERSION),
+            sprintf('Operating System: <info>%s</info> - <comment>%s</comment>', php_uname('s'), php_uname('r')),
         ]);
 
         $io->text('');
 
-        return null;
+        return 0;
     }
 }

@@ -3,7 +3,7 @@
     <!-- listing records -->
     <listing-records
       type="{{ type }}"
-      :data="{{ records|json_records }}"
+      :data="{{ records|json_records(true, 0, app.request.getLocale()) }}"
     >
     </listing-records>
     <!-- end listing records -->

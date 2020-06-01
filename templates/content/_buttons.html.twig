@@ -2,40 +2,46 @@
 
 <div class="record-actions">
 
-    {{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent'}) }}
+    {{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent', 'data-patience': 'virtue'}) }}
 
     {% if record.id %}
-    <div class="btn-group">
-
-    {{ macro.button(
-        'action.preview',
-        'fa-external-link-square-alt',
-        'primary',
-        {   'type': 'submit',
-            'form': 'editcontent',
-            'formtarget': '_blank',
-            'formaction': path('bolt_content_edit_preview', {'id': record.id })
-        })
-    }}
-
-    {% if record.status == "published" %}
-        <button class="btn btn-primary dropdown-toggle dropdown-toggle-split mb-3" aria-expanded="false" aria-haspopup="true"
-                data-toggle="dropdown" type="button">
-            <span class="sr-only">{{ 'buttons.button_toggle'|trans }}</span>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <button class="btn"
-                    form="editcontent"
-                    formaction="{{ path('bolt_content_edit_viewsave', {'id': record.id }) }}"
-                    formtarget="_blank" style="white-space: nowrap; padding-right: 1rem;"
-                    type="submit">
-                <i class="fas fa-external-link-square-alt mr-2 ml-2"></i>
-                {{ 'action.view_saved'|trans }}
-            </button>
+        <div class="btn-group">
+            {{ macro.button(
+                'action.preview',
+                'fa-external-link-square-alt',
+                'primary',
+                {   'type': 'submit',
+                    'form': 'editcontent',
+                    'formtarget': '_blank',
+                    'formaction': path('bolt_content_edit_preview', {'id': record.id })
+                }) }}
         </div>
+
+        {% if status|default() %}
+        <p>
+            <strong>{{ __('label.current_status') }}:</strong>
+            <span class="status mx-1 is-{{ record.status}}"></span>{{ __('status.' ~ record.status) }}<br>
+            {% if record.status == 'published' %}
+                <small>
+                    ({{ 'field.modifiedAt'|trans }}:
+                    <abbr class="datetime-relative" title="{{ record.modifiedAt|localedatetime('%A %B %e, %Y - %k:%M%p') }}">
+                        {{- record.modifiedAt|date('c') -}}
+                    </abbr>)
+                </small>
+            {% endif %}
+        </p>
+
+        <hr>
+        <div class="form-fieldsgroup__summary-fields">
+        {% if record.status == "published" and record|link(true) %}
+            <a href="{{ record|link(true, currentlocale) }}" class="btn btn-tertiary btn-sm" target="_blank">{{ macro.icon('fa-sign-out-alt') }} {{ __('action.view_saved') }}</a>
+        {% endif %}
+            <a href="{{ record.extras.deleteLink }}" class='action-remove-collection-item btn btn-sm btn-hidden-danger' data-confirmation="{{ 'action.confirm_delete'|trans }}">
+                {{ macro.icon('trash') }}{{ 'action.delete'|trans }}
+            </a>
+        </div>
+        {% endif %}
+
     {% endif %}
-    
-    </div>
-{% endif %}
 
 </div>

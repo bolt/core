@@ -35,8 +35,11 @@ import Multiselect from 'vue-multiselect';
 export default {
   name: 'EditorLanguage',
   components: { Multiselect },
-  props: ['label', 'locales', 'current'],
-
+  props: {
+    label: String,
+    locales: Array,
+    current: String,
+  },
   data: () => {
     return {
       locale: {},

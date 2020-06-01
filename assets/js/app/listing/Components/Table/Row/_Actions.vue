@@ -4,6 +4,7 @@
       <a
         class="btn btn-secondary btn-block btn-sm text-nowrap"
         :href="record.extras.editLink"
+        data-patience="virtue"
       >
         <i class="far fa-edit mr-1"></i> {{ labels.button_edit }}
       </a>
@@ -98,7 +99,11 @@
 <script>
 export default {
   name: 'Actions',
-  props: ['type', 'record', 'labels'],
+  props: {
+    type: String,
+    record: Object,
+    labels: Object,
+  },
   created() {
     // console.log(this.labels);
   },

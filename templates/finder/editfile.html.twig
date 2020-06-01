@@ -35,7 +35,8 @@
             <textarea name="editfile" id="editfile_textarea">{{ contents }}</textarea>
         </div>
         <div class="form-group">
-            <button class="btn btn-primary" name="save" type="submit">{{ macro.icon('save') }}{{ 'action.save'|trans }}</button>
+            <button class="btn btn-primary" name="save" type="submit" {% if not writable %}disabled{% endif %}>{{ macro.icon('save') }}{{ 'action.save'|trans }}</button>
+            {% if not writable %}{{ __('editfile.target_not_writable') }}{% endif %}
         </div>
     </div>
     </form>

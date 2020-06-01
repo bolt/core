@@ -55,16 +55,25 @@ Feature: Edit record
     And the "fields[embed][width]" field should contain "480"
     And the "fields[embed][height]" field should contain "270"
 
+    When I click ".editor__embed .remove"
+#   Add wait to make sure JS clears the fields before assert occurs
+    And I wait 1 second
+    And the "fields[embed][url]" field should contain ""
+    And the "fields[embed][title]" field should contain ""
+    And the "fields[embed][authorname]" field should contain ""
+    And the "fields[embed][width]" field should contain ""
+    And the "fields[embed][height]" field should contain ""
+
   @javascript
   Scenario: As an Admin I want to see the field infobox
     Given I am logged in as "admin"
     When I am on "/bolt/edit/38"
 
     Then I should see an "label[for='field-email']" element
-    And I should see 1 "icon" elements in the "label[for='field-email']" element
+    And I should see 1 "i" elements in the "label[for='field-email']" element
 
     When I scroll "Email" into view
-    When I hover over the "label[for='field-email'] > icon" element
+    When I hover over the "label[for='field-email'] > i" element
     Then I should see "Email" in the ".popover-header" element
     And I should see "This is an info box shown as a popover next to the field label." in the ".popover-body" element
 
@@ -83,8 +92,9 @@ Feature: Edit record
     And I wait until I see "Select a file"
     And I select "kitten.jpg" from "bootbox-input"
     And I press "OK"
-    Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
     And I wait 1 second
+    Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
+    And I fill "fields[imagelist][0][alt]" element with "Image of a kitten"
 
     When I press "Add new image"
     Then I should see 5 ".row" elements in the ".editor__imagelist" element
@@ -97,13 +107,16 @@ Feature: Edit record
     And I press "OK"
     And I wait 1 second
     Then the "fields[imagelist][4][filename]" field should contain "joey.jpg"
+    And I fill "fields[imagelist][4][alt]" element with "Image of a joey"
 
     When I scroll the 1st "Down" into view
     And I press the 1st "Down" button
     Then the "fields[imagelist][1][filename]" field should contain "kitten.jpg"
+    And the "fields[imagelist][1][alt]" field should contain "Image of a kitten"
 
     When I press the 2nd "Up" button
     Then the "fields[imagelist][0][filename]" field should contain "kitten.jpg"
+    And the "fields[imagelist][0][alt]" field should contain "Image of a kitten"
 
     And the 1st "Up" button should be disabled
     And the 5th "Down" button should be disabled
@@ -136,6 +149,7 @@ Feature: Edit record
 
     When I press "Add new file"
     Then I should see 5 ".row" elements in the ".editor-filelist" element
+    And the 1st "Add new file" button should be disabled
 
     When I scroll the 6th "file-upload-dropdown" into view
     And I press the 6th "file-upload-dropdown" button
@@ -159,6 +173,7 @@ Feature: Edit record
 
     When I press the 7th "Remove" button
     Then I should see 4 ".row" elements in the ".editor-filelist" element
+    And the 1st "Add new file" button should be enabled
 
     When I scroll "Save changes" into view
     And I press "Save changes"
@@ -175,10 +190,10 @@ Feature: Edit record
     Then I should be on "/bolt/edit/43#sets"
     And I should see "Set" in the "#sets label[for='field-set']" element
 
-    And I should see "Title" in the "#sets label[for='field-title']" element
+    And I should see "Title" in the "#sets label[for='field-set-title']" element
     And I should see exactly one "sets[set][title]" element
 
-    And I should see "Textarea" in the "#sets label[for='field-textarea']" element
+    And I should see "Textarea" in the "#sets label[for='field-set-textarea']" element
     And I should see exactly one "sets[set][textarea]" element
 
     And I fill "sets[set][title]" element with "Foo"
@@ -202,17 +217,19 @@ Feature: Edit record
     And I should see "Collection:" in the "label[for='field-collection']" element
 
     #templates dropdown
-    When I click "#multiselect-undefined > div > div.multiselect__select"
+    When I scroll "#multiselect-undefined > div > div.multiselect__select" into view
+    And I click "#multiselect-undefined > div > div.multiselect__select"
 
     Then I should see "Set" in the "#multiselect-undefined li:nth-child(1) > span" element
-    And I should see "Textarea" in the "#multiselect-undefined li:nth-child(2) > span" element
+    And the "#multiselect-undefined li:nth-child(2) > span" element should contain "Textarea"
 
-    When I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
+    When I click "#multiselect-undefined > div > div.multiselect__select"
+    And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
     And I press "Add item"
 
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
-    And I should see "Textarea:" in the "#collections label[for='field-textarea']" element
+    And I should see "Textarea:" in the "#collections label[for='field-collection-textarea-2']" element
 
     And the 1st ".action-move-up-collection-item" button should be disabled
     And the 3rd ".action-move-down-collection-item" button should be disabled
@@ -243,8 +260,15 @@ Feature: Edit record
 
     When I scroll the 3rd "Remove item" into view
     And I press the 3rd "Remove item" button
+    And I wait for ".modal-dialog"
+    Then I should see "Are you sure you wish to delete this collection item?"
+    And I press "OK"
+
     #4th becomes 3rd on prev removal
     And I press the 3rd "Remove item" button
+    And I wait for ".modal-dialog"
+    Then I should see "Are you sure you wish to delete this collection item?"
+    And I press "OK"
 
     Then I should see 2 ".collection-item" elements
 
@@ -263,6 +287,13 @@ Feature: Edit record
     Then I should see 1 "hr" elements in the "#field-html-html" element
 
   @javascript
+  Scenario: As an Admin I want to see placeholder on new content
+    Given I am logged in as "admin"
+    And I am on "/bolt/new/showcases"
+
+    Then the "fields[title]" field should have "placeholder='Placeholder for the title'" attribute
+
+  @javascript
   Scenario: As an Admin, I want to reset an image field
     Given I am logged in as "admin"
     And I am on "/bolt/edit/40"
@@ -276,3 +307,44 @@ Feature: Edit record
     When I press the 1st "Remove" button
     Then the "fields[image][filename]" field should contain ""
     And the "fields[image][alt]" field should contain ""
+
+  @javascript
+  Scenario: As an Admin, I want to see default values on new content
+    Given I am logged in as "admin"
+    And I am on "/bolt"
+
+    When I hover over the "Tests" element
+    And I follow "New Test"
+
+    Then I should be on "/bolt/new/tests"
+
+    And the "fields[title]" field should contain "Title of a test contenttype"
+    And the "fields[image][filename]" field should contain "foal.jpg"
+
+    And the "sets[set_field][title]" field should contain "This is the default title value"
+    And the "sets[set_field][year]" field should contain "2020"
+
+    And the "collections[collection_field][photo][1][filename]" field should contain "kitten.jpg"
+    And the "collections[collection_field][photo][1][alt]" field should contain "Cute kitten"
+
+    And the "collections[collection_field][paragraph][2]" field should contain "An image, followed by some content"
+
+    And the "collections[collection_field][photo][3][filename]" field should contain "joey.jpg"
+    And the "collections[collection_field][photo][3][alt]" field should contain "Photo of a foal"
+
+    When I scroll "Save changes" into view
+    And I press "Save changes"
+
+    Then the "fields[title]" field should contain "Title of a test contenttype"
+    And the "fields[image][filename]" field should contain "foal.jpg"
+
+    And the "sets[set_field][title]" field should contain "This is the default title value"
+    And the "sets[set_field][year]" field should contain "2020"
+
+    And the "collections[collection_field][photo][1][filename]" field should contain "kitten.jpg"
+    And the "collections[collection_field][photo][1][alt]" field should contain "Cute kitten"
+
+    And the "collections[collection_field][paragraph][2]" field should contain "An image, followed by some content"
+
+    And the "collections[collection_field][photo][3][filename]" field should contain "joey.jpg"
+    And the "collections[collection_field][photo][3][alt]" field should contain "Photo of a foal"

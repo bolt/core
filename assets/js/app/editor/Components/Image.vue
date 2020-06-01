@@ -22,17 +22,19 @@
             :placeholder="labels.placeholder_filename"
             :value="filenameData"
             data-readonly="readonly"
-            :required="required == 1"
+            :required="required"
+            :data-errormessage="errormessage"
           />
         </div>
-        <div class="input-group mb-3">
+        <div v-if="altData !== undefined" class="input-group mb-3">
           <input
             v-model="altData"
             class="form-control"
             :name="name + '[alt]'"
             type="text"
-            :placeholder="labels.placeholder_alt_text"
             :readonly="readonly"
+            :pattern="pattern"
+            :placeholder="getPlaceholder"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -61,6 +63,7 @@
                 class="btn dropdown-item"
                 type="button"
                 :disabled="readonly"
+                data-patience="virtue"
                 @click="selectServerFile"
               >
                 <i class="fas fa-fw fa-th"></i>
@@ -74,6 +77,9 @@
               >
                 <i class="fas fa-fw fa-info-circle"></i>
                 {{ labels.button_edit_attributes }}
+                <small class="dim"
+                  ><i class="fas fa-external-link-square-alt"></i
+                ></small>
               </a>
             </div>
           </div>
@@ -83,7 +89,7 @@
               v-if="inImagelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
-              :disabled="isFirstInImagelist"
+              :disabled="isFirstInImagelist || readonly"
               @click="onMoveImageUp"
             >
               <i class="fas fa-fw fa-chevron-up"></i>
@@ -94,7 +100,7 @@
               v-if="inImagelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
-              :disabled="isLastInImagelist"
+              :disabled="isLastInImagelist || readonly"
               @click="onMoveImageDown"
             >
               <i class="fas fa-fw fa-chevron-down"></i>
@@ -125,9 +131,10 @@
       <div class="col-3">
         <div class="editor__image--preview">
           <a
+            v-if="previewImage != ''"
             class="editor__image--preview-image"
             :href="previewImage"
-            :style="`background-image: url('${previewImage}')`"
+            :style="`background-image: url('${thumbnailImage}')`"
           >
           </a>
         </div>
@@ -155,33 +162,35 @@ import bootbox from 'bootbox';
 export default {
   name: 'EditorImage',
   mixins: [field],
-  props: [
-    'label',
-    'filename',
-    'name',
-    'required',
-    'readonly',
-    'thumbnail',
-    'alt',
-    'directory',
-    'media',
-    'csrfToken',
-    'labels',
-    'filelist',
-    'extensions',
-    'attributesLink',
-    'inImagelist',
-    'isFirstInImagelist',
-    'isLastInImagelist',
-  ],
+  props: {
+    filename: String,
+    name: String,
+    required: Boolean,
+    readonly: Boolean,
+    thumbnail: String,
+    alt: String,
+    directory: String,
+    media: Number | String,
+    csrfToken: String,
+    labels: Object,
+    filelist: String,
+    extensions: Array,
+    attributesLink: String,
+    inImagelist: Boolean,
+    isFirstInImagelist: Boolean,
+    isLastInImagelist: Boolean,
+    errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+    pattern: String | Boolean,
+    placeholder: String | Boolean,
+  },
   data() {
     return {
       previewImage: null,
+      thumbnailImage: null,
       isDragging: false,
       dragCount: 0,
       progress: 0,
       filenameData: this.filename,
-      thumbnailData: this.thumbnail,
       altData: this.alt,
     };
   },
@@ -195,12 +204,24 @@ export default {
     acceptedExtensions() {
       return this.extensions.map(ext => '.' + ext).join();
     },
+    getPlaceholder() {
+      if (this.placeholder) {
+        return this.placeholder;
+      }
+
+      return this.labels.placeholder_alt_text;
+    },
   },
   mounted() {
-    this.previewImage = this.thumbnailData;
+    this.previewImage = `/thumbs/1000×1000/` + this.filenameData;
+    this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
   },
   updated() {
-    this.previewImage = this.thumbnailData;
+    if (!this.filenameData) {
+      return;
+    }
+    this.previewImage = `/thumbs/1000×1000/` + this.filenameData;
+    this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
     baguetteBox.run('.editor__image--preview', {
       afterShow: () => {
         noScroll.on();
@@ -219,16 +240,16 @@ export default {
     },
     onRemoveImage() {
       this.previewImage = null;
-      this.filenameData = '';
-      this.thumbnailData = '';
-      this.altData = '';
+      this.filenameData = null;
+      this.thumbnailImage = null;
+      // only reset altData if alt should be displayed.
+      if (this.altData !== undefined) this.altData = '';
       this.$emit('remove', this);
     },
     selectUploadFile() {
       this.$refs.selectFile.click();
     },
     selectServerFile() {
-      const thumbnailParams = this.thumbnailData.split('?').pop();
       let thisField = this;
       Axios.get(this.filelist)
         .then(res => {
@@ -240,14 +261,17 @@ export default {
             callback: function(result) {
               if (result) {
                 thisField.filenameData = result;
-                thisField.thumbnailData = `/thumbs/${result}?${thumbnailParams}`;
+                thisField.thumbnailData = `/thumbs/400×300/${result}`;
+                thisField.previewData = `/thumbs/1000×1000/${result}`;
               }
             },
           });
           window.$('.bootbox-input').attr('name', 'bootbox-input');
+          window.reEnablePatientButtons();
         })
         .catch(err => {
           console.warn(err);
+          window.reEnablePatientButtons();
         });
     },
     onDragEnter(e) {
@@ -270,7 +294,6 @@ export default {
       return this.uploadFile(image);
     },
     uploadFile(file) {
-      const thumbnailParams = this.thumbnailData.split('?').pop();
       const fd = new FormData();
       const config = {
         onUploadProgress: progressEvent => {
@@ -288,11 +311,13 @@ export default {
       Axios.post(this.directory, fd, config)
         .then(res => {
           this.filenameData = res.data;
-          this.thumbnailData = `/thumbs/${res.data}?${thumbnailParams}`;
+          this.thumbnailData = `/thumbs/400×300/${res.data}`;
+          this.previewData = `/thumbs/1000×1000/${res.data}`;
           this.progress = 0;
         })
         .catch(err => {
-          console.warn(err);
+          bootbox.alert(err.response.data.error.message);
+          console.warn(err.response.data.error.message);
           this.progress = 0;
         });
     },

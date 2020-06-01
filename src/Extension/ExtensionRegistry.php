@@ -34,11 +34,13 @@ class ExtensionRegistry
 
             if (! array_key_exists('entrypoint', $extra)) {
                 $message = sprintf("The extension \"%s\" has no 'extra/entrypoint' defined in its 'composer.json' file.", $package->getName());
+
                 throw new \Exception($message);
             }
 
             if (! class_exists($extra['entrypoint'])) {
                 $message = sprintf("The extension \"%s\" has its 'extra/entrypoint' set to \"%s\", but that class does not exist", $package->getName(), $extra['entrypoint']);
+
                 throw new \Exception($message);
             }
 
@@ -51,7 +53,9 @@ class ExtensionRegistry
         return array_unique($this->extensionClasses);
     }
 
-    /** @return ExtensionInterface[] */
+    /**
+     * @return ExtensionInterface[]
+     */
     public function getExtensions(): array
     {
         return $this->extensions;
@@ -66,6 +70,12 @@ class ExtensionRegistry
     {
         if (isset($this->extensions[$name])) {
             return $this->extensions[$name];
+        }
+
+        foreach ($this->extensions as $key => $extension) {
+            if (mb_strpos($key, $name) !== false) {
+                return $extension;
+            }
         }
 
         return null;
@@ -85,7 +95,7 @@ class ExtensionRegistry
             $extension = new $extensionClass();
             $extension->injectObjects($objects);
 
-            if (! $runCli) {
+            if (! $runCli && method_exists($extension, 'initialize')) {
                 // If we're not running on the CLI. Assumably in a browser…
                 $extension->initialize();
             } elseif (method_exists($extension, 'initializeCli')) {

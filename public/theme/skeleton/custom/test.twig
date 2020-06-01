@@ -13,11 +13,7 @@
 
     <marquee>This template is for testing only! This template is for testing only! This template is for testing only!</marquee>
 
-    {% if record.hasField('title') %}
-        <h1 class="title">{{ record.title }}</h1>
-    {% else %}
-        <h1 class="heading">{{ record|title }}</h1>
-    {% endif %}
+    <h1 class="title">{{ record|title }}</h1>
 
     <hr>
 
@@ -94,6 +90,19 @@
         We have an 'extras' image: {{ dump(record|image) }}
         <img src="{{ thumbnail(record|image, 400, 260) }}">
         <hr>
+    {% endif %}
+
+    <h2>Testing output for files</h2>
+
+    {% if record.attachment %}
+        <div id="attachment">
+            <p id="filename">Filename: {{ record.attachment.filename }}</p>
+            <p id="path">Path: {{ record.attachment.path }}</p>
+            <p id="fieldname">Fieldname: {{ record.attachment.fieldname }}</p>
+            <p id="url">URL: {{ record.attachment.url }}</p>
+            <p id="title">{{ record.attachment.title }}</p>
+            {{ dump(record.attachment) }}
+        </div>
     {% endif %}
 
 

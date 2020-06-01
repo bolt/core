@@ -77,6 +77,7 @@ body {
 
     &--is-expanded {
       left: 0;
+      z-index: 2;
     }
   }
 
@@ -110,13 +111,13 @@ body {
         //grid with autofit to make columns expand full width if other column(s) not present
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: auto;
-        grid-column-gap: 2rem;
-        padding: $spacer $spacer*2 $spacer $spacer*2; //do not just change this as it's tied to the main grid and other paddings/gutters
+        grid-column-gap: 3rem;
+        padding: $spacer $spacer*2 $spacer $spacer*3; //do not just change this as it's tied to the main grid and other paddings/gutters
       }
 
       @include media-breakpoint-up(xw) {
-        grid-column-gap: 3rem;
-        padding: $spacer $spacer*3 $spacer $spacer*3; //do not just change this as it's tied to the main grid and other paddings/gutters
+        grid-column-gap: 4rem;
+        padding: $spacer $spacer*3 $spacer $spacer*4; //do not just change this as it's tied to the main grid and other paddings/gutters
       }
 
       &--has-sidebar {
@@ -155,8 +156,4 @@ body {
 .fal,
 .fab {
   margin-right: 0.25em;
-}
-
-.card-body {
-  padding: $spacer $spacer*1.5;
 }

@@ -6,6 +6,7 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
+use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
@@ -16,11 +17,12 @@ use Bolt\Storage\Query;
 use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DetailController extends TwigAwareController implements FrontendZone
+class DetailController extends TwigAwareController implements FrontendZoneInterface
 {
     /** @var TemplateChooser */
     private $templateChooser;
@@ -37,12 +39,14 @@ class DetailController extends TwigAwareController implements FrontendZone
         TemplateChooser $templateChooser,
         ContentRepository $contentRepository,
         FieldRepository $fieldRepository,
-        Query $query
+        Query $query,
+        RequestStach $requestStack
     ) {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
         $this->fieldRepository = $fieldRepository;
         $this->query = $query;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -142,12 +146,12 @@ class DetailController extends TwigAwareController implements FrontendZone
      *     "/{contentTypeSlug}/{slugOrId}",
      *     name="record",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
+     *     methods={"GET|POST"})
      * @Route(
      *     "/{_locale}/{contentTypeSlug}/{slugOrId}",
      *     name="record_locale",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
-     *     methods={"GET"})
+     *     methods={"GET|POST"})
      *
      * @param string|int $slugOrId
      */
@@ -161,6 +165,32 @@ class DetailController extends TwigAwareController implements FrontendZone
             $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
         }
 
+        // Update the canonical, with the correct path
+        $this->canonical->setPath(null, [
+            'contentTypeSlug' => $record ? $record->getContentTypeSingularSlug() : null,
+            'slugOrId' => $record ? $record->getSlug() : null,
+            '_locale' => $this->request->getLocale(),
+        ]);
+
+        return $this->renderSingle($record, $requirePublished);
+    }
+
+    public function contentByFieldValue(string $contentTypeSlug, string $field, string $value): Response
+    {
+        $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+        $record = $this->contentRepository->findOneByFieldValue($field, $value, $contentType);
+
+        // Update the canonical, with the correct path
+        $this->canonical->setPath(null, [
+            'field' => $field,
+            'value' => $value,
+        ]);
+
+        return $this->renderSingle($record);
+    }
+
+    public function renderSingle(?Content $record, bool $requirePublished = true): Response
+    {
         if (! $record) {
             throw new NotFoundHttpException('Content not found');
         }
@@ -170,13 +200,12 @@ class DetailController extends TwigAwareController implements FrontendZone
             throw new NotFoundHttpException('Content is not published');
         }
 
-        $singularSlug = $record->getContentTypeSingularSlug();
+        // If the ContentType is 'viewless' we also throw a 404.
+        if (($record->getDefinition()->get('viewless') === true) && $requirePublished) {
+            throw new NotFoundHttpException('Content is not viewable');
+        }
 
-        // Update the canonical, with the correct path
-        $this->canonical->setPath(null, [
-            'contentTypeSlug' => $record->getContentTypeSingularSlug(),
-            'slugOrId' => $record->getSlug(),
-        ]);
+        $singularSlug = $record->getContentTypeSingularSlug();
 
         $context = [
             'record' => $record,

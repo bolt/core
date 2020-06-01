@@ -24,6 +24,7 @@ trait RequestTrait
         if ($this->request === null) {
             throw new WidgetException("Widget {$this->getName()} does not have Request set");
         }
+
         return $this->request;
     }
 }

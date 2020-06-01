@@ -21,10 +21,14 @@ class ContentTypesParser extends BaseParser
     /** @var array */
     private $localeCodes = [];
 
-    public function __construct(string $locales, string $projectDir, Collection $generalConfig, string $filename = 'contenttypes.yaml')
+    /** @var string defaultLocale */
+    private $defaultLocale;
+
+    public function __construct(string $projectDir, Collection $generalConfig, string $defaultLocale, ?string $locales = null, string $filename = 'contenttypes.yaml')
     {
         $this->localeCodes = empty($locales) ? [] : explode('|', $locales);
         $this->generalConfig = $generalConfig;
+        $this->defaultLocale = $defaultLocale;
         parent::__construct($projectDir, $filename);
     }
 
@@ -69,16 +73,19 @@ class ContentTypesParser extends BaseParser
         // neither 'singular_name' nor 'singular_slug' is set.
         if (! isset($contentType['name']) && ! isset($contentType['slug'])) {
             $error = sprintf("In content type <code>%s</code>, neither 'name' nor 'slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+
             throw new ConfigurationException($error);
         }
         if (! isset($contentType['singular_name']) && ! isset($contentType['singular_slug'])) {
             $error = sprintf("In content type <code>%s</code>, neither 'singular_name' nor 'singular_slug' is set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+
             throw new ConfigurationException($error);
         }
 
         // Content types without fields make no sense.
         if (! isset($contentType['fields'])) {
             $error = sprintf("In content type <code>%s</code>, no 'fields' are set. Please edit <code>contenttypes.yml</code>, and correct this.", $key);
+
             throw new ConfigurationException($error);
         }
 
@@ -106,6 +113,15 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['viewless'])) {
             $contentType['viewless'] = false;
         }
+        if (! isset($contentType['searchable'])) {
+            $contentType['searchable'] = ! $contentType['viewless'];
+        }
+
+        // When Viewless it makes makes no sense to have it searchable
+        if ($contentType['viewless']) {
+            $contentType['searchable'] = false;
+        }
+
         if (! isset($contentType['icon_one'])) {
             $contentType['icon_one'] = 'fa-file';
         } else {
@@ -148,6 +164,7 @@ class ContentTypesParser extends BaseParser
             $forbidden = array_diff((array) $contentType['locales'], $this->localeCodes);
             if (! empty($this->localeCodes) && ! empty($forbidden)) {
                 $error = sprintf('The <code>%s</code> locale was requested, but permitted locales are <code>%s</code>. Please check your services.yaml app_locales setting.', implode(', ', $forbidden), implode(', ', $this->localeCodes));
+
                 throw new ConfigurationException($error);
             }
 
@@ -158,7 +175,22 @@ class ContentTypesParser extends BaseParser
         $contentType['fields'] = $fields;
         $contentType['groups'] = $groups;
 
-        $contentType['sort'] = $this->determineSort($contentType);
+        $contentType['order'] = $this->determineOrder($contentType);
+
+        // Remove (deprecated) `sort` attribute.
+        if (isset($contentType['sort'])) {
+            unset($contentType['sort']);
+        }
+
+        // Make sure title_format is set
+        if (isset($contentType['title_format'])) {
+            $contentType['title_format'] = $contentType['title_format'];
+        } elseif (isset($contentType['fields']['slug']['uses'])) {
+            $fields = (array) $contentType['fields']['slug']['uses'];
+            $contentType['title_format'] = '{' . implode('} {', $fields) . '}';
+        } else {
+            $contentType['title_format'] = null;
+        }
 
         // Make sure taxonomy is an array.
         if (isset($contentType['taxonomy'])) {
@@ -197,6 +229,15 @@ class ContentTypesParser extends BaseParser
         $currentGroup = 'content'; // Default group name, if none was specified
         $groups = [];
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
+
+        // Even if there's no `slug` defined, we still want to have one. We mark
+        // it as 'hidden', so we don't show it when editing the Content
+        if (! isset($fields['slug'])) {
+            $fields['slug'] = [
+                'type' => 'slug',
+                'hidden' => true,
+            ];
+        }
 
         foreach ($fields as $key => $field) {
             $this->parseField($key, $field, $acceptFileTypes, $currentGroup);
@@ -272,6 +313,11 @@ class ContentTypesParser extends BaseParser
         } else {
             $currentGroup = $field['group'];
         }
+
+        // Initialise default_locale, if not explicit
+        if (! isset($field['default_locale'])) {
+            $field['default_locale'] = $this->defaultLocale;
+        }
     }
 
     /**
@@ -281,7 +327,7 @@ class ContentTypesParser extends BaseParser
      */
     private function parseFieldRepeaters(FieldType $repeater, $acceptFileTypes, $currentGroup): ?FieldType
     {
-        $blacklist = ['repeater', 'slug', 'templatefield'];
+        $blacklist = ['repeater', 'slug', 'templatefield', 'templateselect'];
         $whitelist = ['collection', 'set'];
 
         if (! isset($repeater['fields']) || ! is_array($repeater['fields']) || ! in_array($repeater['type'], $whitelist, true)) {
@@ -291,18 +337,16 @@ class ContentTypesParser extends BaseParser
         $parsedRepeaterFields = [];
 
         foreach ($repeater['fields'] as $repeaterKey => $repeaterField) {
-            if (! isset($repeaterField['type']) || in_array($repeaterField['type'], $blacklist, true)) {
-                unset($repeater['fields'][$repeaterKey]);
-            }
-
             if (isset($repeaterField['fields'])) {
                 $repeaterField = new FieldType($repeaterField, $repeaterKey);
                 $this->parseFieldRepeaters($repeaterField, $acceptFileTypes, $currentGroup);
-            } else {
-                $this->parseField($repeaterKey, $repeaterField, $acceptFileTypes, $currentGroup);
             }
 
-            $parsedRepeaterFields[$repeaterKey] = $repeaterField;
+            $this->parseField($repeaterKey, $repeaterField, $acceptFileTypes, $currentGroup);
+
+            if (isset($repeaterField['type']) && ! in_array($repeaterField['type'], $blacklist, true)) {
+                $parsedRepeaterFields[$repeaterKey] = $repeaterField;
+            }
         }
 
         $repeater['fields'] = $parsedRepeaterFields;
@@ -310,9 +354,13 @@ class ContentTypesParser extends BaseParser
         return $repeater;
     }
 
-    private function determineSort(array $contentType): string
+    private function determineOrder(array $contentType): string
     {
-        $sort = $contentType['sort'] ?? 'id';
+        $order = $contentType['order'] ?? $contentType['sort'] ?? '-createdAt';
+
+        if (is_iterable($order)) {
+            $order = implode(',', $order);
+        }
 
         $replacements = [
             'created' => 'createdAt',
@@ -328,15 +376,15 @@ class ContentTypesParser extends BaseParser
             'AtAt' => 'At',
         ];
 
-        $sort = str_replace(array_keys($replacements), array_values($replacements), $sort);
+        $order = str_replace(array_keys($replacements), array_values($replacements), $order);
 
-        $sortname = trim($sort, '-');
+        $orderName = trim($order, '-');
 
-        if (! in_array($sortname, array_keys($contentType['fields']), true) &&
-            ! in_array($sortname, ['createdAt', 'modifiedAt', 'publishedAt'], true)) {
-            $sort = 'id';
+        if (! in_array($orderName, array_keys($contentType['fields']), true) &&
+            ! in_array($orderName, ['createdAt', 'modifiedAt', 'publishedAt', 'id'], true)) {
+            $order = '-createdAt';
         }
 
-        return $sort;
+        return $order;
     }
 }

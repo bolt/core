@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Security;
 
 use Bolt\Entity\User;
+use Bolt\Log\LoggerTrait;
 use Bolt\Repository\UserAuthTokenRepository;
 use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -25,6 +25,8 @@ use UAParser\Parser;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
+    use LoggerTrait;
+
     /** @var UserRepository */
     private $userRepository;
 
@@ -40,23 +42,18 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /** @var EntityManagerInterface */
     private $em;
 
-    /** @var LoggerInterface */
-    private $logger;
-
     public function __construct(
         UserRepository $userRepository,
         RouterInterface $router,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
-        EntityManagerInterface $em,
-        LoggerInterface $dbLogger
-) {
+        EntityManagerInterface $em
+    ) {
         $this->userRepository = $userRepository;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
-        $this->logger = $dbLogger;
     }
 
     protected function getLoginUrl()
@@ -116,9 +113,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
         $user->setLastseenAt(new \DateTime());
         $user->setLastIp($request->getClientIp());
-        $parsedUserAgent = Parser::create()->parse($request->headers->get('User-Agent'))->toString();
+        /** @var Parser $uaParser */
+        $uaParser = Parser::create();
+        $parsedUserAgent = $uaParser->parse($request->headers->get('User-Agent'))->toString();
         $sessionLifetime = $request->getSession()->getMetadataBag()->getLifetime();
-        $expirationTime = (new \DateTime())->modify('+'.$sessionLifetime.' second');
+        $expirationTime = (new \DateTime())->modify('+' . $sessionLifetime . ' second');
         $userAuthToken = UserAuthTokenRepository::factory($user, $parsedUserAgent, $expirationTime);
         $user->setUserAuthToken($userAuthToken);
 
@@ -132,7 +131,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->logger->notice('User \'{username}\' logged in (manually)', $userArr);
 
         return new RedirectResponse($request->getSession()->get(
-            '_security.'.$providerKey.'.target_path',
+            '_security.' . $providerKey . '.target_path',
             $this->router->generate('bolt_dashboard')
         ));
     }

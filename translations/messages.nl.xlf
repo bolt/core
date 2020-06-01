@@ -981,7 +981,7 @@
     <unit id=".fL0AbE" name="files_list.remark">
       <segment>
         <source>files_list.remark</source>
-        <target>__files_list.remark</target>
+        <target>Er staan geen bestanden in deze map. Kies een map om naar toe te navigeren.</target>
       </segment>
     </unit>
     <unit id="I2ykiIZ" name="caption.folders">
@@ -1083,7 +1083,7 @@
     <unit id="37kJiIe" name="view_locales.badge_default">
       <segment>
         <source>view_locales.badge_default</source>
-        <target>__view_locales.badge_default</target>
+        <target>Standaard</target>
       </segment>
     </unit>
     <unit id="JTRCo_U" name="view_locales.badge_ok">
@@ -1566,10 +1566,10 @@
         <target>%contenttype% zonder titel</target>
       </segment>
     </unit>
-    <unit id="SDVQEir" name="title.save_changes">
+    <unit id="SDVQEir" name="title.primary_actions">
       <segment>
-        <source>title.save_changes</source>
-        <target>Opslaan</target>
+        <source>title.primary_actions</source>
+        <target>Voornaamste handelingen</target>
       </segment>
     </unit>
     <unit id="7616Os4" name="title.options">
@@ -1714,6 +1714,78 @@
       <segment>
         <source>listing.title_session_expires</source>
         <target>Sessie verloopt</target>
+      </segment>
+    </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <segment>
+        <source>label.translatable</source>
+        <target>Dit veld is vertaalbaar</target>
+      </segment>
+    </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <segment>
+        <source>slug.button_unlocked</source>
+        <target>Van slot</target>
+      </segment>
+    </unit>
+    <unit id="IWbf2by" name="listing.title_filterby">
+      <segment>
+        <source>listing.title_filterby</source>
+        <target>Filter op</target>
+      </segment>
+    </unit>
+    <unit id="WeJxw6Z" name="action.update_all">
+      <segment>
+        <source>action.update_all</source>
+        <target>Alles bijwerken</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment>
+        <source>pager.previous</source>
+        <target>Vorige</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <segment>
+        <source>pager.next</source>
+        <target>Volgende</target>
+      </segment>
+    </unit>
+    <unit id=".I3mIHo" name="label.current_status">
+      <segment>
+        <source>label.current_status</source>
+        <target>Huidige status</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaQ" name="status.published">
+      <segment>
+        <source>status.published</source>
+        <target>Gepubliceerd</target>
+      </segment>
+    </unit>
+    <unit id="HJbHjee" name="status.draft">
+      <segment>
+        <source>status.draft</source>
+        <target>In klad</target>
+      </segment>
+    </unit>
+    <unit id="h7dP3WY" name="status.timed">
+      <segment>
+        <source>status.timed</source>
+        <target>Ingepland</target>
+      </segment>
+    </unit>
+    <unit id="oxqDDuK" name="status.held">
+      <segment>
+        <source>status.held</source>
+        <target>Achtergehouden</target>
+      </segment>
+    </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <segment>
+        <source>action.confirm_delete</source>
+        <target>Weet je zeker dat je deze content wilt verwijderen?</target>
       </segment>
     </unit>
   </file>

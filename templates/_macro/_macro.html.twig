@@ -10,9 +10,10 @@
     {% set label = label|trans %}
     {% set icon = icon|replace({'fa-': ''}) %}
     {% set class = class|replace({'btn-': ''}) %}
+    {% set mb = 'mb-' in class ? '' : 'mb-3' %}
     {% set attr = attr %}
 
-    <button class="btn btn-{{ class }} mb-3"
+    <button class="btn btn-{{ class }} {{ mb }}"
         {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
         <i class="fas fa-fw fa-{{ icon }} mr-2"></i>
         {{- label -}}
@@ -27,9 +28,10 @@
     {% endif %}
     {% set icon = icon|replace({'fa-': ''}) %}
     {% set class = class|replace({'btn-': ''}) %}
+    {% set mb = 'mb-' in class ? '' : 'mb-3' %}
     {% set attr = attr %}
 
-    <a href="{{ link }}" class="btn btn-{{ class|split(' ')|join(' btn-') }} mb-3 text-nowrap"
+    <a href="{{ link }}" class="btn btn-{{ class|split(' ')|join(' btn-') }} text-nowrap {{ mb }}"
         {% for key,value in attr %} {{ key }}="{{value}}"{% endfor %}>
         <i class="fas fa-fw fa-{{ icon }} mr-1"></i>
         {{- label -}}
@@ -46,9 +48,11 @@
         {% set hash = compileTemplates == true ? "{{ hash }}" : loop.index %}
 
         {% set collectionItemName = collectionItemName ~ '[' ~ hash ~ ']' %}
+        {% set id = 'field-' ~ collectionField.name|default('unnamed') ~ '-' ~ item_field.name|default('unnamed') ~ '-' ~ hash %}
         {% set new_field %}
             {% set context = {
                 'field': item_field,
+                'id': id,
                 'in_collection': true,
                 'is_first': loop.index0 == 0,
                 'is_last': loop.index == fields|length,

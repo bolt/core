@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SearchController extends TwigAwareController implements FrontendZone
+class SearchController extends TwigAwareController implements FrontendZoneInterface
 {
     /** @var TemplateChooser */
     private $templateChooser;
@@ -29,19 +29,22 @@ class SearchController extends TwigAwareController implements FrontendZone
     }
 
     /**
-     * @Route("/search", methods={"GET", "POST"}, name="search")
-     * @Route("/{_locale}/search", methods={"GET", "POST"}, name="search_locale")
+     * @Route("/search", methods={"GET|POST"}, name="search")
+     * @Route("/{_locale}/search", methods={"GET|POST"}, name="search_locale")
      */
     public function search(ContentRepository $contentRepository, Request $request): Response
     {
         $page = (int) $request->query->get('page', 1);
         $searchTerm = $request->get('searchTerm', $request->get('search', $request->get('q', '')));
         $searchTerm = $this->sanitiser->clean($searchTerm);
-        $amountPerPage = $this->config->get('general/listing_records');
+        $amountPerPage = (int) $this->config->get('general/listing_records');
+
+        // Just the ContentTypes that have `searchable: true`
+        $contentTypes = $this->config->get('contenttypes')->where('searchable', true);
 
         // @todo implement actual Search Engine
         if (! empty($searchTerm)) {
-            $records = $contentRepository->searchNaive($searchTerm, $page, $amountPerPage);
+            $records = $contentRepository->searchNaive($searchTerm, $page, $amountPerPage, $contentTypes);
         } else {
             $records = new Pagerfanta(new ArrayAdapter([]));
         }

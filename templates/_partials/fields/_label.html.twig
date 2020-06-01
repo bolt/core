@@ -1,9 +1,12 @@
-{%- if type != 'checkbox' -%}
-    <label for="{{ id }}" class="editor--label{% if type == 'collection' %} sr-only{% endif %}">
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-        {%- if localize -%}
-          <i class="fas fa-language"></i>
-        {%- endif -%}
+{%- if type|default() != 'checkbox' -%}
+
+    {%- if localize|default() -%}
+        <span style="color: #999; font-size: 140%; line-height: 0;" class="float-right" title="{{ __('label.translatable') }}">{{ macro.icon('language') }}</span>
+    {%- endif -%}
+
+    <label for="{{ id }}" class="editor--label{% if type|default() == 'collection' %} sr-only{% endif %}">
 
         {% if in_collection is defined %}
             <span style="font-weight: normal;">{{ collection_label }} &raquo;</span>
@@ -12,8 +15,8 @@
         {{- label -}}:
         {% if required %} <span class="required-label"></span> {% endif %}
 
-        {% if info is not empty %}
-            <icon class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" title="{{ label }}" data-html="true" data-content="{{ info }}"></icon>
+        {% if info|default() %}
+            <i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" title="{{ label }}" data-html="true" data-content="{{ info }}"></i>
         {% endif %}
     </label>
 {%- endif -%}

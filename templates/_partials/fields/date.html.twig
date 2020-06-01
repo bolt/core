@@ -32,16 +32,14 @@
     locale='{{user.locale}}'
     labels='{{ { 'toggle': 'editor_date.toggle'|trans }|json_encode }}'
     :required='{{ required|json_encode }}'
+    :errormessage='{{ errormessage|json_encode }}'
   ></editor-date>
   {% else %}
-    <span
-        :id='{{ id|json_encode }}'
-        :name='{{ name|json_encode }}'
-        class=""
-        {% if required == 1 %}
-        required
-        {% endif %}
-    >{{ value|date(format='F d, Y - g:ia')}}</span>
+      <br>
+    {{ value|localedatetime('%B %e, %Y - %k:%M<small>%p</small>') }}
+      <small>(<abbr class="datetime-relative" title="{{ value|localedatetime('%A %B %e, %Y - %k:%M%p') }}">
+          {{- value|date('c') -}}
+          </abbr>)</small>
   {% endif %}
   
 {% endblock %}

@@ -35,14 +35,30 @@ code {
   background-color: rgba(0, 0, 0, 0.075);
 }
 
+small {
+  color: var(--body-dimmed);
+}
+
 .card {
   box-shadow: $card-box-shadow;
   background: #fff;
-  border: 1px solid #e8e8e8 !important;
+  border: 1px solid var(--very-light-border) !important;
 
   .card-header {
     font-weight: $font-weight-bold;
     padding: 0.8125rem 1.25rem;
+  }
+
+  .card-body {
+    padding: $spacer $spacer*1.5;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  a:not(.btn) {
+    text-decoration: underline;
   }
 }
 

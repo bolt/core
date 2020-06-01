@@ -14,4 +14,16 @@ use Doctrine\ORM\Mapping as ORM;
 class DateField extends Field implements FieldInterface
 {
     public const TYPE = 'date';
+
+    public function getDefaultValue()
+    {
+        $default = parent::getDefaultValue();
+
+        if ($default !== null) {
+            // Flatpickr asks for milliseconds, strtotime returns unix timestmap in seconds
+            return strtotime($default) * 1000;
+        }
+
+        return $default;
+    }
 }

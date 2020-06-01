@@ -43,3 +43,24 @@
     background: var(--status-timed);
   }
 }
+
+.badge-homepage,
+.badge-404,
+.badge-maintenance {
+  font-weight: normal;
+  vertical-align: middle;
+  margin-top: -0.4em;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.badge-homepage {
+  background: $secondary;
+}
+
+.badge-404 {
+  background: $warning;
+}
+
+.badge-maintenance {
+  background: $tertiary;
+}

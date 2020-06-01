@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TaxonomyController extends TwigAwareController implements FrontendZone
+class TaxonomyController extends TwigAwareController implements FrontendZoneInterface
 {
     /** @var TemplateChooser */
     private $templateChooser;
@@ -27,13 +27,13 @@ class TaxonomyController extends TwigAwareController implements FrontendZone
      *     "/{taxonomyslug}/{slug}",
      *     name="taxonomy",
      *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%"},
-     *     methods={"GET"}
+     *     methods={"GET|POST"}
      * )
      * @Route(
      *     "/{_locale}/{taxonomyslug}/{slug}",
      *     name="taxonomy_locale",
      *     requirements={"taxonomyslug"="%bolt.requirement.taxonomies%", "_locale": "%app_locales%"},
-     *     methods={"GET"}
+     *     methods={"GET|POST"}
      * )
      */
     public function listing(ContentRepository $contentRepository, Request $request, string $taxonomyslug, string $slug): Response
@@ -41,7 +41,7 @@ class TaxonomyController extends TwigAwareController implements FrontendZone
         $page = (int) $request->query->get('page', 1);
         $amountPerPage = $this->config->get('general/listing_records');
 
-        $taxonomy = $this->config->get('taxonomies/'. $taxonomyslug);
+        $taxonomy = $this->config->getTaxonomy($taxonomyslug);
 
         /** @var Content[] $records */
         $records = $contentRepository->findForTaxonomy($page, $taxonomy, $slug, $amountPerPage);

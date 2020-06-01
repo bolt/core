@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class ClearCacheController extends AbstractController implements BackendZone
+class ClearCacheController extends AbstractController implements BackendZoneInterface
 {
     /**
      * @Route("/clearcache", name="bolt_clear_cache")

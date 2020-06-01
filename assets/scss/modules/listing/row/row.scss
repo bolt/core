@@ -6,7 +6,6 @@ $checkbox-row-width: 32px;
   box-shadow: $card-box-shadow;
   background: var(--foreground);
   border-radius: $border-radius;
-  margin-bottom: 2px;
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -72,8 +71,9 @@ $checkbox-row-width: 32px;
         top: 0.25rem;
         display: block;
         flex: 0 0 20%;
-        max-width: 100px;
-        max-height: 70px;
+        max-width: 108px;
+        max-height: 86px;
+        overflow: hidden;
         border-radius: $border-radius 0 0 $border-radius;
         background-color: var(--shade-400);
         background-repeat: no-repeat;
@@ -82,9 +82,8 @@ $checkbox-row-width: 32px;
       }
 
       @include media-breakpoint-up(md) {
-        order: 1;
+        order: 2;
         top: 0;
-        max-height: none;
       }
 
       & ~ .is-excerpt {
@@ -111,7 +110,7 @@ $checkbox-row-width: 32px;
       max-height: 4.75rem;
 
       @include media-breakpoint-up(md) {
-        order: 2;
+        order: 1;
         flex: 1 0 290px;
         padding: $spacer*0.4 $spacer $spacer*0.5 $spacer*0.625;
         margin-bottom: 0;
@@ -149,7 +148,7 @@ $checkbox-row-width: 32px;
       }
 
       @include media-breakpoint-up(md) {
-        order: 2;
+        order: 1;
         flex: 1 1 auto;
       }
 

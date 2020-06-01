@@ -153,11 +153,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     {
         $setChildren = $set->getDefinition()->get('fields');
 
+        $children = [];
         foreach ($setChildren as $setChild => $setChildType) {
             $child = $this->loadField($content, $setChild, $setChildType, $contentType, $preset, false);
-            $child->setParent($set);
-            $content->addField($child);
+            $children[] = $child;
         }
+
+        $set->setValue($children);
 
         return $set;
     }
@@ -216,13 +218,22 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = $this->faker->paragraphs(3, true);
                 break;
             case 'image':
-            case 'file':
                 $randomImage = $this->imagesIndex->random();
                 $data = [
                     'filename' => $randomImage->getRelativePathname(),
                     'alt' => $this->faker->sentence(4, true),
                     'media' => '',
                 ];
+
+                break;
+            case 'file':
+                $randomImage = $this->imagesIndex->random();
+                $data = [
+                    'filename' => $randomImage->getRelativePathname(),
+                    'title' => $this->faker->sentence(4, true),
+                    'media' => '',
+                ];
+
                 break;
             case 'slug':
                 $data = (new Slugify())->slugify(
@@ -253,13 +264,24 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 }
                 break;
             case 'imagelist':
-            case 'filelist':
                 $data = [];
                 for ($i = 1; $i < 5; $i++) {
                     $randomImage = $this->imagesIndex->random();
                     $data[] = [
                         'filename' => $randomImage->getRelativePathname(),
                         'alt' => $this->faker->sentence(4, true),
+                        'media' => '',
+                    ];
+                }
+
+                break;
+            case 'filelist':
+                $data = [];
+                for ($i = 1; $i < 5; $i++) {
+                    $randomImage = $this->imagesIndex->random();
+                    $data[] = [
+                        'filename' => $randomImage->getRelativePathname(),
+                        'title' => $this->faker->sentence(4, true),
                         'media' => '',
                     ];
                 }
@@ -314,6 +336,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'markdown_field' => 'Markdown field  with *simple* Markdown in it.',
             'text_not_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
             'text_sanitised' => 'Text field with <strong>markup</strong>, including <script>console.log(\'hoi\')</script>. The end.',
+            'attachment' => [
+                'filename' => 'joey.jpg',
+                'title' => $this->faker->sentence(4, true),
+                'media' => '',
+            ],
         ];
         $records['pages'][] = [
             'heading' => 'This is a page',

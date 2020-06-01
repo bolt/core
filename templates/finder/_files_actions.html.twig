@@ -1,0 +1,76 @@
+<div class="btn-group float-right">
+    <button
+            class="btn btn-sm btn-secondary edit-actions__dropdown-toggler dropdown-toggle dropdown-toggle-split"
+            aria-expanded="false"
+            aria-haspopup="true"
+            data-toggle="dropdown"
+            type="button"
+    >
+        <i class="fas fa-question-circle"></i>
+        <span class="sr-only">{{ 'files_cards.button_toggle'|trans }}</span>
+    </button>
+
+    <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
+        <a class="dropdown-item" href="{{ link }}" target="_blank">
+            <i class="fas fa-w fa-edit"></i>
+            {% if extension in imageformats %}
+                {{ 'files_cards.action_edit_image_info'|trans }}
+            {% else %}
+                {{ 'files_cards.action_edit_file'|trans }}
+            {% endif %}
+        </a>
+
+        <a class="dropdown-item" href="{{ original }}" target="_blank">
+            <i class="fas fa-w fa-external-link-square-alt"></i>
+            {{ 'files_cards.action_view_original'|trans }}
+        </a>
+        <a class="dropdown-item"
+           href="{{ path('bolt_file_duplicate',
+               {'location': location.key|default('files'), 'path': file.getRelativePathname, '_csrf_token': csrf_token('file-duplicate')}) }}">
+            <i class="far fa-w fa-copy"></i>
+            {{ 'files_cards.action_duplicate'|trans }} {{ file.getRelativePathname|excerpt(22) }}
+        </a>
+
+        <a class="dropdown-item delete" ,
+           href="{{ path('bolt_file_delete',
+               {'location': location.key|default('files'), 'path': file.getRelativePathname, '_csrf_token': csrf_token('file-delete')}) }}"
+           data-confirmation="{{ 'file.delete_confirm'|trans }}">
+            <i class="fas fa-w fa-trash"></i>
+            {{ 'files_cards.action_delete'|trans }} {{ file.getRelativePathname|excerpt(22) }}
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <span class="dropdown-item-text">
+                            <i class="fas fa-link fa-w"></i>
+                            {{ 'files_cards.label_filename'|trans }}
+                            <code :title="file.fieldValues.slug">{{ file.getRelativePathname }}</code>
+                        </span>
+
+        {% if title %}
+            <span class="dropdown-item-text">
+                            <i class="fas fa-asterisk fa-w"></i>
+                            {{ 'files_cards.label_title'|trans }} {{ title }}
+                        </span>
+        {% endif %}
+
+        {% if dimensions %}
+            <span class="dropdown-item-text">
+                            <i class="fas fa-asterisk fa-w"></i>
+                            {{ 'files_cards.label_dimensions'|trans }} {{ dimensions }}
+                        </span>
+        {% endif %}
+
+        <span class="dropdown-item-text">
+                            <i class="fas fa-asterisk fa-w"></i>
+                            {{ 'files_cards.label_filesize'|trans }} {{ file.getSize()|format_bytes(1) }}
+                        </span>
+
+        <span class="dropdown-item-text">
+                            <i class="far fa-calendar-alt fa-w"></i>
+                            {{ 'files_cards.label_created_on'|trans }}
+                            <strong>{{ file.getCTime()|date('Y-m-d H:i:s') }}</strong>
+                        </span>
+
+    </div>
+</div>

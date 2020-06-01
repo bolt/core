@@ -17,7 +17,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class MediaController extends TwigAwareController implements BackendZone
+class MediaController extends TwigAwareController implements BackendZoneInterface
 {
     /** @var EntityManagerInterface */
     private $em;
@@ -48,8 +48,9 @@ class MediaController extends TwigAwareController implements BackendZone
             $media = $this->mediaFactory->createOrUpdateMedia($file, $locationName);
 
             $this->em->persist($media);
-            $this->em->flush();
         }
+
+        $this->em->flush();
 
         return $this->renderTemplate('@bolt/finder/finder.twig', [
             'path' => 'path',

@@ -29,7 +29,7 @@ abstract class BaseFixture extends Fixture
             $this->referencesIndex[$entityName] = [];
 
             foreach (array_keys($this->referenceRepository->getReferences()) as $key) {
-                if (mb_strpos($key, $entityName.'_') === 0) {
+                if (mb_strpos($key, $entityName . '_') === 0) {
                     $this->referencesIndex[$entityName][] = $key;
                 }
             }

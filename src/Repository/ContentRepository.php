@@ -36,50 +36,6 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('content');
     }
 
-    public function findForListing(int $page, int $amountPerPage, ?ContentType $contentType = null, bool $onlyPublished = true): Pagerfanta
-    {
-        $qb = $this->getQueryBuilder()
-            ->addSelect('a')
-            ->innerJoin('content.author', 'a');
-
-        if ($contentType) {
-            $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contentType->getSlug());
-        }
-
-        if ($onlyPublished) {
-            $qb->andWhere('content.status = :status')
-                ->setParameter('status', Statuses::PUBLISHED);
-        }
-
-        [ $order, $direction, $sortByField ] = $this->createSortBy($contentType);
-
-        if (! $sortByField) {
-            $qb->orderBy('content.' . $order, $direction);
-        } else {
-            // @todo Make sorting on a Field work as expected.
-            dump('This is not correct');
-
-            // First, create a querybuilder to get the fields that match the Query
-            $sortByQB = $this->getQueryBuilder()
-                ->select('partial content.{id}');
-
-            $sortByQB->addSelect('f')
-                ->innerJoin('content.fields', 'f')
-                ->andWhere('f.name = :fieldname')
-                ->setParameter('fieldname', $order)
-                ->addOrderBy('f.name', $direction);
-
-            // These are the ID's of content we need.
-            $ids = array_column($sortByQB->getQuery()->getArrayResult(), 'id');
-
-            $qb->andWhere('content.id IN (:ids)')
-                ->setParameter('ids', $ids);
-        }
-
-        return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
-    }
-
     public function findForTaxonomy(int $page, Collection $taxonomy, string $slug, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
@@ -107,26 +63,28 @@ class ContentRepository extends ServiceEntityRepository
         return $this->createPaginator($qb->getQuery(), $page, $amountPerPage);
     }
 
-    public function findLatest(?ContentType $contentType = null, int $page = 1, int $amount = 6): Pagerfanta
+    public function findLatest(Collection $contentTypes, int $page = 1, int $amount = 6): Pagerfanta
     {
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
             ->innerJoin('content.author', 'a')
             ->orderBy('content.modifiedAt', 'DESC');
 
-        if ($contentType) {
-            $qb->where('content.contentType = :ct')
-                ->setParameter('ct', $contentType->getSlug());
+        if ($contentTypes->has('slug')) {
+            $cts = [$contentTypes->get('slug')];
+        } else {
+            $cts = $contentTypes->pluck('slug')->all();
         }
 
-        $qb->orderBy('content.modifiedAt', 'DESC');
+        $qb->where('content.contentType IN (:cts)')
+            ->setParameter('cts', $cts);
 
         $qb->setMaxResults($amount);
 
         return $this->createPaginator($qb->getQuery(), $page, $amount);
     }
 
-    public function searchNaive(string $searchTerm, int $page, int $amountPerPage, bool $onlyPublished = true): Pagerfanta
+    public function searchNaive(string $searchTerm, int $page, int $amountPerPage, Collection $contentTypes, bool $onlyPublished = true): Pagerfanta
     {
         // First, create a querybuilder to get the fields that match the Query
         $qb = $this->getQueryBuilder()
@@ -152,6 +110,9 @@ class ContentRepository extends ServiceEntityRepository
                 ->setParameter('status', Statuses::PUBLISHED);
         }
 
+        $qb->andWhere('content.contentType IN (:cts)')
+            ->setParameter('cts', $contentTypes->keys()->all());
+
         $qb->andWhere('content.id IN (:ids)')
             ->setParameter('ids', $ids);
 
@@ -166,8 +127,9 @@ class ContentRepository extends ServiceEntityRepository
     public function findOneBySlug(string $slug, ?ContentType $contentType = null): ?Content
     {
         $qb = $this->getQueryBuilder();
+        $connection = $qb->getEntityManager()->getConnection();
 
-        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $qb);
+        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $connection);
 
         $query = $qb
             ->innerJoin('content.fields', 'field')
@@ -191,18 +153,27 @@ class ContentRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findOneByFieldValue(string $fieldName, $value): ?Content
+    public function findOneByFieldValue(string $fieldName, string $value, ?ContentType $contentType = null): ?Content
     {
         $qb = $this->getQueryBuilder();
+        $connection = $qb->getEntityManager()->getConnection();
 
-        [$where, $value] = JsonHelper::wrapJsonFunction('translation.value', $value, $qb);
+        [$where, $value] = JsonHelper::wrapJsonFunction('translation.value', $value, $connection);
 
-        return $qb
+        $query = $qb
             ->innerJoin('content.fields', 'field')
             ->innerJoin('field.translations', 'translation')
             ->andWhere($where . ' = :value')
             ->setParameter('value', $value)
-            ->setMaxResults(1)
+            ->andWhere('field.name = :name')
+            ->setParameter('name', $fieldName);
+
+        if ($contentType) {
+            $query->andWhere('content.contentType = :ct')
+                ->setParameter('ct', $contentType->get('slug'));
+        }
+
+        return $query->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -212,6 +183,7 @@ class ContentRepository extends ServiceEntityRepository
         $paginator = new Pagerfanta(new DoctrineORMAdapter($query, true, true));
         $paginator->setMaxPerPage($amountPerPage);
         $paginator->setCurrentPage($page);
+
         return $paginator;
     }
 
@@ -219,10 +191,10 @@ class ContentRepository extends ServiceEntityRepository
     {
         if ($direction === 'next') {
             $order = 'ASC';
-            $whereClause = 'content.' . $column .' > :value';
+            $whereClause = 'content.' . $column . ' > :value';
         } else {
             $order = 'DESC';
-            $whereClause = 'content.' . $column .' < :value';
+            $whereClause = 'content.' . $column . ' < :value';
         }
 
         $qb = $this->getQueryBuilder()

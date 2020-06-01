@@ -4,35 +4,31 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
-use League\Glide\Urls\UrlBuilderFactory;
+use Bolt\Utils\ThumbnailHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class ImageExtension extends AbstractExtension
 {
-    /** @var Config */
-    private $config;
-
-    private $secret = '';
-
     /** @var MediaRepository */
     private $mediaRepository;
 
     /** @var Notifications */
     private $notifications;
 
-    public function __construct(Config $config, MediaRepository $mediaRepository, Notifications $notifications)
+    /** @var ThumbnailHelper */
+    private $thumbnailHelper;
+
+    public function __construct(MediaRepository $mediaRepository, Notifications $notifications, ThumbnailHelper $thumbnailHelper)
     {
-        $this->config = $config;
-        $this->secret = $this->config->get('general/secret');
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
+        $this->thumbnailHelper = $thumbnailHelper;
     }
 
     /**
@@ -99,34 +95,11 @@ class ImageExtension extends AbstractExtension
     /**
      * @param ImageField|array|string $image
      */
-    public function thumbnail($image, int $width = 320, int $height = 240, ?string $location = null, ?string $path = null, ?string $fit = null)
+    public function thumbnail($image, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null)
     {
         $filename = $this->getFilename($image, true);
 
-        if (empty($filename)) {
-            return '';
-        }
-
-        $params = [
-            'w' => $width,
-            'h' => $height,
-        ];
-
-        if ($location) {
-            $params['location'] = $location;
-        }
-        if ($path) {
-            $params['path'] = $path;
-        }
-        if ($fit) {
-            $params['fit'] = $fit;
-        }
-
-        // Create an instance of the URL builder
-        $urlBuilder = UrlBuilderFactory::create('/thumbs/', $this->secret);
-
-        // Generate a URL
-        return $urlBuilder->getUrl($filename, $params);
+        return $this->thumbnailHelper->path($filename, $width, $height, $location, $path, $fit);
     }
 
     /**

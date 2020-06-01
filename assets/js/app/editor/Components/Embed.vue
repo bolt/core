@@ -8,21 +8,31 @@
             <label for="embed-url">{{ labels.content_url }}</label>
             <div class="input-group">
               <input
-                v-model="url"
+                v-model="urlData"
                 class="form-control"
                 :name="name + '[url]'"
                 :placeholder="labels.placeholder_content_url"
                 type="url"
-                :required="required == 1"
+                :required="required"
                 :readonly="readonly"
+                :data-errormessage="errormessage"
+                :pattern="pattern"
               />
-              <span class="input-group-btn">
+              <span class="input-group-append">
                 <button
-                  class="btn btn-default refresh"
+                  class="btn btn-tertiary refresh"
                   type="button"
-                  disabled=""
+                  @click="updateEmbed"
                 >
-                  <i class="fa fa-refresh"></i>
+                  <i class="fas fa-sync mr-0"></i>
+                </button>
+
+                <button
+                  class="btn btn-hidden-danger remove"
+                  type="button"
+                  @click="clearEmbed"
+                >
+                  <i class="fas fa-trash mr-0"></i>
                 </button>
               </span>
             </div>
@@ -111,40 +121,38 @@ import field from '../mixins/value';
 export default {
   name: 'EditorEmbed',
   mixins: [field],
-  props: [
-    'embedapi',
-    'label',
-    'name',
-    'authorurl',
-    'authorname',
-    'height',
-    'html',
-    'thumbnail',
-    'title',
-    'url',
-    'width',
-    'labels',
-    'required',
-    'readonly',
-  ],
-  data: () => {
+  props: {
+    embedapi: String,
+    name: String,
+    authorurl: String,
+    authorname: String,
+    height: Number | String, //String if not set
+    html: String,
+    thumbnail: String,
+    title: String,
+    url: String,
+    width: Number | String, //String if not set
+    labels: Object,
+    required: Boolean,
+    readonly: Boolean,
+    errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+    pattern: String | Boolean,
+  },
+  data() {
     return {
-      authorurlData: null,
-      authornameData: null,
-      heightData: null,
-      htmlData: null,
-      thumbnailData: null,
-      titleData: null,
-      urlData: null,
-      widthData: null,
+      authorurlData: this.authorurl,
+      authornameData: this.authorname,
+      heightData: this.height,
+      htmlData: this.html,
+      thumbnailData: this.thumbnail,
+      titleData: this.title,
+      urlData: this.url,
+      widthData: this.width,
     };
   },
   watch: {
-    url: function(newValue) {
-      if (!newValue) {
-        return;
-      }
-      this.debouncedFetchEmbed();
+    urlData: function() {
+      this.updateEmbed();
     },
   },
   mounted() {
@@ -152,6 +160,9 @@ export default {
   },
   created: function() {
     this.debouncedFetchEmbed = _.debounce(this.fetchEmbed, 500);
+    if (this.urlData) {
+      this.updateEmbed();
+    }
     this.previewImage = this.thumbnail;
   },
   updated() {
@@ -165,9 +176,15 @@ export default {
     });
   },
   methods: {
+    updateEmbed: function() {
+      this.debouncedFetchEmbed();
+    },
+    clearEmbed: function() {
+      this.urlData = '';
+    },
     fetchEmbed: function() {
       const body = new FormData();
-      body.append('url', this.url);
+      body.append('url', this.urlData);
       body.append(
         '_csrf_token',
         document.getElementsByName('_csrf_token')[0].value,
@@ -187,7 +204,7 @@ export default {
           this.previewImage = json.thumbnail_url;
         })
         .catch(err => {
-          console.log(err);
+          console.warn(err);
         });
     },
   },

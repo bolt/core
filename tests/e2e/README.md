@@ -7,11 +7,7 @@ Bolt uses [Behat](http://docs.behat.org/en/v2.5/guides/1.gherkin.html) for E2E t
 Installation
 ---
 Be sure that you have Java installed.
-
-Run under `core` folder:
-```
-./run_behat_tests.sh
-```
+Be sure that you have the latest stable Chrome version installed.
 
 Usage
 ---
@@ -25,6 +21,7 @@ Running only failed tests is not yet implemented. However you can use tags to ru
 Just add a tag before scenario, like:
 ```
 Feature: Display record
+    @javascript
     @example
     Scenario: As a user I want to display a single record
 ```
@@ -33,10 +30,13 @@ And then run:
 vendor/bin/behat --tags=example
 ```
 
+Note: Make sure to keep the `@javascript` tag in order to run the E2E test
+with a running browser under the hood.
+
 Writing tests
 ---
 
-Put your tests inside `./tests/behat/` folder.
+Put your tests inside `./tests/e2e/` folder.
 
 For describing test scenarios Behat uses [Gherkin syntax](http://docs.behat.org/en/v2.5/guides/1.gherkin.html).
 

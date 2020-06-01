@@ -4,27 +4,36 @@ declare(strict_types=1);
 
 namespace Bolt\Menu;
 
-use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class CachedFrontendMenuBuilder implements FrontendMenuBuilderInterface
 {
-    /** @var CacheInterface */
+    /** @var TagAwareCacheInterface */
     private $cache;
 
     /** @var FrontendMenuBuilderInterface */
     private $menuBuilder;
 
-    public function __construct(FrontendMenuBuilderInterface $menuBuilder, CacheInterface $cache)
+    /** @var Request */
+    private $request;
+
+    public function __construct(FrontendMenuBuilderInterface $menuBuilder, TagAwareCacheInterface $cache, RequestStack $requestStack)
     {
         $this->cache = $cache;
         $this->menuBuilder = $menuBuilder;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     public function buildMenu(?string $name = null): array
     {
-        $key = 'frontendmenu_' . ($name ?: 'main');
+        $key = 'frontendmenu_' . ($name ?: 'main') . '_' . $this->request->getLocale();
 
-        return $this->cache->get($key, function () use ($name) {
+        return $this->cache->get($key, function (ItemInterface $item) use ($name) {
+            $item->tag('frontendmenu');
+
             return $this->menuBuilder->buildMenu($name);
         });
     }

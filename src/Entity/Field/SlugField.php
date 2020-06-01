@@ -22,6 +22,22 @@ class SlugField extends Field implements FieldInterface
         parent::setValue($value);
 
         return $this;
+
+        /*
+        if (is_array($value)) {
+            $value = reset($value);
+        }
+        $value = Str::slug($value);
+
+        if (is_numeric($value)) {
+            $slug = $this->getContent()->getDefinition()->get('singular_slug');
+            $value = $slug . '-' . $value;
+        }
+
+        parent::setValue([$value]);
+
+        return $this;
+         */
     }
 
     public function getSlugUseFields(): array

@@ -10,7 +10,7 @@ use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomepageController extends TwigAwareController implements FrontendZone
+class HomepageController extends TwigAwareController implements FrontendZoneInterface
 {
     /** @var TemplateChooser */
     private $templateChooser;
@@ -21,18 +21,30 @@ class HomepageController extends TwigAwareController implements FrontendZone
     }
 
     /**
-     * @Route("/", methods={"GET"}, name="homepage")
-     * @Route("/{_locale}/", methods={"GET"}, name="homepage_locale", requirements={"_locale": "%app_locales%"})
+     * @Route("/", methods={"GET|POST"}, name="homepage")
+     * @Route(
+     *     "/{_locale}/",
+     *     methods={"GET|POST"},
+     *     name="homepage_locale",
+     *     requirements={"_locale": "%app_locales%"})
      */
     public function homepage(ContentRepository $contentRepository): Response
     {
         $homepage = $this->config->get('theme/homepage') ?: $this->config->get('general/homepage');
         $params = explode('/', $homepage);
+        $contentType = $this->config->get('contenttypes/' . $params[0]);
+
+        // Perhaps we need a listing instead. If so, forward the Request there
+        if (! $contentType->get('singleton') && ! isset($params[1])) {
+            return $this->forward('Bolt\Controller\Frontend\ListingController::listing', [
+                'contentTypeSlug' => $homepage,
+            ]);
+        }
 
         // @todo Get $homepage content, using "setcontent"
         $record = $contentRepository->findOneBy([
-            'contentType' => $params[0],
-            'id' => $params[1],
+            'contentType' => $contentType->get('slug'),
+            'id' => $params[1] ?? 1,
         ]);
         if (! $record) {
             $record = $contentRepository->findOneBy(['contentType' => $params[0]]);

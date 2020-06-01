@@ -34,7 +34,7 @@
         </p>
     {% endif %}
 
-    {% set related_content_types = record|related_all %}
+    {% set related_content_types = record|related_by_type %}
     {% if related_content_types is not empty %}
         <p class="meta">{{ __('general.phrase.related-content') }}
         <ul>

@@ -4,23 +4,32 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Markup;
 
 /**
- * @ApiResource(subresourceOperations={
- *     "api_contents_fields_get_subresource"={
- *         "method"="GET",
- *         "normalization_context"={"groups"={"get_field"}}
- *     }
- * })
+ * @ApiResource(
+ *     subresourceOperations={
+ *         "api_contents_fields_get_subresource"={
+ *             "method"="GET",
+ *              "normalization_context"={"groups"={"get_field"}}
+ *         },
+ *     },
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"},
+ *     graphql={"item_query", "collection_query"}
+ * )
+ * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\FieldRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=191)
@@ -45,14 +54,10 @@ class Field implements FieldInterface, TranslatableInterface
      */
     public $name;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    /** @ORM\Column(type="integer") */
     private $sortorder = 0;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    /** @ORM\Column(type="integer", nullable=true) */
     private $version;
 
     /**
@@ -63,17 +68,22 @@ class Field implements FieldInterface, TranslatableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Bolt\Entity\Field", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $parent;
 
-    /**
-     * @var ?FieldType
-     */
+    /** @var ?FieldType */
     private $fieldTypeDefinition;
 
     public function __toString(): string
     {
-        return (string) $this->getTwigValue();
+        $value = $this->getTwigValue();
+
+        if (is_array($value)) {
+            $value = implode('', $value);
+        }
+
+        return (string) $value;
     }
 
     public function __call(string $key = '', array $arguments = [])
@@ -92,6 +102,9 @@ class Field implements FieldInterface, TranslatableInterface
         return $this->id;
     }
 
+    /**
+     * @Groups("get_field")
+     */
     public function getDefinition(): FieldType
     {
         if ($this->fieldTypeDefinition === null) {
@@ -103,7 +116,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     private function setDefinitionFromContentDefinition(): void
     {
-        if ($this->getContent()) {
+        if ($this->getContent() && $this->getContent()->getDefinition()) {
             $contentTypeDefinition = $this->getContent()->getDefinition();
             $this->fieldTypeDefinition = FieldType::factory($this->getName(), $contentTypeDefinition);
         } else {
@@ -130,15 +143,70 @@ class Field implements FieldInterface, TranslatableInterface
 
     public function get($key)
     {
+        $default = $this->getDefaultValue();
+
+        if ($this->isNew() && $default !== null) {
+            if (! $default instanceof LaravelCollection) {
+                throw new \RuntimeException('Default value of field ' . $this->getName() . ' is ' . gettype($default)
+                    . ' but it should be an array.');
+            }
+
+            return $this->getDefaultValue()->get($key);
+        }
+
         return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->get($key);
     }
 
     /**
      * @Groups("get_field")
+     * @SerializedName("value")
      */
-    public function getValue()
+    public function getApiValue()
     {
-        return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->getValue();
+        if (! $this->isTranslatable()) {
+            return $this->getParsedValue();
+        }
+
+        $result = [];
+
+        foreach ($this->getTranslations() as $translation) {
+            $locale = $translation->getLocale();
+            $this->setCurrentLocale($locale);
+            $value = $this->getParsedValue();
+            $result[$locale] = $value;
+        }
+
+        return $result;
+    }
+
+    public function getValue(): ?array
+    {
+        $value = $this->translate($this->getCurrentLocale(), false)->getValue();
+
+        // If the field is not translatable, return the value without fallback to defaultLocale
+        if ($this->isTranslatable()) {
+            return $value;
+        }
+
+        // If value is empty, get the defaultLocale as fallback.
+        if (empty($value)) {
+            $value = $this->translate($this->getDefaultLocale(), false)->getValue();
+        }
+
+        return $value;
+    }
+
+    /**
+     * Returns the default value option
+     */
+    public function getDefaultValue()
+    {
+        return $this->getDefinition()->get('default', null);
+    }
+
+    public function isNew(): bool
+    {
+        return $this->getId() === 0;
     }
 
     /**
@@ -153,7 +221,7 @@ class Field implements FieldInterface, TranslatableInterface
             $count = count($value);
             if ($count === 0) {
                 return null;
-            } elseif ($count === 1 && array_keys($value)[0] === 0) {
+            } elseif ($count === 1 && array_keys($value)[0] === 0 && ! $this instanceof ListFieldInterface) {
                 return reset($value);
             }
         }
@@ -173,11 +241,32 @@ class Field implements FieldInterface, TranslatableInterface
             $value = $sanitiser->clean($value);
         }
 
+        if (is_string($value) && $this->getDefinition()->get('allow_twig')) {
+            $twig = $this->getTwig();
+
+            if ($twig) {
+                $template = $twig->createTemplate($value);
+                $value = $template->render();
+            } else {
+                $value = sprintf(
+                    '<div style="background: #fff3d4 !important; border-left-color: #A46A1F !important; border-left-width: 5px !important; border-left-style: solid !important; font-size: 16px !important; padding: 1rem !important; margin: 1rem 0 !important; line-height: 2.4rem !important; font-weight: normal !important;">%s</div>',
+                    'Tried to render field <code>' . $this->getName() . '</code> as Twig, but the Twig Environment is not available. Add <code>{{ record|allow_twig }}</code> to your template, to allow Twig Rendering for this Record.'
+                );
+            }
+        }
+
         if (is_string($value) && $this->getDefinition()->get('allow_html')) {
             $value = new Markup($value, 'UTF-8');
         }
 
         return $value;
+    }
+
+    public function getTwig()
+    {
+        if ($this->getContent()->getTwig()) {
+            return $this->getContent()->getTwig();
+        }
     }
 
     public function set(string $key, $value): self
@@ -295,7 +384,7 @@ class Field implements FieldInterface, TranslatableInterface
         return '\\' . implode('\\', $explodedNamespace) . '\\' . $entityClass . 'Translation';
     }
 
-    private function isTranslatable(): bool
+    public function isTranslatable(): bool
     {
         return $this->getDefinition()->get('localize') === true;
     }

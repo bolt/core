@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Configuration\Config;
-use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
-use Bolt\Repository\ContentRepository;
 use Bolt\Repository\RelationRepository;
-use Bolt\Utils\Excerpt;
+use Bolt\Storage\Query;
+use Bolt\Utils\ContentHelper;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -21,17 +20,17 @@ class RelatedExtension extends AbstractExtension
     /** @var RelationRepository */
     private $relationRepository;
 
-    /** @var ContentRepository */
-    private $contentRepository;
-
     /** @var Config */
     private $config;
 
-    public function __construct(RelationRepository $relationRepository, ContentRepository $contentRepository, Config $config)
+    /** @var Query */
+    private $query;
+
+    public function __construct(RelationRepository $relationRepository, Config $config, Query $query)
     {
         $this->relationRepository = $relationRepository;
-        $this->contentRepository = $contentRepository;
         $this->config = $config;
+        $this->query = $query;
     }
 
     /**
@@ -41,7 +40,7 @@ class RelatedExtension extends AbstractExtension
     {
         return [
             new TwigFilter('related', [$this, 'getRelatedContent']),
-            new TwigFilter('related_all', [$this, 'getAllRelatedContent']),
+            new TwigFilter('related_by_type', [$this, 'getRelatedContentByType']),
             new TwigFilter('related_first', [$this, 'getFirstRelatedContent']),
             new TwigFilter('related_options', [$this, 'getRelatedOptions']),
             new TwigFilter('related_values', [$this, 'getRelatedValues']),
@@ -55,7 +54,7 @@ class RelatedExtension extends AbstractExtension
     {
         return [
             new TwigFunction('related_content', [$this, 'getRelatedContent']),
-            new TwigFunction('all_related_content', [$this, 'getAllRelatedContent']),
+            new TwigFunction('related_content_by_type', [$this, 'getRelatedContentByType']),
             new TwigFunction('first_related_content', [$this, 'getFirstRelatedContent']),
             new TwigFunction('related_options', [$this, 'getRelatedOptions']),
             new TwigFunction('related_values', [$this, 'getRelatedValues']),
@@ -65,7 +64,7 @@ class RelatedExtension extends AbstractExtension
     /**
      * @return array name => Content[]
      */
-    public function getAllRelatedContent(Content $content, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
+    public function getRelatedContentByType(Content $content, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
     {
         $relations = $this->relationRepository->findRelations($content, null, $bidirectional, $limit, $publishedOnly);
 
@@ -78,6 +77,7 @@ class RelatedExtension extends AbstractExtension
                     }
                     $result[$relation->getName()][] = $relatedContent;
                 }
+
                 return $result;
             }, []);
     }
@@ -85,10 +85,8 @@ class RelatedExtension extends AbstractExtension
     /**
      * @return Content[]
      */
-    public function getRelatedContent(Content $content, ?string $name = null, ?string $ct = null, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
+    public function getRelatedContent(Content $content, ?string $name = null, bool $bidirectional = true, ?int $limit = null, bool $publishedOnly = true): array
     {
-        $name = $name ?? $ct;
-
         $relations = $this->relationRepository->findRelations($content, $name, $bidirectional, $limit, $publishedOnly);
 
         return (new Collection($relations))
@@ -99,10 +97,8 @@ class RelatedExtension extends AbstractExtension
             ->toArray();
     }
 
-    public function getFirstRelatedContent(Content $content, ?string $name = null, ?string $ct = null, bool $bidirectional = true, bool $publishedOnly = true): ?Content
+    public function getFirstRelatedContent(Content $content, ?string $name = null, bool $bidirectional = true, bool $publishedOnly = true): ?Content
     {
-        $name = $name ?? $ct;
-
         $relation = $this->relationRepository->findFirstRelation($content, $name, $bidirectional, $publishedOnly);
 
         if ($relation === null) {
@@ -123,25 +119,39 @@ class RelatedExtension extends AbstractExtension
         return null;
     }
 
-    public function getRelatedOptions(string $contentType): Collection
+    public function getRelatedOptions(string $contentTypeSlug, ?string $order = null, string $format = '', ?bool $required = false): Collection
     {
-        $contentType = ContentType::factory($contentType, $this->config->get('contenttypes'));
         $maxAmount = $this->config->get('maximum_listing_select', 1000);
 
-        $content = $this->contentRepository->findForListing(1, $maxAmount, $contentType, false);
+        $contentType = $this->config->getContentType($contentTypeSlug);
+
+        if (! $order) {
+            $order = $contentType->get('order');
+        }
+
+        $pager = $this->query->getContent($contentTypeSlug, ['order' => $order])
+            ->setMaxPerPage($maxAmount)
+            ->setCurrentPage(1);
+
+        $records = iterator_to_array($pager->getCurrentPageResults());
 
         $options = [];
 
+        // We need to add this as a 'dummy' option for when the user is allowed
+        // not to pick an option. This is needed, because otherwise the `select`
+        // would default to the first one.
+        if ($required === false) {
+            $options[] = [
+                'key' => '',
+                'value' => '',
+            ];
+        }
+
         /** @var Content $record */
-        foreach ($content as $record) {
+        foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
-                'value' => sprintf(
-                    '%s (№ %s, %s)',
-                    Excerpt::getExcerpt($record->getExtras()['title'], 50),
-                    $record->getId(),
-                    $record->getStatus()
-                ),
+                'value' => ContentHelper::get($record, $format),
             ];
         }
 
@@ -154,7 +164,7 @@ class RelatedExtension extends AbstractExtension
             return new Collection([]);
         }
 
-        $content = $this->getRelatedContent($source, $contentType, null, true, null, false);
+        $content = $this->getRelatedContent($source, $contentType, true, null, false);
 
         $values = [];
 

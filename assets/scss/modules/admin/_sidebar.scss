@@ -23,8 +23,8 @@
     font-size: $small-font-size;
     letter-spacing: $letter-spacing;
 
-    @include media-breakpoint-up(lg) {
-      margin-top: $spacer*2.25;
+    @include media-breakpoint-up(wd) {
+      margin: $spacer*2.25 0 0 $spacer;
     }
   }
 
@@ -47,6 +47,7 @@
 
     @include media-breakpoint-up(wd) {
       font-size: 0.9375rem;
+      padding: $spacer/1.75 $spacer*1.5 $spacer/1.75 $spacer*2;
     }
 
     &:hover {
@@ -122,12 +123,21 @@
       }
 
       li {
-        &.link--create {
-          border-bottom: dashed 1px rgba(0, 0, 0, 0.1);
+        &.link--actions {
+          display: flex;
+          align-content: space-around;
+          border-bottom: solid 1px rgba(0, 0, 0, 0.1);
 
           a {
             font-weight: $font-weight-bold;
             letter-spacing: $letter-spacing;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          a + a {
+            border-left: dashed 1px rgba(0, 0, 0, 0.1);
           }
         }
 

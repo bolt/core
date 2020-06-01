@@ -8,7 +8,7 @@ Bolt 4 - beta
 
 -- Hatebreed - [Destroy Everything][hatebreed]
 
-Progress towards beta / stable 
+Progress towards beta / stable
 ------------------------------
 
 Follow the progress on Bolt 4, at the following locations
@@ -17,9 +17,11 @@ Follow the progress on Bolt 4, at the following locations
  - Bolt 4 roadmap: https://roadmap.boltcms.io
  - Slack: https://slack.bolt.cm (open for all, requires Slack account)
 
-**If you want to check out Bolt, the `composer create-project` method is
-recommended. See here: https://github.com/bolt/project/ . This
-repository should be used to work _on_ Bolt. Not _with_ Bolt.**
+---
+
+**If you want to check out Bolt, the `composer create-project` method is recommended. See here: https://github.com/bolt/project/ . This repository should be used to work _<ins>on</ins>_ Bolt. Not _<ins>with</ins>_ Bolt.**
+
+---
 
 To set up a running environment of Bolt 4 please perform the following steps 1 to 4:
 
@@ -74,6 +76,10 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-create`, on a UNIX-like system.
 
+Note: if you're using SQLite, ensure that `var/db/` is readable and writable to 
+you, as well as to the webserver users. The same applies to the file 
+`var/data/bolt.sqlite` if it already exists.
+
 3 Re-set the Database
 ---------------------
 
@@ -92,7 +98,7 @@ Alternatively, run `make db-reset`, on a UNIX-like system.
 4 Run the prototype
 -------------------
 
-  - Using the Symfony CLI tool, just run `symfony server:start`. 
+  - Using the Symfony CLI tool, just run `symfony server:start`.
 
   - Alternatively, run `bin/console server:start`
   (if running `bin/console server:start`does not work because you don't have the pcntl extension, run `bin/console server:run`)
@@ -144,6 +150,7 @@ Testing
 -------
 
 Bolt uses several testing frameworks for [different test layers][fowler]:
+
 - unit: PHPSpec, PHPUnit, Jest
 - integration (of Symfony services): PHPUnit with KernelTestCase
 - functional (API Contracts): Behat
@@ -155,10 +162,11 @@ make test
 ```
 
 To run E2E tests:
-- Follow the Behat tests [installation guide](tests/e2e/README.md), then:
 ```
 make behat-js
 ```
+
+Read more about running and creating tests on the [e2e tests page](tests/e2e/README.md).
 
 Fixing IDE issues
 -----------------
@@ -189,13 +197,16 @@ The ongoing Bolt development takes place under the care of:
  - [Two Kings &ndash; Artisinal Web Development](https://twokings.nl)
  - [The Software House &ndash; Web and Mobile Development](https://tsh.io/)
 
-Sponsors: 
+Sponsors:
 
  - [Webforward, Richard Leishman](https://www.webfwd.co.uk/)
- - → You and/or your company's name on this list? 
+ - → You and/or your company's name on this list?
  [Become a sponsor](https://github.com/users/bobdenotter/sponsorship).
- 
- 
+
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
-[translations]: https://github.com/bolt/four/wiki/Contribute-on-translations
+[translations]: https://github.com/bolt/core/wiki/Contribute-on-translations
 [hatebreed]: https://www.youtube.com/watch?v=DBwgX8yBqsw
+
+--------
+
+[![Build Status](https://travis-ci.org/bolt/core.svg?branch=master)](https://travis-ci.org/bolt/core) [![SymfonyInsight](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5/mini.svg)](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5) [![Total Downloads](https://poser.pugx.org/bolt/core/downloads)](https://packagist.org/packages/bolt/core) ![PHP from Packagist](https://img.shields.io/packagist/php-v/bolt/core)

@@ -1,8 +1,8 @@
 <template>
-  <div :id="`multiselect-${id}`">
+  <div :id="`multiselect-${id}`" :class="classname">
     <multiselect
       v-model="selected"
-      :allow-empty="false"
+      :allow-empty="allowempty"
       :limit="1000"
       :multiple="multiple"
       :options="options"
@@ -10,6 +10,7 @@
       :show-labels="false"
       :taggable="taggable"
       :disabled="readonly"
+      :data-errormessage="errormessage"
       label="value"
       tag-placeholder="Add this as new tag"
       tag-position="bottom"
@@ -18,11 +19,11 @@
     >
       <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-        {{ props.option.key }}
+        {{ props.option.value }}
       </template>
       <template v-if="name === 'status'" slot="option" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-        {{ props.option.key }}
+        {{ props.option.value }}
       </template>
     </multiselect>
     <input
@@ -41,17 +42,19 @@ import Multiselect from 'vue-multiselect';
 export default {
   name: 'EditorSelect',
   components: { Multiselect },
-  props: [
-    'value',
-    'name',
-    'id',
-    'form',
-    'options',
-    'multiple',
-    'taggable',
-    'required',
-    'readonly',
-  ],
+  props: {
+    value: Array | String,
+    name: String,
+    id: String,
+    form: String,
+    options: Array,
+    multiple: Boolean,
+    allowempty: Boolean,
+    taggable: Boolean,
+    readonly: Boolean,
+    classname: String,
+    errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+  },
   data: () => {
     return {
       selected: [],

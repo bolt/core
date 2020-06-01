@@ -20,44 +20,31 @@ class Log
      */
     private $id;
 
-    /**
-     * @ORM\Column(name="message", type="text")
-     */
+    /** @ORM\Column(name="message", type="text") */
     private $message;
 
-    /**
-     * @ORM\Column(name="context", type="array", nullable=true)
-     */
+    /** @ORM\Column(name="context", type="array", nullable=true) */
     private $context;
 
-    /**
-     * @ORM\Column(name="level", type="smallint")
-     */
+    /** @ORM\Column(name="level", type="smallint") */
     private $level;
 
-    /**
-     * @ORM\Column(name="level_name", type="string", length=50)
-     */
+    /** @ORM\Column(name="level_name", type="string", length=50) */
     private $levelName;
 
-    /**
-     * @ORM\Column(name="created_at", type="datetime")
-     */
+    /** @ORM\Column(name="created_at", type="datetime") */
     private $createdAt;
 
-    /**
-     * @ORM\Column(name="extra", type="array", nullable=true)
-     */
+    /** @ORM\Column(name="extra", type="array", nullable=true) */
     private $extra;
 
-    /**
-     * @ORM\Column(name="user", type="array", nullable=true)
-     */
+    /** @ORM\Column(name="user", type="array", nullable=true) */
     private $user;
 
-    /**
-     * @ORM\Column(name="location", type="array", nullable=true)
-     */
+    /** @ORM\Column(type="content", type="integer", nullable=true) */
+    private $content;
+
+    /** @ORM\Column(name="location", type="array", nullable=true) */
     private $location;
 
     /**
@@ -66,6 +53,10 @@ class Log
     public function onPrePersist(): void
     {
         $this->createdAt = new \DateTime();
+
+        if (array_key_exists('content_id', $this->getContext())) {
+            $this->setContent($this->getContext()['content_id']);
+        }
     }
 
     public function getId(): int
@@ -76,6 +67,7 @@ class Log
     public function setId(int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -87,6 +79,7 @@ class Log
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
         return $this;
     }
 
@@ -98,6 +91,7 @@ class Log
     public function setContext(?array $context): self
     {
         $this->context = $context;
+
         return $this;
     }
 
@@ -109,6 +103,7 @@ class Log
     public function setLevel(int $level): self
     {
         $this->level = $level;
+
         return $this;
     }
 
@@ -120,6 +115,7 @@ class Log
     public function setLevelName(string $levelName): self
     {
         $this->levelName = $levelName;
+
         return $this;
     }
 
@@ -131,6 +127,7 @@ class Log
     public function setExtra(?array $extra): self
     {
         $this->extra = $extra;
+
         return $this;
     }
 
@@ -142,6 +139,7 @@ class Log
     public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -153,6 +151,7 @@ class Log
     public function setLocation(?array $location): self
     {
         $this->location = $location;
+
         return $this;
     }
 
@@ -164,6 +163,19 @@ class Log
     public function setUser(?array $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getContent(): ?int
+    {
+        return $this->content;
+    }
+
+    public function setContent(int $content): self
+    {
+        $this->content = $content;
+
         return $this;
     }
 }

@@ -9,6 +9,8 @@ use Scienta\DoctrineJsonFunctions\Query\AST\Functions\AbstractJsonFunctionNode;
 
 /**
  * "JSON_EXTRACT" "(" StringPrimary "," StringPrimary {"," StringPrimary }* ")"
+ *
+ * See: "JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract" in `config/packages/doctrine.yaml`
  */
 class JsonExtract extends AbstractJsonFunctionNode
 {

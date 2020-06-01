@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class OmnisearchController extends TwigAwareController implements BackendZone
+class OmnisearchController extends TwigAwareController implements BackendZoneInterface
 {
     /**
      * @Route("/omnisearch", name="bolt_omnisearch")

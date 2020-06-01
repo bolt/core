@@ -16,6 +16,7 @@ use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\Relation;
 use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
+use Bolt\Event\ContentEvent;
 use Bolt\Event\Listener\ContentFillListener;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
@@ -33,12 +34,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class ContentEditController extends TwigAwareController implements BackendZone
+class ContentEditController extends TwigAwareController implements BackendZoneInterface
 {
     use CsrfTrait;
 
@@ -66,6 +68,12 @@ class ContentEditController extends TwigAwareController implements BackendZone
     /** @var ContentFillListener */
     private $contentFillListener;
 
+    /** @var EventDispatcherInterface */
+    private $dispatcher;
+
+    /** @var string */
+    private $defaultLocale;
+
     public function __construct(
         TaxonomyRepository $taxonomyRepository,
         RelationRepository $relationRepository,
@@ -75,7 +83,9 @@ class ContentEditController extends TwigAwareController implements BackendZone
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
         TemplateChooser $templateChooser,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        EventDispatcherInterface $dispatcher,
+        string $defaultLocale
     ) {
         $this->taxonomyRepository = $taxonomyRepository;
         $this->relationRepository = $relationRepository;
@@ -86,6 +96,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
         $this->contentFillListener = $contentFillListener;
         $this->templateChooser = $templateChooser;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->dispatcher = $dispatcher;
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -114,6 +126,9 @@ class ContentEditController extends TwigAwareController implements BackendZone
      */
     public function edit(Request $request, Content $content): Response
     {
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::ON_EDIT);
+
         $twigvars = [
             'record' => $content,
             'locales' => $content->getLocales(),
@@ -146,6 +161,9 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         $content = $this->contentFromPost($content, $request);
 
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::PRE_SAVE);
+
         $this->em->persist($content);
         $this->em->flush();
 
@@ -157,22 +175,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
         ];
         $url = $this->urlGenerator->generate('bolt_content_edit', $urlParams);
 
-        return new RedirectResponse($url);
-    }
-
-    /**
-     * @Route("/viewsaved/{id}", name="bolt_content_edit_viewsave", methods={"POST"}, requirements={"id": "\d+"})
-     */
-    public function viewSaved(Request $request, ?Content $content = null): RedirectResponse
-    {
-        $this->validateCsrf($request, 'editrecord');
-
-        $urlParams = [
-            'slugOrId' => $content->getId(),
-            'contentTypeSlug' => $content->getDefinition()->get('slug'),
-        ];
-
-        $url = $this->urlGenerator->generate('record', $urlParams);
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::POST_SAVE);
 
         return new RedirectResponse($url);
     }
@@ -186,6 +190,9 @@ class ContentEditController extends TwigAwareController implements BackendZone
 
         $content = $this->contentFromPost($content, $request);
         $recordSlug = $content->getDefinition()->get('singular_slug');
+
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::ON_PREVIEW);
 
         $context = [
             'record' => $content,
@@ -212,6 +219,9 @@ class ContentEditController extends TwigAwareController implements BackendZone
         $content->setDepublishedAt(null);
         $content->setPublishedAt(null);
 
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::ON_DUPLICATE);
+
         $twigvars = [
             'record' => $content,
             'locales' => $content->getLocales(),
@@ -236,10 +246,14 @@ class ContentEditController extends TwigAwareController implements BackendZone
     {
         if (! $this->isCsrfTokenValid('status', $request->get('token'))) {
             $url = $this->urlGenerator->generate('bolt_dashboard');
+
             return new RedirectResponse($url);
         }
 
         $content->setStatus($request->get('status'));
+
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::PRE_STATUS_CHANGE);
 
         $this->em->persist($content);
         $this->em->flush();
@@ -259,6 +273,7 @@ class ContentEditController extends TwigAwareController implements BackendZone
     {
         if (! $this->isCsrfTokenValid('delete', $request->get('token'))) {
             $url = $this->urlGenerator->generate('bolt_dashboard');
+
             return new RedirectResponse($url);
         }
 
@@ -276,7 +291,6 @@ class ContentEditController extends TwigAwareController implements BackendZone
     private function contentFromPost(?Content $content, Request $request): Content
     {
         $formData = $request->request->all();
-
         $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
 
         /** @var User $user */
@@ -330,14 +344,21 @@ class ContentEditController extends TwigAwareController implements BackendZone
         return $content;
     }
 
-    private function removeFieldChildren(FieldParentInterface $field): void
+    private function removeFieldChildren(Content $content, FieldParentInterface $field): void
     {
         foreach ($field->getChildren() as $child) {
             if ($child instanceof FieldParentInterface && $child->hasChildren()) {
-                $this->removeFieldChildren($child);
+                $this->removeFieldChildren($content, $child);
             }
 
-            $this->em->remove($child);
+            /** @var Field $child */
+            $content->removeField($child);
+
+            // Only attempt removal if the entity is already persisted (managed)
+            // by the entity manager
+            if ($this->em->contains($child)) {
+                $this->em->remove($child);
+            }
         }
     }
 
@@ -351,10 +372,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
         $tm = new TranslationsManager($collections, $keys);
 
         foreach ($collections as $collection) {
-            $this->removeFieldChildren($collection);
+            $this->removeFieldChildren($content, $collection);
         }
-
-        $this->em->flush();
 
         if (isset($formData['collections'])) {
             foreach ($formData['collections'] as $collectionName => $collectionItems) {
@@ -419,6 +438,8 @@ class ContentEditController extends TwigAwareController implements BackendZone
         // If the Field is translatable, set the locale
         if ($field->getDefinition()->get('localize')) {
             $field->setLocale($locale);
+        } else {
+            $field->setLocale($this->defaultLocale);
         }
 
         // If the value is an array that contains a string of JSON, parse it
@@ -426,27 +447,18 @@ class ContentEditController extends TwigAwareController implements BackendZone
             $value = Json::findArray($value);
         }
 
-        if ($field->getType() === SetField::TYPE) {
+        if ($field instanceof SetField) {
             foreach ($value as $name => $svalue) {
-                /** @var SetField $field */
-                if ($field->hasChild($name)) {
-                    $child = $field->getChild($name);
-                } else {
-                    $child = FieldRepository::factory($field->getDefinition()->get('fields')->get($name), $name);
-                    $child->setParent($field);
-                    $field->getContent()->addField($child);
-                }
-
+                $child = $field->getChild($name);
                 $child->setDefinition($child->getName(), $field->getDefinition()->get('fields')->get($child->getName()));
-
                 $this->updateField($child, $svalue, $locale);
             }
         } else {
             $field->setValue($value);
         }
 
-        // If the Field is MediaAware, link it to an existing Media Entity
-        if ($field instanceof Field\MediaAware) {
+        // If the Field is MediaAwareInterface, link it to an existing Media Entity
+        if ($field instanceof Field\MediaAwareInterface) {
             $field->setLinkedMedia($this->mediaRepository);
         }
     }

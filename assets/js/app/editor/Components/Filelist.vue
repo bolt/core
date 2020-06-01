@@ -20,13 +20,19 @@
         :extensions="extensions"
         :is-first-in-filelist="isFirstInFilelist(index)"
         :is-last-in-filelist="isLastInFilelist(index)"
+        :readonly="readonly"
         @remove="onRemoveFile"
         @moveFileUp="onMoveFileUp"
         @moveFileDown="onMoveFileDown"
       ></editor-file>
     </div>
 
-    <button class="btn btn-tertiary" type="button" @click="addFile">
+    <button
+      class="btn btn-tertiary"
+      type="button"
+      :disabled="!allowMore"
+      @click="addFile"
+    >
       <i class="fas fa-fw fa-plus"></i>
       {{ labels.add_new_file }}
     </button>
@@ -39,16 +45,18 @@ import File from './File';
 export default {
   name: 'EditorFile',
   components: { 'editor-file': File },
-  props: [
-    'files',
-    'directory',
-    'name',
-    'filelist',
-    'csrfToken',
-    'labels',
-    'extensions',
-    'attributesLink',
-  ],
+  props: {
+    files: Array,
+    directory: String,
+    name: String,
+    filelist: String,
+    csrfToken: String,
+    labels: Object,
+    extensions: Array,
+    attributesLink: String,
+    limit: Number,
+    readonly: Boolean,
+  },
   data: function() {
     let counter = 0;
     let containerFiles = this.files;
@@ -61,6 +69,15 @@ export default {
       counter,
       containerFiles,
     };
+  },
+  computed: {
+    allowMore: function() {
+      if (this.readonly) {
+        return false;
+      }
+
+      return this.containerFiles.length < this.limit;
+    },
   },
   methods: {
     isFirstInFilelist(index) {

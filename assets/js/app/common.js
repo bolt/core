@@ -90,4 +90,35 @@ $(document).ready(function() {
     .siblings()
     .prop('readonly', false)
     .attr('data-readonly', 'readonly');
+
+  /*
+   ** Display the custom error message, if set.
+   */
+  function handleInvalid(event) {
+    const errormessage = $(event.target).attr('data-errormessage');
+    event.target.setCustomValidity(errormessage);
+  }
+
+  function handleInput(event) {
+    event.target.setCustomValidity('');
+  }
+
+  $('[data-errormessage]').on('invalid', handleInvalid);
+
+  /* Remove custom validity every time input is changed. This is done because setCustomValidity does not reset */
+  $('[data-errormessage]').on('input', handleInput);
+
+  /* Set the errormessage on the correct editor--date field */
+  $('.editor--date').each(function() {
+    let siblings = $(this).siblings();
+    const errormessage = $(this).attr('data-errormessage');
+
+    siblings.each(function() {
+      $(this)
+        .attr('data-errormessage', errormessage)
+        .on('invalid', handleInvalid)
+        .on('input', handleInput);
+    });
+  });
+  /* End of custom error message */
 });

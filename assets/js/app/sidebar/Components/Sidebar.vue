@@ -24,7 +24,12 @@ export default {
     'sidebar-menu': Menu,
     'sidebar-toggler': SidebarToggler,
   },
-  props: ['menu', 'version', 'aboutLink', 'labels'],
+  props: {
+    menu: Array,
+    version: String,
+    aboutLink: String,
+    labels: Object,
+  },
   created() {
     const slim = JSON.parse(localStorage.getItem('slim-sidebar'));
 

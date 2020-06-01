@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Event\Subscriber;
 
 use Bolt\Configuration\Config;
-use Bolt\Controller\Frontend\FrontendZone;
+use Bolt\Controller\Frontend\FrontendZoneInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -20,6 +20,7 @@ class MaintenanceModeSubscriber implements EventSubscriberInterface
     {
         $this->config = $config;
     }
+
     public function onKernelController(ControllerEvent $event): void
     {
         $controller = $event->getController();
@@ -30,7 +31,7 @@ class MaintenanceModeSubscriber implements EventSubscriberInterface
             $controller = $controller[0];
         }
 
-        if ($controller instanceof FrontendZone && $this->config->get('general/maintenance_mode', 'false')) {
+        if ($controller instanceof FrontendZoneInterface && $this->config->get('general/maintenance_mode', 'false')) {
             throw new HttpException(503, 'Service Unavailable (Maintenance Mode)');
         }
     }

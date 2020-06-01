@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Command;
 
+use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,6 +15,16 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class SetupCommand extends Command
 {
     protected static $defaultName = 'bolt:setup';
+
+    /** @var Connection */
+    private $connection;
+
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+
+        parent::__construct();
+    }
 
     protected function configure(): void
     {
@@ -28,13 +39,21 @@ class SetupCommand extends Command
         $exitCode = 0;
         $io = new SymfonyStyle($input, $output);
 
+        // Because SQLite breaks on `--if-not-exists`, we need to check for that here.
+        // See: https://github.com/doctrine/DoctrineBundle/issues/542
+        $options = ['-q' => true];
+        if ($this->connection->getDatabasePlatform()->getName() !== 'sqlite') {
+            $options[] = ['--if-not-exists' => true];
+        }
+
         $command = $this->getApplication()->find('doctrine:database:create');
-        $commandInput = new ArrayInput(['-q' => true]);
-        $exitCode += $command->run($commandInput, $output);
+        $exitCode += $command->run(new ArrayInput($options), $output);
 
         $command = $this->getApplication()->find('doctrine:schema:create');
-        $commandInput = new ArrayInput([]);
-        $exitCode += $command->run($commandInput, $output);
+        $exitCode += $command->run(new ArrayInput([]), $output);
+
+        $command = $this->getApplication()->find('bolt:reset-secret');
+        $exitCode += $command->run(new ArrayInput([]), $output);
 
         $command = $this->getApplication()->find('bolt:add-user');
         $commandInput = new ArrayInput(['--admin' => true]);

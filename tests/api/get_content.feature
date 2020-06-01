@@ -16,7 +16,9 @@ Feature: Get content with API
        "publishedAt": "@string@.isDateTime()",
        "authorName": @string@,
        "fieldValues": {
-          "title": @string@,
+          "title": {
+             "en": @string@
+          },
           "slug": @string@,
           "image": {
              "filename": @string@,
@@ -29,6 +31,7 @@ Feature: Get content with API
           },
           "@*@": "@*@"
        },
+       "definition": "@*@",
        "taxonomyValues": @array@,
        "extras": {
          "link": @string@,
@@ -58,7 +61,9 @@ Feature: Get content with API
      "publishedAt": "@string@.isDateTime()",
      "authorName": @string@,
      "fieldValues": {
-        "title": @string@,
+        "title": {
+          "en": @string@
+        },
         "slug": @string@,
         "image": {
              "filename": @string@,
@@ -71,6 +76,7 @@ Feature: Get content with API
         },
        "@*@": "@*@"
      },
+     "definition": "@*@",
      "taxonomyValues": @array@,
      "extras": {
         "link": @string@,
@@ -105,7 +111,9 @@ Feature: Get content with API
            "publishedAt": "@string@.isDateTime()",
            "authorName": @string@,
            "fieldValues": {
-              "title": @string@,
+              "title": {
+                "en": @string@
+              },
               "slug": @string@,
               "image": {
                  "filename": @string@,
@@ -118,6 +126,7 @@ Feature: Get content with API
               },
               "@*@": "@*@"
            },
+           "definition": "@*@",
            "taxonomyValues": @array@,
            "extras": {
              "link": @string@,
@@ -165,7 +174,9 @@ Feature: Get content with API
            "publishedAt": "@string@.isDateTime()",
            "authorName": @string@,
            "fieldValues": {
-              "title": @string@,
+              "title": {
+                "en": @string@
+              },
               "slug": @string@,
               "image": {
                  "filename": @string@,
@@ -216,12 +227,16 @@ Feature: Get content with API
      "@type": "Content",
      "id": 1,
      "contentType": @string@,
+     "status": @string@,
      "createdAt": "@string@.isDateTime()",
      "modifiedAt": "@string@.isDateTime()",
      "publishedAt": "@string@.isDateTime()",
      "authorName": @string@,
+     "definition": "@*@",
      "fieldValues": {
-        "title": @string@,
+        "title": {
+            "en": @string@
+        },
         "slug": @string@,
         "image": {
             "filename": @string@,

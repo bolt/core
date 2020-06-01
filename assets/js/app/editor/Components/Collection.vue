@@ -16,6 +16,7 @@
       <button
         class="btn btn-secondary"
         type="button"
+        :disabled="!allowMore"
         @click="addCollectionItem"
       >
         <i class="fas fa-fw fa-plus"></i>
@@ -31,7 +32,23 @@ var uniqid = require('locutus/php/misc/uniqid');
 
 export default {
   name: 'EditorCollection',
-  props: ['templates', 'existingFields', 'labels'],
+  props: {
+    templates: {
+      type: Array,
+      required: true,
+    },
+    existingFields: {
+      type: Array,
+    },
+    labels: {
+      type: Object,
+      required: true,
+    },
+    limit: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     let elements = [];
     this.existingFields.forEach(function(field) {
@@ -49,6 +66,7 @@ export default {
 
     return {
       elements: elements,
+      counter: elements.length,
       templateSelectName: 'templateSelect' + this.id,
       templateSelectOptions: templateSelectOptions,
       selector: {
@@ -63,6 +81,9 @@ export default {
   computed: {
     initialSelectValue() {
       return this.templateSelectOptions[0].key;
+    },
+    allowMore: function() {
+      return this.counter < this.limit;
     },
   },
   mounted() {
@@ -79,6 +100,7 @@ export default {
         .closest(vueThis.selector.collectionContainer);
       vueThis.getCollectionItemFromPressedButton(this).remove();
       vueThis.setAllButtonsStates(collectionContainer);
+      vueThis.counter--;
     });
 
     window.$(document).on('click', vueThis.selector.moveUp, function(e) {
@@ -162,11 +184,12 @@ export default {
       let template = this.getSelectedTemplate();
 
       let html = template.html.replace(
-        '[' + new RegExp(template.hash, 'g') + ']',
-        '[' + uniqid() + ']',
+        new RegExp(template.hash, 'g'),
+        uniqid(),
       );
       let res = Vue.compile(html);
       this.elements.push(res);
+      this.counter++;
     },
     getSelectedTemplate() {
       let selectValue = this.$refs.templateSelect.selected;

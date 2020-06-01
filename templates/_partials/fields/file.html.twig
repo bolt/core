@@ -1,5 +1,11 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
+{% set extensions = field.definition.get('extensions')|default('') %}
+{% set info %}
+    {{ 'upload.allow_file_types'|trans }}: <code>{{ extensions|join('</code>, <code>') }}</code><br>
+    {{ 'upload.max_size'|trans }}: {{ config.maxupload|format_bytes }}
+{% endset %}
+
 {% block field %}
     {% set setPath = field.definition.get('upload')|default('') %}
     {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
@@ -13,7 +19,6 @@
         'placeholder_title': 'image.placeholder_title'|trans,
         'button_edit_attributes': 'image.button_edit_attributes'|trans,
     }|json_encode %}
-    {% set extensions = field.definition.get('extensions')|default('') %}
 
     <editor-file
          :name='{{ name|json_encode }}'
@@ -30,5 +35,8 @@
          :attributes-link='{{ path('bolt_media_new')|json_encode }}'
          :required='{{ required|json_encode }}'
          :readonly='{{ readonly|json_encode }}'
+         :errormessage='{{ errormessage|json_encode }}'
+         :pattern='{{ pattern|json_encode }}'
+         :placeholder='{{ placeholder|json_encode }}'
     ></editor-file>
 {% endblock %}

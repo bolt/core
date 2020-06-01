@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Event\Subscriber;
 
-use Bolt\Controller\Backend\Async\AsyncZone;
-use Bolt\Controller\Backend\BackendZone;
-use Bolt\Controller\Frontend\FrontendZone;
+use Bolt\Controller\Backend\Async\AsyncZoneInterface;
+use Bolt\Controller\Backend\BackendZoneInterface;
+use Bolt\Controller\Frontend\FrontendZoneInterface;
 use Bolt\Widget\Injector\RequestZone;
 use ReflectionClass;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -60,11 +60,11 @@ class ZoneSubscriber implements EventSubscriberInterface
         try {
             $reflection = new ReflectionClass($controller[0]);
 
-            if ($reflection->implementsInterface(BackendZone::class)) {
+            if ($reflection->implementsInterface(BackendZoneInterface::class)) {
                 return RequestZone::BACKEND;
-            } elseif ($reflection->implementsInterface(FrontendZone::class)) {
+            } elseif ($reflection->implementsInterface(FrontendZoneInterface::class)) {
                 return RequestZone::FRONTEND;
-            } elseif ($reflection->implementsInterface(AsyncZone::class)) {
+            } elseif ($reflection->implementsInterface(AsyncZoneInterface::class)) {
                 return RequestZone::ASYNC;
             }
         } catch (\ReflectionException $e) {

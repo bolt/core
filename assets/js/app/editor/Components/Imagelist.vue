@@ -22,13 +22,19 @@
         :extensions="extensions"
         :is-first-in-imagelist="isFirstInImagelist(index)"
         :is-last-in-imagelist="isLastInImagelist(index)"
+        :readonly="readonly"
         @remove="onRemoveImage"
         @moveImageUp="onMoveImageUp"
         @moveImageDown="onMoveImageDown"
       ></editor-image>
     </div>
 
-    <button class="btn btn-tertiary" type="button" @click="addImage">
+    <button
+      class="btn btn-tertiary"
+      type="button"
+      :disabled="!allowMore"
+      @click="addImage"
+    >
       <i class="fas fa-fw fa-plus"></i>
       {{ labels.add_new_image }}
     </button>
@@ -41,16 +47,18 @@ import Image from './Image';
 export default {
   name: 'EditorImage',
   components: { 'editor-image': Image },
-  props: [
-    'images',
-    'directory',
-    'name',
-    'filelist',
-    'csrfToken',
-    'labels',
-    'extensions',
-    'attributesLink',
-  ],
+  props: {
+    images: Array,
+    directory: String,
+    name: String,
+    filelist: String,
+    csrfToken: String,
+    labels: Object,
+    extensions: Array,
+    attributesLink: String,
+    limit: Number,
+    readonly: Boolean,
+  },
   data: function() {
     let counter = 0;
     let containerImages = this.images;
@@ -63,6 +71,15 @@ export default {
       counter,
       containerImages: this.images,
     };
+  },
+  computed: {
+    allowMore: function() {
+      if (this.readonly) {
+        return false;
+      }
+
+      return this.getActiveImageFields().length < this.limit;
+    },
   },
   methods: {
     isFirstInImagelist(index) {
@@ -133,6 +150,7 @@ export default {
         thumbnail: '',
         extensions: this.extensions,
         id: this.counter,
+        alt: true,
       };
 
       this.counter++;

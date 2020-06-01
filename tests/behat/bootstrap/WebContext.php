@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\WebAssert;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\MinkExtension\Context\RawMinkContext;
+use SimpleXMLElement;
 
 /**
  * Defines steps for web tests.
@@ -91,9 +93,18 @@ trait WebContext
      * @When /^I click "([^"]*)"$/
      * @throws ElementNotFoundException
      */
-    public function iClick($element)
+    public function click($element)
     {
         $this->findElement($element)->click();
+    }
+
+    /**
+     * @When /^I click the (\d+)(st|nd|rd|th) "([^"]*)"$/
+     * @throws ElementNotFoundException
+     */
+    public function clickNth($number, $tail, $element)
+    {
+        $this->findAllElements($element)[$number-1]->click();
     }
 
     /**
@@ -153,11 +164,11 @@ trait WebContext
     }
 
     /**
-     * @Then /^the :index "([^"]*)" button should be enabled$/
+     * @Then /^the (\d+)(st|nd|rd|th) "([^"]*)" button should be enabled$/
      * @throws ElementNotFoundException
      * @throws ExpectationException
      */
-    public function theButtonShouldBeEnabled($index, $button)
+    public function theButtonShouldBeEnabled($index, $tail, $button)
     {
         $foundButton = $this->findAllElements($button)[$index-1];
         if ($foundButton->getAttribute('disabled')) {
@@ -250,7 +261,7 @@ trait WebContext
         $this->spin(function () use ($field, $initial, $web){
             $this->assertFieldNotContains($field, $initial);
             return true;
-        }, 10);
+        }, 20);
     }
     
     /**   
@@ -328,6 +339,32 @@ trait WebContext
         }
     }
 
+    /**
+     * @Then /^the "([^"]*)" field should have "([^"]*)" attribute$/
+     * @throws ExpectationException
+     */
+    public function theFieldShouldHaveAttribute($selector, $attribute)
+    {
+        $element = $this->findElement($selector);
+
+        $atts_array = current((array) new SimpleXMLElement("<element $attribute />"));
+
+        $name = array_key_first($atts_array);
+        $value = $atts_array[$name];
+
+        if(! $element->hasAttribute($name))
+        {
+            $message = sprintf('The field "%s" has no attribute "%s"', $selector, $attribute);
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        } else if ($element->getAttribute($name) !== $value)
+        {
+            $message = sprintf('The field "%s" has attribute "%s" with value "%s", but "%s" expected',
+                $selector, $name, $element->getAttribute($name), $value);
+            throw new ExpectationException($message, $this->getSession()->getDriver());
+        }
+
+    }
+
     private function findAllElements($selector, $parent = null)
     {
         if ($parent === null) {
@@ -355,7 +392,7 @@ trait WebContext
         return $elements;
     }
 
-    private function findElement($selector)
+    private function findElement($selector): NodeElement
     {
         // by default, look for named selector
         // for documentation on this, check http://mink.behat.org/en/latest/guides/traversing-pages.html#named-selectors

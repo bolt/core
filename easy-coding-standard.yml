@@ -22,6 +22,8 @@ services:
 
     # Spaces
     Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+        spacing: one
 
     # Comments
     Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer: ~
@@ -79,6 +81,8 @@ services:
     PhpCsFixer\Fixer\FunctionNotation\PhpdocToReturnTypeFixer: ~
     PhpCsFixer\Fixer\Import\FullyQualifiedStrictTypesFixer: ~
     PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer:
+        property: single
 
     #please yoda no
     SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff: ~
@@ -86,15 +90,14 @@ services:
 parameters:
     cache_directory: var/cache/ecs
     skip:
-        PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer: ~
         PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~
         PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: ~
-        PhpCsFixer\Fixer\Operator\ConcatSpaceFixer: ~
         PhpCsFixer\Fixer\Operator\IncrementStyleFixer: ~
-        PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
         PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer: ~
         PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer: ~
-        PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer: ~
-        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff: ~
         Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: ~ #to be removed before beta release
         Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~ #to be removed before beta release
+
+        # Deprecated. Todo: Find replacement
+        Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer: ~
+        Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer: ~

@@ -17,6 +17,7 @@ $headings-font-family:        'Source Sans Variable', sans-serif;
 $font-size-base:              0.9rem;
 $font-size-largescreen:       1rem;
 $line-height-base:            1.5;
+$small-font-size:             88%;
 
 // Minor Third progression for header font sizes
 $h1-font-size:                $font-size-base * 2.07;
@@ -45,6 +46,7 @@ $component-active-bg:                   var(--primary);
 $input-focus-border-color:              var(--primary-400);
 $custom-control-indicator-active-bg:    var(--primary-400);
 $custom-range-thumb-active-bg:          var(--primary-400);
+$form-group-margin-bottom:              2rem;
 
 $input-disabled-bg:                     #f0f3f6;
 $input-disabled-color:                  #777;
@@ -61,6 +63,8 @@ $card-bg:                           var(--foreground);
 $card-box-shadow:                   0 7.5px 15px -5px rgba(0, 0, 0, 0.08);
 
 // Buttons
+$btn-border-radius: 0.2rem;
+$btn-border-radius-sm: 0.2rem;
 $btn-font-weight: 500;
 $btn-font-size-lg: 16px;
 $btn-font-size: 14px;
@@ -98,7 +102,9 @@ $grid-breakpoints: (
 $yiq-contrasted-threshold:  150;
 
 :root {
-  --background: #f3f5f7;
+  --body: #222; // Note: this value isn't actually used. @todo Find out where it's coming from.
+  --body-dimmed: #555;
+  --background: #fbfaf9;
   --foreground: #fff;
   --foreground-border: #e8e8e8;
   --primary: #255687;
@@ -116,6 +122,8 @@ $yiq-contrasted-threshold:  150;
   --admin-toolbar: #4c6e91;
   --admin-toolbar-text-light: #fff;
   --admin-toolbar-text-dark: #0c223b;
+  --very-light-border: #f0f0f0;
+  --light-border: #e0e0e0;
 
   @each $bp, $value in $grid-breakpoints {
     --breakpoint-#{$bp}: #{$value};

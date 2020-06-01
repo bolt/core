@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ListingController extends TwigAwareController implements FrontendZone
+class ListingController extends TwigAwareController implements FrontendZoneInterface
 {
     /** @var TemplateChooser */
     private $templateChooser;
@@ -32,24 +32,26 @@ class ListingController extends TwigAwareController implements FrontendZone
      *     "/{contentTypeSlug}",
      *     name="listing",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
-     *     methods={"GET"})
+     *     methods={"GET|POST"})
      * @Route(
      *     "/{_locale}/{contentTypeSlug}",
      *     name="listing_locale",
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
-     *     methods={"GET"})
+     *     methods={"GET|POST"})
      */
     public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
     {
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
         $page = (int) $request->query->get('page', 1);
         $amountPerPage = $contentType->get('listing_records');
+        $order = $request->query->get('order', $contentType->get('order'));
 
-        $pager = $this->query->getContent($contentTypeSlug)
+        $records = $this->query->getContent($contentTypeSlug, [
+            'status' => 'published',
+            'order' => $order,
+        ])
             ->setMaxPerPage($amountPerPage)
             ->setCurrentPage($page);
-
-        $records = iterator_to_array($pager->getCurrentPageResults());
 
         $templates = $this->templateChooser->forListing($contentType);
 

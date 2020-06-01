@@ -15,18 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class DashboardController extends TwigAwareController implements BackendZone
+class DashboardController extends TwigAwareController implements BackendZoneInterface
 {
     /**
      * @Route("/", name="bolt_dashboard", methods={"GET"})
      */
     public function index(ContentRepository $content, Request $request): Response
     {
-        $amount = $this->config->get('general/records_per_page', 10);
+        $amount = (int) $this->config->get('general/records_per_page', 10);
         $page = (int) $request->get('page', 1);
+        $contentTypes = $this->config->get('contenttypes')->where('show_on_dashboard', true);
 
         /** @var Content $records */
-        $records = $content->findLatest(null, $page, $amount);
+        $records = $content->findLatest($contentTypes, $page, $amount);
 
         return $this->renderTemplate('@bolt/pages/dashboard.html.twig', [
             'records' => $records,

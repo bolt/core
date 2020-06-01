@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Event\Subscriber;
 
 use Bolt\Extension\ExtensionRegistry;
+use Bolt\Storage\Query;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
@@ -23,13 +24,14 @@ class ExtensionSubscriber implements EventSubscriberInterface
     /** @var array */
     private $objects = [];
 
-    public function __construct(ContainerInterface $container, ExtensionRegistry $extensionRegistry, EntityManagerInterface $objectManager)
+    public function __construct(ContainerInterface $container, ExtensionRegistry $extensionRegistry, EntityManagerInterface $objectManager, Query $query)
     {
         $this->extensionRegistry = $extensionRegistry;
 
         $this->objects = [
             'manager' => $objectManager,
             'container' => $container,
+            'query' => $query,
         ];
     }
 

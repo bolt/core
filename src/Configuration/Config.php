@@ -36,16 +36,21 @@ class Config
     /** @var string */
     private $locales;
 
-    public function __construct(string $locales, Stopwatch $stopwatch, string $projectDir, CacheInterface $cache)
+    /** @var string */
+    private $defaultLocale;
+
+    public function __construct(string $locales, string $defaultLocale, Stopwatch $stopwatch, string $projectDir, CacheInterface $cache, string $publicFolder)
     {
         $this->locales = $locales;
         $this->stopwatch = $stopwatch;
         $this->cache = $cache;
         $this->projectDir = $projectDir;
+        $this->defaultLocale = $defaultLocale;
+
         $this->data = $this->getConfig();
 
         // @todo PathResolver shouldn't be part of Config. Refactor to separate class
-        $this->pathResolver = new PathResolver($projectDir, [], $this->get('general/theme'));
+        $this->pathResolver = new PathResolver($projectDir, $this->get('general/theme'), $publicFolder);
     }
 
     private function getConfig(): Collection
@@ -88,7 +93,7 @@ class Config
         $taxonomy = new TaxonomyParser($this->projectDir);
         $config['taxonomies'] = $taxonomy->parse();
 
-        $contentTypes = new ContentTypesParser($this->locales, $this->projectDir, $config->get('general'));
+        $contentTypes = new ContentTypesParser($this->projectDir, $config->get('general'), $this->defaultLocale, $this->locales);
         $config['contenttypes'] = $contentTypes->parse();
 
         $menu = new MenuParser($this->projectDir);
@@ -96,7 +101,7 @@ class Config
 
         // If we're parsing the config, we'll also need to pre-initialise
         // the PathResolver, because we need to know the theme path.
-        $this->pathResolver = new PathResolver($this->projectDir, [], $config->get('general')->get('theme'));
+        $this->pathResolver = new PathResolver($this->projectDir, $config->get('general')->get('theme'));
 
         $theme = new ThemeParser($this->projectDir, $this->getPath('theme'));
         $config['theme'] = $theme->parse();
@@ -175,11 +180,87 @@ class Config
 
     public function getContentType(string $name): ?Collection
     {
-        return $this->get('contenttypes/' . $name);
+        $name = trim($name);
+
+        if ($this->has('contenttypes/' . $name)) {
+            return $this->get('contenttypes/' . $name);
+        }
+
+        /** @var Collection $cts */
+        $cts = $this->get('contenttypes');
+
+        foreach (['singular_slug', 'name', 'singular_name'] as $key) {
+            if ($cts->firstWhere($key, $name)) {
+                return $cts->firstWhere($key, $name);
+            }
+        }
+
+        return null;
+    }
+
+    public function getTaxonomy(string $name): ?Collection
+    {
+        $name = trim($name);
+
+        if ($this->has('taxonomies/' . $name)) {
+            return $this->get('taxonomies/' . $name);
+        }
+
+        /** @var Collection $taxos */
+        $taxos = $this->get('taxonomies');
+
+        foreach (['slug', 'singular_slug', 'name', 'singular_name'] as $key) {
+            if ($taxos->firstWhere($key, $name)) {
+                return $taxos->firstWhere($key, $name);
+            }
+        }
+
+        return null;
     }
 
     public function getFileTypes(): Collection
     {
         return new Collection($this->get('general/accept_file_types'));
+    }
+
+    public function getMaxUpload(): int
+    {
+        return min(
+            $this->convertPHPSizeToBytes(ini_get('post_max_size')),
+            $this->convertPHPSizeToBytes(ini_get('upload_max_filesize')),
+            $this->convertPHPSizeToBytes($this->get('general/accept_upload_size', '8M'))
+        );
+    }
+
+    /**
+     * This function transforms the php.ini notation for numbers (like '2M') to an integer (2*1024*1024 in this case)
+     */
+    private function convertPHPSizeToBytes(string $size): int
+    {
+        $suffix = mb_strtoupper(mb_substr($size, -1));
+        if (! in_array($suffix, ['P', 'T', 'G', 'M', 'K'], true)) {
+            return (int) $size;
+        }
+        $value = (int) mb_substr($size, 0, -1);
+        switch ($suffix) {
+            case 'P':
+                $value *= 1024;
+                // no break
+            case 'T':
+                $value *= 1024;
+                // no break
+            case 'G':
+                $value *= 1024;
+                // no break
+            case 'M':
+                $value *= 1024;
+                // no break
+            case 'K':
+                $value *= 1024;
+
+                break;
+        }
+
+        return $value;
     }
 }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt;
 
-use Bolt\Widget\CacheAware;
+use Bolt\Widget\CacheAwareInterface;
 use Bolt\Widget\Injector\QueueProcessor;
 use Bolt\Widget\Injector\RequestZone;
-use Bolt\Widget\RequestAware;
-use Bolt\Widget\StopwatchAware;
-use Bolt\Widget\TwigAware;
+use Bolt\Widget\RequestAwareInterface;
+use Bolt\Widget\StopwatchAwareInterface;
+use Bolt\Widget\TwigAwareInterface;
 use Bolt\Widget\WidgetInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,7 +62,7 @@ class Widgets
 
     public function registerWidget(WidgetInterface $widget): void
     {
-        if ($widget instanceof TwigAware) {
+        if ($widget instanceof TwigAwareInterface) {
             $widget->setTwig($this->twig);
         }
 
@@ -84,11 +84,7 @@ class Widgets
 
     public function renderWidgetsForTarget(string $target, array $params = []): string
     {
-        $widgets = $this->queue->filter(function (WidgetInterface $widget) use ($target) {
-            return $widget->getTarget() === $target;
-        })->sortBy(function (WidgetInterface $widget) {
-            return $widget->getPriority();
-        });
+        $widgets = $this->filteredWidgets($target);
 
         $output = '';
 
@@ -99,28 +95,42 @@ class Widgets
         return $output;
     }
 
+    public function listWidgetsForTarget(string $target): Collection
+    {
+        return $this->filteredWidgets($target);
+    }
+
+    private function filteredWidgets(string $target): Collection
+    {
+        return $this->queue->filter(function (WidgetInterface $widget) use ($target) {
+            return $widget->getTarget() === $target;
+        })->sortBy(function (WidgetInterface $widget) {
+            return $widget->getPriority();
+        });
+    }
+
     private function invokeWidget(WidgetInterface $widget, array $params = []): ?string
     {
         if ($this->isRendered($widget)) {
             return $this->getRendered($widget);
         }
 
-        if ($widget instanceof StopwatchAware) {
+        if ($widget instanceof StopwatchAwareInterface) {
             $widget->startStopwatch($this->stopwatch);
         }
 
-        if ($widget instanceof RequestAware) {
+        if ($widget instanceof RequestAwareInterface) {
             $widget->setRequest($this->requestStack->getCurrentRequest());
         }
 
-        if ($widget instanceof CacheAware) {
+        if ($widget instanceof CacheAwareInterface) {
             $widget->setCache($this->cache);
         }
 
         // Call the magic `__invoke` method on the $widget object
         $output = $widget($params);
 
-        if ($widget instanceof StopwatchAware) {
+        if ($widget instanceof StopwatchAwareInterface) {
             $widget->stopStopwatch();
         }
 

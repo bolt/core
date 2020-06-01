@@ -6,6 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Field;
+use Bolt\Entity\FieldParentInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -32,8 +33,9 @@ class FieldRepository extends ServiceEntityRepository
     public function findOneBySlug(string $slug): ?Field
     {
         $qb = $this->getQueryBuilder();
+        $connection = $qb->getEntityManager()->getConnection();
 
-        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $qb);
+        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $connection);
 
         return $qb
             ->innerJoin('field.translations', 'translations')
@@ -43,6 +45,22 @@ class FieldRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function findAllByParent(Field $field): ?array
+    {
+        if (! $field instanceof FieldParentInterface || ! $field->getId()) {
+            return [];
+        }
+
+        $qb = $this->getQueryBuilder();
+
+        return $qb
+            ->andWhere('field.parent = :parentId')
+            ->setParameter('parentId', $field->getId())
+            ->orderBy('field.sortorder', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     public static function factory(Collection $definition, string $name = '', string $label = ''): Field
@@ -60,11 +78,15 @@ class FieldRepository extends ServiceEntityRepository
             $field->setName($name);
         }
 
-        $field->setDefinition($type, $definition);
+        $nameOrType = empty($name) ? $type : $name;
+        $field->setDefinition($nameOrType, $definition);
 
         if ($label !== '') {
             $field->setLabel($label);
         }
+
+        $field->setDefaultLocale($definition['default_locale']);
+        $field->setLocale($definition['default_locale']);
 
         return $field;
     }

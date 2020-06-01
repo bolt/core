@@ -34,9 +34,9 @@ class FieldType extends Collection
             'mode' => '',
             'postfix' => '',
             'prefix' => '',
-            'placeholder' => '',
+            'placeholder' => false,
             'sort' => '',
-            'default' => '',
+            'default' => null,
             'allow_twig' => false,
             'allow_html' => false,
             'info' => '',
@@ -45,12 +45,19 @@ class FieldType extends Collection
             'separator' => false,
             'required' => false,
             'readonly' => false,
+            'error' => false,
+            'pattern' => false,
+            'hidden' => false,
+            'default_locale' => 'en',
         ]);
     }
 
     public static function factory(string $name, ContentType $contentType): self
     {
-        return new self($contentType->get('fields')->get($name, []));
+        $defaults = static::defaults();
+        $fromContentType = new self($contentType->get('fields')->get($name, []));
+
+        return new self($defaults->merge($fromContentType));
     }
 
     public static function mock(string $name, ?Collection $definition = null): self

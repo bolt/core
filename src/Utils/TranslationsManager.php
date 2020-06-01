@@ -72,7 +72,7 @@ class TranslationsManager
             throw new \InvalidArgumentException(sprintf("'%s'does not have translations", $field->getName()));
         }
 
-        if ($field->hasParent()) {
+        if ($field->hasParent() && $field->getParent()->getName() !== $collectionName) {
             $key = $this->keys[$collectionName][$field->getParent()->getName()][$orderId][$field->getName()];
         } else {
             $key = $this->keys[$collectionName][$field->getName()][$orderId];
@@ -98,7 +98,7 @@ class TranslationsManager
             return true;
         }
 
-        if ($field->hasParent()) {
+        if ($field->hasParent() && $field->getParent()->getName() !== $collectionName) {
             //find key for field with a parent
             if (! (array_key_exists($collectionName, $this->keys)
                 && array_key_exists($field->getParent()->getName(), $this->keys[$collectionName])
@@ -113,8 +113,7 @@ class TranslationsManager
             //find key for field without a parent
             if (! (array_key_exists($collectionName, $this->keys)
                 && array_key_exists($field->getName(), $this->keys[$collectionName])
-                && array_key_exists($orderId, $this->keys[$collectionName][$field->getName()])
-                && array_key_exists('value', $this->keys[$collectionName][$field->getName()][$orderId]))) {
+                && array_key_exists($orderId, $this->keys[$collectionName][$field->getName()]))) {
                 // if $this->keys[$collectionName][$name][$order] does not exist, we can return.
                 return false;
             }
@@ -122,7 +121,7 @@ class TranslationsManager
             $key = $this->keys[$collectionName][$field->getName()][$orderId];
         }
 
-        if (empty($key or ! is_numeric($key))) {
+        if (empty($key) || ! is_numeric($key)) {
             // if key['value'] is empty or is not numeric (id), we can return.
             return false;
         }

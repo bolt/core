@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace Bolt\Extension;
 
 use Bolt\Configuration\Config;
+use Bolt\Storage\Query;
 use Bolt\Widgets;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 
 trait ServicesTrait
@@ -21,6 +25,9 @@ trait ServicesTrait
 
     /** @var ContainerInterface */
     protected $container;
+
+    /** @var Query */
+    protected $query;
 
     /**
      * Injects commonly used objects into the extension, for use by the
@@ -32,6 +39,7 @@ trait ServicesTrait
     {
         $this->entityManager = $objects['manager'];
         $this->container = $objects['container'];
+        $this->query = $objects['query'];
     }
 
     /**
@@ -67,6 +75,25 @@ trait ServicesTrait
         }
 
         return null;
+    }
+
+    public function getAllServiceNames(): Collection
+    {
+        $container = $this->getContainer();
+
+        $reflectedContainer = new \ReflectionClass($container);
+        $reflectionProperty = $reflectedContainer->getProperty('services');
+        $reflectionProperty->setAccessible(true);
+        $publicServices = $reflectionProperty->getValue($container);
+
+        $reflectionProperty = $reflectedContainer->getProperty('privates');
+        $reflectionProperty->setAccessible(true);
+        $privateServices = $reflectionProperty->getValue($container);
+
+        $services = array_merge(array_keys($publicServices), array_keys($privateServices));
+        sort($services);
+
+        return collect($services);
     }
 
     public function getWidgets(): ?Widgets
@@ -112,5 +139,18 @@ trait ServicesTrait
     public function getContainer(): ContainerInterface
     {
         return $this->container;
+    }
+
+    public function getQuery(): Query
+    {
+        return $this->query;
+    }
+
+    public function getRequest(): Request
+    {
+        /** @var RequestStack $stack */
+        $stack = $this->getService('request_stack');
+
+        return $stack->getCurrentRequest();
     }
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -12,13 +14,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     normalizationContext={"groups"={"get_relation"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get"}
+ *     itemOperations={"get"},
+ *     graphql={"item_query", "collection_query"}
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\RelationRepository")
  * @ORM\Table(indexes={
  *     @ORM\Index(name="name_idx", columns={"name"}),
  *     @ORM\Index(name="group_idx", columns={"group"})
  * })
+ * @ApiFilter(SearchFilter::class, strategy="partial")
  */
 class Relation
 {
@@ -53,14 +57,10 @@ class Relation
      */
     private $toContent;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    /** @ORM\Column(type="integer") */
     private $position = 0;
 
-    /**
-     * @ORM\Column(name="`group`", type="string", length=191)
-     */
+    /** @ORM\Column(name="`group`", type="string", length=191) */
     private $group;
 
     /**

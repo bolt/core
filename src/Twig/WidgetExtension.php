@@ -20,6 +20,7 @@ class WidgetExtension extends AbstractExtension
     {
         $this->widgetRenderer = $widgetRenderer;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -48,21 +49,18 @@ class WidgetExtension extends AbstractExtension
         return $this->widgetRenderer->renderWidgetsForTarget($target, $params);
     }
 
-    public function hasWidgets($input = null): bool
+    public function hasWidgets(string $target): bool
     {
-        // @todo See Github issue https://github.com/bolt/four/issues/135
-        return false;
+        return count($this->listwidgets($target)) > 0;
     }
 
-    public function listwidgets($input = null): array
+    public function listwidgets(string $target)
     {
-        // @todo See Github issue https://github.com/bolt/four/issues/135
-        return [];
+        return $this->widgetRenderer->listWidgetsForTarget($target);
     }
 
-    public function countwidgets($input = null): int
+    public function countwidgets(string $target): int
     {
-        // @todo See Github issue https://github.com/bolt/four/issues/135
-        return count($this->listwidgets($input));
+        return count($this->listwidgets($target));
     }
 }

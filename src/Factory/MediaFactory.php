@@ -50,7 +50,7 @@ class MediaFactory
 
     public function createOrUpdateMedia(SplFileInfo $file, string $fileLocation, ?string $title = null): Media
     {
-        $path = Path::makeRelative($file->getPath(). '/', $this->fileLocations->get($fileLocation)->getBasepath());
+        $path = Path::makeRelative($file->getPath() . '/', $this->fileLocations->get($fileLocation)->getBasepath());
 
         $media = $this->mediaRepository->findOneBy([
             'location' => $fileLocation,
@@ -106,7 +106,7 @@ class MediaFactory
 
     private function isImage(Media $media): bool
     {
-        return in_array($media->getType(), ['gif', 'png', 'jpg', 'svg'], true);
+        return in_array($media->getType(), ['gif', 'png', 'jpg', 'jpeg', 'svg', 'webp'], true);
     }
 
     public function createFromFilename(string $locationName, string $path, string $filename): Media

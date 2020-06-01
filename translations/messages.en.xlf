@@ -466,7 +466,7 @@
       </notes>
       <segment>
         <source>content.updated_successfully</source>
-        <target>Media item updated successfully</target>
+        <target>Content updated successfully</target>
       </segment>
     </unit>
     <unit id="IB0mNQh" name="content.created_successfully">
@@ -1044,7 +1044,7 @@
     <unit id="ok6YulQ" name="action.view_saved">
       <segment>
         <source>action.view_saved</source>
-        <target>View (saved version) on site</target>
+        <target>View saved version</target>
       </segment>
     </unit>
     <unit id="SeTqePC" name="label.display_name">
@@ -1554,7 +1554,7 @@
     <unit id=".fL0AbE" name="files_list.remark">
       <segment>
         <source>files_list.remark</source>
-        <target>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</target>
+        <target>No files are present in this folder. Select a folder to navigate to.</target>
       </segment>
     </unit>
     <unit id="v6cfPyt" name="quickselect.title_select">
@@ -1770,7 +1770,7 @@
     <unit id="hXEFV1n" name="listing.title_last_seen">
       <segment>
         <source>listing.title_last_seen</source>
-        <target>Last registered</target>
+        <target>Session age</target>
       </segment>
     </unit>
     <unit id="pn7kE17" name="listing.title_last_ip">
@@ -1794,7 +1794,7 @@
     <unit id="HjWW.NS" name="user.not_valid_password">
       <segment>
         <source>user.not_valid_password</source>
-        <target>Invalid password</target>
+        <target>Invalid password. The password should contain at least 6 characters.</target>
       </segment>
     </unit>
     <unit id="TpGxDI3" name="user.unknown_user">
@@ -1929,10 +1929,10 @@
         <target>Select Field to sort by…</target>
       </segment>
     </unit>
-    <unit id="SDVQEir" name="title.save_changes">
+    <unit id="JEnqOi." name="title.primary_actions">
       <segment>
-        <source>title.save_changes</source>
-        <target>Save Changes</target>
+        <source>title.primary_actions</source>
+        <target>Primary Actions</target>
       </segment>
     </unit>
     <unit id="7616Os4" name="title.options">
@@ -2179,6 +2179,144 @@
       <segment>
         <source>view_locales.badge_empty</source>
         <target>Empty</target>
+      </segment>
+    </unit>
+    <unit id="WeJxw6Z" name="action.update_all">
+      <segment>
+        <source>action.update_all</source>
+        <target>Apply to all</target>
+      </segment>
+    </unit>
+    <unit id="QVRwwK4" name="about.system_info">
+      <segment>
+        <source>about.system_info</source>
+        <target>System Information</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>Invalid display name</target>
+      </segment>
+    </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <segment>
+        <source>action.confirm_delete</source>
+        <target>Are you sure you wish to delete this content?</target>
+      </segment>
+    </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <segment>
+        <source>placeholder.username_or_email</source>
+        <target>your username or email</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <segment>
+        <source>placeholder.password</source>
+        <target>your password</target>
+      </segment>
+    </unit>
+    <unit id="KshyLfh" name="caption.other_content">
+      <segment>
+        <source>caption.other_content</source>
+        <target>Other Content</target>
+      </segment>
+    </unit>
+    <unit id="wHOF8eG" name="editfile.target_not_writable">
+      <segment>
+        <source>editfile.target_not_writable</source>
+        <target>Saving is disabled, because the target file is not writable.</target>
+      </segment>
+    </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <segment>
+        <source>label.translatable</source>
+        <target>This field is translatable</target>
+      </segment>
+    </unit>
+    <unit id="qqpGLJl" name="label.content">
+      <segment>
+        <source>label.content</source>
+        <target>Content</target>
+      </segment>
+    </unit>
+    <unit id="v7ZTnja" name="file.delete_success">
+      <segment>
+        <source>file.delete_success</source>
+        <target>File deleted successfully!</target>
+      </segment>
+    </unit>
+    <unit id="wHPoBzP" name="file.delete_confirm">
+      <segment>
+        <source>file.delete_confirm</source>
+        <target>Are you sure you wish to delete this file?</target>
+      </segment>
+    </unit>
+    <unit id="IWbf2by" name="listing.title_filterby">
+      <segment>
+        <source>listing.title_filterby</source>
+        <target>Filter by</target>
+      </segment>
+    </unit>
+    <unit id="Zssh7In" name="content.status_changed_successfully">
+      <segment>
+        <source>content.status_changed_successfully</source>
+        <target>Status changed successfully</target>
+      </segment>
+    </unit>
+    <unit id="GOhQBY9" name="content.deleted_successfully">
+      <segment>
+        <source>content.deleted_successfully</source>
+        <target>Content deleted successfully</target>
+      </segment>
+    </unit>
+    <unit id=".I3mIHo" name="label.current_status">
+      <segment>
+        <source>label.current_status</source>
+        <target>Current status</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaQ" name="status.published">
+      <segment>
+        <source>status.published</source>
+        <target>Published</target>
+      </segment>
+    </unit>
+    <unit id="HJbHjee" name="status.draft">
+      <segment>
+        <source>status.draft</source>
+        <target>Draft</target>
+      </segment>
+    </unit>
+    <unit id="h7dP3WY" name="status.timed">
+      <segment>
+        <source>status.timed</source>
+        <target>Timed</target>
+      </segment>
+    </unit>
+    <unit id="oxqDDuK" name="status.held">
+      <segment>
+        <source>status.held</source>
+        <target>Held</target>
+      </segment>
+    </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <segment>
+        <source>collection.confirm_delete</source>
+        <target>Are you sure you wish to delete this collection item?</target>
+      </segment>
+    </unit>
+    <unit id="YZJO3Ul" name="upload.allow_file_types">
+      <segment>
+        <source>upload.allow_file_types</source>
+        <target>File types allowed for upload</target>
+      </segment>
+    </unit>
+    <unit id="noOf4ML" name="upload.max_size">
+      <segment>
+        <source>upload.max_size</source>
+        <target>Maximum upload size</target>
       </segment>
     </unit>
   </file>

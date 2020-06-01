@@ -56,14 +56,14 @@ class Kernel extends BaseKernel
         $container->setParameter('container.dumper.inline_factories', true);
         $confDir = $this->getProjectDir() . '/config';
 
-        $this->setBoltParameters($container, $confDir);
-        $this->setContentTypeRequirements($container);
-        $this->setTaxonomyRequirements($container);
-
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{packages}/' . $this->environment . '/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
+
+        $this->setBoltParameters($container, $confDir);
+        $this->setContentTypeRequirements($container);
+        $this->setTaxonomyRequirements($container);
 
         try {
             $loader->load($confDir . '/{services}_bolt' . self::CONFIG_EXTS, 'glob');
@@ -84,6 +84,8 @@ class Kernel extends BaseKernel
 
     private function setBoltParameters(ContainerBuilder $container, string $confDir): void
     {
+        $container->setParameter('bolt.public_folder', $this->guesstimatePublicFolder());
+
         $fileLocator = new FileLocator([$confDir . '/bolt']);
         $fileName = $fileLocator->locate('config.yaml', null, true);
 
@@ -121,7 +123,9 @@ class Kernel extends BaseKernel
      */
     private function setContentTypeRequirements(ContainerBuilder $container): void
     {
-        $ContentTypesParser = new ContentTypesParser('en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE', $this->getProjectDir(), new Collection());
+        /** @var string $defaultLocale */
+        $defaultLocale = $container->getParameter('locale');
+        $ContentTypesParser = new ContentTypesParser($this->getProjectDir(), new Collection(), $defaultLocale);
         $contentTypes = $ContentTypesParser->parse();
 
         $pluralslugs = $contentTypes->pluck('slug')->implode('|');
@@ -147,5 +151,19 @@ class Kernel extends BaseKernel
 
         $container->setParameter('bolt.requirement.pluraltaxonomies', $pluralslugs);
         $container->setParameter('bolt.requirement.taxonomies', $slugs);
+    }
+
+    private function guesstimatePublicFolder(): string
+    {
+        $projectDir = $this->getProjectDir();
+        $candidates = ['public', 'public_html', 'www', 'web', 'httpdocs', 'wwwroot', 'htdocs', 'http_public', 'private_html'];
+
+        foreach ($candidates as $candidate) {
+            if (is_dir($projectDir . '/' . $candidate)) {
+                return $candidate;
+            }
+        }
+
+        throw new \Exception('The Public Folder could not be determined. Expected folder `public`, `public_html`, `www`, `web`, `httpdocs`, `wwwroot`, `htdocs`, `http_public` or `private_html` to exist.');
     }
 }

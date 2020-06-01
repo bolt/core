@@ -22,7 +22,8 @@
             :placeholder="labels.placeholder_filename"
             :value="filenameData"
             data-readonly="readonly"
-            :required="required == 1"
+            :required="required"
+            :data-errormessage="errormessage"
           />
         </div>
         <div class="input-group mb-3">
@@ -31,9 +32,10 @@
             class="form-control"
             :name="name + '[title]'"
             type="text"
-            :placeholder="labels.placeholder_title"
-            :required="required == 1"
+            :required="required"
             :readonly="readonly"
+            :pattern="pattern"
+            :placeholder="getPlaceholder"
           />
         </div>
         <div class="btn-toolbar" role="toolbar">
@@ -62,6 +64,7 @@
                 class="btn dropdown-item"
                 type="button"
                 :readonly="readonly"
+                data-patience="virtue"
                 @click="selectServerFile"
               >
                 <i class="fas fa-fw fa-th"></i>
@@ -75,6 +78,9 @@
               >
                 <i class="fas fa-fw fa-info-circle"></i>
                 {{ labels.button_edit_attributes }}
+                <small class="dim"
+                  ><i class="fas fa-external-link-square-alt"></i
+                ></small>
               </a>
             </div>
           </div>
@@ -84,7 +90,7 @@
               v-if="inFilelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
-              :disabled="isFirstInFilelist"
+              :disabled="isFirstInFilelist || readonly"
               @click="onMoveFileUp"
             >
               <i class="fas fa-fw fa-chevron-up"></i>
@@ -95,7 +101,7 @@
               v-if="inFilelist == true"
               class="btn btn-sm btn-tertiary"
               type="button"
-              :disabled="isLastInFilelist"
+              :disabled="isLastInFilelist || readonly"
               @click="onMoveFileDown"
             >
               <i class="fas fa-fw fa-chevron-down"></i>
@@ -105,8 +111,8 @@
             <button
               class="btn btn-sm btn-hidden-danger"
               type="button"
-              @click="onRemoveFile"
               :disabled="readonly"
+              @click="onRemoveFile"
             >
               <i class="fas fa-fw fa-trash"></i> {{ labels.button_remove }}
             </button>
@@ -144,24 +150,26 @@ import bootbox from 'bootbox';
 export default {
   name: 'EditorFile',
   mixins: [field],
-  props: [
-    'label',
-    'filename',
-    'name',
-    'title',
-    'directory',
-    'media',
-    'csrfToken',
-    'labels',
-    'filelist',
-    'extensions',
-    'inFilelist',
-    'isFirstInFilelist',
-    'isLastInFilelist',
-    'attributesLink',
-    'required',
-    'readonly',
-  ],
+  props: {
+    name: String,
+    filename: String,
+    title: String,
+    directory: String,
+    media: String,
+    csrfToken: String,
+    labels: Object,
+    filelist: String,
+    extensions: Array,
+    inFilelist: Boolean,
+    isFirstInFilelist: Boolean,
+    isLastInFilelist: Boolean,
+    attributesLink: String,
+    required: Boolean,
+    readonly: Boolean,
+    errormessage: String | Boolean, //string if errormessage is set, and false otherwise
+    pattern: String | Boolean,
+    placeholder: String | Boolean,
+  },
   data() {
     return {
       isDragging: false,
@@ -180,6 +188,13 @@ export default {
     },
     acceptedExtensions() {
       return this.extensions.map(ext => '.' + ext).join();
+    },
+    getPlaceholder() {
+      if (this.placeholder) {
+        return this.placeholder;
+      }
+
+      return this.labels.placeholder_title;
     },
   },
   methods: {
@@ -212,9 +227,11 @@ export default {
             },
           });
           window.$('.bootbox-input').attr('name', 'bootbox-input');
+          window.reEnablePatientButtons();
         })
         .catch(err => {
           console.warn(err);
+          window.reEnablePatientButtons();
         });
     },
     onDragEnter(e) {

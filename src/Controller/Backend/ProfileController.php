@@ -11,23 +11,20 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class ProfileController extends TwigAwareController implements BackendZone
+class ProfileController extends TwigAwareController implements BackendZoneInterface
 {
     use CsrfTrait;
-
-    /** @var UrlGeneratorInterface */
-    private $urlGenerator;
 
     /** @var EntityManagerInterface */
     private $em;
@@ -36,12 +33,10 @@ class ProfileController extends TwigAwareController implements BackendZone
     private $passwordEncoder;
 
     public function __construct(
-        UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
         CsrfTokenManagerInterface $csrfTokenManager
     ) {
-        $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -63,32 +58,53 @@ class ProfileController extends TwigAwareController implements BackendZone
     /**
      * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
      */
-    public function save(Request $request): Response
+    public function save(Request $request, ValidatorInterface $validator): Response
     {
         $this->validateCsrf($request, 'profileedit');
 
         /** @var User $user */
         $user = $this->getUser();
         $displayName = $user->getDisplayName();
-        $url = $this->urlGenerator->generate('bolt_profile_edit');
         $locale = Json::findScalar($request->get('locale'));
-        $newPassword = $request->get('password');
 
         $user->setDisplayName($request->get('displayName'));
         $user->setEmail($request->get('email'));
         $user->setLocale($locale);
         $user->setbackendTheme($request->get('backendTheme'));
+        $newPassword = $request->get('password');
 
-        if ($this->validateUser($user, $newPassword) === false) {
-            return $this->renderTemplate('@bolt/users/edit.html.twig', [
+        // Set the plain password to check for validation
+        if (! empty($newPassword)) {
+            $user->setPlainPassword($newPassword);
+        }
+
+        $errors = $validator->validate($user);
+
+        if ($errors->count() > 0) {
+            $hasPasswordError = false;
+
+            /** @var ConstraintViolationInterface $error */
+            foreach ($errors as $error) {
+                $this->addFlash('danger', $error->getMessage());
+
+                if ($error->getPropertyPath() === 'plainPassword') {
+                    $hasPasswordError = true;
+                }
+            }
+
+            $suggestedPassword = $hasPasswordError ? Str::generatePassword() : null;
+
+            return $this->renderTemplate('@bolt/users/profile.html.twig', [
                 'display_name' => $displayName,
-                'user' => $user,
-                'suggestedPassword' => Str::generatePassword(),
+                'userEdit' => $user,
+                'suggestedPassword' => $suggestedPassword,
             ]);
         }
 
-        if (! empty($newPassword)) {
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $newPassword));
+        // Once validated, encode the password
+        if ($user->getPlainPassword()) {
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()));
+            $user->eraseCredentials();
         }
 
         $this->em->flush();
@@ -97,37 +113,6 @@ class ProfileController extends TwigAwareController implements BackendZone
 
         $this->addFlash('success', 'user.updated_profile');
 
-        return new RedirectResponse($url);
-    }
-
-    private function validateUser(User $user, ?string $newPassword): bool
-    {
-        // @todo Validation should be moved to a separate UserValidator
-
-        $usernameValidateOptions = [
-            'options' => [
-                'min_range' => 1,
-            ],
-        ];
-
-        // Validate username
-        if (! filter_var(mb_strlen($user->getDisplayName()), FILTER_VALIDATE_INT, $usernameValidateOptions)) {
-            $this->addFlash('danger', 'user.not_valid_username');
-            return false;
-        }
-
-        // Validate email
-        if (! filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
-            $this->addFlash('danger', 'user.not_valid_email');
-            return false;
-        }
-
-        // Validate password
-        if (! empty($newPassword) && mb_strlen($newPassword) < 6) {
-            $this->addFlash('danger', 'user.not_valid_password');
-            return false;
-        }
-
-        return true;
+        return $this->redirectToRoute('bolt_profile_edit');
     }
 }

@@ -12,9 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 trait ContentExtrasTrait
 {
-    /**
-     * @var ContentExtension
-     */
+    /** @var ContentExtension */
     private $contentExtension;
 
     public function setContentExtension(ContentExtension $contentExtension): void
@@ -33,7 +31,7 @@ trait ContentExtrasTrait
         $content = $this;
 
         return array_filter([
-            'title' => $this->contentExtension->getTitle($content),
+            'title' => $this->contentExtension->getAnyTitle($content, 80),
             'image' => $this->contentExtension->getImage($content, true),
             'excerpt' => $this->contentExtension->getExcerpt($content),
             'link' => $this->contentExtension->getLink($content),
@@ -44,6 +42,7 @@ trait ContentExtrasTrait
             'icon' => $this->getIcon(),
             'name' => $this->getDefinition()->get('name'),
             'singular_name' => $this->getDefinition()->get('singular_name'),
+            'feature' => $this->contentExtension->getSpecialFeature($content),
         ]);
     }
 }

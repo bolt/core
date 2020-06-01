@@ -6,26 +6,60 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Countable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Asset\PathPackage;
-use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 /**
  * @ORM\Entity
  */
-class FileField extends Field implements FieldInterface
+class FileField extends Field implements FieldInterface, Countable
 {
+    use FileExtrasTrait;
+
     public const TYPE = 'file';
+
+    private function getFieldBase()
+    {
+        return [
+            'filename' => '',
+            'path' => '',
+            'fieldname' => '',
+            'url' => '',
+        ];
+    }
 
     public function __toString(): string
     {
         return $this->getPath();
     }
 
-    public function getPath(): string
+    public function getValue(): array
     {
-        $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
+        $value = array_merge($this->getFieldBase(), (array) parent::getValue() ?: []);
 
-        return $filesPackage->getUrl($this->get('filename'));
+        // Remove cruft `0` field getting stored as JSON.
+        unset($value[0]);
+
+        $value['fieldname'] = $this->getName();
+
+        // If the filename isn't set, we're done: return the array with placeholders
+        if (! $value['filename']) {
+            return $value;
+        }
+
+        // Generate a URL
+        $value['path'] = $this->getPath();
+        $value['url'] = $this->getUrl();
+
+        return $value;
+    }
+
+    /**
+     * Allows {% if image is empty %} in Twig
+     * See https://twig.symfony.com/doc/3.x/tests/empty.html
+     */
+    public function count()
+    {
+        return empty($this->getValue()['filename']);
     }
 }

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class MenuPageController extends TwigAwareController implements BackendZone
+class MenuPageController extends TwigAwareController implements BackendZoneInterface
 {
     /**
      * @Route("/menu/{slug}", name="bolt_menupage", methods={"GET"})

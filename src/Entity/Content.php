@@ -9,6 +9,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\ContentType;
+use Bolt\Entity\Field\Excerptable;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,12 +18,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
+use Twig\Environment;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"get_content"}},
+ *     normalizationContext={"groups"={"get_content","get_definition"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get"}
+ *     itemOperations={"get"},
+ *     graphql={"item_query", "collection_query"}
  * )
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
@@ -122,11 +125,6 @@ class Content
     private $fields;
 
     /**
-     * @var ContentType|null
-     */
-    private $contentTypeDefinition;
-
-    /**
      * @var Collection|Taxonomy[]
      * @MaxDepth(1)
      *
@@ -134,15 +132,23 @@ class Content
      */
     private $taxonomies;
 
+    /** @var ContentType|null */
+    private $contentTypeDefinition = null;
+
+    /** @var Environment */
+    private $twig = null;
+
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
         $this->createdAt = new \DateTime();
+        $this->status = Statuses::DRAFT;
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
 
         if ($contentTypeDefinition) {
             $this->setContentType($contentTypeDefinition->getSlug());
             $this->setDefinition($contentTypeDefinition);
+            $this->setFieldValue('slug', '');
         }
     }
 
@@ -152,6 +158,7 @@ class Content
         if ($this->getId()) {
             return sprintf('%s #%d', $contentName, $this->getId());
         }
+
         return sprintf('New %s', $contentName);
     }
 
@@ -171,6 +178,34 @@ class Content
     public function setDefinitionFromContentTypesConfig(LaravelCollection $contentTypesConfig): void
     {
         $this->contentTypeDefinition = ContentType::factory($this->contentType, $contentTypesConfig);
+
+        if ($this->getId()) {
+            // Content is not new, so return.
+            return;
+        }
+
+        // Set default status and default values
+        $this->setStatus($this->contentTypeDefinition->get('default_status'));
+        $this->contentTypeDefinition->get('fields')->each(function (LaravelCollection $item, string $name): void {
+            if ($item->get('default')) {
+                $field = FieldRepository::factory($item, $name);
+                $field->setValue($field->getDefaultValue());
+
+                if (! $this->hasField($field->getName())) {
+                    $this->addField($field);
+                }
+            }
+        });
+    }
+
+    public function setTwig(Environment $twig): void
+    {
+        $this->twig = $twig;
+    }
+
+    public function getTwig(): ?Environment
+    {
+        return $this->twig;
     }
 
     public function setDefinition(ContentType $contentType): void
@@ -178,6 +213,9 @@ class Content
         $this->contentTypeDefinition = $contentType;
     }
 
+    /**
+     * @Groups("get_definition")
+     */
     public function getDefinition(): ?ContentType
     {
         return $this->contentTypeDefinition;
@@ -185,6 +223,11 @@ class Content
 
     public function getSlug($locale = null): ?string
     {
+        // In case the ContentType has no slug defined, we've no other option than to use the id
+        if (! $this->hasField('slug')) {
+            return (string) $this->getId();
+        }
+
         $slug = null;
         if ($locale === null) {
             // get slug with locale the slug already has
@@ -194,8 +237,8 @@ class Content
             $slug = $this->getField('slug')->setLocale($locale)->getParsedValue();
         }
 
-        if ($slug === null) {
-            // if no slug exists for the current/requested locale, default back
+        // if no slug exists for the current/requested locale, default fallback
+        if (! $slug && $this->hasField('slug')) {
             $slug = $this
                 ->getField('slug')
                 ->setLocale($this->getField('slug')->getDefaultLocale())
@@ -240,6 +283,28 @@ class Content
         }
 
         return $this->getDefinition()->get('singular_name') ?: $this->getContentTypeSlug();
+    }
+
+    public function hasContentTypeLocales(): bool
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
+        return ! $this->getDefinition()->get('locales')->isEmpty();
+    }
+
+    public function getContentTypeDefaultLocale(): string
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
+        if (! $this->hasContentTypeLocales()) {
+            throw new \RuntimeException('Content does not have locales defined');
+        }
+
+        return $this->getDefinition()->get('locales')->first();
     }
 
     public function getIcon(): ?string
@@ -355,11 +420,16 @@ class Content
     /**
      * @Groups("get_content")
      */
-    public function getFieldValues(bool $parsed = true): array
+    public function getFieldValues(): array
     {
         $fieldValues = [];
         foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $parsed ? $field->getParsedValue() : $field->getValue();
+            $fieldValues[$field->getName()] = $field->getApiValue();
+        }
+
+        // Make sure we have a 'slug', even if none is defined in the contentype
+        if (! array_key_exists('slug', $fieldValues)) {
+            $fieldValues['slug'] = $this->getSlug();
         }
 
         return $fieldValues;
@@ -393,13 +463,17 @@ class Content
         return $this->getField($fieldName)->getParsedValue();
     }
 
-    public function setFieldValue(string $fieldName, $value): void
+    public function setFieldValue(string $fieldName, $value, ?string $locale = null): void
     {
         if (! $this->hasField($fieldName)) {
             $this->addFieldByName($fieldName);
         }
 
         $field = $this->getField($fieldName);
+
+        if ($locale !== null) {
+            $field->setLocale($locale);
+        }
 
         $field->setValue($value);
     }
@@ -453,6 +527,10 @@ class Content
 
     public function addFieldByName(string $fieldName): void
     {
+        if (! $this->hasFieldDefined($fieldName)) {
+            throw new \Exception(sprintf("Can't set Field '%s' of '%s'. Make sure the Field is defined in the %s ContentType.", $fieldName, $this->getDefinition()->get('slug'), $this->getDefinition()->get('name')));
+        }
+
         $definition = $this->contentTypeDefinition->get('fields')->get($fieldName);
 
         $field = FieldRepository::factory($definition, $fieldName);
@@ -480,27 +558,13 @@ class Content
         if ($this->getAuthor() !== null) {
             return $this->getAuthor()->getDisplayName();
         }
+
         return null;
     }
 
     public function getStatuses(): array
     {
         return Statuses::all();
-    }
-
-    public function getStatusOptions(): array
-    {
-        $options = [];
-
-        foreach (Statuses::all() as $option) {
-            $options[] = [
-                'key' => $option,
-                'value' => ucwords($option),
-                'selected' => $option === $this->getStatus(),
-            ];
-        }
-
-        return $options;
     }
 
     public function hasTaxonomyDefined(string $taxonomyName): bool
@@ -576,7 +640,11 @@ class Content
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
 
-        return $field->getTwigValue();
+        if ($field instanceof Excerptable) {
+            return $field->getTwigValue();
+        }
+
+        return $field;
     }
 
     /**
@@ -596,14 +664,23 @@ class Content
         return $dateTimeUTC->setTimezone($dateTime->getTimezone());
     }
 
-    private function standaloneFieldsFilter()
+    /**
+     * Get the current regular fields, with the fields that are not present in
+     * the definition anymore filtered out
+     */
+    private function standaloneFieldsFilter(): Collection
     {
-        return $this->fields->filter(function (Field $field) {
-            return ! $field->hasParent();
+        $keys = $this->getDefinition()->get('fields')->keys()->all();
+
+        return $this->fields->filter(function (Field $field) use ($keys) {
+            return ! $field->hasParent() && in_array($field->getName(), $keys, true);
         });
     }
 
-    private function standaloneFieldFilter(string $fieldName)
+    /**
+     * Get a regular field, not being part of a Collection
+     */
+    private function standaloneFieldFilter(string $fieldName): Collection
     {
         return $this->fields->filter(function (Field $field) use ($fieldName) {
             return $field->getName() === $fieldName && ! $field->hasParent();
@@ -621,7 +698,7 @@ class Content
             ];
         }
 
-        $result['fields'] = $this->getFieldValues(false);
+        $result['fields'] = $this->getFieldValues();
 
         $result['taxonomies'] = $this->getTaxonomyValues();
         $result['relations'] = [];

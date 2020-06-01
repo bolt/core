@@ -1,6 +1,13 @@
 Feature: Test field output
 
   @javascript
+  Scenario: As a user I want to see how the record title is displayed
+    Given I am on "/test/title-of-the-test"
+    Then I wait for ".title"
+
+    And I should see "74: Title of the test" in the ".title" element
+
+  @javascript
   Scenario: As a user I want to see how fields are escaped
 
     Given I am on "/test/title-of-the-test"
@@ -20,3 +27,15 @@ Feature: Test field output
 
     And I should see "Text field with <strong>markup</strong>, including <script>console.log('hoi')</script>. The end." in the ".text_sanitise_a" element
     And I should see "Text field with <strong>markup</strong>, including . The end." in the ".text_sanitise_b" element
+
+  @javascript
+  Scenario: As a user I want to see how file fields are displayed
+    Given I am on "/test/title-of-the-test"
+    Then I wait for ".title"
+
+    And I should see "joey.jpg" in the "#attachment #filename" element
+    And I should see "/files/joey.jpg" in the "#attachment #path" element
+    And I should see "attachment" in the "#attachment #fieldname" element
+    And I should see "http" in the "#attachment #url" element
+    And I should see "://" in the "#attachment #url" element
+    And I should see "/files/joey.jpg" in the "#attachment #url" element
