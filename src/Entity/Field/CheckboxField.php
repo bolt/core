@@ -11,7 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class CheckboxField extends Field implements FieldInterface
+class CheckboxField extends Field implements FieldInterface, ScalarCastable
 {
     public const TYPE = 'checkbox';
+
+    public function getTwigValue()
+    {
+        return current($this->getValue());
+    }
 }

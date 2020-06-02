@@ -220,7 +220,7 @@ showcases:
         integerfield:
             type: number
             mode: integer
-            step: 0.25
+            step: 1
         floatfield:
             type: number
             mode: float
@@ -415,8 +415,7 @@ tests:
 # Possible field types:
 #
 # text - varchar(256) - input type text.
-# integer - integer - Input field for integer numbers.
-# float - double - Input field for floating numbers, stored as 'Double'.
+# number - double - Input field for numbers, with `mode: integer` or `mode: float`
 # imagelist - text (65kb) - Input type for imagelists. Add multiple images. Useful for image sliders, galleries, etcetera.
 # image - varchar(256) - image select/upload widget, stored as filename.
 # file - varchar(256) - file select/upload widget, stored as filename.

@@ -13,7 +13,7 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @ORM\Entity
  */
-class SlugField extends Field implements FieldInterface
+class SlugField extends Field implements FieldInterface, ScalarCastable
 {
     public const TYPE = 'slug';
 
