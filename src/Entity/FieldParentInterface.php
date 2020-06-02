@@ -12,4 +12,6 @@ interface FieldParentInterface
     public function setLocale(string $locale): Field;
 
     public function getValue(): ?array;
+
+    public function isTranslatable(): bool;
 }
