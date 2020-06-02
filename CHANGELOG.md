@@ -1,6 +1,17 @@
-
 Changelog
----------
+=========
+
+## 4.0.0-rc.22
+
+Released: 2020-06-02
+
+### 🐛 Bug fixes
+
+- Fix collections visibility (I-Valchev, [#1429](https://github.com/bolt/core/pull/1429))
+- Localize collections with easier contenttype config (I-Valchev, [#1434](https://github.com/bolt/core/pull/1434))
+- Allow comparison for scalar fields (bobdenotter, [#1428](https://github.com/bolt/core/pull/1428))
+
+---
 
 ## 4.0.0-rc.21
 
