@@ -24,7 +24,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
 
     public function getValue(): array
     {
-        if (empty(parent::getValue())) {
+        if (empty($this->fields)) {
             // create new ones from the definition
             $fieldDefinitions = $this->getDefinition()->get('fields');
 
@@ -39,7 +39,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
             $this->setValue($newFields);
         }
 
-        return parent::getValue();
+        return $this->fields;
     }
 
     public function setValue($fields): Field
@@ -61,7 +61,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
         // Sorts the fields in the order specified in the definition
         $value = array_merge(array_flip(array_intersect(array_keys($definedFields), array_keys($value))), $value);
 
-        parent::setValue($value);
+        $this->fields = $value;
 
         return $this;
     }
