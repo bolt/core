@@ -332,8 +332,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
     private function removeFieldChildren(Content $content, FieldParentInterface $field): void
     {
-        foreach ($field->getChildren() as $child) {
-            if ($child instanceof FieldParentInterface && $child->hasChildren()) {
+        foreach ($field->getValue() as $child) {
+            if ($child instanceof FieldParentInterface && ! empty($child->getValue())) {
                 $this->removeFieldChildren($content, $child);
             }
 
@@ -435,7 +435,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         if ($field instanceof SetField) {
             foreach ($value as $name => $svalue) {
-                $child = $field->getChild($name);
+                $child = $field->getValue()[$name];
                 $child->setDefinition($child->getName(), $field->getDefinition()->get('fields')->get($child->getName()));
                 $this->updateField($child, $svalue, $locale);
             }

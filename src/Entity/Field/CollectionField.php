@@ -65,9 +65,14 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
             }
         }
 
-        parent::setValue($fields);
+        $this->fields = $fields;
 
         return $this;
+    }
+
+    public function getValue(): ?array
+    {
+        return $this->fields;
     }
 
     public function getDefaultValue()

@@ -36,7 +36,7 @@ class TranslationsManager
             }
         } else {
             /** @var Field $child */
-            foreach ($field->getChildren() as $child) {
+            foreach ($field->getValue() as $child) {
                 $this->applyTranslations($child, $collectionName, $orderId);
             }
         }
@@ -45,8 +45,8 @@ class TranslationsManager
     private function getFieldChildrenTranslations(array &$translations, FieldParentInterface $field): void
     {
         /** @var Field $child */
-        foreach ($field->getChildren() as $child) {
-            if ($child instanceof FieldParentInterface && $child->hasChildren()) {
+        foreach ($field->getValue() as $child) {
+            if ($child instanceof FieldParentInterface && ! empty($child->getValue())) {
                 $this->getFieldChildrenTranslations($translations, $child);
             }
 
