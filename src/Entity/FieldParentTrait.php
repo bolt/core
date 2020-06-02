@@ -31,13 +31,11 @@ trait FieldParentTrait
     /**
      * Override isTranslatable so that if one child definition
      * has localize: true, the whole field is considered localizable.
-     *
-     * @return bool
      */
     public function isTranslatable(): bool
     {
         /** @var FieldType $fieldDefinition */
-        foreach($this->getDefinition()->get('fields', []) as $fieldDefinition) {
+        foreach ($this->getDefinition()->get('fields', []) as $fieldDefinition) {
             if ($fieldDefinition->get('localize', false)) {
                 return true;
             }
