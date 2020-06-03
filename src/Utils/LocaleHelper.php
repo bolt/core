@@ -34,10 +34,14 @@ class LocaleHelper
     /** @var ContentRepository */
     private $contentRepository;
 
-    public function __construct(string $locales, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, Config $config)
+    /** @var string */
+    private $defaultLocale;
+
+    public function __construct(string $locales, ContentRepository $contentRepository, UrlGeneratorInterface $urlGenerator, Config $config, string $defaultLocale)
     {
         $this->localeCodes = new Collection(explode('|', $locales));
         $this->urlGenerator = $urlGenerator;
+        $this->defaultLocale = $defaultLocale;
 
         $this->flagCodes = $this->getFlagCodes();
         $this->codetoCountry = $this->getCodetoCountry();
@@ -55,6 +59,11 @@ class LocaleHelper
                 $localeCodes = $this->getContentLocales();
             }
         }
+
+        if (! in_array($this->defaultLocale, $localeCodes, true)) {
+            $localeCodes[] = $this->defaultLocale;
+        }
+
         // Get the route and route params, to set the new localized link
         $globals = $twig->getGlobals();
 
@@ -88,12 +97,21 @@ class LocaleHelper
             }
 
             $locale->put('link', $this->getLink($route, $routeParams, $locale));
-            $locale->put('current', $currentLocale === $localeCode);
+            $locale->put('current', $this->isCurrentLocale($localeCode, $currentLocale, $localeCodes));
 
             $locales->push($locale);
         }
 
         return $locales;
+    }
+
+    private function isCurrentLocale(string $localeCode, string $currentLocale, array $localeCodes): bool
+    {
+        if (! in_array($currentLocale, $localeCodes, true)) {
+            return $localeCode === $this->defaultLocale;
+        }
+
+        return $currentLocale === $localeCode;
     }
 
     private function getContentLocales(): array
