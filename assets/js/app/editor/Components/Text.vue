@@ -52,7 +52,7 @@ export default {
     },
   },
   watch: {
-    val() {
+    rawVal() {
       if (this.generate) {
         this.$root.$emit('slugify-from-title');
       }
