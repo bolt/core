@@ -105,7 +105,7 @@ pages:
 # Entries can be used for things like 'news' or 'blogpostings'. They have a
 # 'teaser', which can be used for a short blurb on listing-pages, allowing
 # visitors to click-through to the rest of the entry. It also has fields for an
-# image and an optional video.
+# image and an optional video embed.
 # A relation is defined to the pages ContentType. This way you can refer to a
 # page from your news-item.
 # This ContentType defines 'categories' and 'tags' as taxonomies, allowing the
@@ -135,7 +135,7 @@ entries:
             group: media
             upload: entries
         video:
-            type: video
+            type: embed
     relations:
         pages:
             multiple: false
@@ -420,7 +420,7 @@ tests:
 # image - varchar(256) - image select/upload widget, stored as filename.
 # file - varchar(256) - file select/upload widget, stored as filename.
 # filelist - text (65kb) - Input type for a list of files. Including a description.
-# video - varchar(256) - Video embed widget, stored as filename.
+# embed - text (65kb) - embed widget for video and audio. Stored as JSON.
 # html - text (65kb) - wysiwyg element.
 # textarea - varchar(32768) - Simple, plain < textarea > field.
 # markdown - varchar(32768) - wysiwyg element, which is parsed as Markdown text.
