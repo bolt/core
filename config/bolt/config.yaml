@@ -15,17 +15,6 @@ secret: '%env(APP_SECRET)%'
 theme: skeleton
 #theme: bolt-tufte-theme
 
-# The locale that'll be used by the application. If no locale is set the
-# fallback locale is en_GB. For available options, see:
-# https://docs.bolt.cm/other/locales
-#
-# In some cases it may be needed to specify (non-standard) variations of the
-# locale to get everything to work as desired.
-#
-# This can be done as [nl_NL, Dutch_Netherlands] when specifying multiple
-# locales, ensure the first is a standard locale.
-locale: en
-
 # Set the timezone to be used on the website. For a list of valid timezone
 # settings, see: http://php.net/manual/en/timezones.php
 # timezone: UTC
