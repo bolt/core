@@ -63,4 +63,26 @@ class FieldExtensionTestCase extends DbAwareTestCase
         $this->assertTrue($actual->getDefinition() instanceof FieldType);
         $this->assertSame('else', $actual->getDefinition()->get('something'));
     }
+
+    public function testsFiltersExist(): void
+    {
+        $actual = collect($this->extension->getFilters())->transform(function ($filter) {
+            return $filter->getName();
+        })->toArray();
+
+        $expected = ['label', 'type', 'selected'];
+
+        $this->assertSame($expected, $actual);
+    }
+
+    public function testFunctionsExist(): void
+    {
+        $actual = collect($this->extension->getFunctions())->transform(function ($function) {
+            return $function->getName();
+        })->toArray();
+
+        $expected = ['field_factory'];
+
+        $this->assertSame($expected, $actual);
+    }
 }
