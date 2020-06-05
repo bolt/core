@@ -187,8 +187,10 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         if (isset($fieldType['localize']) && $fieldType['localize']) {
             foreach ($contentType['locales'] as $locale) {
-                $field->translate($locale, false)->setValue($field->getValue());
+                $field->translate($locale, false)->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
             }
+
+            $field->mergeNewTranslations();
         }
 
         return $field;
