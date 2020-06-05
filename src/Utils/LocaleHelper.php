@@ -56,12 +56,12 @@ class LocaleHelper
             if ($all) {
                 $localeCodes = $this->localeCodes;
             } else {
-                $localeCodes = $this->getContentLocales();
+                $localeCodes = new Collection($this->getContentLocales());
             }
         }
 
-        if (! in_array($this->defaultLocale, $localeCodes, true)) {
-            $localeCodes[] = $this->defaultLocale;
+        if (! $this->localeCodes->has($this->defaultLocale)) {
+            $this->localeCodes->add($this->defaultLocale);
         }
 
         // Get the route and route params, to set the new localized link
@@ -105,9 +105,9 @@ class LocaleHelper
         return $locales;
     }
 
-    private function isCurrentLocale(string $localeCode, string $currentLocale, array $localeCodes): bool
+    private function isCurrentLocale(string $localeCode, string $currentLocale, Collection $localeCodes): bool
     {
-        if (! in_array($currentLocale, $localeCodes, true)) {
+        if (! $localeCodes->has($currentLocale)) {
             return $localeCode === $this->defaultLocale;
         }
 
