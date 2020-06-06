@@ -1,6 +1,23 @@
 Changelog
 =========
 
+## 4.0.0-rc.23
+
+Released: 2020-06-06
+
+### 🐛 Bug fixes
+
+- Make sure editing text fields triggers slugify (bobdenotter, [#1440](https://github.com/bolt/core/pull/1440))
+- Fix `htmllang()` when no locales defined (I-Valchev, [#1439](https://github.com/bolt/core/pull/1439))
+- Fix for windows not handling `%k` in timestamp strings properly (bobdenotter, [#1448](https://github.com/bolt/core/pull/1448))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Remove locale setting from bolt config (legacy) (I-Valchev, [#1441](https://github.com/bolt/core/pull/1441))
+- Remove old field types (I-Valchev, [#1433](https://github.com/bolt/core/pull/1433))
+
+---
+
 ## 4.0.0-rc.22
 
 Released: 2020-06-02
