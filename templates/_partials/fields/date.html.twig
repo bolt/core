@@ -1,4 +1,5 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 {% block field %}
   {# check disabled #}
@@ -36,10 +37,8 @@
   ></editor-date>
   {% else %}
       <br>
-    {{ value|localedatetime('%B %e, %Y - %k:%M<small>%p</small>') }}
-      <small>(<abbr class="datetime-relative" title="{{ value|localedatetime('%A %B %e, %Y - %k:%M%p') }}">
-          {{- value|date('c') -}}
-          </abbr>)</small>
+    {{ value|localedatetime('%B %e, %Y - %H:%M<small>%p</small>') }}
+      <small>({{ macro.relative_datetime(value) }})</small>
   {% endif %}
   
 {% endblock %}

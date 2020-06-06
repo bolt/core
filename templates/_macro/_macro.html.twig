@@ -74,3 +74,10 @@
     {% endfor %}
     {{ fieldsHtml|json_encode }}
 {% endapply %}{% endmacro %}
+
+
+{% macro relative_datetime(datetime) %}{% apply spaceless %}
+    <abbr class="datetime-relative" title="{{ datetime|localedatetime('%A %B %e, %Y - %k:%M%p') }}">
+        {{- datetime|date('c') -}}
+    </abbr>
+{% endapply %}{% endmacro %}
