@@ -34,6 +34,12 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
         $params = explode('/', $homepage);
         $contentType = $this->config->get('contenttypes/' . $params[0]);
 
+        if (! $contentType) {
+            $message = sprintf('Homepage is set to `%s`, but that ContentType is not defined', $homepage);
+
+            throw new \Exception($message);
+        }
+
         // Perhaps we need a listing instead. If so, forward the Request there
         if (! $contentType->get('singleton') && ! isset($params[1])) {
             return $this->forward('Bolt\Controller\Frontend\ListingController::listing', [
