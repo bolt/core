@@ -58,8 +58,8 @@ class FileField extends Field implements FieldInterface, Countable
      * Allows {% if image is empty %} in Twig
      * See https://twig.symfony.com/doc/3.x/tests/empty.html
      */
-    public function count()
+    public function count(): int
     {
-        return empty($this->getValue()['filename']);
+        return empty($this->getValue()['filename']) ? 0 : 1;
     }
 }

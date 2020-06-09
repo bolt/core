@@ -10,7 +10,7 @@ trait ListFieldTrait
      * Makes ListFieldInterface fields |length filter
      * return the number of elements in the field
      */
-    public function count()
+    public function count(): int
     {
         return count($this->getValue());
     }
