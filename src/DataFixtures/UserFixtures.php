@@ -8,7 +8,7 @@ use Bolt\Common\Str;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends BaseFixture implements FixtureGroupInterface

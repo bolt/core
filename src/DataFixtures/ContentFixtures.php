@@ -15,7 +15,7 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Utils\FakeContent;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use Tightenco\Collect\Support\Collection;

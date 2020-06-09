@@ -9,7 +9,7 @@ use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Repository\TaxonomyRepository;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
 {
