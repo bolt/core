@@ -9,6 +9,8 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
+use Bolt\Entity\ListFieldInterface;
+use Bolt\Entity\ListFieldTrait;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Tightenco\Collect\Support\Collection;
@@ -16,9 +18,10 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @ORM\Entity
  */
-class SetField extends Field implements FieldInterface, FieldParentInterface
+class SetField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface
 {
     use FieldParentTrait;
+    use ListFieldTrait;
 
     public const TYPE = 'set';
 

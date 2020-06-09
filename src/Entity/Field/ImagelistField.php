@@ -8,6 +8,7 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\ListFieldInterface;
+use Bolt\Entity\ListFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,6 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ImagelistField extends Field implements FieldInterface, ListFieldInterface
 {
+    use ListFieldTrait;
+
     public const TYPE = 'imagelist';
 
     /**
