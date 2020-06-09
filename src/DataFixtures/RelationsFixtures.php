@@ -9,7 +9,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class RelationsFixtures extends BaseFixture implements DependentFixtureInterface, FixtureGroupInterface
 {

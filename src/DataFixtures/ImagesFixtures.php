@@ -7,7 +7,7 @@ namespace Bolt\DataFixtures;
 use Bolt\Configuration\FileLocations;
 use Bolt\Factory\MediaFactory;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
