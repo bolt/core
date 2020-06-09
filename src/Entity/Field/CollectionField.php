@@ -10,6 +10,7 @@ use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
 use Bolt\Entity\ListFieldInterface;
+use Bolt\Entity\ListFieldTrait;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
 class CollectionField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface
 {
     use FieldParentTrait;
+    use ListFieldTrait;
 
     public const TYPE = 'collection';
 
