@@ -250,7 +250,7 @@ class ContentExtension extends AbstractExtension
             }
         }
 
-        $skipFields = $this->getTitleFields($content);
+        $skipFields = $this->getTitleFieldsNames($content);
 
         foreach ($content->getFields() as $field) {
             if ($field instanceof Excerptable && in_array($field->getName(), $skipFields, true) === false) {
