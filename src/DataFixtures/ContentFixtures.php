@@ -262,6 +262,10 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 $data = [$this->faker->numberBetween(-100, 1000)];
 
                 break;
+            case 'checkbox':
+                $data = [$this->faker->numberBetween(0,1)];
+
+                break;
             case 'data':
                 $data = [];
                 for ($i = 1; $i < 5; $i++) {
