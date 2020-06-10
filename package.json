@@ -1,6 +1,6 @@
 {
   "name": "bolt",
-  "version": "4.0.0-rc.23",
+  "version": "4.0.0-rc.24",
   "homepage": "https://boltcms.io",
   "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
   "license": "MIT",
@@ -33,7 +33,7 @@
     "bootbox": "^5.4.0",
     "bootstrap": "^4.5.0",
     "browserslist": "^4.12.0",
-    "caniuse-lite": "^1.0.30001078",
+    "caniuse-lite": "^1.0.30001081",
     "codemirror": "^5.54.0",
     "dropzone": "^5.7.1",
     "flagpack": "^1.0.5",
