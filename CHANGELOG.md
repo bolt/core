@@ -18,7 +18,6 @@ Released: 2020-06-10
 
 - Fix `ObjectManager` namespace for fixtures (phpstan complaining) (I-Valchev, [#1456](https://github.com/bolt/core/pull/1456))
 - Bump `websocket-extensions` from `0.1.3` to `0.1.4` (dependabot[bot], [#1450](https://github.com/bolt/core/pull/1450))
-- Prepare release 4.0.0-rc.23 (bobdenotter, [#1449](https://github.com/bolt/core/pull/1449))
 
 ---
 
