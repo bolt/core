@@ -16,6 +16,9 @@
             "src/Entity/.gitignore"
         ]
     },
+    "babdev/pagerfanta-bundle": {
+        "version": "v2.4.2"
+    },
     "behat/behat": {
         "version": "v3.6.1"
     },
@@ -366,7 +369,7 @@
         "version": "1.0.0"
     },
     "pagerfanta/pagerfanta": {
-        "version": "v2.1.3"
+        "version": "v2.3.0"
     },
     "paragonie/random_compat": {
         "version": "v9.99.99"
@@ -640,6 +643,9 @@
     "slevomat/coding-standard": {
         "version": "6.1.5"
     },
+    "squirrelphp/twig-php-syntax": {
+        "version": "v1.5"
+    },
     "squizlabs/php_codesniffer": {
         "version": "3.0",
         "recipe": {
@@ -700,6 +706,9 @@
     },
     "symfony/dependency-injection": {
         "version": "v4.4.4"
+    },
+    "symfony/deprecation-contracts": {
+        "version": "v2.1.2"
     },
     "symfony/doctrine-bridge": {
         "version": "v4.4.4"
@@ -1070,9 +1079,6 @@
     },
     "webonyx/graphql-php": {
         "version": "v0.13.8"
-    },
-    "white-october/pagerfanta-bundle": {
-        "version": "v1.3.2"
     },
     "willdurand/negotiation": {
         "version": "v2.3.1"

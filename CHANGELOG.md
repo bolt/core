@@ -1,6 +1,30 @@
 Changelog
 =========
 
+## 4.0.0-rc.24
+
+Released: 2020-06-10
+
+### 📦 Additions and new features
+
+- Add `babdev/pagerfanta-bundle`,  `squirrelphp/twig-php-syntax` (bobdenotter, [#1466](https://github.com/bolt/core/pull/1466))
+
+### 🐛 Bug fixes
+
+- Fix setting of `is_writable` when submitted Yaml syntax is incorrect (bobdenotter, [#1465](https://github.com/bolt/core/pull/1465))
+- Intersect child fields with parent definition (I-Valchev, [#1464](https://github.com/bolt/core/pull/1464))
+- Correct `type: checkbox` Field fixtures (I-Valchev, [#1463](https://github.com/bolt/core/pull/1463))
+- (Real) fix for `htmllang()` default locale (I-Valchev, [#1462](https://github.com/bolt/core/pull/1462))
+- Make sure list field `|length` filter works as expected (I-Valchev, [#1455](https://github.com/bolt/core/pull/1455))
+- Better check for `isSpecialPage` if `homepage:` is set to a contenttype (listing) (bobdenotter, [#1451](https://github.com/bolt/core/pull/1451))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix `ObjectManager` namespace for fixtures (phpstan complaining) (I-Valchev, [#1456](https://github.com/bolt/core/pull/1456))
+- Bump `websocket-extensions` from `0.1.3` to `0.1.4` (dependabot[bot], [#1450](https://github.com/bolt/core/pull/1450))
+
+---
+
 ## 4.0.0-rc.23
 
 Released: 2020-06-06
