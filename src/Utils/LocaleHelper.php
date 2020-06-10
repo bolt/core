@@ -60,8 +60,8 @@ class LocaleHelper
             }
         }
 
-        if (! $this->localeCodes->has($this->defaultLocale)) {
-            $this->localeCodes->add($this->defaultLocale);
+        if (! $localeCodes->has($this->defaultLocale)) {
+            $localeCodes->add($this->defaultLocale);
         }
 
         // Get the route and route params, to set the new localized link
