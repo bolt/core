@@ -84,6 +84,9 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $contents = $request->request->get('editfile');
         $extension = Path::getExtension($file);
 
+        $basepath = $this->config->getPath($locationName);
+        $filename = Path::canonicalize($basepath . '/' . $file);
+
         $url = $urlGenerator->generate('bolt_file_edit', [
             'location' => $locationName,
             'file' => $file,
@@ -94,13 +97,11 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
                 'location' => $locationName,
                 'file' => $file,
                 'contents' => $contents,
+                'writable' => is_writable($filename),
             ];
 
             return $this->renderTemplate('@bolt/finder/editfile.html.twig', $context);
         }
-
-        $basepath = $this->config->getPath($locationName);
-        $filename = Path::canonicalize($basepath . '/' . $file);
 
         try {
             FileWriter::writeFile($filename, $contents);
