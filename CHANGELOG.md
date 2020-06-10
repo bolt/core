@@ -5,6 +5,10 @@ Changelog
 
 Released: 2020-06-10
 
+### 📦 Additions and new features
+
+- Add `babdev/pagerfanta-bundle`,  `squirrelphp/twig-php-syntax` (bobdenotter, [#1466](https://github.com/bolt/core/pull/1466))
+
 ### 🐛 Bug fixes
 
 - Fix setting of `is_writable` when submitted Yaml syntax is incorrect (bobdenotter, [#1465](https://github.com/bolt/core/pull/1465))
