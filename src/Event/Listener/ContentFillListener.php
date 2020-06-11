@@ -13,7 +13,6 @@ use Bolt\Enum\Statuses;
 use Bolt\Repository\UserRepository;
 use Bolt\Twig\ContentExtension;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use RuntimeException;
 
 class ContentFillListener
 {
@@ -58,7 +57,7 @@ class ContentFillListener
 
         if ($entity instanceof Content) {
             if ($entity->getAuthor() === null) {
-                $entity->setAuthor($this->guesstimateAuthor($entity->getContentTypeName()));
+                $entity->setAuthor($this->guesstimateAuthor());
             }
 
             if ($entity->getPublishedAt() === null && $entity->getStatus() === Statuses::PUBLISHED) {
@@ -82,14 +81,8 @@ class ContentFillListener
         $entity->setContentExtension($this->contentExtension);
     }
 
-    private function guesstimateAuthor($contenttype): User
+    private function guesstimateAuthor(): User
     {
-        $user = $this->users->getFirstAdminUser();
-
-        if ($user === null) {
-            throw new RuntimeException('Error persisting record of type ' . $contenttype . ' without author. Could not guesstimate author.');
-        }
-
-        return $user;
+        return $this->users->getFirstAdminUser();
     }
 }

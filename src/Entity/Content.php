@@ -155,7 +155,7 @@ class Content
 
     public function __toString(): string
     {
-        $contentName = $this->getDefinition() ? $this->getContentTypeName() : 'Content';
+        $contentName = $this->getDefinition() ? $this->getContentTypeSingularName() : 'Content';
         if ($this->getId()) {
             return sprintf('%s #%d', $contentName, $this->getId());
         }
@@ -278,6 +278,15 @@ class Content
     }
 
     public function getContentTypeName(): string
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
+        return $this->getDefinition()->get('name') ?: $this->getContentTypeSlug();
+    }
+
+    public function getContentTypeSingularName(): string
     {
         if ($this->getDefinition() === null) {
             throw new \RuntimeException('Content not fully initialized');
