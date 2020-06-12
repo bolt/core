@@ -114,7 +114,6 @@ search_results_records: 10
 # for each content type.
 records_per_page: 8
 
-
 # Default settings for thumbnails.
 #
 # quality:       Quality should be between 0 (horrible, small file) and 100 (best, huge file).
