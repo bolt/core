@@ -58,7 +58,7 @@ class ZoneSubscriber implements EventSubscriberInterface
         $controller = $request->attributes->get('_controller');
 
         // If this happens, we're usually in the middle of handling an Exception
-        if(! is_string($controller)) {
+        if (! is_string($controller)) {
             return RequestZone::NOWHERE;
         }
 

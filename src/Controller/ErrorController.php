@@ -7,12 +7,7 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailController;
 use Bolt\Controller\Frontend\TemplateController;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\TwigBundle\Controller\ExceptionController as SymfonyExceptionController;
-
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
-use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ErrorController as SymfonyErrorController;

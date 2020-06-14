@@ -23,7 +23,7 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
     public function overview(Request $request, Query $query, string $contentType = ''): Response
     {
         $contentTypeObject = ContentType::factory($contentType, $this->config->get('contenttypes'));
-        $page = (int) $request->query->get('page', 1);
+        $page = (int) $request->query->get('page', '1');
 
         $params = [
             'status' => '!unknown',

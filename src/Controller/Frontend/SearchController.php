@@ -34,7 +34,7 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
      */
     public function search(ContentRepository $contentRepository, Request $request): Response
     {
-        $page = (int) $request->query->get('page', 1);
+        $page = (int) $request->query->get('page', '1');
         $searchTerm = $request->get('searchTerm', $request->get('search', $request->get('q', '')));
         $searchTerm = $this->sanitiser->clean($searchTerm);
         $amountPerPage = (int) $this->config->get('general/listing_records');
