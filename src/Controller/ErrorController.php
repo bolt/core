@@ -8,12 +8,10 @@ use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailController;
 use Bolt\Controller\Frontend\TemplateController;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ErrorController as SymfonyErrorController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 
@@ -41,7 +39,7 @@ class ErrorController extends SymfonyErrorController
      * Show an exception. Mainly used for custom 404 pages, otherwise falls back
      * to Symfony's error handling
      */
-    public function showAction(Environment $twig, Request $request, \Throwable $exception, ?DebugLoggerInterface $logger = null): Response
+    public function showAction(Environment $twig, \Throwable $exception): Response
     {
         if (method_exists($exception, 'getStatusCode')) {
             $code = $exception->getStatusCode();
