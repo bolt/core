@@ -55,7 +55,14 @@ class ZoneSubscriber implements EventSubscriberInterface
             return RequestZone::ASYNC;
         }
 
-        $controller = explode('::', $request->attributes->get('_controller'));
+        $controller = $request->attributes->get('_controller');
+
+        // If this happens, we're usually in the middle of handling an Exception
+        if(! is_string($controller)) {
+            return RequestZone::NOWHERE;
+        }
+
+        $controller = explode('::', $controller);
 
         try {
             $reflection = new ReflectionClass($controller[0]);
@@ -68,7 +75,7 @@ class ZoneSubscriber implements EventSubscriberInterface
                 return RequestZone::ASYNC;
             }
         } catch (\ReflectionException $e) {
-            // Alas..
+            // Alas…
         }
 
         return RequestZone::NOWHERE;
