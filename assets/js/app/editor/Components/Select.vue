@@ -129,8 +129,9 @@ export default {
        */
       const outgoingId = this.findDropElement(e.target).id;
 
-      const incomingElement = this.selected.find(el => el.key === incomingId);
-      const outgoingElement = this.selected.find(el => el.key === outgoingId);
+      const incomingElement = this.selected.find(el => "" + el.key === "" + incomingId);
+      const outgoingElement = this.selected.find(el => "" + el.key === "" + outgoingId);
+
       const incomingIndex = this.selected.indexOf(incomingElement);
       const outgoingIndex = this.selected.indexOf(outgoingElement);
 
