@@ -64,7 +64,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $finder = $this->findFiles($location->getBasepath(), $path);
         $folders = $this->findFolders($location->getBasepath(), $path);
 
-        $currentPage = (int) $request->query->get('page', 1);
+        $currentPage = (int) $request->query->get('page', '1');
         $pager = $this->createPaginator($finder, $currentPage);
 
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';

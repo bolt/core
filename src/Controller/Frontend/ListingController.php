@@ -42,7 +42,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
     public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
     {
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
-        $page = (int) $request->query->get('page', 1);
+        $page = (int) $request->query->get('page', '1');
         $amountPerPage = $contentType->get('listing_records');
         $order = $request->query->get('order', $contentType->get('order'));
 
