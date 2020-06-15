@@ -105,7 +105,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
 
     public function getDefaultValue()
     {
-        $defaultValues = parent::getDefaultValue();
+        $defaultValues = parent::getDefaultValue() ?? [];
         $value = $this->getFieldsFromDefinition();
 
         foreach ($defaultValues as $name => $default) {
