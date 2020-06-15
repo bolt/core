@@ -25,6 +25,7 @@ class TextExtension extends AbstractExtension
         return [
             new TwigFilter('safestring', [$this, 'safeString'], $safe),
             new TwigFilter('plaintext', [$this, 'plainText'], $safe),
+            new TwigFilter('title_case', [$this, 'titleCase'], $safe),
             new TwigFilter('slug', [$this, 'slug']),
             new TwigFilter('ucwords', [$this, 'ucwords']),
             new TwigFilter('preg_replace', [$this, 'pregReplace']),
@@ -43,6 +44,11 @@ class TextExtension extends AbstractExtension
     public function plainText(string $str): string
     {
         return strip_tags($str);
+    }
+
+    public function titleCase(string $str): string
+    {
+        return Str::titleCase($str);
     }
 
     public function slug(string $str): string
