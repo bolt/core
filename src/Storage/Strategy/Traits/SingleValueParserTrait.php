@@ -2,8 +2,6 @@
 
 namespace Bolt\Storage\Strategy\Traits;
 
-use Bolt\Storage\Builder\FilterFieldBuilder;
-
 trait SingleValueParserTrait
 {
     use FieldByOperatorTrait;

@@ -105,8 +105,8 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
      * Allows {% if file is empty %} in Twig
      * See https://twig.symfony.com/doc/3.x/tests/empty.html
      */
-    public function count()
+    public function count(): int
     {
-        return empty($this->getValue()['filename']);
+        return empty($this->getValue()['filename']) ? 0 : 1;
     }
 }

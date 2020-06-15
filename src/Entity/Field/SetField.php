@@ -9,6 +9,8 @@ use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\FieldParentTrait;
+use Bolt\Entity\ListFieldInterface;
+use Bolt\Entity\ListFieldTrait;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Tightenco\Collect\Support\Collection;
@@ -16,15 +18,16 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @ORM\Entity
  */
-class SetField extends Field implements FieldInterface, FieldParentInterface
+class SetField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface
 {
     use FieldParentTrait;
+    use ListFieldTrait;
 
     public const TYPE = 'set';
 
     public function getValue(): array
     {
-        if (empty(parent::getValue())) {
+        if (empty($this->fields)) {
             // create new ones from the definition
             $fieldDefinitions = $this->getDefinition()->get('fields');
 
@@ -39,7 +42,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
             $this->setValue($newFields);
         }
 
-        return parent::getValue();
+        return $this->fields;
     }
 
     public function setValue($fields): Field
@@ -61,7 +64,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface
         // Sorts the fields in the order specified in the definition
         $value = array_merge(array_flip(array_intersect(array_keys($definedFields), array_keys($value))), $value);
 
-        parent::setValue($value);
+        $this->fields = $value;
 
         return $this;
     }

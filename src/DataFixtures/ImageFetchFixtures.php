@@ -6,7 +6,7 @@ namespace Bolt\DataFixtures;
 
 use Bolt\Configuration\FileLocations;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;

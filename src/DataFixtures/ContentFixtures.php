@@ -17,7 +17,7 @@ use Bolt\Utils\FakeContent;
 use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use Tightenco\Collect\Support\Collection;
@@ -256,6 +256,10 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 break;
             case 'number':
                 $data = $this->faker->numberBetween(-100, 1000);
+                break;
+            case 'checkbox':
+                $data = [$this->faker->numberBetween(0, 1)];
+
                 break;
             case 'data':
                 $data = [];

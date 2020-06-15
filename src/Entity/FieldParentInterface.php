@@ -9,11 +9,9 @@ namespace Bolt\Entity;
  */
 interface FieldParentInterface
 {
-    public function getChild(string $fieldName): Field;
+    public function setLocale(string $locale): Field;
 
-    public function hasChild(string $fieldName): bool;
+    public function getValue(): ?array;
 
-    public function hasChildren(): bool;
-
-    public function getChildren(): array;
+    public function isTranslatable(): bool;
 }

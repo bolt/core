@@ -10,6 +10,7 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field\Excerptable;
+use Bolt\Entity\Field\ScalarCastable;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -154,7 +155,7 @@ class Content
 
     public function __toString(): string
     {
-        $contentName = $this->getDefinition() ? $this->getContentTypeName() : 'Content';
+        $contentName = $this->getDefinition() ? $this->getContentTypeSingularName() : 'Content';
         if ($this->getId()) {
             return sprintf('%s #%d', $contentName, $this->getId());
         }
@@ -277,6 +278,15 @@ class Content
     }
 
     public function getContentTypeName(): string
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Content not fully initialized');
+        }
+
+        return $this->getDefinition()->get('name') ?: $this->getContentTypeSlug();
+    }
+
+    public function getContentTypeSingularName(): string
     {
         if ($this->getDefinition() === null) {
             throw new \RuntimeException('Content not fully initialized');
@@ -640,7 +650,7 @@ class Content
             throw new \RuntimeException(sprintf('Invalid field name or method call on %s: %s', $this->__toString(), $name));
         }
 
-        if ($field instanceof Excerptable) {
+        if ($field instanceof Excerptable || $field instanceof ScalarCastable) {
             return $field->getTwigValue();
         }
 

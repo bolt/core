@@ -35,12 +35,14 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
 
     private $query;
 
+    private $request;
+
     public function __construct(
         TemplateChooser $templateChooser,
         ContentRepository $contentRepository,
         FieldRepository $fieldRepository,
         Query $query,
-        RequestStach $requestStack
+        RequestStack $requestStack
     ) {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
@@ -122,10 +124,8 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         $graphBuilder = new GraphBuilder();
 
         $query = $graphBuilder->addContent(
-            ContentBuilder::create('homepage')
-                ->selectFields('slug', 'title'),
-            ContentBuilder::create('showcases')
-                ->selectFields('slug', 'title')
+            ContentBuilder::create('homepage')->selectFields('slug', 'title'),
+            ContentBuilder::create('showcases')->selectFields('slug', 'title')
         )->getQuery();
 
         return $this->query->getContent($query);

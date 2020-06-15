@@ -7,19 +7,15 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailController;
 use Bolt\Controller\Frontend\TemplateController;
-use Symfony\Bundle\TwigBundle\Controller\ExceptionController as SymfonyExceptionController;
-use Symfony\Component\Debug\Exception\FlattenException;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Controller\ErrorController as SymfonyErrorController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 
-/**
- * @deprecated since Bolt 4.0, use Bolt\Controller\ErrorController instead
- */
-class ExceptionController extends SymfonyExceptionController
+class ErrorController extends SymfonyErrorController
 {
     /** @var Config */
     private $config;
@@ -30,37 +26,46 @@ class ExceptionController extends SymfonyExceptionController
     /** @var TemplateController */
     private $templateController;
 
-    public function __construct(Environment $twig, bool $debug, Config $config, DetailController $detailController, TemplateController $templateController)
+    public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailController $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer)
     {
         $this->config = $config;
         $this->detailController = $detailController;
         $this->templateController = $templateController;
 
-        parent::__construct($twig, $debug);
+        parent::__construct($httpKernel, $templateController, $errorRenderer);
     }
 
     /**
      * Show an exception. Mainly used for custom 404 pages, otherwise falls back
      * to Symfony's error handling
      */
-    public function showAction(Request $request, FlattenException $exception, ?DebugLoggerInterface $logger = null): Response
+    public function showAction(Environment $twig, \Throwable $exception): Response
     {
-        $code = $exception->getStatusCode();
+        if (method_exists($exception, 'getStatusCode')) {
+            $code = $exception->getStatusCode();
+        } else {
+            $code = Response::HTTP_INTERNAL_SERVER_ERROR;
+        }
 
         if ($code === Response::HTTP_NOT_FOUND) {
-            $this->twig->addGlobal('exception', $exception);
+            $twig->addGlobal('exception', $exception);
+
+            // If Maintenance is on, show that, instead of the 404.
+            if ($this->isMaintenanceEnabled()) {
+                return $this->showMaintenance();
+            }
 
             return $this->showNotFound();
         }
 
         if ($code === Response::HTTP_SERVICE_UNAVAILABLE) {
-            $this->twig->addGlobal('exception', $exception);
+            $twig->addGlobal('exception', $exception);
 
             return $this->showMaintenance();
         }
 
         // If not a 404, we'll let Symfony handle it as usual.
-        return parent::showAction($request, $exception, $logger);
+        return parent::__invoke($exception);
     }
 
     private function showNotFound(): Response
@@ -74,6 +79,11 @@ class ExceptionController extends SymfonyExceptionController
         }
 
         return new Response('404: Not found (and there was no proper page configured to display)');
+    }
+
+    private function isMaintenanceEnabled()
+    {
+        return $this->config->get('general/maintenance_mode', false);
     }
 
     private function showMaintenance(): Response

@@ -41,12 +41,6 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # Override Symfony's error pages (so we can show custom 404's)
-    Bolt\Controller\ExceptionController:
-        public: true
-        arguments:
-            $debug: '%kernel.debug%'
-
     Bolt\Doctrine\TablePrefix:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata, lazy: true }
@@ -96,6 +90,14 @@ services:
             - { name: monolog.processor, method: processRecord, handler: db }
 
     Twig\Extension\StringLoaderExtension: ~
+
+    Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
+
+    # @deprecated since Bolt 4.0.0, use Bolt\Controller\ErrorController instead
+    Bolt\Controller\ExceptionController:
+        public: true
+        arguments:
+            $debug: '%kernel.debug%'
 
     _instanceof:
         Bolt\Storage\Builder\ContentBuilder\ContentArgumentStrategyInterface:

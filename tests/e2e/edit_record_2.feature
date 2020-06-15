@@ -12,4 +12,5 @@ Feature: Preview record after editing
 
     When I switch to tab "0"
     And I reload the page
+    And I wait 1 second
     Then the "field-title" field should not contain "Check preview"

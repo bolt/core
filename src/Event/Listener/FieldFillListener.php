@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Event\Listener;
 
+use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\Field\SetField;
@@ -43,7 +44,8 @@ class FieldFillListener
 
     public function fillSet(SetField $entity): void
     {
-        $fields = $this->fields->findAllByParent($entity);
+        $definition = $entity->getDefinition();
+        $fields = $this->intersectFieldsAndDefinition($this->fields->findAllByParent($entity), $definition);
 
         /** @var Field $field */
         foreach ($fields as $field) {
@@ -56,14 +58,22 @@ class FieldFillListener
 
     public function fillCollection(CollectionField $entity): void
     {
-        $fields = $this->fields->findAllByParent($entity);
+        $definition = $entity->getDefinition();
+        $fields = $this->intersectFieldsAndDefinition($this->fields->findAllByParent($entity), $definition);
 
         /** @var Field $field */
         foreach ($fields as $field) {
-            $definition = $entity->getDefinition()->get('fields')[$field->getName()] ?? new Collection();
-            $field->setDefinition($field->getName(), $definition);
+            $fieldDefiniton = $entity->getDefinition()->get('fields')[$field->getName()] ?? new Collection();
+            $field->setDefinition($field->getName(), $fieldDefiniton);
         }
 
         $entity->setValue($fields);
+    }
+
+    private function intersectFieldsAndDefinition(array $fields, FieldType $definition): array
+    {
+        return collect($fields)->filter(function (Field $field) use ($definition) {
+            return $definition->get('fields')->has($field->getName());
+        })->toArray();
     }
 }

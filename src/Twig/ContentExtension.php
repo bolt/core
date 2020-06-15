@@ -716,9 +716,11 @@ class ContentExtension extends AbstractExtension
                 continue;
             }
 
+            $idOrSlug = $item[1] ?? null;
+
             // Success if we either have no id/slug for a Singleton, or if the id/slug matches
-            if ((empty($item[1]) && $content->getDefinition()->get('singleton')) ||
-                ($item[1] === $content->getSlug() || $item[1] === (string) $content->getId())) {
+            if ((empty($idOrSlug) && $content->getDefinition()->get('singleton')) ||
+                ($idOrSlug === $content->getSlug() || $idOrSlug === (string) $content->getId())) {
                 return true;
             }
         }

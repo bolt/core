@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class EmailField extends Field implements FieldInterface
+class EmailField extends Field implements FieldInterface, ScalarCastable
 {
     public const TYPE = 'email';
 }

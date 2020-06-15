@@ -92,8 +92,6 @@ class Kernel extends BaseKernel
         $yaml = Yaml::parseFile($fileName);
         unset($yaml['__nodes']);
 
-        $container->set('bolt.config.general', $yaml);
-
         foreach ($this->flattenKeys($yaml) as $key => $value) {
             $container->setParameter('bolt.' . $key, $value);
         }

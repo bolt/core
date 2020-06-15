@@ -23,10 +23,7 @@
             <span class="status mx-1 is-{{ record.status}}"></span>{{ __('status.' ~ record.status) }}<br>
             {% if record.status == 'published' %}
                 <small>
-                    ({{ 'field.modifiedAt'|trans }}:
-                    <abbr class="datetime-relative" title="{{ record.modifiedAt|localedatetime('%A %B %e, %Y - %k:%M%p') }}">
-                        {{- record.modifiedAt|date('c') -}}
-                    </abbr>)
+                    ({{ 'field.modifiedAt'|trans }}: {{ macro.relative_datetime(record.modifiedAt) }}                    )
                 </small>
             {% endif %}
         </p>
