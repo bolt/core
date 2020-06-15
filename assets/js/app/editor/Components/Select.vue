@@ -28,9 +28,11 @@
         </template>
           <template v-if="name !== 'status'" slot="tag" slot-scope="props">
             <span v-on:drop="drop($event)" v-on:dragover="allowDrop($event)">
-              <span :id=props.option.key class="multiselect__tag" :key=props.option.value draggable="true" v-on:dragstart="drag($event)">
+              <span :id=props.option.key class="multiselect__tag" :draggable="!taggable" :key=props.option.value  v-on:dragstart="drag($event)">
+                <div v-if="!taggable" class="multiselect__tag__drag">
+                  <i class="fas fa-arrows-alt"></i>
+                </div>
                 <span v-text="props.option.value"></span>
-                <i class="multiselect__tag__drag fas fa-grip-lines"></i>
                 <i tabindex="1" @keypress.enter.prevent="removeElement(props.option)"  @mousedown.prevent="removeElement(props.option)" class="multiselect__tag-icon"></i>
               </span>
             </span>
@@ -85,9 +87,10 @@ export default {
     },
     fieldName() {
       return this.name + '[]';
-    },
+    }
   },
   mounted() {
+    console.log(this.name);
     const _values = this.value.map ? this.value : [];
     const _options = this.options;
 
