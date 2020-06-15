@@ -201,7 +201,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->willReturn(new ArrayCollection([$title, $subheading, $body]));
 
         $this->assertSame('This subheading is OK. Here is the long body. It is OK too', $this->extension->getExcerpt($this->content));
-//        $this->assertSame('This subheading is OK. Here…', $this->extension->getExcerpt($this->content, 28));
+        $this->assertSame('This subheading is OK. Here…', $this->extension->getExcerpt($this->content, 28));
     }
 
     public function testIsCurrentGlobalTwig(): void
