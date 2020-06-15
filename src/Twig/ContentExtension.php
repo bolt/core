@@ -345,7 +345,7 @@ class ContentExtension extends AbstractExtension
             'contentTypeSlug' => $content->getContentTypeSingularSlug(),
         ];
 
-        return $this->generateLink('record_locale', $params, $canonical);
+        return $this->generateLink($content->getDefinition()->get('record_route'), $params, $canonical);
     }
 
     public function getEditLink(Content $content): ?string
@@ -396,14 +396,8 @@ class ContentExtension extends AbstractExtension
 
     private function generateLink(string $route, array $params, $canonical = false): string
     {
-        $canonicalRoute = $this->canonical->getCanonicalRoute($route, $params);
-
         try {
-            $link = $this->urlGenerator->generate(
-                $canonicalRoute,
-                $params,
-                $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
-            );
+            $link = $this->canonical->generateLink($route, $params, $canonical);
         } catch (InvalidParameterException $e) {
             $this->logger->notice('Could not create URL for route \'' . $route . '\'. Perhaps the ContentType was changed or removed. Try clearing the cache');
             $link = '';
