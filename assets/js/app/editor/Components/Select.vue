@@ -88,7 +88,7 @@ export default {
     },
   },
   mounted() {
-    const _values = this.value;
+    const _values = this.value.map ? this.value : [];
     const _options = this.options;
 
     let filterSelectedItems = _values.map(value => {
