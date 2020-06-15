@@ -38,6 +38,7 @@
       </multiselect>
     <input
       :id="id"
+      type="hidden"
       :name="name"
       :form="form"
       :value="sanitized"
@@ -128,26 +129,16 @@ export default {
        */
       const outgoingId = this.findDropElement(e.target).id;
 
-      const outgoingIndex = this.value.indexOf(outgoingId);
-
-      var newValue = this.value;
-      newValue.splice(newValue.indexOf(incomingId), 1);
-      newValue.splice(outgoingIndex, 0, incomingId);
-      this.value = newValue;
-
-      console.log(newValue);
-
-
       const incomingElement = this.selected.find(el => el.key === incomingId);
       const outgoingElement = this.selected.find(el => el.key === outgoingId);
-      var newSelected = this.selected;
+      const incomingIndex = this.selected.indexOf(incomingElement);
+      const outgoingIndex = this.selected.indexOf(outgoingElement);
 
-      newSelected.splice(newSelected.indexOf(incomingElement), 1);
-      newSelected.splice(newSelected.indexOf(outgoingElement), 0, incomingElement);
+      // if dragging down, insert after. else, insert before.
+      const newPosition = incomingIndex < outgoingIndex ? outgoingIndex +1 : outgoingIndex;
 
-      console.log(newSelected);
-
-      this.selected = newSelected;
+      this.selected.splice(incomingIndex, 1);
+      this.selected.splice(newPosition, 0, incomingElement);
     },
     findDropElement(el) {
       while (! el.hasAttribute('draggable')) {
