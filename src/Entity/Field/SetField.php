@@ -83,7 +83,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
     {
         $fieldsFromDefinition = $this->getFieldsFromDefinition();
 
-        return array_merge($fieldsFromDefinition, $this->getValue());
+        return array_merge($fieldsFromDefinition, $this->getDefaultValue(), $this->getValue());
     }
 
     private function getFieldsFromDefinition(): array
@@ -106,7 +106,7 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
     public function getDefaultValue()
     {
         $defaultValues = parent::getDefaultValue();
-        $value = $this->getValue();
+        $value = $this->getFieldsFromDefinition();
 
         foreach ($defaultValues as $name => $default) {
             if (array_key_exists($name, $value)) {
