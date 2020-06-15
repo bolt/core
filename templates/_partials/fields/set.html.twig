@@ -1,7 +1,7 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    {% for setChild in field.value %}
+    {% for setChild in field.valueForEditor %}
         {% if in_collection is defined %}
             {% set setChildName = name ~ '[' ~ setChild.name ~ ']' %}
             {% set setChildId = id ~ '-' ~ setChild.name|default('unnamed') %}

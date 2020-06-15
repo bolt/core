@@ -25,23 +25,8 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
 
     public const TYPE = 'set';
 
-    public function getValue(): array
+    public function getValue(): ?array
     {
-        if (empty($this->fields)) {
-            // create new ones from the definition
-            $fieldDefinitions = $this->getDefinition()->get('fields');
-
-            if (! is_iterable($fieldDefinitions)) {
-                return [];
-            }
-
-            $newFields = [];
-            foreach ($fieldDefinitions as $name => $definition) {
-                $newFields[] = FieldRepository::factory($definition, $name);
-            }
-            $this->setValue($newFields);
-        }
-
         return $this->fields;
     }
 
@@ -94,10 +79,34 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
         return $result;
     }
 
+    public function getValueForEditor(): array
+    {
+        $fieldsFromDefinition = $this->getFieldsFromDefinition();
+
+        return array_merge($fieldsFromDefinition, $this->getDefaultValue(), $this->getValue());
+    }
+
+    private function getFieldsFromDefinition(): array
+    {
+        // create new fields from the definition
+        $fieldDefinitions = $this->getDefinition()->get('fields');
+
+        if (! is_iterable($fieldDefinitions)) {
+            return [];
+        }
+
+        $fields = [];
+        foreach ($fieldDefinitions as $name => $definition) {
+            $fields[$name] = FieldRepository::factory($definition, $name);
+        }
+
+        return $fields;
+    }
+
     public function getDefaultValue()
     {
-        $defaultValues = parent::getDefaultValue();
-        $value = $this->getValue();
+        $defaultValues = parent::getDefaultValue() ?? [];
+        $value = $this->getFieldsFromDefinition();
 
         foreach ($defaultValues as $name => $default) {
             if (array_key_exists($name, $value)) {

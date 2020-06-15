@@ -435,7 +435,13 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         if ($field instanceof SetField) {
             foreach ($value as $name => $svalue) {
-                $child = $field->getValue()[$name];
+                $child = $field->getValueForEditor()[$name];
+
+                if (! $child->getId()) {
+                    $child->setParent($field);
+                    $field->getContent()->addField($child);
+                }
+
                 $child->setDefinition($child->getName(), $field->getDefinition()->get('fields')->get($child->getName()));
                 $this->updateField($child, $svalue, $locale);
             }
