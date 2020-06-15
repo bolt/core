@@ -167,7 +167,7 @@ class ContentExtension extends AbstractExtension
             }
         }
 
-        return '';
+        return '(untitled)';
     }
 
     public function getTitle(Content $content, string $locale = '', int $length = 120): string
