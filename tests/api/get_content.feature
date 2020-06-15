@@ -18,7 +18,7 @@ Feature: Get content with API
        "fieldValues": {
           "title": {
              "en": @string@,
-             @string@: @string
+             "@*@": "@*@"
           },
           "slug": @string@,
           "image": {
@@ -64,7 +64,7 @@ Feature: Get content with API
      "fieldValues": {
         "title": {
           "en": @string@,
-          @string@: @string
+          "@*@": "@*@"
         },
         "slug": @string@,
         "image": {
@@ -115,7 +115,7 @@ Feature: Get content with API
            "fieldValues": {
               "title": {
                 "en": @string@,
-                @string@: @string
+                "@*@": "@*@"
               },
               "slug": @string@,
               "image": {
@@ -179,7 +179,7 @@ Feature: Get content with API
            "fieldValues": {
               "title": {
                 "en": @string@,
-                @string@: @string
+                "@*@": "@*@"
               },
               "slug": @string@,
               "image": {
@@ -240,7 +240,7 @@ Feature: Get content with API
      "fieldValues": {
         "title": {
             "en": @string@,
-            @string@: @string
+            "@*@": "@*@"
         },
         "slug": @string@,
         "image": {
