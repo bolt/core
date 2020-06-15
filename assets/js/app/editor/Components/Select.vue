@@ -1,43 +1,54 @@
 <template>
   <div :id="`multiselect-${id}`" :class="classname">
     <multiselect
-        v-model="selected"
-        :allow-empty="allowempty"
-        :limit="1000"
-        :multiple="multiple"
-        :options="options"
-        :searchable="taggable"
-        :show-labels="false"
-        :taggable="taggable"
-        :disabled="readonly"
-        :data-errormessage="errormessage"
-        label="value"
-        tag-placeholder="Add this as new tag"
-        tag-position="bottom"
-        track-by="key"
-        ref="vselect"
-        @tag="addTag"
-      >
-        <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
-          <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-          {{ props.option.value }}
-        </template>
-        <template v-if="name === 'status'" slot="option" slot-scope="props">
-          <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-          {{ props.option.value }}
-        </template>
-          <template v-if="name !== 'status'" slot="tag" slot-scope="props">
-            <span v-on:drop="drop($event)" v-on:dragover="allowDrop($event)">
-              <span :id=props.option.key class="multiselect__tag" :draggable="!taggable" :key=props.option.value  v-on:dragstart="drag($event)">
-                <div v-if="!taggable" class="multiselect__tag__drag">
-                  <i class="fas fa-arrows-alt"></i>
-                </div>
-                <span v-text="props.option.value"></span>
-                <i tabindex="1" @keypress.enter.prevent="removeElement(props.option)"  @mousedown.prevent="removeElement(props.option)" class="multiselect__tag-icon"></i>
-              </span>
-            </span>
-          </template>
-      </multiselect>
+      ref="vselect"
+      v-model="selected"
+      :allow-empty="allowempty"
+      :limit="1000"
+      :multiple="multiple"
+      :options="options"
+      :searchable="taggable"
+      :show-labels="false"
+      :taggable="taggable"
+      :disabled="readonly"
+      :data-errormessage="errormessage"
+      label="value"
+      tag-placeholder="Add this as new tag"
+      tag-position="bottom"
+      track-by="key"
+      @tag="addTag"
+    >
+      <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
+        <span class="status mr-2" :class="`is-${props.option.key}`"></span>
+        {{ props.option.value }}
+      </template>
+      <template v-if="name === 'status'" slot="option" slot-scope="props">
+        <span class="status mr-2" :class="`is-${props.option.key}`"></span>
+        {{ props.option.value }}
+      </template>
+      <template v-if="name !== 'status'" slot="tag" slot-scope="props">
+        <span @drop="drop($event)" @dragover="allowDrop($event)">
+          <span
+            :id="props.option.key"
+            :key="props.option.value"
+            class="multiselect__tag"
+            :draggable="!taggable"
+            @dragstart="drag($event)"
+          >
+            <div v-if="!taggable" class="multiselect__tag__drag">
+              <i class="fas fa-arrows-alt"></i>
+            </div>
+            <span v-text="props.option.value"></span>
+            <i
+              tabindex="1"
+              class="multiselect__tag-icon"
+              @keypress.enter.prevent="removeElement(props.option)"
+              @mousedown.prevent="removeElement(props.option)"
+            ></i>
+          </span>
+        </span>
+      </template>
+    </multiselect>
     <input
       :id="id"
       type="hidden"
@@ -87,10 +98,9 @@ export default {
     },
     fieldName() {
       return this.name + '[]';
-    }
+    },
   },
   mounted() {
-    console.log(this.name);
     const _values = this.value.map ? this.value : [];
     const _options = this.options;
 
@@ -124,7 +134,7 @@ export default {
     drop(e) {
       e.preventDefault();
 
-      const incomingId = e.dataTransfer.getData("text");
+      const incomingId = e.dataTransfer.getData('text');
 
       /**
        * JS Draggable API allows elements to be dropped inside child nodes
@@ -132,20 +142,25 @@ export default {
        */
       const outgoingId = this.findDropElement(e.target).id;
 
-      const incomingElement = this.selected.find(el => "" + el.key === "" + incomingId);
-      const outgoingElement = this.selected.find(el => "" + el.key === "" + outgoingId);
+      const incomingElement = this.selected.find(
+        el => '' + el.key === '' + incomingId,
+      );
+      const outgoingElement = this.selected.find(
+        el => '' + el.key === '' + outgoingId,
+      );
 
       const incomingIndex = this.selected.indexOf(incomingElement);
       const outgoingIndex = this.selected.indexOf(outgoingElement);
 
       // if dragging down, insert after. else, insert before.
-      const newPosition = incomingIndex < outgoingIndex ? outgoingIndex +1 : outgoingIndex;
+      const newPosition =
+        incomingIndex < outgoingIndex ? outgoingIndex + 1 : outgoingIndex;
 
       this.selected.splice(incomingIndex, 1);
       this.selected.splice(newPosition, 0, incomingElement);
     },
     findDropElement(el) {
-      while (! el.hasAttribute('draggable')) {
+      while (!el.hasAttribute('draggable')) {
         el = el.parentNode;
       }
 
@@ -155,8 +170,8 @@ export default {
       e.preventDefault();
     },
     drag(e) {
-      e.dataTransfer.setData("text", e.target.id);
-    }
+      e.dataTransfer.setData('text', e.target.id);
+    },
   },
 };
 </script>
