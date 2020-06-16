@@ -5,15 +5,11 @@ declare(strict_types=1);
 namespace Bolt;
 
 use Bolt\Configuration\Config;
-use Bolt\Twig\ContentExtension;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouterInterface;
-use Tightenco\Collect\Support\Collection;
 
 class Canonical
 {
@@ -38,18 +34,14 @@ class Canonical
     /** @var string */
     private $path = null;
 
-    /** @var RouterInterface */
-    private $router;
-
     /** @var string */
     private $defaultLocale;
 
-    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router, string $defaultLocale)
+    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, string $defaultLocale)
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->request = $requestStack->getCurrentRequest();
-        $this->router = $router;
         $this->defaultLocale = $defaultLocale;
 
         $this->init();
@@ -181,9 +173,9 @@ class Canonical
         }
 
         return $this->urlGenerator->generate(
-                $route,
-                $params,
-                $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
-            );
+            $route,
+            $params,
+            $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
+        );
     }
 }

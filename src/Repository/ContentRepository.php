@@ -143,7 +143,7 @@ class ContentRepository extends ServiceEntityRepository
             ->andWhere($where . ' = :slug')
             ->setParameter('slug', $slug);
 
-        if ($contentType) {
+        if ($contentType && $contentType->get('slug')) {
             $query->andWhere('content.contentType = :ct')
                 ->setParameter('ct', $contentType->get('slug'));
         }
