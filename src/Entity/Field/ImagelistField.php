@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class ImagelistField extends Field implements FieldInterface, ListFieldInterface
+class ImagelistField extends Field implements FieldInterface, ListFieldInterface, \Iterator
 {
     use ListFieldTrait;
 
@@ -35,16 +35,16 @@ class ImagelistField extends Field implements FieldInterface, ListFieldInterface
      */
     public function getValue(): array
     {
-        $result = [];
+        $this->fields = [];
 
         foreach ($this->getRawValue() as $key => $image) {
             $imageField = new ImageField();
             $imageField->setName((string) $key);
             $imageField->setValue($image);
-            $result[] = $imageField;
+            $this->fields[] = $imageField;
         }
 
-        return $result;
+        return $this->fields;
     }
 
     public function getApiValue()

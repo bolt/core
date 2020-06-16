@@ -21,7 +21,6 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 {
     use FieldParentTrait;
     use ListFieldTrait;
-    use CollectionFieldIteratorTrait;
 
     public const TYPE = 'collection';
 
