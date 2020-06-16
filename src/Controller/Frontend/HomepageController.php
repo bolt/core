@@ -15,9 +15,13 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
     /** @var TemplateChooser */
     private $templateChooser;
 
-    public function __construct(TemplateChooser $templateChooser)
+    /** @var DetailController */
+    private $detailController;
+
+    public function __construct(TemplateChooser $templateChooser, DetailController $detailController)
     {
         $this->templateChooser = $templateChooser;
+        $this->detailController = $detailController;
     }
 
     /**
@@ -28,7 +32,7 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
      *     name="homepage_locale",
      *     requirements={"_locale": "%app_locales%"})
      */
-    public function homepage(ContentRepository $contentRepository): Response
+    public function homepage(ContentRepository $contentRepository, bool $requirePublished = true): Response
     {
         $homepage = $this->config->get('theme/homepage') ?: $this->config->get('general/homepage');
         $params = explode('/', $homepage);
@@ -58,6 +62,6 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
 
         $templates = $this->templateChooser->forHomepage();
 
-        return $this->renderTemplate($templates, ['record' => $record]);
+        return $this->detailController->renderSingle($record, $requirePublished, $templates);
     }
 }

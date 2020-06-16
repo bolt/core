@@ -82,7 +82,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         return $this->renderSingle($record);
     }
 
-    public function renderSingle(?Content $record, bool $requirePublished = true): Response
+    public function renderSingle(?Content $record, bool $requirePublished = true, array $templates = []): Response
     {
         if (! $record) {
             throw new NotFoundHttpException('Content not found');
@@ -109,7 +109,9 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         // later on, if we need to get the root record of a page.
         $this->twig->addGlobal('record', $record);
 
-        $templates = $this->templateChooser->forRecord($record);
+        if (empty($templates)) {
+            $templates = $this->templateChooser->forRecord($record);
+        }
 
         return $this->renderTemplate($templates, $context);
     }
