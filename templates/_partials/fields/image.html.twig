@@ -35,6 +35,7 @@
         :errormessage='{{ errormessage|json_encode }}'
         :pattern='{{ pattern|json_encode }}'
         :placeholder='{{ placeholder|json_encode }}'
-        {% if field.includeAlt %} :alt='{{ field.get('alt')|json_encode }}' {% endif %}
+        :alt='{{ field.get('alt')|json_encode }}'
+        :include-alt='{{ field.includeAlt|json_encode }}'
     ></editor-image>
 {% endblock %}

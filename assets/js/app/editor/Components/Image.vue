@@ -26,7 +26,7 @@
             :data-errormessage="errormessage"
           />
         </div>
-        <div v-if="altData !== undefined" class="input-group mb-3">
+        <div v-if="includeAlt" class="input-group mb-3">
           <input
             v-model="altData"
             class="form-control"
@@ -86,7 +86,7 @@
 
           <div class="btn-group mr-2" role="group">
             <button
-              v-if="inImagelist == true"
+              v-if="inImagelist"
               class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isFirstInImagelist || readonly"
@@ -97,7 +97,7 @@
             </button>
 
             <button
-              v-if="inImagelist == true"
+              v-if="inImagelist"
               class="btn btn-sm btn-tertiary"
               type="button"
               :disabled="isLastInImagelist || readonly"
@@ -131,7 +131,7 @@
       <div class="col-3">
         <div class="editor__image--preview">
           <a
-            v-if="previewImage != ''"
+            v-if="previewImage !== ''"
             class="editor__image--preview-image"
             :href="previewImage"
             :style="`background-image: url('${thumbnailImage}')`"
@@ -169,6 +169,7 @@ export default {
     readonly: Boolean,
     thumbnail: String,
     alt: String,
+    includeAlt: Boolean,
     directory: String,
     media: Number | String,
     csrfToken: String,
@@ -243,7 +244,7 @@ export default {
       this.filenameData = null;
       this.thumbnailImage = null;
       // only reset altData if alt should be displayed.
-      if (this.altData !== undefined) this.altData = '';
+      if (this.includeAlt) this.altData = '';
       this.$emit('remove', this);
     },
     selectUploadFile() {

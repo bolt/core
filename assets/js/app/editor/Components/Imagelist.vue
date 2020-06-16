@@ -11,6 +11,7 @@
         :thumbnail="child.thumbnail"
         :title="child.title"
         :alt="child.alt"
+        :include-alt="true"
         :attributes-link="attributesLink"
         :media="child.media"
         :directory="directory"
@@ -150,7 +151,7 @@ export default {
         thumbnail: '',
         extensions: this.extensions,
         id: this.counter,
-        alt: true,
+        alt: '',
       };
 
       this.counter++;
