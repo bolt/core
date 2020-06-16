@@ -100,5 +100,4 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 
         return $result;
     }
-
 }

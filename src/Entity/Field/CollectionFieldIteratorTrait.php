@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Entity\Field;
-
 
 use Bolt\Entity\Field;
 
@@ -13,8 +13,7 @@ trait CollectionFieldIteratorTrait
     public function current(): Field
     {
         /** @var Field $field */
-        $field = $this->fields[$this->iteratorCursor];
-        return $field;
+        return $this->fields[$this->iteratorCursor];
     }
 
     public function next(): void
@@ -27,12 +26,10 @@ trait CollectionFieldIteratorTrait
         return $this->iteratorCursor;
     }
 
-
     public function valid(): bool
     {
         return isset($this->fields[$this->iteratorCursor]);
     }
-
 
     public function rewind(): void
     {
