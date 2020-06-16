@@ -106,6 +106,7 @@
     "lint-fix": "eslint --ext .js,.vue, assets --fix",
     "stylelint": "stylelint 'assets/scss'",
     "stylelint-fix": "stylelint 'assets/scss' --fix",
+    "csfix": "eslint --ext .js,.vue, assets --fix; stylelint 'assets/scss' --fix",
     "test": "jest"
   },
   "browserslist": [
