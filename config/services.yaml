@@ -105,3 +105,5 @@ services:
     Twig\Extension\StringLoaderExtension: ~
 
     Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
+
+    Squirrel\TwigPhpSyntax\PhpSyntaxExtension: ~

@@ -17,10 +17,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class CollectionField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface
+class CollectionField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface, \Iterator
 {
     use FieldParentTrait;
     use ListFieldTrait;
+    use CollectionFieldIteratorTrait;
 
     public const TYPE = 'collection';
 
@@ -99,4 +100,5 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 
         return $result;
     }
+
 }
