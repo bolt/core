@@ -21,7 +21,6 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 {
     use FieldParentTrait;
     use ListFieldTrait;
-    use CollectionFieldIteratorTrait;
 
     public const TYPE = 'collection';
 
@@ -100,5 +99,4 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
 
         return $result;
     }
-
 }

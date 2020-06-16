@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class FilelistField extends Field implements FieldInterface, ListFieldInterface
+class FilelistField extends Field implements FieldInterface, ListFieldInterface, \Iterator
 {
     use ListFieldTrait;
 
@@ -35,16 +35,16 @@ class FilelistField extends Field implements FieldInterface, ListFieldInterface
      */
     public function getValue(): array
     {
-        $result = [];
+        $this->fields = [];
 
         foreach ($this->getRawValue() as $key => $file) {
             $fileField = new FileField();
             $fileField->setName((string) $key);
             $fileField->setValue($file);
-            array_push($result, $fileField);
+            $this->fields[] = $fileField;
         }
 
-        return $result;
+        return $this->fields;
     }
 
     public function getApiValue()
