@@ -1,7 +1,7 @@
 {% if image %}
     <div class="imageholder">
         <a href="{{ record|image }}">
-            <img src="{{ thumbnail(record, 1368, 1026) }}" alt="{{ (record|image).alt|default(record|title) }}">
+            <img src="{{ thumbnail(image, 1368, 1026) }}" alt="{{ image.alt|default(record|title) }}">
         </a>
         {% if image.alt %}
             <small>{{ image.alt }}</small>
