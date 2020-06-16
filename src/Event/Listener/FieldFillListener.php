@@ -73,7 +73,7 @@ class FieldFillListener
     private function intersectFieldsAndDefinition(array $fields, FieldType $definition): array
     {
         return collect($fields)->filter(function (Field $field) use ($definition) {
-            return $definition->get('fields')->has($field->getName());
+            return $definition->get('fields') && $definition->get('fields')->has($field->getName());
         })->toArray();
     }
 }
