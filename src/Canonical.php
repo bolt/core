@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Canonical
@@ -170,7 +171,14 @@ class Canonical
     {
         if (isset($params['_locale']) && $params['_locale'] === $this->defaultLocale) {
             unset($params['_locale']);
-            $route = str_replace('_locale', '', $route);
+            $routeWithoutLocale = str_replace('_locale', '', $route);
+
+            // If a route without the locale exists, use that. e.g. record_locale -> record
+            try {
+                $this->generateLink($routeWithoutLocale, $params);
+                $route = $routeWithoutLocale;
+            } catch (RouteNotFoundException $e) {
+            }
         }
 
         return $this->urlGenerator->generate(
