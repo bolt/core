@@ -142,17 +142,17 @@ class TwigAwareController extends AbstractController
             'status' => '!unknown',
         ];
 
-        if ($request->get('sortBy')) {
+        if ($this->request->get('sortBy')) {
             $params['order'] = $this->getFromRequest('sortBy');
         } else {
             $params['order'] = $order;
         }
 
-        if ($request->get('filter')) {
+        if ($this->request->get('filter')) {
             $params['anyField'] = '%' . $this->getFromRequest('filter') . '%';
         }
 
-        if ($request->get('taxonomy')) {
+        if ($this->request->get('taxonomy')) {
             $taxonomy = explode('=', $this->getFromRequest('taxonomy'));
             $params[$taxonomy[0]] = $taxonomy[1];
         }
