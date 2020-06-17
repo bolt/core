@@ -108,7 +108,7 @@ class ContentExtension extends AbstractExtension
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
-            new TwigFilter('title_fields', [$this, 'getTitleFields']),
+            new TwigFilter('title_fields_names', [$this, 'getTitleFields']),
             new TwigFilter('image', [$this, 'getImage']),
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
@@ -185,7 +185,7 @@ class ContentExtension extends AbstractExtension
         return Html::trimText($title, $length);
     }
 
-    public function getTitleFields(Content $content): array
+    public function getTitleFieldsNames(Content $content): array
     {
         if (ContentHelper::isSuitable($content)) {
             return ContentHelper::getFieldNames($content->getDefinition()->get('title_format'));
@@ -250,7 +250,7 @@ class ContentExtension extends AbstractExtension
             }
         }
 
-        $skipFields = $this->getTitleFields($content);
+        $skipFields = $this->getTitleFieldsNames($content);
 
         foreach ($content->getFields() as $field) {
             if ($field instanceof Excerptable && in_array($field->getName(), $skipFields, true) === false) {
