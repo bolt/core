@@ -27,15 +27,11 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
     /** @var Request */
     private $request;
 
-    /** @var string */
-    private $defaultLocale;
-
-    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, RequestStack $requestStack, string $defaultLocale)
+    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, RequestStack $requestStack)
     {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
         $this->request = $requestStack->getCurrentRequest();
-        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -63,15 +59,11 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         }
 
         // Update the canonical, with the correct path
-        $params = [
+        $this->canonical->setPath(null, [
             'contentTypeSlug' => $record ? $record->getContentTypeSingularSlug() : null,
             'slugOrId' => $record ? $record->getSlug() : null,
             '_locale' => $this->request->getLocale(),
-        ];
-        if ($this->request->getLocale() !== $this->defaultLocale) {
-            $params['_locale'] = $this->request->getLocale();
-        }
-        $this->canonical->setPath(null, $params);
+        ]);
 
         return $this->renderSingle($record, $requirePublished);
     }

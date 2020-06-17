@@ -170,6 +170,7 @@ class Canonical
     {
         if (isset($params['_locale']) && $params['_locale'] === $this->defaultLocale) {
             unset($params['_locale']);
+            $route = str_replace('_locale', '', $route);
         }
 
         return $this->urlGenerator->generate(
