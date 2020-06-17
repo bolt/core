@@ -25,27 +25,8 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
         $contentTypeObject = ContentType::factory($contentType, $this->config->get('contenttypes'));
         $page = (int) $request->query->get('page', '1');
 
-        $params = [
-            'status' => '!unknown',
-        ];
+        $pager = $this->createPager($request, $query, $contentType, $contentTypeObject->get('records_per_page'), $contentTypeObject->get('order'));
 
-        if ($request->get('sortBy')) {
-            $params['order'] = $request->get('sortBy');
-        } else {
-            $params['order'] = $contentTypeObject->get('order');
-        }
-
-        if ($request->get('filter')) {
-            $params['anyField'] = '%' . $request->get('filter') . '%';
-        }
-
-        if ($request->get('taxonomy')) {
-            $taxonomy = explode('=', $request->get('taxonomy'));
-            $params[$taxonomy[0]] = $taxonomy[1];
-        }
-
-        $pager = $query->getContentForTwig($contentType, $params)
-            ->setMaxPerPage($contentTypeObject->get('records_per_page'));
         $nbPages = $pager->getNbPages();
 
         if ($page > $nbPages) {

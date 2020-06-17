@@ -19,13 +19,9 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
     /** @var TemplateChooser */
     private $templateChooser;
 
-    /** @var Sanitiser */
-    private $sanitiser;
-
-    public function __construct(TemplateChooser $templateChooser, Sanitiser $sanitiser)
+    public function __construct(TemplateChooser $templateChooser)
     {
         $this->templateChooser = $templateChooser;
-        $this->sanitiser = $sanitiser;
     }
 
     /**

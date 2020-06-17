@@ -105,7 +105,7 @@
                     </p>
                 </div>
 
-                    {{ macro.button('listing.button_filter', 'filter', 'tertiary mb-0', {'type': 'submit'}) }}
+                    {{ macro.button('general.phrase.search', 'filter', 'tertiary mb-0', {'type': 'submit'}) }}
 
                     {% if sortBy is not empty or filterValue is not empty %}
                         {{ macro.buttonlink('listing.button_clear', path('bolt_content_overview', {'contentType': contentType.slug}),  'times', 'tertiary mb-0') }}

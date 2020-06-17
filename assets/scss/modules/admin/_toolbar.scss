@@ -169,9 +169,14 @@
       padding-right: 1rem;
     }
 
+    &__filter {
+      margin-left: auto;
+      max-width: 400px;
+    }
+
     &__site {
       display: none;
-      margin-left: auto;
+
 
       @include media-breakpoint-up(sm) {
         display: block;

@@ -24,14 +24,10 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
     /** @var ContentRepository */
     private $contentRepository;
 
-    /** @var Request */
-    private $request;
-
     public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, RequestStack $requestStack)
     {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
-        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
