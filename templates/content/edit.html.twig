@@ -57,7 +57,7 @@
         </div>
 
         <hr>
-        {% include '@bolt/content/_buttons.html.twig' %}
+        {% include '@bolt/content/_buttons.html.twig' with {'hide_on_mobile': true} %}
 
     </form>
 
@@ -73,7 +73,7 @@
                     {{ macro.icon('star') }} {{ 'title.primary_actions'|trans }}
                 </div>
                 <div class="card-body">
-                  {% include '@bolt/content/_buttons.html.twig' with {'status': true}  %}
+                  {% include '@bolt/content/_buttons.html.twig' with {'status': true} %}
                 </div>
             </div>
 
