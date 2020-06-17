@@ -8,7 +8,6 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Storage\Query;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,7 +22,7 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
     public function overview(Query $query, string $contentType = ''): Response
     {
         $contentTypeObject = ContentType::factory($contentType, $this->config->get('contenttypes'));
-        $page = (int) $this->request->query->get('page', '1');
+        $page = (int) $this->getFromRequest('page', '1');
 
         $pager = $this->createPager($query, $contentType, $contentTypeObject->get('records_per_page'), $contentTypeObject->get('order'));
 
@@ -41,8 +40,8 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
         return $this->renderTemplate('@bolt/content/listing.html.twig', [
             'contentType' => $contentTypeObject,
             'records' => $records,
-            'sortBy' => $request->get('sortBy'),
-            'filterValue' => $request->get('filter'),
+            'sortBy' => $this->getFromRequest('sortBy'),
+            'filterValue' => $this->getFromRequest('filter'),
         ]);
     }
 }
