@@ -83,6 +83,9 @@ jobs:
       - name: run API tests
         run: make behat-api
 
+      - name: Install latest Google Chrome (for e2e tests)
+        run: wget -q https://script.install.devinsideyou.com/google-chrome && chmod +x google-chrome
+
       - name: run JS e2e tests
         run: ./run_behat_tests.sh && make behat-js
 
