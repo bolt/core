@@ -107,7 +107,7 @@ class LocaleHelper
 
     private function isCurrentLocale(string $localeCode, string $currentLocale, Collection $localeCodes): bool
     {
-        if (! $localeCodes->has($currentLocale)) {
+        if (! $localeCodes->contains($currentLocale)) {
             return $localeCode === $this->defaultLocale;
         }
 
