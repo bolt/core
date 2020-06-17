@@ -76,6 +76,7 @@ class UploadController implements AsyncZoneInterface
 
         $acceptedFileTypes = array_merge($this->config->getMediaTypes()->toArray(), $this->config->getFileTypes()->toArray());
         $maxSize = $this->config->getMaxUpload();
+
         $uploadHandler->addRule(
             'extension',
             [
@@ -84,18 +85,28 @@ class UploadController implements AsyncZoneInterface
             'The file for field \'{label}\' was <u>not</u> uploaded. It should be a valid file type. Allowed are <code>' . implode('</code>, <code>', $acceptedFileTypes) . '.',
             'Upload file'
         );
+
         $uploadHandler->addRule(
             'size',
-            ['max' => $maxSize],
+            ['size' => $maxSize],
             'The file for field \'{label}\' was <u>not</u> uploaded. The upload can have a maximum filesize of <b>' . $this->textExtension->formatBytes($maxSize) . '</b>.',
             'Upload file'
         );
+
         $uploadHandler->setSanitizerCallback(function ($name) {
             return $this->sanitiseFilename($name);
         });
 
-        /** @var File $result */
-        $result = $uploadHandler->process($request->files->all());
+        try {
+            /** @var File $result */
+            $result = $uploadHandler->process($request->files->all());
+        } catch (\Throwable $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => $e->getMessage() . ' Ensure the upload does <em><u>not</u></em> exceed the maximum filesize of <b>' . $this->textExtension->formatBytes($maxSize) . '</b>, and that the destination folder (on the webserver) is writable.',
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         if ($result->isValid()) {
             try {
