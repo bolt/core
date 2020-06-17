@@ -20,12 +20,12 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
     /**
      * @Route("/content/{contentType}", name="bolt_content_overview")
      */
-    public function overview(Request $request, Query $query, string $contentType = ''): Response
+    public function overview(Query $query, string $contentType = ''): Response
     {
         $contentTypeObject = ContentType::factory($contentType, $this->config->get('contenttypes'));
-        $page = (int) $request->query->get('page', '1');
+        $page = (int) $this->request->query->get('page', '1');
 
-        $pager = $this->createPager($request, $query, $contentType, $contentTypeObject->get('records_per_page'), $contentTypeObject->get('order'));
+        $pager = $this->createPager($query, $contentType, $contentTypeObject->get('records_per_page'), $contentTypeObject->get('order'));
 
         $nbPages = $pager->getNbPages();
 

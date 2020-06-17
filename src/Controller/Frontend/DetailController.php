@@ -10,7 +10,6 @@ use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

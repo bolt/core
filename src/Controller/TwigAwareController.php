@@ -136,7 +136,7 @@ class TwigAwareController extends AbstractController
         $this->packages->addPackage('files', $filesPackage);
     }
 
-    protected function createPager(Request $request, Query $query, string $contentType, int $pageSize, string $order)
+    protected function createPager(Query $query, string $contentType, int $pageSize, string $order)
     {
         $params = [
             'status' => '!unknown',

@@ -37,8 +37,17 @@
       </div>
     </div>
 
-    <form :action="backendPrefix" class="toolbar-item toolbar-item__filter input-group">
-      <input type="text" class="form-control" :placeholder="labels['listing.placeholder_search']" name="filter" :value="filterValue">
+    <form
+      :action="backendPrefix"
+      class="toolbar-item toolbar-item__filter input-group"
+    >
+      <input
+        type="text"
+        class="form-control"
+        :placeholder="labels['listing.placeholder_search']"
+        name="filter"
+        :value="filterValue"
+      />
       <div class="input-group-append">
         <button class="btn btn-tertiary" type="submit">
           <i class="fas fa-search"></i>{{ labels['listing.button_search'] }}
@@ -53,7 +62,6 @@
     </div>
 
     <div class="toolbar-item btn-group toolbar-item__new">
-
       <button
         class="btn new-item__dropdown-toggler dropdown-toggle"
         type="button"
