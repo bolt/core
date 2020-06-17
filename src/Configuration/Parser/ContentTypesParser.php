@@ -143,6 +143,9 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['listing_template'])) {
             $contentType['listing_template'] = $contentType['slug'] . '.twig';
         }
+        if (! isset($contentType['record_route'])) {
+            $contentType['record_route'] = isset($contentType['locales']) ? 'record_locale' : 'record';
+        }
 
         if ($contentType['singleton']) {
             $contentType['listing_records'] = 1;
