@@ -19,6 +19,9 @@ default:
     rerun_cache: "%paths.base%/var/cache/behat/behat_rerun"
 
   extensions:
+    FriendsOfBehat\SymfonyExtension:
+      kernel:
+        class: Bolt\Kernel
     Lakion\Behat\MinkDebugExtension:
       directory: var/log/behat-reports
       screenshot: true
