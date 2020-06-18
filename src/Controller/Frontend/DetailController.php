@@ -10,8 +10,6 @@ use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,14 +22,10 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
     /** @var ContentRepository */
     private $contentRepository;
 
-    /** @var Request */
-    private $request;
-
-    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, RequestStack $requestStack)
+    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository)
     {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
-        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**

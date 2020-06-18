@@ -29,13 +29,32 @@
           </li>
           <li>
             <a href="https://docs.bolt.cm/" target="_blank">
-              <i class="fas fa-globe-americas fa-fw"></i>
+              <i class="fas fa-book fa-fw"></i>
               {{ labels['about.bolt_documentation'] }}
             </a>
           </li>
         </ul>
       </div>
     </div>
+
+    <form
+      :action="backendPrefix"
+      class="toolbar-item toolbar-item__filter input-group"
+    >
+      <input
+        type="text"
+        class="form-control"
+        :placeholder="labels['listing.placeholder_search']"
+        name="filter"
+        id="global-search"
+        :value="filterValue"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-tertiary" type="submit">
+          <i class="fas fa-search"></i>{{ labels['listing.button_search'] }}
+        </button>
+      </div>
+    </form>
 
     <div class="toolbar-item toolbar-item__site">
       <a href="/" target="_blank">
@@ -107,6 +126,7 @@ export default {
     menu: Array,
     labels: Object,
     backendPrefix: RegExp,
+    filterValue: String,
   },
   computed: {
     contrast() {

@@ -33,7 +33,9 @@
             'general.greeting': 'general.greeting'|trans({'%name%': user_display_name}),
             'action.logout': 'action.logout'|trans,
             'action.edit_profile': 'action.edit_profile'|trans,
-            'about.visit_bolt': 'about.visit_bolt'|trans
+            'about.visit_bolt': 'about.visit_bolt'|trans,
+            'listing.button_search': 'general.phrase.search'|trans,
+            'listing.placeholder_search': 'listing.placeholder_search'|trans,
         }|json_encode %}
 
         <admin-toolbar
@@ -41,6 +43,7 @@
             :menu="{{ admin_menu_json }}"
             :labels="{{ labels }}"
             :backend-prefix="{{ path('bolt_dashboard') }}"
+            filter-value="{{ filter_value|default('') }}"
         ></admin-toolbar>
     </nav>
     <!-- End Admin Toolbar -->

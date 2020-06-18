@@ -7,7 +7,6 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
-use Bolt\Utils\Sanitiser;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,13 +18,9 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
     /** @var TemplateChooser */
     private $templateChooser;
 
-    /** @var Sanitiser */
-    private $sanitiser;
-
-    public function __construct(TemplateChooser $templateChooser, Sanitiser $sanitiser)
+    public function __construct(TemplateChooser $templateChooser)
     {
         $this->templateChooser = $templateChooser;
-        $this->sanitiser = $sanitiser;
     }
 
     /**

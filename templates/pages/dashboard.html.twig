@@ -7,8 +7,13 @@
 {% endblock shoulder %}
 
 {% block title %}
-    {{ macro.icon('tachometer-alt') }}
-    {{ config.get('general/sitename') }}
+    {% if filter_value|default() %}
+        {{ macro.icon('search') }}
+        {{ 'title.filtered_by'|trans({'%filter%': filter_value})|raw }}
+    {% else %}
+        {{ macro.icon('tachometer-alt') }}
+        {{ config.get('general/sitename') }}
+    {% endif %}
 {% endblock title %}
 
 {# This 'topsection' gets output _before_ the main form, allowing `dump()`, without breaking Vue #}
