@@ -1,6 +1,43 @@
 Changelog
 =========
 
+## 4.0.0-rc.25
+
+Released: 2020-06-18
+
+### 📦 Additions and new features
+
+- Add Global search to backend (bobdenotter, [#1498](https://github.com/bolt/core/pull/1498))
+- Add ability to override routing with record_route (I-Valchev, [#1484](https://github.com/bolt/core/pull/1484))
+- Sort multiselect fields with drag and drop (I-Valchev, [#1481](https://github.com/bolt/core/pull/1481))
+
+### 🐛 Bug fixes
+
+- Fix current locale to be correct (I-Valchev, [#1499](https://github.com/bolt/core/pull/1499))
+- Fix: Don't show spinners on invalid form submissions (bobdenotter, [#1497](https://github.com/bolt/core/pull/1497))
+- Better check for maximum filesize (bobdenotter, [#1495](https://github.com/bolt/core/pull/1495))
+- Fix Imagelist alt 'true' issue. Clean up Vue components (I-Valchev, [#1494](https://github.com/bolt/core/pull/1494))
+- Include homepage record in Twig globals (I-Valchev, [#1491](https://github.com/bolt/core/pull/1491))
+- Don't break on missing Collection Fields (bobdenotter, [#1490](https://github.com/bolt/core/pull/1490))
+- Make Collection Field properly Iterable (bobdenotter, [#1485](https://github.com/bolt/core/pull/1485))
+- Fix capitalisation in groups (bobdenotter, [#1479](https://github.com/bolt/core/pull/1479))
+- Display the Set field correctly in the Editor when new field is added after saving record (I-Valchev, [#1471](https://github.com/bolt/core/pull/1471))
+- Fix excerpt length (bobdenotter, [#1469](https://github.com/bolt/core/pull/1469))
+- Update `getContentTypeName()`, add `getContentTypeSingularName()` (bobdenotter, [#1468](https://github.com/bolt/core/pull/1468))
+- Placeholder in Image Field is not clickable if empty (bobdenotter, [#1505](https://github.com/bolt/core/pull/1505))
+
+### 🛠️ Miscellaneous
+
+- Hide one of two groups of record action buttons on mobile (I-Valchev, [#1501](https://github.com/bolt/core/pull/1501))
+- Fixing some more deprecations (bobdenotter, [#1478](https://github.com/bolt/core/pull/1478))
+- Use new Symfony Error Controller, instead of Twig's old one. (bobdenotter, [#1477](https://github.com/bolt/core/pull/1477))
+- Fixing some deprecations (bobdenotter, [#1475](https://github.com/bolt/core/pull/1475))
+- Two more deprecations fixed! (bobdenotter, [#1480](https://github.com/bolt/core/pull/1480))
+
+### 🤖 Tests
+
+- Tests/twig (I-Valchev, [#1502](https://github.com/bolt/core/pull/1502))
+
 ## 4.0.0-rc.24
 
 Released: 2020-06-10
