@@ -46,6 +46,7 @@
         class="form-control"
         :placeholder="labels['listing.placeholder_search']"
         name="filter"
+        id="global-search"
         :value="filterValue"
       />
       <div class="input-group-append">
