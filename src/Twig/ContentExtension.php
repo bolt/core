@@ -72,6 +72,9 @@ class ContentExtension extends AbstractExtension
     /** @var Canonical */
     private $canonical;
 
+    /** @var ContentHelper */
+    private $contentHelper;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
@@ -82,7 +85,8 @@ class ContentExtension extends AbstractExtension
         Query $query,
         TaxonomyRepository $taxonomyRepository,
         TranslatorInterface $translator,
-        Canonical $canonical
+        Canonical $canonical,
+        ContentHelper $contentHelper
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
@@ -94,6 +98,7 @@ class ContentExtension extends AbstractExtension
         $this->taxonomyRepository = $taxonomyRepository;
         $this->translator = $translator;
         $this->canonical = $canonical;
+        $this->contentHelper = $contentHelper;
     }
 
     /**
@@ -325,27 +330,13 @@ class ContentExtension extends AbstractExtension
         $content->setTwig($env);
     }
 
-    public function getLink(Content $content, bool $canonical = false, string $locale = ''): ?string
+    public function getLink(Content $content, bool $canonical = false, ?string $locale = null): ?string
     {
         if ($content->getId() === null || $content->getDefinition()->get('viewless')) {
             return null;
         }
 
-        if (empty($locale)) {
-            $locale = $this->request->getLocale();
-        }
-
-        if ($this->isHomepage($content)) {
-            return $this->generateLink('homepage_locale', ['_locale' => $locale], $canonical);
-        }
-
-        $params = [
-            '_locale' => $locale,
-            'slugOrId' => $content->getSlug() ?: $content->getId(),
-            'contentTypeSlug' => $content->getContentTypeSingularSlug(),
-        ];
-
-        return $this->generateLink($content->getDefinition()->get('record_route'), $params, $canonical);
+        return $this->contentHelper->getLink($content, $canonical, $locale);
     }
 
     public function getEditLink(Content $content): ?string
@@ -681,45 +672,17 @@ class ContentExtension extends AbstractExtension
 
     public function isHomepage(Content $content): bool
     {
-        return $this->isSpecialpage($content, 'homepage');
+        return $this->contentHelper->isHomepage($content);
     }
 
     public function is404(Content $content): bool
     {
-        return $this->isSpecialpage($content, 'notfound');
+        return $this->contentHelper->is404($content);
     }
 
     public function isMaintenance(Content $content): bool
     {
-        return $this->isSpecialpage($content, 'maintenance');
-    }
-
-    private function isSpecialpage(Content $content, string $type): bool
-    {
-        $configSetting = $this->config->get('general/' . $type);
-
-        if (! is_iterable($configSetting)) {
-            $configSetting = (array) $configSetting;
-        }
-
-        foreach ($configSetting as $item) {
-            $item = explode('/', $item);
-
-            // Discard candidate if contentTypes don't match
-            if ($item[0] !== $content->getContentTypeSingularSlug() && $item[0] !== $content->getContentTypeSlug()) {
-                continue;
-            }
-
-            $idOrSlug = $item[1] ?? null;
-
-            // Success if we either have no id/slug for a Singleton, or if the id/slug matches
-            if ((empty($idOrSlug) && $content->getDefinition()->get('singleton')) ||
-                ($idOrSlug === $content->getSlug() || $idOrSlug === (string) $content->getId())) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->contentHelper->isMaintenance($content);
     }
 
     public function isHomepageListing(ContentType $contentType): bool

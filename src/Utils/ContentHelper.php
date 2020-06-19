@@ -4,11 +4,97 @@ declare(strict_types=1);
 
 namespace Bolt\Utils;
 
+use Bolt\Canonical;
+use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContentHelper
 {
+    /** @var Canonical */
+    private $canonical;
+
+    /** @var \Symfony\Component\HttpFoundation\Request|null */
+    private $request;
+
+    /** @var Config */
+    private $config;
+
+    public function __construct(Canonical $canonical, RequestStack $requestStack, Config $config)
+    {
+        $this->canonical = $canonical;
+        $this->request = $requestStack->getCurrentRequest();
+        $this->config = $config;
+    }
+
+    public function setCanonicalPath($record, ?string $locale = null): void
+    {
+        if (! $record instanceof Content) {
+            return;
+        }
+
+        $route = $this->getCanonicalRouteAndParams($record, $locale);
+
+        $this->canonical->setPath($route['route'], $route['params']);
+    }
+
+    public function getLink($record, bool $canonical = false, ?string $locale = null): ?string
+    {
+        if (! $record instanceof Content) {
+            return '';
+        }
+
+        $route = $this->getCanonicalRouteAndParams($record, $locale);
+
+        // Clone the canonical, as it is a shared service.
+        // We only want to get the url for the current request
+        $canonicalObj = clone $this->canonical;
+        $canonicalObj->setPath($route['route'], $route['params']);
+
+        return $canonical ? $canonicalObj->get() : $canonicalObj->getPath();
+    }
+
+    private function getCanonicalRouteAndParams(Content $record, ?string $locale = null): array
+    {
+        if ($this->isHomepage($record)) {
+            return [
+                'route' => 'homepage_locale',
+                'params' => [
+                    '_locale' => $locale,
+                ],
+            ];
+        }
+
+        if (! $locale) {
+            $locale = $this->request->getLocale();
+        }
+
+        return [
+            'route' => $record->getDefinition()->get('record_route'),
+            'params' => [
+                'contentTypeSlug' => $record->getContentTypeSingularSlug(),
+                'slugOrId' => $record->getSlug(),
+                '_locale' => $locale,
+            ],
+        ];
+    }
+
+    public function isHomepage(Content $content): bool
+    {
+        return $this->isSpecialpage($content, 'homepage');
+    }
+
+    public function is404(Content $content): bool
+    {
+        return $this->isSpecialpage($content, 'notfound');
+    }
+
+    public function isMaintenance(Content $content): bool
+    {
+        return $this->isSpecialpage($content, 'maintenance');
+    }
+
     public static function isSuitable(Content $record, string $which = 'title_format'): bool
     {
         $definition = $record->getDefinition();
@@ -115,5 +201,33 @@ class ContentHelper
         }
 
         return implode(' ', $titleParts);
+    }
+
+    private function isSpecialpage(Content $content, string $type): bool
+    {
+        $configSetting = $this->config->get('general/' . $type);
+
+        if (! is_iterable($configSetting)) {
+            $configSetting = (array) $configSetting;
+        }
+
+        foreach ($configSetting as $item) {
+            $item = explode('/', $item);
+
+            // Discard candidate if contentTypes don't match
+            if ($item[0] !== $content->getContentTypeSingularSlug() && $item[0] !== $content->getContentTypeSlug()) {
+                continue;
+            }
+
+            $idOrSlug = $item[1] ?? null;
+
+            // Success if we either have no id/slug for a Singleton, or if the id/slug matches
+            if ((empty($idOrSlug) && $content->getDefinition()->get('singleton')) ||
+                ($idOrSlug === $content->getSlug() || $idOrSlug === (string) $content->getId())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

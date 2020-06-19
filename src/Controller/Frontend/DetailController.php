@@ -10,6 +10,7 @@ use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
+use Bolt\Utils\ContentHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,10 +23,14 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
     /** @var ContentRepository */
     private $contentRepository;
 
-    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository)
+    /** @var ContentHelper */
+    private $contentHelper;
+
+    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, ContentHelper $contentHelper)
     {
         $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
+        $this->contentHelper = $contentHelper;
     }
 
     /**
@@ -52,12 +57,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
             $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
         }
 
-        // Update the canonical, with the correct path
-        $this->canonical->setPath(null, [
-            'contentTypeSlug' => $record ? $record->getContentTypeSingularSlug() : null,
-            'slugOrId' => $record ? $record->getSlug() : null,
-            '_locale' => $this->request->getLocale(),
-        ]);
+        $this->contentHelper->setCanonicalPath($record);
 
         return $this->renderSingle($record, $requirePublished);
     }
@@ -67,11 +67,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
         $record = $this->contentRepository->findOneByFieldValue($field, $value, $contentType);
 
-        // Update the canonical, with the correct path
-        $this->canonical->setPath(null, [
-            'field' => $field,
-            'value' => $value,
-        ]);
+        $this->contentHelper->setCanonicalPath($record);
 
         return $this->renderSingle($record);
     }

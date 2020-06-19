@@ -13,8 +13,8 @@ use Bolt\Entity\Field\TextField;
 use Bolt\Tests\DbAwareTestCase;
 use Bolt\Twig\ContentExtension;
 use Bolt\Twig\FieldExtension;
-use PHPUnit\Framework\MockObject\MockObject;
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use Twig\Environment;
 
 class ContentExtensionTestCase extends DbAwareTestCase
@@ -62,7 +62,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $this->field->method('isTranslatable')
             ->willReturn(false);
         $this->field->method('__toString')
-            ->willReturn("Hey, this is a title");
+            ->willReturn('Hey, this is a title');
 
         $this->assertSame('(unknown): Hey, this is a title', $this->extension->getTitle($this->content, 'en'));
     }
@@ -70,8 +70,8 @@ class ContentExtensionTestCase extends DbAwareTestCase
     public function testTitleFields(): void
     {
         $this->definition->method('has')
-        ->withConsecutive(['title_format'])
-        ->willReturn(true);
+            ->withConsecutive(['title_format'])
+            ->willReturn(true);
         $this->definition->method('get')
             ->withConsecutive(['title_format'])
             ->willReturn('{number}: {title}');
@@ -94,7 +94,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $this->content->method('getFields')
             ->willReturn(new ArrayCollection([$field1, $field2, $imagefield, $field3]));
 
-        $this->assertSame(null, $this->extension->getImage($this->content));
+        $this->assertNull($this->extension->getImage($this->content));
 
         $imagefield->method('get')
             ->withConsecutive(['filename'])
@@ -113,7 +113,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $image2 = $this->createMock(ImageField::class);
         $imagelist = $this->createMock(ImagelistField::class);
         $field3 = $this->createMock(Field::class);
-                $imagelist->method('getValue')
+        $imagelist->method('getValue')
             ->willReturn([$image1, $image2]);
         $this->content->method('getFields')
             ->willReturn(new ArrayCollection([$field1, $field2, $imagelist, $field3]));
@@ -139,7 +139,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $field1 = $this->createMock(Field::class);
         $field2 = $this->createMock(Field::class);
         $field1->method('__toString')->willReturn("In this week's news");
-        $field2->method('__toString')->willReturn("Bolt 4 is pretty awesome.");
+        $field2->method('__toString')->willReturn('Bolt 4 is pretty awesome.');
         $this->content->method('getField')
             ->withConsecutive(['subheading'], ['body'])
             ->willReturnOnConsecutiveCalls($field1, $field2);
@@ -150,7 +150,6 @@ class ContentExtensionTestCase extends DbAwareTestCase
             ->willReturn(1);
 
         $this->assertSame("In this week's ne…", $this->extension->getExcerpt($this->content, 18));
-
     }
 
     public function testExceptFromFormatFull(): void
@@ -166,7 +165,7 @@ class ContentExtensionTestCase extends DbAwareTestCase
         $field1 = $this->createMock(Field::class);
         $field2 = $this->createMock(Field::class);
         $field1->method('__toString')->willReturn("In this week's news");
-        $field2->method('__toString')->willReturn("Bolt 4 is pretty awesome.");
+        $field2->method('__toString')->willReturn('Bolt 4 is pretty awesome.');
         $this->content->method('getField')
             ->withConsecutive(['subheading'], ['body'])
             ->willReturnOnConsecutiveCalls($field1, $field2);
@@ -181,20 +180,19 @@ class ContentExtensionTestCase extends DbAwareTestCase
 
     public function testExcerptNoFormat(): void
     {
-
         $title = $this->createConfiguredMock(TextField::class, [
-           'getName' => 'title',
-           '__toString' => 'This field should not be used'
+            'getName' => 'title',
+            '__toString' => 'This field should not be used',
         ]);
 
         $subheading = $this->createConfiguredMock(TextField::class, [
-           'getName' => 'subheading',
-           '__toString' => 'This subheading is OK.'
+            'getName' => 'subheading',
+            '__toString' => 'This subheading is OK.',
         ]);
 
         $body = $this->createConfiguredMock(TextField::class, [
-           'getName' => 'body',
-           '__toString' => 'Here is the long body. It is OK too.'
+            'getName' => 'body',
+            '__toString' => 'Here is the long body. It is OK too.',
         ]);
 
         $this->content->method('getFields')
@@ -207,20 +205,20 @@ class ContentExtensionTestCase extends DbAwareTestCase
     public function testIsCurrentGlobalTwig(): void
     {
         $envCurrent = $this->createConfiguredMock(Environment::class, [
-           'getGlobals' => ['record' => $this->content]
+            'getGlobals' => [
+                'record' => $this->content,
+            ],
         ]);
 
         $notCurrentContent = $this->createMock(Content::class);
 
         $envNotCurrent = $this->createConfiguredMock(Environment::class, [
-            'getGlobals' => ['record' => $notCurrentContent]
+            'getGlobals' => [
+                'record' => $notCurrentContent,
+            ],
         ]);
-
 
         $this->assertTrue($this->extension->isCurrent($envCurrent, $this->content));
         $this->assertFalse($this->extension->isCurrent($envNotCurrent, $this->content));
     }
-
-    
-
 }
