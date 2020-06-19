@@ -40,13 +40,17 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var FileLocations */
     private $fileLocations;
 
-    public function __construct(Config $config, FileLocations $fileLocations)
+    /** @var string */
+    private $defaultLocale;
+
+    public function __construct(Config $config, FileLocations $fileLocations, string $defaultLocale)
     {
         $this->faker = Factory::create();
 
         $this->presetRecords = $this->getPresetRecords();
         $this->config = $config;
         $this->fileLocations = $fileLocations;
+        $this->defaultLocale = $defaultLocale;
     }
 
     public function getDependencies()
@@ -185,10 +189,17 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $content->addField($field);
         }
 
+        // Prepopulate locales. Leave last one empty for tests.
         if (isset($fieldType['localize']) && $fieldType['localize']) {
-            foreach ($contentType['locales'] as $locale) {
-                $field->translate($locale, false)->setValue($field->getValue());
+            $locales = $contentType['locales']->toArray();
+            foreach ($locales as $locale) {
+                if ($locale !== $this->defaultLocale && array_search($locale, $locales, true) !== count($locales) - 1) {
+                    $value = $preset[$name] ?? $this->getValuesforFieldType($name, $fieldType, $contentType['singleton']);
+                    $field->translate($locale, false)->setValue($value);
+                }
             }
+
+            $field->mergeNewTranslations();
         }
 
         return $field;

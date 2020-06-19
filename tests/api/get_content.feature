@@ -17,7 +17,8 @@ Feature: Get content with API
        "authorName": @string@,
        "fieldValues": {
           "title": {
-             "en": @string@
+             "en": @string@,
+             "@*@": "@*@"
           },
           "slug": @string@,
           "image": {
@@ -62,7 +63,8 @@ Feature: Get content with API
      "authorName": @string@,
      "fieldValues": {
         "title": {
-          "en": @string@
+          "en": @string@,
+          "@*@": "@*@"
         },
         "slug": @string@,
         "image": {
@@ -112,7 +114,8 @@ Feature: Get content with API
            "authorName": @string@,
            "fieldValues": {
               "title": {
-                "en": @string@
+                "en": @string@,
+                "@*@": "@*@"
               },
               "slug": @string@,
               "image": {
@@ -175,7 +178,8 @@ Feature: Get content with API
            "authorName": @string@,
            "fieldValues": {
               "title": {
-                "en": @string@
+                "en": @string@,
+                "@*@": "@*@"
               },
               "slug": @string@,
               "image": {
@@ -235,7 +239,8 @@ Feature: Get content with API
      "definition": "@*@",
      "fieldValues": {
         "title": {
-            "en": @string@
+            "en": @string@,
+            "@*@": "@*@"
         },
         "slug": @string@,
         "image": {

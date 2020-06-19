@@ -6,6 +6,7 @@ namespace Bolt\Storage\Directive;
 
 use Bolt\Storage\QueryInterface;
 use Bolt\Utils\ContentHelper;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  *  Directive to alter query based on 'order' parameter.
@@ -19,6 +20,9 @@ class OrderDirective
         if ($order === '') {
             return;
         }
+
+        // todo: This should be passed somehow, not created on the fly.
+        $locale = Request::createFromGlobals()->getLocale();
 
         // remove default order
         $query->getQueryBuilder()->resetDQLPart('orderBy');
@@ -34,10 +38,10 @@ class OrderDirective
 
             if (is_array($order)) {
                 foreach ($order as $orderitem) {
-                    $this->setOrderBy($query, $orderitem, $direction);
+                    $this->setOrderBy($query, $orderitem, $direction, $locale);
                 }
             } else {
-                $this->setOrderBy($query, $order, $direction);
+                $this->setOrderBy($query, $order, $direction, $locale);
             }
         }
     }
@@ -46,7 +50,7 @@ class OrderDirective
      * Set the query OrderBy directives
      * given an order (e.g. 'heading', 'id') and direction (ASC|DESC)
      */
-    private function setOrderBy(QueryInterface $query, string $order, string $direction): void
+    private function setOrderBy(QueryInterface $query, string $order, string $direction, string $locale): void
     {
         if (in_array($order, $query->getCoreFields(), true)) {
             $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
@@ -70,6 +74,8 @@ class OrderDirective
                 ->leftJoin('content.fields', $fieldsAlias)
                 ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
                 ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
+                ->andWhere($translationsAlias . '.locale = :' . $fieldAlias . '_locale')
+                ->setParameter($fieldAlias . '_locale', $locale)
                 ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction)
                 ->setParameter($fieldAlias, $order);
 

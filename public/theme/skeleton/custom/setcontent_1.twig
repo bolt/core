@@ -30,13 +30,13 @@
 
     <section id="two">
         <h1>Two</h1>
-        {% setcontent pages = "pages, entries" limit 4 %}
+        {% setcontent pages = "pages, entries" limit 4 order '-publishedAt' %}
         Results: <span id="results-two">{{ entries|length > 5 ? 'yes' }}</span>
         <ul>
         {% for page in pages %}
             <li>
                 {{ page.contenttype }} {{ page.id }} . {{ page|title }}
-                <span class="s{{ loop.index }}">{{ _self.isbigger(page.publishedAt, last|default()) }}<span></span>
+                <span class="s{{ loop.index }}">{{ _self.issmaller(page.publishedAt, last|default()) }}</span>
             </li>
             {% set last = page.publishedAt %}
         {% endfor %}
@@ -63,7 +63,7 @@
         {% for page in pages %}
             <li>
                 {{ page.contenttype }} {{ page.id }} . {{ page.heading }}
-                <span class="s{{ loop.index }}">{{ _self.isbigger(page.heading, last|default()) }}<span></span>
+                <span class="s{{ loop.index }}">{{ _self.isbigger(page.heading, last|default()) }}</span>
             </li>
             {% set last = page.heading %}
         {% endfor %}
