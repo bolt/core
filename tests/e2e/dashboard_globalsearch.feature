@@ -1,7 +1,6 @@
 Feature: Global Search on Dashboard
 
   @javascript
-  @foo
   Scenario: As an Admin I want to filter content
   Given I am logged in as "admin"
   And I am on "/bolt"
