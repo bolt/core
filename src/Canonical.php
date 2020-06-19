@@ -159,15 +159,10 @@ class Canonical
             $route = $this->request->attributes->get('_route');
         }
 
-        try {
-            $this->path = $this->generateLink($route, $params, false);
-        } catch (InvalidParameterException | MissingMandatoryParametersException $e) {
-            // Just use the current URL /shrug
-            $this->path = $this->request->getUri();
-        }
+        $this->path = $this->generateLink($route, $params, false);
     }
 
-    public function generateLink(string $route, array $params, $canonical = false): ?string
+    public function generateLink(?string $route, ?array $params, $canonical = false): ?string
     {
         if (isset($params['_locale']) && $params['_locale'] === $this->defaultLocale) {
             unset($params['_locale']);
@@ -181,10 +176,15 @@ class Canonical
             }
         }
 
-        return $this->urlGenerator->generate(
-            $route,
-            $params,
-            $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
-        );
+        try {
+            return $this->urlGenerator->generate(
+                $route,
+                $params,
+                $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
+            );
+        } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException $e) {
+            // Just use the current URL /shrug
+            return$this->request->getUri();
+        }
     }
 }

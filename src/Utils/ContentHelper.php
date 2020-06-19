@@ -41,6 +41,10 @@ class ContentHelper
 
     public function getLink($record, bool $canonical = false, ?string $locale = null): ?string
     {
+        if (! $record instanceof Content) {
+            return '';
+        }
+
         $route = $this->getCanonicalRouteAndParams($record, $locale);
 
         // Clone the canonical, as it is a shared service.
