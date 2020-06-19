@@ -45,11 +45,11 @@ class FieldFillListener
     public function fillSet(SetField $entity): void
     {
         $definition = $entity->getDefinition();
-        $fields = $this->intersectFieldsAndDefinition($this->fields->findAllByParent($entity), $definition);
+        $fields = $this->fields->findAllByParent($entity);
 
         /** @var Field $field */
         foreach ($fields as $field) {
-            $definition = $entity->getDefinition()->get('fields')[$field->getName()] ?? new Collection();
+            $definition = $definition->get('fields')[$field->getName()] ?? new Collection();
             $field->setDefinition($field->getName(), $definition);
         }
 
