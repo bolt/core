@@ -31,7 +31,7 @@ Feature: Preview record after editing
 
     Then I should be on "/bolt/edit/2?edit_locale=nl"
 
-    When I scroll ".record-actions" into view
+    When I scroll the 1st ".record-actions" into view
     And I press "View saved version"
 
     Then I should not see "This is the title in the wrong locale"
