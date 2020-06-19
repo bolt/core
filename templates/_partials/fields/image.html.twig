@@ -1,6 +1,6 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
-{% set extensions = field.definition.get('extensions')|default('') %}
+{% set extensions = field.definition.get('extensions')|default([]) %}
 {% set info %}
 {{ 'upload.allow_file_types'|trans }}: <code>{{ extensions|join('</code>, <code>') }}</code><br>
 {{ 'upload.max_size'|trans }}: {{ config.maxupload|format_bytes }}
