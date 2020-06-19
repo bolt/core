@@ -11,7 +11,6 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -58,20 +57,20 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
     /**
      * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
      */
-    public function save(Request $request, ValidatorInterface $validator): Response
+    public function save(ValidatorInterface $validator): Response
     {
-        $this->validateCsrf($request, 'profileedit');
+        $this->validateCsrf('profileedit');
 
         /** @var User $user */
         $user = $this->getUser();
         $displayName = $user->getDisplayName();
-        $locale = Json::findScalar($request->get('locale'));
+        $locale = Json::findScalar($this->getFromRequest('locale'));
 
-        $user->setDisplayName($request->get('displayName'));
-        $user->setEmail($request->get('email'));
+        $user->setDisplayName($this->getFromRequest('displayName'));
+        $user->setEmail($this->getFromRequest('email'));
         $user->setLocale($locale);
-        $user->setbackendTheme($request->get('backendTheme'));
-        $newPassword = $request->get('password');
+        $user->setbackendTheme($this->getFromRequest('backendTheme'));
+        $newPassword = $this->getFromRequest('password');
 
         // Set the plain password to check for validation
         if (! empty($newPassword)) {
@@ -109,7 +108,7 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
 
         $this->em->flush();
 
-        $request->getSession()->set('_locale', $locale);
+        $this->request->getSession()->set('_locale', $locale);
 
         $this->addFlash('success', 'user.updated_profile');
 
