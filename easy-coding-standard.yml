@@ -31,10 +31,6 @@ services:
     # Naming
     PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer: ~
 
-    # Debug
-    Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~
-    Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: ~
-
     # final classes
     PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer: ~
 
@@ -95,8 +91,6 @@ parameters:
         PhpCsFixer\Fixer\Operator\IncrementStyleFixer: ~
         PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer: ~
         PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer: ~
-        Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: ~ #to be removed before beta release
-        Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~ #to be removed before beta release
 
         # Deprecated. Todo: Find replacement
         Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer: ~
