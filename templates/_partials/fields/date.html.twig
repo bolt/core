@@ -30,7 +30,7 @@
     :readonly='{{ readonly|json_encode }}'
     form='{{ form }}'
     mode='{{ mode }}'
-    locale='{{user.locale}}'
+    locale='{{app.user.locale}}'
     labels='{{ { 'toggle': 'editor_date.toggle'|trans }|json_encode }}'
     :required='{{ required|json_encode }}'
     :errormessage='{{ errormessage|json_encode }}'
