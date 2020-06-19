@@ -260,6 +260,9 @@
     "guzzlehttp/psr7": {
         "version": "1.6.1"
     },
+    "hashids/hashids": {
+        "version": "3.0.0"
+    },
     "instaclick/php-webdriver": {
         "version": "1.4.7"
     },
@@ -381,7 +384,7 @@
         "version": "2.0.1"
     },
     "php": {
-        "version": "7.2"
+        "version": "7.3"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -564,6 +567,18 @@
     },
     "roave/security-advisories": {
         "version": "dev-master"
+    },
+    "roukmoute/hashids-bundle": {
+        "version": "1.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.4",
+            "ref": "cbd9de476f57c91bd6f8a4db1fd0ed05befa8fc4"
+        },
+        "files": [
+            "config/packages/roukmoute_hashids.yaml"
+        ]
     },
     "scienta/doctrine-json-functions": {
         "version": "4.1.2"
@@ -860,6 +875,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.14.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.17.0"
     },
     "symfony/process": {
         "version": "v4.4.4"
