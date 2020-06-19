@@ -74,8 +74,8 @@ class OrderDirective
                 ->leftJoin('content.fields', $fieldsAlias)
                 ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
                 ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
-                ->andWhere($translationsAlias . '.locale = :locale')
-                ->setParameter(':locale', $locale)
+                ->andWhere($translationsAlias . '.locale = :' . $fieldAlias . '_locale')
+                ->setParameter($fieldAlias . '_locale', $locale)
                 ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction)
                 ->setParameter($fieldAlias, $order);
 
