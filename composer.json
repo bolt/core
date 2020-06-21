@@ -144,7 +144,7 @@
             "php bin/console bolt:info"
         ],
         "auto-scripts": {
-            "cache:clear": "symfony-cmd",
+            "cache:clear --no-warmup": "symfony-cmd",
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
         },
         "periodical-tasks": [
