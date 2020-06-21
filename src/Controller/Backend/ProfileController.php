@@ -66,11 +66,11 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
         $displayName = $user->getDisplayName();
         $locale = Json::findScalar($this->getFromRequest('locale'));
 
-        $user->setDisplayName($this->getFromRequest('displayName'));
-        $user->setEmail($this->getFromRequest('email'));
+        $user->setDisplayName((string) $this->getFromRequest('displayName'));
+        $user->setEmail((string) $this->getFromRequest('email'));
         $user->setLocale($locale);
-        $user->setbackendTheme($this->getFromRequest('backendTheme'));
-        $newPassword = $this->getFromRequest('password');
+        $user->setbackendTheme((string) $this->getFromRequest('backendTheme'));
+        $newPassword = (string) $this->getFromRequest('password');
 
         // Set the plain password to check for validation
         if (! empty($newPassword)) {
