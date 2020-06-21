@@ -9,11 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ExtensionController extends AbstractController
 {
+    use ServicesTrait;
+    use ConfigTrait;
+
     public function __construct(Config $config)
     {
         $this->boltConfig = $config;
     }
-
-    use ServicesTrait;
-    use ConfigTrait;
 }
