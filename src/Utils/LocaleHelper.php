@@ -50,6 +50,11 @@ class LocaleHelper
         $this->contentRepository = $contentRepository;
     }
 
+    public function getCurrentLocale(Environment $twig): ?Collection
+    {
+        return $this->getLocales($twig)->firstWhere('current', true);
+    }
+
     public function getLocales(Environment $twig, ?Collection $localeCodes = null, bool $all = false): Collection
     {
         if ($localeCodes === null) {

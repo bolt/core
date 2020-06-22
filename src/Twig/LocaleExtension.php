@@ -62,7 +62,7 @@ class LocaleExtension extends AbstractExtension
 
     public function getHtmlLang(Environment $twig): string
     {
-        $current = $this->localeHelper->getLocales($twig)->firstWhere('current', true);
+        $current = $this->localeHelper->getCurrentLocale($twig);
 
         if ($current) {
             return $current->get('code');
