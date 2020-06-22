@@ -17,6 +17,7 @@ use Bolt\Storage\Handler\FirstQueryHandler;
 use Bolt\Storage\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Handler\LatestQueryHandler;
 use Bolt\Storage\Handler\SelectQueryHandler;
+use Bolt\Twig\Notifications;
 use Bolt\Utils\LocaleHelper;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,11 +80,13 @@ class ContentQueryParser
 
     /** @var Environment */
     private $twig;
+    /** @var Notifications */
+    private $notifications;
 
     /**
      * Constructor.
      */
-    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, LocaleHelper $localeHelper, Environment $twig, ?QueryInterface $queryHandler = null)
+    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, LocaleHelper $localeHelper, Environment $twig, Notifications $notifications, ?QueryInterface $queryHandler = null)
     {
         $this->repo = $repo;
         $this->requestStack = $requestStack;
@@ -94,6 +97,7 @@ class ContentQueryParser
 
         $this->localeHelper = $localeHelper;
         $this->twig = $twig;
+        $this->notifications = $notifications;
 
         $this->setupDefaults();
         $this->config = $config;
@@ -111,7 +115,7 @@ class ContentQueryParser
 
         $this->addDirectiveHandler('getquery', new GetQueryDirective());
         $this->addDirectiveHandler('limit', new LimitDirective());
-        $this->addDirectiveHandler('order', new OrderDirective($this->localeHelper, $this->twig));
+        $this->addDirectiveHandler('order', new OrderDirective($this->localeHelper, $this->twig, $this->notifications));
         $this->addDirectiveHandler('page', new OffsetDirective());
         $this->addDirectiveHandler('printquery', new PrintQueryDirective());
         $this->addDirectiveHandler('returnsingle', new ReturnSingleDirective());

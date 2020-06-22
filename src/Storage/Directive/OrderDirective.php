@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage\Directive;
 
 use Bolt\Storage\QueryInterface;
+use Bolt\Twig\Notifications;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\LocaleHelper;
 use Twig\Environment;
@@ -22,10 +23,14 @@ class OrderDirective
     /** @var Environment */
     private $twig;
 
-    public function __construct(LocaleHelper $localeHelper, Environment $twig)
+    /** @var Notifications */
+    private $notifications;
+
+    public function __construct(LocaleHelper $localeHelper, Environment $twig, Notifications $notifications)
     {
         $this->localeHelper = $localeHelper;
         $this->twig = $twig;
+        $this->notifications = $notifications;
     }
 
     public function __invoke(QueryInterface $query, string $order): void
@@ -73,7 +78,8 @@ class OrderDirective
                 ->addOrderBy('user.username', $direction);
         } else {
             if (! $this->isActualField($query, $order)) {
-                dump("A query with ordering on a Field (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
+                $this->notifications->warning('Incorrect OrderBy clause for field that does not exist',
+                    "A query with ordering on a Field (`${order}`) that\'s not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
             }
             $fieldsAlias = 'fields_order_' . $query->getIndex();
             $fieldAlias = 'order_' . $query->getIndex();
