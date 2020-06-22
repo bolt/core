@@ -13,7 +13,6 @@ use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -75,7 +74,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/user-disable/{id}", methods={"POST", "GET"}, name="bolt_user_disable", requirements={"id": "\d+"})
      */
-    public function disable(?User $user, Request $request): Response
+    public function disable(?User $user): Response
     {
         if ($user->isDisabled()) {
             $user->enable();
@@ -96,7 +95,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/user-delete/{id}", methods={"POST", "GET"}, name="bolt_user_delete", requirements={"id": "\d+"})
      */
-    public function delete(?User $user, Request $request): Response
+    public function delete(?User $user): Response
     {
         $this->em->remove($user);
         $contentArray = $this->getDoctrine()->getManager()->getRepository(\Bolt\Entity\Content::class)->findBy(['author' => $user]);
@@ -122,27 +121,27 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
      */
-    public function save(?User $user, Request $request, ValidatorInterface $validator): Response
+    public function save(?User $user, ValidatorInterface $validator): Response
     {
-        $this->validateCsrf($request, 'useredit');
+        $this->validateCsrf('useredit');
 
         if (! $user instanceof User) {
             $user = UserRepository::factory();
         }
 
         $displayName = $user->getDisplayName();
-        $locale = Json::findScalar($request->get('locale'));
-        $roles = (array) Json::findScalar($request->get('roles'));
+        $locale = Json::findScalar($this->getFromRequest('locale'));
+        $roles = (array) Json::findScalar($this->getFromRequest('roles'));
 
         if (empty($user->getUsername())) {
-            $user->setUsername($request->get('username'));
+            $user->setUsername($this->getFromRequest('username'));
         }
-        $user->setDisplayName($request->get('displayName'));
-        $user->setEmail($request->get('email'));
+        $user->setDisplayName($this->getFromRequest('displayName'));
+        $user->setEmail($this->getFromRequest('email'));
         $user->setLocale($locale);
         $user->setRoles($roles);
-        $user->setbackendTheme($request->get('backendTheme'));
-        $newPassword = $request->get('password');
+        $user->setbackendTheme($this->getFromRequest('backendTheme'));
+        $newPassword = $this->getFromRequest('password');
         // Set the plain password to check for validation
         if (! empty($newPassword)) {
             $user->setPlainPassword($newPassword);

@@ -7,7 +7,6 @@ namespace Bolt\Controller\Backend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,7 +18,7 @@ class ContentLocalizationController extends TwigAwareController implements Backe
     /**
      * @Route("/edit_locales/{id}", name="bolt_content_edit_locales", methods={"GET"})
      */
-    public function locales(Request $request, Content $content): Response
+    public function locales(Content $content): Response
     {
         $content->getFields();
 

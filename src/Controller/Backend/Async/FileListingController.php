@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Tightenco\Collect\Support\Collection;
 
@@ -20,18 +21,22 @@ class FileListingController implements AsyncZoneInterface
     /** @var Config */
     private $config;
 
-    public function __construct(Config $config)
+    /** @var Request */
+    private $request;
+
+    public function __construct(Config $config, RequestStack $requestStack)
     {
         $this->config = $config;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
      * @Route("/list_files", name="bolt_async_filelisting", methods={"GET"})
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $locationName = $request->query->get('location', 'files');
-        $type = $request->query->get('type', '');
+        $locationName = $this->request->query->get('location', 'files');
+        $type = $this->request->query->get('type', '');
 
         $path = $this->config->getPath($locationName, true);
 

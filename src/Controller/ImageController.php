@@ -10,6 +10,7 @@ use League\Glide\Server;
 use League\Glide\ServerFactory;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,21 +31,20 @@ class ImageController
     /** @var Request */
     private $request;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, RequestStack $requestStack)
     {
         $this->config = $config;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
      * @Route("/thumbs/{paramString}/{filename}", methods={"GET"}, name="thumbnail", requirements={"filename"=".+"})
      */
-    public function thumbnail(string $paramString, string $filename, Request $request)
+    public function thumbnail(string $paramString, string $filename)
     {
         if (! $this->isImage($filename)) {
             throw new NotFoundHttpException('Thumbnail not found');
         }
-
-        $this->request = $request;
 
         $this->parseParameters($paramString);
         $this->createServer();

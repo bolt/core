@@ -168,4 +168,17 @@ class TwigAwareController extends AbstractController
         // `clean` returns a string, but we want to be able to get `null`.
         return empty($parameter) ? $default : $parameter;
     }
+
+    protected function getFromRequestArray(array $parameters, ?string $default = null): ?string
+    {
+        foreach ($parameters as $parameter) {
+            $res = $this->getFromRequest($parameter);
+
+            if (! empty($res)) {
+                return $res;
+            }
+        }
+
+        return $default;
+    }
 }
