@@ -133,6 +133,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             'record' => $content,
             'locales' => $content->getLocales(),
             'currentlocale' => $this->getEditLocale($request, $content),
+            'defaultlocale' => $this->defaultLocale,
         ];
 
         return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
