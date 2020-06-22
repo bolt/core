@@ -46,11 +46,11 @@
                 {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary sm') }}
                 {% if user.id != iteratedUser.id %}
                     {% if iteratedUser.disabled %}
-                        {{ macro.buttonlink('action.enable', path('bolt_user_disable', {'id': iteratedUser.id}), 'thumbs-up', 'secondary sm') }}
+                        {{ macro.buttonlink('action.enable', path('bolt_user_disable', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}), 'thumbs-up', 'secondary sm') }}
                     {% else %}
-                        {{ macro.buttonlink('action.disable', path('bolt_user_disable', {'id': iteratedUser.id}), 'ban', 'secondary sm') }}
+                        {{ macro.buttonlink('action.disable', path('bolt_user_disable', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}), 'ban', 'secondary sm') }}
                     {% endif %}
-                    {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id}), 'trash', 'danger sm') }}
+                    {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}), 'trash', 'danger sm') }}
                 {%  endif %}
             </td>
         </tr>

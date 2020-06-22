@@ -76,6 +76,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      */
     public function disable(?User $user): Response
     {
+        $this->validateCsrf('useredit');
+
         if ($user->isDisabled()) {
             $user->enable();
             $this->addFlash('success', 'user.enabled_successfully');
@@ -97,6 +99,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      */
     public function delete(?User $user): Response
     {
+        $this->validateCsrf('useredit');
+
         $this->em->remove($user);
         $contentArray = $this->getDoctrine()->getManager()->getRepository(\Bolt\Entity\Content::class)->findBy(['author' => $user]);
         foreach ($contentArray as $content) {
