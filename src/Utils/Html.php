@@ -11,10 +11,10 @@ class Html
     /**
      * Trim text to a given length.
      *
-     * @param string $str           String to trim
-     * @param int    $desiredLength Target string length
-     * @param bool   $hellip        Add dots when the string is too long
-     * @param int    $cutOffCap     Maximum difference between string length when removing words
+     * @param string $str String to trim
+     * @param int $desiredLength Target string length
+     * @param bool $hellip Add dots when the string is too long
+     * @param int $cutOffCap Maximum difference between string length when removing words
      *
      * @return string Trimmed string
      */

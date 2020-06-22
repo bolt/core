@@ -330,9 +330,9 @@ class QueryParameterParser
      *
      * This gives the ability to define additional value -> operator matches
      *
-     * @param string $token    Regex pattern to match against
-     * @param array  $params   Options to provide to the matched param
-     * @param bool   $priority If set item will be prepended to start of list
+     * @param string $token Regex pattern to match against
+     * @param array $params Options to provide to the matched param
+     * @param bool $priority If set item will be prepended to start of list
      */
     public function addValueMatcher(string $token, array $params = [], $priority = null): void
     {

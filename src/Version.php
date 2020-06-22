@@ -57,8 +57,8 @@ final class Version
      * @see http://semver.org/ For an explanation on semantic versioning.
      * @see http://php.net/manual/en/function.version-compare.php#refsect1-function.version-compare-notes Notes on version_compare
      *
-     * @param string $version  the version to compare
-     * @param string $operator The comparison operator: <, <=, >, >=, ==, !=
+     * @param string $version the version to compare
+     * @param string $operator the comparison operator: <, <=, >, >=, ==, !=
      *
      * @return bool whether the comparison succeeded
      */
