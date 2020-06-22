@@ -512,6 +512,10 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $locale = $content->getDefaultLocale();
         }
 
+        if (! $locale) {
+            $locale = $this->defaultLocale;
+        }
+
         return $locale;
     }
 
