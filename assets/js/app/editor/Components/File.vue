@@ -274,6 +274,7 @@ export default {
           this.progress = 0;
         })
         .catch(err => {
+          bootbox.alert(err.response.data + '<br>File did not upload.');
           console.warn(err);
           this.progress = 0;
         });

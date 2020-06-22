@@ -274,6 +274,7 @@ export default {
           window.reEnablePatientButtons();
         })
         .catch(err => {
+          bootbox.alert(err.response.data + '<br>Image did not upload.');
           console.warn(err);
           window.reEnablePatientButtons();
         });
