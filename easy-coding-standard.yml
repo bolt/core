@@ -90,6 +90,7 @@ parameters:
         PhpCsFixer\Fixer\Operator\IncrementStyleFixer: ~
         PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer: ~
         PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer: ~
+        PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer: ~
 
         # Deprecated. Todo: Find replacement
         Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer: ~
