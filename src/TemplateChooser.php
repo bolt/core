@@ -42,7 +42,7 @@ class TemplateChooser
             $templates = $templates->merge($this->forRecord($content));
         }
 
-        return $templates->unique()->toArray();
+        return $templates->unique()->filter()->toArray();
     }
 
     /**

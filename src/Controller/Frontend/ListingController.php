@@ -9,7 +9,6 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Query;
 use Bolt\TemplateChooser;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,12 +38,12 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
      *     methods={"GET|POST"})
      */
-    public function listing(ContentRepository $contentRepository, Request $request, string $contentTypeSlug): Response
+    public function listing(ContentRepository $contentRepository, string $contentTypeSlug): Response
     {
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
-        $page = (int) $request->query->get('page', '1');
+        $page = (int) $this->getFromRequest('page', '1');
         $amountPerPage = $contentType->get('listing_records');
-        $order = $request->query->get('order', $contentType->get('order'));
+        $order = $this->getFromRequest('order', $contentType->get('order'));
 
         $records = $this->query->getContent($contentTypeSlug, [
             'status' => 'published',

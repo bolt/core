@@ -8,7 +8,6 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Log;
 use Bolt\Repository\LogRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,10 +19,10 @@ class LogViewerController extends TwigAwareController implements BackendZoneInte
     /**
      * @Route("/logviewer", name="bolt_logviewer", methods={"GET"})
      */
-    public function index(LogRepository $log, Request $request): Response
+    public function index(LogRepository $log): Response
     {
         $amount = $this->config->get('general/log/amount', 10);
-        $page = (int) $request->get('page', 1);
+        $page = (int) $this->getFromRequest('page', '1');
 
         /** @var Log $items */
         $items = $log->findLatest($page, $amount);

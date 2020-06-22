@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -51,9 +50,9 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/file-edit/{location}", name="bolt_file_edit", methods={"GET"})
      */
-    public function edit(string $location, Request $request): Response
+    public function edit(string $location): Response
     {
-        $file = $request->query->get('file');
+        $file = $this->getFromRequest('file');
         if (mb_strpos($file, '/') !== 0) {
             $file = '/' . $file;
         }
@@ -75,13 +74,13 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/file-edit/{location}", name="bolt_file-edit_post", methods={"POST"}, requirements={"file"=".+"})
      */
-    public function save(Request $request, UrlGeneratorInterface $urlGenerator): Response
+    public function save(UrlGeneratorInterface $urlGenerator): Response
     {
-        $this->validateCsrf($request, 'editfile');
+        $this->validateCsrf('editfile');
 
-        $file = $request->request->get('file');
-        $locationName = $request->request->get('location');
-        $contents = $request->request->get('editfile');
+        $file = $this->getFromRequest('file');
+        $locationName = $this->getFromRequest('location');
+        $contents = $this->getFromRequest('editfile');
         $extension = Path::getExtension($file);
 
         $basepath = $this->config->getPath($locationName);
@@ -116,10 +115,10 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/file-delete/", name="bolt_file_delete", methods={"POST", "GET"})
      */
-    public function handleDelete(Request $request): Response
+    public function handleDelete(): Response
     {
         try {
-            $this->validateCsrf($request, 'file-delete');
+            $this->validateCsrf('file-delete');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [
@@ -128,8 +127,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $locationName = $request->get('location', '');
-        $path = $request->get('path', '');
+        $locationName = $this->getFromRequest('location', '');
+        $path = $this->getFromRequest('path', '');
 
         $media = $this->mediaRepository->findOneByFullFilename($path, $locationName);
 
@@ -156,10 +155,10 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/file-duplicate/", name="bolt_file_duplicate", methods={"POST", "GET"})
      */
-    public function handleDuplicate(Request $request): Response
+    public function handleDuplicate(): Response
     {
         try {
-            $this->validateCsrf($request, 'file-duplicate');
+            $this->validateCsrf('file-duplicate');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [
@@ -168,8 +167,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $locationName = $request->get('location', '');
-        $path = $request->get('path', '');
+        $locationName = $this->getFromRequest('location', '');
+        $path = $this->getFromRequest('path', '');
 
         $originalFilepath = Path::canonicalize($locationName . '/' . $path);
 
