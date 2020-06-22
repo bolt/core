@@ -28,6 +28,7 @@ class ContentTypesParser extends BaseParser
         $this->localeCodes = empty($locales) ? [] : explode('|', $locales);
         $this->generalConfig = $generalConfig;
         $this->defaultLocale = $defaultLocale;
+
         parent::__construct($projectDir, $filename);
     }
 
@@ -227,7 +228,8 @@ class ContentTypesParser extends BaseParser
      */
     protected function parseFieldsAndGroups(array $fields): array
     {
-        $currentGroup = 'content'; // Default group name, if none was specified
+        // Default group name, if none was specified
+        $currentGroup = 'content';
         $groups = [];
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 

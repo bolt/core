@@ -21,6 +21,7 @@ class ResetSecretCommand extends Command
     public function __construct(string $projectDir)
     {
         parent::__construct();
+
         $this->projectDir = $projectDir;
     }
 

@@ -12,8 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method UserAuthToken|null find($id, $lockMode = null, $lockVersion = null)
  * @method UserAuthToken|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserAuthToken[]    findAll()
- * @method UserAuthToken[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method UserAuthToken[] findAll()
+ * @method UserAuthToken[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class UserAuthTokenRepository extends ServiceEntityRepository
 {

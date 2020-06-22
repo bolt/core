@@ -27,8 +27,8 @@ use Twig\Environment;
  *  Handler class to convert the DSL for content queries into an
  *  object representation.
  *
- *  @author Ross Riley <riley.ross@gmail.com>
- *  @author Xiao-Hu Tai <xiao@twokings.nl>
+ * @author Ross Riley <riley.ross@gmail.com>
+ * @author Xiao-Hu Tai <xiao@twokings.nl>
  */
 class ContentQueryParser
 {

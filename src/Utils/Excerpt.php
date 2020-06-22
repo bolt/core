@@ -58,7 +58,8 @@ class Excerpt
         if ($locCount > 2) {
             // skip the first as we check 1 behind
             for ($i = 1; $i < $locCount; ++$i) {
-                if ($i === $locCount - 1) { // at the end
+                // at the end
+                if ($i === $locCount - 1) {
                     $diff = $locations[$i] - $locations[$i - 1];
                 } else {
                     $diff = $locations[$i + 1] - $locations[$i];
@@ -112,12 +113,14 @@ class Excerpt
 
         // check to ensure we don't snip the last word if that's the match
         if ($startPos + $relLength < $textlength) {
-            $relText = mb_substr($relText, 0, mb_strrpos($relText, ' ')) . $indicator; // remove last word
+            // remove last word
+            $relText = mb_substr($relText, 0, mb_strrpos($relText, ' ')) . $indicator;
         }
 
         // If we trimmed from the front add '…'
         if ($startPos !== 0) {
-            $relText = $indicator . mb_substr($relText, mb_strpos($relText, ' ') + 1); // remove first word
+            // remove first word
+            $relText = $indicator . mb_substr($relText, mb_strpos($relText, ' ') + 1);
         }
 
         // Highlight the words, using the `<mark>` tag.

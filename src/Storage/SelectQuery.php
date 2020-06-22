@@ -14,12 +14,12 @@ use Doctrine\ORM\QueryBuilder;
  *  This query class coordinates a select query build from Bolt's
  *  custom query DSL as documented here:.
  *
- *  @see https://docs.bolt.cm/templates/content-fetching
+ * @see https://docs.bolt.cm/templates/content-fetching
  *
  *  The resulting QueryBuilder object is then passed through to the individual
  *  field handlers where they can perform value transformations.
  *
- *  @author Ross Riley <riley.ross@gmail.com>
+ * @author Ross Riley <riley.ross@gmail.com>
  */
 class SelectQuery implements QueryInterface
 {
