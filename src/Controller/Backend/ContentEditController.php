@@ -486,7 +486,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $contentTo = $this->contentRepository->findOneBy(['id' => $id]);
 
             if ($contentTo === null) {
-                continue; // Don't add relations to things that have gone missing
+                // Don't add relations to things that have gone missing
+                continue;
             }
 
             $relation = new Relation($content, $contentTo);

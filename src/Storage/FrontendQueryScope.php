@@ -7,6 +7,7 @@ namespace Bolt\Storage;
 use Bolt\Configuration\Config;
 use Bolt\Enum\Statuses;
 use Bolt\Storage\Directive\OrderDirective;
+use Bolt\Twig\Notifications;
 use Bolt\Utils\LocaleHelper;
 use Twig\Environment;
 
@@ -30,16 +31,20 @@ class FrontendQueryScope implements QueryScopeInterface
     /** @var Environment */
     private $twig;
 
+    /** @var Notifications */
+    private $notifications;
+
     /**
      * Constructor.
      */
-    public function __construct(Config $config, LocaleHelper $localeHelper, Environment $twig)
+    public function __construct(Config $config, LocaleHelper $localeHelper, Environment $twig, Notifications $notifications)
     {
         $this->config = $config;
 
         $this->parseContentTypes();
         $this->localeHelper = $localeHelper;
         $this->twig = $twig;
+        $this->notifications = $notifications;
     }
 
     /**
@@ -75,7 +80,7 @@ class FrontendQueryScope implements QueryScopeInterface
     public function onQueryExecute(QueryInterface $query): void
     {
         if (empty($query->getQueryBuilder()->getParameter('orderBy'))) {
-            $handler = new OrderDirective($this->localeHelper, $this->twig);
+            $handler = new OrderDirective($this->localeHelper, $this->twig, $this->notifications);
             $handler($query, $this->getOrder($query));
         }
 

@@ -44,7 +44,8 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
 
         $context = [
             'searchTerm' => $searchTerm,
-            'search' => $searchTerm, // Keep 'search' for Backwards Compatibility
+            // Keep 'search' for Backwards Compatibility
+            'search' => $searchTerm,
             'records' => $records,
         ];
 

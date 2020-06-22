@@ -31,8 +31,8 @@ use Twig\Environment;
  * @ApiFilter(SearchFilter::class)
  * @ORM\Entity(repositoryClass="Bolt\Repository\ContentRepository")
  * @ORM\Table(indexes={
- *     @ORM\Index(name="content_type_idx", columns={"content_type"}),
- *     @ORM\Index(name="status_idx", columns={"status"})
+ * @ORM\Index(name="content_type_idx", columns={"content_type"}),
+ * @ORM\Index(name="status_idx", columns={"status"})
  * })
  * @ORM\HasLifecycleCallbacks
  */
