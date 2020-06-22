@@ -10,6 +10,7 @@ use Embed\Exceptions\InvalidUrlException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -22,18 +23,22 @@ class EmbedController implements AsyncZoneInterface
 {
     use CsrfTrait;
 
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    /** @var Request */
+    private $request;
+
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, RequestStack $requestStack)
     {
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
      * @Route("/embed", name="bolt_embed", methods={"POST"})
      */
-    public function fetchEmbed(Request $request): JsonResponse
+    public function fetchEmbed(): JsonResponse
     {
         try {
-            $this->validateCsrf($request, 'editrecord');
+            $this->validateCsrf('editrecord');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [
@@ -43,7 +48,7 @@ class EmbedController implements AsyncZoneInterface
         }
 
         try {
-            $url = $request->request->get('url');
+            $url = $this->request->request->get('url');
             $info = EmbedFactory::create($url);
             $oembed = $info->getProviders()['oembed'];
 

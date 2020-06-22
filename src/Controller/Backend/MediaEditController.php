@@ -13,7 +13,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -69,11 +68,11 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
     /**
      * @Route("/media/edit/{id}", name="bolt_media_edit_post", methods={"POST"})
      */
-    public function save(Request $request, ?Media $media = null): Response
+    public function save(?Media $media = null): Response
     {
-        $this->validateCsrf($request, 'media_edit');
+        $this->validateCsrf('media_edit');
 
-        $post = $request->request->all();
+        $post = $this->request->request->all();
 
         $media->setTitle($post['title'])
             ->setDescription($post['description'])
@@ -96,11 +95,11 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
     /**
      * @Route("/media/new", name="bolt_media_new", methods={"GET"})
      */
-    public function new(Request $request): RedirectResponse
+    public function new(): RedirectResponse
     {
-        $fileLocation = $request->query->get('location', 'files');
+        $fileLocation = $this->getFromRequest('location', 'files');
         $basepath = $this->fileLocations->get($fileLocation)->getBasepath();
-        $file = '/' . $request->query->get('file');
+        $file = '/' . $this->getFromRequest('file');
         $filename = $basepath . $file;
 
         $relPath = Path::getDirectory('/' . $file);

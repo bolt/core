@@ -15,6 +15,7 @@ use Sirius\Upload\Handler;
 use Sirius\Upload\Result\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -40,13 +41,17 @@ class UploadController implements AsyncZoneInterface
     /** @var TextExtension */
     private $textExtension;
 
-    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager, TextExtension $textExtension)
+    /** @var Request */
+    private $request;
+
+    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager, TextExtension $textExtension, RequestStack $requestStack)
     {
         $this->mediaFactory = $mediaFactory;
         $this->em = $em;
         $this->config = $config;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->textExtension = $textExtension;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -55,7 +60,7 @@ class UploadController implements AsyncZoneInterface
     public function handleUpload(Request $request): JsonResponse
     {
         try {
-            $this->validateCsrf($request, 'upload');
+            $this->validateCsrf('upload');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [
@@ -64,8 +69,8 @@ class UploadController implements AsyncZoneInterface
             ], Response::HTTP_FORBIDDEN);
         }
 
-        $locationName = $request->query->get('location', '');
-        $path = $request->query->get('path', '');
+        $locationName = $this->request->query->get('location', '');
+        $path = $this->request->query->get('path', '');
 
         $target = $this->config->getPath($locationName, true, $path);
 

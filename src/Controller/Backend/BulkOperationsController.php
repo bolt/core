@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -23,9 +24,13 @@ class BulkOperationsController extends AbstractController implements BackendZone
 
     private $em = null;
 
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
+    /** @var Request|null */
+    private $request;
+
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, RequestStack $requestStack)
     {
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     public function em()
@@ -40,10 +45,10 @@ class BulkOperationsController extends AbstractController implements BackendZone
     /**
      * @Route("/bulk/status/{status}", name="bolt_bulk_status", methods={"POST"})
      */
-    public function status(Request $request, string $status): Response
+    public function status(string $status): Response
     {
-        $this->validateCsrf($request, 'batch');
-        $formData = $request->request->get('records');
+        $this->validateCsrf('batch');
+        $formData = $this->request->request->get('records');
         $recordIds = array_map('intval', explode(',', $formData));
 
         $records = $this->findRecordsFromIds($recordIds);
@@ -56,7 +61,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->em()->flush();
 
         $this->addFlash('success', 'content.status_changed_successfully');
-        $url = $request->headers->get('referer');
+        $url = $this->request->headers->get('referer');
 
         return new RedirectResponse($url);
     }
@@ -64,10 +69,10 @@ class BulkOperationsController extends AbstractController implements BackendZone
     /**
      * @Route("/bulk/delete", name="bolt_bulk_delete", methods={"POST"})
      */
-    public function delete(Request $request): Response
+    public function delete(): Response
     {
-        $this->validateCsrf($request, 'batch');
-        $formData = $request->request->get('records');
+        $this->validateCsrf('batch');
+        $formData = $this->request->request->get('records');
         $recordIds = array_map('intval', explode(',', $formData));
 
         $records = $this->findRecordsFromIds($recordIds);
@@ -79,7 +84,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->em()->flush();
 
         $this->addFlash('success', 'content.deleted_successfully');
-        $url = $request->headers->get('referer');
+        $url = $this->request->headers->get('referer');
 
         return new RedirectResponse($url);
     }
