@@ -50,6 +50,11 @@ class LocaleHelper
         $this->contentRepository = $contentRepository;
     }
 
+    public function getCurrentLocale(Environment $twig): ?Collection
+    {
+        return $this->getLocales($twig)->firstWhere('current', true);
+    }
+
     public function getLocales(Environment $twig, ?Collection $localeCodes = null, bool $all = false): Collection
     {
         if ($localeCodes === null) {
@@ -75,11 +80,6 @@ class LocaleHelper
         $routeParams = $request->attributes->get('_route_params');
         $currentLocale = $request->getLocale();
 
-        // For edge-cases like '404', the `_route` is null, so we bail.
-        if ($route === null) {
-            return $locales;
-        }
-
         if (isset($routeParams['id'])) {
             $content = $this->contentRepository->findOneById((int) $routeParams['id']);
         } elseif (isset($routeParams['slugOrId']) && is_numeric($routeParams['slugOrId'])) {
@@ -96,7 +96,13 @@ class LocaleHelper
                 $routeParams['slugOrId'] = $slug;
             }
 
-            $locale->put('link', $this->getLink($route, $routeParams, $locale));
+            if ($route) {
+                $locale->put('link', $this->getLink($route, $routeParams, $locale));
+            } else {
+                // For edge-cases like '404', the `_route` is null.
+                $locale->put('link', '');
+            }
+
             $locale->put('current', $this->isCurrentLocale($localeCode, $currentLocale, $localeCodes));
 
             $locales->push($locale);

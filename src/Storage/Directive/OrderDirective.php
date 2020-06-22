@@ -6,7 +6,8 @@ namespace Bolt\Storage\Directive;
 
 use Bolt\Storage\QueryInterface;
 use Bolt\Utils\ContentHelper;
-use Symfony\Component\HttpFoundation\Request;
+use Bolt\Utils\LocaleHelper;
+use Twig\Environment;
 
 /**
  *  Directive to alter query based on 'order' parameter.
@@ -15,14 +16,25 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class OrderDirective
 {
+    /** @var LocaleHelper */
+    private $localeHelper;
+
+    /** @var Environment */
+    private $twig;
+
+    public function __construct(LocaleHelper $localeHelper, Environment $twig)
+    {
+        $this->localeHelper = $localeHelper;
+        $this->twig = $twig;
+    }
+
     public function __invoke(QueryInterface $query, string $order): void
     {
         if ($order === '') {
             return;
         }
 
-        // todo: This should be passed somehow, not created on the fly.
-        $locale = Request::createFromGlobals()->getLocale();
+        $locale = $this->localeHelper->getCurrentLocale($this->twig)->get('code');
 
         // remove default order
         $query->getQueryBuilder()->resetDQLPart('orderBy');

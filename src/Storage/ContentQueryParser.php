@@ -17,9 +17,11 @@ use Bolt\Storage\Handler\FirstQueryHandler;
 use Bolt\Storage\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Handler\LatestQueryHandler;
 use Bolt\Storage\Handler\SelectQueryHandler;
+use Bolt\Utils\LocaleHelper;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Environment;
 
 /**
  *  Handler class to convert the DSL for content queries into an
@@ -72,10 +74,16 @@ class ContentQueryParser
     /** @var Config */
     private $config;
 
+    /** @var LocaleHelper */
+    private $localeHelper;
+
+    /** @var Environment */
+    private $twig;
+
     /**
      * Constructor.
      */
-    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, ?QueryInterface $queryHandler = null)
+    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, LocaleHelper $localeHelper, Environment $twig, ?QueryInterface $queryHandler = null)
     {
         $this->repo = $repo;
         $this->requestStack = $requestStack;
@@ -83,6 +91,9 @@ class ContentQueryParser
         if ($queryHandler !== null) {
             $this->addService('select', $queryHandler);
         }
+
+        $this->localeHelper = $localeHelper;
+        $this->twig = $twig;
 
         $this->setupDefaults();
         $this->config = $config;
@@ -100,7 +111,7 @@ class ContentQueryParser
 
         $this->addDirectiveHandler('getquery', new GetQueryDirective());
         $this->addDirectiveHandler('limit', new LimitDirective());
-        $this->addDirectiveHandler('order', new OrderDirective());
+        $this->addDirectiveHandler('order', new OrderDirective($this->localeHelper, $this->twig));
         $this->addDirectiveHandler('page', new OffsetDirective());
         $this->addDirectiveHandler('printquery', new PrintQueryDirective());
         $this->addDirectiveHandler('returnsingle', new ReturnSingleDirective());

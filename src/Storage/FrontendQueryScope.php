@@ -7,6 +7,8 @@ namespace Bolt\Storage;
 use Bolt\Configuration\Config;
 use Bolt\Enum\Statuses;
 use Bolt\Storage\Directive\OrderDirective;
+use Bolt\Utils\LocaleHelper;
+use Twig\Environment;
 
 /**
  * This class takes an overall config array as input and parses into values
@@ -22,13 +24,22 @@ class FrontendQueryScope implements QueryScopeInterface
     /** @var array */
     protected $orderBys = [];
 
+    /** @var LocaleHelper */
+    private $localeHelper;
+
+    /** @var Environment */
+    private $twig;
+
     /**
      * Constructor.
      */
-    public function __construct(Config $config)
+    public function __construct(Config $config, LocaleHelper $localeHelper, Environment $twig)
     {
         $this->config = $config;
+
         $this->parseContentTypes();
+        $this->localeHelper = $localeHelper;
+        $this->twig = $twig;
     }
 
     /**
@@ -64,7 +75,7 @@ class FrontendQueryScope implements QueryScopeInterface
     public function onQueryExecute(QueryInterface $query): void
     {
         if (empty($query->getQueryBuilder()->getParameter('orderBy'))) {
-            $handler = new OrderDirective();
+            $handler = new OrderDirective($this->localeHelper, $this->twig);
             $handler($query, $this->getOrder($query));
         }
 
