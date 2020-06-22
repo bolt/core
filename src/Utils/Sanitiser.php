@@ -11,7 +11,8 @@ class Sanitiser
     public function __construct()
     {
         $purifierConfig = \HTMLPurifier_Config::create([
-            'Cache.DefinitionImpl' => null, // Disable caching
+            // Disable caching
+            'Cache.DefinitionImpl' => null,
         ]);
         $this->purifier = new \HTMLPurifier($purifierConfig);
     }

@@ -28,6 +28,7 @@ class ExtensionsShowCommand extends Command
     {
         $this->extensionRegistry = $extensionRegistry;
         $this->dependenciesManager = new Dependencies();
+
         parent::__construct();
     }
 

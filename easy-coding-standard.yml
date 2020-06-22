@@ -3,7 +3,6 @@ imports:
     - { resource: 'vendor/symplify/easy-coding-standard/config/set/common.yaml' }
     - { resource: 'vendor/symplify/easy-coding-standard/config/set/php70.yaml' }
     - { resource: 'vendor/symplify/easy-coding-standard/config/set/php71.yaml' }
-    - { resource: 'vendor/symplify/easy-coding-standard/config/set/psr2.yaml' }
     - { resource: 'vendor/symplify/easy-coding-standard/config/set/psr12.yaml' }
     - { resource: 'vendor/symplify/easy-coding-standard/config/set/symfony.yaml' }
     - { resource: 'vendor/symplify/easy-coding-standard/config/set/symfony-risky.yaml' }

@@ -433,7 +433,8 @@ class LocaleHelper
             'FO' => 'Faroe Islands',
             'FR' => 'France',
             'GA' => 'Gabon',
-            'EN' => 'United Kingdom', // Alias
+            // Alias
+            'EN' => 'United Kingdom',
             'GB' => 'United Kingdom',
             'GB-ENG' => 'United Kingdom',
             'GB-NIR' => 'United Kingdom',

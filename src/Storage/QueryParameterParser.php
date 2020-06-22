@@ -10,7 +10,7 @@ use Doctrine\ORM\Query\Expr;
  *  Handler class to convert the DSL for content query parameters
  *  into equivalent ORM expressions.
  *
- *  @author Ross Riley <riley.ross@gmail.com>
+ * @author Ross Riley <riley.ross@gmail.com>
  */
 class QueryParameterParser
 {
@@ -286,9 +286,9 @@ class QueryParameterParser
      *
      * The following component parts will be returned in the array:
      * [
-     *     'value'    => <the value remaining after the parse>
+     *     'value' => <the value remaining after the parse>
      *     'operator' => <the operator that should be used>
-     *     'matched'  => <the pattern that the value matched>
+     *     'matched' => <the pattern that the value matched>
      * ]
      */
     public function parseValue(string $value): array

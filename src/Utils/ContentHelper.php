@@ -160,10 +160,14 @@ class ContentHelper
     public static function guessTitleFields(Content $content): array
     {
         // Check if we have a field named 'title' or somesuch.
-        $names = ['title', 'name', 'caption', 'subject']; // English
-        $names = array_merge($names, ['titel', 'naam', 'kop', 'onderwerp']); // Dutch
-        $names = array_merge($names, ['nom', 'sujet']); // French
-        $names = array_merge($names, ['nombre', 'sujeto']); // Spanish
+        // English
+        $names = ['title', 'name', 'caption', 'subject'];
+        // Dutch
+        $names = array_merge($names, ['titel', 'naam', 'kop', 'onderwerp']);
+        // French
+        $names = array_merge($names, ['nom', 'sujet']);
+        // Spanish
+        $names = array_merge($names, ['nombre', 'sujeto']);
 
         foreach ($names as $name) {
             if ($content->hasField($name)) {

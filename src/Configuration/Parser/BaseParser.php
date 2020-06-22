@@ -35,7 +35,7 @@ abstract class BaseParser
      * Read and parse a YAML configuration file.
      *
      * If filename doesn't exist and/or isn't readable, we attempt to locate it
-     * in our config folder. This way you can pass in either  an absolute
+     * in our config folder. This way you can pass in either an absolute
      * filename or simply 'menu.yaml'.
      */
     protected function parseConfigYaml(string $filename, bool $ignoreMissing = false): Collection
