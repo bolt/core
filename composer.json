@@ -22,7 +22,7 @@
         "erusev/parsedown": "^1.7",
         "ezyang/htmlpurifier": "^4.12",
         "fzaninotto/faker": "^1.9",
-        "knplabs/doctrine-behaviors": "dev-master",
+        "knplabs/doctrine-behaviors": "^2.0.3",
         "knplabs/knp-menu-bundle": "^3.0",
         "league/glide-symfony": "^1.0",
         "miljar/php-exif": "^0.6.4",
