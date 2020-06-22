@@ -1,6 +1,6 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-{% if locales.count > 1 or locales.count === 1 and currentlocale !== defaultlocale %}
+{% if locales.count > 1 or currentlocale !== defaultlocale %}
     <div class="card mb-3">
         <div class="card-header">
             {{ macro.icon('language') }}
