@@ -81,13 +81,13 @@ jobs:
         run: ./vendor/bin/phpunit
 
       - name: run API tests
-        run: make behat-api
+        run: make behat-api-quiet
 
       - name: Install latest Google Chrome (for e2e tests)
         run: wget -q https://script.install.devinsideyou.com/google-chrome && chmod +x google-chrome
 
-      - name: run JS e2e tests
-        run: ./run_behat_tests.sh && make behat-js
+      - name: run e2e tests
+        run: ./run_behat_tests.sh && make behat-js-quiet
 
       - name: Upload Behat logs
         run: ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
