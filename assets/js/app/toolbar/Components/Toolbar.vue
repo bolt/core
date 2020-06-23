@@ -42,11 +42,11 @@
       class="toolbar-item toolbar-item__filter input-group"
     >
       <input
+        id="global-search"
         type="text"
         class="form-control"
         :placeholder="labels['listing.placeholder_search']"
         name="filter"
-        id="global-search"
         :value="filterValue"
       />
       <div class="input-group-append">

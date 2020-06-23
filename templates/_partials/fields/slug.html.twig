@@ -18,5 +18,7 @@
             'button_edit': 'slug.button_edit'|trans,
             'generate_from': 'slug.generate_from'|trans,
         }|json_encode }}'
+        :localize='{{ field.definition.localize|json_encode }}'
+        :is-new='{{ field.new|json_encode }}'
     ></editor-slug>
 {% endblock %}
