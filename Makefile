@@ -83,6 +83,11 @@ behat-js: ## to run behat JS tests
 	vendor/bin/behat --tags=javascript
 	## @todo: stop selenium server
 
+behat-js-google:
+	google-chrome --remote-debugging-address=0.0.0.0 --remote-debugging-port=8088 &
+	sleep 2s
+	vendor/bin/behat --tags=javascript
+
 behat-js-quiet: ## to run behat JS tests quietly
 	make server
 	echo "Running Behat e2e tests. Make sure you have the latest version of Google Chrome installed"

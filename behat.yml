@@ -19,6 +19,7 @@ default:
     rerun_cache: "%paths.base%/var/cache/behat/behat_rerun"
 
   extensions:
+    DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
     Lakion\Behat\MinkDebugExtension:
       directory: var/log/behat-reports
       screenshot: true
@@ -26,21 +27,10 @@ default:
     Behat\MinkExtension:
       browser_name: chrome
       base_url: 'http://127.0.0.1:8088/'
-      goutte: ~
-      selenium2: ~
       sessions:
         default:
-          selenium2:
-            capabilities:
-              extra_capabilities:
-                chromeOptions:
-                  args:
-                    - "--headless"
-                    - "--disable-gpu"
-                    - "--window-size=1920,1080"
-                  w3c: false
-
-
+          chrome:
+            api_url: http://localhost:8088
     Behatch\Extension: ~
 
   suites:
