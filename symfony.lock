@@ -230,6 +230,12 @@
     "fig/link-util": {
         "version": "1.1.0"
     },
+    "friends-of-behat/mink": {
+        "version": "v1.8.0"
+    },
+    "friends-of-behat/mink-browserkit-driver": {
+        "version": "v1.4.0"
+    },
     "friends-of-behat/mink-extension": {
         "version": "2.3.1"
     },

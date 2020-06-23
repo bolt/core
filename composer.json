@@ -78,6 +78,7 @@
         "ext-curl": "*",
         "ext-pdo_sqlite": "*",
         "acmecorp/reference-extension": "^1.0",
+        "behat/mink-goutte-driver": "^1.2",
         "behat/mink-selenium2-driver": "^1.4",
         "behatch/contexts": "^3.2",
         "bobdenotter/configuration-notices": "^1.0",
@@ -88,8 +89,7 @@
         "doctrine/doctrine-migrations-bundle": "^2.1",
         "friends-of-behat/mink": "^1.8",
         "friends-of-behat/mink-browserkit-driver": "^1.4",
-        "friends-of-behat/mink-extension": "^2.4",
-        "friends-of-behat/symfony-extension": "^2.0",
+        "friends-of-behat/symfony-extension": "^2.1",
         "lakion/mink-debug-extension": "^1.2",
         "php-http/httplug-pack": "^1.2",
         "php-translation/loco-adapter": "^0.11",
@@ -150,7 +150,6 @@
         ]
     },
     "replace": {
-        "container-interop/container-interop": "*",
-        "behat/mink": "*"
+        "container-interop/container-interop": "*"
     }
 }
