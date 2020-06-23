@@ -71,7 +71,8 @@ behat-api: ## to run behat API tests
 
 behat-api-quiet: ## to run behat API tests quietly
 	make server
-	google-chrome --remote-debugging-address=0.0.0.0 --remote-debugging-port=8088 &
+	google-chrome --help
+	google-chrome --remote-debugging-address=0.0.0.0 --remote-debugging-port=8088 --headless --disable-gpu &
 	vendor/bin/behat --tags=api --format=progress
 
 behat-js: ## to run behat JS tests
