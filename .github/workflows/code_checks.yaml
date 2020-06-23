@@ -91,3 +91,4 @@ jobs:
 
       - name: Upload Behat logs
         run: ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
+        if: always()
