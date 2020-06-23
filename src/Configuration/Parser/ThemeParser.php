@@ -14,6 +14,7 @@ class ThemeParser extends BaseParser
     public function __construct(string $projectDir, string $path, string $filename = 'theme.yaml')
     {
         $this->path = $path;
+
         parent::__construct($projectDir, $filename);
     }
 

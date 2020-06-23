@@ -72,6 +72,9 @@ class ContentExtension extends AbstractExtension
     /** @var Canonical */
     private $canonical;
 
+    /** @var ContentHelper */
+    private $contentHelper;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
@@ -82,7 +85,8 @@ class ContentExtension extends AbstractExtension
         Query $query,
         TaxonomyRepository $taxonomyRepository,
         TranslatorInterface $translator,
-        Canonical $canonical
+        Canonical $canonical,
+        ContentHelper $contentHelper
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
@@ -94,6 +98,7 @@ class ContentExtension extends AbstractExtension
         $this->taxonomyRepository = $taxonomyRepository;
         $this->translator = $translator;
         $this->canonical = $canonical;
+        $this->contentHelper = $contentHelper;
     }
 
     /**
@@ -108,7 +113,7 @@ class ContentExtension extends AbstractExtension
 
         return [
             new TwigFilter('title', [$this, 'getTitle'], $safe),
-            new TwigFilter('title_fields', [$this, 'getTitleFields']),
+            new TwigFilter('title_fields_names', [$this, 'getTitleFields']),
             new TwigFilter('image', [$this, 'getImage']),
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
@@ -185,7 +190,7 @@ class ContentExtension extends AbstractExtension
         return Html::trimText($title, $length);
     }
 
-    public function getTitleFields(Content $content): array
+    public function getTitleFieldsNames(Content $content): array
     {
         if (ContentHelper::isSuitable($content)) {
             return ContentHelper::getFieldNames($content->getDefinition()->get('title_format'));
@@ -221,7 +226,7 @@ class ContentExtension extends AbstractExtension
 
     /**
      * @param string|Markup|Content $content
-     * @param string|array|null     $focus
+     * @param string|array|null $focus
      */
     public function getExcerpt($content, int $length = 280, bool $includeTitle = false, $focus = null): string
     {
@@ -250,7 +255,7 @@ class ContentExtension extends AbstractExtension
             }
         }
 
-        $skipFields = $this->getTitleFields($content);
+        $skipFields = $this->getTitleFieldsNames($content);
 
         foreach ($content->getFields() as $field) {
             if ($field instanceof Excerptable && in_array($field->getName(), $skipFields, true) === false) {
@@ -325,27 +330,13 @@ class ContentExtension extends AbstractExtension
         $content->setTwig($env);
     }
 
-    public function getLink(Content $content, bool $canonical = false, string $locale = ''): ?string
+    public function getLink(Content $content, bool $canonical = false, ?string $locale = null): ?string
     {
         if ($content->getId() === null || $content->getDefinition()->get('viewless')) {
             return null;
         }
 
-        if (empty($locale)) {
-            $locale = $this->request->getLocale();
-        }
-
-        if ($this->isHomepage($content)) {
-            return $this->generateLink('homepage_locale', ['_locale' => $locale], $canonical);
-        }
-
-        $params = [
-            '_locale' => $locale,
-            'slugOrId' => $content->getSlug() ?: $content->getId(),
-            'contentTypeSlug' => $content->getContentTypeSingularSlug(),
-        ];
-
-        return $this->generateLink('record_locale', $params, $canonical);
+        return $this->contentHelper->getLink($content, $canonical, $locale);
     }
 
     public function getEditLink(Content $content): ?string
@@ -396,14 +387,8 @@ class ContentExtension extends AbstractExtension
 
     private function generateLink(string $route, array $params, $canonical = false): string
     {
-        $canonicalRoute = $this->canonical->getCanonicalRoute($route, $params);
-
         try {
-            $link = $this->urlGenerator->generate(
-                $canonicalRoute,
-                $params,
-                $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
-            );
+            $link = $this->canonical->generateLink($route, $params, $canonical);
         } catch (InvalidParameterException $e) {
             $this->logger->notice('Could not create URL for route \'' . $route . '\'. Perhaps the ContentType was changed or removed. Try clearing the cache');
             $link = '';
@@ -687,45 +672,17 @@ class ContentExtension extends AbstractExtension
 
     public function isHomepage(Content $content): bool
     {
-        return $this->isSpecialpage($content, 'homepage');
+        return $this->contentHelper->isHomepage($content);
     }
 
     public function is404(Content $content): bool
     {
-        return $this->isSpecialpage($content, 'notfound');
+        return $this->contentHelper->is404($content);
     }
 
     public function isMaintenance(Content $content): bool
     {
-        return $this->isSpecialpage($content, 'maintenance');
-    }
-
-    private function isSpecialpage(Content $content, string $type): bool
-    {
-        $configSetting = $this->config->get('general/' . $type);
-
-        if (! is_iterable($configSetting)) {
-            $configSetting = (array) $configSetting;
-        }
-
-        foreach ($configSetting as $item) {
-            $item = explode('/', $item);
-
-            // Discard candidate if contentTypes don't match
-            if ($item[0] !== $content->getContentTypeSingularSlug() && $item[0] !== $content->getContentTypeSlug()) {
-                continue;
-            }
-
-            $idOrSlug = $item[1] ?? null;
-
-            // Success if we either have no id/slug for a Singleton, or if the id/slug matches
-            if ((empty($idOrSlug) && $content->getDefinition()->get('singleton')) ||
-                ($idOrSlug === $content->getSlug() || $idOrSlug === (string) $content->getId())) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->contentHelper->isMaintenance($content);
     }
 
     public function isHomepageListing(ContentType $contentType): bool

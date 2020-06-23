@@ -60,6 +60,7 @@ class DbAwareTestCase extends WebTestCase
         parent::tearDown();
 
         $this->entityManager->close();
-        $this->entityManager = null; // avoid memory leaks
+        // avoid memory leaks
+        $this->entityManager = null;
     }
 }

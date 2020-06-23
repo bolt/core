@@ -33,7 +33,7 @@ Feature: See localization info for a record
 
     And the data in the 1st row of the ".table" table should match:
       | col1 | col2 | col3 | col4 | col5 |
-      | Heading Type: text | OK | Missing | Missing | Missing |
+      | Heading Type: text | OK | OK | OK | Missing |
 
     And the data in the 4th row of the ".table" table should match:
       | col1 | col2 | col3 | col4 | col5 |

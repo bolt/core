@@ -2,6 +2,7 @@
 
 return [
     ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
+    BabDev\PagerfantaBundle\BabDevPagerfantaBundle::class => ['all' => true],
     DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
     Doctrine\Bundle\DoctrineBundle\DoctrineBundle::class => ['all' => true],
     Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true, 'local' => true],
@@ -20,10 +21,9 @@ return [
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class => ['dev' => true, 'local' => true],
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true, 'test' => true, 'local' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
-    Symplify\ParameterNameGuard\ParameterNameGuardBundle::class => ['dev' => true, 'test' => true],
+    Symplify\ConsoleColorDiff\ConsoleColorDiffBundle::class => ['dev' => true, 'test' => true],
     Translation\Bundle\TranslationBundle::class => ['all' => true],
     Translation\PlatformAdapter\Loco\Bridge\Symfony\TranslationAdapterLocoBundle::class => ['dev' => true, 'local' => true],
     Symplify\ConsoleColorDiff\ConsoleColorDiffBundle::class => ['dev' => true, 'test' => true],
-    BabDev\PagerfantaBundle\BabDevPagerfantaBundle::class => ['all' => true],
     FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle::class => ['test' => true],
 ];

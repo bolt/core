@@ -19,8 +19,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\RelationRepository")
  * @ORM\Table(indexes={
- *     @ORM\Index(name="name_idx", columns={"name"}),
- *     @ORM\Index(name="group_idx", columns={"group"})
+ * @ORM\Index(name="name_idx", columns={"name"}),
+ * @ORM\Index(name="group_idx", columns={"group"})
  * })
  * @ApiFilter(SearchFilter::class, strategy="partial")
  */

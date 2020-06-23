@@ -1,6 +1,67 @@
 Changelog
 =========
 
+## 4.0.0-rc.26
+
+Released: 2020-06-22
+
+### 🐛 Bug fixes
+
+- Use currently rendered locale in OrderDirective (I-Valchev, [#1529](https://github.com/bolt/core/pull/1529))
+- Ensure `$boltConfig` is set for Controllers in extensions (bobdenotter, [#1527](https://github.com/bolt/core/pull/1527))
+- Don't "warm up" cache on `composer update`, to save time and prevent dreaded `ProcessTimedOutException` after 10 seconds.. (bobdenotter, [#1526](https://github.com/bolt/core/pull/1526))
+- Datefield uses global `app` to access user locale (I-Valchev, [#1521](https://github.com/bolt/core/pull/1521))
+- Make sure sets inside collections are instantiated with actual values (I-Valchev, [#1520](https://github.com/bolt/core/pull/1520))
+
+### 🛠️ Miscellaneous
+
+- User edit actions require valid csrf tokens (I-Valchev, [#1532](https://github.com/bolt/core/pull/1532))
+- Warn editors about file upload errors (I-Valchev, [#1531](https://github.com/bolt/core/pull/1531))
+- Make sure `currentlocale` on edit is always set (I-Valchev, [#1530](https://github.com/bolt/core/pull/1530))
+- Make canonical record URL consistent across routes (I-Valchev, [#1511](https://github.com/bolt/core/pull/1511))
+
+### 🤖 Tests
+
+- Localization tests for saved changes in different locales (I-Valchev, [#1516](https://github.com/bolt/core/pull/1516))
+- More integration tests for localized content (I-Valchev, [#1509](https://github.com/bolt/core/pull/1509))
+
+## 4.0.0-rc.25
+
+Released: 2020-06-18
+
+### 📦 Additions and new features
+
+- Add Global search to backend (bobdenotter, [#1498](https://github.com/bolt/core/pull/1498))
+- Add ability to override routing with record_route (I-Valchev, [#1484](https://github.com/bolt/core/pull/1484))
+- Sort multiselect fields with drag and drop (I-Valchev, [#1481](https://github.com/bolt/core/pull/1481))
+
+### 🐛 Bug fixes
+
+- Fix current locale to be correct (I-Valchev, [#1499](https://github.com/bolt/core/pull/1499))
+- Fix: Don't show spinners on invalid form submissions (bobdenotter, [#1497](https://github.com/bolt/core/pull/1497))
+- Better check for maximum filesize (bobdenotter, [#1495](https://github.com/bolt/core/pull/1495))
+- Fix Imagelist alt 'true' issue. Clean up Vue components (I-Valchev, [#1494](https://github.com/bolt/core/pull/1494))
+- Include homepage record in Twig globals (I-Valchev, [#1491](https://github.com/bolt/core/pull/1491))
+- Don't break on missing Collection Fields (bobdenotter, [#1490](https://github.com/bolt/core/pull/1490))
+- Make Collection Field properly Iterable (bobdenotter, [#1485](https://github.com/bolt/core/pull/1485))
+- Fix capitalisation in groups (bobdenotter, [#1479](https://github.com/bolt/core/pull/1479))
+- Display the Set field correctly in the Editor when new field is added after saving record (I-Valchev, [#1471](https://github.com/bolt/core/pull/1471))
+- Fix excerpt length (bobdenotter, [#1469](https://github.com/bolt/core/pull/1469))
+- Update `getContentTypeName()`, add `getContentTypeSingularName()` (bobdenotter, [#1468](https://github.com/bolt/core/pull/1468))
+- Placeholder in Image Field is not clickable if empty (bobdenotter, [#1505](https://github.com/bolt/core/pull/1505))
+
+### 🛠️ Miscellaneous
+
+- Hide one of two groups of record action buttons on mobile (I-Valchev, [#1501](https://github.com/bolt/core/pull/1501))
+- Fixing some more deprecations (bobdenotter, [#1478](https://github.com/bolt/core/pull/1478))
+- Use new Symfony Error Controller, instead of Twig's old one. (bobdenotter, [#1477](https://github.com/bolt/core/pull/1477))
+- Fixing some deprecations (bobdenotter, [#1475](https://github.com/bolt/core/pull/1475))
+- Two more deprecations fixed! (bobdenotter, [#1480](https://github.com/bolt/core/pull/1480))
+
+### 🤖 Tests
+
+- Tests/twig (I-Valchev, [#1502](https://github.com/bolt/core/pull/1502))
+
 ## 4.0.0-rc.24
 
 Released: 2020-06-10

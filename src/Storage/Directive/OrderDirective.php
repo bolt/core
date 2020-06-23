@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Storage\Directive;
 
 use Bolt\Storage\QueryInterface;
+use Bolt\Twig\Notifications;
 use Bolt\Utils\ContentHelper;
+use Bolt\Utils\LocaleHelper;
+use Twig\Environment;
 
 /**
  *  Directive to alter query based on 'order' parameter.
@@ -14,11 +17,29 @@ use Bolt\Utils\ContentHelper;
  */
 class OrderDirective
 {
+    /** @var LocaleHelper */
+    private $localeHelper;
+
+    /** @var Environment */
+    private $twig;
+
+    /** @var Notifications */
+    private $notifications;
+
+    public function __construct(LocaleHelper $localeHelper, Environment $twig, Notifications $notifications)
+    {
+        $this->localeHelper = $localeHelper;
+        $this->twig = $twig;
+        $this->notifications = $notifications;
+    }
+
     public function __invoke(QueryInterface $query, string $order): void
     {
         if ($order === '') {
             return;
         }
+
+        $locale = $this->localeHelper->getCurrentLocale($this->twig)->get('code');
 
         // remove default order
         $query->getQueryBuilder()->resetDQLPart('orderBy');
@@ -34,10 +55,10 @@ class OrderDirective
 
             if (is_array($order)) {
                 foreach ($order as $orderitem) {
-                    $this->setOrderBy($query, $orderitem, $direction);
+                    $this->setOrderBy($query, $orderitem, $direction, $locale);
                 }
             } else {
-                $this->setOrderBy($query, $order, $direction);
+                $this->setOrderBy($query, $order, $direction, $locale);
             }
         }
     }
@@ -46,7 +67,7 @@ class OrderDirective
      * Set the query OrderBy directives
      * given an order (e.g. 'heading', 'id') and direction (ASC|DESC)
      */
-    private function setOrderBy(QueryInterface $query, string $order, string $direction): void
+    private function setOrderBy(QueryInterface $query, string $order, string $direction, string $locale): void
     {
         if (in_array($order, $query->getCoreFields(), true)) {
             $query->getQueryBuilder()->addOrderBy('content.' . $order, $direction);
@@ -57,7 +78,8 @@ class OrderDirective
                 ->addOrderBy('user.username', $direction);
         } else {
             if (! $this->isActualField($query, $order)) {
-                dump("A query with ordering on a Field (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
+                $this->notifications->warning('Incorrect OrderBy clause for field that does not exist',
+                    "A query with ordering on a Field (`${order}`) that\'s not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
             }
             $fieldsAlias = 'fields_order_' . $query->getIndex();
             $fieldAlias = 'order_' . $query->getIndex();
@@ -70,6 +92,8 @@ class OrderDirective
                 ->leftJoin('content.fields', $fieldsAlias)
                 ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
                 ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
+                ->andWhere($translationsAlias . '.locale = :' . $fieldAlias . '_locale')
+                ->setParameter($fieldAlias . '_locale', $locale)
                 ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction)
                 ->setParameter($fieldAlias, $order);
 

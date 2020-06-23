@@ -7,10 +7,8 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
-use Bolt\Utils\Sanitiser;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,24 +17,19 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
     /** @var TemplateChooser */
     private $templateChooser;
 
-    /** @var Sanitiser */
-    private $sanitiser;
-
-    public function __construct(TemplateChooser $templateChooser, Sanitiser $sanitiser)
+    public function __construct(TemplateChooser $templateChooser)
     {
         $this->templateChooser = $templateChooser;
-        $this->sanitiser = $sanitiser;
     }
 
     /**
      * @Route("/search", methods={"GET|POST"}, name="search")
      * @Route("/{_locale}/search", methods={"GET|POST"}, name="search_locale")
      */
-    public function search(ContentRepository $contentRepository, Request $request): Response
+    public function search(ContentRepository $contentRepository): Response
     {
-        $page = (int) $request->query->get('page', '1');
-        $searchTerm = $request->get('searchTerm', $request->get('search', $request->get('q', '')));
-        $searchTerm = $this->sanitiser->clean($searchTerm);
+        $page = (int) $this->getFromRequest('page', '1');
+        $searchTerm = $this->getFromRequestArray(['searchTerm', 'search', 'q'], '');
         $amountPerPage = (int) $this->config->get('general/listing_records');
 
         // Just the ContentTypes that have `searchable: true`
@@ -51,7 +44,8 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
 
         $context = [
             'searchTerm' => $searchTerm,
-            'search' => $searchTerm, // Keep 'search' for Backwards Compatibility
+            // Keep 'search' for Backwards Compatibility
+            'search' => $searchTerm,
             'records' => $records,
         ];
 

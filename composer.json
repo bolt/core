@@ -103,7 +103,7 @@
         "se/selenium-server-standalone": "^3.141",
         "symfony/browser-kit": "^4.4",
         "symfony/css-selector": "^4.4",
-        "symplify/easy-coding-standard": "^7.2",
+        "symplify/easy-coding-standard": "^8.0",
         "vaimo/binary-chromedriver": "^5.0"
     },
     "config": {
@@ -142,7 +142,7 @@
             "php bin/console bolt:info"
         ],
         "auto-scripts": {
-            "cache:clear": "symfony-cmd",
+            "cache:clear --no-warmup": "symfony-cmd",
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
         },
         "periodical-tasks": [

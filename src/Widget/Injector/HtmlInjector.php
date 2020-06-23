@@ -22,9 +22,12 @@ class HtmlInjector
     {
         return [
             Target::END_OF_HEAD => 'headTagEnd',
-            Target::AFTER_HEAD_JS => 'headTagEnd', // same as end of head
-            Target::AFTER_HEAD_CSS => 'headTagEnd', // same as end of head
-            Target::AFTER_HEAD_META => 'headTagEnd', // same as end of head because meta tags are unordered
+            // same as end of head
+            Target::AFTER_HEAD_JS => 'headTagEnd',
+            // same as end of head
+            Target::AFTER_HEAD_CSS => 'headTagEnd',
+            // same as end of head because meta tags are unordered
+            Target::AFTER_HEAD_META => 'headTagEnd',
 
             Target::BEFORE_CSS => 'cssTagsBefore',
             Target::BEFORE_JS => 'jsTagsBefore',
@@ -33,17 +36,24 @@ class HtmlInjector
             Target::AFTER_JS => 'jsTagsAfter',
 
             Target::START_OF_HEAD => 'headTagStart',
-            Target::BEFORE_HEAD_JS => 'headTagStart', // same as start of head
-            Target::BEFORE_HEAD_CSS => 'headTagStart', // same as start of head
-            Target::BEFORE_HEAD_META => 'headTagStart', // same as start of head because meta tags are unordered
+            // same as start of head
+            Target::BEFORE_HEAD_JS => 'headTagStart',
+            // same as start of head
+            Target::BEFORE_HEAD_CSS => 'headTagStart',
+            // same as start of head because meta tags are unordered
+            Target::BEFORE_HEAD_META => 'headTagStart',
 
             Target::START_OF_BODY => 'bodyTagStart',
-            Target::BEFORE_BODY_JS => 'bodyTagStart', // same as start of body
-            Target::BEFORE_BODY_CSS => 'bodyTagStart', // same as start of body
+            // same as start of body
+            Target::BEFORE_BODY_JS => 'bodyTagStart',
+            // same as start of body
+            Target::BEFORE_BODY_CSS => 'bodyTagStart',
 
             Target::END_OF_BODY => 'bodyTagEnd',
-            Target::AFTER_BODY_JS => 'bodyTagEnd',   // same as end of body
-            Target::AFTER_BODY_CSS => 'bodyTagEnd',   // same as end of body
+            // same as end of body
+            Target::AFTER_BODY_JS => 'bodyTagEnd',
+            // same as end of body
+            Target::AFTER_BODY_CSS => 'bodyTagEnd',
 
             Target::END_OF_HTML => 'htmlTagEnd',
 

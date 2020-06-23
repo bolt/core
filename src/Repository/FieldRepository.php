@@ -15,8 +15,8 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @method Field|null find($id, $lockMode = null, $lockVersion = null)
  * @method Field|null findOneBy(array $criteria, array $orderBy = null)
- * @method Field[]    findAll()
- * @method Field[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Field[] findAll()
+ * @method Field[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class FieldRepository extends ServiceEntityRepository
 {
@@ -85,8 +85,10 @@ class FieldRepository extends ServiceEntityRepository
             $field->setLabel($label);
         }
 
-        $field->setDefaultLocale($definition['default_locale']);
-        $field->setLocale($definition['default_locale']);
+        if ($definition->has('default_locale')) {
+            $field->setDefaultLocale($definition->get('default_locale'));
+            $field->setLocale($definition->get('default_locale'));
+        }
 
         return $field;
     }

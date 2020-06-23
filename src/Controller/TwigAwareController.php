@@ -7,11 +7,15 @@ namespace Bolt\Controller;
 use Bolt\Canonical;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Field\TemplateselectField;
+use Bolt\Storage\Query;
+use Bolt\Utils\Sanitiser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
@@ -31,15 +35,23 @@ class TwigAwareController extends AbstractController
     /** @var Canonical */
     protected $canonical;
 
+    /** @var Sanitiser */
+    protected $sanitiser;
+
+    /** @var Request */
+    protected $request;
+
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical): void
+    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack): void
     {
         $this->config = $config;
         $this->twig = $twig;
         $this->packages = $packages;
         $this->canonical = $canonical;
+        $this->sanitiser = $sanitiser;
+        $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
@@ -122,5 +134,51 @@ class TwigAwareController extends AbstractController
         // set `files` package
         $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
         $this->packages->addPackage('files', $filesPackage);
+    }
+
+    protected function createPager(Query $query, string $contentType, int $pageSize, string $order)
+    {
+        $params = [
+            'status' => '!unknown',
+        ];
+
+        if ($this->request->get('sortBy')) {
+            $params['order'] = $this->getFromRequest('sortBy');
+        } else {
+            $params['order'] = $order;
+        }
+
+        if ($this->request->get('filter')) {
+            $params['anyField'] = '%' . $this->getFromRequest('filter') . '%';
+        }
+
+        if ($this->request->get('taxonomy')) {
+            $taxonomy = explode('=', $this->getFromRequest('taxonomy'));
+            $params[$taxonomy[0]] = $taxonomy[1];
+        }
+
+        return $query->getContentForTwig($contentType, $params)
+            ->setMaxPerPage($pageSize);
+    }
+
+    protected function getFromRequest(string $parameter, ?string $default = null): ?string
+    {
+        $parameter = trim($this->sanitiser->clean($this->request->get($parameter, '')));
+
+        // `clean` returns a string, but we want to be able to get `null`.
+        return empty($parameter) ? $default : $parameter;
+    }
+
+    protected function getFromRequestArray(array $parameters, ?string $default = null): ?string
+    {
+        foreach ($parameters as $parameter) {
+            $res = $this->getFromRequest($parameter);
+
+            if (! empty($res)) {
+                return $res;
+            }
+        }
+
+        return $default;
     }
 }

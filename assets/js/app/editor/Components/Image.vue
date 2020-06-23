@@ -214,15 +214,10 @@ export default {
     },
   },
   mounted() {
-    this.previewImage = `/thumbs/1000×1000/` + this.filenameData;
-    this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
+    this.resetImage();
   },
   updated() {
-    if (!this.filenameData) {
-      return;
-    }
-    this.previewImage = `/thumbs/1000×1000/` + this.filenameData;
-    this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
+    this.resetImage();
     baguetteBox.run('.editor__image--preview', {
       afterShow: () => {
         noScroll.on();
@@ -233,6 +228,15 @@ export default {
     });
   },
   methods: {
+    resetImage() {
+      if (!this.filenameData) {
+        this.previewImage = null;
+        this.thumbnailImage = null;
+        return;
+      }
+      this.previewImage = `/thumbs/1000×1000/` + this.filenameData;
+      this.thumbnailImage = `/thumbs/400×300/` + this.filenameData;
+    },
     onMoveImageDown() {
       this.$emit('moveImageDown', this);
     },
@@ -240,9 +244,8 @@ export default {
       this.$emit('moveImageUp', this);
     },
     onRemoveImage() {
-      this.previewImage = null;
       this.filenameData = null;
-      this.thumbnailImage = null;
+      this.resetImage();
       // only reset altData if alt should be displayed.
       if (this.includeAlt) this.altData = '';
       this.$emit('remove', this);
@@ -271,6 +274,7 @@ export default {
           window.reEnablePatientButtons();
         })
         .catch(err => {
+          bootbox.alert(err.response.data + '<br>Image did not upload.');
           console.warn(err);
           window.reEnablePatientButtons();
         });

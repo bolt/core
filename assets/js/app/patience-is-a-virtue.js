@@ -1,8 +1,16 @@
 import $ from 'jquery';
 
-$('*[data-patience]').on('click', function() {
+$('a[data-patience], button[data-patience]').on('click', function() {
   const thisElement = $(this);
   const thisIcon = thisElement.find('i');
+
+  // If we're handling a form, and the form's not valid, we can stop here
+  if (
+    $(this).attr('form') &&
+    !$('#' + $(this).attr('form'))[0].checkValidity()
+  ) {
+    return false;
+  }
 
   // Bootstrap padding / margin like `mx-2` or `pt-3`
   const addedPadding = thisIcon.attr('class').match(/[mp][tblrxy]-[0-5]/i);
@@ -18,7 +26,7 @@ $('*[data-patience]').on('click', function() {
 });
 
 window.reEnablePatientButtons = function() {
-  $('*[data-patience]').each(function() {
+  $('*[data-original-class]').each(function() {
     const thisIcon = $(this).find('i');
 
     $(this).attr('disabled', false);

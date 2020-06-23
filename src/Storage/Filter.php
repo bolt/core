@@ -10,7 +10,7 @@ use Doctrine\ORM\Query\Expr\Composite;
  *  This class represents a single filter that converts to an expression along
  *  with associated query values.
  *
- *  @author Ross Riley <riley.ross@gmail.com>
+ * @author Ross Riley <riley.ross@gmail.com>
  */
 class Filter
 {

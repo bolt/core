@@ -28,6 +28,7 @@ class ContentTypesParser extends BaseParser
         $this->localeCodes = empty($locales) ? [] : explode('|', $locales);
         $this->generalConfig = $generalConfig;
         $this->defaultLocale = $defaultLocale;
+
         parent::__construct($projectDir, $filename);
     }
 
@@ -143,6 +144,9 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['listing_template'])) {
             $contentType['listing_template'] = $contentType['slug'] . '.twig';
         }
+        if (! isset($contentType['record_route'])) {
+            $contentType['record_route'] = isset($contentType['locales']) ? 'record_locale' : 'record';
+        }
 
         if ($contentType['singleton']) {
             $contentType['listing_records'] = 1;
@@ -224,7 +228,8 @@ class ContentTypesParser extends BaseParser
      */
     protected function parseFieldsAndGroups(array $fields): array
     {
-        $currentGroup = 'content'; // Default group name, if none was specified
+        // Default group name, if none was specified
+        $currentGroup = 'content';
         $groups = [];
         $acceptFileTypes = $this->generalConfig->get('accept_file_types');
 

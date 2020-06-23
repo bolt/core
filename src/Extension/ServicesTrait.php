@@ -29,6 +29,9 @@ trait ServicesTrait
     /** @var Query */
     protected $query;
 
+    /** @var Config */
+    protected $boltConfig;
+
     /**
      * Injects commonly used objects into the extension, for use by the
      * extension. Called from the listener.
@@ -103,7 +106,11 @@ trait ServicesTrait
 
     public function getBoltConfig(): Config
     {
-        return $this->getService(\Bolt\Configuration\Config::class);
+        if (! $this->boltConfig instanceof Config) {
+            $this->boltConfig = $this->getService(\Bolt\Configuration\Config::class);
+        }
+
+        return $this->boltConfig;
     }
 
     public function getTwig(): Environment

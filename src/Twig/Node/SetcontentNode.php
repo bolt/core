@@ -22,7 +22,7 @@ class SetcontentNode extends Node
      * Constructor.
      *
      * @param string $name
-     * @param int    $lineNo
+     * @param int $lineNo
      */
     public function __construct($name, Node $contentType, ArrayExpression $arguments, array $whereArguments, $lineNo, $tag = null)
     {

@@ -235,12 +235,18 @@ class GeneralParser extends BaseParser
 
         // Filter out invalid keys
         $validKeys = [
-            'user', 'password', 'host', 'port', 'dbname', 'charset',      // common
-            'path', 'memory',                                             // Qqlite
-            'unix_socket', 'driverOptions', 'collate',                    // MySql
-            'sslmode',                                                    // PostgreSQL
-            'servicename', 'service', 'pooled', 'instancename', 'server', // Oracle
-            'persistent',                                                 // SQL Anywhere
+            // common
+            'user', 'password', 'host', 'port', 'dbname', 'charset',
+            // Qqlite
+            'path', 'memory',
+            // MySql
+            'unix_socket', 'driverOptions', 'collate',
+            // PostgreSQL
+            'sslmode',
+            // Oracle
+            'servicename', 'service', 'pooled', 'instancename', 'server',
+            // SQL Anywhere
+            'persistent',
         ];
 
         return $params->intersectByKeys($validKeys);

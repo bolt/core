@@ -18,10 +18,10 @@ final class Version
      *   x.y.z [[alpha|beta|RC|patch] n]
      *
      * e.g. versions for:
-     *   Stable      — 3.0.0
+     *   Stable — 3.0.0
      *   Development — 3.1.0 alpha 1
      */
-    public const VERSION = '4.0.0 RC 24';
+    public const VERSION = '4.0.0 RC 26';
     public const CODENAME = 'Really? This many RC\'s? Yes, really!';
 
     /**
@@ -57,8 +57,8 @@ final class Version
      * @see http://semver.org/ For an explanation on semantic versioning.
      * @see http://php.net/manual/en/function.version-compare.php#refsect1-function.version-compare-notes Notes on version_compare
      *
-     * @param string $version  the version to compare
-     * @param string $operator The comparison operator: <, <=, >, >=, ==, !=
+     * @param string $version the version to compare
+     * @param string $operator the comparison operator: <, <=, >, >=, ==, !=
      *
      * @return bool whether the comparison succeeded
      */

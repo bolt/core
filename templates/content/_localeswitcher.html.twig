@@ -1,14 +1,15 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-{% if record.id and currentlocale %}
+{% if locales.count > 1 or currentlocale !== defaultlocale %}
     <div class="card mb-3">
         <div class="card-header">
             {{ macro.icon('language') }}
             {{ 'field.current_locale'|trans }}:
             {{ flag(currentlocale) }}<b>{{ currentlocale }}</b>
         </div>
-        <div class="card-body">
 
+        {% if locales.count > 1 and record.id %}
+        <div class="card-body">
             <general-language
                     label="{{ 'field.switch_to_locale'|trans }}:"
                     current="{{ currentlocale }}"
@@ -16,7 +17,7 @@
             ></general-language>
 
             {{ macro.buttonlink('localeswitcher.button_info', path('bolt_content_edit_locales', {'id': record.id}),  'info-circle', 'tertiary btn-sm') }}
-
         </div>
+        {% endif %}
     </div>
 {% endif %}

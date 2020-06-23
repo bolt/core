@@ -87,7 +87,8 @@ class ZoneSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => [['onKernelRequest', self::PRIORITY]], // Right after route is matched
+            // Right after route is matched
+            KernelEvents::REQUEST => [['onKernelRequest', self::PRIORITY]],
         ];
     }
 }

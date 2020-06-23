@@ -13,7 +13,6 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,18 +44,18 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     /**
      * @Route("/filemanager/{location}", name="bolt_filemanager", methods={"GET"})
      */
-    public function filemanager(string $location, Request $request): Response
+    public function filemanager(string $location): Response
     {
-        $path = $request->query->get('path', '');
+        $path = $this->getFromRequest('path', '');
         if (str::endsWith($path, '/') === false) {
             $path .= '/';
         }
 
-        if ($request->query->get('view')) {
-            $view = $request->query->get('view') === 'cards' ? 'cards' : 'list';
+        if ($this->getFromRequest('view')) {
+            $view = $this->getFromRequest('view') === 'cards' ? 'cards' : 'list';
             $this->session->set('filemanager_view', $view);
         } else {
-            $view = $this->session->get('filemanager_view', 'list');
+            $view = $this->getFromRequest('filemanager_view', 'list');
         }
 
         $location = $this->fileLocations->get($location);
@@ -64,7 +63,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         $finder = $this->findFiles($location->getBasepath(), $path);
         $folders = $this->findFolders($location->getBasepath(), $path);
 
-        $currentPage = (int) $request->query->get('page', '1');
+        $currentPage = (int) $this->getFromRequest('page', '1');
         $pager = $this->createPaginator($finder, $currentPage);
 
         $parent = $path !== '/' ? Path::canonicalize($path . '/..') : '';

@@ -8,7 +8,6 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,9 +35,9 @@ class TaxonomyController extends TwigAwareController implements FrontendZoneInte
      *     methods={"GET|POST"}
      * )
      */
-    public function listing(ContentRepository $contentRepository, Request $request, string $taxonomyslug, string $slug): Response
+    public function listing(ContentRepository $contentRepository, string $taxonomyslug, string $slug): Response
     {
-        $page = (int) $request->query->get('page', '1');
+        $page = (int) $this->getFromRequest('page', '1');
         $amountPerPage = $this->config->get('general/listing_records');
 
         $taxonomy = $this->config->getTaxonomy($taxonomyslug);

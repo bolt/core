@@ -17,16 +17,19 @@ use Bolt\Storage\Handler\FirstQueryHandler;
 use Bolt\Storage\Handler\IdentifiedSelectHandler;
 use Bolt\Storage\Handler\LatestQueryHandler;
 use Bolt\Storage\Handler\SelectQueryHandler;
+use Bolt\Twig\Notifications;
+use Bolt\Utils\LocaleHelper;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Environment;
 
 /**
  *  Handler class to convert the DSL for content queries into an
  *  object representation.
  *
- *  @author Ross Riley <riley.ross@gmail.com>
- *  @author Xiao-Hu Tai <xiao@twokings.nl>
+ * @author Ross Riley <riley.ross@gmail.com>
+ * @author Xiao-Hu Tai <xiao@twokings.nl>
  */
 class ContentQueryParser
 {
@@ -72,10 +75,18 @@ class ContentQueryParser
     /** @var Config */
     private $config;
 
+    /** @var LocaleHelper */
+    private $localeHelper;
+
+    /** @var Environment */
+    private $twig;
+    /** @var Notifications */
+    private $notifications;
+
     /**
      * Constructor.
      */
-    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, ?QueryInterface $queryHandler = null)
+    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, LocaleHelper $localeHelper, Environment $twig, Notifications $notifications, ?QueryInterface $queryHandler = null)
     {
         $this->repo = $repo;
         $this->requestStack = $requestStack;
@@ -83,6 +94,10 @@ class ContentQueryParser
         if ($queryHandler !== null) {
             $this->addService('select', $queryHandler);
         }
+
+        $this->localeHelper = $localeHelper;
+        $this->twig = $twig;
+        $this->notifications = $notifications;
 
         $this->setupDefaults();
         $this->config = $config;
@@ -100,7 +115,7 @@ class ContentQueryParser
 
         $this->addDirectiveHandler('getquery', new GetQueryDirective());
         $this->addDirectiveHandler('limit', new LimitDirective());
-        $this->addDirectiveHandler('order', new OrderDirective());
+        $this->addDirectiveHandler('order', new OrderDirective($this->localeHelper, $this->twig, $this->notifications));
         $this->addDirectiveHandler('page', new OffsetDirective());
         $this->addDirectiveHandler('printquery', new PrintQueryDirective());
         $this->addDirectiveHandler('returnsingle', new ReturnSingleDirective());
