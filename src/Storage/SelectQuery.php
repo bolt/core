@@ -338,12 +338,10 @@ class SelectQuery implements QueryInterface
             $contentAlias = 'content_' . $index;
             $fieldsAlias = 'fields_' . $index;
             $translationsAlias = 'translations_' . $index;
-            //added to incude taxonomies to be searched as part of contenttype filter
-            $taxonomyAlias = 'taxonomy_' . $index;
             $keyParam = 'field_' . $index;
 
             $originalLeftExpression = 'content.' . $key;
-
+            // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
             $newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $translationsAlias . '.value)', null, $em->getConnection());
 
             $where = $filter->getExpression();
@@ -358,12 +356,7 @@ class SelectQuery implements QueryInterface
                 ->innerJoin($fieldsAlias . '.translations', $translationsAlias)
                 ->andWhere($where)
                 // add JSON_CONTAIN to allow searching of fields with Muiltiple JSON values (eg. Selectfield with mutiple entries)
-                ->orWhere('JSON_CONTAINS(LOWER(' . $translationsAlias . '.value), :' . $key . "_1_JSON, '$') = 1")
-
-                //added to incude taxonomies to be searched as part of contenttype filter
-
-                ->innerJoin($contentAlias . '.taxonomies', $taxonomyAlias)
-                ->orWhere($this->qb->expr()->like($taxonomyAlias . '.slug', ':' . $key . '_1'));
+                ->orWhere('JSON_CONTAINS(LOWER(' . $translationsAlias . '.value), :' . $key . "_1_JSON, '$') = 1");
 
             // Unless the field to which the 'where' applies is `anyColumn`, we
             // Make certain it's narrowed down to that fieldname
