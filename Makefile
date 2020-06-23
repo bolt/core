@@ -86,7 +86,7 @@ behat-js: ## to run behat JS tests
 	## @todo: stop selenium server
 
 behat-js-google:
-	google-chrome --remote-debugging-address=0.0.0.0 --remote-debugging-port=8088 &
+	google-chrome --remote-debugging-address=0.0.0.5 --remote-debugging-port=9222 &
 	sleep 2s
 	vendor/bin/behat --tags=javascript
 

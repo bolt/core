@@ -24,7 +24,7 @@ default:
       directory: var/log/behat-reports
       screenshot: true
     Behat\MinkExtension:
-      base_url: http://localhost:8088
+      base_url: http://localhost
       goutte: ~
       browser_name: chrome
       default_session: session_for_tests
@@ -33,7 +33,7 @@ default:
         goutte: ~
         session_for_tests:
           chrome:
-            api_url: http://localhost:8088
+            api_url: http://localhost:9222
             validate_certificate: false
     Behatch\Extension: ~
 
