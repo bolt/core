@@ -42,6 +42,9 @@ trait ListFieldTrait
 
     public function rewind(): void
     {
+        // Ensure $this->fields is initialised
+        $this->fields = $this->getValue();
+
         $this->iteratorCursor = 0;
     }
 }
