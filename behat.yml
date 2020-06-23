@@ -23,14 +23,18 @@ default:
     Lakion\Behat\MinkDebugExtension:
       directory: var/log/behat-reports
       screenshot: true
-
     Behat\MinkExtension:
+      base_url: http://localhost:8088
+      goutte: ~
       browser_name: chrome
-      base_url: 'http://127.0.0.1:8088/'
+      default_session: session_for_tests
+      javascript_session: session_for_tests
       sessions:
-        default:
+        goutte: ~
+        session_for_tests:
           chrome:
             api_url: http://localhost:8088
+            validate_certificate: false
     Behatch\Extension: ~
 
   suites:
