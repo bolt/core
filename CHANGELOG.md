@@ -1,6 +1,30 @@
 Changelog
 =========
 
+## 4.0.0-rc.26
+
+Released: 2020-06-22
+
+### 🐛 Bug fixes
+
+- Use currently rendered locale in OrderDirective (I-Valchev, [#1529](https://github.com/bolt/core/pull/1529))
+- Ensure `$boltConfig` is set for Controllers in extensions (bobdenotter, [#1527](https://github.com/bolt/core/pull/1527))
+- Don't "warm up" cache on `composer update`, to save time and prevent dreaded `ProcessTimedOutException` after 10 seconds.. (bobdenotter, [#1526](https://github.com/bolt/core/pull/1526))
+- Datefield uses global `app` to access user locale (I-Valchev, [#1521](https://github.com/bolt/core/pull/1521))
+- Make sure sets inside collections are instantiated with actual values (I-Valchev, [#1520](https://github.com/bolt/core/pull/1520))
+
+### 🛠️ Miscellaneous
+
+- User edit actions require valid csrf tokens (I-Valchev, [#1532](https://github.com/bolt/core/pull/1532))
+- Warn editors about file upload errors (I-Valchev, [#1531](https://github.com/bolt/core/pull/1531))
+- Make sure `currentlocale` on edit is always set (I-Valchev, [#1530](https://github.com/bolt/core/pull/1530))
+- Make canonical record URL consistent across routes (I-Valchev, [#1511](https://github.com/bolt/core/pull/1511))
+
+### 🤖 Tests
+
+- Localization tests for saved changes in different locales (I-Valchev, [#1516](https://github.com/bolt/core/pull/1516))
+- More integration tests for localized content (I-Valchev, [#1509](https://github.com/bolt/core/pull/1509))
+
 ## 4.0.0-rc.25
 
 Released: 2020-06-18
