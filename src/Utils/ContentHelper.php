@@ -8,6 +8,7 @@ use Bolt\Canonical;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContentHelper
@@ -15,7 +16,7 @@ class ContentHelper
     /** @var Canonical */
     private $canonical;
 
-    /** @var \Symfony\Component\HttpFoundation\Request|null */
+    /** @var Request */
     private $request;
 
     /** @var Config */
@@ -24,7 +25,7 @@ class ContentHelper
     public function __construct(Canonical $canonical, RequestStack $requestStack, Config $config)
     {
         $this->canonical = $canonical;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->config = $config;
     }
 

@@ -92,7 +92,7 @@ class ContentExtension extends AbstractExtension
         $this->contentRepository = $contentRepository;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->security = $security;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->config = $config;
         $this->query = $query;
         $this->taxonomyRepository = $taxonomyRepository;

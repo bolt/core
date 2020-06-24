@@ -8,18 +8,10 @@ use Bolt\Entity\Taxonomy;
 use Bolt\Tests\DbAwareTestCase;
 
 /**
- * @todo Add represenative tests here, when methods are implemented in TaxonomyRepository
+ * @todo Add representative tests here, when methods are implemented in TaxonomyRepository
  */
 class TaxonomyRepositoryTest extends DbAwareTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // fixtures loading takes a lot of time, it would be better to load database dump for tests
-        self::runCommand('doctrine:fixtures:load --no-interaction --group=without-images');
-    }
-
     public function testSearchByType(): void
     {
         $taxonomies = $this->getEm()
