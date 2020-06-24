@@ -20,6 +20,15 @@ trait ListFieldTrait
         return count($this->getValue());
     }
 
+    /**
+     * Makes ListFieldInterface fields .length attribute
+     * return the number of elements in the field
+     */
+    public function length(): int
+    {
+        return $this->count();
+    }
+
     public function current(): Field
     {
         return $this->fields[$this->iteratorCursor];
@@ -42,6 +51,9 @@ trait ListFieldTrait
 
     public function rewind(): void
     {
+        // Ensure $this->fields is initialised
+        $this->fields = $this->getValue();
+
         $this->iteratorCursor = 0;
     }
 }
