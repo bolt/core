@@ -64,7 +64,7 @@ class SetupCommand extends Command
         $command = $this->getApplication()->find('bolt:add-user');
         $commandInput = new ArrayInput(['--admin' => true]);
         $exitCode = $command->run($commandInput, $output);
-        $this->processExitCode($exitCode, 'An error occurred when creating the new bolt user.');
+        $this->processExitCode($exitCode, 'An error occurred when creating the new Bolt user.');
 
         // Unless either `--no-fixtures` or `--fixtures` was set, we prompt the user for it.
         if (! $input->getOption('no-fixtures')) {
