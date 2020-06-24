@@ -55,7 +55,7 @@ class ConfigTest extends TestCase
         $cache = new TraceableAdapter(new FilesystemAdapter());
         $clearCacheController = new ClearCacheController();
         $kernel = $this->createMock(Kernel::class);
-        $config = new Config('', '', new Stopwatch(), $projectDir, $cache, 'public', $clearCacheController, $cache);
+        $config = new Config('', '', new Stopwatch(), $projectDir, $cache, 'public', $clearCacheController, $kernel);
 
         /** @var Collection $mediaTypes */
         $mediaTypes = $config->getMediaTypes();
