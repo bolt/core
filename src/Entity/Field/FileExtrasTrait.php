@@ -14,7 +14,7 @@ trait FileExtrasTrait
     {
         $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
 
-        return $filesPackage->getUrl($this->get('filename'));
+        return $filesPackage->getUrl((string) $this->get('filename'));
     }
 
     private function getUrl(): string
