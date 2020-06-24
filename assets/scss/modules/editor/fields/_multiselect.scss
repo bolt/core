@@ -1,3 +1,15 @@
-.multiselect__tag__drag {
-  display: inline-flex;
+.multiselect__tag {
+  &__drag {
+    display: inline-flex;
+  }
+
+  border: 1px dashed transparent;
+
+  &.dragover {
+    border-color: $bolt-bluegray;
+  }
+
+  &.dragging {
+    opacity: 0.25;
+  }
 }
