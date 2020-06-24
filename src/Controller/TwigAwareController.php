@@ -10,7 +10,6 @@ use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Storage\Query;
 use Bolt\Utils\Sanitiser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
@@ -101,7 +100,7 @@ class TwigAwareController extends AbstractController
 
     private function setTwigLoader(): void
     {
-        /** @var NativeFilesystemLoader $twigLoaders */
+        /** @var FilesystemLoader $twigLoaders */
         $twigLoaders = $this->twig->getLoader();
 
         $path = $this->config->getPath('theme');
