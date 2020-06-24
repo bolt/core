@@ -34,6 +34,9 @@
             class="multiselect__tag"
             :draggable="!taggable"
             @dragstart="drag($event)"
+            @dragover="dragOver($event)"
+            @dragleave="dragLeave($event)"
+            @dragend="dragEnd($event)"
           >
             <div v-if="!taggable" class="multiselect__tag__drag">
               <i class="fas fa-arrows-alt"></i>
@@ -61,6 +64,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
+import $ from 'jquery';
 
 export default {
   name: 'EditorSelect',
@@ -170,7 +174,25 @@ export default {
       e.preventDefault();
     },
     drag(e) {
+      $(e.target).addClass('dragging');
       e.dataTransfer.setData('text', e.target.id);
+    },
+    dragOver(e) {
+      const target = this.findDropElement(e.target);
+
+      // Only add dragover if not dragging over the element
+      // that is being dragged
+      if (!$(target).hasClass('dragging')) {
+        $(target).addClass('dragover');
+      }
+    },
+    dragLeave(e) {
+      const target = this.findDropElement(e.target);
+      $(target).removeClass('dragover');
+    },
+    dragEnd(e) {
+      const target = this.findDropElement(e.target);
+      $(target).removeClass('dragging');
     },
   },
 };
