@@ -1,3 +1,10 @@
 services:
-  monolog.processor.request:
-    synthetic: true
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    monolog.processor.request:
+        synthetic: true
+
+    App\Tests\Behat\:
+        resource: '../tests/Behat/*'
