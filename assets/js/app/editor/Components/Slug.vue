@@ -66,6 +66,8 @@ export default {
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
+    localize: Boolean,
+    isNew: Boolean,
   },
   data() {
     return {
@@ -83,7 +85,7 @@ export default {
           title +
           document.querySelector(`input[name='fields[${element}]']`).value;
       });
-      if (title.length <= 0) {
+      if (this.shouldGenerateFromTitle(title)) {
         this.icon = 'unlock';
         this.buttonText = this.$props.labels.button_unlocked;
         this.$root.$emit('generate-from-title', true);
@@ -92,6 +94,9 @@ export default {
     this.$root.$on('slugify-from-title', () => this.generateSlug());
   },
   methods: {
+    shouldGenerateFromTitle(title) {
+      return this.isNew ? true : title.length <= 0 && this.localize;
+    },
     editSlug() {
       this.$root.$emit('generate-from-title', false);
       this.edit = true;
