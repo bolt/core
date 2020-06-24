@@ -142,7 +142,7 @@ class Config
      * For example:
      * $var = $config->get('general/wysiwyg/ck/contentsCss');
      *
-     * @param string|array|bool|int $default
+     * @param string|array|bool|int|Collection $default
      */
     public function get(string $path, $default = null)
     {
