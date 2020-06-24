@@ -23,6 +23,19 @@ class ClearCacheController extends AbstractController implements BackendZoneInte
      */
     public function index(KernelInterface $kernel): Response
     {
+        $output = $this->clearcache($kernel);
+
+        $this->addFlash('success', 'label.cache_cleared');
+
+        $twigvars = [
+            'output' => $output->fetch(),
+        ];
+
+        return $this->render('@bolt/pages/clearcache.html.twig', $twigvars);
+    }
+
+    public function clearcache(KernelInterface $kernel): BufferedOutput
+    {
         $application = new Application($kernel);
         $application->setAutoExit(false);
 
@@ -33,12 +46,7 @@ class ClearCacheController extends AbstractController implements BackendZoneInte
         $output = new BufferedOutput();
 
         $application->run($input, $output);
-        $this->addFlash('success', 'label.cache_cleared');
 
-        $twigvars = [
-            'output' => $output->fetch(),
-        ];
-
-        return $this->render('@bolt/pages/clearcache.html.twig', $twigvars);
+        return $output;
     }
 }

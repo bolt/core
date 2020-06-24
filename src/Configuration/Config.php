@@ -12,6 +12,8 @@ use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\MenuParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Configuration\Parser\ThemeParser;
+use Bolt\Controller\Backend\ClearCacheController;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\CacheInterface;
 use Tightenco\Collect\Support\Collection;
@@ -39,13 +41,21 @@ class Config
     /** @var string */
     private $defaultLocale;
 
-    public function __construct(string $locales, string $defaultLocale, Stopwatch $stopwatch, string $projectDir, CacheInterface $cache, string $publicFolder)
+    /** @var ClearCacheController */
+    private $clearCacheController;
+
+    /** @var KernelInterface */
+    private $kernel;
+
+    public function __construct(string $locales, string $defaultLocale, Stopwatch $stopwatch, string $projectDir, CacheInterface $cache, string $publicFolder, ClearCacheController $clearCacheController, KernelInterface $kernel)
     {
         $this->locales = $locales;
         $this->stopwatch = $stopwatch;
         $this->cache = $cache;
         $this->projectDir = $projectDir;
         $this->defaultLocale = $defaultLocale;
+        $this->clearCacheController = $clearCacheController;
+        $this->kernel = $kernel;
 
         $this->data = $this->getConfig();
 
@@ -62,7 +72,8 @@ class Config
         // Verify if timestamps are unchanged. If not, invalidate cache.
         foreach ($timestamps as $filename => $timestamp) {
             if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
-                $this->cache->delete('config_cache');
+                // Clear the entire cache in order to re-generate %bolt.requirement.contenttypes%
+                $this->clearCacheController->clearcache($this->kernel);
                 [$data] = $this->getCache();
             }
         }
