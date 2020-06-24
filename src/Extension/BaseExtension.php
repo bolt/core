@@ -10,7 +10,6 @@ use Cocur\Slugify\Slugify;
 use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
-use Symfony\Bundle\TwigBundle\Loader\NativeFilesystemLoader;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Twig\Environment;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
@@ -94,7 +93,7 @@ abstract class BaseExtension implements ExtensionInterface
             return;
         }
 
-        /** @var NativeFilesystemLoader $twigLoaders */
+        /** @var FilesystemLoader $twigLoaders */
         $twigLoaders = $this->getTwig()->getLoader();
 
         if ($twigLoaders instanceof FilesystemLoader) {

@@ -42,7 +42,7 @@ class Canonical
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->defaultLocale = $defaultLocale;
 
         $this->init();
@@ -51,7 +51,7 @@ class Canonical
     public function init(): void
     {
         // Ensure in request cycle (even for override).
-        if ($this->request === null) {
+        if ($this->request === null || $this->request->getHost() === '') {
             return;
         }
 
@@ -182,7 +182,7 @@ class Canonical
                 $params,
                 $canonical ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH
             );
-        } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException $e) {
+        } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException | \TypeError $e) {
             // Just use the current URL /shrug
             return$this->request->getUri();
         }

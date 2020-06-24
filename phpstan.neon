@@ -2,7 +2,7 @@ parameters:
     tmpDir: var/cache/ecs
     level: 5
     symfony:
-        container_xml_path: '%rootDir%/../../../var/cache/dev/srcBolt_KernelDevDebugContainer.xml'
+        container_xml_path: '%rootDir%/../../../var/cache/dev/Bolt_KernelDevDebugContainer.xml'
 
     ignoreErrors:
         # false positive: `Unreachable statement - code above always terminates.`
@@ -15,12 +15,6 @@ parameters:
         -
             message: '#Call to an undefined method Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface#'
             path: %currentWorkingDirectory%/src/*
-
-        # false positive: `Method Symfony\Contracts\EventDispatcher\EventDispatcherInterface::dispatch() invoked with 2 parameters, 1 required.`
-        # We skip this error, because it's still what the docs recommend: https://symfony.com/doc/current/components/event_dispatcher.html#dispatch-the-event
-        -
-             message: '#EventDispatcherInterface::dispatch\(\) invoked with 2 parameters#'
-             path: %currentWorkingDirectory%/src/*
 
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon

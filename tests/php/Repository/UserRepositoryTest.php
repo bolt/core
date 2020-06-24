@@ -9,14 +9,6 @@ use Bolt\Tests\DbAwareTestCase;
 
 class UserRepositoryTest extends DbAwareTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // fixtures loading takes a lot of time, it would be better to load database dump for tests
-        self::runCommand('doctrine:fixtures:load --no-interaction --group=without-images');
-    }
-
     public function testFindOneByUsername(): void
     {
         $admin = $this->getEm()->getRepository(User::class)->findOneByUsername('admin');
