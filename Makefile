@@ -79,7 +79,7 @@ behat-js: ## to run behat JS tests
 	. ./run_behat_tests.sh
 	## run the selenium server. chromedriver executable must be in $PATH
 	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
-	sleep 5s
+	sleep 10s
 	vendor/bin/behat --tags=javascript
 	## @todo: stop selenium server
 
@@ -89,7 +89,7 @@ behat-js-quiet: ## to run behat JS tests quietly
 	. ./run_behat_tests.sh
 	## run the selenium server. chromedriver executable must be in $PATH
 	vendor/bin/selenium-server-standalone &
-	sleep 5s
+	sleep 10s
 	vendor/bin/behat --tags=javascript --format=progress
 	## @todo: stop selenium server
 
