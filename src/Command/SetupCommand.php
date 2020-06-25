@@ -19,6 +19,9 @@ class SetupCommand extends Command
     /** @var Connection */
     private $connection;
 
+    /** @var array */
+    private $errors = [];
+
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
@@ -47,35 +50,50 @@ class SetupCommand extends Command
         }
 
         $command = $this->getApplication()->find('doctrine:database:create');
-        $exitCode += $command->run(new ArrayInput($options), $output);
+        $exitCode = $command->run(new ArrayInput($options), $output);
+        $this->processExitCode($exitCode, 'An error occurred when creating the database.');
 
         $command = $this->getApplication()->find('doctrine:schema:create');
-        $exitCode += $command->run(new ArrayInput([]), $output);
+        $exitCode = $command->run(new ArrayInput([]), $output);
+        $this->processExitCode($exitCode, 'An error occurred when creating the database schema.');
 
         $command = $this->getApplication()->find('bolt:reset-secret');
-        $exitCode += $command->run(new ArrayInput([]), $output);
+        $exitCode = $command->run(new ArrayInput([]), $output);
+        $this->processExitCode($exitCode, 'An error occurred while resetting APP_SECRET in the .env file.');
 
         $command = $this->getApplication()->find('bolt:add-user');
         $commandInput = new ArrayInput(['--admin' => true]);
-        $exitCode += $command->run($commandInput, $output);
+        $exitCode = $command->run($commandInput, $output);
+        $this->processExitCode($exitCode, 'An error occurred when creating the new Bolt user.');
 
         // Unless either `--no-fixtures` or `--fixtures` was set, we prompt the user for it.
         if (! $input->getOption('no-fixtures')) {
             if ($input->getOption('fixtures') || $io->confirm('Add fixtures (dummy content) to the Database?', true)) {
                 $command = $this->getApplication()->find('doctrine:fixtures:load');
                 $commandInput = new ArrayInput(['--append' => true]);
-                $exitCode += $command->run($commandInput, $output);
+                $exitCode = $command->run($commandInput, $output);
+                $this->processExitCode($exitCode, 'An error occurred while adding the fixtures (dummy content) to the database.');
             }
         }
 
         $io->newLine();
 
-        if ($exitCode !== 0) {
+        if (! empty($this->errors)) {
             $io->error('Some errors occurred while setting up Bolt.');
+            foreach ($this->errors as $error) {
+                $io->warning($error);
+            }
         } else {
             $io->success('Bolt was set up successfully! Start a web server, and open your Bolt site in a browser.');
         }
 
         return 0;
+    }
+
+    private function processExitCode(int $exitCode, string $message): void
+    {
+        if ($exitCode) {
+            $this->errors[] = $message;
+        }
     }
 }
