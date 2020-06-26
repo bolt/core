@@ -420,11 +420,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $field->setLocale($this->defaultLocale);
         }
 
-        // If the value is an array that contains a string of JSON, parse it
-        if (is_iterable($value) && Json::test(current($value))) {
-            $value = Json::findArray($value);
-        }
-
         if ($field instanceof SetField) {
             foreach ($value as $name => $svalue) {
                 $child = $field->getValueForEditor()[$name];
@@ -438,6 +433,11 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                 $this->updateField($child, $svalue, $locale);
             }
         } else {
+            // If the value is an array that contains a string of JSON, parse it
+            if (is_iterable($value) && Json::test(current($value))) {
+                $value = Json::findArray($value);
+            }
+
             $field->setValue($value);
         }
 
