@@ -49,8 +49,8 @@ class FieldFillListener
 
         /** @var Field $field */
         foreach ($fields as $field) {
-            $definition = $definition->get('fields')[$field->getName()] ?? new Collection();
-            $field->setDefinition($field->getName(), $definition);
+            $fieldDefinition = $definition->get('fields')[$field->getName()] ?? new Collection();
+            $field->setDefinition($field->getName(), $fieldDefinition);
         }
 
         $entity->setValue($fields);
