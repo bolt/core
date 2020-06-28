@@ -21,8 +21,9 @@ class IdentifiedSelectHandler
         } else {
             $contentQuery->setParameter('slug', $contentQuery->getIdentifier());
         }
+
         if (count($contentQuery->getContentTypes()) === 1) {
-            $contentQuery->setDirective('returnsingle', true);
+            $contentQuery->setParameter('returnsingle', true);
         }
 
         return call_user_func($contentQuery->getHandler('select'), $contentQuery);

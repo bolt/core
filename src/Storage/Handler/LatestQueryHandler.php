@@ -20,9 +20,7 @@ class LatestQueryHandler
         $contentQuery->setDirective('order', '-id');
 
         // If we're using `/latest`, always return a paginator, even for Singletons
-        /** @var SelectQuery */
-        $selectQuery = $contentQuery->getService('select');
-        $selectQuery->setSingleFetchMode(false);
+        $contentQuery->setDirective('returnsingle', false);
 
         return $contentQuery->getHandler('select')($contentQuery);
     }
