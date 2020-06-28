@@ -341,8 +341,8 @@ class SelectQuery implements QueryInterface
             $keyParam = 'field_' . $index;
 
             $originalLeftExpression = 'content.' . $key;
-
-            $newLeftExpression = JsonHelper::wrapJsonFunction('LOWER('.$translationsAlias . '.value)', null, $em->getConnection());
+            // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
+            $newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $translationsAlias . '.value)', null, $em->getConnection());
 
             $where = $filter->getExpression();
             $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
