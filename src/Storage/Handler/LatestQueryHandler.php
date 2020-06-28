@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Storage\Handler;
 
 use Bolt\Storage\ContentQueryParser;
-use Bolt\Storage\SelectQuery;
 use Pagerfanta\Pagerfanta;
 
 /**
