@@ -7,12 +7,12 @@ namespace Bolt\Storage\Directive;
 use Bolt\Storage\SelectQuery;
 
 /**
- *  Directive to specify that a single object, rather than an array should be returned.
+ *  Directive to specify that an array, rather than a single object should be returned.
  */
-class ReturnSingleDirective
+class ReturnMultipleDirective
 {
     public function __invoke(SelectQuery $query): void
     {
-        $query->setSingleFetchMode(true);
+        $query->setSingleFetchMode(false);
     }
 }
