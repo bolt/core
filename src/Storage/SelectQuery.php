@@ -134,6 +134,11 @@ class SelectQuery implements QueryInterface
             return false;
         }
 
+        // If we're in an "IdentifiedSelect", always return a single
+        if ($this->getWhereParameters('slug_1')) {
+            return true;
+        }
+
         return $this->getSingleFetchMode() || $this->isSingleton();
     }
 

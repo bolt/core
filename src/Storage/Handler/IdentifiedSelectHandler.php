@@ -22,10 +22,6 @@ class IdentifiedSelectHandler
             $contentQuery->setParameter('slug', $contentQuery->getIdentifier());
         }
 
-        if (count($contentQuery->getContentTypes()) === 1) {
-            $contentQuery->setParameter('returnsingle', true);
-        }
-
         return call_user_func($contentQuery->getHandler('select'), $contentQuery);
     }
 }

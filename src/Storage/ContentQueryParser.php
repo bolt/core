@@ -80,6 +80,7 @@ class ContentQueryParser
 
     /** @var Environment */
     private $twig;
+
     /** @var Notifications */
     private $notifications;
 
