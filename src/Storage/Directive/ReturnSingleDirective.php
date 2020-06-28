@@ -13,6 +13,6 @@ class ReturnSingleDirective
 {
     public function __invoke(SelectQuery $query): void
     {
-        $query->setSingleFetchMode(true);
+        $query->setSingleFetchMode((bool) $query->getParameter('returnsingle'));
     }
 }
