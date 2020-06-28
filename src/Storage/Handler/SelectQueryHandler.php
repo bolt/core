@@ -27,7 +27,6 @@ class SelectQueryHandler
 
         /** @var SelectQuery $selectQuery */
         $selectQuery = $contentQuery->getService('select');
-        $selectQuery->setSingleFetchMode(false);
 
         $selectQuery->setQueryBuilder($qb);
         $selectQuery->setContentTypeFilter($contentQuery->getContentTypes());
@@ -46,7 +45,7 @@ class SelectQueryHandler
 
         $contentQuery->runDirectives($selectQuery);
 
-        if ($selectQuery->getSingleFetchMode()) {
+        if ($selectQuery->shouldReturnSingle()) {
             return $qb
                 ->setMaxResults(1)
                 ->getQuery()

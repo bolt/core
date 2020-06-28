@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage\Handler;
 
 use Bolt\Storage\ContentQueryParser;
+use Bolt\Storage\SelectQuery;
 use Pagerfanta\Pagerfanta;
 
 /**
@@ -17,6 +18,11 @@ class LatestQueryHandler
     public function __invoke(ContentQueryParser $contentQuery): Pagerfanta
     {
         $contentQuery->setDirective('order', '-id');
+
+        // If we're using `/latest`, always return a paginator, even for Singletons
+        /** @var SelectQuery */
+        $selectQuery = $contentQuery->getService('select');
+        $selectQuery->setSingleFetchMode(false);
 
         return $contentQuery->getHandler('select')($contentQuery);
     }
