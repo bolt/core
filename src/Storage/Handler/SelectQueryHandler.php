@@ -28,6 +28,10 @@ class SelectQueryHandler
         /** @var SelectQuery $selectQuery */
         $selectQuery = $contentQuery->getService('select');
 
+        // Note: This might seem superfluous, but if we "re-use" $contentQuery,
+        // this needs resetting.
+        $selectQuery->setSingleFetchMode(null);
+
         $selectQuery->setQueryBuilder($qb);
         $selectQuery->setContentTypeFilter($contentQuery->getContentTypes());
         $selectQuery->setParameters($contentQuery->getParameters());
