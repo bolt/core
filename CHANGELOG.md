@@ -3,6 +3,44 @@ Changelog
 
 ## 4.0.0-rc.26
 
+Released: 2020-06-29
+
+### 🐛 Bug fixes
+
+- Slug regenerates on duplicate (I-Valchev, [#1574](https://github.com/bolt/core/pull/1574))
+- Include proper css for file uploader (I-Valchev, [#1572](https://github.com/bolt/core/pull/1572))
+- Ensure fields inside sets and collections have their correct definition (I-Valchev, [#1571](https://github.com/bolt/core/pull/1571))
+- Cache clear does not loop in Config (I-Valchev, [#1570](https://github.com/bolt/core/pull/1570))
+- Add defaultlocale to duplicate action twig (I-Valchev, [#1569](https://github.com/bolt/core/pull/1569))
+- Singletons return single Content result with `{% setcontent %}` (bobdenotter, [#1565](https://github.com/bolt/core/pull/1565))
+- Fix issue with undefined index 0 for a select field inside a a set (I-Valchev, [#1562](https://github.com/bolt/core/pull/1562))
+- Allow "Homepage" to be in viewless ContentType (bobdenotter, [#1549](https://github.com/bolt/core/pull/1549))
+- Make sure contenttypes routes are updated after changes to contenttypes.yaml (I-Valchev, [#1548](https://github.com/bolt/core/pull/1548))
+- After adding `symfony/proxy-manager-bridge`, table prefix went missing (bobdenotter, [#1545](https://github.com/bolt/core/pull/1545))
+- Ensure `$this->fields` is initialised (For Fields that haven't been accessed before) (bobdenotter, [#1544](https://github.com/bolt/core/pull/1544))
+- Slugs follow `localize` setting (I-Valchev, [#1543](https://github.com/bolt/core/pull/1543))
+- Re-set `setSingleFetchMode` to ensure returning a pager, if needed (bobdenotter, [#1576](https://github.com/bolt/core/pull/1576))
+
+### 📦 Additions and new features
+
+- Save content on <kbd>ctrl+s</kbd> and <kbd>cmd+s</kbd> (I-Valchev, [#1573](https://github.com/bolt/core/pull/1573))
+- Update to Symfony 5.1 🎉🎊 (bobdenotter, [#1546](https://github.com/bolt/core/pull/1546))
+
+### 🛠️ Miscellaneous
+
+- Better UI for dragging in multiselect (I-Valchev, [#1550](https://github.com/bolt/core/pull/1550))
+- Prepare release 4.0.0-rc.26 (bobdenotter, [#1539](https://github.com/bolt/core/pull/1539))
+
+### 🤖 Tests
+
+- GitHub Actions workflow (I-Valchev, [#1575](https://github.com/bolt/core/pull/1575))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Better feedback on bolt:setup errors (I-Valchev, [#1551](https://github.com/bolt/core/pull/1551))
+
+## 4.0.0-rc.26
+
 Released: 2020-06-22
 
 ### 🐛 Bug fixes
