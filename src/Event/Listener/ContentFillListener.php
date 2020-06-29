@@ -6,8 +6,6 @@ namespace Bolt\Event\Listener;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
-use Bolt\Entity\Field;
-use Bolt\Entity\FieldParentInterface;
 use Bolt\Entity\User;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\UserRepository;
@@ -32,23 +30,12 @@ class ContentFillListener
         $this->users = $users;
     }
 
-    public function preUpdate(LifecycleEventArgs $args): void
+    /**
+     * @deprecated
+     */
+    public function preUpdate(LifeCycleEventArgs $args): void
     {
-        $entity = $args->getEntity();
-        // FieldParentInterface fields do not store anything in them.
-        // But the setValue and getValue methods are still useful in runtime.
-        // So, let's clear their value.
-        if ($entity instanceof Content) {
-            $entity->getFields()->filter(function (Field $field) {
-                // @todo: Allow sets to be cleared as well.
-                // Now they cannot be cleared, because the value
-                // can be used in a collection after preUpdate on
-                // the set is called.
-                return $field instanceof Field\CollectionField;
-            })->map(function (Field $field): void {
-                $field->setValue([]);
-            });
-        }
+        return;
     }
 
     public function prePersist(LifecycleEventArgs $args): void
