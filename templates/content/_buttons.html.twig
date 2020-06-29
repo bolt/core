@@ -1,7 +1,7 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 <div class="record-actions {% if hide_on_mobile|default(false) %}d-lg-none d-xl-block{% endif %}">
-    {{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent', 'data-patience': 'virtue'}) }}
+    {{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent', 'data-patience': 'virtue', 'name': 'save'}) }}
 
     {% if record.id %}
         <div class="btn-group">
