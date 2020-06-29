@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
@@ -42,7 +43,7 @@ class SelectQuery implements QueryInterface
     protected $replacements = [];
 
     /** @var bool */
-    protected $singleFetchMode = false;
+    protected $singleFetchMode = null;
 
     /** @var int */
     protected $index = 1;
@@ -111,6 +112,34 @@ class SelectQuery implements QueryInterface
     public function getContentType(): string
     {
         return $this->contentType;
+    }
+
+    public function isSingleton(): bool
+    {
+        /** @var ContentType|null $definition */
+        $definition = $this->config->get('contenttypes/' . $this->contentType);
+
+        // We only allow this, if getSingleFetchMode wasn't explicitly set
+        if ($this->getSingleFetchMode() === false) {
+            return false;
+        }
+
+        return $definition ? $definition->get('singleton') : false;
+    }
+
+    public function shouldReturnSingle(): bool
+    {
+        // We only allow this, if getSingleFetchMode wasn't explicitly set
+        if ($this->getSingleFetchMode() === false) {
+            return false;
+        }
+
+        // If we're in an "IdentifiedSelect", always return a single
+        if (array_key_exists('slug_1', $this->getWhereParameters())) {
+            return true;
+        }
+
+        return $this->getSingleFetchMode() || $this->isSingleton();
     }
 
     /**
@@ -261,7 +290,7 @@ class SelectQuery implements QueryInterface
     /**
      * Returns whether the query is in single fetch mode.
      */
-    public function getSingleFetchMode(): bool
+    public function getSingleFetchMode(): ?bool
     {
         return $this->singleFetchMode;
     }

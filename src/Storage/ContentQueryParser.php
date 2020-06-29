@@ -12,6 +12,7 @@ use Bolt\Storage\Directive\LimitDirective;
 use Bolt\Storage\Directive\OffsetDirective;
 use Bolt\Storage\Directive\OrderDirective;
 use Bolt\Storage\Directive\PrintQueryDirective;
+use Bolt\Storage\Directive\ReturnMultipleDirective;
 use Bolt\Storage\Directive\ReturnSingleDirective;
 use Bolt\Storage\Handler\FirstQueryHandler;
 use Bolt\Storage\Handler\IdentifiedSelectHandler;
@@ -80,6 +81,7 @@ class ContentQueryParser
 
     /** @var Environment */
     private $twig;
+
     /** @var Notifications */
     private $notifications;
 
@@ -119,6 +121,7 @@ class ContentQueryParser
         $this->addDirectiveHandler('page', new OffsetDirective());
         $this->addDirectiveHandler('printquery', new PrintQueryDirective());
         $this->addDirectiveHandler('returnsingle', new ReturnSingleDirective());
+        $this->addDirectiveHandler('returnmultiple', new ReturnMultipleDirective());
     }
 
     /**

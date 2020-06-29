@@ -139,6 +139,7 @@ class TwigAwareController extends AbstractController
     {
         $params = [
             'status' => '!unknown',
+            'returnmultiple' => true,
         ];
 
         if ($this->request->get('sortBy')) {
