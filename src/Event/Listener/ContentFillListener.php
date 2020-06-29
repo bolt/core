@@ -30,6 +30,14 @@ class ContentFillListener
         $this->users = $users;
     }
 
+    /**
+     * @deprecated
+     */
+    public function preUpdate(LifeCycleEventArgs $args): void
+    {
+        return;
+    }
+
     public function prePersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
