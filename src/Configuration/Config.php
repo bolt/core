@@ -72,9 +72,11 @@ class Config
         // Verify if timestamps are unchanged. If not, invalidate cache.
         foreach ($timestamps as $filename => $timestamp) {
             if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
+                $this->cache->delete('config_cache');
+                [$data] = $this->getCache();
+
                 // Clear the entire cache in order to re-generate %bolt.requirement.contenttypes%
                 $this->clearCacheController->clearcache($this->kernel);
-                [$data] = $this->getCache();
             }
         }
 
