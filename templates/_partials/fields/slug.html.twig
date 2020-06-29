@@ -19,6 +19,6 @@
             'generate_from': 'slug.generate_from'|trans,
         }|json_encode }}'
         :localize='{{ field.definition.localize|json_encode }}'
-        :is-new='{{ field.new|json_encode }}'
+        :is-new='{{ isnew|json_encode }}'
     ></editor-slug>
 {% endblock %}
