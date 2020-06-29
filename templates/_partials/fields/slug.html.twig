@@ -2,6 +2,7 @@
 
 {% block field %}
 {% set prefix = '/' ~ record.definition.singular_slug ~ '/' %}
+    {% set isnew = field.new or field.content.id === 0 %}
     <editor-slug
         :value='{{ value|json_encode }}'
         :name='{{ name|json_encode }}'
