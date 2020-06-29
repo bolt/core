@@ -23,7 +23,7 @@ Released: 2020-06-29
 
 ### 📦 Additions and new features
 
-- Save content on ctrl+s and cmd+s (I-Valchev, [#1573](https://github.com/bolt/core/pull/1573))
+- Save content on <kbd>ctrl+s</kbd> and <kbd>cmd+s</kbd> (I-Valchev, [#1573](https://github.com/bolt/core/pull/1573))
 - Update to Symfony 5.1 🎉🎊 (bobdenotter, [#1546](https://github.com/bolt/core/pull/1546))
 
 ### 🛠️ Miscellaneous
