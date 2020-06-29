@@ -38,6 +38,7 @@ Released: 2020-06-29
 ### ⚙️ Code Quality / Developer Experience
 
 - Better feedback on bolt:setup errors (I-Valchev, [#1551](https://github.com/bolt/core/pull/1551))
+- Allow both Symfony 4.4 and 5.1 for now (bobdenotter, [#1578](https://github.com/bolt/core/pull/1578))
 
 ## 4.0.0-rc.26
 
