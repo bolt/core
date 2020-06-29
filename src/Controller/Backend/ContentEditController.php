@@ -198,7 +198,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         /** @var User $user */
         $user = $this->getUser();
 
-        $content->setId(null);
+        $content->setId(0);
         $content->setCreatedAt(null);
         $content->setAuthor($user);
         $content->setModifiedAt(null);
