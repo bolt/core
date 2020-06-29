@@ -52,10 +52,21 @@ class FieldType extends Collection
         ]);
     }
 
-    public static function factory(string $name, ContentType $contentType): self
+    public static function factory(string $name, ContentType $contentType, array $parents = []): self
     {
         $defaults = static::defaults();
-        $fromContentType = new self($contentType->get('fields')->get($name, []));
+
+        if (empty($parents)) {
+            $fromContentType = new self($contentType->get('fields')->get($name, []));
+        } else {
+            $definition = $contentType;
+
+            foreach ($parents as $parent) {
+                $definition = $definition->get('fields')->get($parent, collect([]));
+            }
+
+            $fromContentType = $definition->get('fields', collect([]))->get($name, collect([]));
+        }
 
         return new self($defaults->merge($fromContentType));
     }
