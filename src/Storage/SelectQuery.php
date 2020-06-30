@@ -373,7 +373,7 @@ class SelectQuery implements QueryInterface
 
                   $innerQuery->join($contentAlias.'.taxonomies', 'taxonomies_' . $key);
                     $this->qb->setParameter($key.'_1', $value);
-                    $filterExpression = sprintf('LOWER(taxonomies_%s.slug) LIKE :%s', $key, key($filter->getParameters()));
+                    $filterExpression = sprintf('LOWER(taxonomies_%s.slug) LIKE :%s', $key, $key.'_1');
                     $innerQuery->orWhere($filterExpression);   
                      
                  }
