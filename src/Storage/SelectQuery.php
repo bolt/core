@@ -356,7 +356,7 @@ class SelectQuery implements QueryInterface
                 ->innerJoin($fieldsAlias . '.translations', $translationsAlias)
                 ->andWhere($where)
                 // add orWhere to allow searching of fields with Muiltiple JSON values (eg. Selectfield with mutiple entries). 
-                ->orWhere( $this->qb->expr()->like('LOWER('.$translationsAlias . '.value)', ':'.$key.'_1_JSON'));
+                ->orWhere( $this->qb->expr()->like('LOWER('.$translationsAlias . '.value)', ':'.key($filter->getParameters()).'_JSON'));
 
 
             // Unless the field to which the 'where' applies is `anyColumn`, we
@@ -373,7 +373,7 @@ class SelectQuery implements QueryInterface
 
                   $innerQuery->join($contentAlias.'.taxonomies', 'taxonomies_' . $key);
                     $this->qb->setParameter($key.'_1', $value);
-                    $filterExpression = sprintf('LOWER(taxonomies_%s.slug) LIKE :%s', $key, $key.'_1');
+                    $filterExpression = sprintf('LOWER(taxonomies_%s.slug) LIKE :%s', $key, key($filter->getParameters()));
                     $innerQuery->orWhere($filterExpression);   
                      
                  }
