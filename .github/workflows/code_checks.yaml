@@ -1,0 +1,94 @@
+name: Code checks & tests
+
+on:
+  pull_request:
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false # do not cancel 7.2 if 7.3 fails
+      matrix:
+        php: ['7.2', '7.3', '7.4']
+        node-version: ['12.5']
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: nanasess/setup-chromedriver@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Initialise
+        run: |
+          sudo composer self-update -q
+      - name: Install dependencies
+        run: |
+          sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress
+          ./bin/console bolt:info
+          npm set progress=false
+          npm ci
+          mkdir -p ./var/log/e2e-reports/report/features/
+          touch ./var/log/e2e-reports/report/features/.gitkeep
+          # Install latest stable Chrome for e2e tests
+          sudo apt-get install libxss1 libappindicator1 libindicator7
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install ./google-chrome*.deb
+      - name: Prepare environment
+        run: |
+          # build assets
+          npm run build
+          sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/
+          # prepare web server for e2e tests
+          ./bin/console doctrine:database:create
+          ./bin/console doctrine:schema:create
+          ./bin/console doctrine:fixtures:load --group=without-images -n
+          ./bin/console server:start 127.0.0.1:8088
+          # test if web server works
+          sleep 3
+          wget "http://127.0.0.1:8088/bolt/login"
+      - name: this checks that the source code follows the Bolt Code Syntax rules
+        run: |
+          ./vendor/bin/ecs check src
+          ./vendor/bin/phpstan analyse -c phpstan.neon src
+      - name: run EsLint on Javascript files
+        run: npm run lint
+
+      - name: run StyleLint on SCSS
+        run: npm run stylelint
+
+      - name: this checks that the YAML config files contain no syntax errors
+        run: ./bin/console lint:yaml config
+
+      - name: this checks that the Twig template files contain no syntax errors
+        run: ./bin/console lint:twig templates
+
+      - name: this checks that the XLIFF translations contain no syntax errors
+        run: ./bin/console lint:xliff translations
+
+      - name: this checks that the application doesn't use dependencies with known security vulnerabilities
+        run: ./bin/console security:check
+
+      - name: this checks that the composer.json and composer.lock files are valid
+        run: composer validate --strict # temporarily disabled due to bug in api platform 2.4.0-beta.2
+
+      - name: this checks that Doctrine's mapping configurations are valid
+        run: ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+
+      - name: run PHP Unit
+        run: ./vendor/bin/phpunit
+
+      - name: run API tests
+        run: make behat-api-quiet
+
+      - name: Install latest Google Chrome (for e2e tests)
+        run: wget -q https://script.install.devinsideyou.com/google-chrome && chmod +x google-chrome
+
+      - name: run e2e tests
+        run: ./run_behat_tests.sh && make behat-js-quiet
+
+      - name: Upload Behat logs
+        run: ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
+        if: always()

@@ -10,7 +10,6 @@ use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\Field\SetField;
 use Bolt\Repository\FieldRepository;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Tightenco\Collect\Support\Collection;
 
 class FieldFillListener
 {
@@ -30,43 +29,49 @@ class FieldFillListener
     {
         $entity = $args->getEntity();
 
+        if ($entity instanceof Field) {
+            $this->fillField($entity);
+        }
+
         if ($entity instanceof CollectionField) {
-            // By calling fillContent form here, we ensure $entity has definition.
-            $this->cfl->fillContent($entity->getContent());
             $this->fillCollection($entity);
         }
 
         if ($entity instanceof SetField) {
-            $this->cfl->fillContent($entity->getContent());
             $this->fillSet($entity);
         }
     }
 
-    public function fillSet(SetField $entity): void
+    public function fillField(Field $field): void
     {
-        $definition = $entity->getDefinition();
-        $fields = $this->fields->findAllByParent($entity);
+        // Fill in the definition of the field
+        $parents = $this->getParents($field);
+        $this->cfl->fillContent($field->getContent());
+        $contentDefinition = $field->getContent()->getDefinition();
+        $field->setDefinition($field->getName(), FieldType::factory($field->getName(), $contentDefinition, $parents));
+    }
 
-        /** @var Field $field */
-        foreach ($fields as $field) {
-            $definition = $definition->get('fields')[$field->getName()] ?? new Collection();
-            $field->setDefinition($field->getName(), $definition);
+    private function getParents(Field $field): array
+    {
+        $parents = [];
+
+        if ($field->hasParent()) {
+            $parents = $this->getParents($field->getParent());
+            $parents[] = $field->getParent()->getName();
         }
 
+        return $parents;
+    }
+
+    public function fillSet(SetField $entity): void
+    {
+        $fields = $this->fields->findAllByParent($entity);
         $entity->setValue($fields);
     }
 
     public function fillCollection(CollectionField $entity): void
     {
-        $definition = $entity->getDefinition();
-        $fields = $this->intersectFieldsAndDefinition($this->fields->findAllByParent($entity), $definition);
-
-        /** @var Field $field */
-        foreach ($fields as $field) {
-            $fieldDefiniton = $entity->getDefinition()->get('fields')[$field->getName()] ?? new Collection();
-            $field->setDefinition($field->getName(), $fieldDefiniton);
-        }
-
+        $fields = $this->intersectFieldsAndDefinition($this->fields->findAllByParent($entity), $entity->getDefinition());
         $entity->setValue($fields);
     }
 

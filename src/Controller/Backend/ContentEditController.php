@@ -198,7 +198,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         /** @var User $user */
         $user = $this->getUser();
 
-        $content->setId(null);
+        $content->setId(0);
         $content->setCreatedAt(null);
         $content->setAuthor($user);
         $content->setModifiedAt(null);
@@ -212,6 +212,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             'record' => $content,
             'locales' => $content->getLocales(),
             'currentlocale' => $this->getEditLocale($content),
+            'defaultlocale' => $this->defaultLocale,
         ];
 
         return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
