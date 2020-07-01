@@ -36,7 +36,6 @@
     :errormessage='{{ errormessage|json_encode }}'
   ></editor-date>
   {% else %}
-      <br>
     {{ value|localedatetime('%B %e, %Y - %H:%M<small>%p</small>') }}
       <small>({{ macro.relative_datetime(value) }})</small>
   {% endif %}
