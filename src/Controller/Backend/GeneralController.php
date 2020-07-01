@@ -35,6 +35,7 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
             'installType' => Version::installType(),
             'platform' => $this->doctrineVersion->getPlatform(),
             'php' => PHP_VERSION,
+            'symfony' => Version::getSymfonyVersion(),
             'os_name' => php_uname('s'),
             'os_version' => php_uname('r'),
         ];
