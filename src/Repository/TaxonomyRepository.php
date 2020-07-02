@@ -41,7 +41,12 @@ class TaxonomyRepository extends ServiceEntityRepository
         $taxonomy = new Taxonomy();
 
         if ($name === null) {
-            $name = $this->config->getTaxonomy($type)->get('options')->get($slug, ucfirst($slug));
+            $taxonomyDefinition = $this->config->getTaxonomy($type);
+            if ($taxonomyDefinition === null) {
+                $name = ucfirst($slug);
+            } else {
+                $name = $taxonomyDefinition->get('options')->get($slug, ucfirst($slug));
+            }
         }
 
         $taxonomy->setType($type);
