@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\FieldRepository;
 use Tightenco\Collect\Support\Collection;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -21,10 +23,14 @@ class FieldExtension extends AbstractExtension
     /** @var ContentRepository */
     private $contentRepository;
 
-    public function __construct(Notifications $notifications, ContentRepository $contentRepository)
+    /** @var Config */
+    private $config;
+
+    public function __construct(Notifications $notifications, ContentRepository $contentRepository, Config $config)
     {
         $this->notifications = $notifications;
         $this->contentRepository = $contentRepository;
+        $this->config = $config;
     }
 
     /**
@@ -36,6 +42,7 @@ class FieldExtension extends AbstractExtension
             new TwigFilter('label', [$this, 'getLabel']),
             new TwigFilter('type', [$this, 'getType']),
             new TwigFilter('selected', [$this, 'getSelected']),
+            new TwigFilter('date', [$this, 'getDate'], ['needs_environment' => true]),
         ];
     }
 
@@ -44,6 +51,15 @@ class FieldExtension extends AbstractExtension
         return [
             new TwigFunction('field_factory', [$this, 'fieldFactory']),
         ];
+    }
+
+    public function getDate(Environment $twig, $date, $format = null, $timezone = null)
+    {
+        if ($format === null && ! $date instanceof \DateInterval) {
+            $format = $this->config->get('general/date_format', null);
+        }
+
+        return twig_date_format_filter($twig, $date, $format, $timezone);
     }
 
     public function fieldFactory(string $name, ?Collection $definition = null): Field
