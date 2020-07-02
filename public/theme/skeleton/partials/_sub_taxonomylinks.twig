@@ -7,7 +7,7 @@
         {% endif %}
     </em>
     {% for taxonomy in taxonomies %}
-        <a href="{{ taxonomy.link }}" class="taxonomy-{{ type }}">{{ taxonomy.name }}</a>{% if not loop.last %}, {% endif %}
+        <a href="{{ taxonomy|link }}" class="taxonomy-{{ type }}">{{ taxonomy.name }}</a>{% if not loop.last %}, {% endif %}
     {% else %}
         {{ __('general.phrase.none') }}
     {% endfor %}

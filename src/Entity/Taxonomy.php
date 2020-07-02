@@ -50,9 +50,6 @@ class Taxonomy
      */
     private $sortorder = 0;
 
-    /** @var string */
-    private $link;
-
     public function __construct()
     {
         $this->content = new ArrayCollection();
@@ -133,18 +130,6 @@ class Taxonomy
     public function setSortorder(int $sortorder): self
     {
         $this->sortorder = $sortorder;
-
-        return $this;
-    }
-
-    public function getLink(): ?string
-    {
-        return $this->link;
-    }
-
-    public function setLink(string $link): self
-    {
-        $this->link = $link;
 
         return $this;
     }
