@@ -13,6 +13,7 @@ use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
 use Bolt\Entity\Field\SelectField;
 use Bolt\Entity\Field\TemplateselectField;
+use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
 use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
@@ -75,6 +76,9 @@ class ContentExtension extends AbstractExtension
     /** @var ContentHelper */
     private $contentHelper;
 
+    /** @var Notifications */
+    private $notifications;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
@@ -86,7 +90,8 @@ class ContentExtension extends AbstractExtension
         TaxonomyRepository $taxonomyRepository,
         TranslatorInterface $translator,
         Canonical $canonical,
-        ContentHelper $contentHelper
+        ContentHelper $contentHelper,
+        Notifications $notifications
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
@@ -99,6 +104,7 @@ class ContentExtension extends AbstractExtension
         $this->translator = $translator;
         $this->canonical = $canonical;
         $this->contentHelper = $contentHelper;
+        $this->notifications = $notifications;
     }
 
     /**
@@ -330,13 +336,30 @@ class ContentExtension extends AbstractExtension
         $content->setTwig($env);
     }
 
-    public function getLink(Content $content, bool $canonical = false, ?string $locale = null): ?string
+    /**
+     * @param Content|Taxonomy $contentOrTaxonomy
+     */
+    public function getLink($contentOrTaxonomy, bool $canonical = false, ?string $locale = null): ?string
     {
-        if ($content->getId() === null || $content->getDefinition()->get('viewless')) {
-            return null;
+        if ($contentOrTaxonomy instanceof Content) {
+            if ($contentOrTaxonomy->getId() === null || $contentOrTaxonomy->getDefinition()->get('viewless')) {
+                return null;
+            }
+
+            return $this->contentHelper->getLink($contentOrTaxonomy, $canonical, $locale);
         }
 
-        return $this->contentHelper->getLink($content, $canonical, $locale);
+        if ($contentOrTaxonomy instanceof Taxonomy) {
+            return $this->urlGenerator->generate('taxonomy', [
+                'taxonomyslug' => $contentOrTaxonomy->getType(),
+                'slug' => $contentOrTaxonomy->getSlug(),
+            ]);
+        }
+
+        $body = sprintf("You have called the <code>|link</code> filter with a parameter of type '%s', but <code>|link</code> accepts record (Content) or taxonomy.", gettype($contentOrTaxonomy));
+        $this->notifications->warning('Incorrect use of <code>|link</code> filter', $body);
+
+        return null;
     }
 
     public function getEditLink(Content $content): ?string
@@ -401,11 +424,6 @@ class ContentExtension extends AbstractExtension
     {
         $taxonomies = [];
         foreach ($content->getTaxonomies() as $taxonomy) {
-            $link = $this->urlGenerator->generate('taxonomy', [
-                'taxonomyslug' => $taxonomy->getType(),
-                'slug' => $taxonomy->getSlug(),
-            ]);
-            $taxonomy->setLink($link);
             $taxonomies[$taxonomy->getType()][$taxonomy->getSlug()] = $taxonomy;
         }
 
