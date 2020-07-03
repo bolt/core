@@ -135,7 +135,8 @@ class SelectQuery implements QueryInterface
         }
 
         // If we're in an "IdentifiedSelect", always return a single
-        if (array_key_exists('slug_1', $this->getWhereParameters())) {
+        if (array_key_exists('slug_1', $this->getWhereParameters())
+            || array_key_exists('id_1', $this->getWhereParameters())) {
             return true;
         }
 
