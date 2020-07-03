@@ -117,7 +117,7 @@ class ContentQueryParser
         $this->addDirectiveHandler(LimitDirective::NAME, new LimitDirective());
         $this->addDirectiveHandler(OrderDirective::NAME, new OrderDirective($this->localeHelper, $this->twig, $this->notifications));
         $this->addDirectiveHandler(OffsetDirective::NAME, new OffsetDirective());
-        $this->addDirectiveHandler( PrintQueryDirective::NAME, new PrintQueryDirective());
+        $this->addDirectiveHandler(PrintQueryDirective::NAME, new PrintQueryDirective());
         $this->addDirectiveHandler(ReturnSingleDirective::NAME, new ReturnSingleDirective());
         $this->addDirectiveHandler(ReturnMultipleDirective::NAME, new ReturnMultipleDirective());
         $this->addDirectiveHandler(LatestDirectiveHandler::NAME, new LatestDirectiveHandler());
@@ -249,7 +249,7 @@ class ContentQueryParser
     public function runDirectives(QueryInterface $query, array $skipDirective = []): void
     {
         $directives = $this->directives;
-        while( !empty($directives)) {
+        while (! empty($directives)) {
             $key = array_key_first($directives);
             $value = $directives[$key];
 
@@ -264,9 +264,8 @@ class ContentQueryParser
             }
 
             if (is_callable($this->getDirectiveHandler($key))) {
-                call_user_func_array($this->getDirectiveHandler($key), array($query, $value, &$directives));
+                call_user_func_array($this->getDirectiveHandler($key), [$query, $value, &$directives]);
             }
-
         }
     }
 
