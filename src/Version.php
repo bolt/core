@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt;
 
+use ComposerPackages\Packages;
+
 /**
  * Bolt's current version.
  *
@@ -124,10 +126,8 @@ final class Version
         return $type;
     }
 
-    /**
-     * Must not be instantiated.
-     */
-    private function __construct()
+    public static function getSymfonyVersion(): string
     {
+        return Packages::symfonyFrameworkBundle()->getPrettyVersion();
     }
 }
