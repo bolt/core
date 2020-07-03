@@ -16,6 +16,11 @@ parameters:
             message: '#Call to an undefined method Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface#'
             path: %currentWorkingDirectory%/src/*
 
+        # Function twig_date_format_filter not found. Internal Twig function, so skip this error.
+        -
+        	message: '#Function twig_date_format_filter not found.#'
+        	path: %currentWorkingDirectory%/src/Twig/FieldExtension.php
+
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
