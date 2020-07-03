@@ -12,7 +12,7 @@
 
     <section id="one">
         <h1>One</h1>
-        {% setcontent entries = "entries/latest/4" printquery  %}
+        {% setcontent entries = "entries" latest limit 4 printquery  %}
         Results: <span id="results-one">{{ entries|length > 5 ? 'yes' }}</span>
         <ul>
         {% for entry in entries %}
@@ -25,7 +25,7 @@
         </ul>
     </section>
 
-    {# If there are more records than will fit on one page, the pager is shown.#}
+     If there are more records than will fit on one page, the pager is shown.
     {{ pager(entries, template = 'helpers/_pager_basic.html.twig') }}
 
     <section id="two">
@@ -44,7 +44,7 @@
     </section>
 
 
-    {# If there are more records than will fit on one page, the pager is shown.#}
+     If there are more records than will fit on one page, the pager is shown.
     {{ pager(pages, template = 'helpers/_pager_basic.html.twig') }}
 
     <section id="three">
