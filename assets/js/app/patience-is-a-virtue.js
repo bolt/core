@@ -9,7 +9,7 @@ $('a[data-patience], button[data-patience]').on('click', function() {
     $(this).attr('form') &&
     !$('#' + $(this).attr('form'))[0].checkValidity()
   ) {
-    return false;
+    return;
   }
 
   // Bootstrap padding / margin like `mx-2` or `pt-3`
