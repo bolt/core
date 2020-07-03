@@ -125,10 +125,12 @@ class LocaleExtension extends AbstractExtension
      */
     public function localedatetime($dateTime, ?string $format = null, ?string $locale = null): string
     {
-        if (! $dateTime instanceof \DateTime) {
-            $dateTime = Carbon::createFromTimeString($dateTime);
-        } else {
+        if ($dateTime instanceof \Datetime) {
             $dateTime = Carbon::createFromTimestamp($dateTime->getTimestamp(), $dateTime->getTimezone());
+        } elseif (empty($dateTime)) {
+            $dateTime = Carbon::now();
+        } else {
+            $dateTime = Carbon::createFromTimeString($dateTime);
         }
 
         if ($format === null) {
