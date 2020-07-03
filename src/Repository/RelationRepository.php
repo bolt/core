@@ -93,4 +93,20 @@ class RelationRepository extends ServiceEntityRepository
 
         return $qb;
     }
+
+    public function findRelation(Content $from, Content $to): ?Relation
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r, cfrom, cto')
+            ->join('r.fromContent', 'cfrom')
+            ->join('r.toContent', 'cto')
+            ->orderBy('r.position', 'DESC')
+            ->orWhere('r.fromContent = :from AND r.toContent = :to')
+            ->orWhere('r.fromContent = :to AND r.toContent = :from')
+            ->setParameter('from', $from)
+            ->setParameter('to', $to)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
