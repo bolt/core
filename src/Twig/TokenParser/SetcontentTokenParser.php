@@ -4,6 +4,14 @@ declare(strict_types=1);
 
 namespace Bolt\Twig\TokenParser;
 
+use Bolt\Storage\Directive\EarliestDirectiveHandler;
+use Bolt\Storage\Directive\LatestDirectiveHandler;
+use Bolt\Storage\Directive\LimitDirective;
+use Bolt\Storage\Directive\OffsetDirective;
+use Bolt\Storage\Directive\OrderDirective;
+use Bolt\Storage\Directive\PrintQueryDirective;
+use Bolt\Storage\Directive\ReturnMultipleDirective;
+use Bolt\Storage\Directive\ReturnSingleDirective;
 use Bolt\Twig\Node\SetcontentNode;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Expression\ConstantExpression;
@@ -53,45 +61,71 @@ class SetcontentTokenParser extends AbstractTokenParser
             }
 
             // limit parameter
-            if ($this->parser->getStream()->test(Token::NAME_TYPE, 'limit')) {
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, LimitDirective::NAME)) {
                 $this->parser->getStream()->next();
                 $limit = $this->parser->getExpressionParser()->parseExpression();
-                $arguments->addElement($limit, new ConstantExpression('limit', $lineno));
+                $arguments->addElement($limit, new ConstantExpression(LimitDirective::NAME, $lineno));
             }
 
             // order / orderby parameter
-            if ($this->parser->getStream()->test(Token::NAME_TYPE, 'order') ||
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, OrderDirective::NAME) ||
                 $this->parser->getStream()->test(Token::NAME_TYPE, 'orderby')) {
                 $this->parser->getStream()->next();
                 $order = $this->parser->getExpressionParser()->parseExpression();
-                $arguments->addElement($order, new ConstantExpression('order', $lineno));
+                $arguments->addElement($order, new ConstantExpression(OrderDirective::NAME, $lineno));
             }
 
-            // paging / allowpaging parameter
-            if ($this->parser->getStream()->test(Token::NAME_TYPE, 'paging') ||
-                $this->parser->getStream()->test(Token::NAME_TYPE, 'allowpaging')) {
+            // page parameter
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, OffsetDirective::NAME)) {
                 $this->parser->getStream()->next();
                 $arguments->addElement(
                     new ConstantExpression(true, $lineno),
-                    new ConstantExpression('paging', $lineno)
+                    new ConstantExpression(OffsetDirective::NAME, $lineno)
                 );
             }
 
             // printquery parameter
-            if ($this->parser->getStream()->test(Token::NAME_TYPE, 'printquery')) {
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, PrintQueryDirective::NAME)) {
                 $this->parser->getStream()->next();
                 $arguments->addElement(
                     new ConstantExpression(true, $lineno),
-                    new ConstantExpression('printquery', $lineno)
+                    new ConstantExpression(PrintQueryDirective::NAME, $lineno)
                 );
             }
 
             // returnsingle parameter
-            if ($this->parser->getStream()->test(Token::NAME_TYPE, 'returnsingle')) {
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, ReturnSingleDirective::NAME)) {
                 $this->parser->getStream()->next();
                 $arguments->addElement(
                     new ConstantExpression(true, $lineno),
-                    new ConstantExpression('returnsingle', $lineno)
+                    new ConstantExpression(ReturnSingleDirective::NAME, $lineno)
+                );
+            }
+
+            // returnmultiple parameter
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, ReturnMultipleDirective::NAME)) {
+                $this->parser->getStream()->next();
+                $arguments->addElement(
+                    new ConstantExpression(true, $lineno),
+                    new ConstantExpression(ReturnMultipleDirective::NAME, $lineno)
+                );
+            }
+
+            // latest parameter
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, LatestDirectiveHandler::NAME)) {
+                $this->parser->getStream()->next();
+                $arguments->addElement(
+                    new ConstantExpression(true, $lineno),
+                    new ConstantExpression(LatestDirectiveHandler::NAME, $lineno)
+                );
+            }
+
+            // first parameter
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, EarliestDirectiveHandler::NAME)) {
+                $this->parser->getStream()->next();
+                $arguments->addElement(
+                    new ConstantExpression(true, $lineno),
+                    new ConstantExpression(EarliestDirectiveHandler::NAME, $lineno)
                 );
             }
 

@@ -17,6 +17,8 @@ use Twig\Environment;
  */
 class OrderDirective
 {
+    public const NAME = 'order';
+
     /** @var LocaleHelper */
     private $localeHelper;
 

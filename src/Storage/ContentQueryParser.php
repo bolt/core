@@ -7,7 +7,9 @@ namespace Bolt\Storage;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
+use Bolt\Storage\Directive\EarliestDirectiveHandler;
 use Bolt\Storage\Directive\GetQueryDirective;
+use Bolt\Storage\Directive\LatestDirectiveHandler;
 use Bolt\Storage\Directive\LimitDirective;
 use Bolt\Storage\Directive\OffsetDirective;
 use Bolt\Storage\Directive\OrderDirective;
@@ -53,7 +55,7 @@ class ContentQueryParser
     protected $identifier;
 
     /** @var array */
-    protected $operations = ['search', 'latest', 'first'];
+    protected $operations = ['search'];
 
     /** @var array */
     protected $directives = [];
@@ -111,17 +113,17 @@ class ContentQueryParser
     protected function setupDefaults(): void
     {
         $this->addHandler('select', new SelectQueryHandler());
-        $this->addHandler('first', new FirstQueryHandler());
-        $this->addHandler('latest', new LatestQueryHandler());
         $this->addHandler('namedselect', new IdentifiedSelectHandler());
 
-        $this->addDirectiveHandler('getquery', new GetQueryDirective());
-        $this->addDirectiveHandler('limit', new LimitDirective());
-        $this->addDirectiveHandler('order', new OrderDirective($this->localeHelper, $this->twig, $this->notifications));
-        $this->addDirectiveHandler('page', new OffsetDirective());
-        $this->addDirectiveHandler('printquery', new PrintQueryDirective());
-        $this->addDirectiveHandler('returnsingle', new ReturnSingleDirective());
-        $this->addDirectiveHandler('returnmultiple', new ReturnMultipleDirective());
+        $this->addDirectiveHandler(GetQueryDirective::NAME, new GetQueryDirective());
+        $this->addDirectiveHandler(LimitDirective::NAME, new LimitDirective());
+        $this->addDirectiveHandler(OrderDirective::NAME, new OrderDirective($this->localeHelper, $this->twig, $this->notifications));
+        $this->addDirectiveHandler(OffsetDirective::NAME, new OffsetDirective());
+        $this->addDirectiveHandler( PrintQueryDirective::NAME, new PrintQueryDirective());
+        $this->addDirectiveHandler(ReturnSingleDirective::NAME, new ReturnSingleDirective());
+        $this->addDirectiveHandler(ReturnMultipleDirective::NAME, new ReturnMultipleDirective());
+        $this->addDirectiveHandler(LatestDirectiveHandler::NAME, new LatestDirectiveHandler());
+        $this->addDirectiveHandler(EarliestDirectiveHandler::NAME, new EarliestDirectiveHandler());
     }
 
     /**
@@ -248,16 +250,25 @@ class ContentQueryParser
      */
     public function runDirectives(QueryInterface $query, array $skipDirective = []): void
     {
-        foreach ($this->directives as $key => $value) {
+        $directives = $this->directives;
+        while( !empty($directives)) {
+            $key = array_key_first($directives);
+            $value = $directives[$key];
+
+            unset($directives[$key]);
+
             if (in_array($key, $skipDirective, true)) {
                 continue;
             }
+
             if (! $this->hasDirectiveHandler($key)) {
                 continue;
             }
+
             if (is_callable($this->getDirectiveHandler($key))) {
-                call_user_func($this->getDirectiveHandler($key), $query, $value, $this->directives);
+                call_user_func_array($this->getDirectiveHandler($key), array($query, $value, &$directives));
             }
+
         }
     }
 

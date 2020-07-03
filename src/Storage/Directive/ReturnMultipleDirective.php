@@ -11,6 +11,8 @@ use Bolt\Storage\SelectQuery;
  */
 class ReturnMultipleDirective
 {
+    public const NAME = 'returnmultiple';
+
     public function __invoke(SelectQuery $query): void
     {
         $query->setSingleFetchMode(false);
