@@ -43,6 +43,10 @@ class GeneralParser extends BaseParser
 
         $general['database'] = $this->parseDatabase($general['database']);
 
+        if (! isset($general['date_format'])) {
+            $general['date_format'] = 'F j, Y H:i';
+        }
+
         return new Collection($general);
     }
 
