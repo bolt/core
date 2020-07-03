@@ -63,7 +63,6 @@ class SetcontentTokenParserTest extends TokenParserTestCase
             new Token(Token::STRING_TYPE, 'title', 11),
 
             new Token(Token::NAME_TYPE, 'paging', 12),
-            new Token(Token::NAME_TYPE, 'allowpaging', 13),
 
             new Token(Token::NAME_TYPE, 'printquery', 14),
 
@@ -103,14 +102,11 @@ class SetcontentTokenParserTest extends TokenParserTestCase
             $this->assertSame('paging', $nodes[3]['key']->getAttribute('value'));
             $this->assertTrue($nodes[3]['value']->getAttribute('value'));
 
-            $this->assertSame('paging', $nodes[4]['key']->getAttribute('value'));
+            $this->assertSame('printquery', $nodes[4]['key']->getAttribute('value'));
             $this->assertTrue($nodes[4]['value']->getAttribute('value'));
 
-            $this->assertSame('printquery', $nodes[5]['key']->getAttribute('value'));
+            $this->assertSame('returnsingle', $nodes[5]['key']->getAttribute('value'));
             $this->assertTrue($nodes[5]['value']->getAttribute('value'));
-
-            $this->assertSame('returnsingle', $nodes[6]['key']->getAttribute('value'));
-            $this->assertTrue($nodes[6]['value']->getAttribute('value'));
         }
 
         $loader = $this->getMockBuilder(LoaderInterface::class)->getMock();

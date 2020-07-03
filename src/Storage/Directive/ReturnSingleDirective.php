@@ -11,6 +11,8 @@ use Bolt\Storage\SelectQuery;
  */
 class ReturnSingleDirective
 {
+    public const NAME = 'returnsingle';
+
     public function __invoke(SelectQuery $query): void
     {
         $query->setSingleFetchMode(true);

@@ -12,6 +12,8 @@ use Doctrine\ORM\Query\Parameter;
  */
 class PrintQueryDirective
 {
+    public const NAME = 'printquery';
+
     public function __invoke(QueryInterface $query): void
     {
         $dql = $query->getQueryBuilder()->getDQL();
