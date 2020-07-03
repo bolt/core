@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
+use Bolt\Configuration\Config;
 use Bolt\Entity\Taxonomy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -16,9 +17,14 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TaxonomyRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /** @var Config */
+    private $config;
+
+    public function __construct(ManagerRegistry $registry, Config $config)
     {
         parent::__construct($registry, Taxonomy::class);
+
+        $this->config = $config;
     }
 
     public function factory(string $type, string $slug, ?string $name = null, int $sortorder = 0): Taxonomy
@@ -34,9 +40,18 @@ class TaxonomyRepository extends ServiceEntityRepository
 
         $taxonomy = new Taxonomy();
 
+        if ($name === null) {
+            $taxonomyDefinition = $this->config->getTaxonomy($type);
+            if ($taxonomyDefinition === null) {
+                $name = ucfirst($slug);
+            } else {
+                $name = $taxonomyDefinition->get('options')->get($slug, ucfirst($slug));
+            }
+        }
+
         $taxonomy->setType($type);
         $taxonomy->setSlug($slug);
-        $taxonomy->setName($name ?: ucfirst($slug));
+        $taxonomy->setName($name);
         $taxonomy->setSortorder($sortorder);
 
         return $taxonomy;
