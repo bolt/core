@@ -11,7 +11,7 @@ use Bolt\Storage\SelectQuery;
  */
 class OffsetDirective
 {
-    public const NAME = 'page';
+    public const NAME = 'paging';
 
     public function __invoke(SelectQuery $query, int $page, array $otherDirectives): void
     {
