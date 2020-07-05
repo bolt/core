@@ -237,7 +237,7 @@ class ContentExtension extends AbstractExtension
     public function getExcerpt($content, int $length = 280, bool $includeTitle = false, $focus = null): string
     {
         if (is_string($content) || $content instanceof Markup) {
-            return Excerpt::getExcerpt((string) $content, $length);
+            return Excerpt::getExcerpt((string) $content, $length, $focus);
         }
 
         if (ContentHelper::isSuitable($content, 'excerpt_format')) {
