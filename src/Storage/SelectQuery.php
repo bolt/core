@@ -148,7 +148,8 @@ class SelectQuery implements QueryInterface
      */
     public function setParameters(array $params): void
     {
-        $this->params = array_filter($params);
+        // array_map('strtolower', $params) to change all params to lowercase.
+        $this->params = array_filter(array_map('strtolower', $params));
         $this->processFilters();
     }
 
@@ -370,8 +371,8 @@ class SelectQuery implements QueryInterface
             $keyParam = 'field_' . $index;
 
             $originalLeftExpression = 'content.' . $key;
-
-            $newLeftExpression = JsonHelper::wrapJsonFunction($translationsAlias . '.value', null, $em->getConnection());
+            // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
+            $newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $translationsAlias . '.value)', null, $em->getConnection());
 
             $where = $filter->getExpression();
             $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
@@ -383,13 +384,25 @@ class SelectQuery implements QueryInterface
                 ->from(\Bolt\Entity\Content::class, $contentAlias)
                 ->innerJoin($contentAlias . '.fields', $fieldsAlias)
                 ->innerJoin($fieldsAlias . '.translations', $translationsAlias)
-                ->andWhere($where);
+                ->andWhere($where)
+                // add orWhere to allow searching of fields with Muiltiple JSON values (eg. Selectfield with mutiple entries).
+                ->orWhere($this->qb->expr()->like('LOWER(' . $translationsAlias . '.value)', ':' . $key . '_1_JSON'));
 
             // Unless the field to which the 'where' applies is `anyColumn`, we
             // Make certain it's narrowed down to that fieldname
             if ($key !== 'anyField') {
                 $innerQuery->andWhere($fieldsAlias . '.name = :' . $keyParam);
                 $this->qb->setParameter($keyParam, $key);
+            } else {
+                //added to include taxonomies to be searched as part of contenttype filter at the backend if anyField param is set.
+                foreach ($filter->getParameters() as $value) {
+                    foreach ($this->getTaxonomyFields() as $key) {
+                        $innerQuery->innerJoin($contentAlias . '.taxonomies', 'taxonomies_' . $key);
+                        $this->qb->setParameter($key . '_1', $value);
+                        $filterExpression = sprintf('LOWER(taxonomies_%s.slug) LIKE :%s', $key, $key . '_1');
+                        $innerQuery->orWhere($filterExpression);
+                    }
+                }
             }
 
             $this->qb
@@ -398,6 +411,8 @@ class SelectQuery implements QueryInterface
             foreach ($filter->getParameters() as $key => $value) {
                 $value = JsonHelper::wrapJsonFunction(null, $value, $em->getConnection());
                 $this->qb->setParameter($key, $value);
+                //remove % if present. Reformat JSON to work with both json enabled platforms and non json platforms.
+                $this->qb->setParameter($key . '_JSON', '%"' . str_replace(['["', '"]', '%'], '', $value) . '"%');
             }
         }
     }
@@ -421,7 +436,6 @@ class SelectQuery implements QueryInterface
 
         foreach ($taxos as $taxo) {
             $this->taxonomyFields[] = $taxo->get('slug');
-            $this->taxonomyFields[] = $taxo->get('singular_slug');
         }
     }
 

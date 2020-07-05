@@ -32,3 +32,4 @@ doctrine:
         dql:
             string_functions:
                 JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
+                JSON_CONTAINS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains
