@@ -47,7 +47,8 @@ class LocaleExtension extends AbstractExtension
 
         return [
             new TwigFilter('localedatetime', [$this, 'localedatetime'], $safe),
-            new TwigFilter('localdate', [$this, 'localedate'], $safe),
+            new TwigFilter('localedate', [$this, 'localedatetime'], $safe),
+            new TwigFilter('localdate', [$this, 'localdate'], $safe),
         ];
     }
 
