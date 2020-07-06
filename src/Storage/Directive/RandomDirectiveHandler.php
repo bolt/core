@@ -8,7 +8,7 @@ use Bolt\Doctrine\Version;
 use Bolt\Storage\QueryInterface;
 
 /**
- *  Directive to modify query based on activation of 'latest' modifier.
+ *  Directive to modify query based on activation of 'random' modifier.
  *
  *  eg: {% setcontent pages = 'pages' random %}
  */

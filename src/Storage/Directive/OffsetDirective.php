@@ -7,7 +7,7 @@ namespace Bolt\Storage\Directive;
 use Bolt\Storage\SelectQuery;
 
 /**
- *  Directive to add a limit modifier to the query.
+ *  Directive to add a paging modifier to the query.
  */
 class OffsetDirective
 {
