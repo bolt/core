@@ -32,7 +32,6 @@ class UserExtension extends AbstractExtension
         return [
             new TwigFunction('isallowed', [$this, 'isAllowed']),
             new TwigFunction('getuser', [$this, 'getUser']),
-            new TwigFunction('user', [$this, 'getUser']),
         ];
     }
 
