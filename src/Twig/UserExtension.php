@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Entity\User;
+use Bolt\Repository\UserRepository;
 use Symfony\Component\Security\Core\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -13,9 +15,13 @@ class UserExtension extends AbstractExtension
     /** @var Security */
     private $security;
 
-    public function __construct(Security $security)
+    /** @var UserRepository */
+    private $repository;
+
+    public function __construct(Security $security, UserRepository $repository)
     {
         $this->security = $security;
+        $this->repository = $repository;
     }
 
     /**
@@ -25,6 +31,8 @@ class UserExtension extends AbstractExtension
     {
         return [
             new TwigFunction('isallowed', [$this, 'isAllowed']),
+            new TwigFunction('getuser', [$this, 'getUser']),
+            new TwigFunction('user', [$this, 'getUser']),
         ];
     }
 
@@ -38,5 +46,31 @@ class UserExtension extends AbstractExtension
         }
 
         return false;
+    }
+
+    public function getUser($username = null, $id = null, $displayname = null): ?User
+    {
+        $criteria = [];
+
+        if ($id !== null) {
+            $criteria['id'] = $id;
+        }
+
+        if ($username !== null) {
+            $criteria['username'] = $username;
+        }
+
+        if ($displayname !== null) {
+            $criteria['displayName'] = $displayname;
+        }
+
+        /** @var User|null $user */
+        $user = $this->repository->findOneBy($criteria);
+
+        if ($user instanceof User) {
+            $user->setPassword('');
+        }
+
+        return $user;
     }
 }
