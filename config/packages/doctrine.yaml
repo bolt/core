@@ -33,3 +33,5 @@ doctrine:
             string_functions:
                 JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
                 JSON_CONTAINS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains
+            numeric_functions:
+                RAND: Bolt\Doctrine\Functions\Rand
