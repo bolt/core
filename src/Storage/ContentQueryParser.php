@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Configuration\Config;
+use Bolt\Doctrine\Version;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Directive\EarliestDirectiveHandler;
@@ -14,6 +15,7 @@ use Bolt\Storage\Directive\LimitDirective;
 use Bolt\Storage\Directive\OffsetDirective;
 use Bolt\Storage\Directive\OrderDirective;
 use Bolt\Storage\Directive\PrintQueryDirective;
+use Bolt\Storage\Directive\RandomDirectiveHandler;
 use Bolt\Storage\Directive\ReturnMultipleDirective;
 use Bolt\Storage\Directive\ReturnSingleDirective;
 use Bolt\Storage\Handler\IdentifiedSelectHandler;
@@ -85,10 +87,13 @@ class ContentQueryParser
     /** @var Notifications */
     private $notifications;
 
+    /** @var Version */
+    private $version;
+
     /**
      * Constructor.
      */
-    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, LocaleHelper $localeHelper, Environment $twig, Notifications $notifications, ?QueryInterface $queryHandler = null)
+    public function __construct(RequestStack $requestStack, ContentRepository $repo, Config $config, LocaleHelper $localeHelper, Environment $twig, Notifications $notifications, Version $version, ?QueryInterface $queryHandler = null)
     {
         $this->repo = $repo;
         $this->requestStack = $requestStack;
@@ -100,6 +105,7 @@ class ContentQueryParser
         $this->localeHelper = $localeHelper;
         $this->twig = $twig;
         $this->notifications = $notifications;
+        $this->version = $version;
 
         $this->setupDefaults();
         $this->config = $config;
@@ -122,6 +128,7 @@ class ContentQueryParser
         $this->addDirectiveHandler(ReturnMultipleDirective::NAME, new ReturnMultipleDirective());
         $this->addDirectiveHandler(LatestDirectiveHandler::NAME, new LatestDirectiveHandler());
         $this->addDirectiveHandler(EarliestDirectiveHandler::NAME, new EarliestDirectiveHandler());
+        $this->addDirectiveHandler(RandomDirectiveHandler::NAME, new RandomDirectiveHandler($this->version));
     }
 
     /**

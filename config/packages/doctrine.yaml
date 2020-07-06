@@ -32,3 +32,5 @@ doctrine:
         dql:
             string_functions:
                 JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
+            numeric_functions:
+                RAND: Bolt\Doctrine\Functions\Rand

@@ -10,6 +10,7 @@ use Bolt\Storage\Directive\LimitDirective;
 use Bolt\Storage\Directive\OffsetDirective;
 use Bolt\Storage\Directive\OrderDirective;
 use Bolt\Storage\Directive\PrintQueryDirective;
+use Bolt\Storage\Directive\RandomDirectiveHandler;
 use Bolt\Storage\Directive\ReturnMultipleDirective;
 use Bolt\Storage\Directive\ReturnSingleDirective;
 use Bolt\Twig\Node\SetcontentNode;
@@ -120,12 +121,21 @@ class SetcontentTokenParser extends AbstractTokenParser
                 );
             }
 
-            // first parameter
+            // earliest parameter
             if ($this->parser->getStream()->test(Token::NAME_TYPE, EarliestDirectiveHandler::NAME)) {
                 $this->parser->getStream()->next();
                 $arguments->addElement(
                     new ConstantExpression(true, $lineno),
                     new ConstantExpression(EarliestDirectiveHandler::NAME, $lineno)
+                );
+            }
+
+            // random parameter
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, RandomDirectiveHandler::NAME)) {
+                $this->parser->getStream()->next();
+                $arguments->addElement(
+                    new ConstantExpression(true, $lineno),
+                    new ConstantExpression(RandomDirectiveHandler::NAME, $lineno)
                 );
             }
 

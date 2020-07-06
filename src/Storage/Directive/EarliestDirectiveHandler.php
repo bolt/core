@@ -7,9 +7,9 @@ namespace Bolt\Storage\Directive;
 use Bolt\Storage\QueryInterface;
 
 /**
- *  Directive to modify query based on activation of 'latest' modifier.
+ *  Directive to modify query based on activation of 'earliest' modifier.
  *
- *  eg: {% setcontent pages = 'pages' first %}
+ *  eg: {% setcontent pages = 'pages' earliest %}
  */
 class EarliestDirectiveHandler
 {
