@@ -47,7 +47,7 @@ class UserExtension extends AbstractExtension
         return false;
     }
 
-    public function getUser($username = null, $id = null, $displayname = null): ?User
+    public function getUser($username = null, $id = null, $displayname = null, $email = null): ?User
     {
         $criteria = [];
 
@@ -61,6 +61,10 @@ class UserExtension extends AbstractExtension
 
         if ($displayname !== null) {
             $criteria['displayName'] = $displayname;
+        }
+
+        if ($email !== null) {
+            $criteria['email'] = $email;
         }
 
         /** @var User|null $user */
