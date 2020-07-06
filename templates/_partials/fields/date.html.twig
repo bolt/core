@@ -36,7 +36,7 @@
     :errormessage='{{ errormessage|json_encode }}'
   ></editor-date>
   {% else %}
-    {{ value|localedatetime(format|default(null), locale|default(null)) }}
+    {{ value|localdate(format|default(null), locale|default(null)) }}
       <small>({{ macro.relative_datetime(value) }})</small>
   {% endif %}
   
