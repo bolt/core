@@ -96,11 +96,11 @@
     <ul>
     {% for frame in backtrace|slice(2) %}
         <li>
-            <code>{%- if frame.type is not empty -%}
+            <code>{%- if frame.type|default() is not empty -%}
                     <abbr title="{{ frame.class }}">
                     {{- frame.class|split('\\')|last()|excerpt(24) -}}</abbr>{{- frame.type -}}
             {%- endif -%}
-            <strong>{{- frame.function -}}()</strong></code> - line {{ frame.line }}
+            <strong>{{- frame.function -}}()</strong></code>{% if frame.line|default() %} - line {{ frame.line }}{% endif %}
             </li>
     {% endfor %}
     </ul>

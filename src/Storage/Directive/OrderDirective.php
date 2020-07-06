@@ -81,7 +81,7 @@ class OrderDirective
         } else {
             if (! $this->isActualField($query, $order)) {
                 $this->notifications->warning('Incorrect OrderBy clause for field that does not exist',
-                    "A query with ordering on a Field (`${order}`) that\'s not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
+                    "A query with ordering on a Field (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
             }
             $fieldsAlias = 'fields_order_' . $query->getIndex();
             $fieldAlias = 'order_' . $query->getIndex();
