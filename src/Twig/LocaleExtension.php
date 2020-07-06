@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Configuration\Config;
 use Bolt\Utils\LocaleHelper;
+use Carbon\Carbon;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
@@ -20,10 +22,18 @@ class LocaleExtension extends AbstractExtension
     /** @var LocaleHelper */
     private $localeHelper;
 
-    public function __construct(TranslatorInterface $translator, LocaleHelper $localeHelper)
+    /** @var Config */
+    private $config;
+
+    /** @var string */
+    private $defaultLocale;
+
+    public function __construct(TranslatorInterface $translator, LocaleHelper $localeHelper, Config $config, string $defaultLocale)
     {
         $this->translator = $translator;
         $this->localeHelper = $localeHelper;
+        $this->config = $config;
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -113,34 +123,26 @@ class LocaleExtension extends AbstractExtension
     /**
      * @param string|\DateTime $dateTime
      */
-    public function localedatetime($dateTime, string $format = '%B %e, %Y %H:%M', ?string $locale = '0'): string
+    public function localedatetime($dateTime, ?string $format = null, ?string $locale = null): string
     {
-        if (! $dateTime instanceof \DateTime) {
-            $dateTime = new \DateTime((string) $dateTime);
+        if ($dateTime instanceof \Datetime) {
+            $dateTime = Carbon::createFromTimestamp($dateTime->getTimestamp(), $dateTime->getTimezone());
+        } elseif (empty($dateTime)) {
+            $dateTime = Carbon::now();
+        } else {
+            $dateTime = Carbon::createFromTimeString($dateTime);
         }
 
-        // Check for Windows to find and replace the %e modifier correctly
-        // @see: http://php.net/strftime
-        $os = mb_strtoupper(mb_substr(PHP_OS, 0, 3));
-        $format = $os !== 'WIN' ? $format : preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
-        $timestamp = $dateTime->getTimestamp();
-
-        // According to http://php.net/manual/en/function.setlocale.php manual
-        // if the second parameter is "0", the locale setting is not affected,
-        // only the current setting is returned.
-        $result = setlocale(LC_ALL, $locale);
-
-        if ($result === false) {
-            // This shouldn't occur, but.. Dude!
-            // You ain't even got locale or English on your platform??
-            // Various things we could do. We could fail miserably, but a more
-            // graceful approach is to use the datetime to display a default
-            // format
-            // $this->systemLogger->error('No valid locale detected. Fallback on DateTime active.', ['event' => 'system']);
-
-            return $dateTime->format('Y-m-d H:i:s');
+        if ($format === null) {
+            $format = $this->config->get('general/date_format');
         }
 
-        return strftime($format, $timestamp);
+        if ($locale === null) {
+            $locale = $this->defaultLocale;
+        }
+
+        $dateTime->locale($locale);
+
+        return $dateTime->translatedFormat($format);
     }
 }

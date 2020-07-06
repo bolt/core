@@ -19,6 +19,10 @@ theme: skeleton
 # settings, see: http://php.net/manual/en/timezones.php
 # timezone: UTC
 
+# Set the default time format used on this website. For a list of valid date
+# format settings, see: https://www.php.net/manual/en/function.date.php
+date_format: 'F j, Y H:i'
+
 # Set maintenance mode on or off.
 #
 # The default for the Maintenance mode (503) page. Can be an (array of) template

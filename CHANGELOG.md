@@ -1,6 +1,36 @@
 Changelog
 =========
 
+## 4.0.0-rc.28
+
+Released: 2020-07-04
+
+### 🐛 Bug fixes
+
+- `setcontent` returns single for contenttype/id (I-Valchev, [#1595](https://github.com/bolt/core/pull/1595))
+- Make sure form validation works with `data-patience` buttons (I-Valchev, [#1594](https://github.com/bolt/core/pull/1594))
+- Use humanized taxonomy name when creating new taxonomies (I-Valchev, [#1591](https://github.com/bolt/core/pull/1591))
+- Don't break line on date field with valueonly (I-Valchev, [#1582](https://github.com/bolt/core/pull/1582))
+
+### 📦 Additions and new features
+
+- Allow "focus" parameter for excerpts of plain strings (bobdenotter, [#1602](https://github.com/bolt/core/pull/1602))
+- Relation factory (I-Valchev, [#1597](https://github.com/bolt/core/pull/1597))
+- Allow configurable `date_format` in config.yaml (I-Valchev, [#1593](https://github.com/bolt/core/pull/1593))
+- Paginate users listing (I-Valchev, [#1580](https://github.com/bolt/core/pull/1580))
+
+### 🛠️ Miscellaneous
+
+- Refactor `setcontent` handles and directives (I-Valchev, [#1599](https://github.com/bolt/core/pull/1599))
+- Use `taxonomy|link` filter to get taxonomy links (I-Valchev, [#1592](https://github.com/bolt/core/pull/1592))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Chore: Updating NPM dependencies (bobdenotter, [#1601](https://github.com/bolt/core/pull/1601))
+- Sorry GitHub Actions 😢 you are breaking too often (I-Valchev, [#1598](https://github.com/bolt/core/pull/1598))
+- Display Symfony version in "About" and `bolt:info` screens (bobdenotter, [#1586](https://github.com/bolt/core/pull/1586))
+- Allow both Symfony 4.4 and 5.1 for now (bobdenotter, [#1579](https://github.com/bolt/core/pull/1579))
+
 ## 4.0.0-rc.27
 
 Released: 2020-06-29
