@@ -63,6 +63,7 @@ HELP
             sprintf('Install type: <info>%s</info>', Version::installType()),
             sprintf('Database: <info>%s %s</info>%s%s <info>(%s)</info>', $platform['driver_name'], $platform['server_version'], $connection, $tableExists, $withJson),
             sprintf('PHP version: <info>%s</info>', PHP_VERSION),
+            sprintf('Symfony version: <info>%s</info>', Version::getSymfonyVersion()),
             sprintf('Operating System: <info>%s</info> - <comment>%s</comment>', php_uname('s'), php_uname('r')),
         ]);
 

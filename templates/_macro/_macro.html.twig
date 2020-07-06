@@ -77,7 +77,7 @@
 
 
 {% macro relative_datetime(datetime) %}{% apply spaceless %}
-    <abbr class="datetime-relative" title="{{ datetime|localedatetime('%A %B %e, %Y - %k:%M%p') }}">
+    <abbr class="datetime-relative" title="{{ datetime|localedatetime }}">
         {{- datetime|date('c') -}}
     </abbr>
 {% endapply %}{% endmacro %}
