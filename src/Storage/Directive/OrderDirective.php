@@ -169,7 +169,7 @@ class OrderDirective
         $outerSubstring = $qb
             ->expr()
             ->substring($innerSubstring, 3, $query->getQueryBuilder()->expr()->length($translationsAlias . '.value'));
-        $qb->addOrderBy('CAST(' . $outerSubstring . ' as int) ', $direction);
+        $qb->addOrderBy('CAST(' . $outerSubstring . ' as decimal) ', $direction);
     }
 
     private function isNumericField(QueryInterface $query, $fieldname): bool
