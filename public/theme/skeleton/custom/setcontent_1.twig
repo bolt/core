@@ -128,4 +128,18 @@
         <section>
     #}
 
+    <section id="nine">
+        <h1>Nine</h1>
+        {% setcontent showcases = 'showcases' orderby '-floatfield' %}
+
+        <ul>
+        {% for showcase in showcases %}
+            <li>showcase {{ showcase.id }}: {{ showcase.floatfield }}
+                <span class="s{{ loop.index }}">{{ _self.issmaller(showcase.floatfield, last|default()) }}</span>
+            </li>
+            {% set last = showcase.floatfield %}
+        {% endfor %}
+        </ul>
+    </section>
+
 {% endblock main %}

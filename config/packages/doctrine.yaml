@@ -33,5 +33,8 @@ doctrine:
             string_functions:
                 JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
                 JSON_CONTAINS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains
+                CAST: DoctrineExtensions\Query\Mysql\Cast
+                INSTR: DoctrineExtensions\Query\Mysql\Instr
             numeric_functions:
                 RAND: Bolt\Doctrine\Functions\Rand
+
