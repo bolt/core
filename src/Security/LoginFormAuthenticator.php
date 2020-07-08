@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -22,6 +23,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use UAParser\Parser;
+use function Symfony\Component\String\s;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -130,9 +132,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         ];
         $this->logger->notice('User \'{username}\' logged in (manually)', $userArr);
 
+        $fallback = $request->get('_target_path', $this->router->generate('bolt_dashboard'));
+
         return new RedirectResponse($request->getSession()->get(
             '_security.' . $providerKey . '.target_path',
-            $this->router->generate('bolt_dashboard')
+            $fallback
         ));
+    }
+
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    {
+        parent::onAuthenticationFailure($request, $exception);
+
+        // Redirect back to where we came from
+        return new RedirectResponse($request->headers->get('referer'));
     }
 }

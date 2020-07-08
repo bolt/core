@@ -373,7 +373,7 @@ class ContentExtension extends AbstractExtension
 
     public function getDeleteLink(Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null || ! $this->security->getUser()) {
+        if ($content->getId() === null || ! $this->security->getUser() || ! $this->security->getUser()->hasRole('ROLE_ADMIN')) {
             return null;
         }
 

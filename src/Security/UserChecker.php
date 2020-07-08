@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Security;
 
 use Bolt\Entity\User;
+use Bolt\Enum\UserStatus;
 use Bolt\Exception\DisabledUserLoginAttemptException;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
@@ -17,7 +18,8 @@ class UserChecker implements UserCheckerInterface
         if (! $user instanceof User) {
             return;
         }
-        if ($user->isDisabled()) {
+
+        if ($user->getStatus() !== UserStatus::ENABLED) {
             throw new DisabledUserLoginAttemptException();
         }
     }

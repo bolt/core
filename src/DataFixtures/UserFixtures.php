@@ -6,6 +6,7 @@ namespace Bolt\DataFixtures;
 
 use Bolt\Common\Str;
 use Bolt\Entity\User;
+use Bolt\Enum\UserStatuses;
 use Bolt\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -66,6 +67,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
             $user->setRoles($userData['roles']);
             $user->setLocale('en');
             $user->setBackendTheme('default');
+            $user->setStatus(UserStatuses::DISABLED);
 
             $manager->persist($user);
             $this->addReference('user_' . $userData['username'], $user);
