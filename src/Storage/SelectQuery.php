@@ -394,14 +394,12 @@ class SelectQuery implements QueryInterface
                 $innerQuery->andWhere($fieldsAlias . '.name = :' . $keyParam);
                 $this->qb->setParameter($keyParam, $key);
             } else {
-                //added to include taxonomies to be searched as part of contenttype filter at the backend if anyField param is set.
-                foreach ($filter->getParameters() as $value) {
-                    foreach ($this->getTaxonomyFields() as $key) {
-                        $innerQuery->innerJoin($contentAlias . '.taxonomies', 'taxonomies_' . $key);
+                //added to include taxonomies to be searched as part of contenttype filter at the backend and frontend if anyField param is set.
+                foreach ($filter->getParameters() as $value) {                   
+                        $innerQuery->innerJoin($contentAlias . '.taxonomies', 'taxonomies_' . $index);
                         $this->qb->setParameter($key . '_1', $value);
-                        $filterExpression = sprintf('LOWER(taxonomies_%s.slug) LIKE :%s', $key, $key . '_1');
+                        $filterExpression = sprintf('LOWER(taxonomies_%s.slug) LIKE :%s', $index, $key . '_1');
                         $innerQuery->orWhere($filterExpression);
-                    }
                 }
             }
 
