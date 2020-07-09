@@ -26,7 +26,7 @@ class ErrorController extends SymfonyErrorController
     /** @var TemplateController */
     private $templateController;
 
-    public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailController $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer)
+    public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailControllerInterface $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer)
     {
         $this->config = $config;
         $this->detailController = $detailController;
