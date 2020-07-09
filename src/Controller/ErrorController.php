@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
-use Bolt\Controller\Frontend\DetailController;
 use Bolt\Controller\Frontend\TemplateController;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,7 @@ class ErrorController extends SymfonyErrorController
     /** @var Config */
     private $config;
 
-    /** @var DetailController */
+    /** @var DetailControllerInterface */
     private $detailController;
 
     /** @var TemplateController */

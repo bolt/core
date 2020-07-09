@@ -10,6 +10,7 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
+use Bolt\UsersExtension\Enum\UserStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -72,19 +73,16 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/user-disable/{id}", methods={"POST", "GET"}, name="bolt_user_disable", requirements={"id": "\d+"})
+     * @Route("/user-status/{id}", methods={"POST", "GET"}, name="bolt_user_update_status", requirements={"id": "\d+"})
      */
-    public function disable(?User $user): Response
+    public function status(?User $user): Response
     {
         $this->validateCsrf('useredit');
 
-        if ($user->isDisabled()) {
-            $user->enable();
-            $this->addFlash('success', 'user.enabled_successfully');
-        } else {
-            $user->disable();
-            $this->addFlash('success', 'user.disabled_successfully');
-        }
+        $newStatus = $this->request->get('status', UserStatus::DISABLED);
+
+        $user->setStatus($newStatus);
+        $this->addFlash('success', 'user.updated_successfully');
 
         $this->em->persist($user);
         $this->em->flush();

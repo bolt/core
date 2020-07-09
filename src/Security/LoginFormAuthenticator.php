@@ -23,7 +23,6 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use UAParser\Parser;
-use function Symfony\Component\String\s;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {

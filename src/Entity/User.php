@@ -199,7 +199,7 @@ class User implements UserInterface, \Serializable
 
     public function hasRole(string $role): bool
     {
-        return in_array($role, $this->getRoles());
+        return in_array($role, $this->getRoles(), true);
     }
 
     public function setRoles(array $roles): void
