@@ -11,7 +11,7 @@ use Bolt\Utils\ContentHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DetailController extends TwigAwareController implements FrontendZoneInterface
+class DetailController extends TwigAwareController implements FrontendZoneInterface, DetailControllerInterface
 {
     /** @var ContentRepository */
     private $contentRepository;

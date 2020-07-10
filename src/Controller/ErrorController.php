@@ -6,6 +6,7 @@ namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailController;
+use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,7 @@ class ErrorController extends SymfonyErrorController
     /** @var DetailController */
     private $detailController;
 
-    public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailController $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer)
+    public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailControllerInterface $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer)
     {
         $this->config = $config;
         $this->templateController = $templateController;
