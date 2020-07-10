@@ -61,7 +61,7 @@ class TwigAwareController extends AbstractController
      *
      * @param string|array $template
      */
-    protected function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
+    public function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
     {
         // Set User in global Twig environment
         $parameters['user'] = $parameters['user'] ?? $this->getUser();
@@ -104,7 +104,7 @@ class TwigAwareController extends AbstractController
     /**
      * Renders a single record.
      */
-    protected function renderSingle(?Content $record, bool $requirePublished = true, array $templates = []): Response
+    public function renderSingle(?Content $record, bool $requirePublished = true, array $templates = []): Response
     {
         if (! $record) {
             throw new NotFoundHttpException('Content not found');
@@ -175,7 +175,7 @@ class TwigAwareController extends AbstractController
         $this->packages->addPackage('files', $filesPackage);
     }
 
-    protected function createPager(Query $query, string $contentType, int $pageSize, string $order)
+    public function createPager(Query $query, string $contentType, int $pageSize, string $order)
     {
         $params = [
             'status' => '!unknown',
@@ -201,7 +201,7 @@ class TwigAwareController extends AbstractController
             ->setMaxPerPage($pageSize);
     }
 
-    protected function getFromRequest(string $parameter, ?string $default = null): ?string
+    public function getFromRequest(string $parameter, ?string $default = null): ?string
     {
         $parameter = trim($this->sanitiser->clean($this->request->get($parameter, '')));
 
@@ -209,7 +209,7 @@ class TwigAwareController extends AbstractController
         return empty($parameter) ? $default : $parameter;
     }
 
-    protected function getFromRequestArray(array $parameters, ?string $default = null): ?string
+    public function getFromRequestArray(array $parameters, ?string $default = null): ?string
     {
         foreach ($parameters as $parameter) {
             $res = $this->getFromRequest($parameter);
