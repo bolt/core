@@ -21,6 +21,11 @@ parameters:
         	message: '#Function twig_date_format_filter not found.#'
         	path: %currentWorkingDirectory%/src/Twig/FieldExtension.php
 
+        # Parameters in Storage\Directive\OrderDirective::orderByNumericField() aren't seen as ints
+        -
+            message: '#of method Doctrine\\ORM\\Query\\Expr::substring\(\) expects int#'
+            path: %currentWorkingDirectory%/src/Storage/Directive/OrderDirective.php
+
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
