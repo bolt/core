@@ -10,6 +10,7 @@
         "ext-pdo": "*",
         "api-platform/core": "^2.5",
         "babdev/pagerfanta-bundle": "^2.4",
+        "beberlei/doctrineextensions": "^1.0",
         "bolt/common": "^2.1.6",
         "cocur/slugify": "^4.0",
         "composer/composer": "^1.10",

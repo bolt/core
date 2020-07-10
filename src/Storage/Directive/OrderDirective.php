@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Directive;
 
+use Bolt\Entity\Field\NumberField;
 use Bolt\Storage\QueryInterface;
 use Bolt\Twig\Notifications;
 use Bolt\Utils\ContentHelper;
@@ -87,8 +88,6 @@ class OrderDirective
             $fieldAlias = 'order_' . $query->getIndex();
             $translationsAlias = 'translations_order_' . $query->getIndex();
 
-            // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
-            // results correctly. See also https://github.com/bolt/core/issues/1190
             $query
                 ->getQueryBuilder()
                 ->leftJoin('content.fields', $fieldsAlias)
@@ -96,9 +95,17 @@ class OrderDirective
                 ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
                 ->andWhere($translationsAlias . '.locale = :' . $fieldAlias . '_locale')
                 ->setParameter($fieldAlias . '_locale', $locale)
-                ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction)
                 ->setParameter($fieldAlias, $order);
 
+            if ($this->isNumericField($query, $order)) {
+                $this->orderByNumericField($query, $translationsAlias, $direction);
+            } else {
+                // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
+                // results correctly. See also https://github.com/bolt/core/issues/1190
+                $query
+                    ->getQueryBuilder()
+                    ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction);
+            }
             $query->incrementIndex();
         }
     }
@@ -150,5 +157,26 @@ class OrderDirective
         $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
 
         return $contentType->get('title_format', null);
+    }
+
+    private function orderByNumericField(QueryInterface $query, string $translationsAlias, string $direction): void
+    {
+        $qb = $query->getQueryBuilder();
+        $qb->addSelect('INSTR(' . $translationsAlias . '.value, \'%[0-9]%\') as HIDDEN instr');
+        $innerSubstring = $qb
+            ->expr()
+            ->substring($translationsAlias . '.value', 'instr', $qb->expr()->length($translationsAlias . '.value'));
+        $outerSubstring = $qb
+            ->expr()
+            ->substring($innerSubstring, 3, $query->getQueryBuilder()->expr()->length($translationsAlias . '.value'));
+        $qb->addOrderBy('CAST(' . $outerSubstring . ' as decimal) ', $direction);
+    }
+
+    private function isNumericField(QueryInterface $query, $fieldname): bool
+    {
+        $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
+        $type = $contentType->get('fields')->get($fieldname)->get('type', false);
+
+        return $type === NumberField::TYPE;
     }
 }

@@ -270,7 +270,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 break;
             case 'number':
-                $data = [$this->faker->numberBetween(-100, 1000)];
+                $data = [(string) $this->faker->numberBetween(-100, 1000)];
 
                 break;
             case 'checkbox':
