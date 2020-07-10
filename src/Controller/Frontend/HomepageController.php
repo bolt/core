@@ -6,20 +6,11 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
-use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends TwigAwareController implements FrontendZoneInterface
 {
-    /** @var TemplateChooser */
-    private $templateChooser;
-
-    public function __construct(TemplateChooser $templateChooser)
-    {
-        $this->templateChooser = $templateChooser;
-    }
-
     /**
      * @Route("/", methods={"GET|POST"}, name="homepage")
      * @Route(

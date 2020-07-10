@@ -14,15 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListingController extends TwigAwareController implements FrontendZoneInterface
 {
-    /** @var TemplateChooser */
-    private $templateChooser;
-
     /** @var Query */
     private $query;
 
-    public function __construct(TemplateChooser $templateChooser, Query $query)
+    public function __construct(Query $query)
     {
-        $this->templateChooser = $templateChooser;
         $this->query = $query;
     }
 

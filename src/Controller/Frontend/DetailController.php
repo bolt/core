@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Content\ContentType;
-use Bolt\Controller\DetailControllerInterface;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\Utils\ContentHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DetailController extends TwigAwareController implements FrontendZoneInterface, DetailControllerInterface
+class DetailController extends TwigAwareController implements FrontendZoneInterface
 {
     /** @var ContentRepository */
     private $contentRepository;

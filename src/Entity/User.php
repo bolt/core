@@ -197,6 +197,7 @@ class User implements UserInterface, \Serializable
         return array_unique($roles);
     }
 
+    // should we have this?
     public function hasRole(string $role): bool
     {
         return in_array($role, $this->getRoles(), true);

@@ -10,6 +10,7 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Enum\Statuses;
 use Bolt\Storage\Query;
+use Bolt\TemplateChooser;
 use Bolt\Utils\Sanitiser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
@@ -43,10 +44,13 @@ class TwigAwareController extends AbstractController
     /** @var Request */
     protected $request;
 
+    /** @var TemplateChooser */
+    protected $templateChooser;
+
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack): void
+    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack, TemplateChooser $templateChooser): void
     {
         $this->config = $config;
         $this->twig = $twig;
@@ -54,6 +58,7 @@ class TwigAwareController extends AbstractController
         $this->canonical = $canonical;
         $this->sanitiser = $sanitiser;
         $this->request = $requestStack->getCurrentRequest();
+        $this->templateChooser = $templateChooser;
     }
 
     /**

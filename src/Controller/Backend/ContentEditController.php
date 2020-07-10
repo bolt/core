@@ -23,7 +23,6 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
-use Bolt\TemplateChooser;
 use Bolt\Utils\TranslationsManager;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,9 +60,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var TemplateChooser */
-    private $templateChooser;
-
     /** @var ContentFillListener */
     private $contentFillListener;
 
@@ -81,7 +77,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         EntityManagerInterface $em,
         UrlGeneratorInterface $urlGenerator,
         ContentFillListener $contentFillListener,
-        TemplateChooser $templateChooser,
         CsrfTokenManagerInterface $csrfTokenManager,
         EventDispatcherInterface $dispatcher,
         string $defaultLocale
@@ -93,7 +88,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->em = $em;
         $this->urlGenerator = $urlGenerator;
         $this->contentFillListener = $contentFillListener;
-        $this->templateChooser = $templateChooser;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;

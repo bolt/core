@@ -13,14 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TaxonomyController extends TwigAwareController implements FrontendZoneInterface
 {
-    /** @var TemplateChooser */
-    private $templateChooser;
-
-    public function __construct(TemplateChooser $templateChooser)
-    {
-        $this->templateChooser = $templateChooser;
-    }
-
     /**
      * @Route(
      *     "/{taxonomyslug}/{slug}",
