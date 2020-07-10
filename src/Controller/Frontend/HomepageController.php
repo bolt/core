@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
-use Bolt\Controller\DetailControllerInterface;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\TemplateChooser;
@@ -16,13 +15,9 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
     /** @var TemplateChooser */
     private $templateChooser;
 
-    /** @var DetailControllerInterface */
-    private $detailController;
-
-    public function __construct(TemplateChooser $templateChooser, DetailControllerInterface $detailController)
+    public function __construct(TemplateChooser $templateChooser)
     {
         $this->templateChooser = $templateChooser;
-        $this->detailController = $detailController;
     }
 
     /**
@@ -63,6 +58,6 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
 
         $templates = $this->templateChooser->forHomepage();
 
-        return $this->detailController->renderSingle($record, false, $templates);
+        return $this->renderSingle($record, false, $templates);
     }
 }

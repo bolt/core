@@ -7,29 +7,21 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\DetailControllerInterface;
 use Bolt\Controller\TwigAwareController;
-use Bolt\Entity\Content;
-use Bolt\Enum\Statuses;
 use Bolt\Repository\ContentRepository;
-use Bolt\TemplateChooser;
 use Bolt\Utils\ContentHelper;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DetailController extends TwigAwareController implements FrontendZoneInterface, DetailControllerInterface
 {
-    /** @var TemplateChooser */
-    private $templateChooser;
-
     /** @var ContentRepository */
     private $contentRepository;
 
     /** @var ContentHelper */
     private $contentHelper;
 
-    public function __construct(TemplateChooser $templateChooser, ContentRepository $contentRepository, ContentHelper $contentHelper)
+    public function __construct(ContentRepository $contentRepository, ContentHelper $contentHelper)
     {
-        $this->templateChooser = $templateChooser;
         $this->contentRepository = $contentRepository;
         $this->contentHelper = $contentHelper;
     }
@@ -71,39 +63,5 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         $this->contentHelper->setCanonicalPath($record);
 
         return $this->renderSingle($record);
-    }
-
-    public function renderSingle(?Content $record, bool $requirePublished = true, array $templates = []): Response
-    {
-        if (! $record) {
-            throw new NotFoundHttpException('Content not found');
-        }
-
-        // If the content is not 'published' we throw a 404, unless we've overridden it.
-        if (($record->getStatus() !== Statuses::PUBLISHED) && $requirePublished) {
-            throw new NotFoundHttpException('Content is not published');
-        }
-
-        // If the ContentType is 'viewless' we also throw a 404.
-        if (($record->getDefinition()->get('viewless') === true) && $requirePublished) {
-            throw new NotFoundHttpException('Content is not viewable');
-        }
-
-        $singularSlug = $record->getContentTypeSingularSlug();
-
-        $context = [
-            'record' => $record,
-            $singularSlug => $record,
-        ];
-
-        // We add the record as a _global_ variable. This way we can use that
-        // later on, if we need to get the root record of a page.
-        $this->twig->addGlobal('record', $record);
-
-        if (empty($templates)) {
-            $templates = $this->templateChooser->forRecord($record);
-        }
-
-        return $this->renderTemplate($templates, $context);
     }
 }

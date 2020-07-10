@@ -6,7 +6,9 @@ namespace Bolt\Controller;
 
 use Bolt\Canonical;
 use Bolt\Configuration\Config;
+use Bolt\Entity\Content;
 use Bolt\Entity\Field\TemplateselectField;
+use Bolt\Enum\Statuses;
 use Bolt\Storage\Query;
 use Bolt\Utils\Sanitiser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +18,7 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -96,6 +99,43 @@ class TwigAwareController extends AbstractController
         $response->setContent($content);
 
         return $response;
+    }
+
+    /**
+     * Renders a single record.
+     */
+    protected function renderSingle(?Content $record, bool $requirePublished = true, array $templates = []): Response
+    {
+        if (! $record) {
+            throw new NotFoundHttpException('Content not found');
+        }
+
+        // If the content is not 'published' we throw a 404, unless we've overridden it.
+        if (($record->getStatus() !== Statuses::PUBLISHED) && $requirePublished) {
+            throw new NotFoundHttpException('Content is not published');
+        }
+
+        // If the ContentType is 'viewless' we also throw a 404.
+        if (($record->getDefinition()->get('viewless') === true) && $requirePublished) {
+            throw new NotFoundHttpException('Content is not viewable');
+        }
+
+        $singularSlug = $record->getContentTypeSingularSlug();
+
+        $context = [
+            'record' => $record,
+            $singularSlug => $record,
+        ];
+
+        // We add the record as a _global_ variable. This way we can use that
+        // later on, if we need to get the root record of a page.
+        $this->twig->addGlobal('record', $record);
+
+        if (empty($templates)) {
+            $templates = $this->templateChooser->forRecord($record);
+        }
+
+        return $this->renderTemplate($templates, $context);
     }
 
     private function setTwigLoader(): void
