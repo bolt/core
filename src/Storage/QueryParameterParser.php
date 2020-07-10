@@ -46,19 +46,19 @@ class QueryParameterParser
         $word = "[\p{L}\p{N}_]+";
 
         // @codingStandardsIgnoreStart
-        $this->addValueMatcher("<(${word})", [
+        $this->addValueMatcher("<\s?(${word})", [
             'value' => '$1',
             'operator' => 'lt',
         ]);
-        $this->addValueMatcher("<=(${word})", [
+        $this->addValueMatcher("<=\s?(${word})", [
             'value' => '$1',
             'operator' => 'lte',
         ]);
-        $this->addValueMatcher(">=(${word})", [
+        $this->addValueMatcher(">=\s?(${word})", [
             'value' => '$1',
             'operator' => 'gte',
         ]);
-        $this->addValueMatcher(">(${word})", [
+        $this->addValueMatcher(">\s?(${word})", [
             'value' => '$1',
             'operator' => 'gt',
         ]);
@@ -66,11 +66,11 @@ class QueryParameterParser
             'value' => '',
             'operator' => 'isNotNull',
         ]);
-        $this->addValueMatcher("!(${word})", [
+        $this->addValueMatcher("!\s?(${word})", [
             'value' => '$1',
             'operator' => 'neq',
         ]);
-        $this->addValueMatcher('!\[([\p{L}\p{N} ,]+)\]', [
+        $this->addValueMatcher('!\s?\[([\p{L}\p{N} ,]+)\]', [
             'value' => function ($val) {
                 return explode(',', $val);
             },
