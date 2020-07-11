@@ -1,6 +1,26 @@
 Changelog
 =========
 
+## 4.0.0-rc.29
+
+Released: 2020-07-11
+
+### 🐛 Bug fixes
+
+- Allow optional space in `QueryParameterParser` between operand and keyword (bobdenotter, [#1621](https://github.com/bolt/core/pull/1621))
+- Allow order by `number` field correctly  (I-Valchev, [#1616](https://github.com/bolt/core/pull/1616))
+- Put `localedatetime` with previous format and deprecated notice. Use `localdate` with new format (I-Valchev, [#1612](https://github.com/bolt/core/pull/1612))
+
+### 📦 Additions and new features
+
+- Add `getuser` with alias `user` Twig function (I-Valchev, [#1611](https://github.com/bolt/core/pull/1611))
+- Add `random` directive to `setcontent` tag (I-Valchev, [#1606](https://github.com/bolt/core/pull/1606))
+
+### 🛠️ Miscellaneous
+
+- Make the user-friendly notifications a bit more robust (bobdenotter, [#1613](https://github.com/bolt/core/pull/1613))
+- Optimize queries for taxonomies, following #1541 (JTNMW, [#1619](https://github.com/bolt/core/pull/1619))
+
 ## 4.0.0-rc.28
 
 Released: 2020-07-04
