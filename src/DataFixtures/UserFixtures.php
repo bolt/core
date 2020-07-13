@@ -67,7 +67,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
             $user->setRoles($userData['roles']);
             $user->setLocale('en');
             $user->setBackendTheme('default');
-            $user->setStatus(UserStatus::DISABLED);
+            $user->setStatus(UserStatus::ENABLED);
 
             $manager->persist($user);
             $this->addReference('user_' . $userData['username'], $user);
