@@ -98,7 +98,7 @@ class User implements UserInterface, \Serializable
     /** @ORM\Column(type="string", length=191, nullable=true) */
     private $backendTheme;
 
-    /** @ORM\Column(type="string", length=30) */
+    /** @ORM\Column(type="string", length=30, options={"default":"enabled"}) */
     private $status;
 
     /** @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"}) */
