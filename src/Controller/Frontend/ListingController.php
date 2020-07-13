@@ -8,21 +8,16 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Query;
-use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ListingController extends TwigAwareController implements FrontendZoneInterface
 {
-    /** @var TemplateChooser */
-    private $templateChooser;
-
     /** @var Query */
     private $query;
 
-    public function __construct(TemplateChooser $templateChooser, Query $query)
+    public function __construct(Query $query)
     {
-        $this->templateChooser = $templateChooser;
         $this->query = $query;
     }
 

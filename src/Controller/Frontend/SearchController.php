@@ -6,7 +6,6 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
-use Bolt\TemplateChooser;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,14 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends TwigAwareController implements FrontendZoneInterface
 {
-    /** @var TemplateChooser */
-    private $templateChooser;
-
-    public function __construct(TemplateChooser $templateChooser)
-    {
-        $this->templateChooser = $templateChooser;
-    }
-
     /**
      * @Route("/search", methods={"GET|POST"}, name="search")
      * @Route("/{_locale}/search", methods={"GET|POST"}, name="search_locale")

@@ -30,7 +30,7 @@
             <th scope="row">{{ iteratedUser.id }}</th>
             <td>
                 {{ iteratedUser.displayName }}
-                {% if iteratedUser.disabled %}<span class="badge badge-danger">{{ __('listing.disabled') }}</span>{% endif %}
+                {% if iteratedUser.status === 'disabled' %}<span class="badge badge-danger">{{ __('listing.disabled') }}</span>{% endif %}
             </td>
             <td>{{ iteratedUser.username }} / {{ iteratedUser.email }}</td>
             <td><code>{{ iteratedUser.roles|join('</code>, <code>')|raw }}</code></td>
@@ -45,10 +45,11 @@
             <td>
                 {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary sm') }}
                 {% if user.id != iteratedUser.id %}
-                    {% if iteratedUser.disabled %}
-                        {{ macro.buttonlink('action.enable', path('bolt_user_disable', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}), 'thumbs-up', 'secondary sm') }}
-                    {% else %}
-                        {{ macro.buttonlink('action.disable', path('bolt_user_disable', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}), 'ban', 'secondary sm') }}
+                    {% if iteratedUser.status !== 'disabled' %}
+                        {{ macro.buttonlink('action.disable', path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'disabled'}), 'ban', 'secondary sm') }}
+                    {% endif %}
+                    {% if iteratedUser.status !== 'enabled' %}
+                        {{ macro.buttonlink('action.enable', path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'enabled'}), 'thumbs-up', 'secondary sm') }}
                     {% endif %}
                     {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}), 'trash', 'danger sm') }}
                 {%  endif %}

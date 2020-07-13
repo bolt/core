@@ -364,7 +364,7 @@ class ContentExtension extends AbstractExtension
 
     public function getEditLink(Content $content): ?string
     {
-        if ($content->getId() === null || ! $this->security->getUser()) {
+        if ($content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
             return null;
         }
 
@@ -373,7 +373,7 @@ class ContentExtension extends AbstractExtension
 
     public function getDeleteLink(Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null || ! $this->security->getUser()) {
+        if ($content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
             return null;
         }
 
@@ -387,7 +387,7 @@ class ContentExtension extends AbstractExtension
 
     public function getDuplicateLink(Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null || ! $this->security->getUser()) {
+        if ($content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
             return null;
         }
 
@@ -396,7 +396,7 @@ class ContentExtension extends AbstractExtension
 
     public function getStatusLink(Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null || ! $this->security->getUser()) {
+        if ($content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
             return null;
         }
 

@@ -98,8 +98,8 @@ class User implements UserInterface, \Serializable
     /** @ORM\Column(type="string", length=191, nullable=true) */
     private $backendTheme;
 
-    /** @ORM\Column(type="boolean", options={"default" : false}, nullable=false) */
-    private $disabled = false;
+    /** @ORM\Column(type="string", length=30, options={"default":"enabled"}) */
+    private $status;
 
     /** @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"}) */
     private $userAuthToken;
@@ -172,19 +172,14 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function enable(): void
+    public function setStatus(string $status): void
     {
-        $this->disabled = false;
+        $this->status = $status;
     }
 
-    public function disable(): void
+    public function getStatus(): ?string
     {
-        $this->disabled = true;
-    }
-
-    public function isDisabled(): bool
-    {
-        return $this->disabled;
+        return $this->status;
     }
 
     /**

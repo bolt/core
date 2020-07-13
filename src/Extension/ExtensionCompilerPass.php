@@ -74,7 +74,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
 
         return [$namespace, [
             'resource' => $path . '/*',
-            'exclude' => $path . '/{Entity,Exception}',
+            'exclude' => $path . '/{Entity,Exception,Exclude}',
         ]];
     }
 

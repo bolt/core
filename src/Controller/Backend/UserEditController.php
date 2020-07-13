@@ -9,6 +9,8 @@ use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
+use Bolt\Enum\UserStatus;
+use Bolt\Event\UserEvent;
 use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -20,6 +22,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Security("is_granted('ROLE_ADMIN')")
@@ -37,16 +40,21 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
+    /** @var EventDispatcherInterface */
+    private $dispatcher;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -54,14 +62,17 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      */
     public function edit(?User $user): Response
     {
-        $roles = $this->getParameter('security.role_hierarchy.roles');
-
         if (! $user instanceof User) {
             $user = UserRepository::factory();
             $suggestedPassword = Str::generatePassword();
         } else {
             $suggestedPassword = '';
         }
+
+        $event = new UserEvent($user);
+        $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
+
+        $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
 
         return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
@@ -72,19 +83,16 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/user-disable/{id}", methods={"POST", "GET"}, name="bolt_user_disable", requirements={"id": "\d+"})
+     * @Route("/user-status/{id}", methods={"POST", "GET"}, name="bolt_user_update_status", requirements={"id": "\d+"})
      */
-    public function disable(?User $user): Response
+    public function status(?User $user): Response
     {
         $this->validateCsrf('useredit');
 
-        if ($user->isDisabled()) {
-            $user->enable();
-            $this->addFlash('success', 'user.enabled_successfully');
-        } else {
-            $user->disable();
-            $this->addFlash('success', 'user.disabled_successfully');
-        }
+        $newStatus = $this->request->get('status', UserStatus::DISABLED);
+
+        $user->setStatus($newStatus);
+        $this->addFlash('success', 'user.updated_successfully');
 
         $this->em->persist($user);
         $this->em->flush();
@@ -145,6 +153,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $user->setLocale($locale);
         $user->setRoles($roles);
         $user->setbackendTheme($this->getFromRequest('backendTheme'));
+        $user->setStatus($this->getFromRequest('status', UserStatus::ENABLED));
+
         $newPassword = $this->getFromRequest('password');
         // Set the plain password to check for validation
         if (! empty($newPassword)) {

@@ -7,20 +7,11 @@ namespace Bolt\Controller\Frontend;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
-use Bolt\TemplateChooser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TaxonomyController extends TwigAwareController implements FrontendZoneInterface
 {
-    /** @var TemplateChooser */
-    private $templateChooser;
-
-    public function __construct(TemplateChooser $templateChooser)
-    {
-        $this->templateChooser = $templateChooser;
-    }
-
     /**
      * @Route(
      *     "/{taxonomyslug}/{slug}",
