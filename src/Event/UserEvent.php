@@ -37,4 +37,9 @@ class UserEvent
     {
         return $this->rolesOptions;
     }
+
+    public function setRoleOptions(Collection $roleOptions): void
+    {
+        $this->rolesOptions = $roleOptions;
+    }
 }
