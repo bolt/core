@@ -153,6 +153,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $user->setLocale($locale);
         $user->setRoles($roles);
         $user->setbackendTheme($this->getFromRequest('backendTheme'));
+        $user->setStatus($this->getFromRequest('status', UserStatus::ENABLED));
+
         $newPassword = $this->getFromRequest('password');
         // Set the plain password to check for validation
         if (! empty($newPassword)) {
