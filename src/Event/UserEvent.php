@@ -9,7 +9,7 @@ use Tightenco\Collect\Support\Collection;
 
 class UserEvent
 {
-    public const ON_EDIT = 'bolt.user.pre_edit';
+    public const ON_EDIT = 'bolt.users_pre_edit';
 
     /** @var User */
     private $user;
