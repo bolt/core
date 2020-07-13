@@ -29,9 +29,6 @@ services:
             $publicFolder: '%bolt.public_folder%'
             $tablePrefix: '%bolt.table_prefix%'
 
-#    Bolt\UsersExtension\Controller\DecoratedListingController:
-#        decorates: Bolt\Controller\Frontend\ListingController
-#        arguments: ['@.inner']
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -110,9 +107,4 @@ services:
     Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
 
     Squirrel\TwigPhpSyntax\PhpSyntaxExtension: ~
-
-    Bolt\UsersExtension\Controller\DecoratedListingController:
-        decorates: Bolt\Controller\Frontend\ListingController
-        arguments: ['@.inner']
-        tags: ['controller.service_arguments']
 
