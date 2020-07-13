@@ -9,6 +9,7 @@ use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
+use Bolt\Event\UserEvent;
 use Bolt\Repository\UserRepository;
 use Bolt\UsersExtension\Enum\UserStatus;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +22,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Security("is_granted('ROLE_ADMIN')")
@@ -38,16 +40,21 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
+    /** @var EventDispatcherInterface */
+    private $dispatcher;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -55,7 +62,10 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      */
     public function edit(?User $user): Response
     {
-        $roles = $this->getParameter('security.role_hierarchy.roles');
+        $event = new UserEvent($user);
+        $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
+
+        $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
 
         if (! $user instanceof User) {
             $user = UserRepository::factory();

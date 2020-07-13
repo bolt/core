@@ -6,7 +6,6 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\ContentRepository;
-use Bolt\TemplateChooser;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Response;
