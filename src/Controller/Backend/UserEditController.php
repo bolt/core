@@ -62,17 +62,17 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      */
     public function edit(?User $user): Response
     {
-        $event = new UserEvent($user);
-        $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
-
-        $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
-
         if (! $user instanceof User) {
             $user = UserRepository::factory();
             $suggestedPassword = Str::generatePassword();
         } else {
             $suggestedPassword = '';
         }
+
+        $event = new UserEvent($user);
+        $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
+
+        $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
 
         return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
