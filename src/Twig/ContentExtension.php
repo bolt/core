@@ -188,7 +188,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (ContentHelper::isSuitable($content)) {
-            $title = ContentHelper::get($content, $content->getDefinition()->get('title_format'), $locale);
+            $title = $this->contentHelper->get($content, $content->getDefinition()->get('title_format'), $locale);
         } else {
             $title = ContentHelper::getFieldBasedTitle($content, $locale);
         }
@@ -241,7 +241,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (ContentHelper::isSuitable($content, 'excerpt_format')) {
-            $excerpt = ContentHelper::get($content, $content->getDefinition()->get('excerpt_format'));
+            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'));
         } else {
             $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
@@ -566,7 +566,7 @@ class ContentExtension extends AbstractExtension
         foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
-                'value' => ContentHelper::get($record, $format),
+                'value' => $this->contentHelper->get($record, $format),
             ];
         }
 

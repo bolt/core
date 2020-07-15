@@ -8,6 +8,7 @@ use Bolt\Canonical;
 use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\Excerptable;
+use Bolt\Twig\LocaleExtension;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -22,11 +23,15 @@ class ContentHelper
     /** @var Config */
     private $config;
 
-    public function __construct(Canonical $canonical, RequestStack $requestStack, Config $config)
+    /** @var LocaleExtension */
+    private $localeExtension;
+
+    public function __construct(Canonical $canonical, RequestStack $requestStack, Config $config, LocaleExtension $localeExtension)
     {
         $this->canonical = $canonical;
         $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->config = $config;
+        $this->localeExtension = $localeExtension;
     }
 
     public function setCanonicalPath($record, ?string $locale = null): void
@@ -110,7 +115,7 @@ class ContentHelper
         return false;
     }
 
-    public static function get(Content $record, string $format = '', string $locale = ''): string
+    public function get(Content $record, string $format = '', ?string $locale = null): string
     {
         if (empty($format)) {
             $format = '{title} (№ {id}, {status})';
@@ -135,6 +140,22 @@ class ContentHelper
                     return $record->getAuthor();
                 }
 
+                if ($match[1] === 'publishedAt') {
+                    return $this->localeExtension->localdate($record->getPublishedAt(), null, $locale);
+                }
+
+                if ($match[1] === 'modifiedAt') {
+                    return $this->localeExtension->localdate($record->getModifiedAt(), null, $locale);
+                }
+
+                if ($match[1] === 'createdAt') {
+                    return $this->localeExtension->localdate($record->getCreatedAt(), null, $locale);
+                }
+
+                if ($match[1] === 'depublishedAt') {
+                    return $this->localeExtension->localdate($record->getDepublishedAt(), null, $locale);
+                }
+
                 if ($record->hasField($match[1])) {
                     $field = $record->getField($match[1]);
 
@@ -143,6 +164,15 @@ class ContentHelper
                     }
 
                     return $field;
+                }
+
+                if (array_key_exists($match[1], $record->getExtras())) {
+                    // If it's the icon, return an html element
+                    if ($match[1] === 'icon') {
+                        return sprintf("<i class='fas %s'></i>", $record->getExtras()[$match[1]]);
+                    }
+
+                    return $record->getExtras()[$match[1]];
                 }
 
                 return '(unknown)';

@@ -20,11 +20,11 @@
     >
       <template v-if="name === 'status'" slot="singleLabel" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-        {{ props.option.value }}
+        {{ props.option.value | raw }}
       </template>
       <template v-if="name === 'status'" slot="option" slot-scope="props">
         <span class="status mr-2" :class="`is-${props.option.key}`"></span>
-        {{ props.option.value }}
+        {{ props.option.value | raw }}
       </template>
       <template v-if="name !== 'status'" slot="tag" slot-scope="props">
         <span @drop="drop($event)" @dragover="allowDrop($event)">
@@ -41,7 +41,7 @@
             <div v-if="!taggable" class="multiselect__tag__drag">
               <i class="fas fa-arrows-alt"></i>
             </div>
-            <span v-text="props.option.value"></span>
+            <span v-html="props.option.value"></span>
             <i
               tabindex="1"
               class="multiselect__tag-icon"
