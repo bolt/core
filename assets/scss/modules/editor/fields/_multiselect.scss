@@ -1,15 +1,21 @@
-.multiselect__tag {
-  &__drag {
-    display: inline-flex;
+.multiselect__tags {
+  & span.empty {
+    display: none;
   }
 
-  border: 1px dashed transparent;
+  .multiselect__tag {
+    &__drag {
+      display: inline-flex;
+    }
 
-  &.dragover {
-    border-color: $bolt-bluegray;
-  }
+    border: 1px dashed transparent;
 
-  &.dragging {
-    opacity: 0.25;
+    &.dragover {
+      border-color: $bolt-bluegray;
+    }
+
+    &.dragging {
+      opacity: 0.25;
+    }
   }
 }
