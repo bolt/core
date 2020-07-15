@@ -26,11 +26,15 @@ class RelatedExtension extends AbstractExtension
     /** @var Query */
     private $query;
 
-    public function __construct(RelationRepository $relationRepository, Config $config, Query $query)
+    /** @var ContentHelper */
+    private $contentHelper;
+
+    public function __construct(RelationRepository $relationRepository, Config $config, Query $query, ContentHelper $contentHelper)
     {
         $this->relationRepository = $relationRepository;
         $this->config = $config;
         $this->query = $query;
+        $this->contentHelper = $contentHelper;
     }
 
     /**
@@ -151,7 +155,7 @@ class RelatedExtension extends AbstractExtension
         foreach ($records as $record) {
             $options[] = [
                 'key' => $record->getId(),
-                'value' => ContentHelper::get($record, $format),
+                'value' => $this->contentHelper->get($record, $format),
             ];
         }
 
