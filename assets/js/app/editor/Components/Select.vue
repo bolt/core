@@ -27,7 +27,11 @@
         {{ props.option.value }}
       </template>
       <template v-if="name !== 'status'" slot="tag" slot-scope="props">
-        <span @drop="drop($event)" @dragover="allowDrop($event)">
+        <span
+          :class="{ empty: props.option.value == '' }"
+          @drop="drop($event)"
+          @dragover="allowDrop($event)"
+        >
           <span
             :id="props.option.key"
             :key="props.option.value"
