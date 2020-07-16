@@ -6,6 +6,7 @@ namespace Bolt\Twig;
 
 use Bolt\Entity\Content;
 use Pagerfanta\Pagerfanta;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -21,9 +22,12 @@ final class ArrayExtension extends AbstractExtension
      */
     public function getFilters(): array
     {
+        $env = ['needs_environment' => true];
+
         return [
             new TwigFilter('order', [$this, 'order']),
             new TwigFilter('shuffle', [$this, 'shuffle']),
+            new TwigFilter('length', [$this, 'length'], $env),
         ];
     }
 
@@ -32,15 +36,23 @@ final class ArrayExtension extends AbstractExtension
      */
     public function shuffle($array)
     {
-        if ($array instanceof Pagerfanta) {
-            $array = iterator_to_array($array->getCurrentPageResults());
-        }
+        $array = $this->getArray($array);
 
         if (is_array($array)) {
             shuffle($array);
         }
 
         return $array;
+    }
+
+    /**
+     * Returns the length of a variable.
+     * Overrides the default Twig |length filter
+     * for accurate results with paginated content
+     */
+    public function length(Environment $env, $thing)
+    {
+        return twig_length_filter($env, $this->getArray($thing));
     }
 
     /**
@@ -105,5 +117,14 @@ final class ArrayExtension extends AbstractExtension
         }
 
         return $bVal <=> $aVal;
+    }
+
+    private function getArray($array)
+    {
+        if ($array instanceof Pagerfanta) {
+            return (array) $array->getCurrentPageResults();
+        }
+
+        return $array;
     }
 }
