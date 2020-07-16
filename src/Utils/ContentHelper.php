@@ -96,6 +96,11 @@ class ContentHelper
         return $this->isSpecialpage($content, 'notfound');
     }
 
+    public function is403(Content $content): bool
+    {
+        return $this->isSpecialpage($content, 'forbidden');
+    }
+
     public function isMaintenance(Content $content): bool
     {
         return $this->isSpecialpage($content, 'maintenance');

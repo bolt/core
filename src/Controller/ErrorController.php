@@ -59,6 +59,17 @@ class ErrorController extends SymfonyErrorController
             return $this->showNotFound();
         }
 
+        if ($code === Response::HTTP_FORBIDDEN) {
+            $twig->addGlobal('exception', $exception);
+
+            // If Maintenance is on, show that, instead of the 404.
+            if ($this->isMaintenanceEnabled()) {
+                return $this->showMaintenance();
+            }
+
+            return $this->showForbidden();
+        }
+
         if ($code === Response::HTTP_SERVICE_UNAVAILABLE) {
             $twig->addGlobal('exception', $exception);
 
@@ -80,6 +91,19 @@ class ErrorController extends SymfonyErrorController
         }
 
         return new Response('404: Not found (and there was no proper page configured to display)');
+    }
+
+    private function showForbidden(): Response
+    {
+        foreach ($this->config->get('general/forbidden') as $item) {
+            $output = $this->attemptToRender($item);
+
+            if ($output instanceof Response) {
+                return $output;
+            }
+        }
+
+        return new Response('403: Forbidden (and there was no proper page configured to display)');
     }
 
     private function isMaintenanceEnabled()

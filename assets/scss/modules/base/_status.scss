@@ -46,6 +46,7 @@
 
 .badge-homepage,
 .badge-404,
+.badge-403,
 .badge-maintenance {
   font-weight: normal;
   vertical-align: middle;
@@ -57,7 +58,8 @@
   background: $secondary;
 }
 
-.badge-404 {
+.badge-404,
+.badge-403 {
   background: $warning;
 }
 
