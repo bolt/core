@@ -64,13 +64,6 @@ class Kernel extends BaseKernel
         $this->setBoltParameters($container, $confDir);
         $this->setContentTypeRequirements($container);
         $this->setTaxonomyRequirements($container);
-
-        try {
-            $loader->load($confDir . '/{services}_bolt' . self::CONFIG_EXTS, 'glob');
-        } catch (\Throwable $e) {
-            // Ignore errors. The file will be updated on next `cache:clear` or whenever
-            // the container gets refreshed
-        }
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes): void
