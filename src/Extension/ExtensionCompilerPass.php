@@ -32,7 +32,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
 
         // Rebuild our own `services_bolt.yml` file.
         $this->buildServices($packages);
-        $this->copyExtensionServices($packages);
+        $this->copyExtensionRoutesAndServices($packages);
     }
 
     public function buildServices(array $packages): void
@@ -62,21 +62,25 @@ class ExtensionCompilerPass implements CompilerPassInterface
         file_put_contents($filename, $yaml);
     }
 
-    public function copyExtensionServices(array $packages): void
+    public function copyExtensionRoutesAndServices(array $packages): void
     {
         foreach ($packages as $package) {
             $reflection = new \ReflectionClass($package);
 
             $extensionRoutesPath = $this->getRelativePath($package) . '/../config/routes.yaml';
-            dump($package);
             if (file_exists($extensionRoutesPath)) {
-                $filename = $this->projectDir . '/config/routes/extension_' . $reflection->get();
-                dump("Dumping " . $extensionRoutesPath . ' into ' . $filename);
-//                file_put_contents($filename, file_get_contents($extensionRoutesPath));
+                $path = dirname(dirname($reflection->getFilename()));
+                $filename = $this->projectDir . '/config/routes/extension_' . Str::splitLast($path, '/') . '.yaml';
+                file_put_contents($filename, file_get_contents($extensionRoutesPath));
+            }
+
+            $extensionServicesPath = $this->getRelativePath($package) . '/../config.services.yaml';
+            if (file_exists($extensionServicesPath)) {
+                $path = dirname(dirname($reflection->getFilename()));
+                $filename = $this->projectDir . '/config/packages/services_extension_' . Str::splitLast($path, '/') . '.yaml';
+                file_put_contents($filename, file_get_contents($extensionRoutesPath));
             }
         }
-
-        die;
     }
 
     private function createService(string $package): array
