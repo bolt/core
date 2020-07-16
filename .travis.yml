@@ -43,7 +43,7 @@ before_script:
 
 script:
   # this checks that the source code follows the Bolt Code Syntax rules
-  - ./vendor/bin/ecs check src
+  - ./vendor/bin/ecs check
   - ./vendor/bin/phpstan analyse -c phpstan.neon src
   # run EsLint on Javascript files
   - npm run lint
