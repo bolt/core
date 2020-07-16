@@ -32,6 +32,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
 
         // Rebuild our own `services_bolt.yml` file.
         $this->buildServices($packages);
+        $this->copyExtensionServices($packages);
     }
 
     public function buildServices(array $packages): void
@@ -61,6 +62,23 @@ class ExtensionCompilerPass implements CompilerPassInterface
         file_put_contents($filename, $yaml);
     }
 
+    public function copyExtensionServices(array $packages): void
+    {
+        foreach ($packages as $package) {
+            $reflection = new \ReflectionClass($package);
+
+            $extensionRoutesPath = $this->getRelativePath($package) . '/../config/routes.yaml';
+            dump($package);
+            if (file_exists($extensionRoutesPath)) {
+                $filename = $this->projectDir . '/config/routes/extension_' . $reflection->get();
+                dump("Dumping " . $extensionRoutesPath . ' into ' . $filename);
+//                file_put_contents($filename, file_get_contents($extensionRoutesPath));
+            }
+        }
+
+        die;
+    }
+
     private function createService(string $package): array
     {
         if (! class_exists($package)) {
@@ -70,7 +88,7 @@ class ExtensionCompilerPass implements CompilerPassInterface
         $reflection = new \ReflectionClass($package);
 
         $namespace = Str::removeLast($reflection->getName(), Str::splitLast($reflection->getName(), '\\'));
-        $path = Path::makeRelative(dirname($reflection->getFileName()), $this->projectDir . '/foo');
+        $path = $this->getRelativePath($package);
 
         return [$namespace, [
             'resource' => $path . '/*',
@@ -93,4 +111,11 @@ class ExtensionCompilerPass implements CompilerPassInterface
 
         return array_unique($packages);
     }
+
+    private function getRelativePath($package): string
+    {
+        $reflection = new \ReflectionClass($package);
+        return Path::makeRelative(dirname($reflection->getFileName()), $this->projectDir . '/foo');
+    }
+
 }
