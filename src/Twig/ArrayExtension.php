@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Entity\Content;
+use Pagerfanta\Pagerfanta;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -29,8 +30,12 @@ final class ArrayExtension extends AbstractExtension
     /**
      * Randomly shuffle the contents of a passed array.
      */
-    public function shuffle(array $array): array
+    public function shuffle($array)
     {
+        if ($array instanceof Pagerfanta) {
+            $array = iterator_to_array($array->getCurrentPageResults());
+        }
+
         if (is_array($array)) {
             shuffle($array);
         }
