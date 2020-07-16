@@ -8,7 +8,8 @@ services:
     # Spaces
     Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
     PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
-        spacing: one
+        calls:
+            - ['configure', [{spacing: 'one'}]]
 
     # Comments
     Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer: ~
@@ -31,25 +32,23 @@ services:
     PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
     PhpCsFixer\Fixer\Import\NoLeadingImportSlashFixer: ~
     PhpCsFixer\Fixer\Import\OrderedImportsFixer:
-        importsOrder:
-            - 'class'
-            - 'const'
-            - 'function'
+        calls:
+            - ['configure', [{importsOrder: ['class', 'const', 'function']}]]
+
     PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer:
-        space: 'none'
+        calls:
+            - ['configure', [{space: 'none'}]]
+
     PhpCsFixer\Fixer\Operator\NewWithBracesFixer: ~
     PhpCsFixer\Fixer\Basic\BracesFixer:
-        'allow_single_line_closure': false
-        'position_after_functions_and_oop_constructs': 'next'
-        'position_after_control_structures': 'same'
-        'position_after_anonymous_constructs': 'same'
+        calls:
+            - ['configure', [{'allow_single_line_closure': false, 'position_after_functions_and_oop_constructs': 'next', 'position_after_control_structures': 'same', 'position_after_anonymous_constructs': 'same'}]]
 
     PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
-        elements:
-            - 'const'
-            - 'method'
-            - 'property'
+        calls:
+            - ['configure', [{elements: ['const', 'method', 'property']}]]
+
     PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer: ~
     PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
     PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer: ~
@@ -63,7 +62,8 @@ services:
     PhpCsFixer\Fixer\Import\FullyQualifiedStrictTypesFixer: ~
     PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer:
-        property: single
+        calls:
+            - ['configure', [{property: 'single'}]]
 
     #please yoda no
     SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff: ~
