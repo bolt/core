@@ -123,5 +123,4 @@ class ExtensionCompilerPass implements CompilerPassInterface
         // We add the `/foo/bar` to make the path start with `../../`
         return Path::makeRelative(dirname($reflection->getFileName()), $this->projectDir . '/foo/bar');
     }
-
 }
