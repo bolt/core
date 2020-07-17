@@ -13,9 +13,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Webmozart\PathUtil\Path;
 
-class ExtensionsCopyConfigs extends Command
+class ExtensionsConfigureCommand extends Command
 {
-    protected static $defaultName = 'extensions:copy-configs';
+    protected static $defaultName = 'extensions:configure';
 
     /** @var ExtensionRegistry */
     private $extensionRegistry;
