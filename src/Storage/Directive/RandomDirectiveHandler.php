@@ -27,11 +27,11 @@ class RandomDirectiveHandler
     public function __invoke(QueryInterface $query, $value, &$directives): void
     {
         if ($this->version->getPlatform()['driver_name'] === 'sqlite') {
-            $query->getQueryBuilder()->addSelect('RAND(1) as HIDDEN rand')->addOrderBy('rand');
+            $query->getQueryBuilder()->addSelect('RAND(1) as HIDDEN rand')->orderBy('rand');
 
             return;
         }
 
-        $query->getQueryBuilder()->addSelect('RAND(0) as HIDDEN rand')->addOrderBy('rand');
+        $query->getQueryBuilder()->addSelect('RAND(0) as HIDDEN rand')->orderBy('rand');
     }
 }

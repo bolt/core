@@ -142,4 +142,23 @@
         </ul>
     </section>
 
+    <section id="ten">
+        <h1>Ten</h1>
+        {% setcontent first_random = 'showcases' random limit 4 printquery %}
+        {% set first_ids = '' %}
+        {% for first in first_random %}
+            {% set first_ids = first_ids ~ first.id  %}
+        {% endfor %}
+
+        {% setcontent second_random = 'showcases' random limit 4 printquery %}
+        {% set second_ids = '' %}
+        {% for second in second_random %}
+            {% set second_ids = second_ids ~ second.id  %}
+        {% endfor %}
+
+        <ul>
+            <li>Two different random results: [{{ first_ids === second_ids ? "no" : "yes" }}]</li>
+        </ul>
+    </section>
+
 {% endblock main %}
