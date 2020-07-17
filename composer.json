@@ -135,10 +135,12 @@
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
+            "php bin/console extensions:copy-configs --with-config",
             "@auto-scripts",
             "php bin/console bolt:info"
         ],
         "post-update-cmd": [
+            "php bin/console extensions:copy-configs",
             "@auto-scripts",
             "php bin/console bolt:info"
         ],

@@ -44,9 +44,6 @@ class Kernel extends BaseKernel
         $container
             ->registerForAutoconfiguration(ExtensionInterface::class)
             ->addTag(ExtensionInterface::CONTAINER_TAG);
-
-        // Process all our implementors through our CompilerPass
-        $container->addCompilerPass(new ExtensionCompilerPass());
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
