@@ -80,7 +80,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
         $file = $this->getFromRequest('file');
         $locationName = $this->getFromRequest('location');
-        $contents = $this->getFromRequest('editfile');
+        $contents = $this->getFromRequestRaw('editfile');
         $extension = Path::getExtension($file);
 
         $basepath = $this->config->getPath($locationName);
