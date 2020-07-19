@@ -13,7 +13,7 @@
     <section id="one">
         <h1>One</h1>
         {% setcontent entries = "entries" latest limit 4 printquery  %}
-        Results: <span id="results-one">{{ entries|length > 5 ? 'yes' }}</span>
+        Results: <span id="results-one">{{ entries|length == 4 ? 'yes' }}</span>
         <ul>
         {% for entry in entries %}
             <li>
@@ -31,7 +31,7 @@
     <section id="two">
         <h1>Two</h1>
         {% setcontent pages = "pages, entries" limit 4 order '-publishedAt' %}
-        Results: <span id="results-two">{{ entries|length > 5 ? 'yes' }}</span>
+        Results: <span id="results-two">{{ entries|length == 4 ? 'yes' }}</span>
         <ul>
         {% for page in pages %}
             <li>
@@ -73,7 +73,7 @@
     <section id="five">
         <h1>Five</h1>
         {% setcontent entries = "entries" limit "3"  %}
-        Results: <span id="results-five">{{ entries|length > 5 ? 'yes' }}</span>
+        Results: <span id="results-five">{{ entries|length == 3 ? 'yes' }}</span>
         <ul>
         {% for entry in entries %}
             <li>
