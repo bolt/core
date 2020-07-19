@@ -10,6 +10,7 @@ Released: 2020-07-19
 - Shuffle paginated records (I-Valchev, [#1633](https://github.com/bolt/core/pull/1633))
 - Fix `setcontent` random directive to override anything else set by the OrderDirective (I-Valchev, [#1630](https://github.com/bolt/core/pull/1630))
 - Make empty `multiselect` tag invisible (I-Valchev, [#1629](https://github.com/bolt/core/pull/1629))
+- Saving an edited file should keep input as-is [#1637](https://github.com/bolt/core/pull/1637))
 
 ### 📦 Additions and new features
 
@@ -24,7 +25,6 @@ Released: 2020-07-19
 ### ⚙️ Code Quality / Developer Experience
 
 - Fix ECS and update config with sets (TomasVotruba, [#1636](https://github.com/bolt/core/pull/1636))
-- Prepare release 4.0.0-rc.29 (bobdenotter, [#1623](https://github.com/bolt/core/pull/1623))
 
 ## 4.0.0-rc.29
 
