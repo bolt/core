@@ -4,6 +4,10 @@ parameters:
     symfony:
         container_xml_path: '%rootDir%/../../../var/cache/dev/Bolt_KernelDevDebugContainer.xml'
 
+    scanDirectories:
+        # In order to 'recognize' Twig functions in global scope
+        - %currentWorkingDirectory%/vendor/twig/twig/src/Extension
+
     ignoreErrors:
         # false positive: `Unreachable statement - code above always terminates.`
         # Note: https://github.com/phpstan/phpstan/issues/2651 is marked as fixed, but the issue remains.
@@ -15,11 +19,6 @@ parameters:
         -
             message: '#Call to an undefined method Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface#'
             path: %currentWorkingDirectory%/src/*
-
-        # Function twig_date_format_filter not found. Internal Twig function, so skip this error.
-        -
-        	message: '#Function twig_date_format_filter not found.#'
-        	path: %currentWorkingDirectory%/src/Twig/FieldExtension.php
 
         # Parameters in Storage\Directive\OrderDirective::orderByNumericField() aren't seen as ints
         -
