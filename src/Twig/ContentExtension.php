@@ -681,6 +681,10 @@ class ContentExtension extends AbstractExtension
             return '404';
         }
 
+        if ($this->is403($record)) {
+            return '403';
+        }
+
         if ($this->isMaintenance($record)) {
             return 'maintenance';
         }
@@ -696,6 +700,11 @@ class ContentExtension extends AbstractExtension
     public function is404(Content $content): bool
     {
         return $this->contentHelper->is404($content);
+    }
+
+    public function is403(Content $content): bool
+    {
+        return $this->contentHelper->is403($content);
     }
 
     public function isMaintenance(Content $content): bool

@@ -339,6 +339,11 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'status' => Statuses::HELD,
         ];
         $records['blocks'][] = [
+            'title' => '403 Forbidden',
+            'slug' => '403-forbidden',
+            'status' => Statuses::HELD,
+        ];
+        $records['blocks'][] = [
             'title' => '503 Service Unavailable (Maintenance Mode)',
             'slug' => '503-maintenance mode',
             'status' => Statuses::HELD,

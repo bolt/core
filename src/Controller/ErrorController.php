@@ -48,21 +48,20 @@ class ErrorController extends SymfonyErrorController
             $code = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
-        if ($code === Response::HTTP_NOT_FOUND) {
-            $twig->addGlobal('exception', $exception);
+        $twig->addGlobal('exception', $exception);
 
-            // If Maintenance is on, show that, instead of the 404.
-            if ($this->isMaintenanceEnabled()) {
-                return $this->showMaintenance();
-            }
-
-            return $this->showNotFound();
-        }
-
-        if ($code === Response::HTTP_SERVICE_UNAVAILABLE) {
+        if ($code === Response::HTTP_SERVICE_UNAVAILABLE || $this->isMaintenanceEnabled($code)) {
             $twig->addGlobal('exception', $exception);
 
             return $this->showMaintenance();
+        }
+
+        if ($code === Response::HTTP_NOT_FOUND) {
+            return $this->showNotFound();
+        }
+
+        if ($code === Response::HTTP_FORBIDDEN) {
+            return $this->showForbidden();
         }
 
         // If not a 404, we'll let Symfony handle it as usual.
@@ -82,9 +81,17 @@ class ErrorController extends SymfonyErrorController
         return new Response('404: Not found (and there was no proper page configured to display)');
     }
 
-    private function isMaintenanceEnabled()
+    private function showForbidden(): Response
     {
-        return $this->config->get('general/maintenance_mode', false);
+        foreach ($this->config->get('general/forbidden') as $item) {
+            $output = $this->attemptToRender($item);
+
+            if ($output instanceof Response) {
+                return $output;
+            }
+        }
+
+        return new Response('403: Forbidden (and there was no proper page configured to display)');
     }
 
     private function showMaintenance(): Response
@@ -98,6 +105,16 @@ class ErrorController extends SymfonyErrorController
         }
 
         return new Response('503: Maintenance mode (and there was no proper page configured to display)');
+    }
+
+    private function isMaintenanceEnabled(int $code): bool
+    {
+        // Only applies to NOT_FOUND and FORBIDDEN in frontend
+        if (! in_array($code, [Response::HTTP_NOT_FOUND, Response::HTTP_FORBIDDEN], true)) {
+            return false;
+        }
+
+        return $this->config->get('general/maintenance_mode', false);
     }
 
     private function attemptToRender(string $item): ?Response
