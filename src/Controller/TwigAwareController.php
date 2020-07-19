@@ -206,6 +206,11 @@ class TwigAwareController extends AbstractController
             ->setMaxPerPage($pageSize);
     }
 
+    public function getFromRequestRaw(string $parameter): string
+    {
+        return $this->request->get($parameter, '');
+    }
+
     public function getFromRequest(string $parameter, ?string $default = null): ?string
     {
         $parameter = trim($this->sanitiser->clean($this->request->get($parameter, '')));
