@@ -1,6 +1,31 @@
 Changelog
 =========
 
+## 4.0.0-rc.30
+
+Released: 2020-07-19
+
+### 🐛 Bug fixes
+
+- Shuffle paginated records (I-Valchev, [#1633](https://github.com/bolt/core/pull/1633))
+- Fix `setcontent` random directive to override anything else set by the OrderDirective (I-Valchev, [#1630](https://github.com/bolt/core/pull/1630))
+- Make empty `multiselect` tag invisible (I-Valchev, [#1629](https://github.com/bolt/core/pull/1629))
+
+### 📦 Additions and new features
+
+- Add support for "403 Forbidden" pages (bobdenotter, [#1635](https://github.com/bolt/core/pull/1635))
+
+### 🛠️ Miscellaneous
+
+- Copy extension services and routes into Bolt (bobdenotter, [#1634](https://github.com/bolt/core/pull/1634))
+- Richer content format option (I-Valchev, [#1628](https://github.com/bolt/core/pull/1628))
+- Users extension prep (I-Valchev, [#1618](https://github.com/bolt/core/pull/1618))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix ECS and update config with sets (TomasVotruba, [#1636](https://github.com/bolt/core/pull/1636))
+- Prepare release 4.0.0-rc.29 (bobdenotter, [#1623](https://github.com/bolt/core/pull/1623))
+
 ## 4.0.0-rc.29
 
 Released: 2020-07-11
