@@ -6,6 +6,7 @@ namespace Bolt;
 
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
+use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\FileLocator;
@@ -43,6 +44,9 @@ class Kernel extends BaseKernel
         $container
             ->registerForAutoconfiguration(ExtensionInterface::class)
             ->addTag(ExtensionInterface::CONTAINER_TAG);
+
+        // Process our CompilerPass, build `config/services_bolt.yaml`
+        $container->addCompilerPass(new ExtensionCompilerPass());
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
@@ -54,6 +58,14 @@ class Kernel extends BaseKernel
 
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{packages}/' . $this->environment . '/*' . self::CONFIG_EXTS, 'glob');
+
+        try {
+            $loader->load($confDir . '/{services}_bolt' . self::CONFIG_EXTS, 'glob');
+        } catch (\Throwable $e) {
+            // Ignore errors. The file will be updated on next `cache:clear` or whenever
+            // the container gets refreshed
+        }
+
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
 
