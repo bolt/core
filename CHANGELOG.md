@@ -1,9 +1,9 @@
 Changelog
 =========
 
-## 4.0.0-rc.30
+## 4.0.0-rc.31
 
-Released: 2020-07-19
+Released: 2020-07-20
 
 ### 🐛 Bug fixes
 
@@ -11,6 +11,7 @@ Released: 2020-07-19
 - Fix `setcontent` random directive to override anything else set by the OrderDirective (I-Valchev, [#1630](https://github.com/bolt/core/pull/1630))
 - Make empty `multiselect` tag invisible (I-Valchev, [#1629](https://github.com/bolt/core/pull/1629))
 - Saving an edited file should keep input as-is [#1637](https://github.com/bolt/core/pull/1637))
+- We were a bit overzealous in removing the compilerpass. Turns out we _do_ need `packages/bolt.yaml` [#1639](https://github.com/bolt/core/pull/1639))
 
 ### 📦 Additions and new features
 
@@ -25,6 +26,10 @@ Released: 2020-07-19
 ### ⚙️ Code Quality / Developer Experience
 
 - Fix ECS and update config with sets (TomasVotruba, [#1636](https://github.com/bolt/core/pull/1636))
+
+## 4.0.0-rc.30
+
+Scrapped, due to [#1639](https://github.com/bolt/core/pull/1639)).
 
 ## 4.0.0-rc.29
 
