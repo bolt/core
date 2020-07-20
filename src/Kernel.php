@@ -6,6 +6,7 @@ namespace Bolt;
 
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
+use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\FileLocator;
@@ -43,6 +44,9 @@ class Kernel extends BaseKernel
         $container
             ->registerForAutoconfiguration(ExtensionInterface::class)
             ->addTag(ExtensionInterface::CONTAINER_TAG);
+
+        // Process our CompilerPass, build `config/packages/bolt.yaml`
+        $container->addCompilerPass(new ExtensionCompilerPass());
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
