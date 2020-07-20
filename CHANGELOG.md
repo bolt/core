@@ -12,6 +12,7 @@ Released: 2020-07-20
 - Make empty `multiselect` tag invisible (I-Valchev, [#1629](https://github.com/bolt/core/pull/1629))
 - Saving an edited file should keep input as-is [#1637](https://github.com/bolt/core/pull/1637))
 - We were a bit overzealous in removing the compilerpass. Turns out we _do_ need `packages/bolt.yaml` [#1639](https://github.com/bolt/core/pull/1639))
+- Make sure user default user status is set when instantiating entities from code [#1641](https://github.com/bolt/core/pull/1641))
 
 ### 📦 Additions and new features
 
