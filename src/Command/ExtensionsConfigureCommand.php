@@ -56,12 +56,13 @@ class ExtensionsConfigureCommand extends Command
         // @todo: Combine this with Bolt\Extension\ConfigTrait.php
         foreach ($packages as $package) {
             $path = $this->getPackagePath($package);
+            $origin = $this->getRelativePath($path) . '/config/config.yaml';
 
-            $configPath = $this->getRelativePath($path) . '/config/config.yaml';
-            if (file_exists($configPath)) {
-                [$namespace, $name] = explode('\\', mb_strtolower($this->getNamespace($package)));
-                $destination = $this->getExtensionConfigPath($namespace, $name);
-                file_put_contents($destination, file_get_contents($configPath));
+            [$namespace, $name] = explode('\\', mb_strtolower($this->getNamespace($package)));
+            $destination = $this->getExtensionConfigPath($namespace, $name);
+
+            if (file_exists($origin) && ! file_exists($destination)) {
+                file_put_contents($destination, file_get_contents($origin));
             }
         }
     }
@@ -74,18 +75,18 @@ class ExtensionsConfigureCommand extends Command
         foreach ($packages as $package) {
             $path = $this->getPackagePath($package);
 
-            $extensionRoutesPath = $this->getRelativePath($path) . '/config/routes.yaml';
-            if (file_exists($extensionRoutesPath)) {
+            $sourceRoutes = $this->getRelativePath($path) . '/config/routes.yaml';
+            if (file_exists($sourceRoutes)) {
                 $destination = $this->getExtensionRoutesPath($path);
                 $oldExtensionsRoutes = array_diff($oldExtensionsRoutes, [$destination]);
-                file_put_contents($destination, file_get_contents($extensionRoutesPath));
+                file_put_contents($destination, file_get_contents($sourceRoutes));
             }
 
-            $extensionServicesPath = $this->getRelativePath($path) . '/../config.services.yaml';
-            if (file_exists($extensionServicesPath)) {
+            $sourceServices = $this->getRelativePath($path) . '/config/services.yaml';
+            if (file_exists($sourceServices)) {
                 $destination = $this->getExtensionServicesPath($path);
                 $oldExtensionsServices = array_diff($oldExtensionsServices, [$destination]);
-                file_put_contents($destination, file_get_contents($extensionRoutesPath));
+                file_put_contents($destination, file_get_contents($sourceServices));
             }
         }
 
@@ -116,7 +117,7 @@ class ExtensionsConfigureCommand extends Command
      */
     private function getExtensionServicesPath(string $path = '*'): string
     {
-        return $this->projectDir . '/config/packages/services_extension_' . Str::splitLast($path, '/') . '.yaml';
+        return $this->projectDir . '/config/packages/extension_' . Str::splitLast($path, '/') . '.yaml';
     }
 
     private function getExtensionConfigPath(string $namespace, string $name): string

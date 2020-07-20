@@ -45,7 +45,7 @@ class Kernel extends BaseKernel
             ->registerForAutoconfiguration(ExtensionInterface::class)
             ->addTag(ExtensionInterface::CONTAINER_TAG);
 
-        // Process our CompilerPass, build `config/packages/bolt.yaml`
+        // Process our CompilerPass, build `config/services_bolt.yaml`
         $container->addCompilerPass(new ExtensionCompilerPass());
     }
 
@@ -58,6 +58,14 @@ class Kernel extends BaseKernel
 
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{packages}/' . $this->environment . '/*' . self::CONFIG_EXTS, 'glob');
+
+        try {
+            $loader->load($confDir . '/{services}_bolt' . self::CONFIG_EXTS, 'glob');
+        } catch (\Throwable $e) {
+            // Ignore errors. The file will be updated on next `cache:clear` or whenever
+            // the container gets refreshed
+        }
+
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
 
