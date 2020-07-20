@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Bolt\Common\Json;
+use Bolt\Enum\UserStatus;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -99,7 +100,7 @@ class User implements UserInterface, \Serializable
     private $backendTheme;
 
     /** @ORM\Column(type="string", length=30, options={"default":"enabled"}) */
-    private $status;
+    private $status = UserStatus::ENABLED;
 
     /** @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"}) */
     private $userAuthToken;
