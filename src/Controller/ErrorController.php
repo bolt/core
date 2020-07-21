@@ -48,7 +48,11 @@ class ErrorController extends SymfonyErrorController
             $code = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
-        $twig->addGlobal('exception', $exception);
+        try {
+            $twig->addGlobal('exception', $exception);
+        } catch (\LogicException $e) {
+            // Fine! We'll just _not_ add the exception to the global scope!
+        }
 
         if ($code === Response::HTTP_SERVICE_UNAVAILABLE || $this->isMaintenanceEnabled($code)) {
             $twig->addGlobal('exception', $exception);
