@@ -1,18 +1,19 @@
 Changelog
 =========
 
-## 4.0.0-rc.31
+## 4.0.0-rc.32
 
-Released: 2020-07-20
+Released: 2020-07-22
 
 ### 🐛 Bug fixes
 
+- Fix Errorcontroller adding Exception when it shouldn't. (bobdenotter, [#1643](https://github.com/bolt/core/pull/1643))
+- Make sure user default user status is set when instantiating entities from code (I-Valchev, [#1641](https://github.com/bolt/core/pull/1641))
+- We were a bit overzealous in removing the compilerpass. Turns out we _do_ need `packages/bolt.yaml` (bobdenotter, [#1639](https://github.com/bolt/core/pull/1639))
+- Saving an edited file should keep input as-is (bobdenotter, [#1637](https://github.com/bolt/core/pull/1637))
 - Shuffle paginated records (I-Valchev, [#1633](https://github.com/bolt/core/pull/1633))
 - Fix `setcontent` random directive to override anything else set by the OrderDirective (I-Valchev, [#1630](https://github.com/bolt/core/pull/1630))
 - Make empty `multiselect` tag invisible (I-Valchev, [#1629](https://github.com/bolt/core/pull/1629))
-- Saving an edited file should keep input as-is [#1637](https://github.com/bolt/core/pull/1637))
-- We were a bit overzealous in removing the compilerpass. Turns out we _do_ need `packages/bolt.yaml` [#1639](https://github.com/bolt/core/pull/1639))
-- Make sure user default user status is set when instantiating entities from code [#1641](https://github.com/bolt/core/pull/1641))
 
 ### 📦 Additions and new features
 
@@ -28,9 +29,9 @@ Released: 2020-07-20
 
 - Fix ECS and update config with sets (TomasVotruba, [#1636](https://github.com/bolt/core/pull/1636))
 
-## 4.0.0-rc.30
+## 4.0.0-rc.30 and 4.0.0-rc.31
 
-Scrapped, due to [#1639](https://github.com/bolt/core/pull/1639)).
+Scrapped, due to [#1639](https://github.com/bolt/core/pull/1639) and followup shenanigans.
 
 ## 4.0.0-rc.29
 
