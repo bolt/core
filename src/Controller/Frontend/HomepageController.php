@@ -22,8 +22,8 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
     public function homepage(ContentRepository $contentRepository): Response
     {
         $homepage = $this->config->get('theme/homepage') ?: $this->config->get('general/homepage');
-        $params = explode('/', $homepage);
-        $contentType = $this->config->get('contenttypes/' . $params[0]);
+        $homepageTokens = explode('/', $homepage);
+        $contentType = $this->config->get('contenttypes/' . $homepageTokens[0]);
 
         if (! $contentType) {
             $message = sprintf('Homepage is set to `%s`, but that ContentType is not defined', $homepage);
@@ -32,19 +32,19 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
         }
 
         // Perhaps we need a listing instead. If so, forward the Request there
-        if (! $contentType->get('singleton') && ! isset($params[1])) {
-            return $this->forward('Bolt\Controller\Frontend\ListingController::listing', [
-                'contentTypeSlug' => $homepage,
-            ]);
+        if (! $contentType->get('singleton') && ! isset($homepageTokens[1])) {
+            $params = array_merge($this->request->query->all(), ['contentTypeSlug' => $homepage]);
+
+            return $this->forward('Bolt\Controller\Frontend\ListingController::listing', $params);
         }
 
         // @todo Get $homepage content, using "setcontent"
         $record = $contentRepository->findOneBy([
             'contentType' => $contentType->get('slug'),
-            'id' => $params[1] ?? 1,
+            'id' => $homepageTokens[1] ?? 1,
         ]);
         if (! $record) {
-            $record = $contentRepository->findOneBy(['contentType' => $params[0]]);
+            $record = $contentRepository->findOneBy(['contentType' => $homepageTokens[0]]);
         }
 
         $templates = $this->templateChooser->forHomepage();
