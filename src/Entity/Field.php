@@ -8,7 +8,6 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Configuration\Content\FieldType;
-use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
@@ -229,8 +228,7 @@ class Field implements FieldInterface, TranslatableInterface
         $value = $this->getParsedValue();
 
         if (is_string($value) && $this->getDefinition()->get('sanitise')) {
-            $sanitiser = new Sanitiser();
-            $value = $sanitiser->clean($value);
+            $value = $this->getContent()->sanitise($value);
         }
 
         if (is_string($value) && $this->getDefinition()->get('allow_twig')) {
