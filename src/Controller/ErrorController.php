@@ -7,7 +7,6 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +27,7 @@ class ErrorController extends SymfonyErrorController
     /** @var DetailControllerInterface */
     private $detailController;
 
-    /** @var Container */
+    /** @var ContainerInterface */
     private $container;
 
     public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailControllerInterface $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer, ContainerInterface $container)
@@ -74,7 +73,7 @@ class ErrorController extends SymfonyErrorController
             return $this->showForbidden();
         }
 
-        $prod = ($this->container->getParameter('kernel.environment') == "prod");
+        $prod = ($this->container->getParameter('kernel.environment') === 'prod');
 
         if ($code === Response::HTTP_INTERNAL_SERVER_ERROR && $prod && $this->config->get('general/internal_server_error')) {
             return $this->showInternalServerError();
