@@ -7,6 +7,7 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ErrorController as SymfonyErrorController;
@@ -26,7 +27,10 @@ class ErrorController extends SymfonyErrorController
     /** @var DetailControllerInterface */
     private $detailController;
 
-    public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailControllerInterface $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer)
+    /** @var ContainerInterface */
+    private $container;
+
+    public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailControllerInterface $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer, ContainerInterface $container)
     {
         $this->config = $config;
         $this->templateController = $templateController;
@@ -34,6 +38,7 @@ class ErrorController extends SymfonyErrorController
         parent::__construct($httpKernel, $templateController, $errorRenderer);
 
         $this->detailController = $detailController;
+        $this->container = $container;
     }
 
     /**
@@ -68,6 +73,12 @@ class ErrorController extends SymfonyErrorController
             return $this->showForbidden();
         }
 
+        $prod = ($this->container->getParameter('kernel.environment') === 'prod');
+
+        if ($code === Response::HTTP_INTERNAL_SERVER_ERROR && $prod && $this->config->get('general/internal_server_error')) {
+            return $this->showInternalServerError();
+        }
+
         // If not a 404, we'll let Symfony handle it as usual.
         return parent::__invoke($exception);
     }
@@ -96,6 +107,19 @@ class ErrorController extends SymfonyErrorController
         }
 
         return new Response('403: Forbidden (and there was no proper page configured to display)');
+    }
+
+    private function showInternalServerError(): Response
+    {
+        foreach ($this->config->get('general/internal_server_error') as $item) {
+            $output = $this->attemptToRender($item);
+
+            if ($output instanceof Response) {
+                return $output;
+            }
+        }
+
+        return new Response('500: Internal Server Error (and there was no proper page configured to display)');
     }
 
     private function showMaintenance(): Response

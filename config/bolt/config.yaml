@@ -1,11 +1,8 @@
-# Note: Database setup is best done in ENV variables. See the file `.env`
-# in the project root. 
+# Note: Database setup is done in ENV variables. See `.env` in the project root.
 
 # The name of the website
 sitename: Bolt Core Git Clone
 payoff: The amazing payoff goes here
-
-secret: '%env(APP_SECRET)%'
 
 # The theme to use.
 #
@@ -13,7 +10,6 @@ secret: '%env(APP_SECRET)%'
 # in next releases. If you wish to modify a default theme, copy its folder, and
 # change the name here accordingly.
 theme: skeleton
-#theme: bolt-tufte-theme
 
 # Set the timezone to be used on the website. For a list of valid timezone
 # settings, see: http://php.net/manual/en/timezones.php
@@ -22,13 +18,6 @@ theme: skeleton
 # Set the default time format used on this website. For a list of valid date
 # format settings, see: https://www.php.net/manual/en/function.date.php
 date_format: 'F j, Y H:i'
-
-# Set maintenance mode on or off.
-#
-# The default for the Maintenance mode (503) page. Can be an (array of) template
-# names or identifiers for records, which will be tried until a match is found.
-maintenance_mode: false
-maintenance: [ blocks/503-maintenance-mode, 'helpers/page_503.html.twig' ]
 
 # The hour of the day for the internal cron task scheduler to run daily, weekly,
 # monthly and yearly jobs.
@@ -64,13 +53,28 @@ omit_backgrounds: true
 homepage: homepage
 homepage_template: index.twig
 
-# The default content for the 404 page. Can be an (array of) template names or
-# identifiers for records, which will be tried until a match is found.
+# The default content for the "Not Found" (404) page. Can be an (array of) template
+# names or identifiers for records, which will be tried until a match is found.
 notfound: [ blocks/404-not-found, 'helpers/page_404.html.twig' ]
 
-# The default content for the 403 page. Can be an (array of) template names or
-# identifiers for records, which will be tried until a match is found.
+# Toggle maintenance mode on or off. Note: If you're logged in, you'll still see
+# the website as usual. Use an incognito window to see the "maintenance" page.
+maintenance_mode: false
+
+# The default for the "Maintenance mode" (503) page. Can be an (array of) template
+# names or identifiers for records, which will be tried until a match is found.
+maintenance: [ blocks/503-maintenance-mode, 'helpers/page_503.html.twig' ]
+
+# The default content for the "Forbidden" (403) page. Can be an (array of) template
+# names or identifiers for records, which will be tried until a match is found.
 forbidden: [ blocks/403-forbidden, 'helpers/page_403.html.twig' ]
+
+# The default content for the "Internal Server Error" (500) page. Can be an
+# (array of) template names or identifiers for records.
+# Note: Only used in `APP_ENV=prod` mode. You're advised to keep this as simple
+# as possible, because if an error occurs in this template, it can not be
+# handled, and you'll have a bad time debugging it!
+internal_server_error: [ 'helpers/page_500.html.twig' ]
 
 # The default template and amount of records to use for listing-pages on the
 # site.
@@ -103,11 +107,6 @@ listing_sort: datepublish DESC
 # Maximum amount of items to show in a `<select>` for picking a record. For
 # example in `type: select`.
 maximum_listing_select: 1000
-
-# Because of limitations on how the underlying database queries work, there are
-# only two options for sorting on taxonomies. ASC for roughly "oldest first"
-# and DESC for roughly newest first.
-taxonomy_sort: DESC
 
 # Template for showing the search results. If not defined, uses the settings for
 # listing_template and listing_records.
@@ -225,3 +224,5 @@ wysiwyg:
 # Enforcing the use of SSL. If set, all pages will enforce an SSL connection,
 # and redirect to HTTPS if you attempt to visit plain HTTP pages.
 # enforce_ssl: true
+
+secret: '%env(APP_SECRET)%'
