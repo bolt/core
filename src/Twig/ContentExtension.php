@@ -22,6 +22,7 @@ use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
+use Bolt\Utils\Sanitiser;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,6 +80,9 @@ class ContentExtension extends AbstractExtension
     /** @var Notifications */
     private $notifications;
 
+    /** @var Sanitiser */
+    private $sanitiser;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         ContentRepository $contentRepository,
@@ -91,7 +95,8 @@ class ContentExtension extends AbstractExtension
         TranslatorInterface $translator,
         Canonical $canonical,
         ContentHelper $contentHelper,
-        Notifications $notifications
+        Notifications $notifications,
+        Sanitiser $sanitiser
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->contentRepository = $contentRepository;
@@ -105,6 +110,7 @@ class ContentExtension extends AbstractExtension
         $this->canonical = $canonical;
         $this->contentHelper = $contentHelper;
         $this->notifications = $notifications;
+        $this->sanitiser = $sanitiser;
     }
 
     /**
@@ -132,6 +138,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('allow_twig', [$this, 'allowTwig'], $env),
             new TwigFilter('status_options', [$this, 'statusOptions']),
             new TwigFilter('feature', [$this, 'getSpecialFeature']),
+            new TwigFilter('sanitise', [$this, 'sanitise']),
         ];
     }
 
@@ -721,5 +728,10 @@ class ContentExtension extends AbstractExtension
         }
 
         return false;
+    }
+
+    public function sanitise(string $html)
+    {
+        return $this->sanitiser->clean($html);
     }
 }

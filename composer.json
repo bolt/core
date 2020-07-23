@@ -21,7 +21,6 @@
         "drupol/composer-packages": "^1.1",
         "embed/embed": "^3.4",
         "erusev/parsedown": "^1.7",
-        "ezyang/htmlpurifier": "^4.12",
         "fzaninotto/faker": "^1.9",
         "knplabs/doctrine-behaviors": "^2.0.3",
         "knplabs/knp-menu-bundle": "^3.0",
@@ -70,7 +69,8 @@
         "ua-parser/uap-php": "^3.9",
         "webimpress/safe-writer": "^2.0",
         "webmozart/path-util": "^2.3",
-        "webonyx/graphql-php": "^0.13"
+        "webonyx/graphql-php": "^0.13",
+        "xemlock/htmlpurifier-html5": "^0.1.11"
     },
     "conflict": {
         "symfony/symfony": "*"
