@@ -54,11 +54,6 @@
 {# Block for other field types, like Geo, Select, Checkbox and others. #}
 {% block extended_fields %}
 
-    {# Geolocation field #}
-    {% if type == "geolocation" and field.latitude|default is not empty %}
-        <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ field.latitude }},{{ field.longitude }}&amp;zoom=14&amp;size=617x300&amp;sensor=false&amp;markers={{ field.latitude }},{{ field.longitude }}">
-    {% endif %}
-
     {# Special case for 'select' fields: if it's a multiple select, the field is an array. #}
     {% if type == "select" and field is not empty %}
         <p><strong>{{ field|label }}: </strong></p>
@@ -86,9 +81,9 @@
         {{ field.value.responsive_inline|raw }}
     {% endif %}
 
-    {# No special case defined for this type of field. We just output them, if it's
-       a simple scalar, and 'dump' them otherwise. #}
-    {% if type in ['datetime', 'date', 'integer', 'float'] and field is not empty  %}
+    {# No special cases defined for other fieldtypes. We just output them if
+       they're a simple scalar, and 'dump' them otherwise. #}
+    {% if type not in ['select', 'checkbox', 'embed'] and field is not empty  %}
         <p><strong>{{ field|label }}: </strong>
             {% if field is iterable %}
                 {{ dump(field) }}
