@@ -4,7 +4,7 @@
 main:
   - label: Home
     title: This is the <b>first<b> menu item.
-    link: homepage
+    link: /
     class: homepage
   - label: About
     link: blocks/about
