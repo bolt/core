@@ -117,7 +117,8 @@
         "symfony": {
             "allow-contrib": true,
             "require": "^4.4 | ^5.1"
-        }
+        },
+        "public-dir": "public"
     },
     "autoload": {
         "psr-4": {
