@@ -48,17 +48,19 @@ class ExtensionsConfigureCommand extends Command
             $this->copyExtensionConfig($extensions);
         }
 
+        $this->runExtensionInstall($extensions);
+
         return 0;
     }
 
-    public function copyExtensionConfig(array $packages): void
+    private function copyExtensionConfig(array $packages): void
     {
         // @todo: Combine this with Bolt\Extension\ConfigTrait.php
         foreach ($packages as $package) {
             $path = $this->getPackagePath($package);
             $origin = $this->getRelativePath($path) . '/config/config.yaml';
 
-            [$namespace, $name] = explode('\\', mb_strtolower($this->getNamespace($package)));
+            [$namespace, $name] = explode('\\', mb_strtolower($this->getNamespace($package). '\\'));
             $destination = $this->getExtensionConfigPath($namespace, $name);
 
             if (file_exists($origin) && ! file_exists($destination)) {
@@ -67,7 +69,7 @@ class ExtensionsConfigureCommand extends Command
         }
     }
 
-    public function copyExtensionRoutesAndServices(array $packages): void
+    private function copyExtensionRoutesAndServices(array $packages): void
     {
         $oldExtensionsRoutes = glob($this->getExtensionRoutesPath());
         $oldExtensionsServices = glob($this->getExtensionServicesPath());
@@ -97,6 +99,15 @@ class ExtensionsConfigureCommand extends Command
         array_map('unlink', $oldExtensionsServices);
     }
 
+    private function runExtensionInstall(array $packages): void
+    {
+        foreach ($packages as $package) {
+            if (method_exists($package, 'install')) {
+                $package->install();
+            }
+        }
+    }
+
     private function getRelativePath(string $path): string
     {
         return Path::makeRelative($path, $this->projectDir);
@@ -122,7 +133,11 @@ class ExtensionsConfigureCommand extends Command
 
     private function getExtensionConfigPath(string $namespace, string $name): string
     {
-        return $this->projectDir . '/config/extensions/' . $namespace . '-' . $name . '.yaml';
+        return sprintf("%s/config/extensions/%s%s%s.yaml",
+            $this->projectDir,
+            $namespace,
+            (! empty($name) ? '-' : '' ),
+            $name);
     }
 
     private function getPackagePath($package): string
