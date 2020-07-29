@@ -130,7 +130,6 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('excerpt', [$this, 'getExcerpt'], $safe),
             new TwigFilter('previous', [$this, 'getPreviousContent']),
             new TwigFilter('next', [$this, 'getNextContent']),
-            new TwigFilter('current', [$this, 'isCurrent'], $env),
             new TwigFilter('link', [$this, 'getLink']),
             new TwigFilter('edit_link', [$this, 'getEditLink']),
             new TwigFilter('taxonomies', [$this, 'getTaxonomies']),
