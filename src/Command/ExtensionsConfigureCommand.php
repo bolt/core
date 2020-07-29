@@ -60,7 +60,7 @@ class ExtensionsConfigureCommand extends Command
             $path = $this->getPackagePath($package);
             $origin = $this->getRelativePath($path) . '/config/config.yaml';
 
-            [$namespace, $name] = explode('\\', mb_strtolower($this->getNamespace($package). '\\'));
+            [$namespace, $name] = explode('\\', mb_strtolower($this->getNamespace($package) . '\\'));
             $destination = $this->getExtensionConfigPath($namespace, $name);
 
             if (file_exists($origin) && ! file_exists($destination)) {
@@ -133,10 +133,10 @@ class ExtensionsConfigureCommand extends Command
 
     private function getExtensionConfigPath(string $namespace, string $name): string
     {
-        return sprintf("%s/config/extensions/%s%s%s.yaml",
+        return sprintf('%s/config/extensions/%s%s%s.yaml',
             $this->projectDir,
             $namespace,
-            (! empty($name) ? '-' : '' ),
+            (! empty($name) ? '-' : ''),
             $name);
     }
 
