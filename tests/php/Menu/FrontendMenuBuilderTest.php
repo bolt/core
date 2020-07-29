@@ -46,7 +46,6 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
         $this->assertSame('homepage', $firstItem->get('class'));
         $this->assertNull($firstItem->get('submenu'));
         $this->assertSame('/', $firstItem->get('uri'));
-        $this->assertFalse($firstItem->get('current'));
         $this->assertNull($firstItem->get('foobar'));
     }
 
@@ -62,7 +61,6 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
         $this->assertSame('bolt-site', $lastItem->get('class'));
         $this->assertNull($lastItem->get('submenu'));
         $this->assertSame('https://bolt.cm', $lastItem->get('uri'));
-        $this->assertFalse($lastItem->get('current'));
         $this->assertNull($lastItem->get('foobar'));
     }
 
