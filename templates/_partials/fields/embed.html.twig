@@ -2,7 +2,7 @@
 
 {% block field %}
     <editor-embed
-        :embedapi='{{ path('bolt_embed')|json_encode }}'
+        :embedapi='{{ path('bolt_async_embed')|json_encode }}'
         :name='{{ name|json_encode }}'
         :url='{{ field.get('url')|json_encode }}'
         :width='{{ field.get('width')|json_encode }}'

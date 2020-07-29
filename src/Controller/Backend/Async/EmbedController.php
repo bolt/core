@@ -33,7 +33,7 @@ class EmbedController implements AsyncZoneInterface
     }
 
     /**
-     * @Route("/embed", name="bolt_embed", methods={"POST"})
+     * @Route("/embed", name="bolt_async_embed", methods={"POST"})
      */
     public function fetchEmbed(): JsonResponse
     {
