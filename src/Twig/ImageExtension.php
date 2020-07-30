@@ -24,11 +24,19 @@ class ImageExtension extends AbstractExtension
     /** @var ThumbnailHelper */
     private $thumbnailHelper;
 
-    public function __construct(MediaRepository $mediaRepository, Notifications $notifications, ThumbnailHelper $thumbnailHelper)
+    /** @var string */
+    private $publicFolder;
+
+    /** @var string */
+    private $projectDir;
+
+    public function __construct(MediaRepository $mediaRepository, Notifications $notifications, ThumbnailHelper $thumbnailHelper, string $projectDir, string $publicFolder)
     {
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
         $this->thumbnailHelper = $thumbnailHelper;
+        $this->publicFolder = $publicFolder;
+        $this->projectDir = $projectDir;
     }
 
     /**
@@ -45,6 +53,7 @@ class ImageExtension extends AbstractExtension
             new TwigFilter('showimage', [$this, 'showImage'], $safe),
             new TwigFilter('thumbnail', [$this, 'thumbnail'], $safe),
             new TwigFilter('media', [$this, 'getMedia']),
+            new TwigFilter('svg', [$this, 'getSvg'], $safe),
         ];
     }
 
@@ -119,6 +128,26 @@ class ImageExtension extends AbstractExtension
             'Incorrect usage of `media`-filter',
             'The `media`-filter can only be applied to an `ImageField`, or an array that has a key named `media` which holds an id.'
         );
+    }
+
+    /**
+     * @param ImageField|Content|array|string $image
+     */
+    public function getSvg($image): ?string
+    {
+        $image = sprintf('%s/%s%s', $this->projectDir, $this->publicFolder, $this->getFilename($image));
+
+        $extension = pathinfo($image, PATHINFO_EXTENSION);
+
+        if ($extension !== 'svg') {
+            return null;
+        }
+
+        if (! file_exists($image)) {
+            return null;
+        }
+
+        return file_get_contents($image);
     }
 
     /**
