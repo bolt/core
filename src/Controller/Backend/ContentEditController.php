@@ -416,6 +416,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
 
         if ($field instanceof SetField) {
+            $children = [];
             foreach ($value as $name => $svalue) {
                 $child = $field->getValueForEditor()[$name];
 
@@ -426,7 +427,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
                 $child->setDefinition($child->getName(), $field->getDefinition()->get('fields')->get($child->getName()));
                 $this->updateField($child, $svalue, $locale);
+                $children[] = $child;
             }
+            $field->setValue($children);
         } else {
             // If the value is an array that contains a string of JSON, parse it
             if (is_iterable($value) && Json::test(current($value))) {
