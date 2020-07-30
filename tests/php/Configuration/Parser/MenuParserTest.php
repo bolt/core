@@ -63,7 +63,6 @@ class MenuParserTest extends ParserTestBase
         $this->assertSame('homepage', $config['main'][0]['class']);
         $this->assertNull($config['main'][0]['submenu']);
         $this->assertSame('', $config['main'][0]['uri']);
-        $this->assertFalse($config['main'][0]['current']);
         $this->assertArrayNotHasKey('foobar', $config['main'][0]);
 
         $this->assertCount(4, $config['main'][1]['submenu']);

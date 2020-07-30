@@ -11,7 +11,7 @@
     {% apply spaceless %}
         <a href="{{ item.uri }}" title='{{ item.title }}' class='{{ item.class }} {{ loop.first ? ' first' -}}
         {{ loop.last ? ' last' -}}
-        {{ item.current ? ' active' }}'>
+        {{ item|current ? ' active' }}'>
             {{- item.label -}}
         </a>
     {% endapply %}

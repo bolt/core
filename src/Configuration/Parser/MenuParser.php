@@ -20,7 +20,6 @@ class MenuParser extends BaseParser
             'class' => '',
             'submenu' => null,
             'uri' => '',
-            'current' => false,
         ];
 
         parent::__construct($projectDir, $initialFilename);
