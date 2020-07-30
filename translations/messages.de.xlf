@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="de" trgLang="de">
   <file id="messages.de">
     <unit id="HLtdhYw" name="action.save">
       <segment>
@@ -208,7 +208,7 @@
     <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
       <segment>
         <source>admin_sidebar_toggler.toggle</source>
-        <target>admin_sidebar_toggler.toggle</target>
+        <target><![CDATA[Menü<span class="sr-only"> umschalten</span>]]></target>
       </segment>
     </unit>
     <unit id="Dgtkgju" name="title.edit_user_profile">
@@ -241,7 +241,7 @@
         <target>Ansehen</target>
       </segment>
     </unit>
-    <unit id="SDVQEir" name="title.primary_actions">
+    <unit id="JEnqOi." name="title.primary_actions">
       <segment>
         <source>title.primary_actions</source>
         <target>Primäre Aktionen</target>
@@ -523,10 +523,10 @@
         <target><![CDATA[<strong>Gut gemacht!</strong> Sie haben diese wichtige Meldung erfolgreich gelesen. ]]></target>
       </segment>
     </unit>
-    <unit id="ibSB.pZ" name="57d589f">
+    <unit id="RaGzSx5" name="57d589f">
       <segment>
-        <source>&lt;strong&gt;Heads up!&lt;/strong&gt; This alert needs your attention, but it's not super important.</source>
-        <target><![CDATA[<strong>Kopf hoch!</strong> Diese Warnung benötigt Ihre Aufmerksamkeit, ist aber nicht besonders wichtig.]]></target>
+        <source>57d589f</source>
+        <target><![CDATA[<strong>Achtung!</strong> Diese Warnung benötigt Ihre Aufmerksamkeit, ist aber nicht besonders wichtig.]]></target>
       </segment>
     </unit>
     <unit id="Bicbr0l" name="info">
@@ -1091,6 +1091,355 @@
       <segment>
         <source>pager.next</source>
         <target>Vor</target>
+      </segment>
+    </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <segment>
+        <source>caption.logviewer</source>
+        <target>Protokolle</target>
+      </segment>
+    </unit>
+    <unit id="wGlnx8X" name="general.phrase.search">
+      <segment>
+        <source>general.phrase.search</source>
+        <target>Suche</target>
+      </segment>
+    </unit>
+    <unit id="O_m7mx1" name="listing.placeholder_search">
+      <segment>
+        <source>listing.placeholder_search</source>
+        <target>Nach Schlüsselwörtern suchen ...</target>
+      </segment>
+    </unit>
+    <unit id=".I3mIHo" name="label.current_status">
+      <segment>
+        <source>label.current_status</source>
+        <target>Aktueller Status</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaQ" name="status.published">
+      <segment>
+        <source>status.published</source>
+        <target>Veröffentlicht</target>
+      </segment>
+    </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <segment>
+        <source>action.confirm_delete</source>
+        <target>Sind Sie sicher, dass Sie diesen Inhalt löschen möchten?
+</target>
+      </segment>
+    </unit>
+    <unit id="oxqDDuK" name="status.held">
+      <segment>
+        <source>status.held</source>
+        <target>Gehalten</target>
+      </segment>
+    </unit>
+    <unit id="h7dP3WY" name="status.timed">
+      <segment>
+        <source>status.timed</source>
+        <target>Terminiert</target>
+      </segment>
+    </unit>
+    <unit id="HJbHjee" name="status.draft">
+      <segment>
+        <source>status.draft</source>
+        <target>Entwurf</target>
+      </segment>
+    </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <segment>
+        <source>label.translatable</source>
+        <target>Dieses Feld ist übersetzbar</target>
+      </segment>
+    </unit>
+    <unit id="YZJO3Ul" name="upload.allow_file_types">
+      <segment>
+        <source>upload.allow_file_types</source>
+        <target>Erlaubte Dateiformate</target>
+      </segment>
+    </unit>
+    <unit id="noOf4ML" name="upload.max_size">
+      <segment>
+        <source>upload.max_size</source>
+        <target>Maximale Dateigröße</target>
+      </segment>
+    </unit>
+    <unit id="FqVh1Hv" name="image.button_remove">
+      <segment>
+        <source>image.button_remove</source>
+        <target>Entfernen</target>
+      </segment>
+    </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <segment>
+        <source>slug.button_unlocked</source>
+        <target>Entsperrt</target>
+      </segment>
+    </unit>
+    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
+      <segment>
+        <source>listing_select_box.card_header.selected</source>
+        <target>Ausgewählt</target>
+      </segment>
+    </unit>
+    <unit id="WeJxw6Z" name="action.update_all">
+      <segment>
+        <source>action.update_all</source>
+        <target>auf alle anwenden</target>
+      </segment>
+    </unit>
+    <unit id="vJwSCBO" name="title.contentlisting">
+      <segment>
+        <source>title.contentlisting</source>
+        <target>Inhaltsauflistung</target>
+      </segment>
+    </unit>
+    <unit id="wQ0WYAT" name="listing.title_sortby">
+      <segment>
+        <source>listing.title_sortby</source>
+        <target>Sortieren nach</target>
+      </segment>
+    </unit>
+    <unit id="hp554Ds" name="listing.option_select_sortby">
+      <segment>
+        <source>listing.option_select_sortby</source>
+        <target>Feld zum Sortieren auswählen</target>
+      </segment>
+    </unit>
+    <unit id="IWbf2by" name="listing.title_filterby">
+      <segment>
+        <source>listing.title_filterby</source>
+        <target>Filtern nach</target>
+      </segment>
+    </unit>
+    <unit id="pn22p7q" name="listing.placeholder_filter">
+      <segment>
+        <source>listing.placeholder_filter</source>
+        <target>Schlüsselwort zum Filtern ...</target>
+      </segment>
+    </unit>
+    <unit id="ni4zApC" name="listing.button_filter">
+      <segment>
+        <source>listing.button_filter</source>
+        <target>Filtern</target>
+      </segment>
+    </unit>
+    <unit id="n.3JZvX" name="title.contentType">
+      <segment>
+        <source>title.contentType</source>
+        <target>Inhaltstyp</target>
+      </segment>
+    </unit>
+    <unit id="Hlf9c1s" name="listing.title_overview">
+      <segment>
+        <source>listing.title_overview</source>
+        <target>Übersicht für</target>
+      </segment>
+    </unit>
+    <unit id="kHeY93_" name="editor_embed.content_url">
+      <segment>
+        <source>editor_embed.content_url</source>
+        <target>URL des einzubettenden Inhalts</target>
+      </segment>
+    </unit>
+    <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
+      <segment>
+        <source>editor_embed.placeholder_content_url</source>
+        <target>URL des Inhalts von Facebook, Twitter, Soundcloud, Youtube, Vimeo…</target>
+      </segment>
+    </unit>
+    <unit id="1.Eb1GS" name="editor_embed.label_height">
+      <segment>
+        <source>editor_embed.label_height</source>
+        <target>Höhe</target>
+      </segment>
+    </unit>
+    <unit id="eWLSFJs" name="editor_embed.label_pixel">
+      <segment>
+        <source>editor_embed.label_pixel</source>
+        <target>Pixel</target>
+      </segment>
+    </unit>
+    <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
+      <segment>
+        <source>editor_embed.label_matched_embed</source>
+        <target>Zugeordnete Einbettung</target>
+      </segment>
+    </unit>
+    <unit id="zATju4V" name="editor_embed.label_preview">
+      <segment>
+        <source>editor_embed.label_preview</source>
+        <target>Vorschau</target>
+      </segment>
+    </unit>
+    <unit id="9SQ0oaR" name="editor_embed.label_size">
+      <segment>
+        <source>editor_embed.label_size</source>
+        <target>Größe</target>
+      </segment>
+    </unit>
+    <unit id="VPV0lFM" name="image.placeholder_title">
+      <segment>
+        <source>image.placeholder_title</source>
+        <target>Titel</target>
+      </segment>
+    </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <segment>
+        <source>image.button_up</source>
+        <target>Hoch</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <segment>
+        <source>image.button_down</source>
+        <target>Runter</target>
+      </segment>
+    </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <segment>
+        <source>image.add_new_image</source>
+        <target>Neues Bild hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <segment>
+        <source>file.add_new_file</source>
+        <target>Neue Datei hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="0C9.Vmh" name="collection.add_item">
+      <segment>
+        <source>collection.add_item</source>
+        <target>Objekt zu %name% hinzufügen </target>
+      </segment>
+    </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <segment>
+        <source>collection.move_item_up</source>
+        <target>Hoch bewegen</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <segment>
+        <source>collection.move_item_down</source>
+        <target>Runter bewegen</target>
+      </segment>
+    </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <segment>
+        <source>collection.confirm_delete</source>
+        <target>Sind Sie sicher, dass Sie dieses Kollektionsobjekt löschen möchten?</target>
+      </segment>
+    </unit>
+    <unit id=".t1ICS7" name="collection.remove_item">
+      <segment>
+        <source>collection.remove_item</source>
+        <target>Objekt entfernen</target>
+      </segment>
+    </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <segment>
+        <source>caption.redirection_page</source>
+        <target>Weiterleitungsseite</target>
+      </segment>
+    </unit>
+    <unit id="wHPoBzP" name="file.delete_confirm">
+      <segment>
+        <source>file.delete_confirm</source>
+        <target>Sind Sie sicher, dass Sie diese Datei löschen möchten?</target>
+      </segment>
+    </unit>
+    <unit id="hgNZLwW" name="extensions.title_configuration">
+      <segment>
+        <source>extensions.title_configuration</source>
+        <target>Konfigurationsdatei</target>
+      </segment>
+    </unit>
+    <unit id="BFARQEU" name="extensions.button_detailed_view">
+      <segment>
+        <source>extensions.button_detailed_view</source>
+        <target>Details ansehen</target>
+      </segment>
+    </unit>
+    <unit id="txRonia" name="label.id">
+      <segment>
+        <source>label.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="IwLLxxx" name="label.level">
+      <segment>
+        <source>label.level</source>
+        <target>Level</target>
+      </segment>
+    </unit>
+    <unit id="51OQi14" name="label.message">
+      <segment>
+        <source>label.message</source>
+        <target>Nachricht</target>
+      </segment>
+    </unit>
+    <unit id="S0f6iTL" name="label.timestamp">
+      <segment>
+        <source>label.timestamp</source>
+        <target>Zeit</target>
+      </segment>
+    </unit>
+    <unit id="FlGE3qB" name="label.request">
+      <segment>
+        <source>label.request</source>
+        <target>Anfrage</target>
+      </segment>
+    </unit>
+    <unit id="l71Tprl" name="label.trace">
+      <segment>
+        <source>label.trace</source>
+        <target>Spur</target>
+      </segment>
+    </unit>
+    <unit id="29ZEo1r" name="label.context">
+      <segment>
+        <source>label.context</source>
+        <target>Kontext</target>
+      </segment>
+    </unit>
+    <unit id="O2X4xZH" name="label.user">
+      <segment>
+        <source>label.user</source>
+        <target>Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="QVRwwK4" name="about.system_info">
+      <segment>
+        <source>about.system_info</source>
+        <target>Systeminformationen</target>
+      </segment>
+    </unit>
+    <unit id="Y90_Pn1" name="files_cards.label_title">
+      <segment>
+        <source>files_cards.label_title</source>
+        <target>Titel:</target>
+      </segment>
+    </unit>
+    <unit id="EdCfIKX" name="files_cards.label_dimensions">
+      <segment>
+        <source>files_cards.label_dimensions</source>
+        <target>Abmessungen:</target>
+      </segment>
+    </unit>
+    <unit id="munFS0n" name="title.filtered_by">
+      <segment>
+        <source>title.filtered_by</source>
+        <target><![CDATA[Gesamter Inhalt, gefiltert nach <em>'%filter%'</em>.]]></target>
+      </segment>
+    </unit>
+    <unit id="Hr2E9Oa" name="listing_table.no_results">
+      <segment>
+        <source>listing_table.no_results</source>
+        <target>Keine Ergebnisse gefunden. Erweitern Sie die Filterkriterien oder fügen Sie weitere Inhalte hinzu.</target>
       </segment>
     </unit>
   </file>
