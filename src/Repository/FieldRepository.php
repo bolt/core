@@ -105,7 +105,7 @@ class FieldRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    private static function getFieldClassname(string $type): ?string
+    public static function getFieldClassname(string $type): ?string
     {
         // The classname we want
         $classname = ucwords($type) . 'Field';
