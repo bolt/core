@@ -29,7 +29,7 @@ Feature: Get content with API
              "url": @string@,
              "thumbnail": @string@,
              "fieldname": @string@,
-             "extension": @string
+             "extension": @string@
           },
           "@*@": "@*@"
        },
@@ -76,7 +76,7 @@ Feature: Get content with API
              "url": @string@,
              "thumbnail": @string@,
              "fieldname": @string@,
-             "extension": @string
+             "extension": @string@
         },
        "@*@": "@*@"
      },
@@ -128,7 +128,7 @@ Feature: Get content with API
                  "url": @string@,
                  "thumbnail": @string@,
                  "fieldname": @string@,
-                 "extension": @string
+                 "extension": @string@
               },
               "@*@": "@*@"
            },
