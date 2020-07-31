@@ -67,7 +67,7 @@ class FieldRepository extends ServiceEntityRepository
     {
         $type = $definition['type'];
 
-        $classname = '\\Bolt\\Entity\\Field\\' . ucwords($type) . 'Field';
+        $classname = self::getFieldClassname($type);
         if (class_exists($classname)) {
             $field = new $classname();
         } else {
@@ -103,5 +103,24 @@ class FieldRepository extends ServiceEntityRepository
             ->orderBy('field.sortorder', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+
+    private static function getFieldClassname(string $type): ?string
+    {
+        // The classname we want
+        $classname = ucwords($type) . 'Field';
+
+        // Classnames of all fields (classes that implement Bolt\Entity\FieldInterface)
+        $allFields = collect(get_declared_classes())
+            ->filter(function($class) {
+                return in_array('Bolt\\Entity\\FieldInterface', class_implements($class));
+            });
+
+        // Classnames that end with $classname
+        $match = $allFields->filter(function($class) use ($classname) {
+            return substr_compare($class, $classname, strlen($class)-strlen($classname), strlen($classname)) === 0;
+        });
+
+        return $match->isNotEmpty() ? $match->first() : null;
     }
 }
