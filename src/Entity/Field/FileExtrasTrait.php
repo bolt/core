@@ -41,4 +41,9 @@ trait FileExtrasTrait
 
         return $host . ':' . $port;
     }
+
+    private function getExtension(): string
+    {
+        return pathinfo($this->__toString(), PATHINFO_EXTENSION);
+    }
 }

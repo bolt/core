@@ -28,7 +28,8 @@ Feature: Get content with API
              "media": @string@,
              "url": @string@,
              "thumbnail": @string@,
-             "fieldname": @string@
+             "fieldname": @string@,
+             "extension": @string@
           },
           "@*@": "@*@"
        },
@@ -74,7 +75,8 @@ Feature: Get content with API
              "media": @string@,
              "url": @string@,
              "thumbnail": @string@,
-             "fieldname": @string@
+             "fieldname": @string@,
+             "extension": @string@
         },
        "@*@": "@*@"
      },
@@ -125,7 +127,8 @@ Feature: Get content with API
                  "media": @string@,
                  "url": @string@,
                  "thumbnail": @string@,
-                 "fieldname": @string@
+                 "fieldname": @string@,
+                 "extension": @string@
               },
               "@*@": "@*@"
            },
@@ -189,7 +192,8 @@ Feature: Get content with API
                  "media": @string@,
                  "url": @string@,
                  "thumbnail": @string@,
-                 "fieldname": @string@
+                 "fieldname": @string@,
+                 "extension": @string@
               },
               "@*@": "@*@"
            },
@@ -250,7 +254,8 @@ Feature: Get content with API
             "media": @string@,
             "url": @string@,
             "thumbnail": @string@,
-            "fieldname": @string@
+            "fieldname": @string@,
+            "extension": @string@
         },
         "@*@": "@*@"
      },

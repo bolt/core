@@ -157,9 +157,9 @@ class ImageController
 
     private function isSvg(string $filename): bool
     {
-        $pathinfo = pathinfo($filename);
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
-        return array_key_exists('extension', $pathinfo) && $pathinfo['extension'] === 'svg';
+        return $extension === 'svg';
     }
 
     private function isImage(string $filename): bool

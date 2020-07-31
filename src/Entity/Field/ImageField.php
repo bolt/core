@@ -33,6 +33,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
             'fieldname' => '',
             'alt' => '',
             'url' => '',
+            'extension' => '',
         ];
     }
 
@@ -58,6 +59,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
         // Generate a URL
         $value['path'] = $this->getPath();
         $value['url'] = $this->getUrl();
+        $value['extension'] = $this->getExtension();
 
         $thumbPackage = new PathPackage('/thumbs/', new EmptyVersionStrategy());
         $thumbnailHelper = new ThumbnailHelper();

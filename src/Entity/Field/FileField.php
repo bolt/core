@@ -25,6 +25,7 @@ class FileField extends Field implements FieldInterface, Countable
             'path' => '',
             'fieldname' => '',
             'url' => '',
+            'extension' => '',
         ];
     }
 
@@ -50,6 +51,7 @@ class FileField extends Field implements FieldInterface, Countable
         // Generate a URL
         $value['path'] = $this->getPath();
         $value['url'] = $this->getUrl();
+        $value['extension'] = $this->getExtension();
 
         return $value;
     }
