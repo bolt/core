@@ -112,13 +112,13 @@ class FieldRepository extends ServiceEntityRepository
 
         // Classnames of all fields (classes that implement Bolt\Entity\FieldInterface)
         $allFields = collect(get_declared_classes())
-            ->filter(function($class) {
-                return in_array('Bolt\\Entity\\FieldInterface', class_implements($class));
+            ->filter(function ($class) {
+                return in_array('Bolt\\Entity\\FieldInterface', class_implements($class), true);
             });
 
         // Classnames that end with $classname
-        $match = $allFields->filter(function($class) use ($classname) {
-            return substr_compare($class, $classname, strlen($class)-strlen($classname), strlen($classname)) === 0;
+        $match = $allFields->filter(function ($class) use ($classname) {
+            return substr_compare($class, $classname, mb_strlen($class) - mb_strlen($classname), mb_strlen($classname)) === 0;
         });
 
         return $match->isNotEmpty() ? $match->first() : null;
