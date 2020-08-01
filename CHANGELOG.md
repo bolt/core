@@ -1,6 +1,40 @@
 Changelog
 =========
 
+## 4.0.0-rc.33
+
+Released: 2020-08-01
+
+### 🐛 Bug fixes
+
+- Fix set field being localizable (I-Valchev, [#1662](https://github.com/bolt/core/pull/1662))
+- Use `current` filter to check if menu item is this page (I-Valchev, [#1659](https://github.com/bolt/core/pull/1659))
+- Make Sanitiser obey allowed tags and attributes from `config.yaml` (bobdenotter, [#1648](https://github.com/bolt/core/pull/1648))
+- Pass on Query parameters to subrequest from Homepage (bobdenotter, [#1645](https://github.com/bolt/core/pull/1645))
+- Don't output common Fields twice (in "block output helper") [#1671](https://github.com/bolt/core/pull/1671))
+
+### 📦 Additions and new features
+
+- `svg` filter outputs raw svg file (I-Valchev, [#1661](https://github.com/bolt/core/pull/1661))
+- Allow extensions to have an `install` method, which is called on installation (to install assets, for example) (bobdenotter, [#1656](https://github.com/bolt/core/pull/1656))
+- Allow for extensions to add new FieldTypes (bobdenotter, [#1649](https://github.com/bolt/core/pull/1649))
+- Allow for custom `500 Internal Server Error` pages. (bobdenotter, [#1647](https://github.com/bolt/core/pull/1647))
+
+### 🛠️ Miscellaneous
+
+- Make `getFieldClassname` public so extensions can check if a Field exists (bobdenotter, [#1669](https://github.com/bolt/core/pull/1669))
+- Add `image.extension` value (I-Valchev, [#1668](https://github.com/bolt/core/pull/1668))
+- `FieldRepository::factory` can instantiate Extension fields (I-Valchev, [#1667](https://github.com/bolt/core/pull/1667))
+- Allow auto-generated extension services to be overridden (I-Valchev, [#1666](https://github.com/bolt/core/pull/1666))
+- added various German translations (ymarkus, [#1657](https://github.com/bolt/core/pull/1657))
+- Update composer.json: Add `"public-dir": "public"` (bobdenotter, [#1650](https://github.com/bolt/core/pull/1650))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Bump elliptic from 6.5.2 to 6.5.3 (dependabot[bot], [#1670](https://github.com/bolt/core/pull/1670))
+- Update `.htaccess`, according to SF 5 defaults (bobdenotter, [#1646](https://github.com/bolt/core/pull/1646))
+
+
 ## 4.0.0-rc.32
 
 Released: 2020-07-22
