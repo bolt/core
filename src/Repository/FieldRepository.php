@@ -66,9 +66,9 @@ class FieldRepository extends ServiceEntityRepository
     public static function factory(Collection $definition, string $name = '', string $label = ''): Field
     {
         $type = $definition['type'];
-
         $classname = self::getFieldClassname($type);
-        if (class_exists($classname)) {
+
+        if ($classname && class_exists($classname)) {
             $field = new $classname();
         } else {
             $field = new Field();

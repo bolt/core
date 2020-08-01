@@ -26,6 +26,10 @@
            over _all_ the fields, and skipping those in the 'omittedkeys' array. #}
         {% set omittedkeys = ['id', 'slug', 'datecreated', 'datechanged', 'datepublish',
             'datedepublish', 'username', 'status', 'ownerid', 'templatefields'] %}
+        {% set commonfields = ['html', 'markdown', 'textarea', 'text', 'image', 'file', 'video'] %}
+        {% set extendedfields = ['select', 'checkbox', 'embed', 'date', 'number'] %}
+        {% set compoundfields = ['collection', 'filelist', 'imagelist', 'set'] %}
+        {% set allfields = commonfields|merge(extendedfields)|merge(compoundfields) %}
 
         {# Skip over the fields that are used in the slug, unless explicitly told not to,
            using the `skip_uses` parameter. #}
@@ -63,7 +67,7 @@
     {% endif %}
 
     {# Finally, recursively for the collections, sets, filelists and imagelists #}
-    {% if type in ['collection', 'filelist', 'imagelist', 'set'] and (type not in exclude|default([])) %}
+    {% if type in compoundfields and (type not in exclude|default([])) %}
         {% for field in field.value %}
             {{ block('output_field') }}
         {% endfor %}
