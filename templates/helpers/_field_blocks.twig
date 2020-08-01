@@ -83,12 +83,12 @@
 
     {# No special cases defined for other fieldtypes. We just output them if
        they're a simple scalar, and 'dump' them otherwise. #}
-    {% if type not in ['select', 'checkbox', 'embed'] and field is not empty  %}
+    {% if type not in allfields and field is not empty  %}
         <p><strong>{{ field|label }}: </strong>
             {% if field is iterable %}
                 {{ dump(field) }}
             {% else %}
-                {{ field }}
+                {{ field.twigValue() }}
             {% endif %}
         </p>
     {% endif %}
