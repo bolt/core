@@ -90,8 +90,9 @@ class Field implements FieldInterface, TranslatableInterface
         $value = $this->getTwigValue();
 
         if (is_array($value) && array_key_exists($key, $value)) {
+            // If value is field, return getTwigValue so that {{ value }}
+            // is parsed as html, rather than __toString() which is escaped
             $value = $value[$key];
-
             return $value instanceof self ? $value->getTwigValue() : $value;
         }
 
