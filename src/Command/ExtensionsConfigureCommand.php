@@ -10,7 +10,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Webmozart\PathUtil\Path;
 
 class ExtensionsConfigureCommand extends Command
@@ -20,13 +19,13 @@ class ExtensionsConfigureCommand extends Command
     /** @var ExtensionRegistry */
     private $extensionRegistry;
 
-    /** @var mixed */
+    /** @var string */
     private $projectDir;
 
-    public function __construct(ExtensionRegistry $extensionRegistry, ContainerInterface $container)
+    public function __construct(ExtensionRegistry $extensionRegistry, string $projectDir)
     {
         $this->extensionRegistry = $extensionRegistry;
-        $this->projectDir = $container->getParameter('kernel.project_dir');
+        $this->projectDir = $projectDir;
 
         parent::__construct();
     }

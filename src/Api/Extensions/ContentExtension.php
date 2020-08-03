@@ -13,6 +13,7 @@ use Bolt\Entity\Field;
 use Bolt\Enum\Statuses;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
+use Tightenco\Collect\Support\Collection;
 
 final class ContentExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
@@ -25,9 +26,9 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
     {
         $this->config = $config;
 
-        $this->viewlessContentTypes = $this->config->get('contenttypes')->filter(function ($ct) {
+        $this->viewlessContentTypes = $this->config->get('contenttypes')->filter(function (Collection $ct) {
             return $ct->get('viewless', false);
-        })->map(function ($ct) {
+        })->map(function (Collection $ct) {
             return $ct->get('slug');
         })->toArray();
     }

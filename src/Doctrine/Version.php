@@ -62,7 +62,11 @@ class Version
     public function tableContentExists(): bool
     {
         try {
-            $this->connection->executeQuery('SELECT 1 FROM ' . $this->tablePrefix . 'content LIMIT 1; ');
+            $query = $this->connection->createQueryBuilder();
+            $query
+                ->select('1')
+                ->from($this->tablePrefix . 'content');
+            $query->execute();
         } catch (\Throwable $e) {
             return false;
         }
