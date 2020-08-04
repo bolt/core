@@ -29,7 +29,7 @@ class ThumbnailHelper
         $paramString = sprintf('%s×%s', $width, $height);
 
         if ($fit) {
-            $paramString .= '×fit=' . $fit;
+            $paramString .= '×' . $fit;
         }
 
         if ($location && $location !== 'files') {
