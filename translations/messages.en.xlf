@@ -1122,7 +1122,7 @@
     <unit id="TtmWqX3" name="action.view">
       <segment>
         <source>action.view</source>
-        <target>View</target>
+        <target>View website</target>
       </segment>
     </unit>
     <unit id="I2ykiIZ" name="caption.folders">
