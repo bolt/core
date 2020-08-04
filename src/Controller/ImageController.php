@@ -83,7 +83,6 @@ class ImageController
         }
 
         $filesystem = new Filesystem();
-
         $filePath = sprintf('%s%s%s%s%s', $this->getPath('thumbs'), DIRECTORY_SEPARATOR, $paramString, DIRECTORY_SEPARATOR, $filename);
         $folderMode = $this->config->get('general/filepermissions/folders', 0775);
         $fileMode = $this->config->get('general/filepermissions/files', 0664);
@@ -141,6 +140,7 @@ class ImageController
         $this->parameters = [
             'w' => is_numeric($raw[0]) ? (int) $raw[0] : 400,
             'h' => ! empty($raw[1]) && is_numeric($raw[1]) ? (int) $raw[1] : 300,
+            'fit' => ! empty($raw[2]) ? $this->parseFit($raw[2]) : 'default',
         ];
 
         foreach ($raw as $rawParameter) {
@@ -148,7 +148,7 @@ class ImageController
                 [$key, $value] = explode('=', $rawParameter);
 
                 // @todo Add more thumbnailing options here, perhaps.
-                if (in_array($key, $this->thumbnailOptions, true)) {
+                if (in_array($key, $this->thumbnailOptions, true) && ! in_array($key, $this->parameters, true)) {
                     $this->parameters[$key] = $value;
                 }
             }
@@ -169,5 +169,29 @@ class ImageController
         $imageExtensions = ['gif', 'png', 'jpg', 'jpeg', 'svg', 'webp'];
 
         return array_key_exists('extension', $pathinfo) && in_array($pathinfo['extension'], $imageExtensions, true);
+    }
+
+    public function parseFit(string $fit): string
+    {
+        switch ($fit) {
+            case 'n':
+            case 'contain':
+            case 'default':
+                return 'contain';
+            case 'm':
+            case 'max':
+                return 'max';
+            case 'f':
+            case 'fill':
+                return 'fill';
+            case 's':
+            case 'stretch':
+                return 'stretch';
+            case 'c':
+            case 'crop':
+                return 'crop';
+            default:
+                return $fit;
+        }
     }
 }
