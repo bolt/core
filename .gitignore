@@ -3,7 +3,11 @@ composer.phar
 ### Built Assets and uploads ###
 /public/assets/
 /public/files/*
+!/public/files/.gitkeep
+!/public/files/index.html
 /public/thumbs/*
+!/public/thumbs/.gitkeep
+!/public/thumbs/index.html
 
 ### NPM and frontend assets building cruft
 assets/vendor/
