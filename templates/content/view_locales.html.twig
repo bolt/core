@@ -43,27 +43,8 @@
                 {% else %}
                     {% set field = field_factory(key, fielddefinition) %}
                 {% endif %}
-                <tr>
-                    <td>
-                        <b>{{ field|label }}</b><br>
-                        Type: {{ field|type }}<br>
-                    </td>
-                    {% set localizedValues = find_translations(field) %}
-                    {% for locale in locales %}
-                        {% set translated = field|translated(locale) %}
-                        <td>
-                            {% if not field.definition.localize %}
-                                <span class="badge badge-info">{{ 'view_locales.badge_default'|trans }}</span>
-                            {% elseif localizedValues[locale] is not defined %}
-                                <span class="badge badge-danger">{{ 'view_locales.badge_missing'|trans }}</span>
-                            {% elseif localizedValues[locale] is defined and translated.twigvalue is empty %}
-                                <span class="badge badge-warning">{{ 'view_locales.badge_empty'|trans }}</span>
-                            {% else %}
-                                <span class="badge badge-success">{{ 'view_locales.badge_ok'|trans }}</span>
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>
+
+                {{ _self.renderfield(field, locales) }}
             {% endfor %}
 
         {% endfor %}
@@ -90,3 +71,40 @@
 {% block aside %}
 
 {% endblock aside %}
+
+{# Shows one or many rows, based on field and subfields. #}
+{% macro renderfield(field, locales) %}
+    {% if field|type in ['set', 'collection'] %}
+        {% for subfield in field.value %}
+            {% do subfield.definition.put('label', field|label ~ ' ⇒ ' ~ subfield|label) %}
+            {{ _self.renderfield(subfield, locales) }}
+        {% endfor %}
+    {% else %}
+        {{ _self.renderrow(field, locales) }}
+    {% endif %}
+{% endmacro %}
+
+{# Shows a single row for a field without subfields. #}
+{%  macro renderrow(field, locales) %}
+    <tr>
+        <td>
+            <b>{{ field|label }}</b><br>
+            Type: {{ field|type }}<br>
+        </td>
+        {% set localizedValues = find_translations(field) %}
+        {% for locale in locales %}
+            {% set translated = field|translate(locale) %}
+            <td>
+                {% if not field.definition.localize %}
+                    <span class="badge badge-info">{{ 'view_locales.badge_default'|trans }}</span>
+                {% elseif localizedValues[locale] is not defined %}
+                    <span class="badge badge-danger">{{ 'view_locales.badge_missing'|trans }}</span>
+                {% elseif localizedValues[locale] is defined and translated.twigvalue is empty %}
+                    <span class="badge badge-warning">{{ 'view_locales.badge_empty'|trans }}</span>
+                {% else %}
+                    <span class="badge badge-success">{{ 'view_locales.badge_ok'|trans }}</span>
+                {% endif %}
+            </td>
+        {% endfor %}
+    </tr>
+{% endmacro %}
