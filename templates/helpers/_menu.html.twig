@@ -8,7 +8,7 @@
     {% endif %}
 
     <a href='{{ item.link }}' {% if item.title is defined %}title='{{ item.title|escape }}'{% endif %}
-       class='{{ class }} {% if item.current %}current {% endif %}{% if item.class is defined %}{{item.class}}{% endif %} index-{{ loop.index }}{% if loop.first %} first{% endif %}{% if loop.last %} last{% endif %}'>
+       class='{{ class }} {% if item|current %}current {% endif %}{% if item.class is defined %}{{item.class}}{% endif %} index-{{ loop.index }}{% if loop.first %} first{% endif %}{% if loop.last %} last{% endif %}'>
        {{ item.label|default(item.title) }}
     </a>
 
