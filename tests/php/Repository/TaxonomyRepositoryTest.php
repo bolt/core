@@ -34,7 +34,7 @@ class TaxonomyRepositoryTest extends DbAwareTestCase
     {
         $taxonomies = $this->getEm()
             ->getRepository(Taxonomy::class)
-            ->findBy(['name' => 'Movies']);
+            ->findBy(['name' => 'movies']);
 
         $this->assertCount(1, $taxonomies);
     }
