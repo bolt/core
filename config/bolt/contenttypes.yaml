@@ -186,6 +186,7 @@ showcases:
         textarea:
             type: textarea
             postfix: "This is a plain text area. the contents will <em><strong>not</em></strong> be processed."
+            height: 200px # or 15 for 15 rows
         markdown:
             type: markdown
             postfix: "This field gets parsed as <a href='https://help.github.com/articles/markdown-basics'>Markdown</a>, when rendered on the site."
