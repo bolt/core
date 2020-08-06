@@ -70,13 +70,18 @@
     <!-- End Admin Header -->
 
     <!-- Admin Sidebar -->
+    {% set labels = {
+        'toggler': 'admin_sidebar.toggler'|trans,
+        'action.create_new': 'action.create_new'|trans,
+        'action.view': 'action.view'|trans,
+    }|json_encode %}
     <div class="admin__sidebar">
         <div class="sidebar sidebar--sticky" id="sidebar">
             <admin-sidebar
               :menu="{{ admin_menu_json }}"
               :version="'{{ constant('Bolt\\Version::VERSION')|replace({'alpha': 'α', 'beta': 'β'}) }}'"
               :about-link="{{ path('bolt_about')|json_encode }}"
-              :labels="{{ { 'toggler': 'admin_sidebar.toggler'|trans }|json_encode }}"
+              :labels="{{ labels }}"
             ></admin-sidebar >
         </div>
     </div>
