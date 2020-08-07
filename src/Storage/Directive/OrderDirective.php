@@ -79,11 +79,16 @@ class OrderDirective
                 ->getQueryBuilder()
                 ->leftJoin('content.author', 'user')
                 ->addOrderBy('user.username', $direction);
-        } else {
-            if (! $this->isActualField($query, $order)) {
-                $this->notifications->warning('Incorrect OrderBy clause for field that does not exist',
-                    "A query with ordering on a Field (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
-            }
+        } elseif (in_array($order, $query->getTaxonomyFields(), true)) {
+            $taxonomy = 'taxonomy_' . $query->getIndex();
+            $taxonomySlug = 'taxonomy_slug_' . $query->getIndex();
+            $query
+                ->getQueryBuilder()
+                ->leftJoin('content.taxonomies', $taxonomy)
+                ->andWhere($taxonomy . '.type = :' . $taxonomySlug)
+                ->setParameter($taxonomySlug, $order)
+                ->addOrderBy($taxonomy . '.name', $direction);
+        } elseif ($this->isActualField($query, $order)) {
             $fieldsAlias = 'fields_order_' . $query->getIndex();
             $fieldAlias = 'order_' . $query->getIndex();
             $translationsAlias = 'translations_order_' . $query->getIndex();
@@ -107,6 +112,9 @@ class OrderDirective
                     ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction);
             }
             $query->incrementIndex();
+        } else {
+            $this->notifications->warning('Incorrect OrderBy clause for field that does not exist',
+                "A query with ordering on a Field or Taxonomy (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
         }
     }
 

@@ -437,7 +437,7 @@ class SelectQuery implements QueryInterface
         }
     }
 
-    private function getTaxonomyFields(): array
+    public function getTaxonomyFields(): array
     {
         return $this->taxonomyFields;
     }

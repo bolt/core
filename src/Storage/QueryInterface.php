@@ -48,5 +48,7 @@ interface QueryInterface
 
     public function getCoreFields(): array;
 
+    public function getTaxonomyFields(): array;
+
     public function getConfig(): Config;
 }
