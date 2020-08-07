@@ -95,14 +95,8 @@ class FieldExtension extends AbstractExtension
             );
         }
 
-        $records = [];
-        foreach ($field->getValue() as $id) {
-            $record = $this->contentRepository->findOneBy(['id' => (int) $id]);
-
-            if ($record) {
-                $records[] = $record;
-            }
-        }
+        $ids = $field->getValue();
+        $records = $this->contentRepository->findBy(['id' => $ids]); // Find records by their respective ids
 
         if ($returnsingle || (! $returnarray && $definition->get('multiple') === false)) {
             return current($records);
