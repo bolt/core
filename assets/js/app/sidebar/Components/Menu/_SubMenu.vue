@@ -3,7 +3,7 @@
     <li v-if="item.link_new !== null" class="link--actions">
       <a :href="item.link_new" data-patience="virtue">
         <i class="fas fa-fw fa-magic mr-2"></i
-        ><span>{{ labels['action.create_new'] }}</span>
+        ><span>{{ labels['action.new'] }}</span>
       </a>
       <a :href="item.link_listing" data-patience="virtue">
         <i class="fas fa-fw" :class="item.icon"></i>

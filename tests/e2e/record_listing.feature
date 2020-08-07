@@ -82,7 +82,7 @@ Feature: Record listing
 
     When I hover over the "Tests" element
     Then I should see 6 "li" in the 4th ".admin__sidebar--menu ul"
-    And I should see "New test" in the "#sidebar ul li:nth-child(8) ul > li:nth-child(1) > a" element
+    And I should see "New" in the "#sidebar ul li:nth-child(8) ul > li:nth-child(1) > a" element
     And I should see "Title of the test" in the "#sidebar ul li:nth-child(8) ul > li:nth-child(2) > a" element
 
   @javascript

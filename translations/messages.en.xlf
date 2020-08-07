@@ -2331,5 +2331,11 @@
         <target>View website</target>
       </segment>
     </unit>
+    <unit id="f.rvF6y" name="action.new">
+      <segment>
+        <source>action.new</source>
+        <target>New</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
