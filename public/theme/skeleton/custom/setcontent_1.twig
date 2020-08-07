@@ -161,4 +161,17 @@
         </ul>
     </section>
 
+    <section id="eleven">
+        <h1>Eleven</h1>
+        {% setcontent entries = 'entries' order 'categories' %}
+        <ul>
+            {% for entry in entries %}
+                <li>
+                    {{ entry.contenttype }} {{ entry.id }}: {{ entry.taxonomyvalues.categories|sort|first }}
+                    <span class="s{{ loop.index }}">{{ _self.isbigger(entry.taxonomyvalues.categories|first, last|default()) }}</span>
+                </li>
+                {% set last = entry.taxonomyvalues.categories|sort|first %}
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock main %}
