@@ -85,6 +85,10 @@ Feature: Users & Permissions
 
     #delete button for new user
     When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(7) > a.btn.btn-danger.mb-3.text-nowrap"
+    And I wait 1 second
+    Then  I should see "Are you sure you wish to delete this content?"
+    When I press "OK"
+
     Then I should be on "/bolt/users"
     And I should see 5 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And I should not see "test_user"

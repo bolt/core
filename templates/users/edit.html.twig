@@ -98,6 +98,25 @@
                 'required': true,
             } %}
 
+            {% set statusOptions = [] %}
+            {% for option in statuses ?? [] %}
+                {% set statusOptions = statusOptions|merge([
+                    {
+                        'key': option,
+                        'value': option|capitalize
+                    }
+                ]) %}
+            {% endfor %}
+
+            {% include '@bolt/_partials/fields/select.html.twig' with {
+                'id': 'ustatus',
+                'label': 'field.status'|trans,
+                'name': 'ustatus',
+                'value': userEdit.status,
+                'options': statusOptions,
+                'required': true,
+            } %}
+
             {# TODO: include form field with '@bolt/_partials/fields/select.html.twig' #}
             {# Comment out for a while, until we work on this again
             <div class="form-group">

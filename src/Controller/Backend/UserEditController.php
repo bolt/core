@@ -73,12 +73,14 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
 
         $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
+        $statuses = UserStatus::all();
 
         return $this->renderTemplate('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
             'userEdit' => $user,
             'roles' => $roles,
             'suggestedPassword' => $suggestedPassword,
+            'statuses' => $statuses,
         ]);
     }
 
@@ -144,6 +146,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $displayName = $user->getDisplayName();
         $locale = Json::findScalar($this->getFromRequest('locale'));
         $roles = (array) Json::findScalar($this->getFromRequest('roles'));
+        $status = Json::findScalar($this->getFromRequest('ustatus', UserStatus::ENABLED));
 
         if (empty($user->getUsername())) {
             $user->setUsername($this->getFromRequest('username'));
@@ -153,7 +156,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $user->setLocale($locale);
         $user->setRoles($roles);
         $user->setbackendTheme($this->getFromRequest('backendTheme'));
-        $user->setStatus($this->getFromRequest('status', UserStatus::ENABLED));
+        $user->setStatus($status);
 
         $newPassword = $this->getFromRequest('password');
         // Set the plain password to check for validation
