@@ -1,6 +1,6 @@
 <template>
   <nav class="admin__sidebar--nav">
-    <sidebar-menu :menu="menu"></sidebar-menu>
+    <sidebar-menu :menu="menu" :labels="labels"></sidebar-menu>
     <sidebar-toggler
       :version="version"
       :about-link="aboutLink"

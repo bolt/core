@@ -1083,12 +1083,6 @@
         <target>File updated succesfully!</target>
       </segment>
     </unit>
-    <unit id="eq5YMQf" name="9fb3e6e">
-      <segment>
-        <source>This website is &lt;a href='%url%' target='_blank' title='Sophisticated, lightweight &amp; simple CMS'&gt;Built with Bolt&lt;/a&gt;.</source>
-        <target><![CDATA[This website is <a href='%url%' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.]]></target>
-      </segment>
-    </unit>
     <unit id="3zlZmRK" name="action.add_user">
       <segment>
         <source>action.add_user</source>
@@ -1122,7 +1116,7 @@
     <unit id="TtmWqX3" name="action.view">
       <segment>
         <source>action.view</source>
-        <target>View website</target>
+        <target>View</target>
       </segment>
     </unit>
     <unit id="I2ykiIZ" name="caption.folders">
@@ -2329,6 +2323,18 @@
       <segment>
         <source>title.filtered_by</source>
         <target><![CDATA[All content, filtered by <em>'%filter%'</em>.]]></target>
+      </segment>
+    </unit>
+    <unit id="GPd6Hap" name="action.view_site">
+      <segment>
+        <source>action.view_site</source>
+        <target>View website</target>
+      </segment>
+    </unit>
+    <unit id="f.rvF6y" name="action.new">
+      <segment>
+        <source>action.new</source>
+        <target>New</target>
       </segment>
     </unit>
   </file>

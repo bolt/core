@@ -22,7 +22,7 @@
         ><span class="link--text">{{ item.name }}</span>
         <template v-if="item.submenu !== null">
           <i class="fas fa-caret-right link--caret"></i>
-          <sub-menu :item="item"></sub-menu>
+          <sub-menu :item="item" :labels="labels"></sub-menu>
         </template>
       </a>
     </li>
@@ -39,6 +39,7 @@ export default {
   },
   props: {
     menu: Array,
+    labels: Object,
   },
   methods: {
     singleton(item) {

@@ -314,7 +314,7 @@ Feature: Edit record
     And I am on "/bolt"
 
     When I hover over the "Tests" element
-    And I follow "New Test"
+    And I click the 5th "New"
 
     Then I should be on "/bolt/new/tests"
 

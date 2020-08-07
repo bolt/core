@@ -31,15 +31,15 @@
         <target>The value you selected is not a valid choice.</target>
       </segment>
     </unit>
-    <unit id="u81CkP8" name="0d999f2">
+    <unit id="7smtimf" name="0d999f2">
       <segment>
-        <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
+        <source>0d999f2</source>
         <target>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</target>
       </segment>
     </unit>
-    <unit id="nIvOQ_o" name="0824486">
+    <unit id="JRlXq2Z" name="0824486">
       <segment>
-        <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
+        <source>0824486</source>
         <target>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</target>
       </segment>
     </unit>
@@ -91,15 +91,15 @@
         <target>The file is not readable.</target>
       </segment>
     </unit>
-    <unit id="JocOVM2" name="1ad411a">
+    <unit id="2O3FbJ6" name="1ad411a">
       <segment>
-        <source>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</source>
+        <source>1ad411a</source>
         <target>The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}.</target>
       </segment>
     </unit>
-    <unit id="YW21SPH" name="30a318d">
+    <unit id="p4L.BFV" name="30a318d">
       <segment>
-        <source>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</source>
+        <source>30a318d</source>
         <target>The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.</target>
       </segment>
     </unit>
@@ -109,9 +109,9 @@
         <target>This value should be {{ limit }} or less.</target>
       </segment>
     </unit>
-    <unit id="HX7TOFm" name="0e0c1e1">
+    <unit id="SjJg9Hy" name="0e0c1e1">
       <segment>
-        <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
+        <source>0e0c1e1</source>
         <target>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</target>
       </segment>
     </unit>
@@ -121,9 +121,9 @@
         <target>This value should be {{ limit }} or more.</target>
       </segment>
     </unit>
-    <unit id="ekfrU.c" name="5188ff9">
+    <unit id="JJVWzKj" name="5188ff9">
       <segment>
-        <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
+        <source>5188ff9</source>
         <target>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</target>
       </segment>
     </unit>
@@ -235,27 +235,27 @@
         <target>The size of the image could not be detected.</target>
       </segment>
     </unit>
-    <unit id="zVtJJEa" name="266051e">
+    <unit id="g9NoIBz" name="266051e">
       <segment>
-        <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
+        <source>266051e</source>
         <target>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</target>
       </segment>
     </unit>
-    <unit id="s8LFQGC" name="c1c23f9">
+    <unit id="HTsQNva" name="c1c23f9">
       <segment>
-        <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
+        <source>c1c23f9</source>
         <target>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</target>
       </segment>
     </unit>
-    <unit id="Z.NgqFj" name="9a128f7">
+    <unit id="h3PRqha" name="9a128f7">
       <segment>
-        <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
+        <source>9a128f7</source>
         <target>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</target>
       </segment>
     </unit>
-    <unit id="AW1lWVM" name="8a4cd70">
+    <unit id="IVraZ3b" name="8a4cd70">
       <segment>
-        <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
+        <source>8a4cd70</source>
         <target>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</target>
       </segment>
     </unit>
@@ -265,9 +265,9 @@
         <target>This value should be the user's current password.</target>
       </segment>
     </unit>
-    <unit id="gYImVyV" name="fd389d6">
+    <unit id="Anek_FY" name="fd389d6">
       <segment>
-        <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
+        <source>fd389d6</source>
         <target>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</target>
       </segment>
     </unit>
@@ -301,21 +301,21 @@
         <target>A PHP extension caused the upload to fail.</target>
       </segment>
     </unit>
-    <unit id="gTJYRl6" name="b54c218">
+    <unit id="YuLxmhd" name="b54c218">
       <segment>
-        <source>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</source>
+        <source>b54c218</source>
         <target>This collection should contain {{ limit }} element or more.|This collection should contain {{ limit }} elements or more.</target>
       </segment>
     </unit>
-    <unit id="FFn3lVn" name="949632c">
+    <unit id="qXV2OMI" name="949632c">
       <segment>
-        <source>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</source>
+        <source>949632c</source>
         <target>This collection should contain {{ limit }} element or less.|This collection should contain {{ limit }} elements or less.</target>
       </segment>
     </unit>
-    <unit id="bSdilZv" name="e0582dc">
+    <unit id="BnjGMFh" name="e0582dc">
       <segment>
-        <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
+        <source>e0582dc</source>
         <target>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</target>
       </segment>
     </unit>
@@ -385,9 +385,9 @@
         <target>This value should be greater than or equal to {{ compared_value }}.</target>
       </segment>
     </unit>
-    <unit id="bOF1fpm" name="9670078">
+    <unit id="SreIWoo" name="9670078">
       <segment>
-        <source>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</source>
+        <source>9670078</source>
         <target>This value should be identical to {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
@@ -409,21 +409,21 @@
         <target>This value should not be equal to {{ compared_value }}.</target>
       </segment>
     </unit>
-    <unit id="Bi22JLt" name="0eedf91">
+    <unit id="JIjdvtb" name="0eedf91">
       <segment>
-        <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
+        <source>0eedf91</source>
         <target>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</target>
       </segment>
     </unit>
-    <unit id="VczCWzQ" name="9c3ad0f">
+    <unit id="vzvxzpR" name="9c3ad0f">
       <segment>
-        <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
+        <source>9c3ad0f</source>
         <target>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</target>
       </segment>
     </unit>
-    <unit id="v57PXhq" name="4376d45">
+    <unit id="LiDaIWN" name="4376d45">
       <segment>
-        <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
+        <source>4376d45</source>
         <target>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</target>
       </segment>
     </unit>
@@ -433,15 +433,15 @@
         <target>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</target>
       </segment>
     </unit>
-    <unit id="G_lu2qW" name="1dc128a">
+    <unit id="501jWTO" name="1dc128a">
       <segment>
-        <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
+        <source>1dc128a</source>
         <target>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</target>
       </segment>
     </unit>
-    <unit id="sFyGx4B" name="9e27714">
+    <unit id="J4L.QnM" name="9e27714">
       <segment>
-        <source>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</source>
+        <source>9e27714</source>
         <target>The image is portrait oriented ({{ width }}x{{ height }}px). Portrait oriented images are not allowed.</target>
       </segment>
     </unit>
@@ -535,9 +535,9 @@
         <target>This value is not a valid timezone.</target>
       </segment>
     </unit>
-    <unit id="40dnsod" name="7e27e92">
+    <unit id="A3Gr4fn" name="7e27e92">
       <segment>
-        <source>This password has been leaked in a data breach, it must not be used. Please use another password.</source>
+        <source>7e27e92</source>
         <target>This password has been leaked in a data breach, it must not be used. Please use another password.</target>
       </segment>
     </unit>
