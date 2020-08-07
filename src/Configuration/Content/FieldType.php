@@ -49,6 +49,7 @@ class FieldType extends Collection
             'pattern' => false,
             'hidden' => false,
             'default_locale' => 'en',
+            'height' => '10', // 10 rows by default
         ]);
     }
 
