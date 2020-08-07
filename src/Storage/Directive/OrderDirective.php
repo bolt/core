@@ -88,35 +88,33 @@ class OrderDirective
                 ->andWhere($taxonomy . '.type = :' . $taxonomySlug)
                 ->setParameter($taxonomySlug, $order)
                 ->addOrderBy($taxonomy . '.name', $direction);
-        } else {
-            if (! $this->isActualField($query, $order)) {
-                $this->notifications->warning('Incorrect OrderBy clause for field that does not exist',
-                    "A query with ordering on a Field (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
-            } else {
-                $fieldsAlias = 'fields_order_' . $query->getIndex();
-                $fieldAlias = 'order_' . $query->getIndex();
-                $translationsAlias = 'translations_order_' . $query->getIndex();
+        } elseif ($this->isActualField($query, $order)) {
+            $fieldsAlias = 'fields_order_' . $query->getIndex();
+            $fieldAlias = 'order_' . $query->getIndex();
+            $translationsAlias = 'translations_order_' . $query->getIndex();
 
+            $query
+                ->getQueryBuilder()
+                ->leftJoin('content.fields', $fieldsAlias)
+                ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
+                ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
+                ->andWhere($translationsAlias . '.locale = :' . $fieldAlias . '_locale')
+                ->setParameter($fieldAlias . '_locale', $locale)
+                ->setParameter($fieldAlias, $order);
+
+            if ($this->isNumericField($query, $order)) {
+                $this->orderByNumericField($query, $translationsAlias, $direction);
+            } else {
+                // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
+                // results correctly. See also https://github.com/bolt/core/issues/1190
                 $query
                     ->getQueryBuilder()
-                    ->leftJoin('content.fields', $fieldsAlias)
-                    ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
-                    ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
-                    ->andWhere($translationsAlias . '.locale = :' . $fieldAlias . '_locale')
-                    ->setParameter($fieldAlias . '_locale', $locale)
-                    ->setParameter($fieldAlias, $order);
-
-                if ($this->isNumericField($query, $order)) {
-                    $this->orderByNumericField($query, $translationsAlias, $direction);
-                } else {
-                    // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
-                    // results correctly. See also https://github.com/bolt/core/issues/1190
-                    $query
-                        ->getQueryBuilder()
-                        ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction);
-                }
-                $query->incrementIndex();
+                    ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction);
             }
+            $query->incrementIndex();
+        } else {
+            $this->notifications->warning('Incorrect OrderBy clause for field that does not exist',
+                "A query with ordering on a Field or Taxonomy (`${order}`) that's not defined, will yield unexpected results. Update your `{% setcontent %}`-statement");
         }
     }
 
