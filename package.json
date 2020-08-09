@@ -1,6 +1,6 @@
 {
   "name": "bolt",
-  "version": "4.0.0-rc.33",
+  "version": "4.0.0-rc.34",
   "homepage": "https://boltcms.io",
   "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
   "license": "MIT",
@@ -31,9 +31,9 @@
     "axios": "^0.19.2",
     "baguettebox.js": "^1.11.1",
     "bootbox": "^5.4.0",
-    "bootstrap": "^4.5.0",
-    "browserslist": "^4.13.0",
-    "caniuse-lite": "^1.0.30001109",
+    "bootstrap": "^4.5.2",
+    "browserslist": "^4.14.0",
+    "caniuse-lite": "^1.0.30001112",
     "codemirror": "^5.56.0",
     "dropzone": "^5.7.2",
     "flagpack": "^1.0.5",
@@ -61,7 +61,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.0",
+    "@babel/core": "^7.11.1",
     "@babel/plugin-transform-regenerator": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/polyfill": "^7.10.4",
@@ -92,7 +92,7 @@
     "stylelint-config-standard": "^19.0.0",
     "vue-jest": "^3.0.6",
     "vue-loader": "^15.9.3",
-    "vue-router": "^3.3.4",
+    "vue-router": "^3.4.2",
     "vue-template-compiler": "^2.6.11",
     "webpackbar": "^4.0.0",
     "workbox-webpack-plugin": "^4.3.1"
