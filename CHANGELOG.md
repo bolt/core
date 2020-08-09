@@ -1,6 +1,38 @@
 Changelog
 =========
 
+## 4.0.0-rc.34
+
+Released: 2020-08-09
+
+### 🐛 Bug fixes
+
+- Thumbnailing works with only width or only height (I-Valchev, [#1692](https://github.com/bolt/core/pull/1692))
+- Localize submenu buttons (I-Valchev, [#1689](https://github.com/bolt/core/pull/1689))
+- Fix menu `item|current` in _menu.html.twig (I-Valchev, [#1688](https://github.com/bolt/core/pull/1688))
+- Do _not_ use taxonomy values. Use them as defined (I-Valchev, [#1683](https://github.com/bolt/core/pull/1683))
+- Prettify thumbnail paths. Use Bolt 4 cropping options (I-Valchev, [#1679](https://github.com/bolt/core/pull/1679))
+- Child fields can render html by default, without `|raw` filter (I-Valchev, [#1673](https://github.com/bolt/core/pull/1673))
+
+### 📦 Additions and new features
+
+- Feature/orderby taxonomies (I-Valchev, [#1694](https://github.com/bolt/core/pull/1694))
+- Allow textarea `height` option (I-Valchev, [#1691](https://github.com/bolt/core/pull/1691))
+- Show detailed localization for fields containing subfields (I-Valchev, [#1685](https://github.com/bolt/core/pull/1685))
+
+### 🛠️ Miscellaneous
+
+- Optimise `selected` filter to fetch records with a single DB call (I-Valchev, [#1695](https://github.com/bolt/core/pull/1695))
+- Set user status, confirm user delete, select scalar value (I-Valchev, [#1686](https://github.com/bolt/core/pull/1686))
+- Merge move concatenated 'website' string to translation file into master (nestordedios, [#1678](https://github.com/bolt/core/pull/1678))
+- Deprecate `translated` filter in favour of `translate` (I-Valchev, [#1677](https://github.com/bolt/core/pull/1677))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix missing files from `.gitignore` (bobdenotter, [#1682](https://github.com/bolt/core/pull/1682))
+- Some minor code improvements (I-Valchev, [#1674](https://github.com/bolt/core/pull/1674))
+
+
 ## 4.0.0-rc.33
 
 Released: 2020-08-01
