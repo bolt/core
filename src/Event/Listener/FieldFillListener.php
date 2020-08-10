@@ -45,6 +45,7 @@ class FieldFillListener
 
                 if (is_iterable($value)) {
                     foreach ($value as $key => $v) {
+                        dump($v);
                         $value[$key] = $this->sanitiser->clean($v);
                     }
                 } else {
