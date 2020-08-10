@@ -14,6 +14,7 @@ use Bolt\Entity\FieldTranslation;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Twig\Markup;
 
 class FieldFillListener
 {
@@ -41,19 +42,32 @@ class FieldFillListener
             $field = $entity->getTranslatable();
 
             if (! $field instanceof RawPersistable) {
-                $value = $field->getParsedValue();
-
-                if (is_iterable($value)) {
-                    foreach ($value as $key => $v) {
-                        dump($v);
-                        $value[$key] = $this->sanitiser->clean($v);
-                    }
-                } else {
-                    $value = $this->sanitiser->clean($value);
-                }
+                $value = $this->clean($field->getParsedValue());
                 $field->setValue($value);
             }
         }
+    }
+
+    private function clean($value): array
+    {
+        if (! is_iterable($value)) {
+            $value = [$value];
+        }
+
+        $result = [];
+
+        foreach ($value as $key => $v) {
+            if ($v instanceof Markup) {
+                // todo: Figure out how to preserve original encoding
+                $v = new Markup($this->sanitiser->clean((string) $v), 'UTF-8');
+            } elseif (is_string($v)) {
+                $v = $this->sanitiser->clean($v);
+            }
+
+            $result[$key] = $v;
+        }
+
+        return $result;
     }
 
     public function postLoad(LifecycleEventArgs $args): void
