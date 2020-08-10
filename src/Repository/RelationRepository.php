@@ -74,21 +74,24 @@ class RelationRepository extends ServiceEntityRepository
             ->join('r.toContent', 'cto')
             ->orderBy('r.position', 'DESC');
 
+        if ($reversed === false) {
+            $qb->andWhere('r.fromContent = :from');
+            $cto = 'cto';
+        } else {
+            $qb->andWhere('r.toContent = :from');
+            $cto = 'cfrom';
+        }
+
         if ($publishedOnly === true) {
-            $qb->andWhere('cto.status = :status')
+            $qb->andWhere($cto.'.status = :status')
                 ->setParameter('status', Statuses::PUBLISHED, \PDO::PARAM_STR);
         }
 
         if ($name !== null) {
-            $qb->andWhere('r.name = :name')
+            $qb->andWhere($cto.'.contentType = :name')
                 ->setParameter('name', $name, \PDO::PARAM_STR);
         }
 
-        if ($reversed === false) {
-            $qb->andWhere('r.fromContent = :from');
-        } else {
-            $qb->andWhere('r.toContent = :from');
-        }
         $qb->setParameter(':from', $from);
 
         return $qb;
