@@ -19,8 +19,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * )
  * @ORM\Entity(repositoryClass="Bolt\Repository\RelationRepository")
  * @ORM\Table(indexes={
- * @ORM\Index(name="name_idx", columns={"name"}),
- * @ORM\Index(name="group_idx", columns={"group"})
  * })
  * @ApiFilter(SearchFilter::class, strategy="partial")
  */
@@ -32,12 +30,6 @@ class Relation
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=191)
-     * @Groups("get_relation")
-     */
-    private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", fetch="EAGER")
@@ -60,9 +52,6 @@ class Relation
     /** @ORM\Column(type="integer") */
     private $position = 0;
 
-    /** @ORM\Column(name="`group`", type="string", length=191) */
-    private $group;
-
     /**
      * Definition contains properties like:
      * - name
@@ -77,23 +66,16 @@ class Relation
      */
     private $definition = [];
 
-    public function __construct(Content $fromContent, Content $toContent, ?string $name = null)
+    public function __construct(Content $fromContent, Content $toContent)
     {
         $this->fromContent = $fromContent;
         $this->toContent = $toContent;
-        $this->name = $name ?: $toContent->getContentTypeSlug();
-        $this->group = sprintf('%s_%s', $fromContent->getContentTypeSlug(), $this->name);
         $this->setDefinitionFromContentDefinition();
     }
 
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     public function getPosition(): int
@@ -118,11 +100,6 @@ class Relation
         return $this->toContent;
     }
 
-    public function getGroup(): string
-    {
-        return $this->group;
-    }
-
     public function getDefinition(): array
     {
         if (empty($this->definition) === true && empty($this->fromContent) === false) {
@@ -142,10 +119,10 @@ class Relation
             throw new \InvalidArgumentException('Owning Content not fully initialized');
         }
 
-        if (isset($contentTypeDefinition['relations'][$this->getName()]) === false) {
+        if (isset($contentTypeDefinition['relations'][$this->toContent->getContentTypeSlug()]) === false) {
             throw new \InvalidArgumentException('Invalid Relation name');
         }
 
-        $this->definition = $contentTypeDefinition['relations'][$this->getName()];
+        $this->definition = $contentTypeDefinition['relations'][$this->toContent->getContentTypeSlug()];
     }
 }

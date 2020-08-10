@@ -76,10 +76,10 @@ class RelatedExtension extends AbstractExtension
             ->reduce(function (array $result, Relation $relation) use ($content): array {
                 $relatedContent = $this->extractContentFromRelation($relation, $content);
                 if ($relatedContent !== null) {
-                    if (isset($result[$relation->getName()]) === false) {
-                        $result[$relation->getName()] = [];
+                    if (isset($result[$relatedContent->getContentTypeSlug()]) === false) {
+                        $result[$relatedContent->getContentTypeSlug()] = [];
                     }
-                    $result[$relation->getName()][] = $relatedContent;
+                    $result[$relatedContent->getContentTypeSlug()][] = $relatedContent;
                 }
 
                 return $result;
