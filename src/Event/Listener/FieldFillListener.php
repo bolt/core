@@ -8,7 +8,9 @@ use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\Field\SetField;
+use Bolt\Entity\FieldTranslation;
 use Bolt\Repository\FieldRepository;
+use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class FieldFillListener
@@ -19,10 +21,28 @@ class FieldFillListener
     /** @var ContentFillListener */
     private $cfl;
 
-    public function __construct(FieldRepository $fields, ContentFillListener $cfl)
+    /** @var Sanitiser */
+    private $sanitiser;
+
+    public function __construct(FieldRepository $fields, ContentFillListener $cfl, Sanitiser $sanitiser)
     {
         $this->fields = $fields;
         $this->cfl = $cfl;
+        $this->sanitiser = $sanitiser;
+    }
+
+    public function preUpdate(LifecycleEventArgs $args): void
+    {
+        $entity = $args->getEntity();
+        if($entity instanceof FieldTranslation && $entity->getTranslatable() instanceof Field) {
+            $field = $entity->getTranslatable();
+            $value = $field->getParsedValue();
+
+            if (is_string($value)) {
+                $value = $this->sanitiser->clean($value);
+                $field->setValue($value);
+            }
+        }
     }
 
     public function postLoad(LifecycleEventArgs $args): void

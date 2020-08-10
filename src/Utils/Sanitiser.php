@@ -21,7 +21,7 @@ class Sanitiser
         $this->config = $config;
     }
 
-    public function getPurifier(): \HTMLPurifier
+    private function getPurifier(): \HTMLPurifier
     {
         if ($this->purifier) {
             return $this->purifier;
@@ -34,7 +34,7 @@ class Sanitiser
 
         $allowedTags = implode(',', $this->config->get('general/htmlcleaner/allowed_tags')->all());
         $allowedAttributes = implode(',', $this->config->get('general/htmlcleaner/allowed_attributes')->all());
-        $allowedFrameTargets = implode(',', $this->config->get('general/htmlcleaner/allowed_frame_targets', collect(['_blank', '_self', '_parent', '_top']))->all());
+        $allowedFrameTargets = implode(',', $this->config->get('general/htmlcleaner/allowed_frame_targets')->all());
 
         $purifierConfig->set('HTML.AllowedElements', $allowedTags);
         $purifierConfig->set('HTML.AllowedAttributes', $allowedAttributes);
