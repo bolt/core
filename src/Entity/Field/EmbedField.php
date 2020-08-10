@@ -7,6 +7,7 @@ namespace Bolt\Entity\Field;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Twig\Markup;
 
 /**
  * @ORM\Entity
@@ -14,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class EmbedField extends Field implements FieldInterface
 {
     public const TYPE = 'embed';
+    private $encoding = 'UTF-8';
 
     public function getValue(): ?array
     {
@@ -24,26 +26,26 @@ class EmbedField extends Field implements FieldInterface
         return $value;
     }
 
-    private function getResponsive(): string
+    private function getResponsive(): Markup
     {
         $html = parent::getValue()['html'] ?? '';
 
         if (empty($html)) {
-            return '';
+            return new Markup('', $this->encoding);
         }
 
         $html = preg_replace("/width=(['\"])([0-9]+)(['\"])/i", '', $html);
         $html = preg_replace("/height=(['\"])([0-9]+)(['\"])/i", '', $html);
 
-        return '<div class="embed-responsive">' . $html . '</div>';
+        return new Markup('<div class="embed-responsive">' . $html . '</div>', $this->encoding);
     }
 
-    private function getResponsiveInline(): string
+    private function getResponsiveInline(): Markup
     {
         $html = parent::getValue()['html'] ?? '';
 
         if (empty($html)) {
-            return '';
+            return new Markup('', $this->encoding);
         }
 
         $wrapperOpening = '<div style="overflow: hidden; padding-bottom: 56.25%; position: relative; height: 0;">';
@@ -54,6 +56,6 @@ class EmbedField extends Field implements FieldInterface
         $html = preg_replace("/width=(['\"])([0-9]+)(['\"])/i", $inline, $html);
         $html = preg_replace("/height=(['\"])([0-9]+)(['\"])/i", '', $html);
 
-        return $wrapperOpening . $html . $wrapperClosing;
+        return new Markup($wrapperOpening . $html . $wrapperClosing, $this->encoding);
     }
 }
