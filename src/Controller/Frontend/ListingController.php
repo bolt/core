@@ -48,6 +48,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             ->setCurrentPage($page);
 
         $templates = $this->templateChooser->forListing($contentType);
+        $this->twig->addGlobal('records', $records);
 
         $twigVars = [
             'records' => $records,
