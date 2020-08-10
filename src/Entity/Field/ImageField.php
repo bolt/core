@@ -17,7 +17,7 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 /**
  * @ORM\Entity
  */
-class ImageField extends Field implements FieldInterface, MediaAwareInterface, Countable
+class ImageField extends Field implements FieldInterface, MediaAwareInterface, Countable, RawPersistable
 {
     use FileExtrasTrait;
 

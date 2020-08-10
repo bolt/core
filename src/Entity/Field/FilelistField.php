@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class FilelistField extends Field implements FieldInterface, ListFieldInterface, \Iterator
+class FilelistField extends Field implements FieldInterface, ListFieldInterface, RawPersistable, \Iterator
 {
     use ListFieldTrait;
 

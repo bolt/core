@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class CheckboxField extends Field implements FieldInterface, ScalarCastable
+class CheckboxField extends Field implements FieldInterface, ScalarCastable, RawPersistable
 {
     public const TYPE = 'checkbox';
 

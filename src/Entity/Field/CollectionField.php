@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class CollectionField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface, \Iterator
+class CollectionField extends Field implements FieldInterface, FieldParentInterface, ListFieldInterface, \Iterator, RawPersistable
 {
     use FieldParentTrait;
     use ListFieldTrait;

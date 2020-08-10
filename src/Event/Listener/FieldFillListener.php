@@ -8,10 +8,12 @@ use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Field;
 use Bolt\Entity\Field\CollectionField;
 use Bolt\Entity\Field\SetField;
+use Bolt\Entity\FieldInterface;
 use Bolt\Entity\FieldTranslation;
 use Bolt\Repository\FieldRepository;
 use Bolt\Utils\Sanitiser;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Bolt\Entity\Field\RawPersistable;
 
 class FieldFillListener
 {
@@ -34,12 +36,19 @@ class FieldFillListener
     public function preUpdate(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
-        if($entity instanceof FieldTranslation && $entity->getTranslatable() instanceof Field) {
+        if($entity instanceof FieldTranslation && $entity->getTranslatable() instanceof FieldInterface) {
             $field = $entity->getTranslatable();
-            $value = $field->getParsedValue();
 
-            if (is_string($value)) {
-                $value = $this->sanitiser->clean($value);
+            if (! $field instanceof RawPersistable) {
+                $value = $field->getParsedValue();
+
+                if (is_iterable($value)) {
+                    foreach ($value as $key => $v) {
+                        $value[$key] = $this->sanitiser->clean($v);
+                    }
+                } else {
+                    $value = $this->sanitiser->clean($value);
+                }
                 $field->setValue($value);
             }
         }
