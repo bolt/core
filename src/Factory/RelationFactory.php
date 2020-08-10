@@ -23,14 +23,14 @@ class RelationFactory
         $this->relations = collect([]);
     }
 
-    public function create(Content $from, Content $to, ?string $name = null): Relation
+    public function create(Content $from, Content $to): Relation
     {
         $existing = $this->getExisting($from, $to);
         if ($existing instanceof Relation) {
             return $existing;
         }
 
-        $new = new Relation($from, $to, $name);
+        $new = new Relation($from, $to);
         $this->relations->add($new);
 
         return $new;
