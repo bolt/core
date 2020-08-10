@@ -31,6 +31,7 @@ class Sanitiser
         $definition->addAttribute('a', 'frameborder', 'Text');
         $definition->addAttribute('a', 'allowfullscreen', 'Text');
         $definition->addAttribute('a', 'scrolling', 'Text');
+        $definition->addAttribute('a', 'target', 'Text');
 
         $this->purifier = new \HTMLPurifier($purifierConfig);
     }
