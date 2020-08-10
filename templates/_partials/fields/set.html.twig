@@ -2,16 +2,19 @@
 
 {% block field %}
     {% for setChild in field.valueForEditor %}
+        {% set includeLookup = [
+            '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig',
+            '@' ~ setChild.type ~ '/' ~ setChild.type ~ '.html.twig',
+            '@bolt/_partials/fields/generic.html.twig'
+        ] %}
         {% if in_collection is defined %}
             {% set setChildName = name ~ '[' ~ setChild.name ~ ']' %}
             {% set setChildId = id ~ '-' ~ setChild.name|default('unnamed') %}
-            {% include '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig' with
-                {'id': setChildId, 'field' : setChild, 'name' : setChildName, 'include_id': true} only %}
+            {% include includeLookup with {'id': setChildId, 'field' : setChild, 'name' : setChildName, 'include_id': true} only %}
         {% else %}
             {% set setChildName = 'sets[' ~ field.name ~ ']' ~ '[' ~ setChild.name ~ ']' %}
             {% set setChildId = 'field-' ~ field.name|default(name)|default('unnamed') ~ '-' ~ setChild.name|default('unnamed') %}
-            {% include '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig' with
-                {'field' : setChild, 'name' : setChildName, 'id': setChildId} only %}
+            {% include includeLookup with {'field' : setChild, 'name' : setChildName, 'id': setChildId} only %}
         {% endif %}
     {% endfor %}
 {% endblock %}
