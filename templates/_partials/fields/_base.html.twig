@@ -118,16 +118,25 @@
 >
 
 {{ prefix|raw }}
+
+{% if variant == 'inline' %}<div class="row"><div class="col-3">{% endif %}
+
 {% block label %}
     {% include '@bolt/_partials/fields/_label.html.twig' %}
     {% include '@bolt/_partials/fields/_collection_buttons.html.twig' %}
 {% endblock %}
+
+{% if variant == 'inline' %}</div><div class="col-9">{% endif %}
+
 {% block field %}
 
 {% endblock %}
 {% if include_id is defined %}
     {% include '@bolt/_partials/fields/_hidden_id_field.html.twig' %}
 {% endif %}
+
+{% if variant == 'inline' %}</div></div>{% endif %}
+
 {{ postfix|raw }}
 
 {{ separator|raw }}
