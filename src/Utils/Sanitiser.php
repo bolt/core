@@ -10,19 +10,35 @@ class Sanitiser
 {
     private $purifier;
 
-    public function __construct(?Config $config = null)
+    /** @var Config */
+    private $config;
+
+    /**
+     * @required
+     */
+    public function init(Config $config): void
     {
+        $this->config = $config;
+    }
+
+    private function getPurifier(): \HTMLPurifier
+    {
+        if ($this->purifier) {
+            return $this->purifier;
+        }
+
         $purifierConfig = \HTMLPurifier_HTML5Config::create([
             'Cache.DefinitionImpl' => null,
             'HTML.SafeIframe' => true,
         ]);
 
-        if ($config) {
-            $allowedTags = implode(',', $config->get('general/htmlcleaner/allowed_tags')->all());
-            $allowedAttributes = implode(',', $config->get('general/htmlcleaner/allowed_attributes')->all());
-            $purifierConfig->set('HTML.AllowedElements', $allowedTags);
-            $purifierConfig->set('HTML.AllowedAttributes', $allowedAttributes);
-        }
+        $allowedTags = implode(',', $this->config->get('general/htmlcleaner/allowed_tags')->all());
+        $allowedAttributes = implode(',', $this->config->get('general/htmlcleaner/allowed_attributes')->all());
+        $allowedFrameTargets = implode(',', $this->config->get('general/htmlcleaner/allowed_frame_targets')->all());
+
+        $purifierConfig->set('HTML.AllowedElements', $allowedTags);
+        $purifierConfig->set('HTML.AllowedAttributes', $allowedAttributes);
+        $purifierConfig->set('Attr.AllowedFrameTargets', $allowedFrameTargets);
 
         $definition = $purifierConfig->maybeGetRawHTMLDefinition();
         $definition->addElement('super', 'Inline', 'Flow', 'Common', []);
@@ -33,10 +49,12 @@ class Sanitiser
         $definition->addAttribute('a', 'scrolling', 'Text');
 
         $this->purifier = new \HTMLPurifier($purifierConfig);
+
+        return $this->purifier;
     }
 
     public function clean(string $html): string
     {
-        return $this->purifier->purify($html);
+        return $this->getPurifier()->purify($html);
     }
 }

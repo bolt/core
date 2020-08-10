@@ -12,7 +12,7 @@ use Tightenco\Collect\Support\Collection;
 /**
  * @ORM\Entity
  */
-class SelectField extends Field implements FieldInterface
+class SelectField extends Field implements FieldInterface, RawPersistable
 {
     public const TYPE = 'select';
 

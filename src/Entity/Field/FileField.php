@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class FileField extends Field implements FieldInterface, Countable
+class FileField extends Field implements FieldInterface, Countable, RawPersistable
 {
     use FileExtrasTrait;
 
