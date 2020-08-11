@@ -838,5 +838,17 @@
         <target>Navegador / Sistema Operativo</target>
       </segment>
     </unit>
+    <unit id="FSroufa" name="caption.path">
+      <segment>
+        <source>caption.path</source>
+        <target>Ruta</target>
+      </segment>
+    </unit>
+    <unit id="P1FHg3Q" name="caption.edit_file">
+      <segment>
+        <source>caption.edit_file</source>
+        <target>Editar archivo</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
