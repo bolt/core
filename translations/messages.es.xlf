@@ -994,5 +994,71 @@
         <target>Fecha de creación</target>
       </segment>
     </unit>
+    <unit id="nrWBJNm" name="extensions.title_desc">
+      <segment>
+        <source>extensions.title_desc</source>
+        <target>Descripción</target>
+      </segment>
+    </unit>
+    <unit id="7raDJAR" name="extensions.title_author">
+      <segment>
+        <source>extensions.title_author</source>
+        <target>Autor</target>
+      </segment>
+    </unit>
+    <unit id="UP8pNGy" name="extensions.title_package">
+      <segment>
+        <source>extensions.title_package</source>
+        <target>Paquete / Nombre de la Clase</target>
+      </segment>
+    </unit>
+    <unit id="hgNZLwW" name="extensions.title_configuration">
+      <segment>
+        <source>extensions.title_configuration</source>
+        <target>Archivo de configuración:</target>
+      </segment>
+    </unit>
+    <unit id="QFQ1uTC" name="extensions.title_version">
+      <segment>
+        <source>extensions.title_version</source>
+        <target>Version</target>
+      </segment>
+    </unit>
+    <unit id="BFARQEU" name="extensions.button_detailed_view">
+      <segment>
+        <source>extensions.button_detailed_view</source>
+        <target>Vista detallada</target>
+      </segment>
+    </unit>
+    <unit id="mjhFljb" name="extensions.button_configuration">
+      <segment>
+        <source>extensions.button_configuration</source>
+        <target>Configuración</target>
+      </segment>
+    </unit>
+    <unit id="r3ryNTG" name="extensions.button_source">
+      <segment>
+        <source>extensions.button_source</source>
+        <target>Origen</target>
+      </segment>
+    </unit>
+    <unit id="qc3rFkZ" name="extensions.button_remove">
+      <segment>
+        <source>extensions.button_remove</source>
+        <target>Eliminar Extensión</target>
+      </segment>
+    </unit>
+    <unit id="SLZyVzU" name="extensions.button_disable">
+      <segment>
+        <source>extensions.button_disable</source>
+        <target>Desactivar Extensión</target>
+      </segment>
+    </unit>
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
+      <segment>
+        <source>extensions.message_not_implemented</source>
+        <target>Aún no se ha implementado. ¡Lo siento! </target>
+      </segment>
+    </unit>
   </file>
 </xliff>
