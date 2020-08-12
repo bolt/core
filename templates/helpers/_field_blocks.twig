@@ -1,4 +1,4 @@
-{# Sub-block for 'text' field such as 'text', 'textarea', or 'html' #}
+{# Sub-block for 'text' field such as 'text', 'textarea', 'html' or 'markdown' #}
 {% block text_field %}
     <div data-bolt-field="{{ field.name }}">
         <{{ tag }}>
@@ -9,25 +9,13 @@
     </div>
 {% endblock %}
 
-{# Sub-block for Markdown fields #}
-{% block markdown_field %}
-    <div data-bolt-field="{{ field.name }}">
-        {{ field.twigValue() }}
-    </div>
-{% endblock %}
-
 {# Block for "basic" fields like HTML, Markdown, Textarea and Text #}
 {% block common_fields %}
 
-    {# HTML, Textarea, Text fields #}
-    {% if type in ['html', 'textarea', 'text'] %}
+    {# HTML, Textarea, Text and Markdown fields #}
+    {% if type in ['html', 'textarea', 'text', 'markdown'] %}
         {% set tag = (field.name in ['title', 'name', 'caption', 'subject', 'heading']) ? 'h3' : 'p' %}
         {{ block('text_field') }}
-    {% endif %}
-
-    {# Markdown fields #}
-    {% if type == 'markdown' %}
-        {{ block('markdown_field') }}
     {% endif %}
 
     {# Image fields #}
@@ -84,13 +72,11 @@
     {# No special cases defined for other fieldtypes. We just output them if
        they're a simple scalar, and 'dump' them otherwise. #}
     {% if type not in allfields and field is not empty  %}
-        <p><strong>{{ field|label }}: </strong>
-            {% if field is iterable %}
-                {{ dump(field) }}
-            {% else %}
-                {{ field.twigValue() }}
-            {% endif %}
-        </p>
+        {% if field is iterable %}
+            {{ dump(field) }}
+        {% else %}
+            {{ field.twigValue() }}
+        {% endif %}
     {% endif %}
 
 {% endblock %}
