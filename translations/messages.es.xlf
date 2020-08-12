@@ -619,7 +619,7 @@
     <unit id="n.3JZvX" name="title.contentType">
       <segment>
         <source>title.contentType</source>
-        <target>title.contentType</target>
+        <target>Tipo de Contenido</target>
       </segment>
     </unit>
     <unit id="ufFUPp7" name="view_locales.badge_missing">
@@ -1106,6 +1106,108 @@
       <segment>
         <source>label.user</source>
         <target>Usuario</target>
+      </segment>
+    </unit>
+    <unit id="z2AgHGp" name="flash_messages.notification">
+      <segment>
+        <source>flash_messages.notification</source>
+        <target>Notificación</target>
+      </segment>
+    </unit>
+    <unit id="2MMvCKK" name="label.cache_cleared">
+      <segment>
+        <source>label.cache_cleared</source>
+        <target>¡Caché borrada correctamente! </target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment>
+        <source>success</source>
+        <target>Con éxito</target>
+      </segment>
+    </unit>
+    <unit id="cH6rDCP" name="Button">
+      <segment>
+        <source>Button</source>
+        <target>Botón</target>
+      </segment>
+    </unit>
+    <unit id="1LzKCXS" name="&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.">
+      <segment>
+        <source>&lt;strong&gt;Well done!&lt;/strong&gt; You successfully read this important alert message.</source>
+        <target><![CDATA[<strong>¡Bien hecho!</strong>  Ha leído correctamente este importante mensaje de alerta.]]></target>
+      </segment>
+    </unit>
+    <unit id="Bicbr0l" name="info">
+      <segment>
+        <source>info</source>
+        <target>Información</target>
+      </segment>
+    </unit>
+    <unit id="S9k1S7Z" name="warning">
+      <segment>
+        <source>warning</source>
+        <target>Advertencia</target>
+      </segment>
+    </unit>
+    <unit id="Ej.WZqo" name="danger">
+      <segment>
+        <source>danger</source>
+        <target>Peligro</target>
+      </segment>
+    </unit>
+    <unit id="RaGzSx5" name="57d589f">
+      <segment>
+        <source>57d589f</source>
+        <target><![CDATA[<strong>¡Atención!</strong> Esta alerta necesita su atención, pero no es muy importante.]]></target>
+      </segment>
+    </unit>
+    <unit id="JYILFeM" name="&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.">
+      <segment>
+        <source>&lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you're not looking too good.</source>
+        <target><![CDATA[<strong>¡Atención!</strong> Compruebe que todo está en orden, algo ha podido ir mal.]]></target>
+      </segment>
+    </unit>
+    <unit id="a2vzLi7" name="action.do_something">
+      <segment>
+        <source>action.do_something</source>
+        <target>Haz algo</target>
+      </segment>
+    </unit>
+    <unit id="OGd6iOm" name="&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.">
+      <segment>
+        <source>&lt;strong&gt;Oh snap!&lt;/strong&gt; Change a few things up and try submitting again.</source>
+        <target><![CDATA[<strong>¡Vaya!</strong> Haga algunos cambios e inténtelo de nuevo.]]></target>
+      </segment>
+    </unit>
+    <unit id="xN1kSQQ" name="caption.bolt_payoff">
+      <segment>
+        <source>caption.bolt_payoff</source>
+        <target>caption.bolt_payoff</target>
+      </segment>
+    </unit>
+    <unit id="QVRwwK4" name="about.system_info">
+      <segment>
+        <source>about.system_info</source>
+        <target>about.system_info</target>
+      </segment>
+    </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <segment>
+        <source>about.bolt_on_github</source>
+        <target>about.bolt_on_github</target>
+      </segment>
+    </unit>
+    <unit id="_9fS00R" name="about.used_libraries">
+      <segment>
+        <source>about.used_libraries</source>
+        <target>about.used_libraries</target>
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <segment>
+        <source>about.list_of_used_libraries</source>
+        <target>about.list_of_used_libraries</target>
       </segment>
     </unit>
   </file>
