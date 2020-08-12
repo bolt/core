@@ -62,7 +62,7 @@ class ContentFillListener
                 $entity->setPublishedAt(new \DateTime());
             }
 
-            $this->guaranteeUniqueSLug($entity);
+            $this->guaranteeUniqueSlug($entity);
         }
     }
 
