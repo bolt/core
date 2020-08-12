@@ -42,9 +42,29 @@ class FieldRepository extends ServiceEntityRepository
             ->addSelect('translations')
             ->andWhere($where . ' = :slug')
             ->setParameter('slug', $slug)
+            ->andWhere('field instance of :type')
+            ->setParameter('type', 'slug')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function findAllBySlug(string $slug): array
+    {
+        $qb = $this->getQueryBuilder();
+        $connection = $qb->getEntityManager()->getConnection();
+
+        [$where, $slug] = JsonHelper::wrapJsonFunction('translations.value', $slug, $connection);
+
+        return $qb
+            ->innerJoin('field.translations', 'translations')
+            ->addSelect('translations')
+            ->andWhere($where . ' = :slug')
+            ->setParameter('slug', $slug)
+            ->andWhere('field INSTANCE OF :type')
+            ->setParameter('type', 'slug')
+            ->getQuery()
+            ->getResult();
     }
 
     public function findAllByParent(Field $field): ?array

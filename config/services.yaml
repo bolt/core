@@ -49,6 +49,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
             - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
 
     Bolt\Event\Listener\FieldFillListener:
         tags:
