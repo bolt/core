@@ -73,6 +73,11 @@
     {% if value is iterable and field|type != "select" and field|type != "collection" %}
         {% set value = value|first %}
     {% endif %}
+
+    {# We're adding zero width spaces in `{{` and `}}`, to ensure Vue doesn't get its grubby paws on it. #}
+    {% if value is string %}
+        {% set value = value|replace({'{{': '{&ZeroWidthSpace;{', '}}': '}&ZeroWidthSpace;}'}) %}
+    {% endif %}
 {% endif %}
 
 {# Set the class #}
