@@ -1378,5 +1378,23 @@
         <target>Región</target>
       </segment>
     </unit>
+    <unit id="7whLbH8" name="user.new_user">
+      <segment>
+        <source>user.new_user</source>
+        <target>Usuario nuevo</target>
+      </segment>
+    </unit>
+    <unit id="iD6CNOO" name="label.roles">
+      <segment>
+        <source>label.roles</source>
+        <target>Roles</target>
+      </segment>
+    </unit>
+    <unit id="hiE9jap" name="password.suggested">
+      <segment>
+        <source>password.suggested</source>
+        <target><![CDATA[Contraseña segura sugerida <code>%password%</code> ]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>
