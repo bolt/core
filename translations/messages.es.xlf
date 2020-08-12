@@ -1183,31 +1183,31 @@
     <unit id="xN1kSQQ" name="caption.bolt_payoff">
       <segment>
         <source>caption.bolt_payoff</source>
-        <target>caption.bolt_payoff</target>
+        <target>CMS sofisticado, ligero y simple</target>
       </segment>
     </unit>
     <unit id="QVRwwK4" name="about.system_info">
       <segment>
         <source>about.system_info</source>
-        <target>about.system_info</target>
+        <target>Información del sistema</target>
       </segment>
     </unit>
     <unit id="FO7zDub" name="about.bolt_on_github">
       <segment>
         <source>about.bolt_on_github</source>
-        <target>about.bolt_on_github</target>
+        <target>Bolt en Github</target>
       </segment>
     </unit>
     <unit id="_9fS00R" name="about.used_libraries">
       <segment>
         <source>about.used_libraries</source>
-        <target>about.used_libraries</target>
+        <target>Librerías / Componentes utilizados</target>
       </segment>
     </unit>
     <unit id="tgLgLDQ" name="about.list_of_used_libraries">
       <segment>
         <source>about.list_of_used_libraries</source>
-        <target>about.list_of_used_libraries</target>
+        <target>A continuación se muestran las bibliotecas de terceros que utiliza Bolt.</target>
       </segment>
     </unit>
   </file>
