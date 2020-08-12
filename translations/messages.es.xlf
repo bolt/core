@@ -1240,5 +1240,107 @@
         <target>No hay archivos presentes en esta carpeta. Seleccione una carpeta a la que navegar.</target>
       </segment>
     </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <segment>
+        <source>label.predominant_colors__in_image</source>
+        <target>Colores predominantes en la imagen</target>
+      </segment>
+    </unit>
+    <unit id="vlRe8Tx" name="field.width">
+      <segment>
+        <source>field.width</source>
+        <target>Ancho</target>
+      </segment>
+    </unit>
+    <unit id="CZbXbM_" name="field.height">
+      <segment>
+        <source>field.height</source>
+        <target>Alto</target>
+      </segment>
+    </unit>
+    <unit id="Sz_u.OS" name="field.filesize">
+      <segment>
+        <source>field.filesize</source>
+        <target>Tamaño del archivo</target>
+      </segment>
+    </unit>
+    <unit id="TtIlBDd" name="caption.edit_image">
+      <segment>
+        <source>caption.edit_image</source>
+        <target>Editar imagen</target>
+      </segment>
+    </unit>
+    <unit id="y5otxEK" name="caption.filename">
+      <segment>
+        <source>caption.filename</source>
+        <target>Nombre del archivo</target>
+      </segment>
+    </unit>
+    <unit id="VKhfRZB" name="field.title">
+      <segment>
+        <source>field.title</source>
+        <target>Título</target>
+      </segment>
+    </unit>
+    <unit id="7_wwX8J" name="field.description">
+      <segment>
+        <source>field.description</source>
+        <target>Descripción</target>
+      </segment>
+    </unit>
+    <unit id="hjDmcPC" name="field.copyright">
+      <segment>
+        <source>field.copyright</source>
+        <target>Derechos de autor</target>
+      </segment>
+    </unit>
+    <unit id="v0sitU8" name="field.originalFilename">
+      <segment>
+        <source>field.originalFilename</source>
+        <target>Nombre original del archivo</target>
+      </segment>
+    </unit>
+    <unit id="fLOd6Zd" name="field.cropX">
+      <segment>
+        <source>field.cropX</source>
+        <target>Recortar ancho de la imagen</target>
+      </segment>
+    </unit>
+    <unit id="Sd_AbmV" name="field.cropXPostfix">
+      <segment>
+        <source>field.cropXPostfix</source>
+        <target>Posición de recorte en el eje horizontal, rango 0-100</target>
+      </segment>
+    </unit>
+    <unit id="hi98HIj" name="field.cropY">
+      <segment>
+        <source>field.cropY</source>
+        <target>Recortar alto de la imagen</target>
+      </segment>
+    </unit>
+    <unit id="BQBmQHT" name="field.cropYPostfix">
+      <segment>
+        <source>field.cropYPostfix</source>
+        <target>Posición de recorte en el eje vertical, rango 0-100</target>
+      </segment>
+    </unit>
+    <unit id="PHOpD5y" name="field.cropZoom">
+      <segment>
+        <source>field.cropZoom</source>
+        <target>Enfoque para el recorte</target>
+      </segment>
+    </unit>
+    <unit id="tn6Z8wY" name="field.cropZoomPostfix">
+      <segment>
+        <source>field.cropZoomPostfix</source>
+        <target>Nivel de enfoque para el recorte, rango 1-10.</target>
+      </segment>
+    </unit>
+    <unit id="IB0mNQh" name="content.created_successfully">
+      <segment>
+        <source>content.created_successfully</source>
+        <target>Contenido multimedia creado correctamente</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
