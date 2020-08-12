@@ -235,8 +235,8 @@ class Field implements FieldInterface, TranslatableInterface
             $value = $this->getContent()->sanitise($value);
         }
 
-        if (is_string($value) && $this->getDefinition()->get('allow_twig')) {
-            $twig = $this->getTwig();
+        if ($this->shouldBeRenderedAsTwig($value)) {
+            $twig = $this->getContent()->getTwig();
 
             if ($twig) {
                 $template = $twig->createTemplate($value);
@@ -256,11 +256,9 @@ class Field implements FieldInterface, TranslatableInterface
         return $value;
     }
 
-    public function getTwig()
+    private function shouldBeRenderedAsTwig($value):bool
     {
-        if ($this->getContent()->getTwig()) {
-            return $this->getContent()->getTwig();
-        }
+        return is_string($value) && $this->getDefinition()->get('allow_twig') && preg_match('/{[{%#]/', $value);
     }
 
     public function set(string $key, $value): self
