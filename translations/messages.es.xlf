@@ -1396,5 +1396,47 @@
         <target><![CDATA[Contraseña segura sugerida <code>%password%</code> ]]></target>
       </segment>
     </unit>
+    <unit id="80JoLd0" name="title.login">
+      <segment>
+        <source>title.login</source>
+        <target>Inicio de sesión</target>
+      </segment>
+    </unit>
+    <unit id="beqzCkE" name="login.header_login">
+      <segment>
+        <source>login.header_login</source>
+        <target>Bolt » Inicio de sesión</target>
+      </segment>
+    </unit>
+    <unit id="RMPnq6o" name="label.username_or_email">
+      <segment>
+        <source>label.username_or_email</source>
+        <target>Usuario o correo electrónico</target>
+      </segment>
+    </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <segment>
+        <source>placeholder.username_or_email</source>
+        <target>Usuario o correo electrónico de su cuenta</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <segment>
+        <source>placeholder.password</source>
+        <target>Introduzca contraseña de su cuenta</target>
+      </segment>
+    </unit>
+    <unit id="gLN0C81" name="action.log_in">
+      <segment>
+        <source>action.log_in</source>
+        <target>Iniciar sesión</target>
+      </segment>
+    </unit>
+    <unit id="IaF1MjB" name="label.rememberme">
+      <segment>
+        <source>label.rememberme</source>
+        <target>Recordarme</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
