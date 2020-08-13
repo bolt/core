@@ -256,7 +256,7 @@ class Field implements FieldInterface, TranslatableInterface
         return $value;
     }
 
-    private function shouldBeRenderedAsTwig($value):bool
+    private function shouldBeRenderedAsTwig($value): bool
     {
         return is_string($value) && $this->getDefinition()->get('allow_twig') && preg_match('/{[{%#]/', $value);
     }
