@@ -144,7 +144,7 @@ class ContentFillListener
     {
         $separator = '-';
         // If it already ends with -{number}, increase it!
-        $dashNumber = '/' . $separator . "(\d)$/";
+        $dashNumber = '/' . $separator . "(\d+)$/";
         preg_match($dashNumber, $slug, $matches);
 
         if (isset($matches[1])) {
