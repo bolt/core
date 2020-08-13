@@ -142,6 +142,17 @@ class ContentFillListener
 
     private function getSafeSlug(string $slug): string
     {
-        return $slug . '-1';
+        $separator = '-';
+        // If it already ends with -{number}, increase it!
+        $dashNumber = '/' . $separator . "(\d)$/";
+        preg_match($dashNumber, $slug, $matches);
+
+        if (isset($matches[1])) {
+            $replacement = $separator . ((int) $matches[1] + 1);
+
+            return preg_replace($dashNumber, $replacement, $slug);
+        }
+
+        return $slug . $separator . '1';
     }
 }
