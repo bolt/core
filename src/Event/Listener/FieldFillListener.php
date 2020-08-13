@@ -58,9 +58,11 @@ class FieldFillListener
 
         foreach ($value as $key => $v) {
             if ($v instanceof Markup) {
+                $v = $this->trimZeroWidthWhitespace((string) $v);
                 // todo: Figure out how to preserve original encoding
-                $v = new Markup($this->sanitiser->clean((string) $v), 'UTF-8');
+                $v = new Markup($this->sanitiser->clean($v), 'UTF-8');
             } elseif (is_string($v)) {
+                $v = $this->trimZeroWidthWhitespace($v);
                 $v = $this->sanitiser->clean($v);
             }
 
@@ -68,6 +70,14 @@ class FieldFillListener
         }
 
         return $result;
+    }
+
+    /**
+     * Remove the 'zero width space' from `{{` and `}}`, added in the editor.
+     */
+    public function trimZeroWidthWhitespace(string $string): string
+    {
+        return preg_replace('/([{}])[\x{200B}-\x{200D}\x{FEFF}]([{}])/u', '$1$2', $string);
     }
 
     public function postLoad(LifecycleEventArgs $args): void

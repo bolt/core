@@ -144,6 +144,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::PRE_SAVE);
 
+        /* Note: Doctrine also calls preUpdate() -> Event/Listener/FieldFillListener.php */
         $this->em->persist($content);
         $this->em->flush();
 
