@@ -1438,5 +1438,53 @@
         <target>Recordarme</target>
       </segment>
     </unit>
+    <unit id="EvAqL__" name="caption.duplicate">
+      <segment>
+        <source>caption.duplicate</source>
+        <target>Duplicar</target>
+      </segment>
+    </unit>
+    <unit id="SGlj7K2" name="view_locales.badge_empty">
+      <segment>
+        <source>view_locales.badge_empty</source>
+        <target>Vacío</target>
+      </segment>
+    </unit>
+    <unit id="8JeahIj" name="files_cards.message_no_files">
+      <segment>
+        <source>files_cards.message_no_files</source>
+        <target>No hay archivos en esta carpeta. Seleccione una carpeta a la que navegar en la parte derecha.</target>
+      </segment>
+    </unit>
+    <unit id="munFS0n" name="title.filtered_by">
+      <segment>
+        <source>title.filtered_by</source>
+        <target><![CDATA[Todo el contenido, filtrado por <em>'%filter%'</em>.]]></target>
+      </segment>
+    </unit>
+    <unit id="piuatxC" name="extensions.info_not_installed">
+      <segment>
+        <source>extensions.info_not_installed</source>
+        <target>Este es un paquete local, instalado sin utilizar Composer</target>
+      </segment>
+    </unit>
+    <unit id="3j1gEmk" name="extensions.title_class">
+      <segment>
+        <source>extensions.title_class</source>
+        <target>Nombre de la Clase:</target>
+      </segment>
+    </unit>
+    <unit id="KshyLfh" name="caption.other_content">
+      <segment>
+        <source>caption.other_content</source>
+        <target>Otro Contenido</target>
+      </segment>
+    </unit>
+    <unit id="wIX8O_z" name="status.">
+      <segment>
+        <source>status.</source>
+        <target>Estado.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
