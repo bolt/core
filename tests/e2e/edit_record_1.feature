@@ -348,3 +348,23 @@ Feature: Edit record
 
     And the "collections[collection_field][photo][3][filename]" field should contain "joey.jpg"
     And the "collections[collection_field][photo][3][alt]" field should contain "Photo of a foal"
+
+  @javascript
+  Scenario: As an Admin, I want to duplicate a page
+    Given I am logged in as "admin"
+    And I am on "/bolt/content/pages"
+    Then I should see "This is a page"
+
+    When I click the 1st ".edit-actions__dropdown-toggler"
+    #click duplicate
+    And I click the 1st ".fa-copy"
+
+    Then I should be on "/bolt/duplicate/2"
+    And the "fields[title]" field should contain "This is a page"
+    And the "fields[slug]" field should contain "this-is-a-page"
+
+    When I scroll "Save changes" into view
+    And I click "Save changes"
+
+    Then the "fields[title]" field should contain "This is a page"
+    And the "fields[slug]" field should contain "this-is-a-page-1"

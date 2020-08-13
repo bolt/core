@@ -89,7 +89,12 @@ class ContentFillListener
     private function guaranteeUniqueSLug(Content $content): void
     {
         $slug = $content->getSlug();
-        $slugField = $content->getField('slug') ?? null;
+
+        try {
+            $slugField = $content->getField('slug');
+        } catch (\InvalidArgumentException $e) {
+            $slugField = null;
+        }
 
         $fields = $this->fieldRepository->findAllBySlug($slug);
 
