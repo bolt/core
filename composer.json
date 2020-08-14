@@ -104,7 +104,7 @@
         "se/selenium-server-standalone": "^3.141",
         "symfony/browser-kit": "^4.4 | ^5.1",
         "symfony/css-selector": "^4.4 | ^5.1",
-        "symplify/easy-coding-standard": "8.2.1",
+        "symplify/easy-coding-standard": "^8.2.3",
         "vaimo/binary-chromedriver": "^5.0"
     },
     "config": {
