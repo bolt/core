@@ -1,6 +1,6 @@
 {
   "name": "bolt",
-  "version": "4.0.0-rc.34",
+  "version": "4.0.0-rc.35",
   "homepage": "https://boltcms.io",
   "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "url": "git://github.com/bolt/core.git"
   },
   "dependencies": {
-    "@vue/cli-service": "^4.4.6",
+    "@vue/cli-service": "^4.5.3",
     "axios": "^0.19.2",
     "baguettebox.js": "^1.11.1",
     "bootbox": "^5.4.0",
