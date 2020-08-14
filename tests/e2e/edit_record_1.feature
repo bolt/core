@@ -360,11 +360,11 @@ Feature: Edit record
     And I click the 1st "Duplicate Page"
 
     Then I should be on "/bolt/duplicate/2"
-    And the "fields[title]" field should contain "This is a page"
+    And the "fields[heading]" field should contain "This is a page"
     And the "fields[slug]" field should contain "this-is-a-page"
 
     When I scroll "Save changes" into view
     And I click "Save changes"
 
-    Then the "fields[title]" field should contain "This is a page"
+    Then the "fields[heading]" field should contain "This is a page"
     And the "fields[slug]" field should contain "this-is-a-page-1"
