@@ -27,7 +27,7 @@
         {% set omittedkeys = ['id', 'slug', 'datecreated', 'datechanged', 'datepublish',
             'datedepublish', 'username', 'status', 'ownerid', 'templatefields'] %}
         {% set commonfields = ['html', 'markdown', 'textarea', 'text', 'image', 'file', 'video'] %}
-        {% set extendedfields = ['select', 'checkbox', 'embed', 'date', 'number'] %}
+        {% set extendedfields = ['select', 'checkbox', 'embed', 'date', 'number', 'hidden', 'data', 'templateselect'] %}
         {% set compoundfields = ['collection', 'filelist', 'imagelist', 'set'] %}
         {% set allfields = commonfields|merge(extendedfields)|merge(compoundfields) %}
 

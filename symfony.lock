@@ -1059,9 +1059,6 @@
     "symplify/package-builder": {
         "version": "v7.2.2"
     },
-    "symplify/parameter-name-guard": {
-        "version": "v7.3.18"
-    },
     "symplify/phpstan-extensions": {
         "version": "v7.3.18"
     },

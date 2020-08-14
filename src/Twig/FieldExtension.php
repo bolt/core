@@ -78,7 +78,7 @@ class FieldExtension extends AbstractExtension
 
     public function getType(Field $field): string
     {
-        return $field->getDefinition()->get('type');
+        return $field->getType() ?? $field->getDefinition()->get('type');
     }
 
     /**
