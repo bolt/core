@@ -6,6 +6,9 @@ $('*[data-confirmation]').on('click', function() {
   const thisHref = $(this).attr('href');
   const confirmation = $(this).data('confirmation');
 
+  let locale = $('html').attr('lang');
+  bootbox.setLocale(locale);
+
   if (!thisElem.data('confirmed')) {
     bootbox.confirm(confirmation, function(result) {
       if (result && thisHref) {
