@@ -357,7 +357,7 @@ Feature: Edit record
 
     When I click the 1st ".edit-actions__dropdown-toggler"
     #click duplicate
-    And I click the 1st ".fa-copy"
+    And I click the 1st "Duplicate Page"
 
     Then I should be on "/bolt/duplicate/2"
     And the "fields[title]" field should contain "This is a page"
