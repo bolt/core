@@ -7,22 +7,20 @@ main:
     link: homepage
     class: homepage
   - label: About
-    link: blocks/about
+    link: page/2
     submenu:
         - label: Sub 1
-          link: entry/29
+          link: entry/39
         - label: Sub 2
           class: menu-item-class
-          link: entry/30
-        - label: Sub 3
-          link: entry/31
-        - label: Sub 4
-          class: sub-class
-          link: page/32
+          link: entry/40
+        - link: entry/41 # These two have no `label`, so they will show up as the title
+        - class: sub-class
+          link: page/42
   - label: All pages
     link: pages/
   - label: The Bolt site
-    link: https://bolt.cm
+    link: https://boltcms.io
     class: bolt-site
     title: Visit the excellent Bolt website!
 

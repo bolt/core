@@ -1,8 +1,11 @@
-# Note: Database setup is done in ENV variables. See `.env` in the project root.
+# Note: Database setup is best done in ENV variables. See the file `.env`
+# in the project root.
 
 # The name of the website
 sitename: Bolt Core Git Clone
 payoff: The amazing payoff goes here
+
+secret: '%env(APP_SECRET)%'
 
 # The theme to use.
 #
@@ -162,6 +165,7 @@ htmlcleaner:
     allowed_tags: [ div, span, p, br, hr, s, u, strong, em, i, b, li, ul, ol, mark, blockquote, pre, code, tt, h1, h2, h3, h4, h5, h6, dd, dl, dt, table, tbody, thead, tfoot, th, td, tr, a, img, address, abbr, iframe, caption, sub, super, figure, figcaption ]
     allowed_attributes: [ id, class, style, name, value, href, src, alt, title, width, height, frameborder, allowfullscreen, scrolling, target, colspan, rowspan ]
     allowed_frame_targets: [ _blank, _self, _parent, _top ]
+    
 # Define the file types (extensions to be exact) that are acceptable for upload
 # in either file fields or through the files screen.
 accept_file_types: [ twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, tgz, txt, md, doc, docx, pdf, epub, xls, xlsx, ppt, pptx, mp3, ogg, wav, m4a, mp4, m4v, ogv, wmv, avi, webm, svg]
@@ -175,23 +179,6 @@ accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff ]
 # Set the maximum upload size. Note, this can never exceed the settings for
 #`post_max_size` and `upload_max_filesize` in `php.ini`.
 accept_upload_size: 8M
-
-# If you want to brand the Bolt backend for a client, you can change some key
-# variables here, that determine the name of the backend, and adds a primary
-# support/contact link to the footer.  Add a scheme, like `mailto:` or
-# `https://` to the email or URL.
-#
-# Additionally you can change the mount point for the backend, either for
-# convenience or to obscure it from prying eyes.
-#
-# The Bolt backend is accessible as `/bolt/` by default. If you change it here,
-# it will only be accessible through the value set in path.
-# Keep the path simple: lowercase only, no extra slashes or other special
-# characters.
-# branding:
-#     name: SuperCMS
-#     path: /admin
-#     provided_by: [ supercool@example.org, "Supercool Webdesign Co." ]
 
 # There are several options for giving editors more options to insert images,
 # video, etc in the WYSIWYG areas. But, as you give them more options, that
@@ -224,5 +211,3 @@ wysiwyg:
 # Enforcing the use of SSL. If set, all pages will enforce an SSL connection,
 # and redirect to HTTPS if you attempt to visit plain HTTP pages.
 # enforce_ssl: true
-
-secret: '%env(APP_SECRET)%'
