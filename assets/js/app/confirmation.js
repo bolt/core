@@ -2,14 +2,14 @@ import bootbox from 'bootbox';
 import $ from 'jquery';
 
 let bootboxDefaults = {
-  locale: 'en'
-}
+  locale: 'en',
+};
 
 bootbox.setDefaults(bootboxDefaults);
 
 let locale = $('html').attr('lang');
 
-if(locale){
+if (locale) {
   bootbox.setLocale(locale);
 }
 
