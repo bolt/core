@@ -118,7 +118,7 @@ class ExtensionsConfigureCommand extends Command
      */
     private function getExtensionRoutesPath(string $path = '*'): string
     {
-        return $this->projectDir . '/config/routes/extension_' . Str::splitLast($path, '/') . '.yaml';
+        return $this->projectDir . '/config/routes/extension_' . Str::splitLast($path, DIRECTORY_SEPARATOR) . '.yaml';
     }
 
     /**
@@ -127,7 +127,7 @@ class ExtensionsConfigureCommand extends Command
      */
     private function getExtensionServicesPath(string $path = '*'): string
     {
-        return $this->projectDir . '/config/packages/extension_' . Str::splitLast($path, '/') . '.yaml';
+        return $this->projectDir . '/config/packages/extension_' . Str::splitLast($path, DIRECTORY_SEPARATOR) . '.yaml';
     }
 
     private function getExtensionConfigPath(string $namespace, string $name): string
