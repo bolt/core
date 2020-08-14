@@ -150,8 +150,7 @@ class Field implements FieldInterface, TranslatableInterface
 
         if ($this->isNew() && $default !== null) {
             if (! $default instanceof LaravelCollection) {
-                throw new \RuntimeException('Default value of field ' . $this->getName() . ' is ' . gettype($default)
-                    . ' but it should be an array.');
+                throw new \RuntimeException('Default value of field ' . $this->getName() . ' is ' . gettype($default) . ' but it should be an array.');
             }
 
             return $this->getDefaultValue()->get($key);

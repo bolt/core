@@ -16,7 +16,9 @@ use PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer;
 use PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer;
 use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
+use PhpCsFixer\Fixer\ConstantNotation\NativeConstantInvocationFixer;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
+use PhpCsFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer;
 use PhpCsFixer\Fixer\FunctionNotation\PhpdocToReturnTypeFixer;
 use PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer;
 use PhpCsFixer\Fixer\Import\FullyQualifiedStrictTypesFixer;
@@ -60,6 +62,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         PhpdocAnnotationWithoutDotFixer::class => null,
         PhpdocSummaryFixer::class => null,
         PhpdocAlignFixer::class => null,
+        NativeConstantInvocationFixer::class => null,
+        NativeFunctionInvocationFixer::class => null,
     ]);
 
     $services = $containerConfigurator->services();
