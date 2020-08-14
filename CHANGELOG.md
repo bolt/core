@@ -13,7 +13,7 @@ Released: 2020-08-14
 
 ### 🛠️ Miscellaneous
 
-- Replaced hardcoded '/' by DIRECTORY_SEPARATOR (colorando-de, [#1716](https://github.com/bolt/core/pull/1716))
+- Replaced hardcoded `/` by `DIRECTORY_SEPARATOR` (colorando-de, [#1716](https://github.com/bolt/core/pull/1716))
 - Merge addition of Spanish (🇪🇸) translations into master (nestordedios, [#1714](https://github.com/bolt/core/pull/1714))
 - Fix 'custom' Fields showing up with their Label, if `_fields.twig` is used. (bobdenotter, [#1707](https://github.com/bolt/core/pull/1707))
 - Pager uses default listing records, if available. (I-Valchev, [#1705](https://github.com/bolt/core/pull/1705))
@@ -21,7 +21,6 @@ Released: 2020-08-14
 - Allow Fields added in extensions to show up in Sets and Collections (bobdenotter, [#1703](https://github.com/bolt/core/pull/1703))
 - Refactor relations to be properly bidirectional (I-Valchev, [#1702](https://github.com/bolt/core/pull/1702))
 - Use embed without `raw` filter (I-Valchev, [#1701](https://github.com/bolt/core/pull/1701))
-- Prepare release 4.0.0-rc.34 (bobdenotter, [#1697](https://github.com/bolt/core/pull/1697))
 - Enforce unique slugs (I-Valchev, [#1710](https://github.com/bolt/core/pull/1710))
 
 ### ⚙️ Code Quality / Developer Experience
