@@ -57,10 +57,10 @@ class FrontendMenuBuilderTest extends DbAwareTestCase
 
         $this->assertSame('The Bolt site', $lastItem->get('label'));
         $this->assertSame('Visit the excellent Bolt website!', $lastItem->get('title'));
-        $this->assertSame('https://bolt.cm', $lastItem->get('link'));
+        $this->assertSame('https://boltcms.io', $lastItem->get('link'));
         $this->assertSame('bolt-site', $lastItem->get('class'));
         $this->assertNull($lastItem->get('submenu'));
-        $this->assertSame('https://bolt.cm', $lastItem->get('uri'));
+        $this->assertSame('https://boltcms.io', $lastItem->get('uri'));
         $this->assertNull($lastItem->get('foobar'));
     }
 
