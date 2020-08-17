@@ -1,6 +1,18 @@
 import bootbox from 'bootbox';
 import $ from 'jquery';
 
+let bootboxDefaults = {
+  locale: 'en',
+};
+
+bootbox.setDefaults(bootboxDefaults);
+
+let locale = $('html').attr('lang');
+
+if (locale) {
+  bootbox.setLocale(locale);
+}
+
 $('*[data-confirmation]').on('click', function() {
   const thisElem = $(this);
   const thisHref = $(this).attr('href');

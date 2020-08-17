@@ -1,7 +1,7 @@
 {# Check if aside has value and set hasAside variable #}
 {% set hasAside = block('aside')|trim is not empty ? true : false %}
 <!DOCTYPE html>
-<html {% if block('html_id') %}id="{% block html_id %}{% endblock %}"{% endif %}>
+<html lang="{{ app.user.locale }}" {% if block('html_id') %}id="{% block html_id %}{% endblock %}"{% endif %}>
 
 <head>
     <meta charset="utf-8">
