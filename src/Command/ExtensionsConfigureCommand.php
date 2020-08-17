@@ -34,12 +34,19 @@ class ExtensionsConfigureCommand extends Command
     {
         $this
             ->setDescription('Copy the config/config.yaml, config/services.yaml and config/routes.yaml files from extensions.')
-            ->addOption('with-config', null, InputOption::VALUE_NONE, 'If set, Bolt will copy the default extension config.yaml file');
+            ->addOption('with-config', null, InputOption::VALUE_NONE, 'If set, Bolt will copy the default extension config.yaml file')
+            ->addOption('remove-services', null, InputOption::VALUE_NONE, 'If set, Bolt will remove the extension\'s services and routes files');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $extensions = $this->extensionRegistry->getExtensions();
+
+        if ($input->getOption('remove-services')) {
+            $this->deleteExtensionRoutesAndServices($extensions);
+
+            return 0;
+        }
 
         $this->copyExtensionRoutesAndServices($extensions);
 
@@ -64,6 +71,23 @@ class ExtensionsConfigureCommand extends Command
 
             if (file_exists($origin) && ! file_exists($destination)) {
                 file_put_contents($destination, file_get_contents($origin));
+            }
+        }
+    }
+
+    private function deleteExtensionRoutesAndServices(array $packages): void
+    {
+        foreach ($packages as $package) {
+            $path = $this->getPackagePath($package);
+            $services = $this->getExtensionServicesPath($path);
+
+            if (is_file($services)) {
+                unlink($services);
+            }
+
+            $routes = $this->getExtensionServicesPath($path);
+            if (is_file($routes)) {
+                unlink($routes);
             }
         }
     }
