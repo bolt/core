@@ -85,7 +85,7 @@ class ExtensionsConfigureCommand extends Command
                 unlink($services);
             }
 
-            $routes = $this->getExtensionServicesPath($path);
+            $routes = $this->getExtensionRoutesPath($path);
             if (is_file($routes)) {
                 unlink($routes);
             }
