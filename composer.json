@@ -140,6 +140,9 @@
             "@auto-scripts",
             "php bin/console bolt:info"
         ],
+        "pre-package-uninstall": [
+            "php bin/console extensions:configure --remove-services"
+        ],
         "post-update-cmd": [
             "php bin/console extensions:configure",
             "@auto-scripts",
