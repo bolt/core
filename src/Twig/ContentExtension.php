@@ -445,7 +445,7 @@ class ContentExtension extends AbstractExtension
         $finder
             ->files()
             ->in($this->config->getPath('theme'))
-            ->name($definition->get('filter', '*.twig'))
+            ->name($definition->get('filter', '/^[^_].*\.twig$/'))
             ->path($definition->get('path'));
 
         $options = [];
