@@ -30,6 +30,7 @@ class TextExtension extends AbstractExtension
             new TwigFilter('ucwords', [$this, 'ucwords']),
             new TwigFilter('preg_replace', [$this, 'pregReplace']),
             new TwigFilter('format_bytes', [$this, 'formatBytes']),
+            new TwigFilter('url_decode', [$this, 'urlDecode']),
         ];
     }
 
@@ -83,5 +84,24 @@ class TextExtension extends AbstractExtension
         $bytes /= pow(1024, $pow);
 
         return round($bytes, $precision) . ' ' . $units[$pow];
+    }
+
+    public function urlDecode(string $string)
+    {
+        if (! mb_strpos($string, '=')) {
+            return urldecode($string);
+        }
+
+        $params = [];
+
+        foreach (explode('&', $string) as $chunk) {
+            $param = explode('=', $chunk);
+
+            if ($param) {
+                $params[urldecode($param[0])] = urldecode($param[1]);
+            }
+        }
+
+        return $params;
     }
 }
