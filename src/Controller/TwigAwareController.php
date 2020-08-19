@@ -62,7 +62,7 @@ class TwigAwareController extends AbstractController
     }
 
     /**
-     * @deprecated since Bolt 4.0, use "renderTemplate()" instead
+     * @deprecated since Bolt 4.0, use "render()" instead
      */
     public function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
     {
