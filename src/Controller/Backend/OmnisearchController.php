@@ -24,6 +24,6 @@ class OmnisearchController extends TwigAwareController implements BackendZoneInt
             'subtitle' => 'controller.omnisearch.subtitle',
         ];
 
-        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
+        return $this->render('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

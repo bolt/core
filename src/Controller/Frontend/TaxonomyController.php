@@ -44,6 +44,6 @@ class TaxonomyController extends TwigAwareController implements FrontendZoneInte
             'slug' => $slug,
         ];
 
-        return $this->renderTemplate($templates, $twigVars);
+        return $this->render($templates, $twigVars);
     }
 }

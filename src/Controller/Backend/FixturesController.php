@@ -24,6 +24,6 @@ class FixturesController extends TwigAwareController implements BackendZoneInter
             'subtitle' => 'To add Fixtures, or "Dummy Content".',
         ];
 
-        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
+        return $this->render('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

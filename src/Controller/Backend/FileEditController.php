@@ -68,7 +68,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             'writable' => is_writable($filename),
         ];
 
-        return $this->renderTemplate('@bolt/finder/editfile.html.twig', $context);
+        return $this->render('@bolt/finder/editfile.html.twig', $context);
     }
 
     /**
@@ -99,7 +99,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
                 'writable' => is_writable($filename),
             ];
 
-            return $this->renderTemplate('@bolt/finder/editfile.html.twig', $context);
+            return $this->render('@bolt/finder/editfile.html.twig', $context);
         }
 
         try {

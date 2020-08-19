@@ -24,7 +24,7 @@ class DatabaseIntegrityController extends TwigAwareController implements Backend
             'subtitle' => 'controller.database.check_subtitle',
         ];
 
-        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
+        return $this->render('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 
     /**
@@ -37,6 +37,6 @@ class DatabaseIntegrityController extends TwigAwareController implements Backend
             'subtitle' => 'controller.database.update_title',
         ];
 
-        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
+        return $this->render('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

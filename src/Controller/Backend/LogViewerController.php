@@ -27,7 +27,7 @@ class LogViewerController extends TwigAwareController implements BackendZoneInte
         /** @var Log $items */
         $items = $log->findLatest($page, $amount);
 
-        return $this->renderTemplate('@bolt/pages/logviewer.html.twig', [
+        return $this->render('@bolt/pages/logviewer.html.twig', [
             'items' => $items,
         ]);
     }

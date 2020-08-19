@@ -25,6 +25,6 @@ class MenuPageController extends TwigAwareController implements BackendZoneInter
             'subtitle' => 'To show a number of different things, on one page',
         ];
 
-        return $this->renderTemplate('@bolt/pages/menupage.html.twig', $twigVars);
+        return $this->render('@bolt/pages/menupage.html.twig', $twigVars);
     }
 }

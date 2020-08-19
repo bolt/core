@@ -45,6 +45,6 @@ class UserController extends TwigAwareController implements BackendZoneInterface
             'users' => $users,
         ];
 
-        return $this->renderTemplate('@bolt/users/listing.html.twig', $twigVars);
+        return $this->render('@bolt/users/listing.html.twig', $twigVars);
     }
 }

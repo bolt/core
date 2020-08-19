@@ -129,7 +129,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             'currentlocale' => $this->getEditLocale($content),
         ];
 
-        return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
+        return $this->render('@bolt/content/edit.html.twig', $twigvars);
     }
 
     /**
@@ -182,7 +182,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $templates = $this->templateChooser->forRecord($content);
 
-        return $this->renderTemplate($templates, $context);
+        return $this->render($templates, $context);
     }
 
     /**
@@ -210,7 +210,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             'defaultlocale' => $this->defaultLocale,
         ];
 
-        return $this->renderTemplate('@bolt/content/edit.html.twig', $twigvars);
+        return $this->render('@bolt/content/edit.html.twig', $twigvars);
     }
 
     /**

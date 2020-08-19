@@ -22,6 +22,6 @@ class TemplateController extends TwigAwareController implements FrontendZoneInte
     {
         $templates = [$templateName];
 
-        return $this->renderTemplate($templates, []);
+        return $this->render($templates, []);
     }
 }

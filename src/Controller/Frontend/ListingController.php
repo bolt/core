@@ -56,6 +56,6 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             'contenttype' => $contentType,
         ];
 
-        return $this->renderTemplate($templates, $twigVars);
+        return $this->render($templates, $twigVars);
     }
 }
