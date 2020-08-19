@@ -388,8 +388,11 @@ class SelectQuery implements QueryInterface
                 ->from(\Bolt\Entity\Content::class, $contentAlias)
                 ->innerJoin($contentAlias . '.fields', $fieldsAlias)
                 ->innerJoin($fieldsAlias . '.translations', $translationsAlias)
-                ->andWhere($exactWhere)
-                ->OrWhere($containsWhere);
+                ->andWhere($exactWhere);
+
+            if (! empty($containsWhere)) {
+                $innerQuery->OrWhere($containsWhere);
+            }
 
             // Unless the field to which the 'where' applies is `anyColumn`, we
             // Make certain it's narrowed down to that fieldname
@@ -412,8 +415,11 @@ class SelectQuery implements QueryInterface
             foreach ($filter->getParameters() as $key => $value) {
                 $value = JsonHelper::wrapJsonFunction(null, $value, $em->getConnection());
                 $this->qb->setParameter($key, $value);
-                //remove % if present. Reformat JSON to work with both json enabled platforms and non json platforms.
-                $this->qb->setParameter($key . '_JSON', '%"' . str_replace(['["', '"]', '%'], '', $value) . '"%');
+
+                if (! empty($containsWhere)) {
+                    //remove % if present. Reformat JSON to work with both json enabled platforms and non json platforms.
+                    $this->qb->setParameter($key . '_JSON', '%"' . str_replace(['["', '"]', '%'], '', $value) . '"%');
+                }
             }
         }
     }
