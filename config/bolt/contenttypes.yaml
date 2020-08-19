@@ -96,7 +96,7 @@ pages:
             label: "This is a checkbox"
         template:
             type: templateselect
-            filter: '*.twig'
+            filter: '/^[^_].*\.twig$/'
     taxonomy: [ groups ]
     listing_records: 6
     order: id
