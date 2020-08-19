@@ -190,10 +190,7 @@ class SelectQuery implements QueryInterface
         $this->fieldJoins = [];
 
         foreach ($this->filters as $filter) {
-            if ($filter->getExpressionObject() instanceof \Doctrine\ORM\Query\Expr\Orx) {
-                // todo: `|||` and `bolt_field` integration.
-                $expr = $expr->add($filter->getExpression());
-            } elseif (in_array($filter->getKey(), $this->coreFields, true)) {
+            if (in_array($filter->getKey(), $this->coreFields, true)) {
                 // For fields like `id`, `createdAt` and `status`, which are in the main `bolt_content` table
                 $expr = $expr->add($filter->getExpression());
             } elseif (in_array($filter->getKey(), $this->referenceFields, true)) {
@@ -375,7 +372,14 @@ class SelectQuery implements QueryInterface
             $newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $translationsAlias . '.value)', null, $em->getConnection());
 
             $where = $filter->getExpression();
-            $where = str_replace($originalLeftExpression, $newLeftExpression, $where);
+            $exactWhere = str_replace($originalLeftExpression, $newLeftExpression, $where);
+
+            // add containsWhere to allow searching of fields with Muiltiple JSON values (eg. Selectfield with mutiple entries).
+            preg_match_all('/\:([a-z]*_[0-9]+)/', $where, $matches);
+            $clauses = array_map(function ($m) use ($translationsAlias) {
+                return 'LOWER(' . $translationsAlias . '.value) LIKE :' . $m . '_JSON';
+            }, $matches[1]);
+            $containsWhere = implode(' OR ', $clauses);
 
             // Create the subselect to filter on the value of fields
             $innerQuery = $em
@@ -384,9 +388,8 @@ class SelectQuery implements QueryInterface
                 ->from(\Bolt\Entity\Content::class, $contentAlias)
                 ->innerJoin($contentAlias . '.fields', $fieldsAlias)
                 ->innerJoin($fieldsAlias . '.translations', $translationsAlias)
-                ->andWhere($where)
-                // add orWhere to allow searching of fields with Muiltiple JSON values (eg. Selectfield with mutiple entries).
-                ->orWhere($this->qb->expr()->like('LOWER(' . $translationsAlias . '.value)', ':' . $key . '_1_JSON'));
+                ->andWhere($exactWhere)
+                ->OrWhere($containsWhere);
 
             // Unless the field to which the 'where' applies is `anyColumn`, we
             // Make certain it's narrowed down to that fieldname
