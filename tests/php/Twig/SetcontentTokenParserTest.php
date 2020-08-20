@@ -62,7 +62,7 @@ class SetcontentTokenParserTest extends TokenParserTestCase
             new Token(Token::NAME_TYPE, 'orderby', 10),
             new Token(Token::STRING_TYPE, 'title', 11),
 
-            new Token(Token::NAME_TYPE, 'paging', 12),
+            new Token(Token::NAME_TYPE, 'page', 12),
 
             new Token(Token::NAME_TYPE, 'printquery', 14),
 
@@ -99,7 +99,7 @@ class SetcontentTokenParserTest extends TokenParserTestCase
             $this->assertSame('order', $nodes[2]['key']->getAttribute('value'));
             $this->assertSame('title', $nodes[2]['value']->getAttribute('value'));
 
-            $this->assertSame('paging', $nodes[3]['key']->getAttribute('value'));
+            $this->assertSame('page', $nodes[3]['key']->getAttribute('value'));
             $this->assertTrue($nodes[3]['value']->getAttribute('value'));
 
             $this->assertSame('printquery', $nodes[4]['key']->getAttribute('value'));
