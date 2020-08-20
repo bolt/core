@@ -12,8 +12,8 @@ use Bolt\Storage\Directive\EarliestDirectiveHandler;
 use Bolt\Storage\Directive\GetQueryDirective;
 use Bolt\Storage\Directive\LatestDirectiveHandler;
 use Bolt\Storage\Directive\LimitDirective;
-use Bolt\Storage\Directive\OffsetDirective;
 use Bolt\Storage\Directive\OrderDirective;
+use Bolt\Storage\Directive\PageDirective;
 use Bolt\Storage\Directive\PrintQueryDirective;
 use Bolt\Storage\Directive\RandomDirectiveHandler;
 use Bolt\Storage\Directive\ReturnMultipleDirective;
@@ -122,7 +122,7 @@ class ContentQueryParser
         $this->addDirectiveHandler(GetQueryDirective::NAME, new GetQueryDirective());
         $this->addDirectiveHandler(LimitDirective::NAME, new LimitDirective());
         $this->addDirectiveHandler(OrderDirective::NAME, new OrderDirective($this->localeHelper, $this->twig, $this->notifications));
-        $this->addDirectiveHandler(OffsetDirective::NAME, new OffsetDirective());
+        $this->addDirectiveHandler(PageDirective::NAME, new PageDirective());
         $this->addDirectiveHandler(PrintQueryDirective::NAME, new PrintQueryDirective());
         $this->addDirectiveHandler(ReturnSingleDirective::NAME, new ReturnSingleDirective());
         $this->addDirectiveHandler(ReturnMultipleDirective::NAME, new ReturnMultipleDirective());

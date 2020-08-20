@@ -7,8 +7,8 @@ namespace Bolt\Twig\TokenParser;
 use Bolt\Storage\Directive\EarliestDirectiveHandler;
 use Bolt\Storage\Directive\LatestDirectiveHandler;
 use Bolt\Storage\Directive\LimitDirective;
-use Bolt\Storage\Directive\OffsetDirective;
 use Bolt\Storage\Directive\OrderDirective;
+use Bolt\Storage\Directive\PageDirective;
 use Bolt\Storage\Directive\PrintQueryDirective;
 use Bolt\Storage\Directive\RandomDirectiveHandler;
 use Bolt\Storage\Directive\ReturnMultipleDirective;
@@ -77,12 +77,10 @@ class SetcontentTokenParser extends AbstractTokenParser
             }
 
             // page parameter
-            if ($this->parser->getStream()->test(Token::NAME_TYPE, OffsetDirective::NAME)) {
+            if ($this->parser->getStream()->test(Token::NAME_TYPE, PageDirective::NAME)) {
                 $this->parser->getStream()->next();
-                $arguments->addElement(
-                    new ConstantExpression(true, $lineno),
-                    new ConstantExpression(OffsetDirective::NAME, $lineno)
-                );
+                $page = $this->parser->getExpressionParser()->parseExpression();
+                $arguments->addElement($page, new ConstantExpression(PageDirective::NAME, $lineno));
             }
 
             // printquery parameter
