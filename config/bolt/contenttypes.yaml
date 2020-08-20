@@ -425,13 +425,16 @@ tests:
 # html - text (65kb) - wysiwyg element.
 # textarea - varchar(32768) - Simple, plain < textarea > field.
 # markdown - varchar(32768) - wysiwyg element, which is parsed as Markdown text.
-# date - datetime - date selector widget.
+# date - datetime - date selector widget, with `mode: date` or `mode: datetime`
+# email - text(65kb) - Input type for email.
 # select - varchar(256) - select with predefined values
 # templateselect - varchar(256) - select with template filenames
 # checkbox - integer - checkbox-field which is 1 (checked) or 0 (unchecked)
 # set - text (65kb) - Input type for sests. Group fields semantically into a combined set field.
 # collection - text (65kb) - Input type for collections. Add multiple fields of different types. Useful for lists.
 # data - text (65kb) - Read-only field, useful for storing (raw) data provided by an external source.
+# hidden - text (65kb) - Regular text field, except it is hidden from the content editor.
+# slug - text(65kb) - The slug for the record. Use with option `uses: [ title ]` to generate based on a title field.
 
 # Using YAML repeated nodes
 #
@@ -442,7 +445,7 @@ tests:
 # won't create a ContentType, but will allow you to use it in actual ContentTypes
 # to prevent repeating yourself.
 #
-# To achieve this, first create a key '__nodes:'
+# To achieve this, first create a key '__nodes:' and place it before your other contenttypes:
 #__nodes:
 #    field_defaults: &field_defaults
 #        title:
