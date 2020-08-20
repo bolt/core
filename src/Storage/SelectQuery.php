@@ -402,7 +402,7 @@ class SelectQuery implements QueryInterface
             } else {
                 //added to include taxonomies to be searched as part of contenttype filter at the backend and frontend if anyField param is set.
                 foreach ($filter->getParameters() as $value) {
-                    $innerQuery->innerJoin($contentAlias . '.taxonomies', 'taxonomies_' . $index);
+                    $innerQuery->leftJoin($contentAlias . '.taxonomies', 'taxonomies_' . $index);
                     $this->qb->setParameter($key . '_1', $value);
                     $filterExpression = sprintf('LOWER(taxonomies_%s.slug) LIKE :%s', $index, $key . '_1');
                     $innerQuery->orWhere($filterExpression);
