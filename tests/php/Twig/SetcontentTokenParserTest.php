@@ -42,6 +42,7 @@ class SetcontentTokenParserTest extends TokenParserTestCase
         $where = "{ status: 'published', datepublish: '> 2019-01-14', taxonomy: 'main|||meta|||other' }";
         $contentType = 'pages';
         $limit = 5;
+        $page = 2;
         $streamTokens = [
             new Token(Token::BLOCK_START_TYPE, '', 1),
             new Token(Token::NAME_TYPE, 'setcontent', 1),
@@ -63,6 +64,7 @@ class SetcontentTokenParserTest extends TokenParserTestCase
             new Token(Token::STRING_TYPE, 'title', 11),
 
             new Token(Token::NAME_TYPE, 'page', 12),
+            new Token(Token::NUMBER_TYPE, $page, 13),
 
             new Token(Token::NAME_TYPE, 'printquery', 14),
 
