@@ -48,7 +48,7 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
     {
         $user = $this->getUser();
 
-        return $this->renderTemplate('@bolt/users/profile.html.twig', [
+        return $this->render('@bolt/users/profile.html.twig', [
             'display_name' => $user->getDisplayName(),
             'user' => $user,
         ]);
@@ -93,7 +93,7 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
 
             $suggestedPassword = $hasPasswordError ? Str::generatePassword() : null;
 
-            return $this->renderTemplate('@bolt/users/profile.html.twig', [
+            return $this->render('@bolt/users/profile.html.twig', [
                 'display_name' => $displayName,
                 'userEdit' => $user,
                 'suggestedPassword' => $suggestedPassword,

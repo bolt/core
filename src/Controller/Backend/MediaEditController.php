@@ -62,7 +62,7 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
             'media' => $media,
         ];
 
-        return $this->renderTemplate('@bolt/media/edit.html.twig', $context);
+        return $this->render('@bolt/media/edit.html.twig', $context);
     }
 
     /**

@@ -37,7 +37,7 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
 
         $records = $pager->setCurrentPage($page);
 
-        return $this->renderTemplate('@bolt/content/listing.html.twig', [
+        return $this->render('@bolt/content/listing.html.twig', [
             'contentType' => $contentTypeObject,
             'records' => $records,
             'sortBy' => $this->getFromRequest('sortBy'),

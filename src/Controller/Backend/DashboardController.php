@@ -34,7 +34,7 @@ class DashboardController extends TwigAwareController implements BackendZoneInte
 
         $records = $pager->setCurrentPage($page);
 
-        return $this->renderTemplate('@bolt/pages/dashboard.html.twig', [
+        return $this->render('@bolt/pages/dashboard.html.twig', [
             'records' => $records,
             'filter_value' => $filter,
         ]);

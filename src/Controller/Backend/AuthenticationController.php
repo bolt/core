@@ -25,7 +25,7 @@ class AuthenticationController extends TwigAwareController implements BackendZon
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        return $this->renderTemplate('@bolt/security/login.html.twig', [
+        return $this->render('@bolt/security/login.html.twig', [
             'last_username' => $last_username,
             'error' => $error,
         ]);
@@ -54,6 +54,6 @@ class AuthenticationController extends TwigAwareController implements BackendZon
             'subtitle' => 'controller.authentication.reset_subtitle',
         ];
 
-        return $this->renderTemplate('@bolt/pages/placeholder.html.twig', $twigVars);
+        return $this->render('@bolt/pages/placeholder.html.twig', $twigVars);
     }
 }

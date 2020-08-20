@@ -22,7 +22,7 @@ class ContentLocalizationController extends TwigAwareController implements Backe
     {
         $content->getFields();
 
-        return $this->renderTemplate('@bolt/content/view_locales.html.twig', [
+        return $this->render('@bolt/content/view_locales.html.twig', [
             'record' => $content,
         ]);
     }

@@ -62,11 +62,19 @@ class TwigAwareController extends AbstractController
     }
 
     /**
+     * @deprecated since Bolt 4.0, use "render()" instead
+     */
+    public function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
+    {
+        return $this->render($template, $parameters, $response);
+    }
+
+    /**
      * Renders a view.
      *
      * @param string|array $template
      */
-    public function renderTemplate($template, array $parameters = [], ?Response $response = null): Response
+    public function render($template, array $parameters = [], ?Response $response = null): Response
     {
         // Set User in global Twig environment
         $parameters['user'] = $parameters['user'] ?? $this->getUser();
@@ -140,7 +148,7 @@ class TwigAwareController extends AbstractController
             $templates = $this->templateChooser->forRecord($record);
         }
 
-        return $this->renderTemplate($templates, $context);
+        return $this->render($templates, $context);
     }
 
     private function setTwigLoader(): void

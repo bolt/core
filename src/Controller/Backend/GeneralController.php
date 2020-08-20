@@ -40,7 +40,7 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
             'os_version' => php_uname('r'),
         ];
 
-        return $this->renderTemplate('@bolt/pages/about.html.twig', $twigVars);
+        return $this->render('@bolt/pages/about.html.twig', $twigVars);
     }
 
     /**
@@ -64,6 +64,6 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
             'records' => $records,
         ];
 
-        return $this->renderTemplate('@bolt/pages/kitchensink.html.twig', $twigVars);
+        return $this->render('@bolt/pages/kitchensink.html.twig', $twigVars);
     }
 }

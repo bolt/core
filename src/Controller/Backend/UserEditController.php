@@ -75,7 +75,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
         $statuses = UserStatus::all();
 
-        return $this->renderTemplate('@bolt/users/edit.html.twig', [
+        return $this->render('@bolt/users/edit.html.twig', [
             'display_name' => $user->getDisplayName(),
             'userEdit' => $user,
             'roles' => $roles,
@@ -179,7 +179,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
             $suggestedPassword = $hasPasswordError ? Str::generatePassword() : null;
 
-            return $this->renderTemplate('@bolt/users/edit.html.twig', [
+            return $this->render('@bolt/users/edit.html.twig', [
                 'display_name' => $displayName,
                 'userEdit' => $user,
                 'suggestedPassword' => $suggestedPassword,

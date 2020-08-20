@@ -42,6 +42,6 @@ class SearchController extends TwigAwareController implements FrontendZoneInterf
 
         $templates = $this->templateChooser->forSearch();
 
-        return $this->renderTemplate($templates, $context);
+        return $this->render($templates, $context);
     }
 }
