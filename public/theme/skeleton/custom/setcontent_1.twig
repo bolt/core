@@ -12,8 +12,8 @@
 
     <section id="one">
         <h1>One</h1>
-        {% setcontent entries = "entries" latest limit 4 printquery  %}
-        Results: <span id="results-one">{{ entries|length == 4 ? 'yes' }}</span>
+        {% setcontent entries = "entries" latest limit 4 page 2 printquery  %}
+        Results: <span id="results-one">{{ entries|length == 4 and entries.currentPage == 2 ? 'yes' }}</span><br>
         <ul>
         {% for entry in entries %}
             <li>
