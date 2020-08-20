@@ -102,7 +102,7 @@ class SetcontentTokenParserTest extends TokenParserTestCase
             $this->assertSame('title', $nodes[2]['value']->getAttribute('value'));
 
             $this->assertSame('page', $nodes[3]['key']->getAttribute('value'));
-            $this->assertTrue($nodes[3]['value']->getAttribute('value'));
+            $this->assertSame($page, $nodes[3]['value']->getAttribute('value'));
 
             $this->assertSame('printquery', $nodes[4]['key']->getAttribute('value'));
             $this->assertTrue($nodes[4]['value']->getAttribute('value'));
