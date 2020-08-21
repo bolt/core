@@ -7,6 +7,7 @@ namespace Bolt\Storage;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
@@ -73,6 +74,9 @@ class SelectQuery implements QueryInterface
     protected $referenceFields = [
         'author',
     ];
+
+    /** @var string */
+    protected $anything = 'anything';
 
     /** @var array */
     private $referenceJoins = [];
@@ -184,6 +188,7 @@ class SelectQuery implements QueryInterface
             return null;
         }
         $expr = $this->qb->expr()->andX();
+        $em = $this->getQueryBuilder()->getEntityManager();
 
         $this->referenceJoins = [];
         $this->taxonomyJoins = [];
@@ -192,19 +197,26 @@ class SelectQuery implements QueryInterface
         foreach ($this->filters as $filter) {
             if (in_array($filter->getKey(), $this->coreFields, true)) {
                 // For fields like `id`, `createdAt` and `status`, which are in the main `bolt_content` table
-                $expr = $expr->add($filter->getExpression());
+                $expr = $expr->add($this->getCoreFieldExpression($filter));
             } elseif (in_array($filter->getKey(), $this->referenceFields, true)) {
                 // Special case for filtering on 'author'
-                $this->referenceJoins[$filter->getKey()] = $filter;
-                $expr = $expr->add($filter->getExpression());
+                $expr = $expr->add($this->getReferenceFieldExpression($filter));
             } elseif (in_array($filter->getKey(), $this->getTaxonomyFields(), true)) {
                 // For when we're using a taxonomy type in the `where`
-                $this->taxonomyJoins[$filter->getKey()] = $filter;
-                $filterExpression = sprintf('taxonomies_%s.slug = :%s', $filter->getKey(), key($filter->getParameters()));
-                $expr = $expr->add($filterExpression);
+                $expr = $expr->add($this->getTaxonomyFieldExpression($filter));
+            } elseif (in_array($filter->getKey(), [$this->anything], true)) {
+                // build all expressions
+                // put them in a wrapper OR expression
+                $anythingExpr = $this->qb->expr()->OrX();
+                $core = $this->getCoreFieldExpression($filter);
+                $reference = $this->getReferenceFieldExpression($filter);
+                $taxonomy = $this->getTaxonomyFieldExpression($filter);
+                $regular = $this->getRegularFieldExpression($filter, $em);
+                $anythingExpr->addMultiple([$core, $reference, $taxonomy, $regular]);
+                $expr = $expr->add($anythingExpr);
             } else {
                 // This means the name / value in the `where` is stored in the `bolt_field` table
-                $this->fieldJoins[$filter->getKey()] = $filter;
+                $expr = $expr->add($this->getRegularFieldExpression($filter, $em));
             }
         }
 
@@ -251,17 +263,18 @@ class SelectQuery implements QueryInterface
 
         $dateFields = $this->getDateFields();
 
-        if ($this->getWhereExpression()) {
-            $query->andWhere($this->getWhereExpression());
+        $whereExpression = $this->getWhereExpression();
+        if ($whereExpression) {
+            $query->andWhere($whereExpression);
         }
 
         foreach ($this->getWhereParameters() as $key => $param) {
             $fieldName = current(explode('_', $key));
-
             // Use strtotime on 'date' fields to allow selections like "today", "in 3 weeks" or "this year"
             if (in_array($fieldName, $dateFields, true) && (strtotime($param) !== false)) {
                 $param = date('c', strtotime($param));
             }
+
             $query->setParameter($key, $param, ParameterTypeInferer::inferType($param));
         }
 
@@ -325,7 +338,6 @@ class SelectQuery implements QueryInterface
 
         foreach ($this->params as $key => $value) {
             $this->parser->setAlias('content');
-
             $filter = $this->parser->getFilter($key, $value);
             if ($filter) {
                 $this->addFilter($filter);
@@ -358,69 +370,13 @@ class SelectQuery implements QueryInterface
      */
     public function doFieldJoins(): void
     {
-        $em = $this->qb->getEntityManager();
-
         foreach ($this->fieldJoins as $key => $filter) {
-            $index = $this->getAndIncrementIndex();
-            $contentAlias = 'content_' . $index;
-            $fieldsAlias = 'fields_' . $index;
-            $translationsAlias = 'translations_' . $index;
-            $keyParam = 'field_' . $index;
-
-            $originalLeftExpression = 'content.' . $key;
-            // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
-            $newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $translationsAlias . '.value)', null, $em->getConnection());
-
-            $where = $filter->getExpression();
-            $exactWhere = str_replace($originalLeftExpression, $newLeftExpression, $where);
-
-            // add containsWhere to allow searching of fields with Muiltiple JSON values (eg. Selectfield with mutiple entries).
-            preg_match_all('/\:([a-z]*_[0-9]+)/', $where, $matches);
-            $clauses = array_map(function ($m) use ($translationsAlias) {
-                return 'LOWER(' . $translationsAlias . '.value) LIKE :' . $m . '_JSON';
-            }, $matches[1]);
-            $containsWhere = implode(' OR ', $clauses);
-
-            // Create the subselect to filter on the value of fields
-            $innerQuery = $em
-                ->createQueryBuilder()
-                ->select($contentAlias . '.id')
-                ->from(\Bolt\Entity\Content::class, $contentAlias)
-                ->innerJoin($contentAlias . '.fields', $fieldsAlias)
-                ->innerJoin($fieldsAlias . '.translations', $translationsAlias)
-                ->andWhere($exactWhere);
-
-            if (! empty($containsWhere)) {
-                $innerQuery->OrWhere($containsWhere);
-            }
-
-            // Unless the field to which the 'where' applies is `anyColumn`, we
-            // Make certain it's narrowed down to that fieldname
-            if ($key !== 'anyField') {
-                $innerQuery->andWhere($fieldsAlias . '.name = :' . $keyParam);
-                $this->qb->setParameter($keyParam, $key);
-            } else {
-                //added to include taxonomies to be searched as part of contenttype filter at the backend and frontend if anyField param is set.
-                foreach ($filter->getParameters() as $value) {
-                    $innerQuery->leftJoin($contentAlias . '.taxonomies', 'taxonomies_' . $index);
-                    $this->qb->setParameter($key . '_1', $value);
-                    $filterExpression = sprintf('LOWER(taxonomies_%s.slug) LIKE :%s', $index, $key . '_1');
-                    $innerQuery->orWhere($filterExpression);
-                }
-            }
-
+            $contentAlias = 'content';
+            $fieldsAlias = 'fields_' . $key;
+            $translationsAlias = 'translations_' . $key;
             $this->qb
-                ->andWhere($this->qb->expr()->in('content.id', $innerQuery->getDQL()));
-
-            foreach ($filter->getParameters() as $key => $value) {
-                $value = JsonHelper::wrapJsonFunction(null, $value, $em->getConnection());
-                $this->qb->setParameter($key, $value);
-
-                if (! empty($containsWhere)) {
-                    //remove % if present. Reformat JSON to work with both json enabled platforms and non json platforms.
-                    $this->qb->setParameter($key . '_JSON', '%"' . str_replace(['["', '"]', '%'], '', $value) . '"%');
-                }
-            }
+                ->leftJoin($contentAlias . '.fields', $fieldsAlias)
+                ->leftJoin($fieldsAlias . '.translations', $translationsAlias);
         }
     }
 
@@ -472,13 +428,6 @@ class SelectQuery implements QueryInterface
         $this->index++;
     }
 
-    public function getAndIncrementIndex()
-    {
-        $this->incrementIndex();
-
-        return $this->getIndex();
-    }
-
     public function getCoreFields(): array
     {
         return $this->coreFields;
@@ -487,5 +436,81 @@ class SelectQuery implements QueryInterface
     public function getConfig(): Config
     {
         return $this->config;
+    }
+
+    private function getCoreFieldExpression(Filter $filter): string
+    {
+        if ($filter->getKey() !== $this->anything) {
+            return $filter->getExpression();
+        }
+
+        $original = $filter->getExpression();
+        $expr = $this->qb->expr()->orX();
+
+        foreach ($this->coreFields as $core) {
+            $expr->add(preg_replace('/^(content\.)(anything)/', '$1' . $core, $original));
+        }
+
+        return $expr->__toString();
+    }
+
+    private function getReferenceFieldExpression(Filter $filter): string
+    {
+        if ($filter->getKey() !== $this->anything) {
+            $this->referenceJoins[$filter->getKey()] = $filter;
+
+            return $filter->getExpression();
+        }
+
+        $this->referenceJoins['author'] = 'author';
+
+        $original = $filter->getExpression();
+        $expr = $this->qb->expr()->orX();
+
+        foreach ($this->referenceFields as $reference) {
+            $expr->add(preg_replace('/^(content\.)(anything)/', 'content.' . $reference, $original));
+        }
+
+        return $expr->__toString();
+    }
+
+    private function getTaxonomyFieldExpression(Filter $filter): string
+    {
+        $this->taxonomyJoins[$filter->getKey()] = $filter;
+
+        return sprintf('taxonomies_%s.slug = :%s', $filter->getKey(), key($filter->getParameters()));
+    }
+
+    private function getRegularFieldExpression(Filter $filter, EntityManager $em): string
+    {
+        $this->fieldJoins[$filter->getKey()] = $filter;
+        $expr = $this->qb->expr()->andX();
+
+        // where clause for the value of the field
+        $valueAlias = sprintf('translations_%s.value', $filter->getKey());
+
+        $originalLeftExpression = 'content.' . $filter->getKey();
+        // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
+        $newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $valueAlias . ')', null, $em->getConnection());
+        $valueWhere = $filter->getExpression();
+        $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
+        $expr->add($valueWhere);
+
+        // where clause for the name of the field
+        if (! in_array($filter->getKey(), ['anyField', $this->anything], true)) {
+            // Add to DQL where clause
+            $nameAlias = sprintf('fields_%s.name', $filter->getKey());
+            $nameParam = 'field_' . $filter->getKey();
+            $nameExpression = sprintf('%s = :%s', $nameAlias, $nameParam);
+            $expr->add($nameExpression);
+
+            // Create filter to set the parameter
+            $nameFilter = new Filter();
+            $nameFilter->setKey($nameParam);
+            $nameFilter->setParameter($nameParam, $filter->getKey());
+            $this->addFilter($nameFilter);
+        }
+
+        return $expr->__toString();
     }
 }
