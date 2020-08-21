@@ -220,8 +220,6 @@ class SelectQuery implements QueryInterface
             }
         }
 
-        $this->index = 1;
-
         return $expr;
     }
 
@@ -248,7 +246,7 @@ class SelectQuery implements QueryInterface
      *
      * @return Filter[]
      */
-    public function getFilters(): array
+    protected function getFilters(): array
     {
         return $this->filters;
     }
