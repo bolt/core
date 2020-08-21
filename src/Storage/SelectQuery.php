@@ -246,7 +246,7 @@ class SelectQuery implements QueryInterface
      *
      * @return Filter[]
      */
-    protected function getFilters(): array
+    public function getFilters(): array
     {
         return $this->filters;
     }
@@ -332,7 +332,7 @@ class SelectQuery implements QueryInterface
      *
      * @throws \Exception
      */
-    public function processFilters(): void
+    protected function processFilters(): void
     {
         $this->filters = [];
 
@@ -496,7 +496,7 @@ class SelectQuery implements QueryInterface
         $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
         $expr->add($valueWhere);
 
-        // where clause for thh name of the field
+        // where clause for the name of the field
         if (! in_array($filter->getKey(), ['anyField', $this->anything], true)) {
             // Add to DQL where clause
             $nameAlias = sprintf('fields_%s.name', $filter->getKey());
