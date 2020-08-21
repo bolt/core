@@ -69,6 +69,19 @@
         {{ field.value.responsive_inline|raw }}
     {% endif %}
 
+    {# Number fields #}
+    {% if type == "number" %}
+        <p><strong>{{ field|label }}</strong>: <code>{{ field }}</code></p>
+    {% endif %}
+
+    {# Date / Datetime fields #}
+    {% if type == "date" %}
+        <p>
+            <strong>{{ field|label }}</strong>: {{ field|localedatetime("%A %B %e, %Y") }}
+            {%- if field.definition.mode == 'datetime' %}, {{ field|localedatetime("%H:%M:%S") }}{% endif %}
+        </p>
+    {% endif %}
+
     {# No special cases defined for other fieldtypes. We just output them if
        they're a simple scalar, and 'dump' them otherwise. #}
     {% if type not in allfields and field is not empty  %}
