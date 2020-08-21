@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Storage;
 
-use Bolt\Common\Json;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
