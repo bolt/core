@@ -545,3 +545,43 @@ code {
     padding: 3px 3px;
     font-size: 0.9rem;
 }
+
+
+/* Default grid, as used by the Article field type */
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 1rem;
+}
+
+.article-grid + .article-grid {
+    margin-top: 1rem;
+}
+
+.article-grid figure, .article-grid img {
+    margin: 0;
+}
+
+.article-grid .col-1 { grid-column: span 1; }
+.article-grid .col-2 { grid-column: span 2; }
+.article-grid .col-3 { grid-column: span 3; }
+.article-grid .col-4 { grid-column: span 4; }
+.article-grid .col-5 { grid-column: span 5; }
+.article-grid .col-6 { grid-column: span 6; }
+.article-grid .col-7 { grid-column: span 7; }
+.article-grid .col-8 { grid-column: span 8; }
+.article-grid .col-9 { grid-column: span 9; }
+.article-grid .col-10 { grid-column: span 10; }
+.article-grid .col-11 { grid-column: span 11; }
+.article-grid .col-12 { grid-column: span 12; }
+
+@media only screen and (max-width: 600px) {
+    .article-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+        grid-column: span 1;
+        margin-bottom: 1rem;
+    }
+}
