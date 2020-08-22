@@ -5,11 +5,11 @@
     role="toolbar"
   >
     <div class="toolbar-item btn-group toolbar-item__brand">
-        <img
-          src="/assets/images/bolt_logo_dashboard.svg"
-          alt="⚙️ Bolt"
-          height="28"
-        />
+      <img
+        src="/assets/images/bolt_logo_dashboard.svg"
+        alt="⚙️ Bolt"
+        height="28"
+      />
     </div>
 
     <form
@@ -85,7 +85,7 @@
               {{ labels['action.logout'] }}
             </a>
           </li>
-          <hr>
+          <hr />
           <li>
             <a href="https://boltcms.io/" target="_blank">
               <i class="fas fa-globe-americas fa-fw"></i>
