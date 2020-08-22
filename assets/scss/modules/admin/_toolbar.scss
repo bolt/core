@@ -118,6 +118,9 @@
     }
 
     &__brand {
+      justify-content: left;
+      padding-left: 2rem;
+
       @include media-breakpoint-up(lg) {
         flex: 0 1 $admin-sidebar-width;
       }
@@ -131,30 +134,8 @@
         margin-right: 0.25rem;
       }
 
-      .dropdown-toggle {
-        padding: 0 0.8125rem;
-        width: 45px;
-        overflow: hidden;
-
-        @include media-breakpoint-up(sm) {
-          width: auto;
-          overflow: auto;
-          padding: 0 1rem;
-        }
-
-        @include media-breakpoint-up(lg) {
-          text-align: left;
-        }
-
-        &::after {
-          vertical-align: middle;
-        }
-      }
-
-      .dropdown-menu {
-        @include media-breakpoint-up(wd) {
-          min-width: 251px;
-        }
+      div {
+        text-align: left;
       }
 
       &__new {

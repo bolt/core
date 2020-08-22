@@ -5,36 +5,11 @@
     role="toolbar"
   >
     <div class="toolbar-item btn-group toolbar-item__brand">
-      <button
-        class="btn brand__dropdown-toggler dropdown-toggle"
-        type="button"
-        data-toggle="dropdown"
-        data-display="static"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        <img
-          src="/assets/images/bolt_logo_dashboard.svg"
-          alt="⚙️ Bolt"
-          height="28"
-        />
-      </button>
-      <div class="new-item__dropdown dropdown-menu">
-        <ul class="toolbar-menu">
-          <li>
-            <a href="https://boltcms.io/" target="_blank">
-              <i class="fas fa-globe-americas fa-fw"></i>
-              {{ labels['about.visit_bolt'] }}
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.bolt.cm/" target="_blank">
-              <i class="fas fa-book fa-fw"></i>
-              {{ labels['about.bolt_documentation'] }}
-            </a>
-          </li>
-        </ul>
-      </div>
+      <img
+        src="/assets/images/bolt_logo_dashboard.svg"
+        alt="⚙️ Bolt"
+        height="28"
+      />
     </div>
 
     <form
@@ -108,6 +83,19 @@
             <a :href="backendPrefix + 'logout'">
               <i class="fas fa-sign-out-alt fa-fw"></i>
               {{ labels['action.logout'] }}
+            </a>
+          </li>
+          <hr />
+          <li>
+            <a href="https://boltcms.io/" target="_blank">
+              <i class="fas fa-globe-americas fa-fw"></i>
+              {{ labels['about.visit_bolt'] }}
+            </a>
+          </li>
+          <li>
+            <a href="https://docs.bolt.cm/" target="_blank">
+              <i class="fas fa-book fa-fw"></i>
+              {{ labels['about.bolt_documentation'] }}
             </a>
           </li>
         </ul>
