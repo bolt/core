@@ -1,6 +1,43 @@
 Changelog
 =========
 
+## 4.0.0-rc.36
+
+Released: 2020-08-22
+
+### 🐛 Bug fixes
+
+- Make "required" for Date fields work (bobdenotter, [#1747](https://github.com/bolt/core/pull/1747))
+- Add "Number" and "Date" fields (bobdenotter, [#1742](https://github.com/bolt/core/pull/1742))
+- Make multivalue filter with content fields (I-Valchev, [#1733](https://github.com/bolt/core/pull/1733))
+- Remove services before `composer remove` (I-Valchev, [#1726](https://github.com/bolt/core/pull/1726))
+
+### 📦 Additions and new features
+
+- New `page` directive for setcontent to override the current page setting (I-Valchev, [#1738](https://github.com/bolt/core/pull/1738))
+- Current filter works for locale (I-Valchev, [#1737](https://github.com/bolt/core/pull/1737))
+- Add `url_decode` Twig Filter (bobdenotter, [#1732](https://github.com/bolt/core/pull/1732))
+
+### 🛠️ Miscellaneous
+
+- Clean up and refactor `SelectQuery` (I-Valchev, [#1744](https://github.com/bolt/core/pull/1744))
+- Update contenttypes.yaml comments documentation (I-Valchev, [#1741](https://github.com/bolt/core/pull/1741))
+- modification to SelectQuery.php related to #1619 (JTNMW, [#1739](https://github.com/bolt/core/pull/1739))
+- Remove `JSON_CONTAINS` from `doctrine.yaml` (bobdenotter, [#1736](https://github.com/bolt/core/pull/1736))
+- Rename `renderTemplate` to render for consistency with `AbstractController` (bobdenotter, [#1735](https://github.com/bolt/core/pull/1735))
+- Set filter in "Templateselect" to a regex by default (bobdenotter, [#1730](https://github.com/bolt/core/pull/1730))
+- add Slug field UTF-8 and Transliteration Support (denis-gorin, [#1723](https://github.com/bolt/core/pull/1723))
+- Use translated bootbox  (nestordedios, [#1720](https://github.com/bolt/core/pull/1720))
+- Prepare release 4.0.0-rc.35 (bobdenotter, [#1718](https://github.com/bolt/core/pull/1718))
+- Make relative dates work for fields that have an underscore in their name [#1748](https://github.com/bolt/core/pull/1748))
+- Remove the hover on the left-hand side logo [#1718](https://github.com/bolt/core/pull/1750))
+- Tweaking default Skeleton theme [#1751](https://github.com/bolt/core/pull/1751))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix ECS 😅 (bobdenotter, [#1731](https://github.com/bolt/core/pull/1731))
+
+
 ## 4.0.0-rc.35
 
 Released: 2020-08-14
