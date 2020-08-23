@@ -21,7 +21,11 @@ class RelationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Relation::class);
+        try {
+            parent::__construct($registry, Relation::class);
+        } catch (\ReflectionException $e) {
+            // @todo if this happens, an existing field can not be constructed, and we need to clear the cache.
+        }
     }
 
     /**
