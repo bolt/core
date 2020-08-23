@@ -218,7 +218,12 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         switch ($field['type']) {
             case 'html':
+            case 'redactor':
                 $data = [FakeContent::generateHTML($nb)];
+
+                break;
+            case 'article':
+                $data = [FakeContent::generateHTML(12)];
 
                 break;
             case 'markdown':
