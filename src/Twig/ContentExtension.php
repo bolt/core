@@ -238,7 +238,7 @@ class ContentExtension extends AbstractExtension
     }
 
     /**
-     * @param string|Markup|Content $content
+     * @param string|Markup|Content|Field $content
      * @param string|array|null $focus
      */
     public function getExcerpt($content, int $length = 280, bool $includeTitle = false, $focus = null): string
