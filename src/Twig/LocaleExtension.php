@@ -28,12 +28,16 @@ class LocaleExtension extends AbstractExtension
     /** @var string */
     private $defaultLocale;
 
-    public function __construct(TranslatorInterface $translator, LocaleHelper $localeHelper, Config $config, string $defaultLocale)
+    /** @var Environment */
+    private $twig;
+
+    public function __construct(TranslatorInterface $translator, LocaleHelper $localeHelper, Config $config, Environment $twig, string $defaultLocale)
     {
         $this->translator = $translator;
         $this->localeHelper = $localeHelper;
         $this->config = $config;
         $this->defaultLocale = $defaultLocale;
+        $this->twig = $twig;
     }
 
     /**
@@ -44,12 +48,11 @@ class LocaleExtension extends AbstractExtension
         $safe = [
             'is_safe' => ['html'],
         ];
-        $env = ['needs_environment' => true];
 
         return [
             new TwigFilter('localedatetime', [$this, 'localedatetime'], $safe),
             new TwigFilter('localedate', [$this, 'localedatetime'], $safe),
-            new TwigFilter('localdate', [$this, 'localdate'], $safe + $env),
+            new TwigFilter('localdate', [$this, 'localdate'], $safe),
         ];
     }
 
@@ -158,7 +161,7 @@ class LocaleExtension extends AbstractExtension
         return strftime($format, $timestamp);
     }
 
-    public function localdate(Environment $twig, $dateTime, ?string $format = null, ?string $locale = null): string
+    public function localdate($dateTime, ?string $format = null, ?string $locale = null): string
     {
         if ($dateTime instanceof \Datetime) {
             $dateTime = Carbon::createFromTimestamp($dateTime->getTimestamp(), $dateTime->getTimezone());
@@ -173,7 +176,7 @@ class LocaleExtension extends AbstractExtension
         }
 
         if ($locale === null) {
-            $current = $this->getHtmlLang($twig);
+            $current = $this->getHtmlLang($this->twig);
             $locale = ! empty($current) ? $current : $this->defaultLocale;
         }
 
