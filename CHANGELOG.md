@@ -1,12 +1,15 @@
 Changelog
 =========
 
-## 4.0.0-rc.36
+## 4.0.0-rc.37
 
-Released: 2020-08-22
+Released: 2020-08-24
 
 ### 🐛 Bug fixes
 
+- Allow collections to include extension fields (I-Valchev, [#1761](https://github.com/bolt/core/pull/1761))
+- Bugfix/support db without json (I-Valchev, [#1760](https://github.com/bolt/core/pull/1760))
+- Prevent breakage when trying to excerpt a Field (bobdenotter, [#1759](https://github.com/bolt/core/pull/1759))
 - Make "required" for Date fields work (bobdenotter, [#1747](https://github.com/bolt/core/pull/1747))
 - Add "Number" and "Date" fields (bobdenotter, [#1742](https://github.com/bolt/core/pull/1742))
 - Make multivalue filter with content fields (I-Valchev, [#1733](https://github.com/bolt/core/pull/1733))
@@ -20,6 +23,10 @@ Released: 2020-08-22
 
 ### 🛠️ Miscellaneous
 
+- Prepare release 4.0.0-rc.36 (bobdenotter, [#1752](https://github.com/bolt/core/pull/1752))
+- Tweaking default Skeleton theme (bobdenotter, [#1751](https://github.com/bolt/core/pull/1751))
+- Remove the hover on the left-hand side logo (bobdenotter, [#1750](https://github.com/bolt/core/pull/1750))
+- Make relative dates work for fields that have an underscore in their name (bobdenotter, [#1748](https://github.com/bolt/core/pull/1748))
 - Clean up and refactor `SelectQuery` (I-Valchev, [#1744](https://github.com/bolt/core/pull/1744))
 - Update contenttypes.yaml comments documentation (I-Valchev, [#1741](https://github.com/bolt/core/pull/1741))
 - modification to SelectQuery.php related to #1619 (JTNMW, [#1739](https://github.com/bolt/core/pull/1739))
@@ -27,14 +34,11 @@ Released: 2020-08-22
 - Rename `renderTemplate` to render for consistency with `AbstractController` (bobdenotter, [#1735](https://github.com/bolt/core/pull/1735))
 - Set filter in "Templateselect" to a regex by default (bobdenotter, [#1730](https://github.com/bolt/core/pull/1730))
 - add Slug field UTF-8 and Transliteration Support (denis-gorin, [#1723](https://github.com/bolt/core/pull/1723))
-- Use translated bootbox  (nestordedios, [#1720](https://github.com/bolt/core/pull/1720))
-- Prepare release 4.0.0-rc.35 (bobdenotter, [#1718](https://github.com/bolt/core/pull/1718))
-- Make relative dates work for fields that have an underscore in their name [#1748](https://github.com/bolt/core/pull/1748))
-- Remove the hover on the left-hand side logo [#1718](https://github.com/bolt/core/pull/1750))
-- Tweaking default Skeleton theme [#1751](https://github.com/bolt/core/pull/1751))
+- Use translated bootbox (nestordedios, [#1720](https://github.com/bolt/core/pull/1720))
 
 ### ⚙️ Code Quality / Developer Experience
 
+- Add "Article" and "Redactor" to contentfixtures (bobdenotter, [#1756](https://github.com/bolt/core/pull/1756))
 - Fix ECS 😅 (bobdenotter, [#1731](https://github.com/bolt/core/pull/1731))
 
 
