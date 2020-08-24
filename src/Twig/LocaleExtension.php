@@ -28,12 +28,16 @@ class LocaleExtension extends AbstractExtension
     /** @var string */
     private $defaultLocale;
 
-    public function __construct(TranslatorInterface $translator, LocaleHelper $localeHelper, Config $config, string $defaultLocale)
+    /** @var Environment */
+    private $twig;
+
+    public function __construct(TranslatorInterface $translator, LocaleHelper $localeHelper, Config $config, Environment $twig, string $defaultLocale)
     {
         $this->translator = $translator;
         $this->localeHelper = $localeHelper;
         $this->config = $config;
         $this->defaultLocale = $defaultLocale;
+        $this->twig = $twig;
     }
 
     /**
@@ -172,7 +176,8 @@ class LocaleExtension extends AbstractExtension
         }
 
         if ($locale === null) {
-            $locale = $this->defaultLocale;
+            $current = $this->getHtmlLang($this->twig);
+            $locale = ! empty($current) ? $current : $this->defaultLocale;
         }
 
         $dateTime->locale($locale);
