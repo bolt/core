@@ -65,7 +65,8 @@ class TaxonomyFixtures extends BaseFixture implements FixtureGroupInterface
 
     private function getDefaultOptions(): array
     {
-        $options = ['action', 'adult', 'adventure', 'alpha', 'animals', 'animation', 'anime', 'architecture', 'art',
+        $options = [
+            'action', 'adult', 'adventure', 'alpha', 'animals', 'animation', 'anime', 'architecture', 'art',
             'astronomy', 'baby', 'batshitinsane', 'biography', 'biology', 'book', 'books', 'business',
             'camera', 'cars', 'cats', 'cinema', 'classic', 'comedy', 'comics', 'computers', 'cookbook', 'cooking',
             'crime', 'culture', 'dark', 'design', 'digital', 'documentary', 'dogs', 'drama', 'drugs', 'education',
