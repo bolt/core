@@ -1,12 +1,21 @@
----
-
-**If you want to check out Bolt, the `composer create-project` method is recommended. See here: https://github.com/bolt/project/ . This repository should be used to work _<ins>on</ins>_ Bolt. Not _<ins>with</ins>_ Bolt.**
-
----
-
 Bolt 4 - beta
 =============
 
+Bolt CMS is an open source, adaptable platform for building and running modern 
+websites. Built on PHP, Symfony and more. [Read the site](https://boltcms.io) 
+for more info. 
+
+To check out Bolt and set up your first Bolt installation, read 
+[Installing Bolt 4][installation]. 
+
+---
+
+**This repository should be used to work _<ins>on</ins>_ Bolt. Not 
+_<ins>with</ins>_ Bolt. If you want to check out Bolt, the 
+`composer create-project` method is recommended. See here: 
+https://github.com/bolt/project/ .**
+
+---
 > Cleanse this world with flame  
 > End this, cleanse this  
 > **Rebuild and start again**  
@@ -206,6 +215,7 @@ Sponsors:
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
 [translations]: https://github.com/bolt/core/wiki/Contribute-on-translations
 [hatebreed]: https://www.youtube.com/watch?v=DBwgX8yBqsw
+[installation]: https://docs.bolt.cm/4.0/installation/installation
 
 --------
 
