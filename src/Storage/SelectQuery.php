@@ -7,7 +7,7 @@ namespace Bolt\Storage;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
@@ -74,6 +74,9 @@ class SelectQuery implements QueryInterface
     protected $referenceFields = [
         'author',
     ];
+
+    /** @var array */
+    protected $regularFields = [];
 
     /** @var string */
     protected $anything = 'anything';
@@ -263,6 +266,9 @@ class SelectQuery implements QueryInterface
 
         $dateFields = $this->getDateFields();
 
+        // Set the regular fields. They are needed for setting the correct param if DB does not support json.
+        $this->setRegularFields();
+
         $whereExpression = $this->getWhereExpression();
         if ($whereExpression) {
             $query->andWhere($whereExpression);
@@ -273,6 +279,10 @@ class SelectQuery implements QueryInterface
             // Use strtotime on 'date' fields to allow selections like "today", "in 3 weeks" or "this year"
             if (in_array($fieldName, $dateFields, true) && (strtotime($param) !== false)) {
                 $param = date('c', strtotime($param));
+            }
+
+            if (in_array($fieldName, $this->regularFields, true)) {
+                $param = JsonHelper::wrapJsonFunction(null, $param, $query->getEntityManager()->getConnection());
             }
 
             $query->setParameter($key, $param, ParameterTypeInferer::inferType($param));
@@ -407,6 +417,11 @@ class SelectQuery implements QueryInterface
         return $this->taxonomyFields;
     }
 
+    private function setRegularFields(): void
+    {
+        $this->regularFields = $this->getConfig()->get('contenttypes/' . $this->getContentType())->get('fields')->keys()->all();
+    }
+
     private function getDateFields(): array
     {
         // Get all fields from the current contentType
@@ -481,7 +496,7 @@ class SelectQuery implements QueryInterface
         return sprintf('taxonomies_%s.slug = :%s', $filter->getKey(), key($filter->getParameters()));
     }
 
-    private function getRegularFieldExpression(Filter $filter, EntityManager $em): string
+    private function getRegularFieldExpression(Filter $filter, EntityManagerInterface $em): string
     {
         $this->fieldJoins[$filter->getKey()] = $filter;
         $expr = $this->qb->expr()->andX();
