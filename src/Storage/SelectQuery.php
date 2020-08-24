@@ -7,7 +7,6 @@ namespace Bolt\Storage;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\Base;
 use Doctrine\ORM\Query\ParameterTypeInferer;
@@ -282,7 +281,7 @@ class SelectQuery implements QueryInterface
                 $param = date('c', strtotime($param));
             }
 
-            if (in_array($fieldName, $this->regularFields, true)){
+            if (in_array($fieldName, $this->regularFields, true)) {
                 $param = JsonHelper::wrapJsonFunction(null, $param, $query->getEntityManager()->getConnection());
             }
 
@@ -420,7 +419,7 @@ class SelectQuery implements QueryInterface
 
     private function setRegularFields(): void
     {
-        $this->regularFields =  $this->getConfig()->get('contenttypes/' . $this->getContentType())->get('fields')->keys()->all();
+        $this->regularFields = $this->getConfig()->get('contenttypes/' . $this->getContentType())->get('fields')->keys()->all();
     }
 
     private function getDateFields(): array
