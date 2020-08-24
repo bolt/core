@@ -8,6 +8,7 @@ use Bolt\Canonical;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
@@ -237,12 +238,12 @@ class ContentExtension extends AbstractExtension
     }
 
     /**
-     * @param string|Markup|Content $content
+     * @param string|Markup|Content|Field $content
      * @param string|array|null $focus
      */
     public function getExcerpt($content, int $length = 280, bool $includeTitle = false, $focus = null): string
     {
-        if (is_string($content) || $content instanceof Markup) {
+        if (is_string($content) || $content instanceof Markup || $content instanceof Field) {
             return Excerpt::getExcerpt((string) $content, $length, $focus);
         }
 
