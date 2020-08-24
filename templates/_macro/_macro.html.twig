@@ -66,7 +66,13 @@
                 {% set context = context|merge({'include_id': true}) %}
             {% endif %}
 
-            {% include '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig' with context only %}
+            {% set includeLookup = [
+                '@bolt/_partials/fields/' ~ item_field.type ~ '.html.twig',
+                '@' ~ item_field.type ~ '/' ~ item_field.type ~ '.html.twig',
+                '@bolt/_partials/fields/generic.html.twig'
+            ] %}
+
+            {% include includeLookup with context only %}
         {% endset %}
         {# set the label manually as set in _base.html.twig, to pass to Collection.vue for templates #}
         {% set label = item_field.definition.label|default(item_field.name|default('unnamed')|ucwords) %}
