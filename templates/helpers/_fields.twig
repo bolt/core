@@ -33,8 +33,8 @@
 
         {# Skip over the fields that are used in the slug, unless explicitly told not to,
            using the `skip_uses` parameter. #}
-        {% if (record.contentType.fields.slug.uses|default(null) is iterable) and skip_uses|default(true) %}
-            {% set omittedkeys = omittedkeys|merge(record.contentType.fields.slug.uses) %}
+        {% if (record.definition.fields.slug.uses|default(null) is iterable) and skip_uses|default(true) %}
+            {% set omittedkeys = omittedkeys|merge(record.definition.fields.slug.uses) %}
         {% endif %}
 
         {# We also skip over the fields that are explicitly excluded. #}
