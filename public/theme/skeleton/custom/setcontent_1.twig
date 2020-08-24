@@ -172,4 +172,14 @@
             {% endfor %}
         </ul>
     </section>
+
+    <section id="twelve">
+        <h1>Twelve</h1>
+        {% setcontent about = 'blocks/aboout' %}
+        <ul>
+            {% if about.title != 'About This Site' %}
+                <li>no</li>
+            {% endif %}
+        </ul>
+    </section>
 {% endblock main %}
