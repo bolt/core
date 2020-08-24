@@ -1,3 +1,9 @@
+---
+
+**If you want to check out Bolt, the `composer create-project` method is recommended. See here: https://github.com/bolt/project/ . This repository should be used to work _<ins>on</ins>_ Bolt. Not _<ins>with</ins>_ Bolt.**
+
+---
+
 Bolt 4 - beta
 =============
 
@@ -11,19 +17,13 @@ Bolt 4 - beta
 Progress towards beta / stable
 ------------------------------
 
-Follow the progress on Bolt 4, at the following locations
+Follow the progress on the development of Bolt 4, at these locations
 
  - Github Repository: https://github.com/bolt/core
  - Bolt 4 roadmap: https://roadmap.boltcms.io
  - Slack: https://slack.bolt.cm (open for all, requires Slack account)
 
----
-
-**If you want to check out Bolt, the `composer create-project` method is recommended. See here: https://github.com/bolt/project/ . This repository should be used to work _<ins>on</ins>_ Bolt. Not _<ins>with</ins>_ Bolt.**
-
----
-
-To set up a running environment of Bolt 4 please perform the following steps 1 to 4:
+To set up a running **development** environment of Bolt 4 please perform the following steps 1 to 4:
 
 1 Install
 ---------
