@@ -10,6 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpClient\HttpClient;
 
 class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
@@ -69,7 +70,16 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 
             $client = HttpClient::create();
             $resource = fopen($outputPath . $filename, 'w');
-            fwrite($resource, $client->request('GET', $url)->getContent());
+
+            try {
+                // Try to get image with valid SSL
+                $image = $client->request('GET', $url)->getContent();
+            } catch(TransportException $e) {
+                // Try to get image without SSL verification
+                $image = $client->request('GET', $url, ['verify_peer' => false])->getContent();
+            }
+
+            fwrite($resource, $image);
             fclose($resource);
 
             $progressBar->advance();
