@@ -72,10 +72,12 @@ class ExtensionCompilerPass implements CompilerPassInterface
         $namespace = Str::removeLast($reflection->getName(), Str::splitLast($reflection->getName(), '\\'));
         $path = $this->getRelativePath($package);
 
-        return [$namespace, [
-            'resource' => $path . '/*',
-            'exclude' => $path . '/{Entity,Exception}',
-        ]];
+        return [
+            $namespace, [
+                'resource' => $path . '/*',
+                'exclude' => $path . '/{Entity,Exception}',
+            ],
+        ];
     }
 
     private function addComposerPackages(array $packages): array
