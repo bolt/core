@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Configuration\Config;
 use Bolt\Configuration\FileLocations;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpClient\HttpClient;
 
 class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
@@ -24,7 +24,10 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     private const AMOUNT = 10;
     private const MAX_AMOUNT = 50;
 
-    public function __construct(FileLocations $fileLocations)
+    /** @var array */
+    private $curlOptions;
+
+    public function __construct(FileLocations $fileLocations, Config $config)
     {
         $this->urls = new Collection([
             'https://source.unsplash.com/1280x1024/?business,workspace,interior/',
@@ -32,6 +35,8 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
             'https://source.unsplash.com/1280x1024/?animal,kitten,puppy,cute/',
             'https://source.unsplash.com/1280x1024/?technology/',
         ]);
+
+        $this->curlOptions = $config->get('general/curl_options', []);
 
         $this->fileLocations = $fileLocations;
     }
@@ -71,13 +76,7 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
             $client = HttpClient::create();
             $resource = fopen($outputPath . $filename, 'w');
 
-            try {
-                // Try to get image with valid SSL
-                $image = $client->request('GET', $url)->getContent();
-            } catch (TransportException $e) {
-                // Try to get image without SSL verification
-                $image = $client->request('GET', $url, ['verify_peer' => false])->getContent();
-            }
+            $image = $client->request('GET', $url, $this->curlOptions)->getContent();
 
             fwrite($resource, $image);
             fclose($resource);

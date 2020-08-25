@@ -47,6 +47,12 @@ class GeneralParser extends BaseParser
             $general['date_format'] = 'F j, Y H:i';
         }
 
+        if (! isset($general['curl_options'])) {
+            $general['curl_options'] = [
+                'verify_peer' => true,
+            ];
+        }
+
         return new Collection($general);
     }
 
