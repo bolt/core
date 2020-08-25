@@ -74,7 +74,7 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
             try {
                 // Try to get image with valid SSL
                 $image = $client->request('GET', $url)->getContent();
-            } catch(TransportException $e) {
+            } catch (TransportException $e) {
                 // Try to get image without SSL verification
                 $image = $client->request('GET', $url, ['verify_peer' => false])->getContent();
             }
