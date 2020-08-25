@@ -76,7 +76,8 @@ class ExtensionCompilerPass implements CompilerPassInterface
             $namespace, [
                 'resource' => $path . '/*',
                 'exclude' => $path . '/{Entity,Exception}',
-            ]];
+            ],
+        ];
     }
 
     private function addComposerPackages(array $packages): array
