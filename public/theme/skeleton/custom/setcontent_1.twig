@@ -155,7 +155,7 @@
         {% endfor %}
 
         <ul>
-            <li>Two different random results: [{{ first_ids === second_ids ? "no" : "yes" }}]</li>
+            <li>Two different random results: [{{ first_ids === second_ids ? "[no]" : "[yes]" }}]</li>
         </ul>
     </section>
 
@@ -175,10 +175,12 @@
 
     <section id="twelve">
         <h1>Twelve</h1>
-        {% setcontent about = 'blocks/aboout' %}
+        {% setcontent about = 'blocks/about' %}
         <ul>
-            {% if about.title != 'About This Site' %}
-                <li>no</li>
+            {% if about.title == 'About This Site' %}
+                <li>{{ about.title }} [yes]</li>
+            {% else %}
+                <li>[no]</li>
             {% endif %}
         </ul>
     </section>
