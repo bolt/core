@@ -511,6 +511,10 @@ class SelectQuery implements QueryInterface
         $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
         $expr->add($valueWhere);
 
+        // @todo: Filter non-standalone fields (i.e. fields with parents)
+        $null = $this->qb->expr()->isNull(sprintf('fields_%s.parent', $filter->getKey()));
+        $expr->add($null);
+
         // where clause for the name of the field
         if (! in_array($filter->getKey(), ['anyField', $this->anything], true)) {
             // Add to DQL where clause

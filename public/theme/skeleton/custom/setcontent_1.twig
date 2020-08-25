@@ -8,6 +8,10 @@
     {% if a <= b or (b == null) %}[yes]{% else %}[no]{% endif %}
 {% endmacro %}
 
+{% macro contains(needle, haystack) %}
+    {% if needle in haystack %}[yes]{% else %}[no]{% endif %}
+{% endmacro %}
+
 {% block main %}
 
     <section id="one">
@@ -92,7 +96,7 @@
         <ul>
         {% for entry in entries %}
             <li>
-                {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
+                {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }} {{ _self.contains('voluptat', entry|title) }}
             </li>
             {% set last = entry.id %}
         {% endfor %}
@@ -120,6 +124,7 @@
             {% for entry in entries %}
                 <li>
                     {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
+                    {% if 'voluptat' in entry|title or 'porro' in entry|title %}[yes]{% else %}[no]{% endif %}
                 </li>
                 {% set last = entry.id %}
             {% endfor %}
@@ -128,8 +133,8 @@
 
     <section id="nine">
         <h1>Nine</h1>
-        {% setcontent showcases = 'showcases' orderby '-floatfield' %}
-
+        {% setcontent showcases = 'showcases' orderby '-floatfield' printquery %}
+        Results: <span id="results-six">{{ showcases|length > 0 ? 'yes' }}</span>
         <ul>
         {% for showcase in showcases %}
             <li>showcase {{ showcase.id }}: {{ showcase.floatfield }}
@@ -161,7 +166,8 @@
 
     <section id="eleven">
         <h1>Eleven</h1>
-        {% setcontent entries = 'entries' order 'categories' %}
+        {% setcontent entries = 'entries' order 'categories' printquery %}
+        Results: <span id="results-six">{{ entries|length > 0 ? 'yes' }}</span>
         <ul>
             {% for entry in entries %}
                 <li>
