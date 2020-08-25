@@ -85,11 +85,23 @@ $(document).ready(function() {
   $('[data-readonly]').on('keydown paste', function(e) {
     e.preventDefault();
   });
-  /* Part of the code above, however make sure flatpickr is not readonly */
+  /* Part of the code above, however make sure flatpickr is not readonly
+   * and that its validation works.
+   */
   $('.editor--date')
     .siblings()
     .prop('readonly', false)
     .attr('data-readonly', 'readonly');
+  $('.editor--date').on('change', e => {
+    const target = $(e.target)
+      .parent()
+      .find('input[data-readonly="readonly"]');
+    if (target.val()) {
+      target[0].setCustomValidity('');
+    } else {
+      target[0].setCustomValidity('Please fill out this field.');
+    }
+  });
 
   /*
    ** Display the custom error message, if set.

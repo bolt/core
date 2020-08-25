@@ -44,7 +44,6 @@
 <script>
 import value from '../mixins/value';
 import flatPickr from 'vue-flatpickr-component';
-import $ from 'jquery';
 
 export default {
   name: 'EditorDate',
@@ -119,16 +118,6 @@ export default {
       this.config.enableTime = true;
       this.config.altFormat = `F j, Y - h:i K`;
     }
-  },
-
-  mounted() {
-    // Standard HTML validation doesn't work for fields that are 'readonly'. We
-    // this hack makes the field "editable" but have it lose focus if focused.
-    // @see https://github.com/flatpickr/flatpickr/issues/892
-    $('#datetimepicker').on('focus', ({ currentTarget }) =>
-      $(currentTarget).blur(),
-    );
-    $('#datetimepicker').prop('readonly', false);
   },
 };
 </script>
