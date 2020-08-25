@@ -92,15 +92,16 @@ $(document).ready(function() {
     .siblings()
     .prop('readonly', false)
     .attr('data-readonly', 'readonly');
-  $('.editor--date').on('change', (e) => {
-    const target = $(e.target).parent().find('input[data-readonly="readonly"]');
+  $('.editor--date').on('change', e => {
+    const target = $(e.target)
+      .parent()
+      .find('input[data-readonly="readonly"]');
     if (target.val()) {
-      target[0].setCustomValidity("");
+      target[0].setCustomValidity('');
     } else {
-      target[0].setCustomValidity('Please fill out this field.')
+      target[0].setCustomValidity('Please fill out this field.');
     }
   });
-
 
   /*
    ** Display the custom error message, if set.
