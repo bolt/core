@@ -90,6 +90,20 @@ class Version
         return false;
     }
 
+    public function hasInstrAndCast(): bool
+    {
+        try {
+            $query = $this->connection->createQueryBuilder();
+            $query
+                ->select('CAST (1.1 AS int), INSTR("Bolt", "o")');
+            $query->execute();
+        } catch (\Throwable $e) {
+            return false;
+        }
+
+        return true;
+    }
+
     private function checkSqliteVersion(): bool
     {
         /** @var PDOConnection $wrapped */
