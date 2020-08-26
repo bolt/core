@@ -99,9 +99,16 @@ class OrderDirective
                 ->leftJoin('content.fields', $fieldsAlias)
                 ->leftJoin($fieldsAlias . '.translations', $translationsAlias)
                 ->andWhere($fieldsAlias . '.name = :' . $fieldAlias)
-                ->andWhere($translationsAlias . '.locale = :' . $fieldAlias . '_locale')
-                ->setParameter($fieldAlias . '_locale', $locale)
                 ->setParameter($fieldAlias, $order);
+
+            if ($this->isLocalizedField($query, $order)) {
+                // If the field is localized, we limit the query to the
+                // value for the current locale only.
+                $query
+                    ->getQueryBuilder()
+                    ->andWhere($translationsAlias . '.locale = :' . $fieldAlias . '_locale')
+                    ->setParameter($fieldAlias . '_locale', $locale);
+            }
 
             if ($this->isNumericField($query, $order)) {
                 $this->orderByNumericField($query, $translationsAlias, $direction);
@@ -198,5 +205,12 @@ class OrderDirective
         $type = $contentType->get('fields')->get($fieldname)->get('type', false);
 
         return $type === NumberField::TYPE;
+    }
+
+    private function isLocalizedField(QueryInterface $query, $fieldname): bool
+    {
+        $contentType = $query->getConfig()->get('contenttypes/' . $query->getContentType());
+
+        return $contentType->get('fields')->get($fieldname)->get('localize', false);
     }
 }
