@@ -179,24 +179,20 @@ class OrderDirective
     {
         $qb = $query->getQueryBuilder();
 
-        // For older bundled SQLite in PHP 7.2 that do not have `INSTR` and `CAST` built in, we fall
+        // For older bundled SQLite in PHP 7.2 that do not have `CAST` built in, we fall
         // back to the "dumb" sorting instead. C'est la vie.
         $doctrineVersion = new Version($query->getQueryBuilder()->getEntityManager()->getConnection());
 
-        if (! $doctrineVersion->hasInstrAndCast()) {
+        if (! $doctrineVersion->hasCast()) {
             $qb->addOrderBy($translationsAlias . '.value', $direction);
 
             return;
         }
 
-        $qb->addSelect('INSTR(' . $translationsAlias . '.value, \'%[0-9]%\') as HIDDEN instr');
-        $innerSubstring = $qb
+        $substring = $qb
             ->expr()
-            ->substring($translationsAlias . '.value', 'instr', $qb->expr()->length($translationsAlias . '.value'));
-        $outerSubstring = $qb
-            ->expr()
-            ->substring($innerSubstring, 3, $query->getQueryBuilder()->expr()->length($translationsAlias . '.value'));
-        $qb->addOrderBy('CAST(' . $outerSubstring . ' as decimal) ', $direction);
+            ->substring($translationsAlias . '.value', 3, $query->getQueryBuilder()->expr()->length($translationsAlias . '.value'));
+        $qb->addOrderBy('CAST(' . $substring . ' as decimal) ', $direction);
     }
 
     private function isNumericField(QueryInterface $query, $fieldname): bool

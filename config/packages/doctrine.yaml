@@ -33,7 +33,6 @@ doctrine:
             string_functions:
                 JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
                 CAST: DoctrineExtensions\Query\Mysql\Cast
-                INSTR: DoctrineExtensions\Query\Mysql\Instr
             numeric_functions:
                 RAND: Bolt\Doctrine\Functions\Rand
 
