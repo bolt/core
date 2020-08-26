@@ -104,7 +104,6 @@ class Version
         return true;
     }
 
-
     private function checkSqliteVersion(): bool
     {
         /** @var PDOConnection $wrapped */
