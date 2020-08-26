@@ -62,6 +62,9 @@ class SelectQueryHandler
 
         $amountPerPage = (int) $contentQuery->getDirective(LimitDirective::NAME);
         $page = $contentQuery->getDirective(PageDirective::NAME);
+        if ($page !== null) {
+            $page = (int) $page;
+        }
 
         $request = $contentQuery->getRequest();
 

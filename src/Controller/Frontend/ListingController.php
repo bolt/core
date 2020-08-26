@@ -40,10 +40,14 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $amountPerPage = $contentType->get('listing_records');
         $order = $this->getFromRequest('order', $contentType->get('order'));
 
-        $records = $this->query->getContent($contentTypeSlug, [
+        $queryParams = $this->config->get('query_search') ? $this->request->query->all() : [];
+
+        $params = array_merge($queryParams, [
             'status' => 'published',
             'order' => $order,
-        ])
+        ]);
+
+        $records = $this->query->getContent($contentTypeSlug, $params)
             ->setMaxPerPage($amountPerPage)
             ->setCurrentPage($page);
 
