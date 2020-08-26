@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Directive;
 
+use Bolt\Doctrine\Version;
 use Bolt\Entity\Field\NumberField;
 use Bolt\Storage\QueryInterface;
 use Bolt\Twig\Notifications;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\LocaleHelper;
-use Bolt\Version;
 use Twig\Environment;
 
 /**
@@ -172,11 +172,11 @@ class OrderDirective
     {
         $qb = $query->getQueryBuilder();
 
-        // For older bundled SQLite in PHP 7.2 that do not have `INSTR` and `CAST` built in, we fall
+        // For older bundled SQLite in PHP 7.2 that do not have `CAST` built in, we fall
         // back to the "dumb" sorting instead. C'est la vie.
         $doctrineVersion = new Version($query->getQueryBuilder()->getEntityManager()->getConnection());
 
-        if (! $doctrineVersion->hasInstrAndCast()) {
+        if (! $doctrineVersion->hasCast()) {
             $qb->addOrderBy($translationsAlias . '.value', $direction);
 
             return;

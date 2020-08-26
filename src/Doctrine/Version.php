@@ -90,12 +90,12 @@ class Version
         return false;
     }
 
-    public function hasInstrAndCast(): bool
+    public function hasCast(): bool
     {
         try {
             $query = $this->connection->createQueryBuilder();
             $query
-                ->select('CAST (1.1 AS int), INSTR("Bolt", "o")');
+                ->select('CAST (1.1 AS int)');
             $query->execute();
         } catch (\Throwable $e) {
             return false;
