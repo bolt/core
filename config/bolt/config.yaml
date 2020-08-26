@@ -212,5 +212,7 @@ wysiwyg:
 # and redirect to HTTPS if you attempt to visit plain HTTP pages.
 # enforce_ssl: true
 
+# Options to use with curl requests.
+# For all options, check the official curl documentation here https://curl.haxx.se/libcurl/c/curl_easy_setopt.html
 curl_options:
     verify_peer: false
