@@ -241,6 +241,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $params = ['contentType' => $content->getContentTypeSlug()];
         $url = $this->urlGenerator->generate('bolt_content_overview', $params);
 
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::POST_STATUS_CHANGE);
+
         return new RedirectResponse($url);
     }
 
@@ -251,6 +254,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     {
         $this->validateCsrf('delete');
 
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::PRE_DELETE);
+
         $this->em->remove($content);
         $this->em->flush();
 
@@ -258,6 +264,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $params = ['contentType' => $content->getContentTypeSlug()];
         $url = $this->urlGenerator->generate('bolt_content_overview', $params);
+
+        $event = new ContentEvent($content);
+        $this->dispatcher->dispatch($event, ContentEvent::POST_DELETE);
 
         return new RedirectResponse($url);
     }

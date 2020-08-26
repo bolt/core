@@ -54,6 +54,6 @@ class AuthenticationController extends TwigAwareController implements BackendZon
             'subtitle' => 'controller.authentication.reset_subtitle',
         ];
 
-        return $this->render('@bolt/pages/placeholder.html.twig', $twigVars);
+        return $this->render('@bolt/security/resetpassword.html.twig', $twigVars);
     }
 }

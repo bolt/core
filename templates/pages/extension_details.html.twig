@@ -33,10 +33,10 @@
                         {% endif %}
                         <dt class="col-sm-3">{{ 'extensions.title_version'|trans }}</dt>
                         <dd class="col-sm-9">{{ package.prettyVersion }}</dd>
-                        <dt class="col-sm-3">Dependencies: </dt>
+                        <dt class="col-sm-3">{{ 'extensions.title_dependencies'|trans }}: </dt>
                         <dd class="col-sm-9">
                             {% if dependencies is empty %}
-                                <i>No known dependencies</i>
+                                <i>{{ 'extensions.no_dependencies'|trans }}</i>
                             {% else %}
                                 {% for dependency in dependencies %}
                                     {{ dependency.name }}: {{ dependency.version }} <br>
