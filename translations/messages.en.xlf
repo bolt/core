@@ -2337,5 +2337,17 @@
         <target>New</target>
       </segment>
     </unit>
+    <unit id="60xy4WG" name="extensions.no_dependencies">
+      <segment>
+        <source>extensions.no_dependencies</source>
+        <target>No known dependencies</target>
+      </segment>
+    </unit>
+    <unit id="LfwezhR" name="extensions.title_dependencies">
+      <segment>
+        <source>extensions.title_dependencies</source>
+        <target>Dependencies</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
