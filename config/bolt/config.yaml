@@ -95,12 +95,7 @@ record_template: record.twig
 #
 # Can be overridden for each content type.
 #
-# Note 1: Sorting on TAXONOMY-pages will give unexpected results, if it has a
-#         pager.
-#         If you need sorting on those, make sure you display all the records on one
-#         page.
-#
-# Note 2: If you've changed the filename, and your changes do not show up on the
+# Note: If you've changed the filename, and your changes do not show up on the
 #         website, be sure to check for a config.yaml file in your themes
 #         folder. If a template is set there, it will override the setting here.
 listing_template: listing.twig
