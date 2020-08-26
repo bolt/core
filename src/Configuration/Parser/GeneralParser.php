@@ -53,6 +53,10 @@ class GeneralParser extends BaseParser
             ];
         }
 
+        if (! isset($general['query_search'])) {
+            $general['query_search'] = true;
+        }
+
         return new Collection($general);
     }
 
