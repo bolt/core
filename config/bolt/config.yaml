@@ -180,37 +180,7 @@ accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff ]
 #`post_max_size` and `upload_max_filesize` in `php.ini`.
 accept_upload_size: 8M
 
-# There are several options for giving editors more options to insert images,
-# video, etc in the WYSIWYG areas. But, as you give them more options, that
-# means they also have more ways of breaking the preciously designed layout.
-#
-# By default the most dangerous options are set to false. If you choose to
-# enable them for your editors, please instruct them thoroughly on their
-# responsibility not to break the layout.
-wysiwyg:
-    images: false            # Allow users to insert images in the content.
-    anchor: false            # Adds a button to create internal anchors to link to.
-    tables: false            # Adds a button to insert and modify tables in the content.
-    fontcolor: false         # Allow users to mess around with font coloring.
-    align: false             # Adds buttons for align left, align right, etc.
-    subsuper: false          # Adds buttons for subscript and superscript, using `<sub>` and `<sup>`.
-    embed: false             # Allows the user to insert embedded videos from Youtube, Vimeo, etc.
-    underline: false         # Adds a button to underline text, using the `<u>`-tag.
-    ruler: false             # Adds a button to add a horizontal ruler, using the `<hr>`-tag.
-    strike: false            # Adds a button to add stikethrough, using the `<s>`-tag.
-    blockquote: false        # Allows the user to insert blockquotes using the `<blockquote>`-tag.
-    codesnippet: false       # Allows the user to insert code snippets using `<pre><code>`-tags.
-    specialchar: false       # Adds a button to insert special chars like € or ™.
-    clipboard: false         # Adds buttons to undo and redo.
-    copypaste: false         # Adds buttons to cut, copy and paste.
-    ck:
-        autoParagraph: true  # If set to true, any pasted content is wrapped in `<p>`-tags for multiple line-breaks
-        disableNativeSpellChecker: true # If set to true it will stop browsers from underlining spelling mistakes
-        allowNbsp: false     # If set to false, the editor will strip out `&nbsp;` characters. If set to true, it will allow them. ¯\_(ツ)_/¯
-
-# Enforcing the use of SSL. If set, all pages will enforce an SSL connection,
-# and redirect to HTTPS if you attempt to visit plain HTTP pages.
-# enforce_ssl: true
-
+# Options to use with curl requests.
+# For all options, check the official curl documentation here https://curl.haxx.se/libcurl/c/curl_easy_setopt.html
 curl_options:
     verify_peer: false

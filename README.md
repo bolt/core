@@ -208,7 +208,6 @@ The ongoing Bolt development takes place under the care of:
 
 Sponsors:
 
- - [Webforward, Richard Leishman](https://www.webfwd.co.uk/)
  - → You and/or your company's name on this list?
  [Become a sponsor](https://github.com/users/bobdenotter/sponsorship).
 
