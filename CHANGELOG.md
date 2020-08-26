@@ -1,12 +1,13 @@
 Changelog
 =========
 
-## 4.0.0-rc.38
+## 4.0.0-rc.39
 
 Released: 2020-08-26
 
 ### 🐛 Bug fixes
 
+- Get curl_options as an array instead of collection (bobdenotter, [#1781](https://github.com/bolt/core/pull/1781))
 - Numeric order works on MySQL databases (I-Valchev, [#1778](https://github.com/bolt/core/pull/1778))
 - Localehelper shouldn't break on CLI commands (bobdenotter, [#1777](https://github.com/bolt/core/pull/1777))
 - Better check for `INSTR` and `CAST` (bobdenotter, [#1776](https://github.com/bolt/core/pull/1776))
@@ -17,11 +18,14 @@ Released: 2020-08-26
 - Fix: Correctly exclude fields that are used in the slug by default (bobdenotter, [#1766](https://github.com/bolt/core/pull/1766))
 - Fall back to "dumb" numeric sorting for older SQLite versions (bobdenotter, [#1765](https://github.com/bolt/core/pull/1765))
 
+### 📦 Additions and new features
+
+- Filter and order using queryparams on listing pages (I-Valchev, [#1782](https://github.com/bolt/core/pull/1782))
+
 ### 🛠️ Miscellaneous
 
 - Enhancement/tidying up and removing old cruft  (I-Valchev, [#1775](https://github.com/bolt/core/pull/1775))
 - `localdate`prefers currentlocale over defaultlocale (I-Valchev, [#1763](https://github.com/bolt/core/pull/1763))
-- Update `config.yaml` with documentation on curl options. (I-Valchev, [#1779](https://github.com/bolt/core/pull/1779))
 
 ### 🤖 Tests
 
@@ -29,8 +33,8 @@ Released: 2020-08-26
 
 ### ⚙️ Code Quality / Developer Experience
 
+- Update `config.yaml` with documentation on curl options. (I-Valchev, [#1779](https://github.com/bolt/core/pull/1779))
 - It has been   ̶5̶ 0 days since ECS last broke Travis (bobdenotter, [#1767](https://github.com/bolt/core/pull/1767))
-
 
 ## 4.0.0-rc.37
 
