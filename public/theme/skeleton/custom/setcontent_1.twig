@@ -9,7 +9,7 @@
 {% endmacro %}
 
 {% macro contains(needle, haystack) %}
-    {% if needle in haystack %}[yes]{% else %}[no]{% endif %}
+    {% if needle|lower in haystack|lower %}[yes]{% else %}[no]{% endif %}
 {% endmacro %}
 
 {% block main %}
@@ -124,7 +124,7 @@
             {% for entry in entries %}
                 <li>
                     {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
-                    {% if 'voluptat' in entry|title or 'porro' in entry|title %}[yes]{% else %}[no]{% endif %}
+                    {% if 'voluptat' in entry|title|lower or 'porro' in entry|title|lower %}[yes]{% else %}[no]{% endif %}
                 </li>
                 {% set last = entry.id %}
             {% endfor %}
@@ -160,7 +160,7 @@
         {% endfor %}
 
         <ul>
-            <li>Two different random results: [{{ first_ids === second_ids ? "no" : "yes" }}]</li>
+            <li>Two different random results: {{ first_ids === second_ids ? "[no]" : "[yes]" }}</li>
         </ul>
     </section>
 
@@ -176,6 +176,18 @@
                 </li>
                 {% set last = entry.taxonomyvalues.categories|sort|first %}
             {% endfor %}
+        </ul>
+    </section>
+
+    <section id="twelve">
+        <h1>Twelve</h1>
+        {% setcontent about = 'blocks/about' %}
+        <ul>
+            {% if about.title == 'About This Site' %}
+                <li>{{ about.title }} [yes]</li>
+            {% else %}
+                <li>[no]</li>
+            {% endif %}
         </ul>
     </section>
 {% endblock main %}
