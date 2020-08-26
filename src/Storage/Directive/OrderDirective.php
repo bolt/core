@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Storage\Directive;
 
-use Bolt\Doctrine\Version;
 use Bolt\Entity\Field\NumberField;
 use Bolt\Storage\QueryInterface;
 use Bolt\Twig\Notifications;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\LocaleHelper;
+use Bolt\Version;
 use Twig\Environment;
 
 /**
@@ -182,14 +182,10 @@ class OrderDirective
             return;
         }
 
-        $qb->addSelect('INSTR(' . $translationsAlias . '.value, \'%[0-9]%\') as HIDDEN instr');
-        $innerSubstring = $qb
+        $substring = $qb
             ->expr()
-            ->substring($translationsAlias . '.value', 'instr', $qb->expr()->length($translationsAlias . '.value'));
-        $outerSubstring = $qb
-            ->expr()
-            ->substring($innerSubstring, 3, $query->getQueryBuilder()->expr()->length($translationsAlias . '.value'));
-        $qb->addOrderBy('CAST(' . $outerSubstring . ' as decimal) ', $direction);
+            ->substring($translationsAlias . '.value', 3, $query->getQueryBuilder()->expr()->length($translationsAlias . '.value'));
+        $qb->addOrderBy('CAST(' . $substring . ' as decimal) ', $direction);
     }
 
     private function isNumericField(QueryInterface $query, $fieldname): bool
