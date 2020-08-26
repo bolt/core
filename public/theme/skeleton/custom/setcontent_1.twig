@@ -9,7 +9,7 @@
 {% endmacro %}
 
 {% macro contains(needle, haystack) %}
-    {% if needle in haystack %}[yes]{% else %}[no]{% endif %}
+    {% if needle|lower in haystack|lower %}[yes]{% else %}[no]{% endif %}
 {% endmacro %}
 
 {% block main %}
@@ -124,7 +124,7 @@
             {% for entry in entries %}
                 <li>
                     {{ entry.contenttype }} {{ entry.id }} . {{ entry|title }}
-                    {% if 'voluptat' in entry|title or 'porro' in entry|title %}[yes]{% else %}[no]{% endif %}
+                    {% if 'voluptat' in entry|title|lower or 'porro' in entry|title|lower %}[yes]{% else %}[no]{% endif %}
                 </li>
                 {% set last = entry.id %}
             {% endfor %}
