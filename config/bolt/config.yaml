@@ -211,3 +211,6 @@ wysiwyg:
 # Enforcing the use of SSL. If set, all pages will enforce an SSL connection,
 # and redirect to HTTPS if you attempt to visit plain HTTP pages.
 # enforce_ssl: true
+
+curl_options:
+    verify_peer: false

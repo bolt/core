@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\DataFixtures;
 
+use Bolt\Configuration\Config;
 use Bolt\Configuration\FileLocations;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -23,7 +24,10 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     private const AMOUNT = 10;
     private const MAX_AMOUNT = 50;
 
-    public function __construct(FileLocations $fileLocations)
+    /** @var array */
+    private $curlOptions;
+
+    public function __construct(FileLocations $fileLocations, Config $config)
     {
         $this->urls = new Collection([
             'https://source.unsplash.com/1280x1024/?business,workspace,interior/',
@@ -31,6 +35,8 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
             'https://source.unsplash.com/1280x1024/?animal,kitten,puppy,cute/',
             'https://source.unsplash.com/1280x1024/?technology/',
         ]);
+
+        $this->curlOptions = $config->get('general/curl_options', []);
 
         $this->fileLocations = $fileLocations;
     }
@@ -69,7 +75,10 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 
             $client = HttpClient::create();
             $resource = fopen($outputPath . $filename, 'w');
-            fwrite($resource, $client->request('GET', $url)->getContent());
+
+            $image = $client->request('GET', $url, $this->curlOptions)->getContent();
+
+            fwrite($resource, $image);
             fclose($resource);
 
             $progressBar->advance();
