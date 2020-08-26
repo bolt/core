@@ -36,7 +36,7 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
             'https://source.unsplash.com/1280x1024/?technology/',
         ]);
 
-        $this->curlOptions = $config->get('general/curl_options', []);
+        $this->curlOptions = $config->get('general/curl_options')->all();
 
         $this->fileLocations = $fileLocations;
     }
