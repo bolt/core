@@ -106,7 +106,7 @@
     <section id="seven">
         <h1>Seven</h1>
         {% setcontent blocks = "blocks" order "title" printquery  %}
-        Results: <span id="results-six">{{ blocks|length > 0 ? 'yes' }}</span>
+        Results: <span id="results-seven">{{ blocks|length > 0 ? 'yes' }}</span>
         <ul>
             {% for block in blocks %}
                 <li>
@@ -119,7 +119,7 @@
     <section id="eight">
         <h1>Eight</h1>
         {% setcontent entries = "entries,blocks,showcases" where {'title': '%voluptat% || %porro%' } printquery  %}
-        Results: <span id="results-six">{{ entries|length > 0 ? 'yes' }}</span>
+        Results: <span id="results-eight">{{ entries|length > 0 ? 'yes' }}</span>
         <ul>
             {% for entry in entries %}
                 <li>
@@ -134,7 +134,8 @@
     <section id="nine">
         <h1>Nine</h1>
         {% setcontent showcases = 'showcases' orderby '-floatfield' printquery %}
-        Results: <span id="results-six">{{ showcases|length > 0 ? 'yes' }}</span>
+
+        Results: <span id="results-nine">{{ showcases|length > 0 ? 'yes' }}</span>
         <ul>
         {% for showcase in showcases %}
             <li>showcase {{ showcase.id }}: {{ showcase.floatfield }}
@@ -167,7 +168,7 @@
     <section id="eleven">
         <h1>Eleven</h1>
         {% setcontent entries = 'entries' order 'categories' printquery %}
-        Results: <span id="results-six">{{ entries|length > 0 ? 'yes' }}</span>
+        Results: <span id="results-eleven">{{ entries|length > 0 ? 'yes' }}</span>
         <ul>
             {% for entry in entries %}
                 <li>
