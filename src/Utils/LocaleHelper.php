@@ -74,6 +74,12 @@ class LocaleHelper
 
         /** @var Request $request */
         $request = $globals['app']->getRequest();
+
+        // In case we're on the CLI, the request is undefined so we create one on the fly
+        if (! $request instanceof Request) {
+            $request = Request::createFromGlobals();
+        }
+
         $locales = new Collection();
 
         $route = $request->attributes->get('_route');
