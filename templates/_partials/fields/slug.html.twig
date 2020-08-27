@@ -10,7 +10,7 @@
         :field-class='{{ class|json_encode }}'
         :required='{{ required|json_encode }}'
         :readonly='{{ readonly|json_encode }}'
-        :generate='{{ field.slugUseFields|join(',')|json_encode }}'
+        :generate='{{ field.definition.uses|join(',')|json_encode }}'
         :errormessage='{{ errormessage|json_encode }}'
         :pattern='{{ pattern|json_encode }}'
         :labels='{{ {
