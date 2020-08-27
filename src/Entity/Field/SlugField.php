@@ -8,7 +8,6 @@ use Bolt\Common\Str;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
