@@ -33,9 +33,4 @@ class SlugField extends Field implements FieldInterface, ScalarCastable
 
         return $this;
     }
-
-    public function getSlugUseFields(): array
-    {
-        return Collection::wrap($this->getDefinition()->get('uses'))->toArray();
-    }
 }
