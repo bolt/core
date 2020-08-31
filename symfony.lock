@@ -118,6 +118,9 @@
             "config/packages/test/dama_doctrine_test_bundle.yaml"
         ]
     },
+    "dealerdirect/phpcodesniffer-composer-installer": {
+        "version": "v0.7.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -509,6 +512,9 @@
     "phpspec/prophecy": {
         "version": "v1.10.2"
     },
+    "phpstan/phpdoc-parser": {
+        "version": "0.4.9"
+    },
     "phpstan/phpstan": {
         "version": "0.12.11"
     },
@@ -660,6 +666,9 @@
     },
     "siriusphp/validation": {
         "version": "2.3.0"
+    },
+    "slevomat/coding-standard": {
+        "version": "6.4.0"
     },
     "squirrelphp/twig-php-syntax": {
         "version": "v1.5"
