@@ -128,13 +128,18 @@ class Widgets
         }
 
         // Call the magic `__invoke` method on the $widget object
+        // It can return a string (even an empty one) or `null`
         $output = $widget($params);
 
         if ($widget instanceof StopwatchAwareInterface) {
             $widget->stopStopwatch();
         }
 
-        $this->setRendered($widget, $output);
+        // Set the output as rendered for this Request, unless invoking it
+        // returned `null`
+        if ($output !== null) {
+            $this->setRendered($widget, $output);
+        }
 
         return $output;
     }
