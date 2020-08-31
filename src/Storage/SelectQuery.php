@@ -380,7 +380,7 @@ class SelectQuery implements QueryInterface
      */
     public function doFieldJoins(): void
     {
-        foreach ($this->fieldJoins as $key => $filter) {
+        foreach (array_keys($this->fieldJoins) as $key) {
             $contentAlias = 'content';
             $fieldsAlias = 'fields_' . $key;
             $translationsAlias = 'translations_' . $key;

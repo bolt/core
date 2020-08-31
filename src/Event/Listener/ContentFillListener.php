@@ -25,18 +25,14 @@ class ContentFillListener
     /** @var UserRepository */
     private $users;
 
-    /** @var string */
-    private $defaultLocale;
-
     /** @var FieldRepository */
     private $fieldRepository;
 
-    public function __construct(Config $config, ContentExtension $contentExtension, UserRepository $users, string $defaultLocale, FieldRepository $fieldRepository)
+    public function __construct(Config $config, ContentExtension $contentExtension, UserRepository $users, FieldRepository $fieldRepository)
     {
         $this->config = $config;
         $this->contentExtension = $contentExtension;
         $this->users = $users;
-        $this->defaultLocale = $defaultLocale;
         $this->fieldRepository = $fieldRepository;
     }
 

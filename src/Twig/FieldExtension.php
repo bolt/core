@@ -96,7 +96,8 @@ class FieldExtension extends AbstractExtension
         }
 
         $ids = $field->getValue();
-        $records = $this->contentRepository->findBy(['id' => $ids]); // Find records by their respective ids
+        // Find records by their respective ids
+        $records = $this->contentRepository->findBy(['id' => $ids]);
 
         if ($returnsingle || (! $returnarray && $definition->get('multiple') === false)) {
             return current($records);

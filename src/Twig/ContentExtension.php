@@ -480,7 +480,7 @@ class ContentExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    public function pager(Environment $twig, Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
+    public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
     {
         $params = array_merge(
             $this->request->get('_route_params'),
