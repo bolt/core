@@ -17,6 +17,7 @@
   max-width: $popover-max-width;
   // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
   // So reset our font and text properties to avoid inheriting weird values.
+
   @include reset-text();
   // Allow breaking very long words so they don't overflow the popover's bounds
   word-wrap: break-word;
