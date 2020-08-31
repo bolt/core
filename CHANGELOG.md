@@ -1,6 +1,20 @@
 Changelog
 =========
 
+## 4.0.0-rc.40
+
+Released: 2020-08-31
+
+### 🐛 Bug fixes
+
+- Fix widgets: Only setRendered if widget didn't return `null`  (bobdenotter, [#1791](https://github.com/bolt/core/pull/1791))
+- Avoid caching slug uses definition for new records (I-Valchev, [#1786](https://github.com/bolt/core/pull/1786))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Updating dependencies, Fix CS findings (bobdenotter, [#1790](https://github.com/bolt/core/pull/1790))
+
+
 ## 4.0.0-rc.39
 
 Released: 2020-08-26
