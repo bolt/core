@@ -161,6 +161,10 @@ class ContentHelper
                     return $this->localeExtension->localdate($record->getDepublishedAt(), null, $locale);
                 }
 
+                if ($match[1] === 'contenttype') {
+                    return $record->getDefinition()['singular_name'];
+                }
+
                 if ($record->hasField($match[1])) {
                     $field = $record->getField($match[1]);
 
