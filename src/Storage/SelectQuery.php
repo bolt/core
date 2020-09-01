@@ -8,7 +8,9 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr\Andx;
 use Doctrine\ORM\Query\Expr\Base;
+use Doctrine\ORM\Query\Expr\Orx;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\QueryBuilder;
 
@@ -141,9 +143,27 @@ class SelectQuery implements QueryInterface
             return false;
         }
 
+        $parameters = $this->getWhereParameters();
+
+        $id = $this->getFilter('id');
+        if (! $id instanceof Filter) {
+            $isSingleId = false;
+        } else {
+            /** @var Orx|Andx $expression */
+            $expression = $id->getExpressionObject();
+            $parts = $expression->getParts();
+
+            if (count($parts) > 1) {
+                // More than one part? Don't return single.
+                $isSingleId = false;
+            } else {
+                // Only if operator is '=', then return single.
+                $isSingleId = current($parts)->getOperator() === '=';
+            }
+        }
+
         // If we're in an "IdentifiedSelect", always return a single
-        if (array_key_exists('slug_1', $this->getWhereParameters())
-            || array_key_exists('id_1', $this->getWhereParameters())) {
+        if (array_key_exists('slug_1', $parameters) || $isSingleId) {
             return true;
         }
 
@@ -252,6 +272,13 @@ class SelectQuery implements QueryInterface
     public function getFilters(): array
     {
         return $this->filters;
+    }
+
+    public function getFilter(string $key): ?Filter
+    {
+        return array_filter($this->filters, function (Filter $filter) use ($key) {
+            return $filter->getKey() === $key;
+        })[0] ?? null;
     }
 
     /**
