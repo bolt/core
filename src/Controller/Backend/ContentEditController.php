@@ -26,6 +26,7 @@ use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\TranslationsManager;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMInvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -400,7 +401,11 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         // If the Field exists, but it has the wrong type, we'll remove the existing one.
         if (($field !== null) && ! $content->hasField($fieldName, true)) {
             $content->removeField($field);
-            $this->em->remove($field);
+            try {
+                $this->em->remove($field);
+            } catch (ORMInvalidArgumentException $e) {
+                // Suppress "Detached entity Array cannot be removed", because it'd break the Request
+            }
             $this->em->flush();
             $field = null;
         }

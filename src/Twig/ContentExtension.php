@@ -12,7 +12,6 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
-use Bolt\Entity\Field\SelectField;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
@@ -502,7 +501,7 @@ class ContentExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
-    public function selectOptions(SelectField $field): LaravelCollection
+    public function selectOptions(Field $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
 
@@ -513,7 +512,7 @@ class ContentExtension extends AbstractExtension
         return $this->selectOptionsContentType($field);
     }
 
-    private function selectOptionsArray(SelectField $field): LaravelCollection
+    private function selectOptionsArray(Field $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -546,7 +545,7 @@ class ContentExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    private function selectOptionsContentType(SelectField $field): LaravelCollection
+    private function selectOptionsContentType(Field $field): LaravelCollection
     {
         [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
 
