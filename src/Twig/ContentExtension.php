@@ -12,7 +12,6 @@ use Bolt\Entity\Field;
 use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Field\ImagelistField;
-use Bolt\Entity\Field\SelectField;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Entity\Taxonomy;
 use Bolt\Enum\Statuses;
