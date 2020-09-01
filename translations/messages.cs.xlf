@@ -1,0 +1,2305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="cs">
+  <file id="messages.en">
+    <unit id="tbB2gib" name="not_available">
+      <notes>
+        <note>templates/debug/source_code.twig:26</note>
+      </notes>
+      <segment state="translated">
+        <source>not_available</source>
+        <target>Nedostupný</target>
+      </segment>
+    </unit>
+    <unit id="DF34uM2" name="http_error.name">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>http_error.name</source>
+        <target>Chyba %status_code%</target>
+      </segment>
+    </unit>
+    <unit id="e3w.2Rf" name="http_error.description">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
+      </notes>
+      <segment state="translated">
+        <source>http_error.description</source>
+        <target>Objevila se neznámá chyba (HTTP %status_code%), která zabránila v dokončení požadavku.</target>
+      </segment>
+    </unit>
+    <unit id="ru5FEGk" name="http_error.suggestion">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>http_error.suggestion</source>
+        <target><![CDATA[Zkuste tuto stránku načíst znovu během několika minut nebo <a href="%url%">přejděte na domovskou stránku</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="Qn5rwdU" name="http_error_403.description">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
+      </notes>
+      <segment state="translated">
+        <source>http_error_403.description</source>
+        <target>K tomuto prostředku nemáte přístup.</target>
+      </segment>
+    </unit>
+    <unit id="zDeeh7L" name="http_error_403.suggestion">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>http_error_403.suggestion</source>
+        <target>Požádejte svého manažera či systémového administrátora, aby vám přiřadil potřebná práva.</target>
+      </segment>
+    </unit>
+    <unit id="_W1eNz2" name="http_error_404.description">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
+      </notes>
+      <segment state="translated">
+        <source>http_error_404.description</source>
+        <target>Nepodařilo se nám najít požadovanou stránku.</target>
+      </segment>
+    </unit>
+    <unit id="MWNS5dg" name="http_error_404.suggestion">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>http_error_404.suggestion</source>
+        <target><![CDATA[Zkontrolujte, zda jste neudělali chybu v adrese nebo <a href="%url%">přejděte na domovskou stránku</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="ZYXSW95" name="http_error_500.description">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
+      </notes>
+      <segment state="translated">
+        <source>http_error_500.description</source>
+        <target>Došlo k interní chybě serveru.</target>
+      </segment>
+    </unit>
+    <unit id="VVs_J1c" name="http_error_500.suggestion">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>http_error_500.suggestion</source>
+        <target>Zkuste tuto stránku načíst znovu během několika minut nebo &lt;a href="%url%"&gt;přejděte na domovskou stránku&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="9RwuNlf" name="title.source_code">
+      <notes>
+        <note>templates/debug/source_code.twig:17</note>
+      </notes>
+      <segment state="translated">
+        <source>title.source_code</source>
+        <target>Zdrojový kód použit pro vykreslení této stránky</target>
+      </segment>
+    </unit>
+    <unit id="jaB3QjG" name="title.controller_code">
+      <notes>
+        <note>templates/debug/source_code.twig:22</note>
+        <note>templates/debug/source_code.twig:25</note>
+      </notes>
+      <segment state="translated">
+        <source>title.controller_code</source>
+        <target>Kód controlleru</target>
+      </segment>
+    </unit>
+    <unit id="2bH7SjO" name="title.twig_template_code">
+      <notes>
+        <note>templates/debug/source_code.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>title.twig_template_code</source>
+        <target>Kód Twig šablony</target>
+      </segment>
+    </unit>
+    <unit id="1sstKF9" name="title.edit_user">
+      <notes>
+        <note>templates/users/edit.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>title.edit_user</source>
+        <target>Upravit uživatele</target>
+      </segment>
+    </unit>
+    <unit id="QbohvW1" name="action.show_code">
+      <notes>
+        <note>templates/debug/source_code.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>action.show_code</source>
+        <target>Zobraz kód</target>
+      </segment>
+    </unit>
+    <unit id="HLtdhYw" name="action.save">
+      <notes>
+        <note>templates/users/change_password.twig:18</note>
+        <note>templates/users/edit.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>action.save</source>
+        <target>Uložit změny</target>
+      </segment>
+    </unit>
+    <unit id="a2vzLi7" name="action.do_something">
+      <segment state="translated">
+        <source>action.do_something</source>
+        <target>Zmáčkni mě</target>
+      </segment>
+    </unit>
+    <unit id="etGJjTo" name="action.edit_user">
+      <notes>
+        <note>templates/users/change_password.twig:26</note>
+      </notes>
+      <segment state="translated">
+        <source>action.edit_user</source>
+        <target>Upravit uživatele</target>
+      </segment>
+    </unit>
+    <unit id="ovKkXwU" name="action.edit">
+      <segment state="translated">
+        <source>action.edit</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="LDhDPrF" name="label.username">
+      <notes>
+        <note>templates/security/login.twig:66</note>
+        <note>src/Form/UserType.php:31</note>
+      </notes>
+      <segment state="translated">
+        <source>label.username</source>
+        <target>Uživatelské jméno</target>
+      </segment>
+    </unit>
+    <unit id="VgeTgE2" name="help.show_code">
+      <notes>
+        <note>templates/debug/source_code.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>help.show_code</source>
+        <target><![CDATA[Klikněte na toto tlačítko pro zobrazení zdrojového kódu <strong>controlleru</strong> a <strong>šablony</strong> použité pro vykreslení této stránky.]]></target>
+      </segment>
+    </unit>
+    <unit id="wtG.cxy" name="info.change_password">
+      <notes>
+        <note>templates/users/change_password.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>info.change_password</source>
+        <target>Po změně hesla budete odhlášeni.</target>
+      </segment>
+    </unit>
+    <unit id="80JoLd0" name="title.login">
+      <notes>
+        <note>templates/security/login.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>title.login</source>
+        <target>Přihlášení</target>
+      </segment>
+    </unit>
+    <unit id="9pvowqn" name="label.password">
+      <notes>
+        <note>templates/security/login.twig:70</note>
+        <note>templates/security/login.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label.password</source>
+        <target>Heslo</target>
+      </segment>
+    </unit>
+    <unit id="gLN0C81" name="action.log_in">
+      <notes>
+        <note>templates/security/login.twig:84</note>
+      </notes>
+      <segment state="translated">
+        <source>action.log_in</source>
+        <target>Přihlásit se</target>
+      </segment>
+    </unit>
+    <unit id="vJwSCBO" name="title.contentlisting">
+      <notes>
+        <note>templates/content/listing.twig:9</note>
+      </notes>
+      <segment>
+        <source>title.contentlisting</source>
+        <target>Contentlisting</target>
+      </segment>
+    </unit>
+    <unit id="CX_oSFd" name="action.change_password">
+      <notes>
+        <note>templates/users/edit.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>action.change_password</source>
+        <target>Změnit heslo</target>
+      </segment>
+    </unit>
+    <unit id="SNELzJ2" name="field.id">
+      <notes>
+        <note>templates/editcontent/edit.twig:118</note>
+        <note>templates/editcontent/media_edit.twig:98</note>
+      </notes>
+      <segment>
+        <source>field.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="FuCyk5C" name="field.status">
+      <notes>
+        <note>templates/editcontent/edit.twig:76</note>
+      </notes>
+      <segment state="translated">
+        <source>field.status</source>
+        <target>Stav</target>
+      </segment>
+    </unit>
+    <unit id="O9wtVOp" name="field.createdAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:86</note>
+        <note>templates/editcontent/media_edit.twig:128</note>
+      </notes>
+      <segment state="translated">
+        <source>field.createdAt</source>
+        <target>Vytvořeno</target>
+      </segment>
+    </unit>
+    <unit id="eVkSIKu" name="field.modifiedAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:94</note>
+        <note>templates/editcontent/media_edit.twig:135</note>
+      </notes>
+      <segment state="translated">
+        <source>field.modifiedAt</source>
+        <target>Upraveno</target>
+      </segment>
+    </unit>
+    <unit id="3gdi1dy" name="field.publishedAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:102</note>
+      </notes>
+      <segment state="translated">
+        <source>field.publishedAt</source>
+        <target>Zveřejněno</target>
+      </segment>
+    </unit>
+    <unit id="eN7IfEL" name="field.depublishedAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:110</note>
+      </notes>
+      <segment state="translated">
+        <source>field.depublishedAt</source>
+        <target>Ztáhnuto</target>
+      </segment>
+    </unit>
+    <unit id="VKhfRZB" name="field.title">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>field.title</source>
+        <target>Titulek</target>
+      </segment>
+    </unit>
+    <unit id="7_wwX8J" name="field.description">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>field.description</source>
+        <target>Popis</target>
+      </segment>
+    </unit>
+    <unit id="hjDmcPC" name="field.copyright">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:59</note>
+      </notes>
+      <segment state="translated">
+        <source>field.copyright</source>
+        <target>Autorská práva</target>
+      </segment>
+    </unit>
+    <unit id="v0sitU8" name="field.originalFilename">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:66</note>
+      </notes>
+      <segment state="translated">
+        <source>field.originalFilename</source>
+        <target>Původní název souboru</target>
+      </segment>
+    </unit>
+    <unit id="vlRe8Tx" name="field.width">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:105</note>
+      </notes>
+      <segment state="translated">
+        <source>field.width</source>
+        <target>šířka</target>
+      </segment>
+    </unit>
+    <unit id="CZbXbM_" name="field.height">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:112</note>
+      </notes>
+      <segment state="translated">
+        <source>field.height</source>
+        <target>výška</target>
+      </segment>
+    </unit>
+    <unit id="Sz_u.OS" name="field.filesize">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:119</note>
+      </notes>
+      <segment state="translated">
+        <source>field.filesize</source>
+        <target>Velikost souboru</target>
+      </segment>
+    </unit>
+    <unit id="RMPnq6o" name="label.username_or_email">
+      <notes>
+        <note>templates/security/login.twig:61</note>
+      </notes>
+      <segment state="translated">
+        <source>label.username_or_email</source>
+        <target>Uživatelské jméno nebo heslo</target>
+      </segment>
+    </unit>
+    <unit id="IaF1MjB" name="label.rememberme">
+      <notes>
+        <note>templates/security/login.twig:80</note>
+      </notes>
+      <segment state="translated">
+        <source>label.rememberme</source>
+        <target>Zapamatuj si mě?</target>
+      </segment>
+    </unit>
+    <unit id="k.JymqB" name="about.visit_bolt">
+      <notes>
+        <note>templates/pages/about.twig:25</note>
+      </notes>
+      <segment state="translated">
+        <source>about.visit_bolt</source>
+        <target>Navštivte Boltcms.io</target>
+      </segment>
+    </unit>
+    <unit id="UZFanGF" name="about.bolt_documentation">
+      <notes>
+        <note>templates/pages/about.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>about.bolt_documentation</source>
+        <target>Dokumentace Bolt</target>
+      </segment>
+    </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <notes>
+        <note>templates/pages/about.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>about.bolt_on_github</source>
+        <target>Bolt na Githubu</target>
+      </segment>
+    </unit>
+    <unit id="_9fS00R" name="about.used_libraries">
+      <notes>
+        <note>templates/pages/about.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>about.used_libraries</source>
+        <target>Uživatelské knihovny / komponenty</target>
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <notes>
+        <note>templates/pages/about.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>about.list_of_used_libraries</source>
+        <target>Níže jsou uvedeny knihovny třetích stran, které Bolt používá.</target>
+      </segment>
+    </unit>
+    <unit id="aYnbvsn" name="label.fullname">
+      <notes>
+        <note>src/Form/UserType.php:35</note>
+        <note>new</note>
+      </notes>
+      <segment state="translated">
+        <source>label.fullname</source>
+        <target>Celé jméno</target>
+      </segment>
+    </unit>
+    <unit id="D2N6_cP" name="label.email">
+      <notes>
+        <note>src/Form/UserType.php:38</note>
+        <note>new</note>
+      </notes>
+      <segment state="translated">
+        <source>label.email</source>
+        <target>Emailová adresa</target>
+      </segment>
+    </unit>
+    <unit id="OBmPOoB" name="user.updated_successfully">
+      <notes>
+        <note>src/Controller/Backend/UserController.php:33</note>
+        <note>new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.updated_successfully</source>
+        <target>Aktualizace proběhla úspěšně</target>
+      </segment>
+    </unit>
+    <unit id="3hkt.eH" name="content.updated_successfully">
+      <notes>
+        <note>src/Controller/Backend/EditMediaController.php:126</note>
+        <note>src/Controller/Backend/EditRecordController.php:86</note>
+        <note>new</note>
+      </notes>
+      <segment state="translated">
+        <source>content.updated_successfully</source>
+        <target>Obsah byl úspěšně upraven</target>
+      </segment>
+    </unit>
+    <unit id="IB0mNQh" name="content.created_successfully">
+      <notes>
+        <note>src/Controller/Backend/EditMediaController.php:157</note>
+        <note>new</note>
+      </notes>
+      <segment state="translated">
+        <source>content.created_successfully</source>
+        <target>Médium bylo úspěšně vytvořeno</target>
+      </segment>
+    </unit>
+    <unit id="b1jqjUC" name="editfile.could_not_write">
+      <notes>
+        <note>src/Controller/Backend/EditFileController.php:101</note>
+        <note>new</note>
+      </notes>
+      <segment state="translated">
+        <source>editfile.could_not_write</source>
+        <target>Médium se nepodařilo zapsat</target>
+      </segment>
+    </unit>
+    <unit id="mEDsKHk" name="label.locale">
+      <segment state="translated">
+        <source>label.locale</source>
+        <target>Jazyk</target>
+      </segment>
+    </unit>
+    <unit id="98Q5SA2" name="label.backend_theme">
+      <segment state="translated">
+        <source>label.backend_theme</source>
+        <target>Šablona administrace</target>
+      </segment>
+    </unit>
+    <unit id="Oiwdkpg" name="The Default theme">
+      <segment state="translated">
+        <source>The Default theme</source>
+        <target>Výchozí šablona</target>
+      </segment>
+    </unit>
+    <unit id="C389Knp" name="The Default Dark theme">
+      <segment state="translated">
+        <source>The Default Dark theme</source>
+        <target>Výchozí tmavá šablona</target>
+      </segment>
+    </unit>
+    <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
+      <segment state="translated">
+        <source>WoordPers: Kinda looks like that other CMS</source>
+        <target>WoordPers: Vypadá tak trochu jako jiné CMS</target>
+      </segment>
+    </unit>
+    <unit id="7aLIA3c" name="caption.dashboard">
+      <segment state="translated">
+        <source>caption.dashboard</source>
+        <target>Nástěnka Bolt</target>
+      </segment>
+    </unit>
+    <unit id="xuNRuUu" name="caption.translations: messages">
+      <segment state="translated" subState="poedit:fuzzy">
+        <source>caption.translations: messages</source>
+        <target>caption.translations: messages</target>
+      </segment>
+    </unit>
+    <unit id="K6TmK4B" name="caption.clear_cache">
+      <segment state="translated">
+        <source>caption.clear_cache</source>
+        <target>Vyčistit cache</target>
+      </segment>
+    </unit>
+    <unit id="RRQ1EJ3" name="caption.check_database">
+      <segment state="translated">
+        <source>caption.check_database</source>
+        <target>Zkontrolovat databázi</target>
+      </segment>
+    </unit>
+    <unit id="cIiIXu_" name="caption.routing set up">
+      <segment state="translated" subState="poedit:fuzzy">
+        <source>caption.routing set up</source>
+        <target>caption.routing set up</target>
+      </segment>
+    </unit>
+    <unit id="2RUXD4A" name="caption.menu_setup">
+      <segment state="translated">
+        <source>caption.menu_setup</source>
+        <target>Nastavení menu</target>
+      </segment>
+    </unit>
+    <unit id="drK.0GZ" name="caption.taxonomies">
+      <segment state="translated">
+        <source>caption.taxonomies</source>
+        <target>Taxonomie</target>
+      </segment>
+    </unit>
+    <unit id="_w7J5rZ" name="caption.contenttypes">
+      <segment state="translated">
+        <source>caption.contenttypes</source>
+        <target>Typy obsahu</target>
+      </segment>
+    </unit>
+    <unit id="kXNBV9S" name="caption.main_configuration">
+      <segment state="translated">
+        <source>caption.main_configuration</source>
+        <target>Hlavní konfigurace</target>
+      </segment>
+    </unit>
+    <unit id="ipmA6Ah" name="caption.users_permissions">
+      <segment state="translated">
+        <source>caption.users_permissions</source>
+        <target><![CDATA[Uživatelé & oprávnění]]></target>
+      </segment>
+    </unit>
+    <unit id="zOLL.7E" name="caption.configuration">
+      <segment state="translated">
+        <source>caption.configuration</source>
+        <target>Konfigurace</target>
+      </segment>
+    </unit>
+    <unit id="ZO.uqIZ" name="caption.settings">
+      <segment state="translated">
+        <source>caption.settings</source>
+        <target>Nastavení</target>
+      </segment>
+    </unit>
+    <unit id="1xlE8ex" name="caption.content">
+      <segment state="translated">
+        <source>caption.content</source>
+        <target>Obsah</target>
+      </segment>
+    </unit>
+    <unit id="l4yt0BE" name="caption.file_management">
+      <segment state="translated">
+        <source>caption.file_management</source>
+        <target>Správa souborů</target>
+      </segment>
+    </unit>
+    <unit id="mfvtHPQ" name="caption.extensions">
+      <segment state="translated">
+        <source>caption.extensions</source>
+        <target>Rozšíření</target>
+      </segment>
+    </unit>
+    <unit id="K4D568R" name="caption.view_edit_templates">
+      <segment state="translated">
+        <source>caption.view_edit_templates</source>
+        <target><![CDATA[Zobrazit & upravit šablony]]></target>
+      </segment>
+    </unit>
+    <unit id="bq6bSf4" name="caption.uploaded_files">
+      <segment state="translated">
+        <source>caption.uploaded_files</source>
+        <target>Nahrané soubory</target>
+      </segment>
+    </unit>
+    <unit id="wBKDkwl" name="caption.routing_setup">
+      <segment state="translated">
+        <source>caption.routing_setup</source>
+        <target>Konfigurace routingu</target>
+      </segment>
+    </unit>
+    <unit id="dd5MzCM" name="caption.translations">
+      <segment state="translated">
+        <source>caption.translations</source>
+        <target>Překlady / značky</target>
+      </segment>
+    </unit>
+    <unit id="wLaDaK5" name="caption.about_bolt">
+      <segment state="translated">
+        <source>caption.about_bolt</source>
+        <target>O Boltu</target>
+      </segment>
+    </unit>
+    <unit id="xN1kSQQ" name="caption.bolt_payoff">
+      <segment state="translated">
+        <source>caption.bolt_payoff</source>
+        <target><![CDATA[Sofistikovaný, lehký & jednoduchý CMS]]></target>
+      </segment>
+    </unit>
+    <unit id="HK7XTUX" name="caption.edit">
+      <segment state="translated">
+        <source>caption.edit</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="QZYjRy0" name="caption.file_uploader">
+      <segment state="translated">
+        <source>caption.file_uploader</source>
+        <target>Nahrávač souborů</target>
+      </segment>
+    </unit>
+    <unit id="LaDIuZA" name="caption.meta_information">
+      <segment state="translated">
+        <source>caption.meta_information</source>
+        <target>Meta informace</target>
+      </segment>
+    </unit>
+    <unit id="DodjLNR" name="date">
+      <segment state="translated">
+        <source>date</source>
+        <target>Datum</target>
+      </segment>
+    </unit>
+    <unit id="zNy_hG8" name="size">
+      <segment state="translated">
+        <source>size</source>
+        <target>Velikost</target>
+      </segment>
+    </unit>
+    <unit id="gPYflhh" name="thumbnail">
+      <segment state="translated">
+        <source>thumbnail</source>
+        <target>Miniatura</target>
+      </segment>
+    </unit>
+    <unit id="_XSgfqS" name="filename">
+      <segment state="translated">
+        <source>filename</source>
+        <target>Název soubru</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <segment state="translated">
+        <source>actions</source>
+        <target>Akce</target>
+      </segment>
+    </unit>
+    <unit id="KHvGNGW" name="directoryname">
+      <segment state="translated">
+        <source>directoryname</source>
+        <target>Název složky</target>
+      </segment>
+    </unit>
+    <unit id="ZV7_x5F" name="action.go">
+      <segment state="translated">
+        <source>action.go</source>
+        <target>Přejít</target>
+      </segment>
+    </unit>
+    <unit id="C15MbYY" name="form.quick_select_file">
+      <segment state="translated">
+        <source>form.quick_select_file</source>
+        <target>Rychle zvolit soubor k editaci…</target>
+      </segment>
+    </unit>
+    <unit id="gFcV5nW" name="label.quick_select">
+      <segment state="translated">
+        <source>label.quick_select</source>
+        <target>Rychlý výběr</target>
+      </segment>
+    </unit>
+    <unit id="FSroufa" name="caption.path">
+      <segment state="translated">
+        <source>caption.path</source>
+        <target>Cesta</target>
+      </segment>
+    </unit>
+    <unit id="y5otxEK" name="caption.filename">
+      <segment state="translated">
+        <source>caption.filename</source>
+        <target>Název souboru</target>
+      </segment>
+    </unit>
+    <unit id="XNTbZW6" name="action.visit_site">
+      <segment state="translated">
+        <source>action.visit_site</source>
+        <target>Navštívit stránky</target>
+      </segment>
+    </unit>
+    <unit id="KfVJho2" name="action.create_new">
+      <segment state="translated">
+        <source>action.create_new</source>
+        <target>Vytvořit nové</target>
+      </segment>
+    </unit>
+    <unit id="b_RPpcB" name="general.greeting">
+      <segment state="translated">
+        <source>general.greeting</source>
+        <target>Ahoj, %name%!</target>
+      </segment>
+    </unit>
+    <unit id="bmdn3u9" name="action.logout">
+      <segment state="translated">
+        <source>action.logout</source>
+        <target>Odhlásit se</target>
+      </segment>
+    </unit>
+    <unit id="zOfpTLD" name="action.edit_profile">
+      <segment state="translated">
+        <source>action.edit_profile</source>
+        <target>Upravit profil</target>
+      </segment>
+    </unit>
+    <unit id="N_0yRcH" name="action.close_alert">
+      <segment state="translated">
+        <source>action.close_alert</source>
+        <target>zavřít</target>
+      </segment>
+    </unit>
+    <unit id="Dvu2HQx" name="caption.api">
+      <segment>
+        <source>caption.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
+    <unit id="i4cbdta" name="caption.all_configuration_files">
+      <segment state="translated">
+        <source>caption.all_configuration_files</source>
+        <target>Všechny konfigurační soubory</target>
+      </segment>
+    </unit>
+    <unit id="OpKTKAL" name="caption.maintenance">
+      <segment state="translated">
+        <source>caption.maintenance</source>
+        <target>Údržba</target>
+      </segment>
+    </unit>
+    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
+      <segment>
+        <source>caption.fixtures_dummy_content</source>
+        <target>Fixtures (Dummy Content)</target>
+      </segment>
+    </unit>
+    <unit id="P1FHg3Q" name="caption.edit_file">
+      <segment state="translated">
+        <source>caption.edit_file</source>
+        <target>Upravit soubor</target>
+      </segment>
+    </unit>
+    <unit id="_ef0RBR" name="caption.installation_checks">
+      <segment state="translated">
+        <source>caption.installation_checks</source>
+        <target>Kontroly instalace</target>
+      </segment>
+    </unit>
+    <unit id="pNPctrH" name="form.select_language">
+      <segment state="translated">
+        <source>form.select_language</source>
+        <target>Vybrat jazyk</target>
+      </segment>
+    </unit>
+    <unit id="9lJhqvA" name="field.locale">
+      <segment state="translated">
+        <source>field.locale</source>
+        <target>Jazyk</target>
+      </segment>
+    </unit>
+    <unit id="8zEzq8N" name="field.current_locale">
+      <segment state="translated">
+        <source>field.current_locale</source>
+        <target>Aktuální jazyk</target>
+      </segment>
+    </unit>
+    <unit id="ahZvOJz" name="field.switch_to_locale">
+      <segment state="translated">
+        <source>field.switch_to_locale</source>
+        <target>Přepnout na jazyk</target>
+      </segment>
+    </unit>
+    <unit id="aQX4Emy" name="field.author">
+      <segment state="translated">
+        <source>field.author</source>
+        <target>Autor</target>
+      </segment>
+    </unit>
+    <unit id="UNBaDz." name="general.phrase.edit">
+      <segment state="translated">
+        <source>general.phrase.edit</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="t2TNwOq" name="Unknown">
+      <segment state="translated">
+        <source>Unknown</source>
+        <target>Neznámé</target>
+      </segment>
+    </unit>
+    <unit id="A_d5KPt" name="general.phrase.written-by-on">
+      <segment state="translated">
+        <source>general.phrase.written-by-on</source>
+        <target>Napsal(a) %name% dne %date%.</target>
+      </segment>
+    </unit>
+    <unit id="TVU.FCV" name="general.phrase.missing-about-page">
+      <segment state="translated">
+        <source>general.phrase.missing-about-page</source>
+        <target>Stránka "O nás" chybí</target>
+      </segment>
+    </unit>
+    <unit id="7iq8jIG" name="general.phrase.missing-about-page-block">
+      <segment state="translated">
+        <source>general.phrase.missing-about-page-block</source>
+        <target>Blok "O nás" chybí</target>
+      </segment>
+    </unit>
+    <unit id="AGegYAN" name="contenttypes.generic.recent">
+      <segment state="translated">
+        <source>contenttypes.generic.recent</source>
+        <target>Nedávné %contenttypes%</target>
+      </segment>
+    </unit>
+    <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
+      <segment>
+        <source>general.phrase.search-ellipsis</source>
+        <target>…</target>
+      </segment>
+    </unit>
+    <unit id="wGlnx8X" name="general.phrase.search">
+      <segment state="translated">
+        <source>general.phrase.search</source>
+        <target>Vyhledávání</target>
+      </segment>
+    </unit>
+    <unit id="z0k8hRg" name="9fb3e6e">
+      <segment state="translated">
+        <source>9fb3e6e</source>
+        <target>Tyto stránky jsou &lt;a href='%url%' target='_blank' title='Sofistikovaný, lehký &amp; jednoduchý CMS'&gt;postaveny na Boltu&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="wNEwZy_" name="contenttypes.generic.overview">
+      <segment state="translated">
+        <source>contenttypes.generic.overview</source>
+        <target>Přehled %contenttypes%</target>
+      </segment>
+    </unit>
+    <unit id="skuzBpI" name="contenttypes.generic.no-recent">
+      <segment state="translated">
+        <source>contenttypes.generic.no-recent</source>
+        <target>Žádný nedávný %contenttype% nebyl nalezen</target>
+      </segment>
+    </unit>
+    <unit id="ma9mBv_" name="Menu">
+      <segment state="translated">
+        <source>Menu</source>
+        <target>Menu</target>
+      </segment>
+    </unit>
+    <unit id="ScJmuqq" name="Search">
+      <segment state="translated">
+        <source>Search</source>
+        <target>Hledat</target>
+      </segment>
+    </unit>
+    <unit id="k.xuYv2" name="general.phrase.permalink">
+      <segment state="translated">
+        <source>general.phrase.permalink</source>
+        <target>Trvalý odkaz</target>
+      </segment>
+    </unit>
+    <unit id="zsyp43M" name="label.displayname">
+      <segment state="translated">
+        <source>label.displayname</source>
+        <target>Zobrazované jméno</target>
+      </segment>
+    </unit>
+    <unit id="2MMvCKK" name="label.cache_cleared">
+      <segment state="translated">
+        <source>label.cache_cleared</source>
+        <target>Cache byla úspěšně vyčištěna!</target>
+      </segment>
+    </unit>
+    <unit id="Wou02nK" name="caption.kitchensink">
+      <segment>
+        <source>caption.kitchensink</source>
+        <target>The Kitchensink</target>
+      </segment>
+    </unit>
+    <unit id="wrUiAsV" name="general.phrase.search-results-for-variable">
+      <notes>
+        <note>parameters:</note>
+        <note> '%search%': consequatur</note>
+      </notes>
+      <segment state="translated">
+        <source>general.phrase.search-results-for-variable</source>
+        <target>Výsledky hledání pro '%search%'.</target>
+      </segment>
+    </unit>
+    <unit id="2CfJ3WY" name="general.phrase.search-results-for">
+      <notes>
+        <note>parameters:</note>
+        <note> '%search%': ymnrubeyrvwearsytevsf</note>
+      </notes>
+      <segment state="translated">
+        <source>general.phrase.search-results-for</source>
+        <target>Výsledky hledání pro '%search%'.</target>
+      </segment>
+    </unit>
+    <unit id="V0VhH5g" name="general.phrase.no-search-results-for">
+      <notes>
+        <note>parameters:</note>
+        <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
+      </notes>
+      <segment state="translated">
+        <source>general.phrase.no-search-results-for</source>
+        <target>Pro '%search%' nebyly nalezeny žádné výsledky.</target>
+      </segment>
+    </unit>
+    <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
+      <segment state="translated">
+        <source>general.phrase.no-search-term-provided</source>
+        <target>Pro zobrazení relevantních výsledků, prosím zadejte termín pro hledání.</target>
+      </segment>
+    </unit>
+    <unit id="Pily_qo" name="general.phrase.read-more">
+      <segment state="translated">
+        <source>general.phrase.read-more</source>
+        <target>Číst dále</target>
+      </segment>
+    </unit>
+    <unit id="psOa_9x" name="general.phrase.built-with-bolt">
+      <segment state="translated">
+        <source>general.phrase.built-with-bolt</source>
+        <target><![CDATA[Tyto stránky jsou <a href='https://boltcms.io' target='_blank' title='Sofistikovaný, lehký & jednoduchý CMS'>postaveny na Boltu</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="5IxD63c" name="general.latest_bolt_news">
+      <segment state="translated">
+        <source>general.latest_bolt_news</source>
+        <target>Novinky Boltu</target>
+      </segment>
+    </unit>
+    <unit id="dQIY7_J" name="action.preview">
+      <segment state="translated">
+        <source>action.preview</source>
+        <target>Náhled</target>
+      </segment>
+    </unit>
+    <unit id="ok6YulQ" name="action.view_saved">
+      <segment state="translated">
+        <source>action.view_saved</source>
+        <target>Zobrazit uloženou verzi</target>
+      </segment>
+    </unit>
+    <unit id="SeTqePC" name="label.display_name">
+      <segment state="translated">
+        <source>label.display_name</source>
+        <target>Zobrazované jméno</target>
+      </segment>
+    </unit>
+    <unit id="EvAqL__" name="caption.duplicate">
+      <segment state="translated">
+        <source>caption.duplicate</source>
+        <target>Kopie</target>
+      </segment>
+    </unit>
+    <unit id="pGkejkU" name="label.current_password">
+      <segment state="translated">
+        <source>label.current_password</source>
+        <target>Aktuální heslo</target>
+      </segment>
+    </unit>
+    <unit id="iiWFLaI" name="label.new_password">
+      <segment state="translated">
+        <source>label.new_password</source>
+        <target>Nové heslo</target>
+      </segment>
+    </unit>
+    <unit id="Ucl9Jfc" name="label.new_password_confirm">
+      <segment state="translated">
+        <source>label.new_password_confirm</source>
+        <target>Nové heslo (znovu)</target>
+      </segment>
+    </unit>
+    <unit id="Iyry5.g" name="editfile.updated_successfully">
+      <segment state="translated">
+        <source>editfile.updated_successfully</source>
+        <target>Soubor byl úspěšně aktualizován!</target>
+      </segment>
+    </unit>
+    <unit id="3zlZmRK" name="action.add_user">
+      <segment state="translated">
+        <source>action.add_user</source>
+        <target>Přidat uživatele</target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment state="translated">
+        <source>success</source>
+        <target>Úspěch!</target>
+      </segment>
+    </unit>
+    <unit id="YDH.7uR" name="user.updated_profile">
+      <segment state="translated">
+        <source>user.updated_profile</source>
+        <target>Uživatelský profil byl aktualizován!</target>
+      </segment>
+    </unit>
+    <unit id="iD6CNOO" name="label.roles">
+      <segment state="translated">
+        <source>label.roles</source>
+        <target>Role</target>
+      </segment>
+    </unit>
+    <unit id="7whLbH8" name="user.new_user">
+      <segment state="translated">
+        <source>user.new_user</source>
+        <target>Nový uživatel</target>
+      </segment>
+    </unit>
+    <unit id="TtmWqX3" name="action.view">
+      <segment state="translated">
+        <source>action.view</source>
+        <target>Zobrazit</target>
+      </segment>
+    </unit>
+    <unit id="I2ykiIZ" name="caption.folders">
+      <segment state="translated">
+        <source>caption.folders</source>
+        <target>Složky</target>
+      </segment>
+    </unit>
+    <unit id="kaK5Wdr" name="slug.button_locked">
+      <segment state="translated">
+        <source>slug.button_locked</source>
+        <target>Uzamčeno</target>
+      </segment>
+    </unit>
+    <unit id="qcDEz5O" name="slug.button_edit">
+      <segment state="translated">
+        <source>slug.button_edit</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="raO5QSf" name="slug.generate_from">
+      <segment state="translated">
+        <source>slug.generate_from</source>
+        <target>Vygenerovat z:</target>
+      </segment>
+    </unit>
+    <unit id="vptPhch" name="image.button_upload">
+      <segment state="translated">
+        <source>image.button_upload</source>
+        <target>Nahrát</target>
+      </segment>
+    </unit>
+    <unit id="vIVO1lU" name="image.button_from_library">
+      <segment state="translated">
+        <source>image.button_from_library</source>
+        <target>Z knihovny</target>
+      </segment>
+    </unit>
+    <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
+      <segment state="translated">
+        <source>listing_table.actions.view_on_site</source>
+        <target>Zobrazit na stránkách</target>
+      </segment>
+    </unit>
+    <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
+      <segment state="translated">
+        <source>listing_table.actions.status_to_publish</source>
+        <target>Změnit stav na 'zveřejněno'</target>
+      </segment>
+    </unit>
+    <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
+      <segment state="translated">
+        <source>listing_table.actions.status_to_held</source>
+        <target>Změnit stav na 'pozdrženo'</target>
+      </segment>
+    </unit>
+    <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
+      <segment state="translated">
+        <source>listing_table.actions.status_to_draft</source>
+        <target>Změnit stav na 'koncept'</target>
+      </segment>
+    </unit>
+    <unit id="5H60Xq6" name="listing_table.actions.duplicate">
+      <segment state="translated">
+        <source>listing_table.actions.duplicate</source>
+        <target>Duplikovat</target>
+      </segment>
+    </unit>
+    <unit id="hR8ri.m" name="listing_table.actions.delete">
+      <segment state="translated">
+        <source>listing_table.actions.delete</source>
+        <target>Smazat</target>
+      </segment>
+    </unit>
+    <unit id="5zbX1vo" name="listing_table.actions.slug">
+      <segment>
+        <source>listing_table.actions.slug</source>
+        <target>Slug</target>
+      </segment>
+    </unit>
+    <unit id="wKDOBOC" name="listing_table.actions.created_on">
+      <segment state="translated">
+        <source>listing_table.actions.created_on</source>
+        <target>Vytvořeno</target>
+      </segment>
+    </unit>
+    <unit id="tVX01Xl" name="listing_table.actions.published_on">
+      <segment state="translated">
+        <source>listing_table.actions.published_on</source>
+        <target>Zveřejněno</target>
+      </segment>
+    </unit>
+    <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
+      <segment state="translated">
+        <source>listing_table.actions.last_modified_on</source>
+        <target>Naposledy upraveno</target>
+      </segment>
+    </unit>
+    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
+      <segment state="translated">
+        <source>listing_select_box.card_header.selected</source>
+        <target>Vybráno</target>
+      </segment>
+    </unit>
+    <unit id="jBpmj90" name="listing_select_box.card_body.records_passed">
+      <segment state="translated">
+        <source>listing_select_box.card_body.records_passed</source>
+        <target>vybrané id předaných položek</target>
+      </segment>
+    </unit>
+    <unit id="D8vDkhK" name="listing_select_box.card_body.remark">
+      <segment state="translated">
+        <source>listing_select_box.card_body.remark</source>
+        <target>(tyto mohou být použity s něčím jako axios pro hromadnou úpravu/mazání)</target>
+      </segment>
+    </unit>
+    <unit id="kHeY93_" name="editor_embed.content_url">
+      <segment state="translated">
+        <source>editor_embed.content_url</source>
+        <target>URL adresa obsahu pro vložení</target>
+      </segment>
+    </unit>
+    <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
+      <segment state="translated">
+        <source>editor_embed.placeholder_content_url</source>
+        <target>URL adresa obsahu na Facebook, Twitter, Soundcloud, Youtube, Vimeo…</target>
+      </segment>
+    </unit>
+    <unit id="1.Eb1GS" name="editor_embed.label_height">
+      <segment state="translated">
+        <source>editor_embed.label_height</source>
+        <target>Výška</target>
+      </segment>
+    </unit>
+    <unit id="eWLSFJs" name="editor_embed.label_pixel">
+      <segment state="translated">
+        <source>editor_embed.label_pixel</source>
+        <target>pixel</target>
+      </segment>
+    </unit>
+    <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
+      <segment>
+        <source>editor_embed.label_matched_embed</source>
+        <target>Matched Embed</target>
+      </segment>
+    </unit>
+    <unit id="zATju4V" name="editor_embed.label_preview">
+      <segment state="translated">
+        <source>editor_embed.label_preview</source>
+        <target>Náhled</target>
+      </segment>
+    </unit>
+    <unit id="9SQ0oaR" name="editor_embed.label_size">
+      <segment state="translated">
+        <source>editor_embed.label_size</source>
+        <target>Velikost</target>
+      </segment>
+    </unit>
+    <unit id="oOuVKRv" name="image.placeholder_filename">
+      <segment state="translated">
+        <source>image.placeholder_filename</source>
+        <target>Název souboru (nahrajte nový soubor nebo vyberte existující)</target>
+      </segment>
+    </unit>
+    <unit id="BWubOnS" name="image.placeholder_alt_text">
+      <segment state="translated">
+        <source>image.placeholder_alt_text</source>
+        <target>Alt atribut</target>
+      </segment>
+    </unit>
+    <unit id="VPV0lFM" name="image.placeholder_title">
+      <segment state="translated">
+        <source>image.placeholder_title</source>
+        <target>Title atribut</target>
+      </segment>
+    </unit>
+    <unit id="Gabafxx" name="admin_sidebar.toggler">
+      <segment state="translated">
+        <source>admin_sidebar.toggler</source>
+        <target>Přepnout šířku panelu</target>
+      </segment>
+    </unit>
+    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+      <segment state="translated">
+        <source>admin_sidebar_toggler.toggle</source>
+        <target><![CDATA[<span class="sr-only">Přepnout </span>menu]]></target>
+      </segment>
+    </unit>
+    <unit id="BINgtmK" name="editor_date.toggle">
+      <segment state="translated">
+        <source>editor_date.toggle</source>
+        <target>Přepnout</target>
+      </segment>
+    </unit>
+    <unit id="VQ2t655" name="file.label_filename">
+      <segment state="translated">
+        <source>file.label_filename</source>
+        <target>Název souboru</target>
+      </segment>
+    </unit>
+    <unit id="tvpSmD7" name="file.label_title">
+      <segment state="translated">
+        <source>file.label_title</source>
+        <target>Titulek</target>
+      </segment>
+    </unit>
+    <unit id="hXT_hI." name="file.button_view">
+      <segment state="translated">
+        <source>file.button_view</source>
+        <target>Zobrazit obrázek</target>
+      </segment>
+    </unit>
+    <unit id="QKIqqOw" name="file.button_upload">
+      <segment state="translated">
+        <source>file.button_upload</source>
+        <target>Nahrát obrázek</target>
+      </segment>
+    </unit>
+    <unit id="4_JdYp1" name="file.remark">
+      <segment state="translated">
+        <source>file.remark</source>
+        <target><![CDATA[Poznámka: Toto pole je prakticky stejné jako pole <code>image</code>.]]></target>
+      </segment>
+    </unit>
+    <unit id="TJDc9vQ" name="file.label_alt">
+      <segment>
+        <source>file.label_alt</source>
+        <target>Alt</target>
+      </segment>
+    </unit>
+    <unit id="M.3olSc" name="filelist.remark">
+      <segment state="translated">
+        <source>filelist.remark</source>
+        <target><![CDATA[Poznámka: Toto pole je prakticky stejné jako pole <code>imagelist</code>.]]></target>
+      </segment>
+    </unit>
+    <unit id="zg5Dum5" name="geolocation.label_geolocation">
+      <segment state="translated">
+        <source>geolocation.label_geolocation</source>
+        <target>Geolokace:</target>
+      </segment>
+    </unit>
+    <unit id="Com0pbc" name="geolocation.label_address">
+      <segment state="translated">
+        <source>geolocation.label_address</source>
+        <target>Vyhledávání adresy</target>
+      </segment>
+    </unit>
+    <unit id="3o0LPHj" name="geolocation.placeholder_address">
+      <segment state="translated">
+        <source>geolocation.placeholder_address</source>
+        <target>Ulice, PSČ, město nebo jiná lokace…</target>
+      </segment>
+    </unit>
+    <unit id="CC5QTmy" name="geolocation.label_lat">
+      <segment state="translated">
+        <source>geolocation.label_lat</source>
+        <target>Zeměpisná šířka</target>
+      </segment>
+    </unit>
+    <unit id="MJ5WYEM" name="geolocation.label_address_matched">
+      <segment state="translated">
+        <source>geolocation.label_address_matched</source>
+        <target>Souhlasící adresa</target>
+      </segment>
+    </unit>
+    <unit id="WJGjWG8" name="geolocation.label_marker">
+      <segment state="translated">
+        <source>geolocation.label_marker</source>
+        <target>Umístění popisovače</target>
+      </segment>
+    </unit>
+    <unit id="SaP3OOf" name="geolocation.label_control">
+      <segment state="translated">
+        <source>geolocation.label_control</source>
+        <target>Připnout k nejbližší adrese</target>
+      </segment>
+    </unit>
+    <unit id="AHaenW3" name="geolocation.label_long">
+      <segment state="translated">
+        <source>geolocation.label_long</source>
+        <target>Zeměpisná délka</target>
+      </segment>
+    </unit>
+    <unit id="TkryUve" name="imagelist.remark">
+      <segment state="translated">
+        <source>imagelist.remark</source>
+        <target><![CDATA[Poznámka: Toto pole je prakticky stejné jako pole <code>filelist</code>.]]></target>
+      </segment>
+    </unit>
+    <unit id="z2AgHGp" name="flash_messages.notification">
+      <segment state="translated">
+        <source>flash_messages.notification</source>
+        <target>Oznámení</target>
+      </segment>
+    </unit>
+    <unit id="qQKx1lR" name="buttons.button_toggle">
+      <segment>
+        <source>buttons.button_toggle</source>
+        <target>Toggle Dropdown</target>
+      </segment>
+    </unit>
+    <unit id="ypPzS03" name="localeswitcher.button_info">
+      <segment state="translated">
+        <source>localeswitcher.button_info</source>
+        <target>Zobrazit informace o lokalizaci</target>
+      </segment>
+    </unit>
+    <unit id="wQ0WYAT" name="listing.title_sortby">
+      <segment state="translated">
+        <source>listing.title_sortby</source>
+        <target>Řadit dle</target>
+      </segment>
+    </unit>
+    <unit id="ZGv90X8" name="listing.option_select_item">
+      <segment state="translated">
+        <source>listing.option_select_item</source>
+        <target>Vybrat položku</target>
+      </segment>
+    </unit>
+    <unit id="TIyjgb6" name="listing.title_title">
+      <segment state="translated">
+        <source>listing.title_title</source>
+        <target>Titulek</target>
+      </segment>
+    </unit>
+    <unit id="pn22p7q" name="listing.placeholder_filter">
+      <segment state="translated">
+        <source>listing.placeholder_filter</source>
+        <target>Hledat podle klíčového slova…</target>
+      </segment>
+    </unit>
+    <unit id="ni4zApC" name="listing.button_filter">
+      <segment state="translated">
+        <source>listing.button_filter</source>
+        <target>Filtrovat</target>
+      </segment>
+    </unit>
+    <unit id="doNsgm0" name="listing.button_clear">
+      <segment state="translated">
+        <source>listing.button_clear</source>
+        <target>Vyčistit řazení/filtr</target>
+      </segment>
+    </unit>
+    <unit id="37kJiIe" name="view_locales.badge_default">
+      <segment state="translated">
+        <source>view_locales.badge_default</source>
+        <target>Výchozí</target>
+      </segment>
+    </unit>
+    <unit id="JTRCo_U" name="view_locales.badge_ok">
+      <segment>
+        <source>view_locales.badge_ok</source>
+        <target>OK</target>
+      </segment>
+    </unit>
+    <unit id="ufFUPp7" name="view_locales.badge_missing">
+      <segment state="translated">
+        <source>view_locales.badge_missing</source>
+        <target>Chybějící</target>
+      </segment>
+    </unit>
+    <unit id="QQvRJe." name="files_cards.button_toggle">
+      <segment>
+        <source>files_cards.button_toggle</source>
+        <target>Toggle Dropdown</target>
+      </segment>
+    </unit>
+    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
+      <segment state="translated">
+        <source>files_cards.action_edit_image_info</source>
+        <target>Upravit informace o obrázku</target>
+      </segment>
+    </unit>
+    <unit id="5LXvJfE" name="files_cards.action_edit_file">
+      <segment state="translated">
+        <source>files_cards.action_edit_file</source>
+        <target>Upravit soubor v editoru</target>
+      </segment>
+    </unit>
+    <unit id="H1pgP94" name="files_cards.action_view_original">
+      <segment state="translated">
+        <source>files_cards.action_view_original</source>
+        <target>Zobrazit originál</target>
+      </segment>
+    </unit>
+    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
+      <segment state="translated">
+        <source>files_cards.action_duplicate</source>
+        <target>Duplikovat</target>
+      </segment>
+    </unit>
+    <unit id="JjU6ZQP" name="files_cards.action_delete">
+      <segment state="translated">
+        <source>files_cards.action_delete</source>
+        <target>Smazat</target>
+      </segment>
+    </unit>
+    <unit id="3jdNwuk" name="files_cards.label_filename">
+      <segment state="translated">
+        <source>files_cards.label_filename</source>
+        <target>Název souboru:</target>
+      </segment>
+    </unit>
+    <unit id="Y90_Pn1" name="files_cards.label_title">
+      <segment state="translated">
+        <source>files_cards.label_title</source>
+        <target>Titulek:</target>
+      </segment>
+    </unit>
+    <unit id="EdCfIKX" name="files_cards.label_dimensions">
+      <segment state="translated">
+        <source>files_cards.label_dimensions</source>
+        <target>Rozměry:</target>
+      </segment>
+    </unit>
+    <unit id="eQBhceV" name="files_cards.label_filesize">
+      <segment state="translated">
+        <source>files_cards.label_filesize</source>
+        <target>Název souboru:</target>
+      </segment>
+    </unit>
+    <unit id="uiCjlwk" name="files_cards.label_created_on">
+      <segment state="translated">
+        <source>files_cards.label_created_on</source>
+        <target>Vytvrořeno:</target>
+      </segment>
+    </unit>
+    <unit id=".fL0AbE" name="files_list.remark">
+      <segment>
+        <source>files_list.remark</source>
+        <target>No files are present in this folder. Select a folder to navigate to.</target>
+      </segment>
+    </unit>
+    <unit id="v6cfPyt" name="quickselect.title_select">
+      <segment state="translated">
+        <source>quickselect.title_select</source>
+        <target>Vyberte soubor:</target>
+      </segment>
+    </unit>
+    <unit id="m3tNvJb" name="finder.button_list">
+      <segment state="translated">
+        <source>finder.button_list</source>
+        <target>Seznam</target>
+      </segment>
+    </unit>
+    <unit id="tRLgeoX" name="finder.button_cards">
+      <segment state="translated">
+        <source>finder.button_cards</source>
+        <target>Karty</target>
+      </segment>
+    </unit>
+    <unit id="nrWBJNm" name="extensions.title_desc">
+      <segment state="translated">
+        <source>extensions.title_desc</source>
+        <target>Popis:</target>
+      </segment>
+    </unit>
+    <unit id="7raDJAR" name="extensions.title_author">
+      <segment state="translated">
+        <source>extensions.title_author</source>
+        <target>Autor:</target>
+      </segment>
+    </unit>
+    <unit id="UP8pNGy" name="extensions.title_package">
+      <segment state="translated">
+        <source>extensions.title_package</source>
+        <target>Název balíčku / třídy</target>
+      </segment>
+    </unit>
+    <unit id="QFQ1uTC" name="extensions.title_version">
+      <segment state="translated">
+        <source>extensions.title_version</source>
+        <target>Verze:</target>
+      </segment>
+    </unit>
+    <unit id="piuatxC" name="extensions.info_not_installed">
+      <segment state="translated">
+        <source>extensions.info_not_installed</source>
+        <target>Toto je místní balíček, není nainstalován pomocí Composeru</target>
+      </segment>
+    </unit>
+    <unit id="3j1gEmk" name="extensions.title_class">
+      <segment state="translated">
+        <source>extensions.title_class</source>
+        <target>Název třídy:</target>
+      </segment>
+    </unit>
+    <unit id="mjhFljb" name="extensions.button_configuration">
+      <segment state="translated">
+        <source>extensions.button_configuration</source>
+        <target>Konfigurace</target>
+      </segment>
+    </unit>
+    <unit id="r3ryNTG" name="extensions.button_source">
+      <segment state="translated">
+        <source>extensions.button_source</source>
+        <target>Zdroj</target>
+      </segment>
+    </unit>
+    <unit id="qc3rFkZ" name="extensions.button_remove">
+      <segment state="translated">
+        <source>extensions.button_remove</source>
+        <target>Odebrat rozšíření</target>
+      </segment>
+    </unit>
+    <unit id="SLZyVzU" name="extensions.button_disable">
+      <segment state="translated">
+        <source>extensions.button_disable</source>
+        <target>Zakázat rozšíření</target>
+      </segment>
+    </unit>
+    <unit id="beqzCkE" name="login.header_login">
+      <segment state="translated">
+        <source>login.header_login</source>
+        <target>Bolt » Přihlášení</target>
+      </segment>
+    </unit>
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
+      <segment state="translated">
+        <source>extensions.message_not_implemented</source>
+        <target>Dosud neimplementováno. Promiň!</target>
+      </segment>
+    </unit>
+    <unit id="Hlf9c1s" name="listing.title_overview">
+      <segment state="translated">
+        <source>listing.title_overview</source>
+        <target>Přehled</target>
+      </segment>
+    </unit>
+    <unit id="8JeahIj" name="files_cards.message_no_files">
+      <segment>
+        <source>files_cards.message_no_files</source>
+        <target>No files are present in this folder. Select a folder to navigate to, on the right-hand side.</target>
+      </segment>
+    </unit>
+    <unit id="pcq1NGk" name="listing_filter.button_compact">
+      <segment state="translated">
+        <source>listing_filter.button_compact</source>
+        <target>Kompaktní</target>
+      </segment>
+    </unit>
+    <unit id="xIztVmp" name="listing_filter.button_expanded">
+      <segment state="translated">
+        <source>listing_filter.button_expanded</source>
+        <target>Rozšířené</target>
+      </segment>
+    </unit>
+    <unit id="73A2bWM" name="finder.label_view">
+      <segment state="translated">
+        <source>finder.label_view</source>
+        <target>Zobrazení:</target>
+      </segment>
+    </unit>
+    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+      <segment state="translated">
+        <source>listing_table.actions.button_edit</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="Iy4HXCU" name="controller.user.title">
+      <segment state="translated">
+        <source>controller.user.title</source>
+        <target><![CDATA[Uživatelé & oprávnění]]></target>
+      </segment>
+    </unit>
+    <unit id="HBwIQ9b" name="controller.user.subtitle">
+      <segment state="translated">
+        <source>controller.user.subtitle</source>
+        <target>Pro úpravu uživatelů a jejich oprávnění</target>
+      </segment>
+    </unit>
+    <unit id="rkVeKe_" name="controller.authentication.reset_title">
+      <segment state="translated">
+        <source>controller.authentication.reset_title</source>
+        <target>Resetovat heslo</target>
+      </segment>
+    </unit>
+    <unit id="lN_rF8O" name="controller.authentication.reset_subtitle">
+      <segment state="translated">
+        <source>controller.authentication.reset_subtitle</source>
+        <target>Pro resetování hesla, pokud jste jej ztratili</target>
+      </segment>
+    </unit>
+    <unit id="0Gyf5xr" name="controller.database.check_title">
+      <segment state="translated">
+        <source>controller.database.check_title</source>
+        <target>Zkontrolovat databázi</target>
+      </segment>
+    </unit>
+    <unit id="SeDwjX6" name="controller.database.check_subtitle">
+      <segment state="translated">
+        <source>controller.database.check_subtitle</source>
+        <target>Pro kontrolu databáze</target>
+      </segment>
+    </unit>
+    <unit id="nJnALPG" name="controller.database.update_title">
+      <segment state="translated">
+        <source>controller.database.update_title</source>
+        <target>Aktualizace databáze</target>
+      </segment>
+    </unit>
+    <unit id="nRE74_i" name="controller.database.update_subtitle">
+      <segment state="translated">
+        <source>controller.database.update_subtitle</source>
+        <target>Pro aktualizaci databáze</target>
+      </segment>
+    </unit>
+    <unit id="a3UNsKw" name="controller.omnisearch.title">
+      <segment>
+        <source>controller.omnisearch.title</source>
+        <target>Omnisearch</target>
+      </segment>
+    </unit>
+    <unit id="4N41oTU" name="controller.omnisearch.subtitle">
+      <segment>
+        <source>controller.omnisearch.subtitle</source>
+        <target>To search, in an omni-like fashion</target>
+      </segment>
+    </unit>
+    <unit id="7cXqH5s" name="listing.title_display_name">
+      <segment state="translated">
+        <source>listing.title_display_name</source>
+        <target>Zobrazované jméno</target>
+      </segment>
+    </unit>
+    <unit id="Ay7xZ2h" name="listing.title_username">
+      <segment state="translated">
+        <source>listing.title_username</source>
+        <target>Uživatelské jméno</target>
+      </segment>
+    </unit>
+    <unit id="RN1tdtJ" name="listing.title_email">
+      <segment>
+        <source>listing.title_email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="0pjZ.GV" name="listing.title_roles">
+      <segment state="translated">
+        <source>listing.title_roles</source>
+        <target>Role</target>
+      </segment>
+    </unit>
+    <unit id="hXEFV1n" name="listing.title_last_seen">
+      <segment state="translated">
+        <source>listing.title_last_seen</source>
+        <target>Délka relace</target>
+      </segment>
+    </unit>
+    <unit id="pn7kE17" name="listing.title_last_ip">
+      <segment state="translated">
+        <source>listing.title_last_ip</source>
+        <target>Poslední IP</target>
+      </segment>
+    </unit>
+    <unit id="GZ65uOC" name="listing.title_actions">
+      <segment state="translated">
+        <source>listing.title_actions</source>
+        <target>Akce</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment state="translated">
+        <source>user.not_valid_email</source>
+        <target>Chybný email</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment state="translated">
+        <source>user.not_valid_password</source>
+        <target>Chybné heslo. Heslo by mělo obsahovat minimálně 6 znaků.</target>
+      </segment>
+    </unit>
+    <unit id="TpGxDI3" name="user.unknown_user">
+      <segment state="translated">
+        <source>user.unknown_user</source>
+        <target>Neznámý uživatel</target>
+      </segment>
+    </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <segment state="translated">
+        <source>label.predominant_colors__in_image</source>
+        <target>Převládající barvy v obrázku</target>
+      </segment>
+    </unit>
+    <unit id="8RPjZ5w" name="general.phrase.overview-for">
+      <segment state="translated">
+        <source>general.phrase.overview-for</source>
+        <target>Přehled pro '%slug%'</target>
+      </segment>
+    </unit>
+    <unit id="6mze9DI" name="general.phrase.related-content">
+      <segment state="translated">
+        <source>general.phrase.related-content</source>
+        <target>Související obsah</target>
+      </segment>
+    </unit>
+    <unit id="odDw0du" name="action.search">
+      <segment state="translated">
+        <source>action.search</source>
+        <target>Hledat</target>
+      </segment>
+    </unit>
+    <unit id="QoeqyPT" name="caption.new_contenttype">
+      <segment state="translated">
+        <source>caption.new_contenttype</source>
+        <target>Nový %contenttype%</target>
+      </segment>
+    </unit>
+    <unit id="n.jOrkg" name="caption.untitled_contenttype">
+      <segment state="translated">
+        <source>caption.untitled_contenttype</source>
+        <target>Nepojmenovaný %contenttype%</target>
+      </segment>
+    </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <segment state="translated">
+        <source>title.edit_user_profile</source>
+        <target>Upravit uživatelský profil</target>
+      </segment>
+    </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <segment state="translated">
+        <source>caption.redirection_page</source>
+        <target>Stránka přesměrování</target>
+      </segment>
+    </unit>
+    <unit id="TtIlBDd" name="caption.edit_image">
+      <segment state="translated">
+        <source>caption.edit_image</source>
+        <target>Upravit obrázek</target>
+      </segment>
+    </unit>
+    <unit id="MClSUET" name="general.phrase.select_language">
+      <segment state="translated">
+        <source>general.phrase.select_language</source>
+        <target>Vyberte jazyk</target>
+      </segment>
+    </unit>
+    <unit id="hiE9jap" name="password.suggested">
+      <segment state="translated">
+        <source>password.suggested</source>
+        <target><![CDATA[Navrhované bezpečné heslo: <code>%password%</code>]]></target>
+      </segment>
+    </unit>
+    <unit id="fLOd6Zd" name="field.cropX">
+      <segment state="translated">
+        <source>field.cropX</source>
+        <target>Oříznout X</target>
+      </segment>
+    </unit>
+    <unit id="Sd_AbmV" name="field.cropXPostfix">
+      <segment>
+        <source>field.cropXPostfix</source>
+        <target>Position of crop on X-axis, range 0-100. </target>
+      </segment>
+    </unit>
+    <unit id="BQBmQHT" name="field.cropYPostfix">
+      <segment>
+        <source>field.cropYPostfix</source>
+        <target>Position of crop on Y-axis, range 0-100. </target>
+      </segment>
+    </unit>
+    <unit id="hi98HIj" name="field.cropY">
+      <segment state="translated">
+        <source>field.cropY</source>
+        <target>Oříznout Y</target>
+      </segment>
+    </unit>
+    <unit id="PHOpD5y" name="field.cropZoom">
+      <segment>
+        <source>field.cropZoom</source>
+        <target>Crop zoomfactor</target>
+      </segment>
+    </unit>
+    <unit id="tn6Z8wY" name="field.cropZoomPostfix">
+      <segment>
+        <source>field.cropZoomPostfix</source>
+        <target>Zoom-level of crop, range 1-10. </target>
+      </segment>
+    </unit>
+    <unit id="n.3JZvX" name="title.contentType">
+      <segment state="translated">
+        <source>title.contentType</source>
+        <target>Typ obsahu</target>
+      </segment>
+    </unit>
+    <unit id="TSkqRw3" name="listing.title_taxonomy">
+      <segment state="translated">
+        <source>listing.title_taxonomy</source>
+        <target>Taxonomie</target>
+      </segment>
+    </unit>
+    <unit id="Hr2E9Oa" name="listing_table.no_results">
+      <segment>
+        <source>listing_table.no_results</source>
+        <target>No results found. Broaden the filtering criteria, or add some more content.</target>
+      </segment>
+    </unit>
+    <unit id="hp554Ds" name="listing.option_select_sortby">
+      <segment>
+        <source>listing.option_select_sortby</source>
+        <target>Select Field to sort by…</target>
+      </segment>
+    </unit>
+    <unit id="JEnqOi." name="title.primary_actions">
+      <segment state="translated">
+        <source>title.primary_actions</source>
+        <target>Primární akce</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <segment state="translated">
+        <source>title.options</source>
+        <target>Možnosti</target>
+      </segment>
+    </unit>
+    <unit id="hTKWQ6g" name="action.delete">
+      <segment state="translated">
+        <source>action.delete</source>
+        <target>Smazat</target>
+      </segment>
+    </unit>
+    <unit id="ezqx.4H" name="action.enable">
+      <segment state="translated">
+        <source>action.enable</source>
+        <target>Povolit</target>
+      </segment>
+    </unit>
+    <unit id="ryXZRAu" name="action.disable">
+      <segment state="translated">
+        <source>action.disable</source>
+        <target>Zakázat</target>
+      </segment>
+    </unit>
+    <unit id="29MN3Ip" name="user.enabled_successfully">
+      <segment state="translated">
+        <source>user.enabled_successfully</source>
+        <target>Uživatel byl úspěšně povolen!</target>
+      </segment>
+    </unit>
+    <unit id="nj8qBZ5" name="user.disabled_successfully">
+      <segment state="translated">
+        <source>user.disabled_successfully</source>
+        <target>Uživatel byl úspěšně zakázán!</target>
+      </segment>
+    </unit>
+    <unit id="Npkio79" name="listing.title_session_expires">
+      <segment>
+        <source>listing.title_session_expires</source>
+        <target>Session expires</target>
+      </segment>
+    </unit>
+    <unit id="mmUDcto" name="listing.title_ip_address">
+      <segment state="translated">
+        <source>listing.title_ip_address</source>
+        <target>IP adresa</target>
+      </segment>
+    </unit>
+    <unit id="x9qAwrz" name="listing.title_browser">
+      <segment state="translated">
+        <source>listing.title_browser</source>
+        <target>Prohlížeč / platforma</target>
+      </segment>
+    </unit>
+    <unit id="FqVh1Hv" name="image.button_remove">
+      <segment state="translated">
+        <source>image.button_remove</source>
+        <target>Odebrat</target>
+      </segment>
+    </unit>
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
+      <segment state="translated">
+        <source>image.button_edit_attributes</source>
+        <target>Upravit atributy</target>
+      </segment>
+    </unit>
+    <unit id="s14vS9S" name="image.button_move_up">
+      <segment state="translated">
+        <source>image.button_move_up</source>
+        <target>Posunout výše</target>
+      </segment>
+    </unit>
+    <unit id="xoOPAPl" name="image.button_move_down">
+      <segment state="translated">
+        <source>image.button_move_down</source>
+        <target>Posunout níže</target>
+      </segment>
+    </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <segment state="translated">
+        <source>image.add_new_image</source>
+        <target>Přidat nový obrázek</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <segment state="translated">
+        <source>file.add_new_file</source>
+        <target>Přidat nový soubor</target>
+      </segment>
+    </unit>
+    <unit id=".t1ICS7" name="collection.remove_item">
+      <segment state="translated">
+        <source>collection.remove_item</source>
+        <target>Odebrat položku</target>
+      </segment>
+    </unit>
+    <unit id="0C9.Vmh" name="collection.add_item">
+      <segment state="translated">
+        <source>collection.add_item</source>
+        <target>Přidat položku do %name%</target>
+      </segment>
+    </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <segment state="translated">
+        <source>collection.move_item_up</source>
+        <target>Posunout výše</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <segment state="translated">
+        <source>collection.move_item_down</source>
+        <target>Posunout níže</target>
+      </segment>
+    </unit>
+    <unit id="BFARQEU" name="extensions.button_detailed_view">
+      <segment state="translated">
+        <source>extensions.button_detailed_view</source>
+        <target>Zobrazit detaily</target>
+      </segment>
+    </unit>
+    <unit id="hgNZLwW" name="extensions.title_configuration">
+      <segment state="translated">
+        <source>extensions.title_configuration</source>
+        <target>Konfigurační soubor</target>
+      </segment>
+    </unit>
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
+      <segment state="translated">
+        <source>caption.file_upload.upload_text</source>
+        <target>Přetáhněte sem soubory pro nahrání</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <segment state="translated">
+        <source>pager.next</source>
+        <target>Další</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment state="translated">
+        <source>pager.previous</source>
+        <target>Předchozí</target>
+      </segment>
+    </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <segment state="translated">
+        <source>image.button_up</source>
+        <target>Nahoru</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <segment state="translated">
+        <source>image.button_down</source>
+        <target>Dolů</target>
+      </segment>
+    </unit>
+    <unit id="fon6eNN" name="general.phrase.download">
+      <segment state="translated">
+        <source>general.phrase.download</source>
+        <target>Stáhnout</target>
+      </segment>
+    </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <segment state="translated">
+        <source>caption.logviewer</source>
+        <target>Prohlížeč protokolu</target>
+      </segment>
+    </unit>
+    <unit id="FlGE3qB" name="label.request">
+      <segment state="translated">
+        <source>label.request</source>
+        <target>Požadavek</target>
+      </segment>
+    </unit>
+    <unit id="l71Tprl" name="label.trace">
+      <segment>
+        <source>label.trace</source>
+        <target>Trace</target>
+      </segment>
+    </unit>
+    <unit id="29ZEo1r" name="label.context">
+      <segment state="translated">
+        <source>label.context</source>
+        <target>Kontext</target>
+      </segment>
+    </unit>
+    <unit id="txRonia" name="label.id">
+      <segment>
+        <source>label.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="IwLLxxx" name="label.level">
+      <segment state="translated">
+        <source>label.level</source>
+        <target>Úroveň</target>
+      </segment>
+    </unit>
+    <unit id="51OQi14" name="label.message">
+      <segment state="translated">
+        <source>label.message</source>
+        <target>Zpráva</target>
+      </segment>
+    </unit>
+    <unit id="S0f6iTL" name="label.timestamp">
+      <segment state="translated">
+        <source>label.timestamp</source>
+        <target>Čas</target>
+      </segment>
+    </unit>
+    <unit id="O2X4xZH" name="label.user">
+      <segment state="translated">
+        <source>label.user</source>
+        <target>Uživatel</target>
+      </segment>
+    </unit>
+    <unit id="3MuwWwe" name="listing.disabled">
+      <segment state="translated">
+        <source>listing.disabled</source>
+        <target>Zakázáno</target>
+      </segment>
+    </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <segment state="translated">
+        <source>slug.button_unlocked</source>
+        <target>Odemčeno</target>
+      </segment>
+    </unit>
+    <unit id="jz2qkbb" name="general.phrase.no-content-found">
+      <segment state="translated">
+        <source>general.phrase.no-content-found</source>
+        <target>Nebyl nalezen žádný obsah</target>
+      </segment>
+    </unit>
+    <unit id="FM8B.gO" name="general.phrase.empty-database">
+      <segment state="translated">
+        <source>general.phrase.empty-database</source>
+        <target>Vypadá to, že je databáze prázdná.  Write some content in the Bolt backend, or run the command to add some fixtures (dummy content). </target>
+      </segment>
+    </unit>
+    <unit id="SGlj7K2" name="view_locales.badge_empty">
+      <segment state="translated">
+        <source>view_locales.badge_empty</source>
+        <target>Prázdné</target>
+      </segment>
+    </unit>
+    <unit id="WeJxw6Z" name="action.update_all">
+      <segment state="translated">
+        <source>action.update_all</source>
+        <target>Použít na vše</target>
+      </segment>
+    </unit>
+    <unit id="QVRwwK4" name="about.system_info">
+      <segment state="translated">
+        <source>about.system_info</source>
+        <target>Systémové informace</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment state="translated">
+        <source>user.not_valid_display_name</source>
+        <target>Chybné zobrazované jméno</target>
+      </segment>
+    </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <segment state="translated">
+        <source>action.confirm_delete</source>
+        <target>Opravdu si přejete smazat tento obsah?</target>
+      </segment>
+    </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <segment state="translated">
+        <source>placeholder.username_or_email</source>
+        <target>vaše uživatelské jméno nebo email</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <segment state="translated">
+        <source>placeholder.password</source>
+        <target>vaše heslo</target>
+      </segment>
+    </unit>
+    <unit id="KshyLfh" name="caption.other_content">
+      <segment state="translated">
+        <source>caption.other_content</source>
+        <target>Další obsah</target>
+      </segment>
+    </unit>
+    <unit id="wHOF8eG" name="editfile.target_not_writable">
+      <segment state="translated">
+        <source>editfile.target_not_writable</source>
+        <target>Ukládání je zakázáno, protože do cílového souboru nelze zapisovat.</target>
+      </segment>
+    </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <segment state="translated">
+        <source>label.translatable</source>
+        <target>Toto pole je přeložitelné</target>
+      </segment>
+    </unit>
+    <unit id="qqpGLJl" name="label.content">
+      <segment state="translated">
+        <source>label.content</source>
+        <target>Obsah</target>
+      </segment>
+    </unit>
+    <unit id="v7ZTnja" name="file.delete_success">
+      <segment state="translated">
+        <source>file.delete_success</source>
+        <target>Soubor byl úspěšně smazán!</target>
+      </segment>
+    </unit>
+    <unit id="wHPoBzP" name="file.delete_confirm">
+      <segment state="translated">
+        <source>file.delete_confirm</source>
+        <target>Opravdu si přejete smazat tento soubor?</target>
+      </segment>
+    </unit>
+    <unit id="IWbf2by" name="listing.title_filterby">
+      <segment state="translated">
+        <source>listing.title_filterby</source>
+        <target>Hledat / filtrovat podle</target>
+      </segment>
+    </unit>
+    <unit id="Zssh7In" name="content.status_changed_successfully">
+      <segment state="translated">
+        <source>content.status_changed_successfully</source>
+        <target>Stav byl úspěšně změněn</target>
+      </segment>
+    </unit>
+    <unit id="GOhQBY9" name="content.deleted_successfully">
+      <segment state="translated">
+        <source>content.deleted_successfully</source>
+        <target>Obsah byl úspěšně smazán</target>
+      </segment>
+    </unit>
+    <unit id=".I3mIHo" name="label.current_status">
+      <segment state="translated">
+        <source>label.current_status</source>
+        <target>Aktuální stav</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaQ" name="status.published">
+      <segment state="translated">
+        <source>status.published</source>
+        <target>Zveřejněno</target>
+      </segment>
+    </unit>
+    <unit id="HJbHjee" name="status.draft">
+      <segment state="translated">
+        <source>status.draft</source>
+        <target>Koncept</target>
+      </segment>
+    </unit>
+    <unit id="h7dP3WY" name="status.timed">
+      <segment state="translated">
+        <source>status.timed</source>
+        <target>Naplánováno</target>
+      </segment>
+    </unit>
+    <unit id="oxqDDuK" name="status.held">
+      <segment state="translated">
+        <source>status.held</source>
+        <target>Pozdrženo</target>
+      </segment>
+    </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <segment state="translated">
+        <source>collection.confirm_delete</source>
+        <target>Opravdu si přejete smazat tuto položku kolekce?</target>
+      </segment>
+    </unit>
+    <unit id="YZJO3Ul" name="upload.allow_file_types">
+      <segment state="translated">
+        <source>upload.allow_file_types</source>
+        <target>Typy souborů povolené pro nahrání</target>
+      </segment>
+    </unit>
+    <unit id="noOf4ML" name="upload.max_size">
+      <segment state="translated">
+        <source>upload.max_size</source>
+        <target>Maximální velikost souboru pro nahrání</target>
+      </segment>
+    </unit>
+    <unit id="O_m7mx1" name="listing.placeholder_search">
+      <segment state="translated">
+        <source>listing.placeholder_search</source>
+        <target>Hledat klíčové slovo …</target>
+      </segment>
+    </unit>
+    <unit id="munFS0n" name="title.filtered_by">
+      <segment state="translated">
+        <source>title.filtered_by</source>
+        <target><![CDATA[Všechen obsah, filtrován podle <em>'%filter%'</em>.]]></target>
+      </segment>
+    </unit>
+    <unit id="GPd6Hap" name="action.view_site">
+      <segment state="translated">
+        <source>action.view_site</source>
+        <target>Zobrazit stránky</target>
+      </segment>
+    </unit>
+    <unit id="f.rvF6y" name="action.new">
+      <segment state="translated">
+        <source>action.new</source>
+        <target>Nové</target>
+      </segment>
+    </unit>
+    <unit id="60xy4WG" name="extensions.no_dependencies">
+      <segment state="translated">
+        <source>extensions.no_dependencies</source>
+        <target>Žádné známé závislosti</target>
+      </segment>
+    </unit>
+    <unit id="LfwezhR" name="extensions.title_dependencies">
+      <segment state="translated">
+        <source>extensions.title_dependencies</source>
+        <target>Závislosti</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
