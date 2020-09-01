@@ -546,7 +546,7 @@ class ContentExtension extends AbstractExtension
         return new LaravelCollection($options);
     }
 
-    private function selectOptionsContentType(SelectField $field): LaravelCollection
+    private function selectOptionsContentType(Field $field): LaravelCollection
     {
         [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
 
