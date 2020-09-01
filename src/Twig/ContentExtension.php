@@ -502,7 +502,7 @@ class ContentExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
-    public function selectOptions(SelectField $field): LaravelCollection
+    public function selectOptions(Field $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
 
@@ -513,7 +513,7 @@ class ContentExtension extends AbstractExtension
         return $this->selectOptionsContentType($field);
     }
 
-    private function selectOptionsArray(SelectField $field): LaravelCollection
+    private function selectOptionsArray(Field $field): LaravelCollection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();

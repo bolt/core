@@ -336,7 +336,7 @@ class Content
         $this->author = $author;
     }
 
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         if (Statuses::isValid($this->status) === false) {
             $this->status = $this->getDefinition()->get('default_status');
