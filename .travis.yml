@@ -1,6 +1,9 @@
 language: php
 dist: xenial
 sudo: false
+env:
+  - APP_ENV=prod APP_DEBUG=0
+  - APP_ENV=dev APP_DEBUG=1
 
 addons:
   chrome: stable
