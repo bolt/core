@@ -33,7 +33,7 @@ class PathResolver
             'var' => '%site%/var',
             'cache' => '%var%/cache',
             'config' => '%site%/config',
-            'database' => '%var%/database',
+            'database' => '%var%/data',
             'extensions' => '%site%/extensions',
             'extensions_config' => '%config%/extensions',
             'web' => '%site%/' . $public,
