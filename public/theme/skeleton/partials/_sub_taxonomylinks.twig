@@ -1,8 +1,8 @@
 {% for type, taxonomies in record|taxonomies %}
     <em>
-        {% if taxonomies|length < 2 %}
+        {% if taxonomies|length == 1 %}
             {{ config.get('taxonomies')[type].singular_name }}:
-        {% else %}
+        {% elseif taxonomies|length > 1 %}
             {{ config.get('taxonomies')[type].name }}:
         {% endif %}
     </em>
