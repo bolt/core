@@ -430,6 +430,15 @@ class ContentExtension extends AbstractExtension
     public function getTaxonomies(Content $content): Collection
     {
         $taxonomies = [];
+
+        $definition = $content->getDefinition();
+
+        if ($definition && is_iterable($definition->get('taxonomy'))) {
+            foreach ($definition->get('taxonomy') as $taxonomy) {
+                $taxonomies[$taxonomy] = [];
+            }
+        }
+
         foreach ($content->getTaxonomies() as $taxonomy) {
             $taxonomies[$taxonomy->getType()][$taxonomy->getSlug()] = $taxonomy;
         }
