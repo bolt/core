@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Event\Listener;
 
 use Bolt\Entity\FieldInterface;
-use Doctrine\Common\Persistence\Mapping\Driver\MappingDriver;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\ORMException;
+use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 
 /**
  * Greatly inspired by:
