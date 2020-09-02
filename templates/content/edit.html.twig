@@ -5,9 +5,17 @@
 {% for key, fielddefinition in record.definition.fields %}
     {% set alltypes = alltypes|merge([fielddefinition.type]) %}
 {% endfor %}
-{% set displayTitle = record|title(currentlocale)|default(record.id ?
-    __('caption.untitled_contenttype', {'%contenttype%': record.definition.singular_name}) :
-    __('caption.new_contenttype', {'%contenttype%': record.definition.singular_name}) ) %}
+
+{# Set the displayTitle, according to the record being new or not, whether it has a title set and if it's a singleton #}
+{% if record|title(currentlocale) %}
+    {% set displayTitle = record|title(currentlocale) %}
+{% elseif record.id %}
+    {% set displayTitle = __('caption.untitled_contenttype', {'%contenttype%': record.definition.singular_name}) %}
+{% elseif record.definition.singleton %}
+    {% set displayTitle = record.definition.singular_name %}
+{% else %}
+    {% set displayTitle = __('caption.new_contenttype', {'%contenttype%': record.definition.singular_name}) %}
+{% endif %}
 
 {# The 'title' and 'shoulder' blocks are the main heading of the page. #}
 {% block shoulder %}
