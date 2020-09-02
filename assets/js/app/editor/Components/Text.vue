@@ -48,7 +48,7 @@ export default {
         return 'form-control-lg';
       }
 
-      return '';
+      return this.type;
     },
   },
   watch: {
