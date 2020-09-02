@@ -51,7 +51,7 @@
         something like '/pages', effectively creating a working link to that
         ContentTypes's listing page. #}
 
-    {% for ct in config.get('contenttypes')|filter(ct => not ct.viewless) %}
+    {% for ct in config.get('contenttypes')|filter(ct => not ct.viewless and not ct.singleton) %}
 
         {% setcontent records = ct.slug latest limit 3 %}
 
