@@ -15,4 +15,4 @@ Feature: Visiting the Kitchensink
 
     And I should see "Title:" in the "label[for='field-title']" element
     And I should see an "input#field-title" element
-    And I should see "shown on the homepage" in the "span#field-title_postfix" element
+    And I should see "shown on the homepage" in the "div#field-title_postfix" element
