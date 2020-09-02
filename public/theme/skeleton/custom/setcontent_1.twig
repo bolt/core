@@ -191,4 +191,19 @@
             {% endif %}
         </ul>
     </section>
+
+    <section id="thirteen">
+        <h1>Thirteen</h1>
+        {% setcontent showcases = 'showcases' printquery %}
+        {% set showcases = showcases|order('-floatfield') %}
+
+        Results: <span id="results-nine">{{ showcases|length > 0 ? 'yes' }}</span>
+        <ul>
+            {% for showcase in showcases %}
+                <li>showcase {{ showcase.id }}: {{ showcase.floatfield }}
+                    <span class="s{{ loop.index }}">{{ _self.issmaller(showcase.floatfield, last|default()) }}</span>
+                </li>
+                {% set last = showcase.floatfield %}
+            {% endfor %}
+    </section>
 {% endblock main %}
