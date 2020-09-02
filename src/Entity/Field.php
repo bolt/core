@@ -80,7 +80,7 @@ class Field implements FieldInterface, TranslatableInterface
         $value = $this->getTwigValue();
 
         if (is_array($value)) {
-            $value = implode('', Arr::flatten($value, INF));
+            $value = implode('', Arr::flatten($value, PHP_INT_MAX));
         }
 
         return (string) $value;
