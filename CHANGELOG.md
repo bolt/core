@@ -1,6 +1,37 @@
 Changelog
 =========
 
+## 4.0.0-rc.41
+
+Released: 2020-09-02
+
+### 🐛 Bug fixes
+
+- Don't list Singleton ContentTypes in Aside (bobdenotter, [#1814](https://github.com/bolt/core/pull/1814))
+- Fall back to `DetailController` when trying to "list" a Singleton ContentType (bobdenotter, [#1813](https://github.com/bolt/core/pull/1813))
+- Fix `Notice: Array to string conversion` in `Field.php` by ensuring  the  array is one level deep. (bobdenotter, [#1811](https://github.com/bolt/core/pull/1811))
+- Make order filter work with `ContentHelper::get()` options (I-Valchev, [#1809](https://github.com/bolt/core/pull/1809))
+- Minor fix: Set database path correctly (bobdenotter, [#1801](https://github.com/bolt/core/pull/1801))
+- Fix breakage in PROD for `type: select` fields (bobdenotter, [#1800](https://github.com/bolt/core/pull/1800))
+- shouldreturnsingle handles id filtering based on operator (I-Valchev, [#1799](https://github.com/bolt/core/pull/1799))
+- Include taxonomy types if no taxonomies set (I-Valchev, [#1795](https://github.com/bolt/core/pull/1795))
+
+### 🛠️ Miscellaneous
+
+- Allow for more flexibility with `class: foo` in Text fields (bobdenotter, [#1810](https://github.com/bolt/core/pull/1810))
+- Show appropriate `displayTitle` for new "Singleton" Record (bobdenotter, [#1807](https://github.com/bolt/core/pull/1807))
+- Allow for more control over formatting of prefix and postfix (bobdenotter, [#1806](https://github.com/bolt/core/pull/1806))
+- WIP: Czech localization (VentyCZ, [#1803](https://github.com/bolt/core/pull/1803))
+- Version bump in `doctrine/common` broke this (bobdenotter, [#1802](https://github.com/bolt/core/pull/1802))
+- Allow `contenttype` in title formatting (For "Select" fields) (bobdenotter, [#1797](https://github.com/bolt/core/pull/1797))
+- Remove `max-width` from prefix and postfix (eduardomart, [#1796](https://github.com/bolt/core/pull/1796))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Update `UnderscoreNamingStrategy` in `doctrine.yaml` (bobdenotter, [#1812](https://github.com/bolt/core/pull/1812))
+- Fix deprecation in RouteCollectionBuilder (bobdenotter, [#1815](https://github.com/bolt/core/pull/1815))
+
+
 ## 4.0.0-rc.40
 
 Released: 2020-08-31

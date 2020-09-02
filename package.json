@@ -1,6 +1,6 @@
 {
   "name": "bolt",
-  "version": "4.0.0-rc.40",
+  "version": "4.0.0-rc.41",
   "homepage": "https://boltcms.io",
   "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
   "license": "MIT",
@@ -33,7 +33,7 @@
     "bootbox": "^5.4.0",
     "bootstrap": "^4.5.2",
     "browserslist": "^4.14.0",
-    "caniuse-lite": "^1.0.30001118",
+    "caniuse-lite": "^1.0.30001122",
     "codemirror": "^5.57.0",
     "dropzone": "^5.7.2",
     "flagpack": "^1.0.5",
@@ -61,11 +61,11 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.4",
+    "@babel/core": "^7.11.5",
     "@babel/plugin-transform-regenerator": "^7.10.4",
-    "@babel/plugin-transform-runtime": "^7.11.0",
-    "@babel/polyfill": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@symfony/webpack-encore": "^0.30.2",
     "@vue/test-utils": "^1.0.5",
