@@ -7,6 +7,7 @@ namespace Bolt\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
@@ -79,7 +80,7 @@ class Field implements FieldInterface, TranslatableInterface
         $value = $this->getTwigValue();
 
         if (is_array($value)) {
-            $value = implode('', $value);
+            $value = implode('', Arr::flatten($value, INF));
         }
 
         return (string) $value;
