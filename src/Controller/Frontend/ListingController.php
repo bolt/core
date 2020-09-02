@@ -6,8 +6,10 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
+use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Query;
+use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -47,8 +49,15 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             'order' => $order,
         ]);
 
-        $records = $this->query->getContent($contentTypeSlug, $params)
-            ->setMaxPerPage($amountPerPage)
+        /** @var Content|Pagerfanta $content */
+        $content = $this->query->getContent($contentTypeSlug, $params);
+
+        // If we're foolishly trying to "list" a singleton, we're getting a single Content here
+        if ($content instanceof Content) {
+            return $this->forward('Bolt\Controller\Frontend\DetailController::record', ['slugOrId' => $content->getId()]);
+        }
+
+        $records = $content->setMaxPerPage($amountPerPage)
             ->setCurrentPage($page);
 
         $templates = $this->templateChooser->forListing($contentType);
