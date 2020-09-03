@@ -25,7 +25,7 @@ class ContentSaveSubscriber implements EventSubscriberInterface
 
     public function postSave(ContentEvent $event): ContentEvent
     {
-        // Make sure we flush the cache for the menu's
+        // Make sure we flush the cache for the menus
         $this->cache->invalidateTags(['backendmenu', 'frontendmenu']);
 
         // Saving an entry in the log.
@@ -39,10 +39,34 @@ class ContentSaveSubscriber implements EventSubscriberInterface
         return $event;
     }
 
+    public function preDelete(ContentEvent $event): ContentEvent
+    {
+        // Saving an entry in the log now. post_delete doesn't have content anymore.
+        $context = [
+            'content_id' => $event->getContent()->getId(),
+            'content_type' => $event->getContent()->getContentType(),
+            'title' => $event->getContent()->getExtras()['title'],
+        ];
+
+        $this->logger->info('Deleted content "{title}" ({content_type} № {content_id})', $context);
+
+        return $event;
+    }
+
+    public function postDelete(ContentEvent $event): ContentEvent
+    {
+        // Make sure we flush the cache for the menus
+        $this->cache->invalidateTags(['backendmenu', 'frontendmenu']);
+
+        return $event;
+    }
+
     public static function getSubscribedEvents()
     {
         return [
             ContentEvent::POST_SAVE => ['postSave', self::PRIORITY],
+            ContentEvent::PRE_DELETE => ['preDelete', self::PRIORITY],
+            ContentEvent::POST_DELETE => ['postDelete', self::PRIORITY],
         ];
     }
 }
