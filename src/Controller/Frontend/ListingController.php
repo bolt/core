@@ -54,7 +54,10 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         // If we're foolishly trying to "list" a singleton, we're getting a single Content here
         if ($content instanceof Content) {
-            return $this->forward('Bolt\Controller\Frontend\DetailController::record', ['slugOrId' => $content->getId()]);
+            $route = $content->getDefinition()->get('record_route');
+            $controller = $this->container->get('router')->getRouteCollection()->get($route)->getDefault('_controller');
+
+            return $this->forward($controller, ['slugOrId' => $content->getId()]);
         }
 
         $records = $content->setMaxPerPage($amountPerPage)
