@@ -81,7 +81,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $queryParams = collect($request->query->all());
 
-        $result = $queryParams->mapWithKeys(function ($value, $key) {
+        return $queryParams->mapWithKeys(function ($value, $key) {
             if (str::endsWith($key, '--like')) {
                 $key = str::removeLast($key, '--like');
                 $value = '%' . $value . '%';
@@ -89,7 +89,5 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
             return [$key => $value];
         })->toArray();
-
-        return $result;
     }
 }
