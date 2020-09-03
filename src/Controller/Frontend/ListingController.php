@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
+use Bolt\Common\Str;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Query;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,8 +43,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $page = (int) $this->getFromRequest('page', '1');
         $amountPerPage = $contentType->get('listing_records');
         $order = $this->getFromRequest('order', $contentType->get('order'));
-
-        $queryParams = $this->config->get('general/query_search') ? $this->request->query->all() : [];
+        $queryParams = $this->parseQueryParams($this->request);
 
         $params = array_merge($queryParams, [
             'status' => 'published',
@@ -70,5 +71,25 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         ];
 
         return $this->render($templates, $twigVars);
+    }
+
+    private function parseQueryParams(Request $request): array
+    {
+        if ($this->config->get('general/query_search') === false) {
+            return [];
+        }
+
+        $queryParams = collect($request->query->all());
+
+        $result = $queryParams->mapWithKeys(function ($value, $key) {
+            if (str::endsWith($key, '--like')) {
+                $key = str::removeLast($key, '--like');
+                $value = '%' . $value . '%';
+            }
+
+            return [$key => $value];
+        })->toArray();
+
+        return $result;
     }
 }
