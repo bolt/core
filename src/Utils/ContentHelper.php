@@ -175,6 +175,13 @@ class ContentHelper
                     return $field;
                 }
 
+                // We must ensure this method is not called recursively. For example
+                // `title_format: {title}` would otherwise result in an endless loop
+                // @see https://github.com/bolt/core/issues/1825
+                if (Recursion::detect()) {
+                    return '(recursion)';
+                }
+
                 if (array_key_exists($match[1], $record->getExtras())) {
                     // If it's the icon, return an html element
                     if ($match[1] === 'icon') {
