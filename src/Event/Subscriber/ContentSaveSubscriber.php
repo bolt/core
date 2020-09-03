@@ -55,7 +55,7 @@ class ContentSaveSubscriber implements EventSubscriberInterface
 
     public function postDelete(ContentEvent $event): ContentEvent
     {
-        // Make sure we flush the cache for the menu's
+        // Make sure we flush the cache for the menus
         $this->cache->invalidateTags(['backendmenu', 'frontendmenu']);
 
         return $event;
