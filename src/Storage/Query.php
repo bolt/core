@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Storage;
 
 use Bolt\Entity\Content;
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 
 class Query
@@ -73,9 +74,15 @@ class Query
      *
      * @param string $textQuery The base part like `pages` or `pages/1`
      * @param array $parameters Parameters like `printquery` and `paging`, but also `where` parameters taken from `... where { foo: bar } ...`
+     *
+     * @return Pagerfanta|Content|null
      */
     public function getContentForTwig(string $textQuery, array $parameters = [])
     {
+        if (empty($textQuery)) {
+            return new Pagerfanta(new ArrayAdapter([]));
+        }
+
         return $this->getContentByScope('frontend', $textQuery, $parameters);
     }
 }
