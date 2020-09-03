@@ -86,6 +86,10 @@ class ContentRepository extends ServiceEntityRepository
 
     public function searchNaive(string $searchTerm, int $page, int $amountPerPage, Collection $contentTypes, bool $onlyPublished = true): Pagerfanta
     {
+        // todo: Optimise this, we probably don't need two separate queries.
+        // Better still, deprecate this in favour of {% setcontent %}-like search.
+        // It handles edge cases (search in taxonomies/select fields) better.
+
         // First, create a querybuilder to get the fields that match the Query
         $qb = $this->getQueryBuilder()
             ->select('partial content.{id}');
@@ -102,7 +106,7 @@ class ContentRepository extends ServiceEntityRepository
         // Next, we'll get the full Content objects, based on ID's
         $qb = $this->getQueryBuilder()
             ->addSelect('a')
-            ->innerJoin('content.author', 'a')
+            ->leftJoin('content.author', 'a')
             ->orderBy('content.modifiedAt', 'DESC');
 
         if ($onlyPublished) {
