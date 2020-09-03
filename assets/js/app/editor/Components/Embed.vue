@@ -22,9 +22,12 @@
                 <button
                   class="btn btn-tertiary refresh"
                   type="button"
+                  :disabled="loading"
                   @click="updateEmbed"
                 >
-                  <i class="fas fa-sync mr-0"></i>
+                  <i
+                    :class="(loading ? 'fa-spin' : '') + ' fas fa-sync mr-0'"
+                  ></i>
                 </button>
 
                 <button
@@ -148,6 +151,7 @@ export default {
       titleData: this.title,
       urlData: this.url,
       widthData: this.width,
+      loading: false,
     };
   },
   watch: {
@@ -177,6 +181,7 @@ export default {
   },
   methods: {
     updateEmbed: function() {
+      this.loading = true;
       this.debouncedFetchEmbed();
     },
     clearEmbed: function() {
@@ -205,6 +210,9 @@ export default {
         })
         .catch(err => {
           console.warn(err);
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
   },
