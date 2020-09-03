@@ -48,6 +48,9 @@ class Sanitiser
         $definition->addAttribute('a', 'allowfullscreen', 'Text');
         $definition->addAttribute('a', 'scrolling', 'Text');
 
+        // Allow src tag in iframe for embed fields
+        $definition->addAttribute('iframe', 'src', 'Text');
+
         $this->purifier = new \HTMLPurifier($purifierConfig);
 
         return $this->purifier;
