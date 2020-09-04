@@ -2349,5 +2349,17 @@
         <target>Dependencies</target>
       </segment>
     </unit>
+    <unit id="H9knE.O" name="collection.expand_all">
+      <segment>
+        <source>collection.expand_all</source>
+        <target>Expand all</target>
+      </segment>
+    </unit>
+    <unit id="JjvI6hp" name="collection.collapse_all">
+      <segment>
+        <source>collection.collapse_all</source>
+        <target>Collapse all</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

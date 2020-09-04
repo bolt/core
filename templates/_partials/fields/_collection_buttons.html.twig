@@ -1,11 +1,10 @@
 {% if in_collection is defined %}
-    <div class="float-right" role="group" aria-label="Collection buttons">
-    <input type="hidden" name="collections[{{ collection_name }}][order][]" value="{{ hash }}" />
-
+    <div class="float-right btn-group" role="group" aria-label="Collection buttons">
     <button class='action-move-up-collection-item btn btn-secondary btn-sm' {% if is_first is defined and is_first %} disabled {% endif %}>
         <i class="fas fa-fw fa-chevron-up"></i>
         {{ 'collection.move_item_up'|trans }}
     </button>
+    <input type="hidden" name="collections[{{ collection_name }}][order][]" value="{{ hash }}" />
     <button class='action-move-down-collection-item btn btn-secondary btn-sm' {% if is_last is defined and is_last %} disabled {% endif %}>
         <i class="fas fa-fw fa-chevron-down"></i>
         {{ 'collection.move_item_down'|trans }}

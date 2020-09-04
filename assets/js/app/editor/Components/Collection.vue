@@ -1,5 +1,20 @@
 <template>
   <div ref="collectionContainer" class="collection-container">
+    <div class="expand-buttons">
+      <label>{{labels.field_label}}</label>
+
+      <div class="btn-group" role="group">
+        <button class='btn btn-secondary btn-sm collection-expand-all'>
+          <i class="fas fa-fw fa-expand-alt"></i>
+          {{ labels.expand_all }}
+        </button>
+        <button class='btn btn-secondary btn-sm collection-collapse-all'>
+          <i class="fas fa-fw fa-compress-alt"></i>
+          {{ labels.collapse_all }}
+        </button>
+      </div>
+    </div>
+
     <div v-for="element in existingFields" :key="element.hash" class="collection-item">
       <details>
         <summary>
@@ -82,6 +97,8 @@ export default {
         remove: '.action-remove-collection-item',
         moveUp: '.action-move-up-collection-item',
         moveDown: '.action-move-down-collection-item',
+        expandAll: '.collection-expand-all',
+        collapseAll: '.collection-collapse-all',
       },
     };
   },
@@ -136,6 +153,18 @@ export default {
       vueThis.setButtonsState(nextCollectionItem);
     });
 
+    window.$(document).on('click', vueThis.selector.expandAll, function(e){
+      e.preventDefault();
+      const collection = $(e.target).closest(vueThis.selector.collectionContainer);
+      collection.find('details').attr('open', '');
+    });
+
+    window.$(document).on('click', vueThis.selector.collapseAll, function(e){
+      e.preventDefault()
+      const collection = $(e.target).closest(vueThis.selector.collectionContainer);
+      collection.find('details').removeAttr('open');
+    });
+
     /**
      * Update the title dynamically.
      */
@@ -158,6 +187,15 @@ export default {
       const title = $(input).val();
       $(item).find('.collection-item-title').first().text(title);
     }
+
+    /**
+     * Open newly inserted collection items.
+     */
+    $(document).on('DOMNodeInserted', function(e) {
+      if ( $(e.target).hasClass('collection-item') ) {
+        $(e.target).find('details').first().attr('open', '');
+      }
+    });
 
   },
   updated() {

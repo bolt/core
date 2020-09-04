@@ -1,6 +1,16 @@
 //** Fields | Collection
 
 .collection-container {
+  .expand-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+
+    .btn-group {
+      height: min-content;
+    }
+  }
+
   .collection-item {
     summary {
       margin-bottom: 1rem;
