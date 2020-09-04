@@ -255,8 +255,8 @@ Feature: Edit record
     And I press "Save changes"
     Then I should be on "/bolt/edit/43#collections"
 
-    And the field ".collection-item:nth-child(3) input[type='text']" should contain "Hey, Bolt"
-    And the field ".collection-item:nth-child(4) textarea" should contain "Bye, Bolt"
+    And the field ".collection-item:nth-child(4) input[type='text']" should contain "Hey, Bolt"
+    And the field ".collection-item:nth-child(5) textarea" should contain "Bye, Bolt"
 
     When I scroll the 3rd "Remove item" into view
     And I press the 3rd "Remove item" button

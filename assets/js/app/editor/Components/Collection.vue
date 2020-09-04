@@ -34,6 +34,7 @@
       </details>
     </div>
 
+    <small>{{labels.select_tooltip}}</small>
     <div class="d-flex">
       <editor-select
         ref="templateSelect"
