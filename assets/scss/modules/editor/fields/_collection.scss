@@ -2,22 +2,26 @@
 
 .collection-container {
   .collection-item {
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    summary:before {
-      content: "►";
-      vertical-align: 25%; // middle of line
-      margin-right: 0.5rem;
-    }
-
-    details[open] summary:before {
-      content: "▼";
-    }
-
     summary {
       margin-bottom: 1rem;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &::before {
+        content: "►";
+        vertical-align: 25%; // middle of line
+        margin-right: 0.5rem;
+      }
+    }
+
+    details[open] summary::before {
+      content: "▼";
     }
 
     .collection-item-title {
