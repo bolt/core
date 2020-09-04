@@ -1,7 +1,18 @@
 <template>
   <div ref="collectionContainer" class="collection-container">
-    <div v-for="element in elements" :key="element.id" class="collection-item">
-      <div :is="element"></div>
+    <div v-for="element in existingFields" :key="element.hash" class="collection-item">
+      <details>
+        <summary>
+          <!-- Initial title. This is replaced by dynamic title in JS below. -->
+          <div class="collection-item-title">{{ element.label }}</div>
+
+          <!-- Navigation buttons -->
+          <div :is="compile(element.buttons)"></div>
+        </summary>
+
+        <!-- The actual field -->
+        <div :is="compile(element.content)"></div>
+      </details>
     </div>
 
     <div class="d-flex">
@@ -28,6 +39,7 @@
 
 <script>
 import Vue from 'vue';
+import $ from 'jquery';
 var uniqid = require('locutus/php/misc/uniqid');
 
 export default {
@@ -50,11 +62,6 @@ export default {
     },
   },
   data() {
-    let elements = [];
-    this.existingFields.forEach(function(field) {
-      elements.push(Vue.compile(field.html));
-    });
-
     let templateSelectOptions = [];
 
     this.templates.forEach(function(template) {
@@ -65,8 +72,8 @@ export default {
     });
 
     return {
-      elements: elements,
-      counter: elements.length,
+      elements: this.existingFields,
+      counter: this.existingFields.length,
       templateSelectName: 'templateSelect' + this.id,
       templateSelectOptions: templateSelectOptions,
       selector: {
@@ -87,11 +94,13 @@ export default {
     },
   },
   mounted() {
+    this.setAllButtonsStates(window.$(this.$refs.collectionContainer));
     let vueThis = this;
-    /*
-     ** Event listeners on collection items buttons
-     ** This is a jQuery event listener, because Vue cannot handle an event emitted by a non-vue element.
-     ** The collection items are not Vue elements in order to initialise them correctly within their twig template.
+
+    /**
+     * Event listeners on collection items buttons
+     * This is a jQuery event listener, because Vue cannot handle an event emitted by a non-vue element.
+     * The collection items are not Vue elements in order to initialise them correctly within their twig template.
      */
     window.$(document).on('click', vueThis.selector.remove, function(e) {
       e.preventDefault();
@@ -126,11 +135,38 @@ export default {
       vueThis.setButtonsState(thisCollectionItem);
       vueThis.setButtonsState(nextCollectionItem);
     });
+
+    /**
+     * Update the title dynamically.
+     */
+    $(document).ready(function() {
+      $.each(window.$('.collection-item'), function() {
+        updateTitle(this);
+      });
+
+      window.$('.collection-item').on('keyup change', function(){
+        updateTitle(this);
+      });
+    });
+
+    /**
+     * Pass a .collection-item element to update the title
+     * with the value of the first text-based field.
+     */
+    function updateTitle(item) {
+      const input = $(item).find('textarea,input[type="text"]').first();
+      const title = $(input).val();
+      $(item).find('.collection-item-title').first().text(title);
+    }
+
   },
   updated() {
     this.setAllButtonsStates(window.$(this.$refs.collectionContainer));
   },
   methods: {
+    compile(element) {
+      return Vue.compile(element);
+    },
     setAllButtonsStates(collectionContainer) {
       let vueThis = this;
       collectionContainer.children(vueThis.selector.item).each(function() {
@@ -183,12 +219,11 @@ export default {
     addCollectionItem() {
       let template = this.getSelectedTemplate();
 
-      let html = template.html.replace(
+      template.content = template.content.replace(
         new RegExp(template.hash, 'g'),
         uniqid(),
       );
-      let res = Vue.compile(html);
-      this.elements.push(res);
+      this.elements.push(template);
       this.counter++;
     },
     getSelectedTemplate() {

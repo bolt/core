@@ -74,9 +74,12 @@
 
             {% include includeLookup with context only %}
         {% endset %}
+
+        {% set buttons %}{% include '@bolt/_partials/fields/_collection_buttons.html.twig' with { in_collection: true, 'hash': hash, collection_name: collectionField.name } %}{% endset %}
+
         {# set the label manually as set in _base.html.twig, to pass to Collection.vue for templates #}
         {% set label = item_field.definition.label|default(item_field.name|default('unnamed')|ucwords) %}
-        {% set fieldsHtml = fieldsHtml|merge([{'html': new_field, 'hash': hash, 'label': label}]) %}
+        {% set fieldsHtml = fieldsHtml|merge([{'content': new_field, 'hash': hash, 'label': label, 'buttons': buttons}]) %}
     {% endfor %}
     {{ fieldsHtml|json_encode }}
 {% endapply %}{% endmacro %}

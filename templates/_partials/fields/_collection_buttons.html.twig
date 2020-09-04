@@ -1,5 +1,5 @@
 {% if in_collection is defined %}
-    <div class="float-right" role="group" aria-label="Collection buttons" style="margin-top: -0.25rem">
+    <div class="float-right" role="group" aria-label="Collection buttons">
     <input type="hidden" name="collections[{{ collection_name }}][order][]" value="{{ hash }}" />
 
     <button class='action-move-up-collection-item btn btn-secondary btn-sm' {% if is_first is defined and is_first %} disabled {% endif %}>
