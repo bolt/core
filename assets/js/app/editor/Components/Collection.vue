@@ -1,7 +1,7 @@
 <template>
   <div ref="collectionContainer" class="collection-container">
     <div class="expand-buttons">
-      <label>{{labels.field_label}}</label>
+      <label>{{labels.field_label}}:</label>
 
       <div class="btn-group" role="group">
         <button class='btn btn-secondary btn-sm collection-expand-all'>
