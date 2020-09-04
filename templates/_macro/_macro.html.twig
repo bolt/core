@@ -72,10 +72,13 @@
                 '@bolt/_partials/fields/generic.html.twig'
             ] %}
 
-            {% include includeLookup with context only %}
+            <div>
+                {% include includeLookup with context only %}
+                <input type="hidden" name="collections[{{ collectionField.name }}][order][]" value="{{ hash }}" />
+            </div>
         {% endset %}
 
-        {% set buttons %}{% include '@bolt/_partials/fields/_collection_buttons.html.twig' with { in_collection: true, 'hash': hash, collection_name: collectionField.name } %}{% endset %}
+        {% set buttons %}{% include '@bolt/_partials/fields/_collection_buttons.html.twig' with { in_collection: true, 'hash': hash } %}{% endset %}
 
         {# set the label manually as set in _base.html.twig, to pass to Collection.vue for templates #}
         {% set label = item_field.definition.label|default(item_field.name|default('unnamed')|ucwords) %}

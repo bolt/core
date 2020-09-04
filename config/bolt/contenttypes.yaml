@@ -262,6 +262,7 @@ showcases:
         collection:
             type: collection
             group: Collections
+            default_state: expanded
             fields:
                 set:
                     type: set

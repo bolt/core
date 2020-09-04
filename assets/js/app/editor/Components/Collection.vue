@@ -20,7 +20,7 @@
       :key="element.hash"
       class="collection-item"
     >
-      <details>
+      <details :open="state === 'expanded'">
         <summary>
           <!-- Initial title. This is replaced by dynamic title in JS below. -->
           <div class="collection-item-title">{{ element.label }}</div>
@@ -77,6 +77,10 @@ export default {
     },
     limit: {
       type: Number,
+      required: true,
+    },
+    state: {
+      type: String,
       required: true,
     },
   },
@@ -270,12 +274,18 @@ export default {
         .last();
     },
     addCollectionItem() {
-      let template = this.getSelectedTemplate();
+      // duplicate template without reference
+      let template = $.extend(true, {}, this.getSelectedTemplate());
+
+      const realhash = uniqid();
 
       template.content = template.content.replace(
         new RegExp(template.hash, 'g'),
-        uniqid(),
+        realhash,
       );
+
+      template.hash = realhash;
+
       this.elements.push(template);
       this.counter++;
     },
