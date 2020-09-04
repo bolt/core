@@ -229,7 +229,7 @@ Feature: Edit record
 
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
-    And I should see "Textarea:" in the "#collections label[for='field-collection-textarea-2']" element
+#    And I should see "Textarea" in the "#collections label[for='field-collection-textarea-2']" element
 
     And the 1st ".action-move-up-collection-item" button should be disabled
     And the 3rd ".action-move-down-collection-item" button should be disabled
