@@ -1,7 +1,7 @@
 <template>
   <div ref="collectionContainer" class="collection-container">
     <div class="expand-buttons">
-      <label>{{ labels.field_label }}:</label>
+      <label :data-label="labels.field_label">{{ labels.field_label }}:</label>
 
       <div class="btn-group" role="group">
         <button class="btn btn-secondary btn-sm collection-expand-all">
@@ -196,14 +196,14 @@ export default {
      * with the value of the first text-based field.
      */
     function updateTitle(item) {
+      const label = $(item)
+        .find('.collection-item-title')
+        .first();
       const input = $(item)
         .find('textarea,input[type="text"]')
         .first();
-      const title = $(input).val();
-      $(item)
-        .find('.collection-item-title')
-        .first()
-        .text(title);
+      const title = $(input).val() ? $(input).val() : label.attr('data-label');
+      label.text(title);
     }
 
     /**
