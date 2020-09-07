@@ -8,12 +8,12 @@
     {% set limit = field.definition.get('limit')|default(200) %}
 
     {# get the html for all collection field already in the database #}
-    {% set existing_fields %}{{ macro.generate_collection_fields(field, field.value, false) }}{% endset %}
+    {% set existing_fields %}{{ macro.generate_collection_fields(field, field.value, record, false) }}{% endset %}
 
     {# get the html template for the collection fields defined in the field definition #}
     {% set templated_fields = "" %}
     {% if field.templates is defined %}
-        {% set templated_fields %}{{  macro.generate_collection_fields(field, field.templates, true) }}{% endset %}
+        {% set templated_fields %}{{  macro.generate_collection_fields(field, field.templates, record, true) }}{% endset %}
     {% endif %}
 
     <editor-collection
