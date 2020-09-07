@@ -274,23 +274,28 @@ class ContentTypesParser extends BaseParser
             throw new ConfigurationException($error);
         }
 
-        // If field is a "file" type, make sure the 'extensions' are set, and it's an array.
+        // If field is a "file" type, make sure the 'extensions' are set.
         if ($field['type'] === 'file' || $field['type'] === 'filelist') {
             if (empty($field['extensions'])) {
                 $field['extensions'] = $acceptFileTypes;
             }
-
-            $field['extensions'] = (array) $field['extensions'];
         }
 
-        // If field is an "image" type, make sure the 'extensions' are set, and it's an array.
+        // If field is an "image" type, make sure the 'extensions' are set.
         if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
             if (empty($field['extensions'])) {
                 $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg']);
                 $field['extensions'] = $extensions->intersect($acceptFileTypes)->toArray();
             }
+        }
 
+        // Image and File fields should have 'extensions' as an array, and a defined upload location
+        if (in_array($field['type'], ['file', 'filelist', 'image', 'imagelist'], true)) {
             $field['extensions'] = (array) $field['extensions'];
+
+            if (empty($field['upload'])) {
+                $field['upload'] = $this->generalConfig->get('upload_location');
+            }
         }
 
         // Make indexed arrays into associative for select fields

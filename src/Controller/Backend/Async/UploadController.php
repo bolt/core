@@ -76,7 +76,7 @@ class UploadController implements AsyncZoneInterface
 
         $uploadHandler = new Handler($target, [
             Handler::OPTION_AUTOCONFIRM => true,
-            Handler::OPTION_OVERWRITE => true,
+            Handler::OPTION_OVERWRITE => false,
         ]);
 
         $acceptedFileTypes = array_merge($this->config->getMediaTypes()->toArray(), $this->config->getFileTypes()->toArray());
