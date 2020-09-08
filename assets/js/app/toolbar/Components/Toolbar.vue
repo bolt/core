@@ -50,7 +50,7 @@
         aria-haspopup="true"
         aria-expanded="false"
       >
-        <i class="fas fa-user" :title="labels['general.greeting']"></i>
+        <i class="fas fa-user"></i>{{ labels['general.greeting'] }}
       </button>
       <div class="profile__dropdown dropdown-menu dropdown-menu-right">
         <ul>
