@@ -87,7 +87,8 @@ export default {
       return index === this.containerFiles.length - 1;
     },
     getFieldNumberFromElement(elem) {
-      return parseInt(elem.fieldName.match(/\d+/)[0]);
+      // get the last number because in collections, there are multiple.
+      return parseInt([...elem.fieldName.matchAll(/\d+/g)].splice(-1).pop()[0]);
     },
     onMoveFileDown(elem) {
       let fieldNumber = this.getFieldNumberFromElement(elem);
