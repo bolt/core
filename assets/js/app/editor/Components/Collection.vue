@@ -35,24 +35,30 @@
     </div>
 
     <small>{{ labels.select_tooltip }}</small>
-    <div class="d-flex">
-      <editor-select
-        ref="templateSelect"
-        class="flex-grow-1 mr-2"
-        :value="initialSelectValue"
-        :name="templateSelectName"
-        :options="templateSelectOptions"
-        :allowempty="false"
-      ></editor-select>
+
+    <div class="dropdown">
       <button
-        class="btn btn-secondary"
-        type="button"
+        id="dropdownMenuButton"
         :disabled="!allowMore"
-        @click="addCollectionItem"
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
       >
-        <i class="fas fa-fw fa-plus"></i>
-        {{ labels.add_collection_item }}
+        <i class="fas fa-fw fa-plus"></i> {{ labels.add_collection_item }}
       </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a
+          v-for="template in templates"
+          class="dropdown-item"
+          :data-template="template.label"
+          @click="addCollectionItem($event)"
+        >
+          <i :class="[template.icon, 'fas']" />
+          {{ template.label }}
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -87,13 +93,6 @@ export default {
   },
   data() {
     let templateSelectOptions = [];
-
-    this.templates.forEach(function(template) {
-      templateSelectOptions.push({
-        key: template.label,
-        value: template.label,
-      });
-    });
 
     return {
       elements: this.existingFields,
@@ -274,9 +273,9 @@ export default {
         .closest('.collection-item')
         .last();
     },
-    addCollectionItem() {
+    addCollectionItem(event) {
       // duplicate template without reference
-      let template = $.extend(true, {}, this.getSelectedTemplate());
+      let template = $.extend(true, {}, this.getSelectedTemplate(event));
 
       const realhash = uniqid();
 
@@ -290,15 +289,10 @@ export default {
       this.elements.push(template);
       this.counter++;
     },
-    getSelectedTemplate() {
-      let selectValue = this.$refs.templateSelect.selected;
-      if (Array.isArray(selectValue)) {
-        selectValue = selectValue[0];
-      }
+    getSelectedTemplate(event) {
+      let selectValue = $(event.target).attr('data-template');
 
-      return this.templates.find(
-        template => template.label === selectValue.key,
-      );
+      return this.templates.find(template => template.label === selectValue);
     },
   },
 };
