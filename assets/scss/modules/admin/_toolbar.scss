@@ -41,7 +41,6 @@
     align-items: center;
     justify-content: center;
     font-size: 0.875rem;
-    padding: 0;
 
     a {
       font-size: 0.9375rem;
@@ -119,15 +118,7 @@
 
     &__brand {
       justify-content: left;
-      padding-left: 2rem;
-
-      @include media-breakpoint-up(lg) {
-        flex: 0 1 $admin-sidebar-width;
-      }
-
-      @include media-breakpoint-up(wd) {
-        flex: 0 1 $admin-sidebar-width-wide;
-      }
+      padding: 0 2rem;
 
       svg,
       img {
@@ -161,6 +152,7 @@
 
       @include media-breakpoint-up(sm) {
         display: block;
+        padding-top: 0.1rem;
       }
 
       a {

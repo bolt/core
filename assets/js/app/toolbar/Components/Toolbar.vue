@@ -8,8 +8,14 @@
       <img
         src="/assets/images/bolt_logo_dashboard.svg"
         alt="⚙️ Bolt"
-        height="28"
+        height="26"
       />
+    </div>
+
+    <div class="toolbar-item toolbar-item__site">
+      <a href="/" target="_blank">
+        <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }}
+      </a>
     </div>
 
     <form
@@ -25,40 +31,11 @@
         :value="filterValue"
       />
       <div class="input-group-append">
-        <button class="btn btn-tertiary" type="submit">
-          <i class="fas fa-search"></i>{{ labels['listing.button_search'] }}
+        <button class="btn btn-tertiary" type="submit" :title="labels['listing.button_search']">
+          <i class="fas fa-search" style="margin: 0;"></i>
         </button>
       </div>
     </form>
-
-    <div class="toolbar-item toolbar-item__site">
-      <a href="/" target="_blank">
-        <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }}
-      </a>
-    </div>
-
-    <div class="toolbar-item btn-group toolbar-item__new">
-      <button
-        class="btn new-item__dropdown-toggler dropdown-toggle"
-        type="button"
-        data-toggle="dropdown"
-        data-display="static"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        <i class="fas fa-magic"></i>{{ labels['action.create_new'] }}…
-      </button>
-      <div class="new-item__dropdown dropdown-menu">
-        <ul>
-          <li v-for="(item, index) in createMenu" :key="index">
-            <a :href="item.link_new"
-              ><i :class="`fa fa-fw ${item.icon}`"></i>
-              {{ item.singular_name }}</a
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
 
     <div class="toolbar-item btn-group toolbar-item__profile">
       <button
@@ -69,7 +46,7 @@
         aria-haspopup="true"
         aria-expanded="false"
       >
-        <i class="fas fa-user"></i>{{ labels['general.greeting'] }}
+        <i class="fas fa-user" :title="labels['general.greeting']"></i>
       </button>
       <div class="profile__dropdown dropdown-menu dropdown-menu-right">
         <ul>

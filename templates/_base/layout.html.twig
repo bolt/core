@@ -28,8 +28,7 @@
         {# Setting the labels and their localisations that are used in the sidebar-menu. #}
         {% set labels = {
             'about.bolt_documentation': 'about.bolt_documentation'|trans,
-            'action.view_site': 'action.view_site'|trans,
-            'action.create_new': 'action.create_new'|trans,
+            'action.view_site': config.get('general/sitename'),
             'general.greeting': 'general.greeting'|trans({'%name%': user_display_name}),
             'action.logout': 'action.logout'|trans,
             'action.edit_profile': 'action.edit_profile'|trans,
