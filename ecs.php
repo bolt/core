@@ -46,7 +46,7 @@ use Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set('sets', ['clean-code', 'common', 'php-70', 'php-71', 'psr-12', 'symfony', 'symfony-risky']);
+    $parameters->set('sets', ['clean-code', 'common', 'php70', 'php71', 'psr12', 'symfony', 'symfony-risky']);
 
     $parameters->set('paths', [
         __DIR__ . '/src',
