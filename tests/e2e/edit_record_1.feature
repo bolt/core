@@ -218,7 +218,8 @@ Feature: Edit record
 
     #templates dropdown
     When I click "Add item to Collection"
-    And I follow "Set"
+    # Click add set
+    And I click "#field-collection-collection > div > div.dropdown.show > div > a:nth-child(1)"
 
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
@@ -229,7 +230,8 @@ Feature: Edit record
 
     When I scroll "Add item to Collection" into view
     And I click "Add item to Collection"
-    And I follow "Textarea"
+    # Click add textarea
+    And I click "#field-collection-collection > div > div.dropdown.show > div > a:nth-child(2)"
 
     Then I should see 4 ".collection-item" elements
 
