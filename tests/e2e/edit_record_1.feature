@@ -220,13 +220,6 @@ Feature: Edit record
     When I click "Add item to Collection"
     And I follow "Set"
 
-    Then I should see "Set" in the "#multiselect-undefined li:nth-child(1) > span" element
-    And the "#multiselect-undefined li:nth-child(2) > span" element should contain "Textarea"
-
-    When I click "#multiselect-undefined > div > div.multiselect__select"
-    And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
-    And I press "Add item"
-
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
 #    And I should see "Textarea" in the "#collections label[for='field-collection-textarea-2']" element
