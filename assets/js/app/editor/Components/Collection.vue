@@ -23,7 +23,10 @@
       <details :open="state === 'expanded'">
         <summary>
           <!-- Initial title. This is replaced by dynamic title in JS below. -->
-          <div class="collection-item-title">{{ element.label }}</div>
+          <div class="collection-item-title">
+            <i :class="[element.icon, 'fas fa-fw']" />
+            {{ element.label }}
+          </div>
 
           <!-- Navigation buttons -->
           <div :is="compile(element.buttons)"></div>
@@ -51,11 +54,12 @@
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a
           v-for="template in templates"
+          :key="template.label"
           class="dropdown-item"
           :data-template="template.label"
           @click="addCollectionItem($event)"
         >
-          <i :class="[template.icon, 'fas']" />
+          <i :class="[template.icon, 'fas fa-fw']" />
           {{ template.label }}
         </a>
       </div>
@@ -198,11 +202,15 @@ export default {
       const label = $(item)
         .find('.collection-item-title')
         .first();
+      const icon = label
+        .find('i')
+        .first()
+        .get(0).outerHTML;
       const input = $(item)
         .find('textarea,input[type="text"]')
         .first();
       const title = $(input).val() ? $(input).val() : label.attr('data-label');
-      label.text(title);
+      label.html(icon + title);
     }
 
     /**
@@ -290,7 +298,10 @@ export default {
       this.counter++;
     },
     getSelectedTemplate(event) {
-      let selectValue = $(event.target).attr('data-template');
+      const target = $(event.target).attr('data-template')
+        ? $(event.target)
+        : $(event.target).closest('[data-template]');
+      let selectValue = target.attr('data-template');
 
       return this.templates.find(template => template.label === selectValue);
     },

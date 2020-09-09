@@ -271,6 +271,7 @@ showcases:
                             type: text
                 textarea:
                     type: textarea
+                    icon: fa-anchor
     relations:
         entries:
             multiple: false

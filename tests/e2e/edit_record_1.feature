@@ -217,8 +217,8 @@ Feature: Edit record
     And I should see "Collection:" in the "label[for='field-collection']" element
 
     #templates dropdown
-    When I scroll "#multiselect-undefined > div > div.multiselect__select" into view
-    And I click "#multiselect-undefined > div > div.multiselect__select"
+    When I click "Add item to Collection"
+    And I follow "Set"
 
     Then I should see "Set" in the "#multiselect-undefined li:nth-child(1) > span" element
     And the "#multiselect-undefined li:nth-child(2) > span" element should contain "Textarea"
@@ -235,10 +235,8 @@ Feature: Edit record
     And the 3rd ".action-move-down-collection-item" button should be disabled
 
     When I scroll "Add item to Collection" into view
-    And I click "#multiselect-undefined > div > div.multiselect__select"
-    And I scroll "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1)" into view
-    And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1)"
-    And I press "Add item"
+    And I click "Add item to Collection"
+    And I follow "Textarea"
 
     Then I should see 4 ".collection-item" elements
 

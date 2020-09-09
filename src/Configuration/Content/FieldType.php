@@ -52,7 +52,7 @@ class FieldType extends Collection
             // 10 rows by default
             'height' => '10',
             'icon' => '',
-         ]);
+        ]);
     }
 
     public static function factory(string $name, ContentType $contentType, array $parents = []): self
