@@ -103,7 +103,7 @@ class HtmlExtension extends AbstractExtension
         return Html::makeAbsoluteLink($link);
     }
 
-    public function placeholders(string $string, array $replacements = []): string
+    public function placeholders(?string $string = null, array $replacements = []): string
     {
         $baseReplacements = [
             'year' => date('Y'),
@@ -115,6 +115,6 @@ class HtmlExtension extends AbstractExtension
 
         $replacements = array_merge($baseReplacements, $replacements);
 
-        return Str::placeholders($string, $replacements, true);
+        return Str::placeholders((string) $string, $replacements, true);
     }
 }
