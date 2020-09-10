@@ -132,6 +132,7 @@ class GeneralParser extends BaseParser
             'accept_file_types' => explode(',', 'twig,html,js,css,scss,gif,jpg,jpeg,png,ico,zip,tgz,txt,md,doc,docx,pdf,epub,xls,xlsx,csv,ppt,pptx,mp3,ogg,wav,m4a,mp4,m4v,ogv,wmv,avi,webm,svg'),
             'accept_media_types' => explode(',', 'gif,jpg,jpeg,png,svg,pdf,mp3,tiff'),
             'accept_upload_size' => '8M',
+            'upload_location' => '{year}/{month}/{contenttype}/',
             'branding' => [
                 'name' => 'Bolt',
                 'path' => '/bolt',

@@ -39,7 +39,7 @@
 
 {% endapply %}{% endmacro %}
 
-{% macro generate_collection_fields(collectionField, fields, compileTemplates) %}{% apply spaceless %}
+{% macro generate_collection_fields(collectionField, fields, record, compileTemplates) %}{% apply spaceless %}
     {% set fieldsHtml = [] %}
     {% for item_field in fields %}
         {% set collectionItemName = 'collections[' ~ collectionField.name ~ '][' ~ item_field.definition.name ~ ']' %}
@@ -60,6 +60,7 @@
                 'collection_name': collectionField.name,
                 'collection_label': collectionField.definition.label,
                 'hash': hash,
+                'record': record
             } %}
 
             {% if item_field.type != 'set' %}

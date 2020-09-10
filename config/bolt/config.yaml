@@ -180,6 +180,8 @@ accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff ]
 #`post_max_size` and `upload_max_filesize` in `php.ini`.
 accept_upload_size: 8M
 
+upload_location: "{year}/{month}/{contenttype}/"
+
 # Options to use with curl requests.
 # For all options, check the official curl documentation here https://curl.haxx.se/libcurl/c/curl_easy_setopt.html
 curl_options:

@@ -58,6 +58,7 @@ class HtmlExtension extends AbstractExtension
         return [
             new TwigFilter('markdown', [$this, 'markdown'], $safe),
             new TwigFilter('shy', [$this, 'shy'], $safe),
+            new TwigFilter('placeholders', [$this, 'placeholders'], $safe),
         ];
     }
 
@@ -100,5 +101,20 @@ class HtmlExtension extends AbstractExtension
     public function absoluteLink(string $link): string
     {
         return Html::makeAbsoluteLink($link);
+    }
+
+    public function placeholders(string $string, array $replacements = []): string
+    {
+        $baseReplacements = [
+            'year' => date('Y'),
+            'month' => date('m'),
+            'day' => date('D'),
+            'date' => date('Y-m-D'),
+            'random' => bin2hex(random_bytes(4)),
+        ];
+
+        $replacements = array_merge($baseReplacements, $replacements);
+
+        return Str::placeholders($string, $replacements, true);
     }
 }

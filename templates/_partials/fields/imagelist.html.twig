@@ -7,35 +7,34 @@
 {% endset %}
 
 {% block field %}
+    {% set setPath = field.definition.get('upload')|placeholders({'random': 4, 'contenttype': record.contenttype}) %}
+    {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
+    {% set filelist = path('bolt_async_filelisting', {'location': location|default('files'), 'type': 'images' }) %}
+    {% set labels = {
+        'button_upload': 'image.button_upload'|trans,
+        'button_from_library': 'image.button_from_library'|trans,
+        'placeholder_filename': 'image.placeholder_filename'|trans,
+        'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
+        'placeholder_title': 'image.placeholder_title'|trans,
+        'button_remove': 'image.button_remove'|trans,
+        'button_edit_attributes': 'image.button_edit_attributes'|trans,
+        'button_move_up': 'image.button_up'|trans,
+        'button_move_down': 'image.button_down'|trans,
+        'add_new_image': 'image.add_new_image'|trans,
+    }|json_encode %}
+    {% set limit = field.definition.get('limit')|default(200) %}
 
-   {% set setPath = field.definition.get('upload')|default('') %}
-   {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
-   {% set filelist = path('bolt_async_filelisting', {'location': location|default('files'), 'type': 'images' }) %}
-   {% set labels = {
-       'button_upload': 'image.button_upload'|trans,
-       'button_from_library': 'image.button_from_library'|trans,
-       'placeholder_filename': 'image.placeholder_filename'|trans,
-       'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
-       'placeholder_title': 'image.placeholder_title'|trans,
-       'button_remove': 'image.button_remove'|trans,
-       'button_edit_attributes': 'image.button_edit_attributes'|trans,
-       'button_move_up': 'image.button_up'|trans,
-       'button_move_down': 'image.button_down'|trans,
-       'add_new_image': 'image.add_new_image'|trans,
-   }|json_encode %}
-   {% set limit = field.definition.get('limit')|default(200) %}
-
-   <editor-imagelist
-       :images='{{ field.jsonvalue }}'
-       :name='{{ name|json_encode }}'
-       :directory='{{ directory|json_encode }}'
-       :filelist='{{ filelist|json_encode }}'
-       :csrf-token='{{ csrf_token('upload')|json_encode }}'
-       :labels='{{ labels }}'
-       :extensions='{{  extensions|json_encode }}'
-       :attributes-link='{{ path('bolt_media_new')|json_encode }}'
-       :limit='{{ limit|json_encode }}'
-       :readonly='{{ readonly|json_encode }}'
-   ></editor-imagelist>
+    <editor-imagelist
+        :images='{{ field.jsonvalue }}'
+        :name='{{ name|json_encode }}'
+        :directory='{{ directory|json_encode }}'
+        :filelist='{{ filelist|json_encode }}'
+        :csrf-token='{{ csrf_token('upload')|json_encode }}'
+        :labels='{{ labels }}'
+        :extensions='{{  extensions|json_encode }}'
+        :attributes-link='{{ path('bolt_media_new')|json_encode }}'
+        :limit='{{ limit|json_encode }}'
+        :readonly='{{ readonly|json_encode }}'
+    ></editor-imagelist>
 
 {% endblock %}
