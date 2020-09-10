@@ -4,6 +4,10 @@
 {% block field %}
     {% set labels = {
         'add_collection_item': 'collection.add_item'|trans({'%name%': field.definition.label}),
+        'expand_all': 'collection.expand_all'|trans,
+        'collapse_all': 'collection.collapse_all'|trans,
+        'select_tooltip': 'collection.select_tooltip'|trans,
+        'field_label': label,
     } %}
     {% set limit = field.definition.get('limit')|default(200) %}
 
@@ -21,6 +25,7 @@
       :templates='{{ templated_fields }}'
       :labels='{{ labels | json_encode }}'
       :limit='{{ limit | json_encode }}'
+      :state="{{ field.definition.get('default_state')|default('collapsed')|json_encode }}"
     ></editor-collection>
 
 {% endblock %}

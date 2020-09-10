@@ -262,6 +262,7 @@ showcases:
         collection:
             type: collection
             group: Collections
+            default_state: expanded
             fields:
                 set:
                     type: set
@@ -270,6 +271,7 @@ showcases:
                             type: text
                 textarea:
                     type: textarea
+                    icon: fa-anchor
     relations:
         entries:
             multiple: false

@@ -217,28 +217,22 @@ Feature: Edit record
     And I should see "Collection:" in the "label[for='field-collection']" element
 
     #templates dropdown
-    When I scroll "#multiselect-undefined > div > div.multiselect__select" into view
-    And I click "#multiselect-undefined > div > div.multiselect__select"
-
-    Then I should see "Set" in the "#multiselect-undefined li:nth-child(1) > span" element
-    And the "#multiselect-undefined li:nth-child(2) > span" element should contain "Textarea"
-
-    When I click "#multiselect-undefined > div > div.multiselect__select"
-    And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(2) > span"
-    And I press "Add item"
+    When I scroll "Add item to Collection" into view
+    And I click "Add item to Collection"
+    # Click add set
+    And I click "#field-collection-collection > div > div.dropdown.show > div > a:nth-child(2)"
 
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
-    And I should see "Textarea:" in the "#collections label[for='field-collection-textarea-2']" element
+#    And I should see "Textarea" in the "#collections label[for='field-collection-textarea-2']" element
 
     And the 1st ".action-move-up-collection-item" button should be disabled
     And the 3rd ".action-move-down-collection-item" button should be disabled
 
     When I scroll "Add item to Collection" into view
-    And I click "#multiselect-undefined > div > div.multiselect__select"
-    And I scroll "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1)" into view
-    And I click "#multiselect-undefined > div > div.multiselect__content-wrapper > ul > li:nth-child(1)"
-    And I press "Add item"
+    And I click "Add item to Collection"
+    # Click add textarea
+    And I click "#field-collection-collection > div > div.dropdown.show > div > a:nth-child(1)"
 
     Then I should see 4 ".collection-item" elements
 
@@ -255,8 +249,17 @@ Feature: Edit record
     And I press "Save changes"
     Then I should be on "/bolt/edit/43#collections"
 
-    And the field ".collection-item:nth-child(3) input[type='text']" should contain "Hey, Bolt"
-    And the field ".collection-item:nth-child(4) textarea" should contain "Bye, Bolt"
+    And the field ".collection-item:nth-child(4) input[type='text']" should contain "Hey, Bolt"
+    And the field ".collection-item:nth-child(5) textarea" should contain "Bye, Bolt"
+
+    And I should see "Hey, Bolt" in the ".collection-item:nth-child(4) .collection-item-title" element
+    And I should see "Bye, Bolt" in the ".collection-item:nth-child(5) .collection-item-title" element
+
+    When I fill the 2nd "#collections textarea" element with ""
+    And I fill the 2nd ".collection-item input[type='text']" element with ""
+
+    And I should see "Set" in the ".collection-item:nth-child(4) .collection-item-title" element
+    And I should see "Textarea" in the ".collection-item:nth-child(5) .collection-item-title" element
 
     When I scroll the 3rd "Remove item" into view
     And I press the 3rd "Remove item" button
