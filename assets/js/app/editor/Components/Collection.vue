@@ -23,8 +23,7 @@
       <details :open="state === 'expanded'">
         <summary>
           <!-- Initial title. This is replaced by dynamic title in JS below. -->
-          <div class="collection-item-title"
-          :data-label="element.label">
+          <div class="collection-item-title" :data-label="element.label">
             <i :class="[element.icon, 'fas fa-fw']" />
             {{ element.label }}
           </div>
