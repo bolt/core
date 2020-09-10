@@ -1,7 +1,7 @@
 <template>
   <div ref="collectionContainer" class="collection-container">
     <div class="expand-buttons">
-      <label :data-label="labels.field_label">{{ labels.field_label }}:</label>
+      <label>{{ labels.field_label }}:</label>
 
       <div class="btn-group" role="group">
         <button class="btn btn-secondary btn-sm collection-expand-all">
@@ -23,7 +23,8 @@
       <details :open="state === 'expanded'">
         <summary>
           <!-- Initial title. This is replaced by dynamic title in JS below. -->
-          <div class="collection-item-title">
+          <div class="collection-item-title"
+          :data-label="element.label">
             <i :class="[element.icon, 'fas fa-fw']" />
             {{ element.label }}
           </div>
@@ -111,6 +112,7 @@ export default {
         moveDown: '.action-move-down-collection-item',
         expandAll: '.collection-expand-all',
         collapseAll: '.collection-collapse-all',
+        editor: '#editor',
       },
     };
   },
@@ -185,13 +187,15 @@ export default {
      * Update the title dynamically.
      */
     $(document).ready(function() {
-      $.each(window.$('.collection-item'), function() {
+      $.each(window.$(vueThis.selector.item), function() {
         updateTitle(this);
       });
 
-      window.$('.collection-item').on('keyup change', function() {
-        updateTitle(this);
-      });
+      window
+        .$(vueThis.selector.editor)
+        .on('keyup change', vueThis.selector.item, function() {
+          updateTitle(this);
+        });
     });
 
     /**
