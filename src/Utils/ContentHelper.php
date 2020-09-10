@@ -175,6 +175,15 @@ class ContentHelper
                     return $field;
                 }
 
+                if ($record->hasTaxonomyDefined($match[1])) {
+                    $result = [];
+                    foreach ($record->getTaxonomies($match[1]) as $item) {
+                        $result[] = $item->getName();
+                    }
+
+                    return implode(', ', $result);
+                }
+
                 // We must ensure this method is not called recursively. For example
                 // `title_format: {title}` would otherwise result in an endless loop
                 // @see https://github.com/bolt/core/issues/1825
