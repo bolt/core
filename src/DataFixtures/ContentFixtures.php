@@ -214,6 +214,35 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function getValuesforFieldType(string $name, DeepCollection $field, bool $singleton): array
     {
+        $data = isset($field['fixture_format']) ? $this->getFixtureFormatValues($field['fixture_format']) : $this->getFieldTypeValue($field, $singleton);
+
+        if ($name === 'title' || $name === 'heading') {
+            $this->lastTitle = $data;
+        }
+
+        return $data;
+    }
+
+    private function getFixtureFormatValues(string $format): array
+    {
+        return [preg_replace_callback(
+            '/{([\w]+)}/i',
+            function ($match) {
+                $match = $match[1];
+
+                try {
+                    return $this->faker->{$match};
+                } catch (\Throwable $e) {
+                }
+
+                return '(unknown)';
+            },
+            $format
+        )];
+    }
+
+    private function getFieldTypeValue(DeepCollection $field, bool $singleton)
+    {
         $nb = $singleton ? 8 : 4;
 
         switch ($field['type']) {
@@ -315,10 +344,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                 break;
             default:
                 $data = [$this->faker->sentence(6, true)];
-        }
-
-        if ($name === 'title' || $name === 'heading') {
-            $this->lastTitle = $data;
         }
 
         return $data;
