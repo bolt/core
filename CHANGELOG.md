@@ -1,6 +1,44 @@
 Changelog
 =========
 
+## 4.0.0-rc.42
+
+Released: 2020-09-11
+
+### 🐛 Bug fixes
+
+- Support taxonomies in `title_format` and `excerpt_format` (bobdenotter, [#1838](https://github.com/bolt/core/pull/1838))
+- Removed faulty definition to show timeSelection in Date Picker (develth, [#1837](https://github.com/bolt/core/pull/1837))
+- Imagelists and Filelists work in collections (I-Valchev, [#1835](https://github.com/bolt/core/pull/1835))
+- Listing search uses correct config. Add `--like` option to query params search (I-Valchev, [#1829](https://github.com/bolt/core/pull/1829))
+- Add pattern `url` and `email` options as shown in the docs (I-Valchev, [#1828](https://github.com/bolt/core/pull/1828))
+- Prevent recursion in `title_format` (bobdenotter, [#1827](https://github.com/bolt/core/pull/1827))
+- Clear menu caches on content delete. Log delete event. (I-Valchev, [#1824](https://github.com/bolt/core/pull/1824))
+- Search without author returns results (I-Valchev, [#1823](https://github.com/bolt/core/pull/1823))
+- Don't break if we're trying to get content for "no ContentTypes" (bobdenotter, [#1822](https://github.com/bolt/core/pull/1822))
+- Allow src in iframes for embeds to work. Add spinner feedback while embed is loading. (I-Valchev, [#1820](https://github.com/bolt/core/pull/1820))
+- Pass in `record` with Set partial (bobdenotter, [#1842](https://github.com/bolt/core/pull/1842))
+
+### 📦 Additions and new features
+
+- Use configured `upload_location` for images and files in ContentTypes (bobdenotter, [#1834](https://github.com/bolt/core/pull/1834))
+- Collapsible collections (I-Valchev, [#1830](https://github.com/bolt/core/pull/1830))
+
+### 🛠️ Miscellaneous
+
+- Add `fixture_format` option to fields (I-Valchev, [#1841](https://github.com/bolt/core/pull/1841))
+- Make `placeholders()` accept `null` for robustness (bobdenotter, [#1840](https://github.com/bolt/core/pull/1840))
+- Deprecate use of Symfony 4 (I-Valchev, [#1839](https://github.com/bolt/core/pull/1839))
+- Update top toolbar. Kill your darlings! (bobdenotter, [#1836](https://github.com/bolt/core/pull/1836))
+- Update `_taxonomylinks.html.twig`: fix link (bobdenotter, [#1832](https://github.com/bolt/core/pull/1832))
+- Listing singleton uses `record_route` setting (I-Valchev, [#1826](https://github.com/bolt/core/pull/1826))
+
+### 🤖 Tests
+
+- Use `travis_retry` command on frequently failing behat tests (I-Valchev, [#1831](https://github.com/bolt/core/pull/1831))
+- Run tests in prod (I-Valchev, [#1804](https://github.com/bolt/core/pull/1804))
+
+
 ## 4.0.0-rc.41
 
 Released: 2020-09-02

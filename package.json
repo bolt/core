@@ -1,6 +1,6 @@
 {
   "name": "bolt",
-  "version": "4.0.0-rc.41",
+  "version": "4.0.0-rc.42",
   "homepage": "https://boltcms.io",
   "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
   "license": "MIT",
@@ -27,13 +27,13 @@
     "url": "git://github.com/bolt/core.git"
   },
   "dependencies": {
-    "@vue/cli-service": "^4.5.4",
+    "@vue/cli-service": "^4.5.6",
     "axios": "^0.19.2",
     "baguettebox.js": "^1.11.1",
     "bootbox": "^5.4.0",
     "bootstrap": "^4.5.2",
-    "browserslist": "^4.14.1",
-    "caniuse-lite": "^1.0.30001124",
+    "browserslist": "^4.14.2",
+    "caniuse-lite": "^1.0.30001125",
     "codemirror": "^5.57.0",
     "dropzone": "^5.7.2",
     "flagpack": "^1.0.5",
@@ -68,7 +68,7 @@
     "@babel/preset-env": "^7.11.5",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@symfony/webpack-encore": "^0.30.2",
-    "@vue/test-utils": "^1.0.5",
+    "@vue/test-utils": "^1.1.0",
     "ajv-keywords": "^3.5.2",
     "autoprefixer": "^9.8.6",
     "babel-core": "^7.0.0-bridge.0",
