@@ -37,14 +37,14 @@ class ExtensionsListCommand extends Command
         $rows = [];
 
         foreach ($extensions as $extension) {
-            $rows[] = [$extension->getClass(), $extension->getName()];
+            $rows[] = [$extension->getComposerPackage()->getName(), $extension->getClass(), $extension->getName()];
         }
 
         $io = new SymfonyStyle($input, $output);
 
         if (! empty($rows)) {
             $io->text('Currently installed extensions:');
-            $io->table(['Class', 'Extension name'], $rows);
+            $io->table(['Package name', 'Class', 'Extension name'], $rows);
         } else {
             $io->caution('No installed extensions could be found');
         }
