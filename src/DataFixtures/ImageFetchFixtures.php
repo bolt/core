@@ -21,7 +21,7 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     /** @var FileLocations */
     private $fileLocations;
 
-    private const AMOUNT = 10;
+    private const AMOUNT = 20;
     private const MAX_AMOUNT = 50;
 
     /** @var array */
@@ -30,10 +30,12 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     public function __construct(FileLocations $fileLocations, Config $config)
     {
         $this->urls = new Collection([
-            'https://source.unsplash.com/1280x1024/?business,workspace,interior/',
-            'https://source.unsplash.com/1280x1024/?cityscape,landscape,nature/',
-            'https://source.unsplash.com/1280x1024/?animal,kitten,puppy,cute/',
-            'https://source.unsplash.com/1280x1024/?technology/',
+            ['stock', 'https://source.unsplash.com/1280x1024/?business,workspace,interior/'],
+            ['stock', 'https://source.unsplash.com/1280x1024/?cityscape,landscape,nature/'],
+            ['stock', 'https://source.unsplash.com/1280x1024/?technology,product/'],
+            ['animal', 'https://source.unsplash.com/1280x1024/?animal,kitten,puppy,cute/'],
+            ['people', 'https://source.unsplash.com/1280x1024/?portrait,face,headshot/'],
+            ['people', 'https://source.unsplash.com/1280x1024/?portrait,face,headshot/'],
         ]);
 
         $this->curlOptions = $config->get('general/curl_options')->all();
@@ -58,23 +60,18 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 
     private function fetchImages(): void
     {
-        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/stock/';
-
-        if (! is_dir($outputPath)) {
-            mkdir($outputPath);
-        }
-
         $output = new ConsoleOutput();
         $progressBar = new ProgressBar($output, self::AMOUNT);
 
         $progressBar->start();
 
         for ($i = 1; $i <= self::AMOUNT; $i++) {
-            $url = $this->urls->random() . random_int(10000, 99999);
+            $random = $this->urls->random();
+            $url = $random[1] . random_int(10000, 99999);
             $filename = 'image_' . random_int(10000, 99999) . '.jpg';
 
             $client = HttpClient::create();
-            $resource = fopen($outputPath . $filename, 'w');
+            $resource = fopen($this->getOutputPath($random[0]) . $filename, 'w');
 
             $image = $client->request('GET', $url, $this->curlOptions)->getContent();
 
@@ -86,5 +83,16 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 
         $progressBar->finish();
         $output->writeln('');
+    }
+
+    private function getOutputPath(string $sub): string
+    {
+        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/' . $sub . '/';
+
+        if (! is_dir($outputPath)) {
+            mkdir($outputPath);
+        }
+
+        return $outputPath;
     }
 }

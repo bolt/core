@@ -180,6 +180,7 @@ accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff ]
 #`post_max_size` and `upload_max_filesize` in `php.ini`.
 accept_upload_size: 8M
 
+# Default location for uploading files.
 upload_location: "{year}/{month}/{contenttype}/"
 
 # Options to use with curl requests.
