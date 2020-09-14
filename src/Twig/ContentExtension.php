@@ -164,7 +164,7 @@ class ContentExtension extends AbstractExtension
         ];
     }
 
-    public function getAnyTitle(Content $content, int $length = 120): string
+    public function getAnyTitle(?Content $content, int $length = 120): string
     {
         $title = $this->getTitle($content, '', $length);
 
@@ -187,8 +187,12 @@ class ContentExtension extends AbstractExtension
         return '(untitled)';
     }
 
-    public function getTitle(Content $content, string $locale = '', int $length = 120): string
+    public function getTitle(?Content $content, string $locale = '', int $length = 120): string
     {
+        if (! $content instanceof Content) {
+            return '<mark>No content given</mark>';
+        }
+
         if (empty($locale)) {
             $locale = $this->request->getLocale();
         }
@@ -245,6 +249,10 @@ class ContentExtension extends AbstractExtension
             return Excerpt::getExcerpt((string) $content, $length, $focus);
         }
 
+        if (! $content instanceof Content) {
+            return '<mark>No content given</mark>';
+        }
+
         if (ContentHelper::isSuitable($content, 'excerpt_format')) {
             $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'));
         } else {
@@ -298,13 +306,21 @@ class ContentExtension extends AbstractExtension
         return rtrim($excerpt, '. ');
     }
 
-    public function getPreviousContent(Content $content, string $byColumn = 'id', bool $sameContentType = true): ?Content
+    public function getPreviousContent(?Content $content, string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
+        if (! $content instanceof Content) {
+            return null;
+        }
+
         return $this->getAdjacentContent($content, 'previous', $byColumn, $sameContentType);
     }
 
-    public function getNextContent(Content $content, string $byColumn = 'id', bool $sameContentType = true): ?Content
+    public function getNextContent(?Content $content, string $byColumn = 'id', bool $sameContentType = true): ?Content
     {
+        if (! $content instanceof Content) {
+            return null;
+        }
+
         return $this->getAdjacentContent($content, 'next', $byColumn, $sameContentType);
     }
 
@@ -321,8 +337,12 @@ class ContentExtension extends AbstractExtension
         return $this->contentRepository->findAdjacentBy($byColumn, $direction, $content->getId(), $contentType);
     }
 
-    public function isCurrent(Environment $env, Content $content): bool
+    public function isCurrent(Environment $env, ?Content $content): bool
     {
+        if (! $content instanceof Content) {
+            return false;
+        }
+
         // If we have a $record set in the Global Twig env, we can simply
         // compare that to what's passed in.
         if (array_key_exists('record', $env->getGlobals())) {
@@ -375,18 +395,18 @@ class ContentExtension extends AbstractExtension
         return null;
     }
 
-    public function getEditLink(Content $content): ?string
+    public function getEditLink(?Content $content): ?string
     {
-        if ($content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
             return null;
         }
 
         return $this->generateLink('bolt_content_edit', ['id' => $content->getId()]);
     }
 
-    public function getDeleteLink(Content $content, bool $absolute = false): ?string
+    public function getDeleteLink(?Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
             return null;
         }
 
@@ -398,18 +418,18 @@ class ContentExtension extends AbstractExtension
         return $this->generateLink('bolt_content_delete', $params, $absolute);
     }
 
-    public function getDuplicateLink(Content $content, bool $absolute = false): ?string
+    public function getDuplicateLink(?Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
             return null;
         }
 
         return $this->generateLink('bolt_content_duplicate', ['id' => $content->getId()], $absolute);
     }
 
-    public function getStatusLink(Content $content, bool $absolute = false): ?string
+    public function getStatusLink(?Content $content, bool $absolute = false): ?string
     {
-        if ($content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
             return null;
         }
 
@@ -433,8 +453,13 @@ class ContentExtension extends AbstractExtension
         return $link;
     }
 
-    public function getTaxonomies(Content $content): Collection
+    public function getTaxonomies(?Content $content): Collection
     {
+        if (! $content instanceof Content) {
+            $body = sprintf("You have called the <code>|taxonomies</code> filter with a parameter of type '%s', but <code>|taxonomies</code> accepts record (Content).", gettype($content));
+            $this->notifications->warning('Incorrect use of <code>|taxonomies</code> filter', $body);
+        }
+
         $taxonomies = [];
 
         $definition = $content->getDefinition();
