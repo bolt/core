@@ -380,8 +380,8 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'slug' => 'introduction',
         ];
         $records['blocks'][] = [
-            'title' => 'Newsletter',
-            'slug' => 'newsletter',
+            'title' => 'Products',
+            'slug' => 'products',
         ];
         $records['blocks'][] = [
             'title' => '404 Page not found',
