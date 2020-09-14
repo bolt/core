@@ -364,6 +364,26 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'slug' => 'search',
         ];
         $records['blocks'][] = [
+            'title' => 'Our People',
+            'slug' => 'people',
+        ];
+        $records['blocks'][] = [
+            'title' => 'Call to Action',
+            'slug' => 'call-to-action',
+        ];
+        $records['blocks'][] = [
+            'title' => 'Hero Section',
+            'slug' => 'hero-section',
+        ];
+        $records['blocks'][] = [
+            'title' => 'Introduction',
+            'slug' => 'introduction',
+        ];
+        $records['blocks'][] = [
+            'title' => 'Newsletter',
+            'slug' => 'newsletter',
+        ];
+        $records['blocks'][] = [
             'title' => '404 Page not found',
             'slug' => '404-not-found',
             'status' => Statuses::HELD,
