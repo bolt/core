@@ -8,7 +8,7 @@
         type="password"
         :name="name"
         :value="value"
-        :required="required == 1"
+        :required="required"
         :readonly="readonly"
         :data-errormessage="errormessage"
         :pattern="pattern"
@@ -48,7 +48,7 @@ export default {
     id: String,
     hidden: Boolean,
     strength: Boolean,
-    required: Number,
+    required: Boolean,
     readonly: Boolean,
     errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     pattern: String | Boolean,
