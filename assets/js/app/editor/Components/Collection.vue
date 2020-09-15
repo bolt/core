@@ -16,7 +16,7 @@
     </div>
 
     <div
-      v-for="element in existingFields"
+      v-for="element in elements"
       :key="element.hash"
       class="collection-item"
     >
@@ -37,9 +37,7 @@
       </details>
     </div>
 
-    <small>{{ labels.select_tooltip }}</small>
-
-    <div class="dropdown">
+    <div v-if="templates.length > 1" class="dropdown">
       <button
         id="dropdownMenuButton"
         :disabled="!allowMore"
@@ -64,6 +62,16 @@
         </a>
       </div>
     </div>
+    <button
+      v-else
+      type="button"
+      class="btn btn-secondary btn-small"
+      :data-template="templates[0].label"
+      @click="addCollectionItem($event)"
+    >
+      <i :class="[templates[0].icon, 'fas fa-fw']" />
+      {{ labels.add_collection_item }}
+    </button>
   </div>
 </template>
 

@@ -2361,11 +2361,5 @@
         <target>Collapse all</target>
       </segment>
     </unit>
-    <unit id="wAltpsD" name="collection.select_tooltip">
-      <segment>
-        <source>collection.select_tooltip</source>
-        <target>Select type of field to add</target>
-      </segment>
-    </unit>
   </file>
 </xliff>
