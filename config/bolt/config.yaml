@@ -181,7 +181,7 @@ accept_media_types: [ gif, jpg, jpeg, png, svg, pdf, mp3, tiff ]
 accept_upload_size: 8M
 
 # Default location for uploading files.
-upload_location: "{year}/{month}/{contenttype}/"
+upload_location: "{contenttype}/{year}/{month}/"
 
 # Options to use with curl requests.
 # For all options, check the official curl documentation here https://curl.haxx.se/libcurl/c/curl_easy_setopt.html
