@@ -25,6 +25,7 @@
       :templates='{{ templated_fields }}'
       :labels='{{ labels | json_encode }}'
       :limit='{{ limit | json_encode }}'
+      :name="{{  field.name | json_encode }}"
       :state="{{ field.definition.get('default_state')|default('collapsed')|json_encode }}"
     ></editor-collection>
 
