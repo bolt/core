@@ -64,7 +64,7 @@ script:
   # this checks that the application doesn't use dependencies with known security vulnerabilities
   - ./bin/console security:check
   # this checks that the composer.json and composer.lock files are valid
-  # - composer validate --strict # temporarily disabled bue to bug in api platform 2.4.0-beta.2
+  - composer validate --strict
   # this checks that Doctrine's mapping configurations are valid
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
   # run PHP Unit
