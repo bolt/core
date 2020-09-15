@@ -29,6 +29,7 @@ use PhpCsFixer\Fixer\Operator\ConcatSpaceFixer;
 use PhpCsFixer\Fixer\Operator\IncrementStyleFixer;
 use PhpCsFixer\Fixer\Operator\NewWithBracesFixer;
 use PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer;
+use PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer;
@@ -64,6 +65,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         PhpdocAlignFixer::class => null,
         NativeConstantInvocationFixer::class => null,
         NativeFunctionInvocationFixer::class => null,
+        UnaryOperatorSpacesFixer::class => null,
     ]);
 
     $services = $containerConfigurator->services();
