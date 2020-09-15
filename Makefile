@@ -119,6 +119,11 @@ db-reset: ## to delete database and load fixtures
 	bin/console doctrine:schema:create
 	bin/console doctrine:fixtures:load -n
 
+db-reset-without-images:
+	bin/console doctrine:schema:drop --force --full-database
+	bin/console doctrine:schema:create
+	bin/console doctrine:fixtures:load --group=without-images -n
+
 # Dockerized commands:
 docker-install: ## to install project with docker
 	make docker-start
