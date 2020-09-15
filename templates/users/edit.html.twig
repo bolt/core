@@ -75,7 +75,7 @@
                 'name' : 'locale',
                 'value' : userEdit.locale,
                 'options' : localeOptions,
-                'required': true,
+                'required': 'true',
             } %}
 
             {% set roleOptions = [] %}
@@ -95,7 +95,8 @@
                 'name' : 'roles',
                 'value' : userEdit.roles,
                 'options' : roleOptions,
-                'required': true,
+                'required': 'true',
+                'multiple': 'true',
             } %}
 
             {% set statusOptions = [] %}

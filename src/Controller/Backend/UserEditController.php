@@ -145,7 +145,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         $displayName = $user->getDisplayName();
         $locale = Json::findScalar($this->getFromRequest('locale'));
-        $roles = (array) Json::findScalar($this->getFromRequest('roles'));
+        $roles = Json::findArray($this->getFromRequest('roles'));
         $status = Json::findScalar($this->getFromRequest('ustatus', UserStatus::ENABLED));
 
         if (empty($user->getUsername())) {

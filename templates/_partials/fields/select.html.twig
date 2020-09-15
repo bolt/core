@@ -11,7 +11,9 @@
     {% set options = select_options(field) %}
 {% endif %}
 
-{% set multiple = field.definition.get('multiple')|default ? 'true' : 'false' %}
+{% if multiple is not defined %}
+    {% set multiple = field.definition.get('multiple')|default ? 'true' : 'false' %}
+{% endif %}
 
 {% block field %}
     <editor-select
