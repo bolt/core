@@ -8,6 +8,7 @@ use Bolt\Extension\ExtensionRegistry;
 use Tightenco\Collect\Support\Collection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig\TwigTest;
 
 /**
  * Widget functionality Twig extension.
@@ -20,6 +21,13 @@ class ExtensionExtension extends AbstractExtension
     public function __construct(ExtensionRegistry $registry)
     {
         $this->registry = $registry;
+    }
+
+    public function getTests()
+    {
+        return [
+            new TwigTest('extension', [$this, 'extensionExists']),
+        ];
     }
 
     /**
