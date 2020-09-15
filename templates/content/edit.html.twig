@@ -39,6 +39,12 @@
 
 {% block main %}
 
+    {% if record.definition.virtual|default(false) %}
+        <div class="alert alert-danger" role="alert">
+            {{ 'content.edit_missing_definition'|trans({'%contenttype%': record.definition.name}) }}
+        </div>
+    {% endif %}
+
     <form method="post" id="editcontent">
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
@@ -47,7 +53,7 @@
         provide this _input_ here. All browsers will use this as a default. See #454 on Github. #}
         <input type="submit" form="editcontent" style="display: none;" value="__('action.save')">
 
-        {% set groups = record.definition.groups %}
+        {% set groups = record.definition.groups|default([]) %}
 
         {% include '@bolt/content/_tabs.html.twig' %}
 
