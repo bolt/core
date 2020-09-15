@@ -1,5 +1,5 @@
 <template>
-  <div ref="collectionContainer" class="collection-container">
+  <div :id="name" ref="collectionContainer" class="collection-container">
     <div class="expand-buttons">
       <label>{{ labels.field_label }}:</label>
 
@@ -83,6 +83,10 @@ var uniqid = require('locutus/php/misc/uniqid');
 export default {
   name: 'EditorCollection',
   props: {
+    name: {
+      type: String,
+      required: true,
+    },
     templates: {
       type: Array,
       required: true,
@@ -112,13 +116,13 @@ export default {
       templateSelectName: 'templateSelect' + this.id,
       templateSelectOptions: templateSelectOptions,
       selector: {
-        collectionContainer: '.collection-container',
-        item: '.collection-item',
-        remove: '.action-remove-collection-item',
-        moveUp: '.action-move-up-collection-item',
-        moveDown: '.action-move-down-collection-item',
-        expandAll: '.collection-expand-all',
-        collapseAll: '.collection-collapse-all',
+        collectionContainer: '#' + this.name,
+        item: '#' + this.name + ' .collection-item',
+        remove: '#' + this.name + ' .action-remove-collection-item',
+        moveUp: '#' + this.name + ' .action-move-up-collection-item',
+        moveDown: '#' + this.name + ' .action-move-down-collection-item',
+        expandAll: '#' + this.name + ' .collection-expand-all',
+        collapseAll: '#' + this.name + ' .collection-collapse-all',
         editor: '#editor',
       },
     };
