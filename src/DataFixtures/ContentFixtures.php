@@ -25,9 +25,6 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
     /** @var Generator */
     private $faker;
 
-    /** @var string */
-    private $lastTitle = null;
-
     /** @var array */
     private $presetRecords = [];
 
@@ -109,9 +106,21 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
                     $content->setStatus($this->getRandomStatus());
                 }
 
-                foreach ($contentType['fields'] as $name => $fieldType) {
+                $fields = collect($contentType['fields']);
+
+                // Load all fields, except slugs.
+                $fields->filter(function ($field) {
+                    return $field['type'] !== 'slug';
+                })->map(function ($fieldType, $name) use ($content, $contentType, $preset): void {
                     $this->loadField($content, $name, $fieldType, $contentType, $preset);
-                }
+                });
+
+                // Load slug fields, to make sure `uses` can be used.
+                $fields->filter(function ($field) {
+                    return $field['type'] === 'slug';
+                })->map(function ($fieldType, $name) use ($content, $contentType, $preset): void {
+                    $this->loadField($content, $name, $fieldType, $contentType, $preset);
+                });
 
                 foreach ($contentType['taxonomy'] as $taxonomySlug) {
                     if ($taxonomySlug === 'categories') {
@@ -180,7 +189,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             } elseif ($fieldType['type'] === 'set') {
                 $field = $this->loadSetField($content, $field, $contentType, $preset);
             } else {
-                $field->setValue($this->getValuesforFieldType($name, $fieldType, $contentType['singleton']));
+                $field->setValue($this->getValuesforFieldType($fieldType, $contentType['singleton'], $content));
             }
         }
         $field->setSortorder($sortorder++ * 5);
@@ -194,7 +203,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             $locales = $contentType['locales']->toArray();
             foreach ($locales as $locale) {
                 if ($locale !== $this->defaultLocale && array_search($locale, $locales, true) !== count($locales) - 1) {
-                    $value = $preset[$name] ?? $this->getValuesforFieldType($name, $fieldType, $contentType['singleton']);
+                    $value = $preset[$name] ?? $this->getValuesforFieldType($fieldType, $contentType['singleton'], $content);
                     $field->translate($locale, false)->setValue($value);
                 }
             }
@@ -212,15 +221,13 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         return $statuses[array_rand($statuses)];
     }
 
-    private function getValuesforFieldType(string $name, DeepCollection $field, bool $singleton): array
+    private function getValuesforFieldType(DeepCollection $field, bool $singleton, Content $content): array
     {
-        $data = isset($field['fixture_format']) ? $this->getFixtureFormatValues($field['fixture_format']) : $this->getFieldTypeValue($field, $singleton);
-
-        if ($name === 'title' || $name === 'heading') {
-            $this->lastTitle = $data;
-        }
-
-        return $data;
+        return
+            isset($field['fixture_format']) ?
+                $this->getFixtureFormatValues($field['fixture_format'])
+                :
+                $this->getFieldTypeValue($field, $singleton, $content);
     }
 
     private function getFixtureFormatValues(string $format): array
@@ -241,7 +248,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
         )];
     }
 
-    private function getFieldTypeValue(DeepCollection $field, bool $singleton)
+    private function getFieldTypeValue(DeepCollection $field, bool $singleton, Content $content)
     {
         $nb = $singleton ? 8 : 4;
 
@@ -282,7 +289,18 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
                 break;
             case 'slug':
-                $data = $this->lastTitle ?? [$this->faker->sentence(3, true)];
+                if (isset($field['uses'])) {
+                    $fields = collect($field['uses']);
+                    $data = $fields->reduce(function (string $carry, string $current) use ($content) {
+                        $value = $content->hasField($current) ? $content->getFieldValue($current) : '';
+
+                        return $carry . $value;
+                    }, '');
+                } else {
+                    $data = $this->faker->sentence(3, true);
+                }
+
+                $data = [$data];
 
                 break;
             case 'text':
