@@ -1,6 +1,45 @@
 Changelog
 =========
 
+## 4.0.0-rc.43
+
+Released: 2020-09-16
+
+### 🐛 Bug fixes
+
+- Multiple collections buttons don't break on the same page (I-Valchev, [#1863](https://github.com/bolt/core/pull/1863))
+- Slugs in fixtures use the `uses:` attribute to make sensible slugs (I-Valchev, [#1861](https://github.com/bolt/core/pull/1861))
+- Allow multiple roles to be selected for users (I-Valchev, [#1856](https://github.com/bolt/core/pull/1856))
+- Ensure config for `not_found` etc. are arrays. (and some cleanup of old, deprecrated stuff) (bobdenotter, [#1867](https://github.com/bolt/core/pull/1867))
+
+### 📦 Additions and new features
+
+- Make possible to check if an extension is present, directly in Twig (bobdenotter, [#1844](https://github.com/bolt/core/pull/1844))
+- Configure homepage without a record or listing (I-Valchev, [#1866](https://github.com/bolt/core/pull/1866))
+
+### 🛠️ Miscellaneous
+
+- Don't break if editor tries editing a record with a missing definition (I-Valchev, [#1859](https://github.com/bolt/core/pull/1859))
+- Update `upload_location` in GeneralParser.php, followup to #1850 (bobdenotter, [#1858](https://github.com/bolt/core/pull/1858))
+- Fix default locations for image uploads (bobdenotter, [#1857](https://github.com/bolt/core/pull/1857))
+- No dropdown for adding collection items if there's just one. (I-Valchev, [#1853](https://github.com/bolt/core/pull/1853))
+- Update `config.yaml` (eduardomart, [#1850](https://github.com/bolt/core/pull/1850))
+- Check if extension exists as a twig test (I-Valchev, [#1849](https://github.com/bolt/core/pull/1849))
+- Make Frontend output a bit more robust by catching common pitfalls (non-existing content, etc) (bobdenotter, [#1847](https://github.com/bolt/core/pull/1847))
+- Updating Fixtures for impending release (bobdenotter, [#1846](https://github.com/bolt/core/pull/1846))
+- Add optional parameter to `excerpt` to wrap output in `<p>` (bobdenotter, [#1845](https://github.com/bolt/core/pull/1845))
+- Release/4.0.0 rc.42 (bobdenotter, [#1843](https://github.com/bolt/core/pull/1843))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Update about page with Symfony 5 (I-Valchev, [#1864](https://github.com/bolt/core/pull/1864))
+- Fix phpstan break (again)! (I-Valchev, [#1862](https://github.com/bolt/core/pull/1862))
+- Re-run behat tests on clean plate in case they fail mid-test (I-Valchev, [#1855](https://github.com/bolt/core/pull/1855))
+- Re-enable `composer validate --strict` in CI (I-Valchev, [#1854](https://github.com/bolt/core/pull/1854))
+- Fix ECS by explicitly skipping `UnaryOperatorSpacesFixer` (bobdenotter, [#1851](https://github.com/bolt/core/pull/1851))
+- Allow up to 120 characters on a line of JS code (I-Valchev, [#1865](https://github.com/bolt/core/pull/1865))
+
+
 ## 4.0.0-rc.42
 
 Released: 2020-09-11
