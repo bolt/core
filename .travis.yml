@@ -72,7 +72,7 @@ script:
   # run API tests
   - make behat-api-quiet
   # run JS e2e tests
-  - travis_retry make behat-js-quiet
+  - travis_retry make db-reset-without-images && make behat-js-quiet
   # Upload Behat logs
   - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
 
