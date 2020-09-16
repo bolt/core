@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Configuration\Parser;
 
 use Bolt\Common\Arr;
-use Bolt\Common\Str;
-use Bolt\Utils\Html;
 use Tightenco\Collect\Support\Collection;
 use Webmozart\PathUtil\Path;
 
@@ -27,22 +25,6 @@ class GeneralParser extends BaseParser
         $tempconfiglocal = $this->parseConfigYaml($this->getFilenameLocalOverrides(), true);
         $general = Arr::replaceRecursive($defaultconfig, Arr::replaceRecursive($tempconfig, $tempconfiglocal));
 
-        // Make sure Bolt's mount point is OK:
-        $path = $general['branding']['path'];
-        if (is_string($path)) {
-            $path = '/' . Str::makeSafe($path);
-        } else {
-            $path = '/';
-        }
-        $general['branding']['path'] = $path;
-
-        // Set the link in branding, if provided_by is set.
-        $general['branding']['provided_link'] = Html::providerLink(
-            $general['branding']['provided_by']
-        );
-
-        $general['database'] = $this->parseDatabase($general['database']);
-
         if (! isset($general['date_format'])) {
             $general['date_format'] = 'F j, Y H:i';
         }
@@ -57,6 +39,19 @@ class GeneralParser extends BaseParser
             $general['query_search'] = true;
         }
 
+        if (! is_array($general['notfound'])) {
+            $general['notfound'] = [$general['notfound']];
+        }
+        if (! is_array($general['maintenance'])) {
+            $general['maintenance'] = [$general['maintenance']];
+        }
+        if (! is_array($general['forbidden'])) {
+            $general['forbidden'] = [$general['forbidden']];
+        }
+        if (! is_array($general['internal_server_error'])) {
+            $general['internal_server_error'] = [$general['internal_server_error']];
+        }
+
         return new Collection($general);
     }
 
@@ -66,59 +61,13 @@ class GeneralParser extends BaseParser
     protected function getDefaultConfig(): array
     {
         return [
-            'database' => [
-                'driver' => 'sqlite',
-                'host' => 'localhost',
-                'slaves' => [],
-                'dbname' => 'bolt',
-                'prefix' => 'bolt_',
-                'charset' => 'utf8',
-                'collate' => 'utf8_unicode_ci',
-                'randomfunction' => '',
-            ],
             'sitename' => 'Default Bolt site',
-            'locale' => null,
             'records_per_page' => 10,
             'records_on_dashboard' => 5,
-            'debug' => null,
-            'debug_show_loggedoff' => false,
-            'debug_error_level' => null,
-            'production_error_level' => null,
-            'strict_variables' => null,
             'theme' => 'base-2019',
             'listing_template' => 'listing.html.twig',
             'listing_records' => '5',
             'listing_sort' => 'datepublish DESC',
-            'caching' => [
-                'config' => true,
-                'templates' => true,
-                'request' => false,
-                'duration' => 10,
-            ],
-            'wysiwyg' => [
-                'images' => false,
-                'tables' => false,
-                'fontcolor' => false,
-                'align' => false,
-                'subsuper' => false,
-                'embed' => false,
-                'anchor' => false,
-                'underline' => false,
-                'strike' => false,
-                'blockquote' => false,
-                'codesnippet' => false,
-                'specialchar' => false,
-                'styles' => false,
-                'ck' => [
-                    'autoParagraph' => true,
-                    'contentsCss' => [
-                        ['css/ckeditor-contents.css', 'bolt'],
-                        ['css/ckeditor.css', 'bolt'],
-                    ],
-                    'filebrowserWindowWidth' => 640,
-                    'filebrowserWindowHeight' => 480,
-                ],
-            ],
             'enforce_ssl' => false,
             'thumbnails' => [
                 'default_thumbnail' => [160, 120],
@@ -133,29 +82,17 @@ class GeneralParser extends BaseParser
             'accept_media_types' => explode(',', 'gif,jpg,jpeg,png,svg,pdf,mp3,tiff'),
             'accept_upload_size' => '8M',
             'upload_location' => '{contenttype}/{year}/{month}/',
-            'branding' => [
-                'name' => 'Bolt',
-                'path' => '/bolt',
-                'provided_by' => [],
-            ],
             'maintenance_mode' => false,
-            'headers' => [
-                'x_frame_options' => true,
-            ],
             'htmlcleaner' => [
                 'allowed_tags' => explode(',', 'div,span,p,br,hr,s,u,strong,em,i,b,li,ul,ol,mark,blockquote,pre,code,tt,h1,h2,h3,h4,h5,h6,dd,dl,dh,table,tbody,thead,tfoot,th,td,tr,a,img,address,abbr,iframe'),
                 'allowed_attributes' => explode(',', 'id,class,style,name,value,href,Bolt,alt,title,width,height,frameborder,allowfullscreen,scrolling'),
                 'allowed_frame_targets' => explode(',', '_blank,_self,_parent,_top'),
             ],
-            'performance' => [
-                'http_cache' => [
-                    'options' => [],
-                ],
-                'timed_records' => [
-                    'interval' => 3600,
-                    'use_cron' => false,
-                ],
-            ],
+            'notfound' => 'helpers/page_404.html.twig',
+            'maintenance' => 'helpers/page_503.html.twig',
+            'forbidden' => 'helpers/page_403.html.twig',
+            'internal_server_error' => 'helpers/page_500.html.twig',
+            'omit_backgrounds' => false,
         ];
     }
 
