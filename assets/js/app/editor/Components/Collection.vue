@@ -1,5 +1,5 @@
 <template>
-  <div ref="collectionContainer" class="collection-container">
+  <div :id="name" ref="collectionContainer" class="collection-container">
     <div class="expand-buttons">
       <label>{{ labels.field_label }}:</label>
 
@@ -83,6 +83,10 @@ var uniqid = require('locutus/php/misc/uniqid');
 export default {
   name: 'EditorCollection',
   props: {
+    name: {
+      type: String,
+      required: true,
+    },
     templates: {
       type: Array,
       required: true,
@@ -112,14 +116,14 @@ export default {
       templateSelectName: 'templateSelect' + this.id,
       templateSelectOptions: templateSelectOptions,
       selector: {
-        collectionContainer: '.collection-container',
-        item: '.collection-item',
-        remove: '.action-remove-collection-item',
-        moveUp: '.action-move-up-collection-item',
-        moveDown: '.action-move-down-collection-item',
-        expandAll: '.collection-expand-all',
-        collapseAll: '.collection-collapse-all',
-        editor: '#editor',
+        collectionContainer: '#' + this.name,
+        item: ' .collection-item',
+        remove: ' .action-remove-collection-item',
+        moveUp: ' .action-move-up-collection-item',
+        moveDown: ' .action-move-down-collection-item',
+        expandAll: ' .collection-expand-all',
+        collapseAll: ' .collection-collapse-all',
+        editor: ' #editor',
       },
     };
   },
@@ -140,66 +144,103 @@ export default {
      * This is a jQuery event listener, because Vue cannot handle an event emitted by a non-vue element.
      * The collection items are not Vue elements in order to initialise them correctly within their twig template.
      */
-    window.$(document).on('click', vueThis.selector.remove, function(e) {
-      e.preventDefault();
-      let collectionContainer = window
-        .$(this)
-        .closest(vueThis.selector.collectionContainer);
-      vueThis.getCollectionItemFromPressedButton(this).remove();
-      vueThis.setAllButtonsStates(collectionContainer);
-      vueThis.counter--;
-    });
-
-    window.$(document).on('click', vueThis.selector.moveUp, function(e) {
-      e.preventDefault();
-      let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
-      let prevCollectionitem = vueThis.getPreviousCollectionItem(
-        thisCollectionItem,
+    window
+      .$(document)
+      .on(
+        'click',
+        vueThis.selector.collectionContainer + vueThis.selector.remove,
+        function(e) {
+          e.preventDefault();
+          let collectionContainer = window
+            .$(this)
+            .closest(vueThis.selector.collectionContainer);
+          vueThis.getCollectionItemFromPressedButton(this).remove();
+          vueThis.setAllButtonsStates(collectionContainer);
+          vueThis.counter--;
+        },
       );
-      window.$(thisCollectionItem).after(prevCollectionitem);
 
-      vueThis.setButtonsState(thisCollectionItem);
-      vueThis.setButtonsState(prevCollectionitem);
-    });
+    window
+      .$(document)
+      .on(
+        'click',
+        vueThis.selector.collectionContainer + vueThis.selector.moveUp,
+        function(e) {
+          e.preventDefault();
+          let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(
+            this,
+          );
+          let prevCollectionitem = vueThis.getPreviousCollectionItem(
+            thisCollectionItem,
+          );
+          window.$(thisCollectionItem).after(prevCollectionitem);
 
-    window.$(document).on('click', vueThis.selector.moveDown, function(e) {
-      e.preventDefault();
-      let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
-      let nextCollectionItem = vueThis.getNextCollectionItem(
-        thisCollectionItem,
+          vueThis.setButtonsState(thisCollectionItem);
+          vueThis.setButtonsState(prevCollectionitem);
+        },
       );
-      window.$(thisCollectionItem).before(nextCollectionItem);
 
-      vueThis.setButtonsState(thisCollectionItem);
-      vueThis.setButtonsState(nextCollectionItem);
-    });
+    window
+      .$(document)
+      .on(
+        'click',
+        vueThis.selector.collectionContainer + vueThis.selector.moveDown,
+        function(e) {
+          e.preventDefault();
+          let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(
+            this,
+          );
+          let nextCollectionItem = vueThis.getNextCollectionItem(
+            thisCollectionItem,
+          );
+          window.$(thisCollectionItem).before(nextCollectionItem);
 
-    window.$(document).on('click', vueThis.selector.expandAll, function(e) {
-      e.preventDefault();
-      const collection = $(e.target).closest(
-        vueThis.selector.collectionContainer,
+          vueThis.setButtonsState(thisCollectionItem);
+          vueThis.setButtonsState(nextCollectionItem);
+        },
       );
-      collection.find('details').attr('open', '');
-    });
 
-    window.$(document).on('click', vueThis.selector.collapseAll, function(e) {
-      e.preventDefault();
-      const collection = $(e.target).closest(
-        vueThis.selector.collectionContainer,
+    window
+      .$(document)
+      .on(
+        'click',
+        vueThis.selector.collectionContainer + vueThis.selector.expandAll,
+        function(e) {
+          e.preventDefault();
+          const collection = $(e.target).closest(
+            vueThis.selector.collectionContainer,
+          );
+          collection.find('details').attr('open', '');
+        },
       );
-      collection.find('details').removeAttr('open');
-    });
+
+    window
+      .$(document)
+      .on(
+        'click',
+        vueThis.selector.collectionContainer + vueThis.selector.collapseAll,
+        function(e) {
+          e.preventDefault();
+          const collection = $(e.target).closest(
+            vueThis.selector.collectionContainer,
+          );
+          collection.find('details').removeAttr('open');
+        },
+      );
 
     /**
      * Update the title dynamically.
      */
     $(document).ready(function() {
-      $.each(window.$(vueThis.selector.item), function() {
-        updateTitle(this);
-      });
+      $.each(
+        window.$(vueThis.selector.collectionContainer + vueThis.selector.item),
+        function() {
+          updateTitle(this);
+        },
+      );
 
       window
-        .$(vueThis.selector.editor)
+        .$(vueThis.selector.collectionContainer)
         .on('keyup change', vueThis.selector.item, function() {
           updateTitle(this);
         });
