@@ -308,16 +308,10 @@ Vue.filter('slugify', string => {
     string = string.replace(alnum, opt.delimiter);
 
     // Remove duplicate delimiters
-    string = string.replace(
-      RegExp('[' + opt.delimiter + ']{2,}', 'g'),
-      opt.delimiter,
-    );
+    string = string.replace(RegExp('[' + opt.delimiter + ']{2,}', 'g'), opt.delimiter);
 
     // Remove delimiter from ends
-    string = string.replace(
-      RegExp('(^' + opt.delimiter + '|' + opt.delimiter + '$)', 'g'),
-      '',
-    );
+    string = string.replace(RegExp('(^' + opt.delimiter + '|' + opt.delimiter + '$)', 'g'), '');
 
     string = opt.lowercase ? string.toLowerCase() : string;
     return string.replace(/[^\w-]+/g, '');
@@ -347,7 +341,5 @@ Vue.filter('trim', (string, length) => {
     length = 50;
   }
 
-  return string.length > length
-    ? string.substring(0, length - 1) + '…'
-    : string;
+  return string.length > length ? string.substring(0, length - 1) + '…' : string;
 });

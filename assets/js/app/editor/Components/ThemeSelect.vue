@@ -2,19 +2,10 @@
   <section class="user__theme">
     <h3>Themes:</h3>
     <ul class="user__theme--themes">
-      <li
-        v-for="(theme, index) in themes"
-        :key="index"
-        class="theme"
-        @click="selectTheme(theme.value)"
-      >
+      <li v-for="(theme, index) in themes" :key="index" class="theme" @click="selectTheme(theme.value)">
         <h5 class="theme--name">{{ theme.name }}</h5>
         <div class="theme--palette">
-          <span
-            v-for="(color, key) in theme.colors"
-            :key="key"
-            :style="`background-color: ${color}`"
-          ></span>
+          <span v-for="(color, key) in theme.colors" :key="key" :style="`background-color: ${color}`"></span>
         </div>
       </li>
     </ul>

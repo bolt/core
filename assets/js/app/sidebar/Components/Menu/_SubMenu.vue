@@ -2,8 +2,7 @@
   <ul class="link--menu">
     <li v-if="item.link_new !== null" class="link--actions">
       <a :href="item.link_new" data-patience="virtue">
-        <i class="fas fa-fw fa-magic mr-2"></i
-        ><span>{{ labels['action.new'] }}</span>
+        <i class="fas fa-fw fa-magic mr-2"></i><span>{{ labels['action.new'] }}</span>
       </a>
       <a :href="item.link_listing" data-patience="virtue">
         <i class="fas fa-fw" :class="item.icon"></i>
@@ -11,11 +10,7 @@
       </a>
     </li>
     <!-- eslint-disable vue/no-use-v-if-with-v-for -->
-    <li
-      v-for="(subitem, index) in item.submenu"
-      v-if="item.submenu !== null"
-      :key="index"
-    >
+    <li v-for="(subitem, index) in item.submenu" v-if="item.submenu !== null" :key="index">
       <!-- eslint-enable -->
       <a :href="subitem.editLink" data-patience="virtue">
         <i class="fas fa-fw mr-2" :class="subitem.icon"></i>

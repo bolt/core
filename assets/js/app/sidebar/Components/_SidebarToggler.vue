@@ -15,17 +15,13 @@ export default {
   },
   computed: {
     slim() {
-      return this.$store.getters['general/slimSidebar']
-        ? this.$store.getters['general/slimSidebar']
-        : false;
+      return this.$store.getters['general/slimSidebar'] ? this.$store.getters['general/slimSidebar'] : false;
     },
   },
   watch: {
     slim() {
       const admin = document.querySelector('.admin');
-      this.slim
-        ? admin.classList.add('is-slim')
-        : admin.classList.remove('is-slim');
+      this.slim ? admin.classList.add('is-slim') : admin.classList.remove('is-slim');
       localStorage.setItem('slim-sidebar', this.slim);
     },
   },

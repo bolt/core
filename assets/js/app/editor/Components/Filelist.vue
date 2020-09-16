@@ -1,10 +1,6 @@
 <template>
   <div class="editor-filelist">
-    <div
-      v-for="(child, index) in containerFiles"
-      :key="child.id"
-      class="form-fieldsgroup"
-    >
+    <div v-for="(child, index) in containerFiles" :key="child.id" class="form-fieldsgroup">
       <editor-file
         :filename="child.filename"
         :thumbnail="child.thumbnail"
@@ -27,12 +23,7 @@
       ></editor-file>
     </div>
 
-    <button
-      class="btn btn-tertiary"
-      type="button"
-      :disabled="!allowMore"
-      @click="addFile"
-    >
+    <button class="btn btn-tertiary" type="button" :disabled="!allowMore" @click="addFile">
       <i class="fas fa-fw fa-plus"></i>
       {{ labels.add_new_file }}
     </button>
@@ -97,12 +88,7 @@ export default {
         let fileToMoveDown = this.containerFiles[fieldNumber];
         let fileToMoveUp = this.containerFiles[fieldNumber + 1];
 
-        this.containerFiles.splice(
-          fieldNumber,
-          2,
-          fileToMoveUp,
-          fileToMoveDown,
-        );
+        this.containerFiles.splice(fieldNumber, 2, fileToMoveUp, fileToMoveDown);
       }
     },
     onMoveFileUp(elem) {
@@ -112,12 +98,7 @@ export default {
         let fileToMoveUp = this.containerFiles[fieldNumber];
         let fileToMoveDown = this.containerFiles[fieldNumber - 1];
 
-        this.containerFiles.splice(
-          fieldNumber - 1,
-          2,
-          fileToMoveUp,
-          fileToMoveDown,
-        );
+        this.containerFiles.splice(fieldNumber - 1, 2, fileToMoveUp, fileToMoveDown);
       }
     },
     onRemoveFile(elem) {

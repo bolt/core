@@ -31,12 +31,7 @@
           <input type="hidden" name="records" :value="selected" />
           <input type="hidden" name="_csrf_token" :value="csrftoken" />
           <div class="form-group">
-            <button
-              type="submit"
-              name="bulk-action"
-              class="btn btn-secondary"
-              :disabled="selectedAction === null"
-            >
+            <button type="submit" name="bulk-action" class="btn btn-secondary" :disabled="selectedAction === null">
               {{ labels.update_all }}
             </button>
           </div>

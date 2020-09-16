@@ -1,27 +1,14 @@
 <template>
-  <div
-    class="admin__toolbar--body"
-    :class="contrast ? 'is-light' : 'is-dark'"
-    role="toolbar"
-  >
+  <div class="admin__toolbar--body" :class="contrast ? 'is-light' : 'is-dark'" role="toolbar">
     <div class="toolbar-item btn-group toolbar-item__brand">
-      <img
-        src="/assets/images/bolt_logo_dashboard.svg"
-        alt="⚙️ Bolt"
-        height="26"
-      />
+      <img src="/assets/images/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="26" />
     </div>
 
     <div class="toolbar-item toolbar-item__site">
-      <a href="/" target="_blank">
-        <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }}
-      </a>
+      <a href="/" target="_blank"> <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }} </a>
     </div>
 
-    <form
-      :action="backendPrefix"
-      class="toolbar-item toolbar-item__filter input-group"
-    >
+    <form :action="backendPrefix" class="toolbar-item toolbar-item__filter input-group">
       <input
         id="global-search"
         type="text"
@@ -31,11 +18,7 @@
         :value="filterValue"
       />
       <div class="input-group-append">
-        <button
-          class="btn btn-tertiary"
-          type="submit"
-          :title="labels['listing.button_search']"
-        >
+        <button class="btn btn-tertiary" type="submit" :title="labels['listing.button_search']">
           <i class="fas fa-search" style="margin: 0;"></i>
         </button>
       </div>
@@ -115,9 +98,7 @@ export default {
     },
   },
   created() {
-    const color = getComputedStyle(document.body).getPropertyValue(
-      '--admin-toolbar',
-    );
+    const color = getComputedStyle(document.body).getPropertyValue('--admin-toolbar');
     this.$store.dispatch('general/toolbarColor', color);
   },
 };

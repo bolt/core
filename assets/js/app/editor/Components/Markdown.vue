@@ -1,11 +1,6 @@
 <template>
   <div>
-    <vue-simplemde
-      :id="name"
-      v-model="val"
-      :name="name"
-      :configs="config"
-    ></vue-simplemde>
+    <vue-simplemde :id="name" v-model="val" :name="name" :configs="config"></vue-simplemde>
   </div>
 </template>
 

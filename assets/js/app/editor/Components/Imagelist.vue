@@ -1,10 +1,6 @@
 <template>
   <div class="editor__imagelist">
-    <div
-      v-for="(child, index) in containerImages"
-      :key="child.id"
-      class="form-fieldsgroup"
-    >
+    <div v-for="(child, index) in containerImages" :key="child.id" class="form-fieldsgroup">
       <editor-image
         v-if="child.hidden !== true"
         :filename="child.filename"
@@ -30,12 +26,7 @@
       ></editor-image>
     </div>
 
-    <button
-      class="btn btn-tertiary"
-      type="button"
-      :disabled="!allowMore"
-      @click="addImage"
-    >
+    <button class="btn btn-tertiary" type="button" :disabled="!allowMore" @click="addImage">
       <i class="fas fa-fw fa-plus"></i>
       {{ labels.add_new_image }}
     </button>
@@ -105,12 +96,7 @@ export default {
         let imageToMoveDown = this.containerImages[fieldNumber];
         let imageToMoveUp = this.containerImages[fieldNumber + 1];
 
-        this.containerImages.splice(
-          fieldNumber,
-          2,
-          imageToMoveUp,
-          imageToMoveDown,
-        );
+        this.containerImages.splice(fieldNumber, 2, imageToMoveUp, imageToMoveDown);
       }
     },
     onMoveImageUp(elem) {
@@ -120,12 +106,7 @@ export default {
         let imageToMoveUp = this.containerImages[fieldNumber];
         let imageToMoveDown = this.containerImages[fieldNumber - 1];
 
-        this.containerImages.splice(
-          fieldNumber - 1,
-          2,
-          imageToMoveUp,
-          imageToMoveDown,
-        );
+        this.containerImages.splice(fieldNumber - 1, 2, imageToMoveUp, imageToMoveDown);
       }
     },
     onRemoveImage(elem) {
