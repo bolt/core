@@ -241,13 +241,9 @@ export default {
 
       window
         .$(vueThis.selector.collectionContainer)
-        .on(
-          'keyup change',
-          vueThis.selector.item,
-          function() {
-            updateTitle(this);
-          },
-        );
+        .on('keyup change', vueThis.selector.item, function() {
+          updateTitle(this);
+        });
     });
 
     /**
