@@ -7,7 +7,7 @@
 {% endset %}
 
 {% block field %}
-    {% set setPath = field.definition.get('upload')|placeholders({'random': 4, 'contenttype': record.contenttype}) %}
+    {% set setPath = field.definition.get('upload')|placeholders({'contenttype': record.contenttype}) %}
     {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
     {% set filelist = path('bolt_async_filelisting', {'location': location|default('files') }) %}
     {% set labels = {

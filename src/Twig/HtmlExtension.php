@@ -108,8 +108,8 @@ class HtmlExtension extends AbstractExtension
         $baseReplacements = [
             'year' => date('Y'),
             'month' => date('m'),
-            'day' => date('D'),
-            'date' => date('Y-m-D'),
+            'day' => date('d'),
+            'date' => date('Y-m-d'),
             'random' => bin2hex(random_bytes(4)),
         ];
 

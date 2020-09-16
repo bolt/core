@@ -133,7 +133,7 @@ entries:
         image:
             type: image
             group: media
-            upload: entries
+            upload: "{random}/{contenttype}/{date}"
         video:
             type: embed
     relations:
