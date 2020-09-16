@@ -22,6 +22,12 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
     public function homepage(ContentRepository $contentRepository): Response
     {
         $homepage = $this->config->get('theme/homepage') ?: $this->config->get('general/homepage');
+        $templates = $this->templateChooser->forHomepage();
+
+        if ($homepage === null) {
+            return $this->render($templates);
+        }
+
         $homepageTokens = explode('/', $homepage);
         $contentType = $this->config->get('contenttypes/' . $homepageTokens[0]);
 
@@ -46,8 +52,6 @@ class HomepageController extends TwigAwareController implements FrontendZoneInte
         if (! $record) {
             $record = $contentRepository->findOneBy(['contentType' => $homepageTokens[0]]);
         }
-
-        $templates = $this->templateChooser->forHomepage();
 
         return $this->renderSingle($record, false, $templates);
     }
