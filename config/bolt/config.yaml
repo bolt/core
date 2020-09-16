@@ -22,12 +22,6 @@ theme: skeleton
 # format settings, see: https://www.php.net/manual/en/function.date.php
 date_format: 'F j, Y H:i'
 
-# The hour of the day for the internal cron task scheduler to run daily, weekly,
-# monthly and yearly jobs.
-#
-# Default: 3 (3 am)
-cron_hour: 3
-
 # You can set a preference to omit background images on the login screen.
 omit_backgrounds: true
 
