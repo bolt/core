@@ -29,5 +29,10 @@ includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
 #    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon # make ON when thecodingmachine/safe will get stable
-rules:
-	- Symplify\CodingStandard\Rules\NoDebugFuncCallRule
+
+services:
+	-
+		class: Symplify\CodingStandard\Rules\ForbiddenFuncCallRule
+		tags: [phpstan.rules.rule]
+		arguments:
+			forbiddenFunctions: ['d', 'dd', 'dump', 'var_dump', 'extract']
