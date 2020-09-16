@@ -2361,5 +2361,11 @@
         <target>Collapse all</target>
       </segment>
     </unit>
+    <unit id="pXtciRI" name="content.edit_missing_definition">
+      <segment>
+        <source>content.edit_missing_definition</source>
+        <target>The definition for this ContentType is missing! Editing this record will not work as expected. Please check your contenttypes.yaml to make sure that it contains %contenttype%.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

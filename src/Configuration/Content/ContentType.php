@@ -40,6 +40,8 @@ class ContentType extends DeepCollection
             'singular_name' => $name,
             'locales' => [],
             'fields' => new Collection(),
+            // when it is created on the fly
+            'virtual' => true,
         ]);
     }
 
