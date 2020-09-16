@@ -232,10 +232,10 @@ export default {
       );
 
       window
-        .$(vueThis.selector.collectionContainer + vueThis.selector.editor)
+        .$(vueThis.selector.collectionContainer)
         .on(
           'keyup change',
-          vueThis.selector.collectionContainer + vueThis.selector.item,
+          vueThis.selector.item,
           function() {
             updateTitle(this);
           },
