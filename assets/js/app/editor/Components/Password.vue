@@ -17,18 +17,9 @@
         @input="measureStrength"
       />
 
-      <i
-        ref="visibilityToggle"
-        class="input-group-text toggle-password fas fa-eye"
-        @click="togglePassword"
-      ></i>
+      <i ref="visibilityToggle" class="input-group-text toggle-password fas fa-eye" @click="togglePassword"></i>
     </div>
-    <progress-bar
-      v-if="strength"
-      ref="progressBar"
-      :max="4"
-      height="4px"
-    ></progress-bar>
+    <progress-bar v-if="strength" ref="progressBar" :max="4" height="4px"></progress-bar>
   </div>
 </template>
 

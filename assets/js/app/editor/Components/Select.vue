@@ -27,11 +27,7 @@
         {{ props.option.value | raw }}
       </template>
       <template v-if="name !== 'status'" slot="tag" slot-scope="props">
-        <span
-          :class="{ empty: props.option.value == '' }"
-          @drop="drop($event)"
-          @dragover="allowDrop($event)"
-        >
+        <span :class="{ empty: props.option.value == '' }" @drop="drop($event)" @dragover="allowDrop($event)">
           <span
             :id="props.option.key"
             :key="props.option.value"
@@ -56,13 +52,7 @@
         </span>
       </template>
     </multiselect>
-    <input
-      :id="id"
-      type="hidden"
-      :name="name"
-      :form="form"
-      :value="sanitized"
-    />
+    <input :id="id" type="hidden" :name="name" :form="form" :value="sanitized" />
   </div>
 </template>
 
@@ -150,19 +140,14 @@ export default {
        */
       const outgoingId = this.findDropElement(e.target).id;
 
-      const incomingElement = this.selected.find(
-        el => '' + el.key === '' + incomingId,
-      );
-      const outgoingElement = this.selected.find(
-        el => '' + el.key === '' + outgoingId,
-      );
+      const incomingElement = this.selected.find(el => '' + el.key === '' + incomingId);
+      const outgoingElement = this.selected.find(el => '' + el.key === '' + outgoingId);
 
       const incomingIndex = this.selected.indexOf(incomingElement);
       const outgoingIndex = this.selected.indexOf(outgoingElement);
 
       // if dragging down, insert after. else, insert before.
-      const newPosition =
-        incomingIndex < outgoingIndex ? outgoingIndex + 1 : outgoingIndex;
+      const newPosition = incomingIndex < outgoingIndex ? outgoingIndex + 1 : outgoingIndex;
 
       this.selected.splice(incomingIndex, 1);
       this.selected.splice(newPosition, 0, incomingElement);

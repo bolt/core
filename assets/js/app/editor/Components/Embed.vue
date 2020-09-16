@@ -19,22 +19,11 @@
                 :pattern="pattern"
               />
               <span class="input-group-append">
-                <button
-                  class="btn btn-tertiary refresh"
-                  type="button"
-                  :disabled="loading"
-                  @click="updateEmbed"
-                >
-                  <i
-                    :class="(loading ? 'fa-spin' : '') + ' fas fa-sync mr-0'"
-                  ></i>
+                <button class="btn btn-tertiary refresh" type="button" :disabled="loading" @click="updateEmbed">
+                  <i :class="(loading ? 'fa-spin' : '') + ' fas fa-sync mr-0'"></i>
                 </button>
 
-                <button
-                  class="btn btn-hidden-danger remove"
-                  type="button"
-                  @click="clearEmbed"
-                >
+                <button class="btn btn-hidden-danger remove" type="button" @click="clearEmbed">
                   <i class="fas fa-trash mr-0"></i>
                 </button>
               </span>
@@ -50,9 +39,7 @@
               :readonly="readonly"
             />
             ×
-            <label for="embed-height-size" class="sr-only">{{
-              labels.label_height
-            }}</label>
+            <label for="embed-height-size" class="sr-only">{{ labels.label_height }}</label>
             <input
               class="form-control col-2"
               :name="name + '[height]'"
@@ -80,24 +67,9 @@
               type="text"
               :value="authornameData"
             />
-            <input
-              class="author_url"
-              :name="name + '[authorurl]'"
-              type="hidden"
-              :value="authorurlData"
-            />
-            <input
-              class="html"
-              :name="name + '[html]'"
-              type="hidden"
-              :value="htmlData"
-            />
-            <input
-              class="thumbnail_url"
-              :name="name + '[thumbnail]'"
-              type="hidden"
-              :value="thumbnailData"
-            />
+            <input class="author_url" :name="name + '[authorurl]'" type="hidden" :value="authorurlData" />
+            <input class="html" :name="name + '[html]'" type="hidden" :value="htmlData" />
+            <input class="thumbnail_url" :name="name + '[thumbnail]'" type="hidden" :value="thumbnailData" />
           </div>
         </div>
         <div class="col-4">
@@ -190,10 +162,7 @@ export default {
     fetchEmbed: function() {
       const body = new FormData();
       body.append('url', this.urlData);
-      body.append(
-        '_csrf_token',
-        document.getElementsByName('_csrf_token')[0].value,
-      );
+      body.append('_csrf_token', document.getElementsByName('_csrf_token')[0].value);
 
       fetch(this.embedapi, { method: 'POST', body: body })
         .then(response => response.json())

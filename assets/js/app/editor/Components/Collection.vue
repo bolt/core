@@ -15,11 +15,7 @@
       </div>
     </div>
 
-    <div
-      v-for="element in elements"
-      :key="element.hash"
-      class="collection-item"
-    >
+    <div v-for="element in elements" :key="element.hash" class="collection-item">
       <details :open="state === 'expanded'">
         <summary>
           <!-- Initial title. This is replaced by dynamic title in JS below. -->
@@ -144,106 +140,57 @@ export default {
      * This is a jQuery event listener, because Vue cannot handle an event emitted by a non-vue element.
      * The collection items are not Vue elements in order to initialise them correctly within their twig template.
      */
-    window
-      .$(document)
-      .on(
-        'click',
-        vueThis.selector.collectionContainer + vueThis.selector.remove,
-        function(e) {
-          e.preventDefault();
-          let collectionContainer = window
-            .$(this)
-            .closest(vueThis.selector.collectionContainer);
-          vueThis.getCollectionItemFromPressedButton(this).remove();
-          vueThis.setAllButtonsStates(collectionContainer);
-          vueThis.counter--;
-        },
-      );
+    window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.remove, function(e) {
+      e.preventDefault();
+      let collectionContainer = window.$(this).closest(vueThis.selector.collectionContainer);
+      vueThis.getCollectionItemFromPressedButton(this).remove();
+      vueThis.setAllButtonsStates(collectionContainer);
+      vueThis.counter--;
+    });
 
-    window
-      .$(document)
-      .on(
-        'click',
-        vueThis.selector.collectionContainer + vueThis.selector.moveUp,
-        function(e) {
-          e.preventDefault();
-          let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(
-            this,
-          );
-          let prevCollectionitem = vueThis.getPreviousCollectionItem(
-            thisCollectionItem,
-          );
-          window.$(thisCollectionItem).after(prevCollectionitem);
+    window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveUp, function(e) {
+      e.preventDefault();
+      let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
+      let prevCollectionitem = vueThis.getPreviousCollectionItem(thisCollectionItem);
+      window.$(thisCollectionItem).after(prevCollectionitem);
 
-          vueThis.setButtonsState(thisCollectionItem);
-          vueThis.setButtonsState(prevCollectionitem);
-        },
-      );
+      vueThis.setButtonsState(thisCollectionItem);
+      vueThis.setButtonsState(prevCollectionitem);
+    });
 
-    window
-      .$(document)
-      .on(
-        'click',
-        vueThis.selector.collectionContainer + vueThis.selector.moveDown,
-        function(e) {
-          e.preventDefault();
-          let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(
-            this,
-          );
-          let nextCollectionItem = vueThis.getNextCollectionItem(
-            thisCollectionItem,
-          );
-          window.$(thisCollectionItem).before(nextCollectionItem);
+    window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveDown, function(e) {
+      e.preventDefault();
+      let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
+      let nextCollectionItem = vueThis.getNextCollectionItem(thisCollectionItem);
+      window.$(thisCollectionItem).before(nextCollectionItem);
 
-          vueThis.setButtonsState(thisCollectionItem);
-          vueThis.setButtonsState(nextCollectionItem);
-        },
-      );
+      vueThis.setButtonsState(thisCollectionItem);
+      vueThis.setButtonsState(nextCollectionItem);
+    });
 
-    window
-      .$(document)
-      .on(
-        'click',
-        vueThis.selector.collectionContainer + vueThis.selector.expandAll,
-        function(e) {
-          e.preventDefault();
-          const collection = $(e.target).closest(
-            vueThis.selector.collectionContainer,
-          );
-          collection.find('details').attr('open', '');
-        },
-      );
+    window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.expandAll, function(e) {
+      e.preventDefault();
+      const collection = $(e.target).closest(vueThis.selector.collectionContainer);
+      collection.find('details').attr('open', '');
+    });
 
-    window
-      .$(document)
-      .on(
-        'click',
-        vueThis.selector.collectionContainer + vueThis.selector.collapseAll,
-        function(e) {
-          e.preventDefault();
-          const collection = $(e.target).closest(
-            vueThis.selector.collectionContainer,
-          );
-          collection.find('details').removeAttr('open');
-        },
-      );
+    window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.collapseAll, function(e) {
+      e.preventDefault();
+      const collection = $(e.target).closest(vueThis.selector.collectionContainer);
+      collection.find('details').removeAttr('open');
+    });
 
     /**
      * Update the title dynamically.
      */
     $(document).ready(function() {
-      $.each(
-        window.$(vueThis.selector.collectionContainer + vueThis.selector.item),
-        function() {
-          updateTitle(this);
-        },
-      );
+      $.each(window.$(vueThis.selector.collectionContainer + vueThis.selector.item), function() {
+        updateTitle(this);
+      });
 
-      window
-        .$(vueThis.selector.collectionContainer)
-        .on('keyup change', vueThis.selector.item, function() {
-          updateTitle(this);
-        });
+      window.$(vueThis.selector.collectionContainer).on('keyup change', vueThis.selector.item, function() {
+        updateTitle(this);
+      });
     });
 
     /**
@@ -318,14 +265,10 @@ export default {
       }
     },
     getPreviousCollectionItem(item) {
-      return item.prev('.collection-item').length === 0
-        ? false
-        : item.prev('.collection-item');
+      return item.prev('.collection-item').length === 0 ? false : item.prev('.collection-item');
     },
     getNextCollectionItem(item) {
-      return item.next('.collection-item').length === 0
-        ? false
-        : item.next('.collection-item');
+      return item.next('.collection-item').length === 0 ? false : item.next('.collection-item');
     },
     getCollectionItemFromPressedButton(button) {
       return window
@@ -339,10 +282,7 @@ export default {
 
       const realhash = uniqid();
 
-      template.content = template.content.replace(
-        new RegExp(template.hash, 'g'),
-        realhash,
-      );
+      template.content = template.content.replace(new RegExp(template.hash, 'g'), realhash);
 
       template.hash = realhash;
 

@@ -1,54 +1,25 @@
 <template>
-  <transition-group
-    tag="div"
-    class="listing--container"
-    :class="{ 'is-dashboard': type === 'dashboard' }"
-  >
+  <transition-group tag="div" class="listing--container" :class="{ 'is-dashboard': type === 'dashboard' }">
     <!-- check box -->
-    <row-checkbox
-      v-if="type !== 'dashboard'"
-      :id="record.id"
-      key="select"
-    ></row-checkbox>
+    <row-checkbox v-if="type !== 'dashboard'" :id="record.id" key="select"></row-checkbox>
 
     <!-- row -->
-    <div
-      key="row"
-      class="listing__row"
-      :class="`is-${size}`"
-      @mouseleave="leave"
-    >
+    <div key="row" class="listing__row" :class="`is-${size}`" @mouseleave="leave">
       <!-- column details / excerpt -->
       <div class="listing__row--item is-details">
-        <a
-          class="listing__row--item-title"
-          :href="record.extras.editLink"
-          :title="slug"
-        >
+        <a class="listing__row--item-title" :href="record.extras.editLink" :title="slug">
           {{ record.extras.title | trim(62) | raw }}
         </a>
-        <span
-          v-if="record.extras.feature"
-          class="badge"
-          :class="`badge-${record.extras.feature}`"
-          >{{ record.extras.feature }}</span
-        >
-        <span class="listing__row--item-title-excerpt">{{
-          record.extras.excerpt | raw
+        <span v-if="record.extras.feature" class="badge" :class="`badge-${record.extras.feature}`">{{
+          record.extras.feature
         }}</span>
+        <span class="listing__row--item-title-excerpt">{{ record.extras.excerpt | raw }}</span>
       </div>
       <!-- end column -->
 
       <!-- column thumbnail -->
-      <div
-        v-if="size === 'normal' && record.extras.image"
-        class="listing__row--item is-thumbnail"
-      >
-        <img
-          :src="record.extras.image.thumbnail"
-          style="width: 108px;"
-          loading="lazy"
-        />
+      <div v-if="size === 'normal' && record.extras.image" class="listing__row--item is-thumbnail">
+        <img :src="record.extras.image.thumbnail" style="width: 108px;" loading="lazy" />
       </div>
       <!-- end column -->
 
@@ -62,12 +33,7 @@
       </div>
 
       <!-- column actions -->
-      <row-actions
-        :type="type"
-        :record="record"
-        :size="size"
-        :labels="labels['actions']"
-      ></row-actions>
+      <row-actions :type="type" :record="record" :size="size" :labels="labels['actions']"></row-actions>
       <!-- end column -->
     </div>
   </transition-group>
@@ -98,9 +64,7 @@ export default {
         return this.record.fieldValues.slug;
       }
       // if slug has different locales, return the 0st one
-      return this.record.fieldValues.slug[
-        Object.keys(this.record.fieldValues.slug)[0]
-      ];
+      return this.record.fieldValues.slug[Object.keys(this.record.fieldValues.slug)[0]];
     },
     size() {
       return this.$store.getters['general/getRowSize'];

@@ -20,7 +20,7 @@ module.exports = {
     "no-debugger": "error" ,
     "vue/require-default-prop": "off",
     "vue/require-prop-type-constructor": "off",
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", { printWidth: 120 }],
   },
   "plugins": [
     "standard",

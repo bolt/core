@@ -1,11 +1,5 @@
 <template>
-  <div
-    class="editor__image"
-    @dragenter="onDragEnter"
-    @dragleave="onDragLeave"
-    @dragover.prevent
-    @drop="onDrop"
-  >
+  <div class="editor__image" @dragenter="onDragEnter" @dragleave="onDragLeave" @dragover.prevent @drop="onDrop">
     <transition name="fade">
       <div v-show="isDragging" class="editor__image--dragging">
         <i class="fas fa-upload"></i>
@@ -39,12 +33,7 @@
         </div>
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group mr-2" role="group">
-            <button
-              class="btn btn-sm btn-tertiary"
-              type="button"
-              :disabled="readonly"
-              @click="selectUploadFile"
-            >
+            <button class="btn btn-sm btn-tertiary" type="button" :disabled="readonly" @click="selectUploadFile">
               <i class="fas fa-fw fa-upload"></i>{{ labels.button_upload }}
             </button>
 
@@ -77,9 +66,7 @@
               >
                 <i class="fas fa-fw fa-info-circle"></i>
                 {{ labels.button_edit_attributes }}
-                <small class="dim"
-                  ><i class="fas fa-external-link-square-alt"></i
-                ></small>
+                <small class="dim"><i class="fas fa-external-link-square-alt"></i></small>
               </a>
             </div>
           </div>
@@ -107,12 +94,7 @@
               {{ labels.button_move_down }}
             </button>
 
-            <button
-              class="btn btn-sm btn-hidden-danger"
-              type="button"
-              :disabled="readonly"
-              @click="onRemoveImage"
-            >
+            <button class="btn btn-sm btn-hidden-danger" type="button" :disabled="readonly" @click="onRemoveImage">
               <i class="fas fa-fw fa-trash"></i> {{ labels.button_remove }}
             </button>
           </div>
@@ -302,9 +284,7 @@ export default {
       const fd = new FormData();
       const config = {
         onUploadProgress: progressEvent => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total,
-          );
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
           this.progress = percentCompleted;
         },
         headers: {

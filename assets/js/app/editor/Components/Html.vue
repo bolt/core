@@ -1,11 +1,6 @@
 <template>
   <div>
-    <trumbowyg
-      :id="name"
-      v-model="val"
-      :name="name"
-      :config="config"
-    ></trumbowyg>
+    <trumbowyg :id="name" v-model="val" :name="name" :config="config"></trumbowyg>
   </div>
 </template>
 

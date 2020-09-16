@@ -1,11 +1,7 @@
 <template>
   <div class="listing__row--item is-actions edit-actions">
     <div class="btn-group">
-      <a
-        class="btn btn-secondary btn-block btn-sm text-nowrap"
-        :href="record.extras.editLink"
-        data-patience="virtue"
-      >
+      <a class="btn btn-secondary btn-block btn-sm text-nowrap" :href="record.extras.editLink" data-patience="virtue">
         <i class="far fa-edit mr-1"></i> {{ labels.button_edit }}
       </a>
       <button
@@ -17,16 +13,8 @@
       >
         <span class="sr-only">Toggle Dropdown</span>
       </button>
-      <div
-        class="edit-actions__dropdown dropdown-menu dropdown-menu-right"
-        style="width: 320px;"
-      >
-        <a
-          v-if="record.status === 'published'"
-          class="dropdown-item"
-          :href="record.extras.link"
-          target="_blank"
-        >
+      <div class="edit-actions__dropdown dropdown-menu dropdown-menu-right" style="width: 320px;">
+        <a v-if="record.status === 'published'" class="dropdown-item" :href="record.extras.link" target="_blank">
           <i class="fas fa-w fa-external-link-square-alt"></i>
           {{ labels.view_on_site }}
         </a>
@@ -38,19 +26,11 @@
           <span class="status mr-1 is-published"></span>
           {{ labels.status_to_publish }}
         </a>
-        <a
-          v-if="record.status !== 'held'"
-          class="dropdown-item"
-          :href="record.extras.statusLink + '&status=held'"
-        >
+        <a v-if="record.status !== 'held'" class="dropdown-item" :href="record.extras.statusLink + '&status=held'">
           <span class="status mr-1 is-held"></span>
           {{ labels.status_to_held }}
         </a>
-        <a
-          v-if="record.status !== 'draft'"
-          class="dropdown-item"
-          :href="record.extras.statusLink + '&status=draft'"
-        >
+        <a v-if="record.status !== 'draft'" class="dropdown-item" :href="record.extras.statusLink + '&status=draft'">
           <span class="status mr-1 is-draft"></span>
           {{ labels.status_to_draft }}
         </a>
@@ -72,9 +52,7 @@
         <span class="dropdown-item-text">
           <i class="fas fa-link fa-w"></i>
           {{ labels.slug }}:
-          <code :title="record.fieldValues.slug">{{
-            record.fieldValues.slug | trim(24)
-          }}</code>
+          <code :title="record.fieldValues.slug">{{ record.fieldValues.slug | trim(24) }}</code>
         </span>
         <span class="dropdown-item-text">
           <i class="fas fa-asterisk fa-w"></i>
