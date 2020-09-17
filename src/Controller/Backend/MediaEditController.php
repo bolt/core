@@ -109,7 +109,7 @@ class MediaEditController extends TwigAwareController implements BackendZoneInte
 
         $media = $this->mediaFactory->createOrUpdateMedia($file, $fileLocation);
 
-//        // todo: This check if it is now is terrible. We should handle new/edit routes more gracefully
+//        // todo: This check is terrible. We should handle new/edit routes more gracefully
         if ($media->getId() === 0) {
             $this->addFlash('success', 'content.created_successfully');
         }
