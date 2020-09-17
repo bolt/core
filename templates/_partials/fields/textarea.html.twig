@@ -1,6 +1,10 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
+    {% if height is not defined %}
+        {% set height = field.definition.height|default(5) %}
+    {% endif %}
+
     <editor-textarea
         :value='{{ value|json_encode }}'
         :label='{{ label|json_encode }}'
@@ -10,6 +14,6 @@
         :errormessage='{{ errormessage|json_encode }}'
         :pattern='{{ pattern|json_encode }}'
         :placeholder='{{ placeholder|json_encode }}'
-        :height='{{ field.definition.height|json_encode }}'
+        :height='{{ height|json_encode }}'
     ></editor-textarea>
 {% endblock %}
