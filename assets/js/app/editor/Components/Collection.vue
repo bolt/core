@@ -30,14 +30,11 @@
 
         <!-- The actual field -->
         <div :is="compile(element.content)" class="card-body"></div>
-
       </details>
     </div>
 
     <div class="row">
-      <div class="my-auto" style="margin: 1rem;">
-        {{ labels.add_collection_item }}:
-      </div>
+      <div class="my-auto" style="margin: 1rem;">{{ labels.add_collection_item }}:</div>
       <div v-if="templates.length > 1" class="dropdown">
         <button
           id="dropdownMenuButton"
