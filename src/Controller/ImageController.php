@@ -166,7 +166,7 @@ class ImageController
     {
         $pathinfo = pathinfo($filename);
 
-        $imageExtensions = ['gif', 'png', 'jpg', 'jpeg', 'svg', 'webp'];
+        $imageExtensions = ['gif', 'png', 'jpg', 'jpeg', 'svg', 'avif', 'webp'];
 
         return array_key_exists('extension', $pathinfo) && in_array($pathinfo['extension'], $imageExtensions, true);
     }

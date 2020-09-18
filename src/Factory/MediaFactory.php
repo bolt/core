@@ -106,7 +106,7 @@ class MediaFactory
 
     private function isImage(Media $media): bool
     {
-        return in_array($media->getType(), ['gif', 'png', 'jpg', 'jpeg', 'svg', 'webp'], true);
+        return in_array($media->getType(), ['gif', 'png', 'jpg', 'jpeg', 'svg', 'webp', 'avif'], true);
     }
 
     public function createFromFilename(string $locationName, string $path, string $filename): Media
