@@ -1,5 +1,5 @@
 <template>
-  <div :id="`multiselect-${id}`" :class="classname">
+  <div :id="`multiselect-${id}`" :class="classname" class="multiselect-bolt-wrapper">
     <multiselect
       ref="vselect"
       v-model="selected"
