@@ -15,9 +15,9 @@
       </div>
     </div>
 
-    <div v-for="element in elements" :key="element.hash" class="collection-item">
+    <div v-for="element in elements" :key="element.hash" class="card collection-item">
       <details :open="state === 'expanded'">
-        <summary>
+        <summary class="card-header d-flex align-items-center">
           <!-- Initial title. This is replaced by dynamic title in JS below. -->
           <div class="collection-item-title" :data-label="element.label">
             <i :class="[element.icon, 'fas fa-fw']" />
@@ -29,45 +29,51 @@
         </summary>
 
         <!-- The actual field -->
-        <div :is="compile(element.content)"></div>
+        <div :is="compile(element.content)" class="card-body"></div>
+
       </details>
     </div>
 
-    <div v-if="templates.length > 1" class="dropdown">
-      <button
-        id="dropdownMenuButton"
-        :disabled="!allowMore"
-        class="btn btn-secondary dropdown-toggle"
-        type="button"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        <i class="fas fa-fw fa-plus"></i> {{ labels.add_collection_item }}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a
-          v-for="template in templates"
-          :key="template.label"
-          class="dropdown-item"
-          :data-template="template.label"
-          @click="addCollectionItem($event)"
-        >
-          <i :class="[template.icon, 'fas fa-fw']" />
-          {{ template.label }}
-        </a>
+    <div class="row">
+      <div class="my-auto" style="margin: 1rem;">
+        {{ labels.add_collection_item }}:
       </div>
+      <div v-if="templates.length > 1" class="dropdown">
+        <button
+          id="dropdownMenuButton"
+          :disabled="!allowMore"
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fas fa-fw fa-plus"></i> {{ labels.select }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a
+            v-for="template in templates"
+            :key="template.label"
+            class="dropdown-item"
+            :data-template="template.label"
+            @click="addCollectionItem($event)"
+          >
+            <i :class="[template.icon, 'fas fa-fw']" />
+            {{ template.label }}
+          </a>
+        </div>
+      </div>
+      <button
+        v-else
+        type="button"
+        class="btn btn-secondary btn-small"
+        :data-template="templates[0].label"
+        @click="addCollectionItem($event)"
+      >
+        <i :class="[templates[0].icon, 'fas fa-fw']" />
+        {{ labels.add_collection_item }}
+      </button>
     </div>
-    <button
-      v-else
-      type="button"
-      class="btn btn-secondary btn-small"
-      :data-template="templates[0].label"
-      @click="addCollectionItem($event)"
-    >
-      <i :class="[templates[0].icon, 'fas fa-fw']" />
-      {{ labels.add_collection_item }}
-    </button>
   </div>
 </template>
 

@@ -12,8 +12,12 @@
   }
 
   .collection-item {
+
+    margin-bottom: 1rem;
+
     summary {
-      margin-bottom: 1rem;
+      padding: 0.3rem 0.3rem 0.3rem 1rem;
+      background: $light;
 
       &::-webkit-details-marker {
         display: none;
@@ -38,10 +42,16 @@
 
     .collection-item-title {
       display: inline-block;
-      max-width: 40%;
+      //max-width: 40%;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+    }
+
+    .card-body {
+      background: var(--background);
+      padding-bottom: 0;
+
     }
   }
 }

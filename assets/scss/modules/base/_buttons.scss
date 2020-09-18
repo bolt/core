@@ -6,6 +6,10 @@
   @include button-variant($tertiary, $tertiary, darken($danger, 7.5%), darken($danger, 10%), darken($danger, 10%), darken($danger, 12.5%));
 }
 
+.btn-light-danger {
+  @include button-variant($light, $light, darken($danger, 7.5%), darken($danger, 10%), darken($danger, 10%), darken($danger, 12.5%));
+}
+
 $theme-colors: (
   "primary":   $primary,
   "secondary": $secondary,

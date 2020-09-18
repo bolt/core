@@ -1,5 +1,7 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
+{% block label %}{% endblock %}
+
 {% block field %}
     {% for setChild in field.valueForEditor %}
         {% set includeLookup = [
