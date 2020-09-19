@@ -255,6 +255,7 @@ showcases:
         set:
             type: set
             group: Sets
+            label: This is my set
             fields:
                 title:
                     type: text
@@ -263,10 +264,12 @@ showcases:
         collection:
             type: collection
             group: Collections
+            label: This is my Collection
             default_state: expanded
             fields:
                 set:
                     type: set
+                    label: Set inside Collection
                     fields:
                         title:
                             type: text
