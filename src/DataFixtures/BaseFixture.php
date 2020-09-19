@@ -83,7 +83,7 @@ abstract class BaseFixture extends Fixture
     {
         $fullpath = Path::canonicalize($base);
 
-        $glob = '*.{jpg,png,gif,jpeg}';
+        $glob = '*.{jpg,png,gif,jpeg,webp,avif}';
 
         $finder = new Finder();
         $finder->in($fullpath)->depth('< 2')->sortByName()->name($glob)->files();

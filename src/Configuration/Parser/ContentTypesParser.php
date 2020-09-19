@@ -284,7 +284,7 @@ class ContentTypesParser extends BaseParser
         // If field is an "image" type, make sure the 'extensions' are set.
         if ($field['type'] === 'image' || $field['type'] === 'imagelist') {
             if (empty($field['extensions'])) {
-                $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg']);
+                $extensions = new Collection(['gif', 'jpg', 'jpeg', 'png', 'svg', 'avif', 'webp']);
                 $field['extensions'] = $extensions->intersect($acceptFileTypes)->toArray();
             }
         }

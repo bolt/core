@@ -60,7 +60,7 @@ class ConfigTest extends TestCase
         /** @var Collection $mediaTypes */
         $mediaTypes = $config->getMediaTypes();
 
-        $this->assertCount(8, $mediaTypes);
+        $this->assertCount(10, $mediaTypes);
         $this->assertTrue($mediaTypes->contains('png'));
         $this->assertFalse($mediaTypes->contains('docx'));
     }
