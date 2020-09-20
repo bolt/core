@@ -42,7 +42,7 @@ small {
 .card {
   box-shadow: $card-box-shadow;
   background: #fff;
-  border: 1px solid var(--very-light-border) !important;
+  border: 1px solid $card-border-color !important;
 
   .card-header {
     font-weight: $font-weight-bold;

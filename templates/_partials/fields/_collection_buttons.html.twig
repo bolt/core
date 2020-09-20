@@ -1,14 +1,14 @@
-{% if in_collection is defined %}
-    <div class="float-right btn-group" role="group" aria-label="Collection buttons">
-    <button class='action-move-up-collection-item btn btn-secondary btn-sm' {% if is_first is defined and is_first %} disabled {% endif %}>
+{% if in_compound is defined %}
+    <div class="btn-group ml-auto mr-2" role="group" aria-label="Collection buttons">
+    <button class='action-move-up-collection-item btn btn-light btn-sm' style="white-space: nowrap" {% if is_first is defined and is_first %} disabled {% endif %}>
         <i class="fas fa-fw fa-chevron-up"></i>
         {{ 'collection.move_item_up'|trans }}
     </button>
-    <button class='action-move-down-collection-item btn btn-secondary btn-sm' {% if is_last is defined and is_last %} disabled {% endif %}>
+    <button class='action-move-down-collection-item btn btn-light btn-sm' style="white-space: nowrap" {% if is_last is defined and is_last %} disabled {% endif %}>
         <i class="fas fa-fw fa-chevron-down"></i>
         {{ 'collection.move_item_down'|trans }}
     </button>
-    <button class='action-remove-collection-item btn btn-hidden-danger btn-sm' data-confirmation="{{ 'collection.confirm_delete'|trans }}">
+    <button class='action-remove-collection-item btn btn-light-danger btn-sm' style="white-space: nowrap" data-confirmation="{{ 'collection.confirm_delete'|trans }}">
         <i class="fas fa-fw fa-trash"></i>
         {{ 'collection.remove_item'|trans }}
     </button>

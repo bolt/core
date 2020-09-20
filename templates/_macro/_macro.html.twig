@@ -53,12 +53,11 @@
             {% set context = {
                 'field': item_field,
                 'id': id,
-                'in_collection': true,
+                'in_compound': true,
                 'is_first': loop.index0 == 0,
                 'is_last': loop.index == fields|length,
                 'name': collectionItemName,
-                'collection_name': collectionField.name,
-                'collection_label': collectionField.definition.label,
+                'compound_label': collectionField.definition.label,
                 'hash': hash,
                 'record': record
             } %}
@@ -80,7 +79,7 @@
         {% endset %}
 
         {# Set the buttons #}
-        {% set buttons %}{% include '@bolt/_partials/fields/_collection_buttons.html.twig' with { in_collection: true, 'hash': hash } %}{% endset %}
+        {% set buttons %}{% include '@bolt/_partials/fields/_collection_buttons.html.twig' with { in_compound: true, 'hash': hash } %}{% endset %}
 
         {# Set the icon #}
         {% set icon = item_field.definition.icon %}

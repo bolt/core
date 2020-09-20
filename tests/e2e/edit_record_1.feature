@@ -188,7 +188,7 @@ Feature: Edit record
 
     When I follow "Sets"
     Then I should be on "/bolt/edit/43#sets"
-    And I should see "Set" in the "#sets label[for='field-set']" element
+    And I should see "This is my set" in the "#sets label[for='field-set-title']" element
 
     And I should see "Title" in the "#sets label[for='field-set-title']" element
     And I should see exactly one "sets[set][title]" element
@@ -216,23 +216,22 @@ Feature: Edit record
     Then I should be on "/bolt/edit/43#collections"
     And I should see "Collection:" in the "label[for='field-collection']" element
 
-    #templates dropdown
-    When I scroll "Add item to Collection" into view
-    And I click "Add item to Collection"
+    # Collection templates dropdown
+    When I scroll "Select …" into view
+    And I click "Select …"
     # Click add set
-    And I click "#field-collection-collection > div > div.dropdown.show > div > a:nth-child(2)"
+    And I click "#field-collection-collection > div > div > div.dropdown.show > div > a:nth-child(2)"
 
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
-#    And I should see "Textarea" in the "#collections label[for='field-collection-textarea-2']" element
 
     And the 1st ".action-move-up-collection-item" button should be disabled
     And the 3rd ".action-move-down-collection-item" button should be disabled
 
-    When I scroll "Add item to Collection" into view
-    And I click "Add item to Collection"
+    When I scroll "Select …" into view
+    When I click "Select …"
     # Click add textarea
-    And I click "#field-collection-collection > div > div.dropdown.show > div > a:nth-child(1)"
+    And I click "#field-collection-collection > div > div > div.dropdown.show > div > a:nth-child(1)"
 
     Then I should see 4 ".collection-item" elements
 
@@ -242,8 +241,7 @@ Feature: Edit record
     And I scroll the 3rd "Move down" into view
     And I press the 3rd "Move down" button
 
-    Then I should see "Set:" in the 3rd "#collections .collection-item" element
-    And I should see "Textarea:" in the 3rd "#collections .collection-item label" element
+    Then I should see "Set inside Collection" in the 3rd "#collections .collection-item" element
 
     When I scroll "Save changes" into view
     And I press "Save changes"

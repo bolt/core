@@ -58,9 +58,10 @@ $input-btn-focus-box-shadow:            0 0 0 $input-btn-focus-width var(--prima
 // Cards
 $card-border-width:                 0;
 $card-border-radius:                $border-radius;
-$card-border-color:                 transparent;
+$card-border-color:                 var(--very-light-border);
 $card-bg:                           var(--foreground);
-$card-box-shadow:                   0 7.5px 15px -5px rgba(0, 0, 0, 0.08);
+$card-box-shadow:                   0 7.5px 15px -5px rgba(0, 0, 0, 0.12);
+$card-cap-bg:                       rgba(0, 0, 0, 0.06);
 
 // Buttons
 $btn-border-radius: 0.2rem;
@@ -122,7 +123,7 @@ $yiq-contrasted-threshold:  150;
   --admin-toolbar: #4c6e91;
   --admin-toolbar-text-light: #fff;
   --admin-toolbar-text-dark: #0c223b;
-  --very-light-border: #f0f0f0;
+  --very-light-border: #e8e8e8;
   --light-border: #e0e0e0;
 
   @each $bp, $value in $grid-breakpoints {

@@ -1,5 +1,7 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
+{% block label %}{% endblock %}
+
 {% block field %}
     {% for setChild in field.valueForEditor %}
         {% set includeLookup = [
@@ -7,14 +9,29 @@
             '@' ~ setChild.type ~ '/' ~ setChild.type ~ '.html.twig',
             '@bolt/_partials/fields/generic.html.twig'
         ] %}
-        {% if in_collection is defined %}
-            {% set setChildName = name ~ '[' ~ setChild.name ~ ']' %}
-            {% set setChildId = id ~ '-' ~ setChild.name|default('unnamed') %}
-            {% include includeLookup with {'id': setChildId, 'field' : setChild, 'name' : setChildName, 'record': record, 'include_id': true} only %}
+        {% if in_compound is defined %}
+            {% set context = {
+                'in_compound': true,
+                'compound_label': label,
+                'id': id ~ '-' ~ setChild.name|default('unnamed'),
+                'field' : setChild,
+                'name' : name ~ '[' ~ setChild.name ~ ']',
+                'record': record,
+                'include_id': true
+            } %}
+
+            {% include includeLookup with context only %}
         {% else %}
-            {% set setChildName = 'sets[' ~ field.name ~ ']' ~ '[' ~ setChild.name ~ ']' %}
-            {% set setChildId = 'field-' ~ field.name|default(name)|default('unnamed') ~ '-' ~ setChild.name|default('unnamed') %}
-            {% include includeLookup with {'id': setChildId, 'field' : setChild, 'name' : setChildName, 'record': record} only %}
+            {% set context = {
+                'in_compound': true,
+                'compound_label': label,
+                'id': 'field-' ~ field.name|default(name)|default('unnamed') ~ '-' ~ setChild.name|default('unnamed'),
+                'field' : setChild,
+                'name' : 'sets[' ~ field.name ~ ']' ~ '[' ~ setChild.name ~ ']',
+                'record': record
+            } %}
+
+            {% include includeLookup with context only %}
         {% endif %}
     {% endfor %}
 {% endblock %}
