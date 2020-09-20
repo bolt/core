@@ -232,20 +232,22 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     private function getFixtureFormatValues(string $format): array
     {
-        return [preg_replace_callback(
-            '/{([\w]+)}/i',
-            function ($match) {
-                $match = $match[1];
+        return [
+            preg_replace_callback(
+                        '/{([\w]+)}/i',
+                        function ($match) {
+                            $match = $match[1];
 
-                try {
-                    return $this->faker->{$match};
-                } catch (\Throwable $e) {
-                }
+                            try {
+                                return $this->faker->{$match};
+                            } catch (\Throwable $e) {
+                            }
 
-                return '(unknown)';
-            },
-            $format
-        )];
+                            return '(unknown)';
+                        },
+                        $format
+                    ),
+        ];
     }
 
     private function getFieldTypeValue(DeepCollection $field, bool $singleton, Content $content)
