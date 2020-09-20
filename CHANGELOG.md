@@ -1,6 +1,22 @@
 Changelog
 =========
 
+## 4.0.0-rc.44
+
+Released: 2020-09-20
+
+### 🐛 Bug fixes
+
+- Don't show `Media created successfully` if it's not new (I-Valchev, [#1872](https://github.com/bolt/core/pull/1872))
+- Edit attributes button does not break the page. (I-Valchev, [#1870](https://github.com/bolt/core/pull/1870))
+
+### 🛠️ Miscellaneous
+
+- Styling Collections more nice-like (bobdenotter, [#1876](https://github.com/bolt/core/pull/1876))
+- Make z-index of `<select>` a bit higher (bobdenotter, [#1875](https://github.com/bolt/core/pull/1875))
+- Allow uploading of Avif and Webp images, for the hip kids. (bobdenotter, [#1874](https://github.com/bolt/core/pull/1874))
+
+
 ## 4.0.0-rc.43
 
 Released: 2020-09-16
