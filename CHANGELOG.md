@@ -15,6 +15,7 @@ Released: 2020-09-20
 - Styling Collections more nice-like (bobdenotter, [#1876](https://github.com/bolt/core/pull/1876))
 - Make z-index of `<select>` a bit higher (bobdenotter, [#1875](https://github.com/bolt/core/pull/1875))
 - Allow uploading of Avif and Webp images, for the hip kids. (bobdenotter, [#1874](https://github.com/bolt/core/pull/1874))
+- Adding `base-2021` to `CopyThemesCommand` (bobdenotter, [#1879](https://github.com/bolt/core/pull/1879))
 
 
 ## 4.0.0-rc.43
