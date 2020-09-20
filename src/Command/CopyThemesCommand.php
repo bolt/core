@@ -55,6 +55,7 @@ class CopyThemesCommand extends Command
         if (file_exists(dirname(dirname(dirname(__DIR__))) . '/themes')) {
             $baseDir = dirname(dirname(dirname(__DIR__))) . '/themes';
             $dirs = [
+                $baseDir . '/base-2021' => $publicDir . '/theme/base-2021',
                 $baseDir . '/base-2018' => $publicDir . '/theme/base-2018',
                 $baseDir . '/skeleton' => $publicDir . '/theme/skeleton',
             ];
