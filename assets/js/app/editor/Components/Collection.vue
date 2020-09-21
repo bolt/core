@@ -41,23 +41,23 @@
         <p class="mt-4 mb-1">{{ labels.add_collection_item }}:</p>
         <div v-if="templates.length > 1" class="dropdown">
           <button
-              id="dropdownMenuButton"
-              :disabled="!allowMore"
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+            id="dropdownMenuButton"
+            :disabled="!allowMore"
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
             <i class="fas fa-fw fa-plus"></i> {{ labels.select }}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a
-                v-for="template in templates"
-                :key="template.label"
-                class="dropdown-item"
-                :data-template="template.label"
-                @click="addCollectionItem($event)"
+              v-for="template in templates"
+              :key="template.label"
+              class="dropdown-item"
+              :data-template="template.label"
+              @click="addCollectionItem($event)"
             >
               <i :class="[template.icon, 'fas fa-fw']" />
               {{ template.label }}
@@ -65,11 +65,11 @@
           </div>
         </div>
         <button
-            v-else
-            type="button"
-            class="btn btn-secondary btn-small"
-            :data-template="templates[0].label"
-            @click="addCollectionItem($event)"
+          v-else
+          type="button"
+          class="btn btn-secondary btn-small"
+          :data-template="templates[0].label"
+          @click="addCollectionItem($event)"
         >
           <i :class="[templates[0].icon, 'fas fa-fw']" />
           {{ labels.add_collection_item }}
@@ -195,15 +195,15 @@ export default {
      */
     function updateTitle(item) {
       const label = $(item)
-          .find('.collection-item-title')
-          .first();
+        .find('.collection-item-title')
+        .first();
       const icon = label
-          .find('i')
-          .first()
-          .get(0).outerHTML;
+        .find('i')
+        .first()
+        .get(0).outerHTML;
       const input = $(item)
-          .find('textarea,input[type="text"]')
-          .first();
+        .find('textarea,input[type="text"]')
+        .first();
       const title = $(input).val() ? $(input).val() : label.attr('data-label');
       label.html(icon + title);
     }
@@ -213,9 +213,9 @@ export default {
     $(document).on('DOMNodeInserted', function(e) {
       if ($(e.target).hasClass('collection-item')) {
         $(e.target)
-            .find('details')
-            .first()
-            .attr('open', '');
+          .find('details')
+          .first()
+          .attr('open', '');
       }
     });
   },
@@ -235,26 +235,26 @@ export default {
     setButtonsState(item) {
       //by default, enable
       item
-          .find(this.selector.moveUp)
-          .first()
-          .removeAttr('disabled');
+        .find(this.selector.moveUp)
+        .first()
+        .removeAttr('disabled');
       item
-          .find(this.selector.moveDown)
-          .first()
-          .removeAttr('disabled');
+        .find(this.selector.moveDown)
+        .first()
+        .removeAttr('disabled');
       if (!this.getPreviousCollectionItem(item)) {
         // first in collection
         item
-            .find(this.selector.moveUp)
-            .first()
-            .attr('disabled', 'disabled');
+          .find(this.selector.moveUp)
+          .first()
+          .attr('disabled', 'disabled');
       }
       if (!this.getNextCollectionItem(item)) {
         // last in collection
         item
-            .find(this.selector.moveDown)
-            .first()
-            .attr('disabled', 'disabled');
+          .find(this.selector.moveDown)
+          .first()
+          .attr('disabled', 'disabled');
       }
     },
     getPreviousCollectionItem(item) {
@@ -265,9 +265,9 @@ export default {
     },
     getCollectionItemFromPressedButton(button) {
       return window
-          .$(button)
-          .closest('.collection-item')
-          .last();
+        .$(button)
+        .closest('.collection-item')
+        .last();
     },
     addCollectionItem(event) {
       // duplicate template without reference
@@ -280,8 +280,8 @@ export default {
     },
     getSelectedTemplate(event) {
       const target = $(event.target).attr('data-template')
-          ? $(event.target)
-          : $(event.target).closest('[data-template]');
+        ? $(event.target)
+        : $(event.target).closest('[data-template]');
       let selectValue = target.attr('data-template');
       return this.templates.find(template => template.label === selectValue);
     },
