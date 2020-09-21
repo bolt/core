@@ -23,7 +23,7 @@ class SlugField extends Field implements FieldInterface, ScalarCastable
         }
         $value = Str::slug($value);
 
-        if (is_numeric($value)) {
+        if (is_numeric($value) && $this->getDefinition()->get('allow_numeric') !== true) {
             $slug = $this->getContent()->getDefinition()->get('singular_slug');
             $value = $slug . '-' . $value;
         }
