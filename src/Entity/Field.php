@@ -231,7 +231,7 @@ class Field implements FieldInterface, TranslatableInterface
     {
         $value = $this->getParsedValue();
 
-        if (is_string($value) && $this->getDefinition()->get('sanitise')) {
+        if (is_string($value) && $this->getContent() && $this->getDefinition()->get('sanitise')) {
             $value = $this->getContent()->sanitise($value);
         }
 
