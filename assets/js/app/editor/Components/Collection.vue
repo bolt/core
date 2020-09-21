@@ -15,17 +15,20 @@
       </div>
     </div>
 
-    <div v-for="element in elements" :key="element.hash" class="card collection-item">
-      <details :open="state === 'expanded'">
-        <summary class="card-header d-flex align-items-center">
-          <!-- Initial title. This is replaced by dynamic title in JS below. -->
-          <div class="collection-item-title" :data-label="element.label">
-            <i :class="[element.icon, 'fas fa-fw']" />
-            {{ element.label }}
-          </div>
+    <div v-for="element in elements" :key="element.hash" class="collection-item">
+      <details :open="state === 'expanded'" class="card">
+        <summary class="d-block"
+          <div class="card-header d-flex align-items-center"> 
+            <!-- Initial title. This is replaced by dynamic title in JS below. -->
+            <i class="card-marker-caret fa fa-caret-right"></i>
+            <div class="collection-item-title" :data-label="element.label">
+              <i :class="[element.icon, 'fas fa-fw']" />
+              {{ element.label }}
+            </div>
 
-          <!-- Navigation buttons -->
-          <div :is="compile(element.buttons)"></div>
+            <!-- Navigation buttons -->
+            <div :is="compile(element.buttons)"></div>
+          </div>
         </summary>
 
         <!-- The actual field -->
