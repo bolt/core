@@ -3,10 +3,22 @@
 {% set value = field.value|json_encode %}
 {% set required = field.definition.required ? 1 : 0 %}
 {% set readonly = field.definition.readonly ? true : false %}
-{% set pattern = fie.d.definition.get('pattern')|default(false) %}
+{% set pattern = field.definition.get('pattern')|default(false) %}
 
+{% set prefix = prefix|default(field.definition.prefix|default) %}
+{% if prefix and not (prefix starts with '<p' or prefix starts with '<span' or prefix starts with '<div') %}
+    {% set prefix = '<div id="' ~ id ~ '_prefix" class="form--helper">' ~ prefix|markdown ~ '</div>' %}
+{% endif %}
+
+{% set postfix = postfix|default(field.definition.postfix|default) %}
+{% if postfix and not (postfix starts with '<p' or postfix starts with '<span' or postfix starts with '<div') %}
+    {% set postfix = '<div id="' ~ id ~ '_postfix" class="form--helper">' ~ postfix|markdown ~ '</div>' %}
+{% endif %}
+
+{{ prefix|raw }}
 <input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ value }}"
        {% if required == 1 %}required {% endif %}
        {% if readonly %}readonly {% endif %}
        {% if pattern %}pattern="{{ pattern }}" {% endif %}
 />
+{{ postfix|raw }}
