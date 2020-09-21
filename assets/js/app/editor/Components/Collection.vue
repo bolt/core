@@ -17,7 +17,7 @@
 
     <div v-for="element in elements" :key="element.hash" class="collection-item">
       <details :open="state === 'expanded'" class="card">
-        <summary class="d-block"
+        <summary class="d-block">
           <div class="card-header d-flex align-items-center"> 
             <!-- Initial title. This is replaced by dynamic title in JS below. -->
             <i class="card-marker-caret fa fa-caret-right"></i>
