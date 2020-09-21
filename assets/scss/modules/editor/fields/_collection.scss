@@ -15,8 +15,8 @@
     margin-bottom: 1rem;
 
     summary {
-      padding: 0.3rem 0.3rem 0.3rem 1rem;
-      background: $light;
+      padding: 0;
+      background: transparent;
 
       &::-webkit-details-marker {
         display: none;
@@ -26,17 +26,14 @@
         outline: none;
       }
 
-      &::before {
-        content: "►";
-        vertical-align: 25%; // middle of line
-        margin-right: 0.5rem;
-        width: 15px;
-        display: inline-block;
+      i.card-marker-caret {
+        margin-right: 0.75rem;
       }
+
     }
 
-    details[open] summary::before {
-      content: "▼";
+    details[open] summary i.card-marker-caret {
+      transform: rotate(90deg);
     }
 
     .collection-item-title {
