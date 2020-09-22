@@ -15,17 +15,20 @@
       </div>
     </div>
 
-    <div v-for="element in elements" :key="element.hash" class="card collection-item">
-      <details :open="state === 'expanded'">
-        <summary class="card-header d-flex align-items-center">
-          <!-- Initial title. This is replaced by dynamic title in JS below. -->
-          <div class="collection-item-title" :data-label="element.label">
-            <i :class="[element.icon, 'fas fa-fw']" />
-            {{ element.label }}
-          </div>
+    <div v-for="element in elements" :key="element.hash" class="collection-item">
+      <details :open="state === 'expanded'" class="card">
+        <summary class="d-block">
+          <div class="card-header d-flex align-items-center">
+            <!-- Initial title. This is replaced by dynamic title in JS below. -->
+            <i class="card-marker-caret fa fa-caret-right"></i>
+            <div class="collection-item-title" :data-label="element.label">
+              <i :class="[element.icon, 'fas fa-fw']" />
+              {{ element.label }}
+            </div>
 
-          <!-- Navigation buttons -->
-          <div :is="compile(element.buttons)"></div>
+            <!-- Navigation buttons -->
+            <div :is="compile(element.buttons)"></div>
+          </div>
         </summary>
 
         <!-- The actual field -->
@@ -34,42 +37,44 @@
     </div>
 
     <div class="row">
-      <span class="my-auto" style="margin: 1rem;">{{ labels.add_collection_item }}:</span>
-      <div v-if="templates.length > 1" class="dropdown">
-        <button
-          id="dropdownMenuButton"
-          :disabled="!allowMore"
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <i class="fas fa-fw fa-plus"></i> {{ labels.select }}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a
-            v-for="template in templates"
-            :key="template.label"
-            class="dropdown-item"
-            :data-template="template.label"
-            @click="addCollectionItem($event)"
+      <div class="col-12">
+        <p class="mt-4 mb-1">{{ labels.add_collection_item }}:</p>
+        <div v-if="templates.length > 1" class="dropdown">
+          <button
+            id="dropdownMenuButton"
+            :disabled="!allowMore"
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
-            <i :class="[template.icon, 'fas fa-fw']" />
-            {{ template.label }}
-          </a>
+            <i class="fas fa-fw fa-plus"></i> {{ labels.select }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a
+              v-for="template in templates"
+              :key="template.label"
+              class="dropdown-item"
+              :data-template="template.label"
+              @click="addCollectionItem($event)"
+            >
+              <i :class="[template.icon, 'fas fa-fw']" />
+              {{ template.label }}
+            </a>
+          </div>
         </div>
+        <button
+          v-else
+          type="button"
+          class="btn btn-secondary btn-small"
+          :data-template="templates[0].label"
+          @click="addCollectionItem($event)"
+        >
+          <i :class="[templates[0].icon, 'fas fa-fw']" />
+          {{ labels.add_collection_item }}
+        </button>
       </div>
-      <button
-        v-else
-        type="button"
-        class="btn btn-secondary btn-small"
-        :data-template="templates[0].label"
-        @click="addCollectionItem($event)"
-      >
-        <i :class="[templates[0].icon, 'fas fa-fw']" />
-        {{ labels.add_collection_item }}
-      </button>
     </div>
   </div>
 </template>
@@ -78,7 +83,6 @@
 import Vue from 'vue';
 import $ from 'jquery';
 var uniqid = require('locutus/php/misc/uniqid');
-
 export default {
   name: 'EditorCollection',
   props: {
@@ -108,7 +112,6 @@ export default {
   },
   data() {
     let templateSelectOptions = [];
-
     return {
       elements: this.existingFields,
       counter: this.existingFields.length,
@@ -137,7 +140,6 @@ export default {
   mounted() {
     this.setAllButtonsStates(window.$(this.$refs.collectionContainer));
     let vueThis = this;
-
     /**
      * Event listeners on collection items buttons
      * This is a jQuery event listener, because Vue cannot handle an event emitted by a non-vue element.
@@ -150,39 +152,32 @@ export default {
       vueThis.setAllButtonsStates(collectionContainer);
       vueThis.counter--;
     });
-
     window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveUp, function(e) {
       e.preventDefault();
       let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
       let prevCollectionitem = vueThis.getPreviousCollectionItem(thisCollectionItem);
       window.$(thisCollectionItem).after(prevCollectionitem);
-
       vueThis.setButtonsState(thisCollectionItem);
       vueThis.setButtonsState(prevCollectionitem);
     });
-
     window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveDown, function(e) {
       e.preventDefault();
       let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
       let nextCollectionItem = vueThis.getNextCollectionItem(thisCollectionItem);
       window.$(thisCollectionItem).before(nextCollectionItem);
-
       vueThis.setButtonsState(thisCollectionItem);
       vueThis.setButtonsState(nextCollectionItem);
     });
-
     window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.expandAll, function(e) {
       e.preventDefault();
       const collection = $(e.target).closest(vueThis.selector.collectionContainer);
       collection.find('details').attr('open', '');
     });
-
     window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.collapseAll, function(e) {
       e.preventDefault();
       const collection = $(e.target).closest(vueThis.selector.collectionContainer);
       collection.find('details').removeAttr('open');
     });
-
     /**
      * Update the title dynamically.
      */
@@ -190,12 +185,10 @@ export default {
       $.each(window.$(vueThis.selector.collectionContainer + vueThis.selector.item), function() {
         updateTitle(this);
       });
-
       window.$(vueThis.selector.collectionContainer).on('keyup change', vueThis.selector.item, function() {
         updateTitle(this);
       });
     });
-
     /**
      * Pass a .collection-item element to update the title
      * with the value of the first text-based field.
@@ -214,7 +207,6 @@ export default {
       const title = $(input).val() ? $(input).val() : label.attr('data-label');
       label.html(icon + title);
     }
-
     /**
      * Open newly inserted collection items.
      */
@@ -250,7 +242,6 @@ export default {
         .find(this.selector.moveDown)
         .first()
         .removeAttr('disabled');
-
       if (!this.getPreviousCollectionItem(item)) {
         // first in collection
         item
@@ -258,7 +249,6 @@ export default {
           .first()
           .attr('disabled', 'disabled');
       }
-
       if (!this.getNextCollectionItem(item)) {
         // last in collection
         item
@@ -282,13 +272,9 @@ export default {
     addCollectionItem(event) {
       // duplicate template without reference
       let template = $.extend(true, {}, this.getSelectedTemplate(event));
-
       const realhash = uniqid();
-
       template.content = template.content.replace(new RegExp(template.hash, 'g'), realhash);
-
       template.hash = realhash;
-
       this.elements.push(template);
       this.counter++;
     },
@@ -297,7 +283,6 @@ export default {
         ? $(event.target)
         : $(event.target).closest('[data-template]');
       let selectValue = target.attr('data-template');
-
       return this.templates.find(template => template.label === selectValue);
     },
   },

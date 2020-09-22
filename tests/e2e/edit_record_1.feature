@@ -220,7 +220,7 @@ Feature: Edit record
     When I scroll "Select …" into view
     And I click "Select …"
     # Click add set
-    And I click "#field-collection-collection > div > div > div.dropdown.show > div > a:nth-child(2)"
+    And I click "#field-collection-collection > div > div > div> div.dropdown.show > div > a:nth-child(2)"
 
     Then I should see an ".collection-item" element
     And I should see an ".trumbowyg-editor" element
@@ -231,7 +231,7 @@ Feature: Edit record
     When I scroll "Select …" into view
     When I click "Select …"
     # Click add textarea
-    And I click "#field-collection-collection > div > div > div.dropdown.show > div > a:nth-child(1)"
+    And I click "#field-collection-collection > div > div > div > div.dropdown.show > div > a:nth-child(1)"
 
     Then I should see 4 ".collection-item" elements
 
