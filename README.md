@@ -204,7 +204,6 @@ Development
 The ongoing Bolt development takes place under the care of:
 
  - [Two Kings &ndash; Artisinal Web Development](https://twokings.nl)
- - [The Software House &ndash; Web and Mobile Development](https://tsh.io/)
 
 Sponsors:
 
