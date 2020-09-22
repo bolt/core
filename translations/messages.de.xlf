@@ -1060,7 +1060,7 @@
     <unit id="37kJiIe" name="view_locales.badge_default">
       <segment>
         <source>view_locales.badge_default</source>
-        <target>Standart</target>
+        <target>Standard</target>
       </segment>
     </unit>
     <unit id="UNBaDz." name="general.phrase.edit">
