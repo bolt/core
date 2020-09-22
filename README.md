@@ -8,12 +8,15 @@ for more info.
 To check out Bolt and set up your first Bolt installation, read 
 [Installing Bolt 4][installation]. 
 
+
 ---
+
 
 **This repository should be used to work _<ins>on</ins>_ Bolt. Not 
 _<ins>with</ins>_ Bolt. If you want to check out Bolt, the 
 `composer create-project` method is recommended. See here: 
 https://github.com/bolt/project/ .**
+
 
 ---
 > Cleanse this world with flame  
@@ -37,15 +40,23 @@ To set up a running **development** environment of Bolt 4 please perform the fol
 1 Install
 ---------
 
-To install a development version of Bolt 4:
+To install a _**development**_ version of Bolt 4: 
 
   - Check out this git repository
   - Then run:
 
-  ```bash
+<!-- If you're reading this, and you're curious about the echo statement below:
+We've found that people are _really_ terrible at reading. There's a big notice
+on the top of this page, telling people the purpose of this repository, but
+they miss it, and just paste the following on the CLI, assuming it's what they
+need. -->
+
+```bash
+echo "\n\nAre you sure you shouldn't use https://docs.bolt.cm/installation instead?\n\n"
+sleep 5
 composer install
 npm install && npm run build
-  ```
+```
 
 Alternatively, run `make install`, on a UNIX-like system.
 
@@ -56,14 +67,16 @@ composer update
 
 ### Or install with Docker
 
-To install Bolt 4 with Docker (for now, on a UNIX-like system):
+To install a _**development**_ version of Bolt 4 with Docker:
 
   - Check out the git repo
   - Then run:
 
-  ```bash
+```bash
+echo "\n\nAre you sure you shouldn't use https://docs.bolt.cm/installation instead?\n\n"
+sleep 5
 make docker-install
-  ```
+```
 
 Actually, just add `docker-` prefix to any Make command and that's it!
 
@@ -213,7 +226,7 @@ Sponsors:
 [fowler]: https://martinfowler.com/articles/practical-test-pyramid.html
 [translations]: https://github.com/bolt/core/wiki/Contribute-on-translations
 [hatebreed]: https://www.youtube.com/watch?v=DBwgX8yBqsw
-[installation]: https://docs.bolt.cm/4.0/installation/installation
+[installation]: https://docs.bolt.cm/installation
 
 --------
 
