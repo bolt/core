@@ -124,6 +124,7 @@ entries:
         slug:
             type: slug
             uses: title
+            allow_numeric: true
         teaser:
             type: html
             height: 150px

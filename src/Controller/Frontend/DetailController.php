@@ -41,12 +41,13 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
      */
     public function record($slugOrId, ?string $contentTypeSlug = null, bool $requirePublished = true): Response
     {
-        // @todo should we check content type?
-        if (is_numeric($slugOrId)) {
+        // Check if there's a record with given `$slugOrId` as slug (might be a numeric slug)
+        $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+        $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
+
+        // If we're given a number `$slugOrId`, like `page/100`, check if there's a record with that number as ID.
+        if (! $record && is_numeric($slugOrId)) {
             $record = $this->contentRepository->findOneBy(['id' => (int) $slugOrId]);
-        } else {
-            $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
-            $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
         }
 
         $this->contentHelper->setCanonicalPath($record);
@@ -54,7 +55,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         return $this->renderSingle($record, $requirePublished);
     }
 
-    public function contentByFieldValue(string $contentTypeSlug, string $field, string $value): Response
+    public function contentByFieldValue(string $contentTypeSlug, string $field, string $value, bool $requirePublished = true): Response
     {
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
         $record = $this->contentRepository->findOneByFieldValue($field, $value, $contentType);
