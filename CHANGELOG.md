@@ -1,6 +1,30 @@
 Changelog
 =========
 
+## Major release 4.0.0 
+
+Released: 2020-09-24
+
+### 📦 Additions and new features
+
+- Allow numeric slugs with `allow_numeric` attribute in ContentType (bobdenotter, [#1884](https://github.com/bolt/core/pull/1884))
+
+### 🐛 Bug fixes
+
+- Fix "zero width spaces" and Twigified titles in backend. (bobdenotter, [#1893](https://github.com/bolt/core/pull/1893))
+- Fix Z-index, attempt 2 (bobdenotter, [#1890](https://github.com/bolt/core/pull/1890))
+- Minor fix: Check if `Content` is set in preview mode. (bobdenotter, [#1885](https://github.com/bolt/core/pull/1885))
+- Only show "Preview" button if ContentType is not Viewless [#1896](https://github.com/bolt/core/pull/1896))
+
+### 🛠️ Miscellaneous
+
+- fix `messages.de.xlf`: Standart to Standard (binarious, [#1887](https://github.com/bolt/core/pull/1887))
+- Add pedantic notice to installation on this page, reminding people to use https://docs.bolt.cm/installation instead (bobdenotter, [#1886](https://github.com/bolt/core/pull/1886))
+- Fix iffy details/summary marker  (bobdenotter, [#1882](https://github.com/bolt/core/pull/1882))
+- Update `hidden.html.twig` (eduardomart, [#1880](https://github.com/bolt/core/pull/1880))
+
+
+
 ## 4.0.0-rc.44
 
 Released: 2020-09-20
