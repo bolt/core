@@ -9,9 +9,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
+use Bolt\Widget\Injector\RequestZone;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Tightenco\Collect\Support\Collection as LaravelCollection;
@@ -258,7 +260,7 @@ class Field implements FieldInterface, TranslatableInterface
 
     private function shouldBeRenderedAsTwig($value): bool
     {
-        return is_string($value) && $this->getDefinition()->get('allow_twig') && preg_match('/{[{%#]/', $value);
+        return RequestZone::isForFrontend(Request::createFromGlobals()) && is_string($value) && $this->getDefinition()->get('allow_twig') && preg_match('/{[{%#]/', $value);
     }
 
     public function set(string $key, $value): self
