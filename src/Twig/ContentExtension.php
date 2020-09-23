@@ -23,6 +23,7 @@ use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
 use Bolt\Utils\Html;
 use Bolt\Utils\Sanitiser;
+use Bolt\Widget\Injector\RequestZone;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -197,7 +198,7 @@ class ContentExtension extends AbstractExtension
             $locale = $this->request->getLocale();
         }
 
-        if (ContentHelper::isSuitable($content)) {
+        if (RequestZone::isForFrontend($this->request) && ContentHelper::isSuitable($content)) {
             $title = $this->contentHelper->get($content, $content->getDefinition()->get('title_format'), $locale);
         } else {
             $title = ContentHelper::getFieldBasedTitle($content, $locale);

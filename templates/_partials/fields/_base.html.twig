@@ -74,9 +74,9 @@
         {% set value = value|first %}
     {% endif %}
 
-    {# We're adding zero width spaces in `{{` and `}}`, to ensure Vue doesn't get its grubby paws on it. #}
+    {# We're adding zero width spaces (`\xE2\x80\x8B`) in `{{` and `}}`, to ensure Vue doesn't get its grubby paws on it. #}
     {% if value is string %}
-        {% set value = value|replace({'{{': '{&ZeroWidthSpace;{', '}}': '}&ZeroWidthSpace;}'}) %}
+        {% set value = value|replace({'{{': "{\xE2\x80\x8B{", '}}': "}\xE2\x80\x8B}" }) %}
     {% endif %}
 {% endif %}
 
