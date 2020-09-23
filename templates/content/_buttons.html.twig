@@ -4,17 +4,19 @@
     {{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent', 'data-patience': 'virtue', 'name': 'save'}) }}
 
     {% if record.id %}
-        <div class="btn-group">
-            {{ macro.button(
-                'action.preview',
-                'fa-external-link-square-alt',
-                'primary',
-                {   'type': 'submit',
-                    'form': 'editcontent',
-                    'formtarget': '_blank',
-                    'formaction': path('bolt_content_edit_preview', {'id': record.id })
-                }) }}
-        </div>
+        {% if not record.definition.get('viewless') %}
+            <div class="btn-group">
+                {{ macro.button(
+                    'action.preview',
+                    'fa-external-link-square-alt',
+                    'primary',
+                    {   'type': 'submit',
+                        'form': 'editcontent',
+                        'formtarget': '_blank',
+                        'formaction': path('bolt_content_edit_preview', {'id': record.id|default(0) })
+                    }) }}
+            </div>
+        {% endif %}
 
         {% if status|default() %}
         <p>
@@ -29,9 +31,9 @@
 
         <hr>
         <div class="form-fieldsgroup__summary-fields">
-        {% if record.status == "published" and record|link(true) %}
-            <a href="{{ record|link(true, currentlocale) }}" class="btn btn-tertiary btn-sm" target="_blank">{{ macro.icon('fa-sign-out-alt') }} {{ __('action.view_saved') }}</a>
-        {% endif %}
+            {% if record.status == "published" and record|link(true) %}
+                <a href="{{ record|link(true, currentlocale) }}" class="btn btn-tertiary btn-sm" target="_blank">{{ macro.icon('fa-sign-out-alt') }} {{ __('action.view_saved') }}</a>
+            {% endif %}
             <a href="{{ record.extras.deleteLink }}" class='action-remove-collection-item btn btn-sm btn-hidden-danger' data-confirmation="{{ 'action.confirm_delete'|trans }}">
                 {{ macro.icon('trash') }}{{ 'action.delete'|trans }}
             </a>
