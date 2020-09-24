@@ -52,7 +52,7 @@
         <span class="dropdown-item-text">
           <i class="fas fa-link fa-w"></i>
           {{ labels.slug }}:
-          <code :title="record.fieldValues.slug">{{ record.fieldValues.slug | trim(24) }}</code>
+          <code :title="slug">{{ slug | trim(24) }}</code>
         </span>
         <span class="dropdown-item-text">
           <i class="fas fa-asterisk fa-w"></i>
@@ -81,6 +81,15 @@ export default {
     type: String,
     record: Object,
     labels: Object,
+  },
+  computed: {
+    slug() {
+      if (typeof this.record.fieldValues.slug === 'string') {
+        return this.record.fieldValues.slug;
+      }
+      // if slug has different locales, return the 0st one
+      return this.record.fieldValues.slug[Object.keys(this.record.fieldValues.slug)[0]];
+    },
   },
   created() {
     // console.log(this.labels);

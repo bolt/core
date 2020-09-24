@@ -23,8 +23,8 @@ final class Version
      *   Stable — 3.0.0
      *   Development — 3.1.0 alpha 1
      */
-    public const VERSION = '4.0.0 RC 44';
-    public const CODENAME = 'Really? This many RC\'s? Yes, really!';
+    public const VERSION = '4.0.0';
+    public const CODENAME = 'Four point oh point oh, Baby! 🤘🏾👩‍🎤';
 
     /**
      * Whether this release is a stable one.
