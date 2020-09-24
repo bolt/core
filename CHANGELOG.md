@@ -11,14 +11,16 @@ Released: 2020-09-24
 
 ### 🐛 Bug fixes
 
+- Only show "Preview" button if ContentType is not Viewless (bobdenotter, [#1896](https://github.com/bolt/core/pull/1896))
 - Fix "zero width spaces" and Twigified titles in backend. (bobdenotter, [#1893](https://github.com/bolt/core/pull/1893))
 - Fix Z-index, attempt 2 (bobdenotter, [#1890](https://github.com/bolt/core/pull/1890))
 - Minor fix: Check if `Content` is set in preview mode. (bobdenotter, [#1885](https://github.com/bolt/core/pull/1885))
-- Only show "Preview" button if ContentType is not Viewless [#1896](https://github.com/bolt/core/pull/1896))
+- Getting a date uses the default timezone from config (I-valchev, [#1901](https://github.com/bolt/core/pull/1901))
 
 ### 🛠️ Miscellaneous
 
-- fix `messages.de.xlf`: Standart to Standard (binarious, [#1887](https://github.com/bolt/core/pull/1887))
+- Update `_multiselect.scss` (eduardomart, [#1899](https://github.com/bolt/core/pull/1899))
+- Fix `messages.de.xlf`: "Standart" to "Standard" (binarious, [#1887](https://github.com/bolt/core/pull/1887))
 - Add pedantic notice to installation on this page, reminding people to use https://docs.bolt.cm/installation instead (bobdenotter, [#1886](https://github.com/bolt/core/pull/1886))
 - Fix iffy details/summary marker  (bobdenotter, [#1882](https://github.com/bolt/core/pull/1882))
 - Update `hidden.html.twig` (eduardomart, [#1880](https://github.com/bolt/core/pull/1880))
