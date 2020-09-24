@@ -59,6 +59,10 @@ class FieldExtension extends AbstractExtension
             $format = $this->config->get('general/date_format', null);
         }
 
+        if ($timezone === null) {
+            $timezone = $this->config->get('general/timezone', null);
+        }
+
         return twig_date_format_filter($twig, $date, $format, $timezone);
     }
 

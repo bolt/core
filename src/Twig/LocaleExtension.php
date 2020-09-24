@@ -7,6 +7,7 @@ namespace Bolt\Twig;
 use Bolt\Configuration\Config;
 use Bolt\Utils\LocaleHelper;
 use Carbon\Carbon;
+use Carbon\CarbonTimeZone;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
@@ -161,7 +162,7 @@ class LocaleExtension extends AbstractExtension
         return strftime($format, $timestamp);
     }
 
-    public function localdate($dateTime, ?string $format = null, ?string $locale = null): string
+    public function localdate($dateTime, ?string $format = null, ?string $locale = null, ?string $timezone = null): string
     {
         if ($dateTime instanceof \Datetime) {
             $dateTime = Carbon::createFromTimestamp($dateTime->getTimestamp(), $dateTime->getTimezone());
@@ -178,6 +179,14 @@ class LocaleExtension extends AbstractExtension
         if ($locale === null) {
             $current = $this->getHtmlLang($this->twig);
             $locale = ! empty($current) ? $current : $this->defaultLocale;
+        }
+
+        if ($timezone === null) {
+            $timezone = $this->config->get('general/timezone', null);
+        }
+
+        if ($timezone !== null) {
+            $dateTime->setTimezone(new CarbonTimeZone($timezone));
         }
 
         $dateTime->locale($locale);
