@@ -1,13 +1,577 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="validators.fr">
+    <unit id="zh5oKD9" name="This value should be false.">
+      <segment>
+        <source>This value should be false.</source>
+        <target>Cette valeur doit être fausse.</target>
+      </segment>
+    </unit>
+    <unit id="NN2_iru" name="This value should be true.">
+      <segment>
+        <source>This value should be true.</source>
+        <target>Cette valeur doit être vraie.</target>
+      </segment>
+    </unit>
+    <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
+      <segment>
+        <source>This value should be of type {{ type }}.</source>
+        <target>Cette valeur doit être de type {{ type }}.</target>
+      </segment>
+    </unit>
+    <unit id="f0P5pBD" name="This value should be blank.">
+      <segment>
+        <source>This value should be blank.</source>
+        <target>Cette valeur doit être vide</target>
+      </segment>
+    </unit>
+    <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
+      <segment>
+        <source>The value you selected is not a valid choice.</source>
+        <target>La valeur que vous avez sélectionnée n'est pas un choix valide.</target>
+      </segment>
+    </unit>
+    <unit id="7smtimf" name="0d999f2">
+      <segment>
+        <source>0d999f2</source>
+        <target>Vous devez sélectionner au moins {{limit}} choix. | Vous devez sélectionner au moins {{limit}} choix.</target>
+      </segment>
+    </unit>
+    <unit id="JRlXq2Z" name="0824486">
+      <segment>
+        <source>0824486</source>
+        <target>Vous devez sélectionner au plus {{limit}} choix. | Vous devez sélectionner au plus {{limit}} choix.</target>
+      </segment>
+    </unit>
+    <unit id="87zjiHi" name="One or more of the given values is invalid.">
+      <segment>
+        <source>One or more of the given values is invalid.</source>
+        <target>Une ou plusieurs des valeurs données ne sont pas valides.</target>
+      </segment>
+    </unit>
+    <unit id="3NeQftv" name="This field was not expected.">
+      <segment>
+        <source>This field was not expected.</source>
+        <target>Ce champ n'était pas attendu.</target>
+      </segment>
+    </unit>
+    <unit id="SwMV4zp" name="This field is missing.">
+      <segment>
+        <source>This field is missing.</source>
+        <target>Ce champ est manquant.</target>
+      </segment>
+    </unit>
+    <unit id="LO2vFKN" name="This value is not a valid date.">
+      <segment>
+        <source>This value is not a valid date.</source>
+        <target>Cette valeur n'est pas une date valide.</target>
+      </segment>
+    </unit>
+    <unit id="86dU_nv" name="This value is not a valid datetime.">
+      <segment>
+        <source>This value is not a valid datetime.</source>
+        <target>Cette valeur n'est pas une date / heure valide.</target>
+      </segment>
+    </unit>
+    <unit id="PSvNXdi" name="This value is not a valid email address.">
+      <segment>
+        <source>This value is not a valid email address.</source>
+        <target>Le format de l'adresse email est invalide.</target>
+      </segment>
+    </unit>
+    <unit id="3KeHbZy" name="The file could not be found.">
+      <segment>
+        <source>The file could not be found.</source>
+        <target>Le fichier est introuvable.</target>
+      </segment>
+    </unit>
+    <unit id="KtJhQZo" name="The file is not readable.">
+      <segment>
+        <source>The file is not readable.</source>
+        <target>Le fichier n'est pas lisible.</target>
+      </segment>
+    </unit>
+    <unit id="2O3FbJ6" name="1ad411a">
+      <segment>
+        <source>1ad411a</source>
+        <target>Le fichier est trop volumineux ({{size}} {{suffix}}). La taille maximale autorisée est {{limit}} {{suffix}}.</target>
+      </segment>
+    </unit>
+    <unit id="p4L.BFV" name="30a318d">
+      <segment>
+        <source>30a318d</source>
+        <target>Le type mime du fichier n'est pas valide ({{type}}). Les types mime autorisés sont {{types}}.</target>
+      </segment>
+    </unit>
+    <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
+      <segment>
+        <source>This value should be {{ limit }} or less.</source>
+        <target>Cette valeur doit être inférieure ou égale à {{limit}}.</target>
+      </segment>
+    </unit>
+    <unit id="SjJg9Hy" name="0e0c1e1">
+      <segment>
+        <source>0e0c1e1</source>
+        <target>Cette valeur est trop longue. Elle doit contenir au maximum {{limit}} caractère. | Cette valeur est trop longue. Elle doit contenir au maximum {{limit}} caractères.</target>
+      </segment>
+    </unit>
+    <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
+      <segment>
+        <source>This value should be {{ limit }} or more.</source>
+        <target>Cette valeur doit être égale ou supérieure à {{limit}}.</target>
+      </segment>
+    </unit>
+    <unit id="JJVWzKj" name="5188ff9">
+      <segment>
+        <source>5188ff9</source>
+        <target>Cette valeur est trop courte. Elle doit contenir au minimum {{limit}} caractère. | Cette valeur est trop courte. Elle doit contenir au minimum {{limit}} caractères.</target>
+      </segment>
+    </unit>
+    <unit id="1KV4L.t" name="This value should not be blank.">
+      <segment>
+        <source>This value should not be blank.</source>
+        <target>Cette valeur ne doit pas être vide.</target>
+      </segment>
+    </unit>
+    <unit id="2G4Vepm" name="This value should not be null.">
+      <segment>
+        <source>This value should not be null.</source>
+        <target>Cette valeur ne doit pas être nulle.</target>
+      </segment>
+    </unit>
+    <unit id="yDc3m6E" name="This value should be null.">
+      <segment>
+        <source>This value should be null.</source>
+        <target>Cette valeur doit être nulle.</target>
+      </segment>
+    </unit>
+    <unit id="zKzWejA" name="This value is not valid.">
+      <segment>
+        <source>This value is not valid.</source>
+        <target>Cette valeur n'est pas valide.</target>
+      </segment>
+    </unit>
+    <unit id="HSuBZpQ" name="This value is not a valid time.">
+      <segment>
+        <source>This value is not a valid time.</source>
+        <target>Cette valeur n'est pas une heure valide.</target>
+      </segment>
+    </unit>
+    <unit id="snWc_QT" name="This value is not a valid URL.">
+      <segment>
+        <source>This value is not a valid URL.</source>
+        <target>L' URL n'est pas valide.</target>
+      </segment>
+    </unit>
+    <unit id="jpaLsb2" name="The two values should be equal.">
+      <segment>
+        <source>The two values should be equal.</source>
+        <target>Les deux valeurs doivent être égales.</target>
+      </segment>
+    </unit>
+    <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      <segment>
+        <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
+        <target>Le fichier est trop volumineux. La taille maximale autorisée est {{limit}} {{suffix}}.</target>
+      </segment>
+    </unit>
+    <unit id="tW7o0t9" name="The file is too large.">
+      <segment>
+        <source>The file is too large.</source>
+        <target>Le fichier est trop volumineux.</target>
+      </segment>
+    </unit>
+    <unit id=".exF5Ww" name="The file could not be uploaded.">
+      <segment>
+        <source>The file could not be uploaded.</source>
+        <target>Le fichier n'a pas pu être téléchargé.</target>
+      </segment>
+    </unit>
+    <unit id="d7sS5yw" name="This value should be a valid number.">
+      <segment>
+        <source>This value should be a valid number.</source>
+        <target>Cette valeur doit être un nombre valide.</target>
+      </segment>
+    </unit>
+    <unit id="BS2Ez6i" name="This file is not a valid image.">
+      <segment>
+        <source>This file is not a valid image.</source>
+        <target>Ce fichier n'est pas une image valide.</target>
+      </segment>
+    </unit>
+    <unit id="ydcT9kU" name="This is not a valid IP address.">
+      <segment>
+        <source>This is not a valid IP address.</source>
+        <target>L'adresse IP n'est pas valide.</target>
+      </segment>
+    </unit>
+    <unit id="lDOGNFX" name="This value is not a valid language.">
+      <segment>
+        <source>This value is not a valid language.</source>
+        <target>Cette valeur n'est pas une langue valide.</target>
+      </segment>
+    </unit>
+    <unit id="y9IdYkA" name="This value is not a valid locale.">
+      <segment>
+        <source>This value is not a valid locale.</source>
+        <target>Cette valeur n'est pas un paramètre régional valide.</target>
+      </segment>
+    </unit>
+    <unit id="1YC0pOd" name="This value is not a valid country.">
+      <segment>
+        <source>This value is not a valid country.</source>
+        <target>Cette valeur n'est pas un pays valide.</target>
+      </segment>
+    </unit>
+    <unit id="B5ebaMp" name="This value is already used.">
+      <segment>
+        <source>This value is already used.</source>
+        <target>Cette valeur est déjà utilisée.</target>
+      </segment>
+    </unit>
+    <unit id="L6097a6" name="The size of the image could not be detected.">
+      <segment>
+        <source>The size of the image could not be detected.</source>
+        <target>La taille de l'image n'a pas pu être détectée.</target>
+      </segment>
+    </unit>
+    <unit id="g9NoIBz" name="266051e">
+      <segment>
+        <source>266051e</source>
+        <target>La largeur de l'image est trop grande ({{width}} px). La largeur maximale autorisée est de {{max_width}} px.</target>
+      </segment>
+    </unit>
+    <unit id="HTsQNva" name="c1c23f9">
+      <segment>
+        <source>c1c23f9</source>
+        <target>La largeur de l'image est trop petite ({{width}} px). La largeur minimale attendue est de {{min_width}} px.</target>
+      </segment>
+    </unit>
+    <unit id="h3PRqha" name="9a128f7">
+      <segment>
+        <source>9a128f7</source>
+        <target>La hauteur de l'image est trop grande ({{height}} px). La hauteur maximale autorisée est de {{max_height}} px.</target>
+      </segment>
+    </unit>
+    <unit id="IVraZ3b" name="8a4cd70">
+      <segment>
+        <source>8a4cd70</source>
+        <target>La hauteur de l'image est trop petite ({{height}} px). La hauteur minimale attendue est de {{min_height}} px.</target>
+      </segment>
+    </unit>
+    <unit id="PSdMNab" name="This value should be the user's current password.">
+      <segment>
+        <source>This value should be the user's current password.</source>
+        <target>Cette valeur doit être le mot de passe actuel de l'utilisateur.</target>
+      </segment>
+    </unit>
+    <unit id="Anek_FY" name="fd389d6">
+      <segment>
+        <source>fd389d6</source>
+        <target>Cette valeur doit avoir exactement {{limit}} caractère. | Cette valeur doit avoir exactement {{limit}} caractères.</target>
+      </segment>
+    </unit>
+    <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
+      <segment>
+        <source>The file was only partially uploaded.</source>
+        <target>Le fichier n'a été que partiellement téléchargé.</target>
+      </segment>
+    </unit>
+    <unit id="HzkJDtF" name="No file was uploaded.">
+      <segment>
+        <source>No file was uploaded.</source>
+        <target>Aucun fichier n'a été téléchargé.</target>
+      </segment>
+    </unit>
+    <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
+      <segment>
+        <source>No temporary folder was configured in php.ini.</source>
+        <target>Aucun dossier temporaire n'a été configuré dans php.ini ou le dossier configuré n'existe pas.</target>
+      </segment>
+    </unit>
+    <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
+      <segment>
+        <source>Cannot write temporary file to disk.</source>
+        <target>Impossible d'écrire le fichier temporaire sur le disque.</target>
+      </segment>
+    </unit>
+    <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
+      <segment>
+        <source>A PHP extension caused the upload to fail.</source>
+        <target>Une extension PHP a provoqué l'échec du téléchargement.</target>
+      </segment>
+    </unit>
+    <unit id="YuLxmhd" name="b54c218">
+      <segment>
+        <source>b54c218</source>
+        <target>Cette collection doit contenir au minimum {{limit}} élément. | Cette collection doit contenir au minimum {{limit}} éléments.</target>
+      </segment>
+    </unit>
+    <unit id="qXV2OMI" name="949632c">
+      <segment>
+        <source>949632c</source>
+        <target>Cette collection doit contenir au mamaximum {{limit}} élément. | Cette collection doit contenir au mamaximum {{limit}} éléments.</target>
+      </segment>
+    </unit>
+    <unit id="BnjGMFh" name="e0582dc">
+      <segment>
+        <source>e0582dc</source>
+        <target>Cette collection doit contenir exactement {{limit}} élément. | Cette collection doit contenir exactement {{limit}} éléments.</target>
+      </segment>
+    </unit>
+    <unit id="MAzmID7" name="Invalid card number.">
+      <segment>
+        <source>Invalid card number.</source>
+        <target>Numéro de carte invalide.</target>
+      </segment>
+    </unit>
+    <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
+      <segment>
+        <source>Unsupported card type or invalid card number.</source>
+        <target>Type de carte non pris en charge ou numéro de carte non valide.</target>
+      </segment>
+    </unit>
+    <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
+      <segment>
+        <source>This is not a valid International Bank Account Number (IBAN).</source>
+        <target>Ce n'est pas un numéro de compte bancaire international (IBAN) valide.</target>
+      </segment>
+    </unit>
+    <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
+      <segment>
+        <source>This value is not a valid ISBN-10.</source>
+        <target>Cette valeur n'est pas un ISBN-10 valide.</target>
+      </segment>
+    </unit>
+    <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
+      <segment>
+        <source>This value is not a valid ISBN-13.</source>
+        <target>Cette valeur n'est pas un ISBN-13 valide.</target>
+      </segment>
+    </unit>
+    <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      <segment>
+        <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
+        <target>Cette valeur n'est ni un ISBN-10 valide ni un ISBN-13 valide.</target>
+      </segment>
+    </unit>
+    <unit id="cuct0Ow" name="This value is not a valid ISSN.">
+      <segment>
+        <source>This value is not a valid ISSN.</source>
+        <target>Cette valeur n'est pas un ISSN valide.</target>
+      </segment>
+    </unit>
+    <unit id="JBLs1a1" name="This value is not a valid currency.">
+      <segment>
+        <source>This value is not a valid currency.</source>
+        <target>Cette valeur n'est pas une devise valide.</target>
+      </segment>
+    </unit>
+    <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be equal to {{ compared_value }}.</source>
+        <target>Cette valeur doit être égale à {{compare_value}}.</target>
+      </segment>
+    </unit>
+    <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
+      <segment>
+        <source>This value should be greater than {{ compared_value }}.</source>
+        <target>Cette valeur doit être supérieure à {{compare_value}}.</target>
+      </segment>
+    </unit>
+    <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be greater than or equal to {{ compared_value }}.</source>
+        <target>Cette valeur doit être supérieure ou égale à {{compare_value}}.</target>
+      </segment>
+    </unit>
+    <unit id="SreIWoo" name="9670078">
+      <segment>
+        <source>9670078</source>
+        <target>Cette valeur doit être identique à {{compare_value_type}} {{compare_value}}.</target>
+      </segment>
+    </unit>
+    <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
+      <segment>
+        <source>This value should be less than {{ compared_value }}.</source>
+        <target>Cette valeur doit être inférieure à {{compare_value}}.</target>
+      </segment>
+    </unit>
+    <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be less than or equal to {{ compared_value }}.</source>
+        <target>Cette valeur doit être inférieure ou égale à {{compare_value}}.</target>
+      </segment>
+    </unit>
+    <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should not be equal to {{ compared_value }}.</source>
+        <target>Cette valeur ne doit pas être égale à {{compare_value}}.</target>
+      </segment>
+    </unit>
+    <unit id="JIjdvtb" name="0eedf91">
+      <segment>
+        <source>0eedf91</source>
+        <target>Cette valeur ne doit pas être identique à {{compare_value_type}} {{compare_value}}.</target>
+      </segment>
+    </unit>
+    <unit id="vzvxzpR" name="9c3ad0f">
+      <segment>
+        <source>9c3ad0f</source>
+        <target>Le ratio de l'image est trop grand ({{ratio}}). Le ratio maximal autorisé est de {{max_ratio}}.</target>
+      </segment>
+    </unit>
+    <unit id="LiDaIWN" name="4376d45">
+      <segment>
+        <source>4376d45</source>
+        <target>Le ratio de l'image est trop petit ({{ratio}}). Le ratio minimum autorisé est de {{min_ratio}}.</target>
+      </segment>
+    </unit>
+    <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      <segment>
+        <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
+        <target>L'image est carrée ({{width}} x {{height}} px). Les images carrées ne sont pas autorisées.</target>
+      </segment>
+    </unit>
+    <unit id="501jWTO" name="1dc128a">
+      <segment>
+        <source>1dc128a</source>
+        <target>L'image est orientée paysage ({{width}} x {{height}} px). Les images orientées paysage ne sont pas autorisées.</target>
+      </segment>
+    </unit>
+    <unit id="J4L.QnM" name="9e27714">
+      <segment>
+        <source>9e27714</source>
+        <target>L'image est orientée portrait ({{width}} x {{height}} px). Les images orientées portrait ne sont pas autorisées.</target>
+      </segment>
+    </unit>
+    <unit id="jZgqcpL" name="An empty file is not allowed.">
+      <segment>
+        <source>An empty file is not allowed.</source>
+        <target>Un fichier vide n'est pas autorisé.</target>
+      </segment>
+    </unit>
+    <unit id="bcfVezI" name="The host could not be resolved.">
+      <segment>
+        <source>The host could not be resolved.</source>
+        <target>L'hôte n'a pas pu être résolu.</target>
+      </segment>
+    </unit>
+    <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
+      <segment>
+        <source>This value does not match the expected {{ charset }} charset.</source>
+        <target>Cette valeur ne correspond pas au jeu de caractères {{charset}} attendu.</target>
+      </segment>
+    </unit>
+    <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
+      <segment>
+        <source>This is not a valid Business Identifier Code (BIC).</source>
+        <target>Ce n'est pas un code d'identification d'entreprise (BIC) valide.</target>
+      </segment>
+    </unit>
+    <unit id="VKDowX6" name="Error">
+      <segment>
+        <source>Error</source>
+        <target>Erreur</target>
+      </segment>
+    </unit>
+    <unit id="8zqt0Ik" name="This is not a valid UUID.">
+      <segment>
+        <source>This is not a valid UUID.</source>
+        <target>Ce n'est pas un UUID valide.</target>
+      </segment>
+    </unit>
+    <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
+      <segment>
+        <source>This value should be a multiple of {{ compared_value }}.</source>
+        <target>Cette valeur doit être un multiple de {{compare_value}}.</target>
+      </segment>
+    </unit>
+    <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      <segment>
+        <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
+        <target>Ce code d'identification d'entreprise (BIC) n'est pas associé à l'IBAN {{iban}}.</target>
+      </segment>
+    </unit>
+    <unit id="2v2xpAh" name="This value should be valid JSON.">
+      <segment>
+        <source>This value should be valid JSON.</source>
+        <target>Cette valeur doit être un JSON valide.</target>
+      </segment>
+    </unit>
+    <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <segment>
+        <source>This collection should contain only unique elements.</source>
+        <target>Cette collection ne doit contenir que des éléments uniques.</target>
+      </segment>
+    </unit>
+    <unit id="WdvZfq." name="This value should be positive.">
+      <segment>
+        <source>This value should be positive.</source>
+        <target>Cette valeur doit être positive.</target>
+      </segment>
+    </unit>
+    <unit id="ubHMK2q" name="This value should be either positive or zero.">
+      <segment>
+        <source>This value should be either positive or zero.</source>
+        <target>Cette valeur doit être positive ou égale à zéro.</target>
+      </segment>
+    </unit>
+    <unit id="IwNTzo_" name="This value should be negative.">
+      <segment>
+        <source>This value should be negative.</source>
+        <target>Cette valeur doit être négative.</target>
+      </segment>
+    </unit>
+    <unit id="0GfwMfP" name="This value should be either negative or zero.">
+      <segment>
+        <source>This value should be either negative or zero.</source>
+        <target>Cette valeur doit être négative ou égale à zéro.</target>
+      </segment>
+    </unit>
+    <unit id="fs3qQZR" name="This value is not a valid timezone.">
+      <segment>
+        <source>This value is not a valid timezone.</source>
+        <target>Le fuseau horaire n'est pas valide.</target>
+      </segment>
+    </unit>
+    <unit id="A3Gr4fn" name="7e27e92">
+      <segment>
+        <source>7e27e92</source>
+        <target>Ce mot de passe a été divulgué lors d'une violation de données, il ne doit pas être utilisé. Veuillez utiliser un autre mot de passe.</target>
+      </segment>
+    </unit>
+    <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
+      <segment>
+        <source>This value should be between {{ min }} and {{ max }}.</source>
+        <target>Cette valeur doit être comprise entre {{min}} et {{max}}.</target>
+      </segment>
+    </unit>
+    <unit id=".SEaaBa" name="This form should not contain extra fields.">
+      <segment>
+        <source>This form should not contain extra fields.</source>
+        <target>Ce formulaire ne doit pas contenir de champs supplémentaires.</target>
+      </segment>
+    </unit>
+    <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
+      <segment>
+        <source>The uploaded file was too large. Please try to upload a smaller file.</source>
+        <target>Le fichier téléchargé était trop volumineux. Veuillez essayer de télécharger un fichier plus petit.</target>
+      </segment>
+    </unit>
+    <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
+      <segment>
+        <source>The CSRF token is invalid. Please try to resubmit the form.</source>
+        <target>Le jeton CSRF n'est pas valide. Veuillez réessayer de soumettre le formulaire.</target>
+      </segment>
+    </unit>
     <unit id="TG1D5NO" name="post.blank_summary">
       <notes>
         <note priority="1">obsolete</note>
       </notes>
       <segment>
         <source>post.blank_summary</source>
-        <target>Veuillez donner un résumé à votre post.</target>
+        <target>Donnez à votre publication un résumé !</target>
       </segment>
     </unit>
     <unit id="BZOzjk." name="post.blank_content">
@@ -16,7 +580,7 @@
       </notes>
       <segment>
         <source>post.blank_content</source>
-        <target>Veuillez donner un contenu à votre post.</target>
+        <target>Votre publication devrait avoir du contenu !</target>
       </segment>
     </unit>
     <unit id="S6M.YWY" name="post.too_short_content">
@@ -25,7 +589,16 @@
       </notes>
       <segment>
         <source>post.too_short_content</source>
-        <target>Le contenu de votre post est trop court ({{ limit }} caractères minimum)</target>
+        <target>le contenu de votre publication est trop court ({{limit}} caractères minimum)</target>
+      </segment>
+    </unit>
+    <unit id="niM7JYj" name="post.too_many_tags">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.too_many_tags</source>
+        <target>Trop de balises (ajoutez au maximum {{limit}} balises ).</target>
       </segment>
     </unit>
     <unit id="ARUoKOV" name="comment.blank">
@@ -34,7 +607,7 @@
       </notes>
       <segment>
         <source>comment.blank</source>
-        <target>Veuillez ne pas laisser votre commentaire vide.</target>
+        <target>Veuillez ne pas laisser votre commentaire vide !</target>
       </segment>
     </unit>
     <unit id="J.L_ppQ" name="comment.too_short">
@@ -43,7 +616,7 @@
       </notes>
       <segment>
         <source>comment.too_short</source>
-        <target>Votre commentaire est trop court ({{ limit }} caractères minimum)</target>
+        <target>Le commentaire est trop court ({{limit}} caractères minimum)</target>
       </segment>
     </unit>
     <unit id=".bkQKXb" name="comment.too_long">
@@ -52,7 +625,7 @@
       </notes>
       <segment>
         <source>comment.too_long</source>
-        <target>Votre commentaire est trop long ({{ limit }} caractères maximum)</target>
+        <target>Le commentaire est trop long ({{limit}} caractères maximum)</target>
       </segment>
     </unit>
     <unit id="cTT8h4_" name="comment.is_spam">
@@ -61,7 +634,43 @@
       </notes>
       <segment>
         <source>comment.is_spam</source>
-        <target>Le contenu de votre commentaire est considéré comme du spam.</target>
+        <target>Le contenu de ce commentaire est considéré comme un spam.</target>
+      </segment>
+    </unit>
+    <unit id="LDy5h0B" name="user.duplicate_email">
+      <segment>
+        <source>user.duplicate_email</source>
+        <target>Cette adresse e-mail {{value}} est déjà utilisée.</target>
+      </segment>
+    </unit>
+    <unit id="D4OMpCY" name="user.duplicate_username">
+      <segment>
+        <source>user.duplicate_username</source>
+        <target>Le nom d'utilisateur {{value}} existe déjà.</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Mot de passe incorrect. Le mot de passe doit contenir au moins 6 caractères.</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>Email invalide</target>
+      </segment>
+    </unit>
+    <unit id="4eH4IFY" name="user.username_invalid_characters">
+      <segment>
+        <source>user.username_invalid_characters</source>
+        <target>Le nom d'utilisateur ne doit contenir que des caractères latins minuscules, des chiffres et des traits de soulignement.</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>Nom d'affichage non valide</target>
       </segment>
     </unit>
   </file>
