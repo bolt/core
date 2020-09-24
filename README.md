@@ -1,4 +1,4 @@
-Bolt 4 - beta
+Bolt 4 - stable
 =============
 
 Bolt CMS is an open source, adaptable platform for building and running modern 
