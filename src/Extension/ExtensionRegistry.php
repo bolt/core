@@ -92,7 +92,11 @@ class ExtensionRegistry
         $this->addComposerPackages();
 
         foreach ($this->getExtensionClasses() as $extensionClass) {
-            $extension = new $extensionClass();
+            // If the container has a public entry then resolve from there
+            $extension = $objects['container']->has($extensionClass)
+                ? $objects['container']->get($extensionClass)
+                : new $extensionClass();
+
             $extension->injectObjects($objects);
 
             if (! $runCli && method_exists($extension, 'initialize')) {
