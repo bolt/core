@@ -8,10 +8,6 @@
 
     <label for="{{ id }}" class="editor--label{% if type|default() == 'collection' %} sr-only{% endif %}">
 
-        {% if in_compound is defined %}
-            <span style="font-weight: normal;">{{ compound_label }} &raquo;</span>
-        {% endif %}
-
         {{- label -}}:
         {% if required %} <span class="required-label"></span> {% endif %}
 

@@ -45,7 +45,10 @@
 
     .card-body {
       background: var(--background);
-      padding-bottom: 0;
+      // 1px solves the ghosted whitespace
+      // @see https://github.com/bolt/core/pull/1904
+
+      padding-bottom: 1px;
     }
   }
 }
