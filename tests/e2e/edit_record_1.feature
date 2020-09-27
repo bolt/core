@@ -188,7 +188,6 @@ Feature: Edit record
 
     When I follow "Sets"
     Then I should be on "/bolt/edit/43#sets"
-    And I should see "This is my set" in the "#sets label[for='field-set-title']" element
 
     And I should see "Title" in the "#sets label[for='field-set-title']" element
     And I should see exactly one "sets[set][title]" element
