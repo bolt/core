@@ -149,7 +149,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
         $this->addFlash('success', 'file.delete_success');
 
-        return $this->redirectToRoute('bolt_filemanager', ['location' => $locationName]);
+        $folder = pathinfo($path, PATHINFO_DIRNAME);
+        return $this->redirectToRoute('bolt_filemanager', ['location' => $locationName, 'path' => $folder]);
     }
 
     /**
@@ -181,9 +182,9 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             throw $e;
         }
 
-        $this->addFlash('success', 'file.delete_success');
-
-        return $this->redirectToRoute('bolt_filemanager', ['location' => $locationName]);
+        $this->addFlash('success', 'file.duplicate_success');
+        $folder = pathinfo($path, PATHINFO_DIRNAME);
+        return $this->redirectToRoute('bolt_filemanager', ['location' => $locationName, 'path' => $folder]);
     }
 
     /**

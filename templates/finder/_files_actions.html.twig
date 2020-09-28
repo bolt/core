@@ -26,14 +26,14 @@
         </a>
         <a class="dropdown-item"
            href="{{ path('bolt_file_duplicate',
-               {'location': location.key|default('files'), 'path': file.getRelativePathname, '_csrf_token': csrf_token('file-duplicate')}) }}">
+               {'location': location.key|default('files'), 'path': path ~ file.getRelativePathname, '_csrf_token': csrf_token('file-duplicate')}) }}">
             <i class="far fa-w fa-copy"></i>
             {{ 'files_cards.action_duplicate'|trans }} {{ file.getRelativePathname|excerpt(22) }}
         </a>
 
         <a class="dropdown-item delete" ,
            href="{{ path('bolt_file_delete',
-               {'location': location.key|default('files'), 'path': file.getRelativePathname, '_csrf_token': csrf_token('file-delete')}) }}"
+               {'location': location.key|default('files'), 'path': path ~ file.getRelativePathname, '_csrf_token': csrf_token('file-delete')}) }}"
            data-confirmation="{{ 'file.delete_confirm'|trans }}">
             <i class="fas fa-w fa-trash"></i>
             {{ 'files_cards.action_delete'|trans }} {{ file.getRelativePathname|excerpt(22) }}
