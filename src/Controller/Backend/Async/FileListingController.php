@@ -48,7 +48,7 @@ class FileListingController implements AsyncZoneInterface
     private function getFilesIndex(string $path, string $type): Collection
     {
         if ($type === 'images') {
-            $glob = '*.{jpg,png,gif,jpeg,avif,webp}';
+            $glob = sprintf('*.{%s}', $this->config->getMediaTypes()->implode(','));
         } else {
             $glob = null;
         }
