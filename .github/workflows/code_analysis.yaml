@@ -19,12 +19,31 @@ jobs:
 
                     -
                         name: PHPStan
-                        run: vendor/bin/phpstan analyse
+                        run: vendor/bin/phpstan analyse --ansi
 
-                    # check that the composer.json and composer.lock files are valid
                     -
-                        name: Composer Validate
-                        run: composer validate --strict
+                        name: Check composer.json and composer.lock
+                        run: composer validate --strict --ansi
+
+                    -
+                        name: Check YAML configs files
+                        run: bin/console lint:yaml config --ansi
+
+                    -
+                        name: Check TWIG files
+                        run: bin/console lint:twig templates --ansi
+
+                    -
+                        name: Check XLIFF translation files
+                        run: bin/console lint:xliff translations --ansi
+
+                    -
+                        name: Check dependencies for security vulnerabilities
+                        run: bin/console security:check --ansi
+
+                    -
+                        name: Check Doctrine Mapping
+                        run: bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction --ansi
 
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
