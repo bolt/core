@@ -134,28 +134,6 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "scripts": {
-        "post-install-cmd": [
-            "php bin/console extensions:configure --with-config",
-            "@auto-scripts",
-            "php bin/console bolt:info"
-        ],
-        "pre-package-uninstall": [
-            "php bin/console extensions:configure --remove-services"
-        ],
-        "post-update-cmd": [
-            "php bin/console extensions:configure",
-            "@auto-scripts",
-            "php bin/console bolt:info"
-        ],
-        "auto-scripts": {
-            "cache:clear --no-warmup": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "periodical-tasks": [
-            "security-checker security:check"
-        ]
-    },
     "replace": {
         "container-interop/container-interop": "*"
     }
