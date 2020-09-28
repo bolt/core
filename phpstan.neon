@@ -1,5 +1,4 @@
 parameters:
-    tmpDir: var/cache/ecs
     level: 5
 
     paths:
