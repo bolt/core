@@ -21,6 +21,11 @@ jobs:
                         name: PHPStan
                         run: vendor/bin/phpstan analyse
 
+                    # check that the composer.json and composer.lock files are valid
+                    -
+                        name: Composer Validate
+                        run: composer validate --strict
+
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
 
