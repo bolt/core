@@ -50,23 +50,18 @@ before_script:
 script:
   # run EsLint on Javascript files
   - npm run lint
+
   # run StyleLint on SCSS
   - npm run stylelint
-  # this checks that the YAML config files contain no syntax errors
-  - ./bin/console lint:yaml config
-  # this checks that the Twig template files contain no syntax errors
-  - ./bin/console lint:twig templates
-  # this checks that the XLIFF translations contain no syntax errors
-  - ./bin/console lint:xliff translations
-  # this checks that the application doesn't use dependencies with known security vulnerabilities
-  - ./bin/console security:check
-  # this checks that Doctrine's mapping configurations are valid
-  - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+
   # run PHP Unit
   - ./vendor/bin/phpunit
+
   # run API tests
   - make behat-api-quiet
+
   # run JS e2e tests
   - travis_retry make db-reset-without-images && make behat-js-quiet
+
   # Upload Behat logs
   - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
