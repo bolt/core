@@ -5,9 +5,6 @@ parameters:
     paths:
         - src
 
-    symfony:
-        container_xml_path: '%rootDir%/../../../var/cache/dev/Bolt_KernelDevDebugContainer.xml'
-
     scanDirectories:
         # In order to 'recognize' Twig functions in global scope
         - %currentWorkingDirectory%/vendor/twig/twig/src/Extension
