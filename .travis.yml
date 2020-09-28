@@ -48,8 +48,6 @@ before_script:
   - export PATH=$PATH:$PWD/vendor/bin
 
 script:
-  # this checks that the source code follows the Bolt Code Syntax rules
-  - ./vendor/bin/phpstan analyse -c phpstan.neon src
   # run EsLint on Javascript files
   - npm run lint
   # run StyleLint on SCSS
@@ -74,4 +72,3 @@ script:
   - travis_retry make db-reset-without-images && make behat-js-quiet
   # Upload Behat logs
   - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
-

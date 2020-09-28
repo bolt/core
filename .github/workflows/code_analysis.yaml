@@ -17,6 +17,10 @@ jobs:
                         # tip: add "--ansi" to commands in CI to make them full of colors
                         run: vendor/bin/ecs check src --ansi
 
+                    -
+                        name: PHPStan
+                        run: vendor/bin/phpstan analyse
+
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
 

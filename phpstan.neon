@@ -1,6 +1,10 @@
 parameters:
     tmpDir: var/cache/ecs
     level: 5
+
+    paths:
+        - src
+
     symfony:
         container_xml_path: '%rootDir%/../../../var/cache/dev/Bolt_KernelDevDebugContainer.xml'
 
