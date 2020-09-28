@@ -48,8 +48,6 @@ before_script:
   - export PATH=$PATH:$PWD/vendor/bin
 
 script:
-  # this checks that the source code follows the Bolt Code Syntax rules
-  - ./vendor/bin/phpstan analyse -c phpstan.neon src
   # run EsLint on Javascript files
   - npm run lint
   # run StyleLint on SCSS
@@ -62,8 +60,6 @@ script:
   - ./bin/console lint:xliff translations
   # this checks that the application doesn't use dependencies with known security vulnerabilities
   - ./bin/console security:check
-  # this checks that the composer.json and composer.lock files are valid
-  - composer validate --strict
   # this checks that Doctrine's mapping configurations are valid
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
   # run PHP Unit
@@ -74,4 +70,3 @@ script:
   - travis_retry make db-reset-without-images && make behat-js-quiet
   # Upload Behat logs
   - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
-
