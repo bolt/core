@@ -129,6 +129,7 @@
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
+<<<<<<< HEAD
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
@@ -152,8 +153,5 @@
         "periodical-tasks": [
             "security-checker security:check"
         ]
-    },
-    "replace": {
-        "container-interop/container-interop": "*"
     }
 }
