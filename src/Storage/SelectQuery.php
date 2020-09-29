@@ -533,10 +533,14 @@ class SelectQuery implements QueryInterface
 
         $originalLeftExpression = 'content.' . $filter->getKey();
         // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
-        $newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $valueAlias . ')', null, $em->getConnection());
+        // BUG SQLSTATE[42883]: Undefined function: 7 ERROR: function lower(jsonb) does not exist
+        // I dont care about case-insensitive search at this point, just fixing this by removing this method
+        //$newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $valueAlias . ')', null, $em->getConnection());
+        $newLeftExpression = JsonHelper::wrapJsonFunction($valueAlias, null, $em->getConnection());
         $valueWhere = $filter->getExpression();
         $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
         $expr->add($valueWhere);
+        
 
         // @todo: Filter non-standalone fields (i.e. fields with parents)
         $null = $this->qb->expr()->isNull(sprintf('fields_%s.parent', $filter->getKey()));
