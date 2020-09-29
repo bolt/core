@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Storage;
 
+use Bolt\Common\Arr;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
@@ -175,8 +176,11 @@ class SelectQuery implements QueryInterface
      */
     public function setParameters(array $params): void
     {
-        // array_map('strtolower', $params) to change all params to lowercase.
-        $this->params = array_filter(array_map('strtolower', $params));
+        // Change all params to lowercase, filter out empty ones
+        $this->params = array_filter(Arr::mapRecursive($params, function ($a) {
+            return mb_strtolower($a, 'utf-8');
+        }));
+
         $this->processFilters();
     }
 
