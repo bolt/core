@@ -534,8 +534,8 @@ class SelectQuery implements QueryInterface
         $originalLeftExpression = 'content.' . $filter->getKey();
         // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
         // BUG SQLSTATE[42883]: Undefined function: 7 ERROR: function lower(jsonb) does not exist
-        // I dont care about case-insensitive search at this point, just fixing this by removing this method
-        //$newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $valueAlias . ')', null, $em->getConnection());
+        // We want to be able to search case-insensitive, database-agnostic
+        $valueAlias = mb_strtolower($valueAlias);
         $newLeftExpression = JsonHelper::wrapJsonFunction($valueAlias, null, $em->getConnection());
         $valueWhere = $filter->getExpression();
         $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
