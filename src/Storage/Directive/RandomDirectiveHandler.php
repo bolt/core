@@ -30,7 +30,8 @@ class RandomDirectiveHandler
             $query->getQueryBuilder()->addSelect('RAND(1) as HIDDEN rand')->orderBy('rand');
 
             return;
-        } if ($this->version->getPlatform()['driver_name'] === 'pgsql') {
+        }
+        if ($this->version->getPlatform()['driver_name'] === 'pgsql') {
             $query->getQueryBuilder()->addSelect('RAND(2) as HIDDEN rand')->orderBy('rand');
             //$debug_msg = $query->getQueryBuilder()->getQuery()->getSQL();
             //throw new Exception($debug_msg);

@@ -24,7 +24,6 @@ class Rand extends FunctionNode
             return 'RANDOM()';
         }
 
-
         return 'RAND()';
     }
 
