@@ -57,6 +57,7 @@ jobs:
                     php-version: 7.2
                     coverage: none
 
-            -   run: composer install --no-progress --ansi
+            # for "--no-scripts" see https://github.com/bolt/core/pull/1918#discussion_r496004576
+            -   run: composer install --no-progress --ansi --no-scripts
 
             -   run: ${{ matrix.actions.run }}
