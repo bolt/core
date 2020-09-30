@@ -59,7 +59,7 @@ class SetcontentTokenParser extends AbstractTokenParser
             if ($this->parser->getStream()->test(Token::NAME_TYPE, 'where')) {
                 $this->parser->getStream()->next();
                 $whereArguments = [
-                    'wherearguments' => $this->parser->getExpressionParser()->parseExpression()
+                    'wherearguments' => $this->parser->getExpressionParser()->parseExpression(),
                 ];
             }
 
