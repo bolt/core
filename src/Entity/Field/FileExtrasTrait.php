@@ -10,8 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 trait FileExtrasTrait
 {
-    private function getPath(): string
+    private function getPath(): ?string
     {
+        if (empty($this->get('filename'))) {
+            return null;
+        }
+
         $filesPackage = new PathPackage('/files/', new EmptyVersionStrategy());
 
         return $filesPackage->getUrl((string) $this->get('filename'));
