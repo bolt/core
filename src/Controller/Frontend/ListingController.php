@@ -10,6 +10,7 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Storage\Query;
+use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,8 +62,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             return $this->forward($controller, ['slugOrId' => $content->getId()]);
         }
 
-        $records = $content->setMaxPerPage($amountPerPage)
-            ->setCurrentPage($page);
+        $records = $this->setRecords($content, $amountPerPage, $page);
 
         $templates = $this->templateChooser->forListing($contentType);
         $this->twig->addGlobal('records', $records);
@@ -85,6 +85,11 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $queryParams = collect($request->query->all());
 
         return $queryParams->mapWithKeys(function ($value, $key) {
+            // Ensure we don't have arrays, if we get something like `title[]=…` passed in.
+            if (is_array($value)) {
+                $value = current($value);
+            }
+
             if (str::endsWith($key, '--like')) {
                 $key = str::removeLast($key, '--like');
                 $value = '%' . $value . '%';
@@ -92,5 +97,17 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
             return [$key => $value];
         })->toArray();
+    }
+
+    private function setRecords($content, int $amountPerPage, int $page): Pagerfanta
+    {
+        if ($content instanceof Pagerfanta) {
+            $records = $content->setMaxPerPage($amountPerPage)
+                ->setCurrentPage($page);
+        } else {
+            $records = new Pagerfanta(new ArrayAdapter([]));
+        }
+
+        return $records;
     }
 }
