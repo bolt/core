@@ -39,7 +39,7 @@ class ImageField extends Field implements FieldInterface, MediaAwareInterface, C
 
     public function __toString(): string
     {
-        return $this->getPath();
+        return (string) $this->getPath();
     }
 
     public function getValue(): array
