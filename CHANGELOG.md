@@ -1,6 +1,32 @@
 Changelog
 =========
 
+## 4.0.1
+
+Released: 2020-09-30
+
+### 🐛 Bug fixes
+
+- Fix: Don't break when passing in params for "Search Query" (bobdenotter, [#1922](https://github.com/bolt/core/pull/1922))
+- Fix displaying (singleton) page by slug (denis-gorin, [#1921](https://github.com/bolt/core/pull/1921))
+- Fix edit file in File management subfolders (denis-gorin, [#1915](https://github.com/bolt/core/pull/1915))
+- Fix: add config media types to files list in dropdown (denis-gorin, [#1913](https://github.com/bolt/core/pull/1913))
+- Empty image Field should return `null` instead of `files/` (bobdenotter, [#1925](https://github.com/bolt/core/pull/1925))
+
+### 🛠️ Miscellaneous
+
+- Try and resolve Extension classes from the DI container (rossriley, [#1909](https://github.com/bolt/core/pull/1909))
+- Collection updates (eduardomart, [#1904](https://github.com/bolt/core/pull/1904))
+- Enhancement: Add French Translations (BoutValentin, [#1903](https://github.com/bolt/core/pull/1903))
+- Bolt is stable! (I-Valchev, [#1902](https://github.com/bolt/core/pull/1902))
+
+### ⚙️ Code Quality / Developer Experience
+
+- [CI] Move console checks from Travis to Github Actions (TomasVotruba, [#1917](https://github.com/bolt/core/pull/1917))
+- [CI] Move PHPStan and Composer Validate from Travis to Github Actions (TomasVotruba, [#1916](https://github.com/bolt/core/pull/1916))
+- [CI] Move ECS from Travis to Github Actions (TomasVotruba, [#1912](https://github.com/bolt/core/pull/1912))
+- Cleanup, this is handled in ENV / Doctrine (bobdenotter, [#1908](https://github.com/bolt/core/pull/1908))
+
 ## Major release 4.0.0 
 
 Released: 2020-09-24
