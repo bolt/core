@@ -40,6 +40,8 @@ use PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer;
 use PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer;
 use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
 use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff;
+use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
+use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer;
 use Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer;
@@ -66,6 +68,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         NativeConstantInvocationFixer::class => null,
         NativeFunctionInvocationFixer::class => null,
         UnaryOperatorSpacesFixer::class => null,
+        ArrayOpenerAndCloserNewlineFixer::class => null,
+        ArrayListItemNewlineFixer::class => null,
     ]);
 
     $services = $containerConfigurator->services();
