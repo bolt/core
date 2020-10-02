@@ -2373,7 +2373,7 @@
         <target>Select …</target>
       </segment>
     </unit>
-    <unit id="yL82RfV" name="login.forgotpassword">
+    <unit id="i37ZNqN" name="login.forgotpassword">
       <segment>
         <source>login.forgotpassword</source>
         <target>Forgot Password</target>
@@ -2401,6 +2401,12 @@
       <segment>
         <source>Email</source>
         <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="k9hekeu" name="reset_password.back-to-login">
+      <segment>
+        <source>reset_password.back-to-login</source>
+        <target>Back to Login</target>
       </segment>
     </unit>
   </file>
