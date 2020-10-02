@@ -38,9 +38,7 @@
             <button class="btn btn-primary" name="save" type="submit" {% if not writable %}disabled{% endif %}>{{ macro.icon('save') }}{{ 'action.save'|trans }}</button>
             {% if not writable %}{{ __('editfile.target_not_writable') }}{% endif %}
         </div>
-    </div>
     </form>
-
 {% endblock %}
 
 {% block javascripts %}
