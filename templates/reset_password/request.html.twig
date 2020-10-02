@@ -1,0 +1,54 @@
+{% extends '@bolt/_base/layout_blank.html.twig' %}
+
+{% block title %}
+    Reset your password
+{% endblock %}
+
+{% block html_id %}{% endblock %}
+
+{% block html_class %}{% endblock %}
+
+{% block body_class %}page--reset-password{% if not config.get('general/omit_backgrounds') %} with-background{% endif %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block main %}
+    <div>
+
+        <div class="reset-password__logo">
+            <img class="logo" alt="Bolt CMS logo"
+              {% if not config.get('general/omit_backgrounds') %}
+                 src="{{ asset('assets/images/bolt_logo_loginpage--bg.svg') }}">
+            {% else %}
+                src="{{ asset('assets/images/bolt_logo_loginpage.svg') }}">
+            {% endif %}
+        </div>
+
+        {% for flashError in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                {{ 'reset_password.request_header'|trans }}
+            </div>
+            <div class="card-body">
+                {{ form_start(requestForm, {'attr': {'class': 'reset-password__form'}}) }}
+                {{ form_row(requestForm.email) }}
+                <div class="reset-password__description">
+                    {{ 'reset_password.request_description'|trans }}
+                </div>
+                <button class="btn btn-primary">{{ 'reset_password.request_send'|trans }}</button>
+                <a href="{{ path('bolt_login') }}" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    {{ 'action.log_in'|trans }}
+                </a>
+                {{ form_end(requestForm) }}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

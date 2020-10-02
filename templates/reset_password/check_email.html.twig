@@ -1,0 +1,41 @@
+{% extends '@bolt/_base/layout_blank.html.twig' %}
+
+{% block title %}
+    Password Reset Email Sent
+{% endblock %}
+
+{% block html_id %}{% endblock %}
+
+{% block html_class %}{% endblock %}
+
+{% block body_class %}page--reset-password--success{% if not config.get('general/omit_backgrounds') %} with-background{% endif %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block main %}
+    <div>
+
+        <div class="reset-password__logo">
+            <img class="logo" alt="Bolt CMS logo"
+              {% if not config.get('general/omit_backgrounds') %}
+                 src="{{ asset('assets/images/bolt_logo_loginpage--bg.svg') }}">
+            {% else %}
+                src="{{ asset('assets/images/bolt_logo_loginpage.svg') }}">
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                {{ 'reset_password.request_header'|trans }}
+            </div>
+            <div class="card-body">
+                <p>An email has been sent that contains a link that you can click to reset your password. This link will expire in {{ tokenLifetime|date('g') }} hour(s).</p>
+                <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
