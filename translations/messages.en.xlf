@@ -2451,5 +2451,35 @@
         <target>Avatar</target>
       </segment>
     </unit>
+    <unit id="yL82RfV" name="login.forgotpassword">
+      <segment>
+        <source>login.forgotpassword</source>
+        <target>Forgot Password</target>
+      </segment>
+    </unit>
+    <unit id="y.dIywE" name="reset_password.request_header">
+      <segment>
+        <source>reset_password.request_header</source>
+        <target>Reset Password</target>
+      </segment>
+    </unit>
+    <unit id="SwOgM7K" name="reset_password.request_description">
+      <segment>
+        <source>reset_password.request_description</source>
+        <target>Enter your email address and we we will send you a link to reset your password.</target>
+      </segment>
+    </unit>
+    <unit id="RX0Iuzi" name="reset_password.request_send">
+      <segment>
+        <source>reset_password.request_send</source>
+        <target>Submit</target>
+      </segment>
+    </unit>
+    <unit id="lpzL089" name="Email">
+      <segment>
+        <source>Email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
