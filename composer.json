@@ -64,6 +64,7 @@
         "symfony/web-server-bundle": "^4.4",
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "^5.1",
+        "symfonycasts/reset-password-bundle": "^1.1",
         "tightenco/collect": "^7.25",
         "twig/twig": "^3.0",
         "ua-parser/uap-php": "^3.9",

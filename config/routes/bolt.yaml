@@ -19,6 +19,11 @@ controllers:
     resource: '../../src/Controller/ImageController.php'
     type: annotation
 
+# Reset Password Form
+reset_password:
+    resource: '../../src/Controller/ResetPasswordController.php'
+    type: annotation
+
 # Routes added by Extensions get added here, by Bolt\Extension\RoutesLoader
 extensions:
     resource: .

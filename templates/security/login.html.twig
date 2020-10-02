@@ -20,9 +20,9 @@
         <div class="login__logo">
             <img class="logo" alt="Bolt CMS logo"
                 {% if not config.get('general/omit_backgrounds') %}
-                 src="{{ asset('assets/images/bolt_logo_loginpage--bg.svg', 'public') }}">
+                 src="{{ asset('assets/images/bolt_logo_loginpage--bg.svg', 'bolt') }}">
                 {% else %}
-                 src="{{ asset('assets/images/bolt_logo_loginpage.svg', 'public') }}">
+                 src="{{ asset('assets/images/bolt_logo_loginpage.svg', 'bolt') }}">
                  {% endif %}
             <h1>{{ config.get('general/sitename') }}</h1>
         </div>
@@ -70,6 +70,10 @@
                         <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
                         {{ 'action.log_in'|trans }}
                     </button>
+                    <a href="{{ path('app_forgot_password_request') }}" class="btn btn-primary">
+                      <i class="fas fa-question-circle"></i>
+                      {{ 'login.forgotpassword'|trans }}
+                    </a>
                 </form>
 
             </div>
