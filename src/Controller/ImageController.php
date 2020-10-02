@@ -88,8 +88,9 @@ class ImageController
         $fileMode = $this->config->get('general/filepermissions/files', 0664);
 
         try {
+            $imageBlob = $this->buildImage($filename);
             $filesystem->mkdir(dirname($filePath), $folderMode);
-            $filesystem->dumpFile($filePath, $this->buildImage($filename));
+            $filesystem->dumpFile($filePath, $imageBlob);
             $filesystem->chmod($filePath, $fileMode);
         } catch (\Throwable $e) {
             // Fail silently, output user-friendly exception elsewhere.
