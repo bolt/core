@@ -323,6 +323,9 @@
     "league/glide-symfony": {
         "version": "1.0.3"
     },
+    "league/mime-type-detection": {
+        "version": "1.5.0"
+    },
     "miljar/php-exif": {
         "version": "v0.6.5"
     },
@@ -411,7 +414,7 @@
         "version": "2.0.1"
     },
     "php": {
-        "version": "7.4"
+        "version": "7.3"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -1052,6 +1055,18 @@
     },
     "symfony/yaml": {
         "version": "v4.4.4"
+    },
+    "symfonycasts/reset-password-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "97c1627c0384534997ae1047b93be517ca16de43"
+        },
+        "files": [
+            "config/packages/reset_password.yaml"
+        ]
     },
     "symplify/auto-bind-parameter": {
         "version": "v7.2.2"
