@@ -24,6 +24,7 @@ use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\TranslationsManager;
+use Bolt\Validator\ContentValidatorInterface;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMInvalidArgumentException;
@@ -123,24 +124,24 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::ON_EDIT);
 
-        $twigvars = [
-            'record' => $content,
-            'locales' => $content->getLocales(),
-            'defaultlocale' => $this->defaultLocale,
-            'currentlocale' => $this->getEditLocale($content),
-        ];
-
-        return $this->render('@bolt/content/edit.html.twig', $twigvars);
+        return $this->renderEditor($content);
     }
 
     /**
      * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
      */
-    public function save(?Content $content = null): Response
+    public function save(?Content $content = null, ContentValidatorInterface $contentValidator = null): Response
     {
         $this->validateCsrf('editrecord');
 
         $content = $this->contentFromPost($content);
+
+        if ($contentValidator) {
+            $constraintViolations = $contentValidator->validate($content);
+            if (count($constraintViolations) > 0) {
+                return $this->renderEditor($content, $constraintViolations);
+            }
+        }
 
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::PRE_SAVE);
@@ -528,5 +529,25 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     private function getPostedLocale(array $post): ?string
     {
         return $post['_edit_locale'] ?: null;
+    }
+
+    /**
+     * @param Content $content
+     * @return Response
+     */
+    private function renderEditor(Content $content, $errors = null): Response
+    {
+        $twigvars = [
+            'record' => $content,
+            'locales' => $content->getLocales(),
+            'defaultlocale' => $this->defaultLocale,
+            'currentlocale' => $this->getEditLocale($content),
+        ];
+
+        if ($errors) {
+            $twigvars['errors'] = $errors;
+        }
+
+        return $this->render('@bolt/content/edit.html.twig', $twigvars);
     }
 }
