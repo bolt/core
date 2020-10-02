@@ -1,8 +1,5 @@
 <?php
 
-// some hints from
-// https://stackoverflow.com/questions/7405342/casting-attributes-for-ordering-on-a-doctrine2-dql-query
-// dig into https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/cookbook/advanced-field-value-conversion-using-custom-mapping-types.html
 declare(strict_types=1);
 
 namespace Bolt\Doctrine\Query;
