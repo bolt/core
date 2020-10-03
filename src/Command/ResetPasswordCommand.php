@@ -66,6 +66,7 @@ class ResetPasswordCommand extends Command
 
         if ($user === null) {
             $io->error(sprintf('No user found with username: %s', $username));
+
             return Command::FAILURE;
         }
 
