@@ -61,7 +61,7 @@ class ResetPasswordCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $username = $input->getArgument('username');
 
-        /** @var User $user */
+        /** @var User|null */
         $user = $this->userRepository->findOneBy(['username' => $username]);
 
         if ($user === null) {
