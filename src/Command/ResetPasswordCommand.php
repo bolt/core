@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Command;
 
 use Bolt\Common\Str;
@@ -10,7 +12,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -19,8 +20,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Resets password for the user with the specified username.
- *
- * @package App\Command
  */
 class ResetPasswordCommand extends Command
 {
@@ -49,11 +48,11 @@ class ResetPasswordCommand extends Command
         $this->userRepository = $userRepository;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Reset password for a user.')
-            ->addArgument('username', InputArgument::REQUIRED, 'User name')
+            ->addArgument('username', InputArgument::REQUIRED, 'Username of the user')
         ;
     }
 
@@ -65,7 +64,7 @@ class ResetPasswordCommand extends Command
         /** @var User $user */
         $user = $this->userRepository->findOneBy(['username' => $username]);
 
-        if (!$user) {
+        if ($user === null) {
             $io->error(sprintf('No user found with username: %s', $username));
             return Command::FAILURE;
         }
