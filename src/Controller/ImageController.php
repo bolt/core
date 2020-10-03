@@ -147,7 +147,7 @@ class ImageController
             $this->parameters['fit'] = $this->parseFit($raw[2]);
             $this->parameters['location'] = $raw[3];
 
-        } else if (isset($raw[2])) {
+        } elseif (isset($raw[2])) {
             $posible_fit = $this->parseFit($raw[2]);
 
             if ($this->testFit($posible_fit)) {
