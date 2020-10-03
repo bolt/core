@@ -94,14 +94,14 @@ class ContentRepository extends ServiceEntityRepository
         $qb = $this->getQueryBuilder()
             ->select('partial content.{id}');
 
-        // For PostgreSQL we need to CAST the jsonb to text. For SQLite this is not required but also works
-        // For mysql however, an error is thrown. the JSON can be directly searched without CAST.
-        // So, there is need for a custom CAST function, which reacts when json/b is casted to text
-        // this can probably be more efficient by a seperate ->Cast implementation
+        // proper JSON wrapping solves a lot of problems (added PostgreSQL compatibility)
+        $connection = $qb->getEntityManager()->getConnection();
+        [$where, $searchTerm] = JsonHelper::wrapJsonFunction('t.value', $searchTerm, $connection);
+
         $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')
             ->innerJoin('f.translations', 't')
-            ->andWhere($qb->expr()->like('CAST(t.value AS TEXT)', ':search'))
+            ->andWhere($qb->expr()->like($where, ':search'))
             ->setParameter('search', '%' . $searchTerm . '%');
 
         // These are the ID's of content we need.

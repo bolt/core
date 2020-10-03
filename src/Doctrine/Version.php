@@ -9,6 +9,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOConnection;
 use Doctrine\DBAL\Platforms\MariaDb1027Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
+use Doctrine\DBAL\Platforms\PostgreSQL92Platform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 
 class Version
@@ -84,6 +85,11 @@ class Version
 
         // MySQL80Platform is implicitly included with MySQL57Platform
         if ($platform instanceof MySQL57Platform || $platform instanceof MariaDb1027Platform) {
+            return true;
+        }
+
+        // PostgreSQL supports JSON from v9.2 and above, later versions are implicitly included
+        if ($platform instanceof PostgreSQL92Platform) {
             return true;
         }
 

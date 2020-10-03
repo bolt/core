@@ -31,7 +31,9 @@ doctrine:
                 alias: App
         dql:
             string_functions:
-                JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
+                JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract # Why have a duplicate of the Scienta version?
+                # JSON_EXTRACT_PATH: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Postgresql\JsonExtractPath
+                JSON_GET_TEXT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Postgresql\JsonGetText
                 # CAST: DoctrineExtensions\Query\Mysql\Cast
                 CAST: Bolt\Doctrine\Query\Cast
             numeric_functions:

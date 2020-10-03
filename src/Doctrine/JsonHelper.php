@@ -23,9 +23,19 @@ class JsonHelper
     public static function wrapJsonFunction(?string $where = null, ?string $slug = null, Connection $connection)
     {
         $version = new Version($connection);
+        //print_r($version->getPlatform()['driver_name']); # pgsql
+        //exit(print($where)); // translations_anyField.value
 
         if ($version->hasJson()) {
-            $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";
+            //PostgreSQL handles JSON differently than MySQL
+            if ($version->getPlatform()['driver_name'] === 'pgsql') {
+                // PostgreSQL
+                $resultWhere = 'JSON_GET_TEXT(' . $where . ', 0)';
+            } else {
+                // MySQL and SQLite
+                $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";
+            }
+            //exit($resultWhere);
             $resultSlug = $slug;
         } else {
             $resultWhere = $where;
