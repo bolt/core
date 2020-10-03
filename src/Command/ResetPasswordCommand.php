@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace Bolt\Command;
 
 use Bolt\Common\Str;
 use Bolt\Entity\User;
