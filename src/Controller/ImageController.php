@@ -139,23 +139,23 @@ class ImageController
         $this->parameters = [
             'w' => is_numeric($raw[0]) ? (int) $raw[0] : 400,
             'h' => is_numeric($raw[1]) ? (int) $raw[1] : 300,
-			'fit' => 'default',
-			'location' => 'files',
+            'fit' => 'default',
+            'location' => 'files',
         ];
 
-		if (isset($raw[3])) {
-			$this->parameters['fit'] = $this->parseFit($raw[2]);
-			$this->parameters['location'] = $raw[3];
+        if (isset($raw[3])) {
+            $this->parameters['fit'] = $this->parseFit($raw[2]);
+            $this->parameters['location'] = $raw[3];
 
-		} else if (isset($raw[2])) {
-			$posible_fit = $this->parseFit($raw[2]);
+        } else if (isset($raw[2])) {
+            $posible_fit = $this->parseFit($raw[2]);
 
-			if ($this->testFit($posible_fit)) {
-				$this->parameters['fit'] = $posible_fit;
-			} else {
-				$this->parameters['location'] = $raw[2];
-			}
-		}
+            if ($this->testFit($posible_fit)) {
+                $this->parameters['fit'] = $posible_fit;
+            } else {
+                $this->parameters['location'] = $raw[2];
+            }
+        }
     }
 
     private function isSvg(string $filename): bool
@@ -174,9 +174,10 @@ class ImageController
         return array_key_exists('extension', $pathinfo) && in_array($pathinfo['extension'], $imageExtensions, true);
     }
 
-	private function testFit(string $fit): bool {
-		return (bool) preg_match('/^(contain|max|fill|stretch|crop)(-.+)?/', $fit);
-	}
+    private function testFit(string $fit): bool
+    {
+        return (bool) preg_match('/^(contain|max|fill|stretch|crop)(-.+)?/', $fit);
+    }
 
     public function parseFit(string $fit): string
     {
