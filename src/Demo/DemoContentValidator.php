@@ -23,7 +23,7 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
     /**
      * {@inheritdoc}
      */
-    public function validate(Content $content, array $relations): array
+    public function validate(Content $content, array $relations)
     {
         // manually created validator for showcases
         if ($content->getContentType() === 'showcases') {
