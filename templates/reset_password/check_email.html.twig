@@ -1,7 +1,7 @@
 {% extends '@bolt/_base/layout_blank.html.twig' %}
 
 {% block title %}
-    Password Reset Email Sent
+    {{ 'reset_password.check_email_sent_header'|trans }}
 {% endblock %}
 
 {% block html_id %}{% endblock %}
@@ -32,8 +32,8 @@
                 {{ 'reset_password.request_header'|trans }}
             </div>
             <div class="card-body">
-                <p>An email has been sent that contains a link that you can click to reset your password. This link will expire in {{ tokenLifetime|date('g') }} hour(s).</p>
-                <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+                <p>{{ 'reset_password.check_email_sent_text_1'|trans({'%hours%': tokenLifetime|date('g')}) }}</p>
+                <p>{{ 'reset_password.check_email_sent_text_2'|trans({'%tryagain%': '<a href="' ~ path('app_forgot_password_request') ~ '">try again</a>' }) | raw }}</p>
             </div>
         </div>
 
