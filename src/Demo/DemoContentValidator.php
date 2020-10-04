@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Demo;
-
 
 use Bolt\Entity\Content;
 use Symfony\Component\Validator\Constraints\Collection;
@@ -21,9 +21,9 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
-    public function validate(Content $content, array $relations)
+    public function validate(Content $content, array $relations): array
     {
         // manually created validator for showcases
         if ($content->getContentType() === 'showcases') {
@@ -32,34 +32,42 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
             $value = [
                 'fields' => $content->getFieldValues(),
                 'taxonomy' => $content->getTaxonomyValues(),
-                'relationship' => $relations
+                'relationship' => $relations,
             ];
 
             // handwritten constraints - keep as is for really small validation needs, and otherwise
             // devise a system to read validation from contenttypes.yaml
             $constraints = new Collection([
-                'fields' => [ // <-- 'fields' attribute of collection constraint
-                    'fields' =>  new Collection([ // <-- 'fields' property of bolt Content class / form
-                        'fields' => [ // <-- 'fields' attribute of collection constraint
-                            'title' => new Length(['min' => 10])
+                // 'fields' attribute of collection constraint
+                'fields' => [
+                    // 'fields' property of bolt Content class / form
+                    'fields' => new Collection([
+                        // 'fields' attribute of collection constraint
+                        'fields' => [
+                            'title' => new Length(['min' => 10]),
                         ],
-                        'allowExtraFields' => true
+                        'allowExtraFields' => true,
                     ]),
                     'taxonomy' => new Collection([
-                        'fields' => [ // <-- 'fields' attribute of collection constraint
-                            'categories' => new Count(['max' => 2]) // allow max 2 categories
+                        // 'fields' attribute of collection constraint
+                        'fields' => [
+                            // allow max 2 categories
+                            'categories' => new Count(['max' => 2]),
                         ],
-                        'allowExtraFields' => true
+                        'allowExtraFields' => true,
                     ]),
-                    'relationship' => new Collection([ // <-- 'relationship' property of form - this is not part of the Content class
-                        'fields' => [ // <-- 'fields' attribute of collection constraint
-                            'pages' => new Count(['min' => 2])
+                    // 'relationship' property of form - this is not part of the Content class
+                    'relationship' => new Collection([
+                        // 'fields' attribute of collection constraint
+                        'fields' => [
+                            'pages' => new Count(['min' => 2]),
                         ],
-                        'allowExtraFields' => true
+                        'allowExtraFields' => true,
                     ]),
                 ],
-                'allowExtraFields' => true
+                'allowExtraFields' => true,
             ]);
+
             return $this->validator->validate($value, $constraints);
         }
         // everything that was not matched before is ignored for validation -> this means it will always pass
