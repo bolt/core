@@ -29,6 +29,10 @@
             <h1>{{ config.get('general/sitename') }}</h1>
         </div>
 
+        {% for flashError in app.flashes('reset_password_success') %}
+            <div class="alert alert-success" role="alert">{{ flashError }}</div>
+        {% endfor %}
+
         <div class="card login__login-form">
 
             <div class="card-header">
