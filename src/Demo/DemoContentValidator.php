@@ -6,8 +6,8 @@ namespace Bolt\Demo;
 
 use Bolt\Entity\Content;
 use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
@@ -23,32 +23,46 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
     /**
      * @inheritDoc
      */
-    public function validate(Content $content)
+    public function validate(Content $content, array $relations)
     {
-        // handcrafted validator for the length of the title in entries
-        if ($content->getContentType() === 'entries') {
-            // set up a fake value that looks like an 'Entry' to validate -- this is how I see a simple solution
-            // being added. Of course this is not flexible at all!
+        // manually created validator for showcases
+        if ($content->getContentType() === 'showcases') {
+            // set up a value that maps to the fields as used in the back-end forms, and can be passed to the
+            // validate function of the Symfony Validator
             $value = [
-                'fields' => [
-                    'title' => $content->getFieldValue('title')
-                ]
+                'fields' => $content->getFieldValues(),
+                'taxonomy' => $content->getTaxonomyValues(),
+                'relationship' => $relations
             ];
-            // handwritten validation - title >= 10 characters
+
+            // handwritten constraints - keep as is for really small validation needs, and otherwise
+            // devise a system to read validation from contenttypes.yaml
             $constraints = new Collection([
-                'fields' => [
-                    'fields' =>  new Collection([
-                        'fields' => [
+                'fields' => [ // <-- 'fields' attribute of collection constraint
+                    'fields' =>  new Collection([ // <-- 'fields' property of bolt Content class / form
+                        'fields' => [ // <-- 'fields' attribute of collection constraint
                             'title' => new Length(['min' => 10])
                         ],
                         'allowExtraFields' => true
-                    ])
+                    ]),
+                    'taxonomy' => new Collection([
+                        'fields' => [ // <-- 'fields' attribute of collection constraint
+                            'categories' => new Count(['max' => 2]) // allow max 2 categories
+                        ],
+                        'allowExtraFields' => true
+                    ]),
+                    'relationship' => new Collection([ // <-- 'relationship' property of form - this is not part of the Content class
+                        'fields' => [ // <-- 'fields' attribute of collection constraint
+                            'pages' => new Count(['min' => 2])
+                        ],
+                        'allowExtraFields' => true
+                    ]),
                 ],
                 'allowExtraFields' => true
             ]);
             return $this->validator->validate($value, $constraints);
         }
-        // everything that is not of type 'entries' is ignored for validation.
+        // everything that was not matched before is ignored for validation -> this means it will always pass
         return [];
     }
 }
