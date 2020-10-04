@@ -2493,5 +2493,29 @@
         <target>Reset your password</target>
       </segment>
     </unit>
+    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
+      <segment>
+        <source>reset_password.check_email_sent_header</source>
+        <target>Password Reset Email Sent</target>
+      </segment>
+    </unit>
+    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
+      <segment>
+        <source>reset_password.check_email_sent_text_1</source>
+        <target>An email has been sent that contains a link that you can click to reset your password. This link will expire in %hours% hour(s).</target>
+      </segment>
+    </unit>
+    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
+      <segment>
+        <source>reset_password.check_email_sent_text_2</source>
+        <target>If you don't receive an email please check your spam folder or %tryagain%.</target>
+      </segment>
+    </unit>
+    <unit id="QpUMHfK" name="reset_password.reset_btn">
+      <segment>
+        <source>reset_password.reset_btn</source>
+        <target>Reset Password</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
