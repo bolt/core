@@ -129,21 +129,19 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /**
      * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
      */
-    public function save(?Content $content = null, ContentValidatorInterface $contentValidator = null): Response
+    public function save(?Content $content = null, ?ContentValidatorInterface $contentValidator = null): Response
     {
         $this->validateCsrf('editrecord');
 
         [$content, $relations] = $this->contentFromPost($content);
 
         if ($contentValidator) {
-
             // Question: do we want to validate the formData, or do we want to validate the content created
             // based on the formdata?
             // currently we do the latter.
 //            $formData = $this->request->request->all();
 //            $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
 
-            //
             // about relations:
             // there might be weird edge-cases when a relation is added in the form, but not
             // existing in the db anymore, combined with min/max validation rules that will fail/succeed
@@ -151,8 +149,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             // that are in the form of the user.
             // This should only be an issue of date is being deleted from another place while an end-user
             // is creating content via the backend forms.
-            //
-
             $constraintViolations = $contentValidator->validate($content, $relations);
             if (count($constraintViolations) > 0) {
                 return $this->renderEditor($content, $constraintViolations);
@@ -527,6 +523,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $this->em->persist($relation);
             $relationsResult[] = $id;
         }
+
         return $relationsResult;
     }
 
@@ -551,10 +548,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return $post['_edit_locale'] ?: null;
     }
 
-    /**
-     * @param Content $content
-     * @return Response
-     */
     private function renderEditor(Content $content, $errors = null): Response
     {
         $twigvars = [

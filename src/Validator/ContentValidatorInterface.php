@@ -23,10 +23,10 @@ interface ContentValidatorInterface
      *
      * How to validate the content is up to the implementer of the interface.
      *
-     * @param Content $content
-     * @param array $relations with relation name as keys, arrays with ids of related items as values
+     * @param Content $content main content to validate
+     * @param array $relations array with relation name as keys and arrays with ids of related items as values
      *
      * @return array or array-like structure with constraint violations
      */
-    public function validate(Content $content, array $relations);
+    public function validate(Content $content, array $relations): array;
 }
