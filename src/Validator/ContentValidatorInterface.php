@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Validator;
 
 use Bolt\Entity\Content;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 interface ContentValidatorInterface
 {
