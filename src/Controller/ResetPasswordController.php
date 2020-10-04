@@ -2,6 +2,7 @@
 
 namespace Bolt\Controller;
 
+use Bolt\Configuration\Config;
 use Bolt\Entity\User;
 use Bolt\Form\ChangePasswordFormType;
 use Bolt\Form\ResetPasswordRequestFormType;
@@ -27,9 +28,13 @@ class ResetPasswordController extends AbstractController
 
     private $resetPasswordHelper;
 
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper)
+    /** @var Config */
+    private $config;
+
+    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, Config $config)
     {
         $this->resetPasswordHelper = $resetPasswordHelper;
+        $this->config = $config;
     }
 
     /**
@@ -122,7 +127,9 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('app_home');
+            // Added an additional flash message to show if password reset was successful
+            $this->addFlash('reset_password_success', 'Your password has been reset successfully' );
+            return $this->redirectToRoute('bolt_login');
         }
 
         return $this->render('reset_password/reset.html.twig', [
@@ -159,16 +166,18 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_check_email');
         }
 
+        // Global config/bolt/config.yml file.
+        $config = $this->config->get('general/reset_password_settings');
+
         $email = (new TemplatedEmail())
-            ->from(new Address('do-not-reply@boltcms.io', 'BoltCMS Reset Password'))
+            ->from(new Address($config['mail_from'], $config['mail_name']))
             ->to($user->getEmail())
-            ->subject('Your password reset request')
-            ->htmlTemplate('reset_password/email.html.twig')
+            ->subject($config['mail_subject'])
+            ->htmlTemplate($config['mail_template'])
             ->context([
                 'resetToken' => $resetToken,
                 'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
-            ])
-        ;
+            ]);
 
         $mailer->send($email);
 
