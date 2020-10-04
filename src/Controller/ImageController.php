@@ -20,8 +20,6 @@ class ImageController
     /** @var Config */
     private $config;
 
-    private $thumbnailOptions = ['w', 'h', 'fit'];
-
     /** @var Server */
     private $server;
 
@@ -136,22 +134,25 @@ class ImageController
 
     private function parseParameters(string $paramString): void
     {
-        $raw = explode('×', str_replace('x', '×', $paramString));
+        $raw = explode('×', $paramString);
 
         $this->parameters = [
             'w' => is_numeric($raw[0]) ? (int) $raw[0] : 400,
-            'h' => ! empty($raw[1]) && is_numeric($raw[1]) ? (int) $raw[1] : 300,
-            'fit' => ! empty($raw[2]) ? $this->parseFit($raw[2]) : 'default',
+            'h' => is_numeric($raw[1]) ? (int) $raw[1] : 300,
+            'fit' => 'default',
+            'location' => 'files',
         ];
 
-        foreach ($raw as $rawParameter) {
-            if (mb_strpos($rawParameter, '=') !== false) {
-                [$key, $value] = explode('=', $rawParameter);
+        if (isset($raw[3])) {
+            $this->parameters['fit'] = $this->parseFit($raw[2]);
+            $this->parameters['location'] = $raw[3];
+        } elseif (isset($raw[2])) {
+            $posible_fit = $this->parseFit($raw[2]);
 
-                // @todo Add more thumbnailing options here, perhaps.
-                if (in_array($key, $this->thumbnailOptions, true) && ! in_array($key, $this->parameters, true)) {
-                    $this->parameters[$key] = $value;
-                }
+            if ($this->testFit($posible_fit)) {
+                $this->parameters['fit'] = $posible_fit;
+            } else {
+                $this->parameters['location'] = $raw[2];
             }
         }
     }
@@ -170,6 +171,11 @@ class ImageController
         $imageExtensions = ['gif', 'png', 'jpg', 'jpeg', 'svg', 'avif', 'webp'];
 
         return array_key_exists('extension', $pathinfo) && in_array($pathinfo['extension'], $imageExtensions, true);
+    }
+
+    private function testFit(string $fit): bool
+    {
+        return (bool) preg_match('/^(contain|max|fill|stretch|crop)(-.+)?/', $fit);
     }
 
     public function parseFit(string $fit): string

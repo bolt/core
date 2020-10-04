@@ -17,7 +17,7 @@ class ThumbnailHelper
         $this->config = $config;
     }
 
-    public function parameters(?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null): string
+    private function parameters(?int $width = null, ?int $height = null, ?string $fit = null, ?string $location = null): string
     {
         if (! $width && ! $height) {
             $width = $this->config->get('general/thumbnails/default_thumbnail/0', 320);
@@ -30,21 +30,11 @@ class ThumbnailHelper
             $height = 10000;
         }
 
-        $paramString = sprintf('%s×%s', $width, $height);
-
-        if ($fit) {
-            $paramString .= '×' . $fit;
+        if ($location === 'files') {
+            $location = null;
         }
 
-        if ($location && $location !== 'files') {
-            $paramString .= '×location=' . $location;
-        }
-
-        if ($path) {
-            $paramString .= '×path=' . $path;
-        }
-
-        return $paramString;
+        return implode('×', array_filter([$width, $height, $fit, $location]));
     }
 
     public function path(?string $filename = null, ?int $width = null, ?int $height = null, ?string $location = null, ?string $path = null, ?string $fit = null): string
@@ -53,7 +43,11 @@ class ThumbnailHelper
             return '/assets/images/placeholder.png';
         }
 
-        $paramString = $this->parameters($width, $height, $location, $path, $fit);
+        if ($path) {
+            $filename = $path . '/' . $filename;
+        }
+
+        $paramString = $this->parameters($width, $height, $fit, $location);
         $filename = Str::ensureStartsWith($filename, '/');
 
         return sprintf('/thumbs/%s%s', $paramString, $filename);
