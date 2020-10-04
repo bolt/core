@@ -2409,5 +2409,11 @@
         <target>Back to Login</target>
       </segment>
     </unit>
+    <unit id="gVc0Uf4" name="reset_password.reset_header">
+      <segment>
+        <source>reset_password.reset_header</source>
+        <target>Reset your password</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
