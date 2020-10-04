@@ -2415,11 +2415,5 @@
         <target>Reset your password</target>
       </segment>
     </unit>
-    <unit id="yL82RfV" name="login.forgotpassword">
-      <segment>
-        <source>login.forgotpassword</source>
-        <target>Forgot Password</target>
-      </segment>
-    </unit>
   </file>
 </xliff>
