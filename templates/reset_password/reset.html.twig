@@ -1,14 +1,14 @@
 {% extends '@bolt/_base/layout_blank.html.twig' %}
 
 {% block title %}
-    Reset your password
+    {{ 'reset_password.reset_header'|trans }}
 {% endblock %}
 
 {% block html_id %}{% endblock %}
 
 {% block html_class %}{% endblock %}
 
-{% block body_class %}page--reset-password--success{% if not config.get('general/omit_backgrounds') %} with-background{% endif %}{% endblock %}
+{% block body_class %}page--reset-password--reset{% if not config.get('general/omit_backgrounds') %} with-background{% endif %}{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -34,7 +34,7 @@
             <div class="card-body">
                 {{ form_start(resetForm) }}
                 {{ form_row(resetForm.plainPassword) }}
-                <button class="btn btn-primary">Reset password</button>
+                <button class="btn btn-primary">{{ 'reset_password.reset_btn'|trans }}</button>
                 {{ form_end(resetForm) }}
             </div>
         </div>
