@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Validator;
 
 use Bolt\Entity\Content;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 interface ContentValidatorInterface
 {
@@ -26,7 +27,7 @@ interface ContentValidatorInterface
      * @param Content $content main content to validate
      * @param array $relations array with relation name as keys and arrays with ids of related items as values
      *
-     * @return array or array-like structure with constraint violations
+     * returns array|ConstraintViolationListInterface or array-like structure with constraint violations
      */
-    public function validate(Content $content, array $relations): array;
+    public function validate(Content $content, array $relations);
 }
