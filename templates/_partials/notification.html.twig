@@ -94,14 +94,16 @@
     <h1> {{ subject|markdown|striptags('<em><i><code>')|raw }}</h1>
     {{ body|markdown|raw }}
     <ul>
-    {% for frame in backtrace|slice(2) %}
-        <li>
-            <code>{%- if frame.type|default() is not empty -%}
+        {% for frame in backtrace|slice(2) %}
+            <li>
+                <code>{%- if frame.type|default() is not empty -%}
                     <abbr title="{{ frame.class }}">
-                    {{- frame.class|split('\\')|last()|excerpt(24) -}}</abbr>{{- frame.type -}}
-            {%- endif -%}
-            <strong>{{- frame.function -}}()</strong></code>{% if frame.line|default() %} - line {{ frame.line }}{% endif %}
+                        {{- frame.class|split('\\')|last()|excerpt(24) -}}</abbr>{{- frame.type -}}
+                    {%- endif -%}
+                    <strong>{{- frame.function -}}()</strong>
+                </code>{% if prevline|default() %} - line {{ prevline }}{% endif %}
+                {% set prevline = frame.line|default() %}
             </li>
-    {% endfor %}
+        {% endfor %}
     </ul>
 </div>
