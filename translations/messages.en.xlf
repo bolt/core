@@ -2022,7 +2022,7 @@
     <unit id=".t1ICS7" name="collection.remove_item">
       <segment>
         <source>collection.remove_item</source>
-        <target>Remove</target>
+        <target>Remove item</target>
       </segment>
     </unit>
     <unit id="0C9.Vmh" name="collection.add_item">

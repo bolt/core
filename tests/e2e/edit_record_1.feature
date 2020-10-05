@@ -258,14 +258,14 @@ Feature: Edit record
     And I should see "Set" in the ".collection-item:nth-child(4) .collection-item-title" element
     And I should see "Textarea" in the ".collection-item:nth-child(5) .collection-item-title" element
 
-    When I scroll the 3rd "Remove" into view
-    And I press the 3rd "Remove" button
+    When I scroll the 3rd "Remove item" into view
+    And I press the 3rd "Remove item" button
     And I wait for ".modal-dialog"
     Then I should see "Are you sure you wish to delete this collection item?"
     And I press "OK"
 
     #4th becomes 3rd on prev removal
-    And I press the 3rd "Remove" button
+    And I press the 3rd "Remove item" button
     And I wait for ".modal-dialog"
     Then I should see "Are you sure you wish to delete this collection item?"
     And I press "OK"
