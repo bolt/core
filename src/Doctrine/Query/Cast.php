@@ -27,11 +27,10 @@ class Cast extends FunctionNode
             // YES we are using MySQL
             // how do we know what type $this->first is? For now hardcoding
             // type(t.value) = JSON for MySQL. JSONB for others.
-            // alternatively, test if true: $this->first->dispatch($sqlWalker)==='b2_.value', 
+            // alternatively, test if true: $this->first->dispatch($sqlWalker)==='b2_.value',
             // b4_.value for /bolt/new/showcases
-            if ($this->first->dispatch($sqlWalker)==='b2_.value' || 
-                 $this->first->dispatch($sqlWalker)==='b4_.value') 
-            {
+            if ($this->first->dispatch($sqlWalker) === 'b2_.value' ||
+                 $this->first->dispatch($sqlWalker) === 'b4_.value') {
                 return $this->first->dispatch($sqlWalker);
             }
         }
