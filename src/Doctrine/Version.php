@@ -17,6 +17,8 @@ class Version
     /**
      * We're g̶u̶e̶s̶s̶i̶n̶g̶ doing empirical research on which versions of SQLite
      * support JSON. So far, tests indicate:
+     * https://www.sqlite.org/json1.html --> JSON since SQLite version 3.9.0 (2015-10-14)
+     * - 3.32.2 - OK (Wytse's FBSD 12.1 \w PHP 7.2)
      * - 3.20.1 - Not OK (Travis PHP 7.2)
      * - 3.27.2 - OK (Bob's Raspberry Pi, running PHP 7.3.11 on Raspbian)
      * - 3.28.0 - OK (Travis PHP 7.3)
@@ -24,8 +26,10 @@ class Version
      * - 3.29.0 - OK (MacOS Mojave)
      * - 3.30.1 - OK (MacOS Catalina)
      */
-    public const SQLITE_WITH_JSON = '3.27.0';
-    public const PHP_WITH_SQLITE = '7.3.0';
+    // JSON supported since SQLite version 3.9.0
+    public const SQLITE_WITH_JSON = '3.9.0';
+    // PHP supports SQLite since version 5.3.0
+    public const PHP_WITH_SQLITE = '5.3.0';
 
     /** @var Connection */
     private $connection;
