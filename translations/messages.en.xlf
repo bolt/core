@@ -810,7 +810,7 @@
     <unit id="N_0yRcH" name="action.close_alert">
       <segment>
         <source>action.close_alert</source>
-        <target>close</target>
+        <target>Close</target>
       </segment>
     </unit>
     <unit id="Dvu2HQx" name="caption.api">
@@ -2022,7 +2022,7 @@
     <unit id=".t1ICS7" name="collection.remove_item">
       <segment>
         <source>collection.remove_item</source>
-        <target>Remove item</target>
+        <target>Remove</target>
       </segment>
     </unit>
     <unit id="0C9.Vmh" name="collection.add_item">
