@@ -18,6 +18,10 @@ class Version
      * We're g̶u̶e̶s̶s̶i̶n̶g̶ doing empirical research on which versions of SQLite
      * support JSON. So far, tests indicate:
      * https://www.sqlite.org/json1.html --> JSON since SQLite version 3.9.0 (2015-10-14)
+     * Docker uses an outdated version of SQLite/PHP combi with wrong implementation of JSON1 extensions:
+     * https://www.talvbansal.me/blog/unit-tests-with-json-columns-in-sqlite/
+     * This explains why BOLT is working in stand-alone production/dev envs. but not in unit tests using Docker
+     * We need to replace this with a proper function test, instead of a guestimate.
      * - 3.32.2 - OK (Wytse's FBSD 12.1 \w PHP 7.2)
      * - 3.20.1 - Not OK (Travis PHP 7.2)
      * - 3.27.2 - OK (Bob's Raspberry Pi, running PHP 7.3.11 on Raspbian)
@@ -27,7 +31,7 @@ class Version
      * - 3.30.1 - OK (MacOS Catalina)
      */
     // JSON supported since SQLite version 3.9.0
-    public const SQLITE_WITH_JSON = '3.9.0';
+    public const SQLITE_WITH_JSON = '3.32.0';
     // PHP supports SQLite since version 5.3.0
     public const PHP_WITH_SQLITE = '5.3.0';
 
