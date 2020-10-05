@@ -31,9 +31,9 @@ class Version
      * - 3.30.1 - OK (MacOS Catalina)
      */
     // JSON supported since SQLite version 3.9.0
-    public const SQLITE_WITH_JSON = '3.32.0';
-    // PHP supports SQLite since version 5.3.0
-    public const PHP_WITH_SQLITE = '5.3.0';
+    public const SQLITE_WITH_JSON = '3.27.0';
+    // PHP supports SQLite since version 5.3.0, but not always bundled with JSON support!
+    public const PHP_WITH_SQLITE_JSON_SUPPORT = '7.3.0';
 
     /** @var Connection */
     private $connection;
@@ -88,7 +88,11 @@ class Version
         $platform = $this->connection->getDatabasePlatform();
 
         if ($platform instanceof SqlitePlatform) {
-            return $this->checkSqliteVersion();
+            // new method to test for JSON support
+            return $this->hasSQLiteJSONSupport();
+
+            // temporarily leave this in, until above method is fully tested
+            // return $this->checkSqliteVersion();
         }
 
         // MySQL80Platform is implicitly included with MySQL57Platform
@@ -118,19 +122,40 @@ class Version
         return true;
     }
 
-    private function checkSqliteVersion(): bool
-    {
-        /** @var PDOConnection $wrapped */
-        $wrapped = $this->connection->getWrappedConnection();
+    /* leave until alternative method fully tested */
+    // private function checkSqliteVersion(): bool
+    // {
+    //    /** @var PDOConnection */
+    //    $wrapped = $this->connection->getWrappedConnection();
 
-        // If the wrapper doesn't have `getAttribute`, we bail…
-        if (! method_exists($wrapped, 'getAttribute')) {
+    //    // If the wrapper doesn't have `getAttribute`, we bail…
+    //    if (! method_exists($wrapped, 'getAttribute')) {
+    //        return false;
+    //    }
+
+    //    [$client_version] = explode(' - ', $wrapped->getAttribute(\PDO::ATTR_CLIENT_VERSION));
+
+    //    return (version_compare($client_version, self::SQLITE_WITH_JSON) > 0) &&
+    //        (version_compare(PHP_VERSION, self::PHP_WITH_SQLITE_JSON_SUPPORT) > 0);
+    //}
+
+    private function hasSQLiteJSONSupport(): bool
+    {
+        // Here we can test SQLite for JSON support
+        // This should also work for MySQL
+        // For PostgreSQL a different query is required, but this should be easy to expand (check for driver + adjust query)
+        // Query = "SELECT JSON_EXTRACT('{"jsonfunctionalitytest":["succes"]}', '$.jsonfunctionalitytest') as value";
+        // Should return value ["succes"], and throw an error if JSON unsupported.
+
+        try {
+            $query = $this->connection->createQueryBuilder();
+            $query
+                ->select('JSON_EXTRACT(\'{"jsonfunctionalitytest":["succes"]}\', \'$.jsonfunctionalitytest\') as value');
+            $query->execute();
+        } catch (\Throwable $e) {
             return false;
         }
 
-        [$client_version] = explode(' - ', $wrapped->getAttribute(\PDO::ATTR_CLIENT_VERSION));
-
-        return (version_compare($client_version, self::SQLITE_WITH_JSON) > 0) &&
-            (version_compare(PHP_VERSION, self::PHP_WITH_SQLITE) > 0);
+        return true;
     }
 }
