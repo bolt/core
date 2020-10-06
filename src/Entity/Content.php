@@ -711,7 +711,6 @@ class Content
         $result['fields'] = $this->getFieldValues();
 
         $result['taxonomies'] = $this->getTaxonomyValues();
-        $result['relations'] = [];
 
         unset($result['contentTypeDefinition']);
         unset($result['contentExtension']);

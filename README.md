@@ -231,4 +231,4 @@ Sponsors:
 
 --------
 
-[![Build Status](https://travis-ci.org/bolt/core.svg?branch=master)](https://travis-ci.org/bolt/core) [![SymfonyInsight](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5/mini.svg)](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5) [![Total Downloads](https://poser.pugx.org/bolt/core/downloads)](https://packagist.org/packages/bolt/core) ![PHP from Packagist](https://img.shields.io/packagist/php-v/bolt/core)
+[![Build Status](https://travis-ci.com/bolt/core.svg?branch=master)](https://travis-ci.com/bolt/core) [![SymfonyInsight](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5/mini.svg)](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5) [![Total Downloads](https://poser.pugx.org/bolt/core/downloads)](https://packagist.org/packages/bolt/core) ![PHP from Packagist](https://img.shields.io/packagist/php-v/bolt/core)

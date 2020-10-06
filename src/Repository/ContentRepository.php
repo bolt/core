@@ -132,8 +132,12 @@ class ContentRepository extends ServiceEntityRepository
         return $this->find($id);
     }
 
-    public function findOneBySlug(string $slug, ?ContentType $contentType = null): ?Content
+    /*
+    * @param string|int $slug
+    */
+    public function findOneBySlug($slug, ?ContentType $contentType = null): ?Content
     {
+        $slug = (string) $slug;
         $qb = $this->getQueryBuilder();
         $connection = $qb->getEntityManager()->getConnection();
 
