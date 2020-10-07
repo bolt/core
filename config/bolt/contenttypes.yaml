@@ -45,6 +45,7 @@ homepage:
     icon_many: "fa:home"
     icon_one: "fa:home"
 
+
 # Pages can be used for the more 'static' pages on your site. This content-type
 # has a 'templateselect' field, which allows you to override the record_template
 # setting for an individual page.
