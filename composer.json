@@ -92,6 +92,7 @@
         "friends-of-behat/mink-browserkit-driver": "^1.4",
         "friends-of-behat/symfony-extension": "^2.1",
         "lakion/mink-debug-extension": "^1.2",
+        "ondram/ci-detector": "^3.5",
         "php-http/httplug-pack": "^1.2",
         "php-translation/loco-adapter": "^0.11",
         "phpspec/phpspec": "^6.2.1",
@@ -135,23 +136,15 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
-        "post-install-cmd": [
-            "php bin/console extensions:configure --with-config",
-            "@auto-scripts",
-            "php bin/console bolt:info"
-        ],
+        "post-install-cmd": "php bin/composer-script/post-install-cmd.php --ansi",
         "pre-package-uninstall": [
             "php bin/console extensions:configure --remove-services"
         ],
-        "post-update-cmd": [
-            "php bin/console extensions:configure",
-            "@auto-scripts",
-            "php bin/console bolt:info"
+        "post-update-cmd": "php bin/composer-script/post-update-cmd.php --ansi",
+        "auto-scripts": [
+            "php bin/console cache:clear --no-warmup",
+            "php bin/console assets:install --symlink --relative public"
         ],
-        "auto-scripts": {
-            "cache:clear --no-warmup": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
-        },
         "periodical-tasks": [
             "security-checker security:check"
         ]
