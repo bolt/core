@@ -1,6 +1,41 @@
 Changelog
 =========
 
+## 4.0.2
+
+Released: 2020-10-07
+
+### 📦 Additions and new features
+
+- Add new `bolt:reset-password` CLI command to reset password (simongroenewolt, [#1937](https://github.com/bolt/core/pull/1937))
+- Initial PostgreSQL support (Wieter, [#1933](https://github.com/bolt/core/pull/1933))
+- Backend in Bulgarian / Панел на български 🇧🇬 (I-Valchev, [#1940](https://github.com/bolt/core/pull/1940))
+
+### 🐛 Bug fixes
+
+- Ignore empty like `%%` parameters (I-Valchev, [#1955](https://github.com/bolt/core/pull/1955))
+- Access extensions by name with full namespace (I-Valchev, [#1954](https://github.com/bolt/core/pull/1954))
+- Ensure the "Titles" in collection blocks are plain text only (bobdenotter, [#1948](https://github.com/bolt/core/pull/1948))
+- Better way to allow `x` in thumbnail URLs alongside `×` (bobdenotter, [#1943](https://github.com/bolt/core/pull/1943))
+- Ensure we have an array of records in "select" block (bobdenotter, [#1942](https://github.com/bolt/core/pull/1942))
+- Add missing `json_decode` Twig Filter (bobdenotter, [#1941](https://github.com/bolt/core/pull/1941))
+- Exclude relations from `Content::toArray()` (I-Valchev, [#1927](https://github.com/bolt/core/pull/1927))
+
+### 🛠️ Miscellaneous
+
+- Allow default values for Fields in new Content (bobdenotter, [#1952](https://github.com/bolt/core/pull/1952))
+- Fix Buggy thumbnail url generation #1928 (luistar15, [#1938](https://github.com/bolt/core/pull/1938))
+- Dont create folders if the image can't be created (UtechtDustin, [#1936](https://github.com/bolt/core/pull/1936))
+- fix HTML DOM problems (LordSimal, [#1930](https://github.com/bolt/core/pull/1930))
+- Prepare release 4.0.1 (bobdenotter, [#1926](https://github.com/bolt/core/pull/1926))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Delete `Version20200219064805.php` (bobdenotter, [#1946](https://github.com/bolt/core/pull/1946))
+- Better feedback when `|related` and their ilk fail (bobdenotter, [#1935](https://github.com/bolt/core/pull/1935))
+- Change travis-ci build status in `README.md` to travis-ci.com (LordSimal, [#1932](https://github.com/bolt/core/pull/1932))
+
+
 ## 4.0.1
 
 Released: 2020-09-30
