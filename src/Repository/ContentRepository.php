@@ -6,7 +6,6 @@ namespace Bolt\Repository;
 
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
-use Bolt\Doctrine\Version;
 use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
