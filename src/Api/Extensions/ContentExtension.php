@@ -30,7 +30,7 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
             return $ct->get('viewless', false);
         })->map(function (Collection $ct) {
             return $ct->get('slug');
-        })->toArray();
+        })->values();
     }
 
     public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, ?string $operationName = null): void
