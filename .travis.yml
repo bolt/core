@@ -7,8 +7,8 @@ php:
   - 7.4
 
 env:
-  - APP_ENV_CURRENT=prod APP_DEBUG_CURRENT=0
-  - APP_ENV_CURRENT=dev APP_DEBUG_CURRENT=1
+  - APP_ENV=prod APP_DEBUG=0
+  - APP_ENV=dev APP_DEBUG=1
 
 addons:
   chrome: stable
@@ -36,7 +36,6 @@ before_script:
   # build assets
   - npm run build
   # prepare web server for e2e tests
-  - export APP_ENV="$APP_ENV_CURRENT" APP_DEBUG="$APP_DEBUG_CURRRENT" # put back original environment variables
   - ./bin/console doctrine:database:create
   - ./bin/console doctrine:schema:create
   - ./bin/console doctrine:fixtures:load --group=without-images -n

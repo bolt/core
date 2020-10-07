@@ -22,7 +22,6 @@ start: ## to run the install scripts and start the server
 	make server
 
 install: ## to install all project dependencies (Composer and NPM)
-	cp -n .env.dist .env || true
 	$(COMPOSER) install
 	npm install
 	npm run build
@@ -137,7 +136,6 @@ docker-install-deps: ## to install all assets with docker
 	$(DC_RUN) node sh -c "npm run build"
 
 docker-start: ## to build containers
-	cp -n .env.dist .env || true
 	docker-compose up -d
 
 docker-assets-serve: ## to run server with npm
@@ -189,7 +187,7 @@ docker-test: ## to run phpspec and phpunit tests with docker
 
 docker-server: ## to start server with docker
 	docker-compose exec -T php bin/console server:start 127.0.0.1:8088
-	
+
 docker-server-stop: ## to stop server with docker
 	docker-compose exec -T -u www-data php bin/console server:stop
 
