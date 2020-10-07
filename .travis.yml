@@ -22,7 +22,6 @@ matrix:
 
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
-  - export APP_ENV="$APP_ENV_CURRENT" APP_DEBUG="$APP_DEBUG_CURRRENT" # put back original environment variables
   - composer self-update -q
 
 install:
