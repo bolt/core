@@ -7,8 +7,8 @@ php:
   - 7.4
 
 env:
-  - APP_ENV=prod APP_DEBUG=0
-  - APP_ENV=dev APP_DEBUG=1
+  - APP_ENV_CURRENT=prod APP_DEBUG_CURRENT=0
+  - APP_ENV_CURRENT=dev APP_DEBUG_CURRENT=1
 
 addons:
   chrome: stable
@@ -39,7 +39,7 @@ before_script:
   - ./bin/console doctrine:database:create
   - ./bin/console doctrine:schema:create
   - ./bin/console doctrine:fixtures:load --group=without-images -n
-  - ./bin/console server:start 127.0.0.1:8088
+  - APP_ENV=$APP_ENV_CURRENT APP_DEBUG=$APP_DEBUG_CURRENT ./bin/console server:start 127.0.0.1:8088
   # test if web server works
   - sleep 3
   - wget "http://127.0.0.1:8088/bolt/login"
