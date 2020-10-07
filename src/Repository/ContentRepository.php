@@ -6,6 +6,7 @@ namespace Bolt\Repository;
 
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
+use Bolt\Doctrine\Version;
 use Bolt\Entity\Content;
 use Bolt\Enum\Statuses;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -96,7 +97,7 @@ class ContentRepository extends ServiceEntityRepository
 
         // proper JSON wrapping solves a lot of problems (added PostgreSQL compatibility)
         $connection = $qb->getEntityManager()->getConnection();
-        [$where, $searchTerm] = JsonHelper::wrapJsonFunction('t.value', $searchTerm, $connection);
+        [$where] = JsonHelper::wrapJsonFunction('t.value', $searchTerm, $connection);
 
         $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')
