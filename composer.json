@@ -138,12 +138,12 @@
     "scripts": {
         "post-install-cmd": "php bin/composer-script/post-install-cmd.php --ansi",
         "pre-package-uninstall": [
-            "php bin/console extensions:configure --remove-services"
+            "php bin/console extensions:configure --remove-services --ansi"
         ],
         "post-update-cmd": "php bin/composer-script/post-update-cmd.php --ansi",
         "auto-scripts": [
-            "php bin/console cache:clear --no-warmup",
-            "php bin/console assets:install --symlink --relative public"
+            "php bin/console cache:clear --no-warmup --ansi",
+            "php bin/console assets:install --symlink --relative public --ansi"
         ],
         "periodical-tasks": [
             "security-checker security:check"
