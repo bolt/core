@@ -1074,6 +1074,9 @@
     "symplify/smart-file-system": {
         "version": "v7.2.2"
     },
+    "symplify/symplify-kernel": {
+        "version": "8.3.30"
+    },
     "theseer/tokenizer": {
         "version": "1.1.3"
     },

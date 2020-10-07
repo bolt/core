@@ -45,6 +45,22 @@ homepage:
     icon_many: "fa:home"
     icon_one: "fa:home"
 
+dummies:
+    name: Dummies
+    singular_name: Dummy
+    fields:
+        title:
+            type: text
+        slug:
+            type: slug
+            uses: title
+        veld:
+            type: collection
+            fields:
+                foo:
+                    type: html
+    icon_many: "fa:viruses"
+    icon_one: "fa:virus"
 
 # Pages can be used for the more 'static' pages on your site. This content-type
 # has a 'templateselect' field, which allows you to override the record_template
