@@ -7,8 +7,8 @@ php:
   - 7.4
 
 env:
-  - APP_ENV_CURRENT=prod APP_DEBUG_CURRENT=0
-  - APP_ENV_CURRENT=dev APP_DEBUG_CURRENT=1
+  - APP_ENV=prod APP_DEBUG=0
+  - APP_ENV=dev APP_DEBUG=1
 
 addons:
   chrome: stable
