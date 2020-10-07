@@ -94,10 +94,14 @@ class ContentRepository extends ServiceEntityRepository
         $qb = $this->getQueryBuilder()
             ->select('partial content.{id}');
 
+        // proper JSON wrapping solves a lot of problems (added PostgreSQL compatibility)
+        $connection = $qb->getEntityManager()->getConnection();
+        [$where] = JsonHelper::wrapJsonFunction('t.value', $searchTerm, $connection);
+
         $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')
             ->innerJoin('f.translations', 't')
-            ->andWhere($qb->expr()->like('t.value', ':search'))
+            ->andWhere($qb->expr()->like($where, ':search'))
             ->setParameter('search', '%' . $searchTerm . '%');
 
         // These are the ID's of content we need.

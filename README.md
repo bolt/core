@@ -117,7 +117,19 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-reset`, on a UNIX-like system.
 
-4 Run the prototype
+4 How to build assets
+-------------------
+
+To set up initially, run `npm install` to get the required dependencies /
+`node_modules`. Alternatively give the path to the python executable (`npm install --python="/usr/local/bin/python3.7"`) Then:
+  - Prepare directory structure `mkdir -p node_modules/node-sass/vendor`
+  - Rebuild npm environment for current OS `npm rebuild node-sass`
+  - Run `npm run start` (alternatively `npm run start --python="/usr/local/bin/python3.7"`)
+
+See the other options by running `npm run`.
+(Note: as I'm testing this as well remotely, I copied all assets from the released composer installation by `cp -r ../www_backup/public/assets/* public/assets/`)
+
+5 Run the prototype
 -------------------
 
   - Using the Symfony CLI tool, just run `symfony server:start`.
@@ -132,17 +144,6 @@ You can log on, using the default user & pass:
 
  - user: `admin`
  - pass: `admin%1`
-
-
-How to build assets
--------------------
-
-To set up initially, run `npm install` to get the required dependencies /
-`node_modules`. Then:
-
-  - Run `npm run start`
-
-See the other options by running `npm run`.
 
 
 Code Style checking / Static Analysis

@@ -38,7 +38,7 @@ class Log
     /** @ORM\Column(name="extra", type="array", nullable=true) */
     private $extra;
 
-    /** @ORM\Column(name="user", type="array", nullable=true) */
+    /** @ORM\Column(name="`user`", type="array", nullable=true) */
     private $user;
 
     /** @ORM\Column(type="content", type="integer", nullable=true) */

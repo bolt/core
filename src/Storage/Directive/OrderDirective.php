@@ -115,9 +115,10 @@ class OrderDirective
             } else {
                 // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
                 // results correctly. See also https://github.com/bolt/core/issues/1190
+                // again: lower breaks postgresql jsonb compatibility, first cast as txt
                 $query
                     ->getQueryBuilder()
-                    ->addOrderBy('lower(' . $translationsAlias . '.value)', $direction);
+                    ->addOrderBy('lower(CAST(' . $translationsAlias . '.value as TEXT))', $direction);
             }
             $query->incrementIndex();
         } else {

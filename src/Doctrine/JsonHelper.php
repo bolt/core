@@ -25,7 +25,14 @@ class JsonHelper
         $version = new Version($connection);
 
         if ($version->hasJson()) {
-            $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";
+            //PostgreSQL handles JSON differently than MySQL
+            if ($version->getPlatform()['driver_name'] === 'pgsql') {
+                // PostgreSQL
+                $resultWhere = 'JSON_GET_TEXT(' . $where . ', 0)';
+            } else {
+                // MySQL and SQLite
+                $resultWhere = 'JSON_EXTRACT(' . $where . ", '$[0]')";
+            }
             $resultSlug = $slug;
         } else {
             $resultWhere = $where;

@@ -92,3 +92,7 @@ appveyor.yml
 ###> phpunit/phpunit ###
 /phpunit.xml
 ###< phpunit/phpunit ###
+
+###> .preload dev ###
+/src/.preload.php
+###< .preload dev ###
