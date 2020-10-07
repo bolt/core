@@ -129,8 +129,6 @@
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
             "php bin/console extensions:configure --with-config",
