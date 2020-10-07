@@ -6,10 +6,6 @@ php:
   - 7.3
   - 7.4
 
-env:
-  - APP_ENV_CURRENT=prod APP_DEBUG_CURRENT=0
-  - APP_ENV_CURRENT=dev APP_DEBUG_CURRENT=1
-
 addons:
   chrome: stable
 
@@ -22,12 +18,10 @@ matrix:
 
 before_install:
   - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
-  - export $(grep -v '^#' .env.dist | xargs -d '\n') # export all environment variables (overrides APP_ENV, APP_DEBUG)
-  - export APP_ENV="$APP_ENV_CURRENT" APP_DEBUG="$APP_DEBUG_CURRRENT" # put back original environment variables
   - composer self-update -q
 
 install:
-  - COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
+  - COMPOSER_MEMORY_LIMIT=-1 composer update
   - ./bin/console bolt:info
   - nvm install 12.5
   - npm ci
