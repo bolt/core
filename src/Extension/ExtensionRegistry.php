@@ -72,6 +72,9 @@ class ExtensionRegistry
             return $this->extensions[$name];
         }
 
+        // Make sure that we're searching for the full namespace in mb_strpos below.
+        $name .= '\\';
+
         foreach ($this->extensions as $key => $extension) {
             if (mb_strpos($key, $name) !== false) {
                 return $extension;
