@@ -177,9 +177,14 @@ class SelectQuery implements QueryInterface
     public function setParameters(array $params): void
     {
         // Change all params to lowercase, filter out empty ones
-        $this->params = array_filter(Arr::mapRecursive($params, function ($a) {
-            return mb_strtolower((string) $a, 'utf-8');
-        }));
+        $this->params = array_filter(
+            Arr::mapRecursive($params, function ($a) {
+                return mb_strtolower((string) $a, 'utf-8');
+            }
+        ), function ($a) {
+            // ignore parameter if like statement is empty
+            return $a !== '%%';
+        });
 
         $this->processFilters();
     }
