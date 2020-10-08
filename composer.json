@@ -72,9 +72,6 @@
         "webonyx/graphql-php": "^0.13",
         "xemlock/htmlpurifier-html5": "^0.1.11"
     },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
     "require-dev": {
         "ext-curl": "*",
         "ext-pdo_sqlite": "*",
@@ -132,8 +129,6 @@
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
             "php bin/console extensions:configure --with-config",
