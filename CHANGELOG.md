@@ -1,6 +1,46 @@
 Changelog
 =========
 
+## 4.1.0
+
+Released: 2020-10-08
+
+### 📦 Additions and new features
+
+- Initial PostgreSQL support (Wieter, [#1933](https://github.com/bolt/core/pull/1933))
+- Feature/translations russian (denis-gorin, [#1962](https://github.com/bolt/core/pull/1962))
+- Backend in Bulgarian / Панел на български 🇧🇬 (I-Valchev, [#1940](https://github.com/bolt/core/pull/1940))
+- Add new `bolt:reset-password` CLI command to reset password (simongroenewolt, [#1937](https://github.com/bolt/core/pull/1937))
+- Allow default values for Fields in new Content (bobdenotter, [#1952](https://github.com/bolt/core/pull/1952))
+
+### 🐛 Bug fixes
+
+- API: `$this->viewlessContentTypes` should be a indexed array, not associative (simongroenewolt, [#1960](https://github.com/bolt/core/pull/1960))
+- Ignore empty like `%%` parameters (I-Valchev, [#1955](https://github.com/bolt/core/pull/1955))
+- Access extensions by name with full namespace (I-Valchev, [#1954](https://github.com/bolt/core/pull/1954))
+- Ensure the "Titles" in collection blocks are plain text only (bobdenotter, [#1948](https://github.com/bolt/core/pull/1948))
+- Better way to allow `x` in thumbnail URLs alongside `×` (bobdenotter, [#1943](https://github.com/bolt/core/pull/1943))
+- Ensure we have an array of records in "select" block (bobdenotter, [#1942](https://github.com/bolt/core/pull/1942))
+- Add missing `json_decode` Twig Filter (bobdenotter, [#1941](https://github.com/bolt/core/pull/1941))
+- Fix Buggy thumbnail url generation #1928 (luistar15, [#1938](https://github.com/bolt/core/pull/1938))
+- Dont create folders if the image can't be created (UtechtDustin, [#1936](https://github.com/bolt/core/pull/1936))
+- fix HTML DOM problems (LordSimal, [#1930](https://github.com/bolt/core/pull/1930))
+- Exclude relations from `Content::toArray()` (I-Valchev, [#1927](https://github.com/bolt/core/pull/1927))
+
+### 🛠️ Miscellaneous
+
+- 🧹 Cleanup for `Doctrine\Version` [#1963](https://github.com/bolt/core/pull/1963))
+
+### ⚙️ Code Quality / Developer Experience
+
+- [phpstan] remove invalid tmp dir + dependency on symfony container (TomasVotruba, [#1958](https://github.com/bolt/core/pull/1958))
+- [composer] decouple `post-install/update-cmd` and skip run on CI (TomasVotruba, [#1961](https://github.com/bolt/core/pull/1961))
+- [composer] remove copy-paste leftovers (TomasVotruba, [#1959](https://github.com/bolt/core/pull/1959))
+- [ci] use common path for `.env` file (TomasVotruba, [#1957](https://github.com/bolt/core/pull/1957))
+- Delete `Version20200219064805.php` (bobdenotter, [#1946](https://github.com/bolt/core/pull/1946))
+- Better feedback when `|related` and their ilk fail (bobdenotter, [#1935](https://github.com/bolt/core/pull/1935))
+- Change travis-ci build status in `README.md` to travis-ci.com (LordSimal, [#1932](https://github.com/bolt/core/pull/1932))
+
 ## 4.0.1
 
 Released: 2020-09-30
