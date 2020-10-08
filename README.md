@@ -117,7 +117,19 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-reset`, on a UNIX-like system.
 
-4 Run the prototype
+4 How to build assets
+-------------------
+
+To set up initially, run `npm install` to get the required dependencies /
+`node_modules`. Alternatively give the path to the python executable (`npm install --python="/usr/local/bin/python3.7"`) Then:
+  - Prepare directory structure `mkdir -p node_modules/node-sass/vendor`
+  - Rebuild npm environment for current OS `npm rebuild node-sass`
+  - Run `npm run start` (alternatively `npm run start --python="/usr/local/bin/python3.7"`)
+
+See the other options by running `npm run`.
+(Note: as I'm testing this as well remotely, I copied all assets from the released composer installation by `cp -r ../www_backup/public/assets/* public/assets/`)
+
+5 Run the prototype
 -------------------
 
   - Using the Symfony CLI tool, just run `symfony server:start`.
@@ -132,17 +144,6 @@ You can log on, using the default user & pass:
 
  - user: `admin`
  - pass: `admin%1`
-
-
-How to build assets
--------------------
-
-To set up initially, run `npm install` to get the required dependencies /
-`node_modules`. Then:
-
-  - Run `npm run start`
-
-See the other options by running `npm run`.
 
 
 Code Style checking / Static Analysis
@@ -230,4 +231,4 @@ Sponsors:
 
 --------
 
-[![Build Status](https://travis-ci.org/bolt/core.svg?branch=master)](https://travis-ci.org/bolt/core) [![SymfonyInsight](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5/mini.svg)](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5) [![Total Downloads](https://poser.pugx.org/bolt/core/downloads)](https://packagist.org/packages/bolt/core) ![PHP from Packagist](https://img.shields.io/packagist/php-v/bolt/core)
+[![Build Status](https://travis-ci.com/bolt/core.svg?branch=master)](https://travis-ci.com/bolt/core) [![SymfonyInsight](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5/mini.svg)](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5) [![Total Downloads](https://poser.pugx.org/bolt/core/downloads)](https://packagist.org/packages/bolt/core) ![PHP from Packagist](https://img.shields.io/packagist/php-v/bolt/core)

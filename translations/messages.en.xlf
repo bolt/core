@@ -810,7 +810,7 @@
     <unit id="N_0yRcH" name="action.close_alert">
       <segment>
         <source>action.close_alert</source>
-        <target>close</target>
+        <target>Close</target>
       </segment>
     </unit>
     <unit id="Dvu2HQx" name="caption.api">

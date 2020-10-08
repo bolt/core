@@ -16,6 +16,7 @@
 
 {% block main %}
     <div>
+
         <div class="login__logo">
             <img class="logo" alt="Bolt CMS logo"
                 {% if not config.get('general/omit_backgrounds') %}
@@ -69,8 +70,10 @@
                         <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
                         {{ 'action.log_in'|trans }}
                     </button>
+                </form>
+
             </div>
-            </form>
+
         </div>
 
     </div>

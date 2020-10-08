@@ -19,6 +19,10 @@ class Rand extends FunctionNode
         if (property_exists($this->expression, 'value') && $this->expression->value === '1') {
             return 'random()';
         }
+        // value is two if PostgreSQL. See Bolt\Storage\Directive\RandomDirectiveHandler
+        if (property_exists($this->expression, 'value') && $this->expression->value === '2') {
+            return 'RANDOM()';
+        }
 
         return 'RAND()';
     }

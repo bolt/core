@@ -177,9 +177,14 @@ class SelectQuery implements QueryInterface
     public function setParameters(array $params): void
     {
         // Change all params to lowercase, filter out empty ones
-        $this->params = array_filter(Arr::mapRecursive($params, function ($a) {
-            return mb_strtolower((string) $a, 'utf-8');
-        }));
+        $this->params = array_filter(
+            Arr::mapRecursive($params, function ($a) {
+                return mb_strtolower((string) $a, 'utf-8');
+            }
+        ), function ($a) {
+            // ignore parameter if like statement is empty
+            return $a !== '%%';
+        });
 
         $this->processFilters();
     }
@@ -537,7 +542,9 @@ class SelectQuery implements QueryInterface
 
         $originalLeftExpression = 'content.' . $filter->getKey();
         // LOWER() added to query to enable case insensitive search of JSON  values. Used in conjunction with converting $params of setParameter() to lowercase.
-        $newLeftExpression = JsonHelper::wrapJsonFunction('LOWER(' . $valueAlias . ')', null, $em->getConnection());
+        // BUG SQLSTATE[42883]: Undefined function: 7 ERROR: function lower(jsonb) does not exist
+        // We want to be able to search case-insensitive, database-agnostic, have to think of a good way..
+        $newLeftExpression = JsonHelper::wrapJsonFunction($valueAlias, null, $em->getConnection());
         $valueWhere = $filter->getExpression();
         $valueWhere = str_replace($originalLeftExpression, $newLeftExpression, $valueWhere);
         $expr->add($valueWhere);
