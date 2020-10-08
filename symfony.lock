@@ -389,6 +389,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
+    "ondram/ci-detector": {
+        "version": "3.5.1"
+    },
     "openlss/lib-array2xml": {
         "version": "1.0.0"
     },
@@ -408,7 +411,7 @@
         "version": "2.0.1"
     },
     "php": {
-        "version": "7.2"
+        "version": "7.4"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
