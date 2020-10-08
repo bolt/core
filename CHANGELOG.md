@@ -1,9 +1,17 @@
 Changelog
 =========
 
-## 4.0.2
+## 4.1.0
 
 Released: 2020-10-08
+
+### 📦 Additions and new features
+
+- Initial PostgreSQL support (Wieter, [#1933](https://github.com/bolt/core/pull/1933))
+- Feature/translations russian (denis-gorin, [#1962](https://github.com/bolt/core/pull/1962))
+- Backend in Bulgarian / Панел на български 🇧🇬 (I-Valchev, [#1940](https://github.com/bolt/core/pull/1940))
+- Add new `bolt:reset-password` CLI command to reset password (simongroenewolt, [#1937](https://github.com/bolt/core/pull/1937))
+- Allow default values for Fields in new Content (bobdenotter, [#1952](https://github.com/bolt/core/pull/1952))
 
 ### 🐛 Bug fixes
 
@@ -18,14 +26,6 @@ Released: 2020-10-08
 - Dont create folders if the image can't be created (UtechtDustin, [#1936](https://github.com/bolt/core/pull/1936))
 - fix HTML DOM problems (LordSimal, [#1930](https://github.com/bolt/core/pull/1930))
 - Exclude relations from `Content::toArray()` (I-Valchev, [#1927](https://github.com/bolt/core/pull/1927))
-
-### 📦 Additions and new features
-
-- Initial PostgreSQL support (Wieter, [#1933](https://github.com/bolt/core/pull/1933))
-- Feature/translations russian (denis-gorin, [#1962](https://github.com/bolt/core/pull/1962))
-- Backend in Bulgarian / Панел на български 🇧🇬 (I-Valchev, [#1940](https://github.com/bolt/core/pull/1940))
-- Add new `bolt:reset-password` CLI command to reset password (simongroenewolt, [#1937](https://github.com/bolt/core/pull/1937))
-- Allow default values for Fields in new Content (bobdenotter, [#1952](https://github.com/bolt/core/pull/1952))
 
 ### 🛠️ Miscellaneous
 
