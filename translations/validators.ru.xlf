@@ -25,58 +25,48 @@
         <target>Это значение должно быть пустым.</target>
       </segment>
     </unit>
-    
     <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
       <segment>
         <source>The value you selected is not a valid choice.</source>
         <target>Выбранное вами значение не является допустимым.</target>
       </segment>
     </unit>
-
     <unit id="7smtimf" name="0d999f2">
       <segment>
         <source>0d999f2</source>
         <target>Вы должны выбрать не менее {{limit}} вариантов. | Вы должны выбрать не менее {{limit}} вариантов.</target>
       </segment>
     </unit>
-
     <unit id="JRlXq2Z" name="0824486">
       <segment>
         <source>0824486</source>
         <target>Вы должны выбрать не более {{limit}} вариантов. | Вы должны выбрать не более {{limit}} вариантов.</target>
       </segment>
     </unit>
-
     <unit id="87zjiHi" name="One or more of the given values is invalid.">
       <segment>
         <source>One or more of the given values is invalid.</source>
         <target>Одно или несколько указанных значений недопустимы.</target>
       </segment>
     </unit>
-
     <unit id="3NeQftv" name="This field was not expected.">
       <segment>
         <source>This field was not expected.</source>
         <target>Это поле не ожидалось.</target>
       </segment>
     </unit>
-
     <unit id="SwMV4zp" name="This field is missing.">
       <segment>
         <source>This field is missing.</source>
         <target>Это поле отсутствует.</target>
       </segment>
     </unit>
-
     <unit id="LO2vFKN" name="This value is not a valid date.">
       <segment>
         <source>This value is not a valid date.</source>
         <target>Это значение не является действительной датой.</target>
       </segment>
     </unit>
-
-
-
     <unit id="86dU_nv" name="This value is not a valid datetime.">
       <segment>
         <source>This value is not a valid datetime.</source>
