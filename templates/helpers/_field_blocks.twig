@@ -43,14 +43,11 @@
 {% block extended_fields %}
 
     {# Special case for 'select' fields: if it's a multiple select, the field is an array. #}
-    {# I dont know what is going on here, but field.selectedIds for pgsql showcase/mr-jean-feeney (and others) #}
-    {# yield field values (strings containing full name!), NOT integer IDs.. #}
-    {# TODO: FIX IT, bypassing for now by selecting on 'value' (string) and not 'id' (int) #}	
     {% if type == "select" and field is not empty %}
         <p><strong>{{ field|label }}: </strong></p>
             <ul>
             {% if field.contentSelect %}
-                {% setcontent selected = field.contentType where {'value': field.selectedIds} returnmultiple %}
+                {% setcontent selected = field.contentType where {'id': field.selectedIds} returnmultiple %}
                 {% for record in selected %}
                 <li><a href="{{ record|link }}">{{ record|title }}</a></li>
                 {% endfor %}
