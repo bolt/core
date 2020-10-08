@@ -33,6 +33,7 @@ jobs:
                 with:
                     node-version: 12.5
 
-            -   run: npm install
+            # same as "npm install", just uses package-lock.json", see https://stackoverflow.com/a/53325242/1348344
+            -   run: npm ci
 
             -   run: ${{ matrix.actions.run }}
