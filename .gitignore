@@ -70,7 +70,6 @@ appveyor.yml
 .php-version
 
 ###> symfony/framework-bundle ###
-/.env
 /public/bundles/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -92,3 +91,4 @@ appveyor.yml
 ###> phpunit/phpunit ###
 /phpunit.xml
 ###< phpunit/phpunit ###
+

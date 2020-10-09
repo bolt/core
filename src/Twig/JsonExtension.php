@@ -36,6 +36,7 @@ class JsonExtension extends AbstractExtension
         return [
             new TwigFilter('normalize_records', [$this, 'normalizeRecords']),
             new TwigFilter('json_records', [$this, 'jsonRecords']),
+            new TwigFilter('json_decode', [$this, 'jsonDecode']),
         ];
     }
 
@@ -112,5 +113,10 @@ class JsonExtension extends AbstractExtension
     public function testJson(string $string): bool
     {
         return Json::test($string);
+    }
+
+    public function jsonDecode(string $json, $assoc = false, $depth = 512, $options = 0)
+    {
+        return json::json_decode($json, $assoc, $depth, $options);
     }
 }

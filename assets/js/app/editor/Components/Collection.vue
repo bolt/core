@@ -204,8 +204,10 @@ export default {
       const input = $(item)
         .find('textarea,input[type="text"]')
         .first();
-      const title = $(input).val() ? $(input).val() : label.attr('data-label');
-      label.html(icon + title);
+      // We use this 'innerText' trick to ensure the title is plain text.
+      var title = document.createElement('span');
+      title.innerHTML = $(input).val() ? $(input).val() : label.attr('data-label');
+      label.html(icon + title.innerText);
     }
     /**
      * Open newly inserted collection items.
