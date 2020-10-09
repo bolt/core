@@ -115,10 +115,17 @@ class OrderDirective
             } else {
                 // Note the `lower()` in the `addOrderBy()`. It is essential to sorting the
                 // results correctly. See also https://github.com/bolt/core/issues/1190
-                // again: lower breaks postgresql jsonb compatibility, first cast as txt
+                // again: lower breaks postgresql jsonb compatibility, first cast as txt (but not for MySQL/MariaDB)
+                $backend_driver = $query->getQueryBuilder()->getEntityManager()->getConnection()->getDatabasePlatform()->getName();
+                $lowerExpression = $translationsAlias . '.value';
+
+                if (mb_strpos($backend_driver, 'mysql') === false) {
+                    $lowerExpression = 'CAST(' . $lowerExpression . ' as TEXT)';
+                }
+
                 $query
                     ->getQueryBuilder()
-                    ->addOrderBy('lower(CAST(' . $translationsAlias . '.value as TEXT))', $direction);
+                    ->addOrderBy('lower(' . $lowerExpression . ')', $direction);
             }
             $query->incrementIndex();
         } else {
