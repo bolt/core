@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Controller;
 
 use Bolt\Configuration\Config;
@@ -67,7 +69,7 @@ class ResetPasswordController extends AbstractController
     public function checkEmail(): Response
     {
         // We prevent users from directly accessing this page
-        if (!$this->canCheckEmail()) {
+        if (! $this->canCheckEmail()) {
             return $this->redirectToRoute('app_forgot_password_request');
         }
 
@@ -81,7 +83,7 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/reset/{token}", name="app_reset_password")
      */
-    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null): Response
+    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, ?string $token = null): Response
     {
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
@@ -92,7 +94,7 @@ class ResetPasswordController extends AbstractController
         }
 
         $token = $this->getTokenFromSession();
-        if (null === $token) {
+        if ($token === null) {
             throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
         }
 
@@ -128,7 +130,8 @@ class ResetPasswordController extends AbstractController
             $this->cleanSessionAfterReset();
 
             // Added an additional flash message to show if password reset was successful
-            $this->addFlash('reset_password_success', 'Your password has been reset successfully' );
+            $this->addFlash('reset_password_success', 'Your password has been reset successfully');
+
             return $this->redirectToRoute('bolt_login');
         }
 
@@ -147,7 +150,7 @@ class ResetPasswordController extends AbstractController
         $this->setCanCheckEmailInSession();
 
         // Do not reveal whether a user account was found or not.
-        if (!$user) {
+        if (! $user) {
             return $this->redirectToRoute('app_check_email');
         }
 
