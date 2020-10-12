@@ -33,7 +33,7 @@
             </div>
             <div class="card-body">
                 <p>{{ 'reset_password.check_email_sent_text_1'|trans({'%hours%': tokenLifetime|date('g')}) }}</p>
-                <p>{{ 'reset_password.check_email_sent_text_2'|trans({'%tryagain%': '<a href="' ~ path('app_forgot_password_request') ~ '">try again</a>' }) | raw }}</p>
+                <p>{{ 'reset_password.check_email_sent_text_2'|trans({'%tryagain%': '<a href="' ~ path('bolt_forgot_password_request') ~ '">try again</a>' }) | raw }}</p>
             </div>
         </div>
 
