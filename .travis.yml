@@ -42,12 +42,6 @@ before_script:
   - export PATH=$PATH:$PWD/vendor/bin
 
 script:
-  # run EsLint on Javascript files
-  - npm run lint
-
-  # run StyleLint on SCSS
-  - npm run stylelint
-
   # run PHP Unit
   - ./vendor/bin/phpunit
 
