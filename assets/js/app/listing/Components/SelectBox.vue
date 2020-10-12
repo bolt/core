@@ -57,6 +57,7 @@ export default {
         plural: String,
         labels: Object,
         csrftoken: String,
+        backendPrefix: RegExp,
     },
     data() {
         return {
@@ -92,7 +93,7 @@ export default {
     computed: {
         postUrl() {
             if (this.selectedAction) {
-                return '/bolt/bulk/' + this.selectedAction.key;
+                return this.backendPrefix + 'bulk/' + this.selectedAction.key;
             }
 
             return '';
