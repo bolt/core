@@ -275,7 +275,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'image':
                 $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => $randomImage->getRelativePathname(),
+                    'filename' => str_replace('\\', '/', $randomImage->getRelativePathname()),
                     'alt' => $this->faker->sentence(4, true),
                     'media' => '',
                 ];
@@ -284,7 +284,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'file':
                 $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => $randomImage->getRelativePathname(),
+                    'filename' => str_replace('\\', '/', $randomImage->getRelativePathname()),
                     'title' => $this->faker->sentence(4, true),
                     'media' => '',
                 ];
