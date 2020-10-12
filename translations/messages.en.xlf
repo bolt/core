@@ -2439,5 +2439,29 @@
         <target>Reset Password</target>
       </segment>
     </unit>
+    <unit id="3prMgfK" name="reset_password.email_title">
+      <segment>
+        <source>reset_password.email_title</source>
+        <target>Hi!</target>
+      </segment>
+    </unit>
+    <unit id="oaRkfvE" name="reset_password.email_description">
+      <segment>
+        <source>reset_password.email_description</source>
+        <target>To reset your password, please visit the following link</target>
+      </segment>
+    </unit>
+    <unit id="Afb4dal" name="reset_password.email_expire">
+      <segment>
+        <source>reset_password.email_expire</source>
+        <target>This link will expire in %hours% hour(s).</target>
+      </segment>
+    </unit>
+    <unit id="9ga3FlV" name="reset_password.email_thanks">
+      <segment>
+        <source>reset_password.email_thanks</source>
+        <target>Cheers!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
