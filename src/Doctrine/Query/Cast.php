@@ -20,7 +20,7 @@ class Cast extends FunctionNode
 
     public function getSql(SqlWalker $sqlWalker): string
     {
-        $backend_driver = $sqlWalker->getConnection()->getDriver()->getName();
+        $backend_driver = $sqlWalker->getConnection()->getDatabasePlatform()->getName();
 
         // test if we are using MySQL
         if (mb_strpos($backend_driver, 'mysql') !== false) {
