@@ -1,5 +1,5 @@
 const getters = {
-  getType: state => state.type,
+    getType: state => state.type,
 };
 
 export default getters;
