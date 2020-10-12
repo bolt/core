@@ -45,6 +45,14 @@
         </div>
     {% endif %}
 
+    {% if errors is defined %}
+        {%for error in errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error.propertyPath }}: {{error.message}}
+            </div>
+        {%endfor%}
+    {% endif %}
+
     <form method="post" id="editcontent">
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
