@@ -164,7 +164,7 @@ class ResetPasswordController extends AbstractController
             // the lines below and change the redirect to 'bolt_forgot_password_request'.
             // Caution: This may reveal if a user is registered or not.
 
-            if($config['show_already_requested_password_notice']) {
+            if ($config['show_already_requested_password_notice']) {
                 $this->addFlash('reset_password_error', sprintf(
                     'There was a problem handling your password reset request - %s',
                     $e->getReason()
