@@ -154,23 +154,25 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('bolt_check_email');
         }
 
+        // Global config/bolt/config.yml file.
+        $config = $this->config->get('general/reset_password_settings');
+
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
         } catch (ResetPasswordExceptionInterface $e) {
             // If you want to tell the user why a reset email was not sent, uncomment
             // the lines below and change the redirect to 'bolt_forgot_password_request'.
             // Caution: This may reveal if a user is registered or not.
-            //
-            // $this->addFlash('reset_password_error', sprintf(
-            //     'There was a problem handling your password reset request - %s',
-            //     $e->getReason()
-            // ));
+
+            if($config['show_already_requested_password_notice']) {
+                $this->addFlash('reset_password_error', sprintf(
+                    'There was a problem handling your password reset request - %s',
+                    $e->getReason()
+                ));
+            }
 
             return $this->redirectToRoute('bolt_check_email');
         }
-
-        // Global config/bolt/config.yml file.
-        $config = $this->config->get('general/reset_password_settings');
 
         $email = (new TemplatedEmail())
             ->from(new Address($config['mail_from'], $config['mail_name']))
