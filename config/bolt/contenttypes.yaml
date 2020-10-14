@@ -266,7 +266,7 @@ showcases:
             type: collection
             group: Collections
             label: This is my Collection
-            default_state: expanded
+            variant: expanded
             fields:
                 set:
                     type: set
