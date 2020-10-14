@@ -112,9 +112,31 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     }
 
     /**
-     * @Route("/upload", name="bolt_async_upload", methods={"POST"})
+     * @Route("/upload-url", name="bolt_async_upload_url", methods={"GET", "POST"})
      */
-    public function handleUpload(Request $request): JsonResponse
+    public function handleURLUpload(Request $request): Response
+    {
+        $url = $request->get('url', '');
+        $filename = basename($url);
+
+        $locationName = $request->get('location', '');
+        $path = $request->get('path') . $filename;
+        $target = $this->config->getPath($locationName, true, $path);
+
+        copy($url, $target);
+
+        $file = new UploadedFile($target, $filename);
+        $bag = new FileBag();
+        $bag->add([$file]);
+        $request->files = $bag;
+
+        return $this->handleUpload($request);
+    }
+
+    /**
+     * @Route("/upload", name="bolt_async_upload", methods={"POST", "GET"})
+     */
+    public function handleUpload(Request $request)
     {
         try {
             $this->validateCsrf('upload');
