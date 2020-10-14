@@ -12,7 +12,10 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sirius\Upload\Handler;
-use Sirius\Upload\Result\File;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,7 +28,7 @@ use Webmozart\PathUtil\Path;
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class UploadController implements AsyncZoneInterface
+class UploadController extends AbstractController implements AsyncZoneInterface
 {
     use CsrfTrait;
 
@@ -55,9 +58,31 @@ class UploadController implements AsyncZoneInterface
     }
 
     /**
-     * @Route("/upload", name="bolt_async_upload", methods={"POST"})
+     * @Route("/upload-url", name="bolt_async_upload_url", methods={"GET", "POST"})
      */
-    public function handleUpload(Request $request): JsonResponse
+    public function handleURLUpload(Request $request): Response
+    {
+        $url = $request->get('url', '');
+        $filename = basename($url);
+
+        $locationName = $request->get('location', '');
+        $path = $request->get('path') . $filename;
+        $target = $this->config->getPath($locationName, true, $path);
+
+        copy($url, $target);
+
+        $file = new UploadedFile($target, $filename);
+        $bag = new FileBag();
+        $bag->add([$file]);
+        $request->files = $bag;
+
+        return $this->handleUpload($request);
+    }
+
+    /**
+     * @Route("/upload", name="bolt_async_upload", methods={"POST", "GET"})
+     */
+    public function handleUpload(Request $request)
     {
         try {
             $this->validateCsrf('upload');

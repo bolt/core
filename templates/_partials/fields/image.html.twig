@@ -10,6 +10,7 @@
 
     {% set setPath = field.definition.get('upload')|placeholders({'contenttype': record.contenttype}) %} 
     {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': setPath}) %}
+    {% set directoryurl = path('bolt_async_upload_url', {'location': location|default('files'), 'path': setPath}) %}
     {% set filelist = path('bolt_async_filelisting', {'location': location|default('files'), 'type': 'images' }) %}
     {% set labels = {
         'button_upload': 'image.button_upload'|trans,
@@ -25,6 +26,7 @@
         :filename='{{ field.get('filename')|json_encode }}'
         :media='{{ field.get('media')|json_encode }}'
         :directory='{{ directory|json_encode }}'
+        :directoryurl='{{ directoryurl|json_encode }}'
         :filelist='{{ filelist|json_encode }}'
         :csrf-token='{{ csrf_token('upload')|json_encode }}'
         :labels='{{ labels }}'
