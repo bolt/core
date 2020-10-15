@@ -12,14 +12,20 @@ namespace Bolt\Form;
     use Symfony\Component\OptionsResolver\OptionsResolver;
     use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
     use Symfony\Component\Validator\Constraints\NotBlank;
+    use Symfony\Contracts\Translation\TranslatorInterface;
 
     class LoginType extends AbstractType
     {
-        public $authenticationUtils;
+        /** @var AuthenticationUtils  */
+        private $authenticationUtils;
 
-        public function __construct(AuthenticationUtils $authenticationUtils)
+        /** @var TranslatorInterface  */
+        private $translator;
+
+        public function __construct(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator)
         {
             $this->authenticationUtils = $authenticationUtils;
+            $this->translator = $translator;
         }
 
         public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -34,24 +40,26 @@ namespace Bolt\Form;
                     'label' => 'label.username_or_email',
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter your username or email',
+                            'message' => $this->translator->trans('form.empty_username_email'),
                         ]),
                     ],
                     'attr' => [
                         'placeholder' => 'placeholder.username_or_email',
                     ],
                     'data' => $last_username,
+                    'required' => false
                 ])
                 ->add('password', PasswordType::class, [
                     'label' => 'label.password',
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter your password',
+                            'message' => $this->translator->trans('form.empty_password'),
                         ]),
                     ],
                     'attr' => [
                         'placeholder' => 'placeholder.password',
                     ],
+                    'required' => false
                 ]);
         }
 
