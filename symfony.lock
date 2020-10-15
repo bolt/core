@@ -323,6 +323,9 @@
     "league/glide-symfony": {
         "version": "1.0.3"
     },
+    "league/mime-type-detection": {
+        "version": "1.5.0"
+    },
     "miljar/php-exif": {
         "version": "v0.6.5"
     },
@@ -411,7 +414,7 @@
         "version": "2.0.1"
     },
     "php": {
-        "version": "7.4"
+        "version": "7.3"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -1076,6 +1079,9 @@
     },
     "symplify/smart-file-system": {
         "version": "v7.2.2"
+    },
+    "symplify/symplify-kernel": {
+        "version": "8.3.28"
     },
     "theseer/tokenizer": {
         "version": "1.1.3"
