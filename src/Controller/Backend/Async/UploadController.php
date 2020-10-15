@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sirius\Upload\Handler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Throwable;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -47,7 +49,10 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     /** @var Request */
     private $request;
 
-    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager, TextExtension $textExtension, RequestStack $requestStack)
+    /** @var Filesystem */
+    private $filesystem;
+
+    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager, TextExtension $textExtension, RequestStack $requestStack, Filesystem $filesystem)
     {
         $this->mediaFactory = $mediaFactory;
         $this->em = $em;
@@ -55,6 +60,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         $this->csrfTokenManager = $csrfTokenManager;
         $this->textExtension = $textExtension;
         $this->request = $requestStack->getCurrentRequest();
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -67,16 +73,30 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         $locationName = $request->get('location', '');
         $path = $request->get('path') . $filename;
-        $target = $this->config->getPath($locationName, true, $path);
+        $target = $this->config->getPath($locationName, true, 'tmp/' . $path);
 
-        copy($url, $target);
+        try {
+            // Create temporary file
+            $this->filesystem->copy($url, $target);
+        } catch (Throwable $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => $e->getMessage(),
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         $file = new UploadedFile($target, $filename);
         $bag = new FileBag();
         $bag->add([$file]);
         $request->files = $bag;
 
-        return $this->handleUpload($request);
+        $response = $this->handleUpload($request);
+
+        // The file is automatically deleted. It may be that we don't need this.
+        $this->filesystem->remove($target);
+
+        return $response;
     }
 
     /**

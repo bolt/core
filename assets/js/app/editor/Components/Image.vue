@@ -326,20 +326,35 @@ export default {
                 });
         },
         uploadFileFromUrl() {
+            let thisField = this;
+            const config = {
+                onUploadProgress: progressEvent => {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    this.progress = percentCompleted;
+                },
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            };
             bootbox.prompt({
                 title: 'Upload from URL',
                 callback: function(url) {
                     if (url) {
                         const fd = new FormData();
                         fd.append('url', url);
-                        fd.append('_csrf_token', this.token);
-                        Axios.post(this.directoryurl, fd)
+                        fd.append('_csrf_token', thisField.token);
+                        Axios.post(thisField.directoryurl, fd, config)
                             .then(res => {
-                                this.filenameData = res.data;
-                                this.thumbnailData = `/thumbs/400×300/${res.data}`;
-                                this.previewData = `/thumbs/1000×1000/${res.data}`;
-                                this.progress = 0;
-                            });
+                                thisField.filenameData = res.data;
+                                thisField.thumbnailData = `/thumbs/400×300/${res.data}`;
+                                thisField.previewData = `/thumbs/1000×1000/${res.data}`;
+                                thisField.progress = 0;
+                            })
+                            .catch(err => {
+                            bootbox.alert(err.response.data.error.message);
+                            console.warn(err.response.data.error.message);
+                            thisField.progress = 0;
+                        });
                     }
                 },
             });
