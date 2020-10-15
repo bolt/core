@@ -32,7 +32,7 @@ class Relation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Content", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsFromThisContent", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      *
      * @var Content
@@ -41,7 +41,7 @@ class Relation
     private $fromContent;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Content", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="relationsToThisContent", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      *
      * @var Content
