@@ -16,10 +16,10 @@ namespace Bolt\Form;
 
     class LoginType extends AbstractType
     {
-        /** @var AuthenticationUtils  */
+        /** @var AuthenticationUtils */
         private $authenticationUtils;
 
-        /** @var TranslatorInterface  */
+        /** @var TranslatorInterface */
         private $translator;
 
         public function __construct(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator)
@@ -46,7 +46,7 @@ namespace Bolt\Form;
                     'attr' => [
                         'placeholder' => 'placeholder.username_or_email',
                     ],
-                    'data' => $last_username
+                    'data' => $last_username,
                 ])
                 ->add('password', PasswordType::class, [
                     'label' => 'label.password',
@@ -57,7 +57,7 @@ namespace Bolt\Form;
                     ],
                     'attr' => [
                         'placeholder' => 'placeholder.password',
-                    ]
+                    ],
                 ]);
         }
 
