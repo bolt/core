@@ -149,7 +149,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             // that are in the form of the user.
             // This should only be an issue of date is being deleted from another place while an end-user
             // is creating content via the backend forms.
-            $constraintViolations = $contentValidator->validate($content, $relations);
+//            $constraintViolations = $contentValidator->validate($content, $relations);
+            $constraintViolations = $contentValidator->validate($content);
             if (count($constraintViolations) > 0) {
                 return $this->renderEditor($content, $constraintViolations);
             }
