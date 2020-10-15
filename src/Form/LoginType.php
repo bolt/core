@@ -46,8 +46,7 @@ namespace Bolt\Form;
                     'attr' => [
                         'placeholder' => 'placeholder.username_or_email',
                     ],
-                    'data' => $last_username,
-                    'required' => false
+                    'data' => $last_username
                 ])
                 ->add('password', PasswordType::class, [
                     'label' => 'label.password',
@@ -58,8 +57,7 @@ namespace Bolt\Form;
                     ],
                     'attr' => [
                         'placeholder' => 'placeholder.password',
-                    ],
-                    'required' => false
+                    ]
                 ]);
         }
 
