@@ -70,7 +70,10 @@
                                 :disabled="readonly"
                                 data-patiance="virtue"
                                 @click="uploadFileFromUrl"
-                                >From URL</button>
+                            >
+                                <i class="fas fa-fw fa-external-link-alt"></i>
+                                {{ labels.button_from_url }}
+                            </button>
                             <a
                                 v-if="filenameData"
                                 class="dropdown-item"
@@ -351,10 +354,10 @@ export default {
                                 thisField.progress = 0;
                             })
                             .catch(err => {
-                            bootbox.alert(err.response.data.error.message);
-                            console.warn(err.response.data.error.message);
-                            thisField.progress = 0;
-                        });
+                                bootbox.alert(err.response.data.error.message);
+                                console.warn(err.response.data.error.message);
+                                thisField.progress = 0;
+                            });
                     }
                 },
             });

@@ -2391,5 +2391,11 @@
         <target>Filter by field</target>
       </segment>
     </unit>
+    <unit id="kciiidS" name="image.button_from_url">
+      <segment>
+        <source>image.button_from_url</source>
+        <target>From URL</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
