@@ -12,6 +12,8 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sirius\Upload\Handler;
+use Sirius\Upload\Result\Collection;
+use Sirius\Upload\Result\ResultInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
@@ -64,10 +66,20 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     }
 
     /**
-     * @Route("/upload-url", name="bolt_async_upload_url", methods={"GET", "POST"})
+     * @Route("/upload-url", name="bolt_async_upload_url", methods={"GET"})
      */
     public function handleURLUpload(Request $request): Response
     {
+        try {
+            $this->validateCsrf('upload');
+        } catch (InvalidCsrfTokenException $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Invalid CSRF token',
+                ],
+            ], Response::HTTP_FORBIDDEN);
+        }
+
         $url = $request->get('url', '');
         $filename = basename($url);
 
@@ -100,7 +112,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     }
 
     /**
-     * @Route("/upload", name="bolt_async_upload", methods={"POST", "GET"})
+     * @Route("/upload", name="bolt_async_upload", methods={"POST"})
      */
     public function handleUpload(Request $request)
     {
@@ -148,7 +160,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
         });
 
         try {
-            /** @var File $result */
+            /** @var UploadedFile|File|ResultInterface|Collection $result */
             $result = $uploadHandler->process($request->files->all());
         } catch (\Throwable $e) {
             return new JsonResponse([
