@@ -133,7 +133,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     {
         $this->validateCsrf('editrecord');
 
-        [$content, $relations] = $this->contentFromPost($content);
+        $content = $this->contentFromPost($content);
 
         if ($contentValidator) {
             // Question: do we want to validate the formData, or do we want to validate the content created
@@ -286,7 +286,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         return new RedirectResponse($url);
     }
 
-    private function contentFromPost(?Content $content): array
+    private function contentFromPost(?Content $content): Content
     {
         $formData = $this->request->request->all();
         $locale = $this->getPostedLocale($formData) ?: $content->getDefaultLocale();
@@ -333,14 +333,13 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             }
         }
 
-        $relations = [];
         if (isset($formData['relationship'])) {
-            foreach ($formData['relationship'] as $relationTypeName => $relation) {
-                $relations[$relationTypeName] = $this->updateRelation($content, $relation);
+            foreach ($formData['relationship'] as $relation) {
+                $this->updateRelation($content, $relation);
             }
         }
 
-        return [$content, $relations];
+        return $content;
     }
 
     private function removeFieldChildren(Content $content, FieldParentInterface $field): void

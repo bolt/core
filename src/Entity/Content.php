@@ -734,17 +734,11 @@ class Content
         return $result;
     }
 
-    /**
-     * @return mixed
-     */
     public function getRelationsFromThisContent()
     {
         return $this->relationsFromThisContent;
     }
 
-    /**
-     * @return mixed
-     */
     public function getRelationsToThisContent()
     {
         return $this->relationsToThisContent;

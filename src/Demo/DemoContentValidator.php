@@ -8,8 +8,6 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Content;
-use Bolt\Entity\Field\CollectionField;
-use Bolt\Entity\Field\SetField;
 use Bolt\Entity\Relation;
 use Bolt\Validator\ContentTypeConstraintLoader;
 use Symfony\Component\Validator\Constraints\Collection;
@@ -34,13 +32,12 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
         $this->loader = new ContentTypeConstraintLoader();
     }
 
-    private function getConstraints($contentTypeId) {
-
+    private function getConstraints($contentTypeId)
+    {
         if ($contentTypeId !== 'showcases') {
             return null;
         }
 
-        /** @var ContentType[] $contentTypes */
         $contentTypes = $this->config->get('contenttypes');
 
         /** @var ContentType $contentType */
@@ -51,11 +48,7 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
         /** @var FieldType $fieldType */
         foreach ($contentType->get('fields', []) as $fieldName => $fieldType) {
             $fieldConstraintConfig = $fieldType->get('constraints', collect([]))->toArray();
-            if ($fieldType instanceof SetField) {
-                // handle set
-            } else if ($fieldType instanceof CollectionField) {
-                // handle collection
-            }
+//            TODO: handle set and collection
             if (\count($fieldConstraintConfig) > 0) {
                 $constraints = $this->loader->parseNodes($fieldConstraintConfig);
                 $result[$fieldName] = $constraints;
@@ -92,17 +85,19 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
         ]);
     }
 
-    private function relationsToMap($relations) {
+    private function relationsToMap($relations)
+    {
         $result = [];
         /** @var Relation $relation */
         foreach ($relations as $relation) {
             $to = $relation->getToContent();
             $typeName = $to->getContentType();
-             if (!isset($result[$typeName])) {
-                 $result[$typeName] = [];
-             }
+            if (! isset($result[$typeName])) {
+                $result[$typeName] = [];
+            }
             $result[$typeName][] = $to->getId();
         }
+
         return $result;
     }
 
@@ -121,6 +116,7 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
                 'taxonomy' => $content->getTaxonomyValues(),
                 'relationship' => $this->relationsToMap($content->getRelationsFromThisContent()),
             ];
+
             return $this->validator->validate($value, $constraints);
         }
 
