@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Entity;
 
-use Bolt\Configuration\Content\FieldType;
+use Tightenco\Collect\Support\Collection;
 
 /**
  * Implements the methods of the FieldParentInterface.
@@ -30,17 +30,26 @@ trait FieldParentTrait
 
     /**
      * Override isTranslatable so that if one child definition
-     * has localize: true, the whole field is considered localizable.
+     * has localize: true, the whole field is considered localized.
      */
     public function isTranslatable(): bool
     {
-        /** @var FieldType $fieldDefinition */
-        foreach ($this->getDefinition()->get('fields', []) as $fieldDefinition) {
-            if ($fieldDefinition->get('localize', false)) {
-                return true;
+        return $this->shouldThisBeTranslatable($this->getDefinition());
+    }
+
+    private function shouldThisBeTranslatable(Collection $definition): bool
+    {
+        if ($definition->has('fields')) {
+            foreach ($definition->get('fields') as $fieldDefinition) {
+                $result = $this->shouldThisBeTranslatable($fieldDefinition);
+                if ($result) {
+                    return true;
+                }
             }
         }
 
-        return parent::isTranslatable();
+        // todo: This is a duplication of Field::isTranslatable()
+        // but if it's in Field, it requires the thing to be a field...
+        return $definition->get('localize');
     }
 }
