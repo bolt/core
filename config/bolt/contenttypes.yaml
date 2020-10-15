@@ -183,6 +183,13 @@ showcases:
                 dolorem dicta aut. Harum inventore ipsa voluptas consectetur quaerat eius ad.
                 <div class="alert alert-secondary" role="alert"><strong>Tip:</strong> You can even
                 use HTML in a prefix! Note that this one does take the full available width.</div>
+            constraints:
+                - Length:
+                    min: 40
+                    max: 50
+                    minMessage: 'Your first name must be at least {{ limit }} characters long'
+                    maxMessage: 'Your first name cannot be longer than {{ limit }} characters'
+                    allowEmptyString: false
         slug:
             type: slug
             uses: [ title ]

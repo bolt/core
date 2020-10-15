@@ -139,12 +139,28 @@ class Content
     /** @var Environment */
     private $twig = null;
 
+    /**
+     * One content has many relations, to and from, these are relations pointing from this content.
+     *
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="fromContent")
+     */
+    private $relationsFromThisContent;
+
+    /**
+     * One content has many relations, to and from, these are relations pointing to this content.
+     *
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="toContent")
+     */
+    private $relationsToThisContent;
+
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
         $this->createdAt = new \DateTime();
         $this->status = Statuses::DRAFT;
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
+        $this->relationsFromThisContent = new ArrayCollection();
+        $this->relationsToThisContent = new ArrayCollection();
 
         if ($contentTypeDefinition) {
             $this->setContentType($contentTypeDefinition->getSlug());
@@ -716,5 +732,21 @@ class Content
         unset($result['contentExtension']);
 
         return $result;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRelationsFromThisContent()
+    {
+        return $this->relationsFromThisContent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRelationsToThisContent()
+    {
+        return $this->relationsToThisContent;
     }
 }
