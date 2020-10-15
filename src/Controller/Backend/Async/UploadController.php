@@ -116,6 +116,16 @@ class UploadController extends AbstractController implements AsyncZoneInterface
      */
     public function handleURLUpload(Request $request): Response
     {
+        try {
+            $this->validateCsrf('upload');
+        } catch (InvalidCsrfTokenException $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Invalid CSRF token',
+                ],
+            ], Response::HTTP_FORBIDDEN);
+        }
+
         $url = $request->get('url', '');
         $filename = basename($url);
 
@@ -148,7 +158,7 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     }
 
     /**
-     * @Route("/upload", name="bolt_async_upload", methods={"POST", "GET"})
+     * @Route("/upload", name="bolt_async_upload", methods={"POST"})
      */
     public function handleUpload(Request $request)
     {
