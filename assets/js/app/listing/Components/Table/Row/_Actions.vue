@@ -101,6 +101,9 @@ export default {
     },
     computed: {
         slug() {
+            if (this.record.fieldValues.slug === null) {
+                return '';
+            }
             if (typeof this.record.fieldValues.slug === 'string') {
                 return this.record.fieldValues.slug;
             }
