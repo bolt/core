@@ -121,16 +121,30 @@ class UploadController extends AbstractController implements AsyncZoneInterface
 
         $locationName = $request->get('location', '');
         $path = $request->get('path') . $filename;
-        $target = $this->config->getPath($locationName, true, $path);
+        $target = $this->config->getPath($locationName, true, 'tmp/' . $path);
 
-        copy($url, $target);
+        try {
+            // Create temporary file
+            $this->filesystem->copy($url, $target);
+        } catch (Throwable $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => $e->getMessage(),
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         $file = new UploadedFile($target, $filename);
         $bag = new FileBag();
         $bag->add([$file]);
         $request->files = $bag;
 
-        return $this->handleUpload($request);
+        $response = $this->handleUpload($request);
+
+        // The file is automatically deleted. It may be that we don't need this.
+        $this->filesystem->remove($target);
+
+        return $response;
     }
 
     /**
