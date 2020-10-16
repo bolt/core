@@ -56,6 +56,7 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
             'records' => $records,
             'sortBy' => $this->getFromRequest('sortBy'),
             'filterValue' => $this->getFromRequest('filter'),
+            'filterKey' => $this->getFromRequest('filterKey'),
         ]);
     }
 }
