@@ -11,7 +11,6 @@ use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
 use Bolt\Validator\ContentTypeConstraintLoader;
 use Symfony\Component\Validator\Constraints\Collection;
-use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
@@ -34,16 +33,12 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
 
     private function getConstraints($contentTypeId)
     {
-        if ($contentTypeId !== 'showcases') {
-            return null;
-        }
-
         $contentTypes = $this->config->get('contenttypes');
 
         /** @var ContentType $contentType */
         $contentType = $contentTypes->get($contentTypeId);
 
-        $result = [];
+        $fieldConstraints = [];
 
         /** @var FieldType $fieldType */
         foreach ($contentType->get('fields', []) as $fieldName => $fieldType) {
@@ -51,33 +46,30 @@ class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
 //            TODO: handle set and collection
             if (\count($fieldConstraintConfig) > 0) {
                 $constraints = $this->loader->parseNodes($fieldConstraintConfig);
-                $result[$fieldName] = $constraints;
+                $fieldConstraints[$fieldName] = $constraints;
             }
         }
 
+        $relationshipConstraints = [];
+        foreach ($contentType->get('relations', []) as $relationType => $relationConfig) {
+            $relationConstraintConfig = $relationConfig->get('limit', collect([]))->toArray();
+            if (\count($relationConstraintConfig) > 0) {
+                // pass contents of 'limit' node to Symfony CountConstraint
+                $relationshipConstraints[$relationType] = $this->loader->parseNodes([['Count' => $relationConstraintConfig]]);
+            }
+        }
+
+        // Note 'fields' is both attribute of collection constraint and a property
+        // of the data that is being validated
         return new Collection([
-            // 'fields' attribute of collection constraint
             'fields' => [
                 // 'fields' property of bolt Content class / form
                 'fields' => new Collection([
-                    // 'fields' attribute of collection constraint
-                    'fields' => $result,
+                    'fields' => $fieldConstraints,
                     'allowExtraFields' => true,
                 ]),
-                'taxonomy' => new Collection([
-                    // 'fields' attribute of collection constraint
-                    'fields' => [
-                        // allow max 2 categories
-                        'categories' => new Count(['max' => 2]),
-                    ],
-                    'allowExtraFields' => true,
-                ]),
-                // 'relationship' property of form - this is not part of the Content class
                 'relationship' => new Collection([
-                    // 'fields' attribute of collection constraint
-                    'fields' => [
-                        'pages' => new Count(['min' => 2]),
-                    ],
+                    'fields' => $relationshipConstraints,
                     'allowExtraFields' => true,
                 ]),
             ],

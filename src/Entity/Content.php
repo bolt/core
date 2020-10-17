@@ -739,8 +739,54 @@ class Content
         return $this->relationsFromThisContent;
     }
 
+    public function addRelationsFromThisContent(Relation $relation): self
+    {
+        if (! $this->relationsFromThisContent->contains($relation)) {
+            $this->relationsFromThisContent[] = $relation;
+            $relation->setFromContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationsFromThisContent(Relation $relation): self
+    {
+        if ($this->relationsFromThisContent->contains($relation)) {
+            $this->relationsFromThisContent->removeElement($relation);
+            // set the owning side to null (unless already changed)
+            if ($relation->getFromContent() === $this) {
+                $relation->setFromContent(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getRelationsToThisContent()
     {
         return $this->relationsToThisContent;
+    }
+
+    public function addRelationsToThisContent(Relation $relation): self
+    {
+        if (! $this->relationsToThisContent->contains($relation)) {
+            $this->relationsToThisContent[] = $relation;
+            $relation->setToContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationsToThisContent(Relation $relation): self
+    {
+        if ($this->relationsToThisContent->contains($relation)) {
+            $this->relationsToThisContent->removeElement($relation);
+            // set the owning side to null (unless already changed)
+            if ($relation->getToContent() === $this) {
+                $relation->setToContent(null);
+            }
+        }
+
+        return $this;
     }
 }
