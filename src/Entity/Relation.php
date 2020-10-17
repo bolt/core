@@ -74,7 +74,7 @@ class Relation
         // link other side of relation - needed for code using relations
         // from the content side later (e.g. validation)
         $fromContent->addRelationsFromThisContent($this);
-        $toContent->addRelationsFromThisContent($this);
+        $toContent->addRelationsToThisContent($this);
     }
 
     public function getId(): int
