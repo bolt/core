@@ -104,6 +104,16 @@
                         <input class="form-control" type="text" name="filter" id="content-filter" value="{{ filterValue }}"
                                placeholder="{{ 'listing.placeholder_filter'|trans }}"/>
                     </p>
+
+                    <p>
+                        <label for="filterKey">{{ 'listing.title_filterby_field'|trans }}</label>:
+                        <select name="filterKey" class="form-control">
+                            <option value="anyField"></option>
+                            {% for name, field in contentType.fields %}
+                                <option value="{{ name }}" {% if name == filterKey|default %}selected {% endif %}>{{ field.label }}</option>
+                            {% endfor %}
+                        </select>
+                    </p>
                 </div>
 
                     {{ macro.button('listing.button_filter', 'filter', 'tertiary mb-0', {'type': 'submit'}) }}
