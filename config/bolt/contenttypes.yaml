@@ -291,6 +291,9 @@ showcases:
             order: -id
             format: "{title} (№ {id}, {status})"
             postfix: "By selecting an Entry, you're creating a bi-directional relationship to that Entry."
+            limit:
+                min: 1
+                max: 2
         pages:
             multiple: true
             order: title
