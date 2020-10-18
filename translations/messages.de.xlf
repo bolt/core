@@ -1078,7 +1078,7 @@
     <unit id="283aB_E" name="caption.file_upload.upload_text">
       <segment>
         <source>caption.file_upload.upload_text</source>
-        <target>Legen Sie Dateien hier ab um Sie hochzuladen</target>
+        <target>Legen Sie Dateien hier ab, um sie hochzuladen</target>
       </segment>
     </unit>
     <unit id="AMxTho9" name="pager.previous">
