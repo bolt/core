@@ -1,9 +1,15 @@
 Changelog
 =========
 
-## 4.1.1
+## 4.1.2 (replaces 4.1.1)
 
 Released: 2020-10-18
+
+### 📦 Additions and new features
+
+- Filter by any field (I-Valchev, [#2008](https://github.com/bolt/core/pull/2008))
+- Feat: add `.gitattributes` file for release (toofff, [#1980](https://github.com/bolt/core/pull/1980))
+- Simplified Chinese translation (ziselive, [#1970](https://github.com/bolt/core/pull/1970))
 
 ### 🐛 Bug fixes
 
@@ -15,12 +21,8 @@ Released: 2020-10-18
 - Don't break if slug is `null` as opposed to "empty string" (bobdenotter, [#2003](https://github.com/bolt/core/pull/2003))
 - A little less padding on lists in Cards (bobdenotter, [#1989](https://github.com/bolt/core/pull/1989))
 - Show actual error message from upload error response instead of `[object Object]` (simongroenewolt, [#2016](https://github.com/bolt/core/pull/2016))
-
-### 📦 Additions and new features
-
-- Filter by any field (I-Valchev, [#2008](https://github.com/bolt/core/pull/2008))
-- Feat: add `.gitattributes` file for release (toofff, [#1980](https://github.com/bolt/core/pull/1980))
-- Simplified Chinese translation (ziselive, [#1970](https://github.com/bolt/core/pull/1970))
+- Update .gitattributes. We most certainly _do_ want `/assets/static` (bobdenotter, [#2020](https://github.com/bolt/core/pull/2020))
+- Corrections for German localization (BleuM, [#2019](https://github.com/bolt/core/pull/2019))
 
 ### 🛠️ Miscellaneous
 
