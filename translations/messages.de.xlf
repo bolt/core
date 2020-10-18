@@ -388,7 +388,7 @@
     <unit id="AGegYAN" name="contenttypes.generic.recent">
       <segment>
         <source>contenttypes.generic.recent</source>
-        <target>Neuste Seiten</target>
+        <target>Neueste Seiten</target>
       </segment>
     </unit>
     <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
@@ -1018,7 +1018,7 @@
     <unit id="5IxD63c" name="general.latest_bolt_news">
       <segment>
         <source>general.latest_bolt_news</source>
-        <target>Neuste Bolt Neuigkeiten</target>
+        <target>Neueste Bolt Neuigkeiten</target>
       </segment>
     </unit>
     <unit id="xN1kSQQ" name="caption.bolt_payoff">
