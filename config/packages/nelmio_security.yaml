@@ -1,0 +1,50 @@
+nelmio_security:
+
+    # Signs/verifies all cookies
+    signed_cookie:
+        names: ['*']
+
+    # Prevents framing of the entire site
+    clickjacking:
+        paths:
+            '^/.*': DENY
+
+    # Disables content type sniffing for script resources
+    content_type:
+        nosniff: true
+
+    # Forces Microsoft's XSS-Protection with its block mode
+    xss_protection:
+        enabled: true
+        mode_block: true
+
+    # Send a full URL in the `Referer` header when performing a same-origin
+    # request, only send the origin of the document to secure destination
+    # (HTTPS->HTTPS), and send no header to a less secure destination
+    # (HTTPS->HTTP). If `strict-origin-when-cross-origin` is not supported, use
+    # `no-referrer` policy, no referrer information is sent along with
+    # requests.
+
+    referrer_policy:
+        enabled: true
+        policies:
+            - 'no-referrer'
+            - 'strict-origin-when-cross-origin'
+
+    # Forces HTTPS handling, DO NOT combine with flexible mode and
+    # make sure you have SSL working on your site before enabling this
+    forced_ssl:
+        hsts_max_age: 2592000 # 30 days
+        hsts_subdomains: true
+        redirect_status_code: 302 # default, switch to 301 for permanent redirects
+
+    # Flexible HTTPS handling, read the detailed config info and make sure you
+    # have SSL working on your site before enabling this
+    # flexible_ssl:
+    #     cookie_name: auth
+    #     unsecured_logout: false
+
+    # Prevents redirections outside the website's domain
+    # external_redirects:
+    #     abort: true
+    #     log: true

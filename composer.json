@@ -27,6 +27,7 @@
         "league/glide-symfony": "^1.0",
         "miljar/php-exif": "^0.6.4",
         "nelmio/cors-bundle": "^2.1",
+        "nelmio/security-bundle": "^2.10",
         "nesbot/carbon": "^2.39",
         "peterkahl/country-code-to-emoji-flag": "^1.2",
         "php-translation/symfony-bundle": "^0.12",
