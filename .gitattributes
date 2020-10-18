@@ -23,7 +23,8 @@
 /run_behat_tests.sh export-ignore
 /symfony.lock export-ignore
 /webpack.config.js export-ignore
-/assets export-ignore
+/assets/js export-ignore
+/assets/scss export-ignore
 /bin export-ignore
 /config export-ignore
 /docker export-ignore
