@@ -322,7 +322,7 @@
     <unit id="eN7IfEL" name="field.depublishedAt">
       <segment>
         <source>field.depublishedAt</source>
-        <target>Veröffentlichung zurückziehen am</target>
+        <target>Veröffentlichung zurückgezogen am</target>
       </segment>
     </unit>
     <unit id="HK7XTUX" name="caption.edit">
