@@ -13,7 +13,7 @@ use Bolt\Validator\ContentTypeConstraintLoader;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class DemoContentValidator implements \Bolt\Validator\ContentValidatorInterface
+class ContentValidator implements ContentValidatorInterface
 {
     /** @var ValidatorInterface */
     private $validator;
