@@ -9,8 +9,10 @@ use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
-use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 
 class ContentValidator implements ContentValidatorInterface
 {
@@ -29,14 +31,21 @@ class ContentValidator implements ContentValidatorInterface
         $this->config = $config;
         $this->loader = new ContentTypeConstraintLoader();
     }
-
-    private function getFieldConstraints($contentType): Collection
+    private function getFieldConstraints($contentType)
     {
+        // exception for single fields in collections, they don't have a 'fields' nesting layer
+        if ($contentType->get('fields') === null && $contentType->get('constraints') !== null) {
+            $fieldConstraintConfig = $contentType->get('constraints', collect([]))->toArray();
+            if (\count($fieldConstraintConfig) > 0) {
+                $constraints = $this->loader->parseNodes($fieldConstraintConfig);
+                return $constraints;
+            }
+            return new Assert\Valid();
+        }
         $fieldConstraints = [];
         /** @var FieldType $fieldType */
         foreach ($contentType->get('fields', []) as $fieldName => $fieldType) {
             $fieldConstraintConfig = $fieldType->get('constraints', collect([]))->toArray();
-//            TODO: handle set and collection
             if (\count($fieldConstraintConfig) > 0) {
                 $constraints = $this->loader->parseNodes($fieldConstraintConfig);
                 $fieldConstraints[$fieldName] = $constraints;
@@ -47,8 +56,39 @@ class ContentValidator implements ContentValidatorInterface
                 // recursively collect constraints
                 $fieldConstraints[$fieldName] = $this->getFieldConstraints($fieldType);
             }
+
+            // handle collections
+            if ($fieldType->get('type') === 'collection') {
+                // Get constraints for individual types in the collection, and store a mapping
+                // from name => constraint in the collection. This mapping is used by a callback validator
+                // to validate the individual items of the collection
+                $collectionFieldConstraintCombinations = [];
+                foreach ($fieldType->get('fields', []) as $collectionFieldName => $collectionFieldType) {
+                    $collectionFieldConstraints = $this->getFieldConstraints($collectionFieldType);
+                    $collectionFieldConstraintCombinations[$collectionFieldName] = $collectionFieldConstraints;
+                }
+
+                $callback = function ($object, ExecutionContextInterface $context, $constraintLookup) {
+                    if (isset($object['name']) && isset($constraintLookup[$object['name']])) {
+                        $itemConstraints = $constraintLookup[$object['name']];
+                        // By using ->inContext() the violations are added to the current validation context
+                        $context->getValidator()
+                            ->inContext($context)
+                            ->validate($object['value'], $itemConstraints);
+                    }
+                };
+
+                $fieldConstraints[$fieldName] = new Assert\All([
+                    'constraints' => [
+                        new Assert\Callback([
+                            'callback' => $callback,
+                            'payload' => $collectionFieldConstraintCombinations
+                        ])
+                    ],
+                ]);
+            }
         }
-        return new Collection([
+        return new Assert\Collection([
             'fields' => $fieldConstraints,
             'allowExtraFields' => true,
         ]);
@@ -74,15 +114,10 @@ class ContentValidator implements ContentValidatorInterface
 
         // Note 'fields' is both attribute of collection constraint and a property
         // of the data that is being validated
-        return new Collection([
+        return new Assert\Collection([
             'fields' => [
-                // 'fields' property of bolt Content class / form
-//                'fields' => new Collection([
-//                    'fields' => $fieldConstraints,
-//                    'allowExtraFields' => true,
-//                ]),
                 'fields' => $fieldConstraints,
-                'relationship' => new Collection([
+                'relationship' => new Assert\Collection([
                     'fields' => $relationshipConstraints,
                     'allowExtraFields' => true,
                 ]),

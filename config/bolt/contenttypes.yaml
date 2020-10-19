@@ -267,6 +267,10 @@ showcases:
             fields:
                 title:
                     type: text
+                    constraints:
+                        - Length:
+                            min: 2
+                            max: 10
                 textarea:
                     type: textarea
         collection:
@@ -281,9 +285,17 @@ showcases:
                     fields:
                         title:
                             type: text
+                            constraints:
+                                - Length:
+                                    min: 2
+                                    max: 10
                 textarea:
                     type: textarea
                     icon: fa-anchor
+                    constraints:
+                        - Length:
+                            min: 100
+                            max: 200
     relations:
         entries:
             multiple: false
