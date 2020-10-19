@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Demo;
+namespace Bolt\Validator;
 
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Configuration\Content\FieldType;
 use Bolt\Entity\Content;
 use Bolt\Entity\Relation;
-use Bolt\Validator\ContentTypeConstraintLoader;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -31,15 +30,9 @@ class ContentValidator implements ContentValidatorInterface
         $this->loader = new ContentTypeConstraintLoader();
     }
 
-    private function getConstraints($contentTypeId)
+    private function getFieldConstraints($contentType): Collection
     {
-        $contentTypes = $this->config->get('contenttypes');
-
-        /** @var ContentType $contentType */
-        $contentType = $contentTypes->get($contentTypeId);
-
         $fieldConstraints = [];
-
         /** @var FieldType $fieldType */
         foreach ($contentType->get('fields', []) as $fieldName => $fieldType) {
             $fieldConstraintConfig = $fieldType->get('constraints', collect([]))->toArray();
@@ -48,7 +41,27 @@ class ContentValidator implements ContentValidatorInterface
                 $constraints = $this->loader->parseNodes($fieldConstraintConfig);
                 $fieldConstraints[$fieldName] = $constraints;
             }
+
+            // handle sets
+            if ($fieldType->get('type') === 'set') {
+                // recursively collect constraints
+                $fieldConstraints[$fieldName] = $this->getFieldConstraints($fieldType);
+            }
         }
+        return new Collection([
+            'fields' => $fieldConstraints,
+            'allowExtraFields' => true,
+        ]);
+    }
+
+    private function getConstraints($contentTypeName)
+    {
+        $contentTypes = $this->config->get('contenttypes');
+
+        /** @var ContentType $contentType */
+        $contentType = $contentTypes->get($contentTypeName);
+
+        $fieldConstraints = $this->getFieldConstraints($contentType);
 
         $relationshipConstraints = [];
         foreach ($contentType->get('relations', []) as $relationType => $relationConfig) {
@@ -64,10 +77,11 @@ class ContentValidator implements ContentValidatorInterface
         return new Collection([
             'fields' => [
                 // 'fields' property of bolt Content class / form
-                'fields' => new Collection([
-                    'fields' => $fieldConstraints,
-                    'allowExtraFields' => true,
-                ]),
+//                'fields' => new Collection([
+//                    'fields' => $fieldConstraints,
+//                    'allowExtraFields' => true,
+//                ]),
+                'fields' => $fieldConstraints,
                 'relationship' => new Collection([
                     'fields' => $relationshipConstraints,
                     'allowExtraFields' => true,
