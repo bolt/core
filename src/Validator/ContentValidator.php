@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-
 class ContentValidator implements ContentValidatorInterface
 {
     /** @var ValidatorInterface */
@@ -31,15 +30,16 @@ class ContentValidator implements ContentValidatorInterface
         $this->config = $config;
         $this->loader = new ContentTypeConstraintLoader();
     }
+
     private function getFieldConstraints($contentType)
     {
         // exception for single fields in collections, they don't have a 'fields' nesting layer
         if ($contentType->get('fields') === null && $contentType->get('constraints') !== null) {
             $fieldConstraintConfig = $contentType->get('constraints', collect([]))->toArray();
             if (\count($fieldConstraintConfig) > 0) {
-                $constraints = $this->loader->parseNodes($fieldConstraintConfig);
-                return $constraints;
+                return $this->loader->parseNodes($fieldConstraintConfig);
             }
+
             return new Assert\Valid();
         }
         $fieldConstraints = [];
@@ -68,7 +68,7 @@ class ContentValidator implements ContentValidatorInterface
                     $collectionFieldConstraintCombinations[$collectionFieldName] = $collectionFieldConstraints;
                 }
 
-                $callback = function ($object, ExecutionContextInterface $context, $constraintLookup) {
+                $callback = function ($object, ExecutionContextInterface $context, $constraintLookup): void {
                     if (isset($object['name']) && isset($constraintLookup[$object['name']])) {
                         $itemConstraints = $constraintLookup[$object['name']];
                         // By using ->inContext() the violations are added to the current validation context
@@ -82,12 +82,13 @@ class ContentValidator implements ContentValidatorInterface
                     'constraints' => [
                         new Assert\Callback([
                             'callback' => $callback,
-                            'payload' => $collectionFieldConstraintCombinations
-                        ])
+                            'payload' => $collectionFieldConstraintCombinations,
+                        ]),
                     ],
                 ]);
             }
         }
+
         return new Assert\Collection([
             'fields' => $fieldConstraints,
             'allowExtraFields' => true,
