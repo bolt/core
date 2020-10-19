@@ -202,7 +202,8 @@ class TwigAwareController extends AbstractController
         }
 
         if ($this->request->get('filter')) {
-            $params['anyField'] = '%' . $this->getFromRequest('filter') . '%';
+            $key = $this->request->get('filterKey', 'anyField');
+            $params[$key] = '%' . $this->getFromRequest('filter') . '%';
         }
 
         if ($this->request->get('taxonomy')) {
