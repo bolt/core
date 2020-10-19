@@ -26,7 +26,7 @@ https://github.com/bolt/project/ .**
 
 -- Hatebreed - [Destroy Everything][hatebreed]
 
-Progress towards beta / stable
+Progress
 ------------------------------
 
 Follow the progress on the development of Bolt 4, at these locations

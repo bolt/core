@@ -38,7 +38,7 @@
 
         <div class="row">
             <div class="col-12">
-                <p class="mt-4 mb-1">{{ labels.add_collection_item }}:</p>
+                <p v-if="templates.length > 1" class="mt-4 mb-1">{{ labels.add_collection_item }}:</p>
                 <div v-if="templates.length > 1" class="dropdown">
                     <button
                         id="dropdownMenuButton"

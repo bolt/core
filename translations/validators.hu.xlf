@@ -369,6 +369,22 @@
         <source>This value should be between {{ min }} and {{ max }}.</source>
         <target>Ennek az értéknek {{ min }} és {{ max }} között kell lennie.</target>
       </trans-unit>
+      <trans-unit id="7g313cV" resname="This value is not a valid hostname.">
+        <source>This value is not a valid hostname.</source>
+        <target>Ez az érték nem egy érvényes állomásnév (hosztnév).</target>
+      </trans-unit>
+      <trans-unit id="xwtBimR" resname="The number of elements in this collection should be a multiple of {{ compared_value }}.">
+        <source>The number of elements in this collection should be a multiple of {{ compared_value }}.</source>
+        <target>A gyűjteményben lévő elemek számának oszthatónak kell lennie a következővel: {{ compared_value }}.</target>
+      </trans-unit>
+      <trans-unit id="FDRZr.s" resname="This value should satisfy at least one of the following constraints:">
+        <source>This value should satisfy at least one of the following constraints:</source>
+        <target>Ennek az értéknek meg kell felelni legalább egynek a következő feltételek közül:</target>
+      </trans-unit>
+      <trans-unit id="WwY0IGI" resname="Each element of this collection should satisfy its own set of constraints.">
+        <source>Each element of this collection should satisfy its own set of constraints.</source>
+        <target>A gyűjtemény minden elemének meg kell felelni a saját feltételeinek.</target>
+      </trans-unit>
       <trans-unit id=".SEaaBa" resname="This form should not contain extra fields.">
         <source>This form should not contain extra fields.</source>
         <target>Ez a mezőcsoport nem tartalmazhat extra mezőket.</target>
@@ -380,6 +396,10 @@
       <trans-unit id="fvxWW3V" resname="The CSRF token is invalid. Please try to resubmit the form.">
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
         <target>Érvénytelen CSRF token. Kérem, próbálja újra elküldeni az űrlapot.</target>
+      </trans-unit>
+      <trans-unit id="eo1zeih" resname="This value is not a valid HTML5 color.">
+        <source>This value is not a valid HTML5 color.</source>
+        <target>Ez az érték nem egy érvényes HTML5 szín.</target>
       </trans-unit>
       <trans-unit id="TG1D5NO" resname="post.blank_summary">
         <source>post.blank_summary</source>
