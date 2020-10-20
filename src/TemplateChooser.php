@@ -125,7 +125,7 @@ class TemplateChooser
         $templates = new Collection();
 
         // First candidate: defined specifically in the taxonomy
-        $templates->push($this->config->get('taxonomy/' . $taxonomyslug . '/listing_template'));
+        $templates->push($this->config->get('taxonomies/' . $taxonomyslug . '/listing_template'));
 
         // Second candidate: Theme-specific config.yml file.
         $templates->push($this->config->get('theme/listing_template'));
