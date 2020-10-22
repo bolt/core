@@ -26,6 +26,11 @@ parameters:
             message: '#of method Doctrine\\ORM\\Query\\Expr::substring\(\) expects int#'
             path: %currentWorkingDirectory%/src/Storage/Directive/OrderDirective.php
 
+        # Call to undefined __get()
+        -
+            message: '#Call to an undefined method Sirius\\Upload\\Result\\ResultInterface|Symfony\\Component\\HttpFoundation\\File\\File::__get\(\)#'
+            path:  %currentWorkingDirectory%/src/Controller/Backend/Async/UploadController.php
+
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
