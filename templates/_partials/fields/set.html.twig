@@ -1,37 +1,43 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
-{% block label %}{% endblock %}
+{% block label %}
+    {% if in_compound is not defined %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
 
 {% block field %}
-    {% for setChild in field.valueForEditor %}
-        {% set includeLookup = [
-            '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig',
-            '@' ~ setChild.type ~ '/' ~ setChild.type ~ '.html.twig',
-            '@bolt/_partials/fields/generic.html.twig'
-        ] %}
-        {% if in_compound is defined %}
-            {% set context = {
-                'in_compound': true,
-                'compound_label': label,
-                'id': id ~ '-' ~ setChild.name|default('unnamed'),
-                'field' : setChild,
-                'name' : name ~ '[' ~ setChild.name ~ ']',
-                'record': record,
-                'include_id': true
-            } %}
+    <div class="form-set-fields form-{{ name }}">
+        {% for setChild in field.valueForEditor %}
+            {% set includeLookup = [
+                '@bolt/_partials/fields/' ~ setChild.type ~ '.html.twig',
+                '@' ~ setChild.type ~ '/' ~ setChild.type ~ '.html.twig',
+                '@bolt/_partials/fields/generic.html.twig'
+            ] %}
+            {% if in_compound is defined %}
+                {% set context = {
+                    'in_compound': true,
+                    'compound_label': label,
+                    'id': id ~ '-' ~ setChild.name|default('unnamed'),
+                    'field' : setChild,
+                    'name' : name ~ '[' ~ setChild.name ~ ']',
+                    'record': record,
+                    'include_id': true
+                } %}
 
-            {% include includeLookup with context only %}
-        {% else %}
-            {% set context = {
-                'in_compound': true,
-                'compound_label': label,
-                'id': 'field-' ~ field.name|default(name)|default('unnamed') ~ '-' ~ setChild.name|default('unnamed'),
-                'field' : setChild,
-                'name' : 'sets[' ~ field.name ~ ']' ~ '[' ~ setChild.name ~ ']',
-                'record': record
-            } %}
+                {% include includeLookup with context only %}
+            {% else %}
+                {% set context = {
+                    'in_compound': true,
+                    'compound_label': label,
+                    'id': 'field-' ~ field.name|default(name)|default('unnamed') ~ '-' ~ setChild.name|default('unnamed'),
+                    'field' : setChild,
+                    'name' : 'sets[' ~ field.name ~ ']' ~ '[' ~ setChild.name ~ ']',
+                    'record': record
+                } %}
 
-            {% include includeLookup with context only %}
-        {% endif %}
-    {% endfor %}
+                {% include includeLookup with context only %}
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}

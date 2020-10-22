@@ -529,7 +529,11 @@ class SelectQuery implements QueryInterface
     {
         $this->taxonomyJoins[$filter->getKey()] = $filter;
 
-        return sprintf('taxonomies_%s.slug = :%s', $filter->getKey(), key($filter->getParameters()));
+        $originalExpression = $filter->getExpression();
+        $originalLeftExpression = '/content\.([^\s])*/';
+        $newLeftExpression = sprintf('taxonomies_%s.slug', $filter->getKey());
+
+        return preg_replace($originalLeftExpression, $newLeftExpression, $originalExpression);
     }
 
     private function getRegularFieldExpression(Filter $filter, EntityManagerInterface $em): string
