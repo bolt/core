@@ -1,6 +1,23 @@
 Changelog
 =========
 
+## 4.1.3
+
+Released: 2020-10-22
+
+### 🐛 Bug fixes
+
+- Multivalue querying does not break for taxonomies (I-Valchev, [#2032](https://github.com/bolt/core/pull/2032))
+- Changed name of generic taxonomy config file identifier (bfkolle, [#2029](https://github.com/bolt/core/pull/2029))
+- Show set as block (I-Valchev, [#2026](https://github.com/bolt/core/pull/2026))
+- Put back some more files that we really do need. (bobdenotter, [#2022](https://github.com/bolt/core/pull/2022))
+
+### 🛠️ Miscellaneous
+
+- Update `_collection_buttons.html.twig`: Aligns button group on the right side (eduardomart, [#2028](https://github.com/bolt/core/pull/2028))
+- Fixed Extensions List Command issue with package name (c2webstudio, [#2024](https://github.com/bolt/core/pull/2024))
+
+
 ## 4.1.2 (replaces 4.1.1)
 
 Released: 2020-10-18
