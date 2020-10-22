@@ -196,9 +196,8 @@ class ImageController
                 return 'stretch';
             case 'c':
             case 'crop':
-                return 'crop';
             default:
-                return $fit;
+                return 'crop';
         }
     }
 }
