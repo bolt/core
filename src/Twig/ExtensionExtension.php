@@ -48,8 +48,9 @@ class ExtensionExtension extends AbstractExtension
         $rows = [];
 
         foreach ($extensions as $extension) {
+            $packageName = $extension->getComposerPackage() ? $extension->getComposerPackage()->getName() : 'No Package';
             $rows[] = [
-                'package' => $extension->getComposerPackage()->getName(),
+                'package' => $packageName,
                 'class' => $extension->getClass(),
                 'name' => $extension->getName(),
             ];
