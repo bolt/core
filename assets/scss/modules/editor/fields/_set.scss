@@ -1,0 +1,13 @@
+.form-set:not(.in-compound) {
+  @extend .card;
+
+  background: var(--background);
+
+  & > label {
+    @extend .card-header;
+  }
+
+  & > .form-set-fields {
+    @extend .card-body;
+  }
+}
