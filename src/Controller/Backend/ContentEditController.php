@@ -138,6 +138,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         if ($contentValidator) {
             $constraintViolations = $contentValidator->validate($content);
             if (count($constraintViolations) > 0) {
+                $this->addFlash('danger', 'content.validation_errors');
                 return $this->renderEditor($content, $constraintViolations);
             }
         }
