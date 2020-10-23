@@ -61,6 +61,7 @@ namespace Bolt\Form;
                     ],
                 ])->add('remember_me', CheckboxType::class, [
                     'label' => 'label.rememberme',
+                    'required' => false,
                 ]);
         }
 
