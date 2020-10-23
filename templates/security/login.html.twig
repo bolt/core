@@ -46,10 +46,7 @@
                 {{ form_start(loginForm, {'attr': {'id': 'login-form'}}) }}
                     {{ form_row(loginForm.username) }}
                     {{ form_row(loginForm.password) }}
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="_remember_me" id="_remember_me">
-                        <label class="form-check-label" for="_remember_me">{{ 'label.rememberme'|trans }}</label>
-                    </div>
+                    {{ form_row(loginForm.remember_me) }}
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
                         {{- 'action.log_in'|trans -}}

@@ -30,7 +30,7 @@
   }
 
   .login__login-form {
-    .form-check-label {
+    label[for='login_remember_me'] {
       font-weight: 400;
     }
   }
