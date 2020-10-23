@@ -195,6 +195,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->em->persist($user);
         $this->em->flush();
 
+        $event = new UserEvent($user);
+        $this->dispatcher->dispatch($event, UserEvent::ON_POST_SAVE);
+
         $this->addFlash('success', 'user.updated_profile');
 
         return $this->redirectToRoute('bolt_users');

@@ -10,6 +10,7 @@ use Tightenco\Collect\Support\Collection;
 class UserEvent
 {
     public const ON_EDIT = 'bolt.users_pre_edit';
+    public const ON_POST_SAVE = 'bolt.users_post_save';
 
     /** @var User */
     private $user;
@@ -28,7 +29,15 @@ class UserEvent
         }
     }
 
+    /**
+     * @deprecated
+     */
     public function getContent(): User
+    {
+        return $this->user;
+    }
+
+    public function getUser(): User
     {
         return $this->user;
     }
