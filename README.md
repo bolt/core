@@ -37,8 +37,8 @@ Follow the progress on the development of Bolt 4, at these locations
 
 To set up a running **development** environment of Bolt 4 please perform the following steps 1 to 4:
 
-1. Install
-----------
+1 Install
+---------
 
 To install a _**development**_ version of Bolt 4: 
 
@@ -83,8 +83,8 @@ Actually, just add `docker-` prefix to any Make command and that's it!
 When installed with Docker, in your browser go to `http://0.0.0.0:8088/` for the frontend, and to
 `http://0.0.0.0:8088/bolt` for the Admin Panel.
 
-2. Set up Database
-------------------
+2 Set up Database
+-----------------
 
   - Configure the database connection in `.env` or stick with the default
     SQLite, which should work out of the box.
@@ -102,8 +102,8 @@ Note: if you're using SQLite, ensure that `var/db/` is readable and writable to
 you, as well as to the webserver users. The same applies to the file 
 `var/data/bolt.sqlite` if it already exists.
 
-3. Re-set the Database
-----------------------
+3 Re-set the Database
+---------------------
 
 This is a Bolt prototype in flux, so stuff can break, and you might want to reset the database to
 the "factory settings". To re-set a database to the latest, with fresh
@@ -117,8 +117,8 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-reset`, on a UNIX-like system.
 
-4. How to build assets
---------------------
+4 How to build assets
+---------------------
 
 To set up initially, run `npm install` to get the required dependencies /
 `node_modules`. Alternatively give the path to the python executable (`npm install --python="/usr/local/bin/python3.7"`) Then:
@@ -129,8 +129,8 @@ To set up initially, run `npm install` to get the required dependencies /
 See the other options by running `npm run`.
 (Note: as I'm testing this as well remotely, I copied all assets from the released composer installation by `cp -r ../www_backup/public/assets/* public/assets/`)
 
-5. Run the prototype
---------------------
+5 Run the prototype
+-------------------
 
   - Using the Symfony CLI tool, just run `symfony server:start`.
 
