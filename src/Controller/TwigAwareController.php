@@ -133,6 +133,11 @@ class TwigAwareController extends AbstractController
             throw new NotFoundHttpException('Content is not viewable');
         }
 
+        // If the locale is the wrong locale
+        if (! $record->getDefinition()->get('locales')->contains($this->request->getLocale())) {
+            throw new NotFoundHttpException('Content is not available in requested locale.');
+        }
+
         $singularSlug = $record->getContentTypeSingularSlug();
 
         $context = [
