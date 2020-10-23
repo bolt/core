@@ -98,6 +98,7 @@ class TextExtension extends AbstractExtension
             $param = explode('=', $chunk);
 
             if ($param) {
+            if (! empty($param)) {
                 $params[urldecode($param[0])] = urldecode($param[1]);
             }
         }
