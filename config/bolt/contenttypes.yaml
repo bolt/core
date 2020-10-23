@@ -183,13 +183,6 @@ showcases:
                 dolorem dicta aut. Harum inventore ipsa voluptas consectetur quaerat eius ad.
                 <div class="alert alert-secondary" role="alert"><strong>Tip:</strong> You can even
                 use HTML in a prefix! Note that this one does take the full available width.</div>
-            constraints:
-                - Length:
-                    min: 40
-                    max: 50
-                    minMessage: 'Your first name must be at least {{ limit }} characters long'
-                    maxMessage: 'Your first name cannot be longer than {{ limit }} characters'
-                    allowEmptyString: false
         slug:
             type: slug
             uses: [ title ]
@@ -267,10 +260,78 @@ showcases:
             fields:
                 title:
                     type: text
+                textarea:
+                    type: textarea
+        collection:
+            type: collection
+            group: Collections
+            label: This is my Collection
+            variant: expanded
+            fields:
+                set:
+                    type: set
+                    label: Set inside Collection
+                    fields:
+                        title:
+                            type: text
+                textarea:
+                    type: textarea
+                    icon: fa-anchor
+    relations:
+        entries:
+            multiple: false
+            label: "Choose an entry"
+            order: -id
+            format: "{title} (№ {id}, {status})"
+            postfix: "By selecting an Entry, you're creating a bi-directional relationship to that Entry."
+        pages:
+            multiple: true
+            order: title
+            label: Select zero or more pages
+    taxonomy: [ categories, tags ]
+    show_on_dashboard: true
+    default_status: published
+    searchable: true
+    icon_many: "fa:gift"
+    icon_one: "fa:gift"
+    order: [title, id]
+
+validationdemos:
+    name: Validation Demos
+    slug: validationdemos
+    singular_name: Validation Demo
+    singular_slug: validationdemo
+    title_format: '{id}: {title}'
+    description: The 'Validation Demos' shows how validation of fieldtypes works.
+    fields:
+        title:
+            type: text
+            class: large
+            required: true
+            placeholder: "Placeholder for the title"
+            group: Text
+            fixture_format: '{name}'
+            constraints:
+                - Length:
+                      min: 10
+                      max: 50
+                      minMessage: 'Your title must be at least {{ limit }} characters long'
+                      maxMessage: 'Your title cannot be longer than {{ limit }} characters'
+                      allowEmptyString: false
+        slug:
+            type: slug
+            uses: [ title ]
+        set:
+            type: set
+            group: Sets
+            label: This is my set
+            fields:
+                title:
+                    type: text
                     constraints:
                         - Length:
-                            min: 2
-                            max: 10
+                              min: 2
+                              max: 10
                 textarea:
                     type: textarea
         collection:
@@ -287,36 +348,25 @@ showcases:
                             type: text
                             constraints:
                                 - Length:
-                                    min: 2
-                                    max: 10
+                                      min: 2
+                                      max: 10
                 textarea:
                     type: textarea
-                    icon: fa-anchor
                     constraints:
                         - Length:
-                            min: 100
-                            max: 200
+                              min: 100
+                              max: 200
     relations:
         entries:
             multiple: false
             label: "Choose an entry"
-            order: -id
-            format: "{title} (№ {id}, {status})"
-            postfix: "By selecting an Entry, you're creating a bi-directional relationship to that Entry."
         pages:
             multiple: true
             order: title
-            label: Select zero or more pages
+            label: Select 1 or 2 pages
             limit:
                 min: 1
                 max: 2
-    taxonomy: [ categories, tags ]
-    show_on_dashboard: true
-    default_status: published
-    searchable: true
-    icon_many: "fa:gift"
-    icon_one: "fa:gift"
-    order: [title, id]
 
 
 # The 'Blocks' ContentType is a so-called 'resource ContentType'. This means
