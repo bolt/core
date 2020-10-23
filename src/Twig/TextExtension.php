@@ -97,7 +97,6 @@ class TextExtension extends AbstractExtension
         foreach (explode('&', $string) as $chunk) {
             $param = explode('=', $chunk);
 
-            if ($param) {
             if (! empty($param)) {
                 $params[urldecode($param[0])] = urldecode($param[1]);
             }
