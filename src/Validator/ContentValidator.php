@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * This is the default validator for Bolt, it uses symfony/validator for almost all validation.
+ */
 class ContentValidator implements ContentValidatorInterface
 {
     /** @var ValidatorInterface */
@@ -40,7 +43,7 @@ class ContentValidator implements ContentValidatorInterface
                 return $this->loader->parseNodes($fieldConstraintConfig);
             }
 
-            return new Assert\Valid();
+            return null;
         }
         $fieldConstraints = [];
         /** @var FieldType $fieldType */
@@ -54,7 +57,10 @@ class ContentValidator implements ContentValidatorInterface
             // handle sets
             if ($fieldType->get('type') === 'set') {
                 // recursively collect constraints
-                $fieldConstraints[$fieldName] = $this->getFieldConstraints($fieldType);
+                $setFieldConstraints = $this->getFieldConstraints($fieldType);
+                if ($setFieldConstraints !== null) {
+                    $fieldConstraints[$fieldName] = $setFieldConstraints;
+                }
             }
 
             // handle collections
@@ -65,7 +71,9 @@ class ContentValidator implements ContentValidatorInterface
                 $collectionFieldConstraintCombinations = [];
                 foreach ($fieldType->get('fields', []) as $collectionFieldName => $collectionFieldType) {
                     $collectionFieldConstraints = $this->getFieldConstraints($collectionFieldType);
-                    $collectionFieldConstraintCombinations[$collectionFieldName] = $collectionFieldConstraints;
+                    if ($collectionFieldConstraints !== null) {
+                        $collectionFieldConstraintCombinations[$collectionFieldName] = $collectionFieldConstraints;
+                    }
                 }
 
                 $callback = function ($object, ExecutionContextInterface $context, $constraintLookup): void {
@@ -89,10 +97,13 @@ class ContentValidator implements ContentValidatorInterface
             }
         }
 
-        return new Assert\Collection([
-            'fields' => $fieldConstraints,
-            'allowExtraFields' => true,
-        ]);
+        if (count($fieldConstraints) > 0) {
+            return new Assert\Collection([
+                'fields' => $fieldConstraints,
+                'allowExtraFields' => true,
+            ]);
+        }
+        return null;
     }
 
     private function getConstraints($contentTypeName)
