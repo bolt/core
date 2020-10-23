@@ -14,7 +14,6 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ListingController extends TwigAwareController implements FrontendZoneInterface
@@ -44,8 +43,8 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
 
         // If the locale is the wrong locale
-        if (! $contentType->get('locales')->contains($this->request->getLocale())) {
-            throw new NotFoundHttpException('Content is not available in requested locale.');
+        if (! $this->validLocaleForContentType($contentType)) {
+            return $this->redirectToDefaultLocale();
         }
 
         $page = (int) $this->getFromRequest('page', '1');
