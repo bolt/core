@@ -16,7 +16,7 @@
         </div>
 
         <div v-for="element in elements" :key="element.hash" class="collection-item">
-            <details :open="state === 'expanded'" class="card">
+            <details :open="variant === 'expanded'" class="card">
                 <summary class="d-block">
                     <div class="card-header d-flex align-items-center">
                         <!-- Initial title. This is replaced by dynamic title in JS below. -->
@@ -38,7 +38,7 @@
 
         <div class="row">
             <div class="col-12">
-                <p class="mt-4 mb-1">{{ labels.add_collection_item }}:</p>
+                <p v-if="templates.length > 1" class="mt-4 mb-1">{{ labels.add_collection_item }}:</p>
                 <div v-if="templates.length > 1" class="dropdown">
                     <button
                         id="dropdownMenuButton"
@@ -105,7 +105,7 @@ export default {
             type: Number,
             required: true,
         },
-        state: {
+        variant: {
             type: String,
             required: true,
         },

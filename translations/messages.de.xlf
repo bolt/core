@@ -322,7 +322,7 @@
     <unit id="eN7IfEL" name="field.depublishedAt">
       <segment>
         <source>field.depublishedAt</source>
-        <target>Veröffentlichung zurückziehen am</target>
+        <target>Veröffentlichung zurückgezogen am</target>
       </segment>
     </unit>
     <unit id="HK7XTUX" name="caption.edit">
@@ -388,7 +388,7 @@
     <unit id="AGegYAN" name="contenttypes.generic.recent">
       <segment>
         <source>contenttypes.generic.recent</source>
-        <target>Neuste Seiten</target>
+        <target>Neueste Seiten</target>
       </segment>
     </unit>
     <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
@@ -868,7 +868,7 @@
     <unit id="EaqUUfe" name="label.predominant_colors__in_image">
       <segment>
         <source>label.predominant_colors__in_image</source>
-        <target>Vorherrschend Farben</target>
+        <target>Vorherrschende Farben</target>
       </segment>
     </unit>
     <unit id="Sz_u.OS" name="field.filesize">
@@ -1018,7 +1018,7 @@
     <unit id="5IxD63c" name="general.latest_bolt_news">
       <segment>
         <source>general.latest_bolt_news</source>
-        <target>Neuste Bolt Neuigkeiten</target>
+        <target>Neueste Bolt Neuigkeiten</target>
       </segment>
     </unit>
     <unit id="xN1kSQQ" name="caption.bolt_payoff">
@@ -1042,7 +1042,7 @@
     <unit id="tgLgLDQ" name="about.list_of_used_libraries">
       <segment>
         <source>about.list_of_used_libraries</source>
-        <target>Unten aufgelistetet Libraries werden von Bolt verwendet.</target>
+        <target>Unten aufgelistetete Libraries werden von Bolt verwendet.</target>
       </segment>
     </unit>
     <unit id="ufFUPp7" name="view_locales.badge_missing">
@@ -1072,13 +1072,13 @@
     <unit id=".fL0AbE" name="files_list.remark">
       <segment>
         <source>files_list.remark</source>
-        <target>Keine Dateien im Ordner vorhanden, bitte wähle ein Verzeichnis aus!</target>
+        <target>Keine Dateien im Ordner vorhanden, bitte wählen Sie ein Verzeichnis aus!</target>
       </segment>
     </unit>
     <unit id="283aB_E" name="caption.file_upload.upload_text">
       <segment>
         <source>caption.file_upload.upload_text</source>
-        <target>Legen Sie Dateien hier ab um Sie hochzuladen</target>
+        <target>Legen Sie Dateien hier ab, um sie hochzuladen</target>
       </segment>
     </unit>
     <unit id="AMxTho9" name="pager.previous">

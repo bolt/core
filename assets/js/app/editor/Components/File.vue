@@ -264,7 +264,14 @@ export default {
                     this.progress = 0;
                 })
                 .catch(err => {
-                    bootbox.alert(err.response.data + '<br>File did not upload.');
+                    const responseData = err.response.data;
+                    let errorMessage = 'unknown error';
+                    if (typeof responseData === 'string' || responseData instanceof String) {
+                        errorMessage = responseData;
+                    } else if (responseData.error && responseData.error.message) {
+                        errorMessage = responseData.error.message;
+                    }
+                    bootbox.alert(errorMessage + '<br>File did not upload.');
                     console.warn(err);
                     this.progress = 0;
                 });
