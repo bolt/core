@@ -36,8 +36,6 @@ class TaxonomyType extends DeepCollection
             'slug' => $name,
             'singular_slug' => $name,
             'singular_name' => $name,
-            'locales' => [],
-            'fields' => new Collection(),
             // when it is created on the fly
             'virtual' => true,
         ]);
