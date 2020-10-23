@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bolt\Event\Listener;
 
 use Bolt\Configuration\Config;
-use Bolt\Entity\Content;
 use Bolt\Entity\Taxonomy;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
