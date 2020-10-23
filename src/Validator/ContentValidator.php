@@ -104,7 +104,6 @@ class ContentValidator implements ContentValidatorInterface
                     // pass contents of 'count_constraint' node to Symfony CountConstraint
                     [$limitConstraint] = $this->loader->parseNodes([['Count' => $limitConstraintConfig]]);
                     $fieldConstraints[$fieldName] = [$limitConstraint, $collectionItemConstraits];
-
                 } else {
                     $fieldConstraints[$fieldName] = $collectionItemConstraits;
                 }
@@ -117,6 +116,7 @@ class ContentValidator implements ContentValidatorInterface
                 'allowExtraFields' => true,
             ]);
         }
+
         return null;
     }
 
