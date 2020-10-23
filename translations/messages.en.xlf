@@ -2373,6 +2373,18 @@
         <target>Select …</target>
       </segment>
     </unit>
+    <unit id="2SSLP1K" name="form.empty_username_email">
+      <segment>
+        <source>form.empty_username_email</source>
+        <target>Please enter your username or email</target>
+      </segment>
+    </unit>
+    <unit id="5Qf_RiO" name="form.empty_password">
+      <segment>
+        <source>form.empty_password</source>
+        <target>Please enter your password</target>
+      </segment>
+    </unit>
     <unit id="fAmcKUQ" name="listing.title_filterby_field">
       <segment>
         <source>listing.title_filterby_field</source>

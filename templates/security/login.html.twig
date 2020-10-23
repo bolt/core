@@ -43,34 +43,18 @@
                     </div>
                 {% endif %}
 
-                <form action="{{ path('bolt_login') }}" method="post" class="" id="login-form">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                    {% include '@bolt/_partials/fields/text.html.twig' with {
-                        'label' : 'label.username_or_email'|trans,
-                        'name' : 'username',
-                        'value' : last_username,
-                        'disabled' : false,
-                        'placeholder': 'placeholder.username_or_email'|trans,
-                        'autofocus': true,
-                    } %}
-                    {% include '@bolt/_partials/fields/password.html.twig' with {
-                        'label': 'label.password'|trans,
-                        'label_class': 'required',
-                        'name': 'password',
-                        'value': '',
-                        'hidden': 'true',
-                        'strength': false,
-                        'placeholder': 'placeholder.password'|trans,
-                    } %}
+                {{ form_start(loginForm, {'attr': {'id': 'login-form'}}) }}
+                    {{ form_row(loginForm.username) }}
+                    {{ form_row(loginForm.password) }}
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" name="_remember_me" id="_remember_me">
                         <label class="form-check-label" for="_remember_me">{{ 'label.rememberme'|trans }}</label>
                     </div>
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
-                        {{ 'action.log_in'|trans }}
+                        {{- 'action.log_in'|trans -}}
                     </button>
-                </form>
+                {{ form_end(loginForm) }}
 
             </div>
 
