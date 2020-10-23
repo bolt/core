@@ -181,3 +181,6 @@ upload_location: "{contenttype}/{year}/{month}/"
 # For all options, check the official curl documentation here https://curl.haxx.se/libcurl/c/curl_easy_setopt.html
 curl_options:
     verify_peer: false
+
+validator_options:
+    enable: true
