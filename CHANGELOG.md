@@ -1,6 +1,63 @@
 Changelog
 =========
 
+## 4.1.3
+
+Released: 2020-10-22
+
+### 🐛 Bug fixes
+
+- Multivalue querying does not break for taxonomies (I-Valchev, [#2032](https://github.com/bolt/core/pull/2032))
+- Changed name of generic taxonomy config file identifier (bfkolle, [#2029](https://github.com/bolt/core/pull/2029))
+- Show set as block (I-Valchev, [#2026](https://github.com/bolt/core/pull/2026))
+- Put back some more files that we really do need. (bobdenotter, [#2022](https://github.com/bolt/core/pull/2022))
+
+### 🛠️ Miscellaneous
+
+- Update `_collection_buttons.html.twig`: Aligns button group on the right side (eduardomart, [#2028](https://github.com/bolt/core/pull/2028))
+- Fixed Extensions List Command issue with package name (c2webstudio, [#2024](https://github.com/bolt/core/pull/2024))
+
+
+## 4.1.2 (replaces 4.1.1)
+
+Released: 2020-10-18
+
+### 📦 Additions and new features
+
+- Filter by any field (I-Valchev, [#2008](https://github.com/bolt/core/pull/2008))
+- Feat: add `.gitattributes` file for release (toofff, [#1980](https://github.com/bolt/core/pull/1980))
+- Simplified Chinese translation (ziselive, [#1970](https://github.com/bolt/core/pull/1970))
+
+### 🐛 Bug fixes
+
+- Don't repeat "Add to collection" text when there's only one (I-Valchev, [#2011](https://github.com/bolt/core/pull/2011))
+- Any field that has a localized field down the line is considered localized (I-Valchev, [#1987](https://github.com/bolt/core/pull/1987))
+-  Fix url for 'bulk' operations on Listing screen, for sites with modified Backend URL (bobdenotter, [#1983](https://github.com/bolt/core/pull/1983))
+- Use `->loadEnv()` instead of `->load()` to support the 'standard' Symfony… (simongroenewolt, [#1974](https://github.com/bolt/core/pull/1974))
+- Redirect to record or new record on singleton listing pages in backend (I-Valchev, [#1968](https://github.com/bolt/core/pull/1968))
+- Don't break if slug is `null` as opposed to "empty string" (bobdenotter, [#2003](https://github.com/bolt/core/pull/2003))
+- A little less padding on lists in Cards (bobdenotter, [#1989](https://github.com/bolt/core/pull/1989))
+- Show actual error message from upload error response instead of `[object Object]` (simongroenewolt, [#2016](https://github.com/bolt/core/pull/2016))
+- Update .gitattributes. We most certainly _do_ want `/assets/static` (bobdenotter, [#2020](https://github.com/bolt/core/pull/2020))
+- Corrections for German localization (BleuM, [#2019](https://github.com/bolt/core/pull/2019))
+
+### 🛠️ Miscellaneous
+
+- Missing HU labels (rixbeck, [#2005](https://github.com/bolt/core/pull/2005))
+- Deprecate `default_state` for collection in favour of `variant` (I-Valchev, [#1988](https://github.com/bolt/core/pull/1988))
+- Use `DatabasePlatform` instead of `Driver` to check for MySQL/MariaDB (andysh-uk, [#1984](https://github.com/bolt/core/pull/1984))
+- Force path separator to `/` in ImageFixtures relative paths (luistar15, [#1979](https://github.com/bolt/core/pull/1979))
+- `Log.php` had an incorrect `repositoryClass` specified in the Entity annotation (simongroenewolt, [#1972](https://github.com/bolt/core/pull/1972))
+- Updating the system font stack for 2020 (bobdenotter, [#2004](https://github.com/bolt/core/pull/2004))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Enable twig namespace 'theme' by default (bobdenotter, [#2015](https://github.com/bolt/core/pull/2015))
+- Update readme (remove beta reference) (I-Valchev, [#2009](https://github.com/bolt/core/pull/2009))
+- [CI] Add stylelint 4 space indent (TomasVotruba, [#1967](https://github.com/bolt/core/pull/1967))
+- [CI] Move npm jobs from Travis to Github Actions (TomasVotruba, [#1966](https://github.com/bolt/core/pull/1966))
+
+
 ## 4.1.0
 
 Released: 2020-10-08

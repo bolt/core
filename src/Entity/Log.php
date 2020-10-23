@@ -7,7 +7,7 @@ namespace Bolt\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\LogRepository")
+ * @ORM\Entity(repositoryClass="Bolt\Repository\LogRepository")
  * @ORM\Table(name="log")
  * @ORM\HasLifecycleCallbacks
  */

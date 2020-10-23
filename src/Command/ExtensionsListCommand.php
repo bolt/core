@@ -37,7 +37,8 @@ class ExtensionsListCommand extends Command
         $rows = [];
 
         foreach ($extensions as $extension) {
-            $rows[] = [$extension->getComposerPackage()->getName(), $extension->getClass(), $extension->getName()];
+            $packageName = $extension->getComposerPackage() ? $extension->getComposerPackage()->getName() : 'No Package';
+            $rows[] = [$packageName, $extension->getClass(), $extension->getName()];
         }
 
         $io = new SymfonyStyle($input, $output);

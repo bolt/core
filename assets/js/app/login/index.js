@@ -8,12 +8,12 @@ Vue.component('editor-text', Text);
 const id = 'login-form';
 
 if (document.getElementById(id)) {
-  new Vue({
-    el: '#' + id,
-    name: 'BoltLogin',
-    components: {
-      'editor-text': Text,
-      'editor-password': Password,
-    },
-  });
+    new Vue({
+        el: '#' + id,
+        name: 'BoltLogin',
+        components: {
+            'editor-text': Text,
+            'editor-password': Password,
+        },
+    });
 }

@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="validators.en">
+    <unit id="zh5oKD9" name="This value should be false.">
+      <segment>
+        <source>This value should be false.</source>
+        <target>Bu değer false olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="NN2_iru" name="This value should be true.">
+      <segment>
+        <source>This value should be true.</source>
+        <target>Bu değer true olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
+      <segment>
+        <source>This value should be of type {{ type }}.</source>
+        <target>Bu değer {{ type }} türünde olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="f0P5pBD" name="This value should be blank.">
+      <segment>
+        <source>This value should be blank.</source>
+        <target>Bu değer boş olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
+      <segment>
+        <source>The value you selected is not a valid choice.</source>
+        <target>Seçtiğiniz değer geçerli bir seçim değil.</target>
+      </segment>
+    </unit>
+    <unit id="7smtimf" name="0d999f2">
+      <segment>
+        <source>0d999f2</source>
+        <target>En az {{ limit }} seçenek seçebilirsiniz.|En az {{ limit }} seçenek seçebilirsiniz.</target>
+      </segment>
+    </unit>
+    <unit id="JRlXq2Z" name="0824486">
+      <segment>
+        <source>0824486</source>
+        <target>En fazla {{ limit }} seçenek seçebilirsiniz.|En fazla {{ limit }} seçenek seçebilirsiniz..</target>
+      </segment>
+    </unit>
+    <unit id="87zjiHi" name="One or more of the given values is invalid.">
+      <segment>
+        <source>One or more of the given values is invalid.</source>
+        <target>Verilen değerlerden biri veya daha fazlası geçersiz.</target>
+      </segment>
+    </unit>
+    <unit id="3NeQftv" name="This field was not expected.">
+      <segment>
+        <source>This field was not expected.</source>
+        <target>Bu alan beklenmiyordu.</target>
+      </segment>
+    </unit>
+    <unit id="SwMV4zp" name="This field is missing.">
+      <segment>
+        <source>This field is missing.</source>
+        <target>Bu alan eksik.</target>
+      </segment>
+    </unit>
+    <unit id="LO2vFKN" name="This value is not a valid date.">
+      <segment>
+        <source>This value is not a valid date.</source>
+        <target>Bu değer geçerli bir tarih değil.</target>
+      </segment>
+    </unit>
+    <unit id="86dU_nv" name="This value is not a valid datetime.">
+      <segment>
+        <source>This value is not a valid datetime.</source>
+        <target>Bu değer geçerli bir tarih saat değil.</target>
+      </segment>
+    </unit>
+    <unit id="PSvNXdi" name="This value is not a valid email address.">
+      <segment>
+        <source>This value is not a valid email address.</source>
+        <target>Bu değer, geçerli bir e-posta adresi değil.</target>
+      </segment>
+    </unit>
+    <unit id="3KeHbZy" name="The file could not be found.">
+      <segment>
+        <source>The file could not be found.</source>
+        <target>Dosya bulunamadı.</target>
+      </segment>
+    </unit>
+    <unit id="KtJhQZo" name="The file is not readable.">
+      <segment>
+        <source>The file is not readable.</source>
+        <target>Dosya okunabilir değil.</target>
+      </segment>
+    </unit>
+    <unit id="2O3FbJ6" name="1ad411a">
+      <segment>
+        <source>1ad411a</source>
+        <target>Dosya boyutu ({{ size }} {{ suffix }}) çok büyük. İzin verilen maksimum dosya boyutu {{ limit }} {{ suffix }}.</target>
+      </segment>
+    </unit>
+    <unit id="p4L.BFV" name="30a318d">
+      <segment>
+        <source>30a318d</source>
+        <target>({{ type }}) dosya tipi geçersiz. İzin verilen dosya türleri {{ types }}.</target>
+      </segment>
+    </unit>
+    <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
+      <segment>
+        <source>This value should be {{ limit }} or less.</source>
+        <target>Bu değer {{ limit }} veya daha az olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="SjJg9Hy" name="0e0c1e1">
+      <segment>
+        <source>0e0c1e1</source>
+        <target>Bu değer çok uzun. {{ limit }} veya daha az karakter içermelidir.|Bu değer çok uzun. {{ limit }} veya daha az karakter içermelidir.</target>
+      </segment>
+    </unit>
+    <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
+      <segment>
+        <source>This value should be {{ limit }} or more.</source>
+        <target>Bu değer, {{ limit }} veya daha fazla olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="JJVWzKj" name="5188ff9">
+      <segment>
+        <source>5188ff9</source>
+        <target>Bu değer çok kıza. {{ limit }} veya daha fazla karakter içermelidir.|Bu değer çok kıza. {{ limit }} veya daha fazla karakter içermelidir.</target>
+      </segment>
+    </unit>
+    <unit id="1KV4L.t" name="This value should not be blank.">
+      <segment>
+        <source>This value should not be blank.</source>
+        <target>Bu değer boş bırakılmamalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="2G4Vepm" name="This value should not be null.">
+      <segment>
+        <source>This value should not be null.</source>
+        <target>Bu değer hükümsüz olmamalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="yDc3m6E" name="This value should be null.">
+      <segment>
+        <source>This value should be null.</source>
+        <target>Bu değer hükümsüz olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="zKzWejA" name="This value is not valid.">
+      <segment>
+        <source>This value is not valid.</source>
+        <target>Bu değer geçerli değil.</target>
+      </segment>
+    </unit>
+    <unit id="HSuBZpQ" name="This value is not a valid time.">
+      <segment>
+        <source>This value is not a valid time.</source>
+        <target>Bu değer geçerli bir zaman değil.</target>
+      </segment>
+    </unit>
+    <unit id="snWc_QT" name="This value is not a valid URL.">
+      <segment>
+        <source>This value is not a valid URL.</source>
+        <target>Bu değer, geçerli bir URL değil.</target>
+      </segment>
+    </unit>
+    <unit id="jpaLsb2" name="The two values should be equal.">
+      <segment>
+        <source>The two values should be equal.</source>
+        <target>İki değer eşit olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      <segment>
+        <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
+        <target>Dosya çok büyük. İzin verilen maksimum boyut {{ limit }} {{ suffix }}.</target>
+      </segment>
+    </unit>
+    <unit id="tW7o0t9" name="The file is too large.">
+      <segment>
+        <source>The file is too large.</source>
+        <target>Dosya çok büyük.</target>
+      </segment>
+    </unit>
+    <unit id=".exF5Ww" name="The file could not be uploaded.">
+      <segment>
+        <source>The file could not be uploaded.</source>
+        <target>Dosya yüklenemedi.</target>
+      </segment>
+    </unit>
+    <unit id="d7sS5yw" name="This value should be a valid number.">
+      <segment>
+        <source>This value should be a valid number.</source>
+        <target>Bu değer geçerli bir sayı olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="BS2Ez6i" name="This file is not a valid image.">
+      <segment>
+        <source>This file is not a valid image.</source>
+        <target>Bu dosya geçerli bir resim değil.</target>
+      </segment>
+    </unit>
+    <unit id="ydcT9kU" name="This is not a valid IP address.">
+      <segment>
+        <source>This is not a valid IP address.</source>
+        <target>Bu geçerli bir IP adresi değil.</target>
+      </segment>
+    </unit>
+    <unit id="lDOGNFX" name="This value is not a valid language.">
+      <segment>
+        <source>This value is not a valid language.</source>
+        <target>Bu değer, geçerli bir dil değil.</target>
+      </segment>
+    </unit>
+    <unit id="y9IdYkA" name="This value is not a valid locale.">
+      <segment>
+        <source>This value is not a valid locale.</source>
+        <target>Bu değer, geçerli bir yerel ayar değil.</target>
+      </segment>
+    </unit>
+    <unit id="1YC0pOd" name="This value is not a valid country.">
+      <segment>
+        <source>This value is not a valid country.</source>
+        <target>Bu değer geçerli bir ülke değil.</target>
+      </segment>
+    </unit>
+    <unit id="B5ebaMp" name="This value is already used.">
+      <segment>
+        <source>This value is already used.</source>
+        <target>Bu değer zaten kullanılıyor.</target>
+      </segment>
+    </unit>
+    <unit id="L6097a6" name="The size of the image could not be detected.">
+      <segment>
+        <source>The size of the image could not be detected.</source>
+        <target>Görüntünün boyutu tespit edilemedi.</target>
+      </segment>
+    </unit>
+    <unit id="g9NoIBz" name="266051e">
+      <segment>
+        <source>266051e</source>
+        <target>Görüntü genişliği ({{ width }}px) çok büyük. İzin verilen maksimum genişlik {{ max_width }}px.</target>
+      </segment>
+    </unit>
+    <unit id="HTsQNva" name="c1c23f9">
+      <segment>
+        <source>c1c23f9</source>
+        <target>Görüntü genişliği ({{ width }}px) çok küçük. Beklenen minimum genişlik {{ min_width }}px.</target>
+      </segment>
+    </unit>
+    <unit id="h3PRqha" name="9a128f7">
+      <segment>
+        <source>9a128f7</source>
+        <target>Görüntü yüksekliği ({{ height }}px) çok büyük. İzin verilen maksimum yükseklik {{ max_height }}px.</target>
+      </segment>
+    </unit>
+    <unit id="IVraZ3b" name="8a4cd70">
+      <segment>
+        <source>8a4cd70</source>
+        <target>Görüntü yüksekliği ({{ height }}px) çok küçük. Beklenen minimum yükseklik {{ min_height }}px.</target>
+      </segment>
+    </unit>
+    <unit id="PSdMNab" name="This value should be the user's current password.">
+      <segment>
+        <source>This value should be the user's current password.</source>
+        <target>Bu değer, kullanıcının mevcut şifresi olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="Anek_FY" name="fd389d6">
+      <segment>
+        <source>fd389d6</source>
+        <target>Bu değer tam olarak {{ limit }} karaktere sahip olmalıdır.|Bu değer tam olarak {{ limit }} karaktere sahip olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
+      <segment>
+        <source>The file was only partially uploaded.</source>
+        <target>Dosya yalnızca kısmen yüklendi.</target>
+      </segment>
+    </unit>
+    <unit id="HzkJDtF" name="No file was uploaded.">
+      <segment>
+        <source>No file was uploaded.</source>
+        <target>Dosya yüklenmedi.</target>
+      </segment>
+    </unit>
+    <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
+      <segment>
+        <source>No temporary folder was configured in php.ini.</source>
+        <target>php.ini'de hiçbir geçici klasör yapılandırılmamış veya yapılandırılmış klasör mevcut değil.</target>
+      </segment>
+    </unit>
+    <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
+      <segment>
+        <source>Cannot write temporary file to disk.</source>
+        <target>Geçici dosya diske yazılamıyor.</target>
+      </segment>
+    </unit>
+    <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
+      <segment>
+        <source>A PHP extension caused the upload to fail.</source>
+        <target>Bir PHP uzantısı, yüklemenin başarısız olmasına neden oldu.</target>
+      </segment>
+    </unit>
+    <unit id="YuLxmhd" name="b54c218">
+      <segment>
+        <source>b54c218</source>
+        <target>Bu koleksiyon, {{ limit }} öğesi veya daha fazlasını içermelidir.|Bu koleksiyon, {{ limit }} öğesi veya daha fazlasını içermelidir.</target>
+      </segment>
+    </unit>
+    <unit id="qXV2OMI" name="949632c">
+      <segment>
+        <source>949632c</source>
+        <target>Bu koleksiyon {{ limit }} veya daha az öğe içermelidir.|Bu koleksiyon {{ limit }} veya daha az öğe içermelidir.</target>
+      </segment>
+    </unit>
+    <unit id="BnjGMFh" name="e0582dc">
+      <segment>
+        <source>e0582dc</source>
+        <target>Bu koleksiyon tam olarak {{ limit }} öğesini içermelidir.|Bu koleksiyon tam olarak {{ limit }} öğesini içermelidir.</target>
+      </segment>
+    </unit>
+    <unit id="MAzmID7" name="Invalid card number.">
+      <segment>
+        <source>Invalid card number.</source>
+        <target>Geçersiz kart numarası.</target>
+      </segment>
+    </unit>
+    <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
+      <segment>
+        <source>Unsupported card type or invalid card number.</source>
+        <target>Desteklenmeyen kart türü veya geçersiz kart numarası.</target>
+      </segment>
+    </unit>
+    <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
+      <segment>
+        <source>This is not a valid International Bank Account Number (IBAN).</source>
+        <target>Bu geçerli bir Uluslararası Banka Hesap Numarası (IBAN) değil.</target>
+      </segment>
+    </unit>
+    <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
+      <segment>
+        <source>This value is not a valid ISBN-10.</source>
+        <target>Bu değer, geçerli bir ISBN-10 değil.</target>
+      </segment>
+    </unit>
+    <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
+      <segment>
+        <source>This value is not a valid ISBN-13.</source>
+        <target>Bu değer, geçerli bir ISBN-13 değil.</target>
+      </segment>
+    </unit>
+    <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      <segment>
+        <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
+        <target>Bu değer ne geçerli bir ISBN-10 ne de geçerli bir ISBN-13'tür.</target>
+      </segment>
+    </unit>
+    <unit id="cuct0Ow" name="This value is not a valid ISSN.">
+      <segment>
+        <source>This value is not a valid ISSN.</source>
+        <target>Bu değer geçerli bir ISSN değil.</target>
+      </segment>
+    </unit>
+    <unit id="JBLs1a1" name="This value is not a valid currency.">
+      <segment>
+        <source>This value is not a valid currency.</source>
+        <target>Bu değer, geçerli bir para birimi değil.</target>
+      </segment>
+    </unit>
+    <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be equal to {{ compared_value }}.</source>
+        <target>Bu değer {{ compared_value }} değerine eşit olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
+      <segment>
+        <source>This value should be greater than {{ compared_value }}.</source>
+        <target>Bu değer {{ compared_value }} değerinden büyük olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be greater than or equal to {{ compared_value }}.</source>
+        <target>Bu değer {{ compared_value }} değerine eşit veya daha büyük olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="SreIWoo" name="9670078">
+      <segment>
+        <source>9670078</source>
+        <target>Bu değer {{ compared_value_type }} {{ compared_value }} değeriyle aynı olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
+      <segment>
+        <source>This value should be less than {{ compared_value }}.</source>
+        <target>Bu değer {{ compared_value }} değerinden küçük olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be less than or equal to {{ compared_value }}.</source>
+        <target>Bu değer {{ compared_value }} değerinden küçük veya eşit olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should not be equal to {{ compared_value }}.</source>
+        <target>Bu değer {{ compared_value }} değerine eşit olmamalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="JIjdvtb" name="0eedf91">
+      <segment>
+        <source>0eedf91</source>
+        <target>Bu değer {{ compared_value_type }} {{ compared_value }} değeriyle aynı olmamalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="vzvxzpR" name="9c3ad0f">
+      <segment>
+        <source>9c3ad0f</source>
+        <target>Görüntü oranı ({{ ratio }}) çok büyük. İzin verilen maksimum oran {{ max_ratio }}.</target>
+      </segment>
+    </unit>
+    <unit id="LiDaIWN" name="4376d45">
+      <segment>
+        <source>4376d45</source>
+        <target>Görüntü oranı ({{ ratio }}) çok küçük. İzin verilen minimum oran {{ max_ratio }}.</target>
+      </segment>
+    </unit>
+    <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      <segment>
+        <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
+        <target>Görüntü kare ({{ width }}x{{ height }}px). Kare resimlere izin verilmez.</target>
+      </segment>
+    </unit>
+    <unit id="501jWTO" name="1dc128a">
+      <segment>
+        <source>1dc128a</source>
+        <target>Görüntü manzara odaklıdır ({{ width }}x{{ height }}px). Manzara odaklı resimlere izin verilmez.</target>
+      </segment>
+    </unit>
+    <unit id="J4L.QnM" name="9e27714">
+      <segment>
+        <source>9e27714</source>
+        <target>Görüntü portre odaklıdır ({{ width }}x{{ height }}px). Portre yönlü resimlere izin verilmez.</target>
+      </segment>
+    </unit>
+    <unit id="jZgqcpL" name="An empty file is not allowed.">
+      <segment>
+        <source>An empty file is not allowed.</source>
+        <target>Boş bir dosyaya izin verilmez.</target>
+      </segment>
+    </unit>
+    <unit id="bcfVezI" name="The host could not be resolved.">
+      <segment>
+        <source>The host could not be resolved.</source>
+        <target>Ana bilgisayar çözülemedi.</target>
+      </segment>
+    </unit>
+    <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
+      <segment>
+        <source>This value does not match the expected {{ charset }} charset.</source>
+        <target>Bu değer beklenen {{ charset }} karakter kümesiyle eşleşmiyor.</target>
+      </segment>
+    </unit>
+    <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
+      <segment>
+        <source>This is not a valid Business Identifier Code (BIC).</source>
+        <target>Bu, geçerli bir İşletme Tanımlama Kodu (BIC) değil.</target>
+      </segment>
+    </unit>
+    <unit id="VKDowX6" name="Error">
+      <segment>
+        <source>Error</source>
+        <target>Hata</target>
+      </segment>
+    </unit>
+    <unit id="8zqt0Ik" name="This is not a valid UUID.">
+      <segment>
+        <source>This is not a valid UUID.</source>
+        <target>Bu geçerli bir UUID değil.</target>
+      </segment>
+    </unit>
+    <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
+      <segment>
+        <source>This value should be a multiple of {{ compared_value }}.</source>
+        <target>Bu değer, {{ compared_value }} katı olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      <segment>
+        <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
+        <target>Bu İşletme Tanımlama Kodu (BIC), IBAN {{ iban }} ile ilişkili değil.</target>
+      </segment>
+    </unit>
+    <unit id="2v2xpAh" name="This value should be valid JSON.">
+      <segment>
+        <source>This value should be valid JSON.</source>
+        <target>Bu değer geçerli JSON olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <segment>
+        <source>This collection should contain only unique elements.</source>
+        <target>Bu koleksiyon yalnızca benzersiz öğeler içermelidir.</target>
+      </segment>
+    </unit>
+    <unit id="WdvZfq." name="This value should be positive.">
+      <segment>
+        <source>This value should be positive.</source>
+        <target>Bu değer pozitif olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="ubHMK2q" name="This value should be either positive or zero.">
+      <segment>
+        <source>This value should be either positive or zero.</source>
+        <target>Bu değer pozitif veya sıfır olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="IwNTzo_" name="This value should be negative.">
+      <segment>
+        <source>This value should be negative.</source>
+        <target>Bu değer negatif olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="0GfwMfP" name="This value should be either negative or zero.">
+      <segment>
+        <source>This value should be either negative or zero.</source>
+        <target>Bu değer, negatif veya sıfır olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id="fs3qQZR" name="This value is not a valid timezone.">
+      <segment>
+        <source>This value is not a valid timezone.</source>
+        <target>Bu değer, geçerli bir saat dilimi değil.</target>
+      </segment>
+    </unit>
+    <unit id="A3Gr4fn" name="7e27e92">
+      <segment>
+        <source>7e27e92</source>
+        <target>Bu parola bir veri ihlalinde sızdırılmıştır, kullanılmamalıdır. Lütfen başka bir parola kullanın.</target>
+      </segment>
+    </unit>
+    <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
+      <segment>
+        <source>This value should be between {{ min }} and {{ max }}.</source>
+        <target>Bu değer, {{ min }} ile {{ max }} arasında olmalıdır.</target>
+      </segment>
+    </unit>
+    <unit id=".SEaaBa" name="This form should not contain extra fields.">
+      <segment>
+        <source>This form should not contain extra fields.</source>
+        <target>Bu form fazladan alan içermemelidir.</target>
+      </segment>
+    </unit>
+    <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
+      <segment>
+        <source>The uploaded file was too large. Please try to upload a smaller file.</source>
+        <target>Yüklenen dosya çok büyüktü. Lütfen daha küçük bir dosya yüklemeyi deneyin.</target>
+      </segment>
+    </unit>
+    <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
+      <segment>
+        <source>The CSRF token is invalid. Please try to resubmit the form.</source>
+        <target>CSRF jetonu geçersiz. Lütfen formu yeniden göndermeyi deneyin.</target>
+      </segment>
+    </unit>
+    <unit id="TG1D5NO" name="post.blank_summary">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.blank_summary</source>
+        <target>Gönderinize bir özet verin!</target>
+      </segment>
+    </unit>
+    <unit id="BZOzjk." name="post.blank_content">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.blank_content</source>
+        <target>Gönderinizin bazı içerikler olmalı!</target>
+      </segment>
+    </unit>
+    <unit id="S6M.YWY" name="post.too_short_content">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.too_short_content</source>
+        <target>Gönderi içeriği çok kısa (minimum {{ limit }} karakter)</target>
+      </segment>
+    </unit>
+    <unit id="niM7JYj" name="post.too_many_tags">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.too_many_tags</source>
+        <target>Çok fazla etiket ({{ limit }} veya daha az etiket ekleyin)</target>
+      </segment>
+    </unit>
+    <unit id="ARUoKOV" name="comment.blank">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.blank</source>
+        <target>Lütfen yorumunuzu boş bırakmayın!</target>
+      </segment>
+    </unit>
+    <unit id="J.L_ppQ" name="comment.too_short">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.too_short</source>
+        <target>Yorum çok kısa (minimum {{ limit }} karakter)</target>
+      </segment>
+    </unit>
+    <unit id=".bkQKXb" name="comment.too_long">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.too_long</source>
+        <target>Yorum çok uzun (maksimum {{ limit }} karakter)</target>
+      </segment>
+    </unit>
+    <unit id="cTT8h4_" name="comment.is_spam">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.is_spam</source>
+        <target>Bu yorumun içeriği spam olarak kabul edilir.</target>
+      </segment>
+    </unit>
+    <unit id="LDy5h0B" name="user.duplicate_email">
+      <segment>
+        <source>user.duplicate_email</source>
+        <target>{{ value }} e-postasına sahip bir kullanıcı zaten var.</target>
+      </segment>
+    </unit>
+    <unit id="D4OMpCY" name="user.duplicate_username">
+      <segment>
+        <source>user.duplicate_username</source>
+        <target>{{ value }} kullanıcı adına sahip bir kullanıcı zaten var.</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Geçersiz parola. Parola en az 6 karakter içermelidir.</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>Geçersiz e-posta</target>
+      </segment>
+    </unit>
+    <unit id="4eH4IFY" name="user.username_invalid_characters">
+      <segment>
+        <source>user.username_invalid_characters</source>
+        <target>Kullanıcı adı yalnızca küçük latin karakterler, sayılar ve alt çizgiler içermelidir.</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>Geçersiz ekran ad</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

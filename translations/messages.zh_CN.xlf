@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="zh-CN" target-language="zh-CN" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="EvAqL__" resname="caption.duplicate">
+        <source>caption.duplicate</source>
+        <target>标题重复</target>
+      </trans-unit>
+      <trans-unit id="HK7XTUX" resname="caption.edit">
+        <source>caption.edit</source>
+        <target>编辑</target>
+      </trans-unit>
+      <trans-unit id="pXtciRI" resname="content.edit_missing_definition">
+        <source>content.edit_missing_definition</source>
+        <target>__content.edit_missing_definition</target>
+      </trans-unit>
+      <trans-unit id="JEnqOi." resname="title.primary_actions">
+        <source>title.primary_actions</source>
+        <target>操作</target>
+      </trans-unit>
+      <trans-unit id="7616Os4" resname="title.options">
+        <source>title.options</source>
+        <target>选项</target>
+      </trans-unit>
+      <trans-unit id="Hlf9c1s" resname="listing.title_overview">
+        <source>listing.title_overview</source>
+        <target>概述</target>
+      </trans-unit>
+      <trans-unit id="BdhsE_X" resname="listing_select_box.card_header.selected">
+        <source>listing_select_box.card_header.selected</source>
+        <target>状态筛选</target>
+      </trans-unit>
+      <trans-unit id="apyOs0o" resname="listing_table.actions.status_to_draft">
+        <source>listing_table.actions.status_to_draft</source>
+        <target>草稿</target>
+      </trans-unit>
+      <trans-unit id="ZJxfdD6" resname="listing_table.actions.status_to_held">
+        <source>listing_table.actions.status_to_held</source>
+        <target>维护</target>
+      </trans-unit>
+      <trans-unit id="PoauAuK" resname="listing_table.actions.status_to_publish">
+        <source>listing_table.actions.status_to_publish</source>
+        <target>发布</target>
+      </trans-unit>
+      <trans-unit id="hTKWQ6g" resname="action.delete">
+        <source>action.delete</source>
+        <target>删除</target>
+      </trans-unit>
+      <trans-unit id="WeJxw6Z" resname="action.update_all">
+        <source>action.update_all</source>
+        <target>确定</target>
+      </trans-unit>
+      <trans-unit id="vJwSCBO" resname="title.contentlisting">
+        <source>title.contentlisting</source>
+        <target>内容列表</target>
+      </trans-unit>
+      <trans-unit id="wQ0WYAT" resname="listing.title_sortby">
+        <source>listing.title_sortby</source>
+        <target>排序方式</target>
+      </trans-unit>
+      <trans-unit id="hp554Ds" resname="listing.option_select_sortby">
+        <source>listing.option_select_sortby</source>
+        <target>选择排序</target>
+      </trans-unit>
+      <trans-unit id="IWbf2by" resname="listing.title_filterby">
+        <source>listing.title_filterby</source>
+        <target>标题筛选</target>
+      </trans-unit>
+      <trans-unit id="pn22p7q" resname="listing.placeholder_filter">
+        <source>listing.placeholder_filter</source>
+        <target>输入关键词</target>
+      </trans-unit>
+      <trans-unit id="n.3JZvX" resname="title.contentType">
+        <source>title.contentType</source>
+        <target>内容类型</target>
+      </trans-unit>
+      <trans-unit id="dd5MzCM" resname="caption.translations">
+        <source>caption.translations</source>
+        <target>翻译</target>
+      </trans-unit>
+      <trans-unit id="UNBaDz." resname="general.phrase.edit">
+        <source>general.phrase.edit</source>
+        <target>__general.phrase.edit</target>
+      </trans-unit>
+      <trans-unit id="37kJiIe" resname="view_locales.badge_default">
+        <source>view_locales.badge_default</source>
+        <target>__view_locales.badge_default</target>
+      </trans-unit>
+      <trans-unit id="ufFUPp7" resname="view_locales.badge_missing">
+        <source>view_locales.badge_missing</source>
+        <target>__view_locales.badge_missing</target>
+      </trans-unit>
+      <trans-unit id="SGlj7K2" resname="view_locales.badge_empty">
+        <source>view_locales.badge_empty</source>
+        <target>__view_locales.badge_empty</target>
+      </trans-unit>
+      <trans-unit id="JTRCo_U" resname="view_locales.badge_ok">
+        <source>view_locales.badge_ok</source>
+        <target>__view_locales.badge_ok</target>
+      </trans-unit>
+      <trans-unit id="eVkSIKu" resname="field.modifiedAt">
+        <source>field.modifiedAt</source>
+        <target>修改日期</target>
+      </trans-unit>
+      <trans-unit id="6Gw1lsE" resname="action.confirm_delete">
+        <source>action.confirm_delete</source>
+        <target>确认删除</target>
+      </trans-unit>
+      <trans-unit id="FuCyk5C" resname="field.status">
+        <source>field.status</source>
+        <target>状态</target>
+      </trans-unit>
+      <trans-unit id="3gdi1dy" resname="field.publishedAt">
+        <source>field.publishedAt</source>
+        <target>发布日期</target>
+      </trans-unit>
+      <trans-unit id="eN7IfEL" resname="field.depublishedAt">
+        <source>field.depublishedAt</source>
+        <target>过期日期</target>
+      </trans-unit>
+      <trans-unit id="aQX4Emy" resname="field.author">
+        <source>field.author</source>
+        <target>作者</target>
+      </trans-unit>
+      <trans-unit id="O9wtVOp" resname="field.createdAt">
+        <source>field.createdAt</source>
+        <target>创建日期</target>
+      </trans-unit>
+      <trans-unit id="SNELzJ2" resname="field.id">
+        <source>field.id</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="8zEzq8N" resname="field.current_locale">
+        <source>field.current_locale</source>
+        <target>当前语言</target>
+      </trans-unit>
+      <trans-unit id="ahZvOJz" resname="field.switch_to_locale">
+        <source>field.switch_to_locale</source>
+        <target>切换语言</target>
+      </trans-unit>
+      <trans-unit id="P1FHg3Q" resname="caption.edit_file">
+        <source>caption.edit_file</source>
+        <target>编辑</target>
+      </trans-unit>
+      <trans-unit id="FSroufa" resname="caption.path">
+        <source>caption.path</source>
+        <target>路径</target>
+      </trans-unit>
+      <trans-unit id="HLtdhYw" resname="action.save">
+        <source>action.save</source>
+        <target>保存</target>
+      </trans-unit>
+      <trans-unit id="l4yt0BE" resname="caption.file_management">
+        <source>caption.file_management</source>
+        <target>文件管理</target>
+      </trans-unit>
+      <trans-unit id="LaDIuZA" resname="caption.meta_information">
+        <source>caption.meta_information</source>
+        <target>信息</target>
+      </trans-unit>
+      <trans-unit id="73A2bWM" resname="finder.label_view">
+        <source>finder.label_view</source>
+        <target>查看方式:</target>
+      </trans-unit>
+      <trans-unit id="m3tNvJb" resname="finder.button_list">
+        <source>finder.button_list</source>
+        <target>列表</target>
+      </trans-unit>
+      <trans-unit id="tRLgeoX" resname="finder.button_cards">
+        <source>finder.button_cards</source>
+        <target>卡片</target>
+      </trans-unit>
+      <trans-unit id="QQvRJe." resname="files_cards.button_toggle">
+        <source>files_cards.button_toggle</source>
+        <target>__files_cards.button_toggle</target>
+      </trans-unit>
+      <trans-unit id="gtC_ujD" resname="files_cards.action_edit_image_info">
+        <source>files_cards.action_edit_image_info</source>
+        <target>编辑图片</target>
+      </trans-unit>
+      <trans-unit id="5LXvJfE" resname="files_cards.action_edit_file">
+        <source>files_cards.action_edit_file</source>
+        <target>编辑文件</target>
+      </trans-unit>
+      <trans-unit id="H1pgP94" resname="files_cards.action_view_original">
+        <source>files_cards.action_view_original</source>
+        <target>查看</target>
+      </trans-unit>
+      <trans-unit id="ZoY6ADX" resname="files_cards.action_duplicate">
+        <source>files_cards.action_duplicate</source>
+        <target>复制</target>
+      </trans-unit>
+      <trans-unit id="wHPoBzP" resname="file.delete_confirm">
+        <source>file.delete_confirm</source>
+        <target>删除确认</target>
+      </trans-unit>
+      <trans-unit id="JjU6ZQP" resname="files_cards.action_delete">
+        <source>files_cards.action_delete</source>
+        <target>删除</target>
+      </trans-unit>
+      <trans-unit id="3jdNwuk" resname="files_cards.label_filename">
+        <source>files_cards.label_filename</source>
+        <target>名称</target>
+      </trans-unit>
+      <trans-unit id="Y90_Pn1" resname="files_cards.label_title">
+        <source>files_cards.label_title</source>
+        <target>标题</target>
+      </trans-unit>
+      <trans-unit id="EdCfIKX" resname="files_cards.label_dimensions">
+        <source>files_cards.label_dimensions</source>
+        <target>尺寸</target>
+      </trans-unit>
+      <trans-unit id="eQBhceV" resname="files_cards.label_filesize">
+        <source>files_cards.label_filesize</source>
+        <target>文件大小</target>
+      </trans-unit>
+      <trans-unit id="uiCjlwk" resname="files_cards.label_created_on">
+        <source>files_cards.label_created_on</source>
+        <target>创建于</target>
+      </trans-unit>
+      <trans-unit id="8JeahIj" resname="files_cards.message_no_files">
+        <source>files_cards.message_no_files</source>
+        <target>没有文件</target>
+      </trans-unit>
+      <trans-unit id="_XSgfqS" resname="filename">
+        <source>filename</source>
+        <target>名称</target>
+      </trans-unit>
+      <trans-unit id="gPYflhh" resname="thumbnail">
+        <source>thumbnail</source>
+        <target>缩略图</target>
+      </trans-unit>
+      <trans-unit id="zNy_hG8" resname="size">
+        <source>size</source>
+        <target>文件大小</target>
+      </trans-unit>
+      <trans-unit id="DodjLNR" resname="date">
+        <source>date</source>
+        <target>日期</target>
+      </trans-unit>
+      <trans-unit id="Kw3N1AA" resname="actions">
+        <source>actions</source>
+        <target>操作</target>
+      </trans-unit>
+      <trans-unit id=".fL0AbE" resname="files_list.remark">
+        <source>files_list.remark</source>
+        <target>清单</target>
+      </trans-unit>
+      <trans-unit id="I2ykiIZ" resname="caption.folders">
+        <source>caption.folders</source>
+        <target>文件夹</target>
+      </trans-unit>
+      <trans-unit id="KHvGNGW" resname="directoryname">
+        <source>directoryname</source>
+        <target>目录</target>
+      </trans-unit>
+      <trans-unit id="v6cfPyt" resname="quickselect.title_select">
+        <source>quickselect.title_select</source>
+        <target>__quickselect.title_select</target>
+      </trans-unit>
+      <trans-unit id="C15MbYY" resname="form.quick_select_file">
+        <source>form.quick_select_file</source>
+        <target>选择文件</target>
+      </trans-unit>
+      <trans-unit id="QZYjRy0" resname="caption.file_uploader">
+        <source>caption.file_uploader</source>
+        <target>文件上传</target>
+      </trans-unit>
+      <trans-unit id="283aB_E" resname="caption.file_upload.upload_text">
+        <source>caption.file_upload.upload_text</source>
+        <target>选择文件</target>
+      </trans-unit>
+      <trans-unit id="AMxTho9" resname="pager.previous">
+        <source>pager.previous</source>
+        <target>上一页</target>
+      </trans-unit>
+      <trans-unit id="L_YQKUn" resname="pager.next">
+        <source>pager.next</source>
+        <target>下一页</target>
+      </trans-unit>
+      <trans-unit id="TtIlBDd" resname="caption.edit_image">
+        <source>caption.edit_image</source>
+        <target>编辑</target>
+      </trans-unit>
+      <trans-unit id="y5otxEK" resname="caption.filename">
+        <source>caption.filename</source>
+        <target>文件名</target>
+      </trans-unit>
+      <trans-unit id="VKhfRZB" resname="field.title">
+        <source>field.title</source>
+        <target>标题</target>
+      </trans-unit>
+      <trans-unit id="7_wwX8J" resname="field.description">
+        <source>field.description</source>
+        <target>描述</target>
+      </trans-unit>
+      <trans-unit id="hjDmcPC" resname="field.copyright">
+        <source>field.copyright</source>
+        <target>版权</target>
+      </trans-unit>
+      <trans-unit id="v0sitU8" resname="field.originalFilename">
+        <source>field.originalFilename</source>
+        <target>原始文件名</target>
+      </trans-unit>
+      <trans-unit id="fLOd6Zd" resname="field.cropX">
+        <source>field.cropX</source>
+        <target>宽</target>
+      </trans-unit>
+      <trans-unit id="Sd_AbmV" resname="field.cropXPostfix">
+        <source>field.cropXPostfix</source>
+        <target>裁剪宽度</target>
+      </trans-unit>
+      <trans-unit id="hi98HIj" resname="field.cropY">
+        <source>field.cropY</source>
+        <target>高</target>
+      </trans-unit>
+      <trans-unit id="BQBmQHT" resname="field.cropYPostfix">
+        <source>field.cropYPostfix</source>
+        <target>裁剪高度</target>
+      </trans-unit>
+      <trans-unit id="PHOpD5y" resname="field.cropZoom">
+        <source>field.cropZoom</source>
+        <target>缩放</target>
+      </trans-unit>
+      <trans-unit id="tn6Z8wY" resname="field.cropZoomPostfix">
+        <source>field.cropZoomPostfix</source>
+        <target>缩放大小</target>
+      </trans-unit>
+      <trans-unit id="EaqUUfe" resname="label.predominant_colors__in_image">
+        <source>label.predominant_colors__in_image</source>
+        <target>图片颜色</target>
+      </trans-unit>
+      <trans-unit id="vlRe8Tx" resname="field.width">
+        <source>field.width</source>
+        <target>宽</target>
+      </trans-unit>
+      <trans-unit id="CZbXbM_" resname="field.height">
+        <source>field.height</source>
+        <target>高</target>
+      </trans-unit>
+      <trans-unit id="Sz_u.OS" resname="field.filesize">
+        <source>field.filesize</source>
+        <target>文件大小</target>
+      </trans-unit>
+      <trans-unit id="wLaDaK5" resname="caption.about_bolt">
+        <source>caption.about_bolt</source>
+        <target>关于Bolt</target>
+      </trans-unit>
+      <trans-unit id="xN1kSQQ" resname="caption.bolt_payoff">
+        <source>caption.bolt_payoff</source>
+        <target>__caption.bolt_payoff</target>
+      </trans-unit>
+      <trans-unit id="QVRwwK4" resname="about.system_info">
+        <source>about.system_info</source>
+        <target>系统信息</target>
+      </trans-unit>
+      <trans-unit id="k.JymqB" resname="about.visit_bolt">
+        <source>about.visit_bolt</source>
+        <target>官网</target>
+      </trans-unit>
+      <trans-unit id="UZFanGF" resname="about.bolt_documentation">
+        <source>about.bolt_documentation</source>
+        <target>文档</target>
+      </trans-unit>
+      <trans-unit id="FO7zDub" resname="about.bolt_on_github">
+        <source>about.bolt_on_github</source>
+        <target>Github</target>
+      </trans-unit>
+      <trans-unit id="_9fS00R" resname="about.used_libraries">
+        <source>about.used_libraries</source>
+        <target>基础库</target>
+      </trans-unit>
+      <trans-unit id="tgLgLDQ" resname="about.list_of_used_libraries">
+        <source>about.list_of_used_libraries</source>
+        <target>列表</target>
+      </trans-unit>
+      <trans-unit id="K6TmK4B" resname="caption.clear_cache">
+        <source>caption.clear_cache</source>
+        <target>清除缓存</target>
+      </trans-unit>
+      <trans-unit id="7aLIA3c" resname="caption.dashboard">
+        <source>caption.dashboard</source>
+        <target>首页</target>
+      </trans-unit>
+      <trans-unit id="munFS0n" resname="title.filtered_by">
+        <source>title.filtered_by</source>
+        <target>__title.filtered_by</target>
+      </trans-unit>
+      <trans-unit id="mfvtHPQ" resname="caption.extensions">
+        <source>caption.extensions</source>
+        <target>扩展</target>
+      </trans-unit>
+      <trans-unit id="nrWBJNm" resname="extensions.title_desc">
+        <source>extensions.title_desc</source>
+        <target>描述</target>
+      </trans-unit>
+      <trans-unit id="7raDJAR" resname="extensions.title_author">
+        <source>extensions.title_author</source>
+        <target>作者</target>
+      </trans-unit>
+      <trans-unit id="UP8pNGy" resname="extensions.title_package">
+        <source>extensions.title_package</source>
+        <target>封装</target>
+      </trans-unit>
+      <trans-unit id="hgNZLwW" resname="extensions.title_configuration">
+        <source>extensions.title_configuration</source>
+        <target>配置</target>
+      </trans-unit>
+      <trans-unit id="QFQ1uTC" resname="extensions.title_version">
+        <source>extensions.title_version</source>
+        <target>版本</target>
+      </trans-unit>
+      <trans-unit id="piuatxC" resname="extensions.info_not_installed">
+        <source>extensions.info_not_installed</source>
+        <target>没有安装信息</target>
+      </trans-unit>
+      <trans-unit id="3j1gEmk" resname="extensions.title_class">
+        <source>extensions.title_class</source>
+        <target>__extensions.title_class</target>
+      </trans-unit>
+      <trans-unit id="BFARQEU" resname="extensions.button_detailed_view">
+        <source>extensions.button_detailed_view</source>
+        <target>查看详情</target>
+      </trans-unit>
+      <trans-unit id="mjhFljb" resname="extensions.button_configuration">
+        <source>extensions.button_configuration</source>
+        <target>配置</target>
+      </trans-unit>
+      <trans-unit id="r3ryNTG" resname="extensions.button_source">
+        <source>extensions.button_source</source>
+        <target>源码</target>
+      </trans-unit>
+      <trans-unit id="7JK6jNv" resname="extensions.message_not_implemented">
+        <source>extensions.message_not_implemented</source>
+        <target>__extensions.message_not_implemented</target>
+      </trans-unit>
+      <trans-unit id="qc3rFkZ" resname="extensions.button_remove">
+        <source>extensions.button_remove</source>
+        <target>移除</target>
+      </trans-unit>
+      <trans-unit id="SLZyVzU" resname="extensions.button_disable">
+        <source>extensions.button_disable</source>
+        <target>禁用</target>
+      </trans-unit>
+      <trans-unit id="LfwezhR" resname="extensions.title_dependencies">
+        <source>extensions.title_dependencies</source>
+        <target>依赖</target>
+      </trans-unit>
+      <trans-unit id="60xy4WG" resname="extensions.no_dependencies">
+        <source>extensions.no_dependencies</source>
+        <target>没有依赖</target>
+      </trans-unit>
+      <trans-unit id="2MtT_h0" resname="caption.logviewer">
+        <source>caption.logviewer</source>
+        <target>日志</target>
+      </trans-unit>
+      <trans-unit id="rCKtTo5" resname="caption.redirection_page">
+        <source>caption.redirection_page</source>
+        <target>重定向</target>
+      </trans-unit>
+      <trans-unit id="80JoLd0" resname="title.login">
+        <source>title.login</source>
+        <target>登录</target>
+      </trans-unit>
+      <trans-unit id="beqzCkE" resname="login.header_login">
+        <source>login.header_login</source>
+        <target>登录信息</target>
+      </trans-unit>
+      <trans-unit id="RMPnq6o" resname="label.username_or_email">
+        <source>label.username_or_email</source>
+        <target>账号或邮箱</target>
+      </trans-unit>
+      <trans-unit id="z_tOHwq" resname="placeholder.username_or_email">
+        <source>placeholder.username_or_email</source>
+        <target>输入账号或邮箱</target>
+      </trans-unit>
+      <trans-unit id="9pvowqn" resname="label.password">
+        <source>label.password</source>
+        <target>密码</target>
+      </trans-unit>
+      <trans-unit id="xgYhRkc" resname="placeholder.password">
+        <source>placeholder.password</source>
+        <target>输入密码</target>
+      </trans-unit>
+      <trans-unit id="IaF1MjB" resname="label.rememberme">
+        <source>label.rememberme</source>
+        <target>记住</target>
+      </trans-unit>
+      <trans-unit id="gLN0C81" resname="action.log_in">
+        <source>action.log_in</source>
+        <target>登录</target>
+      </trans-unit>
+      <trans-unit id="1sstKF9" resname="title.edit_user">
+        <source>title.edit_user</source>
+        <target>编辑</target>
+      </trans-unit>
+      <trans-unit id="LDhDPrF" resname="label.username">
+        <source>label.username</source>
+        <target>账号</target>
+      </trans-unit>
+      <trans-unit id="SeTqePC" resname="label.display_name">
+        <source>label.display_name</source>
+        <target>昵称</target>
+      </trans-unit>
+      <trans-unit id="D2N6_cP" resname="label.email">
+        <source>label.email</source>
+        <target>邮箱</target>
+      </trans-unit>
+      <trans-unit id="mEDsKHk" resname="label.locale">
+        <source>label.locale</source>
+        <target>语言</target>
+      </trans-unit>
+      <trans-unit id="iD6CNOO" resname="label.roles">
+        <source>label.roles</source>
+        <target>角色</target>
+      </trans-unit>
+      <trans-unit id="7cXqH5s" resname="listing.title_display_name">
+        <source>listing.title_display_name</source>
+        <target>昵称</target>
+      </trans-unit>
+      <trans-unit id="Ay7xZ2h" resname="listing.title_username">
+        <source>listing.title_username</source>
+        <target>账号</target>
+      </trans-unit>
+      <trans-unit id="RN1tdtJ" resname="listing.title_email">
+        <source>listing.title_email</source>
+        <target>邮箱</target>
+      </trans-unit>
+      <trans-unit id="0pjZ.GV" resname="listing.title_roles">
+        <source>listing.title_roles</source>
+        <target>角色</target>
+      </trans-unit>
+      <trans-unit id="hXEFV1n" resname="listing.title_last_seen">
+        <source>listing.title_last_seen</source>
+        <target>最后登录</target>
+      </trans-unit>
+      <trans-unit id="pn7kE17" resname="listing.title_last_ip">
+        <source>listing.title_last_ip</source>
+        <target>IP</target>
+      </trans-unit>
+      <trans-unit id="GZ65uOC" resname="listing.title_actions">
+        <source>listing.title_actions</source>
+        <target>操作</target>
+      </trans-unit>
+      <trans-unit id="Npkio79" resname="listing.title_session_expires">
+        <source>listing.title_session_expires</source>
+        <target>有效期</target>
+      </trans-unit>
+      <trans-unit id="mmUDcto" resname="listing.title_ip_address">
+        <source>listing.title_ip_address</source>
+        <target>IP</target>
+      </trans-unit>
+      <trans-unit id="x9qAwrz" resname="listing.title_browser">
+        <source>listing.title_browser</source>
+        <target>浏览器</target>
+      </trans-unit>
+      <trans-unit id="Dgtkgju" resname="title.edit_user_profile">
+        <source>title.edit_user_profile</source>
+        <target>编辑</target>
+      </trans-unit>
+      <trans-unit id="b_RPpcB" resname="general.greeting">
+        <source>general.greeting</source>
+        <target>用户</target>
+      </trans-unit>
+      <trans-unit id="bmdn3u9" resname="action.logout">
+        <source>action.logout</source>
+        <target>退出</target>
+      </trans-unit>
+      <trans-unit id="zOfpTLD" resname="action.edit_profile">
+        <source>action.edit_profile</source>
+        <target>编辑</target>
+      </trans-unit>
+      <trans-unit id="wGlnx8X" resname="general.phrase.search">
+        <source>general.phrase.search</source>
+        <target>__general.phrase.search</target>
+      </trans-unit>
+      <trans-unit id="O_m7mx1" resname="listing.placeholder_search">
+        <source>listing.placeholder_search</source>
+        <target>搜索</target>
+      </trans-unit>
+      <trans-unit id="jXAelLe" resname="admin_sidebar_toggler.toggle">
+        <source>admin_sidebar_toggler.toggle</source>
+        <target>__admin_sidebar_toggler.toggle</target>
+      </trans-unit>
+      <trans-unit id="Gabafxx" resname="admin_sidebar.toggler">
+        <source>admin_sidebar.toggler</source>
+        <target>__admin_sidebar.toggler</target>
+      </trans-unit>
+      <trans-unit id="f.rvF6y" resname="action.new">
+        <source>action.new</source>
+        <target>新增</target>
+      </trans-unit>
+      <trans-unit id="TtmWqX3" resname="action.view">
+        <source>action.view</source>
+        <target>查看</target>
+      </trans-unit>
+      <trans-unit id="0C9.Vmh" resname="collection.add_item">
+        <source>collection.add_item</source>
+        <target>__collection.add_item</target>
+      </trans-unit>
+      <trans-unit id="H9knE.O" resname="collection.expand_all">
+        <source>collection.expand_all</source>
+        <target>展开</target>
+      </trans-unit>
+      <trans-unit id="JjvI6hp" resname="collection.collapse_all">
+        <source>collection.collapse_all</source>
+        <target>折叠</target>
+      </trans-unit>
+      <trans-unit id="RBJ0NMl" resname="collection.select">
+        <source>collection.select</source>
+        <target>选择</target>
+      </trans-unit>
+      <trans-unit id="BINgtmK" resname="editor_date.toggle">
+        <source>editor_date.toggle</source>
+        <target>__editor_date.toggle</target>
+      </trans-unit>
+      <trans-unit id="kHeY93_" resname="editor_embed.content_url">
+        <source>editor_embed.content_url</source>
+        <target>视频URL</target>
+      </trans-unit>
+      <trans-unit id="VoIdmBa" resname="editor_embed.placeholder_content_url">
+        <source>editor_embed.placeholder_content_url</source>
+        <target>输入URL</target>
+      </trans-unit>
+      <trans-unit id="1.Eb1GS" resname="editor_embed.label_height">
+        <source>editor_embed.label_height</source>
+        <target>__editor_embed.label_height</target>
+      </trans-unit>
+      <trans-unit id="eWLSFJs" resname="editor_embed.label_pixel">
+        <source>editor_embed.label_pixel</source>
+        <target>px</target>
+      </trans-unit>
+      <trans-unit id="EAtXrAm" resname="editor_embed.label_matched_embed">
+        <source>editor_embed.label_matched_embed</source>
+        <target>嵌入匹配</target>
+      </trans-unit>
+      <trans-unit id="zATju4V" resname="editor_embed.label_preview">
+        <source>editor_embed.label_preview</source>
+        <target>预览</target>
+      </trans-unit>
+      <trans-unit id="9SQ0oaR" resname="editor_embed.label_size">
+        <source>editor_embed.label_size</source>
+        <target>尺寸</target>
+      </trans-unit>
+      <trans-unit id="YZJO3Ul" resname="upload.allow_file_types">
+        <source>upload.allow_file_types</source>
+        <target>允许文件类型</target>
+      </trans-unit>
+      <trans-unit id="noOf4ML" resname="upload.max_size">
+        <source>upload.max_size</source>
+        <target>最大</target>
+      </trans-unit>
+      <trans-unit id="vptPhch" resname="image.button_upload">
+        <source>image.button_upload</source>
+        <target>上传</target>
+      </trans-unit>
+      <trans-unit id="vIVO1lU" resname="image.button_from_library">
+        <source>image.button_from_library</source>
+        <target>从图片库选择</target>
+      </trans-unit>
+      <trans-unit id="FqVh1Hv" resname="image.button_remove">
+        <source>image.button_remove</source>
+        <target>移除</target>
+      </trans-unit>
+      <trans-unit id="oOuVKRv" resname="image.placeholder_filename">
+        <source>image.placeholder_filename</source>
+        <target>文件名</target>
+      </trans-unit>
+      <trans-unit id="BWubOnS" resname="image.placeholder_alt_text">
+        <source>image.placeholder_alt_text</source>
+        <target>alt</target>
+      </trans-unit>
+      <trans-unit id="VPV0lFM" resname="image.placeholder_title">
+        <source>image.placeholder_title</source>
+        <target>标题</target>
+      </trans-unit>
+      <trans-unit id="eHV6ZJB" resname="image.button_edit_attributes">
+        <source>image.button_edit_attributes</source>
+        <target>属性</target>
+      </trans-unit>
+      <trans-unit id="7aSD0Qr" resname="image.button_up">
+        <source>image.button_up</source>
+        <target>上移</target>
+      </trans-unit>
+      <trans-unit id="WihD8Y5" resname="image.button_down">
+        <source>image.button_down</source>
+        <target>下移</target>
+      </trans-unit>
+      <trans-unit id="8Q4FxVw" resname="file.add_new_file">
+        <source>file.add_new_file</source>
+        <target>添加新文件</target>
+      </trans-unit>
+      <trans-unit id="Oj2UZ5J" resname="image.add_new_image">
+        <source>image.add_new_image</source>
+        <target>添加新图片</target>
+      </trans-unit>
+      <trans-unit id="XQ2U6fN" resname="slug.button_unlocked">
+        <source>slug.button_unlocked</source>
+        <target>已解锁</target>
+      </trans-unit>
+      <trans-unit id="kaK5Wdr" resname="slug.button_locked">
+        <source>slug.button_locked</source>
+        <target>锁定</target>
+      </trans-unit>
+      <trans-unit id="qcDEz5O" resname="slug.button_edit">
+        <source>slug.button_edit</source>
+        <target>编辑</target>
+      </trans-unit>
+      <trans-unit id="raO5QSf" resname="slug.generate_from">
+        <source>slug.generate_from</source>
+        <target>使用</target>
+      </trans-unit>
+      <trans-unit id="ApPu4P_" resname="collection.move_item_up">
+        <source>collection.move_item_up</source>
+        <target>上移</target>
+      </trans-unit>
+      <trans-unit id="KzBtfHi" resname="collection.move_item_down">
+        <source>collection.move_item_down</source>
+        <target>下移</target>
+      </trans-unit>
+      <trans-unit id="JpJFIFq" resname="collection.confirm_delete">
+        <source>collection.confirm_delete</source>
+        <target>删除</target>
+      </trans-unit>
+      <trans-unit id=".t1ICS7" resname="collection.remove_item">
+        <source>collection.remove_item</source>
+        <target>确认删除</target>
+      </trans-unit>
+      <trans-unit id="pcq1NGk" resname="listing_filter.button_compact">
+        <source>listing_filter.button_compact</source>
+        <target>收缩</target>
+      </trans-unit>
+      <trans-unit id="xIztVmp" resname="listing_filter.button_expanded">
+        <source>listing_filter.button_expanded</source>
+        <target>展开</target>
+      </trans-unit>
+      <trans-unit id="L0TE0M9" resname="listing_table.actions.view_on_site">
+        <source>listing_table.actions.view_on_site</source>
+        <target>查看</target>
+      </trans-unit>
+      <trans-unit id="5H60Xq6" resname="listing_table.actions.duplicate">
+        <source>listing_table.actions.duplicate</source>
+        <target>编辑</target>
+      </trans-unit>
+      <trans-unit id="hR8ri.m" resname="listing_table.actions.delete">
+        <source>listing_table.actions.delete</source>
+        <target>删除</target>
+      </trans-unit>
+      <trans-unit id="5zbX1vo" resname="listing_table.actions.slug">
+        <source>listing_table.actions.slug</source>
+        <target>Slug</target>
+      </trans-unit>
+      <trans-unit id="wKDOBOC" resname="listing_table.actions.created_on">
+        <source>listing_table.actions.created_on</source>
+        <target>创建日期</target>
+      </trans-unit>
+      <trans-unit id="tVX01Xl" resname="listing_table.actions.published_on">
+        <source>listing_table.actions.published_on</source>
+        <target>发布日期</target>
+      </trans-unit>
+      <trans-unit id="kHkjS5U" resname="listing_table.actions.last_modified_on">
+        <source>listing_table.actions.last_modified_on</source>
+        <target>修改日期</target>
+      </trans-unit>
+      <trans-unit id="Em.C0bV" resname="listing_table.actions.button_edit">
+        <source>listing_table.actions.button_edit</source>
+        <target>编辑</target>
+      </trans-unit>
+      <trans-unit id="N_0yRcH" resname="action.close_alert">
+        <source>action.close_alert</source>
+        <target>__action.close_alert</target>
+      </trans-unit>
+      <trans-unit id="z2AgHGp" resname="flash_messages.notification">
+        <source>flash_messages.notification</source>
+        <target>消息通知</target>
+      </trans-unit>
+      <trans-unit id="1xlE8ex" resname="caption.content">
+        <source>caption.content</source>
+        <target>内容</target>
+      </trans-unit>
+      <trans-unit id="ZO.uqIZ" resname="caption.settings">
+        <source>caption.settings</source>
+        <target>设置</target>
+      </trans-unit>
+      <trans-unit id="zOLL.7E" resname="caption.configuration">
+        <source>caption.configuration</source>
+        <target>网站配置</target>
+      </trans-unit>
+      <trans-unit id="ipmA6Ah" resname="caption.users_permissions">
+        <source>caption.users_permissions</source>
+        <target>用户权限</target>
+      </trans-unit>
+      <trans-unit id="kXNBV9S" resname="caption.main_configuration">
+        <source>caption.main_configuration</source>
+        <target>主要配置</target>
+      </trans-unit>
+      <trans-unit id="_w7J5rZ" resname="caption.contenttypes">
+        <source>caption.contenttypes</source>
+        <target>内容类型</target>
+      </trans-unit>
+      <trans-unit id="drK.0GZ" resname="caption.taxonomies">
+        <source>caption.taxonomies</source>
+        <target>分类</target>
+      </trans-unit>
+      <trans-unit id="2RUXD4A" resname="caption.menu_setup">
+        <source>caption.menu_setup</source>
+        <target>导航</target>
+      </trans-unit>
+      <trans-unit id="wBKDkwl" resname="caption.routing_setup">
+        <source>caption.routing_setup</source>
+        <target>路由</target>
+      </trans-unit>
+      <trans-unit id="i4cbdta" resname="caption.all_configuration_files">
+        <source>caption.all_configuration_files</source>
+        <target>所有配置文件</target>
+      </trans-unit>
+      <trans-unit id="OpKTKAL" resname="caption.maintenance">
+        <source>caption.maintenance</source>
+        <target>网站维护</target>
+      </trans-unit>
+      <trans-unit id="Dvu2HQx" resname="caption.api">
+        <source>caption.api</source>
+        <target>API</target>
+      </trans-unit>
+      <trans-unit id="Wou02nK" resname="caption.kitchensink">
+        <source>caption.kitchensink</source>
+        <target>__caption.kitchensink</target>
+      </trans-unit>
+      <trans-unit id="bq6bSf4" resname="caption.uploaded_files">
+        <source>caption.uploaded_files</source>
+        <target>上传文件</target>
+      </trans-unit>
+      <trans-unit id="K4D568R" resname="caption.view_edit_templates">
+        <source>caption.view_edit_templates</source>
+        <target>编辑模板</target>
+      </trans-unit>
+      <trans-unit id="KshyLfh" resname="caption.other_content">
+        <source>caption.other_content</source>
+        <target>其他</target>
+      </trans-unit>
+      <trans-unit id="wIX8O_z" resname="status.">
+        <source>status.</source>
+        <target>状态.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

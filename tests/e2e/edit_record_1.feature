@@ -81,8 +81,6 @@ Feature: Edit record
   Scenario: As an Admin I want to fill in an imagelist
     Given I am logged in as "admin"
     When I am on "/bolt/edit/42"
-    Given I am logged in as "admin"
-    And I am on "/bolt/edit/42"
     Then I follow "Media"
     Then I should see "Imagelist" in the "label[for='field-imagelist']" element
 
@@ -131,8 +129,6 @@ Feature: Edit record
 
   @javascript
   Scenario: As an Admin I want to fill in a filelist
-    Given I am logged in as "admin"
-    And I am on "/bolt/edit/42"
     Given I am logged in as "admin"
     And I am on "/bolt/edit/42"
     When I follow "Files"

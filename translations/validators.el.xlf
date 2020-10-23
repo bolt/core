@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="validators.en">
+    <unit id="zh5oKD9" name="This value should be false.">
+      <segment>
+        <source>This value should be false.</source>
+        <target>Αυτή η τιμή πρέπει να είναι false.</target>
+      </segment>
+    </unit>
+    <unit id="NN2_iru" name="This value should be true.">
+      <segment>
+        <source>This value should be true.</source>
+        <target>Αυτή η τιμή πρέπει να είναι true.</target>
+      </segment>
+    </unit>
+    <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
+      <segment>
+        <source>This value should be of type {{ type }}.</source>
+        <target>Αυτή η τιμή πρέπει να είναι τύπου{{ type }}.</target>
+      </segment>
+    </unit>
+    <unit id="f0P5pBD" name="This value should be blank.">
+      <segment>
+        <source>This value should be blank.</source>
+        <target>Αυτή η τιμή πρέπει να είναι κενή.</target>
+      </segment>
+    </unit>
+    <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
+      <segment>
+        <source>The value you selected is not a valid choice.</source>
+        <target>Η τιμή που επιλέξατε δεν είναι έγκυρη επιλογή.</target>
+      </segment>
+    </unit>
+    <unit id="7smtimf" name="0d999f2">
+      <segment>
+        <source>0d999f2</source>
+        <target>Πρέπει να επιλέξετε τουλάχιστον {{ limit }} επιλογές.|Πρέπει να επιλέξετε τουλάχιστον {{ limit }} επιλογές.</target>
+      </segment>
+    </unit>
+    <unit id="JRlXq2Z" name="0824486">
+      <segment>
+        <source>0824486</source>
+        <target>Πρέπει να επιλέξετε τουλάχιστον {{ limit }} επιλογές.|Πρέπει να επιλέξετε τουλάχιστον {{ limit }} επιλογές.</target>
+      </segment>
+    </unit>
+    <unit id="87zjiHi" name="One or more of the given values is invalid.">
+      <segment>
+        <source>One or more of the given values is invalid.</source>
+        <target>Μία ή περισσότερες από τις δεδομένες τιμές δεν είναι έγκυρες.</target>
+      </segment>
+    </unit>
+    <unit id="3NeQftv" name="This field was not expected.">
+      <segment>
+        <source>This field was not expected.</source>
+        <target>Αυτό το πεδίο δεν αναμενόταν.</target>
+      </segment>
+    </unit>
+    <unit id="SwMV4zp" name="This field is missing.">
+      <segment>
+        <source>This field is missing.</source>
+        <target>Αυτό το πεδίο λείπει.</target>
+      </segment>
+    </unit>
+    <unit id="LO2vFKN" name="This value is not a valid date.">
+      <segment>
+        <source>This value is not a valid date.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρη ημερομηνία.</target>
+      </segment>
+    </unit>
+    <unit id="86dU_nv" name="This value is not a valid datetime.">
+      <segment>
+        <source>This value is not a valid datetime.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρη ημερομηνία και ωρα.</target>
+      </segment>
+    </unit>
+    <unit id="PSvNXdi" name="This value is not a valid email address.">
+      <segment>
+        <source>This value is not a valid email address.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρη διεύθυνση email.</target>
+      </segment>
+    </unit>
+    <unit id="3KeHbZy" name="The file could not be found.">
+      <segment>
+        <source>The file could not be found.</source>
+        <target>Δεν ήταν δυνατή η εύρεση του αρχείου.</target>
+      </segment>
+    </unit>
+    <unit id="KtJhQZo" name="The file is not readable.">
+      <segment>
+        <source>The file is not readable.</source>
+        <target>Το αρχείο δεν είναι αναγνώσιμο.</target>
+      </segment>
+    </unit>
+    <unit id="2O3FbJ6" name="1ad411a">
+      <segment>
+        <source>1ad411a</source>
+        <target>Το αρχείο είναι πολύ μεγάλο ({{ size }} {{ suffix }}). Το επιτρεπόμενο μέγιστο μέγεθος είναι {{ limit }} {{ suffix }}.</target>
+      </segment>
+    </unit>
+    <unit id="p4L.BFV" name="30a318d">
+      <segment>
+        <source>30a318d</source>
+        <target>Ο τύπος του αρχείου δεν είναι έγκυρος({{ type }}). Οι επιτρεπόμενοι τύποι είναι {{ types }}.</target>
+      </segment>
+    </unit>
+    <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
+      <segment>
+        <source>This value should be {{ limit }} or less.</source>
+        <target>Αυτή η τιμή πρέπει να είναι {{limit}} ή μικρότερη.</target>
+      </segment>
+    </unit>
+    <unit id="SjJg9Hy" name="0e0c1e1">
+      <segment>
+        <source>0e0c1e1</source>
+        <target>Αυτή η τιμή είναι πολύ μεγάλη. Θα πρέπει να έχει {{limit}} χαρακτήρες ή λιγότερο. | Αυτή η τιμή είναι πολύ μεγάλη. Θα πρέπει να έχει {{limit}} χαρακτήρες ή λιγότερους.</target>
+      </segment>
+    </unit>
+    <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
+      <segment>
+        <source>This value should be {{ limit }} or more.</source>
+        <target>Αυτή η τιμή πρέπει να είναι {{limit}} ή μεγαλύτερη.</target>
+      </segment>
+    </unit>
+    <unit id="JJVWzKj" name="5188ff9">
+      <segment>
+        <source>5188ff9</source>
+        <target>Αυτή η τιμή είναι πολύ μικρή. Θα πρέπει να έχει {{limit}} χαρακτήρες ή περισσότερο. | Αυτή η τιμή είναι πολύ μικρή. Θα πρέπει να έχει {{limit}} χαρακτήρες ή περισσότερους.</target>
+      </segment>
+    </unit>
+    <unit id="1KV4L.t" name="This value should not be blank.">
+      <segment>
+        <source>This value should not be blank.</source>
+        <target>Αυτή η τιμή δεν πρέπει να είναι κενή.</target>
+      </segment>
+    </unit>
+    <unit id="2G4Vepm" name="This value should not be null.">
+      <segment>
+        <source>This value should not be null.</source>
+        <target>Αυτή η τιμή δεν πρέπει να είναι απροσδιοριστη.</target>
+      </segment>
+    </unit>
+    <unit id="yDc3m6E" name="This value should be null.">
+      <segment>
+        <source>This value should be null.</source>
+        <target>Αυτή η τιμή πρέπει να είναι απροσδιοριστη.</target>
+      </segment>
+    </unit>
+    <unit id="zKzWejA" name="This value is not valid.">
+      <segment>
+        <source>This value is not valid.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρη.</target>
+      </segment>
+    </unit>
+    <unit id="HSuBZpQ" name="This value is not a valid time.">
+      <segment>
+        <source>This value is not a valid time.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρη ώρα.</target>
+      </segment>
+    </unit>
+    <unit id="snWc_QT" name="This value is not a valid URL.">
+      <segment>
+        <source>This value is not a valid URL.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρη διεύθυνση URL.</target>
+      </segment>
+    </unit>
+    <unit id="jpaLsb2" name="The two values should be equal.">
+      <segment>
+        <source>The two values should be equal.</source>
+        <target>Οι δύο τιμές πρέπει να είναι ίσες.</target>
+      </segment>
+    </unit>
+    <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
+      <segment>
+        <source>The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.</source>
+        <target>Το αρχείο είναι πολύ μεγάλο. Το επιτρεπόμενο μέγιστο μέγεθος είναι {{limit}} {{suffix}}.</target>
+      </segment>
+    </unit>
+    <unit id="tW7o0t9" name="The file is too large.">
+      <segment>
+        <source>The file is too large.</source>
+        <target>Το αρχείο είναι πολύ μεγάλο.</target>
+      </segment>
+    </unit>
+    <unit id=".exF5Ww" name="The file could not be uploaded.">
+      <segment>
+        <source>The file could not be uploaded.</source>
+        <target>Δεν ήταν δυνατή η μεταφόρτωση του αρχείου.</target>
+      </segment>
+    </unit>
+    <unit id="d7sS5yw" name="This value should be a valid number.">
+      <segment>
+        <source>This value should be a valid number.</source>
+        <target>Αυτή η τιμή πρέπει να είναι έγκυρος αριθμός.</target>
+      </segment>
+    </unit>
+    <unit id="BS2Ez6i" name="This file is not a valid image.">
+      <segment>
+        <source>This file is not a valid image.</source>
+        <target>Αυτό το αρχείο δεν είναι έγκυρη εικόνα.</target>
+      </segment>
+    </unit>
+    <unit id="ydcT9kU" name="This is not a valid IP address.">
+      <segment>
+        <source>This is not a valid IP address.</source>
+        <target>Αυτή δεν είναι έγκυρη διεύθυνση IP.</target>
+      </segment>
+    </unit>
+    <unit id="lDOGNFX" name="This value is not a valid language.">
+      <segment>
+        <source>This value is not a valid language.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρη γλώσσα.</target>
+      </segment>
+    </unit>
+    <unit id="y9IdYkA" name="This value is not a valid locale.">
+      <segment>
+        <source>This value is not a valid locale.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρο locale.</target>
+      </segment>
+    </unit>
+    <unit id="1YC0pOd" name="This value is not a valid country.">
+      <segment>
+        <source>This value is not a valid country.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρη χώρα.</target>
+      </segment>
+    </unit>
+    <unit id="B5ebaMp" name="This value is already used.">
+      <segment>
+        <source>This value is already used.</source>
+        <target>Αυτή η τιμή χρησιμοποιείται ήδη.</target>
+      </segment>
+    </unit>
+    <unit id="L6097a6" name="The size of the image could not be detected.">
+      <segment>
+        <source>The size of the image could not be detected.</source>
+        <target>Δεν ήταν δυνατή η ανίχνευση του μεγέθους της εικόνας.</target>
+      </segment>
+    </unit>
+    <unit id="g9NoIBz" name="266051e">
+      <segment>
+        <source>266051e</source>
+        <target>Το πλάτος της εικόνας είναι πολύ μεγάλο ({{width}} px). Το επιτρεπόμενο μέγιστο πλάτος είναι {{max_width}} px.</target>
+      </segment>
+    </unit>
+    <unit id="HTsQNva" name="c1c23f9">
+      <segment>
+        <source>c1c23f9</source>
+        <target>Το πλάτος της εικόνας είναι πολύ μικρό ({{width}} px). Το αναμενόμενο ελάχιστο πλάτος είναι {{min_width}} px.</target>
+      </segment>
+    </unit>
+    <unit id="h3PRqha" name="9a128f7">
+      <segment>
+        <source>9a128f7</source>
+        <target>Το ύψος της εικόνας είναι πολύ μεγάλο ({{height}} px). Το επιτρεπόμενο μέγιστο ύψος είναι {{max_height}} px.</target>
+      </segment>
+    </unit>
+    <unit id="IVraZ3b" name="8a4cd70">
+      <segment>
+        <source>8a4cd70</source>
+        <target>Το ύψος της εικόνας είναι πολύ μικρό ({{height}} px). Το ελάχιστο αναμενόμενο ύψος είναι {{min_height}} px.</target>
+      </segment>
+    </unit>
+    <unit id="PSdMNab" name="This value should be the user's current password.">
+      <segment>
+        <source>This value should be the user's current password.</source>
+        <target>Αυτή η τιμή πρέπει να είναι ο τρέχων κωδικός πρόσβασης του χρήστη.</target>
+      </segment>
+    </unit>
+    <unit id="Anek_FY" name="fd389d6">
+      <segment>
+        <source>fd389d6</source>
+        <target>Αυτή η τιμή πρέπει να έχει ακριβώς {{limit}} χαρακτήρα. | Αυτή η τιμή θα πρέπει να έχει ακριβώς {{limit}} χαρακτήρες.</target>
+      </segment>
+    </unit>
+    <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
+      <segment>
+        <source>The file was only partially uploaded.</source>
+        <target>Το αρχείο μεταφορτώθηκε μόνο εν μέρει.</target>
+      </segment>
+    </unit>
+    <unit id="HzkJDtF" name="No file was uploaded.">
+      <segment>
+        <source>No file was uploaded.</source>
+        <target>Δεν μεταφορτώθηκε κανένα αρχείο.</target>
+      </segment>
+    </unit>
+    <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
+      <segment>
+        <source>No temporary folder was configured in php.ini.</source>
+        <target>Δεν διαμορφώθηκε προσωρινός φάκελος στο php.ini ή ο διαμορφωμένος φάκελος δεν υπάρχει.</target>
+      </segment>
+    </unit>
+    <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
+      <segment>
+        <source>Cannot write temporary file to disk.</source>
+        <target>Δεν είναι δυνατή η εγγραφή προσωρινού αρχείου στο δίσκο.</target>
+      </segment>
+    </unit>
+    <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
+      <segment>
+        <source>A PHP extension caused the upload to fail.</source>
+        <target>Μια επέκταση PHP προκάλεσε την αποτυχία της μεταφόρτωσης.</target>
+      </segment>
+    </unit>
+    <unit id="YuLxmhd" name="b54c218">
+      <segment>
+        <source>b54c218</source>
+        <target>Αυτή η συλλογή θα πρέπει να περιέχει {{limit}} στοιχεία ή περισσότερα. | Αυτή η συλλογή πρέπει να περιέχει στοιχεία {{limit}} ή περισσότερα.</target>
+      </segment>
+    </unit>
+    <unit id="qXV2OMI" name="949632c">
+      <segment>
+        <source>949632c</source>
+        <target>Αυτή η συλλογή θα πρέπει να περιέχει {{limit}} στοιχεία ή λιγότερο. | Αυτή η συλλογή θα πρέπει να περιέχει στοιχεία {{limit}} ή λιγότερα.</target>
+      </segment>
+    </unit>
+    <unit id="BnjGMFh" name="e0582dc">
+      <segment>
+        <source>e0582dc</source>
+        <target>Αυτή η συλλογή θα πρέπει να περιέχει ακριβώς {{limit}} στοιχεία. | Αυτή η συλλογή θα πρέπει να περιέχει ακριβώς {{limit}} στοιχεία.</target>
+      </segment>
+    </unit>
+    <unit id="MAzmID7" name="Invalid card number.">
+      <segment>
+        <source>Invalid card number.</source>
+        <target>Ακυρο νουμερο κάρτας.</target>
+      </segment>
+    </unit>
+    <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
+      <segment>
+        <source>Unsupported card type or invalid card number.</source>
+        <target>Μη υποστηριζόμενος τύπος κάρτας ή μη έγκυρος αριθμός κάρτας.</target>
+      </segment>
+    </unit>
+    <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
+      <segment>
+        <source>This is not a valid International Bank Account Number (IBAN).</source>
+        <target>Αυτός δεν είναι έγκυρος διεθνής αριθμός τραπεζικού λογαριασμού (IBAN).</target>
+      </segment>
+    </unit>
+    <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
+      <segment>
+        <source>This value is not a valid ISBN-10.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρο ISBN-10.</target>
+      </segment>
+    </unit>
+    <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
+      <segment>
+        <source>This value is not a valid ISBN-13.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρο ISBN-13.</target>
+      </segment>
+    </unit>
+    <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
+      <segment>
+        <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
+        <target>Αυτή η τιμή δεν είναι ούτε έγκυρη ISBN-10 ούτε έγκυρη ISBN-13.</target>
+      </segment>
+    </unit>
+    <unit id="cuct0Ow" name="This value is not a valid ISSN.">
+      <segment>
+        <source>This value is not a valid ISSN.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρο ISSN.</target>
+      </segment>
+    </unit>
+    <unit id="JBLs1a1" name="This value is not a valid currency.">
+      <segment>
+        <source>This value is not a valid currency.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρο νόμισμα.</target>
+      </segment>
+    </unit>
+    <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be equal to {{ compared_value }}.</source>
+        <target>Αυτή η τιμή πρέπει να είναι ίση με {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
+      <segment>
+        <source>This value should be greater than {{ compared_value }}.</source>
+        <target>Αυτή η τιμή πρέπει να είναι μεγαλύτερη από {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be greater than or equal to {{ compared_value }}.</source>
+        <target>Αυτή η τιμή πρέπει να είναι μεγαλύτερη ή ίση με {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="SreIWoo" name="9670078">
+      <segment>
+        <source>9670078</source>
+        <target>Αυτή η τιμή πρέπει να είναι ίδια με {{ compared_value_type }} {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
+      <segment>
+        <source>This value should be less than {{ compared_value }}.</source>
+        <target>Αυτή η τιμή πρέπει να είναι ίδια με αυτήν {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should be less than or equal to {{ compared_value }}.</source>
+        <target>Αυτή η τιμή πρέπει να είναι μικρότερη ή ίση με{{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
+      <segment>
+        <source>This value should not be equal to {{ compared_value }}.</source>
+        <target>Αυτή η τιμή δεν πρέπει να είναι ίση με {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="JIjdvtb" name="0eedf91">
+      <segment>
+        <source>0eedf91</source>
+        <target>Αυτή η τιμή δεν πρέπει να είναι ίδια με αυτήν {{ compared_value_type }} {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="vzvxzpR" name="9c3ad0f">
+      <segment>
+        <source>9c3ad0f</source>
+        <target>Η αναλογία εικόνας είναι πολύ μεγάλη ({{ratio}}). Η επιτρεπόμενη μέγιστη αναλογία είναι {{max_ratio}}.</target>
+      </segment>
+    </unit>
+    <unit id="LiDaIWN" name="4376d45">
+      <segment>
+        <source>4376d45</source>
+        <target>Η αναλογία εικόνας είναι πολύ μικρή ({{ratio}}). Η αναμενόμενη ελάχιστη αναλογία είναι {{min_ratio}}.</target>
+      </segment>
+    </unit>
+    <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
+      <segment>
+        <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
+        <target>Η εικόνα είναι τετράγωνη ({{width}} x {{height}} px). Δεν επιτρέπονται τετράγωνες εικόνες.</target>
+      </segment>
+    </unit>
+    <unit id="501jWTO" name="1dc128a">
+      <segment>
+        <source>1dc128a</source>
+        <target>Η εικόνα έχει οριζόντιο προσανατολισμό ({{width}} x {{height}} px). Δεν επιτρέπονται εικόνες με οριζόντιο προσανατολισμό.</target>
+      </segment>
+    </unit>
+    <unit id="J4L.QnM" name="9e27714">
+      <segment>
+        <source>9e27714</source>
+        <target>Η εικόνα είναι κατακόρυφη ({{width}} x {{height}} px). Δεν επιτρέπονται εικόνες με προσανατολισμό σε πορτραίτο.</target>
+      </segment>
+    </unit>
+    <unit id="jZgqcpL" name="An empty file is not allowed.">
+      <segment>
+        <source>An empty file is not allowed.</source>
+        <target>Δεν επιτρέπεται κενό αρχείο.</target>
+      </segment>
+    </unit>
+    <unit id="bcfVezI" name="The host could not be resolved.">
+      <segment>
+        <source>The host could not be resolved.</source>
+        <target>Δεν ήταν δυνατή η επίλυση του κεντρικού υπολογιστή.</target>
+      </segment>
+    </unit>
+    <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
+      <segment>
+        <source>This value does not match the expected {{ charset }} charset.</source>
+        <target>Αυτή η τιμή δεν ταιριάζει με το αναμενόμενο charset {{charset}}.</target>
+      </segment>
+    </unit>
+    <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
+      <segment>
+        <source>This is not a valid Business Identifier Code (BIC).</source>
+        <target>Αυτός δεν είναι έγκυρος κωδικός αναγνώρισης επιχείρησης (BIC).</target>
+      </segment>
+    </unit>
+    <unit id="VKDowX6" name="Error">
+      <segment>
+        <source>Error</source>
+        <target>Σφάλμα</target>
+      </segment>
+    </unit>
+    <unit id="8zqt0Ik" name="This is not a valid UUID.">
+      <segment>
+        <source>This is not a valid UUID.</source>
+        <target>Αυτό δεν είναι έγκυρο UUID.</target>
+      </segment>
+    </unit>
+    <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
+      <segment>
+        <source>This value should be a multiple of {{ compared_value }}.</source>
+        <target>Αυτή η τιμή πρέπει να είναι πολλαπλάσιο του {{ compared_value }}.</target>
+      </segment>
+    </unit>
+    <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
+      <segment>
+        <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
+        <target>Αυτός ο κωδικός αναγνώρισης επιχείρησης (BIC) δεν σχετίζεται με τον IBAN {{iban}}.</target>
+      </segment>
+    </unit>
+    <unit id="2v2xpAh" name="This value should be valid JSON.">
+      <segment>
+        <source>This value should be valid JSON.</source>
+        <target>Αυτή η τιμή πρέπει να είναι έγκυρος τυπος JSON.</target>
+      </segment>
+    </unit>
+    <unit id="9CWVEGq" name="This collection should contain only unique elements.">
+      <segment>
+        <source>This collection should contain only unique elements.</source>
+        <target>Αυτή η συλλογή πρέπει να περιέχει μόνο μοναδικά στοιχεία.</target>
+      </segment>
+    </unit>
+    <unit id="WdvZfq." name="This value should be positive.">
+      <segment>
+        <source>This value should be positive.</source>
+        <target>Αυτή η τιμή πρέπει να είναι θετική.</target>
+      </segment>
+    </unit>
+    <unit id="ubHMK2q" name="This value should be either positive or zero.">
+      <segment>
+        <source>This value should be either positive or zero.</source>
+        <target>Αυτή η τιμή πρέπει να είναι θετική ή μηδενική.</target>
+      </segment>
+    </unit>
+    <unit id="IwNTzo_" name="This value should be negative.">
+      <segment>
+        <source>This value should be negative.</source>
+        <target>Αυτή η τιμή πρέπει να είναι αρνητική.</target>
+      </segment>
+    </unit>
+    <unit id="0GfwMfP" name="This value should be either negative or zero.">
+      <segment>
+        <source>This value should be either negative or zero.</source>
+        <target>Αυτή η τιμή πρέπει να είναι είτε αρνητική είτε μηδενική.</target>
+      </segment>
+    </unit>
+    <unit id="fs3qQZR" name="This value is not a valid timezone.">
+      <segment>
+        <source>This value is not a valid timezone.</source>
+        <target>Αυτή η τιμή δεν είναι έγκυρη ζώνη ώρας.</target>
+      </segment>
+    </unit>
+    <unit id="A3Gr4fn" name="7e27e92">
+      <segment>
+        <source>7e27e92</source>
+        <target>Αυτός ο κωδικός πρόσβασης έχει διαρρεύσει σε παραβίαση δεδομένων, δεν πρέπει να χρησιμοποιείται. Χρησιμοποιήστε έναν άλλο κωδικό πρόσβασης.</target>
+      </segment>
+    </unit>
+    <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
+      <segment>
+        <source>This value should be between {{ min }} and {{ max }}.</source>
+        <target>Αυτή η τιμή πρέπει να κυμαίνεται μεταξύ {{min}} και {{max}}.</target>
+      </segment>
+    </unit>
+    <unit id=".SEaaBa" name="This form should not contain extra fields.">
+      <segment>
+        <source>This form should not contain extra fields.</source>
+        <target>Αυτή η φόρμα δεν πρέπει να περιέχει επιπλέον πεδία.</target>
+      </segment>
+    </unit>
+    <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
+      <segment>
+        <source>The uploaded file was too large. Please try to upload a smaller file.</source>
+        <target>Το μεταφορτωμένο αρχείο ήταν πολύ μεγάλο. Δοκιμάστε να ανεβάσετε ένα μικρότερο αρχείο.</target>
+      </segment>
+    </unit>
+    <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
+      <segment>
+        <source>The CSRF token is invalid. Please try to resubmit the form.</source>
+        <target>Το διακριτικό CSRF δεν είναι έγκυρο. Δοκιμάστε να υποβάλετε ξανά τη φόρμα.</target>
+      </segment>
+    </unit>
+    <unit id="TG1D5NO" name="post.blank_summary">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.blank_summary</source>
+        <target>Δώστε μια περίληψη στην ανάρτησή σας!</target>
+      </segment>
+    </unit>
+    <unit id="BZOzjk." name="post.blank_content">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.blank_content</source>
+        <target>Η ανάρτησή σας πρέπει να έχει κάποιο περιεχόμενο!</target>
+      </segment>
+    </unit>
+    <unit id="S6M.YWY" name="post.too_short_content">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.too_short_content</source>
+        <target>Το περιεχόμενο της ανάρτησης είναι πολύ μικρό (ελάχιστο {{limit}} χαρακτήρες)</target>
+      </segment>
+    </unit>
+    <unit id="niM7JYj" name="post.too_many_tags">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>post.too_many_tags</source>
+        <target>Πάρα πολλές ετικέτες (προσθέστε {{limit}} ή λιγότερες)</target>
+      </segment>
+    </unit>
+    <unit id="ARUoKOV" name="comment.blank">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.blank</source>
+        <target>Μην αφήσετε το σχόλιό σας κενό!</target>
+      </segment>
+    </unit>
+    <unit id="J.L_ppQ" name="comment.too_short">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.too_short</source>
+        <target>Το σχόλιο είναι πολύ μικρό ({{limit}} ελάχιστοι χαρακτήρες)</target>
+      </segment>
+    </unit>
+    <unit id=".bkQKXb" name="comment.too_long">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.too_long</source>
+        <target>Το σχόλιο είναι πολύ μεγάλο ({{limit}} χαρακτήρες το μέγιστο)</target>
+      </segment>
+    </unit>
+    <unit id="cTT8h4_" name="comment.is_spam">
+      <notes>
+        <note priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>comment.is_spam</source>
+        <target>Το περιεχόμενο αυτού του σχολίου θεωρείται ανεπιθύμητο.</target>
+      </segment>
+    </unit>
+    <unit id="LDy5h0B" name="user.duplicate_email">
+      <segment>
+        <source>user.duplicate_email</source>
+        <target>Υπάρχει ήδη χρήστης με {{value}} email.</target>
+      </segment>
+    </unit>
+    <unit id="D4OMpCY" name="user.duplicate_username">
+      <segment>
+        <source>user.duplicate_username</source>
+        <target>Υπάρχει ήδη χρήστης με όνομα χρήστη {{value}}.</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Λανθασμένος κωδικός. Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον 6 χαρακτήρες.</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>Ακυρη διεύθυνση ηλεκτρονικού ταχυδρομείου</target>
+      </segment>
+    </unit>
+    <unit id="4eH4IFY" name="user.username_invalid_characters">
+      <segment>
+        <source>user.username_invalid_characters</source>
+        <target>Το όνομα χρήστη πρέπει να περιέχει μόνο πεζούς λατινικούς χαρακτήρες, αριθμούς και κάτω παύλες.</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>Μη έγκυρο εμφανιζόμενο όνομα</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
