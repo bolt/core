@@ -338,7 +338,6 @@ validationdemos:
             type: collection
             group: Collections
             label: This is my Collection
-            variant: expanded
             fields:
                 set:
                     type: set
@@ -356,6 +355,9 @@ validationdemos:
                         - Length:
                               min: 100
                               max: 200
+#            count_constraint:
+#                min: 1
+#                max: 2
     relations:
         entries:
             multiple: false
@@ -364,7 +366,7 @@ validationdemos:
             multiple: true
             order: title
             label: Select 1 or 2 pages
-            limit:
+            count_constraint:
                 min: 1
                 max: 2
 

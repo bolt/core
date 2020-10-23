@@ -86,14 +86,28 @@ class ContentValidator implements ContentValidatorInterface
                     }
                 };
 
-                $fieldConstraints[$fieldName] = new Assert\All([
-                    'constraints' => [
-                        new Assert\Callback([
-                            'callback' => $callback,
-                            'payload' => $collectionFieldConstraintCombinations,
-                        ]),
-                    ],
-                ]);
+                // Use optional to prevent failure if the collection has no items
+                $collectionItemConstraits = new Assert\Optional(
+                    new Assert\All([
+                        'constraints' => [
+                            new Assert\Callback([
+                                'callback' => $callback,
+                                'payload' => $collectionFieldConstraintCombinations,
+                            ]),
+                        ],
+                    ])
+                );
+
+                // if there is a count constraint set on the collection itself (like on relations)
+                $limitConstraintConfig = $fieldType->get('count_constraint', collect([]))->toArray();
+                if (\count($limitConstraintConfig) > 0) {
+                    // pass contents of 'count_constraint' node to Symfony CountConstraint
+                    [$limitConstraint] = $this->loader->parseNodes([['Count' => $limitConstraintConfig]]);
+                    $fieldConstraints[$fieldName] = [$limitConstraint, $collectionItemConstraits];
+
+                } else {
+                    $fieldConstraints[$fieldName] = $collectionItemConstraits;
+                }
             }
         }
 
@@ -117,9 +131,9 @@ class ContentValidator implements ContentValidatorInterface
 
         $relationshipConstraints = [];
         foreach ($contentType->get('relations', []) as $relationType => $relationConfig) {
-            $relationConstraintConfig = $relationConfig->get('limit', collect([]))->toArray();
+            $relationConstraintConfig = $relationConfig->get('count_constraint', collect([]))->toArray();
             if (\count($relationConstraintConfig) > 0) {
-                // pass contents of 'limit' node to Symfony CountConstraint
+                // pass contents of 'count_constraint' node to Symfony CountConstraint
                 $relationshipConstraints[$relationType] = $this->loader->parseNodes([['Count' => $relationConstraintConfig]]);
             }
         }
