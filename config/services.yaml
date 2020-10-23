@@ -60,6 +60,10 @@ services:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
 
+    Bolt\Event\Listener\TaxonomyFillListener:
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+
     Bolt\Extension\RoutesLoader:
         tags: [routing.loader]
 

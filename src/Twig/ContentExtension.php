@@ -384,7 +384,7 @@ class ContentExtension extends AbstractExtension
 
         if ($contentOrTaxonomy instanceof Taxonomy) {
             return $this->urlGenerator->generate('taxonomy', [
-                'taxonomyslug' => $contentOrTaxonomy->getType(),
+                'taxonomyslug' => $contentOrTaxonomy->getTaxonomyTypeSingularSlug(),
                 'slug' => $contentOrTaxonomy->getSlug(),
             ]);
         }
