@@ -107,7 +107,7 @@ class Taxonomy
     public function getTaxonomyTypeSlug(): string
     {
         if ($this->getDefinition() === null) {
-            throw new \RuntimeException('Taxonomy not fully initialized');
+            return $this->getType();
         }
 
         return $this->getDefinition()->get('slug');
@@ -116,7 +116,7 @@ class Taxonomy
     public function getTaxonomyTypeSingularSlug(): string
     {
         if ($this->getDefinition() === null) {
-            throw new \RuntimeException('Taxonomy not fully initialized');
+            return $this->getType();
         }
 
         return $this->getDefinition()->get('singular_slug');
