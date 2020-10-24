@@ -36,3 +36,5 @@ services:
 		tags: [phpstan.rules.rule]
 		arguments:
 			forbiddenFunctions: ['d', 'dd', 'dump', 'var_dump', 'extract']
+
+	- Symplify\PackageBuilder\Matcher\ArrayStringAndFnMatcher
