@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Bolt\Entity;
 
 use Bolt\Common\Str;
+use Bolt\Configuration\Content\TaxonomyType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\TaxonomyRepository")
@@ -50,14 +52,30 @@ class Taxonomy
      */
     private $sortorder = 0;
 
-    public function __construct()
+    /** @var TaxonomyType|null */
+    private $taxonomyTypeDefinition = null;
+
+    public function __construct(?TaxonomyType $taxonomyTypeDefinition = null)
     {
         $this->content = new ArrayCollection();
+
+        if ($taxonomyTypeDefinition) {
+            $this->setType($taxonomyTypeDefinition->getSlug());
+            $this->setDefinition($taxonomyTypeDefinition);
+        }
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @see \Bolt\Event\Listener\TaxonomyFillListener
+     */
+    public function setDefinitionFromTaxonomyTypesConfig(LaravelCollection $taxonomyTypesConfig): void
+    {
+        $this->taxonomyTypeDefinition = TaxonomyType::factory($this->type, $taxonomyTypesConfig);
     }
 
     /**
@@ -84,6 +102,24 @@ class Taxonomy
         }
 
         return $this;
+    }
+
+    public function getTaxonomyTypeSlug(): string
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Taxonomy not fully initialized');
+        }
+
+        return $this->getDefinition()->get('slug');
+    }
+
+    public function getTaxonomyTypeSingularSlug(): string
+    {
+        if ($this->getDefinition() === null) {
+            throw new \RuntimeException('Taxonomy not fully initialized');
+        }
+
+        return $this->getDefinition()->get('singular_slug');
     }
 
     public function getType(): ?string
@@ -132,5 +168,18 @@ class Taxonomy
         $this->sortorder = $sortorder;
 
         return $this;
+    }
+
+    public function setDefinition(TaxonomyType $taxonomyType): void
+    {
+        $this->taxonomyTypeDefinition = $taxonomyType;
+    }
+
+    /**
+     * @Groups("get_definition")
+     */
+    public function getDefinition(): ?TaxonomyType
+    {
+        return $this->taxonomyTypeDefinition;
     }
 }
