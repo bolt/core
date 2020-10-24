@@ -13,7 +13,10 @@
 
 {% block main %}
 
-    <h2>Bolt {{ constant('Bolt\\Version::VERSION') }}<small> - {{ constant('Bolt\\Version::CODENAME') }}</small></h2>
+    <h2>
+        Bolt {{ constant('Bolt\\Version::VERSION') }}
+        {% if constant('Bolt\\Version::CODENAME') %}<small> - {{ constant('Bolt\\Version::CODENAME') }}</small>{% endif %}
+    </h2>
 
     <p><b>{{ 'about.system_info'|trans }}:</b></p>
     <ul>
@@ -22,6 +25,7 @@
         <li>PHP version: <code>{{ php }}</code></li>
         <li>Symfony version: <code>{{ symfony }}</code></li>
         <li>Operating System: <code>{{ os_name }} - <small>{{ os_version }}</small></code></li>
+        <li>Assets version: <code id="assetsVersion">-</code></li>
     </ul>
     <hr>
 
@@ -89,4 +93,10 @@
         {# @todo: Once we settle on a Markdown component (like MDE or ToastUI), add it here. #}
     </ul>
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('#assetsVersion').innerText =  window.assetsVersion;
+});
+</script>
 {% endblock main %}
