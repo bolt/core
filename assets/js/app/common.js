@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { DateTime } from 'luxon';
 
-import {version} from '../version';
+import { version } from '../version';
 window.assetsVersion = version;
 
 $(document).ready(function() {
