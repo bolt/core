@@ -21,7 +21,7 @@ before_install:
     - composer self-update --2 -q
 
 install:
-    - COMPOSER_MEMORY_LIMIT=-1 composer update
+    - COMPOSER_MEMORY_LIMIT=-1 composer update -v
     - ./bin/console bolt:info
     - nvm install 12.5
     - npm ci
