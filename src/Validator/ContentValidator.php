@@ -143,7 +143,7 @@ class ContentValidator implements ContentValidatorInterface
         return new Assert\Collection([
             'fields' => [
                 'fields' => $fieldConstraints,
-                'relationship' => new Assert\Collection([
+                'relations' => new Assert\Collection([
                     'fields' => $relationshipConstraints,
                     'allowExtraFields' => true,
                 ]),
@@ -181,7 +181,7 @@ class ContentValidator implements ContentValidatorInterface
             $value = [
                 'fields' => $content->getFieldValues(),
                 'taxonomy' => $content->getTaxonomyValues(),
-                'relationship' => $this->relationsToMap($content->getRelationsFromThisContent()),
+                'relations' => $this->relationsToMap($content->getRelationsFromThisContent()),
             ];
 
             return $this->validator->validate($value, $constraints);
