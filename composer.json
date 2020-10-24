@@ -81,7 +81,7 @@
         "behatch/contexts": "^3.3",
         "bobdenotter/configuration-notices": "^1.1",
         "bobdenotter/weatherwidget": "^1.1",
-        "bolt/binary-chromedriver": "dev-master",
+        "bolt/binary-chromedriver": "^5.1",
         "bolt/newswidget": "^1.2",
         "coduo/php-matcher": "^4.0",
         "dama/doctrine-test-bundle": "^6.2.0",
@@ -148,15 +148,5 @@
         "container-interop/container-interop": "*"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/bolt/binary-chromedriver"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/bolt/webdriver-binary-downloader"
-        }
-    ]
+    "prefer-stable": true
 }
