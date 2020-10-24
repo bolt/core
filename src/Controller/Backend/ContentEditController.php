@@ -136,7 +136,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $content = $this->contentFromPost($content);
 
         // check if validator should be enabled (default for bolt 4.x is not enabled)
-        $enableContentValidator = $this->config->get('validator_options/enable', false);
+        $enableContentValidator = $this->config->get('general/validator_options/enable', false);
         if ($enableContentValidator && $contentValidator) {
             $constraintViolations = $contentValidator->validate($content);
             if (count($constraintViolations) > 0) {
