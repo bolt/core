@@ -381,7 +381,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                         $order = $orderArray[$orderId];
                         $fieldDefinition = $collection->getDefinition()->get('fields')->get($name);
                         $field = FieldRepository::factory($fieldDefinition, $name);
-                        $field->setParent($collection); // <-- replaced this with the $collection->setValue() below
+                        // Note, $collection side is set by $collection->setValue() below
+                        $field->setParent($collection);
                         $newFields[] = $field;
                         $field->setSortorder($order);
                         $content->addField($field);
