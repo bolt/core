@@ -43,7 +43,7 @@ class FieldTranslation implements TranslationInterface
 
     public function get($key)
     {
-        return isset($this->value[$key]) ? $this->value[$key] : null;
+        return $this->value[$key] ?? null;
     }
 
     public function set(string $key, $value): self
