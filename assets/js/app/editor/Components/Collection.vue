@@ -41,7 +41,7 @@
                 <p v-if="templates.length > 1" class="mt-4 mb-1">{{ labels.add_collection_item }}:</p>
                 <div v-if="templates.length > 1" class="dropdown">
                     <button
-                        id="dropdownMenuButton"
+                        :id="name + '-dropdownMenuButton'"
                         :disabled="!allowMore"
                         class="btn btn-secondary dropdown-toggle"
                         type="button"
@@ -51,7 +51,7 @@
                     >
                         <i class="fas fa-fw fa-plus"></i> {{ labels.select }}
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu" :aria-labelledby="name + '-dropdownMenuButton'">
                         <a
                             v-for="template in templates"
                             :key="template.label"

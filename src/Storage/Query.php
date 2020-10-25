@@ -40,7 +40,7 @@ class Query
      * getContent based on a 'human readable query'.
      *
      * Used by the twig command {% setcontent %} but also directly.
-     * For reference refer to @link https://docs.bolt.cm/templating/content-fetching
+     * For reference refer to @see https://docs.bolt.cm/templating/content-fetching
      *
      * @return Pagerfanta|Content|null
      */

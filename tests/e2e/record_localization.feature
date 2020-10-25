@@ -2,7 +2,6 @@ Feature: See localization info for a record
   @javascript
   Scenario: No localization link for contenttype without locales
     Given I am logged in as "admin"
-    Given I am logged in as "admin"
 
     When I click "Entries"
     And I click the 1st "Edit"
