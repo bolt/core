@@ -5,8 +5,9 @@ parameters:
         - src
 
     scanDirectories:
-        # In order to 'recognize' Twig functions in global scope
+        # In order to 'recognize' Twig and Carbon functions in global scope
         - %currentWorkingDirectory%/vendor/twig/twig/src/Extension
+        - %currentWorkingDirectory%/vendor/nesbot/carbon/src/Carbon
 
     ignoreErrors:
         # false positive: `Unreachable statement - code above always terminates.`
