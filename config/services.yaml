@@ -112,3 +112,6 @@ services:
     Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
 
     Squirrel\TwigPhpSyntax\PhpSyntaxExtension: ~
+
+    # Validation: specify Bolt\Validator\ContentValidator as validator
+    Bolt\Validator\ContentValidatorInterface: '@Bolt\Validator\ContentValidator'
