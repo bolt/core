@@ -18,7 +18,7 @@
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "doctrine/orm": "^2.7",
-        "drupol/composer-packages": "dev-master",
+        "drupol/composer-packages": "^2.0",
         "embed/embed": "^3.4",
         "erusev/parsedown": "^1.7",
         "fzaninotto/faker": "^1.9",
