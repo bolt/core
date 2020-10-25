@@ -1,6 +1,6 @@
 {
     "name": "bolt",
-    "version": "4.1.3",
+    "version": "4.1.4",
     "homepage": "https://boltcms.io",
     "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
     "license": "MIT",
@@ -33,8 +33,8 @@
         "bootbox": "^5.5.1",
         "bootstrap": "^4.5.3",
         "browserslist": "^4.14.5",
-        "caniuse-lite": "^1.0.30001150",
-        "codemirror": "^5.58.1",
+        "caniuse-lite": "^1.0.30001151",
+        "codemirror": "^5.58.2",
         "dropzone": "^5.7.2",
         "flagpack": "^1.0.5",
         "hotkeys-js": "^3.8.1",
@@ -100,7 +100,7 @@
     },
     "scripts": {
         "start": "encore dev-server --port=8234 --progress --disable-host-check --verbose",
-        "build": "encore production --progress",
+        "build": "npm run genversion && encore production --progress",
         "postbuild": "rm public/assets/fonts/*.ttf; rm public/assets/fonts/*.eot; rm public/assets/fonts/*.woff; rm public/assets/images/fa-*.svg;",
         "build:stats": "encore production --progress --json > webpack_stats.json",
         "serve": "encore dev --watch",
