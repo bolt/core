@@ -25,6 +25,13 @@ parameters:
             message: '#of method Doctrine\\ORM\\Query\\Expr::substring\(\) expects int#'
             path: %currentWorkingDirectory%/src/Storage/Directive/OrderDirective.php
 
+        # Locally it's fine, but on Github CI PHPstan complains about "Reflection error: Carbon\Traits\Localization not found."
+        -
+            message: '#Reflection error: Carbon\\Traits\\Localization not found#'
+            path: %currentWorkingDirectory%/src/*
+
+    reportUnmatchedIgnoredErrors: false
+
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
