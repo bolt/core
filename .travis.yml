@@ -1,6 +1,6 @@
 language: php
+os: linux
 dist: xenial
-sudo: false
 php:
     - 7.2
     - 7.3
@@ -13,7 +13,7 @@ cache:
     directories:
         - $HOME/.composer/cache/files
 
-matrix:
+jobs:
     fast_finish: true
 
 before_install:
