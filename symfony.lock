@@ -407,9 +407,6 @@
     "pagerfanta/pagerfanta": {
         "version": "v2.3.0"
     },
-    "paragonie/random_compat": {
-        "version": "v9.99.99"
-    },
     "peterkahl/country-code-to-emoji-flag": {
         "version": "v1.2"
     },
