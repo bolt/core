@@ -70,11 +70,17 @@
     "bobdenotter/weatherwidget": {
         "version": "1.1.1"
     },
+    "bolt/binary-chromedriver": {
+        "version": "dev-master"
+    },
     "bolt/common": {
         "version": "2.1.5"
     },
     "bolt/newswidget": {
         "version": "1.2.0"
+    },
+    "bolt/webdriver-binary-downloader": {
+        "version": "dev-master"
     },
     "brick/math": {
         "version": "0.8.14"
@@ -96,6 +102,9 @@
     },
     "composer/composer": {
         "version": "1.9.3"
+    },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99"
     },
     "composer/semver": {
         "version": "1.5.1"
@@ -401,9 +410,6 @@
     "pagerfanta/pagerfanta": {
         "version": "v2.3.0"
     },
-    "paragonie/random_compat": {
-        "version": "v9.99.99"
-    },
     "peterkahl/country-code-to-emoji-flag": {
         "version": "v1.2"
     },
@@ -594,6 +600,9 @@
     },
     "ramsey/uuid": {
         "version": "3.9.3"
+    },
+    "react/promise": {
+        "version": "v2.8.0"
     },
     "roave/security-advisories": {
         "version": "dev-master"
@@ -1094,12 +1103,6 @@
     },
     "ua-parser/uap-php": {
         "version": "v3.9.7"
-    },
-    "vaimo/binary-chromedriver": {
-        "version": "5.0.3"
-    },
-    "vaimo/webdriver-binary-downloader": {
-        "version": "2.2.4"
     },
     "webimpress/safe-writer": {
         "version": "2.0.0"
