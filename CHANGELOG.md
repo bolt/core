@@ -1,6 +1,37 @@
 Changelog
 =========
 
+## 4.1.4
+
+Released: 2020-10-25
+
+### 📦 Additions and new features
+
+- Keep track of assets version on "About" page (bobdenotter, [#2055](https://github.com/bolt/core/pull/2055))
+- Composer 2 compatibility (bobdenotter, [#2049](https://github.com/bolt/core/pull/2049))
+
+### 🐛 Bug fixes
+
+- Fixed "Dutch (Belgium)" displaying the Belarus flag (EdinTC, [#2053](https://github.com/bolt/core/pull/2053))
+- Taxonomy singular slug fix part 2 (andysh-uk, [#2051](https://github.com/bolt/core/pull/2051))
+- Fix duplicate html element ids in editor with multiple Collections (simongroenewolt, [#2046](https://github.com/bolt/core/pull/2046))
+- Taxonomy singular slug fix (andysh-uk, [#2044](https://github.com/bolt/core/pull/2044))
+- Preserve user's chosen locale in Editor (I-Valchev, [#2037](https://github.com/bolt/core/pull/2037))
+
+### 🛠️ Miscellaneous
+
+- Improve readme tremendously (bobdenotter, [#2039](https://github.com/bolt/core/pull/2039))
+- Use remember me field in login Symfony Form (I-Valchev, [#2038](https://github.com/bolt/core/pull/2038))
+- Add Greek EL 🇬🇷 translations (c2webstudio, [#2034](https://github.com/bolt/core/pull/2034))
+- Pin `drupol/composer-packages` to `2.0` (bobdenotter, [#2057](https://github.com/bolt/core/pull/2057))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Add `Carbon` to `scanDirectories` (bobdenotter, [#2056](https://github.com/bolt/core/pull/2056))
+- Fix PHPstan breakage (bobdenotter, [#2048](https://github.com/bolt/core/pull/2048))
+- Fix PHPStan breaking on `url_decode` (I-Valchev, [#2043](https://github.com/bolt/core/pull/2043))
+
+
 ## 4.1.3
 
 Released: 2020-10-22

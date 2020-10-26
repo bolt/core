@@ -13,12 +13,12 @@
         "beberlei/doctrineextensions": "^1.2",
         "bolt/common": "^2.1.6",
         "cocur/slugify": "^4.0",
-        "composer/composer": "^1.10",
+        "composer/composer": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "doctrine/orm": "^2.7",
-        "drupol/composer-packages": "^1.1",
+        "drupol/composer-packages": "^2.0",
         "embed/embed": "^3.4",
         "erusev/parsedown": "^1.7",
         "fzaninotto/faker": "^1.9",
@@ -81,6 +81,7 @@
         "behatch/contexts": "^3.3",
         "bobdenotter/configuration-notices": "^1.1",
         "bobdenotter/weatherwidget": "^1.1",
+        "bolt/binary-chromedriver": "^5.1.1",
         "bolt/newswidget": "^1.2",
         "coduo/php-matcher": "^4.0",
         "dama/doctrine-test-bundle": "^6.2.0",
@@ -102,8 +103,7 @@
         "se/selenium-server-standalone": "^3.141",
         "symfony/browser-kit": "^5.1",
         "symfony/css-selector": "^5.1",
-        "symplify/easy-coding-standard": "^8.2.3",
-        "vaimo/binary-chromedriver": "^5.0"
+        "symplify/easy-coding-standard": "^8.2.3"
     },
     "config": {
         "preferred-install": {
@@ -146,5 +146,7 @@
     },
     "replace": {
         "container-interop/container-interop": "*"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

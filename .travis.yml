@@ -1,6 +1,6 @@
 language: php
+os: linux
 dist: xenial
-sudo: false
 php:
     - 7.2
     - 7.3
@@ -13,12 +13,12 @@ cache:
     directories:
         - $HOME/.composer/cache/files
 
-matrix:
+jobs:
     fast_finish: true
 
 before_install:
     - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
-    - composer self-update -q
+    - composer self-update --2 -q
 
 install:
     - COMPOSER_MEMORY_LIMIT=-1 composer update

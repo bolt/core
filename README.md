@@ -1,28 +1,28 @@
 Bolt 4 - stable
 =============
 
-Bolt CMS is an open source, adaptable platform for building and running modern 
-websites. Built on PHP, Symfony and more. [Read the site](https://boltcms.io) 
-for more info. 
+Bolt CMS is an open source, adaptable platform for building and running modern
+websites. Built on PHP, Symfony and more. [Read the site](https://boltcms.io)
+for more info.
 
-To check out Bolt and set up your first Bolt installation, read 
-[Installing Bolt 4][installation]. 
+To check out Bolt and set up your first Bolt installation, read
+[Installing Bolt 4][installation].
 
 
 ---
 
 
-**This repository should be used to work _<ins>on</ins>_ Bolt. Not 
-_<ins>with</ins>_ Bolt. If you want to check out Bolt, the 
-`composer create-project` method is recommended. See here: 
+**This repository should be used to work _<ins>on</ins>_ Bolt. Not
+_<ins>with</ins>_ Bolt. If you want to check out Bolt, the
+`composer create-project` method is recommended. See here:
 https://github.com/bolt/project/ .**
 
 
 ---
-> Cleanse this world with flame  
-> End this, cleanse this  
-> **Rebuild and start again**  
-> Obliterate what makes us weak  
+> Cleanse this world with flame
+> End this, cleanse this
+> **Rebuild and start again**
+> Obliterate what makes us weak
 
 -- Hatebreed - [Destroy Everything][hatebreed]
 
@@ -40,7 +40,7 @@ To set up a running **development** environment of Bolt 4 please perform the fol
 1. Install
 ----------
 
-To install a _**development**_ version of Bolt 4: 
+To install a _**development**_ version of Bolt 4:
 
   - Check out this git repository
   - Then run:
@@ -98,8 +98,8 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-create`, on a UNIX-like system.
 
-Note: if you're using SQLite, ensure that `var/db/` is readable and writable to 
-you, as well as to the webserver users. The same applies to the file 
+Note: if you're using SQLite, ensure that `var/db/` is readable and writable to
+you, as well as to the webserver users. The same applies to the file
 `var/data/bolt.sqlite` if it already exists.
 
 3. Re-set the Database
@@ -117,8 +117,8 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-reset`, on a UNIX-like system.
 
-4. How to build assets
---------------------
+4 How to build assets
+---------------------
 
 To set up initially, run `npm install` to get the required dependencies /
 `node_modules`. Alternatively give the path to the python executable (`npm install --python="/usr/local/bin/python3.7"`) Then:

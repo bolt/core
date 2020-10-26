@@ -1,6 +1,9 @@
 import $ from 'jquery';
 import { DateTime } from 'luxon';
 
+import { version } from '../version';
+window.assetsVersion = version;
+
 $(document).ready(function() {
     // add a js class to indicate we have JS enabled. Might need a change to either modernizr or somethng comparable
     $('html').addClass('js');

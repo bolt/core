@@ -1,133 +1,135 @@
 {
-  "name": "bolt",
-  "version": "4.1.3",
-  "homepage": "https://boltcms.io",
-  "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
-  "license": "MIT",
-  "description": "Bolt 4 npm/javascript packages",
-  "keywords": [
-    "bolt",
-    "cms",
-    "php",
-    "symfony",
-    "vue",
-    "content",
-    "management",
-    "system"
-  ],
-  "bugs": {
-    "url": "https://github.com/bolt/core/issues"
-  },
-  "main": "webpack.config.js",
-  "directories": {
-    "tests": "tests"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/bolt/core.git"
-  },
-  "dependencies": {
-    "@vue/cli-service": "^4.5.8",
-    "axios": "^0.19.2",
-    "baguettebox.js": "^1.11.1",
-    "bootbox": "^5.5.1",
-    "bootstrap": "^4.5.3",
-    "browserslist": "^4.14.5",
-    "caniuse-lite": "^1.0.30001150",
-    "codemirror": "^5.58.1",
-    "dropzone": "^5.7.2",
-    "flagpack": "^1.0.5",
-    "hotkeys-js": "^3.8.1",
-    "jquery": "^3.5.1",
-    "locutus": "^2.0.14",
-    "luxon": "^1.25.0",
-    "no-scroll": "^2.1.1",
-    "node-vibrant": "^3.1.6",
-    "popper.js": "^1.16.1",
-    "register-service-worker": "^1.7.1",
-    "selectize": "^0.12.6",
-    "simplemde": "^1.11.2",
-    "stylelint-config-recommended-scss": "^4.2.0",
-    "stylelint-scss": "^3.18.0",
-    "terser": "^4.8.0",
-    "tinycolor2": "^1.4.2",
-    "vue": "^2.6.12",
-    "vue-flatpickr-component": "^8.1.6",
-    "vue-multiselect": "^2.1.6",
-    "vue-simplemde": "^1.1.2",
-    "vue-trumbowyg": "^3.6.2",
-    "vuedraggable": "^2.24.2",
-    "vuex": "^3.5.1",
-    "zxcvbn": "^4.4.2"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/plugin-transform-regenerator": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
-    "@fortawesome/fontawesome-free": "^5.15.1",
-    "@symfony/webpack-encore": "^0.30.2",
-    "@vue/test-utils": "^1.1.0",
-    "ajv-keywords": "^3.5.2",
-    "autoprefixer": "^9.8.6",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^25.5.1",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.14.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-standard": "^4.0.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "jest": "^25.5.4",
-    "jest-serializer-vue": "^2.0.2",
-    "node-sass": "^4.14.1",
-    "postcss-loader": "^3.0.0",
-    "postcss-preset-env": "^6.7.0",
-    "prettier": "^1.19.1",
-    "regenerator-runtime": "^0.13.7",
-    "sass-loader": "^8.0",
-    "source-sans-pro": "^3.6.0",
-    "stylelint": "^13.7.2",
-    "stylelint-config-standard": "^19.0.0",
-    "vue-jest": "^3.0.7",
-    "vue-loader": "^15.9.3",
-    "vue-router": "^3.4.7",
-    "vue-template-compiler": "^2.6.12",
-    "webpackbar": "^4.0.0",
-    "workbox-webpack-plugin": "^4.3.1"
-  },
-  "scripts": {
-    "start": "encore dev-server --port=8234 --progress --disable-host-check --verbose",
-    "build": "encore production --progress",
-    "postbuild": "rm public/assets/fonts/*.ttf; rm public/assets/fonts/*.eot; rm public/assets/fonts/*.woff; rm public/assets/images/fa-*.svg;",
-    "build:stats": "encore production --progress --json > webpack_stats.json",
-    "serve": "encore dev --watch",
-    "lint": "eslint --ext .js,.vue, assets",
-    "lint-fix": "eslint --ext .js,.vue, assets --fix",
-    "stylelint": "stylelint 'assets/scss'",
-    "stylelint-fix": "stylelint 'assets/scss' --fix",
-    "csfix": "eslint --ext .js,.vue, assets --fix; stylelint 'assets/scss' --fix",
-    "test": "jest"
-  },
-  "browserslist": [
-    "> 1%"
-  ],
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "vue"
+    "name": "bolt",
+    "version": "4.1.4",
+    "homepage": "https://boltcms.io",
+    "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
+    "license": "MIT",
+    "description": "Bolt 4 npm/javascript packages",
+    "keywords": [
+        "bolt",
+        "cms",
+        "php",
+        "symfony",
+        "vue",
+        "content",
+        "management",
+        "system"
     ],
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    "bugs": {
+        "url": "https://github.com/bolt/core/issues"
     },
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/assets/js/app/$1"
+    "main": "webpack.config.js",
+    "directories": {
+        "tests": "tests"
     },
-    "snapshotSerializers": [
-      "<rootDir>/node_modules/jest-serializer-vue"
-    ]
-  }
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/bolt/core.git"
+    },
+    "dependencies": {
+        "@vue/cli-service": "^4.5.8",
+        "axios": "^0.19.2",
+        "baguettebox.js": "^1.11.1",
+        "bootbox": "^5.5.1",
+        "bootstrap": "^4.5.3",
+        "browserslist": "^4.14.5",
+        "caniuse-lite": "^1.0.30001151",
+        "codemirror": "^5.58.2",
+        "dropzone": "^5.7.2",
+        "flagpack": "^1.0.5",
+        "hotkeys-js": "^3.8.1",
+        "jquery": "^3.5.1",
+        "locutus": "^2.0.14",
+        "luxon": "^1.25.0",
+        "no-scroll": "^2.1.1",
+        "node-vibrant": "^3.1.6",
+        "popper.js": "^1.16.1",
+        "register-service-worker": "^1.7.1",
+        "selectize": "^0.12.6",
+        "simplemde": "^1.11.2",
+        "stylelint-config-recommended-scss": "^4.2.0",
+        "stylelint-scss": "^3.18.0",
+        "terser": "^4.8.0",
+        "tinycolor2": "^1.4.2",
+        "vue": "^2.6.12",
+        "vue-flatpickr-component": "^8.1.6",
+        "vue-multiselect": "^2.1.6",
+        "vue-simplemde": "^1.1.2",
+        "vue-trumbowyg": "^3.6.2",
+        "vuedraggable": "^2.24.3",
+        "vuex": "^3.5.1",
+        "zxcvbn": "^4.4.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.12.3",
+        "@babel/plugin-transform-regenerator": "^7.12.1",
+        "@babel/plugin-transform-runtime": "^7.12.1",
+        "@babel/polyfill": "^7.12.1",
+        "@babel/preset-env": "^7.12.1",
+        "@fortawesome/fontawesome-free": "^5.15.1",
+        "@symfony/webpack-encore": "^0.30.2",
+        "@vue/test-utils": "^1.1.0",
+        "ajv-keywords": "^3.5.2",
+        "autoprefixer": "^9.8.6",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-eslint": "^10.1.0",
+        "babel-jest": "^25.5.1",
+        "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.14.0",
+        "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-standard": "^4.0.2",
+        "eslint-plugin-vue": "^6.2.2",
+        "genversion": "^2.2.1",
+        "jest": "^25.5.4",
+        "jest-serializer-vue": "^2.0.2",
+        "node-sass": "^4.14.1",
+        "postcss-loader": "^3.0.0",
+        "postcss-preset-env": "^6.7.0",
+        "prettier": "^1.19.1",
+        "regenerator-runtime": "^0.13.7",
+        "sass-loader": "^8.0",
+        "source-sans-pro": "^3.6.0",
+        "stylelint": "^13.7.2",
+        "stylelint-config-standard": "^19.0.0",
+        "vue-jest": "^3.0.7",
+        "vue-loader": "^15.9.3",
+        "vue-router": "^3.4.7",
+        "vue-template-compiler": "^2.6.12",
+        "webpackbar": "^4.0.0",
+        "workbox-webpack-plugin": "^4.3.1"
+    },
+    "scripts": {
+        "start": "encore dev-server --port=8234 --progress --disable-host-check --verbose",
+        "build": "npm run genversion && encore production --progress",
+        "postbuild": "rm public/assets/fonts/*.ttf; rm public/assets/fonts/*.eot; rm public/assets/fonts/*.woff; rm public/assets/images/fa-*.svg;",
+        "build:stats": "encore production --progress --json > webpack_stats.json",
+        "serve": "encore dev --watch",
+        "lint": "eslint --ext .js,.vue, assets",
+        "lint-fix": "eslint --ext .js,.vue, assets --fix",
+        "stylelint": "stylelint 'assets/scss'",
+        "stylelint-fix": "stylelint 'assets/scss' --fix",
+        "csfix": "eslint --ext .js,.vue, assets --fix; stylelint 'assets/scss' --fix",
+        "test": "jest",
+        "genversion": "genversion --es6 --semi assets/js/version.js"
+    },
+    "browserslist": [
+        "> 1%"
+    ],
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "vue"
+        ],
+        "transform": {
+            "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+            ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+        },
+        "moduleNameMapper": {
+            "^@/(.*)$": "<rootDir>/assets/js/app/$1"
+        },
+        "snapshotSerializers": [
+            "<rootDir>/node_modules/jest-serializer-vue"
+        ]
+    }
 }

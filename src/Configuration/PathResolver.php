@@ -151,7 +151,7 @@ class PathResolver
      */
     public function raw(string $name): ?string
     {
-        return isset($this->paths[$name]) ? $this->paths[$name] : null;
+        return $this->paths[$name] ?? null;
     }
 
     /**
