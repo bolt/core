@@ -184,4 +184,4 @@ curl_options:
 
 # Define the seed used to generated the test data
 # Used in <bolt-core>/src/DataFixtures/ContentFixtures.php
-fixtures_seed: ~
+fixtures_seed: 87654
