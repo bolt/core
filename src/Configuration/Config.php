@@ -29,6 +29,9 @@ class Config
     /** @var Stopwatch */
     private $stopwatch;
 
+    /** @var string */
+    private $publicFolder;
+
     /** @var CacheInterface */
     private $cache;
 
@@ -53,6 +56,7 @@ class Config
         $this->stopwatch = $stopwatch;
         $this->cache = $cache;
         $this->projectDir = $projectDir;
+        $this->publicFolder = $publicFolder;
         $this->defaultLocale = $defaultLocale;
         $this->clearCacheController = $clearCacheController;
         $this->kernel = $kernel;
@@ -60,7 +64,7 @@ class Config
         $this->data = $this->getConfig();
 
         // @todo PathResolver shouldn't be part of Config. Refactor to separate class
-        $this->pathResolver = new PathResolver($projectDir, $this->get('general/theme'), $publicFolder);
+        $this->pathResolver = new PathResolver($projectDir, $this->get('general/theme'), $this->publicFolder);
     }
 
     private function getConfig(): Collection
@@ -114,7 +118,7 @@ class Config
 
         // If we're parsing the config, we'll also need to pre-initialise
         // the PathResolver, because we need to know the theme path.
-        $this->pathResolver = new PathResolver($this->projectDir, $config->get('general')->get('theme'));
+        $this->pathResolver = new PathResolver($this->projectDir, $config->get('general')->get('theme'), $this->publicFolder);
 
         $theme = new ThemeParser($this->projectDir, $this->getPath('theme'));
         $config['theme'] = $theme->parse();

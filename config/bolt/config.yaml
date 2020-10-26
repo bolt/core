@@ -181,3 +181,7 @@ upload_location: "{contenttype}/{year}/{month}/"
 # For all options, check the official curl documentation here https://curl.haxx.se/libcurl/c/curl_easy_setopt.html
 curl_options:
     verify_peer: false
+
+# Define the seed used to generated the test data
+# Used in <bolt-core>/src/DataFixtures/ContentFixtures.php
+fixtures_seed: 87654
