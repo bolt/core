@@ -164,7 +164,7 @@ class TwigAwareController extends AbstractController
     protected function validLocaleForContentType(ContentType $contentType): bool
     {
         if ($contentType->has('locales')) {
-            $contentType->get('locales')->contains($this->request->getLocale());
+            return $contentType->get('locales')->contains($this->request->getLocale());
         }
 
         return $this->request->getLocale() === $this->defaultLocale;
