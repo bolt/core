@@ -69,7 +69,7 @@ class FileListingController implements AsyncZoneInterface
     private function findFiles(string $path, ?string $glob = null): Finder
     {
         $finder = new Finder();
-        $finder->in($path)->depth('< 3')->sortByType()->files();
+        $finder->in($path)->depth('< 5')->sortByType()->files();
 
         if ($glob) {
             $finder->name($glob);
