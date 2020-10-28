@@ -363,7 +363,7 @@
     <unit id="kXNBV9S" name="caption.main_configuration">
       <segment>
         <source>caption.main_configuration</source>
-        <target>hoofdconfiguratie</target>
+        <target>Hoofdconfiguratie</target>
       </segment>
     </unit>
     <unit id="ipmA6Ah" name="caption.users_permissions">
