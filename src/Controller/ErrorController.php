@@ -154,7 +154,7 @@ class ErrorController extends SymfonyErrorController
             // We wrap it in a try/catch, because we wouldn't want to
             // trigger a 404 within a 404 now, would we?
             try {
-                return $this->detailController->record($slug, null, $contentType, false);
+                return $this->detailController->record($slug, $contentType, false, null);
             } catch (NotFoundHttpException $e) {
                 // Just continue to the next one.
             }
