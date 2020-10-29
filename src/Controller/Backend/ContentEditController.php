@@ -68,7 +68,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     private $dispatcher;
 
     /** @var string */
-    private $defaultLocale;
+    protected $defaultLocale;
 
     public function __construct(
         TaxonomyRepository $taxonomyRepository,

@@ -47,10 +47,13 @@ class TwigAwareController extends AbstractController
     /** @var TemplateChooser */
     protected $templateChooser;
 
+    /** @var string */
+    protected $defaultLocale;
+
     /**
      * @required
      */
-    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack, TemplateChooser $templateChooser): void
+    public function setAutowire(Config $config, Environment $twig, Packages $packages, Canonical $canonical, Sanitiser $sanitiser, RequestStack $requestStack, TemplateChooser $templateChooser, string $defaultLocale): void
     {
         $this->config = $config;
         $this->twig = $twig;
@@ -59,6 +62,7 @@ class TwigAwareController extends AbstractController
         $this->sanitiser = $sanitiser;
         $this->request = $requestStack->getCurrentRequest();
         $this->templateChooser = $templateChooser;
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**

@@ -11,5 +11,5 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface DetailControllerInterface
 {
-    public function record($slugOrId, ?string $contentTypeSlug, bool $requirePublished): Response;
+    public function record($slugOrId, ?string $contentTypeSlug, bool $requirePublished, ?string $_locale): Response;
 }
