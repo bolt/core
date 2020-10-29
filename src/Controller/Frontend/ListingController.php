@@ -38,8 +38,12 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
      *     methods={"GET|POST"})
      */
-    public function listing(ContentRepository $contentRepository, string $contentTypeSlug): Response
+    public function listing(ContentRepository $contentRepository, string $contentTypeSlug, ?string $_locale = null): Response
     {
+        if ($_locale === null && ! $this->getFromRequest('_locale', null)) {
+            $this->request->setLocale($this->defaultLocale);
+        }
+
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
 
         // If the locale is the wrong locale
