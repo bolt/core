@@ -99,6 +99,9 @@ class GeneralParser extends BaseParser
             'forbidden' => 'helpers/page_403.html.twig',
             'internal_server_error' => 'helpers/page_500.html.twig',
             'omit_backgrounds' => false,
+            'localization' => [
+                'fallback_when_missing' => true,
+            ],
         ];
     }
 }

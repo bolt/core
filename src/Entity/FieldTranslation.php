@@ -53,6 +53,12 @@ class FieldTranslation implements TranslationInterface
         return $this;
     }
 
+    public function isEmpty(): bool
+    {
+       $value = is_iterable($this->value) ? $this->value[0] : $this->value;
+       return empty($value);
+    }
+
     /**
      * Used to locate the translatable entity Bolt\Entity\Field in all its child classes
      * e.g. from Bolt\Entity\Field\TextField

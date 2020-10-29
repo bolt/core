@@ -77,6 +77,9 @@ class Field implements FieldInterface, TranslatableInterface
     /** @var ?FieldType */
     private $fieldTypeDefinition;
 
+    /** @var bool */
+    private $useDefaultLocale = true;
+
     public function __toString(): string
     {
         $value = $this->getTwigValue();
@@ -187,7 +190,7 @@ class Field implements FieldInterface, TranslatableInterface
     public function getValue(): ?array
     {
         if ($this->isTranslatable()) {
-            return $this->translate($this->getCurrentLocale(), false)->getValue();
+            return $this->translate($this->getCurrentLocale(), $this->useDefaultLocale())->getValue();
         }
 
         return $this->translate($this->getDefaultLocale(), false)->getValue();
@@ -381,5 +384,15 @@ class Field implements FieldInterface, TranslatableInterface
     public function isTranslatable(): bool
     {
         return $this->getDefinition()->get('localize') === true;
+    }
+
+    public function useDefaultLocale(): bool
+    {
+        return $this->useDefaultLocale;
+    }
+
+    public function setUseDefaultLocale(bool $useDefaultLocale): void
+    {
+        $this->useDefaultLocale = $useDefaultLocale;
     }
 }
