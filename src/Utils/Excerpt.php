@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bolt\Utils;
 
+use Bolt\Common\Str;
+
 class Excerpt
 {
     public static function getExcerpt(string $text, int $length = 200, $focus = null): string
@@ -14,7 +16,7 @@ class Excerpt
             $text = Html::trimText($text, $length);
         }
 
-        return trim($text);
+        return Str::cleanWhitespace($text);
     }
 
     /**
