@@ -45,6 +45,12 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         }
 
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+
+        // If the locale is the wrong locale
+        if (! $this->validLocaleForContentType($contentType)) {
+            return $this->redirectToDefaultLocale();
+        }
+
         $page = (int) $this->getFromRequest('page', '1');
         $amountPerPage = $contentType->get('listing_records');
         $order = $this->getFromRequest('order', $contentType->get('order'));
