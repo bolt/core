@@ -17,15 +17,15 @@ import SelectBox from './Components/SelectBox';
 const id = 'listing';
 
 if (document.getElementById(id)) {
-    new Vue({
-        store,
-        el: '#' + id,
-        name: 'BoltListing',
-        components: {
-            'listing-records': Records,
-            'listing-filter': Filter,
-            'listing-table': Table,
-            'listing-select-box': SelectBox,
-        },
-    });
+  new Vue({
+    store,
+    el: '#' + id,
+    name: 'BoltListing',
+    components: {
+      'listing-records': Records,
+      'listing-filter': Filter,
+      'listing-table': Table,
+      'listing-select-box': SelectBox,
+    },
+  });
 }

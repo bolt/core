@@ -48,9 +48,9 @@ Vue.component('theme-select', ThemeSelect);
 const id = 'editor';
 
 if (document.getElementById(id)) {
-    new Vue({
-        store,
-        el: '#' + id,
-        name: 'BoltEditor',
-    });
+  new Vue({
+    store,
+    el: '#' + id,
+    name: 'BoltEditor',
+  });
 }

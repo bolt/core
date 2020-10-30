@@ -1,0 +1,29 @@
+name: Assets Code Analysis
+
+on:
+  pull_request: null
+  push:
+    branches:
+      - master
+
+jobs:
+  assets_code_analysis:
+    name: Assets Code Analysis
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - '12'
+          - '14'
+    steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-versions }}
+        # same as "npm install", just uses package-lock.json", see https://stackoverflow.com/a/53325242/1348344
+        - run: npm ci
+        - name: Lint Javascript files
+          run: npm run lint
+        - name: Lint on SCSS files
+          run: npm run stylelint

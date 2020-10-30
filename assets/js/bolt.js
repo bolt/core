@@ -4,7 +4,7 @@ import 'bootstrap';
 import Axios from 'axios';
 
 Axios.defaults.headers.common = {
-    accept: 'application/vnd.api+json',
+  accept: 'application/vnd.api+json',
 };
 
 import './jquery';

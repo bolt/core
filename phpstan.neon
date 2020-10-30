@@ -1,35 +1,35 @@
 parameters:
-    level: 5
+	level: 5
 
-    paths:
-        - src
+	paths:
+		- src
 
-    scanDirectories:
-        # In order to 'recognize' Twig and Carbon functions in global scope
-        - %currentWorkingDirectory%/vendor/twig/twig/src/Extension
-        - %currentWorkingDirectory%/vendor/nesbot/carbon/src/Carbon
+	scanDirectories:
+		# In order to 'recognize' Twig and Carbon functions in global scope
+		- %currentWorkingDirectory%/vendor/twig/twig/src/Extension
+		- %currentWorkingDirectory%/vendor/nesbot/carbon/src/Carbon
 
-    ignoreErrors:
-        # false positive: `Unreachable statement - code above always terminates.`
-        # Note: https://github.com/phpstan/phpstan/issues/2651 is marked as fixed, but the issue remains.
-        -
-            message: '#Unreachable statement - code above always terminates#'
-            path: %currentWorkingDirectory%/src/*
+	ignoreErrors:
+		# false positive: `Unreachable statement - code above always terminates.`
+		# Note: https://github.com/phpstan/phpstan/issues/2651 is marked as fixed, but the issue remains.
+		-
+			message: '#Unreachable statement - code above always terminates#'
+			path: %currentWorkingDirectory%/src/*
 
-        # false positive: `TranslationInterface does not know about FieldTranslation::getValue().` Skip this error.
-        -
-            message: '#Call to an undefined method Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface#'
-            path: %currentWorkingDirectory%/src/*
+		# false positive: `TranslationInterface does not know about FieldTranslation::getValue().` Skip this error.
+		-
+			message: '#Call to an undefined method Knp\\DoctrineBehaviors\\Contract\\Entity\\TranslationInterface#'
+			path: %currentWorkingDirectory%/src/*
 
-        # Parameters in Storage\Directive\OrderDirective::orderByNumericField() aren't seen as ints
-        -
-            message: '#of method Doctrine\\ORM\\Query\\Expr::substring\(\) expects int#'
-            path: %currentWorkingDirectory%/src/Storage/Directive/OrderDirective.php
+		# Parameters in Storage\Directive\OrderDirective::orderByNumericField() aren't seen as ints
+		-
+			message: '#of method Doctrine\\ORM\\Query\\Expr::substring\(\) expects int#'
+			path: %currentWorkingDirectory%/src/Storage/Directive/OrderDirective.php
 
 includes:
 	- vendor/phpstan/phpstan-symfony/extension.neon
 	- vendor/phpstan/phpstan-doctrine/extension.neon
-#    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon # make ON when thecodingmachine/safe will get stable
+	# - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon # make ON when thecodingmachine/safe will get stable
 
 services:
 	-

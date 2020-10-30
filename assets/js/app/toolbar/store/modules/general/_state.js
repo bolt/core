@@ -1,5 +1,5 @@
 const state = {
-    toolbarColor: null,
+  toolbarColor: null,
 };
 
 export default state;

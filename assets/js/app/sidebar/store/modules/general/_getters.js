@@ -1,5 +1,5 @@
 const getters = {
-    slimSidebar: state => state.slimSidebar,
+  slimSidebar: state => state.slimSidebar,
 };
 
 export default getters;

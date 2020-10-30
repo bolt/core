@@ -1,5 +1,4 @@
 default:
-
   gherkin:
     cache: "%paths.base%/var/cache/behat/behat_gherkin"
     filters:
@@ -42,7 +41,6 @@ default:
                     - "--disable-gpu"
                     - "--window-size=1920,1080"
                   w3c: false
-
 
     Behatch\Extension: ~
 

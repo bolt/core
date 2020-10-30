@@ -1,5 +1,5 @@
 const state = {
-    slimSidebar: false,
+  slimSidebar: false,
 };
 
 export default state;

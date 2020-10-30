@@ -14,12 +14,12 @@ import Toolbar from './Components/Toolbar.vue';
 const id = 'toolbar';
 
 if (document.getElementById(id)) {
-    new Vue({
-        store,
-        el: '#' + id,
-        name: 'BoltToolbar',
-        components: {
-            'admin-toolbar': Toolbar,
-        },
-    });
+  new Vue({
+    store,
+    el: '#' + id,
+    name: 'BoltToolbar',
+    components: {
+      'admin-toolbar': Toolbar,
+    },
+  });
 }

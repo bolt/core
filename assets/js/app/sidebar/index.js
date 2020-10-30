@@ -5,12 +5,12 @@ import Sidebar from './Components/Sidebar.vue';
 const id = 'sidebar';
 
 if (document.getElementById(id)) {
-    new Vue({
-        store,
-        el: '#' + id,
-        name: 'BoltSidebar',
-        components: {
-            'admin-sidebar': Sidebar,
-        },
-    });
+  new Vue({
+    store,
+    el: '#' + id,
+    name: 'BoltSidebar',
+    components: {
+      'admin-sidebar': Sidebar,
+    },
+  });
 }
