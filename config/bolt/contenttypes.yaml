@@ -296,80 +296,6 @@ showcases:
     icon_one: "fa:gift"
     order: [title, id]
 
-validationdemos:
-    name: Validation Demos
-    slug: validationdemos
-    singular_name: Validation Demo
-    singular_slug: validationdemo
-    title_format: '{id}: {title}'
-    description: The 'Validation Demos' shows how validation of fieldtypes works.
-    fields:
-        title:
-            type: text
-            class: large
-            required: true
-            placeholder: "Placeholder for the title"
-            group: Text
-            fixture_format: '{name}'
-            constraints:
-                - Length:
-                      min: 10
-                      max: 50
-                      minMessage: 'Your title must be at least {{ limit }} characters long'
-                      maxMessage: 'Your title cannot be longer than {{ limit }} characters'
-                      allowEmptyString: false
-        slug:
-            type: slug
-            uses: [ title ]
-        set:
-            type: set
-            group: Sets
-            label: This is my set
-            fields:
-                title:
-                    type: text
-                    constraints:
-                        - Length:
-                              min: 2
-                              max: 10
-                textarea:
-                    type: textarea
-        collection:
-            type: collection
-            group: Collections
-            label: This is my Collection
-            fields:
-                set:
-                    type: set
-                    label: Set inside Collection
-                    fields:
-                        title:
-                            type: text
-                            constraints:
-                                - Length:
-                                      min: 2
-                                      max: 10
-                textarea:
-                    type: textarea
-                    constraints:
-                        - Length:
-                              min: 100
-                              max: 200
-#            count_constraint:
-#                min: 1
-#                max: 2
-    relations:
-        entries:
-            multiple: false
-            label: "Choose an entry"
-        pages:
-            multiple: true
-            order: title
-            label: Select 1 or 2 pages
-            count_constraint:
-                min: 1
-                max: 2
-
 
 # The 'Blocks' ContentType is a so-called 'resource ContentType'. This means
 # that it can be used to manage smaller pieces of content, like the 'about us'
@@ -500,6 +426,80 @@ tests:
     record_template: custom/test.twig
     listing_template: listing.twig
     listing_records: 10
+
+validationdemos:
+    name: Validation Demos
+    slug: validationdemos
+    singular_name: Validation Demo
+    singular_slug: validationdemo
+    title_format: '{id}: {title}'
+    description: The 'Validation Demos' shows how validation of fieldtypes works.
+    fields:
+        title:
+            type: text
+            class: large
+            required: true
+            placeholder: "Placeholder for the title"
+            group: Text
+            fixture_format: '{name}'
+            constraints:
+                - Length:
+                      min: 10
+                      max: 50
+                      minMessage: 'Your title must be at least {{ limit }} characters long'
+                      maxMessage: 'Your title cannot be longer than {{ limit }} characters'
+                      allowEmptyString: false
+        slug:
+            type: slug
+            uses: [ title ]
+        set:
+            type: set
+            group: Sets
+            label: This is my set
+            fields:
+                title:
+                    type: text
+                    constraints:
+                        - Length:
+                              min: 2
+                              max: 10
+                textarea:
+                    type: textarea
+        collection:
+            type: collection
+            group: Collections
+            label: This is my Collection
+            fields:
+                set:
+                    type: set
+                    label: Set inside Collection
+                    fields:
+                        title:
+                            type: text
+                            constraints:
+                                - Length:
+                                      min: 2
+                                      max: 10
+                textarea:
+                    type: textarea
+                    constraints:
+                        - Length:
+                              min: 100
+                              max: 200
+    #            count_constraint:
+    #                min: 1
+    #                max: 2
+    relations:
+        entries:
+            multiple: false
+            label: "Choose an entry"
+        pages:
+            multiple: true
+            order: title
+            label: Select 1 or 2 pages
+            count_constraint:
+                min: 1
+                max: 2
 
 # Possible field types:
 #
