@@ -182,6 +182,10 @@ upload_location: "{contenttype}/{year}/{month}/"
 curl_options:
     verify_peer: false
 
+# Various settings about Bolt's built-in localization features.
+localization:
+    fallback_when_missing: true # When set to true, fields with empty values will fallback to the default locale's value.
+
 # Define the seed used to generated the test data
 # Used in <bolt-core>/src/DataFixtures/ContentFixtures.php
 fixtures_seed: 87654
