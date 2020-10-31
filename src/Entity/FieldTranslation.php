@@ -55,7 +55,7 @@ class FieldTranslation implements TranslationInterface
 
     public function isEmpty(): bool
     {
-        $value = is_iterable($this->value) ? $this->value[0] : $this->value;
+        $value = is_iterable($this->value) ? current($this->value) : $this->value;
 
         return empty($value);
     }
