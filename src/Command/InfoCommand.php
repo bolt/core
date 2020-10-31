@@ -54,10 +54,22 @@ HELP
 
         $io->text([$message, '']);
 
-        $platform = $this->doctrineVersion->getPlatform();
+        try {
+            $platform = $this->doctrineVersion->getPlatform();
+            $tableExists = $this->doctrineVersion->tableContentExists() ? '' : sprintf(' - <error>Tables not initialised</error>');
+            $withJson = $this->doctrineVersion->hasJson() ? 'with JSON' : 'without JSON';
+        } catch (\Throwable $e) {
+            $platform = [
+                'client_version' => '',
+                'driver_name' => '<error>Unknown - no database connection</error>',
+                'connection_status' => '',
+                'server_version' => '',
+            ];
+            $tableExists = '';
+            $withJson = '';
+        }
+
         $connection = ! empty($platform['connection_status']) ? sprintf(' - <comment>%s</comment>', $platform['connection_status']) : '';
-        $tableExists = $this->doctrineVersion->tableContentExists() ? '' : sprintf(' - <error>Tables not initialised</error>');
-        $withJson = $this->doctrineVersion->hasJson() ? 'with JSON' : 'without JSON';
 
         $io->listing([
             sprintf('Install type: <info>%s</info>', Version::installType()),
