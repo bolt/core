@@ -66,52 +66,6 @@ class UploadController extends AbstractController implements AsyncZoneInterface
     }
 
     /**
-     * @Route("/upload-url", name="bolt_async_upload_url", methods={"GET"})
-     */
-    public function handleURLUpload(Request $request): Response
-    {
-        try {
-            $this->validateCsrf('upload');
-        } catch (InvalidCsrfTokenException $e) {
-            return new JsonResponse([
-                'error' => [
-                    'message' => 'Invalid CSRF token',
-                ],
-            ], Response::HTTP_FORBIDDEN);
-        }
-
-        $url = $request->get('url', '');
-        $filename = basename($url);
-
-        $locationName = $request->get('location', '');
-        $path = $request->get('path') . $filename;
-        $target = $this->config->getPath($locationName, true, 'tmp/' . $path);
-
-        try {
-            // Create temporary file
-            $this->filesystem->copy($url, $target);
-        } catch (Throwable $e) {
-            return new JsonResponse([
-                'error' => [
-                    'message' => $e->getMessage(),
-                ],
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $file = new UploadedFile($target, $filename);
-        $bag = new FileBag();
-        $bag->add([$file]);
-        $request->files = $bag;
-
-        $response = $this->handleUpload($request);
-
-        // The file is automatically deleted. It may be that we don't need this.
-        $this->filesystem->remove($target);
-
-        return $response;
-    }
-
-    /**
      * @Route("/upload-url", name="bolt_async_upload_url", methods={"GET", "POST"})
      */
     public function handleURLUpload(Request $request): Response
