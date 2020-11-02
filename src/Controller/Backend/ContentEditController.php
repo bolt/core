@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
-use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
@@ -24,6 +23,7 @@ use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
 use Bolt\Utils\TranslationsManager;
+use Bolt\Validator\ContentValidatorInterface;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMInvalidArgumentException;
@@ -123,24 +123,28 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::ON_EDIT);
 
-        $twigvars = [
-            'record' => $content,
-            'locales' => $content->getLocales(),
-            'defaultlocale' => $this->defaultLocale,
-            'currentlocale' => $this->getEditLocale($content),
-        ];
-
-        return $this->render('@bolt/content/edit.html.twig', $twigvars);
+        return $this->renderEditor($content);
     }
 
     /**
      * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
      */
-    public function save(?Content $content = null): Response
+    public function save(?Content $content = null, ?ContentValidatorInterface $contentValidator = null): Response
     {
         $this->validateCsrf('editrecord');
 
         $content = $this->contentFromPost($content);
+
+        // check if validator should be enabled (default for bolt 4.x is not enabled)
+        $enableContentValidator = $this->config->get('general/validator_options/enable', false);
+        if ($enableContentValidator && $contentValidator) {
+            $constraintViolations = $contentValidator->validate($content);
+            if (count($constraintViolations) > 0) {
+                $this->addFlash('danger', 'content.validation_errors');
+
+                return $this->renderEditor($content, $constraintViolations);
+            }
+        }
 
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::PRE_SAVE);
@@ -372,16 +376,20 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
                         continue;
                     }
 
+                    $newFields = [];
                     foreach ($instances as $orderId => $value) {
                         $order = $orderArray[$orderId];
                         $fieldDefinition = $collection->getDefinition()->get('fields')->get($name);
                         $field = FieldRepository::factory($fieldDefinition, $name);
+                        // Note, $collection side is set by $collection->setValue() below
                         $field->setParent($collection);
+                        $newFields[] = $field;
                         $field->setSortorder($order);
                         $content->addField($field);
                         $this->updateField($field, $value, $locale);
                         $tm->applyTranslations($field, $collectionName, $orderId);
                     }
+                    $collection->setValue($newFields);
                 }
             }
         }
@@ -484,13 +492,22 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         }
     }
 
-    private function updateRelation(Content $content, $newRelations): void
+    private function updateRelation(Content $content, $newRelations): array
     {
         $newRelations = (new Collection(Json::findArray($newRelations)))->filter();
         $currentRelations = $this->relationRepository->findRelations($content, null, true, null, false);
+        $relationsResult = [];
 
         // Remove old ones
         foreach ($currentRelations as $currentRelation) {
+            // unlink content from relation - needed for code using relations from the content
+            // side later (e.g. validation)
+            if ($currentRelation->getToContent()) {
+                $currentRelation->getToContent()->removeRelationsToThisContent($currentRelation);
+            }
+            if ($currentRelation->getFromContent()) {
+                $currentRelation->getFromContent()->removeRelationsFromThisContent($currentRelation);
+            }
             $this->em->remove($currentRelation);
         }
 
@@ -506,7 +523,10 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             $relation = new Relation($content, $contentTo);
 
             $this->em->persist($relation);
+            $relationsResult[] = $id;
         }
+
+        return $relationsResult;
     }
 
     private function getEditLocale(Content $content): string
@@ -528,5 +548,21 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     private function getPostedLocale(array $post): ?string
     {
         return $post['_edit_locale'] ?: null;
+    }
+
+    private function renderEditor(Content $content, $errors = null): Response
+    {
+        $twigvars = [
+            'record' => $content,
+            'locales' => $content->getLocales(),
+            'defaultlocale' => $this->defaultLocale,
+            'currentlocale' => $this->getEditLocale($content),
+        ];
+
+        if ($errors) {
+            $twigvars['errors'] = $errors;
+        }
+
+        return $this->render('@bolt/content/edit.html.twig', $twigvars);
     }
 }
