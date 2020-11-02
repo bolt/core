@@ -11,7 +11,7 @@
         "api-platform/core": "^2.5",
         "babdev/pagerfanta-bundle": "^2.5",
         "beberlei/doctrineextensions": "^1.2",
-        "bolt/common": "^2.1.6",
+        "bolt/common": "^2.1.10",
         "cocur/slugify": "^4.0",
         "composer/composer": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
@@ -112,11 +112,11 @@
         "sort-packages": true
     },
     "extra": {
+        "public-dir": "public",
         "symfony": {
             "allow-contrib": true,
             "require": "^5.1"
-        },
-        "public-dir": "public"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -130,12 +130,14 @@
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
         "post-install-cmd": "php bin/composer-script/post-install-cmd.php --ansi",
+        "post-update-cmd": "php bin/composer-script/post-update-cmd.php --ansi",
         "pre-package-uninstall": [
             "php bin/console extensions:configure --remove-services --ansi"
         ],
-        "post-update-cmd": "php bin/composer-script/post-update-cmd.php --ansi",
         "auto-scripts": [
             "php bin/console cache:clear --no-warmup --ansi",
             "php bin/console assets:install --symlink --relative public --ansi"
@@ -143,10 +145,5 @@
         "periodical-tasks": [
             "security-checker security:check"
         ]
-    },
-    "replace": {
-        "container-interop/container-interop": "*"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

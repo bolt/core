@@ -156,7 +156,7 @@ filepermissions:
 # the allowed tags. For example, if you set `images: true`, the `<img>` tag
 # will be allowed, regardless of it being in the `allowed_tags` setting.
 htmlcleaner:
-    allowed_tags: [ div, span, p, br, hr, s, u, strong, em, i, b, li, ul, ol, mark, blockquote, pre, code, tt, h1, h2, h3, h4, h5, h6, dd, dl, dt, table, tbody, thead, tfoot, th, td, tr, a, img, address, abbr, iframe, caption, sub, super, figure, figcaption ]
+    allowed_tags: [ div, span, p, br, hr, s, u, strong, em, i, b, li, ul, ol, mark, blockquote, pre, code, tt, h1, h2, h3, h4, h5, h6, dd, dl, dt, table, tbody, thead, tfoot, th, td, tr, a, img, address, abbr, iframe, caption, sub, sup, figure, figcaption, article, section, small ]
     allowed_attributes: [ id, class, style, name, value, href, src, alt, title, width, height, frameborder, allowfullscreen, scrolling, target, colspan, rowspan, rel, download, hreflang ]
     allowed_frame_targets: [ _blank, _self, _parent, _top ]
 
@@ -182,10 +182,14 @@ upload_location: "{contenttype}/{year}/{month}/"
 curl_options:
     verify_peer: false
 
+# Various settings about Bolt's built-in localization features.
+localization:
+    fallback_when_missing: true # When set to true, fields with empty values will fallback to the default locale's value.
+
 # Define the seed used to generated the test data
 # Used in <bolt-core>/src/DataFixtures/ContentFixtures.php
 fixtures_seed: 87654
 
-# change enable to false before merging!
+# Globally enable / disable the validator for Fields
 validator_options:
     enable: true

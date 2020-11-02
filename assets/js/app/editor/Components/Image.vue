@@ -63,6 +63,17 @@
                                 <i class="fas fa-fw fa-th"></i>
                                 {{ labels.button_from_library }}
                             </button>
+
+                            <button
+                                class="btn dropdown-item"
+                                type="button"
+                                :disabled="readonly"
+                                data-patiance="virtue"
+                                @click="uploadFileFromUrl"
+                            >
+                                <i class="fas fa-fw fa-external-link-alt"></i>
+                                {{ labels.button_from_url }}
+                            </button>
                             <a
                                 v-if="filenameData"
                                 class="dropdown-item"
@@ -163,6 +174,7 @@ export default {
         alt: String,
         includeAlt: Boolean,
         directory: String,
+        directoryurl: String,
         media: Number | String,
         csrfToken: String,
         labels: Object,
@@ -315,6 +327,42 @@ export default {
                     console.warn(err.response.data.error.message);
                     this.progress = 0;
                 });
+        },
+        uploadFileFromUrl() {
+            let thisField = this;
+            const config = {
+                onUploadProgress: progressEvent => {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    this.progress = percentCompleted;
+                },
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            };
+            bootbox.prompt({
+                title: 'Upload from URL',
+                callback: function(url) {
+                    if (url) {
+                        const fd = new FormData();
+                        fd.append('url', url);
+                        fd.append('_csrf_token', thisField.token);
+                        Axios.post(thisField.directoryurl, fd, config)
+                            .then(res => {
+                                thisField.filenameData = res.data;
+                                thisField.thumbnailData = `/thumbs/400×300/${res.data}`;
+                                thisField.previewData = `/thumbs/1000×1000/${res.data}`;
+                                thisField.progress = 0;
+                            })
+                            .catch(err => {
+                                bootbox.alert(err.response.data.error.message);
+                                console.warn(err.response.data.error.message);
+                                thisField.progress = 0;
+                            });
+                    }
+                },
+            });
+            window.$('.bootbox-input').attr('name', 'bootbox-input');
+            window.reEnablePatientButtons();
         },
         filterServerFiles(files) {
             let self = this;

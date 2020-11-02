@@ -39,7 +39,7 @@ Feature: Edit record
     And I wait for ".admin__header--title"
     Then the "field-title" field should contain "Changed title EN"
 
-    When I am on "/page/1?locale=nl"
+    When I am on "/page/1?_locale=nl"
     Then I should see "Changed title NL"
 
   @javascript

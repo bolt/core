@@ -19,10 +19,10 @@ https://github.com/bolt/project/ .**
 
 
 ---
-> Cleanse this world with flame
-> End this, cleanse this
-> **Rebuild and start again**
-> Obliterate what makes us weak
+> Cleanse this world with flame  
+> End this, cleanse this  
+> **Rebuild and start again**  
+> Obliterate what makes us weak  
 
 -- Hatebreed - [Destroy Everything][hatebreed]
 
