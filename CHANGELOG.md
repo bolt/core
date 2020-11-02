@@ -1,6 +1,30 @@
 Changelog
 =========
 
+## 4.1.5
+
+Released: 2020-11-02
+
+### 🐛 Bug fixes
+
+- Remove extraneous whitespace in excerpts (bobdenotter, [#2072](https://github.com/bolt/core/pull/2072))
+- Fix empty Imagelist breaking rendering in Prod ENV (bobdenotter, [#2091](https://github.com/bolt/core/pull/2091))
+- Don't break installation if SQLite is not present [#2083](https://github.com/bolt/core/pull/2083))
+
+### 🛠️ Miscellaneous
+
+- Access `defaultLocale` in twig (I-Valchev, [#2074](https://github.com/bolt/core/pull/2074))
+- Make "files" selector use more levels (bobdenotter, [#2068](https://github.com/bolt/core/pull/2068))
+- Use 'Hoofdconfiguratie' 🇳🇱  correctly (bobdenotter, [#2067](https://github.com/bolt/core/pull/2067))
+- Fix parsing of `theme.yml` (artggd, [#2059](https://github.com/bolt/core/pull/2059))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Pin `drupol/composer-packages` to `2.0` (bobdenotter, [#2057](https://github.com/bolt/core/pull/2057))
+- Add three more 'allowed' tags by default (bobdenotter, [#2076](https://github.com/bolt/core/pull/2076))
+- Allow rel attribute by default (scaphandroid, [#2064](https://github.com/bolt/core/pull/2064))
+- Cleaning up `composer.json` (bobdenotter, [#2063](https://github.com/bolt/core/pull/2063))
+
 ## 4.1.4
 
 Released: 2020-10-25
