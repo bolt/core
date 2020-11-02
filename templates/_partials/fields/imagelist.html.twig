@@ -25,7 +25,7 @@
     {% set limit = field.definition.get('limit')|default(200) %}
 
     <editor-imagelist
-        :images='{{ field.jsonvalue }}'
+        :images='{{ field.jsonvalue|default('[]') }}'
         :name='{{ name|json_encode }}'
         :directory='{{ directory|json_encode }}'
         :filelist='{{ filelist|json_encode }}'
