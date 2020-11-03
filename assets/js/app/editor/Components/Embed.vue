@@ -86,6 +86,7 @@
                     <label>{{ labels.label_preview }}</label>
                     <div class="editor__image--preview">
                         <a
+                            v-if="previewImage !== null && previewImage !== ''"
                             class="editor__image--preview-image"
                             :href="previewImage"
                             :style="`background-image: url('${previewImage}')`"
