@@ -87,9 +87,19 @@ export default {
 
             if (this.selected === null) {
                 return JSON.stringify([]);
+<<<<<<< HEAD
             } else if (this.selected.map && typeof item !== 'undefined') {
                 filtered = this.selected.map(item => item.key);
                 return JSON.stringify(filtered);
+=======
+            } else if (this.selected.map) {
+                if (typeof item !== 'undefined') {
+                    filtered = this.selected.map(item => item.key);
+                    return JSON.stringify(filtered);
+                } else {
+                    return JSON.stringify([]);
+                }
+>>>>>>> 50e6f1baf283df112a820d97fbaea6d536079848
             } else {
                 return JSON.stringify([this.selected.key]);
             }
