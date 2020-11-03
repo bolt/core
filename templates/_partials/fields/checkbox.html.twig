@@ -1,13 +1,18 @@
 {% extends '@bolt/_partials/fields/_base.html.twig' %}
 
 {% block field %}
-    <div class="custom-control custom-checkbox">
+    {# set mode #}
+    {% if not mode|default %}
+        {% set mode = field.definition.mode|default('checkbox') %}
+    {% endif %}
+
+    <div class="custom-control custom-{{ mode }}">
         {# What the heck is this hidden field for, you might wonder? Well, it's
            here to make sure an unchecked checkbox still shows up in the server
            response, so we can handle it there, if present. #}
-        <input type="hidden" name="{{ name }}" value="0">
+        <input type="hidden" name="{{ name }}" value="{{ value ? 'checked' }}">
         <input class="custom-control-input" id="{{ name }}" name="{{ name }}" type="checkbox"
-               value="1" {{ value ? 'checked' }} {% if readonly %}readonly{% endif %}>
+               value="1" {{ value ? 'checked' }} {% if readonly %}disabled{% endif %}>
         <label class="custom-control-label" for="{{ name }}">{{ label }}</label>
     </div>
 {% endblock %}
