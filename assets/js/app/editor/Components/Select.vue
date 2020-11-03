@@ -87,7 +87,7 @@ export default {
 
             if (this.selected === null) {
                 return JSON.stringify([]);
-            } else if (this.selected.map && typeof item !== 'undefined') {
+            } else if (this.selected.map) {
                 filtered = this.selected.map(item => item.key);
                 return JSON.stringify(filtered);
             } else {
