@@ -8,6 +8,7 @@ use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Extension\ExtensionCompilerPass;
 use Bolt\Extension\ExtensionInterface;
+use Bolt\Repository\FieldRepository;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -37,6 +38,10 @@ class Kernel extends BaseKernel
     public function boot(): void
     {
         parent::boot();
+
+        // Add the entity manager as a static class property used in FieldRepository::factory()
+        $manager = $this->getContainer()->get('doctrine')->getManager();
+        FieldRepository::setEntityManager($manager);
     }
 
     public function build(ContainerBuilder $container): void
