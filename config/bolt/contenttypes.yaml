@@ -222,6 +222,10 @@ showcases:
             type: checkbox
             label: "This is a checkbox"
             group: Other
+        switch:
+            type: checkbox
+            label: "This is a checkbox, as a switch"
+            mode: switch
         datetime:
             type: date
             mode: datetime
