@@ -52,7 +52,7 @@ homepage_template: index.twig
 
 # The default content for the "Not Found" (404) page. Can be an (array of) template
 # names or identifiers for records, which will be tried until a match is found.
-notfound: [ blocks/404-not-found, 'helpers/page_404.html.twig' ]
+notfound: [ blocks/404-not-found, '@bolt/helpers/page_404.html.twig' ]
 
 # Toggle maintenance mode on or off. Note: If you're logged in, you'll still see
 # the website as usual. Use an incognito window to see the "maintenance" page.
