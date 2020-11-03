@@ -8,6 +8,8 @@ use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldParentInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Tightenco\Collect\Support\Collection;
@@ -20,9 +22,17 @@ use Tightenco\Collect\Support\Collection;
  */
 class FieldRepository extends ServiceEntityRepository
 {
+    /** @var EntityManagerInterface */
+    private static $em;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Field::class);
+    }
+
+    public static function setEntityManager(EntityManagerInterface $em): void
+    {
+        self::$em = $em;
     }
 
     private function getQueryBuilder(?QueryBuilder $qb = null)
@@ -130,8 +140,12 @@ class FieldRepository extends ServiceEntityRepository
         // The classname we want
         $classname = ucwords($type) . 'Field';
 
+        $classes = array_map(function (ClassMetadata $entity) {
+            return $entity->getName();
+        }, self::$em->getMetadataFactory()->getAllMetadata());
+
         // Classnames of all fields (classes that implement Bolt\Entity\FieldInterface)
-        $allFields = collect(get_declared_classes())
+        $allFields = collect($classes)
             ->filter(function ($class) {
                 return in_array('Bolt\\Entity\\FieldInterface', class_implements($class), true);
             });
