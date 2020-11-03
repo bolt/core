@@ -1,67 +1,55 @@
 language: php
+os: linux
 dist: xenial
-sudo: false
 php:
-  - 7.2
-  - 7.3
-  - 7.4
-
-env:
-  - APP_ENV_CURRENT=prod APP_DEBUG_CURRENT=0
-  - APP_ENV_CURRENT=dev APP_DEBUG_CURRENT=1
+    - 7.2
+    - 7.3
+    - 7.4
 
 addons:
-  chrome: stable
+    chrome: stable
 
 cache:
-  directories:
-    - $HOME/.composer/cache/files
+    directories:
+        - $HOME/.composer/cache/files
 
-matrix:
-  fast_finish: true
+jobs:
+    fast_finish: true
 
 before_install:
-  - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
-  - export $(grep -v '^#' .env.dist | xargs -d '\n') # export all environment variables (overrides APP_ENV, APP_DEBUG)
-  - export APP_ENV="$APP_ENV_CURRENT" APP_DEBUG="$APP_DEBUG_CURRRENT" # put back original environment variables
-  - composer self-update -q
+    - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
+    - composer self-update --2 -q
 
 install:
-  - COMPOSER_MEMORY_LIMIT=-1 composer update $COMPOSER_FLAGS
-  - ./bin/console bolt:info
-  - nvm install 12.5
-  - npm ci
-  - mkdir -p ./var/log/e2e-reports/report/features/
-  - touch ./var/log/e2e-reports/report/features/.gitkeep
+    - COMPOSER_MEMORY_LIMIT=-1 composer update
+    - ./bin/console bolt:info
+    - nvm install 12.5
+    - npm ci
+    - mkdir -p ./var/log/e2e-reports/report/features/
+    - touch ./var/log/e2e-reports/report/features/.gitkeep
 
 before_script:
-  # build assets
-  - npm run build
-  # prepare web server for e2e tests
-  - ./bin/console doctrine:database:create
-  - ./bin/console doctrine:schema:create
-  - ./bin/console doctrine:fixtures:load --group=without-images -n
-  - ./bin/console server:start 127.0.0.1:8088
-  # test if web server works
-  - sleep 3
-  - wget "http://127.0.0.1:8088/bolt/login"
-  - export PATH=$PATH:$PWD/vendor/bin
+    # build assets
+    - npm run build
+    # prepare web server for e2e tests
+    - ./bin/console doctrine:database:create
+    - ./bin/console doctrine:schema:create
+    - ./bin/console doctrine:fixtures:load --group=without-images -n
+    - ./bin/console server:start 127.0.0.1:8088
+    # test if web server works
+    - sleep 3
+    - wget "http://127.0.0.1:8088/bolt/login"
+    - export PATH=$PATH:$PWD/vendor/bin
 
 script:
-  # run EsLint on Javascript files
-  - npm run lint
+    # run PHP Unit
+    - ./vendor/bin/phpunit
 
-  # run StyleLint on SCSS
-  - npm run stylelint
+    # run API tests
+    - make behat-api-quiet
 
-  # run PHP Unit
-  - ./vendor/bin/phpunit
+    # run JS e2e tests
+    - travis_retry make behat-in-ci
 
-  # run API tests
-  - make behat-api-quiet
-
-  # run JS e2e tests
-  - travis_retry make db-reset-without-images && make behat-js-quiet
-
-  # Upload Behat logs
-  - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"
+    # Upload Behat logs
+    - ./vendor/bin/upload-textfiles "var/log/behat-reports/*.log"

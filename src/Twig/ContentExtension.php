@@ -33,7 +33,6 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection;
-use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
@@ -267,7 +266,7 @@ class ContentExtension extends AbstractExtension
             $post = '';
         }
 
-        return $pre . Excerpt::getExcerpt(rtrim($excerpt, '. '), $length, $focus) . $post;
+        return $pre . Excerpt::getExcerpt($excerpt, $length, $focus) . $post;
     }
 
     private function getFieldBasedExcerpt(Content $content, int $length, bool $includeTitle = false): string
@@ -384,7 +383,7 @@ class ContentExtension extends AbstractExtension
 
         if ($contentOrTaxonomy instanceof Taxonomy) {
             return $this->urlGenerator->generate('taxonomy', [
-                'taxonomyslug' => $contentOrTaxonomy->getType(),
+                'taxonomyslug' => $contentOrTaxonomy->getTaxonomyTypeSingularSlug(),
                 'slug' => $contentOrTaxonomy->getSlug(),
             ]);
         }
@@ -477,7 +476,7 @@ class ContentExtension extends AbstractExtension
         return new Collection($taxonomies);
     }
 
-    public function getListTemplates(TemplateselectField $field): LaravelCollection
+    public function getListTemplates(TemplateselectField $field): Collection
     {
         $definition = $field->getDefinition();
         $current = current($field->getValue());
@@ -517,7 +516,7 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
     public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
@@ -542,7 +541,7 @@ class ContentExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
-    public function selectOptions(Field $field): LaravelCollection
+    public function selectOptions(Field $field): Collection
     {
         $values = $field->getDefinition()->get('values');
 
@@ -553,7 +552,7 @@ class ContentExtension extends AbstractExtension
         return $this->selectOptionsContentType($field);
     }
 
-    private function selectOptionsArray(Field $field): LaravelCollection
+    private function selectOptionsArray(Field $field): Collection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -572,7 +571,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (! is_iterable($values)) {
-            return new LaravelCollection($options);
+            return new Collection($options);
         }
 
         foreach ($values as $key => $value) {
@@ -583,10 +582,10 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
-    private function selectOptionsContentType(Field $field): LaravelCollection
+    private function selectOptionsContentType(Field $field): Collection
     {
         [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
 
@@ -621,10 +620,10 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
-    public function taxonomyOptions(LaravelCollection $taxonomy): LaravelCollection
+    public function taxonomyOptions(Collection $taxonomy): Collection
     {
         $options = [];
 
@@ -652,10 +651,10 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
-    public function taxonomyValues(\Doctrine\Common\Collections\Collection $current, LaravelCollection $taxonomy): LaravelCollection
+    public function taxonomyValues(\Doctrine\Common\Collections\Collection $current, Collection $taxonomy): Collection
     {
         $values = [];
 
@@ -671,7 +670,7 @@ class ContentExtension extends AbstractExtension
             $values[] = key($taxonomy['options']);
         }
 
-        return new LaravelCollection($values);
+        return new Collection($values);
     }
 
     public function icon(?Content $record = null, string $icon = 'question-circle'): string

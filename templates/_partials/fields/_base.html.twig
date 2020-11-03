@@ -78,6 +78,11 @@
     {% if value is string %}
         {% set value = value|replace({'{{': "{\xE2\x80\x8B{", '}}': "}\xE2\x80\x8B}" }) %}
     {% endif %}
+
+    {# Set a default, for example when an extension requests `/bolt/new/entries?field-title=Foo+Bar #}
+    {% if not record.id|default() and not value %}
+        {% set value = app.request.get(id) %}
+    {% endif %}
 {% endif %}
 
 {# Set the class #}
@@ -118,7 +123,7 @@
 
 <!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
 <div
-    class="form-group {{ type_set ? 'form-set' }} {{ type_collection ? 'form-collection' }} is-{{ variant }}"
+    class="form-group {{ type_set ? 'form-set' }} {{ type_collection ? 'form-collection' }} {{ in_compound|default ? 'in-compound'}} is-{{ variant }}"
     id="field-{{ type }}-{{ field.name|default('unnamed') }}"
 >
 

@@ -21,7 +21,7 @@ class FieldTranslation implements TranslationInterface
      */
     private $id;
 
-    /** @ORM\Column(type="json") */
+    /** @ORM\Column(type="json", options={"jsonb": true}) */
     protected $value = [];
 
     public function getId(): ?int
@@ -43,7 +43,7 @@ class FieldTranslation implements TranslationInterface
 
     public function get($key)
     {
-        return isset($this->value[$key]) ? $this->value[$key] : null;
+        return $this->value[$key] ?? null;
     }
 
     public function set(string $key, $value): self

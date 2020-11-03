@@ -3,7 +3,7 @@
 parameters:
     locale: 'en'
     # This parameter defines the codes of the locales (languages) enabled in the application
-    app_locales: en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE|is|ru|cs
+    app_locales: en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE|is|ru|cs|bg
     app.notifications.email_sender: anonymous@example.com
     # Default table prefix for Bolt database
     bolt.table_prefix: bolt_
@@ -60,6 +60,10 @@ services:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
 
+    Bolt\Event\Listener\TaxonomyFillListener:
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+
     Bolt\Extension\RoutesLoader:
         tags: [routing.loader]
 
@@ -108,3 +112,6 @@ services:
     Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface: '@error_handler.error_renderer.html'
 
     Squirrel\TwigPhpSyntax\PhpSyntaxExtension: ~
+
+    # Validation: specify Bolt\Validator\ContentValidator as validator
+    Bolt\Validator\ContentValidatorInterface: '@Bolt\Validator\ContentValidator'

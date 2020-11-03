@@ -13,6 +13,7 @@ class LocaleSubscriber implements EventSubscriberInterface
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
+
         if (! $request->hasPreviousSession()) {
             return;
         }
@@ -25,7 +26,10 @@ class LocaleSubscriber implements EventSubscriberInterface
             $locale = $request->query->get('_locale');
             $request->getSession()->set('_locale', $locale);
             $request->setLocale($locale);
+        } elseif ($request->attributes->get('zone', false) === 'backend' && $request->getSession()->has('_backend_locale')) {
+            $request->setLocale($request->getSession()->get('_backend_locale'));
         } elseif ($request->getSession()->has('_locale')) {
+            // @todo: This is probably never reached. Remove if you're brave enough ;-)
             // if no explicit locale has been set on this request, use one from the session
             $request->setLocale($request->getSession()->get('_locale'));
         }

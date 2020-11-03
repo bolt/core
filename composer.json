@@ -11,14 +11,14 @@
         "api-platform/core": "^2.5",
         "babdev/pagerfanta-bundle": "^2.5",
         "beberlei/doctrineextensions": "^1.2",
-        "bolt/common": "^2.1.6",
+        "bolt/common": "^2.1.10",
         "cocur/slugify": "^4.0",
-        "composer/composer": "^1.10",
+        "composer/composer": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "doctrine/orm": "^2.7",
-        "drupol/composer-packages": "^1.1",
+        "drupol/composer-packages": "^2.0",
         "embed/embed": "^3.4",
         "erusev/parsedown": "^1.7",
         "fzaninotto/faker": "^1.9",
@@ -72,9 +72,6 @@
         "webonyx/graphql-php": "^0.13",
         "xemlock/htmlpurifier-html5": "^0.1.11"
     },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
     "require-dev": {
         "ext-curl": "*",
         "ext-pdo_sqlite": "*",
@@ -84,6 +81,7 @@
         "behatch/contexts": "^3.3",
         "bobdenotter/configuration-notices": "^1.1",
         "bobdenotter/weatherwidget": "^1.1",
+        "bolt/binary-chromedriver": "^5.1.1",
         "bolt/newswidget": "^1.2",
         "coduo/php-matcher": "^4.0",
         "dama/doctrine-test-bundle": "^6.2.0",
@@ -92,6 +90,7 @@
         "friends-of-behat/mink-browserkit-driver": "^1.4",
         "friends-of-behat/symfony-extension": "^2.1",
         "lakion/mink-debug-extension": "^1.2",
+        "ondram/ci-detector": "^3.5",
         "php-http/httplug-pack": "^1.2",
         "php-translation/loco-adapter": "^0.11",
         "phpspec/phpspec": "^6.2.1",
@@ -104,8 +103,7 @@
         "se/selenium-server-standalone": "^3.141",
         "symfony/browser-kit": "^5.1",
         "symfony/css-selector": "^5.1",
-        "symplify/easy-coding-standard": "^8.2.3",
-        "vaimo/binary-chromedriver": "^5.0"
+        "symplify/easy-coding-standard": "^8.2.3"
     },
     "config": {
         "preferred-install": {
@@ -114,11 +112,11 @@
         "sort-packages": true
     },
     "extra": {
+        "public-dir": "public",
         "symfony": {
             "allow-contrib": true,
             "require": "^5.1"
-        },
-        "public-dir": "public"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -132,31 +130,20 @@
             "spec\\Bolt\\": "tests/spec/Bolt/"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "post-install-cmd": [
-            "php bin/console extensions:configure --with-config",
-            "@auto-scripts",
-            "php bin/console bolt:info"
-        ],
+        "post-install-cmd": "php bin/composer-script/post-install-cmd.php --ansi",
+        "post-update-cmd": "php bin/composer-script/post-update-cmd.php --ansi",
         "pre-package-uninstall": [
-            "php bin/console extensions:configure --remove-services"
+            "php bin/console extensions:configure --remove-services --ansi"
         ],
-        "post-update-cmd": [
-            "php bin/console extensions:configure",
-            "@auto-scripts",
-            "php bin/console bolt:info"
+        "auto-scripts": [
+            "php bin/console cache:clear --no-warmup --ansi",
+            "php bin/console assets:install --symlink --relative public --ansi"
         ],
-        "auto-scripts": {
-            "cache:clear --no-warmup": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
-        },
         "periodical-tasks": [
             "security-checker security:check"
         ]
-    },
-    "replace": {
-        "container-interop/container-interop": "*"
     }
 }

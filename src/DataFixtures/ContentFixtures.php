@@ -42,10 +42,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     public function __construct(Config $config, FileLocations $fileLocations, string $defaultLocale)
     {
+        $this->config = $config;
         $this->faker = Factory::create();
+        $seed = $this->config->get('general/fixtures_seed');
+        if (! empty($seed)) {
+            $this->faker->seed($seed);
+        }
 
         $this->presetRecords = $this->getPresetRecords();
-        $this->config = $config;
         $this->fileLocations = $fileLocations;
         $this->defaultLocale = $defaultLocale;
     }
@@ -275,7 +279,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'image':
                 $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => $randomImage->getRelativePathname(),
+                    'filename' => str_replace('\\', '/', $randomImage->getRelativePathname()),
                     'alt' => $this->faker->sentence(4, true),
                     'media' => '',
                 ];
@@ -284,7 +288,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             case 'file':
                 $randomImage = $this->imagesIndex->random();
                 $data = [
-                    'filename' => $randomImage->getRelativePathname(),
+                    'filename' => str_replace('\\', '/', $randomImage->getRelativePathname()),
                     'title' => $this->faker->sentence(4, true),
                     'media' => '',
                 ];

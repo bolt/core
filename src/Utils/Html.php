@@ -28,7 +28,7 @@ class Html
             $newLength = $desiredLength;
         }
 
-        $str = trim(strip_tags($str));
+        $str = Str::cleanWhitespace(strip_tags($str));
 
         $str = filter_var($str, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW);
 
@@ -40,7 +40,7 @@ class Html
                 // Check for too long cutoff
                 if (mb_strlen($str) - $lastSpace >= $cutOffCap) {
                     // Trim the ellipse, as we do not want a space now
-                    return $str . trim($ellipseStr);
+                    return $str . Str::cleanWhitespace($ellipseStr);
                 }
                 $str = mb_substr($str, 0, $lastSpace);
             }

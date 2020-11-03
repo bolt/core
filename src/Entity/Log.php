@@ -7,7 +7,7 @@ namespace Bolt\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\LogRepository")
+ * @ORM\Entity(repositoryClass="Bolt\Repository\LogRepository")
  * @ORM\Table(name="log")
  * @ORM\HasLifecycleCallbacks
  */
@@ -38,7 +38,7 @@ class Log
     /** @ORM\Column(name="extra", type="array", nullable=true) */
     private $extra;
 
-    /** @ORM\Column(name="user", type="array", nullable=true) */
+    /** @ORM\Column(name="`user`", type="array", nullable=true) */
     private $user;
 
     /** @ORM\Column(type="content", type="integer", nullable=true) */

@@ -7,10 +7,11 @@ twig:
     paths:
         # Since the name of the theme folder is dynamic, we shouldn't set it here, but dynamically
         # See TwigAwareController::setTwigLoader()
-        # '%kernel.project_dir%/public/theme/%bolt.theme%': ''
+        '%kernel.project_dir%/public/theme/%bolt.theme%': 'theme'
         '%kernel.project_dir%/templates/': 'bolt'
     globals:
         'config': '@Bolt\Configuration\Config'
+        'defaultLocale': '%locale%'
 
     # Silence Twig / Symfony's exception controller here, so we can set it up properly in
     # `framework.yaml` (so we can show custom 404's)

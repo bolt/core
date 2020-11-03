@@ -32,7 +32,8 @@ doctrine:
         dql:
             string_functions:
                 JSON_EXTRACT: Bolt\Doctrine\Functions\JsonExtract
-                CAST: DoctrineExtensions\Query\Mysql\Cast
+                JSON_GET_TEXT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Postgresql\JsonGetText
+                CAST: Bolt\Doctrine\Query\Cast
             numeric_functions:
                 RAND: Bolt\Doctrine\Functions\Rand
 

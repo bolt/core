@@ -810,7 +810,7 @@
     <unit id="N_0yRcH" name="action.close_alert">
       <segment>
         <source>action.close_alert</source>
-        <target>close</target>
+        <target>Close</target>
       </segment>
     </unit>
     <unit id="Dvu2HQx" name="caption.api">
@@ -2371,6 +2371,30 @@
       <segment>
         <source>collection.select</source>
         <target>Select …</target>
+      </segment>
+    </unit>
+    <unit id="2SSLP1K" name="form.empty_username_email">
+      <segment>
+        <source>form.empty_username_email</source>
+        <target>Please enter your username or email</target>
+      </segment>
+    </unit>
+    <unit id="5Qf_RiO" name="form.empty_password">
+      <segment>
+        <source>form.empty_password</source>
+        <target>Please enter your password</target>
+      </segment>
+    </unit>
+    <unit id="fAmcKUQ" name="listing.title_filterby_field">
+      <segment>
+        <source>listing.title_filterby_field</source>
+        <target>Filter by field</target>
+      </segment>
+    </unit>
+    <unit id="kciiidS" name="image.button_from_url">
+      <segment>
+        <source>image.button_from_url</source>
+        <target>From URL</target>
       </segment>
     </unit>
   </file>

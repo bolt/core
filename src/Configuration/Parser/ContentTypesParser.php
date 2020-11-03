@@ -316,6 +316,10 @@ class ContentTypesParser extends BaseParser
             $field['sanitise'] = in_array($field['type'], ['text', 'textarea', 'html', 'markdown'], true);
         }
 
+        if (isset($field['localize']) === false) {
+            $field['localize'] = false;
+        }
+
         if (empty($field['group'])) {
             $field['group'] = $currentGroup;
         } else {

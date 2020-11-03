@@ -39,6 +39,7 @@
             'update_all': 'action.update_all'|trans,
         }|json_encode }}"
       :csrftoken="{{ csrf_token('batch')|json_encode }}"
+      :backend-prefix="{{ path('bolt_dashboard') }}"
     ></listing-select-box>
 
     {% set filterOptions = {
@@ -102,6 +103,16 @@
                         <strong>{{ 'listing.title_filterby'|trans }}</strong>:
                         <input class="form-control" type="text" name="filter" id="content-filter" value="{{ filterValue }}"
                                placeholder="{{ 'listing.placeholder_filter'|trans }}"/>
+                    </p>
+
+                    <p>
+                        <label for="filterKey">{{ 'listing.title_filterby_field'|trans }}</label>:
+                        <select name="filterKey" class="form-control">
+                            <option value="anyField"></option>
+                            {% for name, field in contentType.fields %}
+                                <option value="{{ name }}" {% if name == filterKey|default %}selected {% endif %}>{{ field.label }}</option>
+                            {% endfor %}
+                        </select>
                     </p>
                 </div>
 
