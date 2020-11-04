@@ -2397,5 +2397,23 @@
         <target>From URL</target>
       </segment>
     </unit>
+    <unit id="S9k1S7Z" name="warning">
+      <segment>
+        <source>warning</source>
+        <target>Warning</target>
+      </segment>
+    </unit>
+    <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
+      <segment>
+        <source>filemanager.create_folder_already_exists</source>
+        <target>Folder already exists</target>
+      </segment>
+    </unit>
+    <unit id="aSxePCB" name="filemanager.create_folder_error">
+      <segment>
+        <source>filemanager.create_folder_error</source>
+        <target>Could not create folder</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
