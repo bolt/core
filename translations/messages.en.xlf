@@ -2415,5 +2415,17 @@
         <target>Could not create folder</target>
       </segment>
     </unit>
+    <unit id="wbFKypA" name="filemanager.create_folder_success">
+      <segment>
+        <source>filemanager.create_folder_success</source>
+        <target>Folder created successfully.</target>
+      </segment>
+    </unit>
+    <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
+      <segment>
+        <source>filemanager.delete_folder_successful</source>
+        <target>Folder deleted successfully</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
