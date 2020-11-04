@@ -127,7 +127,7 @@ To set up initially, run `npm install` to get the required dependencies /
   - Run `npm run start` (alternatively `npm run start --python="/usr/local/bin/python3.7"`)
 
 See the other options by running `npm run`.
-(Note: as I'm testing this as well remotely, I copied all assets from the released composer installation by `cp -r ../www_backup/public/assets/* public/assets/`)
+(Note: on testing remotely, assets can be compiled into public/assets by simply `npm run-script build`)
 
 5. Run the prototype
 --------------------

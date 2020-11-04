@@ -134,7 +134,7 @@
             <div class="col-3">
                 <div class="editor__image--preview">
                     <a
-                        v-if="previewImage !== ''"
+                        v-if="thumbnailImage !== null && thumbnailImage !== ''"
                         class="editor__image--preview-image"
                         :href="previewImage"
                         :style="`background-image: url('${thumbnailImage}')`"
