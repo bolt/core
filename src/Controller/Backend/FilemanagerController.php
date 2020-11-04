@@ -137,7 +137,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
     public function create(): Response
     {
         try {
-//            $this->validateCsrf('filemanager-delete');
+            $this->validateCsrf('filemanager-create');
         } catch (InvalidCsrfTokenException $e) {
             return new JsonResponse([
                 'error' => [
