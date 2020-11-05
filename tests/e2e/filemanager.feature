@@ -85,16 +85,18 @@ Feature: Filemanager
 
     Then I should not see "a-new-folder"
 
-    When I fill "folderName" element with "new-folder"
+    When I fill "folderName" element with "a-new-folder"
     And I click "Create"
 
     Then I should see "Folder created successfully"
     And I should see "a-new-folder"
 
-    When I fill "folderName" element with "new-folder"
+    When I fill "folderName" element with "a-new-folder"
     And I click "Create"
     Then I should see "Folder already exists"
 
     When I click the 1st "Delete"
+    And I wait 1 second
+    And I click "OK"
     Then I should see "Folder deleted successfully"
     And I should not see "a-new-folder"
