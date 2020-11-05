@@ -57,7 +57,7 @@ small {
     margin-bottom: 1rem;
   }
 
-  a:not(.btn) {
+  a:not(.btn):not(.dropdown-item) {
     text-decoration: underline;
   }
 
