@@ -374,7 +374,11 @@ class ContentExtension extends AbstractExtension
     public function getLink($contentOrTaxonomy, bool $canonical = false, ?string $locale = null): ?string
     {
         if ($contentOrTaxonomy instanceof Content) {
-            if ($contentOrTaxonomy->getId() === null || $contentOrTaxonomy->getDefinition()->get('viewless')) {
+            if ($contentOrTaxonomy->getId() === null) {
+                return null;
+            }
+
+            if ($contentOrTaxonomy->getDefinition()->get('viewless') && $this->getSpecialFeature($contentOrTaxonomy) !== 'homepage') {
                 return null;
             }
 
