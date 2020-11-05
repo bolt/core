@@ -4,7 +4,7 @@
     {{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent', 'data-patience': 'virtue', 'name': 'save'}) }}
 
     {% if record.id %}
-        {% if not record.definition.get('viewless') %}
+        {% if record|feature == 'homepage' or not record.definition.get('viewless') %}
             <div class="btn-group">
                 {{ macro.button(
                     'action.preview',
