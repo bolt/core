@@ -1,19 +1,19 @@
 #filemanager {
   #files-folders {
-      #create-folder .form-group {
-          margin-bottom: 0;
-      }
+    #create-folder .form-group {
+      margin-bottom: 0;
+    }
 
-      td {
-          vertical-align: middle;
-      }
+    td {
+      vertical-align: middle;
+    }
 
-      td:first-child i {
-          color: #212529; // Original color for icons inside <a>
-      }
+    td:first-child i {
+      color: #212529; // Original color for icons inside <a>
+    }
 
-      .folder-indent {
-          margin-left: 0.5rem;
-      }
+    .folder-indent {
+      margin-left: 0.5rem;
+    }
   }
 }
