@@ -1,9 +1,18 @@
 #filemanager {
   #files-folders {
-    #create-folder .form-group {
-      margin-bottom: 0;
-    }
+    #create-folder {
+        .form-group {
+            margin-bottom: 0;
+        }
+        td:first-child {
+            display: flex;
+            align-items: center;
+        }
 
+        #editor {
+            flex: 1;
+        }
+    }
     td {
       vertical-align: middle;
     }

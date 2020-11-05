@@ -28,7 +28,7 @@
         <tr>
             <td>
                 <b>
-                    <i class="folder-indent"></i>
+                    {% if path != '/' %}<i class="folder-indent"></i>{% endif %}
                     <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': dirname }) }}">
                         <i class="fas fa-folder"></i>
                         {{ directory.getRelativePathname }}/

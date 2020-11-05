@@ -2427,5 +2427,11 @@
         <target>Folder deleted successfully</target>
       </segment>
     </unit>
+    <unit id="a6Xhtq0" name="folder.create_new">
+      <segment>
+        <source>folder.create_new</source>
+        <target>New folder</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
