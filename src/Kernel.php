@@ -165,6 +165,7 @@ class Kernel extends BaseKernel
      * and picking the first that is a directory.
      *
      * @return string path to the public folder for this project
+     *
      * @throws \Exception
      */
     protected function getPublicFolder(): string
