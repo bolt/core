@@ -21,7 +21,7 @@
         "drupol/composer-packages": "^2.0",
         "embed/embed": "^3.4",
         "erusev/parsedown": "^1.7",
-        "fzaninotto/faker": "^1.9",
+        "fakerphp/faker": "^1.10",
         "knplabs/doctrine-behaviors": "^2.0.3",
         "knplabs/knp-menu-bundle": "^3.0",
         "league/glide-symfony": "^1.0",
