@@ -91,7 +91,7 @@ class Kernel extends BaseKernel
 
     private function setBoltParameters(ContainerBuilder $container, string $confDir): void
     {
-        $container->setParameter('bolt.public_folder', $this->guesstimatePublicFolder());
+        $container->setParameter('bolt.public_folder', $this->getPublicFolder());
 
         $fileLocator = new FileLocator([$confDir . '/bolt']);
         $fileName = $fileLocator->locate('config.yaml', null, true);
@@ -158,7 +158,16 @@ class Kernel extends BaseKernel
         $container->setParameter('bolt.requirement.taxonomies', $slugs);
     }
 
-    private function guesstimatePublicFolder(): string
+    /**
+     * Return the public folder of this project. This implementation locates the public folder
+     * for this project by checking for the following candidates in the project dir: 'public',
+     * 'public_html', 'www', 'web', 'httpdocs', 'wwwroot', 'htdocs', 'http_public', 'private_html'
+     * and picking the first that is a directory.
+     *
+     * @return string path to the public folder for this project
+     * @throws \Exception
+     */
+    protected function getPublicFolder(): string
     {
         $projectDir = $this->getProjectDir();
         $candidates = ['public', 'public_html', 'www', 'web', 'httpdocs', 'wwwroot', 'htdocs', 'http_public', 'private_html'];
