@@ -43,18 +43,22 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /** @var EventDispatcherInterface */
     private $dispatcher;
 
+    protected $defaultLocale;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
         CsrfTokenManagerInterface $csrfTokenManager,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        string $defaultLocale
     ) {
         $this->urlGenerator = $urlGenerator;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -65,9 +69,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $user = UserRepository::factory();
         $submitted_data = $request->get('user_edit');
 
-        // Always show a strong suggested password, no matter on add or edit page
-        $suggestedPassword = Str::generatePassword();
-
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_ADD);
 
@@ -75,10 +76,11 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         // These are the variables we have to pass into our FormType so we can build the fields correctly
         $form_data = [
-            'suggested_password' => $suggestedPassword,
+            'suggested_password' => Str::generatePassword(),
             'roles' => $roles,
             'require_username' => true,
             'require_password' => true,
+            'default_locale' => $this->defaultLocale,
         ];
         $form = $this->createForm(UserEditType::class, $user, $form_data);
 
@@ -87,6 +89,10 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             // We need to transform to JSON.stringify value for the field "roles" into
             // an array so symfony forms validation works
             $submitted_data['roles'] = json_decode($submitted_data['roles']);
+
+            $submitted_data['locale'] = json_decode($submitted_data['locale'])[0];
+            $submitted_data['status'] = json_decode($submitted_data['status'])[0];
+
             $form->submit($submitted_data);
         }
 
@@ -106,9 +112,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     {
         $submitted_data = $request->get('user_edit');
 
-        // Always show a strong suggested password, no matter on add or edit page
-        $suggestedPassword = Str::generatePassword();
-
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
 
@@ -123,10 +126,11 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         // These are the variables we have to pass into our FormType so we can build the fields correctly
         $form_data = [
-            'suggested_password' => $suggestedPassword,
+            'suggested_password' => Str::generatePassword(),
             'roles' => $roles,
             'require_username' => false,
             'require_password' => $require_password,
+            'default_locale' => $this->defaultLocale,
         ];
         $form = $this->createForm(UserEditType::class, $user, $form_data);
 
@@ -134,6 +138,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         if (! empty($submitted_data)) {
             // Since the username is disabled on edit form we need to set it here so Symfony Forms doesn't throw an error
             $submitted_data['username'] = $user->getUsername();
+
+            $submitted_data['locale'] = json_decode($submitted_data['locale'])[0];
+            $submitted_data['status'] = json_decode($submitted_data['status'])[0];
 
             // We need to transform to JSON.stringify value for the field "roles" into
             // an array so symfony forms validation works
