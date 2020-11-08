@@ -136,4 +136,25 @@ $(document).ready(function() {
         });
     });
     /* End of custom error message */
+
+    /*
+     ** Copy text to clipboard. Used in filemanager actions.
+     */
+    $('[data-copy-to-clipboard]').on('click', function(e) {
+        const target = $(e.target);
+
+        var input = document.createElement('input');
+        input.setAttribute('id', 'copy');
+
+        target.parent().append(input);
+        input.value = target.attr('data-copy-to-clipboard');
+        input.focus();
+        input.select();
+        document.execCommand('copy');
+        target
+            .parent()
+            .find('#copy')
+            .remove();
+    });
+    /* End of copy text to clipboard */
 });

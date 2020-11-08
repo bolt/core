@@ -7,6 +7,7 @@ use OndraM\CiDetector\CiDetector;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__ . '/run.php';
 
 $symfonyStyleFactory = new SymfonyStyleFactory();
 $symfonyStyle = $symfonyStyleFactory->create();
@@ -19,10 +20,10 @@ if ($ciDetector->isCiDetected()) {
 
 $symfonyStyle->note('Running composer "post-install-cmd" scripts');
 
-exec('php bin/console extensions:configure --with-config --ansi');
+run('php bin/console extensions:configure --with-config --ansi', $symfonyStyle);
 
 // @auto-scripts
-exec('php bin/console cache:clear --no-warmup');
-exec('php bin/console assets:install --symlink --relative public');
+run('php bin/console cache:clear --no-warmup', $symfonyStyle);
+run('php bin/console assets:install --symlink --relative public', $symfonyStyle);
 
-exec('php bin/console bolt:info --ansi');
+run('php bin/console bolt:info --ansi', $symfonyStyle, true);

@@ -92,10 +92,10 @@ Feature: Record listing
     Then I should see "Configuration" in the ".admin__sidebar--menu" element
 
     When I hover over the "Configuration" element
-    Then I should see "Users & Permissions" in the "#sidebar ul > li:nth-child(10) li:nth-child(1)" element
-    Then I should see "Main Configuration" in the "#sidebar ul > li:nth-child(10) li:nth-child(2)" element
-    Then I should see "Content Types" in the "#sidebar ul > li:nth-child(10) li:nth-child(3)" element
-    Then I should see "Taxonomies" in the "#sidebar ul > li:nth-child(10) li:nth-child(4)" element
-    Then I should see "Menu set up" in the "#sidebar ul > li:nth-child(10) li:nth-child(5)" element
-    Then I should see "Routing Configuration" in the "#sidebar ul > li:nth-child(10) li:nth-child(6)" element
-    Then I should see "All Configuration Files" in the "#sidebar ul > li:nth-child(10) li:nth-child(7)" element
+    Then I should see "Users & Permissions" in the "#sidebar ul > li:nth-child(11) li:nth-child(1)" element
+    Then I should see "Main Configuration" in the "#sidebar ul > li:nth-child(11) li:nth-child(2)" element
+    Then I should see "Content Types" in the "#sidebar ul > li:nth-child(11) li:nth-child(3)" element
+    Then I should see "Taxonomies" in the "#sidebar ul > li:nth-child(11) li:nth-child(4)" element
+    Then I should see "Menu set up" in the "#sidebar ul > li:nth-child(11) li:nth-child(5)" element
+    Then I should see "Routing Configuration" in the "#sidebar ul > li:nth-child(11) li:nth-child(6)" element
+    Then I should see "All Configuration Files" in the "#sidebar ul > li:nth-child(11) li:nth-child(7)" element

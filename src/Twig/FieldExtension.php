@@ -66,8 +66,12 @@ class FieldExtension extends AbstractExtension
         return twig_date_format_filter($twig, $date, $format, $timezone);
     }
 
-    public function fieldFactory(string $name, ?Collection $definition = null): Field
+    public function fieldFactory(string $name, $definition = null): Field
     {
+        if (is_iterable($definition)) {
+            $definition = collect($definition);
+        }
+
         if ($definition === null || $definition->isEmpty()) {
             $definition = new Collection(['type' => 'generic']);
         }

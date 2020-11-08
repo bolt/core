@@ -100,6 +100,10 @@ behat-quiet:
 	make behat-api-quiet
 	make behat-js-quiet
 
+behat-in-ci:
+	make db-reset-without-images
+	make behat-js-quiet
+
 full-test: ## to run full tests
 	make cscheck
 	make test

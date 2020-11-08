@@ -38,10 +38,12 @@
 {% set pattern = field.definition.get('pattern')|default(false) %}
 
 {% set type_collection = (type in ['collection']) %}
-{% set type_set = (type in ['imagelist', 'filelist', 'set']) %}
+{% set type_card = (type in ['imagelist', 'filelist', 'set']) %}
 
 {# Set variant #}
-{% set variant = field.definition.variant|default('normal') %}
+{% if not variant|default %}
+    {% set variant = field.definition.variant|default('normal') %}
+{% endif %}
 
 {# Set the name #}
 {% if not name|default %}
@@ -123,7 +125,7 @@
 
 <!-- field "{{ label }}" (type: {{ type }}{% if variant != 'normal' %}, variant: {{ variant }}{% endif %}) -->
 <div
-    class="form-group {{ type_set ? 'form-set' }} {{ type_collection ? 'form-collection' }} {{ in_compound|default ? 'in-compound'}} is-{{ variant }}"
+    class="form-group {{ type_card ? 'form-card' }} {{ type_collection ? 'form-collection' }} {{ in_compound|default ? 'in-compound'}} is-{{ variant }}"
     id="field-{{ type }}-{{ field.name|default('unnamed') }}"
 >
 

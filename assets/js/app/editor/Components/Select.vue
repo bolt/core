@@ -7,7 +7,7 @@
             :limit="1000"
             :multiple="multiple"
             :options="options"
-            :searchable="taggable"
+            :searchable="searchable || taggable"
             :show-labels="false"
             :taggable="taggable"
             :disabled="readonly"
