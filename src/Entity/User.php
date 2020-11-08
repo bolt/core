@@ -34,8 +34,8 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(normalizer="trim", message="user.not_valid_display_name")
-     * @Assert\Length(min=2, max=50, minMessage="user.not_valid_display_name")
+     * @Assert\NotBlank(normalizer="trim", message="user.not_valid_display_name", groups={"add_user", "edit_user", "edit_user_without_pw"})
+     * @Assert\Length(min=2, max=50, minMessage="user.not_valid_display_name", groups={"add_user", "edit_user", "edit_user_without_pw"})
      * @Groups({"get_content", "get_user"})
      */
     private $displayName;
@@ -44,9 +44,9 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true, length=191)
-     * @Assert\NotBlank()
-     * @Assert\Length(min=2, max=50)
-     * @Assert\Regex(pattern="/^[a-z0-9_]+$/", message="user.username_invalid_characters")
+     * @Assert\NotBlank(groups={"add_user"})
+     * @Assert\Length(min=2, max=50, groups={"add_user"})
+     * @Assert\Regex(pattern="/^[a-z0-9_]+$/", message="user.username_invalid_characters", groups={"add_user"})
      * @Groups("get_user")
      */
     private $username;
@@ -55,7 +55,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true, length=191)
-     * @Assert\Email(message="user.not_valid_email")
+     * @Assert\Email(message="user.not_valid_email", groups={"add_user", "edit_user", "edit_user_without_pw"})
      * @Groups("get_user")
      */
     private $email;
@@ -69,7 +69,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var string|null
-     * @Assert\Length(min="6", minMessage="user.not_valid_password")
+     * @Assert\Length(min="6", minMessage="user.not_valid_password", groups={"add_user", "edit_user"})
      */
     private $plainPassword;
 
@@ -313,5 +313,10 @@ class User implements UserInterface, \Serializable
     public function toArray(): array
     {
         return get_object_vars($this);
+    }
+
+    public function isNewUser(): bool
+    {
+        return $this->id === null;
     }
 }

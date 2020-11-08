@@ -1,0 +1,166 @@
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{{ form_start(userForm, {'attr': {'id': form_type ~ 'content'}}) }}
+
+    {# ===== USERNAME ===== #}
+
+    {% include '@bolt/_partials/fields/text.html.twig' with {
+        'id' : userForm.username.vars.id,
+        'label' : 'label.username'|trans,
+        'name' : userForm.vars.name ~ '[' ~ userForm.username.vars.name ~ ']',
+        'value' : userForm.username.vars.value,
+        'required': userForm.username.vars.required,
+    } %}
+    {% if form_errors(userForm.username) is not empty %}
+        <div class="field-error">{{ form_errors(userForm.username) }}</div>
+    {% endif %}
+    {% do userForm.username.setRendered() %}
+    {# Mark form field as manually rendered so it's not displayed Twice by the form_rest() Twig helper #}
+
+    {# ===== DISPLAY NAME ===== #}
+
+    {% include '@bolt/_partials/fields/text.html.twig' with {
+        'id' : userForm.displayName.vars.id,
+        'label' : 'label.display_name'|trans,
+        'name' : userForm.vars.name ~ '[' ~ userForm.displayName.vars.name ~ ']',
+        'value' : userForm.displayName.vars.value,
+        'disabled' : false,
+        'required': userForm.displayName.vars.required,
+    } %}
+    {% if form_errors(userForm.displayName) is not empty %}
+        <div class="field-error">{{ form_errors(userForm.displayName) }}</div>
+    {% endif %}
+    {% do userForm.displayName.setRendered() %}
+
+    {# ===== PASSWORD ===== #}
+
+    {% set use_suggested_pw = userForm.plainPassword.vars.required %}
+    {% set suggested_pw = userForm.plainPassword.vars.attr.suggested_password %}
+
+    {% include '@bolt/_partials/fields/password.html.twig' with {
+        'id' : userForm.plainPassword.vars.id,
+        'label': 'label.password'|trans,
+        'name' : userForm.vars.name ~ '[' ~ userForm.plainPassword.vars.name ~ ']',
+        'value': use_suggested_pw ? suggested_pw : '',
+        'hidden': 'true',
+        'strength': true,
+        'postfix': __('password.suggested', {'%password%': suggested_pw }),
+        'required': userForm.plainPassword.vars.required,
+    } %}
+    {% if form_errors(userForm.plainPassword) is not empty %}
+        <div class="field-error">{{ form_errors(userForm.plainPassword) }}</div>
+    {% endif %}
+    {% do userForm.plainPassword.setRendered() %}
+
+    {# ===== EMAIL ===== #}
+
+    {% include '@bolt/_partials/fields/email.html.twig' with {
+        'id' : userForm.email.vars.id,
+        'label': 'label.email'|trans,
+        'label_class': userForm.email.vars.required ? 'required' : '',
+        'value': userForm.email.vars.value,
+        'name' : userForm.vars.name ~ '[' ~ userForm.email.vars.name ~ ']',
+        'class': 'form-control',
+        'required': userForm.email.vars.required,
+    } %}
+    {% if form_errors(userForm.email) is not empty %}
+        <div class="field-error">{{ form_errors(userForm.email) }}</div>
+    {% endif %}
+    {% do userForm.email.setRendered() %}
+
+    {# ===== LOCALE ===== #}
+
+    {% set localeOptions = [] %}
+
+    {% for locale in userForm.locale.vars.choices %}
+        {% set localeOptions = localeOptions|merge([
+            {
+                'key': locale.value,
+                'value': locale.label
+            }
+        ]) %}
+    {% endfor %}
+
+    {% include '@bolt/_partials/fields/select.html.twig' with {
+        'id' : userForm.locale.vars.id,
+        'label' : 'label.locale'|trans,
+        'name' : userForm.vars.name ~ '[' ~ userForm.locale.vars.name ~ ']',
+        'value' : userForm.locale.vars.value,
+        'options' : localeOptions,
+        'required': userForm.locale.vars.required,
+        'multiple': userForm.locale.vars.multiple ? 'true' : 'false',
+    } %}
+    {% if form_errors(userForm.locale) is not empty %}
+        <div class="field-error">{{ form_errors(userForm.locale) }}</div>
+    {% endif %}
+    {% do userForm.locale.setRendered() %}
+
+    {# ===== ROlES ===== #}
+
+    {% set roleOptions = [] %}
+
+    {% for roleData in userForm.roles.vars.choices ?? [] %}
+        {% set roleOptions = roleOptions|merge([
+            {
+                'key': roleData.value,
+                'value': roleData.value ~ ' (' ~ roleData.label ~ ')'
+            }
+        ]) %}
+    {% endfor %}
+
+    {% include '@bolt/_partials/fields/select.html.twig' with {
+        'id' : userForm.roles.vars.id,
+        'label' : 'label.roles'|trans,
+        'name' : userForm.vars.name ~ '[' ~ userForm.roles.vars.name ~ ']',
+        'value' : userForm.roles.vars.value,
+        'options' : roleOptions,
+        'required': userForm.roles.vars.required,
+        'multiple': userForm.roles.vars.multiple ? 'true' : 'false',
+    } %}
+    {% if form_errors(userForm.roles) is not empty %}
+        <div class="field-error">{{ form_errors(userForm.roles) }}</div>
+    {% endif %}
+    {% do userForm.roles.setRendered() %}
+
+    {# ===== STATUS ===== #}
+
+    {% set statusOptions = [] %}
+    {% for option in userForm.status.vars.choices ?? [] %}
+        {% set statusOptions = statusOptions|merge([
+            {
+                'key': option.value,
+                'value': option.value|capitalize
+            }
+        ]) %}
+    {% endfor %}
+
+    {% include '@bolt/_partials/fields/select.html.twig' with {
+        'id': userForm.status.vars.id,
+        'label': 'field.status'|trans,
+        'name' : userForm.vars.name ~ '[' ~ userForm.status.vars.name ~ ']',
+        'value': userForm.status.vars.value,
+        'options': statusOptions,
+        'required': userForm.status.vars.required ? 'true' : 'false',
+    } %}
+    {% if form_errors(userForm.status) is not empty %}
+        <div class="field-error">{{ form_errors(userForm.status) }}</div>
+    {% endif %}
+    {% do userForm.status.setRendered() %}
+
+
+    {# TODO: include form field with '@bolt/_partials/fields/select.html.twig' #}
+    {# Comment out for a while, until we work on this again
+        <div class="form-group">
+            <label for="backendTheme" class="required">Backend theme</label>
+            <select id="backendTheme" name="backendTheme" class="form-control">
+                <option value="default" selected="selected">The Default theme</option>
+                <option value="dark">The Default Dark theme</option>
+                <option value="light">A pretty Light theme</option>
+                <option value="woordpers">WoordPers: Kinda looks like that other CMS</option>
+            </select>
+        </div>
+        <theme-select></theme-select>
+    #}
+
+    {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': form_type ~ 'content', 'name': 'save'}) }}
+{{ form_end(userForm) }}
