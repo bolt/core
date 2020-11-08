@@ -87,7 +87,7 @@ input::placeholder {
 }
 
 .field-error {
-  color: red;
+  color: $danger;
   margin-top: -1.5rem;
   margin-bottom: 2rem;
 }
