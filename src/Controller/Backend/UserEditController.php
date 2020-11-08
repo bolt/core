@@ -78,25 +78,25 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             'suggested_password' => $suggestedPassword,
             'roles' => $roles,
             'require_username' => true,
-            'require_password' => true
+            'require_password' => true,
         ];
         $form = $this->createForm(UserEditType::class, $user, $form_data);
 
         // ON SUBMIT
-        if(!empty($submitted_data)){
+        if (! empty($submitted_data)) {
             // We need to transform to JSON.stringify value for the field "roles" into
             // an array so symfony forms validation works
             $submitted_data['roles'] = json_decode($submitted_data['roles']);
             $form->submit($submitted_data);
         }
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             return $this->_handleValidFormSubmit($form);
-        } else {
-            return $this->render('@bolt/users/add.html.twig', [
-                'userForm' => $form->createView()
-            ]);
         }
+
+        return $this->render('@bolt/users/add.html.twig', [
+            'userForm' => $form->createView(),
+        ]);
     }
 
     /**
@@ -117,7 +117,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         // We don't require the user to set the password again on the "user edit" form
         // If it is otherwise set use the given password normally
         $require_password = false;
-        if(!empty($submitted_data['plainPassword'])){
+        if (! empty($submitted_data['plainPassword'])) {
             $require_password = true;
         }
 
@@ -126,12 +126,12 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             'suggested_password' => $suggestedPassword,
             'roles' => $roles,
             'require_username' => false,
-            'require_password' => $require_password
+            'require_password' => $require_password,
         ];
         $form = $this->createForm(UserEditType::class, $user, $form_data);
 
         // ON SUBMIT
-        if(!empty($submitted_data)){
+        if (! empty($submitted_data)) {
             // Since the username is disabled on edit form we need to set it here so Symfony Forms doesn't throw an error
             $submitted_data['username'] = $user->getUsername();
 
@@ -141,13 +141,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $form->submit($submitted_data);
         }
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             return $this->_handleValidFormSubmit($form);
-        } else {
-            return $this->render('@bolt/users/edit.html.twig', [
-                'userForm' => $form->createView()
-            ]);
         }
+
+        return $this->render('@bolt/users/edit.html.twig', [
+            'userForm' => $form->createView(),
+        ]);
     }
 
     /**
@@ -201,11 +201,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /**
      * This function is called by add and edit function if given form was submitted and validated correctly
      * Here the User Object will be persisted to the DB and the user will be redirected to the overview page
-     *
-     * @param FormInterface $form
-     * @return RedirectResponse
      */
-    private function _handleValidFormSubmit(FormInterface $form) {
+    private function _handleValidFormSubmit(FormInterface $form): RedirectResponse
+    {
         // Get the adjusted User Entity from the form
         /** @var User $user */
         $user = $form->getData();
@@ -224,6 +222,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->dispatcher->dispatch($event, UserEvent::ON_POST_SAVE);
 
         $this->addFlash('success', 'user.updated_profile');
+
         return $this->redirectToRoute('bolt_users');
     }
 }
