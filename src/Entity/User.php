@@ -15,8 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
- * @UniqueEntity("email", message="user.duplicate_email")
- * @UniqueEntity("username", message="user.duplicate_username")
+ * @UniqueEntity("email", message="user.duplicate_email", groups={"add_user", "edit_user", "edit_user_without_pw"})
+ * @UniqueEntity("username", message="user.duplicate_username", groups={"add_user", "edit_user", "edit_user_without_pw"})
  */
 class User implements UserInterface, \Serializable
 {

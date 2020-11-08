@@ -1,6 +1,7 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-{{ form_start(userForm, {'attr': {'id': form_type ~ 'content'}}) }}
+{# DONT TOUCH THAT ID! #}
+{{ form_start(userForm, {'attr': {'id': 'editcontent'}}) }}
 
     {# ===== USERNAME ===== #}
 
@@ -85,7 +86,7 @@
         'id' : userForm.locale.vars.id,
         'label' : 'label.locale'|trans,
         'name' : userForm.vars.name ~ '[' ~ userForm.locale.vars.name ~ ']',
-        'value' : userForm.locale.vars.value,
+        'value' : userForm.locale.vars.value is empty ? userForm.locale.vars.attr.default_locale : userForm.locale.vars.value,
         'options' : localeOptions,
         'required': userForm.locale.vars.required,
         'multiple': userForm.locale.vars.multiple ? 'true' : 'false',
@@ -162,5 +163,6 @@
         <theme-select></theme-select>
     #}
 
-    {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': form_type ~ 'content', 'name': 'save'}) }}
+    {# DONT TOUCH THAT ID! #}
+    {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'editcontent', 'name': 'save'}) }}
 {{ form_end(userForm) }}
