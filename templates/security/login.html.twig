@@ -17,6 +17,8 @@
 {% block main %}
     <div>
 
+        {% form_theme loginForm 'bootstrap_4_layout.html.twig' %}
+
         <div class="login__logo">
             <img class="logo" alt="Bolt CMS logo"
                 {% if not config.get('general/omit_backgrounds') %}

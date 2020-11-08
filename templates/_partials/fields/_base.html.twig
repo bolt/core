@@ -41,7 +41,9 @@
 {% set type_card = (type in ['imagelist', 'filelist', 'set']) %}
 
 {# Set variant #}
-{% set variant = field.definition.variant|default('normal') %}
+{% if not variant|default %}
+    {% set variant = field.definition.variant|default('normal') %}
+{% endif %}
 
 {# Set the name #}
 {% if not name|default %}
