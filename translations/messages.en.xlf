@@ -2397,6 +2397,12 @@
         <target>From URL</target>
       </segment>
     </unit>
+    <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
+      <segment>
+        <source>files_cards.copy_to_clipboard</source>
+        <target>Copy link to file</target>
+      </segment>
+    </unit>
     <unit id="S9k1S7Z" name="warning">
       <segment>
         <source>warning</source>
