@@ -51,6 +51,7 @@
                     {% if iteratedUser.status !== 'enabled' %}
                         {{ macro.buttonlink('action.enable', path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'enabled'}), 'thumbs-up', 'secondary sm') }}
                     {% endif %}
+                    {{ macro.buttonlink('action.impersonate', path('bolt_dashboard', {'_switch_user': iteratedUser.username}), 'user-shield', 'secondary sm') }}
                     {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}), 'trash', 'danger sm', {'data-confirmation': 'action.confirm_delete'|trans }) }}
                 {%  endif %}
             </td>

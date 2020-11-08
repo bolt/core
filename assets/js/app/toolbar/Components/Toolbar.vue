@@ -35,9 +35,18 @@
             >
                 <img v-if="avatar" :src="avatar" class="rounded-circle mr-2" alt="User avatar" />
                 <i v-else class="fas fa-user"></i>{{ labels['general.greeting'] }}
+                <template v-if="isImpersonator">
+                    &nbsp;<span style="font-style: italic;">({{ labels['general.is_impersonator'] }})</span>
+                </template>
             </button>
             <div class="profile__dropdown dropdown-menu dropdown-menu-right">
                 <ul>
+                    <li v-if="isImpersonator">
+                        <a :href="backendPrefix + '?_switch_user=_exit'">
+                            <i class="fas fa-sign-out-alt fa-fw"></i>
+                            {{ labels['action.stop_impersonating'] }}
+                        </a>
+                    </li>
                     <li>
                         <a :href="backendPrefix + 'profile-edit'">
                             <i class="fas fa-user-edit fa-fw"></i>
@@ -79,6 +88,7 @@ export default {
         menu: Array,
         labels: Object,
         backendPrefix: RegExp,
+        isImpersonator: Boolean,
         filterValue: String,
         avatar: String,
     },
