@@ -74,7 +74,7 @@ Feature: Users & Permissions
     And I scroll "#multiselect-user_edit_roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span" into view
     And I click "#multiselect-user_edit_roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span"
 
-    When I scroll "#addcontent > button" into view
+    When I scroll "#editcontent > button" into view
     And I press "Save changes"
 
     Then I should be on "/bolt/users"
@@ -163,7 +163,7 @@ Feature: Users & Permissions
     And I should see "Jane Doe" in the "h1" element
     And the field "username" should contain "jane_admin"
 
-    When I fill "displayName" element with "  "
+    When I fill "displayName" element with "a"
     And I scroll "Save changes" into view
     And I press "Save changes"
 

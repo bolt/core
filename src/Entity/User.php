@@ -114,7 +114,7 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function setDisplayName(string $displayName): void
+    public function setDisplayName(?string $displayName): void
     {
         $this->displayName = $displayName;
     }
@@ -134,7 +134,7 @@ class User implements UserInterface, \Serializable
         return $this->username;
     }
 
-    public function setUsername(string $username): void
+    public function setUsername(?string $username): void
     {
         $slugify = new Slugify(['separator' => '_']);
         $cleanUsername = $slugify->slugify($username);
@@ -146,7 +146,7 @@ class User implements UserInterface, \Serializable
         return $this->email;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
@@ -166,7 +166,7 @@ class User implements UserInterface, \Serializable
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(string $plainPassword): self
+    public function setPlainPassword(?string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
 
