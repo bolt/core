@@ -77,7 +77,7 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
             $user->setPlainPassword($newPassword);
         }
 
-        $errors = $validator->validate($user);
+        $errors = $validator->validate($user, null, ['edit_user']);
 
         if ($errors->count() > 0) {
             $hasPasswordError = false;
