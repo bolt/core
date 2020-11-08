@@ -71,6 +71,10 @@ class UserEditType extends AbstractType
             ->add('email', EmailType::class)
             ->add('locale', ChoiceType::class, [
                 'choices' => $locationOptions,
+                'empty_data' => $options['default_locale'],
+                'attr' => [
+                    'default_locale' => $options['default_locale'],
+                ],
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => $roleOptions,
@@ -93,6 +97,7 @@ class UserEditType extends AbstractType
             'roles' => '',
             'require_username' => '',
             'require_password' => '',
+            'default_locale' => '',
             'validation_groups' => function (FormInterface $form) {
                 /** @var User $entity */
                 $entity = $form->getData();
