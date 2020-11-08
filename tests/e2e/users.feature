@@ -129,7 +129,7 @@ Feature: Users & Permissions
 
     Then I should be on "/bolt/user-edit/2"
     And I should see "Notification" in the ".admin__notifications" element
-    And I should see "A user with \"admin@example.org\" email already exists." in the ".admin__notifications" element
+    And I should see "A user with \"admin@example.org\" email already exists." in the ".field-error" element
 
   @javascript
   Scenario: Edit user with incorrect display name, password and email
