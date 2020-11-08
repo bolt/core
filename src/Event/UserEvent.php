@@ -9,6 +9,7 @@ use Tightenco\Collect\Support\Collection;
 
 class UserEvent
 {
+    public const ON_ADD = 'bolt.users_pre_add';
     public const ON_EDIT = 'bolt.users_pre_edit';
     public const ON_POST_SAVE = 'bolt.users_post_save';
 

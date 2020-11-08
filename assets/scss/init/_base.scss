@@ -80,3 +80,9 @@ input.flatpickr-input[disabled] {
 input::placeholder {
   font-style: italic;
 }
+
+.field-error {
+  color: red;
+  margin-top: -1.5rem;
+  margin-bottom: 2rem;
+}
