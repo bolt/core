@@ -89,17 +89,9 @@ export default {
                 return JSON.stringify([]);
             } else if (this.selected.length > 0) {
                 filtered = this.selected.map(item => item.key);
-                if (this.multiple) {
-                    return JSON.stringify(filtered);
-                } else {
-                    return filtered;
-                }
+                return JSON.stringify(filtered);
             } else {
-                if (this.multiple) {
-                    return JSON.stringify([this.selected.key]);
-                } else {
-                    return this.selected.key;
-                }
+                return JSON.stringify([this.selected.key]);
             }
         },
         fieldName() {
