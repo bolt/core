@@ -2439,5 +2439,11 @@
         <target>New folder</target>
       </segment>
     </unit>
+    <unit id="FcXvWL8" name="title.add_user">
+      <segment>
+        <source>title.add_user</source>
+        <target>Add User</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

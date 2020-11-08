@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
-use Bolt\Common\Json;
 use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
 use Bolt\Event\UserEvent;
+use Bolt\Form\UserEditType;
 use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Symfony\Component\Validator\ConstraintViolationInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -58,30 +58,100 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/user-edit/{id}", methods={"GET"}, name="bolt_user_edit", requirements={"id": "\d+"})
+     * @Route("/user-edit/add", methods={"GET","POST"}, name="bolt_user_add")
      */
-    public function edit(?User $user): Response
+    public function add(Request $request): Response
     {
-        if (! $user instanceof User) {
-            $user = UserRepository::factory();
-            $suggestedPassword = Str::generatePassword();
-        } else {
-            $suggestedPassword = '';
+        $user = UserRepository::factory();
+        $submitted_data = $request->get('user_edit');
+
+        // Always show a strong suggested password, no matter on add or edit page
+        $suggestedPassword = Str::generatePassword();
+
+        $event = new UserEvent($user);
+        $this->dispatcher->dispatch($event, UserEvent::ON_ADD);
+
+        $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
+
+        // These are the variables we have to pass into our FormType so we can build the fields correctly
+        $form_data = [
+            'suggested_password' => $suggestedPassword,
+            'roles' => $roles,
+            'require_username' => true,
+            'require_password' => true
+        ];
+        $form = $this->createForm(UserEditType::class, $user, $form_data);
+
+        // ON SUBMIT
+        if(!empty($submitted_data)){
+            if(!empty($user->getUsername())){
+                // Since the username is disabled on edit form we need to set it here so Symfony Forms doesn't throw an error
+                $submitted_data['username'] = $user->getUsername();
+            }
+            // We need to transform to JSON.stringify value for the field "roles" into
+            // an array so symfony forms validation works
+            $submitted_data['roles'] = json_decode($submitted_data['roles']);
+            $form->submit($submitted_data);
         }
+
+        if ($form->isSubmitted() && $form->isValid()){
+            return $this->_handleValidFormSubmit($form);
+        } else {
+            return $this->render('@bolt/users/add.html.twig', [
+                'userForm' => $form->createView()
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/user-edit/{id}", methods={"GET","POST"}, name="bolt_user_edit", requirements={"id": "\d+"})
+     */
+    public function edit(?User $user, Request $request): Response
+    {
+        $submitted_data = $request->get('user_edit');
+
+        // Always show a strong suggested password, no matter on add or edit page
+        $suggestedPassword = Str::generatePassword();
 
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
 
         $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
-        $statuses = UserStatus::all();
 
-        return $this->render('@bolt/users/edit.html.twig', [
-            'display_name' => $user->getDisplayName(),
-            'userEdit' => $user,
+        // We don't require the user to set the password again on the "user edit" form
+        // If it is otherwise set use the given password normally
+        $require_password = false;
+        if(!empty($submitted_data['plainPassword'])){
+            $require_password = true;
+        }
+
+        // These are the variables we have to pass into our FormType so we can build the fields correctly
+        $form_data = [
+            'suggested_password' => $suggestedPassword,
             'roles' => $roles,
-            'suggestedPassword' => $suggestedPassword,
-            'statuses' => $statuses,
-        ]);
+            'require_username' => false,
+            'require_password' => $require_password
+        ];
+        $form = $this->createForm(UserEditType::class, $user, $form_data);
+
+        // ON SUBMIT
+        if(!empty($submitted_data)){
+            // Since the username is disabled on edit form we need to set it here so Symfony Forms doesn't throw an error
+            $submitted_data['username'] = $user->getUsername();
+
+            // We need to transform to JSON.stringify value for the field "roles" into
+            // an array so symfony forms validation works
+            $submitted_data['roles'] = json_decode($submitted_data['roles']);
+            $form->submit($submitted_data);
+        }
+
+        if ($form->isSubmitted() && $form->isValid()){
+            return $this->_handleValidFormSubmit($form);
+        } else {
+            return $this->render('@bolt/users/edit.html.twig', [
+                'userForm' => $form->createView()
+            ]);
+        }
     }
 
     /**
@@ -133,58 +203,16 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
+     * This function is called by add and edit function if given form was submitted and validated correctly
+     * Here the User Object will be persisted to the DB and the user will be redirected to the overview page
+     *
+     * @param FormInterface $form
+     * @return RedirectResponse
      */
-    public function save(?User $user, ValidatorInterface $validator): Response
-    {
-        $this->validateCsrf('useredit');
-
-        if (! $user instanceof User) {
-            $user = UserRepository::factory();
-        }
-
-        $displayName = $user->getDisplayName();
-        $locale = Json::findScalar($this->getFromRequest('locale'));
-        $roles = Json::findArray($this->getFromRequest('roles'));
-        $status = Json::findScalar($this->getFromRequest('ustatus', UserStatus::ENABLED));
-
-        if (empty($user->getUsername())) {
-            $user->setUsername($this->getFromRequest('username'));
-        }
-        $user->setDisplayName($this->getFromRequest('displayName'));
-        $user->setEmail($this->getFromRequest('email'));
-        $user->setLocale($locale);
-        $user->setRoles($roles);
-        $user->setbackendTheme($this->getFromRequest('backendTheme'));
-        $user->setStatus($status);
-
-        $newPassword = $this->getFromRequest('password');
-        // Set the plain password to check for validation
-        if (! empty($newPassword)) {
-            $user->setPlainPassword($newPassword);
-        }
-
-        $errors = $validator->validate($user);
-        if ($errors->count() > 0) {
-            $hasPasswordError = false;
-
-            /** @var ConstraintViolationInterface $error */
-            foreach ($errors as $error) {
-                $this->addFlash('danger', $error->getMessage());
-
-                if ($error->getPropertyPath() === 'plainPassword') {
-                    $hasPasswordError = true;
-                }
-            }
-
-            $suggestedPassword = $hasPasswordError ? Str::generatePassword() : null;
-
-            return $this->render('@bolt/users/edit.html.twig', [
-                'display_name' => $displayName,
-                'userEdit' => $user,
-                'suggestedPassword' => $suggestedPassword,
-            ]);
-        }
+    private function _handleValidFormSubmit(FormInterface $form) {
+        // Get the adjusted User Entity from the form
+        /** @var User $user */
+        $user = $form->getData();
 
         // Once validated, encode the password
         if ($user->getPlainPassword()) {
@@ -192,6 +220,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $user->eraseCredentials();
         }
 
+        // Save the new user data into the DB
         $this->em->persist($user);
         $this->em->flush();
 
@@ -199,7 +228,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->dispatcher->dispatch($event, UserEvent::ON_POST_SAVE);
 
         $this->addFlash('success', 'user.updated_profile');
-
         return $this->redirectToRoute('bolt_users');
     }
 }
