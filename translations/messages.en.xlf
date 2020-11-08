@@ -2391,6 +2391,7 @@
         <target>Filter by field</target>
       </segment>
     </unit>
+<<<<<<< HEAD
     <unit id="kciiidS" name="image.button_from_url">
       <segment>
         <source>image.button_from_url</source>
@@ -2439,6 +2440,8 @@
         <target>New folder</target>
       </segment>
     </unit>
+=======
+>>>>>>> af1be7b5d672ab5a4df05b6d606b5918070096c3
     <unit id="FcXvWL8" name="title.add_user">
       <segment>
         <source>title.add_user</source>
