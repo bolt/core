@@ -16,6 +16,8 @@
         </div>
 
         <div v-for="element in elements" :key="element.hash" class="collection-item">
+            <!-- Navigation buttons -->
+            <div :is="compile(element.buttons)"></div>
             <details :open="variant === 'expanded'" class="card">
                 <summary class="d-block">
                     <div class="card-header d-flex align-items-center">
@@ -25,9 +27,6 @@
                             <i :class="[element.icon, 'fas fa-fw']" />
                             {{ element.label }}
                         </div>
-
-                        <!-- Navigation buttons -->
-                        <div :is="compile(element.buttons)"></div>
                     </div>
                 </summary>
 
@@ -146,6 +145,7 @@ export default {
          * The collection items are not Vue elements in order to initialise them correctly within their twig template.
          */
         window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.remove, function(e) {
+            console.log('click remove');
             e.preventDefault();
             let collectionContainer = window.$(this).closest(vueThis.selector.collectionContainer);
             vueThis.getCollectionItemFromPressedButton(this).remove();
@@ -153,6 +153,7 @@ export default {
             vueThis.counter--;
         });
         window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveUp, function(e) {
+            console.log('click up');
             e.preventDefault();
             let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
             let prevCollectionitem = vueThis.getPreviousCollectionItem(thisCollectionItem);
@@ -161,6 +162,7 @@ export default {
             vueThis.setButtonsState(prevCollectionitem);
         });
         window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveDown, function(e) {
+            console.log('click down');
             e.preventDefault();
             let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
             let nextCollectionItem = vueThis.getNextCollectionItem(thisCollectionItem);
@@ -169,6 +171,7 @@ export default {
             vueThis.setButtonsState(nextCollectionItem);
         });
         window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.expandAll, function(e) {
+            console.log('click expand all');
             e.preventDefault();
             const collection = $(e.target).closest(vueThis.selector.collectionContainer);
             collection.find('details').attr('open', '');
@@ -176,6 +179,7 @@ export default {
         window
             .$(document)
             .on('click', vueThis.selector.collectionContainer + vueThis.selector.collapseAll, function(e) {
+                console.log('click collapse all');
                 e.preventDefault();
                 const collection = $(e.target).closest(vueThis.selector.collectionContainer);
                 collection.find('details').removeAttr('open');
@@ -214,14 +218,14 @@ export default {
         /**
          * Open newly inserted collection items.
          */
-        $(document).on('DOMNodeInserted', function(e) {
-            if ($(e.target).hasClass('collection-item')) {
-                $(e.target)
-                    .find('details')
-                    .first()
-                    .attr('open', '');
-            }
-        });
+        // $(document).on('DOMNodeInserted', function(e) {
+        //     if ($(e.target).hasClass('collection-item')) {
+        //         $(e.target)
+        //             .find('details')
+        //             .first()
+        //             .attr('open', '');
+        //     }
+        // });
     },
     updated() {
         this.setAllButtonsStates(window.$(this.$refs.collectionContainer));
