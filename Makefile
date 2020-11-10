@@ -134,19 +134,22 @@ docker-install: ## to install project with docker
 	make docker-db-create
 
 docker-install-deps: ## to install all assets with docker
-	docker-compose exec -T php sh -c "composer install"
+	docker-compose exec -T php sh -c "$(COMPOSER) install"
 	$(DC_RUN) node sh -c "npm install"
 	$(DC_RUN) node sh -c "npm rebuild node-sass"
 	$(DC_RUN) node sh -c "npm run build"
 
-docker-start: ## to build containers
+docker-build: ## to build containers
+	docker-compose build
+
+docker-start: ## to start containers
 	docker-compose up -d
 
 docker-assets-serve: ## to run server with npm
 	$(DC_RUN) node sh -c "npm run serve"
 
 docker-update: ## to update dependencies with docker
-	docker-compose exec -T php sh -c "composer update && composer outdated"
+	docker-compose exec -T php sh -c "$(COMPOSER) update && $(COMPOSER) outdated"
 
 docker-cache: ## to clean cache with docke
 	docker-compose exec -T php sh -c "bin/console cache:clear"

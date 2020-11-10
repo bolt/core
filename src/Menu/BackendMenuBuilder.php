@@ -37,8 +37,12 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
     /** @var ContentExtension */
     private $contentExtension;
 
+    /** @var ExtensionBackendMenuInterface[] */
+    private $extensionMenus;
+
     public function __construct(
         FactoryInterface $menuFactory,
+        iterable $extensionMenus,
         Config $config,
         ContentRepository $contentRepository,
         UrlGeneratorInterface $urlGenerator,
@@ -51,6 +55,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->contentExtension = $contentExtension;
+        $this->extensionMenus = $extensionMenus;
     }
 
     private function createAdminMenu(): ItemInterface
@@ -79,6 +84,8 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $this->addContentItems($menu);
 
         $this->addContentOthers($menu);
+
+        $this->addExtensionMenus($menu);
 
         $menu->addChild('Settings', [
             'extras' => [
@@ -378,6 +385,13 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         }
 
         return $result;
+    }
+
+    private function addExtensionMenus(MenuItem $menu): void
+    {
+        foreach ($this->extensionMenus as $extensionMenu) {
+            $extensionMenu->addItems($menu);
+        }
     }
 
     public function buildAdminMenu(): array
