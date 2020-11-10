@@ -251,15 +251,26 @@ class Content
             $slug = $this->getFieldValue('slug');
         } else {
             // get slug with the requested locale
-            $slug = $this->getField('slug')->setLocale($locale)->getParsedValue();
+            $field = $this->getField('slug');
+
+            // @todo: Refactor this. Field.php should be able to get locale
+            // without changing it for later use.
+            $currentLocale = $field->getLocale();
+            $field->setLocale($locale);
+            $slug = $field->getParsedValue();
+            $field->setLocale($currentLocale);
         }
 
         // if no slug exists for the current/requested locale, default fallback
         if (! $slug && $this->hasField('slug')) {
-            $slug = $this
-                ->getField('slug')
-                ->setLocale($this->getField('slug')->getDefaultLocale())
-                ->getParsedValue();
+            $field = $this->getField('slug');
+
+            // @todo: Refactor this. Field.php should be able to get locale
+            // without changing it for later use.
+            $currentLocale = $field->getLocale();
+            $field->setLocale($this->getField('slug')->getDefaultLocale());
+            $slug = $field->getParsedValue();
+            $field->setLocale($currentLocale);
         }
 
         return $slug;

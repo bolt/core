@@ -80,7 +80,7 @@ class ContentHelper
             'route' => $record->getDefinition()->get('record_route'),
             'params' => [
                 'contentTypeSlug' => $record->getContentTypeSingularSlug(),
-                'slugOrId' => $record->getSlug(),
+                'slugOrId' => $record->getSlug($locale),
                 '_locale' => $locale,
             ],
         ];
