@@ -221,6 +221,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $user->eraseCredentials();
         }
 
+        $event = new UserEvent($user);
+        $this->dispatcher->dispatch($event, UserEvent::ON_PRE_SAVE);
+
         // Save the new user data into the DB
         $this->em->persist($user);
         $this->em->flush();
