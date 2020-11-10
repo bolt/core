@@ -28,6 +28,9 @@ services:
             $projectDir: '%kernel.project_dir%'
             $publicFolder: '%bolt.public_folder%'
             $tablePrefix: '%bolt.table_prefix%'
+    _instanceof:
+        Bolt\Menu\ExtensionBackendMenuInterface:
+            tags: [ 'bolt.extension_backend_menu' ]
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -69,7 +72,9 @@ services:
 
     # menus
     Bolt\Menu\BackendMenuBuilder:
-        arguments: ["@knp_menu.factory"]
+        arguments: 
+            - "@knp_menu.factory"
+            - !tagged_iterator bolt.extension_backend_menu
         tags:
             - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin_menu } # The alias is what is used to retrieve the menu
 
