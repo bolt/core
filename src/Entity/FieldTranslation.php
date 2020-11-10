@@ -55,7 +55,19 @@ class FieldTranslation implements TranslationInterface
 
     public function isEmpty(): bool
     {
-        $value = is_iterable($this->value) ? current($this->value) : $this->value;
+        $field = $this->getTranslatable();
+
+//       @todo: Find a way to check for fields that implement Countable
+//        if ($field instanceof \Countable) {
+//            if (Recursion::detect()) {
+//                dump('rec');
+//                return true;
+//            }
+//
+//            return $field->count() === 0;
+//        }
+
+        $value = is_iterable($this->value) && array_key_exists(0, $this->value) ? $this->value[0] : $this->value;
 
         return empty($value);
     }
