@@ -44,5 +44,7 @@ security:
         # additional security lives in the controllers
         - { path: '^%bolt.backend_url%/login$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^%bolt.backend_url%/reset-password', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^%bolt.backend_url%', roles: ROLE_ADMIN }
-        - { path: '^/(%app_locales%)%bolt.backend_url%', roles: ROLE_ADMIN }
+        # backend_url: require users to actually be logged in (not remember-me) - detailed permissions are
+        # handled by Voters
+        - { path: '^%bolt.backend_url%', roles: IS_AUTHENTICATED_FULLY }
+        - { path: '^/(%app_locales%)%bolt.backend_url%', roles: IS_AUTHENTICATED_FULLY }

@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Security;
 
-
+use Bolt\Configuration\Config;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
@@ -11,11 +12,8 @@ use Symfony\Component\Security\Core\User\User;
 
 class GlobalVoter extends Voter
 {
-    const VIEW_SETTINGS = 'view_settings';
-    const EDIT_SETTINGS = 'edit_settings';
-
-    const CONTENT_VIEW = 'content_view';
-    const CONTENT_EDIT = 'content_edit';
+    public const VIEW_SETTINGS = 'view_settings';
+    public const EDIT_SETTINGS = 'edit_settings';
 
     /*
 # The first set of permissions are the 'global' permissions; these are not tied
@@ -68,23 +66,21 @@ global:
      */
 
     private $security;
+    private $config;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, Config $config)
     {
         $this->security = $security;
+        $this->config = $config->get('permissions');
     }
 
     protected function supports(string $attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW_SETTINGS, self::EDIT_SETTINGS, self::CONTENT_VIEW, self::CONTENT_EDIT])) {
+        if (! in_array($attribute, [self::VIEW_SETTINGS, self::EDIT_SETTINGS], true)) {
             return false;
         }
 
-        // only vote on `Post` objects
-//        if (!$subject instanceof Post) {
-//            return false;
-//        }
         return true;
     }
 
@@ -96,40 +92,18 @@ global:
 
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             // the user must be logged in; if not, deny access
             return false;
         }
 
-        // you know $subject is a Post object, thanks to `supports()`
-        /** @var Post $post */
-        $post = $subject;
-
         switch ($attribute) {
-            case self::VIEW:
-                return $this->canView($post, $user);
-            case self::EDIT:
-                return $this->canEdit($post, $user);
+            case self::VIEW_SETTINGS:
+                return true;
+            case self::EDIT_SETTINGS:
+                return true;
         }
 
         throw new \LogicException('This code should not be reached!');
-
-    }
-
-    private function canView(Post $post, User $user)
-    {
-        // if they can edit, they can view
-        if ($this->canEdit($post, $user)) {
-            return true;
-        }
-
-        // the Post object could have, for example, a method `isPrivate()`
-        return !$post->isPrivate();
-    }
-
-    private function canEdit(Post $post, User $user)
-    {
-        // this assumes that the Post object has a `getOwner()` method
-        return $user === $post->getOwner();
     }
 }

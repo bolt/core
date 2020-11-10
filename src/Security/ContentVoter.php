@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Security;
 
-
+use Bolt\Entity\Content;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
@@ -44,16 +45,16 @@ class ContentVoter extends Voter
     protected function supports(string $attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::CONTENT_EDIT, self::CONTENT_CREATE, self::CONTENT_PUBLISH,
+        if (! in_array($attribute, [self::CONTENT_EDIT, self::CONTENT_CREATE, self::CONTENT_PUBLISH,
             self::CONTENT_DEPUBLISH, self::CONTENT_DELETE, self::CONTENT_CHANGE_OWNERSHIP,
-            self::CONTENT_VIEW])) {
+            self::CONTENT_VIEW, ], true)) {
             return false;
         }
 
-        // only vote on `Post` objects
-//        if (!$subject instanceof Post) {
-//            return false;
-//        }
+        // only vote on `Content` objects
+        if (!$subject instanceof Content) {
+            return false;
+        }
         return true;
     }
 
@@ -65,40 +66,39 @@ class ContentVoter extends Voter
 
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             // the user must be logged in; if not, deny access
             return false;
         }
 
         // you know $subject is a Post object, thanks to `supports()`
-        /** @var Post $post */
-        $post = $subject;
+        /** @var Content $content */
+        $content = $subject;
 
         switch ($attribute) {
             case self::VIEW:
-                return $this->canView($post, $user);
+                return $this->canView($content, $user);
             case self::EDIT:
-                return $this->canEdit($post, $user);
+                return $this->canEdit($content, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
-
     }
 
-    private function canView(Post $post, User $user)
+    private function canView(Content $content, User $user)
     {
         // if they can edit, they can view
-        if ($this->canEdit($post, $user)) {
+        if ($this->canEdit($content, $user)) {
             return true;
         }
 
         // the Post object could have, for example, a method `isPrivate()`
-        return !$post->isPrivate();
+        return ! $content->isPrivate();
     }
 
-    private function canEdit(Post $post, User $user)
+    private function canEdit(Content $content, User $user)
     {
         // this assumes that the Post object has a `getOwner()` method
-        return $user === $post->getOwner();
+        return $user === $content->getOwner();
     }
 }
