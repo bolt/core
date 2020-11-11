@@ -14,6 +14,7 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ListingController extends TwigAwareController implements FrontendZoneInterface
@@ -45,6 +46,11 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         }
 
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+
+        // If the ContentType is 'viewless' we throw a 404.
+        if ($contentType->get('viewless') === true) {
+            throw new NotFoundHttpException('Content is not viewable');
+        }
 
         // If the locale is the wrong locale
         if (! $this->validLocaleForContentType($contentType)) {
