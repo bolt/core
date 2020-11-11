@@ -13,18 +13,16 @@ class PermissionsParser extends BaseParser
 
     public function __construct(string $projectDir, string $filename = 'permissions.yaml')
     {
-        $this->path = $path;
-
         parent::__construct($projectDir, $filename);
     }
 
     /**
-     * Read and parse the theme.yml configuration file.
+     * Read and parse the permissions configuration file.
      */
     public function parse(): Collection
     {
-        $theme = $this->parseConfigYaml($this->path . '/theme.yaml', true);
+        $permissionConfig = $this->parseConfigYaml($this->getInitialFilename());
 
-        return new Collection($theme);
+        return new Collection($permissionConfig);
     }
 }
