@@ -34,6 +34,10 @@ trim_trailing_whitespace = false
 indent_style = space
 indent_size = 4
 
+[*.scss]
+indent_style = space
+indent_size = 2
+
 [*.sh]
 indent_style = tab
 indent_size = 4
