@@ -36,23 +36,23 @@ class UserEditType extends AbstractType
         // Create custom role options array
         $roleOptions = [];
         $custom_roles = $options['roles'];
-        foreach ($custom_roles as $roleName => $roleHierarchy):
+        foreach ($custom_roles as $roleName => $roleHierarchy) {
             // For some reason these select arrays are built like
             // array-key => Label
             // array-value => Key which is used to save in the DB (and used for validation)
             $label = mb_strtolower(implode(', ', $roleHierarchy));
-        $roleOptions[$label] = $roleName;
-        endforeach;
+            $roleOptions[$label] = $roleName;
+        }
 
         // Create custom location options array
         $locationOptions = [];
         $custom_locations = $this->localeHelper->getLocales($this->twig, null, true)->all();
-        foreach ($custom_locations as $location):
+        foreach ($custom_locations as $location) {
             $data = $location->all();
-        // Same strange array structure as above
-        $description = sprintf('%s %s (%s, %s)', $data['emoji'], $data['name'], $data['localizedname'], $data['code']);
-        $locationOptions[$description] = $data['code'];
-        endforeach;
+            // Same strange array structure as above
+            $description = sprintf('%s %s (%s, %s)', $data['emoji'], $data['name'], $data['localizedname'], $data['code']);
+            $locationOptions[$description] = $data['code'];
+        }
 
         $builder
             ->add('username', TextType::class, [
