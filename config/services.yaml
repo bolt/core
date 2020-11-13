@@ -67,6 +67,10 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postLoad }
 
+    Bolt\Event\Listener\UserAvatarLoadListener:
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+            
     Bolt\Extension\RoutesLoader:
         tags: [routing.loader]
 

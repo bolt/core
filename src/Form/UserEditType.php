@@ -26,6 +26,7 @@ class UserEditType extends AbstractType
 
     /** @var Environment */
     private $twig;
+
     /**
      * @var DeepCollection
      */
