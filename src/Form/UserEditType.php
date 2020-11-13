@@ -27,9 +27,7 @@ class UserEditType extends AbstractType
     /** @var Environment */
     private $twig;
 
-    /**
-     * @var DeepCollection
-     */
+    /** @var DeepCollection */
     private $avatarConfig;
 
     public function __construct(LocaleHelper $localeHelper, Environment $twig, Config $config)
