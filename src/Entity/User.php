@@ -9,6 +9,7 @@ use Bolt\Enum\UserStatus;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -104,6 +105,14 @@ class User implements UserInterface, \Serializable
 
     /** @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"}) */
     private $userAuthToken;
+
+    /** @ORM\Column(type="string", length=250, nullable=true) */
+    private $avatarPath;
+
+    /**
+     * @var UploadedFile
+     */
+    private $avatar;
 
     public function __construct()
     {
@@ -318,5 +327,25 @@ class User implements UserInterface, \Serializable
     public function isNewUser(): bool
     {
         return $this->id === null;
+    }
+
+    public function getAvatarPath(): ?string
+    {
+        return $this->avatarPath;
+    }
+
+    public function setAvatarPath($avatarPath): void
+    {
+        $this->avatarPath = $avatarPath;
+    }
+
+    public function getAvatar(): UploadedFile
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(UploadedFile $avatar): void
+    {
+        $this->avatar = $avatar;
     }
 }
