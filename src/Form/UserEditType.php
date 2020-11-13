@@ -84,8 +84,12 @@ class UserEditType extends AbstractType
             ->add('status', ChoiceType::class, [
                 'choices' => UserStatus::all(),
             ])
-            ->add('avatar', FileType::class, [
-                'required' => false
+            ->add('avatar', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'upload_path' => 'avatars',
+                    'extensions_allowed' => ['png', 'jpeg', 'jpg', 'gif']
+                ]
             ])
         ;
 //            ->add('lastseenAt')
