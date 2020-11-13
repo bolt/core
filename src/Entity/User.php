@@ -339,7 +339,7 @@ class User implements UserInterface, \Serializable
         $this->avatarPath = $avatarPath;
     }
 
-    public function getAvatar(): UploadedFile
+    public function getAvatar(): ?UploadedFile
     {
         return $this->avatar;
     }
