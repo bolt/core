@@ -107,11 +107,6 @@ class User implements UserInterface, \Serializable
     private $userAuthToken;
 
     /** @ORM\Column(type="string", length=250, nullable=true) */
-    private $avatarPath;
-
-    /**
-     * @var UploadedFile
-     */
     private $avatar;
 
     public function __construct()
@@ -329,22 +324,12 @@ class User implements UserInterface, \Serializable
         return $this->id === null;
     }
 
-    public function getAvatarPath(): ?string
-    {
-        return $this->avatarPath;
-    }
-
-    public function setAvatarPath($avatarPath): void
-    {
-        $this->avatarPath = $avatarPath;
-    }
-
-    public function getAvatar(): ?UploadedFile
+    public function getAvatar(): ?string
     {
         return $this->avatar;
     }
 
-    public function setAvatar(UploadedFile $avatar): void
+    public function setAvatar(?string $avatar): void
     {
         $this->avatar = $avatar;
     }
