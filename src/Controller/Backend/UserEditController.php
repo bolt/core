@@ -145,9 +145,12 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             // We need to transform to JSON.stringify value for the field "roles" into
             // an array so symfony forms validation works
             $submitted_data['roles'] = json_decode($submitted_data['roles']);
+
+            // Transform media array to keep only filepath
+            $submitted_data['avatar'] = $submitted_data['avatar']['filename'];
+
             $form->submit($submitted_data);
         }
-
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->_handleValidFormSubmit($form);
         }
