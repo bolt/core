@@ -148,8 +148,24 @@
     {% endif %}
     {% do userForm.status.setRendered() %}
 
+    {# ===== AVATAR ===== #}
+    {% include '@bolt/_partials/fields/simple_image.html.twig' with {
+        'filepath': userForm.avatar.vars.value,
+        'upload_path': userForm.avatar.vars.attr['upload_path'],
+        'extensions_allowed': userForm.avatar.vars.attr['extensions_allowed'],
+        'id' : userForm.avatar.vars.id,
+        'label' : 'label.avatar'|trans,
+        'name' : userForm.vars.name ~ '[' ~ userForm.avatar.vars.name ~ ']',
+        'value' : userForm.avatar.vars.value,
+        'required': userForm.avatar.vars.required,
+    } %}
+    {% if form_errors(userForm.avatar) is not empty %}
+        <div class="field-error">{{ form_errors(userForm.avatar) }}</div>
+    {% endif %}
+    {% do userForm.avatar.setRendered() %}
 
-    {# TODO: include form field with '@bolt/_partials/fields/select.html.twig' #}
+
+{# TODO: include form field with '@bolt/_partials/fields/select.html.twig' #}
     {# Comment out for a while, until we work on this again
         <div class="form-group">
             <label for="backendTheme" class="required">Backend theme</label>
