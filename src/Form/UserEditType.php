@@ -10,6 +10,7 @@ use Bolt\Utils\LocaleHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -82,7 +83,11 @@ class UserEditType extends AbstractType
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => UserStatus::all(),
-            ]);
+            ])
+            ->add('avatar', FileType::class, [
+                'required' => false
+            ])
+        ;
 //            ->add('lastseenAt')
 //            ->add('lastIp')
 //            ->add('backendTheme')
