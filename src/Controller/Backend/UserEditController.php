@@ -93,6 +93,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $submitted_data['locale'] = json_decode($submitted_data['locale'])[0];
             $submitted_data['status'] = json_decode($submitted_data['status'])[0];
 
+            // Transform media array to keep only filepath
+            $submitted_data['avatar'] = $submitted_data['avatar']['filename'];
+
             $form->submit($submitted_data);
         }
 
