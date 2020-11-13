@@ -11,9 +11,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class UserAvatarLoadListener
 {
-    /**
-     * @var DeepCollection
-     */
+    /** @var DeepCollection */
     private $avatarConfig;
 
     public function __construct(Config $config)
@@ -28,7 +26,7 @@ class UserAvatarLoadListener
         $entity = $args->getEntity();
 
         if ($entity instanceof User) {
-            if(!$entity->getAvatar() && $this->avatarConfig->get('default_avatar') !== '') {
+            if (! $entity->getAvatar() && $this->avatarConfig->get('default_avatar') !== '') {
                 $entity->setAvatar($this->avatarConfig->get('default_avatar'));
             }
         }
