@@ -193,3 +193,9 @@ fixtures_seed: 87654
 # Globally enable / disable the validator for Fields
 validator_options:
     enable: true
+
+# Options for user's avatar
+user_avatar:
+    upload_path: avatars
+    extensions_allowed: ['png', 'jpeg', 'jpg', 'gif']
+    default_avatar: '/assets/images/placeholder.png'
