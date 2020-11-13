@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Bolt\Security;
 
 use Bolt\Configuration\Config;
+use Bolt\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\User;
 
 class GlobalVoter extends Voter
 {
-    public const VIEW_SETTINGS = 'view_settings';
-    public const EDIT_SETTINGS = 'edit_settings';
 
     /*
 # The first set of permissions are the 'global' permissions; these are not tied
@@ -66,29 +65,33 @@ global:
      */
 
     private $security;
-    private $config;
+    private $globalPermissions;
+    private $supportedAttributes;
 
     public function __construct(Security $security, Config $config)
     {
         $this->security = $security;
-        $this->config = $config->get('permissions');
+        $this->globalPermissions = $config->get('permissions/global');
+        if (is_array($this->globalPermissions) || $this->globalPermissions instanceof \ArrayAccess) {
+            // TODO should we also validate that the values are all simple arrays?
+            foreach ($this->globalPermissions as $key => $value) {
+                $this->supportedAttributes[] = $key;
+            }
+        } else {
+            throw new \DomainException("No global permissions config found");
+        }
     }
 
     protected function supports(string $attribute, $subject)
     {
-        // if the attribute isn't one we support, return false
-        if (! in_array($attribute, [self::VIEW_SETTINGS, self::EDIT_SETTINGS], true)) {
-            return false;
-        }
-
-        return true;
+        return in_array($attribute, $this->supportedAttributes, true);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
     {
-        if ($this->security->isGranted('ROLE_ADMIN')) {
-            return true;
-        }
+//        if ($this->security->isGranted('ROLE_SUPER_ADMIN')) {
+//            return true;
+//        }
 
         $user = $token->getUser();
 
@@ -97,12 +100,22 @@ global:
             return false;
         }
 
-        switch ($attribute) {
-            case self::VIEW_SETTINGS:
-                return true;
-            case self::EDIT_SETTINGS:
-                return true;
+//        switch ($attribute) {
+//            case self::PERMISSION_DASHBOARD:
+//                return $this->hasRoleForPermission($user, $attribute);
+//        }
+
+        if (!isset($this->globalPermissions[$attribute])) {
+            throw new \DomainException("Global permission '$attribute' not defined, check your security and permissions configuration.");
         }
+
+        $rolesWithPermission = $this->globalPermissions[$attribute];
+        foreach ($rolesWithPermission as $role) {
+            if ($this->security->isGranted($role)) {
+                return true;
+            }
+        }
+        return false;
 
         throw new \LogicException('This code should not be reached!');
     }
