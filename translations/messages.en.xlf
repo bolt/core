@@ -2445,5 +2445,11 @@
         <target>Add User</target>
       </segment>
     </unit>
+    <unit id="nWMH_Nr" name="label.avatar">
+      <segment>
+        <source>label.avatar</source>
+        <target>Avatar</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
