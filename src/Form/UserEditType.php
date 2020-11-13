@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Bolt\Form;
 
+use Bolt\Collection\DeepCollection;
+use Bolt\Configuration\Config;
 use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
 use Bolt\Utils\LocaleHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,11 +26,19 @@ class UserEditType extends AbstractType
 
     /** @var Environment */
     private $twig;
+    /**
+     * @var DeepCollection
+     */
+    private $avatarConfig;
 
-    public function __construct(LocaleHelper $localeHelper, Environment $twig)
+    public function __construct(LocaleHelper $localeHelper, Environment $twig, Config $config)
     {
         $this->localeHelper = $localeHelper;
         $this->twig = $twig;
+
+        /** @var DeepCollection $config */
+        $config = $config->get('general');
+        $this->avatarConfig = $config->get('user_avatar');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -87,11 +96,12 @@ class UserEditType extends AbstractType
             ->add('avatar', TextType::class, [
                 'required' => false,
                 'attr' => [
-                    'upload_path' => 'avatars',
-                    'extensions_allowed' => ['png', 'jpeg', 'jpg', 'gif']
-                ]
+                    'upload_path' => $this->avatarConfig->get('upload_path'),
+                    'extensions_allowed' => $this->avatarConfig->get('extensions_allowed'),
+                ],
             ])
         ;
+
 //            ->add('lastseenAt')
 //            ->add('lastIp')
 //            ->add('backendTheme')
