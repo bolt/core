@@ -198,4 +198,4 @@ validator_options:
 user_avatar:
     upload_path: avatars
     extensions_allowed: ['png', 'jpeg', 'jpg', 'gif']
-    default_avatar: '/assets/images/placeholder.png'
+    default_avatar: '' # Put path of file locate in files directory
