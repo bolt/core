@@ -4,6 +4,13 @@
             <img src="/assets/images/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="26" />
         </div>
 
+        <div v-if="isImpersonator" class="toolbar-impersionation">
+            <a :href="backendPrefix + '?_switch_user=_exit'" class="btn btn-warning">
+                <i class="fas fa-sign-out-alt fa-fw"></i>
+                {{ labels['action.stop_impersonating'] }}
+            </a>
+        </div>
+
         <div class="toolbar-item toolbar-item__site">
             <a href="/" target="_blank"> <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }} </a>
         </div>
@@ -41,12 +48,6 @@
             </button>
             <div class="profile__dropdown dropdown-menu dropdown-menu-right">
                 <ul>
-                    <li v-if="isImpersonator">
-                        <a :href="backendPrefix + '?_switch_user=_exit'">
-                            <i class="fas fa-sign-out-alt fa-fw"></i>
-                            {{ labels['action.stop_impersonating'] }}
-                        </a>
-                    </li>
                     <li>
                         <a :href="backendPrefix + 'profile-edit'">
                             <i class="fas fa-user-edit fa-fw"></i>
