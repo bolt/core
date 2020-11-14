@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('systemlog')")
  */
 class LogViewerController extends TwigAwareController implements BackendZoneInterface
 {

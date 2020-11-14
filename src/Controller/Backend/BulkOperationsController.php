@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('bulk_operations')")
  */
 class BulkOperationsController extends AbstractController implements BackendZoneInterface
 {

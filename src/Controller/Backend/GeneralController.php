@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
  */
 class GeneralController extends TwigAwareController implements BackendZoneInterface
 {
@@ -31,6 +30,8 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
      */
     public function about(): Response
     {
+        $this->denyAccessUnlessGranted('about');
+
         $twigVars = [
             'installType' => Version::installType(),
             'platform' => $this->doctrineVersion->getPlatform(),
@@ -48,6 +49,8 @@ class GeneralController extends TwigAwareController implements BackendZoneInterf
      */
     public function kitchensink(ContentRepository $content, Config $config): Response
     {
+        $this->denyAccessUnlessGranted('kitchensink');
+
         $contentTypes = $config->get('contenttypes');
 
         /** @var Content $records */

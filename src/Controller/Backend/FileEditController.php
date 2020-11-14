@@ -24,7 +24,7 @@ use Webimpress\SafeWriter\FileWriter;
 use Webmozart\PathUtil\Path;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('fileedit')")
  */
 class FileEditController extends TwigAwareController implements BackendZoneInterface
 {
