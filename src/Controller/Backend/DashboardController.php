@@ -6,13 +6,9 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
 use Bolt\Storage\Query;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- *
- */
 class DashboardController extends TwigAwareController implements BackendZoneInterface
 {
     /**
@@ -20,7 +16,6 @@ class DashboardController extends TwigAwareController implements BackendZoneInte
      */
     public function index(Query $query): Response
     {
-
         $this->denyAccessUnlessGranted('dashboard');
 
         // TODO PERMISSIONS: implement listing that only lists content that the user is allowed to see

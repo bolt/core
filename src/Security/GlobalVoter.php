@@ -22,11 +22,12 @@ class GlobalVoter extends Voter
         $this->globalPermissions = $config->get('permissions/global');
         if (is_array($this->globalPermissions) || $this->globalPermissions instanceof \ArrayAccess) {
             // TODO should we also validate that the values are all simple arrays?
-            foreach ($this->globalPermissions as $key => $value) {
-                $this->supportedAttributes[] = $key;
+            $globalPermissionNames = array_keys($this->globalPermissions);
+            foreach ($globalPermissionNames as $attribute) {
+                $this->supportedAttributes[] = $attribute;
             }
         } else {
-            throw new \DomainException("No global permissions config found");
+            throw new \DomainException('No global permissions config found');
         }
     }
 
@@ -48,8 +49,8 @@ class GlobalVoter extends Voter
             return false;
         }
 
-        if (!isset($this->globalPermissions[$attribute])) {
-            throw new \DomainException("Global permission '$attribute' not defined, check your security and permissions configuration.");
+        if (! isset($this->globalPermissions[$attribute])) {
+            throw new \DomainException("Global permission '${attribute}' not defined, check your security and permissions configuration.");
         }
 
         $rolesWithPermission = $this->globalPermissions[$attribute];
@@ -58,6 +59,7 @@ class GlobalVoter extends Voter
                 return true;
             }
         }
+
         return false;
     }
 }

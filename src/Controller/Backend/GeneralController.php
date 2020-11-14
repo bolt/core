@@ -9,12 +9,9 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Version;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- */
 class GeneralController extends TwigAwareController implements BackendZoneInterface
 {
     /** @var \Bolt\Doctrine\Version */

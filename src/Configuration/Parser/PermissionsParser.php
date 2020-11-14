@@ -8,9 +8,6 @@ use Tightenco\Collect\Support\Collection;
 
 class PermissionsParser extends BaseParser
 {
-    /** @var string */
-    private $path;
-
     public function __construct(string $projectDir, string $filename = 'permissions.yaml')
     {
         parent::__construct($projectDir, $filename);
