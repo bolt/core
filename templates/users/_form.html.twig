@@ -11,6 +11,7 @@
         'name' : userForm.vars.name ~ '[' ~ userForm.username.vars.name ~ ']',
         'value' : userForm.username.vars.value,
         'required': userForm.username.vars.required,
+        'disabled': userForm.username.vars.disabled,
     } %}
     {% if form_errors(userForm.username) is not empty %}
         <div class="field-error">{{ form_errors(userForm.username) }}</div>
@@ -98,55 +99,59 @@
 
     {# ===== ROlES ===== #}
 
-    {% set roleOptions = [] %}
+    {% if userForm.roles is defined %}
+        {% set roleOptions = [] %}
 
-    {% for roleData in userForm.roles.vars.choices ?? [] %}
-        {% set roleOptions = roleOptions|merge([
-            {
-                'key': roleData.value,
-                'value': roleData.value ~ ' (' ~ roleData.label ~ ')'
-            }
-        ]) %}
-    {% endfor %}
+        {% for roleData in userForm.roles.vars.choices ?? [] %}
+            {% set roleOptions = roleOptions|merge([
+                {
+                    'key': roleData.value,
+                    'value': roleData.value ~ ' (' ~ roleData.label ~ ')'
+                }
+            ]) %}
+        {% endfor %}
 
-    {% include '@bolt/_partials/fields/select.html.twig' with {
-        'id' : userForm.roles.vars.id,
-        'label' : 'label.roles'|trans,
-        'name' : userForm.vars.name ~ '[' ~ userForm.roles.vars.name ~ ']',
-        'value' : userForm.roles.vars.value,
-        'options' : roleOptions,
-        'required': userForm.roles.vars.required,
-        'multiple': userForm.roles.vars.multiple ? 'true' : 'false',
-    } %}
-    {% if form_errors(userForm.roles) is not empty %}
-        <div class="field-error">{{ form_errors(userForm.roles) }}</div>
+        {% include '@bolt/_partials/fields/select.html.twig' with {
+            'id' : userForm.roles.vars.id,
+            'label' : 'label.roles'|trans,
+            'name' : userForm.vars.name ~ '[' ~ userForm.roles.vars.name ~ ']',
+            'value' : userForm.roles.vars.value,
+            'options' : roleOptions,
+            'required': userForm.roles.vars.required,
+            'multiple': userForm.roles.vars.multiple ? 'true' : 'false',
+        } %}
+        {% if form_errors(userForm.roles) is not empty %}
+            <div class="field-error">{{ form_errors(userForm.roles) }}</div>
+        {% endif %}
+        {% do userForm.roles.setRendered() %}
     {% endif %}
-    {% do userForm.roles.setRendered() %}
 
     {# ===== STATUS ===== #}
 
-    {% set statusOptions = [] %}
-    {% for option in userForm.status.vars.choices ?? [] %}
-        {% set statusOptions = statusOptions|merge([
-            {
-                'key': option.value,
-                'value': option.value|capitalize
-            }
-        ]) %}
-    {% endfor %}
+    {% if userForm.status is defined %}
+        {% set statusOptions = [] %}
+        {% for option in userForm.status.vars.choices ?? [] %}
+            {% set statusOptions = statusOptions|merge([
+                {
+                    'key': option.value,
+                    'value': option.value|capitalize
+                }
+            ]) %}
+        {% endfor %}
 
-    {% include '@bolt/_partials/fields/select.html.twig' with {
-        'id': userForm.status.vars.id,
-        'label': 'field.status'|trans,
-        'name' : userForm.vars.name ~ '[' ~ userForm.status.vars.name ~ ']',
-        'value': userForm.status.vars.value,
-        'options': statusOptions,
-        'required': userForm.status.vars.required ? 'true' : 'false',
-    } %}
-    {% if form_errors(userForm.status) is not empty %}
-        <div class="field-error">{{ form_errors(userForm.status) }}</div>
+        {% include '@bolt/_partials/fields/select.html.twig' with {
+            'id': userForm.status.vars.id,
+            'label': 'field.status'|trans,
+            'name' : userForm.vars.name ~ '[' ~ userForm.status.vars.name ~ ']',
+            'value': userForm.status.vars.value,
+            'options': statusOptions,
+            'required': userForm.status.vars.required ? 'true' : 'false',
+        } %}
+        {% if form_errors(userForm.status) is not empty %}
+            <div class="field-error">{{ form_errors(userForm.status) }}</div>
+        {% endif %}
+        {% do userForm.status.setRendered() %}
     {% endif %}
-    {% do userForm.status.setRendered() %}
 
     {# ===== AVATAR ===== #}
     {% include '@bolt/_partials/fields/simple_image.html.twig' with {

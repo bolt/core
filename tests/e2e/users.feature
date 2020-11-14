@@ -61,18 +61,18 @@ Feature: Users & Permissions
     And I should see "New User" in the ".admin__header--title" element
 
     When I fill in the following:
-      | user_edit[username]       | test_user |
-      | user_edit[displayName]    | Test user |
-      | user_edit[plainPassword]  | test%1 |
-      | user_edit[email]          | test_user@example.org |
-    And I scroll "#multiselect-user_edit_locale > div > div.multiselect__select" into view
-    And I click "#multiselect-user_edit_locale > div > div.multiselect__select"
-    And I scroll "#multiselect-user_edit_locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)" into view
-    And I click "#multiselect-user_edit_locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)"
-    And I scroll "#multiselect-user_edit_roles > div > div.multiselect__select" into view
-    And I click "#multiselect-user_edit_roles > div > div.multiselect__select"
-    And I scroll "#multiselect-user_edit_roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span" into view
-    And I click "#multiselect-user_edit_roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span"
+      | user[username]       | test_user |
+      | user[displayName]    | Test user |
+      | user[plainPassword]  | test%1 |
+      | user[email]          | test_user@example.org |
+    And I scroll "#multiselect-user_locale > div > div.multiselect__select" into view
+    And I click "#multiselect-user_locale > div > div.multiselect__select"
+    And I scroll "#multiselect-user_locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)" into view
+    And I click "#multiselect-user_locale > div > div.multiselect__content-wrapper > ul > li:nth-child(1)"
+    And I scroll "#multiselect-user_roles > div > div.multiselect__select" into view
+    And I click "#multiselect-user_roles > div > div.multiselect__select"
+    And I scroll "#multiselect-user_roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span" into view
+    And I click "#multiselect-user_roles > div > div.multiselect__content-wrapper > ul > li:nth-child(1) > span"
 
     When I scroll "#editcontent > button" into view
     And I press "Save changes"
@@ -103,8 +103,8 @@ Feature: Users & Permissions
     Then I should be on url matching "\/bolt\/user\-edit\/[0-9]+"
 
     When I fill in the following:
-      | user_edit[displayName] | Tom Doe CHANGED |
-      | user_edit[email] | tom_admin_changed@example.org |
+      | user[displayName] | Tom Doe CHANGED |
+      | user[email] | tom_admin_changed@example.org |
     And I scroll "#editcontent > button" into view
     And I wait 0.1 seconds
     And I press "Save changes"
@@ -122,7 +122,7 @@ Feature: Users & Permissions
 
     Then I should be on "/bolt/user-edit/2"
 
-    When I fill "user_edit[email]" element with "admin@example.org"
+    When I fill "user[email]" element with "admin@example.org"
 
     And I scroll "Save changes" into view
     And I press "Save changes"
@@ -136,9 +136,9 @@ Feature: Users & Permissions
     And I am on "/bolt/user-edit/2"
 
     When I fill in the following:
-      | user_edit[displayName]      | x        |
-      | user_edit[plainPassword]    | short    |
-      | user_edit[email]            | smth@nth |
+      | user[displayName]      | x        |
+      | user[plainPassword]    | short    |
+      | user[email]            | smth@nth |
 
     And I scroll "Save changes" into view
     And I press "Save changes"
@@ -160,9 +160,9 @@ Feature: Users & Permissions
     Then I should be on "/bolt/profile-edit"
 
     And I should see "Jane Doe" in the "h1" element
-    And the field "username" should contain "jane_admin"
+    And the field "user[username]" should contain "jane_admin"
 
-    When I fill "displayName" element with "a"
+    When I fill "user[displayName]" element with "a"
     And I scroll "Save changes" into view
     And I press "Save changes"
 
@@ -174,12 +174,12 @@ Feature: Users & Permissions
     Given I am logged in as "jane_admin" with password "jane%1"
     And I am on "/bolt/profile-edit"
 
-    When I fill "displayName" element with "Administrator"
+    When I fill "user[displayName]" element with "Administrator"
     And I scroll "Save changes" into view
     And I press "Save changes"
 
     Then I should see "User Profile has been updated!"
-    And the field "displayName" should contain "Administrator"
+    And the field "user[displayName]" should contain "Administrator"
     And I logout
 
   @javascript
