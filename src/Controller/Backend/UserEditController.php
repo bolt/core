@@ -10,7 +10,7 @@ use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
 use Bolt\Enum\UserStatus;
 use Bolt\Event\UserEvent;
-use Bolt\Form\UserEditType;
+use Bolt\Form\UserType;
 use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -24,9 +24,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @Security("is_granted('ROLE_ADMIN')")
- */
 class UserEditController extends TwigAwareController implements BackendZoneInterface
 {
     use CsrfTrait;
@@ -63,11 +60,12 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-edit/add", methods={"GET","POST"}, name="bolt_user_add")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function add(Request $request): Response
     {
         $user = UserRepository::factory();
-        $submitted_data = $request->get('user_edit');
+        $submitted_data = $request->request->get('user');
 
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_ADD);
@@ -82,7 +80,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             'require_password' => true,
             'default_locale' => $this->defaultLocale,
         ];
-        $form = $this->createForm(UserEditType::class, $user, $form_data);
+        $form = $this->createForm(UserType::class, $user, $form_data);
 
         // ON SUBMIT
         if (! empty($submitted_data)) {
@@ -100,7 +98,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->_handleValidFormSubmit($form);
+            $this->_handleValidFormSubmit($form);
+
+            return $this->redirectToRoute('bolt_users');
         }
 
         return $this->render('@bolt/users/add.html.twig', [
@@ -110,10 +110,18 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-edit/{id}", methods={"GET","POST"}, name="bolt_user_edit", requirements={"id": "\d+"})
+     * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit")
      */
     public function edit(?User $user, Request $request): Response
     {
-        $submitted_data = $request->get('user_edit');
+        $submitted_data = $request->request->get('user');
+        $is_profile_edit = false;
+
+        // $user is null on /profile-edit but not on /user-edit/<ID>
+        if ($user === null) {
+            $user = $this->getUser();
+            $is_profile_edit = true;
+        }
 
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
@@ -134,8 +142,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             'require_username' => false,
             'require_password' => $require_password,
             'default_locale' => $this->defaultLocale,
+            'is_profile_edit' => $is_profile_edit,
         ];
-        $form = $this->createForm(UserEditType::class, $user, $form_data);
+        $form = $this->createForm(UserType::class, $user, $form_data);
 
         // ON SUBMIT
         if (! empty($submitted_data)) {
@@ -143,11 +152,18 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $submitted_data['username'] = $user->getUsername();
 
             $submitted_data['locale'] = json_decode($submitted_data['locale'])[0];
-            $submitted_data['status'] = json_decode($submitted_data['status'])[0];
 
-            // We need to transform to JSON.stringify value for the field "roles" into
-            // an array so symfony forms validation works
-            $submitted_data['roles'] = json_decode($submitted_data['roles']);
+            // Status is not available for profile edit on non admin users
+            if (! empty($submitted_data['status'])) {
+                $submitted_data['status'] = json_decode($submitted_data['status'])[0];
+            }
+
+            // Roles is not available for profile edit on non admin users
+            if (! empty($submitted_data['roles'])) {
+                // We need to transform to JSON.stringify value for the field "roles" into
+                // an array so symfony forms validation works
+                $submitted_data['roles'] = json_decode($submitted_data['roles']);
+            }
 
             // Transform media array to keep only filepath
             $submitted_data['avatar'] = $submitted_data['avatar']['filename'];
@@ -155,7 +171,12 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $form->submit($submitted_data);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->_handleValidFormSubmit($form);
+            $this->_handleValidFormSubmit($form);
+            if ($is_profile_edit) {
+                return $this->redirectToRoute('bolt_profile_edit');
+            }
+
+            return $this->redirectToRoute('bolt_users');
         }
 
         return $this->render('@bolt/users/edit.html.twig', [
@@ -165,6 +186,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-status/{id}", methods={"POST", "GET"}, name="bolt_user_update_status", requirements={"id": "\d+"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function status(?User $user): Response
     {
@@ -185,6 +207,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-delete/{id}", methods={"POST", "GET"}, name="bolt_user_delete", requirements={"id": "\d+"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function delete(?User $user): Response
     {
@@ -213,9 +236,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * This function is called by add and edit function if given form was submitted and validated correctly
-     * Here the User Object will be persisted to the DB and the user will be redirected to the overview page
+     * Here the User Object will be persisted to the DB
      */
-    private function _handleValidFormSubmit(FormInterface $form): RedirectResponse
+    private function _handleValidFormSubmit(FormInterface $form): void
     {
         // Get the adjusted User Entity from the form
         /** @var User $user */
@@ -238,7 +261,5 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->dispatcher->dispatch($event, UserEvent::ON_POST_SAVE);
 
         $this->addFlash('success', 'user.updated_profile');
-
-        return $this->redirectToRoute('bolt_users');
     }
 }
