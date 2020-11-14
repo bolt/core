@@ -17,6 +17,11 @@ class AuthenticationController extends TwigAwareController implements BackendZon
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        if ($this->getUser()) {
+            // Already authenticated
+            return $this->redirectToRoute('bolt_dashboard');
+        }
+
         $slugify = new Slugify();
 
         // last username entered by the user (if any)
