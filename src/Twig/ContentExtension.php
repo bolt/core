@@ -461,6 +461,8 @@ class ContentExtension extends AbstractExtension
         if (! $content instanceof Content) {
             $body = sprintf("You have called the <code>|taxonomies</code> filter with a parameter of type '%s', but <code>|taxonomies</code> accepts record (Content).", gettype($content));
             $this->notifications->warning('Incorrect use of <code>|taxonomies</code> filter', $body);
+
+            return new Collection();
         }
 
         $taxonomies = [];

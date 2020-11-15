@@ -3,19 +3,19 @@
 
 {# The 'title' and 'shoulder' blocks are the main heading of the page. #}
 {% block shoulder %}
-    {{ 'title.edit_user'|trans }}
+    {{ 'action.add_user'|trans }}
 {% endblock shoulder %}
 
 {% block title %}
     {{ macro.icon('user') }}
-    {{ userForm.displayName.vars.value|default(__('user.new_user')) }}
+    {{ __('user.new_user') }}
 {% endblock %}
 
 {% block vue_id 'editor' %}
 
 {% block main %}
     <div>
-        {% include('@bolt/users/_form.html.twig') with {'form_type': 'edit'} %}
+        {% include('@bolt/users/_form.html.twig') with {'form_type': 'add'} %}
     </div>
 {% endblock %}
 

@@ -15,25 +15,28 @@
             </div>
         </div>
 
-        <div v-for="element in elements" :key="element.hash" class="collection-item">
-            <details :open="variant === 'expanded'" class="card">
-                <summary class="d-block">
-                    <div class="card-header d-flex align-items-center">
-                        <!-- Initial title. This is replaced by dynamic title in JS below. -->
-                        <i class="card-marker-caret fa fa-caret-right"></i>
-                        <div class="collection-item-title" :data-label="element.label">
-                            <i :class="[element.icon, 'fas fa-fw']" />
-                            {{ element.label }}
-                        </div>
-
-                        <!-- Navigation buttons -->
-                        <div :is="compile(element.buttons)"></div>
+        <div
+            v-for="element in elements"
+            :key="element.hash"
+            class="collection-item"
+            v-bind:class="{ collapsed: variant !== 'expanded' }"
+        >
+            <div class="d-block summary">
+                <div class="card-header d-flex align-items-center">
+                    <!-- Initial title. This is replaced by dynamic title in JS below. -->
+                    <i class="card-marker-caret fa fa-caret-right"></i>
+                    <div class="collection-item-title" :data-label="element.label">
+                        <i :class="[element.icon, 'fas fa-fw']" />
+                        {{ element.label }}
                     </div>
-                </summary>
-
+                    <!-- Navigation buttons -->
+                    <div :is="compile(element.buttons)"></div>
+                </div>
+            </div>
+            <div class="card details">
                 <!-- The actual field -->
                 <div :is="compile(element.content)" class="card-body"></div>
-            </details>
+            </div>
         </div>
 
         <div class="row">
@@ -145,8 +148,16 @@ export default {
          * This is a jQuery event listener, because Vue cannot handle an event emitted by a non-vue element.
          * The collection items are not Vue elements in order to initialise them correctly within their twig template.
          */
+        window
+            .$(document)
+            .on('click', vueThis.selector.collectionContainer + ' .collection-item .summary', function(e) {
+                e.preventDefault();
+                let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
+                thisCollectionItem.toggleClass('collapsed');
+            });
         window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.remove, function(e) {
             e.preventDefault();
+            e.stopPropagation();
             let collectionContainer = window.$(this).closest(vueThis.selector.collectionContainer);
             vueThis.getCollectionItemFromPressedButton(this).remove();
             vueThis.setAllButtonsStates(collectionContainer);
@@ -154,6 +165,7 @@ export default {
         });
         window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveUp, function(e) {
             e.preventDefault();
+            e.stopPropagation();
             let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
             let prevCollectionitem = vueThis.getPreviousCollectionItem(thisCollectionItem);
             window.$(thisCollectionItem).after(prevCollectionitem);
@@ -162,6 +174,7 @@ export default {
         });
         window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.moveDown, function(e) {
             e.preventDefault();
+            e.stopPropagation();
             let thisCollectionItem = vueThis.getCollectionItemFromPressedButton(this);
             let nextCollectionItem = vueThis.getNextCollectionItem(thisCollectionItem);
             window.$(thisCollectionItem).before(nextCollectionItem);
@@ -171,14 +184,14 @@ export default {
         window.$(document).on('click', vueThis.selector.collectionContainer + vueThis.selector.expandAll, function(e) {
             e.preventDefault();
             const collection = $(e.target).closest(vueThis.selector.collectionContainer);
-            collection.find('details').attr('open', '');
+            collection.find('.collection-item').removeClass('collapsed');
         });
         window
             .$(document)
             .on('click', vueThis.selector.collectionContainer + vueThis.selector.collapseAll, function(e) {
                 e.preventDefault();
                 const collection = $(e.target).closest(vueThis.selector.collectionContainer);
-                collection.find('details').removeAttr('open');
+                collection.find('.collection-item').addClass('collapsed');
             });
         /**
          * Update the title dynamically.
@@ -214,14 +227,14 @@ export default {
         /**
          * Open newly inserted collection items.
          */
-        $(document).on('DOMNodeInserted', function(e) {
-            if ($(e.target).hasClass('collection-item')) {
-                $(e.target)
-                    .find('details')
-                    .first()
-                    .attr('open', '');
-            }
-        });
+        // $(document).on('DOMNodeInserted', function(e) {
+        //     if ($(e.target).hasClass('collection-item')) {
+        //         $(e.target)
+        //             .find('details')
+        //             .first()
+        //             .attr('open', '');
+        //     }
+        // });
     },
     updated() {
         this.setAllButtonsStates(window.$(this.$refs.collectionContainer));

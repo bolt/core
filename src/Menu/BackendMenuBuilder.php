@@ -42,7 +42,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
     public function __construct(
         FactoryInterface $menuFactory,
-        iterable $extensionMenus,
+        iterable $extensionMenus = [],
         Config $config,
         ContentRepository $contentRepository,
         UrlGeneratorInterface $urlGenerator,

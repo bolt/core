@@ -15,8 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Bolt\Repository\UserRepository")
- * @UniqueEntity("email", message="user.duplicate_email")
- * @UniqueEntity("username", message="user.duplicate_username")
+ * @UniqueEntity("email", message="user.duplicate_email", groups={"add_user", "edit_user", "edit_user_without_pw"})
+ * @UniqueEntity("username", message="user.duplicate_username", groups={"add_user", "edit_user", "edit_user_without_pw"})
  */
 class User implements UserInterface, \Serializable
 {
@@ -34,8 +34,8 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(normalizer="trim", message="user.not_valid_display_name")
-     * @Assert\Length(min=2, max=50, minMessage="user.not_valid_display_name")
+     * @Assert\NotBlank(normalizer="trim", message="user.not_valid_display_name", groups={"add_user", "edit_user", "edit_user_without_pw"})
+     * @Assert\Length(min=2, max=50, minMessage="user.not_valid_display_name", groups={"add_user", "edit_user", "edit_user_without_pw"})
      * @Groups({"get_content", "get_user"})
      */
     private $displayName;
@@ -44,9 +44,9 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true, length=191)
-     * @Assert\NotBlank()
-     * @Assert\Length(min=2, max=50)
-     * @Assert\Regex(pattern="/^[a-z0-9_]+$/", message="user.username_invalid_characters")
+     * @Assert\NotBlank(groups={"add_user"})
+     * @Assert\Length(min=2, max=50, groups={"add_user"})
+     * @Assert\Regex(pattern="/^[a-z0-9_]+$/", message="user.username_invalid_characters", groups={"add_user"})
      * @Groups("get_user")
      */
     private $username;
@@ -55,7 +55,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true, length=191)
-     * @Assert\Email(message="user.not_valid_email")
+     * @Assert\Email(message="user.not_valid_email", groups={"add_user", "edit_user", "edit_user_without_pw"})
      * @Groups("get_user")
      */
     private $email;
@@ -69,7 +69,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var string|null
-     * @Assert\Length(min="6", minMessage="user.not_valid_password")
+     * @Assert\Length(min="6", minMessage="user.not_valid_password", groups={"add_user", "edit_user"})
      */
     private $plainPassword;
 
@@ -105,6 +105,9 @@ class User implements UserInterface, \Serializable
     /** @ORM\OneToOne(targetEntity="Bolt\Entity\UserAuthToken", mappedBy="user", cascade={"persist", "remove"}) */
     private $userAuthToken;
 
+    /** @ORM\Column(type="string", length=250, nullable=true) */
+    private $avatar;
+
     public function __construct()
     {
     }
@@ -114,7 +117,7 @@ class User implements UserInterface, \Serializable
         return $this->id;
     }
 
-    public function setDisplayName(string $displayName): void
+    public function setDisplayName(?string $displayName): void
     {
         $this->displayName = $displayName;
     }
@@ -134,7 +137,7 @@ class User implements UserInterface, \Serializable
         return $this->username;
     }
 
-    public function setUsername(string $username): void
+    public function setUsername(?string $username): void
     {
         $slugify = new Slugify(['separator' => '_']);
         $cleanUsername = $slugify->slugify($username);
@@ -146,7 +149,7 @@ class User implements UserInterface, \Serializable
         return $this->email;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
@@ -166,7 +169,7 @@ class User implements UserInterface, \Serializable
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(string $plainPassword): self
+    public function setPlainPassword(?string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
 
@@ -313,5 +316,20 @@ class User implements UserInterface, \Serializable
     public function toArray(): array
     {
         return get_object_vars($this);
+    }
+
+    public function isNewUser(): bool
+    {
+        return $this->id === null;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): void
+    {
+        $this->avatar = $avatar;
     }
 }
