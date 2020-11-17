@@ -1,0 +1,41 @@
+{% extends '@bolt/_base/layout_blank.html.twig' %}
+
+{% block title %}
+    {{ 'reset_password.check_email_sent_header'|trans }}
+{% endblock %}
+
+{% block html_id %}{% endblock %}
+
+{% block html_class %}{% endblock %}
+
+{% block body_class %}page--reset-password--success{% if not config.get('general/omit_backgrounds') %} with-background{% endif %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block main %}
+    <div>
+
+        <div class="reset-password__logo">
+            <img class="logo" alt="Bolt CMS logo"
+              {% if not config.get('general/omit_backgrounds') %}
+                 src="{{ asset('assets/images/bolt_logo_loginpage--bg.svg') }}">
+            {% else %}
+                src="{{ asset('assets/images/bolt_logo_loginpage.svg') }}">
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                {{ 'reset_password.request_header'|trans }}
+            </div>
+            <div class="card-body">
+                <p>{{ 'reset_password.check_email_sent_text_1'|trans({'%hours%': tokenLifetime|date('g')}) }}</p>
+                <p>{{ 'reset_password.check_email_sent_text_2'|trans({'%tryagain%': '<a href="' ~ path('bolt_forgot_password_request') ~ '">try again</a>' }) | raw }}</p>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

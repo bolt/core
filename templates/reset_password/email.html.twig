@@ -1,0 +1,9 @@
+<h1>{{ 'reset_password.email_title'|trans }}</h1>
+
+<p>{{ 'reset_password.email_description'|trans }}</p>
+
+<a href="{{ url('bolt_reset_password', {token: resetToken.token}) }}">{{ url('bolt_reset_password', {token: resetToken.token}) }}</a>
+
+<p>{{ 'reset_password.email_expire'|trans({'%hours%': tokenLifetime|date('g')}) }}</p>
+
+<p>{{ 'reset_password.email_thanks'|trans }}</p>

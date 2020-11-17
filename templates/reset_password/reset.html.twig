@@ -1,0 +1,43 @@
+{% extends '@bolt/_base/layout_blank.html.twig' %}
+
+{% block title %}
+    {{ 'reset_password.reset_header'|trans }}
+{% endblock %}
+
+{% block html_id %}{% endblock %}
+
+{% block html_class %}{% endblock %}
+
+{% block body_class %}page--reset-password--reset{% if not config.get('general/omit_backgrounds') %} with-background{% endif %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block main %}
+    <div>
+
+        <div class="reset-password__logo">
+            <img class="logo" alt="Bolt CMS logo"
+              {% if not config.get('general/omit_backgrounds') %}
+                 src="{{ asset('assets/images/bolt_logo_loginpage--bg.svg') }}">
+            {% else %}
+                src="{{ asset('assets/images/bolt_logo_loginpage.svg') }}">
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                {{ 'reset_password.reset_header'|trans }}
+            </div>
+            <div class="card-body">
+                {{ form_start(resetForm) }}
+                {{ form_row(resetForm.plainPassword) }}
+                <button class="float-right btn btn-tertiary">{{ 'reset_password.reset_btn'|trans }}</button>
+                {{ form_end(resetForm) }}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
