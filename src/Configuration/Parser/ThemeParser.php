@@ -25,6 +25,11 @@ class ThemeParser extends BaseParser
     {
         $theme = $this->parseConfigYaml($this->path . '/theme.yaml', true);
 
+        if (! isset($theme['template_directory'])) {
+            // the theme itself
+            $theme['template_directory'] = './';
+        }
+
         return new Collection($theme);
     }
 }
