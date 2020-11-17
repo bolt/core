@@ -17,6 +17,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
@@ -33,10 +34,14 @@ class ResetPasswordController extends AbstractController
     /** @var Config */
     private $config;
 
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, Config $config)
+    /** @var TranslatorInterface */
+    private $translator;
+
+    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, Config $config, TranslatorInterface $translator)
     {
         $this->resetPasswordHelper = $resetPasswordHelper;
         $this->config = $config;
+        $this->translator = $translator;
     }
 
     /**
@@ -95,7 +100,7 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if ($token === null) {
-            throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
+            throw $this->createNotFoundException($this->translator->trans('reset_password.no_token'));
         }
 
         try {
@@ -130,7 +135,7 @@ class ResetPasswordController extends AbstractController
             $this->cleanSessionAfterReset();
 
             // Added an additional flash message to show if password reset was successful
-            $this->addFlash('reset_password_success', 'Your password has been reset successfully');
+            $this->addFlash('reset_password_success', $this->translator->trans('reset_password.reset_successful'));
 
             return $this->redirectToRoute('bolt_login');
         }
@@ -166,7 +171,7 @@ class ResetPasswordController extends AbstractController
 
             if ($config['show_already_requested_password_notice']) {
                 $this->addFlash('reset_password_error', sprintf(
-                    'There was a problem handling your password reset request - %s',
+                    $this->translator->trans('reset_password.problem_with_request'),
                     $e->getReason()
                 ));
             }
