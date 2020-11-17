@@ -9,6 +9,7 @@ use Bolt\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
+use Tightenco\Collect\Support\Collection;
 
 class GlobalVoter extends Voter
 {
@@ -20,9 +21,9 @@ class GlobalVoter extends Voter
     {
         $this->security = $security;
         $this->globalPermissions = $config->get('permissions/global');
-        if (is_array($this->globalPermissions) || $this->globalPermissions instanceof \ArrayAccess) {
+        if ($this->globalPermissions instanceof Collection) {
             // TODO should we also validate that the values are all simple arrays?
-            $globalPermissionNames = array_keys($this->globalPermissions);
+            $globalPermissionNames = array_keys($this->globalPermissions->all());
             foreach ($globalPermissionNames as $attribute) {
                 $this->supportedAttributes[] = $attribute;
             }
