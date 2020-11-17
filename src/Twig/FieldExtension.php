@@ -105,7 +105,13 @@ class FieldExtension extends AbstractExtension
 
         $ids = $field->getValue();
         // Find records by their respective ids
-        $records = $this->contentRepository->findBy(['id' => $ids]);
+        $records = collect($this->contentRepository->findBy(['id' => $ids]));
+
+        // Sort the results in the order of the $ids.
+        $order = array_flip($ids);
+        $records = $records->sortBy(function (Content $record) use ($order) {
+            return $order[$record->getId()];
+        })->toArray();
 
         if ($returnsingle || (! $returnarray && $definition->get('multiple') === false)) {
             return current($records);
