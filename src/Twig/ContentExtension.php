@@ -488,9 +488,12 @@ class ContentExtension extends AbstractExtension
         $current = current($field->getValue());
 
         $finder = new Finder();
+        $templatesDir = $this->config->get('theme/template_directory');
+        $templatesPath = $this->config->getPath('theme', true, $templatesDir);
+
         $finder
             ->files()
-            ->in($this->config->getPath('theme'))
+            ->in($templatesPath)
             ->name($definition->get('filter', '/^[^_].*\.twig$/'))
             ->path($definition->get('path'));
 
