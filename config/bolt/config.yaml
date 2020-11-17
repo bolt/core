@@ -203,7 +203,7 @@ user_avatar:
 # Settings for the reset password logic
 reset_password_settings:
     show_already_requested_password_notice: true
-    mail_from: "do-not-reply@dummy.com"
+    mail_from: "do-not-reply@example.org"
     mail_name: "Bolt CMS"
     mail_subject: "Your password reset request"
     mail_template: "reset_password/email.html.twig"
