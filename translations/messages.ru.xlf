@@ -562,7 +562,7 @@
       </segment>
     </unit>
     <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
-      <segment state="translated" subState="poedit:fuzzy">
+      <segment>
         <source>WoordPers: Kinda looks like that other CMS</source>
         <target>WoordPers: Kinda looks like that other CMS</target>
       </segment>
@@ -574,7 +574,7 @@
       </segment>
     </unit>
     <unit id="xuNRuUu" name="caption.translations: messages">
-      <segment state="translated" subState="poedit:fuzzy">
+      <segment>
         <source>caption.translations: messages</source>
         <target>caption.translations: messages</target>
       </segment>
@@ -592,7 +592,7 @@
       </segment>
     </unit>
     <unit id="cIiIXu_" name="caption.routing set up">
-      <segment state="translated" subState="poedit:fuzzy">
+      <segment>
         <source>caption.routing set up</source>
         <target>caption.routing set up</target>
       </segment>
@@ -976,7 +976,7 @@
       </segment>
     </unit>
     <unit id="Wou02nK" name="caption.kitchensink">
-      <segment state="translated" subState="poedit:fuzzy">
+      <segment>
         <source>caption.kitchensink</source>
         <target>The Kitchensink</target>
       </segment>
@@ -1732,7 +1732,7 @@
       </segment>
     </unit>
     <unit id="4N41oTU" name="controller.omnisearch.subtitle">
-      <segment state="translated" subState="poedit:fuzzy">
+      <segment>
         <source>controller.omnisearch.subtitle</source>
         <target>To search, in an omni-like fashion</target>
       </segment>
@@ -1978,7 +1978,7 @@
       </segment>
     </unit>
     <unit id="x9qAwrz" name="listing.title_browser">
-      <segment state="translated" subState="poedit:fuzzy">
+      <segment>
         <source>listing.title_browser</source>
         <target>Браузер / платформа</target>
       </segment>
@@ -2332,7 +2332,7 @@
       </segment>
     </unit>
     <unit id="f.rvF6y" name="action.new">
-      <segment state="translated" subState="poedit:fuzzy">
+      <segment>
         <source>action.new</source>
         <target>Создать</target>
       </segment>
@@ -2371,6 +2371,84 @@
       <segment>
         <source>collection.select</source>
         <target>Выбрать …</target>
+      </segment>
+    </unit>
+    <unit id="2SSLP1K" name="form.empty_username_email">
+      <segment>
+        <source>form.empty_username_email</source>
+        <target>Пожалуйста, введите ваше имя пользователя или адрес электронной почты</target>
+      </segment>
+    </unit>
+    <unit id="5Qf_RiO" name="form.empty_password">
+      <segment>
+        <source>form.empty_password</source>
+        <target>Пожалуйста введите ваш пароль</target>
+      </segment>
+    </unit>
+    <unit id="fAmcKUQ" name="listing.title_filterby_field">
+      <segment>
+        <source>listing.title_filterby_field</source>
+        <target>Фильтр по полю</target>
+      </segment>
+    </unit>
+    <unit id="kciiidS" name="image.button_from_url">
+      <segment>
+        <source>image.button_from_url</source>
+        <target>По URL</target>
+      </segment>
+    </unit>
+    <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
+      <segment>
+        <source>files_cards.copy_to_clipboard</source>
+        <target>Скопировать ссылку на файл</target>
+      </segment>
+    </unit>
+    <unit id="S9k1S7Z" name="warning">
+      <segment>
+        <source>warning</source>
+        <target>Предупреждение</target>
+      </segment>
+    </unit>
+    <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
+      <segment>
+        <source>filemanager.create_folder_already_exists</source>
+        <target>Папка уже существует</target>
+      </segment>
+    </unit>
+    <unit id="aSxePCB" name="filemanager.create_folder_error">
+      <segment>
+        <source>filemanager.create_folder_error</source>
+        <target>Не удалось создать папку</target>
+      </segment>
+    </unit>
+    <unit id="wbFKypA" name="filemanager.create_folder_success">
+      <segment>
+        <source>filemanager.create_folder_success</source>
+        <target>Папка успешно создана.</target>
+      </segment>
+    </unit>
+    <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
+      <segment>
+        <source>filemanager.delete_folder_successful</source>
+        <target>Папка успешно удалена</target>
+      </segment>
+    </unit>
+    <unit id="a6Xhtq0" name="folder.create_new">
+      <segment>
+        <source>folder.create_new</source>
+        <target>Новая папка</target>
+      </segment>
+    </unit>
+    <unit id="FcXvWL8" name="title.add_user">
+      <segment>
+        <source>title.add_user</source>
+        <target>Добавить пользователя</target>
+      </segment>
+    </unit>
+    <unit id="nWMH_Nr" name="label.avatar">
+      <segment>
+        <source>label.avatar</source>
+        <target>Аватар</target>
       </segment>
     </unit>
   </file>
