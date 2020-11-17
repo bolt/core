@@ -19,14 +19,14 @@
             v-for="element in elements"
             :key="element.hash"
             class="collection-item"
-            v-bind:class="{ collapsed: variant !== 'expanded' }"
+            :class="{ collapsed: variant !== 'expanded' }"
         >
             <div class="d-block summary">
                 <div class="card-header d-flex align-items-center">
                     <!-- Initial title. This is replaced by dynamic title in JS below. -->
                     <i class="card-marker-caret fa fa-caret-right"></i>
+                    <i :class="[element.icon, 'fas', 'badge badge-secondary']"> {{ element.label }}</i>
                     <div class="collection-item-title" :data-label="element.label">
-                        <i :class="[element.icon, 'fas fa-fw']" />
                         {{ element.label }}
                     </div>
                     <!-- Navigation buttons -->
@@ -212,17 +212,13 @@ export default {
             const label = $(item)
                 .find('.collection-item-title')
                 .first();
-            const icon = label
-                .find('i')
-                .first()
-                .get(0).outerHTML;
             const input = $(item)
                 .find('textarea,input[type="text"]')
                 .first();
             // We use this 'innerText' trick to ensure the title is plain text.
             var title = document.createElement('span');
             title.innerHTML = $(input).val() ? $(input).val() : label.attr('data-label');
-            label.html(icon + title.innerText);
+            label.html(title.innerText);
         }
         /**
          * Open newly inserted collection items.
