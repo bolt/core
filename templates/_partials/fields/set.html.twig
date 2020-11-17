@@ -16,7 +16,6 @@
             ] %}
             {% if in_compound is defined %}
                 {% set context = {
-                    'in_compound': true,
                     'compound_label': label,
                     'id': id ~ '-' ~ setChild.name|default('unnamed'),
                     'field' : setChild,
@@ -28,7 +27,6 @@
                 {% include includeLookup with context only %}
             {% else %}
                 {% set context = {
-                    'in_compound': true,
                     'compound_label': label,
                     'id': 'field-' ~ field.name|default(name)|default('unnamed') ~ '-' ~ setChild.name|default('unnamed'),
                     'field' : setChild,
