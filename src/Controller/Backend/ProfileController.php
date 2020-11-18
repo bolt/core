@@ -57,14 +57,14 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
     /**
      * @Route("/profile-edit", methods={"POST"}, name="bolt_profile_edit_post")
      */
-    public function save(ValidatorInterface $validator): Response
+    public function save(ValidatorInterface $validator, string $defaultLocale): Response
     {
         $this->validateCsrf('profileedit');
 
         /** @var User $user */
         $user = $this->getUser();
         $displayName = $user->getDisplayName();
-        $locale = Json::findScalar($this->getFromRequest('locale'));
+        $locale = Json::findScalar($this->getFromRequest('locale')) ?: $defaultLocale;
 
         $user->setDisplayName((string) $this->getFromRequest('displayName'));
         $user->setEmail((string) $this->getFromRequest('email'));

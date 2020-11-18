@@ -59,7 +59,8 @@ Feature: Users & Permissions
 
     Then I should be on "/bolt/user-edit/0"
     And I should see "New User" in the ".admin__header--title" element
-
+    And I wait 0.1 seconds
+      
     When I fill in the following:
       | username | test_user |
       | displayName | Test user |
@@ -151,6 +152,7 @@ Feature: Users & Permissions
     And I should see "Suggested secure password"
 
   @javascript
+      @foo
   Scenario: Edit my user with incorrect display name
     Given I am logged in as "jane_admin" with password "jane%1"
 
@@ -162,9 +164,10 @@ Feature: Users & Permissions
 
     And I should see "Jane Doe" in the "h1" element
     And the field "username" should contain "jane_admin"
-
+    And I wait 0.1 seconds
     When I fill "displayName" element with "  "
     And I scroll "Save changes" into view
+
     And I press "Save changes"
 
     Then I should see "Invalid display name"
