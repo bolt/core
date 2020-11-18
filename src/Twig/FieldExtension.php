@@ -96,10 +96,10 @@ class FieldExtension extends AbstractExtension
     {
         $definition = $field->getDefinition();
 
-        if ($definition->get('type') !== 'select' || ! $field->isContentSelect()) {
+        if ($definition->get('type') !== 'select' || ! $field->isContentSelect() || ($field->isContentSelect() && $definition->get('mode') === 'format')) {
             return $this->notifications->warning(
                 'Incorrect usage of `selected`-filter',
-                'The `selected`-filter can only be applied to a field of `type: select`, and it must be used as a selector for other content.'
+                'The `selected`-filter can only be applied to a field of `type: select`, and it must be used as a selector for other content, and without `mode: format`.'
             );
         }
 

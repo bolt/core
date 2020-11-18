@@ -618,14 +618,13 @@ class ContentExtension extends AbstractExtension
 
         /** @var Content[] $records */
         $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
-        $keyName = $field->getDefinition()->get('keys');
 
         foreach ($records as $record) {
-            if ($keyName && $record->hasField($keyName)) {
-                $keyValue = $this->contentHelper->get($record, "{{$keyName}}");
+            if ($field->getDefinition()->get('mode') === 'format') {
+                $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
             }
             $options[] = [
-                'key' => $keyValue ?? $record->getId(),
+                'key' => $formattedKey ?? $record->getId(),
                 'value' => $this->contentHelper->get($record, $format),
             ];
         }
