@@ -137,6 +137,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('status_options', [$this, 'statusOptions']),
             new TwigFilter('feature', [$this, 'getSpecialFeature']),
             new TwigFilter('sanitise', [$this, 'sanitise']),
+            new TwigFilter('record', [$this, 'record']),
         ];
     }
 
@@ -788,5 +789,10 @@ class ContentExtension extends AbstractExtension
     public function sanitise(string $html)
     {
         return $this->sanitiser->clean($html);
+    }
+
+    public function record(int $id)
+    {
+        return $this->contentRepository->findOneBy(['id' => $id]);
     }
 }
