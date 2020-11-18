@@ -2373,10 +2373,226 @@
         <target>Select …</target>
       </segment>
     </unit>
+    <unit id="2SSLP1K" name="form.empty_username_email">
+      <segment>
+        <source>form.empty_username_email</source>
+        <target>Please enter your username or email</target>
+      </segment>
+    </unit>
+    <unit id="5Qf_RiO" name="form.empty_password">
+      <segment>
+        <source>form.empty_password</source>
+        <target>Please enter your password</target>
+      </segment>
+    </unit>
+    <unit id="f8zXapF" name="form.empty_email">
+      <segment>
+        <source>form.empty_email</source>
+        <target>Please enter your email</target>
+      </segment>
+    </unit>
     <unit id="fAmcKUQ" name="listing.title_filterby_field">
       <segment>
         <source>listing.title_filterby_field</source>
         <target>Filter by field</target>
+      </segment>
+    </unit>
+    <unit id="kciiidS" name="image.button_from_url">
+      <segment>
+        <source>image.button_from_url</source>
+        <target>From URL</target>
+      </segment>
+    </unit>
+    <unit id="QcN1pi8" name="files_cards.copy_to_clipboard">
+      <segment>
+        <source>files_cards.copy_to_clipboard</source>
+        <target>Copy link to file</target>
+      </segment>
+    </unit>
+    <unit id="S9k1S7Z" name="warning">
+      <segment>
+        <source>warning</source>
+        <target>Warning</target>
+      </segment>
+    </unit>
+    <unit id="4fyuUU." name="filemanager.create_folder_already_exists">
+      <segment>
+        <source>filemanager.create_folder_already_exists</source>
+        <target>Folder already exists</target>
+      </segment>
+    </unit>
+    <unit id="aSxePCB" name="filemanager.create_folder_error">
+      <segment>
+        <source>filemanager.create_folder_error</source>
+        <target>Could not create folder</target>
+      </segment>
+    </unit>
+    <unit id="wbFKypA" name="filemanager.create_folder_success">
+      <segment>
+        <source>filemanager.create_folder_success</source>
+        <target>Folder created successfully.</target>
+      </segment>
+    </unit>
+    <unit id="lZxOEzh" name="filemanager.delete_folder_successful">
+      <segment>
+        <source>filemanager.delete_folder_successful</source>
+        <target>Folder deleted successfully</target>
+      </segment>
+    </unit>
+    <unit id="a6Xhtq0" name="folder.create_new">
+      <segment>
+        <source>folder.create_new</source>
+        <target>New folder</target>
+      </segment>
+    </unit>
+    <unit id="FcXvWL8" name="title.add_user">
+      <segment>
+        <source>title.add_user</source>
+        <target>Add User</target>
+      </segment>
+    </unit>
+    <unit id="nWMH_Nr" name="label.avatar">
+      <segment>
+        <source>label.avatar</source>
+        <target>Avatar</target>
+      </segment>
+    </unit>
+    <unit id="i37ZNqN" name="login.forgotpassword">
+      <segment>
+        <source>login.forgotpassword</source>
+        <target>Forgot Password</target>
+      </segment>
+    </unit>
+    <unit id="y.dIywE" name="reset_password.request_header">
+      <segment>
+        <source>reset_password.request_header</source>
+        <target>Reset Password</target>
+      </segment>
+    </unit>
+    <unit id="SwOgM7K" name="reset_password.request_description">
+      <segment>
+        <source>reset_password.request_description</source>
+        <target>Enter your email address and we we will send you a link to reset your password.</target>
+      </segment>
+    </unit>
+    <unit id="RX0Iuzi" name="reset_password.request_send">
+      <segment>
+        <source>reset_password.request_send</source>
+        <target>Submit</target>
+      </segment>
+    </unit>
+    <unit id="lpzL089" name="Email">
+      <segment>
+        <source>Email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="k9hekeu" name="reset_password.back-to-login">
+      <segment>
+        <source>reset_password.back-to-login</source>
+        <target>Back to Login</target>
+      </segment>
+    </unit>
+    <unit id="gVc0Uf4" name="reset_password.reset_header">
+      <segment>
+        <source>reset_password.reset_header</source>
+        <target>Reset your password</target>
+      </segment>
+    </unit>
+    <unit id="U6qdalg" name="reset_password.check_email_sent_header">
+      <segment>
+        <source>reset_password.check_email_sent_header</source>
+        <target>Password Reset Email Sent</target>
+      </segment>
+    </unit>
+    <unit id="SxW1D3L" name="reset_password.check_email_sent_text_1">
+      <segment>
+        <source>reset_password.check_email_sent_text_1</source>
+        <target>An email has been sent that contains a link that you can click to reset your password. This link will expire in %hours% hour(s).</target>
+      </segment>
+    </unit>
+    <unit id="z25k4DS" name="reset_password.check_email_sent_text_2">
+      <segment>
+        <source>reset_password.check_email_sent_text_2</source>
+        <target>If you don't receive an email please check your spam folder or %tryagain%.</target>
+      </segment>
+    </unit>
+    <unit id="QpUMHfK" name="reset_password.reset_btn">
+      <segment>
+        <source>reset_password.reset_btn</source>
+        <target>Reset Password</target>
+      </segment>
+    </unit>
+    <unit id="dp42qbF" name="reset_password.email_title">
+      <segment>
+        <source>reset_password.email_title</source>
+        <target>Hi!</target>
+      </segment>
+    </unit>
+    <unit id="xS2vvXw" name="reset_password.email_description">
+      <segment>
+        <source>reset_password.email_description</source>
+        <target>To reset your password, please visit the following link</target>
+      </segment>
+    </unit>
+    <unit id="apkSD11" name="reset_password.email_expire">
+      <segment>
+        <source>reset_password.email_expire</source>
+        <target>This link will expire in %hours% hour(s).</target>
+      </segment>
+    </unit>
+    <unit id="_gg3hPE" name="reset_password.email_thanks">
+      <segment>
+        <source>reset_password.email_thanks</source>
+        <target>Cheers!</target>
+      </segment>
+    </unit>
+    <unit id="harDiJR" name="reset_password.enter_pwd">
+      <segment>
+        <source>reset_password.enter_pwd</source>
+        <target>Please enter a password</target>
+      </segment>
+    </unit>
+    <unit id="rU9cSfq" name="label.repeat_password">
+      <segment>
+        <source>label.repeat_password</source>
+        <target>Repeat Password</target>
+      </segment>
+    </unit>
+    <unit id="Tg5zdeo" name="reset_password.not_matching_pwds">
+      <segment>
+        <source>reset_password.not_matching_pwds</source>
+        <target>The password fields must match.</target>
+      </segment>
+    </unit>
+    <unit id="1JZeWxG" name="reset_password.minimum_length">
+      <segment>
+        <source>reset_password.minimum_length</source>
+        <target>Your password should be at least %s characters</target>
+      </segment>
+    </unit>
+    <unit id="GUQYLn2" name="reset_password.no_token">
+      <segment>
+        <source>reset_password.no_token</source>
+        <target>No reset password token found in the URL or in the session.</target>
+      </segment>
+    </unit>
+    <unit id="SjuOnue" name="reset_password.reset_successful">
+      <segment>
+        <source>reset_password.reset_successful</source>
+        <target>Your password has been reset successfully.</target>
+      </segment>
+    </unit>
+    <unit id="5Xr92sQ" name="reset_password.problem_with_request">
+      <segment>
+        <source>reset_password.problem_with_request</source>
+        <target>There was a problem handling your password reset request - %s</target>
+      </segment>
+    </unit>
+    <unit id="u3DMmBH" name="label.filtered_by">
+      <segment>
+        <source>label.filtered_by</source>
+        <target>filtered by</target>
       </segment>
     </unit>
   </file>
