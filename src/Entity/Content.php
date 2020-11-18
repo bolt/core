@@ -202,7 +202,7 @@ class Content
         }
 
         // Set default status and default values
-        $this->setStatus($this->contentTypeDefinition->get('default_status'), 'published');
+        $this->setStatus($this->contentTypeDefinition->get('default_status', 'published'));
         $this->contentTypeDefinition->get('fields')->each(function (LaravelCollection $item, string $name): void {
             if ($item->get('default')) {
                 $field = FieldRepository::factory($item, $name);
