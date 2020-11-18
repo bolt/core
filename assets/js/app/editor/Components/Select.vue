@@ -41,6 +41,7 @@
                         <div v-if="!taggable" class="multiselect__tag__drag">
                             <i class="fas fa-arrows-alt"></i>
                         </div>
+                        <!-- eslint-disable-next-line vue/no-v-html -->
                         <span v-html="props.option.value"></span>
                         <i
                             tabindex="1"
