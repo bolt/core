@@ -135,7 +135,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/user-edit/{id}", methods={"POST"}, name="bolt_user_edit_post", requirements={"id": "\d+"})
      */
-    public function save(?User $user, ValidatorInterface $validator): Response
+    public function save(?User $user, ValidatorInterface $validator, string $defaultLocale): Response
     {
         $this->validateCsrf('useredit');
 
@@ -144,9 +144,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         $displayName = $user->getDisplayName();
-        $locale = Json::findScalar($this->getFromRequest('locale'));
+        $locale = Json::findScalar($this->getFromRequest('locale')) ?: $defaultLocale;
         $roles = Json::findArray($this->getFromRequest('roles'));
-        $status = Json::findScalar($this->getFromRequest('ustatus', UserStatus::ENABLED));
+        $status = Json::findScalar($this->getFromRequest('ustatus')) ?: UserStatus::ENABLED;
 
         if (empty($user->getUsername())) {
             $user->setUsername($this->getFromRequest('username'));
