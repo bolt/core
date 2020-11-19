@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Bolt\Security;
 
+use Bolt\Configuration\Config;
 use Bolt\Entity\Content;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\User;
+use Tightenco\Collect\Support\Collection;
 
 class ContentVoter extends Voter
 {
@@ -25,21 +27,34 @@ class ContentVoter extends Voter
 #                     grant additional permissions on a record, so this
 #                     permission can indirectly enable users more permissions
 #                     in ways that may not be immediately obvious.
-# - view: allows viewing records in the backend
      */
     public const CONTENT_EDIT = 'content_edit';
     public const CONTENT_CREATE = 'content_create';
     public const CONTENT_PUBLISH = 'content_publish';
     public const CONTENT_DEPUBLISH = 'content_depublish';
     public const CONTENT_DELETE = 'content_delete';
-    public const CONTENT_CHANGE_OWNERSHIP = 'content_change_ownership';
-    public const CONTENT_VIEW = 'content_view';
+    public const CONTENT_CHANGE_OWNERSHIP = 'content_change-ownership';
 
     private $security;
+    private $supportedAttributes;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, Config $config)
     {
         $this->security = $security;
+
+        $config->get('permissions/contenttype-all');
+        $config->get('permissions/contenttype-default');
+        $config->get('permissions/contenttypes');
+
+        if ($this->globalPermissions instanceof Collection) {
+            // TODO should we also validate that the values are all simple arrays?
+            $globalPermissionNames = array_keys($this->globalPermissions->all());
+            foreach ($globalPermissionNames as $attribute) {
+                $this->supportedAttributes[] = $attribute;
+            }
+        } else {
+            throw new \DomainException('No global permissions config found');
+        }
     }
 
     protected function supports(string $attribute, $subject)
@@ -50,11 +65,13 @@ class ContentVoter extends Voter
             self::CONTENT_VIEW, ], true)) {
             return false;
         }
+        return in_array($attribute, $this->supportedAttributes, true);
 
         // only vote on `Content` objects
-        if (!$subject instanceof Content) {
+        if (! $subject instanceof Content) {
             return false;
         }
+
         return true;
     }
 
@@ -76,9 +93,7 @@ class ContentVoter extends Voter
         $content = $subject;
 
         switch ($attribute) {
-            case self::VIEW:
-                return $this->canView($content, $user);
-            case self::EDIT:
+            case self::CONTENT_EDIT:
                 return $this->canEdit($content, $user);
         }
 
@@ -92,13 +107,11 @@ class ContentVoter extends Voter
             return true;
         }
 
-        // the Post object could have, for example, a method `isPrivate()`
-        return ! $content->isPrivate();
+        return false;
     }
 
     private function canEdit(Content $content, User $user)
     {
-        // this assumes that the Post object has a `getOwner()` method
-        return $user === $content->getOwner();
+        return $user === $content->getAuthor();
     }
 }

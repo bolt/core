@@ -98,12 +98,13 @@ global:
 #                     in ways that may not be immediately obvious.
 # - view: allows viewing records in the backend
 contenttype-all:
-    edit: [ developer, admin, chief-editor ]
-    create: [ developer, admin, chief-editor ]
-    publish: [ developer, admin, chief-editor ]
-    depublish: [ developer, admin, chief-editor ]
-    delete: [ developer, admin ]
-    change-ownership: [ developer, admin ]
+    edit: [ ROLE_DEVELOPER, admin, chief-editor ]
+    create: [ ROLE_DEVELOPER, admin, chief-editor ]
+    publish: [ ROLE_DEVELOPER, admin, chief-editor ]
+    depublish: [ ROLE_DEVELOPER, admin, chief-editor ]
+    delete: [ ROLE_DEVELOPER, admin ]
+    change-ownership: [ ROLE_DEVELOPER, admin ]
+    show-in-menu: [ IS_AUTHENTICATED_FULLY ]
 
 contenttype-default:
     edit: [ editor ]
