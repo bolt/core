@@ -1,6 +1,26 @@
 Changelog
 =========
 
+## 4.1.6
+
+Released: 2020-11-22
+
+### 🐛 Bug fixes
+
+- Fix: Set a default status for the `default_status` (bobdenotter, [#2146](https://github.com/bolt/core/pull/2146))
+- Make 'create user' a bit more robust (bobdenotter, [#2144](https://github.com/bolt/core/pull/2144))
+- Use correct template directory in templateselect (I-Valchev, [#2139](https://github.com/bolt/core/pull/2139))
+- `|selected` filter orders by the value of the select (I-Valchev, [#2137](https://github.com/bolt/core/pull/2137))
+- Fix excessive padding in dropdowns (I-Valchev, [#2121](https://github.com/bolt/core/pull/2121))
+- Bugfix incorrect `|current` filter for localized menu items (I-Valchev, [#2118](https://github.com/bolt/core/pull/2118))
+- Fix: in `getTaxonomies()`, return early when we don't have "Content" (bobdenotter, [#2110](https://github.com/bolt/core/pull/2110))
+- Show preview button on Homepage, even if viewless (I-Valchev, [#2107](https://github.com/bolt/core/pull/2107))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Replace Faker with fork, since original is abandoned (bobdenotter, [#2111](https://github.com/bolt/core/pull/2111))
+
+
 ## 4.1.5
 
 Released: 2020-11-02
