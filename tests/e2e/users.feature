@@ -152,7 +152,6 @@ Feature: Users & Permissions
     And I should see "Suggested secure password"
 
   @javascript
-      @foo
   Scenario: Edit my user with incorrect display name
     Given I am logged in as "jane_admin" with password "jane%1"
 
