@@ -131,7 +131,7 @@ class Config
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
 
-        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu, $theme);
+        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu, $theme, $permissions);
 
         return [
             DeepCollection::deepMake($config),
