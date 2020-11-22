@@ -81,7 +81,7 @@
                     {% if contentType.get('taxonomy') %}
                             {% for taxonomy in contentType.get('taxonomy') %}
                                 {% set taxonomyDefinition = config.get('taxonomies/' ~ taxonomy) %}
-                                {% if taxonomyDefinition && taxonomyDefinition.behaves_like != 'tags' %}
+                                {% if taxonomyDefinition and taxonomyDefinition.behaves_like != 'tags' %}
                                 <p>
                                     <strong>{{ taxonomyDefinition.singular_name }}:</strong>
 
