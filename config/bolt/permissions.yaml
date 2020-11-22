@@ -16,7 +16,7 @@ global:
     about: [ IS_AUTHENTICATED_ANONYMOUSLY ] # view the 'About Bolt' page
 #    checks: [ admin, developer ]
     clearcache: [ ROLE_ADMIN, ROLE_DEVELOPER ]
-#    contentaction: [ editor, admin, developer ]
+#    contentaction: [ ROLE_EDITOR, admin, developer ]
     dashboard: [ IS_AUTHENTICATED_FULLY ]
 #    dbcheck: [ admin, developer ]
 #    dbupdate: [ admin, developer ]
@@ -27,8 +27,8 @@ global:
 #    files:config: [ developer ]
 #    files:hidden: [ developer ]
 #    files:theme: [ developer ]
-#    files:uploads: [ admin, developer, chief-editor, editor ]
-#    files: [ admin, developer, chief-editor, editor ]
+#    files:uploads: [ admin, developer, chief-editor, ROLE_EDITOR ]
+#    files: [ admin, developer, chief-editor, ROLE_EDITOR ]
 #    prefill: [ developer ]
     profile: [ IS_AUTHENTICATED_FULLY ] # edit own profile
 #    settings: [ admin, developer, everyone ]
@@ -97,20 +97,29 @@ global:
 #                     permission can indirectly enable users more permissions
 #                     in ways that may not be immediately obvious.
 # - view: allows viewing records in the backend
-contenttype-all:
-    edit: [ ROLE_DEVELOPER, admin, chief-editor ]
-    create: [ ROLE_DEVELOPER, admin, chief-editor ]
-    publish: [ ROLE_DEVELOPER, admin, chief-editor ]
-    depublish: [ ROLE_DEVELOPER, admin, chief-editor ]
-    delete: [ ROLE_DEVELOPER, admin ]
-    change-ownership: [ ROLE_DEVELOPER, admin ]
-    show-in-menu: [ IS_AUTHENTICATED_FULLY ]
 
+
+
+# these permissions will be added to _all_ contenttypes, they can not be overridden
+contenttype-all:
+    edit: [ ROLE_ADMIN ]
+    create: [ ROLE_ADMIN ]
+    publish: [ ROLE_ADMIN ]
+    depublish: [ ROLE_ADMIN ]
+    delete: [ ROLE_ADMIN ]
+    change-ownership: [ ROLE_ADMIN ]
+    view: [ ROLE_ADMIN ] # = show in menu, show listings, open 'edit' view without actually being able to edit, any of the other permissions always imply 'view'
+
+# these permissions are used as a default for contenttypes 
+# you can override these settings per contenttype by adding it to the `contenttypes:` array
 contenttype-default:
-    edit: [ editor ]
-    create: [ editor ]
-    change-ownership: [ owner ]
-    view: [ anonymous ]
+    edit: [ ROLE_CHIEF_EDITOR ]
+    create: [ ROLE_CHIEF_EDITOR ]
+    change-ownership: [ CONTENT_OWNER ] # <-- how to handle chance-ownership permission without 'edit'?
+    view: [ ROLE_CHIEF_EDITOR ]
+#    view: [ IS_AUTHENTICATED_FULLY ]
+#    show-in-menu: [ IS_AUTHENTICATED_FULLY ] # <-- not a useful permission after all
+
 
 contenttypes:
 
@@ -125,12 +134,15 @@ contenttypes:
 #        # amended.
 #
 #        # Only the Admin and Chief Editor are allowed to edit records
-#        edit: [ admin, chief-editor ]
-#        create: [ admin, chief-editor ]
-#        publish: [ admin, chief-editor ]
-#        depublish: [ admin, chief-editor ]
-#        delete: [ admin, chief-editor ]
-#        # Roles that can see the area in the admin section
-#        view: [ developer, admin, chief-editor ]
-#        # Do not expose this content type on the front-end unless user is
-#        logged into the backend
+#        edit: [ ROLE_CHIEF_EDITOR ]
+#        create: [ ROLE_CHIEF_EDITOR ]
+#        publish: [ ROLE_CHIEF_EDITOR ]
+#        depublish: [ ROLE_CHIEF_EDITOR ]
+#        delete: [ ROLE_CHIEF_EDITOR ]
+#        show-in-menu: [ ROLE_CHIEF_EDITOR ]
+    pages:
+        edit: [ ROLE_EDITOR ]
+        create: [ ROLE_EDITOR ]
+        change-ownership: [ CONTENT_OWNER ]
+        view: [ IS_AUTHENTICATED_FULLY ]
+#        show-in-menu: [ IS_AUTHENTICATED_FULLY ] #<-- not useful after all
