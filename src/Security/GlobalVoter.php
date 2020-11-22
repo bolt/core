@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bolt\Security;
 
 use Bolt\Configuration\Config;
-use Bolt\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Tightenco\Collect\Support\Collection;
 
 class GlobalVoter extends Voter
@@ -45,7 +45,7 @@ class GlobalVoter extends Voter
 
         $user = $token->getUser();
 
-        if (! $user instanceof User) {
+        if (! $user instanceof UserInterface) {
             // the user must be logged in; if not, deny access
             return false;
         }
