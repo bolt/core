@@ -7,12 +7,14 @@ namespace Bolt\Menu;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Repository\ContentRepository;
+use Bolt\Security\ContentVoter;
 use Bolt\Twig\ContentExtension;
 use Bolt\Version;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuItem;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class BackendMenuBuilder implements BackendMenuBuilderInterface
@@ -40,6 +42,9 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
     /** @var ExtensionBackendMenuInterface[] */
     private $extensionMenus;
 
+    /** @var AuthorizationCheckerInterface */
+    private $authorizationChecker;
+
     public function __construct(
         FactoryInterface $menuFactory,
         iterable $extensionMenus = [],
@@ -47,7 +52,8 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         ContentRepository $contentRepository,
         UrlGeneratorInterface $urlGenerator,
         TranslatorInterface $translator,
-        ContentExtension $contentExtension
+        ContentExtension $contentExtension,
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
         $this->menuFactory = $menuFactory;
         $this->config = $config;
@@ -56,6 +62,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $this->translator = $translator;
         $this->contentExtension = $contentExtension;
         $this->extensionMenus = $extensionMenus;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     private function createAdminMenu(): ItemInterface
@@ -312,6 +319,10 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $contentTypes = $this->config->get('contenttypes')->whereStrict('show_in_menu', true);
 
         foreach ($contentTypes as $contentType) {
+            // add only if the user can 'view'
+            if (! $this->authorizationChecker->isGranted(ContentVoter::CONTENT_VIEW, $contentType)) {
+                continue;
+            }
             $menu->addChild($contentType->getSlug(), [
                 'uri' => $this->urlGenerator->generate('bolt_content_overview', ['contentType' => $contentType->getSlug()]),
                 'extras' => [
