@@ -18,6 +18,7 @@ use Bolt\Enum\Statuses;
 use Bolt\Log\LoggerTrait;
 use Bolt\Repository\ContentRepository;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\Security\ContentVoter;
 use Bolt\Storage\Query;
 use Bolt\Utils\ContentHelper;
 use Bolt\Utils\Excerpt;
@@ -412,7 +413,7 @@ class ContentExtension extends AbstractExtension
 
     public function getDeleteLink(?Content $content, bool $absolute = false): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_DELETE, $content)) {
             return null;
         }
 
@@ -426,16 +427,17 @@ class ContentExtension extends AbstractExtension
 
     public function getDuplicateLink(?Content $content, bool $absolute = false): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_CREATE, $content)) {
             return null;
         }
 
         return $this->generateLink('bolt_content_duplicate', ['id' => $content->getId()], $absolute);
     }
 
+    // TODO decide on voter - what _is_ a statuslink? Right now checking for 'view' permission
     public function getStatusLink(?Content $content, bool $absolute = false): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_VIEW, $content)) {
             return null;
         }
 
