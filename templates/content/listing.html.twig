@@ -9,8 +9,9 @@
 {% block title %}
     {{ macro.icon(contentType.icon_one) }}
     {{ contentType.name }}
-    {% if filterValue %}<small>({{ __('label.filtered_by') }}: <em>'{{ filterValue }}'</em>){% endif %}
-    {% if taxonomy %}<small>({{ __('label.filtered_by') }}: <em>'{{ taxonomy|split('=')|last }}'</em>){% endif %}
+    {% if filterValue %}<small>({{ __('label.filtered_by') }}: <em>'{{ filterValue }}'</em>)</small>{% endif %}
+    {% if taxonomy %}<small>({{ __('label.filtered_by') }}: <em>'{{ taxonomy|split('=')|last }}'</em>)</small>{% endif %}
+
 {% endblock %}
 
 {% block vue_id 'listing' %}
