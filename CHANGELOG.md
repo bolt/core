@@ -1,9 +1,9 @@
 Changelog
 =========
 
-## 4.1.6
+## 4.1.7 (replaces 4.1.6)
 
-Released: 2020-11-22
+Released: 2020-11-23
 
 ### 🐛 Bug fixes
 
@@ -15,6 +15,7 @@ Released: 2020-11-22
 - Bugfix incorrect `|current` filter for localized menu items (I-Valchev, [#2118](https://github.com/bolt/core/pull/2118))
 - Fix: in `getTaxonomies()`, return early when we don't have "Content" (bobdenotter, [#2110](https://github.com/bolt/core/pull/2110))
 - Show preview button on Homepage, even if viewless (I-Valchev, [#2107](https://github.com/bolt/core/pull/2107))
+- Merging mishap: This shouldn't have been in this branch (bobdenotter, [#2163](https://github.com/bolt/core/pull/2163))
 
 ### ⚙️ Code Quality / Developer Experience
 
