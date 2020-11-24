@@ -74,6 +74,7 @@ export default {
         taggable: Boolean,
         readonly: Boolean,
         classname: String,
+        searchable: Boolean,
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     },
     data: () => {
