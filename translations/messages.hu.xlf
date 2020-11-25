@@ -1095,14 +1095,6 @@
         <source>controller.user.subtitle</source>
         <target>Felhasználók és engedélyeik szerkesztése</target>
       </trans-unit>
-      <trans-unit id="rkVeKe_" resname="controller.authentication.reset_title">
-        <source>controller.authentication.reset_title</source>
-        <target>Jelszó visszaállítása</target>
-      </trans-unit>
-      <trans-unit id="lN_rF8O" resname="controller.authentication.reset_subtitle">
-        <source>controller.authentication.reset_subtitle</source>
-        <target>Jelszó visszaállítása amennyiben elfelejtetted</target>
-      </trans-unit>
       <trans-unit id="0Gyf5xr" resname="controller.database.check_title">
         <source>controller.database.check_title</source>
         <target>Adatbázis ellenőrzése</target>
