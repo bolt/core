@@ -1689,18 +1689,6 @@
         <target>To edit users and their permissions</target>
       </segment>
     </unit>
-    <unit id="rkVeKe_" name="controller.authentication.reset_title">
-      <segment>
-        <source>controller.authentication.reset_title</source>
-        <target>Reset Password</target>
-      </segment>
-    </unit>
-    <unit id="lN_rF8O" name="controller.authentication.reset_subtitle">
-      <segment>
-        <source>controller.authentication.reset_subtitle</source>
-        <target>To reset your password, if you've misplaced it</target>
-      </segment>
-    </unit>
     <unit id="0Gyf5xr" name="controller.database.check_title">
       <segment>
         <source>controller.database.check_title</source>
