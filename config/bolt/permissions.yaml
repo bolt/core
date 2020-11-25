@@ -18,16 +18,14 @@ global:
     clearcache: [ ROLE_ADMIN, ROLE_DEVELOPER ]
 #    contentaction: [ ROLE_EDITOR, admin, developer ]
     dashboard: [ IS_AUTHENTICATED_FULLY ]
-#    dbcheck: [ admin, developer ]
-#    dbupdate: [ admin, developer ]
-#    dbupdate_result: [ admin, developer ]
+
     extensions: [ ROLE_DEVELOPER ]
 #    extensions:config: [ developer ]
     
     # these control /bolt/file-edit and /bolt/filemanager -> combined create/read/update/delete permission
     # the part after the files: is the 'location' where the files are part of
     managefiles:config: [ ROLE_DEVELOPER ] # all configuration yml files /bolt/filemanager/config and /bolt/file-edit/config?file=/bolt/menu.yaml
-    managefiles:files: [ ROLE_DEVELOPER ]
+    managefiles:files: [ ROLE_ADMIN ]
     managefiles:themes: [ ROLE_DEVELOPER ]
     
 #    prefill: [ developer ]
@@ -43,7 +41,7 @@ global:
 #    # Access to the various logs
 #    changelog: [ admin, developer, chief-editor ]
     systemlog: [ ROLE_ADMIN, ROLE_DEVELOPER ]
-# NEW ???
+# NEW
     bulk_operations: [ ROLE_CHIEF_EDITOR ]
     fixtures: [ ROLE_DEVELOPER ] # <-- controller route exists, but fixtures support hasn't been implemented yet 
     kitchensink: [ ROLE_DEVELOPER ]
