@@ -24,7 +24,7 @@ security:
             pattern: ^/
             anonymous: true
             user_checker: Bolt\Security\UserChecker
-            switch_user: true
+            switch_user: { role: CAN_SWITCH_USER }
 
             guard:
                 authenticators:
