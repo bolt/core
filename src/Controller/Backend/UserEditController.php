@@ -111,6 +111,8 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @Route("/user-edit/{id}", methods={"GET","POST"}, name="bolt_user_edit", requirements={"id": "\d+"})
      * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit")
+     *
+     * // TODO PERMISSIONS update permissions
      */
     public function edit(?User $user, Request $request): Response
     {
