@@ -124,6 +124,13 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
                 'email' => 'john_user@example.org',
                 'roles' => ['ROLE_USER'],
             ],
+            [
+                'displayname' => 'Developer',
+                'username' => 'developer',
+                'password' => $this->append ? Str::generatePassword(10) : 'developer%1',
+                'email' => 'developer@example.org',
+                'roles' => ['ROLE_DEVELOPER'],
+            ],
         ];
     }
 }
