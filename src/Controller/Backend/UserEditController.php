@@ -60,7 +60,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-edit/add", methods={"GET","POST"}, name="bolt_user_add")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_ADMIN')") // TODO PERMISSIONS update permissions
      */
     public function add(Request $request): Response
     {
@@ -186,7 +186,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-status/{id}", methods={"POST", "GET"}, name="bolt_user_update_status", requirements={"id": "\d+"})
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_ADMIN')") // TODO PERMISSIONS update permissions
      */
     public function status(?User $user): Response
     {
@@ -207,7 +207,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-delete/{id}", methods={"POST", "GET"}, name="bolt_user_delete", requirements={"id": "\d+"})
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_ADMIN')") // TODO PERMISSIONS update permissions
      */
     public function delete(?User $user): Response
     {
