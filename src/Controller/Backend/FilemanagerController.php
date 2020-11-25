@@ -24,9 +24,6 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Webmozart\PathUtil\Path;
 
-/**
- * @Security("is_granted('ROLE_ADMIN')")
- */
 class FilemanagerController extends TwigAwareController implements BackendZoneInterface
 {
     use CsrfTrait;
@@ -59,6 +56,8 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
      */
     public function filemanager(string $location): Response
     {
+        $this->denyAccessUnlessGranted('managefiles:' . $location);
+
         $path = $this->getFromRequest('path', '');
         if (str::endsWith($path, '/') === false) {
             $path .= '/';
@@ -110,6 +109,9 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 
         $path = $this->getFromRequest('path');
         $location = $this->getFromRequest('location');
+
+        $this->denyAccessUnlessGranted('managefiles:' . $location);
+
         $location = $this->fileLocations->get($location);
 
         $folder = Path::canonicalize($location->getBasepath() . '/' . $path);
@@ -148,6 +150,9 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 
         $path = $this->getFromRequest('path') . $this->getFromRequest('folderName');
         $location = $this->getFromRequest('location');
+
+        $this->denyAccessUnlessGranted('managefiles:' . $location);
+
         $location = $this->fileLocations->get($location);
 
         $folder = Path::canonicalize($location->getBasepath() . '/' . $path);

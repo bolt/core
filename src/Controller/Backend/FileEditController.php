@@ -8,7 +8,6 @@ use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,9 +22,6 @@ use Webimpress\SafeWriter\Exception\ExceptionInterface;
 use Webimpress\SafeWriter\FileWriter;
 use Webmozart\PathUtil\Path;
 
-/**
- * @Security("is_granted('fileedit')")
- */
 class FileEditController extends TwigAwareController implements BackendZoneInterface
 {
     use CsrfTrait;
@@ -52,6 +48,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
      */
     public function edit(string $location): Response
     {
+        $this->denyAccessUnlessGranted('managefiles:' . $location);
+
         $file = $this->getFromRequest('file');
         if (mb_strpos($file, '/') !== 0) {
             $file = '/' . $file;
@@ -80,6 +78,9 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
 
         $file = $this->getFromRequest('file');
         $locationName = $this->getFromRequest('location');
+
+        $this->denyAccessUnlessGranted('managefiles:' . $locationName);
+
         $contents = $this->getFromRequestRaw('editfile');
         $extension = Path::getExtension($file);
 
@@ -128,6 +129,9 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         }
 
         $locationName = $this->getFromRequest('location', '');
+
+        $this->denyAccessUnlessGranted('managefiles:' . $locationName);
+
         $path = $this->getFromRequest('path', '');
 
         $media = $this->mediaRepository->findOneByFullFilename($path, $locationName);
@@ -173,6 +177,9 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         }
 
         $locationName = $this->getFromRequest('location', '');
+
+        $this->denyAccessUnlessGranted('managefiles:' . $locationName);
+
         $path = $this->getFromRequest('path', '');
 
         $originalFilepath = Path::canonicalize($locationName . '/' . $path);

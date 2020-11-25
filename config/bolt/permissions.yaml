@@ -23,12 +23,13 @@ global:
 #    dbupdate_result: [ admin, developer ]
     extensions: [ ROLE_DEVELOPER ]
 #    extensions:config: [ developer ]
-    fileedit: [ ROLE_ADMIN, ROLE_DEVELOPER ]
-#    files:config: [ developer ]
-#    files:hidden: [ developer ]
-#    files:theme: [ developer ]
-#    files:uploads: [ admin, developer, chief-editor, ROLE_EDITOR ]
-#    files: [ admin, developer, chief-editor, ROLE_EDITOR ]
+    
+    # these control /bolt/file-edit and /bolt/filemanager -> combined create/read/update/delete permission
+    # the part after the files: is the 'location' where the files are part of
+    managefiles:config: [ ROLE_DEVELOPER ] # all configuration yml files /bolt/filemanager/config and /bolt/file-edit/config?file=/bolt/menu.yaml
+    managefiles:files: [ ROLE_DEVELOPER ]
+    managefiles:themes: [ ROLE_DEVELOPER ]
+    
 #    prefill: [ developer ]
     profile: [ IS_AUTHENTICATED_FULLY ] # edit own profile
 #    settings: [ admin, developer, everyone ]
@@ -44,7 +45,7 @@ global:
     systemlog: [ ROLE_ADMIN, ROLE_DEVELOPER ]
 # NEW ???
     bulk_operations: [ ROLE_CHIEF_EDITOR ]
-    fixtures: [ ROLE_DEVELOPER ]
+    fixtures: [ ROLE_DEVELOPER ] # <-- controller route exists, but fixtures support hasn't been implemented yet 
     kitchensink: [ ROLE_DEVELOPER ]
 
 
@@ -96,7 +97,7 @@ global:
 #                     grant additional permissions on a record, so this
 #                     permission can indirectly enable users more permissions
 #                     in ways that may not be immediately obvious.
-# - view: allows viewing records in the backend
+# - view: allows viewing records in the backend (listings, content/fields)
 
 
 
@@ -144,5 +145,6 @@ contenttypes:
         edit: [ ROLE_EDITOR ]
         create: [ ROLE_EDITOR ]
         change-ownership: [ CONTENT_OWNER ]
-        view: [ IS_AUTHENTICATED_FULLY ]
+        view: [ ROLE_USER ]
+#        view: [ IS_AUTHENTICATED_FULLY ]
 #        show-in-menu: [ IS_AUTHENTICATED_FULLY ] #<-- not useful after all
