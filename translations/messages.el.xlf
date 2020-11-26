@@ -1690,18 +1690,6 @@
         <target>Για να επεξεργαστείτε τους χρήστες και τα δικαιώματά τους</target>
       </segment>
     </unit>
-    <unit id="rkVeKe_" name="controller.authentication.reset_title">
-      <segment>
-        <source>controller.authentication.reset_title</source>
-        <target>Επαναφορά κωδικού πρόσβασης</target>
-      </segment>
-    </unit>
-    <unit id="lN_rF8O" name="controller.authentication.reset_subtitle">
-      <segment>
-        <source>controller.authentication.reset_subtitle</source>
-        <target>Για Επαναφορά κωδικού πρόσβασης</target>
-      </segment>
-    </unit>
     <unit id="0Gyf5xr" name="controller.database.check_title">
       <segment>
         <source>controller.database.check_title</source>
