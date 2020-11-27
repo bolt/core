@@ -66,11 +66,11 @@ test: ## to run phpunit tests
 
 behat-api: ## to run behat API tests
 	make server
-	vendor/bin/behat --tags=api
+	vendor/bin/behat --tags=api --ansi
 
 behat-api-quiet: ## to run behat API tests quietly
 	make server
-	vendor/bin/behat --tags=api --format=progress
+	vendor/bin/behat --tags=api --format=progress --ansi
 
 behat-js: ## to run behat JS tests
 	make server
@@ -79,7 +79,7 @@ behat-js: ## to run behat JS tests
 	## run the selenium server. chromedriver executable must be in $PATH
 	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
 	sleep 10s
-	vendor/bin/behat --tags=javascript
+	vendor/bin/behat --tags=javascript --ansi
 	## @todo: stop selenium server
 
 behat-js-quiet: ## to run behat JS tests quietly
@@ -89,7 +89,7 @@ behat-js-quiet: ## to run behat JS tests quietly
 	## run the selenium server. chromedriver executable must be in $PATH
 	vendor/bin/selenium-server-standalone >/dev/null 2>&1 &
 	sleep 10s
-	vendor/bin/behat --tags=javascript --format=progress
+	vendor/bin/behat --tags=javascript --format=progress --ansi
 	## @todo: stop selenium server
 
 behat:
