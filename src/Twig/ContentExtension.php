@@ -519,6 +519,8 @@ class ContentExtension extends AbstractExtension
             }
         }
 
+        $options = collect($options)->sortBy('key')->values();
+
         if ($current !== false) {
             $options[] = [
                 'key' => $current,
@@ -526,7 +528,7 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new Collection($options);
+        return collect($options);
     }
 
     public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
