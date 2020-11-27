@@ -1,0 +1,36 @@
+name: API & Behavioural Tests (Behat)
+
+on:
+    pull_request:an
+
+jobs:
+    api:
+        name: Tests
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false # do not cancel 7.2 if 7.3 fails	
+            matrix:
+                php: ['7.2', '7.3', '7.4']
+        steps:
+            - uses: nanasess/setup-chromedriver@master
+            - name: Initialise
+              run: |
+                  sudo composer self-update -q	
+            - name: Install dependencies
+              run: |
+                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+                  ./bin/console bolt:info	
+            - name: Prepare environment
+              run: |
+                  # build assets	
+                  sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/	
+                  # prepare web server for e2e tests	
+                  ./bin/console doctrine:database:create	
+                  ./bin/console doctrine:schema:create	
+                  ./bin/console doctrine:fixtures:load --group=without-images -n	
+                  ./bin/console server:start 127.0.0.1:8088	
+                  # test if web server works	
+                  sleep 3	
+                  wget "http://127.0.0.1:8088/bolt/login"	
+            - name: run API tests
+              run: make behat-api-quiet
