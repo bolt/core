@@ -1,11 +1,11 @@
 name: API & Behavioural Tests (Behat)
 
 on:
-    pull_request:an
+    pull_request:
 
 jobs:
     api:
-        name: Tests
+        name: API Tests
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false # do not cancel 7.2 if 7.3 fails	
