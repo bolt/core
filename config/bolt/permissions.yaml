@@ -4,6 +4,17 @@
 # and understand the consequences of making uninformed changes to the roles and
 # permissions.
 
+# roles that are presented in the list when editing a user 
+# these will be filtered based on the user's own level to make sure you don't assign
+# roles 'above' yourself.
+# TODO implement
+# note: ROLE_USER is assigned to Bolt Entity Users if no roles have been set
+assignable_roles: [ROLE_DEVELOPER, ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_USER]
+# some roles are not in the role hierarchy and not assigned to 'normal' back end users
+# if they should be assignable you need to add them here
+assignable_roles_unchecked: [ROLE_USER_FRONTEND_GROUP1, ROLE_USER_FRONTEND_GROUP2]
+
+
 # These permissions are the 'global' permissions; these are not tied
 # to any content types, but rather apply to global, non-content activity in
 # Bolt's backend. Most of these permissions map directly to backend routes;
@@ -14,28 +25,23 @@
 # inside the code, so they don't appear here.
 global:
     about: [ IS_AUTHENTICATED_ANONYMOUSLY ] # view the 'About Bolt' page
-#    checks: [ admin, developer ]
     clearcache: [ ROLE_ADMIN, ROLE_DEVELOPER ]
-#    contentaction: [ ROLE_EDITOR, admin, developer ]
     dashboard: [ IS_AUTHENTICATED_FULLY ]
-
     extensions: [ ROLE_DEVELOPER ]
-#    extensions:config: [ developer ]
-    
     # these control /bolt/file-edit and /bolt/filemanager -> combined create/read/update/delete permission
     # the part after the files: is the 'location' where the files are part of
     managefiles:config: [ ROLE_DEVELOPER ] # all configuration yml files /bolt/filemanager/config and /bolt/file-edit/config?file=/bolt/menu.yaml
     managefiles:files: [ ROLE_ADMIN ]
     managefiles:themes: [ ROLE_DEVELOPER ]
-    
 #    prefill: [ developer ]
     profile: [ IS_AUTHENTICATED_FULLY ] # edit own profile
 #    settings: [ admin, developer, everyone ]
 #    translation: [ developer ]
-#    useraction: [ admin, developer ] # enable/disable/delete
-    useredit: [ admin, developer ] # user settings
-#    users: [ admin, developer ] # view user overview
-#    roles: [ admin, developer ] # view the roles overview
+    user:list: [ ROLE_ADMIN ] # overview listing of users and a list of active sessions
+    user:add: [ ROLE_ADMIN ] # add user - allows editing user _before_ saving, after saving 'useredit' is needed. -> cannot give roles above 'self'
+    user:status: [ ROLE_ADMIN ] # user enable/disable -> cannot enable/disable users with roles above 'self'
+    user:delete: [ ROLE_ADMIN ] # user delete -> cannot delete users with roles above 'self'
+    user:edit: [ ROLE_ADMIN ] # user edit all fields, including status -> cannot give roles above 'self'
 #    maintenance-mode: [ everyone ] # view the frontend when in maintenance mode
     omnisearch: [ IS_AUTHENTICATED_ANONYMOUSLY ]
 #    # Access to the various logs
@@ -140,7 +146,7 @@ contenttypes:
 #        delete: [ ROLE_CHIEF_EDITOR ]
 #        show-in-menu: [ ROLE_CHIEF_EDITOR ]
     pages:
-        edit: [ ROLE_EDITOR ]
+        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
         create: [ ROLE_EDITOR ]
         change-ownership: [ CONTENT_OWNER ]
         view: [ ROLE_USER ]

@@ -8,6 +8,18 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class SwitchUserVoter votes on the 'switch user' permission - the ability to impersonate another user. This is
+ * extremely powerful and can be abused. Therefore it is not configurable in bolt's permissions.yaml.
+ * This Voter is enabled by the following piece of symfony security configuration:
+ *
+ *     switch_user: { role: CAN_SWITCH_USER }
+ *
+ * in a firewall definition.
+ * If it is configured like above only users with ROLE_DEVELOPER can impersonate.
+ *
+ * @package Bolt\Security
+ */
 class SwitchUserVoter extends Voter
 {
     private $security;
