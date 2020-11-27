@@ -1,7 +1,7 @@
 __nodes:
     prepare_environment: &prepare_environment
-        name: Prepare environment
-        run: |
+        - name: Prepare environment
+          run: |
             # build assets	
             sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/	
             # prepare web server for e2e tests	
@@ -12,20 +12,20 @@ __nodes:
             # test if web server works	
             sleep 3	
             wget "http://127.0.0.1:8088/bolt/login"
-    install_dependencies: &install_dependencies
-        name: Install dependencies
-        run: |
-            sudo composer self-update -q
-            sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
-            ./bin/console bolt:info	
-            npm set progress=false	
-            npm ci	
-            mkdir -p ./var/log/e2e-reports/report/features/	
-            touch ./var/log/e2e-reports/report/features/.gitkeep	
-            # Install latest stable Chrome for e2e tests	
-            sudo apt-get install libxss1 libappindicator1 libindicator7	
-            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb	
-            sudo apt install ./google-chrome*.deb	
+#    install_dependencies: &install_dependencies
+#        name: Install dependencies
+#        run: |
+#            sudo composer self-update -q
+#            sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+#            ./bin/console bolt:info	
+#            npm set progress=false	
+#            npm ci	
+#            mkdir -p ./var/log/e2e-reports/report/features/	
+#            touch ./var/log/e2e-reports/report/features/.gitkeep	
+#            # Install latest stable Chrome for e2e tests	
+#            sudo apt-get install libxss1 libappindicator1 libindicator7	
+#            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb	
+#            sudo apt install ./google-chrome*.deb	
 
 name: API & Behavioural Tests (Behat)
 
