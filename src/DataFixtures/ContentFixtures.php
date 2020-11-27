@@ -181,6 +181,9 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
         $field = FieldRepository::factory($fieldType, $name);
 
+        // Make sure to create the fixture in the correct default locale.
+        $field->setLocale($this->defaultLocale);
+
         if (isset($preset[$name])) {
             $field->setValue($preset[$name]);
         } else {
