@@ -1,21 +1,31 @@
-name: Unit Tests
+name: Unit Tests Checks
 
-on: [push, pull_requests]
+on:
+    pull_request:
 
 jobs:
     unittests:
+        name: PHPUnit
+        runs-on: ubuntu-latest
+
         strategy:
-            fail-fast: true
+            fail-fast: false # do not cancel 7.2 if 7.3 fails	
             matrix:
                 php: ['7.2', '7.3', '7.4']
                 node-version: ['12.5']
-        name: PHP Unit tests
-        runs-on: ubuntu-latest
+
         steps:
             - uses: actions/checkout@v2
             - uses: nanasess/setup-chromedriver@master
             - uses: actions/setup-node@v1
               with:
-                node-version: ${{ matrix.node-version }}
-            - name: Run phpunit
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Initialise
+              run: |
+                  sudo composer self-update -q	
+            - name: Install dependencies
+              run: |
+                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+            - name: run PHP Unit
               run: ./vendor/bin/phpunit
