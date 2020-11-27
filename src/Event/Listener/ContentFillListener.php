@@ -92,7 +92,7 @@ class ContentFillListener
             $slugField = null;
         }
 
-        $fields = $this->fieldRepository->findAllBySlug($slug);
+        $fields = $slug ? $this->fieldRepository->findAllBySlug($slug) : null;
 
         if (! $fields) {
             // No slug field with that slug exists. We're done here.
