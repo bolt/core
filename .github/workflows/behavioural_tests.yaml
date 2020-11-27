@@ -18,7 +18,7 @@ jobs:
                 run: |
                     sudo composer self-update -q
                     sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
-                    ./bin/console bolt:info	
+                    ./bin/console bolt:info	--ansi
                     npm set progress=false	
                     npm ci	
                     mkdir -p ./var/log/e2e-reports/report/features/	
@@ -42,7 +42,7 @@ jobs:
                     wget "http://127.0.0.1:8088/bolt/login"
 
             - name: run API tests
-              run: make behat-api-quiet
+              run: make behat-api-quiet 
     e2e:
         name: E2E Tests
         runs-on: ubuntu-latest
@@ -61,7 +61,7 @@ jobs:
                 run: |
                     sudo composer self-update -q
                     sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
-                    ./bin/console bolt:info	
+                    ./bin/console bolt:info	--ansi
                     npm set progress=false	
                     npm ci	
                     mkdir -p ./var/log/e2e-reports/report/features/	
