@@ -49,8 +49,8 @@ jobs:
                 with:
                     node-version: ${{ matrix.node-version }}
             -   name: Initialise
-                    run: |
-                        sudo composer self-update -q	
+                run: |
+                    sudo composer self-update -q	
             -   name: Install dependencies
                 run: |
                     sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
