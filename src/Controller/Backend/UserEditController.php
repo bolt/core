@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Str;
+use Bolt\Configuration\Config;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
@@ -42,12 +43,16 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     protected $defaultLocale;
 
+    private $assignableRoles;
+    private $assignableRolesUnchecked;
+
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
         CsrfTokenManagerInterface $csrfTokenManager,
         EventDispatcherInterface $dispatcher,
+        Config $config,
         string $defaultLocale
     ) {
         $this->urlGenerator = $urlGenerator;
@@ -56,11 +61,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
         $this->defaultLocale = $defaultLocale;
+        $this->assignableRoles = $config->get('permissions/assignable_roles')->all();
+        $this->assignableRolesUnchecked = $config->get('permissions/assignable_roles_unchecked')->all();
     }
 
     /**
      * @Route("/user-edit/add", methods={"GET","POST"}, name="bolt_user_add")
-     * @Security("is_granted('ROLE_ADMIN')") // TODO PERMISSIONS update permissions
+     * @Security("is_granted('user:add')") -- first check, more detailed checks in method
      */
     public function add(Request $request): Response
     {
@@ -69,8 +76,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_ADD);
-
-        $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
+        $roles = $this->_getPossibleRoles($event);
 
         // These are the variables we have to pass into our FormType so we can build the fields correctly
         $form_data = [
@@ -112,7 +118,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      * @Route("/user-edit/{id}", methods={"GET","POST"}, name="bolt_user_edit", requirements={"id": "\d+"})
      * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit")
      *
-     * // TODO PERMISSIONS update permissions
+     * @Security("is_granted('user:edit')") -- first check, more detailed checks in method
      */
     public function edit(?User $user, Request $request): Response
     {
@@ -125,10 +131,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $is_profile_edit = true;
         }
 
+        // don't allow editing a user with higher roles then yourself
+        $this->_denyUnlessRolesAssignable($user->getRoles());
+
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
 
-        $roles = array_merge($this->getParameter('security.role_hierarchy.roles'), $event->getRoleOptions()->toArray());
+        $roles = $this->_getPossibleRoles($event);
 
         // We don't require the user to set the password again on the "user edit" form
         // If it is otherwise set use the given password normally
@@ -188,11 +197,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-status/{id}", methods={"POST", "GET"}, name="bolt_user_update_status", requirements={"id": "\d+"})
-     * @Security("is_granted('ROLE_ADMIN')") // TODO PERMISSIONS update permissions
+     * @Security("is_granted('user:status')") -- first check, more detailed checks in method
      */
-    public function status(?User $user): Response
+    public function status(User $user): Response
     {
         $this->validateCsrf('useredit');
+
+        $this->_denyUnlessRolesAssignable($user->getRoles());
 
         $newStatus = $this->request->get('status', UserStatus::DISABLED);
 
@@ -209,11 +220,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-delete/{id}", methods={"POST", "GET"}, name="bolt_user_delete", requirements={"id": "\d+"})
-     * @Security("is_granted('ROLE_ADMIN')") // TODO PERMISSIONS update permissions
+     * @Security("is_granted('user:delete')") -- first check, more detailed checks in method
      */
-    public function delete(?User $user): Response
+    public function delete(User $user): Response
     {
         $this->validateCsrf('useredit');
+
+        $this->_denyUnlessRolesAssignable($user->getRoles());
 
         $this->em->remove($user);
         $contentArray = $this->getDoctrine()->getManager()->getRepository(\Bolt\Entity\Content::class)->findBy(['author' => $user]);
@@ -237,14 +250,17 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * This function is called by add and edit function if given form was submitted and validated correctly
-     * Here the User Object will be persisted to the DB
+     * This function is called by add and edit function if given form was submitted and validated correctly.
+     * Here the User Object will be persisted to the DB. A security exception will be raised if the roles
+     * for the user being saved are not allowed for the current logged user.
      */
     private function _handleValidFormSubmit(FormInterface $form): void
     {
         // Get the adjusted User Entity from the form
         /** @var User $user */
         $user = $form->getData();
+
+        $this->_denyUnlessRolesAssignable($user->getRoles());
 
         // Once validated, encode the password
         if ($user->getPlainPassword()) {
@@ -264,4 +280,48 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         $this->addFlash('success', 'user.updated_profile');
     }
+
+    /**
+     * @param UserEvent $event
+     * @return array
+     */
+    private function _getPossibleRoles(UserEvent $event): array
+    {
+        // TODO - Maybe the roles defined in role_hierarchy are not necessarily the roles we want to allow to be 'set'
+        // here. It is not _required_ for roles to be specified in the role_hierarchy, as it is just a utility to
+        // configure a hierarchy and make life easier.
+        // Change this to get the roles from the permissions.yaml
+//
+//        // only allow user to assign system roles they have themselves, use ARRAY_FILTER_USE_KEY as the role names are the keys (values are a list of roles they inherit)
+//        $filteredSystemRoles = array_filter($this->getParameter('security.role_hierarchy.roles'), function ($role) {
+//            return $this->isGranted($role);
+//        }, ARRAY_FILTER_USE_KEY);
+//        // allow all roles added by extensions to be assigned (At the moment this seems the best solution to handle these)
+//        $extensionSuppliedRoles = $event->getRoleOptions()->toArray();
+//        $roles = array_merge($filteredSystemRoles, $extensionSuppliedRoles);
+        $roleHierarchy = $this->getParameter('security.role_hierarchy.roles');
+        $result = [];
+        foreach ($this->assignableRoles as $assignableRole) {
+            if (in_array($assignableRole, $this->assignableRolesUnchecked, true) || $this->isGranted($assignableRole)) {
+                if (isset($roleHierarchy[$assignableRole])) {
+                    $result[$assignableRole] = $roleHierarchy[$assignableRole];
+                } else {
+                    $result[$assignableRole] = [];
+                }
+            }
+        }
+        return $result;
+    }
+
+    private function _denyUnlessRolesAssignable($roles) {
+        // check if there is no attempt to assign roles that are not granted to the current logged in user
+        foreach ($roles as $role) {
+            if (in_array($role, $this->assignableRolesUnchecked, true)) {
+                // skip checking roles specified as unchecked
+                continue;
+            }
+            $this->denyAccessUnlessGranted($role);
+        }
+    }
+
 }
