@@ -11,6 +11,7 @@ jobs:
             fail-fast: false # do not cancel 7.2 if 7.3 fails	
             matrix:
                 php: ['7.2', '7.3', '7.4']
+                node-version: ['12.5']
         steps:
             - uses: actions/checkout@v2
             - name: Initialise
@@ -20,6 +21,8 @@ jobs:
               run: |
                   sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
                   ./bin/console bolt:info	
+                  npm set progress=false	
+                  npm ci	
             - name: Prepare environment
               run: |
                   # build assets	
