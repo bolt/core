@@ -1,0 +1,23 @@
+name: Unit Tests
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    unittests:
+        strategy:
+            fail-fast: true
+            matrix:
+                php: ['7.2', '7.3', '7.4']
+                node-version: ['12.5']
+        steps:
+            - uses: actions/checkout@v2
+            - uses: nanasess/setup-chromedriver@master
+            - uses: actions/setup-node@v1
+              with:
+                node-version: ${{ matrix.node-version }}
+            - name: PHPUnit Tests
+              run: ./vendor/bin/phpunit
