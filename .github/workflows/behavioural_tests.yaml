@@ -30,6 +30,7 @@ jobs:
             -   name: Prepare environment
                 run: |
                     # build assets	
+                    npm run build
                     sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/	
                     # prepare web server for e2e tests	
                     ./bin/console doctrine:database:create	
@@ -72,6 +73,7 @@ jobs:
             -   name: Prepare environment
                 run: |
                     # build assets	
+                    npm run build
                     sudo chmod -R 777 config/ public/files/ public/theme/ public/thumbs/ var/	
                     # prepare web server for e2e tests	
                     ./bin/console doctrine:database:create	
