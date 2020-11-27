@@ -12,7 +12,7 @@ jobs:
             matrix:
                 php: ['7.2', '7.3', '7.4']
         steps:
-            - uses: nanasess/setup-chromedriver@master
+            - uses: actions/checkout@v2
             - name: Initialise
               run: |
                   sudo composer self-update -q	
