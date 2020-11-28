@@ -18,6 +18,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Class BackendMenuBuilder
+ *
+ * TODO PERMISSIONS -- add checks for menu items (don't show / disable when not available)
+ *
+ * @package Bolt\Menu
+ */
 final class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
     public const MAX_LATEST_RECORDS = 5;
@@ -73,13 +80,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         /** @var MenuItem $menu */
         $menu = $this->menuFactory->createItem('root');
 
-        $menu->addChild('Dashboard', [
-            'uri' => $this->urlGenerator->generate('bolt_dashboard'),
-            'extras' => [
-                'name' => $t->trans('caption.dashboard'),
-                'icon' => 'fa-tachometer-alt',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('dashboard')) {
+            $menu->addChild('Dashboard', [
+                'uri' => $this->urlGenerator->generate('bolt_dashboard'),
+                'extras' => [
+                    'name' => $t->trans('caption.dashboard'),
+                    'icon' => 'fa-tachometer-alt',
+                ],
+            ]);
+        }
+
 
         $menu->addChild('Content', [
             'extras' => [
@@ -93,7 +103,10 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $this->addContentOthers($menu);
 
-        $this->addExtensionMenus($menu);
+        // TODO PERMISSIONS -- should we check for any type of permission? Maybe a single global one makes sense.
+        if ($this->authorizationChecker->isGranted('extensionmenus')) {
+            $this->addExtensionMenus($menu);
+        }
 
         $menu->addChild('Settings', [
             'extras' => [
@@ -104,7 +117,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         ]);
 
         // Configuration submenu
-
+        // TODO PERMISSIONS
         $menu->addChild('Configuration', [
             'uri' => $this->urlGenerator->generate('bolt_menupage', [
                 'slug' => 'configuration',
@@ -189,7 +202,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         ]);
 
         // Maintenance submenu
-
+        // TODO PERMISSIONS
         $menu->addChild('Maintenance', [
             'uri' => $this->urlGenerator->generate('bolt_menupage', [
                 'slug' => 'maintenance',
@@ -264,7 +277,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         ]);
 
         // Hide this menu item, unless we're on a "Git clone" install.
-        if (Version::installType() === 'Git clone') {
+        if (Version::installType() === 'Git clone' && $this->authorizationChecker->isGranted('kitchensink')) {
             $menu->getChild('Maintenance')->addChild('The Kitchensink', [
                 'uri' => $this->urlGenerator->generate('bolt_kitchensink'),
                 'extras' => [
@@ -283,7 +296,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         ]);
 
         // File Management submenu
-
+        // TODO PERMISSIONS
         $menu->addChild('File Management', [
             'uri' => $this->urlGenerator->generate('bolt_menupage', [
                 'slug' => 'filemanagement',
@@ -350,6 +363,11 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $slugify = new Slugify(['separator' => '-']);
         foreach ($contentTypes as $contentType) {
+
+            if (! $this->authorizationChecker->isGranted(ContentVoter::CONTENT_VIEW, $contentType)) {
+                continue;
+            }
+
             $label = $contentType->get('show_in_menu') ?: $t->trans('caption.other_content');
 
             if (! $menu->getChild($label)) {

@@ -31,8 +31,7 @@ class ContentVoter extends Voter
      */
     public const CONTENT_EDIT = 'edit';
     public const CONTENT_CREATE = 'create';
-    public const CONTENT_PUBLISH = 'publish';
-    public const CONTENT_DEPUBLISH = 'depublish';
+    public const CONTENT_CHANGE_STATUS = 'change-status';
     public const CONTENT_DELETE = 'delete';
     public const CONTENT_CHANGE_OWNERSHIP = 'change-ownership';
     public const CONTENT_VIEW = 'view';
@@ -74,9 +73,8 @@ class ContentVoter extends Voter
         }
 
         // if the attribute isn't one we support, return false
-        return in_array($attribute, [self::CONTENT_EDIT, self::CONTENT_CREATE, self::CONTENT_PUBLISH,
-            self::CONTENT_DEPUBLISH, self::CONTENT_DELETE, self::CONTENT_CHANGE_OWNERSHIP,
-            self::CONTENT_VIEW], true);
+        return in_array($attribute, [self::CONTENT_EDIT, self::CONTENT_CREATE, self::CONTENT_CHANGE_STATUS,
+            self::CONTENT_DELETE, self::CONTENT_CHANGE_OWNERSHIP, self::CONTENT_VIEW], true);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)

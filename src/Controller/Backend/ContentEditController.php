@@ -23,6 +23,7 @@ use Bolt\Repository\FieldRepository;
 use Bolt\Repository\MediaRepository;
 use Bolt\Repository\RelationRepository;
 use Bolt\Repository\TaxonomyRepository;
+use Bolt\Security\ContentVoter;
 use Bolt\Utils\TranslationsManager;
 use Bolt\Validator\ContentValidatorInterface;
 use Carbon\Carbon;
@@ -109,6 +110,9 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $content->setAuthor($user);
         $content->setContentType($contentType);
+        // content now has a contentType -> permission check possible
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
+
         $this->contentFillListener->fillContent($content);
 
         if ($this->request->getMethod() === 'POST') {
@@ -123,6 +127,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
      */
     public function edit(Content $content): Response
     {
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
+
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::ON_EDIT);
 
@@ -179,6 +185,15 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
 
         $content = $this->contentFromPost($content);
 
+        // TODO PERMISSIONS -- we also have to check for status (and future: owner) changes
+        // hmm, how to handle changes of status for a new item? Is that a thing? --> maybe prevent changing from the default?
+        /*
+            status	"[\"published\"]"
+            publishedAt	"2020-10-23T02:20:41.000Z"
+            depublishedAt	""
+         */
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
+
         // check if validator should be enabled (default for bolt 4.x is not enabled)
         $enableContentValidator = $this->config->get('general/validator_options/enable', false);
         if ($enableContentValidator && $contentValidator) {
@@ -219,6 +234,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->validateCsrf('editrecord');
 
         $content = $this->contentFromPost($content);
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
+
         $recordSlug = $content->getDefinition()->get('singular_slug');
 
         $event = new ContentEvent($content);
@@ -239,6 +256,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
      */
     public function duplicate(Content $content): Response
     {
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
+
         /** @var User $user */
         $user = $this->getUser();
 
@@ -267,6 +286,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
      */
     public function duplicateSave(?Content $content = null): Response
     {
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CREATE, $content);
+
         return $this->new($content->getContentType());
     }
 
@@ -276,6 +297,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     public function status(Content $content): Response
     {
         $this->validateCsrf('status');
+
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CHANGE_STATUS, $content);
 
         $content->setStatus($this->getFromRequest('status'));
 
@@ -302,6 +325,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     public function delete(Content $content): Response
     {
         $this->validateCsrf('delete');
+
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_DELETE, $content);
 
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::PRE_DELETE);

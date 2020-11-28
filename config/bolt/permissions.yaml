@@ -49,8 +49,9 @@ global:
     systemlog: [ ROLE_ADMIN, ROLE_DEVELOPER ]
 # NEW
     bulk_operations: [ ROLE_CHIEF_EDITOR ]
-    fixtures: [ ROLE_DEVELOPER ] # <-- controller route exists, but fixtures support hasn't been implemented yet 
     kitchensink: [ ROLE_DEVELOPER ]
+    upload: [ ROLE_EDITOR ] # upload media/files
+    extensionmenus: [ IS_AUTHENTICATED_FULLY ] # allows you to see menu items added by extensions
 
 
 # For content type related actions, permissions can be set individually for
@@ -93,9 +94,7 @@ global:
 #
 # - edit: allows updating existing records
 # - create: allows creating new records
-# - publish: allows changing the status of a record to "published", as well as
-#            scheduling a record for future publishing
-# - depublish: allows changing the status of a record from "published"
+# - change-status: allows changing the published status of a record
 # - delete: allows (hard) deletion of records
 # - change-ownership: allows changing a record's owner. Note that ownership may
 #                     grant additional permissions on a record, so this
@@ -109,8 +108,7 @@ global:
 contenttype-all:
     edit: [ ROLE_ADMIN ]
     create: [ ROLE_ADMIN ]
-    publish: [ ROLE_ADMIN ]
-    depublish: [ ROLE_ADMIN ]
+    change-status: [ ROLE_ADMIN ]
     delete: [ ROLE_ADMIN ]
     change-ownership: [ ROLE_ADMIN ]
     view: [ ROLE_ADMIN ] # = show in menu, show listings, open 'edit' view without actually being able to edit, any of the other permissions always imply 'view'
@@ -118,7 +116,7 @@ contenttype-all:
 # these permissions are used as a default for contenttypes 
 # you can override these settings per contenttype by adding it to the `contenttypes:` array
 contenttype-default:
-    edit: [ ROLE_CHIEF_EDITOR ]
+    edit: [ ROLE_CHIEF_EDITOR, CONTENT_OWNER ]
     create: [ ROLE_CHIEF_EDITOR ]
     change-ownership: [ CONTENT_OWNER ] # <-- how to handle chance-ownership permission without 'edit'?
     view: [ ROLE_CHIEF_EDITOR ]
@@ -141,8 +139,7 @@ contenttypes:
 #        # Only the Admin and Chief Editor are allowed to edit records
 #        edit: [ ROLE_CHIEF_EDITOR ]
 #        create: [ ROLE_CHIEF_EDITOR ]
-#        publish: [ ROLE_CHIEF_EDITOR ]
-#        depublish: [ ROLE_CHIEF_EDITOR ]
+#        change-status: [ ROLE_CHIEF_EDITOR ]
 #        delete: [ ROLE_CHIEF_EDITOR ]
 #        show-in-menu: [ ROLE_CHIEF_EDITOR ]
     pages:
