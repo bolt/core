@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * TODO PERMISSIONS removed check here - check if checks in twig are set. (probably not in twig itself but in the admin_menu_array() call)
  */
 class MenuPageController extends TwigAwareController implements BackendZoneInterface
 {
