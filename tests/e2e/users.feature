@@ -59,6 +59,7 @@ Feature: Users & Permissions
 
     Then I should be on "/bolt/user-edit/add"
     And I should see "New User" in the ".admin__header--title" element
+    And I wait 0.1 seconds
 
     When I fill in the following:
       | user[username]       | test_user |
@@ -164,6 +165,7 @@ Feature: Users & Permissions
 
     When I fill "user[displayName]" element with "a"
     And I scroll "Save changes" into view
+
     And I press "Save changes"
 
     Then I should see "Invalid display name"
