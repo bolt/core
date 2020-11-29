@@ -57,7 +57,7 @@ small {
     margin-bottom: 1rem;
   }
 
-  a:not(.btn):not(.dropdown-item) {
+  a:not(.btn):not(.dropdown-item):not(.badge) {
     text-decoration: underline;
   }
 }
