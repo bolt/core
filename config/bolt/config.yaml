@@ -25,6 +25,11 @@ date_format: 'F j, Y H:i'
 # You can set a preference to omit background images on the login screen.
 omit_backgrounds: true
 
+# If you're a party-pooper who wants to hide the `generator` meta tag and
+# `x-powered-by` header, set these to true
+omit_meta_generator_tag: false
+omit_powered_by_header: false
+
 # If your site is reachable under different urls (say, both blog.example.org/
 # as well as example.org/), its a good idea to set one of these as the
 # canonical, so its clear which is the primary address of the site.
