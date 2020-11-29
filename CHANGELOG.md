@@ -1,6 +1,21 @@
 Changelog
 =========
 
+## 4.1.8 
+
+Released: 2020-11-29
+
+### 🐛 Bug fixes
+
+- Fix for "Argument 1 passed to `FieldRepository::findAllBySlug()` must be of the type string, null given" (I-Valchev, [#2189](https://github.com/bolt/core/pull/2189))
+- Allow `/` in setcontent where query (I-Valchev, [#2173](https://github.com/bolt/core/pull/2173))
+- Checkbox value can be unset (I-Valchev, [#2172](https://github.com/bolt/core/pull/2172))
+
+### 🛠️ Miscellaneous
+
+- Sort `type: templateselect` Fields alphabetically (I-Valchev, [#2186](https://github.com/bolt/core/pull/2186))
+- Allow omitting of `generator` meta tag and `x-powered-by` header. (bobdenotter, [#2195](https://github.com/bolt/core/pull/2195))
+
 ## 4.1.7 (replaces 4.1.6)
 
 Released: 2020-11-23
