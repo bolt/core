@@ -496,7 +496,8 @@ class ContentExtension extends AbstractExtension
             ->files()
             ->in($templatesPath)
             ->name($definition->get('filter', '/^[^_].*\.twig$/'))
-            ->path($definition->get('path'));
+            ->path($definition->get('path'))
+            ->sortByName();
 
         $options = [];
 
