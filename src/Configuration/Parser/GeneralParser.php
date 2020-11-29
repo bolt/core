@@ -101,6 +101,11 @@ class GeneralParser extends BaseParser
             'omit_backgrounds' => false,
             'omit_powered_by_header' => false,
             'omit_meta_generator_tag' => false,
+            'user_avatar' => [
+                'upload_path' => 'avatars',
+                'extensions_allowed' => ['png', 'jpeg', 'jpg', 'gif'],
+                'default_avatar' => '',
+            ]
         ];
     }
 }
