@@ -105,7 +105,7 @@ class GeneralParser extends BaseParser
                 'upload_path' => 'avatars',
                 'extensions_allowed' => ['png', 'jpeg', 'jpg', 'gif'],
                 'default_avatar' => '',
-            ]
+            ],
         ];
     }
 }
