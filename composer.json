@@ -1,135 +1,150 @@
 {
-    "name": "bolt",
-    "version": "4.1.8",
-    "homepage": "https://boltcms.io",
-    "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
+    "name": "bolt/core",
+    "type": "library",
+    "description": "🧿 Bolt 4 Core",
     "license": "MIT",
-    "description": "Bolt 4 npm/javascript packages",
-    "keywords": [
-        "bolt",
-        "cms",
-        "php",
-        "symfony",
-        "vue",
-        "content",
-        "management",
-        "system"
-    ],
-    "bugs": {
-        "url": "https://github.com/bolt/core/issues"
+    "require": {
+        "php": ">=7.2.9",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-pdo": "*",
+        "api-platform/core": "^2.5",
+        "babdev/pagerfanta-bundle": "^2.5",
+        "beberlei/doctrineextensions": "^1.2",
+        "bolt/common": "^3.0",
+        "cocur/slugify": "^4.0",
+        "composer/composer": "^2.0",
+        "composer/package-versions-deprecated": "^1.11",
+        "doctrine/doctrine-bundle": "^2.1",
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "doctrine/orm": "^2.7",
+        "drupol/composer-packages": "^2.0",
+        "embed/embed": "^3.4",
+        "erusev/parsedown": "^1.7",
+        "fakerphp/faker": "^1.10",
+        "knplabs/doctrine-behaviors": "^2.0.3",
+        "knplabs/knp-menu-bundle": "^3.0",
+        "league/glide-symfony": "^1.0",
+        "miljar/php-exif": "^0.6.4",
+        "nelmio/cors-bundle": "^2.1",
+        "nesbot/carbon": "^2.39",
+        "peterkahl/country-code-to-emoji-flag": "^1.2",
+        "php-translation/symfony-bundle": "^0.12",
+        "phpdocumentor/reflection-docblock": "^4.3",
+        "psr/event-dispatcher": "^1.0",
+        "psr/simple-cache": "^1.0",
+        "scienta/doctrine-json-functions": "^4.1",
+        "sensio/framework-extra-bundle": "^5.6",
+        "sensiolabs/security-checker": "^6.0",
+        "siriusphp/upload": "^3.0.1",
+        "squirrelphp/twig-php-syntax": "^1.5",
+        "symfony/asset": "^5.1",
+        "symfony/console": "^5.1",
+        "symfony/debug-bundle": "^5.1",
+        "symfony/dependency-injection": "^5.1",
+        "symfony/dotenv": "^5.1",
+        "symfony/expression-language": "^5.1",
+        "symfony/flex": "^1.9",
+        "symfony/form": "^5.1",
+        "symfony/framework-bundle": "^5.1",
+        "symfony/http-client": "^5.1",
+        "symfony/mailer": "^5.1",
+        "symfony/maker-bundle": "^1.14",
+        "symfony/monolog-bridge": "^5.1",
+        "symfony/monolog-bundle": "^3.5",
+        "symfony/polyfill-php72": "^1.13",
+        "symfony/security-bundle": "^5.1",
+        "symfony/serializer": "^5.1",
+        "symfony/stopwatch": "^5.1",
+        "symfony/translation": "^5.1",
+        "symfony/twig-bundle": "^5.1",
+        "symfony/validator": "^5.1",
+        "symfony/var-dumper": "^5.1",
+        "symfony/web-profiler-bundle": "^5.1",
+        "symfony/web-server-bundle": "^4.4",
+        "symfony/webpack-encore-bundle": "^1.7",
+        "symfony/yaml": "^5.1",
+        "symfonycasts/reset-password-bundle": "^1.1",
+        "tightenco/collect": "^7.25",
+        "twig/twig": "^3.0",
+        "ua-parser/uap-php": "^3.9",
+        "webimpress/safe-writer": "^2.1",
+        "webmozart/path-util": "^2.3",
+        "webonyx/graphql-php": "^0.13",
+        "xemlock/htmlpurifier-html5": "^0.1.11"
     },
-    "main": "webpack.config.js",
-    "directories": {
-        "tests": "tests"
+    "require-dev": {
+        "ext-curl": "*",
+        "ext-pdo_sqlite": "*",
+        "acmecorp/reference-extension": "^1.2",
+        "behat/mink-goutte-driver": "^1.2",
+        "behat/mink-selenium2-driver": "^1.4",
+        "behatch/contexts": "^3.3",
+        "bobdenotter/configuration-notices": "^1.1",
+        "bobdenotter/weatherwidget": "^1.1",
+        "bolt/binary-chromedriver": "^5.1.1",
+        "bolt/newswidget": "^1.2",
+        "coduo/php-matcher": "^4.0",
+        "dama/doctrine-test-bundle": "^6.2.0",
+        "doctrine/doctrine-migrations-bundle": "^2.2",
+        "friends-of-behat/mink": "^1.8",
+        "friends-of-behat/mink-browserkit-driver": "^1.4",
+        "friends-of-behat/symfony-extension": "^2.1",
+        "lakion/mink-debug-extension": "^1.2",
+        "ondram/ci-detector": "^3.5",
+        "php-http/httplug-pack": "^1.2",
+        "php-translation/loco-adapter": "^0.11",
+        "phpspec/phpspec": "^6.2.1",
+        "phpspec/prophecy": "^1.10",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-doctrine": "^0.12",
+        "phpstan/phpstan-symfony": "^0.12",
+        "phpunit/phpunit": "^7.5",
+        "roave/security-advisories": "dev-master@dev",
+        "se/selenium-server-standalone": "^3.141",
+        "symfony/browser-kit": "^5.1",
+        "symfony/css-selector": "^5.1",
+        "symplify/easy-coding-standard": "^8.2.3"
     },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/bolt/core.git"
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
     },
-    "dependencies": {
-        "@vue/cli-service": "^4.5.9",
-        "axios": "^0.19.2",
-        "baguettebox.js": "^1.11.1",
-        "bootbox": "^5.5.1",
-        "bootstrap": "^4.5.3",
-        "browserslist": "^4.14.6",
-        "caniuse-lite": "^1.0.30001161",
-        "codemirror": "^5.58.3",
-        "dropzone": "^5.7.2",
-        "flagpack": "^1.0.5",
-        "hotkeys-js": "^3.8.1",
-        "jquery": "^3.5.1",
-        "locutus": "^2.0.14",
-        "luxon": "^1.25.0",
-        "no-scroll": "^2.1.1",
-        "node-vibrant": "^3.1.6",
-        "popper.js": "^1.16.1",
-        "register-service-worker": "^1.7.1",
-        "selectize": "^0.12.6",
-        "simplemde": "^1.11.2",
-        "stylelint-config-recommended-scss": "^4.2.0",
-        "stylelint-scss": "^3.18.0",
-        "terser": "^4.8.0",
-        "tinycolor2": "^1.4.2",
-        "vue": "^2.6.12",
-        "vue-flatpickr-component": "^8.1.6",
-        "vue-multiselect": "^2.1.6",
-        "vue-simplemde": "^1.1.2",
-        "vue-trumbowyg": "^3.6.2",
-        "vuedraggable": "^2.24.3",
-        "vuex": "^3.6.0",
-        "zxcvbn": "^4.4.2"
+    "extra": {
+        "public-dir": "public",
+        "symfony": {
+            "allow-contrib": true,
+            "require": "^5.1"
+        }
     },
-    "devDependencies": {
-        "@babel/core": "^7.12.9",
-        "@babel/plugin-transform-regenerator": "^7.12.1",
-        "@babel/plugin-transform-runtime": "^7.12.1",
-        "@babel/polyfill": "^7.12.1",
-        "@babel/preset-env": "^7.12.7",
-        "@fortawesome/fontawesome-free": "^5.15.1",
-        "@symfony/webpack-encore": "^0.31.0",
-        "@vue/test-utils": "^1.1.1",
-        "ajv-keywords": "^3.5.2",
-        "autoprefixer": "^9.8.6",
-        "babel-core": "^7.0.0-bridge.0",
-        "babel-eslint": "^10.1.0",
-        "babel-jest": "^25.5.1",
-        "eslint": "^6.8.0",
-        "eslint-config-prettier": "^6.15.0",
-        "eslint-plugin-prettier": "^3.1.4",
-        "eslint-plugin-standard": "^4.1.0",
-        "eslint-plugin-vue": "^6.2.2",
-        "genversion": "^2.2.1",
-        "jest": "^25.5.4",
-        "jest-serializer-vue": "^2.0.2",
-        "node-sass": "^4.14.1",
-        "postcss-loader": "^3.0.0",
-        "postcss-preset-env": "^6.7.0",
-        "prettier": "^1.19.1",
-        "regenerator-runtime": "^0.13.7",
-        "sass-loader": "^8.0",
-        "source-sans-pro": "^3.6.0",
-        "stylelint": "^13.8.0",
-        "stylelint-config-standard": "^19.0.0",
-        "vue-jest": "^3.0.7",
-        "vue-loader": "^15.9.5",
-        "vue-router": "^3.4.9",
-        "vue-template-compiler": "^2.6.12",
-        "webpackbar": "^4.0.0",
-        "workbox-webpack-plugin": "^4.3.1"
+    "autoload": {
+        "psr-4": {
+            "Bolt\\": "src/"
+        }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Bolt\\Tests\\": "tests/php/",
+            "Context\\": "tests/behat/bootstrap/",
+            "spec\\Bolt\\": "tests/spec/Bolt/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
-        "start": "encore dev-server --port=8234 --progress --disable-host-check --verbose",
-        "build": "npm run genversion && encore production --progress",
-        "postbuild": "rm public/assets/fonts/*.ttf; rm public/assets/fonts/*.eot; rm public/assets/fonts/*.woff; rm public/assets/images/fa-*.svg;",
-        "build:stats": "encore production --progress --json > webpack_stats.json",
-        "serve": "encore dev --watch",
-        "lint": "eslint --ext .js,.vue, assets",
-        "lint-fix": "eslint --ext .js,.vue, assets --fix",
-        "stylelint": "stylelint 'assets/scss'",
-        "stylelint-fix": "stylelint 'assets/scss' --fix",
-        "csfix": "eslint --ext .js,.vue, assets --fix; stylelint 'assets/scss' --fix",
-        "test": "jest",
-        "genversion": "genversion --es6 --semi assets/js/version.js"
-    },
-    "browserslist": [
-        "> 1%"
-    ],
-    "jest": {
-        "moduleFileExtensions": [
-            "js",
-            "json",
-            "vue"
+        "post-install-cmd": "php bin/composer-script/post-install-cmd.php --ansi",
+        "post-update-cmd": "php bin/composer-script/post-update-cmd.php --ansi",
+        "pre-package-uninstall": [
+            "php bin/console extensions:configure --remove-services --ansi"
         ],
-        "transform": {
-            "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-            ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
-        },
-        "moduleNameMapper": {
-            "^@/(.*)$": "<rootDir>/assets/js/app/$1"
-        },
-        "snapshotSerializers": [
-            "<rootDir>/node_modules/jest-serializer-vue"
+        "auto-scripts": [
+            "php bin/console cache:clear --no-warmup --ansi",
+            "php bin/console assets:install --symlink --relative public --ansi"
+        ],
+        "periodical-tasks": [
+            "security-checker security:check"
         ]
     }
 }
