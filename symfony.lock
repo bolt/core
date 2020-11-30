@@ -184,19 +184,6 @@
             "src/DataFixtures/AppFixtures.php"
         ]
     },
-    "doctrine/doctrine-migrations-bundle": {
-        "version": "1.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.2",
-            "ref": "c1431086fec31f17fbcfe6d6d7e92059458facc1"
-        },
-        "files": [
-            "config/packages/doctrine_migrations.yaml",
-            "src/Migrations/.gitignore"
-        ]
-    },
     "doctrine/event-manager": {
         "version": "1.1.0"
     },
@@ -208,9 +195,6 @@
     },
     "doctrine/lexer": {
         "version": "1.2.0"
-    },
-    "doctrine/migrations": {
-        "version": "2.2.1"
     },
     "doctrine/orm": {
         "version": "v2.7.1"

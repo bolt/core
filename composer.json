@@ -86,7 +86,6 @@
         "bolt/newswidget": "^1.2",
         "coduo/php-matcher": "^4.0",
         "dama/doctrine-test-bundle": "^6.2.0",
-        "doctrine/doctrine-migrations-bundle": "^2.2",
         "friends-of-behat/mink": "^1.8",
         "friends-of-behat/mink-browserkit-driver": "^1.4",
         "friends-of-behat/symfony-extension": "^2.1",
