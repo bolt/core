@@ -14,7 +14,6 @@
 
             <!-- This hidden input is actually what gets submitted. It submits "true" when checked, and "false" when not checked -->
             <!-- It exists because we need an "unchecked" value submitted. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox -->
-            -->
             <input type="hidden" :value="liveValue" :name="name" />
         </div>
     </div>

@@ -323,6 +323,15 @@
     "lakion/mink-debug-extension": {
         "version": "v1.2.3"
     },
+    "laminas/laminas-code": {
+        "version": "3.5.0"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.3.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
     "league/flysystem": {
         "version": "1.0.64"
     },
