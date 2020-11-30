@@ -50,7 +50,7 @@ class FieldFillListener
             /** @var Field $field */
             $field = $entity->getTranslatable();
 
-            if (! $field instanceof RawPersistable) {
+            if (! $field instanceof RawPersistable && $field->getDefinition()->get('sanitise', true)) {
                 $value = $this->clean($field->getParsedValue());
                 $field->setValue($value);
             }
