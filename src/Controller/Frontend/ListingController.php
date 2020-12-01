@@ -47,8 +47,8 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
 
-        // If the ContentType is 'viewless' we throw a 404.
-        if ($contentType->get('viewless') === true) {
+        // If the ContentType has 'viewless_listing' set to `true`, we throw a 404.
+        if ($contentType->get('viewless_listing') === true) {
             throw new NotFoundHttpException('Content is not viewable');
         }
 
