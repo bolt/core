@@ -656,7 +656,7 @@ class ContentExtension extends AbstractExtension
 
         foreach ($taxonomy['options'] as $key => $value) {
             $options[] = [
-                'key' => $key,
+                'key' => (string) $key,
                 'value' => $value,
             ];
         }
