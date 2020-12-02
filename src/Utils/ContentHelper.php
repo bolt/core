@@ -63,6 +63,10 @@ class ContentHelper
 
     private function getCanonicalRouteAndParams(Content $record, ?string $locale = null): array
     {
+        if (! $locale) {
+            $locale = $this->request->getLocale();
+        }
+
         if ($this->isHomepage($record)) {
             return [
                 'route' => 'homepage_locale',
@@ -70,10 +74,6 @@ class ContentHelper
                     '_locale' => $locale,
                 ],
             ];
-        }
-
-        if (! $locale) {
-            $locale = $this->request->getLocale();
         }
 
         return [
