@@ -53,25 +53,6 @@ class FieldTranslation implements TranslationInterface
         return $this;
     }
 
-    public function isEmpty(): bool
-    {
-        $field = $this->getTranslatable();
-
-//       @todo: Find a way to check for fields that implement Countable
-//        if ($field instanceof \Countable) {
-//            if (Recursion::detect()) {
-//                dump('rec');
-//                return true;
-//            }
-//
-//            return $field->count() === 0;
-//        }
-
-        $value = is_iterable($this->value) && array_key_exists(0, $this->value) ? $this->value[0] : $this->value;
-
-        return empty($value);
-    }
-
     /**
      * Used to locate the translatable entity Bolt\Entity\Field in all its child classes
      * e.g. from Bolt\Entity\Field\TextField
