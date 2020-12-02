@@ -23,6 +23,10 @@ trait TablePrefixTrait
 
     protected function setTablePrefix(ObjectManager $manager, string $prefix)
     {
+        // Force initializing the ObjectManager by calling a method in case it is a proxy for
+        // a lazily initialized service using symfony/proxy-manager-bridge.
+        // Doing this before calling spl_object_hash() makes sure we are getting the 'correct' hash
+        $manager->getMetadataFactory();
         $key = spl_object_hash($manager);
         $this->tablePrefixes[$key] = Str::ensureEndsWith($prefix, '_');
 
