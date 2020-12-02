@@ -162,7 +162,7 @@ class Field implements FieldInterface, TranslatableInterface
             return $this->getDefaultValue()->get($key);
         }
 
-        return $this->translate($this->getCurrentLocale(), ! $this->isTranslatable())->get($key);
+        return $this->translate($this->getCurrentLocale(), $this->useDefaultLocale())->get($key);
     }
 
     /**
