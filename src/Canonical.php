@@ -184,7 +184,7 @@ class Canonical
             );
         } catch (InvalidParameterException | MissingMandatoryParametersException | RouteNotFoundException | \TypeError $e) {
             // Just use the current URL /shrug
-            return$this->request->getUri();
+            return $canonical ? $this->request->getUri() : $this->request->getPathInfo();
         }
     }
 }
