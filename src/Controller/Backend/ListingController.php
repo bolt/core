@@ -51,11 +51,15 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
             return $this->redirectToRoute('bolt_content_edit', ['id' => $record->getId()]);
         }
 
+        [$taxonomyName, $taxonomyValue] = explode('=', $this->getFromRequest('taxonomy', '') . '=');
+
         return $this->render('@bolt/content/listing.html.twig', [
             'contentType' => $contentTypeObject,
             'records' => $records,
             'sortBy' => $this->getFromRequest('sortBy'),
             'filterValue' => $this->getFromRequest('filter'),
+            'taxonomyName' => $taxonomyName,
+            'taxonomyValue' => $taxonomyValue,
             'filterKey' => $this->getFromRequest('filterKey'),
         ]);
     }

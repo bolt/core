@@ -139,12 +139,28 @@ class Content
     /** @var Environment */
     private $twig = null;
 
+    /**
+     * One content has many relations, to and from, these are relations pointing from this content.
+     *
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="fromContent")
+     */
+    private $relationsFromThisContent;
+
+    /**
+     * One content has many relations, to and from, these are relations pointing to this content.
+     *
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="toContent")
+     */
+    private $relationsToThisContent;
+
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
         $this->createdAt = new \DateTime();
         $this->status = Statuses::DRAFT;
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
+        $this->relationsFromThisContent = new ArrayCollection();
+        $this->relationsToThisContent = new ArrayCollection();
 
         if ($contentTypeDefinition) {
             $this->setContentType($contentTypeDefinition->getSlug());
@@ -186,7 +202,7 @@ class Content
         }
 
         // Set default status and default values
-        $this->setStatus($this->contentTypeDefinition->get('default_status'));
+        $this->setStatus($this->contentTypeDefinition->get('default_status', 'published'));
         $this->contentTypeDefinition->get('fields')->each(function (LaravelCollection $item, string $name): void {
             if ($item->get('default')) {
                 $field = FieldRepository::factory($item, $name);
@@ -235,15 +251,26 @@ class Content
             $slug = $this->getFieldValue('slug');
         } else {
             // get slug with the requested locale
-            $slug = $this->getField('slug')->setLocale($locale)->getParsedValue();
+            $field = $this->getField('slug');
+
+            // @todo: Refactor this. Field.php should be able to get locale
+            // without changing it for later use.
+            $currentLocale = $field->getLocale();
+            $field->setLocale($locale);
+            $slug = $field->getParsedValue();
+            $field->setLocale($currentLocale);
         }
 
         // if no slug exists for the current/requested locale, default fallback
         if (! $slug && $this->hasField('slug')) {
-            $slug = $this
-                ->getField('slug')
-                ->setLocale($this->getField('slug')->getDefaultLocale())
-                ->getParsedValue();
+            $field = $this->getField('slug');
+
+            // @todo: Refactor this. Field.php should be able to get locale
+            // without changing it for later use.
+            $currentLocale = $field->getLocale();
+            $field->setLocale($this->getField('slug')->getDefaultLocale());
+            $slug = $field->getParsedValue();
+            $field->setLocale($currentLocale);
         }
 
         return $slug;
@@ -716,5 +743,61 @@ class Content
         unset($result['contentExtension']);
 
         return $result;
+    }
+
+    public function getRelationsFromThisContent()
+    {
+        return $this->relationsFromThisContent;
+    }
+
+    public function addRelationsFromThisContent(Relation $relation): self
+    {
+        if (! $this->relationsFromThisContent->contains($relation)) {
+            $this->relationsFromThisContent[] = $relation;
+            $relation->setFromContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationsFromThisContent(Relation $relation): self
+    {
+        if ($this->relationsFromThisContent->contains($relation)) {
+            $this->relationsFromThisContent->removeElement($relation);
+            // set the owning side to null (unless already changed)
+            if ($relation->getFromContent() === $this) {
+                $relation->setFromContent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRelationsToThisContent()
+    {
+        return $this->relationsToThisContent;
+    }
+
+    public function addRelationsToThisContent(Relation $relation): self
+    {
+        if (! $this->relationsToThisContent->contains($relation)) {
+            $this->relationsToThisContent[] = $relation;
+            $relation->setToContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationsToThisContent(Relation $relation): self
+    {
+        if ($this->relationsToThisContent->contains($relation)) {
+            $this->relationsToThisContent->removeElement($relation);
+            // set the owning side to null (unless already changed)
+            if ($relation->getToContent() === $this) {
+                $relation->setToContent(null);
+            }
+        }
+
+        return $this;
     }
 }

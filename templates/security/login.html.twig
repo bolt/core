@@ -17,15 +17,21 @@
 {% block main %}
     <div>
 
+        {% form_theme loginForm 'bootstrap_4_layout.html.twig' %}
+
         <div class="login__logo">
             <img class="logo" alt="Bolt CMS logo"
                 {% if not config.get('general/omit_backgrounds') %}
-                 src="{{ asset('assets/images/bolt_logo_loginpage--bg.svg', 'public') }}">
+                 src="{{ asset('assets/images/bolt_logo_loginpage--bg.svg', 'bolt') }}">
                 {% else %}
-                 src="{{ asset('assets/images/bolt_logo_loginpage.svg', 'public') }}">
+                 src="{{ asset('assets/images/bolt_logo_loginpage.svg', 'bolt') }}">
                  {% endif %}
             <h1>{{ config.get('general/sitename') }}</h1>
         </div>
+
+        {% for flashError in app.flashes('reset_password_success') %}
+            <div class="alert alert-success" role="alert">{{ flashError }}</div>
+        {% endfor %}
 
         <div class="card login__login-form">
 
@@ -51,6 +57,10 @@
                         <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
                         {{- 'action.log_in'|trans -}}
                     </button>
+                    <a href="{{ path('bolt_forgot_password_request') }}" class="float-right">
+                      <i class="fas fa-question-circle"></i>
+                      {{ 'login.forgotpassword'|trans }}
+                    </a>
                 {{ form_end(loginForm) }}
 
             </div>

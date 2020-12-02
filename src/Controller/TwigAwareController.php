@@ -49,7 +49,7 @@ class TwigAwareController extends AbstractController
     protected $templateChooser;
 
     /** @var string */
-    private $defaultLocale;
+    protected $defaultLocale;
 
     /**
      * @required

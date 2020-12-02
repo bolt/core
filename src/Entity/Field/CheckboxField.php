@@ -15,6 +15,23 @@ class CheckboxField extends Field implements FieldInterface, ScalarCastable, Raw
 {
     public const TYPE = 'checkbox';
 
+    public function setValue($value): Field
+    {
+        switch ($value) {
+            // String values come from the ContentEditController.
+            case 'true':
+                $value = true;
+                break;
+            case 'false':
+                $value = false;
+                break;
+            default:
+                $value = $value ? true : false;
+        }
+
+        return parent::setValue($value);
+    }
+
     public function getTwigValue()
     {
         return current($this->getValue());

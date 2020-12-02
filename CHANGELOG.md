@@ -1,6 +1,66 @@
 Changelog
 =========
 
+## 4.1.8 
+
+Released: 2020-11-29
+
+### 🐛 Bug fixes
+
+- Fix for "Argument 1 passed to `FieldRepository::findAllBySlug()` must be of the type string, null given" (I-Valchev, [#2189](https://github.com/bolt/core/pull/2189))
+- Allow `/` in setcontent where query (I-Valchev, [#2173](https://github.com/bolt/core/pull/2173))
+- Checkbox value can be unset (I-Valchev, [#2172](https://github.com/bolt/core/pull/2172))
+
+### 🛠️ Miscellaneous
+
+- Sort `type: templateselect` Fields alphabetically (I-Valchev, [#2186](https://github.com/bolt/core/pull/2186))
+- Allow omitting of `generator` meta tag and `x-powered-by` header. (bobdenotter, [#2195](https://github.com/bolt/core/pull/2195))
+
+## 4.1.7 (replaces 4.1.6)
+
+Released: 2020-11-23
+
+### 🐛 Bug fixes
+
+- Fix: Set a default status for the `default_status` (bobdenotter, [#2146](https://github.com/bolt/core/pull/2146))
+- Make 'create user' a bit more robust (bobdenotter, [#2144](https://github.com/bolt/core/pull/2144))
+- Use correct template directory in templateselect (I-Valchev, [#2139](https://github.com/bolt/core/pull/2139))
+- `|selected` filter orders by the value of the select (I-Valchev, [#2137](https://github.com/bolt/core/pull/2137))
+- Fix excessive padding in dropdowns (I-Valchev, [#2121](https://github.com/bolt/core/pull/2121))
+- Bugfix incorrect `|current` filter for localized menu items (I-Valchev, [#2118](https://github.com/bolt/core/pull/2118))
+- Fix: in `getTaxonomies()`, return early when we don't have "Content" (bobdenotter, [#2110](https://github.com/bolt/core/pull/2110))
+- Show preview button on Homepage, even if viewless (I-Valchev, [#2107](https://github.com/bolt/core/pull/2107))
+- Merging mishap: This shouldn't have been in this branch (bobdenotter, [#2163](https://github.com/bolt/core/pull/2163))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Replace Faker with fork, since original is abandoned (bobdenotter, [#2111](https://github.com/bolt/core/pull/2111))
+
+
+## 4.1.5
+
+Released: 2020-11-02
+
+### 🐛 Bug fixes
+
+- Remove extraneous whitespace in excerpts (bobdenotter, [#2072](https://github.com/bolt/core/pull/2072))
+- Fix empty Imagelist breaking rendering in Prod ENV (bobdenotter, [#2091](https://github.com/bolt/core/pull/2091))
+- Don't break installation if SQLite is not present [#2083](https://github.com/bolt/core/pull/2083))
+
+### 🛠️ Miscellaneous
+
+- Access `defaultLocale` in twig (I-Valchev, [#2074](https://github.com/bolt/core/pull/2074))
+- Make "files" selector use more levels (bobdenotter, [#2068](https://github.com/bolt/core/pull/2068))
+- Use 'Hoofdconfiguratie' 🇳🇱  correctly (bobdenotter, [#2067](https://github.com/bolt/core/pull/2067))
+- Fix parsing of `theme.yml` (artggd, [#2059](https://github.com/bolt/core/pull/2059))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Pin `drupol/composer-packages` to `2.0` (bobdenotter, [#2057](https://github.com/bolt/core/pull/2057))
+- Add three more 'allowed' tags by default (bobdenotter, [#2076](https://github.com/bolt/core/pull/2076))
+- Allow rel attribute by default (scaphandroid, [#2064](https://github.com/bolt/core/pull/2064))
+- Cleaning up `composer.json` (bobdenotter, [#2063](https://github.com/bolt/core/pull/2063))
+
 ## 4.1.4
 
 Released: 2020-10-25

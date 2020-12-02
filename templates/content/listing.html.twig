@@ -9,6 +9,8 @@
 {% block title %}
     {{ macro.icon(contentType.icon_one) }}
     {{ contentType.name }}
+    {% if filterValue %}<small>({{ __('label.filtered_by') }}: <em>'{{ filterValue }}'</em>)</small>{% endif %}
+    {% if taxonomyValue %}<small>({{ __('label.filtered_by') }}: <em>'{{ taxonomyValue }}'</em>)</small>{% endif %}
 {% endblock %}
 
 {% block vue_id 'listing' %}
@@ -75,36 +77,33 @@
                             {% endfor %}
                         </select>
                     </p>
-                    {#
+
                     {% if contentType.get('taxonomy') %}
-                        <p>
-                            <strong>{{ 'listing.title_taxonomy'|trans }}</strong>:
-                            <select class="form-control" name="taxonomy">
-                                <option value="" {% if sortBy is empty %}selected{% endif %}>
-                                    {{ 'listing.option_select_item'|trans }}
-                                </option>
-                                {% for taxonomy in contentType.get('taxonomy') %}
-                                    {% set taxonomyDefinition = config.get('taxonomies/' ~ taxonomy) %}
-                                    {% if taxonomyDefinition.behaves_like != 'tags' %}
-                                        <optgroup label="{{ taxonomyDefinition.singular_name }}">
-                                        {% for key, taxonomyValue in taxonomyDefinition.options %}
-                                            <option value="{{ taxonomyDefinition.slug }}={{ key }}" {% if taxonomy == key %}selected{% endif %}>
-                                                {{ taxonomyValue }}
-                                            </option>
-                                        {% endfor %}
-                                        </optgroup>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
+                            {% for taxonomy in contentType.get('taxonomy') %}
+                                {% set taxonomyDefinition = config.get('taxonomies/' ~ taxonomy) %}
+                                {% if taxonomyDefinition and taxonomyDefinition.behaves_like != 'tags' %}
+                                <p>
+                                    <strong>{{ taxonomyDefinition.singular_name }}:</strong>
+                                    {% for key, value in taxonomyDefinition.options %}
+                                        <a class="badge badge-tertiary {% if taxonomy == taxonomyName and taxonomyValue == key %}selected{% endif %}"
+                                           href="?taxonomy={{ (taxonomyDefinition.slug ~ '=' ~ key)|url_encode }}">
+                                            {{ value }}
+                                        </a>
+                                    {% endfor %}
+                                </p>
+                                {% endif %}
+                            {% endfor %}
                         </p>
                     {% endif %}
-                    #}
+
                     <p>
                         <strong>{{ 'listing.title_filterby'|trans }}</strong>:
                         <input class="form-control" type="text" name="filter" id="content-filter" value="{{ filterValue }}"
                                placeholder="{{ 'listing.placeholder_filter'|trans }}"/>
                     </p>
 
+                    {# -- Commented this bit out for now.. It _does_ work, but does it add enough
+                          value to take up valuable screen estate? --
                     <p>
                         <label for="filterKey">{{ 'listing.title_filterby_field'|trans }}</label>:
                         <select name="filterKey" class="form-control">
@@ -114,11 +113,12 @@
                             {% endfor %}
                         </select>
                     </p>
+                    -- #}
                 </div>
 
-                    {{ macro.button('listing.button_filter', 'filter', 'tertiary mb-0', {'type': 'submit'}) }}
+                    {{ macro.button('listing.button_filter', 'filter', 'secondary mb-0', {'type': 'submit'}) }}
 
-                    {% if sortBy is not empty or filterValue is not empty %}
+                    {% if sortBy is not empty or filterValue is not empty or taxonomyValue is not empty %}
                         {{ macro.buttonlink('listing.button_clear', path('bolt_content_overview', {'contentType': contentType.slug}),  'times', 'tertiary mb-0') }}
                     {% endif %}
             </form>

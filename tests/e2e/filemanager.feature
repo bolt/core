@@ -78,3 +78,25 @@ Feature: Filemanager
     And I wait for ".modal-dialog"
     And I press "OK"
 
+  @javascript
+  Scenario: As an admin I want to create and delete a folder
+    Given I am logged in as "admin"
+    And I am on "/bolt/filemanager/files"
+
+    Then I should not see "a-new-folder"
+
+    When I fill "folderName" element with "a-new-folder"
+    And I click "Create"
+
+    Then I should see "Folder created successfully"
+    And I should see "a-new-folder"
+
+    When I fill "folderName" element with "a-new-folder"
+    And I click "Create"
+    Then I should see "Folder already exists"
+
+    When I click the 1st "Delete"
+    And I wait 1 second
+    And I click "OK"
+    Then I should see "Folder deleted successfully"
+    And I should not see "a-new-folder"

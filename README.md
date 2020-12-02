@@ -19,10 +19,10 @@ https://github.com/bolt/project/ .**
 
 
 ---
-> Cleanse this world with flame
-> End this, cleanse this
-> **Rebuild and start again**
-> Obliterate what makes us weak
+> Cleanse this world with flame  
+> End this, cleanse this  
+> **Rebuild and start again**  
+> Obliterate what makes us weak  
 
 -- Hatebreed - [Destroy Everything][hatebreed]
 
@@ -127,7 +127,7 @@ To set up initially, run `npm install` to get the required dependencies /
   - Run `npm run start` (alternatively `npm run start --python="/usr/local/bin/python3.7"`)
 
 See the other options by running `npm run`.
-(Note: as I'm testing this as well remotely, I copied all assets from the released composer installation by `cp -r ../www_backup/public/assets/* public/assets/`)
+(Note: on testing remotely, assets can be compiled into public/assets by simply `npm run-script build`)
 
 5. Run the prototype
 --------------------
@@ -230,5 +230,3 @@ Sponsors:
 [installation]: https://docs.bolt.cm/installation
 
 --------
-
-[![Build Status](https://travis-ci.com/bolt/core.svg?branch=master)](https://travis-ci.com/bolt/core) [![SymfonyInsight](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5/mini.svg)](https://insight.symfony.com/projects/4d1713e3-be44-4c2e-ad92-35f65eee6bd5) [![Total Downloads](https://poser.pugx.org/bolt/core/downloads)](https://packagist.org/packages/bolt/core) ![PHP from Packagist](https://img.shields.io/packagist/php-v/bolt/core)

@@ -7,7 +7,7 @@
             :limit="1000"
             :multiple="multiple"
             :options="options"
-            :searchable="taggable"
+            :searchable="searchable || taggable"
             :show-labels="false"
             :taggable="taggable"
             :disabled="readonly"
@@ -41,6 +41,7 @@
                         <div v-if="!taggable" class="multiselect__tag__drag">
                             <i class="fas fa-arrows-alt"></i>
                         </div>
+                        <!-- eslint-disable-next-line vue/no-v-html -->
                         <span v-html="props.option.value"></span>
                         <i
                             tabindex="1"
@@ -74,6 +75,7 @@ export default {
         taggable: Boolean,
         readonly: Boolean,
         classname: String,
+        searchable: Boolean,
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     },
     data: () => {

@@ -57,13 +57,8 @@ small {
     margin-bottom: 1rem;
   }
 
-  a:not(.btn) {
+  a:not(.btn):not(.dropdown-item):not(.badge) {
     text-decoration: underline;
-  }
-
-  ul,
-  ol {
-    padding-left: 1rem;
   }
 }
 
@@ -84,4 +79,10 @@ input.flatpickr-input[disabled] {
 
 input::placeholder {
   font-style: italic;
+}
+
+.field-error {
+  color: $danger;
+  margin-top: -1.5rem;
+  margin-bottom: 2rem;
 }

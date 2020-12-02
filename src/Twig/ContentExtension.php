@@ -33,7 +33,6 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tightenco\Collect\Support\Collection;
-use Tightenco\Collect\Support\Collection as LaravelCollection;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Markup;
@@ -138,6 +137,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('status_options', [$this, 'statusOptions']),
             new TwigFilter('feature', [$this, 'getSpecialFeature']),
             new TwigFilter('sanitise', [$this, 'sanitise']),
+            new TwigFilter('record', [$this, 'record']),
         ];
     }
 
@@ -267,7 +267,7 @@ class ContentExtension extends AbstractExtension
             $post = '';
         }
 
-        return $pre . Excerpt::getExcerpt(rtrim($excerpt, '. '), $length, $focus) . $post;
+        return $pre . Excerpt::getExcerpt($excerpt, $length, $focus) . $post;
     }
 
     private function getFieldBasedExcerpt(Content $content, int $length, bool $includeTitle = false): string
@@ -375,7 +375,11 @@ class ContentExtension extends AbstractExtension
     public function getLink($contentOrTaxonomy, bool $canonical = false, ?string $locale = null): ?string
     {
         if ($contentOrTaxonomy instanceof Content) {
-            if ($contentOrTaxonomy->getId() === null || $contentOrTaxonomy->getDefinition()->get('viewless')) {
+            if ($contentOrTaxonomy->getId() === null) {
+                return null;
+            }
+
+            if ($contentOrTaxonomy->getDefinition()->get('viewless') && $this->getSpecialFeature($contentOrTaxonomy) !== 'homepage') {
                 return null;
             }
 
@@ -458,6 +462,8 @@ class ContentExtension extends AbstractExtension
         if (! $content instanceof Content) {
             $body = sprintf("You have called the <code>|taxonomies</code> filter with a parameter of type '%s', but <code>|taxonomies</code> accepts record (Content).", gettype($content));
             $this->notifications->warning('Incorrect use of <code>|taxonomies</code> filter', $body);
+
+            return new Collection();
         }
 
         $taxonomies = [];
@@ -477,17 +483,21 @@ class ContentExtension extends AbstractExtension
         return new Collection($taxonomies);
     }
 
-    public function getListTemplates(TemplateselectField $field): LaravelCollection
+    public function getListTemplates(TemplateselectField $field): Collection
     {
         $definition = $field->getDefinition();
         $current = current($field->getValue());
 
         $finder = new Finder();
+        $templatesDir = $this->config->get('theme/template_directory');
+        $templatesPath = $this->config->getPath('theme', true, $templatesDir);
+
         $finder
             ->files()
-            ->in($this->config->getPath('theme'))
+            ->in($templatesPath)
             ->name($definition->get('filter', '/^[^_].*\.twig$/'))
-            ->path($definition->get('path'));
+            ->path($definition->get('path'))
+            ->sortByName();
 
         $options = [];
 
@@ -517,7 +527,7 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
     public function pager(Environment $twig, ?Pagerfanta $records = null, string $template = '@bolt/helpers/_pager_basic.html.twig', string $class = 'pagination', int $surround = 3)
@@ -542,7 +552,7 @@ class ContentExtension extends AbstractExtension
         return $twig->render($template, $context);
     }
 
-    public function selectOptions(Field $field): LaravelCollection
+    public function selectOptions(Field $field): Collection
     {
         $values = $field->getDefinition()->get('values');
 
@@ -553,7 +563,7 @@ class ContentExtension extends AbstractExtension
         return $this->selectOptionsContentType($field);
     }
 
-    private function selectOptionsArray(Field $field): LaravelCollection
+    private function selectOptionsArray(Field $field): Collection
     {
         $values = $field->getDefinition()->get('values');
         $currentValues = $field->getValue();
@@ -572,7 +582,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (! is_iterable($values)) {
-            return new LaravelCollection($options);
+            return new Collection($options);
         }
 
         foreach ($values as $key => $value) {
@@ -583,10 +593,10 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
-    private function selectOptionsContentType(Field $field): LaravelCollection
+    private function selectOptionsContentType(Field $field): Collection
     {
         [ $contentTypeSlug, $format ] = explode('/', $field->getDefinition()->get('values'));
 
@@ -615,16 +625,19 @@ class ContentExtension extends AbstractExtension
         $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
 
         foreach ($records as $record) {
+            if ($field->getDefinition()->get('mode') === 'format') {
+                $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
+            }
             $options[] = [
-                'key' => $record->getId(),
+                'key' => $formattedKey ?? $record->getId(),
                 'value' => $this->contentHelper->get($record, $format),
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
-    public function taxonomyOptions(LaravelCollection $taxonomy): LaravelCollection
+    public function taxonomyOptions(Collection $taxonomy): Collection
     {
         $options = [];
 
@@ -652,10 +665,10 @@ class ContentExtension extends AbstractExtension
             ];
         }
 
-        return new LaravelCollection($options);
+        return new Collection($options);
     }
 
-    public function taxonomyValues(\Doctrine\Common\Collections\Collection $current, LaravelCollection $taxonomy): LaravelCollection
+    public function taxonomyValues(\Doctrine\Common\Collections\Collection $current, Collection $taxonomy): Collection
     {
         $values = [];
 
@@ -671,7 +684,7 @@ class ContentExtension extends AbstractExtension
             $values[] = key($taxonomy['options']);
         }
 
-        return new LaravelCollection($values);
+        return new Collection($values);
     }
 
     public function icon(?Content $record = null, string $icon = 'question-circle'): string
@@ -777,5 +790,10 @@ class ContentExtension extends AbstractExtension
     public function sanitise(string $html)
     {
         return $this->sanitiser->clean($html);
+    }
+
+    public function record(int $id)
+    {
+        return $this->contentRepository->findOneBy(['id' => $id]);
     }
 }

@@ -63,6 +63,10 @@ class ContentHelper
 
     private function getCanonicalRouteAndParams(Content $record, ?string $locale = null): array
     {
+        if (! $locale) {
+            $locale = $this->request->getLocale();
+        }
+
         if ($this->isHomepage($record)) {
             return [
                 'route' => 'homepage_locale',
@@ -72,15 +76,11 @@ class ContentHelper
             ];
         }
 
-        if (! $locale) {
-            $locale = $this->request->getLocale();
-        }
-
         return [
             'route' => $record->getDefinition()->get('record_route'),
             'params' => [
                 'contentTypeSlug' => $record->getContentTypeSingularSlug(),
-                'slugOrId' => $record->getSlug(),
+                'slugOrId' => $record->getSlug($locale),
                 '_locale' => $locale,
             ],
         ];

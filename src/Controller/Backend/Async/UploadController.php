@@ -12,7 +12,13 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sirius\Upload\Handler;
-use Sirius\Upload\Result\File;
+use Sirius\Upload\Result\Collection;
+use Sirius\Upload\Result\ResultInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -20,12 +26,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Throwable;
 use Webmozart\PathUtil\Path;
 
 /**
  * @Security("is_granted('ROLE_ADMIN')")
  */
-class UploadController implements AsyncZoneInterface
+class UploadController extends AbstractController implements AsyncZoneInterface
 {
     use CsrfTrait;
 
@@ -44,7 +51,10 @@ class UploadController implements AsyncZoneInterface
     /** @var Request */
     private $request;
 
-    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager, TextExtension $textExtension, RequestStack $requestStack)
+    /** @var Filesystem */
+    private $filesystem;
+
+    public function __construct(MediaFactory $mediaFactory, EntityManagerInterface $em, Config $config, CsrfTokenManagerInterface $csrfTokenManager, TextExtension $textExtension, RequestStack $requestStack, Filesystem $filesystem)
     {
         $this->mediaFactory = $mediaFactory;
         $this->em = $em;
@@ -52,6 +62,53 @@ class UploadController implements AsyncZoneInterface
         $this->csrfTokenManager = $csrfTokenManager;
         $this->textExtension = $textExtension;
         $this->request = $requestStack->getCurrentRequest();
+        $this->filesystem = $filesystem;
+    }
+
+    /**
+     * @Route("/upload-url", name="bolt_async_upload_url", methods={"GET"})
+     */
+    public function handleURLUpload(Request $request): Response
+    {
+        try {
+            $this->validateCsrf('upload');
+        } catch (InvalidCsrfTokenException $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => 'Invalid CSRF token',
+                ],
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        $url = $request->get('url', '');
+        $filename = basename($url);
+
+        $locationName = $request->get('location', '');
+        $path = $request->get('path') . $filename;
+        $target = $this->config->getPath($locationName, true, 'tmp/' . $path);
+
+        try {
+            // Create temporary file
+            $this->filesystem->copy($url, $target);
+        } catch (Throwable $e) {
+            return new JsonResponse([
+                'error' => [
+                    'message' => $e->getMessage(),
+                ],
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $file = new UploadedFile($target, $filename);
+        $bag = new FileBag();
+        $bag->add([$file]);
+        $request->files = $bag;
+
+        $response = $this->handleUpload($request);
+
+        // The file is automatically deleted. It may be that we don't need this.
+        $this->filesystem->remove($target);
+
+        return $response;
     }
 
     /**
@@ -103,7 +160,7 @@ class UploadController implements AsyncZoneInterface
         });
 
         try {
-            /** @var File $result */
+            /** @var UploadedFile|File|ResultInterface|Collection $result */
             $result = $uploadHandler->process($request->files->all());
         } catch (\Throwable $e) {
             return new JsonResponse([

@@ -11,6 +11,7 @@ twig:
         '%kernel.project_dir%/templates/': 'bolt'
     globals:
         'config': '@Bolt\Configuration\Config'
+        'defaultLocale': '%locale%'
 
     # Silence Twig / Symfony's exception controller here, so we can set it up properly in
     # `framework.yaml` (so we can show custom 404's)

@@ -27,7 +27,7 @@ jobs:
 
                     -
                         name: Check YAML configs files
-                        run: bin/console lint:yaml config --ansi
+                        run: bin/console lint:yaml config --ansi --parse-tags
 
                     -
                         name: Check TWIG files

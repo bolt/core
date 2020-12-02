@@ -14,9 +14,10 @@
   .collection-item {
     margin-bottom: 1rem;
 
-    summary {
+    .summary {
       padding: 0;
       background: transparent;
+      cursor: pointer;
 
       &::-webkit-details-marker {
         display: none;
@@ -28,11 +29,14 @@
 
       i.card-marker-caret {
         margin-right: 0.75rem;
+        transform: rotate(90deg);
       }
     }
 
-    details[open] summary i.card-marker-caret {
-      transform: rotate(90deg);
+    &.collapsed {
+      .summary i.card-marker-caret {
+        transform: rotate(0);
+      }
     }
 
     .collection-item-title {
@@ -41,6 +45,11 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      user-select: none;
+    }
+
+    &.collapsed .details {
+      display: none;
     }
 
     .card-body {

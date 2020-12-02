@@ -190,6 +190,11 @@ class OrderDirective
             return;
         }
 
+        // A numerical field value is stored as an json array containing a string, so the number 42
+        // would be in a field ["42"]. To extract the numerical value SUBSTRING(field, 3, field_length)
+        // is used, where 3 is the (1-based) start index. After taking the substring CAST(... as decimal)
+        // is used to enable number-based ordering, this cast will ignore the remaining "] that is left at
+        // the end of the field after the SUBSTRING operation.
         $substring = $qb
             ->expr()
             ->substring($translationsAlias . '.value', 3, $query->getQueryBuilder()->expr()->length($translationsAlias . '.value'));

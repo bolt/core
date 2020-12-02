@@ -15,7 +15,7 @@ class ContentTypesParserTest extends ParserTestBase
 {
     public const NUMBER_OF_CONTENT_TYPES_IN_MINIMAL_FILE = 2;
 
-    public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 25;
+    public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 26;
 
     public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 26;
 
@@ -70,7 +70,7 @@ class ContentTypesParserTest extends ParserTestBase
         $contentTypesParser = new ContentTypesParser($this->getProjectDir(), $generalParser->parse(), self::DEFAULT_LOCALE, self::ALLOWED_LOCALES);
         $config = $contentTypesParser->parse();
 
-        $this->assertCount(6, $config);
+        $this->assertCount(7, $config);
 
         $this->assertArrayHasKey('homepage', $config);
         $this->assertCount(self::AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE, $config['homepage']);

@@ -1,0 +1,83 @@
+{# {% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% set extensions = field.definition.get('extensions')|default('') %}
+{% set info %}
+    {{ 'upload.allow_file_types'|trans }}: <code>{{ extensions|join('</code>, <code>') }}</code><br>
+    {{ 'upload.max_size'|trans }}: {{ config.maxupload|format_bytes }}
+{% endset %}
+
+{% block field %}
+    {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': upload_path}) %}
+    {% set filelist = path('bolt_async_filelisting', {'location': location|default('files') }) %}
+    {% set labels = {
+        'button_upload': 'image.button_upload'|trans,
+        'button_from_library': 'image.button_from_library'|trans,
+        'button_remove': 'image.button_remove'|trans,
+        'placeholder_filename': 'image.placeholder_filename'|trans,
+        'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
+        'placeholder_title': 'image.placeholder_title'|trans,
+        'button_edit_attributes': 'image.button_edit_attributes'|trans,
+    }|json_encode %}
+
+
+    <editor-image
+        :name='{{ name|json_encode }}'
+        :filename='{{ filepath|json_encode }}'
+        :thumbnail='{{ null|thumbnail(width=400, height=300)|json_encode }}'
+        :title='{{ null|json_encode }}'
+        :media='{{ 'avatars/1605292244_avatar-370-456322.png'|json_encode }}'
+        :directory='{{ directory|json_encode }}'
+        :filelist='{{ filelist|json_encode }}'
+        :csrf-token='{{ csrf_token('upload')|json_encode }}'
+        :labels='{{ labels }}'
+        :extensions='{{ extensions_allowed|json_encode }}'
+        :attributes-link='{{ path('bolt_media_new')|json_encode }}'
+        :required='{{ required|json_encode }}'
+        :readonly='{{ readonly|json_encode }}'
+        :errormessage='{{ errormessage|json_encode }}'
+        :pattern='{{ pattern|json_encode }}'
+        :placeholder='{{ placeholder|json_encode }}'
+    ></editor-image>
+{% endblock %}
+
+#}
+
+{% extends '@bolt/_partials/fields/_base.html.twig' %}
+
+{% set extensions = extensions_allowed|default([]) %}
+{% set info %}
+    {{ 'upload.allow_file_types'|trans }}: <code>{{ extensions|join('</code>, <code>') }}</code><br>
+    {{ 'upload.max_size'|trans }}: {{ config.maxupload|format_bytes }}
+{% endset %}
+
+{% block field %}
+    {% set directory = path('bolt_async_upload', {'location': location|default('files'), 'path': upload_path}) %}
+    {% set directoryurl = path('bolt_async_upload_url', {'location': location|default('files'), 'path': upload_path}) %}
+    {% set filelist = path('bolt_async_filelisting', {'location': location|default('files'), 'type': 'images' }) %}
+    {% set labels = {
+        'button_upload': 'image.button_upload'|trans,
+        'button_from_library': 'image.button_from_library'|trans,
+        'button_remove': 'image.button_remove'|trans,
+        'placeholder_filename': 'image.placeholder_filename'|trans,
+        'placeholder_alt_text': 'image.placeholder_alt_text'|trans,
+        'button_edit_attributes': 'image.button_edit_attributes'|trans,
+        'button_from_url': 'image.button_from_url'|trans,
+    }|json_encode %}
+
+    <editor-image
+        :name='{{ name|json_encode }}'
+        :filename='{{ filepath|json_encode }}'
+        :directory='{{ directory|json_encode }}'
+        :directoryurl='{{ directoryurl|json_encode }}'
+        :filelist='{{ filelist|json_encode }}'
+        :csrf-token='{{ csrf_token('upload')|json_encode }}'
+        :labels='{{ labels }}'
+        :extensions='{{ extensions|json_encode }}'
+        :attributes-link='{{ path('bolt_media_new')|json_encode }}'
+        :required='{{ required|json_encode }}'
+        :readonly='{{ readonly|json_encode }}'
+        :errormessage='{{ errormessage|json_encode }}'
+        :pattern='{{ pattern|json_encode }}'
+        :placeholder='{{ placeholder|json_encode }}'
+    ></editor-image>
+{% endblock %}
