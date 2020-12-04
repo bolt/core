@@ -485,7 +485,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             ]);
 
             if ($taxonomy === null) {
-                $taxonomy = $this->taxonomyRepository->factory($key, $slug);
+                $taxonomy = $this->taxonomyRepository->factory($key, (string) $slug);
             }
 
             $content->addTaxonomy($taxonomy);
