@@ -309,6 +309,10 @@ class ContentTypesParser extends BaseParser
             $field['values'] = array_combine($field['values'], $field['values']);
         }
 
+        if ($field['type'] === 'select' && ! isset($field['multiple'])) {
+            $field['multiple'] = false;
+        }
+
         if (empty($field['label'])) {
             $field['label'] = ucwords($key);
         }
