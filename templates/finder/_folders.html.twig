@@ -1,7 +1,8 @@
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
 <table class="table table-striped table-compact" id="files-folders" style="background-color: #FFF;">
     <thead class="thead-light">
     <tr>
-        <th><i class="fas fa-folder"></i> {{ 'caption.folders'|trans }}</th>
         <th>{{ 'directoryname'|trans }}</th>
         <th>{{ 'actions'|trans }}</th>
     </tr>
@@ -9,10 +10,10 @@
 
     {% if path != '/' %}
         <tr>
-            <td><i class="fas fa-folder-open"></i></td>
             <td>
                 <b>
                     <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': parent }) }}">
+                        <i class="fas fa-folder-minus"></i>
                         ../
                     </a>
                 </b>
@@ -23,18 +24,23 @@
     {% endif %}
 
     {% for directory in folders.directories() %}
+        {% set dirname = path ~ directory.getRelativePathname() %}
         <tr>
-            <td><i class="fas fa-folder"></i></td>
             <td>
                 <b>
-                    {% set dirname = path ~ directory.getRelativePathname() %}
+                    {% if path != '/' %}<i class="folder-indent"></i>{% endif %}
                     <a href="{{ path('bolt_filemanager', {'location': location.key, 'path': dirname }) }}">
+                        <i class="fas fa-folder"></i>
                         {{ directory.getRelativePathname }}/
                     </a>
                 </b>
             </td>
             <td>
+                {{ macro.buttonlink('action.delete', path('bolt_filemanager_delete', {'path': dirname, 'location': location.key, '_csrf_token': csrf_token('filemanager-delete')}), 'trash', 'danger sm mb-0', {'data-confirmation': 'action.confirm_delete'|trans }) }}
             </td>
         </tr>
     {% endfor %}
+
+    {% include 'finder/_createfolder.html.twig' %}
+
 </table>

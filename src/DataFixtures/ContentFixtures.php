@@ -42,10 +42,14 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
 
     public function __construct(Config $config, FileLocations $fileLocations, string $defaultLocale)
     {
+        $this->config = $config;
         $this->faker = Factory::create();
+        $seed = $this->config->get('general/fixtures_seed');
+        if (! empty($seed)) {
+            $this->faker->seed($seed);
+        }
 
         $this->presetRecords = $this->getPresetRecords();
-        $this->config = $config;
         $this->fileLocations = $fileLocations;
         $this->defaultLocale = $defaultLocale;
     }

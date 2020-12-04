@@ -112,6 +112,11 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['viewless'])) {
             $contentType['viewless'] = false;
         }
+
+        if (! isset($contentType['viewless_listing'])) {
+            $contentType['viewless_listing'] = $contentType['viewless'];
+        }
+
         if (! isset($contentType['searchable'])) {
             $contentType['searchable'] = ! $contentType['viewless'];
         }

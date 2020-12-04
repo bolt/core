@@ -7,7 +7,7 @@
             :limit="1000"
             :multiple="multiple"
             :options="options"
-            :searchable="taggable"
+            :searchable="searchable || taggable"
             :show-labels="false"
             :taggable="taggable"
             :disabled="readonly"
@@ -75,6 +75,7 @@ export default {
         taggable: Boolean,
         readonly: Boolean,
         classname: String,
+        searchable: Boolean,
         errormessage: String | Boolean, //string if errormessage is set, and false otherwise
     },
     data: () => {

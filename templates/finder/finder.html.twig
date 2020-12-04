@@ -12,21 +12,22 @@
 {% endblock %}
 
 {% block main %}
+    <div id="filemanager">
+        {% include '@bolt/finder/_quickselect.html.twig' %}
 
-    {% include '@bolt/finder/_quickselect.html.twig' %}
+        {% include '@bolt/finder/_folders.html.twig' %}
 
-    {% include '@bolt/finder/_folders.html.twig' %}
+        {% set imageformats = ['gif', 'jpg', 'jpeg', 'png', 'svg'] %}
 
-    {% set imageformats = ['gif', 'jpg', 'jpeg', 'png', 'svg'] %}
+        {% if view == 'list' %}
+            {% include '@bolt/finder/_files_list.html.twig' %}
+        {% else %}
+            {% include '@bolt/finder/_files_cards.html.twig' %}
+        {% endif %}
 
-    {% if view == 'list' %}
-        {% include '@bolt/finder/_files_list.html.twig' %}
-    {% else %}
-        {% include '@bolt/finder/_files_cards.html.twig' %}
-    {% endif %}
+        {{ pager(finder, template = '@bolt/helpers/_pager_bootstrap.html.twig', class="justify-content-center") }}
 
-    {{ pager(finder, template = '@bolt/helpers/_pager_bootstrap.html.twig', class="justify-content-center") }}
-
+    </div>
 {% endblock %}
 
 {% block aside %}

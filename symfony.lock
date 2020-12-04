@@ -184,19 +184,6 @@
             "src/DataFixtures/AppFixtures.php"
         ]
     },
-    "doctrine/doctrine-migrations-bundle": {
-        "version": "1.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.2",
-            "ref": "c1431086fec31f17fbcfe6d6d7e92059458facc1"
-        },
-        "files": [
-            "config/packages/doctrine_migrations.yaml",
-            "src/Migrations/.gitignore"
-        ]
-    },
     "doctrine/event-manager": {
         "version": "1.1.0"
     },
@@ -208,9 +195,6 @@
     },
     "doctrine/lexer": {
         "version": "1.2.0"
-    },
-    "doctrine/migrations": {
-        "version": "2.2.1"
     },
     "doctrine/orm": {
         "version": "v2.7.1"
@@ -331,6 +315,9 @@
     },
     "league/glide-symfony": {
         "version": "1.0.3"
+    },
+    "league/mime-type-detection": {
+        "version": "1.5.0"
     },
     "miljar/php-exif": {
         "version": "v0.6.5"
@@ -1062,6 +1049,18 @@
     "symfony/yaml": {
         "version": "v4.4.4"
     },
+    "symfonycasts/reset-password-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "97c1627c0384534997ae1047b93be517ca16de43"
+        },
+        "files": [
+            "config/packages/reset_password.yaml"
+        ]
+    },
     "symplify/auto-bind-parameter": {
         "version": "v7.2.2"
     },
@@ -1085,6 +1084,9 @@
     },
     "symplify/smart-file-system": {
         "version": "v7.2.2"
+    },
+    "symplify/symplify-kernel": {
+        "version": "8.3.28"
     },
     "theseer/tokenizer": {
         "version": "1.1.3"

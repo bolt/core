@@ -1,0 +1,23 @@
+name: Unit Tests Checks
+
+on:
+    pull_request:
+
+jobs:
+    unittests:
+        name: PHPUnit
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false # do not cancel 7.2 if 7.3 fails	
+            matrix:
+                php: ['7.2', '7.3', '7.4']
+        steps:
+            - uses: actions/checkout@v2
+            - name: Initialise
+              run: |
+                  sudo composer self-update -q	
+            - name: Install dependencies
+              run: |
+                  sudo COMPOSER_MEMORY_LIMIT=-1 COMPOSER_PROCESS_TIMEOUT=60 composer update --prefer-dist --no-progress	
+            - name: run PHP Unit
+              run: ./vendor/bin/phpunit
