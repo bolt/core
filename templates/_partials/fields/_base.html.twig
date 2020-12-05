@@ -69,6 +69,11 @@
     {% set form = 'editcontent' %}
 {% endif %}
 
+{# Do not fallback to a default value in the Editor. #}
+{% if field is defined %}
+    {% do field.setUseDefaultLocale(false)%}
+{% endif %}
+
 {# Set the value #}
 {% if not value|default %}
     {% set value = field.value|default('') %}

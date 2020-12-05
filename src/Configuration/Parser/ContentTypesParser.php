@@ -112,6 +112,11 @@ class ContentTypesParser extends BaseParser
         if (! isset($contentType['viewless'])) {
             $contentType['viewless'] = false;
         }
+
+        if (! isset($contentType['viewless_listing'])) {
+            $contentType['viewless_listing'] = $contentType['viewless'];
+        }
+
         if (! isset($contentType['searchable'])) {
             $contentType['searchable'] = ! $contentType['viewless'];
         }
@@ -302,6 +307,10 @@ class ContentTypesParser extends BaseParser
         // e.g.: [ 'yes', 'no' ] => { 'yes': 'yes', 'no': 'no' }
         if ($field['type'] === 'select' && isset($field['values']) && Arr::isIndexed($field['values'])) {
             $field['values'] = array_combine($field['values'], $field['values']);
+        }
+
+        if ($field['type'] === 'select' && ! isset($field['multiple'])) {
+            $field['multiple'] = false;
         }
 
         if (empty($field['label'])) {

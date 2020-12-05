@@ -98,9 +98,17 @@ class GeneralParser extends BaseParser
             'maintenance' => 'helpers/page_503.html.twig',
             'forbidden' => 'helpers/page_403.html.twig',
             'internal_server_error' => 'helpers/page_500.html.twig',
+            'localization' => [
+                'fallback_when_missing' => true,
+            ],
             'omit_backgrounds' => false,
             'omit_powered_by_header' => false,
             'omit_meta_generator_tag' => false,
+            'user_avatar' => [
+                'upload_path' => 'avatars',
+                'extensions_allowed' => ['png', 'jpeg', 'jpg', 'gif'],
+                'default_avatar' => '',
+            ],
         ];
     }
 }

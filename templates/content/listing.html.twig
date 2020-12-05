@@ -10,8 +10,7 @@
     {{ macro.icon(contentType.icon_one) }}
     {{ contentType.name }}
     {% if filterValue %}<small>({{ __('label.filtered_by') }}: <em>'{{ filterValue }}'</em>)</small>{% endif %}
-    {% if taxonomy %}<small>({{ __('label.filtered_by') }}: <em>'{{ taxonomy|split('=')|last }}'</em>)</small>{% endif %}
-
+    {% if taxonomyValue %}<small>({{ __('label.filtered_by') }}: <em>'{{ taxonomyValue }}'</em>)</small>{% endif %}
 {% endblock %}
 
 {% block vue_id 'listing' %}
@@ -85,11 +84,10 @@
                                 {% if taxonomyDefinition and taxonomyDefinition.behaves_like != 'tags' %}
                                 <p>
                                     <strong>{{ taxonomyDefinition.singular_name }}:</strong>
-
-                                    {% for key, taxonomyValue in taxonomyDefinition.options %}
-                                        <a class="badge badge-tertiary {% if taxonomy == key %}selected{% endif %}"
+                                    {% for key, value in taxonomyDefinition.options %}
+                                        <a class="badge badge-tertiary {% if taxonomy == taxonomyName and taxonomyValue == key %}selected{% endif %}"
                                            href="?taxonomy={{ (taxonomyDefinition.slug ~ '=' ~ key)|url_encode }}">
-                                            {{ taxonomyValue }}
+                                            {{ value }}
                                         </a>
                                     {% endfor %}
                                 </p>
@@ -120,7 +118,7 @@
 
                     {{ macro.button('listing.button_filter', 'filter', 'secondary mb-0', {'type': 'submit'}) }}
 
-                    {% if sortBy is not empty or filterValue is not empty %}
+                    {% if sortBy is not empty or filterValue is not empty or taxonomyValue is not empty %}
                         {{ macro.buttonlink('listing.button_clear', path('bolt_content_overview', {'contentType': contentType.slug}),  'times', 'tertiary mb-0') }}
                     {% endif %}
             </form>

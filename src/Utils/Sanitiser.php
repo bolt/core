@@ -40,6 +40,10 @@ class Sanitiser
         $purifierConfig->set('HTML.AllowedAttributes', $allowedAttributes);
         $purifierConfig->set('Attr.AllowedFrameTargets', $allowedFrameTargets);
 
+        if (in_array('id', $this->config->get('general/htmlcleaner/allowed_attributes')->all(), true)) {
+            $purifierConfig->set('Attr.EnableID', true);
+        }
+
         $definition = $purifierConfig->maybeGetRawHTMLDefinition();
         $definition->addElement('super', 'Inline', 'Flow', 'Common', []);
         $definition->addElement('sub', 'Inline', 'Flow', 'Common', []);
