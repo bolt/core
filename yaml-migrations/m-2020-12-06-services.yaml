@@ -1,0 +1,16 @@
+# Adding the new services for Bolt 4.2.0
+file: services.yaml
+since: 4.2.0
+
+add:
+    services: 
+        _instanceof:
+            Bolt\Menu\ExtensionBackendMenuInterface:
+                tags: [ 'bolt.extension_backend_menu' ]
+        Bolt\Event\Listener\UserAvatarLoadListener:
+            tags:
+                - { name: doctrine.event_listener, event: postLoad }
+        Bolt\Menu\BackendMenuBuilder:
+            arguments:
+                - !tagged_iterator bolt.extension_backend_menu
+        Bolt\Validator\ContentValidatorInterface: '@Bolt\Validator\ContentValidator'
