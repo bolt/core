@@ -11,6 +11,7 @@
         "api-platform/core": "^2.5",
         "babdev/pagerfanta-bundle": "^2.5",
         "beberlei/doctrineextensions": "^1.2",
+        "bobdenotter/yaml-migrations": "^1.0",
         "bolt/common": "^3.0",
         "cocur/slugify": "^4.0",
         "composer/composer": "^2.0",

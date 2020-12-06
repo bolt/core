@@ -1,0 +1,8 @@
+# location of the files used for the migrations
+migrations: yaml-migrations
+
+# Folder of the source files
+source: config
+
+# Target folder of the processed files. Set this to the same as 'source' to overwrite
+target: config

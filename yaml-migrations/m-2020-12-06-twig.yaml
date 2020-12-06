@@ -1,0 +1,8 @@
+# Adding the new Twig config for Bolt 4.2.0
+file: packages/twig.yaml
+since: 4.2.0
+
+add:
+    twig:
+        globals:
+            'defaultLocale': '%locale%'
