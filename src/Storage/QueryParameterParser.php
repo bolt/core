@@ -20,7 +20,6 @@ class QueryParameterParser
     /** @var string */
     protected $key;
 
-    /** @var mixed */
     protected $value;
 
     /** @var Expr */
