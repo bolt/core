@@ -2583,12 +2583,6 @@
         <target>filtered by</target>
       </segment>
     </unit>
-    <unit id="R3W0xcx" name="action.secure_share">
-      <segment>
-        <source>action.secure_share</source>
-        <target>action.secure_share</target>
-      </segment>
-    </unit>
     <unit id="qoZwSEY" name="action.preview_secure_share">
       <segment>
         <source>action.preview_secure_share</source>
