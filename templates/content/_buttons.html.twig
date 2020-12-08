@@ -1,7 +1,7 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
 <div class="record-actions {% if hide_on_mobile|default(false) %}d-lg-none d-xl-block{% endif %}">
-    {{ macro.button('action.save', 'fa-save', 'success', {'type': 'submit', 'form': 'editcontent', 'data-patience': 'virtue', 'name': 'save'}) }}
+    {{ macro.button('action.save', 'fa-save', 'success mb-0', {'type': 'submit', 'form': 'editcontent', 'data-patience': 'virtue', 'name': 'save'}) }}
 
     {% if record.id %}
         {% if record|feature == 'homepage' or not record.definition.get('viewless') %}
@@ -9,17 +9,29 @@
                 {{ macro.button(
                     'action.preview',
                     'fa-external-link-square-alt',
-                    'primary',
+                    'primary mb-0',
                     {   'type': 'submit',
                         'form': 'editcontent',
                         'formtarget': '_blank',
                         'formaction': path('bolt_content_edit_preview', {'id': record.id|default(0) })
                     }) }}
+
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                    {{ macro.buttonlink(
+                        'action.preview_secure_share'|trans,
+                        path(record.definition.get('record_route'), {'slugOrId': record.slug, 'contentTypeSlug': record.contenttype,'secret': secret(record.slug)}),
+                        'fa-user-secret',
+                        'btn- dropdown-button mb-0'
+                    ) }}
+                </div>
             </div>
         {% endif %}
 
         {% if status|default() %}
-        <p>
+        <p class="mt-3">
             <strong>{{ __('label.current_status') }}:</strong>
             <span class="status mx-1 is-{{ record.status}}"></span>{{ __('status.' ~ record.status) }}<br>
             {% if record.status == 'published' %}
