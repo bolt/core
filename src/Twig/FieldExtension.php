@@ -111,7 +111,7 @@ class FieldExtension extends AbstractExtension
         $order = array_flip($ids);
         $records = $records->sortBy(function (Content $record) use ($order) {
             return $order[$record->getId()];
-        })->toArray();
+        })->values();
 
         if ($returnsingle || (! $returnarray && $definition->get('multiple') === false)) {
             return current($records);
