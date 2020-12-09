@@ -49,7 +49,7 @@ jobs:
         strategy:
             fail-fast: false # do not cancel 7.2 if 7.3 fails	
             matrix:
-                php: [ '7.2', '7.3', '7.4' ]
+                php: [ '7.2' ]
                 node-version: ['12.5']
         steps:
             -   uses: actions/checkout@v2
