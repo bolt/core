@@ -22,7 +22,7 @@
                 <div class="dropdown-menu">
                     {{ macro.buttonlink(
                         'action.preview_secure_share'|trans,
-                        path(record.definition.get('record_route'), {'slugOrId': record.slug, 'contentTypeSlug': record.contenttype,'secret': secret(record.slug)}),
+                        path(record.definition.get('record_route'), {'slugOrId': record.id, 'contentTypeSlug': record.contenttype,'secret': secret(record.id)}),
                         'fa-user-secret',
                         'btn- dropdown-button mb-0'
                     ) }}

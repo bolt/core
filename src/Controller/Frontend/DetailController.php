@@ -56,7 +56,7 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
 
         $this->contentHelper->setCanonicalPath($record);
 
-        if ($this->validateSecret($this->request->get('secret', ''), $record->getSlug())) {
+        if ($this->validateSecret($this->request->get('secret', ''), (string) $record->getId())) {
             $requirePublished = false;
         }
 
