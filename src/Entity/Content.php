@@ -13,6 +13,7 @@ use Bolt\Entity\Field\Excerptable;
 use Bolt\Entity\Field\ScalarCastable;
 use Bolt\Enum\Statuses;
 use Bolt\Repository\FieldRepository;
+use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -388,7 +389,7 @@ class Content
 
     public function setCreatedAt(?\DateTime $createdAt): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = $this->convertToUTCFromLocal($createdAt);
 
         return $this;
     }
@@ -400,7 +401,7 @@ class Content
 
     public function setModifiedAt(?\DateTime $modifiedAt): self
     {
-        $this->modifiedAt = $modifiedAt;
+        $this->modifiedAt = $this->convertToUTCFromLocal($modifiedAt);
 
         return $this;
     }
@@ -421,7 +422,7 @@ class Content
 
     public function setPublishedAt(?\DateTime $publishedAt): self
     {
-        $this->publishedAt = $publishedAt;
+        $this->publishedAt = $this->convertToUTCFromLocal($publishedAt);
 
         return $this;
     }
@@ -433,7 +434,7 @@ class Content
 
     public function setDepublishedAt(?\DateTime $depublishedAt): self
     {
-        $this->depublishedAt = $depublishedAt;
+        $this->depublishedAt = $this->convertToUTCFromLocal($depublishedAt);
 
         return $this;
     }
@@ -699,6 +700,21 @@ class Content
         $dateTimeUTC = new \DateTime($dateTime->format('Y-m-d H:i:s'), new \DateTimeZone('UTC'));
 
         return $dateTimeUTC->setTimezone($dateTime->getTimezone());
+    }
+
+    /**
+     * All date/timestamps are created in the current local timezone by default.
+     * Dates/timestamps must be stored in UTC in the database. This method converts
+     * the local date to UTC.
+     */
+    private function convertToUTCFromLocal(?\DateTime $dateTime): ?\DateTime
+    {
+        if ($dateTime->getTimezone()->getName() !== 'UTC') {
+            $utc = new DateTimeZone('UTC');
+            $dateTime->setTimezone($utc);
+        }
+
+        return $dateTime;
     }
 
     /**
