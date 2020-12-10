@@ -80,6 +80,16 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $records = $this->setRecords($content, $amountPerPage, $page);
 
+        // Set canonical URL
+        $this->canonical->setPath(
+            'listing_locale',
+            array_merge([
+                'contentTypeSlug' => $contentType->get('slug'),
+                '_locale' => $this->request->getLocale(),
+            ], $queryParams),
+        );
+
+        // Render
         $templates = $this->templateChooser->forListing($contentType);
         $this->twig->addGlobal('records', $records);
 
