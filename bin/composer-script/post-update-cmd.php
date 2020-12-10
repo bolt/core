@@ -26,4 +26,8 @@ run('php bin/console extensions:configure --with-config --ansi', $symfonyStyle);
 run('php bin/console cache:clear --no-warmup', $symfonyStyle);
 run('php bin/console assets:install --symlink --relative public', $symfonyStyle);
 
+$migrate = "Database is out-of-date. To update the database, run `php bin/console doctrine:migrations:migrate`.";
+$migrate .= " You are strongly advised to backup your database before migrating.";
+run('php bin/console doctrine:migrations:up-to-date', $symfonyStyle, false, $migrate);
+
 run('php bin/console bolt:info --ansi', $symfonyStyle, true);
