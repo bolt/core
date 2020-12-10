@@ -693,7 +693,7 @@ class Content
      */
     private function convertToUTCFromLocal(?\DateTime $dateTime): ?\DateTime
     {
-        if ($dateTime->getTimezone()->getName() !== 'UTC') {
+        if ($dateTime instanceof \DateTime && $dateTime->getTimezone()->getName() !== 'UTC') {
             $utc = new DateTimeZone('UTC');
             $dateTime->setTimezone($utc);
         }
