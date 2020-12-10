@@ -100,6 +100,7 @@ class GeneralParser extends BaseParser
             'internal_server_error' => 'helpers/page_500.html.twig',
             'localization' => [
                 'fallback_when_missing' => true,
+                'remove_default_locale_on_canonical' => true,
             ],
             'omit_backgrounds' => false,
             'omit_powered_by_header' => false,
