@@ -403,7 +403,7 @@ class ContentFixtures extends BaseFixture implements DependentFixtureInterface, 
             'slug' => 'hero-section',
             'teaser' => 'Take a look around, this is Bolt\'s default 2021 theme. To edit your site\'s content,'
                 . ' go to /bolt and login with your username and password.'
-                . ' Documentation, examples and support is available on the official Bolt website (boltcms.io).'
+                . ' Documentation, examples and support are available on the official Bolt website (boltcms.io).'
                 . ' Happy building 👩🏾‍💻 🧑‍🎨',
         ];
         $records['blocks'][] = [
