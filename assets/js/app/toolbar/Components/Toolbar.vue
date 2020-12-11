@@ -26,14 +26,15 @@
 
         <div class="toolbar-item btn-group toolbar-item__profile">
             <button
-                class="btn user profile__dropdown-toggler dropdown-toggle"
+                class="btn user profile__dropdown-toggler dropdown-toggle d-flex align-items-center"
                 type="button"
                 data-toggle="dropdown"
                 data-display="static"
                 aria-haspopup="true"
                 aria-expanded="false"
             >
-                <i class="fas fa-user"></i>{{ labels['general.greeting'] }}
+                <img v-if="avatar" :src="avatar" class="rounded-circle mr-2" alt="User avatar" />
+                <i v-else class="fas fa-user"></i>{{ labels['general.greeting'] }}
             </button>
             <div class="profile__dropdown dropdown-menu dropdown-menu-right">
                 <ul>
@@ -79,6 +80,7 @@ export default {
         labels: Object,
         backendPrefix: RegExp,
         filterValue: String,
+        avatar: String,
     },
     computed: {
         contrast() {
