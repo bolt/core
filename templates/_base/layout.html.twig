@@ -24,6 +24,11 @@
     <!-- Admin Toolbar -->
     <nav class="admin__toolbar" id="toolbar">
         {% set user_display_name = app.user.displayName|default('Unknown user') %}
+        {% set user_avatar = app.user.avatar|thumbnail(25, 25, 'crop')|default(null) %}
+
+        {% if user_avatar ends with 'placeholder.png' %}
+            {% set user_avatar = null %}
+        {% endif %}
 
         {# Setting the labels and their localisations that are used in the sidebar-menu. #}
         {% set labels = {
@@ -42,6 +47,7 @@
             :menu="{{ admin_menu_json }}"
             :labels="{{ labels }}"
             :backend-prefix="{{ path('bolt_dashboard') }}"
+            :avatar="{{ user_avatar|json_encode }}"
             filter-value="{{ filter_value|default('') }}"
         ></admin-toolbar>
     </nav>
