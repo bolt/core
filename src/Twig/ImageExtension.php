@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
+use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Media;
@@ -24,19 +25,15 @@ class ImageExtension extends AbstractExtension
     /** @var ThumbnailHelper */
     private $thumbnailHelper;
 
-    /** @var string */
-    private $publicFolder;
+    /** @var FileLocations */
+    private $fileLocations;
 
-    /** @var string */
-    private $projectDir;
-
-    public function __construct(MediaRepository $mediaRepository, Notifications $notifications, ThumbnailHelper $thumbnailHelper, string $projectDir, string $publicFolder)
+    public function __construct(MediaRepository $mediaRepository, Notifications $notifications, ThumbnailHelper $thumbnailHelper, FileLocations $fileLocations)
     {
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
         $this->thumbnailHelper = $thumbnailHelper;
-        $this->publicFolder = $publicFolder;
-        $this->projectDir = $projectDir;
+        $this->fileLocations = $fileLocations;
     }
 
     /**
@@ -135,8 +132,8 @@ class ImageExtension extends AbstractExtension
      */
     public function getSvg($image): ?string
     {
-        $image = sprintf('%s/%s%s', $this->projectDir, $this->publicFolder, $this->getFilename($image));
-
+        $filesLocation = $this->fileLocations->get('files')->getBasepath();
+        $image = sprintf('%s/%s', $filesLocation, $this->getFilename($image));
         $extension = pathinfo($image, PATHINFO_EXTENSION);
 
         if ($extension !== 'svg') {
