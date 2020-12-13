@@ -70,17 +70,11 @@
     "bobdenotter/weatherwidget": {
         "version": "1.1.1"
     },
-    "bolt/binary-chromedriver": {
-        "version": "dev-master"
-    },
     "bolt/common": {
         "version": "2.1.5"
     },
     "bolt/newswidget": {
         "version": "1.2.0"
-    },
-    "bolt/webdriver-binary-downloader": {
-        "version": "dev-master"
     },
     "brick/math": {
         "version": "0.8.14"
@@ -306,6 +300,12 @@
     },
     "lakion/mink-debug-extension": {
         "version": "v1.2.3"
+    },
+    "lanfest/binary-chromedriver": {
+        "version": "6.0.2"
+    },
+    "lanfest/webdriver-binary-downloader": {
+        "version": "3.0.1"
     },
     "league/flysystem": {
         "version": "1.0.64"
