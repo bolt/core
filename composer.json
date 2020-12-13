@@ -83,7 +83,7 @@
         "bobdenotter/configuration-notices": "^1.1",
         "bobdenotter/weatherwidget": "^1.1",
         "bolt/newswidget": "^1.2",
-        "coduo/php-matcher": "^5.0",
+        "coduo/php-matcher": "^4.0.2",
         "dama/doctrine-test-bundle": "^6.2.0",
         "friends-of-behat/mink": "^1.8",
         "friends-of-behat/mink-browserkit-driver": "^1.4",
