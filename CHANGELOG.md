@@ -1,6 +1,26 @@
 Changelog
 =========
 
+## 4.1.8
+
+Released: 2020-11-29
+
+### 🐛 Bug fixes
+
+- Fix homepage link generation, generate fallbacks as relative unless canonical (SahAssar [#2207](https://github.com/bolt/core/pull/2207))
+- Don't break with `TaxonomyRepository::factory() must be of the type string, int given` (I-Valchev [#2203](https://github.com/bolt/core/pull/2203))
+- Update `Checkbox.vue` to remove `-->` unexpected line (prdurand, [#2199](https://github.com/bolt/core/pull/2199))
+- `|svg` filter uses correct path inside collection/set (I-Valchev, [#2235](https://github.com/bolt/core/pull/2235))
+- Fix issue with sorting order for `|selected` (I-Valchev, [#2230](https://github.com/bolt/core/pull/2230))
+- Show correct timezone for Content dates (createdAt, modifiedAt, publishedAt, depublishedAt) (I-Valchev, [#2231](https://github.com/bolt/core/pull/2231))
+- Don't break if a set's definition no longer contains a field (I-Valchev, [#2240](https://github.com/bolt/core/pull/2240))
+
+### 🛠️ Miscellaneous
+
+- Run E2E tests on lowest supported PHP version only [bugfixes] (I-Valchev, [#2228](https://github.com/bolt/core/pull/2228))
+- Allow omitting of `generator` meta tag and `x-powered-by` header (bobdenotter, [#2195](https://github.com/bolt/core/pull/2195))
+
+
 ## 4.1.8 
 
 Released: 2020-11-29
