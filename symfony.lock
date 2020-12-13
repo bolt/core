@@ -306,6 +306,14 @@
     },
     "lanfest/webdriver-binary-downloader": {
         "version": "3.0.1"
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.2.1"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
     },
     "league/flysystem": {
         "version": "1.0.64"
@@ -387,9 +395,6 @@
     },
     "ondram/ci-detector": {
         "version": "3.5.1"
-    },
-    "openlss/lib-array2xml": {
-        "version": "1.0.0"
     },
     "pagerfanta/pagerfanta": {
         "version": "v2.3.0"
@@ -626,6 +631,9 @@
     },
     "sebastian/resource-operations": {
         "version": "2.0.1"
+    },
+    "sebastian/type": {
+        "version": "1.1.4"
     },
     "sebastian/version": {
         "version": "2.0.1"
@@ -1117,11 +1125,5 @@
     },
     "xemlock/htmlpurifier-html5": {
         "version": "v0.1.11"
-    },
-    "zendframework/zend-code": {
-        "version": "3.4.1"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.1"
     }
 }
