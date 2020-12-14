@@ -6,7 +6,9 @@ main:
     title: This is the <b>first<b> menu item.
     link: homepage
     class: homepage
-  - label: About
+  - label: 
+        en: About
+        nl: Over
     link: page/2
     submenu:
         - label: Sub 1
