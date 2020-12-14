@@ -1,9 +1,9 @@
 Changelog
 =========
 
-## 4.1.8
+## 4.1.9
 
-Released: 2020-11-29
+Released: 2020-12-14
 
 ### 🐛 Bug fixes
 
