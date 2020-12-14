@@ -70,17 +70,11 @@
     "bobdenotter/weatherwidget": {
         "version": "1.1.1"
     },
-    "bolt/binary-chromedriver": {
-        "version": "dev-master"
-    },
     "bolt/common": {
         "version": "2.1.5"
     },
     "bolt/newswidget": {
         "version": "1.2.0"
-    },
-    "bolt/webdriver-binary-downloader": {
-        "version": "dev-master"
     },
     "brick/math": {
         "version": "0.8.14"
@@ -308,13 +302,19 @@
         "version": "v1.2.3"
     },
     "laminas/laminas-code": {
-        "version": "3.5.1"
+        "version": "3.4.1"
     },
     "laminas/laminas-eventmanager": {
-        "version": "3.3.0"
+        "version": "3.2.1"
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.1.1"
+    },
+    "lanfest/binary-chromedriver": {
+        "version": "6.0.2"
+    },
+    "lanfest/webdriver-binary-downloader": {
+        "version": "3.0.1"
     },
     "league/flysystem": {
         "version": "1.0.64"
@@ -636,6 +636,9 @@
     "sebastian/resource-operations": {
         "version": "2.0.1"
     },
+    "sebastian/type": {
+        "version": "1.1.4"
+    },
     "sebastian/version": {
         "version": "2.0.1"
     },
@@ -833,6 +836,15 @@
         "files": [
             "config/packages/mailer.yaml"
         ]
+    },
+    "symfony/maker-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
+        }
     },
     "symfony/mime": {
         "version": "v4.4.4"
@@ -1117,11 +1129,5 @@
     },
     "xemlock/htmlpurifier-html5": {
         "version": "v0.1.11"
-    },
-    "zendframework/zend-code": {
-        "version": "3.4.1"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.1"
     }
 }
