@@ -37,19 +37,19 @@ class FrontendMenuExtension extends AbstractExtension
 
         return [
             new TwigFunction('menu', [$this, 'renderMenu'], $env + $safe),
-            new TwigFunction('menu_array', [$this, 'getMenu'], $safe),
+            new TwigFunction('menu_array', [$this, 'getMenu'], $env + $safe),
         ];
     }
 
-    public function getMenu(?string $name = null): array
+    public function getMenu(Environment $twig, ?string $name = null): array
     {
-        return $this->menuBuilder->buildMenu($name);
+        return $this->menuBuilder->buildMenu($twig, $name);
     }
 
     public function renderMenu(Environment $twig, ?string $name = null, string $template = 'helpers/_menu.html.twig', string $class = '', bool $withsubmenus = true): string
     {
         $context = [
-            'menu' => $this->menuBuilder->buildMenu($name),
+            'menu' => $this->menuBuilder->buildMenu($twig, $name),
             'class' => $class,
             'withsubmenus' => $withsubmenus,
         ];
