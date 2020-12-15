@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class DateField extends Field implements FieldInterface, ScalarCastable
+class DateField extends Field implements FieldInterface
 {
     public const TYPE = 'date';
 

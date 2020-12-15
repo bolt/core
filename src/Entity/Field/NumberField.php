@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class NumberField extends Field implements FieldInterface, ScalarCastable
+class NumberField extends Field implements FieldInterface
 {
     public const TYPE = 'number';
 

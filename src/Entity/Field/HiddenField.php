@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class HiddenField extends Field implements FieldInterface, ScalarCastable, RawPersistable
+class HiddenField extends Field implements FieldInterface, HtmlRenderable, RawPersistable
 {
     public const TYPE = 'hidden';
 

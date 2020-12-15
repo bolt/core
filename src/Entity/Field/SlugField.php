@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  */
-class SlugField extends Field implements FieldInterface, ScalarCastable
+class SlugField extends Field implements FieldInterface
 {
     public const TYPE = 'slug';
 

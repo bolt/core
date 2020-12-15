@@ -8,6 +8,7 @@ use Bolt\Canonical;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
+use Bolt\Entity\Field\HtmlRenderable;
 use Bolt\Entity\Field\TemplateselectField;
 use Bolt\Enum\Statuses;
 use Bolt\Storage\Query;
@@ -24,6 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tightenco\Collect\Support\Collection;
 use Twig\Environment;
+use Twig\Extension\EscaperExtension;
 use Twig\Loader\FilesystemLoader;
 
 class TwigAwareController extends AbstractController
@@ -69,6 +71,11 @@ class TwigAwareController extends AbstractController
         $this->templateChooser = $templateChooser;
         $this->defaultLocale = $defaultLocale;
         $this->commonExtension = $commonExtension;
+
+        // Set safe html classes. See https://twig.symfony.com/doc/3.x/api.html
+        /** @var EscaperExtension $escaper */
+        $escaper = $twig->getExtension(EscaperExtension::class);
+        $escaper->addSafeClass(HtmlRenderable::class, ['html']);
     }
 
     /**
