@@ -79,7 +79,6 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             'contenttype' => $contentType,
         ];
 
-
         $this->canonical->setPath($this->request->get('_route'), ['contentTypeSlug' => $contentType->getSlug()]);
 
         return $this->render($templates, $twigVars);
