@@ -14,11 +14,11 @@ Predefined variables:
 
 {% block item %}
     {% if path is defined %}
-        <li>
+        <li class="{{ class }}">
             <a href="{{ path }}">{{ label|default('…') }}</a>
         </li>
     {% elseif enabled is defined and enabled == false %}
-        <li>
+        <li class="{{ class }}">
             <a disabled>{{ label|default('…') }}</a>
         </li>
     {% endif %}
@@ -29,7 +29,7 @@ Predefined variables:
 
         {# Previous Button #}
         {% set p = routeParams|merge({page: records.hasPreviousPage ? records.previousPage : 1 }) %}
-        {% with {'path': path(route, p), 'label': 'Previous', 'enabled': records.hasPreviousPage  } %}
+        {% with {'path': path(route, p), 'label': 'pager.previous'|trans, 'enabled': records.hasPreviousPage  } %}
             {{ block('item') }}
         {% endwith %}
 
@@ -47,7 +47,8 @@ Predefined variables:
         {# Iterate over the items. #}
         {% for i in start .. end %}
             {% set p = routeParams|merge({page: i}) %}
-            {% with {'path': path(route, p), 'label': i } %}
+            {% set class = (i == records.currentPage ? ' active' : '') %}
+            {% with {'path': path(route, p), 'label': i, 'class': class } %}
                 {{ block('item') }}
             {% endwith %}
         {% endfor %}
@@ -64,7 +65,7 @@ Predefined variables:
         {% endif %}
 
         {% set p = routeParams|merge({page: records.hasNextPage ? records.nextPage : records.nbPages }) %}
-        {% with {'path': path(route, p), 'label': 'Next', 'enabled': records.hasNextPage } %}
+        {% with {'path': path(route, p), 'label': 'pager.next'|trans, 'enabled': records.hasNextPage } %}
             {{ block('item') }}
         {% endwith %}
     </ul>
