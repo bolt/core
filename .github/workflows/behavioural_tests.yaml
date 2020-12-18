@@ -10,10 +10,15 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: ['7.2']
                 node-version: ['12.5']
+                php-version: ['7.2']
         steps:
             - uses: actions/checkout@v2
+            - uses: shivammathur/setup-php@v1
+                with:
+                    # test the lowest version, to make sure checks pass on it
+                    php-version: ${{ matrix.php-version }}
+                    coverage: none
             -   name: Install dependencies
                 run: |
                     sudo composer self-update -q
@@ -49,10 +54,14 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [ '7.2' ]
                 node-version: ['12.5']
         steps:
             -   uses: actions/checkout@v2
+            -   uses: shivammathur/setup-php@v1
+                with:
+                    # test the lowest version, to make sure checks pass on it
+                    php-version: ${{ matrix.php-version }}
+                    coverage: none
             -   uses: nanasess/setup-chromedriver@master
             -   uses: actions/setup-node@v1
                 with:
