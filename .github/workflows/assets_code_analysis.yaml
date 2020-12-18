@@ -32,6 +32,7 @@ jobs:
                 uses: actions/setup-node@v1
                 with:
                     node-version: 12.5
+                    php: ['7.2']
 
             # same as "npm install", just uses package-lock.json", see https://stackoverflow.com/a/53325242/1348344
             -   run: npm ci
