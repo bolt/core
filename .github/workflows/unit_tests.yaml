@@ -13,6 +13,11 @@ jobs:
                 php: ['7.2', '7.3', '7.4']
         steps:
             - uses: actions/checkout@v2
+            - uses: shivammathur/setup-php@v1
+              with:
+                  # test the lowest version, to make sure checks pass on it
+                  php-version: 7.2
+                  coverage: none
             - name: Initialise
               run: |
                   sudo composer self-update -q	
