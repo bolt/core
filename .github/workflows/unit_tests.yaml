@@ -8,9 +8,9 @@ jobs:
         name: PHPUnit
         runs-on: ubuntu-latest
         strategy:
-            fail-fast: false
+            fail-fast: false # do not cancel 7.2 if 7.3 fails
             matrix:
-                php-version: 7.2
+                php: ['7.2', '7.3', '7.4']
         steps:
             - uses: actions/checkout@v2
             - name: Initialise
