@@ -8,7 +8,7 @@
 
 {% block title %}
     {{ macro.icon(contentType.icon_one) }}
-    {{ contentType.name }}
+    {{ contentType.name|raw }}
     {% if filterValue %}<small>({{ __('label.filtered_by') }}: <em>'{{ filterValue }}'</em>)</small>{% endif %}
     {% if taxonomy %}<small>({{ __('label.filtered_by') }}: <em>'{{ taxonomy|split('=')|last }}'</em>)</small>{% endif %}
 
