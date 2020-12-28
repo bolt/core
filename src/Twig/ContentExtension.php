@@ -137,6 +137,7 @@ class ContentExtension extends AbstractExtension
             new TwigFilter('status_options', [$this, 'statusOptions']),
             new TwigFilter('feature', [$this, 'getSpecialFeature']),
             new TwigFilter('sanitise', [$this, 'sanitise']),
+            new TwigFilter('record', [$this, 'record']),
         ];
     }
 
@@ -624,8 +625,11 @@ class ContentExtension extends AbstractExtension
         $records = iterator_to_array($this->query->getContent($contentTypeSlug, $params)->getCurrentPageResults());
 
         foreach ($records as $record) {
+            if ($field->getDefinition()->get('mode') === 'format') {
+                $formattedKey = $this->contentHelper->get($record, $field->getDefinition()->get('format'));
+            }
             $options[] = [
-                'key' => $record->getId(),
+                'key' => $formattedKey ?? $record->getId(),
                 'value' => $this->contentHelper->get($record, $format),
             ];
         }
@@ -786,5 +790,10 @@ class ContentExtension extends AbstractExtension
     public function sanitise(string $html)
     {
         return $this->sanitiser->clean($html);
+    }
+
+    public function record(int $id)
+    {
+        return $this->contentRepository->findOneBy(['id' => $id]);
     }
 }

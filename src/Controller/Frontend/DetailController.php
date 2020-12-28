@@ -39,8 +39,12 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
      *
      * @param string|int $slugOrId
      */
-    public function record($slugOrId, ?string $contentTypeSlug = null, bool $requirePublished = true): Response
+    public function record($slugOrId, ?string $contentTypeSlug = null, bool $requirePublished = true, ?string $_locale = null): Response
     {
+        if ($_locale === null && ! $this->getFromRequest('_locale', null)) {
+            $this->request->setLocale($this->defaultLocale);
+        }
+
         // Check if there's a record with given `$slugOrId` as slug (might be a numeric slug)
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
         $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
@@ -51,6 +55,10 @@ class DetailController extends TwigAwareController implements FrontendZoneInterf
         }
 
         $this->contentHelper->setCanonicalPath($record);
+
+        if ($this->validateSecret($this->request->get('secret', ''), (string) $record->getId())) {
+            $requirePublished = false;
+        }
 
         return $this->renderSingle($record, $requirePublished);
     }

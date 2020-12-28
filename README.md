@@ -1,20 +1,20 @@
 Bolt 4 - stable
 =============
 
-Bolt CMS is an open source, adaptable platform for building and running modern 
-websites. Built on PHP, Symfony and more. [Read the site](https://boltcms.io) 
-for more info. 
+Bolt CMS is an open source, adaptable platform for building and running modern
+websites. Built on PHP, Symfony and more. [Read the site](https://boltcms.io)
+for more info.
 
-To check out Bolt and set up your first Bolt installation, read 
-[Installing Bolt 4][installation]. 
+To check out Bolt and set up your first Bolt installation, read
+[Installing Bolt 4][installation].
 
 
 ---
 
 
-**This repository should be used to work _<ins>on</ins>_ Bolt. Not 
-_<ins>with</ins>_ Bolt. If you want to check out Bolt, the 
-`composer create-project` method is recommended. See here: 
+**This repository should be used to work _<ins>on</ins>_ Bolt. Not
+_<ins>with</ins>_ Bolt. If you want to check out Bolt, the
+`composer create-project` method is recommended. See here:
 https://github.com/bolt/project/ .**
 
 
@@ -37,10 +37,10 @@ Follow the progress on the development of Bolt 4, at these locations
 
 To set up a running **development** environment of Bolt 4 please perform the following steps 1 to 4:
 
-1 Install
----------
+1. Install
+----------
 
-To install a _**development**_ version of Bolt 4: 
+To install a _**development**_ version of Bolt 4:
 
   - Check out this git repository
   - Then run:
@@ -83,8 +83,8 @@ Actually, just add `docker-` prefix to any Make command and that's it!
 When installed with Docker, in your browser go to `http://0.0.0.0:8088/` for the frontend, and to
 `http://0.0.0.0:8088/bolt` for the Admin Panel.
 
-2 Set up Database
------------------
+2. Set up Database
+------------------
 
   - Configure the database connection in `.env` or stick with the default
     SQLite, which should work out of the box.
@@ -98,12 +98,12 @@ bin/console doctrine:fixtures:load -n
 
 Alternatively, run `make db-create`, on a UNIX-like system.
 
-Note: if you're using SQLite, ensure that `var/db/` is readable and writable to 
-you, as well as to the webserver users. The same applies to the file 
+Note: if you're using SQLite, ensure that `var/db/` is readable and writable to
+you, as well as to the webserver users. The same applies to the file
 `var/data/bolt.sqlite` if it already exists.
 
-3 Re-set the Database
----------------------
+3. Re-set the Database
+----------------------
 
 This is a Bolt prototype in flux, so stuff can break, and you might want to reset the database to
 the "factory settings". To re-set a database to the latest, with fresh
@@ -129,8 +129,8 @@ To set up initially, run `npm install` to get the required dependencies /
 See the other options by running `npm run`.
 (Note: on testing remotely, assets can be compiled into public/assets by simply `npm run-script build`)
 
-5 Run the prototype
--------------------
+5. Run the prototype
+--------------------
 
   - Using the Symfony CLI tool, just run `symfony server:start`.
 

@@ -1,0 +1,37 @@
+{% extends '@bolt/_base/layout.html.twig' %}
+{% import '@bolt/_macro/_macro.html.twig' as macro %}
+
+{# The 'title' and 'shoulder' blocks are the main heading of the page. #}
+{% block shoulder %}
+    {{ 'action.add_user'|trans }}
+{% endblock shoulder %}
+
+{% block title %}
+    {{ macro.icon('user') }}
+    {{ __('user.new_user') }}
+{% endblock %}
+
+{% block vue_id 'editor' %}
+
+{% block main %}
+    <div>
+        {% include('@bolt/users/_form.html.twig') with {'form_type': 'add'} %}
+    </div>
+{% endblock %}
+
+{% block aside %}
+    <div id="metadata" class="d-none d-xl-block">
+        <form class="ui form">
+            <div class="card mb-3">
+                <div class="card-body">
+                    {{ macro.button('action.save', 'fa-save', 'primary', {'type': 'submit', 'form': 'editcontent'}) }}
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('zxcvbn') }}
+    {{ parent() }}
+{% endblock %}

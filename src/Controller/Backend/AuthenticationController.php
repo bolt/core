@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
-use Cocur\Slugify\Slugify;
+use Bolt\Form\LoginType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -15,19 +16,26 @@ class AuthenticationController extends TwigAwareController implements BackendZon
     /**
      * @Route("/login", name="bolt_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
-        $slugify = new Slugify();
+        // Always redirect to dashboard if a users is still logged in
+        if ($this->getUser()) {
+            return $this->redirectToRoute('bolt_dashboard');
+        }
 
-        // last username entered by the user (if any)
-        $last_username = $slugify->slugify($authenticationUtils->getLastUsername());
+        $form = $this->createForm(LoginType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('bolt_dashboard');
+        }
 
         // last authentication error (if any)
         $error = $authenticationUtils->getLastAuthenticationError();
 
         return $this->render('@bolt/security/login.html.twig', [
-            'last_username' => $last_username,
             'error' => $error,
+            'loginForm' => $form->createView(),
         ]);
     }
 
@@ -46,14 +54,13 @@ class AuthenticationController extends TwigAwareController implements BackendZon
 
     /**
      * @Route("/resetpassword", name="bolt_resetpassword")
+     *
+     * @deprecated 4.2
      */
     public function resetPassword(): Response
     {
-        $twigVars = [
-            'title' => 'controller.authentication.reset_title',
-            'subtitle' => 'controller.authentication.reset_subtitle',
-        ];
+        @trigger_error(sprintf('The method "resetPassword" of the class "%s" is deprecated since 4.2 and will be removed in 5.0.', self::class), E_USER_DEPRECATED);
 
-        return $this->render('@bolt/security/resetpassword.html.twig', $twigVars);
+        return $this->redirectToRoute('bolt_forgot_password_request');
     }
 }

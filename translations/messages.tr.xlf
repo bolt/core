@@ -1,0 +1,2371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="messages.en">
+    <unit id="tbB2gib" name="not_available">
+      <notes>
+        <note>templates/debug/source_code.twig:26</note>
+      </notes>
+      <segment>
+        <source>not_available</source>
+        <target>Müsait değil</target>
+      </segment>
+    </unit>
+    <unit id="DF34uM2" name="http_error.name">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:15</note>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:15</note>
+      </notes>
+      <segment>
+        <source>http_error.name</source>
+        <target>Hata %status_code%</target>
+      </segment>
+    </unit>
+    <unit id="e3w.2Rf" name="http_error.description">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:18</note>
+      </notes>
+      <segment>
+        <source>http_error.description</source>
+        <target>İsteğinizi tamamlamayı engelleyen bilinmeyen bir hata (HTTP %status_code%) vardı.</target>
+      </segment>
+    </unit>
+    <unit id="ru5FEGk" name="http_error.suggestion">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>http_error.suggestion</source>
+        <target><![CDATA[Birkaç dakika sonra bu sayfayı tekrar yüklemeyi deneyin veya <a href="%url%">anasayfaya geri dönün</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="Qn5rwdU" name="http_error_403.description">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:18</note>
+      </notes>
+      <segment>
+        <source>http_error_403.description</source>
+        <target>Bu kaynağa erişim izniniz yok.</target>
+      </segment>
+    </unit>
+    <unit id="zDeeh7L" name="http_error_403.suggestion">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error403.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>http_error_403.suggestion</source>
+        <target>Yöneticinizden veya sistem yöneticinizden size bu kaynağa erişim izni vermesini isteyin.</target>
+      </segment>
+    </unit>
+    <unit id="_W1eNz2" name="http_error_404.description">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:18</note>
+      </notes>
+      <segment>
+        <source>http_error_404.description</source>
+        <target>İstediğiniz sayfayı bulamadık.</target>
+      </segment>
+    </unit>
+    <unit id="MWNS5dg" name="http_error_404.suggestion">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error404.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>http_error_404.suggestion</source>
+        <target><![CDATA[URL’deki yazım hatalarını kontrol edin veya <a href="%url%">ana sayfaya dönün</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="ZYXSW95" name="http_error_500.description">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:18</note>
+      </notes>
+      <segment>
+        <source>http_error_500.description</source>
+        <target>Dahili bir sunucu hatası oluştu.</target>
+      </segment>
+    </unit>
+    <unit id="VVs_J1c" name="http_error_500.suggestion">
+      <notes>
+        <note>templates/bundles/TwigBundle/Exception/error500.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>http_error_500.suggestion</source>
+        <target><![CDATA[Birkaç dakika sonra bu sayfayı tekrar yüklemeyi deneyin veya <a href="%url%">anasayfaya geri dönün</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="9RwuNlf" name="title.source_code">
+      <notes>
+        <note>templates/debug/source_code.twig:17</note>
+      </notes>
+      <segment>
+        <source>title.source_code</source>
+        <target>Bu sayfayı oluşturmak için kaynak kodu kullanıldı</target>
+      </segment>
+    </unit>
+    <unit id="jaB3QjG" name="title.controller_code">
+      <notes>
+        <note>templates/debug/source_code.twig:22</note>
+        <note>templates/debug/source_code.twig:25</note>
+      </notes>
+      <segment>
+        <source>title.controller_code</source>
+        <target>Denetleyici kodu</target>
+      </segment>
+    </unit>
+    <unit id="2bH7SjO" name="title.twig_template_code">
+      <notes>
+        <note>templates/debug/source_code.twig:29</note>
+      </notes>
+      <segment>
+        <source>title.twig_template_code</source>
+        <target>Twig şablon kodu</target>
+      </segment>
+    </unit>
+    <unit id="1sstKF9" name="title.edit_user">
+      <notes>
+        <note>templates/users/edit.twig:4</note>
+      </notes>
+      <segment>
+        <source>title.edit_user</source>
+        <target>Kullanıcıyı düzenle</target>
+      </segment>
+    </unit>
+    <unit id="QbohvW1" name="action.show_code">
+      <notes>
+        <note>templates/debug/source_code.twig:7</note>
+      </notes>
+      <segment>
+        <source>action.show_code</source>
+        <target>Kodu göster</target>
+      </segment>
+    </unit>
+    <unit id="HLtdhYw" name="action.save">
+      <notes>
+        <note>templates/users/change_password.twig:18</note>
+        <note>templates/users/edit.twig:15</note>
+      </notes>
+      <segment>
+        <source>action.save</source>
+        <target>Değişiklikleri kaydet</target>
+      </segment>
+    </unit>
+    <unit id="a2vzLi7" name="action.do_something">
+      <segment>
+        <source>action.do_something</source>
+        <target>Bir şey yap</target>
+      </segment>
+    </unit>
+    <unit id="etGJjTo" name="action.edit_user">
+      <notes>
+        <note>templates/users/change_password.twig:26</note>
+      </notes>
+      <segment>
+        <source>action.edit_user</source>
+        <target>Kullanıcıyı düzenle</target>
+      </segment>
+    </unit>
+    <unit id="ovKkXwU" name="action.edit">
+      <segment>
+        <source>action.edit</source>
+        <target>Düzenle</target>
+      </segment>
+    </unit>
+    <unit id="LDhDPrF" name="label.username">
+      <notes>
+        <note>templates/security/login.twig:66</note>
+        <note>src/Form/UserType.php:31</note>
+      </notes>
+      <segment>
+        <source>label.username</source>
+        <target>Kullanıcı adı</target>
+      </segment>
+    </unit>
+    <unit id="VgeTgE2" name="help.show_code">
+      <notes>
+        <note>templates/debug/source_code.twig:3</note>
+      </notes>
+      <segment>
+        <source>help.show_code</source>
+        <target><![CDATA[<strong>Denetleyicinin</strong> kaynak kodunu ve bu sayfayı oluşturmak için kullanılan <strong>şablonunu</strong> göstermek için bu düğmeyi tıklayın.]]></target>
+      </segment>
+    </unit>
+    <unit id="wtG.cxy" name="info.change_password">
+      <notes>
+        <note>templates/users/change_password.twig:12</note>
+      </notes>
+      <segment>
+        <source>info.change_password</source>
+        <target>Şifrenizi değiştirdikten sonra uygulamadan çıkış yapacaksınız.</target>
+      </segment>
+    </unit>
+    <unit id="80JoLd0" name="title.login">
+      <notes>
+        <note>templates/security/login.twig:4</note>
+      </notes>
+      <segment>
+        <source>title.login</source>
+        <target>Oturum aç</target>
+      </segment>
+    </unit>
+    <unit id="9pvowqn" name="label.password">
+      <notes>
+        <note>templates/security/login.twig:70</note>
+        <note>templates/security/login.twig:75</note>
+      </notes>
+      <segment>
+        <source>label.password</source>
+        <target>Parola</target>
+      </segment>
+    </unit>
+    <unit id="gLN0C81" name="action.log_in">
+      <notes>
+        <note>templates/security/login.twig:84</note>
+      </notes>
+      <segment>
+        <source>action.log_in</source>
+        <target>Oturum aç</target>
+      </segment>
+    </unit>
+    <unit id="vJwSCBO" name="title.contentlisting">
+      <notes>
+        <note>templates/content/listing.twig:9</note>
+      </notes>
+      <segment>
+        <source>title.contentlisting</source>
+        <target>İçerik listesi</target>
+      </segment>
+    </unit>
+    <unit id="CX_oSFd" name="action.change_password">
+      <notes>
+        <note>templates/users/edit.twig:24</note>
+      </notes>
+      <segment>
+        <source>action.change_password</source>
+        <target>Parolayı değiştir</target>
+      </segment>
+    </unit>
+    <unit id="SNELzJ2" name="field.id">
+      <notes>
+        <note>templates/editcontent/edit.twig:118</note>
+        <note>templates/editcontent/media_edit.twig:98</note>
+      </notes>
+      <segment>
+        <source>field.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="FuCyk5C" name="field.status">
+      <notes>
+        <note>templates/editcontent/edit.twig:76</note>
+      </notes>
+      <segment>
+        <source>field.status</source>
+        <target>Durum</target>
+      </segment>
+    </unit>
+    <unit id="O9wtVOp" name="field.createdAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:86</note>
+        <note>templates/editcontent/media_edit.twig:128</note>
+      </notes>
+      <segment>
+        <source>field.createdAt</source>
+        <target>Oluşturulma tarihi</target>
+      </segment>
+    </unit>
+    <unit id="eVkSIKu" name="field.modifiedAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:94</note>
+        <note>templates/editcontent/media_edit.twig:135</note>
+      </notes>
+      <segment>
+        <source>field.modifiedAt</source>
+        <target>Düzenlenme tarihi</target>
+      </segment>
+    </unit>
+    <unit id="3gdi1dy" name="field.publishedAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:102</note>
+      </notes>
+      <segment>
+        <source>field.publishedAt</source>
+        <target>Yayınlanma tarihi</target>
+      </segment>
+    </unit>
+    <unit id="eN7IfEL" name="field.depublishedAt">
+      <notes>
+        <note>templates/editcontent/edit.twig:110</note>
+      </notes>
+      <segment>
+        <source>field.depublishedAt</source>
+        <target>Yayından kaldırılma tarihi</target>
+      </segment>
+    </unit>
+    <unit id="VKhfRZB" name="field.title">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:47</note>
+      </notes>
+      <segment>
+        <source>field.title</source>
+        <target>Başlık</target>
+      </segment>
+    </unit>
+    <unit id="7_wwX8J" name="field.description">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:53</note>
+      </notes>
+      <segment>
+        <source>field.description</source>
+        <target>Açıklama</target>
+      </segment>
+    </unit>
+    <unit id="hjDmcPC" name="field.copyright">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:59</note>
+      </notes>
+      <segment>
+        <source>field.copyright</source>
+        <target>Telif hakkı</target>
+      </segment>
+    </unit>
+    <unit id="v0sitU8" name="field.originalFilename">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:66</note>
+      </notes>
+      <segment>
+        <source>field.originalFilename</source>
+        <target>Orjinal dosya adı</target>
+      </segment>
+    </unit>
+    <unit id="vlRe8Tx" name="field.width">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:105</note>
+      </notes>
+      <segment>
+        <source>field.width</source>
+        <target>genişlik</target>
+      </segment>
+    </unit>
+    <unit id="CZbXbM_" name="field.height">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:112</note>
+      </notes>
+      <segment>
+        <source>field.height</source>
+        <target>yükseklik</target>
+      </segment>
+    </unit>
+    <unit id="Sz_u.OS" name="field.filesize">
+      <notes>
+        <note>templates/editcontent/media_edit.twig:119</note>
+      </notes>
+      <segment>
+        <source>field.filesize</source>
+        <target>Dosya boyutu</target>
+      </segment>
+    </unit>
+    <unit id="RMPnq6o" name="label.username_or_email">
+      <notes>
+        <note>templates/security/login.twig:61</note>
+      </notes>
+      <segment>
+        <source>label.username_or_email</source>
+        <target>Kullanıcı adı veya E-posta</target>
+      </segment>
+    </unit>
+    <unit id="IaF1MjB" name="label.rememberme">
+      <notes>
+        <note>templates/security/login.twig:80</note>
+      </notes>
+      <segment>
+        <source>label.rememberme</source>
+        <target>Beni hatırla?</target>
+      </segment>
+    </unit>
+    <unit id="k.JymqB" name="about.visit_bolt">
+      <notes>
+        <note>templates/pages/about.twig:25</note>
+      </notes>
+      <segment>
+        <source>about.visit_bolt</source>
+        <target>Boltcms.io ziyaret et</target>
+      </segment>
+    </unit>
+    <unit id="UZFanGF" name="about.bolt_documentation">
+      <notes>
+        <note>templates/pages/about.twig:28</note>
+      </notes>
+      <segment>
+        <source>about.bolt_documentation</source>
+        <target>Bolt Dokümantasyonu</target>
+      </segment>
+    </unit>
+    <unit id="FO7zDub" name="about.bolt_on_github">
+      <notes>
+        <note>templates/pages/about.twig:31</note>
+      </notes>
+      <segment>
+        <source>about.bolt_on_github</source>
+        <target>Bolt Github'da</target>
+      </segment>
+    </unit>
+    <unit id="_9fS00R" name="about.used_libraries">
+      <notes>
+        <note>templates/pages/about.twig:35</note>
+      </notes>
+      <segment>
+        <source>about.used_libraries</source>
+        <target>Kullanılan Kütüphaneler / Bileşenler</target>
+      </segment>
+    </unit>
+    <unit id="tgLgLDQ" name="about.list_of_used_libraries">
+      <notes>
+        <note>templates/pages/about.twig:37</note>
+      </notes>
+      <segment>
+        <source>about.list_of_used_libraries</source>
+        <target>Bolt tarafından kullanılan üçüncü parti kütüphaneleri aşağıdadır.</target>
+      </segment>
+    </unit>
+    <unit id="aYnbvsn" name="label.fullname">
+      <notes>
+        <note>src/Form/UserType.php:35</note>
+        <note>new</note>
+      </notes>
+      <segment>
+        <source>label.fullname</source>
+        <target>Ad Soyad</target>
+      </segment>
+    </unit>
+    <unit id="D2N6_cP" name="label.email">
+      <notes>
+        <note>src/Form/UserType.php:38</note>
+        <note>new</note>
+      </notes>
+      <segment>
+        <source>label.email</source>
+        <target>E-posta adresi</target>
+      </segment>
+    </unit>
+    <unit id="OBmPOoB" name="user.updated_successfully">
+      <notes>
+        <note>src/Controller/Backend/UserController.php:33</note>
+        <note>new</note>
+      </notes>
+      <segment>
+        <source>user.updated_successfully</source>
+        <target>Başarıyla Güncellendi</target>
+      </segment>
+    </unit>
+    <unit id="3hkt.eH" name="content.updated_successfully">
+      <notes>
+        <note>src/Controller/Backend/EditMediaController.php:126</note>
+        <note>src/Controller/Backend/EditRecordController.php:86</note>
+        <note>new</note>
+      </notes>
+      <segment>
+        <source>content.updated_successfully</source>
+        <target>İçerik başarıyla güncellendi</target>
+      </segment>
+    </unit>
+    <unit id="IB0mNQh" name="content.created_successfully">
+      <notes>
+        <note>src/Controller/Backend/EditMediaController.php:157</note>
+        <note>new</note>
+      </notes>
+      <segment>
+        <source>content.created_successfully</source>
+        <target>Medya öğesi başarıyla oluşturuldu</target>
+      </segment>
+    </unit>
+    <unit id="b1jqjUC" name="editfile.could_not_write">
+      <notes>
+        <note>src/Controller/Backend/EditFileController.php:101</note>
+        <note>new</note>
+      </notes>
+      <segment>
+        <source>editfile.could_not_write</source>
+        <target>Medya öğesi yazılamıyor</target>
+      </segment>
+    </unit>
+    <unit id="mEDsKHk" name="label.locale">
+      <segment>
+        <source>label.locale</source>
+        <target>Dil</target>
+      </segment>
+    </unit>
+    <unit id="98Q5SA2" name="label.backend_theme">
+      <segment>
+        <source>label.backend_theme</source>
+        <target>Yönetici teması</target>
+      </segment>
+    </unit>
+    <unit id="Z84BVRW" name="English (en)">
+      <segment>
+        <source>English (en)</source>
+        <target>İngilizce (en)</target>
+      </segment>
+    </unit>
+    <unit id="eG9ABZd" name="Nederlands (dutch, nl)">
+      <segment>
+        <source>Nederlands (dutch, nl)</source>
+        <target>Hollandaca (dutch, nl)</target>
+      </segment>
+    </unit>
+    <unit id="57LcBXV" name="Español (Spanish, es)">
+      <segment>
+        <source>Español (Spanish, es)</source>
+        <target>İspanyolca (Spanish, es)</target>
+      </segment>
+    </unit>
+    <unit id="e7RdvJ0" name="français (French, fr)">
+      <segment>
+        <source>français (French, fr)</source>
+        <target>Fransızca (French, fr)</target>
+      </segment>
+    </unit>
+    <unit id="U1vrep2" name="Deutsch (German, de)">
+      <segment>
+        <source>Deutsch (German, de)</source>
+        <target>Almanca (German, de)</target>
+      </segment>
+    </unit>
+    <unit id="EsWjyMS" name="Język Polski (Polish, pl)">
+      <segment>
+        <source>Język Polski (Polish, pl)</source>
+        <target>Lehçe (Polish, pl)</target>
+      </segment>
+    </unit>
+    <unit id="fbEbOrT" name="Brasilian Portuguese (Brasilian Portuguese, pt_BR)">
+      <segment>
+        <source>Brasilian Portuguese (Brasilian Portuguese, pt_BR)</source>
+        <target>Brezilya Portekizcesi (Brasilian Portuguese, pt_BR)</target>
+      </segment>
+    </unit>
+    <unit id="pBUPCm9" name="Italiano (Italian, it)">
+      <segment>
+        <source>Italiano (Italian, it)</source>
+        <target>İtalyanca (Italian, it)</target>
+      </segment>
+    </unit>
+    <unit id="Oiwdkpg" name="The Default theme">
+      <segment>
+        <source>The Default theme</source>
+        <target>Varsayılan tema</target>
+      </segment>
+    </unit>
+    <unit id="C389Knp" name="The Default Dark theme">
+      <segment>
+        <source>The Default Dark theme</source>
+        <target>Varsayılan Koyu tema</target>
+      </segment>
+    </unit>
+    <unit id="kouGbMq" name="WoordPers: Kinda looks like that other CMS">
+      <segment>
+        <source>WoordPers: Kinda looks like that other CMS</source>
+        <target>WoordPers: Diğer CMS'ye benziyor</target>
+      </segment>
+    </unit>
+    <unit id="7aLIA3c" name="caption.dashboard">
+      <segment>
+        <source>caption.dashboard</source>
+        <target>Bolt Kontrol Paneli</target>
+      </segment>
+    </unit>
+    <unit id="xuNRuUu" name="caption.translations: messages">
+      <segment>
+        <source>caption.translations: messages</source>
+        <target>caption.translations: messages</target>
+      </segment>
+    </unit>
+    <unit id="K6TmK4B" name="caption.clear_cache">
+      <segment>
+        <source>caption.clear_cache</source>
+        <target>Önbelleği temizle</target>
+      </segment>
+    </unit>
+    <unit id="RRQ1EJ3" name="caption.check_database">
+      <segment>
+        <source>caption.check_database</source>
+        <target>Veritabanını kontrol et</target>
+      </segment>
+    </unit>
+    <unit id="cIiIXu_" name="caption.routing set up">
+      <segment>
+        <source>caption.routing set up</source>
+        <target>caption.routing set up</target>
+      </segment>
+    </unit>
+    <unit id="2RUXD4A" name="caption.menu_setup">
+      <segment>
+        <source>caption.menu_setup</source>
+        <target>Menü kurulumu</target>
+      </segment>
+    </unit>
+    <unit id="drK.0GZ" name="caption.taxonomies">
+      <segment>
+        <source>caption.taxonomies</source>
+        <target>Sınıflandırmalar</target>
+      </segment>
+    </unit>
+    <unit id="_w7J5rZ" name="caption.contenttypes">
+      <segment>
+        <source>caption.contenttypes</source>
+        <target>İçetik Tipleri</target>
+      </segment>
+    </unit>
+    <unit id="kXNBV9S" name="caption.main_configuration">
+      <segment>
+        <source>caption.main_configuration</source>
+        <target>Ana Yapılandırma</target>
+      </segment>
+    </unit>
+    <unit id="ipmA6Ah" name="caption.users_permissions">
+      <segment>
+        <source>caption.users_permissions</source>
+        <target><![CDATA[Kullanıcılar & İzinler]]></target>
+      </segment>
+    </unit>
+    <unit id="zOLL.7E" name="caption.configuration">
+      <segment>
+        <source>caption.configuration</source>
+        <target>Yapılandırma</target>
+      </segment>
+    </unit>
+    <unit id="ZO.uqIZ" name="caption.settings">
+      <segment>
+        <source>caption.settings</source>
+        <target>Ayarlar</target>
+      </segment>
+    </unit>
+    <unit id="1xlE8ex" name="caption.content">
+      <segment>
+        <source>caption.content</source>
+        <target>İçerik</target>
+      </segment>
+    </unit>
+    <unit id="l4yt0BE" name="caption.file_management">
+      <segment>
+        <source>caption.file_management</source>
+        <target>Dosya yönetimi</target>
+      </segment>
+    </unit>
+    <unit id="mfvtHPQ" name="caption.extensions">
+      <segment>
+        <source>caption.extensions</source>
+        <target>Uzantılar</target>
+      </segment>
+    </unit>
+    <unit id="K4D568R" name="caption.view_edit_templates">
+      <segment>
+        <source>caption.view_edit_templates</source>
+        <target><![CDATA[Şablonları Görüntüle & Düzenle]]></target>
+      </segment>
+    </unit>
+    <unit id="bq6bSf4" name="caption.uploaded_files">
+      <segment>
+        <source>caption.uploaded_files</source>
+        <target>Yüklenmiş dosyalar</target>
+      </segment>
+    </unit>
+    <unit id="wBKDkwl" name="caption.routing_setup">
+      <segment>
+        <source>caption.routing_setup</source>
+        <target>Yönlendirme yapılandırması</target>
+      </segment>
+    </unit>
+    <unit id="dd5MzCM" name="caption.translations">
+      <segment>
+        <source>caption.translations</source>
+        <target>Çeviriler / Etiketler</target>
+      </segment>
+    </unit>
+    <unit id="wLaDaK5" name="caption.about_bolt">
+      <segment>
+        <source>caption.about_bolt</source>
+        <target>Bolt Hakkında</target>
+      </segment>
+    </unit>
+    <unit id="xN1kSQQ" name="caption.bolt_payoff">
+      <segment>
+        <source>caption.bolt_payoff</source>
+        <target><![CDATA[Gelişmiş, hafif ve basit CMS]]></target>
+      </segment>
+    </unit>
+    <unit id="HK7XTUX" name="caption.edit">
+      <segment>
+        <source>caption.edit</source>
+        <target>Düzenle</target>
+      </segment>
+    </unit>
+    <unit id="QZYjRy0" name="caption.file_uploader">
+      <segment>
+        <source>caption.file_uploader</source>
+        <target>Dosya yükleyici</target>
+      </segment>
+    </unit>
+    <unit id="LaDIuZA" name="caption.meta_information">
+      <segment>
+        <source>caption.meta_information</source>
+        <target>Meta bilgisi</target>
+      </segment>
+    </unit>
+    <unit id="DodjLNR" name="date">
+      <segment>
+        <source>date</source>
+        <target>Tarih</target>
+      </segment>
+    </unit>
+    <unit id="zNy_hG8" name="size">
+      <segment>
+        <source>size</source>
+        <target>Boyut</target>
+      </segment>
+    </unit>
+    <unit id="gPYflhh" name="thumbnail">
+      <segment>
+        <source>thumbnail</source>
+        <target>Küçük resim</target>
+      </segment>
+    </unit>
+    <unit id="_XSgfqS" name="filename">
+      <segment>
+        <source>filename</source>
+        <target>Dosya adı</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <segment>
+        <source>actions</source>
+        <target>Eylemler</target>
+      </segment>
+    </unit>
+    <unit id="KHvGNGW" name="directoryname">
+      <segment>
+        <source>directoryname</source>
+        <target>Klasör adı</target>
+      </segment>
+    </unit>
+    <unit id="ZV7_x5F" name="action.go">
+      <segment>
+        <source>action.go</source>
+        <target>Git</target>
+      </segment>
+    </unit>
+    <unit id="C15MbYY" name="form.quick_select_file">
+      <segment>
+        <source>form.quick_select_file</source>
+        <target>Düzenlemek için hızlıca bir dosya seçin…</target>
+      </segment>
+    </unit>
+    <unit id="gFcV5nW" name="label.quick_select">
+      <segment>
+        <source>label.quick_select</source>
+        <target>Hızlı seçim</target>
+      </segment>
+    </unit>
+    <unit id="FSroufa" name="caption.path">
+      <segment>
+        <source>caption.path</source>
+        <target>Yol</target>
+      </segment>
+    </unit>
+    <unit id="y5otxEK" name="caption.filename">
+      <segment>
+        <source>caption.filename</source>
+        <target>Dosya adı</target>
+      </segment>
+    </unit>
+    <unit id="XNTbZW6" name="action.visit_site">
+      <segment>
+        <source>action.visit_site</source>
+        <target>Siteyi ziyaret et</target>
+      </segment>
+    </unit>
+    <unit id="KfVJho2" name="action.create_new">
+      <segment>
+        <source>action.create_new</source>
+        <target>Yeni bir tane oluştur</target>
+      </segment>
+    </unit>
+    <unit id="b_RPpcB" name="general.greeting">
+      <segment>
+        <source>general.greeting</source>
+        <target>Merhaba, %name%!</target>
+      </segment>
+    </unit>
+    <unit id="bmdn3u9" name="action.logout">
+      <segment>
+        <source>action.logout</source>
+        <target>Çıkış yap</target>
+      </segment>
+    </unit>
+    <unit id="zOfpTLD" name="action.edit_profile">
+      <segment>
+        <source>action.edit_profile</source>
+        <target>Profili düzenle</target>
+      </segment>
+    </unit>
+    <unit id="N_0yRcH" name="action.close_alert">
+      <segment>
+        <source>action.close_alert</source>
+        <target>Kapat</target>
+      </segment>
+    </unit>
+    <unit id="Dvu2HQx" name="caption.api">
+      <segment>
+        <source>caption.api</source>
+        <target>API</target>
+      </segment>
+    </unit>
+    <unit id="i4cbdta" name="caption.all_configuration_files">
+      <segment>
+        <source>caption.all_configuration_files</source>
+        <target>Tüm yapılandırma dosyaları</target>
+      </segment>
+    </unit>
+    <unit id="OpKTKAL" name="caption.maintenance">
+      <segment>
+        <source>caption.maintenance</source>
+        <target>Bakım</target>
+      </segment>
+    </unit>
+    <unit id="hGJoUs5" name="caption.fixtures_dummy_content">
+      <segment>
+        <source>caption.fixtures_dummy_content</source>
+        <target>Fikstürler (Hazır İçerik)</target>
+      </segment>
+    </unit>
+    <unit id="P1FHg3Q" name="caption.edit_file">
+      <segment>
+        <source>caption.edit_file</source>
+        <target>Dosyayı Düzenle</target>
+      </segment>
+    </unit>
+    <unit id="_ef0RBR" name="caption.installation_checks">
+      <segment>
+        <source>caption.installation_checks</source>
+        <target>Kurulum kontrolleri</target>
+      </segment>
+    </unit>
+    <unit id="pNPctrH" name="form.select_language">
+      <segment>
+        <source>form.select_language</source>
+        <target>Dil seç</target>
+      </segment>
+    </unit>
+    <unit id="9lJhqvA" name="field.locale">
+      <segment>
+        <source>field.locale</source>
+        <target>Dil</target>
+      </segment>
+    </unit>
+    <unit id="8zEzq8N" name="field.current_locale">
+      <segment>
+        <source>field.current_locale</source>
+        <target>Mevcut dil</target>
+      </segment>
+    </unit>
+    <unit id="ahZvOJz" name="field.switch_to_locale">
+      <segment>
+        <source>field.switch_to_locale</source>
+        <target>Dil değiştir</target>
+      </segment>
+    </unit>
+    <unit id="aQX4Emy" name="field.author">
+      <segment>
+        <source>field.author</source>
+        <target>Yazar</target>
+      </segment>
+    </unit>
+    <unit id="UNBaDz." name="general.phrase.edit">
+      <segment>
+        <source>general.phrase.edit</source>
+        <target>Düzenle</target>
+      </segment>
+    </unit>
+    <unit id="t2TNwOq" name="Unknown">
+      <segment>
+        <source>Unknown</source>
+        <target>Bilinmeyen</target>
+      </segment>
+    </unit>
+    <unit id="A_d5KPt" name="general.phrase.written-by-on">
+      <segment>
+        <source>general.phrase.written-by-on</source>
+        <target>%date% tarihinde %name% tarafından yazıldı.</target>
+      </segment>
+    </unit>
+    <unit id="TVU.FCV" name="general.phrase.missing-about-page">
+      <segment>
+        <source>general.phrase.missing-about-page</source>
+        <target>"Hakkında" sayfası eksik</target>
+      </segment>
+    </unit>
+    <unit id="7iq8jIG" name="general.phrase.missing-about-page-block">
+      <segment>
+        <source>general.phrase.missing-about-page-block</source>
+        <target>"Hakkında" bloğu eksik</target>
+      </segment>
+    </unit>
+    <unit id="AGegYAN" name="contenttypes.generic.recent">
+      <segment>
+        <source>contenttypes.generic.recent</source>
+        <target>En son %contenttypes%</target>
+      </segment>
+    </unit>
+    <unit id="gB.9hTu" name="general.phrase.search-ellipsis">
+      <segment>
+        <source>general.phrase.search-ellipsis</source>
+        <target>…</target>
+      </segment>
+    </unit>
+    <unit id="wGlnx8X" name="general.phrase.search">
+      <segment>
+        <source>general.phrase.search</source>
+        <target>Ara</target>
+      </segment>
+    </unit>
+    <unit id="z0k8hRg" name="9fb3e6e">
+      <segment>
+        <source>9fb3e6e</source>
+        <target><![CDATA[Bu internet sitesi <a href='%url%' target='_blank' title='Gelişmiş, hafif & basit CMS'>Bolt ile yapılmıştır</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="wNEwZy_" name="contenttypes.generic.overview">
+      <segment>
+        <source>contenttypes.generic.overview</source>
+        <target>%contenttypes% içerik tipine genel bakış</target>
+      </segment>
+    </unit>
+    <unit id="skuzBpI" name="contenttypes.generic.no-recent">
+      <segment>
+        <source>contenttypes.generic.no-recent</source>
+        <target>Yakın zamanda eklenen %contenttype% içerik tipi bulunamadı</target>
+      </segment>
+    </unit>
+    <unit id="ma9mBv_" name="Menu">
+      <segment>
+        <source>Menu</source>
+        <target>Menu</target>
+      </segment>
+    </unit>
+    <unit id="ScJmuqq" name="Search">
+      <segment>
+        <source>Search</source>
+        <target>Ara</target>
+      </segment>
+    </unit>
+    <unit id="k.xuYv2" name="general.phrase.permalink">
+      <segment>
+        <source>general.phrase.permalink</source>
+        <target>Kalıcı bağlantı</target>
+      </segment>
+    </unit>
+    <unit id="zsyp43M" name="label.displayname">
+      <segment>
+        <source>label.displayname</source>
+        <target>Ekran adı</target>
+      </segment>
+    </unit>
+    <unit id="2MMvCKK" name="label.cache_cleared">
+      <segment>
+        <source>label.cache_cleared</source>
+        <target>Önbellek başarıyla temizlendi!</target>
+      </segment>
+    </unit>
+    <unit id="Wou02nK" name="caption.kitchensink">
+      <segment>
+        <source>caption.kitchensink</source>
+        <target>Mutfak lavabosu</target>
+      </segment>
+    </unit>
+    <unit id="wrUiAsV" name="general.phrase.search-results-for-variable">
+      <notes>
+        <note>parameters:</note>
+        <note> '%search%': consequatur</note>
+      </notes>
+      <segment>
+        <source>general.phrase.search-results-for-variable</source>
+        <target>'%search%' için arama sonuçları.</target>
+      </segment>
+    </unit>
+    <unit id="2CfJ3WY" name="general.phrase.search-results-for">
+      <notes>
+        <note>parameters:</note>
+        <note> '%search%': ymnrubeyrvwearsytevsf</note>
+      </notes>
+      <segment>
+        <source>general.phrase.search-results-for</source>
+        <target>'%search%' için arama sonuçları.</target>
+      </segment>
+    </unit>
+    <unit id="V0VhH5g" name="general.phrase.no-search-results-for">
+      <notes>
+        <note>parameters:</note>
+        <note> '%SEARCHTERM%': ymnrubeyrvwearsytevsf</note>
+      </notes>
+      <segment>
+        <source>general.phrase.no-search-results-for</source>
+        <target>'%search%' için arama sonucu bulunamadı.</target>
+      </segment>
+    </unit>
+    <unit id="_KyvT9o" name="general.phrase.no-search-term-provided">
+      <segment>
+        <source>general.phrase.no-search-term-provided</source>
+        <target>Lütfen ilgili sonuçları görüntülemek için bir arama terimi girin.</target>
+      </segment>
+    </unit>
+    <unit id="Pily_qo" name="general.phrase.read-more">
+      <segment>
+        <source>general.phrase.read-more</source>
+        <target>Devamını oku</target>
+      </segment>
+    </unit>
+    <unit id="psOa_9x" name="general.phrase.built-with-bolt">
+      <segment>
+        <source>general.phrase.built-with-bolt</source>
+        <target><![CDATA[Bu internet sitesi <a href='%url%' target='_blank' title='Gelişmiş, hafif & basit CMS'>Bolt ile yapılmıştır</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="5IxD63c" name="general.latest_bolt_news">
+      <segment>
+        <source>general.latest_bolt_news</source>
+        <target>Son Bolt Haberleri</target>
+      </segment>
+    </unit>
+    <unit id="dQIY7_J" name="action.preview">
+      <segment>
+        <source>action.preview</source>
+        <target>Önizleme</target>
+      </segment>
+    </unit>
+    <unit id="ok6YulQ" name="action.view_saved">
+      <segment>
+        <source>action.view_saved</source>
+        <target>Kaydedilen versiyonu görüntüle</target>
+      </segment>
+    </unit>
+    <unit id="SeTqePC" name="label.display_name">
+      <segment>
+        <source>label.display_name</source>
+        <target>Ekran Adı</target>
+      </segment>
+    </unit>
+    <unit id="EvAqL__" name="caption.duplicate">
+      <segment>
+        <source>caption.duplicate</source>
+        <target>Kopyala</target>
+      </segment>
+    </unit>
+    <unit id="pGkejkU" name="label.current_password">
+      <segment>
+        <source>label.current_password</source>
+        <target>Eski Parola</target>
+      </segment>
+    </unit>
+    <unit id="iiWFLaI" name="label.new_password">
+      <segment>
+        <source>label.new_password</source>
+        <target>Yeni Parola</target>
+      </segment>
+    </unit>
+    <unit id="Ucl9Jfc" name="label.new_password_confirm">
+      <segment>
+        <source>label.new_password_confirm</source>
+        <target>Yeni Parola (onayla)</target>
+      </segment>
+    </unit>
+    <unit id="Iyry5.g" name="editfile.updated_successfully">
+      <segment>
+        <source>editfile.updated_successfully</source>
+        <target>Dosya başarıyla güncellendi!</target>
+      </segment>
+    </unit>
+    <unit id="3zlZmRK" name="action.add_user">
+      <segment>
+        <source>action.add_user</source>
+        <target>Kullanıcı Ekle</target>
+      </segment>
+    </unit>
+    <unit id="ruQIhH0" name="success">
+      <segment>
+        <source>success</source>
+        <target>Başarılı!</target>
+      </segment>
+    </unit>
+    <unit id="YDH.7uR" name="user.updated_profile">
+      <segment>
+        <source>user.updated_profile</source>
+        <target>Kullanıcı Profili güncellendi!</target>
+      </segment>
+    </unit>
+    <unit id="iD6CNOO" name="label.roles">
+      <segment>
+        <source>label.roles</source>
+        <target>Roller</target>
+      </segment>
+    </unit>
+    <unit id="7whLbH8" name="user.new_user">
+      <segment>
+        <source>user.new_user</source>
+        <target>Yeni Kullanıcı</target>
+      </segment>
+    </unit>
+    <unit id="TtmWqX3" name="action.view">
+      <segment>
+        <source>action.view</source>
+        <target>Görüntüle</target>
+      </segment>
+    </unit>
+    <unit id="I2ykiIZ" name="caption.folders">
+      <segment>
+        <source>caption.folders</source>
+        <target>Klasörler</target>
+      </segment>
+    </unit>
+    <unit id="kaK5Wdr" name="slug.button_locked">
+      <segment>
+        <source>slug.button_locked</source>
+        <target>Kilitli</target>
+      </segment>
+    </unit>
+    <unit id="qcDEz5O" name="slug.button_edit">
+      <segment>
+        <source>slug.button_edit</source>
+        <target>Düzenle</target>
+      </segment>
+    </unit>
+    <unit id="raO5QSf" name="slug.generate_from">
+      <segment>
+        <source>slug.generate_from</source>
+        <target>Oluşturulduğu alan</target>
+      </segment>
+    </unit>
+    <unit id="vptPhch" name="image.button_upload">
+      <segment>
+        <source>image.button_upload</source>
+        <target>Yükle</target>
+      </segment>
+    </unit>
+    <unit id="vIVO1lU" name="image.button_from_library">
+      <segment>
+        <source>image.button_from_library</source>
+        <target>Kütüphaneden</target>
+      </segment>
+    </unit>
+    <unit id="L0TE0M9" name="listing_table.actions.view_on_site">
+      <segment>
+        <source>listing_table.actions.view_on_site</source>
+        <target>Sitede Görüntüle</target>
+      </segment>
+    </unit>
+    <unit id="PoauAuK" name="listing_table.actions.status_to_publish">
+      <segment>
+        <source>listing_table.actions.status_to_publish</source>
+        <target>Durumu 'yayınla' olarak değiştir</target>
+      </segment>
+    </unit>
+    <unit id="ZJxfdD6" name="listing_table.actions.status_to_held">
+      <segment>
+        <source>listing_table.actions.status_to_held</source>
+        <target>Durumu 'tut' olarak değiştir</target>
+      </segment>
+    </unit>
+    <unit id="apyOs0o" name="listing_table.actions.status_to_draft">
+      <segment>
+        <source>listing_table.actions.status_to_draft</source>
+        <target>Durumu 'taslak' olarak değiştir</target>
+      </segment>
+    </unit>
+    <unit id="5H60Xq6" name="listing_table.actions.duplicate">
+      <segment>
+        <source>listing_table.actions.duplicate</source>
+        <target>Kopyala</target>
+      </segment>
+    </unit>
+    <unit id="hR8ri.m" name="listing_table.actions.delete">
+      <segment>
+        <source>listing_table.actions.delete</source>
+        <target>Sil</target>
+      </segment>
+    </unit>
+    <unit id="5zbX1vo" name="listing_table.actions.slug">
+      <segment>
+        <source>listing_table.actions.slug</source>
+        <target>Slug</target>
+      </segment>
+    </unit>
+    <unit id="wKDOBOC" name="listing_table.actions.created_on">
+      <segment>
+        <source>listing_table.actions.created_on</source>
+        <target>Oluşturulma tarihi</target>
+      </segment>
+    </unit>
+    <unit id="tVX01Xl" name="listing_table.actions.published_on">
+      <segment>
+        <source>listing_table.actions.published_on</source>
+        <target>Yayınlanma tarihi</target>
+      </segment>
+    </unit>
+    <unit id="kHkjS5U" name="listing_table.actions.last_modified_on">
+      <segment>
+        <source>listing_table.actions.last_modified_on</source>
+        <target>Son düzenlenme tarihi</target>
+      </segment>
+    </unit>
+    <unit id="BdhsE_X" name="listing_select_box.card_header.selected">
+      <segment>
+        <source>listing_select_box.card_header.selected</source>
+        <target>Seçilen</target>
+      </segment>
+    </unit>
+    <unit id="jBpmj90" name="listing_select_box.card_body.records_passed">
+      <segment>
+        <source>listing_select_box.card_body.records_passed</source>
+        <target>seçilen kayıt kimlikleri geçti</target>
+      </segment>
+    </unit>
+    <unit id="D8vDkhK" name="listing_select_box.card_body.remark">
+      <segment>
+        <source>listing_select_box.card_body.remark</source>
+        <target>(bunları, toplu olarak değiştirmek / silmek için aksiyolar gibi bir şeyle kullanılabilir)</target>
+      </segment>
+    </unit>
+    <unit id="kHeY93_" name="editor_embed.content_url">
+      <segment>
+        <source>editor_embed.content_url</source>
+        <target>Yerleştirilecek içeriğin URL'si</target>
+      </segment>
+    </unit>
+    <unit id="VoIdmBa" name="editor_embed.placeholder_content_url">
+      <segment>
+        <source>editor_embed.placeholder_content_url</source>
+        <target>Facebook, Twitter, Soundcloud, Youtube, Vimeo'daki içeriğin URL'si…</target>
+      </segment>
+    </unit>
+    <unit id="1.Eb1GS" name="editor_embed.label_height">
+      <segment>
+        <source>editor_embed.label_height</source>
+        <target>Yükseklik</target>
+      </segment>
+    </unit>
+    <unit id="eWLSFJs" name="editor_embed.label_pixel">
+      <segment>
+        <source>editor_embed.label_pixel</source>
+        <target>piksel</target>
+      </segment>
+    </unit>
+    <unit id="EAtXrAm" name="editor_embed.label_matched_embed">
+      <segment>
+        <source>editor_embed.label_matched_embed</source>
+        <target>Eşleşen Yerleştirme</target>
+      </segment>
+    </unit>
+    <unit id="zATju4V" name="editor_embed.label_preview">
+      <segment>
+        <source>editor_embed.label_preview</source>
+        <target>Önizleme</target>
+      </segment>
+    </unit>
+    <unit id="9SQ0oaR" name="editor_embed.label_size">
+      <segment>
+        <source>editor_embed.label_size</source>
+        <target>Boyut</target>
+      </segment>
+    </unit>
+    <unit id="oOuVKRv" name="image.placeholder_filename">
+      <segment>
+        <source>image.placeholder_filename</source>
+        <target>Dosya adı (yeni bir dosya yükleyin veya mevcut bir dosyayı seçin)</target>
+      </segment>
+    </unit>
+    <unit id="BWubOnS" name="image.placeholder_alt_text">
+      <segment>
+        <source>image.placeholder_alt_text</source>
+        <target>Alt niteliği</target>
+      </segment>
+    </unit>
+    <unit id="VPV0lFM" name="image.placeholder_title">
+      <segment>
+        <source>image.placeholder_title</source>
+        <target>Başlık niteliği</target>
+      </segment>
+    </unit>
+    <unit id="Gabafxx" name="admin_sidebar.toggler">
+      <segment>
+        <source>admin_sidebar.toggler</source>
+        <target>Kenar çubuğu genişliğini değiştir</target>
+      </segment>
+    </unit>
+    <unit id="jXAelLe" name="admin_sidebar_toggler.toggle">
+      <segment>
+        <source>admin_sidebar_toggler.toggle</source>
+        <target><![CDATA[menüyü <span class="sr-only">Değiştir </span>]]></target>
+      </segment>
+    </unit>
+    <unit id="BINgtmK" name="editor_date.toggle">
+      <segment>
+        <source>editor_date.toggle</source>
+        <target>Değiştir</target>
+      </segment>
+    </unit>
+    <unit id="VQ2t655" name="file.label_filename">
+      <segment>
+        <source>file.label_filename</source>
+        <target>Dosya adı</target>
+      </segment>
+    </unit>
+    <unit id="tvpSmD7" name="file.label_title">
+      <segment>
+        <source>file.label_title</source>
+        <target>Başlık</target>
+      </segment>
+    </unit>
+    <unit id="hXT_hI." name="file.button_view">
+      <segment>
+        <source>file.button_view</source>
+        <target>Resmi görüntüle</target>
+      </segment>
+    </unit>
+    <unit id="QKIqqOw" name="file.button_upload">
+      <segment>
+        <source>file.button_upload</source>
+        <target>Bir resim yükle</target>
+      </segment>
+    </unit>
+    <unit id="4_JdYp1" name="file.remark">
+      <segment>
+        <source>file.remark</source>
+        <target><![CDATA[Not: Bu alan pratikte <code>image</code>-alanı ile aynıdır.]]></target>
+      </segment>
+    </unit>
+    <unit id="TJDc9vQ" name="file.label_alt">
+      <segment>
+        <source>file.label_alt</source>
+        <target>Alt</target>
+      </segment>
+    </unit>
+    <unit id="M.3olSc" name="filelist.remark">
+      <segment>
+        <source>filelist.remark</source>
+        <target><![CDATA[Not: Bu alan pratikte <code>imagelist</code>-alanı ile aynıdır.]]></target>
+      </segment>
+    </unit>
+    <unit id="zg5Dum5" name="geolocation.label_geolocation">
+      <segment>
+        <source>geolocation.label_geolocation</source>
+        <target>Coğrafi konum:</target>
+      </segment>
+    </unit>
+    <unit id="Com0pbc" name="geolocation.label_address">
+      <segment>
+        <source>geolocation.label_address</source>
+        <target>Adres araması</target>
+      </segment>
+    </unit>
+    <unit id="3o0LPHj" name="geolocation.placeholder_address">
+      <segment>
+        <source>geolocation.placeholder_address</source>
+        <target>Sokak, posta kodu, şehir veya başka bir konum…</target>
+      </segment>
+    </unit>
+    <unit id="CC5QTmy" name="geolocation.label_lat">
+      <segment>
+        <source>geolocation.label_lat</source>
+        <target>Enlem</target>
+      </segment>
+    </unit>
+    <unit id="MJ5WYEM" name="geolocation.label_address_matched">
+      <segment>
+        <source>geolocation.label_address_matched</source>
+        <target>Eşleşen adres</target>
+      </segment>
+    </unit>
+    <unit id="WJGjWG8" name="geolocation.label_marker">
+      <segment>
+        <source>geolocation.label_marker</source>
+        <target>İşaretçi yerleşimi</target>
+      </segment>
+    </unit>
+    <unit id="SaP3OOf" name="geolocation.label_control">
+      <segment>
+        <source>geolocation.label_control</source>
+        <target>En yakın adrese yasla</target>
+      </segment>
+    </unit>
+    <unit id="AHaenW3" name="geolocation.label_long">
+      <segment>
+        <source>geolocation.label_long</source>
+        <target>Boylam</target>
+      </segment>
+    </unit>
+    <unit id="TkryUve" name="imagelist.remark">
+      <segment>
+        <source>imagelist.remark</source>
+        <target><![CDATA[Not: Bu alan pratikte <code>filelist</code>-alanı ile aynıdır.]]></target>
+      </segment>
+    </unit>
+    <unit id="z2AgHGp" name="flash_messages.notification">
+      <segment>
+        <source>flash_messages.notification</source>
+        <target>Bildirim</target>
+      </segment>
+    </unit>
+    <unit id="qQKx1lR" name="buttons.button_toggle">
+      <segment>
+        <source>buttons.button_toggle</source>
+        <target>Açılır Menüyü Aç / Kapat</target>
+      </segment>
+    </unit>
+    <unit id="ypPzS03" name="localeswitcher.button_info">
+      <segment>
+        <source>localeswitcher.button_info</source>
+        <target>Dil bilgilerini görün</target>
+      </segment>
+    </unit>
+    <unit id="wQ0WYAT" name="listing.title_sortby">
+      <segment>
+        <source>listing.title_sortby</source>
+        <target>Göre sırala</target>
+      </segment>
+    </unit>
+    <unit id="ZGv90X8" name="listing.option_select_item">
+      <segment>
+        <source>listing.option_select_item</source>
+        <target>Öğe seç</target>
+      </segment>
+    </unit>
+    <unit id="TIyjgb6" name="listing.title_title">
+      <segment>
+        <source>listing.title_title</source>
+        <target>Başlık</target>
+      </segment>
+    </unit>
+    <unit id="pn22p7q" name="listing.placeholder_filter">
+      <segment>
+        <source>listing.placeholder_filter</source>
+        <target>Filtrelenecek anahtar kelime…</target>
+      </segment>
+    </unit>
+    <unit id="ni4zApC" name="listing.button_filter">
+      <segment>
+        <source>listing.button_filter</source>
+        <target>Filtrele</target>
+      </segment>
+    </unit>
+    <unit id="doNsgm0" name="listing.button_clear">
+      <segment>
+        <source>listing.button_clear</source>
+        <target>Sıralamayı / filtrelemeyi temizle</target>
+      </segment>
+    </unit>
+    <unit id="37kJiIe" name="view_locales.badge_default">
+      <segment>
+        <source>view_locales.badge_default</source>
+        <target>Varsayılan</target>
+      </segment>
+    </unit>
+    <unit id="JTRCo_U" name="view_locales.badge_ok">
+      <segment>
+        <source>view_locales.badge_ok</source>
+        <target>Tamam</target>
+      </segment>
+    </unit>
+    <unit id="ufFUPp7" name="view_locales.badge_missing">
+      <segment>
+        <source>view_locales.badge_missing</source>
+        <target>Eksik</target>
+      </segment>
+    </unit>
+    <unit id="QQvRJe." name="files_cards.button_toggle">
+      <segment>
+        <source>files_cards.button_toggle</source>
+        <target>Açılır Menüyü Aç / Kapat</target>
+      </segment>
+    </unit>
+    <unit id="gtC_ujD" name="files_cards.action_edit_image_info">
+      <segment>
+        <source>files_cards.action_edit_image_info</source>
+        <target>Resim bilgilerini düzenle</target>
+      </segment>
+    </unit>
+    <unit id="5LXvJfE" name="files_cards.action_edit_file">
+      <segment>
+        <source>files_cards.action_edit_file</source>
+        <target>Dosyayı düzenleyicide düzenle</target>
+      </segment>
+    </unit>
+    <unit id="H1pgP94" name="files_cards.action_view_original">
+      <segment>
+        <source>files_cards.action_view_original</source>
+        <target>Orjinali görüntüle</target>
+      </segment>
+    </unit>
+    <unit id="ZoY6ADX" name="files_cards.action_duplicate">
+      <segment>
+        <source>files_cards.action_duplicate</source>
+        <target>Kopyala</target>
+      </segment>
+    </unit>
+    <unit id="JjU6ZQP" name="files_cards.action_delete">
+      <segment>
+        <source>files_cards.action_delete</source>
+        <target>Sil</target>
+      </segment>
+    </unit>
+    <unit id="3jdNwuk" name="files_cards.label_filename">
+      <segment>
+        <source>files_cards.label_filename</source>
+        <target>Dosya adı:</target>
+      </segment>
+    </unit>
+    <unit id="Y90_Pn1" name="files_cards.label_title">
+      <segment>
+        <source>files_cards.label_title</source>
+        <target>Başlık:</target>
+      </segment>
+    </unit>
+    <unit id="EdCfIKX" name="files_cards.label_dimensions">
+      <segment>
+        <source>files_cards.label_dimensions</source>
+        <target>Boyutlar:</target>
+      </segment>
+    </unit>
+    <unit id="eQBhceV" name="files_cards.label_filesize">
+      <segment>
+        <source>files_cards.label_filesize</source>
+        <target>Dosya boyutu:</target>
+      </segment>
+    </unit>
+    <unit id="uiCjlwk" name="files_cards.label_created_on">
+      <segment>
+        <source>files_cards.label_created_on</source>
+        <target>Oluşturulma tarihi:</target>
+      </segment>
+    </unit>
+    <unit id=".fL0AbE" name="files_list.remark">
+      <segment>
+        <source>files_list.remark</source>
+        <target>Bu klasörde dosya yok. Gezinmek için bir klasör seçin.</target>
+      </segment>
+    </unit>
+    <unit id="v6cfPyt" name="quickselect.title_select">
+      <segment>
+        <source>quickselect.title_select</source>
+        <target>Bir dosya seç:</target>
+      </segment>
+    </unit>
+    <unit id="m3tNvJb" name="finder.button_list">
+      <segment>
+        <source>finder.button_list</source>
+        <target>Liste</target>
+      </segment>
+    </unit>
+    <unit id="tRLgeoX" name="finder.button_cards">
+      <segment>
+        <source>finder.button_cards</source>
+        <target>Kartlar</target>
+      </segment>
+    </unit>
+    <unit id="nrWBJNm" name="extensions.title_desc">
+      <segment>
+        <source>extensions.title_desc</source>
+        <target>Açıklama:</target>
+      </segment>
+    </unit>
+    <unit id="7raDJAR" name="extensions.title_author">
+      <segment>
+        <source>extensions.title_author</source>
+        <target>Yazar:</target>
+      </segment>
+    </unit>
+    <unit id="UP8pNGy" name="extensions.title_package">
+      <segment>
+        <source>extensions.title_package</source>
+        <target>Paket / Sınıf adı:</target>
+      </segment>
+    </unit>
+    <unit id="QFQ1uTC" name="extensions.title_version">
+      <segment>
+        <source>extensions.title_version</source>
+        <target>Versiyon:</target>
+      </segment>
+    </unit>
+    <unit id="piuatxC" name="extensions.info_not_installed">
+      <segment>
+        <source>extensions.info_not_installed</source>
+        <target>Bu, Composer aracılığıyla yüklenmeyen yerel bir paket</target>
+      </segment>
+    </unit>
+    <unit id="3j1gEmk" name="extensions.title_class">
+      <segment>
+        <source>extensions.title_class</source>
+        <target>Sınıf adı:</target>
+      </segment>
+    </unit>
+    <unit id="mjhFljb" name="extensions.button_configuration">
+      <segment>
+        <source>extensions.button_configuration</source>
+        <target>Yapılandırma</target>
+      </segment>
+    </unit>
+    <unit id="r3ryNTG" name="extensions.button_source">
+      <segment>
+        <source>extensions.button_source</source>
+        <target>Kaynak</target>
+      </segment>
+    </unit>
+    <unit id="qc3rFkZ" name="extensions.button_remove">
+      <segment>
+        <source>extensions.button_remove</source>
+        <target>Uzantıyı kaldır</target>
+      </segment>
+    </unit>
+    <unit id="SLZyVzU" name="extensions.button_disable">
+      <segment>
+        <source>extensions.button_disable</source>
+        <target>Uzantıyı devre dışı bırak</target>
+      </segment>
+    </unit>
+    <unit id="beqzCkE" name="login.header_login">
+      <segment>
+        <source>login.header_login</source>
+        <target>Bolt » Oturum aç</target>
+      </segment>
+    </unit>
+    <unit id="7JK6jNv" name="extensions.message_not_implemented">
+      <segment>
+        <source>extensions.message_not_implemented</source>
+        <target>Henüz uygulanmadı. Üzgünüm!</target>
+      </segment>
+    </unit>
+    <unit id="Hlf9c1s" name="listing.title_overview">
+      <segment>
+        <source>listing.title_overview</source>
+        <target>Genel bakış: </target>
+      </segment>
+    </unit>
+    <unit id="8JeahIj" name="files_cards.message_no_files">
+      <segment>
+        <source>files_cards.message_no_files</source>
+        <target>Bu klasörde dosya yok. Gezinmek için bir klasör seçin.</target>
+      </segment>
+    </unit>
+    <unit id="pcq1NGk" name="listing_filter.button_compact">
+      <segment>
+        <source>listing_filter.button_compact</source>
+        <target>Kompakt</target>
+      </segment>
+    </unit>
+    <unit id="xIztVmp" name="listing_filter.button_expanded">
+      <segment>
+        <source>listing_filter.button_expanded</source>
+        <target>Genişletilmiş</target>
+      </segment>
+    </unit>
+    <unit id="73A2bWM" name="finder.label_view">
+      <segment>
+        <source>finder.label_view</source>
+        <target>Görüntüle:</target>
+      </segment>
+    </unit>
+    <unit id="Em.C0bV" name="listing_table.actions.button_edit">
+      <segment>
+        <source>listing_table.actions.button_edit</source>
+        <target>Düzenle</target>
+      </segment>
+    </unit>
+    <unit id="Iy4HXCU" name="controller.user.title">
+      <segment>
+        <source>controller.user.title</source>
+        <target><![CDATA[Kullanıcılar & İzinler]]></target>
+      </segment>
+    </unit>
+    <unit id="HBwIQ9b" name="controller.user.subtitle">
+      <segment>
+        <source>controller.user.subtitle</source>
+        <target>Kullanıcıları ve izinlerini düzenlemek için</target>
+      </segment>
+    </unit>
+    <unit id="0Gyf5xr" name="controller.database.check_title">
+      <segment>
+        <source>controller.database.check_title</source>
+        <target>Veritabanı Kontrol Et</target>
+      </segment>
+    </unit>
+    <unit id="SeDwjX6" name="controller.database.check_subtitle">
+      <segment>
+        <source>controller.database.check_subtitle</source>
+        <target>Veritabanını kontrol etmek için</target>
+      </segment>
+    </unit>
+    <unit id="nJnALPG" name="controller.database.update_title">
+      <segment>
+        <source>controller.database.update_title</source>
+        <target>Veritabanı Güncelleme</target>
+      </segment>
+    </unit>
+    <unit id="nRE74_i" name="controller.database.update_subtitle">
+      <segment>
+        <source>controller.database.update_subtitle</source>
+        <target>Veritabanını güncellemek için</target>
+      </segment>
+    </unit>
+    <unit id="a3UNsKw" name="controller.omnisearch.title">
+      <segment>
+        <source>controller.omnisearch.title</source>
+        <target>Omnisearch</target>
+      </segment>
+    </unit>
+    <unit id="4N41oTU" name="controller.omnisearch.subtitle">
+      <segment>
+        <source>controller.omnisearch.subtitle</source>
+        <target>Omni benzeri bir şekilde aramak için</target>
+      </segment>
+    </unit>
+    <unit id="7cXqH5s" name="listing.title_display_name">
+      <segment>
+        <source>listing.title_display_name</source>
+        <target>Ekran adı</target>
+      </segment>
+    </unit>
+    <unit id="Ay7xZ2h" name="listing.title_username">
+      <segment>
+        <source>listing.title_username</source>
+        <target>Kullanıcı adı</target>
+      </segment>
+    </unit>
+    <unit id="RN1tdtJ" name="listing.title_email">
+      <segment>
+        <source>listing.title_email</source>
+        <target>E-posta</target>
+      </segment>
+    </unit>
+    <unit id="0pjZ.GV" name="listing.title_roles">
+      <segment>
+        <source>listing.title_roles</source>
+        <target>Roller</target>
+      </segment>
+    </unit>
+    <unit id="hXEFV1n" name="listing.title_last_seen">
+      <segment>
+        <source>listing.title_last_seen</source>
+        <target>Oturum yaşı</target>
+      </segment>
+    </unit>
+    <unit id="pn7kE17" name="listing.title_last_ip">
+      <segment>
+        <source>listing.title_last_ip</source>
+        <target>Son IP</target>
+      </segment>
+    </unit>
+    <unit id="GZ65uOC" name="listing.title_actions">
+      <segment>
+        <source>listing.title_actions</source>
+        <target>Eylemler</target>
+      </segment>
+    </unit>
+    <unit id="fkXL.k6" name="user.not_valid_email">
+      <segment>
+        <source>user.not_valid_email</source>
+        <target>Geçersiz e-posta.</target>
+      </segment>
+    </unit>
+    <unit id="HjWW.NS" name="user.not_valid_password">
+      <segment>
+        <source>user.not_valid_password</source>
+        <target>Geçersiz parola. Parola en az 6 karakter içermelidir.</target>
+      </segment>
+    </unit>
+    <unit id="TpGxDI3" name="user.unknown_user">
+      <segment>
+        <source>user.unknown_user</source>
+        <target>Bilinmeyen kullanıcı</target>
+      </segment>
+    </unit>
+    <unit id="EaqUUfe" name="label.predominant_colors__in_image">
+      <segment>
+        <source>label.predominant_colors__in_image</source>
+        <target>Resimdeki baskın renkler</target>
+      </segment>
+    </unit>
+    <unit id="8RPjZ5w" name="general.phrase.overview-for">
+      <segment>
+        <source>general.phrase.overview-for</source>
+        <target>'%slug%' için genel bakış</target>
+      </segment>
+    </unit>
+    <unit id="6mze9DI" name="general.phrase.related-content">
+      <segment>
+        <source>general.phrase.related-content</source>
+        <target>Benzer içerik</target>
+      </segment>
+    </unit>
+    <unit id="odDw0du" name="action.search">
+      <segment>
+        <source>action.search</source>
+        <target>Ara</target>
+      </segment>
+    </unit>
+    <unit id="QoeqyPT" name="caption.new_contenttype">
+      <segment>
+        <source>caption.new_contenttype</source>
+        <target>Yeni %contenttype%</target>
+      </segment>
+    </unit>
+    <unit id="n.jOrkg" name="caption.untitled_contenttype">
+      <segment>
+        <source>caption.untitled_contenttype</source>
+        <target>Başlıksız %contenttype%</target>
+      </segment>
+    </unit>
+    <unit id="Dgtkgju" name="title.edit_user_profile">
+      <segment>
+        <source>title.edit_user_profile</source>
+        <target>Kullanıcı profilini düzenle</target>
+      </segment>
+    </unit>
+    <unit id="rCKtTo5" name="caption.redirection_page">
+      <segment>
+        <source>caption.redirection_page</source>
+        <target>Yönlendirme sayfası</target>
+      </segment>
+    </unit>
+    <unit id="TtIlBDd" name="caption.edit_image">
+      <segment>
+        <source>caption.edit_image</source>
+        <target>Resmi Düzenle</target>
+      </segment>
+    </unit>
+    <unit id="MClSUET" name="general.phrase.select_language">
+      <segment>
+        <source>general.phrase.select_language</source>
+        <target>Dil seç</target>
+      </segment>
+    </unit>
+    <unit id="hiE9jap" name="password.suggested">
+      <segment>
+        <source>password.suggested</source>
+        <target><![CDATA[Önerilen güvenli parola: <code>%password%</code>]]></target>
+      </segment>
+    </unit>
+    <unit id="fLOd6Zd" name="field.cropX">
+      <segment>
+        <source>field.cropX</source>
+        <target>Kırp X</target>
+      </segment>
+    </unit>
+    <unit id="Sd_AbmV" name="field.cropXPostfix">
+      <segment>
+        <source>field.cropXPostfix</source>
+        <target>Kırpmanın X eksenindeki konumu, 0-100 aralığında. </target>
+      </segment>
+    </unit>
+    <unit id="BQBmQHT" name="field.cropYPostfix">
+      <segment>
+        <source>field.cropYPostfix</source>
+        <target>Kırpmanın Y eksenindeki konumu, 0-100 aralığında. </target>
+      </segment>
+    </unit>
+    <unit id="hi98HIj" name="field.cropY">
+      <segment>
+        <source>field.cropY</source>
+        <target>Kırp Y</target>
+      </segment>
+    </unit>
+    <unit id="PHOpD5y" name="field.cropZoom">
+      <segment>
+        <source>field.cropZoom</source>
+        <target>Kırpma yakınlaştırma faktörü</target>
+      </segment>
+    </unit>
+    <unit id="tn6Z8wY" name="field.cropZoomPostfix">
+      <segment>
+        <source>field.cropZoomPostfix</source>
+        <target>Kırpma yakınlaştırma seviyesi, 1-10 aralığında. </target>
+      </segment>
+    </unit>
+    <unit id="n.3JZvX" name="title.contentType">
+      <segment>
+        <source>title.contentType</source>
+        <target>İçerik Tipi</target>
+      </segment>
+    </unit>
+    <unit id="TSkqRw3" name="listing.title_taxonomy">
+      <segment>
+        <source>listing.title_taxonomy</source>
+        <target>Sınıflandırma</target>
+      </segment>
+    </unit>
+    <unit id="Hr2E9Oa" name="listing_table.no_results">
+      <segment>
+        <source>listing_table.no_results</source>
+        <target>Sonuç bulunamadı. Filtreleme kriterlerini genişletin veya biraz daha içerik ekleyin.</target>
+      </segment>
+    </unit>
+    <unit id="hp554Ds" name="listing.option_select_sortby">
+      <segment>
+        <source>listing.option_select_sortby</source>
+        <target>Sıralamak için Alan seçin…</target>
+      </segment>
+    </unit>
+    <unit id="JEnqOi." name="title.primary_actions">
+      <segment>
+        <source>title.primary_actions</source>
+        <target>Birincil Eylemler</target>
+      </segment>
+    </unit>
+    <unit id="7616Os4" name="title.options">
+      <segment>
+        <source>title.options</source>
+        <target>Seçenekler</target>
+      </segment>
+    </unit>
+    <unit id="hTKWQ6g" name="action.delete">
+      <segment>
+        <source>action.delete</source>
+        <target>Sil</target>
+      </segment>
+    </unit>
+    <unit id="ezqx.4H" name="action.enable">
+      <segment>
+        <source>action.enable</source>
+        <target>Etkinleştir</target>
+      </segment>
+    </unit>
+    <unit id="ryXZRAu" name="action.disable">
+      <segment>
+        <source>action.disable</source>
+        <target>Devre dışı bırak</target>
+      </segment>
+    </unit>
+    <unit id="29MN3Ip" name="user.enabled_successfully">
+      <segment>
+        <source>user.enabled_successfully</source>
+        <target>Kullanıcı başarıyla etkinleştirildi!</target>
+      </segment>
+    </unit>
+    <unit id="nj8qBZ5" name="user.disabled_successfully">
+      <segment>
+        <source>user.disabled_successfully</source>
+        <target>Kullanıcı başarıyla devre dışı bırakıldı!</target>
+      </segment>
+    </unit>
+    <unit id="Npkio79" name="listing.title_session_expires">
+      <segment>
+        <source>listing.title_session_expires</source>
+        <target>Oturum sona erme</target>
+      </segment>
+    </unit>
+    <unit id="mmUDcto" name="listing.title_ip_address">
+      <segment>
+        <source>listing.title_ip_address</source>
+        <target>IP adresi</target>
+      </segment>
+    </unit>
+    <unit id="x9qAwrz" name="listing.title_browser">
+      <segment>
+        <source>listing.title_browser</source>
+        <target>Tarayıcı / platform</target>
+      </segment>
+    </unit>
+    <unit id="FqVh1Hv" name="image.button_remove">
+      <segment>
+        <source>image.button_remove</source>
+        <target>Kaldır</target>
+      </segment>
+    </unit>
+    <unit id="eHV6ZJB" name="image.button_edit_attributes">
+      <segment>
+        <source>image.button_edit_attributes</source>
+        <target>Nitelikleri düzenle</target>
+      </segment>
+    </unit>
+    <unit id="s14vS9S" name="image.button_move_up">
+      <segment>
+        <source>image.button_move_up</source>
+        <target>Yukarı taşı</target>
+      </segment>
+    </unit>
+    <unit id="xoOPAPl" name="image.button_move_down">
+      <segment>
+        <source>image.button_move_down</source>
+        <target>Aşağı taşı</target>
+      </segment>
+    </unit>
+    <unit id="Oj2UZ5J" name="image.add_new_image">
+      <segment>
+        <source>image.add_new_image</source>
+        <target>Yeni resim ekle</target>
+      </segment>
+    </unit>
+    <unit id="8Q4FxVw" name="file.add_new_file">
+      <segment>
+        <source>file.add_new_file</source>
+        <target>Yeni dosya ekle</target>
+      </segment>
+    </unit>
+    <unit id=".t1ICS7" name="collection.remove_item">
+      <segment>
+        <source>collection.remove_item</source>
+        <target>Öğeyi kaldır</target>
+      </segment>
+    </unit>
+    <unit id="0C9.Vmh" name="collection.add_item">
+      <segment>
+        <source>collection.add_item</source>
+        <target>'%name%' için yeni bir öğe ekleyin</target>
+      </segment>
+    </unit>
+    <unit id="ApPu4P_" name="collection.move_item_up">
+      <segment>
+        <source>collection.move_item_up</source>
+        <target>Yukarı taşı</target>
+      </segment>
+    </unit>
+    <unit id="KzBtfHi" name="collection.move_item_down">
+      <segment>
+        <source>collection.move_item_down</source>
+        <target>Aşağı taşı</target>
+      </segment>
+    </unit>
+    <unit id="BFARQEU" name="extensions.button_detailed_view">
+      <segment>
+        <source>extensions.button_detailed_view</source>
+        <target>Detayları göster</target>
+      </segment>
+    </unit>
+    <unit id="hgNZLwW" name="extensions.title_configuration">
+      <segment>
+        <source>extensions.title_configuration</source>
+        <target>Yapılandırma dosyası</target>
+      </segment>
+    </unit>
+    <unit id="283aB_E" name="caption.file_upload.upload_text">
+      <segment>
+        <source>caption.file_upload.upload_text</source>
+        <target>Dosyaları yüklemek için buraya bırakın</target>
+      </segment>
+    </unit>
+    <unit id="L_YQKUn" name="pager.next">
+      <segment>
+        <source>pager.next</source>
+        <target>Sonraki</target>
+      </segment>
+    </unit>
+    <unit id="AMxTho9" name="pager.previous">
+      <segment>
+        <source>pager.previous</source>
+        <target>Önceki</target>
+      </segment>
+    </unit>
+    <unit id="7aSD0Qr" name="image.button_up">
+      <segment>
+        <source>image.button_up</source>
+        <target>Yukarı</target>
+      </segment>
+    </unit>
+    <unit id="WihD8Y5" name="image.button_down">
+      <segment>
+        <source>image.button_down</source>
+        <target>Aşağı</target>
+      </segment>
+    </unit>
+    <unit id="fon6eNN" name="general.phrase.download">
+      <segment>
+        <source>general.phrase.download</source>
+        <target>İndir</target>
+      </segment>
+    </unit>
+    <unit id="2MtT_h0" name="caption.logviewer">
+      <segment>
+        <source>caption.logviewer</source>
+        <target>Günlük Görüntüleyici</target>
+      </segment>
+    </unit>
+    <unit id="FlGE3qB" name="label.request">
+      <segment>
+        <source>label.request</source>
+        <target>İstek</target>
+      </segment>
+    </unit>
+    <unit id="l71Tprl" name="label.trace">
+      <segment>
+        <source>label.trace</source>
+        <target>İzleme</target>
+      </segment>
+    </unit>
+    <unit id="29ZEo1r" name="label.context">
+      <segment>
+        <source>label.context</source>
+        <target>Bağlam</target>
+      </segment>
+    </unit>
+    <unit id="txRonia" name="label.id">
+      <segment>
+        <source>label.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="IwLLxxx" name="label.level">
+      <segment>
+        <source>label.level</source>
+        <target>Seviye</target>
+      </segment>
+    </unit>
+    <unit id="51OQi14" name="label.message">
+      <segment>
+        <source>label.message</source>
+        <target>Mesaj</target>
+      </segment>
+    </unit>
+    <unit id="S0f6iTL" name="label.timestamp">
+      <segment>
+        <source>label.timestamp</source>
+        <target>Zaman damgası</target>
+      </segment>
+    </unit>
+    <unit id="O2X4xZH" name="label.user">
+      <segment>
+        <source>label.user</source>
+        <target>Kullanıcı</target>
+      </segment>
+    </unit>
+    <unit id="3MuwWwe" name="listing.disabled">
+      <segment>
+        <source>listing.disabled</source>
+        <target>Devre dışı</target>
+      </segment>
+    </unit>
+    <unit id="XQ2U6fN" name="slug.button_unlocked">
+      <segment>
+        <source>slug.button_unlocked</source>
+        <target>Kilitli değil</target>
+      </segment>
+    </unit>
+    <unit id="jz2qkbb" name="general.phrase.no-content-found">
+      <segment>
+        <source>general.phrase.no-content-found</source>
+        <target>İçerik bulunamadı</target>
+      </segment>
+    </unit>
+    <unit id="FM8B.gO" name="general.phrase.empty-database">
+      <segment>
+        <source>general.phrase.empty-database</source>
+        <target>Veritabanı boş görünüyor. Bolt yönetim panelinden içerik yazın, veya fikstürler (örnek içerik) eklemek için komut çalıştırın. </target>
+      </segment>
+    </unit>
+    <unit id="SGlj7K2" name="view_locales.badge_empty">
+      <segment>
+        <source>view_locales.badge_empty</source>
+        <target>Boş</target>
+      </segment>
+    </unit>
+    <unit id="WeJxw6Z" name="action.update_all">
+      <segment>
+        <source>action.update_all</source>
+        <target>Hepsine uygula</target>
+      </segment>
+    </unit>
+    <unit id="QVRwwK4" name="about.system_info">
+      <segment>
+        <source>about.system_info</source>
+        <target>Sistem Bilgisi</target>
+      </segment>
+    </unit>
+    <unit id="4oq.CNw" name="user.not_valid_display_name">
+      <segment>
+        <source>user.not_valid_display_name</source>
+        <target>Geçersiz görüntüleme adı</target>
+      </segment>
+    </unit>
+    <unit id="6Gw1lsE" name="action.confirm_delete">
+      <segment>
+        <source>action.confirm_delete</source>
+        <target>Bu içeriği silmek istediğinizden emin misiniz?</target>
+      </segment>
+    </unit>
+    <unit id="z_tOHwq" name="placeholder.username_or_email">
+      <segment>
+        <source>placeholder.username_or_email</source>
+        <target>kullanıcı adınız veya e-postanız</target>
+      </segment>
+    </unit>
+    <unit id="xgYhRkc" name="placeholder.password">
+      <segment>
+        <source>placeholder.password</source>
+        <target>parolanız</target>
+      </segment>
+    </unit>
+    <unit id="KshyLfh" name="caption.other_content">
+      <segment>
+        <source>caption.other_content</source>
+        <target>Diğer İçerik</target>
+      </segment>
+    </unit>
+    <unit id="wHOF8eG" name="editfile.target_not_writable">
+      <segment>
+        <source>editfile.target_not_writable</source>
+        <target>Hedef dosya yazılabilir olmadığı için kaydetme devre dışı bırakıldı.</target>
+      </segment>
+    </unit>
+    <unit id="hAysbHB" name="label.translatable">
+      <segment>
+        <source>label.translatable</source>
+        <target>Bu alan çevrilebilir</target>
+      </segment>
+    </unit>
+    <unit id="qqpGLJl" name="label.content">
+      <segment>
+        <source>label.content</source>
+        <target>İçerik</target>
+      </segment>
+    </unit>
+    <unit id="v7ZTnja" name="file.delete_success">
+      <segment>
+        <source>file.delete_success</source>
+        <target>Dosya başarıyla silindi!</target>
+      </segment>
+    </unit>
+    <unit id="wHPoBzP" name="file.delete_confirm">
+      <segment>
+        <source>file.delete_confirm</source>
+        <target>Bu dosyayı silmek istediğinizden emin misiniz?</target>
+      </segment>
+    </unit>
+    <unit id="IWbf2by" name="listing.title_filterby">
+      <segment>
+        <source>listing.title_filterby</source>
+        <target>Ara / Filtrele</target>
+      </segment>
+    </unit>
+    <unit id="Zssh7In" name="content.status_changed_successfully">
+      <segment>
+        <source>content.status_changed_successfully</source>
+        <target>Durum başarıyla değiştirildi</target>
+      </segment>
+    </unit>
+    <unit id="GOhQBY9" name="content.deleted_successfully">
+      <segment>
+        <source>content.deleted_successfully</source>
+        <target>İçerik başarıyla silindi</target>
+      </segment>
+    </unit>
+    <unit id=".I3mIHo" name="label.current_status">
+      <segment>
+        <source>label.current_status</source>
+        <target>Şu anki durum</target>
+      </segment>
+    </unit>
+    <unit id="utGAKaQ" name="status.published">
+      <segment>
+        <source>status.published</source>
+        <target>Yayınlandı</target>
+      </segment>
+    </unit>
+    <unit id="HJbHjee" name="status.draft">
+      <segment>
+        <source>status.draft</source>
+        <target>Taslak</target>
+      </segment>
+    </unit>
+    <unit id="h7dP3WY" name="status.timed">
+      <segment>
+        <source>status.timed</source>
+        <target>Zamanlı</target>
+      </segment>
+    </unit>
+    <unit id="oxqDDuK" name="status.held">
+      <segment>
+        <source>status.held</source>
+        <target>Tut</target>
+      </segment>
+    </unit>
+    <unit id="JpJFIFq" name="collection.confirm_delete">
+      <segment>
+        <source>collection.confirm_delete</source>
+        <target>Bu koleksiyon öğesini silmek istediğinizden emin misiniz?</target>
+      </segment>
+    </unit>
+    <unit id="YZJO3Ul" name="upload.allow_file_types">
+      <segment>
+        <source>upload.allow_file_types</source>
+        <target>Yüklemeye izin verilen dosya türleri</target>
+      </segment>
+    </unit>
+    <unit id="noOf4ML" name="upload.max_size">
+      <segment>
+        <source>upload.max_size</source>
+        <target>Maksimum yükleme boyutu</target>
+      </segment>
+    </unit>
+    <unit id="O_m7mx1" name="listing.placeholder_search">
+      <segment>
+        <source>listing.placeholder_search</source>
+        <target>Anahtar kelime ara…</target>
+      </segment>
+    </unit>
+    <unit id="munFS0n" name="title.filtered_by">
+      <segment>
+        <source>title.filtered_by</source>
+        <target><![CDATA[Tüm içerikler, <em>'%filter%'</em> göre filtrelendi.]]></target>
+      </segment>
+    </unit>
+    <unit id="GPd6Hap" name="action.view_site">
+      <segment>
+        <source>action.view_site</source>
+        <target>İnternet sayfasını görüntüle</target>
+      </segment>
+    </unit>
+    <unit id="f.rvF6y" name="action.new">
+      <segment>
+        <source>action.new</source>
+        <target>Yeni</target>
+      </segment>
+    </unit>
+    <unit id="60xy4WG" name="extensions.no_dependencies">
+      <segment>
+        <source>extensions.no_dependencies</source>
+        <target>Bilinen bağımlılık yok</target>
+      </segment>
+    </unit>
+    <unit id="LfwezhR" name="extensions.title_dependencies">
+      <segment>
+        <source>extensions.title_dependencies</source>
+        <target>Bağımlılıklar</target>
+      </segment>
+    </unit>
+    <unit id="H9knE.O" name="collection.expand_all">
+      <segment>
+        <source>collection.expand_all</source>
+        <target>Hepsini genişlet</target>
+      </segment>
+    </unit>
+    <unit id="JjvI6hp" name="collection.collapse_all">
+      <segment>
+        <source>collection.collapse_all</source>
+        <target>Hepsini daralt</target>
+      </segment>
+    </unit>
+    <unit id="pXtciRI" name="content.edit_missing_definition">
+      <segment>
+        <source>content.edit_missing_definition</source>
+        <target>Bu İçerikTipinin tanımı eksik! Bu kaydı düzenlemek beklendiği gibi çalışmayacaktır. Lütfen %contenttype% içerdiğinden emin olmak için contenttypes.yaml dosyanızı kontrol edin.</target>
+      </segment>
+    </unit>
+    <unit id="RBJ0NMl" name="collection.select">
+      <segment>
+        <source>collection.select</source>
+        <target>Seç …</target>
+      </segment>
+    </unit>
+    <unit id="fAmcKUQ" name="listing.title_filterby_field">
+      <segment>
+        <source>listing.title_filterby_field</source>
+        <target>Alana göre filtrele</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

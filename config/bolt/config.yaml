@@ -186,3 +186,30 @@ upload_location: "{contenttype}/{year}/{month}/"
 # For all options, check the official curl documentation here https://curl.haxx.se/libcurl/c/curl_easy_setopt.html
 curl_options:
     verify_peer: false
+
+# Various settings about Bolt's built-in localization features.
+localization:
+    fallback_when_missing: true # When set to true, fields with empty values will fallback to the default locale's value.
+    remove_default_locale_on_canonical: true # When set to true removes locale prefix on default locale canonical URLs
+
+# Define the seed used to generated the test data
+# Used in <bolt-core>/src/DataFixtures/ContentFixtures.php
+fixtures_seed: 87654
+
+# Globally enable / disable the validator for Fields
+validator_options:
+    enable: true
+
+# Options for user's avatar
+user_avatar:
+    upload_path: avatars
+    extensions_allowed: ['png', 'jpeg', 'jpg', 'gif']
+    default_avatar: '' # Put path of file locate in files directory
+
+# Settings for the reset password logic
+reset_password_settings:
+    show_already_requested_password_notice: true
+    mail_from: "do-not-reply@example.org"
+    mail_name: "Bolt CMS"
+    mail_subject: "Your password reset request"
+    mail_template: "reset_password/email.html.twig"

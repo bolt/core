@@ -164,7 +164,10 @@ class Canonical
 
     public function generateLink(?string $route, ?array $params, $canonical = false): ?string
     {
-        if (isset($params['_locale']) && $params['_locale'] === $this->defaultLocale) {
+        $removeDefaultLocaleOnCanonical = $this->config->get('general/localization/remove_default_locale_on_canonical', true);
+        $hasDefaultLocale = isset($params['_locale']) && $params['_locale'] === $this->defaultLocale;
+
+        if ($removeDefaultLocaleOnCanonical && $hasDefaultLocale) {
             unset($params['_locale']);
             $routeWithoutLocale = str_replace('_locale', '', $route);
 

@@ -61,8 +61,8 @@ trait WebContext
     public function iAmLoggedInAsWithPassword($username, $password)
     {
         $this->visit('/bolt/login');
-        $this->fillField('username', $username);
-        $this->fillField('password', $password);
+        $this->fillField('login[username]', $username);
+        $this->fillField('login[password]', $password);
         $this->pressButton('Log in');
     }
 

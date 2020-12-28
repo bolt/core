@@ -14,6 +14,7 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ListingController extends TwigAwareController implements FrontendZoneInterface
@@ -38,9 +39,18 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
      *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%", "_locale": "%app_locales%"},
      *     methods={"GET|POST"})
      */
-    public function listing(ContentRepository $contentRepository, string $contentTypeSlug): Response
+    public function listing(ContentRepository $contentRepository, string $contentTypeSlug, ?string $_locale = null): Response
     {
+        if ($_locale === null && ! $this->getFromRequest('_locale', null)) {
+            $this->request->setLocale($this->defaultLocale);
+        }
+
         $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+
+        // If the ContentType has 'viewless_listing' set to `true`, we throw a 404.
+        if ($contentType->get('viewless_listing') === true) {
+            throw new NotFoundHttpException('Content is not viewable');
+        }
 
         // If the locale is the wrong locale
         if (! $this->validLocaleForContentType($contentType)) {
@@ -70,6 +80,16 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $records = $this->setRecords($content, $amountPerPage, $page);
 
+        // Set canonical URL
+        $this->canonical->setPath(
+            'listing_locale',
+            array_merge([
+                'contentTypeSlug' => $contentType->get('slug'),
+                '_locale' => $this->request->getLocale(),
+            ], $queryParams)
+        );
+
+        // Render
         $templates = $this->templateChooser->forListing($contentType);
         $this->twig->addGlobal('records', $records);
 

@@ -66,7 +66,6 @@ RUN extBuildDeps=" \
     sed -i s'/pm.max_spare_servers = 3/pm.max_spare_servers = 35/' /usr/local/etc/php-fpm.d/www.conf && \
     echo 'ForwardAgent yes' >> /etc/ssh/ssh_config  && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative && \
     composer clear-cache && \
     mkdir -p /root/.ssh/ && \
     ssh-keyscan github.com >> /root/.ssh/known_hosts

@@ -140,12 +140,28 @@ class Content
     /** @var Environment */
     private $twig = null;
 
+    /**
+     * One content has many relations, to and from, these are relations pointing from this content.
+     *
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="fromContent")
+     */
+    private $relationsFromThisContent;
+
+    /**
+     * One content has many relations, to and from, these are relations pointing to this content.
+     *
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="toContent")
+     */
+    private $relationsToThisContent;
+
     public function __construct(?ContentType $contentTypeDefinition = null)
     {
         $this->createdAt = new \DateTime();
         $this->status = Statuses::DRAFT;
         $this->taxonomies = new ArrayCollection();
         $this->fields = new ArrayCollection();
+        $this->relationsFromThisContent = new ArrayCollection();
+        $this->relationsToThisContent = new ArrayCollection();
 
         if ($contentTypeDefinition) {
             $this->setContentType($contentTypeDefinition->getSlug());
@@ -743,5 +759,61 @@ class Content
         unset($result['contentExtension']);
 
         return $result;
+    }
+
+    public function getRelationsFromThisContent()
+    {
+        return $this->relationsFromThisContent;
+    }
+
+    public function addRelationsFromThisContent(Relation $relation): self
+    {
+        if (! $this->relationsFromThisContent->contains($relation)) {
+            $this->relationsFromThisContent[] = $relation;
+            $relation->setFromContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationsFromThisContent(Relation $relation): self
+    {
+        if ($this->relationsFromThisContent->contains($relation)) {
+            $this->relationsFromThisContent->removeElement($relation);
+            // set the owning side to null (unless already changed)
+            if ($relation->getFromContent() === $this) {
+                $relation->setFromContent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRelationsToThisContent()
+    {
+        return $this->relationsToThisContent;
+    }
+
+    public function addRelationsToThisContent(Relation $relation): self
+    {
+        if (! $this->relationsToThisContent->contains($relation)) {
+            $this->relationsToThisContent[] = $relation;
+            $relation->setToContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationsToThisContent(Relation $relation): self
+    {
+        if ($this->relationsToThisContent->contains($relation)) {
+            $this->relationsToThisContent->removeElement($relation);
+            // set the owning side to null (unless already changed)
+            if ($relation->getToContent() === $this) {
+                $relation->setToContent(null);
+            }
+        }
+
+        return $this;
     }
 }
