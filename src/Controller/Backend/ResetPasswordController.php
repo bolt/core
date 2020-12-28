@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bolt\Controller;
+namespace Bolt\Controller\Backend;
 
 use Bolt\Configuration\Config;
 use Bolt\Entity\User;
