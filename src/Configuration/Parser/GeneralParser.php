@@ -67,7 +67,7 @@ class GeneralParser extends BaseParser
             'sitename' => 'Default Bolt site',
             'records_per_page' => 10,
             'records_on_dashboard' => 5,
-            'theme' => 'base-2019',
+            'theme' => 'base-2020',
             'listing_template' => 'listing.html.twig',
             'listing_records' => '5',
             'listing_sort' => 'datepublish DESC',
