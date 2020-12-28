@@ -40,6 +40,7 @@ security:
     access_control:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
-        - { path: '^%bolt.backend_url%/(login||resetpassword|reset-password)$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^%bolt.backend_url%/login$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^%bolt.backend_url%/reset-password', roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: '^%bolt.backend_url%', roles: ROLE_ADMIN }
         - { path: '^/(%app_locales%)%bolt.backend_url%', roles: ROLE_ADMIN }
