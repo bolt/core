@@ -51,16 +51,4 @@ class AuthenticationController extends TwigAwareController implements BackendZon
     {
         throw new \Exception('This should never be reached!');
     }
-
-    /**
-     * @Route("/resetpassword", name="bolt_resetpassword")
-     *
-     * @deprecated 4.2
-     */
-    public function resetPassword(): Response
-    {
-        @trigger_error(sprintf('The method "resetPassword" of the class "%s" is deprecated since 4.2 and will be removed in 5.0.', self::class), E_USER_DEPRECATED);
-
-        return $this->redirectToRoute('bolt_forgot_password_request');
-    }
 }
