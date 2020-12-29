@@ -1,5 +1,8 @@
 # location of the files used for the migrations
-migrations: yaml-migrations
+migrations: vendor/bolt/core/yaml-migrations
+
+# location of the checkpoint
+checkpoint: config/checkpoint.txt
 
 # Folder of the source files
 source: config
