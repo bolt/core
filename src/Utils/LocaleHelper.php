@@ -6,7 +6,6 @@ namespace Bolt\Utils;
 
 use Bolt\Configuration\Config;
 use Bolt\Repository\ContentRepository;
-use peterkahl\flagMaster\flagMaster;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Exception\MissingResourceException;
 use Symfony\Component\Intl\Locales;
@@ -185,7 +184,7 @@ class LocaleHelper
         $locale = [
             'code' => $localeCode,
             'flag' => $flag,
-            'emoji' => flagMaster::emojiFlag($flag),
+            'emoji' => FlagMaster::emojiFlag($flag),
         ];
 
         try {
