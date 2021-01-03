@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Utils;
 
+use bobdenotter\flagMaster\flagMaster;
 use Bolt\Configuration\Config;
 use Bolt\Repository\ContentRepository;
 use Symfony\Component\HttpFoundation\Request;
