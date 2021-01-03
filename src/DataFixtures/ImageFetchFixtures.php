@@ -15,8 +15,7 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    /** @var Collection */
-    private $urls;
+    private const URL = "https://placeholder.boltcms.io/getfiles";
 
     /** @var FileLocations */
     private $fileLocations;
@@ -29,15 +28,6 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 
     public function __construct(FileLocations $fileLocations, Config $config)
     {
-        $this->urls = new Collection([
-            ['stock', 'https://source.unsplash.com/1280x1024/?business,workspace,interior/'],
-            ['stock', 'https://source.unsplash.com/1280x1024/?cityscape,landscape,nature/'],
-            ['stock', 'https://source.unsplash.com/1280x1024/?technology,product/'],
-            ['animal', 'https://source.unsplash.com/1280x1024/?animal,kitten,puppy,cute/'],
-            ['people', 'https://source.unsplash.com/1280x1024/?portrait,face,headshot/'],
-            ['people', 'https://source.unsplash.com/1280x1024/?portrait,face,headshot/'],
-        ]);
-
         $this->curlOptions = $config->get('general/curl_options')->all();
 
         $this->fileLocations = $fileLocations;
@@ -65,29 +55,37 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 
         $progressBar->start();
 
-        for ($i = 1; $i <= self::AMOUNT; $i++) {
-            $random = $this->urls->random();
-            $url = $random[1] . random_int(10000, 99999);
-            $filename = 'image_' . random_int(10000, 99999) . '.jpg';
+//        for ($i = 1; $i <= self::AMOUNT; $i++) {
+//            $random = $this->urls->random();
+//            $url = $random[1] . random_int(10000, 99999);
+//            $filename = 'image_' . random_int(10000, 99999) . '.jpg';
+//
+//            $client = HttpClient::create();
+//            $resource = fopen($this->getOutputPath($random[0]) . $filename, 'w');
+//
+//            $image = $client->request('GET', $url, $this->curlOptions)->getContent();
+//
+//            fwrite($resource, $image);
+//            fclose($resource);
+//
+//            $progressBar->advance();
+//        }
+        $client = HttpClient::create();
+        $resource = fopen($this->getOutputPath() . 'placeholders.zip', 'w');
 
-            $client = HttpClient::create();
-            $resource = fopen($this->getOutputPath($random[0]) . $filename, 'w');
 
-            $image = $client->request('GET', $url, $this->curlOptions)->getContent();
-
-            fwrite($resource, $image);
-            fclose($resource);
-
-            $progressBar->advance();
-        }
+        $file = $client->request('GET', self::URL, $this->curlOptions)->getContent();
+        fwrite($resource, $file);
+        fclose($resource);
+//
 
         $progressBar->finish();
         $output->writeln('');
     }
 
-    private function getOutputPath(string $sub): string
+    private function getOutputPath(): string
     {
-        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/' . $sub . '/';
+        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/';
 
         if (! is_dir($outputPath)) {
             mkdir($outputPath);
