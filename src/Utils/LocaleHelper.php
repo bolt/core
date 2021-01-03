@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bolt\Utils;
 
-use bobdenotter\flagMaster\flagMaster;
 use Bolt\Configuration\Config;
 use Bolt\Repository\ContentRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -185,7 +184,7 @@ class LocaleHelper
         $locale = [
             'code' => $localeCode,
             'flag' => $flag,
-            'emoji' => flagMaster::emojiFlag($flag),
+            'emoji' => FlagMaster::emojiFlag($flag),
         ];
 
         try {
