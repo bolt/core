@@ -28,6 +28,7 @@
         "knplabs/knp-menu-bundle": "^3.0",
         "league/glide-symfony": "^1.0",
         "miljar/php-exif": "^0.6.4",
+        "nelexa/zip": "^3.3",
         "nelmio/cors-bundle": "^2.1",
         "nesbot/carbon": "^2.39",
         "php-translation/symfony-bundle": "^0.12",
@@ -72,6 +73,9 @@
         "webmozart/path-util": "^2.3",
         "webonyx/graphql-php": "^0.13",
         "xemlock/htmlpurifier-html5": "^0.1.11"
+    },
+    "replace": {
+        "paragonie/random_compat": "9.99.99"
     },
     "require-dev": {
         "ext-curl": "*",
