@@ -1,6 +1,26 @@
 Changelog
 =========
 
+## 4.1.10
+
+Released: 2021-01-03
+
+### 🐛 Bug fixes
+
+- Fix escaping of ContentType names in listing pages (bobdenotter, [#2266](https://github.com/bolt/core/pull/2266))
+- Set `base-2020` in `GeneralParser.php` (bobdenotter, [#2264](https://github.com/bolt/core/pull/2264))
+- Don't sanitise markdown fields (I-Valchev, [#2255](https://github.com/bolt/core/pull/2255))
+- Pager `Previous` and `Next` are localized labels. `active` state for basic pager. (I-Valchev, [#2254](https://github.com/bolt/core/pull/2254))
+
+### 🛠️ Miscellaneous
+
+- Update `routes.yaml` (peterboorsma, [#2273](https://github.com/bolt/core/pull/2273))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Remove (abandoned) `peterkahl/country-code-to-emoji-flag` package (bobdenotter, [#2276](https://github.com/bolt/core/pull/2276))
+- Force php 7.2 in GitHub Actions (I-Valchev, [#2253](https://github.com/bolt/core/pull/2253))
+
 ## 4.1.9
 
 Released: 2020-12-14
