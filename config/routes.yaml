@@ -1,6 +1,6 @@
 # This file defines routes for the frontend and control panel of your Bolt
 # website. Check below for examples, or read the documentation at
-# https://docs.bolt.cm/configuration/routing
+# https://docs.bolt.cm/4.0/routing
 
 # ------------------------------------------------------------------------------
 # Place your own routes here, that have a HIGHER priority than the default routes.
