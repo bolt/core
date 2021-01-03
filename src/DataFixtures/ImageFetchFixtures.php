@@ -8,19 +8,18 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\FileLocations;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
-use Illuminate\Support\Collection;
+use GuzzleHttp\Client;
+use PhpZip\ZipFile;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\HttpClient\HttpClient;
 
 class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 {
-    private const URL = "https://placeholder.boltcms.io/getfiles";
+    private const URL = 'https://placeholder.boltcms.io/getfiles';
 
     /** @var FileLocations */
     private $fileLocations;
 
-    private const AMOUNT = 20;
     private const MAX_AMOUNT = 50;
 
     /** @var array */
@@ -51,46 +50,46 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
     private function fetchImages(): void
     {
         $output = new ConsoleOutput();
-        $progressBar = new ProgressBar($output, self::AMOUNT);
+        $resource = fopen($this->getOutputFile(), 'w');
 
-        $progressBar->start();
+        $client = new Client([
+            'progress' => function ($total, $downloaded) use ($output, &$progress): void {
+                if ($total > 0 && $progress === null) {
+                    $progress = new ProgressBar($output, 100);
+                    $progress->setRedrawFrequency(5);
+                    $progress->start();
+                }
 
-//        for ($i = 1; $i <= self::AMOUNT; $i++) {
-//            $random = $this->urls->random();
-//            $url = $random[1] . random_int(10000, 99999);
-//            $filename = 'image_' . random_int(10000, 99999) . '.jpg';
-//
-//            $client = HttpClient::create();
-//            $resource = fopen($this->getOutputPath($random[0]) . $filename, 'w');
-//
-//            $image = $client->request('GET', $url, $this->curlOptions)->getContent();
-//
-//            fwrite($resource, $image);
-//            fclose($resource);
-//
-//            $progressBar->advance();
-//        }
-        $client = HttpClient::create();
-        $resource = fopen($this->getOutputPath() . 'placeholders.zip', 'w');
+                if ($downloaded > 0) {
+                    $progress->setProgress((int) round($downloaded / $total * 80.0));
+                }
+            },
+            'sink' => $resource,
+        ]);
 
+        $client->request('GET', self::URL, $this->curlOptions);
+        $progress->finish();
 
-        $file = $client->request('GET', self::URL, $this->curlOptions)->getContent();
-        fwrite($resource, $file);
-        fclose($resource);
-//
+        $zipFile = new ZipFile();
 
-        $progressBar->finish();
+        $zipFile->openFile($this->getOutputFile())->extractTo($this->getOutputPath());
+
         $output->writeln('');
     }
 
     private function getOutputPath(): string
     {
-        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/';
+        $outputPath = $this->fileLocations->get('files')->getBasepath() . '/stock/';
 
         if (! is_dir($outputPath)) {
             mkdir($outputPath);
         }
 
         return $outputPath;
+    }
+
+    private function getOutputFile(): string
+    {
+        return $this->getOutputPath() . 'placeholders.zip';
     }
 }
