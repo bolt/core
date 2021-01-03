@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bolt\Utils;
 
+use bobdenotter\flagMaster\flagMaster;
 use Bolt\Configuration\Config;
 use Bolt\Repository\ContentRepository;
-use peterkahl\flagMaster\flagMaster;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Exception\MissingResourceException;
 use Symfony\Component\Intl\Locales;
