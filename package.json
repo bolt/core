@@ -28,7 +28,7 @@
     },
     "dependencies": {
         "@vue/cli-service": "^4.5.9",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "baguettebox.js": "^1.11.1",
         "bootbox": "^5.5.2",
         "bootstrap": "^4.5.3",
