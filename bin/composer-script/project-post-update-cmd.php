@@ -20,7 +20,7 @@ run('php bin/yaml-migrate process -c config.yaml -v', $symfonyStyle);
 run('php bin/console assets:install --symlink --relative %PUBLIC_DIR%', $symfonyStyle);
 run('php bin/console bolt:copy-assets', $symfonyStyle);
 
-// Configure Bolt extensions
+// (Re-)configure Bolt extensions
 run('php bin/console extensions:configure --with-config --ansi', $symfonyStyle);
 
 // Check for database migrations
@@ -28,6 +28,6 @@ $migrate = "Database is out-of-date. To update the database, run `php bin/consol
 $migrate .= " You are strongly advised to backup your database before migrating.";
 run('php bin/console doctrine:migrations:up-to-date', $symfonyStyle, false, $migrate);
 
-// @auto-scripts
+// Clear cache, show Bolt info
 run('php bin/console cache:clear --no-warmup', $symfonyStyle);
 run('php bin/console bolt:info --ansi', $symfonyStyle);
