@@ -15,10 +15,10 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - uses: shivammathur/setup-php@v1
-                with:
-                    # test the lowest version, to make sure checks pass on it
-                    php-version: ${{ matrix.php-version }}
-                    coverage: none
+              with:
+                # test the lowest version, to make sure checks pass on it
+                php-version: ${{ matrix.php-version }}
+                coverage: none
             -   name: Install dependencies
                 run: |
                     sudo composer self-update -q
