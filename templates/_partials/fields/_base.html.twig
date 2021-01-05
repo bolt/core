@@ -37,6 +37,9 @@
 {# Set pattern #}
 {% set pattern = field.definition.get('pattern')|default(false) %}
 
+{# Set maxlength #}
+{% set maxlength = field.definition.get('maxlength')|default('') %}
+
 {% set type_collection = (type in ['collection']) %}
 {% set type_card = (type in ['imagelist', 'filelist', 'set']) %}
 

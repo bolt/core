@@ -52,6 +52,7 @@ class FieldType extends Collection
             // 10 rows by default
             'height' => '10',
             'icon' => '',
+            'maxlength' => '',
         ]);
     }
 

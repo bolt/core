@@ -11,6 +11,7 @@
             :pattern="pattern"
             :placeholder="placeholder"
             :style="{ height: styleHeight }"
+            :maxlength="maxlength"
         ></textarea>
     </div>
 </template>
@@ -30,6 +31,7 @@ export default {
         pattern: String | Boolean,
         placeholder: String | Boolean,
         height: String | Number,
+        maxlength: String,
     },
     data() {
         return {
