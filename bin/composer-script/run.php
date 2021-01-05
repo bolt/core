@@ -2,16 +2,14 @@
 
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-function run(string $command, SymfonyStyle $symfonyStyle, bool $withOutput = false, string $onerror = ''): void {
+function run(string $command, SymfonyStyle $symfonyStyle, bool $withOutput = false, string $message = ''): void {
     exec($command, $output, $return);
     if ($return) {
-        if (empty($onerror)) {
-            // Some error occurred.
+        // Some error occurred.
+        if (empty($message)) {
             $message = sprintf("Command '%s' failed. %s", $command, implode("\n", $output));
-            $symfonyStyle->error($message);
-        } else {
-            $symfonyStyle->error($onerror);
         }
+        $symfonyStyle->error($message);
     } else {
         if ($withOutput) {
             $symfonyStyle->text($output);
