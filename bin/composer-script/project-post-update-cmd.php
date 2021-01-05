@@ -5,7 +5,7 @@
  */
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../../../../vendor/autoload.php';
 require __DIR__ . '/run.php';
 
 $symfonyStyleFactory = new SymfonyStyleFactory();
