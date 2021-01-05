@@ -135,7 +135,10 @@
             <p>{{ contentType.description }}</p>
         {% endif %}
 
+        {% set showingRecords = ((records.currentPage -1) * records.maxPerPage + 1 ) ~ '-'
+            ~ ((records.currentPage -1) * records.maxPerPage + records|length) %}
         <ul class="px-2">
+            <li>Showing records <strong>{{ showingRecords}}</strong> of <strong>{{ records.nbResults }}</strong></li>
             <li>Name: <code>{{ contentType.name }}</code> (singular: <code>{{ contentType.singular_name }}</code>)</li>
             <li>Slug: <code>{{ contentType.slug }}</code> (singular: <code>{{ contentType.singular_slug }}</code>)</li>
             <li>Record template: <code>{{ contentType.record_template }}</code></li>
