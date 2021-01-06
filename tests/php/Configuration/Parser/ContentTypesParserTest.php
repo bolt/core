@@ -17,7 +17,7 @@ class ContentTypesParserTest extends ParserTestBase
 
     public const AMOUNT_OF_ATTRIBUTES_IN_CONTENT_TYPE = 26;
 
-    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 26;
+    public const AMOUNT_OF_ATTRIBUTES_IN_FIELD = 27;
 
     public const ALLOWED_LOCALES = 'en|nl|es|fr|de|pl|it|hu|pt_BR|ja|nb|nn|nl_NL|nl_BE';
 
