@@ -8,7 +8,6 @@
             :required="required"
             :readonly="readonly"
             :data-errormessage="errormessage"
-            :pattern="pattern"
             :placeholder="placeholder"
             :style="{ height: styleHeight }"
             :maxlength="maxlength"
@@ -28,7 +27,6 @@ export default {
         required: Boolean,
         readonly: Boolean,
         errormessage: String | Boolean,
-        pattern: String | Boolean,
         placeholder: String | Boolean,
         height: String | Number,
         maxlength: String,
