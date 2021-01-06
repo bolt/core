@@ -14,7 +14,7 @@ $symfonyStyle = $symfonyStyleFactory->create();
 $symfonyStyle->note('Running composer "post-update-cmd" scripts');
 
 // Run yaml migrations
-run('php bin/yaml-migrate process -c config.yaml -v', $symfonyStyle);
+run('php vendor/bobdenotter/yaml-migrations/bin/yaml-migrate process -c vendor/bolt/core/yaml-migrations/config.yaml -v', $symfonyStyle);
 
 // Install and copy the Bolt assets.
 run('php bin/console assets:install --symlink --relative public', $symfonyStyle);
