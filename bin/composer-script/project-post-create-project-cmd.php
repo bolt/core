@@ -20,4 +20,4 @@ run('php bin/post-create-project.php', $symfonyStyle);
 run('php bin/console bolt:copy-themes', $symfonyStyle);
 
 // Run the welcome command
-run('php bin/console bolt:welcome', $symfonyStyle);
+run('php bin/console bolt:welcome', $symfonyStyle, true);
