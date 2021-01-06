@@ -74,9 +74,6 @@
         "webonyx/graphql-php": "^0.13",
         "xemlock/htmlpurifier-html5": "^0.1.11"
     },
-    "replace": {
-        "paragonie/random_compat": "9.99.99"
-    },
     "require-dev": {
         "ext-curl": "*",
         "ext-pdo_sqlite": "*",
