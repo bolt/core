@@ -52,8 +52,8 @@ Feature: Edit record
     And I wait for "fields[embed][title]" field value to change
     Then the "fields[embed][title]" field should contain "Silversun Pickups - Nightlight (Official Video)"
     And the "fields[embed][authorname]" field should contain "Silversun Pickups"
-    And the "fields[embed][width]" field should contain "480"
-    And the "fields[embed][height]" field should contain "270"
+    And the "fields[embed][width]" field should contain "200"
+    And the "fields[embed][height]" field should contain "113"
 
     When I click ".editor__embed .remove"
 #   Add wait to make sure JS clears the fields before assert occurs
