@@ -17,7 +17,7 @@ $symfonyStyle->note('Running composer "post-update-cmd" scripts');
 run('php bin/yaml-migrate process -c config.yaml -v', $symfonyStyle);
 
 // Install and copy the Bolt assets.
-run('php bin/console assets:install --symlink --relative %PUBLIC_DIR%', $symfonyStyle);
+run('php bin/console assets:install --symlink --relative public', $symfonyStyle);
 run('php bin/console bolt:copy-assets', $symfonyStyle);
 
 // (Re-)configure Bolt extensions
@@ -30,4 +30,4 @@ run('php bin/console doctrine:migrations:up-to-date', $symfonyStyle, false, $mig
 
 // Clear cache, show Bolt info
 run('php bin/console cache:clear --no-warmup', $symfonyStyle);
-run('php bin/console bolt:info --ansi', $symfonyStyle);
+run('php bin/console bolt:info --ansi', $symfonyStyle, true);
