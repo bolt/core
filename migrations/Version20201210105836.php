@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-namespace DoctrineMigrations;
+/** Do not change the namespace. It has to be identical to the configuration in `doctrine_migrations.yaml` */
+namespace Bolt\DoctrineMigrations;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Schema;
