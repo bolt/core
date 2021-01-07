@@ -27,7 +27,7 @@
             },
             options: [
                 {% for file in allfiles %}
-                { value: '{{ path('bolt_file_edit', {'location': 'config', 'file': file.filename}) }}', filename: '{{ file.filename }}', description: '{{ file.description }}'},
+                { value: '{{ path('bolt_file_edit', {'location': 'config', 'file': file.filename}) }}', filename: '{{ file.filename }}', description: '{{ file.description|slice(0,70) ~ '…' }}'},
                 {% endfor %}
             ],
             render: {
