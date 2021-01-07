@@ -39,9 +39,9 @@ HELP
 
         $this->outputImage($io);
 
-        $io->info('Welcome to your new Bolt project. To set up the database, run `bin/console bolt:setup`');
+        $io->info('Welcome to your new Bolt project. To set up the database, run `bin/console bolt:setup` inside your new project folder.');
         $io->text('For the full setup instructions, and other documentation, visit <href=https://docs.bolt.cm/installation/installation>https://docs.bolt.cm/installation/installation</>');
-        $io->text('To ask questions and learn form our community, join our Slack channel: <href=https://slack.bolt.cm/>https://slack.bolt.cm/</>');
+        $io->text('To ask questions and learn from our community, join our Slack channel: <href=https://slack.bolt.cm/>https://slack.bolt.cm/</>');
         $io->text('Additional resources and tips are available at <href=https://bolt.tips/>https://bolt.tips/</>');
 
         $io->info('Happy building!');
