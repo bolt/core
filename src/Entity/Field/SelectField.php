@@ -90,4 +90,9 @@ class SelectField extends Field implements FieldInterface, RawPersistable
 
         return false;
     }
+
+    public function getDefaultValue()
+    {
+        return [parent::getDefaultValue()];
+    }
 }
