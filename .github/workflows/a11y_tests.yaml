@@ -8,6 +8,8 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
+                php-version: ['7.2']
+                node-version: ['12.5']
                 actions:
                     -
                         name: Run pa11yci
@@ -24,7 +26,11 @@ jobs:
                 name: Use Node.js 12.5
                 uses: actions/setup-node@v1
                 with:
-                    node-version: 12.5
+                    node-version: ${{ matrix.node-version }}
+            - uses: shivammathur/setup-php@v1
+              with:
+                  # test the lowest version, to make sure checks pass on it
+                  php-version: ${{ matrix.php-version }}
 
             -   name: Install dependencies
                 run: |
