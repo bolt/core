@@ -52,11 +52,8 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
         $output = new ConsoleOutput();
         $resource = fopen($this->getOutputFile(), 'w');
 
-        $client = HttpClient::create();
-
         $progress = new ProgressBar($output, 100);
         $progress->setRedrawFrequency(5);
-        $progress->start();
 
         $this->curlOptions['on_progress'] = function (int $downloaded) use ($progress): void {
             if ($downloaded > 0) {
@@ -65,6 +62,7 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
             }
         };
 
+        $client = HttpClient::create();
         $file = $client->request('GET', self::URL, $this->curlOptions)->getContent();
 
         fwrite($resource, $file);
@@ -73,7 +71,6 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
         $progress->finish();
 
         $zipFile = new ZipFile();
-
         $zipFile->openFile($this->getOutputFile())->extractTo($this->getOutputPath());
 
         $output->writeln('');
