@@ -39,12 +39,6 @@ jobs:
                     ./bin/console bolt:info	--ansi
                     npm set progress=false	
                     npm ci	
-                    mkdir -p ./var/log/e2e-reports/report/features/	
-                    touch ./var/log/e2e-reports/report/features/.gitkeep	
-                    # Install latest stable Chrome for e2e tests	
-                    sudo apt-get install libxss1 libappindicator1 libindicator7	
-                    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb	
-                    sudo apt install ./google-chrome*.deb
             -   name: Prepare environment
                 run: |
                     # build assets	
