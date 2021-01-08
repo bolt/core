@@ -1,0 +1,32 @@
+name: Accessibility (a11y) Tests
+
+on:
+    pull_request:
+
+jobs:
+    a11y_tests:
+        strategy:
+            fail-fast: false
+            matrix:
+                actions:
+                    -
+                        name: Run pa11yci
+                        run: npm run a11y:pa11y-ci
+
+        name: ${{ matrix.actions.name }}
+        runs-on: ubuntu-latest
+
+        steps:
+            -   uses: actions/checkout@v2
+
+            # see https://github.com/actions/starter-workflows/blob/main/ci/node.js.yml
+            -
+                name: Use Node.js 12.5
+                uses: actions/setup-node@v1
+                with:
+                    node-version: 12.5
+
+            # same as "npm install", just uses package-lock.json", see https://stackoverflow.com/a/53325242/1348344
+            -   run: npm ci
+
+            -   run: ${{ matrix.actions.run }}

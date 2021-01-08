@@ -1,0 +1,34 @@
+{
+    "defaults": {
+        "threshold": 82,
+        "concurrency": 1
+    },
+    "urls": [
+        {
+            "url": "127.0.0.1:8088/bolt/login",
+            "actions": [
+                "set field #login_username to admin",
+                "set field #login_password to admin%1",
+                "click element button[type=submit]",
+                "wait for url to be http://127.0.0.1:8088/bolt/"
+            ]
+        },
+        "127.0.0.1:8088/bolt/",
+        "127.0.0.1:8088/bolt/content/showcases",
+        "127.0.0.1:8088/bolt/new/showcases",
+        "127.0.0.1:8088/bolt/edit/1",
+        "127.0.0.1:8088/bolt/edit_locales/1",
+        "127.0.0.1:8088/bolt/kitchensink",
+        "127.0.0.1:8088/bolt/logviewer",
+        "127.0.0.1:8088/bolt/filemanager/files",
+        "127.0.0.1:8088/bolt/media/new",
+        "127.0.0.1:8088/bolt/menu/filemanagement",
+        "127.0.0.1:8088/bolt/file-edit/config?file=/bolt/taxonomy.yaml",
+        "127.0.0.1:8088/bolt/users",
+        "127.0.0.1:8088/bolt/user-edit/1",
+        "127.0.0.1:8088/bolt/profile-edit",
+        "127.0.0.1:8088/bolt/extensions",
+        "127.0.0.1:8088/bolt/extensions/AcmeCorp%5CReferenceExtension%5CExtension",
+        "127.0.0.1:8088/bolt/clearcache"
+    ]
+}
