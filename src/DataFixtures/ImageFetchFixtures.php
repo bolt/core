@@ -8,10 +8,10 @@ use Bolt\Configuration\Config;
 use Bolt\Configuration\FileLocations;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
-use GuzzleHttp\Client;
 use PhpZip\ZipFile;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\HttpClient\HttpClient;
 
 class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
 {
@@ -52,26 +52,25 @@ class ImageFetchFixtures extends BaseFixture implements FixtureGroupInterface
         $output = new ConsoleOutput();
         $resource = fopen($this->getOutputFile(), 'w');
 
-        $client = new Client([
-            'progress' => function ($total, $downloaded) use ($output, &$progress): void {
-                if ($total > 0 && $progress === null) {
-                    $progress = new ProgressBar($output, 100);
-                    $progress->setRedrawFrequency(5);
-                    $progress->start();
-                }
+        $progress = new ProgressBar($output, 100);
+        $progress->setRedrawFrequency(5);
 
-                if ($downloaded > 0) {
-                    $progress->setProgress((int) round($downloaded / $total * 80.0));
-                }
-            },
-            'sink' => $resource,
-        ]);
+        $this->curlOptions['on_progress'] = function (int $downloaded) use ($progress): void {
+            if ($downloaded > 0) {
+                // The file is about 9 mb, we count to 80%, so 9000000 / 80 = 112500
+                $progress->setProgress((int) round($downloaded / 112500));
+            }
+        };
 
-        $client->request('GET', self::URL, $this->curlOptions);
+        $client = HttpClient::create();
+        $file = $client->request('GET', self::URL, $this->curlOptions)->getContent();
+
+        fwrite($resource, $file);
+        fclose($resource);
+
         $progress->finish();
 
         $zipFile = new ZipFile();
-
         $zipFile->openFile($this->getOutputFile())->extractTo($this->getOutputPath());
 
         $output->writeln('');
