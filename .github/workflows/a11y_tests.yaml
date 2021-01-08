@@ -11,7 +11,7 @@ jobs:
                 actions:
                     -
                         name: Run pa11yci
-                        run: npm run a11y:pa11y-ci
+                        run: npm run a11y:ci
 
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
