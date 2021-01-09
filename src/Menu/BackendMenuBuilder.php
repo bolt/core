@@ -333,8 +333,8 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $contentTypes = $this->config->get('contenttypes')->whereStrict('show_in_menu', true);
 
         foreach ($contentTypes as $contentType) {
-            // add only if the user can 'view'
-            if (! $this->authorizationChecker->isGranted(ContentVoter::CONTENT_VIEW, $contentType)) {
+            // add only if the user can or needs to access this contenttype (for view, edit, ...)
+            if (! $this->authorizationChecker->isGranted(ContentVoter::CONTENT_MENU_LISTING, $contentType)) {
                 continue;
             }
             $menu->addChild($contentType->getSlug(), [
@@ -345,7 +345,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                     'slug' => $contentType->getSlug(),
                     'singular_slug' => $contentType['singular_slug'],
                     'icon' => $contentType['icon_many'],
-                    'link_new' => $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType->getSlug()]),
+                    'link_new' => $this->authorizationChecker->isGranted(ContentVoter::CONTENT_CREATE, $contentType) ? $this->urlGenerator->generate('bolt_content_new', ['contentType' => $contentType->getSlug()]) : null,
                     'link_listing' => $contentType->getSlug(),
                     'singleton' => $contentType['singleton'],
                     'active' => $contentType->getSlug() === 'pages' ? true : false,
