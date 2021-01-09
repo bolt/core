@@ -101,7 +101,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
                 'username' => 'henkie',
                 'password' => $this->append ? Str::generatePassword(10) : 'henkie%1',
                 'email' => 'henkie@example.org',
-                'roles' => ['ROLE_EDITOR'],
+                'roles' => ['ROLE_EDITOR', 'ROLE_EXTRA_1', 'ROLE_EXTRA_2', 'ROLE_USER_FRONTEND_GROUP1'],
             ],
             [
                 'displayname' => 'Jane Doe',
