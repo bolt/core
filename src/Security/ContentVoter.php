@@ -50,7 +50,7 @@ class ContentVoter extends Voter
     {
         $this->security = $security;
 
-        $this->contenttypePermissionsAll = $config->get('permissions/contenttype-all', collect([]));
+        $this->contenttypePermissionsAll = $config->get('permissions/contenttype-base', collect([]));
         $this->contenttypePermissionsDefault = $config->get('permissions/contenttype-default', collect([]));
         $this->contenttypePermissions = $config->get('permissions/contenttypes', null);
 
