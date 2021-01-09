@@ -402,7 +402,7 @@ class ContentExtension extends AbstractExtension
 
     public function getEditLink(?Content $content): ?string
     {
-        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted('ROLE_ADMIN')) {
+        if (! $content instanceof Content || $content->getId() === null || ! $this->security->getUser() || ! $this->security->isGranted(ContentVoter::CONTENT_EDIT, $content)) {
             return null;
         }
 
