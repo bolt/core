@@ -37,8 +37,22 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
 
+// utility method not of real use outside this controller
+function datesDiffer(?\DateTime $dateTime1, ?\DateTime $dateTime2): bool
+{
+    if ($dateTime1 !== null) {
+        if ($dateTime2 !== null) {
+            return $dateTime1->getTimestamp() !== $dateTime2->getTimestamp();
+        }
+        // $dateTime2 null while $dateTime1 is not
+        return true;
+    }
+    // $dateTime1 is null, so if $dateTime2 is NOT null they differ
+    return $dateTime2 !== null;
+}
+
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * CRUD + status, duplicate, preview, for content - note that listing is handled by ListingController.php
  */
 class ContentEditController extends TwigAwareController implements BackendZoneInterface
 {
@@ -124,7 +138,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
      */
     public function edit(Content $content): Response
     {
-        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
+//        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
 
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::ON_EDIT);
@@ -135,20 +150,44 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
     /**
      * @Route("/edit/{id}", name="bolt_content_edit_post", methods={"POST"}, requirements={"id": "\d+"})
      */
-    public function save(?Content $content = null, ?ContentValidatorInterface $contentValidator = null): Response
+    public function save(?Content $originalContent = null, ?ContentValidatorInterface $contentValidator = null): Response
     {
         $this->validateCsrf('editrecord');
 
-        $content = $this->contentFromPost($content);
+        // pre-check on original content, store properties for later comparison
+        if ($originalContent !== null) {
+            $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $originalContent);
+            $originalStatus = $originalContent->getStatus();
+            $originalPublishedAt = $originalContent->getPublishedAt();
+            $originalDepublishedAt = $originalContent->getDepublishedAt();
+            $originalAuthor = $originalContent->getAuthor();
+        } else {
+            $originalStatus = null;
+            $originalPublishedAt = null;
+            $originalDepublishedAt = null;
+            $originalAuthor = null;
+        }
 
-        // TODO PERMISSIONS -- we also have to check for status (and future: owner) changes
-        // hmm, how to handle changes of status for a new item? Is that a thing? --> maybe prevent changing from the default?
-        /*
-            status	"[\"published\"]"
-            publishedAt	"2020-10-23T02:20:41.000Z"
-            depublishedAt	""
-         */
+        $content = $this->contentFromPost($originalContent);
+
+        // check again on new/updated content, this is needed in case the save action is used to create a new item
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
+
+        // check for status (and owner, but that hasn't been implemented in the forms yet) changes
+        if ($originalContent !== null) {
+            // deny if we detect any of these status fields being changed
+            if (
+                $originalStatus !== $content->getStatus() ||
+                datesDiffer($originalPublishedAt, $content->getPublishedAt()) ||
+                datesDiffer($originalDepublishedAt, $content->getDepublishedAt())
+            ) {
+                $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CHANGE_STATUS, $content);
+            }
+            // deny if owner changes
+            if ($originalAuthor !== $content->getAuthor()) {
+                $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CHANGE_OWNERSHIP, $content);
+            }
+        }
 
         // check if validator should be enabled (default for bolt 4.x is not enabled)
         $enableContentValidator = $this->config->get('general/validator_options/enable', false);

@@ -74,10 +74,7 @@ global:
 # To understand how this works, it may be best to follow the permission checker
 # through its decision-making process.
 #
-# First, it checks whether the current user is in the "root" role; if so, it
-# short-circuits and always grants anything unconditionally.
-#
-# Otherwise, it checks whether any of the current user's roles match any of the
+# First it checks whether any of the current user's roles match any of the
 # roles in contenttype-base/{permission}. If so, the search is over, and the
 # permission can be granted.
 #
@@ -108,8 +105,9 @@ global:
 #                     permission can indirectly enable users more permissions
 #                     in ways that may not be immediately obvious.
 # - view: allows viewing records in the backend (listings, content/fields)
-
-
+#
+# Note that all permissions imply 'view' permission, so you don't have to give 'view' along with 'edit'
+# Note change-ownership is available as a setting but is not implemented in the bolt admin at the moment
 
 # these permissions will be set for all contenttypes, config below can add additional roles to these, but they can not be overridden
 contenttype-base:
@@ -128,7 +126,6 @@ contenttype-default:
     change-ownership: [ CONTENT_OWNER ] # <-- how to handle chance-ownership permission without 'edit'?
     view: [ ROLE_CHIEF_EDITOR ]
 #    view: [ IS_AUTHENTICATED_FULLY ]
-#    show-in-menu: [ IS_AUTHENTICATED_FULLY ] # <-- not a useful permission after all
 
 
 contenttypes:
