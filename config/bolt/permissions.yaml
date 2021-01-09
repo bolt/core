@@ -113,7 +113,7 @@ global:
 contenttype-base:
     edit: [ ROLE_ADMIN ]
     create: [ ROLE_ADMIN ]
-    change-status: [ ROLE_ADMIN ]
+    change-status: [ ROLE_ADMIN ] # <-- TODO PERMISSIONS how to handle change-status permission without 'edit'? For now it will just not work!
     delete: [ ROLE_ADMIN ]
     change-ownership: [ ROLE_ADMIN ]
     view: [ ROLE_ADMIN ] # = show in menu, show listings, open 'edit' view without actually being able to edit, any of the other permissions always imply 'view'
@@ -145,11 +145,18 @@ contenttypes:
 #        create: [ ROLE_CHIEF_EDITOR ]
 #        change-status: [ ROLE_CHIEF_EDITOR ]
 #        delete: [ ROLE_CHIEF_EDITOR ]
-#        show-in-menu: [ ROLE_CHIEF_EDITOR ]
     pages:
         edit: [ ROLE_EDITOR, CONTENT_OWNER ]
         create: [ ROLE_EDITOR ]
         change-ownership: [ CONTENT_OWNER ]
         view: [ ROLE_USER ]
-#        view: [ IS_AUTHENTICATED_FULLY ]
-#        show-in-menu: [ IS_AUTHENTICATED_FULLY ] #<-- not useful after all
+    entries:
+#        edit: [ ROLE_EDITOR ]
+#        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
+#        create: [ ROLE_EDITOR ]
+#        change-ownership: [ CONTENT_OWNER ]
+        view: [ ROLE_EDITOR ] 
+    homepage: # singleton
+        view: [ ROLE_EDITOR ]
+#        edit: [ ROLE_EDITOR ]
+#        create: [ ROLE_EDITOR ]
