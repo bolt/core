@@ -6,14 +6,19 @@
 
 # roles that are presented in the list when editing a user 
 # these will be filtered based on the user's own level to make sure you don't assign
-# roles 'above' yourself.
-# TODO implement
-# note: ROLE_USER is assigned to Bolt Entity Users if no roles have been set
-assignable_roles: [ROLE_DEVELOPER, ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_USER]
-# some roles are not in the role hierarchy and not assigned to 'normal' back end users
-# if they should be assignable you need to add them here
-assignable_roles_unchecked: [ROLE_USER_FRONTEND_GROUP1, ROLE_USER_FRONTEND_GROUP2]
+# roles 'above' yourself. Any role you have yourself you can assign to others. 
+# (This is assuming roles are defined in the symfony security config and ordered in a 
+# hierarchy in config/packages/security.yaml)
 
+# note: ROLE_USER is assigned to Bolt Entity Users if no roles have been set
+# it is not included in this list as it should not be added/removed
+assignable_roles: [ROLE_DEVELOPER, ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR]
+# some roles are not in the role hierarchy and/or not assigned to 'normal' back end users
+# the default is to leave these roles 'as is'
+# if they should be assignable you need to add them here, these roles can be assigned by 
+# users with the global 'assign_unchecked_roles' permission (see below)
+# for other users the behavior will be to leave them 'as is'
+assignable_roles_unchecked: [ROLE_USER_FRONTEND_GROUP1, ROLE_USER_FRONTEND_GROUP2]
 
 # These permissions are the 'global' permissions; these are not tied
 # to any content types, but rather apply to global, non-content activity in
@@ -52,11 +57,12 @@ global:
     kitchensink: [ ROLE_DEVELOPER ]
     upload: [ ROLE_EDITOR ] # upload media/files
     extensionmenus: [ IS_AUTHENTICATED_FULLY ] # allows you to see menu items added by extensions
+    assign_unchecked_roles: [ ROLE_ADMIN ] # see above at assignable_roles_unchecked
 
 
 # For content type related actions, permissions can be set individually for
 # each content type. For this, we define three groups of permission sets.
-# The 'contenttype-all' permission sets *overrides*; any roles specified here
+# The 'contenttype-base' permission sets *overrides*; any roles specified here
 # will grant a permission for all content types, regardless of the rest of this
 # section.
 # The 'contenttype-default' contains rules that are used when the desired
@@ -71,7 +77,7 @@ global:
 # short-circuits and always grants anything unconditionally.
 #
 # Otherwise, it checks whether any of the current user's roles match any of the
-# roles in contenttype-all/{permission}. If so, the search is over, and the
+# roles in contenttype-base/{permission}. If so, the search is over, and the
 # permission can be granted.
 #
 # The next step is to find contenttypes/{contenttype}/{permission}. If it is
@@ -104,8 +110,8 @@ global:
 
 
 
-# these permissions will be added to _all_ contenttypes, they can not be overridden
-contenttype-all:
+# these permissions will be set for all contenttypes, config below can add additional roles to these, but they can not be overridden
+contenttype-base:
     edit: [ ROLE_ADMIN ]
     create: [ ROLE_ADMIN ]
     change-status: [ ROLE_ADMIN ]
@@ -113,7 +119,7 @@ contenttype-all:
     change-ownership: [ ROLE_ADMIN ]
     view: [ ROLE_ADMIN ] # = show in menu, show listings, open 'edit' view without actually being able to edit, any of the other permissions always imply 'view'
 
-# these permissions are used as a default for contenttypes 
+# these permissions are used as a default for contenttypes, they are added to the base permissions 
 # you can override these settings per contenttype by adding it to the `contenttypes:` array
 contenttype-default:
     edit: [ ROLE_CHIEF_EDITOR, CONTENT_OWNER ]
@@ -132,8 +138,8 @@ contenttypes:
 #    # Keys in this dictionary map to keys in the contenttypes.yml specification.
 #    showcases:
 #        # Rules defined here *override* rules defined in contenttype-default,
-#        # but *add* to rules in contenttype-all. This means that permissions
-#        # granted through contenttype-all cannot be revoked here, merely
+#        # but *add* to rules in contenttype-base. This means that permissions
+#        # granted through contenttype-base cannot be revoked here, merely
 #        # amended.
 #
 #        # Only the Admin and Chief Editor are allowed to edit records
