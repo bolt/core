@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -41,6 +42,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /** @var EventDispatcherInterface */
     private $dispatcher;
 
+    /** @var RoleHierarchyInterface */
+    private $roleHierarchy;
+
     protected $defaultLocale;
 
     private $assignableRoles;
@@ -52,6 +56,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         UserPasswordEncoderInterface $passwordEncoder,
         CsrfTokenManagerInterface $csrfTokenManager,
         EventDispatcherInterface $dispatcher,
+        RoleHierarchyInterface $roleHierarchy,
         Config $config,
         string $defaultLocale
     ) {
@@ -60,6 +65,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
+        $this->roleHierarchy = $roleHierarchy;
         $this->defaultLocale = $defaultLocale;
         $this->assignableRoles = $config->get('permissions/assignable_roles')->all();
         $this->assignableRolesUnchecked = $config->get('permissions/assignable_roles_unchecked')->all();
@@ -71,12 +77,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      */
     public function add(Request $request): Response
     {
+        // TODO PERMISSIONS this is broken at the moment -- the handling of the roles in the form is weird, and some complex decisions have to be made on the rules
         $user = UserRepository::factory();
         $submitted_data = $request->request->get('user');
 
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_ADD);
-        $roles = $this->_getPossibleRoles($event);
+        $roles = $this->_getPossibleRoles();
 
         // These are the variables we have to pass into our FormType so we can build the fields correctly
         $form_data = [
@@ -122,6 +129,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      */
     public function edit(?User $user, Request $request): Response
     {
+        // TODO PERMISSIONS this is broken at the moment -- the handling of the roles in the form is weird, and some complex decisions have to be made on the rules
         $submitted_data = $request->request->get('user');
         $is_profile_edit = false;
 
@@ -132,12 +140,13 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         // don't allow editing a user with higher roles then yourself
-        $this->_denyUnlessRolesAssignable($user->getRoles());
+        // TODO PERMISSIONS this is broken at the moment
+//        $this->_denyUnlessRolesAssignable($user->getRoles());
 
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
 
-        $roles = $this->_getPossibleRoles($event);
+        $roles = $this->_getPossibleRoles();
 
         // We don't require the user to set the password again on the "user edit" form
         // If it is otherwise set use the given password normally
@@ -226,6 +235,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     {
         $this->validateCsrf('useredit');
 
+        // TODO only allow to delete users 'below' yourself?
         $this->_denyUnlessRolesAssignable($user->getRoles());
 
         $this->em->remove($user);
@@ -282,32 +292,20 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @param UserEvent $event
      * @return array
      */
-    private function _getPossibleRoles(UserEvent $event): array
+    private function _getPossibleRoles(): array
     {
-        // TODO - Maybe the roles defined in role_hierarchy are not necessarily the roles we want to allow to be 'set'
-        // here. It is not _required_ for roles to be specified in the role_hierarchy, as it is just a utility to
-        // configure a hierarchy and make life easier.
-        // Change this to get the roles from the permissions.yaml
-//
-//        // only allow user to assign system roles they have themselves, use ARRAY_FILTER_USE_KEY as the role names are the keys (values are a list of roles they inherit)
-//        $filteredSystemRoles = array_filter($this->getParameter('security.role_hierarchy.roles'), function ($role) {
-//            return $this->isGranted($role);
-//        }, ARRAY_FILTER_USE_KEY);
-//        // allow all roles added by extensions to be assigned (At the moment this seems the best solution to handle these)
-//        $extensionSuppliedRoles = $event->getRoleOptions()->toArray();
-//        $roles = array_merge($filteredSystemRoles, $extensionSuppliedRoles);
         $roleHierarchy = $this->getParameter('security.role_hierarchy.roles');
         $result = [];
-        foreach ($this->assignableRoles as $assignableRole) {
-            if (in_array($assignableRole, $this->assignableRolesUnchecked, true) || $this->isGranted($assignableRole)) {
-                if (isset($roleHierarchy[$assignableRole])) {
-                    $result[$assignableRole] = $roleHierarchy[$assignableRole];
-                } else {
-                    $result[$assignableRole] = [];
-                }
+        $assignableRoles = $this->_getAssignableRoles();
+
+        // only show the roles you can give access to
+        foreach ($assignableRoles as $assignableRole) {
+            if (isset($roleHierarchy[$assignableRole])) {
+                $result[$assignableRole] = $roleHierarchy[$assignableRole];
+            } else {
+                $result[$assignableRole] = [];
             }
         }
         return $result;
@@ -322,6 +320,21 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             }
             $this->denyAccessUnlessGranted($role);
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function _getAssignableRoles(): array
+    {
+        $assignableRoles = array_filter($this->assignableRoles, function ($role) {
+            return $this->isGranted($role);
+        });
+        $userCanAssignUncheckedRoles = $this->isGranted('assign_unchecked_roles');
+        if ($userCanAssignUncheckedRoles) {
+            $assignableRoles = array_merge($assignableRoles, $this->assignableRolesUnchecked);
+        }
+        return $assignableRoles;
     }
 
 }
