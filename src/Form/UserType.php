@@ -108,6 +108,7 @@ class UserType extends AbstractType
          * - this form is used to add a new user
          * - if the given user object (=logged in user in profile edit page) has ROLE_ADMIN
          */
+        // TODO PERMISSIONS -> fix this
         if ($options['is_profile_edit'] === false || in_array('ROLE_ADMIN', $options['data']->getRoles(), true)) {
             $builder
                 ->add('roles', ChoiceType::class, [
