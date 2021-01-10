@@ -30,8 +30,7 @@ class PermissionsParser extends BaseParser
     {
         // TODO PERMISSIONS add more defaults
         return [
-            'assignable_roles' => ['ROLE_DEVELOPER', 'ROLE_ADMIN', 'ROLE_CHIEF_EDITOR', 'ROLE_EDITOR', 'ROLE_USER'],
-            'assignable_roles_unchecked' => []
+            'assignable_roles' => ['ROLE_ADMIN', 'ROLE_CHIEF_EDITOR', 'ROLE_EDITOR'],
         ];
     }
 }

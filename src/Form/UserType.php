@@ -45,12 +45,12 @@ class UserType extends AbstractType
         // Create custom role options array
         $roleOptions = [];
         $custom_roles = $options['roles'];
-        foreach ($custom_roles as $roleName => $roleHierarchy) {
+        foreach ($custom_roles as $roleName => $roleValue) {
             // For some reason these select arrays are built like
             // array-key => Label
             // array-value => Key which is used to save in the DB (and used for validation)
-            $label = mb_strtolower(implode(', ', $roleHierarchy));
-            $roleOptions[$label] = $roleName;
+            // (at the moment $roleName and $roleValue are almost always the same, but this could change in the future)
+            $roleOptions[$roleName] = $roleValue;
         }
 
         // Create custom location options array
