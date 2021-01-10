@@ -35,12 +35,11 @@ class ContentVoter extends Voter
     public const CONTENT_DELETE = 'delete';
     public const CONTENT_CHANGE_OWNERSHIP = 'change-ownership';
     public const CONTENT_VIEW = 'view';
-    # used to determine of user can view an entry or see the listing/menu for it
-    # this permission is not to be specified in the config, it is only used internally
+    // used to determine of user can view an entry or see the listing/menu for it
+    // this permission is not to be specified in the config, it is only used internally
     public const CONTENT_MENU_LISTING = 'menu_listing';
 
     private $security;
-    private $supportedAttributes;
 
     /** @var Collection|null */
     private $contenttypeBasePermissions;
@@ -63,7 +62,7 @@ class ContentVoter extends Voter
         if (! ($this->contenttypeDefaultPermissions instanceof Collection)) {
             throw new \DomainException('No suitable contenttype-default permissions config found');
         }
-        if (! ($this->contenttypePermissions == null || $this->contenttypePermissions instanceof Collection)) {
+        if (! ($this->contenttypePermissions === null || $this->contenttypePermissions instanceof Collection)) {
             throw new \DomainException('No suitable contenttypes permissions config found');
         }
     }
@@ -77,7 +76,7 @@ class ContentVoter extends Voter
 
         // if the attribute isn't one we support, return false
         return in_array($attribute, [self::CONTENT_EDIT, self::CONTENT_CREATE, self::CONTENT_CHANGE_STATUS,
-            self::CONTENT_DELETE, self::CONTENT_CHANGE_OWNERSHIP, self::CONTENT_VIEW, self::CONTENT_MENU_LISTING], true);
+            self::CONTENT_DELETE, self::CONTENT_CHANGE_OWNERSHIP, self::CONTENT_VIEW, self::CONTENT_MENU_LISTING, ], true);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
@@ -91,7 +90,6 @@ class ContentVoter extends Voter
 
         // special case for CONTENT_MENU_LISTING
         if ($attribute === self::CONTENT_MENU_LISTING) {
-
             return $this->voteOnAttribute(self::CONTENT_CREATE, $subject, $token)
                 || $this->voteOnAttribute(self::CONTENT_DELETE, $subject, $token)
                 || $this->voteOnAttribute(self::CONTENT_EDIT, $subject, $token)
@@ -104,7 +102,7 @@ class ContentVoter extends Voter
         // special case for CONTENT_VIEW -> we'll also grant this to users that have any of these edit/delete permissions
         // if the user has none of these, continue the function below to check for the 'real' CONTENT_VIEW permission
         if ($attribute === self::CONTENT_VIEW && $this->isGrantedAny([self::CONTENT_EDIT, self::CONTENT_CHANGE_STATUS,
-            self::CONTENT_DELETE, self::CONTENT_CHANGE_OWNERSHIP], $subject)) {
+            self::CONTENT_DELETE, self::CONTENT_CHANGE_OWNERSHIP, ], $subject)) {
             return true;
         }
 
@@ -124,7 +122,7 @@ class ContentVoter extends Voter
             /** @var Content $content */
             $content = $subject;
             $contentTypeName = $content->getContentType();
-        } else if ($subject instanceof ContentType) {
+        } elseif ($subject instanceof ContentType) {
             /** @var ContentType $contentType */
             $contentType = $subject;
             $contentTypeName = $contentType->getSlug();
@@ -169,6 +167,7 @@ class ContentVoter extends Voter
                 return true;
             }
         }
+
         return false;
     }
 }

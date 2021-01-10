@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Bolt\Security;
 
@@ -17,8 +18,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * in a firewall definition.
  * If it is configured like above only users with ROLE_DEVELOPER can impersonate.
- *
- * @package Bolt\Security
  */
 class SwitchUserVoter extends Voter
 {
@@ -38,7 +37,7 @@ class SwitchUserVoter extends Voter
     {
         $user = $token->getUser();
         // if the user is anonymous or if the subject is set, do not grant access
-        if (!$user instanceof UserInterface || $subject !== null) {
+        if (! $user instanceof UserInterface || $subject !== null) {
             return false;
         }
 
