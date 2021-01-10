@@ -20,14 +20,14 @@ assignable_roles: [ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_EXTRA_1, ROL
 # inside the code, so they don't appear here.
 global:
     about: [ IS_AUTHENTICATED_ANONYMOUSLY ] # view the 'About Bolt' page
-    clearcache: [ ROLE_ADMIN, ROLE_DEVELOPER ]
+    clearcache: [ ROLE_ADMIN ]
     dashboard: [ IS_AUTHENTICATED_FULLY ]
-    extensions: [ ROLE_DEVELOPER ]
+    extensions: [ ROLE_ADMIN ]
     # these control /bolt/file-edit and /bolt/filemanager -> combined create/read/update/delete permission
     # the part after the files: is the 'location' where the files are part of
-    managefiles:config: [ ROLE_DEVELOPER ] # all configuration yml files /bolt/filemanager/config and /bolt/file-edit/config?file=/bolt/menu.yaml
+    managefiles:config: [ ROLE_ADMIN ] # all configuration yml files /bolt/filemanager/config and /bolt/file-edit/config?file=/bolt/menu.yaml
     managefiles:files: [ ROLE_ADMIN ]
-    managefiles:themes: [ ROLE_DEVELOPER ]
+    managefiles:themes: [ ROLE_ADMIN ]
     profile: [ IS_AUTHENTICATED_FULLY ] # edit own profile TODO PERMISSIONS
     translation: [ ROLE_ADMIN ] # TODO PERMISSIONS how to enforce this?
     user:list: [ ROLE_ADMIN ] # overview listing of users and a list of active sessions
@@ -37,11 +37,11 @@ global:
     user:edit: [ ROLE_ADMIN ] # user edit all fields, includes user:status permissions
 #    maintenance-mode: [ everyone ] # view the frontend when in maintenance mode
 #    omnisearch: [ IS_AUTHENTICATED_ANONYMOUSLY ]
-    systemlog: [ ROLE_ADMIN, ROLE_DEVELOPER ]
+    systemlog: [ ROLE_ADMIN ]
 # NEW
     api: [ ROLE_CHIEF_EDITOR ] # TODO PERMISSIONS how to enforce this?
     bulk_operations: [ ROLE_CHIEF_EDITOR ]
-    kitchensink: [ ROLE_DEVELOPER ]
+    kitchensink: [ ROLE_ADMIN ]
     upload: [ ROLE_EDITOR ] # TODO PERMISSIONS upload media/files ? Or should this be handled by managefiles:files
     extensionmenus: [ IS_AUTHENTICATED_FULLY ] # allows you to see menu items added by extensions
 
