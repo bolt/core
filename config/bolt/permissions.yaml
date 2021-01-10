@@ -4,22 +4,11 @@
 # and understand the consequences of making uninformed changes to the roles and
 # permissions.
 
-# roles that are presented in the list when editing a user 
-# these will be filtered based on the user's own level to make sure you don't assign
-# roles 'above' yourself. Any role you have yourself you can assign to others. 
-# (This is assuming roles are defined in the symfony security config and ordered in a 
-# hierarchy in config/packages/security.yaml)
-
-# note: ROLE_USER is assigned to Bolt Entity Users if no roles have been set
-# it is not included in this list as it should not be added/removed
-# the assumption is that these roles are also defined in the symfony security role hierarchy
-assignable_roles: [ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR]
-# some roles are not in the role hierarchy and/or not assigned to 'normal' back end users
-# the default is to leave these roles 'as is'
-# if they should be assignable you need to add them here, these roles can be assigned by 
-# users with the global 'assign_unchecked_roles' permission (see below)
-# for other users the behavior will be to leave them 'as is' and not show them when editing users
-assignable_roles_unchecked: [ROLE_USER_FRONTEND_GROUP1, ROLE_USER_FRONTEND_GROUP2, ROLE_EXTRA_1, ROLE_EXTRA_14]
+# List of roles that are presented in the list of options when editing a user.
+# Roles that are not in this list are left 'as is' when editing users.
+# Note: ROLE_USER is assigned to Bolt Entity Users if no roles have been set
+# it should not be included in this list as it should not be added/removed.
+assignable_roles: [ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_EXTRA_1, ROLE_USER_FRONTEND_GROUP2]
 
 # These permissions are the 'global' permissions; these are not tied
 # to any content types, but rather apply to global, non-content activity in
@@ -43,11 +32,11 @@ global:
     profile: [ IS_AUTHENTICATED_FULLY ] # edit own profile
 #    settings: [ admin, developer, everyone ]
 #    translation: [ developer ]
-    user:list: [ ROLE_ADMIN ] # overview listing of users and a list of active sessions
-    user:add: [ ROLE_ADMIN ] # add user - allows editing user _before_ saving, after saving 'useredit' is needed. -> cannot give roles above 'self'
-    user:status: [ ROLE_ADMIN ] # user enable/disable -> cannot enable/disable users with roles above 'self'
-    user:delete: [ ROLE_ADMIN ] # user delete -> cannot delete users with roles above 'self'
-    user:edit: [ ROLE_ADMIN ] # user edit all fields, including status -> cannot give roles above 'self'
+    user:list: [ ROLE_ADMIN, ROLE_EDITOR ] # overview listing of users and a list of active sessions
+    user:add: [ ROLE_ADMIN ] # add user - allows editing user _before_ saving, can set status on create, after saving 'useredit' is needed.
+    user:status: [ ROLE_ADMIN ] # user enable/disable
+    user:delete: [ ROLE_ADMIN ] # user delete
+    user:edit: [ ROLE_ADMIN ] # user edit all fields, includes user:status permissions
 #    maintenance-mode: [ everyone ] # view the frontend when in maintenance mode
     omnisearch: [ IS_AUTHENTICATED_ANONYMOUSLY ]
 #    # Access to the various logs
@@ -58,8 +47,6 @@ global:
     kitchensink: [ ROLE_DEVELOPER ]
     upload: [ ROLE_EDITOR ] # upload media/files
     extensionmenus: [ IS_AUTHENTICATED_FULLY ] # allows you to see menu items added by extensions
-    assign_unchecked_roles: [ ROLE_ADMIN ] # see above at assignable_roles_unchecked
-
 
 # For content type related actions, permissions can be set individually for
 # each content type. For this, we define three groups of permission sets.

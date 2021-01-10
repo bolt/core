@@ -31,15 +31,14 @@ class SwitchUserVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        return $attribute === 'CAN_SWITCH_USER'
-            && $subject instanceof UserInterface;
+        return $attribute === 'CAN_SWITCH_USER' && $subject === null;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
-        // if the user is anonymous or if the subject is not a user, do not grant access
-        if (!$user instanceof UserInterface || !$subject instanceof UserInterface) {
+        // if the user is anonymous or if the subject is set, do not grant access
+        if (!$user instanceof UserInterface || $subject !== null) {
             return false;
         }
 

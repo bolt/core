@@ -22,7 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -42,13 +41,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /** @var EventDispatcherInterface */
     private $dispatcher;
 
-    /** @var RoleHierarchyInterface */
-    private $roleHierarchy;
-
     protected $defaultLocale;
 
     private $assignableRoles;
-    private $assignableRolesUnchecked;
 
     public function __construct(
         UrlGeneratorInterface $urlGenerator,
@@ -56,7 +51,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         UserPasswordEncoderInterface $passwordEncoder,
         CsrfTokenManagerInterface $csrfTokenManager,
         EventDispatcherInterface $dispatcher,
-        RoleHierarchyInterface $roleHierarchy,
         Config $config,
         string $defaultLocale
     ) {
@@ -65,25 +59,22 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->dispatcher = $dispatcher;
-        $this->roleHierarchy = $roleHierarchy;
         $this->defaultLocale = $defaultLocale;
         $this->assignableRoles = $config->get('permissions/assignable_roles')->all();
-        $this->assignableRolesUnchecked = $config->get('permissions/assignable_roles_unchecked')->all();
     }
 
     /**
      * @Route("/user-edit/add", methods={"GET","POST"}, name="bolt_user_add")
-     * @Security("is_granted('user:add')") -- first check, more detailed checks in method
+     * @Security("is_granted('user:add')")
      */
     public function add(Request $request): Response
     {
-        // TODO PERMISSIONS this is broken at the moment -- the handling of the roles in the form is weird, and some complex decisions have to be made on the rules
         $user = UserRepository::factory();
         $submitted_data = $request->request->get('user');
 
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_ADD);
-        $roles = $this->_getPossibleRoles();
+        $roles = $this->_getPossibleRolesForForm();
 
         // These are the variables we have to pass into our FormType so we can build the fields correctly
         $form_data = [
@@ -129,7 +120,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      */
     public function edit(?User $user, Request $request): Response
     {
-        // TODO PERMISSIONS this is broken at the moment -- the handling of the roles in the form is weird, and some complex decisions have to be made on the rules
         $submitted_data = $request->request->get('user');
         $is_profile_edit = false;
 
@@ -139,14 +129,10 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $is_profile_edit = true;
         }
 
-        // don't allow editing a user with higher roles then yourself
-        // TODO PERMISSIONS this is broken at the moment
-//        $this->_denyUnlessRolesAssignable($user->getRoles());
-
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
 
-        $roles = $this->_getPossibleRoles();
+        $roles = $this->_getPossibleRolesForForm();
 
         // We don't require the user to set the password again on the "user edit" form
         // If it is otherwise set use the given password normally
@@ -229,14 +215,11 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-delete/{id}", methods={"POST", "GET"}, name="bolt_user_delete", requirements={"id": "\d+"})
-     * @Security("is_granted('user:delete')") -- first check, more detailed checks in method
+     * @Security("is_granted('user:delete')")
      */
     public function delete(User $user): Response
     {
         $this->validateCsrf('useredit');
-
-        // TODO only allow to delete users 'below' yourself?
-        $this->_denyUnlessRolesAssignable($user->getRoles());
 
         $this->em->remove($user);
         $contentArray = $this->getDoctrine()->getManager()->getRepository(\Bolt\Entity\Content::class)->findBy(['author' => $user]);
@@ -294,47 +277,15 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /**
      * @return array
      */
-    private function _getPossibleRoles(): array
+    private function _getPossibleRolesForForm(): array
     {
-        $roleHierarchy = $this->getParameter('security.role_hierarchy.roles');
         $result = [];
-        $assignableRoles = $this->_getAssignableRoles();
+        $assignableRoles = $this->assignableRoles;
 
-        // only show the roles you can give access to
+        // convert into array for form
         foreach ($assignableRoles as $assignableRole) {
-            if (isset($roleHierarchy[$assignableRole])) {
-                $result[$assignableRole] = $roleHierarchy[$assignableRole];
-            } else {
-                $result[$assignableRole] = [];
-            }
+            $result[$assignableRole] = $assignableRole;
         }
         return $result;
     }
-
-    private function _denyUnlessRolesAssignable($roles) {
-        // check if there is no attempt to assign roles that are not granted to the current logged in user
-        foreach ($roles as $role) {
-            if (in_array($role, $this->assignableRolesUnchecked, true)) {
-                // skip checking roles specified as unchecked
-                continue;
-            }
-            $this->denyAccessUnlessGranted($role);
-        }
-    }
-
-    /**
-     * @return array
-     */
-    private function _getAssignableRoles(): array
-    {
-        $assignableRoles = array_filter($this->assignableRoles, function ($role) {
-            return $this->isGranted($role);
-        });
-        $userCanAssignUncheckedRoles = $this->isGranted('assign_unchecked_roles');
-        if ($userCanAssignUncheckedRoles) {
-            $assignableRoles = array_merge($assignableRoles, $this->assignableRolesUnchecked);
-        }
-        return $assignableRoles;
-    }
-
 }
