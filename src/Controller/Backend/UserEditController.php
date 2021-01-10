@@ -270,9 +270,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->addFlash('success', 'user.updated_profile');
     }
 
-    /**
-     * @return array
-     */
     private function _getPossibleRolesForForm(): array
     {
         $result = [];
@@ -282,6 +279,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         foreach ($assignableRoles as $assignableRole) {
             $result[$assignableRole] = $assignableRole;
         }
+
         return $result;
     }
 }

@@ -21,8 +21,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Class BackendMenuBuilder
  *
  * TODO PERMISSIONS -- add checks for menu items (don't show / disable when not available)
- *
- * @package Bolt\Menu
  */
 final class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
@@ -88,7 +86,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                 ],
             ]);
         }
-
 
         $menu->addChild('Content', [
             'extras' => [
@@ -377,7 +374,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         $contentTypes = $this->config->get('contenttypes')->where('show_in_menu', '!==', true);
 
         foreach ($contentTypes as $contentType) {
-
             if (! $this->authorizationChecker->isGranted(ContentVoter::CONTENT_VIEW, $contentType)) {
                 continue;
             }

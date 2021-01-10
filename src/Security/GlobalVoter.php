@@ -39,7 +39,6 @@ class GlobalVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
     {
-
         $user = $token->getUser();
 
         if (! $user instanceof UserInterface) {

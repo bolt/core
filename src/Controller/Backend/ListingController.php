@@ -12,8 +12,6 @@ use Bolt\Storage\Query;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- */
 class ListingController extends TwigAwareController implements BackendZoneInterface
 {
     /**
