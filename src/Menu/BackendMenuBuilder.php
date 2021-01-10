@@ -128,77 +128,81 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->getChild('Configuration')->addChild('Users &amp; Permissions', [
-            'uri' => $this->urlGenerator->generate('bolt_users'),
-            'extras' => [
-                'name' => $t->trans('caption.users_permissions'),
-                'icon' => 'fa-users',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('user:list')) {
+            $menu->getChild('Configuration')->addChild('Users &amp; Permissions', [
+                'uri' => $this->urlGenerator->generate('bolt_users'),
+                'extras' => [
+                    'name' => $t->trans('caption.users_permissions'),
+                    'icon' => 'fa-users',
+                ],
+            ]);
+        }
 
-        $menu->getChild('Configuration')->addChild('Main configuration', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'location' => 'config',
-                'file' => '/bolt/config.yaml',
-            ]),
-            'extras' => [
-                'name' => $t->trans('caption.main_configuration'),
-                'icon' => 'fa-cog',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('managefiles:config')) {
+            $menu->getChild('Configuration')->addChild('Main configuration', [
+                'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                    'location' => 'config',
+                    'file' => '/bolt/config.yaml',
+                ]),
+                'extras' => [
+                    'name' => $t->trans('caption.main_configuration'),
+                    'icon' => 'fa-cog',
+                ],
+            ]);
 
-        $menu->getChild('Configuration')->addChild('ContentTypes', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'location' => 'config',
-                'file' => '/bolt/contenttypes.yaml',
-            ]),
-            'extras' => [
-                'name' => $t->trans('caption.contenttypes'),
-                'icon' => 'fa-object-group',
-            ],
-        ]);
+            $menu->getChild('Configuration')->addChild('ContentTypes', [
+                'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                    'location' => 'config',
+                    'file' => '/bolt/contenttypes.yaml',
+                ]),
+                'extras' => [
+                    'name' => $t->trans('caption.contenttypes'),
+                    'icon' => 'fa-object-group',
+                ],
+            ]);
 
-        $menu->getChild('Configuration')->addChild('Taxonomies', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'location' => 'config',
-                'file' => '/bolt/taxonomy.yaml',
-            ]),
-            'extras' => [
-                'name' => $t->trans('caption.taxonomies'),
-                'icon' => 'fa-tags',
-            ],
-        ]);
+            $menu->getChild('Configuration')->addChild('Taxonomies', [
+                'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                    'location' => 'config',
+                    'file' => '/bolt/taxonomy.yaml',
+                ]),
+                'extras' => [
+                    'name' => $t->trans('caption.taxonomies'),
+                    'icon' => 'fa-tags',
+                ],
+            ]);
 
-        $menu->getChild('Configuration')->addChild('Menu set up', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'location' => 'config',
-                'file' => '/bolt/menu.yaml',
-            ]),
-            'extras' => [
-                'name' => $t->trans('caption.menu_setup'),
-                'type' => 'separator',
-                'icon' => 'fa-list',
-            ],
-        ]);
+            $menu->getChild('Configuration')->addChild('Menu set up', [
+                'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                    'location' => 'config',
+                    'file' => '/bolt/menu.yaml',
+                ]),
+                'extras' => [
+                    'name' => $t->trans('caption.menu_setup'),
+                    'type' => 'separator',
+                    'icon' => 'fa-list',
+                ],
+            ]);
 
-        $menu->getChild('Configuration')->addChild('Routing set up', [
-            'uri' => $this->urlGenerator->generate('bolt_file_edit', [
-                'location' => 'config',
-                'file' => '/routes.yaml',
-            ]),
-            'extras' => [
-                'name' => $t->trans('caption.routing_setup'),
-                'icon' => 'fa-directions',
-            ],
-        ]);
+            $menu->getChild('Configuration')->addChild('Routing set up', [
+                'uri' => $this->urlGenerator->generate('bolt_file_edit', [
+                    'location' => 'config',
+                    'file' => '/routes.yaml',
+                ]),
+                'extras' => [
+                    'name' => $t->trans('caption.routing_setup'),
+                    'icon' => 'fa-directions',
+                ],
+            ]);
 
-        $menu->getChild('Configuration')->addChild('All configuration files', [
-            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'config']),
-            'extras' => [
-                'name' => $t->trans('caption.all_configuration_files'),
-                'icon' => 'fa-cogs',
-            ],
-        ]);
+            $menu->getChild('Configuration')->addChild('All configuration files', [
+                'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'config']),
+                'extras' => [
+                    'name' => $t->trans('caption.all_configuration_files'),
+                    'icon' => 'fa-cogs',
+                ],
+            ]);
+        }
 
         // Maintenance submenu
         // TODO PERMISSIONS
@@ -213,21 +217,25 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->getChild('Maintenance')->addChild('Extensions', [
-            'uri' => $this->urlGenerator->generate('bolt_extensions'),
-            'extras' => [
-                'name' => $t->trans('caption.extensions'),
-                'icon' => 'fa-plug',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('extensions')) {
+            $menu->getChild('Maintenance')->addChild('Extensions', [
+                'uri' => $this->urlGenerator->generate('bolt_extensions'),
+                'extras' => [
+                    'name' => $t->trans('caption.extensions'),
+                    'icon' => 'fa-plug',
+                ],
+            ]);
+        }
 
-        $menu->getChild('Maintenance')->addChild('Log viewer', [
-            'uri' => $this->urlGenerator->generate('bolt_logviewer'),
-            'extras' => [
-                'name' => $t->trans('caption.logviewer'),
-                'icon' => 'fa-clipboard',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('systemlog')) {
+            $menu->getChild('Maintenance')->addChild('Log viewer', [
+                'uri' => $this->urlGenerator->generate('bolt_logviewer'),
+                'extras' => [
+                    'name' => $t->trans('caption.logviewer'),
+                    'icon' => 'fa-clipboard',
+                ],
+            ]);
+        }
 
         $menu->getChild('Maintenance')->addChild('Bolt API', [
             'uri' => $this->urlGenerator->generate('api_entrypoint'),
@@ -248,13 +256,15 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         //     ],
         // ]);
 
-        $menu->getChild('Maintenance')->addChild('Clear the cache', [
-            'uri' => $this->urlGenerator->generate('bolt_clear_cache'),
-            'extras' => [
-                'name' => $t->trans('caption.clear_cache'),
-                'icon' => 'fa-eraser',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('clearcache')) {
+            $menu->getChild('Maintenance')->addChild('Clear the cache', [
+                'uri' => $this->urlGenerator->generate('bolt_clear_cache'),
+                'extras' => [
+                    'name' => $t->trans('caption.clear_cache'),
+                    'icon' => 'fa-eraser',
+                ],
+            ]);
+        }
 
         /*
          * @todo Make Installation checks work from the backend
@@ -286,13 +296,15 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ]);
         }
 
-        $menu->getChild('Maintenance')->addChild('About Bolt', [
-            'uri' => $this->urlGenerator->generate('bolt_about'),
-            'extras' => [
-                'name' => $t->trans('caption.about_bolt'),
-                'icon' => 'fa-award',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('about')) {
+            $menu->getChild('Maintenance')->addChild('About Bolt', [
+                'uri' => $this->urlGenerator->generate('bolt_about'),
+                'extras' => [
+                    'name' => $t->trans('caption.about_bolt'),
+                    'icon' => 'fa-award',
+                ],
+            ]);
+        }
 
         // File Management submenu
         // TODO PERMISSIONS
@@ -307,21 +319,25 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        $menu->getChild('File Management')->addChild('Uploaded files', [
-            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'files']),
-            'extras' => [
-                'name' => $t->trans('caption.uploaded_files'),
-                'icon' => 'fa-archive',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('managefiles:files')) {
+            $menu->getChild('File Management')->addChild('Uploaded files', [
+                'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'files']),
+                'extras' => [
+                    'name' => $t->trans('caption.uploaded_files'),
+                    'icon' => 'fa-archive',
+                ],
+            ]);
+        }
 
-        $menu->getChild('File Management')->addChild('View/edit Templates', [
-            'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'themes']),
-            'extras' => [
-                'name' => $t->trans('caption.view_edit_templates'),
-                'icon' => 'fa-scroll',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('managefiles:themes')) {
+            $menu->getChild('File Management')->addChild('View/edit Templates', [
+                'uri' => $this->urlGenerator->generate('bolt_filemanager', ['location' => 'themes']),
+                'extras' => [
+                    'name' => $t->trans('caption.view_edit_templates'),
+                    'icon' => 'fa-scroll',
+                ],
+            ]);
+        }
 
         return $menu;
     }
