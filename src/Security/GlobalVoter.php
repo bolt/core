@@ -39,15 +39,19 @@ class GlobalVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
     {
-//        if ($this->security->isGranted('ROLE_SUPER_ADMIN')) {
-//            return true;
-//        }
 
         $user = $token->getUser();
 
         if (! $user instanceof UserInterface) {
             // the user must be logged in; if not, deny access
             return false;
+        }
+
+        if ($attribute === 'user:status') {
+            // users with 'user:edit' also have 'user:status' permission
+            if ($this->voteOnAttribute('user:edit', $subject, $token)) {
+                return true;
+            }
         }
 
         if (! isset($this->globalPermissions[$attribute])) {

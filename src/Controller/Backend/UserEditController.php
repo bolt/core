@@ -114,7 +114,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
     /**
      * @Route("/user-edit/{id}", methods={"GET","POST"}, name="bolt_user_edit", requirements={"id": "\d+"})
-     * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit")
+     * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit") TODO PERMISSIONS move to separate function so we can correctly check permissions
      *
      * @Security("is_granted('user:edit')") -- first check, more detailed checks in method
      */
@@ -198,8 +198,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     {
         $this->validateCsrf('useredit');
 
-        $this->_denyUnlessRolesAssignable($user->getRoles());
-
         $newStatus = $this->request->get('status', UserStatus::DISABLED);
 
         $user->setStatus($newStatus);
@@ -252,8 +250,6 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         // Get the adjusted User Entity from the form
         /** @var User $user */
         $user = $form->getData();
-
-        $this->_denyUnlessRolesAssignable($user->getRoles());
 
         // Once validated, encode the password
         if ($user->getPlainPassword()) {
