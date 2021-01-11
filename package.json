@@ -110,7 +110,7 @@
         "stylelint": "stylelint 'assets/scss'",
         "stylelint-fix": "stylelint 'assets/scss' --fix",
         "csfix": "eslint --ext .js,.vue, assets --fix; stylelint 'assets/scss' --fix",
-        "a11y:ci": "pa11y-ci --threshold=82 --config=tests/a11y/pa11yci.json",
+        "a11y:ci": "pa11y-ci --threshold=83 --config=tests/a11y/pa11yci.json",
         "a11y:test:all": "pa11y-ci --threshold=0 --config=tests/a11y/pa11yci.json",
         "a11y:test": "pa11y-ci",
         "test": "jest",
