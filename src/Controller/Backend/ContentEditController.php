@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend;
 
 use Bolt\Common\Json;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
@@ -27,9 +28,11 @@ use Bolt\Validator\ContentValidatorInterface;
 use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMInvalidArgumentException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -124,6 +127,42 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->dispatcher->dispatch($event, ContentEvent::ON_EDIT);
 
         return $this->renderEditor($content);
+    }
+
+    /**
+     * @Route(
+     *     "/edit/{_locale}/{contentTypeSlug}/{slugOrId}",
+     *     name="bolt_edit_content_slug",
+     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
+     *     methods={"GET"})
+     * @Route(
+     *     "/edit/{contentTypeSlug}/{slugOrId}",
+     *     name="bolt_edit_content_slug",
+     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
+     *     methods={"GET"})
+     * @Route(
+     *     "/edit/{slugOrId}",
+     *     name="bolt_edit_content_slug",
+     *     requirements={"contentTypeSlug"="%bolt.requirement.contenttypes%"},
+     *     methods={"GET"})
+     */
+    public function editFromSlug(?string $contentTypeSlug = null, $slugOrId): Response
+    {
+        $contentType = ContentType::factory($contentTypeSlug, $this->config->get('contenttypes'));
+        $record = $this->contentRepository->findOneBySlug($slugOrId, $contentType);
+
+        if (! $record && is_numeric($slugOrId)) {
+            $record = $this->contentRepository->findOneBy(['id' => (int) $slugOrId]);
+        }
+
+        if (! $record) {
+            throw new NotFoundHttpException('Content not found');
+        }
+
+        return $this->redirectToRoute('bolt_content_edit', [
+            'id' => $record->getId(),
+            'edit_locale' => $this->request->getLocale(),
+        ]);
     }
 
     /**
