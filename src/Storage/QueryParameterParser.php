@@ -89,6 +89,10 @@ class QueryParameterParser
             'value' => '$1',
             'operator' => 'eq',
         ]);
+        $this->addValueMatcher("()", [
+            'value' => '$1',
+            'operator' => 'eq',
+        ]);
         // @codingStandardsIgnoreEnd
 
         $this->addFilterHandler([$this, 'defaultFilterHandler']);
