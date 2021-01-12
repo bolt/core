@@ -24,7 +24,8 @@
                         'action.preview_secure_share'|trans,
                         path(record.definition.get('record_route'), {'slugOrId': record.id, 'contentTypeSlug': record.contenttype,'secret': secret(record.id)}),
                         'fa-user-secret',
-                        'btn- dropdown-button mb-0'
+                        'btn- dropdown-button mb-0',
+                        { 'target': '_blank' }
                     ) }}
                 </div>
             </div>
