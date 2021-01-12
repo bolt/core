@@ -89,7 +89,7 @@ class QueryParameterParser
             'value' => '$1',
             'operator' => 'eq',
         ]);
-        $this->addValueMatcher("()", [
+        $this->addValueMatcher('()', [
             'value' => '$1',
             'operator' => 'eq',
         ]);
