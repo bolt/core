@@ -1,6 +1,25 @@
 Changelog
 =========
 
+## 4.1.11
+
+Released: 2021-01-13
+
+### 🐛 Bug fixes
+
+- Make sure "Other Content" works on mobile (I-Valchev, [#2297](https://github.com/bolt/core/pull/2297))
+- Fix `default` option for select field (I-Valchev, [#2296](https://github.com/bolt/core/pull/2296))
+- Fix casting exception with `orderby` when using MySQL/PostgreSQL (I-Valchev, [#2290](https://github.com/bolt/core/pull/2290))
+- Fix allow twig and deprecate `record|allow_twig` requirement (I-Valchev, [#2289](https://github.com/bolt/core/pull/2289))
+- Remove `<select>`-tag spacing (I-Valchev, [#2283](https://github.com/bolt/core/pull/2283))
+- Allow `id` in sanitiser (purifier). Don't sanitise fields with `sanitise: false` (I-Valchev, [#2280](https://github.com/bolt/core/pull/2280))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Bump axios from 0.19.2 to 0.21.1 (dependabot[bot], [#2285](https://github.com/bolt/core/pull/2285))
+- [4.1.x] Fix behat tests (I-Valchev, [#2282](https://github.com/bolt/core/pull/2282))
+
+
 ## 4.1.10
 
 Released: 2021-01-03

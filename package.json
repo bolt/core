@@ -1,6 +1,6 @@
 {
     "name": "bolt",
-    "version": "4.1.10",
+    "version": "4.1.11",
     "homepage": "https://boltcms.io",
     "author": "Bob den Otter <bob@twokings.nl> (https://boltcms.io)",
     "license": "MIT",
@@ -27,13 +27,13 @@
         "url": "git://github.com/bolt/core.git"
     },
     "dependencies": {
-        "@vue/cli-service": "^4.5.9",
+        "@vue/cli-service": "^4.5.10",
         "axios": "^0.21.1",
         "baguettebox.js": "^1.11.1",
         "bootbox": "^5.5.1",
         "bootstrap": "^4.5.3",
-        "browserslist": "^4.14.6",
-        "caniuse-lite": "^1.0.30001161",
+        "browserslist": "^4.16.1",
+        "caniuse-lite": "^1.0.30001176",
         "codemirror": "^5.59.1",
         "dropzone": "^5.7.2",
         "flagpack": "^1.0.5",
@@ -76,7 +76,7 @@
         "babel-jest": "^25.5.1",
         "eslint": "^6.8.0",
         "eslint-config-prettier": "^6.15.0",
-        "eslint-plugin-prettier": "^3.3.0",
+        "eslint-plugin-prettier": "^3.3.1",
         "eslint-plugin-standard": "^4.1.0",
         "eslint-plugin-vue": "^6.2.2",
         "genversion": "^2.2.1",
