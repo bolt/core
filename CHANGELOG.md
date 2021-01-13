@@ -7,6 +7,7 @@ Released: 2021-01-13
 
 ### 🐛 Bug fixes
 
+- Fix setcontent query for checkbox `false` values (I-Valchev, [#2310](https://github.com/bolt/core/pull/2310))
 - Make sure "Other Content" works on mobile (I-Valchev, [#2297](https://github.com/bolt/core/pull/2297))
 - Fix `default` option for select field (I-Valchev, [#2296](https://github.com/bolt/core/pull/2296))
 - Fix casting exception with `orderby` when using MySQL/PostgreSQL (I-Valchev, [#2290](https://github.com/bolt/core/pull/2290))
