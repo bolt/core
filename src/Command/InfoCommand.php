@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Version;
+use ComposerPackages\Packages;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -88,6 +89,13 @@ HELP
 
     private function warnOutdatedComposerJson(SymfonyStyle $io): void
     {
+        try {
+            Packages::find('bolt/core');
+        } catch (\Throwable $e) {
+            // bolt/core is not a dependency. Perhaps we're in bolt/core itself?
+            return;
+        }
+
         if (Version::compare('4.2.0', '<=')) {
             $composer = json_decode(file_get_contents('composer.json'));
             $warning = false;
