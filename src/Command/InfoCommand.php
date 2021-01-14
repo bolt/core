@@ -5,12 +5,6 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Version;
-use Composer\Composer;
-use Composer\InstalledVersions;
-use Composer\Package\Package;
-use Composer\Package\PackageInterface;
-use ComposerPackages\Packages;
-use PackageVersions\Versions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -122,7 +116,6 @@ HELP
                 $update = 'Check the update instructions at <href=https://github.com/bolt/core/discussions/2318>https://github.com/bolt/core/discussions/2318</>';
                 $io->writeln($update);
             }
-
         }
     }
 }
