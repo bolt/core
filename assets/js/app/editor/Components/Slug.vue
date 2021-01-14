@@ -15,6 +15,7 @@
                 :required="required"
                 :data-errormessage="errormessage"
                 :pattern="pattern"
+                :title="name"
             />
             <div class="input-group-append">
                 <button
