@@ -1785,7 +1785,7 @@
     <unit id="z_tOHwq" name="placeholder.username_or_email">
       <segment>
         <source>placeholder.username_or_email</source>
-        <target>uw gebruikersnaam of e-mailadres</target>
+        <target>je gebruikersnaam of e-mailadres</target>
       </segment>
     </unit>
     <unit id="xgYhRkc" name="placeholder.password">
