@@ -76,7 +76,6 @@ class FieldDiscriminatorListener
 
     private function extractFieldType(string $class): string
     {
-        /** @var FieldInterface|string $class */
         $fieldType = (new $class())->getType();
         if (in_array($fieldType, $this->tempMap, true) === true) {
             throw new \LogicException("Found duplicate discriminator map entry '" . $fieldType . "' in " . $class);
