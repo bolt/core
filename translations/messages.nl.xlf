@@ -1779,7 +1779,7 @@
     <unit id="RMPnq6o" name="label.username_or_email">
       <segment>
         <source>label.username_or_email</source>
-        <target>Gebruikersnaam of email</target>
+        <target>Gebruikersnaam of e-mail</target>
       </segment>
     </unit>
     <unit id="z_tOHwq" name="placeholder.username_or_email">
