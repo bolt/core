@@ -63,7 +63,7 @@
                 <div class="form-group">
                     <p>
                         <strong>{{ 'listing.title_sortby'|trans }}</strong>:
-                        <select class="form-control" name="sortBy">
+                        <select class="form-control" name="sortBy" title="{{ 'listing.title_sortby'|trans }}">
                                 <option value="" {% if sortBy is empty %}selected{% endif %}>
                                     {{ 'listing.option_select_sortby'|trans }}
                                 </option>
@@ -99,7 +99,7 @@
                     <p>
                         <strong>{{ 'listing.title_filterby'|trans }}</strong>:
                         <input class="form-control" type="text" name="filter" id="content-filter" value="{{ filterValue }}"
-                               placeholder="{{ 'listing.placeholder_filter'|trans }}"/>
+                               placeholder="{{ 'listing.placeholder_filter'|trans }}" title="{{ 'listing.placeholder_filter'|trans }}" />
                     </p>
 
                     {# -- Commented this bit out for now.. It _does_ work, but does it add enough

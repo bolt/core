@@ -11,6 +11,7 @@
             :placeholder="placeholder"
             :style="{ height: styleHeight }"
             :maxlength="maxlength"
+            :title="name"
         ></textarea>
     </div>
 </template>
