@@ -36,7 +36,7 @@ class LocaleSubscriber implements EventSubscriberInterface
             $request->setLocale($locale);
         } elseif ($request->attributes->get('zone', false) === 'backend' && $request->getSession()->has('_backend_locale')) {
             $request->setLocale($request->getSession()->get('_backend_locale'));
-        } elseif ($request->getSession()->has('_locale')) {
+        } else {
             $request->setLocale($this->defaultLocale);
         }
     }
