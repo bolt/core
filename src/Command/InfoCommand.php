@@ -89,7 +89,9 @@ HELP
 
     private function warnOutdatedComposerJson(SymfonyStyle $io): void
     {
-        if (! Packages::get('bolt/core')) {
+        try {
+            Packages::get('bolt/core');
+        } catch (\Throwable $e) {
             // bolt/core is not a dependency. Perhaps we're in bolt/core itself?
             return;
         }
