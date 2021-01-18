@@ -16,7 +16,7 @@ Feature: Users & Permissions
       | Session age |
       | Last IP |
       | Actions |
-    And I should see 5 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
+    And I should see 6 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And the data in the 1st row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table should match:
       | col1 | col2 | col3 | col4 | col6 | col7 |
       | 1 | Admin | admin / admin@example.org | ROLE_ADMIN | 127.0.0.1 | Edit |
@@ -31,8 +31,8 @@ Feature: Users & Permissions
     And I am logged in as "admin"
     When I am on "/bolt/users"
     #disable button for given user
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > a:nth-child(2)"
-    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > a:nth-child(2)" element
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > a:nth-child(2)"
+    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > a:nth-child(2)" element
 
     Then I logout
     When I am logged in as "jane_admin" with password "jane%1"
@@ -41,8 +41,8 @@ Feature: Users & Permissions
 
     When I am logged in as "admin"
     And I am on "/bolt/users"
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > a:nth-child(2)"
-    Then I should see "Disable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > a:nth-child(2)" element
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > a:nth-child(2)"
+    Then I should see "Disable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > a:nth-child(2)" element
 
     Then I logout
     Then I am logged in as "jane_admin" with password "jane%1"
@@ -78,7 +78,7 @@ Feature: Users & Permissions
     And I press "Save changes"
 
     Then I should be on "/bolt/users"
-    And I should see 6 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
+    And I should see 7 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And I should see "test_user" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" element
     And I should see "test_user@example.org" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" element
     And I should see "Test user" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" element
@@ -118,16 +118,16 @@ Feature: Users & Permissions
   Scenario: Edit user with exists email
     Given I am logged in as "admin"
     And I am on "/bolt/users"
-    And I click the 2nd "Edit"
+    And I click the 3rd "Edit"
 
-    Then I should be on "/bolt/user-edit/2"
+    Then I should be on "/bolt/user-edit/3"
 
     When I fill "user[email]" element with "admin@example.org"
 
     And I scroll "Save changes" into view
     And I press "Save changes"
 
-    Then I should be on "/bolt/user-edit/2"
+    Then I should be on "/bolt/user-edit/3"
     And I should see "A user with \"admin@example.org\" email already exists." in the ".field-error" element
 
   @javascript
