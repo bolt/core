@@ -208,7 +208,7 @@ class Canonical
     {
         $routes = $this->router->getRouteCollection();
 
-        /** @var Route $routeDefinition */
+        /** @var Route|null $routeDefinition */
         $routeDefinition = $routes->get($route);
 
         if (! $routeDefinition) {
