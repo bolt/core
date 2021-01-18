@@ -7,12 +7,18 @@ namespace Bolt\Controller;
 use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
+use Bolt\Widget\Injector\RequestZone;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Controller\ErrorController as SymfonyErrorController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 
@@ -30,7 +36,21 @@ class ErrorController extends SymfonyErrorController
     /** @var ContainerInterface */
     private $container;
 
-    public function __construct(HttpKernelInterface $httpKernel, Config $config, DetailControllerInterface $detailController, TemplateController $templateController, ErrorRendererInterface $errorRenderer, ContainerInterface $container)
+    /** @var Request */
+    private $request;
+
+    /** @var UrlGeneratorInterface */
+    private $urlGenerator;
+
+    public function __construct(
+        HttpKernelInterface $httpKernel,
+        Config $config,
+        DetailControllerInterface $detailController,
+        TemplateController $templateController,
+        ErrorRendererInterface $errorRenderer,
+        ContainerInterface $container,
+        RequestStack $requestStack,
+        UrlGeneratorInterface $urlGenerator)
     {
         $this->config = $config;
         $this->templateController = $templateController;
@@ -39,6 +59,8 @@ class ErrorController extends SymfonyErrorController
 
         $this->detailController = $detailController;
         $this->container = $container;
+        $this->request = $requestStack->getParentRequest();
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -98,6 +120,14 @@ class ErrorController extends SymfonyErrorController
 
     private function showForbidden(): Response
     {
+        if (RequestZone::isForBackend($this->request)) {
+            /** @var Session $session */
+            $session = $this->request->getSession();
+            $session->getFlashBag()->set('danger', 'You do not have permission to access this page.');
+
+            return new RedirectResponse($this->urlGenerator->generate('bolt_dashboard'));
+        }
+
         foreach ($this->config->get('general/forbidden') as $item) {
             $output = $this->attemptToRender($item);
 
