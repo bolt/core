@@ -211,6 +211,10 @@ class Canonical
         /** @var Route $routeDefinition */
         $routeDefinition = $routes->get($route);
 
+        if (! $routeDefinition) {
+            return false;
+        }
+
         /** @var CompiledRoute $compiledRoute */
         $compiledRoute = $routeDefinition->compile();
 
