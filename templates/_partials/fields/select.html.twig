@@ -15,6 +15,10 @@
     {% set multiple = field.definition.get('multiple')|default ? 'true' : 'false' %}
 {% endif %}
 
+{% if searchable is not defined %}
+    {% set searchable = field.definition.get('searchable')|default ? 'true' : 'false' %}
+{% endif %}
+
 {% block field %}
     <editor-select
         :classname="{{ "wide-options"|json_encode }}"
@@ -24,6 +28,7 @@
         :options="{{ options|json_encode }}"
         :form='{{ form|json_encode }}'
         :multiple="{{ multiple }}"
+        :searchable="{{ searchable }}"
         :readonly="{{ readonly|json_encode }}"
         :errormessage='{{ errormessage|json_encode }}'
         :allowempty="{{ required ? 'false' : 'true' }}"
