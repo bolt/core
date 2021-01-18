@@ -10,6 +10,7 @@ use Bolt\Repository\ContentRepository;
 use Bolt\Security\ContentVoter;
 use Bolt\Twig\ContentExtension;
 use Bolt\Version;
+use Cocur\Slugify\Slugify;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuItem;
@@ -373,6 +374,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         /** @var ContentType[] $contentTypes */
         $contentTypes = $this->config->get('contenttypes')->where('show_in_menu', '!==', true);
 
+        $slugify = new Slugify(['separator' => '-']);
         foreach ($contentTypes as $contentType) {
             if (! $this->authorizationChecker->isGranted(ContentVoter::CONTENT_VIEW, $contentType)) {
                 continue;
@@ -382,11 +384,14 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
             if (! $menu->getChild($label)) {
                 // Add the top level item
+
+                $slug = $slugify->slugify($label);
                 $menu->addChild($label, [
+                    'uri' => $this->urlGenerator->generate('bolt_menupage', ['slug' => $slug]),
                     'extras' => [
                         'name' => $label,
                         'icon' => $contentType->get('icon_many'),
-                        'slug' => $label,
+                        'slug' => $slug,
                     ],
                 ]);
             }

@@ -21,6 +21,7 @@
                 type="text"
                 class="form-control"
                 :placeholder="labels['listing.placeholder_search']"
+                :title="labels['listing.placeholder_search']"
                 name="filter"
                 :value="filterValue"
             />
