@@ -7,10 +7,13 @@ namespace Bolt;
 use Bolt\Configuration\Config;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\CompiledRoute;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class Canonical
 {
@@ -38,12 +41,16 @@ class Canonical
     /** @var string */
     private $defaultLocale;
 
-    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, string $defaultLocale)
+    /** @var RouterInterface */
+    private $router;
+
+    public function __construct(Config $config, UrlGeneratorInterface $urlGenerator, RequestStack $requestStack, RouterInterface $router, string $defaultLocale)
     {
         $this->config = $config;
         $this->urlGenerator = $urlGenerator;
         $this->request = $requestStack->getCurrentRequest() ?? Request::createFromGlobals();
         $this->defaultLocale = $defaultLocale;
+        $this->router = $router;
 
         $this->init();
     }
@@ -179,6 +186,12 @@ class Canonical
             }
         }
 
+        // If contentTypeSlug param is passed, but the given route does not require it, unset it
+        // This ensures we do not end up with query parameter ?contentTypeSlug=entries in the generated URL
+        if (isset($params['contentTypeSlug']) && ! $this->routeRequiresParam($route, 'contentTypeSlug')) {
+            unset($params['contentTypeSlug']);
+        }
+
         try {
             return $this->urlGenerator->generate(
                 $route,
@@ -189,5 +202,18 @@ class Canonical
             // Just use the current URL /shrug
             return $canonical ? $this->request->getUri() : $this->request->getPathInfo();
         }
+    }
+
+    private function routeRequiresParam(string $route, string $param): bool
+    {
+        $routes = $this->router->getRouteCollection();
+
+        /** @var Route $routeDefinition */
+        $routeDefinition = $routes->get($route);
+
+        /** @var CompiledRoute $compiledRoute */
+        $compiledRoute = $routeDefinition->compile();
+
+        return in_array($param, $compiledRoute->getVariables(), true);
     }
 }
