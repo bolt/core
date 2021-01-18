@@ -90,7 +90,7 @@ Feature: Users & Permissions
     When I press "OK"
 
     Then I should be on "/bolt/users"
-    And I should see 5 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
+    And I should see 6 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And I should not see "test_user"
     And I should not see "test_user@example.org"
 
@@ -120,7 +120,7 @@ Feature: Users & Permissions
     And I am on "/bolt/users"
     And I click the 3rd "Edit"
 
-    Then I should be on "/bolt/user-edit/3"
+    Then I should be on "/bolt/user-edit/2"
 
     When I fill "user[email]" element with "admin@example.org"
 
