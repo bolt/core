@@ -21,7 +21,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class BackendMenuBuilder
  *
- * TODO PERMISSIONS -- add checks for menu items (don't show / disable when not available)
  */
 final class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
@@ -100,7 +99,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
         $this->addContentOthers($menu);
 
-        // TODO PERMISSIONS -- should we check for any type of permission? Maybe a single global one makes sense.
         if ($this->authorizationChecker->isGranted('extensionmenus')) {
             $this->addExtensionMenus($menu);
         }
@@ -114,7 +112,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         ]);
 
         // Configuration submenu
-        // TODO PERMISSIONS
         $menu->addChild('Configuration', [
             'uri' => $this->urlGenerator->generate('bolt_menupage', [
                 'slug' => 'configuration',
@@ -203,7 +200,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         }
 
         // Maintenance submenu
-        // TODO PERMISSIONS
         $menu->addChild('Maintenance', [
             'uri' => $this->urlGenerator->generate('bolt_menupage', [
                 'slug' => 'maintenance',
@@ -235,6 +231,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ]);
         }
 
+        // TODO PERMISSIONS we can hide this item, but that will not make the api unavailable
         $menu->getChild('Maintenance')->addChild('Bolt API', [
             'uri' => $this->urlGenerator->generate('api_entrypoint'),
             'extras' => [
@@ -275,6 +272,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         //     ],
         // ]);
 
+        // TODO PERMISSIONS we can hide this item, but that will not make the translation system unavailable
         $menu->getChild('Maintenance')->addChild('Translations', [
             'uri' => $this->urlGenerator->generate('translation_index'),
             'extras' => [
@@ -283,7 +281,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ],
         ]);
 
-        // Hide this menu item, unless we're on a "Git clone" install.
+        // Hide this menu item, unless we're on a "Git clone" install and user has 'kitchensink' permissions
         if (Version::installType() === 'Git clone' && $this->authorizationChecker->isGranted('kitchensink')) {
             $menu->getChild('Maintenance')->addChild('The Kitchensink', [
                 'uri' => $this->urlGenerator->generate('bolt_kitchensink'),
@@ -305,7 +303,6 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         }
 
         // File Management submenu
-        // TODO PERMISSIONS
         $menu->addChild('File Management', [
             'uri' => $this->urlGenerator->generate('bolt_menupage', [
                 'slug' => 'filemanagement',
@@ -335,6 +332,15 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
                     'icon' => 'fa-scroll',
                 ],
             ]);
+        }
+
+        //
+        // These 'container' menus can be empty due to permissions - remove them if this is the case
+        //
+        foreach (['Configuration', 'Maintenance', 'File Management'] as $menuName) {
+            if ($menu->getChild($menuName) !== null && count($menu->getChild($menuName)->getChildren()) === 0) {
+                $menu->removeChild($menuName);
+            }
         }
 
         return $menu;
