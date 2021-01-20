@@ -113,81 +113,25 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/user-edit/{id}", methods={"GET","POST"}, name="bolt_user_edit", requirements={"id": "\d+"})
      * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit") TODO PERMISSIONS move to separate function so we can correctly check permissions
      *
-     * @Security("is_granted('user:edit')") -- first check, more detailed checks in method
+     * @Security("is_granted('editprofile')")
      */
-    public function edit(?User $user, Request $request): Response
+    public function editProfile(Request $request): Response
     {
         $submitted_data = $request->request->get('user');
-        $is_profile_edit = false;
+        return $this->handleEdit(true, $this->getUser(), $submitted_data);
+    }
 
-        // $user is null on /profile-edit but not on /user-edit/<ID>
-        if ($user === null) {
-            $user = $this->getUser();
-            $is_profile_edit = true;
-        }
-
-        $event = new UserEvent($user);
-        $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
-
-        $roles = $this->_getPossibleRolesForForm();
-
-        // We don't require the user to set the password again on the "user edit" form
-        // If it is otherwise set use the given password normally
-        $require_password = false;
-        if (! empty($submitted_data['plainPassword'])) {
-            $require_password = true;
-        }
-
-        // These are the variables we have to pass into our FormType so we can build the fields correctly
-        $form_data = [
-            'suggested_password' => Str::generatePassword(),
-            'roles' => $roles,
-            'require_username' => false,
-            'require_password' => $require_password,
-            'default_locale' => $this->defaultLocale,
-            'is_profile_edit' => $is_profile_edit,
-        ];
-        $form = $this->createForm(UserType::class, $user, $form_data);
-
-        // ON SUBMIT
-        if (! empty($submitted_data)) {
-            // Since the username is disabled on edit form we need to set it here so Symfony Forms doesn't throw an error
-            $submitted_data['username'] = $user->getUsername();
-
-            $submitted_data['locale'] = json_decode($submitted_data['locale'])[0];
-
-            // Status is not available for profile edit on non admin users
-            if (! empty($submitted_data['status'])) {
-                $submitted_data['status'] = json_decode($submitted_data['status'])[0];
-            }
-
-            // Roles is not available for profile edit on non admin users
-            if (! empty($submitted_data['roles'])) {
-                // We need to transform to JSON.stringify value for the field "roles" into
-                // an array so symfony forms validation works
-                $submitted_data['roles'] = json_decode($submitted_data['roles']);
-            }
-
-            // Transform media array to keep only filepath
-            $submitted_data['avatar'] = $submitted_data['avatar']['filename'];
-
-            $form->submit($submitted_data);
-        }
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->_handleValidFormSubmit($form);
-            if ($is_profile_edit) {
-                return $this->redirectToRoute('bolt_profile_edit');
-            }
-
-            return $this->redirectToRoute('bolt_users');
-        }
-
-        return $this->render('@bolt/users/edit.html.twig', [
-            'userForm' => $form->createView(),
-        ]);
+    /**
+     * @Route("/user-edit/{id}", methods={"GET","POST"}, name="bolt_user_edit", requirements={"id": "\d+"})
+     *
+     * @Security("is_granted('user:edit')")
+     */
+    public function edit(User $user, Request $request): Response
+    {
+        $submitted_data = $request->request->get('user');
+        return $this->handleEdit(false, $user, $submitted_data);
     }
 
     /**
@@ -281,5 +225,71 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         return $result;
+    }
+
+    /**
+     * @param bool $is_profile_edit
+     * @param \Symfony\Component\Security\Core\User\UserInterface|null $user
+     * @param $submitted_data
+     * @return RedirectResponse|Response
+     */
+    private function handleEdit(bool $is_profile_edit, ?\Symfony\Component\Security\Core\User\UserInterface $user, $submitted_data)
+    {
+        $redirectRouteAfterSubmit = $is_profile_edit ? 'bolt_profile_edit' : 'bolt_users';
+        $event = new UserEvent($user);
+        $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
+
+        $roles = $this->_getPossibleRolesForForm();
+
+        // We don't require the user to set the password again on the "user edit" form
+        // If it is otherwise set use the given password normally
+        $require_password = false;
+        if (!empty($submitted_data['plainPassword'])) {
+            $require_password = true;
+        }
+
+        // These are the variables we have to pass into our FormType so we can build the fields correctly
+        $form_data = [
+            'suggested_password' => Str::generatePassword(),
+            'roles' => $roles,
+            'require_username' => false,
+            'require_password' => $require_password,
+            'default_locale' => $this->defaultLocale,
+            'is_profile_edit' => $is_profile_edit,
+        ];
+        $form = $this->createForm(UserType::class, $user, $form_data);
+
+        // ON SUBMIT
+        if (!empty($submitted_data)) {
+            // Since the username is disabled on edit form we need to set it here so Symfony Forms doesn't throw an error
+            $submitted_data['username'] = $user->getUsername();
+
+            $submitted_data['locale'] = json_decode($submitted_data['locale'])[0];
+
+            // Status is not available for profile edit on non admin users
+            if (!empty($submitted_data['status'])) {
+                $submitted_data['status'] = json_decode($submitted_data['status'])[0];
+            }
+
+            // Roles is not available for profile edit on non admin users
+            if (!empty($submitted_data['roles'])) {
+                // We need to transform to JSON.stringify value for the field "roles" into
+                // an array so symfony forms validation works
+                $submitted_data['roles'] = json_decode($submitted_data['roles']);
+            }
+
+            // Transform media array to keep only filepath
+            $submitted_data['avatar'] = $submitted_data['avatar']['filename'];
+
+            $form->submit($submitted_data);
+        }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->_handleValidFormSubmit($form);
+            return $this->redirectToRoute($redirectRouteAfterSubmit);
+        }
+
+        return $this->render('@bolt/users/edit.html.twig', [
+            'userForm' => $form->createView(),
+        ]);
     }
 }
