@@ -30,27 +30,20 @@ class SwitchUserVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-        return $attribute === 'CAN_SWITCH_USER' && $subject === null;
+        return $attribute === 'CAN_SWITCH_USER';
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
-        // if the user is anonymous or if the subject is set, do not grant access
-        if (! $user instanceof UserInterface || $subject !== null) {
+        // if the user is anonymous, do not grant access (or should we check $subject?)
+        if (! $user instanceof UserInterface) {
             return false;
         }
 
         if ($this->security->isGranted('ROLE_DEVELOPER')) {
             return true;
         }
-
-        /*
-         * or use some custom data from your User object
-        if ($user->isAllowedToSwitch()) {
-            return true;
-        }
-        */
 
         return false;
     }
