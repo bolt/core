@@ -113,7 +113,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit") TODO PERMISSIONS move to separate function so we can correctly check permissions
+     * @Route("/profile-edit", methods={"GET","POST"}, name="bolt_profile_edit")
      *
      * @Security("is_granted('editprofile')")
      */
