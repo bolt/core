@@ -20,7 +20,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class BackendMenuBuilder
- *
  */
 final class BackendMenuBuilder implements BackendMenuBuilderInterface
 {
@@ -334,9 +333,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ]);
         }
 
-        //
         // These 'container' menus can be empty due to permissions - remove them if this is the case
-        //
         foreach (['Configuration', 'Maintenance', 'File Management'] as $menuName) {
             if ($menu->getChild($menuName) !== null && count($menu->getChild($menuName)->getChildren()) === 0) {
                 $menu->removeChild($menuName);
