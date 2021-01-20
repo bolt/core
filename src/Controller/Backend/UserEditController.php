@@ -120,7 +120,10 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     public function editProfile(Request $request): Response
     {
         $submitted_data = $request->request->get('user');
-        return $this->handleEdit(true, $this->getUser(), $submitted_data);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return $this->handleEdit(true, $user, $submitted_data);
     }
 
     /**
@@ -131,6 +134,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     public function edit(User $user, Request $request): Response
     {
         $submitted_data = $request->request->get('user');
+
         return $this->handleEdit(false, $user, $submitted_data);
     }
 
@@ -228,12 +232,9 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     }
 
     /**
-     * @param bool $is_profile_edit
-     * @param \Symfony\Component\Security\Core\User\UserInterface|null $user
-     * @param $submitted_data
      * @return RedirectResponse|Response
      */
-    private function handleEdit(bool $is_profile_edit, ?\Symfony\Component\Security\Core\User\UserInterface $user, $submitted_data)
+    private function handleEdit(bool $is_profile_edit, User $user, $submitted_data)
     {
         $redirectRouteAfterSubmit = $is_profile_edit ? 'bolt_profile_edit' : 'bolt_users';
         $event = new UserEvent($user);
@@ -244,7 +245,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         // We don't require the user to set the password again on the "user edit" form
         // If it is otherwise set use the given password normally
         $require_password = false;
-        if (!empty($submitted_data['plainPassword'])) {
+        if (! empty($submitted_data['plainPassword'])) {
             $require_password = true;
         }
 
@@ -260,19 +261,19 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $form = $this->createForm(UserType::class, $user, $form_data);
 
         // ON SUBMIT
-        if (!empty($submitted_data)) {
+        if (! empty($submitted_data)) {
             // Since the username is disabled on edit form we need to set it here so Symfony Forms doesn't throw an error
             $submitted_data['username'] = $user->getUsername();
 
             $submitted_data['locale'] = json_decode($submitted_data['locale'])[0];
 
             // Status is not available for profile edit on non admin users
-            if (!empty($submitted_data['status'])) {
+            if (! empty($submitted_data['status'])) {
                 $submitted_data['status'] = json_decode($submitted_data['status'])[0];
             }
 
             // Roles is not available for profile edit on non admin users
-            if (!empty($submitted_data['roles'])) {
+            if (! empty($submitted_data['roles'])) {
                 // We need to transform to JSON.stringify value for the field "roles" into
                 // an array so symfony forms validation works
                 $submitted_data['roles'] = json_decode($submitted_data['roles']);
@@ -285,6 +286,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
         if ($form->isSubmitted() && $form->isValid()) {
             $this->_handleValidFormSubmit($form);
+
             return $this->redirectToRoute($redirectRouteAfterSubmit);
         }
 
