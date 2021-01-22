@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 
 class UserType extends AbstractType
@@ -30,7 +31,9 @@ class UserType extends AbstractType
     /** @var DeepCollection */
     private $avatarConfig;
 
-    public function __construct(LocaleHelper $localeHelper, Environment $twig, Config $config)
+    private $security;
+
+    public function __construct(LocaleHelper $localeHelper, Environment $twig, Config $config, Security $security)
     {
         $this->localeHelper = $localeHelper;
         $this->twig = $twig;
@@ -38,6 +41,8 @@ class UserType extends AbstractType
         /** @var DeepCollection $config */
         $config = $config->get('general');
         $this->avatarConfig = $config->get('user_avatar');
+
+        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -104,12 +109,14 @@ class UserType extends AbstractType
         ;
 
         /*
-         * Allow Roles and Status to be set if either
-         * - this form is used to add a new user
-         * - if the given user object (=logged in user in profile edit page) has ROLE_ADMIN
+         * Add Roles and Status if the form is used to add a new user or edit an existing one
+         * AND the current user has add OR edit rights.
+         * (check if either editing or adding is allowed is done in the controller)
+         *
+         * Note that the profile edit screen never should show these options.
          */
-        // TODO PERMISSIONS -> fix this
-        if ($options['is_profile_edit'] === false || in_array('ROLE_ADMIN', $options['data']->getRoles(), true)) {
+        if ($options['is_profile_edit'] === false &&
+            ($this->security->isGranted('user:add') || $this->security->isGranted('user:delete'))) {
             $builder
                 ->add('roles', ChoiceType::class, [
                     'choices' => $roleOptions,
