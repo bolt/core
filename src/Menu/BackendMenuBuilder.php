@@ -230,14 +230,16 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ]);
         }
 
-        // TODO PERMISSIONS we can hide this item, but that will not make the api unavailable
-        $menu->getChild('Maintenance')->addChild('Bolt API', [
-            'uri' => $this->urlGenerator->generate('api_entrypoint'),
-            'extras' => [
-                'name' => $t->trans('caption.api'),
-                'icon' => 'fa-code',
-            ],
-        ]);
+        // Note 'api_menu' permission will show/hide this item, it will not change access to the api calls themselves
+        if ($this->authorizationChecker->isGranted('api_menu')) {
+            $menu->getChild('Maintenance')->addChild('Bolt API', [
+                'uri' => $this->urlGenerator->generate('api_entrypoint'),
+                'extras' => [
+                    'name' => $t->trans('caption.api'),
+                    'icon' => 'fa-code',
+                ],
+            ]);
+        }
 
         /*
          * @todo Make fixtures work from the backend
