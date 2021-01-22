@@ -31,8 +31,8 @@ global:
     editprofile: [ IS_AUTHENTICATED_FULLY ] # edit own profile
     translation: [ ROLE_ADMIN ] # TODO PERMISSIONS how to enforce this?
     user:list: [ ROLE_ADMIN ] # overview listing of users and a list of active sessions
-    user:add: [ ROLE_ADMIN ] # add user - allows editing user _before_ saving, can set status on create, after saving 'useredit' is needed.
-    user:status: [ ROLE_ADMIN ] # user enable/disable
+    user:add: [ ROLE_ADMIN ] # add user - allows editing user _before_ saving, can set roles, status on create, after saving 'useredit' is needed.
+    user:status: [ ROLE_ADMIN ] # user enable/disable - only used for changing status outside of add/edit context
     user:delete: [ ROLE_ADMIN ] # user delete
     user:edit: [ ROLE_ADMIN ] # user edit all fields, includes user:status permissions
 #    maintenance-mode: [ everyone ] # view the frontend when in maintenance mode

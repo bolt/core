@@ -83,6 +83,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             'require_username' => true,
             'require_password' => true,
             'default_locale' => $this->defaultLocale,
+            'is_profile_edit' => false,
         ];
         $form = $this->createForm(UserType::class, $user, $form_data);
 
