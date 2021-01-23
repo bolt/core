@@ -230,8 +230,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
             ]);
         }
 
-        // Note 'api_menu' permission will show/hide this item, it will not change access to the api calls themselves
-        if ($this->authorizationChecker->isGranted('api_menu')) {
+        if ($this->authorizationChecker->isGranted('api_admin')) {
             $menu->getChild('Maintenance')->addChild('Bolt API', [
                 'uri' => $this->urlGenerator->generate('api_entrypoint'),
                 'extras' => [
@@ -273,14 +272,15 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         //     ],
         // ]);
 
-        // TODO PERMISSIONS we can hide this item, but that will not make the translation system unavailable
-        $menu->getChild('Maintenance')->addChild('Translations', [
-            'uri' => $this->urlGenerator->generate('translation_index'),
-            'extras' => [
-                'name' => $t->trans('caption.translations'),
-                'icon' => 'fa-language',
-            ],
-        ]);
+        if ($this->authorizationChecker->isGranted('translation')) {
+            $menu->getChild('Maintenance')->addChild('Translations', [
+                'uri' => $this->urlGenerator->generate('translation_index'),
+                'extras' => [
+                    'name' => $t->trans('caption.translations'),
+                    'icon' => 'fa-language',
+                ],
+            ]);
+        }
 
         // Hide this menu item, unless we're on a "Git clone" install and user has 'kitchensink' permissions
         if (Version::installType() === 'Git clone' && $this->authorizationChecker->isGranted('kitchensink')) {

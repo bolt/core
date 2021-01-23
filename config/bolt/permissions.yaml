@@ -29,7 +29,7 @@ global:
     managefiles:files: [ ROLE_ADMIN ]
     managefiles:themes: [ ROLE_ADMIN ]
     editprofile: [ IS_AUTHENTICATED_FULLY ] # edit own profile
-    translation: [ ROLE_ADMIN ] # TODO PERMISSIONS how to enforce this?
+    translation: [ ROLE_ADMIN ]
     user:list: [ ROLE_ADMIN ] # overview listing of users and a list of active sessions
     user:add: [ ROLE_ADMIN ] # add user - allows editing user _before_ saving, can set roles, status on create, after saving 'useredit' is needed.
     user:status: [ ROLE_ADMIN ] # user enable/disable - only used for changing status outside of add/edit context
@@ -37,7 +37,7 @@ global:
     user:edit: [ ROLE_ADMIN ] # user edit all fields, includes user:status permissions
 #    maintenance-mode: [ everyone ] # view the frontend when in maintenance mode
     systemlog: [ ROLE_ADMIN ]
-    api_menu: [ ROLE_ADMIN ] # WARNING: this only shows/hides api in the bolt admin menu, it doesn't protect /bolt/api or /api routes
+    api_admin: [ ROLE_ADMIN ] # WARNING: this only shows/hides api in the bolt admin, it doesn't protect the /api route(s)
     bulk_operations: [ ROLE_CHIEF_EDITOR ]
     kitchensink: [ ROLE_ADMIN ]
     upload: [ ROLE_EDITOR ] # TODO PERMISSIONS upload media/files ? Or should this be handled by managefiles:files
@@ -95,7 +95,7 @@ global:
 contenttype-base:
     edit: [ ROLE_ADMIN ]
     create: [ ROLE_ADMIN ]
-    change-status: [ ROLE_ADMIN ] # <-- TODO PERMISSIONS how to handle change-status permission without 'edit'? For now it will just not work!
+    change-status: [ ROLE_ADMIN ] # Note: You can have 'change-status' permission without 'edit' but you cannot use that at the moment as there is no screen that only handles status changes
     delete: [ ROLE_ADMIN ]
     change-ownership: [ ROLE_ADMIN ]
     view: [ ROLE_ADMIN ] # = show in menu, show listings, open 'edit' view without actually being able to edit, any of the other permissions always imply 'view'
