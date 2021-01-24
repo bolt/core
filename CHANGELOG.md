@@ -1,6 +1,26 @@
 Changelog
 =========
 
+## 4.1.12
+
+Released: 2021-01-25
+
+### 🐛 Bug fixes
+
+- Clear config cache on `bin/console cache:clear` (I-Valchev, [#2334](https://github.com/bolt/core/pull/2334))
+- Fix YouTube oEmbed missing `title` accessibility issue (I-Valchev, [#2333](https://github.com/bolt/core/pull/2333))
+- Don't require user to re-authenticate after changing user locale (I-Valchev, [#2322](https://github.com/bolt/core/pull/2322))
+- Use default locale when not explicitly stated (I-Valchev, [#2313](https://github.com/bolt/core/pull/2313))
+
+### 🤖 Tests
+
+- Fix phpstan 0.12.67 failing on `Cannot instantiate interface Bolt\Entity\FieldInterface` (I-Valchev, [#2315](https://github.com/bolt/core/pull/2315))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Pin API-platform to `2.5.*` for now (bobdenotter, [#2336](https://github.com/bolt/core/pull/2336))
+
+
 ## 4.1.11
 
 Released: 2021-01-13
