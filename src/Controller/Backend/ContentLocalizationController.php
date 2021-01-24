@@ -14,8 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Permissions for this controller follow ContentEditController - you can see the localization status if you have
  * 'view' permission on this item.
- *
- * @Security("is_granted('ROLE_ADMIN')")
  */
 class ContentLocalizationController extends TwigAwareController implements BackendZoneInterface
 {
