@@ -4,6 +4,13 @@
             <img src="/assets/images/bolt_logo_dashboard.svg" alt="⚙️ Bolt" height="26" />
         </div>
 
+        <div v-if="isImpersonator" class="toolbar-impersonation">
+            <a :href="backendPrefix + '?_switch_user=_exit'" class="btn btn-warning">
+                <i class="fas fa-sign-out-alt fa-fw"></i>
+                {{ labels['action.stop_impersonating'] }}
+            </a>
+        </div>
+
         <div class="toolbar-item toolbar-item__site">
             <a href="/" target="_blank"> <i class="fas fa-sign-out-alt"></i>{{ labels['action.view_site'] }} </a>
         </div>
@@ -36,6 +43,9 @@
             >
                 <img v-if="avatar" :src="avatar" class="rounded-circle mr-2" alt="User avatar" />
                 <i v-else class="fas fa-user"></i>{{ labels['general.greeting'] }}
+                <template v-if="isImpersonator">
+                    &nbsp;<span style="font-style: italic;">({{ labels['general.is_impersonator'] }})</span>
+                </template>
             </button>
             <div class="profile__dropdown dropdown-menu dropdown-menu-right">
                 <ul>
@@ -80,6 +90,7 @@ export default {
         menu: Array,
         labels: Object,
         backendPrefix: RegExp,
+        isImpersonator: Boolean,
         filterValue: String,
         avatar: String,
     },

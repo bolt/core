@@ -10,6 +10,7 @@ use Bolt\Configuration\Parser\BaseParser;
 use Bolt\Configuration\Parser\ContentTypesParser;
 use Bolt\Configuration\Parser\GeneralParser;
 use Bolt\Configuration\Parser\MenuParser;
+use Bolt\Configuration\Parser\PermissionsParser;
 use Bolt\Configuration\Parser\TaxonomyParser;
 use Bolt\Configuration\Parser\ThemeParser;
 use Bolt\Controller\Backend\ClearCacheController;
@@ -125,11 +126,14 @@ class Config
         $theme = new ThemeParser($this->projectDir, $this->getPath('theme'));
         $config['theme'] = $theme->parse();
 
+        $permissions = new PermissionsParser($this->projectDir);
+        $config['permissions'] = $permissions->parse();
+
         // @todo Add these config files if needed, or refactor them out otherwise
         //'permissions' => $this->parseConfigYaml('permissions.yml'),
         //'extensions' => $this->parseConfigYaml('extensions.yml'),
 
-        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu, $theme);
+        $timestamps = $this->getConfigFilesTimestamps($general, $taxonomy, $contentTypes, $menu, $theme, $permissions);
 
         return [
             DeepCollection::deepMake($config),

@@ -1,12 +1,14 @@
 <div class="form-fieldsgroup form-fieldsgroup__editable-fields">
 
+    {% set disableStatusChanges = not is_granted('change-status', record) %}
     {% include '@bolt/_partials/fields/select.html.twig' with {
         'label' : 'field.status'|trans,
         'name' : 'status',
         'value' : [record.status],
         'options' : record|status_options,
         'form' : 'editcontent',
-        'required' : true
+        'required' : true,
+        'readonly' : disableStatusChanges
     } %}
 
     {% include '@bolt/_partials/fields/date.html.twig' with {
@@ -14,7 +16,8 @@
         'name' : 'publishedAt',
         'value' : record.publishedAt,
         'mode' : 'datetime',
-        'form' : 'editcontent'
+        'form' : 'editcontent',
+        'readonly' : disableStatusChanges
     } %}
 
     {% include '@bolt/_partials/fields/date.html.twig' with {
@@ -22,7 +25,8 @@
         'name' : 'depublishedAt',
         'value' : record.depublishedAt,
         'mode' : 'datetime',
-        'form' : 'editcontent'
+        'form' : 'editcontent',
+        'readonly' : disableStatusChanges
     } %}
 
     {% include '@bolt/_partials/fields/text.html.twig' with {
