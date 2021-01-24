@@ -8,7 +8,7 @@
 # Roles that are not in this list are left 'as is' when editing users.
 # Note: ROLE_USER is assigned to Bolt Entity Users if no roles have been set
 # it should not be included in this list as it should not be added/removed.
-assignable_roles: [ROLE_ADMIN, ROLE_CHIEF_EDITOR, ROLE_EDITOR, ROLE_EXTRA_1, ROLE_USER_FRONTEND_GROUP2]
+assignable_roles: [ROLE_ADMIN, ROLE_EDITOR]
 
 # These permissions are the 'global' permissions; these are not tied
 # to any content types, but rather apply to global, non-content activity in
@@ -38,7 +38,7 @@ global:
 #    maintenance-mode: [ everyone ] # view the frontend when in maintenance mode
     systemlog: [ ROLE_ADMIN ]
     api_admin: [ ROLE_ADMIN ] # WARNING: this only shows/hides api in the bolt admin, it doesn't protect the /api route(s)
-    bulk_operations: [ ROLE_CHIEF_EDITOR ]
+    bulk_operations: [ ROLE_ADMIN ]
     kitchensink: [ ROLE_ADMIN ]
     upload: [ ROLE_EDITOR ] # TODO PERMISSIONS upload media/files ? Or should this be handled by managefiles:files
     extensionmenus: [ IS_AUTHENTICATED_FULLY ] # allows you to see menu items added by extensions
@@ -103,10 +103,10 @@ contenttype-base:
 # these permissions are used as a default for contenttypes, they are added to the base permissions 
 # you can override these settings per contenttype by adding it to the `contenttypes:` array
 contenttype-default:
-    edit: [ ROLE_CHIEF_EDITOR, CONTENT_OWNER ]
-    create: [ ROLE_CHIEF_EDITOR ]
+    edit: [ ROLE_EDITOR, CONTENT_OWNER ]
+    create: [ ROLE_EDITOR ]
     change-ownership: [ CONTENT_OWNER ] # <-- NOT IMPLEMENTED YET (and: how to handle chance-ownership permission without 'edit'?)
-    view: [ ROLE_CHIEF_EDITOR ]
+    view: [ ROLE_EDITOR ]
 
 
 contenttypes:
@@ -126,18 +126,18 @@ contenttypes:
 #        create: [ ROLE_CHIEF_EDITOR ]
 #        change-status: [ ROLE_CHIEF_EDITOR ]
 #        delete: [ ROLE_CHIEF_EDITOR ]
-    pages:
-        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
-        create: [ ROLE_EDITOR ]
-        change-ownership: [ CONTENT_OWNER ]
-        view: [ ROLE_USER ]
-    entries:
+#    pages:
+#        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
+#        create: [ ROLE_EDITOR ]
+#        change-ownership: [ CONTENT_OWNER ]
+#        view: [ ROLE_USER ]
+#    entries:
 #        edit: [ ROLE_EDITOR ]
 #        edit: [ ROLE_EDITOR, CONTENT_OWNER ]
 #        create: [ ROLE_EDITOR ]
 #        change-ownership: [ CONTENT_OWNER ]
-        view: [ ROLE_EDITOR ] 
-    homepage: # singleton
-        view: [ ROLE_EDITOR ]
+#        view: [ ROLE_EDITOR ] 
+#    homepage: # singleton
+#        view: [ ROLE_EDITOR ]
 #        edit: [ ROLE_EDITOR ]
 #        create: [ ROLE_EDITOR ]
