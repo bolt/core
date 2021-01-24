@@ -6,11 +6,15 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
+use Bolt\Security\ContentVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * Permissions for this controller follow ContentEditController - you can see the localization status if you have
+ * 'view' permission on this item.
+ *
  * @Security("is_granted('ROLE_ADMIN')")
  */
 class ContentLocalizationController extends TwigAwareController implements BackendZoneInterface
@@ -20,6 +24,7 @@ class ContentLocalizationController extends TwigAwareController implements Backe
      */
     public function locales(Content $content): Response
     {
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
         $content->getFields();
 
         return $this->render('@bolt/content/view_locales.html.twig', [

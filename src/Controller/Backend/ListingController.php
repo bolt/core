@@ -7,14 +7,11 @@ namespace Bolt\Controller\Backend;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
+use Bolt\Security\ContentVoter;
 use Bolt\Storage\Query;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Security("is_granted('ROLE_ADMIN')")
- */
 class ListingController extends TwigAwareController implements BackendZoneInterface
 {
     /**
@@ -23,6 +20,8 @@ class ListingController extends TwigAwareController implements BackendZoneInterf
     public function overview(Query $query, string $contentType = ''): Response
     {
         $contentTypeObject = ContentType::factory($contentType, $this->config->get('contenttypes'));
+
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_MENU_LISTING, $contentTypeObject);
 
         $page = (int) $this->getFromRequest('page', '1');
 

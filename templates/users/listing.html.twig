@@ -43,15 +43,24 @@
             {% endif %}
             <td>{% if iteratedUser.lastIp %}<code>{{ iteratedUser.lastIp }}</code>{% else %}-{% endif %}</td>
             <td>
-                {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary sm') }}
+                {% if is_granted('user:edit') %}
+                    {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary sm') }}
+                {% endif %}
                 {% if user.id != iteratedUser.id %}
-                    {% if iteratedUser.status !== 'disabled' %}
-                        {{ macro.buttonlink('action.disable', path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'disabled'}), 'ban', 'secondary sm') }}
+                    {% if is_granted('user:status') %}
+                        {% if iteratedUser.status !== 'disabled' %}
+                            {{ macro.buttonlink('action.disable', path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'disabled'}), 'ban', 'secondary sm') }}
+                        {% endif %}
+                        {% if iteratedUser.status !== 'enabled' %}
+                            {{ macro.buttonlink('action.enable', path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'enabled'}), 'thumbs-up', 'secondary sm') }}
+                        {% endif %}
                     {% endif %}
-                    {% if iteratedUser.status !== 'enabled' %}
-                        {{ macro.buttonlink('action.enable', path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'enabled'}), 'thumbs-up', 'secondary sm') }}
+                    {% if is_granted('CAN_SWITCH_USER') %}
+                    {{ macro.buttonlink('action.impersonate', path('bolt_dashboard', {'_switch_user': iteratedUser.username}), 'user-shield', 'secondary sm') }}
                     {% endif %}
+                    {% if is_granted('user:delete') %}
                     {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}), 'trash', 'danger sm', {'data-confirmation': 'action.confirm_delete'|trans }) }}
+                    {% endif %}
                 {%  endif %}
             </td>
         </tr>
@@ -59,7 +68,9 @@
     </table>
 
     <p class="buttons">
-        {{ macro.buttonlink('action.add_user', path('bolt_user_add'), 'user-plus', 'secondary') }}
+        {% if is_granted('user:add') %}
+            {{ macro.buttonlink('action.add_user', path('bolt_user_add'), 'user-plus', 'secondary') }}
+        {% endif %}
     </p>
 
     <h3>Current sessions</h3>

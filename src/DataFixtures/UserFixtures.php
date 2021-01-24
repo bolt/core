@@ -101,7 +101,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
                 'username' => 'henkie',
                 'password' => $this->append ? Str::generatePassword(10) : 'henkie%1',
                 'email' => 'henkie@example.org',
-                'roles' => ['ROLE_EDITOR'],
+                'roles' => ['ROLE_EDITOR', 'ROLE_EXTRA_1', 'ROLE_EXTRA_2', 'ROLE_USER_FRONTEND_GROUP1'],
             ],
             [
                 'displayname' => 'Jane Doe',
@@ -123,6 +123,13 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
                 'password' => $this->append ? Str::generatePassword(10) : 'john%1',
                 'email' => 'john_user@example.org',
                 'roles' => ['ROLE_USER'],
+            ],
+            [
+                'displayname' => 'Developer',
+                'username' => 'developer',
+                'password' => $this->append ? Str::generatePassword(10) : 'developer%1',
+                'email' => 'developer@example.org',
+                'roles' => ['ROLE_DEVELOPER'],
             ],
         ];
     }

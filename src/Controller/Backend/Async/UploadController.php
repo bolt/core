@@ -30,7 +30,7 @@ use Throwable;
 use Webmozart\PathUtil\Path;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('upload')")
  */
 class UploadController extends AbstractController implements AsyncZoneInterface
 {

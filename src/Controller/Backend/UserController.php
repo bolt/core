@@ -14,7 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * Display the list of users, along with buttons to change them.
+ *
+ * @Security("is_granted('user:list')")
  */
 class UserController extends TwigAwareController implements BackendZoneInterface
 {
