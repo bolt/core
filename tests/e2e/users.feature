@@ -85,7 +85,7 @@ Feature: Users & Permissions
     And I should see "Test user" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" element
 
     #delete button for new user
-    When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(5) > td:nth-child(7) > a.btn.btn-danger.mb-3.text-nowrap"
+    When I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(6) > td:nth-child(7) > a.btn.btn-danger.mb-3.text-nowrap"
     And I wait 1 second
     Then  I should see "Are you sure you wish to delete this content?"
     When I press "OK"
