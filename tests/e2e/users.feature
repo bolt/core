@@ -117,19 +117,18 @@ Feature: Users & Permissions
     And I should see "tom_admin_changed@example.org"
 
   @javascript
-  Scenario: Edit user with exists email
+  Scenario: Edit user with existing email
     Given I am logged in as "admin"
     And I am on "/bolt/users"
     And I click the 3rd "Edit"
 
     Then I should be on "/bolt/user-edit/2"
-
-    When I fill "user[email]" element with "admin@example.org"
-
+    Then I wait 1 seconds
+    And I fill "user[email]" element with "admin@example.org"
     And I scroll "Save changes" into view
     And I press "Save changes"
 
-    Then I should be on "/bolt/user-edit/3"
+    Then I should be on "/bolt/user-edit/2"
     And I should see "A user with \"admin@example.org\" email already exists." in the ".field-error" element
 
   @javascript
