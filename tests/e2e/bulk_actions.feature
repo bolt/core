@@ -20,6 +20,7 @@ Feature: Bulk content listing actions
     When I click ".listing__filter .custom-checkbox"
 
     And I click "aside .card-body .multiselect__select"
+    And I wait 0.1 second
     Then I should see "Change status to 'publish'"
     And I should see "Change status to 'draft'"
     And I should see "Change status to 'held'"
