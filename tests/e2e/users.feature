@@ -90,6 +90,7 @@ Feature: Users & Permissions
     When I press "OK"
 
     Then I should be on "/bolt/users"
+    And I wait 1 second
     And I should see 6 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And I should not see "test_user"
     And I should not see "test_user@example.org"
