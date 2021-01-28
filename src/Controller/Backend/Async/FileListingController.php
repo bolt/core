@@ -39,8 +39,8 @@ class FileListingController implements AsyncZoneInterface
         $locationName = $this->request->query->get('location', 'files');
         $type = $this->request->query->get('type', '');
 
-        if (!$this->security->isGranted('list_files:' . $locationName)) {
-            return new JsonResponse("permission denied", Response::HTTP_UNAUTHORIZED);
+        if (! $this->security->isGranted('list_files:' . $locationName)) {
+            return new JsonResponse('permission denied', Response::HTTP_UNAUTHORIZED);
         }
 
         $path = $this->config->getPath($locationName, true);
