@@ -133,7 +133,7 @@ class ImageExtension extends AbstractExtension
     public function getSvg($image): ?string
     {
         $filesLocation = $this->fileLocations->get('files')->getBasepath();
-        $image = sprintf('%s/%s', $filesLocation, $this->getFilename($image));
+        $image = sprintf('%s/%s', $filesLocation, $this->getFilename($image, true));
         $extension = pathinfo($image, PATHINFO_EXTENSION);
 
         if ($extension !== 'svg') {
