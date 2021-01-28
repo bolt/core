@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Configuration\Config;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Tightenco\Collect\Support\Collection;
 
-/**
- * @Security("is_granted('ROLE_ADMIN')")
- */
 class FileListingController implements AsyncZoneInterface
 {
     /** @var Config */
@@ -24,10 +22,13 @@ class FileListingController implements AsyncZoneInterface
     /** @var Request */
     private $request;
 
-    public function __construct(Config $config, RequestStack $requestStack)
+    private $security;
+
+    public function __construct(Config $config, RequestStack $requestStack, Security $security)
     {
         $this->config = $config;
         $this->request = $requestStack->getCurrentRequest();
+        $this->security = $security;
     }
 
     /**
@@ -37,6 +38,10 @@ class FileListingController implements AsyncZoneInterface
     {
         $locationName = $this->request->query->get('location', 'files');
         $type = $this->request->query->get('type', '');
+
+        if (!$this->security->isGranted('list_files:' . $locationName)) {
+            return new JsonResponse("permission denied", Response::HTTP_UNAUTHORIZED);
+        }
 
         $path = $this->config->getPath($locationName, true);
 
