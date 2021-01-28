@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('fetch_embed_data')")
  */
 class EmbedController implements AsyncZoneInterface
 {
