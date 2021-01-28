@@ -42,6 +42,8 @@ global:
     kitchensink: [ ROLE_ADMIN ]
     upload: [ ROLE_EDITOR ] # TODO PERMISSIONS upload media/files ? Or should this be handled by managefiles:files
     extensionmenus: [ IS_AUTHENTICATED_FULLY ] # allows you to see menu items added by extensions
+    media_edit: [ ROLE_ADMIN ] # edit metadata for images etc.
+
 
 # For content type related actions, permissions can be set individually for
 # each content type. For this, we define three groups of permission sets.
