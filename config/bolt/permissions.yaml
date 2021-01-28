@@ -44,6 +44,9 @@ global:
     extensionmenus: [ IS_AUTHENTICATED_FULLY ] # allows you to see menu items added by extensions
     media_edit: [ ROLE_ADMIN ] # edit metadata for images etc.
     fetch_embed_data: [ ROLE_ADMIN ] # get embed (meta)data for urls via the back-end (needed to embed youtube etc.)
+    list_files:config: [ ROLE_ADMIN ] # should probably not be used?
+    list_files:files: [ ROLE_ADMIN ] # get list of files (images?) available for use as site-content
+    list_files:themes: [ ROLE_ADMIN ] # should probably not be used?
 
 
 # For content type related actions, permissions can be set individually for
