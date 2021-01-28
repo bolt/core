@@ -43,6 +43,7 @@ global:
     upload: [ ROLE_EDITOR ] # TODO PERMISSIONS upload media/files ? Or should this be handled by managefiles:files
     extensionmenus: [ IS_AUTHENTICATED_FULLY ] # allows you to see menu items added by extensions
     media_edit: [ ROLE_ADMIN ] # edit metadata for images etc.
+    fetch_embed_data: [ ROLE_ADMIN ] # get embed (meta)data for urls via the back-end (needed to embed youtube etc.)
 
 
 # For content type related actions, permissions can be set individually for
