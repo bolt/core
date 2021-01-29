@@ -9,8 +9,10 @@ use Bolt\Common\Str;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\User;
+use Bolt\Event\UserEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -31,14 +33,19 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
     /** @var UserPasswordEncoderInterface */
     private $passwordEncoder;
 
+    /** @var EventDispatcherInterface */
+    private $dispatcher;
+
     public function __construct(
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -108,7 +115,8 @@ class ProfileController extends TwigAwareController implements BackendZoneInterf
 
         $this->em->flush();
 
-        $this->request->getSession()->set('_locale', $locale);
+        $event = new UserEvent($user);
+        $this->dispatcher->dispatch($event, UserEvent::ON_POST_SAVE);
 
         $this->addFlash('success', 'user.updated_profile');
 

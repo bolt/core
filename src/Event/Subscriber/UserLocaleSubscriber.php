@@ -49,6 +49,7 @@ class UserLocaleSubscriber implements EventSubscriberInterface
     {
         return [
             SecurityEvents::INTERACTIVE_LOGIN => 'onInteractiveLogin',
+            UserEvent::ON_POST_SAVE => 'onUserEdit',
         ];
     }
 }

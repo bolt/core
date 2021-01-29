@@ -20,6 +20,8 @@ use Tightenco\Collect\Support\Collection;
 
 class Config
 {
+    public const CACHE_KEY = 'config_cache';
+
     /** @var Collection */
     protected $data;
 
@@ -76,7 +78,7 @@ class Config
         // Verify if timestamps are unchanged. If not, invalidate cache.
         foreach ($timestamps as $filename => $timestamp) {
             if (file_exists($filename) === false || filemtime($filename) > $timestamp) {
-                $this->cache->delete('config_cache');
+                $this->cache->delete(self::CACHE_KEY);
                 [$data] = $this->getCache();
 
                 // Clear the entire cache in order to re-generate %bolt.requirement.contenttypes%
@@ -91,7 +93,7 @@ class Config
 
     private function getCache(): array
     {
-        return $this->cache->get('config_cache', function () {
+        return $this->cache->get(self::CACHE_KEY, function () {
             return $this->parseConfig();
         });
     }
