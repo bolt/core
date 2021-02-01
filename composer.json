@@ -34,7 +34,6 @@
         "psr/simple-cache": "^1.0",
         "scienta/doctrine-json-functions": "^4.1",
         "sensio/framework-extra-bundle": "^5.6",
-        "sensiolabs/security-checker": "^6.0",
         "siriusphp/upload": "^3.0.1",
         "squirrelphp/twig-php-syntax": "^1.5",
         "symfony/asset": "^5.1",
@@ -140,9 +139,6 @@
         "auto-scripts": [
             "php bin/console cache:clear --no-warmup --ansi",
             "php bin/console assets:install --symlink --relative public --ansi"
-        ],
-        "periodical-tasks": [
-            "security-checker security:check"
         ]
     }
 }
