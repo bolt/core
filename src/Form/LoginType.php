@@ -4,10 +4,10 @@
 
 namespace Bolt\Form;
 
+    use Bolt\Form\FieldTypes\PasswordWithPreviewType;
     use Cocur\Slugify\Slugify;
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-    use Symfony\Component\Form\Extension\Core\Type\PasswordType;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -49,13 +49,15 @@ namespace Bolt\Form;
                     ],
                     'data' => $last_username,
                 ])
-                ->add('password', PasswordType::class, [
+                ->add('password', PasswordWithPreviewType::class, [
                     'label' => 'label.password',
                     'constraints' => [
                         new NotBlank([
                             'message' => $this->translator->trans('form.empty_password'),
                         ]),
                     ],
+                    // do not show the * red star
+                    'required' => false,
                     'attr' => [
                         'placeholder' => 'placeholder.password',
                     ],
