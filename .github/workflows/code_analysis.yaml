@@ -38,10 +38,6 @@ jobs:
                         run: bin/console lint:xliff translations --ansi
 
                     -
-                        name: Check dependencies for security vulnerabilities
-                        run: bin/console security:check --ansi
-
-                    -
                         name: Check Doctrine Mapping
                         run: bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction --ansi
 
