@@ -1,17 +1,22 @@
 <template>
     <div>
-        <input
-            :id="id"
-            class="form-control"
-            :name="name"
-            :value="value"
-            type="email"
-            :required="required"
-            :readonly="readonly"
-            :data-errormessage="errormessage"
-            :pattern="pattern"
-            :placeholder="placeholder"
-        />
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="far fa-envelope mr-0"></i></div>
+            </div>
+            <input
+                :id="id"
+                class="form-control"
+                :name="name"
+                :value="value"
+                type="email"
+                :required="required"
+                :readonly="readonly"
+                :data-errormessage="errormessage"
+                :pattern="pattern"
+                :placeholder="placeholder"
+            />
+        </div>
     </div>
 </template>
 
