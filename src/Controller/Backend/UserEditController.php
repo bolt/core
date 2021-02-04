@@ -74,7 +74,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
 
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_ADD);
-        $roles = $this->_getPossibleRolesForForm();
+        $roles = $this->getPossibleRolesForForm();
 
         // These are the variables we have to pass into our FormType so we can build the fields correctly
         $form_data = [
@@ -103,7 +103,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->_handleValidFormSubmit($form);
+            $this->handleValidFormSubmit($form);
 
             return $this->redirectToRoute('bolt_users');
         }
@@ -194,7 +194,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
      * Here the User Object will be persisted to the DB. A security exception will be raised if the roles
      * for the user being saved are not allowed for the current logged user.
      */
-    private function _handleValidFormSubmit(FormInterface $form): void
+    private function handleValidFormSubmit(FormInterface $form): void
     {
         // Get the adjusted User Entity from the form
         /** @var User $user */
@@ -219,7 +219,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $this->addFlash('success', 'user.updated_profile');
     }
 
-    private function _getPossibleRolesForForm(): array
+    private function getPossibleRolesForForm(): array
     {
         $result = [];
         $assignableRoles = $this->assignableRoles;
@@ -241,7 +241,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
         $event = new UserEvent($user);
         $this->dispatcher->dispatch($event, UserEvent::ON_EDIT);
 
-        $roles = $this->_getPossibleRolesForForm();
+        $roles = $this->getPossibleRolesForForm();
 
         // We don't require the user to set the password again on the "user edit" form
         // If it is otherwise set use the given password normally
@@ -286,7 +286,7 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
             $form->submit($submitted_data);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->_handleValidFormSubmit($form);
+            $this->handleValidFormSubmit($form);
 
             return $this->redirectToRoute($redirectRouteAfterSubmit);
         }

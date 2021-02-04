@@ -33,7 +33,7 @@ class FlagMaster
             $code = $replacement[$code];
         }
 
-        return self::_code2unicode($code);
+        return self::code2unicode($code);
     }
 
     /**
@@ -43,12 +43,12 @@ class FlagMaster
      *
      * @throws \Exception
      */
-    private static function _code2unicode($code): string
+    private static function code2unicode($code): string
     {
         $arr = str_split($code);
         $str = '';
         foreach ($arr as $char) {
-            $str .= self::_enclosedUnicode($char);
+            $str .= self::enclosedUnicode($char);
         }
 
         return $str;
@@ -61,7 +61,7 @@ class FlagMaster
      *
      * @throws \Exception
      */
-    private static function _enclosedUnicode($char): string
+    private static function enclosedUnicode($char): string
     {
         $arr = [
             'a' => '1F1E6',
