@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Backend;
 
+use Bolt\Common\Date;
 use Bolt\Common\Json;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Controller\CsrfTrait;
@@ -38,20 +39,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Tightenco\Collect\Support\Collection;
-
-// utility method not of real use outside this controller
-function datesDiffer(?\DateTime $dateTime1, ?\DateTime $dateTime2): bool
-{
-    if ($dateTime1 !== null) {
-        if ($dateTime2 !== null) {
-            return $dateTime1->getTimestamp() !== $dateTime2->getTimestamp();
-        }
-        // $dateTime2 null while $dateTime1 is not
-        return true;
-    }
-    // $dateTime1 is null, so if $dateTime2 is NOT null they differ
-    return $dateTime2 !== null;
-}
 
 /**
  * CRUD + status, duplicate, preview, for content - note that listing is handled by ListingController.php
@@ -140,7 +127,6 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
      */
     public function edit(Content $content): Response
     {
-//        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_EDIT, $content);
         $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
 
         $event = new ContentEvent($content);
@@ -221,8 +207,8 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
             // deny if we detect any of these status fields being changed
             if (
                 $originalStatus !== $content->getStatus() ||
-                datesDiffer($originalPublishedAt, $content->getPublishedAt()) ||
-                datesDiffer($originalDepublishedAt, $content->getDepublishedAt())
+                Date::datesDiffer($originalPublishedAt, $content->getPublishedAt()) ||
+                Date::datesDiffer($originalDepublishedAt, $content->getDepublishedAt())
             ) {
                 $this->denyAccessUnlessGranted(ContentVoter::CONTENT_CHANGE_STATUS, $content);
             }
