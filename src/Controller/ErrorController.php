@@ -8,7 +8,7 @@ use Bolt\Configuration\Config;
 use Bolt\Controller\Frontend\DetailControllerInterface;
 use Bolt\Controller\Frontend\TemplateController;
 use Bolt\Widget\Injector\RequestZone;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,14 +33,14 @@ class ErrorController extends SymfonyErrorController
     /** @var DetailControllerInterface */
     private $detailController;
 
-    /** @var ContainerInterface */
-    private $container;
-
     /** @var Request */
     private $request;
 
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
+
+    /** @var ParameterBagInterface */
+    private $parameterBag;
 
     public function __construct(
         HttpKernelInterface $httpKernel,
@@ -48,7 +48,7 @@ class ErrorController extends SymfonyErrorController
         DetailControllerInterface $detailController,
         TemplateController $templateController,
         ErrorRendererInterface $errorRenderer,
-        ContainerInterface $container,
+        ParameterBagInterface $parameterBag,
         RequestStack $requestStack,
         UrlGeneratorInterface $urlGenerator)
     {
@@ -58,9 +58,9 @@ class ErrorController extends SymfonyErrorController
         parent::__construct($httpKernel, $templateController, $errorRenderer);
 
         $this->detailController = $detailController;
-        $this->container = $container;
         $this->request = $requestStack->getParentRequest();
         $this->urlGenerator = $urlGenerator;
+        $this->parameterBag = $parameterBag;
     }
 
     /**
@@ -95,7 +95,7 @@ class ErrorController extends SymfonyErrorController
             return $this->showForbidden();
         }
 
-        $prod = ($this->container->getParameter('kernel.environment') === 'prod');
+        $prod = mb_strtolower($this->parameterBag->get('kernel.environment')) === 'prod';
 
         if ($code === Response::HTTP_INTERNAL_SERVER_ERROR && $prod && $this->config->get('general/internal_server_error')) {
             return $this->showInternalServerError();
