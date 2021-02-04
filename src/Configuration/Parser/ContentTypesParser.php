@@ -340,10 +340,10 @@ class ContentTypesParser extends BaseParser
             $field['default_locale'] = $this->defaultLocale;
         }
 
-        if (isset($field['pattern']) === true and $field['pattern'] === 'email') {
+        if (isset($field['pattern']) === true && $field['pattern'] === 'email') {
             // HTML5 form validation regex equivalent
             $field['pattern'] = "[A-Za-z0-9]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+";
-        } elseif (isset($field['pattern']) === true and $field['pattern'] === 'url') {
+        } elseif (isset($field['pattern']) === true && $field['pattern'] === 'url') {
             // HTML5 form validation regex equivalent
             $field['pattern'] = "^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}?((.*))?$";
         }
