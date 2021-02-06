@@ -10,7 +10,7 @@ Feature: Logging in
     And I should be on "/bolt/"
 
   @javascript
-  Scenario: As an admin I attempt to log in to Dashbaord with incorrect credentials
+  Scenario: As an admin I attempt to log in to Dashboard with incorrect credentials
     Given I am on "/bolt/login"
     When I fill in the following:
       | username | admin |
