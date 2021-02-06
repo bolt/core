@@ -77,7 +77,7 @@
         "behat/mink-goutte-driver": "^1.2",
         "behat/mink-selenium2-driver": "^1.4",
         "behatch/contexts": "^3.3",
-        "bobdenotter/configuration-notices": "^1.1",
+        "bobdenotter/configuration-notices": "^1.1.10",
         "bobdenotter/weatherwidget": "^1.1",
         "bolt/binary-chromedriver": "^5.1.1",
         "bolt/newswidget": "^1.2",
