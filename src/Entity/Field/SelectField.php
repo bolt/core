@@ -6,14 +6,17 @@ namespace Bolt\Entity\Field;
 
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\IterableFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Tightenco\Collect\Support\Collection;
 
 /**
  * @ORM\Entity
  */
-class SelectField extends Field implements FieldInterface, RawPersistable
+class SelectField extends Field implements FieldInterface, RawPersistable, \Iterator
 {
+    use IterableFieldTrait;
+
     public const TYPE = 'select';
 
     public function setValue($value): Field
