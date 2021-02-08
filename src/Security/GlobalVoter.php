@@ -21,12 +21,9 @@ class GlobalVoter extends Voter
     {
         $this->security = $security;
         $this->globalPermissions = $config->get('permissions/global');
+
         if ($this->globalPermissions instanceof Collection) {
-            // TODO should we also validate that the values are all simple arrays?
-            $globalPermissionNames = array_keys($this->globalPermissions->all());
-            foreach ($globalPermissionNames as $attribute) {
-                $this->supportedAttributes[] = $attribute;
-            }
+            $this->supportedAttributes = $this->globalPermissions->keys()->toArray();
         } else {
             throw new \DomainException('No global permissions config found');
         }
@@ -58,6 +55,7 @@ class GlobalVoter extends Voter
         }
 
         $rolesWithPermission = $this->globalPermissions[$attribute];
+
         foreach ($rolesWithPermission as $role) {
             if ($this->security->isGranted($role)) {
                 return true;

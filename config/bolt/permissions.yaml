@@ -35,7 +35,7 @@ global:
     user:status: [ ROLE_ADMIN ] # user enable/disable - only used for changing status outside of add/edit context
     user:delete: [ ROLE_ADMIN ] # user delete
     user:edit: [ ROLE_ADMIN ] # user edit all fields, includes user:status permissions
-#    maintenance-mode: [ everyone ] # view the frontend when in maintenance mode
+    maintenance-mode: [ ROLE_ADMIN ] # view the frontend when in maintenance mode
     systemlog: [ ROLE_ADMIN ]
     api_admin: [ ROLE_ADMIN ] # WARNING: this only shows/hides api in the bolt admin, it doesn't protect the /api route(s)
     bulk_operations: [ ROLE_ADMIN ]
