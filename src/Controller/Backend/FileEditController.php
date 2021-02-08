@@ -7,6 +7,7 @@ namespace Bolt\Controller\Backend;
 use Bolt\Controller\CsrfTrait;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
+use Bolt\Utils\PathCanonicalize;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Filesystem\Filesystem;
@@ -53,12 +54,10 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
     public function edit(string $location): Response
     {
         $file = $this->getFromRequest('file');
-        if (mb_strpos($file, '/') !== 0) {
-            $file = '/' . $file;
-        }
-
         $basepath = $this->config->getPath($location);
-        $filename = Path::canonicalize($basepath . '/' . $file);
+
+        $filename = PathCanonicalize::canonicalize($basepath, $file);
+
         $contents = file_get_contents($filename);
 
         $context = [
@@ -138,7 +137,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
             $this->em->flush();
         }
 
-        $filePath = Path::canonicalize($locationName . '/' . $path);
+        $filePath = PathCanonicalize::canonicalize($locationName, $path);
 
         try {
             $this->filesystem->remove($filePath);
@@ -175,7 +174,7 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $locationName = $this->getFromRequest('location', '');
         $path = $this->getFromRequest('path', '');
 
-        $originalFilepath = Path::canonicalize($locationName . '/' . $path);
+        $originalFilepath = PathCanonicalize::canonicalize($locationName, $path);
 
         $copyFilePath = $this->getCopyFilepath($originalFilepath);
 
@@ -205,8 +204,8 @@ class FileEditController extends TwigAwareController implements BackendZoneInter
         $i = 1;
         while ($this->filesystem->exists($copyPath)) {
             $pathinfo = pathinfo($path);
-            $basename = basename($pathinfo['basename'], '.' . $pathinfo['extension']) . ' (' . $i . ')';
-            $copyPath = Path::canonicalize($pathinfo['dirname'] . '/' . $basename . '.' . $pathinfo['extension']);
+            $basename = basename($pathinfo['basename'], '.' . $pathinfo['extension']) . ' (' . $i . ')' . '.' . $pathinfo['extension'];
+            $copyPath = PathCanonicalize::canonicalize($pathinfo['dirname'], $basename);
             $i++;
         }
 
