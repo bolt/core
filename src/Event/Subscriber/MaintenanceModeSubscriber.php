@@ -10,15 +10,20 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Security\Core\Security;
 
 class MaintenanceModeSubscriber implements EventSubscriberInterface
 {
     /** @var Config */
     private $config;
 
-    public function __construct(Config $config)
+    /** @var Security */
+    private $security;
+
+    public function __construct(Config $config, Security $security)
     {
         $this->config = $config;
+        $this->security = $security;
     }
 
     public function onKernelController(ControllerEvent $event): void
@@ -31,7 +36,7 @@ class MaintenanceModeSubscriber implements EventSubscriberInterface
             $controller = $controller[0];
         }
 
-        if ($controller instanceof FrontendZoneInterface && $this->config->get('general/maintenance_mode', 'false')) {
+        if ($controller instanceof FrontendZoneInterface && $this->config->get('general/maintenance_mode', 'false') && ! $this->security->isGranted('maintenance-mode')) {
             throw new HttpException(503, 'Service Unavailable (Maintenance Mode)');
         }
     }
