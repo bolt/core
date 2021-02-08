@@ -460,9 +460,13 @@ class Content
      */
     public function getFieldValues(): array
     {
-        $fieldValues = [];
-        foreach ($this->getFields() as $field) {
-            $fieldValues[$field->getName()] = $field->getApiValue();
+        $fieldValues = $this->getFieldValuesFromDefinition();
+
+        if ($fieldValues === null) {
+            // Get the fields according to the database.
+            foreach ($this->getFields() as $field) {
+                $fieldValues[$field->getName()] = $field->getApiValue();
+            }
         }
 
         // Make sure we have a 'slug', even if none is defined in the contentype
@@ -815,5 +819,27 @@ class Content
         }
 
         return $this;
+    }
+
+    private function getFieldValuesFromDefinition(): ?array
+    {
+        if (! $this->getDefinition() || ! $this->getDefinition()->get('fields', null)) {
+            // Definition is missing.
+            return null;
+        }
+
+        $fieldValues = [];
+
+        foreach ($this->getDefinition()->get('fields') as $name => $definition) {
+            if ($this->hasField($name)) {
+                $field = $this->getField($name);
+            } else {
+                $field = FieldRepository::factory($definition, $name);
+            }
+
+            $fieldValues[$name] = $field->getApiValue();
+        }
+
+        return $fieldValues;
     }
 }
