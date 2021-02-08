@@ -14,7 +14,7 @@ class PathCanonicalize
 
         // If the path is outside the `$basePath`, we do not allow it.
         if (mb_strpos(Path::makeRelative($path, $basePath), '..') === 0) {
-            throw new \Exception('You are not allowed to do that');
+            throw new \Exception('You are not allowed to access path ' . $path);
         }
 
         return $path;
