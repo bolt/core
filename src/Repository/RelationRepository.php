@@ -23,7 +23,6 @@ class RelationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Relation::class);
     }
-    
     public function findRelations(Content $from, ?string $name, bool $biDirectional = false, ?int $limit = null, bool $publishedOnly = true): array
     {
         // Only get existing Relations from content that was persisted before
