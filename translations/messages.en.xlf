@@ -2535,7 +2535,7 @@
         <target>Cheers!</target>
       </segment>
     </unit>
-    <unit id="harDiJR" name="reset_password.enter_pwd">
+    <unit id="7d24Grt" name="reset_password.enter_pwd">
       <segment>
         <source>reset_password.enter_pwd</source>
         <target>Please enter a password</target>
