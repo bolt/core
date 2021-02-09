@@ -2553,7 +2553,7 @@
         <target>The password fields must match.</target>
       </segment>
     </unit>
-    <unit id="1JZeWxG" name="reset_password.minimum_length">
+    <unit id="2ahb7da" name="reset_password.minimum_length">
       <segment>
         <source>reset_password.minimum_length</source>
         <target>Your password should be at least %s characters</target>
