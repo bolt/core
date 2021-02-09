@@ -28,12 +28,21 @@ class ImageExtension extends AbstractExtension
     /** @var FileLocations */
     private $fileLocations;
 
-    public function __construct(MediaRepository $mediaRepository, Notifications $notifications, ThumbnailHelper $thumbnailHelper, FileLocations $fileLocations)
+    /** @var ContentExtension */
+    private $contentExtension;
+
+    public function __construct(
+        MediaRepository $mediaRepository,
+        Notifications $notifications,
+        ThumbnailHelper $thumbnailHelper,
+        FileLocations $fileLocations,
+        ContentExtension $contentExtension)
     {
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
         $this->thumbnailHelper = $thumbnailHelper;
         $this->fileLocations = $fileLocations;
+        $this->contentExtension = $contentExtension;
     }
 
     /**
@@ -155,7 +164,7 @@ class ImageExtension extends AbstractExtension
         $filename = null;
 
         if ($image instanceof Content) {
-            $image = $this->getImageFromContent($image);
+            $image = $this->contentExtension->getImage($image);
         }
 
         if (is_array($image)) {
@@ -177,7 +186,7 @@ class ImageExtension extends AbstractExtension
         $alt = '';
 
         if ($image instanceof Content) {
-            $image = $this->getImageFromContent($image);
+            $image = $this->contentExtension->getImage($image);
         }
 
         if ($image instanceof ImageField) {
@@ -189,16 +198,5 @@ class ImageExtension extends AbstractExtension
         }
 
         return htmlentities((string) $alt, ENT_QUOTES);
-    }
-
-    private function getImageFromContent(Content $content): ?ImageField
-    {
-        foreach ($content->getFields() as $field) {
-            if ($field instanceof ImageField) {
-                return $field;
-            }
-        }
-
-        return null;
     }
 }

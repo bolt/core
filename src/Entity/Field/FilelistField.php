@@ -7,8 +7,8 @@ namespace Bolt\Entity\Field;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Field;
 use Bolt\Entity\FieldInterface;
+use Bolt\Entity\IterableFieldTrait;
 use Bolt\Entity\ListFieldInterface;
-use Bolt\Entity\ListFieldTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FilelistField extends Field implements FieldInterface, ListFieldInterface, RawPersistable, \Iterator
 {
-    use ListFieldTrait;
+    use IterableFieldTrait;
 
     public const TYPE = 'filelist';
 
