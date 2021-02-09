@@ -2565,7 +2565,7 @@
         <target>No reset password token found in the URL or in the session.</target>
       </segment>
     </unit>
-    <unit id="SjuOnue" name="reset_password.reset_successful">
+    <unit id="hsg341k" name="reset_password.reset_successful">
       <segment>
         <source>reset_password.reset_successful</source>
         <target>Your password has been reset successfully.</target>
