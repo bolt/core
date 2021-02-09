@@ -2529,7 +2529,7 @@
         <target>This link will expire in %hours% hour(s).</target>
       </segment>
     </unit>
-    <unit id="_gg3hPE" name="reset_password.email_thanks">
+    <unit id="9ga3FlV" name="reset_password.email_thanks">
       <segment>
         <source>reset_password.email_thanks</source>
         <target>Cheers!</target>
