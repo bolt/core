@@ -2559,7 +2559,7 @@
         <target>Your password should be at least %s characters</target>
       </segment>
     </unit>
-    <unit id="GUQYLn2" name="reset_password.no_token">
+    <unit id="a3frsl4" name="reset_password.no_token">
       <segment>
         <source>reset_password.no_token</source>
         <target>No reset password token found in the URL or in the session.</target>
