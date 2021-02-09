@@ -10,6 +10,7 @@ use Bolt\Widget\BoltHeaderWidget;
 use Bolt\Widget\CanonicalLinkWidget;
 use Bolt\Widget\Injector\RequestZone;
 use Bolt\Widget\Injector\Target;
+use Bolt\Widget\MaintenanceModeWidget;
 use Bolt\Widget\SnippetWidget;
 use Bolt\Widgets;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -56,6 +57,10 @@ class WidgetSubscriber implements EventSubscriberInterface
             );
 
             $this->widgets->registerWidget($metaTagSnippet);
+        }
+
+        if ($this->config->get('general/maintenance_mode', 'false')) {
+            $this->widgets->registerWidget(new MaintenanceModeWidget());
         }
     }
 
