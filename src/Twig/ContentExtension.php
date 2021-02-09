@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Canonical;
+use Bolt\Common\Str;
 use Bolt\Configuration\Config;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
@@ -26,6 +27,7 @@ use Bolt\Utils\Html;
 use Bolt\Utils\Sanitiser;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
@@ -496,12 +498,20 @@ class ContentExtension extends AbstractExtension
         $templatesDir = $this->config->get('theme/template_directory');
         $templatesPath = $this->config->getPath('theme', true, $templatesDir);
 
+        $filter = $definition->get('filter', '/^[^_].*\.twig$/');
+
+        if (! Str::isValidRegex($filter)) {
+            $filter = Str::isValidRegex('/' . $filter . '/') ? '/' . $filter . '/' : '/^[^_].*\.twig$/';
+        }
+
         $finder
             ->files()
             ->in($templatesPath)
-            ->name($definition->get('filter', '/^[^_].*\.twig$/'))
             ->path($definition->get('path'))
-            ->sortByName();
+            ->sortByName()
+            ->filter(function (SplFileInfo $file) use ($filter) {
+                return preg_match($filter, $file->getRelativePathname()) === 1;
+            });
 
         $options = [];
 
