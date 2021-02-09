@@ -2511,7 +2511,7 @@
         <target>Reset Password</target>
       </segment>
     </unit>
-    <unit id="dp42qbF" name="reset_password.email_title">
+    <unit id="3prMgfK" name="reset_password.email_title">
       <segment>
         <source>reset_password.email_title</source>
         <target>Hi!</target>
