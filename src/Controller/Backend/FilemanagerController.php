@@ -9,6 +9,7 @@ use Bolt\Configuration\FileLocations;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Repository\MediaRepository;
 use Bolt\Utils\Excerpt;
+use Bolt\Utils\PathCanonicalize;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -50,6 +51,9 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
         if (str::endsWith($path, '/') === false) {
             $path .= '/';
         }
+        if (str::startsWith($path, '/') === false) {
+            $path = '/' . $path;
+        }
 
         if ($this->getFromRequest('view')) {
             $view = $this->getFromRequest('view') === 'cards' ? 'cards' : 'list';
@@ -82,7 +86,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 
     private function findFiles(string $base, string $path): Finder
     {
-        $fullpath = Path::canonicalize($base . '/' . $path);
+        $fullpath = PathCanonicalize::canonicalize($base, $path);
 
         $finder = new Finder();
         $finder->in($fullpath)->depth('== 0')->files()->sortByName();
@@ -92,7 +96,7 @@ class FilemanagerController extends TwigAwareController implements BackendZoneIn
 
     private function findFolders(string $base, string $path): Finder
     {
-        $fullpath = Path::canonicalize($base . '/' . $path);
+        $fullpath = PathCanonicalize::canonicalize($base, $path);
 
         $finder = new Finder();
         $finder->in($fullpath)->depth('== 0')->directories()->sortByName();
