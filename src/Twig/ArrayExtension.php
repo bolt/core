@@ -6,6 +6,7 @@ namespace Bolt\Twig;
 
 use Bolt\Entity\Content;
 use Bolt\Utils\ContentHelper;
+use Carbon\Carbon;
 use Pagerfanta\Pagerfanta;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -136,8 +137,14 @@ final class ArrayExtension extends AbstractExtension
      */
     private function orderHelper(Content $a, Content $b, string $orderOn, bool $orderAscending, string $locale): int
     {
-        $aVal = $this->contentHelper->get($a, sprintf('{%s}', $orderOn));
-        $bVal = $this->contentHelper->get($b, sprintf('{%s}', $orderOn));
+        $aVal = $this->contentHelper->get($a, sprintf('{%s}', $orderOn), $locale);
+        $bVal = $this->contentHelper->get($b, sprintf('{%s}', $orderOn), $locale);
+
+        // If the values look like dates, convert them to proper date objects.
+        if (strtotime($aVal) && strtotime($bVal)) {
+            $aVal = Carbon::createFromTimestamp(strtotime($aVal));
+            $bVal = Carbon::createFromTimestamp(strtotime($bVal));
+        }
 
         // Check the primary sorting criterion.
         if ($orderAscending) {
