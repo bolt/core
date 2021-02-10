@@ -51,6 +51,18 @@ class SelectField extends Field implements FieldInterface, RawPersistable, \Iter
         return array_filter((array) $value);
     }
 
+    public function getParsedValue()
+    {
+        $parsedValue = parent::getParsedValue();
+
+        if ($this->getDefinition()->get('multiple') && ! is_array($parsedValue)) {
+            // Make sure that multiselects always return an array, even if there's only one item.
+            $parsedValue = [$parsedValue];
+        }
+
+        return $parsedValue;
+    }
+
     public function getOptions()
     {
         return $this->getDefinition()->get('values');
