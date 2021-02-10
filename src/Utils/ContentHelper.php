@@ -130,9 +130,11 @@ class ContentHelper
             $locale = $record->getContentTypeDefaultLocale();
         }
 
+        $dateFormat = $this->config->get('general/date_format');
+
         return preg_replace_callback(
             '/{([\w]+)}/i',
-            function ($match) use ($record, $locale) {
+            function ($match) use ($record, $locale, $dateFormat) {
                 if ($match[1] === 'id') {
                     return $record->getId();
                 }
@@ -146,19 +148,19 @@ class ContentHelper
                 }
 
                 if ($match[1] === 'publishedAt') {
-                    return $this->localeExtension->localdate($record->getPublishedAt(), null, $locale);
+                    return $this->localeExtension->localdate($record->getPublishedAt(), $dateFormat, $locale);
                 }
 
                 if ($match[1] === 'modifiedAt') {
-                    return $this->localeExtension->localdate($record->getModifiedAt(), null, $locale);
+                    return $this->localeExtension->localdate($record->getModifiedAt(), $dateFormat, $locale);
                 }
 
                 if ($match[1] === 'createdAt') {
-                    return $this->localeExtension->localdate($record->getCreatedAt(), null, $locale);
+                    return $this->localeExtension->localdate($record->getCreatedAt(), $dateFormat, $locale);
                 }
 
                 if ($match[1] === 'depublishedAt') {
-                    return $this->localeExtension->localdate($record->getDepublishedAt(), null, $locale);
+                    return $this->localeExtension->localdate($record->getDepublishedAt(), $dateFormat, $locale);
                 }
 
                 if ($match[1] === 'contenttype') {
