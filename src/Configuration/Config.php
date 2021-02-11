@@ -151,12 +151,30 @@ class Config
             }
         }
 
-        $envFilename = $this->projectDir . '/.env';
-        if (file_exists($envFilename)) {
-            $timestamps[$envFilename] = filemtime($envFilename);
+        return array_merge($timestamps, $this->getEnvFilesTimestamps());
+    }
+
+    private function getEnvFilesTimestamps(): array
+    {
+        // For filenames see:
+        // https://symfony.com/doc/current/configuration.html#configuring-environment-variables-in-env-files
+        $envFilenames = [
+            '.env',
+            '.env.local',
+            '.env.' . $this->kernel->getEnvironment(),
+            '.env.' . $this->kernel->getEnvironment() . '.local',
+        ];
+
+        $envTimestamps = [];
+
+        foreach ($envFilenames as $envFilename) {
+            $envFilenamePath = $this->projectDir . '/' . $envFilename;
+            if (file_exists($envFilenamePath)) {
+                $envTimestamps[$envFilenamePath] = filemtime($envFilenamePath);
+            }
         }
 
-        return $timestamps;
+        return $envTimestamps;
     }
 
     /**
