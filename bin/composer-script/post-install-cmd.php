@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // this script makes sure the install scripts are not required for composer install in CI
 // @see https://github.com/bolt/core/pull/1918#issuecomment-701460769
 
@@ -15,6 +17,7 @@ $symfonyStyle = $symfonyStyleFactory->create();
 $ciDetector = new CiDetector();
 if ($ciDetector->isCiDetected()) {
     $symfonyStyle->warning(sprintf('"php %s" skipped in CI composer', __FILE__));
+
     return;
 }
 
