@@ -9,7 +9,9 @@
     }
 
     border: 1px dashed transparent;
-    margin-bottom: 0.4rem;
+    &:not(:last-of-type) {
+        margin-bottom: 0.4rem;
+    }
 
     &.dragover {
       border-color: $bolt-bluegray;
