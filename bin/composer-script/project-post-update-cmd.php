@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file runs when `composer update` is run in bolt/project, in Bolt 4.2 and later.
  */
@@ -24,8 +26,8 @@ run('php bin/console bolt:copy-assets', $symfonyStyle);
 run('php bin/console extensions:configure --with-config --ansi', $symfonyStyle);
 
 // Check for database migrations
-$migrate = "Database is out-of-date. To update the database, run `php bin/console doctrine:migrations:migrate`.";
-$migrate .= " You are strongly advised to backup your database before migrating.";
+$migrate = 'Database is out-of-date. To update the database, run `php bin/console doctrine:migrations:migrate`.';
+$migrate .= ' You are strongly advised to backup your database before migrating.';
 run('php bin/console doctrine:migrations:up-to-date', $symfonyStyle, false, $migrate);
 
 // Clear cache, show Bolt info

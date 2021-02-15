@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-function run(string $command, SymfonyStyle $symfonyStyle, bool $withOutput = false, string $message = ''): void {
+function run(string $command, SymfonyStyle $symfonyStyle, bool $withOutput = false, string $message = ''): void
+{
     exec($command, $output, $return);
     if ($return) {
         // Some error occurred.
