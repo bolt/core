@@ -28,6 +28,8 @@
 
 {% block aside %}
 
+    {{ widgets('overview_aside_top') }}
+
     <listing-select-box
       plural="{{ contentType.name }}"
       singular="{{ contentType.singular_name }}"
@@ -125,6 +127,8 @@
         </div>
     </div>
 
+    {{ widgets('overview_aside_middle') }}
+
     <div class="card">
         <div class="card-header">
             {{ macro.icon(contentType.icon_one) }}  {{ 'title.contentType'|trans }} {{ contentType.name }}
@@ -155,5 +159,7 @@
 
         </div>
     </div>
+
+    {{ widgets('overview_aside_bottom') }}
 
 {% endblock %}
