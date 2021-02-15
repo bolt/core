@@ -179,7 +179,13 @@ abstract class BaseWidget implements WidgetInterface
         if (realpath($folder)) {
             return realpath($folder);
         }
+
         $folder = dirname(dirname($reflection->getFilename())) . DIRECTORY_SEPARATOR . 'templates';
+        if (realpath($folder)) {
+            return realpath($folder);
+        }
+
+        $folder = dirname(dirname(dirname($reflection->getFilename()))) . DIRECTORY_SEPARATOR . 'templates';
         if (realpath($folder)) {
             return realpath($folder);
         }
