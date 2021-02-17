@@ -17,6 +17,7 @@
     /* Default (light) theme */
     --bg: #FFF;
     --accent-bg: #F5F7FF;
+    --accent-bg-stronger: #E8E8E8;
     --text: #212121;
     --text-light: #585858;
     --border: #D8DAE1;
@@ -33,6 +34,7 @@
     :root {
         --bg: #212121;
         --accent-bg: #2B2B2B;
+        --accent-bg-stronger: #444;
         --text: #DCDCDC;
         --text-light: #ABABAB;
         --border: #666;
@@ -275,7 +277,8 @@ details[open]>*:last-child {
 /* Format tables */
 table {
     border-collapse: collapse;
-    width: 100%
+    width: 100%;
+    font-size: 90%;
 }
 
 td,
@@ -286,11 +289,11 @@ th {
 }
 
 th {
-    background: var(--accent-bg);
+    background: var(--accent-bg-stronger);
     font-weight: bold;
 }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
     /* Set every other cell slightly darker. Improves readability. */
     background: var(--accent-bg);
 }
