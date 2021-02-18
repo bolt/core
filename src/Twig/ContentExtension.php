@@ -368,13 +368,6 @@ class ContentExtension extends AbstractExtension
     }
 
     /**
-     * @deprecated since Bolt 4.1.11, you no longer need to use `record|allow_twig` *
-     */
-    public function allowTwig(Environment $env, Content $content): void
-    {
-    }
-
-    /**
      * @param Content|Taxonomy $contentOrTaxonomy
      */
     public function getLink($contentOrTaxonomy, bool $canonical = false, ?string $locale = null): ?string
