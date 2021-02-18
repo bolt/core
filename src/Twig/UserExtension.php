@@ -12,15 +12,11 @@ use Twig\TwigFunction;
 
 class UserExtension extends AbstractExtension
 {
-    /** @var Security */
-    private $security;
-
     /** @var UserRepository */
     private $repository;
 
-    public function __construct(Security $security, UserRepository $repository)
+    public function __construct(UserRepository $repository)
     {
-        $this->security = $security;
         $this->repository = $repository;
     }
 
@@ -30,21 +26,8 @@ class UserExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('isallowed', [$this, 'isAllowed']),
             new TwigFunction('getuser', [$this, 'getUser']),
         ];
-    }
-
-    /**
-     * @todo Replace with better method, once we've implemented https://github.com/bolt/core/issues/186
-     */
-    public function isAllowed(): bool
-    {
-        if ($this->security->getUser()) {
-            return true;
-        }
-
-        return false;
     }
 
     public function getUser($username = null, $id = null, $displayname = null, $email = null): ?User
