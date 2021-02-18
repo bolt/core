@@ -6,7 +6,6 @@ namespace Bolt\Twig;
 
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
-use Symfony\Component\Security\Core\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
