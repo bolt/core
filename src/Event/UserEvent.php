@@ -31,14 +31,6 @@ class UserEvent
         }
     }
 
-    /**
-     * @deprecated
-     */
-    public function getContent(): User
-    {
-        return $this->user;
-    }
-
     public function getUser(): User
     {
         return $this->user;

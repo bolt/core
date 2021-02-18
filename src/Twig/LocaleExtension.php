@@ -51,8 +51,6 @@ class LocaleExtension extends AbstractExtension
         ];
 
         return [
-            new TwigFilter('localedatetime', [$this, 'localedatetime'], $safe),
-            new TwigFilter('localedate', [$this, 'localedatetime'], $safe),
             new TwigFilter('localdate', [$this, 'localdate'], $safe),
         ];
     }
@@ -124,42 +122,6 @@ class LocaleExtension extends AbstractExtension
             $locale->get('localizedname'),
             $locale->get('code')
         );
-    }
-
-    /**
-     * @deprecated
-     *
-     * @param string|\DateTime $dateTime
-     */
-    public function localedatetime($dateTime, string $format = '%B %e, %Y %H:%M', ?string $locale = '0'): string
-    {
-        if (! $dateTime instanceof \DateTime) {
-            $dateTime = new \DateTime((string) $dateTime);
-        }
-
-        // Check for Windows to find and replace the %e modifier correctly
-        // @see: http://php.net/strftime
-        $os = mb_strtoupper(mb_substr(PHP_OS, 0, 3));
-        $format = $os !== 'WIN' ? $format : preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
-        $timestamp = $dateTime->getTimestamp();
-
-        // According to http://php.net/manual/en/function.setlocale.php manual
-        // if the second parameter is "0", the locale setting is not affected,
-        // only the current setting is returned.
-        $result = setlocale(LC_ALL, $locale);
-
-        if ($result === false) {
-            // This shouldn't occur, but.. Dude!
-            // You ain't even got locale or English on your platform??
-            // Various things we could do. We could fail miserably, but a more
-            // graceful approach is to use the datetime to display a default
-            // format
-            // $this->systemLogger->error('No valid locale detected. Fallback on DateTime active.', ['event' => 'system']);
-
-            return $dateTime->format('Y-m-d H:i:s');
-        }
-
-        return strftime($format, $timestamp);
     }
 
     public function localdate($dateTime, ?string $format = null, ?string $locale = null, ?string $timezone = null): string
