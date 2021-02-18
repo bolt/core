@@ -17,6 +17,7 @@
     /* Default (light) theme */
     --bg: #FFF;
     --accent-bg: #F5F7FF;
+    --accent-bg-stronger: #E8E8E8;
     --text: #212121;
     --text-light: #585858;
     --border: #D8DAE1;
@@ -25,6 +26,7 @@
     --code: #D81B60;
     --preformatted: #444;
     --marked: #FFDD33;
+    --disabled: #EFEFEF;
 }
 
 /* Dark theme */
@@ -32,6 +34,7 @@
     :root {
         --bg: #212121;
         --accent-bg: #2B2B2B;
+        --accent-bg-stronger: #444;
         --text: #DCDCDC;
         --text-light: #ABABAB;
         --border: #666;
@@ -39,6 +42,7 @@
         --accent-light: #FFECB3;
         --code: #F06292;
         --preformatted: #CCC;
+        --disabled: #111;
     }
 
     img, video {
@@ -46,9 +50,12 @@
     }
 }
 
-html {
+* {
     /* Set the font globally */
     font-family: var(--sans-font);
+}
+
+html {
     font-size: 16px;
 }
 
@@ -105,7 +112,7 @@ footer input {
 nav {
     font-size: 1rem;
     line-height: 2;
-    padding: 1rem 0 0;
+    padding: 1rem 0;
 }
 
 nav a {
@@ -215,6 +222,16 @@ input[type="button"][disabled] {
     cursor: not-allowed;
 }
 
+input:disabled,
+textarea:disabled {
+    cursor: not-allowed;
+    background: var(--disabled);
+}
+
+input[type="range"] {
+    padding: 0;
+}
+
 /* Set the cursor to '?' while hovering over an abbreviation */
 abbr {
     cursor: help;
@@ -260,7 +277,8 @@ details[open]>*:last-child {
 /* Format tables */
 table {
     border-collapse: collapse;
-    width: 100%
+    width: 100%;
+    font-size: 90%;
 }
 
 td,
@@ -271,11 +289,11 @@ th {
 }
 
 th {
-    background: var(--accent-bg);
+    background: var(--accent-bg-stronger);
     font-weight: bold;
 }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
     /* Set every other cell slightly darker. Improves readability. */
     background: var(--accent-bg);
 }
@@ -306,6 +324,9 @@ input {
     box-shadow: none;
     box-sizing: border-box;
     width: 60%;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
 }
 
 /* Make the textarea wider than other inputs */
