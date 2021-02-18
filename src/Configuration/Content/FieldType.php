@@ -66,11 +66,6 @@ class FieldType extends Collection
             $definition = $contentType;
 
             foreach ($parents as $parent) {
-                // @todo Fields that are added by an extension have "services" as parent,
-                // which they shouldn't have. Skip them, but we need to fix this properly.
-                if (! $definition->get('fields')) {
-                    continue;
-                }
                 $definition = $definition->get('fields')->get($parent, collect([]));
             }
 
