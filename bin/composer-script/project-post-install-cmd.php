@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * This file runs when `composer install` is run in bolt/project, in Bolt 4.2 and later.
+ * This file runs after `composer install` is run in bolt/project, in Bolt 4.2 and later.
  */
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
@@ -17,7 +17,6 @@ $symfonyStyle = $symfonyStyleFactory->create();
 run('php bin/console bolt:copy-assets --ansi', $symfonyStyle);
 run('php bin/console cache:clear --no-warmup --ansi', $symfonyStyle);
 run('php bin/console assets:install --ansi', $symfonyStyle);
-run('vendor/bin/security-checker security:check', $symfonyStyle);
 
 // Check for database migrations
 $migrate = 'Database is out-of-date. To update the database, run `php bin/console doctrine:migrations:migrate`.';

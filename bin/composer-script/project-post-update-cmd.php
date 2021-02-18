@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * This file runs when `composer update` is run in bolt/project, in Bolt 4.2 and later.
+ * This file runs after `composer update` is run in bolt/project, in Bolt 4.2 and later.
  */
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
