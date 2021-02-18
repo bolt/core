@@ -135,7 +135,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "post-install-cmd": "php bin/composer-script/post-install-cmd.php --ansi",
+        "post-install-cmd": [
+            "Bolt\\Composer\\ProjectComposerEventHandler::postInstall"
+        ],
         "post-update-cmd": "php bin/composer-script/post-update-cmd.php --ansi",
         "pre-package-uninstall": [
             "php bin/console extensions:configure --remove-services --ansi"
