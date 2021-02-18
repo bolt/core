@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Controller\Frontend;
 
+use Bolt\Configuration\Content\TaxonomyType;
 use Bolt\Controller\TwigAwareController;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
@@ -31,12 +32,21 @@ class TaxonomyController extends TwigAwareController implements FrontendZoneInte
         $page = (int) $this->getFromRequest('page', '1');
         $amountPerPage = $this->config->get('general/listing_records');
 
-        $taxonomy = $this->config->getTaxonomy($taxonomyslug);
+        $taxonomy = TaxonomyType::factory($taxonomyslug, $this->config->get('taxonomies'));
 
         /** @var Content[] $records */
         $records = $contentRepository->findForTaxonomy($page, $taxonomy, $slug, $amountPerPage);
 
-        $templates = $this->templateChooser->forTaxonomy($taxonomyslug);
+        $this->canonical->setPath(
+            'taxonomy_locale',
+            [
+                'taxonomyslug' => $taxonomy->get('slug'),
+                '_locale' => $this->request->getLocale(),
+                'slug' => $slug,
+            ]
+        );
+
+        $templates = $this->templateChooser->forTaxonomy($taxonomy);
 
         $twigVars = [
             'records' => $records,
