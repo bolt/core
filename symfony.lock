@@ -431,9 +431,6 @@
     "ondram/ci-detector": {
         "version": "3.5.1"
     },
-    "openlss/lib-array2xml": {
-        "version": "1.0.0"
-    },
     "pagerfanta/pagerfanta": {
         "version": "v2.3.0"
     },
