@@ -9,9 +9,9 @@ class PostUpdateScript extends Script
         parent::init('Running composer "post-update-cmd" scripts');
 
         self::run('php bin/console extensions:configure --with-config --ansi');
-        self::run('php bin/console cache:clear --no-warmup');
-        self::run('php bin/console assets:install --symlink --relative public');
-        self::run('php bin/console doctrine:migrations:up-to-date');
+        self::run('php bin/console cache:clear --no-warmup --ansi');
+        self::run('php bin/console assets:install --symlink --relative public --ansi');
+        self::run('php bin/console doctrine:migrations:up-to-date --ansi');
         self::run('php bin/console bolt:info --ansi');
     }
 }
