@@ -11,7 +11,7 @@ class PostInstallScript extends Script
         self::run('php bin/console bolt:copy-assets --ansi');
         self::run('php bin/console cache:clear --no-warmup --ansi');
         self::run('php bin/console assets:install --ansi');
-        self::run('php bin/console doctrine:migrations:up-to-date');
+        self::run('php bin/console doctrine:migrations:up-to-date --ansi');
         self::run('php bin/console extensions:configure --ansi');
     }
 }
