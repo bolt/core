@@ -25,4 +25,4 @@ Feature: Setcontent
     Then I should see "2" in the "#three .s1" element
     And I should see "published" in the "#three .s2" element
 
-    And I should not see "[no]" in the "body" element
+    And I should not see "[no]" in the "main" element
