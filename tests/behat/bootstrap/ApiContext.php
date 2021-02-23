@@ -6,7 +6,7 @@ namespace Context;
 
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Driver\BrowserKitDriver;
-use Coduo\PHPMatcher\Factory\SimpleFactory;
+use Coduo\PHPMatcher\PHPMatcher;
 use Goutte\Client;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -60,11 +60,10 @@ trait ApiContext
      */
     public function theResponseShouldContainJson(PyStringNode $jsonString)
     {
-        $factory = new SimpleFactory();
-        $matcher = $factory->createMatcher();
+        $matcher = new PHPMatcher();
 
         if (!$matcher->match($this->getPageContent(), $jsonString->getRaw())) {
-            throw new \RuntimeException($matcher->getError());
+            throw new \RuntimeException($matcher->error());
         }
     }
 
