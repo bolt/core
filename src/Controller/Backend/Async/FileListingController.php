@@ -6,7 +6,6 @@ namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Configuration\Config;
 use Bolt\Utils\PathCanonicalize;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +26,9 @@ class FileListingController implements AsyncZoneInterface
 
     /** @var Security */
     private $security;
+
+    /** @var string */
+    private $publicPath;
 
     public function __construct(Config $config, RequestStack $requestStack, Security $security, string $projectDir, string $publicFolder)
     {
