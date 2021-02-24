@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Twig;
 
 use Bolt\Entity\Content;
+use Bolt\Entity\Field\NumberField;
 use Bolt\Utils\ContentHelper;
 use Carbon\Carbon;
 use Pagerfanta\Pagerfanta;
@@ -141,7 +142,11 @@ final class ArrayExtension extends AbstractExtension
         $bVal = $this->contentHelper->get($b, sprintf('{%s}', $orderOn), $locale);
 
         // If the values look like dates, convert them to proper date objects.
-        if (strtotime($aVal) && strtotime($bVal)) {
+        if ($a->getDefinition()->get('fields')->get($orderOn, null) &&
+            $a->getDefinition()->get('fields')->get($orderOn)->get('type') === NumberField::TYPE) {
+            $aVal = (int) $aVal;
+            $bVal = (int) $bVal;
+        } elseif (strtotime($aVal) && strtotime($bVal)) {
             $aVal = Carbon::createFromTimestamp(strtotime($aVal));
             $bVal = Carbon::createFromTimestamp(strtotime($bVal));
         }
