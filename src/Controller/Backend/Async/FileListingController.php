@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Controller\Backend\Async;
 
 use Bolt\Configuration\Config;
+use Bolt\Utils\PathCanonicalize;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Tightenco\Collect\Support\Collection;
+use Webmozart\PathUtil\Path;
 
 /**
  * @Security("is_granted('ROLE_ADMIN')")
@@ -24,10 +26,14 @@ class FileListingController implements AsyncZoneInterface
     /** @var Request */
     private $request;
 
-    public function __construct(Config $config, RequestStack $requestStack)
+    /** @var string */
+    private $publicPath;
+
+    public function __construct(Config $config, RequestStack $requestStack, string $projectDir, string $publicFolder)
     {
         $this->config = $config;
         $this->request = $requestStack->getCurrentRequest();
+        $this->publicPath = $projectDir . DIRECTORY_SEPARATOR . $publicFolder;
     }
 
     /**
@@ -38,7 +44,12 @@ class FileListingController implements AsyncZoneInterface
         $locationName = $this->request->query->get('location', 'files');
         $type = $this->request->query->get('type', '');
 
-        $path = $this->config->getPath($locationName, true);
+        // @todo: config->getPath does not return the correct relative URL.
+        // Hence, we use the Path::makeRelative. Fix this once config generates the correct relative path.
+        $relativeLocation = Path::makeRelative($this->config->getPath($locationName, false), $this->publicPath);
+
+        // Do not allow any path outside of the public directory.
+        $path = PathCanonicalize::canonicalize($this->publicPath, $relativeLocation);
 
         $files = $this->getFilesIndex($path, $type);
 
@@ -57,8 +68,8 @@ class FileListingController implements AsyncZoneInterface
 
         foreach ($this->findFiles($path, $glob) as $file) {
             $files[] = [
-                'group' => $file->getRelativePath(),
-                'value' => $file->getRelativePathname(),
+                'group' => Path::canonicalize($file->getRelativePath()),
+                'value' => Path::canonicalize($file->getRelativePathname()),
                 'text' => $file->getFilename(),
             ];
         }
