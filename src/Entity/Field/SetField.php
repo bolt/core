@@ -83,7 +83,10 @@ class SetField extends Field implements FieldInterface, FieldParentInterface, Li
     {
         $fieldsFromDefinition = $this->getFieldsFromDefinition();
 
-        return array_merge($fieldsFromDefinition, $this->getDefaultValue(), $this->getValue());
+        // Values from the database, but not of fields that are no longer in the definition.
+        $value = array_intersect_key($this->getValue(), $fieldsFromDefinition);
+
+        return array_merge($fieldsFromDefinition, $this->getDefaultValue(), $value);
     }
 
     private function getFieldsFromDefinition(): array
