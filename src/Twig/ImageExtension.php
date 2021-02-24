@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Bolt\Twig;
 
-use Bolt\Configuration\FileLocations;
 use Bolt\Entity\Content;
 use Bolt\Entity\Field\ImageField;
 use Bolt\Entity\Media;
 use Bolt\Repository\MediaRepository;
 use Bolt\Utils\ThumbnailHelper;
+use Symfony\Component\Asset\Packages;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -25,24 +25,24 @@ class ImageExtension extends AbstractExtension
     /** @var ThumbnailHelper */
     private $thumbnailHelper;
 
-    /** @var FileLocations */
-    private $fileLocations;
-
     /** @var ContentExtension */
     private $contentExtension;
+
+    /** @var Packages */
+    private $assets;
 
     public function __construct(
         MediaRepository $mediaRepository,
         Notifications $notifications,
         ThumbnailHelper $thumbnailHelper,
-        FileLocations $fileLocations,
-        ContentExtension $contentExtension)
+        ContentExtension $contentExtension,
+        Packages $assets)
     {
         $this->mediaRepository = $mediaRepository;
         $this->notifications = $notifications;
         $this->thumbnailHelper = $thumbnailHelper;
-        $this->fileLocations = $fileLocations;
         $this->contentExtension = $contentExtension;
+        $this->assets = $assets;
     }
 
     /**
@@ -94,8 +94,10 @@ class ImageExtension extends AbstractExtension
      */
     public function showImage($image, ?int $width = null, ?int $height = null): string
     {
-        $link = $this->getFilename($image);
+        $filename = $this->getFilename($image, true);
         $alt = $this->getAlt($image);
+
+        $path = $this->assets->getUrl($filename, 'files');
 
         if ($width) {
             $width = sprintf('width="%s"', $width);
@@ -104,7 +106,7 @@ class ImageExtension extends AbstractExtension
             $height = sprintf('height="%s"', $height);
         }
 
-        return sprintf('<img src="%s" alt="%s" %s %s>', $link, $alt, (string) $width, (string) $height);
+        return sprintf('<img src="%s" alt="%s" %s %s>', $path, $alt, (string) $width, (string) $height);
     }
 
     /**
@@ -141,8 +143,7 @@ class ImageExtension extends AbstractExtension
      */
     public function getSvg($image): ?string
     {
-        $filesLocation = $this->fileLocations->get('files')->getBasepath();
-        $image = sprintf('%s/%s', $filesLocation, $this->getFilename($image, true));
+        $image = $this->assets->getUrl($this->getFilename($image, true), 'files');
         $extension = pathinfo($image, PATHINFO_EXTENSION);
 
         if ($extension !== 'svg') {
