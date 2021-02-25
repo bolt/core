@@ -12,6 +12,7 @@ class AdminApiVoter extends Voter
 {
     public const ADMIN_API_ACCESS = 'ADMIN_API_ACCESS';
 
+    /** @var Security */
     private $security;
 
     public function __construct(Security $security)
@@ -19,12 +20,12 @@ class AdminApiVoter extends Voter
         $this->security = $security;
     }
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return $attribute === self::ADMIN_API_ACCESS;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         return $this->security->isGranted('api_admin');
     }

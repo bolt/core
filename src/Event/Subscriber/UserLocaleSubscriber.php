@@ -17,6 +17,7 @@ use Symfony\Component\Security\Http\SecurityEvents;
  */
 class UserLocaleSubscriber implements EventSubscriberInterface
 {
+    /** @var SessionInterface */
     private $session;
 
     /** @var string */

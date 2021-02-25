@@ -57,17 +57,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->em = $em;
     }
 
-    protected function getLoginUrl()
+    protected function getLoginUrl(): string
     {
         return $this->router->generate('bolt_login');
     }
 
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return $request->attributes->get('_route') === 'bolt_login' && $request->isMethod('POST');
     }
 
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         $login_form = $request->request->get('login');
         $credentials = [
@@ -95,12 +95,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $this->userRepository->findOneByCredentials($credentials['username']);
     }
 
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         return empty($credentials['password']) ? false : $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?RedirectResponse
     {
         $user = $token->getUser();
 
@@ -140,7 +140,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         ));
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
     {
         parent::onAuthenticationFailure($request, $exception);
 

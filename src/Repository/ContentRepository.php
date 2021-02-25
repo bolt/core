@@ -24,6 +24,7 @@ use Tightenco\Collect\Support\Collection;
  */
 class ContentRepository extends ServiceEntityRepository
 {
+    /** @var string[] */
     private $contentColumns = ['id', 'author', 'contentType', 'status', 'createdAt', 'modifiedAt', 'publishedAt', 'depublishedAt'];
 
     public function __construct(ManagerRegistry $registry)

@@ -20,6 +20,7 @@ final class ContentExtension implements QueryCollectionExtensionInterface, Query
     /** @var Config */
     private $config;
 
+    /** @var Collection */
     private $viewlessContentTypes;
 
     public function __construct(Config $config)

@@ -12,6 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ExtensionsListCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'extensions:list';
 
     /** @var ExtensionRegistry */

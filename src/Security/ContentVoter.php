@@ -39,12 +39,15 @@ class ContentVoter extends Voter
     // this permission is not to be specified in the config, it is only used internally
     public const CONTENT_MENU_LISTING = 'menu_listing';
 
+    /** @var Security */
     private $security;
 
     /** @var Collection|null */
     private $contenttypeBasePermissions;
+
     /** @var Collection|null */
     private $contenttypeDefaultPermissions;
+
     /** @var Collection|null */
     private $contenttypePermissions;
 
@@ -67,7 +70,7 @@ class ContentVoter extends Voter
         }
     }
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         // only vote on `Content` and `ContentType` objects
         if (! ($subject instanceof Content || $subject instanceof ContentType)) {
@@ -79,7 +82,7 @@ class ContentVoter extends Voter
             self::CONTENT_DELETE, self::CONTENT_CHANGE_OWNERSHIP, self::CONTENT_VIEW, self::CONTENT_MENU_LISTING, ], true);
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
@@ -156,11 +159,11 @@ class ContentVoter extends Voter
         // apparently there was no match -> deny!
         return false;
 
-//        // Or do we always want to have a 'complete' setup, and throw an error here?
-//        throw new \LogicException('This code should not be reached!');
+        // Or do we always want to have a 'complete' setup, and throw an error here?
+        // throw new \LogicException('This code should not be reached!');
     }
 
-    private function isGrantedAny($attributes, $subject = null)
+    private function isGrantedAny($attributes, $subject = null): bool
     {
         foreach ($attributes as $attribute) {
             if ($this->security->isGranted($attribute, $subject)) {

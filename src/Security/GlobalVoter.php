@@ -13,8 +13,13 @@ use Tightenco\Collect\Support\Collection;
 
 class GlobalVoter extends Voter
 {
+    /** @var Security */
     private $security;
+
+    /** @var Collection */
     private $globalPermissions;
+
+    /** @var array */
     private $supportedAttributes;
 
     public function __construct(Security $security, Config $config)
@@ -29,12 +34,12 @@ class GlobalVoter extends Voter
         }
     }
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, $this->supportedAttributes, true);
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

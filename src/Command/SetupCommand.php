@@ -14,6 +14,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SetupCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'bolt:setup';
 
     /** @var Connection */
