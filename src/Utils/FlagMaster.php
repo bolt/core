@@ -16,9 +16,9 @@ class FlagMaster
      *
      * @param string $code (one or more 2-letter codes)
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public static function emojiFlag($code): string
+    public static function emojiFlag(string $code): string
     {
         if (! is_string($code) || mb_strlen($code) < 2) {
             throw new Exception('Argument code must be non-empty string');

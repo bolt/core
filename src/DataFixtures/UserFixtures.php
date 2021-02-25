@@ -20,6 +20,7 @@ class UserFixtures extends BaseFixture implements FixtureGroupInterface
     /** @var UserRepository */
     private $users;
 
+    /** @var bool */
     private $append = false;
 
     /** @var array */

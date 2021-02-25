@@ -15,6 +15,7 @@ class CommonExtension extends AbstractExtension
 {
     /** @var ContentExtension */
     private $contentExtension;
+
     /** @var FrontendMenuExtension */
     private $frontendMenuExtension;
 

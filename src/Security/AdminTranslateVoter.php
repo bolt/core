@@ -12,6 +12,7 @@ class AdminTranslateVoter extends Voter
 {
     public const ADMIN_TRANSLATE_ACCESS = 'ADMIN_TRANSLATE_ACCESS';
 
+    /** @var Security */
     private $security;
 
     public function __construct(Security $security)
@@ -19,12 +20,12 @@ class AdminTranslateVoter extends Voter
         $this->security = $security;
     }
 
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return $attribute === self::ADMIN_TRANSLATE_ACCESS;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         return $this->security->isGranted('translation');
     }

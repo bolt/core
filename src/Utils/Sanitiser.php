@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Bolt\Utils;
 
 use Bolt\Configuration\Config;
+use HTMLPurifier;
+use HTMLPurifier_HTML5Config;
 
 class Sanitiser
 {
-    private $purifier;
+    /** @var HTMLPurifier|null */
+    private $purifier = null;
 
     /** @var Config */
     private $config;
@@ -21,13 +24,13 @@ class Sanitiser
         $this->config = $config;
     }
 
-    private function getPurifier(): \HTMLPurifier
+    private function getPurifier(): HTMLPurifier
     {
         if ($this->purifier) {
             return $this->purifier;
         }
 
-        $purifierConfig = \HTMLPurifier_HTML5Config::create([
+        $purifierConfig = HTMLPurifier_HTML5Config::create([
             'Cache.DefinitionImpl' => null,
             'HTML.SafeIframe' => true,
         ]);

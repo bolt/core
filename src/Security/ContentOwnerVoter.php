@@ -19,7 +19,7 @@ class ContentOwnerVoter extends Voter
         return $attribute === self::OWNER && $subject instanceof Content;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

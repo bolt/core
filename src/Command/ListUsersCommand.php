@@ -31,10 +31,16 @@ use Symfony\Component\Mime\Email;
  */
 class ListUsersCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'bolt:list-users';
 
+    /** @var MailerInterface */
     private $mailer;
+
+    /** @var string */
     private $emailSender;
+
+    /** @var UserRepository */
     private $users;
 
     public function __construct(MailerInterface $mailer, $emailSender, UserRepository $users)
@@ -83,7 +89,7 @@ HELP
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $maxResults = $input->getOption('max-results');
+        $maxResults = (int) $input->getOption('max-results');
         // Use ->findBy() instead of ->findAll() to allow result sorting and limiting
         $allUsers = $this->users->findBy([], ['username' => 'ASC'], $maxResults);
 
