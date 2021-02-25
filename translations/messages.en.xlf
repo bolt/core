@@ -2595,12 +2595,6 @@
         <target>filtered by</target>
       </segment>
     </unit>
-    <unit id="qlucRr7" name="maintenance.activated_warning">
-      <segment>
-        <source>maintenance.activated_warning</source>
-        <target>Maintenance mode is activated</target>
-      </segment>
-    </unit>
     <unit id="CvNi3GD" name="action.refresh">
       <segment>
         <source>action.refresh</source>
