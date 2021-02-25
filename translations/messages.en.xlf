@@ -2583,24 +2583,6 @@
         <target>filtered by</target>
       </segment>
     </unit>
-    <unit id="qoZwSEY" name="action.preview_secure_share">
-      <segment>
-        <source>action.preview_secure_share</source>
-        <target>Share secure preview link</target>
-      </segment>
-    </unit>
-    <unit id="zYeSeNJ" name="action.stop_impersonating">
-      <segment>
-        <source>action.stop_impersonating</source>
-        <target>stop impersonating</target>
-      </segment>
-    </unit>
-    <unit id="W7z__Yi" name="action.impersonate">
-      <segment>
-        <source>action.impersonate</source>
-        <target>impersonate</target>
-      </segment>
-    </unit>
     <unit id="qlucRr7" name="maintenance.activated_warning">
       <segment>
         <source>maintenance.activated_warning</source>
