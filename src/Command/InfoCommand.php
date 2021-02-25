@@ -15,6 +15,7 @@ class InfoCommand extends Command
 {
     use ImageTrait;
 
+    /** @var string */
     protected static $defaultName = 'bolt:info';
 
     /** @var \Bolt\Doctrine\Version */

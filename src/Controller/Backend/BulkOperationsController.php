@@ -6,6 +6,7 @@ namespace Bolt\Controller\Backend;
 
 use Bolt\Controller\CsrfTrait;
 use Bolt\Entity\Content;
+use Doctrine\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,9 +23,10 @@ class BulkOperationsController extends AbstractController implements BackendZone
 {
     use CsrfTrait;
 
-    private $em = null;
+    /** @var ObjectManager */
+    private $em;
 
-    /** @var Request|null */
+    /** @var Request */
     private $request;
 
     public function __construct(CsrfTokenManagerInterface $csrfTokenManager, RequestStack $requestStack)
@@ -33,7 +35,7 @@ class BulkOperationsController extends AbstractController implements BackendZone
         $this->request = $requestStack->getCurrentRequest();
     }
 
-    public function em()
+    public function em(): ObjectManager
     {
         if ($this->em === null) {
             $this->em = $this->getDoctrine()->getManager();

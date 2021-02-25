@@ -16,6 +16,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ExtensionsShowCommand extends Command
 {
+    /** @var string */
     protected static $defaultName = 'extensions:show';
 
     /** @var ExtensionRegistry */

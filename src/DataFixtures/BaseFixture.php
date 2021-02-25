@@ -11,7 +11,10 @@ use Webmozart\PathUtil\Path;
 
 abstract class BaseFixture extends Fixture
 {
+    /** @var array */
     private $referencesIndex = [];
+
+    /** @var array */
     private $taxonomyIndex = [];
 
     /**

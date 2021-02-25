@@ -21,6 +21,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class SwitchUserVoter extends Voter
 {
+    /** @var Security */
     private $security;
 
     public function __construct(Security $security)
@@ -28,12 +29,12 @@ class SwitchUserVoter extends Voter
         $this->security = $security;
     }
 
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         return $attribute === 'CAN_SWITCH_USER';
     }
 
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access (or should we check $subject?)

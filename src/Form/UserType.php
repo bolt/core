@@ -31,6 +31,7 @@ class UserType extends AbstractType
     /** @var DeepCollection */
     private $avatarConfig;
 
+    /** @var Security */
     private $security;
 
     public function __construct(LocaleHelper $localeHelper, Environment $twig, Config $config, Security $security)

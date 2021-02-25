@@ -13,6 +13,7 @@ class WelcomeCommand extends Command
 {
     use ImageTrait;
 
+    /** @var string */
     protected static $defaultName = 'bolt:welcome';
 
     /**

@@ -41,8 +41,10 @@ class UserEditController extends TwigAwareController implements BackendZoneInter
     /** @var EventDispatcherInterface */
     private $dispatcher;
 
+    /** @var string */
     protected $defaultLocale;
 
+    /** @var array */
     private $assignableRoles;
 
     public function __construct(

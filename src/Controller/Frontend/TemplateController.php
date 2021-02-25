@@ -6,7 +6,6 @@ namespace Bolt\Controller\Frontend;
 
 use Bolt\Controller\TwigAwareController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 class TemplateController extends TwigAwareController implements FrontendZoneInterface
 {
