@@ -15,7 +15,6 @@
 /phpunit.xml.dist export-ignore
 /run_behat_tests.sh export-ignore
 /symfony.lock export-ignore
-/bin export-ignore
 /config export-ignore
 /docker export-ignore
 /public export-ignore
