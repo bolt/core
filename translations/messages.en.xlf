@@ -2595,5 +2595,11 @@
         <target>filtered by</target>
       </segment>
     </unit>
+    <unit id="CvNi3GD" name="action.refresh">
+      <segment>
+        <source>action.refresh</source>
+        <target>Refresh</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

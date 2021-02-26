@@ -12,6 +12,7 @@
                                 class="form-control"
                                 :name="name + '[url]'"
                                 :placeholder="labels.placeholder_content_url"
+                                :title="labels.placeholder_content_url"
                                 type="url"
                                 :required="required"
                                 :readonly="readonly"
@@ -23,12 +24,18 @@
                                     class="btn btn-tertiary refresh"
                                     type="button"
                                     :disabled="loading"
+                                    :aria-label="labels.refresh"
                                     @click="updateEmbed"
                                 >
                                     <i :class="(loading ? 'fa-spin' : '') + ' fas fa-sync mr-0'"></i>
                                 </button>
 
-                                <button class="btn btn-hidden-danger remove" type="button" @click="clearEmbed">
+                                <button
+                                    class="btn btn-hidden-danger remove"
+                                    type="button"
+                                    :aria-label="labels.delete"
+                                    @click="clearEmbed"
+                                >
                                     <i class="fas fa-trash mr-0"></i>
                                 </button>
                             </span>
@@ -42,6 +49,7 @@
                             type="number"
                             :value="widthData"
                             :readonly="readonly"
+                            :title="labels.field_width"
                         />
                         ×
                         <label for="embed-height-size" class="sr-only">{{ labels.label_height }}</label>
@@ -51,6 +59,7 @@
                             type="number"
                             :value="heightData"
                             :readonly="readonly"
+                            :title="labels.field_height"
                         />
                         <label>{{ labels.label_pixel }}</label>
                     </div>
@@ -60,7 +69,7 @@
                             class="form-control title"
                             :name="name + '[title]'"
                             readonly=""
-                            title="Title"
+                            :title="labels.field_title"
                             type="text"
                             :value="titleData"
                         />
@@ -68,7 +77,7 @@
                             class="form-control author_name"
                             :name="name + '[authorname]'"
                             readonly=""
-                            title="Author"
+                            :title="labels.field_author"
                             type="text"
                             :value="authornameData"
                         />
