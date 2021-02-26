@@ -1,6 +1,35 @@
 Changelog
 =========
 
+## 4.1.14
+
+Released: 2021-02-26
+
+### 🐛 Bug fixes
+
+- `|order` filter by negative number sorts correctly (I-Valchev, [#2428](https://github.com/bolt/core/pull/2428))
+- From Library button on Windows generates the correct URL (I-Valchev, [#2422](https://github.com/bolt/core/pull/2422))
+- Use `symfony/assets` URL generation for assets in `ImageExtension.php` (I-Valchev, [#2420](https://github.com/bolt/core/pull/2420))
+- Don't break collection looping if definition changes (I-Valchev, [#2416](https://github.com/bolt/core/pull/2416))
+- Don't ignore locale settings on initial request or clear session (I-Valchev, [#2408](https://github.com/bolt/core/pull/2408))
+- Fix taxonomy `listing_template` inconsistency. Fix the canonical for `slug` and `singular_slug` (I-Valchev, [#2407](https://github.com/bolt/core/pull/2407))
+- Don't show old fields in a `set` if they're removed from the definition (I-Valchev, [#2400](https://github.com/bolt/core/pull/2400))
+
+### 🛠️ Miscellaneous
+
+- Make Embed fields accessible (I-Valchev, [#2430](https://github.com/bolt/core/pull/2430))
+- Update `_multiselect.scss` (fine-tuning CSS) (eduardomart, [#2389](https://github.com/bolt/core/pull/2389))
+
+### 🤖 Tests
+
+- Don't use `dump` in setcontent tests (I-Valchev, [#2426](https://github.com/bolt/core/pull/2426))
+- Use more specific selector for the `setcontent` [no] test page (I-Valchev, [#2418](https://github.com/bolt/core/pull/2418))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Keep `sensiolabs/security-checker` around for now (bobdenotter, [#2394](https://github.com/bolt/core/pull/2394))
+
+
 ## 4.1.13
 
 Released: 2021-02-14

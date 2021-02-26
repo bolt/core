@@ -2605,6 +2605,10 @@
       <segment>
         <source>maintenance.activated_warning</source>
         <target>Maintenance mode is activated</target>
+    <unit id="CvNi3GD" name="action.refresh">
+      <segment>
+        <source>action.refresh</source>
+        <target>Refresh</target>
       </segment>
     </unit>
   </file>
