@@ -99,11 +99,15 @@ class ContentRepository extends ServiceEntityRepository
         $connection = $qb->getEntityManager()->getConnection();
         [$where] = JsonHelper::wrapJsonFunction('t.value', $searchTerm, $connection);
 
+        // The search term must match the format of the content in the database
+        // Therefore, it is JSON encoded and escaped with backslashes
+        $encodedSearchTerm = addslashes(trim(json_encode($searchTerm), '"'));
+
         $qb->addSelect('f')
             ->innerJoin('content.fields', 'f')
             ->innerJoin('f.translations', 't')
             ->andWhere($qb->expr()->like($where, ':search'))
-            ->setParameter('search', '%' . $searchTerm . '%');
+            ->setParameter('search', '%' . $encodedSearchTerm . '%');
 
         // These are the ID's of content we need.
         $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
