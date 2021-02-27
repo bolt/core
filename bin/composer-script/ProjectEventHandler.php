@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\ComposerScripts;
 
+use Composer\Installer\PackageEvent;
 use Composer\Script\Event;
 
 /**
@@ -38,4 +39,10 @@ class ProjectEventHandler
     {
         PostUpdateScript::execute();
     }
+
+    public static function prePackageUninstall(PackageEvent $event): void
+    {
+        PrePackageUninstallScript::execute();
+    }
+
 }
