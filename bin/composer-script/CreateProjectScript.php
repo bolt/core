@@ -32,6 +32,9 @@ class CreateProjectScript extends Script
         if (file_exists('public/.gitignore')) {
             unlink('public/.gitignore');
         }
+        if (file_exists('config/extensions/.gitignore')) {
+            unlink('config/extensions/.gitignore');
+        }
     }
 
     private static function createReadme(): void
