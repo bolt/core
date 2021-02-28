@@ -21,6 +21,12 @@ class InfoCommand extends Command
     /** @var \Bolt\Doctrine\Version */
     private $doctrineVersion;
 
+    /** @var object */
+    private $composer;
+
+    /** @var SymfonyStyle */
+    private $io;
+
     public function __construct(\Bolt\Doctrine\Version $doctrineVersion)
     {
         $this->doctrineVersion = $doctrineVersion;
@@ -48,13 +54,13 @@ HELP
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
+        $this->io = new SymfonyStyle($input, $output);
 
-        $this->outputImage($io);
+        $this->outputImage($this->io);
 
         $message = sprintf('Bolt version: <comment>%s</comment>', Version::VERSION);
 
-        $io->text([$message, '']);
+        $this->io->text([$message, '']);
 
         try {
             $platform = $this->doctrineVersion->getPlatform();
@@ -73,7 +79,7 @@ HELP
 
         $connection = ! empty($platform['connection_status']) ? sprintf(' - <comment>%s</comment>', $platform['connection_status']) : '';
 
-        $io->listing([
+        $this->io->listing([
             sprintf('Install type: <info>%s</info>', Version::installType()),
             sprintf('Database: <info>%s %s</info>%s%s <info>(%s)</info>', $platform['driver_name'], $platform['server_version'], $connection, $tableExists, $withJson),
             sprintf('PHP version: <info>%s</info>', PHP_VERSION),
@@ -81,14 +87,14 @@ HELP
             sprintf('Operating System: <info>%s</info> - <comment>%s</comment>', php_uname('s'), php_uname('r')),
         ]);
 
-        $this->warnOutdatedComposerJson($io);
+        $this->warnOutdatedComposerJson();
 
-        $io->text('');
+        $this->io->text('');
 
         return 0;
     }
 
-    private function warnOutdatedComposerJson(SymfonyStyle $io): void
+    private function warnOutdatedComposerJson(): void
     {
         try {
             Packages::get('bolt/core');
@@ -97,34 +103,33 @@ HELP
             return;
         }
 
-        if (Version::compare('4.2.0', '<=')) {
-            $composer = json_decode(file_get_contents('composer.json'));
-            $warning = false;
+        // We check for 4.1.999, because "4.2.0-beta.1" is considered lower than "4.2.0"
+        if (Version::compare('4.1.999', '<=')) {
+            $this->composer = json_decode(file_get_contents('composer.json'));
+            $warnings = 0;
 
-            if ($composer->scripts->{'post-install-cmd'}[0] !== 'php vendor/bolt/core/bin/composer-script/project-post-install-cmd.php') {
-                $io->warning('The post-install-cmd script in composer.json is out of date.');
-                $warning = true;
-            }
+            $warnings += $this->checkComposerScript('pre-install-cmd', 'Bolt\\ComposerScripts\\ProjectEventHandler::preInstall');
+            $warnings += $this->checkComposerScript('post-install-cmd', 'Bolt\\ComposerScripts\\ProjectEventHandler::postInstall');
+            $warnings += $this->checkComposerScript('pre-update-cmd', 'Bolt\\ComposerScripts\\ProjectEventHandler::preUpdate');
+            $warnings += $this->checkComposerScript('post-update-cmd', 'Bolt\\ComposerScripts\\ProjectEventHandler::postUpdate');
+            $warnings += $this->checkComposerScript('post-create-project-cmd', 'Bolt\\ComposerScripts\\ProjectEventHandler::postCreateProject');
+            $warnings += $this->checkComposerScript('pre-package-uninstall', 'Bolt\\ComposerScripts\\ProjectEventHandler::prePackageUninstall');
 
-            if ($composer->scripts->{'pre-update-cmd'}[0] ?? null !== 'php vendor/bolt/core/bin/composer-script/project-pre-update-cmd.php') {
-                $io->warning('The pre-update-cmd script in composer.json is out of date.');
-                $warning = true;
-            }
-
-            if ($composer->scripts->{'post-update-cmd'}[0] !== 'php vendor/bolt/core/bin/composer-script/project-post-update-cmd.php') {
-                $io->warning('The post-update-cmd script in composer.json is out of date.');
-                $warning = true;
-            }
-
-            if ($composer->scripts->{'post-create-project-cmd'}[0] !== 'php vendor/bolt/core/bin/composer-script/project-post-create-project-cmd.php') {
-                $io->warning('The post-create-project-cmd script in composer.json is out of date.');
-                $warning = true;
-            }
-
-            if ($warning) {
+            if ($warnings) {
                 $update = 'Check the update instructions at <href=https://github.com/bolt/core/discussions/2318>https://github.com/bolt/core/discussions/2318</>';
-                $io->writeln($update);
+                $this->io->writeln($update);
             }
         }
+    }
+
+    private function checkComposerScript(string $key, string $value): int
+    {
+        if (property_exists($this->composer->scripts, $key) && $this->composer->scripts->{$key}[0] === $value) {
+            return 0;
+        }
+
+        $this->io->warning('The \'' . $key . '\' script in composer.json is out of date.');
+
+        return 1;
     }
 }
