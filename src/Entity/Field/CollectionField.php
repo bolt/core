@@ -55,16 +55,14 @@ class CollectionField extends Field implements FieldInterface, FieldParentInterf
         return $result;
     }
 
+    /**
+     * @var FieldInterface[]
+     */
     public function setValue($fields): Field
     {
-        if (is_iterable($fields)) {
-            $order = 1;
-            /** @var Field $field */
-            foreach ($fields as $field) {
-                $field->setParent($this);
-                $field->setSortorder($order);
-                $order += 5;
-            }
+        /** @var Field $field */
+        foreach ($fields as $field) {
+            $field->setParent($this);
         }
 
         $this->fields = $fields;
