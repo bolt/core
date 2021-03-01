@@ -138,7 +138,7 @@ class FieldFillListener
             })
                 ->values()
                 ->sort(function (Field $field) {
-                return $field->getSortorder();
-            })->toArray();
+                    return $field->getSortorder();
+                })->toArray();
     }
 }
