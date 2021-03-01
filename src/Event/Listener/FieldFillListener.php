@@ -147,6 +147,8 @@ class FieldFillListener
         return
             collect($fields)->filter(function (Field $field) use ($definition) {
                 return $definition->get('fields') && $definition->get('fields')->has($field->getName());
-            })->values()->toArray();
+            })
+                ->values()
+                ->toArray();
     }
 }
