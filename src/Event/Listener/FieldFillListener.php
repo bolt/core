@@ -149,8 +149,6 @@ class FieldFillListener
                 return $definition->get('fields') && $definition->get('fields')->has($field->getName());
             })
                 ->values()
-                ->sort(function (Field $field) {
-                    return $field->getSortorder();
-                })->toArray();
+                ->toArray();
     }
 }
