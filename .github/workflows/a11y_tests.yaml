@@ -28,11 +28,12 @@ jobs:
                 with:
                     node-version: ${{ matrix.node-version }}
                     coverage: none
-            - uses: shivammathur/setup-php@v1
-              with:
-                  # test the lowest version, to make sure checks pass on it
-                  php-version: ${{ matrix.php-version }}
-
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    # test the lowest version, to make sure checks pass on it
+                    php-version: ${{ matrix.php-version }}
+                    extensions: json, mbstring, pdo, curl, pdo_sqlite
+                    coverage: none
             -   name: Install dependencies
                 run: |
                     sudo composer self-update -q
