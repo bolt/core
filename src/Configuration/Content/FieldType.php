@@ -66,6 +66,13 @@ class FieldType extends Collection
             $definition = $contentType;
 
             foreach ($parents as $parent) {
+                // This was here before due to extensions adding "services" as parent.
+                // But also, it prevents breakage when there's inconsistencies between
+                // the database and the definition. ¯\_(ツ)_/¯
+                if (! $definition->get('fields')) {
+                    continue;
+                }
+
                 $definition = $definition->get('fields')->get($parent, collect([]));
             }
 
