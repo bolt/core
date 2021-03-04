@@ -6,6 +6,7 @@ namespace Bolt\Menu;
 
 use Bolt\Collection\DeepCollection;
 use Bolt\Configuration\Config;
+use Bolt\Configuration\Content\ContentType;
 use Bolt\Entity\Content;
 use Bolt\Repository\ContentRepository;
 use Bolt\Twig\ContentExtension;
@@ -121,15 +122,16 @@ final class FrontendMenuBuilder implements FrontendMenuBuilderInterface
 
     private function getContent(string $link): ?Content
     {
-        $parts = explode('/', $link);
+        [$contentTypeSlug, $slug] = explode('/', $link);
 
         // First, try to get it if the id is numeric.
-        if (is_numeric($parts[1])) {
-            return $this->contentRepository->findOneById((int) $parts[1]);
+        if (is_numeric($slug)) {
+            return $this->contentRepository->findOneById((int) $slug);
         }
 
-        // Otherwise fetch it by getting it from the slug
-        // @todo it should check content type slug too
-        return $this->contentRepository->findOneBySlug($parts[1]);
+        /** @var ContentType $contentType */
+        $contentType = $this->config->getContentType($contentTypeSlug);
+
+        return $this->contentRepository->findOneBySlug($slug, $contentType);
     }
 }
