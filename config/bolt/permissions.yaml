@@ -21,7 +21,7 @@ assignable_roles: [ROLE_ADMIN, ROLE_EDITOR]
 global:
     about: [ IS_AUTHENTICATED_ANONYMOUSLY ] # view the 'About Bolt' page
     clearcache: [ ROLE_ADMIN ]
-    dashboard: [ IS_AUTHENTICATED_FULLY ]
+    dashboard: [ IS_AUTHENTICATED_REMEMBERED ]
     extensions: [ ROLE_ADMIN ]
     # these control /bolt/file-edit and /bolt/filemanager -> combined create/read/update/delete permission
     # the part after the files: is the 'location' where the files are part of
@@ -41,7 +41,7 @@ global:
     bulk_operations: [ ROLE_ADMIN ]
     kitchensink: [ ROLE_ADMIN ]
     upload: [ ROLE_EDITOR ] # TODO PERMISSIONS upload media/files ? Or should this be handled by managefiles:files
-    extensionmenus: [ IS_AUTHENTICATED_FULLY ] # allows you to see menu items added by extensions
+    extensionmenus: [ IS_AUTHENTICATED_REMEMBERED ] # allows you to see menu items added by extensions
     media_edit: [ ROLE_EDITOR ] # edit metadata for images etc.
     fetch_embed_data: [ ROLE_ADMIN ] # get embed (meta)data for urls via the back-end (needed to embed youtube etc.)
     list_files:config: [ ROLE_ADMIN ] # should probably not be used?
