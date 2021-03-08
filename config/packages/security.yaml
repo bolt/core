@@ -54,3 +54,5 @@ security:
         - { path: '^/(%app_locales%)%bolt.backend_url%/_trans', roles: ADMIN_TRANSLATE_ACCESS } # handled by voter
         - { path: '^%bolt.backend_url%', roles: IS_AUTHENTICATED_FULLY }
         - { path: '^/(%app_locales%)%bolt.backend_url%', roles: IS_AUTHENTICATED_FULLY }
+        - { path: '^%bolt.backend_url%', roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: '^/(%app_locales%)%bolt.backend_url%', roles: IS_AUTHENTICATED_REMEMBERED }
