@@ -29,6 +29,18 @@
                         'btn- dropdown-button mb-0',
                         { 'target': '_blank' }
                     ) }}
+
+                    {{ macro.button(
+                        'action.live_preview',
+                        'fa-tablet',
+                        'primary mb-0',
+                        {
+                            'id': 'live_preview',
+                            'type': 'submit',
+                            'form': 'editcontent',
+                            'formtarget': 'preview_area',
+                            'formaction': path('bolt_content_edit_preview', {'id': record.id|default(0) })
+                        }) }}
                 </div>
             </div>
         {% endif %}

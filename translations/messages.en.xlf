@@ -2613,5 +2613,11 @@
         <target>Refresh</target>
       </segment>
     </unit>
+    <unit id="a6WWRhQ" name="action.live_preview">
+      <segment>
+        <source>action.live_preview</source>
+        <target>Live preview</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

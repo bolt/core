@@ -26,6 +26,7 @@ import Filelist from './Components/Filelist';
 import Collection from './Components/Collection';
 import Checkbox from './Components/Checkbox';
 import UnsavedChangesWarning from './unsavedchanges';
+import LivePreview from './Components/LivePreview';
 
 Vue.component('editor-checkbox', Checkbox);
 Vue.component('editor-date', Date);
@@ -45,6 +46,7 @@ Vue.component('editor-text', Text);
 Vue.component('editor-textarea', Textarea);
 Vue.component('editor-collection', Collection);
 Vue.component('editor-set', Set);
+Vue.component('editor-live-preview', LivePreview);
 Vue.component('general-language', Language);
 Vue.component('theme-select', ThemeSelect);
 
