@@ -39,49 +39,60 @@
 
 {% block main %}
 
-    {% if record.definition.virtual|default(false) %}
-        <div class="alert alert-danger" role="alert">
-            {{ 'content.edit_missing_definition'|trans({'%contenttype%': record.definition.name}) }}
-        </div>
-    {% endif %}
-
-    {% if errors is defined %}
-        {%for error in errors %}
+    <div style="display: flex; gap: 5%;">
+        <div style="flex: 1;">
+        {% if record.definition.virtual|default(false) %}
             <div class="alert alert-danger" role="alert">
-                {{ error.propertyPath }}: {{error.message}}
+                {{ 'content.edit_missing_definition'|trans({'%contenttype%': record.definition.name}) }}
             </div>
-        {%endfor%}
-    {% endif %}
+        {% endif %}
 
-    <form method="post" id="editcontent">
+        {% if errors is defined %}
+            {%for error in errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error.propertyPath }}: {{error.message}}
+                </div>
+            {%endfor%}
+        {% endif %}
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
-        <input type="hidden" name="_edit_locale" value="{{ currentlocale }}">
-        {# To prevent confusion in browsers about which submit to use when pressing 'enter', we
-        provide this _input_ here. All browsers will use this as a default. See #454 on Github. #}
-        <input type="submit" form="editcontent" style="display: none;" value="__('action.save')">
+        <form method="post" id="editcontent">
 
-        {% set groups = record.definition.groups|default([]) %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('editrecord') }}">
+            <input type="hidden" name="_edit_locale" value="{{ currentlocale }}">
+            {# To prevent confusion in browsers about which submit to use when pressing 'enter', we
+            provide this _input_ here. All browsers will use this as a default. See #454 on Github. #}
+            <input type="submit" form="editcontent" style="display: none;" value="__('action.save')">
 
-        {% include '@bolt/content/_tabs.html.twig' %}
+            {% set groups = record.definition.groups|default([]) %}
 
-        <div class="tab-content" id="nav-tabContent">
+            {% include '@bolt/content/_tabs.html.twig' %}
 
-        {% include '@bolt/content/_fields.html.twig' %}
+            <div class="tab-content" id="nav-tabContent">
 
-            <div class="tab-pane" id="relations" role="tabpanel" aria-labelledby="relations-tab">
+            {% include '@bolt/content/_fields.html.twig' %}
 
-                {% include '@bolt/content/_relationships.html.twig' %}
+                <div class="tab-pane" id="relations" role="tabpanel" aria-labelledby="relations-tab">
 
-                {% include '@bolt/content/_taxonomies.html.twig' %}
+                    {% include '@bolt/content/_relationships.html.twig' %}
+
+                    {% include '@bolt/content/_taxonomies.html.twig' %}
+                </div>
+
             </div>
+
+            <hr>
+            {% include '@bolt/content/_buttons.html.twig' with {'hide_on_mobile': true} %}
+
+        </form>
 
         </div>
 
-        <hr>
-        {% include '@bolt/content/_buttons.html.twig' with {'hide_on_mobile': true} %}
+        <div style="flex: 1;">
+            <editor-live-preview></editor-live-preview>
+{#            <iframe style="width: 100%; height: 100%;" name="preview" src=""></iframe>#}
+        </div>
 
-    </form>
+    </div>
 
 {% endblock %}
 
