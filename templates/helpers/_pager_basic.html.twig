@@ -14,8 +14,8 @@ Predefined variables:
 
 {% block item %}
     {% if path is defined %}
-        <li {% if class|default %}class="{{ class }}"{% endif %} {% if not enabled %}disabled="disabled"{% endif %}>
-            <a {% if 'active' in class|default %}aria-current="page"{% endif%} {% if not enabled %}disabled="disabled"{% else %}href="{{ path }}"{% endif %}>{{ label|default('…') }}</a>
+        <li {% if class|default %}class="{{ class }}"{% endif %} {% if enabled is defined and not enabled %}disabled="disabled"{% endif %}>
+            <a {% if 'active' in class|default %}aria-current="page"{% endif%} {% if enabled is defined and not enabled %}disabled="disabled"{% else %}href="{{ path }}"{% endif %}>{{ label|default('…') }}</a>
         </li>
     {% endif %}
 {% endblock item %}
