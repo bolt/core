@@ -1,6 +1,29 @@
 Changelog
 =========
 
+## 4.1.15
+
+Released: 2021-03-14
+
+### 🐛 Bug fixes
+
+- Don't break if listing pages have extra parameters (bobdenotter, [#2465](https://github.com/bolt/core/pull/2465))
+- Ensure `slug` has a `uses` set (bobdenotter, [#2463](https://github.com/bolt/core/pull/2463))
+- Set correct classes and disabled states for the `_pager_basic.html.twig` pager (I-Valchev, [#2460](https://github.com/bolt/core/pull/2460))
+- Identical record slugs in `menu.yaml` don't create conflicting URIs (I-Valchev, [#2454](https://github.com/bolt/core/pull/2454))
+
+### 🛠️ Miscellaneous
+
+- Temporary version lock for `api-platform` bug (I-Valchev, [#2461](https://github.com/bolt/core/pull/2461))
+- Allow search queries containing special characters (fix for #2427) (EmilePerron, [#2435](https://github.com/bolt/core/pull/2435))
+- Show total number of records on listing (bobdenotter, [#2464](https://github.com/bolt/core/pull/2464))
+
+
+### 🤖 Tests
+
+- Update `shivammathur/setup-php` to v2 (I-Valchev, [#2448](https://github.com/bolt/core/pull/2448))
+
+
 ## 4.1.14
 
 Released: 2021-02-26
