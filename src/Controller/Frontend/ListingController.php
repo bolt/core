@@ -50,7 +50,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         $page = (int) $this->getFromRequest('page', '1');
         $amountPerPage = $contentType->get('listing_records');
         $order = $this->getFromRequest('order', $contentType->get('order'));
-        $queryParams = $this->parseQueryParams($this->request);
+        $queryParams = $this->parseQueryParams($this->request, $contentType);
 
         $params = array_merge($queryParams, [
             'status' => 'published',
@@ -82,7 +82,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
         return $this->render($templates, $twigVars);
     }
 
-    private function parseQueryParams(Request $request): array
+    private function parseQueryParams(Request $request, ContentType $contentType): array
     {
         if ($this->config->get('general/query_search') === false) {
             return [];
@@ -90,7 +90,9 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $queryParams = collect($request->query->all());
 
-        return $queryParams->mapWithKeys(function ($value, $key) {
+        $allowedParams = array_merge($contentType['fields']->keys()->all(), $contentType['taxonomy']->all(), ['order']);
+
+        return $queryParams->mapWithKeys(function ($value, $key) use ($allowedParams) {
             // Ensure we don't have arrays, if we get something like `title[]=…` passed in.
             if (is_array($value)) {
                 $value = current($value);
@@ -101,7 +103,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
                 $value = '%' . $value . '%';
             }
 
-            return [$key => $value];
+            return in_array($key, $allowedParams, true) ? [$key => $value] : [];
         })->toArray();
     }
 
