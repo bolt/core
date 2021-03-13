@@ -18,7 +18,6 @@ Released: 2021-03-14
 - Allow search queries containing special characters (fix for #2427) (EmilePerron, [#2435](https://github.com/bolt/core/pull/2435))
 - Show total number of records on listing (bobdenotter, [#2464](https://github.com/bolt/core/pull/2464))
 
-
 ### 🤖 Tests
 
 - Update `shivammathur/setup-php` to v2 (I-Valchev, [#2448](https://github.com/bolt/core/pull/2448))
