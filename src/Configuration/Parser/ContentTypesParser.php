@@ -192,11 +192,9 @@ class ContentTypesParser extends BaseParser
         // Make sure title_format is set
         if (isset($contentType['title_format'])) {
             $contentType['title_format'] = $contentType['title_format'];
-        } elseif (isset($contentType['fields']['slug']['uses'])) {
-            $fields = (array) $contentType['fields']['slug']['uses'];
-            $contentType['title_format'] = '{' . implode('} {', $fields) . '}';
         } else {
-            $contentType['title_format'] = null;
+            $fields = $contentType['fields']['slug']['uses'];
+            $contentType['title_format'] = '{' . implode('} {', $fields) . '}';
         }
 
         // Make sure taxonomy is an array.
@@ -262,10 +260,14 @@ class ContentTypesParser extends BaseParser
             }
         }
 
-        // Make sure the 'uses' of the slug is an array.
-        if (isset($fields['slug']) && isset($fields['slug']['uses'])) {
-            $fields['slug']['uses'] = (array) $fields['slug']['uses'];
+        // Make sure the slug's `uses` is set
+        if (! isset($fields['slug']['uses'])) {
+            $fields['slug']['uses'] = key($fields);
         }
+
+        // Make sure the `uses` of the slug is an array.
+        $fields['slug']['uses'] = (array) $fields['slug']['uses'];
+        $fields['slug']['type'] = 'slug';
 
         return [$fields, $groups];
     }
