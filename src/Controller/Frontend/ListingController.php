@@ -99,7 +99,10 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
     private function parseQueryParams(Request $request, ContentType $contentType): array
     {
         if ($this->config->get('general/query_search') === false) {
-            return [];
+            return [
+                'order' => $contentType->get('order'),
+                'status' => 'published',
+            ];
         }
 
         $queryParams = collect($request->query->all());
