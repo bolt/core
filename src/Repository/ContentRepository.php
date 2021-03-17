@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bolt\Repository;
 
+use Bolt\Common\Str;
 use Bolt\Configuration\Content\ContentType;
 use Bolt\Doctrine\JsonHelper;
 use Bolt\Entity\Content;
@@ -98,6 +99,10 @@ class ContentRepository extends ServiceEntityRepository
         // proper JSON wrapping solves a lot of problems (added PostgreSQL compatibility)
         $connection = $qb->getEntityManager()->getConnection();
         [$where] = JsonHelper::wrapJsonFunction('t.value', $searchTerm, $connection);
+
+        // Rather than searching for '%foo bar%', search '%foo%bar%' which doesn't require
+        // an exact match, but requires 'foo' to appear before 'bar'.
+        $searchTerm = str_replace(' ', '%', Str::cleanWhitespace($searchTerm));
 
         // The search term must match the format of the content in the database
         // Therefore, it is JSON encoded and escaped with backslashes
