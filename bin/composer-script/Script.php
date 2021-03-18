@@ -29,9 +29,11 @@ class Script
     /**
      * Execute a command in the CLI, as a separate process.
      */
-    protected static function run(string $command): void
+    protected static function run(string $command): int
     {
         // Execute the command and show the output.
-        passthru($command);
+        passthru($command, $result);
+
+        return $result;
     }
 }
