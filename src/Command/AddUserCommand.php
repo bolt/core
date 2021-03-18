@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bolt\Command;
 
 use Bolt\Common\Str;
+use Bolt\Configuration\Config;
 use Bolt\Entity\User;
 use Bolt\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -61,13 +63,17 @@ class AddUserCommand extends Command
     /** @var ValidatorInterface */
     private $validator;
 
-    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, ValidatorInterface $validator)
+    /** @var Config */
+    private $config;
+
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, ValidatorInterface $validator, Config $config)
     {
         parent::__construct();
 
         $this->entityManager = $em;
         $this->passwordEncoder = $encoder;
         $this->validator = $validator;
+        $this->config = $config;
     }
 
     /**
@@ -84,7 +90,8 @@ class AddUserCommand extends Command
             ->addArgument('password', InputArgument::OPTIONAL, 'The plain password of the new user')
             ->addArgument('email', InputArgument::OPTIONAL, 'The email of the new user')
             ->addArgument('display-name', InputArgument::OPTIONAL, 'The display name of the new user')
-            ->addOption('admin', null, InputOption::VALUE_NONE, 'If set, the user is created as an administrator');
+            ->addOption('admin', null, InputOption::VALUE_NONE, 'If set, the user is created as an administrator')
+            ->addOption('roles', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL, 'If set, provide a list of roles that the new user will be assigned');
     }
 
     /**
@@ -192,6 +199,30 @@ class AddUserCommand extends Command
             });
             $input->setArgument('display-name', $displayName);
         }
+
+        // Set the roles for the new user.
+        $assignableRoles = $this->config->get('permissions/assignable_roles')->toArray();
+
+        $isAdmin = $input->getOption('admin') ? ['ROLE_ADMIN'] : [];
+        $roles = $input->getOption('roles') ?? [];
+        $roles = array_merge($roles, $isAdmin);
+
+        $nonAssignableRoles = array_diff($roles, $assignableRoles);
+
+        // Only allow the assignable roles to be assigned.
+        $roles = array_intersect($assignableRoles, $roles);
+
+        if (! empty($nonAssignableRoles)) {
+            $this->io->warning(sprintf('The role(s) [%s] are non-assignable and will be ignored. Please check your config/permissions.yaml file.', implode(',', $nonAssignableRoles)));
+        }
+
+        if (empty($roles)) {
+            // Ask the roles question, if neither --roles nor --admin is set.
+            $rolesQuestion = new ChoiceQuestion('Role', $assignableRoles);
+            $roles = [$this->io->askQuestion($rolesQuestion)];
+        }
+
+        $input->setOption('roles', $roles);
     }
 
     /**
@@ -207,11 +238,11 @@ class AddUserCommand extends Command
         $plainPassword = $input->getArgument('password');
         $email = $input->getArgument('email');
         $displayName = $input->getArgument('display-name');
-        $isAdmin = $input->getOption('admin');
+        $roles = $input->getOption('roles');
 
         // create the user and encode its password
         $user = UserRepository::factory($displayName, $username, $email);
-        $user->setRoles([$isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER']);
+        $user->setRoles($roles);
         $user->setLocale('en');
         $user->setBackendTheme('default');
         $user->setPlainPassword($plainPassword);
@@ -235,12 +266,7 @@ class AddUserCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        if (! $isAdmin) {
-            $this->io->success(sprintf('User was successfully created: %s (%s)', $user->getUsername(), $user->getEmail()));
-            $this->io->warning('Note: regular users CAN NOT log in to the Bolt backend. Create a user with the `--admin` flag instead, if this is what you intended.');
-        } else {
-            $this->io->success(sprintf('Administrator user was successfully created: %s (%s)', $user->getUsername(), $user->getEmail()));
-        }
+        $this->io->success(sprintf('User was successfully created: %s (%s) [%s]', $user->getUsername(), $user->getEmail(), implode(',', $user->getRoles())));
 
         $event = $stopwatch->stop('add-user-command');
         if ($output->isVerbose()) {
