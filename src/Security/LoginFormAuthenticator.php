@@ -43,18 +43,23 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     /** @var EntityManagerInterface */
     private $em;
 
+    /** @var Security */
+    private $security;
+
     public function __construct(
         UserRepository $userRepository,
         RouterInterface $router,
         CsrfTokenManagerInterface $csrfTokenManager,
         UserPasswordEncoderInterface $passwordEncoder,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        Security $security
     ) {
         $this->userRepository = $userRepository;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
+        $this->security = $security;
     }
 
     protected function getLoginUrl(): string
@@ -132,7 +137,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         ];
         $this->logger->notice('User \'{username}\' logged in (manually)', $userArr);
 
-        $fallback = $request->get('_target_path', $this->router->generate('bolt_dashboard'));
+        // @todo: Allow different roles to redirect to different pages on success.
+        if ($request->get('_target_path', false)) {
+            $fallback = $request->get('_target_path');
+        } elseif ($this->security->isGranted('dashboard')) {
+            $fallback = $this->router->generate('bolt_dashboard');
+        } else {
+            $fallback = $this->router->generate('homepage');
+        }
 
         return new RedirectResponse($request->getSession()->get(
             '_security.' . $providerKey . '.target_path',
