@@ -80,7 +80,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
             array_merge([
                 'contentTypeSlug' => $contentType->get('slug'),
                 '_locale' => $this->request->getLocale(),
-            ], $queryParams)
+            ], $params)
         );
 
         // Render
