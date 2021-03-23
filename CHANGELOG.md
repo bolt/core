@@ -1,6 +1,25 @@
 Changelog
 =========
 
+## 4.1.16
+
+Released: 2021-03-23
+
+### 🐛 Bug fixes
+
+- Fix the `allow_twig` option to work in the preview (bobdenotter, [#2486](https://github.com/bolt/core/pull/2486))
+- The `|excerpt` filter returns the excerpt in the correct locale (I-Valchev, [#2475](https://github.com/bolt/core/pull/2475))
+- Accept less strict search like `%foo%bar%` (I-Valchev, [#2473](https://github.com/bolt/core/pull/2473))
+
+### 🛠️ Miscellaneous
+
+- Improve parameter override for Listing Pages (bobdenotter, [#2469](https://github.com/bolt/core/pull/2469))
+
+### ⚙️ Code Quality / Developer Experience
+
+- Fix GitHub action failed to install (I-Valchev, [#2484](https://github.com/bolt/core/pull/2484))
+
+
 ## 4.1.15
 
 Released: 2021-03-14
