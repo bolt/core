@@ -20,6 +20,7 @@ jobs:
                     php-version: ${{ matrix.php-version }}
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
+            - run: sudo apt update
             -   name: Install dependencies
                 run: |
                     sudo composer self-update -q
