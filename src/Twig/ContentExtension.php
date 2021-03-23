@@ -255,7 +255,7 @@ class ContentExtension extends AbstractExtension
         }
 
         if (ContentHelper::isSuitable($content, 'excerpt_format')) {
-            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'));
+            $excerpt = $this->contentHelper->get($content, $content->getDefinition()->get('excerpt_format'), $this->request->getLocale());
         } else {
             $excerpt = $this->getFieldBasedExcerpt($content, $length, $includeTitle);
         }
