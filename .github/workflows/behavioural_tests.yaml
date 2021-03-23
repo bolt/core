@@ -20,6 +20,8 @@ jobs:
                     php-version: ${{ matrix.php-version }}
                     extensions: json, mbstring, pdo, curl, pdo_sqlite
                     coverage: none
+            # See https://github.community/t/sudo-apt-install-fails-with-failed-to-fetch-http-security-ubuntu-com-404-not-found-ip/17075
+            - run: sudo apt update
             -   name: Install dependencies
                 run: |
                     sudo composer self-update -q
@@ -69,6 +71,8 @@ jobs:
             -   uses: actions/setup-node@v1
                 with:
                     node-version: ${{ matrix.node-version }}
+            # See https://github.community/t/sudo-apt-install-fails-with-failed-to-fetch-http-security-ubuntu-com-404-not-found-ip/17075
+            -   run: sudo apt update
             -   name: Install dependencies
                 run: |
                     sudo composer self-update -q
