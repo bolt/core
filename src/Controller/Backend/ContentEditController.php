@@ -258,6 +258,7 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->validateCsrf('editrecord');
 
         $content = $this->contentFromPost($content);
+        $this->denyAccessUnlessGranted(ContentVoter::CONTENT_VIEW, $content);
 
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::ON_PREVIEW);
