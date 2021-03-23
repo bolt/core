@@ -9,6 +9,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Bolt\Common\Arr;
 use Bolt\Configuration\Content\FieldType;
+use Bolt\Event\Listener\FieldFillListener;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
@@ -234,6 +235,10 @@ class Field implements FieldInterface, TranslatableInterface
         if (is_string($value) && $this->getContent() && $this->getDefinition()->get('sanitise')) {
             $value = $this->getContent()->sanitise($value);
         }
+
+        // Trim the zero spaces even before saving in FieldFillListener.
+        // Otherwise, the preview contains zero width whitespace.
+        $value = is_string($value) ? FieldFillListener::trimZeroWidthWhitespace($value) : $value;
 
         if ($this->shouldBeRenderedAsTwig($value)) {
             $twig = $this->getContent()->getTwig();

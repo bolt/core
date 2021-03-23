@@ -171,19 +171,11 @@ class ContentEditController extends TwigAwareController implements BackendZoneIn
         $this->validateCsrf('editrecord');
 
         $content = $this->contentFromPost($content);
-        $recordSlug = $content->getDefinition()->get('singular_slug');
 
         $event = new ContentEvent($content);
         $this->dispatcher->dispatch($event, ContentEvent::ON_PREVIEW);
 
-        $context = [
-            'record' => $content,
-            $recordSlug => $content,
-        ];
-
-        $templates = $this->templateChooser->forRecord($content);
-
-        return $this->render($templates, $context);
+        return $this->renderSingle($content, false);
     }
 
     /**
