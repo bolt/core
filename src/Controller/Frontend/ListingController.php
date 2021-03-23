@@ -59,13 +59,7 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
         $page = (int) $this->getFromRequest('page', '1');
         $amountPerPage = $contentType->get('listing_records');
-        $order = $this->getFromRequest('order', $contentType->get('order'));
-        $queryParams = $this->parseQueryParams($this->request, $contentType);
-
-        $params = array_merge($queryParams, [
-            'status' => 'published',
-            'order' => $order,
-        ]);
+        $params = $this->parseQueryParams($this->request, $contentType);
 
         /** @var Content|Pagerfanta $content */
         $content = $this->query->getContent($contentTypeSlug, $params);
@@ -105,14 +99,22 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
     private function parseQueryParams(Request $request, ContentType $contentType): array
     {
         if ($this->config->get('general/query_search') === false) {
-            return [];
+            return [
+                'order' => $contentType->get('order'),
+                'status' => 'published',
+            ];
         }
 
         $queryParams = collect($request->query->all());
 
-        $allowedParams = array_merge($contentType['fields']->keys()->all(), $contentType['taxonomy']->all(), ['order']);
+        // Note, we're not including 'limit', 'printquery', 'returnsingle' or 'returnmultiple' on purpose
+        $allowedParams = array_merge(
+            $contentType['fields']->keys()->all(),
+            $contentType['taxonomy']->all(),
+            ['order', 'earliest', 'latest', 'offset', 'page', 'random', 'author']
+        );
 
-        return $queryParams->mapWithKeys(function ($value, $key) use ($allowedParams) {
+        $params = $queryParams->mapWithKeys(function ($value, $key) use ($allowedParams) {
             // Ensure we don't have arrays, if we get something like `title[]=…` passed in.
             if (is_array($value)) {
                 $value = current($value);
@@ -125,6 +127,15 @@ class ListingController extends TwigAwareController implements FrontendZoneInter
 
             return in_array($key, $allowedParams, true) ? [$key => $value] : [];
         })->toArray();
+
+        if (! array_key_exists('order', $params)) {
+            $params['order'] = $contentType->get('order');
+        }
+
+        // Ensure we only list things that are 'published'
+        $params['status'] = 'published';
+
+        return $params;
     }
 
     private function setRecords($content, int $amountPerPage, int $page): Pagerfanta
