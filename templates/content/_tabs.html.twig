@@ -2,7 +2,7 @@
 <nav>
     <ul class="nav editor__tabbar" role="tablist">
         {% for group in groups %}
-            <li class="nav-item">
+            <li class="nav-item" role="presentation">
                 <a class="nav-link {% if loop.first %}active{% endif %}" id="{{ group|slug }}-tab" data-toggle="pill"
                    href="#{{ group|slug }}" role="tab" aria-controls="{{ group|slug }}"
                    aria-selected="{% if loop.first %}true{% else %}false{% endif %} ">
