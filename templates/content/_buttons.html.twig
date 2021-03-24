@@ -1,6 +1,6 @@
 {% import '@bolt/_macro/_macro.html.twig' as macro %}
 
-<div class="record-actions {% if hide_on_mobile|default(false) %}d-lg-none d-xl-block{% endif %}">
+<div class="record-actions {% if hide_on_mobile|default(false) %}d-none d-xl-block{% endif %}">
     {% if is_granted('edit', record) %}
         {{ macro.button('action.save', 'fa-save', 'success mb-0', {'type': 'submit', 'form': 'editcontent', 'data-patience': 'virtue', 'name': 'save'}) }}
     {% endif %}

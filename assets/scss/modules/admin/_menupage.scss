@@ -1,0 +1,22 @@
+
+.admin__body {
+    .menupage {
+        ul {
+            list-style: none;
+            padding-left: 0;
+            width: fit-content;
+            margin: 0 auto;
+
+            @include media-breakpoint-up(sm) {
+                margin-left: unset;
+            }
+
+            li {
+                a {
+                    min-width: 20em;
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
