@@ -6,7 +6,18 @@
             </div>
         </transition>
         <div class="row">
-            <div class="col-9">
+            <div class="col-12 col-md-3 order-md-2">
+                <div class="editor__image--preview">
+                    <a
+                        v-if="thumbnailImage !== null && thumbnailImage !== ''"
+                        class="editor__image--preview-image"
+                        :href="previewImage"
+                        :style="`background-image: url('${thumbnailImage}')`"
+                    >
+                    </a>
+                </div>
+            </div>
+            <div class="col order-md-1">
                 <div class="input-group mb-3">
                     <input :name="name + '[media]'" type="hidden" :value="media" />
                     <input
@@ -129,17 +140,6 @@
                         aria-valuemax="100"
                         :style="`width: ${progress}%`"
                     ></div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="editor__image--preview">
-                    <a
-                        v-if="thumbnailImage !== null && thumbnailImage !== ''"
-                        class="editor__image--preview-image"
-                        :href="previewImage"
-                        :style="`background-image: url('${thumbnailImage}')`"
-                    >
-                    </a>
                 </div>
             </div>
         </div>
