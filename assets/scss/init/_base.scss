@@ -33,6 +33,12 @@ h2 code {
 
 code {
   background-color: rgba(0, 0, 0, 0.075);
+  padding: 5px;
+  border-radius: 3px;
+
+  &, & a {
+    color: $code;
+  }
 }
 
 small {
