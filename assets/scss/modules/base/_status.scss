@@ -1,26 +1,67 @@
 //** Base | Status
 
+.apply-fa {
+  font-family: 'Font Awesome 5 Free', serif;
+  font-weight: 900;
+}
+
+.apply-fas {
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-feature-settings: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
 .status {
   width: 12px;
   height: 12px;
   border-radius: 100%;
-  background: var(--shade);
   display: inline-flex;
 
+  @extend .apply-fa;
+  @extend .apply-fas;
+
   &.is-published {
-    background: var(--status-published);
+    color: var(--status-published);
+
+    &::before {
+      content: "\f058"; // check mark
+    }
   }
 
   &.is-held {
-    background: var(--status-held);
+    color: var(--status-held);
+
+    &::before {
+      content: "\f057"; // times circle
+    }
   }
 
   &.is-draft {
-    background: var(--status-draft);
+    color: var(--status-draft);
+    border-radius: 50%;
+
+    &::before {
+      content: "\f14b"; // pen-square
+    }
   }
 
   &.is-timed {
     background: var(--status-timed);
+    color: $white;
+    position: relative;
+
+    &::before {
+      content: "\f017"; // clock
+      font-size: 0.6em;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-45%, -50%);
+    }
   }
 }
 
