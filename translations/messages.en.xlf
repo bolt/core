@@ -2613,5 +2613,41 @@
         <target>Refresh</target>
       </segment>
     </unit>
+    <unit id="9UKAP.V" name="listing_details_box.showing_records">
+      <segment>
+        <source>listing_details_box.showing_records</source>
+        <target>Showing records %current% of %total%</target>
+      </segment>
+    </unit>
+    <unit id="UrywY0R" name="listing_details_box.name">
+      <segment>
+        <source>listing_details_box.name</source>
+        <target>Name: %name% (singular: %singularName%)</target>
+      </segment>
+    </unit>
+    <unit id=".l3zbrq" name="listing_details_box.slug">
+      <segment>
+        <source>listing_details_box.slug</source>
+        <target>Slug: %slug% (singular: %singularSlug%)</target>
+      </segment>
+    </unit>
+    <unit id="eJ9YbdG" name="listing_details_box.record_template">
+      <segment>
+        <source>listing_details_box.record_template</source>
+        <target>Record template: %template%</target>
+      </segment>
+    </unit>
+    <unit id="tsc7_G3" name="listing_details_box.listing_template">
+      <segment>
+        <source>listing_details_box.listing_template</source>
+        <target>Listing template: %template% (%listingRecords% records)</target>
+      </segment>
+    </unit>
+    <unit id="pPz9Ocx" name="listing_details_box.locales">
+      <segment>
+        <source>listing_details_box.locales</source>
+        <target>Locales: %locales%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
