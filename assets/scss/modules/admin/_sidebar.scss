@@ -169,23 +169,23 @@
   }
 
   &--slim {
-    width: $admin-sidebar-width;
     background: transparent;
     border: 0;
     text-align: center;
     color: var(--shade-light);
     font-size: $font-size-lg;
     position: relative;
+    margin: 0 auto;
+    display: block;
 
-    @include media-breakpoint-up(md) {
-      width: $admin-sidebar-width-wide;
-    }
-
-    &:hover,
-    &:focus {
+    &:hover {
       color: var(--admin-sidebar-icon);
       outline: none;
       cursor: pointer;
+    }
+
+    &:focus {
+      outline: 0.15rem solid;
     }
   }
 
