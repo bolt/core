@@ -4,7 +4,7 @@ Feature: Users & Permissions
     Given I am logged in as "admin"
     When I follow "Configuration"
     #Users & Permissions
-    When I click "body > div.admin > div.admin__body > div.admin__body--container.admin__body--container--has-sidebar > main > .menupage > a:nth-child(1)"
+    When I click "body > div.admin > div.admin__body > div.admin__body--container.admin__body--container--has-sidebar > main > .menupage a:nth-child(1)"
     Then I should be on "/bolt/users"
     #users table
     And the columns schema of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table should match:
