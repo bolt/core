@@ -26,7 +26,11 @@
                 :value="filterValue"
             />
             <div class="input-group-append">
-                <button class="btn btn-tertiary toolbar-item__filter--button" type="submit" :title="labels['listing.button_search']">
+                <button
+                    class="btn btn-tertiary toolbar-item__filter--button"
+                    type="submit"
+                    :title="labels['listing.button_search']"
+                >
                     <i class="fas fa-search"></i>
                 </button>
             </div>
