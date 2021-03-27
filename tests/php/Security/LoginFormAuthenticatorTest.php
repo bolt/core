@@ -61,7 +61,6 @@ class LoginFormAuthenticatorTest extends TestCase
     }
 
     private function getTestObj(?UserRepository $userRepository, ?RouterInterface $router, ?CsrfTokenManagerInterface $csrfTokenManager, ?UserPasswordEncoderInterface $userPasswordEncoder, ?LoggerInterface $logger, ?Security $security): LoginFormAuthenticator
-
     {
         return new LoginFormAuthenticator(
             $userRepository ?? $this->createMock(UserRepository::class),
