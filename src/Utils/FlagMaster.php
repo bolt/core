@@ -45,7 +45,7 @@ class FlagMaster
      */
     private static function code2unicode($code): string
     {
-        $arr = str_split($code);
+        $arr = mb_str_split($code);
         $str = '';
         foreach ($arr as $char) {
             $str .= self::enclosedUnicode($char);
