@@ -51,13 +51,13 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
 
     public function __construct(
         FactoryInterface $menuFactory,
+        iterable $extensionMenus,
         Config $config,
         ContentRepository $contentRepository,
         UrlGeneratorInterface $urlGenerator,
         TranslatorInterface $translator,
         ContentExtension $contentExtension,
-        AuthorizationCheckerInterface $authorizationChecker,
-        iterable $extensionMenus = []
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
         $this->menuFactory = $menuFactory;
         $this->config = $config;
