@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="input-group-prepend">
+        <div class="input-group">
             <input
                 :id="id"
                 ref="inputField"
@@ -17,7 +17,13 @@
                 @input="measureStrength"
             />
 
-            <i ref="visibilityToggle" class="input-group-text toggle-password fas fa-eye" @click="togglePassword"></i>
+            <div class="input-group-append">
+                <i
+                    ref="visibilityToggle"
+                    class="input-group-text toggle-password fas fa-eye"
+                    @click="togglePassword"
+                ></i>
+            </div>
         </div>
         <progress-bar v-if="strength" ref="progressBar" :max="4" height="4px"></progress-bar>
     </div>
@@ -59,7 +65,7 @@ export default {
     methods: {
         togglePassword(event) {
             const iconElement = event.target;
-            const inputElement = event.target.previousElementSibling;
+            const inputElement = this.$el.querySelector('#' + this.id);
             const inputType = inputElement.attributes.getNamedItem('type').value;
 
             if (inputType === 'password') {
