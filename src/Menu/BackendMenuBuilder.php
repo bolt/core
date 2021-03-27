@@ -57,7 +57,7 @@ final class BackendMenuBuilder implements BackendMenuBuilderInterface
         TranslatorInterface $translator,
         ContentExtension $contentExtension,
         AuthorizationCheckerInterface $authorizationChecker,
-        iterable $extensionMenus = [],
+        iterable $extensionMenus = []
     ) {
         $this->menuFactory = $menuFactory;
         $this->config = $config;
