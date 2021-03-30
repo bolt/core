@@ -4,14 +4,16 @@ Feature: Users & Permissions
     Given I am logged in as "admin"
     When I follow "Configuration"
     #Users & Permissions
-    When I click "body > div.admin > div.admin__body > div.admin__body--container.admin__body--container--has-sidebar > main > .menupage a:nth-child(1)"
+    And I wait 0.1 seconds
+    When I click "Users & Permissions"
+    And I wait 0.1 seconds
     Then I should be on "/bolt/users"
     #users table
     And the columns schema of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table should match:
       | columns |
       | # |
-      | Display name |
-      | Username / Email |
+      | Username |
+      | Display name / Email |
       | Roles |
       | Session age |
       | Last IP |
@@ -19,7 +21,7 @@ Feature: Users & Permissions
     And I should see 6 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And the data in the 1st row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table should match:
       | col1 | col2 | col3 | col4 | col6 | col7 |
-      | 1 | Admin | admin / admin@example.org | ROLE_ADMIN | 127.0.0.1 | Edit |
+      | 1 | admin | Admin / @ | ROLE_ADMIN | 127.0.0.1 | Options |
 
   @javascript
   Scenario: Disable/enable user
@@ -30,9 +32,16 @@ Feature: Users & Permissions
     Given I logout
     And I am logged in as "admin"
     When I am on "/bolt/users"
-    #disable button for given user
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > a:nth-child(2)"
-    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > a:nth-child(2)" element
+    # "Disable" button for given user
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7)"
+    And I wait 0.1 seconds
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > div > div > a:nth-child(2)"
+    And I wait 1 seconds
+
+    # And now it should show the 'Enable'
+    Then I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7)"
+    And I wait 0.1 seconds
+    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > div > div > a:nth-child(2)" element
 
     Then I logout
     When I am logged in as "jane_admin" with password "jane%1"
@@ -41,8 +50,12 @@ Feature: Users & Permissions
 
     When I am logged in as "admin"
     And I am on "/bolt/users"
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > a:nth-child(2)"
-    Then I should see "Disable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > a:nth-child(2)" element
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7)"
+    And I wait 0.1 seconds
+
+    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > div > div > a:nth-child(2)" element
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > div > div > a:nth-child(2)"
+    And I wait 0.1 seconds
 
     Then I logout
     Then I am logged in as "jane_admin" with password "jane%1"
@@ -51,6 +64,7 @@ Feature: Users & Permissions
     Then I logout
 
   @javascript
+  @foo
   Scenario: Create/delete user
     Given I am logged in as "admin"
     When I am on "/bolt/users"
