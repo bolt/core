@@ -41,12 +41,18 @@
             </td>
             {% if iteratedUser.lastseenAt %}
                 <td>
-                    {{ macro.relative_datetime(iteratedUser.lastseenAt) }}
+                    <small>{{ macro.relative_datetime(iteratedUser.lastseenAt) }}</small>
                 </td>
             {% else %}
-                <td>-</td>
+                <td>
+                    <small>-</small>
+                </td>
             {% endif %}
-            <td>{% if iteratedUser.lastIp %}<code>{{ iteratedUser.lastIp }}</code>{% else %}-{% endif %}</td>
+            <td>
+                <small>
+                    {% if iteratedUser.lastIp %}<code>{{ iteratedUser.lastIp }}</code>{% else %}-{% endif %}
+                </small>
+            </td>
             <td>
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
