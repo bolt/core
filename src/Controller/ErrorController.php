@@ -19,6 +19,7 @@ use Symfony\Component\HttpKernel\Controller\ErrorController as SymfonyErrorContr
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 
@@ -42,6 +43,9 @@ class ErrorController extends SymfonyErrorController
     /** @var ParameterBagInterface */
     private $parameterBag;
 
+    /** @var Security */
+    private $security;
+
     public function __construct(
         HttpKernelInterface $httpKernel,
         Config $config,
@@ -50,7 +54,8 @@ class ErrorController extends SymfonyErrorController
         ErrorRendererInterface $errorRenderer,
         ParameterBagInterface $parameterBag,
         RequestStack $requestStack,
-        UrlGeneratorInterface $urlGenerator)
+        UrlGeneratorInterface $urlGenerator,
+        Security $security)
     {
         $this->config = $config;
         $this->templateController = $templateController;
@@ -61,6 +66,7 @@ class ErrorController extends SymfonyErrorController
         $this->request = $requestStack->getParentRequest();
         $this->urlGenerator = $urlGenerator;
         $this->parameterBag = $parameterBag;
+        $this->security = $security;
     }
 
     /**
@@ -120,7 +126,7 @@ class ErrorController extends SymfonyErrorController
 
     private function showForbidden(): Response
     {
-        if (RequestZone::isForBackend($this->request)) {
+        if (RequestZone::isForBackend($this->request) && $this->security->isGranted('dashboard')) {
             /** @var Session $session */
             $session = $this->request->getSession();
             $session->getFlashBag()->set('danger', 'You do not have permission to access this page.');
