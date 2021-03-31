@@ -32,7 +32,7 @@ trait ImageTrait
     private function unicodeString(string $str, ?string $encoding = null): string
     {
         if ($encoding === null) {
-            $encoding = ini_get('mbstring.internal_encoding');
+            $encoding = ini_get('mbstring.internal_encoding') ?: 'UTF-8';
         }
 
         return preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/u', function ($match) use ($encoding) {
