@@ -4,7 +4,7 @@ Feature: Users & Permissions
     Given I am logged in as "admin"
     When I follow "Configuration"
     #Users & Permissions
-    And I wait 0.1 seconds
+    And I wait 1 seconds
     When I click "Users & Permissions"
     And I wait 0.1 seconds
     Then I should be on "/bolt/users"
