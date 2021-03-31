@@ -16,6 +16,7 @@
         </div>
 
         <form :action="backendPrefix" class="toolbar-item toolbar-item__filter input-group">
+            <label for="global-search" class="sr-only">{{ labels['general.label.search'] }}</label>
             <input
                 id="global-search"
                 type="text"
