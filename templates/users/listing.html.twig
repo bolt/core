@@ -16,8 +16,8 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col" class="text-nowrap">{{ 'listing.title_display_name'|trans }}</th>
-            <th scope="col" class="text-nowrap">{{ 'listing.title_username'|trans }} / {{ 'listing.title_email'|trans }}</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_username'|trans }}</th>
+            <th scope="col" class="text-nowrap">{{ 'listing.title_display_name'|trans }} / {{ 'listing.title_email'|trans }}</th>
             <th scope="col" class="text-nowrap">{{ 'listing.title_roles'|trans }}</th>
             <th scope="col" class="text-nowrap">{{ 'listing.title_last_seen'|trans }}</th>
             <th scope="col" class="text-nowrap">{{ 'listing.title_last_ip'|trans }}</th>
@@ -29,39 +29,68 @@
         <tr>
             <th scope="row">{{ iteratedUser.id }}</th>
             <td>
-                {{ iteratedUser.displayName }}
+                {{ iteratedUser.username }}
                 {% if iteratedUser.status === 'disabled' %}<span class="badge badge-danger">{{ __('listing.disabled') }}</span>{% endif %}
             </td>
-            <td>{{ iteratedUser.username }} / {{ iteratedUser.email }}</td>
-            <td><code>{{ iteratedUser.roles|join('</code>, <code>')|raw }}</code></td>
+            <td>
+                {{ iteratedUser.displayName }} /
+                <small><a href="mailto:{{ iteratedUser.email }}" rel="noopener noreferrer">@</a></small>
+            </td>
+            <td>
+                <small><code>{{ iteratedUser.roles|join('</code>, <code>')|raw }}</code></small>
+            </td>
             {% if iteratedUser.lastseenAt %}
                 <td>
-                    {{ macro.relative_datetime(iteratedUser.lastseenAt) }}
+                    <small>{{ macro.relative_datetime(iteratedUser.lastseenAt) }}</small>
                 </td>
             {% else %}
-                <td>-</td>
+                <td>
+                    <small>-</small>
+                </td>
             {% endif %}
-            <td>{% if iteratedUser.lastIp %}<code>{{ iteratedUser.lastIp }}</code>{% else %}-{% endif %}</td>
             <td>
-                {% if is_granted('user:edit') %}
-                    {{ macro.buttonlink('action.edit', path('bolt_user_edit', {'id': iteratedUser.id}), 'edit', 'secondary sm') }}
-                {% endif %}
-                {% if user.id != iteratedUser.id %}
-                    {% if is_granted('user:status') %}
-                        {% if iteratedUser.status !== 'disabled' %}
-                            {{ macro.buttonlink('action.disable', path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'disabled'}), 'ban', 'secondary sm') }}
+                <small>
+                    {% if iteratedUser.lastIp %}<code>{{ iteratedUser.lastIp }}</code>{% else %}-{% endif %}
+                </small>
+            </td>
+            <td>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ __('title.options') }}
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        {% if is_granted('user:edit') %}
+                            <a class="dropdown-item" href="{{ path('bolt_user_edit', {'id': iteratedUser.id}) }}" target="_blank">
+                                <i class="fas fa-w fa-edit"></i> {{ __('action.edit') }}
+                            </a>
                         {% endif %}
-                        {% if iteratedUser.status !== 'enabled' %}
-                            {{ macro.buttonlink('action.enable', path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'enabled'}), 'thumbs-up', 'secondary sm') }}
-                        {% endif %}
-                    {% endif %}
-                    {% if is_granted('CAN_SWITCH_USER') %}
-                    {{ macro.buttonlink('action.impersonate', path('bolt_dashboard', {'_switch_user': iteratedUser.username}), 'user-shield', 'secondary sm') }}
-                    {% endif %}
-                    {% if is_granted('user:delete') %}
-                    {{ macro.buttonlink('action.delete', path('bolt_user_delete', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}), 'trash', 'danger sm', {'data-confirmation': 'action.confirm_delete'|trans }) }}
-                    {% endif %}
-                {%  endif %}
+                        {% if user.id != iteratedUser.id %}
+                            {% if is_granted('user:status') %}
+                                {% if iteratedUser.status !== 'disabled' %}
+                                    <a class="dropdown-item" href="{{ path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'disabled'}) }}">
+                                        <i class="fas fa-w fa-ban"></i> {{ __('action.disable') }}
+                                    </a>
+                                {% endif %}
+                                {% if iteratedUser.status !== 'enabled' %}
+                                    <a class="dropdown-item" href="{{ path('bolt_user_update_status', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit'), 'status': 'enabled'}) }}">
+                                        <i class="fas fa-w fa-thumbs-up"></i> {{ __('action.enable') }}
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                            {% if is_granted('CAN_SWITCH_USER') %}
+                                <a class="dropdown-item" href="{{ path('bolt_dashboard', {'_switch_user': iteratedUser.username}) }}">
+                                    <i class="fas fa-w fa-shield"></i> {{ __('action.impersonate') }}
+                                </a>
+                            {% endif %}
+                            {% if is_granted('user:delete') %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item btn-hidden-danger" href="{{ path('bolt_user_delete', {'id': iteratedUser.id, '_csrf_token': csrf_token('useredit')}) }}" data-confirmation="{{ 'action.confirm_delete'|trans }}">
+                                    <i class="fas fa-w fa-trash"></i> {{ __('action.delete') }}
+                                </a>
+                            {% endif %}
+                        {%  endif %}
+                    </div>
+                </div>
             </td>
         </tr>
     {% endfor %}
@@ -70,6 +99,10 @@
     <p class="buttons">
         {% if is_granted('user:add') %}
             {{ macro.buttonlink('action.add_user', path('bolt_user_add'), 'user-plus', 'secondary') }}
+        {% endif %}
+        {% if is_granted('user:add') %}
+            {{ macro.buttonlink('action.edit_permissions', path('bolt_file_edit', {'location': 'config',
+                'file': '/bolt/config.yaml'}), 'user-cog', 'tertiary') }}
         {% endif %}
     </p>
 
