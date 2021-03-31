@@ -15,6 +15,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -154,7 +155,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
     {
-        parent::onAuthenticationFailure($request, $exception);
+        // Don't reveal the specifics of the $exception (e.g. username not found),
+        // instead only show a bad credentials exception.
+        $authenticationException = new BadCredentialsException();
+
+        parent::onAuthenticationFailure($request, $authenticationException);
 
         // Redirect back to where we came from
         return new RedirectResponse($request->headers->get('referer'));
