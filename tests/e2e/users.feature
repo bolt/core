@@ -5,7 +5,7 @@ Feature: Users & Permissions
     When I follow "Configuration"
     #Users & Permissions
     And I wait 1 seconds
-    When I click "Users & Permissions"
+    When I click "body > div.admin > div.admin__body > div.admin__body--container.admin__body--container--has-sidebar > main > .menupage a:nth-child(1)"
     And I wait 0.1 seconds
     Then I should be on "/bolt/users"
     #users table
