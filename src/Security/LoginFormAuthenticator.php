@@ -157,7 +157,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): RedirectResponse
     {
         // Don't reveal a UsernameNotFound exception.
-        if ($exception instanceof BadCredentialsException || $exception instanceof UsernameNotFoundException) {
+        if ($exception instanceof UsernameNotFoundException) {
             $exception = new BadCredentialsException();
         }
 
