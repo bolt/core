@@ -90,7 +90,8 @@ class AddUserCommand extends Command
             ->addArgument('password', InputArgument::OPTIONAL, 'The plain password of the new user')
             ->addArgument('email', InputArgument::OPTIONAL, 'The email of the new user')
             ->addArgument('display-name', InputArgument::OPTIONAL, 'The display name of the new user')
-            ->addOption('admin', null, InputOption::VALUE_NONE, 'If set, the user is created as an administrator')
+            ->addOption('admin', null, InputOption::VALUE_NONE, 'If set, the user is created as an administrator (shortcut for `--roles=ROLE_ADMIN`)')
+            ->addOption('developer', null, InputOption::VALUE_NONE, 'If set, the user is created as a developer (shortcut for `--roles=ROLE_DEVELOPER`)')
             ->addOption('roles', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_OPTIONAL, 'If set, provide a list of roles that the new user will be assigned');
     }
 
@@ -204,8 +205,9 @@ class AddUserCommand extends Command
         $assignableRoles = $this->config->get('permissions/assignable_roles')->toArray();
 
         $isAdmin = $input->getOption('admin') ? ['ROLE_ADMIN'] : [];
+        $isDeveloper = $input->getOption('developer') ? ['ROLE_DEVELOPER'] : [];
         $roles = $input->getOption('roles') ?? [];
-        $roles = array_merge($roles, $isAdmin);
+        $roles = array_merge($roles, $isAdmin, $isDeveloper);
 
         $nonAssignableRoles = array_diff($roles, $assignableRoles);
 
