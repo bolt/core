@@ -33,15 +33,15 @@ Feature: Users & Permissions
     And I am logged in as "admin"
     When I am on "/bolt/users"
     # "Disable" button for given user
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7)"
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7)"
     And I wait 0.1 seconds
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > div > div > a:nth-child(2)"
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > div > div > a:nth-child(2)"
     And I wait 1 seconds
 
     # And now it should show the 'Enable'
-    Then I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7)"
+    Then I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7)"
     And I wait 0.1 seconds
-    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > div > div > a:nth-child(2)" element
+    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > div > div > a:nth-child(2)" element
 
     Then I logout
     When I am logged in as "jane_chief" with password "jane%1"
@@ -50,11 +50,11 @@ Feature: Users & Permissions
 
     When I am logged in as "admin"
     And I am on "/bolt/users"
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7)"
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7)"
     And I wait 0.1 seconds
 
-    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > div > div > a:nth-child(2)" element
-    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > div > div > a:nth-child(2)"
+    Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > div > div > a:nth-child(2)" element
+    And I click "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(3) > td:nth-child(7) > div > div > a:nth-child(2)"
     And I wait 0.1 seconds
 
     Then I logout
