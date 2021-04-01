@@ -63,7 +63,7 @@ class SetupCommand extends Command
         $this->processExitCode($exitCode, 'An error occurred while resetting APP_SECRET in the .env file.');
 
         $command = $this->getApplication()->find('bolt:add-user');
-        $commandInput = new ArrayInput(['--admin' => true]);
+        $commandInput = new ArrayInput(['--developer' => true]);
         $exitCode = $command->run($commandInput, $output);
         $this->processExitCode($exitCode, 'An error occurred when creating the new Bolt user.');
 

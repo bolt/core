@@ -79,7 +79,7 @@
                             {% endif %}
                             {% if is_granted('CAN_SWITCH_USER') %}
                                 <a class="dropdown-item" href="{{ path('bolt_dashboard', {'_switch_user': iteratedUser.username}) }}">
-                                    <i class="fas fa-w fa-shield"></i> {{ __('action.impersonate') }}
+                                    <i class="fas fa-w fa-user-shield"></i> {{ __('action.impersonate') }}
                                 </a>
                             {% endif %}
                             {% if is_granted('user:delete') %}

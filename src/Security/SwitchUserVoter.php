@@ -42,7 +42,7 @@ class SwitchUserVoter extends Voter
             return false;
         }
 
-        if ($this->security->isGranted('ROLE_DEVELOPER')) {
+        if ($this->security->isGranted('ROLE_CAN_SWITCH_USER')) {
             return true;
         }
 
