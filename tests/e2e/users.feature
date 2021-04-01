@@ -21,11 +21,11 @@ Feature: Users & Permissions
     And I should see 6 rows in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table
     And the data in the 1st row of the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1)" table should match:
       | col1 | col2 | col3 | col4 | col6 | col7 |
-      | 1 | admin | Admin / @ | ROLE_ADMIN | 127.0.0.1 | Options |
+      | 1 | admin | Admin / @ | ROLE_DEVELOPER | 127.0.0.1 | Options |
 
   @javascript
   Scenario: Disable/enable user
-    When I am logged in as "jane_admin" with password "jane%1"
+    When I am logged in as "jane_chief" with password "jane%1"
     Then I should be on "/bolt/"
     And I should see "Bolt Dashboard"
 
@@ -44,7 +44,7 @@ Feature: Users & Permissions
     Then I should see "Enable" in the "body > div.admin > div.admin__body > div.admin__body--container > main > table:nth-child(1) > tbody > tr:nth-child(4) > td:nth-child(7) > div > div > a:nth-child(2)" element
 
     Then I logout
-    When I am logged in as "jane_admin" with password "jane%1"
+    When I am logged in as "jane_chief" with password "jane%1"
     Then I should be on "/bolt/login"
     And I should see "User is disabled"
 
@@ -58,7 +58,7 @@ Feature: Users & Permissions
     And I wait 0.1 seconds
 
     Then I logout
-    Then I am logged in as "jane_admin" with password "jane%1"
+    Then I am logged in as "jane_chief" with password "jane%1"
     Then I should be on "/bolt/"
     And I should see "Bolt Dashboard"
     Then I logout
@@ -177,7 +177,7 @@ Feature: Users & Permissions
 
   @javascript
   Scenario: Edit my user with incorrect display name
-    Given I am logged in as "jane_admin" with password "jane%1"
+    Given I am logged in as "jane_chief" with password "jane%1"
 
     When I hover over the "Hey, Jane Doe" element
     Then I should see "Edit Profile"
@@ -188,7 +188,7 @@ Feature: Users & Permissions
     And I wait 0.5 seconds
 
     And I should see "Jane Doe" in the "h1" element
-    And the field "user[username]" should contain "jane_admin"
+    And the field "user[username]" should contain "jane_chief"
 
     When I fill "user[displayName]" element with "a"
     And I scroll "Save changes" into view
@@ -199,7 +199,7 @@ Feature: Users & Permissions
 
   @javascript
   Scenario: Edit my user to change display name
-    Given I am logged in as "jane_admin" with password "jane%1"
+    Given I am logged in as "jane_chief" with password "jane%1"
     And I am on "/bolt/profile-edit"
 
     When I fill "user[displayName]" element with "Administrator"
