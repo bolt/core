@@ -26,8 +26,8 @@ class UserRepositoryTest extends DbAwareTestCase
         $adminEmail = $this->getEm()->getRepository(User::class)->findOneByCredentials('admin@example.org');
         $this->assertInstanceOf(User::class, $adminEmail);
 
-        $janeAdmin = $this->getEm()->getRepository(User::class)->findOneByCredentials('Jane_Admin');
-        $this->assertInstanceOf(User::class, $janeAdmin);
+        $janeChief = $this->getEm()->getRepository(User::class)->findOneByCredentials('Jane_Chief');
+        $this->assertInstanceOf(User::class, $janeChief);
 
         $janeAdminEmail = $this->getEm()->getRepository(User::class)->findOneByCredentials('Jane_Admin@Example.Org');
         $this->assertInstanceOf(User::class, $janeAdminEmail);
