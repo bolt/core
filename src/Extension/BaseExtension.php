@@ -7,7 +7,7 @@ namespace Bolt\Extension;
 use Bolt\Widget\WidgetInterface;
 use Bolt\Widgets;
 use Cocur\Slugify\Slugify;
-use Composer\Package\CompletePackage;
+use Composer\Package\CompletePackageInterface;
 use Composer\Package\PackageInterface;
 use ComposerPackages\Packages;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -153,7 +153,7 @@ abstract class BaseExtension implements ExtensionInterface
      * Get the ComposerPackage, that contains information about the package,
      * version, etc.
      */
-    public function getComposerPackage(): ?CompletePackage
+    public function getComposerPackage(): ?CompletePackageInterface
     {
         $className = $this->getClass();
 
